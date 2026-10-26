@@ -85,8 +85,8 @@ const pages = await Promise.all(
   })),
 )
 
-const find = (visit: Visit) =>
-  pages.flatMap(({ ast, file }) => {
+const walkPages = (list: typeof pages, visit: Visit) =>
+  list.flatMap(({ ast, file }) => {
     const found: string[] = []
     const walk = (node: Node, ancestors: Node[]) => {
       const problem = visit(node, ancestors, file)
@@ -98,6 +98,10 @@ const find = (visit: Visit) =>
     walk(ast, [])
     return found
   })
+
+const find = (visit: Visit) => walkPages(pages, visit)
+
+const rules: Record<string, Visit> = {}
 
 const attribute = (node: Node, name: string) =>
   "attributes" in node
@@ -141,154 +145,165 @@ const onComponentPage = (file: string) =>
 const frameworkIn = (href: string) =>
   FRAMEWORK_IDS.find((id) => href === `/${id}` || href.startsWith(`/${id}/`))
 
+rules.conditional = (node) =>
+  "name" in node &&
+  node.name === "Conditional" &&
+  ["p", "span"].includes(conditionalTag(node)) &&
+  hasBlock(node)
+    ? `<Conditional as="${conditionalTag(node)}">`
+    : undefined
+
 test("a Conditional with block content renders a div", () => {
   expect(
-    find((node) =>
-      "name" in node &&
-      node.name === "Conditional" &&
-      ["p", "span"].includes(conditionalTag(node)) &&
-      hasBlock(node)
-        ? `<Conditional as="${conditionalTag(node)}">`
-        : undefined,
-    ),
+    find(rules.conditional),
     'a Conditional renders a <span> (or the as tag), which can\'t hold blocks: set as="div" when its slots hold them',
   ).toEqual([])
 })
 
+rules.docLink = (node) => {
+  if (!("name" in node) || node.name !== "a") return
+  const href = attribute(node, "href")
+  return href?.kind === "quoted" &&
+    /^\/(?!\/)/.test(href.value) &&
+    !/\.\w+$/.test(href.value.split(/[?#]/)[0])
+    ? `<a href="${href.value}">`
+    : undefined
+}
+
 test("links to docs pages use DocLink", () => {
   expect(
-    find((node) => {
-      if (!("name" in node) || node.name !== "a") return
-      const href = attribute(node, "href")
-      return href?.kind === "quoted" &&
-        /^\/(?!\/)/.test(href.value) &&
-        !/\.\w+$/.test(href.value.split(/[?#]/)[0])
-        ? `<a href="${href.value}">`
-        : undefined
-    }),
+    find(rules.docLink),
     "use <DocLink>, which adds the framework prefix, for links to docs pages",
   ).toEqual([])
 })
 
+rules.framework = (node) => {
+  const raw = attribute(node, "href")
+  const href =
+    raw?.kind === "quoted" || raw?.kind === "template-literal"
+      ? raw.value
+      : raw?.kind === "expression"
+        ? raw.value.match(/^\s*["'`](\/[^"'`$]*)/)?.[1]
+        : undefined
+  if (href && frameworkIn(href)) return `href="${href}"`
+  const code =
+    node.type === "frontmatter"
+      ? node.value
+      : "attributes" in node
+        ? node.attributes
+            .filter((attribute) => attribute.kind === "expression")
+            .map((attribute) => attribute.value)
+            .join("\n")
+        : node.type === "expression"
+          ? node.children
+              .map((child) => ("value" in child ? child.value : ""))
+              .join("")
+          : ""
+  const link = [...code.matchAll(/\blink\(\s*["'`](\/[^"'`]*)["'`]/g)].find(
+    ([, target]) => frameworkIn(target),
+  )
+  return link ? `link("${link[1]}")` : undefined
+}
+
 test("links don't hard-code a framework", () => {
   expect(
-    find((node) => {
-      const raw = attribute(node, "href")
-      const href =
-        raw?.kind === "quoted" || raw?.kind === "template-literal"
-          ? raw.value
-          : raw?.kind === "expression"
-            ? raw.value.match(/^\s*["'`](\/[^"'`$]*)/)?.[1]
-            : undefined
-      if (href && frameworkIn(href)) return `href="${href}"`
-      const code =
-        node.type === "frontmatter"
-          ? node.value
-          : "attributes" in node
-            ? node.attributes
-                .filter((attribute) => attribute.kind === "expression")
-                .map((attribute) => attribute.value)
-                .join("\n")
-            : node.type === "expression"
-              ? node.children
-                  .map((child) => ("value" in child ? child.value : ""))
-                  .join("")
-              : ""
-      const link = [...code.matchAll(/\blink\(\s*["'`](\/[^"'`]*)["'`]/g)].find(
-        ([, target]) => frameworkIn(target),
-      )
-      return link ? `link("${link[1]}")` : undefined
-    }),
+    find(rules.framework),
     "link to the canonical path and let DocLink or Astro.locals.link add the reader's framework",
   ).toEqual([])
 })
 
+rules.sections = (node, ancestors, file) => {
+  if (!onComponentPage(file) || !("name" in node)) return
+  if (node.name !== "section") return
+  const level =
+    2 +
+    ancestors.filter((ancestor, index) => {
+      const parent = ancestors[index - 1]
+      const slot = quoted(ancestor, "slot") ?? ""
+      return (
+        ("name" in ancestor && ancestor.name === "section") ||
+        (!!parent &&
+          "name" in parent &&
+          parent.name === "Component" &&
+          (WRAPPED_SLOTS.has(slot) ||
+            (slot === "installation" &&
+              !!attribute(parent, "installationTabs"))))
+      )
+    }).length
+  const [first] = content(node)
+  return first &&
+    "name" in first &&
+    first.name === `h${level}` &&
+    quoted(first, "id")
+    ? undefined
+    : `<section> without a leading <h${level} id="...">`
+}
+
 test("sections start with a heading that has an id", () => {
   expect(
-    find((node, ancestors, file) => {
-      if (!onComponentPage(file) || !("name" in node)) return
-      if (node.name !== "section") return
-      const level =
-        2 +
-        ancestors.filter((ancestor, index) => {
-          const parent = ancestors[index - 1]
-          const slot = quoted(ancestor, "slot") ?? ""
-          return (
-            ("name" in ancestor && ancestor.name === "section") ||
-            (!!parent &&
-              "name" in parent &&
-              parent.name === "Component" &&
-              (WRAPPED_SLOTS.has(slot) ||
-                (slot === "installation" &&
-                  !!attribute(parent, "installationTabs"))))
-          )
-        }).length
-      const [first] = content(node)
-      return first &&
-        "name" in first &&
-        first.name === `h${level}` &&
-        quoted(first, "id")
-        ? undefined
-        : `<section> without a leading <h${level} id="...">`
-    }),
+    find(rules.sections),
     "the heading names the section in the table of contents and gives it an anchor",
   ).toEqual([])
 })
 
+rules.examples = (node, ancestors, file) =>
+  onComponentPage(file) &&
+  "name" in node &&
+  ["AutoExample", "Example"].includes(node.name) &&
+  !ancestors.some((ancestor, index) => {
+    const parent = ancestors[index - 1]
+    return (
+      ("name" in ancestor && ancestor.name === "section") ||
+      (!!quoted(ancestor, "slot") &&
+        "name" in parent &&
+        parent.name === "Component")
+    )
+  })
+    ? `<${node.name}> outside a <section>`
+    : undefined
+
 test("examples sit in a section", () => {
   expect(
-    find((node, ancestors, file) =>
-      onComponentPage(file) &&
-      "name" in node &&
-      ["AutoExample", "Example"].includes(node.name) &&
-      !ancestors.some((ancestor, index) => {
-        const parent = ancestors[index - 1]
-        return (
-          ("name" in ancestor && ancestor.name === "section") ||
-          (!!quoted(ancestor, "slot") &&
-            "name" in parent &&
-            parent.name === "Component")
-        )
-      })
-        ? `<${node.name}> outside a <section>`
-        : undefined,
-    ),
+    find(rules.examples),
     'put the example in a <section> that starts with its heading, usually <h2 id="basics">Basics</h2> for the first, or in a slot of the layout',
   ).toEqual([])
 })
 
+const EXAMPLES = new Set([
+  "AutoExample",
+  "Code",
+  "CodeGroup",
+  "Conditional",
+  "Example",
+  "pre",
+])
+
+rules.anatomy = (node, _, file) => {
+  if (!onComponentPage(file) || quoted(node, "slot") !== "anatomy") return
+  const subjects =
+    "name" in node && node.name === "Fragment" ? content(node) : [node]
+  const problems = subjects
+    .filter((subject) => !("name" in subject) || subject.name !== "Anatomy")
+    .map((subject) => ("name" in subject ? `<${subject.name}>` : "text"))
+  for (const child of descendants(node)) {
+    if (!("name" in child)) continue
+    const slot = quoted(child, "slot") ?? ""
+    if (
+      EXAMPLES.has(child.name.split(".")[0]) ||
+      FRAMEWORK_SLOTS.has(slot) ||
+      /^(code|preview)-/.test(slot)
+    ) {
+      problems.push(`<${child.name}${slot ? ` slot="${slot}"` : ""}>`)
+    }
+  }
+  return problems.length
+    ? `the anatomy slot holds ${[...new Set(problems)].join(", ")}`
+    : undefined
+}
+
 test("the anatomy slot holds only an Astro <Anatomy>", () => {
-  const EXAMPLES = new Set([
-    "AutoExample",
-    "Code",
-    "CodeGroup",
-    "Conditional",
-    "Example",
-    "pre",
-  ])
   expect(
-    find((node, _, file) => {
-      if (!onComponentPage(file) || quoted(node, "slot") !== "anatomy") return
-      const subjects =
-        "name" in node && node.name === "Fragment" ? content(node) : [node]
-      const problems = subjects
-        .filter((subject) => !("name" in subject) || subject.name !== "Anatomy")
-        .map((subject) => ("name" in subject ? `<${subject.name}>` : "text"))
-      for (const child of descendants(node)) {
-        if (!("name" in child)) continue
-        const slot = quoted(child, "slot") ?? ""
-        if (
-          EXAMPLES.has(child.name.split(".")[0]) ||
-          FRAMEWORK_SLOTS.has(slot) ||
-          /^(code|preview)-/.test(slot)
-        ) {
-          problems.push(`<${child.name}${slot ? ` slot="${slot}"` : ""}>`)
-        }
-      }
-      return problems.length
-        ? `the anatomy slot holds ${[...new Set(problems)].join(", ")}`
-        : undefined
-    }),
+    find(rules.anatomy),
     "every framework page shows the same Astro subject: drop framework variants, examples and code",
   ).toEqual([])
 })
@@ -320,44 +335,109 @@ const installationTabs = (value: string) =>
       }
     })
 
+rules.installationTabs = (node, _, file) => {
+  if (!("name" in node) || node.name !== "Component") return
+  const page = file.match(/^src\/docs\/components\/([\w-]+)\.astro$/)?.[1]
+  const tabs = attribute(node, "installationTabs")
+  if (!page || tabs?.kind !== "expression") return
+  const slug = quoted(node, "slug") ?? page
+  const problems = installationTabs(tabs.value).flatMap(
+    ({ dependency, title }) => {
+      const target = title?.replace(/\.css$/, "")
+      const own = !!target && target !== slug && PAGES.includes(target)
+      if (own && !dependency) return [`${title} without isDependency`]
+      if (!own && dependency) return [`${title} with isDependency`]
+      return []
+    },
+  )
+  return problems.length ? problems.join(", ") : undefined
+}
+
 test("installationTabs mark the CSS that has its own page with isDependency", () => {
   expect(
-    find((node, _, file) => {
-      if (!("name" in node) || node.name !== "Component") return
-      const page = file.match(/^src\/docs\/components\/([\w-]+)\.astro$/)?.[1]
-      const tabs = attribute(node, "installationTabs")
-      if (!page || tabs?.kind !== "expression") return
-      const slug = quoted(node, "slug") ?? page
-      const problems = installationTabs(tabs.value).flatMap(
-        ({ dependency, title }) => {
-          const target = title?.replace(/\.css$/, "")
-          const own = !!target && target !== slug && PAGES.includes(target)
-          if (own && !dependency) return [`${title} without isDependency`]
-          if (!own && dependency) return [`${title} with isDependency`]
-          return []
-        },
-      )
-      return problems.length ? problems.join(", ") : undefined
-    }),
+    find(rules.installationTabs),
     "set isDependency on a CSS file that has its own page, so Installation links it under Dependencies and that page lists this one under Used by, and only there",
   ).toEqual([])
 })
 
+rules.callouts = (node, ancestors) =>
+  "name" in node &&
+  node.name === "UICallout" &&
+  !ancestors.some(
+    (ancestor) =>
+      ("name" in ancestor && ancestor.name === "Anatomy") ||
+      /\bui-not-rich-text\b/.test(attribute(ancestor, "class")?.value ?? ""),
+  )
+    ? "<UICallout>"
+    : undefined
+
 test("callouts sit outside rich text", () => {
   expect(
-    find((node, ancestors) =>
-      "name" in node &&
-      node.name === "UICallout" &&
-      !ancestors.some(
-        (ancestor) =>
-          ("name" in ancestor && ancestor.name === "Anatomy") ||
-          /\bui-not-rich-text\b/.test(
-            attribute(ancestor, "class")?.value ?? "",
-          ),
-      )
-        ? "<UICallout>"
-        : undefined,
-    ),
+    find(rules.callouts),
     'wrap the UICallout in <div class="ui-not-rich-text">',
   ).toEqual([])
+})
+
+const sample = async (
+  rule: string,
+  source: string,
+  file = "src/docs/components/button-group.astro",
+) =>
+  walkPages(
+    [{ ast: (await parse(source, { position: true })).ast, file }],
+    rules[rule],
+  )
+
+const SAMPLES = [
+  [
+    "anatomy",
+    '<Component><Fragment slot="anatomy"><Anatomy><Button /></Anatomy><Code code="x" /></Fragment></Component>',
+    '<Component><Anatomy slot="anatomy"><Button>Save</Button></Anatomy></Component>',
+  ],
+  [
+    "callouts",
+    "<UICallout>Note</UICallout>",
+    '<div class="ui-not-rich-text"><UICallout>Note</UICallout></div>',
+  ],
+  [
+    "conditional",
+    "<Conditional><div>Text</div></Conditional>",
+    '<Conditional as="div"><div>Text</div></Conditional>',
+  ],
+  [
+    "docLink",
+    '<a href="/components/button/">Button</a>',
+    '<DocLink href="/components/button/">Button</DocLink>',
+  ],
+  [
+    "examples",
+    '<Component><div><AutoExample name="Basics" /></div></Component>',
+    '<Component><section><h2 id="basics">Basics</h2><AutoExample name="Basics" /></section></Component>',
+  ],
+  [
+    "framework",
+    '<DocLink href="/react/components/button/">Button</DocLink>',
+    '<DocLink href="/components/button/">Button</DocLink>',
+  ],
+  [
+    "installationTabs",
+    '<Component installationTabs={[{ title: "button.css", code: "" }]}></Component>',
+    '<Component installationTabs={[{ title: "button.css", code: "", isDependency: true }]}></Component>',
+  ],
+  [
+    "sections",
+    "<Component><section><p>Text</p></section></Component>",
+    '<Component><section><h2 id="sizes">Sizes</h2></section></Component>',
+  ],
+]
+
+test.each(SAMPLES)("the %s rule flags its sample", async (rule, bad, good) => {
+  expect(await sample(rule, bad)).not.toEqual([])
+  expect(await sample(rule, good)).toEqual([])
+})
+
+test("every rule has a sample", () => {
+  expect(Object.keys(rules).toSorted()).toEqual(
+    SAMPLES.map(([rule]) => rule).toSorted(),
+  )
 })

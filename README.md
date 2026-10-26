@@ -44,7 +44,7 @@ The project is managed as a monorepo with two main parts:
 
 ### Development
 
-Use Node 26 (`.nvmrc`) and pnpm 12. Run the documentation site locally for development:
+Use Node 26.10 (`.nvmrc`) and pnpm 12. `pnpm install` refuses an older Node (`engineStrict` in `pnpm-workspace.yaml`), and Claude Code cloud sessions fetch the `.nvmrc` version in `.claude/hooks/session-start.sh`. Run the documentation site locally for development:
 
 ```bash
 pnpm install

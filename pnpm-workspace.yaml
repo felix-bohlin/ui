@@ -6,6 +6,8 @@ packages:
 allowBuilds:
   esbuild: true
 
+engineStrict: true
+
 shellEmulator: true
 
 catalog:

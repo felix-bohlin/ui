@@ -19,6 +19,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "oxlint --deny-warnings . && stylelint \"packages/opui/**/*.css\" \"src/**/*.css\"",
+    "prepare": "git config core.hooksPath .githooks || true",
     "preview": "astro preview",
     "sort-css": "node scripts/sort-css.mjs",
     "sort-css:check": "node scripts/sort-css.mjs --check",

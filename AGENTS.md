@@ -9,7 +9,7 @@ Read the guide for the files you're editing:
 ## Characters
 
 - Never use the em dash (U+2014) or the middle dot (U+00B7), in prose, UI text, examples, code, comments, generated labels or commit messages. Use a comma, a slash or parentheses instead.
-- `pnpm check-characters`, part of `pnpm check`, fails on them in every tracked or new text file.
+- `pnpm check-characters`, part of `pnpm check`, fails on them in every tracked or new text file, and `scripts/check-commits.mjs` in commit messages and pull request titles.
 
 ## Colors
 
@@ -40,9 +40,8 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 ## Commit messages
 
-- Use feat, fix, docs, chore, revert, refactor as commit message prefixes.
-- Keep it short
 - ONLY explain what, NOT why.
+- `scripts/check-commits.mjs` checks the prefix (`chore`, `docs`, `feat`, `fix`, `refactor` or `revert`), a subject of at most 100 characters and the forbidden characters. It runs as the `commit-msg` hook that `pnpm install` sets up, and on pull requests with their title.
 
 ## Changelog and What's new
 

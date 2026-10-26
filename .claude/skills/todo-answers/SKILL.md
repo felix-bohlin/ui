@@ -28,7 +28,7 @@ The text starts with `TODO.md with my comments`, then per section a `## Title` h
    - `Explain further and provide an example`: add `- Explained: … Example: <name>` and create `src/todo-examples/<name>.html`, registered in `todoExamples` in `src/utils/todo-examples.ts` with a `match` that only that headline starts with (`tests/unit/todo-examples.test.ts` checks it).
    - Anything you can't finish: add `- Still open: …`, with an `Options:` list when there is a choice left.
 4. Log package changes in `packages/opui/CHANGELOG.md` and `src/utils/whats-new.ts` as `AGENTS.md` says.
-5. Run `pnpm exec prettier --write TODO.md` and `pnpm check`, then commit the code and `TODO.md` together, one commit per batch, with the usual `fix`, `docs` or `chore` prefix.
+5. Run `pnpm exec prettier --write TODO.md` and `pnpm check`, then commit the code and `TODO.md` together, one commit per batch.
 
 ## Report
 

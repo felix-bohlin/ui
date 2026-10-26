@@ -1,9 +1,10 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/react"
 
 export default function LongContent() {
@@ -18,7 +19,7 @@ export default function LongContent() {
       </Button>
       <Dialog id="dialog-long-content-1">
         <DialogHeader>
-          <h2 className="ui-h4">Terms of service</h2>
+          <DialogTitle>Terms of service</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p>
@@ -90,7 +91,7 @@ export default function LongContent() {
             two working days.
           </p>
         </DialogContent>
-        <DialogActions>
+        <DialogFooter>
           <Button commandfor="dialog-long-content-1" command="close">
             Decline
           </Button>
@@ -101,7 +102,7 @@ export default function LongContent() {
           >
             Accept
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </>
   )

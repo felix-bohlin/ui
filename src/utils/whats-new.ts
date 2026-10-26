@@ -474,10 +474,19 @@ export const whatsNew = {
   ],
   dialog: [
     {
+      html: `Breaking: the <a href="#usage">header</a> is a <code>div.ui-header</code> row instead of an <code>hgroup</code>, like the <code>Drawer</code> header, and <code>.ui-footer</code> replaces <code>.ui-actions</code>. Point <code>aria-labelledby</code> at the title heading.`,
+      react: `<a href="#usage"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
+      svelte: `<a href="#usage"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
+    },
+    {
+      default: `The <a href="#usage">title</a> is <code>--ui-font-size-h4</code>, like the <code>Drawer</code> title, and <code>--_title-font-size</code> changes it.`,
+      html: `The <a href="#usage">title</a> heading is <code>--ui-font-size-h4</code>, like the <code>Drawer</code> title, without <code>.ui-h4</code>. <code>--_title-font-size</code> changes it.`,
+    },
+    {
       ...components(
-        `<a href="#usage"><code>DialogHeader</code></a> renders <code>hgroup.ui-header</code>.`,
+        `The <a href="#footer"><code>DialogFooter</code></a> holds buttons, text or anything else, and <code>.ui-actions</code> groups the buttons in it.`,
       ),
-      html: `The <a href="#usage">header</a> takes <code>.ui-header</code> on its <code>hgroup</code>, like the <code>Drawer</code> header.`,
+      html: `The <a href="#footer">footer</a> holds buttons, text or anything else, and <code>.ui-actions</code> groups the buttons in it.`,
     },
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
     `Themes can set <a href="#api"><code>--ui-dialog-radius</code></a> for a corner radius of its own.`,
@@ -489,10 +498,10 @@ export const whatsNew = {
     },
     `The dialog shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, like Drawer and Menu.`,
     slots(
-      `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
+      `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> replace the slots, and <code>align</code> on <code>DialogFooter</code> replaces <code>actionsAlign</code>. <code>DialogTitle</code> names the dialog.`,
     ),
-    `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
-    `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,
+    `<a href="#long-content">Long content</a> scrolls between a fixed header and footer.`,
+    `A subtle scroll shadow shows under the header and above the footer while the <a href="#long-content">content scrolls</a>.`,
     `<a href="#width">Width</a> with <code>--_max-inline-size</code>, keeping the margin on small screens.`,
     components(
       `<a href="#how-to-close"><code>closedby</code></a> is typed in every framework.`,
@@ -503,11 +512,11 @@ export const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>.`,
     components(
-      `<a href="#actions"><code>DialogActions</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
+      `<a href="#footer"><code>DialogFooter</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
     ),
     `The backdrop fades in with the panel when a <a href="#modal">modal dialog</a> opens.`,
     components(
-      `<code>DialogHeader</code> warns in development when the dialog's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Dialog</code> to keep it (<a href="#api">API</a>).`,
+      `<code>DialogTitle</code> warns in development when the dialog's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Dialog</code> to keep it (<a href="#api">API</a>).`,
     ),
     `Styles use logical properties only, so the <a href="#usage">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
@@ -540,12 +549,19 @@ export const whatsNew = {
     `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls (<a href="#basics">Basics</a>).`,
     {
       ...slots(
-        `Breaking: <a href="#api"><code>DrawerActions</code></a> replaces <code>DrawerFooter</code> and takes <code>align</code>. The actions sit at the end on every side.`,
+        `Breaking: the <a href="#basics"><code>DrawerFooter</code></a> content sits at the end on every side, also in an <code>inline-end</code> drawer, and <code>align="start"</code> moves it to the start.`,
       ),
-      html: `Breaking: <a href="#basics"><code>.ui-actions</code></a> replaces <code>.ui-footer</code>. The actions sit at the end on every side, and <code>.ui-align-start</code> lines them up with the content.`,
-      react: `<a href="#api"><code>DrawerActions</code></a> take <code>align</code>, and sit at the end on every side.`,
-      svelte: `<a href="#api"><code>DrawerActions</code></a> take <code>align</code>, and sit at the end on every side.`,
+      html: `Breaking: the <a href="#basics"><code>.ui-footer</code></a> content sits at the end on every side, also in an <code>.ui-inline-end</code> drawer, and <code>.ui-align-start</code> moves it to the start.`,
+      react: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
+      svelte: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
     },
+    `<code>.ui-actions</code> groups the buttons in the <a href="#basics">footer</a>, and moves them to the end when other content comes first.`,
+    {
+      default: `Breaking: the <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, instead of <code>--ui-font-size-large</code>, and <code>--_header-font-size</code> is <code>--_title-font-size</code>.`,
+      react: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
+      svelte: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
+    },
+    `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
     slots(
       `Breaking: the page no longer <a href="#basics">locks scrolling</a> by default. Set <code>scrollLock</code>, and pass the <code>id</code> the trigger points at.`,
     ),
@@ -556,7 +572,7 @@ export const whatsNew = {
     `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-bg-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
-    `Content padding is <code>--ui-space-3</code>, like the header and the actions (<a href="#basics">Basics</a>).`,
+    `Content padding is <code>--ui-space-3</code>, like the header and the footer (<a href="#basics">Basics</a>).`,
     `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
     `The panel sits on <a href="#api"><code>--ui-surface-elevated</code></a>, like Dialog and Menu.`,
     components(

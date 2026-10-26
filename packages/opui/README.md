@@ -58,7 +58,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Dialog, Drawer, FieldGroup, Menu, Range, Select, Tabs, TextField, Textarea, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Dialog, Drawer, FieldGroup, Menu, Range, Select, Tabs, TextField, Textarea, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Svelte components
 

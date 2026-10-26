@@ -2,9 +2,10 @@
   import {
     Button,
     Dialog,
-    DialogActions,
     DialogContent,
+    DialogFooter,
     DialogHeader,
+    DialogTitle,
   } from "opui-css/svelte"
 </script>
 
@@ -18,7 +19,7 @@
 
 <Dialog id="dialog-long-content-1">
   <DialogHeader>
-    <h2 class="ui-h4">Terms of service</h2>
+    <DialogTitle>Terms of service</DialogTitle>
   </DialogHeader>
   <DialogContent>
     <p>
@@ -85,10 +86,10 @@
       working days.
     </p>
   </DialogContent>
-  <DialogActions>
+  <DialogFooter>
     <Button commandfor="dialog-long-content-1" command="close">Decline</Button>
     <Button commandfor="dialog-long-content-1" command="close" variant="filled">
       Accept
     </Button>
-  </DialogActions>
+  </DialogFooter>
 </Dialog>

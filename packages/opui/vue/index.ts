@@ -25,13 +25,14 @@ export { default as DescriptionListDescription } from "../components/Description
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.vue"
 export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.vue"
 export { default as Dialog } from "../components/Dialog/Dialog.vue"
-export { default as DialogActions } from "../components/Dialog/DialogActions.vue"
 export { default as DialogContent } from "../components/Dialog/DialogContent.vue"
+export { default as DialogFooter } from "../components/Dialog/DialogFooter.vue"
 export { default as DialogHeader } from "../components/Dialog/DialogHeader.vue"
+export { default as DialogTitle } from "../components/Dialog/DialogTitle.vue"
 export { default as Divider } from "../components/Divider/Divider.vue"
 export { default as Drawer } from "../components/Drawer/Drawer.vue"
-export { default as DrawerActions } from "../components/Drawer/DrawerActions.vue"
 export { default as DrawerContent } from "../components/Drawer/DrawerContent.vue"
+export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.vue"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.vue"
 export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.vue"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.vue"
@@ -111,15 +112,16 @@ export type {
   DescriptionListTermProps,
 } from "../components/DescriptionList/types.vue-props"
 export type {
-  DialogActionsProps,
   DialogContentProps,
+  DialogFooterProps,
   DialogHeaderProps,
   Props as DialogProps,
+  DialogTitleProps,
 } from "../components/Dialog/types.vue-props"
 export type { Props as DividerProps } from "../components/Divider/types.vue-props"
 export type {
-  DrawerActionsProps,
   DrawerContentProps,
+  DrawerFooterProps,
   DrawerHeaderProps,
   Props as DrawerProps,
   DrawerTitleProps,

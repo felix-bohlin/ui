@@ -8,10 +8,10 @@ const { closedby } = defineProps<Props>()
 defineSlots<Slots>()
 
 const attrs = useAttrs()
-const headerId = `dialog-header-${useId()}`
-const labelledBy = computed(() => autoLabelledBy(attrs, headerId))
+const titleId = `dialog-title-${useId()}`
+const labelledBy = computed(() => autoLabelledBy(attrs, titleId))
 
-provide(DialogKey, reactive({ headerId: labelledBy }))
+provide(DialogKey, reactive({ titleId: labelledBy }))
 </script>
 
 <template>

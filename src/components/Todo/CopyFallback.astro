@@ -2,9 +2,10 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
   Textarea,
 } from "opui-css/astro"
 
@@ -17,7 +18,7 @@ const { label } = Astro.props
 
 <Dialog data-copy-fallback id="copy-fallback">
   <DialogHeader>
-    <h2 class="ui-h4">{`Copy ${label.toLowerCase()}`}</h2>
+    <DialogTitle>{`Copy ${label.toLowerCase()}`}</DialogTitle>
   </DialogHeader>
   <DialogContent>
     <p>
@@ -28,10 +29,10 @@ const { label } = Astro.props
       <span class="ui-sr-only" slot="label">{label}</span>
     </Textarea>
   </DialogContent>
-  <DialogActions>
+  <DialogFooter>
     <Button commandfor="copy-fallback" command="close">Close</Button>
     <Button data-copy-again variant="filled">Copy</Button>
-  </DialogActions>
+  </DialogFooter>
 </Dialog>
 
 <script>

@@ -5,7 +5,7 @@ export default {
   css: ["card", "dialog"],
   notes: {
     default:
-      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`. An `id` on `DialogHeader` only applies when the dialog has `aria-label` or `aria-labelledby`.",
+      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.",
     html: "Add `.ui-elevated` to the root for the raised surface.",
   },
   options: [
@@ -19,22 +19,26 @@ export default {
   ],
   parts: [
     {
-      code: "hgroup.ui-header",
       component: "DialogHeader",
-      description:
-        "The dialog header. Names the dialog through `aria-labelledby`.",
-      selector: "hgroup.ui-header",
+      description: "The header, a row for the title and anything next to it.",
+      selector: ".ui-header",
+    },
+    {
+      code: "<h2>",
+      component: "DialogTitle",
+      description: "The title. Names the dialog through `aria-labelledby`.",
+      selector: ".ui-header > h2",
     },
     {
       anchorName: "--ui-dialog-content",
       component: "DialogContent",
-      description: "The dialog content.",
+      description: "The scrollable content.",
       selector: ".ui-content",
     },
     {
-      component: "DialogActions",
-      description: "A group of actions, such as buttons.",
-      selector: ".ui-actions",
+      component: "DialogFooter",
+      description: "The footer, a row at the end.",
+      selector: ".ui-footer",
     },
   ],
   root: {

@@ -3,7 +3,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/vue"
@@ -89,11 +89,11 @@ import {
         distinctio.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-1" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -119,11 +119,11 @@ import {
         explicabo.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-2" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -143,11 +143,11 @@ import {
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-3" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -167,10 +167,10 @@ import {
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-4" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 </template>

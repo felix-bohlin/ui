@@ -2,9 +2,10 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
   FieldGroup,
   FieldLegend,
   Fieldset,
@@ -26,7 +27,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
 
   <Dialog id="dialog-close-behaviors-1" :closedby="closedby">
     <DialogHeader>
-      <h2 class="ui-h4">How to close</h2>
+      <DialogTitle>How to close</DialogTitle>
     </DialogHeader>
     <DialogContent>
       <Fieldset>
@@ -38,10 +39,10 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
         </FieldGroup>
       </Fieldset>
     </DialogContent>
-    <DialogActions>
+    <DialogFooter>
       <Button commandfor="dialog-close-behaviors-1" command="close">
         Close manually
       </Button>
-    </DialogActions>
+    </DialogFooter>
   </Dialog>
 </template>

@@ -9,9 +9,10 @@ import {
   CalloutContent as UICalloutContent,
   CalloutIcon as UICalloutIcon,
   Dialog as UIDialog,
-  DialogActions as UIDialogActions,
   DialogContent as UIDialogContent,
+  DialogFooter as UIDialogFooter,
   DialogHeader as UIDialogHeader,
+  DialogTitle as UIDialogTitle,
   Table,
   TableBody,
   TableCell,
@@ -29,7 +30,7 @@ import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 
 import dialogApi from "../../component-api/dialog/api"
-import dialogActionsApi from "../../component-api/dialog-actions/api"
+import dialogFooterApi from "../../component-api/dialog-footer/api"
 import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
@@ -42,7 +43,7 @@ export const description =
   slug="dialog"
   apis={[
     { title: "Dialog API", api: dialogApi },
-    { title: "Dialog actions API", api: dialogActionsApi },
+    { title: "Dialog footer API", api: dialogFooterApi },
   ]}
   browserSupport={[
     "anchor-positioning",
@@ -52,6 +53,7 @@ export const description =
     "has",
     "invoker-commands",
     "overflow-clip",
+    "round-mod-rem",
     "scrollbar-gutter",
     "starting-style",
   ]}
@@ -116,39 +118,68 @@ export const description =
     </div>
 
     <Conditional as="div">
-      <p slot="components">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
-      <p slot="html">
-        Put the title in an <code>hgroup.ui-header</code>, the body in <code
-          >.ui-content</code
-        > and the buttons in <code>.ui-actions</code>. Name the dialog by
-        pointing <code>aria-labelledby</code> at its title.
-      </p>
+      <Fragment slot="components">
+        <p>
+          Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
+          <code>DialogFooter</code>, and put a <code>DialogTitle</code> in the header.
+          The <code>DialogTitle</code> names the dialog: it gets an <code
+            >aria-labelledby</code
+          > that points at the title. A dialog without a <code>DialogTitle</code
+          >
+          needs an <code>aria-label</code>.
+        </p>
+        <p>
+          The header is a row. The title takes the free space, so buttons after
+          it line up at the end, and a paragraph gets a row of its own. The
+          title is <code>--ui-font-size-h4</code>; set <code
+            >--_title-font-size</code
+          > on the dialog to change it.
+        </p>
+      </Fragment>
+      <Fragment slot="html">
+        <p>
+          Put a heading for the title in <code>.ui-header</code>, the body in <code
+            >.ui-content</code
+          > and the buttons in <code>.ui-footer</code>. Name the dialog by
+          pointing
+          <code>aria-labelledby</code> at the heading.
+        </p>
+        <p>
+          The header is a row. The heading takes the free space, so buttons
+          after it line up at the end, and a paragraph gets a row of its own.
+          The heading is <code>--ui-font-size-h4</code>; set <code
+            >--_title-font-size</code
+          > on the dialog to change it.
+        </p>
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Basics" row />
   </section>
 
   <section>
-    <h2 id="actions">Actions</h2>
+    <h2 id="footer">Footer</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move them to the start.
+        The <code>DialogFooter</code> is a row at the end, for buttons, text or anything
+        else. Its content lines up at the end. Set <code>align="start"</code> to move
+        it to the start.
       </Fragment>
       <Fragment slot="html">
-        Actions sit at the end. Add <code>.ui-align-start</code> to <code
-          >.ui-actions</code
-        > to move them to the start.
+        <code>.ui-footer</code> is a row at the end, for buttons, text or anything
+        else. Its content lines up at the end. Add <code>.ui-align-start</code> to
+        move it to the start.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="ActionsAlignment" row />
+    <AutoExample name="FooterAlignment" row />
+
+    <p>
+      Wrap the buttons in <code>.ui-actions</code> to keep them together. When other
+      content comes first, like a status text, the group moves to the end.
+    </p>
+
+    <AutoExample name="FooterContent" row />
   </section>
 
   <section>
@@ -181,14 +212,19 @@ export const description =
     <h2 id="long-content">Long content</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
+        The dialog grows up to 85% of the viewport height. The header and footer
+        stay put while the <code>DialogContent</code> scrolls, with a shadow on the
+        scrolled edge. A modal dialog also locks page scroll. The content is a stack
+        with <code>--ui-space-3</code> between its children, like a Card's, unless
+        it has inline children such as links.
       </Fragment>
       <Fragment slot="html">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while <code>.ui-content</code> scrolls, with a shadow on
-        the scrolled edge. A modal dialog also locks page scroll.
+        The dialog grows up to 85% of the viewport height. The header and footer
+        stay put while <code>.ui-content</code> scrolls, with a shadow on the scrolled
+        edge. A modal dialog also locks page scroll. The content is a stack with <code
+          >--ui-space-3</code
+        > between its children, like a Card's, unless it has inline children such
+        as links.
       </Fragment>
     </Conditional>
 
@@ -210,7 +246,7 @@ export const description =
         style="inline-size: 22rem; margin: 0; position: static"
       >
         <UIDialogHeader>
-          <h2 class="ui-h4">Newsletter</h2>
+          <UIDialogTitle>Newsletter</UIDialogTitle>
         </UIDialogHeader>
         <UIDialogContent>
           <p>
@@ -218,10 +254,10 @@ export const description =
             month.
           </p>
         </UIDialogContent>
-        <UIDialogActions>
+        <UIDialogFooter>
           <UIButton>Not now</UIButton>
           <UIButton variant="filled">Subscribe</UIButton>
-        </UIDialogActions>
+        </UIDialogFooter>
       </UIDialog>
     </Anatomy>
   </Fragment>

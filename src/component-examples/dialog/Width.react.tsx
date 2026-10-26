@@ -1,9 +1,10 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/react"
 
 export default function Width() {
@@ -19,7 +20,7 @@ export default function Width() {
 
       <Dialog id="dialog-width-1" style={{ "--_max-inline-size": "40rem" }}>
         <DialogHeader>
-          <h2 className="ui-h4">Newsletter</h2>
+          <DialogTitle>Newsletter</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p>
@@ -27,14 +28,14 @@ export default function Width() {
             month.
           </p>
         </DialogContent>
-        <DialogActions>
+        <DialogFooter>
           <Button commandfor="dialog-width-1" command="close">
             Not now
           </Button>
           <Button commandfor="dialog-width-1" command="close" variant="filled">
             Subscribe
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </>
   )

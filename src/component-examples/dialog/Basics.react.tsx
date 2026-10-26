@@ -1,9 +1,10 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/react"
 
 export default function Basics() {
@@ -19,7 +20,7 @@ export default function Basics() {
 
       <Dialog id="dialog-basics-1">
         <DialogHeader>
-          <h2 className="ui-h4">Newsletter</h2>
+          <DialogTitle>Newsletter</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p>
@@ -27,14 +28,14 @@ export default function Basics() {
             month.
           </p>
         </DialogContent>
-        <DialogActions>
+        <DialogFooter>
           <Button commandfor="dialog-basics-1" command="close">
             Not now
           </Button>
           <Button commandfor="dialog-basics-1" command="close" variant="filled">
             Subscribe
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </>
   )

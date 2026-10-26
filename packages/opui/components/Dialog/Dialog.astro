@@ -7,9 +7,9 @@ export const title = "Dialog"
 
 const { class: className, closedby, ...rest } = Astro.props
 
-const headerId = createId(Astro.locals)("dialog-header")
-const labelledBy = autoLabelledBy(rest, headerId)
-const html = await dialogContext.provide({ headerId: labelledBy }, () =>
+const titleId = createId(Astro.locals)("dialog-title")
+const labelledBy = autoLabelledBy(rest, titleId)
+const html = await dialogContext.provide({ titleId: labelledBy }, () =>
   Astro.slots.render("default"),
 )
 ---

@@ -3,7 +3,7 @@
     Button,
     Drawer,
     DrawerContent,
-    DrawerActions,
+    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
   } from "opui-css/svelte"
@@ -82,11 +82,11 @@
       distinctio.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-1" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -111,11 +111,11 @@
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-2" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -135,11 +135,11 @@
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-3" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -159,9 +159,9 @@
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-4" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>

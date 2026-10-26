@@ -12,8 +12,8 @@ import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.sve
 import CheckboxVue from "../../packages/opui/components/Checkbox/Checkbox.vue"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
-import DialogHeaderReact from "../../packages/opui/components/Dialog/DialogHeader.react"
-import DialogHeaderVue from "../../packages/opui/components/Dialog/DialogHeader.vue"
+import DialogTitleReact from "../../packages/opui/components/Dialog/DialogTitle.react"
+import DialogTitleVue from "../../packages/opui/components/Dialog/DialogTitle.vue"
 import DrawerReact from "../../packages/opui/components/Drawer/Drawer.react"
 import DrawerVue from "../../packages/opui/components/Drawer/Drawer.vue"
 import DrawerTitleReact from "../../packages/opui/components/Drawer/DrawerTitle.react"
@@ -125,7 +125,7 @@ const replacedIds = {
         createElement(
           DialogReact,
           { "aria-labelledby": labelledby },
-          createElement(DialogHeaderReact, { id: "own-header" }, "Header"),
+          createElement(DialogTitleReact, { id: "own-dialog-title" }, "Title"),
         ),
         createElement(
           DrawerReact,
@@ -141,7 +141,7 @@ const replacedIds = {
       createSSRApp({
         render: () => [
           h(DialogVue, { "aria-labelledby": labelledby }, () =>
-            h(DialogHeaderVue, { id: "own-header" }, () => "Header"),
+            h(DialogTitleVue, { id: "own-dialog-title" }, () => "Title"),
           ),
           h(DrawerVue, { "aria-labelledby": labelledby, id: "drawer" }, () =>
             h(DrawerTitleVue, { id: "own-title" }, () => "Title"),
@@ -151,15 +151,15 @@ const replacedIds = {
     ),
 }
 
-describe("DialogHeader and DrawerTitle ids", () => {
+describe("DialogTitle and DrawerTitle ids", () => {
   test.each(FRAMEWORKS)(
     "%s replaces an own id with the generated one and warns",
     async (framework) => {
       const html = await replacedIds[framework]()
-      expect(html).not.toContain('id="own-header"')
+      expect(html).not.toContain('id="own-dialog-title"')
       expect(html).not.toContain('id="own-title"')
       expect(warnings()).toEqual([
-        "[OPUI DialogHeader] `id` is replaced by the dialog's generated id; pass `aria-labelledby` on the Dialog to keep it.",
+        "[OPUI DialogTitle] `id` is replaced by the dialog's generated id; pass `aria-labelledby` on the Dialog to keep it.",
         "[OPUI DrawerTitle] `id` is replaced by the drawer's generated id; pass `aria-labelledby` on the Drawer to keep it.",
       ])
     },
@@ -168,8 +168,8 @@ describe("DialogHeader and DrawerTitle ids", () => {
   test.each(FRAMEWORKS)(
     "%s keeps the id without a warning when the root has aria-labelledby",
     async (framework) => {
-      const html = await replacedIds[framework]("own-header")
-      expect(html).toContain('id="own-header"')
+      const html = await replacedIds[framework]("own-dialog-title")
+      expect(html).toContain('id="own-dialog-title"')
       expect(html).toContain('id="own-title"')
       expect(warnings()).toEqual([])
     },

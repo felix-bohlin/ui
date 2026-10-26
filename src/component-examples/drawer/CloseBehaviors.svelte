@@ -3,7 +3,7 @@
     Button,
     Drawer,
     DrawerContent,
-    DrawerActions,
+    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
     FieldGroup,
@@ -37,9 +37,9 @@
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-close-behaviors-1" command="close">
       Close manually
     </Button>
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>

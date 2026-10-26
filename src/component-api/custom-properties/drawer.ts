@@ -1,14 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_actions-gap": {
-    description: "Gap between items in `.ui-actions`.",
-    kind: "input",
-  },
-  "--_actions-padding": {
-    description: "Padding of `.ui-actions`.",
-    kind: "input",
-  },
   "--_backdrop-bg-color": {
     description:
       "The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.",
@@ -29,12 +21,12 @@ export default {
   },
   "--_border-color": {
     description:
-      "Color of the `.ui-header` and `.ui-actions` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.",
+      "Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.",
     kind: "input",
   },
   "--_border-width": {
     description:
-      "Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.",
+      "Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.",
     kind: "input",
   },
   "--_content-padding": {
@@ -60,8 +52,13 @@ export default {
       "Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.",
     kind: "input",
   },
-  "--_header-font-size": {
-    description: "Font size of headings in `.ui-header`.",
+  "--_footer-gap": {
+    description:
+      "Gap between the items in `.ui-footer` and between the buttons in its `.ui-actions`.",
+    kind: "input",
+  },
+  "--_footer-padding": {
+    description: "Padding of `.ui-footer`.",
     kind: "input",
   },
   "--_header-padding": {
@@ -87,6 +84,11 @@ export default {
   },
   "--_text-color": {
     description: "The text color. Defaults to `--ui-text-strong`.",
+    kind: "input",
+  },
+  "--_title-font-size": {
+    description:
+      "Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
     kind: "input",
   },
 } satisfies CustomProperties

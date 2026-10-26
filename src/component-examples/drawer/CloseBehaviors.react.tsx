@@ -5,7 +5,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
@@ -49,7 +49,7 @@ export default function CloseBehaviors() {
             </FieldGroup>
           </Fieldset>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button
             size="small"
             commandfor="drawer-close-behaviors-1"
@@ -57,7 +57,7 @@ export default function CloseBehaviors() {
           >
             Close manually
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
     </>
   )

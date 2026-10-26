@@ -1,39 +1,40 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/react"
 
-export default function ActionsAlignment() {
+export default function FooterAlignment() {
   return (
     <>
       <Button
-        commandfor="dialog-actions-alignment-1"
+        commandfor="dialog-footer-alignment-1"
         command="show-modal"
         variant="outlined"
       >
         Show shortcuts
       </Button>
-      <Dialog id="dialog-actions-alignment-1">
+      <Dialog id="dialog-footer-alignment-1">
         <DialogHeader>
-          <h2 className="ui-h4">Keyboard shortcuts</h2>
+          <DialogTitle>Keyboard shortcuts</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p>
             Press <kbd>?</kbd> anywhere to open this list again.
           </p>
         </DialogContent>
-        <DialogActions align="start">
+        <DialogFooter align="start">
           <Button
-            commandfor="dialog-actions-alignment-1"
+            commandfor="dialog-footer-alignment-1"
             command="close"
             variant="filled"
           >
             Got it
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </>
   )

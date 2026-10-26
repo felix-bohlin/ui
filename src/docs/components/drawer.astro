@@ -6,7 +6,7 @@ import {
   Button as UIButton,
   Drawer as UIDrawer,
   DrawerContent as UIDrawerContent,
-  DrawerActions as UIDrawerActions,
+  DrawerFooter as UIDrawerFooter,
   DrawerHeader as UIDrawerHeader,
   DrawerTitle as UIDrawerTitle,
   Switch,
@@ -22,7 +22,7 @@ import {
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import drawerApi from "../../component-api/drawer/api"
-import drawerActionsApi from "../../component-api/drawer-actions/api"
+import drawerFooterApi from "../../component-api/drawer-footer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
@@ -46,6 +46,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
     "invoker-commands",
     "overflow-clip",
     "overlay",
+    "round-mod-rem",
     "scrollbar-gutter",
     "starting-style",
     "transition-behavior",
@@ -53,7 +54,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
   apis={[
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },
-    { title: "Drawer actions API", api: drawerActionsApi },
+    { title: "Drawer footer API", api: drawerFooterApi },
   ]}
   changelogPaths={[
     {
@@ -89,18 +90,24 @@ import PropOrClass from "../../components/PropOrClass.astro"
         </p>
         <p>
           Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerActions</code>. The <code>DrawerHeader</code> adds a close button.
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
           Put a <code>DrawerTitle</code> in it for the heading, which names the drawer,
-          and more actions before the close button, which line up at the end. Give
-          the drawer an <code>id</code>, which the trigger's <code
-            >commandfor</code
-          > points at.
+          and more buttons before the close button, which line up at the end. The
+          title is <code>--ui-font-size-h4</code>, like the Dialog title; set <code
+            >--_title-font-size</code
+          > on the drawer to change it. Give the drawer an <code>id</code>,
+          which the trigger's <code>commandfor</code> points at.
         </p>
         <p>
-          The header and the actions stay put while the content scrolls, with a
-          shadow on the scrolled edge. The actions sit at the end, and <code
-            >align="start"</code
-          > on <code>DrawerActions</code> lines them up with the content.
+          The header and the footer stay put while the content scrolls, with a
+          shadow on the scrolled edge. The content is a stack with <code
+            >--ui-space-3</code
+          > between its children, like a Dialog's, unless it has inline children such
+          as links. The footer is a row for buttons, text or anything else. Its content
+          lines up at the end, and <code>align="start"</code> on <code
+            >DrawerFooter</code
+          > moves it to the start. Wrap the buttons in <code>.ui-actions</code> to
+          keep them together at the end when other content comes first.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use <code
@@ -121,13 +128,23 @@ import PropOrClass from "../../components/PropOrClass.astro"
           > classes.
         </p>
         <p>
-          Put more actions before the close button in <code>.ui-header</code>;
-          they line up at the end. <code>.ui-header</code> and <code
-            >.ui-actions</code
-          > stay put while <code>.ui-content</code> scrolls, with a shadow on the
-          scrolled edge. The actions sit at the end, and <code
+          Put the heading and more buttons before the close button in <code
+            >.ui-header</code
+          >; the buttons line up at the end. The heading is <code
+            >--ui-font-size-h4</code
+          >, like the Dialog title; set <code>--_title-font-size</code> on the drawer
+          to change it.
+        </p>
+        <p>
+          <code>.ui-header</code> and <code>.ui-footer</code> stay put while <code
+            >.ui-content</code
+          > scrolls, with a shadow on the scrolled edge. The content is a stack with
+          <code>--ui-space-3</code> between its children, like a Dialog's, unless
+          it has inline children such as links. The footer is a row for buttons, text
+          or anything else. Its content lines up at the end, and <code
             >.ui-align-start</code
-          > lines them up with the content.
+          > moves it to the start. Wrap the buttons in <code>.ui-actions</code> to
+          keep them together at the end when other content comes first.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use the <code
@@ -179,10 +196,10 @@ import PropOrClass from "../../components/PropOrClass.astro"
         <UIDrawerContent>
           <p>Narrow the list by status, owner and date.</p>
         </UIDrawerContent>
-        <UIDrawerActions>
+        <UIDrawerFooter>
           <UIButton size="small">Reset</UIButton>
           <UIButton size="small" variant="filled">Apply</UIButton>
-        </UIDrawerActions>
+        </UIDrawerFooter>
       </UIDrawer>
     </Anatomy>
   </Fragment>

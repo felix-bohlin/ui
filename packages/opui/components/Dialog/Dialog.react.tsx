@@ -7,11 +7,11 @@ import { DialogContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function Dialog({ className, closedby, ...rest }: Props) {
-  const headerId = `dialog-header-${useId()}`
-  const labelledBy = autoLabelledBy(rest, headerId)
+  const titleId = `dialog-title-${useId()}`
+  const labelledBy = autoLabelledBy(rest, titleId)
 
   return (
-    <DialogContext value={{ headerId: labelledBy }}>
+    <DialogContext value={{ titleId: labelledBy }}>
       <dialog
         aria-labelledby={labelledBy}
         className={cx(["ui-dialog", "ui-elevated", className])}

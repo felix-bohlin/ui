@@ -1,8 +1,8 @@
 import type { HTMLAttributes } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
-  DrawerActionsProps as BaseDrawerActionsProps,
   DrawerContentProps as BaseDrawerContentProps,
+  DrawerFooterProps as BaseDrawerFooterProps,
   DrawerHeaderProps as BaseDrawerHeaderProps,
   DrawerTitleProps as BaseDrawerTitleProps,
   Props as BaseProps,
@@ -10,9 +10,9 @@ import type {
 
 export type Props = BaseProps & Class
 
-export type DrawerActionsProps = BaseDrawerActionsProps & Class
-
 export type DrawerContentProps = BaseDrawerContentProps & Class
+
+export type DrawerFooterProps = BaseDrawerFooterProps & Class
 
 export type DrawerHeaderProps = BaseDrawerHeaderProps & Class
 

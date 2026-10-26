@@ -3,9 +3,10 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
@@ -165,7 +166,7 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
         style="max-block-size: 24rem"
       >
         <DialogHeader>
-          <h2 class="ui-h4">Terms</h2>
+          <DialogTitle>Terms</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <div class="ui-rich-text">
@@ -179,7 +180,7 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
             }
           </div>
         </DialogContent>
-        <DialogActions>
+        <DialogFooter>
           <Button
             commandfor="scroll-state-dialog"
             command="close"
@@ -188,7 +189,7 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
           >
             Close
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </Example>
     <BuildUpLink />

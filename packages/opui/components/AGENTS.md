@@ -230,7 +230,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - A modifier with several values is an enum named after the concept.
   - A component never has both for one concept, and never two booleans for one axis (`overflow`, not `scrollable` and `shrink`).
 - **One or many is the native `multiple`,** layout along an axis is `orientation` and overflow along it is `overflow`.
-- **`align` has one default per part,** wherever the part appears. `.ui-actions` lines up at the end in every container that has it.
+- **`align` has one default per part,** wherever the part appears. `.ui-actions` and `.ui-footer` line up at the end in every container that has them.
 - **Text:**
   - The primary text of anything is `label`, a string prop with a slot of the same name for rich content. Secondary text is `description`. Never `headline`, `text` or `title`.
   - Item objects (`MenuItem`, `RangeItem`, `SelectItem`) use `label`, `value` and `description`, and a list of them is `items`.
@@ -251,7 +251,7 @@ One concept has one prop name and one set of values in every component. `tests/u
 - **`start` and `end` are logical,** along the axis that fits: inline for slots in a row (`.ui-start`, `.ui-end`), block for text above and below a field (`startText`, `endText`). Inside a field's box, the regions above and below the input are `top` and `bottom` (`.ui-top`, `.ui-bottom`).
 - **Slots and parts:**
   - A slot has one name in all five frameworks, kebab-case in Astro and Vue (`value-text`) and camelCase in React and Svelte (`valueText`). When a name clashes with a prop in one framework, the slot is renamed everywhere. The allowed names are listed in [src/component-api/AGENTS.md](../../../src/component-api/AGENTS.md#names).
-  - The block regions of a container are parts, never slots: `.ui-header`, `.ui-content`, `.ui-actions` for buttons and `.ui-footer` for anything else at the end.
+  - The block regions of a container are parts, never slots: `.ui-header`, `.ui-content`, `.ui-actions` for buttons and `.ui-footer` for anything else at the end. Dialog and Drawer end in `.ui-footer`, where `.ui-actions` groups the buttons.
   - A part styled only under its root has a bare role class (`.ui-header`, `.ui-label`, `.ui-indicator`). A class that is also styled on its own, or shared by several roots, is a root class and carries the component name (`.ui-field-group`, `.ui-text-field`). `.ui-card-link` is the one exception, since `.ui-link` is the Link root.
   - A part's CSS reaches it with child combinators (`> .ui-label`), so a bare part class never styles the part of the same name in a nested component.
 - **Every option is one of three kinds:** a prop with an HTML equivalent (`class` or `attribute` in `api.ts`), an HTML-only class or attribute (`frameworks: ["html"]`), or a prop-only behavior with no output (`keepOpen`). Every class a stylesheet adds is named by an option or a part.
@@ -285,12 +285,12 @@ Containers compose, controls configure. Each component has one way to use it.
 
 ### Parts (containers)
 
-Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor, Tooltip) expose a part per region, with flat names: `CardHeader`, `DialogActions`, `AccordionSummary`.
+Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor, Tooltip) expose a part per region, with flat names: `CardHeader`, `DialogFooter`, `AccordionSummary`.
 
 - A part's name is its root's name plus the region, and it renders that region's element and class (`CardActions` renders `.ui-actions`).
 - Each part renders its own wrapper. The root renders its children as they are, and never wraps, reorders or inspects them.
 - Defaults live in the part that renders them: `AccordionSummary` renders the chevron, `CalloutIcon` the severity icon.
-- Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on. Title parts sit inside their region part: `DrawerTitle` in `DrawerHeader`. Other titles are plain headings in their region part, like `<h3>` in `CardHeader` or `CalloutContent`.
+- Parts must be direct children of their root, because the CSS targets `> .ui-header`, `> .ui-content` and so on. Title parts sit inside their region part: `DialogTitle` in `DialogHeader` and `DrawerTitle` in `DrawerHeader`. Other titles are plain headings in their region part, like `<h3>` in `CardHeader` or `CalloutContent`.
 - Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.svelte.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `context.vue.ts` (Vue). All four take their shape from the `Context` type in `types.ts`, and Vue provides it as a `reactive()` object. A folder with one of them has all four (`pnpm check-components` fails otherwise). Ids are deterministic, so every framework renders the same markup on the server.
 - Parts without context stay React server components.
 - Every part is exported from all four barrels with its `Props` type.

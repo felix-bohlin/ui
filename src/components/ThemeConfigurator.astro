@@ -4,7 +4,7 @@ import {
   Divider,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
@@ -98,14 +98,14 @@ const { link } = Astro.locals
     </div>
   </DrawerContent>
 
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="theme-configurator-drawer" command="close"
       >Close</Button
     >
     <Button href={link("/theme-builder")} size="small" variant="outlined"
       >Theme builder</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <script>

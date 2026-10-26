@@ -38,4 +38,9 @@ export default {
       "Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
     kind: "input",
   },
+  "--_title-font-size": {
+    description:
+      "Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
+    kind: "input",
+  },
 } satisfies CustomProperties

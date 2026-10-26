@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DialogActionsProps as Props } from "./types.svelte"
+  import type { DialogFooterProps as Props } from "./types.svelte"
 
   let {
     align,
@@ -13,7 +13,7 @@
 
 <div
   class={[
-    "ui-actions",
+    "ui-footer",
     align && align !== "end" && `ui-align-${align}`,
     className,
   ]}

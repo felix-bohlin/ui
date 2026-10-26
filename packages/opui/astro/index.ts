@@ -25,13 +25,14 @@ export { default as DescriptionListDescription } from "../components/Description
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.astro"
 export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.astro"
 export { default as Dialog } from "../components/Dialog/Dialog.astro"
-export { default as DialogActions } from "../components/Dialog/DialogActions.astro"
 export { default as DialogContent } from "../components/Dialog/DialogContent.astro"
+export { default as DialogFooter } from "../components/Dialog/DialogFooter.astro"
 export { default as DialogHeader } from "../components/Dialog/DialogHeader.astro"
+export { default as DialogTitle } from "../components/Dialog/DialogTitle.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
-export { default as DrawerActions } from "../components/Drawer/DrawerActions.astro"
 export { default as DrawerContent } from "../components/Drawer/DrawerContent.astro"
+export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.astro"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.astro"
 export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.astro"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.astro"
@@ -111,15 +112,16 @@ export type {
   DescriptionListTermProps,
 } from "../components/DescriptionList/types.astro"
 export type {
-  DialogActionsProps,
   DialogContentProps,
+  DialogFooterProps,
   DialogHeaderProps,
   Props as DialogProps,
+  DialogTitleProps,
 } from "../components/Dialog/types.astro"
 export type { Props as DividerProps } from "../components/Divider/types.astro"
 export type {
-  DrawerActionsProps,
   DrawerContentProps,
+  DrawerFooterProps,
   DrawerHeaderProps,
   Props as DrawerProps,
   DrawerTitleProps,

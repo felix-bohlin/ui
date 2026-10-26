@@ -6,11 +6,11 @@ export type Props = {
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }
 
-export type DrawerActionsProps = {
+export type DrawerContentProps = {}
+
+export type DrawerFooterProps = {
   align?: "start" | "end"
 }
-
-export type DrawerContentProps = {}
 
 export type DrawerHeaderProps = {
   closeLabel?: string

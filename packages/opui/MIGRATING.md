@@ -405,9 +405,9 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 + <dialog class="ui-dialog ui-elevated">
 ```
 
-Dialogs have a maximum height. The header and actions stay in place and the content scrolls. Dialogs also get a border in the page background color.
+Dialogs have a maximum height. The header and footer stay in place and the content scrolls. Dialogs also get a border in the page background color.
 
-In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHeader`, `DialogContent` and `DialogActions` (`align` replaces `actionsAlign`). `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogHeader` needs `aria-label`.
+In Astro and Vue the regions are parts instead of slots, like `Drawer`: `DialogHeader`, `DialogTitle`, `DialogContent` and `DialogFooter` (`align` on `DialogFooter` replaces `actionsAlign`). `aria-labelledby` points at the `DialogTitle` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogTitle` needs `aria-label`.
 
 ```diff
 - <Dialog actionsAlign="end">
@@ -416,11 +416,27 @@ In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHea
 -   <Button slot="actions">Close</Button>
 - </Dialog>
 + <Dialog>
-+   <DialogHeader><h2>Title</h2></DialogHeader>
++   <DialogHeader><DialogTitle>Title</DialogTitle></DialogHeader>
 +   <DialogContent><p>Text</p></DialogContent>
-+   <DialogActions><Button>Close</Button></DialogActions>
++   <DialogFooter><Button>Close</Button></DialogFooter>
 + </Dialog>
 ```
+
+In HTML the header is a `div.ui-header` row instead of an `hgroup`, and `.ui-footer` replaces `.ui-actions` at the end. Point `aria-labelledby` at the title heading. It needs no `.ui-h4`, since the dialog sizes it with `--_title-font-size` (`--ui-font-size-h4`). End alignment is the default, so `.ui-align-end` can go.
+
+```diff
+- <hgroup>
+-   <h2 class="ui-h4" id="dialog-title">Title</h2>
+- </hgroup>
++ <div class="ui-header">
++   <h2 id="dialog-title">Title</h2>
++ </div>
+  <div class="ui-content">…</div>
+- <div class="ui-actions ui-align-end">…</div>
++ <div class="ui-footer">…</div>
+```
+
+The footer holds buttons, text or anything else. Wrap the buttons in `.ui-actions` to keep them together at the end when other content comes first.
 
 `types.ts` no longer exports a `Slots` type.
 
@@ -461,15 +477,17 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 +     <DrawerTitle>Filters</DrawerTitle>
 +   </DrawerHeader>
 +   <DrawerContent>…</DrawerContent>
-+   <DrawerActions>…</DrawerActions>
++   <DrawerFooter>…</DrawerFooter>
   </Drawer>
 ```
 
-`DrawerFooter` is `DrawerActions`, which renders `.ui-actions` instead of `.ui-footer`. The actions sit at the end on every side, also in an `inline-end` drawer, and `align="start"` (`.ui-align-start`) lines them up with the content. `--_footer-gap` and `--_footer-padding` are `--_actions-gap` and `--_actions-padding`.
+The footer content sits at the end on every side, also in an `inline-end` drawer, and `align="start"` on `DrawerFooter` (`.ui-align-start`) moves it to the start. Wrap the buttons in `.ui-actions` to keep them together at the end when other content comes first.
+
+The title is `--ui-font-size-h4`, like the `Dialog` title, instead of `--ui-font-size-large`. `--_header-font-size` is `--_title-font-size`.
 
 ```diff
-- <div class="ui-footer">
-+ <div class="ui-actions">
+- .ui-drawer { --_header-font-size: 1.25rem; }
++ .ui-drawer { --_title-font-size: 1.25rem; }
 ```
 
 The page no longer locks scrolling by default in Astro and Vue. Set `scrollLock` on drawers that should lock it. `id` is required, since the trigger's `commandfor` points at it.

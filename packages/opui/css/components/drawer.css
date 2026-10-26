@@ -1,8 +1,6 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
     --_motion: var(--ui-motion);
-    --_actions-gap: var(--ui-space-3);
-    --_actions-padding: var(--ui-space-3);
     --_backdrop-bg-color: var(--ui-backdrop-bg-color);
     --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_bg-color: var(--ui-surface-elevated);
@@ -14,12 +12,14 @@
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
     --_edge-border-color: var(--ui-border-color-raised, var(--_border-color));
-    --_header-font-size: var(--ui-font-size-large);
+    --_footer-gap: var(--ui-space-3);
+    --_footer-padding: var(--ui-space-3);
     --_header-padding: var(--ui-space-3);
     --_inline-size: min(375px, 100vi);
     --_scroll-shadow: var(--ui-shadow-scroll);
     --_shadow: var(--ui-shadow-overlay);
     --_text-color: var(--ui-text-strong);
+    --_title-font-size: var(--ui-font-size-h4);
     --ui-border-color: var(--ui-border-color-on-raised);
     --ui-divider-gap: var(--ui-space-3);
     --ui-field-border-color: var(--ui-field-border-color-on-raised);
@@ -61,17 +61,28 @@
     & > .ui-header {
       align-items: center;
       border-block-end: var(--_border-width) solid var(--_border-color);
+      column-gap: var(--ui-space-1);
       display: flex;
-      gap: var(--ui-space-1);
+      flex-wrap: wrap;
       padding: var(--_header-padding);
 
-      :where(h1, h2, h3, h4, h5, h6) {
+      & > :where(h1, h2, h3, h4, h5, h6) {
         flex: 1;
-        font-size: var(--_header-font-size);
+        font-size: var(--_title-font-size);
+        letter-spacing: var(--ui-letter-spacing-heading);
+        line-height: round(
+          up,
+          1em + 2 * var(--ui-rhythm-step),
+          var(--ui-rhythm-step)
+        );
         margin: 0;
       }
 
-      &:not(:has(:where(h1, h2, h3, h4, h5, h6)))
+      & > :where(p) {
+        flex-basis: 100%;
+      }
+
+      &:not(:has(> :where(h1, h2, h3, h4, h5, h6)))
         > :where(.ui-button:has(> svg:only-child)):first-of-type {
         margin-inline-start: auto;
       }
@@ -110,6 +121,55 @@
       }
     }
 
+    & > :where(.ui-content:not(.ui-rich-text)) > * {
+      margin-block: 0;
+    }
+
+    &
+      > :where(
+        .ui-content:not(
+          .ui-rich-text,
+          :has(
+            > :is(
+              a,
+              abbr,
+              b,
+              button,
+              cite,
+              code,
+              em,
+              i,
+              img,
+              input,
+              kbd,
+              mark,
+              q,
+              s,
+              samp,
+              small,
+              span,
+              strong,
+              sub,
+              sup,
+              svg,
+              time,
+              u,
+              var,
+              .ui-carousel
+            )
+          )
+        )
+      ) {
+      align-content: start;
+      display: grid;
+      gap: var(--ui-space-3);
+      grid-template-columns: minmax(0, 1fr);
+
+      & > .ui-divider {
+        margin-block: 0;
+      }
+    }
+
     @container scroll-state(scrollable: block-start) {
       & > .ui-content::before {
         opacity: 1;
@@ -122,15 +182,27 @@
       }
     }
 
-    & > .ui-actions {
+    & > .ui-footer {
+      align-items: center;
       border-block-start: var(--_border-width) solid var(--_border-color);
       display: flex;
-      gap: var(--_actions-gap);
+      flex-wrap: wrap;
+      gap: var(--_footer-gap);
       justify-content: end;
-      padding: var(--_actions-padding);
+      padding: var(--_footer-padding);
 
       &.ui-align-start {
         justify-content: start;
+      }
+
+      & > .ui-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--_footer-gap);
+      }
+
+      & > * + .ui-actions {
+        margin-inline-start: auto;
       }
     }
 

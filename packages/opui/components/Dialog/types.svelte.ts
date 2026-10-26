@@ -3,11 +3,13 @@ import type { SvelteHTMLElements } from "svelte/elements"
 
 export type Props = Base.Props & Omit<SvelteHTMLElements["dialog"], "closedby">
 
-export type DialogActionsProps = Base.DialogActionsProps &
-  SvelteHTMLElements["div"]
-
 export type DialogContentProps = Base.DialogContentProps &
   SvelteHTMLElements["div"]
 
+export type DialogFooterProps = Base.DialogFooterProps &
+  SvelteHTMLElements["div"]
+
 export type DialogHeaderProps = Base.DialogHeaderProps &
-  SvelteHTMLElements["hgroup"]
+  SvelteHTMLElements["div"]
+
+export type DialogTitleProps = Base.DialogTitleProps & SvelteHTMLElements["h2"]

@@ -1,0 +1,42 @@
+<button
+  type="button"
+  commandfor="dialog-footer-content-1"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Export data
+</button>
+
+<dialog
+  id="dialog-footer-content-1"
+  class="ui-dialog ui-elevated"
+  aria-labelledby="dialog-footer-content-1-title"
+>
+  <div class="ui-header">
+    <h2 id="dialog-footer-content-1-title">Export data</h2>
+  </div>
+  <div class="ui-content">
+    <p>Download your projects, files and comments as one ZIP archive.</p>
+  </div>
+  <div class="ui-footer">
+    <p>About 24 MB</p>
+    <div class="ui-actions">
+      <button
+        commandfor="dialog-footer-content-1"
+        command="close"
+        class="ui-button"
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        commandfor="dialog-footer-content-1"
+        command="close"
+        class="ui-button ui-filled"
+        type="button"
+      >
+        Export
+      </button>
+    </div>
+  </div>
+</dialog>

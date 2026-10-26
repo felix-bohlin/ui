@@ -3,7 +3,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
@@ -39,7 +39,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
         </FieldGroup>
       </Fieldset>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button
         size="small"
         commandfor="drawer-close-behaviors-1"
@@ -47,6 +47,6 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
       >
         Close manually
       </Button>
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 </template>

@@ -27,13 +27,14 @@ export { default as DescriptionListDescription } from "../components/Description
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.svelte"
 export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.svelte"
 export { default as Dialog } from "../components/Dialog/Dialog.svelte"
-export { default as DialogActions } from "../components/Dialog/DialogActions.svelte"
 export { default as DialogContent } from "../components/Dialog/DialogContent.svelte"
+export { default as DialogFooter } from "../components/Dialog/DialogFooter.svelte"
 export { default as DialogHeader } from "../components/Dialog/DialogHeader.svelte"
+export { default as DialogTitle } from "../components/Dialog/DialogTitle.svelte"
 export { default as Divider } from "../components/Divider/Divider.svelte"
 export { default as Drawer } from "../components/Drawer/Drawer.svelte"
-export { default as DrawerActions } from "../components/Drawer/DrawerActions.svelte"
 export { default as DrawerContent } from "../components/Drawer/DrawerContent.svelte"
+export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.svelte"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.svelte"
 export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.svelte"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.svelte"
@@ -113,15 +114,16 @@ export type {
   DescriptionListTermProps,
 } from "../components/DescriptionList/types.svelte"
 export type {
-  DialogActionsProps,
   DialogContentProps,
+  DialogFooterProps,
   DialogHeaderProps,
   Props as DialogProps,
+  DialogTitleProps,
 } from "../components/Dialog/types.svelte"
 export type { Props as DividerProps } from "../components/Divider/types.svelte"
 export type {
-  DrawerActionsProps,
   DrawerContentProps,
+  DrawerFooterProps,
   DrawerHeaderProps,
   Props as DrawerProps,
   DrawerTitleProps,

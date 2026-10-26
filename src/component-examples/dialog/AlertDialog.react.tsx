@@ -1,9 +1,10 @@
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/react"
 
 export default function AlertDialog() {
@@ -23,14 +24,14 @@ export default function AlertDialog() {
         aria-describedby="dialog-alert-dialog-1-description"
       >
         <DialogHeader>
-          <h2 className="ui-h4">Delete project?</h2>
+          <DialogTitle>Delete project?</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p id="dialog-alert-dialog-1-description">
             This deletes the project and all its files. You can't undo this.
           </p>
         </DialogContent>
-        <DialogActions>
+        <DialogFooter>
           <Button commandfor="dialog-alert-dialog-1" command="close">
             Cancel
           </Button>
@@ -42,7 +43,7 @@ export default function AlertDialog() {
           >
             Delete
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </>
   )

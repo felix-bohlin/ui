@@ -1,11 +1,11 @@
 import { cx } from "../cx"
-import type { DialogActionsProps as Props } from "./types.react"
+import type { DialogFooterProps as Props } from "./types.react"
 
-export default function DialogActions({ align, className, ...rest }: Props) {
+export default function DialogFooter({ align, className, ...rest }: Props) {
   return (
     <div
       className={cx([
-        "ui-actions",
+        "ui-footer",
         align && align !== "end" && `ui-align-${align}`,
         className,
       ])}

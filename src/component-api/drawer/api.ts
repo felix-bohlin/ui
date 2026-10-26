@@ -53,7 +53,8 @@ export default {
   parts: [
     {
       component: "DrawerHeader",
-      description: "The header, with a close button.",
+      description:
+        "The header, a row for the title and anything next to it, with a close button.",
       selector: ".ui-header",
     },
     {
@@ -69,9 +70,9 @@ export default {
       selector: ".ui-content",
     },
     {
-      component: "DrawerActions",
-      description: "The actions, at the end.",
-      selector: ".ui-actions",
+      component: "DrawerFooter",
+      description: "The footer, a row at the end.",
+      selector: ".ui-footer",
     },
   ],
   root: {

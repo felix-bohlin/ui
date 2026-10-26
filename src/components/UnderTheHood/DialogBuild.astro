@@ -33,7 +33,7 @@ const steps = [
 >
   <h2 id="dialog-title">Keyboard shortcuts</h2>
   <div class="content">…</div>
-  <div class="actions">
+  <div class="footer">
     <button type="button" commandfor="dialog" command="close">Close</button>
   </div>
 </dialog>`,
@@ -70,7 +70,7 @@ const steps = [
     notes: [
       "Pinned to 15% from the top, so it doesn't jump around as the content grows",
       "<code>dvb</code> follows the mobile browser toolbar as it shows and hides",
-      "Only <code>.content</code> scrolls, the heading and actions stay put",
+      "Only <code>.content</code> scrolls, the heading and footer stay put",
       "<code>overscroll-behavior: contain</code> stops the scroll from chaining to the page",
     ],
     title: "Place",
@@ -226,7 +226,7 @@ const shortcuts = [
         }
       </dl>
     </div>
-    <div class="actions">
+    <div class="footer">
       <Button command="close" commandfor="build-dialog-modal">Close</Button>
     </div>
   </dialog>
@@ -268,7 +268,7 @@ const shortcuts = [
       margin: 0;
     }
 
-    & .actions {
+    & .footer {
       display: flex;
       justify-content: end;
       padding: 0 var(--ui-space-1) var(--ui-space-2);

@@ -1,6 +1,6 @@
 ---
 import TableOfContents from "./TableOfContents.astro"
-import { Button, Drawer, DrawerContent, DrawerActions } from "opui-css/astro"
+import { Button, Drawer, DrawerContent, DrawerFooter } from "opui-css/astro"
 
 type Props = {
   sidebarDrawerId?: string
@@ -72,11 +72,11 @@ const { sidebarDrawerId, showToc = true } = Astro.props
       <DrawerContent>
         <TableOfContents variant="drawer" />
       </DrawerContent>
-      <DrawerActions>
+      <DrawerFooter>
         <Button size="small" commandfor="toc-dialog" command="close">
           Close
         </Button>
-      </DrawerActions>
+      </DrawerFooter>
     </Drawer>
   )
 }

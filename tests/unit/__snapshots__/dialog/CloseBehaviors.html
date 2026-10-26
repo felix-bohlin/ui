@@ -1,8 +1,8 @@
 <button class="ui-button ui-outlined" command="show-modal" commandfor="id-1" type="button">Open dialog</button>
 <dialog aria-labelledby="id-2" class="ui-dialog ui-elevated" closedby="any" id="id-1">
-  <hgroup class="ui-header" id="id-2">
-    <h2 class="ui-h4">How to close</h2>
-  </hgroup>
+  <div class="ui-header">
+    <h2 id="id-2">How to close</h2>
+  </div>
   <div class="ui-content">
     <fieldset class="ui-fieldset">
       <legend>Choose a closing behavior:</legend>
@@ -22,7 +22,7 @@
       </div>
     </fieldset>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button class="ui-button" command="close" commandfor="id-1" type="button">Close manually</button>
   </div>
 </dialog>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DialogActionsProps as Props, Slots } from "./types.vue-props"
+import type { DrawerFooterProps as Props, Slots } from "./types.vue-props"
 
 const { align } = defineProps<Props>()
 defineSlots<Slots>()
@@ -8,7 +8,7 @@ defineSlots<Slots>()
 <template>
   <div
     :class="[
-      'ui-actions',
+      'ui-footer',
       align && align !== 'end' && `ui-align-${align}`,
       $props.class,
     ]"

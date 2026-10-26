@@ -1,8 +1,8 @@
 <button class="ui-button ui-outlined" command="show-modal" commandfor="id-1" type="button">Show shortcuts</button>
 <dialog aria-labelledby="id-2" class="ui-dialog ui-elevated" id="id-1">
-  <hgroup class="ui-header" id="id-2">
-    <h2 class="ui-h4">Keyboard shortcuts</h2>
-  </hgroup>
+  <div class="ui-header">
+    <h2 id="id-2">Keyboard shortcuts</h2>
+  </div>
   <div class="ui-content">
     <p>
       Press␣
@@ -10,7 +10,7 @@
       ␣anywhere to open this list again.
     </p>
   </div>
-  <div class="ui-actions ui-align-start">
+  <div class="ui-align-start ui-footer">
     <button class="ui-button ui-filled" command="close" commandfor="id-1" type="button">Got it</button>
   </div>
 </dialog>

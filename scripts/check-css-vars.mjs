@@ -27,6 +27,7 @@ const BASES = {
   "badge.css": ["avatar.css"],
   "button-group.css": ["button.css"],
   "checkbox.css": ["choice.css"],
+  "dialog.css": ["card.css"],
   "radio.css": ["choice.css"],
   "select.css": ["text-field.css"],
   "textarea.css": ["text-field.css"],

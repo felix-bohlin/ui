@@ -2,14 +2,16 @@ export type Props = {
   closedby?: "any" | "closerequest" | "none"
 }
 
-export type DialogActionsProps = {
+export type DialogContentProps = {}
+
+export type DialogFooterProps = {
   align?: "start" | "end"
 }
 
-export type DialogContentProps = {}
-
 export type DialogHeaderProps = {}
 
+export type DialogTitleProps = {}
+
 export type Context = {
-  headerId?: string
+  titleId?: string
 }

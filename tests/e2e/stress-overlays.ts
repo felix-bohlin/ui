@@ -162,7 +162,7 @@ export const SCENARIOS: Scenario[] = [
         scroll: `${id(`side-${side}`)} .ui-content > :last-child`,
       },
     ],
-    top: `${id(`side-${side}`)} .ui-actions`,
+    top: `${id(`side-${side}`)} > .ui-footer`,
   })),
   {
     failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },

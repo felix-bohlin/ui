@@ -257,24 +257,28 @@
       padding-inline: 0;
     }
 
-    /* Card, Accordion and Dialog actions */
+    /* Card and Accordion actions, Dialog footer */
     :where(
-        :is(.ui-accordion, .ui-card, .ui-dialog):not(
+        :is(.ui-accordion, .ui-card):not(
             .ui-accordion.ui-transparent,
             .ui-card.ui-transparent > .ui-accordion
           )
-          > .ui-actions.ui-align-start
+          > .ui-actions.ui-align-start,
+        .ui-dialog > .ui-footer.ui-align-start,
+        .ui-dialog > .ui-footer.ui-align-start > .ui-actions:first-child
       )
       > &:where(:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
       margin-inline-start: calc(-1 * var(--_actions-shift));
     }
 
     :where(
-        :is(.ui-accordion, .ui-card, .ui-dialog):not(
+        :is(.ui-accordion, .ui-card):not(
             .ui-accordion.ui-transparent,
             .ui-card.ui-transparent > .ui-accordion
           )
-          > .ui-actions:not(.ui-align-start)
+          > .ui-actions:not(.ui-align-start),
+        .ui-dialog > .ui-footer:not(.ui-align-start),
+        .ui-dialog > .ui-footer > .ui-actions:last-child
       )
       > &:where(:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
       margin-inline-end: calc(-1 * var(--_actions-shift));

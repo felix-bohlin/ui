@@ -155,7 +155,7 @@
     }
 
     /* Actions */
-    & > .ui-actions {
+    &:where(.ui-accordion, .ui-card) > .ui-actions {
       display: flex;
       flex-wrap: wrap;
       gap: var(--ui-space-2);

@@ -2,7 +2,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/react"
@@ -93,11 +93,11 @@ export default function Basics() {
             expedita distinctio.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-1" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
 
       <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -124,11 +124,11 @@ export default function Basics() {
             dicta sunt explicabo.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-2" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
 
       <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -149,11 +149,11 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-3" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
 
       <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -174,11 +174,11 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-4" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
     </>
   )

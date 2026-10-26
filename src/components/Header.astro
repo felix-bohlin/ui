@@ -4,7 +4,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   List,
   ListItem,
@@ -199,11 +199,11 @@ const { link } = Astro.locals
     <FrameworkPicker />
   </DrawerContent>
 
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="mobile-menu-drawer" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <ThemeConfigurator />

@@ -569,14 +569,116 @@ describe("slugify", () => {
 describe("TODO.md", () => {
   const source = readFileSync("TODO.md", "utf8")
   const { sections } = parseTodo(source)
-  const lines = source.split("\n")
   const items = sections.flatMap((section) => section.items)
-  const headline = (item: (typeof items)[number]) => item.line.slice(0, 80)
+  type Item = (typeof items)[number]
+  const headline = (item: Item) => item.line.slice(0, 80)
+  const parsed = (text: string) => {
+    const todo = parseTodo(text)
+    return {
+      done: todo.done.flatMap((section) => section.items),
+      items: todo.sections.flatMap((section) => section.items),
+      lines: text.split("\n"),
+      sections: todo.sections,
+    }
+  }
+
+  const titles = (text: string) =>
+    [...text.matchAll(/^## (.+)$/gm)].map(([, title]) => title)
+
+  const unsorted = (text: string) =>
+    parsed(text).sections.flatMap(({ items, title }) =>
+      items
+        .filter(
+          (item, index) =>
+            !item.severity ||
+            item.severity > 10 ||
+            (items[index - 1]?.severity ?? 0) > item.severity,
+        )
+        .map((item) => `${title}: ${item.line.slice(0, 80)}`),
+    )
+
+  const sharedKeys = (text: string) => {
+    const { done, items } = parsed(text)
+    const keys = done.concat(items).map((item) => item.key)
+    return keys.filter((key, index) => keys.indexOf(key) !== index)
+  }
+
+  const untriaged = (text: string) => {
+    const { items, lines } = parsed(text)
+    return items
+      .filter((item) => {
+        const at = lines.indexOf(item.line)
+        return (
+          !item.summary ||
+          !item.recommended ||
+          !lines[at + 1]?.startsWith("  - Summary: ") ||
+          !lines[at + 2]?.startsWith("  - Recommended: ") ||
+          item.notes.some(
+            (note) =>
+              note.kind === "item" && /^(Recommended|Summary):/.test(note.text),
+          )
+        )
+      })
+      .map(headline)
+  }
+
+  const longSummaries = (text: string) =>
+    parsed(text)
+      .items.filter(({ summary = "" }) => {
+        const prose = summary.replace(/`[^`]*`/g, "code")
+        const plain = plainText(summary)
+        return (
+          !prose.endsWith(".") ||
+          /[.?!] [A-Z]/.test(prose) ||
+          /\b[\w-]+\/[\w./[\]-]*\.\w+|\w\.\w+:\d/.test(plain) ||
+          plain.length > 140
+        )
+      })
+      .map((item) => `${headline(item)}: ${item.summary}`)
+
+  const badOptions = (text: string) =>
+    parsed(text)
+      .items.filter((item) => {
+        const { options } = fixOptions(item.notes)
+        const action = item.recommended?.action ?? ""
+        const marked = options.filter(({ note }) => note === "recommended")
+        if (options.length === 0) return action.startsWith("Fix with option")
+        const fix = action.startsWith("Fix")
+        return (
+          options.map(({ id }) => id).join("") !==
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, options.length) ||
+          marked.length > 1 ||
+          (fix &&
+            !options.some(({ id }) => action === `Fix with option ${id}`)) ||
+          (fix &&
+            marked.length === 1 &&
+            action !== `Fix with option ${marked[0].id}`)
+        )
+      })
+      .map(headline)
+
+  const inlineOptions = (text: string) =>
+    parsed(text).items.flatMap((item) =>
+      item.notes
+        .filter((note) => fixOptions([note]).options.length > 0)
+        .map(
+          (note) =>
+            `${headline(item)}: ${"text" in note ? note.text : note.code}`,
+        ),
+    )
+
+  const unresolved = (text: string) =>
+    parsed(text)
+      .done.filter(
+        (item) =>
+          !item.notes.some(
+            (note) => "text" in note && /^(Fixed|Removed)\b/.test(note.text),
+          ),
+      )
+      .map(headline)
 
   test("has the sections of the findings format, in order", () => {
-    expect(
-      [...source.matchAll(/^## (.+)$/gm)].map(([, title]) => title),
-    ).toEqual([
+    expect(titles(source)).toEqual([
       "Accessibility",
       "Bugs",
       "Docs",
@@ -588,119 +690,38 @@ describe("TODO.md", () => {
   })
 
   test("sorts open items by severity, lowest first", () => {
-    expect(
-      sections.flatMap(({ items, title }) =>
-        items
-          .filter(
-            (item, index) =>
-              !item.severity ||
-              item.severity > 10 ||
-              (items[index - 1]?.severity ?? 0) > item.severity,
-          )
-          .map((item) => `${title}: ${item.line.slice(0, 80)}`),
-      ),
-    ).toEqual([])
+    expect(unsorted(source)).toEqual([])
   })
 
   test("gives every item its own key", () => {
-    const keys = parseTodo(source)
-      .done.flatMap((section) => section.items)
-      .concat(items)
-      .map((item) => item.key)
-
     expect(
-      keys.filter((key, index) => keys.indexOf(key) !== index),
+      sharedKeys(source),
       "Two items share the text before their file references, which the /todo page keys answers on. Reword one of them",
     ).toEqual([])
   })
 
   test("starts every open item with a Summary and a Recommended note", () => {
-    expect(
-      items
-        .filter((item) => {
-          const at = lines.indexOf(item.line)
-          return (
-            !item.summary ||
-            !item.recommended ||
-            !lines[at + 1]?.startsWith("  - Summary: ") ||
-            !lines[at + 2]?.startsWith("  - Recommended: ") ||
-            item.notes.some(
-              (note) =>
-                note.kind === "item" &&
-                /^(Recommended|Summary):/.test(note.text),
-            )
-          )
-        })
-        .map(headline),
-    ).toEqual([])
+    expect(untriaged(source)).toEqual([])
   })
 
   test("keeps each summary to one plain sentence of 140 characters at most", () => {
-    expect(
-      items
-        .filter(({ summary = "" }) => {
-          const prose = summary.replace(/`[^`]*`/g, "code")
-          const plain = plainText(summary)
-          return (
-            !prose.endsWith(".") ||
-            /[.?!] [A-Z]/.test(prose) ||
-            /\b[\w-]+\/[\w./[\]-]*\.\w+|\w\.\w+:\d/.test(plain) ||
-            plain.length > 140
-          )
-        })
-        .map((item) => `${headline(item)}: ${item.summary}`),
-    ).toEqual([])
+    expect(longSummaries(source)).toEqual([])
   })
 
   test("letters the options, and a Fix recommends one of them", () => {
     expect(
-      items
-        .filter((item) => {
-          const { options } = fixOptions(item.notes)
-          const action = item.recommended?.action ?? ""
-          const marked = options.filter(({ note }) => note === "recommended")
-          if (options.length === 0) return action.startsWith("Fix with option")
-          const fix = action.startsWith("Fix")
-          return (
-            options.map(({ id }) => id).join("") !==
-              "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, options.length) ||
-            marked.length > 1 ||
-            (fix &&
-              !options.some(({ id }) => action === `Fix with option ${id}`)) ||
-            (fix &&
-              marked.length === 1 &&
-              action !== `Fix with option ${marked[0].id}`)
-          )
-        })
-        .map(headline),
+      badOptions(source),
       "letter the options A, B, C, mark at most one (recommended), and with options recommend Fix with option <id> (the marked one), Remove issue or Explain further",
     ).toEqual([])
   })
 
   test("writes no options inline", () => {
-    expect(
-      items.flatMap((item) =>
-        item.notes
-          .filter((note) => fixOptions([note]).options.length > 0)
-          .map(
-            (note) =>
-              `${headline(item)}: ${"text" in note ? note.text : note.code}`,
-          ),
-      ),
-    ).toEqual([])
+    expect(inlineOptions(source)).toEqual([])
   })
 
   test("says how every done item ended", () => {
     expect(
-      parseTodo(source)
-        .done.flatMap((section) => section.items)
-        .filter(
-          (item) =>
-            !item.notes.some(
-              (note) => "text" in note && /^(Fixed|Removed)\b/.test(note.text),
-            ),
-        )
-        .map(headline),
+      unresolved(source),
       "add a - Fixed: or - Removed: note to the done item",
     ).toEqual([])
   })
@@ -738,17 +759,118 @@ describe("TODO.md", () => {
       ),
   ])
 
+  const unknownPrefix = (text: string) =>
+    parsed(text)
+      .items.filter(
+        ({ component, text }) =>
+          !component?.split(", ").every((name) => names.has(name)) &&
+          !allowlist.prefixes.some((prefix) => text.startsWith(prefix)),
+      )
+      .map(headline)
+
   test("starts every open item with a component, page or area", () => {
     expect(
-      items
-        .filter(
-          ({ component, text }) =>
-            !component?.split(", ").every((name) => names.has(name)) &&
-            !allowlist.prefixes.some((prefix) => text.startsWith(prefix)),
-        )
-        .map(headline),
+      unknownPrefix(source),
       "start the headline with a component, a docs page title or an area from AREAS",
     ).toEqual([])
+  })
+
+  const item = (line: string, ...notes: string[]) =>
+    [line, ...notes.map((note) => `  - ${note}`)].join("\n")
+  const triaged = (line: string, ...notes: string[]) =>
+    item(
+      line,
+      "Summary: The shadow looks wrong.",
+      "Recommended: Fix. It is small.",
+      ...notes,
+    )
+  const todo = (...entries: string[]) => `## Bugs\n\n${entries.join("\n")}\n`
+  const CLEAN = todo(
+    triaged("- [ ] (1) Card: the shadow is off"),
+    item(
+      "- [ ] (2) Tabs: the line is thin",
+      "Summary: The tab line is thin.",
+      "Recommended: Fix with option A. It reads the role.",
+      "Options:\n    - A (recommended): make it thicker.\n    - B: keep it.",
+    ),
+    item("- [x] (1) Chip: the dot is gone", "Fixed: it is back."),
+  )
+
+  const rules = {
+    badOptions,
+    inlineOptions,
+    longSummaries,
+    sharedKeys,
+    unknownPrefix,
+    unresolved,
+    unsorted,
+    untriaged,
+  }
+
+  test.each(Object.keys(rules) as (keyof typeof rules)[])(
+    "the %s rule passes a clean TODO.md",
+    (rule) => {
+      expect(rules[rule](CLEAN)).toEqual([])
+    },
+  )
+
+  test.each([
+    [
+      "badOptions",
+      todo(
+        item(
+          "- [ ] (1) Tabs: the line is thin",
+          "Summary: The tab line is thin.",
+          "Recommended: Fix. It is small.",
+          "Options:\n    - A: make it thicker.\n    - B: keep it.",
+        ),
+      ),
+    ],
+    [
+      "inlineOptions",
+      todo(
+        triaged(
+          "- [ ] (1) Card: the shadow is off",
+          "Still open: it conflicts. Options: A, keep it; B, remove it.",
+        ),
+      ),
+    ],
+    [
+      "longSummaries",
+      todo(
+        item(
+          "- [ ] (1) Card: the shadow is off",
+          "Summary: The shadow is off. It reads `card.css`.",
+          "Recommended: Fix. It is small.",
+        ),
+      ),
+    ],
+    [
+      "sharedKeys",
+      todo(
+        triaged("- [ ] (1) Card: the shadow is off"),
+        triaged("- [ ] (1) Card: the shadow is off (`TODO.md:1`)"),
+      ),
+    ],
+    ["unknownPrefix", todo(triaged("- [ ] (1) Nope: the shadow is off"))],
+    ["unresolved", todo(item("- [x] (1) Chip: the dot is gone", "Done."))],
+    [
+      "unsorted",
+      todo(
+        triaged("- [ ] (2) Card: the shadow is off"),
+        triaged("- [ ] (1) Chip: the dot is gone"),
+      ),
+    ],
+    [
+      "untriaged",
+      todo(item("- [ ] (1) Card: the shadow is off", "Fix: read the role.")),
+    ],
+  ] as const)("the %s rule flags its sample", (rule, sample) => {
+    expect(rules[rule](sample)).not.toEqual([])
+  })
+
+  test("the section titles come from the headings", () => {
+    expect(titles("Intro\n\n## Bugs\n\n## Docs\n")).toEqual(["Bugs", "Docs"])
   })
 
   const PATH = /^\/?[\w@.[\]-]+(?:\/[\w@.[\]-]*)*(?::[\d,-]+)?$/

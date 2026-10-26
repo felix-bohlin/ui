@@ -1,0 +1,593 @@
+---
+import { Range } from "opui-css/astro"
+
+const domain = { max: 960, min: 240 }
+const fluidWindow = { end: 768, start: 320 }
+const viewport = 600
+
+const steps = [
+  { max: 3.5, min: 2, name: "h1", slope: 9 },
+  { max: 2.5, min: 1.5, name: "h2", slope: 6 },
+  { max: 1.5, min: 1.25, name: "h3", slope: 4 },
+  { max: 1.25, min: 1.125, name: "h4", slope: 3 },
+]
+
+const x = (px: number) => ((px - domain.min) / (domain.max - domain.min)) * 1000
+
+const ramp = (from: number, to: number) =>
+  `M 0 100 L ${x(from)} 100 L ${x(to)} 0 L 1000 0`
+
+const clampRange = (step: (typeof steps)[number]) => ({
+  from: (step.min * 16 * 100) / step.slope,
+  to: (step.max * 16 * 100) / step.slope,
+})
+
+const ticks = [320, 480, 640, 800, 960]
+
+const charts = [
+  {
+    caption: "Four ramps",
+    mode: "clamp",
+    paths: steps.map((step) => {
+      const { from, to } = clampRange(step)
+      return ramp(from, to)
+    }),
+    title: "clamp()",
+  },
+  {
+    caption: "One ramp, shared",
+    mode: "progress",
+    paths: steps.map(() => ramp(fluidWindow.start, fluidWindow.end)),
+    title: "progress()",
+  },
+]
+---
+
+<div
+  class="fluid-compare"
+  data-domain-max={domain.max}
+  data-domain-min={domain.min}
+  style={`--viewport: ${viewport}px; --fluid-min: ${fluidWindow.start}px; --fluid-max: ${fluidWindow.end}px`}
+>
+  <div class="fluid-compare-charts">
+    {
+      charts.map((chart) => (
+        <figure class="fluid-compare-chart" data-mode={chart.mode}>
+          <figcaption>
+            <code>{chart.title}</code>
+            <span>{chart.caption}</span>
+          </figcaption>
+          <div aria-hidden="true" class="fluid-compare-plot">
+            <span class="fluid-compare-y" data-end="max">
+              max
+            </span>
+            <span class="fluid-compare-y" data-end="min">
+              min
+            </span>
+            {chart.mode === "progress" && <span class="fluid-compare-window" />}
+            <svg preserveAspectRatio="none" viewBox="0 0 1000 100">
+              {chart.paths.map((d, index) => (
+                <path
+                  d={d}
+                  data-step={steps[index].name}
+                  vector-effect="non-scaling-stroke"
+                />
+              ))}
+            </svg>
+            <span class="fluid-compare-cursor" />
+            {steps.map((step) => (
+              <span
+                class="fluid-compare-dot"
+                data-step={step.name}
+                style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
+              />
+            ))}
+          </div>
+          <div aria-hidden="true" class="fluid-compare-ticks">
+            {ticks.map((tick) => (
+              <span style={`--_x: ${x(tick) / 1000}`}>{tick}</span>
+            ))}
+          </div>
+        </figure>
+      ))
+    }
+  </div>
+
+  <div class="fluid-compare-stage">
+    <div class="fluid-compare-viewport">
+      {
+        charts.map((chart) => (
+          <div class="fluid-compare-column" data-mode={chart.mode}>
+            <p class="fluid-compare-column-title">
+              <code>{chart.title}</code>
+            </p>
+            {steps.map((step) => (
+              <p
+                class="fluid-compare-row"
+                style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
+              >
+                <span class="fluid-compare-sample">Aa</span>
+                <span class="fluid-compare-readout">
+                  <span class="fluid-compare-key" data-step={step.name}>
+                    {step.name}
+                  </span>
+                  <span data-size />
+                </span>
+              </p>
+            ))}
+          </div>
+        ))
+      }
+      <span aria-hidden="true" class="fluid-compare-width">{viewport}px</span>
+      <span aria-hidden="true" class="fluid-compare-handle"></span>
+    </div>
+  </div>
+
+  <fieldset class="fluid-compare-knobs">
+    <legend class="ui-sr-only">Viewport and window</legend>
+    <Range
+      data-property="--viewport"
+      label="Viewport"
+      max={domain.max}
+      min={domain.min}
+      step={10}
+      value={viewport}
+      valueSuffix="px"
+    >
+      <code slot="start-text">100vi</code>
+    </Range>
+    <Range
+      data-property="--fluid-min"
+      label="Window start"
+      max={480}
+      min={domain.min}
+      step={16}
+      value={fluidWindow.start}
+      valueSuffix="px"
+    >
+      <code slot="start-text">--ui-fluid-min-inline-size</code>
+    </Range>
+    <Range
+      data-property="--fluid-max"
+      label="Window end"
+      max={domain.max}
+      min={480}
+      step={16}
+      value={fluidWindow.end}
+      valueSuffix="px"
+    >
+      <code slot="start-text">--ui-fluid-max-inline-size</code>
+    </Range>
+  </fieldset>
+</div>
+
+<style>
+  .fluid-compare {
+    --_domain-max: 960px;
+    --_domain-min: 240px;
+    --_h1: light-dark(oklch(0.575 0.163 255.5), oklch(0.622 0.161 255.1));
+    --_h2: light-dark(oklch(0.671 0.175 40.6), oklch(0.622 0.173 40.1));
+    --_h3: light-dark(oklch(0.669 0.141 162.1), oklch(0.621 0.128 163.1));
+    --_h4: light-dark(oklch(0.764 0.161 75.1), oklch(0.67 0.143 73.2));
+    --_x: progress(var(--viewport), var(--_domain-min), var(--_domain-max));
+    --progress: progress(var(--viewport), var(--fluid-min), var(--fluid-max));
+
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-5);
+    inline-size: 100%;
+  }
+
+  [data-step="h1"] {
+    --_color: var(--_h1);
+  }
+
+  [data-step="h2"] {
+    --_color: var(--_h2);
+  }
+
+  [data-step="h3"] {
+    --_color: var(--_h3);
+  }
+
+  [data-step="h4"] {
+    --_color: var(--_h4);
+  }
+
+  .fluid-compare-charts {
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .fluid-compare-chart {
+    display: grid;
+    gap: var(--ui-space-2);
+    justify-items: stretch;
+    margin: 0;
+    min-inline-size: 0;
+    text-align: start;
+
+    & figcaption {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--ui-font-size-small);
+      gap: var(--ui-space-2);
+
+      & code {
+        color: var(--ui-text-strong);
+        font-weight: var(--ui-font-weight-bold);
+      }
+    }
+  }
+
+  .fluid-compare-plot {
+    block-size: 7rem;
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    border-block-start: var(--ui-border-width) dashed var(--ui-border-color);
+    cursor: ew-resize;
+    margin-inline: 2.25rem 0.5rem;
+    position: relative;
+    touch-action: pan-y;
+    user-select: none;
+
+    & svg {
+      block-size: 100%;
+      inline-size: 100%;
+      inset: 0;
+      overflow: visible;
+      position: absolute;
+    }
+
+    & path {
+      fill: none;
+      stroke: var(--_color);
+      stroke-linejoin: round;
+      stroke-width: 2px;
+    }
+  }
+
+  .fluid-compare-chart[data-mode="progress"] path {
+    stroke-dasharray: 6 18;
+
+    &[data-step="h2"] {
+      stroke-dashoffset: -6;
+    }
+
+    &[data-step="h3"] {
+      stroke-dashoffset: -12;
+    }
+
+    &[data-step="h4"] {
+      stroke-dashoffset: -18;
+    }
+  }
+
+  .fluid-compare-y {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    inset-inline-end: calc(100% + var(--ui-space-2));
+    line-height: 1;
+    position: absolute;
+    translate: 0 -50%;
+
+    &[data-end="max"] {
+      inset-block-start: 0;
+    }
+
+    &[data-end="min"] {
+      inset-block-start: 100%;
+    }
+  }
+
+  .fluid-compare-window {
+    background-color: oklch(from var(--ui-primary) l c h / 10%);
+    border-inline: var(--ui-border-width) dashed
+      oklch(from var(--ui-primary) l c h / 50%);
+    inset-block: 0;
+    inset-inline-end: calc(
+      (1 - progress(var(--fluid-max), var(--_domain-min), var(--_domain-max))) *
+        100%
+    );
+    inset-inline-start: calc(
+      progress(var(--fluid-min), var(--_domain-min), var(--_domain-max)) * 100%
+    );
+    position: absolute;
+  }
+
+  .fluid-compare-cursor {
+    border-inline-start: var(--ui-border-width-thick) solid
+      var(--ui-text-strong);
+    inset-block: -0.25rem;
+    inset-inline-start: calc(var(--_x) * 100%);
+    position: absolute;
+    translate: -50% 0;
+  }
+
+  .fluid-compare-dot {
+    --_growth: progress(
+      clamp(var(--_min), var(--viewport) * var(--_slope), var(--_max)),
+      var(--_min),
+      var(--_max)
+    );
+
+    aspect-ratio: 1;
+    background-color: var(--_color);
+    border-radius: var(--ui-radius-round);
+    box-shadow: 0 0 0 2px var(--ui-surface);
+    inline-size: 0.625rem;
+    inset-block-end: calc(var(--_growth) * 100%);
+    inset-inline-start: calc(var(--_x) * 100%);
+    position: absolute;
+    translate: -50% 50%;
+
+    [data-mode="progress"] > .fluid-compare-plot > & {
+      --_growth: var(--progress);
+    }
+  }
+
+  .fluid-compare-ticks {
+    block-size: 1lh;
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    margin-inline: 2.25rem 0.5rem;
+    position: relative;
+
+    & span {
+      inset-inline-start: calc(var(--_x) * 100%);
+      position: absolute;
+      translate: -50% 0;
+    }
+
+    & span:last-child {
+      translate: -100% 0;
+    }
+  }
+
+  .fluid-compare-stage {
+    background-image: radial-gradient(
+      oklch(from var(--ui-text) l c h / 5%) 1.45px,
+      transparent 1.45px
+    );
+    background-size: 20px 20px;
+    padding-block: var(--ui-space-3);
+  }
+
+  .fluid-compare-viewport {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width-thick) dashed var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    box-sizing: border-box;
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    inline-size: min(100%, var(--viewport));
+    padding: var(--ui-space-3);
+    position: relative;
+  }
+
+  .fluid-compare-column {
+    align-content: start;
+    display: grid;
+    gap: var(--ui-space-1);
+    min-inline-size: 0;
+
+    &[data-mode="clamp"] .fluid-compare-row {
+      font-size: clamp(
+        var(--_min),
+        var(--viewport) * var(--_slope),
+        var(--_max)
+      );
+    }
+
+    &[data-mode="progress"] .fluid-compare-row {
+      font-size: calc(
+        var(--_min) + (var(--_max) - var(--_min)) * var(--progress)
+      );
+    }
+  }
+
+  .fluid-compare-column-title {
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .fluid-compare-row {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--ui-space-2);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .fluid-compare-sample {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-bold);
+  }
+
+  .fluid-compare-readout {
+    align-items: center;
+    color: var(--ui-text);
+    display: inline-flex;
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    gap: var(--ui-space-1);
+    line-height: 1.4;
+  }
+
+  .fluid-compare-key {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.25em;
+
+    &:before {
+      background-color: var(--_color);
+      block-size: 0.625rem;
+      border-radius: var(--ui-radius-round);
+      content: "";
+      inline-size: 0.625rem;
+    }
+  }
+
+  .fluid-compare-width {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    inset-block-start: 0;
+    inset-inline-end: var(--ui-space-3);
+    line-height: 1;
+    padding-inline: var(--ui-space-1);
+    position: absolute;
+    translate: 0 -50%;
+  }
+
+  .fluid-compare-handle {
+    align-items: center;
+    background-color: var(--ui-surface);
+    block-size: 3rem;
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-round);
+    cursor: ew-resize;
+    display: grid;
+    inline-size: 1rem;
+    inset-block-start: 50%;
+    inset-inline-start: 100%;
+    justify-items: center;
+    position: absolute;
+    touch-action: none;
+    translate: -50% -50%;
+
+    &:before {
+      block-size: 1.25rem;
+      border-inline: var(--ui-border-width) solid var(--ui-text);
+      content: "";
+      inline-size: 0.25rem;
+    }
+
+    &:hover,
+    .fluid-compare[data-dragging] & {
+      border-color: var(--ui-primary);
+    }
+  }
+
+  .fluid-compare-knobs {
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+      overflow-wrap: anywhere;
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".fluid-compare")
+    .forEach((compare) => {
+      const domain = {
+        max: Number(compare.dataset.domainMax),
+        min: Number(compare.dataset.domainMin),
+      }
+      const inputs = [
+        ...compare.querySelectorAll<HTMLInputElement>("input[type=range]"),
+      ]
+      const viewportInput = inputs.find(
+        (input) => input.dataset.property === "--viewport",
+      )
+      const value = (property: string) =>
+        Number(
+          inputs.find((input) => input.dataset.property === property)?.value,
+        )
+      const frame = compare.querySelector<HTMLElement>(
+        ".fluid-compare-viewport",
+      )
+
+      const x = (px: number) =>
+        ((px - domain.min) / (domain.max - domain.min)) * 1000
+
+      const render = () => {
+        inputs.forEach((input) =>
+          compare.style.setProperty(
+            input.dataset.property ?? "",
+            `${input.value}px`,
+          ),
+        )
+        const d = `M 0 100 L ${x(value("--fluid-min"))} 100 L ${x(value("--fluid-max"))} 0 L 1000 0`
+        compare
+          .querySelectorAll('[data-mode="progress"] path')
+          .forEach((path) => path.setAttribute("d", d))
+        const width = compare.querySelector(".fluid-compare-width")
+        if (width) width.textContent = `${value("--viewport")}px`
+        compare
+          .querySelectorAll<HTMLElement>(".fluid-compare-row")
+          .forEach((row) => {
+            const size = row.querySelector("[data-size]")
+            if (size) {
+              size.textContent = `${Number.parseFloat(getComputedStyle(row).fontSize).toFixed(1)}px`
+            }
+          })
+      }
+
+      const setViewport = (px: number) => {
+        if (!viewportInput) return
+        viewportInput.value = String(px)
+        viewportInput.dispatchEvent(new Event("input", { bubbles: true }))
+      }
+
+      const drag = (
+        target: HTMLElement | null,
+        toValue: (event: PointerEvent) => number,
+      ) => {
+        target?.addEventListener("pointerdown", (event) => {
+          if (event.button !== 0) return
+          event.preventDefault()
+          target.setPointerCapture(event.pointerId)
+          compare.dataset.dragging = ""
+          setViewport(toValue(event))
+          const move = (moveEvent: PointerEvent) =>
+            setViewport(toValue(moveEvent))
+          const end = () => {
+            delete compare.dataset.dragging
+            target.removeEventListener("pointermove", move)
+          }
+          target.addEventListener("pointermove", move)
+          target.addEventListener("lostpointercapture", end, { once: true })
+        })
+      }
+
+      drag(
+        compare.querySelector(".fluid-compare-handle"),
+        (event) => event.clientX - (frame?.getBoundingClientRect().left ?? 0),
+      )
+      compare
+        .querySelectorAll<HTMLElement>(".fluid-compare-plot")
+        .forEach((plot) =>
+          drag(plot, (event) => {
+            const rect = plot.getBoundingClientRect()
+            return (
+              domain.min +
+              ((event.clientX - rect.left) / rect.width) *
+                (domain.max - domain.min)
+            )
+          }),
+        )
+
+      inputs.forEach((input) => input.addEventListener("input", render))
+      render()
+    })
+</script>

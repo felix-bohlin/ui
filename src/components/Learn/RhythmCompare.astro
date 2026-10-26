@@ -1,0 +1,249 @@
+---
+import { Range } from "opui-css/astro"
+
+const fontSize = 29
+const step = 4
+
+const columns = [
+  { code: "line-height: 1.2", mode: "raw" },
+  { code: "round(up, 1em + 2 * step, step)", mode: "round" },
+]
+---
+
+<div
+  class="rhythm-compare"
+  style={`--font-size: ${fontSize}px; --step: ${step}px`}
+>
+  <div class="rhythm-compare-columns">
+    {
+      columns.map((column) => (
+        <div class="rhythm-compare-column" data-mode={column.mode}>
+          <p class="rhythm-compare-code">
+            <code>{column.code}</code>
+          </p>
+          <div class="rhythm-compare-grid">
+            <p class="rhythm-compare-heading">
+              {["Three lines", "of a heading", "on the grid"].map((line) => (
+                <span class="rhythm-compare-line">
+                  {line}
+                  <span aria-hidden="true" class="rhythm-compare-edge" />
+                </span>
+              ))}
+            </p>
+          </div>
+          <p class="rhythm-compare-readout">
+            <span data-line-height />
+            <span data-steps />
+          </p>
+        </div>
+      ))
+    }
+  </div>
+
+  <fieldset class="rhythm-compare-knobs">
+    <legend class="ui-sr-only">Font size and rhythm step</legend>
+    <Range
+      data-property="--font-size"
+      label="Font size"
+      max={64}
+      min={12}
+      value={fontSize}
+      valueSuffix="px"
+    />
+    <Range
+      data-property="--step"
+      label="Rhythm step"
+      max={12}
+      min={2}
+      value={step}
+      valueSuffix="px"
+    >
+      <code slot="start-text">--ui-rhythm-step</code>
+    </Range>
+  </fieldset>
+</div>
+
+<style>
+  .rhythm-compare {
+    display: grid;
+    gap: var(--ui-space-5);
+    inline-size: 100%;
+  }
+
+  .rhythm-compare-columns {
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .rhythm-compare-column {
+    align-content: start;
+    display: grid;
+    gap: var(--ui-space-2);
+    min-inline-size: 0;
+  }
+
+  .rhythm-compare-code {
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .rhythm-compare-grid {
+    display: grid;
+    position: relative;
+
+    &:after {
+      background-image: linear-gradient(
+        to bottom,
+        oklch(from var(--ui-primary) l c h / 40%) var(--ui-border-width),
+        transparent var(--ui-border-width)
+      );
+      background-size: 100% var(--step);
+      content: "";
+      inset: 0 0 calc(-1 * var(--ui-border-width));
+      pointer-events: none;
+      position: absolute;
+    }
+  }
+
+  .rhythm-compare-heading {
+    color: var(--ui-text-strong);
+    font-size: var(--font-size);
+    font-weight: var(--ui-font-weight-bold);
+    margin: 0;
+    overflow-wrap: anywhere;
+
+    [data-mode="raw"] & {
+      line-height: 1.2;
+    }
+
+    [data-mode="round"] & {
+      line-height: round(up, 1em + 2 * var(--step), var(--step));
+    }
+  }
+
+  .rhythm-compare-line {
+    --_edge: var(--ui-text-strong);
+
+    background-color: oklch(from var(--ui-primary) l c h / 8%);
+    box-shadow: inset 0 calc(-1 * var(--ui-border-width-thick)) 0 var(--_edge);
+    display: block;
+    position: relative;
+
+    &:nth-child(even) {
+      background-color: oklch(from var(--ui-primary) l c h / 18%);
+    }
+
+    &:has([data-off]) {
+      --_edge: var(--ui-invalid);
+    }
+  }
+
+  .rhythm-compare-edge {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    font-weight: normal;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    line-height: 1;
+    padding-inline: var(--ui-space-1);
+    position: absolute;
+    translate: 0 50%;
+
+    &[data-off] {
+      color: var(--ui-invalid-text);
+    }
+  }
+
+  .rhythm-compare-readout {
+    color: var(--ui-text);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    gap: 0 var(--ui-space-2);
+    margin: 0;
+
+    [data-mode="raw"] & [data-steps][data-off] {
+      color: var(--ui-invalid-text);
+    }
+  }
+
+  .rhythm-compare-knobs {
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".rhythm-compare")
+    .forEach((compare) => {
+      const inputs = [
+        ...compare.querySelectorAll<HTMLInputElement>("input[type=range]"),
+      ]
+      const step = () =>
+        Number(
+          inputs.find((input) => input.dataset.property === "--step")?.value,
+        )
+
+      const render = () => {
+        inputs.forEach((input) =>
+          compare.style.setProperty(
+            input.dataset.property ?? "",
+            `${input.value}px`,
+          ),
+        )
+        compare
+          .querySelectorAll<HTMLElement>(".rhythm-compare-column")
+          .forEach((column) => {
+            const heading = column.querySelector(".rhythm-compare-heading")
+            if (!heading) return
+            const lineHeight = Number.parseFloat(
+              getComputedStyle(heading).lineHeight,
+            )
+            const steps = lineHeight / step()
+            column
+              .querySelectorAll<HTMLElement>(".rhythm-compare-edge")
+              .forEach((edge, index) => {
+                const position = lineHeight * (index + 1)
+                const off = Math.abs(
+                  position / step() - Math.round(position / step()),
+                )
+                edge.textContent = `${Number(position.toFixed(2))}px`
+                edge.toggleAttribute("data-off", off > 0.001)
+              })
+            const lineText = column.querySelector("[data-line-height]")
+            const stepsText = column.querySelector<HTMLElement>("[data-steps]")
+            if (lineText) {
+              lineText.textContent = `Line ${Number(lineHeight.toFixed(2))}px`
+            }
+            if (!stepsText) return
+            const whole = Math.abs(steps - Math.round(steps)) < 0.001
+            stepsText.textContent = whole
+              ? `${Math.round(steps)} steps, on the grid`
+              : `${Number(steps.toFixed(2))} steps, off by ${Number(((Math.ceil(steps) - steps) * step()).toFixed(2))}px`
+            stepsText.toggleAttribute("data-off", !whole)
+          })
+      }
+
+      inputs.forEach((input) => input.addEventListener("input", render))
+      render()
+    })
+</script>

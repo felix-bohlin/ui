@@ -19,11 +19,11 @@ const steps = [
 .h1 { font-size: clamp(2rem, var(--viewport) * 0.09, 3.5rem); }
 .h2 { font-size: clamp(1.5rem, var(--viewport) * 0.06, 2.5rem); }
 .h3 { font-size: clamp(1.25rem, var(--viewport) * 0.04, 1.5rem); }
-.h4 { font-size: clamp(1.1rem, var(--viewport) * 0.03, 1.25rem); }`,
+.h4 { font-size: clamp(1.125rem, var(--viewport) * 0.03, 1.25rem); }`,
     notes: [
       "<code>var(--viewport) * 0.09</code> stands in for <code>9vi</code>, so the slider plays the viewport",
-      "Each heading grows over its own range: the <code>h1</code> from 356 to 622px, the <code>h4</code> from 587 to 667px",
-      "At 600px, the starting value, the <code>h1</code> is nearly full size, the <code>h3</code> is already done and the <code>h4</code> has barely moved",
+      "Each heading grows over its own range: the <code>h1</code> from 356 to 622px, the <code>h4</code> from 600 to 667px",
+      "At 600px, the starting value, the <code>h1</code> is nearly full size, the <code>h3</code> is already done and the <code>h4</code> hasn't moved",
     ],
     title: "A clamp() per heading",
   },
@@ -36,7 +36,7 @@ const steps = [
 .h1 { font-size: calc(2rem + (3.5rem - 2rem) * var(--progress)); }
 .h2 { font-size: calc(1.5rem + (2.5rem - 1.5rem) * var(--progress)); }
 .h3 { font-size: calc(1.25rem + (1.5rem - 1.25rem) * var(--progress)); }
-.h4 { font-size: calc(1.1rem + (1.25rem - 1.1rem) * var(--progress)); }`,
+.h4 { font-size: calc(1.125rem + (1.25rem - 1.125rem) * var(--progress)); }`,
     features: ["progress-function"],
     notes: [
       "<code>progress(value, start, end)</code> is 0 at the start, 1 at the end, clamped in between",

@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import ValidityCompare from "../../components/Learn/ValidityCompare.astro"
 import Validation from "../../component-examples/text-field/Validation.astro"
 ---
 
@@ -66,8 +67,26 @@ import Validation from "../../component-examples/text-field/Validation.astro"
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      Focus a required field and leave it empty. The error only shows once you
-      leave.
+      Two required email fields, one styled with each selector. Compare them on
+      load, after you type and leave, after <strong>Submit</strong> and after
+      <strong>Reset</strong>.
+    </p>
+    <Example showCode={false}>
+      <ValidityCompare />
+    </Example>
+    <ul>
+      <li>
+        <code>:invalid</code> is red before anyone has touched the form, and turns
+        red again after a reset
+      </li>
+      <li>
+        <code>:user-invalid</code> waits until you leave a changed field or submit,
+        and a reset clears it
+      </li>
+    </ul>
+    <p>
+      The real fields. Focus a required one and leave it empty. The error only
+      shows once you leave.
     </p>
     <Example column spacious showCode={false}>
       <Validation />

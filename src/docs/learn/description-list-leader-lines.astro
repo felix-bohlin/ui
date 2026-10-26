@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import Resizable from "../../components/Learn/Resizable.astro"
 import Bordered from "../../component-examples/description-list/Bordered.astro"
 ---
 
@@ -99,10 +100,14 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      The solid and the dotted variant. Narrow the window and the pairs stack.
+      The solid and the dotted variant. Drag the edge of the dashed box, or
+      focus its handle and use the arrow keys. At <code>45ch</code> or narrower the
+      pairs stack, whatever the size of the window.
     </p>
-    <Example column spacious showCode={false}>
-      <Bordered />
+    <Example showCode={false}>
+      <Resizable label="List width">
+        <Bordered />
+      </Resizable>
     </Example>
     <BuildUpLink />
   </section>

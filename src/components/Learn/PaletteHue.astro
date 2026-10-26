@@ -1,0 +1,78 @@
+---
+import { Callout, CalloutContent, CalloutIcon, Range } from "opui-css/astro"
+
+const hue = 250
+const shades = Array.from({ length: 16 }, (_, index) => index + 1)
+---
+
+<div class="palette-hue ui-info" style={`--ui-info: oklch(0.58 0.21 ${hue})`}>
+  <div class="palette-hue-callouts">
+    <Callout severity="info">
+      <CalloutIcon />
+      <CalloutContent>A tonal callout from one source color</CalloutContent>
+    </Callout>
+    <Callout severity="info" variant="outlined">
+      <CalloutIcon />
+      <CalloutContent>An outlined callout from the same one</CalloutContent>
+    </Callout>
+  </div>
+  <ol aria-label="Derived shades" class="palette-hue-shades">
+    {
+      shades.map((shade) => (
+        <li style={`--_shade: var(--ui-color-${shade})`}>
+          <span class="ui-sr-only">--ui-color-{shade}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <Range label="Hue" max={360} min={0} value={hue} valueSuffix="°">
+    <code slot="start-text">--ui-info</code>
+  </Range>
+</div>
+
+<style>
+  .palette-hue {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+  }
+
+  .palette-hue-callouts {
+    display: grid;
+    gap: var(--ui-space-3);
+  }
+
+  .palette-hue-shades {
+    display: grid;
+    gap: 2px;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      background-color: var(--_shade);
+      block-size: 2rem;
+      margin: 0;
+
+      &:first-child {
+        border-end-start-radius: var(--ui-radius);
+        border-start-start-radius: var(--ui-radius);
+      }
+
+      &:last-child {
+        border-end-end-radius: var(--ui-radius);
+        border-start-end-radius: var(--ui-radius);
+      }
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".palette-hue").forEach((palette) => {
+    const input = palette.querySelector<HTMLInputElement>("input[type=range]")
+    input?.addEventListener("input", () =>
+      palette.style.setProperty("--ui-info", `oklch(0.58 0.21 ${input.value})`),
+    )
+  })
+</script>

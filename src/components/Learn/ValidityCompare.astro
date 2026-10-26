@@ -1,0 +1,118 @@
+---
+import { Button, TextField } from "opui-css/astro"
+
+const columns = [
+  { label: "Styled with :invalid", mode: "invalid", selector: ":invalid" },
+  {
+    label: "Styled with :user-invalid",
+    mode: "user-invalid",
+    selector: ":user-invalid",
+  },
+]
+---
+
+<form class="validity-compare">
+  <div class="validity-compare-columns">
+    {
+      columns.map((column) => (
+        <div class="validity-compare-column" data-mode={column.mode}>
+          <p class="validity-compare-title">
+            <code>{column.selector}</code>
+            <span class="validity-compare-status" data-match="true">
+              matches
+            </span>
+            <span class="validity-compare-status" data-match="false">
+              doesn't match
+            </span>
+          </p>
+          <TextField
+            endText="Enter an email address."
+            label={column.label}
+            placeholder="name@example.com"
+            required
+            type="email"
+          />
+        </div>
+      ))
+    }
+  </div>
+  <div class="validity-compare-actions">
+    <Button type="submit" variant="filled">Submit</Button>
+    <Button type="reset">Reset</Button>
+  </div>
+</form>
+
+<style>
+  .validity-compare {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+  }
+
+  .validity-compare-columns {
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .validity-compare-column {
+    align-content: start;
+    display: grid;
+    gap: var(--ui-space-2);
+    min-inline-size: 0;
+
+    &[data-mode="invalid"] :global(.ui-text-field:has(:invalid)) {
+      --_accent: var(--ui-invalid);
+      --_affix-text-color: var(--ui-invalid-text);
+      --_border-color: var(--ui-invalid);
+      --_helper-text-color: var(--ui-invalid-text);
+    }
+  }
+
+  .validity-compare-title {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .validity-compare-status {
+    color: var(--ui-text);
+
+    &[data-match="true"] {
+      color: var(--ui-invalid-text);
+      display: none;
+    }
+
+    [data-mode="invalid"]:has(:invalid) &[data-match="true"],
+    [data-mode="user-invalid"]:has(:user-invalid) &[data-match="true"] {
+      display: inline;
+    }
+
+    [data-mode="invalid"]:has(:invalid) &[data-match="false"],
+    [data-mode="user-invalid"]:has(:user-invalid) &[data-match="false"] {
+      display: none;
+    }
+  }
+
+  .validity-compare-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLFormElement>(".validity-compare")
+    .forEach((form) =>
+      form.addEventListener("submit", (event) => event.preventDefault()),
+    )
+</script>

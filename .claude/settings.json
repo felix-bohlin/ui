@@ -1,11 +1,34 @@
 {
   "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-edit.mjs",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|MultiEdit|Write"
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/stop.mjs",
+            "timeout": 120,
+            "type": "command"
           }
         ]
       }

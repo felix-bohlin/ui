@@ -1,17 +1,32 @@
 :root {
-  --syntax-comment: light-dark(#007a00, #74a061);
-  --syntax-constant: light-dark(#08774e, #b5cea8);
-  --syntax-function: light-dark(#795e26, #dcdcaa);
-  --syntax-keyword: light-dark(#ac00d8, #c586c0);
-  --syntax-operator: light-dark(#000000, #d4d4d4);
-  --syntax-property: light-dark(#d30000, #9cdcfe);
-  --syntax-punctuation: light-dark(#800000, #949494);
-  --syntax-selector: light-dark(#800000, #d7ba7d);
-  --syntax-string: light-dark(#a31515, #ce9178);
-  --syntax-tag: light-dark(#800000, #569cd6);
-  --syntax-type: light-dark(#227188, #4ec9b0);
-  --syntax-value: light-dark(#0000ff, #ce9178);
-  --syntax-variable: light-dark(#001080, #9cdcfe);
+  --syntax-comment: light-dark(
+    oklch(0.502 0.171 142.49),
+    oklch(0.658 0.1014 137)
+  );
+  --syntax-constant: light-dark(
+    oklch(0.503 0.111 160.3),
+    oklch(0.823 0.059 135)
+  );
+  --syntax-function: light-dark(oklch(0.498 0.081 83), oklch(0.882 0.066 108));
+  --syntax-keyword: light-dark(
+    oklch(0.553 0.2706 316.3),
+    oklch(0.702 0.109 329)
+  );
+  --syntax-operator: light-dark(oklch(0 0 0), oklch(0.87 0 0));
+  --syntax-property: light-dark(
+    oklch(0.544 0.2234 29.23),
+    oklch(0.863 0.08 232)
+  );
+  --syntax-punctuation: light-dark(oklch(0.377 0.155 29.2), oklch(0.667 0 0));
+  --syntax-selector: light-dark(oklch(0.377 0.155 29.2), oklch(0.8 0.086 85));
+  --syntax-string: light-dark(oklch(0.459 0.175 27.7), oklch(0.71 0.083 43));
+  --syntax-tag: light-dark(oklch(0.377 0.155 29.2), oklch(0.671 0.112 246));
+  --syntax-type: light-dark(oklch(0.512 0.082 222), oklch(0.76 0.115 177));
+  --syntax-value: light-dark(oklch(0.452 0.3132 264.05), oklch(0.71 0.083 43));
+  --syntax-variable: light-dark(
+    oklch(0.286 0.178 264.2),
+    oklch(0.863 0.08 232)
+  );
 }
 
 ::highlight(comment),

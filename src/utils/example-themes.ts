@@ -12,7 +12,14 @@ export const EXAMPLE_THEMES = Object.entries(files)
         ...(css.match(/:where\(html[^)]*\)\s*\{([^}]*)\}/)?.[1] ?? "").matchAll(
           /^\s*(--[\w-]+):\s*([^;]+);/gm,
         ),
-      ].map(([, token, value]) => [token, value.trim()]),
+      ].map(([, token, value]) => [
+        token,
+        value
+          .replace(/\s+/g, " ")
+          .replace(/\(\s/g, "(")
+          .replace(/\s\)/g, ")")
+          .trim(),
+      ]),
     )
     return {
       css,

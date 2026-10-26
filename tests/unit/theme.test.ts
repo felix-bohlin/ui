@@ -35,7 +35,7 @@ describe("customCss", () => {
   test("hands contrast-sensitive roles back under more contrast", () => {
     const css = customCss({
       "--ui-radius": "1rem",
-      "--ui-text-subtle": "#999",
+      "--ui-text-subtle": "oklch(0.68 0 0)",
     })
     expect(css).toContain("@media (prefers-contrast: more)")
     expect(css).toContain(
@@ -188,8 +188,10 @@ describe("brand", () => {
 
   test("presetBrand reads the example theme's brand", () => {
     expect(presetBrand(null)).toBeUndefined()
-    expect(presetBrand("bootstrap")).toBe("#0d6efd")
-    expect(presetBrand("m3")).toBe("light-dark(#6750a4, #d0bcff)")
+    expect(presetBrand("bootstrap")).toBe("oklch(0.578 0.228 260)")
+    expect(presetBrand("m3")).toBe(
+      "light-dark(oklch(0.496 0.13 294), oklch(0.835 0.095 298))",
+    )
     expect(presetBrand("shadcn")).toBe(
       "light-dark(oklch(0.205 0 0), oklch(0.922 0 0))",
     )

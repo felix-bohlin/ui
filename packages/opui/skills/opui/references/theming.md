@@ -178,7 +178,7 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 
 ```css
 :where(html) {
-  --ui-shadow-color: light-dark(hsl(250 30% 20% / 2%), hsl(0 0% 0% / 30%));
+  --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }
 ```
@@ -219,12 +219,12 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 `--ui-contrast` is `normal`, or `more` under `prefers-contrast: more`. More contrast changes no color directly. It tightens the knobs the roles are derived from, and every role follows: `--ui-text-strength-light` and `--ui-text-strength-dark` (how much of `--ui-text-strong` goes into `--ui-text`), `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength` for the borders, `--ui-text-max-lightness`, `--ui-text-min-lightness` and `--ui-text-max-chroma` for the `-text` roles, `--ui-accent-fill-max-lightness` for intent fills, `--ui-primary-max-lightness` and `--ui-primary-min-lightness` for the primary, the `--ui-palette-*-lightness` limits for the palette roles, and `--ui-focus-ring-width`. Their values in both modes are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast). Components with translucent fills or text have style queries of their own for the shape changes.
 
-A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it, so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-border-color: #eee`, owns that role in every contrast mode. Set the knob instead, or hand the role back to the library under more contrast with `revert-layer`, which drops the theme's value and keeps the library's formula, computed from the theme's own `--ui-text-strong` and `--ui-surface`:
+A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it, so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-border-color: oklch(0.95 0 0)`, owns that role in every contrast mode. Set the knob instead, or hand the role back to the library under more contrast with `revert-layer`, which drops the theme's value and keeps the library's formula, computed from the theme's own `--ui-text-strong` and `--ui-surface`:
 
 ```css
 @layer theme.custom {
   :where(html, .ui-palette, .ui-contrast-more) {
-    --ui-border-color: #eee;
+    --ui-border-color: oklch(0.95 0 0);
   }
 
   @media (prefers-contrast: more) {

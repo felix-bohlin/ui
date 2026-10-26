@@ -423,7 +423,11 @@ const tour = [
 
       &:before {
         inset: calc(var(--size-8) * -1);
-        mask-image: radial-gradient(closest-side, #000 30%, transparent);
+        mask-image: radial-gradient(
+          closest-side,
+          oklch(0 0 0) 30%,
+          transparent
+        );
         opacity: 0.15;
       }
 

@@ -10,8 +10,9 @@ const theme = {
   preset: "m3",
   tokens: {
     "--ui-font-body": '"DM Sans", Avenir, sans-serif',
-    "--ui-palette-source": "#ff3e00",
-    "--ui-primary-source": "light-dark(#ff3e00, oklch(0.8 0.1 34))",
+    "--ui-palette-source": "oklch(0.654 0.234 34.2)",
+    "--ui-primary-source":
+      "light-dark(oklch(0.654 0.234 34.2), oklch(0.8 0.1 34))",
     "--ui-radius": "0.25rem",
   },
 }
@@ -43,7 +44,7 @@ describe("encodeTheme and decodeTheme", () => {
   test("keep brackets, quotes and marks inside a quoted name", () => {
     const tokens = {
       "--ui-font-body": `"Hey! (Display) [2]", 'It"s', serif`,
-      "--ui-shadow-surface": "0 1px 2px rgb(0 0 0 / 0.3)",
+      "--ui-shadow-surface": "0 1px 2px oklch(0 0 0 / 0.3)",
     }
     expect(decodeTheme(encodeTheme({ preset: null, tokens }))?.tokens).toEqual(
       tokens,

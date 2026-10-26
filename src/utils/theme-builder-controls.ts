@@ -117,15 +117,15 @@ const shadows = (tokens: ThemeTokens) => ({
 })
 
 const MATERIAL_SHADOW =
-  "0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15)"
+  "0 1px 2px 0 oklch(0 0 0 / 0.3), 0 1px 3px 1px oklch(0 0 0 / 0.15)"
 
 const MATERIAL_SHADOW_HIGH =
-  "0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15)"
+  "0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15)"
 
 const SOFT_SHADOW =
-  "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"
+  "0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1)"
 
-const SUBTLE_SHADOW = "0 0.125rem 0.25rem rgb(0 0 0 / 0.075)"
+const SUBTLE_SHADOW = "0 0.125rem 0.25rem oklch(0 0 0 / 0.075)"
 
 const HEADING_SIZE_TOKENS = [1, 2, 3, 4, 5, 6].map(
   (level) => `--ui-font-size-h${level}`,
@@ -1139,13 +1139,13 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Soft",
             tokens: shadows({
-              "--ui-shadow-control": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+              "--ui-shadow-control": "0 1px 2px 0 oklch(0 0 0 / 0.05)",
               "--ui-shadow-elevated":
-                "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+                "0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1)",
               "--ui-shadow-overlay":
-                "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+                "0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)",
               "--ui-shadow-scroll":
-                "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+                "0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1)",
               "--ui-shadow-selected": SOFT_SHADOW,
             }),
             value: "soft",
@@ -1292,8 +1292,9 @@ export const GROUPS: ControlGroup[] = [
             label: "Gray",
             tokens: {
               ...revert("--ui-control-accent", "--ui-on-control-accent"),
-              "--ui-button-accent": "light-dark(#6a737b, #adb5bd)",
-              "--ui-button-on-accent": "light-dark(#fff, #000)",
+              "--ui-button-accent":
+                "light-dark(oklch(0.525 0.017 245), oklch(0.77 0.014 248))",
+              "--ui-button-on-accent": "light-dark(oklch(1 0 0), oklch(0 0 0))",
             },
             value: "gray",
           },

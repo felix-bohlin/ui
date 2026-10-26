@@ -64,8 +64,7 @@ const GAMUT_TEXT = {
   wide: "Beyond Display P3. Screens show the nearest color they can.",
 }
 
-const INVALID_TEXT =
-  "Not a color. Try oklch(0.6 0.2 250), #ff3e00 or any CSS color."
+const INVALID_TEXT = "Not a color. Try oklch(0.6 0.2 250) or any CSS color."
 
 const readColor = (text: string): Color | null => {
   if (/\b(?:attr|env|var)\(|currentcolor/i.test(text)) return null

@@ -207,7 +207,10 @@ describe("evaluatePair and summarize", () => {
   })
 
   test("keeps the exception only while the user's tokens leave the colors alone", () => {
-    const own = { preset: "shadcn", tokens: { "--ui-border-color": "#ccc" } }
+    const own = {
+      preset: "shadcn",
+      tokens: { "--ui-border-color": "oklch(0.85 0 0)" },
+    }
     expect(
       evaluatePair(
         pair,

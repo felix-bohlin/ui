@@ -356,7 +356,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-selected-strong":
     "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
   "--ui-shadow-color":
-    "Color of every shadow, with its base opacity. Each layer of `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll` and `--ui-shadow-selected` adds its own opacity on top, with relative color. `hsl(220 3% 15% / 1%)` in light mode and `hsl(220 40% 2% / 20%)` in dark mode, also in `.ui-light` and `.ui-dark` parts of the page.",
+    "Color of every shadow, with its base opacity. Each layer of `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll` and `--ui-shadow-selected` adds its own opacity on top, with relative color. `oklch(0.268 0.003 265 / 1%)` in light mode and `oklch(0.11 0.01 259 / 20%)` in dark mode, also in `.ui-light` and `.ui-dark` parts of the page.",
   "--ui-shadow-control":
     "Shadow of buttons with a variant, standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":

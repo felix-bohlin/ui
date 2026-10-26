@@ -32,7 +32,8 @@ describe("ownTokens", () => {
   test("give the brand color its accent while it follows the brand", () => {
     expect(
       ownTokens(control("brand"), {
-        "--ui-primary-source": "light-dark(oklch(0.6 0.1 160), #41b883)",
+        "--ui-primary-source":
+          "light-dark(oklch(0.6 0.1 160), oklch(0.698 0.12 160))",
       }),
     ).toEqual(["--ui-palette-source", "--ui-primary-source"])
   })

@@ -17,10 +17,18 @@ function toGamma(c: number): number {
 
 /** Convert a 6-digit hex string (e.g. "#3b62d9") to OKLCH components. */
 export function hexToOklch(hex: string): { L: number; C: number; H: number } {
-  const r = parseInt(hex.slice(1, 3), 16) / 255
-  const g = parseInt(hex.slice(3, 5), 16) / 255
-  const b = parseInt(hex.slice(5, 7), 16) / 255
+  return srgbToOklch(
+    parseInt(hex.slice(1, 3), 16) / 255,
+    parseInt(hex.slice(3, 5), 16) / 255,
+    parseInt(hex.slice(5, 7), 16) / 255,
+  )
+}
 
+export function srgbToOklch(
+  r: number,
+  g: number,
+  b: number,
+): { L: number; C: number; H: number } {
   const lr = toLinear(r)
   const lg = toLinear(g)
   const lb = toLinear(b)

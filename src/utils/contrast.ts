@@ -217,7 +217,7 @@ export const resolveColors = (
       const host = document.createElement("div")
       host.className = `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`
       host.hidden = true
-      host.style.color = "rgb(1 2 3)"
+      host.style.color = "transparent"
       host.style.setProperty("forced-color-adjust", "none")
       for (const name of unset) host.style.setProperty(name, "initial")
       host.append(

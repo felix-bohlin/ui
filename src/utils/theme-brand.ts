@@ -94,7 +94,7 @@ export const brandTokens = (color: string) => {
 export const resolveOklch = (color: string) => {
   const host = document.createElement("div")
   host.hidden = true
-  host.style.color = "rgb(1 2 3)"
+  host.style.color = "transparent"
   const probe = document.createElement("div")
   probe.style.color = `oklch(from ${color} l c h)`
   probe.style.forcedColorAdjust = "none"

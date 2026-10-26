@@ -1115,7 +1115,7 @@ A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-
 ```css
 @layer theme.custom {
   :where(html, .ui-palette, .ui-contrast-more) {
-    --ui-primary-source: #0d6efd;
+    --ui-primary-source: oklch(0.578 0.228 260);
   }
 }
 ```
@@ -1230,13 +1230,16 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 
 `--ui-info` and `--ui-blue` use hue 240, the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
-Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-selected`) builds its layers from `--ui-shadow-color`, `light-dark(hsl(220 3% 15% / 1%), hsl(220 40% 2% / 20%))`, so it darkens under `.ui-dark`, also on a part of the page, and the OS dark preference. There is one `--ui-shadow-elevated` for both schemes and no `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark` or `--ui-shadow-strength`; set `--ui-shadow-color` to change the color in each scheme, or `--ui-shadow-elevated` to replace the shadow:
+Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-selected`) builds its layers from `--ui-shadow-color`, `light-dark(oklch(0.268 0.003 265 / 1%), oklch(0.11 0.01 259 / 20%))`, so it darkens under `.ui-dark`, also on a part of the page, and the OS dark preference. There is one `--ui-shadow-elevated` for both schemes and no `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark` or `--ui-shadow-strength`; set `--ui-shadow-color` to change the color in each scheme, or `--ui-shadow-elevated` to replace the shadow:
 
 ```css
 @layer theme.custom {
   :where(html, .ui-palette, .ui-contrast-more) {
-    --ui-shadow-color: light-dark(hsl(250 30% 20% / 2%), hsl(0 0% 0% / 30%));
-    --ui-shadow-elevated: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+    --ui-shadow-color: light-dark(
+      oklch(0.28 0.055 290 / 2%),
+      oklch(0 0 0 / 30%)
+    );
+    --ui-shadow-elevated: 0 0.125rem 0.25rem oklch(0 0 0 / 0.075);
   }
 }
 ```
@@ -1246,8 +1249,8 @@ Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-s
 Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
 
 ```diff
-- .sidebar { --gray-4: #e5e7eb; }
-+ .sidebar { --ui-surface-filled: #e5e7eb; }
+- .sidebar { --gray-4: oklch(0.928 0.006 265); }
++ .sidebar { --ui-surface-filled: oklch(0.928 0.006 265); }
 ```
 
 `--ui-control-size-large` is `3rem` (48px) instead of 46px, so large buttons, fields, toggles and selects grow by 2px. Set `--ui-control-size-large: calc(2.875rem * var(--ui-density))` to keep the old height.

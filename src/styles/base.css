@@ -63,7 +63,7 @@
 }
 
 .anatomy {
-  --_anatomy-border-gray: 2px dotted gray;
+  --_anatomy-border-gray: 2px dotted oklch(0.6 0 0);
   --_anatomy-border-red: 2px dotted tomato;
 
   pointer-events: none;

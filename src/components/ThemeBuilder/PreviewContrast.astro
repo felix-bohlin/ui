@@ -65,6 +65,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
 </div>
 
 <script>
+  import { formatOklch, srgbToOklch } from "../../utils/color-utils"
   import {
     CONTRAST_MODES,
     checkPromises,
@@ -97,12 +98,9 @@ import { CONTRAST_MODES } from "../../utils/contrast"
 
   const SVG = "http://www.w3.org/2000/svg"
 
-  const rgb = (color: Rgba | null) =>
+  const toOklch = (color: Rgba | null) =>
     color
-      ? `rgb(${color
-          .slice(0, 3)
-          .map((channel) => Math.round(channel * 255))
-          .join(" ")})`
+      ? formatOklch(srgbToOklch(color[0], color[1], color[2]))
       : "transparent"
 
   const element = <K extends keyof HTMLElementTagNameMap>(
@@ -183,8 +181,8 @@ import { CONTRAST_MODES } from "../../utils/contrast"
   const updateCell = (td: HTMLElement, result: ContrastResult) => {
     td.dataset.status = result.status
     const [sample, value, status] = [...td.children] as HTMLElement[]
-    sample.style.backgroundColor = rgb(result.back)
-    sample.style.color = rgb(result.fore)
+    sample.style.backgroundColor = toOklch(result.back)
+    sample.style.color = toOklch(result.fore)
     value.textContent =
       result.value === null ? "Can't measure" : formatRatio(result.value)
     status.replaceChildren(

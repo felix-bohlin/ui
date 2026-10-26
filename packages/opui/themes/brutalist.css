@@ -58,8 +58,8 @@
     --ui-line-height-relaxed: 1.5;
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
-    --ui-palette-source: hsl(217 100% 66%);
-    --ui-primary-source: hsl(217 100% 66%);
+    --ui-palette-source: oklch(0.675 0.1725 259.5);
+    --ui-primary-source: oklch(0.675 0.1725 259.5);
     --ui-primary-text: var(--ui-text);
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);
@@ -71,13 +71,16 @@
     --ui-shadow-surface: var(--ui-shadow-control);
     --ui-shadow-selected: none;
     --ui-border-color-raised: var(--ui-border-color);
-    --ui-surface: light-dark(#dfe5f2, #272933);
-    --ui-surface-elevated: light-dark(oklch(1 0 0), #212121);
-    --ui-surface-filled: light-dark(oklch(1 0 0), #212121);
+    --ui-surface: light-dark(oklch(0.92 0.019 266), oklch(0.283 0.019 276));
+    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.248 0 0));
+    --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.248 0 0));
     --ui-surface-inverse: var(--ui-primary);
-    --ui-surface-tonal: light-dark(hsl(217 100% 85%), oklch(0.34 0.04 270));
+    --ui-surface-tonal: light-dark(
+      oklch(0.852 0.073 260),
+      oklch(0.34 0.04 270)
+    );
     --ui-switch-thumb-bg-color: var(--ui-text);
-    --ui-text: light-dark(oklch(0 0 0), #e6e6e6);
+    --ui-text: light-dark(oklch(0 0 0), oklch(0.925 0 0));
     --ui-text-strong: var(--ui-text);
     --ui-track-bg-color: var(--ui-surface-elevated);
     --ui-underline-thickness-hover: auto;

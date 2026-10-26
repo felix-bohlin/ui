@@ -465,11 +465,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       --_items-per-view: 2.5;
 
       inline-size: 100%;
-      mask-image: linear-gradient(to right, black 75%, transparent);
+      mask-image: linear-gradient(to right, oklch(0 0 0) 75%, transparent);
       scrollbar-width: none;
 
       &:dir(rtl) {
-        mask-image: linear-gradient(to left, black 75%, transparent);
+        mask-image: linear-gradient(to left, oklch(0 0 0) 75%, transparent);
       }
     }
 

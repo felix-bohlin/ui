@@ -382,7 +382,7 @@ const surfaceRoles = [
     </ul>
     <Code
       code={`:where(html) {
-  --ui-shadow-color: light-dark(hsl(250 30% 20% / 2%), hsl(0 0% 0% / 30%));
+  --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }`}
       lang="css"
@@ -475,7 +475,7 @@ const surfaceRoles = [
       <code>--ui-on-primary</code> and <code>--ui-primary-text</code> derive from
       it, so Bootstrap's blue darkens under more contrast and its text follows. A
       theme that pins a role directly, such as <code
-        >--ui-border-color: #eee</code
+        >--ui-border-color: oklch(0.95 0 0)</code
       >, owns that role in every contrast mode. Set the knob instead, or hand
       the role back to the library under more contrast with <code
         >revert-layer</code
@@ -487,7 +487,7 @@ const surfaceRoles = [
     <Code
       code={`@layer theme.custom {
   :where(html, .ui-palette, .ui-contrast-more) {
-    --ui-border-color: #eee;
+    --ui-border-color: oklch(0.95 0 0);
   }
 
   @media (prefers-contrast: more) {

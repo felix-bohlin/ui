@@ -69,15 +69,15 @@
     --ui-on-primary-tonal: var(--ui-text-strong);
     --ui-selected: var(--ui-surface-tonal);
     --ui-on-selected: var(--ui-text-strong);
-    --ui-shadow-control: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --ui-shadow-control: 0 1px 2px 0 oklch(0 0 0 / 0.05);
     --ui-shadow-overlay:
-      0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
     --ui-shadow-elevated:
-      0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
     --ui-shadow-scroll:
-      0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
     --ui-shadow-selected:
-      0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
     --ui-state-active-alpha-accent: 8%;
     --ui-state-active-alpha-dark: 10%;
     --ui-state-active-alpha-light: 4%;

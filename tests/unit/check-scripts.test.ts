@@ -1,4 +1,7 @@
-import { readdirSync } from "node:fs"
+import { execFileSync, spawnSync } from "node:child_process"
+import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import { tmpdir } from "node:os"
+import { dirname, join } from "node:path"
 import stylelint from "stylelint"
 import { describe, expect, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
@@ -455,6 +458,64 @@ describe("released-api", () => {
         .map(({ name }) => name)
         .toSorted(),
     )
+  })
+})
+
+describe("file discovery", () => {
+  const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
+  const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
+
+  const repo = (files: Record<string, string>) => {
+    const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    execFileSync("git", ["init", "-q"], { cwd: root })
+    for (const [file, text] of Object.entries({
+      ".gitignore": "ignored/\n",
+      "scripts/generated-files.json": '{ "files": ["generated/out.css"] }\n',
+      ...files,
+    })) {
+      mkdirSync(dirname(join(root, file)), { recursive: true })
+      writeFileSync(join(root, file), text)
+    }
+    return (script: string, ...args: string[]) => {
+      const { status, stderr } = spawnSync(
+        "node",
+        [`scripts/${script}.mjs`, ...args],
+        { encoding: "utf-8", env: { ...process.env, OPUI_ROOT: root } },
+      )
+      return { status, stderr }
+    }
+  }
+
+  test("each check scans its own files and skips the rest", () => {
+    const run = repo({
+      "generated/out.css": UNSORTED,
+      "ignored/a.css": UNSORTED,
+      "notes/a.css": UNSORTED,
+      "src/a.css": UNSORTED,
+      "tests/a.css": UNSORTED,
+    })
+    const characters = run("check-characters")
+    expect(characters.status).toBe(1)
+    expect(characters.stderr).toContain("src/a.css:1: em dash")
+    expect(characters.stderr).not.toContain("ignored/")
+
+    const colors = run("check-colors")
+    expect(colors.status).toBe(1)
+    expect(colors.stderr).toContain("src/a.css:4: #fff")
+    expect(colors.stderr).toContain("notes/a.css:4: #fff")
+    expect(colors.stderr).not.toMatch(/generated\/|ignored\/|tests\//)
+
+    const sorted = run("sort-css", "--check")
+    expect(sorted.status).toBe(1)
+    expect(sorted.stderr).toContain("src/a.css")
+    expect(sorted.stderr).not.toContain("notes/a.css")
+  })
+
+  test("each check passes once its files are fixed", () => {
+    const run = repo({ "notes/a.css": SORTED, "src/a.css": SORTED })
+    expect(run("check-characters").status).toBe(0)
+    expect(run("check-colors").status).toBe(0)
+    expect(run("sort-css", "--check").status).toBe(0)
   })
 })
 

@@ -3,7 +3,8 @@ import { readFileSync, realpathSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 
-const root = fileURLToPath(new URL("..", import.meta.url))
+const root =
+  process.env.OPUI_ROOT ?? fileURLToPath(new URL("..", import.meta.url))
 
 const GENERATED = JSON.parse(
   readFileSync(join(root, "scripts/generated-files.json"), "utf-8"),

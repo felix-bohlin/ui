@@ -6,7 +6,8 @@ import cssDeclarationSorter from "css-declaration-sorter"
 import { globby } from "globby"
 import postcss from "postcss"
 
-const root = fileURLToPath(new URL("..", import.meta.url))
+const root =
+  process.env.OPUI_ROOT ?? fileURLToPath(new URL("..", import.meta.url))
 
 const PRIVATE_PROPERTY = /^--_/
 

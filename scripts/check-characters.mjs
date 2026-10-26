@@ -3,7 +3,8 @@ import { realpathSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { FORBIDDEN } from "./forbidden-characters.mjs"
 
-const root = fileURLToPath(new URL("..", import.meta.url))
+const root =
+  process.env.OPUI_ROOT ?? fileURLToPath(new URL("..", import.meta.url))
 
 export const findProblems = (matches) =>
   matches

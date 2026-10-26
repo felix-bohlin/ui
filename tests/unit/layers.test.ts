@@ -28,7 +28,7 @@ const layersOf = (file: string) =>
     ].map(([, layer]) => layer),
   )
 
-test("components.css lists every stylesheet once, in one of the four groups", () => {
+test("components.css lists every stylesheet once, in one of the three groups", () => {
   expect(groups.map((group) => group.group).toSorted()).toEqual(
     Object.keys(ALLOWED),
   )

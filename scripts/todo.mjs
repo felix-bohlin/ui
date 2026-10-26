@@ -14,7 +14,7 @@ const USAGE = `Usage: node scripts/todo.mjs <command> [file] [--dry-run]
   add [file]                add findings, JSON [{ section, severity, component, text, files, summary, recommended, fix, options, notes }]
   apply-answers [file]      add the answers copied from /todo (file or stdin)
   list [--missing-triage]   print the open items as JSON
-  resolve [file]            record outcomes, JSON [{ line, outcome, note }]
+  resolve [file]            record outcomes, JSON [{ line, outcome, note, options, recommended }]
   sort                      put open items in severity order within each section
   triage [file]             add Summary and Recommended notes, JSON [{ line, summary, recommended }]
 

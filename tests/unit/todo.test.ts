@@ -652,7 +652,7 @@ describe("TODO.md", () => {
     ).toEqual([])
   })
 
-  test("letters the options and recommends one of them", () => {
+  test("letters the options, and a Fix recommends one of them", () => {
     expect(
       items
         .filter((item) => {
@@ -660,16 +660,20 @@ describe("TODO.md", () => {
           const action = item.recommended?.action ?? ""
           const marked = options.filter(({ note }) => note === "recommended")
           if (options.length === 0) return action.startsWith("Fix with option")
+          const fix = action.startsWith("Fix")
           return (
             options.map(({ id }) => id).join("") !==
               "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, options.length) ||
             marked.length > 1 ||
-            !options.some(({ id }) => action === `Fix with option ${id}`) ||
-            (marked.length === 1 &&
+            (fix &&
+              !options.some(({ id }) => action === `Fix with option ${id}`)) ||
+            (fix &&
+              marked.length === 1 &&
               action !== `Fix with option ${marked[0].id}`)
           )
         })
         .map(headline),
+      "letter the options A, B, C, mark at most one (recommended), and with options recommend Fix with option <id> (the marked one), Remove issue or Explain further",
     ).toEqual([])
   })
 

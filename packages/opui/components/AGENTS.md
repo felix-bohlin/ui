@@ -179,7 +179,7 @@ Native states use native attributes, not classes: a disabled `<button>` gets `di
 
 ### Naming props, values and classes
 
-One concept has one prop name and one set of values in every component. `tests/unit/naming.test.ts` checks every `api.ts` against this model, and its allowlist only shrinks. A new rule lands with its check, in the change that makes the check pass.
+One concept has one prop name and one set of values in every component. `tests/unit/naming.test.ts` checks every `api.ts` against this model, with no allowlist. A new rule lands with its check, in the change that makes the check pass.
 
 | Concept                            | Prop                           | Values                                                                    |
 | ---------------------------------- | ------------------------------ | ------------------------------------------------------------------------- |
@@ -511,7 +511,7 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
 - A line that stands in for a border keeps the border name even when a background draws it: the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
 
-`tests/unit/css-properties.test.ts` checks every `--_*` property and every component token in the stylesheets against these rules, with no allowlist.
+`tests/unit/css-properties.test.ts` fails, with no allowlist, on the names these rules ban (`-border-radius`, `-height` and `-width` except a border or outline width, `-space`, `-tx`, `-ty`, `-dir`, `--_input-size` and a bare `-color`) in every `--_*` property and component token, and on a component token that doesn't end in one of the suffixes above.
 
 ### Forced colors
 
@@ -555,7 +555,7 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 ## 10. Stylesheets and Layers
 
-`css/components.css` imports every component stylesheet in one of four groups, named by the layer the files declare, and `tests/unit/layers.test.ts` checks each file against its group:
+`css/components.css` imports every component stylesheet in one of three groups, named by the layer the files declare, and `tests/unit/layers.test.ts` checks each file against its group:
 
 - **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, `anchor.css` for `.ui-anchor`, `.ui-badge` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
 - **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Badge` on top of `anchor.css`, a `Menu` or `Select` over `list.css` and `text-field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).

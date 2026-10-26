@@ -173,19 +173,30 @@ const OUTCOMES = {
   "still-open": { done: false, label: "Still open" },
 }
 
+type Option = { id: string; recommended?: boolean; text: string }
+
 export type Outcome = {
   line: string
   note: string
+  options?: Option[]
   outcome: keyof typeof OUTCOMES
+  recommended?: string
 }
+
+const optionIds = (lines: string[]) =>
+  fixOptions(
+    parseTodo(`## Item\n\n${lines.join("\n")}`).sections.flatMap(
+      ({ items }) => items,
+    )[0]?.notes ?? [],
+  ).options.map(({ id }) => id)
 
 export const resolveItems = (source: string, outcomes: Outcome[]) => {
   const lines = source.split("\n")
   const report = []
-  for (const { line, note, outcome } of outcomes) {
+  for (const { line, note: text, options, outcome, recommended } of outcomes) {
     const kind = OUTCOMES[outcome]
     if (!kind) throw new Error(`Unknown outcome "${outcome}" for ${line}`)
-    if (!note?.trim())
+    if (!text?.trim())
       throw new Error(`Outcome "${outcome}" for ${line} needs a note`)
     const found = find(blocksOf(lines), line)
     if (!found.block) {
@@ -194,7 +205,43 @@ export const resolveItems = (source: string, outcomes: Outcome[]) => {
       )
     }
     const { block } = found
-    lines.splice(block.end + 1, 0, `  - ${kind.label}: ${note.trim()}`)
+    const item = lines.slice(block.start, block.end + 1)
+    const ids = options?.map(({ id }) => id) ?? optionIds(item)
+    const option = recommended?.match(/^Fix with option ([A-Z0-9]+)/)?.[1]
+    const problems = [
+      ...((options || recommended) && kind.done
+        ? [
+            "only an explained or still-open item takes options or a recommended",
+          ]
+        : []),
+      ...(options && optionIds(item).length
+        ? ["it already has an Options list"]
+        : []),
+      ...(recommended
+        ? triageProblems({ recommended, summary: "Summary." })
+        : []),
+      ...(option && !ids.includes(option)
+        ? [`recommended names option ${option}, which the item lacks`]
+        : []),
+    ]
+    if (problems.length) throw new Error(`${line}: ${problems.join("; ")}`)
+    lines.splice(
+      block.end + 1,
+      0,
+      ...note("  - ", `${kind.label}: ${text}`),
+      ...(options ? optionsNote(options) : []),
+    )
+    if (recommended) {
+      const at = item.findIndex((entry) =>
+        entry.startsWith("  - Recommended: "),
+      )
+      const entry = `  - Recommended: ${recommended.trim()}`
+      if (at > 0) lines[block.start + at] = entry
+      else {
+        const summary = item[1]?.startsWith("  - Summary: ") ? 2 : 1
+        lines.splice(block.start + summary, 0, entry)
+      }
+    }
     if (kind.done) lines[block.start] = block.line.replace(/^- \[.?\]/, "- [x]")
     report.push({ line: lines[block.start], outcome })
   }
@@ -270,7 +317,7 @@ export type Finding = {
   files?: string[]
   fix?: string
   notes?: string[]
-  options?: { id: string; recommended?: boolean; text: string }[]
+  options?: Option[]
   recommended: string
   section: string
   severity: number
@@ -289,6 +336,13 @@ const note = (bullet: string, text: string) =>
           ? `${" ".repeat(bullet.length)}${line}`
           : "",
     )
+
+const optionsNote = (options: Option[]) => [
+  "  - Options:",
+  ...options.flatMap(({ id, recommended, text }) =>
+    note("    - ", `${id}${recommended ? " (recommended)" : ""}: ${text}`),
+  ),
+]
 
 const formatFinding = (finding: Finding) => {
   const problems = [
@@ -319,17 +373,7 @@ const formatFinding = (finding: Finding) => {
     `  - Summary: ${finding.summary}`,
     `  - Recommended: ${finding.recommended}`,
     ...(finding.fix ? note("  - ", `Fix: ${finding.fix}`) : []),
-    ...(finding.options?.length
-      ? [
-          "  - Options:",
-          ...finding.options.flatMap(({ id, recommended, text }) =>
-            note(
-              "    - ",
-              `${id}${recommended ? " (recommended)" : ""}: ${text}`,
-            ),
-          ),
-        ]
-      : []),
+    ...(finding.options?.length ? optionsNote(finding.options) : []),
     ...(finding.notes ?? []).flatMap((text) => note("  - ", text)),
   ]
 }

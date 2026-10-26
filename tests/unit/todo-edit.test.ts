@@ -167,6 +167,67 @@ describe("resolveItems", () => {
     })
   })
 
+  test("leaves a choice open with options and a new recommendation", () => {
+    const { source } = resolveItems(todo, [
+      {
+        line: "- [ ] (1) Card: the shadow on elevated",
+        note: "two ways to fix it.",
+        options: [
+          { id: "A", text: "read --ui-shadow-surface." },
+          { id: "B", recommended: true, text: "drop the shadow in dark mode." },
+        ],
+        outcome: "still-open",
+        recommended: "Fix with option B. It matches the other cards.",
+      },
+    ])
+    const [card] = parseTodo(source).sections[0].items
+    expect(card.recommended).toEqual({
+      action: "Fix with option B",
+      reason: "It matches the other cards.",
+    })
+    expect(fixOptions(card.notes).options.map(({ id }) => id)).toEqual([
+      "A",
+      "B",
+    ])
+    expect(source).toContain(
+      "  - Still open: two ways to fix it.\n  - Options:\n    - A: read --ui-shadow-surface.\n    - B (recommended): drop the shadow in dark mode.",
+    )
+  })
+
+  test("rejects options on a done or already optioned item", () => {
+    const options = [{ id: "A", text: "x." }]
+    expect(() =>
+      resolveItems(todo, [
+        {
+          line: "- [ ] (1) Card: the shadow on elevated",
+          note: "x",
+          options,
+          outcome: "fixed",
+        },
+      ]),
+    ).toThrow("only an explained or still-open item takes options")
+    expect(() =>
+      resolveItems(todo, [
+        {
+          line: "- [ ] (3) Tabs: the line is thin",
+          note: "x",
+          options,
+          outcome: "still-open",
+        },
+      ]),
+    ).toThrow("it already has an Options list")
+    expect(() =>
+      resolveItems(todo, [
+        {
+          line: "- [ ] (3) Tabs: the line is thin",
+          note: "x",
+          outcome: "explained",
+          recommended: "Fix with option C",
+        },
+      ]),
+    ).toThrow("recommended names option C, which the item lacks")
+  })
+
   test("rejects an unknown item or outcome", () => {
     expect(() =>
       resolveItems(todo, [

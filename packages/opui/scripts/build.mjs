@@ -41,6 +41,14 @@ for (const { inputs, out, plugins = [] } of targets) {
     to,
     map: { annotation: `${out}.map`, inline: false, sourcesContent: false },
   })
+  const problems = result.warnings().map((warning) => warning.toString())
+  if (/@import\b/.test(result.css)) {
+    problems.push(`dist/${out} still has an @import`)
+  }
+  if (problems.length > 0) {
+    console.error(problems.join("\n"))
+    process.exit(1)
+  }
   const map = result.map.toJSON()
   map.sources = map.sources.map((source) =>
     source.replace(

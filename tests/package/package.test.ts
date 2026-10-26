@@ -156,6 +156,36 @@ test("the tarball ships the package and nothing else", () => {
   ).toEqual([])
 })
 
+test("every entry point is in the tarball", () => {
+  const manifest = JSON.parse(
+    readFileSync(path.join(packageDir, "package.json"), "utf8"),
+  )
+  const targets = (entry: string, value: unknown): [string, string][] =>
+    typeof value === "string"
+      ? [[entry, value]]
+      : Object.values(value as object).flatMap((nested) =>
+          targets(entry, nested),
+        )
+  const missing = [
+    ...targets("style", manifest.style),
+    ...Object.entries(manifest.bin).flatMap(([name, value]) =>
+      targets(`bin ${name}`, value),
+    ),
+    ...Object.entries(manifest.exports).flatMap(([entry, value]) =>
+      targets(entry, value),
+    ),
+  ].filter(([, target]) => {
+    const pattern = new RegExp(
+      `^${target
+        .replace(/^\.\//, "")
+        .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+        .replaceAll("*", ".+")}$`,
+    )
+    return !files.some((file) => pattern.test(file))
+  })
+  expect(missing).toEqual([])
+})
+
 test("dist/opui.css starts with the layer order", () => {
   const layers = readFileSync(path.join(packageDir, "css/layers.css"), "utf8")
     .trim()

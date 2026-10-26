@@ -50,10 +50,11 @@ function getSupportForFeature(
 ): SupportValue {
   const feature = featureOf(featureId)
   if (!feature) {
-    console.warn(
+    const message =
       `[browserSupport] Unknown web-features id: "${featureId}". ` +
-        `Check https://github.com/web-platform-dx/web-features for valid ids.`,
-    )
+      `Check https://github.com/web-platform-dx/web-features for valid ids.`
+    if (import.meta.env?.PROD) throw new Error(message)
+    console.warn(message)
     return undefined
   }
 

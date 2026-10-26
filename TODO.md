@@ -186,7 +186,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): install Node 26.10 in the cloud environment's setup script, then add `engineStrict: true` to `pnpm-workspace.yaml` in the next session.
     - B: lower the root `engines` to the oldest Node the scripts need, and keep the field advisory.
-- [ ] (1) Release: `scripts/release.mjs` commits the release on the maintainer's `main` and pushes it straight to `origin`, so the release commit (version, dated CHANGELOG, regenerated files) never goes through a pull request or its CI run before it lands (`scripts/release.mjs:77-82`, `RELEASING.md:36-58`)
+- [x] (1) Release: `scripts/release.mjs` commits the release on the maintainer's `main` and pushes it straight to `origin`, so the release commit (version, dated CHANGELOG, regenerated files) never goes through a pull request or its CI run before it lands (`scripts/release.mjs:77-82`, `RELEASING.md:36-58`)
   - Summary: A release is pushed straight to main, so its commit skips the pull request checks that every other change gets.
   - Recommended: Fix with option A. A pull request runs `check` and `e2e` on the exact release commit before anything is tagged.
   - Fix: `release.mjs` stops before the publish: it prepares the release on a `release/<version>` branch (dated CHANGELOG or a candidate version, `version`, `pnpm check`, the `chore: release <version>` commit), pushes it and opens the pull request against `main`. A `release.yml` workflow on the push to `main` of a `chore: release <version>` commit tags it. A tag pushed with `GITHUB_TOKEN` starts no other workflow, so `release.yml` also runs what the tag push starts today (the after-release steps, and the publish once it moves to CI), as reusable workflows (`workflow_call`).
@@ -194,6 +194,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): a `Release` workflow, started from the Actions tab with the version, runs `release.mjs` and opens the pull request with `GITHUB_TOKEN`. Needs "Allow GitHub Actions to create and approve pull requests" in the repository settings (Settings, Actions, General, Workflow permissions), which also lets the `After release` workflow open its pull request instead of linking the compare page.
     - B: `release.mjs` runs on the maintainer's machine and opens the pull request with their `gh` login, and only the tagging on merge runs in CI.
   > Fix with option A
+  - Fixed: option A. The `Release` workflow (Actions tab, with a version or `major`, `minor`, `patch`, `prerelease`) runs `release.mjs`, which checks out a `release/<version>` branch, dates the CHANGELOG (not for a candidate), sets `version`, runs `pnpm check`, commits `chore: release <version>`, pushes and opens the pull request, then dispatches CI on that branch so `check` and `e2e` run on the exact release commit (a pull request opened with `GITHUB_TOKEN` starts no `pull_request` workflows). On the merge to `main`, `release.yml` tags the release commit and calls `After release` as a reusable workflow, since a tag pushed with `GITHUB_TOKEN` starts nothing. Publishing stays manual, from the tag: `node scripts/release.mjs publish`. `RELEASING.md` lists the one-time setting, "Allow GitHub Actions to create and approve pull requests" (Settings, Actions, General, Workflow permissions); unit tests in `tests/unit/release-script.test.ts`.
 - [x] (1) Tests: "select keeps its padding when a script adds the button" only asserts that the padding isn't `0px`, so a wrong padding of any other size passes (`tests/e2e/interaction.spec.ts`)
   - Summary: One Select test would still pass with any wrong padding that isn't zero.
   - Recommended: Fix. Comparing with the token is a one-line change.
@@ -313,7 +314,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: only the Keyboard support partial, and keep usage guidance to the preamble.
     - C: keep the pages as they are.
   > Fix with option A
-- [ ] (2) Repo: `tests/e2e/__screenshots__` weighs 65MB (1334 PNGs) and the git pack 273MB. `update-snapshots.yml:30` regenerates them wholesale (`rm -rf` then re-record), and 11 of the 120 visible commits touch them
+- [x] (2) Repo: `tests/e2e/__screenshots__` weighs 65MB (1334 PNGs) and the git pack 273MB. `update-snapshots.yml:30` regenerates them wholesale (`rm -rf` then re-record), and 11 of the 120 visible commits touch them
   - Summary: Each snapshot refresh adds tens of megabytes of PNGs to the repository history.
   - Recommended: Fix with option A. LFS keeps the clone small and only needs `lfs: true` on the checkout steps; option B gives up dark-mode coverage.
   - Options:
@@ -321,6 +322,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: keep, but run the `dark` project on fewer fixtures.
   - Still open: Git LFS isn't set up; the README Maintainers section ("Visual baselines in git") lays out option A (Git LFS) and option B (keep, fewer dark fixtures) for the owner to decide.
   > Fix with option A
+  - Fixed: option A. `.gitattributes` stores the baselines in Git LFS. The e2e shards install git-lfs in the Playwright container, restore `.git/lfs/objects` from the Actions cache (keyed on the object ids) and `git lfs pull` only the missing images, so a run spends LFS bandwidth on new images only; `check`, `screenshots`, the release workflows and the Netlify deploy work with the pointers (`check` sets `GIT_LFS_SKIP_SMUDGE=1`, and so does the cloud session hook). LFS objects can't be uploaded from a cloud session (`lfs.github.com` is blocked there), so the existing PNGs stay raw in git until the next `update-snapshots` run: it re-records every baseline, commits them as pointers (checked with `git lfs fsck --pointers` before the push) and uploads them with `GITHUB_TOKEN`. Until that run, a clone with git-lfs lists some PNGs as modified; the README section "Visual baselines in Git LFS" has the command that clears it. The PNGs already in the history stay, since nothing rewrites it.
 - [ ] (2) Release: `scripts/release.mjs` publishes from the maintainer's machine with their npm login, so `opui-css` has no provenance statement (npm only signs provenance for a publish from CI, so `--provenance` was dropped) and every release needs a local npm session with 2FA (`scripts/release.mjs:80`, `RELEASING.md:56`)
   - Summary: Releases are published from a laptop, so npm shows no provenance for the package and each one needs a local npm login.
   - Recommended: Fix with option A. Trusted publishing needs no token or secret in the repository, only the publisher entry on npmjs.com.
@@ -336,13 +338,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: Nothing guards that fields wait for the user to interact before they look invalid.
   - Recommended: Fix. One test on the TextField Validation example covers the rule.
   - Fix: on the TextField Validation example, check that the border starts in the normal color and turns to the invalid color after typing an invalid value and leaving the field.
-- [ ] (2) CI: one `update-snapshots` label accepts every visual change in the pull request at once, and the bot commit lists nothing to review, so a regression rides along with an intended change unless someone opens every image (`.github/workflows/update-snapshots.yml:30`, `package.json`)
+- [x] (2) CI: one `update-snapshots` label accepts every visual change in the pull request at once, and the bot commit lists nothing to review, so a regression rides along with an intended change unless someone opens every image (`.github/workflows/update-snapshots.yml:30`, `package.json`)
   - Summary: Updating the visual baselines accepts every change at once without saying which images moved.
   - Recommended: Fix with option A. It keeps how baselines are made and only adds the list to review.
   - Options:
     - A (recommended): write the changed and added images to the job summary and a PR comment.
     - B: run `--update-snapshots=changed` without `rm -rf`, and delete baselines without an example in a separate step.
   > Fix with option A
+  - Fixed: option A. `scripts/baseline-changes.mjs` records every baseline's sha256 before the `rm -rf` and after the re-record (the LFS object id is the same hash, so the move to LFS doesn't count as a change), puts the counts in the bot commit subject ("chore: update visual snapshots (1 added, 3 changed)"), and lists added, changed and removed images per project, linked to the bot commit, in the run summary and in one pull request comment that later runs update. A fork pull request now gets a clear error instead of a failing label removal, and the preview comment has its own marker so the two don't overwrite each other. Unit tests in `tests/unit/baseline-changes.test.ts`; the workflow itself first runs on GitHub.
 - [ ] (2) Tooling: `check-browser-support` can detect 14 of the 51 ids the pages list, so the other 37 (`starting-style`, `popover`, `interpolate-size`, `customizable-select`, `scroll-markers` and more) are only checked for being known and sorted. It doesn't look at the HTML features in the examples, and it reads the stylesheets from the page's `?raw` imports, not the `api.ts` `css` list (`packages/opui/scripts/features.mjs:47-65`, `scripts/check-browser-support.mjs:21`, `scripts/check-browser-support.mjs:63-79`)
   - Summary: Most browser support chips are never compared with the CSS, so a missing or stale chip passes.
   - Recommended: Fix. A detector per id turns most of the browser-support agent's review into a script.

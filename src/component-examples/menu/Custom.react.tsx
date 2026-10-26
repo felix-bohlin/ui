@@ -63,7 +63,8 @@ export default function Custom() {
         />
         <ListItem
           label="Open in new tab"
-          href="#custom"
+          href="/guide/getting-started/"
+          target="_blank"
           start={
             <svg
               aria-hidden="true"

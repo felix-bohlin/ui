@@ -13,6 +13,7 @@ function wireRanges() {
     const suffix = output.dataset.suffix ?? ""
     const update = () => {
       output.textContent = `${input.value}${suffix}`
+      if (suffix) input.setAttribute("aria-valuetext", output.textContent)
     }
     input.addEventListener("input", update)
     input.form?.addEventListener("reset", () => setTimeout(update))

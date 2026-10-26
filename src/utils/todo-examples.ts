@@ -13,6 +13,9 @@ export const todoExamples = {
   "tabs-rtl": {
     match: "Tabs: the Keyboard support list says Right and Left Arrow",
   },
+  "tonal-surfaces": {
+    match: "CSS: a tonal fill inside a tonal surface",
+  },
   "tooltip-trigger-command": {
     match:
       'Tooltip: the triggers set `commandfor` and `command="toggle-popover"`',

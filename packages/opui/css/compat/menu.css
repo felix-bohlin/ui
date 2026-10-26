@@ -5,7 +5,11 @@
     :where(.ui-menu) {
       &:has(.ui-menu[popover]) {
         anchor-name: --ui-menu;
-        anchor-scope: --ui-menu;
+      }
+
+      &:not(.ui-menu .ui-menu):has(.ui-menu[popover]) {
+        anchor-name: --ui-menu-root, --ui-menu;
+        anchor-scope: --ui-menu-root, --ui-menu;
       }
 
       & .ui-menu[popover] {

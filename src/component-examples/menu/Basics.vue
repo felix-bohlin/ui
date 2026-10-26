@@ -16,7 +16,7 @@ import { Button, Menu } from "opui-css/vue"
       { label: 'Edit', shortcut: 'Ctrl+E' },
       { label: 'Duplicate', shortcut: 'Ctrl+D' },
       { disabled: true, label: 'Archive' },
-      { href: '#basics', label: 'Help' },
+      { href: '/guide/getting-started/', label: 'Help' },
       { borderTop: true, color: 'critical', label: 'Delete' },
     ]"
   />

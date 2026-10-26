@@ -10,6 +10,7 @@ const {
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
+  "aria-valuetext": ariaValueText,
   class: className,
   endText,
   error,
@@ -38,7 +39,8 @@ const $id = createId(Astro.locals)
 const hasLabel = !!label || Astro.slots.has("label")
 const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
-const hasValue = valueSuffix !== undefined || Astro.slots.has("value-text")
+const hasValueText = Astro.slots.has("value-text")
+const hasValue = valueSuffix !== undefined || hasValueText
 const hasDatalist = !!items || Astro.slots.has("datalist")
 const valueText = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
 
@@ -73,8 +75,9 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
   {
     hasValue && (
       <output
+        aria-live="off"
         class="ui-value"
-        data-live={Astro.slots.has("value-text") ? undefined : ""}
+        data-live={hasValueText ? undefined : ""}
         for={inputId}
         data-suffix={valueSuffix}
       >
@@ -95,6 +98,8 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     aria-describedby={describedBy}
     aria-invalid={error ? "true" : ariaInvalid}
     aria-labelledby={labelId ?? ariaLabelledBy}
+    aria-valuetext={ariaValueText ??
+      (valueSuffix && !hasValueText ? valueText : undefined)}
     id={inputId}
     list={listId}
     max={max}

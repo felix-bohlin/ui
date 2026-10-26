@@ -83,6 +83,12 @@ export const description = "A popover list of actions or links."
         >.</Fragment
       >
     </Conditional>
+    <p>
+      A link item doesn't close the menu, since <code>command</code> only works on
+      buttons. A link to another page leaves the menu behind, but a link to a section
+      of the same page, or one that opens a new tab, keeps it open until a click outside
+      or <kbd>Esc</kbd>.
+    </p>
 
     <AutoExample name="Basics" centered row />
   </section>

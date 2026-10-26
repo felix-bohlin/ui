@@ -155,6 +155,22 @@ export const description =
         > gets the current value as a number on every change.
       </p>
     </Conditional>
+    <Conditional>
+      <p slot="html">
+        Give the output <code>aria-live="off"</code> and the input an <code
+          >aria-valuetext</code
+        > with the value and the suffix, so a screen reader announces each step once,
+        with its unit. <code>initRange()</code> keeps <code>aria-valuetext</code
+        > in sync when the output has a <code>data-suffix</code>. A custom
+        readout sets its own <code>aria-valuetext</code> when it adds a unit or words.
+      </p>
+      <p slot="components">
+        The input gets an <code>aria-valuetext</code> with the value and the suffix,
+        and the output <code>aria-live="off"</code>, so a screen reader
+        announces each step once, with its unit. With custom value text, pass
+        your own <code>aria-valuetext</code> when the readout adds a unit or words.
+      </p>
+    </Conditional>
     <AutoExample name="Value" column />
     <AutoExample name="ValueText" column />
   </section>

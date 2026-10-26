@@ -98,6 +98,7 @@
       font-weight: var(--ui-font-weight-bold);
       padding-block: var(--_summary-padding-block);
       padding-inline: var(--_summary-padding-inline);
+      -webkit-user-select: none;
       user-select: none;
 
       &:focus-visible {

@@ -1,7 +1,12 @@
-import { Range } from "opui-css/react"
+import { Button, FieldGroup, Form, Range } from "opui-css/react"
 
 export default function Value() {
   return (
-    <Range label="Hue" min="0" max="360" defaultValue="250" valueSuffix="°" />
+    <Form>
+      <Range label="Hue" min="0" max="360" defaultValue="250" valueSuffix="°" />
+      <FieldGroup>
+        <Button type="reset">Reset</Button>
+      </FieldGroup>
+    </Form>
   )
 }

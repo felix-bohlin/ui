@@ -65,6 +65,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
     @media (pointer: coarse) {
       & > :where(li, option) > :where(a, button, label) {
+        -webkit-user-select: none;
         user-select: none;
       }
     }

@@ -182,3 +182,14 @@ test("the browser support guide lists every compat file", () => {
     ),
   ).toEqual([])
 })
+
+test("the -text and on-fill formulas wait for @function in Firefox and Safari", () => {
+  const feature = features.function
+  if (feature.kind !== "feature")
+    throw new Error(`function is a ${feature.kind} entry`)
+  const { support } = feature.status
+  expect(
+    !!support.firefox && !!support.safari,
+    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css and button-group.css once each",
+  ).toBe(false)
+})

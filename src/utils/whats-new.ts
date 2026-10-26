@@ -844,6 +844,12 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `<a href="#component-properties"><code>--_track-base-bg-color</code></a> sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.`,
     {
+      ...components(
+        `A <a href="#value">value readout</a> is announced once, with its unit: the input gets <code>aria-valuetext</code> and the output <code>aria-live="off"</code>.`,
+      ),
+      html: `Give the <a href="#value">value readout</a> <code>aria-live="off"</code> and the input <code>aria-valuetext</code>, so the value is announced once, with its unit. <code>initRange()</code> keeps it in sync.`,
+    },
+    {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
     },

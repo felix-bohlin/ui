@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
@@ -34,6 +35,7 @@
 
   const uid = $props.id()
   const field = getFieldGroupContext()
+  const initialValue = untrack(() => value)
 
   const hasLabel = $derived(!!label)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)
@@ -69,7 +71,12 @@
     </span>
   {/if}
   {#if hasValue}
-    <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
+    <output
+      aria-live="off"
+      class="ui-value"
+      for={inputId}
+      data-suffix={valueSuffix}
+    >
       {#if valueText}{@render valueText(
           Number(value ?? middle),
         )}{:else}{value ?? middle}{valueSuffix ?? ""}{/if}
@@ -85,6 +92,10 @@
     aria-describedby={describedBy}
     aria-invalid={error ? "true" : rest["aria-invalid"]}
     aria-labelledby={labelId ?? rest["aria-labelledby"]}
+    aria-valuetext={rest["aria-valuetext"] ??
+      (valueSuffix && !valueText
+        ? `${value ?? middle}${valueSuffix}`
+        : undefined)}
     id={inputId}
     list={listId}
     {max}
@@ -94,6 +105,8 @@
     type="range"
     bind:value
     {@attach (input) => {
+      if (!input.hasAttribute("value") && initialValue != null)
+        input.defaultValue = String(initialValue)
       const form = input.form
       const sync = () => setTimeout(() => (value = input.valueAsNumber))
       form?.addEventListener("reset", sync)

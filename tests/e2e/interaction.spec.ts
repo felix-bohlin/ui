@@ -322,10 +322,32 @@ interaction(
     const slider = root.locator('input[type="range"]')
     const before = Number(await slider.inputValue())
 
+    await expect(root.locator("output")).toHaveAttribute("aria-live", "off")
+    await expect(slider).toHaveAttribute("aria-valuetext", `${before}°`)
     await slider.focus()
     await page.keyboard.press("ArrowRight")
     await expect(slider).toHaveValue(String(before + 1))
     await expect(root.locator("output")).toHaveText(`${before + 1}°`)
+    await expect(slider).toHaveAttribute("aria-valuetext", `${before + 1}°`)
+  },
+)
+
+interaction(
+  "range",
+  "Value",
+  "range shows its value again after a form reset",
+  async ({ page, root }) => {
+    const slider = root.locator('input[type="range"]')
+    const output = root.locator("output")
+    const before = await slider.inputValue()
+
+    await slider.focus()
+    await page.keyboard.press("End")
+    await expect(output).toHaveText("360°")
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(slider).toHaveValue(before)
+    await expect(output).toHaveText(`${before}°`)
+    await expect(slider).toHaveAttribute("aria-valuetext", `${before}°`)
   },
 )
 
@@ -361,7 +383,7 @@ interaction(
   "Variants",
   "select keeps its padding when a script adds the button",
   async ({ root }) => {
-    const padding = await root
+    const { expected, padding } = await root
       .locator("select")
       .first()
       .evaluate((select) => {
@@ -371,9 +393,15 @@ interaction(
         const text = CSS.supports("appearance", "base-select")
           ? select.querySelector("button")!
           : select
-        return getComputedStyle(text).paddingInlineStart
+        const probe = document.createElement("div")
+        probe.style.paddingInlineStart = "var(--_field-padding-inline)"
+        select.parentElement!.append(probe)
+        const expected = getComputedStyle(probe).paddingInlineStart
+        probe.remove()
+        return { expected, padding: getComputedStyle(text).paddingInlineStart }
       })
-    expect(padding).not.toBe("0px")
+    expect(expected).not.toBe("0px")
+    expect(padding).toBe(expected)
   },
   ["html"],
 )
@@ -498,6 +526,58 @@ interaction(
     await page.keyboard.press("ArrowRight")
     await expect(panels.nth(2)).toBeVisible()
     await expect(panels.nth(1)).toBeHidden()
+
+    await page.keyboard.press("ArrowRight")
+    await expect(root.getByRole("radio", { name: "Profile" })).toBeChecked()
+    await expect(panels.nth(0)).toBeVisible()
+    await expect(panels.nth(2)).toBeHidden()
+
+    await page.keyboard.press("ArrowLeft")
+    await expect(
+      root.getByRole("radio", { name: "Notifications" }),
+    ).toBeChecked()
+    await expect(panels.nth(2)).toBeVisible()
+    await expect(panels.nth(0)).toBeHidden()
+  },
+)
+
+interaction(
+  "tabs",
+  "Overflow",
+  "overflow tabs scroll the focused tab into view",
+  async ({ page, root }) => {
+    test.skip(
+      !(await page.evaluate(() => CSS.supports("order", "sibling-index()"))),
+      "needs sibling-index()",
+    )
+    const tabs = root.locator(".ui-tabs")
+    const inputs = tabs.locator(":scope > .ui-input")
+    const labels = tabs.locator(":scope > .ui-label")
+    const count = await labels.count()
+
+    await tabs.evaluate((element) => (element.style.inlineSize = "16rem"))
+    expect(
+      await tabs.evaluate(
+        (element) => element.scrollWidth > element.clientWidth,
+      ),
+    ).toBe(true)
+
+    await labels.first().click()
+    for (let index = 1; index < count; index++) {
+      await page.keyboard.press("ArrowRight")
+    }
+    await expect(inputs.last()).toBeFocused()
+    await expect
+      .poll(() =>
+        tabs.evaluate((element) => {
+          const box = element.getBoundingClientRect()
+          const last = [...element.querySelectorAll(":scope > .ui-label")]
+            .at(-1)!
+            .getBoundingClientRect()
+          return last.left >= box.left - 1 && last.right <= box.right + 1
+        }),
+      )
+      .toBe(true)
   },
 )
 
@@ -721,6 +801,98 @@ interaction(
     await expect
       .poll(() => carousel.evaluate((element) => element.scrollLeft))
       .toBeGreaterThan(0)
+  },
+)
+
+const markerPoint = (carousel: Locator, index: number) =>
+  carousel.evaluate((element, index) => {
+    const style = getComputedStyle(element)
+    const group = getComputedStyle(element, "::scroll-marker-group")
+    const marker = getComputedStyle(element.children[0], "::scroll-marker")
+    const box = element.getBoundingClientRect()
+    const start = box.left + parseFloat(style.marginInlineStart)
+    const end = box.right - parseFloat(style.marginInlineEnd)
+    const size = parseFloat(marker.inlineSize)
+    const gap = parseFloat(group.columnGap) || 0
+    const count = element.children.length
+    const row = count * size + (count - 1) * gap
+    return {
+      x: (start + end) / 2 - row / 2 + index * (size + gap) + size / 2,
+      y:
+        box.bottom +
+        parseFloat(group.marginBlockStart) +
+        parseFloat(marker.blockSize) / 2,
+    }
+  }, index)
+
+const currentMarker = (carousel: Locator) =>
+  carousel.evaluate((element) => {
+    const colors = [...element.children].map(
+      (item) => getComputedStyle(item, "::scroll-marker").backgroundColor,
+    )
+    return colors.findIndex(
+      (color) => colors.filter((other) => other === color).length === 1,
+    )
+  })
+
+interaction(
+  "carousel",
+  "Basics",
+  "a marker scrolls to its item and shows as current",
+  async ({ page, root }) => {
+    const carousel = root.locator(".ui-carousel")
+
+    const supportsMarkers = await page.evaluate(() =>
+      CSS.supports("selector(::scroll-marker)"),
+    )
+    test.skip(!supportsMarkers, "needs ::scroll-marker")
+
+    await carousel.scrollIntoViewIfNeeded()
+    expect(await currentMarker(carousel)).toBe(0)
+    const point = await markerPoint(carousel, 2)
+    await page.mouse.click(point.x, point.y)
+    await expect.poll(() => currentMarker(carousel)).toBe(2)
+    await expect
+      .poll(() =>
+        carousel.evaluate((element) => {
+          const box = element.getBoundingClientRect()
+          const item = element.children[2].getBoundingClientRect()
+          return item.left >= box.left && item.left < box.left + box.width / 2
+        }),
+      )
+      .toBe(true)
+  },
+)
+
+interaction(
+  "carousel",
+  "Basics",
+  "a carousel jumps instead of scrolling smoothly when motion is off",
+  async ({ page, root }) => {
+    const carousel = root.locator(".ui-carousel")
+
+    const supportsMarkers = await page.evaluate(() =>
+      CSS.supports("selector(::scroll-marker)"),
+    )
+    test.skip(!supportsMarkers, "needs ::scroll-marker")
+
+    expect(await computed(carousel, "scroll-behavior")).toBe("smooth")
+    await page.emulateMedia({ reducedMotion: "reduce" })
+    await expect.poll(() => computed(carousel, "scroll-behavior")).toBe("auto")
+    await page.emulateMedia({ reducedMotion: "no-preference" })
+    await expect
+      .poll(() => computed(carousel, "scroll-behavior"))
+      .toBe("smooth")
+
+    await carousel.evaluate((element) => element.classList.add("ui-motion-off"))
+    expect(await computed(carousel, "scroll-behavior")).toBe("auto")
+    await carousel.scrollIntoViewIfNeeded()
+    const point = await markerPoint(carousel, 4)
+    await page.mouse.click(point.x, point.y)
+    const left = await carousel.evaluate((element) => element.scrollLeft)
+    expect(left).toBeGreaterThan(0)
+    await page.waitForTimeout(300)
+    expect(await carousel.evaluate((element) => element.scrollLeft)).toBe(left)
   },
 )
 

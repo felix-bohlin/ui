@@ -30,6 +30,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): drop `commandfor` and `command="toggle-popover"` from the Tooltip examples and prose in all formats, and say on the Tooltip page that touch shows the tooltip on long press in Chrome 142+.
     - B: keep the tap fallback and its extra state.
+  > Explain further
+  > Proposed solution doesn’t work on mobile safari though.
+  - Explained: right, and it reaches further than mobile Safari. Option A leans on `interestfor`, which only Chromium has (142 and later; web-features 3.43 lists no Firefox or Safari support). The library has no hover fallback, since `tooltip.css` only styles `:popover-open`, so without the command pair a tooltip never opens in Safari, desktop or iOS, or in Firefox: not on hover, focus or a tap. The pair is what opens it there today, because Invoker Commands work in Safari 26.2 and Firefox 144: a click or a tap toggles it, and since Safari has no `popover="hint"`, it stays until the trigger is pressed again. (The earlier note that the tooltip shows on hover through CSS where `interestfor` is missing was wrong.) So the choice is per trigger. On a button that acts, like Save, the pair makes one press save and toggle the tooltip, and gives Save an expanded state in Chromium. On a button whose only job is to show the text (an info button next to a field, often called a toggletip), the pair is the right tool: the press shows the text, "expanded" is true, and it works in every browser with Invoker Commands, iOS Safari included. Chromium on Android shows interest on a long press of a button, so Save gets its tooltip there with `interestfor` alone; iOS Safari only will once WebKit ships interest invokers.
+  - Still open: which triggers keep the pair.
+  - Options:
+    - A (recommended): action buttons (Save) take `interestfor` only, and the Tooltip page adds a toggletip example: an info button with `commandfor`, `command="toggle-popover"` and `interestfor`, for text touch users must reach in every browser. Tooltips on action buttons don't show in Safari and Firefox until they ship interest invokers, as the browser support rules expect for a Chromium-first feature.
+    - B: keep the pair on every trigger, as today, with the expanded state and the double action in Chromium, so Safari and Firefox users can tap or click.
+    - C: like A, and point to the `interestfor` polyfill (npm `interestfor`) for apps that need hover and focus tooltips in Safari and Firefox now. It can't add the touch behavior, so iOS still needs the toggletip.
 
 ## Bugs
 
@@ -43,7 +51,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The next release depends on it.
   - Replaces: the regenerate step in `AGENTS.md:79` only works by hand today ("Regenerate it after a release with `node scripts/released-api.mjs <tag>`").
   - Fix: write the file through Prettier's `format`, as `check-css-vars --update` does, read every barrel in `PACKAGE_FRAMEWORK_IDS` with the type-file map `check-components` uses, and walk `core/` as the test does.
-- [ ] (4) Menu: on iOS, the submenu anchor block sets `anchor-scope: --ui-menu` on every submenu that has its own submenu, which hides the parent's `--ui-menu` from that submenu's `position-anchor`, so in a menu three levels deep the middle submenu opens unanchored at the top-left. It also replaces the root's `--ui-menu-root` anchor, so the rule that keeps submenus of submenus going in a flipped parent's direction is invalid there (`packages/opui/css/compat/menu.css:2-15`, `packages/opui/css/components/menu.css:117-136`)
+- [x] (4) Menu: on iOS, the submenu anchor block sets `anchor-scope: --ui-menu` on every submenu that has its own submenu, which hides the parent's `--ui-menu` from that submenu's `position-anchor`, so in a menu three levels deep the middle submenu opens unanchored at the top-left. It also replaces the root's `--ui-menu-root` anchor, so the rule that keeps submenus of submenus going in a flipped parent's direction is invalid there (`packages/opui/css/compat/menu.css:2-15`, `packages/opui/css/components/menu.css:117-136`)
   - Summary: On iOS, in a menu three levels deep, the middle submenu opens in the top-left corner instead of next to its parent.
   - Recommended: Fix. The rule only changes on iOS, and Chromium with the gate forced on places all three levels with the fix.
   - Fix: confirm first on iOS Safari 26 on `/tests/overlays/`, which has menus three levels deep. In Chromium with the gate forced on and the trigger at the end edge, the second-level menu sits at the top-left today; with the fix below it anchors to its parent and its submenu opens on the correct side. Two-level menus (the Submenu example) are the same either way.
@@ -69,6 +77,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
     }
     ```
+  > Fix
+  - Fixed: `css/compat/menu.css` sets `anchor-name: --ui-menu` on every menu with a submenu and `anchor-scope` only on the root, which keeps `--ui-menu-root` next to `--ui-menu`. In Chromium with the gate forced on, the second level of a three-level menu sat at the top-left (4, 0); now it opens next to its parent, and at the end edge both submenus flip and the third keeps the flipped direction. The Learn post on menu anchoring and the Menu entry in the CHANGELOG say so.
 
 ---
 
@@ -109,6 +119,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): Header, Content and Footer on both overlays as above, `.ui-actions` as a helper, one title token, content spacing. Breaking for Dialog and Drawer.
     - B: keep today's parts, only align the title size and add the content spacing.
     - C: like A, but keep `XActions` as an alias that renders `.ui-footer.ui-actions` with `align`.
+  > Fix with option A
 - [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:30,158`)
   - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
   - Recommended: Fix with option C. The explanation was given and C removes the strip while keeping the layout shift fix that A values.
@@ -135,10 +146,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): raised surfaces remap the tonal role for their content, like `--ui-border-color`. A tonal surface sets `--ui-surface-tonal: var(--ui-surface)` on its children, and an elevated one sets it to a new role, `--ui-surface-tonal-on-elevated` (`light-dark(var(--ui-surface-tonal), var(--ui-surface))`), on its root. Themes whose dark tonal already differs from their elevated surface (m3, shadcn, brutalist) set the new role to `var(--ui-surface-tonal)`. The light Tabs pill (`--ui-surface`) then matches a remapped track inside tonal surfaces, so the pill moves to a step of its own.
     - B: give dark `--ui-surface-tonal` and `--ui-surface-elevated` different steps in `theme.css`. Fixes elevated surfaces in dark only, and moves every tonal or elevated surface in dark mode, so the `-text` promises on tonal need checking again.
     - C: leave it. Tonal on tonal is the author's choice, and outlined or filled controls stay visible there.
+  > Explain further and provide an example
+  - Explained: tonal is the quiet fill. A tonal button, a chip and the Tabs track paint `--ui-surface-tonal`, one gray step off the page: `--ui-gray-3` on `--ui-gray-1` in light mode (1.16:1) and `--ui-gray-12` on `--ui-gray-13` in dark mode (1.33:1). That small step is all that draws their shape. A tonal Card, Accordion or Callout paints its own background with the same `--ui-surface-tonal`, so a tonal control inside it is the card's own color, 1.00:1, and only its text is left. In dark mode `--ui-surface-elevated` is `--ui-gray-12` too, so the same happens inside elevated cards, dialogs, drawers and menus. Outlined and filled controls keep their border or accent, so only the tonal ones vanish. Option A fixes it the way raised surfaces already fix borders: they set `--ui-border-color` to `--ui-border-color-on-raised` for their content, and they would also point the tonal role at a step that differs from their own background (the page surface inside a tonal card, and inside an elevated one in dark mode). The example measures a tonal button, a chip and the tab track in an outlined, a tonal and an elevated card, in both modes, today and with option A simulated by two overrides. With A, light mode shows the second problem the item names: the selected tab is the page surface, so it matches the remapped track and only its border sets it apart. Example: tonal-surfaces
 
 ## Suggestions
 
-- [ ] (1) Tokens: there is no data visualization palette. Primer, shadcn/ui (`chart-1` to `chart-5`) and Carbon ship categorical and sequential palettes for charts (`packages/opui/css/theme.css`)
+- [x] (1) Tokens: there is no data visualization palette. Primer, shadcn/ui (`chart-1` to `chart-5`) and Carbon ship categorical and sequential palettes for charts (`packages/opui/css/theme.css`)
   - Summary: The theme has no categorical or sequential chart palette, unlike Primer, shadcn/ui and Carbon.
   - Recommended: Fix with option B. No component reads chart tokens yet, so they belong with the Chart or Stat card component.
   > Explain further
@@ -146,7 +159,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A: add `--ui-chart-1` to `--ui-chart-6` in `theme.css`, documented in the theme tokens table.
     - B (recommended): wait for the Chart or Stat card component in the New components item and add the tokens with it.
-- [ ] (1) Tokens: the `-text` derivation is written out 7 times in `theme.css` (`:411-499`, one six-line `light-dark()` per intent and for `--ui-primary-text`), the on-fill luminance formula twice (`:461-466,488-493`), and `button.css:6-11` and `button-group.css:26-32` re-implement the dark half for `--_accent-text` and `--_edge-text` (`packages/opui/css/theme.css:411-499`, `packages/opui/css/components/button.css:6-11`, `packages/opui/css/components/button-group.css:26-32`)
+  > Fix with option B
+  - Fixed: option B. No chart tokens now. The Bar chart or sparkline line in the New components item says to add the categorical palette with that component.
+- [x] (1) Tokens: the `-text` derivation is written out 7 times in `theme.css` (`:411-499`, one six-line `light-dark()` per intent and for `--ui-primary-text`), the on-fill luminance formula twice (`:461-466,488-493`), and `button.css:6-11` and `button-group.css:26-32` re-implement the dark half for `--_accent-text` and `--_edge-text` (`packages/opui/css/theme.css:411-499`, `packages/opui/css/components/button.css:6-11`, `packages/opui/css/components/button-group.css:26-32`)
   - Summary: The same text and on-fill color formulas are copied nine times across the theme and two components.
   - Recommended: Fix with option A. Firefox and Safari don't run `@function` yet, so one formula would break every derived color there.
   - Fix: CSS custom functions (`@function --ui-text-of(--color)` and `@function --ui-on-fill(--fill)`, Chromium 139+, the stated target) declared once in `theme.css`, so each derived token and the two component properties are a one-line call.
@@ -154,6 +169,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): keep the seven copies until Firefox and Safari ship `@function`, then move each formula into one function.
     - B: accept the copies for good and drop the item.
+  > Fix with option A
+  - Fixed: option A. The copies stay as they are (seven `-text` derivations in `theme.css`, plus `--_accent-text` and `--_edge-text`). So the change isn't forgotten, "the -text and on-fill formulas wait for @function in Firefox and Safari" in `tests/unit/compat.test.ts` fails once web-features lists CSS `@function` (`function`, Chromium 139 only today) in Firefox and Safari, and its message says which formulas to write once.
 - [ ] (1) Package: the Node pins differ. `packages/opui/package.json:121` says `>=22` (consumers), the root `package.json:86` `>=26.10.0`, `.nvmrc` `26.10.0`, and no `.npmrc` sets `engine-strict`, so the root field is advisory (this review ran on Node 22.22 without a warning)
   - Summary: The repo declares Node 26.10 but nothing stops a contributor from running it on Node 22.
   - Recommended: Fix with option A. pnpm 12 reads `engineStrict` from `pnpm-workspace.yaml`, not `.npmrc`, and it can only be turned on once every machine runs Node 26.10.
@@ -164,6 +181,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): add `engineStrict: true` to `pnpm-workspace.yaml` once every machine that builds the repo runs Node 26.10 (CI and Netlify already read `.nvmrc`).
     - B: lower the root `engines` to the oldest Node the scripts need, and keep the field advisory.
+  > Fix with option A
+  - Still open: the condition in option A isn't met yet. This cloud environment runs Node 22.22.0, and with `engineStrict: true` pnpm 12 fails `pnpm install` there ("Unsupported engine ... wanted >=26.10.0, current 22.22.0", tried in a scratch project), which would also break the session start hook that installs the dependencies in every cloud session. pnpm's `devEngines.runtime` with `onFail: "download"` would fetch Node 26.10 for the scripts, but pnpm 12 downloads it from `unofficial-builds.nodejs.org`, which this environment can't reach. The cloud environment's Node is set in its setup script (the cloud environment menu in the session's title bar, Edit, Setup script).
+  - Options:
+    - A (recommended): install Node 26.10 in the cloud environment's setup script, then add `engineStrict: true` to `pnpm-workspace.yaml` in the next session.
+    - B: lower the root `engines` to the oldest Node the scripts need, and keep the field advisory.
 - [ ] (1) Release: `scripts/release.mjs` commits the release on the maintainer's `main` and pushes it straight to `origin`, so the release commit (version, dated CHANGELOG, regenerated files) never goes through a pull request or its CI run before it lands (`scripts/release.mjs:77-82`, `RELEASING.md:36-58`)
   - Summary: A release is pushed straight to main, so its commit skips the pull request checks that every other change gets.
   - Recommended: Fix with option A. A pull request runs `check` and `e2e` on the exact release commit before anything is tagged.
@@ -171,22 +193,31 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): a `Release` workflow, started from the Actions tab with the version, runs `release.mjs` and opens the pull request with `GITHUB_TOKEN`. Needs "Allow GitHub Actions to create and approve pull requests" in the repository settings (Settings, Actions, General, Workflow permissions), which also lets the `After release` workflow open its pull request instead of linking the compare page.
     - B: `release.mjs` runs on the maintainer's machine and opens the pull request with their `gh` login, and only the tagging on merge runs in CI.
-- [ ] (1) Tests: "select keeps its padding when a script adds the button" only asserts that the padding isn't `0px`, so a wrong padding of any other size passes (`tests/e2e/interaction.spec.ts`)
+  > Fix with option A
+- [x] (1) Tests: "select keeps its padding when a script adds the button" only asserts that the padding isn't `0px`, so a wrong padding of any other size passes (`tests/e2e/interaction.spec.ts`)
   - Summary: One Select test would still pass with any wrong padding that isn't zero.
   - Recommended: Fix. Comparing with the token is a one-line change.
   - Fix: compare it with the field's inline padding token resolved on the same element.
-- [ ] (1) Tests: Tabs are only tested with one ArrowRight. ArrowLeft, wrapping from the last tab and the Overflow example scrolling a focused tab into view aren't tested, and CHECKS.md lists the last as a manual check (`tests/e2e/interaction.spec.ts`)
+  > Fix
+  - Fixed: the test resolves `--_field-padding-inline` on a probe in the same field and expects the select's (or its button's) inline start padding to equal it, so any wrong size fails, not only `0px`.
+- [x] (1) Tests: Tabs are only tested with one ArrowRight. ArrowLeft, wrapping from the last tab and the Overflow example scrolling a focused tab into view aren't tested, and CHECKS.md lists the last as a manual check (`tests/e2e/interaction.spec.ts`)
   - Summary: Tab keyboard wrapping and scrolling a focused tab into view are only checked by hand.
   - Recommended: Fix. Both are short additions to the existing Tabs test.
   - Fix: extend the Basics test with ArrowLeft and the wrap, and add an Overflow test that tabs to the last tab and checks that it's inside the scroller's box.
-- [ ] (1) Tests: the Carousel test only clicks the next scroll button. The markers and the rule that a carousel doesn't scroll smoothly with reduced motion or `.ui-motion-off` aren't tested (`tests/e2e/interaction.spec.ts`, `packages/opui/css/components/carousel.css`)
+  > Fix
+  - Fixed: the Basics test goes on with ArrowRight from the last tab (wraps to Profile) and ArrowLeft back (Notifications), checking the radios and panels. A new Overflow test narrows the tabs until they scroll, arrows to the last tab and checks that its label sits inside the scroller; it skips where `sibling-index()` is missing. The release checks keep the RTL and Safari parts by hand.
+- [x] (1) Tests: the Carousel test only clicks the next scroll button. The markers and the rule that a carousel doesn't scroll smoothly with reduced motion or `.ui-motion-off` aren't tested (`tests/e2e/interaction.spec.ts`, `packages/opui/css/components/carousel.css`)
   - Summary: Carousel markers and the reduced-motion scrolling rule are only checked by hand.
   - Recommended: Fix. The existing next-button test already shows how to reach the pseudo-elements.
   - Fix: click a marker and check `scrollLeft` and the active marker, and check `scroll-behavior` with `.ui-motion-off`, skipped like the next-button test where `::scroll-button()` is missing.
-- [ ] (1) Tests: `range.js` updates a `data-live` output again after a form reset, but no example puts a Range in a form, so the reset path never runs (`packages/opui/css/js/range.js`)
+  > Fix
+  - Fixed: "a marker scrolls to its item and shows as current" clicks the third `::scroll-marker` (placed from the marker group's computed size and margin), then checks that the third item scrolled into view and that its marker is the current one. "a carousel jumps instead of scrolling smoothly when motion is off" checks `scroll-behavior` (smooth, `auto` with reduced motion, `auto` with `.ui-motion-off`) and that a marker click lands at once. Both skip where `::scroll-marker` is missing, like the next-button test, and the release checks no longer list the reduced motion check.
+- [x] (1) Tests: `range.js` updates a `data-live` output again after a form reset, but no example puts a Range in a form, so the reset path never runs (`packages/opui/css/js/range.js`)
   - Summary: Resetting a form doesn't have a test that the range's shown value follows.
   - Recommended: Fix. A form with a reset button in one example covers it.
   - Fix: give the Range Value example a form with a reset button, and test that moving the slider and resetting puts the output back.
+  > Fix
+  - Fixed: the Range Value example sits in a `Form` with a Reset button in all five formats, and "range shows its value again after a form reset" moves the slider to the end, resets and checks the value, the readout and `aria-valuetext`. It found a bug: a Vue or Svelte range rendered on the client has no `value` attribute, so a reset sent it to the middle of its range (180 instead of 250). Both now set the starting value as the input's `defaultValue` when it has no `value` attribute, and the unreleased CHANGELOG entry for the reset says so.
 - [ ] (1) Tooling: the list of regenerated files is written out three times in `ci.yml` and copied into `AGENTS.md`, the README, `check-colors.mjs` and `.prettierignore`, so a new generator's output would be neither checked nor committed by CI (`.github/workflows/ci.yml:31`, `.github/workflows/ci.yml:33`, `.github/workflows/ci.yml:37`, `README.md:89`, `scripts/check-colors.mjs:8-12`, `.prettierignore:10-15`, `AGENTS.md:77`)
   - Summary: A file that a new script generates would go stale without CI noticing or committing it.
   - Recommended: Fix. One list removes six copies.
@@ -281,6 +312,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): the `usage` slot and the data-driven Keyboard support partial, then fill the pages in a sweep.
     - B: only the Keyboard support partial, and keep usage guidance to the preamble.
     - C: keep the pages as they are.
+  > Fix with option A
 - [ ] (2) Repo: `tests/e2e/__screenshots__` weighs 65MB (1334 PNGs) and the git pack 273MB. `update-snapshots.yml:30` regenerates them wholesale (`rm -rf` then re-record), and 11 of the 120 visible commits touch them
   - Summary: Each snapshot refresh adds tens of megabytes of PNGs to the repository history.
   - Recommended: Fix with option A. LFS keeps the clone small and only needs `lfs: true` on the checkout steps; option B gives up dark-mode coverage.
@@ -288,6 +320,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: Git LFS for `tests/e2e/__screenshots__`.
     - B: keep, but run the `dark` project on fewer fixtures.
   - Still open: Git LFS isn't set up; the README Maintainers section ("Visual baselines in git") lays out option A (Git LFS) and option B (keep, fewer dark fixtures) for the owner to decide.
+  > Fix with option A
 - [ ] (2) Release: `scripts/release.mjs` publishes from the maintainer's machine with their npm login, so `opui-css` has no provenance statement (npm only signs provenance for a publish from CI, so `--provenance` was dropped) and every release needs a local npm session with 2FA (`scripts/release.mjs:80`, `RELEASING.md:56`)
   - Summary: Releases are published from a laptop, so npm shows no provenance for the package and each one needs a local npm login.
   - Recommended: Fix with option A. Trusted publishing needs no token or secret in the repository, only the publisher entry on npmjs.com.
@@ -309,6 +342,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): write the changed and added images to the job summary and a PR comment.
     - B: run `--update-snapshots=changed` without `rm -rf`, and delete baselines without an example in a separate step.
+  > Fix with option A
 - [ ] (2) Tooling: `check-browser-support` can detect 14 of the 51 ids the pages list, so the other 37 (`starting-style`, `popover`, `interpolate-size`, `customizable-select`, `scroll-markers` and more) are only checked for being known and sorted. It doesn't look at the HTML features in the examples, and it reads the stylesheets from the page's `?raw` imports, not the `api.ts` `css` list (`packages/opui/scripts/features.mjs:47-65`, `scripts/check-browser-support.mjs:21`, `scripts/check-browser-support.mjs:63-79`)
   - Summary: Most browser support chips are never compared with the CSS, so a missing or stale chip passes.
   - Recommended: Fix. A detector per id turns most of the browser-support agent's review into a script.
@@ -368,7 +402,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.
-  - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status.
+  - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status. Add the categorical chart palette with it (`--ui-chart-1` to `--ui-chart-6`, see the data visualization palette item under Suggestions).
   - Breadcrumb: file-manager, product-detail.
   - Chat message bubble: chat.
   - Empty state: empty-states, error-page.
@@ -400,28 +434,43 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): rename it `--ui-on-fill`, the text on an intent fill kept within `--ui-fill-max-lightness`, and describe that pairing.
     - B: draw the Badge severity fill and the choice mark with `--ui-palette-strong` and read `--ui-palette-on-strong` (a visual change in dark mode).
     - C: keep `--ui-on-accent` and document it as the one `--ui-on-*` without a fill token.
-- [ ] (1) Tokens: `--ui-line-height-relaxed` (`1.75`) is the page line height on `html` and the `Tabs` label line height, so it can't fold into `--ui-line-height-control` (`1.5`) without shrinking the tabs and changing all page text (`packages/opui/core/normalize.css:21`, `packages/opui/css/components/tabs.css:84`)
+  > Fix with option A
+- [x] (1) Tokens: `--ui-line-height-relaxed` (`1.75`) is the page line height on `html` and the `Tabs` label line height, so it can't fold into `--ui-line-height-control` (`1.5`) without shrinking the tabs and changing all page text (`packages/opui/core/normalize.css:21`, `packages/opui/css/components/tabs.css:84`)
   - Summary: Page text and tab labels share the relaxed line height, so folding it into the control line height would change both.
   - Recommended: Fix with option A. It is marked recommended and keeps the tokens as documented, and normalize and tabs still read the relaxed value.
   - Options:
     - A (recommended): keep `--ui-line-height-relaxed` for the page and the tabs, as documented now.
     - B: tabs read `--ui-line-height-control` and keep their height through padding, and `html` reads `--ui-line-height`.
+  > Fix with option A
+  - Fixed: option A. Nothing to change: `normalize.css` sets the page line height and `tabs.css` the tab labels from `--ui-line-height-relaxed` (`1.75`), and its description in the token table already says "Line height of the page text set on `html`, and of `Tabs` labels."
 - [ ] (1) Tokens: the token table hides instance inputs and files some tokens in the wrong section: `--ui-anchor-position-area` isn't listed (it is set per element, not themed), `--ui-code-block-*` sit under Typography, `--ui-track-bg-color` under Surfaces, and there is no Palette steps tier (`src/utils/theme-tokens.ts:24-47`, `packages/opui/css/theme.css`)
   - Summary: The token table omits the per-element inputs and lists the code block and track tokens under the wrong headings.
   - Recommended: Fix. The section list still has no Instance inputs, Code, Controls or Palette steps section, and the tokens still sit under Typography and Surfaces.
   - Fix: an "Instance inputs" section built from an explicit list in `theme-tokens.ts`, Code and Controls sections in `theme.css`, and a Palette steps tier generated from `core/palette.css`.
+  > Fix
 - [ ] (2) Anchor: on `/html/components/anchor/` in Chrome 142+, Tab to "felix-bohlin/ui" in the RepoCard example, wait for the card, press Tab and check whether focus reaches "Star" in the `popover="hint"` card, and whether a screen reader announces the card. On touch, tapping the link follows it, so "Star" can't be reached (`src/component-examples/anchor/RepoCard.html:7-35`)
   - Summary: Whether keyboard focus reaches the Star button in the repo hover card, and what a screen reader says about it, is unknown.
-  - Recommended: Explain further. Only Chrome 142+ with a screen reader can tell, and the RepoCard example is already on the Anchor page.
+  - Recommended: Fix with option A. Only a manual run in Chrome can confirm it, and the release checks are where manual runs happen.
   > Explain further
   - Explained: this is the case the interest invokers explainer calls partial interest. The card holds a focusable Star button, so Tab to the link shows the card but keeps focus on the link; the browser announces the hotkey (Alt+Up Arrow by default) that gives full interest, after which Tab reaches Star and Escape loses interest and closes the card. A screen reader gets the card through the `aria-details` relation the browser adds to the link while the card shows (a plain-text hint would be `aria-describedby`). On touch, Chrome 142+ shows interest on long press, so the link isn't followed and Star is reachable. Only a run in Chrome 142+ with NVDA or VoiceOver can confirm the wording, nothing to change in the example.
-- [ ] (2) CSS: every `user-select: none` is unprefixed, and web-features lists no Safari support for unprefixed `user-select`. Check in Safari whether button, tab, summary, choice, list and range text can still be selected. If so, add `-webkit-user-select: none` next to each (`packages/opui/css/components/button.css:83`, `accordion.css:95`, `choice.css:24,34`, `form.css:58`, `list.css:29`, `range.css:89`, `tabs.css:103`, `text-field.css:393`, `toggle-button.css:28`)
+  > Explain further
+  - Explained: a correction first: the "partial interest" and hotkey in the note above come from an older draft. The current interest invokers explainer dropped partial interest as too complicated, and keyboard interest now works like this. Tab to "felix-bohlin/ui", and after the start delay the card opens. Because the card is a popover with a button in it (a "rich hint"), the browser puts it next in the Tab order after the link, so the next Tab moves into the card and reaches "Star"; moving focus inside the card keeps it open, and Esc closes it. For a screen reader, Chromium gives the card a minimum role of tooltip and, while it is open, an `aria-details` relation from the link to the card, plus "expanded" on the link (a plain text tooltip instead becomes the trigger's description, with no expanded state). On touch, tapping the link still follows it. A long press opens the link's context menu, which gets a "Show details" item that opens the card without leaving the page, and the card then stays until a tap outside, so "Star" is reachable. What only a manual run can confirm is whether Chrome's shipped version does all of this (the Tab order into the card, "Show details" on Android) and the exact words NVDA and VoiceOver use. Nothing in the example needs to change for it.
+  - Still open: the manual check in Chrome 142+ above.
+  - Options:
+    - A (recommended): move the check (Tab into the card, the screen reader announcement, "Show details" on Android) to the Anchor line of the release checks in `docs/releases/6.0.0.md` and remove this item.
+    - B: keep the item open until someone runs the check.
+- [x] (2) CSS: every `user-select: none` is unprefixed, and web-features lists no Safari support for unprefixed `user-select`. Check in Safari whether button, tab, summary, choice, list and range text can still be selected. If so, add `-webkit-user-select: none` next to each (`packages/opui/css/components/button.css:83`, `accordion.css:95`, `choice.css:24,34`, `form.css:58`, `list.css:29`, `range.css:89`, `tabs.css:103`, `text-field.css:393`, `toggle-button.css:28`)
   - Summary: In Safari, pressing or dragging on buttons, tabs, summaries, choices, list items and range labels can select their text.
   - Recommended: Fix. web-features lists no Safari support for unprefixed user-select, and -webkit-user-select: none next to each declaration changes nothing in Chromium, so it is a zero-cost fallback.
+  > Fix
+  > Isn’t that good for some screen readers that text can be selectable? Maybe I’m understanding the issue wrong.
+  - Explained: `user-select: none` only stops selecting text with a pointer (a drag, a double-click, a long press). Screen readers don't go through the selection: they read the accessibility tree, so NVDA's browse mode, VoiceOver's reading keys and iOS VoiceOver read the text the same either way, and the control keeps its name. What it does block is copying that text and tools that speak the selected text (macOS Speak Selection, select-to-speak extensions). That's why the library only sets it where native controls behave the same and a press should act, not select: button, tab, summary and choice labels, list items on touch screens, and disabled fields, fieldsets and ranges. Body text, field values, descriptions and callouts stay selectable. Chromium and Firefox already apply it; web-features 3.43 lists no Safari support for the unprefixed property, so Safari selects those labels today.
+  - Fixed: `-webkit-user-select: none` sits next to each of the ten declarations (`button.css`, `accordion.css`, `choice.css` twice, `form.css`, `list.css`, `range.css`, `tabs.css`, `text-field.css`, `toggle-button.css`). Chromium reads it as the same property, so nothing changes there, as the browser support rules allow, and the Fixed section of the CHANGELOG names the components.
 - [ ] (2) Dialog: on `/html/components/dialog/` (Long content), check in Safari that the terms can be scrolled with the keyboard. `.ui-content` scrolls but holds only paragraphs, and focus lands on "Decline" outside the scroller. Chromium and Firefox make such a scroller focusable, Safari doesn't. If confirmed, add `tabindex="0"` to that `.ui-content` in all five formats and a sentence in the prose (`src/component-examples/dialog/LongContent.html:18-82`, `packages/opui/css/components/dialog.css:38-43`)
   - Summary: In Safari, keyboard users can't scroll the terms in the long-content dialog because the scrolling area isn't focusable.
   - Recommended: Fix. Safari has no keyboard-focusable scrollers, the example's content holds only paragraphs and no tabindex in any format, so the check would plainly fail.
-- [ ] (2) Range: with NVDA and VoiceOver, check what arrow keys announce on `/astro/test/range` and the HTML Value example. The `<output class="ui-value">` is a `status` live region that the script rewrites on every input, so the value may be read twice, and the slider's own value never includes `valueSuffix`. If confirmed, set `aria-valuetext` on the input and keep the readout from announcing (`packages/opui/css/js/range.js:13-17`, `packages/opui/components/Range/Range.astro`)
+  > Fix
+- [x] (2) Range: with NVDA and VoiceOver, check what arrow keys announce on `/astro/test/range` and the HTML Value example. The `<output class="ui-value">` is a `status` live region that the script rewrites on every input, so the value may be read twice, and the slider's own value never includes `valueSuffix`. If confirmed, set `aria-valuetext` on the input and keep the readout from announcing (`packages/opui/css/js/range.js:13-17`, `packages/opui/components/Range/Range.astro`)
   - Summary: Screen readers may read a slider's value twice on each arrow key and never hear its suffix.
   - Recommended: Fix with option A. `aria-valuetext` and a silent output make the slider announce once, with its unit, whatever the screen reader does today.
   > Explain further
@@ -429,6 +478,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): `range.js` sets `aria-valuetext` to the value plus suffix when `data-suffix` is set, and the `<output>` gets `aria-live="off"`, so the slider is announced once with its unit.
     - B: leave it; two announcements are redundant, not wrong.
+  > Fix with option A
+  - Fixed: option A. With `valueSuffix`, the input gets `aria-valuetext` (the value and the suffix) in Astro, React, Svelte and Vue, and the `.ui-value` output `aria-live="off"`, so each step is announced once, with its unit. `range.js` keeps `aria-valuetext` in sync for HTML outputs with a `data-suffix`, and a passed `aria-valuetext` wins. The Value section says so for HTML and the components, the Value and ValueText examples carry the attributes in all five formats (parity snapshots and the data-live drift re-recorded, intended), and `css-js.spec.ts` and the Range interaction test check `aria-valuetext`. A custom readout (`value-text`) gets no `aria-valuetext`, since its text isn't a string; the page says to pass one.
 - [ ] (2) Spinner: on `/html/components/spinner/` (Buttons), check with NVDA, JAWS and VoiceOver whether `<button aria-busy="true">` keeps its name and whether "busy" is announced. Some pairs hold back the content of busy elements.
   - Summary: Screen readers may drop a busy button's name or never say that it is busy.
   - Recommended: Fix with option A. Support data says only JAWS acts on `aria-busy`, so the page should say so and pair it with `disabled` and a status message.
@@ -439,9 +490,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: trigger the spinner from a class instead and keep `aria-busy` off buttons.
 - [ ] (2) Tooltip: on `/html/components/tooltip/`, with NVDA and Firefox, JAWS and Chrome, and VoiceOver and Safari, check whether the Save trigger is announced "collapsed" and "expanded", and whether the tooltip text is read as its description. On iOS Safari and Android Chrome, check whether `interestfor` alone (long press) shows the tooltip, which decides the Tooltip accessibility item.
   - Summary: What screen readers announce for the tooltip trigger, and whether a long press shows the tooltip on phones, is unknown.
-  - Recommended: Explain further. Only assistive technology and real phones can tell, and the Tooltip page already hosts the example.
+  - Recommended: Fix with option A. The wording to check depends on the Tooltip decision, and the release checks are where manual runs happen.
   > Explain further
   - Explained: the touch half is settled by Chrome 142, which shipped `interestfor`: interest is shown on hover, keyboard focus and long press on touchscreens, and a `popover="hint"` target that is plain text becomes the trigger's description. So touch no longer needs `commandfor` and `command="toggle-popover"`, and without the command pair the trigger has no expanded state to announce. Firefox and Safari don't support `interestfor` yet (WebKit objected to the tooltip use case), so there the tooltip only shows on hover through CSS and nothing is announced. What stays unchecked: the exact words NVDA, JAWS and VoiceOver use for the description in Chrome 142+. See the Tooltip item in Accessibility for the fix.
+  > Explain further
+  - Explained: two corrections to the note above. Firefox and Safari don't show the tooltip on hover, since `tooltip.css` has no hover rule: there it only opens through the command pair, as a click or a tap. And `interestfor` treats this tooltip as a "plain hint" (text only), so the browser uses its text as the description of Save ("Save, button, Save your changes"), with no expanded state of its own; the expanded state comes only from `command="toggle-popover"`. So what this item checks depends on the decision in the Tooltip item under Accessibility. With the pair kept, NVDA, JAWS and VoiceOver in Chrome should say "collapsed" and then "expanded" on Save; with option A there, they should say only the name and the description. On phones: Android Chrome 142+ opens it on a long press of the button; iOS Safari can't with `interestfor` alone, which is the point raised on that item.
+  - Still open: the screen reader wording, once the Tooltip item is decided.
+  - Options:
+    - A (recommended): decide the Tooltip item, then move the screen reader check to the Tooltip line of the release checks in `docs/releases/6.0.0.md` and remove this item.
+    - B: keep the item open until someone runs the check.
 - [ ] (2) Typography: rich text tables are `display: block` so they can scroll. Chromium keeps the table, column header and cell roles. Check with VoiceOver in Safari on `/html/components/typography/` (Default) that the table is still announced as a table with headers (`packages/opui/css/components/typography.css:695-700`)
   - Summary: VoiceOver in Safari may stop announcing rich text tables as tables because they are display block for scrolling.
   - Recommended: Fix with option A. Keeping the table a table is the only way that is safe in Safari, and a scroll wrapper costs one documented `div`.
@@ -450,7 +507,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): keep the table a table and scroll a wrapper: `.ui-rich-text` documents `<div class="ui-table-scroll">` (or `tabindex="0"` on a wrapping `div`) for wide tables, and the `table:not([class])` rule drops `display: block` and `overflow-inline`.
     - B: keep `display: block` and accept the Safari loss, since Chromium is the target.
-- [ ] (2) Menu: the link items in Basics and Custom point at same-page anchors (`href="#basics"`, `href="#menu"`). `Menu.astro` only adds `command="hide-popover"` to button items, so following a link scrolls the page while the popover stays open. Check in Chrome whether that is the intended behavior for link items; if not, give the example links real destinations or make link items close the menu (`src/component-examples/menu/Basics.astro:14`, `src/component-examples/menu/Basics.html:28`, `src/component-examples/menu/Custom.astro:64`, `src/component-examples/menu/Custom.html:58`, `packages/opui/components/Menu/Menu.astro:56-57,67-68`)
+- [x] (2) Menu: the link items in Basics and Custom point at same-page anchors (`href="#basics"`, `href="#menu"`). `Menu.astro` only adds `command="hide-popover"` to button items, so following a link scrolls the page while the popover stays open. Check in Chrome whether that is the intended behavior for link items; if not, give the example links real destinations or make link items close the menu (`src/component-examples/menu/Basics.astro:14`, `src/component-examples/menu/Basics.html:28`, `src/component-examples/menu/Custom.astro:64`, `src/component-examples/menu/Custom.html:58`, `packages/opui/components/Menu/Menu.astro:56-57,67-68`)
   - Summary: Choosing the Help or Open in new tab link in the example menus scrolls the page but leaves the menu open.
   - Recommended: Fix with option A. Real destinations make the examples behave like a menu, and a note covers same-page links, with no JavaScript added.
   > Explain further
@@ -460,6 +517,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: close the menu on link activation with a small script in `menu.js` (there is no JavaScript in Menu today).
     - C: keep the same-page anchors.
   - Note: `check-dist` fails on `href="#menu"`, which no element on the Menu page has, so the Custom link now points at its own section, `#custom`, in all five formats. The question above is unchanged.
+  > Fix with option A
+  - Fixed: option A. "Help" in Basics links to `/guide/getting-started/`, so choosing it navigates, and "Open in new tab" in Custom links there with `target="_blank"`, in all five formats (Menu parity snapshots updated, intended). A paragraph under Basics on the Menu page says a link item doesn't close the menu, since `command` only works on buttons, so a same-page link or one that opens a new tab keeps it open until a click outside or Esc.
 - [ ] (2) Tabs: the Keyboard support list says Right and Left Arrow "follow the reading direction. In right-to-left text, Left Arrow moves to the next tab." That is the browser's native radio-group behavior, which the library doesn't control, and no e2e test covers RTL. Check on `/html/components/tabs/` with `dir="rtl"` on the `.ui-tabs` in Chromium, Firefox and Safari; if it differs per browser, reword the row to "Right and Left Arrow move between tabs; which way depends on the browser in right-to-left text" (`src/docs/components/tabs.astro:198-202`, `tests/e2e/interaction.spec.ts:260-280`)
   - Summary: The docs say Left Arrow moves to the next tab in right-to-left text, which may not hold in every browser.
   - Recommended: Explain further and provide an example. Chromium's radio code flips the arrow keys in RTL, so the docs match the target browser, and an RTL tabs demo lets the user check Firefox and Safari before rewording.
@@ -469,14 +528,46 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 - [ ] (2) Menu: the iOS submenu anchor in the compat layer is an engine gate for iOS WebKit, which the e2e projects don't run, so no test fails the day iOS Safari places a submenu at its trigger item. Remove the block locally, open `/tests/overlays/` in iOS Safari and check whether submenus sit at their trigger item. If they do, remove the block (`packages/opui/css/compat/menu.css:2-15`)
   - Summary: Nothing says when iOS Safari places submenus right, so the iOS fix could stay longer than it's needed.
-  - Recommended: Explain further. Only a check on an iPhone or iPad can tell, and the block only applies there.
+  - Recommended: Fix with option A. Only a device can tell, and a release check repeats the look every release.
+  > Explain further
+  - Explained: on iPhone and iPad, Safari doesn't place a submenu at the item that opened it (the implicit anchor its `commandfor` button gives it). The block in `css/compat/menu.css` works around it by anchoring each submenu to its parent menu instead, so on iOS a submenu sits next to the whole menu rather than level with its item. It is gated with `@supports (-webkit-touch-callout: none)`, a property only iOS Safari has, so no other browser gets it. Nothing tells us when iOS fixes this, because the e2e projects run desktop WebKit on Linux, which fails that gate, so the day iOS Safari places submenus correctly the block keeps running and no test notices. Only a real iPhone or iPad can tell. The quickest check, without changing the code: open `/tests/overlays/` (a Netlify preview works) on the device, connect it to a Mac, open the page in Safari's Develop menu, select a submenu (`.ui-menu .ui-menu[popover]`) in Web Inspector, untick `position-anchor: --ui-menu` from `compat/menu.css`, and open the submenu again. If it now opens level with its item, the block can go; the Bugs item above fixed how the block behaves three levels deep in the meantime.
+  - Still open: the check on a device.
+  - Options:
+    - A (recommended): add the check to the iOS line of the release checks in `docs/releases/6.0.0.md`, so it runs with every release, and remove this item.
+    - B: keep the item open until someone runs it.
 - [ ] (2) Menu: in Firefox, a menu in a `dir="rtl"` part of a left-to-right page opens on the wrong inline side: the rtl menu lands about 1000px from its trigger and the rtl submenu leaves the viewport, while the rtl tooltip, which has no span, is placed right. It looks like Firefox applies `span-inline-end` and `span-inline-start` in the wrong direction there. The e2e scenarios carry it as a known Firefox failure (`failingIn.firefox`). Check in desktop Firefox on the Rtl section of `/tests/overlays/`, and report it if confirmed (`packages/opui/css/components/menu.css`, `tests/e2e/stress-overlays.ts`)
   - Summary: In Firefox, a right-to-left menu inside a left-to-right page opens about 1000px from its trigger.
-  - Recommended: Explain further. It is carried as an expected Firefox failure with a library-free repro, and only desktop Firefox can confirm it before reporting to Mozilla.
+  - Recommended: Fix with option A. The report is written, and only the confirmation in desktop Firefox is left.
   - Partly fixed: it wasn't only Firefox. Plain `position-area` keywords such as `span-inline-end` resolve against the containing block's direction, the left-to-right page, while the menu's logical margins follow its own right-to-left direction, so the two disagreed. Chromium didn't mirror either: it opened the menu to the right. Menu, Tooltip and Anchor now use the `self-` keywords, which follow the element's own direction and ship in the same browser versions. Chromium and WebKit now open the rtl menu from its trigger's right edge (a new e2e check).
   - Still open in Firefox: with the `self-` keywords, CI Firefox places the rtl menu about 1000px from its trigger, the rtl submenu outside the viewport, and the new edge check 1068px off. `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover with `self-block-end span-self-inline-end` in a `dir="rtl"` block of a left-to-right page lands 447px past its trigger's end edge in Firefox only. The scenarios and both tests are expected to fail in Firefox (`FIREFOX_SELF_RTL`). If the repro starts passing, Firefox fixed it. Check in desktop Firefox on the Rtl section of `/tests/overlays/`, and report it to Mozilla if it does the same
   > Explain further
   - Explained: still an expected Firefox failure, nothing to change. A search of Mozilla's tracker finds no matching report: bug 2050613 (fixed in Firefox 154) is a `position-area` center-branch mix-up, bug 2063785 (Firefox 157) is about inline-split anchors, neither is direction. WPT's `position-area-ambiguous-self.html` encodes what the spec expects for `self-` keywords under `direction: rtl`, so Firefox is off spec if desktop Firefox shows the same as CI. Next step when confirmed: file it under Core :: Layout: Positioned with the `engines.spec.ts` repro (a plain popover with `self-block-end span-self-inline-end` in a `dir="rtl"` block of a left-to-right page).
+  > Explain further
+  - Explained: what users see: in a right-to-left part of a left-to-right page (an Arabic comment box in an English app, say), Firefox opens a Menu far to the side of its button, and a submenu off screen. The library uses the `self-` keywords of `position-area`, which follow the element's own direction, and Chromium and WebKit place the menu right with them. The repro in `engines.spec.ts` shows it without the library, so it's a Firefox bug, and CI already expects it to fail there: the day Firefox fixes it, that test fails with "expected to fail but passed" and the expected failures come out. The only step left is the report, which needs a desktop Firefox to confirm before filing. A report ready to paste, under Core :: Layout: Positioned:
+    ```text
+    Summary: position-area self- keywords resolve toward the wrong inline side in a dir=rtl element inside a dir=ltr page
+
+    Steps:
+    1. Open the test case below and click "Open".
+
+    Expected: the popover opens below the button, with its right edge at the button's right edge (span-self-inline-end in the popover's own right-to-left direction), as in Chrome and Safari.
+    Actual: the popover lands about 450px to the side of the button.
+
+    <!doctype html>
+    <style>
+      body { margin: 0 }
+      .center { display: flex; justify-content: center; padding-block-start: 200px }
+      #popover { inline-size: 200px; inset: auto; margin: 0; position-area: self-block-end span-self-inline-end }
+    </style>
+    <div class="center" dir="rtl">
+      <button id="trigger" commandfor="popover" command="toggle-popover">Open</button>
+      <div id="popover" popover>Item</div>
+    </div>
+    ```
+  - Still open: confirming in desktop Firefox and filing the report.
+  - Options:
+    - A (recommended): run the test case in desktop Firefox, file the report above if it lands to the side, add its link to `FIREFOX_SELF_RTL` in `engines.spec.ts`, and remove this item.
+    - B: keep the item open until someone files it.
 - [ ] (2) Tokens: a severity class on the same element as `.ui-palette`, or on a direct child of `.ui-contrast-more`, loses its palette. `--ui-red`, `--ui-blue`, `--ui-green` and `--ui-orange` are declared again on those elements from `--ui-color-N`, which comes from the `--ui-palette-source` the severity scope derives from them, so Chromium drops the whole cycle as guaranteed-invalid. `.ui-neutral` keeps a fixed source for this reason, so a theme can't recolor neutral through `--ui-neutral` (`packages/opui/css/theme.css:275-278,321,483-486,543-554`, `packages/opui/core/palette.css:2-18,89-136`)
   - Summary: A severity class on a palette element or on a direct child of a high-contrast scope loses its color.
   - Recommended: Fix with option A. It is marked recommended, and the theme still declares the named colors from palette steps that the severity source derives from, so the cycle is in the code.
@@ -484,8 +575,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): give the named colors and `--ui-neutral` the step's lightness as a number (steps 7, 9 and 11 have the same lightness in every palette), so they stop depending on the element's own palette, then derive `.ui-neutral` from `--ui-neutral` like the other scopes.
     - B: keep today's values and document that a severity class can't sit on a `.ui-palette` element or a direct child of `.ui-contrast-more`.
+  > Fix with option A
 - [ ] (3) Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog, a Drawer or another Menu lands above its trigger by about the page's scroll offset once the page is scrolled: a split button menu in a dialog footer far down the overlays stress page opens around 1850px too high, and second level submenus can't be clicked because the first submenu has left the viewport. The same overlays near the top of the page are placed right, and anchors in the normal page flow are fine after scrolling. The e2e scenarios carry it as a known WebKit failure (`failingIn.webkit` in `tests/e2e/stress-overlays.ts`), and `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover anchored in a modal dialog, which is expected to fail in WebKit only on a scrolled page. If that test starts passing, WebKit fixed it, or the cause is ours. Check in Safari on macOS on `/tests/overlays/` after scrolling down, and report it to WebKit if Safari does the same (`tests/e2e/stress-overlays.ts`)
   - Summary: In WebKit, menus and tooltips inside a dialog, drawer or menu open far above their trigger once the page is scrolled.
-  - Recommended: Explain further. It is carried as an expected WebKit failure with a library-free repro, and only Safari on macOS can confirm it before reporting to WebKit.
+  - Recommended: Fix with option A. The bug is on file, and the expected failure says when it's fixed.
   > Explain further
   - Explained: WebKit has it on file. Bug 304551, "incorrect anchor positioning when a fixed-positioned element and its anchor are both in the top layer", reported in December 2025 with Chrome right and Safari wrong, was closed as a duplicate of bug 301023. That is our case: the menu or tooltip is `position: fixed` and it and its trigger, inside a modal dialog, a drawer or another menu, are both in the top layer, and WebKit offsets it by the page's scroll. Nothing to change in the library and nothing to report. When WebKit ships the fix, `engines.spec.ts` fails with "expected to fail but passed": remove `WEBKIT_SCROLLED_ANCHOR` from the scenarios and the repro.
+  > Explain further
+  - Explained: what users see: in Safari, open a modal Dialog or Drawer far down a scrolled page, open a Menu or Tooltip inside it, and it appears above its button by as much as the page is scrolled, often out of view; near the top of the page it's right. A popover opened from inside a modal dialog and the dialog itself both live in the top layer, and in that case WebKit offsets the popover by the page's scroll. That is WebKit's bug (on file, see the note above) and it shows without the library, so the browser support rules say no workaround in the package. Everything that can be done here is in place: the overlay scenarios and the plain repro in `engines.spec.ts` are expected to fail in WebKit, so when Safari ships the fix the repro fails with "expected to fail but passed", which is the signal to drop `WEBKIT_SCROLLED_ANCHOR`. There is nothing left to check or report.
+  - Still open: only whether to keep this item.
+  - Options:
+    - A (recommended): remove this item, since the bug is on file and the expected failure in `engines.spec.ts` says when it's fixed.
+    - B: keep it open until WebKit ships the fix.

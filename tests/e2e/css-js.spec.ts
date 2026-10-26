@@ -68,10 +68,15 @@ test("range.js mirrors the value into the output and follows a reset", async ({
 
   await slider.fill("7")
   await expect(live).toHaveText("7°")
+  await expect(slider).toHaveAttribute("aria-valuetext", "7°")
 
   await page.getByRole("button", { name: "Reset" }).click()
   await expect(slider).toHaveValue("3")
   await expect(live).toHaveText("3°")
+  await expect(slider).toHaveAttribute("aria-valuetext", "3°")
+  await expect(page.locator('input[type="range"]').nth(1)).not.toHaveAttribute(
+    "aria-valuetext",
+  )
 })
 
 declare global {

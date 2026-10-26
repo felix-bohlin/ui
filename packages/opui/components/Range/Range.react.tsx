@@ -61,6 +61,7 @@ export default function Range({
   const hasValue = valueSuffix !== undefined || !!valueText
   const hasDatalist = !!items || !!datalist
   const middle = () => defaultValue({ max, min, step })
+  const shown = value ?? current ?? middle()
 
   const inputId = id || (hasValue ? `range-${uid}` : undefined)
   const labelId = hasLabel ? `range-label-${uid}` : undefined
@@ -88,13 +89,14 @@ export default function Range({
       )}
       {hasValue && (
         <output
+          aria-live="off"
           className="ui-value"
           data-suffix={valueSuffix}
           htmlFor={inputId}
         >
           {valueText
-            ? valueText(Number(value ?? current ?? middle()))
-            : `${value ?? current ?? middle()}${valueSuffix ?? ""}`}
+            ? valueText(Number(shown))
+            : `${shown}${valueSuffix ?? ""}`}
         </output>
       )}
       {startText && (
@@ -107,6 +109,10 @@ export default function Range({
         aria-describedby={describedBy}
         aria-invalid={error ? "true" : rest["aria-invalid"]}
         aria-labelledby={labelId ?? rest["aria-labelledby"]}
+        aria-valuetext={
+          rest["aria-valuetext"] ??
+          (valueSuffix && !valueText ? `${shown}${valueSuffix}` : undefined)
+        }
         defaultValue={defaultValueProp}
         id={inputId}
         list={listId}

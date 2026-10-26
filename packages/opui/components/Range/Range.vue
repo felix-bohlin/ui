@@ -51,6 +51,8 @@ const syncAfterReset = () =>
     if (input.value) model.value = input.value.valueAsNumber
   })
 onMounted(() => {
+  if (input.value && !input.value.hasAttribute("value") && model.value != null)
+    input.value.defaultValue = String(model.value)
   form = input.value?.form
   form?.addEventListener("reset", syncAfterReset)
 })
@@ -98,6 +100,7 @@ const endTextId = `range-end-${uid}`
     </span>
     <output
       v-if="valueSuffix !== undefined || $slots['value-text']"
+      aria-live="off"
       class="ui-value"
       :for="inputId"
       :data-suffix="valueSuffix"
@@ -127,6 +130,12 @@ const endTextId = `range-end-${uid}`
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :aria-labelledby="
         label || $slots.label ? labelId : attrs['aria-labelledby']
+      "
+      :aria-valuetext="
+        attrs['aria-valuetext'] ??
+        (valueSuffix && !$slots['value-text']
+          ? `${model ?? middle}${valueSuffix}`
+          : undefined)
       "
       :id="inputId"
       :list="listId"

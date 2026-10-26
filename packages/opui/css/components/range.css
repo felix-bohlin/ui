@@ -99,6 +99,7 @@
     &:has([disabled]) {
       cursor: not-allowed;
       opacity: var(--ui-disabled-opacity);
+      -webkit-user-select: none;
       user-select: none;
 
       .ui-label,

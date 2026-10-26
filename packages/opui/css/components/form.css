@@ -50,6 +50,7 @@
     /* Disabled */
     &[disabled] {
       opacity: var(--ui-disabled-opacity);
+      -webkit-user-select: none;
       user-select: none;
 
       button,

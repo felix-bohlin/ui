@@ -63,7 +63,11 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       </template>
       <template #end><kbd>Ctrl+C</kbd></template>
     </ListItem>
-    <ListItem label="Open in new tab" href="#custom">
+    <ListItem
+      label="Open in new tab"
+      href="/guide/getting-started/"
+      target="_blank"
+    >
       <template #start>
         <svg
           aria-hidden="true"

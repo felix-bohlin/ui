@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { Range } from "opui-css/vue"
+import { Button, FieldGroup, Form, Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="Hue" min="0" max="360" value="250" valueSuffix="°" />
+  <Form>
+    <Range label="Hue" min="0" max="360" value="250" valueSuffix="°" />
+    <FieldGroup>
+      <Button type="reset">Reset</Button>
+    </FieldGroup>
+  </Form>
 </template>

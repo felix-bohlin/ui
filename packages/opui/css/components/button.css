@@ -133,6 +133,7 @@
       box-shadow var(--_duration) var(--_ease),
       color var(--_duration) var(--_ease),
       translate var(--_duration) var(--_ease);
+    -webkit-user-select: none;
     user-select: none;
 
     &.ui-critical,

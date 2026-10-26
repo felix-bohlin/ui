@@ -31,6 +31,7 @@
     padding-block: 0;
     padding-inline: var(--ui-space-2);
     position: relative;
+    -webkit-user-select: none;
     user-select: none;
 
     & :is(input[type="checkbox"], input[type="radio"]) {

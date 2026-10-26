@@ -103,7 +103,8 @@ import Basics from "../../component-examples/menu/Basics.astro"
         item: an <code>@supports (-webkit-touch-callout: none)</code> block in the
         compat layer (<code>css/compat/menu.css</code>) sets <code
           >anchor-name</code
-        > and <code>anchor-scope</code> on the parent menu
+        > on every menu that has a submenu, and <code>anchor-scope</code> only on
+        the root menu, so a submenu three levels deep still finds its own parent
       </li>
     </ul>
   </section>

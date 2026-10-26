@@ -95,6 +95,7 @@
       padding-inline: var(--ui-space-3);
       position: relative;
       transition: color var(--_duration) var(--_ease);
+      -webkit-user-select: none;
       user-select: none;
       white-space: nowrap;
 

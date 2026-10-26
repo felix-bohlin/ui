@@ -45,22 +45,87 @@ export const keepsFallback = (condition, year) =>
   featureIds(condition).some((id) => lowYear(id) > year)
 
 export const patterns = [
-  { id: "anchor-positioning", pattern: /\b(anchor-name|position-anchor):/ },
+  { id: "anchor-positioning", pattern: /\b(?:anchor-name|position-anchor):/ },
+  { id: "attr", pattern: /\battr\(/ },
+  { id: "backdrop-filter", pattern: /\bbackdrop-filter:/ },
+  { id: "box-decoration-break", pattern: /\bbox-decoration-break:/ },
+  { id: "calc-size", pattern: /\bcalc-size\(/ },
   { id: "color-mix", pattern: /color-mix\(/ },
+  {
+    id: "container-queries",
+    pattern:
+      /\bcontainer(?:-type)?:[^;]*\b(?:inline-)?size\b|@container\s+(?:[\w-]+\s+)?\(|(?<![\w.-])\d*\.?\d+cq(?:b|h|i|max|min|w)\b/,
+  },
   { id: "container-scroll-state-queries", pattern: /scroll-state\(/ },
-  { id: "container-style-queries", pattern: /@container style\(/ },
+  {
+    id: "container-style-queries",
+    pattern: /@container\s+(?:[\w-]+\s+)?(?:not\s+)?style\(/,
+  },
   { id: "corner-shape", pattern: /corner-shape:/ },
+  {
+    id: "customizable-select",
+    pattern: /\bappearance:\s*base-select\b|::picker(?:-icon)?\b|::checkmark\b/,
+  },
+  { id: "details-content", pattern: /::details-content\b/ },
   { id: "dir-pseudo", pattern: /:dir\(/ },
   {
     id: "display-animation",
     pattern: /\b(?:content-visibility|display)\s[^,;]*allow-discrete/,
   },
+  { id: "exp-functions", pattern: /\b(?:exp|hypot|log|pow|sqrt)\(/ },
   { id: "field-sizing", pattern: /field-sizing:/ },
   { id: "has", pattern: /:has\(/ },
+  {
+    id: "interest-invokers",
+    pattern: /\binterest-delay(?:-end|-start)?:|:interest-(?:source|target)\b/,
+  },
+  { id: "interpolate-size", pattern: /\binterpolate-size:/ },
+  { id: "lh", pattern: /(?<![\w.])-?\d*\.?\d+lh\b/ },
   { id: "light-dark", pattern: /light-dark\(/ },
+  { id: "marker", pattern: /::marker\b/ },
+  { id: "nth-child-of", pattern: /:nth-(?:last-)?child\([^)]*\sof\s/ },
+  { id: "open-pseudo", pattern: /(?<!:):open\b/ },
+  {
+    id: "overflow-clip",
+    pattern:
+      /\boverflow(?:-block|-inline|-x|-y)?:\s*(?:[\w-]+\s+)?clip\b|\boverflow-clip-margin:/,
+  },
+  {
+    id: "overlay",
+    pattern: /\btransition(?:-property)?:[^;]*\boverlay\b|(?<![\w-])overlay:/,
+  },
+  { id: "popover", pattern: /:popover-open\b/ },
   { id: "progress-function", pattern: /\bprogress\(/ },
+  { id: "registered-custom-properties", pattern: /@property\s+--/ },
   { id: "relative-color", pattern: /\(\s*from\s/ },
+  { id: "round-mod-rem", pattern: /\b(?:mod|rem|round)\(/ },
+  { id: "scope", pattern: /@scope\b/ },
+  { id: "scroll-buttons", pattern: /::scroll-button\(/ },
+  {
+    id: "scroll-driven-animations",
+    pattern:
+      /\banimation-(?:range(?:-end|-start)?|timeline):|\b(?:scroll|view)-timeline(?:-axis|-name)?:/,
+  },
+  {
+    id: "scroll-marker-targets",
+    pattern: /:target-(?:after|before|current)\b/,
+  },
+  {
+    id: "scroll-markers",
+    pattern: /::scroll-marker(?:-group)?\b|\bscroll-marker-group:/,
+  },
+  { id: "scroll-snap", pattern: /\bscroll-snap-(?:align|stop|type):/ },
   { id: "scrollbar-gutter", pattern: /scrollbar-gutter:/ },
+  { id: "scrollbar-width", pattern: /\bscrollbar-width:/ },
+  { id: "sibling-count", pattern: /\bsibling-(?:count|index)\(/ },
+  { id: "starting-style", pattern: /@starting-style\b/ },
+  { id: "text-box", pattern: /\btext-box(?:-edge|-trim)?:/ },
+  { id: "text-wrap-pretty", pattern: /\btext-wrap(?:-style)?:\s*pretty\b/ },
+  {
+    id: "transition-behavior",
+    pattern: /\ballow-discrete\b|\btransition-behavior:/,
+  },
+  { id: "trig-functions", pattern: /\b(?:acos|asin|atan2?|cos|sin|tan)\(/ },
   { id: "user-pseudos", pattern: /:user-(?:in)?valid\b/ },
 ]
 

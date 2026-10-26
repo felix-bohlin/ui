@@ -1,5 +1,10 @@
 import stylelint from "stylelint"
 import { describe, expect, test } from "vitest"
+import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
+import {
+  htmlFeatureIds,
+  pageProblems,
+} from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
 import { problems } from "../../scripts/check-commits.mjs"
 import {
@@ -67,6 +72,121 @@ describe("sort-css", () => {
     const sorted =
       ".a {\n  --_motion: 1;\n  --_accent: red;\n  background: blue;\n  color: red;\n}\n"
     expect(await sortSource("a.css", sorted)).toBe(sorted)
+  })
+})
+
+describe("check-browser-support", () => {
+  const samples: Record<string, string> = {
+    "anchor-positioning": ".a { anchor-name: --a; }",
+    attr: '.a { content: attr(data-label type(<string>), ""); }',
+    "backdrop-filter": "::backdrop { backdrop-filter: blur(4px); }",
+    "box-decoration-break": ".a { box-decoration-break: clone; }",
+    "calc-size": ".a { block-size: calc-size(auto, size); }",
+    "color-mix": ".a { color: color-mix(in oklch, red, blue); }",
+    "container-queries": "@container (inline-size > 30em) { .a { gap: 0; } }",
+    "container-scroll-state-queries":
+      "@container scroll-state(stuck: top) { .a { gap: 0; } }",
+    "container-style-queries":
+      "@container not style(--ui-contrast: more) { .a { gap: 0; } }",
+    "corner-shape": ".a { corner-shape: squircle; }",
+    "customizable-select": "select { appearance: base-select; }",
+    "details-content": "details::details-content { opacity: 0; }",
+    "dir-pseudo": ".a:dir(rtl) { scale: -1 1; }",
+    "display-animation": ".a { transition: display 1s allow-discrete; }",
+    "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
+    "field-sizing": "textarea { field-sizing: content; }",
+    has: ".a:has(> svg) { gap: 0; }",
+    "interest-invokers": ".a { interest-delay: 0.5s; }",
+    "interpolate-size": ":root { interpolate-size: allow-keywords; }",
+    lh: ".a { block-size: 0.5lh; }",
+    "light-dark": ".a { color: light-dark(white, black); }",
+    marker: "li::marker { color: red; }",
+    "nth-child-of": ".a:nth-child(2 of .b) { gap: 0; }",
+    "open-pseudo": "select:open { gap: 0; }",
+    "overflow-clip": ".a { overflow: clip; }",
+    overlay: ".a { transition: opacity 1s, overlay 1s allow-discrete; }",
+    popover: ".a:popover-open { opacity: 1; }",
+    "progress-function": ".a { --p: progress(100vi, 20rem, 80rem); }",
+    "registered-custom-properties":
+      '@property --a { inherits: false; initial-value: 0; syntax: "<number>"; }',
+    "relative-color": ".a { color: oklch(from red l c h); }",
+    "round-mod-rem": ".a { line-height: round(up, 1.4em, 4px); }",
+    scope: "@scope (.a) { p { gap: 0; } }",
+    "scroll-buttons": ".a::scroll-button(inline-start) { content: ''; }",
+    "scroll-driven-animations": ".a { animation-timeline: scroll(); }",
+    "scroll-marker-targets": ".a::scroll-marker:target-current { gap: 0; }",
+    "scroll-markers": ".a { scroll-marker-group: after; }",
+    "scroll-snap": ".a { scroll-snap-type: x mandatory; }",
+    "scrollbar-gutter": ".a { scrollbar-gutter: stable; }",
+    "scrollbar-width": ".a { scrollbar-width: thin; }",
+    "sibling-count": ".a { --n: sibling-count(); }",
+    "starting-style": "@starting-style { .a { opacity: 0; } }",
+    "text-box": ".a { text-box: trim-both cap alphabetic; }",
+    "text-wrap-pretty": ".a { text-wrap: pretty; }",
+    "transition-behavior": ".a { transition-behavior: allow-discrete; }",
+    "trig-functions": ".a { inset: calc(50% * sin(45deg)); }",
+    "user-pseudos": "input:user-invalid { color: red; }",
+  }
+
+  test("every pattern detects its feature", () => {
+    expect(Object.keys(samples)).toEqual(patterns.map(({ id }) => id))
+    expect(
+      Object.entries(samples).filter(
+        ([id, css]) => !featureIds(css).includes(id),
+      ),
+    ).toEqual([])
+  })
+
+  test("the patterns skip near misses", () => {
+    expect(
+      featureIds(
+        ".a[open] { --_overlay: 1rlh; block-size: 2rem; overflow: hidden; transition: opacity 1s; }",
+      ),
+    ).toEqual([])
+  })
+
+  test("reads the HTML features from the attributes and elements of the examples", () => {
+    expect(
+      htmlFeatureIds([
+        '<dialog closedby="any" id="d"><button commandfor="d" command="close" interestfor="t">Close</button></dialog>',
+        '<div id="t" popover="hint"></div><details name="a"></details><datalist id="l"></datalist>',
+      ]),
+    ).toEqual([
+      "datalist",
+      "details-name",
+      "dialog-closedby",
+      "interest-invokers",
+      "invoker-commands",
+      "popover",
+      "popover-hint",
+    ])
+    expect(
+      htmlFeatureIds([
+        '<div closedby="any" name="a"><input list="l" /><button popovertarget="p">Open</button></div>',
+      ]),
+    ).toEqual([])
+  })
+
+  test("reports missing, unused and undetected ids, and widely available ones only next to another", () => {
+    expect(
+      pageProblems({
+        available: new Set(["light-dark"]),
+        ids: ["light-dark", "popover", "scroll-snap", "zoom"],
+        used: new Set(["has", "scroll-snap", "starting-style"]),
+      }),
+    ).toEqual({
+      missing: ["has", "starting-style"],
+      undetected: ["zoom"],
+      unused: ["popover"],
+    })
+    expect(
+      pageProblems({
+        available: new Set(),
+        ids: ["popover"],
+        ignored: ["starting-style"],
+        used: new Set(["has", "popover", "starting-style"]),
+      }),
+    ).toEqual({ missing: [], undetected: [], unused: [] })
   })
 })
 

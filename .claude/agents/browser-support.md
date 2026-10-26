@@ -1,6 +1,6 @@
 ---
 name: browser-support
-description: Checks that the browserSupport list on each component docs page matches the CSS features its stylesheets actually use. Use after changing component CSS or a page's browserSupport, or to audit all pages. Reports findings, never edits.
+description: Checks that the browserSupport list on each component docs page names the right web-features ids for the CSS and HTML features the page uses. Use after changing component CSS or a page's browserSupport, or to audit all pages. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
 paths:
   - packages/opui/core/**
@@ -14,23 +14,17 @@ You check the browser support chips on the component docs pages. You report find
 
 - `AGENTS.md`
 - `.claude/skills/audit/findings-format.md`, the format for your report
-- `scripts/check-browser-support.mjs`, which fails when an id isn't in `web-features`, when a list isn't sorted, and when the stylesheets a page imports use an id the page doesn't list, or the page lists one that nothing uses. Pages without `browserSupport` are checked too, and comments in the stylesheets don't count. It only knows the features in the `patterns` list of `packages/opui/scripts/features.mjs`, and counts a match only when its rule's selector can match the elements in the page's HTML examples (`src/component-examples/<slug>/*.html`), so the `input` and `textarea` rules in `text-field.css` don't count for Select
+- `scripts/check-browser-support.mjs` (`pnpm check-browser-support`), which compares each page's `browserSupport` with the features that the stylesheets of its `api.ts` files and its HTML examples use, through the patterns in `packages/opui/scripts/features.mjs` and its `HTML_FEATURES`. Its error messages state what it checks. Don't repeat those checks by hand.
 
 ## How the pieces connect
 
 - A page is `src/docs/components/<slug>.astro`. Its `browserSupport={[…]}` lists `web-features` ids.
-- Its stylesheets are the `css` list in `src/component-api/<slug>/api.ts`, or the kebab-cased `source` when there is none, under `packages/opui/css/components/`. Pages can also import other stylesheets in `installationTabs`.
-- Shared files the component reads, such as `packages/opui/core/utils.css` and `packages/opui/css/theme.css`, count only for features the component depends on.
-- A stylesheet several components share, such as `text-field.css` (Select, Text field, Textarea), counts only for the rules that can match the component's markup.
+- Its stylesheets are the `css` lists of the `api.ts` files whose page is the slug, or their kebab-cased `source`, under `packages/opui/css/components/`.
 
 ## Check
 
 For each page in scope:
 
-1. List the features its CSS uses that `web-features` tracks. Look up an id with `node -e 'import("web-features").then(({ features }) => console.log(JSON.stringify(features["has"], null, 2)))'`, and search ids by name or `compat_features` key when you aren't sure of one.
-2. Report features outside the script's `patterns` that the CSS uses and `browserSupport` lacks. Which widely available features to leave out and which to keep is in `browserSupport` in `src/docs/components/AGENTS.md`.
-3. Report ids outside `patterns` in `browserSupport` that the CSS no longer uses.
-4. Report ids that point at the wrong feature, such as a broader or narrower id than the one used.
-5. Check the features the HTML in the examples relies on (`popover`, `commandfor`, `interestfor`, `closedby`, `<details name>`) the same way.
+1. Report ids that point at the wrong feature, such as a broader or narrower id than the one used, patterns in `features.mjs` that match more or less than their feature, and features the CSS uses that no pattern detects (which ones a page lists is in `browserSupport` in `src/docs/components/AGENTS.md`). Look up an id with `node -e 'import("web-features").then(({ features }) => console.log(JSON.stringify(features["has"], null, 2)))'`, and search ids by name or `compat_features` key when you aren't sure of one.
 
-Run `pnpm check-browser-support` and include its partial support summary when it is relevant to a finding.
+Run `pnpm check-browser-support` and include its partial support summary when it is relevant to a finding. Sort suggested `browserSupport` lists in ascending order.

@@ -8,7 +8,10 @@ const description =
 
 <Default description={description} hasMarkdown title="Theme builder">
   <main id="main-content" class="container is-wide">
-    <h1 class="ui-sr-only">Theme builder</h1>
+    <article class="ui-sr-only">
+      <h1>Theme builder</h1>
+      <p>{description}</p>
+    </article>
     <ThemeBuilder />
   </main>
 </Default>

@@ -92,8 +92,10 @@ const fallback = `oklch(0.58 ${+(0.21 * chroma).toFixed(3)} ${knob("--ui-palette
     position: relative;
 
     &:has(:checked) {
-      outline: var(--ui-border-width-thick) solid var(--ui-text-strong);
-      outline-offset: var(--ui-border-width-thick);
+      box-shadow:
+        inset 0 0 0 var(--ui-border-width) var(--ui-border-color),
+        0 0 0 var(--ui-border-width-thick) var(--ui-surface),
+        0 0 0 calc(var(--ui-border-width-thick) * 2) var(--ui-text-strong);
     }
   }
 
@@ -106,14 +108,17 @@ const fallback = `oklch(0.58 ${+(0.21 * chroma).toFixed(3)} ${knob("--ui-palette
   }
 
   .brand-picker:not(:has(:checked)) :global(.brand-custom) {
-    outline: var(--ui-border-width-thick) solid var(--ui-text-strong);
-    outline-offset: var(--ui-border-width-thick);
+    box-shadow:
+      0 0 0 var(--ui-border-width-thick) var(--ui-surface),
+      0 0 0 calc(var(--ui-border-width-thick) * 2) var(--ui-text-strong);
   }
 
   .brand-picker :global(.brand-swatch:has(:focus-visible)) {
     outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
       var(--ui-focus-ring-color);
-    outline-offset: var(--ui-focus-ring-offset);
+    outline-offset: calc(
+      var(--ui-border-width-thick) * 2 + var(--ui-focus-ring-offset)
+    );
   }
 
   .brand-picker :global(.brand-custom .oklch-trigger) {

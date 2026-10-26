@@ -84,7 +84,21 @@ const readColor = (text: string): Color | null => {
 export class OklchInput extends HTMLElement {
   #value = ""
 
-  #open = () => open(this)
+  #pressedOpen = false
+
+  #press = () => {
+    this.#pressedOpen = isOpenFor(this)
+  }
+
+  #open = () => {
+    const pressedOpen = this.#pressedOpen
+    this.#pressedOpen = false
+    if (pressedOpen) {
+      if (isOpenFor(this)) picker!.root.hidePopover()
+      return
+    }
+    open(this)
+  }
 
   get button() {
     return this.querySelector<HTMLButtonElement>(".oklch-trigger")!
@@ -106,14 +120,17 @@ export class OklchInput extends HTMLElement {
   set value(value: string) {
     this.#value = value
     this.style.setProperty("--oklch-value", value)
+    this.button.setAttribute("aria-description", value)
   }
 
   connectedCallback() {
     this.button.addEventListener("click", this.#open)
+    this.button.addEventListener("pointerdown", this.#press)
   }
 
   disconnectedCallback() {
     this.button.removeEventListener("click", this.#open)
+    this.button.removeEventListener("pointerdown", this.#press)
   }
 
   commit(value: string, type: "change" | "input") {
@@ -124,7 +141,9 @@ export class OklchInput extends HTMLElement {
 
 let picker: ReturnType<typeof createPicker> | null = null
 let target: OklchInput | null = null
-let closed: { at: number; input: OklchInput | null } = { at: 0, input: null }
+
+const isOpenFor = (input: OklchInput) =>
+  !!picker?.root.matches(":popover-open") && target === input
 
 const createPicker = () => {
   const root = document.createElement("div")
@@ -141,7 +160,7 @@ const createPicker = () => {
       ({ key, label, max, step }) => `
         <div class="oklch-slider" data-channel="${key}">
           <label for="oklch-picker-${key}">${label}</label>
-          <output for="oklch-picker-${key}"></output>
+          <output aria-hidden="true" for="oklch-picker-${key}"></output>
           <input id="oklch-picker-${key}" max="${max}" min="0" step="${step}" type="range" />
         </div>`,
     ).join("")}
@@ -152,6 +171,7 @@ const createPicker = () => {
       </span>
     </label>
     <p class="oklch-picker-gamut" id="oklch-picker-gamut"></p>
+    <p class="ui-sr-only" role="alert"></p>
   `
   const sliders = new Map(
     CHANNELS.map((channel) => {
@@ -173,6 +193,7 @@ const createPicker = () => {
   const field = root.querySelector<HTMLInputElement>(".ui-field input")!
   const gamut = root.querySelector<HTMLElement>(".oklch-picker-gamut")!
   const title = root.querySelector<HTMLElement>(".oklch-picker-title")!
+  const alert = root.querySelector<HTMLElement>("[role=alert]")!
   let color: Color = { C: 0.1, H: 250, L: 0.6, alpha: 1 }
 
   const render = (skip?: HTMLInputElement) => {
@@ -189,6 +210,7 @@ const createPicker = () => {
     }
     if (document.activeElement !== field) field.value = value
     field.removeAttribute("aria-invalid")
+    alert.textContent = ""
     gamut.textContent = GAMUT_TEXT[oklchGamut(color.L, color.C, color.H)]
   }
 
@@ -215,11 +237,11 @@ const createPicker = () => {
     if (!next) {
       field.setAttribute("aria-invalid", "true")
       gamut.textContent = INVALID_TEXT
+      alert.textContent = INVALID_TEXT
       return
     }
     color = {
       ...next,
-      C: Math.min(MAX_CHROMA, next.C),
       alpha: target?.dataset.alpha === undefined ? 1 : next.alpha,
     }
     field.value = formatOklch(color, color.alpha)
@@ -228,9 +250,20 @@ const createPicker = () => {
     emit("change")
   })
 
+  root.addEventListener("focusout", (event) => {
+    const next = event.relatedTarget
+    if (
+      next instanceof Node &&
+      !root.contains(next) &&
+      next !== target?.button &&
+      root.matches(":popover-open")
+    ) {
+      root.hidePopover()
+    }
+  })
+
   root.addEventListener("beforetoggle", (event) => {
     if ((event as ToggleEvent).newState !== "closed") return
-    closed = { at: performance.now(), input: target }
     target?.button.setAttribute("aria-expanded", "false")
     if (root.contains(document.activeElement)) target?.button.focus()
   })
@@ -241,10 +274,7 @@ const createPicker = () => {
     const host = input.closest("dialog") ?? document.body
     if (root.parentElement !== host) host.append(root)
     input.button.style.setProperty("anchor-name", ANCHOR)
-    const parsed = readColor(input.value)
-    color = parsed
-      ? { ...parsed, C: Math.min(MAX_CHROMA, parsed.C) }
-      : { C: 0.1, H: 250, L: 0.6, alpha: 1 }
+    color = readColor(input.value) ?? { C: 0.1, H: 250, L: 0.6, alpha: 1 }
     sliders.get("alpha")!.element.hidden = input.dataset.alpha === undefined
     title.textContent = input.label
     render()
@@ -261,8 +291,6 @@ const open = (input: OklchInput) => {
   if (picker.root.matches(":popover-open")) {
     picker.root.hidePopover()
     if (target === input) return
-  } else if (closed.input === input && performance.now() - closed.at < 300) {
-    return
   }
   picker.show(input)
 }

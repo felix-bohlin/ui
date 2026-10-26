@@ -30,7 +30,9 @@ export const syncBrandPicker = (
             radio.value.toLowerCase() === brand.toLowerCase(),
         )
   for (const radio of radios) radio.checked = radio === match
-  picker
-    .querySelector<HTMLElement>("[data-brand-custom]")!
-    .style.setProperty("--swatch", match ? "" : (brand ?? ""))
+  const custom = picker.querySelector<HTMLElement>("[data-brand-custom]")!
+  custom.style.setProperty("--swatch", match ? "" : (brand ?? ""))
+  const trigger = custom.querySelector(".oklch-trigger")!
+  if (match) trigger.removeAttribute("aria-current")
+  else trigger.setAttribute("aria-current", "true")
 }

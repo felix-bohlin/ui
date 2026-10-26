@@ -102,13 +102,34 @@ const inUnit = (channels: number[]) =>
     (channel) => channel >= -GAMUT_EPSILON && channel <= 1 + GAMUT_EPSILON,
   )
 
+const P3_LUMINANCE = [0.2289745641, 0.6917385218, 0.0792869141]
+
+const SRGB_LUMINANCE = [0.2126, 0.7152, 0.0722]
+
+const toP3 = (srgb: number[]) =>
+  SRGB_TO_P3.map((row) =>
+    row.reduce((sum, weight, index) => sum + weight * srgb[index], 0),
+  )
+
+const clippedLuminance = (channels: number[], weights: number[]) =>
+  channels.reduce(
+    (sum, channel, index) =>
+      sum + weights[index] * Math.min(1, Math.max(0, channel)),
+    0,
+  )
+
 export function oklchGamut(L: number, C: number, H: number) {
   const srgb = oklchToLinearSrgb(L, C, H)
   if (inUnit(srgb)) return "srgb"
-  const p3 = SRGB_TO_P3.map((row) =>
-    row.reduce((sum, weight, index) => sum + weight * srgb[index], 0),
-  )
-  return inUnit(p3) ? "p3" : "wide"
+  return inUnit(toP3(srgb)) ? "p3" : "wide"
+}
+
+export function oklchLuminances(L: number, C: number, H: number) {
+  const srgb = oklchToLinearSrgb(L, C, H)
+  return [
+    clippedLuminance(srgb, SRGB_LUMINANCE),
+    clippedLuminance(toP3(srgb), P3_LUMINANCE),
+  ]
 }
 
 const NUMBER = String.raw`(-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?)`
@@ -143,7 +164,7 @@ export function colorToOklch(value: string): Oklch | null {
 const round = (value: number, digits: number) => +value.toFixed(digits)
 
 export function formatOklch({ C, H, L }: Oklch, alpha = 1): string {
-  const hue = round(C, 3) === 0 ? 0 : round(H, 1) % 360
-  const color = `${round(L, 3)} ${round(C, 3)} ${hue}`
+  const hue = round(C, 4) === 0 ? 0 : round(H, 2) % 360
+  const color = `${round(L, 4)} ${round(C, 4)} ${hue}`
   return alpha < 1 ? `oklch(${color} / ${round(alpha, 3)})` : `oklch(${color})`
 }

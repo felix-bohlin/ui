@@ -1,7 +1,7 @@
 import {
   colorToOklch,
   formatOklch,
-  oklchToHex,
+  oklchLuminances,
   parseOklch,
 } from "./color-utils"
 import { themeStore, type ThemeTokens } from "./theme"
@@ -26,12 +26,6 @@ const parseSrgb = (value: string): Rgb | null => {
     ? [clip(Number(match[1])), clip(Number(match[2])), clip(Number(match[3]))]
     : null
 }
-
-const hexToRgb = (hex: string): Rgb => [
-  parseInt(hex.slice(1, 3), 16) / 255,
-  parseInt(hex.slice(3, 5), 16) / 255,
-  parseInt(hex.slice(5, 7), 16) / 255,
-]
 
 export const luminance = (rgb: Rgb) =>
   rgb
@@ -67,11 +61,15 @@ export const fitBrand = (color: string, scheme: "dark" | "light") => {
   const oklch = colorToOklch(color)
   if (!surface || !oklch) return color
   const { C, H, L } = oklch
+  const surfaceY = luminance(surface)
   const passes = (lightness: number) =>
-    contrastRatio(hexToRgb(oklchToHex(lightness, C, H)), surface) >=
-    SURFACE_RATIO
+    oklchLuminances(lightness, C, H).every(
+      (y) =>
+        (Math.max(y, surfaceY) + 0.05) / (Math.min(y, surfaceY) + 0.05) >=
+        SURFACE_RATIO,
+    )
   if (passes(L)) return color
-  const darker = luminance(surface) > 0.18
+  const darker = surfaceY > 0.18
   let [low, high] = darker ? [0, L] : [L, 1]
   for (let step = 0; step < 24; step++) {
     const middle = (low + high) / 2
@@ -94,13 +92,16 @@ export const brandTokens = (color: string) => {
 }
 
 export const resolveOklch = (color: string) => {
+  const host = document.createElement("div")
+  host.hidden = true
+  host.style.color = "rgb(1 2 3)"
   const probe = document.createElement("div")
-  probe.hidden = true
   probe.style.color = `oklch(from ${color} l c h)`
   probe.style.forcedColorAdjust = "none"
-  document.body.append(probe)
+  host.append(probe)
+  document.body.append(host)
   const oklch = parseOklch(getComputedStyle(probe).color)
-  probe.remove()
+  host.remove()
   return oklch && formatOklch(oklch)
 }
 

@@ -3,6 +3,7 @@ import {
   colorToOklch,
   formatOklch,
   oklchGamut,
+  oklchLuminances,
   parseOklch,
 } from "../../src/utils/color-utils"
 
@@ -55,10 +56,17 @@ describe("colorToOklch", () => {
 
 describe("formatOklch", () => {
   test("rounds and drops the hue of a gray", () => {
-    expect(formatOklch({ C: 0.193_412, H: 23.04, L: 0.626_15 })).toBe(
-      "oklch(0.626 0.193 23)",
+    expect(formatOklch({ C: 0.193_412, H: 23.041, L: 0.626_04 })).toBe(
+      "oklch(0.626 0.1934 23.04)",
     )
-    expect(formatOklch({ C: 0.000_1, H: 89, L: 1 })).toBe("oklch(1 0 0)")
+    expect(formatOklch({ C: 0.000_01, H: 89, L: 1 })).toBe("oklch(1 0 0)")
+  })
+
+  test("keeps sRGB colors in sRGB after rounding", () => {
+    for (const hex of ["#ff0000", "#00ff00", "#0000ff", "#00ffff", "#ffff24"]) {
+      const value = colorToOklch(formatOklch(colorToOklch(hex)!))!
+      expect(oklchGamut(value.L, value.C, value.H)).toBe("srgb")
+    }
   })
 
   test("writes alpha below 1", () => {
@@ -77,5 +85,18 @@ describe("oklchGamut", () => {
   test("keeps the sRGB corners in sRGB", () => {
     const red = colorToOklch("#ff0000")!
     expect(oklchGamut(red.L, red.C, red.H)).toBe("srgb")
+  })
+})
+
+describe("oklchLuminances", () => {
+  test("gives white a luminance of 1 on sRGB and P3 screens", () => {
+    const [srgb, p3] = oklchLuminances(1, 0, 0)
+    expect(srgb).toBeCloseTo(1, 3)
+    expect(p3).toBeCloseTo(1, 3)
+  })
+
+  test("clips a wide-gamut color separately for each screen", () => {
+    const [srgb, p3] = oklchLuminances(0.74, 0.31, 338)
+    expect(srgb).not.toBeCloseTo(p3, 2)
   })
 })

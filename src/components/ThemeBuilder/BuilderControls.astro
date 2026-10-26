@@ -113,6 +113,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const host = document.createElement("div")
       host.className = `ui-${scheme}`
       host.hidden = true
+      host.style.color = "rgb(1 2 3)"
       host.style.forcedColorAdjust = "none"
       root.append(host)
       return host
@@ -236,15 +237,24 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
     const isFitted = (primary: string) => {
       const source = valueOf("--ui-palette-source")
+      const base = source ? colorToOklch(source) : null
       const sides = primary
         .match(/^light-dark\((.*)\)$/)?.[1]
         .split(/,(?![^(]*\))/)
         .map((side) => side.trim())
+      if (!source || !base || sides?.length !== 2) return false
+      const others = sides.filter((side) => !same("", side, source))
       return (
-        !!source &&
-        sides?.length === 2 &&
-        sides.some((side) => same("", side, source)) &&
-        sides.some((side) => side.startsWith("oklch("))
+        others.length === 1 &&
+        others.every((side) => {
+          const fit = colorToOklch(side)
+          return (
+            !!fit &&
+            Math.abs(fit.C - base.C) < 0.002 &&
+            (base.C < 0.002 ||
+              Math.abs(((fit.H - base.H + 540) % 360) - 180) < 0.2)
+          )
+        })
       )
     }
 
@@ -443,9 +453,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           syncBrandPicker(
             element.querySelector<HTMLElement>(".brand-picker")!,
             theme.preset,
-            isDual && isChanged
-              ? (valueOf("--ui-primary-source") ?? null)
-              : (theme.tokens["--ui-palette-source"] ?? null),
+            theme.tokens["--ui-palette-source"] ?? null,
           )
           text = describeColor(pair, isDual)
         } else if (control.kind === "color") {
@@ -542,6 +550,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       ].map((input) => input.value)
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {
+        if (isDual) dual.add(control.id)
         write(applyBrand(light, isDual ? dark : undefined), throttle)
       } else if (control.kind === "color") {
         const value = isDual ? `light-dark(${light}, ${dark})` : light
@@ -595,6 +604,14 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
       if (control.kind === "brand" && target instanceof HTMLInputElement) {
         if (event.type !== "change" || !target.checked) return
+        const dark = element.querySelector<OklchInput>(
+          'oklch-input[data-color="dark"]',
+        )!
+        if (target.value && element.classList.contains("is-dual")) {
+          dual.add(control.id)
+          write(applyBrand(target.value, dark.value))
+          return
+        }
         dual.delete(control.id)
         picked.delete(control.id)
         write(target.value ? applyBrand(target.value) : resetTokens(control))

@@ -61,12 +61,16 @@
   @supports (position-area: block-end) {
     inset: auto;
     margin: var(--size-2) 0;
+    max-block-size: stretch;
     position-anchor: --oklch-picker-anchor;
     position-area: block-end span-inline-end;
     position-try-fallbacks:
       flip-block,
       flip-inline,
-      flip-block flip-inline;
+      flip-block flip-inline,
+      block-end span-all,
+      block-start span-all;
+    position-try-order: most-block-size;
   }
 }
 
@@ -122,7 +126,7 @@
 
   &[data-channel="C"] {
     --track: linear-gradient(
-      to right in oklch,
+      to right in oklab,
       oklch(var(--oklch-l) 0 var(--oklch-h)),
       oklch(var(--oklch-l) 0.37 var(--oklch-h))
     );

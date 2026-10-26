@@ -228,6 +228,43 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   </section>
 
   <section>
+    <h2 id="binding">Binding</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the field on the server, so it has no bound value. The
+        value lives in the <code>select</code>: read it in a script on <code
+          >change</code
+        >, or submit it with a form. Set <code
+          >option.selected = option.defaultSelected</code
+        > on each option to go back to the <code>value</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        The value lives in the <code>select</code>: read it in a script on <code
+          >change</code
+        >, or submit it with a form. Set <code
+          >option.selected = option.defaultSelected</code
+        > on each option to go back to the value in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Keep the value in your own state. Pass <code>value</code> and an <code
+          >onChange</code
+        > that stores <code>event.currentTarget.value</code>, or <code
+          >defaultValue</code
+        > to leave the select in charge.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the value with <code>bind:value</code>. Changing the field updates
+        the variable, and setting the variable updates the field.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the value with <code>v-model</code>. Changing the field updates the
+        ref, and setting the ref updates the field.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Binding" column />
+  </section>
+
+  <section>
     <h2 id="option-groups">Option groups</h2>
     <p>
       Wrap options in a <code>&lt;div role="group"&gt;</code> and start it with a

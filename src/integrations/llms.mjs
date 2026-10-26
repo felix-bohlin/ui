@@ -103,6 +103,7 @@ function llmsTxt({ framework, pages, site, isRoot }) {
   const optional = pages.filter((p) => p.kind === "api").map(link)
   optional.push(
     `- [Full documentation](${new URL(`/${framework.id}/llms-full.txt`, site)}): Every guide, component and Learn page for ${framework.label} in one file.`,
+    ...pages.filter((p) => p.pathname === "/theme-builder/").map(link),
   )
 
   const frameworks = isRoot
@@ -239,6 +240,7 @@ async function devPages(framework, origin, rewriteHref) {
       .filter((file) => file.endsWith(".html"))
       .map((file) => `/blocks/${file.replace(/\.html$/, "")}/`)
       .toSorted(),
+    "/theme-builder/",
   ]
   /** @type {Page[]} */
   const pages = []
@@ -319,7 +321,7 @@ export default function llms() {
           }
           const framework =
             FRAMEWORKS.find((f) => pathname.startsWith(`/${f.id}/`)) ??
-            (isFrameworkFree(pathname)
+            (isFrameworkFree(pathname.replace(/\.md$/, ""))
               ? FRAMEWORKS.find((f) => f.id === DEFAULT_FRAMEWORK)
               : undefined)
           if (!framework || !pathname.endsWith(".md")) return next()

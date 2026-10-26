@@ -134,6 +134,26 @@ const { link } = Astro.locals
       </div>
     </div>
   </header>
+  <script is:inline>
+    {
+      const nav = document.querySelector(".site-header nav ul")
+      const actions = document.querySelector(".site-header .ui-actions")
+      if (nav && actions) {
+        const observer = new ResizeObserver(() => {
+          if (!nav.offsetWidth) return
+          const size =
+            actions.getBoundingClientRect().right -
+            nav.getBoundingClientRect().left
+          document.documentElement.style.setProperty(
+            "--site-header-end-inline-size",
+            `${size}px`,
+          )
+        })
+        observer.observe(nav)
+        observer.observe(actions)
+      }
+    }
+  </script>
 
   <div class="header-toolbar">
     <slot name="toolbar" />

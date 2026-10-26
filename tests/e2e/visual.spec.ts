@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test"
 import { BLOCKS, FIXTURES, openFixture } from "./fixtures"
+import { BLOCK_WIDTHS } from "./screenshot-targets"
 
 for (const component of FIXTURES) {
   test(`${component} looks the same`, async ({ page }) => {
@@ -21,7 +22,7 @@ for (const component of FIXTURES) {
 }
 
 for (const block of BLOCKS) {
-  for (const width of [390, 768, 1280]) {
+  for (const width of BLOCK_WIDTHS) {
     test(`${block} looks the same at ${width}px`, async ({ page }) => {
       test.setTimeout(180_000)
       await page.setViewportSize({ height: 900, width })

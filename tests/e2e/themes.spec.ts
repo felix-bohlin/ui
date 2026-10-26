@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import { STRESS_TESTS, axeNodes, openFixture } from "./fixtures"
+import { THEMED_BLOCKS } from "./screenshot-targets"
 import { expectSizedRows } from "./stress-sizes"
 
 const THEMES = readdirSync(
@@ -19,12 +20,6 @@ const known: Record<string, string[]> = JSON.parse(
 )
 
 test.use({ viewport: { height: 4000, width: 1280 } })
-
-const THEMED_BLOCKS = [
-  "blocks/inbox",
-  "blocks/sales-dashboard",
-  "blocks/shopping-cart",
-]
 
 for (const theme of THEMES) {
   for (const component of [...THEMED_BLOCKS, ...STRESS_TESTS]) {

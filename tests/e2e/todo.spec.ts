@@ -71,7 +71,9 @@ test.describe("todo page", () => {
   })
 
   test("moves to the next unanswered todo", async ({ page }) => {
-    const unanswered = page.locator(".todo-item:not([hidden])")
+    const unanswered = page.locator(
+      '.todo-item:not([hidden]):not([data-todo-state="waiting"])',
+    )
     const keys = await unanswered.evaluateAll((items) =>
       items.slice(0, 2).map((item) => (item as HTMLElement).dataset.todoKey),
     )

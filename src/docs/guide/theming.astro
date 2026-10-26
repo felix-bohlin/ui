@@ -91,10 +91,12 @@ const surfaceRoles = [
       <code>abbr</code> and <code>dfn</code> elements and their classes, so the knobs
       do nothing anywhere else. Each severity class takes its hue from its intent
       token, so setting <code>--ui-critical</code>, <code>--ui-info</code>, <code
-        >--ui-success</code
-      > or <code>--ui-warning</code> recolors the scope. <code>.ui-neutral</code
-      > follows
-      <code>--ui-gray-hue</code> and <code>--ui-gray-chroma</code> instead:
+        >--ui-neutral</code
+      >, <code>--ui-success</code> or <code>--ui-warning</code> recolors the scope.
+      <code>.ui-neutral</code> also keeps the chroma of <code>--ui-neutral</code
+      >, which follows <code>--ui-gray-hue</code> and <code
+        >--ui-gray-chroma</code
+      > by default:
     </p>
 
     <Code

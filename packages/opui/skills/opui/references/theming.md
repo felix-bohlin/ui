@@ -41,7 +41,7 @@ One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, 
 - `--ui-palette-hue` is a hue angle in degrees, `145` (green) by default.
 - `--ui-palette-hue-rotate-by` turns the hue by this many degrees per step, so `1` spreads 15° across the palette. The severity scopes use `1` for livelier tints.
 
-Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette`, `.ui-contrast-more`, the severity classes and the inline `del`, `ins`, `abbr` and `dfn` elements and their classes, so the knobs do nothing anywhere else. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` follows `--ui-gray-hue` and `--ui-gray-chroma` instead:
+Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette`, `.ui-contrast-more`, the severity classes and the inline `del`, `ins`, `abbr` and `dfn` elements and their classes, so the knobs do nothing anywhere else. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-neutral`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` also keeps the chroma of `--ui-neutral`, which follows `--ui-gray-hue` and `--ui-gray-chroma` by default:
 
 ```css
 :where(.ui-warning) {

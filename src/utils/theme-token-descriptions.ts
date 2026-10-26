@@ -9,7 +9,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
   "--ui-blue":
-    "A literal blue, hue 240 at the palette lightness. No severity meaning.",
+    "A literal blue, hue 240 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-border-color":
     "Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.",
   "--ui-border-color-on-filled":
@@ -230,7 +230,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-gray-chroma": "Chroma of the gray ramp. Raise it for tinted grays.",
   "--ui-gray-hue": "Hue of the gray ramp.",
   "--ui-green":
-    "A literal green, hue 145 at the palette lightness. No severity meaning.",
+    "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large":
     "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
@@ -269,7 +269,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral":
-    "Severity color for neutral messages. `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope follows `--ui-gray-hue` and `--ui-gray-chroma`, not this token.",
+    "Severity color for neutral messages. `--ui-gray-hue` and `--ui-gray-chroma` at `0.53`, the lightness of `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope derives its palette from its hue and chroma.",
   "--ui-neutral-text":
     "Neutral as a text color, for neutral text outside an `.ui-neutral` scope. `--ui-neutral` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-on-accent":
@@ -288,7 +288,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-warning":
     "Text color on a `--ui-warning` fill: the warning `Badge`. White on a warning below 0.182 relative luminance and near-black above it, like `--ui-on-primary`.",
   "--ui-orange":
-    "A literal orange, hue 75 at the palette lightness. No severity meaning.",
+    "A literal orange, hue 75 at `0.66`, the lightness of palette step 7 in every palette. No severity meaning.",
   "--ui-palette-accent":
     "The accent shade of the current palette: `Callout` icons and outlined borders. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
   "--ui-palette-accent-min-lightness":
@@ -348,7 +348,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-radius-x-small":
     "Corner radius of the `Checkbox` box. `--ui-radius`, capped at 2px.",
   "--ui-red":
-    "A literal red, hue 25 at the palette lightness. No severity meaning.",
+    "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-selected":

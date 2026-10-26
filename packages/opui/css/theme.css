@@ -374,23 +374,17 @@
 
     /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
     --ui-blue: light-dark(
-      oklch(
-        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2 240
-      ),
-      oklch(from var(--ui-color-9) l 0.2 240)
+      oklch(min(0.53, var(--ui-accent-max-lightness)) 0.2 240),
+      oklch(0.53 0.2 240)
     );
     --ui-green: light-dark(
-      oklch(
-        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2 145
-      ),
-      oklch(from var(--ui-color-9) l 0.2 145)
+      oklch(min(0.53, var(--ui-accent-max-lightness)) 0.2 145),
+      oklch(0.53 0.2 145)
     );
-    --ui-orange: oklch(from var(--ui-color-7) l 0.2 75);
+    --ui-orange: oklch(0.66 0.2 75);
     --ui-red: light-dark(
-      oklch(
-        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2 25
-      ),
-      oklch(from var(--ui-color-9) l 0.2 25)
+      oklch(min(0.53, var(--ui-accent-max-lightness)) 0.2 25),
+      oklch(0.53 0.2 25)
     );
 
     /* Intent tokens */
@@ -425,8 +419,11 @@
       )
     );
     --ui-neutral: light-dark(
-      oklch(from var(--ui-gray-9) min(l, var(--ui-accent-max-lightness)) c h),
-      var(--ui-gray-9)
+      oklch(
+        min(0.53, var(--ui-accent-max-lightness)) var(--ui-gray-chroma)
+          var(--ui-gray-hue)
+      ),
+      oklch(0.53 var(--ui-gray-chroma) var(--ui-gray-hue))
     );
     --ui-neutral-text: light-dark(
       oklch(from var(--ui-neutral) min(l, var(--ui-text-max-lightness)) c h),
@@ -744,7 +741,7 @@
   }
 
   :where(.ui-neutral) {
-    --ui-palette-source: oklch(0.58 var(--ui-gray-chroma) var(--ui-gray-hue));
+    --ui-palette-source: oklch(from var(--ui-neutral) 0.58 c h);
     --ui-palette-hue-rotate-by: 0;
   }
 }

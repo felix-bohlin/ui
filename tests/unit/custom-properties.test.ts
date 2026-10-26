@@ -41,3 +41,8 @@ describe("component custom properties", () => {
     }
   })
 })
+
+test("reads the stylesheets and the pages", () => {
+  expect(stylesheets.length).toBeGreaterThan(0)
+  expect(pages.length).toBeGreaterThan(0)
+})

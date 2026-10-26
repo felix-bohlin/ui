@@ -31,3 +31,12 @@ test("What's new notes link to the section of the page that documents them", () 
     'link the change to its section, <a href="#section-id">',
   ).toEqual([])
 })
+
+test("reads the notes", () => {
+  expect(Object.keys(whatsNew).length).toBeGreaterThan(0)
+  expect(
+    FRAMEWORK_IDS.flatMap((framework) =>
+      Object.keys(whatsNew).flatMap((slug) => whatsNewFor(framework, slug)),
+    ).length,
+  ).toBeGreaterThan(0)
+})

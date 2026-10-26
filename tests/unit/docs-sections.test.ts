@@ -55,3 +55,8 @@ describe("component pages", () => {
     },
   )
 })
+
+test("reads the pages and their keyboard data", () => {
+  expect(pages.length).toBeGreaterThan(0)
+  expect(apis.some(({ api }) => api.keyboard)).toBe(true)
+})

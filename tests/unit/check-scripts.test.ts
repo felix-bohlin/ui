@@ -332,6 +332,24 @@ describe("check-components", () => {
         "---\nconst { size } = Astro.props\n---\n<span />\n",
       ),
     ).toEqual([expect.stringContaining("does not capture ...rest")])
+    expect(
+      checkRest(
+        "TableHead.astro",
+        "---\nconst { ...rest } = Astro.props\n---\n<thead><slot /></thead>\n",
+      ),
+    ).toEqual([
+      expect.stringContaining("captures ...rest but never spreads it"),
+    ])
+    const svelte = (spread: string) =>
+      `<script lang="ts">\n  let { class: className, ...rest } = $props()\n  const attrs = ${spread}\n</script>\n\n<div class={className} {...attrs}></div>\n`
+    expect(
+      checkRest("A.svelte", svelte('$derived({ ...rest, "data-a": "" })')),
+    ).toEqual([])
+    expect(
+      checkRest("A.svelte", svelte("hasName({ ...rest, label: className })")),
+    ).toEqual([
+      expect.stringContaining("captures ...rest but never spreads it"),
+    ])
   })
 
   test("Vue binds the attributes it stops inheriting", () => {
@@ -429,6 +447,13 @@ describe("check-components", () => {
       "exports Key: a context.vue.ts exports TabsKey",
       "does not take its shape from the Context type in ./types",
     ])
+    expect(
+      checkContext(
+        "context.react.ts",
+        'import { createContext, useContext } from "react"\nimport type { Context } from "./types"\n\nconst TabsContext = createContext<Context | undefined>(undefined)\nconst useTabsContext = () => useContext(TabsContext)\n\nexport { TabsContext, useTabsContext }\n',
+        "Tabs",
+      ),
+    ).toEqual([])
   })
 
   test('"use client" marks exactly the React examples with client hooks or function props', () => {
@@ -454,6 +479,20 @@ describe("check-components", () => {
     ).toEqual([expect.stringContaining('start it with "use client"')])
     expect(
       checkExampleClient("A.react.tsx", example("const t = useToast()")),
+    ).toEqual([expect.stringContaining('start it with "use client"')])
+    expect(
+      checkExampleClient(
+        "A.react.tsx",
+        `function valueText(value: number) {\n  return value\n}\n\n${example("return <Range valueText={valueText} />")}`,
+      ),
+    ).toEqual([expect.stringContaining('start it with "use client"')])
+    expect(
+      checkExampleClient(
+        "A.react.tsx",
+        example(
+          "const valueText = useCallback((value) => value, [])\n  return <Range valueText={valueText} />",
+        ),
+      ),
     ).toEqual([expect.stringContaining('start it with "use client"')])
     expect(
       checkExampleClient("A.react.tsx", client("const id = useId()")),

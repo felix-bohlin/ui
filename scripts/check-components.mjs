@@ -369,15 +369,23 @@ const importedName = (specifier) =>
   (specifier.propertyName ?? specifier.name).text
 
 const exportedNamesIn = (script) =>
-  script.statements.flatMap((node) =>
-    node.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
+  script.statements.flatMap((node) => {
+    if (
+      ts.isExportDeclaration(node) &&
+      !node.moduleSpecifier &&
+      node.exportClause &&
+      ts.isNamedExports(node.exportClause)
+    ) {
+      return node.exportClause.elements.map((element) => element.name.text)
+    }
+    return node.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
       ? ts.isVariableStatement(node)
         ? node.declarationList.declarations.map((declaration) =>
             declaration.name.getText(),
           )
         : [node.name?.text]
-      : [],
-  )
+      : []
+  })
 
 const PROPS_TYPE_SITES = {
   react: "annotate the props parameter with it",
@@ -441,7 +449,8 @@ export const checkPropsType = (file, source, framework, expected) => {
 
 const spreadsRest = (source) => {
   for (const match of source.matchAll(/\{\s*\.\.\./g)) {
-    if (/\(\s*$/.test(source.slice(0, match.index))) continue
+    const call = /([\w$.]+)\(\s*$/.exec(source.slice(0, match.index))
+    if (call && call[1] !== "$derived") continue
     let depth = 0
     let end = match.index
     for (; end < source.length; end++) {
@@ -466,7 +475,7 @@ export const checkRest = (file, source) => {
       "does not capture ...rest in its props destructuring: Astro, React and Svelte components capture it and spread it onto the root element, or the input of a form control",
     ]
   }
-  return spreadsRest(source)
+  return spreadsRest(source.replace(node.name.getText(), ""))
     ? []
     : [
         "captures ...rest but never spreads it: spread it onto the root element, or the input of a form control",
@@ -610,9 +619,13 @@ const usesClientFeatures = (sourceFile) => {
   const functions = nodesIn(
     sourceFile,
     (node) =>
-      ts.isVariableDeclaration(node) &&
-      ts.isIdentifier(node.name) &&
-      isFunction(node.initializer),
+      (ts.isFunctionDeclaration(node) && !!node.name) ||
+      (ts.isVariableDeclaration(node) &&
+        ts.isIdentifier(node.name) &&
+        (isFunction(node.initializer) ||
+          (!!node.initializer &&
+            ts.isCallExpression(node.initializer) &&
+            node.initializer.expression.getText() === "useCallback"))),
   ).map((node) => node.name.text)
   const hooks = nodesIn(
     sourceFile,
@@ -732,22 +745,33 @@ export const checkExampleWrapper = (file, name, source) => {
     : []
 }
 
-const pageExamples = async (file, seen = new Set()) => {
+const pageExamples = async (file, slug, seen = new Set()) => {
   if (seen.has(file)) return []
   seen.add(file)
-  const source = await readFile(file, "utf8").catch(() => "")
-  const names = [
-    ...source.matchAll(/<AutoExample\b[^>]*?\bname="([^"]+)"/g),
-  ].map(([, name]) => name)
+  const source = (await readFile(file, "utf8").catch(() => ""))
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, "")
+  const examples = [...source.matchAll(/<AutoExample\b[^>]*>/g)].flatMap(
+    ([tag]) => {
+      const name = tag.match(/\bname="([^"]+)"/)?.[1]
+      const own = tag.match(/\bslug="([^"]+)"/)?.[1]
+      return name ? [{ auto: true, name, slug: own ?? slug }] : []
+    },
+  )
+  for (const [, folder, name] of source.matchAll(
+    /component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|svelte|vue)(?:\?raw)?["']/g,
+  )) {
+    examples.push({ auto: false, name, slug: folder })
+  }
   for (const [, partial] of source.matchAll(
     /from "(\.{1,2}\/[^"]+\.astro)"/g,
   )) {
     const path = join(file, "..", partial)
     if (!relative(docsDir, path).startsWith("..")) {
-      names.push(...(await pageExamples(path, seen)))
+      examples.push(...(await pageExamples(path, slug, seen)))
     }
   }
-  return names
+  return examples
 }
 
 const readModels = async () => {
@@ -986,6 +1010,17 @@ const main = async () => {
     .map((entry) => entry.name)
     .toSorted()
 
+  const shown = []
+  for (const file of (await readdir(docsDir))
+    .filter((file) => file.endsWith(".astro"))
+    .toSorted()) {
+    const page = join(docsDir, file)
+    for (const example of await pageExamples(page, basename(file, ".astro"))) {
+      shown.push({ ...example, page })
+    }
+  }
+  const exampleNames = new Map()
+
   for (const slug of exampleFolders) {
     const dir = join(examplesDir, slug)
     const files = (await readdir(dir, { withFileTypes: true }))
@@ -994,8 +1029,8 @@ const main = async () => {
     const names = [
       ...new Set(files.map((file) => file.replace(EXAMPLE_FILE, ""))),
     ].toSorted()
+    exampleNames.set(slug, names)
     const page = join(docsDir, `${slug}.astro`)
-    const shown = await pageExamples(page)
     for (const file of files) {
       const path = join(dir, file)
       const source = await readFile(path, "utf8")
@@ -1011,12 +1046,6 @@ const main = async () => {
       }
       reportAll(path, checkExampleWrapper(path, name, source))
     }
-    for (const name of shown.filter((name) => !names.includes(name))) {
-      report(
-        page,
-        `shows <AutoExample name="${name}">, which has no files in ${relative(root, dir)}`,
-      )
-    }
     for (const name of names) {
       if (!/^[A-Z][A-Za-z0-9]*$/.test(name)) {
         report(
@@ -1024,7 +1053,10 @@ const main = async () => {
           "is not PascalCase; name example files like Basics.astro or HiddenLabel.astro",
         )
       }
-      if (!name.endsWith("Code") && !shown.includes(name)) {
+      if (
+        !name.endsWith("Code") &&
+        !shown.some((example) => example.slug === slug && example.name === name)
+      ) {
         report(
           join(dir, name),
           `is shown on no docs page; add <AutoExample name="${name}" /> to ${relative(root, page)} or delete the files`,
@@ -1045,6 +1077,15 @@ const main = async () => {
           report(join(dir, file), "is missing")
         }
       }
+    }
+  }
+
+  for (const { name, page, slug } of shown.filter(({ auto }) => auto)) {
+    if (!(exampleNames.get(slug) ?? []).includes(name)) {
+      report(
+        page,
+        `shows <AutoExample name="${name}">, which has no files in ${relative(root, join(examplesDir, slug))}`,
+      )
     }
   }
 

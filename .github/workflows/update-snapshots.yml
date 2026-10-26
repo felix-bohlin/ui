@@ -15,7 +15,11 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || (github.event.label.name == 'update-snapshots' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
+    concurrency:
+      group: update-snapshots-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: false
     outputs:
+      comment: ${{ steps.report.outputs.comment }}
       pushed: ${{ steps.commit.outputs.pushed }}
     steps:
       - run: apt-get update && apt-get install --yes --no-install-recommends git-lfs
@@ -31,6 +35,7 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: node scripts/baseline-changes.mjs record "$RUNNER_TEMP/before.json"
       - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update tests/e2e/visual.spec.ts tests/e2e/themes.spec.ts
         env:
           HOME: /root
@@ -39,33 +44,89 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          node scripts/baseline-changes.mjs record "$RUNNER_TEMP/after.json"
+          echo "before=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           git add --all tests/e2e/__screenshots__
           git add --renormalize tests/e2e/__screenshots__
           if git diff --cached --quiet; then
             echo "No snapshot changes"
           else
-            git commit -m "chore: update visual snapshots"
+            node scripts/baseline-changes.mjs message "$RUNNER_TEMP/before.json" "$RUNNER_TEMP/after.json" > "$RUNNER_TEMP/message.txt"
+            git commit --file "$RUNNER_TEMP/message.txt"
             git lfs fsck --pointers HEAD
             git push
             echo "pushed=true" >> "$GITHUB_OUTPUT"
           fi
+          echo "after=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: List the changed baselines
+        id: report
+        run: |
+          set -- "$RUNNER_TEMP/before.json" "$RUNNER_TEMP/after.json" --after "$AFTER" --before "$BEFORE" --repository "$REPOSITORY"
+          node scripts/baseline-changes.mjs report "$@" --limit 900000 >> "$GITHUB_STEP_SUMMARY"
+          delimiter="EOF_$(node -p 'crypto.randomUUID()')"
+          {
+            echo "comment<<$delimiter"
+            node scripts/baseline-changes.mjs report "$@" --limit 60000 --more "The [run summary]($REPOSITORY/actions/runs/$GITHUB_RUN_ID) lists all of them."
+            echo "$delimiter"
+          } >> "$GITHUB_OUTPUT"
+        env:
+          AFTER: ${{ steps.commit.outputs.after }}
+          BEFORE: ${{ steps.commit.outputs.before }}
+          REPOSITORY: ${{ github.server_url }}/${{ github.repository }}
+
+  comment:
+    needs: update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment the changed baselines on the pull request
+        run: |
+          pr=$PR
+          if [ -z "$pr" ]; then
+            pr=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          fi
+          if [ -z "$pr" ]; then
+            echo "No open pull request for $BRANCH"
+            exit 0
+          fi
+          printf '%s\n' "$COMMENT" > "$RUNNER_TEMP/comment.md"
+          ids=$(gh api "repos/$GH_REPO/issues/$pr/comments" --paginate --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- update-snapshots -->"))) | .id')
+          if [ -n "$ids" ]; then
+            gh api --method PATCH "repos/$GH_REPO/issues/comments/$(printf '%s\n' "$ids" | head -n 1)" -F "body=@$RUNNER_TEMP/comment.md" > /dev/null
+          else
+            gh pr comment "$pr" --body-file "$RUNNER_TEMP/comment.md"
+          fi
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+          COMMENT: ${{ needs.update.outputs.comment }}
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
 
   run-ci:
     needs: update
     if: needs.update.outputs.pushed == 'true'
     runs-on: ubuntu-latest
     steps:
-      - run: gh workflow run ci.yml --ref "${{ github.head_ref || github.ref_name }}"
+      - run: gh workflow run ci.yml --ref "$BRANCH"
         env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
 
   remove-label:
     needs: update
-    if: always() && github.event_name == 'pull_request' && github.event.label.name == 'update-snapshots'
+    if: always() && github.event_name == 'pull_request' && github.event.label.name == 'update-snapshots' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - run: gh pr edit "${{ github.event.pull_request.number }}" --remove-label update-snapshots
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
+
+  fork:
+    if: github.event_name == 'pull_request' && github.event.label.name == 'update-snapshots' && github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::error::A pull request from a fork gets a read-only token, so this workflow can't push baselines to it, comment or remove the label. Push the branch to this repository and add the label to a pull request from there, or run the workflow on that branch from the Actions tab."
+          exit 1

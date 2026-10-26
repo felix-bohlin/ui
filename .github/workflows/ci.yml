@@ -75,7 +75,13 @@ jobs:
           url=$(pnpm --silent --package=netlify-cli@27.11.2 dlx netlify deploy --no-build --dir=dist --filter open-props-ui-docs --alias "pr-$PR" --message "PR #$PR ${SHA::7}" --json | jq -r .deploy_url)
           test -n "$url"
           test "$url" != null
-          gh pr comment "$PR" --edit-last --create-if-none --body "Preview: $url (${SHA::7})"
+          printf '<!-- preview -->\nPreview: %s (%s)\n' "$url" "${SHA::7}" > "$RUNNER_TEMP/preview.md"
+          ids=$(gh api "repos/$GH_REPO/issues/$PR/comments" --paginate --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- preview -->") or startswith("Preview: "))) | .id')
+          if [ -n "$ids" ]; then
+            gh api --method PATCH "repos/$GH_REPO/issues/comments/$(printf '%s\n' "$ids" | head -n 1)" -F "body=@$RUNNER_TEMP/preview.md" > /dev/null
+          else
+            gh pr comment "$PR" --body-file "$RUNNER_TEMP/preview.md"
+          fi
           echo "Preview: $url" >> "$GITHUB_STEP_SUMMARY"
         env:
           GH_REPO: ${{ github.repository }}

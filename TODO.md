@@ -261,12 +261,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The tarball test already has the unpacked files.
   - Replaces: the README half of the "README and CHANGELOG" release check, and a promise only MIGRATING.md states.
   - Fix: in `package.test.ts`, resolve every `opui-css/...` specifier in the README against the unpacked tarball, as `skill.test.ts` does for SKILL.md, and assert that `dist/op.css` has no `--palette-` and no `--color-` declarations.
-- [ ] (1) Tooling: the findings format says "Cite every file with a line or line range", but nothing checks the citations. One open item cites `palette.css:2-18,89-136` though the file has 131 lines, and five citations have no directory (`.claude/skills/audit/findings-format.md:9`, `TODO.md:346`)
+- [x] (1) Tooling: the findings format says "Cite every file with a line or line range", but nothing checks the citations. One open item cites `palette.css:2-18,89-136` though the file has 131 lines, and five citations have no directory (`.claude/skills/audit/findings-format.md:9`, `TODO.md:346`)
   - Summary: A finding can point at lines that no longer exist, so the reader can't find what it means.
   - Recommended: Fix. The parser already splits off the file references.
   - Replaces: `.claude/skills/audit/findings-format.md:9`, which then names the test.
   - Fix: a `todo.test.ts` case that checks every `path:line` on an open item's headline: the file exists, the range fits it, and the path has a directory.
   - Depends on: the `/todo` page keys answers on the whole headline, citations included (`src/pages/todo/[...index].astro:199`), so correcting a citation drops a saved answer. Key the page on the headline without its file references first, and carry saved answers over to the new keys.
+  - Fixed: `tests/unit/todo.test.ts` checks every `path:line` on an open item's headline: the file exists and the lines fit it. Citations already in headlines, which can't change, are listed in `tests/unit/todo-allowlist.json`; a test fails once an entry is fixed, and the `history` CI job fails when the list grows.
 - [ ] (1) Tooling: `generate-search-index.mjs` keeps an `apiFiles` branch that globs `src/component-api/**/*.astro`, which matches no file, so its loop never runs (`scripts/generate-search-index.mjs:95`, `scripts/generate-search-index.mjs:249-294`)
   - Summary: The search index script carries a block of code that never runs.
   - Recommended: Fix. Deleting it changes no output.
@@ -356,8 +357,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix with option A. It turns the rule into a check and keeps a way to accept intended changes.
   - Replaces: `AGENTS.md:80` ("only shrinks: fix the name and drop the entry, never add one") and `AGENTS.md:87` ("NEVER update snapshots, add or change `.diff` files, or edit `tests/e2e/a11y-known-violations.json` ... unless the change is intended. Say so in the commit message").
   - Options:
-    - A (recommended): a step in the `screenshots` CI job, which has the full history, that diffs the a11y ledger keys, `naming-allowlist.json` and the set of parity `.diff` files against the merge base, and fails on an addition unless a commit on the branch carries a `Ledger-Change: intended` trailer.
+    - A (recommended): a step in the `history` CI job, which has the full history, that diffs the a11y ledger keys, `naming-allowlist.json` and the set of parity `.diff` files against the merge base, and fails on an addition unless a commit on the branch carries a `Ledger-Change: intended` trailer.
     - B: only assert that `naming-allowlist.json` stays empty.
+  - Still open: the naming allowlist is gone (naming problems must be `[]`), and `scripts/check-ratchets.mjs` in the `history` CI job (the `screenshots` job, renamed) fails when `scripts/css-vars-allowlist.json` or `tests/unit/todo-allowlist.json` gains an entry. The a11y ledger and the parity `.diff` files can still gain entries.
 - [x] (2) CI: nothing checks commit messages. The prefixes and the ban on the em dash and the middle dot in commit messages are prose, and `check-characters` only reads files (`scripts/check-characters.mjs:13-23`, `AGENTS.md:11`, `AGENTS.md:43`)
   - Summary: A commit with the wrong prefix or a forbidden character goes in unnoticed.
   - Recommended: Fix. It is a few lines in a job that already has the history.
@@ -369,6 +371,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. They hold today, so each check costs nothing to add.
   - Replaces: `packages/opui/components/AGENTS.md:13` (Props Type), `:15` (Rest Props), `:20` (Exports, sorted), `:88` (the `$bindable` and `defineModel` list), `:294` (context files), and `.claude/agents/framework-parity.md:30,32`.
   - Fix: add each rule to the TypeScript parse the type-literal and destructuring checks use, one rule at a time, and shrink each guide line to the rule plus "`pnpm check-components` checks it".
+  - Still open: the types import per framework, barrel order and `ui-` class prefixes are checked now. Context files, the `...rest` spread, part `Props` names, the `$bindable`/`defineModel` list and class order on lists without `className` aren't.
 - [ ] (2) API docs: `checkApi` checks props, values, slots and hydration, but not that documented classes exist in the component's CSS, that every class a stylesheet adds is in some `api.ts` (`.ui-motion-off` in `carousel.css:77` is in none), that destructured defaults match `default`, or that an `anchorName` entry is still an `anchor-name` in the CSS (the anatomy spec only catches missing ones) (`src/utils/component-source.ts:266-397`, `tests/e2e/anatomy.spec.ts:70-140`)
   - Summary: The API tables can document classes and defaults the code no longer has, and nothing fails.
   - Recommended: Fix. It moves the api-docs agent's CSS and Defaults checks into the tests.
@@ -384,12 +387,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. They hold today, so each check costs nothing to add.
   - Replaces: `src/docs/components/AGENTS.md:46,115,118,130,153,175,294` and `.claude/agents/examples.md:21-22,25`.
   - Fix: add the file rules to the examples loop in `check-components`, the SVG rule to `parity.test.ts`, which renders every example, and the page rules (`DocLink`, anatomy, `isDependency`, `h2[id]`) to a docs-page test. The examples agent then keeps coverage and content.
+  - Still open: `tests/unit/docs-pages.test.ts` checks that links to docs pages use `DocLink`, that callouts sit outside rich text and that a `Conditional` with block content sets `as` (27 didn't). The file, wrapper, orphan, anatomy, `isDependency`, SVG and `h2[id]` rules aren't checked yet.
 - [ ] (2) Changelog: `changelog.test.ts` checks names, order and headings, but not that an Added, Breaking or Changed entry has a What's new note, that a Breaking entry has a MIGRATING section, or that new classes and tokens are named in Unreleased (only removed ones are). `whatsNew` and `highlighted` aren't typed against the page slugs, and about 20 notes have no `href="#"` (`tests/unit/changelog.test.ts`, `tests/unit/migrating.test.ts:15`, `src/utils/whats-new.ts:1318`, `src/utils/whats-new.ts:1329`)
   - Summary: A change can ship without its What's new note or migration note, and a note can link nowhere.
   - Recommended: Fix. The entry, note and section names are all machine-readable.
   - Replaces: `AGENTS.md:52` (a note for Added, Breaking and Changed entries), `AGENTS.md:54` (link the section), and `.claude/agents/changelog.md:22,25-26` (Logged, What's new, Migrating).
   - Fix: type `whatsNew` and `highlighted` with `satisfies` against the docs slugs, and add the entry-to-note, Breaking-to-MIGRATING, new-class and anchor checks to `changelog.test.ts`, with a named list for entries that span several components. The changelog agent then keeps "is the entry accurate and complete".
-  - Still open: `changelog.test.ts` now fails when a component an `Added`, `Breaking` or `Changed` entry starts with has no page, or its page has no What's new note of that kind, and `check-dist` checks the anchors. Left: the Breaking-to-MIGRATING and new-class checks, typing the `whatsNew` keys, and links in the 20 notes without one.
+  - Still open: `changelog.test.ts` now fails when a component an `Added`, `Breaking` or `Changed` entry starts with has no page, or its page has no What's new note of that kind, and `check-dist` checks the anchors. Left: the Breaking-to-MIGRATING and new-class checks, typing the `whatsNew` keys, and links in the 20 notes without one. `tests/unit/whats-new.test.ts` checks that every key is a page slug and every highlighted page has notes.
 - [ ] (2) Tests: the release checks list docs-site behavior that a Playwright spec could check: the framework picker keeping the page and the hash, search with the arrow keys, Enter and Esc, copy buttons copying the shown code, no sideways scrolling at 320px, no running animations with reduced motion (`getAnimations()`), and a Tab walk where focus is always visible. Only the Menu keyboard checks exist (`tests/e2e/interaction.spec.ts:768-819`, `docs/releases/6.0.0.md:31`, `docs/releases/6.0.0.md:119`, `docs/releases/6.0.0.md:130`, `docs/releases/6.0.0.md:151-155`, `docs/releases/6.0.0.md:167`)
   - Summary: Several manual release checks for the docs site could run as tests on every pull request.
   - Recommended: Fix. Each one removes a manual check from every release.

@@ -34,3 +34,47 @@ test("the unreleased version has sections", () => {
     expect.arrayContaining(["Breaking", "Added"]),
   )
 })
+
+const headings = [...changelog.matchAll(/^## (.+)$/gm)].map(([, text]) => text)
+const HEADING = /^(\d+)\.(\d+)\.(\d+)(?: - (?:\d{4}-\d{2}-\d{2}|Unreleased))?$/
+
+test("every release heading is a version with a date or Unreleased", () => {
+  expect(headings.filter((heading) => !HEADING.test(heading))).toEqual([])
+})
+
+test("only the newest release is unreleased", () => {
+  expect(
+    headings.slice(1).filter((heading) => heading.endsWith(" - Unreleased")),
+  ).toEqual([])
+})
+
+test("the newest release is the package version", () => {
+  const { version } = JSON.parse(
+    readFileSync("packages/opui/package.json", "utf8"),
+  )
+  expect(headings[0]?.split(" ")[0]).toBe(version.split("-")[0])
+})
+
+test("releases go from newest to oldest", () => {
+  const versions = headings.map((heading) =>
+    (heading.match(HEADING) ?? []).slice(1, 4).map(Number),
+  )
+  const newer = (a: number[], b: number[]) =>
+    a[0] - b[0] || a[1] - b[1] || a[2] - b[2]
+  expect(
+    headings.filter(
+      (_, index) =>
+        index > 0 && newer(versions[index - 1], versions[index]) <= 0,
+    ),
+  ).toEqual([])
+})
+
+test("the unreleased sections come in order", () => {
+  const titles = sections.map((section) => section.title)
+  expect(titles).toEqual(
+    ["Breaking", "Removed", "Added", "Changed", "Fixed"].filter((title) =>
+      titles.includes(title),
+    ),
+  )
+  expect(new Set(titles).size).toBe(titles.length)
+})

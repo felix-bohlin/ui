@@ -523,3 +523,37 @@ describe("slugify", () => {
     expect(slugify("To check")).toBe("to-check")
   })
 })
+
+describe("TODO.md", () => {
+  const source = readFileSync("TODO.md", "utf8")
+  const { sections } = parseTodo(source)
+
+  test("has the sections of the findings format, in order", () => {
+    expect(
+      [...source.matchAll(/^## (.+)$/gm)].map(([, title]) => title),
+    ).toEqual([
+      "Accessibility",
+      "Bugs",
+      "Docs",
+      "Limitations",
+      "Questions",
+      "Suggestions",
+      "To check",
+    ])
+  })
+
+  test("sorts open items by severity, lowest first", () => {
+    expect(
+      sections.flatMap(({ items, title }) =>
+        items
+          .filter(
+            (item, index) =>
+              !item.severity ||
+              item.severity > 10 ||
+              (items[index - 1]?.severity ?? 0) > item.severity,
+          )
+          .map((item) => `${title}: ${item.line.slice(0, 80)}`),
+      ),
+    ).toEqual([])
+  })
+})

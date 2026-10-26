@@ -127,20 +127,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Suggestions
 
-- [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
-  - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS because the library has no such components.
-  - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.
-  - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status.
-  - Breadcrumb: file-manager, product-detail.
-  - Chat message bubble: chat.
-  - Empty state: empty-states, error-page.
-  - Number stepper (quantity): product-detail, shopping-cart.
-  - One-time code input: two-factor.
-  - Pagination: data-table.
-  - Rating: product-detail, testimonials, hero.
-  - Stat card (label, value, trend): analytics-dashboard, app-shell, project-overview, sales-dashboard.
-  - Stepper: checkout, onboarding-checklist.
-  - Timeline: changelog, project-overview, server-status.
 - [ ] (1) Tokens: there is no data visualization palette. Primer, shadcn/ui (`chart-1` to `chart-5`) and Carbon ship categorical and sequential palettes for charts (`packages/opui/css/theme.css`)
   - Summary: The theme has no categorical or sequential chart palette, unlike Primer, shadcn/ui and Carbon.
   - Recommended: Fix with option B. No component reads chart tokens yet, so they belong with the Chart or Stat card component.
@@ -199,17 +185,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: a `scripts/resolve-tokens.mjs` export of resolved variables per mode and theme, published next to `tokens.json`.
     - B: a full kit with components, outside this repo.
     - C: nothing until someone asks for Figma.
-- [x] (2) Theming: there is no palette generator. Material builds a full scheme from one seed color and a contrast level, and Radix and Spectrum publish engineered 12-step scales. OPUI derives its palette from `--ui-palette-source` with fixed lightness steps, and the theme generator sets 8 tokens and a source color (`packages/opui/core/palette.css`, `src/utils/theme-store.ts`)
-  - Summary: There is no palette generator; the theme generator sets eight tokens and a source color with fixed lightness steps.
-  - Recommended: Fix with option A. The derivation already lives in CSS, so a builder is docs-site UI over the theme generator, no package change.
-  > Explain further
-  > I like the idea of a generator or builder of some kind. Materials is great, haven’t tried the others, shadcn has a really really cool one
-  - Explained: the derivation already lives in CSS: `--ui-palette-source` drives `--ui-color-1..16` (`palette.css`), the severity scopes derive their own source from `--ui-critical` and friends, and `.ui-contrast-more` tightens the knobs. So a builder mostly needs UI, not a new algorithm. shadcn's builder is presets plus live token sliders with a CSS export; Material's Theme Builder takes one seed and a contrast slider and derives the scheme; tweakcn adds fonts, radius and shadows. The theme generator (`src/components/ThemeGenerator`, 8 tokens and a source color) is the seed of that: add presets (the example themes as starting points), a seed color that sets hue and chroma, the contrast level, radius, density, a font stack, a dark mode preview on real components, and export as a `packages/opui/themes/` file.
-  - Options:
-    - A (recommended): grow the theme generator into a builder page with presets, more knobs and an export. Docs-site work, no package change.
-    - B: add a seed-to-scheme algorithm in the package (Material's tonal palettes) that derives the gray and severity hues from the seed too.
-    - C: leave the generator as it is.
-  - Fixed: option A. The Theme builder at `/theme-builder` (Themes in the header) replaces the theme generator: it starts from Default or an example theme, groups the settings from brand color to buttons and fields, previews components and blocks in light and dark with more contrast, checks every contrast promise in four modes, shares themes as a link, and exports one `theme.css` (the example theme, then the changed tokens in `theme.custom`) that the site applies as is. No package change.
 - [ ] (2) Tokens: motion and elevation scales are thin. Material has 16 durations, 10 easings and 6 elevation levels, and Carbon has 6 durations with productive and expressive easings. OPUI has three durations, three easings, `--ui-motion` as an on and off switch, and shadows per use (`packages/opui/css/theme.css`)
   - Summary: The motion and elevation scales are thin compared with peers, with three durations, three easings and shadows per use.
   - Recommended: Fix with option A. The per-use tokens are what the components and themes read, and a level scale would only duplicate them.
@@ -255,9 +230,51 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): write the changed and added images to the job summary and a PR comment.
     - B: run `--update-snapshots=changed` without `rm -rf`, and delete baselines without an example in a separate step.
+- [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
+  - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS because the library has no such components.
+  - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.
+  - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status.
+  - Breadcrumb: file-manager, product-detail.
+  - Chat message bubble: chat.
+  - Empty state: empty-states, error-page.
+  - Number stepper (quantity): product-detail, shopping-cart.
+  - One-time code input: two-factor.
+  - Pagination: data-table.
+  - Rating: product-detail, testimonials, hero.
+  - Stat card (label, value, trend): analytics-dashboard, app-shell, project-overview, sales-dashboard.
+  - Stepper: checkout, onboarding-checklist.
+  - Timeline: changelog, project-overview, server-status.
+- [x] (2) Theming: there is no palette generator. Material builds a full scheme from one seed color and a contrast level, and Radix and Spectrum publish engineered 12-step scales. OPUI derives its palette from `--ui-palette-source` with fixed lightness steps, and the theme generator sets 8 tokens and a source color (`packages/opui/core/palette.css`, `src/utils/theme-store.ts`)
+  - Summary: There is no palette generator; the theme generator sets eight tokens and a source color with fixed lightness steps.
+  - Recommended: Fix with option A. The derivation already lives in CSS, so a builder is docs-site UI over the theme generator, no package change.
+  > Explain further
+  > I like the idea of a generator or builder of some kind. Materials is great, haven’t tried the others, shadcn has a really really cool one
+  - Explained: the derivation already lives in CSS: `--ui-palette-source` drives `--ui-color-1..16` (`palette.css`), the severity scopes derive their own source from `--ui-critical` and friends, and `.ui-contrast-more` tightens the knobs. So a builder mostly needs UI, not a new algorithm. shadcn's builder is presets plus live token sliders with a CSS export; Material's Theme Builder takes one seed and a contrast slider and derives the scheme; tweakcn adds fonts, radius and shadows. The theme generator (`src/components/ThemeGenerator`, 8 tokens and a source color) is the seed of that: add presets (the example themes as starting points), a seed color that sets hue and chroma, the contrast level, radius, density, a font stack, a dark mode preview on real components, and export as a `packages/opui/themes/` file.
+  - Options:
+    - A (recommended): grow the theme generator into a builder page with presets, more knobs and an export. Docs-site work, no package change.
+    - B: add a seed-to-scheme algorithm in the package (Material's tonal palettes) that derives the gray and severity hues from the seed too.
+    - C: leave the generator as it is.
+  - Fixed: option A. The Theme builder at `/theme-builder` (Themes in the header) replaces the theme generator: it starts from Default or an example theme, groups the settings from brand color to buttons and fields, previews components and blocks in light and dark with more contrast, checks every contrast promise in four modes, shares themes as a link, and exports one `theme.css` (the example theme, then the changed tokens in `theme.custom`) that the site applies as is. No package change.
 
 ## To check
 
+- [ ] (1) Tokens: `--ui-on-accent` names a fill that doesn't exist (there is no `--ui-accent`), and `--ui-palette-on-strong` isn't a drop-in for it: it is dark (`--ui-color-16`) in dark mode, made for the light `--ui-palette-strong` shade, while Badge severity fills and the dark-mode choice mark sit on a fill capped at `--ui-fill-max-lightness` and need light text (`packages/opui/css/theme.css:350`, `packages/opui/css/components/badge.css:67`, `packages/opui/css/components/choice.css:13-16`)
+  - Summary: The on-accent text token names a fill that doesn't exist, so where its light text belongs is unclear.
+  - Recommended: Fix with option A. It is marked recommended, and the theme, badge and choice code still read the token as described.
+  - Options:
+    - A (recommended): rename it `--ui-on-fill`, the text on an intent fill kept within `--ui-fill-max-lightness`, and describe that pairing.
+    - B: draw the Badge severity fill and the choice mark with `--ui-palette-strong` and read `--ui-palette-on-strong` (a visual change in dark mode).
+    - C: keep `--ui-on-accent` and document it as the one `--ui-on-*` without a fill token.
+- [ ] (1) Tokens: `--ui-line-height-relaxed` (`1.75`) is the page line height on `html` and the `Tabs` label line height, so it can't fold into `--ui-line-height-control` (`1.5`) without shrinking the tabs and changing all page text (`packages/opui/core/normalize.css:21`, `packages/opui/css/components/tabs.css:84`)
+  - Summary: Page text and tab labels share the relaxed line height, so folding it into the control line height would change both.
+  - Recommended: Fix with option A. It is marked recommended and keeps the tokens as documented, and normalize and tabs still read the relaxed value.
+  - Options:
+    - A (recommended): keep `--ui-line-height-relaxed` for the page and the tabs, as documented now.
+    - B: tabs read `--ui-line-height-control` and keep their height through padding, and `html` reads `--ui-line-height`.
+- [ ] (1) Tokens: the token table hides instance inputs and files some tokens in the wrong section: `--ui-anchor-position-area` isn't listed (it is set per element, not themed), `--ui-code-block-*` sit under Typography, `--ui-track-bg-color` under Surfaces, and there is no Palette steps tier (`src/utils/theme-tokens.ts:24-47`, `packages/opui/css/theme.css`)
+  - Summary: The token table omits the per-element inputs and lists the code block and track tokens under the wrong headings.
+  - Recommended: Fix. The section list still has no Instance inputs, Code, Controls or Palette steps section, and the tokens still sit under Typography and Surfaces.
+  - Fix: an "Instance inputs" section built from an explicit list in `theme-tokens.ts`, Code and Controls sections in `theme.css`, and a Palette steps tier generated from `core/palette.css`.
 - [ ] (2) Anchor: on `/html/components/anchor/` in Chrome 142+, Tab to "felix-bohlin/ui" in the RepoCard example, wait for the card, press Tab and check whether focus reaches "Star" in the `popover="hint"` card, and whether a screen reader announces the card. On touch, tapping the link follows it, so "Star" can't be reached (`src/component-examples/anchor/RepoCard.html:7-35`)
   - Summary: Whether keyboard focus reaches the Star button in the repo hover card, and what a screen reader says about it, is unknown.
   - Recommended: Explain further. Only Chrome 142+ with a screen reader can tell, and the RepoCard example is already on the Anchor page.
@@ -317,11 +334,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) Menu: the iOS submenu anchor in the compat layer is an engine gate for iOS WebKit, which the e2e projects don't run, so no test fails the day iOS Safari places a submenu at its trigger item. Remove the block locally, open `/tests/overlays/` in iOS Safari and check whether submenus sit at their trigger item. If they do, remove the block (`packages/opui/css/compat/menu.css:2-15`)
   - Summary: Nothing says when iOS Safari places submenus right, so the iOS fix could stay longer than it's needed.
   - Recommended: Explain further. Only a check on an iPhone or iPad can tell, and the block only applies there.
-- [ ] (3) Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog, a Drawer or another Menu lands above its trigger by about the page's scroll offset once the page is scrolled: a split button menu in a dialog footer far down the overlays stress page opens around 1850px too high, and second level submenus can't be clicked because the first submenu has left the viewport. The same overlays near the top of the page are placed right, and anchors in the normal page flow are fine after scrolling. The e2e scenarios carry it as a known WebKit failure (`failingIn.webkit` in `tests/e2e/stress-overlays.ts`), and `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover anchored in a modal dialog, which is expected to fail in WebKit only on a scrolled page. If that test starts passing, WebKit fixed it, or the cause is ours. Check in Safari on macOS on `/tests/overlays/` after scrolling down, and report it to WebKit if Safari does the same (`tests/e2e/stress-overlays.ts`)
-  - Summary: In WebKit, menus and tooltips inside a dialog, drawer or menu open far above their trigger once the page is scrolled.
-  - Recommended: Explain further. It is carried as an expected WebKit failure with a library-free repro, and only Safari on macOS can confirm it before reporting to WebKit.
-  > Explain further
-  - Explained: WebKit has it on file. Bug 304551, "incorrect anchor positioning when a fixed-positioned element and its anchor are both in the top layer", reported in December 2025 with Chrome right and Safari wrong, was closed as a duplicate of bug 301023. That is our case: the menu or tooltip is `position: fixed` and it and its trigger, inside a modal dialog, a drawer or another menu, are both in the top layer, and WebKit offsets it by the page's scroll. Nothing to change in the library and nothing to report. When WebKit ships the fix, `engines.spec.ts` fails with "expected to fail but passed": remove `WEBKIT_SCROLLED_ANCHOR` from the scenarios and the repro.
 - [ ] (2) Menu: in Firefox, a menu in a `dir="rtl"` part of a left-to-right page opens on the wrong inline side: the rtl menu lands about 1000px from its trigger and the rtl submenu leaves the viewport, while the rtl tooltip, which has no span, is placed right. It looks like Firefox applies `span-inline-end` and `span-inline-start` in the wrong direction there. The e2e scenarios carry it as a known Firefox failure (`failingIn.firefox`). Check in desktop Firefox on the Rtl section of `/tests/overlays/`, and report it if confirmed (`packages/opui/css/components/menu.css`, `tests/e2e/stress-overlays.ts`)
   - Summary: In Firefox, a right-to-left menu inside a left-to-right page opens about 1000px from its trigger.
   - Recommended: Explain further. It is carried as an expected Firefox failure with a library-free repro, and only desktop Firefox can confirm it before reporting to Mozilla.
@@ -329,23 +341,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Still open in Firefox: with the `self-` keywords, CI Firefox places the rtl menu about 1000px from its trigger, the rtl submenu outside the viewport, and the new edge check 1068px off. `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover with `self-block-end span-self-inline-end` in a `dir="rtl"` block of a left-to-right page lands 447px past its trigger's end edge in Firefox only. The scenarios and both tests are expected to fail in Firefox (`FIREFOX_SELF_RTL`). If the repro starts passing, Firefox fixed it. Check in desktop Firefox on the Rtl section of `/tests/overlays/`, and report it to Mozilla if it does the same
   > Explain further
   - Explained: still an expected Firefox failure, nothing to change. A search of Mozilla's tracker finds no matching report: bug 2050613 (fixed in Firefox 154) is a `position-area` center-branch mix-up, bug 2063785 (Firefox 157) is about inline-split anchors, neither is direction. WPT's `position-area-ambiguous-self.html` encodes what the spec expects for `self-` keywords under `direction: rtl`, so Firefox is off spec if desktop Firefox shows the same as CI. Next step when confirmed: file it under Core :: Layout: Positioned with the `engines.spec.ts` repro (a plain popover with `self-block-end span-self-inline-end` in a `dir="rtl"` block of a left-to-right page).
-- [ ] (1) Tokens: `--ui-on-accent` names a fill that doesn't exist (there is no `--ui-accent`), and `--ui-palette-on-strong` isn't a drop-in for it: it is dark (`--ui-color-16`) in dark mode, made for the light `--ui-palette-strong` shade, while Badge severity fills and the dark-mode choice mark sit on a fill capped at `--ui-fill-max-lightness` and need light text (`packages/opui/css/theme.css:350`, `packages/opui/css/components/badge.css:67`, `packages/opui/css/components/choice.css:13-16`)
-  - Summary: The on-accent text token names a fill that doesn't exist, so where its light text belongs is unclear.
-  - Recommended: Fix with option A. It is marked recommended, and the theme, badge and choice code still read the token as described.
-  - Options:
-    - A (recommended): rename it `--ui-on-fill`, the text on an intent fill kept within `--ui-fill-max-lightness`, and describe that pairing.
-    - B: draw the Badge severity fill and the choice mark with `--ui-palette-strong` and read `--ui-palette-on-strong` (a visual change in dark mode).
-    - C: keep `--ui-on-accent` and document it as the one `--ui-on-*` without a fill token.
-- [ ] (1) Tokens: `--ui-line-height-relaxed` (`1.75`) is the page line height on `html` and the `Tabs` label line height, so it can't fold into `--ui-line-height-control` (`1.5`) without shrinking the tabs and changing all page text (`packages/opui/core/normalize.css:21`, `packages/opui/css/components/tabs.css:84`)
-  - Summary: Page text and tab labels share the relaxed line height, so folding it into the control line height would change both.
-  - Recommended: Fix with option A. It is marked recommended and keeps the tokens as documented, and normalize and tabs still read the relaxed value.
-  - Options:
-    - A (recommended): keep `--ui-line-height-relaxed` for the page and the tabs, as documented now.
-    - B: tabs read `--ui-line-height-control` and keep their height through padding, and `html` reads `--ui-line-height`.
-- [ ] (1) Tokens: the token table hides instance inputs and files some tokens in the wrong section: `--ui-anchor-position-area` isn't listed (it is set per element, not themed), `--ui-code-block-*` sit under Typography, `--ui-track-bg-color` under Surfaces, and there is no Palette steps tier (`src/utils/theme-tokens.ts:24-47`, `packages/opui/css/theme.css`)
-  - Summary: The token table omits the per-element inputs and lists the code block and track tokens under the wrong headings.
-  - Recommended: Fix. The section list still has no Instance inputs, Code, Controls or Palette steps section, and the tokens still sit under Typography and Surfaces.
-  - Fix: an "Instance inputs" section built from an explicit list in `theme-tokens.ts`, Code and Controls sections in `theme.css`, and a Palette steps tier generated from `core/palette.css`.
 - [ ] (2) Tokens: a severity class on the same element as `.ui-palette`, or on a direct child of `.ui-contrast-more`, loses its palette. `--ui-red`, `--ui-blue`, `--ui-green` and `--ui-orange` are declared again on those elements from `--ui-color-N`, which comes from the `--ui-palette-source` the severity scope derives from them, so Chromium drops the whole cycle as guaranteed-invalid. `.ui-neutral` keeps a fixed source for this reason, so a theme can't recolor neutral through `--ui-neutral` (`packages/opui/css/theme.css:275-278,321,483-486,543-554`, `packages/opui/core/palette.css:2-18,89-136`)
   - Summary: A severity class on a palette element or on a direct child of a high-contrast scope loses its color.
   - Recommended: Fix with option A. It is marked recommended, and the theme still declares the named colors from palette steps that the severity source derives from, so the cycle is in the code.
@@ -353,3 +348,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): give the named colors and `--ui-neutral` the step's lightness as a number (steps 7, 9 and 11 have the same lightness in every palette), so they stop depending on the element's own palette, then derive `.ui-neutral` from `--ui-neutral` like the other scopes.
     - B: keep today's values and document that a severity class can't sit on a `.ui-palette` element or a direct child of `.ui-contrast-more`.
+- [ ] (3) Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog, a Drawer or another Menu lands above its trigger by about the page's scroll offset once the page is scrolled: a split button menu in a dialog footer far down the overlays stress page opens around 1850px too high, and second level submenus can't be clicked because the first submenu has left the viewport. The same overlays near the top of the page are placed right, and anchors in the normal page flow are fine after scrolling. The e2e scenarios carry it as a known WebKit failure (`failingIn.webkit` in `tests/e2e/stress-overlays.ts`), and `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover anchored in a modal dialog, which is expected to fail in WebKit only on a scrolled page. If that test starts passing, WebKit fixed it, or the cause is ours. Check in Safari on macOS on `/tests/overlays/` after scrolling down, and report it to WebKit if Safari does the same (`tests/e2e/stress-overlays.ts`)
+  - Summary: In WebKit, menus and tooltips inside a dialog, drawer or menu open far above their trigger once the page is scrolled.
+  - Recommended: Explain further. It is carried as an expected WebKit failure with a library-free repro, and only Safari on macOS can confirm it before reporting to WebKit.
+  > Explain further
+  - Explained: WebKit has it on file. Bug 304551, "incorrect anchor positioning when a fixed-positioned element and its anchor are both in the top layer", reported in December 2025 with Chrome right and Safari wrong, was closed as a duplicate of bug 301023. That is our case: the menu or tooltip is `position: fixed` and it and its trigger, inside a modal dialog, a drawer or another menu, are both in the top layer, and WebKit offsets it by the page's scroll. Nothing to change in the library and nothing to report. When WebKit ships the fix, `engines.spec.ts` fails with "expected to fail but passed": remove `WEBKIT_SCROLLED_ANCHOR` from the scenarios and the repro.

@@ -4,8 +4,14 @@ on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -13,10 +19,12 @@ jobs:
   released-guards:
     runs-on: ubuntu-latest
     env:
-      BRANCH: chore/released-${{ github.ref_name }}
-      TAG: ${{ github.ref_name }}
+      BRANCH: chore/released-${{ inputs.version || github.ref_name }}
+      TAG: ${{ inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ inputs.version || github.ref_name }}
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
@@ -42,8 +50,9 @@ jobs:
       - name: Open the pull request
         if: steps.push.outputs.pushed == 'true'
         run: |
+          gh workflow run ci.yml --ref "$BRANCH"
           compare="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/main...$BRANCH?expand=1"
-          body="Regenerates \`tests/unit/released-api.json\` and \`tests/unit/released-tokens.json\` from the \`$TAG\` tag. CI doesn't start on its own for a branch that GitHub Actions pushed: run the CI workflow on \`$BRANCH\` from the Actions tab before merging."
+          body="Regenerates \`tests/unit/released-api.json\` and \`tests/unit/released-tokens.json\` from the \`$TAG\` tag. A branch that GitHub Actions pushed doesn't start CI on its own, so this workflow runs the CI workflow on \`$BRANCH\`."
           if url=$(gh pr create --base main --head "$BRANCH" --title "chore: released guards at $TAG" --body "$body"); then
             echo "Opened $url" >> "$GITHUB_STEP_SUMMARY"
           else

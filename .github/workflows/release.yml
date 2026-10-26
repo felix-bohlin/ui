@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/opui/CHANGELOG.md
+      - packages/opui/package.json
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release: 6.0.0, 6.0.0-rc.1, or major, minor, patch, prerelease"
+        required: true
+        type: string
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Open the release pull request
+        id: release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          node scripts/release.mjs "$VERSION"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+      - name: Run CI on the release branch
+        run: |
+          gh workflow run ci.yml --ref "$BRANCH"
+          if [ -n "$PR" ]; then
+            echo "Opened $PR for $VERSION. CI runs on \`$BRANCH\`." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Pushed \`$BRANCH\`, but GitHub Actions can't open pull requests in this repository. Open it from $COMPARE" >> "$GITHUB_STEP_SUMMARY"
+          fi
+        env:
+          BRANCH: ${{ steps.release.outputs.branch }}
+          COMPARE: ${{ steps.release.outputs.compare }}
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ steps.release.outputs.pr }}
+          VERSION: ${{ steps.release.outputs.version }}
+
+  tag:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      prerelease: ${{ steps.tag.outputs.prerelease }}
+      version: ${{ steps.tag.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Tag the release commit
+        id: tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          node scripts/release.mjs tag
+      - if: steps.tag.outputs.version != ''
+        run: echo "Tagged $VERSION. Publish it from the tag with \`node scripts/release.mjs publish\` (RELEASING.md)." >> "$GITHUB_STEP_SUMMARY"
+        env:
+          VERSION: ${{ steps.tag.outputs.version }}
+
+  after-release:
+    needs: tag
+    if: needs.tag.outputs.version != '' && needs.tag.outputs.prerelease == 'false'
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    uses: ./.github/workflows/after-release.yml
+    with:
+      version: ${{ needs.tag.outputs.version }}

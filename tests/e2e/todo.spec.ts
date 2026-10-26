@@ -1,8 +1,12 @@
 import { expect, test } from "@playwright/test"
 
 test.describe("todo page", () => {
-  test.beforeEach(async ({ context, page }) => {
-    await context.grantPermissions(["clipboard-read", "clipboard-write"])
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      navigator.clipboard.writeText = async (text) => {
+        document.documentElement.dataset.copied = text
+      }
+    })
     await page.goto("/todo/")
   })
 
@@ -30,8 +34,9 @@ test.describe("todo page", () => {
     await expect(page.locator("#todo-status")).toContainText("Accepted")
 
     await page.locator("#todo-copy").click()
-    const text = await page.evaluate(() => navigator.clipboard.readText())
-    expect(text).toContain(`\n  > ${recommended}`)
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.dataset.copied))
+      .toContain(`\n  > ${recommended}`)
   })
 
   test("moves to the next unanswered todo", async ({ page }) => {

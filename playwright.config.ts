@@ -7,9 +7,6 @@ const chromium = {
   launchOptions: executablePath ? { executablePath } : {},
 }
 
-const crossBrowser =
-  /(anatomy|compat|contrast|css-js|engines|interaction|stress|stress-data-display|stress-overlays|stress-overlays-a11y|theming)\.spec\.ts/
-
 export default defineConfig({
   expect: {
     toHaveScreenshot: {
@@ -34,7 +31,7 @@ export default defineConfig({
     },
     {
       name: "firefox",
-      testMatch: crossBrowser,
+      testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Firefox"],
         actionTimeout: 10_000,
@@ -43,7 +40,7 @@ export default defineConfig({
     },
     {
       name: "webkit",
-      testMatch: crossBrowser,
+      testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Safari"],
         actionTimeout: 10_000,

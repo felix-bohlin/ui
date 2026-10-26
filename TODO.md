@@ -342,10 +342,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): npm trusted publishing (OIDC). Needs the trusted publisher configured on npmjs.com for `opui-css` (package settings, GitHub Actions, repository `felix-bohlin/ui`, workflow `publish.yml`), which only the package owner can add.
     - B: an npm automation token in an `NPM_TOKEN` repository secret, read by `publish.yml`. Provenance works the same, but the token has to be created, stored and rotated.
-- [ ] (2) Tests: the check scripts have no tests of their own. They only run on the tree, which passes, so a pattern that breaks would pass everything too (`scripts/check-css-vars.mjs`, `scripts/sort-css.mjs`, `scripts/check-characters.mjs`, `scripts/check-components.mjs`, `scripts/stylelint-logical-shorthands.mjs`)
+- [x] (2) Tests: the check scripts have no tests of their own. They only run on the tree, which passes, so a pattern that breaks would pass everything too (`scripts/check-css-vars.mjs`, `scripts/sort-css.mjs`, `scripts/check-characters.mjs`, `scripts/check-components.mjs`, `scripts/stylelint-logical-shorthands.mjs`)
   - Summary: If a check script's pattern breaks, `pnpm check` keeps passing without noticing.
   - Recommended: Fix. Each check gets one known-bad fixture, and the stylelint plugin needs no change to test.
   - Fix: export each script's core as a function of its input and test it on a known-bad fixture per rule. The stylelint plugin can be tested as it is with `stylelint.lint({ code, config })`.
+  - Fixed: `sort-css`, `check-characters`, `check-commits`, `check-css-vars` and `check-components` export their rules and only read the tree and exit when run directly, and each runs as before. `tests/unit/check-scripts.test.ts` gives each rule a known-bad and a good input, and runs the Stylelint plugin through `stylelint.lint`. Putting `--_motion` last, dropping `px` from `LENGTH`, turning off the `ui-` prefix check, matching characters only at the line start or counting three values in the plugin each fails a test.
 - [x] (2) Tests: nothing checks that the invalid styles only show after interaction or submit (`:user-invalid`), which CHECKS.md lists as a manual check for Checkbox and TextField (`packages/opui/css/components/text-field.css`, `packages/opui/css/components/checkbox.css`)
   - Summary: Nothing guards that fields wait for the user to interact before they look invalid.
   - Recommended: Fix. One test on the TextField Validation example covers the rule.

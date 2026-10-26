@@ -1,3 +1,4 @@
+import { realpathSync } from "node:fs"
 import { readdir, readFile } from "node:fs/promises"
 import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -15,15 +16,6 @@ const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
 const examplesDir = join(root, "src/component-examples")
 
-const errors = []
-const report = (file, message) =>
-  errors.push(`${relative(root, file)}: ${message}`)
-
-const folders = (await readdir(componentsDir, { withFileTypes: true }))
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name)
-  .toSorted()
-
 const SCRIPTS = [
   [".astro", /^---\n([\s\S]*?)\n---/g],
   [".react.tsx", /^([\s\S]*)$/g],
@@ -38,16 +30,12 @@ const TYPES_FILES = [
   [".vue", "./types.vue-props"],
 ]
 
-const checkTypesImport = (file, path, source) => {
+export const checkTypesImport = (file, source) => {
   const own = TYPES_FILES.find(([extension]) => file.endsWith(extension))?.[1]
-  if (!own) return
-  for (const [, from] of source.matchAll(
-    /from\s+["'](\.\/types\.[\w-]+)["']/g,
-  )) {
-    if (from !== own) {
-      report(path, `imports types from ${from}; import them from ${own}`)
-    }
-  }
+  if (!own) return []
+  return [...source.matchAll(/from\s+["'](\.\/types\.[\w-]+)["']/g)]
+    .filter(([, from]) => from !== own)
+    .map(([, from]) => `imports types from ${from}; import them from ${own}`)
 }
 
 const classesIn = (item) => {
@@ -65,15 +53,11 @@ const classesIn = (item) => {
   ].flatMap(([, , yes, , no]) => [yes, no])
 }
 
-const checkClassPrefix = (file, lists, label) => {
-  for (const items of lists) {
-    for (const name of items.flatMap(classesIn).filter(Boolean)) {
-      if (!name.startsWith("ui-")) {
-        report(file, `${label} has the class "${name}"; prefix it with ui-`)
-      }
-    }
-  }
-}
+export const checkClassPrefix = (lists, label) =>
+  lists
+    .flatMap((items) => items.flatMap(classesIn).filter(Boolean))
+    .filter((name) => !name.startsWith("ui-"))
+    .map((name) => `${label} has the class "${name}"; prefix it with ui-`)
 
 const CLASS_LISTS = [
   [".astro", /class:list=\{\[/g, "class:list"],
@@ -110,18 +94,6 @@ const BARREL_TYPES = {
   svelte: "types.svelte",
   vue: "types.vue-props",
 }
-
-const barrels = Object.fromEntries(
-  await Promise.all(
-    Object.keys(BARRELS).map(async (framework) => [
-      framework,
-      await readFile(
-        join(root, "packages/opui", framework, "index.ts"),
-        "utf-8",
-      ),
-    ]),
-  ),
-)
 
 const exportedNames = (source) =>
   barrelExports(source)
@@ -186,14 +158,13 @@ const classLists = (source, pattern) =>
     return splitTopLevel(source.slice(match.index + match[0].length, end - 1))
   })
 
-const checkClassOrder = (file, lists, label) => {
-  for (const items of lists) {
-    const index = items.indexOf("className")
-    if (index !== -1 && index !== items.length - 1) {
-      report(file, `className must be the last entry in ${label}`)
-    }
-  }
-}
+export const checkClassOrder = (lists, label) =>
+  lists
+    .filter((items) => {
+      const index = items.indexOf("className")
+      return index !== -1 && index !== items.length - 1
+    })
+    .map(() => `className must be the last entry in ${label}`)
 
 const classTokens = (lists) =>
   lists
@@ -209,27 +180,25 @@ const classTokens = (lists) =>
     )
     .join("\n")
 
-const checkClient = (file, source) => {
+export const checkClient = (source) => {
   const client = source.startsWith('"use client"\n')
   if (CLIENT.test(source) && !client) {
-    report(
-      file,
+    return [
       'uses context, state, effects or event handlers; start it with "use client"',
-    )
+    ]
   }
   if (!CLIENT.test(source) && client) {
-    report(
-      file,
+    return [
       'starts with "use client" but uses no context, state, effects or event handlers',
-    )
+    ]
   }
+  return []
 }
 
-const checkIndexSignature = (file, source) => {
-  if (/^\s*\[key: string\]:/m.test(source)) {
-    report(file, "uses an index signature; declare the props explicitly")
-  }
-}
+export const checkIndexSignature = (source) =>
+  /^\s*\[key: string\]:/m.test(source)
+    ? ["uses an index signature; declare the props explicitly"]
+    : []
 
 const parse = (file, source) =>
   ts.createSourceFile(
@@ -261,7 +230,8 @@ const typeLabel = (node) => {
   return direct ? alias.name.text : `A type literal in ${alias.name.text}`
 }
 
-const checkSortedKeys = (file, source) => {
+export const checkSortedKeys = (file, source) => {
+  const problems = []
   const visit = (node) => {
     if (ts.isTypeLiteralNode(node)) {
       const sorted = unsorted(
@@ -270,8 +240,7 @@ const checkSortedKeys = (file, source) => {
           .map((member) => keyName(member.name)),
       )
       if (sorted) {
-        report(
-          file,
+        problems.push(
           `${typeLabel(node)} keys are not sorted: expected ${sorted.join(", ")}`,
         )
       }
@@ -279,6 +248,7 @@ const checkSortedKeys = (file, source) => {
     ts.forEachChild(node, visit)
   }
   visit(parse(file, source))
+  return problems
 }
 
 const isPropsSource = (node) =>
@@ -320,9 +290,9 @@ const destructuredRuns = (file, source) => {
   return runs
 }
 
-const checkDestructuring = (file, source, slots) => {
+export const checkDestructuring = (file, source, slots) => {
   const runs = destructuredRuns(file, source)
-  if (!runs) return
+  if (!runs) return []
   if (slots) {
     const keys = runs.flat()
     const props = keys.filter((key) => !slots.includes(key))
@@ -331,243 +301,284 @@ const checkDestructuring = (file, source, slots) => {
       ...(unsorted(props) ?? props),
       ...(unsorted(slotKeys, slotOrder) ?? slotKeys),
     ]
-    if (keys.join() !== expected.join()) {
-      report(
-        file,
-        `props are not destructured in order, slots last: expected ${expected.join(", ")}`,
-      )
-    }
-    return
+    return keys.join() === expected.join()
+      ? []
+      : [
+          `props are not destructured in order, slots last: expected ${expected.join(", ")}`,
+        ]
   }
-  for (const [index, run] of runs.entries()) {
+  return runs.flatMap((run, index) => {
     const sorted = unsorted(run, index > 0 ? slotOrder : undefined)
-    if (sorted) {
-      report(
-        file,
-        `props are not destructured in order: expected ${sorted.join(", ")}`,
-      )
-    }
-  }
+    return sorted
+      ? [`props are not destructured in order: expected ${sorted.join(", ")}`]
+      : []
+  })
 }
 
-for (const folder of folders) {
-  const dir = join(componentsDir, folder)
-  const files = (await readdir(dir)).toSorted()
-  const names = (ext) =>
-    files
-      .filter((file) => extname(file) === ext)
-      .map((file) => basename(file, ext))
+const main = async () => {
+  const errors = []
+  const report = (file, message) =>
+    errors.push(`${relative(root, file)}: ${message}`)
+  const reportAll = (file, messages) => {
+    for (const message of messages) report(file, message)
+  }
 
-  const astro = names(".astro")
-  const react = files
-    .filter((file) => file.endsWith(".react.tsx"))
-    .map((file) => basename(file, ".react.tsx"))
-  const svelte = names(".svelte")
-  const vue = names(".vue")
-  for (const name of astro.filter((name) => !react.includes(name))) {
-    report(join(dir, `${name}.astro`), "has no matching .react.tsx component")
-  }
-  for (const name of astro.filter((name) => !svelte.includes(name))) {
-    report(join(dir, `${name}.astro`), "has no matching .svelte component")
-  }
-  for (const name of astro.filter((name) => !vue.includes(name))) {
-    report(join(dir, `${name}.astro`), "has no matching .vue component")
-  }
-  for (const name of react.filter((name) => !astro.includes(name))) {
-    report(join(dir, `${name}.react.tsx`), "has no matching .astro component")
-  }
-  for (const name of svelte.filter((name) => !astro.includes(name))) {
-    report(join(dir, `${name}.svelte`), "has no matching .astro component")
-  }
-  for (const name of vue.filter((name) => !astro.includes(name))) {
-    report(join(dir, `${name}.vue`), "has no matching .astro component")
-  }
-  for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
-    report(join(dir, name), "is missing")
-  }
-  for (const [framework, extension] of Object.entries(BARRELS)) {
+  const folders = (await readdir(componentsDir, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .toSorted()
+
+  const barrels = Object.fromEntries(
+    await Promise.all(
+      Object.keys(BARRELS).map(async (framework) => [
+        framework,
+        await readFile(
+          join(root, "packages/opui", framework, "index.ts"),
+          "utf-8",
+        ),
+      ]),
+    ),
+  )
+
+  for (const folder of folders) {
+    const dir = join(componentsDir, folder)
+    const files = (await readdir(dir)).toSorted()
+    const names = (ext) =>
+      files
+        .filter((file) => extname(file) === ext)
+        .map((file) => basename(file, ext))
+
+    const astro = names(".astro")
+    const react = files
+      .filter((file) => file.endsWith(".react.tsx"))
+      .map((file) => basename(file, ".react.tsx"))
+    const svelte = names(".svelte")
+    const vue = names(".vue")
+    for (const name of astro.filter((name) => !react.includes(name))) {
+      report(join(dir, `${name}.astro`), "has no matching .react.tsx component")
+    }
+    for (const name of astro.filter((name) => !svelte.includes(name))) {
+      report(join(dir, `${name}.astro`), "has no matching .svelte component")
+    }
+    for (const name of astro.filter((name) => !vue.includes(name))) {
+      report(join(dir, `${name}.astro`), "has no matching .vue component")
+    }
+    for (const name of react.filter((name) => !astro.includes(name))) {
+      report(join(dir, `${name}.react.tsx`), "has no matching .astro component")
+    }
+    for (const name of svelte.filter((name) => !astro.includes(name))) {
+      report(join(dir, `${name}.svelte`), "has no matching .astro component")
+    }
+    for (const name of vue.filter((name) => !astro.includes(name))) {
+      report(join(dir, `${name}.vue`), "has no matching .astro component")
+    }
+    for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
+      report(join(dir, name), "is missing")
+    }
+    for (const [framework, extension] of Object.entries(BARRELS)) {
+      for (const name of astro) {
+        if (!barrels[framework].includes(`/${folder}/${name}${extension}"`)) {
+          report(
+            join(dir, `${name}.astro`),
+            `is not exported from packages/opui/${framework}/index.ts`,
+          )
+        }
+      }
+    }
+
+    const context = CONTEXT_FILES.filter((name) => files.includes(name))
+    if (context.length > 0) {
+      for (const name of CONTEXT_FILES.filter(
+        (name) => !files.includes(name),
+      )) {
+        report(join(dir, name), "is missing")
+      }
+    }
+
+    const tokens = new Map()
+    for (const file of files) {
+      const path = join(dir, file)
+      const source = await readFile(path, "utf-8")
+
+      if (/^types.*\.ts$/.test(file)) {
+        reportAll(path, checkSortedKeys(path, source))
+      }
+      reportAll(path, checkTypesImport(file, source))
+      if (file.endsWith(".react.tsx")) {
+        const svelte = `${basename(file, ".react.tsx")}.svelte`
+        const snippets = files.includes(svelte)
+          ? (destructuredRuns(
+              svelte,
+              await readFile(join(dir, svelte), "utf-8"),
+            )?.slice(1) ?? [])
+          : []
+        reportAll(
+          path,
+          checkDestructuring(path, source, ["children", ...snippets.flat()]),
+        )
+      } else if ([".astro", ".svelte", ".vue"].includes(extname(file))) {
+        reportAll(path, checkDestructuring(path, source))
+      }
+      if (extname(file) === ".ts") reportAll(path, checkIndexSignature(source))
+      for (const [extension, pattern, label] of CLASS_LISTS) {
+        if (!file.endsWith(extension)) continue
+        const lists = classLists(
+          extension === ".vue"
+            ? source.replace(/\$?props\.class\b/g, "className")
+            : source,
+          pattern,
+        )
+        reportAll(path, checkClassOrder(lists, label))
+        reportAll(path, checkClassPrefix(lists, label))
+        tokens.set(file, classTokens(lists))
+      }
+      if (file.endsWith(".react.tsx") || file === "context.react.ts") {
+        reportAll(path, checkClient(source))
+      }
+      if (
+        file === `${folder}.astro` &&
+        !/export const title = "/.test(source)
+      ) {
+        report(path, 'is missing `export const title = "..."`')
+      }
+    }
     for (const name of astro) {
-      if (!barrels[framework].includes(`/${folder}/${name}${extension}"`)) {
+      for (const [extension] of CLASS_LISTS.slice(1)) {
+        const file = `${name}${extension}`
+        if (
+          tokens.has(file) &&
+          tokens.get(file) !== tokens.get(`${name}.astro`)
+        ) {
+          report(join(dir, file), `class order differs from ${name}.astro`)
+        }
+      }
+    }
+  }
+
+  const EXAMPLE_FILE = new RegExp(
+    `\\.(${FRAMEWORK_IDS.map(exampleExtension).join("|").replaceAll(".", "\\.")})$`,
+  )
+
+  const exampleFolders = (await readdir(examplesDir, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .toSorted()
+
+  for (const slug of exampleFolders) {
+    const dir = join(examplesDir, slug)
+    const files = (await readdir(dir, { withFileTypes: true }))
+      .filter((entry) => entry.isFile() && EXAMPLE_FILE.test(entry.name))
+      .map((entry) => entry.name)
+    const names = [
+      ...new Set(files.map((file) => file.replace(EXAMPLE_FILE, ""))),
+    ].toSorted()
+    for (const file of files) {
+      const source = await readFile(join(dir, file), "utf8")
+      for (const [, from] of source.matchAll(
+        /from\s+["'](@opui\/[^"']*)["']/g,
+      )) {
+        report(join(dir, file), `imports ${from}, use opui-css/<framework>`)
+      }
+    }
+    for (const name of names) {
+      if (FRAMEWORK_AGNOSTIC_EXAMPLES.includes(`${slug}/${name}`)) continue
+      const code = name.endsWith("Code")
+      if (code && !names.includes(name.slice(0, -4))) {
+        report(join(dir, name), `overrides no ${name.slice(0, -4)} example`)
+      }
+      for (const framework of FRAMEWORK_IDS) {
+        const file = `${name}.${exampleExtension(framework)}`
+        if (
+          componentHasFramework(framework, slug) &&
+          !(code && framework === "html") &&
+          !files.includes(file)
+        ) {
+          report(join(dir, file), "is missing")
+        }
+      }
+    }
+  }
+
+  const astroNames = exportedNames(barrels.astro)
+  const astroTypes = exportedTypes(barrels.astro)
+  const firstUnsorted = (list) =>
+    list.findIndex(
+      (item, index) =>
+        index > 0 && list[index - 1].localeCompare(item, "en") > 0,
+    )
+
+  for (const [framework, source] of Object.entries(barrels)) {
+    const barrel = join(root, "packages/opui", framework, "index.ts")
+    const values = barrelExports(source).map(({ name }) => name)
+    const value = firstUnsorted(values)
+    if (value !== -1) {
+      report(
+        barrel,
+        `sort the exports: ${values[value]} goes before ${values[value - 1]}`,
+      )
+    }
+    const sources = typeExports(source).map(({ from }) => from)
+    const line = firstUnsorted(sources)
+    if (line !== -1) {
+      report(
+        barrel,
+        `sort the type exports by source: ${sources[line]} goes before ${sources[line - 1]}`,
+      )
+    }
+    for (const { names } of typeExports(source)) {
+      const at = firstUnsorted(names)
+      if (at !== -1) {
         report(
-          join(dir, `${name}.astro`),
-          `is not exported from packages/opui/${framework}/index.ts`,
+          barrel,
+          `sort the type names: ${names[at]} goes before ${names[at - 1]}`,
+        )
+      }
+    }
+    const names = exportedNames(source)
+    const missing = astroNames.filter((name) => !names.includes(name))
+    const extra = names.filter((name) => !astroNames.includes(name))
+    if (missing.length || extra.length) {
+      report(
+        barrel,
+        `exports differ from astro (missing: ${missing.join(", ") || "none"}, extra: ${extra.join(", ") || "none"})`,
+      )
+    }
+    const types = exportedTypes(source)
+    const missingTypes = astroTypes.filter((name) => !types.includes(name))
+    const extraTypes = types.filter((name) => !astroTypes.includes(name))
+    if (missingTypes.length || extraTypes.length) {
+      report(
+        barrel,
+        `type exports differ from astro (missing: ${missingTypes.join(", ") || "none"}, extra: ${extraTypes.join(", ") || "none"})`,
+      )
+    }
+    for (const { from, names } of typeExports(source)) {
+      if (
+        names.some((name) => name.endsWith("Props")) &&
+        !from.endsWith(`/${BARREL_TYPES[framework]}`)
+      ) {
+        report(
+          barrel,
+          `exports Props types from "${from}", not from ${BARREL_TYPES[framework]}`,
         )
       }
     }
   }
 
-  const context = CONTEXT_FILES.filter((name) => files.includes(name))
-  if (context.length > 0) {
-    for (const name of CONTEXT_FILES.filter((name) => !files.includes(name))) {
-      report(join(dir, name), "is missing")
-    }
+  if (errors.length > 0) {
+    console.error(errors.join("\n"))
+    console.error(`\n${errors.length} component check(s) failed.`)
+    process.exit(1)
   }
 
-  const tokens = new Map()
-  for (const file of files) {
-    const path = join(dir, file)
-    const source = await readFile(path, "utf-8")
-
-    if (/^types.*\.ts$/.test(file)) checkSortedKeys(path, source)
-    checkTypesImport(file, path, source)
-    if (file.endsWith(".react.tsx")) {
-      const svelte = `${basename(file, ".react.tsx")}.svelte`
-      const snippets = files.includes(svelte)
-        ? (destructuredRuns(
-            svelte,
-            await readFile(join(dir, svelte), "utf-8"),
-          )?.slice(1) ?? [])
-        : []
-      checkDestructuring(path, source, ["children", ...snippets.flat()])
-    } else if ([".astro", ".svelte", ".vue"].includes(extname(file))) {
-      checkDestructuring(path, source)
-    }
-    if (extname(file) === ".ts") checkIndexSignature(path, source)
-    for (const [extension, pattern, label] of CLASS_LISTS) {
-      if (!file.endsWith(extension)) continue
-      const lists = classLists(
-        extension === ".vue"
-          ? source.replace(/\$?props\.class\b/g, "className")
-          : source,
-        pattern,
-      )
-      checkClassOrder(path, lists, label)
-      checkClassPrefix(path, lists, label)
-      tokens.set(file, classTokens(lists))
-    }
-    if (file.endsWith(".react.tsx") || file === "context.react.ts") {
-      checkClient(path, source)
-    }
-    if (file === `${folder}.astro` && !/export const title = "/.test(source)) {
-      report(path, 'is missing `export const title = "..."`')
-    }
-  }
-  for (const name of astro) {
-    for (const [extension] of CLASS_LISTS.slice(1)) {
-      const file = `${name}${extension}`
-      if (
-        tokens.has(file) &&
-        tokens.get(file) !== tokens.get(`${name}.astro`)
-      ) {
-        report(join(dir, file), `class order differs from ${name}.astro`)
-      }
-    }
-  }
-}
-
-const EXAMPLE_FILE = new RegExp(
-  `\\.(${FRAMEWORK_IDS.map(exampleExtension).join("|").replaceAll(".", "\\.")})$`,
-)
-
-const exampleFolders = (await readdir(examplesDir, { withFileTypes: true }))
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name)
-  .toSorted()
-
-for (const slug of exampleFolders) {
-  const dir = join(examplesDir, slug)
-  const files = (await readdir(dir, { withFileTypes: true }))
-    .filter((entry) => entry.isFile() && EXAMPLE_FILE.test(entry.name))
-    .map((entry) => entry.name)
-  const names = [
-    ...new Set(files.map((file) => file.replace(EXAMPLE_FILE, ""))),
-  ].toSorted()
-  for (const file of files) {
-    const source = await readFile(join(dir, file), "utf8")
-    for (const [, from] of source.matchAll(/from\s+["'](@opui\/[^"']*)["']/g)) {
-      report(join(dir, file), `imports ${from}, use opui-css/<framework>`)
-    }
-  }
-  for (const name of names) {
-    if (FRAMEWORK_AGNOSTIC_EXAMPLES.includes(`${slug}/${name}`)) continue
-    const code = name.endsWith("Code")
-    if (code && !names.includes(name.slice(0, -4))) {
-      report(join(dir, name), `overrides no ${name.slice(0, -4)} example`)
-    }
-    for (const framework of FRAMEWORK_IDS) {
-      const file = `${name}.${exampleExtension(framework)}`
-      if (
-        componentHasFramework(framework, slug) &&
-        !(code && framework === "html") &&
-        !files.includes(file)
-      ) {
-        report(join(dir, file), "is missing")
-      }
-    }
-  }
-}
-
-const astroNames = exportedNames(barrels.astro)
-const astroTypes = exportedTypes(barrels.astro)
-const firstUnsorted = (list) =>
-  list.findIndex(
-    (item, index) => index > 0 && list[index - 1].localeCompare(item, "en") > 0,
+  console.log(
+    `Checked ${folders.length} component folders and ${exampleFolders.length} example folders.`,
   )
-
-for (const [framework, source] of Object.entries(barrels)) {
-  const barrel = join(root, "packages/opui", framework, "index.ts")
-  const values = barrelExports(source).map(({ name }) => name)
-  const value = firstUnsorted(values)
-  if (value !== -1) {
-    report(
-      barrel,
-      `sort the exports: ${values[value]} goes before ${values[value - 1]}`,
-    )
-  }
-  const sources = typeExports(source).map(({ from }) => from)
-  const line = firstUnsorted(sources)
-  if (line !== -1) {
-    report(
-      barrel,
-      `sort the type exports by source: ${sources[line]} goes before ${sources[line - 1]}`,
-    )
-  }
-  for (const { names } of typeExports(source)) {
-    const at = firstUnsorted(names)
-    if (at !== -1) {
-      report(
-        barrel,
-        `sort the type names: ${names[at]} goes before ${names[at - 1]}`,
-      )
-    }
-  }
-  const names = exportedNames(source)
-  const missing = astroNames.filter((name) => !names.includes(name))
-  const extra = names.filter((name) => !astroNames.includes(name))
-  if (missing.length || extra.length) {
-    report(
-      barrel,
-      `exports differ from astro (missing: ${missing.join(", ") || "none"}, extra: ${extra.join(", ") || "none"})`,
-    )
-  }
-  const types = exportedTypes(source)
-  const missingTypes = astroTypes.filter((name) => !types.includes(name))
-  const extraTypes = types.filter((name) => !astroTypes.includes(name))
-  if (missingTypes.length || extraTypes.length) {
-    report(
-      barrel,
-      `type exports differ from astro (missing: ${missingTypes.join(", ") || "none"}, extra: ${extraTypes.join(", ") || "none"})`,
-    )
-  }
-  for (const { from, names } of typeExports(source)) {
-    if (
-      names.some((name) => name.endsWith("Props")) &&
-      !from.endsWith(`/${BARREL_TYPES[framework]}`)
-    ) {
-      report(
-        barrel,
-        `exports Props types from "${from}", not from ${BARREL_TYPES[framework]}`,
-      )
-    }
-  }
 }
 
-if (errors.length > 0) {
-  console.error(errors.join("\n"))
-  console.error(`\n${errors.length} component check(s) failed.`)
-  process.exit(1)
+if (
+  process.argv[1] &&
+  realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  await main()
 }
-
-console.log(
-  `Checked ${folders.length} component folders and ${exampleFolders.length} example folders.`,
-)

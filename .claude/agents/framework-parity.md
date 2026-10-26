@@ -19,7 +19,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Already checked by tools
 
-`pnpm check-components` checks that every `.astro` has a `.react.tsx`, a `.svelte` and a `.vue`. `npx vitest run tests/unit/parity.test.ts` compares the rendered markup. Run both for the components in scope and report failures with the example and framework.
+`pnpm check-components` checks that every `.astro` has a `.react.tsx`, a `.svelte` and a `.vue`, and their props types, `...rest`, `$bindable` and `defineModel` lists, class order, `"use client"`, context files and barrel exports. `npx vitest run tests/unit/parity.test.ts` compares the rendered markup. Run both for the components in scope and report failures with the example and framework.
 
 ## Check
 
@@ -27,6 +27,5 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 - **Drift.** A `.diff` file in `tests/unit/__snapshots__/` records markup a framework adds because of how it works. Report drift that is a real difference the component could fix, and drift files whose commit didn't say the change was intended.
 - **HTML completeness.** The HTML examples are as complete and functional as the Astro ones: the same content, ids and links between elements, and the scripts they need.
 - **Types.** `types.ts`, `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` describe the same props and slots.
-- **Implementation.** Class order matches between `class:list`, the React `cx([...])` array, the Svelte `class` array and the Vue `:class` array. Rest props reach the root element. Ids use `createId(Astro.locals)`, React's `useId()`, `$props.id()` and Vue's `useId()`, only for elements the component links itself. Native states use attributes, not classes. React components start with `"use client"` only when they use context, state, effects or their own event handlers.
+- **Implementation.** Rest props land on the root element, or the input of a form control (the check only sees that they are spread). Ids use `createId(Astro.locals)`, React's `useId()`, `$props.id()` and Vue's `useId()`, only for elements the component links itself. Native states use attributes, not classes.
 - **Defaults and behavior.** Default prop values, conditional rendering of slots and wrappers, and event handling match between frameworks.
-- **Exports.** The component and its `Props` type are exported, sorted, from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`.

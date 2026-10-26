@@ -1,33 +1,8 @@
-import { normalizeTheme, type Theme } from "./theme"
+import { isSafeToken, normalizeTheme, type Theme } from "./theme"
 
 export const SHARE_PARAM = "theme"
 
 const MAX_LENGTH = 16000
-
-const UNSAFE_VALUE = /[{};<>\\\p{Cc}]|\/\*|@import|image-set\(|url\(/iu
-
-const CLOSING: Record<string, string> = { "(": ")", "[": "]" }
-
-const isBalanced = (value: string) => {
-  const open: string[] = []
-  let quote = ""
-  for (const char of value) {
-    if (quote) {
-      if (char === quote) quote = ""
-    } else if (char === '"' || char === "'") {
-      quote = char
-    } else if (char in CLOSING) {
-      open.push(CLOSING[char])
-    } else if (char === ")" || char === "]") {
-      if (open.pop() !== char) return false
-    } else if (char === "!") {
-      return false
-    }
-  }
-  return quote === "" && open.length === 0
-}
-
-const TOKEN_NAME = /^--ui-[a-z\d-]+$/
 
 const toBase64Url = (text: string) =>
   btoa(String.fromCodePoint(...new TextEncoder().encode(text)))
@@ -63,10 +38,7 @@ export const decodeTheme = (value: string | null | undefined) => {
     if (
       entries.some(
         ([name, token]) =>
-          !TOKEN_NAME.test(name) ||
-          typeof token !== "string" ||
-          UNSAFE_VALUE.test(token) ||
-          !isBalanced(token),
+          typeof token !== "string" || !isSafeToken(name, token),
       )
     ) {
       return null

@@ -76,6 +76,24 @@ describe("normalizeTheme", () => {
     ).toEqual({ preset: null, tokens: { "--ui-radius": "1rem" } })
     expect(normalizeTheme("junk")).toEqual({ preset: null, tokens: {} })
   })
+
+  test("drops values that could break out of the generated rule", () => {
+    expect(
+      normalizeTheme({
+        preset: null,
+        tokens: {
+          "--ui-radius": "1rem",
+          "--ui-surface": "red; } body { color: red",
+          "--ui-text": "url(https://example.com)",
+          "--ui-font-body": '"DM Sans", sans-serif',
+          "--ui-shadow-control": "var(--x",
+        },
+      }).tokens,
+    ).toEqual({
+      "--ui-font-body": '"DM Sans", sans-serif',
+      "--ui-radius": "1rem",
+    })
+  })
 })
 
 describe("migrateLegacy", () => {

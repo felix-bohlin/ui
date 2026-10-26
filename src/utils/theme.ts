@@ -73,6 +73,37 @@ export const FONT_TOKENS = ["--ui-font-body", "--ui-font-heading"]
 
 const isBrowser = typeof window !== "undefined"
 
+const UNSAFE_VALUE = /[{};<>\\\p{Cc}]|\/\*|@import|image-set\(|url\(/iu
+
+const CLOSING: Record<string, string> = { "(": ")", "[": "]" }
+
+const isBalanced = (value: string) => {
+  const open: string[] = []
+  let quote = ""
+  for (const char of value) {
+    if (quote) {
+      if (char === quote) quote = ""
+    } else if (char === '"' || char === "'") {
+      quote = char
+    } else if (char in CLOSING) {
+      open.push(CLOSING[char])
+    } else if (char === ")" || char === "]") {
+      if (open.pop() !== char) return false
+    } else if (char === "!") {
+      return false
+    }
+  }
+  return quote === "" && open.length === 0
+}
+
+const TOKEN_NAME = /^--ui-[a-z\d-]+$/
+
+export const isSafeToken = (name: string, value: string) =>
+  TOKEN_NAME.test(name) &&
+  value.trim() !== "" &&
+  !UNSAFE_VALUE.test(value) &&
+  isBalanced(value)
+
 const EVENT_NAME = "theme:change"
 
 const sortTokens = (tokens: ThemeTokens) =>
@@ -144,9 +175,7 @@ export const normalizeTheme = (value: unknown): Theme => {
           tokens && typeof tokens === "object" ? tokens : {},
         ).filter(
           ([name, token]) =>
-            name.startsWith("--ui-") &&
-            typeof token === "string" &&
-            token.trim() !== "",
+            typeof token === "string" && isSafeToken(name, token),
         ),
       ),
     ),

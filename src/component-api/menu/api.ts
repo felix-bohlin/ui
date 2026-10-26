@@ -4,6 +4,37 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Menu",
   css: ["list", "menu"],
+  keyboard: [
+    {
+      description:
+        "From the trigger, moves into the open menu, because the browser puts a popover opened with `commandfor` right after its trigger in the focus order. Then moves to the next item, skipping disabled ones, and after the last one, out of the menu. The menu stays open.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Moves to the previous item, and from the first item back to the trigger. The menu stays open.",
+      keys: ["Shift + Tab"],
+    },
+    {
+      description:
+        "On the trigger, opens or closes the menu, and focus stays on the trigger. On an item, runs it or follows its link, and an item that closes the menu returns focus to the trigger. A submenu item opens its submenu.",
+      keys: ["Enter"],
+    },
+    {
+      description:
+        "Works like Enter on the trigger and on button items. A link item ignores it.",
+      keys: ["Space"],
+    },
+    {
+      description: "Don't move focus between the items.",
+      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
+    },
+    {
+      description:
+        'Closes the menu and returns focus to the trigger. In a submenu, it closes only the submenu, and Chromium moves focus to the page instead of the submenu\'s item. A menu with `popover="manual"` stays open.',
+      keys: ["Esc"],
+    },
+  ],
   notes: {
     ...components(
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.",

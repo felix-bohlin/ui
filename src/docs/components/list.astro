@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
@@ -58,6 +60,38 @@ export const description =
   installationTabs={[{ title: "list.css", code: ListCSS, lang: "css" }]}
 >
   <Fragment slot="title">List</Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Rows of similar items with a label and optional start and end content,
+      like contacts, files or settings.
+    </li>
+    <li slot="when">
+      Navigation, with links and <code>aria-current="page"</code> on the <a
+        href="#selected">current one</a
+      >.
+    </li>
+    <li slot="when">
+      Settings with a <a href="#checkbox">checkbox</a>, a <a href="#radio"
+        >radio</a
+      > or a <a href="#switch">switch</a> at the end of each row.
+    </li>
+    <li slot="when-not">
+      Data in columns that people compare. Use a <DocLink
+        href="/components/table">Table</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Actions that open from a button. Use a <DocLink href="/components/menu"
+        >Menu</DocLink
+      >, which is a List in a popover.
+    </li>
+    <li slot="when-not">
+      Picking a value in a form. Use a <DocLink href="/components/select"
+        >Select</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -455,6 +489,21 @@ export const description =
   </section>
 
   <ListBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A row with a checkbox, a radio or a switch is one <code
+          >&lt;label&gt;</code
+        >, so all of its text names the control.
+      </li>
+      <li>
+        Screen readers announce the link with <code>aria-current="page"</code> as
+        the current page.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy api={listItemApi} zoom={1.25}>

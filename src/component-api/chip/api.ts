@@ -2,6 +2,21 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Chip",
+  keyboard: [
+    {
+      description:
+        "Moves focus to a button or link chip. A static chip is skipped, and so is a disabled one.",
+      keys: ["Tab"],
+    },
+    {
+      description: "Activates a button chip, or follows a link chip.",
+      keys: ["Enter"],
+    },
+    {
+      description: "Activates a button chip. A link chip ignores it.",
+      keys: ["Space"],
+    },
+  ],
   options: [
     {
       default: '"div"',

@@ -474,13 +474,13 @@ export const whatsNew = {
   ],
   dialog: [
     {
-      html: `Breaking: the <a href="#usage">header</a> is a <code>div.ui-header</code> row instead of an <code>hgroup</code>, like the <code>Drawer</code> header, and <code>.ui-footer</code> replaces <code>.ui-actions</code>. Point <code>aria-labelledby</code> at the title heading.`,
-      react: `<a href="#usage"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
-      svelte: `<a href="#usage"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
+      html: `Breaking: the <a href="#basics">header</a> is a <code>div.ui-header</code> row instead of an <code>hgroup</code>, like the <code>Drawer</code> header, and <code>.ui-footer</code> replaces <code>.ui-actions</code>. Point <code>aria-labelledby</code> at the title heading.`,
+      react: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
+      svelte: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
     },
     {
-      default: `The <a href="#usage">title</a> is <code>--ui-font-size-h4</code>, like the <code>Drawer</code> title, and <code>--_title-font-size</code> changes it.`,
-      html: `The <a href="#usage">title</a> heading is <code>--ui-font-size-h4</code>, like the <code>Drawer</code> title, without <code>.ui-h4</code>. <code>--_title-font-size</code> changes it.`,
+      default: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Drawer</code> title, and <code>--_title-font-size</code> changes it.`,
+      html: `The <a href="#basics">title</a> heading is <code>--ui-font-size-h4</code>, like the <code>Drawer</code> title, without <code>.ui-h4</code>. <code>--_title-font-size</code> changes it.`,
     },
     {
       ...components(
@@ -493,9 +493,9 @@ export const whatsNew = {
     `Themes can set <a href="#api"><code>--ui-dialog-radius</code></a> for a corner radius of its own.`,
     {
       ...slots(
-        `Breaking: <code>Dialog</code> no longer renders <code>.ui-card</code>. Style <a href="#usage"><code>.ui-dialog</code></a> instead.`,
+        `Breaking: <code>Dialog</code> no longer renders <code>.ui-card</code>. Style <a href="#basics"><code>.ui-dialog</code></a> instead.`,
       ),
-      html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#usage"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,
+      html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#basics"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,
     },
     `The dialog shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, like Drawer and Menu.`,
     slots(
@@ -519,7 +519,7 @@ export const whatsNew = {
     components(
       `<code>DialogTitle</code> warns in development when the dialog's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Dialog</code> to keep it (<a href="#api">API</a>).`,
     ),
-    `Styles use logical properties only, so the <a href="#usage">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-gap</code>, which cards, callouts, dialogs and drawers make tighter.`,

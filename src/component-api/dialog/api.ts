@@ -1,8 +1,10 @@
+import { modalKeyboard } from "../keyboard.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Dialog",
   css: ["card", "dialog"],
+  keyboard: modalKeyboard("dialog"),
   notes: {
     default:
       "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.",

@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
@@ -83,6 +85,31 @@ import tabsApi from "../../component-api/tabs/api"
       href="/components/toggle#toggle-group">Toggle group</DocLink
     >.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Switching between panels of related content in one place, like the parts
+      of a settings page.
+    </li>
+    <li slot="when">
+      Versions of the same content, like a code sample for each framework.
+    </li>
+    <li slot="when-not">
+      Picking an option, like a list or grid view. Use a <DocLink
+        href="/components/toggle#toggle-group">Toggle group</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Content that people compare or read in order. Show it on the page, or in <DocLink
+        href="/components/accordion">Accordions</DocLink
+      > that can be open at the same time.
+    </li>
+    <li slot="when-not">
+      Navigation between pages. The tabs are radio inputs, not links, so use
+      links, like a <DocLink href="/components/list#selected">List</DocLink> with
+      <code>aria-current="page"</code>.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -241,24 +268,7 @@ import tabsApi from "../../component-api/tabs/api"
       </TableBody>
     </Table>
 
-    <h3 id="keyboard-support">Keyboard support</h3>
-
-    <ul>
-      <li>
-        <strong>Tab</strong>: Moves focus to the selected tab (its radio
-        button), then into the open panel, then to the next focusable element
-        after the tabs.
-      </li>
-      <li>
-        <strong>Down Arrow / Up Arrow</strong>: Moves focus to the next or
-        previous tab and selects it.
-      </li>
-      <li>
-        <strong>Right Arrow / Left Arrow</strong>: Moves focus to the next or
-        previous tab and selects it, following the reading direction. In
-        right-to-left text, Left Arrow moves to the next tab.
-      </li>
-    </ul>
+    <KeyboardSupport />
   </Fragment>
   <TabsBuild slot="under-the-hood" />
 </Component>

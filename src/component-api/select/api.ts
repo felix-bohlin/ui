@@ -4,6 +4,37 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Select",
   css: ["list", "select", "text-field"],
+  keyboard: [
+    {
+      description:
+        "With the list open, closes it without changing the value. Focus stays on the select.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "On the select, opens the list. In the list, picks the focused option, closes the list and returns focus to the select.",
+      keys: ["Enter", "Space"],
+    },
+    {
+      description:
+        "On the select, opens the list. In the list, moves to the previous or next option.",
+      keys: ["Up Arrow", "Down Arrow"],
+    },
+    {
+      description: "In the list, moves to the first or last option.",
+      keys: ["Home", "End"],
+    },
+    {
+      description:
+        "Closes the list without changing the value. Focus returns to the select.",
+      keys: ["Esc"],
+    },
+    {
+      description:
+        "Moves to the first option that starts with the typed text. On a closed select, this picks the option.",
+      keys: ["Printable characters"],
+    },
+  ],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",

@@ -1,5 +1,8 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -104,6 +107,26 @@ export const description =
       </UICarousel>
     </Anatomy>
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A row of items that people browse rather than read in full, like photos,
+      products or related articles.
+    </li>
+    <li slot="when">
+      A set of similar items in a small space, where a few in view at a time are
+      enough.
+    </li>
+    <li slot="when-not">
+      Content that everyone has to see, like the only call to action. Items out
+      of view are easy to miss, so show it on the page.
+    </li>
+    <li slot="when-not">
+      Items that people compare side by side. Show them all in a <DocLink
+        href="/components/layout#grid">layout grid</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -373,7 +396,7 @@ export const description =
       number. Translate them with <code>--_button-prev-label</code>, <code
         >--_button-next-label</code
       > and <code>--_marker-label</code>. The number always follows the marker
-      word.
+      word. Chromium exposes the markers as tabs in a tab list.
     </p>
     <p>
       The buttons and markers get the library's focus ring. In forced colors
@@ -387,6 +410,12 @@ export const description =
         >--ui-motion: 0</code
       > on a parent.
     </p>
+    <KeyboardSupport>
+      <p>
+        These are Chromium's keys. Other browsers may name and focus the buttons
+        and markers differently.
+      </p>
+    </KeyboardSupport>
   </Fragment>
   <CarouselBuild slot="under-the-hood" />
 </Component>

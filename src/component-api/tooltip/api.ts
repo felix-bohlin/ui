@@ -2,6 +2,22 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Tooltip",
+  keyboard: [
+    {
+      description:
+        "Moving focus to the trigger shows the tooltip after a short delay, and moving focus away hides it.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        'Toggles the tooltip, because the trigger also has `commandfor` and `command="toggle-popover"` for touch. The trigger\'s own action runs too.',
+      keys: ["Enter", "Space"],
+    },
+    {
+      description: "Hides the tooltip. Focus stays on the trigger.",
+      keys: ["Esc"],
+    },
+  ],
   notes: {
     html: 'Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.',
   },

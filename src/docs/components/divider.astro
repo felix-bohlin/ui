@@ -1,5 +1,8 @@
 ---
 import Component from "../../layouts/Component.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
@@ -29,6 +32,30 @@ import dividerApi from "../../component-api/divider/api"
 >
   <Fragment slot="title">Divider</Fragment>
   <Fragment slot="preamble"> It's just a line. </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Separating groups of content or actions, like the sections of a card or a
+      long form.
+    </li>
+    <li slot="when">
+      A labeled break between two options, like "or" between sign-in methods,
+      with <a href="#content">content</a>.
+    </li>
+    <li slot="when-not">
+      Space between items. Use a gap, like the <DocLink
+        href="/components/layout">Layout</DocLink
+      > classes.
+    </li>
+    <li slot="when-not">
+      A line between every item of a list. Use <PropOrClass
+        prop="bordered"
+        class=".ui-bordered"
+      /> on the <DocLink href="/components/list#borders">List</DocLink> or the <DocLink
+        href="/components/menu#bordered">Menu</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>

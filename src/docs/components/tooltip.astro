@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -74,6 +76,24 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
     </Conditional>
   </Fragment>
 
+  <Usage slot="usage">
+    <li slot="when">
+      A visible label for an icon-only button that already has an <code
+        >aria-label</code
+      >, like Save.
+    </li>
+    <li slot="when">A hint or a keyboard shortcut for a control.</li>
+    <li slot="when-not">
+      Information people need to finish their task. The tooltip only shows on
+      hover, focus or tap, so put it on the page.
+    </li>
+    <li slot="when-not">
+      Links, buttons or other interactive content. Use an <DocLink
+        href="/components/anchor#hover-trigger">Anchor</DocLink
+      > hover card or a <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+  </Usage>
+
   <section>
     <h2 id="basics">Basics</h2>
     <h3 id="text-only">Text only...</h3>
@@ -135,6 +155,21 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 
     <AutoExample name="Arrow" centered />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Chromium exposes the tooltip text as the trigger's description, but only
+        while the tooltip is shown. Put what the user must know in the trigger's
+        own name, like an <code>aria-label</code> on an icon-only button.
+      </li>
+      <li>
+        Since <code>commandfor</code> ties the trigger to the tooltip, Chromium also
+        reports the trigger as collapsed or expanded.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <TooltipBuild slot="under-the-hood" />
 </Component>

@@ -1,7 +1,9 @@
+import { modalKeyboard } from "../keyboard.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Drawer",
+  keyboard: modalKeyboard("drawer"),
   notes: {
     default:
       "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.",

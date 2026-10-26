@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
@@ -79,6 +81,24 @@ import PropOrClass from "../../components/PropOrClass.astro"
       >Dialog</DocLink
     >.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Navigation, especially on small screens.</li>
+    <li slot="when">Filters or settings for the content on the page.</li>
+    <li slot="when">
+      The details of an item, like a preview, without leaving the list.
+    </li>
+    <li slot="when-not">
+      A question or a short task that needs the user's full attention. Use a <DocLink
+        href="/components/dialog">Dialog</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Content that people use together with the page. The drawer opens as a
+      modal and makes the page behind it inert, so put that content in the page,
+      like a sidebar.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -278,46 +298,6 @@ import PropOrClass from "../../components/PropOrClass.astro"
       </TableBody>
     </Table>
 
-    <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="ui-not-rich-text">
-      <Table style="table-layout: fixed">
-        <TableColumnGroup>
-          <TableColumn width="30%" />
-          <TableColumn />
-        </TableColumnGroup>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Key</TableHeaderCell>
-            <TableHeaderCell>Function</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell><kbd>Tab</kbd></TableCell>
-            <TableCell>
-              Moves focus to the next focusable element in the drawer. After the
-              last one, focus moves to the browser's own controls (like the
-              address bar), then back to the first element in the drawer. The
-              page behind it is inert.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Shift + Tab</kbd></TableCell>
-            <TableCell>
-              Moves focus to the previous focusable element. Before the first
-              one, focus moves to the browser's controls, then to the last
-              element in the drawer.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Esc</kbd></TableCell>
-            <TableCell>
-              Closes the drawer, unless <code>closedby="none"</code>, and
-              returns focus to the element that opened it.
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+    <KeyboardSupport />
   </Fragment>
 </Component>

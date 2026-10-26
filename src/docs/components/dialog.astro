@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -83,6 +85,31 @@ export const description =
     >.
   </Fragment>
 
+  <Usage slot="usage">
+    <li slot="when">
+      A question or a short task that needs the user's full attention, like
+      renaming a file.
+    </li>
+    <li slot="when">
+      Confirming a destructive action, in an <a href="#alert-dialog"
+        >alert dialog</a
+      >.
+    </li>
+    <li slot="when-not">
+      Navigation, filters or side content. Use a <DocLink
+        href="/components/drawer">Drawer</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Messages that shouldn't stop the user. Use a <DocLink
+        href="/components/callout">Callout</DocLink
+      > on the page.
+    </li>
+    <li slot="when-not">
+      Long or complex tasks. Give them a page of their own.
+    </li>
+  </Usage>
+
   <div class="ui-not-rich-text">
     <UICallout>
       <UICalloutContent>
@@ -98,7 +125,7 @@ export const description =
   </div>
 
   <section>
-    <h2 id="usage">Usage</h2>
+    <h2 id="basics">Basics</h2>
 
     <h3 id="modal">Modal</h3>
     <div class="ui-not-rich-text">
@@ -347,47 +374,7 @@ export const description =
       </TableBody>
     </Table>
 
-    <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="ui-not-rich-text">
-      <Table style="table-layout: fixed">
-        <TableColumnGroup>
-          <TableColumn width="30%" />
-          <TableColumn />
-        </TableColumnGroup>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Key</TableHeaderCell>
-            <TableHeaderCell>Function</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell><kbd>Tab</kbd></TableCell>
-            <TableCell>
-              Moves focus to the next focusable element in the dialog. After the
-              last one, focus moves to the browser's own controls (like the
-              address bar), then back to the first element in the dialog. The
-              page behind it is inert.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Shift + Tab</kbd></TableCell>
-            <TableCell>
-              Moves focus to the previous focusable element. Before the first
-              one, focus moves to the browser's controls, then to the last
-              element in the dialog.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Esc</kbd></TableCell>
-            <TableCell>
-              Closes the dialog, unless <code>closedby="none"</code>, and
-              returns focus to the element that opened it.
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+    <KeyboardSupport />
 
     <p>
       Source: <a

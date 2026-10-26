@@ -1,5 +1,9 @@
 ---
 import Component from "../../layouts/Component.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -93,6 +97,33 @@ export const description =
       </UITable>
     </Anatomy>
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Data in rows and columns that people scan and compare, like invoices or a
+      price list.
+    </li>
+    <li slot="when">
+      Numbers that need to line up, with <a href="#numbers"
+        ><PropOrClass prop="numeric" class=".ui-numeric" /></a
+      >.
+    </li>
+    <li slot="when-not">
+      Laying out content that isn't data. Use the <DocLink
+        href="/components/layout">Layout</DocLink
+      > classes.
+    </li>
+    <li slot="when-not">
+      Labels with single values. Use a <DocLink
+        href="/components/description-list">Description list</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Rows with one label each. Use a <DocLink href="/components/list"
+        >List</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="density">Density</h2>
@@ -251,6 +282,7 @@ export const description =
         href="#sticky-header">Sticky header</a
       >.
     </p>
+    <KeyboardSupport />
   </Fragment>
 
   <TableBuild slot="under-the-hood" />

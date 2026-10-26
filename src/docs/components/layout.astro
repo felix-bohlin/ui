@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -32,6 +33,29 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       href="/guide/theming#spacing"><code>--ui-space-*</code> scale</DocLink
     >, so they follow <code>--ui-space-scale</code>.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Space between components on a page, in a column, a row or a grid.
+    </li>
+    <li slot="when">
+      Cards that fill the width in as many columns as fit, without breakpoints,
+      with <a href="#grid"><code>.ui-layout-grid</code></a>.
+    </li>
+    <li slot="when">
+      An avatar or an icon next to text, with <a href="#media"
+        ><code>.ui-layout-media</code></a
+      >.
+    </li>
+    <li slot="when-not">
+      Space inside a component. Components set their own, and a layout class on
+      one replaces it, so put the class on a wrapper.
+    </li>
+    <li slot="when-not">
+      Form fields. Use <DocLink href="/components/form">Form</DocLink>, which
+      spaces and groups them.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="column">Column</h2>

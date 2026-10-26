@@ -1,5 +1,8 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Textarea as UITextarea } from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
@@ -59,6 +62,25 @@ export const description =
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Free text that runs over several lines, like a comment or a description.
+    </li>
+    <li slot="when">
+      Messages that <a href="#auto-fit">grow as people type</a>, from 3 to 20
+      lines.
+    </li>
+    <li slot="when-not">
+      A single line, like a name or a search. Use a <DocLink
+        href="/components/text-field">Text field</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Formatted text, like bold or lists. A textarea holds plain text, so use a
+      rich text editor.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -238,6 +260,17 @@ export const description =
   </section>
 
   <TextareaBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The <code>&lt;label&gt;</code> wraps the whole field, so the label, the start
+        and end text and the affixes are all part of the textarea's name, like "Notes
+        Maximum 500 characters". Keep them short.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy>

@@ -33,6 +33,18 @@ export default {
       },
     ],
   },
+  keyboard: [
+    {
+      description:
+        "Moves focus to the next checkbox. Every checkbox in a group is a tab stop.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Checks or unchecks the focused checkbox. An indeterminate checkbox gets checked.",
+      keys: ["Space"],
+    },
+  ],
   model: {
     description: "The checked state, or the checked values of a group.",
     frameworks: {

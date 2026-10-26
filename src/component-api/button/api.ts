@@ -2,6 +2,23 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Button",
+  keyboard: [
+    {
+      description:
+        "Moves focus to the button. A disabled button is skipped, and so is a disabled link button, which has no `href`.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Activates the button, or follows the link of a button with `href`.",
+      keys: ["Enter"],
+    },
+    {
+      description:
+        "Activates the button. A button with `href` is a link, which ignores it.",
+      keys: ["Space"],
+    },
+  ],
   options: [
     {
       description:

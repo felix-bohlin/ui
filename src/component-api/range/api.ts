@@ -46,6 +46,27 @@ export default {
       },
     ],
   },
+  keyboard: [
+    {
+      description:
+        "Increases the value by one step. In right-to-left text, Right Arrow decreases it.",
+      keys: ["Up Arrow", "Right Arrow"],
+    },
+    {
+      description:
+        "Decreases the value by one step. In right-to-left text, Left Arrow increases it.",
+      keys: ["Down Arrow", "Left Arrow"],
+    },
+    {
+      description: "Sets the value to the minimum or the maximum.",
+      keys: ["Home", "End"],
+    },
+    {
+      description:
+        "Increases or decreases the value by a larger step: 10% of the range in Chromium, and at least one step.",
+      keys: ["Page Up", "Page Down"],
+    },
+  ],
   model: {
     description: "The current value.",
     prop: "value",

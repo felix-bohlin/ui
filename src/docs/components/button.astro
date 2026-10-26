@@ -1,5 +1,8 @@
 ---
 import Component from "../../layouts/Component.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
@@ -49,6 +52,39 @@ export const description =
     Buttons do things, like saving a form or opening a dialog. For filters, tags
     and choices, use a <DocLink href="/components/chip">Chip</DocLink>.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Actions, like saving a form, sending a message or opening a dialog.
+    </li>
+    <li slot="when">
+      The main action of a view or a dialog, with <PropOrClass
+        prop='variant="filled"'
+        class=".ui-filled"
+      />, and quieter variants for the others.
+    </li>
+    <li slot="when">
+      A link that should look like an action, like Get started, with <PropOrClass
+        prop="href"
+        class='<a class="ui-button">'
+      />.
+    </li>
+    <li slot="when-not">
+      Filters, tags and choices. Use a <DocLink href="/components/chip"
+        >Chip</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      An option that stays on or off. Use a <DocLink href="/components/toggle"
+        >Toggle button</DocLink
+      > or a <DocLink href="/components/switch">Switch</DocLink>.
+    </li>
+    <li slot="when-not">
+      A link in running text. Use a <DocLink href="/components/typography#link"
+        >text link</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -193,6 +229,17 @@ export const description =
       > at least.
     </p>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A <code>&lt;kbd&gt;</code> hint is part of the button's name, so screen readers
+        read the <a href="#keyboard">keyboard example</a> as "Terminal Ctrl+Alt+T".
+        The button doesn't listen for the shortcut: handle the keys in your own script.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>

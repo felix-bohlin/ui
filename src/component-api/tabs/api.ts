@@ -2,6 +2,18 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Tabs",
+  keyboard: [
+    {
+      description:
+        "Moves focus to the selected tab, then to the focusable elements in its panel, then out of the tabs. The other tabs aren't tab stops.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Moves focus to the previous or next tab and selects it, wrapping around at the ends. Left and Right follow the reading direction.",
+      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
+    },
+  ],
   model: {
     description: "The `value` of the selected tab.",
     prop: "value",

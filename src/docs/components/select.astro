@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Select as UISelect } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
@@ -73,6 +75,30 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     > to provide markup for the Select popover. Use a Select to pick a value in a
     form. For actions, use a <DocLink href="/components/menu">Menu</DocLink>.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Picking one value from a list in a form, like a country.
+    </li>
+    <li slot="when">
+      Lists too long to show as radios, grouped under headings with <a
+        href="#option-groups">option groups</a
+      >.
+    </li>
+    <li slot="when-not">
+      Actions. Use a <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+    <li slot="when-not">
+      A few options that fit on screen. Use a <DocLink href="/components/radio"
+        >Radio</DocLink
+      > group, so all of them are visible.
+    </li>
+    <li slot="when-not">
+      Free text with suggestions. Use a <DocLink
+        href="/components/text-field#autosuggest">Text field</DocLink
+      > with a <code>&lt;datalist&gt;</code>.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -320,26 +346,17 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <Fragment slot="accessibility">
     <p>
       <code>appearance: base-select</code> only changes how the select looks. The
-      browser keeps the behavior of a native <code>&lt;select&gt;</code>:
+      browser keeps the behavior of a native <code>&lt;select&gt;</code>: screen
+      readers announce it like any select, with its label and the selected
+      option, and the value is submitted with the form. A click outside closes
+      the list without changing the value.
     </p>
-    <ul>
-      <li>
-        <kbd>Space</kbd> or the arrow keys open the list. In the list, the arrow keys
-        move between options, and <kbd>Enter</kbd> or <kbd>Space</kbd> picks one.
-      </li>
-      <li>
-        Typing the start of an option's text jumps to it, also while the list is
-        closed.
-      </li>
-      <li>
-        <kbd>Esc</kbd> or a click outside closes the list without changing the value.
-      </li>
-      <li>Focus returns to the select when the list closes.</li>
-      <li>
-        Screen readers announce it like any select, with its label and the
-        selected option, and the value is submitted with the form.
-      </li>
-    </ul>
+    <KeyboardSupport>
+      <p>
+        These are the keys of a customizable select in Chromium. Browsers
+        without one open their own picker, with its own keys.
+      </p>
+    </KeyboardSupport>
     <h3 id="fallback">Fallback</h3>
     <p>
       Browsers without customizable select drop the <code>&lt;button&gt;</code>

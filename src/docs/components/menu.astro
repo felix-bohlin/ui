@@ -1,21 +1,12 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableColumnGroup,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "opui-css/astro"
-
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
 
@@ -66,6 +57,34 @@ export const description = "A popover list of actions or links."
       href="/components/select">Select</DocLink
     >.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Actions on a page or an item that don't fit as buttons, like Edit,
+      Duplicate and Delete.
+    </li>
+    <li slot="when">Links that open from a button, like an account menu.</li>
+    <li slot="when">
+      More options next to a main action, in a <DocLink
+        href="/components/button-group#split-button">split button</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Picking a value in a form. Use a <DocLink href="/components/select"
+        >Select</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Two or three actions that fit on screen. Show them as <DocLink
+        href="/components/button">Buttons</DocLink
+      >, one click away.
+    </li>
+    <li slot="when-not">
+      Rich content, like a form or a card. Use an <DocLink
+        href="/components/anchor">Anchor</DocLink
+      > or a <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -203,60 +222,11 @@ export const description = "A popover list of actions or links."
       It has no <code>role="menu"</code> or <code>role="menuitem"</code>, so
       screen readers announce a list of buttons, and the keyboard works like it
       does for any other button. The ARIA menu pattern needs a script for the
-      arrow keys, which the library doesn't ship.
+      arrow keys, which the library doesn't ship. Since <code>commandfor</code>
+      ties the trigger to the menu, Chromium reports the trigger as collapsed or expanded.
     </p>
 
-    <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="ui-not-rich-text">
-      <Table style="table-layout: fixed">
-        <TableColumnGroup>
-          <TableColumn width="30%" />
-          <TableColumn />
-        </TableColumnGroup>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Key</TableHeaderCell>
-            <TableHeaderCell>Function</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell><kbd>Enter</kbd>, <kbd>Space</kbd></TableCell>
-            <TableCell>
-              On the trigger, opens or closes the menu. Focus stays on the
-              trigger. On an item, activates it.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Tab</kbd></TableCell>
-            <TableCell>
-              From the trigger, moves into the open menu, because the browser
-              puts a popover opened with <code>commandfor</code> right after its trigger
-              in the focus order. Then moves to the next item, and after the last
-              one, out of the menu. The menu stays open.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Shift + Tab</kbd></TableCell>
-            <TableCell>
-              Moves to the previous item, and from the first item back to the
-              trigger.
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Arrow keys</TableCell>
-            <TableCell>Do nothing.</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell><kbd>Esc</kbd></TableCell>
-            <TableCell>
-              Closes the menu and returns focus to the trigger. A click outside
-              closes it too. Neither works with <code>popover="manual"</code>.
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+    <KeyboardSupport />
   </Fragment>
   <MenuBuild slot="under-the-hood" />
 </Component>

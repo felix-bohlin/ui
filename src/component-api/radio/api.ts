@@ -4,6 +4,22 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Radio",
   css: ["card", "choice", "radio"],
+  keyboard: [
+    {
+      description:
+        "Moves focus into the group, to the checked radio. When none is checked, focus goes to the first radio. The next Tab leaves the group.",
+      keys: ["Tab"],
+    },
+    {
+      description: "Checks the focused radio.",
+      keys: ["Space"],
+    },
+    {
+      description:
+        "Moves focus to the previous or next radio and checks it, wrapping around at the ends. Left and Right follow the reading direction.",
+      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
+    },
+  ],
   model: {
     description: "The selected value of the group.",
     frameworks: {

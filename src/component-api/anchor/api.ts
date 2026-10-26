@@ -2,6 +2,18 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Anchor",
+  keyboard: [
+    {
+      description:
+        "Moving focus to a trigger with `interestfor` shows the floating content after a short delay. The next Tab moves into it when it holds links or buttons, and it hides once focus leaves both.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Hides the floating content and returns focus to the trigger.",
+      keys: ["Esc"],
+    },
+  ],
   notes: {
     html: 'To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
   },

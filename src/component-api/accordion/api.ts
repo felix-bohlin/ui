@@ -3,6 +3,18 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Accordion",
   css: ["accordion", "card"],
+  keyboard: [
+    {
+      description:
+        "Moves focus to the next summary, or into the content of an open accordion. The content of a closed accordion is skipped.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Opens or closes the accordion. In accordions that share a `name`, opening one closes the others.",
+      keys: ["Enter", "Space"],
+    },
+  ],
   notes: {
     default:
       'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',

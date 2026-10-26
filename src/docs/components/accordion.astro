@@ -1,5 +1,8 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   Accordion as UIAccordion,
@@ -66,6 +69,30 @@ export const description =
   ]}
 >
   <Fragment slot="title">Accordion</Fragment>
+  <Usage slot="usage">
+    <li slot="when">
+      Content that most readers can skip, like the answers in an FAQ or advanced
+      settings.
+    </li>
+    <li slot="when">
+      Long pages that readers scan by heading, opening only the parts they need.
+    </li>
+    <li slot="when">
+      Sections where only one should be open at a time, with a shared <a
+        href="#mutually-exclusive"><code>name</code></a
+      >.
+    </li>
+    <li slot="when-not">
+      Content that everyone needs, or that readers compare side by side. Show it
+      on the page.
+    </li>
+    <li slot="when-not">
+      Switching between views of the same content. Use <DocLink
+        href="/components/tabs">Tabs</DocLink
+      >.
+    </li>
+  </Usage>
+
   <section>
     <h2 id="basics">Basics</h2>
 
@@ -259,14 +286,14 @@ export const description =
       <li>
         Accordions are <code>&lt;details&gt;</code> and
         {" "}<code>&lt;summary&gt;</code>. The browser announces the summary
-        with its expanded or collapsed state and toggles it with
-        {" "}<kbd>Enter</kbd> and <kbd>Space</kbd>, so no ARIA is needed.
+        with its expanded or collapsed state, so no ARIA is needed.
       </li>
       <li>
         In supporting browsers, find in page also searches closed accordions and
         opens the one with the match.
       </li>
     </ul>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">

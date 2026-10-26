@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   DescriptionList as UIDescriptionList,
@@ -48,6 +50,28 @@ export const description =
   ]}
 >
   <Fragment slot="title">Description list</Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Labels with values, like the details of an order or a profile.
+    </li>
+    <li slot="when">
+      Totals and summaries in a sidebar or a card, side by side with <PropOrClass
+        prop='orientation="horizontal"'
+        class=".ui-horizontal"
+      />.
+    </li>
+    <li slot="when-not">
+      Data in several columns that people compare. Use a <DocLink
+        href="/components/table">Table</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Values that people edit. Use form fields, like a <DocLink
+        href="/components/text-field">Text field</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>

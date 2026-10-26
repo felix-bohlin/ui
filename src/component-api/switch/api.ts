@@ -4,6 +4,17 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Switch",
   css: ["card", "choice", "switch"],
+  keyboard: [
+    {
+      description:
+        "Moves focus to the next switch. Every switch in a group is a tab stop.",
+      keys: ["Tab"],
+    },
+    {
+      description: "Turns the focused switch on or off.",
+      keys: ["Space"],
+    },
+  ],
   model: {
     description: "The checked state, or the checked values of a group.",
     frameworks: {

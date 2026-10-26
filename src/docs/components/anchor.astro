@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
@@ -48,6 +50,34 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
   <Fragment slot="preamble"
     >A structural primitive to enable CSS Anchor Positioning on stuff.</Fragment
   >
+
+  <Usage slot="usage">
+    <li slot="when">
+      Floating content that stays next to an element, like a coach mark beside a
+      new button.
+    </li>
+    <li slot="when">
+      Hover cards that preview a link, a repository or a profile, with a <a
+        href="#hover-trigger">hover trigger</a
+      >.
+    </li>
+    <li slot="when">
+      A base for your own floating component, when Tooltip and Menu don't fit.
+    </li>
+    <li slot="when-not">
+      A short label or hint for a control. Use a <DocLink
+        href="/components/tooltip">Tooltip</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A list of actions. Use a <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+    <li slot="when-not">
+      Content that needs an answer before the user goes on. Use a <DocLink
+        href="/components/dialog">Dialog</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="always-visible">Always visible</h2>
@@ -106,6 +136,10 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 
     <AutoExample name="LinkPreview" />
   </section>
+
+  <Fragment slot="accessibility">
+    <KeyboardSupport />
+  </Fragment>
 
   <AnchorBuild slot="under-the-hood" />
 

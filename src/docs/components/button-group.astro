@@ -1,12 +1,11 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
-  Accordion as UIAccordion,
-  AccordionContent as UIAccordionContent,
-  AccordionSummary as UIAccordionSummary,
   Button as UIButton,
   ButtonGroup as UIButtonGroup,
 } from "opui-css/astro"
@@ -17,7 +16,6 @@ import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
-import PropOrClass from "../../components/PropOrClass.astro"
 import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 ---
 
@@ -68,38 +66,32 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
     </Conditional>
   </Fragment>
-  <ul>
-    <li>Button groups should consist of 2-5 buttons.</li>
-    <li>
-      Use <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> or
-      <PropOrClass prop='overflow="shrink"' class=".ui-overflow-shrink" /> when a
-      group must stay on one row, see <a href="#overflow" class="ui-link"
-        >Overflow</a
+  <Usage slot="usage">
+    <li slot="when">
+      Two to five related actions that belong together, like Undo and Redo, or
+      Previous and Next.
+    </li>
+    <li slot="when">
+      A main action with more options next to it, in a <a href="#split-button"
+        >split button</a
       >.
     </li>
-    <li>
-      If an icon is used without label text make sure the button communicates
-      clearly what it does.
+    <li slot="when-not">
+      Options that stay selected, like a view or a text style. Use a <DocLink
+        href="/components/toggle#toggle-group">Toggle group</DocLink
+      >.
     </li>
-  </ul>
-
-  <div class="ui-not-rich-text">
-    <UIAccordion variant="tonal">
-      <UIAccordionSummary>Button group or Toggle group?</UIAccordionSummary>
-      <UIAccordionContent>
-        <p>
-          If your buttons depend on state (controlled) - use <DocLink
-            href="/components/toggle"
-            class="ui-link">Toggle group</DocLink
-          >.
-        </p>
-        <p>
-          If you just need to group a bunch of "dumb" (uncontrolled) buttons -
-          use Button group.
-        </p>
-      </UIAccordionContent>
-    </UIAccordion>
-  </div>
+    <li slot="when-not">
+      Switching between panels of content. Use <DocLink href="/components/tabs"
+        >Tabs</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      More than five actions. Put the rest in a <DocLink href="/components/menu"
+        >Menu</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -252,6 +244,32 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
     </Conditional>
     <AutoExample name="Overflow" column />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        <Conditional>
+          <Fragment slot="components"
+            ><code>ButtonGroup</code> renders <code>role="group"</code
+            >.</Fragment
+          >
+          <Fragment slot="html"
+            >Add <code>role="group"</code> to the <code>.ui-button-group</code
+            >.</Fragment
+          >
+        </Conditional>
+        Name the group with <code>aria-label</code> when the buttons need context,
+        like "Text alignment", so screen readers read it when focus moves into the
+        group.
+      </li>
+      <li>
+        Name an icon-only button with <code>aria-label</code>, like any <DocLink
+          href="/components/button#icon-only">icon-only button</DocLink
+        >.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <ButtonGroupBuild slot="under-the-hood" />
 

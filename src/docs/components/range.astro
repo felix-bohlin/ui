@@ -1,5 +1,8 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Range as UIRange } from "opui-css/astro"
 
@@ -49,6 +52,28 @@ export const description =
   installationTabs={[{ title: "range.css", code: RangeCSS, lang: "css" }]}
 >
   <Fragment slot="title">Range</Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A value where the rough position matters more than the exact number, like
+      volume or brightness.
+    </li>
+    <li slot="when">
+      A value on a scale with a few marked steps, with <a href="#tick-marks"
+        >tick marks</a
+      >.
+    </li>
+    <li slot="when-not">
+      An exact number, like a quantity or a price. Use a <DocLink
+        href="/components/text-field#numeric-vs-input-type-number"
+        >Text field</DocLink
+      > with <code>inputmode="numeric"</code>.
+    </li>
+    <li slot="when-not">
+      Named options. Use a <DocLink href="/components/select">Select</DocLink> or
+      a <DocLink href="/components/radio">Radio</DocLink> group.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -281,25 +306,6 @@ export const description =
   </Fragment>
 
   <Fragment slot="accessibility">
-    <ul>
-      <li>
-        <kbd>Right Arrow</kbd> / <kbd>Left Arrow</kbd>: Increase / decrease the
-        value by one step, mirrored in right-to-left.
-      </li>
-      <li>
-        <kbd>Up Arrow</kbd> / <kbd>Down Arrow</kbd>: Increase / decrease the
-        value by one step.
-      </li>
-      <li>
-        <kbd>Home</kbd>: Set the slider to the first allowed value in its range.
-      </li>
-      <li>
-        <kbd>End</kbd>: Set the slider to the last allowed value in its range.
-      </li>
-      <li>
-        <kbd>Page Up</kbd> / <kbd>Page Down</kbd>: Change the value by a larger
-        step (10% of the range in Chromium).
-      </li>
-    </ul>
+    <KeyboardSupport />
   </Fragment>
 </Component>

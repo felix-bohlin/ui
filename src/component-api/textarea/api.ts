@@ -4,6 +4,18 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Textarea",
   css: ["text-field", "textarea"],
+  keyboard: [
+    {
+      description:
+        "Moves focus to the next element, like in any field. It doesn't type a tab character.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Starts a new line. Unlike in a text field, it doesn't submit the form.",
+      keys: ["Enter"],
+    },
+  ],
   model: {
     description: "The textarea value.",
     prop: "value",

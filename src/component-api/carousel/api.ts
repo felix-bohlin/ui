@@ -2,6 +2,23 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Carousel",
+  keyboard: [
+    {
+      description:
+        "Moves focus to the current marker, then the previous and next buttons, then the scroll box. A disabled button is skipped, and the scroll box only takes focus when its items hold nothing focusable.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "On the previous or next button, scrolls by one view. The button that reaches the start or end gets disabled, and focus moves to the page.",
+      keys: ["Enter", "Space"],
+    },
+    {
+      description:
+        "On a marker, moves to the previous or next marker and scrolls to its item, wrapping around at the ends. In the scroll box, scrolls to the previous or next item along the carousel's axis. Left and Right follow the reading direction.",
+      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
+    },
+  ],
   notes: {
     html: "The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers.",
   },

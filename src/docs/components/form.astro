@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
@@ -84,6 +86,29 @@ const anatomyApi = {
 >
   <Fragment slot="title">Form</Fragment>
   <Fragment slot="preamble">Spacing and grouping for form fields.</Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Spacing the fields, groups and buttons of a form.</li>
+    <li slot="when">
+      Related fields under one heading, like an address, in a <a
+        href="#fieldset">fieldset</a
+      > with a legend.
+    </li>
+    <li slot="when">
+      A set of checkboxes, radios or switches, in a <a href="#field-group"
+        >field group</a
+      >.
+    </li>
+    <li slot="when-not">
+      Laying out content that isn't a form. Use the <DocLink
+        href="/components/layout">Layout</DocLink
+      > classes.
+    </li>
+    <li slot="when-not">
+      Grouping fields only for the look. A fieldset is also a group for screen
+      readers, so use a field group on its own.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -252,6 +277,23 @@ const anatomyApi = {
       </Fragment>
     </AutoExample>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A fieldset is a group named by its legend, so screen readers can read
+        the legend with the fields in it.
+      </li>
+      <li>
+        The asterisk on the legend of a <a href="#fieldset-required">required</a
+        >
+        group is hidden from screen readers in browsers that support alternative text
+        in <code>content</code>. They announce each field as required from its <code
+          >required</code
+        > attribute.
+      </li>
+    </ul>
+  </Fragment>
 
   <FormBuild slot="under-the-hood" />
 

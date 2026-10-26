@@ -2,6 +2,8 @@
 import Code from "../../components/Code.astro"
 
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import FluidTypeBuild from "../../components/UnderTheHood/FluidTypeBuild.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
@@ -58,6 +60,27 @@ import typographyApi from "../../component-api/typography/api"
     Styles for headings, body text, and other text content. Use util classes
     anywhere or wrap content in <code>.ui-rich-text</code>.
   </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Text that you can't add classes to, like rich text from a CMS, in <a
+        href="#classless"><code>.ui-rich-text</code></a
+      >.
+    </li>
+    <li slot="when">
+      Text styles on elements in your own markup, with the <a
+        href="#class-based">classes</a
+      >, like <code>.ui-link</code>.
+    </li>
+    <li slot="when-not">
+      Picking a heading level for its size. Use the level the outline needs, and
+      a class like <code>.ui-h4</code> for the size.
+    </li>
+    <li slot="when-not">
+      Spacing components. Rich text spaces text elements, so lay out components
+      with the <DocLink href="/components/layout">Layout</DocLink> classes.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="class-based">Class-based</h2>

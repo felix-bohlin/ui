@@ -3,6 +3,21 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "TextField",
+  keyboard: [
+    {
+      description:
+        "Submits the form the field is in, when the form has a submit button.",
+      keys: ["Enter"],
+    },
+    {
+      description: "On a file input, opens the file picker.",
+      keys: ["Space"],
+    },
+    {
+      description: 'Clears a `type="search"` field in Chromium.',
+      keys: ["Esc"],
+    },
+  ],
   model: {
     description: "The input value.",
     prop: "value",

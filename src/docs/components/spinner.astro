@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SpinnerCSS from "@opui/css/components/spinner.css?raw"
@@ -32,6 +33,29 @@ import spinnerApi from "../../component-api/spinner/api"
     >.
   </Fragment>
 
+  <Usage slot="usage">
+    <li slot="when">
+      A short wait in a button, like while a form saves, with <a href="#buttons"
+        ><code>aria-busy="true"</code></a
+      > on it.
+    </li>
+    <li slot="when">
+      Loading content of unknown length in a small area, like a card.
+    </li>
+    <li slot="when-not">
+      A task with a known length. Use a <DocLink href="/components/progress"
+        >Progress</DocLink
+      > bar with a value.
+    </li>
+    <li slot="when-not">
+      A busy section that shows a progress bar. Point its <code
+        >aria-describedby</code
+      > at the bar, and it gets no spinner (see <a href="#no-spinner"
+        >the exceptions</a
+      >).
+    </li>
+  </Usage>
+
   <section>
     <h2 id="basics">Basics</h2>
     <p>
@@ -59,7 +83,7 @@ import spinnerApi from "../../component-api/spinner/api"
   </section>
 
   <section>
-    <h2 id="when-not-to-use">When not to use <code>aria-busy="true"</code></h2>
+    <h2 id="no-spinner">When <code>aria-busy="true"</code> shows no spinner</h2>
     <p>
       There are a few exceptions where <code>aria-busy="true"</code> won't render
       a spinner. Either because it doesn't make sense or because there are other reasons
@@ -93,6 +117,19 @@ import spinnerApi from "../../component-api/spinner/api"
       <li><code>&lt;textarea&gt;</code></li>
     </ul>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        With reduced motion (<code>--ui-motion: 0</code>), the spinner keeps
+        turning, once every 1.5s instead of every 0.7s.
+      </li>
+      <li>
+        In forced colors mode it's drawn in <code>CanvasText</code>, and with
+        more contrast it's fully opaque.
+      </li>
+    </ul>
+  </Fragment>
 
   <SpinnerBuild slot="under-the-hood" />
 </Component>

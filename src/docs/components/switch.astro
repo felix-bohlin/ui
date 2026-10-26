@@ -2,6 +2,8 @@
 import FieldGroupNotes from "./partials/FieldGroupNotes.astro"
 import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   Switch as UISwitch,
@@ -89,6 +91,27 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   but will be in time.
   https://webkit.org/blog/15054/an-html-switch-control/
    -->
+
+  <Usage slot="usage">
+    <li slot="when">
+      A setting that applies right away, like notifications or dark mode.
+    </li>
+    <li slot="when">
+      A list of settings, with each switch at the end of its row with <a
+        href="#spread"><PropOrClass prop="spread" class=".ui-spread" /></a
+      >.
+    </li>
+    <li slot="when-not">
+      A choice that is submitted with a form, like agreeing to the terms. Use a <DocLink
+        href="/components/checkbox">Checkbox</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Options in a toolbar, like bold. Use a <DocLink href="/components/toggle"
+        >Toggle</DocLink
+      >.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -394,23 +417,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       </TableBody>
     </Table>
 
-    <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="ui-not-rich-text">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Key</TableHeaderCell>
-            <TableHeaderCell>Function</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell><kbd>Space</kbd></TableCell>
-            <TableCell>When Switch is focused it changes its state.</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">

@@ -3,6 +3,23 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Table",
+  keyboard: [
+    {
+      description:
+        'Moves focus to a scrolling table, or to its scroll box, when it has `tabindex="0"`. A table without one isn\'t a tab stop.',
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Scrolls the focused table or scroll box a little at a time.",
+      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
+    },
+    {
+      description:
+        "Scrolls a focused box that scrolls up and down, like the one around a sticky header, to the top or bottom, or by a page.",
+      keys: ["Home", "End", "Page Up", "Page Down"],
+    },
+  ],
   notes: components(
     "Set column widths with `TableColumnGroup` and `TableColumn`.",
   ),

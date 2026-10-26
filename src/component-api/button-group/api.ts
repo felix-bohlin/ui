@@ -3,6 +3,26 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ButtonGroup",
   css: ["button", "button-group"],
+  keyboard: [
+    {
+      description:
+        "Moves focus to each button in turn. The group isn't a single tab stop, unlike a single-select [toggle group](/components/toggle#toggle-group).",
+      keys: ["Tab"],
+    },
+    {
+      description: "Activates the focused button, or follows its link.",
+      keys: ["Enter"],
+    },
+    {
+      description: "Activates the focused button. A link ignores it.",
+      keys: ["Space"],
+    },
+    {
+      description:
+        'Don\'t move focus between the buttons. They scroll a group with `overflow="scroll"` sideways.',
+      keys: ["Left Arrow", "Right Arrow"],
+    },
+  ],
   notes: {
     html: 'The root needs `role="group"`.',
   },

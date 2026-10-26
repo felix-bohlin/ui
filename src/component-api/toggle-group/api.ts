@@ -3,6 +3,23 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleGroup",
   css: ["toggle-button", "toggle-group"],
+  keyboard: [
+    {
+      description:
+        'Moves focus to a standalone toggle button, or into a group. A single-select group is one tab stop, at the checked button, and a multi-select group has a tab stop per button. Disabled buttons are skipped, but buttons with `aria-disabled="true"` aren\'t.',
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "Turns a standalone or multi-select toggle button on or off, and checks the focused button of a single-select group.",
+      keys: ["Space"],
+    },
+    {
+      description:
+        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends. Left and Right follow the reading direction. A multi-select group ignores them.",
+      keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
+    },
+  ],
   model: {
     description:
       "The value of the checked button, or the values of the checked buttons with `multiple`.",

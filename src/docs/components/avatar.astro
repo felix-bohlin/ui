@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DocLink from "../../components/DocLink.astro"
 
@@ -39,6 +40,29 @@ export const description =
   installationTabs={[{ title: "avatar.css", code: AvatarCSS, lang: "css" }]}
 >
   <Fragment slot="title">Avatar</Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Showing who did something, like the author of a comment or the assignee of
+      a task.
+    </li>
+    <li slot="when">
+      People and accounts next to their name, in lists, table rows and headers.
+    </li>
+    <li slot="when">
+      A few people at once, overlapping in a <a href="#grouped">group</a>.
+    </li>
+    <li slot="when-not">
+      Icons for things or actions. Use an <code>svg</code>, or an <DocLink
+        href="/components/button#icon-only">icon-only Button</DocLink
+      > for an action.
+    </li>
+    <li slot="when-not">
+      An unread count or an online status on its own. Put a <DocLink
+        href="/components/badge">Badge</DocLink
+      > on the avatar.
+    </li>
+  </Usage>
 
   <section>
     <h2 id="image">Image</h2>

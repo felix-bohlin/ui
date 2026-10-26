@@ -3,9 +3,6 @@ import { registerHooks } from "node:module"
 import path from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 
-import config from "../astro.config.mjs"
-import { parseHtml } from "../src/integrations/html-to-markdown.mjs"
-import { hrefRewriter, pageFrom } from "../src/integrations/llms.mjs"
 import {
   componentHasFramework,
   exampleExtension,
@@ -13,7 +10,7 @@ import {
 } from "../src/utils/framework.js"
 import { barrelExports } from "../src/utils/package-source.js"
 
-const ROOT = process.cwd()
+const ROOT = fileURLToPath(new URL("..", import.meta.url))
 const DIST = path.resolve(ROOT, "dist")
 const REFERENCES = path.resolve(ROOT, "packages/opui/skills/opui/references")
 const COMPONENT_API = path.resolve(ROOT, "src/component-api")
@@ -22,6 +19,8 @@ const DOCS = path.resolve(ROOT, "src/docs/components")
 const EXAMPLES = path.resolve(ROOT, "src/component-examples")
 const STYLESHEETS = path.resolve(ROOT, "packages/opui/css/components")
 const TOKENS = path.resolve(ROOT, "packages/opui/tokens.json")
+
+process.chdir(ROOT)
 
 registerHooks({
   load(url, context, nextLoad) {
@@ -55,6 +54,9 @@ registerHooks({
   },
 })
 
+const { default: config } = await import("../astro.config.mjs")
+const { parseHtml } = await import("../src/integrations/html-to-markdown.mjs")
+const { hrefRewriter, pageFrom } = await import("../src/integrations/llms.mjs")
 const { cssVarRows, hydrationRows } =
   await import("../src/component-api/rows.ts")
 const { frameworks, slotProp } =
@@ -105,7 +107,7 @@ async function readCustomProperties(stylesheet) {
   const { default: properties } = await import(pathToFileURL(file).href)
   return Object.entries(properties)
     .map(([name, property]) => ({ name, ...property }))
-    .toSorted((a, b) => a.name.localeCompare(b.name))
+    .toSorted((a, b) => a.name.localeCompare(b.name, "en"))
 }
 
 function readComponents(llmsTxt) {
@@ -114,7 +116,7 @@ function readComponents(llmsTxt) {
       .readFileSync(llmsTxt, "utf-8")
       .matchAll(/^- \[(.+?)\]\(.*\/components\/([^/]+)\.md\)(?:: (.*))?$/gm),
     ([, title, slug, description = ""]) => ({ description, slug, title }),
-  ).toSorted((a, b) => a.title.localeCompare(b.title))
+  ).toSorted((a, b) => a.title.localeCompare(b.title, "en"))
 }
 
 function readDocsPage(slug) {
@@ -185,8 +187,13 @@ function exampleSource(slug, name, framework) {
 }
 
 function exampleLines(framework, slug, example) {
-  const source = example && exampleSource(slug, example, framework)
-  if (!source) return []
+  if (!example) throw new Error(`${slug}: the docs page has no <AutoExample>`)
+  const source = exampleSource(slug, example, framework)
+  if (!source) {
+    throw new Error(
+      `${slug}: no ${labelOf(framework)} source for the ${example} example in ${path.join(EXAMPLES, slug)}`,
+    )
+  }
   return [
     "",
     `### Example: ${sentence(example)}`,
@@ -331,7 +338,7 @@ function apiSection(api, frameworkIds) {
       (a, b) =>
         optionName(api, a)
           .replaceAll("`", "")
-          .localeCompare(optionName(api, b).replaceAll("`", "")) ||
+          .localeCompare(optionName(api, b).replaceAll("`", ""), "en") ||
         Number(isProp(api, b)) - Number(isProp(api, a)),
     )
   const lines = [
@@ -589,7 +596,8 @@ async function componentReference(component, apis, docs) {
   }
   const ordered = own.toSorted(
     (a, b) =>
-      order(a) - order(b) || a.api.component.localeCompare(b.api.component),
+      order(a) - order(b) ||
+      a.api.component.localeCompare(b.api.component, "en"),
   )
   const elsewhere = docs.apiOrder
     .map((folder) => apis.find((entry) => entry.folder === folder))
@@ -646,7 +654,8 @@ async function guideMarkdown(framework, slug) {
     pathname,
     hrefRewriter(framework, config.site),
   )
-  return page?.full ? stripSections(page.full) : undefined
+  if (!page?.full) throw new Error(`${pathname} yields no markdown`)
+  return stripSections(page.full)
 }
 
 const blocksOf = (markdown) =>
@@ -664,7 +673,6 @@ async function gettingStarted() {
   const sections = []
   for (const framework of FRAMEWORKS) {
     const markdown = await guideMarkdown(framework.id, "getting-started")
-    if (!markdown) continue
     const lines = [`## ${framework.label}`]
     for (const block of blocksOf(markdown)) {
       if (block.startsWith("# ")) continue
@@ -714,7 +722,7 @@ async function readParts(apis, pages) {
     .filter(
       ({ component, page }) => pages.has(page) && kebab(component) !== page,
     )
-    .toSorted((a, b) => a.component.localeCompare(b.component))
+    .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
 }
 
 async function buildSkill() {
@@ -744,12 +752,10 @@ async function buildSkill() {
   )
   for (const slug of GUIDES) {
     const markdown = await guideMarkdown("html", slug)
-    if (markdown) {
-      fs.writeFileSync(
-        path.join(REFERENCES, `${slug}.md`),
-        `${compact(markdown)}\n`,
-      )
-    }
+    fs.writeFileSync(
+      path.join(REFERENCES, `${slug}.md`),
+      `${compact(markdown)}\n`,
+    )
   }
 
   const parts = await readParts(apis, new Set(components.map((c) => c.slug)))

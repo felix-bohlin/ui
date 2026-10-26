@@ -102,7 +102,7 @@ const cleanType = (text: string) => {
       ]
       return types.length === 1 ? types[0] : part
     })
-    .toSorted((a, b) => a.localeCompare(b))
+    .toSorted((a, b) => a.localeCompare(b, "en"))
     .join(" | ")
 }
 

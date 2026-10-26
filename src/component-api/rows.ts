@@ -19,7 +19,7 @@ import {
 import type { ApiOption, ApiPart, ComponentApi } from "./types"
 
 const byName = (a: { name: string }, b: { name: string }) =>
-  a.name.localeCompare(b.name)
+  a.name.localeCompare(b.name, "en")
 
 const on = (option: ApiOption, modifier: string | null) =>
   modifier && option.part ? `${option.part}${modifier}` : modifier
@@ -34,7 +34,7 @@ export const modifiers = (option: ApiOption) => {
     ),
   ]
   return [
-    ...values.sort((a, b) => (a ?? "").localeCompare(b ?? "")),
+    ...values.sort((a, b) => (a ?? "").localeCompare(b ?? "", "en")),
     ...(option.cssVar ? [option.cssVar] : []),
   ]
 }
@@ -120,7 +120,7 @@ export const hydrationRows = (
           prop: model(entry.prop),
         }))
       : []),
-  ].sort((a, b) => a.prop.localeCompare(b.prop))
+  ].sort((a, b) => a.prop.localeCompare(b.prop, "en"))
 }
 
 export const slotRows = (api: ComponentApi, framework: ComponentFramework) =>

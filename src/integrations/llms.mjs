@@ -37,7 +37,7 @@ const { description: SUMMARY } = JSON.parse(
  * @param {{ title: string }} a
  * @param {{ title: string }} b
  */
-const byTitle = (a, b) => a.title.localeCompare(b.title)
+const byTitle = (a, b) => a.title.localeCompare(b.title, "en")
 
 /** @param {Page} page */
 const guideSlug = (page) => page.pathname.split("/")[3]

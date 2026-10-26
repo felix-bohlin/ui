@@ -218,7 +218,7 @@ const baselineFeatures = (data) => () =>
       "ul",
       {},
       Object.entries(data.componentToFeatures)
-        .sort(([a], [b]) => a.localeCompare(b))
+        .sort(([a], [b]) => a.localeCompare(b, "en"))
         .map(([component, features]) =>
           element("li", {}, [
             text(`${component}: `),

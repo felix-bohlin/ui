@@ -1,3 +1,4 @@
+import { paletteSteps } from "./palette-steps"
 import type { TokenTier } from "./theme-tokens"
 
 const knobs = [
@@ -121,5 +122,6 @@ const componentTokens = [
 export const themeTokenTiers: Record<string, TokenTier> = Object.fromEntries([
   ...knobs.map((name) => [name, "knob"]),
   ...primitives.map((name) => [name, "primitive"]),
+  ...paletteSteps().map(({ name }) => [name, "primitive"]),
   ...componentTokens.map((name) => [name, "component"]),
 ])

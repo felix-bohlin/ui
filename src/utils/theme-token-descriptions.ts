@@ -1,3 +1,5 @@
+import { paletteSteps } from "./palette-steps"
+
 export const themeTokenDescriptions: Record<string, string> = {
   "--ui-accent-fill-max-lightness":
     "The highest OKLCH lightness of an intent fill, an intent color filled under `--ui-on-fill` text: the critical, info, neutral and success `Badge`, and the fills of critical `Button`s, also in a critical `ButtonGroup`. Borders keep the intent color. `0.48`, and `0.45` with more contrast.",
@@ -5,6 +7,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The highest OKLCH chroma of `--ui-primary`, `--ui-invalid` and `--ui-palette-text` in dark mode when more contrast lifts them. `1` (no cap), and `0.1` with more contrast.",
   "--ui-accent-max-lightness":
     "The highest OKLCH lightness of the named colors, `--ui-neutral` and `--ui-palette-accent` in light mode. `1` (no cap), and `0.42` with more contrast.",
+  "--ui-anchor-position-area":
+    "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`) and `self-block-start` for `Tooltip`.",
   "--ui-backdrop-bg-color":
     "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
@@ -466,4 +470,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
   "--ui-warning-text":
     "Warning as a text color, for warning text outside a `.ui-warning` scope. `--ui-warning` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
+  ...Object.fromEntries(
+    paletteSteps().map(({ family, lightness, name, step }) => [
+      name,
+      family === "color"
+        ? `Step ${step} of the palette, at ${lightness} lightness.`
+        : `Step ${step} of the gray palette: the lightness of \`--ui-color-${step}\` at \`--ui-gray-chroma\` and \`--ui-gray-hue\`.`,
+    ]),
+  ),
 }

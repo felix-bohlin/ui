@@ -89,10 +89,6 @@
     /* --ui-card-padding: var(--ui-space-3); */
     /* --ui-list-item-padding-inline: var(--ui-space-3); */
 
-    /* Controls */
-    /* --ui-control-accent: var(--ui-primary); */
-    /* --ui-on-control-accent: var(--ui-on-primary); */
-
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --ui-density: 1;
 
@@ -271,6 +267,7 @@
       );
     }
 
+    /* Code */
     --ui-code-bg-color: light-dark(
       oklch(from var(--ui-text) l c h / var(--ui-code-bg-alpha-light)),
       oklch(from var(--ui-text) l c h / var(--ui-code-bg-alpha-dark))
@@ -293,6 +290,13 @@
     --ui-space-6: calc(1.75rem * var(--ui-space-scale));
     --ui-space-7: calc(2rem * var(--ui-space-scale));
     --ui-space-8: calc(3rem * var(--ui-space-scale));
+
+    /* Controls */
+    /* --ui-control-accent: var(--ui-primary); */
+    /* --ui-control-border-color: var(--ui-field-border-color); */
+    /* --ui-control-border-color-filled: oklch(0 0 0); */
+    /* --ui-on-control-accent: var(--ui-on-primary); */
+    /* --ui-track-bg-color: var(--ui-surface-tonal); */
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --ui-control-size-x-small: calc(1.75rem * var(--ui-density));
@@ -520,7 +524,6 @@
       oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
       oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
     );
-    /* --ui-track-bg-color: var(--ui-surface-tonal); */
 
     /* Borders */
     --ui-border-color: light-dark(
@@ -551,8 +554,6 @@
         var(--ui-surface)
       )
     );
-    /* --ui-control-border-color: var(--ui-field-border-color); */
-    /* --ui-control-border-color-filled: oklch(0 0 0); */
     /* --ui-border-color-raised: var(--ui-border-color); */
 
     /* Elevation */

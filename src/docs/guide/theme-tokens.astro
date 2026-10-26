@@ -9,7 +9,7 @@ import {
   describePromise,
   themeTokenPromises,
 } from "../../utils/theme-token-promises"
-import { parseThemeTokens, tokenTier } from "../../utils/theme-tokens"
+import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
 
 const describe = (name: string) =>
   [
@@ -19,7 +19,7 @@ const describe = (name: string) =>
     .filter(Boolean)
     .join(" ")
 
-const sections = parseThemeTokens().filter(
+const sections = themeTokenSections().filter(
   (section) => section.tokens.length > 0,
 )
 const slug = (title: string) =>
@@ -32,11 +32,13 @@ const slug = (title: string) =>
 <Guide overline="Guide">
   <Fragment slot="title">Theme tokens</Fragment>
   <Fragment slot="preamble">
-    Every token <code>theme.css</code> declares, with its default and its <DocLink
-      href="/guide/concepts#token-tiers">tier</DocLink
-    >. Most are roles; the others are marked <em>knob</em>, <em>primitive</em>,
-    <em>hook</em> or <em>component</em>. The tests check every promised contrast
-    ratio in light and dark mode, with and without more contrast.
+    Every token <code>theme.css</code> and <code>core/palette.css</code> declare,
+    with its default and its <DocLink href="/guide/concepts#token-tiers"
+      >tier</DocLink
+    >, and the instance inputs components read. Most are roles; the others are
+    marked <em>knob</em>, <em>primitive</em>, <em>hook</em>, <em>component</em>
+    or <em>input</em>. The tests check every promised contrast ratio in light
+    and dark mode, with and without more contrast.
   </Fragment>
 
   <section>
@@ -99,7 +101,11 @@ const slug = (title: string) =>
       >,
       <code>hook</code> (an optional role such as <code>--ui-selected</code> that
       every component with that job reads, each with a default of its own until a
-      theme sets it) or <code>component</code> (read by one component).
+      theme sets it), <code>component</code> (read by one component) or <code
+        >input</code
+      > (set on an element and never by a theme, such as <code
+        >--ui-anchor-position-area</code
+      >).
     </p>
   </section>
 

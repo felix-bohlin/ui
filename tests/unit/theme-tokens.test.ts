@@ -5,13 +5,16 @@ import { describe, expect, test } from "vitest"
 import { cssVarRows, stylesheets } from "../../src/component-api/rows"
 import type { ComponentApi } from "../../src/component-api/types"
 import { BRAND_TOKENS, CORNER_TOKENS, FONT_TOKENS } from "../../src/utils/theme"
+import { paletteSteps } from "../../src/utils/palette-steps"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
 import { themeTokenTiers } from "../../src/utils/theme-token-tiers"
 import {
+  INSTANCE_INPUTS,
   OVERRIDE_HOOKS,
   parseThemeTokens,
   setThemeToken,
+  themeTokenSections,
   themeTokens,
   tokenTier,
 } from "../../src/utils/theme-tokens"
@@ -20,6 +23,7 @@ import { tokenType, tokensJson } from "../../src/utils/tokens-json"
 const sections = parseThemeTokens()
 const tokens = themeTokens()
 const find = (name: string) => tokens.find((token) => token.name === name)
+const steps = new Set(paletteSteps().map((step) => step.name))
 
 const selectorList = (selector: string) => {
   const list = selector.trim().replace(/^:where\(([\s\S]*)\)$/, "$1")
@@ -94,6 +98,7 @@ describe("theme tokens", () => {
       "Field / input",
       "Focus ring",
       "Typography",
+      "Code",
       "Spacing",
       "Controls",
       "Control sizes",
@@ -108,6 +113,42 @@ describe("theme tokens", () => {
       "Elevation",
       "Overlays",
     ])
+  })
+
+  test("the table adds the palette steps and the instance inputs", () => {
+    const titles = themeTokenSections().map((section) => section.title)
+    expect(titles.indexOf("Palette steps")).toBe(titles.indexOf("Palette") + 1)
+    expect(titles.at(-1)).toBe("Instance inputs")
+    const names = (title: string) =>
+      themeTokenSections()
+        .find((section) => section.title === title)!
+        .tokens.map((token) => token.name)
+    expect(names("Palette steps")).toEqual(
+      ["color", "gray"].flatMap((family) =>
+        Array.from({ length: 16 }, (_, index) => `--ui-${family}-${index + 1}`),
+      ),
+    )
+    expect(names("Palette steps").every((name) => find(name))).toBe(true)
+    expect(names("Instance inputs")).toEqual(
+      INSTANCE_INPUTS.map((token) => token.name),
+    )
+    expect(names("Instance inputs").some((name) => find(name))).toBe(false)
+  })
+
+  test("every token a stylesheet reads is a theme token or an instance input", () => {
+    const reads = new Set(
+      [...componentCss.matchAll(/var\((--ui-[\w-]+)/g)].map(
+        (match) => match[1],
+      ),
+    )
+    const inputs = INSTANCE_INPUTS.map((token) => token.name)
+    expect(
+      [...reads].filter((name) => !find(name) && !inputs.includes(name)),
+    ).toEqual([])
+    for (const name of inputs) {
+      expect(reads, name).toContain(name)
+      expect(themeSource, name).not.toContain(`${name}:`)
+    }
   })
 
   test("every token is declared once", () => {
@@ -199,16 +240,20 @@ describe("theme tokens", () => {
   })
 
   test("every token has a description and no description is stale", () => {
-    const names = tokens.map((token) => token.name)
+    const names = themeTokenSections()
+      .flatMap((section) => section.tokens)
+      .map((token) => token.name)
     for (const name of names) {
       expect(themeTokenDescriptions[name], name).toBeTruthy()
+      expect(themeTokenDescriptions[name], name).not.toContain("undefined")
     }
     for (const name of Object.keys(themeTokenDescriptions)) {
       expect(names, name).toContain(name)
     }
-    expect(Object.keys(themeTokenDescriptions)).toEqual(
-      Object.keys(themeTokenDescriptions).toSorted(),
+    const written = Object.keys(themeTokenDescriptions).filter(
+      (name) => !steps.has(name),
     )
+    expect(written).toEqual(written.toSorted())
   })
 
   test("every promise names declared tokens and is sorted", () => {
@@ -275,12 +320,14 @@ describe("theme tokens", () => {
     }
     for (const tier of ["component", "knob", "primitive"]) {
       const names = Object.entries(themeTokenTiers)
-        .filter(([, candidate]) => candidate === tier)
+        .filter(([name, candidate]) => candidate === tier && !steps.has(name))
         .map(([name]) => name)
       expect(names, tier).toEqual(names.toSorted())
     }
     expect(tokenTier("--ui-palette-hue")).toBe("knob")
     expect(tokenTier("--ui-font-size-300")).toBe("primitive")
+    for (const name of steps) expect(tokenTier(name), name).toBe("primitive")
+    expect(tokenTier("--ui-anchor-position-area")).toBe("input")
     expect(tokenTier("--ui-primary")).toBe("role")
     expect(tokenTier("--ui-selected")).toBe("hook")
     expect(tokenTier("--ui-button-size")).toBe("component")

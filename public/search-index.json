@@ -1872,7 +1872,7 @@
   {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
-    "description": "Every token theme.css declares, with its default and its tier. Most are roles; the others are marked knob, primitive,\n    hook or component. The tests check every promised contrast\n    ratio in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "html",
@@ -1881,7 +1881,7 @@
   {
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
-    "description": "Every token theme.css declares, with its default and its tier. Most are roles; the others are marked knob, primitive,\n    hook or component. The tests check every promised contrast\n    ratio in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1890,7 +1890,7 @@
   {
     "id": "guide-theme-tokens-react",
     "title": "Theme tokens",
-    "description": "Every token theme.css declares, with its default and its tier. Most are roles; the others are marked knob, primitive,\n    hook or component. The tests check every promised contrast\n    ratio in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "react",
@@ -1899,7 +1899,7 @@
   {
     "id": "guide-theme-tokens-svelte",
     "title": "Theme tokens",
-    "description": "Every token theme.css declares, with its default and its tier. Most are roles; the others are marked knob, primitive,\n    hook or component. The tests check every promised contrast\n    ratio in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1908,7 +1908,7 @@
   {
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
-    "description": "Every token theme.css declares, with its default and its tier. Most are roles; the others are marked knob, primitive,\n    hook or component. The tests check every promised contrast\n    ratio in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "vue",

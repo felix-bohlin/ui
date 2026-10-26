@@ -1,6 +1,6 @@
 import { themeTokenDescriptions } from "./theme-token-descriptions"
 import { themeTokenPromises } from "./theme-token-promises"
-import { parseThemeTokens, tokenTier } from "./theme-tokens"
+import { themeTokenSections, tokenTier } from "./theme-tokens"
 
 const slug = (title: string) =>
   title
@@ -20,7 +20,7 @@ const TYPES: [RegExp, string][] = [
   [/shadow(?!-color$)/, "shadow"],
   [/-style$/, "strokeStyle"],
   [
-    /-accent(-|$)|^(?!--ui-color-scheme$).*-color(-|$)|^--ui-(blue|critical|green|info|invalid|neutral|on|orange|palette|primary|red|selected|success|surface|text|warning)(-|$)/,
+    /-accent(-|$)|^(?!--ui-color-scheme$).*-color(-|$)|^--ui-(blue|critical|gray|green|info|invalid|neutral|on|orange|palette|primary|red|selected|success|surface|text|warning)(-|$)/,
     "color",
   ],
   [
@@ -50,7 +50,7 @@ export const tokenValue = (
 }
 
 export const tokensJson = () => {
-  const sections = parseThemeTokens().filter(
+  const sections = themeTokenSections().filter(
     (section) => section.tokens.length > 0,
   )
   const paths = new Map(

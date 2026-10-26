@@ -1,4 +1,5 @@
 import themeSource from "@opui/css/theme.css?raw"
+import { paletteSteps } from "./palette-steps"
 import { themeTokenTiers } from "./theme-token-tiers"
 
 export type ThemeToken = {
@@ -26,6 +27,7 @@ const THEME_SCOPE = /\bhtml\b/
 const SECTION_ORDER = [
   "Color scheme",
   "Palette",
+  "Palette steps",
   "Palette roles",
   "Named colors (no severity meaning)",
   "Intent tokens",
@@ -36,6 +38,7 @@ const SECTION_ORDER = [
   "Field / input",
   "Focus ring",
   "Typography",
+  "Code",
   "Spacing",
   "Controls",
   "Control sizes",
@@ -49,6 +52,7 @@ const SECTION_ORDER = [
   "Choice controls",
   "Elevation",
   "Overlays",
+  "Instance inputs",
 ]
 const sectionOrder = (title: string) => {
   const index = SECTION_ORDER.indexOf(title)
@@ -215,18 +219,48 @@ export const OVERRIDE_HOOKS = [
   "--ui-track-bg-color",
 ] as const
 
-export type TokenTier = "component" | "hook" | "knob" | "primitive" | "role"
+export const INSTANCE_INPUTS: ThemeToken[] = [
+  {
+    name: "--ui-anchor-position-area",
+    optional: true,
+    value: "self-block-end",
+  },
+]
+
+export type TokenTier =
+  "component" | "hook" | "input" | "knob" | "primitive" | "role"
 
 export const tokenTier = (name: string): TokenTier =>
   (OVERRIDE_HOOKS as readonly string[]).includes(name)
     ? "hook"
-    : (themeTokenTiers[name] ?? "role")
+    : INSTANCE_INPUTS.some((token) => token.name === name)
+      ? "input"
+      : (themeTokenTiers[name] ?? "role")
 
 const themeTokensIn = (sections: ThemeSection[]) =>
   sections.flatMap((section) => section.tokens)
 
-export const themeTokens = (css = themeSource) =>
-  parseThemeTokens(css).flatMap((section) => section.tokens)
+export const themeTokenSections = (): ThemeSection[] =>
+  [
+    ...parseThemeTokens(),
+    {
+      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-palette` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
+      title: "Palette steps",
+      tokens: paletteSteps().map(({ name, value }) => ({ name, value })),
+    },
+    {
+      note: "Read by components but set on an element, by a prop or a style, for that element and everything inside it. A theme doesn't set them, and each component has its own default.",
+      title: "Instance inputs",
+      tokens: INSTANCE_INPUTS,
+    },
+  ]
+    .filter((section) => section.tokens.length > 0)
+    .toSorted((a, b) => sectionOrder(a.title) - sectionOrder(b.title))
+
+export const themeTokens = () =>
+  themeTokensIn(themeTokenSections()).filter(
+    (token) => tokenTier(token.name) !== "input",
+  )
 
 export const setThemeToken = (css: string, name: string, value: string) => {
   const lines = css.split("\n")

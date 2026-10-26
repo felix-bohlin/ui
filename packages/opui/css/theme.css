@@ -560,31 +560,39 @@
 
     /* Elevation */
     --ui-shadow-elevated:
-      0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
-      0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
-      0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)),
+      0 -1px 3px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
+      0 1px 2px -5px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
+      0 2px 5px -5px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.04)),
       0 4px 12px -5px
-        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)),
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
       0 12px 15px -5px
-        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07));
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.07));
     --ui-shadow-overlay:
-      0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
-      0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
-      0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)),
+      0 -1px 3px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
+      0 1px 2px -5px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
+      0 2px 5px -5px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.04)),
       0 4px 12px -5px
-        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)),
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
       0 12px 15px -5px
-        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07));
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.07));
     --ui-shadow-scroll:
-      0 -2px 5px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
-      0 1px 1px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.03)),
-      0 2px 2px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.03)),
-      0 5px 5px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)),
-      0 9px 9px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)),
+      0 -2px 5px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
+      0 1px 1px -2px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.03)),
+      0 2px 2px -2px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.03)),
+      0 5px 5px -2px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.04)),
+      0 9px 9px -2px
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
       0 16px 16px -2px
-        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.06));
+        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.06));
     --ui-shadow-selected: 0 1px 2px -1px
-      hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.09));
+      oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.09));
 
     /* Overlays */
     --ui-backdrop-bg-color: light-dark(

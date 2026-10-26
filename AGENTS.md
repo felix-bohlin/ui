@@ -11,6 +11,11 @@ Read the guide for the files you're editing:
 - Never use the em dash (U+2014) or the middle dot (U+00B7), in prose, UI text, examples, code, comments, generated labels or commit messages. Use a comma, a slash or parentheses instead.
 - `pnpm check-characters`, part of `pnpm check`, fails on them in every tracked or new text file.
 
+## Colors
+
+- Write every color as `oklch()`, never hex, `rgb()`, `hsl()`, `hwb()`, `lab()` or `lch()`, in CSS, scripts, `style` attributes, SVG color attributes and code in Markdown. Relative colors too: `oklch(from var(--x) l c h / 50%)`.
+- `pnpm check-colors`, part of `pnpm check`, fails on them in every tracked or new file. It skips comments, tests (which feed other syntaxes to the parsers), generated files, released CHANGELOG entries and the `value` of `<input type="color">`, which HTML only takes as hex.
+
 ## Sorting
 
 Always sort and order items in ascending order (ASC) whenever possible. This applies to:
@@ -66,7 +71,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 ## Testing
 
-- ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
+- ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, forbidden characters, color syntax, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
 - Component CSS in `packages/opui/css/components/`, `packages/opui/css/compat/` and `packages/opui/core/normalize.css` reads `--ui-*` roles and its own `--_*` properties, never palette steps (`--ui-gray-N`, `--ui-color-N`), Open Props primitives or literal `px`/`rem` lengths. A `--_*` property that its `api.ts` documents as an `input` may default to a length in its `:where()` rule (not in a modifier), and the step of `round()`, `@property` initial values and `/ 1rem` divisors are skipped. `pnpm check-css-vars` fails on each one unless `scripts/css-vars-allowlist.json` lists it, and on allowlist entries that are no longer in the code. The list only shrinks: fix the read, then run `node scripts/check-css-vars.mjs --update` to drop its entry. Never add an entry for new code.
 - The build regenerates `public/search-index.json`, the agent skill references in `packages/opui/skills/opui/references` and `packages/opui/tokens.json`. Commit them. When they're stale on a pull request from this repository, CI commits the regenerated files to the branch and runs again; on `main` and on pull requests from forks it fails.
 - `tests/unit/released-tokens.json` lists the theme tokens of the last published version. A token from it that disappears from `theme.css` fails the tests until a `Breaking` or `Removed` entry in the CHANGELOG names it. Regenerate it after a release with `pnpm test:record-released` on the tagged commit (see `RELEASING.md`).

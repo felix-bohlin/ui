@@ -9,8 +9,8 @@ Every audit agent reports findings in this format, so `/audit` can merge them an
 - Cite every file with a line or line range, `path/to/file.css:12-18`.
 - Severity is 1-10, 10 is the most severe. Most findings are 1-3. Use 4 and up for broken behavior, inaccessible components or wrong docs that users copy.
 - Keep each finding to what is wrong and where. Put the fix in a `Fix:` note, with a code block when the fix is code.
-- Start the notes with `Summary:` and `Recommended:`, in that order. `Summary:` is one plain sentence saying what the reader or user notices, no file paths, no fix, under about 140 characters. `Recommended:` is the action the `/todo` page offers, `Fix`, `Fix with option B` (an id from the item's `Options:` list, required when there is one), `Remove issue`, `Explain further` or `Explain further and provide an example`, optionally followed by a period and a one-sentence reason. Choose it with the rules in `.claude/skills/todo-triage/SKILL.md`.
-- When there's more than one way to fix it, give the choices as an `Options:` list (see below), never as "do this, or that" or `A: … B: …` in one sentence. The `/todo` page turns the list into a radio group to pick from.
+- Start the notes with `Summary:`, what the reader or user notices with no fix, and `Recommended:`, the action the `/todo` page offers, chosen with the rules in `.claude/skills/todo-triage/SKILL.md`. `tests/unit/todo.test.ts` checks their order, the sentence, its length and the action.
+- When there's more than one way to fix it, give the choices as an `Options:` list (see below), which the `/todo` page turns into a radio group.
 - Report only. Never edit, create or delete files.
 - If you find nothing, say so in one line.
 
@@ -32,7 +32,7 @@ One finding per item, in the `TODO.md` item format. `Component:` is the componen
 
 The headline is the item's identity: the `/todo` page keys the user's answers on it, so later notes never change it.
 
-With several fixes, `Fix:` keeps what applies to all of them, such as what to confirm first, and each choice is a lettered item under `Options:`. Mark at most one `(recommended)`, and put a choice's code block under its own item. When the fix only applies if something happens, name it in the heading, such as `Options if a browser fails:`. For example:
+With several fixes, `Fix:` keeps what applies to all of them, such as what to confirm first, and each choice is a lettered item under `Options:`. Put a choice's code block under its own item. When the fix only applies if something happens, name it in the heading, such as `Options if a browser fails:`. For example:
 
 ````md
 - [ ] (2) Component: what is wrong (`path/to/file.css:12-18`)

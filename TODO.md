@@ -110,7 +110,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: keep today's parts, only align the title size and add the content spacing.
     - C: like A, but keep `XActions` as an alias that renders `.ui-footer.ui-actions` with `align`.
 - [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:30,158`)
-  - Summary: When a modal opens, a bright strip stays at the right edge of the dimmed page and full-width drawers stop short of it where scrollbars take space.
+  - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
   - Recommended: Fix with option C. The explanation was given and C removes the strip while keeping the layout shift fix that A values.
   - Options:
     - A: accept the strip (it stops the layout shift).
@@ -234,6 +234,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The parser already splits off the file references.
   - Replaces: `.claude/skills/audit/findings-format.md:9`, which then names the test.
   - Fix: a `todo.test.ts` case that checks every `path:line` on an open item's headline: the file exists, the range fits it, and the path has a directory.
+  - Depends on: the `/todo` page keys answers on the whole headline, citations included (`src/pages/todo/[...index].astro:199`), so correcting a citation drops a saved answer. Key the page on the headline without its file references first, and carry saved answers over to the new keys.
 - [ ] (1) Tooling: `generate-search-index.mjs` keeps an `apiFiles` branch that globs `src/component-api/**/*.astro`, which matches no file, so its loop never runs (`scripts/generate-search-index.mjs:95`, `scripts/generate-search-index.mjs:249-294`)
   - Summary: The search index script carries a block of code that never runs.
   - Recommended: Fix. Deleting it changes no output.
@@ -363,7 +364,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): move the production deploy into a job with `needs: [check, e2e]` that downloads the `dist` artifact.
     - B: keep deploying from `check`.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
-  - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS because the library has no such components.
+  - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.
   - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status.
   - Breadcrumb: file-manager, product-detail.

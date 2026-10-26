@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest"
 import {
   fixOptions,
   parseTodo,
+  plainText,
   replyOf,
   slugify,
   splitInlineCode,
@@ -127,7 +128,7 @@ describe("parseTodo", () => {
         "## Bugs",
         "",
         "- [ ] (2) Checkbox, Radio: the label wraps (`packages/opui/css/components/choice.css:12-18`, `src/docs/components/checkbox.astro`)",
-        "- [ ] (1) Docs site: dead CSS (`src/layouts/Document.astro:4`)",
+        "- [ ] (1) Docs site: dead CSS (`src/layouts/Document.astro:4`, `src/pages/blocks/[block]/preview.astro:35`)",
         "- [ ] (2) Tabs: the pill is off (`layout` Surfaces, `forms` Fields)",
         "- [ ] (3) Carousel in Chromium 141 (the sandbox browser): the button sits outside",
         "- [ ] (4) New components the blocks point to. Each block draws these with its own CSS:",
@@ -151,7 +152,10 @@ describe("parseTodo", () => {
       },
       {
         component: "Docs site",
-        files: ["src/layouts/Document.astro:4"],
+        files: [
+          "src/layouts/Document.astro:4",
+          "src/pages/blocks/[block]/preview.astro:35",
+        ],
         headline: "Dead CSS",
       },
       {
@@ -225,28 +229,6 @@ describe("parseTodo", () => {
         summary: "One.",
       },
     ])
-  })
-
-  test("every recommendation in TODO.md names a page action", () => {
-    const source = readFileSync("TODO.md", "utf8")
-    const { sections } = parseTodo(source)
-
-    for (const item of sections.flatMap((section) => section.items)) {
-      const { options } = fixOptions(item.notes)
-      const stray = item.notes.find(
-        (note) => note.kind === "item" && note.text.startsWith("Recommended:"),
-      )
-      expect(stray, item.text).toBeUndefined()
-      if (!item.recommended) continue
-      const option = item.recommended.action.match(/^Fix with option (\w+)$/)
-      if (option)
-        expect(
-          options.map(({ id }) => id),
-          item.text,
-        ).toContain(option[1])
-      else if (options.length)
-        expect(item.recommended.action, item.text).not.toBe("Fix")
-    }
   })
 
   test("parses every open item in TODO.md", () => {
@@ -527,6 +509,9 @@ describe("slugify", () => {
 describe("TODO.md", () => {
   const source = readFileSync("TODO.md", "utf8")
   const { sections } = parseTodo(source)
+  const lines = source.split("\n")
+  const items = sections.flatMap((section) => section.items)
+  const headline = (item: (typeof items)[number]) => item.line.slice(0, 80)
 
   test("has the sections of the findings format, in order", () => {
     expect(
@@ -553,6 +538,75 @@ describe("TODO.md", () => {
               (items[index - 1]?.severity ?? 0) > item.severity,
           )
           .map((item) => `${title}: ${item.line.slice(0, 80)}`),
+      ),
+    ).toEqual([])
+  })
+
+  test("starts every open item with a Summary and a Recommended note", () => {
+    expect(
+      items
+        .filter((item) => {
+          const at = lines.indexOf(item.line)
+          return (
+            !item.summary ||
+            !item.recommended ||
+            !lines[at + 1]?.startsWith("  - Summary: ") ||
+            !lines[at + 2]?.startsWith("  - Recommended: ") ||
+            item.notes.some(
+              (note) =>
+                note.kind === "item" &&
+                /^(Recommended|Summary):/.test(note.text),
+            )
+          )
+        })
+        .map(headline),
+    ).toEqual([])
+  })
+
+  test("keeps each summary to one plain sentence of 140 characters at most", () => {
+    expect(
+      items
+        .filter(({ summary = "" }) => {
+          const prose = summary.replace(/`[^`]*`/g, "code")
+          const plain = plainText(summary)
+          return (
+            !prose.endsWith(".") ||
+            /[.?!] [A-Z]/.test(prose) ||
+            /\b[\w-]+\/[\w./[\]-]*\.\w+|\w\.\w+:\d/.test(plain) ||
+            plain.length > 140
+          )
+        })
+        .map((item) => `${headline(item)}: ${item.summary}`),
+    ).toEqual([])
+  })
+
+  test("letters the options and recommends one of them", () => {
+    expect(
+      items
+        .filter((item) => {
+          const { options } = fixOptions(item.notes)
+          const action = item.recommended?.action ?? ""
+          const marked = options.filter(({ note }) => note === "recommended")
+          if (options.length === 0) return action.startsWith("Fix with option")
+          return (
+            options.map(({ id }) => id).join("") !==
+              "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, options.length) ||
+            marked.length > 1 ||
+            !options.some(({ id }) => action === `Fix with option ${id}`) ||
+            (marked.length === 1 &&
+              action !== `Fix with option ${marked[0].id}`)
+          )
+        })
+        .map(headline),
+    ).toEqual([])
+  })
+
+  test("writes no options inline", () => {
+    expect(
+      items.flatMap((item) =>
+        item.notes
+          .filter((note) => fixOptions([note]).options.length > 0)
+          .map((note) => `${headline(item)}: ${note.text}`),
       ),
     ).toEqual([])
   })

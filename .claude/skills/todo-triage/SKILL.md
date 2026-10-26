@@ -26,7 +26,7 @@ With more than about 20 items, split them by section across parallel subagents, 
 For each item:
 
 1. Read the file references at the end of the headline (`path:12-18`). For severity 4 and up, confirm the problem is in the current code. If the finding no longer holds, recommend `Remove issue` and say why; if the severity looks wrong, say so in the reason and leave the headline alone.
-2. Write `Summary:`: one plain sentence, what the reader or user notices, no file paths, no fix, under about 140 characters, ending with a period.
+2. Write `Summary:`: what the reader or user notices, no fix.
 3. Write `Recommended:` with the first rule that applies:
    - An option marked `(recommended)` exists: `Fix with option X`.
    - An `Options:` list without a mark: pick the option that follows the repo rules (`AGENTS.md`, `packages/opui/components/AGENTS.md`, `src/docs/components/AGENTS.md`) and give the reason.
@@ -34,10 +34,10 @@ For each item:
    - The finding is moot, already done, or contrary to a decision recorded in a done item or a `> ` answer: `Remove issue`, with the reason.
    - A question of taste or scope, for example in `## Questions`: `Explain further`.
    - The user can only decide after seeing it: `Explain further and provide an example`.
-     The action is exactly one of `Fix`, `Fix with option X`, `Remove issue`, `Explain further`, `Explain further and provide an example`. With an `Options:` list it is always `Fix with option X`. A reason follows after a period, one short sentence.
-4. Insert both notes as the first two notes under the headline, `Summary:` first, before `Fix:`, `Options:`, `Still open:` and the `> ` answers.
+     A reason follows after a period, one short sentence.
+4. Insert both notes first under the headline.
 
-Then run `pnpm exec prettier --write TODO.md`, `pnpm exec vitest run tests/unit/todo.test.ts` (it fails on an action the page doesn't offer, or an option id the item doesn't have) and `pnpm check-characters`, and commit with `chore: add summaries and recommendations to open todos`.
+Then run `pnpm exec prettier --write TODO.md`, `pnpm exec vitest run tests/unit/todo.test.ts` (it checks the format) and `pnpm check-characters`, and commit with `chore: add summaries and recommendations to open todos`.
 
 ## Report
 

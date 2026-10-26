@@ -64,11 +64,10 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 ## TODO.md
 
 - Items and notes follow `.claude/skills/audit/findings-format.md`. That includes notes you add later, such as a `Still open:` answer.
-- When a note offers more than one fix, write the choices as an `Options:` list with lettered items (`- A (recommended): …`, `- B: …`), never as "do this, or that" in one sentence. The `/todo` page turns the list into a radio group.
-- Every open item starts its notes with `Summary:` (one plain sentence, no paths) and `Recommended:` (`Fix`, `Fix with option B`, `Remove issue`, `Explain further` or `Explain further and provide an example`, optionally with a reason after a period). The `/todo` page shows the summary as the headline and offers the recommendation with an Accept button. `/todo-triage` adds both to items that lack them; never change an item's headline, the page keys answers on it.
+- Every open item starts its notes with `Summary:` and `Recommended:`. The `/todo` page shows the summary as the headline and offers the recommendation with an Accept button. `/todo-triage` adds both to items that lack them; never change an item's headline, the page keys answers on it.
 - Answers copied from the `/todo` page (`OPUI_TEST_PAGES=1`) start with "TODO.md with my comments": each answered item's line from `TODO.md`, then `> ` lines with the chosen action (`Explain further`, `Explain further and provide an example`, `Fix`, `Fix with option B`, `Remove issue`) and the comment. `Fix with option B` picks B from the item's `Options:` list. `/todo-answers` applies pasted answers: it adds the `> ` lines under the item in `TODO.md`, does what they ask, and notes the outcome below them (`Fixed:`, `Removed:`, `Explained:`, `Still open:`). The `/todo/done/` page collects answers on fixed items the same way.
 - Copy the `> ` lines word for word. The `/todo` page drops a saved answer once it matches the item's last `> ` block, and marks an item with a note after that block as Follow-up.
-- `tests/unit/todo.test.ts` fails when the sections aren't the seven of the findings format, in order, or an open item has a higher severity than the one after it in its section.
+- `tests/unit/todo.test.ts` checks the format and lists the items that break it: the seven sections of the findings format in order, severity order, `Summary:` then `Recommended:` first, a summary of one sentence and 140 characters at most without paths, a recommendation the page offers, lettered options that agree with it, and no options written inline in a note.
 
 ## Testing
 

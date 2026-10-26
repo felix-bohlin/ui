@@ -87,7 +87,7 @@ export const parseTodo = (source: string) => {
 }
 
 const componentPattern = /^[A-Z][A-Za-z0-9]*(?:(?:, | )[A-Za-z0-9]+)*$/
-const filePattern = /^`[\w./-]+(?::[\d,-]+)?`$/
+const filePattern = /^`[\w./[\]-]+(?::[\d,-]+)?`$/
 
 const splitHeadline = (text: string) => {
   const colon = text.indexOf(": ")

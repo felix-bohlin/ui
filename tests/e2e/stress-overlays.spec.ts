@@ -1,7 +1,14 @@
 import { expect, test } from "@playwright/test"
 import { FIREFOX_SELF_RTL, failsIn } from "./engine-bugs"
 import { openFixture } from "./fixtures"
-import { SCENARIOS, id, isOpen, problems, run } from "./stress-overlays"
+import {
+  SCENARIOS,
+  id,
+  isOpen,
+  needsSelect,
+  problems,
+  run,
+} from "./stress-overlays"
 
 for (const {
   failing,
@@ -22,12 +29,7 @@ for (const {
       "needs scrollIntoView({ container })",
     )
     await openFixture(page, "html", "stress/overlays")
-    if (steps.some((step) => "select" in step)) {
-      test.skip(
-        !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
-        "needs customizable select",
-      )
-    }
+    await needsSelect(page, steps)
     for (const step of steps) await run(page, step)
     await expect.poll(() => problems(page, top), name).toEqual([])
     for (const overlay of stillOpen)

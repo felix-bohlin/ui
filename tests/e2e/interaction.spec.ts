@@ -4,6 +4,7 @@ import {
   computed,
   FRAMEWORKS,
   hasExample,
+  needs,
   openFixture,
   resolveColor,
   settle,
@@ -52,10 +53,11 @@ interaction(
     const trigger = root.getByRole("link", { name: "felix-bohlin/ui" })
     const card = root.getByText("Public repository")
 
-    const supportsInterest = await page.evaluate(
+    await needs(
+      page,
+      "interest invokers",
       () => "interestForElement" in HTMLAnchorElement.prototype,
     )
-    test.skip(!supportsInterest, "needs interest invokers")
 
     await expect(card).toBeHidden()
     await trigger.hover()
@@ -255,9 +257,10 @@ for (const component of ["dialog", "drawer"]) {
     "CloseBehaviors",
     `${component} closes the way its closedby says`,
     async ({ page, root }) => {
-      test.fail(
-        !(await page.evaluate(() => "closedBy" in HTMLDialogElement.prototype)),
-        "needs the closedby attribute on dialog",
+      await needs(
+        page,
+        "the closedby attribute on dialog",
+        () => "closedBy" in HTMLDialogElement.prototype,
       )
       const trigger = root.getByRole("button", { name: /^Open / })
       const dialog = root.locator("dialog")
@@ -573,9 +576,8 @@ interaction(
   "Overflow",
   "overflow tabs scroll the focused tab into view",
   async ({ page, root }) => {
-    test.skip(
-      !(await page.evaluate(() => CSS.supports("order", "sibling-index()"))),
-      "needs sibling-index()",
+    await needs(page, "sibling-index()", () =>
+      CSS.supports("order", "sibling-index()"),
     )
     const tabs = root.locator(".ui-tabs")
     const inputs = tabs.locator(":scope > .ui-input")
@@ -769,10 +771,11 @@ interaction(
     const trigger = root.getByRole("button", { name: "Save" })
     const tooltip = root.getByText("Save your changes")
 
-    const supportsInterest = await page.evaluate(
+    await needs(
+      page,
+      "interest invokers",
       () => "interestForElement" in HTMLButtonElement.prototype,
     )
-    test.skip(!supportsInterest, "needs interest invokers")
 
     await expect(tooltip).toBeHidden()
     await trigger.hover()
@@ -846,10 +849,9 @@ interaction(
   async ({ page, root }) => {
     const carousel = root.locator(".ui-carousel")
 
-    const supportsScrollButtons = await page.evaluate(() =>
+    await needs(page, "::scroll-button()", () =>
       CSS.supports("selector(::scroll-button(*))"),
     )
-    test.skip(!supportsScrollButtons, "needs ::scroll-button()")
 
     await carousel.scrollIntoViewIfNeeded()
     const point = await carousel.evaluate((element) => {
@@ -910,10 +912,9 @@ interaction(
   async ({ page, root }) => {
     const carousel = root.locator(".ui-carousel")
 
-    const supportsMarkers = await page.evaluate(() =>
+    await needs(page, "::scroll-marker", () =>
       CSS.supports("selector(::scroll-marker)"),
     )
-    test.skip(!supportsMarkers, "needs ::scroll-marker")
 
     await carousel.scrollIntoViewIfNeeded()
     expect(await currentMarker(carousel)).toBe(0)
@@ -939,10 +940,9 @@ interaction(
   async ({ page, root }) => {
     const carousel = root.locator(".ui-carousel")
 
-    const supportsMarkers = await page.evaluate(() =>
+    await needs(page, "::scroll-marker", () =>
       CSS.supports("selector(::scroll-marker)"),
     )
-    test.skip(!supportsMarkers, "needs ::scroll-marker")
 
     expect(await computed(carousel, "scroll-behavior")).toBe("smooth")
     await page.emulateMedia({ reducedMotion: "reduce" })

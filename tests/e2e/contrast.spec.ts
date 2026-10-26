@@ -166,20 +166,29 @@ test.describe("token promises", () => {
           for (const [name, { against, fallback, ratio }] of Object.entries(
             themeTokenPromises,
           )) {
-            if (
-              preference === "no-preference" &&
-              THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
-            )
-              continue
+            const exception =
+              preference === "no-preference"
+                ? THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
+                : undefined
             const color = fallback
               ? `var(${name}, var(${fallback}))`
               : `var(${name})`
+            const ratios = []
             for (const surface of against) {
+              ratios.push(await contrast(main, color, promiseColor(surface)))
+            }
+            if (exception) {
               expect
                 .soft(
-                  await contrast(main, color, promiseColor(surface)),
-                  `${name} against ${surface}`,
+                  Math.min(...ratios),
+                  `${name} is excepted ("${exception}") but now meets ${ratio}:1 against ${against.join(", ")}: remove its THEME_EXCEPTIONS entry`,
                 )
+                .toBeLessThan(ratio)
+              continue
+            }
+            for (const [index, surface] of against.entries()) {
+              expect
+                .soft(ratios[index], `${name} against ${surface}`)
                 .toBeGreaterThanOrEqual(ratio)
             }
           }

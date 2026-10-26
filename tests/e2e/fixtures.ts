@@ -157,6 +157,19 @@ export const openFixture = async (
   })
 }
 
+export const needs = async (
+  page: Page,
+  feature: string,
+  supported: () => boolean,
+) => {
+  const has = await page.evaluate(supported)
+  if (page.context().browser()?.browserType().name() === "chromium") {
+    expect(has, `Chromium has ${feature}`).toBe(true)
+  } else {
+    test.skip(!has, `needs ${feature}`)
+  }
+}
+
 export const settle = (locator: Locator) =>
   locator.evaluate((element) =>
     Promise.all(

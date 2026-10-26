@@ -5,7 +5,7 @@ import {
   WEBKIT_TOP_LAYER_ANCHOR,
   type EngineBugs,
 } from "./engine-bugs"
-import { settle } from "./fixtures"
+import { needs, settle } from "./fixtures"
 
 type Step =
   | { click: string }
@@ -18,6 +18,7 @@ export type Scenario = {
   failing?: string
   failingIn?: EngineBugs
   name: string
+  skipAxe?: string
   steps: Step[]
   stillOpen?: string[]
   top: string
@@ -463,9 +464,23 @@ export const SCENARIOS: Scenario[] = [
   },
 ]
 
+export const needsSelect = async (page: Page, steps: Step[]) => {
+  if (steps.some((step) => "select" in step)) {
+    await needs(page, "customizable select", () =>
+      CSS.supports("appearance", "base-select"),
+    )
+  }
+}
+
 export const opened = (steps: Step[]) =>
   steps.flatMap((step) =>
-    "open" in step ? [step.open] : "hover" in step ? [step.hover] : [],
+    "open" in step
+      ? [step.open]
+      : "hover" in step
+        ? [step.hover]
+        : "select" in step
+          ? [step.select]
+          : [],
   )
 
 export const isOpen = (page: Page, selector: string) =>

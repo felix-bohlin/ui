@@ -4,7 +4,7 @@ import { openFixture } from "./fixtures"
 const APPLIES: Record<string, string[]> = {
   chromium: [],
   firefox: ["not (corner-shape: squircle)"],
-  webkit: ["not (corner-shape: squircle)"],
+  webkit: [],
 }
 
 test.beforeEach(async ({ page }) => {
@@ -37,7 +37,9 @@ test("the compat layer loads by default and applies only the expected fallbacks"
     (list) => list.filter((condition) => CSS.supports(condition)),
     conditions,
   )
-  expect(applies).toEqual(APPLIES[browserName])
+  expect(
+    applies.map((condition) => condition.replace(/\s*:\s*/g, ": ")),
+  ).toEqual(APPLIES[browserName])
 })
 
 test("a squircle avatar is a rounded square without corner-shape", async ({

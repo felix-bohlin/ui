@@ -200,7 +200,7 @@ describe("parseTodo", () => {
     expect(section.items.map((item) => item.key)).toEqual([
       "checkbox-the-label-wraps",
       "checkbox-the-label-wraps",
-      "tabs-the-pill-is-off-layout-surfaces",
+      "tabs-the-pill-is-off",
       "layout-the-gap-collapses",
       "layout-the-gap-grows",
     ])

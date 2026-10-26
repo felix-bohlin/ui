@@ -110,7 +110,7 @@ const splitHeadline = (text: string) => {
     files,
     headline,
     key: slugify(
-      entries.some((entry) => filePattern.test(entry))
+      entries.some((entry) => entry.startsWith("`"))
         ? text.slice(0, -refs![0].length)
         : text,
     ),

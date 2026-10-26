@@ -146,7 +146,7 @@ test("a Conditional with block content renders a div", () => {
     find((node) =>
       "name" in node &&
       node.name === "Conditional" &&
-      conditionalTag(node) !== "div" &&
+      ["p", "span"].includes(conditionalTag(node)) &&
       hasBlock(node)
         ? `<Conditional as="${conditionalTag(node)}">`
         : undefined,

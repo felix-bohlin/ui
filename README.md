@@ -39,7 +39,7 @@ The project is managed as a monorepo with two main parts:
   - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
   - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
   - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
-- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` runs the search index, browser support and agent skill scripts.
+- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` runs the search index, browser support and agent skill scripts and writes the example theme list into `packages/opui/README.md` (`scripts/build-readme.mjs`).
 - **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`, and the packed tarball in consumer projects in `tests/package`.
 
 ### Development

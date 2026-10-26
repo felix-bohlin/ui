@@ -1,5 +1,8 @@
-[
-  "packages/opui/skills/opui/references",
-  "packages/opui/tokens.json",
-  "public/search-index.json"
-]
+{
+  "files": [
+    "packages/opui/skills/opui/references",
+    "packages/opui/tokens.json",
+    "public/search-index.json"
+  ],
+  "sections": ["packages/opui/README.md"]
+}

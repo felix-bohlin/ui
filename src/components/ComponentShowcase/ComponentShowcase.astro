@@ -50,7 +50,7 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
-import ComponentCard from "./ComponentCard.astro"
+import ShowcaseCards from "./ShowcaseCards.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
 ---
 
@@ -66,350 +66,376 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     )
   }
 
-  <ComponentCard name="Accordion" href="/components/accordion" size="wide">
-    <Accordion aria-hidden="true" inert variant="outlined">
-      <AccordionSummary>How does it work?</AccordionSummary>
-      <AccordionContent>It's pretty simple, actually.</AccordionContent>
-    </Accordion>
-  </ComponentCard>
+  <ShowcaseCards
+    sizes={{
+      accordion: "wide",
+      callout: "wide",
+      card: "xl",
+      carousel: "wide",
+      dialog: "wide",
+      form: "wide",
+      list: "wide",
+      range: "wide",
+      table: "wide",
+      tabs: "wide",
+    }}
+  >
+    <Fragment slot="accordion">
+      <Accordion aria-hidden="true" inert variant="outlined">
+        <AccordionSummary>How does it work?</AccordionSummary>
+        <AccordionContent>It's pretty simple, actually.</AccordionContent>
+      </Accordion>
+    </Fragment>
 
-  <ComponentCard name="Anchor" href="/components/anchor">
-    <div class="ui-anchor" aria-hidden="true">
-      <Chip variant="outlined" label="Anchored" />
-      {
-        (
-          [
-            { bottom: "anchor(top)", right: "anchor(left)" },
-            { bottom: "anchor(top)", left: "anchor(right)" },
-            { top: "anchor(bottom)", right: "anchor(left)" },
-            { top: "anchor(bottom)", left: "anchor(right)" },
-          ] as const
-        ).map((position) => (
+    <Fragment slot="anchor">
+      <div class="ui-anchor" aria-hidden="true">
+        <Chip variant="outlined" label="Anchored" />
+        {
+          (
+            [
+              { bottom: "anchor(top)", right: "anchor(left)" },
+              { bottom: "anchor(top)", left: "anchor(right)" },
+              { top: "anchor(bottom)", right: "anchor(left)" },
+              { top: "anchor(bottom)", left: "anchor(right)" },
+            ] as const
+          ).map((position) => (
+            <svg
+              style={`position: absolute; position-anchor: --anchor; ${Object.entries(
+                position,
+              )
+                .map(([prop, value]) => `${prop}: ${value};`)
+                .join(" ")}`}
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                fill="currentColor"
+                d="M12 22q-1.525 0-3.125-.55t-2.9-1.5t-2.137-2.225T3 15v-3l4 3l-1.55 1.55q.725 1.275 2.3 2.2T11 19.925V11H8V9h3V7.825q-.875-.325-1.437-1.088T9 5q0-1.25.875-2.125T12 2t2.125.875T15 5q0 .975-.562 1.738T13 7.825V9h3v2h-3v8.925q1.675-.25 3.25-1.175t2.3-2.2L17 15l4-3v3q0 1.45-.837 2.725t-2.138 2.225t-2.9 1.5T12 22m0-16q.425 0 .713-.287T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"
+              />
+            </svg>
+          ))
+        }
+      </div>
+    </Fragment>
+
+    <Fragment slot="avatar">
+      <AvatarGroup aria-hidden="true">
+        <Avatar
+          src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Avatar"
+        />
+        <Avatar>OP</Avatar>
+        <Avatar>
           <svg
-            style={`position: absolute; position-anchor: --anchor; ${Object.entries(
-              position,
-            )
-              .map(([prop, value]) => `${prop}: ${value};`)
-              .join(" ")}`}
             xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            ><path
               fill="currentColor"
-              d="M12 22q-1.525 0-3.125-.55t-2.9-1.5t-2.137-2.225T3 15v-3l4 3l-1.55 1.55q.725 1.275 2.3 2.2T11 19.925V11H8V9h3V7.825q-.875-.325-1.437-1.088T9 5q0-1.25.875-2.125T12 2t2.125.875T15 5q0 .975-.562 1.738T13 7.825V9h3v2h-3v8.925q1.675-.25 3.25-1.175t2.3-2.2L17 15l4-3v3q0 1.45-.837 2.725t-2.138 2.225t-2.9 1.5T12 22m0-16q.425 0 .713-.287T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"
-            />
-          </svg>
-        ))
-      }
-    </div>
-  </ComponentCard>
+              d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2m0 22.5c-3.866 0-7-2.429-7-6.071A2.43 2.43 0 0 1 11.429 16h9.142A2.43 2.43 0 0 1 23 18.429c0 3.642-3.134 6.071-7 6.071m0-10A3.75 3.75 0 1 1 16 7a3.75 3.75 0 0 1 0 7.5"
+            ></path></svg
+          >
+        </Avatar>
+      </AvatarGroup>
+    </Fragment>
 
-  <ComponentCard name="Avatar" href="/components/avatar">
-    <AvatarGroup aria-hidden="true">
-      <Avatar
-        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Avatar"
-      />
-      <Avatar>OP</Avatar>
-      <Avatar>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          ><path
-            fill="currentColor"
-            d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2m0 22.5c-3.866 0-7-2.429-7-6.071A2.43 2.43 0 0 1 11.429 16h9.142A2.43 2.43 0 0 1 23 18.429c0 3.642-3.134 6.071-7 6.071m0-10A3.75 3.75 0 1 1 16 7a3.75 3.75 0 0 1 0 7.5"
-          ></path></svg
-        >
-      </Avatar>
-    </AvatarGroup>
-  </ComponentCard>
+    <Fragment slot="badge">
+      <Badge aria-hidden="true" label="3">Inbox</Badge>
+    </Fragment>
 
-  <ComponentCard name="Badge" href="/components/badge">
-    <Badge aria-hidden="true" label="3">Inbox</Badge>
-  </ComponentCard>
+    <Fragment slot="button">
+      <Button aria-hidden="true" inert variant="filled">Get started</Button>
+    </Fragment>
 
-  <ComponentCard name="Button" href="/components/button">
-    <Button aria-hidden="true" inert variant="filled">Get started</Button>
-  </ComponentCard>
+    <Fragment slot="button-group">
+      <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
+        <Button>Day</Button>
+        <Button>Week</Button>
+      </ButtonGroup>
+    </Fragment>
 
-  <ComponentCard name="Button Group" href="/components/button-group">
-    <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
-      <Button>Day</Button>
-      <Button>Week</Button>
-    </ButtonGroup>
-  </ComponentCard>
+    <Fragment slot="callout">
+      <Callout aria-hidden="true" variant="tonal" severity="neutral">
+        <CalloutContent>
+          <h3>Heads up!</h3>
+          Nah, just kidding. It wasn't important.
+        </CalloutContent>
+      </Callout>
+    </Fragment>
 
-  <ComponentCard name="Callout" href="/components/callout" size="wide">
-    <Callout aria-hidden="true" variant="tonal" severity="neutral">
-      <CalloutContent>
-        <h3>Heads up!</h3>
-        Nah, just kidding. It wasn't important.
-      </CalloutContent>
-    </Callout>
-  </ComponentCard>
-
-  <ComponentCard name="Card" href="/components/card" size="xl">
-    <Card aria-hidden="true" inert variant="outlined">
-      <CardHeader>
-        <p>Article</p>
-        <h3>Build something nice</h3>
-      </CardHeader>
-      <CardContent>
-        Components you can copy-paste into your project.
-      </CardContent>
-      <CardActions>
-        <Button variant="tonal" size="small">Read</Button>
-      </CardActions>
-    </Card>
-  </ComponentCard>
-
-  <ComponentCard name="Carousel" href="/components/carousel" size="wide">
-    <Carousel
-      aria-hidden="true"
-      inert
-      buttons="none"
-      class="showcase-carousel"
-      aria-label="Destinations"
-    >
-      {
-        ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
-          <li>
-            <Card variant="tonal">
-              <CardHeader>
-                <p>Destination</p>
-                <h3>{title}</h3>
-              </CardHeader>
-            </Card>
-          </li>
-        ))
-      }
-    </Carousel>
-  </ComponentCard>
-
-  <ComponentCard name="Checkbox" href="/components/checkbox">
-    <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
-  </ComponentCard>
-
-  <ComponentCard name="Chip" href="/components/chip">
-    <div aria-hidden="true" class="showcase-chips">
-      <Chip variant="outlined" label="HTML" />
-      <Chip variant="outlined" label="CSS" />
-    </div>
-  </ComponentCard>
-
-  <ComponentCard name="Description List" href="/components/description-list">
-    <DescriptionList aria-hidden="true" bordered dotted>
-      <DescriptionListItem>
-        <DescriptionListTerm>Name</DescriptionListTerm>
-        <DescriptionListDescription>Open Props UI</DescriptionListDescription>
-      </DescriptionListItem>
-      <DescriptionListItem>
-        <DescriptionListTerm>Status</DescriptionListTerm>
-        <DescriptionListDescription>Awesome</DescriptionListDescription>
-      </DescriptionListItem>
-    </DescriptionList>
-  </ComponentCard>
-
-  <ComponentCard name="Dialog" href="/components/dialog" size="wide">
-    <div class="showcase-backdrop" aria-hidden="true" inert>
-      <Card variant="elevated" class="showcase-dialog">
+    <Fragment slot="card">
+      <Card aria-hidden="true" inert variant="outlined">
         <CardHeader>
-          <h3>Discard draft?</h3>
+          <p>Article</p>
+          <h3>Build something nice</h3>
         </CardHeader>
-        <CardContent>You can't undo this.</CardContent>
+        <CardContent>
+          Components you can copy-paste into your project.
+        </CardContent>
         <CardActions>
-          <Button size="small">Cancel</Button>
-          <Button size="small" variant="filled">Discard</Button>
+          <Button variant="tonal" size="small">Read</Button>
         </CardActions>
       </Card>
-    </div>
-  </ComponentCard>
+    </Fragment>
 
-  <ComponentCard name="Divider" href="/components/divider">
-    <Divider variant="filled" aria-hidden="true" />
-  </ComponentCard>
-
-  <ComponentCard name="Drawer" href="/components/drawer">
-    <div class="showcase-backdrop showcase-drawer" aria-hidden="true" inert>
-      <div class="showcase-drawer-panel">
-        <p>Filters</p>
-        <Checkbox checked>In stock</Checkbox>
-        <Checkbox>On sale</Checkbox>
-      </div>
-    </div>
-  </ComponentCard>
-
-  <ComponentCard name="Form" href="/components/form" size="wide">
-    <Form aria-hidden="true" inert class="showcase-form">
-      <Fieldset>
-        <FieldLegend>Newsletter</FieldLegend>
-        <FieldDescription>We will spam you to hell.</FieldDescription>
-        <div class="showcase-form-row">
-          <TextField placeholder="you@example.com" />
-          <Button variant="filled">Subscribe</Button>
-        </div>
-      </Fieldset>
-    </Form>
-  </ComponentCard>
-
-  <ComponentCard name="List" href="/components/list" size="wide">
-    <List variant="transparent" aria-hidden="true" bordered dense>
-      <ListItem label="Angel Investor" description="Re: Horse thing pitch">
-        <Avatar slot="start">AI</Avatar>
-        <div slot="end">15:42</div>
-      </ListItem>
-      <ListItem
-        label="Jonathan Blow"
-        description="Where are we at with the Horse Tinder programming language?"
+    <Fragment slot="carousel">
+      <Carousel
+        aria-hidden="true"
+        inert
+        buttons="none"
+        class="showcase-carousel"
+        aria-label="Destinations"
       >
-        <Avatar slot="start">JB</Avatar>
-        <div slot="end">09:18</div>
-      </ListItem>
-    </List>
-  </ComponentCard>
+        {
+          ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
+            <li>
+              <Card variant="tonal">
+                <CardHeader>
+                  <p>Destination</p>
+                  <h3>{title}</h3>
+                </CardHeader>
+              </Card>
+            </li>
+          ))
+        }
+      </Carousel>
+    </Fragment>
 
-  <ComponentCard name="Menu" href="/components/menu">
-    <menu class="ui-menu showcase-menu" aria-hidden="true" inert>
-      <li>
-        <button type="button">
-          <div class="ui-text"><p>Edit</p></div>
-          <div class="ui-end"><kbd>E</kbd></div>
-        </button>
-      </li>
-      <li>
-        <button type="button">
-          <div class="ui-text"><p>Duplicate</p></div>
-          <div class="ui-end"><kbd>D</kbd></div>
-        </button>
-      </li>
-      <li class="ui-border-top ui-critical">
-        <button type="button">
-          <div class="ui-text"><p>Delete</p></div>
-        </button>
-      </li>
-    </menu>
-  </ComponentCard>
+    <Fragment slot="checkbox">
+      <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
+    </Fragment>
 
-  <ComponentCard name="Progress" href="/components/progress">
-    <Progress variant="filled" aria-busy="true" aria-hidden="true" />
-  </ComponentCard>
+    <Fragment slot="chip">
+      <div aria-hidden="true" class="showcase-chips">
+        <Chip variant="outlined" label="HTML" />
+        <Chip variant="outlined" label="CSS" />
+      </div>
+    </Fragment>
 
-  <ComponentCard name="Radio" href="/components/radio">
-    <FieldGroup name="index-radio-showcase" aria-hidden="true" inert>
-      <Radio checked>Whoa</Radio>
-      <Radio>Nice</Radio>
-    </FieldGroup>
-  </ComponentCard>
+    <Fragment slot="description-list">
+      <DescriptionList aria-hidden="true" bordered dotted>
+        <DescriptionListItem>
+          <DescriptionListTerm>Name</DescriptionListTerm>
+          <DescriptionListDescription>Open Props UI</DescriptionListDescription>
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Status</DescriptionListTerm>
+          <DescriptionListDescription>Awesome</DescriptionListDescription>
+        </DescriptionListItem>
+      </DescriptionList>
+    </Fragment>
 
-  <ComponentCard name="Range" href="/components/range" size="wide">
-    <Range
-      variant="filled"
-      aria-hidden="true"
-      inert
-      value={50}
-      min={0}
-      max={100}
-    />
-  </ComponentCard>
+    <Fragment slot="dialog">
+      <div class="showcase-backdrop" aria-hidden="true" inert>
+        <Card variant="elevated" class="showcase-dialog">
+          <CardHeader>
+            <h3>Discard draft?</h3>
+          </CardHeader>
+          <CardContent>You can't undo this.</CardContent>
+          <CardActions>
+            <Button size="small">Cancel</Button>
+            <Button size="small" variant="filled">Discard</Button>
+          </CardActions>
+        </Card>
+      </div>
+    </Fragment>
 
-  <ComponentCard name="Select" href="/components/select">
-    <FrameworkPicker />
-  </ComponentCard>
+    <Fragment slot="divider">
+      <Divider variant="filled" aria-hidden="true" />
+    </Fragment>
 
-  <ComponentCard name="Spinner" href="/components/spinner">
-    <p aria-busy="true" aria-hidden="true">Loading</p>
-    <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
-      Loading
-    </Button>
-  </ComponentCard>
+    <Fragment slot="drawer">
+      <div class="showcase-backdrop showcase-drawer" aria-hidden="true" inert>
+        <div class="showcase-drawer-panel">
+          <p>Filters</p>
+          <Checkbox checked>In stock</Checkbox>
+          <Checkbox>On sale</Checkbox>
+        </div>
+      </div>
+    </Fragment>
 
-  <ComponentCard name="Switch" href="/components/switch">
-    <Switch id="showcase-theme-switcher">Dark mode</Switch>
-  </ComponentCard>
+    <Fragment slot="form">
+      <Form aria-hidden="true" inert class="showcase-form">
+        <Fieldset>
+          <FieldLegend>Newsletter</FieldLegend>
+          <FieldDescription>We will spam you to hell.</FieldDescription>
+          <div class="showcase-form-row">
+            <TextField placeholder="you@example.com" />
+            <Button variant="filled">Subscribe</Button>
+          </div>
+        </Fieldset>
+      </Form>
+    </Fragment>
 
-  <ComponentCard name="Table" href="/components/table" size="wide">
-    <Table aria-hidden="true" density="dense">
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Band</TableHeaderCell>
-          <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Instrument</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        <TableRow>
-          <TableCell>Broken Bells</TableCell>
-          <TableCell>James Mercer</TableCell>
-          <TableCell>Vocals</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Radiohead</TableCell>
-          <TableCell>Ed O'Brien</TableCell>
-          <TableCell>Guitar</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
-  </ComponentCard>
+    <Fragment slot="layout">
+      <div class="ui-layout-grid ui-small showcase-layout" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </Fragment>
 
-  <ComponentCard name="Tabs" href="/components/tabs" size="wide">
-    <Tabs aria-hidden="true" inert name="index-tabs-showcase">
-      <TabsItem checked>
-        <TabsLabel>Profile</TabsLabel>
-        <TabsPanel>Profile settings and information.</TabsPanel>
-      </TabsItem>
-      <TabsItem>
-        <TabsLabel>Settings</TabsLabel>
-        <TabsPanel>General account settings.</TabsPanel>
-      </TabsItem>
-      <TabsItem>
-        <TabsLabel>Notifications</TabsLabel>
-        <TabsPanel>Manage your notifications.</TabsPanel>
-      </TabsItem>
-    </Tabs>
-  </ComponentCard>
+    <Fragment slot="list">
+      <List variant="transparent" aria-hidden="true" bordered dense>
+        <ListItem label="Angel Investor" description="Re: Horse thing pitch">
+          <Avatar slot="start">AI</Avatar>
+          <div slot="end">15:42</div>
+        </ListItem>
+        <ListItem
+          label="Jonathan Blow"
+          description="Where are we at with the Horse Tinder programming language?"
+        >
+          <Avatar slot="start">JB</Avatar>
+          <div slot="end">09:18</div>
+        </ListItem>
+      </List>
+    </Fragment>
 
-  <ComponentCard name="Text Field" href="/components/text-field">
-    <TextField aria-hidden="true" inert placeholder="you@example.com" />
-  </ComponentCard>
+    <Fragment slot="menu">
+      <menu class="ui-menu showcase-menu" aria-hidden="true" inert>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Edit</p></div>
+            <div class="ui-end"><kbd>E</kbd></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Duplicate</p></div>
+            <div class="ui-end"><kbd>D</kbd></div>
+          </button>
+        </li>
+        <li class="ui-border-top ui-critical">
+          <button type="button">
+            <div class="ui-text"><p>Delete</p></div>
+          </button>
+        </li>
+      </menu>
+    </Fragment>
 
-  <ComponentCard name="Textarea" href="/components/textarea">
-    <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
-  </ComponentCard>
+    <Fragment slot="progress">
+      <Progress variant="filled" aria-busy="true" aria-hidden="true" />
+    </Fragment>
 
-  <ComponentCard name="Toggle" href="/components/toggle">
-    <ToggleGroup aria-hidden="true" inert multiple>
-      <ToggleButton checked size="small" aria-label="Bold">
-        <strong>B</strong>
-      </ToggleButton>
-      <ToggleButton size="small" aria-label="Italic">
-        <i>I</i>
-      </ToggleButton>
-      <ToggleButton size="small" aria-label="Underline">
-        <u>U</u>
-      </ToggleButton>
-    </ToggleGroup>
-  </ComponentCard>
+    <Fragment slot="radio">
+      <FieldGroup name="index-radio-showcase" aria-hidden="true" inert>
+        <Radio checked>Whoa</Radio>
+        <Radio>Nice</Radio>
+      </FieldGroup>
+    </Fragment>
 
-  <ComponentCard name="Tooltip" href="/components/tooltip">
-    <Anchor class="ui-tooltip ui-arrow showcase-tooltip" aria-hidden="true">
-      <Button variant="outlined" inert>Save</Button>
-      <AnchorContent>Save your changes</AnchorContent>
-    </Anchor>
-  </ComponentCard>
+    <Fragment slot="range">
+      <Range
+        variant="filled"
+        aria-hidden="true"
+        inert
+        value={50}
+        min={0}
+        max={100}
+      />
+    </Fragment>
 
-  <ComponentCard name="Typography" href="/components/typography">
-    <div class="ui-rich-text showcase-typography" aria-hidden="true">
-      <hgroup>
-        <p>Chapter one</p>
-        <h3>The quick brown fox</h3>
-      </hgroup>
-    </div>
-  </ComponentCard>
+    <Fragment slot="select">
+      <FrameworkPicker />
+    </Fragment>
+
+    <Fragment slot="spinner">
+      <p aria-busy="true" aria-hidden="true">Loading</p>
+      <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
+        Loading
+      </Button>
+    </Fragment>
+
+    <Fragment slot="switch">
+      <Switch id="showcase-theme-switcher">Dark mode</Switch>
+    </Fragment>
+
+    <Fragment slot="table">
+      <Table aria-hidden="true" density="dense">
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Band</TableHeaderCell>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Instrument</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>Broken Bells</TableCell>
+            <TableCell>James Mercer</TableCell>
+            <TableCell>Vocals</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Radiohead</TableCell>
+            <TableCell>Ed O'Brien</TableCell>
+            <TableCell>Guitar</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Fragment>
+
+    <Fragment slot="tabs">
+      <Tabs aria-hidden="true" inert name="index-tabs-showcase">
+        <TabsItem checked>
+          <TabsLabel>Profile</TabsLabel>
+          <TabsPanel>Profile settings and information.</TabsPanel>
+        </TabsItem>
+        <TabsItem>
+          <TabsLabel>Settings</TabsLabel>
+          <TabsPanel>General account settings.</TabsPanel>
+        </TabsItem>
+        <TabsItem>
+          <TabsLabel>Notifications</TabsLabel>
+          <TabsPanel>Manage your notifications.</TabsPanel>
+        </TabsItem>
+      </Tabs>
+    </Fragment>
+
+    <Fragment slot="text-field">
+      <TextField aria-hidden="true" inert placeholder="you@example.com" />
+    </Fragment>
+
+    <Fragment slot="textarea">
+      <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
+    </Fragment>
+
+    <Fragment slot="toggle">
+      <ToggleGroup aria-hidden="true" inert multiple>
+        <ToggleButton checked size="small" aria-label="Bold">
+          <strong>B</strong>
+        </ToggleButton>
+        <ToggleButton size="small" aria-label="Italic">
+          <i>I</i>
+        </ToggleButton>
+        <ToggleButton size="small" aria-label="Underline">
+          <u>U</u>
+        </ToggleButton>
+      </ToggleGroup>
+    </Fragment>
+
+    <Fragment slot="tooltip">
+      <Anchor class="ui-tooltip ui-arrow showcase-tooltip" aria-hidden="true">
+        <Button variant="outlined" inert>Save</Button>
+        <AnchorContent>Save your changes</AnchorContent>
+      </Anchor>
+    </Fragment>
+
+    <Fragment slot="typography">
+      <div class="ui-rich-text showcase-typography" aria-hidden="true">
+        <hgroup>
+          <p>Chapter one</p>
+          <h3>The quick brown fox</h3>
+        </hgroup>
+      </div>
+    </Fragment>
+  </ShowcaseCards>
 
   <style is:global>
     .component-showcase {
@@ -519,6 +545,18 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
       & > .ui-text-field {
         flex: 1;
+      }
+    }
+
+    .showcase-layout {
+      --_min-inline-size: 4rem;
+
+      inline-size: 100%;
+
+      & > span {
+        background-color: var(--ui-surface-tonal);
+        block-size: var(--size-8);
+        border-radius: var(--radius-2);
       }
     }
 

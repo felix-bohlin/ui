@@ -61,6 +61,7 @@ const { frameworks, slotProp } =
   await import("../src/component-api/frameworks.ts")
 const { appliesTo, frameworkProps, modelsFor, shipped } =
   await import("../src/utils/component-source.ts")
+const { skillGuides } = await import("../src/utils/guide.ts")
 
 const COMPONENT_FRAMEWORKS = FRAMEWORKS.filter((f) => f.id !== "html")
 const LANGUAGES = {
@@ -70,7 +71,7 @@ const LANGUAGES = {
   svelte: "svelte",
   vue: "vue",
 }
-const GUIDES = ["customizing", "theming"]
+const GUIDES = skillGuides.filter((slug) => slug !== "getting-started")
 
 const kebab = (name) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()

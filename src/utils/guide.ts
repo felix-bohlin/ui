@@ -15,6 +15,8 @@ export const guidePages = [
 
 export const guideSlugs = guidePages.map((page) => page.slug)
 
+export const skillGuides = ["customizing", "getting-started", "theming"]
+
 export const guideIndex = (slug: string) => {
   const index = guideSlugs.indexOf(slug)
   return index === -1 ? guideSlugs.length : index

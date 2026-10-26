@@ -277,7 +277,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Replaces: no prose rule.
   - Fix: set `OPUI_TEST_PAGES=1` in the `check` script, use `--frozen-lockfile` in the hook, and add a unit test that reads the three Playwright versions and compares them.
   > Fix
-- [ ] (1) Docs site: some lists are kept in sync by hand: the accessibility guide's Per component list, the theme lists in `customizing.astro` and the package README, the release checks' Components and the ComponentShowcase (both miss Layout), and the guide slugs that `skill.test.ts` copies from `build-agent-skill.mjs` (`src/docs/guide/accessibility.astro:182-225`, `src/docs/guide/customizing.astro:67-92`, `packages/opui/README.md:199`, `packages/opui/README.md:213`, `docs/releases/6.0.0.md:36-115`, `tests/unit/skill.test.ts:8`)
+- [ ] (1) Docs site: some lists are kept in sync by hand: the accessibility guide's Per component list, the theme lists in `customizing.astro` and the package README, the release checks' Components and the ComponentShowcase (both miss Layout), and the guide slugs that `skill.test.ts` copies from `build-agent-skill.mjs` (`src/docs/guide/accessibility.astro:182-194`, `src/docs/guide/customizing.astro:67-92`, `packages/opui/README.md:199`, `packages/opui/README.md:213`, `docs/releases/6.0.0.md:36-115`, `tests/unit/skill.test.ts:8`)
   - Summary: Adding a component, theme or guide page means updating several lists by hand, and some already miss one.
   - Recommended: Fix with option A. A generated list can't drift.
   - Replaces: no prose rule.

@@ -1,11 +1,11 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import path from "node:path"
 import { describe, expect, test } from "vitest"
+import { skillGuides } from "../../src/utils/guide"
 
 const PACKAGE = "packages/opui"
 const SKILL = path.join(PACKAGE, "skills/opui")
 const REFERENCES = path.join(SKILL, "references")
-const GUIDES = ["customizing", "getting-started", "theming"]
 
 const skill = readFileSync(path.join(SKILL, "SKILL.md"), "utf8")
 const manifest = JSON.parse(
@@ -139,7 +139,7 @@ test("every component page has a reference", () => {
 
 test("no reference is orphaned", () => {
   const expected = new Set(
-    [...pages, ...GUIDES, "index"].map((name) => `${name}.md`),
+    [...pages, ...skillGuides, "index"].map((name) => `${name}.md`),
   )
   expect(referenceFiles.filter((file) => !expected.has(file))).toEqual([])
 })

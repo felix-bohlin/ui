@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs"
+import { readdirSync, readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import opui from "../../packages/opui/package.json"
 import released from "./released-api.json"
@@ -88,3 +88,28 @@ test("reads the package and the released guards", () => {
     ),
   )
 })
+
+const releaseChecks = readdirSync("docs/releases")
+  .filter((file) => file.endsWith(".md"))
+  .map((file) => ({
+    components: readFileSync(`docs/releases/${file}`, "utf8").match(
+      /^## Components\n([\s\S]*?)(?=^## |(?![\s\S]))/m,
+    )?.[1],
+    file,
+  }))
+  .filter(({ components }) => components !== undefined)
+
+test.each(releaseChecks)(
+  "the Components checks in docs/releases/$file link every component page",
+  ({ components }) => {
+    const pages = readdirSync("src/docs/components")
+      .filter((file) => file.endsWith(".astro"))
+      .map((file) => file.replace(/\.astro$/, ""))
+    expect(
+      pages.filter(
+        (slug) => !components?.includes(`/html/components/${slug}/`),
+      ),
+      "add a check for the page under ## Components",
+    ).toEqual([])
+  },
+)

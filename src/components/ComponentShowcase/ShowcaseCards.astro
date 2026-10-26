@@ -1,0 +1,29 @@
+---
+import { components } from "../../utils/components"
+import ComponentCard from "./ComponentCard.astro"
+
+type Props = {
+  sizes: Record<string, "wide" | "xl">
+}
+
+const { sizes } = Astro.props
+
+const cards = await Promise.all(
+  components.map(async ({ name, slug }) => {
+    if (!Astro.slots.has(slug)) {
+      throw new Error(
+        `Add a <Fragment slot="${slug}"> preview for src/docs/components/${slug}.astro to src/components/ComponentShowcase/ComponentShowcase.astro`,
+      )
+    }
+    return { html: await Astro.slots.render(slug), name, slug }
+  }),
+)
+---
+
+{
+  cards.map(({ html, name, slug }) => (
+    <ComponentCard name={name} href={`/components/${slug}`} size={sizes[slug]}>
+      <Fragment set:html={html} />
+    </ComponentCard>
+  ))
+}

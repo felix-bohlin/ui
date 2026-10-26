@@ -22,6 +22,11 @@ export const components = Array.from(slugs)
   }))
   .sort((a, b) => a.name.localeCompare(b.name))
 
+export const componentsWithSlot = (slot: string) =>
+  components.filter(({ slug }) =>
+    docSources[`../docs/components/${slug}.astro`]?.includes(`slot="${slot}"`),
+  )
+
 export const dependenciesOf = (slug: string) =>
   [
     ...(docSources[`../docs/components/${slug}.astro`]?.matchAll(

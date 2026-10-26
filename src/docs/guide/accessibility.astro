@@ -3,6 +3,7 @@ import Guide from "../../layouts/Guide.astro"
 import Code from "../../components/Code.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import { componentsWithSlot } from "../../utils/components"
 ---
 
 <Guide overline="Guide">
@@ -182,46 +183,13 @@ import DocLink from "../../components/DocLink.astro"
     <h2 id="per-component">Per component</h2>
     <p>Some pages have their own notes:</p>
     <ul>
-      <li>
-        <DocLink href="/components/accordion#accessibility">Accordion</DocLink>
-      </li>
-      <li>
-        <DocLink href="/components/avatar#accessibility">Avatar</DocLink>
-      </li>
-      <li><DocLink href="/components/badge#accessibility">Badge</DocLink></li>
-      <li>
-        <DocLink href="/components/callout#accessibility">Callout</DocLink>
-      </li>
-      <li>
-        <DocLink href="/components/carousel#accessibility">Carousel</DocLink>
-      </li>
-      <li>
-        <DocLink href="/components/checkbox#accessibility">Checkbox</DocLink>
-      </li>
-      <li>
-        <DocLink href="/components/dialog#accessibility">Dialog</DocLink>
-      </li>
-      <li>
-        <DocLink href="/components/drawer#accessibility">Drawer</DocLink>
-      </li>
-      <li><DocLink href="/components/menu#accessibility">Menu</DocLink></li>
-      <li>
-        <DocLink href="/components/progress#accessibility">Progress</DocLink>
-      </li>
-      <li><DocLink href="/components/radio#accessibility">Radio</DocLink></li>
-      <li><DocLink href="/components/range#accessibility">Range</DocLink></li>
-      <li>
-        <DocLink href="/components/select#accessibility">Select</DocLink>
-      </li>
-      <li>
-        <DocLink href="/components/switch#accessibility">Switch</DocLink>
-      </li>
-      <li><DocLink href="/components/table#accessibility">Table</DocLink></li>
-      <li><DocLink href="/components/tabs#accessibility">Tabs</DocLink></li>
-      <li>
-        <DocLink href="/components/text-field#accessibility">Text field</DocLink
-        >
-      </li>
+      {
+        componentsWithSlot("accessibility").map(({ name, slug }) => (
+          <li>
+            <DocLink href={`/components/${slug}#accessibility`}>{name}</DocLink>
+          </li>
+        ))
+      }
     </ul>
   </section>
 

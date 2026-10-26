@@ -7,7 +7,7 @@ const root = fileURLToPath(new URL("..", import.meta.url))
 
 const GENERATED = JSON.parse(
   readFileSync(join(root, "scripts/generated-files.json"), "utf-8"),
-)
+).files
 
 const SKIPPED = ["tests/"]
 

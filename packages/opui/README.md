@@ -210,7 +210,7 @@ Importing a React component from `opui-css/components/*` skips the type augmenta
 
 ## Themes
 
-Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Four example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
 
 ```css
 @import "opui-css/css/imports.css";

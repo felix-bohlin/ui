@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm build-search-index && astro build && pnpm build-skill && pnpm check-dist",
+    "build": "pnpm build-search-index && pnpm build-readme && astro build && pnpm build-skill && pnpm check-dist",
+    "build-readme": "node scripts/build-readme.mjs",
     "build-search-index": "node scripts/generate-search-index.mjs",
     "build-skill": "node scripts/build-agent-skill.mjs",
     "check": "export OPUI_TEST_PAGES=1 && pnpm check:fast && pnpm build && pnpm test:package",

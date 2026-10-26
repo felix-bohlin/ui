@@ -30,18 +30,18 @@ jobs:
       - run: pnpm check
       - name: List the regenerated files
         run: |
-          mapfile -t files < <(jq -r '.[]' scripts/generated-files.json)
+          mapfile -t files < <(jq -r '.files[], .sections[]' scripts/generated-files.json)
           test "${#files[@]}" -gt 0
           git add --intent-to-add -- "${files[@]}"
       - if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
         name: Check the regenerated files
         run: |
-          mapfile -t files < <(jq -r '.[]' scripts/generated-files.json)
+          mapfile -t files < <(jq -r '.files[], .sections[]' scripts/generated-files.json)
           git diff --exit-code -- "${files[@]}"
       - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         name: Commit the regenerated files
         run: |
-          mapfile -t files < <(jq -r '.[]' scripts/generated-files.json)
+          mapfile -t files < <(jq -r '.files[], .sections[]' scripts/generated-files.json)
           if git diff --quiet -- "${files[@]}"; then exit 0; fi
           git diff --stat -- "${files[@]}"
           git diff --binary -- "${files[@]}" > "$RUNNER_TEMP/generated.patch"

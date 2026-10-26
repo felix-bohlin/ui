@@ -2,6 +2,11 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { join, relative, sep } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parse } from "parse5"
+import {
+  FRAMEWORK_FREE_PREFIXES,
+  FRAMEWORK_IDS,
+} from "../src/utils/framework.js"
+import { markdownPath } from "../src/utils/markdown.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const dist = join(root, "dist")
@@ -30,6 +35,7 @@ const pages = new Map()
 for (const file of files.filter((file) => file.endsWith(".html"))) {
   const ids = []
   const links = []
+  let noindex = false
   let redirect
   const visit = (node, inExample = false) => {
     if (node.tagName === "template") return
@@ -50,13 +56,26 @@ for (const file of files.filter((file) => file.endsWith(".html"))) {
     ) {
       redirect = attr(node, "content")?.match(/url=(.+)$/i)?.[1]
     }
+    if (
+      node.tagName === "meta" &&
+      attr(node, "name")?.toLowerCase() === "robots" &&
+      /\bnoindex\b/i.test(attr(node, "content") ?? "")
+    ) {
+      noindex = true
+    }
     const example =
       inExample ||
       Boolean(attr(node, "class")?.split(/\s+/).includes("example-preview"))
     for (const child of node.childNodes ?? []) visit(child, example)
   }
   visit(parse(readFileSync(file, "utf-8")))
-  pages.set(urlPath(file), { ids: new Set(ids), links, redirect, all: ids })
+  pages.set(urlPath(file), {
+    ids: new Set(ids),
+    links,
+    noindex,
+    redirect,
+    all: ids,
+  })
 }
 
 const isFile = (path) => {
@@ -130,6 +149,73 @@ for (const file of files.filter((file) => /\.(?:md|txt)$/.test(file))) {
   for (const [, href] of text.matchAll(MARKDOWN_LINK)) {
     if (/^(?:https?:)?\/\//.test(href) || href.startsWith("/")) {
       checkLink(href, from)
+    }
+  }
+}
+
+const indexable = (path) => {
+  const page = pages.get(path)
+  return page && !page.redirect && !page.noindex
+}
+
+for (const file of files.filter((file) => /sitemap-\d+\.xml$/.test(file))) {
+  for (const [, loc] of readFileSync(file, "utf-8").matchAll(
+    /<loc>([^<]+)<\/loc>/g,
+  )) {
+    const path = new URL(loc).pathname
+    if (pages.get(path)?.noindex) {
+      problem(
+        `${path} is noindex but listed in the sitemap; the sitemap() filter in astro.config.mjs drops noindex pages`,
+        urlPath(file),
+      )
+    }
+  }
+}
+
+const NO_MARKDOWN = /^\/[^/]+\/$/
+const NOT_IN_LLMS = /^\/[^/]+\/(?:components\/)?$/
+
+for (const [path] of pages) {
+  const shared = FRAMEWORK_FREE_PREFIXES.some(
+    (prefix) => path === `${prefix}/` || path.startsWith(`${prefix}/`),
+  )
+  const framework = FRAMEWORK_IDS.find((id) => path.startsWith(`/${id}/`))
+  if ((!shared && !framework) || !indexable(path) || NO_MARKDOWN.test(path)) {
+    continue
+  }
+  if (!isFile(markdownPath(path))) {
+    problem(
+      `${path} has no Markdown version: articleToMarkdown in src/integrations/html-to-markdown.mjs found no #main-content > article`,
+      path,
+    )
+  }
+}
+
+for (const framework of FRAMEWORK_IDS) {
+  const llms = `/${framework}/llms.txt`
+  if (!isFile(llms)) {
+    problem(`${llms} does not exist`, `/${framework}/`)
+    continue
+  }
+  const listed = new Set(
+    [...readFileSync(join(dist, llms), "utf-8").matchAll(MARKDOWN_LINK)].map(
+      ([, href]) => new URL(href, site).pathname,
+    ),
+  )
+  for (const [path] of pages) {
+    if (
+      !path.startsWith(`/${framework}/`) ||
+      !indexable(path) ||
+      NOT_IN_LLMS.test(path) ||
+      !isFile(markdownPath(path))
+    ) {
+      continue
+    }
+    if (!listed.has(markdownPath(path))) {
+      problem(
+        `${markdownPath(path)} is not linked from ${llms}; llmsTxt in src/integrations/llms.mjs lists component, guide, learn, block and api pages`,
+        path,
+      )
     }
   }
 }

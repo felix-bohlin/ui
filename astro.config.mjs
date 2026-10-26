@@ -1,5 +1,5 @@
 // @ts-check
-import { readdirSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import {
   defineConfig,
@@ -56,6 +56,17 @@ const legacyRedirects = {
   ),
 }
 
+/** @type {URL | undefined} */
+let outDir
+const NOINDEX =
+  /<meta\b(?=[^>]*\bname="robots")(?=[^>]*\bcontent="[^"]*\bnoindex)[^>]*>/i
+/** @param {string} page */
+const indexable = (page) => {
+  if (!outDir) return true
+  const file = new URL(`.${new URL(page).pathname}index.html`, outDir)
+  return !existsSync(file) || !NOINDEX.test(readFileSync(file, "utf-8"))
+}
+
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
@@ -64,8 +75,16 @@ export default defineConfig({
   site: "https://open-props-ui.netlify.app/",
   redirects: legacyRedirects,
   integrations: [
+    {
+      name: "opui-out-dir",
+      hooks: {
+        "astro:config:done": ({ config }) => {
+          outDir = config.outDir
+        },
+      },
+    },
     vue(),
-    sitemap(),
+    sitemap({ filter: indexable }),
     svelte(),
     react({ include: [/\.react\.tsx$/] }),
     llms(),

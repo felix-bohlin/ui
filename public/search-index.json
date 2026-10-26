@@ -1826,7 +1826,7 @@
   },
   {
     "id": "guide-migrating-html",
-    "title": "{title}",
+    "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
@@ -1835,7 +1835,7 @@
   },
   {
     "id": "guide-migrating-astro",
-    "title": "{title}",
+    "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
@@ -1844,7 +1844,7 @@
   },
   {
     "id": "guide-migrating-react",
-    "title": "{title}",
+    "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
@@ -1853,7 +1853,7 @@
   },
   {
     "id": "guide-migrating-svelte",
-    "title": "{title}",
+    "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
@@ -1862,7 +1862,7 @@
   },
   {
     "id": "guide-migrating-vue",
-    "title": "{title}",
+    "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",

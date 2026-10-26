@@ -447,6 +447,14 @@ const outputId = `${groupName}-output`
     ) as HTMLElement | null
 
     if (toggleBtn) {
+      toggleBtn.addEventListener("focus", () => {
+        const { bottom, top } = toggleBtn.getBoundingClientRect()
+        if (top < 0 || bottom > innerHeight) {
+          container
+            .querySelector(".example-preview")
+            ?.scrollIntoView({ block: "end" })
+        }
+      })
       toggleBtn.addEventListener("click", () => {
         const template = container.querySelector<HTMLTemplateElement>(
           "template.example-code",

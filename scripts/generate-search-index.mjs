@@ -53,7 +53,18 @@ function readMeta(file) {
 
   if (!titleMatch) throw new Error(`${file} has no title slot`)
 
-  const title = titleMatch[1].replace(/<[^>]*>/g, "").trim()
+  const slotTitle = titleMatch[1].replace(/<[^>]*>/g, "").trim()
+  const title = /^\{.*\}$/s.test(slotTitle)
+    ? (importedMarkdown(file, content)
+        .match(/^# (.+)$/m)?.[1]
+        .replace(/`/g, "")
+        .trim() ?? "")
+    : slotTitle
+  if (!title || /[{}]/.test(title)) {
+    throw new Error(
+      `${file} has a title slot the search index can't read: write the title as text, or set it from the first heading of the Markdown file the page imports`,
+    )
+  }
   const preamble = descriptionExportMatch
     ? descriptionExportMatch[1].slice(1, -1)
     : preambleMatch
@@ -69,13 +80,16 @@ function readMeta(file) {
   return { title, preamble, headings }
 }
 
-function readMarkdownHeadings(file, content) {
+function importedMarkdown(file, content) {
   const importMatch = content.match(/from\s+["']([^"']+\.md)["']/)
-  if (!importMatch) return []
-  const markdown = fs.readFileSync(
-    path.resolve(path.dirname(file), importMatch[1]),
-    "utf-8",
-  )
+  return importMatch
+    ? fs.readFileSync(path.resolve(path.dirname(file), importMatch[1]), "utf-8")
+    : ""
+}
+
+function readMarkdownHeadings(file, content) {
+  const markdown = importedMarkdown(file, content)
+  if (!markdown) return []
   const firstSection = markdown.split(/^# /m)[1] ?? ""
   return Array.from(firstSection.matchAll(/^##+ (.+)$/gm), (m) =>
     m[1].replace(/`/g, "").trim(),

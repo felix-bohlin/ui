@@ -19,7 +19,7 @@ The files you are given, or `git diff --name-only` against the base branch when 
 
 ## Already checked by tools
 
-Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: declaration order, physical properties, the `ui-` class prefix, unknown properties, undefined custom properties (in the package and in `src/` styles), and private `--_` properties a component reads without defining them in its own file or its base file. Run them when they help, and report a failure in one line.
+Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: declaration order, physical properties, the `ui-` class prefix, unknown properties, `!important`, vendor prefixes, `:hover` outside `@media (hover: hover)`, `:focus`, state classes, unused classes, transitions and animations that skip `--_motion` (the `opui/*` rules in `stylelint.config.mjs`), undefined custom properties (in the package and in `src/` styles), and private `--_` properties a component reads without defining them in its own file or its base file. Run them when they help, and report a failure in one line.
 
 ## Quality
 
@@ -30,10 +30,8 @@ Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: de
 - `--_size` is the one name for a control's size, the private side of the `--ui-*-size` tokens the size classes set: the height, and the width of a square control (`Avatar`, `Button`, `Checkbox`, `Radio`, `ToggleButton`). The CSS property it feeds (`block-size`, `min-block-size`, `inline-size`) doesn't change the name, and a part's size takes the part's prefix (`--_icon-size`, `--_thumb-size`, `--_track-block-size`). A box that isn't a control names its axis like the CSS property: `--_block-size` and `--_inline-size` (`Carousel`, `Drawer`), `--_max-inline-size` (`Dialog`, `Tooltip`), `--_min-block-size` (`Menu`). `--_input-size` and `--_min-height` are findings.
 - `selected` names the chosen item (a selected tab, row, option or marker, a checked toggle button): `--_selected-bg-color`, `--_marker-selected-bg-color`. `active` only names the `:active` press, next to `hover`: `--_filled-active-bg-color`, `--_filled-hover-bg-color`.
 - A stylesheet that styles several components declares their shared properties once, and a component it styles sets them in its own file instead of declaring a second property for the same job: `card.css` declares `--_elevated-shadow` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and `dialog.css` sets it to `--ui-shadow-overlay`; `choice.css` declares `--_size` for `.ui-checkbox`, `.ui-radio` and `.ui-switch`, and `switch.css` sets it to the track height. Both `custom-properties` files document the property.
-- No dead selectors: every class and part is used by a component, an example or the docs. Grep for it in `packages/opui/components` and `src/component-examples`.
-- No duplicated blocks that a shared rule or token could replace, and no specificity fights that need `!important` or repeated classes.
-- Hover styles sit in `@media (hover: hover)`. Focus styles use `:focus-visible`. Motion respects `--ui-motion` and `prefers-reduced-motion`.
-- States use native attributes and pseudo-classes (`:disabled`, `[aria-disabled="true"]`, `:checked`, `:user-invalid`, `[open]`), not state classes.
+- No duplicated blocks that a shared rule or token could replace, and no specificity fights won with repeated classes.
+- Lint only sees `transition`, `animation` and the common state names: other motion, such as `scroll-behavior: smooth`, also stops at `--ui-motion: 0`, and any other state class is still a finding.
 - Light and dark both work: colors go through `light-dark()` or tokens that do.
 - RTL works: no direction-dependent transforms or gradients without a `:dir(rtl)` case.
 - No component `@container style(--ui-contrast: more)` block re-tunes a number (a lightness, chroma or alpha). Limits are tokens in `theme.css` that its contrast block raises; a component block only changes shape or swaps to another role.

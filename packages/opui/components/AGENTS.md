@@ -481,12 +481,12 @@ A new token is declared when one default serves every reader, optional when a co
 
 A new token follows the naming model, so each word means one thing:
 
-- `--ui-on-{fill}` is the text and icon color on a fill: `--ui-on-primary`, `--ui-on-selected`, `--ui-palette-on-tint`. Never `-contrast`, which only names the contrast mode (`--ui-contrast`).
+- `--ui-on-{fill}` is the text and icon color on a fill: `--ui-on-primary`, `--ui-on-selected`, `--ui-palette-on-tint`. `tests/unit/css-properties.test.ts` fails on a `-contrast` name.
 - `-text` after a color is that color tuned for reading: `--ui-primary-text`, `--ui-invalid-text`. Every intent has one, derived with `--ui-text-max-lightness` and `--ui-text-min-lightness`.
 - Variant and context come last: `-filled` for a filled control (`--ui-control-border-color-filled`), `-on-{surface}` for what is drawn on a surface (`--ui-border-color-on-raised`).
 - `light` and `dark` only name a color scheme, `inverse` only the opposite of it, `primary` only the brand color, and `elevated`, `filled` and `tonal` only their variants. `raised` is any surface above the page.
 - One part, one word: the radius family is `--ui-radius-*`, and the Switch part is the thumb.
-- `--ui-on-{fill}` always has a `--ui-{fill}` or a `--ui-surface-{fill}` to sit on (`--ui-on-primary` on `--ui-primary`, `--ui-on-inverse` on `--ui-surface-inverse`). The mark on a severity fill is `--ui-palette-on-strong`, since the fill is the palette's strong shade. The one exception is `--ui-on-fill`, the text on every intent fill: an intent color kept within `--ui-accent-fill-max-lightness`, which has no token of its own because each intent is one.
+- `tests/unit/css-properties.test.ts` fails on an `--ui-on-{fill}` without a fill to sit on. The mark on a severity fill is `--ui-palette-on-strong`, since the fill is the palette's strong shade.
 - The default of a family is the bare name, and modifiers add a suffix: `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`; `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-inverse`; `--ui-line-height` and `--ui-line-height-control`.
 - `control` is anything a user operates (buttons, chips, toggles, tabs, fields), and `field` is the subset that holds a value. A `--ui-field-*` token exists only where fields differ from other controls, and the size tokens of each are aliases of `--ui-control-size*`.
 - A token that names a color by its role carries no suffix (`--ui-primary`, `--ui-selected`, `--ui-button-accent`). A token that names a property of a part ends in what it paints.

@@ -125,3 +125,16 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 14
+
+  screenshots:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: node scripts/check-screenshot-authors.mjs "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}

@@ -9,11 +9,11 @@ This guide defines the standards for implementing reusable UI components in this
 When implementing or updating a component, ensure:
 
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
-- [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
+- [ ] **Title Export**: `export const title = "Component Name"` in `<Name>.astro`, which the docs read (`pnpm check-components` fails without it).
 - [ ] **Props Type**: A component types its props with `Props` (the root) or `<Root><Part>Props` (a part, `CardActionsProps`) from its framework's own types file (`./types.astro`, `./types.react`, `./types.svelte`, `./types.vue-props`), and Vue its slots with `Slots` or, for a part with its own slots, `<Root><Part>Slots` (`AccordionSummarySlots`); `pnpm check-components` checks the names and the imports. `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.vue-props.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
 - [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last with `children` first. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of every object type in the type files, the order of the destructured props (React's slots are the Svelte twin's snippets), `className` last, and the order of every class list against Astro.
 - [ ] **Rest Props**: `...rest` goes onto the root element, or the input of a form control. `pnpm check-components` checks that Astro, React and Svelte capture and spread it, and that Vue binds the attributes it doesn't inherit.
-- [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
+- [ ] **Class Management**: The class list of section 3 in each framework; `pnpm check-components` checks the `ui-` prefix and that every framework keeps Astro's order.
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
 - [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
 - [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
@@ -121,9 +121,7 @@ Slots are props: the default slot is `children`, named slots are camelCased `Rea
 
 ### Key Rules:
 
-- **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.
-- **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring. Do not add `[key: string]: any` to `types.ts` - native attributes belong in the framework type files.
-- **Title Export**: This is mandatory for documentation generation.
+- **REST Support**: Native attributes come from `HTMLAttributes` in `types.astro.ts` and the other framework type files, never from `types.ts`. `pnpm check-components` checks the `...rest` spread and fails on an index signature such as `[key: string]: any`.
 
 ---
 
@@ -147,7 +145,7 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 
 ### Styling Inheritance
 
-Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Badge` and `Tooltip` position like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-badge, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles. All library classes are prefixed with `ui-`.
+Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Badge` and `Tooltip` position like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-badge, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles.
 
 ```astro
 <details
@@ -175,7 +173,7 @@ Follow this order for readability:
 3.  **Variant Props**: Interpolate the prefix from the prop value, and skip the default, which adds no class (e.g., `size && size !== "medium" && \`ui-${size}\``).
 4.  **External Class**: Always include `className` (Astro, React and Svelte) or `$props.class` (Vue) at the end to allow for overrides. Do not prefix it.
 
-Native states use native attributes, not classes: a disabled `<button>` gets `disabled`, a disabled link gets `aria-disabled="true"`.
+Native states use native attributes, not classes: a disabled `<button>` gets `disabled`, a disabled link gets `aria-disabled="true"`. Stylelint (`opui/state-classes`) rejects state classes in the CSS.
 
 ### Naming props, values and classes
 
@@ -292,8 +290,6 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 - Defaults live in the part that renders them: `AccordionSummary` renders the chevron, `CalloutIcon` the severity icon.
 - Parts must be direct children of their root, because the CSS targets `> .ui-header`, `> .ui-content` and so on. Title parts sit inside their region part: `DialogTitle` in `DialogHeader` and `DrawerTitle` in `DrawerHeader`. Other titles are plain headings in their region part, like `<h3>` in `CardHeader` or `CalloutContent`.
 - Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.svelte.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `context.vue.ts` (Vue). All four take their shape from the `Context` type in `types.ts`, and Vue provides it as a `reactive()` object. A folder with one of them has all four. `pnpm check-components` checks the four files, their imports and exports, and that Vue provides a `reactive()` object. Ids are deterministic, so every framework renders the same markup on the server.
-- Parts without context stay React server components.
-- Every part is exported from all four barrels with its `Props` type.
 
 ```astro
 <Card variant="outlined">
@@ -459,9 +455,9 @@ type Props = { items?: Item[] }
 ## 8. Development Workflow
 
 1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.react.tsx`, `.svelte` and `.vue` per example). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
-2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). Every prop and slot the component exposes must be described there, or the docs build fails.
+2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). `[component-api]` problems in `pnpm test` and the build list what it's missing.
 3.  **Implement**: Follow the checklist in Section 0, for Astro, React, Svelte and Vue.
-4.  **Verify**: Run `npx vitest run tests/unit/parity.test.ts`: Astro output must match the HTML example, and React, Svelte and Vue output must match Astro. Then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+4.  **Verify**: Run `pnpm exec vitest run tests/unit/parity.test.ts`, then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 ---
 
@@ -469,7 +465,7 @@ type Props = { items?: Item[] }
 
 ### Read roles, never primitives
 
-Component CSS reads `--ui-*` role tokens and its own `--_*` properties. It never reads a palette step (`--ui-color-N`, `--ui-gray-N`), an Open Props primitive (`--size-*`, `--font-size-*`, `--radius-*`, `--shadow-*`) or a literal `px` or `rem` length; `ex`, `em`, `lh` and `ch` values that scale with the type are fine. A `--_*` input documented in `src/component-api/custom-properties/` may default to a length in its `:where()` rule, such as a Drawer's size, because it is the knob to change it. Modifiers such as `.ui-large` set it from roles. `pnpm check-css-vars` skips the step of `round()`, `@property` initial values and `/ 1rem` divisors, and fails on each one that `scripts/css-vars-allowlist.json` doesn't list, and the list only shrinks. When a component has a job an existing role names, it reads that role: `--ui-control-border-color` for the border of an unfilled control, `--ui-control-border-color-filled` for a filled one, `--ui-selected` and `--ui-on-selected` for the fill of a selected item, `--ui-selected-strong` and `--ui-on-selected-strong` for the mark that has to stand out on its own (a current marker, a bar, a filled selected tab), `--ui-primary-text`, `--ui-critical-text` and the other intent `-text` roles for colored text outside a severity scope, `oklch(from <intent> min(l, var(--ui-accent-fill-max-lightness)) c h)` for an intent fill under `--ui-on-fill` text (its border keeps the intent color, and a checked mark, which needs 3:1, keeps the limit in `choice.css`), `--ui-surface-tonal-hover` for a hovered tonal surface, `--ui-disabled-opacity` for every disabled control plus `--ui-text-disabled` for the label of a control without a fill (text and outlined buttons, chips, toggle buttons), `--ui-underline-*` for underlines, `--ui-choice-accent` for a checked mark, `--ui-track-bg-color` for an empty track, `--ui-shadow-control` for a control's shadow, `--ui-shadow-overlay` for a floating surface, `--ui-radius-small` for a small part, `--ui-font-size-caption` and `--ui-font-size-small` for small text, `--ui-space-N` for every gap and padding, and the `--ui-palette-*` roles for the shades of the current palette inside a severity scope. A new token is named by its role, not the component, is declared in `theme.css` with today's value, or optional with today's value as the fallback at every read site, has an `--ui-on-*` pair when it is a fill, and gets a description in `src/utils/theme-token-descriptions.ts`, a promise in `src/utils/theme-token-promises.ts` when it guarantees contrast, a CHANGELOG entry and a What's new note.
+Component CSS reads `--ui-*` role tokens and its own `--_*` properties, and `pnpm check-css-vars` fails on a palette step, an Open Props primitive or a literal `px` or `rem` length, with what to read instead. A `--_*` input documented in `src/component-api/custom-properties/` may default to a length in its `:where()` rule, such as a Drawer's size, because it is the knob to change it; modifiers such as `.ui-large` set it from roles. When a component has a job an existing role names, it reads that role: `--ui-control-border-color` for the border of an unfilled control, `--ui-control-border-color-filled` for a filled one, `--ui-selected` and `--ui-on-selected` for the fill of a selected item, `--ui-selected-strong` and `--ui-on-selected-strong` for the mark that has to stand out on its own (a current marker, a bar, a filled selected tab), `--ui-primary-text`, `--ui-critical-text` and the other intent `-text` roles for colored text outside a severity scope, `oklch(from <intent> min(l, var(--ui-accent-fill-max-lightness)) c h)` for an intent fill under `--ui-on-fill` text (its border keeps the intent color, and a checked mark, which needs 3:1, keeps the limit in `choice.css`), `--ui-surface-tonal-hover` for a hovered tonal surface, `--ui-disabled-opacity` for every disabled control plus `--ui-text-disabled` for the label of a control without a fill (text and outlined buttons, chips, toggle buttons), `--ui-underline-*` for underlines, `--ui-choice-accent` for a checked mark, `--ui-track-bg-color` for an empty track, `--ui-shadow-control` for a control's shadow, `--ui-shadow-overlay` for a floating surface, `--ui-radius-small` for a small part, `--ui-font-size-caption` and `--ui-font-size-small` for small text, `--ui-space-N` for every gap and padding, and the `--ui-palette-*` roles for the shades of the current palette inside a severity scope. A new token is named by its role, not the component, is declared in `theme.css` with today's value, or optional with today's value as the fallback at every read site, has an `--ui-on-*` pair when it is a fill, and gets a description in `src/utils/theme-token-descriptions.ts`, a promise in `src/utils/theme-token-promises.ts` when it guarantees contrast, a CHANGELOG entry and a What's new note.
 
 ### Declared, optional and hook tokens
 

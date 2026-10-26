@@ -3,7 +3,12 @@ import { describe, expect, test } from "vitest"
 import type { ComponentApi } from "../../src/component-api/types"
 import { components } from "../../src/utils/components"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { migratingAnchor } from "../../src/utils/migrating"
+import { classNamesIn } from "../../src/utils/package-source"
+import { themeTokens } from "../../src/utils/theme-tokens"
 import { whatsNewFor } from "../../src/utils/whats-new"
+import releasedApi from "./released-api.json"
+import releasedTokens from "./released-tokens.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 const start = changelog.indexOf("\n## ")
@@ -155,3 +160,69 @@ test.each(noted)(
     ).toEqual([])
   },
 )
+
+const migrating = readFileSync("packages/opui/MIGRATING.md", "utf8")
+
+test("Breaking entries have a MIGRATING.md section for each component they start with", () => {
+  expect(
+    sections
+      .filter(({ title }) => title === "Breaking")
+      .flatMap(({ entries }) => entries.flatMap(subjects))
+      .filter((component, index, all) => all.indexOf(component) === index)
+      .filter(
+        (component) => !migratingAnchor(migrating, pageOf(component) ?? ""),
+      )
+      .map((component) => `${component} (${pageOf(component)})`),
+    "add a ## section for the page to packages/opui/MIGRATING.md, or map the page to its section in MIGRATING_SECTIONS in src/utils/migrating.ts",
+  ).toEqual([])
+})
+
+const sinceRelease = (version: string) =>
+  changelog.slice(0, changelog.indexOf(`\n## ${version} `))
+
+const namedIn = (text: string) => {
+  const names = new Set(
+    [...text.matchAll(/`([^`]+)`/g)].flatMap(
+      ([, span]) => span.match(/(?:--|\.)[\w-]+/g) ?? [],
+    ),
+  )
+  const ranges = [...text.matchAll(/`([^`]*?)(\d+)` to `\1(\d+)`/g)].map(
+    ([, prefix, from, to]) => ({ from: Number(from), prefix, to: Number(to) }),
+  )
+  return (name: string) =>
+    names.has(name) ||
+    ranges.some(({ from, prefix, to }) => {
+      const step = name.startsWith(prefix) ? name.slice(prefix.length) : ""
+      return /^\d+$/.test(step) && Number(step) >= from && Number(step) <= to
+    })
+}
+
+test("classes added since the last release are named in the CHANGELOG", () => {
+  const named = namedIn(sinceRelease(releasedApi.version))
+  const released = new Set(releasedApi.classes)
+  expect(
+    [...classNamesIn(["packages/opui/css", "packages/opui/core"])]
+      .filter((name) => !released.has(name) && !named(name))
+      .toSorted(),
+    "name each class in backticks in an entry of the unreleased version",
+  ).toEqual([])
+})
+
+test("theme tokens added since the last release are named in the CHANGELOG", () => {
+  const text = sinceRelease(releasedTokens.version)
+  const named = namedIn(text)
+  const released = new Set(releasedTokens.tokens)
+  const prefixed = text.includes("`--ui-`")
+  expect(
+    themeTokens()
+      .map((token) => token.name)
+      .filter(
+        (name) =>
+          !released.has(name) &&
+          !(prefixed && released.has(`--${name.replace(/^--ui-/, "")}`)) &&
+          !named(name),
+      )
+      .toSorted(),
+    "name each token in backticks in an entry of the unreleased version, or a range such as `--ui-space-1` to `--ui-space-8`",
+  ).toEqual([])
+})

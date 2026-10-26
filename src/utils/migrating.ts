@@ -1,5 +1,24 @@
 export const MIGRATING_LABEL = "Migrating to v6"
 
+const MIGRATING_SECTIONS: Record<string, string> = {
+  form: "field-group-and-fieldset",
+  toggle: "toggle-button-and-toggle-group",
+  typography: "typography-and-rich-text",
+}
+
+export const migratingAnchor = (markdown: string, slug: string) => {
+  const anchors = new Set(
+    [...markdown.matchAll(/^## (.+)$/gm)].map(([, heading]) =>
+      heading
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, ""),
+    ),
+  )
+  const anchor = MIGRATING_SECTIONS[slug] ?? slug
+  return anchors.has(anchor) ? anchor : undefined
+}
+
 const strip = (html: string) => html.replace(/<[^>]+>/g, "").trim()
 
 export function parseMigrating(html: string) {

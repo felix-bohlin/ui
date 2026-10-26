@@ -21,7 +21,7 @@ export const whatsNew = {
       html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#basics"><code>.ui-accordion</code></a>, which <code>card.css</code> styles itself.`,
     },
     `Tonal and elevated <a href="#variants">accordions</a> have a border in the page background color, like cards, so they stay visible on tonal surfaces.`,
-    `The inset focus ring sits at <code>--ui-focus-ring-inset</code> like every other inset ring, and elevated and tonal accordions keep a border in forced colors.`,
+    `The <a href="#accessibility">inset focus ring</a> sits at <code>--ui-focus-ring-inset</code> like every other inset ring, and <a href="#variants">elevated and tonal accordions</a> keep a border in forced colors.`,
     slots(
       `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
     ),
@@ -86,7 +86,7 @@ export const whatsNew = {
     components(
       `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
     ),
-    `Initials read the type roles: <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code> and <code>--ui-font-size-large</code> by size.`,
+    `<a href="#letter">Initials</a> read the type roles: <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code> and <code>--ui-font-size-large</code> by <a href="#sizes">size</a>.`,
     `A badge on a <a href="#grouped">grouped</a> avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.`,
     slots(
       `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
@@ -129,7 +129,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#api"><code>.ui-badge</code></a>, which <code>anchor.css</code> positions itself.`,
     },
-    `Severity text reads <code>--ui-on-fill</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
+    `<a href="#colors">Severity</a> text reads <code>--ui-on-fill</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#corners">Corners</a>), and in an avatar group on the start side.`,
     {
       default: `<a href="#indicator">Indicator</a> text for screen readers with <code>hideLabel</code>: one translated <code>label</code>, and the short visible text in <code>indicator</code>.`,
@@ -158,7 +158,7 @@ export const whatsNew = {
   button: [
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The file input takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
+    `The <a href="#file-upload">file input</a> takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
     `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     {
       default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>round</code> makes them round.`,
@@ -204,8 +204,8 @@ export const whatsNew = {
   ],
   "button-group": [
     `Breaking: <code>--_border-radius</code> and <code>--_divider-color</code> are <code>--_radius</code> and <code>--_divider-border-color</code>, and <code>--_min-height</code> is gone: set <code>--_size</code> on the buttons (<a href="#under-the-hood">Under the hood</a>).`,
-    `The inset focus ring sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
-    `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>.`,
+    `The <a href="#accessibility">inset focus ring</a> sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
+    `Buttons in a group draw their <a href="#accessibility">focus ring</a> with <code>--ui-focus-ring-color</code>.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     `<a href="#icons">Icon-only buttons</a> stay square and use the same icon size as buttons with a label.`,
     `The focus ring shows on every <a href="#variants">variant</a>, inside the button.`,
@@ -393,8 +393,8 @@ export const whatsNew = {
     slots(
       `Breaking: the default slot is gone. Pass the text as <a href="#api"><code>label</code></a>, or rich content in the <code>label</code> slot.`,
     ),
-    `Outlined chips take <code>--ui-shadow-control</code> like outlined buttons.`,
-    `Chips without <code>.ui-outlined</code> read <code>--ui-control-border-color-filled</code> for their border, like filled buttons.`,
+    `<a href="#variants">Outlined chips</a> take <code>--ui-shadow-control</code> like outlined buttons.`,
+    `<a href="#variants">Chips without <code>.ui-outlined</code></a> read <code>--ui-control-border-color-filled</code> for their border, like filled buttons.`,
     `Outlined chips read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     {
       default: `<a href="#sizes">Large</a> size with <code>size="large"</code>, and small chips are 28px to match the control sizes.`,
@@ -717,7 +717,7 @@ export const whatsNew = {
     ),
   ],
   progress: [
-    `The track is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
+    `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
     `The track reads <a href="#api"><code>--ui-track-bg-color</code></a> when a theme sets it.`,
     {
       ...slots(
@@ -810,7 +810,7 @@ export const whatsNew = {
     slots(
       `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
     ),
-    `The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
+    `The empty track reaches <a href="#accessibility">3:1</a> against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
     `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the empty track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     {
@@ -889,8 +889,8 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
-    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
-    `The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
+    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
+    `The field border reaches <a href="#accessibility">3:1</a> against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
     `<a href="#option-groups">Group labels</a> take a shade of the picker's surface and <code>--ui-text</code> instead of fixed grays.`,
     `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
@@ -1060,7 +1060,7 @@ export const whatsNew = {
   tabs: [
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-tabs-accent</code></a> for the selected label and the <a href="#line">line</a> indicator.`,
-    `The selected pill has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
+    `The <a href="#basics">selected pill</a> has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
     `The outlined track reads <a href="#api"><code>--ui-control-border-color</code></a> for its border, like outlined buttons.`,
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TabsItem</code></a>. The <code>Tabs.Item</code> aliases are gone.`,
@@ -1119,7 +1119,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
-    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
+    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
@@ -1175,7 +1175,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
-    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
+    `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
@@ -1218,10 +1218,10 @@ export const whatsNew = {
   ],
   toggle: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> on <code>ToggleGroup</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `A standalone toggle takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip groups.`,
-    `A checked <code>ToggleButton</code> is filled with <code>--ui-primary</code> in every contrast mode, not only a tint.`,
+    `A <a href="#toggle-button">standalone toggle</a> takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip <a href="#toggle-group">groups</a>.`,
+    `A <a href="#toggle-button">checked <code>ToggleButton</code></a> is filled with <code>--ui-primary</code> in every contrast mode, not only a tint.`,
     `A checked <code>ToggleButton</code> reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
-    `A checked <code>ToggleButton</code> reads <code>--ui-control-border-color-filled</code> for its border, like filled buttons.`,
+    `A <a href="#toggle-button">checked <code>ToggleButton</code></a> reads <code>--ui-control-border-color-filled</code> for its border, like filled buttons.`,
     `<code>ToggleButton</code> and <code>ToggleGroup</code> read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     slots(
       `Breaking: <a href="#toggle-button"><code>ToggleButton</code></a> no longer generates an input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
@@ -1318,8 +1318,8 @@ export const whatsNew = {
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
     `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read <code>--ui-critical-text</code>, <code>--ui-success-text</code> and <code>--ui-info</code>.`,
     `Breaking: <a href="#inline-text-elements"><code>del</code>, <code>ins</code>, <code>abbr</code> and <code>dfn</code></a> and their classes are no longer severity scopes, so content inside them keeps the page palette.`,
-    `Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code> are rounded with <code>--ui-radius-small</code>, and the blockquote bar and table rules follow <code>--ui-border-width-thick</code>.`,
-    `Text sizes follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
+    `<a href="#inline-text-elements">Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code></a> are rounded with <code>--ui-radius-small</code>, and the <a href="#blockquote">blockquote</a> bar and table rules follow <code>--ui-border-width-thick</code>.`,
+    `<a href="#variants">Text sizes</a> follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
     `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--ui-rhythm-step</code>, <code>h1</code> to <code>h4</code> grow together over one viewport window (<code>--ui-fluid-min-inline-size</code> to <code>--ui-fluid-max-inline-size</code>, with <code>progress()</code>), and the heading scale no longer inverts on narrow screens.`,
     `Breaking: <a href="#classless">rich text</a> only styles headings without a class, like lists. Add a <code>.ui-h1</code>–<code>.ui-h6</code> class to a heading that has another class.`,
@@ -1350,7 +1350,7 @@ export const whatsNew = {
  * at the end, `tabs` a segmented control, `typography` heading sizes). Renames,
  * new props, token rewiring and fixes stay out, however many notes they add.
  */
-export const highlighted = new Set([
+export const highlighted = new Set<string>([
   "accordion",
   "button",
   "card",
@@ -1359,7 +1359,7 @@ export const highlighted = new Set([
   "menu",
   "tabs",
   "typography",
-])
+] satisfies (keyof typeof whatsNew)[])
 
 export function whatsNewFor(framework: FrameworkId, slug: string) {
   const notes: Note[] = whatsNew[slug as keyof typeof whatsNew] ?? []

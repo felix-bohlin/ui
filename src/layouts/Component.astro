@@ -36,6 +36,7 @@ import { posts } from "../utils/learn-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 import { blockHref, blocksUsing } from "../utils/blocks"
 import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
+import { migratingAnchor } from "../utils/migrating"
 
 type Props = {
   title?: string
@@ -137,24 +138,8 @@ const migrating = notes
       .replace(/^Breaking:\s*/, "")
       .replace(/^[a-z]/, (letter) => letter.toUpperCase()),
   )
-const migratingAnchors = new Set(
-  [...migratingGuide.matchAll(/^## (.+)$/gm)].map(([, heading]) =>
-    heading
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, ""),
-  ),
-)
-const MIGRATING_SECTIONS: Record<string, string> = {
-  form: "field-group-and-fieldset",
-  toggle: "toggle-button-and-toggle-group",
-  typography: "typography-and-rich-text",
-}
 const migratingSection =
-  currentSlug &&
-  [MIGRATING_SECTIONS[currentSlug] ?? currentSlug].find((anchor) =>
-    migratingAnchors.has(anchor),
-  )
+  currentSlug && migratingAnchor(migratingGuide, currentSlug)
 const migratingHref = link(
   `/guide/migrating${migratingSection ? `#${migratingSection}` : ""}`,
 )

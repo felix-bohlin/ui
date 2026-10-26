@@ -57,7 +57,7 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         Use the <code>variant</code> prop to swap the track surface for better contrast
         on different backgrounds. The default <code>outlined</code> track uses <code
@@ -102,7 +102,7 @@ export const description =
 
   <section>
     <h2 id="value">Value</h2>
-    <Conditional>
+    <Conditional as="div">
       <p slot="astro">
         Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
         current value next to the label. The component wires up an <code
@@ -177,7 +177,7 @@ export const description =
 
   <section>
     <h2 id="tick-marks">Tick marks</h2>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         Pass an <code>items</code> array - <code
           >{"items=[{ label, value }]"}</code

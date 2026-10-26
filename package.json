@@ -52,6 +52,7 @@
     "web-features": "catalog:"
   },
   "devDependencies": {
+    "@astrojs/compiler": "^2.13.1",
     "@astrojs/react": "^7.0.1",
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/svelte": "^9.0.1",

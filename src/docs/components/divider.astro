@@ -37,7 +37,7 @@ import dividerApi from "../../component-api/divider/api"
 
   <section>
     <h2 id="variants">Variants</h2>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         Use the <code>variant</code> prop to change the line color, and <code
           >color="primary"</code
@@ -54,7 +54,7 @@ import dividerApi from "../../component-api/divider/api"
 
   <section>
     <h2 id="content">Content</h2>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         Put text or any element inside the divider (children in React and
         Svelte, the default slot in Astro and Vue) to place it in the middle of

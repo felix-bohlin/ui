@@ -21,7 +21,7 @@ const values = single ? "selected value" : "checked values"
 ---
 
 <p>Use field groups to group related {plural.toLowerCase()}.</p>
-<Conditional>
+<Conditional as="div">
   <p slot="components">
     The <code>name</code> prop will get passed down to each {control} in the group.
   </p>
@@ -105,7 +105,7 @@ const values = single ? "selected value" : "checked values"
 <AutoExample name="FieldGroupRequired" row />
 
 <h3 id="field-group-validation">Validation</h3>
-<Conditional>
+<Conditional as="div">
   <p slot="components">
     Set <code>error</code> on each <code>{Component}</code> in the group. The end
     text of the <code>Fieldset</code> turns red with them.

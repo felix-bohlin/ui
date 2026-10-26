@@ -120,7 +120,7 @@ export const description =
     </Conditional>
 
     <h3 id="multi-select">Multi-select</h3>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         Set <code>multiple</code> for multi-select groups.
       </p>
@@ -132,7 +132,7 @@ export const description =
     <AutoExample name="MultiSelect" centered />
 
     <h3 id="single-select">Single-select</h3>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         A group without <code>multiple</code> is single-select. Every button is a
         radio then, and a <code>type</code> on a button is ignored. Set <code
@@ -229,7 +229,7 @@ export const description =
     <AutoExample name="Interactive" centered />
 
     <h3 id="vertical-orientation">Vertical orientation</h3>
-    <Conditional>
+    <Conditional as="div">
       <p slot="components">
         Change the layout of the group with the <code
           >orientation="vertical"</code

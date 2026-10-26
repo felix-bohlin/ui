@@ -196,7 +196,7 @@ import buttonApi from "../../component-api/button/api"
 
 - **Severity**: `info`, `success`, `warning`, `critical`, `neutral`, or none for a plain surface.
 - **Parts**: Add `<UICalloutIcon />` for the severity icon, and put the text in `<UICalloutContent>`, with an optional plain heading such as `<h3>` first.
-- **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
+- **Wrapping**: in `<div class="ui-not-rich-text">` (or an `Anatomy`); `tests/unit/docs-pages.test.ts` checks it.
 - **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 
 ### 5.4 Anatomy Section
@@ -236,7 +236,7 @@ Place logic in a `<script>` tag.
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
 - **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`. `components` holds the text Astro, React, Svelte and Vue share, and is never shown on HTML pages.
-- **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
+- **Props**: `as` (optional), `span` by default. `tests/unit/docs-pages.test.ts` requires it when the slots hold block content (`as="div"`).
 - **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only one slot: the active framework's, then `components` on every framework except HTML, then the default framework's (`html`).
 - **One copy per wording**: Write the shared text once in `components` and the HTML text in `html`. Give a framework its own slot only where its text must differ, such as a `bind:group` note for Svelte, `v-model` for Vue, `className` or `children` for React, or a slot, prop or snippet that each framework names differently.
 
@@ -291,5 +291,5 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 - **Internal Links in Prose**: Use canonical paths (e.g. `/components/text-field#file`) and let the docs site resolve them per request. Two primitives:
   - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/html/components/...`, `/astro/components/...`) at build time. Always prefer `DocLink` over a raw `<a>` for cross-doc links.
   - **`Astro.locals.link("/path")`** - same resolution as a function. Use it for `href` props on components that render their own anchor (e.g. `Button`, `Chip`, `ComponentCard`): `<Button href={link("/components/button")}>`.
-  - **Never** hard-code `/astro/...` or `/html/...` in doc prose; `DocLink` and `link` resolve to whichever variant the reader is currently on. The framework switcher chips on the homepage are the only exception (they intentionally name a specific variant).
+  - **Never** hard-code `/astro/...` or `/html/...` in doc prose; `DocLink` and `link` resolve to whichever variant the reader is currently on. `tests/unit/docs-pages.test.ts` fails on a quoted `<a href="/...">` to a docs page. The framework switcher chips on the homepage are the only exception (they intentionally name a specific variant).
   - The `componentHrefFor` helper in [src/utils/components.ts](../../utils/components.ts) is still around for slug-only convenience in structural lists (sidebar, pagination, [ComponentList](../../components/ComponentList.astro)). For everything else, prefer `DocLink` / `Astro.locals.link`.

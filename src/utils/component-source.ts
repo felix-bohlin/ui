@@ -387,7 +387,14 @@ export const checkApi = (api: ComponentApi) => {
         ]),
       ]
         .filter((slot) => slot !== "default")
-        .forEach((slot) => exists("slot prop", slotProp(slot)))
+        .forEach((slot) => {
+          if (!declared.has(slotProp(slot))) {
+            report(
+              `slot "${slot}" needs the camelCase prop "${slotProp(slot)}", which does not exist`,
+              framework,
+            )
+          }
+        })
       return
     }
 

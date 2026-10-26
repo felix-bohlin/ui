@@ -44,8 +44,7 @@ Before creating or refactoring a page, perform the following research:
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`. `Usage` and `KeyboardSupport` render the sections every component page shares (see 5.7 and 5.8).
 - **Checks**: `pnpm check-components` checks the example files (names, React default exports and `"use client"`, outer wrappers, and that a page shows each one through `<AutoExample>` or an import). `tests/unit/docs-pages.test.ts` checks the pages (links, section headings, examples in sections, the anatomy slot, `isDependency`, callouts and `<Conditional>` tags), and `tests/unit/parity.test.ts` that decorative SVGs are hidden.
-- **Naming**: Example files are PascalCase.
-  - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
+- **Code files**: If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
 ## 3. Implementation Pattern: Externalized Examples
 
@@ -111,11 +110,8 @@ The manual form remains supported and unchanged:
 ### 3.2 Refactoring Steps
 
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
-    - `.astro` files should contain UI components imported from `opui-css/astro` (e.g. `import { Button } from "opui-css/astro"`).
-    - `.html` files should contain vanilla HTML equivalents. **HTML examples must be just as functional and complete as the Astro ones.**
-    - `.react.tsx` files default-export a function component named after the file that mirrors the Astro example with the components from `opui-css/react`.
-    - `.svelte` files mirror the Astro example with the components from `opui-css/svelte`.
-    - `.vue` files mirror the Astro example with the components from `opui-css/vue`.
+    - `.astro`, `.react.tsx`, `.svelte` and `.vue` files mirror one another with the components from `opui-css/<framework>` (see **Path Resolution**).
+    - `.html` files hold the vanilla HTML equivalent (see **Functional Parity**).
     - Set `row` / `column` on `<AutoExample>` for the example's layout. Sibling `example-row` / `example-column` groups inside one example are fine.
 2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.
 3.  **Cleanup**: Remove the now-unused `?raw` and component imports from the page frontmatter.
@@ -149,7 +145,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 ### 4.1 Props
 
 - `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as a framework-keyed object, such as `{ html: HtmlTable }`.
-- `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`). List the modern features the component's own CSS relies on, the ones a reader would check before adopting it. Leave out the library-wide basics every stylesheet shares, even when an Under the hood step tags them in its `features`: cascade layers (`cascade-layers`), nesting (`nesting`), `oklch()`, logical properties (`logical-properties`), `:focus-visible` (`focus-visible`), `forced-colors`, masks (`masks`), `overscroll-behavior`, `appearance`, `aspect-ratio`, `::backdrop` (`backdrop`), the individual transform properties (`individual-transforms`) and the viewport unit variants (`viewport-unit-variants`), and long-settled features such as `:not()`, `clip-path`, `grid`, `flexbox-gap`, `isolation`, `object-fit`, `min-max-clamp` and `sticky-positioning`. Widely available features that still date a component, such as `container-queries`, `overflow-clip` and `scroll-snap`, stay listed.
+- `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`). List the modern features the component's own CSS relies on, the ones a reader would check before adopting it. Leave out the library-wide basics every stylesheet shares, even when an Under the hood step tags them in its `features`: cascade layers (`cascade-layers`), nesting (`nesting`), `oklch()`, logical properties (`logical-properties`), `:focus-visible` (`focus-visible`), `forced-colors`, masks (`masks`), `overscroll-behavior`, `appearance`, `aspect-ratio`, `::backdrop` (`backdrop`), the individual transform properties (`individual-transforms`) and the viewport unit variants (`viewport-unit-variants`), and long-settled features such as `:not()`, `clip-path`, `grid`, `flexbox-gap`, `isolation`, `object-fit`, `min-max-clamp` and `sticky-positioning`. Widely available features that still date a component, such as `container-queries`, `overflow-clip` and `scroll-snap`, stay listed. `pnpm check-browser-support` fails on an unknown or unsorted id, and on a missing or unused one among the features it detects (`patterns` in `packages/opui/scripts/features.mjs`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
 - `installationTabs`: (Optional) Array of `{ title, code, lang, isDependency }` objects. `isDependency` marks a CSS file that has its own component page.

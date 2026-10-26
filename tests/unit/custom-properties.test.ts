@@ -19,9 +19,10 @@ describe("component custom properties", () => {
   test.each(stylesheets)(
     "%s.css documents every --_ property it declares",
     (stylesheet) => {
-      expect(Object.keys(customProperties[stylesheet] ?? {})).toEqual(
-        declaredCustomProperties(stylesheet),
-      )
+      expect(
+        Object.keys(customProperties[stylesheet] ?? {}),
+        `document the --_ properties ${stylesheet}.css declares, and only those, with sorted keys`,
+      ).toEqual(declaredCustomProperties(stylesheet))
     },
   )
 

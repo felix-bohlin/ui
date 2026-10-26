@@ -22,10 +22,13 @@ const items = (source: string, slot: string) =>
 
 describe("component pages", () => {
   test.each(pages)("$slug has a Usage section", ({ source }) => {
-    expect(source).toContain('<Usage slot="usage">')
+    expect(source, 'fill the usage slot with <Usage slot="usage">').toContain(
+      '<Usage slot="usage">',
+    )
     for (const slot of ["when", "when-not"]) {
-      expect(items(source, slot), slot).toBeGreaterThanOrEqual(2)
-      expect(items(source, slot), slot).toBeLessThanOrEqual(3)
+      const message = `give <Usage> two or three <li slot="${slot}"> items`
+      expect(items(source, slot), message).toBeGreaterThanOrEqual(2)
+      expect(items(source, slot), message).toBeLessThanOrEqual(3)
     }
   })
 
@@ -33,8 +36,14 @@ describe("component pages", () => {
     const keyboards = apis.filter(
       ({ api, page }) => page === slug && api.keyboard,
     )
-    expect(keyboards.length).toBeLessThanOrEqual(1)
-    expect(source.includes("<KeyboardSupport")).toBe(keyboards.length === 1)
+    expect(
+      keyboards.length,
+      "only one api.ts of a page has keyboard rows",
+    ).toBeLessThanOrEqual(1)
+    expect(
+      source.includes("<KeyboardSupport"),
+      "a page renders the keyboard rows of its api.ts with <KeyboardSupport>, never by hand, and only when it has them",
+    ).toBe(keyboards.length === 1)
   })
 
   test.each(pages)(

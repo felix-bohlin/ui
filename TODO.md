@@ -507,6 +507,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Timeline: changelog, project-overview, server-status.
   > Fix
   > There’s a separate branch with those components. Pr #418. It’s old and needs some rework but see what you can do there. It’s not going to ship in 6.0 so go nuts and improve wherever you want.
+  - Still open: work on PR felix-bohlin/ui#418 (`feat/component-proposals`) stopped at the maintainer's request, since that pull request isn't the focus now. Nothing was pushed to it: the branch is still at c9ab5bccb from October 16, and the merge and React rework that had started stayed local and were discarded.
 - [x] (2) Theming: there is no palette generator. Material builds a full scheme from one seed color and a contrast level, and Radix and Spectrum publish engineered 12-step scales. OPUI derives its palette from `--ui-palette-source` with fixed lightness steps, and the theme generator sets 8 tokens and a source color (`packages/opui/core/palette.css`, `src/utils/theme-store.ts`)
   - Summary: There is no palette generator; the theme generator sets eight tokens and a source color with fixed lightness steps.
   - Recommended: Fix with option A. The derivation already lives in CSS, so a builder is docs-site UI over the theme generator, no package change.

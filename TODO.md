@@ -346,10 +346,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: If a check script's pattern breaks, `pnpm check` keeps passing without noticing.
   - Recommended: Fix. Each check gets one known-bad fixture, and the stylelint plugin needs no change to test.
   - Fix: export each script's core as a function of its input and test it on a known-bad fixture per rule. The stylelint plugin can be tested as it is with `stylelint.lint({ code, config })`.
-- [ ] (2) Tests: nothing checks that the invalid styles only show after interaction or submit (`:user-invalid`), which CHECKS.md lists as a manual check for Checkbox and TextField (`packages/opui/css/components/text-field.css`, `packages/opui/css/components/checkbox.css`)
+- [x] (2) Tests: nothing checks that the invalid styles only show after interaction or submit (`:user-invalid`), which CHECKS.md lists as a manual check for Checkbox and TextField (`packages/opui/css/components/text-field.css`, `packages/opui/css/components/checkbox.css`)
   - Summary: Nothing guards that fields wait for the user to interact before they look invalid.
   - Recommended: Fix. One test on the TextField Validation example covers the rule.
   - Fix: on the TextField Validation example, check that the border starts in the normal color and turns to the invalid color after typing an invalid value and leaving the field.
+  - Fixed: two interaction tests run in every framework. On the TextField `Validation` example, the required field's border isn't `--ui-invalid` at first, turns `--ui-invalid` after typing, deleting and leaving it, and goes back once it has a value. On the Checkbox `Validation` example, the required box's border turns `--ui-invalid` once it's checked and unchecked. Both fail when the rule drops `:user-invalid` or uses `:invalid` instead, and the 6.0.0 release checks no longer list them.
 - [x] (2) CI: one `update-snapshots` label accepts every visual change in the pull request at once, and the bot commit lists nothing to review, so a regression rides along with an intended change unless someone opens every image (`.github/workflows/update-snapshots.yml:30`, `package.json`)
   - Summary: Updating the visual baselines accepts every change at once without saying which images moved.
   - Recommended: Fix with option A. It keeps how baselines are made and only adds the list to review.

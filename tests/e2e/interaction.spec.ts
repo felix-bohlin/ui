@@ -1,6 +1,12 @@
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { computed, FRAMEWORKS, hasExample, openFixture } from "./fixtures"
+import {
+  computed,
+  FRAMEWORKS,
+  hasExample,
+  openFixture,
+  resolveColor,
+} from "./fixtures"
 import type { Framework } from "./fixtures"
 
 type Interaction = (context: {
@@ -139,6 +145,26 @@ interaction(
     await root.getByText("Bananas", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
+  },
+)
+
+interaction(
+  "checkbox",
+  "Validation",
+  "a required checkbox only looks invalid once the user unchecks it",
+  async ({ page, root }) => {
+    const input = root.getByRole("checkbox").first()
+    const border = () => computed(input, "border-block-start-color")
+    const invalid = await resolveColor(input, "var(--ui-invalid)")
+
+    await expect(input).toHaveAttribute("required")
+    expect(await border()).not.toBe(invalid)
+    await input.focus()
+    await page.keyboard.press("Space")
+    await expect(input).toBeChecked()
+    await page.keyboard.press("Space")
+    await expect(input).not.toBeChecked()
+    await expect.poll(border).toBe(invalid)
   },
 )
 
@@ -622,6 +648,35 @@ interaction(
     await root.getByRole("button", { name: "Reset" }).click()
     await expect(input).toHaveValue("Ada")
     await expect(text).toHaveText("Hello, Ada.")
+  },
+)
+
+interaction(
+  "text-field",
+  "Validation",
+  "a required text field only looks invalid once the user leaves it empty",
+  async ({ page, root }) => {
+    const textField = root
+      .locator(".ui-text-field")
+      .filter({ hasText: "I'm required" })
+    const input = textField.getByRole("textbox")
+    const field = textField.locator(".ui-field")
+    const border = () => computed(field, "border-block-end-color")
+    const invalid = await resolveColor(field, "var(--ui-invalid)")
+    const initial = await border()
+
+    await expect(input).toHaveAttribute("required")
+    expect(initial).not.toBe(invalid)
+    await input.focus()
+    await page.keyboard.type("a")
+    await page.keyboard.press("Backspace")
+    await page.keyboard.press("Tab")
+    await expect.poll(border).toBe(invalid)
+
+    await input.focus()
+    await page.keyboard.type("Ada")
+    await page.keyboard.press("Tab")
+    await expect.poll(border).toBe(initial)
   },
 )
 

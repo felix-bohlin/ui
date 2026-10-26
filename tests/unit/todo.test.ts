@@ -606,7 +606,10 @@ describe("TODO.md", () => {
       items.flatMap((item) =>
         item.notes
           .filter((note) => fixOptions([note]).options.length > 0)
-          .map((note) => `${headline(item)}: ${note.text}`),
+          .map(
+            (note) =>
+              `${headline(item)}: ${"text" in note ? note.text : note.code}`,
+          ),
       ),
     ).toEqual([])
   })

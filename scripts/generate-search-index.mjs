@@ -202,7 +202,7 @@ async function generateIndex() {
   }
 
   const themeBuilder = fs.readFileSync("src/pages/theme-builder.astro", "utf-8")
-  const themeBuilderTitle = themeBuilder.match(/<h1>(.*?)<\/h1>/s)?.[1]
+  const themeBuilderTitle = themeBuilder.match(/<h1\b[^>]*>(.*?)<\/h1>/s)?.[1]
   const themeBuilderDescription = themeBuilder.match(
     /const description\s*=\s*"((?:\\.|[^"\\])*)"/s,
   )?.[1]
@@ -229,8 +229,8 @@ async function generateIndex() {
       "Generator",
       "Light and dark mode",
       "Motion",
+      "OKLCH",
       "Presets",
-      "Saved themes",
       "Shadows",
       "Share link",
       "Spacing",

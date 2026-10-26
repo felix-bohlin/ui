@@ -12,8 +12,8 @@ export default function Radio({
   orientation,
   size,
   spread,
-  variant,
   style,
+  variant,
   children,
   endText,
   ...rest

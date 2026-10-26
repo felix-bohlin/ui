@@ -1,5 +1,5 @@
 export type RangeItem =
-  string | number | { value: string | number; label?: string }
+  string | number | { label?: string; value: string | number }
 
 export type Props = {
   endText?: string

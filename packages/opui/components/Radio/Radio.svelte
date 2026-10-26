@@ -15,8 +15,8 @@
     orientation,
     size,
     spread,
-    variant,
     style,
+    variant,
 
     // Snippets
     children,

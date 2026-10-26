@@ -1,6 +1,7 @@
 import { readdir, readFile } from "node:fs/promises"
 import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
+import ts from "typescript"
 import {
   componentHasFramework,
   exampleExtension,
@@ -23,9 +24,12 @@ const folders = (await readdir(componentsDir, { withFileTypes: true }))
   .map((entry) => entry.name)
   .toSorted()
 
-const OBJECT_TYPE =
-  /^(?:export )?type (\w+)(?:<[^=\n]*>)? = (?:[^\n{]* & )?\{\n([\s\S]*?)\n\}/gm
-const KEY = /^ {2}(?:"([^"]+)"|(\w+))\??:/
+const SCRIPTS = [
+  [".astro", /^---\n([\s\S]*?)\n---/g],
+  [".react.tsx", /^([\s\S]*)$/g],
+  [".svelte", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
+  [".vue", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
+]
 
 const CLASS_LISTS = [
   [".astro", /class:list=\{\[/g, "class:list"],
@@ -183,18 +187,120 @@ const checkIndexSignature = (file, source) => {
   }
 }
 
+const parse = (file, source) =>
+  ts.createSourceFile(
+    file,
+    source,
+    ts.ScriptTarget.Latest,
+    true,
+    file.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+  )
+
+const keyName = (name) =>
+  ts.isIdentifier(name) || ts.isStringLiteral(name) ? name.text : name.getText()
+
+const unsorted = (names, compare = (a, b) => a.localeCompare(b)) => {
+  const sorted = names.toSorted(compare)
+  return names.join() === sorted.join() ? null : sorted
+}
+
+const slotOrder = (a, b) =>
+  (b === "children") - (a === "children") || a.localeCompare(b)
+
+const typeLabel = (node) => {
+  let alias = node.parent
+  while (alias && !ts.isTypeAliasDeclaration(alias)) alias = alias.parent
+  if (!alias) return "A type literal"
+  const direct =
+    node.parent === alias ||
+    (ts.isIntersectionTypeNode(node.parent) && node.parent.parent === alias)
+  return direct ? alias.name.text : `A type literal in ${alias.name.text}`
+}
+
 const checkSortedKeys = (file, source) => {
-  for (const [, typeName, body] of source.matchAll(OBJECT_TYPE)) {
-    const names = body
-      .split("\n")
-      .map((line) => line.match(KEY))
-      .filter(Boolean)
-      .map((match) => match[1] ?? match[2])
-    const sorted = names.toSorted((a, b) => a.localeCompare(b))
-    if (names.join() !== sorted.join()) {
+  const visit = (node) => {
+    if (ts.isTypeLiteralNode(node)) {
+      const sorted = unsorted(
+        node.members
+          .filter((member) => member.name)
+          .map((member) => keyName(member.name)),
+      )
+      if (sorted) {
+        report(
+          file,
+          `${typeLabel(node)} keys are not sorted: expected ${sorted.join(", ")}`,
+        )
+      }
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(parse(file, source))
+}
+
+const isPropsSource = (node) =>
+  node.getText() === "Astro.props" ||
+  (ts.isCallExpression(node) &&
+    ["$props", "defineProps"].includes(node.expression.getText()))
+
+const propsBinding = (node) => {
+  if (
+    ts.isVariableDeclaration(node) &&
+    ts.isObjectBindingPattern(node.name) &&
+    node.initializer &&
+    isPropsSource(node.initializer)
+  ) {
+    return node.name
+  }
+  if (
+    ts.isFunctionDeclaration(node) &&
+    node.modifiers?.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword) &&
+    node.parameters[0] &&
+    ts.isObjectBindingPattern(node.parameters[0].name)
+  ) {
+    return node.parameters[0].name
+  }
+  return ts.forEachChild(node, propsBinding)
+}
+
+const destructuredRuns = (file, source) => {
+  const [, pattern] = SCRIPTS.find(([extension]) => file.endsWith(extension))
+  const script = [...source.matchAll(pattern)].map((m) => m[1]).join("\n")
+  const binding = propsBinding(parse(file, script))
+  if (!binding) return null
+  const runs = [[]]
+  for (const element of binding.elements) {
+    if (element.dotDotDotToken) continue
+    if (element.getFullText().includes("// Snippets")) runs.push([])
+    runs.at(-1).push(keyName(element.propertyName ?? element.name))
+  }
+  return runs
+}
+
+const checkDestructuring = (file, source, slots) => {
+  const runs = destructuredRuns(file, source)
+  if (!runs) return
+  if (slots) {
+    const keys = runs.flat()
+    const props = keys.filter((key) => !slots.includes(key))
+    const slotKeys = keys.filter((key) => slots.includes(key))
+    const expected = [
+      ...(unsorted(props) ?? props),
+      ...(unsorted(slotKeys, slotOrder) ?? slotKeys),
+    ]
+    if (keys.join() !== expected.join()) {
       report(
         file,
-        `${typeName} keys are not sorted: expected ${sorted.join(", ")}`,
+        `props are not destructured in order, slots last: expected ${expected.join(", ")}`,
+      )
+    }
+    return
+  }
+  for (const [index, run] of runs.entries()) {
+    const sorted = unsorted(run, index > 0 ? slotOrder : undefined)
+    if (sorted) {
+      report(
+        file,
+        `props are not destructured in order: expected ${sorted.join(", ")}`,
       )
     }
   }
@@ -262,6 +368,18 @@ for (const folder of folders) {
       report(path, 'uses "interface"; use "type" instead')
     }
     if (/^types.*\.ts$/.test(file)) checkSortedKeys(path, source)
+    if (file.endsWith(".react.tsx")) {
+      const svelte = `${basename(file, ".react.tsx")}.svelte`
+      const snippets = files.includes(svelte)
+        ? (destructuredRuns(
+            svelte,
+            await readFile(join(dir, svelte), "utf-8"),
+          )?.slice(1) ?? [])
+        : []
+      checkDestructuring(path, source, ["children", ...snippets.flat()])
+    } else if ([".astro", ".svelte", ".vue"].includes(extname(file))) {
+      checkDestructuring(path, source)
+    }
     if (extname(file) === ".ts") checkIndexSignature(path, source)
     for (const [extension, pattern, label] of CLASS_LISTS) {
       if (!file.endsWith(extension)) continue

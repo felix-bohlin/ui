@@ -12,8 +12,8 @@ export default function Checkbox({
   orientation,
   size,
   spread,
-  variant,
   style,
+  variant,
   children,
   endText,
   ...rest

@@ -15,12 +15,12 @@ export default function Range({
   hideLabel,
   id,
   items,
-  label,
   list,
   max,
   min,
   name,
   onChange,
+  ref,
   size,
   spread,
   startText,
@@ -30,8 +30,8 @@ export default function Range({
   valueSuffix,
   variant,
   datalist,
+  label,
   valueText,
-  ref,
   ...rest
 }: Props) {
   const uid = useId()

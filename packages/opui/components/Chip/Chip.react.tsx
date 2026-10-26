@@ -9,12 +9,12 @@ export default function Chip({
   disabled,
   dot,
   href,
-  label,
   multiline,
   severity,
   size,
   variant = "tonal",
   end,
+  label,
   start,
   ...rest
 }: Props) {

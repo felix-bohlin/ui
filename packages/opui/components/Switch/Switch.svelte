@@ -6,8 +6,8 @@
   import type { Props } from "./types.svelte"
 
   let {
-    checked = $bindable(),
     card,
+    checked = $bindable(),
     class: className,
     error,
     group = $bindable(),
@@ -16,8 +16,8 @@
     orientation,
     size,
     spread,
-    variant,
     style,
+    variant,
 
     // Snippets
     children,

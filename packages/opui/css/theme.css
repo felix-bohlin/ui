@@ -508,7 +508,7 @@
       var(--ui-surface)
     );
     --ui-on-inverse: light-dark(var(--ui-gray-1), var(--ui-gray-15));
-    --ui-on-accent: var(--ui-gray-1);
+    --ui-on-fill: var(--ui-gray-1);
 
     /* Surfaces */
     --ui-surface: light-dark(var(--ui-gray-1), var(--ui-gray-13));

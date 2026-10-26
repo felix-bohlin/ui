@@ -113,9 +113,9 @@ describe("promisePairs", () => {
   test("keeps raw color expressions as the background", () => {
     expect(
       pairs
-        .filter((pair) => pair.token === "--ui-on-accent")
+        .filter((pair) => pair.token === "--ui-on-fill")
         .map((pair) => pair.bg),
-    ).toEqual(themeTokenPromises["--ui-on-accent"].against)
+    ).toEqual(themeTokenPromises["--ui-on-fill"].against)
   })
 
   test("every color in a pair has a plain label", () => {

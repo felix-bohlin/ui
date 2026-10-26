@@ -80,7 +80,7 @@ export default {
   },
   "--_on-accent": {
     description:
-      "Text color on a fill of `--_accent`. Defaults to `--ui-button-on-accent` when a theme sets it. `.ui-primary` sets `--ui-on-primary`, `.ui-critical` `--ui-on-accent`.",
+      "Text color on a fill of `--_accent`. Defaults to `--ui-button-on-accent` when a theme sets it. `.ui-primary` sets `--ui-on-primary`, `.ui-critical` `--ui-on-fill`.",
     kind: "input",
   },
   "--_on-accent-fill": {

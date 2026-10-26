@@ -56,7 +56,7 @@ export const CONTRAST_LABELS: Record<string, string> = {
   "--ui-invalid-text": "Invalid field message",
   "--ui-neutral": "Neutral fill",
   "--ui-neutral-text": "Neutral text",
-  "--ui-on-accent": "Text on status fills",
+  "--ui-on-fill": "Text on status fills",
   "--ui-on-inverse": "Text on inverse surface",
   "--ui-on-primary": "Text on brand fill",
   "--ui-on-selected-strong": "Text on selected fill",

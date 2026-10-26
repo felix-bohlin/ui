@@ -164,7 +164,7 @@
         from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
       );
       --_accent-text: var(--ui-critical-text);
-      --_on-accent: var(--ui-on-accent);
+      --_on-accent: var(--ui-on-fill);
       --_on-accent-fill: var(--_on-accent);
     }
 

@@ -37,13 +37,13 @@ Before creating or refactoring a page, perform the following research:
 
 ## 2. File Structure & Location
 
-- **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell. There is no `src/pages/components/` directory - legacy `/components/...` URLs are handled by the `redirects` map in [astro.config.mjs](../../../astro.config.mjs).
+- **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell.
 - **Route Shell** (do not edit per-component): [`src/pages/[framework]/components/[component].astro`](../../pages/%5Bframework%5D/components/%5Bcomponent%5D.astro) generates one route per (framework × component) and delegates to `src/docs/components/[name].astro`.
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
   - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all five: `pnpm check-components` fails when one is missing, and the parity test compares them.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`.
-- **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `LargeSizing.astro`).
+- **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `HiddenLabel.astro`).
   - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
 ## 3. Implementation Pattern: Externalized Examples

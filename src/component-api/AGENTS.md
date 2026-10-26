@@ -31,7 +31,7 @@ Groups, parts and slots come from closed lists, so a new component can't invent 
 
 ## Framework-specific APIs
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), a fallback no page uses anymore:
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout reads `src/component-api/<slug>/api.ts`:
 
 ```
 src/component-api/button/

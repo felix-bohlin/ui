@@ -20,7 +20,7 @@ It includes the [browser fallbacks](https://open-props-ui.netlify.app/html/guide
 
 `@6` loads the newest 6.x release, so a new major version never changes your site. Pin an exact version, such as `@6.0.0`, for full control.
 
-6.0.0 isn't on npm yet, so the jsDelivr links on this page work once it is published. Until then, build the package from [the repository](https://github.com/felix-bohlin/ui) (`pnpm install`, then `pnpm --filter opui-css build`) and use `packages/opui/dist/opui.css`, or load `opui-css@5` (5.4.3), the previous major: [Migrating](https://open-props-ui.netlify.app/html/guide/migrating.md) lists what changed since.
+6.0.0 isn't on npm yet, so the jsDelivr links on this page work once it is published. `opui-css@next` has the release candidate, 6.0.0-rc.1. Until then, build the package from [the repository](https://github.com/felix-bohlin/ui) (`pnpm install`, then `pnpm --filter opui-css build`) and use `packages/opui/dist/opui.css`, or load `opui-css@5` (5.4.3), the previous major: [Migrating](https://open-props-ui.netlify.app/html/guide/migrating.md) lists what changed since.
 
 ### Install via NPM
 

@@ -1,9 +1,6 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import type { ApiOption, ComponentApi } from "../../src/component-api/types"
-import allowlistJson from "./naming-allowlist.json"
-
-const allowlist: string[] = allowlistJson
 
 const apis = Object.values(
   import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {
@@ -327,8 +324,8 @@ const problems = apis.flatMap((api) => {
 
 test("component props follow the naming model", () => {
   expect(
-    problems.filter((problem) => !allowlist.includes(problem)),
-    "new naming problems",
+    problems,
+    "rename to follow the naming model in packages/opui/components/AGENTS.md",
   ).toEqual([])
 })
 
@@ -390,12 +387,4 @@ test("item keys follow the naming model", () => {
     ),
     "item keys",
   ).toEqual([])
-})
-
-test("the naming allowlist only lists open problems", () => {
-  expect(
-    allowlist.filter((problem) => !problems.includes(problem)),
-    "fixed, remove from tests/unit/naming-allowlist.json",
-  ).toEqual([])
-  expect(allowlist).toEqual(allowlist.toSorted())
 })

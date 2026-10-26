@@ -6,10 +6,17 @@ import {
   checkClassOrder,
   checkClassPrefix,
   checkClient,
+  checkContext,
   checkDestructuring,
   checkIndexSignature,
+  checkModel,
+  checkPropsType,
+  checkProvide,
+  checkRest,
   checkSortedKeys,
+  checkTypeNames,
   checkTypesImport,
+  checkVueAttrs,
 } from "../../scripts/check-components.mjs"
 import {
   allowlistErrors,
@@ -249,6 +256,192 @@ describe("check-components", () => {
       ),
     ).toEqual([
       "props are not destructured in order, slots last: expected color, size, children",
+    ])
+  })
+
+  test("props and slots are typed with the framework's types file", () => {
+    const vue = (imports: string) =>
+      `<script setup lang="ts">\nimport type { ${imports} } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n`
+    expect(
+      checkPropsType(
+        "TabsItem.vue",
+        vue("TabsItemProps as Props, TabsItemSlots as Slots"),
+        "vue",
+        "TabsItemProps",
+      ),
+    ).toEqual([])
+    expect(
+      checkPropsType(
+        "TabsItem.vue",
+        vue("TabsItemProps as Props, Slots"),
+        "vue",
+        "TabsItemProps",
+      ),
+    ).toEqual([])
+    expect(
+      checkPropsType(
+        "TabsItem.vue",
+        vue("TabsItemProps as Props, TabsItemProps as Slots"),
+        "vue",
+        "TabsItemProps",
+      ),
+    ).toEqual([
+      'types defineSlots with Slots, not with Slots or TabsItemSlots from "./types.vue-props"',
+    ])
+    expect(
+      checkPropsType(
+        "Tabs.astro",
+        '---\nimport type { Props as TabsProps } from "./types.astro"\nconst { ...rest } = Astro.props\n---\n',
+        "astro",
+        "Props",
+      ),
+    ).toEqual([
+      "imports Props as TabsProps: import it as Props, the type Astro reads for Astro.props",
+    ])
+    expect(
+      checkPropsType(
+        "Tabs.react.tsx",
+        'import type { Props } from "./types.react"\n\nexport default function Tabs({ ...rest }) {\n  return <div {...rest} />\n}\n',
+        "react",
+        "Props",
+      ),
+    ).toEqual([
+      'does not type its props with Props from "./types.react": annotate the props parameter with it',
+    ])
+  })
+
+  test("rest is captured and spread", () => {
+    const astro = (body: string) =>
+      `---\nconst { size, ...rest } = Astro.props\n---\n${body}\n`
+    expect(checkRest("Badge.astro", astro("<span {...rest} />"))).toEqual([])
+    expect(
+      checkRest(
+        "Badge.astro",
+        astro("<span {...(size ? { ...rest, size } : rest)} />"),
+      ),
+    ).toEqual([])
+    expect(checkRest("Badge.astro", astro("<span />"))).toEqual([
+      expect.stringContaining("captures ...rest but never spreads it"),
+    ])
+    expect(
+      checkRest(
+        "Badge.astro",
+        "---\nconst { size } = Astro.props\n---\n<span />\n",
+      ),
+    ).toEqual([expect.stringContaining("does not capture ...rest")])
+  })
+
+  test("Vue binds the attributes it stops inheriting", () => {
+    const options = "defineOptions({ inheritAttrs: false })"
+    expect(checkVueAttrs(`${options}\n<input v-bind="$attrs" />`)).toEqual([])
+    expect(checkVueAttrs(`${options}\n<input />`)).toEqual([
+      expect.stringContaining('bind them with v-bind="$attrs"'),
+    ])
+  })
+
+  test("Svelte and Vue models match the api.ts model", () => {
+    const api = { api: "api.ts", svelte: ["value"], vue: ["modelValue"] }
+    expect(
+      checkModel(
+        "Tabs.svelte",
+        '<script lang="ts">\n  let { value = $bindable(), ...rest } = $props()\n</script>\n',
+        "svelte",
+        api,
+      ),
+    ).toEqual([])
+    expect(
+      checkModel(
+        "Tabs.svelte",
+        '<script lang="ts">\n  let { open = $bindable(), ...rest } = $props()\n</script>\n',
+        "svelte",
+        api,
+      ),
+    ).toEqual([
+      "binds open with $bindable(), but the model in api.ts lists value for Svelte: bind exactly those",
+    ])
+    expect(
+      checkModel(
+        "Tabs.vue",
+        '<script setup lang="ts">\nconst model = defineModel<string>()\n</script>\n',
+        "vue",
+        api,
+      ),
+    ).toEqual([])
+    expect(
+      checkModel(
+        "Tabs.vue",
+        '<script setup lang="ts">\ndefineProps<Props>()\n</script>\n',
+        "vue",
+        api,
+      ),
+    ).toEqual([
+      "calls defineModel 0 time(s), but the model in api.ts lists 1 for Vue: call it once per model entry",
+    ])
+  })
+
+  test("Vue provides a reactive() context", () => {
+    const vue = (body: string) =>
+      `<script setup lang="ts">\nimport { provide, reactive } from "vue"\n${body}\n</script>\n`
+    expect(
+      checkProvide("Tabs.vue", vue("provide(TabsKey, reactive({ value }))")),
+    ).toEqual([])
+    expect(
+      checkProvide(
+        "Tabs.vue",
+        vue("const context = reactive({ value })\nprovide(TabsKey, context)"),
+      ),
+    ).toEqual([])
+    expect(
+      checkProvide(
+        "Tabs.vue",
+        vue("const context = { value }\nprovide(TabsKey, context)"),
+      ),
+    ).toEqual([
+      "provides TabsKey without reactive(): Vue provides the Context object as reactive({ ... })",
+    ])
+  })
+
+  test("context files export their names, use the Context type and build on the framework", () => {
+    const react = (imports: string) =>
+      `import { ${imports} } from "react"\nimport type { Context } from "./types"\n\nexport const TabsContext = createContext<Context | undefined>(undefined)\n\nexport const useTabsContext = () => useContext(TabsContext)\n`
+    expect(
+      checkContext(
+        "context.react.ts",
+        react("createContext, useContext"),
+        "Tabs",
+      ),
+    ).toEqual([])
+    expect(
+      checkContext("context.react.ts", react("createContext"), "Tabs"),
+    ).toEqual([
+      'does not import useContext from "react": build the context the way the other components do (copy Tabs)',
+    ])
+    expect(
+      checkContext(
+        "context.vue.ts",
+        'import type { InjectionKey } from "vue"\n\nexport const Key = Symbol() as InjectionKey<string>\n',
+        "Tabs",
+      ),
+    ).toEqual([
+      "exports Key: a context.vue.ts exports TabsKey",
+      "does not take its shape from the Context type in ./types",
+    ])
+  })
+
+  test("props types are named Props and <Root><Part>Props", () => {
+    expect(
+      checkTypeNames(
+        "types.react.ts",
+        "export type Props = {}\nexport type TabsItemProps = {}\n",
+        ["TabsItem"],
+      ),
+    ).toEqual([])
+    expect(
+      checkTypeNames("types.react.ts", "export type ItemProps = {}\n", [
+        "TabsItem",
+      ]),
+    ).toEqual([
+      "exports ItemProps: name the root's props Props and each part's <Root><Part>Props (Props, TabsItemProps)",
     ])
   })
 })

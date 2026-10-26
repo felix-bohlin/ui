@@ -2,6 +2,10 @@
 name: api-docs
 description: Reviews the component API docs in src/component-api against the Astro, React, Svelte and Vue props and the CSS. Use after changing an api.ts, a component's props or types, or its CSS modifiers, or to audit all APIs. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/components/**/types*.ts
+  - packages/opui/css/components/**
+  - src/component-api/**
 ---
 
 You review the API documentation of the opui components. You report findings, you never edit files.

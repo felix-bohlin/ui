@@ -8,34 +8,21 @@ argument-hint: "[all | <agent>… | <component>…]"
 
 Run the review agents and merge what they find. The agents only report; you don't fix anything in an audit.
 
-## Agents
+## Scope
 
-| Agent              | Runs when the diff touches                                                                                                           |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `a11y`             | `packages/opui/components/`, `packages/opui/css/components/`, `src/component-examples/`, `src/docs/components/`                      |
-| `api-docs`         | `src/component-api/`, `packages/opui/components/**/types*.ts`, `packages/opui/css/components/`                                       |
-| `blog`             | `src/docs/learn/`, `src/utils/learn*.ts`, `src/components/UnderTheHood/`, `packages/opui/css/components/` for components with a post |
-| `browser-support`  | `packages/opui/css/`, `packages/opui/core/`, `browserSupport` in `src/docs/components/`                                              |
-| `changelog`        | anything in `packages/opui/`                                                                                                         |
-| `css`              | `packages/opui/css/`, `packages/opui/core/`                                                                                          |
-| `examples`         | `src/component-examples/`, `src/docs/components/`                                                                                    |
-| `framework-parity` | `packages/opui/components/`, `packages/opui/{astro,react,svelte,vue}/`, `src/component-examples/`, `tests/unit/__snapshots__/`       |
+Each agent in `.claude/agents` lists the globs it reviews under `paths:` in its frontmatter. `node scripts/audit-scope.mjs` with the skill's arguments picks the agents and prints them as JSON:
 
-## Modes
-
-Read the arguments:
-
-- **None: the current changes.** Run `git fetch origin main`, then collect the changed files with `git diff --name-only $(git merge-base HEAD origin/main)` plus `git status --porcelain`. Pick the agents from the table and tell each one which files and components changed. If nothing changed, say so and stop.
-- **`all`: a full sweep.** Run every agent on its whole scope.
+- **None: the current changes.** Run `git fetch origin main` first. It prints the agents whose paths the diff against the merge base and the untracked files touch, each with its `files` and `components`. Tell each agent those. If it prints no agents, say nothing changed and stop.
+- **`all`: a full sweep.** Every agent, with its `paths` and the `components` they cover.
 - **Agent names**, such as `/audit css a11y`: a full sweep with only those agents.
-- **Component slugs**, such as `/audit button tabs`: every agent whose scope covers those components, limited to them.
+- **Component slugs**, such as `/audit button tabs`: every agent whose paths cover those components, with its `files` limited to them.
 
 Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 
 ## Run
 
 1. Start the agents in parallel, in one message. Give each one its scope, and tell it to follow `.claude/skills/audit/findings-format.md`.
-2. In a full sweep, split `a11y`, `api-docs`, `css`, `examples` and `framework-parity` by component, about 10 components per agent, so each one reads its files closely. Sort the components in ascending order before splitting.
+2. In a full sweep, split `a11y`, `api-docs`, `css`, `examples` and `framework-parity` by their `components`, about 10 per agent and in the order the script prints them, so each one reads its files closely.
 3. Wait for every agent to finish.
 
 ## Merge
@@ -50,4 +37,4 @@ Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 ## Report
 
 - **Current changes:** show the merged findings in chat, then one line per agent that found nothing. Don't touch `TODO.md`. Offer to fix the findings.
-- **Sweeps:** add the merged findings to `TODO.md` as open items (`- [ ]`), each in its section, after the items with the same or a lower severity. Never change or remove existing items. Then run `pnpm exec prettier --write TODO.md` and `pnpm exec vitest run tests/unit/todo.test.ts`, and summarize in chat: how many findings per section, and the most severe ones. The user answers in `TODO.md` with `> ` notes, as with the other items.
+- **Sweeps:** write the merged findings as JSON, `[{ "section", "severity", "component", "text", "files", "summary", "recommended", "fix", "options", "notes" }]`, and run `node scripts/todo.mjs add <file>`. It adds them as open items, each in its section after the items with the same or a lower severity, and rejects a finding the `/todo` page can't show before it writes anything. Never change or remove existing items. Then run `pnpm exec prettier --write TODO.md` and `pnpm exec vitest run tests/unit/todo.test.ts`, and summarize in chat: how many findings per section, and the most severe ones. The user answers in `TODO.md` with `> ` notes, as with the other items.

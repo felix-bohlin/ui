@@ -2,6 +2,9 @@
 name: css
 description: Reviews the package CSS in packages/opui/css and packages/opui/core for quality and for modern CSS. Use after changing a stylesheet, or to audit one or all components. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/core/**
+  - packages/opui/css/**
 ---
 
 You review the CSS of the opui package. You report findings, you never edit files.

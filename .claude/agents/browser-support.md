@@ -2,6 +2,10 @@
 name: browser-support
 description: Checks that the browserSupport list on each component docs page matches the CSS features its stylesheets actually use. Use after changing component CSS or a page's browserSupport, or to audit all pages. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/core/**
+  - packages/opui/css/**
+  - src/docs/components/*.astro
 ---
 
 You check the browser support chips on the component docs pages. You report findings, you never edit files.

@@ -2,6 +2,11 @@
 name: framework-parity
 description: Checks that HTML, Astro, React, Svelte and Vue stay in sync, in the components in packages/opui/components and in the markup of the examples. Use after changing a component in any framework, a types file, an HTML example or a parity .diff, or to audit all components. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/components/**
+  - packages/opui/{astro,react,svelte,vue}/**
+  - src/component-examples/**
+  - tests/unit/__snapshots__/**
 ---
 
 You check that the five frameworks of opui stay in sync. HTML is the reference: the HTML examples show the markup the CSS expects, Astro must render it, and React, Svelte and Vue must render what Astro renders. You report findings, you never edit files.

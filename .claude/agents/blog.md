@@ -2,6 +2,11 @@
 name: blog
 description: Reviews the Learn posts in src/docs/learn and their registry. Use after writing or changing a post, after changing CSS that a post explains, or to audit all posts. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/css/components/**
+  - src/components/UnderTheHood/**
+  - src/docs/learn/**
+  - src/utils/learn*.ts
 ---
 
 You review the Learn posts. You report findings, you never edit files.

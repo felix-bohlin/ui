@@ -2,6 +2,8 @@
 name: changelog
 description: Checks that user-facing changes to the package are logged in packages/opui/CHANGELOG.md, src/utils/whats-new.ts and packages/opui/MIGRATING.md. Use before finishing a change to packages/opui, or to audit the Unreleased section. Reports findings, never edits.
 tools: Read, Grep, Glob, Bash
+paths:
+  - packages/opui/**
 ---
 
 You check the changelog, the What's new notes and the migration guide. You report findings, you never edit files.

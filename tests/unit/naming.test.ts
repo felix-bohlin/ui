@@ -188,7 +188,7 @@ const isProp = (option: ApiOption) =>
 const defaultValue = (option: ApiOption) =>
   option.default?.match(/^"(.*)"$/)?.[1]
 
-const problems = apis.flatMap((api) => {
+const problemsOf = (api: ComponentApi) => {
   const found: string[] = []
   const report = (option: ApiOption, message: string) =>
     found.push(`${api.component} ${option.prop}: ${message}`)
@@ -320,6 +320,97 @@ const problems = apis.flatMap((api) => {
     found.push(`${api.component}: has both dense and density`)
   }
   return found
+}
+
+const problems = apis.flatMap(problemsOf)
+
+const button = apis.find(({ component }) => component === "Button")!
+const option = (fields: {
+  default?: string
+  group?: string
+  prop: string
+  values?: Record<string, string | null>
+}) => ({ description: "", group: "Behavior", ...fields })
+
+test.each([
+  [
+    "a negative boolean",
+    "names what turning it on turns off",
+    { options: [option({ prop: "noArrow" })] },
+  ],
+  [
+    "a boolean that is on by default",
+    "a boolean is off when it's left out",
+    { options: [option({ default: "true", prop: "arrow" })] },
+  ],
+  [
+    "a value outside its set",
+    '"huge" is not a size value',
+    {
+      options: [
+        option({
+          default: '"medium"',
+          group: "Sizes",
+          prop: "size",
+          values: { huge: ".ui-huge", medium: null },
+        }),
+      ],
+    },
+  ],
+  [
+    "a default that adds a class",
+    'the default "medium" adds a class',
+    {
+      options: [
+        option({
+          default: '"medium"',
+          group: "Sizes",
+          prop: "size",
+          values: { medium: ".ui-medium", small: ".ui-small" },
+        }),
+      ],
+    },
+  ],
+  [
+    "a dense boolean next to density",
+    "has both dense and density",
+    {
+      options: [
+        option({ group: "Density", prop: "dense" }),
+        option({
+          default: '"normal"',
+          group: "Density",
+          prop: "density",
+          values: { dense: ".ui-dense", normal: null },
+        }),
+      ],
+    },
+  ],
+  [
+    "a group outside the list",
+    'group "Looks" is not in the group list',
+    { options: [option({ group: "Looks", prop: "round" })] },
+  ],
+  [
+    "a part class outside the list",
+    ".ui-gadget is not a part name",
+    {
+      options: [],
+      parts: [{ description: "", selector: ".ui-button > .ui-gadget" }],
+    },
+  ],
+  [
+    "a slot outside the list",
+    "gadget: not in the slot list",
+    { options: [], slots: [{ description: "", name: "gadget" }] },
+  ],
+])("the naming model flags %s", (_, message, fields) => {
+  expect(
+    problemsOf({ ...button, parts: [], slots: [], ...fields }).join("\n"),
+  ).toContain(message)
+  expect(problemsOf({ ...button, options: [], parts: [], slots: [] })).toEqual(
+    [],
+  )
 })
 
 test("component props follow the naming model", () => {

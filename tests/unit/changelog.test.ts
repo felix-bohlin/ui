@@ -11,15 +11,18 @@ import releasedApi from "./released-api.json"
 import releasedTokens from "./released-tokens.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
-const start = changelog.indexOf("\n## ")
-const end = changelog.indexOf("\n## ", start + 1)
-const unreleased = changelog.slice(start, end === -1 ? undefined : end)
-const sections = [
-  ...unreleased.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm),
-].map(([, title, body]) => ({
-  entries: body.split("\n").filter((line) => line.startsWith("- ")),
-  title,
-}))
+const sectionsOf = (text: string) => {
+  const start = text.indexOf("\n## ")
+  const end = text.indexOf("\n## ", start + 1)
+  const unreleased = text.slice(start, end === -1 ? undefined : end)
+  return [
+    ...unreleased.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm),
+  ].map(([, title, body]) => ({
+    entries: body.split("\n").filter((line) => line.startsWith("- ")),
+    title,
+  }))
+}
+const sections = sectionsOf(changelog)
 
 const name = (entry: string) => entry.match(/^- `([^`]+)`/)?.[1]
 const tier = (leading: string) => (/^[A-Z]/.test(leading) ? 0 : 1)
@@ -28,10 +31,21 @@ const compare = (a: string, b: string) => {
   return tier(x) - tier(y) || x.localeCompare(y, "en")
 }
 
+const unnamed = (entries: string[]) => entries.filter((entry) => !name(entry))
+const SECTIONS = ["Breaking", "Removed", "Added", "Changed", "Fixed"]
+const sectionOrder = (text: string) => {
+  const titles = sectionsOf(text).map((section) => section.title)
+  return titles.join() ===
+    SECTIONS.filter((title) => titles.includes(title)).join() &&
+    new Set(titles).size === titles.length
+    ? []
+    : titles
+}
+
 describe.each(sections)("$title", ({ entries }) => {
   test("every entry starts with a backticked name", () => {
     expect(
-      entries.filter((entry) => !name(entry)),
+      unnamed(entries),
       "start every entry with the component name in backticks: - `Tabs` take a `variant` prop.",
     ).toEqual([])
   })
@@ -85,15 +99,10 @@ test("releases go from newest to oldest", () => {
 })
 
 test("the unreleased sections come in order", () => {
-  const titles = sections.map((section) => section.title)
-  const order =
-    "Breaking, Removed, Added, Changed and Fixed, in that order and each once"
-  expect(titles, order).toEqual(
-    ["Breaking", "Removed", "Added", "Changed", "Fixed"].filter((title) =>
-      titles.includes(title),
-    ),
-  )
-  expect(new Set(titles).size, order).toBe(titles.length)
+  expect(
+    sectionOrder(changelog),
+    "Breaking, Removed, Added, Changed and Fixed, in that order and each once",
+  ).toEqual([])
 })
 
 const apis = import.meta.glob<ComponentApi>(
@@ -225,4 +234,86 @@ test("theme tokens added since the last release are named in the CHANGELOG", () 
       .toSorted(),
     "name each token in backticks in an entry of the unreleased version, or a range such as `--ui-space-1` to `--ui-space-8`",
   ).toEqual([])
+})
+
+describe("the changelog rules flag their samples", () => {
+  const log = (...lines: string[]) =>
+    [
+      "# Changelog",
+      "",
+      "## 6.0.0 - Unreleased",
+      "",
+      ...lines,
+      "",
+      "## 5.4.3 - 2026-01-01",
+      "",
+      "### Fixed",
+      "",
+      "- `Card` is fixed.",
+      "",
+    ].join("\n")
+
+  test("an entry without a backticked name", () => {
+    const [added] = sectionsOf(log("### Added", "", "- Tabs take a variant."))
+    expect(unnamed(added.entries)).toEqual(["- Tabs take a variant."])
+  })
+
+  test("entries out of order", () => {
+    const [added] = sectionsOf(
+      log(
+        "### Added",
+        "",
+        "- `theme.css` has a token.",
+        "- `Tabs` take a variant.",
+      ),
+    )
+    expect(added.entries.toSorted(compare)).not.toEqual(added.entries)
+  })
+
+  test("sections out of order or twice", () => {
+    expect(
+      sectionOrder(
+        log(
+          "### Fixed",
+          "",
+          "- `Card` is fixed.",
+          "",
+          "### Added",
+          "",
+          "- `Tabs` take a variant.",
+        ),
+      ),
+    ).toEqual(["Fixed", "Added"])
+    expect(
+      sectionOrder(
+        log("### Added", "", "- `A` b.", "", "### Added", "", "- `C` d."),
+      ),
+    ).toEqual(["Added", "Added"])
+    expect(
+      sectionOrder(
+        log("### Breaking", "", "- `A` b.", "", "### Fixed", "", "- `C` d."),
+      ),
+    ).toEqual([])
+  })
+
+  test("a heading that is no version with a date or Unreleased", () => {
+    expect(
+      ["6.0.0 - Unreleased", "5.4.3 - 2026-01-01", "5.4.3"].filter((heading) =>
+        HEADING.test(heading),
+      ),
+    ).toHaveLength(3)
+    expect(
+      ["Version 6", "6.0 - Unreleased", "6.0.0 - soon"].filter((heading) =>
+        HEADING.test(heading),
+      ),
+    ).toEqual([])
+  })
+
+  test("only the unreleased version's sections are read", () => {
+    expect(
+      sectionsOf(log("### Added", "", "- `Tabs` take a variant.")).map(
+        ({ title }) => title,
+      ),
+    ).toEqual(["Added"])
+  })
 })

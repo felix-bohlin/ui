@@ -75,12 +75,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Docs
 
-- [ ] (2) Docs: nothing checks internal links and anchors. `src/utils/whats-new.ts` alone has 655 `href="#…"` links into component pages, and a renamed heading leaves them pointing at nothing without a failure (`src/utils/whats-new.ts`, `src/docs/components/`)
+- [x] (2) Docs: nothing checks internal links and anchors. `src/utils/whats-new.ts` alone has 655 `href="#…"` links into component pages, and a renamed heading leaves them pointing at nothing without a failure (`src/utils/whats-new.ts`, `src/docs/components/`)
   - Summary: A renamed heading silently breaks the What's new and other in-page links that point at it.
   - Recommended: Fix with option A. A post-build check is fast and covers every page and link at once.
   - Options:
     - A (recommended): a post-build `scripts/check-links.mjs` that reads `dist/` with parse5 and fails on an internal `href` whose page or `#id` doesn't exist, run at the end of `pnpm build`.
     - B: an e2e spec that crawls the built site.
+  - Fixed with option A: `scripts/check-dist.mjs` (`pnpm check-dist`) runs at the end of `pnpm build`. It parses every page in `dist` with parse5, follows redirect pages, and fails on an internal link to a missing page or `#id`, a duplicate id, a missing `.md` alternate, a search index URL that doesn't exist and a dead link in `llms.txt` or a `.md` page. It found the Tabs note's `#variants`, the Migrating guide's relative `MIGRATING-legacy.md`, the release checks' `RELEASING.md`, 54 `css-variables` ids on each API index, the Menu Custom `#menu` and the framework variants and `.md` files that `/checks` and `/todo` advertised; all fixed. Placeholder fragments on the block previews, stress and fixture pages are skipped, and same-page fragments inside an example preview are only checked on component pages, since examples link their own page's sections.
 
 ## Limitations
 
@@ -324,6 +325,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): give the example links real destinations (docs pages, so the click navigates), and say on the Menu page that same-page links keep the menu open.
     - B: close the menu on link activation with a small script in `menu.js` (there is no JavaScript in Menu today).
     - C: keep the same-page anchors.
+  - Note: `check-dist` fails on `href="#menu"`, which no element on the Menu page has, so the Custom link now points at its own section, `#custom`, in all five formats. The question above is unchanged.
 - [ ] (2) Tabs: the Keyboard support list says Right and Left Arrow "follow the reading direction. In right-to-left text, Left Arrow moves to the next tab." That is the browser's native radio-group behavior, which the library doesn't control, and no e2e test covers RTL. Check on `/html/components/tabs/` with `dir="rtl"` on the `.ui-tabs` in Chromium, Firefox and Safari; if it differs per browser, reword the row to "Right and Left Arrow move between tabs; which way depends on the browser in right-to-left text" (`src/docs/components/tabs.astro:198-202`, `tests/e2e/interaction.spec.ts:260-280`)
   - Summary: The docs say Left Arrow moves to the next tab in right-to-left text, which may not hold in every browser.
   - Recommended: Explain further and provide an example. Chromium's radio code flips the arrow keys in RTL, so the docs match the target browser, and an RTL tabs demo lets the user check Firefox and Safari before rewording.

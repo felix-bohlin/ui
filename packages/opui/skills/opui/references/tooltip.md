@@ -16,7 +16,7 @@ Built on top of Anchor.
 ### Props and modifiers
 
 - `arrow`: `boolean`, `.ui-arrow`. Adds an arrow that points to the trigger.
-- `id`: `string`. The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. Required.
+- `id`: `string`. The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command="toggle-popover"` too. Required.
 - `positionArea`: `string`, `--ui-anchor-position-area`, default `"self-block-start"`. Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.
 
 ### Slots
@@ -25,7 +25,7 @@ Built on top of Anchor.
 
 ### Notes
 
-- HTML: Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+- HTML: Give `.ui-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger. A toggletip trigger also takes `commandfor` and `command="toggle-popover"`.
 
 ## Component properties
 
@@ -60,13 +60,7 @@ The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `-
 
 ```html
 <span class="ui-tooltip">
-  <button
-    type="button"
-    class="ui-button"
-    interestfor="tooltip-basics-1"
-    commandfor="tooltip-basics-1"
-    command="toggle-popover"
-  >
+  <button type="button" class="ui-button" interestfor="tooltip-basics-1">
     Save
   </button>
   <span class="ui-floating" id="tooltip-basics-1" popover="hint"
@@ -87,11 +81,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
 <Tooltip id="tooltip-basics-1">
-  <Button
-    interestfor="tooltip-basics-1"
-    commandfor="tooltip-basics-1"
-    command="toggle-popover">Save</Button
-  >
+  <Button interestfor="tooltip-basics-1">Save</Button>
   <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
 ```
@@ -108,13 +98,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/react"
 export default function Basics() {
   return (
     <Tooltip id="tooltip-basics-1">
-      <Button
-        interestfor="tooltip-basics-1"
-        commandfor="tooltip-basics-1"
-        command="toggle-popover"
-      >
-        Save
-      </Button>
+      <Button interestfor="tooltip-basics-1">Save</Button>
       <TooltipContent>Save your changes</TooltipContent>
     </Tooltip>
   )
@@ -133,11 +117,7 @@ export default function Basics() {
 </script>
 
 <Tooltip id="tooltip-basics-1">
-  <Button
-    interestfor="tooltip-basics-1"
-    commandfor="tooltip-basics-1"
-    command="toggle-popover">Save</Button
-  >
+  <Button interestfor="tooltip-basics-1">Save</Button>
   <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
 ```
@@ -155,12 +135,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 
 <template>
   <Tooltip id="tooltip-basics-1">
-    <Button
-      interestfor="tooltip-basics-1"
-      commandfor="tooltip-basics-1"
-      command="toggle-popover"
-      >Save</Button
-    >
+    <Button interestfor="tooltip-basics-1">Save</Button>
     <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 </template>

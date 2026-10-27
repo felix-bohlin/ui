@@ -24,10 +24,7 @@ const DOCS_PAGES = [
 test.beforeEach(({ page }) => instantScrolling(page))
 
 const visiblePicker = (page: Page) =>
-  page
-    .locator('.framework-picker select[data-bound="true"]')
-    .filter({ visible: true })
-    .first()
+  page.locator(".framework-picker select").filter({ visible: true }).first()
 
 const openSearch = async (page: Page, query: string) => {
   await page.locator("[data-open-search]").filter({ visible: true }).click()
@@ -105,6 +102,8 @@ test.describe("framework picker", () => {
     test.setTimeout(60_000)
     await page.goto("/html/components/divider/#spacing")
     for (const framework of [...FRAMEWORK_IDS.slice(1), FRAMEWORK_IDS[0]]) {
+      // waitForURL resolves at commit, before the picker script binds its change listener
+      await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
       await visiblePicker(page).selectOption(framework)
       await page.waitForURL(`/${framework}/components/divider/#spacing`, {
         waitUntil: "commit",
@@ -247,26 +246,19 @@ for (const [component, trigger] of [
 }
 
 const tabStop = (page: Page) =>
-  page.evaluate(() => {
+  page.evaluate(async () => {
     let element = document.activeElement
     while (element?.shadowRoot?.activeElement)
       element = element.shadowRoot.activeElement
     if (!(element instanceof HTMLElement) || element === document.body)
       return null
     const { dataset } = document.documentElement
-    if (!element.dataset.tabStop) {
-      dataset.tabStops = String(Number(dataset.tabStops ?? 0) + 1)
-      element.dataset.tabStop = dataset.tabStops
-    }
-    return element.dataset.tabStop
-  })
-
-const focusProblem = (page: Page) =>
-  page.evaluate(async () => {
-    let element = document.activeElement
-    while (element?.shadowRoot?.activeElement)
-      element = element.shadowRoot.activeElement
-    if (!(element instanceof HTMLElement)) return ""
+    if (element.dataset.tabStop) return { id: element.dataset.tabStop }
+    dataset.tabStops = String(Number(dataset.tabStops ?? 0) + 1)
+    element.dataset.tabStop = dataset.tabStops
+    // WebKit scrolls the focused element into view on a later frame
+    await new Promise(requestAnimationFrame)
+    await new Promise(requestAnimationFrame)
 
     const parent = (node: Element) => {
       const root = node.getRootNode()
@@ -322,7 +314,10 @@ const focusProblem = (page: Page) =>
               box.left >= innerWidth
             ? "is outside the viewport"
             : ""
-    return problem && `${label} ${problem}`
+    return {
+      id: element.dataset.tabStop,
+      problem: problem && `${label} ${problem}`,
+    }
   })
 
 for (const path of [
@@ -331,7 +326,7 @@ for (const path of [
   "/html/guide/getting-started/",
 ]) {
   test(`${path} shows focus on every Tab stop`, async ({ page }) => {
-    test.setTimeout(120_000)
+    test.setTimeout(180_000)
     await page.emulateMedia({ reducedMotion: "reduce" })
     await page.goto(path)
     const problems: string[] = []
@@ -339,16 +334,9 @@ for (const path of [
     for (let step = 0; step < 1000; step++) {
       await page.keyboard.press("Tab")
       const stop = await tabStop(page)
-      if (!stop || stops.has(stop)) break
-      stops.add(stop)
-      const problem = await expect
-        .poll(() => focusProblem(page), { timeout: 2000 })
-        .toBe("")
-        .then(
-          () => "",
-          () => focusProblem(page),
-        )
-      if (problem) problems.push(problem)
+      if (!stop || stops.has(stop.id)) break
+      stops.add(stop.id)
+      if (stop.problem) problems.push(stop.problem)
     }
     expect(stops.size, "Tab stops").toBeGreaterThan(10)
     expect(problems).toEqual([])

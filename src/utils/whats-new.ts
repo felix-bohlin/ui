@@ -1429,6 +1429,16 @@ export const highlighted = new Set<string>([
   "typography",
 ] satisfies (keyof typeof whatsNew)[])
 
+export const added = new Set<string>([
+  "carousel",
+  "color-field",
+  "copy",
+  "layout",
+  "menu",
+  "number-stepper",
+  "toast",
+] satisfies (keyof typeof whatsNew)[])
+
 export const notesFor = (notes: Note[], framework: FrameworkId) =>
   notes
     .map((note) =>

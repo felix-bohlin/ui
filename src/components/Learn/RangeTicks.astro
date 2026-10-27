@@ -1,0 +1,95 @@
+---
+import { Range, ToggleButton, ToggleGroup } from "opui-css/astro"
+
+const { $id } = Astro.locals
+const labelId = $id("range-ticks-step")
+const steps = [10, 20, 25, 50]
+const step = 25
+const value = 50
+
+const ticks = (by: number) =>
+  Array.from({ length: 100 / by + 1 }, (_, index) => ({
+    label: String(index * by),
+    value: index * by,
+  }))
+---
+
+<div class="range-ticks">
+  <Range
+    label="Volume"
+    items={ticks(step)}
+    step={step}
+    value={value}
+    valueSuffix=""
+  />
+  <div class="range-ticks-step">
+    <span class="range-ticks-step-label" id={labelId}>
+      <code>step</code>
+    </span>
+    <ToggleGroup aria-labelledby={labelId} size="small">
+      {
+        steps.map((option) => (
+          <ToggleButton checked={option === step} value={option}>
+            {option}
+          </ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+    <span class="range-ticks-count">
+      <span data-count>{ticks(step).length}</span> options in the datalist
+    </span>
+  </div>
+</div>
+
+<style>
+  .range-ticks {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+  }
+
+  .range-ticks-step {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-3);
+  }
+
+  .range-ticks-step-label code {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-bold);
+  }
+
+  .range-ticks-count {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".range-ticks").forEach((demo) => {
+    const range = demo.querySelector<HTMLInputElement>("input[type=range]")
+    const list = demo.querySelector("datalist")
+    const count = demo.querySelector("[data-count]")
+    if (!range || !list) return
+    demo
+      .querySelectorAll<HTMLInputElement>(".ui-toggle-group input")
+      .forEach((input) =>
+        input.addEventListener("change", () => {
+          const step = Number(input.value)
+          const options = Array.from({ length: 100 / step + 1 }, (_, index) => {
+            const option = document.createElement("option")
+            option.value = String(index * step)
+            option.label = option.value
+            return option
+          })
+          list.replaceChildren(...options)
+          range.step = String(step)
+          range.value = String(Math.round(Number(range.value) / step) * step)
+          range.dispatchEvent(new Event("input", { bubbles: true }))
+          if (count) count.textContent = String(options.length)
+        }),
+      )
+  })
+</script>

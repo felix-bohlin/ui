@@ -3,6 +3,8 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import AnchorPlayground from "../../components/Learn/AnchorPlayground.astro"
+import { Button, Menu } from "opui-css/astro"
 import Basics from "../../component-examples/menu/Basics.astro"
 ---
 
@@ -76,6 +78,39 @@ import Basics from "../../component-examples/menu/Basics.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Open the menu, then drag the button around, or move it with the sliders.
+      Bring it close to the bottom of the window and the menu opens upward.
+    </p>
+    <Example wide showCode={false}>
+      <AnchorPlayground>
+        <Button
+          command="toggle-popover"
+          commandfor="menu-playground"
+          variant="outlined"
+        >
+          Options
+        </Button>
+        <Menu
+          id="menu-playground"
+          items={[
+            { label: "Edit", shortcut: "Ctrl+E" },
+            { label: "Duplicate", shortcut: "Ctrl+D" },
+            { disabled: true, label: "Archive" },
+            { borderTop: true, color: "critical", label: "Delete" },
+          ]}
+        />
+      </AnchorPlayground>
+    </Example>
+    <ul>
+      <li>
+        The button is the menu's implicit anchor through <code>commandfor</code
+        >, so moving the button moves the menu with it
+      </li>
+      <li>
+        The menu is in the top layer, so it measures the window, not the box
+      </li>
+    </ul>
     <p>
       Open the menu, then scroll until the button is near an edge and open it
       again.

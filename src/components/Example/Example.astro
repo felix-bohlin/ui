@@ -46,6 +46,7 @@ type Props = {
   row?: boolean
   showCode?: boolean
   spacious?: boolean
+  wide?: boolean
   reactExampleId?: string
   svelteExampleId?: string
   vueExampleId?: string
@@ -58,6 +59,7 @@ const {
   row,
   showCode = true,
   spacious,
+  wide,
   reactExampleId,
   svelteExampleId,
   vueExampleId,
@@ -158,7 +160,7 @@ const outputId = `${groupName}-output`
 <div
   class:list={[
     "example-container ui-card ui-outlined ui-not-rich-text",
-    { "example-centered": centered },
+    { "example-centered": centered, "is-wide": wide },
   ]}
   data-expanded="false"
 >

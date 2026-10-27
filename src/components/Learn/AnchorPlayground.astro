@@ -1,0 +1,167 @@
+---
+import { Range } from "opui-css/astro"
+
+const position = { x: 50, y: 50 }
+---
+
+<div class="anchor-playground">
+  <div class="anchor-playground-stage">
+    <div class="anchor-playground-mover">
+      <slot />
+    </div>
+  </div>
+  <fieldset class="anchor-playground-knobs">
+    <legend class="ui-sr-only">Trigger position</legend>
+    <Range
+      data-axis="x"
+      label="Inline position"
+      max={100}
+      min={0}
+      value={position.x}
+      valueSuffix="%"
+    />
+    <Range
+      data-axis="y"
+      label="Block position"
+      max={100}
+      min={0}
+      value={position.y}
+      valueSuffix="%"
+    />
+  </fieldset>
+</div>
+
+<style>
+  .anchor-playground {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+  }
+
+  .anchor-playground-stage {
+    background-image: radial-gradient(
+      oklch(from var(--ui-text) l c h / 8%) 1.45px,
+      transparent 1.45px
+    );
+    background-size: 20px 20px;
+    block-size: clamp(14rem, 55dvb, 26rem);
+    border: var(--ui-border-width-thick) dashed var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    display: grid;
+    grid-template-columns: var(--_start, 1fr) auto 1fr;
+    grid-template-rows: var(--_top, 1fr) auto 1fr;
+    position: relative;
+  }
+
+  .anchor-playground-mover {
+    grid-area: 2 / 2;
+    inline-size: fit-content;
+
+    & :is(a, button) {
+      cursor: move;
+      touch-action: none;
+    }
+
+    & :global(.ui-anchor > .ui-floating:not([popover])) {
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+    }
+  }
+
+  .anchor-playground-knobs {
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+  }
+</style>
+
+<script>
+  import { drag } from "./drag"
+
+  document
+    .querySelectorAll<HTMLElement>(".anchor-playground")
+    .forEach((playground) => {
+      const stage = playground.querySelector<HTMLElement>(
+        ".anchor-playground-stage",
+      )
+      const mover = playground.querySelector<HTMLElement>(
+        ".anchor-playground-mover",
+      )
+      const trigger = mover?.querySelector<HTMLElement>("a, button")
+      const inputs = [
+        ...playground.querySelectorAll<HTMLInputElement>("input[type=range]"),
+      ]
+      const input = (axis: string) =>
+        inputs.find((candidate) => candidate.dataset.axis === axis)
+      if (!stage || !mover || !trigger) return
+
+      const room = () => ({
+        x: Math.max(0, stage.clientWidth - mover.offsetWidth),
+        y: Math.max(0, stage.clientHeight - mover.offsetHeight),
+      })
+
+      const render = () => {
+        const { x, y } = room()
+        stage.style.setProperty(
+          "--_start",
+          `${(Number(input("x")?.value) / 100) * x}px`,
+        )
+        stage.style.setProperty(
+          "--_top",
+          `${(Number(input("y")?.value) / 100) * y}px`,
+        )
+      }
+
+      const set = (axis: string, fraction: number) => {
+        const target = input(axis)
+        if (!target) return
+        target.value = String(
+          Math.round(Math.min(Math.max(fraction, 0), 1) * 100),
+        )
+        target.dispatchEvent(new Event("input", { bubbles: true }))
+      }
+
+      let origin = { moved: false, px: 0, py: 0, x: 0, y: 0 }
+      drag(trigger, {
+        move: (event) => {
+          const { x, y } = room()
+          const dx = event.clientX - origin.px
+          const dy = event.clientY - origin.py
+          if (Math.hypot(dx, dy) > 3) origin.moved = true
+          const rtl = getComputedStyle(stage).direction === "rtl"
+          set("x", origin.x + (rtl ? -dx : dx) / x)
+          set("y", origin.y + dy / y)
+        },
+        root: playground,
+        start: (event) => {
+          trigger.focus({ preventScroll: true })
+          origin = {
+            moved: false,
+            px: event.clientX,
+            py: event.clientY,
+            x: Number(input("x")?.value) / 100,
+            y: Number(input("y")?.value) / 100,
+          }
+        },
+      })
+      trigger.addEventListener(
+        "click",
+        (event) => {
+          if (!origin.moved || event.detail === 0) return
+          origin.moved = false
+          event.preventDefault()
+          event.stopImmediatePropagation()
+        },
+        true,
+      )
+
+      inputs.forEach((candidate) => candidate.addEventListener("input", render))
+      new ResizeObserver(render).observe(stage)
+    })
+</script>

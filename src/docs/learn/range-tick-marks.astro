@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import RangeTicks from "../../components/Learn/RangeTicks.astro"
 import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astro"
 ---
 
@@ -50,10 +51,10 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
       </li>
       <li>
         Padding and an equal negative margin leave room for the thumb and its
-        halo without moving anything. The inset is half a thumb, and at least
-        {" "}<code>0.5rem</code> for the halo. <code>view-timeline-inset</code> takes
-        it back out of the timeline, <code>outline-offset</code> out of the focus
-        ring
+        halo without moving anything. The inset is how far the thumb sticks out
+        past the input's height, plus a <code>0.5rem</code> halo, and at least the
+        halo. <code>view-timeline-inset</code> takes it back out of the timeline,
+        {" "}<code>outline-offset</code> out of the focus ring
       </li>
       <li>
         <code>display: flex</code> brings the datalist back, and <code
@@ -84,7 +85,7 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
 }
 
 input[type="range"] {
-  --inset: max(0.5rem, 3ex / 2);
+  --inset: max(0.5rem, 3ex / 2 + 0.5rem - 1.25rem / 2);
   animation-fill-mode: both;
   animation-name: range-fill;
   animation-range: contain;
@@ -92,7 +93,7 @@ input[type="range"] {
   animation-timing-function: linear;
   box-sizing: content-box;
   margin: calc(-1 * var(--inset));
-  outline-offset: calc(1ex - var(--inset));
+  outline-offset: calc(max(0px, (3ex - 1.25rem) / 2) + 2px - var(--inset));
   overflow: hidden;
   padding: var(--inset);
   timeline-scope: --thumb;
@@ -135,6 +136,24 @@ datalist > option {
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Pick a step. The <code>&lt;datalist&gt;</code> is rebuilt with one option per
+      step, and the labels place themselves.
+    </p>
+    <Example showCode={false}>
+      <RangeTicks />
+    </Example>
+    <ul>
+      <li>
+        The labels are the <code>&lt;option&gt;</code> elements, laid out with <code
+          >justify-content: space-between</code
+        >. No positions are computed
+      </li>
+      <li>
+        The thumb snaps to the same <code>step</code>, and the fill follows it
+        through the scroll-driven animation
+      </li>
+    </ul>
     <p>Drag a thumb. The fill follows it, and the labels sit on their steps.</p>
     <Example column showCode={false}>
       <TickMarksLabels />

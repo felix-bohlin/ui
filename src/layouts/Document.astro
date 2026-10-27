@@ -190,6 +190,17 @@ const descText =
     view-transition-class: doc-heading doc-reflow;
   }
 
+  @property --content-inline-size {
+    inherits: true;
+    initial-value: 100%;
+    syntax: "<length-percentage>";
+  }
+
+  :where(#main-content > .ui-rich-text) > :where(:not(section)),
+  :where(#main-content > .ui-rich-text) > section > :where(:not(.is-wide)) {
+    max-inline-size: var(--content-inline-size);
+  }
+
   #document-page {
     display: grid;
     grid-template-columns:
@@ -217,22 +228,15 @@ const descText =
       display: none;
     }
 
-    @media (width < 900px) {
-      #main-content {
-        grid-column: 3 / 7;
-        max-inline-size: 100%;
-        padding-inline: 0;
-      }
-    }
-
     @media (width >= 900px) {
       grid-template-columns:
         var(--site-gap) 1fr 200px minmax(auto, 100%)
         0 1fr var(--site-gap);
 
       &[data-wide] > #main-content {
+        --content-inline-size: 100%;
+
         grid-column: 4 / 6;
-        max-inline-size: none;
       }
 
       .sidebar {
@@ -423,10 +427,17 @@ const descText =
     }
 
     #main-content {
+      --content-inline-size: var(--site-content-document);
+
       grid-column: 4;
       grid-row: 2;
-      max-inline-size: var(--site-content-document);
       min-inline-size: 0;
+
+      @media (width < 900px) {
+        --content-inline-size: 100%;
+
+        grid-column: 3 / 7;
+      }
 
       @media (width >= 900px) {
         padding: var(--site-gap);
@@ -465,11 +476,12 @@ const descText =
         }
 
         @media (width > 1200px) {
-          :where(h2) {
+          h2 {
             container-name: sticky-heading;
             container-type: scroll-state;
             inset-block-start: var(--size-4);
-            max-inline-size: calc(
+            max-inline-size: min(
+              var(--content-inline-size),
               min(
                   100vw - var(--site-gap),
                   (100vw + var(--site-content-lg)) / 2

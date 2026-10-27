@@ -4,10 +4,10 @@ import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import { instantScrolling } from "./fixtures"
 
-const pages = (directory: string) =>
+const pages = (directory: string, prefix = "/html") =>
   readdirSync(new URL(`../../src/docs/${directory}/`, import.meta.url))
-    .filter((file) => file.endsWith(".astro"))
-    .map((file) => `/html/${directory}/${file.replace(/\.astro$/, "")}/`)
+    .filter((file) => file.endsWith(".astro") && file !== "index.astro")
+    .map((file) => `${prefix}/${directory}/${file.replace(/\.astro$/, "")}/`)
 
 const DOCS_PAGES = [
   "/",
@@ -19,6 +19,7 @@ const DOCS_PAGES = [
   "/theme-builder/",
   ...pages("components"),
   ...pages("guide"),
+  ...pages("learn", ""),
 ].toSorted()
 
 test.beforeEach(({ page }) => instantScrolling(page))

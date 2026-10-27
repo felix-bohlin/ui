@@ -1,0 +1,142 @@
+---
+import { Avatar, Range } from "opui-css/astro"
+
+const exponent = 2
+const radius = 50
+---
+
+<div class="corner-shape" style={`--_k: ${exponent}; --_radius: ${radius}%`}>
+  <div class="corner-shape-row">
+    <Avatar aria-label="Jonas Berg" role="img" size="small">JB</Avatar>
+    <Avatar aria-label="Sam Quist" role="img">SQ</Avatar>
+    <Avatar aria-label="Sara Kim" role="img" size="large">SK</Avatar>
+    <p class="corner-shape-readout">
+      <code data-value>corner-shape: superellipse(2)</code>
+      <span data-name>squircle</span>
+    </p>
+  </div>
+  <fieldset class="corner-shape-knobs">
+    <legend class="ui-sr-only">Radius and corner shape</legend>
+    <Range
+      data-property="radius"
+      label="Radius"
+      max={50}
+      min={0}
+      step={5}
+      value={radius}
+      valueSuffix="%"
+    >
+      <code slot="start-text">border-radius</code>
+    </Range>
+    <Range
+      data-property="exponent"
+      label="Exponent"
+      max={3}
+      min={-2}
+      step={0.25}
+      value={exponent}
+      valueSuffix=""
+    >
+      <code slot="start-text">superellipse()</code>
+    </Range>
+  </fieldset>
+</div>
+
+<style>
+  .corner-shape {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+
+    & :global(.ui-avatar) {
+      border-radius: var(--_radius);
+      corner-shape: superellipse(var(--_k));
+    }
+  }
+
+  .corner-shape-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+  }
+
+  .corner-shape-readout {
+    align-items: baseline;
+    color: var(--ui-text);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0;
+    margin-inline-start: auto;
+
+    & code {
+      color: var(--ui-text-strong);
+    }
+  }
+
+  .corner-shape-knobs {
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+</style>
+
+<script>
+  const keywords = [
+    { exponent: -1, name: "scoop" },
+    { exponent: 0, name: "bevel" },
+    { exponent: 1, name: "round" },
+    { exponent: 2, name: "squircle" },
+  ]
+
+  const describe = (exponent: number) => {
+    const exact = keywords.find((keyword) => keyword.exponent === exponent)
+    if (exact) return exact.name
+    if (exponent < -1) return "between notch and scoop"
+    if (exponent > 2) return "between squircle and square"
+    const below = keywords.findLast((keyword) => keyword.exponent < exponent)
+    const above = keywords.find((keyword) => keyword.exponent > exponent)
+    return `between ${below?.name} and ${above?.name}`
+  }
+
+  document.querySelectorAll<HTMLElement>(".corner-shape").forEach((shape) => {
+    const inputs = [
+      ...shape.querySelectorAll<HTMLInputElement>("input[type=range]"),
+    ]
+    const value = shape.querySelector("[data-value]")
+    const name = shape.querySelector("[data-name]")
+
+    const render = () => {
+      inputs.forEach((input) => {
+        if (input.dataset.property === "radius") {
+          shape.style.setProperty("--_radius", `${input.value}%`)
+        } else {
+          shape.style.setProperty("--_k", input.value)
+        }
+      })
+      const exponentInput = inputs.find(
+        (input) => input.dataset.property === "exponent",
+      )
+      const exponent = Number(exponentInput?.value)
+      exponentInput?.setAttribute(
+        "aria-valuetext",
+        `${exponent}, ${describe(exponent)}`,
+      )
+      if (value) value.textContent = `corner-shape: superellipse(${exponent})`
+      if (name) name.textContent = describe(exponent)
+    }
+
+    inputs.forEach((input) => input.addEventListener("input", render))
+    render()
+  })
+</script>

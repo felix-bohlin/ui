@@ -290,6 +290,8 @@ export const references = {
       href: mdn("Web/CSS/@starting-style"),
       label: "@starting-style",
     },
+    { code: true, href: mdn("Web/CSS/anchor-name"), label: "anchor-name" },
+    { code: true, href: mdn("Web/CSS/anchor-scope"), label: "anchor-scope" },
     { code: true, href: mdn("Web/CSS/anchor-size"), label: "anchor-size()" },
     { code: true, href: mdn("Web/CSS/calc-size"), label: "calc-size()" },
     {

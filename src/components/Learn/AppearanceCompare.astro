@@ -1,0 +1,166 @@
+---
+import { Checkbox, Range, Switch } from "opui-css/astro"
+
+type Props = {
+  kind: "checkbox" | "switch"
+}
+
+const { kind } = Astro.props
+const size = kind === "checkbox" ? 20 : 24
+
+const columns = [
+  { appearance: "auto", caption: "the browser draws it" },
+  { appearance: "none", caption: "the input draws itself" },
+]
+
+const states =
+  kind === "checkbox"
+    ? [
+        { label: "Unchecked" },
+        { checked: true, label: "Checked" },
+        { indeterminate: true, label: "Indeterminate" },
+      ]
+    : [{ label: "Off" }, { checked: true, label: "On" }]
+
+const token =
+  kind === "checkbox" ? "--ui-choice-size" : "--ui-switch-track-block-size"
+---
+
+<div class="appearance-compare" data-kind={kind} style={`--_size: ${size}px`}>
+  <div class="appearance-compare-columns">
+    {
+      columns.map((column) => (
+        <fieldset
+          class="appearance-compare-column"
+          data-appearance={column.appearance}
+        >
+          <legend class="appearance-compare-title">
+            <code>appearance: {column.appearance}</code>
+            <span>{column.caption}</span>
+          </legend>
+          <div class="appearance-compare-states">
+            {states.map((state, index) =>
+              kind === "checkbox" ? (
+                <Checkbox
+                  checked={state.checked}
+                  data-state={index}
+                  indeterminate={state.indeterminate}
+                  label={state.label}
+                  name={`appearance-${column.appearance}-${index}`}
+                />
+              ) : (
+                <Switch
+                  checked={state.checked}
+                  data-state={index}
+                  label={state.label}
+                  name={`appearance-${column.appearance}-${index}`}
+                />
+              ),
+            )}
+          </div>
+        </fieldset>
+      ))
+    }
+  </div>
+  <Range label="Size" max={40} min={12} step={2} value={size} valueSuffix="px">
+    <code slot="start-text">{token}</code>
+  </Range>
+</div>
+
+<style>
+  .appearance-compare {
+    display: grid;
+    gap: var(--ui-space-5);
+    inline-size: 100%;
+
+    &[data-kind="checkbox"] {
+      --ui-choice-size: var(--_size);
+    }
+
+    &[data-kind="switch"] {
+      --ui-switch-thumb-size: calc(var(--_size) * 2 / 3);
+      --ui-switch-track-block-size: var(--_size);
+      --ui-switch-track-inline-size: calc(var(--_size) * 2);
+    }
+  }
+
+  .appearance-compare-columns {
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .appearance-compare-column {
+    align-content: start;
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    &[data-appearance="auto"] :global(input[type="checkbox"]) {
+      all: revert;
+      block-size: var(--_size);
+      inline-size: var(--_size);
+      margin: 0;
+
+      &::after,
+      &::before {
+        content: none;
+      }
+    }
+  }
+
+  .appearance-compare-title {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0 0 var(--ui-space-3);
+    padding: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .appearance-compare-states {
+    display: grid;
+    gap: var(--ui-space-3);
+  }
+
+  .appearance-compare :global(.ui-range code) {
+    font-size: var(--ui-font-size-caption);
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".appearance-compare")
+    .forEach((compare) => {
+      const kind = compare.dataset.kind
+      const range = compare.querySelector<HTMLInputElement>("input[type=range]")
+      range?.addEventListener("input", () =>
+        compare.style.setProperty("--_size", `${range.value}px`),
+      )
+      compare.addEventListener("change", (event) => {
+        const input = event.target
+        if (!(input instanceof HTMLInputElement) || input.type !== "checkbox") {
+          return
+        }
+        const state = input.closest<HTMLElement>("[data-state]")?.dataset.state
+        compare
+          .querySelectorAll<HTMLInputElement>(
+            `input[type=checkbox][data-state="${state}"]`,
+          )
+          .forEach((twin) => {
+            if (twin === input) return
+            twin.checked = input.checked
+            if (kind === "checkbox") twin.indeterminate = input.indeterminate
+          })
+      })
+    })
+</script>

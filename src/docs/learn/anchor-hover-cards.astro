@@ -3,6 +3,8 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import AnchorPlayground from "../../components/Learn/AnchorPlayground.astro"
+import { Anchor, AnchorContent, Card, CardContent } from "opui-css/astro"
 import RepoCard from "../../component-examples/anchor/RepoCard.astro"
 ---
 
@@ -68,6 +70,42 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
+      Drag the link around, or move it with the sliders. The card stays open
+      here so you can watch it: at an edge of the box it flips to the other
+      side.
+    </p>
+    <Example wide showCode={false}>
+      <AnchorPlayground>
+        <Anchor positionArea="block-end span-inline-end">
+          <a class="ui-link" href="https://github.com/felix-bohlin/ui"
+            >felix-bohlin/ui</a
+          >
+          <AnchorContent>
+            <Card class="playground-card" variant="elevated">
+              <CardContent>
+                <strong>felix-bohlin/ui</strong>
+                <p>
+                  A CSS UI library exploring how next-gen HTML and CSS features
+                  can change the way we create components.
+                </p>
+              </CardContent>
+            </Card>
+          </AnchorContent>
+        </Anchor>
+      </AnchorPlayground>
+    </Example>
+    <ul>
+      <li>
+        This card is the always-visible variant, positioned inside the box. The
+        real one is a <code>popover</code> in the top layer, so it flips at the window's
+        edges instead
+      </li>
+      <li>
+        <code>position-try-fallbacks</code> tries <code>flip-block</code>, then
+        <code>flip-inline</code>, then both, and keeps the first that fits
+      </li>
+    </ul>
+    <p>
       Hover or focus the link. The card opens next to it, and flips when there
       is no room.
     </p>
@@ -97,3 +135,15 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     </ul>
   </section>
 </TechniquePost>
+
+<style>
+  .playground-card {
+    font-size: var(--ui-font-size-small);
+    inline-size: 16rem;
+    margin-block-start: var(--ui-space-2);
+
+    & p {
+      margin: var(--ui-space-2) 0 0;
+    }
+  }
+</style>

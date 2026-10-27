@@ -24,10 +24,10 @@
 
     & .ui-indicator {
       background-color: var(--_indicator-bg-color);
-      block-size: var(--ui-icon-size);
+      block-size: min(var(--ui-icon-size), var(--_size) * 0.75);
       border-radius: var(--ui-radius-round);
       box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
-      inline-size: var(--ui-icon-size);
+      inline-size: min(var(--ui-icon-size), var(--_size) * 0.75);
 
       @media (forced-colors: active) {
         forced-color-adjust: none;

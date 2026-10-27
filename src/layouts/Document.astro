@@ -1,5 +1,6 @@
 ---
 import Default from "./Default.astro"
+import ReadingProgress from "../components/ReadingProgress.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
 import SidebarNav, { type SidebarGroup } from "../components/SidebarNav.astro"
@@ -139,6 +140,7 @@ const descText =
     {
       showToc && (
         <aside class="page-contents">
+          <ReadingProgress />
           <TableOfContents slot="table-of-contents" />
         </aside>
       )

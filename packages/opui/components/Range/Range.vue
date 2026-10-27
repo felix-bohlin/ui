@@ -6,6 +6,7 @@ import {
   type InputHTMLAttributes,
   onBeforeUnmount,
   onMounted,
+  ref,
   useAttrs,
   useId,
   useTemplateRef,
@@ -46,10 +47,15 @@ const model = computed({
 
 const input = useTemplateRef<HTMLInputElement>("input")
 let form: HTMLFormElement | null | undefined
+// Firefox and Safari replace an output's children on form reset, which
+// detaches the nodes Vue updates, so each reset renders a new output
+const resets = ref(0)
 const syncAfterReset = (event: Event) =>
   setTimeout(() => {
-    if (input.value && !event.defaultPrevented)
+    if (input.value && !event.defaultPrevented) {
       model.value = resetValue(input.value)
+      resets.value++
+    }
   })
 onMounted(() => {
   if (input.value && !input.value.hasAttribute("value") && model.value != null)
@@ -101,6 +107,7 @@ const endTextId = `range-end-${uid}`
     </span>
     <output
       v-if="valueSuffix !== undefined || $slots['value-text']"
+      :key="resets"
       aria-live="off"
       class="ui-value"
       :for="inputId"

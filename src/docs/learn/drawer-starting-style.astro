@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import StartingStyleCompare from "../../components/Learn/StartingStyleCompare.astro"
 import Basics from "../../component-examples/drawer/Basics.astro"
 ---
 
@@ -75,6 +76,25 @@ import Basics from "../../component-examples/drawer/Basics.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Two panels with the drawer's transition. Only one has <code
+        >@starting-style</code
+      >. Open and close them together.
+    </p>
+    <Example wide showCode={false}>
+      <StartingStyleCompare />
+    </Example>
+    <ul>
+      <li>
+        Both leave the same way: <code>allow-discrete</code> keeps the panel displayed
+        until the slide ends
+      </li>
+      <li>
+        Only the one with <code>@starting-style</code> slides in. The other goes from
+        <code>display: none</code> to its open position with nothing to transition
+        from, so it appears in place
+      </li>
+    </ul>
     <p>Open a drawer from each edge and watch it slide out again.</p>
     <Example column showCode={false}>
       <Basics />

@@ -3,6 +3,8 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import AnchorPlayground from "../../components/Learn/AnchorPlayground.astro"
+import { Anchor, AnchorContent, Button } from "opui-css/astro"
 import Position from "../../component-examples/tooltip/Position.astro"
 ---
 
@@ -83,6 +85,35 @@ import Position from "../../component-examples/tooltip/Position.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Drag the button around, or move it with the sliders. The tooltip stays
+      open here so you can watch it: at the top of the box it drops below the
+      button, at a side it shifts along it.
+    </p>
+    <Example wide showCode={false}>
+      <AnchorPlayground>
+        <Anchor class="ui-tooltip" positionArea="block-start">
+          <Button>Move me</Button>
+          <AnchorContent>Still on screen</AnchorContent>
+        </Anchor>
+      </AnchorPlayground>
+    </Example>
+    <ul>
+      <li>
+        <code>position-try-fallbacks</code> tries <code>flip-inline</code> and
+        <code>flip-block</code> first, then the two <code>@position-try</code>
+        options that shift the tooltip along the button
+      </li>
+      <li>
+        Once a fallback fits, the browser keeps it until it stops fitting, so
+        the tooltip doesn't jump back and forth as you move the button
+      </li>
+      <li>
+        This tooltip is the always-visible variant, positioned inside the box.
+        The real one is a <code>popover</code> in the top layer, so it keeps itself
+        inside the window instead
+      </li>
+    </ul>
     <p>
       Hover or focus a button. Scroll it near an edge and the tooltip moves to
       stay on screen.

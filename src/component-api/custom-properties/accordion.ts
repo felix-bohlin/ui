@@ -91,6 +91,11 @@ export default {
       "The overflow. `hidden`, except in `.ui-transparent` and in groups.",
     kind: "output",
   },
+  "--_padding": {
+    description:
+      "Padding the accordion shares with cards, from `card.css`: `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. Sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.",
+    kind: "input",
+  },
   "--_padding-inline": {
     description:
       "Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.",

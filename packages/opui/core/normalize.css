@@ -98,7 +98,7 @@
   :where(select):autofill:hover,
   :where(select):autofill:focus {
     -webkit-text-fill-color: var(--ui-text);
-    box-shadow: 0 0 0px 1e5px var(--ui-surface) inset;
+    box-shadow: 0 0 0px 1e5px var(--ui-field-bg-color, var(--ui-surface)) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 

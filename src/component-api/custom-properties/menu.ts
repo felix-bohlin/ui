@@ -72,7 +72,8 @@ export default {
     kind: "output",
   },
   "--_radius": {
-    description: "The corner radius. Defaults to `--ui-radius`.",
+    description:
+      "The corner radius. Defaults to `--ui-menu-radius`, or `--ui-radius` when the theme doesn't set it.",
     kind: "input",
   },
   "--_shadow": {

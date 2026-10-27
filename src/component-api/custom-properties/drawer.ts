@@ -30,7 +30,8 @@ export default {
     kind: "input",
   },
   "--_content-padding": {
-    description: "Padding of `.ui-content`.",
+    description:
+      "Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
     kind: "input",
   },
   "--_direction": {
@@ -58,11 +59,13 @@ export default {
     kind: "input",
   },
   "--_footer-padding": {
-    description: "Padding of `.ui-footer`.",
+    description:
+      "Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
     kind: "input",
   },
   "--_header-padding": {
-    description: "Padding of `.ui-header`.",
+    description:
+      "Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
     kind: "input",
   },
   "--_inline-size": {

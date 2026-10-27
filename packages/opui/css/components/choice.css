@@ -217,27 +217,18 @@
 
     /* Card */
     &.ui-card {
-      --_card-padding: var(--ui-space-3);
       --_checked-bg-color: var(
         --ui-primary-tonal,
         oklch(
-          from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+          from var(--ui-primary) l c h / var(--ui-state-selected-alpha-accent)
         )
       );
       --_hover-bg-color: var(--ui-surface-tonal-hover);
-
-      @container style(--ui-contrast: more) {
-        --_checked-bg-color: var(
-          --ui-primary-tonal,
-          oklch(
-            from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
-          )
-        );
-      }
+      --_padding: var(--ui-card-padding, var(--ui-space-3));
 
       inline-size: 100%;
       overflow: visible;
-      padding: var(--_card-padding);
+      padding: var(--_padding);
       transition:
         background-color var(--_duration) var(--_ease),
         border-color var(--_duration) var(--_ease);
@@ -248,7 +239,7 @@
       }
 
       &:is(.ui-small, .ui-x-small) {
-        --_card-padding: var(--ui-space-2);
+        --_padding: var(--ui-space-2);
       }
 
       &:not(.ui-elevated, .ui-tonal) {

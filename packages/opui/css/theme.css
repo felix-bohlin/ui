@@ -96,6 +96,7 @@
     /* --ui-field-radius: var(--ui-radius); */
     /* --ui-field-bg-color: var(--ui-surface); */
     /* --ui-field-padding-inline: var(--ui-space-2); */
+    /* --ui-field-padding-inline-large: var(--ui-space-3); */
     /* --ui-field-placeholder-text-color: var(--ui-text-subtle); */
     --ui-field-border-width: 1px;
 
@@ -159,6 +160,7 @@
     /* --ui-on-selected: var(--ui-on-primary); */
     --ui-state-active-alpha-light: 20%;
     --ui-state-active-alpha-accent: 25%;
+    --ui-state-selected-alpha-accent: 25%;
     --ui-state-active-alpha-dark: 30%;
     --ui-state-hover-alpha-light: 10%;
     --ui-state-hover-alpha-accent: 15%;
@@ -628,6 +630,7 @@
       --ui-primary-max-lightness: 0.35;
       --ui-primary-min-lightness: 0.93;
       --ui-state-active-alpha-dark: 20%;
+      --ui-state-selected-alpha-accent: 15%;
       --ui-text-disabled-strength: 60%;
       --ui-text-max-lightness: 0.3;
       --ui-text-min-lightness: 0.9;
@@ -659,6 +662,7 @@
     --ui-primary-max-lightness: 0.35;
     --ui-primary-min-lightness: 0.93;
     --ui-state-active-alpha-dark: 20%;
+    --ui-state-selected-alpha-accent: 15%;
     --ui-text-disabled-strength: 60%;
     --ui-text-max-lightness: 0.3;
     --ui-text-min-lightness: 0.9;

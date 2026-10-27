@@ -21,12 +21,10 @@ Lists meant to be used stand-alone or as part of Select elements
     --_radius: var(--ui-radius);
     --_selected-bg-color: var(
       --ui-selected,
-      oklch(from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent))
+      oklch(
+        from var(--ui-primary) l c h / var(--ui-state-selected-alpha-accent)
+      )
     );
-
-    @container style(--ui-contrast: more) {
-      --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
-    }
 
     --_selected-indicator-bg-color: var(--ui-selected-strong);
     --_selected-indicator-size: var(--ui-border-width-thick);
@@ -313,7 +311,7 @@ Lists meant to be used stand-alone or as part of Select elements
       /* Video */
       &:has(video) {
         padding-block: calc(var(--ui-space-2) * 1.5);
-        padding-inline: 0 var(--ui-space-3);
+        padding-inline: 0 var(--_item-padding-inline);
       }
 
       /* Text */

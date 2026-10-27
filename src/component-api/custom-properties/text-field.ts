@@ -22,7 +22,7 @@ export default {
   },
   "--_bg-color": {
     description:
-      "The current background of `.ui-field`. Set by `.ui-filled` and its hover state.",
+      "The current background of `.ui-field`. `--ui-field-bg-color`, or `--ui-surface` when a theme leaves it unset. Set by `.ui-filled` and its hover state.",
     kind: "output",
   },
   "--_border-color": {
@@ -59,7 +59,7 @@ export default {
   },
   "--_field-padding-inline": {
     description:
-      "The inline padding of the control and affixes. `.ui-large` sets it.",
+      "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.",
     kind: "input",
   },
   "--_font-size": {

@@ -33,7 +33,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-accent":
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, `--ui-control-accent`, else the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-filled":
-    "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, and of hovered outlined and tonal ones. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
+    "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, and of hovered outlined and tonal ones unless `--ui-button-hover` is `layer`. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
   "--ui-button-hover":
@@ -45,7 +45,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-on-accent":
     "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`. When unset, `--ui-on-control-accent`, else `--ui-palette-on-strong`.",
   "--ui-button-on-accent-filled":
-    "Text color on a `--ui-button-accent-filled` fill. Set it with `--ui-button-accent-filled`.",
+    "Text color on a `--ui-button-accent-filled` fill. Set it with `--ui-button-accent-filled`. When unset, `--ui-button-on-accent`.",
   "--ui-button-padding-inline":
     "Horizontal padding of `Button`. When unset, `1.5ex`, which scales with the font.",
   "--ui-button-padding-inline-large":
@@ -62,7 +62,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-size-x-small":
     "`Button` and `ButtonGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
-    "Padding of `Card`, `Dialog` and `Accordion` content, headers and actions. When unset, `--ui-space-3`.",
+    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
@@ -155,7 +155,9 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Font weight for emphasized field labels and legends.",
   "--ui-field-label-text-color": "Text color for field labels.",
   "--ui-field-padding-inline":
-    "Horizontal padding inside `TextField`, `Textarea` and `Select` fields. When unset, `--ui-space-2`.",
+    "Horizontal padding inside `TextField`, `Textarea` and `Select` fields. When unset, `--ui-space-2`. `.ui-large` reads `--ui-field-padding-inline-large`.",
+  "--ui-field-padding-inline-large":
+    "Horizontal padding inside `TextField`, `Textarea` and `Select` fields with `.ui-large`. When unset, `--ui-space-3`.",
   "--ui-field-placeholder-text-color":
     "Color of placeholder text in fields. When unset, `--ui-text-subtle`.",
   "--ui-field-radius":
@@ -397,6 +399,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Alpha of the hover state layer on neutral buttons in dark mode.",
   "--ui-state-hover-alpha-light":
     "Alpha of the hover state layer on neutral buttons in light mode.",
+  "--ui-state-selected-alpha-accent":
+    "Alpha of the primary tint behind selected `List` and `Menu` rows, `Select` options and checked `Checkbox`, `Radio` and `Switch` cards, when `--ui-selected` or `--ui-primary-tonal` is unset. `15%` with more contrast, so light text keeps 7:1 in dark mode.",
   "--ui-success": "Severity color for success messages.",
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
@@ -457,7 +461,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-strong":
     "Strongest text color, for headings, labels and values. Body text is `--ui-text`.",
   "--ui-text-subtle":
-    "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`.",
+    "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
   "--ui-track-bg-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.",
   "--ui-underline-offset":

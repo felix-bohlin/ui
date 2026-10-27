@@ -17,6 +17,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group. |
 | Chip | `chip.md` | Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button. |
+| Copy | `copy.md` | A button that copies text or a field's value to the clipboard. |
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
 | Dialog | `dialog.md` | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
 | Divider | `divider.md` | It's just a line. |
@@ -36,6 +37,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Tabs | `tabs.md` | The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group. |
 | Text field | `text-field.md` | An input for single-line text data. Basic text fields with labels, field descriptions, and validation states. |
 | Textarea | `textarea.md` | An input for multi-line text data. Basic textareas with labels, supporting text, and validation states. |
+| Toast | `toast.md` | Short messages that confirm an action and dismiss themselves. |
 | Toggle | `toggle.md` | Toggle buttons and toggle groups switch options on and off, alone or as a set. |
 | Tooltip | `tooltip.md` | Built on top of Anchor. |
 | Typography | `typography.md` | Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text. |
@@ -72,6 +74,8 @@ Components documented on another component's page:
 | Fieldset | `form.md` |
 | ListItem | `list.md` |
 | RadioInput | `radio.md` |
+| SelectAll | `checkbox.md` |
+| SortableTable | `table.md` |
 | SwitchInput | `switch.md` |
 | TableBody | `table.md` |
 | TableCaption | `table.md` |
@@ -85,6 +89,7 @@ Components documented on another component's page:
 | TabsItem | `tabs.md` |
 | TabsLabel | `tabs.md` |
 | TabsPanel | `tabs.md` |
+| Toaster | `toast.md` |
 | ToggleButton | `toggle.md` |
 | ToggleGroup | `toggle.md` |
 | TooltipContent | `tooltip.md` |

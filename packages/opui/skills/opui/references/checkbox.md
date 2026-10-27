@@ -2,7 +2,7 @@
 
 Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.
 
-- CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
+- CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/checkbox.md), [Astro](https://open-props-ui.netlify.app/astro/components/checkbox.md), [React](https://open-props-ui.netlify.app/react/components/checkbox.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/checkbox.md), [Vue](https://open-props-ui.netlify.app/vue/components/checkbox.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
@@ -55,6 +55,22 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Notes
 
 - Astro, React, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `type="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+
+## SelectAll
+
+### Parts
+
+- `opui-select-all.ui-select-all` (root): The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`.
+- `<input type="checkbox" data-select-all>`: The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.
+
+### Slots
+
+- `default`: The group: the controlling checkbox and the checkboxes it controls.
+
+### Notes
+
+- HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.
+- Astro, React, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
 ## Component properties
 
@@ -130,7 +146,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 
 ## Astro
 
-`import { Checkbox, CheckboxInput } from "opui-css/astro"`
+`import { Checkbox, CheckboxInput, SelectAll } from "opui-css/astro"`
 
 - `Checkbox` named slots: `end-text`. Fill one with `slot="end-text"` on a child.
 
@@ -153,10 +169,10 @@ import { Checkbox } from "opui-css/astro"
 
 ## React
 
-`import { Checkbox, CheckboxInput } from "opui-css/react"`
+`import { Checkbox, CheckboxInput, SelectAll } from "opui-css/react"`
 
 - `Checkbox` slot props (`ReactNode`): `children` and `endText`.
-- Client components (`"use client"`): `CheckboxInput`.
+- Client components (`"use client"`): `CheckboxInput` and `SelectAll`.
 - Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Without hydration: Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
 
 ### Example: Basics
@@ -189,7 +205,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Checkbox, CheckboxInput } from "opui-css/svelte"`
+`import { Checkbox, CheckboxInput, SelectAll } from "opui-css/svelte"`
 
 - `Checkbox` slot snippets: `children` and `endText`.
 - Hydration: `bind:checked` and `bind:group` on `Checkbox` and `CheckboxInput`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
@@ -214,7 +230,7 @@ export default function Basics() {
 
 ## Vue
 
-`import { Checkbox, CheckboxInput } from "opui-css/vue"`
+`import { Checkbox, CheckboxInput, SelectAll } from "opui-css/vue"`
 
 - `Checkbox` named slots: `end-text`. Fill one with `<template #end-text>`.
 - Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Without hydration: Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.

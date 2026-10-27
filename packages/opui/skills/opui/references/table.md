@@ -2,7 +2,7 @@
 
 Displays tabular data. Basic tables with row and column headers, and optional captions and footers.
 
-- CSS: `opui-css/css/components/table.css`.
+- CSS: `opui-css/css/components/table.css` and `opui-css/css/components/sortable-table.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/table.md), [Astro](https://open-props-ui.netlify.app/astro/components/table.md), [React](https://open-props-ui.netlify.app/react/components/table.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/table.md), [Vue](https://open-props-ui.netlify.app/vue/components/table.md).
 
 ## Table
@@ -42,6 +42,7 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 ### Props and modifiers
 
 - `numeric`: `boolean`, `.ui-numeric`. Aligns the header to the end, over a column of `numeric` cells.
+- `sortable`: `boolean`, `[data-sort]`. Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.
 
 ### Slots
 
@@ -81,6 +82,27 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 - `width`: `string`, `width`. The column width, merged into `style`.
 
+## SortableTable
+
+### Parts
+
+- `opui-sortable-table.ui-sortable-table` (root): The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order.
+- `th[data-sort] > button` (`TableHeaderCell`): The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header.
+
+### Props and modifiers
+
+- `onsort` (Svelte): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
+- `onSort` (React): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
+
+### Slots
+
+- `default`: The `Table`.
+
+### Notes
+
+- HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text. `data-ascending` and `data-descending` on the root translate the words it announces.
+- Astro, React, Svelte and Vue: The component loads `opui-css/elements/sortable-table.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. `data-ascending` and `data-descending` on the root translate the words it announces.
+
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
@@ -95,9 +117,18 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 Outputs: `--_duration`.
 
+### sortable-table.css
+
+- `--_arrow-image`: The sort arrow after a header's label, as an image used for a mask.
+- `--_arrow-size`: Width and height of the sort arrow.
+- `--_ease`: Easing of the sort arrow's transitions. Defaults to `--ui-ease`.
+- `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+
+Outputs: `--_duration`.
+
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-filled`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface`, `--ui-surface-filled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-filled`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-radius-small`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface`, `--ui-surface-filled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -177,7 +208,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ## Astro
 
-`import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/astro"`
+`import { SortableTable, Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/astro"`
 
 ### Example: Normal
 
@@ -252,7 +283,9 @@ import {
 
 ## React
 
-`import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/react"`
+`import { SortableTable, Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/react"`
+
+- Client components (`"use client"`): `SortableTable`.
 
 ### Example: Normal
 
@@ -329,7 +362,7 @@ export default function Normal() {
 
 ## Svelte
 
-`import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/svelte"`
+`import { SortableTable, Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/svelte"`
 
 ### Example: Normal
 
@@ -404,7 +437,7 @@ export default function Normal() {
 
 ## Vue
 
-`import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/vue"`
+`import { SortableTable, Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/vue"`
 
 ### Example: Normal
 

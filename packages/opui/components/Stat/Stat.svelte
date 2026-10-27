@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { content } from "../content.svelte"
   import type { Props } from "./types.svelte"
 
   let {
@@ -18,12 +19,10 @@
   {...rest}
 >
   <dt class="ui-label">
-    {#if typeof label === "function"}{@render label()}{:else}{label}{/if}
+    {#if label}{@render content(label)}{/if}
   </dt>
   <dd class="ui-value">{@render children?.()}</dd>
   {#if description}
-    <dd class="ui-description">
-      {#if typeof description === "function"}{@render description()}{:else}{description}{/if}
-    </dd>
+    <dd class="ui-description">{@render content(description)}</dd>
   {/if}
 </dl>

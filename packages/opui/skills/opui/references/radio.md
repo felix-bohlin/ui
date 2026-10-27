@@ -75,6 +75,10 @@ Outputs: `--_dot-radius`.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_shadow` and `--_thumb-scale`.
 
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
+
 ### card.css
 
 - `--_ease`: Easing of the focus ring animation. Defaults to `--ui-ease`.

@@ -24,7 +24,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Divider | `divider.md` | It's just a line. |
 | Drawer | `drawer.md` | Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog. |
 | Form | `form.md` | Spacing and grouping for form fields. |
-| Layout | `layout.md` | Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
+| Layout | `layout.md` | Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | A popover list of actions or links. |
 | Number stepper | `number-stepper.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
@@ -33,6 +33,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |
 | Select | `select.md` | Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu. |
 | Spinner | `spinner.md` | Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar. |
+| Stat | `stat.md` | A stat shows one number with its label and the change behind it. |
 | Switch | `switch.md` | Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group. |
 | Table | `table.md` | Displays tabular data. Basic tables with row and column headers, and optional captions and footers. |
 | Tabs | `tabs.md` | The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group. |

@@ -24,6 +24,20 @@ Description lists are used to display a list of terms and their descriptions.
 
 - `default`: The items.
 
+## DescriptionListItem
+
+### Parts
+
+- `dl.ui-description-list > div` (root): Groups a term with its description.
+
+### Props and modifiers
+
+- `total`: `boolean`, `.ui-total`. Marks the item as the total of the list: a line above it, larger bold text and the strong text color, for the last row of an order summary.
+
+### Slots
+
+- `default`: The term and the description.
+
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
@@ -35,7 +49,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-3` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-font-size-large`, `--ui-font-weight-bold`, `--ui-space-1`, `--ui-space-3`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -1,6 +1,6 @@
 export type Props = {
   description?: string
-  label: string
+  label?: string
   size?: "small" | "medium" | "large"
 }
 

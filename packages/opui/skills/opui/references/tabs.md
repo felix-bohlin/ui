@@ -96,6 +96,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_indicator-size`: Thickness of the line under the selected tab.
 - `--_inset`: Gap between the track edge and the selected tab's background. `0px` in `.ui-line`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+- `--_panel-gap`: Space between the tab list and the panel. Defaults to `--ui-space-2`.
 - `--_radius`: Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.
 - `--_selected-bg-color`: Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.
 - `--_selected-border-color`: Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`.

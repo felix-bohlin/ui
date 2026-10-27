@@ -38,6 +38,7 @@
 @import "./components/form.css";
 @import "./components/list.css";
 @import "./components/menu.css";
+@import "./components/number-stepper.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
 @import "./components/textarea.css";

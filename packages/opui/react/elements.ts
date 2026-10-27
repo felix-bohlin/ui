@@ -10,4 +10,13 @@ declare module "react" {
     commandfor?: string | undefined
     interestfor?: string | undefined
   }
+
+  namespace JSX {
+    interface IntrinsicElements {
+      "opui-number-stepper": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
+    }
+  }
 }

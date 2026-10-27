@@ -1,0 +1,57 @@
+<opui-number-stepper class="ui-number-stepper">
+  <label class="ui-label" for="number-stepper-basics-1">Quantity</label>
+  <span class="ui-field">
+    <span class="ui-start">
+      <button
+        type="button"
+        class="ui-button ui-round"
+        aria-label="Decrease"
+        commandfor="number-stepper-basics-1"
+        command="--step-down"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+        </svg>
+      </button>
+    </span>
+    <input
+      id="number-stepper-basics-1"
+      type="number"
+      min="1"
+      max="10"
+      value="1"
+    />
+    <span class="ui-end">
+      <button
+        type="button"
+        class="ui-button ui-round"
+        aria-label="Increase"
+        commandfor="number-stepper-basics-1"
+        command="--step-up"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+          ></path>
+        </svg>
+      </button>
+    </span>
+  </span>
+</opui-number-stepper>
+
+<script type="module">
+  import "opui-css/elements/number-stepper.js"
+</script>

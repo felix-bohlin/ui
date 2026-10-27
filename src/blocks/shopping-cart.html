@@ -74,13 +74,7 @@
     }
 
     .cart-qty {
-      .ui-text-field {
-        inline-size: 3.5rem;
-      }
-
-      input {
-        text-align: center;
-      }
+      inline-size: 8.5rem;
     }
 
     .cart-line-price {
@@ -174,57 +168,65 @@
             </div>
           </div>
           <div class="cart-buy">
-            <div
+            <opui-number-stepper
               aria-label="Quantity of Merino Trail Hoodie"
-              class="ui-layout-row ui-x-small cart-qty"
+              class="ui-number-stepper ui-small cart-qty"
               role="group"
             >
-              <button
-                aria-label="Decrease"
-                class="ui-button ui-outlined ui-round ui-small"
-                type="button"
+              <label class="ui-sr-only" for="shopping-cart-qty-hoodie"
+                >Quantity</label
               >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d="M19 13H5v-2h14z"></path>
-                </svg>
-              </button>
-              <div class="ui-text-field ui-small">
-                <span class="ui-field">
-                  <input
-                    aria-label="Quantity"
-                    inputmode="numeric"
-                    min="1"
-                    name="qty-hoodie"
-                    type="text"
-                    value="1"
-                  />
+              <span class="ui-field">
+                <span class="ui-start">
+                  <button
+                    aria-label="Decrease"
+                    class="ui-button ui-round"
+                    command="--step-down"
+                    commandfor="shopping-cart-qty-hoodie"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                    </svg>
+                  </button>
                 </span>
-              </div>
-              <button
-                aria-label="Increase"
-                class="ui-button ui-outlined ui-round ui-small"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
-                  ></path>
-                </svg>
-              </button>
-            </div>
+                <input
+                  id="shopping-cart-qty-hoodie"
+                  min="1"
+                  name="qty-hoodie"
+                  type="number"
+                  value="1"
+                />
+                <span class="ui-end">
+                  <button
+                    aria-label="Increase"
+                    class="ui-button ui-round"
+                    command="--step-up"
+                    commandfor="shopping-cart-qty-hoodie"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                      ></path>
+                    </svg>
+                  </button>
+                </span>
+              </span>
+            </opui-number-stepper>
             <p class="cart-line-price">
               €119.00
               <s class="ui-caption"
@@ -263,57 +265,65 @@
             </div>
           </div>
           <div class="cart-buy">
-            <div
+            <opui-number-stepper
               aria-label="Quantity of Wool hiking socks"
-              class="ui-layout-row ui-x-small cart-qty"
+              class="ui-number-stepper ui-small cart-qty"
               role="group"
             >
-              <button
-                aria-label="Decrease"
-                class="ui-button ui-outlined ui-round ui-small"
-                type="button"
+              <label class="ui-sr-only" for="shopping-cart-qty-socks"
+                >Quantity</label
               >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d="M19 13H5v-2h14z"></path>
-                </svg>
-              </button>
-              <div class="ui-text-field ui-small">
-                <span class="ui-field">
-                  <input
-                    aria-label="Quantity"
-                    inputmode="numeric"
-                    min="1"
-                    name="qty-socks"
-                    type="text"
-                    value="2"
-                  />
+              <span class="ui-field">
+                <span class="ui-start">
+                  <button
+                    aria-label="Decrease"
+                    class="ui-button ui-round"
+                    command="--step-down"
+                    commandfor="shopping-cart-qty-socks"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                    </svg>
+                  </button>
                 </span>
-              </div>
-              <button
-                aria-label="Increase"
-                class="ui-button ui-outlined ui-round ui-small"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
-                  ></path>
-                </svg>
-              </button>
-            </div>
+                <input
+                  id="shopping-cart-qty-socks"
+                  min="1"
+                  name="qty-socks"
+                  type="number"
+                  value="2"
+                />
+                <span class="ui-end">
+                  <button
+                    aria-label="Increase"
+                    class="ui-button ui-round"
+                    command="--step-up"
+                    commandfor="shopping-cart-qty-socks"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                      ></path>
+                    </svg>
+                  </button>
+                </span>
+              </span>
+            </opui-number-stepper>
             <p class="cart-line-price">€48.00</p>
           </div>
         </li>
@@ -345,58 +355,65 @@
             </div>
           </div>
           <div class="cart-buy">
-            <div
+            <opui-number-stepper
               aria-label="Quantity of Trail running cap"
-              class="ui-layout-row ui-x-small cart-qty"
+              class="ui-number-stepper ui-small cart-qty"
               role="group"
             >
-              <button
-                aria-label="Decrease"
-                class="ui-button ui-outlined ui-round ui-small"
-                disabled
-                type="button"
+              <label class="ui-sr-only" for="shopping-cart-qty-cap"
+                >Quantity</label
               >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d="M19 13H5v-2h14z"></path>
-                </svg>
-              </button>
-              <div class="ui-text-field ui-small">
-                <span class="ui-field">
-                  <input
-                    aria-label="Quantity"
-                    inputmode="numeric"
-                    min="1"
-                    name="qty-cap"
-                    type="text"
-                    value="1"
-                  />
+              <span class="ui-field">
+                <span class="ui-start">
+                  <button
+                    aria-label="Decrease"
+                    class="ui-button ui-round"
+                    command="--step-down"
+                    commandfor="shopping-cart-qty-cap"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                    </svg>
+                  </button>
                 </span>
-              </div>
-              <button
-                aria-label="Increase"
-                class="ui-button ui-outlined ui-round ui-small"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
-                  ></path>
-                </svg>
-              </button>
-            </div>
+                <input
+                  id="shopping-cart-qty-cap"
+                  min="1"
+                  name="qty-cap"
+                  type="number"
+                  value="1"
+                />
+                <span class="ui-end">
+                  <button
+                    aria-label="Increase"
+                    class="ui-button ui-round"
+                    command="--step-up"
+                    commandfor="shopping-cart-qty-cap"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                      ></path>
+                    </svg>
+                  </button>
+                </span>
+              </span>
+            </opui-number-stepper>
             <p class="cart-line-price">€29.00</p>
           </div>
         </li>
@@ -489,3 +506,7 @@
     </section>
   </div>
 </div>
+
+<script type="module">
+  import "opui-css/elements/number-stepper.js"
+</script>

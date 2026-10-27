@@ -94,6 +94,9 @@ opui
 │  ├─ opui.components.css
 │  ├─ opui.css
 │  └─ opui.no-compat.css
+├─ elements
+│  ├─ number-stepper.js
+│  └─ ...
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
@@ -124,7 +127,7 @@ If your own CSS reads Open Props, import `./opui/dist/op.css` right after `layer
 
 With the CSS on the page, a component is a class on the right element. The modifiers are classes too.
 
-Two things need a bit of JavaScript in plain HTML: indeterminate checkboxes (`css/js/checkbox.js`) and the Range value (`css/js/range.js`). Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler.
+Two things need a bit of JavaScript in plain HTML: indeterminate checkboxes (`css/js/checkbox.js`) and the Range value (`css/js/range.js`). Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler. Components with a custom element, like the Number stepper, import theirs from `elements/` the same way.
 
 [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.
 
@@ -238,7 +241,7 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Server rendering
 
-Components that need context, state or effects are marked `"use client"`: `Anchor`, `Callout`, `Dialog`, `Drawer`, `FieldGroup`, `Menu`, `Range`, `Select`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup`, and the `CheckboxInput`, `RadioInput` and `SwitchInput` parts. The rest also render as React Server Components. This list is read from the component sources.
+Components that need context, state or effects are marked `"use client"`: `Anchor`, `Callout`, `Dialog`, `Drawer`, `FieldGroup`, `Menu`, `NumberStepper`, `Range`, `Select`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup`, and the `CheckboxInput`, `RadioInput` and `SwitchInput` parts. The rest also render as React Server Components. This list is read from the component sources.
 
 Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
 

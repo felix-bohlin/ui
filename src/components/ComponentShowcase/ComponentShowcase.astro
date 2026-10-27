@@ -31,6 +31,7 @@ import {
   Form,
   List,
   ListItem,
+  NumberStepper,
   Progress,
   Radio,
   Range,
@@ -318,6 +319,18 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           </button>
         </li>
       </menu>
+    </Fragment>
+
+    <Fragment slot="number-stepper">
+      <div aria-hidden="true" inert>
+        <NumberStepper
+          hideLabel
+          id="index-number-stepper-showcase"
+          label="Quantity"
+          min={1}
+          value={2}
+        />
+      </div>
     </Fragment>
 
     <Fragment slot="progress">

@@ -137,6 +137,7 @@ test("the tarball ships the package and nothing else", () => {
     "dist/opui.components.css",
     "dist/opui.css",
     "dist/opui.no-compat.css",
+    "elements/number-stepper.js",
     "env.d.ts",
     "open-props.css",
     "package.json",

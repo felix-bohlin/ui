@@ -1142,3 +1142,49 @@ interaction(
     ).toEqual(["Jonny Greenwood", "Marika Hackman", "Ray Manzarek"])
   },
 )
+
+interaction(
+  "number-stepper",
+  "Basics",
+  "number stepper steps with its buttons and stops at the limits",
+  async ({ root }) => {
+    const input = root.getByRole("spinbutton", { name: "Quantity" })
+    const decrease = root.getByRole("button", { name: "Decrease" })
+    const increase = root.getByRole("button", { name: "Increase" })
+
+    await expect(input).toHaveValue("1")
+    await expect(decrease).toHaveAttribute("aria-disabled", "true")
+    await increase.click()
+    await increase.click()
+    await expect(input).toHaveValue("3")
+    await expect(decrease).not.toHaveAttribute("aria-disabled")
+    await decrease.click()
+    await expect(input).toHaveValue("2")
+
+    await input.fill("10")
+    await expect(increase).toHaveAttribute("aria-disabled", "true")
+    await increase.click({ force: true })
+    await expect(input).toHaveValue("10")
+  },
+)
+
+interaction(
+  "number-stepper",
+  "Basics",
+  "number stepper repeats while a button is held",
+  async ({ page, root }) => {
+    const input = root.getByRole("spinbutton", { name: "Quantity" })
+    const increase = root.getByRole("button", { name: "Increase" })
+
+    await expect(increase).toBeVisible()
+    await increase.hover()
+    await page.mouse.down()
+    await expect
+      .poll(() => input.inputValue().then(Number))
+      .toBeGreaterThanOrEqual(4)
+    await page.mouse.up()
+    const held = Number(await input.inputValue())
+    await page.waitForTimeout(300)
+    await expect(input).toHaveValue(String(held))
+  },
+)

@@ -3,6 +3,7 @@ import "@opui/css/imports.css"
 import "@opui/open-props.css"
 import ThemeBootstrap from "../../../components/ThemeBootstrap.astro"
 import { allBlocks, isFullPage } from "../../../utils/blocks"
+import { importMap } from "../../../utils/import-map"
 import { testPagesEnabled } from "../../../utils/test-pages"
 
 export function getStaticPaths() {
@@ -35,6 +36,7 @@ const themes = testPagesEnabled()
     <meta name="robots" content="noindex" />
     <title>{`${block.name} - Open Props UI blocks`}</title>
     <ThemeBootstrap overrides />
+    <script is:inline type="importmap" set:html={importMap} />
     <script is:inline>
       {
         let parentDocument

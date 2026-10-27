@@ -119,6 +119,9 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
 │  ├─ opui.components.css
 │  ├─ opui.css
 │  └─ opui.no-compat.css
+├─ elements
+│  ├─ number-stepper.js
+│  └─ ...
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
@@ -182,7 +185,8 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
         >css/js/range.js</code
       >). Import them in a <code>&lt;script type="module"&gt;</code>, from <code
         >https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code
-      > without a bundler.
+      > without a bundler. Components with a custom element, like the Number stepper,
+      import theirs from <code>elements/</code> the same way.
     </p>
     <NextSteps />
   </section>

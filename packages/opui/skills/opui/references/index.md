@@ -25,6 +25,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Layout | `layout.md` | Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | A popover list of actions or links. |
+| Number stepper | `number-stepper.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
 | Progress | `progress.md` | See also: Spinner. |
 | Radio | `radio.md` | See also: Form documentation. |
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |

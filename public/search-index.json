@@ -950,6 +950,56 @@
     "url": "/vue/components/menu"
   },
   {
+    "id": "component-number-stepper-html",
+    "title": "Number stepper",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "headings": "Basics Variants Sizes Step End text Hidden label Disabled Keyboard support",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/number-stepper"
+  },
+  {
+    "id": "component-number-stepper-astro",
+    "title": "Number stepper",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "headings": "Basics Variants Sizes Step End text Hidden label Disabled Keyboard support",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/number-stepper"
+  },
+  {
+    "id": "component-number-stepper-react",
+    "title": "Number stepper",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "headings": "Basics Variants Sizes Step End text Hidden label Disabled Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/number-stepper"
+  },
+  {
+    "id": "component-number-stepper-svelte",
+    "title": "Number stepper",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "headings": "Basics Variants Sizes Step End text Hidden label Disabled Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/number-stepper"
+  },
+  {
+    "id": "component-number-stepper-vue",
+    "title": "Number stepper",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "headings": "Basics Variants Sizes Step End text Hidden label Disabled Keyboard support",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/number-stepper"
+  },
+  {
     "id": "component-progress-html",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -1738,7 +1788,7 @@
     "id": "guide-concepts-html",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
-    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/concepts"
@@ -1747,7 +1797,7 @@
     "id": "guide-concepts-astro",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
-    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/concepts"
@@ -1756,7 +1806,7 @@
     "id": "guide-concepts-react",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
-    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/concepts"
@@ -1765,7 +1815,7 @@
     "id": "guide-concepts-svelte",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
-    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/concepts"
@@ -1774,7 +1824,7 @@
     "id": "guide-concepts-vue",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
-    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/concepts"
@@ -4152,6 +4202,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#menu"
+  },
+  {
+    "id": "api-number-stepper-astro",
+    "title": "Number Stepper API",
+    "description": "Reference for Number Stepper Astro component.",
+    "headings": "NumberStepper The `<opui-number-stepper>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Hidden until the element is defined. decreaseLabel The input element. The increase button, with `command=\"--step-up\"`. Hidden until the element is defined. increaseLabel Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#number-stepper"
+  },
+  {
+    "id": "api-number-stepper-html",
+    "title": "Number Stepper API",
+    "description": "Reference for Number Stepper HTML component.",
+    "headings": "opui-number-stepper.ui-number-stepper The `<opui-number-stepper>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field The decrease button, with `command=\"--step-down\"`. Hidden until the element is defined. .ui-field > .ui-start The input element. input The increase button, with `command=\"--step-up\"`. Hidden until the element is defined. .ui-field > .ui-end Supporting text displayed below the field. .ui-end-text [disabled] Disabled Dims the field and blocks input and the step buttons. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the field to the other. .ui-filled Variants The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#number-stepper"
+  },
+  {
+    "id": "api-number-stepper-react",
+    "title": "Number Stepper API",
+    "description": "Reference for Number Stepper React component.",
+    "headings": "NumberStepper The `<opui-number-stepper>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Hidden until the element is defined. decreaseLabel The input element. The increase button, with `command=\"--step-up\"`. Hidden until the element is defined. increaseLabel Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#number-stepper"
+  },
+  {
+    "id": "api-number-stepper-svelte",
+    "title": "Number Stepper API",
+    "description": "Reference for Number Stepper Svelte component.",
+    "headings": "NumberStepper The `<opui-number-stepper>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Hidden until the element is defined. decreaseLabel The input element. The increase button, with `command=\"--step-up\"`. Hidden until the element is defined. increaseLabel Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#number-stepper"
+  },
+  {
+    "id": "api-number-stepper-vue",
+    "title": "Number Stepper API",
+    "description": "Reference for Number Stepper Vue component.",
+    "headings": "NumberStepper The `<opui-number-stepper>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Hidden until the element is defined. decreaseLabel The input element. The increase button, with `command=\"--step-up\"`. Hidden until the element is defined. increaseLabel Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#number-stepper"
   },
   {
     "id": "api-progress-astro",

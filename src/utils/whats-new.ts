@@ -724,6 +724,12 @@ export const whatsNew = {
       `A <code>Menu</code> without an <code>id</code> warns in development, since its trigger and items point at it (<a href="#basics">Basics</a>).`,
     ),
   ],
+  "number-stepper": [
+    {
+      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads.`,
+      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them.`,
+    },
+  ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
     `The track reads <a href="#api"><code>--ui-track-bg-color</code></a> when a theme sets it.`,
@@ -1371,6 +1377,7 @@ export const highlighted = new Set<string>([
   "carousel",
   "layout",
   "menu",
+  "number-stepper",
   "tabs",
   "typography",
 ] satisfies (keyof typeof whatsNew)[])

@@ -1,0 +1,35 @@
+@layer components.extended {
+  :where(.ui-number-stepper) {
+    --_step-button-size: calc(
+      var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
+    );
+
+    & > .ui-field {
+      & > :is(.ui-start, .ui-end):has(> .ui-button) {
+        padding-inline: var(--ui-space-1);
+
+        & > .ui-button {
+          --_size: var(--_step-button-size);
+        }
+      }
+
+      & input {
+        text-align: center;
+      }
+    }
+
+    &:defined > .ui-field input {
+      appearance: textfield;
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+    }
+
+    &:not(:defined) > .ui-field > :is(.ui-start, .ui-end) {
+      display: none;
+    }
+  }
+}

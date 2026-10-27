@@ -66,8 +66,8 @@
     .pd-buy {
       align-items: end;
 
-      .ui-text-field {
-        inline-size: 6rem;
+      .ui-number-stepper {
+        inline-size: 9rem;
       }
 
       .pd-add {
@@ -303,19 +303,62 @@
         </fieldset>
 
         <div class="ui-layout-row ui-small pd-buy">
-          <label class="ui-text-field">
-            <span class="ui-label">Quantity</span>
+          <opui-number-stepper class="ui-number-stepper">
+            <label class="ui-label" for="product-detail-quantity"
+              >Quantity</label
+            >
             <span class="ui-field">
+              <span class="ui-start">
+                <button
+                  aria-label="Decrease"
+                  class="ui-button ui-round"
+                  command="--step-down"
+                  commandfor="product-detail-quantity"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                  </svg>
+                </button>
+              </span>
               <input
-                inputmode="numeric"
+                id="product-detail-quantity"
                 max="10"
                 min="1"
                 name="quantity"
                 type="number"
                 value="1"
               />
+              <span class="ui-end">
+                <button
+                  aria-label="Increase"
+                  class="ui-button ui-round"
+                  command="--step-up"
+                  commandfor="product-detail-quantity"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                    ></path>
+                  </svg>
+                </button>
+              </span>
             </span>
-          </label>
+          </opui-number-stepper>
           <button class="ui-button ui-filled pd-add" type="submit">
             <svg
               aria-hidden="true"
@@ -500,3 +543,7 @@
     </div>
   </div>
 </div>
+
+<script type="module">
+  import "opui-css/elements/number-stepper.js"
+</script>

@@ -497,6 +497,45 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       ]}
     />
     <UnreleasedNote file="css/js/" />
+
+    <h3 id="custom-elements">Custom elements</h3>
+    <p>
+      Components that need behavior HTML and CSS can't give them come with a
+      custom element, which holds that behavior once for every framework:
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/number-stepper">Number stepper</DocLink>: <code
+          >&lt;opui-number-stepper&gt;</code
+        >, from <code>elements/number-stepper.js</code>.
+      </li>
+    </ul>
+    <p>
+      An element renders in the light DOM, so the component's classes style it,
+      and its markup works, or hides what can't, until the module loads. Import
+      the module once per page: it defines the element, which then also runs in
+      markup added later. The Astro components load their element, and React,
+      Svelte and Vue load it on the client, so it runs once they hydrate.
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "CDN",
+          code: `<script type="module">
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/number-stepper.js"
+</script>`,
+          lang: "html",
+        },
+        {
+          title: "Bundler",
+          code: `<script type="module">
+  import "opui-css/elements/number-stepper.js"
+</script>`,
+          lang: "html",
+        },
+      ]}
+    />
+    <UnreleasedNote file="elements/" />
   </section>
 </Guide>
 

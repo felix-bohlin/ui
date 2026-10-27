@@ -45,6 +45,7 @@ export { default as Form } from "../components/Form/Form.svelte"
 export { default as List } from "../components/List/List.svelte"
 export { default as ListItem } from "../components/ListItem/ListItem.svelte"
 export { default as Menu } from "../components/Menu/Menu.svelte"
+export { default as NumberStepper } from "../components/NumberStepper/NumberStepper.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
 export { default as Radio } from "../components/Radio/Radio.svelte"
 export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
@@ -139,6 +140,7 @@ export type {
   MenuItem,
   Props as MenuProps,
 } from "../components/Menu/types.svelte"
+export type { Props as NumberStepperProps } from "../components/NumberStepper/types.svelte"
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
 export type {
   RadioInputProps,

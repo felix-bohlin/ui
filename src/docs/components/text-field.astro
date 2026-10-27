@@ -63,7 +63,7 @@ export const description =
       Short free text, like a name, an email address or a search.
     </li>
     <li slot="when">
-      Numbers, like a card number, a code or a quantity, with <a
+      Numbers that are really text, like a card number or a code, with <a
         href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code></a
       > instead of <code>type="number"</code>.
     </li>
@@ -83,8 +83,9 @@ export const description =
       >.
     </li>
     <li slot="when-not">
-      A value on a scale, like volume. Use a <DocLink href="/components/range"
-        >Range</DocLink
+      A value on a scale, like volume, or an amount you step, like a quantity.
+      Use a <DocLink href="/components/range">Range</DocLink> or a <DocLink
+        href="/components/number-stepper">Number stepper</DocLink
       >.
     </li>
   </Usage>

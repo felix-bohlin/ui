@@ -19,17 +19,25 @@ defineOptions({
 
 const {
   alpha,
+  chromaLabel,
   endText,
   error,
   hideLabel,
+  hueLabel,
   id,
+  invalidText,
   label,
+  lightnessLabel,
+  opacityLabel,
+  p3Text,
   pickerLabel = "Pick a color",
   size,
   spread,
+  srgbText,
   startText,
   value,
   variant,
+  wideText,
 } = defineProps<Props>()
 defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
@@ -45,7 +53,14 @@ const model = computed({
 
 const generatedId = useId()
 const inputId = computed(() => id ?? generatedId)
-const sliders = computed(() => channelsFor(alpha))
+const sliders = computed(() =>
+  channelsFor(alpha, {
+    chroma: chromaLabel,
+    hue: hueLabel,
+    lightness: lightnessLabel,
+    opacity: opacityLabel,
+  }),
+)
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -53,7 +68,11 @@ const field = inject(FieldGroupKey, undefined)
   <component
     is="opui-color-field"
     :class="['ui-color-field', $props.class]"
+    :invalid-text="invalidText"
+    :p3-text="p3Text"
+    :srgb-text="srgbText"
     :style="$attrs.style"
+    :wide-text="wideText"
   >
     <div
       :class="[

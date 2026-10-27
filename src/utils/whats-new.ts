@@ -742,8 +742,8 @@ export const whatsNew = {
   ],
   "number-stepper": [
     {
-      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads.`,
-      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them.`,
+      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width.`,
+      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width.`,
     },
   ],
   progress: [

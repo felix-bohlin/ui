@@ -10,17 +10,25 @@
 
   let {
     alpha,
+    chromaLabel,
     class: className,
     error,
     hideLabel,
+    hueLabel,
     id,
+    invalidText,
+    lightnessLabel,
     name,
+    opacityLabel,
+    p3Text,
     pickerLabel = "Pick a color",
     size,
     spread,
+    srgbText,
     style,
     value = $bindable(),
     variant,
+    wideText,
 
     // Snippets
     endText,
@@ -33,7 +41,14 @@
   const inputId = $derived(id ?? generatedId)
 </script>
 
-<opui-color-field class={["ui-color-field", className]} {style}>
+<opui-color-field
+  class={["ui-color-field", className]}
+  invalid-text={invalidText}
+  p3-text={p3Text}
+  srgb-text={srgbText}
+  {style}
+  wide-text={wideText}
+>
   <div
     class={[
       "ui-text-field",
@@ -87,7 +102,7 @@
     popover="auto"
     role="dialog"
   >
-    {#each channelsFor(alpha) as slider (slider.name)}
+    {#each channelsFor( alpha, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
       <label class="ui-range" for={`${inputId}-${slider.name}`}>
         <span class="ui-label" id={`${inputId}-${slider.name}-label`}
           >{slider.label}</span

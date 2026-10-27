@@ -30,6 +30,7 @@ const {
   size,
   spread,
   startText,
+  stretch,
   value,
   variant,
 } = defineProps<Props>()
@@ -65,6 +66,7 @@ const field = inject(FieldGroupKey, undefined)
       {
         'ui-filled': variant === 'filled',
         'ui-spread': spread,
+        'ui-stretch': stretch,
       },
       size && size !== 'medium' && `ui-${size}`,
       $props.class,

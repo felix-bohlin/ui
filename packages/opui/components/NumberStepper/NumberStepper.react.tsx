@@ -18,6 +18,7 @@ export default function NumberStepper({
   name,
   size,
   spread,
+  stretch,
   style,
   variant,
   endText,
@@ -42,6 +43,7 @@ export default function NumberStepper({
         {
           "ui-filled": variant === "filled",
           "ui-spread": spread,
+          "ui-stretch": stretch,
         },
         size && size !== "medium" && `ui-${size}`,
         className,

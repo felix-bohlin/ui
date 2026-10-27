@@ -173,6 +173,28 @@ export const description =
   </section>
 
   <section>
+    <h2 id="texts">Texts</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Every text is a prop, for another language: <code>pickerLabel</code>
+        names the swatch button, <code>lightnessLabel</code>, <code
+          >chromaLabel</code
+        >, <code>hueLabel</code> and <code>opacityLabel</code> name the sliders,
+        <code>srgbText</code>, <code>p3Text</code> and <code>wideText</code> are the
+        line under the sliders, and <code>invalidText</code> is the message while
+        the text isn't a color.
+      </Fragment>
+      <Fragment slot="html">
+        Every text is in your markup or an attribute, for another language: the
+        swatch button's <code>aria-label</code> and the slider labels are in the markup,
+        and <code>srgb-text</code>, <code>p3-text</code>, <code>wide-text</code> and
+        <code>invalid-text</code> on <code>opui-color-field</code> replace the line
+        under the sliders and the message while the text isn't a color.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <section>
     <h2 id="form-value">Form value</h2>
     <p>
       The input carries the <code>name</code>, so the form submits the <code
@@ -195,8 +217,8 @@ export const description =
           ><Fragment slot="components"><code>pickerLabel</code></Fragment
           ><Fragment slot="html"><code>aria-label</code></Fragment></Conditional
         >, and opens a dialog named after the field. Each slider reads its value
-        out, like "60%" or "250 degrees", and the chroma slider is described by
-        the gamut line under the sliders.
+        out, like "60%" or "250°", and the chroma slider is described by the
+        gamut line under the sliders.
       </li>
       <li>
         Before the element loads, the swatch button is hidden and the field

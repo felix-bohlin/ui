@@ -60,6 +60,11 @@ export default {
       prop: "alpha",
     },
     {
+      default: '"Chroma"',
+      description: "The label of the chroma slider.",
+      prop: "chromaLabel",
+    },
+    {
       attribute: "[disabled]",
       default: "false",
       description: "Dims the field and blocks input and the picker button.",
@@ -87,6 +92,11 @@ export default {
       prop: "hideLabel",
     },
     {
+      default: '"Hue"',
+      description: "The label of the hue slider.",
+      prop: "hueLabel",
+    },
+    {
       description:
         "The id of the `<input>`. The label, the picker button and the sliders build their ids from it, so the component generates one when it's left out.",
       inherited: true,
@@ -94,11 +104,34 @@ export default {
       type: "string",
     },
     {
+      default: '"Not a color. Try oklch(0.6 0.2 250) or any CSS color."',
+      description:
+        "The validation message and the line under the sliders while the text isn't a color.",
+      prop: "invalidText",
+    },
+    {
+      default: '"Lightness"',
+      description: "The label of the lightness slider.",
+      prop: "lightnessLabel",
+    },
+    {
       description:
         "The name of the `<input>`, which submits the `oklch()` value. Inside a `FieldGroup`, the group's `name` applies.",
       inherited: true,
       prop: "name",
       type: "string",
+    },
+    {
+      default: '"Opacity"',
+      description: "The label of the opacity slider, with `alpha`.",
+      prop: "opacityLabel",
+    },
+    {
+      default:
+        '"Display P3. Wide-gamut screens show it, others show the nearest sRGB color."',
+      description:
+        "The line under the sliders for a color outside sRGB but inside Display P3.",
+      prop: "p3Text",
     },
     {
       default: '"Pick a color"',
@@ -138,12 +171,22 @@ export default {
       prop: "spread",
     },
     {
+      default: '"sRGB. Every screen shows it."',
+      description: "The line under the sliders for a color inside sRGB.",
+      prop: "srgbText",
+    },
+    {
       default: '"outlined"',
       description: "The variant to use.",
       group: "Variants",
       part: ".ui-text-field",
       prop: "variant",
       values: { filled: ".ui-filled", outlined: null },
+    },
+    {
+      default: '"Beyond Display P3. Screens show the nearest color they can."',
+      description: "The line under the sliders for a color outside Display P3.",
+      prop: "wideText",
     },
   ],
   parts: [

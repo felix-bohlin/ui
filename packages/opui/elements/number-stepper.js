@@ -18,8 +18,8 @@ export class NumberStepper extends Base {
   connectedCallback() {
     this.#controller = new AbortController()
     const { signal } = this.#controller
-    this.addEventListener("command", (event) => this.#command(event), {
-      capture: true,
+    this.addEventListener("click", (event) => this.#click(event), { signal })
+    this.addEventListener("keydown", (event) => this.#keydown(event), {
       signal,
     })
     for (const type of ["focusin", "input", "pointerover"]) {
@@ -72,18 +72,30 @@ export class NumberStepper extends Base {
     return this.querySelector(`button[command="${command}"]`)
   }
 
-  #command(event) {
-    const direction = COMMANDS[event.command]
+  #click(event) {
+    const direction = this.#directionOf(event.target)
     if (direction && !this.#held) this.step(direction)
   }
 
+  #directionOf(target) {
+    const button = target.closest?.("button[command]")
+    return button && COMMANDS[button.getAttribute("command")]
+  }
+
+  #keydown(event) {
+    if (event.key !== " ") return
+    const direction = this.#directionOf(event.target)
+    if (!direction) return
+    event.preventDefault()
+    this.step(direction)
+  }
+
   #hold(event) {
-    const button = event.target.closest?.("button[command]")
-    const direction = COMMANDS[button?.getAttribute("command")]
+    const direction = this.#directionOf(event.target)
     if (!direction || event.button !== 0) return
     this.#release()
     this.#held = false
-    button.setPointerCapture?.(event.pointerId)
+    event.target.closest("button").setPointerCapture?.(event.pointerId)
     this.#timeout = setTimeout(() => {
       this.#interval = setInterval(() => {
         this.#held = true

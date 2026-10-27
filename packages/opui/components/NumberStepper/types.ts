@@ -8,6 +8,7 @@ export type Props = {
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
+  stretch?: boolean
   variant?: "outlined" | "filled"
 }
 

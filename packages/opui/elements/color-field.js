@@ -90,7 +90,7 @@ const CHANNELS = {
     text: (value) => `${round(value, 3)}`,
   },
   H: {
-    spoken: (value) => `${round(value, 1)} degrees`,
+    spoken: (value) => `${round(value, 1)}°`,
     text: (value) => `${round(value, 1)}°`,
   },
   L: {
@@ -237,8 +237,8 @@ export class ColorField extends Base {
     }
     const gamut = this.querySelector(".ui-floating > .ui-description")
     if (gamut) {
-      gamut.textContent =
-        GAMUT_TEXT[oklchGamut(this.#color.L, this.#color.C, this.#color.H)]
+      const range = oklchGamut(this.#color.L, this.#color.C, this.#color.H)
+      gamut.textContent = this.#text(`${range}-text`, GAMUT_TEXT[range])
     }
   }
 
@@ -262,9 +262,14 @@ export class ColorField extends Base {
     if (!input) return
     const empty = !input.value.trim()
     this.style.setProperty("--_indicator-bg-color", "transparent")
-    input.setCustomValidity(empty ? "" : INVALID_TEXT)
+    const text = empty ? "" : this.#text("invalid-text", INVALID_TEXT)
+    input.setCustomValidity(text)
     const gamut = this.querySelector(".ui-floating > .ui-description")
-    if (gamut) gamut.textContent = empty ? "" : INVALID_TEXT
+    if (gamut) gamut.textContent = text
+  }
+
+  #text(attribute, fallback) {
+    return this.getAttribute(attribute) ?? fallback
   }
 }
 

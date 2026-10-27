@@ -24,16 +24,24 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 ### Props and modifiers
 
 - `alpha`: `boolean`. Adds an opacity slider, and keeps the alpha in the value.
+- `chromaLabel`: `string`, default `"Chroma"`. The label of the chroma slider.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input and the picker button.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-text-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `hueLabel`: `string`, default `"Hue"`. The label of the hue slider.
 - `id`: `string`. The id of the `<input>`. The label, the picker button and the sliders build their ids from it, so the component generates one when it's left out.
+- `invalidText`: `string`, default `"Not a color. Try oklch(0.6 0.2 250) or any CSS color."`. The validation message and the line under the sliders while the text isn't a color.
+- `lightnessLabel`: `string`, default `"Lightness"`. The label of the lightness slider.
 - `name`: `string`. The name of the `<input>`, which submits the `oklch()` value. Inside a `FieldGroup`, the group's `name` applies.
+- `opacityLabel`: `string`, default `"Opacity"`. The label of the opacity slider, with `alpha`.
+- `p3Text`: `string`, default `"Display P3. Wide-gamut screens show it, others show the nearest sRGB color."`. The line under the sliders for a color outside sRGB but inside Display P3.
 - `pickerLabel`: `string`, default `"Pick a color"`. The accessible name of the picker button.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-text-field.ui-large`), `"medium"` (default), `"small"` (`.ui-text-field.ui-small`), `"x-small"` (`.ui-text-field.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-text-field.ui-spread`. Pushes the label and start text to one side and the field to the other.
+- `srgbText`: `string`, default `"sRGB. Every screen shows it."`. The line under the sliders for a color inside sRGB.
 - `variant`: `"filled"` (`.ui-text-field.ui-filled`), `"outlined"` (default). The variant to use.
+- `wideText`: `string`, default `"Beyond Display P3. Screens show the nearest color they can."`. The line under the sliders for a color outside Display P3.
 
 Model: `value` (`string`), the `oklch()` color, as the input's text. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 

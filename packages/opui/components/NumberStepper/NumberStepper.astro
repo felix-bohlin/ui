@@ -23,6 +23,7 @@ const {
   size,
   spread,
   startText,
+  stretch,
   style,
   variant,
   ...rest
@@ -43,6 +44,7 @@ const endTextId =
     {
       "ui-filled": variant === "filled",
       "ui-spread": spread,
+      "ui-stretch": stretch,
     },
     size && size !== "medium" && `ui-${size}`,
     className,

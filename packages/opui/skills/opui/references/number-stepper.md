@@ -30,6 +30,7 @@ A number field with buttons that step the value down and up, for amounts like a 
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the field to the other.
+- `stretch`: `boolean`, `.ui-stretch`. Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`).
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default). The variant to use.
 
 Model: `value` (`number | string`), the input value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
@@ -44,6 +45,10 @@ Model: `value` (`number | string`), the input value. Astro and React `value`, Sv
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
+
+### number-stepper.css
+
+- `--_min-inline-size`: The least width of the input, which otherwise fits its value, unless `stretch` is set.
 
 ### text-field.css
 

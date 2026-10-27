@@ -1498,7 +1498,7 @@ interaction(
     await picker.click()
     const hue = root.getByRole("slider", { name: "Hue" })
     await expect(hue).toBeVisible()
-    await expect(hue).toHaveAttribute("aria-valuetext", "250 degrees")
+    await expect(hue).toHaveAttribute("aria-valuetext", "250°")
     await hue.focus()
     await page.keyboard.press("End")
     await expect(input).toHaveValue("oklch(0.6 0.15 0)")

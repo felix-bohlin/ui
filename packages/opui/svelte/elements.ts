@@ -7,7 +7,12 @@ declare module "svelte/elements" {
     "opui-character-count": HTMLAttributes<HTMLElement> & {
       label?: string | undefined | null
     }
-    "opui-color-field": HTMLAttributes<HTMLElement>
+    "opui-color-field": HTMLAttributes<HTMLElement> & {
+      "invalid-text"?: string | undefined | null
+      "p3-text"?: string | undefined | null
+      "srgb-text"?: string | undefined | null
+      "wide-text"?: string | undefined | null
+    }
     "opui-copy": HTMLAttributes<HTMLElement> & {
       "copied-label"?: string | undefined | null
     }

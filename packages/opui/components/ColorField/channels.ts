@@ -12,5 +12,11 @@ const opacity = {
   step: 0.01,
 }
 
-export const channelsFor = (alpha?: boolean) =>
-  alpha ? [...color, opacity] : color
+export const channelsFor = (
+  alpha?: boolean,
+  labels: Partial<Record<string, string>> = {},
+) =>
+  (alpha ? [...color, opacity] : color).map((slider) => ({
+    ...slider,
+    label: labels[slider.name] ?? slider.label,
+  }))

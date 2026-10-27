@@ -9,16 +9,24 @@ import type { Props } from "./types.react"
 
 export default function ColorField({
   alpha,
+  chromaLabel,
   className,
   error,
   hideLabel,
+  hueLabel,
   id,
+  invalidText,
+  lightnessLabel,
   name,
+  opacityLabel,
+  p3Text,
   pickerLabel = "Pick a color",
   size,
   spread,
+  srgbText,
   style,
   variant,
+  wideText,
   endText,
   label,
   startText,
@@ -35,7 +43,11 @@ export default function ColorField({
   return (
     <opui-color-field
       className={cx(["ui-color-field", className])}
+      invalid-text={invalidText}
+      p3-text={p3Text}
+      srgb-text={srgbText}
       style={style}
+      wide-text={wideText}
     >
       <div
         className={cx([
@@ -87,7 +99,12 @@ export default function ColorField({
         popover="auto"
         role="dialog"
       >
-        {channelsFor(alpha).map((slider) => (
+        {channelsFor(alpha, {
+          chroma: chromaLabel,
+          hue: hueLabel,
+          lightness: lightnessLabel,
+          opacity: opacityLabel,
+        }).map((slider) => (
           <label
             className="ui-range"
             htmlFor={`${inputId}-${slider.name}`}

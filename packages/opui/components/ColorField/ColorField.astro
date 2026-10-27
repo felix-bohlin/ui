@@ -11,19 +11,27 @@ export const title = "Color Field"
 const {
   alpha,
   "aria-invalid": ariaInvalid,
+  chromaLabel,
   class: className,
   endText,
   error,
   hideLabel,
+  hueLabel,
   id,
+  invalidText,
   label,
+  lightnessLabel,
   name,
+  opacityLabel,
+  p3Text,
   pickerLabel = "Pick a color",
   size,
   spread,
+  srgbText,
   startText,
   style,
   variant,
+  wideText,
   ...rest
 } = Astro.props
 
@@ -32,7 +40,14 @@ const $id = createId(Astro.locals)
 const inputId = id ?? $id("color-field")
 ---
 
-<opui-color-field class:list={["ui-color-field", className]} style={style}>
+<opui-color-field
+  class:list={["ui-color-field", className]}
+  invalid-text={invalidText}
+  p3-text={p3Text}
+  srgb-text={srgbText}
+  style={style}
+  wide-text={wideText}
+>
   <div
     class:list={[
       "ui-text-field",
@@ -101,7 +116,12 @@ const inputId = id ?? $id("color-field")
     role="dialog"
   >
     {
-      channelsFor(alpha).map((slider) => (
+      channelsFor(alpha, {
+        chroma: chromaLabel,
+        hue: hueLabel,
+        lightness: lightnessLabel,
+        opacity: opacityLabel,
+      }).map((slider) => (
         <label class="ui-range" for={`${inputId}-${slider.name}`}>
           <span class="ui-label" id={`${inputId}-${slider.name}-label`}>
             {slider.label}

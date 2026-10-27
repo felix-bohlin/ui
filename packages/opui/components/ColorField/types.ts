@@ -1,14 +1,22 @@
 export type Props = {
   alpha?: boolean
+  chromaLabel?: string
   endText?: string
   error?: boolean
   hideLabel?: boolean
+  hueLabel?: string
+  invalidText?: string
   label?: string
+  lightnessLabel?: string
+  opacityLabel?: string
+  p3Text?: string
   pickerLabel?: string
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
+  srgbText?: string
   startText?: string
   variant?: "outlined" | "filled"
+  wideText?: string
 }
 
 export type Slots<S> = {

@@ -31,36 +31,74 @@ const currentProps = (source: string, component: string) =>
 const currentClasses = () =>
   classNamesIn(["packages/opui/css", "packages/opui/core"])
 
-test("released props still exist or are logged as Breaking or Removed", () => {
-  const unlogged = Object.entries(released.props).flatMap(
-    ([source, components]) =>
-      Object.entries(components).flatMap(([component, props]) => {
-        const current = currentProps(source, component)
-        const logged = (prop: string) =>
-          entries.some(
-            (entry) =>
-              entry.includes(`\`${component}\``) &&
-              (current.size === 0 || entry.includes(`\`${prop}\``)),
-          )
-        return props
-          .filter(
-            (prop) =>
-              !current.has(prop) &&
-              !(current.size > 0 && native.test(prop)) &&
-              !logged(prop),
-          )
-          .map((prop) => `${component} ${prop}`)
-      }),
+const unloggedProps = (
+  props: Record<string, Record<string, string[]>>,
+  current: (source: string, component: string) => Set<string>,
+  logged: string[],
+) =>
+  Object.entries(props).flatMap(([source, components]) =>
+    Object.entries(components).flatMap(([component, names]) => {
+      const kept = current(source, component)
+      const isLogged = (prop: string) =>
+        logged.some(
+          (entry) =>
+            entry.includes(`\`${component}\``) &&
+            (kept.size === 0 || entry.includes(`\`${prop}\``)),
+        )
+      return names
+        .filter(
+          (prop) =>
+            !kept.has(prop) &&
+            !(kept.size > 0 && native.test(prop)) &&
+            !isLogged(prop),
+        )
+        .map((prop) => `${component} ${prop}`)
+    }),
   )
-  expect(unlogged, "removed without a Breaking or Removed entry").toEqual([])
+
+const unloggedClasses = (
+  classes: string[],
+  current: Set<string>,
+  logged: string,
+) =>
+  classes.filter(
+    (name) => !current.has(name) && !logged.includes(`\`${name}\``),
+  )
+
+test("released props still exist or are logged as Breaking or Removed", () => {
+  expect(
+    unloggedProps(released.props, currentProps, entries),
+    "removed without a Breaking or Removed entry",
+  ).toEqual([])
 }, 120_000)
 
 test("released classes still exist or are logged as Breaking or Removed", () => {
-  const current = currentClasses()
-  const unlogged = released.classes.filter(
-    (name) => !current.has(name) && !breaking.includes(`\`${name}\``),
-  )
-  expect(unlogged, "removed without a Breaking or Removed entry").toEqual([])
+  expect(
+    unloggedClasses(released.classes, currentClasses(), breaking),
+    "removed without a Breaking or Removed entry",
+  ).toEqual([])
+})
+
+test("the rules flag a prop or class that disappeared without an entry", () => {
+  const props = { Button: { Button: ["gone", "id", "size"] } }
+  const kept = () => new Set(["size"])
+  expect(unloggedProps(props, kept, [])).toEqual(["Button gone"])
+  expect(unloggedProps(props, kept, ["- `Button` drops `gone`."])).toEqual([])
+  expect(unloggedProps(props, () => new Set(), [])).toEqual([
+    "Button gone",
+    "Button id",
+    "Button size",
+  ])
+  expect(
+    unloggedProps(props, () => new Set(), ["- `Button` is gone."]),
+  ).toEqual([])
+  const current = new Set([".ui-kept"])
+  expect(unloggedClasses([".ui-kept", ".ui-gone"], current, "")).toEqual([
+    ".ui-gone",
+  ])
+  expect(
+    unloggedClasses([".ui-gone"], current, "- `.ui-gone` is gone."),
+  ).toEqual([])
 })
 
 const currentInputs = Object.fromEntries(

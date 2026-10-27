@@ -28,15 +28,36 @@ const breaking = [
   .map((match) => match[2])
   .join("\n")
 
-test("released tokens still exist or are logged as Breaking or Removed", () => {
-  const current = new Set(themeTokens().map((token) => token.name))
-  const prefixed = breaking.includes("`--ui-`")
-  const gone = released.tokens.filter(
+const unlogged = (tokens: string[], current: Set<string>, logged: string) => {
+  const prefixed = logged.includes("`--ui-`")
+  return tokens.filter(
     (name) =>
-      !current.has(name) && !(prefixed && current.has(`--ui-${name.slice(2)}`)),
+      !current.has(name) &&
+      !(prefixed && current.has(`--ui-${name.slice(2)}`)) &&
+      !logged.includes(`\`${name}\``),
   )
-  const unlogged = gone.filter((name) => !breaking.includes(`\`${name}\``))
-  expect(unlogged, "removed without a Breaking or Removed entry").toEqual([])
+}
+
+test("released tokens still exist or are logged as Breaking or Removed", () => {
+  expect(
+    unlogged(
+      released.tokens,
+      new Set(themeTokens().map((token) => token.name)),
+      breaking,
+    ),
+    "removed without a Breaking or Removed entry",
+  ).toEqual([])
+})
+
+test("the rule flags a token that disappeared without an entry", () => {
+  const current = new Set(["--ui-kept", "--ui-renamed"])
+  expect(unlogged(["--ui-kept", "--ui-gone"], current, "")).toEqual([
+    "--ui-gone",
+  ])
+  expect(unlogged(["--ui-gone"], current, "- `--ui-gone` is gone.")).toEqual([])
+  expect(
+    unlogged(["--renamed"], current, "- Tokens gain the `--ui-` prefix."),
+  ).toEqual([])
 })
 
 test("the released version is in the CHANGELOG", () => {

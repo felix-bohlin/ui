@@ -1374,14 +1374,15 @@ export const highlighted = new Set<string>([
   "typography",
 ] satisfies (keyof typeof whatsNew)[])
 
-export function whatsNewFor(framework: FrameworkId, slug: string) {
-  const notes: Note[] = whatsNew[slug as keyof typeof whatsNew] ?? []
-
-  return notes
+export const notesFor = (notes: Note[], framework: FrameworkId) =>
+  notes
     .map((note) =>
       typeof note === "string" ? note : (note[framework] ?? note.default),
     )
     .filter((note) => note !== undefined)
+
+export function whatsNewFor(framework: FrameworkId, slug: string) {
+  return notesFor(whatsNew[slug as keyof typeof whatsNew] ?? [], framework)
 }
 
 export function isWhatsNewHighlighted(framework: FrameworkId, slug: string) {

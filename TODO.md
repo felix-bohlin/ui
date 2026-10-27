@@ -118,6 +118,28 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): raise the `svelte` peer range to `^5.57.0`, with a `Changed` entry in the CHANGELOG.
     - B: keep the range and say in the Select docs that Chromium needs Svelte 5.57 or later.
   - Fixed: option A. The `svelte` peer range is `^5.57`, and the `opui-css/svelte` entry under Added in the CHANGELOG, the README, the Svelte getting started guide, its skill reference and the components guide say 5.57, as does the `package.json` peer range entry under Fixed. The Svelte components are new in 6.0.0, so the unreleased Added entry changed instead of a new Changed one.
+- [ ] (1) Package: seven parts render an empty `class=""` when no class is passed, in Svelte (`class={[className]}`) and Vue (`:class="[$props.class]"`): DialogTitle, DrawerTitle, AccordionSummary, CalloutIcon and the three DescriptionList parts (`packages/opui/components/Dialog/DialogTitle.svelte:21`, `packages/opui/components/Dialog/DialogTitle.vue:15`)
+  - Summary: Some titles and parts carry an empty class attribute in the Svelte and Vue output.
+  - Recommended: Fix. The markup then matches the HTML examples.
+  - Fix: bind the class only when it's set, as the other parts do, in all fourteen files.
+- [ ] (4) Package: `npm run build` fails in a fresh create-vite `vue-ts` project with `opui-css@6.0.0-rc.1`: its `vue-tsc -b` type-checks the package's sources with the template's `noUnusedLocals: true` and reports `TS6133: 'attrs' is declared but its value is never read` for Progress and ToggleButton, whose templates read `$attrs` instead. No tsconfig in the repo sets `noUnusedLocals`, so the checks miss it (`packages/opui/components/Progress/Progress.vue:13`, `packages/opui/components/ToggleButton/ToggleButton.vue:25`)
+  - Summary: A new Vite Vue project fails its build script as soon as the package is installed.
+  - Recommended: Fix. Two unused lines go, and the check keeps them out.
+  - Fix: remove the two unused `const attrs = useAttrs()` lines with their `useAttrs` imports, and turn on `noUnusedLocals` and `noUnusedParameters` in the Vue package fixture's tsconfig so the next unused local fails the package tests.
+- [ ] (5) Package: `vite dev` crashes on start in a fresh SvelteKit project with `opui-css@6.0.0-rc.1`: vite-plugin-svelte pre-bundles the package and compiles its eight TypeScript `context.svelte.ts` modules with `svelte.compileModule` before anything strips the types, which fails with `js_parse_error` on `import type`. `vite build` strips the types first and works, so the README's "SvelteKit needs no config" only holds for builds (`packages/opui/components/Anchor/context.svelte.ts:2`, `packages/opui/components/Menu/context.svelte.ts:2`)
+  - Summary: A new SvelteKit project crashes when it starts its dev server with the package installed.
+  - Recommended: Fix with option A. The README promises SvelteKit works with no config.
+  - Fix: the workaround the fresh project confirmed is `optimizeDeps: { exclude: ["opui-css"] }` in `vite.config`. Add a dev server start to the Svelte package fixture so it fails on this.
+  - Options:
+    - A (recommended): write the eight `context.svelte.ts` modules as `context.svelte.js` with JSDoc types, so the optimizer can compile them; the components import them as `./context.svelte` either way.
+    - B: keep the TypeScript modules and add the `optimizeDeps.exclude` line to the README's Svelte section.
+- [ ] (7) Package: a production build with Vite 8 (Vite, SvelteKit, Nuxt) or any Next 16 build lowers `light-dark()` for its default browser targets to `var(--lightningcss-light, A) var(--lightningcss-dark, B)`, and lightningcss only defines those two variables next to a literal `color-scheme`. The root sets `color-scheme: var(--ui-color-scheme)`, so without `.ui-light` or `.ui-dark` on `html` every `light-dark()` token is invalid: filled Buttons are transparent, outlined ones have no border, and Dialogs and the page have no background. Found with `opui-css@6.0.0-rc.1` in fresh projects; Astro 7 builds keep `light-dark()` and are fine, and the package fixtures only check that the build succeeds (`packages/opui/css/theme.css:16-17`, `tests/package/package.test.ts:368-380`)
+  - Summary: With the default settings of Vite 8 and Next 16, a production build shows the components without any theme colors.
+  - Recommended: Fix with option A. Default builds then render the theme with no config.
+  - Fix: either way, make the Vite fixtures in `tests/package/package.test.ts` fail on the lost colors, for example by opening the built page and reading a filled Button's background. Workarounds the fresh projects confirmed: Vite (and SvelteKit, Nuxt under `vite`) `build: { cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"] }`; Next `experimental: { lightningCssFeatures: { exclude: ["light-dark"] } }`.
+  - Options:
+    - A (recommended): give `html` literal `color-scheme` values that lightningcss can rewrite: `light` by default and `dark` in the `prefers-color-scheme: dark` block, next to the `--ui-color-scheme` knob (the `.ui-light` and `.ui-dark` classes already do). Then check in the fixtures that a lowered build follows the OS scheme and the classes, and document that forcing a scheme in a lowered build takes the classes, not the knob.
+    - B: keep the CSS and document the build settings above in the README and on the Getting started pages of each framework.
 
 ## Docs
 
@@ -128,6 +150,16 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): a post-build `scripts/check-links.mjs` that reads `dist/` with parse5 and fails on an internal `href` whose page or `#id` doesn't exist, run at the end of `pnpm build`.
     - B: an e2e spec that crawls the built site.
   - Fixed with option A: `scripts/check-dist.mjs` (`pnpm check-dist`) runs at the end of `pnpm build`. It parses every page in `dist` with parse5, follows redirect pages, and fails on an internal link to a missing page or `#id`, a duplicate id, a missing `.md` alternate, a search index URL that doesn't exist and a dead link in `llms.txt` or a `.md` page. It found the Tabs note's `#variants`, the Migrating guide's relative `MIGRATING-legacy.md`, the release checks' `RELEASING.md`, 54 `css-variables` ids on each API index, the Menu Custom `#menu` and the framework variants and `.md` files that `/checks` and `/todo` advertised; all fixed. Placeholder fragments on the block previews, stress and fixture pages are skipped, and same-page fragments inside an example preview are only checked on component pages, since examples link their own page's sections.
+- [ ] (2) Examples: the Range Value and Checkbox Basics HTML examples import `opui-css/css/js/range.js` and `opui-css/css/js/checkbox.js` by package name, which only a bundler resolves. Copied into a page without a build step, as the 6.0.0 Plain HTML check does, they throw "Failed to resolve module specifier", while Concepts offers a CDN tab for the same imports (`src/component-examples/range/Value.html:27-31`, `src/component-examples/checkbox/Basics.html:26-30`)
+  - Summary: Copying the Range or Checkbox example into a plain HTML page breaks its script.
+  - Recommended: Fix with option A. HTML examples are for pages without a build step.
+  - Options:
+    - A (recommended): import from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` in the HTML examples, like the CDN tab in Concepts.
+    - B: show the HTML examples' scripts with a CDN and a Bundler tab, like Concepts.
+- [ ] (2) Docs: the README's framework sections leave out steps a fresh project needed with `opui-css@6.0.0-rc.1`: Astro says to add the reference to `env.d.ts`, which new Astro projects no longer have, and doesn't say to import the CSS once in the layout; React, Svelte and Vue show a CSS `@import` for "your app entry" without saying where that is (a CSS file imported by `main.tsx`, the Next root layout, `+layout.svelte`, Nuxt's `css` array). A Nuxt 4.6 project also built and rendered on the server without the `build.transpile` the README asks for (`packages/opui/README.md:26-37`, `packages/opui/README.md:39-45`, `packages/opui/README.md:101-103`, `packages/opui/README.md:128`)
+  - Summary: New users have to guess where the CSS import goes in their framework and that Astro needs an env.d.ts file.
+  - Recommended: Fix. The steps come from the fresh projects of the release candidate.
+  - Fix: say to create `src/env.d.ts` if it's missing, add one line per framework on where the import goes, and check `build.transpile` in Nuxt 4 before changing that note.
 
 ## Future plans
 
@@ -190,6 +222,15 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Fix: an `<opui-number-stepper class="ui-number-stepper">` around a number `TextField` and two `.ui-button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element handles the `command` event: it calls `stepDown()` or `stepUp()`, fires `input` and `change`, disables a button at `min` or `max`, repeats while a button is held and follows form reset. The cart's input becomes `type="number"`. Without the script it is a plain number input with the browser's spin buttons, and `:not(:defined)` hides the two buttons. If browsers add built-in step commands for number inputs, the element is no longer needed.
 
 ## Limitations
+
+- [ ] (1) Package: every Vite 8 build (Vite, Astro, SvelteKit, Nuxt) that imports `css/imports.css` or `dist/opui.css` prints 34 lightningcss warnings per CSS bundle, 68 with a server build, such as "'scroll-button' is not recognized as a valid pseudo-element", for `::scroll-button()`, `::scroll-marker`, `::scroll-marker-group` and `:target-current` in the Carousel CSS, also when the page has no Carousel. The rules stay in the output (`packages/opui/css/components/carousel.css:139-393`)
+  - Summary: Builds print a few dozen CSS warnings about the Carousel, even in projects that don't use it.
+  - Recommended: Fix. One README line tells users the warnings are harmless.
+  - Fix: say in the README that lightningcss doesn't know these selectors yet and keeps them, and report them to lightningcss if no issue exists.
+- [ ] (1) Select: in `vite dev` and `nuxi dev`, the Vue compiler warns "`<button>` cannot be child of `<select>`" and "`<div>` cannot be child of `<select>`" for the customizable select markup, also when the page has no Select, because its HTML nesting rules predate customizable select. Production builds don't warn (`packages/opui/components/Select/Select.vue:122-125`)
+  - Summary: Vue projects print two warnings about the Select markup while the dev server runs.
+  - Recommended: Fix. The warnings come from Vue, so they belong upstream.
+  - Fix: report it to Vue (core, the compiler's `isValidHTMLNesting`) if no issue exists, and link it here.
 
 ## Questions
 

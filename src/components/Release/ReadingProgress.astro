@@ -1,6 +1,4 @@
-<svg aria-hidden="true" class="reading-progress">
-  <rect pathLength="100"></rect>
-</svg>
+<div aria-hidden="true" class="reading-progress"></div>
 
 <style is:global>
   .reading-progress {
@@ -8,77 +6,46 @@
   }
 
   @supports (animation-timeline: scroll()) {
-    .site-header header .ui-content {
-      anchor-name: --site-header-box;
-    }
+    @media (width >= 1140px) {
+      .page-contents nav[data-toc-selector] {
+        anchor-name: --page-toc;
+      }
 
-    .reading-progress {
-      --_stroke: 2px;
+      .reading-progress {
+        background-color: var(--ui-border-color);
+        block-size: anchor-size(--page-toc block);
+        border-radius: var(--ui-radius-round);
+        display: block;
+        inline-size: 2px;
+        inset-block-start: anchor(--page-toc top);
+        inset-inline-start: calc(anchor(--page-toc left) - var(--site-gap) / 2);
+        margin: 0;
+        overflow: clip;
+        pointer-events: none;
+        position: fixed;
+        position-anchor: --page-toc;
+        z-index: 1;
 
-      animation: reading-progress-reveal linear both;
-      animation-range: 0 150px;
-      animation-timeline: scroll(root block);
-      block-size: anchor-size(--site-header-box block);
-      display: block;
-      inline-size: anchor-size(--site-header-box inline);
-      inset-block-start: anchor(--site-header-box top);
-      inset-inline-start: anchor(--site-header-box left);
-      margin: 0;
-      max-block-size: none;
-      max-inline-size: none;
-      overflow: visible;
-      pointer-events: none;
-      position: fixed;
-      position-anchor: --site-header-box;
-      z-index: 23;
-
-      rect {
-        animation: reading-progress-draw linear both;
-        animation-timeline: scroll(root block);
-        fill: none;
-        height: calc(100% - var(--_stroke));
-        rx: 0;
-        stroke: var(--ui-primary);
-        stroke-dasharray: 100;
-        stroke-linecap: round;
-        stroke-width: var(--_stroke);
-        width: calc(100% - var(--_stroke));
-        x: calc(var(--_stroke) / 2);
-        y: calc(var(--_stroke) / 2);
-
-        @media (width >= 1150px) {
-          rx: var(--radius-3);
-        }
-
-        @supports (corner-shape: squircle) {
-          rx: 0;
-
-          @media (width >= 1150px) {
-            rx: auto;
-            ry: calc(50% - var(--_stroke) / 2);
-          }
+        &::before {
+          animation: reading-progress-fill linear both;
+          animation-timeline: scroll(root block);
+          background-color: var(--ui-primary);
+          content: "";
+          inset: 0;
+          position: absolute;
+          transform-origin: top;
         }
       }
     }
   }
 
-  @keyframes reading-progress-reveal {
+  @keyframes reading-progress-fill {
     from {
-      opacity: 0;
+      scale: 1 0;
     }
 
     to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes reading-progress-draw {
-    from {
-      stroke-dashoffset: 100;
-    }
-
-    to {
-      stroke-dashoffset: 0;
+      scale: 1 1;
     }
   }
 </style>

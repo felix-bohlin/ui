@@ -107,7 +107,10 @@ import PreviewStrip from "./PreviewStrip.astro"
 
     @media (width >= 900px) {
       gap: var(--size-6);
-      grid-template-columns: 13rem minmax(20rem, 26rem) minmax(0, 1fr);
+      grid-template-columns: fit-content(17rem) minmax(20rem, 28rem) minmax(
+          0,
+          1fr
+        );
       padding-block-end: var(--size-4);
 
       > :global(*) {
@@ -118,7 +121,7 @@ import PreviewStrip from "./PreviewStrip.astro"
       }
 
       > :global(.builder-controls) {
-        padding-inline-end: var(--size-2);
+        padding-inline-end: var(--size-3);
       }
     }
   }

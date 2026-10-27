@@ -1008,6 +1008,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   .builder-controls {
     display: grid;
     gap: var(--size-5);
+    grid-template-columns: minmax(0, 1fr);
     min-inline-size: 0;
 
     &.is-searching {

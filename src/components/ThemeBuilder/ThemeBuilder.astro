@@ -1,60 +1,138 @@
 ---
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "opui-css/astro"
 import BuilderControls from "./BuilderControls.astro"
 import BuilderExport from "./BuilderExport.astro"
 import BuilderPreview from "./BuilderPreview.astro"
+import BuilderRail from "./BuilderRail.astro"
 import BuilderToolbar from "./BuilderToolbar.astro"
+import PreviewContrast from "./PreviewContrast.astro"
+import PreviewStrip from "./PreviewStrip.astro"
 ---
 
 <div class="theme-builder">
   <BuilderToolbar />
-  <div class="builder-columns">
+  <PreviewStrip />
+  <div class="builder-body">
+    <BuilderRail />
     <BuilderControls />
-    <div class="builder-preview-column">
+    <div class="builder-canvas" data-canvas-home>
       <BuilderPreview />
     </div>
   </div>
-  <BuilderExport />
 </div>
+
+<Drawer
+  class="builder-sheet"
+  id="builder-preview-drawer"
+  scrollLock
+  side="block-end"
+>
+  <DrawerHeader>
+    <DrawerTitle>Preview</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
+    <div data-canvas-dock></div>
+  </DrawerContent>
+</Drawer>
+
+<Drawer class="builder-contrast-drawer" id="builder-contrast" side="inline-end">
+  <DrawerHeader>
+    <DrawerTitle>Contrast</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
+    <PreviewContrast />
+  </DrawerContent>
+</Drawer>
+
+<BuilderExport />
 
 <script>
   const builder = document.querySelector<HTMLElement>(".theme-builder")
   const header = document.querySelector<HTMLElement>(".site-header")
   if (builder && header) {
     const measure = () =>
-      builder.style.setProperty("--builder-header", `${header.offsetHeight}px`)
+      document.documentElement.style.setProperty(
+        "--builder-header",
+        `${header.offsetHeight}px`,
+      )
     new ResizeObserver(measure).observe(header)
     measure()
+  }
+
+  const home = document.querySelector<HTMLElement>("[data-canvas-home]")
+  const dock = document.querySelector<HTMLElement>("[data-canvas-dock]")
+  const sheet = document.querySelector<HTMLDialogElement>(
+    "#builder-preview-drawer",
+  )
+  const canvas = home?.querySelector<HTMLElement>(".builder-preview")
+  if (home && dock && sheet && canvas) {
+    const desktop = matchMedia("(width >= 900px)")
+    sheet.addEventListener("beforetoggle", (event) => {
+      if ((event as ToggleEvent).newState === "open") dock.append(canvas)
+    })
+    sheet.addEventListener("close", () => home.append(canvas))
+    desktop.addEventListener("change", () => {
+      if (desktop.matches && sheet.open) sheet.close()
+    })
   }
 </script>
 
 <style>
-  .theme-builder {
+  :root {
     --builder-header: 5.25rem;
+  }
 
+  .theme-builder {
     display: grid;
     gap: var(--size-4);
-    margin-block: var(--size-4) var(--size-9);
+    margin-block-end: var(--size-9);
+
+    @media (width >= 900px) {
+      block-size: calc(100dvb - var(--builder-header));
+      grid-template-rows: auto 1fr;
+      margin-block-end: 0;
+    }
   }
 
-  .builder-columns {
-    align-items: start;
+  .builder-body {
     display: grid;
-    gap: var(--size-6);
+    gap: var(--size-5);
     grid-template-columns: minmax(0, 1fr);
+    min-block-size: 0;
 
     @media (width >= 900px) {
-      grid-template-columns: clamp(22rem, 30vi, 28rem) minmax(0, 1fr);
+      gap: var(--size-6);
+      grid-template-columns: 13rem minmax(20rem, 26rem) minmax(0, 1fr);
+      padding-block-end: var(--size-4);
+
+      > :global(*) {
+        min-block-size: 0;
+        overflow: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+      }
+
+      > :global(.builder-controls) {
+        padding-inline-end: var(--size-2);
+      }
     }
   }
 
-  .builder-preview-column {
+  .builder-canvas {
     min-inline-size: 0;
+  }
 
-    @media (width >= 900px) {
-      inset-block-start: calc(var(--builder-header) + var(--size-3));
-      max-block-size: calc(100dvb - var(--builder-header) - var(--size-3) * 2);
-      overflow: auto;
-      position: sticky;
-    }
+  .builder-sheet {
+    block-size: 100dvb;
+    max-block-size: 100dvb;
+  }
+
+  .builder-contrast-drawer {
+    inline-size: min(48rem, 100vi);
   }
 </style>

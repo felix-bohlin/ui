@@ -2540,7 +2540,7 @@
   {
     "id": "theme-builder",
     "title": "Theme builder",
-    "description": "Start from a preset, set your colors, type, shape and density, check the contrast, and copy one CSS file.",
+    "description": "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file.",
     "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors",
     "category": "Guide",
     "url": "/theme-builder"

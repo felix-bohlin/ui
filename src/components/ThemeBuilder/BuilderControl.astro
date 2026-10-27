@@ -1,7 +1,6 @@
 ---
 import {
   Button,
-  Checkbox,
   Range,
   Select,
   ToggleButton,
@@ -49,7 +48,9 @@ const name = control.kind === "brand" ? "Brand color" : control.label
     <span class="builder-control-label" id={labelId} title={tokens.join("\n")}
       >{control.label}</span
     >
-    <span class="builder-control-origin" data-origin id={originId}>Preset</span>
+    <span class="builder-control-origin ui-sr-only" data-origin id={originId}
+      >Default value</span
+    >
     <Button
       aria-label={`Reset ${name.toLowerCase()}`}
       class="builder-control-reset"
@@ -113,11 +114,27 @@ const name = control.kind === "brand" ? "Brand color" : control.label
           />
           <span aria-hidden="true" class="builder-color-caption" data-caption />
         </div>
-        <div class="builder-dual">
-          <Checkbox data-dual size="small">
-            Different in dark mode
-          </Checkbox>
-        </div>
+        <Button
+          aria-label="Different in dark mode"
+          aria-pressed="false"
+          class="builder-dual"
+          data-dual
+          round
+          size="x-small"
+          title="Different in dark mode"
+          variant="outlined"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2v16a8 8 0 1 1 0-16"
+            />
+          </svg>
+        </Button>
       </div>
     )
   }
@@ -186,9 +203,18 @@ const name = control.kind === "brand" ? "Brand color" : control.label
 
 <style>
   .builder-control {
+    border-radius: var(--ui-radius);
     display: grid;
     gap: var(--size-2);
     min-inline-size: 0;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &.is-highlighted {
+      animation: builder-flash 1.2s var(--ui-ease, ease-out);
+    }
 
     > :global(.ui-toggle-group) {
       inline-size: 100%;
@@ -197,6 +223,17 @@ const name = control.kind === "brand" ? "Brand color" : control.label
     > :global(.ui-select),
     > :global(.ui-range) {
       inline-size: 100%;
+    }
+  }
+
+  @keyframes builder-flash {
+    from {
+      box-shadow: 0 0 0 var(--size-2)
+        var(--ui-primary-tonal, var(--ui-surface-tonal));
+    }
+
+    to {
+      box-shadow: 0 0 0 var(--size-2) transparent;
     }
   }
 
@@ -215,19 +252,13 @@ const name = control.kind === "brand" ? "Brand color" : control.label
   }
 
   .builder-control-origin {
-    border: var(--ui-border-width) solid var(--ui-border-color);
+    background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
     border-radius: var(--ui-radius-round);
-    color: var(--ui-text-subtle);
+    color: var(--ui-on-primary-tonal, var(--ui-text-strong));
     font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
     line-height: var(--ui-line-height-tight);
     padding: 0.125em 0.625em;
-
-    .is-changed & {
-      background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
-      border-color: transparent;
-      color: var(--ui-on-primary-tonal, var(--ui-text-strong));
-      font-weight: var(--ui-font-weight-semibold);
-    }
   }
 
   .builder-control-reset:disabled {
@@ -261,13 +292,10 @@ const name = control.kind === "brand" ? "Brand color" : control.label
 
   .builder-colors {
     align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2) var(--size-3);
-
-    .builder-dual {
-      flex-basis: 100%;
-    }
+    column-gap: var(--size-3);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: var(--size-2);
   }
 
   .builder-color {
@@ -275,15 +303,29 @@ const name = control.kind === "brand" ? "Brand color" : control.label
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
+    grid-column: 1;
+    min-inline-size: 0;
 
     &[hidden] {
       display: none;
     }
   }
 
+  .builder-colors :global(.builder-dual) {
+    align-self: start;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+
+    &[aria-pressed="true"] {
+      background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+      border-color: transparent;
+      color: var(--ui-on-primary-tonal, var(--ui-text-strong));
+    }
+  }
+
   .builder-color-caption {
     color: var(--ui-text);
     font-family: var(--font-mono);
-    font-size: var(--ui-font-size-small);
+    font-size: var(--ui-font-size-caption);
   }
 </style>

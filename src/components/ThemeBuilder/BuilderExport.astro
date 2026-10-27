@@ -1,5 +1,14 @@
 ---
-import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "opui-css/astro"
 import { PLACEHOLDER_CSS } from "../../utils/theme"
 import Code from "../Code.astro"
 import "../../styles/syntax.css"
@@ -9,52 +18,52 @@ const setup = `@import "opui-css/css/imports.css";
 @import "./theme.css";`
 ---
 
-<section
-  aria-labelledby="builder-export-title"
-  class="builder-export"
-  id="export"
->
-  <div class="builder-export-intro">
-    <h2 id="builder-export-title">Export</h2>
-    <p>
-      Your theme is one CSS file. It holds the preset you started from and your
-      changes, and it works in light and dark mode.
-    </p>
-    <ol>
-      <li>
-        Load opui-css as shown in <a
-          class="ui-link"
-          href={link("/guide/getting-started")}>Getting started</a
-        >.
-      </li>
-      <li>
-        Save this file as <code>theme.css</code> and load it after opui-css.
-      </li>
-    </ol>
-    <Code code={setup} lang="css" />
-    <Callout data-font-note hidden severity="info">
-      <CalloutIcon />
-      <CalloutContent>
-        <p data-font-text></p>
-      </CalloutContent>
-    </Callout>
-  </div>
-
-  <div class="builder-css">
-    <div class="builder-css-head">
-      <span class="builder-css-title">theme.css</span>
-      <span class="builder-css-meta" data-css-meta></span>
-      <Button data-css-copy size="small" variant="outlined">Copy</Button>
-      <Button color="primary" data-css-download size="small" variant="filled"
-        >Download</Button
-      >
+<Drawer class="builder-export-drawer" id="builder-export" side="inline-end">
+  <DrawerHeader>
+    <DrawerTitle>Export</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent class="builder-export">
+    <div class="builder-export-intro">
+      <p>
+        Your theme is one CSS file. It holds the preset you started from and
+        your changes, and it works in light and dark mode.
+      </p>
+      <ol>
+        <li>
+          Load opui-css as shown in <a
+            class="ui-link"
+            href={link("/guide/getting-started")}>Getting started</a
+          >.
+        </li>
+        <li>
+          Save this file as <code>theme.css</code> and load it after opui-css.
+        </li>
+      </ol>
+      <Code code={setup} lang="css" />
+      <Callout data-font-note hidden severity="info">
+        <CalloutIcon />
+        <CalloutContent>
+          <p data-font-text></p>
+        </CalloutContent>
+      </Callout>
     </div>
-    <pre
-      tabindex="0"
-      aria-label="theme.css"><code class="language-css" data-css>{PLACEHOLDER_CSS}</code></pre>
-    <p class="builder-css-status" data-css-status role="status"></p>
-  </div>
-</section>
+
+    <div class="builder-css">
+      <div class="builder-css-head">
+        <span class="builder-css-title">theme.css</span>
+        <span class="builder-css-meta" data-css-meta></span>
+        <Button data-css-copy size="small" variant="outlined">Copy</Button>
+        <Button color="primary" data-css-download size="small" variant="filled"
+          >Download</Button
+        >
+      </div>
+      <pre
+        tabindex="0"
+        aria-label="theme.css"><code class="language-css" data-css>{PLACEHOLDER_CSS}</code></pre>
+      <p class="builder-css-status" data-css-status role="status"></p>
+    </div>
+  </DrawerContent>
+</Drawer>
 
 <script>
   import { highlightAll } from "microlighter"
@@ -173,24 +182,20 @@ const setup = `@import "opui-css/css/imports.css";
 </script>
 
 <style>
+  .builder-export-drawer {
+    inline-size: min(44rem, 100vi);
+  }
+
   .builder-export {
     align-items: start;
-    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
     display: grid;
     gap: var(--size-5);
-    padding-block-start: var(--size-6);
-    scroll-margin-block-start: var(--size-11);
-
-    @media (width >= 900px) {
-      grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
-    }
   }
 
   .builder-export-intro {
     display: grid;
     gap: var(--size-3);
 
-    h2,
     ol,
     p {
       margin: 0;

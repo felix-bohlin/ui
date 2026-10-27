@@ -3,11 +3,11 @@ import ThemeBuilder from "../components/ThemeBuilder/ThemeBuilder.astro"
 import Default from "../layouts/Default.astro"
 
 const description =
-  "Start from a preset, set your colors, type, shape and density, check the contrast, and copy one CSS file."
+  "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file."
 ---
 
 <Default description={description} hasMarkdown title="Theme builder">
-  <main id="main-content" class="container is-wide">
+  <main class="builder-main" id="main-content">
     <article class="ui-sr-only">
       <h1>Theme builder</h1>
       <p>{description}</p>
@@ -17,10 +17,7 @@ const description =
 </Default>
 
 <style>
-  #main-content {
-    max-inline-size: min(
-      calc(100% - var(--site-gap) * 2),
-      var(--site-content-lg)
-    );
+  .builder-main {
+    padding-inline: var(--site-gap);
   }
 </style>

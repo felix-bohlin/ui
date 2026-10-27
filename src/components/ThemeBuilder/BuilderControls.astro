@@ -1,8 +1,10 @@
 ---
-import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
+import { Chip } from "opui-css/astro"
 import themeCss from "../../../packages/opui/css/theme.css?raw"
 import { GROUPS, libraryDefaults } from "../../utils/theme-builder-controls"
+import { MOODS } from "../../utils/theme-remix"
 import BuilderControl from "./BuilderControl.astro"
+import BuilderPresets from "./BuilderPresets.astro"
 
 const defaults = JSON.stringify(libraryDefaults(themeCss))
 ---
@@ -13,8 +15,10 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   data-defaults={defaults}
 >
   <h2 class="ui-sr-only" id="builder-settings-title">Settings</h2>
+  <p class="builder-search-summary" data-search-summary hidden role="status">
+  </p>
   {
-    GROUPS.map((group) => {
+    GROUPS.map((group, index) => {
       const basic = group.controls.filter((control) => control.tier === "basic")
       const fine = group.controls.filter((control) => control.tier === "fine")
       return (
@@ -22,32 +26,65 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           aria-labelledby={`builder-group-${group.id}`}
           class="builder-group"
           data-group={group.id}
+          hidden={index > 0}
         >
           <header class="builder-group-head">
-            <h3 id={`builder-group-${group.id}`}>
+            <h3 id={`builder-group-${group.id}`} tabindex="-1">
               {group.label}
               <span class="builder-count" data-count hidden />
             </h3>
             <p>{group.description}</p>
           </header>
-          {basic.map((control) => (
-            <BuilderControl control={control} />
-          ))}
+          {group.id === "brand" && (
+            <div class="builder-start" data-start>
+              <BuilderPresets />
+              <div
+                aria-labelledby="builder-moods-title"
+                class="builder-moods"
+                role="group"
+              >
+                <p class="builder-moods-title" id="builder-moods-title">
+                  Mood
+                </p>
+                <div class="builder-moods-list">
+                  {MOODS.map((mood) => (
+                    <Chip
+                      as="button"
+                      data-mood={mood.id}
+                      label={mood.label}
+                      size="small"
+                      title={mood.hint}
+                      type="button"
+                      variant="outlined"
+                    />
+                  ))}
+                </div>
+                <p class="builder-moods-hint">
+                  A mood sets a handful of settings on top of your starting
+                  point. Undo brings them back.
+                </p>
+              </div>
+            </div>
+          )}
+          <div class="builder-tier" data-tier="basic">
+            {basic.map((control) => (
+              <BuilderControl control={control} />
+            ))}
+          </div>
           {fine.length > 0 && (
-            <Accordion class="builder-fine" data-fine variant="outlined">
-              <AccordionSummary>
-                <span>Fine-tune</span>
-                <span class="builder-fine-meta" data-fine-meta>
-                  {fine.length} more{" "}
-                  {fine.length === 1 ? "setting" : "settings"}
-                </span>
-              </AccordionSummary>
-              <AccordionContent>
-                {fine.map((control) => (
-                  <BuilderControl control={control} />
-                ))}
-              </AccordionContent>
-            </Accordion>
+            <h4 class="builder-fine-title" data-fine-title>
+              Fine-tune
+              <span class="builder-fine-meta" data-fine-meta>
+                {fine.length} {fine.length === 1 ? "setting" : "settings"}
+              </span>
+            </h4>
+          )}
+          {fine.length > 0 && (
+            <div class="builder-tier" data-tier="fine">
+              {fine.map((control) => (
+                <BuilderControl control={control} />
+              ))}
+            </div>
           )}
         </section>
       )
@@ -63,14 +100,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     parseOklch,
   } from "../../utils/color-utils"
   import { exampleTheme } from "../../utils/example-themes"
+  import { morph } from "../../utils/morph"
   import { OklchInput } from "../../utils/oklch-input"
+  import { readStored, writeStored } from "../../utils/storage"
   import {
     CORNERS,
     cornersTokens,
     cornersUpdate,
     themeStore,
+    type Theme,
     type ThemeTokens,
   } from "../../utils/theme"
+  import { switchPreset } from "../../utils/theme-brand"
   import {
     BALANCED_PRIMARY,
     COMPONENT_RADII,
@@ -78,6 +119,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     FOLLOW_RADIUS,
     MONOCHROME_PRIMARY,
     canonical,
+    changeCount,
     controlTokens,
     isChanged,
     isFollow,
@@ -90,8 +132,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     type RangeControl,
   } from "../../utils/theme-builder-controls"
   import { brandTokens, brandUpdate } from "../../utils/theme-brand"
+  import {
+    LOCKED_BY_DEFAULT,
+    MOODS,
+    moodRemix,
+    shuffleRemix,
+    type Remix,
+  } from "../../utils/theme-remix"
 
   type Update = Record<string, string | null>
+
+  const ROOM_KEY = "opui-builder-room"
+  const LOCKS_KEY = "opui-builder-locks"
 
   const root = document.querySelector<HTMLElement>(".builder-controls")
   if (root) {
@@ -102,12 +154,30 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         (element) => [element.dataset.control!, element],
       ),
     )
+    const groups = [...root.querySelectorAll<HTMLElement>("[data-group]")]
+    const groupOf = new Map(
+      [...elements].map(([id, element]) => [
+        id,
+        element.closest<HTMLElement>("[data-group]")!.dataset.group!,
+      ]),
+    )
+    const summary = root.querySelector<HTMLElement>("[data-search-summary]")!
+    const search = document.querySelector<HTMLInputElement>(
+      'input[name="builder-search"]',
+    )
+    const rooms = [
+      ...document.querySelectorAll<HTMLButtonElement>("[data-room]"),
+    ]
+    const locks = [
+      ...document.querySelectorAll<HTMLButtonElement>("[data-lock]"),
+    ]
+    const presets = root.querySelector<HTMLElement>("[data-presets]")!
     const dual = new Set<string>()
     const picked = new Set<string>()
     let theme = themeStore.get()
-    let first = true
     let queued: Update | null = null
     let frame = 0
+    let room = ""
 
     const hosts = (["light", "dark"] as const).map((scheme) => {
       const host = document.createElement("div")
@@ -219,6 +289,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (!throttle) flush()
       else if (!frame) frame = requestAnimationFrame(flush)
     }
+
+    const say = (message: string, focus?: HTMLElement, before?: Theme) =>
+      document.dispatchEvent(
+        new CustomEvent("builder:say", { detail: { before, focus, message } }),
+      )
 
     const paletteColor = () =>
       resolveColors(["var(--ui-palette-source)"]).get(
@@ -355,13 +430,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
       ]
       const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
-      const dualBox = element.querySelector<HTMLInputElement>(
-        "[data-dual] input, input[data-dual]",
-      )!
+      const dualButton = element.querySelector<HTMLElement>("[data-dual]")!
       if (light) lightInput.value = light.value
       darkInput.value = (dark ?? light)?.value ?? ""
       darkField.hidden = !isDual
-      dualBox.checked = isDual
+      dualButton.setAttribute("aria-pressed", `${isDual}`)
       element.classList.toggle("is-dual", isDual)
       const [lightCaption, darkCaption] =
         element.querySelectorAll<HTMLElement>("[data-caption]")
@@ -433,10 +506,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         const isChanged = changed(control)
         const origin = element.querySelector<HTMLElement>("[data-origin]")!
         origin.textContent = isChanged
-          ? "Yours"
+          ? "Changed"
           : theme.preset
-            ? "Preset"
-            : "Default"
+            ? "Preset value"
+            : "Default value"
+        origin.classList.toggle("ui-sr-only", !isChanged)
         element.classList.toggle("is-changed", isChanged)
         element.querySelector<HTMLButtonElement>("[data-reset]")!.disabled =
           !isChanged
@@ -514,30 +588,57 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         valueText.textContent = text
       }
 
-      for (const group of root.querySelectorAll<HTMLElement>("[data-group]")) {
+      for (const group of groups) {
         const all = [...group.querySelectorAll<HTMLElement>("[data-control]")]
         const count = all.filter((element) =>
           element.classList.contains("is-changed"),
         ).length
+        const label = count === 1 ? "1 change" : `${count} changes`
         const badge = group.querySelector<HTMLElement>("[data-count]")!
         badge.hidden = count === 0
-        badge.textContent = count === 1 ? "1 change" : `${count} changes`
-        const fine = group.querySelector<HTMLDetailsElement>("[data-fine]")
-        if (fine) {
+        badge.textContent = label
+        const railCount = document.querySelector<HTMLElement>(
+          `[data-room-count="${group.dataset.group}"]`,
+        )
+        if (railCount) {
+          railCount.hidden = count === 0
+          railCount.textContent = `${count}`
+          railCount.setAttribute("aria-label", label)
+        }
+        const fineMeta = group.querySelector<HTMLElement>("[data-fine-meta]")
+        if (fineMeta) {
           const fineControls = all.filter(
             (element) => element.dataset.tier === "fine",
           )
           const fineCount = fineControls.filter((element) =>
             element.classList.contains("is-changed"),
           ).length
-          fine.querySelector("[data-fine-meta]")!.textContent =
+          fineMeta.textContent =
             fineCount > 0
               ? `${fineCount} of ${fineControls.length} changed`
-              : `${fineControls.length} more ${fineControls.length === 1 ? "setting" : "settings"}`
-          if (first && fineCount > 0) fine.open = true
+              : `${fineControls.length} ${fineControls.length === 1 ? "setting" : "settings"}`
         }
       }
-      first = false
+
+      const total = changeCount(theme)
+      for (const radio of presets.querySelectorAll<HTMLInputElement>(
+        "input[type=radio]",
+      )) {
+        radio.checked = radio.value === (theme.preset ?? "")
+        const card = radio.closest<HTMLElement>(".preset-card")!
+        card.classList.toggle("is-current", radio.checked)
+      }
+      const current = presets.querySelector<HTMLElement>(
+        "input:checked ~ .preset-card-name [data-preset-changes]",
+      )
+      for (const tag of presets.querySelectorAll<HTMLElement>(
+        "[data-preset-changes]",
+      )) {
+        tag.hidden = tag !== current || total === 0
+      }
+      if (current) {
+        current.textContent = `+${total} ${total === 1 ? "change" : "changes"}`
+      }
     }
 
     const onColor = (
@@ -569,9 +670,59 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       }
     }
 
+    const setDual = (control: Control, element: HTMLElement, on: boolean) => {
+      if (on) {
+        dual.add(control.id)
+        picked.delete(control.id)
+        element.classList.add("is-dual")
+        render()
+        element
+          .querySelector<OklchInput>("oklch-input[data-color=dark]")
+          ?.button.focus()
+      } else {
+        const opened = dual.delete(control.id)
+        const changedColor = picked.delete(control.id)
+        element.classList.remove("is-dual")
+        if (opened && !changedColor) render()
+        else onColor(control, element, false)
+      }
+    }
+
+    const nullIfBase = (part: Update) =>
+      Object.entries(part).every(([token, written]) =>
+        same(token, written ?? undefined, baseOf(token)),
+      )
+        ? Object.fromEntries(Object.keys(part).map((token) => [token, null]))
+        : part
+
+    const applyRemix = (remix: Remix) => {
+      const update: Update = {}
+      for (const part of remix.parts) {
+        Object.assign(update, nullIfBase(part.tokens))
+      }
+      if (remix.brand) {
+        dual.delete("brand")
+        picked.delete("brand")
+        Object.assign(update, applyBrand(remix.brand))
+      }
+      write(update)
+    }
+
     const onChange = (event: Event) => {
       const target = event.target
       if (!(target instanceof HTMLElement)) return
+      if (
+        target instanceof HTMLInputElement &&
+        target.name === "builder-preset"
+      ) {
+        if (event.type !== "change" || !target.checked) return
+        const before = themeStore.get()
+        const label = exampleTheme(target.value)?.label ?? "Default"
+        morph(() => switchPreset(target.value || null)).then(() =>
+          say(`Starting from ${label}. Your changes are kept.`, target, before),
+        )
+        return
+      }
       const element = target.closest<HTMLElement>("[data-control]")
       const control = element && controls.get(element.dataset.control!)
       if (!element || !control) return
@@ -580,22 +731,6 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (target instanceof OklchInput) {
         if (element.classList.contains("is-dual")) picked.add(control.id)
         onColor(control, element, throttle)
-        return
-      }
-      if (target instanceof HTMLInputElement && target.type === "checkbox") {
-        if (event.type !== "change") return
-        if (target.checked) {
-          dual.add(control.id)
-          picked.delete(control.id)
-          element.classList.add("is-dual")
-          render()
-        } else {
-          const opened = dual.delete(control.id)
-          const changedColor = picked.delete(control.id)
-          element.classList.remove("is-dual")
-          if (opened && !changedColor) render()
-          else onColor(control, element, false)
-        }
         return
       }
       if (event.type !== "change" && !(target instanceof HTMLInputElement)) {
@@ -625,17 +760,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       } else if (control.kind === "choice" && event.type === "change") {
         const value = (target as HTMLInputElement | HTMLSelectElement).value
         if (target instanceof HTMLInputElement && !target.checked) return
-        const update = choiceTokens(control, value)
-        const isBase = Object.entries(update).every(([token, written]) =>
-          same(token, written ?? undefined, baseOf(token)),
-        )
-        write(
-          isBase
-            ? Object.fromEntries(
-                Object.keys(update).map((token) => [token, null]),
-              )
-            : update,
-        )
+        write(nullIfBase(choiceTokens(control, value)))
       } else if (control.kind === "range") {
         const number = Number((target as HTMLInputElement).value)
         target.setAttribute("aria-valuetext", formatRange(control, number))
@@ -647,15 +772,141 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       }
     }
 
+    const showRoom = (id: string, focus = false) => {
+      if (!groups.some((group) => group.dataset.group === id)) return
+      room = id
+      writeStored(ROOM_KEY, id)
+      for (const group of groups) {
+        group.hidden = group.dataset.group !== id
+      }
+      for (const button of rooms) {
+        button.setAttribute("aria-current", `${button.dataset.room === id}`)
+      }
+      root.scrollTo({ top: 0 })
+      if (focus) {
+        groups
+          .find((group) => group.dataset.group === id)!
+          .querySelector<HTMLElement>("h3")!
+          .focus()
+      }
+    }
+
+    const matches = (control: Control, query: string) =>
+      [control.label, control.hint ?? "", ...controlTokens(control)]
+        .join(" ")
+        .toLowerCase()
+        .includes(query)
+
+    const applySearch = () => {
+      const query = search?.value.trim().toLowerCase() ?? ""
+      root.classList.toggle("is-searching", query !== "")
+      if (query === "") {
+        summary.hidden = true
+        for (const element of elements.values()) element.hidden = false
+        for (const group of groups) {
+          group
+            .querySelector<HTMLElement>("[data-fine-title]")
+            ?.toggleAttribute("hidden", false)
+        }
+        showRoom(room)
+        return
+      }
+      let shown = 0
+      for (const group of groups) {
+        let inGroup = 0
+        let inFine = 0
+        for (const element of group.querySelectorAll<HTMLElement>(
+          "[data-control]",
+        )) {
+          const control = controls.get(element.dataset.control!)!
+          const hit = matches(control, query)
+          element.hidden = !hit
+          if (hit) {
+            inGroup++
+            if (element.dataset.tier === "fine") inFine++
+          }
+        }
+        group.hidden = inGroup === 0
+        group
+          .querySelector<HTMLElement>("[data-fine-title]")
+          ?.toggleAttribute("hidden", inFine === 0)
+        shown += inGroup
+      }
+      for (const button of rooms) button.setAttribute("aria-current", "false")
+      summary.hidden = false
+      summary.textContent =
+        shown === 0
+          ? `No settings match "${search!.value.trim()}".`
+          : `${shown} ${shown === 1 ? "setting matches" : "settings match"} "${search!.value.trim()}".`
+    }
+
+    const goTo = (id: string) => {
+      const element = elements.get(id)
+      if (!element) return
+      if (search && search.value !== "") {
+        search.value = ""
+        applySearch()
+      }
+      showRoom(groupOf.get(id)!)
+      element
+        .querySelector<HTMLElement>(
+          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+        )
+        ?.focus()
+      element.scrollIntoView({ block: "center" })
+      element.classList.add("is-highlighted")
+      element.addEventListener(
+        "animationend",
+        () => element.classList.remove("is-highlighted"),
+        { once: true },
+      )
+    }
+
+    const lockedRooms = () =>
+      locks
+        .filter((lock) => lock.getAttribute("aria-pressed") === "true")
+        .map((lock) => lock.dataset.lock!)
+
+    const shuffle = () => {
+      const before = themeStore.get()
+      const remix = shuffleRemix(lockedRooms(), theme.tokens)
+      const focus =
+        document.querySelector<HTMLElement>("[data-shuffle]") ?? root
+      morph(() => applyRemix(remix)).then(() =>
+        say("Shuffled the unlocked settings.", focus, before),
+      )
+    }
+
     root.addEventListener("input", onChange)
     root.addEventListener("change", onChange)
     root.addEventListener("click", (event) => {
-      const button = (event.target as Element).closest<HTMLButtonElement>(
-        "[data-reset]",
+      const target = event.target as Element
+      const mood = target.closest<HTMLButtonElement>("[data-mood]")
+      if (mood) {
+        const definition = MOODS.find((entry) => entry.id === mood.dataset.mood)
+        if (!definition) return
+        const before = themeStore.get()
+        const remix = moodRemix(definition, theme.tokens)
+        morph(() => applyRemix(remix)).then(() =>
+          say(`${definition.label} applied.`, mood, before),
+        )
+        return
+      }
+      const dualButton = target.closest<HTMLButtonElement>("[data-dual]")
+      const button = target.closest<HTMLButtonElement>("[data-reset]")
+      const element = (dualButton ?? button)?.closest<HTMLElement>(
+        "[data-control]",
       )
-      const element = button?.closest<HTMLElement>("[data-control]")
       const control = element && controls.get(element.dataset.control!)
-      if (!control) return
+      if (!element || !control) return
+      if (dualButton) {
+        setDual(
+          control,
+          element,
+          dualButton.getAttribute("aria-pressed") !== "true",
+        )
+        return
+      }
       dual.delete(control.id)
       picked.delete(control.id)
       write(resetTokens(control))
@@ -666,6 +917,52 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         ?.focus()
     })
 
+    for (const button of rooms) {
+      button.addEventListener("click", () => {
+        if (search && search.value !== "") {
+          search.value = ""
+          applySearch()
+        }
+        showRoom(button.dataset.room!, true)
+      })
+    }
+
+    const storedLocks = readStored<unknown>(LOCKS_KEY, null)
+    const initialLocks = Array.isArray(storedLocks)
+      ? storedLocks.filter((entry) => typeof entry === "string")
+      : LOCKED_BY_DEFAULT
+    for (const lock of locks) {
+      lock.setAttribute(
+        "aria-pressed",
+        `${initialLocks.includes(lock.dataset.lock!)}`,
+      )
+      lock.addEventListener("click", () => {
+        const on = lock.getAttribute("aria-pressed") !== "true"
+        lock.setAttribute("aria-pressed", `${on}`)
+        writeStored(LOCKS_KEY, lockedRooms())
+      })
+    }
+
+    search?.addEventListener("input", applySearch)
+    search?.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && search.value !== "") {
+        search.value = ""
+        applySearch()
+      }
+    })
+
+    document.addEventListener("builder:shuffle", shuffle)
+    document.addEventListener("builder:go", (event) =>
+      goTo((event as CustomEvent<string>).detail),
+    )
+
+    const storedRoom = readStored<unknown>(ROOM_KEY, null)
+    showRoom(
+      typeof storedRoom === "string" &&
+        groups.some((group) => group.dataset.group === storedRoom)
+        ? storedRoom
+        : groups[0].dataset.group!,
+    )
     render()
     themeStore.subscribe((next) => {
       theme = next
@@ -682,17 +979,32 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     display: grid;
     gap: var(--size-5);
     min-inline-size: 0;
+
+    &.is-searching {
+      gap: var(--size-6);
+    }
+  }
+
+  .builder-search-summary {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    &[hidden] {
+      display: none;
+    }
   }
 
   .builder-group {
-    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
     display: grid;
-    gap: var(--size-4);
-    padding-block-start: var(--size-4);
+    gap: var(--size-5);
 
-    &:first-of-type {
-      border-block-start: 0;
-      padding-block-start: 0;
+    &[hidden] {
+      display: none;
+    }
+
+    h3 {
+      outline: none;
     }
   }
 
@@ -704,7 +1016,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       align-items: center;
       display: flex;
       flex-wrap: wrap;
-      font-size: var(--ui-font-size-large);
+      font-size: var(--ui-font-size-h5);
       gap: var(--size-2);
       margin: 0;
     }
@@ -713,6 +1025,21 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       color: var(--ui-text-subtle);
       font-size: var(--ui-font-size-small);
       margin: 0;
+      max-inline-size: 48ch;
+    }
+
+    .is-searching & {
+      h3 {
+        color: var(--ui-text-subtle);
+        font-size: var(--ui-font-size-caption);
+        font-weight: var(--ui-font-weight-semibold);
+        letter-spacing: var(--ui-letter-spacing-caps);
+        text-transform: uppercase;
+      }
+
+      p {
+        display: none;
+      }
     }
   }
 
@@ -729,16 +1056,60 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     }
   }
 
-  .builder-fine {
-    > :global(summary) {
-      font-size: var(--ui-font-size-body);
-      gap: var(--size-2);
-    }
+  .builder-start {
+    display: grid;
+    gap: var(--size-5);
 
-    :global(.ui-content) {
-      display: grid;
-      gap: var(--size-4);
-      padding-block: var(--size-3);
+    .is-searching & {
+      display: none;
+    }
+  }
+
+  .builder-moods {
+    display: grid;
+    gap: var(--size-2);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-moods-title {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-moods-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .builder-moods-hint {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+  }
+
+  .builder-tier {
+    display: grid;
+    gap: var(--size-5);
+  }
+
+  .builder-fine-title {
+    align-items: center;
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    color: var(--ui-text-strong);
+    display: flex;
+    font-size: var(--ui-font-size-body);
+    font-weight: var(--ui-font-weight-semibold);
+    gap: var(--size-2);
+    justify-content: space-between;
+    margin: 0;
+    padding-block-start: var(--size-4);
+
+    &[hidden] {
+      display: none;
     }
   }
 
@@ -746,6 +1117,5 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-small);
     font-weight: var(--ui-font-weight-normal);
-    margin-inline-end: auto;
   }
 </style>

@@ -874,7 +874,7 @@ export const whatsNew = {
       ...components(
         `A <a href="#value">value readout</a> is announced once, with its unit: the input gets <code>aria-valuetext</code> and the output <code>aria-live="off"</code>.`,
       ),
-      html: `Give the <a href="#value">value readout</a> <code>aria-live="off"</code> and the input <code>aria-valuetext</code>, so the value is announced once, with its unit. <code>initRange()</code> keeps it in sync.`,
+      html: `Give the <a href="#value">value readout</a> <code>aria-live="off"</code> and the input <code>aria-valuetext</code>, so the value is announced once, with its unit. <code>range.js</code> keeps it in sync.`,
     },
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,

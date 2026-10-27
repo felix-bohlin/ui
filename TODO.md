@@ -135,11 +135,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 Custom elements (web components) the library could add, for behavior that HTML and CSS can't give a component.
 
-- [ ] (1) Range: `range.js` only wires the outputs that exist when `initRange()` runs, so markup that htmx, Turbo, `innerHTML` or a `<template>` adds later needs another call, and its `astro:after-swap` listener ties the framework-agnostic helper to Astro (`packages/opui/css/js/range.js:1-44`, `packages/opui/components/Range/Range.astro:136-139`)
+- [x] (1) Range: `range.js` only wires the outputs that exist when `initRange()` runs, so markup that htmx, Turbo, `innerHTML` or a `<template>` adds later needs another call, and its `astro:after-swap` listener ties the framework-agnostic helper to Astro (`packages/opui/css/js/range.js:1-44`, `packages/opui/components/Range/Range.astro:136-139`)
   - Summary: A Range added to the page after load doesn't update its value readout until `initRange()` runs again.
   - Recommended: Fix. Two delegated listeners replace the init call, and the markup stays as it is.
   - Fix: listen for `input` and `reset` once on `document` (both bubble) and update the `output[data-live]` of the event's `.ui-range`, with `resetValue()` after a reset, so importing `range.js` is all a page does. That drops the `WeakSet` and the `astro:after-swap` listener; keep `initRange()` as an export that does nothing, so existing pages don't break. The starting text and `aria-valuetext` come from the markup, as the Astro component already renders them. A custom element doesn't fit here: the root is a `<label>`, and a wrapper would add parity drift in React, Svelte and Vue.
   > Fix
+  - Fixed: `range.js` listens for `input` and `reset` once on the document (both bubble) and updates the `output[data-live]` of the event's `.ui-range`, with `resetValue()` after a reset, and syncs every readout once when it loads, so importing it is all a page does. `Range.astro` and the HTML Value example import it, and the `WeakSet` and the `astro:after-swap` listener are gone. `initRange()` stays as an export that syncs the readouts again, so existing pages keep working. The Range page, Concepts, `api.ts`, the README and the unreleased CHANGELOG and What's new entries say import instead of call, and `css-js.spec.ts` adds a range that `innerHTML` inserts after the script loads.
 - [ ] (1) Textarea, TextField: a field with `maxlength` doesn't say how many characters are left, and counting them needs a script (`src/component-examples/textarea/EndText.html:1-7`)
   - Summary: Fields with a character limit don't show how many characters are left.
   - Recommended: Fix. The end text already has room for the count.

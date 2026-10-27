@@ -465,10 +465,11 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       </li>
       <li>
         <strong>Range value</strong>: the <code>output</code> has to be updated on
-        <code>input</code>. Mark it with <code>data-live</code> and call <code
-          >initRange()</code
-        > from <code>css/js/range.js</code>. The Astro component does that for
-        you, and React, Svelte and Vue update it reactively.
+        <code>input</code>. Mark it with <code>data-live</code> and import <code
+          >css/js/range.js</code
+        >, which follows every range on the page, also ones added later. The
+        Astro component does that for you, and React, Svelte and Vue update it
+        reactively.
       </li>
     </ul>
     <CodeGroup
@@ -477,10 +478,9 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
           title: "CDN",
           code: `<script type="module">
   import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
-  import { initRange } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/range.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/range.js"
 
   activateIndeterminate()
-  initRange()
 </script>`,
           lang: "html",
         },
@@ -488,10 +488,9 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
           title: "Bundler",
           code: `<script type="module">
   import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
-  import { initRange } from "opui-css/css/js/range.js"
+  import "opui-css/css/js/range.js"
 
   activateIndeterminate()
-  initRange()
 </script>`,
           lang: "html",
         },

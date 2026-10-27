@@ -142,15 +142,14 @@ export const description =
         set the same <code>for</code> on the <code>.ui-range</code> label, so it labels
         the input and not the output. Optionally set <code>data-suffix</code> for
         a unit (e.g. <code>°</code>,{" "}
-        <code>px</code>). Add <code>data-live</code> and call <code
-          >initRange()</code
-        > from <code>opui-css/css/js/range.js</code> once the markup is in the DOM:
-        it writes the value and the suffix into every <code
+        <code>px</code>). Add <code>data-live</code> and import <code
+          >opui-css/css/js/range.js</code
+        >: it writes the value and the suffix into every <code
           >.ui-value[data-live]</code
         >
-        on <code>input</code> and on form reset. An output without <code
-          >data-live</code
-        > keeps the text you give it, like the custom readout below.
+        on <code>input</code> and on form reset, also in markup added after it loads.
+        An output without <code>data-live</code> keeps the text you give it, like
+        the custom readout below.
       </p>
       <p slot="react">
         Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
@@ -185,9 +184,9 @@ export const description =
         Give the output <code>aria-live="off"</code> and the input an <code
           >aria-valuetext</code
         > with the value and the suffix, so a screen reader announces each step once,
-        with its unit. <code>initRange()</code> keeps <code>aria-valuetext</code
-        > in sync when the output has a <code>data-suffix</code>. A custom
-        readout sets its own <code>aria-valuetext</code> when it adds a unit or words.
+        with its unit. <code>range.js</code> keeps <code>aria-valuetext</code> in
+        sync when the output has a <code>data-suffix</code>. A custom readout
+        sets its own <code>aria-valuetext</code> when it adds a unit or words.
       </p>
       <p slot="components">
         The input gets an <code>aria-valuetext</code> with the value and the suffix,

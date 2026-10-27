@@ -58,7 +58,7 @@ test("range.js mirrors the value into the output and follows a reset", async ({
       <button type="reset">Reset</button>
     </form>
   `)
-  await page.addScriptTag(helper("range.js", "initRange()"))
+  await page.addScriptTag(helper("range.js", ""))
 
   const live = page.locator("output[data-live]")
   const slider = page.locator('input[type="range"]').first()
@@ -77,6 +77,24 @@ test("range.js mirrors the value into the output and follows a reset", async ({
   await expect(page.locator('input[type="range"]').nth(1)).not.toHaveAttribute(
     "aria-valuetext",
   )
+})
+
+test("range.js follows a range added after it loads", async ({ page }) => {
+  await page.setContent("<main></main>")
+  await page.addScriptTag(helper("range.js", ""))
+
+  await page.evaluate(() => {
+    document.querySelector("main")!.innerHTML = `
+      <label class="ui-range">
+        <input type="range" min="0" max="10" value="2" />
+        <output class="ui-value" data-live data-suffix="%">2%</output>
+      </label>`
+  })
+
+  const slider = page.locator('input[type="range"]')
+  await slider.fill("9")
+  await expect(page.locator("output")).toHaveText("9%")
+  await expect(slider).toHaveAttribute("aria-valuetext", "9%")
 })
 
 declare global {

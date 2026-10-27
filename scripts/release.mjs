@@ -1,5 +1,6 @@
 import { execFileSync } from "node:child_process"
 import fs from "node:fs"
+import os from "node:os"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -148,7 +149,7 @@ const prepare = (argument) => {
     `- CI runs \`check\` and \`e2e\` on this commit. If the checks are missing, run the CI workflow on \`${branch}\` from the Actions tab.`,
     "- Keep the branch up to date with `main`, so the commit that gets tagged is the one CI checked.",
     `- Merging tags the \`${releaseTitle(version)}\` commit \`${version}\` (the \`Release\` workflow)${prerelease ? "" : ", and the `After release` workflow opens the pull request with the released guards"}.`,
-    `- Then publish from the tag: \`git fetch origin tag ${version} --no-tags\`, \`git checkout ${version}\`, \`node scripts/release.mjs publish\` (RELEASING.md).`,
+    `- The \`Publish\` workflow then publishes the tag to \`${distTag(version)}\` with provenance (RELEASING.md).`,
   ].join("\n")
   let url = ""
   try {
@@ -174,7 +175,7 @@ const prepare = (argument) => {
       : `Pushed ${branch}. Open the pull request from ${compare}`,
   )
   console.log(
-    `Next: merge it once CI is green, then publish from the ${version} tag with node scripts/release.mjs publish (RELEASING.md).`,
+    `Next: merge it once CI is green. The Publish workflow publishes the ${version} tag (RELEASING.md).`,
   )
 }
 
@@ -216,25 +217,37 @@ const publish = () => {
   const { version } = JSON.parse(
     fs.readFileSync(path.join(root, PACKAGE), "utf8"),
   )
-  clean()
-  const checkout = `git fetch origin tag ${version} --no-tags && git checkout ${version}`
+  if (process.env.GITHUB_ACTIONS !== "true") {
+    fail(
+      `The Publish workflow publishes ${version} once the ${version} tag is pushed (RELEASING.md)`,
+    )
+  }
   if (
     !read("git", ["tag", "--points-at", "HEAD"]).split("\n").includes(version)
   ) {
-    fail(`Publish from the ${version} tag: ${checkout}`)
+    fail(
+      `Run the Publish workflow on the ${version} tag, not on ${process.env.GITHUB_REF_NAME}`,
+    )
   }
-  const remote = read("git", ["ls-remote", "origin", `refs/tags/${version}`])
-  if (
-    remote.split("\t")[0] !== read("git", ["rev-parse", `refs/tags/${version}`])
-  ) {
-    fail(`The ${version} tag isn't the one on origin. Run ${checkout}`)
+  if (read("git", ["status", "--porcelain", "--", "packages/opui"])) {
+    fail(
+      "pnpm check changed packages/opui, so the tarball wouldn't match the tagged commit",
+    )
   }
-  run("pnpm", ["install", "--frozen-lockfile"])
+  const destination = fs.mkdtempSync(path.join(os.tmpdir(), "opui-css-"))
   run(
     "pnpm",
-    ["publish", "--tag", distTag(version), "--no-git-checks"],
+    ["pack", "--pack-destination", destination],
     path.join(root, "packages/opui"),
   )
+  const [tarball] = fs.readdirSync(destination)
+  run("npm", [
+    "publish",
+    path.join(destination, tarball),
+    "--provenance",
+    "--tag",
+    distTag(version),
+  ])
   console.log(`Published opui-css@${version} to ${distTag(version)}.`)
   console.log(
     version.includes("-")

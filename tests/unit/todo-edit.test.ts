@@ -311,6 +311,12 @@ describe("addFindings", () => {
     expect(() =>
       addFindings(todo, [{ ...finding, recommended: "Fix with option C" }]),
     ).toThrow("recommended names option C, which options lacks")
+    expect(() =>
+      addFindings(todo, [{ ...finding, section: "Docs" }]),
+    ).not.toThrow()
+    expect(() =>
+      addFindings(todo, [{ ...finding, section: "Questions" }]),
+    ).toThrow("TODO.md has no ## Questions section")
   })
 })
 

@@ -41,6 +41,7 @@ import { fileProblems } from "../../scripts/check-file.mjs"
 import {
   added,
   driftAdditions,
+  ratchetEntries,
   entries,
   intended,
 } from "../../scripts/check-ratchets.mjs"
@@ -390,7 +391,7 @@ describe("check-file", () => {
       ),
     ).toEqual([
       "packages/opui/css/components/a.css:1: em dash (U+2014). Use a comma, a slash or parentheses instead.",
-      "packages/opui/css/components/a.css:4: #fff is not OKLCH. Write it as oklch().",
+      "packages/opui/css/components/a.css:4: #fff is not OKLCH. Write every color as oklch().",
       "packages/opui/css/components/a.css: CSS declarations are out of order. Run pnpm sort-css.",
     ])
   })
@@ -547,6 +548,20 @@ describe("check-ratchets", () => {
       "b.vue.diff gained 1 drift line",
       "d.svelte.diff records new drift",
     ])
+  })
+
+  test("a keyed ratchet reads the keys, so a reworded reason is no new entry", () => {
+    const before = { "scripts/a.mjs": "only its output can be tested" }
+    const after = { "scripts/a.mjs": "its output is tested elsewhere" }
+    expect(
+      added(
+        ratchetEntries({ keys: true }, before),
+        ratchetEntries({ keys: true }, after),
+      ),
+    ).toEqual([])
+    expect(
+      added(ratchetEntries({}, before), ratchetEntries({}, after)),
+    ).toEqual(["scripts/a.mjs: its output is tested elsewhere"])
   })
 
   test("accepts the trailer on any commit, in any case", () => {

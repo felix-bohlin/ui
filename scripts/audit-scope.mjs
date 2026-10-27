@@ -65,7 +65,7 @@ export const componentsOf = (file, pages) => {
 
 export const scopeOf = ({ agents, files, pages, slugs }) =>
   agents
-    .map(({ name, paths }) => ({
+    .map(({ name, paths = [] }) => ({
       paths,
       files: files.filter(
         (file) =>

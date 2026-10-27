@@ -36,21 +36,58 @@ const isFile = (path: string) =>
   existsSync(path) &&
   statSync(path).isFile()
 
-const references = (file: string) =>
-  [...readFileSync(file, "utf8").matchAll(/["'`]([^"'`\s$]+)["'`]/g)]
-    .map(([, path]) =>
-      normalize(/^\.\.?\//.test(path) ? join(dirname(file), path) : path),
+const literals = (source: string) => {
+  const found: string[] = []
+  for (let at = 0; at < source.length; at++) {
+    const char = source[at]
+    if (source.startsWith("//", at)) {
+      const end = source.indexOf("\n", at)
+      if (end === -1) break
+      at = end
+    } else if (source.startsWith("/*", at)) {
+      const end = source.indexOf("*/", at + 2)
+      if (end === -1) break
+      at = end + 1
+    } else if (char === '"' || char === "'" || char === "`") {
+      let end = at + 1
+      while (end < source.length && source[end] !== char) {
+        if (source[end] === "\\") end++
+        end++
+      }
+      found.push(source.slice(at + 1, end))
+      at = end
+    }
+  }
+  return found
+}
+
+export const referencesOf = (file: string, source: string) =>
+  literals(source)
+    .filter(
+      (value) => /\.(?:mjs|sh)$/.test(value) || value.startsWith(".githooks/"),
+    )
+    .map((value) =>
+      normalize(/^\.\.?\//.test(value) ? join(dirname(file), value) : value),
     )
     .filter(isFile)
 
-const reached = new Set<string>()
-const queue = TESTS.flatMap(references)
-while (queue.length) {
-  const file = queue.pop()!
-  if (reached.has(file)) continue
-  reached.add(file)
-  if (/\.(?:c?js|mjs|ts)$/.test(file)) queue.push(...references(file))
+export const reachedFrom = (tests: { file: string; source: string }[]) => {
+  const reached = new Set<string>()
+  const queue = tests.flatMap(({ file, source }) => referencesOf(file, source))
+  while (queue.length) {
+    const file = queue.pop()!
+    if (reached.has(file)) continue
+    reached.add(file)
+    if (/\.(?:c?js|mjs|ts)$/.test(file)) {
+      queue.push(...referencesOf(file, readFileSync(file, "utf8")))
+    }
+  }
+  return reached
 }
+
+const reached = reachedFrom(
+  TESTS.map((file) => ({ file, source: readFileSync(file, "utf8") })),
+)
 
 test("finds the scripts and the tests", () => {
   expect(SCRIPTS).toContain("scripts/check-dist.mjs")
@@ -71,4 +108,39 @@ test("untested-scripts.json only lists scripts no test reaches", () => {
     ),
     "remove the entry",
   ).toEqual([])
+})
+
+const sample = (source: string) =>
+  reachedFrom([{ file: "tests/unit/sample.test.ts", source }])
+
+test("a script counts as tested when a test imports it or names its path whole", () => {
+  expect(
+    sample('import { fileProblems } from "../../scripts/check-file.mjs"'),
+  ).toContain("scripts/check-file.mjs")
+  expect(sample('await import("../../scripts/check-file.mjs")')).toContain(
+    "scripts/check-file.mjs",
+  )
+  expect(sample('spawnSync("node", ["scripts/todo.mjs", "list"])')).toContain(
+    "scripts/todo.mjs",
+  )
+  expect(sample('spawnSync("sh", [".githooks/commit-msg", file])')).toContain(
+    ".githooks/commit-msg",
+  )
+})
+
+test("a script mentioned in a message, a comment or a missing path does not count", () => {
+  expect(
+    sample('expect(problems).toEqual(["see `scripts/todo.mjs` and run it"])'),
+  ).toEqual(new Set())
+  expect(sample('// spawnSync("node", ["scripts/todo.mjs"])')).toEqual(
+    new Set(),
+  )
+  expect(sample('/* import "../../scripts/todo.mjs" */')).toEqual(new Set())
+  expect(sample('const x = "scripts/nope.mjs"')).toEqual(new Set())
+})
+
+test("an import reaches the scripts the imported file imports", () => {
+  expect(sample('import "../../scripts/check-file.mjs"')).toContain(
+    "scripts/check-characters.mjs",
+  )
 })

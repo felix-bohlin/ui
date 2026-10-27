@@ -95,19 +95,20 @@ export const sortSource = async (file, source) => {
   return result + source.slice(last)
 }
 
+export const SORTED = [
+  "packages/opui/**/*.{astro,css,html,svelte,vue}",
+  "src/**/*.{astro,css,html,svelte,vue}",
+]
+
+export const IGNORED = ["**/dist/**", "**/node_modules/**"]
+
 const main = async () => {
   const check = process.argv.includes("--check")
-  const files = await globby(
-    [
-      "packages/opui/**/*.{astro,css,html,svelte,vue}",
-      "src/**/*.{astro,css,html,svelte,vue}",
-    ],
-    {
-      cwd: root,
-      absolute: true,
-      ignore: ["**/dist/**", "**/node_modules/**"],
-    },
-  )
+  const files = await globby(SORTED, {
+    cwd: root,
+    absolute: true,
+    ignore: IGNORED,
+  })
   const unsorted = []
 
   for (const file of files.toSorted()) {

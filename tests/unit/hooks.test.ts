@@ -10,7 +10,7 @@ import {
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
-import { suites } from "../../.claude/hooks/checks.mjs"
+import { styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 
@@ -117,6 +117,49 @@ describe("stop", () => {
     git("push", "-q")
     expect(stop().status).toBe(0)
   })
+
+  test("reports Prettier, oxlint and ratchet problems in their groups", () => {
+    const remote = mkdtempSync(join(tmpdir(), "opui-remote-"))
+    const clone = mkdtempSync(join(tmpdir(), "opui-clone-"))
+    const git = (...args: string[]) =>
+      execFileSync(
+        "git",
+        ["-c", "user.email=a@example.com", "-c", "user.name=A", ...args],
+        { cwd: clone, encoding: "utf-8", stdio: "pipe" },
+      )
+    execFileSync("git", ["init", "-q", "--bare", remote])
+    git("clone", "-q", remote, ".")
+    mkdirSync(join(clone, "tests/unit"), { recursive: true })
+    writeFileSync(
+      join(clone, "tests/unit/todo-allowlist.json"),
+      '{ "citations": [], "prefixes": [] }\n',
+    )
+    git("add", ".")
+    git("commit", "-q", "-m", "chore: start")
+    git("push", "-q", "-u", "origin", "HEAD")
+
+    writeFileSync(join(clone, "loose.md"), "One,   two.\n\n\n\nThree.\n")
+    writeFileSync(join(clone, "debug.mjs"), "debugger\n")
+    writeFileSync(
+      join(clone, "tests/unit/todo-allowlist.json"),
+      '{ "citations": [], "prefixes": ["Nope:"] }\n',
+    )
+    const result = hook(
+      ".claude/hooks/stop.mjs",
+      { stop_hook_active: false },
+      clone,
+    )
+    expect(result.status).toBe(2)
+    expect(result.stderr).toMatch(/Prettier:\n(.*\n)*.*loose\.md/)
+    expect(result.stderr).toMatch(/oxlint:\n(.*\n)*.*no-debugger/)
+    expect(result.stderr).toMatch(
+      /Ratchets:\n(.*\n)*.*todo-allowlist\.json gained "prefixes: Nope:"/,
+    )
+  })
+})
+
+test("the stop hook lints the stylesheets the lint script names", () => {
+  expect(styledGlobs()).toEqual(["packages/opui/**/*.css", "src/**/*.css"])
 })
 
 test("the hooks run the TODO.md and guide tests for those files", () => {

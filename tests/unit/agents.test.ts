@@ -106,6 +106,17 @@ describe("audit-scope", () => {
     ).toEqual([["button-group"], ["toggle"], ["button"], ["tabs"], []])
   })
 
+  test("an agent without paths matches no file", () => {
+    expect(
+      scopeOf({
+        agents: [{ name: "css" }],
+        files: ["packages/opui/css/components/tabs.css"],
+        pages,
+        slugs: [],
+      }),
+    ).toEqual([])
+  })
+
   test("picks the agents whose paths the files touch", () => {
     const scope = scopeOf({
       agents: [

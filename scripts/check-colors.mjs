@@ -66,6 +66,8 @@ const checked = (file, text) => {
   return null
 }
 
+export const FIX = "Write every color as oklch()."
+
 export const colorProblems = (file, text) => {
   if (
     GENERATED.some((path) => file === path || file.startsWith(`${path}/`)) ||
@@ -103,9 +105,7 @@ const main = () => {
 
   if (problems.length > 0) {
     console.error(problems.join("\n"))
-    console.error(
-      `\n${problems.length} color(s) not in OKLCH. Write them as oklch().`,
-    )
+    console.error(`\n${problems.length} color(s) not in OKLCH. ${FIX}`)
     process.exit(1)
   }
 

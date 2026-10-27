@@ -77,6 +77,7 @@ export { default as ToggleButton } from "../components/ToggleButton/ToggleButton
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.react"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.react"
 export { default as TooltipContent } from "../components/Anchor/AnchorContent.react"
+export { toast } from "../elements/toaster.js"
 export type {
   AccordionActionsProps,
   AccordionContentProps,

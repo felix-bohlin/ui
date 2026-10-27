@@ -1331,6 +1331,36 @@ interaction(
 
 interaction(
   "toast",
+  "Script",
+  "toast() shows a toast with its severity icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Save changes" }).click()
+    const toast = page.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Changes saved")
+    await expect(toast).toHaveClass(/ui-success/)
+    await expect(toast.locator(':scope > svg[aria-hidden="true"]')).toHaveCount(
+      1,
+    )
+    await expect(toast.getByRole("img")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Severities",
+  "a toast without a severity has no icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Default" }).click()
+    const toast = root.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Draft saved")
+    await expect(toast.locator(":scope > svg")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
   "Basics",
   "toast dismisses itself and waits while hovered",
   async ({ page, root }) => {

@@ -76,6 +76,7 @@ export { default as ToggleButton } from "../components/ToggleButton/ToggleButton
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.vue"
 export { default as TooltipContent } from "../components/Anchor/AnchorContent.vue"
+export { toast } from "../elements/toaster.js"
 export type {
   AccordionActionsProps,
   AccordionContentProps,

@@ -78,6 +78,7 @@ export { default as ToggleButton } from "../components/ToggleButton/ToggleButton
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.svelte"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.svelte"
 export { default as TooltipContent } from "../components/Anchor/AnchorContent.svelte"
+export { toast } from "../elements/toaster.js"
 export type {
   AccordionActionsProps,
   AccordionContentProps,

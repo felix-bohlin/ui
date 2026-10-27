@@ -9,9 +9,9 @@ Short messages that confirm an action and dismiss themselves.
 
 ### Parts
 
-- `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `show(message, { duration, severity })` does it from a script.
+- `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { duration, severity })` or `toast.success(message)` does it from a script.
 - `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport. It opens with the first toast and closes after the last.
-- `<li>`: A toast, a `Callout` with the severity class, the message in `.ui-content` and a close `Button`. The element adds and removes it.
+- `<li>`: A toast, a `Callout` with the severity class, its icon, the message in `.ui-content` and a close `Button`. The element adds and removes it.
 - `<div role="status">`: The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
 
 ### Props and modifiers
@@ -23,7 +23,10 @@ Short messages that confirm an action and dismiss themselves.
 ### Notes
 
 - HTML: Put an `<ol popover="manual">` and a `<div class="ui-sr-only" role="status">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates, or once the page imports `opui-css/elements/toaster.js`; the Astro component loads it.
+- Astro: Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.
+- React: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/react` exports `toast()` next to `Toaster`.
+- Svelte: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.
+- Vue: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/vue` exports `toast()` next to `Toaster`.
 
 ## Component properties
 

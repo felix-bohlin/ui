@@ -226,9 +226,9 @@ One concept has one prop name and one set of values in every component. `tests/u
   - A boolean is off when it's left out, so its class is never the framework default. Its name says what turning it on does, never what it turns off: no `no`, `non`, `not` or `un` prefix, no `less` suffix, and no `hide` prefix except `hideLabel` (a Tooltip shows its arrow with `arrow`, not `hideArrow`). `.ui-not-rich-text` is the one exception, since it ends a `.ui-rich-text` scope from inside instead of turning off a feature of its own element.
   - When the usual case is the one people turn off, the modifier is an enum with the usual case as its named default (Carousel `buttons`: `inside`, `none`, `outside`).
   - A modifier with several values is an enum named after the concept.
-  - A component never has both for one concept, and never two booleans for one axis (`overflow`, not `scrollable` and `shrink`).
+  - `tests/unit/naming.test.ts` fails on a boolean and an enum for one concept. A component never has two booleans for one axis either (`overflow`, not `scrollable` and `shrink`).
 - **One or many is the native `multiple`,** layout along an axis is `orientation` and overflow along it is `overflow`.
-- **`align` has one default per part,** wherever the part appears. `.ui-actions` and `.ui-footer` line up at the end in every container that has them.
+- **`align` has one default per part,** wherever the part appears: `tests/unit/align.test.ts` renders every part with an `align` option in every framework.
 - **Text:**
   - The primary text of anything is `label`, a string prop with a slot of the same name for rich content. Secondary text is `description`. Never `headline`, `text` or `title`.
   - Item objects (`MenuItem`, `RangeItem`, `SelectItem`) use `label`, `value` and `description`, and a list of them is `items`.

@@ -1,7 +1,9 @@
 // @ts-check
 import fs from "node:fs"
+import { availableParallelism } from "node:os"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { Worker } from "node:worker_threads"
 
 import {
   componentHasFramework,
@@ -269,6 +271,57 @@ async function devPages(framework, origin, rewriteHref) {
   return pages
 }
 
+/**
+ * Converts the built pages to Markdown in worker threads, one per core.
+ * @param {{ file: string, frameworkId: string, pathname: string }[]} tasks
+ * @param {string | undefined} site
+ * @returns {Promise<(Page | null)[]>} One entry per task, in the same order.
+ */
+async function pagesFromFiles(tasks, site) {
+  /** @type {(Page | null)[]} */
+  const pages = Array.from(tasks, () => null)
+  if (!tasks.length) return pages
+  /** @type {Worker[]} */
+  const workers = []
+  let next = 0
+  try {
+    await Promise.all(
+      Array.from(
+        { length: Math.min(availableParallelism(), tasks.length) },
+        () =>
+          new Promise((resolve, reject) => {
+            const worker = new Worker(
+              new URL("./llms-worker.mjs", import.meta.url),
+              { workerData: { site } },
+            )
+            workers.push(worker)
+            const send = () => {
+              if (next >= tasks.length) {
+                resolve(undefined)
+                return
+              }
+              worker.postMessage({ ...tasks[next], index: next })
+              next++
+            }
+            worker.on(
+              "message",
+              /** @param {{ index: number, page: Page | null }} result */
+              ({ index, page }) => {
+                pages[index] = page
+                send()
+              },
+            )
+            worker.on("error", reject)
+            send()
+          }),
+      ),
+    )
+  } finally {
+    await Promise.all(workers.map((worker) => worker.terminate()))
+  }
+  return pages
+}
+
 /** @returns {import("astro").AstroIntegration} */
 export default function llms() {
   /** @type {string | undefined} */
@@ -347,60 +400,61 @@ export default function llms() {
       },
       "astro:build:done": async ({ dir, logger }) => {
         const outDir = fileURLToPath(dir)
+        /** @param {string} file */
+        const pathnameOf = (file) =>
+          `/${path.relative(outDir, path.dirname(file)).split(path.sep).join("/")}/`
+
+        const prefixes = FRAMEWORK_FREE_PREFIXES.filter((prefix) =>
+          fs.existsSync(path.join(outDir, prefix)),
+        )
+        const frameworks = FRAMEWORKS.filter((framework) =>
+          fs.existsSync(path.join(outDir, framework.id)),
+        )
+        const frameworkFreeTasks = prefixes.flatMap((prefix) =>
+          htmlFiles(path.join(outDir, prefix)).map((file) => ({
+            file,
+            frameworkId: DEFAULT_FRAMEWORK,
+            pathname: pathnameOf(file),
+            prefix,
+          })),
+        )
+        const frameworkTasks = frameworks.flatMap((framework) =>
+          htmlFiles(path.join(outDir, framework.id)).map((file) => ({
+            file,
+            framework,
+            frameworkId: framework.id,
+            pathname: pathnameOf(file),
+          })),
+        )
+        const converted = await pagesFromFiles(
+          [...frameworkFreeTasks, ...frameworkTasks],
+          site,
+        )
+        for (const page of converted) {
+          if (!page) continue
+          fs.writeFileSync(path.join(outDir, page.mdPath), `${page.markdown}\n`)
+        }
 
         /** @type {Page[]} */
         const frameworkFreePages = []
-        const rewriteFrameworkFreeHref = hrefRewriter(DEFAULT_FRAMEWORK, site)
-        for (const prefix of FRAMEWORK_FREE_PREFIXES) {
-          const prefixDir = path.join(outDir, prefix)
-          if (!fs.existsSync(prefixDir)) continue
+        for (const prefix of prefixes) {
           let count = 0
-          for (const file of htmlFiles(prefixDir)) {
-            const relative = path
-              .relative(outDir, path.dirname(file))
-              .split(path.sep)
-              .join("/")
-            const page = await pageFrom(
-              parseHtml(fs.readFileSync(file, "utf-8")),
-              `/${relative}/`,
-              rewriteFrameworkFreeHref,
-            )
-            if (!page) continue
-            fs.writeFileSync(
-              path.join(outDir, page.mdPath),
-              `${page.markdown}\n`,
-            )
+          frameworkFreeTasks.forEach((task, index) => {
+            const page = converted[index]
+            if (task.prefix !== prefix || !page) return
             frameworkFreePages.push(page)
             count++
-          }
+          })
           logger.info(`${prefix}: ${count} markdown pages`)
         }
 
-        for (const framework of FRAMEWORKS) {
+        for (const framework of frameworks) {
           const frameworkDir = path.join(outDir, framework.id)
-          if (!fs.existsSync(frameworkDir)) continue
-
-          const rewriteHref = hrefRewriter(framework.id, site)
-
           const pages = [...frameworkFreePages]
-          for (const file of htmlFiles(frameworkDir)) {
-            const relative = path
-              .relative(outDir, path.dirname(file))
-              .split(path.sep)
-              .join("/")
-            const page = await pageFrom(
-              parseHtml(fs.readFileSync(file, "utf-8")),
-              `/${relative}/`,
-              rewriteHref,
-            )
-            if (!page) continue
-
-            fs.writeFileSync(
-              path.join(outDir, page.mdPath),
-              `${page.markdown}\n`,
-            )
-            pages.push(page)
-          }
+          frameworkTasks.forEach((task, index) => {
+            const page = converted[frameworkFreeTasks.length + index]
+            if (task.framework === framework && page) pages.push(page)
+          })
 
           fs.writeFileSync(
             path.join(frameworkDir, "llms-full.txt"),

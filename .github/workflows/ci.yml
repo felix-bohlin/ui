@@ -123,22 +123,28 @@ jobs:
 
   e2e:
     if: always()
-    needs: e2e-shard
+    needs: e2e-chromium
     runs-on: ubuntu-latest
     steps:
       - run: test "$RESULT" = success
         env:
-          RESULT: ${{ needs.e2e-shard.result }}
+          RESULT: ${{ needs.e2e-chromium.result }}
 
-  e2e-shard:
-    name: e2e (${{ matrix.shard }}/3)
+  e2e-chromium:
+    name: e2e (${{ matrix.project }} ${{ matrix.shard }})
     needs: check
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3]
+        include:
+          - project: light
+            shard: 1/2
+          - project: light
+            shard: 2/2
+          - project: dark
+            shard: 1/1
     steps:
       - run: apt-get update && apt-get install --yes --no-install-recommends git-lfs
       - uses: actions/checkout@v7
@@ -177,14 +183,51 @@ jobs:
         with:
           name: dist
           path: dist-test
-      - run: pnpm test:e2e --shard=${{ matrix.shard }}/3
+      - run: pnpm test:e2e --project=${{ matrix.project }} --shard=${{ matrix.shard }}
         env:
           E2E_PREBUILT: "1"
           HOME: /root
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: playwright-report-${{ matrix.shard }}
+          name: playwright-report-${{ matrix.project }}-${{ strategy.job-index }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+
+  e2e-engines:
+    name: e2e (${{ matrix.project }})
+    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'e2e-engines')
+    needs: check
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [firefox, webkit]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist-test
+      - run: pnpm test:e2e --project=${{ matrix.project }}
+        env:
+          E2E_PREBUILT: "1"
+          HOME: /root
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report-${{ matrix.project }}
           path: |
             playwright-report/
             test-results/

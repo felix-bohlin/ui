@@ -8,7 +8,7 @@ A release goes through a pull request like any other change: the `Release` workf
 
 ## Before
 
-1. CI is green on `main`, both jobs (`check` and `e2e`), with everything the release ships merged.
+1. CI is green on `main`, `check`, `e2e` and the `firefox` and `webkit` e2e jobs, with everything the release ships merged.
 2. `packages/opui/CHANGELOG.md` starts with `## <version> - Unreleased`, and every `Added`, `Breaking` and `Changed` entry has a What's new note (see `AGENTS.md`).
 
 ## One-time setup

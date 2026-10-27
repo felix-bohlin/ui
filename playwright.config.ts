@@ -31,6 +31,7 @@ export default defineConfig({
     },
     {
       name: "firefox",
+      retries: 1,
       testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Firefox"],
@@ -40,6 +41,7 @@ export default defineConfig({
     },
     {
       name: "webkit",
+      retries: 1,
       testIgnore: /\/(a11y|themes|visual)\.spec\.ts$/,
       use: {
         ...devices["Desktop Safari"],

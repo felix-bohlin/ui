@@ -55,9 +55,9 @@ const regions = [
           data-scope={region.scope ? "" : undefined}
         >
           <div class="scoped-head">
-            <h3 class="scoped-heading" id={`${id}-${region.slug}-heading`}>
+            <p class="scoped-heading" id={`${id}-${region.slug}-heading`}>
               {region.heading}
-            </h3>
+            </p>
             <p class="scoped-note">{region.note}</p>
             {region.scope ? (
               <fieldset class="scoped-knobs">
@@ -78,7 +78,7 @@ const regions = [
               </fieldset>
             ) : (
               <p class="scoped-knobs scoped-no-knobs">
-                No knobs here: the theme's defaults
+                No knobs: the page's theme
               </p>
             )}
           </div>

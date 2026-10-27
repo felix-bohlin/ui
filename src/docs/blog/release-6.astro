@@ -11,6 +11,7 @@ import Scoped from "../../components/Release/Scoped.astro"
 import SeverityLayers from "../../components/Release/SeverityLayers.astro"
 import SupportMatrix from "../../components/Release/SupportMatrix.astro"
 import ThemeSwitch from "../../components/Release/ThemeSwitch.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
 ---
 
 <TechniquePost slug="release-6">
@@ -103,7 +104,24 @@ import ThemeSwitch from "../../components/Release/ThemeSwitch.astro"
 
   <section>
     <h2 id="tokens-rebuilt">Tokens, rebuilt</h2>
+    <h3 id="tokens-tiers">1. One token, from knob to CSS property</h3>
+    <p>
+      Read a column top to bottom: a knob the theme sets, the role a component
+      reads, the private property the component sets, the CSS property it ends
+      up on.
+    </p>
+    <TokenTiers />
+    <h3 id="tokens-scope">2. Turn a knob inside a scope</h3>
+    <p>
+      Drag a knob. The card inside the scope derives every role again; the card
+      outside reads the page's theme and stays put.
+    </p>
     <Scoped />
+    <h3 id="tokens-layers">3. Whose layer wins</h3>
+    <p>
+      Switch your theme on and watch which layer the callouts follow, then
+      compare with how 5.x behaved.
+    </p>
     <SeverityLayers />
     <ul>
       <li>

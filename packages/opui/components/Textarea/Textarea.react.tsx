@@ -1,11 +1,14 @@
 "use client"
 
+import { useEffect } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
 
 export default function Textarea({
   autoFit,
+  characterCount,
+  characterCountLabel,
   className,
   error,
   hideLabel,
@@ -26,6 +29,10 @@ export default function Textarea({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
+
+  useEffect(() => {
+    if (characterCount) void import("../../elements/character-count.js")
+  }, [characterCount])
 
   return (
     <label
@@ -57,7 +64,18 @@ export default function Textarea({
         {top && <span className="ui-top">{top}</span>}
         {bottom && <span className="ui-bottom">{bottom}</span>}
       </span>
-      {endText && <span className="ui-end-text">{endText}</span>}
+      {(endText || characterCount) && (
+        <span className="ui-end-text">
+          {endText}
+          {characterCount && (
+            <opui-character-count
+              aria-hidden="true"
+              className="ui-value"
+              label={characterCountLabel}
+            />
+          )}
+        </span>
+      )}
       {children}
     </label>
   )

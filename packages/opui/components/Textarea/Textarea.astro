@@ -7,6 +7,8 @@ export const title = "Textarea"
 const {
   "aria-invalid": ariaInvalid,
   autoFit,
+  characterCount,
+  characterCountLabel,
   class: className,
   endText,
   error,
@@ -93,12 +95,23 @@ const field = fieldGroupContext.get()
     }
   </span>
   {
-    (endText || Astro.slots.has("end-text")) && (
+    (endText || Astro.slots.has("end-text") || characterCount) && (
       <span class="ui-end-text">
         {endText}
         <slot name="end-text" />
+        {characterCount && (
+          <opui-character-count
+            aria-hidden="true"
+            class="ui-value"
+            label={characterCountLabel}
+          />
+        )}
       </span>
     )
   }
   <slot />
 </label>
+
+<script>
+  import "../../elements/character-count.js"
+</script>

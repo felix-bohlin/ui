@@ -149,6 +149,42 @@ export const description =
   </section>
 
   <section>
+    <h2 id="character-count">Character count</h2>
+    <Conditional as="div">
+      <p slot="components">
+        With <code>maxlength</code>, set <code>characterCount</code> to show the characters
+        typed out of the limit at the end of the end text. Once 10% or 10 characters
+        are left, whichever is more, a pause in typing announces how many are left.
+        Pass the words, translated, as <code>characterCountLabel</code>, with <code
+          >{"{count}"}</code
+        > where the number goes ("Characters left:
+        {"{count}"}" by default). In Svelte, pass it as an expression, like <code
+          >{'characterCountLabel={"{count} left"}'}</code
+        >, since Svelte reads braces in a string.
+      </p>
+      <p slot="html">
+        With <code>maxlength</code>, add <code
+          >&lt;opui-character-count class="ui-value" aria-hidden="true"&gt;</code
+        > at the end of <code>.ui-end-text</code> and import <code
+          >opui-css/elements/character-count.js</code
+        >. It shows the characters typed out of the limit, and once 10% or 10
+        characters are left, whichever is more, a pause in typing announces how
+        many are left. Set the words, translated, as its <code>label</code>,
+        with
+        <code>{"{count}"}</code> where the number goes ("Characters left: {
+          "{count}"
+        }" by default).
+      </p>
+    </Conditional>
+    <p>
+      The visible count is <code>aria-hidden</code>, so it doesn't join the
+      field's name on every keystroke. The announcement comes from one live
+      region the element adds to the page, outside the label.
+    </p>
+    <AutoExample name="CharacterCount" centered />
+  </section>
+
+  <section>
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
       <Fragment slot="components">
@@ -275,10 +311,12 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy>
       <UITextarea
-        startText="Start text"
+        characterCount
         endText="Supporting text"
         label="Label"
+        maxlength={160}
         placeholder="Placeholder"
+        startText="Start text"
         style="inline-size: 20rem"
       >
         <span slot="top">Top</span>

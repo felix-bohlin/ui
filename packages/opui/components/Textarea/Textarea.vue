@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import "../../elements/character-count.js"
 import { computed, inject, type TextareaHTMLAttributes, useAttrs } from "vue"
 import { useInputAttrs } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
@@ -10,6 +11,8 @@ defineOptions({
 
 const {
   autoFit,
+  characterCount,
+  characterCountLabel,
   endText,
   error,
   hideLabel,
@@ -79,8 +82,18 @@ const field = inject(FieldGroupKey, undefined)
       ></span>
     </span>
 
-    <span v-if="endText || $slots['end-text']" class="ui-end-text">
-      {{ endText }}<slot name="end-text"></slot>
+    <span
+      v-if="endText || $slots['end-text'] || characterCount"
+      class="ui-end-text"
+    >
+      {{ endText }}<slot name="end-text"></slot
+      ><component
+        is="opui-character-count"
+        v-if="characterCount"
+        aria-hidden="true"
+        class="ui-value"
+        :label="characterCountLabel"
+      ></component>
     </span>
 
     <slot></slot>

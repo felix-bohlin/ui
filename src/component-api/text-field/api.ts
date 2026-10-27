@@ -6,11 +6,12 @@ export default {
   keyboard: [
     {
       description:
-        "Submits the form the field is in, when the form has a submit button.",
+        "In the field, submits the form it's in, when the form has a submit button. On the password toggle, shows or hides the password.",
       keys: ["Enter"],
     },
     {
-      description: "On a file input, opens the file picker.",
+      description:
+        "On a file input, opens the file picker. On the password toggle, shows or hides the password.",
       keys: ["Space"],
     },
     {
@@ -36,6 +37,23 @@ export default {
       description: "Lets the width follow the content, from `25ch`.",
       group: "Auto fit",
       prop: "autoFit",
+    },
+    {
+      default: "false",
+      description:
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`.",
+      group: "Character count",
+      htmlDescription:
+        'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
+      prop: "characterCount",
+    },
+    {
+      default: '"Characters left: {count}"',
+      description:
+        "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
+      htmlDescription:
+        "Set the announcement as the `label` attribute of `<opui-character-count>`, with `{count}` for the characters left.",
+      prop: "characterCountLabel",
     },
     {
       attribute: "[disabled]",
@@ -65,7 +83,8 @@ export default {
       prop: "hideLabel",
     },
     {
-      description: "The id of the `<input>`.",
+      description:
+        "The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out.",
       inherited: true,
       prop: "id",
       type: "string",
@@ -76,6 +95,20 @@ export default {
       inherited: true,
       prop: "name",
       type: "string",
+    },
+    {
+      default: "false",
+      description:
+        'Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field\'s name, and the start and end text describe the input. The button needs `opui-css/elements/text-field.js`.',
+      group: "Password toggle",
+      htmlDescription:
+        'Use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`.',
+      prop: "passwordToggle",
+    },
+    {
+      default: '"Show password"',
+      description: "The accessible name of the password toggle.",
+      prop: "passwordToggleLabel",
     },
     {
       attribute: "[required]",
@@ -158,9 +191,16 @@ export default {
       selector: "input",
     },
     {
-      description: "Content at the inline-end of the field, inside the border.",
+      description:
+        "Content at the inline-end of the field, inside the border, and the password toggle.",
       selector: ".ui-field > .ui-end",
       slots: ["end"],
+    },
+    {
+      description:
+        'The password toggle, with `aria-pressed` and `command="--toggle-password"`. Hidden until `<opui-text-field>` is defined.',
+      props: ["passwordToggle", "passwordToggleLabel"],
+      selector: ".ui-field > .ui-end > .ui-button",
     },
     {
       description:
@@ -174,10 +214,18 @@ export default {
       selector: ".ui-end-text",
       slots: ["end-text"],
     },
+    {
+      code: "<opui-character-count>",
+      description:
+        "The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.",
+      props: ["characterCount", "characterCountLabel"],
+      selector: ".ui-end-text > .ui-value",
+    },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-text-field",
+    description:
+      "Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`.",
+    selector: ".ui-text-field",
   },
   slots: [
     {

@@ -34,6 +34,7 @@ export const description =
     "datalist",
     "field-sizing",
     "has",
+    "invoker-commands",
     "lh",
     "relative-color",
     "user-pseudos",
@@ -154,6 +155,72 @@ export const description =
   <section>
     <h2 id="end-text">End text</h2>
     <AutoExample name="EndText" centered />
+  </section>
+
+  <section>
+    <h2 id="character-count">Character count</h2>
+    <Conditional as="div">
+      <p slot="components">
+        With <code>maxlength</code>, set <code>characterCount</code> to show the characters
+        typed out of the limit at the end of the end text. Once 10% or 10 characters
+        are left, whichever is more, a pause in typing announces how many are left.
+        Pass the words, translated, as <code>characterCountLabel</code>, with <code
+          >{"{count}"}</code
+        > where the number goes ("Characters left:
+        {"{count}"}" by default). In Svelte, pass it as an expression, like <code
+          >{'characterCountLabel={"{count} left"}'}</code
+        >, since Svelte reads braces in a string.
+      </p>
+      <p slot="html">
+        With <code>maxlength</code>, add <code
+          >&lt;opui-character-count class="ui-value" aria-hidden="true"&gt;</code
+        > at the end of <code>.ui-end-text</code> and import <code
+          >opui-css/elements/character-count.js</code
+        >. It shows the characters typed out of the limit, and once 10% or 10
+        characters are left, whichever is more, a pause in typing announces how
+        many are left. Set the words, translated, as its <code>label</code>,
+        with
+        <code>{"{count}"}</code> where the number goes ("Characters left: {
+          "{count}"
+        }" by default).
+      </p>
+    </Conditional>
+    <p>
+      The visible count is <code>aria-hidden</code>, so it doesn't join the
+      field's name on every keystroke. The announcement comes from one live
+      region the element adds to the page, outside the label.
+    </p>
+    <AutoExample name="CharacterCount" centered />
+  </section>
+
+  <section>
+    <h2 id="password-toggle">Password toggle</h2>
+    <Conditional as="div">
+      <p slot="components">
+        On a <code>type="password"</code> field, <code>passwordToggle</code> adds
+        a button at the end that shows and hides the password. It's named by <code
+          >passwordToggleLabel</code
+        > ("Show password" by default) and pressed while the password shows. The password
+        hides again when the form is submitted or reset.
+      </p>
+      <p slot="html">
+        On a <code>type="password"</code> field, a <code>.ui-button</code> in <code
+          >.ui-end</code
+        > with <code>aria-pressed="false"</code>, <code>commandfor</code> naming the
+        input and <code>command="--toggle-password"</code> shows and hides the password,
+        once <code>opui-css/elements/text-field.js</code> is imported. The password
+        hides again when the form is submitted or reset.
+      </p>
+    </Conditional>
+    <p>
+      A button inside a <code>&lt;label&gt;</code> would join the field's name, like
+      "Password Show password". So the root is the <code
+        >&lt;opui-text-field&gt;</code
+      > custom element with a <code>&lt;label for&gt;</code>, and the end text
+      describes the input through <code>aria-describedby</code>. Until the
+      element loads, the button is hidden.
+    </p>
+    <AutoExample name="PasswordToggle" row />
   </section>
 
   <section>
@@ -449,6 +516,12 @@ export const description =
         and end text and the affixes are all part of the input's name, like "Amount
         € EUR". Keep them short.
       </li>
+      <li>
+        With a <a href="#password-toggle">password toggle</a>, the label is a <code
+          >&lt;label for&gt;</code
+        > instead: the input is named by the label alone, and the start and end text
+        describe it.
+      </li>
     </ul>
     <KeyboardSupport />
   </Fragment>
@@ -456,15 +529,19 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITextField
-        startText="Start text"
+        characterCount
         endText="Supporting text"
+        id="text-field-anatomy"
         label="Label"
+        maxlength={24}
+        passwordToggle
         placeholder="Placeholder"
+        startText="Start text"
+        type="password"
         value="Value"
       >
         <span slot="top">Top</span>
         <span slot="start">€</span>
-        <span slot="end">EUR</span>
         <span slot="bottom">Bottom</span>
       </UITextField>
     </Anatomy>

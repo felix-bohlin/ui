@@ -1,10 +1,13 @@
 <script lang="ts">
+  import "../../elements/character-count.js"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { Props } from "./types.svelte"
 
   let {
     autoFit,
+    characterCount,
+    characterCountLabel,
     class: className,
     error,
     hideLabel,
@@ -73,8 +76,16 @@
       <span class="ui-bottom">{@render content(bottom)}</span>
     {/if}
   </span>
-  {#if endText}
-    <span class="ui-end-text">{@render content(endText)}</span>
+  {#if endText || characterCount}
+    <span class="ui-end-text"
+      >{#if endText}{@render content(
+          endText,
+        )}{/if}{#if characterCount}<opui-character-count
+          aria-hidden="true"
+          class="ui-value"
+          label={characterCountLabel}
+        ></opui-character-count>{/if}</span
+    >
   {/if}
   {@render children?.()}
 </label>

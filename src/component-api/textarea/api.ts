@@ -34,6 +34,23 @@ export default {
       prop: "autoFit",
     },
     {
+      default: "false",
+      description:
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`.",
+      group: "Character count",
+      htmlDescription:
+        'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
+      prop: "characterCount",
+    },
+    {
+      default: '"Characters left: {count}"',
+      description:
+        "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
+      htmlDescription:
+        "Set the announcement as the `label` attribute of `<opui-character-count>`, with `{count}` for the characters left.",
+      prop: "characterCountLabel",
+    },
+    {
       attribute: "[disabled]",
       default: "false",
       description: "Dims the field and blocks input.",
@@ -162,6 +179,13 @@ export default {
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
+    },
+    {
+      code: "<opui-character-count>",
+      description:
+        "The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.",
+      props: ["characterCount", "characterCountLabel"],
+      selector: ".ui-end-text > .ui-value",
     },
   ],
   root: {

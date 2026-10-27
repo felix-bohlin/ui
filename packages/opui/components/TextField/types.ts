@@ -1,9 +1,13 @@
 export type Props = {
   autoFit?: boolean
+  characterCount?: boolean
+  characterCountLabel?: string
   endText?: string
   error?: boolean
   hideLabel?: boolean
   label?: string
+  passwordToggle?: boolean
+  passwordToggleLabel?: string
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string

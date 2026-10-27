@@ -6,6 +6,11 @@ export default {
       "Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
+  "--_affix-button-size": {
+    description:
+      "Size of a `.ui-button` in `.ui-start` or `.ui-end`: the field's `--_size` minus its border and a `--ui-space-1` inset on each side.",
+    kind: "output",
+  },
   "--_affix-text-color": {
     description:
       "The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.",

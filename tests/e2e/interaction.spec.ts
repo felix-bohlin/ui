@@ -1351,3 +1351,67 @@ interaction(
     await expect(toasts).toHaveCount(0, { timeout: 2000 })
   },
 )
+
+interaction(
+  "text-field",
+  "PasswordToggle",
+  "password toggle shows and hides the password",
+  async ({ root }) => {
+    const input = root.getByLabel("Password", { exact: true })
+    const toggle = root.getByRole("button", { name: "Show password" }).first()
+
+    await expect(input).toHaveAttribute("type", "password")
+    await expect(input).toHaveAccessibleName("Password")
+    await toggle.click()
+    await expect(input).toHaveAttribute("type", "text")
+    await expect(toggle).toHaveAttribute("aria-pressed", "true")
+    await expect(toggle).toBeFocused()
+    await toggle.click()
+    await expect(input).toHaveAttribute("type", "password")
+    await expect(toggle).toHaveAttribute("aria-pressed", "false")
+    await expect(root.getByLabel("New password")).toHaveAccessibleDescription(
+      "At least 12 characters.",
+    )
+  },
+)
+
+interaction(
+  "text-field",
+  "CharacterCount",
+  "text field character count follows the text and announces near the limit",
+  async ({ page, root }) => {
+    const input = root.locator("input")
+    const count = root.locator("opui-character-count")
+
+    await expect(count).toHaveText("0/20")
+    await input.fill("opui-fan-2026")
+    await expect(count).toHaveText("13/20")
+    await expect(input).toHaveAccessibleName(
+      "Username Letters, numbers and dashes.",
+    )
+    await expect(page.locator("[data-opui-announcer]")).toHaveText(
+      "Characters left: 7",
+    )
+  },
+)
+
+interaction(
+  "textarea",
+  "CharacterCount",
+  "textarea character count follows the text and announces near the limit",
+  async ({ page, root }) => {
+    const textarea = root.locator("textarea")
+    const count = root.locator("opui-character-count")
+
+    await expect(count).toHaveText("0/160")
+    await textarea.fill("a".repeat(100))
+    await expect(count).toHaveText("100/160")
+    await page.waitForTimeout(1000)
+    await expect(page.locator("[data-opui-announcer]")).toHaveText("")
+    await textarea.fill("a".repeat(150))
+    await expect(count).toHaveText("150/160")
+    await expect(page.locator("[data-opui-announcer]")).toHaveText(
+      "10 characters to go",
+    )
+  },
+)

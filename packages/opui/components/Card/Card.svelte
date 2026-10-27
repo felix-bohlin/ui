@@ -3,6 +3,7 @@
 
   let {
     class: className,
+    density,
     variant,
 
     // Snippets
@@ -14,6 +15,7 @@
 <div
   class={[
     "ui-card",
+    density && density !== "normal" && `ui-${density}`,
     variant && variant !== "plain" && `ui-${variant}`,
     className,
   ]}

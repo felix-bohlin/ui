@@ -2,10 +2,6 @@
   .account-settings {
     container-type: inline-size;
 
-    .acct-tabs .ui-panel {
-      padding-block-start: var(--ui-space-5);
-    }
-
     .acct-photo {
       .ui-avatar {
         font-size: var(--ui-font-size-600);
@@ -19,10 +15,6 @@
           flex-basis: auto;
         }
       }
-    }
-
-    .acct-verified {
-      color: var(--ui-success-text);
     }
 
     .acct-actions {
@@ -48,7 +40,10 @@
     <p>Manage your profile, sign-in and how Northwind looks for you.</p>
   </hgroup>
 
-  <div class="ui-tabs ui-line ui-overflow-scroll acct-tabs">
+  <div
+    class="ui-tabs ui-line ui-overflow-scroll"
+    style="--_panel-gap: var(--ui-space-5)"
+  >
     <input
       checked
       class="ui-input"
@@ -121,7 +116,7 @@
                 />
               </span>
               <span class="ui-end-text" id="account-settings-email-hint"
-                ><span class="acct-verified">Verified</span>, used for sign-in
+                ><span class="ui-p ui-success">Verified</span>, used for sign-in
                 and receipts</span
               >
             </label>

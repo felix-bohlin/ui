@@ -4,16 +4,11 @@
       align-items: center;
     }
 
-    .ui-card {
-      padding-block: var(--ui-space-3);
-    }
-
     .sign-up-strength-label {
       font-size: var(--ui-font-size-caption);
     }
 
     .sign-up-strong {
-      color: var(--ui-success-text);
       font-weight: var(--ui-font-weight-semibold);
     }
 
@@ -22,7 +17,6 @@
     }
 
     .sign-up-price {
-      font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
 
@@ -45,7 +39,7 @@
     class="ui-layout-columns sign-up-layout"
     style="--_columns: 7fr 5fr; --_gap: var(--ui-space-6)"
   >
-    <div class="ui-card ui-outlined">
+    <div class="ui-card ui-outlined ui-spacious">
       <hgroup>
         <h1 class="ui-h4">Create your Northwind account</h1>
         <p>Free for 14 days. No credit card needed.</p>
@@ -151,7 +145,9 @@
                 class="ui-layout-row ui-spread sign-up-strength-label"
                 id="sign-up-strength"
                 ><span>Password strength</span
-                ><span class="sign-up-strong">Strong</span></span
+                ><span class="ui-p ui-success sign-up-strong"
+                  >Strong</span
+                ></span
               >
               <div class="ui-progress">
                 <progress
@@ -174,7 +170,7 @@
                     <p>Up to 3 projects for one person.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€0</span>
+                    <span class="ui-tabular-nums sign-up-price">€0</span>
                     <input
                       id="sign-up-plan-starter"
                       name="sign-up-plan"
@@ -191,7 +187,9 @@
                     <p>Unlimited projects and shared workspaces.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€12 / user</span>
+                    <span class="ui-tabular-nums sign-up-price"
+                      >€12 / user</span
+                    >
                     <input
                       checked
                       id="sign-up-plan-team"
@@ -209,7 +207,9 @@
                     <p>SSO, audit logs and priority support.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€29 / user</span>
+                    <span class="ui-tabular-nums sign-up-price"
+                      >€29 / user</span
+                    >
                     <input
                       id="sign-up-plan-business"
                       name="sign-up-plan"

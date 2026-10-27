@@ -43,6 +43,18 @@
         padding: 0;
         text-align: end;
       }
+
+      &.ui-total {
+        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+        font-size: var(--ui-font-size-large);
+        font-weight: var(--ui-font-weight-bold);
+        padding-block-start: var(--ui-space-3);
+
+        dd,
+        dt {
+          color: var(--ui-text-strong);
+        }
+      }
     }
 
     &.ui-bordered > div {

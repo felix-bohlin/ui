@@ -14,6 +14,7 @@ const {
   shape,
   size,
   src,
+  variant,
   ...rest
 } = Astro.props
 
@@ -25,6 +26,7 @@ const Tag = as || (href ? "a" : "div")
     "ui-avatar",
     shape && shape !== "circle" && `ui-${shape}`,
     size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}

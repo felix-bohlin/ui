@@ -84,6 +84,7 @@ export const whatsNew = {
     ),
   ],
   avatar: [
+    `<a href="#variants"><code>variant</code></a> takes <code>tonal</code> for the primary tint and <code>outlined</code> for the border color with no fill.`,
     components(
       `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
     ),
@@ -257,6 +258,7 @@ export const whatsNew = {
     `<a href="#severities">Links</a> in a callout only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
   card: [
+    `<a href="#density"><code>density</code></a> takes <code>spacious</code> for a card that stands alone, such as a sign-in form, and <code>dense</code> for a small stat.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a>.`,
     {
       ...components(
@@ -460,6 +462,7 @@ export const whatsNew = {
     },
   ],
   "description-list": [
+    `<a href="#total"><code>total</code></a> on the last item draws a line above it and makes it larger and bold, for an order summary.`,
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>DescriptionListItem</code></a>. The <code>DescriptionList.Item</code> aliases are gone.`,
     },
@@ -656,6 +659,7 @@ export const whatsNew = {
     `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
   ],
   list: [
+    `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
     components(
       `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
@@ -1098,6 +1102,7 @@ export const whatsNew = {
     },
   ],
   tabs: [
+    `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-tabs-accent</code></a> for the selected label and the <a href="#line">line</a> indicator.`,
     `The <a href="#basics">selected pill</a> has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
@@ -1381,6 +1386,7 @@ export const whatsNew = {
     `In browsers without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus (<a href="#accessibility">Accessibility</a>).`,
   ],
   typography: [
+    `A <a href="#severity">severity class</a> on <code>.ui-p</code>, <code>.ui-caption</code> or <code>.ui-overline</code> colors the text in that tone, and <a href="#tabular-numbers"><code>.ui-tabular-nums</code></a> lines numbers up.`,
     `<a href="#heading-group">Overlines</a> read <code>--ui-text-subtle</code>, so a theme's secondary text color reaches them.`,
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
     `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read <code>--ui-critical-text</code>, <code>--ui-success-text</code> and <code>--ui-info</code>.`,

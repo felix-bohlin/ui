@@ -12,6 +12,7 @@ export default function Avatar({
   shape,
   size,
   src,
+  variant,
   children,
   ...rest
 }: Props) {
@@ -23,6 +24,7 @@ export default function Avatar({
         "ui-avatar",
         shape && shape !== "circle" && `ui-${shape}`,
         size && size !== "medium" && `ui-${size}`,
+        variant && variant !== "filled" && `ui-${variant}`,
         className,
       ])}
       {...tagAttrs(Tag as string, disabled, href)}

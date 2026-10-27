@@ -1,4 +1,5 @@
 export type Props = {
+  density?: "dense" | "normal" | "spacious"
   variant?: "elevated" | "outlined" | "plain" | "tonal" | "transparent"
 }
 

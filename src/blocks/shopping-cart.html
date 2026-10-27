@@ -60,7 +60,6 @@
     }
 
     .cart-line-price {
-      font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-semibold);
       text-align: end;
 
@@ -74,18 +73,6 @@
       .ui-content {
         display: grid;
         gap: var(--ui-space-4);
-      }
-    }
-
-    .cart-total {
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      font-size: var(--ui-font-size-large);
-      font-weight: var(--ui-font-weight-bold);
-      padding-block-start: var(--ui-space-3);
-
-      dd,
-      dt {
-        color: var(--ui-text-strong);
       }
     }
 
@@ -196,7 +183,7 @@
                 </span>
               </span>
             </opui-number-stepper>
-            <p class="cart-line-price">
+            <p class="ui-tabular-nums cart-line-price">
               €119.00
               <s class="ui-caption"
                 ><span class="ui-sr-only">Was </span>€149.00</s
@@ -293,7 +280,7 @@
                 </span>
               </span>
             </opui-number-stepper>
-            <p class="cart-line-price">€48.00</p>
+            <p class="ui-tabular-nums cart-line-price">€48.00</p>
           </div>
         </li>
 
@@ -383,7 +370,7 @@
                 </span>
               </span>
             </opui-number-stepper>
-            <p class="cart-line-price">€29.00</p>
+            <p class="ui-tabular-nums cart-line-price">€29.00</p>
           </div>
         </li>
       </ul>
@@ -457,7 +444,7 @@
             <dt>Delivery</dt>
             <dd>Free</dd>
           </div>
-          <div class="cart-total">
+          <div class="ui-total">
             <dt>Total</dt>
             <dd>€176.40</dd>
           </div>

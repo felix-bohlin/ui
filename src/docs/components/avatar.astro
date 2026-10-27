@@ -83,6 +83,26 @@ export const description =
   </section>
 
   <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>variant</code> to <code>tonal</code> for the primary tint or <code
+          >outlined</code
+        > for the border color with no fill. The default, <code>filled</code>,
+        is the primary color. An image avatar has no fill in any variant.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-tonal</code> for the primary tint or <code
+          >.ui-outlined</code
+        >
+        for the border color with no fill. Without one the avatar is filled with the
+        primary color. An image avatar has no fill in any variant.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section>
     <h2 id="shapes">Shapes</h2>
 
     <Conditional as="p">

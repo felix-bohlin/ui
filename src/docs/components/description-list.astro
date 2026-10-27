@@ -16,6 +16,7 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
+import descriptionListItemApi from "../../component-api/description-list-item/api"
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
@@ -26,7 +27,10 @@ export const description =
   description={description}
   slug="description-list"
   heroAnatomy
-  apis={[{ title: "Description list API", api: descriptionListApi }]}
+  apis={[
+    { title: "Description list API", api: descriptionListApi },
+    { title: "Description list item API", api: descriptionListItemApi },
+  ]}
   browserSupport={["container-queries"]}
   changelogPaths={[
     {
@@ -120,6 +124,16 @@ export const description =
       or summary card.
     </p>
     <AutoExample name="Orientation" />
+  </section>
+
+  <section>
+    <h2 id="total">Total</h2>
+    <p>
+      <PropOrClass prop="total" class=".ui-total" /> on the last item draws a line
+      above it and makes it larger and bold, for the total of an order summary or
+      an invoice.
+    </p>
+    <AutoExample name="Total" />
   </section>
 
   <DescriptionListBuild slot="under-the-hood" />

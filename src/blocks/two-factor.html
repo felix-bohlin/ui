@@ -1,11 +1,6 @@
 <style>
   .two-factor {
-    .ui-card {
-      padding-block: var(--ui-space-3);
-    }
-
     .two-factor-code input {
-      font-variant-numeric: tabular-nums;
       letter-spacing: 0.5em;
       text-align: center;
     }
@@ -25,7 +20,7 @@
 </style>
 
 <div class="two-factor ui-layout-container" style="--_max-inline-size: 28rem">
-  <div class="ui-card ui-outlined">
+  <div class="ui-card ui-outlined ui-spacious">
     <div class="ui-content">
       <div class="ui-layout-column ui-align-center">
         <div class="ui-avatar ui-squircle">
@@ -57,6 +52,7 @@
             <span class="ui-label">Verification code</span>
             <span class="ui-field">
               <input
+                class="ui-tabular-nums"
                 aria-describedby="two-factor-code-hint"
                 autocomplete="one-time-code"
                 inputmode="numeric"

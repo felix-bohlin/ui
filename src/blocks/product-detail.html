@@ -26,7 +26,6 @@
 
     .pd-price strong {
       font-size: var(--ui-font-size-700);
-      font-variant-numeric: tabular-nums;
     }
 
     .pd-swatch {
@@ -54,10 +53,6 @@
 
     .pd-form {
       gap: var(--ui-space-5);
-    }
-
-    .pd-perks {
-      padding-block: 0;
     }
 
     .pd-details ul {
@@ -192,7 +187,7 @@
       </div>
 
       <div class="ui-layout-row ui-small pd-price">
-        <strong>€119.00</strong>
+        <strong class="ui-tabular-nums">€119.00</strong>
         <s><span class="ui-sr-only">Was </span>€149.00</s>
         <span class="ui-chip ui-small"
           ><span class="ui-text">Save 20%</span></span
@@ -380,7 +375,7 @@
         </div>
       </form>
 
-      <ul class="ui-list ui-dense ui-transparent ui-flush pd-perks">
+      <ul class="ui-list ui-dense ui-transparent ui-flush">
         <li>
           <div class="ui-start">
             <svg

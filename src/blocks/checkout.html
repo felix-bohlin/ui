@@ -7,20 +7,11 @@
     }
 
     .checkout-price {
-      font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-semibold);
-    }
-
-    .checkout-payment .ui-panel {
-      padding-block-start: var(--ui-space-4);
     }
 
     .checkout-submit {
       inline-size: 100%;
-    }
-
-    .checkout-items {
-      padding-block: 0;
     }
 
     .checkout-thumb {
@@ -32,18 +23,6 @@
       );
       border-radius: var(--ui-radius);
       inline-size: 3rem;
-    }
-
-    .checkout-total {
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      font-size: var(--ui-font-size-large);
-      font-weight: var(--ui-font-weight-bold);
-      padding-block-start: var(--ui-space-3);
-
-      dd,
-      dt {
-        color: var(--ui-text-strong);
-      }
     }
   }
 </style>
@@ -197,7 +176,10 @@
           <li>
             <label class="ui-radio" for="checkout-delivery-standard">
               <div class="ui-text">
-                <p>Standard, <span class="checkout-price">€4.90</span></p>
+                <p>
+                  Standard,
+                  <span class="ui-tabular-nums checkout-price">€4.90</span>
+                </p>
                 <p>3–5 business days to a pickup point</p>
               </div>
               <div class="ui-end">
@@ -214,7 +196,10 @@
           <li>
             <label class="ui-radio" for="checkout-delivery-home">
               <div class="ui-text">
-                <p>Home delivery, <span class="checkout-price">€9.90</span></p>
+                <p>
+                  Home delivery,
+                  <span class="ui-tabular-nums checkout-price">€9.90</span>
+                </p>
                 <p>2–3 business days, evening slot</p>
               </div>
               <div class="ui-end">
@@ -230,7 +215,10 @@
           <li>
             <label class="ui-radio" for="checkout-delivery-express">
               <div class="ui-text">
-                <p>Express, <span class="checkout-price">€19.00</span></p>
+                <p>
+                  Express,
+                  <span class="ui-tabular-nums checkout-price">€19.00</span>
+                </p>
                 <p>Next business day if ordered before 14:00</p>
               </div>
               <div class="ui-end">
@@ -248,7 +236,7 @@
 
       <fieldset class="ui-fieldset">
         <legend>Payment</legend>
-        <div class="ui-tabs checkout-payment">
+        <div class="ui-tabs" style="--_panel-gap: var(--ui-space-4)">
           <input
             checked
             class="ui-input"
@@ -388,7 +376,7 @@
         <p>3 items</p>
       </hgroup>
       <div class="ui-content">
-        <ul class="ui-list ui-transparent ui-flush checkout-items">
+        <ul class="ui-list ui-transparent ui-flush">
           <li>
             <div class="ui-start">
               <div
@@ -402,7 +390,7 @@
               <p>Merino base layer</p>
               <p>Pine, M, Qty 1</p>
             </div>
-            <div class="ui-end checkout-price">€89.00</div>
+            <div class="ui-end ui-tabular-nums checkout-price">€89.00</div>
           </li>
           <li>
             <div class="ui-start">
@@ -417,7 +405,7 @@
               <p>Trail running cap</p>
               <p>Sand, One size, Qty 1</p>
             </div>
-            <div class="ui-end checkout-price">€29.00</div>
+            <div class="ui-end ui-tabular-nums checkout-price">€29.00</div>
           </li>
           <li>
             <div class="ui-start">
@@ -432,7 +420,7 @@
               <p>Wool hiking socks</p>
               <p>Fjord, 39–42, Qty 2</p>
             </div>
-            <div class="ui-end checkout-price">€48.00</div>
+            <div class="ui-end ui-tabular-nums checkout-price">€48.00</div>
           </li>
         </ul>
 
@@ -467,7 +455,7 @@
             <dt>VAT (25%, included)</dt>
             <dd>€30.86</dd>
           </div>
-          <div class="checkout-total">
+          <div class="ui-total">
             <dt>Total</dt>
             <dd>€154.30</dd>
           </div>

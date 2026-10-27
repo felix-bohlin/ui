@@ -13,6 +13,18 @@ export const input = () => {
 
 const GUIDES = ["**/AGENTS.md", ".claude/agents/**", ".claude/skills/**"]
 
+export const styledGlobs = () =>
+  [
+    ...((
+      JSON.parse(readFileSync(`${code}package.json`, "utf-8")).scripts.lint ??
+      ""
+    )
+      .split("&&")
+      .map((command) => command.trim())
+      .find((command) => command.startsWith("stylelint "))
+      ?.matchAll(/"([^"]+)"/g) ?? []),
+  ].map(([, glob]) => glob)
+
 export const suites = (files) =>
   [
     ...(files.includes("TODO.md") ? ["tests/unit/todo.test.ts"] : []),

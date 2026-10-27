@@ -50,6 +50,10 @@
       transition: border-color var(--_duration) var(--_ease);
     }
 
+    :where(.ui-field) ::placeholder {
+      color: var(--ui-field-placeholder-text-color, var(--ui-text-subtle));
+    }
+
     :where(.ui-field) :where(input, textarea, select) {
       background: transparent;
       border: 0;
@@ -438,7 +442,10 @@
 
     &.ui-large {
       --_field-padding-block: calc(var(--ui-space-2) * 1.5);
-      --_field-padding-inline: var(--ui-space-3);
+      --_field-padding-inline: var(
+        --ui-field-padding-inline-large,
+        var(--ui-space-3)
+      );
       --_size: var(--ui-field-size-large);
     }
 

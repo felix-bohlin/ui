@@ -11,15 +11,18 @@ import releasedApi from "./released-api.json"
 import releasedTokens from "./released-tokens.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
-const start = changelog.indexOf("\n## ")
-const end = changelog.indexOf("\n## ", start + 1)
-const unreleased = changelog.slice(start, end === -1 ? undefined : end)
-const sections = [
-  ...unreleased.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm),
-].map(([, title, body]) => ({
-  entries: body.split("\n").filter((line) => line.startsWith("- ")),
-  title,
-}))
+const sectionsOf = (text: string) => {
+  const start = text.indexOf("\n## ")
+  const end = text.indexOf("\n## ", start + 1)
+  const unreleased = text.slice(start, end === -1 ? undefined : end)
+  return [
+    ...unreleased.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm),
+  ].map(([, title, body]) => ({
+    entries: body.split("\n").filter((line) => line.startsWith("- ")),
+    title,
+  }))
+}
+const sections = sectionsOf(changelog)
 
 const name = (entry: string) => entry.match(/^- `([^`]+)`/)?.[1]
 const tier = (leading: string) => (/^[A-Z]/.test(leading) ? 0 : 1)
@@ -28,10 +31,21 @@ const compare = (a: string, b: string) => {
   return tier(x) - tier(y) || x.localeCompare(y, "en")
 }
 
+const unnamed = (entries: string[]) => entries.filter((entry) => !name(entry))
+const SECTIONS = ["Breaking", "Removed", "Added", "Changed", "Fixed"]
+const sectionOrder = (text: string) => {
+  const titles = sectionsOf(text).map((section) => section.title)
+  return titles.join() ===
+    SECTIONS.filter((title) => titles.includes(title)).join() &&
+    new Set(titles).size === titles.length
+    ? []
+    : titles
+}
+
 describe.each(sections)("$title", ({ entries }) => {
   test("every entry starts with a backticked name", () => {
     expect(
-      entries.filter((entry) => !name(entry)),
+      unnamed(entries),
       "start every entry with the component name in backticks: - `Tabs` take a `variant` prop.",
     ).toEqual([])
   })
@@ -85,15 +99,10 @@ test("releases go from newest to oldest", () => {
 })
 
 test("the unreleased sections come in order", () => {
-  const titles = sections.map((section) => section.title)
-  const order =
-    "Breaking, Removed, Added, Changed and Fixed, in that order and each once"
-  expect(titles, order).toEqual(
-    ["Breaking", "Removed", "Added", "Changed", "Fixed"].filter((title) =>
-      titles.includes(title),
-    ),
-  )
-  expect(new Set(titles).size, order).toBe(titles.length)
+  expect(
+    sectionOrder(changelog),
+    "Breaking, Removed, Added, Changed and Fixed, in that order and each once",
+  ).toEqual([])
 })
 
 const apis = import.meta.glob<ComponentApi>(
@@ -129,34 +138,58 @@ const noted = sections.filter(({ title }) =>
   ["Added", "Breaking", "Changed"].includes(title),
 )
 
+type Section = (typeof sections)[number]
+type Page = (component: string) => string | undefined
+const notesOf = (slug: string) =>
+  FRAMEWORK_IDS.flatMap((framework) => whatsNewFor(framework, slug))
+
+const unpaged = (noted: Section[], page: Page) =>
+  noted
+    .flatMap(({ entries }) => entries.flatMap(subjects))
+    .filter((component) => !page(component))
+
+const unnoted = (
+  { entries, title }: Section,
+  page: Page,
+  notes: (slug: string) => string[],
+) => {
+  const breaking = title === "Breaking"
+  return entries.flatMap((entry) =>
+    subjects(entry)
+      .filter(
+        (component) =>
+          !notes(page(component) ?? "").some(
+            (note) => note.startsWith("Breaking:") === breaking,
+          ),
+      )
+      .map(
+        (component) =>
+          `${component} (${page(component)}): ${entry.slice(0, 60)}`,
+      ),
+  )
+}
+
+const unmigrated = (all: Section[], page: Page, migrating: string) =>
+  all
+    .filter(({ title }) => title === "Breaking")
+    .flatMap(({ entries }) => entries.flatMap(subjects))
+    .filter((component, index, list) => list.indexOf(component) === index)
+    .filter((component) => !migratingAnchor(migrating, page(component) ?? ""))
+    .map((component) => `${component} (${page(component)})`)
+
 test("every component an entry starts with has a docs page", () => {
   expect(
-    noted
-      .flatMap(({ entries }) => entries.flatMap(subjects))
-      .filter((component) => !pageOf(component)),
+    unpaged(noted, pageOf),
     "map it to its page in PAGES in tests/unit/changelog.test.ts",
   ).toEqual([])
 })
 
 test.each(noted)(
   "$title entries have a What's new note on the page of each component they start with",
-  ({ entries, title }) => {
-    const breaking = title === "Breaking"
+  (section) => {
     expect(
-      entries.flatMap((entry) =>
-        subjects(entry)
-          .filter((component) => {
-            const slug = pageOf(component) ?? ""
-            return !FRAMEWORK_IDS.flatMap((framework) =>
-              whatsNewFor(framework, slug),
-            ).some((note) => note.startsWith("Breaking:") === breaking)
-          })
-          .map(
-            (component) =>
-              `${component} (${pageOf(component)}): ${entry.slice(0, 60)}`,
-          ),
-      ),
-      `add a ${breaking ? "Breaking: " : ""}note for these pages to src/utils/whats-new.ts`,
+      unnoted(section, pageOf, notesOf),
+      `add a ${section.title === "Breaking" ? "Breaking: " : ""}note for these pages to src/utils/whats-new.ts`,
     ).toEqual([])
   },
 )
@@ -165,14 +198,7 @@ const migrating = readFileSync("packages/opui/MIGRATING.md", "utf8")
 
 test("Breaking entries have a MIGRATING.md section for each component they start with", () => {
   expect(
-    sections
-      .filter(({ title }) => title === "Breaking")
-      .flatMap(({ entries }) => entries.flatMap(subjects))
-      .filter((component, index, all) => all.indexOf(component) === index)
-      .filter(
-        (component) => !migratingAnchor(migrating, pageOf(component) ?? ""),
-      )
-      .map((component) => `${component} (${pageOf(component)})`),
+    unmigrated(sections, pageOf, migrating),
     "add a ## section for the page to packages/opui/MIGRATING.md, or map the page to its section in MIGRATING_SECTIONS in src/utils/migrating.ts",
   ).toEqual([])
 })
@@ -225,4 +251,128 @@ test("theme tokens added since the last release are named in the CHANGELOG", () 
       .toSorted(),
     "name each token in backticks in an entry of the unreleased version, or a range such as `--ui-space-1` to `--ui-space-8`",
   ).toEqual([])
+})
+
+describe("the changelog rules flag their samples", () => {
+  const log = (...lines: string[]) =>
+    [
+      "# Changelog",
+      "",
+      "## 6.0.0 - Unreleased",
+      "",
+      ...lines,
+      "",
+      "## 5.4.3 - 2026-01-01",
+      "",
+      "### Fixed",
+      "",
+      "- `Card` is fixed.",
+      "",
+    ].join("\n")
+
+  test("an entry without a backticked name", () => {
+    const [added] = sectionsOf(log("### Added", "", "- Tabs take a variant."))
+    expect(unnamed(added.entries)).toEqual(["- Tabs take a variant."])
+  })
+
+  test("entries out of order", () => {
+    const [added] = sectionsOf(
+      log(
+        "### Added",
+        "",
+        "- `theme.css` has a token.",
+        "- `Tabs` take a variant.",
+      ),
+    )
+    expect(added.entries.toSorted(compare)).toEqual([
+      "- `Tabs` take a variant.",
+      "- `theme.css` has a token.",
+    ])
+  })
+
+  test("a component without a page, a note or a MIGRATING section", () => {
+    const page: Page = (component) =>
+      component === "Tabs" ? "tabs" : undefined
+    const [breaking] = sectionsOf(
+      log("### Breaking", "", "- `Tabs` and `Nope` drop `x`."),
+    )
+    expect(unpaged([breaking], page)).toEqual(["Nope"])
+    expect(
+      unnoted(breaking, page, (slug) =>
+        slug === "tabs" ? ["Breaking: gone."] : [],
+      ),
+    ).toEqual(["Nope (undefined): - `Tabs` and `Nope` drop `x`."])
+    expect(
+      unnoted(breaking, page, (slug) => (slug === "tabs" ? ["Added x."] : [])),
+    ).toContain("Tabs (tabs): - `Tabs` and `Nope` drop `x`.")
+    expect(unmigrated([breaking], page, "## Tabs\n")).toEqual([
+      "Nope (undefined)",
+    ])
+    expect(unmigrated([breaking], page, "")).toEqual([
+      "Tabs (tabs)",
+      "Nope (undefined)",
+    ])
+  })
+
+  test("a class or token is named by its backticks or a range", () => {
+    const named = namedIn(
+      "- `Tabs` add `.ui-tab-line`, `--ui-tab-gap` and `--ui-space-1` to `--ui-space-3`.",
+    )
+    expect(
+      [
+        ".ui-tab-line",
+        "--ui-tab-gap",
+        "--ui-space-2",
+        ".ui-other",
+        "--ui-space-4",
+      ].filter(named),
+    ).toEqual([".ui-tab-line", "--ui-tab-gap", "--ui-space-2"])
+  })
+
+  test("sections out of order or twice", () => {
+    expect(
+      sectionOrder(
+        log(
+          "### Fixed",
+          "",
+          "- `Card` is fixed.",
+          "",
+          "### Added",
+          "",
+          "- `Tabs` take a variant.",
+        ),
+      ),
+    ).toEqual(["Fixed", "Added"])
+    expect(
+      sectionOrder(
+        log("### Added", "", "- `A` b.", "", "### Added", "", "- `C` d."),
+      ),
+    ).toEqual(["Added", "Added"])
+    expect(
+      sectionOrder(
+        log("### Breaking", "", "- `A` b.", "", "### Fixed", "", "- `C` d."),
+      ),
+    ).toEqual([])
+  })
+
+  test("a heading that is no version with a date or Unreleased", () => {
+    expect(
+      ["6.0.0 - Unreleased", "5.4.3 - 2026-01-01", "5.4.3"].filter((heading) =>
+        HEADING.test(heading),
+      ),
+    ).toHaveLength(3)
+    expect(
+      ["Version 6", "6.0 - Unreleased", "6.0.0 - soon"].filter((heading) =>
+        HEADING.test(heading),
+      ),
+    ).toEqual([])
+  })
+
+  test("only the unreleased version's sections are read", () => {
+    expect(
+      sectionsOf(log("### Added", "", "- `Tabs` take a variant.")).map(
+        ({ title }) => title,
+      ),
+    ).toEqual(["Added"])
+  })
 })

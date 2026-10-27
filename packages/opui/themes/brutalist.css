@@ -7,6 +7,7 @@
     --ui-backdrop-blur: 0px;
     --ui-border-color: oklch(0 0 0);
     --ui-border-color-on-filled: var(--ui-border-color);
+    --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 5px;
     --ui-radius-x-small: var(--ui-radius);
     --ui-border-width: 2px;
@@ -70,7 +71,6 @@
     --ui-shadow-scroll: 0 2px 0 0 oklch(0 0 0);
     --ui-shadow-surface: var(--ui-shadow-control);
     --ui-shadow-selected: none;
-    --ui-border-color-raised: var(--ui-border-color);
     --ui-surface: light-dark(oklch(0.92 0.019 266), oklch(0.283 0.019 276));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.248 0 0));
     --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.248 0 0));

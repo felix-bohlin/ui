@@ -75,11 +75,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers.
 - `--_border-color`: Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
 - `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.
-- `--_content-padding`: Padding of `.ui-content`.
+- `--_content-padding`: Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_edge-border-color`: Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.
 - `--_footer-gap`: Gap between the items in `.ui-footer` and between the buttons in its `.ui-actions`.
-- `--_footer-padding`: Padding of `.ui-footer`.
-- `--_header-padding`: Padding of `.ui-header`.
+- `--_footer-padding`: Padding of `.ui-footer`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_header-padding`: Padding of `.ui-header`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_inline-size`: Width of drawers that open from the inline start or end.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_scroll-shadow`: Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
@@ -91,7 +91,7 @@ Outputs: `--_direction`, `--_duration` and `--_ease`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-motion`, `--ui-rhythm-step`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-motion`, `--ui-rhythm-step`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

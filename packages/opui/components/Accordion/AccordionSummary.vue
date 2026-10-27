@@ -11,7 +11,7 @@ defineSlots<Slots>()
 
 <template>
   <summary :class="[$props.class]">
-    <slot></slot><slot v-if="$slots.marker" name="marker"></slot
+    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot
     ><svg
       v-else
       aria-hidden="true"

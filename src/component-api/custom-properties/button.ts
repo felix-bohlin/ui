@@ -8,7 +8,7 @@ export default {
   },
   "--_accent-fill": {
     description:
-      "Fill of filled buttons and of hovered outlined and tonal buttons, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`.",
+      "Fill of filled buttons, of hovered outlined and tonal buttons unless `--ui-button-hover` is `layer`, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-accent-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`. `.ui-primary` resets it to `--_accent`, so the token applies to default buttons only.",
     kind: "input",
   },
   "--_accent-text": {
@@ -85,7 +85,7 @@ export default {
   },
   "--_on-accent-fill": {
     description:
-      "Text color on `--_accent-fill`: filled buttons, and hovered outlined and tonal ones. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.",
+      "Text color on `--_accent-fill`: filled buttons, and hovered outlined and tonal ones unless `--ui-button-hover` is `layer`. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.",
     kind: "input",
   },
   "--_on-accent-tonal": {
@@ -104,7 +104,7 @@ export default {
   },
   "--_outlined-active-text-color": {
     description:
-      "Pressed text color of outlined buttons. `--_on-accent`, or `--_accent-text` with `--ui-button-hover: layer`.",
+      "Pressed text color of outlined buttons. `--_on-accent-fill`, or `--_accent-text` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_outlined-hover-bg-color": {
@@ -119,7 +119,7 @@ export default {
   },
   "--_outlined-hover-text-color": {
     description:
-      "Hover text color of outlined buttons. `--_on-accent`, or `--_accent-text` with `--ui-button-hover: layer`.",
+      "Hover text color of outlined buttons. `--_on-accent-fill`, or `--_accent-text` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_padding-inline": {
@@ -154,7 +154,7 @@ export default {
   },
   "--_tonal-active-text-color": {
     description:
-      "Pressed text color of tonal buttons. `--_on-accent`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
+      "Pressed text color of tonal buttons. `--_on-accent-fill`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_tonal-hover-bg-color": {
@@ -164,7 +164,7 @@ export default {
   },
   "--_tonal-hover-text-color": {
     description:
-      "Hover text color of tonal buttons. `--_on-accent`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
+      "Hover text color of tonal buttons. `--_on-accent-fill`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
     kind: "output",
   },
 } satisfies CustomProperties

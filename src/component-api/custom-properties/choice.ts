@@ -21,11 +21,6 @@ export default {
       "Border width of `.ui-card`, read by `card.css`. `--ui-border-width`.",
     kind: "output",
   },
-  "--_card-padding": {
-    description:
-      "Padding of `.ui-card`. `--ui-space-3`, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.",
-    kind: "input",
-  },
   "--_checked-bg-color": {
     description:
       "Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`.",
@@ -52,6 +47,11 @@ export default {
   "--_on-accent": {
     description:
       "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.",
+    kind: "input",
+  },
+  "--_padding": {
+    description:
+      "Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.",
     kind: "input",
   },
   "--_ripple-size": {

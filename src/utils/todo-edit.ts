@@ -4,6 +4,7 @@ export const SECTIONS = [
   "Accessibility",
   "Bugs",
   "Docs",
+  "Future plans",
   "Limitations",
   "Questions",
   "Suggestions",
@@ -386,6 +387,7 @@ const insertAt = (lines: string[], section: string, severity: number) => {
   if (higher) return higher.start
   if (blocks.length) return blocks.at(-1)!.end + 1
   const heading = lines.indexOf(`## ${section}`)
+  if (heading === -1) throw new Error(`TODO.md has no ## ${section} section`)
   return heading + 2
 }
 

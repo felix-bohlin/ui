@@ -334,9 +334,9 @@ export const GROUPS: ControlGroup[] = [
       },
     ],
     description:
-      "The color your theme is built around. The palette, buttons and links follow it.",
+      "A starting point, a mood and the color your theme is built around. The palette, buttons and links follow it.",
     id: "brand",
-    label: "Brand color",
+    label: "Start",
   },
   {
     controls: [

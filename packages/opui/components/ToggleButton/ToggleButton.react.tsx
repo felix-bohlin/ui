@@ -50,7 +50,7 @@ export default function ToggleButton({
           group?.change(event.currentTarget)
           onChange?.(event)
         }}
-      />
+      />{" "}
       {children ?? label}
     </label>
   )

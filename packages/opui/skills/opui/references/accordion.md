@@ -76,6 +76,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_item-summary-padding-inline`: Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`.
 - `--_margin-inline`: The inline margin. `0`, except in `.ui-transparent` outside a group.
 - `--_motion`: Motion multiplier for `--_duration`. `0` turns the transitions off.
+- `--_padding`: Padding the accordion shares with cards, from `card.css`: `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. Sets `--_padding-inline`, `--_summary-padding-block` and the block end of `--_content-padding-block`.
 - `--_padding-inline`: Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.
 - `--_radius`: The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.
 - `--_summary-padding-block`: Block padding of `summary`.

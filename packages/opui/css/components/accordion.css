@@ -11,17 +11,18 @@
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: 0;
-    --_content-padding-block: var(--ui-space-2) var(--ui-space-3);
+    --_content-padding-block: var(--ui-space-2) var(--_padding);
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
     --_focus-ring-offset: var(--ui-focus-ring-offset);
     --_margin-inline: var(--ui-space-1);
     --_overflow: visible;
+    --_padding: var(--ui-card-padding, var(--ui-space-3));
     --_padding-inline: 0em;
     --_radius: var(--ui-radius);
     --_shadow: none;
-    --_summary-padding-block: var(--ui-space-3);
+    --_summary-padding-block: var(--_padding);
     --_summary-padding-inline: var(--_padding-inline);
 
     background-color: var(--_bg-color);
@@ -47,7 +48,7 @@
       --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
       --_overflow: hidden;
-      --_padding-inline: var(--ui-space-3);
+      --_padding-inline: var(--_padding);
     }
 
     &:is(.ui-elevated, .ui-tonal) {
@@ -184,7 +185,7 @@
   :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
     --_divider-border-color: var(--ui-border-color);
     --_group-radius: var(--ui-radius);
-    --_item-padding-inline: var(--ui-space-3);
+    --_item-padding-inline: var(--_padding);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 
     display: block;

@@ -12,6 +12,11 @@ const RATCHETS = [
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },
+  {
+    file: "tests/unit/untested-scripts.json",
+    fix: "add a test that imports the script or runs it by its path",
+    keys: true,
+  },
 ]
 
 const A11Y_LEDGER = "tests/e2e/a11y-known-violations.json"
@@ -26,6 +31,9 @@ export const entries = (value, path = []) =>
       : Object.entries(value).flatMap(([key, item]) =>
           entries(item, [...path, key]),
         )
+
+export const ratchetEntries = ({ keys = false }, json) =>
+  keys ? Object.keys(json) : entries(json)
 
 export const added = (before, after) => {
   const seen = new Set(before)
@@ -96,12 +104,13 @@ const main = () => {
   }
 
   const errors = []
-  for (const { file, fix } of RATCHETS) {
+  for (const ratchet of RATCHETS) {
+    const { file, fix } = ratchet
     const before = show(mergeBase, file)
     if (before === undefined) continue
     for (const entry of added(
-      entries(JSON.parse(before)),
-      entries(JSON.parse(readFileSync(file, "utf-8"))),
+      ratchetEntries(ratchet, JSON.parse(before)),
+      ratchetEntries(ratchet, JSON.parse(readFileSync(file, "utf-8"))),
     )) {
       errors.push(`${file} gained "${entry}". The list only shrinks: ${fix}.`)
     }

@@ -1,18 +1,11 @@
 import { readFileSync, realpathSync } from "node:fs"
 import { isAbsolute, matchesGlob, relative } from "node:path"
 import { fileURLToPath } from "node:url"
-import { findProblems } from "./check-characters.mjs"
-import { colorProblems } from "./check-colors.mjs"
-import { sortSource } from "./sort-css.mjs"
+import { FIX as CHARACTERS, findProblems } from "./check-characters.mjs"
+import { FIX as COLORS, colorProblems } from "./check-colors.mjs"
+import { IGNORED, SORTED, sortSource } from "./sort-css.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
-
-const SORTED = [
-  "packages/opui/**/*.{astro,css,html,svelte,vue}",
-  "src/**/*.{astro,css,html,svelte,vue}",
-]
-
-const IGNORED = ["**/dist/**", "**/node_modules/**"]
 
 export const fileProblems = async (file, text) => {
   if (text.includes("\0")) return []
@@ -21,9 +14,9 @@ export const fileProblems = async (file, text) => {
       .split("\n")
       .map((line, index) => `${file}:${index + 1}:${line}`)
       .join("\n"),
-  ).map((problem) => `${problem}. Use a comma, a slash or parentheses instead.`)
+  ).map((problem) => `${problem}. ${CHARACTERS}`)
   const colors = colorProblems(file, text).map(
-    (problem) => `${problem} is not OKLCH. Write it as oklch().`,
+    (problem) => `${problem} is not OKLCH. ${COLORS}`,
   )
   const sorted =
     SORTED.some((glob) => matchesGlob(file, glob)) &&

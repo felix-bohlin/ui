@@ -45,3 +45,9 @@ test("the components without a block are the other stylesheets", () => {
       .toSorted(),
   )
 })
+
+test("reads both lists and the stylesheets", () => {
+  expect(listed(withBlock).length).toBeGreaterThan(0)
+  expect(listed(withoutBlock).length).toBeGreaterThan(0)
+  expect(withQuery.length).toBeGreaterThan(0)
+})

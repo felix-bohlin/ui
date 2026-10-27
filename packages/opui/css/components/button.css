@@ -16,7 +16,7 @@
     --_accent-tonal: var(--ui-surface-tonal);
     --_actions-shift: min(
       var(--_padding-inline) + var(--_border-width),
-      var(--ui-space-3) -
+      var(--ui-card-padding, var(--ui-space-3)) -
         max(
           var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
           var(--ui-space-1)
@@ -148,13 +148,6 @@
         from var(--_accent) l c h / var(--ui-state-hover-alpha-accent)
       );
       --_on-accent-tonal: var(--ui-palette-on-tint);
-      --_outlined-active-bg-color: oklch(
-        from var(--_accent-fill) calc(l - 0.1) c h
-      );
-
-      @container style(--ui-button-hover: layer) {
-        --_outlined-active-bg-color: var(--_default-active-bg-color);
-      }
     }
 
     &.ui-critical,

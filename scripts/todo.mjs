@@ -34,10 +34,9 @@ const write = ({ report, source: next }) => {
   return report
 }
 
-try {
-  if (command === "list") {
-    print(listItems(source, { missingTriage: flags.has("--missing-triage") }))
-  } else if (command === "apply-answers") {
+const COMMANDS = {
+  add: () => write(addFindings(source, JSON.parse(input()))),
+  "apply-answers": () => {
     const report = write(applyAnswers(source, input()))
     if (
       report.some(
@@ -49,14 +48,17 @@ try {
       )
       process.exitCode = 1
     }
-  } else if (command === "resolve") {
-    write(resolveItems(source, JSON.parse(input())))
-  } else if (command === "triage") {
-    write(triageItems(source, JSON.parse(input())))
-  } else if (command === "add") {
-    write(addFindings(source, JSON.parse(input())))
-  } else if (command === "sort") {
-    write(sortItems(source))
+  },
+  list: () =>
+    print(listItems(source, { missingTriage: flags.has("--missing-triage") })),
+  resolve: () => write(resolveItems(source, JSON.parse(input()))),
+  sort: () => write(sortItems(source)),
+  triage: () => write(triageItems(source, JSON.parse(input()))),
+}
+
+try {
+  if (Object.hasOwn(COMMANDS, command ?? "")) {
+    COMMANDS[command]()
   } else {
     console.error(USAGE)
     process.exitCode = 1

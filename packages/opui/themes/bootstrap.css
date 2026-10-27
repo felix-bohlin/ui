@@ -220,4 +220,24 @@
     --ui-focus-ring-color: revert-layer;
     --ui-text-subtle: revert-layer;
   }
+
+  @media (prefers-contrast: more) {
+    :where(html:not(.ui-contrast-normal))
+      :where(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+      --ui-palette-accent: revert-layer;
+      --ui-palette-border: revert-layer;
+      --ui-palette-strong: revert-layer;
+      --ui-palette-text: revert-layer;
+      --ui-palette-tint-subtle: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more)
+    :where(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+    --ui-palette-accent: revert-layer;
+    --ui-palette-border: revert-layer;
+    --ui-palette-strong: revert-layer;
+    --ui-palette-text: revert-layer;
+    --ui-palette-tint-subtle: revert-layer;
+  }
 }

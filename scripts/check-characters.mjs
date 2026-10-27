@@ -3,7 +3,10 @@ import { realpathSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { FORBIDDEN } from "./forbidden-characters.mjs"
 
-const root = fileURLToPath(new URL("..", import.meta.url))
+const root =
+  process.env.OPUI_ROOT ?? fileURLToPath(new URL("..", import.meta.url))
+
+export const FIX = "Use a comma, a slash or parentheses instead."
 
 export const findProblems = (matches) =>
   matches
@@ -41,9 +44,7 @@ const main = () => {
 
   if (problems.length > 0) {
     console.error(problems.join("\n"))
-    console.error(
-      `\n${problems.length} forbidden character(s). Use a comma, a slash or parentheses instead.`,
-    )
+    console.error(`\n${problems.length} forbidden character(s). ${FIX}`)
     process.exit(1)
   }
 

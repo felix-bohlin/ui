@@ -1,3 +1,7 @@
+import { execFileSync, spawnSync } from "node:child_process"
+import { mkdirSync, mkdtempSync, readdirSync, writeFileSync } from "node:fs"
+import { tmpdir } from "node:os"
+import { dirname, join } from "node:path"
 import stylelint from "stylelint"
 import { describe, expect, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
@@ -37,10 +41,13 @@ import { fileProblems } from "../../scripts/check-file.mjs"
 import {
   added,
   driftAdditions,
+  ratchetEntries,
   entries,
   intended,
 } from "../../scripts/check-ratchets.mjs"
 import { indexProblems } from "../../scripts/generate-search-index.mjs"
+import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
+import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
 
@@ -384,7 +391,7 @@ describe("check-file", () => {
       ),
     ).toEqual([
       "packages/opui/css/components/a.css:1: em dash (U+2014). Use a comma, a slash or parentheses instead.",
-      "packages/opui/css/components/a.css:4: #fff is not OKLCH. Write it as oklch().",
+      "packages/opui/css/components/a.css:4: #fff is not OKLCH. Write every color as oklch().",
       "packages/opui/css/components/a.css: CSS declarations are out of order. Run pnpm sort-css.",
     ])
   })
@@ -396,6 +403,119 @@ describe("check-file", () => {
         ".a {\n  inset: 0;\n  color: red;\n}\n",
       ),
     ).toEqual([])
+  })
+})
+
+describe("check-screenshot-authors", () => {
+  const BOT = "41898282+github-actions[bot]@users.noreply.github.com"
+
+  test("reports the baselines whose last change isn't the bot's", () => {
+    const log = [
+      `\0${BOT}`,
+      "",
+      "a.png",
+      "\0me@example.com",
+      "",
+      "a.png",
+      "b.png",
+      `\0${BOT}`,
+      "",
+      "b.png",
+    ].join("\n")
+    expect(localBaselines(["a.png", "b.png", "c.png"], log)).toEqual([
+      { author: "me@example.com", file: "b.png" },
+      { author: undefined, file: "c.png" },
+    ])
+  })
+
+  test("reports nothing when the bot made every last change", () => {
+    expect(localBaselines(["a.png"], `\0${BOT}\n\na.png`)).toEqual([])
+  })
+})
+
+describe("released-api", () => {
+  const api = releasedApi(".", "src/component-api/custom-properties")
+
+  test("finds the props, classes and inputs of the working tree", () => {
+    expect(api.props).toMatchObject({
+      Button: {
+        Button: expect.arrayContaining([
+          "as",
+          "color",
+          "href",
+          "size",
+          "variant",
+        ]),
+      },
+    })
+    expect([...api.classes]).toContain(".ui-button")
+    expect(Object.values(api.inputs).flat()).toContain("--_accent")
+  })
+
+  test("finds props for every component folder", () => {
+    expect(Object.keys(api.props).toSorted()).toEqual(
+      readdirSync("packages/opui/components", { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .map(({ name }) => name)
+        .toSorted(),
+    )
+  })
+})
+
+describe("file discovery", () => {
+  const UNSORTED = `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`
+  const SORTED = ".a {\n  color: oklch(100% 0 0);\n  inset: 0;\n}\n"
+
+  const repo = (files: Record<string, string>) => {
+    const root = mkdtempSync(join(tmpdir(), "opui-scan-"))
+    execFileSync("git", ["init", "-q"], { cwd: root })
+    for (const [file, text] of Object.entries({
+      ".gitignore": "ignored/\n",
+      "scripts/generated-files.json": '{ "files": ["generated/out.css"] }\n',
+      ...files,
+    })) {
+      mkdirSync(dirname(join(root, file)), { recursive: true })
+      writeFileSync(join(root, file), text)
+    }
+    return (script: string, ...args: string[]) => {
+      const { status, stderr } = spawnSync("node", [script, ...args], {
+        encoding: "utf-8",
+        env: { ...process.env, OPUI_ROOT: root },
+      })
+      return { status, stderr }
+    }
+  }
+
+  test("each check scans its own files and skips the rest", () => {
+    const run = repo({
+      "generated/out.css": UNSORTED,
+      "ignored/a.css": UNSORTED,
+      "notes/a.css": UNSORTED,
+      "src/a.css": UNSORTED,
+      "tests/a.css": UNSORTED,
+    })
+    const characters = run("scripts/check-characters.mjs")
+    expect(characters.status).toBe(1)
+    expect(characters.stderr).toContain("src/a.css:1: em dash")
+    expect(characters.stderr).not.toContain("ignored/")
+
+    const colors = run("scripts/check-colors.mjs")
+    expect(colors.status).toBe(1)
+    expect(colors.stderr).toContain("src/a.css:4: #fff")
+    expect(colors.stderr).toContain("notes/a.css:4: #fff")
+    expect(colors.stderr).not.toMatch(/generated\/|ignored\/|tests\//)
+
+    const sorted = run("scripts/sort-css.mjs", "--check")
+    expect(sorted.status).toBe(1)
+    expect(sorted.stderr).toContain("src/a.css")
+    expect(sorted.stderr).not.toContain("notes/a.css")
+  })
+
+  test("each check passes once its files are fixed", () => {
+    const run = repo({ "notes/a.css": SORTED, "src/a.css": SORTED })
+    expect(run("scripts/check-characters.mjs").status).toBe(0)
+    expect(run("scripts/check-colors.mjs").status).toBe(0)
+    expect(run("scripts/sort-css.mjs", "--check").status).toBe(0)
   })
 })
 
@@ -428,6 +548,20 @@ describe("check-ratchets", () => {
       "b.vue.diff gained 1 drift line",
       "d.svelte.diff records new drift",
     ])
+  })
+
+  test("a keyed ratchet reads the keys, so a reworded reason is no new entry", () => {
+    const before = { "scripts/a.mjs": "only its output can be tested" }
+    const after = { "scripts/a.mjs": "its output is tested elsewhere" }
+    expect(
+      added(
+        ratchetEntries({ keys: true }, before),
+        ratchetEntries({ keys: true }, after),
+      ),
+    ).toEqual([])
+    expect(
+      added(ratchetEntries({}, before), ratchetEntries({}, after)),
+    ).toEqual(["scripts/a.mjs: its output is tested elsewhere"])
   })
 
   test("accepts the trailer on any commit, in any case", () => {

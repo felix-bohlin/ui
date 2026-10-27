@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { instantScrolling } from "./fixtures"
 
 const pages = (directory: string) =>
   readdirSync(new URL(`../../src/docs/${directory}/`, import.meta.url))
@@ -19,6 +20,8 @@ const DOCS_PAGES = [
   ...pages("components"),
   ...pages("guide"),
 ].toSorted()
+
+test.beforeEach(({ page }) => instantScrolling(page))
 
 const visiblePicker = (page: Page) =>
   page.locator(".framework-picker select").filter({ visible: true }).first()
@@ -99,6 +102,8 @@ test.describe("framework picker", () => {
     test.setTimeout(60_000)
     await page.goto("/html/components/divider/#spacing")
     for (const framework of [...FRAMEWORK_IDS.slice(1), FRAMEWORK_IDS[0]]) {
+      // waitForURL resolves at commit, before the picker script binds its change listener
+      await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
       await visiblePicker(page).selectOption(framework)
       await page.waitForURL(`/${framework}/components/divider/#spacing`, {
         waitUntil: "commit",
@@ -251,6 +256,9 @@ const tabStop = (page: Page) =>
     if (element.dataset.tabStop) return { id: element.dataset.tabStop }
     dataset.tabStops = String(Number(dataset.tabStops ?? 0) + 1)
     element.dataset.tabStop = dataset.tabStops
+    // WebKit scrolls the focused element into view on a later frame
+    await new Promise(requestAnimationFrame)
+    await new Promise(requestAnimationFrame)
 
     const parent = (node: Element) => {
       const root = node.getRootNode()
@@ -318,7 +326,7 @@ for (const path of [
   "/html/guide/getting-started/",
 ]) {
   test(`${path} shows focus on every Tab stop`, async ({ page }) => {
-    test.setTimeout(120_000)
+    test.setTimeout(180_000)
     await page.emulateMedia({ reducedMotion: "reduce" })
     await page.goto(path)
     const problems: string[] = []

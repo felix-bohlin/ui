@@ -83,6 +83,21 @@ import { CONTRAST_MODES } from "../../utils/contrast"
     Rgba,
   } from "../../utils/contrast"
   import { themeStore } from "../../utils/theme"
+  import {
+    CONTROLS,
+    type ColorControl,
+  } from "../../utils/theme-builder-controls"
+
+  const TOKEN_CONTROLS = new Map(
+    CONTROLS.filter(
+      (control): control is ColorControl => control.kind === "color",
+    ).map((control) => [control.token, control.id]),
+  )
+
+  const controlFor = (token: string) =>
+    TOKEN_CONTROLS.get(token) ??
+    TOKEN_CONTROLS.get(token.replace(/-text$/, "")) ??
+    (/^--ui-(palette|primary|on-primary|selected)/.test(token) ? "brand" : null)
 
   const ICONS: Record<ContrastStatus, string> = {
     fail: "M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z",
@@ -145,6 +160,18 @@ import { CONTRAST_MODES } from "../../utils/contrast"
       element("code", "preview-contrast-token", token),
       element("span", "preview-contrast-reason"),
     )
+    const target = controlFor(token)
+    if (target) {
+      const go = element(
+        "button",
+        "ui-button ui-x-small ui-transparent preview-contrast-go",
+        "Go to setting",
+      )
+      go.type = "button"
+      go.dataset.go = target
+      go.setAttribute("aria-label", `Go to the ${colorLabel(token)} setting`)
+      th.append(go)
+    }
     header.append(th)
     group.append(header)
     for (const row of rows) {
@@ -230,7 +257,6 @@ import { CONTRAST_MODES } from "../../utils/contrast"
 
     const measure = () => {
       queued = false
-      if (!report.checkVisibility()) return
       const results = checkPromises(document.body, themeStore.get())
       const tokens = Map.groupBy(results, (row) => row.token)
       if (groups.size === 0) {
@@ -268,6 +294,11 @@ import { CONTRAST_MODES } from "../../utils/contrast"
           reasons.size > 0 ? `Preset original: ${[...reasons].join("; ")}` : ""
       }
       const counts = summarize(results)
+      document.dispatchEvent(
+        new CustomEvent("builder:contrast", {
+          detail: { failing: counts.failing },
+        }),
+      )
       const { detail, title } = summaryText(counts)
       empty.textContent = noFailuresText(counts)
       for (const callout of callouts) {
@@ -283,11 +314,23 @@ import { CONTRAST_MODES } from "../../utils/contrast"
       filter()
     }
 
+    let timer = 0
+
     const schedule = () => {
       if (queued) return
       queued = true
-      requestAnimationFrame(measure)
+      clearTimeout(timer)
+      timer = window.setTimeout(() => requestAnimationFrame(measure), 120)
     }
+
+    report.addEventListener("click", (event) => {
+      const go = (event.target as Element).closest<HTMLElement>("[data-go]")
+      if (!go) return
+      report.closest("dialog")?.close()
+      document.dispatchEvent(
+        new CustomEvent("builder:go", { detail: go.dataset.go }),
+      )
+    })
 
     onlyFailures.addEventListener("change", filter)
     themeStore.subscribe(schedule)
@@ -297,7 +340,6 @@ import { CONTRAST_MODES } from "../../utils/contrast"
       attributeFilter: ["class"],
       attributes: true,
     })
-    report.addEventListener("preview:show", schedule)
     schedule()
   }
 </script>
@@ -390,6 +432,11 @@ import { CONTRAST_MODES } from "../../utils/contrast"
 
   .preview-contrast-table :global(.preview-contrast-reason:empty) {
     display: none;
+  }
+
+  .preview-contrast-table :global(.preview-contrast-go) {
+    float: inline-end;
+    margin-inline-start: var(--size-2);
   }
 
   .preview-contrast-table :global(.preview-contrast-row > th) {

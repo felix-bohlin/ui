@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test"
+import { instantScrolling } from "./fixtures"
 
 test.describe("todo page", () => {
   test.beforeEach(async ({ page }) => {
+    await instantScrolling(page)
     await page.addInitScript(() => {
       navigator.clipboard.writeText = async (text) => {
         document.documentElement.dataset.copied = text
@@ -77,6 +79,7 @@ test.describe("todo page", () => {
     const keys = await unanswered.evaluateAll((items) =>
       items.slice(0, 2).map((item) => (item as HTMLElement).dataset.todoKey),
     )
+    test.skip(keys.length < 2, "fewer than two unanswered todos")
     const activeKey = () =>
       page.evaluate(
         () =>

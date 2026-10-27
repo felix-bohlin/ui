@@ -1,0 +1,79 @@
+---
+import { Button } from "opui-css/astro"
+
+const schemes = [
+  { label: "Light", scheme: "light" },
+  { label: "Dark", scheme: "dark" },
+] as const
+---
+
+<div class="preview-strip">
+  <div aria-hidden="true" class="preview-strip-panes" inert>
+    {
+      schemes.map(({ label, scheme }) => (
+        <div class={`preview-strip-pane ui-palette ui-${scheme}`}>
+          <span class="preview-strip-heading">{label}</span>
+          <span class="ui-button ui-primary ui-filled ui-x-small">Save</span>
+          <span class="ui-button ui-outlined ui-x-small">Cancel</span>
+          <span class="ui-chip ui-x-small">Live</span>
+        </div>
+      ))
+    }
+  </div>
+  <Button
+    command="show-modal"
+    commandfor="builder-preview-drawer"
+    data-open-preview
+    size="small"
+    variant="tonal">Preview</Button
+  >
+</div>
+
+<style>
+  .preview-strip {
+    align-items: center;
+    background-color: var(--ui-surface);
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: flex;
+    gap: var(--size-3);
+    inset-block-start: var(--builder-header);
+    padding-block: var(--size-2);
+    position: sticky;
+    z-index: 2;
+
+    @media (width >= 900px) {
+      display: none;
+    }
+  }
+
+  .preview-strip-panes {
+    display: grid;
+    flex: 1;
+    gap: var(--size-2);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-inline-size: 0;
+  }
+
+  .preview-strip-pane {
+    align-items: center;
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    color: var(--ui-text);
+    display: flex;
+    flex-wrap: wrap;
+    forced-color-adjust: none;
+    gap: var(--size-1);
+    min-inline-size: 0;
+    overflow: hidden;
+    padding: var(--size-2);
+  }
+
+  .preview-strip-heading {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-bold);
+    inline-size: 100%;
+  }
+</style>

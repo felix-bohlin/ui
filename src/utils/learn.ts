@@ -26,17 +26,14 @@ export const categories = [...new Set(posts.map((post) => post.category))]
 
 export const levels = [
   {
-    description: "every feature is Baseline widely available",
     id: "beginner",
     label: "Beginner",
   },
   {
-    description: "a feature is Baseline newly available",
     id: "intermediate",
     label: "Intermediate",
   },
   {
-    description: "a feature has limited availability",
     id: "advanced",
     label: "Advanced",
   },

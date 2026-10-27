@@ -2,10 +2,18 @@ import { execFileSync } from "node:child_process"
 import { existsSync, readFileSync } from "node:fs"
 import { matchesGlob, resolve } from "node:path"
 import { fileProblems } from "../../scripts/check-file.mjs"
-import { code, input, project, run, suites, vitest } from "./checks.mjs"
+import {
+  code,
+  input,
+  project,
+  run,
+  styledGlobs,
+  suites,
+  vitest,
+} from "./checks.mjs"
 
 const LINTED = /\.(?:astro|cjs|js|jsx|mjs|svelte|ts|tsx|vue)$/
-const STYLED = ["packages/opui/**/*.css", "src/**/*.css"]
+const STYLED = styledGlobs()
 
 const git = (...args) => {
   try {

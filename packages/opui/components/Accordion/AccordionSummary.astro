@@ -6,7 +6,7 @@ const { class: className, ...rest } = Astro.props
 ---
 
 <summary class:list={[className]} {...rest}
-  ><slot /><slot name="marker"
+  ><slot />{" "}<slot name="marker"
     ><svg
       aria-hidden="true"
       class="ui-marker"

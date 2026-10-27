@@ -143,7 +143,7 @@ export const cssVarRows = (...apis: ComponentApi[]) => {
         existsSync(file)
           ? [
               ...readFileSync(file, "utf8").matchAll(
-                /var\(\s*(--[a-z][\w-]*)/g,
+                /(?:var|style)\(\s*(--[a-z][\w-]*)/g,
               ),
             ].map((match) => match[1])
           : [],

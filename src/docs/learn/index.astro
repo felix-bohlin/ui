@@ -5,6 +5,7 @@ import {
   Chip,
   FieldLegend,
   Fieldset,
+  Select,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -58,20 +59,11 @@ const entries = posts
     series: seriesOf(post.slug),
   }))
 
-const filters = [
-  {
-    id: "level",
-    label: "Level",
-    options: levels,
-    rule: levels
-      .map((level) => `${level.label}: ${level.description}.`)
-      .join(" "),
-  },
-  { id: "topic", label: "Topic", options: topics },
-]
+const levelChecked = (id: string) =>
+  `:has([name="learn-level"][value="${id}"]:checked)`
 
-const checked = (filter: string, value: string) =>
-  `:has([name="learn-${filter}"][value="${value}"]:checked)`
+const topicChecked = (id: string) =>
+  `:has([name="learn-topic"] [value="${id}"]:checked)`
 
 const matches = (
   entry: (typeof entries)[number],
@@ -85,13 +77,13 @@ const matches = (
 const filterCss = [
   ...levels.map(
     ({ id }) => `
-.learn-browse${checked("level", id)} .learn-post[data-level]:not([data-level="${id}"]) {
+.learn-browse${levelChecked(id)} .learn-post[data-level]:not([data-level="${id}"]) {
   display: none;
 }`,
   ),
   ...topics.map(
     ({ id }) => `
-.learn-browse${checked("topic", id)} .learn-post[data-topics]:not([data-topics~="${id}"]) {
+.learn-browse${topicChecked(id)} .learn-post[data-topics]:not([data-topics~="${id}"]) {
   display: none;
 }`,
   ),
@@ -104,7 +96,7 @@ const filterCss = [
       )
       .map(
         (topic) => `
-.learn-browse${level ? checked("level", level) : ""}${topic ? checked("topic", topic) : ""} .learn-empty {
+.learn-browse${level ? levelChecked(level) : ""}${topic ? topicChecked(topic) : ""} .learn-empty {
   display: block;
 }`,
       ),
@@ -122,22 +114,28 @@ const filterCss = [
 
   <div class="learn-browse ui-not-rich-text">
     <div class="learn-filters">
-      {
-        filters.map((filter) => (
-          <Fieldset>
-            <FieldLegend>{filter.label}</FieldLegend>
-            <ToggleGroup name={`learn-${filter.id}`} size="small">
-              <ToggleButton checked value="">
-                All
-              </ToggleButton>
-              {filter.options.map((option) => (
-                <ToggleButton value={option.id}>{option.label}</ToggleButton>
-              ))}
-            </ToggleGroup>
-            {"rule" in filter && <p class="ui-caption">{filter.rule}</p>}
-          </Fieldset>
-        ))
-      }
+      <Fieldset>
+        <FieldLegend>Level</FieldLegend>
+        <ToggleGroup name="learn-level" size="small">
+          <ToggleButton checked value="">All</ToggleButton>
+          {
+            levels.map((level) => (
+              <ToggleButton value={level.id}>{level.label}</ToggleButton>
+            ))
+          }
+        </ToggleGroup>
+      </Fieldset>
+      <Select
+        autoFit
+        items={[
+          { label: "All", value: "" },
+          ...topics.map((topic) => ({ label: topic.label, value: topic.id })),
+        ]}
+        label="Topic"
+        name="learn-topic"
+        size="small"
+        value=""
+      />
     </div>
 
     <p class="learn-empty">No post matches this level and topic.</p>
@@ -306,6 +304,7 @@ const filterCss = [
   }
 
   .learn-filters {
+    align-items: end;
     display: flex;
     flex-wrap: wrap;
     gap: var(--ui-space-3) var(--ui-space-6);
@@ -314,14 +313,9 @@ const filterCss = [
       gap: 0;
     }
 
-    & legend {
+    & :is(legend, .ui-label) {
       font-size: var(--ui-font-size-caption);
       margin-block-end: var(--ui-space-1);
-    }
-
-    & .ui-caption {
-      margin-block-start: var(--ui-space-1);
-      max-inline-size: 48ch;
     }
   }
 

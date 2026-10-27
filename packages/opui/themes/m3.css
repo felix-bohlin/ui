@@ -95,6 +95,7 @@
     --ui-state-hover-alpha-accent: 8%;
     --ui-state-hover-alpha-dark: 8%;
     --ui-state-hover-alpha-light: 8%;
+    --ui-state-selected-alpha-accent: 10%;
     --ui-surface: light-dark(oklch(0.984 0.013 322), oklch(0.187 0.012 300));
     --ui-surface-elevated: light-dark(
       oklch(0.967 0.012 313),
@@ -116,9 +117,9 @@
       oklch(0.567 0.016 308),
       oklch(0.657 0.015 304)
     );
-    --ui-tabs-accent: var(--ui-primary-text);
     --ui-switch-track-block-size: calc(2rem * var(--ui-density));
     --ui-switch-track-inline-size: calc(3.25rem * var(--ui-density));
+    --ui-tabs-accent: var(--ui-primary-text);
     --ui-text: light-dark(oklch(0.227 0.01 304), oklch(0.914 0.014 315));
     --ui-text-strong: light-dark(oklch(0.227 0.01 304), oklch(0.914 0.014 315));
     --ui-text-subtle: light-dark(

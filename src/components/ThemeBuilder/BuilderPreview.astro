@@ -1,7 +1,6 @@
 ---
 import { Select, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import { allBlocks, blockPreviewHref } from "../../utils/blocks"
-import PreviewContrast from "./PreviewContrast.astro"
 import PreviewSpecimen from "./PreviewSpecimen.astro"
 import PreviewView from "./PreviewView.astro"
 
@@ -28,6 +27,9 @@ const schemes = [
   { label: "Light", scheme: "light" },
   { label: "Dark", scheme: "dark" },
 ] as const
+
+const { link } = Astro.locals
+const siteHref = link("/")
 ---
 
 <section aria-label="Preview" class="builder-preview">
@@ -42,9 +44,6 @@ const schemes = [
           Your device or the site's high contrast setting asks for more
           contrast, so the preview always shows it.
         </p>
-        <a class="ui-link ui-sr-only ui-focusable preview-skip" href="#export"
-          >Skip the component preview</a
-        >
         <div class="preview-panes" data-view="both">
           {
             schemes.map(({ label, scheme }) => (
@@ -140,10 +139,20 @@ const schemes = [
         </div>
       </TabsPanel>
     </TabsItem>
-    <TabsItem value="contrast">
-      <TabsLabel>Contrast</TabsLabel>
-      <TabsPanel data-tab="contrast">
-        <PreviewContrast />
+    <TabsItem value="site">
+      <TabsLabel>This site</TabsLabel>
+      <TabsPanel data-tab="site">
+        <p class="preview-note">
+          The docs with your theme, in the site's color mode. Browse it like the
+          real thing.
+        </p>
+        <div class="preview-site-box">
+          <iframe
+            class="preview-site"
+            data-site
+            data-src={siteHref}
+            title="This site with your theme"></iframe>
+        </div>
       </TabsPanel>
     </TabsItem>
   </Tabs>
@@ -177,11 +186,10 @@ const schemes = [
     const frames = [
       ...root.querySelectorAll<HTMLIFrameElement>(".preview-frame iframe"),
     ]
+    const site = root.querySelector<HTMLIFrameElement>("[data-site]")!
     const tabs = [
       ...root.querySelectorAll<HTMLInputElement>('input[name="preview-tab"]'),
     ]
-    const panel = (tab: string) =>
-      root.querySelector<HTMLElement>(`[data-tab="${tab}"]`)!
 
     const state = {
       block: [...select.options].some((option) => option.value === stored.block)
@@ -226,6 +234,10 @@ const schemes = [
     }
 
     const loadFrames = () => {
+      if (state.tab === "site") {
+        if (!site.getAttribute("src")) site.src = site.dataset.src!
+        return
+      }
       if (state.tab !== "blocks") return
       const more = state.more || pageMore()
       for (const frame of frames) {
@@ -290,9 +302,6 @@ const schemes = [
         state.view = target.value as View
       } else if (target.name === "preview-tab") {
         state.tab = target.value
-        panel(state.tab)
-          .querySelector(".preview-contrast")
-          ?.dispatchEvent(new Event("preview:show"))
       } else {
         return
       }
@@ -372,11 +381,6 @@ const schemes = [
     margin-block: 0 var(--size-3);
   }
 
-  .preview-skip:focus-visible {
-    display: inline-block;
-    margin-block-end: var(--size-3);
-  }
-
   .preview-panes {
     display: grid;
     gap: var(--size-3);
@@ -427,5 +431,18 @@ const schemes = [
       scale: var(--frame-scale);
       transform-origin: 0 0;
     }
+  }
+
+  .preview-site-box {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--radius-3);
+    overflow: hidden;
+  }
+
+  .preview-site {
+    block-size: max(30rem, calc(100dvb - var(--builder-header) - 12rem));
+    border: 0;
+    display: block;
+    inline-size: 100%;
   }
 </style>

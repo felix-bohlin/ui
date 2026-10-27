@@ -84,6 +84,7 @@
     --ui-state-hover-alpha-accent: 4%;
     --ui-state-hover-alpha-dark: 10%;
     --ui-state-hover-alpha-light: 4%;
+    --ui-state-selected-alpha-accent: 8%;
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.145 0 0));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.205 0 0));
     --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.205 0 0));
@@ -94,7 +95,6 @@
     --ui-switch-track-block-size: 1.15rem;
     --ui-switch-track-inline-size: 2rem;
     --ui-text: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
-    --ui-text-disabled: var(--ui-text-strong);
     --ui-text-subtle: light-dark(oklch(0.52 0 0), oklch(0.708 0 0));
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
     --ui-track-bg-color: var(--ui-field-border-color);
@@ -109,7 +109,6 @@
     ) {
       --ui-border-color: revert-layer;
       --ui-field-border-color: revert-layer;
-      --ui-field-helper-text-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
       --ui-text-subtle: revert-layer;
     }
@@ -118,7 +117,6 @@
   :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
     --ui-border-color: revert-layer;
     --ui-field-border-color: revert-layer;
-    --ui-field-helper-text-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
     --ui-text-subtle: revert-layer;
   }

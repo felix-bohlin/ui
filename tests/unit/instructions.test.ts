@@ -97,12 +97,11 @@ const headingSlugs = (path: string) =>
         .replace(/\s/g, "-"),
     )
 
-const problemsIn = (guide: string) => {
+const problemsIn = (guide: string, source = readFileSync(guide, "utf8")) => {
   const absent = ABSENT[guide] ?? []
   const problems: string[] = []
-  const text = readFileSync(guide, "utf8").replace(
-    /^(\s*)(`{3,})[\s\S]*?^\s*\2\s*$/gm,
-    (block) => block.replace(/[^\n]/g, " "),
+  const text = source.replace(/^(\s*)(`{3,})[\s\S]*?^\s*\2\s*$/gm, (block) =>
+    block.replace(/[^\n]/g, " "),
   )
 
   text.split("\n").forEach((line, index) => {
@@ -177,6 +176,27 @@ test.each(guides)("%s names files and headings that exist", (guide) => {
     problemsIn(guide),
     "fix the path or drop the mention; a file a guide says must not exist goes in ABSENT",
   ).toEqual([])
+})
+
+test("the checker flags names, links and citations that don't resolve", () => {
+  expect(
+    problemsIn(
+      "AGENTS.md",
+      [
+        "Run `scripts/nope.mjs` and read [the guide](nope.md).",
+        "See `AGENTS.md:99999`, src/nope/file.ts and [Testing](AGENTS.md#no-such-heading).",
+        "These exist: `TODO.md`, `scripts/todo.mjs`, [Testing](AGENTS.md#testing).",
+      ].join("\n"),
+    ),
+  ).toEqual([
+    "AGENTS.md:1 links to nope.md, which resolves to nope.md",
+    "AGENTS.md:1 names `scripts/nope.mjs`, which matches no file",
+    "AGENTS.md:2 links to #no-such-heading, no heading in AGENTS.md",
+    expect.stringMatching(
+      /^AGENTS\.md:2 cites AGENTS\.md:99999, but AGENTS\.md has \d+ lines$/,
+    ),
+    "AGENTS.md:2 names src/nope/file.ts, which matches no file",
+  ])
 })
 
 test("ABSENT only lists names a guide still mentions and no file has", () => {

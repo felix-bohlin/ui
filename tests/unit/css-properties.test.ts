@@ -60,7 +60,7 @@ const problem = (name: string) => {
   if (
     /(^--_|-)(height|width)(-|$)/.test(name) &&
     !/(^--_|-)(border|outline)-width$/.test(name) &&
-    !name.endsWith("-line-height")
+    !/(^--_|-)line-height$/.test(name)
   ) {
     return "use -block-size or -inline-size"
   }
@@ -87,6 +87,40 @@ const problem = (name: string) => {
 
 const SUFFIX =
   /-(bg-color|text-color|border-color|size|radius|gap|shadow|padding(-inline|-block)?|font-size|font-weight|line-height|position-area|blur|offset|translate|hover|border-width|accent|on-accent|strength|lightness)$/
+
+test.each([
+  ["--_height", "use -block-size or -inline-size"],
+  ["--_icon-width", "use -block-size or -inline-size"],
+  ["--_space", "use -gap or -padding"],
+  ["--_tx", "use -shift-x or -shift-y"],
+  ["--_dir", "use -direction"],
+  ["--_border-radius", "use -radius"],
+  ["--_input-size", "a control's size is --_size"],
+  [
+    "--_color",
+    "say what the color paints: -bg-color, -text-color or -border-color",
+  ],
+  [
+    "--ui-card-spacing",
+    "end in the property it sets, a value type, -accent, -strength or -lightness",
+  ],
+])("%s breaks the suffix rules", (name, message) => {
+  expect(problem(name)).toBe(message)
+})
+
+test.each([
+  "--_block-size",
+  "--_border-width",
+  "--_bg-color",
+  "--_gap",
+  "--_line-height",
+  "--_radius",
+  "--_shift-x",
+  "--_size",
+  "--ui-card-padding",
+])("%s follows the suffix rules", (name) => {
+  expect(problem(name)).toBeUndefined()
+})
 
 test("private and component custom properties follow the suffix rules", () => {
   const checked = [...names].filter(

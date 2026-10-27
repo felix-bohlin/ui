@@ -1,17 +1,5 @@
 ---
-import {
-  Button,
-  Callout,
-  CalloutContent,
-  CalloutIcon,
-  Select,
-} from "opui-css/astro"
-import { EXAMPLE_THEMES } from "../../utils/example-themes"
-
-const presets = [
-  { label: "Default", value: "" },
-  ...EXAMPLE_THEMES.map((theme) => ({ label: theme.label, value: theme.name })),
-]
+import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 ---
 
 <Callout class="builder-share" data-share hidden severity="info">
@@ -31,81 +19,112 @@ const presets = [
 </Callout>
 
 <div class="builder-toolbar">
-  <Select
-    class="builder-preset"
-    items={presets}
-    label="Start from"
-    name="builder-preset"
-    size="small"
-  />
-  <div class="builder-status">
-    <p data-status role="status"></p>
-    <Button data-undo hidden size="x-small" variant="outlined">Undo</Button>
+  <div class="builder-identity">
+    <p aria-hidden="true" class="builder-title">Theme builder</p>
+    <p class="builder-summary">
+      <span data-preset-name>Default</span>
+      <span class="builder-summary-sep" aria-hidden="true"></span>
+      <span data-change-count>No changes</span>
+    </p>
   </div>
   <div class="builder-actions">
-    <Button data-reset-all size="small" variant="transparent">Reset</Button>
-    <Button data-copy-link size="small" variant="outlined">Copy link</Button>
-    <Button href="#export" size="small" variant="tonal">
-      Export CSS
+    <Button data-shuffle size="small" variant="outlined">
       <svg
         aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
         viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
         ><path
           fill="currentColor"
-          d="M11 4.75a1 1 0 1 1 2 0v11.84l4.3-4.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.42l4.3 4.3z"
+          d="M17 4h3.5a.5.5 0 0 1 .5.5V8a1 1 0 1 1-2 0V7.41l-3.3 3.3a1 1 0 0 1-1.4-1.42L17.59 6H17a1 1 0 1 1 0-2M3 5a1 1 0 0 1 1-1h3.17a3 3 0 0 1 2.12.88l7.3 7.3H19V11a1 1 0 1 1 2 0v3.5a.5.5 0 0 1-.5.5H17a1 1 0 1 1 0-2h.59l-7.3-7.3a1 1 0 0 0-.7-.2H4a1 1 0 0 1-1-1m0 14a1 1 0 0 1 1-1h3.17a1 1 0 0 0 .7-.3l3.3-3.3a1 1 0 1 1 1.42 1.42l-3.3 3.3a3 3 0 0 1-2.12.88H4a1 1 0 0 1-1-1"
         ></path></svg
       >
+      Shuffle
+    </Button>
+    <Button data-reset-all size="small" variant="transparent">Reset</Button>
+    <Button
+      class="builder-contrast"
+      command="show-modal"
+      commandfor="builder-contrast"
+      data-contrast
+      data-state="pending"
+      size="small"
+      variant="outlined"
+    >
+      <span aria-hidden="true" class="builder-contrast-dot"></span>
+      <span data-contrast-text>Checking contrast</span>
+    </Button>
+    <Button data-copy-link size="small" variant="outlined">Copy link</Button>
+    <Button
+      color="primary"
+      command="show-modal"
+      commandfor="builder-export"
+      size="small"
+      variant="filled"
+    >
+      Export CSS
     </Button>
   </div>
 </div>
 
+<div class="builder-status" data-toast hidden>
+  <p data-toast-text role="status"></p>
+  <Button data-undo hidden size="x-small" variant="tonal">Undo</Button>
+</div>
+
 <script>
   import { exampleTheme } from "../../utils/example-themes"
+  import { morph } from "../../utils/morph"
   import { copyText } from "../../utils/storage"
   import { themeStore, type Theme } from "../../utils/theme"
-  import { switchPreset } from "../../utils/theme-brand"
   import { changeCount } from "../../utils/theme-builder-controls"
   import { SHARE_PARAM, decodeTheme, shareUrl } from "../../utils/theme-share"
 
   type Undo = { focus: HTMLElement; restore: () => void }
 
+  type Say = { before?: Theme; focus?: HTMLElement; message: string }
+
   const toolbar = document.querySelector<HTMLElement>(".builder-toolbar")
   if (toolbar) {
     const share = document.querySelector<HTMLElement>("[data-share]")!
-    const presetSelect = toolbar.querySelector<HTMLSelectElement>(
-      'select[name="builder-preset"]',
-    )!
     const resetButton =
       toolbar.querySelector<HTMLButtonElement>("[data-reset-all]")!
-    const status = document.querySelector<HTMLElement>("[data-status]")!
+    const shuffleButton =
+      toolbar.querySelector<HTMLButtonElement>("[data-shuffle]")!
+    const contrast = toolbar.querySelector<HTMLElement>("[data-contrast]")!
+    const contrastText = toolbar.querySelector<HTMLElement>(
+      "[data-contrast-text]",
+    )!
+    const presetName = toolbar.querySelector<HTMLElement>("[data-preset-name]")!
+    const changes = toolbar.querySelector<HTMLElement>("[data-change-count]")!
+    const statusBox = document.querySelector<HTMLElement>("[data-toast]")!
+    const status = document.querySelector<HTMLElement>("[data-toast-text]")!
     const undoButton = document.querySelector<HTMLButtonElement>("[data-undo]")!
     let pending: (Undo & { state: string }) | null = null
     let clearTimer = 0
 
     const stateOf = () => JSON.stringify(themeStore.get())
 
+    const clear = () => {
+      status.textContent = ""
+      statusBox.hidden = true
+    }
+
     const say = (message: string, undo?: Undo) => {
       clearTimeout(clearTimer)
       status.textContent = message
+      statusBox.hidden = false
       pending = undo ? { ...undo, state: stateOf() } : null
       undoButton.hidden = !undo
-      if (!undo) {
-        clearTimer = window.setTimeout(() => {
-          status.textContent = ""
-        }, 6000)
-      }
+      if (!undo) clearTimer = window.setTimeout(clear, 6000)
     }
 
-    const undoable = (
+    const undoable = async (
       message: string,
       focus: HTMLElement,
-      action: () => void,
+      action: () => Promise<void>,
     ) => {
       const theme = themeStore.get()
-      action()
+      await action()
       say(message, { focus, restore: () => themeStore.set(theme) })
     }
 
@@ -117,28 +136,52 @@ const presets = [
         : `It starts from ${start} with ${count} ${count === 1 ? "change" : "changes"}.`
     }
 
+    const presetInput = () =>
+      document.querySelector<HTMLInputElement>(
+        "[data-presets] input:checked",
+      ) ?? resetButton
+
     const sync = () => {
       const theme = themeStore.get()
-      if (document.activeElement !== presetSelect) {
-        presetSelect.value = theme.preset ?? ""
-      }
+      const count = changeCount(theme)
+      presetName.textContent = exampleTheme(theme.preset)?.label ?? "Default"
+      changes.textContent =
+        count === 0
+          ? "No changes"
+          : `${count} ${count === 1 ? "change" : "changes"}`
       if (pending && stateOf() !== pending.state) {
         if (document.activeElement === undoButton) pending.focus.focus()
         pending = null
         undoButton.hidden = true
-        status.textContent = ""
+        clear()
       }
     }
 
-    presetSelect.addEventListener("change", () => {
-      switchPreset(presetSelect.value || null)
-      const label = exampleTheme(presetSelect.value)?.label ?? "Default"
-      say(`Starting from ${label}. Your changes are kept.`)
+    document.addEventListener("builder:say", (event) => {
+      const { before, focus, message } = (event as CustomEvent<Say>).detail
+      if (before && focus) {
+        say(message, { focus, restore: () => themeStore.set(before) })
+      } else {
+        say(message)
+      }
     })
+
+    document.addEventListener("builder:contrast", (event) => {
+      const { failing } = (event as CustomEvent<{ failing: number }>).detail
+      contrast.dataset.state = failing > 0 ? "fail" : "pass"
+      contrastText.textContent =
+        failing > 0
+          ? `${failing} contrast ${failing === 1 ? "failure" : "failures"}`
+          : "Contrast passes"
+    })
+
+    shuffleButton.addEventListener("click", () =>
+      document.dispatchEvent(new Event("builder:shuffle")),
+    )
 
     resetButton.addEventListener("click", () =>
       undoable("Theme reset to the default.", resetButton, () =>
-        themeStore.reset(),
+        morph(() => themeStore.reset()),
       ),
     )
 
@@ -151,11 +194,11 @@ const presets = [
         say(copied ? "Link copied." : "Could not copy the link.")
       })
 
-    undoButton.addEventListener("click", () => {
+    undoButton.addEventListener("click", async () => {
       if (!pending) return
       const { focus, restore } = pending
       pending = null
-      restore()
+      await morph(restore)
       focus.focus()
       say("Undone.")
     })
@@ -184,14 +227,14 @@ const presets = [
         const close = () => {
           share.hidden = true
           clearParam()
-          presetSelect.focus()
+          presetInput().focus()
         }
         share
           .querySelector("[data-share-use]")!
           .addEventListener("click", () => {
             close()
-            undoable("Using the theme from the link.", presetSelect, () =>
-              themeStore.set(shared),
+            undoable("Using the theme from the link.", presetInput(), () =>
+              morph(() => themeStore.set(shared)),
             )
           })
         share
@@ -225,13 +268,44 @@ const presets = [
   }
 
   .builder-toolbar {
-    align-items: end;
-    border-block: var(--ui-border-width) solid var(--ui-border-color);
+    align-items: center;
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-3) var(--size-4);
     justify-content: space-between;
     padding-block: var(--size-3);
+  }
+
+  .builder-identity {
+    display: grid;
+    gap: var(--size-1);
+    min-inline-size: 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-title {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-large);
+    font-weight: var(--ui-font-weight-bold);
+    line-height: var(--ui-line-height-tight);
+  }
+
+  .builder-summary {
+    align-items: center;
+    color: var(--ui-text-subtle);
+    display: flex;
+    font-size: var(--ui-font-size-small);
+    gap: var(--size-2);
+  }
+
+  .builder-summary-sep {
+    background-color: var(--ui-border-color);
+    block-size: 1em;
+    inline-size: var(--ui-border-width);
   }
 
   .builder-actions {
@@ -240,31 +314,59 @@ const presets = [
     flex-wrap: wrap;
     gap: var(--size-2);
 
+    :global(svg) {
+      block-size: 1.1em;
+      inline-size: 1.1em;
+    }
+
     :global([hidden]) {
       display: none;
     }
   }
 
-  .builder-preset {
-    min-inline-size: 10rem;
+  .builder-contrast-dot {
+    background-color: var(--ui-text-subtle);
+    block-size: 0.6em;
+    border-radius: 50%;
+    display: inline-block;
+    inline-size: 0.6em;
+
+    [data-state="pass"] & {
+      background-color: var(--ui-success);
+    }
+
+    [data-state="fail"] & {
+      background-color: var(--ui-critical);
+    }
   }
 
   .builder-status {
     align-items: center;
-    align-self: center;
+    background-color: var(--ui-surface-inverse);
+    border-radius: var(--ui-radius-round);
+    box-shadow: var(--ui-shadow-overlay);
+    color: var(--ui-on-inverse);
     display: flex;
-    flex: 1 1 12rem;
-    gap: var(--size-2);
-    justify-content: end;
+    gap: var(--size-3);
+    inset-block-end: var(--size-4);
+    inset-inline-start: 50%;
+    max-inline-size: calc(100vi - var(--size-4) * 2);
+    padding: var(--size-2) var(--size-4);
+    position: fixed;
+    translate: -50% 0;
+    z-index: 21;
 
-    :global([hidden]) {
+    &[hidden] {
       display: none;
     }
 
     p {
-      color: var(--ui-text);
       font-size: var(--ui-font-size-small);
       margin: 0;
+    }
+
+    :global([hidden]) {
+      display: none;
     }
   }
 </style>

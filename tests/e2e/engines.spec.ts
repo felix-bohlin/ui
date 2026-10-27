@@ -4,13 +4,11 @@ import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
   WEBKIT_ARROW_FOCUS_SCROLL,
-  WEBKIT_FALLBACK_ITEM_CLICK,
   WEBKIT_RADIO_NO_WRAP,
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
   type EngineBug,
 } from "./engine-bugs"
-import { settle } from "./fixtures"
 
 const reproduced = new Set<EngineBug>()
 
@@ -23,12 +21,13 @@ const placement = (page: Page) =>
   page.evaluate(() => {
     const box = (id: string) =>
       document.getElementById(id)!.getBoundingClientRect()
+    const round = (value: number) => Math.round(value) || 0
     const trigger = box("trigger")
     const popover = box("popover")
     return {
-      below: Math.round(popover.top - trigger.bottom),
-      endEdge: Math.round(popover.right - trigger.right),
-      startEdge: Math.round(popover.left - trigger.left),
+      below: round(popover.top - trigger.bottom),
+      endEdge: round(popover.right - trigger.right),
+      startEdge: round(popover.left - trigger.left),
     }
   })
 
@@ -155,63 +154,64 @@ const splitButton = (start: string) => `<!doctype html>
   </div>
 </div>`
 
-repro(WEBKIT_FALLBACK_ITEM_CLICK, () => {
+test.describe("an item click closes an end aligned popover", () => {
   for (const fallback of [false, true]) {
-    test(`an item click closes an end aligned popover ${fallback ? "that a position-try fallback placed" : "at its own position"}`, async ({
-      browserName,
-      page: tab,
-    }) => {
-      failsIn(
-        browserName,
-        fallback ? { webkit: WEBKIT_FALLBACK_ITEM_CLICK } : {},
-      )
-      await tab.setContent(splitButton(fallback ? "8px" : "400px"))
-      const popover = tab.locator("#popover")
-      const open = async () => {
-        await tab.locator("#trigger").click()
-        await expect(popover).toBeVisible()
-      }
+    test(
+      fallback ? "that a position-try fallback placed" : "at its own position",
+      async ({ page: tab }) => {
+        await tab.setContent(splitButton(fallback ? "8px" : "400px"))
+        const popover = tab.locator("#popover")
+        const open = async () => {
+          await tab.locator("#trigger").click()
+          await expect(popover).toBeVisible()
+        }
 
-      await open()
-      await settle(popover)
-      expect(
-        await placement(tab).then(({ endEdge, startEdge }) =>
-          fallback ? startEdge : endEdge,
-        ),
-        fallback
-          ? "the popover starts at its trigger"
-          : "the popover ends at its trigger",
-      ).toBe(0)
-      await popover.evaluate((element: HTMLElement) => element.hidePopover())
-      await expect(popover).toBeHidden()
-
-      const stillOpen: string[] = []
-      for (const delay of [
-        null,
-        null,
-        null,
-        ...Array.from({ length: 12 }, (_, index) => index * 30),
-      ]) {
         await open()
-        if (delay === null) await tab.locator("#item").click()
-        else {
-          await tab.waitForTimeout(delay)
-          await tab.locator("#item").click({ force: true })
-        }
-        const closed = await popover
-          .waitFor({ state: "hidden", timeout: 2000 })
-          .then(() => true)
-          .catch(() => false)
-        if (!closed) {
-          stillOpen.push(delay === null ? "click" : `${delay}ms`)
-          await popover.evaluate((element: HTMLElement) =>
-            element.hidePopover(),
+        // The opening transition can still be scaling it, so poll until it settles
+        await expect
+          .poll(
+            () =>
+              placement(tab).then(({ endEdge, startEdge }) =>
+                fallback ? startEdge : endEdge,
+              ),
+            {
+              message: fallback
+                ? "the popover starts at its trigger"
+                : "the popover ends at its trigger",
+            },
           )
-          await expect(popover).toBeHidden()
+          .toBe(0)
+        await popover.evaluate((element: HTMLElement) => element.hidePopover())
+        await expect(popover).toBeHidden()
+
+        const stillOpen: string[] = []
+        for (const delay of [
+          null,
+          null,
+          null,
+          ...Array.from({ length: 12 }, (_, index) => index * 30),
+        ]) {
+          await open()
+          if (delay === null) await tab.locator("#item").click()
+          else {
+            await tab.waitForTimeout(delay)
+            await tab.locator("#item").click({ force: true })
+          }
+          const closed = await popover
+            .waitFor({ state: "hidden", timeout: 2000 })
+            .then(() => true)
+            .catch(() => false)
+          if (!closed) {
+            stillOpen.push(delay === null ? "click" : `${delay}ms`)
+            await popover.evaluate((element: HTMLElement) =>
+              element.hidePopover(),
+            )
+            await expect(popover).toBeHidden()
+          }
         }
-      }
-      expect(stillOpen, "clicks after opening that left it open").toEqual([])
-    })
+        expect(stillOpen, "clicks after opening that left it open").toEqual([])
+      },
+    )
   }
 })
 

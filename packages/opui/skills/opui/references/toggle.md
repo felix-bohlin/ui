@@ -171,7 +171,7 @@ export default function Standalone() {
     <>
       <ToggleButton label="Toggle me" name="standalone-demo-1" />
       <ToggleButton name="standalone-demo-2">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></svg>{" "}
         Toggle with icon
       </ToggleButton>
     </>

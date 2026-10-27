@@ -383,6 +383,9 @@ interaction(
     await expect(slider).toHaveValue(before)
     await expect(output).toHaveText(`${before}°`)
     await expect(slider).toHaveAttribute("aria-valuetext", `${before}°`)
+    await slider.focus()
+    await page.keyboard.press("ArrowRight")
+    await expect(output).toHaveText(`${Number(before) + 1}°`)
   },
 )
 

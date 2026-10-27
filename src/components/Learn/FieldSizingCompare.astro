@@ -70,12 +70,12 @@ const columns = [
         var(--_field-padding-block-fit) * 2 + var(--_max-lines) * 1lh
       );
     }
+  }
 
-    & :global(.ui-textarea textarea) {
-      min-block-size: calc(
-        var(--_field-padding-block-fit) * 2 + var(--_min-lines) * 1lh
-      );
-    }
+  .field-sizing-compare-column[data-sizing="content"] :global(textarea) {
+    min-block-size: calc(
+      var(--_field-padding-block-fit) * 2 + var(--_min-lines) * 1lh
+    );
   }
 
   .field-sizing-compare-columns {

@@ -51,10 +51,10 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
       </li>
       <li>
         Padding and an equal negative margin leave room for the thumb and its
-        halo without moving anything. The inset is half a thumb, and at least
-        {" "}<code>0.5rem</code> for the halo. <code>view-timeline-inset</code> takes
-        it back out of the timeline, <code>outline-offset</code> out of the focus
-        ring
+        halo without moving anything. The inset is how far the thumb sticks out
+        past the input's height, plus a <code>0.5rem</code> halo, and at least the
+        halo. <code>view-timeline-inset</code> takes it back out of the timeline,
+        {" "}<code>outline-offset</code> out of the focus ring
       </li>
       <li>
         <code>display: flex</code> brings the datalist back, and <code
@@ -85,7 +85,7 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
 }
 
 input[type="range"] {
-  --inset: max(0.5rem, 3ex / 2);
+  --inset: max(0.5rem, 3ex / 2 + 0.5rem - 1.25rem / 2);
   animation-fill-mode: both;
   animation-name: range-fill;
   animation-range: contain;
@@ -93,7 +93,7 @@ input[type="range"] {
   animation-timing-function: linear;
   box-sizing: content-box;
   margin: calc(-1 * var(--inset));
-  outline-offset: calc(1ex - var(--inset));
+  outline-offset: calc(max(0px, (3ex - 1.25rem) / 2) + 2px - var(--inset));
   overflow: hidden;
   padding: var(--inset);
   timeline-scope: --thumb;

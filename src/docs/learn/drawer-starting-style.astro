@@ -50,15 +50,12 @@ import Basics from "../../component-examples/drawer/Basics.astro"
     <Code
       lang="css"
       code={`.drawer {
-  transition:
-    display 0.2s allow-discrete,
-    overlay 0.2s allow-discrete,
-    translate 0.2s;
-}
-
-.drawer.inline-start {
   inset-inline-end: auto;
   inset-inline-start: 0;
+  transition:
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete,
+    translate 0.3s;
   translate: calc(-100% * var(--dir)) 0;
 }
 
@@ -66,9 +63,7 @@ import Basics from "../../component-examples/drawer/Basics.astro"
   translate: 0 0;
 
   @starting-style {
-    &.inline-start {
-      translate: calc(-100% * var(--dir)) 0;
-    }
+    translate: calc(-100% * var(--dir)) 0;
   }
 }`}
     />

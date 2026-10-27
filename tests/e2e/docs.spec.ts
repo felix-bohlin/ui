@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { instantScrolling } from "./fixtures"
 
 const pages = (directory: string) =>
   readdirSync(new URL(`../../src/docs/${directory}/`, import.meta.url))
@@ -19,6 +20,8 @@ const DOCS_PAGES = [
   ...pages("components"),
   ...pages("guide"),
 ].toSorted()
+
+test.beforeEach(({ page }) => instantScrolling(page))
 
 const visiblePicker = (page: Page) =>
   page

@@ -394,7 +394,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
 <style is:global>
   @layer theme.base {
-    .hero {
+    html {
       --ui-gray-chroma: 0.025;
       --ui-gray-hue: 250;
       --ui-surface: light-dark(
@@ -414,8 +414,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
   }
 
-  html,
-  .hero {
+  html {
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
     --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
     --blueprint-line-major: light-dark(
@@ -516,10 +515,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   /* Hero */
   .hero {
-    background-color: light-dark(
-      oklch(from var(--ui-surface) l c h / 60%),
-      oklch(from var(--ui-surface) l c h / 50%)
-    );
     border-block-end: 1px solid var(--blueprint-line-major);
     padding-block: var(--size-8);
     position: relative;

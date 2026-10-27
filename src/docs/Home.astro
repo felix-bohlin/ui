@@ -1,9 +1,6 @@
 ---
 import {
   Button,
-  Callout,
-  CalloutContent,
-  CalloutIcon,
   Carousel,
   Checkbox,
   Chip,
@@ -26,6 +23,7 @@ import { components } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
+import { componentName } from "../utils/names"
 import { packageVersion, prerelease, unreleased } from "../utils/release"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
@@ -84,7 +82,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 <Default description={description}>
   <main id="main-content" class="blueprint">
     <section class="hero ui-palette" aria-labelledby="main-heading">
-      <div class="hero-inner container is-wide">
+      <div class="hero-inner">
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
@@ -177,9 +175,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           </div>
         </figure>
       </div>
+
+      <ChipRain />
     </section>
 
-    <div class="sheets container is-wide">
+    <div class="sheets">
       <section class="sheet" aria-labelledby="components-heading">
         <header class="sheet-header">
           <h2 class="ui-h2" id="components-heading">Components</h2>
@@ -282,15 +282,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
               max={100}
               aria-label="Progress"
             />
-
-            <Callout severity="info" variant="tonal">
-              <CalloutIcon />
-              <CalloutContent>
-                <h3>Want the rest?</h3>
-                The theme builder adds fonts, density, shadows and status colors,
-                checks the contrast and hands you the CSS.
-              </CalloutContent>
-            </Callout>
           </div>
         </div>
       </section>
@@ -304,22 +295,43 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <ul class="learn-showcase">
           {
             featuredPosts.map((post) => (
-              <ComponentCard name={post.title} href={`/learn/${post.slug}`}>
-                <dl class="then-now">
-                  <div>
-                    <dt>Then</dt>
-                    <dd>
-                      <s set:html={formatInline(post.before ?? "", link)} />
-                    </dd>
+              <li>
+                <article class="ui-card ui-outlined learn-card">
+                  <hgroup>
+                    <h3>
+                      <a href={link(`/learn/${post.slug}`)}>{post.title}</a>
+                    </h3>
+                    <p>{post.description}</p>
+                  </hgroup>
+                  <div class="ui-content">
+                    <dl class="then-now">
+                      <div>
+                        <dt>Then</dt>
+                        <dd>
+                          <s set:html={formatInline(post.before ?? "", link)} />
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>Now</dt>
+                        <dd>
+                          <code>{post.technique}</code>
+                        </dd>
+                      </div>
+                    </dl>
+                    <ul aria-label="Tags" class="learn-chips">
+                      {post.component && (
+                        <li>
+                          <Chip
+                            size="small"
+                            variant="outlined"
+                            label={componentName(post.component)}
+                          />
+                        </li>
+                      )}
+                    </ul>
                   </div>
-                  <div>
-                    <dt>Now</dt>
-                    <dd>
-                      <code>{post.technique}</code>
-                    </dd>
-                  </div>
-                </dl>
-              </ComponentCard>
+                </article>
+              </li>
             ))
           }
         </ul>
@@ -332,8 +344,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       </section>
     </div>
   </main>
-
-  <ChipRain />
 </Default>
 
 <script>
@@ -459,7 +469,18 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   }
 
   #main-content {
+    --site-page-gutters: calc(var(--site-gap) * 2);
+
     padding-block-end: var(--size-8);
+  }
+
+  .hero-inner,
+  .sheets {
+    margin-inline: auto;
+    max-inline-size: min(
+      calc(100% - var(--site-page-gutters)),
+      calc(var(--site-content-lg) - var(--site-page-gutters))
+    );
   }
 
   .sheet {
@@ -501,6 +522,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     );
     border-block-end: 1px solid var(--blueprint-line-major);
     padding-block: var(--size-8);
+    position: relative;
 
     @media (width >= 900px) {
       padding-block: var(--size-10);
@@ -869,10 +891,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     display: grid;
     gap: var(--size-5);
     padding: var(--size-5);
-
-    h3 {
-      font-size: var(--ui-font-size-body);
-    }
   }
 
   .palette-strip {
@@ -900,20 +918,85 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   .learn-showcase {
     display: grid;
     gap: var(--size-4);
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
     list-style: none;
     margin: 0;
     padding: 0;
+  }
 
-    :global(.showcase-preview) {
-      align-self: start;
+  .learn-card {
+    block-size: 100%;
+    gap: var(--size-4);
+    position: relative;
+    transition: border-color 0.2s;
+
+    .ui-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--size-4);
     }
+
+    &:has(a:hover) {
+      border-color: var(--ui-primary);
+    }
+
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
+    }
+
+    hgroup {
+      display: grid;
+      gap: var(--size-1);
+
+      > * {
+        margin: 0;
+      }
+
+      p {
+        color: var(--ui-text);
+        font-size: var(--ui-font-size-small);
+        text-wrap: pretty;
+      }
+    }
+
+    h3 {
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-h5);
+      line-height: var(--font-lineheight-1);
+      text-wrap: balance;
+    }
+
+    h3 a {
+      color: inherit;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+
+  .learn-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1);
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
   }
 
   .then-now {
     display: grid;
-    gap: var(--size-4);
-    inline-size: 100%;
+    gap: var(--size-3);
     margin: 0;
 
     dt {
@@ -941,7 +1024,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     dd > code {
       background: none;
       color: var(--ui-primary-text);
-      font-size: var(--font-size-3);
+      font-size: var(--ui-font-size-body);
       font-weight: var(--ui-font-weight-bold);
       padding: 0;
     }

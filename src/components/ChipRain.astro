@@ -12,6 +12,10 @@ const features = Object.keys(featureToComponents).sort()
 
 <script>
   const STORAGE_KEY = "opui-chip-rain-seen"
+  const LANE_WIDTH = 72
+  const CHIP_WIDTH = 140
+  const MAX_LEVEL = 3
+  const MAX_LEVEL_NARROW = 2
 
   function startRain() {
     const rain = document.querySelector<HTMLElement>(".chip-rain")
@@ -26,26 +30,31 @@ const features = Object.keys(featureToComponents).sort()
 
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
-    const drops = rain.querySelectorAll<HTMLElement>(".raindrop")
-    let remaining = drops.length
-
-    drops.forEach((drop) => {
-      drop.style.setProperty("--delay", `${Math.random() * 2.5}s`)
-      drop.style.setProperty("--ui-duration", `${2.5 + Math.random() * 2}s`)
-      drop.style.setProperty("--rotate", `${Math.random() * 90 - 45}deg`)
-      drop.style.setProperty("--spin", `${Math.random() * 360 - 180}deg`)
-      drop.style.setProperty("--x", `${Math.random() * 95}vw`)
-      drop.addEventListener(
-        "animationend",
-        () => {
-          remaining -= 1
-          if (remaining === 0) rain.remove()
-        },
-        { once: true },
-      )
-    })
-
     rain.hidden = false
+    rain.style.setProperty("--fall", `${rain.clientHeight}px`)
+
+    const lanes = Math.max(
+      1,
+      Math.floor((rain.clientWidth - CHIP_WIDTH) / LANE_WIDTH),
+    )
+    const maxLevel = rain.clientWidth < 600 ? MAX_LEVEL_NARROW : MAX_LEVEL
+    const levels = Array.from({ length: lanes }, () => 0)
+
+    rain.querySelectorAll<HTMLElement>(".raindrop").forEach((drop) => {
+      const lane = Math.floor(((Math.random() + Math.random()) / 2) * lanes)
+      const level = levels[lane]
+      if (level >= maxLevel) {
+        drop.remove()
+        return
+      }
+      levels[lane] = level + 1
+      drop.style.setProperty("--delay", `${level * 1.8 + Math.random() * 1.2}s`)
+      drop.style.setProperty("--level", String(level))
+      drop.style.setProperty("--rest", `${Math.random() * 16 - 8}deg`)
+      drop.style.setProperty("--rotate", `${Math.random() * 90 - 45}deg`)
+      drop.style.setProperty("--ui-duration", `${1.2 + Math.random() * 0.6}s`)
+      drop.style.setProperty("--x", `${(lane + Math.random()) * LANE_WIDTH}px`)
+    })
   }
 
   startRain()
@@ -56,8 +65,8 @@ const features = Object.keys(featureToComponents).sort()
     inset: 0;
     overflow: hidden;
     pointer-events: none;
-    position: fixed;
-    z-index: var(--layer-important);
+    position: absolute;
+    z-index: 1;
 
     &[hidden] {
       display: none;
@@ -65,21 +74,21 @@ const features = Object.keys(featureToComponents).sort()
   }
 
   .raindrop {
-    animation: chip-fall var(--ui-duration) var(--ease-in-2) var(--delay) both;
+    animation: chip-fall var(--ui-duration) var(--ease-bounce-2) var(--delay)
+      both;
     box-shadow: var(--shadow-2);
-    left: var(--x);
+    inset-block-end: calc(var(--level) * var(--ui-chip-size-small) * 0.85);
+    inset-inline-start: var(--x);
     position: absolute;
-    top: 0;
   }
 
   @keyframes chip-fall {
     from {
-      transform: translateY(-120%) rotate(var(--rotate));
+      transform: translateY(calc(-1 * var(--fall) - 100%)) rotate(var(--rotate));
     }
 
     to {
-      transform: translateY(calc(100dvh + 100%))
-        rotate(calc(var(--rotate) + var(--spin)));
+      transform: translateY(0) rotate(var(--rest));
     }
   }
 </style>

@@ -1,19 +1,8 @@
 import { execFileSync } from "node:child_process"
-import { existsSync, readFileSync } from "node:fs"
-import { matchesGlob, resolve } from "node:path"
-import { fileProblems } from "../../scripts/check-file.mjs"
-import {
-  code,
-  input,
-  project,
-  run,
-  styledGlobs,
-  suites,
-  vitest,
-} from "./checks.mjs"
-
-const LINTED = /\.(?:astro|cjs|js|jsx|mjs|svelte|ts|tsx|vue)$/
-const STYLED = styledGlobs()
+import { existsSync } from "node:fs"
+import { resolve } from "node:path"
+import { checkFiles, report } from "../../scripts/check-staged.mjs"
+import { code, input, project } from "./checks.mjs"
 
 const git = (...args) => {
   try {
@@ -57,45 +46,16 @@ try {
     .filter((file) => existsSync(resolve(project, file)))
     .toSorted()
   if (!files.length) process.exit(0)
-  const linted = files.filter((file) => LINTED.test(file))
-  const styled = files.filter((file) =>
-    STYLED.some((glob) => matchesGlob(file, glob)),
-  )
   const groups = [
-    [
-      "Characters, colors and declaration order",
-      (
-        await Promise.all(
-          files.map((file) =>
-            fileProblems(file, readFileSync(resolve(project, file), "utf-8")),
-          ),
-        )
-      ).flat(),
-    ],
-    [
-      "Prettier",
-      run("prettier", ["--check", "--ignore-unknown", ...files], project),
-    ],
-    [
-      "oxlint",
-      linted.length
-        ? run("oxlint", ["--deny-warnings", ...linted], project)
-        : [],
-    ],
-    ["Stylelint", styled.length ? run("stylelint", styled, project) : []],
-    ["Unit tests", vitest(suites(files))],
+    ...(await checkFiles(files, project)),
     ["Ratchets", ratchets(base)],
   ].filter(([, problems]) => problems.length)
   if (groups.length) {
     console.error(
-      [
+      report(
+        groups,
         "The checks found problems in the files this session changed. Fix them before you finish; pnpm check is still the gate.",
-        ...groups.flatMap(([name, problems]) => [
-          "",
-          `${name}:`,
-          ...problems.map((problem) => `  ${problem}`),
-        ]),
-      ].join("\n"),
+      ),
     )
     process.exit(2)
   }

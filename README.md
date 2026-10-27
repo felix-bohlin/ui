@@ -51,7 +51,7 @@ pnpm install
 pnpm dev
 ```
 
-Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
+Run `pnpm check` before you commit. `pnpm check:fast` skips the build and runs the other checks side by side. The `pre-commit` hook in `.githooks` runs the character, color and declaration order checks, Prettier, oxlint and Stylelint on the staged files, as they are in the working tree, and the `TODO.md` and guide tests when those are staged (`scripts/check-staged.mjs`); `git commit --no-verify` skips it.
 
 Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). `pnpm check` sets it, so it builds and checks them as CI does. The stress test pages at `/tests/` also render in `pnpm dev`.
 

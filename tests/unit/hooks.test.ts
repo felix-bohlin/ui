@@ -8,9 +8,10 @@ import {
   writeFileSync,
 } from "node:fs"
 import { tmpdir } from "node:os"
-import { join } from "node:path"
+import { join, resolve } from "node:path"
 import { describe, expect, test } from "vitest"
 import { styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
+import { checkFiles, report } from "../../scripts/check-staged.mjs"
 
 const EM_DASH = String.fromCodePoint(0x2014)
 
@@ -221,5 +222,49 @@ describe("Git LFS hooks", () => {
     expect(result.stdout).toBe(
       `lfs ${hook.replace(".githooks/", "")} origin main\n`,
     )
+  })
+})
+
+describe("pre-commit", () => {
+  const dir = mkdtempSync(join(tmpdir(), "opui-staged-"))
+  const git = (...args: string[]) =>
+    execFileSync("git", args, { cwd: dir, encoding: "utf-8" })
+  git("init", "--quiet")
+  const stage = (file: string, text: string) => {
+    writeFileSync(join(dir, file), text)
+    git("add", file)
+  }
+  const run = () =>
+    spawnSync("sh", [resolve(".githooks/pre-commit")], {
+      cwd: dir,
+      encoding: "utf-8",
+    })
+
+  test("passes with nothing staged", () => {
+    expect(run().status).toBe(0)
+  })
+
+  test("passes clean staged files", () => {
+    stage("notes.md", "# Notes\n")
+    expect(run().status).toBe(0)
+  })
+
+  test("rejects a staged file with a forbidden character", () => {
+    stage("notes.md", `# Notes ${EM_DASH} more\n`)
+    const result = run()
+    expect(result.status).toBe(1)
+    expect(result.stderr).toContain("notes.md:1")
+    expect(result.stderr).toContain("git commit --no-verify")
+  })
+
+  test("checkFiles groups the problems by check", async () => {
+    stage("notes.md", `# Notes ${EM_DASH} more\n`)
+    stage("styles.css", "a{color:red}\n")
+    const groups = await checkFiles(["notes.md", "styles.css"], dir)
+    expect(groups.map(([name]) => name)).toEqual([
+      "Characters, colors and declaration order",
+      "Prettier",
+    ])
+    expect(report(groups, "Intro")).toMatch(/^Intro\n\nCharacters/)
   })
 })

@@ -170,7 +170,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 5.1 `<Example>` and Demos
 
-- **Layout**: Use `row` or `column`. Use `centered` to center items, `spacious` for more padding.
+- **Layout**: Use `row` or `column`. Use `centered` to center items, `spacious` for more padding. Use `wide` to let the example fill the content column past the `80ch` measure the text keeps (any direct child of a section can opt in with the `is-wide` class).
 - **Preview**: Use `Example.Preview` with `slot="preview-html"` or `slot="preview-astro"`.
 - **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers - see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework.
 - **Controls**: Use `slot="controls"` for interactive elements (like `UISwitch`) that control the preview state.

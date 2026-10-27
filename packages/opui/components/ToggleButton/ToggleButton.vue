@@ -59,7 +59,6 @@ const change = (event: Event) => {
       :value="value"
       @change="change"
       v-bind="inputAttrs"
-    />
-    <slot>{{ label }}</slot>
+    />{{ " " }}<slot>{{ label }}</slot>
   </label>
 </template>

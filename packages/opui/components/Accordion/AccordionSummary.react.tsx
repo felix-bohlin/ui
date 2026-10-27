@@ -10,7 +10,7 @@ export default function AccordionSummary({
 }: Props) {
   return (
     <summary className={cx([className])} {...rest}>
-      {children}
+      {children}{" "}
       {marker === undefined ? (
         <svg
           aria-hidden="true"

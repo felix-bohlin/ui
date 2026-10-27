@@ -1,0 +1,14 @@
+@layer components.extended {
+  :where(.ui-copy) {
+    display: contents;
+
+    &:not(:defined) :where([command="--copy"]),
+    &:not(:defined) ~ :where([command="--copy"]) {
+      display: none;
+    }
+  }
+
+  :where(.ui-button[command="--copy"][data-copied]) {
+    --_accent: var(--ui-success);
+  }
+}

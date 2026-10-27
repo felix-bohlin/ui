@@ -1,0 +1,138 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import CopyCSS from "@opui/css/components/copy.css?raw"
+import CopyJS from "@opui/elements/copy.js?raw"
+
+import copyApi from "../../component-api/copy/api"
+
+export const description =
+  "A button that copies text or a field's value to the clipboard."
+---
+
+<Component
+  description={description}
+  slug="copy"
+  browserSupport={["invoker-commands"]}
+  apis={[{ title: "Copy API", api: copyApi }]}
+  changelogPaths={[
+    { path: "packages/opui/components/Copy/Copy.astro", type: "component" },
+    { path: "src/docs/components/copy.astro", type: "docs" },
+    { path: "src/component-examples/copy", type: "docs" },
+    { path: "packages/opui/css/components/copy.css", type: "css" },
+    { path: "packages/opui/elements/copy.js", type: "component" },
+    { path: "src/component-api/copy", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "copy.css", code: CopyCSS, lang: "css" },
+    { title: "copy.js", code: CopyJS, lang: "js" },
+  ]}
+>
+  <Fragment slot="title">Copy</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A button that copies text or a field's value to the clipboard. The <code
+        >&lt;opui-copy&gt;</code
+      > custom element wraps what to copy, and any <DocLink
+        href="/components/button">Button</DocLink
+      > points at it with <code>commandfor</code> and <code
+        >command="--copy"</code
+      >.
+    </p>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A value people paste somewhere else, like an <a href="#basics"
+        >invite link</a
+      >.
+    </li>
+    <li slot="when">
+      A command or a snippet people run, like an <a href="#snippet"
+        >install command</a
+      >.
+    </li>
+    <li slot="when-not">
+      Confirming something that happened elsewhere, like saved changes. Use a <DocLink
+        href="/components/toast">Toast</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Text people edit before they use it, like a message. Use a <DocLink
+        href="/components/textarea">Textarea</DocLink
+      >, which people copy from themselves.
+    </li>
+  </Usage>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Wrap the field or the text in <code>Copy</code> with an <code>id</code>,
+        and give a <code>Button</code>
+        <code>commandfor</code> with that id and
+        <code>command="--copy"</code>. A field's value is copied, otherwise the
+        text. The button turns green and a screen reader hears "Copied" for two
+        seconds; <code>copiedLabel</code> changes the words.
+      </p>
+      <p slot="html">
+        Wrap the field or the text in <code
+          >&lt;opui-copy class="ui-copy"&gt;</code
+        > with an id, end it with <code
+          >&lt;span class="ui-sr-only" role="status"&gt;</code
+        >, give a button <code>commandfor</code> with that id and <code
+          >command="--copy"</code
+        >, and import <code>opui-css/elements/copy.js</code>. A field's value is
+        copied, otherwise the text. The button gets <code>data-copied</code>,
+        which turns it green, and a screen reader hears "Copied" for two
+        seconds; <code>copied-label</code> changes the words.
+      </p>
+    </Conditional>
+    <AutoExample name="Basics" row />
+  </section>
+
+  <section>
+    <h2 id="snippet">Snippet</h2>
+    <p>
+      The button can sit inside the element too. Buttons are left out of the
+      copied text, so an icon button next to the code is fine.
+    </p>
+    <AutoExample name="Snippet" row />
+  </section>
+
+  <section>
+    <h2 id="without-javascript">Without JavaScript</h2>
+    <p>
+      Until <code>copy.js</code> loads, a copy button inside the element or right
+      after it is hidden, and the text can still be selected. Put the button in one
+      of those places, or hide it yourself. <PropOrClass
+        prop="Copy"
+        class=".ui-copy"
+      /> has <code>display: contents</code>, so it doesn't change the layout.
+    </p>
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The announcement goes through a polite live region inside the element,
+        so it doesn't interrupt. The button keeps its name.
+      </li>
+      <li>
+        Where the clipboard is blocked, the element selects the text instead, so
+        people can copy it themselves.
+      </li>
+      <li>
+        The green <code>data-copied</code> state is a second cue next to the announcement,
+        not the only one.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

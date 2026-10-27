@@ -1,0 +1,172 @@
+---
+import Component from "../../layouts/Component.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import CalloutCSS from "@opui/css/components/callout.css?raw"
+import ToasterCSS from "@opui/css/components/toaster.css?raw"
+import ToasterJS from "@opui/elements/toaster.js?raw"
+
+import toastApi from "../../component-api/toast/api"
+
+export const description =
+  "Short messages that confirm an action and dismiss themselves."
+---
+
+<Component
+  description={description}
+  slug="toast"
+  browserSupport={[
+    "container-style-queries",
+    "invoker-commands",
+    "light-dark",
+    "popover",
+    "relative-color",
+    "scope",
+    "starting-style",
+  ]}
+  apis={[{ title: "Toaster API", api: toastApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Toaster/Toaster.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/toast.astro", type: "docs" },
+    { path: "src/component-examples/toast", type: "docs" },
+    { path: "packages/opui/css/components/toaster.css", type: "css" },
+    { path: "packages/opui/elements/toaster.js", type: "component" },
+    { path: "src/component-api/toast", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "toaster.css", code: ToasterCSS, lang: "css" },
+    { title: "toaster.js", code: ToasterJS, lang: "js" },
+    {
+      title: "callout.css",
+      code: CalloutCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+  ]}
+>
+  <Fragment slot="title">Toast</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      Short messages that confirm an action and dismiss themselves. Each toast
+      is a <DocLink href="/components/callout">Callout</DocLink>, stacked in a
+      popover by the <code>&lt;opui-toaster&gt;</code> custom element.
+    </p>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Confirming an action that just happened, like <a href="#basics"
+        >saved changes</a
+      >.
+    </li>
+    <li slot="when">
+      A notice that needs no answer, like a <a href="#severities">new version</a
+      >.
+    </li>
+    <li slot="when-not">
+      A message people must read or act on, like errors in a form. Use a <DocLink
+        href="/components/callout">Callout</DocLink
+      > on the page.
+    </li>
+    <li slot="when-not">
+      Confirming a copy to the clipboard. <DocLink href="/components/copy"
+        >Copy</DocLink
+      > announces its own.
+    </li>
+  </Usage>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Put one <code>Toaster</code> with an <code>id</code> on the page. A <code
+          >Button</code
+        > with <code>commandfor</code> set to that id and <code
+          >command="--toast"</code
+        > shows the text in its <code>data-toast</code> attribute.
+      </p>
+      <p slot="html">
+        Put one <code>&lt;opui-toaster class="ui-toaster"&gt;</code> with an id, an
+        <code>&lt;ol popover="manual"&gt;</code> and a <code
+          >&lt;div class="ui-sr-only" role="status"&gt;</code
+        > on the page, and import <code>opui-css/elements/toaster.js</code>. A
+        button with <code>commandfor</code> set to that id and <code
+          >command="--toast"</code
+        > shows the text in its <code>data-toast</code> attribute.
+      </p>
+    </Conditional>
+    <AutoExample name="Basics" row />
+  </section>
+
+  <section>
+    <h2 id="severities">Severities</h2>
+    <p>
+      <code>data-toast-severity</code> takes <code>info</code>, <code
+        >success</code
+      >, <code>warning</code>, <code>critical</code> or <code>neutral</code>,
+      and colors the toast like a Callout of that severity. The words carry the
+      meaning, so write them so they work without the color.
+    </p>
+    <AutoExample name="Severities" row />
+  </section>
+
+  <section>
+    <h2 id="from-a-script">From a script</h2>
+    <p>
+      <code>show(message, options)</code> shows a toast from your own code, like after
+      a request finishes. <code>severity</code> and <code>duration</code>
+      are optional.
+    </p>
+    <Code
+      lang="js"
+      code={`document
+  .getElementById("toaster")
+  .show("Changes saved", { severity: "success" })`}
+    />
+  </section>
+
+  <section>
+    <h2 id="duration">Duration</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A toast stays for 5 seconds, or <code>duration</code> milliseconds. The timer
+        pauses while the pointer is over the toasts or focus is in them, and every
+        toast has a close button.
+      </Fragment>
+      <Fragment slot="html">
+        A toast stays for 5 seconds, or the <code>duration</code> attribute in milliseconds.
+        The timer pauses while the pointer is over the toasts or focus is in them,
+        and every toast has a close button.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Each toast is announced through a polite live region that sits outside
+        the popover, so it's in the page before the first toast shows.
+      </li>
+      <li>
+        The toasts sit where the toaster is in the page, so Tab reaches their
+        close buttons from there. Put the toaster near the content it confirms,
+        or at the end of the page.
+      </li>
+      <li>
+        Under a modal Dialog or Drawer, the toasts can't be focused or closed,
+        and dismiss themselves.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

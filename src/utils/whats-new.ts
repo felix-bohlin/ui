@@ -447,6 +447,12 @@ export const whatsNew = {
     `Corners are <a href="#api"><code>--ui-radius</code></a> (8px) instead of Open Props <code>--radius-2</code> (5px).`,
     `<a href="#button">Button</a> and <a href="#link">link</a> chips only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
+  copy: [
+    {
+      default: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and announces it, run by the <code>&lt;opui-copy&gt;</code> custom element, which the component loads.`,
+      html: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and announces it. Import <code>opui-css/elements/copy.js</code> for the <code>&lt;opui-copy&gt;</code> custom element that runs it.`,
+    },
+  ],
   "description-list": [
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>DescriptionListItem</code></a>. The <code>DescriptionList.Item</code> aliases are gone.`,
@@ -1243,6 +1249,12 @@ export const whatsNew = {
     ),
     `Styles use logical properties only, so the <a href="#variants">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
+  toast: [
+    {
+      default: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <code>show()</code>, run by the <code>&lt;opui-toaster&gt;</code> custom element, which the component loads.`,
+      html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <code>show()</code>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them.`,
+    },
+  ],
   toggle: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> on <code>ToggleGroup</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `A <a href="#toggle-button">standalone toggle</a> takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip <a href="#toggle-group">groups</a>.`,
@@ -1383,10 +1395,12 @@ export const highlighted = new Set<string>([
   "button",
   "card",
   "carousel",
+  "copy",
   "layout",
   "menu",
   "number-stepper",
   "tabs",
+  "toast",
   "typography",
 ] satisfies (keyof typeof whatsNew)[])
 

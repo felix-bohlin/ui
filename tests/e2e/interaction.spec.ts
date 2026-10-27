@@ -1248,3 +1248,106 @@ test("the data-table block selects and sorts its rows together", async ({
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
+const stubClipboard = (page: Page) =>
+  page.evaluate(() => {
+    const copied: string[] = []
+    Object.assign(window, { copied })
+    navigator.clipboard.writeText = async (text: string) => {
+      copied.push(text)
+    }
+  })
+
+const copiedTexts = (page: Page) =>
+  page.evaluate(() => (window as unknown as { copied: string[] }).copied)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies the field value and announces it",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
+    await expect(button).toHaveAttribute("data-copied", "")
+    await expect(root.getByRole("status")).toHaveText("Copied")
+    await expect(button).not.toHaveAttribute("data-copied", { timeout: 4000 })
+  },
+)
+
+interaction(
+  "copy",
+  "Snippet",
+  "copy leaves the button out of the copied text",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect.poll(() => copiedTexts(page)).toEqual(["npm install opui-css"])
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
+  "toast shows from its button and closes with its close button and Esc",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Save changes" }).click()
+    await expect(toasts).toHaveCount(1)
+    await expect(toasts.first()).toHaveText("Changes saved")
+    await expect(toasts.first()).toHaveClass(/ui-success/)
+    await expect(toaster.getByRole("status")).toHaveText("Changes saved")
+    await toasts.first().getByRole("button", { name: "Close" }).click()
+    await expect(toasts).toHaveCount(0)
+    await expect(toaster.locator("ol")).toBeHidden()
+
+    await root.getByRole("button", { name: "Save changes" }).click()
+    await toasts.first().getByRole("button", { name: "Close" }).focus()
+    await page.keyboard.press("Escape")
+    await expect(toasts).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
+  "toast dismisses itself and waits while hovered",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await toaster.evaluate(
+      (
+        element: HTMLElement & {
+          show: (message: string, options?: object) => void
+        },
+      ) => element.show("Gone soon", { duration: 300 }),
+    )
+    await expect(toasts).toHaveCount(1)
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+
+    await toaster.evaluate(
+      (
+        element: HTMLElement & {
+          show: (message: string, options?: object) => void
+        },
+      ) => element.show("Stays while hovered", { duration: 600 }),
+    )
+    await toasts.first().hover()
+    await page.waitForTimeout(1000)
+    await expect(toasts).toHaveCount(1)
+    await page.mouse.move(0, 0)
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+  },
+)

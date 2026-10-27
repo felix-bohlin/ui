@@ -36,6 +36,7 @@
 @import "./components/accordion.css";
 @import "./components/badge.css";
 @import "./components/button-group.css";
+@import "./components/copy.css";
 @import "./components/dialog.css";
 @import "./components/form.css";
 @import "./components/list.css";
@@ -44,6 +45,7 @@
 @import "./components/select.css";
 @import "./components/text-field.css";
 @import "./components/textarea.css";
+@import "./components/toaster.css";
 @import "./components/toggle-group.css";
 @import "./components/tooltip.css";
 

@@ -536,10 +536,11 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Anchor`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own.
+- `Anchor`, `Copy`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own. The green copied state of a `Copy` button is a second cue next to its announcement.
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
+- `Toaster`: every toast is a `Callout`, whose boundary is a real border.
 - `NumberStepper`: `number-stepper.css` only sizes the step buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 

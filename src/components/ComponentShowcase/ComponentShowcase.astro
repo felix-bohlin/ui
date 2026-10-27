@@ -217,6 +217,18 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       </div>
     </Fragment>
 
+    <Fragment slot="copy">
+      <div aria-hidden="true" class="ui-layout-row ui-small" inert>
+        <TextField
+          hideLabel
+          label="Invite link"
+          readonly
+          value="opui.dev/invite/8f3k"
+        />
+        <Button variant="outlined">Copy</Button>
+      </div>
+    </Fragment>
+
     <Fragment slot="description-list">
       <DescriptionList aria-hidden="true" bordered dotted>
         <DescriptionListItem>
@@ -417,6 +429,17 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
     <Fragment slot="textarea">
       <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
+    </Fragment>
+
+    <Fragment slot="toast">
+      <div aria-hidden="true" class="ui-layout-column ui-x-small" inert>
+        <Callout severity="success">
+          <CalloutContent><p>Changes saved</p></CalloutContent>
+        </Callout>
+        <Callout severity="info">
+          <CalloutContent><p>A new version is available</p></CalloutContent>
+        </Callout>
+      </div>
     </Fragment>
 
     <Fragment slot="toggle">

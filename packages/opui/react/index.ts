@@ -21,6 +21,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.react"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.react"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.react"
 export { default as Chip } from "../components/Chip/Chip.react"
+export { default as Copy } from "../components/Copy/Copy.react"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.react"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.react"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.react"
@@ -70,6 +71,7 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.react"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.react"
 export { default as Textarea } from "../components/Textarea/Textarea.react"
 export { default as TextField } from "../components/TextField/TextField.react"
+export { default as Toaster } from "../components/Toaster/Toaster.react"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.react"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.react"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.react"
@@ -109,6 +111,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.react"
 export type { Props as ChipProps } from "../components/Chip/types.react"
+export type { Props as CopyProps } from "../components/Copy/types.react"
 export type {
   DescriptionListDescriptionProps,
   DescriptionListItemProps,
@@ -178,6 +181,7 @@ export type {
 } from "../components/Tabs/types.react"
 export type { Props as TextareaProps } from "../components/Textarea/types.react"
 export type { Props as TextFieldProps } from "../components/TextField/types.react"
+export type { Props as ToasterProps } from "../components/Toaster/types.react"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.react"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.react"
 export type { Props as TooltipProps } from "../components/Tooltip/types.react"

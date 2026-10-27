@@ -20,6 +20,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.vue"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
+export { default as Copy } from "../components/Copy/Copy.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.vue"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.vue"
@@ -69,6 +70,7 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.vue"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
 export { default as Textarea } from "../components/Textarea/Textarea.vue"
 export { default as TextField } from "../components/TextField/TextField.vue"
+export { default as Toaster } from "../components/Toaster/Toaster.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.vue"
@@ -108,6 +110,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.vue-props"
 export type { Props as ChipProps } from "../components/Chip/types.vue-props"
+export type { Props as CopyProps } from "../components/Copy/types.vue-props"
 export type {
   DescriptionListDescriptionProps,
   DescriptionListItemProps,
@@ -177,6 +180,7 @@ export type {
 } from "../components/Tabs/types.vue-props"
 export type { Props as TextareaProps } from "../components/Textarea/types.vue-props"
 export type { Props as TextFieldProps } from "../components/TextField/types.vue-props"
+export type { Props as ToasterProps } from "../components/Toaster/types.vue-props"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.vue-props"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.vue-props"
 export type { Props as TooltipProps } from "../components/Tooltip/types.vue-props"

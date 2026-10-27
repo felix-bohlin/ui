@@ -1,0 +1,25 @@
+---
+import type { Props } from "./types.astro"
+import { warnMissingId } from "../dev"
+
+export const title = "Toaster"
+
+const { class: className, closeLabel, duration, id, ...rest } = Astro.props
+
+warnMissingId("Toaster", id)
+---
+
+<opui-toaster
+  class:list={["ui-toaster", className]}
+  close-label={closeLabel}
+  duration={duration}
+  id={id}
+  {...rest}
+>
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+
+<script>
+  import "../../elements/toaster.js"
+</script>

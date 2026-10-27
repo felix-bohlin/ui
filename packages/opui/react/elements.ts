@@ -13,6 +13,7 @@ declare module "react" {
 
   namespace JSX {
     interface IntrinsicElements {
+      "opui-copy": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
       "opui-number-stepper": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
@@ -25,6 +26,10 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >
+      "opui-toaster": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & { duration?: number | undefined }
     }
   }
 }

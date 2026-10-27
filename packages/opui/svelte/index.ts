@@ -22,6 +22,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.svelte"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
+export { default as Copy } from "../components/Copy/Copy.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.svelte"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.svelte"
@@ -71,6 +72,7 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.svelte"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.svelte"
 export { default as Textarea } from "../components/Textarea/Textarea.svelte"
 export { default as TextField } from "../components/TextField/TextField.svelte"
+export { default as Toaster } from "../components/Toaster/Toaster.svelte"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.svelte"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.svelte"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.svelte"
@@ -110,6 +112,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
+export type { Props as CopyProps } from "../components/Copy/types.svelte"
 export type {
   DescriptionListDescriptionProps,
   DescriptionListItemProps,
@@ -179,6 +182,7 @@ export type {
 } from "../components/Tabs/types.svelte"
 export type { Props as TextareaProps } from "../components/Textarea/types.svelte"
 export type { Props as TextFieldProps } from "../components/TextField/types.svelte"
+export type { Props as ToasterProps } from "../components/Toaster/types.svelte"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.svelte"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.svelte"
 export type { Props as TooltipProps } from "../components/Tooltip/types.svelte"

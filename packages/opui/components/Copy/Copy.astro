@@ -1,0 +1,24 @@
+---
+import type { Props } from "./types.astro"
+import { warnMissingId } from "../dev"
+
+export const title = "Copy"
+
+const { class: className, copiedLabel, id, ...rest } = Astro.props
+
+warnMissingId("Copy", id)
+---
+
+<opui-copy
+  class:list={["ui-copy", className]}
+  copied-label={copiedLabel}
+  id={id}
+  {...rest}
+>
+  <slot />
+  <span class="ui-sr-only" role="status"></span>
+</opui-copy>
+
+<script>
+  import "../../elements/copy.js"
+</script>

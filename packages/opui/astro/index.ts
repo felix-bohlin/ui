@@ -20,6 +20,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
+export { default as Copy } from "../components/Copy/Copy.astro"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.astro"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.astro"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.astro"
@@ -69,6 +70,7 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.astro"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.astro"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
+export { default as Toaster } from "../components/Toaster/Toaster.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
@@ -108,6 +110,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.astro"
 export type { Props as ChipProps } from "../components/Chip/types.astro"
+export type { Props as CopyProps } from "../components/Copy/types.astro"
 export type {
   DescriptionListDescriptionProps,
   DescriptionListItemProps,
@@ -177,6 +180,7 @@ export type {
 } from "../components/Tabs/types.astro"
 export type { Props as TextareaProps } from "../components/Textarea/types.astro"
 export type { Props as TextFieldProps } from "../components/TextField/types.astro"
+export type { Props as ToasterProps } from "../components/Toaster/types.astro"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.astro"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.astro"
 export type { Props as TooltipProps } from "../components/Tooltip/types.astro"

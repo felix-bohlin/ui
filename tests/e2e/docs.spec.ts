@@ -21,7 +21,10 @@ const DOCS_PAGES = [
 ].toSorted()
 
 const visiblePicker = (page: Page) =>
-  page.locator(".framework-picker select").filter({ visible: true }).first()
+  page
+    .locator('.framework-picker select[data-bound="true"]')
+    .filter({ visible: true })
+    .first()
 
 const openSearch = async (page: Page, query: string) => {
   await page.locator("[data-open-search]").filter({ visible: true }).click()
@@ -241,16 +244,26 @@ for (const [component, trigger] of [
 }
 
 const tabStop = (page: Page) =>
-  page.evaluate(async () => {
+  page.evaluate(() => {
     let element = document.activeElement
     while (element?.shadowRoot?.activeElement)
       element = element.shadowRoot.activeElement
     if (!(element instanceof HTMLElement) || element === document.body)
       return null
     const { dataset } = document.documentElement
-    if (element.dataset.tabStop) return { id: element.dataset.tabStop }
-    dataset.tabStops = String(Number(dataset.tabStops ?? 0) + 1)
-    element.dataset.tabStop = dataset.tabStops
+    if (!element.dataset.tabStop) {
+      dataset.tabStops = String(Number(dataset.tabStops ?? 0) + 1)
+      element.dataset.tabStop = dataset.tabStops
+    }
+    return element.dataset.tabStop
+  })
+
+const focusProblem = (page: Page) =>
+  page.evaluate(async () => {
+    let element = document.activeElement
+    while (element?.shadowRoot?.activeElement)
+      element = element.shadowRoot.activeElement
+    if (!(element instanceof HTMLElement)) return ""
 
     const parent = (node: Element) => {
       const root = node.getRootNode()
@@ -306,10 +319,7 @@ const tabStop = (page: Page) =>
               box.left >= innerWidth
             ? "is outside the viewport"
             : ""
-    return {
-      id: element.dataset.tabStop,
-      problem: problem && `${label} ${problem}`,
-    }
+    return problem && `${label} ${problem}`
   })
 
 for (const path of [
@@ -326,9 +336,16 @@ for (const path of [
     for (let step = 0; step < 1000; step++) {
       await page.keyboard.press("Tab")
       const stop = await tabStop(page)
-      if (!stop || stops.has(stop.id)) break
-      stops.add(stop.id)
-      if (stop.problem) problems.push(stop.problem)
+      if (!stop || stops.has(stop)) break
+      stops.add(stop)
+      const problem = await expect
+        .poll(() => focusProblem(page), { timeout: 2000 })
+        .toBe("")
+        .then(
+          () => "",
+          () => focusProblem(page),
+        )
+      if (problem) problems.push(problem)
     }
     expect(stops.size, "Tab stops").toBeGreaterThan(10)
     expect(problems).toEqual([])

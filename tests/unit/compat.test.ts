@@ -101,6 +101,7 @@ test("each fallback tests one web feature that isn't widely available, or is an 
       return [`${condition} matches ${ids.length} web features (${ids})`]
     }
     const feature = features[ids[0]]
+    if (!feature) return [`${condition}: ${ids[0]} is not in web-features`]
     if (feature.kind !== "feature") {
       return [`${condition}: ${ids[0]} is a ${feature.kind} entry`]
     }
@@ -132,6 +133,7 @@ test("keepsFallback keeps a fallback until its feature is Baseline", () => {
   expect(keepsFallback("not (corner-shape: squircle)", 2026)).toBe(true)
   expect(keepsFallback("not (field-sizing: content)", 2025)).toBe(true)
   expect(keepsFallback("not (field-sizing: content)", 2026)).toBe(false)
+  expect(keepsFallback("not (display: grid)", 2026)).toBe(true)
 })
 
 test("baselineYear drops the fallbacks a year doesn't need, and empty layers", () => {

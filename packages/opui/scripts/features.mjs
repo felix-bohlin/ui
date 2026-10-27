@@ -40,9 +40,11 @@ export const baselineYears = () => {
 export const featureIds = (text) =>
   patterns.filter(({ pattern }) => pattern.test(text)).map(({ id }) => id)
 
-export const keepsFallback = (condition, year) =>
-  !/^not\s/.test(condition) ||
-  featureIds(condition).some((id) => lowYear(id) > year)
+export const keepsFallback = (condition, year) => {
+  if (!/^not\s/.test(condition)) return true
+  const ids = featureIds(condition)
+  return ids.length === 0 || ids.some((id) => lowYear(id) > year)
+}
 
 export const patterns = [
   { id: "anchor-positioning", pattern: /\b(?:anchor-name|position-anchor):/ },

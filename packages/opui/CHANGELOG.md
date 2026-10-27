@@ -484,6 +484,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
+- `Drawer` clips its own overflow, so a drawer without a footer no longer scrolls by the height of the bottom scroll shadow and only `.ui-content` scrolls.
 - `FieldGroup` `name` only applies to its own fields in Astro and Vue.
 - `FieldGroup` `orientation="vertical"` stacks a group of only buttons.
 - `FieldGroup` in Vue passes a `name` that changes or comes from an outer group to its inputs.

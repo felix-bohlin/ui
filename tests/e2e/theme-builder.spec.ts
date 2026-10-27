@@ -155,6 +155,12 @@ test("the contrast drawer links a check to its setting", async ({ page }) => {
   await expect(drawer.locator("[data-summary='success']")).toContainText(
     "checks pass",
   )
+  expect(
+    await drawer.evaluate((dialog) => [
+      dialog.scrollHeight > dialog.clientHeight,
+      getComputedStyle(document.documentElement).overflow,
+    ]),
+  ).toEqual([false, "clip"])
   await drawer.locator('[data-go="critical"]').click()
   await expect(drawer).not.toHaveAttribute("open")
   await expect(group(page, "status")).toBeVisible()

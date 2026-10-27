@@ -32,6 +32,7 @@
     flex-direction: column;
     margin: 0;
     max-inline-size: 100%;
+    overflow: clip;
     padding: 0;
     position: fixed;
     transition:

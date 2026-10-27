@@ -25,10 +25,28 @@ type Block = {
   start: number
 }
 
-const keyOf = (line: string) => {
-  const { done, sections } = parseTodo(`## Item\n\n${line}`)
-  return [...sections, ...done].flatMap(({ items }) => items)[0]?.key
+const itemOf = (lines: string[]) => {
+  const { done, sections } = parseTodo(`## Item\n\n${lines.join("\n")}`)
+  return [...sections, ...done].flatMap(({ items }) => items)[0]
 }
+
+const keyOf = (line: string) => itemOf([line])?.key
+
+const optionOf = (recommended = "") =>
+  recommended.match(/^Fix with option ([A-Z0-9]+)/)?.[1]
+
+const findBlock = (lines: string[], line: string) => {
+  const found = find(blocksOf(lines), line)
+  if (!found.block) {
+    throw new Error(
+      `${found.status === "missing" ? "No item" : "More than one item"} matches ${line}`,
+    )
+  }
+  return found.block
+}
+
+const afterSummary = (lines: string[], start: number) =>
+  start + (lines[start + 1]?.startsWith("  - Summary: ") ? 2 : 1)
 
 const blocksOf = (lines: string[]) => {
   const blocks: Block[] = []
@@ -185,11 +203,7 @@ export type Outcome = {
 }
 
 const optionIds = (lines: string[]) =>
-  fixOptions(
-    parseTodo(`## Item\n\n${lines.join("\n")}`).sections.flatMap(
-      ({ items }) => items,
-    )[0]?.notes ?? [],
-  ).options.map(({ id }) => id)
+  fixOptions(itemOf(lines)?.notes ?? []).options.map(({ id }) => id)
 
 export const resolveItems = (source: string, outcomes: Outcome[]) => {
   const lines = source.split("\n")
@@ -199,16 +213,10 @@ export const resolveItems = (source: string, outcomes: Outcome[]) => {
     if (!kind) throw new Error(`Unknown outcome "${outcome}" for ${line}`)
     if (!text?.trim())
       throw new Error(`Outcome "${outcome}" for ${line} needs a note`)
-    const found = find(blocksOf(lines), line)
-    if (!found.block) {
-      throw new Error(
-        `${found.status === "missing" ? "No item" : "More than one item"} matches ${line}`,
-      )
-    }
-    const { block } = found
+    const block = findBlock(lines, line)
     const item = lines.slice(block.start, block.end + 1)
     const ids = options?.map(({ id }) => id) ?? optionIds(item)
-    const option = recommended?.match(/^Fix with option ([A-Z0-9]+)/)?.[1]
+    const option = optionOf(recommended)
     const problems = [
       ...((options || recommended) && kind.done
         ? [
@@ -238,10 +246,7 @@ export const resolveItems = (source: string, outcomes: Outcome[]) => {
       )
       const entry = `  - Recommended: ${recommended.trim()}`
       if (at > 0) lines[block.start + at] = entry
-      else {
-        const summary = item[1]?.startsWith("  - Summary: ") ? 2 : 1
-        lines.splice(block.start + summary, 0, entry)
-      }
+      else lines.splice(afterSummary(lines, block.start), 0, entry)
     }
     if (kind.done) lines[block.start] = block.line.replace(/^- \[.?\]/, "- [x]")
     report.push({ line: lines[block.start], outcome })
@@ -275,13 +280,7 @@ export const triageItems = (source: string, triages: Triage[]) => {
   const lines = source.split("\n")
   const report = []
   for (const { line, recommended, summary } of triages) {
-    const found = find(blocksOf(lines), line)
-    if (!found.block) {
-      throw new Error(
-        `${found.status === "missing" ? "No item" : "More than one item"} matches ${line}`,
-      )
-    }
-    const { block } = found
+    const block = findBlock(lines, line)
     const notes = lines.slice(block.start + 1, block.end + 1)
     const has = (label: string) =>
       notes.some((note) => note.startsWith(`  - ${label}: `))
@@ -301,9 +300,8 @@ export const triageItems = (source: string, triages: Triage[]) => {
       lines.splice(block.start + 1, 0, `  - Summary: ${summary.trim()}`)
     }
     if (recommended) {
-      const at = lines[block.start + 1].startsWith("  - Summary: ") ? 2 : 1
       lines.splice(
-        block.start + at,
+        afterSummary(lines, block.start),
         0,
         `  - Recommended: ${recommended.trim()}`,
       )
@@ -359,7 +357,7 @@ const formatFinding = (finding: Finding) => {
     ...(finding.text?.trim() ? [] : ["text is required"]),
     ...triageProblems(finding),
   ]
-  const option = finding.recommended?.match(/^Fix with option ([A-Z0-9]+)/)?.[1]
+  const option = optionOf(finding.recommended)
   if (option && !finding.options?.some(({ id }) => id === option)) {
     problems.push(`recommended names option ${option}, which options lacks`)
   }

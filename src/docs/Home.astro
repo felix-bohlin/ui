@@ -9,12 +9,6 @@ import {
   Chip,
   Progress,
   Switch,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
   TextField,
 } from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
@@ -29,7 +23,6 @@ import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
 import { components } from "../utils/components"
-import { EXAMPLE_THEMES } from "../utils/example-themes"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
@@ -43,7 +36,6 @@ const { link } = Astro.locals
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
 const builderHref = link("/theme-builder")
-const tokensHref = hrefFor(currentFramework, "/guide/theme-tokens")
 
 const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
   astro: { Logo: AstroLogo },
@@ -56,45 +48,6 @@ const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
 const roleTokens = themeTokens().filter(
   (token) => tokenTier(token.name) === "role",
 ).length
-
-const materials = [
-  {
-    href: link("/blocks"),
-    item: "Blocks",
-    note: "Pages and sections built from the components",
-    qty: allBlocks.length,
-  },
-  {
-    href: componentsHref,
-    item: "Components",
-    note: "One CSS file each, with HTML, Astro, React, Svelte and Vue",
-    qty: components.length,
-  },
-  {
-    href: hrefFor(currentFramework, "/guide/customizing#example-themes"),
-    item: "Example themes",
-    note: EXAMPLE_THEMES.map((theme) => theme.label).join(", "),
-    qty: EXAMPLE_THEMES.length,
-  },
-  {
-    href: link("/learn"),
-    item: "Learn posts",
-    note: "The CSS behind each component, one feature at a time",
-    qty: posts.length,
-  },
-  {
-    href: "https://open-props.style",
-    item: "Open Props",
-    note: "Optional sizes, radii, easings and shadows for your own CSS",
-    qty: 1,
-  },
-  {
-    href: tokensHref,
-    item: "Theme tokens",
-    note: "Roles every component reads, each with a contrast promise",
-    qty: roleTokens,
-  },
-]
 
 const featuredBlocks = allBlocks.filter((block) =>
   [
@@ -117,15 +70,6 @@ const featuredPosts = posts
   )
   .toSorted((a, b) => a.title.localeCompare(b.title))
 
-const titleBlock = [
-  { label: "Drawing", value: "Open Props UI" },
-  { label: "Rev", value: packageVersion },
-  { label: "Scale", value: "1:1" },
-  { label: "Material", value: "HTML & CSS" },
-  { label: "Base", value: "The platform" },
-  { label: "Sheet", value: "1 of 6" },
-]
-
 const dimensions = [
   { prop: "block-size", token: "--ui-button-size", value: "40px" },
   { prop: "border-radius", token: "--ui-button-radius", value: "8px" },
@@ -138,316 +82,255 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 ---
 
 <Default description={description}>
-  <main id="main-content" class="blueprint container is-wide">
-    <section class="sheet hero ui-palette" aria-labelledby="main-heading">
-      <div class="hero-copy">
-        <hgroup class="ui-hgroup">
-          <p class="hero-version">
-            {packageVersion}
-            {
-              unreleased && (
-                <span class="ui-chip ui-dot ui-warning ui-x-small">
-                  <span class="ui-text">
-                    {prerelease ? "Release candidate" : "Not on npm yet"}
+  <main id="main-content" class="blueprint">
+    <section class="hero ui-palette" aria-labelledby="main-heading">
+      <div class="hero-inner container is-wide">
+        <div class="hero-copy">
+          <hgroup class="ui-hgroup">
+            <p class="hero-version">
+              {packageVersion}
+              {
+                unreleased && (
+                  <span class="ui-chip ui-dot ui-warning ui-x-small">
+                    <span class="ui-text">
+                      {prerelease ? "Release candidate" : "Not on npm yet"}
+                    </span>
                   </span>
-                </span>
-              )
-            }
-          </p>
+                )
+              }
+            </p>
 
-          <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
+            <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
 
-          <p class="hero-description">{description}</p>
-        </hgroup>
+            <p class="hero-description">{description}</p>
+          </hgroup>
 
-        <p class="hero-lede">
-          {components.length} components, built on the CSS that shipped this year.
-          Yours to read, change and keep.
-        </p>
-
-        <div class="hero-ctas">
-          <Button href={quickstartHref} variant="filled" color="primary">
-            Quickstart
-          </Button>
-          <Button href={componentsHref} variant="outlined" color="primary">
-            Components
-          </Button>
-        </div>
-
-        <nav class="framework-support" aria-label="Framework">
-          {
-            FRAMEWORKS.map((framework) => {
-              const branding = FRAMEWORK_BRANDING[framework.id]
-              const Logo = branding.Logo
-              const isCurrent = framework.id === currentFramework
-              return (
-                <Chip
-                  href={hrefFor(framework.id, "/")}
-                  aria-current={isCurrent ? "page" : undefined}
-                  variant={isCurrent ? "tonal" : "outlined"}
-                  data-framework={framework.id}
-                >
-                  <Logo slot="start" />
-                  <Fragment slot="label">{framework.label}</Fragment>
-                </Chip>
-              )
-            })
-          }
-        </nav>
-      </div>
-
-      <figure
-        class="drawing"
-        aria-label="A filled primary Button with its theme tokens"
-      >
-        <div class="drawing-stage">
-          <div class="drawing-subject">
-            <button class="ui-button ui-filled ui-primary" inert type="button">
+          <div class="hero-ctas">
+            <Button href={quickstartHref} variant="filled" color="primary">
               Get started
-            </button>
-          </div>
-          <span class="dimension dimension-height" aria-hidden="true"></span>
-          <span class="leader leader-radius" aria-hidden="true"></span>
-          <span class="leader leader-fill" aria-hidden="true"></span>
-          <span class="leader leader-text" aria-hidden="true"></span>
-          <span class="leader leader-weight" aria-hidden="true"></span>
-          <dl class="dimensions">
-            {
-              dimensions.map((dimension) => (
-                <div class={`dimension-label label-${dimension.prop}`}>
-                  <dt>
-                    <code>{dimension.token}</code>
-                  </dt>
-                  <dd>
-                    {dimension.prop === "background-color" && (
-                      <span class="swatch" aria-hidden="true" />
-                    )}
-                    <output data-prop={dimension.prop}>
-                      {dimension.value}
-                    </output>
-                  </dd>
-                </div>
-              ))
-            }
-          </dl>
-        </div>
-      </figure>
-
-      <dl class="title-block" aria-label="Title block">
-        {
-          titleBlock.map((cell) => (
-            <div>
-              <dt>{cell.label}</dt>
-              <dd>{cell.value}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </section>
-
-    <section class="sheet" aria-labelledby="components-heading">
-      <header class="sheet-header">
-        <h2 class="ui-h2" id="components-heading">Every component, to scale</h2>
-        <p>
-          Plain CSS, no black box. One click copies a component and everything
-          it needs.
-        </p>
-      </header>
-
-      <ComponentShowcase />
-    </section>
-
-    <section class="sheet" aria-labelledby="blocks-heading">
-      <header class="sheet-header">
-        <h2 class="ui-h2" id="blocks-heading">Snap them into whole screens</h2>
-        <p>
-          {allBlocks.length} blocks, from sign-in forms to dashboards. Copy, paste,
-          ship.
-        </p>
-      </header>
-
-      <Carousel
-        aria-label="Blocks"
-        class="block-showcase showcase-grid"
-        markers
-      >
-        {
-          featuredBlocks.map((block, index) => (
-            <ComponentCard
-              name={block.name}
-              href={`/blocks/${block.slug}`}
-              size={index === 0 ? "xl" : undefined}
-            >
-              <div class="block-thumbnail">
-                <iframe
-                  inert
-                  loading="lazy"
-                  src={blockPreviewHref(block.slug)}
-                  tabindex="-1"
-                  title={`${block.name} preview`}
-                />
-              </div>
-            </ComponentCard>
-          ))
-        }
-      </Carousel>
-
-      <div class="hero-ctas">
-        <Button href={link("/blocks")} variant="outlined" color="primary">
-          Browse all {allBlocks.length} blocks
-        </Button>
-      </div>
-    </section>
-
-    <section class="sheet" aria-labelledby="spec-heading">
-      <header class="sheet-header">
-        <h2 class="ui-h2" id="spec-heading">
-          Three choices, the whole kit follows
-        </h2>
-        <p>
-          Components read {roleTokens} role tokens, never a raw color. Try it.
-        </p>
-      </header>
-
-      <div class="bench">
-        <div class="knobs">
-          <ThemeQuickControls />
-          <div class="knob-actions">
-            <Button href={builderHref} variant="filled" color="primary">
-              Open the theme builder
+            </Button>
+            <Button href={componentsHref} variant="outlined" color="primary">
+              Components
             </Button>
           </div>
-        </div>
 
-        <div class="specimen ui-not-rich-text">
-          <div class="palette-strip" aria-hidden="true">
+          <nav class="framework-support" aria-label="Framework">
             {
-              steps.map((step) => (
-                <span style={`background-color: var(--ui-color-${step})`} />
-              ))
+              FRAMEWORKS.map((framework) => {
+                const branding = FRAMEWORK_BRANDING[framework.id]
+                const Logo = branding.Logo
+                const isCurrent = framework.id === currentFramework
+                return (
+                  <Chip
+                    href={hrefFor(framework.id, "/")}
+                    aria-current={isCurrent ? "page" : undefined}
+                    variant={isCurrent ? "tonal" : "outlined"}
+                    data-framework={framework.id}
+                  >
+                    <Logo slot="start" />
+                    <Fragment slot="label">{framework.label}</Fragment>
+                  </Chip>
+                )
+              })
             }
-          </div>
-
-          <div class="specimen-row">
-            <Button variant="filled" color="primary" inert>Filled</Button>
-            <Button variant="tonal" color="primary" inert>Tonal</Button>
-            <Button variant="outlined" color="primary" inert>Outlined</Button>
-          </div>
-
-          <div class="specimen-row">
-            <Chip label="Tonal chip" />
-            <Chip label="Outlined chip" variant="outlined" />
-            <Switch checked inert>Switch</Switch>
-            <Checkbox checked inert>Checkbox</Checkbox>
-          </div>
-
-          <div class="specimen-row">
-            <TextField label="Text field" placeholder="Type here" inert />
-          </div>
-
-          <Progress
-            variant="filled"
-            value={64}
-            max={100}
-            aria-label="Progress"
-          />
-
-          <Callout severity="info" variant="tonal">
-            <CalloutIcon />
-            <CalloutContent>
-              <h3>Want the rest?</h3>
-              The theme builder adds fonts, density, shadows and status colors, checks
-              the contrast and hands you the CSS.
-            </CalloutContent>
-          </Callout>
+          </nav>
         </div>
+
+        <figure
+          class="drawing"
+          aria-label="A filled primary Button with its theme tokens"
+        >
+          <div class="drawing-stage">
+            <div class="drawing-subject">
+              <button
+                class="ui-button ui-filled ui-primary"
+                inert
+                type="button"
+              >
+                Get started
+              </button>
+            </div>
+            <span class="dimension dimension-height" aria-hidden="true"></span>
+            <span class="leader leader-radius" aria-hidden="true"></span>
+            <span class="leader leader-fill" aria-hidden="true"></span>
+            <span class="leader leader-text" aria-hidden="true"></span>
+            <span class="leader leader-weight" aria-hidden="true"></span>
+            <dl class="dimensions">
+              {
+                dimensions.map((dimension) => (
+                  <div class={`dimension-label label-${dimension.prop}`}>
+                    <dt>
+                      <code>{dimension.token}</code>
+                    </dt>
+                    <dd>
+                      {dimension.prop === "background-color" && (
+                        <span class="swatch" aria-hidden="true" />
+                      )}
+                      <output data-prop={dimension.prop}>
+                        {dimension.value}
+                      </output>
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </figure>
       </div>
     </section>
 
-    <section class="sheet" aria-labelledby="learn-heading">
-      <header class="sheet-header">
-        <h2 class="ui-h2" id="learn-heading">Then JavaScript, now CSS</h2>
-        <p>
-          Short posts on the new CSS inside each component. Steal the tricks.
-        </p>
-      </header>
+    <div class="sheets container is-wide">
+      <section class="sheet" aria-labelledby="components-heading">
+        <header class="sheet-header">
+          <h2 class="ui-h2" id="components-heading">Components</h2>
+          <p>
+            {components.length} components in plain CSS. Read them, override them,
+            make them yours.
+          </p>
+        </header>
 
-      <ul class="learn-showcase">
-        {
-          featuredPosts.map((post) => (
-            <ComponentCard name={post.title} href={`/learn/${post.slug}`}>
-              <dl class="then-now">
-                <div>
-                  <dt>Then</dt>
-                  <dd>
-                    <s set:html={formatInline(post.before ?? "", link)} />
-                  </dd>
-                </div>
-                <div>
-                  <dt>Now</dt>
-                  <dd>
-                    <code>{post.technique}</code>
-                  </dd>
-                </div>
-              </dl>
-            </ComponentCard>
-          ))
-        }
-      </ul>
+        <ComponentShowcase />
+      </section>
 
-      <div class="hero-ctas">
-        <Button href={link("/learn")} variant="outlined" color="primary">
-          Read all {posts.length} posts
-        </Button>
-      </div>
-    </section>
+      <section class="sheet" aria-labelledby="blocks-heading">
+        <header class="sheet-header">
+          <h2 class="ui-h2" id="blocks-heading">Blocks</h2>
+          <p>
+            {allBlocks.length} pages and sections built from the components, from
+            sign-in forms to dashboards.
+          </p>
+        </header>
 
-    <section class="sheet" aria-labelledby="materials-heading">
-      <header class="sheet-header">
-        <h2 class="ui-h2" id="materials-heading">What ships in the box</h2>
-        <p>
-          Install it or copy the files. Your overrides win, no <code
-            >!important</code
-          > needed.
-        </p>
-      </header>
-
-      <Table class="materials" density="dense">
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>No.</TableHeaderCell>
-            <TableHeaderCell>Item</TableHeaderCell>
-            <TableHeaderCell class="materials-qty">Qty</TableHeaderCell>
-            <TableHeaderCell>Description</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+        <Carousel
+          aria-label="Blocks"
+          class="block-showcase showcase-grid"
+          markers
+        >
           {
-            materials.map((material, index) => (
-              <TableRow>
-                <TableCell>{String(index + 1).padStart(2, "0")}</TableCell>
-                <TableCell>
-                  <a class="ui-link" href={material.href}>
-                    {material.item}
-                  </a>
-                </TableCell>
-                <TableCell class="materials-qty">{material.qty}</TableCell>
-                <TableCell>{material.note}</TableCell>
-              </TableRow>
+            featuredBlocks.map((block, index) => (
+              <ComponentCard
+                name={block.name}
+                href={`/blocks/${block.slug}`}
+                size={index === 0 ? "xl" : undefined}
+              >
+                <div class="block-thumbnail">
+                  <iframe
+                    inert
+                    loading="lazy"
+                    src={blockPreviewHref(block.slug)}
+                    tabindex="-1"
+                    title={`${block.name} preview`}
+                  />
+                </div>
+              </ComponentCard>
             ))
           }
-        </TableBody>
-      </Table>
+        </Carousel>
 
-      <div class="hero-ctas">
-        <Button href={quickstartHref} variant="filled" color="primary">
-          Start drafting
-        </Button>
-        <Button href={builderHref} variant="outlined" color="primary">
-          Theme builder
-        </Button>
-      </div>
-    </section>
+        <div class="hero-ctas">
+          <Button href={link("/blocks")} variant="outlined" color="primary">
+            Browse all {allBlocks.length} blocks
+          </Button>
+        </div>
+      </section>
+
+      <section class="sheet" aria-labelledby="spec-heading">
+        <header class="sheet-header">
+          <h2 class="ui-h2" id="spec-heading">Build your theme</h2>
+          <p>Three choices set {roleTokens} role tokens. Try it.</p>
+        </header>
+
+        <div class="bench">
+          <div class="knobs">
+            <ThemeQuickControls />
+            <div class="knob-actions">
+              <Button href={builderHref} variant="filled" color="primary">
+                Theme builder
+              </Button>
+            </div>
+          </div>
+
+          <div class="specimen ui-not-rich-text">
+            <div class="palette-strip" aria-hidden="true">
+              {
+                steps.map((step) => (
+                  <span style={`background-color: var(--ui-color-${step})`} />
+                ))
+              }
+            </div>
+
+            <div class="specimen-row">
+              <Button variant="filled" color="primary" inert>Filled</Button>
+              <Button variant="tonal" color="primary" inert>Tonal</Button>
+              <Button variant="outlined" color="primary" inert>Outlined</Button>
+            </div>
+
+            <div class="specimen-row">
+              <Chip label="Tonal chip" />
+              <Chip label="Outlined chip" variant="outlined" />
+              <Switch checked inert>Switch</Switch>
+              <Checkbox checked inert>Checkbox</Checkbox>
+            </div>
+
+            <div class="specimen-row">
+              <TextField label="Text field" placeholder="Type here" inert />
+            </div>
+
+            <Progress
+              variant="filled"
+              value={64}
+              max={100}
+              aria-label="Progress"
+            />
+
+            <Callout severity="info" variant="tonal">
+              <CalloutIcon />
+              <CalloutContent>
+                <h3>Want the rest?</h3>
+                The theme builder adds fonts, density, shadows and status colors,
+                checks the contrast and hands you the CSS.
+              </CalloutContent>
+            </Callout>
+          </div>
+        </div>
+      </section>
+
+      <section class="sheet" aria-labelledby="learn-heading">
+        <header class="sheet-header">
+          <h2 class="ui-h2" id="learn-heading">Then JavaScript, now CSS</h2>
+          <p>Short posts on the new CSS inside each component.</p>
+        </header>
+
+        <ul class="learn-showcase">
+          {
+            featuredPosts.map((post) => (
+              <ComponentCard name={post.title} href={`/learn/${post.slug}`}>
+                <dl class="then-now">
+                  <div>
+                    <dt>Then</dt>
+                    <dd>
+                      <s set:html={formatInline(post.before ?? "", link)} />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Now</dt>
+                    <dd>
+                      <code>{post.technique}</code>
+                    </dd>
+                  </div>
+                </dl>
+              </ComponentCard>
+            ))
+          }
+        </ul>
+
+        <div class="hero-ctas">
+          <Button href={link("/learn")} variant="outlined" color="primary">
+            Read all {posts.length} posts
+          </Button>
+        </div>
+      </section>
+    </div>
   </main>
 
   <ChipRain />
@@ -564,42 +447,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
   }
 
-  .blueprint {
-    .component-showcase {
-      gap: var(--size-4);
-      margin-block: var(--size-6) 0;
-    }
-
-    .showcase-card {
-      background-color: var(--ui-surface-elevated);
-      border: 1px solid var(--blueprint-line-strong);
-      border-radius: var(--radius-1);
-      box-shadow: light-dark(none, var(--ui-shadow-elevated));
-
-      &::before {
-        display: none;
-      }
-
-      &::after {
-        block-size: var(--size-3);
-        border-block-start: 1px solid var(--blueprint-line-strong);
-        border-inline-end: 1px solid var(--blueprint-line-strong);
-        content: "";
-        inline-size: var(--size-3);
-        inset: -1px -1px auto auto;
-        pointer-events: none;
-        position: absolute;
-        translate: var(--size-1) calc(-1 * var(--size-1));
-      }
-
-      &:hover {
-        border-color: var(--blueprint-ink);
-      }
-    }
-
-    .showcase-link {
-      border-color: var(--blueprint-line-strong);
-    }
+  .blueprint .component-showcase {
+    gap: var(--size-4);
+    margin-block: 0;
   }
 </style>
 
@@ -609,40 +459,18 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   }
 
   #main-content {
-    display: grid;
-    gap: var(--size-4);
-    grid-template-columns: minmax(0, 1fr);
-    padding-block: var(--size-4) var(--size-8);
-
-    @media (width >= 900px) {
-      gap: var(--size-8);
-    }
+    padding-block-end: var(--size-8);
   }
 
   .sheet {
-    padding-block: var(--size-5);
-    position: relative;
+    padding-block: var(--size-8);
 
     & + .sheet {
       border-block-start: 1px solid var(--blueprint-line-major);
-      padding-block-start: var(--size-8);
     }
 
     @media (width >= 900px) {
-      background-color: light-dark(
-        oklch(from var(--ui-surface) l c h / 60%),
-        oklch(from var(--ui-surface) l c h / 50%)
-      );
-      border: 1px solid var(--blueprint-line-strong);
-      border-radius: var(--radius-1);
-      outline: 1px solid var(--blueprint-line-major);
-      outline-offset: 5px;
-      padding: var(--size-9) var(--size-9) var(--size-8);
-
-      & + .sheet {
-        border-block-start-color: var(--blueprint-line-strong);
-        padding-block-start: var(--size-9);
-      }
+      padding-block: var(--size-10);
     }
   }
 
@@ -667,14 +495,27 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   /* Hero */
   .hero {
+    background-color: light-dark(
+      oklch(from var(--ui-surface) l c h / 60%),
+      oklch(from var(--ui-surface) l c h / 50%)
+    );
+    border-block-end: 1px solid var(--blueprint-line-major);
+    padding-block: var(--size-8);
+
+    @media (width >= 900px) {
+      padding-block: var(--size-10);
+    }
+  }
+
+  .hero-inner {
     align-items: start;
     display: grid;
     gap: var(--size-8);
 
     @media (width >= 900px) {
+      align-items: center;
       gap: var(--size-10);
       grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
-      padding-block-end: calc(var(--size-9) + var(--size-6));
     }
   }
 
@@ -696,12 +537,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     text-wrap: balance;
   }
 
-  .hero-lede {
-    color: var(--ui-text);
-    margin-block-start: var(--size-4);
-    max-inline-size: 48ch;
-  }
-
   .hero-ctas {
     align-items: center;
     display: flex;
@@ -719,42 +554,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     & :global(.astro-logo) {
       color: currentColor;
-    }
-  }
-
-  /* Title block, the bottom corner of the sheet like on a drawing */
-  .title-block {
-    border: 1px solid var(--blueprint-line-strong);
-    display: none;
-    font-size: var(--ui-font-size-caption);
-    grid-template-columns: repeat(6, auto);
-    inset-block-end: -1px;
-    inset-inline-end: -1px;
-    margin: 0;
-    position: absolute;
-
-    @media (width >= 900px) {
-      display: grid;
-    }
-
-    > div {
-      border: 1px solid var(--blueprint-line-strong);
-      display: grid;
-      gap: var(--size-1);
-      margin: -1px 0 0 -1px;
-      padding: var(--size-1) var(--size-3);
-    }
-
-    dt {
-      color: var(--blueprint-ink);
-      font-size: var(--ui-font-size-caption);
-    }
-
-    dd {
-      color: var(--ui-text-strong);
-      font-weight: var(--ui-font-weight-semibold);
-      margin: 0;
-      white-space: nowrap;
     }
   }
 
@@ -1047,7 +846,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     @media (width >= 900px) {
       align-items: start;
-      grid-template-columns: minmax(16rem, 2fr) minmax(0, 3fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
@@ -1146,19 +945,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       font-weight: var(--ui-font-weight-bold);
       padding: 0;
     }
-  }
-
-  /* Bill of materials */
-  .materials {
-    inline-size: 100%;
-  }
-
-  .materials-qty {
-    text-align: end;
-  }
-
-  .materials + .hero-ctas {
-    margin-block-start: var(--size-7);
   }
 
   @media (prefers-reduced-motion: no-preference) {

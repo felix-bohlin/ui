@@ -99,6 +99,8 @@ test.describe("framework picker", () => {
     test.setTimeout(60_000)
     await page.goto("/html/components/divider/#spacing")
     for (const framework of [...FRAMEWORK_IDS.slice(1), FRAMEWORK_IDS[0]]) {
+      // waitForURL resolves at commit, before the picker script binds its change listener
+      await expect(visiblePicker(page)).toHaveAttribute("data-bound", "true")
       await visiblePicker(page).selectOption(framework)
       await page.waitForURL(`/${framework}/components/divider/#spacing`, {
         waitUntil: "commit",

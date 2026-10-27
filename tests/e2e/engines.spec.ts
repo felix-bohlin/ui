@@ -23,12 +23,14 @@ const placement = (page: Page) =>
   page.evaluate(() => {
     const box = (id: string) =>
       document.getElementById(id)!.getBoundingClientRect()
+    // Math.round(-0.4) is -0, which toBe(0) rejects
+    const round = (value: number) => Math.round(value) || 0
     const trigger = box("trigger")
     const popover = box("popover")
     return {
-      below: Math.round(popover.top - trigger.bottom),
-      endEdge: Math.round(popover.right - trigger.right),
-      startEdge: Math.round(popover.left - trigger.left),
+      below: round(popover.top - trigger.bottom),
+      endEdge: round(popover.right - trigger.right),
+      startEdge: round(popover.left - trigger.left),
     }
   })
 

@@ -25,67 +25,141 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
       <span data-preset-name>Default</span>
       <span class="builder-summary-sep" aria-hidden="true"></span>
       <span data-change-count>No changes</span>
+      <span class="builder-summary-sep" aria-hidden="true"></span>
+      <button
+        class="builder-contrast"
+        command="show-modal"
+        commandfor="builder-contrast"
+        data-contrast
+        data-state="pending"
+        title="Open the contrast report"
+        type="button"
+      >
+        <span aria-hidden="true" class="builder-contrast-dot"></span>
+        <span data-contrast-text>Checking contrast</span>
+      </button>
     </p>
   </div>
-  <div class="builder-actions">
-    <Button data-shuffle size="small" variant="outlined">
-      <svg
-        aria-hidden="true"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-        ><path
-          fill="currentColor"
-          d="M19.28 4.72a.75.75 0 0 0-1.06 1.06L19.44 7h-.19c-3.918 0-6.423 2.302-8.692 4.388l-.066.06C8.154 13.597 6.044 15.5 2.75 15.5a.75.75 0 0 0 0 1.5c3.918 0 6.423-2.302 8.692-4.388l.066-.06C13.846 10.403 15.956 8.5 19.25 8.5h.19l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06zM2.75 7c3.248 0 5.525 1.582 7.501 3.311a44 44 0 0 0-.303.279l-.132.121c-.232.213-.458.42-.68.62C7.283 9.732 5.4 8.5 2.75 8.5a.75.75 0 0 1 0-1.5m16.5 10c-3.248 0-5.525-1.582-7.501-3.311q.153-.14.302-.278l.133-.122c.231-.213.457-.42.68-.62 1.852 1.6 3.736 2.831 6.386 2.831h.19l-1.22-1.22a.75.75 0 1 1 1.06-1.06l2.5 2.5a.75.75 0 0 1 0 1.06l-2.5 2.5a.75.75 0 1 1-1.06-1.06L19.44 17z"
-        ></path></svg
+  <div aria-label="Theme actions" class="builder-actions" role="toolbar">
+    <div class="builder-action-group">
+      <Button
+        aria-keyshortcuts="Control+Z Meta+Z"
+        aria-label="Undo"
+        data-undo-history
+        disabled
+        round
+        size="small"
+        title="Undo (Ctrl+Z)"
+        variant="transparent"
       >
-      <span>Shuffle</span>
-    </Button>
-    <Button
-      aria-keyshortcuts="Control+Z Meta+Z"
-      data-undo-history
-      disabled
-      size="small"
-      variant="outlined">Undo</Button
-    >
-    <Button
-      aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
-      data-redo-history
-      disabled
-      size="small"
-      variant="outlined">Redo</Button
-    >
-    <Button data-reset-all size="small" variant="transparent">Reset</Button>
-    <Button
-      command="show-modal"
-      commandfor="builder-saved"
-      data-saved
-      size="small"
-      variant="outlined">Saved</Button
-    >
-    <Button
-      class="builder-contrast"
-      command="show-modal"
-      commandfor="builder-contrast"
-      data-contrast
-      data-state="pending"
-      size="small"
-      variant="outlined"
-    >
-      <span aria-hidden="true" class="builder-contrast-dot"></span>
-      <span data-contrast-text>Checking contrast</span>
-    </Button>
-    <Button data-copy-link size="small" variant="outlined">Copy link</Button>
-    <Button
-      color="primary"
-      command="show-modal"
-      commandfor="builder-export"
-      size="small"
-      variant="filled"
-    >
-      Export CSS
-    </Button>
+        <svg
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill="currentColor"
+            d="M4.75 2a.75.75 0 0 1 .743.648L5.5 2.75v5.69l4.574-4.56a6.41 6.41 0 0 1 8.879-.179l.185.179a6.41 6.41 0 0 1 0 9.064l-8.845 8.84a.75.75 0 0 1-1.06-1.062l8.845-8.838a4.91 4.91 0 0 0 0-6.943 4.91 4.91 0 0 0-6.766-.17l-.178.17L6.562 9.5h5.688a.75.75 0 0 1 .743.648l.007.102a.75.75 0 0 1-.648.743l-.102.007h-7.5a.75.75 0 0 1-.743-.648L4 10.25v-7.5A.75.75 0 0 1 4.75 2"
+          ></path></svg
+        >
+      </Button>
+      <Button
+        aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
+        aria-label="Redo"
+        data-redo-history
+        disabled
+        round
+        size="small"
+        title="Redo (Ctrl+Shift+Z)"
+        variant="transparent"
+      >
+        <svg
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill="currentColor"
+            d="M19.25 2a.75.75 0 0 0-.743.648l-.007.102v5.69l-4.574-4.56a6.41 6.41 0 0 0-8.879-.179l-.185.179a6.41 6.41 0 0 0 0 9.064l8.845 8.84a.75.75 0 0 0 1.06-1.062l-8.845-8.838a4.91 4.91 0 0 1 0-6.943 4.91 4.91 0 0 1 6.766-.17l.178.17L17.438 9.5H11.75a.75.75 0 0 0-.743.648l-.007.102c0 .38.282.694.648.743l.102.007h7.5a.75.75 0 0 0 .743-.648l.007-.102v-7.5A.75.75 0 0 0 19.25 2"
+          ></path></svg
+        >
+      </Button>
+    </div>
+    <span aria-hidden="true" class="builder-action-sep"></span>
+    <div class="builder-action-group">
+      <Button
+        aria-label="Shuffle the unlocked settings"
+        data-shuffle
+        round
+        size="small"
+        title="Shuffle the unlocked settings"
+        variant="transparent"
+      >
+        <svg
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill="currentColor"
+            d="M19.28 4.72a.75.75 0 0 0-1.06 1.06L19.44 7h-.19c-3.918 0-6.423 2.302-8.692 4.388l-.066.06C8.154 13.597 6.044 15.5 2.75 15.5a.75.75 0 0 0 0 1.5c3.918 0 6.423-2.302 8.692-4.388l.066-.06C13.846 10.403 15.956 8.5 19.25 8.5h.19l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06zM2.75 7c3.248 0 5.525 1.582 7.501 3.311a44 44 0 0 0-.303.279l-.132.121c-.232.213-.458.42-.68.62C7.283 9.732 5.4 8.5 2.75 8.5a.75.75 0 0 1 0-1.5m16.5 10c-3.248 0-5.525-1.582-7.501-3.311q.153-.14.302-.278l.133-.122c.231-.213.457-.42.68-.62 1.852 1.6 3.736 2.831 6.386 2.831h.19l-1.22-1.22a.75.75 0 1 1 1.06-1.06l2.5 2.5a.75.75 0 0 1 0 1.06l-2.5 2.5a.75.75 0 1 1-1.06-1.06L19.44 17z"
+          ></path></svg
+        >
+      </Button>
+      <Button data-reset-all size="small" variant="transparent">Reset</Button>
+    </div>
+    <span aria-hidden="true" class="builder-action-sep"></span>
+    <div class="builder-action-group">
+      <Button
+        command="show-modal"
+        commandfor="builder-saved"
+        data-saved
+        size="small"
+        variant="transparent"
+      >
+        <svg
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill="currentColor"
+            d="m11.066 8.004.184-.005h7.5a3.25 3.25 0 0 1 3.245 3.066l.005.184v7.5a3.25 3.25 0 0 1-3.066 3.245l-.184.005h-7.5a3.25 3.25 0 0 1-3.245-3.066L8 18.749v-7.5a3.25 3.25 0 0 1 3.066-3.245m7.684 1.495h-7.5a1.75 1.75 0 0 0-1.744 1.606l-.006.144v7.5a1.75 1.75 0 0 0 1.606 1.744l.144.006h7.5a1.75 1.75 0 0 0 1.744-1.606l.006-.144v-7.5a1.75 1.75 0 0 0-1.75-1.75M15 11a.75.75 0 0 1 .75.75v2.498l2.5.001a.75.75 0 0 1 0 1.5l-2.5-.001v2.502a.75.75 0 0 1-1.5 0v-2.502l-2.5.001a.75.75 0 0 1 0-1.5l2.5-.001V11.75A.75.75 0 0 1 15 11m.582-6.767.053.177.692 2.588h-1.553l-.588-2.2a1.75 1.75 0 0 0-2.144-1.237L4.798 5.502a1.75 1.75 0 0 0-1.27 1.995l.033.148 1.94 7.244a1.75 1.75 0 0 0 1.5 1.287v1.505a3.25 3.25 0 0 1-2.895-2.227l-.053-.177-1.941-7.244a3.25 3.25 0 0 1 2.121-3.928l.177-.053 7.244-1.94a3.25 3.25 0 0 1 3.928 2.121"
+          ></path></svg
+        >
+        <span>My themes</span>
+      </Button>
+    </div>
+    <span aria-hidden="true" class="builder-action-sep"></span>
+    <div class="builder-action-group">
+      <Button data-copy-link size="small" variant="outlined">
+        <svg
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill="currentColor"
+            d="M9.25 7a.75.75 0 0 1 .11 1.492L9.25 8.5H7a3.5 3.5 0 0 0-.206 6.994L7 15.5h2.25a.75.75 0 0 1 .11 1.492L9.25 17H7a5 5 0 0 1-.25-9.994L7 7zM17 7a5 5 0 0 1 .25 9.994L17 17h-2.25a.75.75 0 0 1-.11-1.492l.11-.008H17a3.5 3.5 0 0 0 .206-6.994L17 8.5h-2.25a.75.75 0 0 1-.11-1.492L14.75 7zm-10 4.25h10a.75.75 0 0 1 .102 1.493L17 12.75H7a.75.75 0 0 1-.102-1.493z"
+          ></path></svg
+        >
+        <span>Copy link</span>
+      </Button>
+      <Button
+        color="primary"
+        command="show-modal"
+        commandfor="builder-export"
+        size="small"
+        variant="filled"
+      >
+        Export CSS
+      </Button>
+    </div>
   </div>
 </div>
 
@@ -233,12 +307,14 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     )
 
     document.addEventListener("builder:contrast", (event) => {
-      const { failing } = (event as CustomEvent<{ failing: number }>).detail
+      const { checks, failing } = (
+        event as CustomEvent<{ checks: number; failing: number }>
+      ).detail
       contrast.dataset.state = failing > 0 ? "fail" : "pass"
       contrastText.textContent =
         failing > 0
-          ? `${failing} contrast ${failing === 1 ? "failure" : "failures"}`
-          : "Contrast passes"
+          ? `${failing} of ${checks} contrast checks ${failing === 1 ? "fails" : "fail"}`
+          : `All ${checks} contrast checks pass`
     })
 
     shuffleButton.addEventListener("click", () =>
@@ -361,6 +437,7 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     align-items: center;
     color: var(--ui-text-subtle);
     display: flex;
+    flex-wrap: wrap;
     font-size: var(--ui-font-size-small);
     gap: var(--size-2);
   }
@@ -369,16 +446,43 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     background-color: var(--ui-border-color);
     block-size: 1em;
     inline-size: var(--ui-border-width);
+
+    @media (width < 640px) {
+      display: none;
+    }
   }
 
-  .builder-actions {
+  .builder-contrast {
     align-items: center;
-    display: flex;
-    flex-wrap: wrap;
+    appearance: none;
+    background: none;
+    border: 0;
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-text);
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
     gap: var(--size-2);
+    margin: calc(-1 * var(--size-1)) 0;
+    padding: var(--size-1) var(--size-2);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color var(--ui-duration) var(--ui-ease);
 
-    :global([hidden]) {
-      display: none;
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+
+    &[data-state="fail"] {
+      color: var(--ui-critical-text);
+      font-weight: var(--ui-font-weight-semibold);
     }
   }
 
@@ -395,6 +499,33 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 
     [data-state="fail"] & {
       background-color: var(--ui-critical);
+    }
+  }
+
+  .builder-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+
+    :global([hidden]) {
+      display: none;
+    }
+  }
+
+  .builder-action-group {
+    align-items: center;
+    display: flex;
+    gap: var(--size-1);
+  }
+
+  .builder-action-sep {
+    background-color: var(--ui-border-color);
+    block-size: var(--ui-control-size-small);
+    inline-size: var(--ui-border-width);
+
+    @media (width < 640px) {
+      display: none;
     }
   }
 

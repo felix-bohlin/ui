@@ -1,5 +1,6 @@
 ---
 import { Range } from "opui-css/astro"
+import DragHandle from "./DragHandle.astro"
 
 const domain = { max: 960, min: 240 }
 const fluidWindow = { end: 768, start: 320 }
@@ -12,15 +13,23 @@ const steps = [
   { max: 1.25, min: 1.125, name: "h4", slope: 3 },
 ]
 
-const x = (px: number) => ((px - domain.min) / (domain.max - domain.min)) * 1000
+const fraction = (px: number) => (px - domain.min) / (domain.max - domain.min)
 
 const ramp = (from: number, to: number) =>
-  `M 0 100 L ${x(from)} 100 L ${x(to)} 0 L 1000 0`
+  `M 0 100 L ${fraction(from) * 1000} 100 L ${fraction(to) * 1000} 0 L 1000 0`
 
 const clampRange = (step: (typeof steps)[number]) => ({
   from: (step.min * 16 * 100) / step.slope,
   to: (step.max * 16 * 100) / step.slope,
 })
+
+const growth = (step: (typeof steps)[number], px: number) => {
+  const size = Math.min(
+    Math.max(step.min, (px * step.slope) / 100 / 16),
+    step.max,
+  )
+  return (size - step.min) / (step.max - step.min)
+}
 
 const ticks = [320, 480, 640, 800, 960]
 
@@ -45,9 +54,7 @@ const charts = [
 
 <div
   class="fluid-compare"
-  data-domain-max={domain.max}
-  data-domain-min={domain.min}
-  style={`--viewport: ${viewport}px; --fluid-min: ${fluidWindow.start}px; --fluid-max: ${fluidWindow.end}px`}
+  style={`--viewport: ${viewport}px; --fluid-min: ${fluidWindow.start}px; --fluid-max: ${fluidWindow.end}px; --_domain-min: ${domain.min}px; --_domain-max: ${domain.max}px; --_x: ${fraction(viewport)}; --_window-start: ${fraction(fluidWindow.start)}; --_window-end: ${fraction(fluidWindow.end)}`}
 >
   <div class="fluid-compare-charts">
     {
@@ -83,13 +90,17 @@ const charts = [
               <span
                 class="fluid-compare-dot"
                 data-step={step.name}
-                style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
+                style={
+                  chart.mode === "clamp"
+                    ? `--_growth: ${growth(step, viewport)}`
+                    : undefined
+                }
               />
             ))}
           </div>
           <div class="fluid-compare-ticks">
             {ticks.map((tick) => (
-              <span style={`--_x: ${x(tick) / 1000}`}>{tick}</span>
+              <span style={`--_x: ${fraction(tick)}`}>{tick}</span>
             ))}
           </div>
         </figure>
@@ -98,32 +109,34 @@ const charts = [
   </div>
 
   <div class="fluid-compare-stage">
-    <div class="fluid-compare-viewport">
-      {
-        charts.map((chart) => (
-          <div class="fluid-compare-column" data-mode={chart.mode}>
-            <p class="fluid-compare-column-title">
-              <code>{chart.title}</code>
-            </p>
-            {steps.map((step) => (
-              <p
-                class="fluid-compare-row"
-                style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
-              >
-                <span class="fluid-compare-sample">Aa</span>
-                <span class="fluid-compare-readout">
-                  <span class="fluid-compare-key" data-step={step.name}>
-                    {step.name}
-                  </span>
-                  <span data-size />
-                </span>
+    <div class="fluid-compare-frame">
+      <div class="fluid-compare-viewport">
+        {
+          charts.map((chart) => (
+            <div class="fluid-compare-column" data-mode={chart.mode}>
+              <p class="fluid-compare-column-title">
+                <code>{chart.title}</code>
               </p>
-            ))}
-          </div>
-        ))
-      }
+              {steps.map((step) => (
+                <p
+                  class="fluid-compare-row"
+                  style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
+                >
+                  <span class="fluid-compare-sample">Aa</span>
+                  <span class="fluid-compare-readout">
+                    <span class="fluid-compare-key" data-step={step.name}>
+                      {step.name}
+                    </span>
+                    <span data-size />
+                  </span>
+                </p>
+              ))}
+            </div>
+          ))
+        }
+      </div>
       <span aria-hidden="true" class="fluid-compare-width">{viewport}px</span>
-      <span aria-hidden="true" class="fluid-compare-handle"></span>
+      <DragHandle />
     </div>
   </div>
 
@@ -143,7 +156,7 @@ const charts = [
     <Range
       data-property="--fluid-min"
       label="Window start"
-      max={480}
+      max={464}
       min={domain.min}
       step={16}
       value={fluidWindow.start}
@@ -155,7 +168,7 @@ const charts = [
       data-property="--fluid-max"
       label="Window end"
       max={domain.max}
-      min={480}
+      min={496}
       step={16}
       value={fluidWindow.end}
       valueSuffix="px"
@@ -167,13 +180,10 @@ const charts = [
 
 <style>
   .fluid-compare {
-    --_domain-max: 960px;
-    --_domain-min: 240px;
     --_h1: light-dark(oklch(0.575 0.163 255.5), oklch(0.622 0.161 255.1));
     --_h2: light-dark(oklch(0.671 0.175 40.6), oklch(0.622 0.173 40.1));
     --_h3: light-dark(oklch(0.62 0.141 162.1), oklch(0.621 0.128 163.1));
     --_h4: light-dark(oklch(0.64 0.161 75.1), oklch(0.67 0.143 73.2));
-    --_x: progress(var(--viewport), var(--_domain-min), var(--_domain-max));
     --progress: progress(var(--viewport), var(--fluid-min), var(--fluid-max));
 
     container-type: inline-size;
@@ -291,13 +301,8 @@ const charts = [
     border-inline: var(--ui-border-width) dashed
       oklch(from var(--ui-primary) l c h / 50%);
     inset-block: 0;
-    inset-inline-end: calc(
-      (1 - progress(var(--fluid-max), var(--_domain-min), var(--_domain-max))) *
-        100%
-    );
-    inset-inline-start: calc(
-      progress(var(--fluid-min), var(--_domain-min), var(--_domain-max)) * 100%
-    );
+    inset-inline-end: calc((1 - var(--_window-end)) * 100%);
+    inset-inline-start: calc(var(--_window-start) * 100%);
     position: absolute;
   }
 
@@ -311,12 +316,6 @@ const charts = [
   }
 
   .fluid-compare-dot {
-    --_growth: progress(
-      clamp(var(--_min), var(--viewport) * var(--_slope), var(--_max)),
-      var(--_min),
-      var(--_max)
-    );
-
     aspect-ratio: 1;
     background-color: var(--_color);
     border-radius: var(--ui-radius-round);
@@ -366,6 +365,12 @@ const charts = [
     padding-block: var(--ui-space-3);
   }
 
+  .fluid-compare-frame {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    position: relative;
+  }
+
   .fluid-compare-viewport {
     background-color: var(--ui-surface);
     border: var(--ui-border-width-thick) dashed var(--ui-border-color);
@@ -374,9 +379,13 @@ const charts = [
     display: grid;
     gap: var(--ui-space-3);
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    inline-size: min(100%, var(--viewport));
+    inline-size: var(--viewport);
     padding: var(--ui-space-3);
-    position: relative;
+    zoom: var(--_scale, 1);
+
+    @media (scripting: none) {
+      inline-size: min(100cqi, var(--viewport));
+    }
   }
 
   .fluid-compare-column {
@@ -403,6 +412,7 @@ const charts = [
   .fluid-compare-column-title {
     font-size: var(--ui-font-size-small);
     margin: 0;
+    zoom: calc(1 / var(--_scale, 1));
 
     & code {
       color: var(--ui-text-strong);
@@ -432,6 +442,7 @@ const charts = [
     font-variant-numeric: tabular-nums;
     gap: var(--ui-space-1);
     line-height: 1.4;
+    zoom: calc(1 / var(--_scale, 1));
   }
 
   .fluid-compare-key {
@@ -465,39 +476,6 @@ const charts = [
     translate: 0 -50%;
   }
 
-  .fluid-compare-handle {
-    align-items: center;
-    background-color: var(--ui-surface);
-    block-size: 3rem;
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-round);
-    cursor: ew-resize;
-    display: grid;
-    inline-size: 1rem;
-    inset-block-start: 50%;
-    inset-inline-start: 100%;
-    justify-items: center;
-    position: absolute;
-    touch-action: none;
-    translate: -50% -50%;
-
-    &:before {
-      block-size: 1.25rem;
-      border-inline: var(--ui-border-width) solid var(--ui-text);
-      content: "";
-      inline-size: 0.25rem;
-    }
-
-    &:hover,
-    .fluid-compare[data-dragging] & {
-      border-color: var(--ui-primary);
-    }
-
-    &:dir(rtl) {
-      translate: 50% -50%;
-    }
-  }
-
   .fluid-compare-knobs {
     border: 0;
     display: grid;
@@ -515,29 +493,32 @@ const charts = [
 </style>
 
 <script>
+  import { drag } from "./drag"
+
   document
     .querySelectorAll<HTMLElement>(".fluid-compare")
     .forEach((compare) => {
-      const domain = {
-        max: Number(compare.dataset.domainMax),
-        min: Number(compare.dataset.domainMin),
-      }
       const inputs = [
         ...compare.querySelectorAll<HTMLInputElement>("input[type=range]"),
       ]
       const viewportInput = inputs.find(
         (input) => input.dataset.property === "--viewport",
       )
+      const frame = compare.querySelector<HTMLElement>(".fluid-compare-frame")
+      const handle = compare.querySelector<HTMLElement>(".drag-handle")
       const value = (property: string) =>
         Number(
           inputs.find((input) => input.dataset.property === property)?.value,
         )
-      const frame = compare.querySelector<HTMLElement>(
-        ".fluid-compare-viewport",
-      )
-
-      const x = (px: number) =>
-        ((px - domain.min) / (domain.max - domain.min)) * 1000
+      const length = (property: string) =>
+        Number.parseFloat(compare.style.getPropertyValue(property))
+      const domain = {
+        max: length("--_domain-max"),
+        min: length("--_domain-min"),
+      }
+      const fraction = (px: number) =>
+        (px - domain.min) / (domain.max - domain.min)
+      const scale = () => Math.min(1, compare.clientWidth / value("--viewport"))
 
       const render = () => {
         inputs.forEach((input) =>
@@ -546,25 +527,55 @@ const charts = [
             `${input.value}px`,
           ),
         )
-        const d = `M 0 100 L ${x(value("--fluid-min"))} 100 L ${x(value("--fluid-max"))} 0 L 1000 0`
+        const start = fraction(value("--fluid-min"))
+        const end = fraction(value("--fluid-max"))
+        compare.style.setProperty("--_scale", String(scale()))
+        compare.style.setProperty("--_window-end", String(end))
+        compare.style.setProperty("--_window-start", String(start))
+        compare.style.setProperty("--_x", String(fraction(value("--viewport"))))
         compare
           .querySelectorAll('[data-mode="progress"] path')
-          .forEach((path) => path.setAttribute("d", d))
+          .forEach((path) =>
+            path.setAttribute(
+              "d",
+              `M 0 100 L ${start * 1000} 100 L ${end * 1000} 0 L 1000 0`,
+            ),
+          )
         const width = compare.querySelector(".fluid-compare-width")
         if (width) width.textContent = `${value("--viewport")}px`
         const rem = Number.parseFloat(
           getComputedStyle(document.documentElement).fontSize,
         )
         compare
-          .querySelectorAll<HTMLElement>(".fluid-compare-row")
-          .forEach((row) => {
-            const size = row.querySelector("[data-size]")
-            if (!size) return
-            const px = Number.parseFloat(getComputedStyle(row).fontSize)
-            const min = Number.parseFloat(row.style.getPropertyValue("--_min"))
-            const max = Number.parseFloat(row.style.getPropertyValue("--_max"))
-            const share = (px / rem - min) / (max - min)
-            size.textContent = `${px.toFixed(1)}px, ${Math.round(Math.min(Math.max(share, 0), 1) * 100)}%`
+          .querySelectorAll<HTMLElement>(".fluid-compare-column")
+          .forEach((column) => {
+            column
+              .querySelectorAll<HTMLElement>(".fluid-compare-row")
+              .forEach((row) => {
+                const key = row.querySelector<HTMLElement>(".fluid-compare-key")
+                const size = row.querySelector("[data-size]")
+                const px = Number.parseFloat(getComputedStyle(row).fontSize)
+                const min = Number.parseFloat(
+                  row.style.getPropertyValue("--_min"),
+                )
+                const max = Number.parseFloat(
+                  row.style.getPropertyValue("--_max"),
+                )
+                const share = Math.min(
+                  Math.max((px / rem - min) / (max - min), 0),
+                  1,
+                )
+                if (size) {
+                  size.textContent = `${px.toFixed(1)}px, ${Math.round(share * 100)}%`
+                }
+                if (column.dataset.mode === "clamp") {
+                  compare
+                    .querySelector<HTMLElement>(
+                      `[data-mode="clamp"] .fluid-compare-dot[data-step="${key?.dataset.step}"]`,
+                    )
+                    ?.style.setProperty("--_growth", String(share))
+                }
+              })
           })
       }
 
@@ -574,48 +585,44 @@ const charts = [
         viewportInput.dispatchEvent(new Event("input", { bubbles: true }))
       }
 
-      const drag = (
-        target: HTMLElement | null,
-        toValue: (event: PointerEvent) => number,
-      ) => {
-        target?.addEventListener("pointerdown", (event) => {
-          if (event.button !== 0) return
-          event.preventDefault()
-          target.setPointerCapture(event.pointerId)
-          compare.dataset.dragging = ""
-          setViewport(toValue(event))
-          const move = (moveEvent: PointerEvent) =>
-            setViewport(toValue(moveEvent))
-          const end = () => {
-            delete compare.dataset.dragging
-            target.removeEventListener("pointermove", move)
-          }
-          target.addEventListener("pointermove", move)
-          target.addEventListener("lostpointercapture", end, { once: true })
+      if (frame && handle) {
+        let origin = { px: 0, viewport: 0 }
+        drag(handle, {
+          move: (event) => {
+            const moved = event.clientX - origin.px
+            setViewport(
+              origin.viewport +
+                (getComputedStyle(frame).direction === "rtl" ? -moved : moved),
+            )
+          },
+          root: compare,
+          start: (event) => {
+            origin = { px: event.clientX, viewport: value("--viewport") }
+          },
         })
       }
-
-      drag(compare.querySelector(".fluid-compare-handle"), (event) => {
-        if (!frame) return 0
-        const rect = frame.getBoundingClientRect()
-        return getComputedStyle(frame).direction === "rtl"
-          ? rect.right - event.clientX
-          : event.clientX - rect.left
-      })
       compare
         .querySelectorAll<HTMLElement>(".fluid-compare-plot")
-        .forEach((plot) =>
-          drag(plot, (event) => {
+        .forEach((plot) => {
+          const move = (event: PointerEvent) => {
             const rect = plot.getBoundingClientRect()
-            return (
+            setViewport(
               domain.min +
-              ((event.clientX - rect.left) / rect.width) *
-                (domain.max - domain.min)
+                ((event.clientX - rect.left) / rect.width) *
+                  (domain.max - domain.min),
             )
-          }),
-        )
+          }
+          drag(plot, { move, root: compare, start: move })
+        })
+
+      let fitted = 0
+      const fit = () => {
+        if (compare.clientWidth === fitted) return
+        fitted = compare.clientWidth
+        render()
+      }
 
       inputs.forEach((input) => input.addEventListener("input", render))
-      render()
+      new ResizeObserver(fit).observe(compare)
     })
 </script>

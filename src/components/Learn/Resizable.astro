@@ -1,5 +1,6 @@
 ---
 import { Range } from "opui-css/astro"
+import DragHandle from "./DragHandle.astro"
 
 type Props = {
   label: string
@@ -14,7 +15,7 @@ const max = 960
   <div class="resizable-frame">
     <slot />
     <span aria-hidden="true" class="resizable-width"></span>
-    <span aria-hidden="true" class="resizable-handle"></span>
+    <DragHandle />
   </div>
   <Range
     class="resizable-range"
@@ -70,41 +71,7 @@ const max = 960
     }
   }
 
-  .resizable-handle {
-    align-items: center;
-    background-color: var(--ui-surface);
-    block-size: 3rem;
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-round);
-    cursor: ew-resize;
-    display: grid;
-    inline-size: 1rem;
-    inset-block-start: 50%;
-    inset-inline-start: 100%;
-    justify-items: center;
-    position: absolute;
-    touch-action: none;
-    translate: -50% -50%;
-
-    &:before {
-      block-size: 1.25rem;
-      border-inline: var(--ui-border-width) solid var(--ui-text);
-      content: "";
-      inline-size: 0.25rem;
-    }
-
-    &:hover,
-    .resizable[data-dragging] & {
-      border-color: var(--ui-primary);
-    }
-
-    &:dir(rtl) {
-      translate: 50% -50%;
-    }
-  }
-
   @media (scripting: none) {
-    .resizable-handle,
     .resizable :global(.resizable-range) {
       display: none;
     }
@@ -112,9 +79,11 @@ const max = 960
 </style>
 
 <script>
+  import { drag, fromInlineStart } from "./drag"
+
   document.querySelectorAll<HTMLElement>(".resizable").forEach((resizable) => {
     const frame = resizable.querySelector<HTMLElement>(".resizable-frame")
-    const handle = resizable.querySelector<HTMLElement>(".resizable-handle")
+    const handle = resizable.querySelector<HTMLElement>(".drag-handle")
     const width = resizable.querySelector(".resizable-width")
     const input = resizable.querySelector<HTMLInputElement>(
       ".resizable-range input[type=range]",
@@ -141,33 +110,20 @@ const max = 960
       input.dispatchEvent(new Event("input", { bubbles: true }))
     }
 
+    let available = 0
     const fit = () => {
+      const next = Math.floor(resizable.clientWidth - chrome())
+      if (next === available) return
       const full = Number(input.max) - Number(input.value) < Number(input.step)
-      input.max = String(Math.floor(resizable.clientWidth - chrome()))
-      set(full ? Number(input.max) : Number(input.value))
+      available = next
+      input.max = String(available)
+      set(full ? available : Number(input.value))
     }
 
-    handle.addEventListener("pointerdown", (event) => {
-      if (event.button !== 0) return
-      event.preventDefault()
-      handle.setPointerCapture(event.pointerId)
-      resizable.dataset.dragging = ""
-      const rtl = getComputedStyle(frame).direction === "rtl"
-      const move = (moveEvent: PointerEvent) => {
-        const rect = frame.getBoundingClientRect()
-        const outer = rtl
-          ? rect.right - moveEvent.clientX
-          : moveEvent.clientX - rect.left
-        set(outer - chrome())
-      }
-      const end = () => {
-        delete resizable.dataset.dragging
-        handle.removeEventListener("pointermove", move)
-      }
-      handle.addEventListener("pointermove", move)
-      handle.addEventListener("lostpointercapture", end, { once: true })
+    drag(handle, {
+      move: (event) => set(fromInlineStart(frame, event) - chrome()),
+      root: resizable,
     })
-
     input.addEventListener("input", render)
     new ResizeObserver(fit).observe(resizable)
   })

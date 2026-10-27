@@ -53,6 +53,7 @@ export { default as Range } from "../components/Range/Range.vue"
 export { default as Select } from "../components/Select/Select.vue"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.vue"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.vue"
+export { default as Stat } from "../components/Stat/Stat.vue"
 export { default as Switch } from "../components/Switch/Switch.vue"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.vue"
 export { default as Table } from "../components/Table/Table.vue"
@@ -159,6 +160,7 @@ export type { Props as SelectProps } from "../components/Select/types.vue-props"
 export type { Props as SelectAllProps } from "../components/SelectAll/types.vue-props"
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.vue-props"
+export type { Props as StatProps } from "../components/Stat/types.vue-props"
 export type {
   SwitchInputProps,
   Props as SwitchProps,

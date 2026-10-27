@@ -2,12 +2,6 @@
   .analytics-dashboard {
     container-type: inline-size;
 
-    .analytics-stats {
-      hgroup > p:last-child {
-        font-size: var(--ui-font-size-caption);
-      }
-    }
-
     .analytics-chart {
       align-items: end;
       block-size: 12rem;
@@ -98,48 +92,57 @@
     </div>
   </div>
 
-  <ul
-    class="ui-layout-grid ui-stretch analytics-stats"
-    style="--_min-inline-size: 13rem"
-  >
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Visitors</p>
-          <h2 class="ui-h4">48 210</h2>
-          <p>
-            <span class="ui-caption ui-success">+12.4%</span> from last week
-          </p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Visitors</dt>
+            <dd class="ui-value">48 210</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+12.4%</span> from last week
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Page views</p>
-          <h2 class="ui-h4">162 904</h2>
-          <p><span class="ui-caption ui-success">+8.1%</span> from last week</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Page views</dt>
+            <dd class="ui-value">162 904</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+8.1%</span> from last week
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Bounce rate</p>
-          <h2 class="ui-h4">41.2%</h2>
-          <p>
-            <span class="ui-caption ui-critical">+2.3%</span> from last week
-          </p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Bounce rate</dt>
+            <dd class="ui-value">41.2%</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-critical">+2.3%</span> from last week
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Visit duration</p>
-          <h2 class="ui-h4">3m 12s</h2>
-          <p><span class="ui-caption ui-success">+0.4%</span> from last week</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Visit duration</dt>
+            <dd class="ui-value">3m 12s</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+0.4%</span> from last week
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
   </ul>

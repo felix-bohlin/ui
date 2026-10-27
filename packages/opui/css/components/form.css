@@ -82,6 +82,8 @@
 
   /* Field group */
   :where(.ui-field-group) {
+    --_field-min-inline-size: 11rem;
+
     display: flex;
     flex-direction: column;
     gap: var(--ui-space-4);
@@ -115,8 +117,6 @@
     }
 
     &.ui-horizontal {
-      --_field-min-inline-size: 11rem;
-
       align-items: end;
       flex-direction: row;
       flex-wrap: wrap;

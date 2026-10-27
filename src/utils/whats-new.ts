@@ -1101,6 +1101,9 @@ export const whatsNew = {
       html: `<a href="#sorting">Sorting</a>: <code>&lt;opui-sortable-table&gt;</code> sorts the rows by a header marked <code>data-sort</code>, sets <code>aria-sort</code> and fires a cancelable <code>sort</code> event. Import <code>opui-css/elements/sortable-table.js</code>.`,
     },
   ],
+  stat: [
+    `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
+  ],
   tabs: [
     `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1433,6 +1436,7 @@ export const highlighted = new Set<string>([
   "layout",
   "menu",
   "number-stepper",
+  "stat",
   "tabs",
   "toast",
   "typography",

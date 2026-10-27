@@ -2,12 +2,6 @@
   .project-overview {
     container-type: inline-size;
 
-    .project-stats {
-      hgroup > p:last-child {
-        font-size: var(--ui-font-size-caption);
-      }
-    }
-
     .project-milestones {
       --_gap: 0;
 
@@ -170,17 +164,16 @@
     </div>
   </article>
 
-  <ul
-    class="ui-layout-grid ui-stretch project-stats"
-    style="--_min-inline-size: 13rem"
-  >
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p id="project-overview-progress-label">Progress</p>
-          <h2 class="ui-h4">64%</h2>
-        </hgroup>
         <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label" id="project-overview-progress-label">
+              Progress
+            </dt>
+            <dd class="ui-value">64%</dd>
+          </dl>
           <div class="ui-progress">
             <progress
               aria-labelledby="project-overview-progress-label"
@@ -193,29 +186,35 @@
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Tasks completed</p>
-          <h2 class="ui-h4">86 of 134</h2>
-          <p>11 closed this week</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Tasks completed</dt>
+            <dd class="ui-value">86 of 134</dd>
+            <dd class="ui-description">11 closed this week</dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Time left</p>
-          <h2 class="ui-h4">23 days</h2>
-          <p>Launch on 31 October</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Time left</dt>
+            <dd class="ui-value">23 days</dd>
+            <dd class="ui-description">Launch on 31 October</dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Budget used</p>
-          <h2 class="ui-h4">412 000 kr</h2>
-          <p>69% of 600 000 kr</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Budget used</dt>
+            <dd class="ui-value">412 000 kr</dd>
+            <dd class="ui-description">69% of 600 000 kr</dd>
+          </dl>
+        </div>
       </div>
     </li>
   </ul>

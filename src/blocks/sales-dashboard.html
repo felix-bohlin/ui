@@ -6,12 +6,6 @@
       align-items: end;
     }
 
-    .sales-stats {
-      hgroup > p:last-child {
-        font-size: var(--ui-font-size-caption);
-      }
-    }
-
     .sales-revenue {
       --_swatch-bg-color: var(--ui-primary);
     }
@@ -123,50 +117,57 @@
     </div>
   </div>
 
-  <ul
-    class="ui-layout-grid ui-stretch sales-stats"
-    style="--_min-inline-size: 13rem"
-  >
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Revenue</p>
-          <h2 class="ui-h4">8 808 300 kr</h2>
-          <p>
-            <span class="ui-caption ui-success">+14.2%</span> from last year
-          </p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Revenue</dt>
+            <dd class="ui-value">8 808 300 kr</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+14.2%</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Orders</p>
-          <h2 class="ui-h4">24 816</h2>
-          <p><span class="ui-caption ui-success">+6.8%</span> from last year</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Orders</dt>
+            <dd class="ui-value">24 816</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+6.8%</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Average order value</p>
-          <h2 class="ui-h4">355 kr</h2>
-          <p>
-            <span class="ui-caption ui-critical">−1.9%</span> from last year
-          </p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Average order value</dt>
+            <dd class="ui-value">355 kr</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-critical">−1.9%</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Conversion rate</p>
-          <h2 class="ui-h4">3.4%</h2>
-          <p>
-            <span class="ui-caption ui-success">+0.3 pp</span> from last year
-          </p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Conversion rate</dt>
+            <dd class="ui-value">3.4%</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+0.3 pp</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
   </ul>

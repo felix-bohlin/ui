@@ -50,12 +50,6 @@
     main {
       padding: var(--ui-space-5) var(--ui-space-4);
     }
-
-    .shell-stats {
-      hgroup > p:last-child {
-        font-size: var(--ui-font-size-caption);
-      }
-    }
   }
 </style>
 
@@ -333,35 +327,38 @@
         </button>
       </div>
 
-      <ul
-        class="ui-layout-grid ui-stretch shell-stats"
-        style="--_min-inline-size: 11rem"
-      >
+      <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 11rem">
         <li>
           <div class="ui-card ui-outlined">
-            <hgroup>
-              <p>Open tasks</p>
-              <h2 class="ui-h4">12</h2>
-              <p>3 marked as urgent</p>
-            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Open tasks</dt>
+                <dd class="ui-value">12</dd>
+                <dd class="ui-description">3 marked as urgent</dd>
+              </dl>
+            </div>
           </div>
         </li>
         <li>
           <div class="ui-card ui-outlined">
-            <hgroup>
-              <p>Due this week</p>
-              <h2 class="ui-h4">5</h2>
-              <p>Next one on Friday</p>
-            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Due this week</dt>
+                <dd class="ui-value">5</dd>
+                <dd class="ui-description">Next one on Friday</dd>
+              </dl>
+            </div>
           </div>
         </li>
         <li>
           <div class="ui-card ui-outlined">
-            <hgroup>
-              <p>Completed in October</p>
-              <h2 class="ui-h4">38</h2>
-              <p>Up from 29 in September</p>
-            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Completed in October</dt>
+                <dd class="ui-value">38</dd>
+                <dd class="ui-description">Up from 29 in September</dd>
+              </dl>
+            </div>
           </div>
         </li>
       </ul>

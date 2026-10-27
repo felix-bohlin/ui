@@ -1,0 +1,132 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+
+import Anatomy from "../../components/Anatomy.astro"
+import { Stat as UIStat } from "opui-css/astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import StatCSS from "@opui/css/components/stat.css?raw"
+
+import statApi from "../../component-api/stat/api"
+export const description =
+  "A stat shows one number with its label and the change behind it."
+---
+
+<Component
+  description={description}
+  slug="stat"
+  heroAnatomy
+  apis={[{ title: "Stat API", api: statApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Stat/Stat.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/stat.astro", type: "docs" },
+    { path: "src/component-examples/stat", type: "docs" },
+    {
+      path: "packages/opui/css/components/stat.css",
+      type: "css",
+    },
+    { path: "src/component-api/stat", type: "api" },
+  ]}
+  installationTabs={[{ title: "stat.css", code: StatCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Stat</Fragment>
+  <Fragment slot="preamble">
+    One number with its label and the change behind it, such as the visitors
+    this week. A row of them opens a dashboard. For a list of terms and their
+    values, use a <DocLink href="/components/description-list"
+      >Description list</DocLink
+    >.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIStat label="Visitors" style="inline-size: 14rem">
+        48 210
+        <Fragment slot="description">
+          <span class="ui-caption ui-success">+12.4%</span> from last week
+        </Fragment>
+      </UIStat>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A key number on a dashboard, like visitors or revenue, in a row of <a
+        href="#cards">cards</a
+      >.
+    </li>
+    <li slot="when">
+      A number next to its change, like +12.4% from last week, with the change
+      in a <a href="#basics">severity color</a>.
+    </li>
+    <li slot="when-not">
+      Several terms with their values, like the details of an order. Use a <DocLink
+        href="/components/description-list">Description list</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A number that changes while the user watches, like a timer. Use <DocLink
+        href="/components/typography#tabular-numbers">tabular numbers</DocLink
+      > on your own text.
+    </li>
+  </Usage>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>label</code> to what the value counts and put the value in the default
+        slot. <code>description</code> adds the change or a note under it, and the
+        <code>description</code> slot takes rich content, such as a change in a severity
+        color.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>dl.ui-stat</code> holds the label in <code>dt.ui-label</code>,
+        the value in <code>dd.ui-value</code> and an optional <code
+          >dd.ui-description</code
+        > with the change or a note, such as a change in a severity color.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <p>
+      <PropOrClass prop='size="small"' class=".ui-small" /> sizes the value like large
+      text, for a stat in a tight row, and <PropOrClass
+        prop='size="large"'
+        class=".ui-large"
+      /> like a third level heading, for the one number a page is about.
+    </p>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="cards">Cards</h2>
+    <p>
+      A dashboard puts each stat in the content of a <DocLink
+        href="/components/card">Card</DocLink
+      >, in a <DocLink href="/components/layout#stretch">stretched grid</DocLink
+      >
+      so the row fills the width whatever the count.
+    </p>
+    <AutoExample name="Cards" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The stat is a description list, so a screen reader reads the label as a
+      term and the value and the description as its details, in that order. A
+      change in a severity color says the direction in its text, such as
+      "+12.4%", since the color alone carries no meaning.
+    </p>
+  </Fragment>
+</Component>

@@ -68,17 +68,6 @@
       }
     }
 
-    .hero-stats {
-      .ui-card {
-        gap: var(--ui-space-1);
-        padding: var(--ui-space-2);
-      }
-
-      strong {
-        font-size: var(--ui-font-size-large);
-      }
-    }
-
     .hero-tasks {
       .ui-text p:last-child {
         font-size: var(--ui-font-size-caption);
@@ -182,20 +171,32 @@
             </span>
           </div>
           <div
-            class="ui-layout-grid ui-small hero-stats"
+            class="ui-layout-grid ui-small"
             style="--_max-columns: 3; --_min-inline-size: 4rem"
           >
-            <div class="ui-card ui-outlined">
-              <span class="ui-caption">Done</span>
-              <strong class="ui-tabular-nums">18</strong>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">Done</dt>
+                  <dd class="ui-value">18</dd>
+                </dl>
+              </div>
             </div>
-            <div class="ui-card ui-outlined">
-              <span class="ui-caption">In review</span>
-              <strong class="ui-tabular-nums">6</strong>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">In review</dt>
+                  <dd class="ui-value">6</dd>
+                </dl>
+              </div>
             </div>
-            <div class="ui-card ui-outlined">
-              <span class="ui-caption">Velocity</span>
-              <strong class="ui-tabular-nums">34</strong>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">Velocity</dt>
+                  <dd class="ui-value">34</dd>
+                </dl>
+              </div>
             </div>
           </div>
           <ul class="ui-list ui-transparent ui-dense ui-bordered hero-tasks">

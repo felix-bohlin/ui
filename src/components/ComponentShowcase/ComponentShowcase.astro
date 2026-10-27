@@ -36,6 +36,7 @@ import {
   Progress,
   Radio,
   Range,
+  Stat,
   Switch,
   Table,
   TableBody,
@@ -47,8 +48,8 @@ import {
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   Textarea,
+  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -423,6 +424,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           </TableRow>
         </TableBody>
       </Table>
+    </Fragment>
+
+    <Fragment slot="stat">
+      <Stat aria-hidden="true" label="Visitors">48 210</Stat>
     </Fragment>
 
     <Fragment slot="tabs">

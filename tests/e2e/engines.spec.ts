@@ -10,7 +10,6 @@ import {
   failsIn,
   type EngineBug,
 } from "./engine-bugs"
-import { settle } from "./fixtures"
 
 const reproduced = new Set<EngineBug>()
 
@@ -175,15 +174,20 @@ repro(WEBKIT_FALLBACK_ITEM_CLICK, () => {
       }
 
       await open()
-      await settle(popover)
-      expect(
-        await placement(tab).then(({ endEdge, startEdge }) =>
-          fallback ? startEdge : endEdge,
-        ),
-        fallback
-          ? "the popover starts at its trigger"
-          : "the popover ends at its trigger",
-      ).toBe(0)
+      // The opening transition can still be scaling it, so poll until it settles
+      await expect
+        .poll(
+          () =>
+            placement(tab).then(({ endEdge, startEdge }) =>
+              fallback ? startEdge : endEdge,
+            ),
+          {
+            message: fallback
+              ? "the popover starts at its trigger"
+              : "the popover ends at its trigger",
+          },
+        )
+        .toBe(0)
       await popover.evaluate((element: HTMLElement) => element.hidePopover())
       await expect(popover).toBeHidden()
 

@@ -13,7 +13,12 @@ export default {
   },
   "--_justify-content": {
     description:
-      "How `.ui-layout-row` distributes its children along the row, such as `flex-end`. `.ui-spread` sets it to `space-between`.",
+      "How `.ui-layout-row` distributes its children along the row, such as `space-evenly`. `.ui-align-center`, `.ui-align-end` and `.ui-spread` set it.",
+    kind: "input",
+  },
+  "--_max-columns": {
+    description:
+      "Most columns `.ui-layout-grid` makes, such as `3`. Defaults to `infinity`, as many as fit at `--_min-inline-size`.",
     kind: "input",
   },
   "--_max-inline-size": {

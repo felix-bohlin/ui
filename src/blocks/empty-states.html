@@ -1,18 +1,8 @@
 <style>
   .empty-states {
-    container-type: inline-size;
-
     .empty-states-header {
       align-self: center;
       text-align: center;
-    }
-
-    .empty-states-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
     }
 
     .ui-card > .ui-content {
@@ -29,10 +19,6 @@
       max-inline-size: 32ch;
     }
 
-    .empty-states-actions {
-      --_justify-content: center;
-    }
-
     .empty-states-search {
       inline-size: min(100%, 20rem);
     }
@@ -47,7 +33,10 @@
     <h1 class="ui-h3">Nothing to show, yet</h1>
     <p>Each empty state says why the page is empty and what to do next.</p>
   </hgroup>
-  <div class="ui-layout-grid ui-large empty-states-grid">
+  <div
+    class="ui-layout-grid ui-large"
+    style="--_max-columns: 2; --_min-inline-size: 19rem"
+  >
     <section
       aria-labelledby="empty-states-first-run"
       class="ui-card ui-outlined"
@@ -72,7 +61,7 @@
           </h2>
           <p>Projects keep tasks, files and people in one place.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small empty-states-actions">
+        <div class="ui-layout-row ui-small ui-align-center">
           <button class="ui-button ui-filled" type="button">
             <svg
               aria-hidden="true"
@@ -141,7 +130,7 @@
           </h2>
           <p>Check the spelling, or try one of these instead.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small empty-states-actions">
+        <div class="ui-layout-row ui-small ui-align-center">
           <a class="ui-chip ui-outlined" href="#empty-states-quarterly"
             ><span class="ui-text">quarterly forecast</span></a
           >
@@ -175,7 +164,7 @@
           <h2 class="ui-h5" id="empty-states-inbox">You're all caught up</h2>
           <p>No new messages since 09:12. Enjoy the quiet.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small empty-states-actions">
+        <div class="ui-layout-row ui-small ui-align-center">
           <a class="ui-button ui-outlined" href="#empty-states-archive"
             >View archive</a
           >
@@ -210,7 +199,7 @@
           </h2>
           <p>Ask a workspace admin to give you the Billing role.</p>
         </hgroup>
-        <div class="ui-layout-row ui-small empty-states-actions">
+        <div class="ui-layout-row ui-small ui-align-center">
           <div
             aria-label="Workspace admins"
             class="ui-avatar-group"
@@ -226,7 +215,7 @@
           </div>
           <span>3 admins</span>
         </div>
-        <div class="ui-layout-row ui-small empty-states-actions">
+        <div class="ui-layout-row ui-small ui-align-center">
           <button class="ui-button ui-filled" type="button">
             Request access
           </button>

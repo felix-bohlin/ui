@@ -52,8 +52,6 @@
     }
 
     .shell-stats {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-
       hgroup > p:last-child {
         font-size: var(--ui-font-size-caption);
       }
@@ -335,7 +333,10 @@
         </button>
       </div>
 
-      <ul class="ui-layout-grid shell-stats">
+      <ul
+        class="ui-layout-grid ui-stretch shell-stats"
+        style="--_min-inline-size: 11rem"
+      >
         <li>
           <div class="ui-card ui-outlined">
             <hgroup>

@@ -3,8 +3,6 @@
     container-type: inline-size;
 
     .analytics-stats {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-
       hgroup > p:last-child {
         font-size: var(--ui-font-size-caption);
       }
@@ -108,7 +106,10 @@
     </div>
   </div>
 
-  <ul class="ui-layout-grid analytics-stats">
+  <ul
+    class="ui-layout-grid ui-stretch analytics-stats"
+    style="--_min-inline-size: 13rem"
+  >
     <li>
       <div class="ui-card ui-outlined">
         <hgroup>

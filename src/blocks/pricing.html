@@ -7,19 +7,8 @@
       display: none;
     }
 
-    .pricing-intro {
-      align-items: center;
-      margin-inline: auto;
-      max-inline-size: 40rem;
-      text-align: center;
-
-      h1 {
-        text-wrap: balance;
-      }
-    }
-
-    .pricing-period {
-      --_justify-content: center;
+    .pricing-intro h1 {
+      text-wrap: balance;
     }
 
     .pricing-save {
@@ -102,7 +91,10 @@
 </style>
 
 <div class="pricing ui-layout-container ui-layout-column ui-large">
-  <div class="ui-layout-column ui-large pricing-intro">
+  <div
+    class="ui-layout-container ui-layout-column ui-large ui-align-center pricing-intro"
+    style="--_max-inline-size: 40rem; --_padding-inline: 0"
+  >
     <hgroup class="ui-hgroup">
       <p>Pricing</p>
       <h1 class="ui-h2">Simple plans that grow with your team</h1>
@@ -111,7 +103,7 @@
         14-day trial.
       </p>
     </hgroup>
-    <div class="ui-layout-row ui-small pricing-period">
+    <div class="ui-layout-row ui-small ui-align-center">
       <div
         aria-label="Billing period"
         class="ui-toggle-group"

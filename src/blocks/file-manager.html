@@ -18,12 +18,6 @@
     }
 
     .files-folders {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      @container (40rem <= inline-size < 56rem) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
       hgroup > svg {
         color: var(--folder);
         margin-block-end: var(--ui-space-1);
@@ -149,7 +143,10 @@
 
     <section aria-labelledby="file-manager-folders-heading">
       <h2 class="ui-sr-only" id="file-manager-folders-heading">Folders</h2>
-      <ul class="ui-layout-grid files-folders">
+      <ul
+        class="ui-layout-grid files-folders"
+        style="--_max-columns: 4; --_min-inline-size: 8rem"
+      >
         <li>
           <div class="ui-card ui-outlined">
             <hgroup>

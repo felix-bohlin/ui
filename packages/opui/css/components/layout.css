@@ -5,6 +5,16 @@
     display: flex;
     flex-direction: column;
     gap: var(--_gap);
+
+    &.ui-align-center {
+      align-items: center;
+      text-align: center;
+    }
+
+    &.ui-align-end {
+      align-items: end;
+      text-align: end;
+    }
   }
 
   :where(.ui-layout-row) {
@@ -17,6 +27,14 @@
     gap: var(--_gap);
     justify-content: var(--_justify-content);
 
+    &.ui-align-center {
+      --_justify-content: center;
+    }
+
+    &.ui-align-end {
+      --_justify-content: flex-end;
+    }
+
     &.ui-spread {
       --_justify-content: space-between;
     }
@@ -24,14 +42,34 @@
 
   :where(.ui-layout-grid) {
     --_gap: var(--ui-space-3);
+    --_max-columns: infinity;
     --_min-inline-size: 16rem;
 
     display: grid;
     gap: var(--_gap);
     grid-template-columns: repeat(
       auto-fill,
-      minmax(min(var(--_min-inline-size), 100%), 1fr)
+      minmax(
+        max(
+          min(var(--_min-inline-size), 100%),
+          calc(100% / var(--_max-columns) - var(--_gap))
+        ),
+        1fr
+      )
     );
+
+    &.ui-stretch {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+          max(
+            min(var(--_min-inline-size), 100%),
+            calc(100% / var(--_max-columns) - var(--_gap))
+          ),
+          1fr
+        )
+      );
+    }
 
     & > li > :where(.ui-card) {
       block-size: 100%;

@@ -648,7 +648,8 @@ export const whatsNew = {
   ],
   layout: [
     `New: <a href="#column"><code>.ui-layout-column</code></a>, <a href="#row"><code>.ui-layout-row</code></a>, <a href="#grid"><code>.ui-layout-grid</code></a> and <a href="#container"><code>.ui-layout-container</code></a> lay out the space between components.`,
-    `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header.`,
+    `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header, and <a href="#column-align"><code>.ui-align-center</code> and <code>.ui-align-end</code></a> line up a row or a column.`,
+    `<a href="#stretch"><code>.ui-stretch</code></a> stretches the columns of a grid over the row when fewer children than fit, and <a href="#max-columns"><code>--_max-columns</code></a> caps the count.`,
     `<a href="#media"><code>.ui-layout-media</code></a> puts an avatar or an icon next to text that fills the rest and truncates.`,
     `On a <code>ul</code> or <code>ol</code>, <a href="#lists">rows and grids</a> drop the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
     `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,

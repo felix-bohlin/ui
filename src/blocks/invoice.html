@@ -38,8 +38,6 @@
     }
 
     .invoice-parties {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-
       address {
         font-style: normal;
         line-height: 1.5;
@@ -180,7 +178,10 @@
         </div>
       </div>
 
-      <div class="ui-layout-grid ui-large invoice-parties">
+      <div
+        class="ui-layout-grid ui-large ui-stretch invoice-parties"
+        style="--_min-inline-size: 12rem"
+      >
         <section aria-labelledby="invoice-from">
           <h2 class="ui-overline invoice-label" id="invoice-from">From</h2>
           <address>

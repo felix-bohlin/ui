@@ -11,6 +11,18 @@ export default {
   },
   options: [
     {
+      default: '"start"',
+      description:
+        "Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text.",
+      group: "Alignment",
+      prop: "align",
+      values: {
+        center: ".ui-align-center",
+        end: ".ui-align-end",
+        start: null,
+      },
+    },
+    {
       class: ".ui-layout-column",
       description: "A column with even space between its children.",
       group: "Column",
@@ -75,6 +87,14 @@ export default {
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
+    },
+    {
+      class: ".ui-stretch",
+      default: "false",
+      description:
+        "Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
+      group: "Stretch",
+      prop: "stretch",
     },
     {
       class: ".ui-sticky",

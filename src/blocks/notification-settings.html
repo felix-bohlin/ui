@@ -40,18 +40,6 @@
         justify-content: center;
       }
     }
-
-    .notif-hours {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .notif-footer {
-      --_justify-content: end;
-
-      p {
-        margin-inline-end: auto;
-      }
-    }
   }
 </style>
 
@@ -507,19 +495,21 @@
         </h2>
         <p>Push and SMS wait until quiet hours end. Security alerts don't.</p>
       </hgroup>
-      <div class="ui-content notif-hours">
-        <label class="ui-text-field">
-          <span class="ui-label">From</span>
-          <span class="ui-field">
-            <input name="quiet-from" type="time" value="22:00" />
-          </span>
-        </label>
-        <label class="ui-text-field">
-          <span class="ui-label">To</span>
-          <span class="ui-field">
-            <input name="quiet-to" type="time" value="07:00" />
-          </span>
-        </label>
+      <div class="ui-content">
+        <div class="ui-field-group ui-horizontal">
+          <label class="ui-text-field">
+            <span class="ui-label">From</span>
+            <span class="ui-field">
+              <input name="quiet-from" type="time" value="22:00" />
+            </span>
+          </label>
+          <label class="ui-text-field">
+            <span class="ui-label">To</span>
+            <span class="ui-field">
+              <input name="quiet-to" type="time" value="07:00" />
+            </span>
+          </label>
+        </div>
       </div>
     </section>
 
@@ -569,9 +559,11 @@
     </section>
   </div>
 
-  <div class="ui-layout-row ui-small notif-footer">
+  <div class="ui-layout-row ui-small ui-spread">
     <p>Changes apply to all your devices.</p>
-    <button class="ui-button" type="reset">Reset to defaults</button>
-    <button class="ui-button ui-filled" type="submit">Save changes</button>
+    <div class="ui-layout-row ui-small">
+      <button class="ui-button" type="reset">Reset to defaults</button>
+      <button class="ui-button ui-filled" type="submit">Save changes</button>
+    </div>
   </div>
 </form>

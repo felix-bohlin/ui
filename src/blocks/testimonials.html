@@ -2,19 +2,8 @@
   .testimonials {
     container-type: inline-size;
 
-    .testimonials-intro {
-      align-items: center;
-      margin-inline: auto;
-      max-inline-size: 40rem;
-      text-align: center;
-
-      h1 {
-        text-wrap: balance;
-      }
-    }
-
-    .testimonials-summary {
-      --_justify-content: center;
+    .testimonials-intro h1 {
+      text-wrap: balance;
     }
 
     .testimonials-list {
@@ -66,7 +55,10 @@
   class="testimonials ui-layout-container ui-layout-column ui-large"
   aria-labelledby="testimonials-heading"
 >
-  <div class="ui-layout-column testimonials-intro">
+  <div
+    class="ui-layout-container ui-layout-column ui-align-center testimonials-intro"
+    style="--_max-inline-size: 40rem; --_padding-inline: 0"
+  >
     <hgroup class="ui-hgroup">
       <p>Customer stories</p>
       <h1 class="ui-h2" id="testimonials-heading">
@@ -77,7 +69,7 @@
         customers say.
       </p>
     </hgroup>
-    <p class="ui-layout-row testimonials-summary">
+    <p class="ui-layout-row ui-align-center">
       <span class="testimonials-stars" aria-hidden="true">
         <svg
           aria-hidden="true"

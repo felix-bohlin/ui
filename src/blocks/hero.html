@@ -69,8 +69,6 @@
     }
 
     .hero-stats {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
       .ui-card {
         gap: var(--ui-space-1);
         padding: var(--ui-space-2);
@@ -184,7 +182,10 @@
               <span class="ui-text">Ends Oct 16</span>
             </span>
           </div>
-          <div class="ui-layout-grid ui-small hero-stats">
+          <div
+            class="ui-layout-grid ui-small hero-stats"
+            style="--_max-columns: 3; --_min-inline-size: 4rem"
+          >
             <div class="ui-card ui-outlined">
               <span class="ui-caption">Done</span>
               <strong>18</strong>

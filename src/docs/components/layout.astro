@@ -67,15 +67,25 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       between them.
     </p>
     <AutoExample name="Column" />
+
+    <h3 id="column-align">Align</h3>
+    <p>
+      <code>.ui-align-center</code> lines the children and their text up in the middle,
+      for the intro of a page, and <code>.ui-align-end</code> at the end. On a row,
+      the same classes push the children along the row, so the buttons under the intro
+      sit at the end.
+    </p>
+    <AutoExample name="Align" />
   </section>
 
   <section>
     <h2 id="row">Row</h2>
     <p>
       <code>.ui-layout-row</code> puts its children in a row, centered on one line,
-      and wraps them when they run out of room. Set <code
-        >--_justify-content</code
-      > to push them to the end.
+      and wraps them when they run out of room. <code>.ui-align-center</code> and
+      <code>.ui-align-end</code> push them along the row (<a
+        href="#column-align">Align</a
+      >), and <code>--_justify-content</code> takes any other distribution.
     </p>
     <AutoExample name="Row" />
 
@@ -95,6 +105,24 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       rest. No breakpoints: it follows the space it has.
     </p>
     <AutoExample name="Grid" />
+
+    <h3 id="stretch">Stretch</h3>
+    <p>
+      The columns keep their width when there are fewer children than fit, so a
+      row of two cards in a wide grid leaves the rest empty. <code
+        >.ui-stretch</code
+      > stretches them over the row instead, for a row of stats.
+    </p>
+    <AutoExample name="Stretch" />
+
+    <h3 id="max-columns">Most columns</h3>
+    <p>
+      <code>--_max-columns</code> caps the count, so three features never spread over
+      four columns. Below the cap, the columns still follow <code
+        >--_min-inline-size</code
+      >.
+    </p>
+    <AutoExample name="MaxColumns" />
 
     <h3 id="lists">Lists</h3>
     <p>

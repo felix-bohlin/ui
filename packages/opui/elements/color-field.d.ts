@@ -24,6 +24,8 @@ export declare function parseOklch(value: string): Oklch | null
 export declare function readColor(text: string): Oklch | null
 
 export declare class ColorField extends HTMLElement {
+  copy(source?: HTMLElement): Promise<boolean>
+  pick(): Promise<string | null>
   readonly input: HTMLInputElement | null
   readonly value: string
 }

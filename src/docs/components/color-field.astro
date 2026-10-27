@@ -25,6 +25,7 @@ export const description =
   slug="color-field"
   browserSupport={[
     "container-style-queries",
+    "field-sizing",
     "invoker-commands",
     "light-dark",
     "popover",
@@ -123,6 +124,18 @@ export const description =
   </section>
 
   <section>
+    <h2 id="picker">Picker</h2>
+    <p>
+      The picker previews the color on a larger area, with its <code
+        >oklch()</code
+      > value and two buttons: one copies the value, and the eyedropper picks a color
+      from the screen in browsers with the EyeDropper API (Chromium), and stays hidden
+      elsewhere. Under the sliders, a line says which screens show the color, and
+      two chips show its contrast ratio as text on white and on black.
+    </p>
+  </section>
+
+  <section>
     <h2 id="opacity">Opacity</h2>
     <p>
       <PropOrClass prop="alpha" class='input[data-channel="alpha"]' /> adds an opacity
@@ -164,6 +177,17 @@ export const description =
   </section>
 
   <section>
+    <h2 id="auto-fit">Auto fit</h2>
+    <p>
+      The field fills the available width, like a <DocLink
+        href="/components/text-field#auto-fit">Text field</DocLink
+      >. <PropOrClass prop="autoFit" class=".ui-auto-fit" /> lets it follow the value
+      instead, from 25 characters.
+    </p>
+    <AutoExample name="AutoFit" />
+  </section>
+
+  <section>
     <h2 id="end-text">End text</h2>
     <p>
       Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
@@ -186,10 +210,15 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Every text is in your markup or an attribute, for another language: the
-        swatch button's <code>aria-label</code> and the slider labels are in the markup,
-        and <code>srgb-text</code>, <code>p3-text</code>, <code>wide-text</code> and
-        <code>invalid-text</code> on <code>opui-color-field</code> replace the line
-        under the sliders and the message while the text isn't a color.
+        buttons' <code>aria-label</code>s and the slider labels are in the
+        markup, and <code>srgb-text</code>, <code>p3-text</code>, <code
+          >wide-text</code
+        >,
+        <code>invalid-text</code>, <code>copied-label</code> and <code
+          >contrast-label</code
+        > on <code>opui-color-field</code> replace the line under the sliders, the
+        message while the text isn't a color, the copy announcement and the contrast
+        text.
       </Fragment>
     </Conditional>
   </section>

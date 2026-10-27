@@ -1352,26 +1352,28 @@ interaction(
   "side and align move the toasts",
   async ({ page, root }) => {
     await page.waitForFunction(() => customElements.get("opui-toaster"))
-    const viewport = page.viewportSize()!
-    const box = async (name: string) => {
+    const { height, width } = page.viewportSize()!
+    const names = [
+      "Top start",
+      "Top center",
+      "Top end",
+      "Bottom start",
+      "Bottom center",
+      "Bottom end",
+    ]
+    for (const [index, name] of names.entries()) {
       await root.getByRole("button", { name }).click()
-      const list = root.locator(
-        `#toast-position-${{ "Top start": 1, "Top center": 2, "Bottom start": 3 }[name]} ol`,
-      )
+      const list = root.locator(`#toast-position-${index + 1} ol`)
       await expect(list).toBeVisible()
-      return (await list.boundingBox())!
+      const box = (await list.boundingBox())!
+      const [side, align] = name.split(" ")
+      if (side === "Top") expect(box.y).toBeLessThan(height / 2)
+      else expect(box.y).toBeGreaterThan(height / 2)
+      const center = box.x + box.width / 2
+      if (align === "start") expect(center).toBeLessThan(width / 3)
+      else if (align === "end") expect(center).toBeGreaterThan((width * 2) / 3)
+      else expect(Math.abs(center - width / 2)).toBeLessThan(2)
     }
-    const topStart = await box("Top start")
-    expect(topStart.y).toBeLessThan(viewport.height / 2)
-    expect(topStart.x).toBeLessThan(viewport.width / 2)
-    const topCenter = await box("Top center")
-    expect(topCenter.y).toBeLessThan(viewport.height / 2)
-    expect(
-      Math.abs(topCenter.x + topCenter.width / 2 - viewport.width / 2),
-    ).toBeLessThan(2)
-    const bottomStart = await box("Bottom start")
-    expect(bottomStart.y).toBeGreaterThan(viewport.height / 2)
-    expect(bottomStart.x).toBeLessThan(viewport.width / 2)
   },
 )
 
@@ -1531,6 +1533,76 @@ interaction(
     expect(
       await input.evaluate((el: HTMLInputElement) => el.validity.valid),
     ).toBe(false)
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
+  "color field picker previews the color, copies it and shows its contrast",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    const picker = root.getByRole("dialog")
+    await expect(picker.locator(".ui-header > .ui-value")).toHaveText(
+      "oklch(0.6 0.15 250)",
+    )
+    await expect(picker.locator(".ui-footer > .ui-sr-only")).toHaveText(
+      /^\d+(\.\d+)?:1 on light, \d+(\.\d+)?:1 on dark$/,
+    )
+    await stubClipboard(page)
+    const copy = picker.getByRole("button", { name: "Copy" })
+    await copy.click()
+    await expect.poll(() => copiedTexts(page)).toEqual(["oklch(0.6 0.15 250)"])
+    await expect(copy).toHaveAttribute("data-copied", "")
+    await expect(picker.locator('.ui-header > [role="status"]')).toHaveText(
+      "Copied",
+    )
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
+  "color field eyedropper shows where the browser has it and picks a color",
+  async ({ page, root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+    const dropper = root.getByRole("button", { name: "Pick from the screen" })
+
+    await page.evaluate(() => {
+      delete (window as { EyeDropper?: unknown }).EyeDropper
+    })
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    await expect(dropper).toBeHidden()
+    await page.keyboard.press("Escape")
+
+    await page.evaluate(() => {
+      Object.assign(window, {
+        EyeDropper: class {
+          open() {
+            return Promise.resolve({ sRGBHex: "#ff0000" })
+          }
+        },
+      })
+    })
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    await expect(dropper).toBeVisible()
+    await dropper.click()
+    await expect(input).toHaveValue(/^oklch\(0\.62\d* 0\.25\d* 29\.\d+\)$/)
+  },
+)
+
+interaction(
+  "color-field",
+  "AutoFit",
+  "a color field fills the width unless it auto fits",
+  async ({ page, root }) => {
+    const fitted = root.locator("opui-color-field")
+    const filled = page
+      .locator('[data-example="Basics"]')
+      .locator("opui-color-field")
+    const available = (await root.boundingBox())!.width
+    expect((await fitted.boundingBox())!.width).toBeLessThan(available / 2)
+    expect((await filled.boundingBox())!.width).toBeGreaterThan(available * 0.9)
   },
 )
 

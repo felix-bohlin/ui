@@ -19,14 +19,23 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `<input type="text">` (model): The input element, which holds the `oklch()` value.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `.ui-floating` (prop `alpha`): The picker, a popover dialog with a `.ui-range` slider per channel.
+- `.ui-floating > .ui-header`: The preview, painted with the color, with the `oklch()` value and the buttons.
+- `.ui-header > .ui-value`: The `oklch()` value, on the preview.
+- `.ui-header > .ui-actions` (prop `copiedLabel`, prop `copyLabel`, prop `eyedropperLabel`): The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.
 - `.ui-floating > .ui-description`: Under the sliders, which screens show the color: sRGB, Display P3 or beyond.
+- `.ui-floating > .ui-footer` (prop `contrastLabel`): The color's contrast ratio as text on white and on black, in two chips, read out through `contrastLabel`.
 
 ### Props and modifiers
 
 - `alpha`: `boolean`. Adds an opacity slider, and keeps the alpha in the value.
+- `autoFit`: `boolean`, `.ui-text-field.ui-auto-fit`. Lets the width follow the value, from `25ch`, like a `TextField`.
 - `chromaLabel`: `string`, default `"Chroma"`. The label of the chroma slider.
+- `contrastLabel`: `string`, default `"{light}:1 on light, {dark}:1 on dark"`. What a screen reader gets for the contrast ratios in the picker, with `{light}` and `{dark}` where the numbers go.
+- `copiedLabel`: `string`, default `"Copied"`. What the picker announces after the copy button copied the value.
+- `copyLabel`: `string`, default `"Copy"`. The accessible name of the copy button in the picker.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input and the picker button.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
+- `eyedropperLabel`: `string`, default `"Pick from the screen"`. The accessible name of the eyedropper button in the picker, shown in browsers with the EyeDropper API.
 - `hideLabel`: `boolean`, `.ui-text-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `hueLabel`: `string`, default `"Hue"`. The label of the hue slider.
 - `id`: `string`. The id of the `<input>`. The label, the picker button and the sliders build their ids from it, so the component generates one when it's left out.
@@ -60,7 +69,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_picker-inline-size`: Width of the picker popover.
 
-Outputs: `--_indicator-bg-color`, `--_size` and `--_trigger-size`.
+Outputs: `--_indicator-bg-color`, `--_preview-text-color`, `--_size`, `--_text-color` and `--_trigger-size`.
 
 ### text-field.css
 
@@ -111,7 +120,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -154,6 +163,42 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
     popover="auto"
     role="dialog"
   >
+    <div class="ui-header">
+      <span aria-hidden="true" class="ui-value"></span>
+      <span class="ui-actions">
+        <button
+          type="button"
+          class="ui-button ui-round ui-small"
+          aria-label="Pick from the screen"
+          command="--eyedropper"
+          commandfor="color-field-basics-1"
+          hidden
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42M6.92 19 5 17.08l8.06-8.06 1.92 1.92z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="ui-button ui-round ui-small"
+          aria-label="Copy"
+          command="--copy"
+          commandfor="color-field-basics-1"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24"></svg>
+        </button>
+      </span>
+      <span class="ui-sr-only" role="status"></span>
+    </div>
     <label class="ui-range" for="color-field-basics-1-lightness">
       <span class="ui-label" id="color-field-basics-1-lightness-label"
         >Lightness</span
@@ -211,6 +256,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       />
     </label>
     <p class="ui-description" id="color-field-basics-1-gamut"></p>
+    <p class="ui-footer">
+      <span aria-hidden="true" data-contrast="light"></span>
+      <span aria-hidden="true" data-contrast="dark"></span>
+      <span class="ui-sr-only"></span>
+    </p>
   </div>
 </opui-color-field>
 

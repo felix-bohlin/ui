@@ -5,13 +5,19 @@ import Button from "../Button/Button.react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { channelsFor } from "./channels"
+import { copyPath, eyedropperPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function ColorField({
   alpha,
+  autoFit,
   chromaLabel,
   className,
+  contrastLabel,
+  copiedLabel,
+  copyLabel = "Copy",
   error,
+  eyedropperLabel = "Pick from the screen",
   hideLabel,
   hueLabel,
   id,
@@ -43,6 +49,8 @@ export default function ColorField({
   return (
     <opui-color-field
       className={cx(["ui-color-field", className])}
+      contrast-label={contrastLabel}
+      copied-label={copiedLabel}
       invalid-text={invalidText}
       p3-text={p3Text}
       srgb-text={srgbText}
@@ -53,6 +61,7 @@ export default function ColorField({
         className={cx([
           "ui-text-field",
           {
+            "ui-auto-fit": autoFit,
             "ui-filled": variant === "filled",
             "ui-spread": spread,
           },
@@ -99,6 +108,47 @@ export default function ColorField({
         popover="auto"
         role="dialog"
       >
+        <div className="ui-header">
+          <span aria-hidden="true" className="ui-value"></span>
+          <span className="ui-actions">
+            <Button
+              aria-label={eyedropperLabel}
+              command="--eyedropper"
+              commandfor={inputId}
+              hidden
+              round
+              size="small"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d={eyedropperPath}></path>
+              </svg>
+            </Button>
+            <Button
+              aria-label={copyLabel}
+              command="--copy"
+              commandfor={inputId}
+              round
+              size="small"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d={copyPath}></path>
+              </svg>
+            </Button>
+          </span>
+          <span className="ui-sr-only" role="status"></span>
+        </div>
         {channelsFor(alpha, {
           chroma: chromaLabel,
           hue: hueLabel,
@@ -133,6 +183,11 @@ export default function ColorField({
           </label>
         ))}
         <p className="ui-description" id={`${inputId}-gamut`}></p>
+        <p className="ui-footer">
+          <span aria-hidden="true" data-contrast="light"></span>
+          <span aria-hidden="true" data-contrast="dark"></span>
+          <span className="ui-sr-only"></span>
+        </p>
       </div>
     </opui-color-field>
   )

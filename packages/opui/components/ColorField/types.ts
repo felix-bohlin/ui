@@ -1,8 +1,13 @@
 export type Props = {
   alpha?: boolean
+  autoFit?: boolean
   chromaLabel?: string
+  contrastLabel?: string
+  copiedLabel?: string
+  copyLabel?: string
   endText?: string
   error?: boolean
+  eyedropperLabel?: string
   hideLabel?: boolean
   hueLabel?: string
   invalidText?: string

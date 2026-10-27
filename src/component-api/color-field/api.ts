@@ -60,9 +60,35 @@ export default {
       prop: "alpha",
     },
     {
+      class: ".ui-auto-fit",
+      default: "false",
+      description:
+        "Lets the width follow the value, from `25ch`, like a `TextField`.",
+      group: "Auto fit",
+      part: ".ui-text-field",
+      prop: "autoFit",
+    },
+    {
       default: '"Chroma"',
       description: "The label of the chroma slider.",
       prop: "chromaLabel",
+    },
+    {
+      default: '"{light}:1 on light, {dark}:1 on dark"',
+      description:
+        "What a screen reader gets for the contrast ratios in the picker, with `{light}` and `{dark}` where the numbers go.",
+      prop: "contrastLabel",
+    },
+    {
+      default: '"Copied"',
+      description:
+        "What the picker announces after the copy button copied the value.",
+      prop: "copiedLabel",
+    },
+    {
+      default: '"Copy"',
+      description: "The accessible name of the copy button in the picker.",
+      prop: "copyLabel",
     },
     {
       attribute: "[disabled]",
@@ -81,6 +107,12 @@ export default {
       group: "Validation",
       part: "input",
       prop: "error",
+    },
+    {
+      default: '"Pick from the screen"',
+      description:
+        "The accessible name of the eyedropper button in the picker, shown in browsers with the EyeDropper API.",
+      prop: "eyedropperLabel",
     },
     {
       class: ".ui-sr-only",
@@ -241,8 +273,29 @@ export default {
     },
     {
       description:
+        "The preview, painted with the color, with the `oklch()` value and the buttons.",
+      selector: ".ui-floating > .ui-header",
+    },
+    {
+      description: "The `oklch()` value, on the preview.",
+      selector: ".ui-header > .ui-value",
+    },
+    {
+      description:
+        'The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.',
+      props: ["copiedLabel", "copyLabel", "eyedropperLabel"],
+      selector: ".ui-header > .ui-actions",
+    },
+    {
+      description:
         "Under the sliders, which screens show the color: sRGB, Display P3 or beyond.",
       selector: ".ui-floating > .ui-description",
+    },
+    {
+      description:
+        "The color's contrast ratio as text on white and on black, in two chips, read out through `contrastLabel`.",
+      props: ["contrastLabel"],
+      selector: ".ui-floating > .ui-footer",
     },
   ],
   root: {

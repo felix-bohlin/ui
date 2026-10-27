@@ -2,8 +2,14 @@
   :where(.ui-color-field) {
     --_indicator-bg-color: transparent;
     --_picker-inline-size: 16rem;
+    --_preview-text-color: var(--ui-text);
 
     display: grid;
+
+    &:has(> .ui-auto-fit) {
+      inline-size: fit-content;
+      max-inline-size: 100%;
+    }
 
     & > .ui-text-field {
       --_trigger-size: calc(
@@ -53,10 +59,75 @@
         display: grid;
       }
 
+      & > .ui-header {
+        align-items: center;
+        background-color: var(--_indicator-bg-color);
+        border-radius: var(--ui-radius-small);
+        box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
+        color: var(--_preview-text-color);
+        display: flex;
+        gap: var(--ui-space-2);
+        justify-content: space-between;
+        min-block-size: calc(var(--ui-space-6) * 2);
+        padding-block: var(--ui-space-2);
+        padding-inline: var(--ui-space-3);
+
+        @media (forced-colors: active) {
+          forced-color-adjust: none;
+        }
+
+        & > .ui-value {
+          font-family: var(--ui-font-code);
+          font-size: var(--ui-font-size-small);
+          overflow-wrap: anywhere;
+        }
+
+        & > .ui-actions {
+          display: flex;
+          flex-shrink: 0;
+          gap: var(--ui-space-1);
+
+          & > .ui-button {
+            --_text-color: var(--_preview-text-color);
+
+            &[hidden] {
+              display: none;
+            }
+          }
+        }
+      }
+
       & > .ui-description {
         color: var(--ui-text-subtle);
         font-size: var(--ui-font-size-caption);
         margin: 0;
+      }
+
+      & > .ui-footer {
+        display: flex;
+        gap: var(--ui-space-2);
+        margin: 0;
+
+        & > [data-contrast] {
+          border-radius: var(--ui-radius-small);
+          color: var(--_indicator-bg-color);
+          font-size: var(--ui-font-size-caption);
+          font-variant-numeric: tabular-nums;
+          padding-block: var(--ui-space-1);
+          padding-inline: var(--ui-space-2);
+
+          @media (forced-colors: active) {
+            forced-color-adjust: none;
+          }
+        }
+
+        & > [data-contrast="light"] {
+          background-color: oklch(1 0 0);
+        }
+
+        & > [data-contrast="dark"] {
+          background-color: oklch(0 0 0);
+        }
       }
     }
 

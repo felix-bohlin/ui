@@ -90,6 +90,26 @@ const linkModules = (from: string, to: string) => {
   }
 }
 
+const lightDarkProblems = (css: string) =>
+  css.includes("var(--lightningcss-light")
+    ? [
+        ...(css.includes(
+          ":where(html){--lightningcss-light:initial;--lightningcss-dark: ;",
+        )
+          ? []
+          : [
+              "the build lowers light-dark() but html doesn't define --lightningcss-light and --lightningcss-dark, so every theme color is invalid: keep a literal color-scheme before color-scheme: var(--ui-color-scheme) on :where(html)",
+            ]),
+        ...(css.includes(
+          "@media (prefers-color-scheme:dark){:where(html){--lightningcss-light: ;--lightningcss-dark:initial;",
+        )
+          ? []
+          : [
+              "the build lowers light-dark() but the prefers-color-scheme: dark block doesn't switch --lightningcss-light and --lightningcss-dark on html, so dark mode keeps the light colors: keep color-scheme: dark before color-scheme: var(--ui-color-scheme) there",
+            ]),
+      ]
+    : []
+
 let work: string
 let tarball: string
 let files: string[]
@@ -379,5 +399,21 @@ describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
       .join("\n")
     expect(css).toContain("@layer openprops")
     expect(css).toContain(".ui-button")
+    expect(lightDarkProblems(css)).toEqual([])
   })
+})
+
+test("a build that lowers light-dark() needs its variables on html", () => {
+  const token = "--x:var(--lightningcss-light,a)var(--lightningcss-dark,b)"
+  expect(
+    lightDarkProblems(
+      `:where(html){color-scheme:var(--ui-color-scheme);${token}}`,
+    ),
+  ).toHaveLength(2)
+  expect(
+    lightDarkProblems(
+      `:where(html){--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;color-scheme:var(--ui-color-scheme);${token}}@media (prefers-color-scheme:dark){:where(html){--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark}}`,
+    ),
+  ).toEqual([])
+  expect(lightDarkProblems(":where(html){--x:light-dark(a,b)}")).toEqual([])
 })

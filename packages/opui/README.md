@@ -168,6 +168,26 @@ Import `opui-css/css/layers.css` first to set this order when you import single 
 
 Put your theme tokens in `@layer theme.custom`, which beats the defaults in `theme.base`. `theme.severity` comes after it and only holds the palette source of the severity classes, so a theme that sets `--ui-palette-source` doesn't recolor a `.ui-critical` on the same element. Wrap other overrides in a layer above `utils` (or unlayered).
 
+### Builds that rewrite `light-dark()`
+
+With their default browser targets, Vite 8 (also in SvelteKit and Nuxt) and Next 16 rewrite every `light-dark()` for browsers that lack it, and set the scheme from each plain `color-scheme` in the CSS. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` forces a scheme. The `--ui-color-scheme` knob and `.ui-light` or `.ui-dark` on an element inside the page only work with `light-dark()` itself, so for those, target browsers that have it:
+
+```js
+// vite.config, or under `vite` in nuxt.config
+build: {
+  cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"]
+}
+```
+
+```js
+// next.config
+experimental: {
+  lightningCssFeatures: {
+    exclude: ["light-dark"]
+  }
+}
+```
+
 ## Upgrading
 
 Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://open-props-ui.netlify.app/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).

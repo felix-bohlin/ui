@@ -56,7 +56,7 @@ A scope class re-themes an element and everything inside it, so one page can car
 
 - `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits, `--ui-primary` and the intent colors included. `.ui-contrast-more` does the same with the contrast knobs tightened.
 - `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning` swap the palette steps for the intent color and leave `--ui-primary` and the text colors alone. [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#palette-scopes) shows the steps of each one.
-- `.ui-light` and `.ui-dark` force a color scheme. On an element they only pick the other side of `light-dark()`: the surface and text colors and `--ui-shadow-elevated` switch, while the shadow color and strength still come from the page.
+- `.ui-light` and `.ui-dark` force a color scheme. On an element they only pick the other side of `light-dark()`: the surface and text colors and `--ui-shadow-elevated` switch, while the shadow color and strength still come from the page. A build that rewrites `light-dark()` for older browsers, like the defaults of Vite 8 and Next 16, only follows them on `html`; the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark) has the settings that keep `light-dark()`.
 
 ## Surfaces
 

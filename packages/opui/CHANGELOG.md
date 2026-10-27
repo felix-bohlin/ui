@@ -641,6 +641,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `package.json` `exports` resolve documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) Previously they resolved to `*.css.css`.
 - `package.json` peer dependency ranges are `astro` `^7`, `svelte` `^5.57` and `vue` `^3.5` instead of the versions used for development.
 - `theme.css` shadows take a darker `--ui-shadow-color` in dark mode (`.ui-dark`, also on a part of the page, and the OS preference), so they show on dark surfaces. They used the light values before, and a part forced to `.ui-light` keeps them.
+- `theme.css` keeps its colors in builds that rewrite `light-dark()` for older browsers, like the defaults of Vite 8 and Next 16. `html` sets a plain `color-scheme` (`light`, or `dark` under `prefers-color-scheme: dark`) before `var(--ui-color-scheme)`, so the rewritten colors follow the OS and `.ui-light` or `.ui-dark` on `html`. Every color was invalid in those builds before: filled buttons were transparent and the page had no background. The README says which settings keep `light-dark()` for the `--ui-color-scheme` knob and the classes on a part of the page.
 
 ## 5.4.3 - 2026-09-18
 

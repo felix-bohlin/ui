@@ -168,7 +168,12 @@ const surfaceRoles = [
         <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. On
         an element they only pick the other side of <code>light-dark()</code>:
         the surface and text colors and <code>--ui-shadow-elevated</code> switch,
-        while the shadow color and strength still come from the page.
+        while the shadow color and strength still come from the page. A build that
+        rewrites <code>light-dark()</code> for older browsers, like the defaults of
+        Vite 8 and Next 16, only follows them on <code>html</code>; the <a
+          href="https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark"
+          >README</a
+        > has the settings that keep <code>light-dark()</code>.
       </li>
     </ul>
   </section>

@@ -1,0 +1,179 @@
+---
+import { Range, Textarea } from "opui-css/astro"
+
+const lines = { max: 8, min: 3 }
+
+const columns = [
+  { caption: "grows and shrinks with the text", sizing: "content" },
+  { caption: "stays at its rows", sizing: "fixed" },
+]
+---
+
+<div
+  class="field-sizing-compare"
+  style={`--_max-lines: ${lines.max}; --_min-lines: ${lines.min}`}
+>
+  <div class="field-sizing-compare-columns">
+    {
+      columns.map((column) => (
+        <div class="field-sizing-compare-column" data-sizing={column.sizing}>
+          <p class="field-sizing-compare-title">
+            <code>field-sizing: {column.sizing}</code>
+            <span>{column.caption}</span>
+          </p>
+          <Textarea
+            label={`Notes, field-sizing: ${column.sizing}`}
+            name={`field-sizing-${column.sizing}`}
+            placeholder="Type a few lines"
+            rows={lines.min}
+          />
+          <p class="field-sizing-compare-readout">
+            Box: <span data-lines />
+          </p>
+        </div>
+      ))
+    }
+  </div>
+  <fieldset class="field-sizing-compare-knobs">
+    <legend class="ui-sr-only">Line limits</legend>
+    <Range
+      data-property="--_min-lines"
+      label="Min lines"
+      max={6}
+      min={1}
+      value={lines.min}
+      valueSuffix=""
+    >
+      <code slot="start-text">min-block-size</code>
+    </Range>
+    <Range
+      data-property="--_max-lines"
+      label="Max lines"
+      max={20}
+      min={4}
+      value={lines.max}
+      valueSuffix=""
+    >
+      <code slot="start-text">--_max-block-size</code>
+    </Range>
+  </fieldset>
+</div>
+
+<style>
+  .field-sizing-compare {
+    display: grid;
+    gap: var(--ui-space-5);
+    inline-size: 100%;
+
+    & :global(.ui-textarea) {
+      --_max-block-size: calc(
+        var(--_field-padding-block-fit) * 2 + var(--_max-lines) * 1lh
+      );
+    }
+
+    & :global(.ui-textarea textarea) {
+      min-block-size: calc(
+        var(--_field-padding-block-fit) * 2 + var(--_min-lines) * 1lh
+      );
+    }
+  }
+
+  .field-sizing-compare-columns {
+    align-items: start;
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .field-sizing-compare-column {
+    align-content: start;
+    display: grid;
+    gap: var(--ui-space-2);
+    min-inline-size: 0;
+
+    &[data-sizing="fixed"] :global(textarea) {
+      field-sizing: fixed;
+    }
+  }
+
+  .field-sizing-compare-title {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .field-sizing-compare-readout {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+  }
+
+  .field-sizing-compare-knobs {
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".field-sizing-compare")
+    .forEach((compare) => {
+      const areas = [...compare.querySelectorAll("textarea")]
+      const knobs = [
+        ...compare.querySelectorAll<HTMLInputElement>(
+          ".field-sizing-compare-knobs input[type=range]",
+        ),
+      ]
+
+      const measure = () =>
+        compare
+          .querySelectorAll<HTMLElement>(".field-sizing-compare-column")
+          .forEach((column) => {
+            const area = column.querySelector("textarea")
+            const readout = column.querySelector("[data-lines]")
+            if (!area || !readout) return
+            const style = getComputedStyle(area)
+            const lines = Math.round(
+              (area.clientHeight -
+                Number.parseFloat(style.paddingBlockStart) -
+                Number.parseFloat(style.paddingBlockEnd)) /
+                Number.parseFloat(style.lineHeight),
+            )
+            readout.textContent = `${lines} ${lines === 1 ? "line" : "lines"}`
+          })
+
+      areas.forEach((area) =>
+        area.addEventListener("input", () => {
+          areas.forEach((twin) => {
+            if (twin !== area) twin.value = area.value
+          })
+          measure()
+        }),
+      )
+      knobs.forEach((knob) =>
+        knob.addEventListener("input", () => {
+          compare.style.setProperty(knob.dataset.property ?? "", knob.value)
+          measure()
+        }),
+      )
+      new ResizeObserver(measure).observe(compare)
+    })
+</script>

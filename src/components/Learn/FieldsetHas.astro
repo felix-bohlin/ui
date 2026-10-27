@@ -1,0 +1,143 @@
+---
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Switch,
+  Textarea,
+  TextField,
+} from "opui-css/astro"
+
+const rules = [
+  {
+    id: "required",
+    label: "Required field",
+    selector: ".ui-fieldset:has(:required)",
+    what: "adds the asterisk to the legend",
+  },
+  {
+    id: "description",
+    label: "Description",
+    selector: "legend:has(+ .ui-description)",
+    what: "drops the legend's own margin",
+  },
+]
+---
+
+<div class="fieldset-has">
+  <div class="fieldset-has-controls">
+    {
+      rules.map((rule) => (
+        <Switch
+          checked
+          data-rule={rule.id}
+          label={rule.label}
+          name={`fieldset-${rule.id}`}
+        />
+      ))
+    }
+  </div>
+  <Fieldset>
+    <FieldLegend>Pet info</FieldLegend>
+    <FieldDescription>We must know your pet's information.</FieldDescription>
+    <FieldGroup>
+      <TextField label="Name" name="fieldset-has-name" />
+      <Textarea label="Life story" name="fieldset-has-story" required />
+    </FieldGroup>
+  </Fieldset>
+  <ul class="fieldset-has-rules">
+    {
+      rules.map((rule) => (
+        <li aria-atomic="true" aria-live="polite" data-rule={rule.id}>
+          <code>{rule.selector}</code>
+          <span class="fieldset-has-status" data-match="true">
+            matches, {rule.what}
+          </span>
+          <span class="fieldset-has-status" data-match="false">
+            doesn't match
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .fieldset-has {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+  }
+
+  .fieldset-has-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3) var(--ui-space-5);
+  }
+
+  .fieldset-has-rules {
+    display: grid;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-2);
+      margin: 0;
+    }
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .fieldset-has-status {
+    color: var(--ui-text);
+
+    &[data-match="true"] {
+      color: var(--ui-primary);
+      display: none;
+    }
+
+    .fieldset-has:has(:required) [data-rule="required"] &[data-match="true"],
+    .fieldset-has:has(legend + :global(.ui-description))
+      [data-rule="description"]
+      &[data-match="true"] {
+      display: inline;
+    }
+
+    .fieldset-has:has(:required) [data-rule="required"] &[data-match="false"],
+    .fieldset-has:has(legend + :global(.ui-description))
+      [data-rule="description"]
+      &[data-match="false"] {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".fieldset-has").forEach((demo) => {
+    const story = demo.querySelector("textarea")
+    const legend = demo.querySelector("legend")
+    const description = demo.querySelector(".ui-description")
+    demo
+      .querySelectorAll<HTMLInputElement>("input[data-rule]")
+      .forEach((input) =>
+        input.addEventListener("change", () => {
+          const rule = input.dataset.rule
+          if (rule === "required" && story) story.required = input.checked
+          if (rule === "description" && legend && description) {
+            if (input.checked) legend.after(description)
+            else description.remove()
+          }
+        }),
+      )
+  })
+</script>

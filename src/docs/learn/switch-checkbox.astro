@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import AppearanceCompare from "../../components/Learn/AppearanceCompare.astro"
 import Basics from "../../component-examples/switch/Basics.astro"
 ---
 
@@ -75,6 +76,24 @@ import Basics from "../../component-examples/switch/Basics.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      The same checkbox with and without <code>appearance: none</code>. Drag the
+      size, and flip one: its twin follows.
+    </p>
+    <Example wide showCode={false}>
+      <AppearanceCompare kind="switch" />
+    </Example>
+    <ul>
+      <li>
+        With <code>auto</code> it is a checkbox, whatever the role says. Only the
+        size gets through
+      </li>
+      <li>
+        With <code>none</code> the track and the dot follow <code
+          >--ui-switch-track-block-size</code
+        >, and the input keeps its checked state and keyboard handling
+      </li>
+    </ul>
     <p>Each switch is a checkbox with <code>role=&quot;switch&quot;</code>.</p>
     <Example row showCode={false}>
       <Basics />

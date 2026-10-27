@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import RangeTicks from "../../components/Learn/RangeTicks.astro"
 import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astro"
 ---
 
@@ -135,6 +136,24 @@ datalist > option {
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Pick a step. The <code>&lt;datalist&gt;</code> is rebuilt with one option per
+      step, and the labels place themselves.
+    </p>
+    <Example showCode={false}>
+      <RangeTicks />
+    </Example>
+    <ul>
+      <li>
+        The labels are the <code>&lt;option&gt;</code> elements, laid out with <code
+          >justify-content: space-between</code
+        >. No positions are computed
+      </li>
+      <li>
+        The thumb snaps to the same <code>step</code>, and the fill follows it
+        through the scroll-driven animation
+      </li>
+    </ul>
     <p>Drag a thumb. The fill follows it, and the labels sit on their steps.</p>
     <Example column showCode={false}>
       <TickMarksLabels />

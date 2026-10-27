@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import BaseSelectCompare from "../../components/Learn/BaseSelectCompare.astro"
 import Variants from "../../component-examples/select/Variants.astro"
 ---
 
@@ -76,6 +77,27 @@ select:not(:open)::picker(select) {
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      The same <code>&lt;select&gt;</code> twice. Open both, then pick an option in
+      one: the other follows.
+    </p>
+    <Example showCode={false}>
+      <BaseSelectCompare />
+    </Example>
+    <ul>
+      <li>
+        With <code>base-select</code> the CSS draws the field, the picker and the
+        options, and <code>&lt;selectedcontent&gt;</code> mirrors the choice
+      </li>
+      <li>
+        With <code>auto</code> you get the browser's picker. That is also what a browser
+        without <code>base-select</code> shows
+      </li>
+      <li>
+        Both keep the arrow keys, typeahead and the form value, because both are
+        the real element
+      </li>
+    </ul>
     <p>
       A styled select that keeps its native keyboard handling and typeahead.
     </p>

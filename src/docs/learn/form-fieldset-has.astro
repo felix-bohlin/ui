@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import FieldsetHas from "../../components/Learn/FieldsetHas.astro"
 import FieldsetRequired from "../../component-examples/form/FieldsetRequired.astro"
 ---
 
@@ -73,6 +74,24 @@ import FieldsetRequired from "../../component-examples/form/FieldsetRequired.ast
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Flip the switches. The fieldset has no class for either state, the
+      selectors read it from what it contains.
+    </p>
+    <Example showCode={false}>
+      <FieldsetHas />
+    </Example>
+    <ul>
+      <li>
+        Make the field optional and <code>:has(:required)</code> stops matching, so
+        the asterisk goes
+      </li>
+      <li>
+        Remove the description and the legend takes its margin back, because <code
+          >:has(+ .ui-description)</code
+        > no longer matches
+      </li>
+    </ul>
     <p>
       The legend takes its asterisk from the required field, and leaves the
       spacing to the description.

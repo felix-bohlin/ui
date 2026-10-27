@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import AppearanceCompare from "../../components/Learn/AppearanceCompare.astro"
 import Basics from "../../component-examples/checkbox/Basics.astro"
 ---
 
@@ -82,6 +83,24 @@ input:checked::after {
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      The same inputs with and without <code>appearance: none</code>. Drag the
+      size, and click one box: its twin follows.
+    </p>
+    <Example wide showCode={false}>
+      <AppearanceCompare kind="checkbox" />
+    </Example>
+    <ul>
+      <li>
+        With <code>auto</code> the browser draws the control. It takes the size but
+        ignores the colors, the radius and the pseudo-elements
+      </li>
+      <li>
+        With <code>none</code> the box, the check and the dash scale with <code
+          >--ui-choice-size</code
+        >, and the input stays a real checkbox
+      </li>
+    </ul>
     <p>The real input draws the box, the check and the dash.</p>
     <Example row showCode={false}>
       <Basics />

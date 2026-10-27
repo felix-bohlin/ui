@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import FieldSizingCompare from "../../components/Learn/FieldSizingCompare.astro"
 import AutoFit from "../../component-examples/textarea/AutoFit.astro"
 ---
 
@@ -52,6 +53,26 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Type in either box, both get the same text. Then move the line limits.
+    </p>
+    <Example wide showCode={false}>
+      <FieldSizingCompare />
+    </Example>
+    <ul>
+      <li>
+        <code>content</code> grows a line at a time until the max, then scrolls. Delete
+        text and it shrinks back to the min
+      </li>
+      <li>
+        <code>fixed</code> is the default: the box stays at its <code>rows</code
+        > and scrolls inside
+      </li>
+      <li>
+        The limits are in <code>lh</code>, so they read as line counts whatever
+        the font size
+      </li>
+    </ul>
     <p>Type a few lines. It grows with them, and shrinks when you delete.</p>
     <Example showCode={false}>
       <AutoFit />

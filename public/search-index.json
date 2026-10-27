@@ -2170,6 +2170,14 @@
     "url": "/learn/range-tick-marks"
   },
   {
+    "id": "learn-release-6",
+    "title": "opui 6.0",
+    "description": "What changed in 6.0 and why, with live demos.",
+    "headings": "Four example themes",
+    "category": "Learn",
+    "url": "/learn/release-6"
+  },
+  {
     "id": "learn-select-base-select",
     "title": "A select you can style",
     "description": "appearance: base-select, ::picker(select) and :open for a fully styled select.",

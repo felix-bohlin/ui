@@ -1348,6 +1348,35 @@ interaction(
 
 interaction(
   "toast",
+  "Position",
+  "side and align move the toasts",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const viewport = page.viewportSize()!
+    const box = async (name: string) => {
+      await root.getByRole("button", { name }).click()
+      const list = root.locator(
+        `#toast-position-${{ "Top start": 1, "Top center": 2, "Bottom start": 3 }[name]} ol`,
+      )
+      await expect(list).toBeVisible()
+      return (await list.boundingBox())!
+    }
+    const topStart = await box("Top start")
+    expect(topStart.y).toBeLessThan(viewport.height / 2)
+    expect(topStart.x).toBeLessThan(viewport.width / 2)
+    const topCenter = await box("Top center")
+    expect(topCenter.y).toBeLessThan(viewport.height / 2)
+    expect(
+      Math.abs(topCenter.x + topCenter.width / 2 - viewport.width / 2),
+    ).toBeLessThan(2)
+    const bottomStart = await box("Bottom start")
+    expect(bottomStart.y).toBeGreaterThan(viewport.height / 2)
+    expect(bottomStart.x).toBeLessThan(viewport.width / 2)
+  },
+)
+
+interaction(
+  "toast",
   "Severities",
   "a toast without a severity has no icon",
   async ({ page, root }) => {

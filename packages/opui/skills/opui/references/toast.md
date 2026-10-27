@@ -10,15 +10,17 @@ Short messages that confirm an action and dismiss themselves.
 ### Parts
 
 - `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { duration, severity })` or `toast.success(message)` does it from a script.
-- `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport. It opens with the first toast and closes after the last.
+- `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.
 - `<li>`: A toast, a `Callout` with the severity class, its icon, the message in `.ui-content` and a close `Button`. The element adds and removes it.
 - `<div role="status">`: The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
 
 ### Props and modifiers
 
+- `align`: `"center"` (`.ui-align-center`), `"end"` (default), `"start"` (`.ui-align-start`). Where the toasts sit along their side of the viewport.
 - `closeLabel`: `string`, `[close-label]`, default `"Close"`. The accessible name of the close button of each toast.
 - `duration`: `number`, `[duration]`, default `5000`. How long a toast stays, in milliseconds, while the pointer and focus are elsewhere.
 - `id`: `string`. The id the buttons point at with `commandfor`. Required.
+- `side`: `"block-end"` (default), `"block-start"` (`.ui-block-start`). The side of the viewport the toasts sit on.
 
 ### Notes
 

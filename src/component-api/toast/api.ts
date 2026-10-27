@@ -35,6 +35,17 @@ export default {
   },
   options: [
     {
+      default: '"end"',
+      description: "Where the toasts sit along their side of the viewport.",
+      group: "Alignment",
+      prop: "align",
+      values: {
+        center: ".ui-align-center",
+        end: null,
+        start: ".ui-align-start",
+      },
+    },
+    {
       attribute: "[close-label]",
       default: '"Close"',
       description: "The accessible name of the close button of each toast.",
@@ -53,12 +64,19 @@ export default {
       description: "The id the buttons point at with `commandfor`. Required.",
       prop: "id",
     },
+    {
+      default: '"block-end"',
+      description: "The side of the viewport the toasts sit on.",
+      group: "Position",
+      prop: "side",
+      values: { "block-end": null, "block-start": ".ui-block-start" },
+    },
   ],
   parts: [
     {
       code: '<ol popover="manual">',
       description:
-        "The stack of toasts, a manual popover at the block end and the inline end of the viewport. It opens with the first toast and closes after the last.",
+        "The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.",
       selector: "ol",
     },
     {

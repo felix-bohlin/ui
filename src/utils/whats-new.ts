@@ -1275,7 +1275,7 @@ export const whatsNew = {
   ],
   toast: [
     {
-      default: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>, run by the <code>&lt;opui-toaster&gt;</code> custom element, which the component loads.`,
+      default: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>, run by the <code>&lt;opui-toaster&gt;</code> custom element, which the component loads. <a href="#position"><code>side</code> and <code>align</code></a> choose the corner.`,
       html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them.`,
     },
   ],

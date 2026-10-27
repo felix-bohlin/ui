@@ -158,6 +158,33 @@ export const description =
   </section>
 
   <section>
+    <h2 id="position">Position</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The toasts sit at the block end and the inline end of the viewport. <code
+          >side="block-start"</code
+        > moves them to the block start, and <code>align</code> takes <code
+          >start</code
+        >, <code>center</code> or <code>end</code> (the default) along that side,
+        so a top left stack in a left-to-right page is <code
+          >side="block-start" align="start"</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        The toasts sit at the block end and the inline end of the viewport. <code
+          >.ui-block-start</code
+        > on the toaster moves them to the block start, and <code
+          >.ui-align-start</code
+        > or <code>.ui-align-center</code> moves them along that side, so a top left
+        stack in a left-to-right page is <code
+          >.ui-block-start.ui-align-start</code
+        >.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Position" row />
+  </section>
+
+  <section>
     <h2 id="duration">Duration</h2>
     <Conditional as="p">
       <Fragment slot="components">

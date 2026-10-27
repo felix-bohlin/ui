@@ -148,3 +148,35 @@ describe("commit-msg", () => {
     expect(commit(message)).toBe(1)
   })
 })
+
+describe("Git LFS hooks", () => {
+  const bin = mkdtempSync(join(tmpdir(), "opui-lfs-"))
+  writeFileSync(join(bin, "git"), '#!/bin/sh\necho "$@"\n', { mode: 0o755 })
+  const run = (hook: string) =>
+    spawnSync("/bin/sh", [hook, "origin", "main"], {
+      encoding: "utf-8",
+      env: { ...process.env, PATH: bin },
+    })
+  const hooks = [
+    ".githooks/post-checkout",
+    ".githooks/post-commit",
+    ".githooks/post-merge",
+    ".githooks/pre-push",
+  ]
+
+  test.each(hooks)("%s stops when git-lfs is missing", (hook) => {
+    rmSync(join(bin, "git-lfs"), { force: true })
+    const result = run(hook)
+    expect(result.status).toBe(2)
+    expect(result.stderr).toContain("'git-lfs' was not found on your path")
+  })
+
+  test.each(hooks)("%s passes its arguments to git lfs", (hook) => {
+    writeFileSync(join(bin, "git-lfs"), "#!/bin/sh\n", { mode: 0o755 })
+    const result = run(hook)
+    expect(result.status).toBe(0)
+    expect(result.stdout).toBe(
+      `lfs ${hook.replace(".githooks/", "")} origin main\n`,
+    )
+  })
+})

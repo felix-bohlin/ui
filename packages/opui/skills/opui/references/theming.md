@@ -6,7 +6,7 @@ A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/conc
 
 1. Knobs
 
-   `--ui-palette-hue` 145 `--ui-palette-chroma` 0.5
+   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.5
 
 2. Palette `--ui-color-1` to `--ui-color-16`
 
@@ -32,13 +32,13 @@ One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, 
 ```css
 :where(html) {
   --ui-palette-chroma: 0.5;
-  --ui-palette-hue: 145;
+  --ui-palette-hue: 222.8;
   --ui-palette-hue-rotate-by: 0;
 }
 ```
 
 - `--ui-palette-chroma` scales the saturation, from `0` (gray) to `1`.
-- `--ui-palette-hue` is a hue angle in degrees, `145` (green) by default.
+- `--ui-palette-hue` is a hue angle in degrees, `222.8` (blue) by default.
 - `--ui-palette-hue-rotate-by` turns the hue by this many degrees per step, so `1` spreads 15° across the palette. The severity scopes use `1` for livelier tints.
 
 Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette`, `.ui-contrast-more`, the severity classes and the inline `del`, `ins`, `abbr` and `dfn` elements and their classes, so the knobs do nothing anywhere else. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-neutral`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` also keeps the chroma of `--ui-neutral`, which follows `--ui-gray-hue` and `--ui-gray-chroma` by default:

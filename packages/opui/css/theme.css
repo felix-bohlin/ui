@@ -21,7 +21,7 @@
 
     /* Palette - the knobs core/palette.css derives --ui-color-1 to --ui-color-16 from */
     --ui-palette-chroma: 0.5;
-    --ui-palette-hue: 145;
+    --ui-palette-hue: 222.8;
     --ui-palette-hue-rotate-by: 0;
     /* --ui-palette-source: oklch(0.58 calc(0.21 * 0.5) 240); */
 
@@ -463,7 +463,10 @@
     );
 
     /* Primary */
-    --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
+    --ui-primary-source: light-dark(
+      oklch(0.499 0.191 222.8),
+      var(--ui-color-6)
+    );
     --ui-primary: light-dark(
       oklch(
         from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c

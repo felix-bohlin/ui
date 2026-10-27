@@ -74,21 +74,18 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
 
     & .hero-stage {
       align-content: center;
-      background:
-        radial-gradient(
-          ellipse 70% 60% at 50% 55%,
-          oklch(from var(--ui-primary) l c h / 18%),
-          transparent
-        ),
-        var(--ui-surface-tonal);
-      border-radius: var(--ui-radius-large);
+      background: radial-gradient(
+        ellipse 50% 50% at 50% 45%,
+        oklch(from var(--ui-primary) l c h / 18%),
+        transparent
+      );
       display: grid;
       gap: var(--ui-space-4);
       inline-size: 100%;
       isolation: isolate;
       justify-items: center;
       min-block-size: clamp(18rem, 60vh, 36rem);
-      overflow: clip;
+      overflow: clip visible;
       padding: var(--ui-space-4);
       position: relative;
       text-align: center;
@@ -114,6 +111,7 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
       letter-spacing: -0.06em;
       line-height: 0.9;
       margin: 0;
+      padding: 0.05em 0.12em;
       position: relative;
       z-index: 1;
     }

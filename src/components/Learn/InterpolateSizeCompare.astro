@@ -1,0 +1,138 @@
+---
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Button,
+  Range,
+} from "opui-css/astro"
+
+const columns = [
+  { mode: "keywords", value: "allow-keywords" },
+  { mode: "numeric", value: "numeric-only" },
+]
+---
+
+<div class="interpolate-compare" style="--ui-duration: 0.4s">
+  <div class="interpolate-compare-columns">
+    {
+      columns.map((column) => (
+        <div class="interpolate-compare-column" data-mode={column.mode}>
+          <p class="interpolate-compare-title">
+            <code>interpolate-size: {column.value}</code>
+          </p>
+          <Accordion variant="outlined">
+            <AccordionSummary>Shipping and returns</AccordionSummary>
+            <AccordionContent>
+              <p>
+                Orders ship within two working days. Returns are free for 30
+                days, and the label is in the box.
+              </p>
+            </AccordionContent>
+          </Accordion>
+        </div>
+      ))
+    }
+  </div>
+  <div class="interpolate-compare-controls">
+    <Button aria-expanded="false" type="button" variant="outlined">
+      Open both
+    </Button>
+    <Range
+      label="Duration"
+      max={2}
+      min={0.1}
+      step={0.1}
+      value={0.4}
+      valueSuffix="s"
+    >
+      <code slot="start-text">--ui-duration</code>
+    </Range>
+  </div>
+</div>
+
+<style>
+  .interpolate-compare {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: 100%;
+  }
+
+  .interpolate-compare-columns {
+    align-items: start;
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  .interpolate-compare-column {
+    display: grid;
+    gap: var(--ui-space-2);
+    min-inline-size: 0;
+
+    &[data-mode="numeric"] :global(.ui-accordion) {
+      interpolate-size: numeric-only;
+    }
+  }
+
+  .interpolate-compare-title {
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .interpolate-compare-controls {
+    align-items: end;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: auto minmax(min(100%, 12rem), 20rem);
+
+    & :global(.ui-button) {
+      justify-self: start;
+    }
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+
+    @container (inline-size < 30rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".interpolate-compare")
+    .forEach((compare) => {
+      const details = [...compare.querySelectorAll("details")]
+      const button = compare.querySelector("button")
+      const input = compare.querySelector<HTMLInputElement>("input[type=range]")
+
+      const sync = (open: boolean) => {
+        details.forEach((element) => {
+          element.open = open
+        })
+        if (!button) return
+        button.setAttribute("aria-expanded", String(open))
+        button.textContent = open ? "Close both" : "Open both"
+      }
+
+      button?.addEventListener("click", () => sync(!details[0]?.open))
+      details.forEach((element) =>
+        element.addEventListener("toggle", () => {
+          if (details.some((other) => other.open !== element.open)) {
+            sync(element.open)
+          }
+        }),
+      )
+      input?.addEventListener("input", () =>
+        compare.style.setProperty("--ui-duration", `${input.value}s`),
+      )
+    })
+</script>

@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import InterpolateSizeCompare from "../../components/Learn/InterpolateSizeCompare.astro"
 import Basics from "../../component-examples/accordion/Basics.astro"
 ---
 
@@ -61,7 +62,28 @@ details[open]::details-content {
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <p>Open and close it. The content animates to its own height.</p>
+    <p>
+      The same <code>&lt;details&gt;</code> twice, with and without <code
+        >interpolate-size: allow-keywords</code
+      >. Open both, then slow the duration down.
+    </p>
+    <Example wide showCode={false}>
+      <InterpolateSizeCompare />
+    </Example>
+    <ul>
+      <li>
+        With <code>allow-keywords</code> the content transitions from
+        {" "}<code>0</code> to <code>auto</code> and back
+      </li>
+      <li>
+        With <code>numeric-only</code>, the default, the same transition has
+        nothing to interpolate, so the content snaps and only the opacity fades
+      </li>
+    </ul>
+    <p>
+      The real accordion. Open and close it. The content animates to its own
+      height.
+    </p>
     <Example column showCode={false}>
       <Basics />
     </Example>

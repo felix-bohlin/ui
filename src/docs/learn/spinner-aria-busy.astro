@@ -2,6 +2,7 @@
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import BusyToggle from "../../components/Learn/BusyToggle.astro"
 import Example from "../../components/Example/index"
 import Buttons from "../../component-examples/spinner/Buttons.astro"
 ---
@@ -78,6 +79,20 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Flip the switch. It sets <code>aria-busy</code> on a button, a paragraph and
+      a text field, and nothing else changes.
+    </p>
+    <Example showCode={false}>
+      <BusyToggle />
+    </Example>
+    <ul>
+      <li>The button and the paragraph get a ring, the field doesn't</li>
+      <li>
+        <code>:not(input, …)</code> skips it, because a spinning ring inside a field
+        would sit on the text
+      </li>
+    </ul>
     <p>
       Buttons with <code>aria-busy=&quot;true&quot;</code>, with and without a
       visible label.

@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import ProgressState from "../../components/Learn/ProgressState.astro"
 import Indeterminate from "../../component-examples/progress/Indeterminate.astro"
 ---
 
@@ -77,6 +78,14 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Drag the value, then switch to indeterminate. That removes the <code
+        >value</code
+      > attribute, and <code>:indeterminate</code> takes over.
+    </p>
+    <Example showCode={false}>
+      <ProgressState />
+    </Example>
     <p>A native <code>&lt;progress&gt;</code> without a <code>value</code>.</p>
     <Example showCode={false}>
       <Indeterminate />

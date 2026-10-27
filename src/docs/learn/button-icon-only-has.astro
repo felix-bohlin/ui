@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import IconOnlyDemo from "../../components/Learn/IconOnly.astro"
 import IconOnly from "../../component-examples/button/IconOnly.astro"
 ---
 
@@ -61,6 +62,13 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Delete the label. Once the icon is the only child, the button turns
+      square, and the label comes back as <code>aria-label</code>.
+    </p>
+    <Example showCode={false}>
+      <IconOnlyDemo />
+    </Example>
     <p>Every button here holds only an icon, so every one is square.</p>
     <Example column spacious showCode={false}>
       <IconOnly />

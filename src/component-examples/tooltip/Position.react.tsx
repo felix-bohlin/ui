@@ -32,9 +32,7 @@ export default function Position() {
     <div className="example-compass">
       {tooltips.map(({ id, label, positionArea, text }) => (
         <Tooltip key={id} id={id} positionArea={positionArea}>
-          <Button interestfor={id} commandfor={id} command="toggle-popover">
-            {text}
-          </Button>
+          <Button interestfor={id}>{text}</Button>
           <TooltipContent>{label}</TooltipContent>
         </Tooltip>
       ))}

@@ -27,10 +27,7 @@ import Position from "../../component-examples/tooltip/Position.astro"
         <code>interestfor</code> on the trigger and <code>popover="hint"</code> on
         the tooltip: it opens on hover and focus, no JavaScript
       </li>
-      <li>
-        <code>commandfor</code> with <code>command="toggle-popover"</code> opens it
-        on tap, where there is no hover
-      </li>
+      <li>On a touch screen, a long press shows it</li>
       <li>
         The invoker becomes the implicit anchor: no <code>anchor-name</code>, no
         ids to wire up in CSS
@@ -46,8 +43,6 @@ import Position from "../../component-examples/tooltip/Position.astro"
       code={`<button
   type="button"
   interestfor="tooltip"
-  commandfor="tooltip"
-  command="toggle-popover"
 >
   Save
 </button>
@@ -128,13 +123,18 @@ import Position from "../../component-examples/tooltip/Position.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without interest invokers, hover and focus do nothing, and <code
-          >commandfor</code
-        > still toggles the tooltip on click
+        Without interest invokers, the compat layer shows the tooltip with <code
+          >:has(&gt; :hover)</code
+        > and <code>:has(&gt; :focus-visible)</code> on its wrapper, inside <code
+          >@supports not selector(:interest-source)</code
+        >
       </li>
       <li>
-        An unknown <code>popover</code> value falls back to <code>manual</code>,
-        so the tooltip stays open until it's toggled again
+        There it isn't in the top layer, so an ancestor that clips its overflow
+        can hide it, and touch screens get nothing. A toggletip, a button whose
+        only job is to show the text, adds <code>commandfor</code> with <code
+          >command="toggle-popover"</code
+        > for a tap
       </li>
       <li>
         There's no <code>@supports</code> fallback for anchor positioning or <code

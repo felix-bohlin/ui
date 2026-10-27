@@ -801,12 +801,6 @@ interaction(
     const trigger = root.getByRole("button", { name: "Save" })
     const tooltip = root.getByText("Save your changes")
 
-    await needs(
-      page,
-      "interest invokers",
-      () => "interestForElement" in HTMLButtonElement.prototype,
-    )
-
     await expect(tooltip).toBeHidden()
     await trigger.hover()
     await expect(tooltip).toBeVisible()
@@ -817,11 +811,13 @@ interaction(
 
 interaction(
   "tooltip",
-  "Basics",
-  "tooltip toggles on click without hover",
+  "Toggletip",
+  "toggletip toggles on click without hover",
   async ({ root }) => {
-    const trigger = root.getByRole("button", { name: "Save" })
-    const tooltip = root.getByText("Save your changes")
+    const trigger = root.getByRole("button", { name: "About billing" })
+    const tooltip = root.getByText(
+      "You're billed on the first day of each month.",
+    )
 
     await expect(tooltip).toBeHidden()
     await trigger.dispatchEvent("click")

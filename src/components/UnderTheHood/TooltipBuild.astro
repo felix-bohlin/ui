@@ -17,18 +17,11 @@ const steps = [
   padding: var(--ui-space-1) var(--ui-space-2);
   position-area: block-start;
 }`,
-    features: [
-      "anchor-positioning",
-      "interest-invokers",
-      "invoker-commands",
-      "popover-hint",
-    ],
+    features: ["anchor-positioning", "interest-invokers", "popover-hint"],
     html: `
 <button
   type="button"
   interestfor="tooltip"
-  commandfor="tooltip"
-  command="toggle-popover"
 >
   Save
 </button>
@@ -36,7 +29,7 @@ const steps = [
 <span class="tooltip" id="tooltip" popover="hint">Save changes</span>`,
     notes: [
       "<code>interestfor</code> + <code>popover=&quot;hint&quot;</code>: opens on hover and focus, no JavaScript",
-      "<code>commandfor</code> toggles it on tap, where there is no hover",
+      "A long press shows it on a touch screen",
       "The invoker is the implicit anchor: no <code>anchor-name</code>, no ids to wire",
       "<code>position-area: block-start</code> centers it above the trigger",
     ],
@@ -160,21 +153,12 @@ const sync = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="
 
 <BuildUp id="build-tooltip" steps={steps}>
   <div class="row">
-    <Button
-      command="toggle-popover"
-      commandfor="build-tooltip-save"
-      interestfor="build-tooltip-save"
-      variant="outlined"
-    >
-      Save
-    </Button>
+    <Button interestfor="build-tooltip-save" variant="outlined"> Save </Button>
     <span class="tooltip" id="build-tooltip-save" popover="hint">
       Save changes
     </span>
     <Button
       aria-label="Sync"
-      command="toggle-popover"
-      commandfor="build-tooltip-sync"
       interestfor="build-tooltip-sync"
       variant="outlined"
     >
@@ -184,12 +168,7 @@ const sync = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="
       Keeps your settings in sync on every device signed in to this account
     </span>
     <span class="anchor">
-      <Button
-        command="toggle-popover"
-        commandfor="build-tooltip-share"
-        interestfor="build-tooltip-share"
-        variant="outlined"
-      >
+      <Button interestfor="build-tooltip-share" variant="outlined">
         Share
       </Button>
       <span class="tooltip arrow" id="build-tooltip-share" popover="hint">

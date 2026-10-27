@@ -1325,6 +1325,7 @@ export const whatsNew = {
     components(
       `A <code>Tooltip</code> without an <code>id</code> warns in development, since its trigger points at it with <code>interestfor</code> (<a href="#basics">Basics</a>).`,
     ),
+    `In browsers without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus (<a href="#accessibility">Accessibility</a>).`,
   ],
   typography: [
     `<a href="#heading-group">Overlines</a> read <code>--ui-text-subtle</code>, so a theme's secondary text color reaches them.`,

@@ -4,7 +4,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Accessibility
 
-- [ ] (2) Tooltip: the triggers set `commandfor` and `command="toggle-popover"` next to `interestfor`, for touch. So Chromium exposes the trigger as expandable ("collapsed", then "expanded" while the tooltip shows), and Enter on "Save" closes the tooltip while it runs the button's action (`src/component-examples/tooltip/Basics.html:2-9`, `src/docs/components/tooltip.astro:59-63`)
+- [x] (2) Tooltip: the triggers set `commandfor` and `command="toggle-popover"` next to `interestfor`, for touch. So Chromium exposes the trigger as expandable ("collapsed", then "expanded" while the tooltip shows), and Enter on "Save" closes the tooltip while it runs the button's action (`src/component-examples/tooltip/Basics.html:2-4`, `src/docs/components/tooltip.astro:59-63`)
   - Summary: Tooltip triggers read as collapsed or expanded buttons, and Enter on Save runs the action and closes the tooltip at once.
   - Recommended: Fix with option A. Chrome 142 shows interest on long press, so the command pair only adds the expanded state and the double action on Enter.
   - Fix: decide whether the tap fallback is worth the extra state. Without it the trigger is a plain button that gets the tooltip text as its description once `interestfor` is supported. See the Tooltip item in To check for touch.
@@ -45,6 +45,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): drop the command pair from action buttons (Save) in the examples and prose, add `css/compat/tooltip.css` with the hover and focus fallback above, and add a toggletip example (an info button with `commandfor`, `command="toggle-popover"` and `interestfor`) for text touch users must reach in every browser.
     - B: keep the command pair on every trigger, as today.
     - C: like A, without the compat fallback: tooltips on action buttons show only in engines with interest invokers.
+  > Fix with option A
+  - Fixed: option A. The Tooltip examples (Basics, Arrow, Position, RichContent) in all five formats, the product-detail block's wishlist button, the Under the hood steps and the interest invokers Learn post drop `commandfor` and `command="toggle-popover"`, so an action button is a plain button with the tooltip as its description: no expanded state, and Enter only runs its action. `css/compat/tooltip.css` shows the tooltip while its trigger is hovered (in `@media (hover: hover)`) or has keyboard focus, inside `@supports not selector(:interest-source)`, anchored to the wrapper's `--anchor`. Those rules, forced in Chromium on a trigger without `interestfor`, showed the tooltip on hover and on Tab, above the trigger with its arrow. A Toggletip section and example (an info button with `interestfor`, `commandfor` and `command="toggle-popover"`) show the pair where a press only shows the text. The page, `api.ts`, the Compat layer list on Browser support, the CHANGELOG (Added) and What's new say so. `compat.spec.ts` expects the fallback in Firefox and WebKit, the hover test in `interaction.spec.ts` runs in every engine, and the click test moved to Toggletip. The parity snapshots of the four changed examples are updated, intended; the Toggletip visual baselines need the `update-snapshots` label. The stress test pages keep the pair, since `contrast.spec.ts` and `stress-overlays.ts` open their tooltips with a click.
 
 ## Bugs
 
@@ -137,14 +139,17 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: A Range added to the page after load doesn't update its value readout until `initRange()` runs again.
   - Recommended: Fix. Two delegated listeners replace the init call, and the markup stays as it is.
   - Fix: listen for `input` and `reset` once on `document` (both bubble) and update the `output[data-live]` of the event's `.ui-range`, with `resetValue()` after a reset, so importing `range.js` is all a page does. That drops the `WeakSet` and the `astro:after-swap` listener; keep `initRange()` as an export that does nothing, so existing pages don't break. The starting text and `aria-valuetext` come from the markup, as the Astro component already renders them. A custom element doesn't fit here: the root is a `<label>`, and a wrapper would add parity drift in React, Svelte and Vue.
+  > Fix
 - [ ] (1) Textarea, TextField: a field with `maxlength` doesn't say how many characters are left, and counting them needs a script (`src/component-examples/textarea/EndText.html:1-7`)
   - Summary: Fields with a character limit don't show how many characters are left.
   - Recommended: Fix. The end text already has room for the count.
   - Fix: an `<opui-character-count>` in the end text reads the field's `maxlength`, shows the characters left and announces them politely only near the limit, so each keystroke isn't read out. Without the script the end text shows only its hint. Add it to `Textarea` and `TextField` in all five formats.
+  > Fix
 - [ ] (1) TextField: a password field can't show its text. The sign-up block's password field has no reveal toggle, and a toggle needs a script to switch the input's `type` (`src/blocks/sign-up.html:105-121`, `packages/opui/css/components/text-field.css:105`)
   - Summary: Password fields have no show password toggle, so users can't check what they typed.
   - Recommended: Fix. A small element in the end affix keeps the field's markup and CSS.
   - Fix: an `<opui-password-toggle class="ui-end">` as the field's end affix, so `.ui-field > .ui-end` still matches. It holds a `.ui-button` that switches the input between `type="password"` and `type="text"`, sets `aria-pressed` and keeps focus where it is. Without the script `:not(:defined)` hides it and the field is a plain password field. Add it to `TextField` in all five formats.
+  > Fix
 - [ ] (1) Web components: dates in the blocks are fixed text, such as "Yesterday" in the inbox, so they go stale, and relative wording in the reader's language needs a script (`src/blocks/inbox.html:400-402`, `src/blocks/notifications.html:127-129`)
   - Summary: Dates like "Yesterday" are fixed text, so they go stale and don't follow the reader's language.
   - Recommended: Fix. The element is small, and the server text stays as the fallback.
@@ -155,22 +160,27 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): an `<opui-sortable-table>` around the `.ui-table` turns each header marked `data-sort` into a button, reorders the `tbody` rows by the cell text or a `data-sort-value`, sets `aria-sort` on the sorted header and announces the new order. Without the script the headers are links to a server-sorted page, or plain text.
     - B: document server sorting only: the headers are links with a `sort` query parameter, and the page renders `aria-sort`.
+  > Fix with option A
 - [ ] (2) Web components: a color picker needs a script, and `<input type="color">` only gives hex, which the library's colors never use. The Theme builder has a light-DOM `<oklch-input>` for it, but it lives in the docs site and isn't form-associated (`src/utils/oklch-input.ts:83`, `src/utils/oklch-input.ts:297-299`)
   - Summary: There is no OKLCH color field, and the native color input only gives hex values.
   - Recommended: Fix. The element already exists on the docs site and mostly needs to move into the package.
   - Fix: move `oklch-input.ts` and the color helpers it imports into the package as `<opui-color-field>`, with `Range` sliders and a `TextField`. Make it form-associated (`static formAssociated = true` and `ElementInternals`), so it submits its `oklch()` value and takes part in validation and form reset. The Theme builder then imports it from the package. Without the script it is a `TextField` that takes an `oklch()` string.
+  > Fix
 - [ ] (2) Web components: copying text to the clipboard needs a script. The docs site's code blocks do it with their own listener, and the library has no copy button (`src/components/Code.astro:69`, `src/components/Code.astro:292-304`)
   - Summary: There is no copy button for invite links, codes or snippets, so each page writes its own.
   - Recommended: Fix. Custom commands keep the button a plain `Button`.
   - Fix: the button stays a `.ui-button` with `commandfor` and `command="--copy"`, since a wrapper would break `packages/opui/css/components/button-group.css:55` and `packages/opui/css/components/form.css:97`. Its target is an `<opui-copy>` around the text or field, which handles the `command` event: it copies the field's value or its own text with `navigator.clipboard.writeText()`, shows a copied state on the button for a moment and announces "Copied". Without the script `:not(:defined)` hides the button and the text can still be selected.
+  > Fix
 - [ ] (2) Web components: there is no toast. A confirmation after an action, such as saving the account settings form, needs a script to show, stack and dismiss it (`src/blocks/account-settings.html:154-156`)
   - Summary: There is no toast, so a page can't confirm an action like a saved form without its own script.
   - Recommended: Fix. The top layer and invoker commands do most of the work, and the element adds the queue and the timing.
   - Fix: an `<opui-toaster>` region shown with `popover="manual"`, with a `show()` method and a `--toast` command for buttons. It stacks toasts, dismisses each after a delay that pauses on hover and focus, gives each a close button, and announces it through a polite live region that stays in the page. The severity colors come from `Callout`. Without the script nothing shows, so a page that must confirm without one renders a `Callout`.
+  > Fix
 - [ ] (3) Checkbox: a select all checkbox needs a script. The Indeterminate example carries its own inline script, and the data-table block's Select all customers checkbox does nothing (`src/component-examples/checkbox/Indeterminate.html:24-48`, `src/blocks/data-table.html:162-167`)
   - Summary: Select all checkboxes do nothing in plain HTML unless the page writes its own script.
   - Recommended: Fix. It repairs the data-table block and replaces the example's inline script.
   - Fix: an `<opui-select-all>` around the group (the `fieldset` or the `table`), so no `.ui-checkbox` gets a wrapper. The checkbox marked `data-select-all` checks and unchecks the other checkboxes in it, is `indeterminate` while they're mixed, and follows form reset. It covers what `checkbox.js` does today, so `activateIndeterminate()` can move into it. Without the script the checkboxes are independent.
+  > Fix
 - [ ] (3) Web components: the package ships no custom elements, only two init helpers, so behavior that HTML and CSS can't give a component has nowhere to live, and a page calls `initRange()` or `activateIndeterminate()` again after it adds markup (`packages/opui/css/js/checkbox.js:1-31`, `packages/opui/css/js/range.js:1-44`, `packages/opui/package.json:34-37`, `src/docs/guide/concepts.astro:431-501`)
   - Summary: The library has no home for components that need JavaScript, so each one would invent its own setup.
   - Recommended: Fix with option A. One implementation serves all five frameworks, instead of the element plus three framework copies of the behavior.
@@ -184,10 +194,12 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): the element holds the behavior, and the Astro, React, Svelte and Vue components render the same tag and load its definition on the client. A framework adds only what it needs to control a value, such as React's `value` and `onChange`.
     - B: the element is for HTML and Astro. React, Svelte and Vue render the same tag but do the behavior themselves, as they do for Range today.
+  > Fix with option A
 - [ ] (3) Web components: the quantity fields have no number stepper. The shopping cart's Decrease and Increase buttons do nothing, since stepping a value needs a script, and the product page falls back to a bare number input (`src/blocks/shopping-cart.html:177-227`, `src/blocks/product-detail.html:306-318`)
   - Summary: The cart's quantity buttons do nothing when pressed, and there is no stepper component to build them with.
   - Recommended: Fix. It repairs the cart block, and the stepper is on the New components list under Suggestions.
   - Fix: an `<opui-number-stepper class="ui-number-stepper">` around a number `TextField` and two `.ui-button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element handles the `command` event: it calls `stepDown()` or `stepUp()`, fires `input` and `change`, disables a button at `min` or `max`, repeats while a button is held and follows form reset. The cart's input becomes `type="number"`. Without the script it is a plain number input with the browser's spin buttons, and `:not(:defined)` hides the two buttons. If browsers add built-in step commands for number inputs, the element is no longer needed.
+  > Fix
 
 ## Limitations
 
@@ -209,7 +221,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Fixed: option A. Dialog and Drawer share four parts: `DialogHeader` and `DrawerHeader` (`div.ui-header`, a row that wraps, where a heading takes the free space, buttons line up at the end and a `p` gets its own row; Dialog's `hgroup` is gone, and `DrawerHeader` keeps its close button), `DialogTitle` (new) and `DrawerTitle` (an `h2` that names the overlay, both sized by `--_title-font-size`, default `--ui-font-size-h4`, so the examples drop `.ui-h4` and m3 titles match at 28px), `DialogContent` and `DrawerContent` (`.ui-content`, now a stack with `--ui-space-3` between children on both, the rule `card.css` already gave Dialog, so a layout class like `.ui-form` keeps its own gap), and `DialogFooter` and `DrawerFooter` (`.ui-footer`, a row with `align`, replacing `DialogActions` and `DrawerActions`), with `.ui-actions` as a button group inside the footer that moves to the end when other content comes first. `--_header-font-size` is `--_title-font-size`, and the drawer's footer properties are `--_footer-gap` and `--_footer-padding` again, the names 5.4.3 shipped. `ActionsAlignment` is `FooterAlignment`, a new `FooterContent` example puts a status text next to the buttons, and every block, stress page, guide and site use is updated. Breaking entries in the CHANGELOG, MIGRATING and What's new notes say so; the dialog and drawer parity snapshots are updated (intended), the orphaned `dialog-ActionsAlignment` baselines are deleted, and the new and changed screenshots need an `update-snapshots` run.
 - [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:34,237`)
   - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
-  - Recommended: Fix with option C. The explanation was given and C removes the strip while keeping the layout shift fix that A values.
+  - Recommended: Fix with option A. It keeps the page from shifting and the strip matches the backdrop, which C was meant to do.
   - Options:
     - A: accept the strip (it stops the layout shift).
     - B: drop `stable`.
@@ -225,6 +237,12 @@ Custom elements (web components) the library could add, for behavior that HTML a
     ```
     The options stay as listed: accept the strip to avoid the jump, drop `stable` and accept the jump, or extend the backdrop and full-width drawers under the gutter.
   - Explained: the strip only shows with classic scrollbars (Windows, or Chrome with scrollbars always shown on macOS); overlay scrollbars take no space. The example has a page tall enough to scroll, a modal dialog and a bottom drawer, so the undimmed strip and the drawer stopping short of the edge can be seen side by side. Option C stays the recommendation: extend the backdrop and the block drawers under the gutter (`inset-inline-end: calc(-1 * (100dvi - 100%))` on the backdrop, `max-inline-size: none` with `inline-size: 100dvi` on block drawers) and keep `stable` so the page doesn't jump. Example: dialog-scrollbar-gutter
+  > Fix with option C
+  - Still open: option C can't be built. Measured in headless Chromium (800px window, 15px gutter): a backdrop with `inset-inline-end: calc(-1 * (100dvi - 100%))` computes to 800px wide, but the gutter pixels stay the page color, and a bottom drawer with `inline-size: 100dvi` and no `max-inline-size` doesn't paint there either. Browsers never paint fixed or top-layer content over the scrollbar area, and a stable gutter is part of it. Only the root's `background-color` reaches the gutter; a root `background-image` doesn't.
+  - Options:
+    - A (recommended): while a modal is open, set the `html` `background-color` to the backdrop color over `--ui-surface` and paint `--ui-surface` back over the page with a `background-image`, which doesn't reach the gutter. The strip matches the default 50% backdrop and comes close for a theme with another alpha. A block or inline-end drawer still stops short of the gutter.
+    - B: drop `stable`, so the backdrop covers the edge and the page shifts by the scrollbar's width when a modal opens.
+    - C: keep the strip.
 - [x] (2) CSS: a tonal fill inside a tonal surface, or inside an elevated surface in dark mode, matches its background, so tonal buttons, the Tabs track and tonal chips disappear there (1.00:1). Dark `--ui-surface-tonal` and `--ui-surface-elevated` are both `--ui-gray-12` (`packages/opui/css/theme.css:515-518`), and a tonal `Card`, `Accordion` or `Callout` paints the same tonal its content reads (`packages/opui/css/components/card.css:41-48`, `packages/opui/css/components/callout.css:3`)
   - Summary: Tonal buttons, chips and the Tabs track blend into tonal cards and callouts, and into elevated cards and dialogs in dark mode.
   - Recommended: Fix with option A. It follows the border remap raised surfaces already do, and the selected Tabs pill needs a second look either way.

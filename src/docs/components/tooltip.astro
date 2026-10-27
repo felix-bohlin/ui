@@ -57,9 +57,8 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
     <Conditional as="p">
       <Fragment slot="components">
         Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
-        <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
-        and <code>command="toggle-popover"</code> on the trigger element itself (these
-        attributes are only valid on real invokers like{" "}
+        <code>id</code>. Set <code>interestfor</code> with that id on the trigger
+        element itself (it only works on real invokers like{" "}
         <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
         in
         <code>TooltipContent</code> after the trigger.
@@ -67,11 +66,9 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       <Fragment slot="html">
         Add the <code>.ui-tooltip</code> class to the wrapper. Give the <code
           >.ui-floating</code
-        > element <code>popover="hint"</code> and an id. Add <code
+        > element <code>popover="hint"</code> and an id, and add <code
           >interestfor</code
-        >, plus <code>commandfor</code> and
-        {" "}<code>command="toggle-popover"</code> for touch, with that id to the
-        trigger.
+        > with that id to the trigger.
       </Fragment>
     </Conditional>
   </Fragment>
@@ -85,7 +82,9 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
     <li slot="when">A hint or a keyboard shortcut for a control.</li>
     <li slot="when-not">
       Information people need to finish their task. The tooltip only shows on
-      hover, focus or tap, so put it on the page.
+      hover, focus or a long press, so put it on the page, or in a <a
+        href="#toggletip">toggletip</a
+      >.
     </li>
     <li slot="when-not">
       Links, buttons or other interactive content. Use an <DocLink
@@ -156,6 +155,21 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
     <AutoExample name="Arrow" centered />
   </section>
 
+  <section>
+    <h2 id="toggletip">Toggletip</h2>
+    <p>
+      A button whose only job is to show the text, like an info button, can
+      toggle the tooltip on a press. Add <code>commandfor</code> and <code
+        >command="toggle-popover"</code
+      > with the tooltip's id next to <code>interestfor</code>, so a tap or a
+      click opens it in every browser with Invoker Commands, touch screens
+      without interest invokers included. Keep them off buttons that act, like
+      Save: a press would run the action and toggle the tooltip at once.
+    </p>
+
+    <AutoExample name="Toggletip" centered />
+  </section>
+
   <Fragment slot="accessibility">
     <ul>
       <li>
@@ -164,8 +178,14 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         own name, like an <code>aria-label</code> on an icon-only button.
       </li>
       <li>
-        Since <code>commandfor</code> ties the trigger to the tooltip, Chromium also
-        reports the trigger as collapsed or expanded.
+        On a <a href="#toggletip">toggletip</a>, <code>commandfor</code> ties the
+        button to the tooltip, so Chromium also reports it as collapsed or expanded.
+      </li>
+      <li>
+        In browsers without interest invokers, the compat layer shows the
+        tooltip while its trigger is hovered or has keyboard focus. It isn't in
+        the top layer there, so an ancestor that clips its overflow can hide it,
+        and <kbd>Esc</kbd> doesn't close it.
       </li>
     </ul>
     <KeyboardSupport />

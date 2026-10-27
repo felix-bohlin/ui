@@ -18,14 +18,6 @@
       color: var(--ui-critical-text);
     }
 
-    .analytics-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      }
-    }
-
     .analytics-chart {
       align-items: end;
       block-size: 12rem;
@@ -155,7 +147,7 @@
     </li>
   </ul>
 
-  <div class="ui-layout-grid ui-large analytics-grid">
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
     <section
       aria-labelledby="analytics-visitors-heading"
       class="ui-card ui-outlined analytics-chart-card"

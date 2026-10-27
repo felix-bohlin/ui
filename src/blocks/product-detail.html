@@ -1,31 +1,12 @@
 <style>
   .product-detail {
-    container-type: inline-size;
-
     .pd-breadcrumb li + li::before {
       content: "/";
       margin-inline-end: var(--ui-space-2);
     }
 
-    .pd-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        gap: var(--ui-space-8);
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      }
-    }
-
     .pd-gallery {
       position: relative;
-
-      @container (inline-size >= 56rem) {
-        inset-block-start: var(--ui-space-4);
-        position: sticky;
-      }
     }
 
     .pd-image {
@@ -95,8 +76,8 @@
     </ol>
   </nav>
 
-  <div class="pd-layout">
-    <div class="pd-gallery">
+  <div class="ui-layout-columns" style="--_gap: var(--ui-space-6)">
+    <div class="ui-sticky pd-gallery">
       <ul
         aria-label="Product images"
         class="ui-carousel ui-markers"

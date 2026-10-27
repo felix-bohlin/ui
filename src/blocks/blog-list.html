@@ -7,6 +7,7 @@
     }
 
     .blog-cover {
+      align-self: stretch;
       aspect-ratio: 2 / 1;
       background-image: linear-gradient(
         135deg,
@@ -16,19 +17,6 @@
     }
 
     .blog-featured {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        align-items: center;
-        gap: var(--ui-space-6);
-        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-
-        .blog-cover {
-          block-size: 100%;
-        }
-      }
-
       .blog-featured-body {
         padding: var(--ui-space-5);
       }
@@ -91,7 +79,10 @@
     </nav>
   </div>
 
-  <article class="ui-card ui-outlined blog-featured">
+  <article
+    class="ui-card ui-outlined ui-layout-columns blog-featured"
+    style="--_columns: 1.3fr 1fr; --_gap: 0"
+  >
     <div
       class="blog-cover"
       style="--hue: 0"

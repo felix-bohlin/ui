@@ -17,8 +17,28 @@ export default {
       prop: "column",
     },
     {
+      default: '"medium"',
+      description:
+        "The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`.",
+      group: "Breakpoint",
+      prop: "breakpoint",
+      values: {
+        large: ".ui-breakpoint-large",
+        medium: null,
+        small: ".ui-breakpoint-small",
+      },
+    },
+    {
+      class: ".ui-layout-columns",
+      description:
+        "One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`.",
+      group: "Columns",
+      prop: "columns",
+    },
+    {
       class: ".ui-layout-container",
-      description: "Centers its content and caps its width.",
+      description:
+        "Centers its content, caps its width and is the container `.ui-layout-columns` measures.",
       group: "Container",
       prop: "container",
     },
@@ -57,6 +77,14 @@ export default {
       },
     },
     {
+      class: ".ui-sticky",
+      default: "false",
+      description:
+        "On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side.",
+      group: "Sticky",
+      prop: "sticky",
+    },
+    {
       class: ".ui-spread",
       default: "false",
       description:
@@ -69,6 +97,6 @@ export default {
   root: {
     description: "Any element. The classes only set its layout.",
     selector:
-      ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media, .ui-layout-container",
+      ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media, .ui-layout-container",
   },
 } satisfies ComponentApi

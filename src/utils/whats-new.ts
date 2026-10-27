@@ -651,7 +651,8 @@ export const whatsNew = {
     `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header.`,
     `<a href="#media"><code>.ui-layout-media</code></a> puts an avatar or an icon next to text that fills the rest and truncates.`,
     `On a <code>ul</code> or <code>ol</code>, <a href="#lists">rows and grids</a> drop the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
-    `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks.`,
+    `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,
+    `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
   ],
   list: [
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,

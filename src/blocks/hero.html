@@ -1,16 +1,7 @@
 <style>
   .hero {
-    container-type: inline-size;
-
     .hero-inner {
       align-items: center;
-      display: grid;
-      gap: var(--ui-space-8);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-      }
     }
 
     .hero-copy {
@@ -104,7 +95,10 @@
 </style>
 
 <div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
-  <div class="hero-inner">
+  <div
+    class="ui-layout-columns hero-inner"
+    style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+  >
     <div class="ui-layout-column ui-large hero-copy">
       <a class="ui-chip ui-outlined" href="#hero-release">
         <span class="ui-text">New: Northwind 6.0 with AI planning</span>

@@ -41,14 +41,6 @@
       }
     }
 
-    .notif-options {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      }
-    }
-
     .notif-hours {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -504,7 +496,7 @@
     </div>
   </section>
 
-  <div class="ui-layout-grid ui-large notif-options">
+  <div class="ui-layout-columns ui-large ui-breakpoint-small">
     <section
       aria-labelledby="notification-settings-quiet-heading"
       class="ui-card ui-outlined"

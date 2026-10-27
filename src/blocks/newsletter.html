@@ -3,14 +3,9 @@
     container-type: inline-size;
 
     .newsletter-card {
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
       padding: var(--ui-space-5);
 
       @container (inline-size >= 56rem) {
-        gap: var(--ui-space-8);
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
         padding: var(--ui-space-7);
       }
     }
@@ -35,7 +30,10 @@
 </style>
 
 <div class="newsletter ui-layout-container" style="--_max-inline-size: 64rem">
-  <div class="ui-card ui-outlined newsletter-card">
+  <div
+    class="ui-card ui-outlined ui-layout-columns newsletter-card"
+    style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
+  >
     <div class="ui-layout-column ui-large">
       <hgroup class="ui-hgroup">
         <p>The Northwind Dispatch</p>

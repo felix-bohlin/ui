@@ -2,14 +2,6 @@
   .billing {
     container-type: inline-size;
 
-    .billing-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
-    }
-
     .billing-plan-price {
       align-items: baseline;
       display: flex;
@@ -55,7 +47,7 @@
     <h1 class="ui-h3">Billing</h1>
   </hgroup>
 
-  <div class="ui-layout-grid ui-large billing-grid">
+  <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
     <section aria-labelledby="billing-plan-heading" class="ui-card ui-outlined">
       <hgroup>
         <p>Current plan</p>

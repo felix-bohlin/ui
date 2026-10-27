@@ -1,19 +1,5 @@
 <style>
   .checkout {
-    container-type: inline-size;
-
-    .checkout-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        gap: var(--ui-space-8);
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
-    }
-
     .checkout-delivery {
       border: var(--ui-border-width) solid var(--ui-border-color);
       border-radius: var(--ui-radius);
@@ -35,13 +21,6 @@
 
     .checkout-secure {
       --_justify-content: center;
-    }
-
-    .checkout-summary {
-      @container (inline-size >= 56rem) {
-        inset-block-start: var(--ui-space-4);
-        position: sticky;
-      }
     }
 
     .checkout-items {
@@ -79,7 +58,10 @@
     <h1 class="ui-h3">Checkout</h1>
   </hgroup>
 
-  <div class="checkout-layout">
+  <div
+    class="ui-layout-columns"
+    style="--_columns: 3fr 2fr; --_gap: var(--ui-space-6)"
+  >
     <form class="ui-form" action="#">
       <fieldset class="ui-fieldset">
         <legend>Contact</legend>
@@ -403,7 +385,7 @@
 
     <section
       aria-labelledby="checkout-summary-heading"
-      class="ui-card ui-outlined checkout-summary"
+      class="ui-card ui-outlined ui-sticky checkout-summary"
     >
       <hgroup>
         <h2 class="ui-h5" id="checkout-summary-heading">Order summary</h2>

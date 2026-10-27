@@ -1,19 +1,5 @@
 <style>
   .shopping-cart {
-    container-type: inline-size;
-
-    .cart-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-5);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        gap: var(--ui-space-6);
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      }
-    }
-
     .cart-items {
       --_gap: 0;
 
@@ -85,11 +71,6 @@
     }
 
     .cart-summary {
-      @container (inline-size >= 56rem) {
-        inset-block-start: var(--ui-space-4);
-        position: sticky;
-      }
-
       .ui-content {
         display: grid;
         gap: var(--ui-space-4);
@@ -124,7 +105,7 @@
     <p>3 items, prices include VAT</p>
   </hgroup>
 
-  <div class="cart-layout">
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
     <section aria-label="Cart items" class="ui-card ui-outlined">
       <ul class="ui-layout-column cart-items">
         <li class="cart-item">
@@ -410,7 +391,7 @@
 
     <section
       aria-labelledby="shopping-cart-summary-heading"
-      class="ui-card ui-outlined cart-summary"
+      class="ui-card ui-outlined ui-sticky cart-summary"
     >
       <hgroup>
         <h2 class="ui-h5" id="shopping-cart-summary-heading">Order summary</h2>

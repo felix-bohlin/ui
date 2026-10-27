@@ -33,15 +33,6 @@
       }
     }
 
-    .shell-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: 15rem minmax(0, 1fr);
-      }
-    }
-
     .shell-sidebar {
       border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       display: none;
@@ -65,14 +56,6 @@
 
       hgroup > p:last-child {
         font-size: var(--ui-font-size-caption);
-      }
-    }
-
-    .shell-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 72rem) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       }
     }
   }
@@ -196,7 +179,7 @@
     </menu>
   </header>
 
-  <div class="shell-layout">
+  <div class="ui-layout-columns" style="--_columns: 15rem 1fr; --_gap: 0">
     <nav aria-label="Main" class="shell-sidebar">
       <ul class="ui-list ui-dense ui-transparent">
         <li>
@@ -382,7 +365,10 @@
         </li>
       </ul>
 
-      <div class="ui-layout-grid ui-large shell-grid">
+      <div
+        class="ui-layout-columns ui-large ui-breakpoint-large"
+        style="--_columns: 3fr 2fr"
+      >
         <section
           aria-labelledby="app-shell-upcoming-heading"
           class="ui-card ui-outlined"

@@ -77,14 +77,6 @@
       }
     }
 
-    .invoice-payment {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
-    }
-
     .invoice-footer {
       text-align: center;
     }
@@ -295,7 +287,8 @@
 
       <section
         aria-labelledby="invoice-payment-heading"
-        class="ui-layout-grid ui-large invoice-payment"
+        class="ui-layout-columns ui-large ui-breakpoint-small"
+        style="--_columns: 3fr 2fr"
       >
         <div>
           <h2 class="ui-overline invoice-label" id="invoice-payment-heading">

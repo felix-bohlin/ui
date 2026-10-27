@@ -22,14 +22,6 @@
       color: var(--ui-critical-text);
     }
 
-    .sales-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      }
-    }
-
     .sales-revenue {
       --_swatch-bg-color: var(--ui-primary);
     }
@@ -181,7 +173,7 @@
     </li>
   </ul>
 
-  <div class="ui-layout-grid ui-large sales-grid">
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
     <section
       aria-labelledby="sales-dashboard-revenue-heading"
       class="ui-card ui-outlined sales-chart-card"

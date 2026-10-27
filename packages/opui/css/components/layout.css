@@ -38,6 +38,57 @@
     }
   }
 
+  :where(.ui-layout-columns) {
+    --_columns: 1fr 1fr;
+    --_gap: var(--ui-space-3);
+    --_sticky-inset: var(--ui-space-4);
+
+    display: grid;
+    gap: var(--_gap);
+    grid-template-columns: minmax(0, 1fr);
+
+    & > * {
+      min-inline-size: 0;
+    }
+
+    & > .ui-sticky {
+      align-self: start;
+    }
+
+    @container (inline-size >= 40rem) {
+      &.ui-breakpoint-small {
+        grid-template-columns: var(--_columns);
+
+        & > .ui-sticky {
+          inset-block-start: var(--_sticky-inset);
+          position: sticky;
+        }
+      }
+    }
+
+    @container (inline-size >= 56rem) {
+      &:not(.ui-breakpoint-small, .ui-breakpoint-large) {
+        grid-template-columns: var(--_columns);
+
+        & > .ui-sticky {
+          inset-block-start: var(--_sticky-inset);
+          position: sticky;
+        }
+      }
+    }
+
+    @container (inline-size >= 72rem) {
+      &.ui-breakpoint-large {
+        grid-template-columns: var(--_columns);
+
+        & > .ui-sticky {
+          inset-block-start: var(--_sticky-inset);
+          position: sticky;
+        }
+      }
+    }
+  }
+
   :where(.ui-layout-media) {
     --_gap: var(--ui-space-3);
 
@@ -60,7 +111,13 @@
     }
   }
 
-  :where(.ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media) {
+  :where(
+    .ui-layout-column,
+    .ui-layout-row,
+    .ui-layout-grid,
+    .ui-layout-columns,
+    .ui-layout-media
+  ) {
     &.ui-x-small {
       --_gap: var(--ui-space-1);
     }
@@ -84,6 +141,7 @@
     --_max-inline-size: 72rem;
     --_padding-inline: var(--ui-space-4);
 
+    container-type: inline-size;
     inline-size: 100%;
     margin-inline: auto;
     max-inline-size: var(--_max-inline-size);

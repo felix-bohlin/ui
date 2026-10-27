@@ -297,13 +297,20 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </Fragment>
 
     <Fragment slot="layout">
-      <div class="ui-layout-grid ui-small showcase-layout" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="ui-layout-column ui-small showcase-layout" aria-hidden="true">
+        <div class="ui-layout-column ui-x-small">
+          <span class="showcase-layout-heading"></span>
+          <span class="showcase-layout-text"></span>
+        </div>
+        <div class="ui-layout-grid ui-x-small">
+          <span class="showcase-layout-tile"></span>
+          <span class="showcase-layout-tile"></span>
+          <span class="showcase-layout-tile"></span>
+        </div>
+        <div class="ui-layout-row ui-x-small showcase-layout-actions">
+          <span class="showcase-layout-button"></span>
+          <span class="showcase-layout-button showcase-layout-primary"></span>
+        </div>
       </div>
     </Fragment>
 
@@ -597,15 +604,52 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .showcase-layout {
-      --_min-inline-size: 4rem;
-
       inline-size: 100%;
+      max-inline-size: 16rem;
 
-      & > span {
-        background-color: var(--ui-surface-tonal);
-        block-size: var(--size-8);
+      .ui-layout-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      span {
         border-radius: var(--radius-2);
       }
+    }
+
+    .showcase-layout-heading,
+    .showcase-layout-text {
+      background-color: oklch(from var(--ui-text) l c h / 25%);
+      block-size: var(--size-2);
+    }
+
+    .showcase-layout-heading {
+      background-color: oklch(from var(--ui-text-strong) l c h / 45%);
+      inline-size: 40%;
+    }
+
+    .showcase-layout-text {
+      inline-size: 75%;
+    }
+
+    .showcase-layout-tile {
+      aspect-ratio: 4 / 3;
+      background-color: oklch(from var(--ui-primary) l c h / 8%);
+      border: 1px dashed oklch(from var(--ui-primary) l c h / 45%);
+    }
+
+    .showcase-layout-actions {
+      --_justify-content: flex-end;
+    }
+
+    .showcase-layout-button {
+      block-size: var(--size-4);
+      border: 1px solid oklch(from var(--ui-text) l c h / 35%);
+      inline-size: var(--size-8);
+    }
+
+    .showcase-layout-primary {
+      background-color: var(--ui-primary);
+      border-color: var(--ui-primary);
     }
 
     .showcase-menu {

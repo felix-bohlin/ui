@@ -144,9 +144,14 @@ const columns = [
 
   .starting-style-compare-knobs {
     align-items: end;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--ui-space-3) var(--ui-space-5);
-    grid-template-columns: auto minmax(min(100%, 12rem), 1fr);
+
+    & :global(.ui-range) {
+      flex: 1 1 12rem;
+      min-inline-size: 0;
+    }
 
     & :global(.ui-switch) {
       white-space: nowrap;

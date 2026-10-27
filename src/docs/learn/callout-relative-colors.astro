@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import PaletteHue from "../../components/Learn/PaletteHue.astro"
 import Severities from "../../component-examples/callout/Severities.astro"
 ---
 
@@ -68,6 +69,14 @@ import Severities from "../../component-examples/callout/Severities.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
+    <p>
+      Drag the hue. It changes one custom property, <code>--ui-info</code>, and
+      the 16 shades below follow, with every border, icon, text and tint in the
+      callouts.
+    </p>
+    <Example showCode={false}>
+      <PaletteHue />
+    </Example>
     <p>
       Every severity is one source color. Switch the color scheme and the shades
       follow.

@@ -3,6 +3,7 @@ import TechniquePost from "../../layouts/TechniquePost.astro"
 import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
 import Example from "../../components/Example/index"
+import RhythmCompare from "../../components/Learn/RhythmCompare.astro"
 ---
 
 <TechniquePost slug="vertical-rhythm-round" topic="rhythm">
@@ -67,8 +68,25 @@ h2 {
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      The lines mark every <code>--ui-rhythm-step</code>. Each heading and
-      paragraph ends on one of them.
+      Drag the font size. The lines mark every step, and the shaded bands are
+      the line boxes.
+    </p>
+    <Example showCode={false}>
+      <RhythmCompare />
+    </Example>
+    <ul>
+      <li>
+        <code>1.2</code> lands the line box wherever the multiplication ends, so most
+        sizes stop between two lines and the drift adds up with every line
+      </li>
+      <li>
+        <code>round()</code> rounds each line box up to the next step, so every line
+        box ends on the grid
+      </li>
+    </ul>
+    <p>
+      The real theme on the same grid. Each heading and paragraph ends on one of
+      the lines.
     </p>
     <Example showCode={false}>
       <div class="rhythm-demo ui-rich-text">

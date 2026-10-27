@@ -6,9 +6,11 @@ import {
   type InputHTMLAttributes,
   useAttrs,
   useId,
+  useSlots,
 } from "vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { idRefs } from "../id"
 import { useInputAttrs } from "../vue"
 import { minusPath, plusPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
@@ -32,6 +34,7 @@ const {
   variant,
 } = defineProps<Props>()
 defineSlots<Slots>()
+const slots = useSlots()
 const attrs = useAttrs() as InputHTMLAttributes
 const inputAttrs = useInputAttrs()
 const modelValue = defineModel<number | string>()
@@ -45,6 +48,12 @@ const model = computed({
 
 const generatedId = useId()
 const inputId = computed(() => id ?? generatedId)
+const startTextId = computed(() =>
+  startText || slots["start-text"] ? `${generatedId}-start-text` : undefined,
+)
+const endTextId = computed(() =>
+  endText || slots["end-text"] ? `${generatedId}-end-text` : undefined,
+)
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -70,7 +79,11 @@ const field = inject(FieldGroupKey, undefined)
       {{ label }}<slot name="label"></slot>
     </label>
 
-    <span v-if="startText || $slots['start-text']" class="ui-start-text">
+    <span
+      v-if="startText || $slots['start-text']"
+      :id="startTextId"
+      class="ui-start-text"
+    >
       {{ startText }}<slot name="start-text"></slot>
     </span>
 
@@ -96,6 +109,9 @@ const field = inject(FieldGroupKey, undefined)
       <input
         v-bind="inputAttrs"
         v-model="model"
+        :aria-describedby="
+          idRefs(startTextId, endTextId, attrs['aria-describedby'] as string)
+        "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="inputId"
         :name="attrs.name ?? field?.name"
@@ -121,7 +137,11 @@ const field = inject(FieldGroupKey, undefined)
       </span>
     </span>
 
-    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+    <span
+      v-if="endText || $slots['end-text']"
+      :id="endTextId"
+      class="ui-end-text"
+    >
       {{ endText }}<slot name="end-text"></slot>
     </span>
   </component>

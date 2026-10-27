@@ -3,6 +3,7 @@
 import { useEffect, useId } from "react"
 import Button from "../Button/Button.react"
 import { cx } from "../cx"
+import { idRefs } from "../id"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { minusPath, plusPath } from "./icons"
 import type { Props } from "./types.react"
@@ -27,6 +28,8 @@ export default function NumberStepper({
   const field = useFieldGroupContext()
   const generatedId = useId()
   const inputId = id ?? generatedId
+  const startTextId = startText ? `${generatedId}start-text` : undefined
+  const endTextId = endText ? `${generatedId}end-text` : undefined
 
   useEffect(() => {
     void import("../../elements/number-stepper.js")
@@ -53,7 +56,11 @@ export default function NumberStepper({
           {label}
         </label>
       )}
-      {startText && <span className="ui-start-text">{startText}</span>}
+      {startText && (
+        <span className="ui-start-text" id={startTextId}>
+          {startText}
+        </span>
+      )}
       <span className="ui-field">
         <span className="ui-start">
           <Button
@@ -75,6 +82,11 @@ export default function NumberStepper({
         </span>
         <input
           {...rest}
+          aria-describedby={idRefs(
+            startTextId,
+            endTextId,
+            rest["aria-describedby"],
+          )}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
           id={inputId}
           name={name ?? field?.name}
@@ -99,7 +111,11 @@ export default function NumberStepper({
           </Button>
         </span>
       </span>
-      {endText && <span className="ui-end-text">{endText}</span>}
+      {endText && (
+        <span className="ui-end-text" id={endTextId}>
+          {endText}
+        </span>
+      )}
     </opui-number-stepper>
   )
 }

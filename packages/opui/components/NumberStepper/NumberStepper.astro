@@ -3,12 +3,13 @@ import Button from "../Button/Button.astro"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createId } from "../id"
+import { createId, idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 
 export const title = "Number Stepper"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   class: className,
   decreaseLabel = "Decrease",
@@ -30,6 +31,10 @@ const {
 const field = fieldGroupContext.get()
 const $id = createId(Astro.locals)
 const inputId = id ?? $id("number-stepper")
+const startTextId =
+  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
 ---
 
 <opui-number-stepper
@@ -54,7 +59,7 @@ const inputId = id ?? $id("number-stepper")
   }
   {
     (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text">
+      <span class="ui-start-text" id={startTextId}>
         {startText}
         <slot name="start-text" />
       </span>
@@ -81,6 +86,7 @@ const inputId = id ?? $id("number-stepper")
     </span>
     <input
       {...rest}
+      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
       id={inputId}
       name={name ?? field?.name}
@@ -107,7 +113,7 @@ const inputId = id ?? $id("number-stepper")
   </span>
   {
     (endText || Astro.slots.has("end-text")) && (
-      <span class="ui-end-text">
+      <span class="ui-end-text" id={endTextId}>
         {endText}
         <slot name="end-text" />
       </span>

@@ -3,6 +3,7 @@
   import Button from "../Button/Button.svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { idRefs } from "../id"
   import { minusPath, plusPath } from "./icons"
   import type { Props } from "./types.svelte"
 
@@ -31,6 +32,10 @@
 
   const field = getFieldGroupContext()
   const inputId = $derived(id ?? generatedId)
+  const startTextId = $derived(
+    startText ? `${generatedId}-start-text` : undefined,
+  )
+  const endTextId = $derived(endText ? `${generatedId}-end-text` : undefined)
 </script>
 
 <opui-number-stepper
@@ -51,7 +56,9 @@
     >
   {/if}
   {#if startText}
-    <span class="ui-start-text">{@render content(startText)}</span>
+    <span class="ui-start-text" id={startTextId}
+      >{@render content(startText)}</span
+    >
   {/if}
   <span class="ui-field">
     <span class="ui-start">
@@ -74,6 +81,11 @@
     </span>
     <input
       {...rest}
+      aria-describedby={idRefs(
+        startTextId,
+        endTextId,
+        rest["aria-describedby"],
+      )}
       aria-invalid={error ? "true" : rest["aria-invalid"]}
       bind:value
       id={inputId}
@@ -100,6 +112,6 @@
     </span>
   </span>
   {#if endText}
-    <span class="ui-end-text">{@render content(endText)}</span>
+    <span class="ui-end-text" id={endTextId}>{@render content(endText)}</span>
   {/if}
 </opui-number-stepper>

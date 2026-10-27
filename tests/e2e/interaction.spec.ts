@@ -1176,6 +1176,17 @@ interaction(
 
 interaction(
   "number-stepper",
+  "EndText",
+  "number stepper end text describes the input",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("spinbutton", { name: "Guests" }),
+    ).toHaveAccessibleDescription("Up to 8 per table.")
+  },
+)
+
+interaction(
+  "number-stepper",
   "Basics",
   "number stepper repeats while a button is held",
   async ({ page, root }) => {

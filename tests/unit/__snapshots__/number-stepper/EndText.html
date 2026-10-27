@@ -8,7 +8,7 @@
         </svg>
       </button>
     </span>
-    <input id="id-1" max="8" min="1" type="number" value="2">
+    <input aria-describedby="id-2" id="id-1" max="8" min="1" type="number" value="2">
     <span class="ui-end">
       <button aria-label="Increase" class="ui-button ui-round" command="--step-up" commandfor="id-1" type="button">
         <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -17,5 +17,5 @@
       </button>
     </span>
   </span>
-  <span class="ui-end-text">Up to 8 per table.</span>
+  <span class="ui-end-text" id="id-2">Up to 8 per table.</span>
 </opui-number-stepper>

@@ -209,9 +209,11 @@ export const description =
   <Fragment slot="accessibility">
     <ul>
       <li>
-        The input is a spinbutton, named by its <code>&lt;label for&gt;</code>.
-        The root isn't a <code>&lt;label&gt;</code>, because a button inside a
-        label would join the input's name.
+        The input is a spinbutton, named by its <code>&lt;label for&gt;</code>
+        and described by the start and end text through <code
+          >aria-describedby</code
+        >. The root isn't a <code>&lt;label&gt;</code>, because a button inside
+        a label would join the input's name.
       </li>
       <li>
         The buttons are named by <Conditional

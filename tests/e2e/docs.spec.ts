@@ -253,6 +253,9 @@ const tabStop = (page: Page) =>
     if (element.dataset.tabStop) return { id: element.dataset.tabStop }
     dataset.tabStops = String(Number(dataset.tabStops ?? 0) + 1)
     element.dataset.tabStop = dataset.tabStops
+    // WebKit scrolls the focused element into view on a later frame
+    await new Promise(requestAnimationFrame)
+    await new Promise(requestAnimationFrame)
 
     const parent = (node: Element) => {
       const root = node.getRootNode()
@@ -308,21 +311,7 @@ const tabStop = (page: Page) =>
               box.left >= innerWidth
             ? "is outside the viewport"
             : ""
-    let debug = ""
-    if (problem && box && ring) {
-      const rect = (node: Element) => {
-        const r = node.getBoundingClientRect()
-        return `${r.left.toFixed(0)},${r.top.toFixed(0)} ${r.width.toFixed(0)}x${r.height.toFixed(0)}`
-      }
-      const first = `ring=${ring.tagName.toLowerCase()}.${[...ring.classList].join(".")} ringBox=${rect(ring)} element=${rect(element)} next=${element.nextElementSibling ? rect(element.nextElementSibling) : "none"} scrollY=${scrollY.toFixed(0)} innerHeight=${innerHeight} scrollHeight=${document.scrollingElement?.scrollHeight} parentBox=${element.parentElement ? rect(element.parentElement) : ""}`
-      await new Promise(requestAnimationFrame)
-      await new Promise(requestAnimationFrame)
-      const second = `2raf ringBox=${rect(ring)} scrollY=${scrollY.toFixed(0)}`
-      await new Promise((resolve) => setTimeout(resolve, 500))
-      debug = `${first} | ${second} | 500ms ringBox=${rect(ring)} scrollY=${scrollY.toFixed(0)}`
-    }
     return {
-      debug,
       id: element.dataset.tabStop,
       problem: problem && `${label} ${problem}`,
     }
@@ -345,8 +334,6 @@ for (const path of [
       if (!stop || stops.has(stop.id)) break
       stops.add(stop.id)
       if (stop.problem) problems.push(stop.problem)
-      if ("debug" in stop && stop.debug)
-        console.log(`##### FOCUSDEBUG ${test.info().project.name} ${path} ${stop.problem}: ${stop.debug}`)
     }
     expect(stops.size, "Tab stops").toBeGreaterThan(10)
     expect(problems).toEqual([])

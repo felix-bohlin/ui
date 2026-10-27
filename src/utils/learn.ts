@@ -17,6 +17,7 @@ export const componentHref = (framework: FrameworkId, component: string) =>
   )
 
 const categoryLabels: Record<string, string> = {
+  release: "Releases",
   "under-the-hood": "Under the hood",
 }
 

@@ -19,8 +19,8 @@ type Props = {
 
 const { slug, topic: topicProp } = Astro.props
 const post = posts.find((entry) => entry.slug === slug)!
-const component = post.component!
-if (!post.before || !post.now) {
+const { component } = post
+if (component && (!post.before || !post.now)) {
   throw new Error(`learn-posts.ts: ${slug} needs before and now`)
 }
 
@@ -28,17 +28,19 @@ const { link } = Astro.locals
 
 const currentFramework = Astro.locals.framework
 
-Astro.locals.componentSlug = component
+if (component) Astro.locals.componentSlug = component
 
-const docsHref = componentHref(currentFramework, component)
+const docsHref = component && componentHref(currentFramework, component)
 
-const name = componentName(component)
+const name = component && componentName(component)
 
 const series = seriesOf(slug)
 
 const topic =
   topicProp ??
-  (component in references ? (component as keyof typeof references) : undefined)
+  (component && component in references
+    ? (component as keyof typeof references)
+    : undefined)
 ---
 
 <Learn
@@ -80,31 +82,41 @@ const topic =
 
   <slot />
 
-  <section>
-    <h2 id="then-and-now">Then and now</h2>
-    <dl>
-      <dt>Then</dt>
-      <dd set:html={formatInline(post.before, link)} />
-      <dt>Now</dt>
-      <dd set:html={formatInline(post.now, link)} />
-    </dl>
-  </section>
+  {
+    post.before && post.now && (
+      <section>
+        <h2 id="then-and-now">Then and now</h2>
+        <dl>
+          <dt>Then</dt>
+          <dd set:html={formatInline(post.before, link)} />
+          <dt>Now</dt>
+          <dd set:html={formatInline(post.now, link)} />
+        </dl>
+      </section>
+    )
+  }
 
-  <section>
-    <h2 id="read-more">Read more</h2>
-    <ul>
-      <li><a href={docsHref}>{name} docs</a></li>
-      <li>
-        <a href={`${docsHref}#under-the-hood`}>{name}, under the hood</a>
-      </li>
-      <li>
-        <a href={hrefFor(currentFramework, "/learn/under-the-hood")}
-          >Every component, under the hood</a
-        >
-      </li>
-    </ul>
-    {topic && <ReadMore topic={topic} />}
-  </section>
+  {
+    component && (
+      <section>
+        <h2 id="read-more">Read more</h2>
+        <ul>
+          <li>
+            <a href={docsHref}>{name} docs</a>
+          </li>
+          <li>
+            <a href={`${docsHref}#under-the-hood`}>{name}, under the hood</a>
+          </li>
+          <li>
+            <a href={hrefFor(currentFramework, "/learn/under-the-hood")}>
+              Every component, under the hood
+            </a>
+          </li>
+        </ul>
+        {topic && <ReadMore topic={topic} />}
+      </section>
+    )
+  }
 </Learn>
 
 <style>

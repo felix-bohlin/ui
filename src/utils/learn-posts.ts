@@ -1,5 +1,12 @@
 export const posts = [
   {
+    category: "release",
+    date: "2026-10-27",
+    description: "What changed in 6.0 and why, with live demos.",
+    slug: "release-6",
+    title: "opui 6.0",
+  },
+  {
     category: "under-the-hood",
     date: "2026-10-02",
     description:

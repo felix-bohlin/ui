@@ -45,10 +45,6 @@ Model: `value` (`number | string`), the input value. Astro and React `value`, Sv
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
-### number-stepper.css
-
-Outputs: `--_size` and `--_step-button-size`.
-
 ### text-field.css
 
 - `--_accent`: Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
@@ -62,7 +58,7 @@ Outputs: `--_size` and `--_step-button-size`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
 
-Outputs: `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit` and `--_helper-text-color`.
+Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit` and `--_helper-text-color`.
 
 ### button.css
 

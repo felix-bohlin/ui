@@ -20,13 +20,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:e2e:build
-      - name: Diagnostics
-        run: pnpm exec playwright test tests/e2e/diag.spec.ts --reporter=list --project=light --project=firefox --project=webkit --repeat-each=2 || true
-        env:
-          E2E_PREBUILT: "1"
-          HOME: /root
       - name: The failing tests, repeated
-        run: pnpm exec playwright test tests/e2e/engines.spec.ts tests/e2e/docs.spec.ts tests/e2e/interaction.spec.ts --reporter=list --project=firefox --project=webkit --repeat-each=5 -g "end aligned|framework picker|range shows its value again|getting-started/ shows focus" || true
+        run: pnpm exec playwright test tests/e2e/engines.spec.ts tests/e2e/docs.spec.ts tests/e2e/interaction.spec.ts --reporter=list --project=firefox --project=webkit --repeat-each=5 -g "end aligned|range shows its value again|shows focus on every Tab stop" || true
         env:
           E2E_PREBUILT: "1"
           HOME: /root

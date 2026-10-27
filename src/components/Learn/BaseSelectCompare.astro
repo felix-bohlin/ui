@@ -12,21 +12,21 @@ const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
 <div class="base-select-compare">
   {
     columns.map((column) => (
-      <div
+      <fieldset
         class="base-select-compare-column"
         data-appearance={column.appearance}
       >
-        <p class="base-select-compare-title">
+        <legend class="base-select-compare-title">
           <code>appearance: {column.appearance}</code>
           <span>{column.caption}</span>
-        </p>
+        </legend>
         <Select label="Car" name={`base-select-${column.appearance}`}>
           <option value="">Pick one</option>
           {options.map((option) => (
             <option>{option}</option>
           ))}
         </Select>
-      </div>
+      </fieldset>
     ))
   }
 </div>
@@ -42,9 +42,12 @@ const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
 
   .base-select-compare-column {
     align-content: start;
+    border: 0;
     display: grid;
     gap: var(--ui-space-3);
+    margin: 0;
     min-inline-size: 0;
+    padding: 0;
 
     &[data-appearance="auto"] :global(select),
     &[data-appearance="auto"] :global(select)::picker(select) {
@@ -58,7 +61,8 @@ const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
     flex-wrap: wrap;
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
-    margin: 0;
+    margin: 0 0 var(--ui-space-3);
+    padding: 0;
 
     & code {
       color: var(--ui-text-strong);

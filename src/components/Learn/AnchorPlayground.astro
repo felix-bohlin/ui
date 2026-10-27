@@ -140,6 +140,7 @@ const position = { x: 50, y: 50 }
         },
         root: playground,
         start: (event) => {
+          trigger.focus({ preventScroll: true })
           origin = {
             moved: false,
             px: event.clientX,
@@ -152,7 +153,8 @@ const position = { x: 50, y: 50 }
       trigger.addEventListener(
         "click",
         (event) => {
-          if (!origin.moved) return
+          if (!origin.moved || event.detail === 0) return
+          origin.moved = false
           event.preventDefault()
           event.stopImmediatePropagation()
         },

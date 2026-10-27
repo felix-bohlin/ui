@@ -30,14 +30,14 @@ const token =
   <div class="appearance-compare-columns">
     {
       columns.map((column) => (
-        <div
+        <fieldset
           class="appearance-compare-column"
           data-appearance={column.appearance}
         >
-          <p class="appearance-compare-title">
+          <legend class="appearance-compare-title">
             <code>appearance: {column.appearance}</code>
             <span>{column.caption}</span>
-          </p>
+          </legend>
           <div class="appearance-compare-states">
             {states.map((state, index) =>
               kind === "checkbox" ? (
@@ -58,7 +58,7 @@ const token =
               ),
             )}
           </div>
-        </div>
+        </fieldset>
       ))
     }
   </div>
@@ -92,9 +92,12 @@ const token =
 
   .appearance-compare-column {
     align-content: start;
+    border: 0;
     display: grid;
     gap: var(--ui-space-3);
+    margin: 0;
     min-inline-size: 0;
+    padding: 0;
 
     &[data-appearance="auto"] :global(input[type="checkbox"]) {
       all: revert;
@@ -115,7 +118,8 @@ const token =
     flex-wrap: wrap;
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);
-    margin: 0;
+    margin: 0 0 var(--ui-space-3);
+    padding: 0;
 
     & code {
       color: var(--ui-text-strong);

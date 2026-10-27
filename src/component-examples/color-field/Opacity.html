@@ -1,0 +1,118 @@
+<opui-color-field class="ui-color-field">
+  <div class="ui-text-field">
+    <label
+      class="ui-label"
+      for="color-field-opacity-1"
+      id="color-field-opacity-1-label"
+      >Overlay</label
+    >
+    <span class="ui-field">
+      <span class="ui-start">
+        <button
+          type="button"
+          class="ui-button ui-round"
+          aria-label="Pick a color"
+          commandfor="color-field-opacity-1-picker"
+          command="toggle-popover"
+        >
+          <span class="ui-indicator"></span>
+        </button>
+      </span>
+      <input
+        autocomplete="off"
+        spellcheck="false"
+        id="color-field-opacity-1"
+        type="text"
+        value="oklch(0.3 0.05 260 / 0.6)"
+      />
+    </span>
+  </div>
+  <div
+    aria-labelledby="color-field-opacity-1-label"
+    class="ui-floating"
+    id="color-field-opacity-1-picker"
+    popover="auto"
+    role="dialog"
+  >
+    <label class="ui-range" for="color-field-opacity-1-lightness">
+      <span class="ui-label" id="color-field-opacity-1-lightness-label"
+        >Lightness</span
+      >
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-1-lightness"
+      ></output>
+      <input
+        aria-labelledby="color-field-opacity-1-lightness-label"
+        data-channel="L"
+        id="color-field-opacity-1-lightness"
+        max="1"
+        min="0"
+        step="0.001"
+        type="range"
+      />
+    </label>
+    <label class="ui-range" for="color-field-opacity-1-chroma">
+      <span class="ui-label" id="color-field-opacity-1-chroma-label"
+        >Chroma</span
+      >
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-1-chroma"
+      ></output>
+      <input
+        aria-describedby="color-field-opacity-1-gamut"
+        aria-labelledby="color-field-opacity-1-chroma-label"
+        data-channel="C"
+        id="color-field-opacity-1-chroma"
+        max="0.37"
+        min="0"
+        step="0.001"
+        type="range"
+      />
+    </label>
+    <label class="ui-range" for="color-field-opacity-1-hue">
+      <span class="ui-label" id="color-field-opacity-1-hue-label">Hue</span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-1-hue"
+      ></output>
+      <input
+        aria-labelledby="color-field-opacity-1-hue-label"
+        data-channel="H"
+        id="color-field-opacity-1-hue"
+        max="360"
+        min="0"
+        step="0.1"
+        type="range"
+      />
+    </label>
+    <label class="ui-range" for="color-field-opacity-1-opacity">
+      <span class="ui-label" id="color-field-opacity-1-opacity-label"
+        >Opacity</span
+      >
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-1-opacity"
+      ></output>
+      <input
+        aria-labelledby="color-field-opacity-1-opacity-label"
+        data-channel="alpha"
+        id="color-field-opacity-1-opacity"
+        max="1"
+        min="0"
+        step="0.01"
+        type="range"
+      />
+    </label>
+    <p class="ui-description" id="color-field-opacity-1-gamut"></p>
+  </div>
+</opui-color-field>
+
+<script type="module">
+  import "opui-css/elements/color-field.js"
+</script>

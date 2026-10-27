@@ -22,6 +22,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.svelte"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
+export { default as ColorField } from "../components/ColorField/ColorField.svelte"
 export { default as Copy } from "../components/Copy/Copy.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.svelte"
@@ -112,6 +113,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
+export type { Props as ColorFieldProps } from "../components/ColorField/types.svelte"
 export type { Props as CopyProps } from "../components/Copy/types.svelte"
 export type {
   DescriptionListDescriptionProps,

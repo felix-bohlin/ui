@@ -1,0 +1,10 @@
+<script lang="ts">
+  import { ColorField } from "opui-css/svelte"
+</script>
+
+<ColorField
+  alpha
+  id="color-field-opacity-1"
+  label="Overlay"
+  value="oklch(0.3 0.05 260 / 0.6)"
+/>

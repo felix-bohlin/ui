@@ -1,0 +1,135 @@
+---
+import Button from "../Button/Button.astro"
+
+import type { Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { createId } from "../id"
+import { channelsFor } from "./channels"
+
+export const title = "Color Field"
+
+const {
+  alpha,
+  "aria-invalid": ariaInvalid,
+  class: className,
+  endText,
+  error,
+  hideLabel,
+  id,
+  label,
+  name,
+  pickerLabel = "Pick a color",
+  size,
+  spread,
+  startText,
+  style,
+  variant,
+  ...rest
+} = Astro.props
+
+const field = fieldGroupContext.get()
+const $id = createId(Astro.locals)
+const inputId = id ?? $id("color-field")
+---
+
+<opui-color-field class:list={["ui-color-field", className]} style={style}>
+  <div
+    class:list={[
+      "ui-text-field",
+      {
+        "ui-filled": variant === "filled",
+        "ui-spread": spread,
+      },
+      size && size !== "medium" && `ui-${size}`,
+    ]}
+  >
+    {
+      (label || Astro.slots.has("label")) && (
+        <label
+          class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}
+          for={inputId}
+          id={`${inputId}-label`}
+        >
+          {label}
+          <slot name="label" />
+        </label>
+      )
+    }
+    {
+      (startText || Astro.slots.has("start-text")) && (
+        <span class="ui-start-text">
+          {startText}
+          <slot name="start-text" />
+        </span>
+      )
+    }
+    <span class="ui-field">
+      <span class="ui-start">
+        <Button
+          aria-label={pickerLabel}
+          command="toggle-popover"
+          commandfor={`${inputId}-picker`}
+          round
+        >
+          <span class="ui-indicator"></span>
+        </Button>
+      </span>
+      <input
+        autocomplete="off"
+        spellcheck="false"
+        {...rest}
+        aria-invalid={error ? "true" : ariaInvalid}
+        id={inputId}
+        name={name ?? field?.name}
+        type="text"
+      />
+    </span>
+    {
+      (endText || Astro.slots.has("end-text")) && (
+        <span class="ui-end-text">
+          {endText}
+          <slot name="end-text" />
+        </span>
+      )
+    }
+  </div>
+  <div
+    aria-labelledby={`${inputId}-label`}
+    class="ui-floating"
+    id={`${inputId}-picker`}
+    popover="auto"
+    role="dialog"
+  >
+    {
+      channelsFor(alpha).map((slider) => (
+        <label class="ui-range" for={`${inputId}-${slider.name}`}>
+          <span class="ui-label" id={`${inputId}-${slider.name}-label`}>
+            {slider.label}
+          </span>
+          <output
+            aria-live="off"
+            class="ui-value"
+            for={`${inputId}-${slider.name}`}
+          />
+          <input
+            aria-describedby={
+              slider.channel === "C" ? `${inputId}-gamut` : undefined
+            }
+            aria-labelledby={`${inputId}-${slider.name}-label`}
+            data-channel={slider.channel}
+            id={`${inputId}-${slider.name}`}
+            max={slider.max}
+            min="0"
+            step={slider.step}
+            type="range"
+          />
+        </label>
+      ))
+    }
+    <p class="ui-description" id={`${inputId}-gamut`}></p>
+  </div>
+</opui-color-field>
+
+<script>
+  import "../../elements/color-field.js"
+</script>

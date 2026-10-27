@@ -20,6 +20,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.vue"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
+export { default as ColorField } from "../components/ColorField/ColorField.vue"
 export { default as Copy } from "../components/Copy/Copy.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.vue"
@@ -110,6 +111,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.vue-props"
 export type { Props as ChipProps } from "../components/Chip/types.vue-props"
+export type { Props as ColorFieldProps } from "../components/ColorField/types.vue-props"
 export type { Props as CopyProps } from "../components/Copy/types.vue-props"
 export type {
   DescriptionListDescriptionProps,

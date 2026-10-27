@@ -1,0 +1,73 @@
+@layer components.extended {
+  :where(.ui-color-field) {
+    --_indicator-bg-color: transparent;
+    --_picker-inline-size: 16rem;
+
+    display: grid;
+
+    & > .ui-text-field {
+      --_trigger-size: calc(
+        var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
+      );
+
+      & > .ui-field > .ui-start:has(> .ui-button) {
+        padding-inline: var(--ui-space-1);
+
+        & > .ui-button {
+          --_size: var(--_trigger-size);
+
+          inline-size: var(--_size);
+          padding-inline: 0;
+        }
+      }
+    }
+
+    & .ui-indicator {
+      background-color: var(--_indicator-bg-color);
+      block-size: var(--ui-icon-size);
+      border-radius: var(--ui-radius-round);
+      box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
+      inline-size: var(--ui-icon-size);
+
+      @media (forced-colors: active) {
+        forced-color-adjust: none;
+      }
+    }
+
+    & > .ui-floating {
+      background-color: var(--ui-surface-elevated);
+      border: var(--ui-border-width) solid var(--ui-border-color-on-raised);
+      border-radius: var(--ui-radius);
+      box-shadow: var(--ui-shadow-overlay);
+      color: var(--ui-text);
+      gap: var(--ui-space-3);
+      inline-size: var(--_picker-inline-size);
+      inset: auto;
+      margin: var(--ui-space-1);
+      max-inline-size: calc(100dvi - var(--ui-space-4));
+      padding: var(--ui-space-3);
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+
+      &:popover-open {
+        display: grid;
+      }
+
+      & > .ui-description {
+        color: var(--ui-text-subtle);
+        font-size: var(--ui-font-size-caption);
+        margin: 0;
+      }
+    }
+
+    &:not(:defined) {
+      & .ui-start:has(> .ui-button) {
+        display: none;
+      }
+
+      & .ui-field input {
+        padding-inline-start: var(--ui-field-padding-inline, var(--ui-space-2));
+      }
+    }
+  }
+}

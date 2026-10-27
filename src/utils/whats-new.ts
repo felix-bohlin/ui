@@ -447,6 +447,12 @@ export const whatsNew = {
     `Corners are <a href="#api"><code>--ui-radius</code></a> (8px) instead of Open Props <code>--radius-2</code> (5px).`,
     `<a href="#button">Button</a> and <a href="#link">link</a> chips only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
+  "color-field": [
+    {
+      default: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens lightness, chroma, hue and <a href="#opacity">opacity</a> sliders, run by the <code>&lt;opui-color-field&gt;</code> custom element, which the component loads. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
+      html: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens lightness, chroma, hue and <a href="#opacity">opacity</a> sliders. Import <code>opui-css/elements/color-field.js</code> for the <code>&lt;opui-color-field&gt;</code> custom element that runs them. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
+    },
+  ],
   copy: [
     {
       default: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and announces it, run by the <code>&lt;opui-copy&gt;</code> custom element, which the component loads.`,
@@ -1413,6 +1419,7 @@ export const highlighted = new Set<string>([
   "button",
   "card",
   "carousel",
+  "color-field",
   "copy",
   "layout",
   "menu",

@@ -1426,3 +1426,77 @@ interaction(
     )
   },
 )
+
+interaction(
+  "color-field",
+  "Basics",
+  "color field sliders write an oklch() value",
+  async ({ page, root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+    const picker = root.getByRole("button", { name: "Pick a color" })
+
+    await expect(input).toHaveValue("oklch(0.6 0.15 250)")
+    await picker.click()
+    const hue = root.getByRole("slider", { name: "Hue" })
+    await expect(hue).toBeVisible()
+    await expect(hue).toHaveAttribute("aria-valuetext", "250 degrees")
+    await hue.focus()
+    await page.keyboard.press("End")
+    await expect(input).toHaveValue("oklch(0.6 0.15 0)")
+    await page.keyboard.press("Escape")
+    await expect(hue).toBeHidden()
+    await expect(picker).toBeFocused()
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
+  "color field turns a typed color into oklch() and flags text that isn't one",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+
+    await expect(
+      root.getByRole("button", { name: "Pick a color" }),
+    ).toBeVisible()
+    await input.fill("red")
+    await input.press("Tab")
+    await expect(input).toHaveValue(/^oklch\(0\.6\d* 0\.2\d* 29(\.\d+)?\)$/)
+    expect(
+      await input.evaluate((el: HTMLInputElement) => el.validity.valid),
+    ).toBe(true)
+
+    await input.fill("nope")
+    await input.press("Tab")
+    await expect(input).toHaveValue("nope")
+    expect(
+      await input.evaluate((el: HTMLInputElement) => el.validity.valid),
+    ).toBe(false)
+  },
+)
+
+interaction(
+  "color-field",
+  "FormValue",
+  "color field submits and resets its oklch() value",
+  async ({ page, root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+    const form = root.locator("form")
+    const value = () =>
+      form.evaluate((el: HTMLFormElement) => new FormData(el).get("brand"))
+
+    expect(await value()).toBe("oklch(0.6 0.15 250)")
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    const lightness = root.getByRole("slider", { name: "Lightness" })
+    await lightness.focus()
+    await page.keyboard.press("Home")
+    await expect(input).toHaveValue("oklch(0 0.15 250)")
+    expect(await value()).toBe("oklch(0 0.15 250)")
+    await page.keyboard.press("Escape")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(input).toHaveValue("oklch(0.6 0.15 250)")
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    await expect(lightness).toHaveAttribute("aria-valuetext", "60%")
+  },
+)

@@ -21,7 +21,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:e2e:build
       - name: The failing tests, repeated
-        run: pnpm exec playwright test tests/e2e/engines.spec.ts tests/e2e/docs.spec.ts tests/e2e/interaction.spec.ts --reporter=list --project=firefox --project=webkit --repeat-each=5 -g "end aligned|range shows its value again|shows focus on every Tab stop" || true
+        run: pnpm exec playwright test tests/e2e/engines.spec.ts tests/e2e/docs.spec.ts tests/e2e/interaction.spec.ts --reporter=list --project=firefox --project=webkit --repeat-each=5 -g "shows focus on every Tab stop" || true
         env:
           E2E_PREBUILT: "1"
           HOME: /root

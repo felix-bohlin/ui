@@ -31,14 +31,16 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     <Button data-shuffle size="small" variant="outlined">
       <svg
         aria-hidden="true"
+        height="24"
         viewBox="0 0 24 24"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
         ><path
           fill="currentColor"
           d="M17 4h3.5a.5.5 0 0 1 .5.5V8a1 1 0 1 1-2 0V7.41l-3.3 3.3a1 1 0 0 1-1.4-1.42L17.59 6H17a1 1 0 1 1 0-2M3 5a1 1 0 0 1 1-1h3.17a3 3 0 0 1 2.12.88l7.3 7.3H19V11a1 1 0 1 1 2 0v3.5a.5.5 0 0 1-.5.5H17a1 1 0 1 1 0-2h.59l-7.3-7.3a1 1 0 0 0-.7-.2H4a1 1 0 0 1-1-1m0 14a1 1 0 0 1 1-1h3.17a1 1 0 0 0 .7-.3l3.3-3.3a1 1 0 1 1 1.42 1.42l-3.3 3.3a3 3 0 0 1-2.12.88H4a1 1 0 0 1-1-1"
         ></path></svg
       >
-      Shuffle
+      <span>Shuffle</span>
     </Button>
     <Button data-reset-all size="small" variant="transparent">Reset</Button>
     <Button
@@ -313,11 +315,6 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
-
-    :global(svg) {
-      block-size: 1.1em;
-      inline-size: 1.1em;
-    }
 
     :global([hidden]) {
       display: none;

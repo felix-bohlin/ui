@@ -50,6 +50,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
                   {MOODS.map((mood) => (
                     <Chip
                       as="button"
+                      aria-pressed="false"
                       data-mood={mood.id}
                       label={mood.label}
                       size="small"
@@ -61,7 +62,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
                 </div>
                 <p class="builder-moods-hint">
                   A mood sets a handful of settings on top of your starting
-                  point. Undo brings them back.
+                  point and stays marked while they all hold. Press it again to
+                  take them back.
                 </p>
               </div>
             </div>
@@ -172,6 +174,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       ...document.querySelectorAll<HTMLButtonElement>("[data-lock]"),
     ]
     const presets = root.querySelector<HTMLElement>("[data-presets]")!
+    const moodButtons = [
+      ...root.querySelectorAll<HTMLButtonElement>("[data-mood]"),
+    ]
     const dual = new Set<string>()
     const picked = new Set<string>()
     let theme = themeStore.get()
@@ -620,6 +625,21 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         }
       }
 
+      const radius = valueOf("--ui-radius")
+      for (const button of moodButtons) {
+        const mood = MOODS.find((entry) => entry.id === button.dataset.mood)!
+        const holds =
+          same("--ui-radius", radius, mood.corners) &&
+          Object.entries(mood.choices).every(([id, value]) => {
+            const control = controls.get(id)
+            return (
+              control?.kind === "choice" &&
+              choiceValue(control, valueOf, palette) === value
+            )
+          })
+        button.setAttribute("aria-pressed", `${holds}`)
+      }
+
       const total = changeCount(theme)
       for (const radio of presets.querySelectorAll<HTMLInputElement>(
         "input[type=radio]",
@@ -886,6 +906,16 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         const definition = MOODS.find((entry) => entry.id === mood.dataset.mood)
         if (!definition) return
         const before = themeStore.get()
+        if (mood.getAttribute("aria-pressed") === "true") {
+          const update: Update = {}
+          for (const id of ["corners", ...Object.keys(definition.choices)]) {
+            Object.assign(update, resetTokens(controls.get(id)!))
+          }
+          morph(() => write(update)).then(() =>
+            say(`${definition.label} removed.`, mood, before),
+          )
+          return
+        }
         const remix = moodRemix(definition, theme.tokens)
         morph(() => applyRemix(remix)).then(() =>
           say(`${definition.label} applied.`, mood, before),

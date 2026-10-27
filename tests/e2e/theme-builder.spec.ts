@@ -81,12 +81,24 @@ test("a preset card switches the starting point", async ({ page }) => {
   ).toHaveValue("m3")
 })
 
-test("a mood applies a bundle of changes that Undo takes back", async ({
+test("a mood applies a bundle of changes that Undo or a second press takes back", async ({
   page,
 }) => {
   await open(page)
+  await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  )
   await page.locator('[data-mood="playful"]').click()
   await expect(toast(page)).toHaveText("Playful applied.")
+  await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
+  await expect(page.locator('[data-mood="minimal"]')).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  )
   await expect(changes(page)).not.toHaveText("No changes")
   await expect(page.locator('[data-room-count="corners"]')).toBeVisible()
   await expect(
@@ -95,7 +107,20 @@ test("a mood applies a bundle of changes that Undo takes back", async ({
   await page.locator("[data-undo]").click()
   await expect(toast(page)).toHaveText("Undone.")
   await expect(changes(page)).toHaveText("No changes")
+  await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  )
   await expect(page.locator('[data-mood="playful"]')).toBeFocused()
+  await page.locator('[data-mood="playful"]').click()
+  await expect(toast(page)).toHaveText("Playful applied.")
+  await page.locator('[data-mood="playful"]').click()
+  await expect(toast(page)).toHaveText("Playful removed.")
+  await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  )
+  await expect(changes(page)).toHaveText("No changes")
 })
 
 test("shuffle skips locked rooms", async ({ page }) => {

@@ -520,16 +520,10 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     }
 
     @supports (animation-timeline: view()) {
-      & tbody td {
+      @media (prefers-reduced-motion: no-preference) {
         animation: support-matrix-rise linear both;
-        animation-range: entry 0% cover 20%;
+        animation-range: entry 0% entry 40%;
         animation-timeline: view();
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      & tbody td {
-        animation: none;
       }
     }
   }

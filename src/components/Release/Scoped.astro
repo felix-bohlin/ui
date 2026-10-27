@@ -157,7 +157,11 @@ const regions = [
           "--ui-primary-source",
           "light-dark(var(--ui-color-9), var(--ui-color-6))",
         )
-        if (output) output.textContent = input.value
+        if (output) {
+          const node = output.firstChild
+          if (node instanceof Text && !node.nextSibling) node.data = input.value
+          else output.textContent = input.value
+        }
       })
     }
   }
@@ -242,8 +246,7 @@ const regions = [
     & * {
       transition-duration: calc(var(--ui-duration-slow) * 2 * var(--ui-motion));
       transition-property:
-        background-color, block-size, border-color, color, fill, inline-size,
-        min-block-size, outline-color, padding;
+        background-color, border-color, box-shadow, color, fill, outline-color;
       transition-timing-function: var(--ui-ease);
     }
 

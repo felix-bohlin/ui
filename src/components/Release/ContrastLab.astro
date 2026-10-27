@@ -504,7 +504,7 @@ const pairs = [
         outline: row.dataset.outline !== undefined,
         row,
         selector: row.dataset.selector!,
-        text: row.querySelector<HTMLElement>(".contrast-lab-ratio-text")!,
+        text: row.querySelector(".contrast-lab-ratio-text")!.firstChild as Text,
       }),
     )
 
@@ -539,12 +539,93 @@ const pairs = [
       return [clip(r), clip(g), clip(b), clip(a)]
     }
 
+    const gamma = (channel: number) =>
+      Math.abs(channel) <= 0.0031308
+        ? 12.92 * channel
+        : Math.sign(channel) * (1.055 * Math.abs(channel) ** (1 / 2.4) - 0.055)
+
+    const fromLinear = (
+      r: number,
+      g: number,
+      b: number,
+      alpha: number,
+    ): Rgba => [clip(gamma(r)), clip(gamma(g)), clip(gamma(b)), clip(alpha)]
+
+    const fromXyz = (x: number, y: number, z: number, alpha: number) =>
+      fromLinear(
+        3.2409699419 * x - 1.5373831776 * y - 0.4986107603 * z,
+        -0.9692436363 * x + 1.8759675015 * y + 0.0415550574 * z,
+        0.0556300797 * x - 0.2039769589 * y + 1.0569715142 * z,
+        alpha,
+      )
+
+    const fromOklab = (l: number, a: number, b: number, alpha: number) => {
+      const long = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3
+      const medium = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3
+      const short = (l - 0.0894841775 * a - 1.291485548 * b) ** 3
+      return fromLinear(
+        4.0767416621 * long - 3.3077115913 * medium + 0.2309699292 * short,
+        -1.2684380046 * long + 2.6097574011 * medium - 0.3413193965 * short,
+        -0.0041960863 * long - 0.7034186147 * medium + 1.707614701 * short,
+        alpha,
+      )
+    }
+
+    const channel = (token: string | undefined, percent = 1) => {
+      if (token === undefined || token === "none") return 0
+      return token.endsWith("%")
+        ? (Number(token.slice(0, -1)) / 100) * percent
+        : parseFloat(token)
+    }
+
+    const convert = (value: string): Rgba | null => {
+      const match = value.match(/^(oklab|oklch|color)\((.+)\)$/)
+      if (!match) return null
+      const [body, alphaToken] = match[2].split("/").map((part) => part.trim())
+      const tokens = body.split(/\s+/)
+      const alpha = alphaToken === undefined ? 1 : channel(alphaToken)
+      if (match[1] === "oklch") {
+        const hue = (channel(tokens[2]) * Math.PI) / 180
+        const chroma = channel(tokens[1], 0.4)
+        return fromOklab(
+          channel(tokens[0]),
+          chroma * Math.cos(hue),
+          chroma * Math.sin(hue),
+          alpha,
+        )
+      }
+      if (match[1] === "oklab") {
+        return fromOklab(
+          channel(tokens[0]),
+          channel(tokens[1], 0.4),
+          channel(tokens[2], 0.4),
+          alpha,
+        )
+      }
+      const [space, ...rest] = tokens
+      const [a, b, c] = rest.map((token) => channel(token))
+      if (space === "srgb") return [clip(a), clip(b), clip(c), clip(alpha)]
+      if (space === "srgb-linear") return fromLinear(a, b, c, alpha)
+      if (space === "xyz" || space === "xyz-d65") return fromXyz(a, b, c, alpha)
+      return null
+    }
+
+    let colors = new Map<string, Rgba | null>()
+
     const parseColor = (value: string): Rgba | null => {
-      probe.style.color = ""
-      probe.style.color = `color(from ${value} srgb r g b / alpha)`
-      return probe.style.color === ""
-        ? parseChannels(value)
-        : parseChannels(getComputedStyle(probe).color)
+      const cached = colors.get(value)
+      if (cached !== undefined) return cached
+      let parsed = parseChannels(value) ?? convert(value)
+      if (!parsed) {
+        probe.style.color = ""
+        probe.style.color = `color(from ${value} srgb r g b / alpha)`
+        parsed =
+          probe.style.color === ""
+            ? null
+            : parseChannels(getComputedStyle(probe).color)
+      }
+      colors.set(value, parsed)
+      return parsed
     }
 
     const composite = (top: Rgba, base: Rgba): Rgba => {
@@ -566,12 +647,35 @@ const pairs = [
       return (high + 0.05) / (low + 0.05)
     }
 
+    const settled = (
+      element: Element,
+      property: "backgroundColor" | "color" | "outlineColor",
+    ) => {
+      const name = property.replace(
+        /[A-Z]/g,
+        (letter) => `-${letter.toLowerCase()}`,
+      )
+      for (const animation of element.getAnimations()) {
+        if (
+          animation instanceof CSSTransition &&
+          animation.transitionProperty === name
+        ) {
+          const effect = animation.effect
+          const frames =
+            effect instanceof KeyframeEffect ? effect.getKeyframes() : []
+          const value = frames.at(-1)?.[property]
+          if (typeof value === "string") return value
+        }
+      }
+      return getComputedStyle(element)[property]
+    }
+
     const backgroundOf = (start: Element | null) => {
       const layers: Rgba[] = []
       let opaque: Rgba | null = null
       let node = start
       while (node && node !== document.documentElement) {
-        const color = parseColor(getComputedStyle(node).backgroundColor)
+        const color = parseColor(settled(node, "backgroundColor"))
         if (color && color[3] > 0) {
           if (color[3] > 0.999) {
             opaque = color
@@ -586,33 +690,34 @@ const pairs = [
       return { approximated: !opaque, color: base, layers: layers.length }
     }
 
-    const update = () => {
-      let failing = 0
-      const settled = scope.cloneNode(true) as HTMLElement
-      settled.hidden = true
-      settled.inert = true
-      for (const element of settled.querySelectorAll("[id]")) {
-        element.removeAttribute("id")
-      }
-      stage.append(settled)
-      for (const pair of rows) {
-        const element = settled.querySelector(pair.selector)
-        if (!element) continue
-        const style = getComputedStyle(element)
-        const fg = parseColor(pair.outline ? style.outlineColor : style.color)
+    const measure = () => {
+      colors = new Map()
+      return rows.flatMap((pair) => {
+        const element = scope.querySelector(pair.selector)
+        if (!element) return []
+        const fg = parseColor(
+          settled(element, pair.outline ? "outlineColor" : "color"),
+        )
+        if (!fg) return []
         const background = backgroundOf(
           pair.outline ? element.parentElement : element,
         )
-        if (!fg) continue
         const ratio = contrast(
           composite(fg, background.color),
           background.color,
         )
+        return [{ background, pair, ratio }]
+      })
+    }
+
+    const update = () => {
+      let failing = 0
+      for (const { background, pair, ratio } of measure()) {
         const shown = (Math.floor(ratio * 100) / 100).toFixed(2)
         const status = ratio >= pair.needs ? "pass" : "fail"
         if (status === "fail") failing += 1
         pair.count.style.setProperty("--contrast-lab-ratio", shown)
-        pair.text.textContent = shown
+        pair.text.data = shown
         pair.row.dataset.layers = String(background.layers)
         pair.row.toggleAttribute("data-approximated", background.approximated)
         if (pair.row.dataset.status !== status) {
@@ -623,8 +728,19 @@ const pairs = [
           pair.mark = mark
         }
       }
-      settled.remove()
-      lab.dataset.failing = String(failing)
+      if (lab.dataset.failing !== String(failing)) {
+        lab.dataset.failing = String(failing)
+      }
+    }
+
+    let frame = 0
+
+    const schedule = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        update()
+      })
     }
 
     const applyAmount = () =>
@@ -645,19 +761,19 @@ const pairs = [
 
     amount.addEventListener("input", () => {
       applyAmount()
-      update()
+      schedule()
     })
     hue.addEventListener("input", () => {
       applyHue()
-      update()
+      schedule()
     })
     moreSwitch.addEventListener("change", () => {
       applyMore()
-      update()
+      schedule()
     })
     darkSwitch.addEventListener("change", () => {
       applyDark()
-      update()
+      schedule()
     })
 
     applyAmount()

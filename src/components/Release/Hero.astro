@@ -1,544 +1,316 @@
 ---
-import postcss from "postcss"
-import {
-  Badge,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Checkbox,
-  Chip,
-  FieldLegend,
-  Fieldset,
-  Select,
-  TextField,
-  ToggleButton,
-  ToggleGroup,
-} from "opui-css/astro"
-import fiveCss from "opui-css-5/dist/opui.css?raw"
+import { readFileSync } from "node:fs"
+import { Button, Chip } from "opui-css/astro"
+import { changelogSections } from "../../utils/changelog"
+import { releaseVersion } from "../../utils/release"
 
 const id = "hero"
-const wrapper = ".hero-five"
-const prefix = "v5-"
 
-const expected = new Map([
-  [".ui-dark", 0],
-  [".ui-light", 0],
-  [":where(:root, .ui-warning", 0],
-  [":where(body)", 0],
-  [":where(html)", 0],
-  ["html", 0],
-])
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 
-const found = (selector: string) => {
-  if (!expected.has(selector)) {
-    throw new Error(`Hero.astro: unexpected selector "${selector}"`)
-  }
-  expected.set(selector, expected.get(selector)! + 1)
-}
-
-const splitList = (selector: string) => {
-  const parts = []
-  let depth = 0
-  let start = 0
-  for (let index = 0; index < selector.length; index++) {
-    const char = selector[index]
-    if (char === "(" || char === "[") depth++
-    else if (char === ")" || char === "]") depth--
-    else if (char === "," && depth === 0) {
-      parts.push(selector.slice(start, index))
-      start = index + 1
-    }
-  }
-  parts.push(selector.slice(start))
-  return parts.map((part) => part.trim()).filter(Boolean)
-}
-
-const renameClasses = (text: string) =>
-  text.replaceAll(/\.ui-/g, `.${prefix}`).replaceAll(/"ui-/g, `"${prefix}`)
-
-const rootSelector = /^(:where\()?(html|body|:root)(:has\([^)]*\))?(?:\))?$/
-
-const scopeSelector = (selector: string) => {
-  const list = selector.replace(/\s+/g, " ").trim()
-  if (list === ".ui-light" || list === ".ui-dark") {
-    found(list)
-    return `${list} ${wrapper}`
-  }
-  const palette = list.match(/^:where\(\s*:root,\s*(.+)\)$/)
-  if (palette) {
-    found(":where(:root, .ui-warning")
-    return `${wrapper}, ${wrapper} :where(${renameClasses(palette[1])})`
-  }
-  return splitList(list)
-    .map((part) => {
-      const root = part.match(rootSelector)
-      if (root) {
-        found(root[1] ? `${root[1]}${root[2]})` : root[2])
-        return `${wrapper}${renameClasses(root[3] ?? "")}`
-      }
-      if (/(^|[^-\w])(html|body|:root)(?![-\w])(?![^(]*\))/.test(part)) {
-        throw new Error(`Hero.astro: unscoped root selector "${part}"`)
-      }
-      return `${wrapper} ${renameClasses(part)}`
-    })
-    .join(",\n")
-}
-
-const root = postcss.parse(fiveCss.replaceAll("\r\n", "\n"))
-root.walkComments((comment) => {
-  comment.remove()
-})
-root.walkAtRules("custom-media", (rule) => {
-  rule.remove()
-})
-
-const keyframes = new Set<string>()
-root.walkAtRules("keyframes", (rule) => {
-  keyframes.add(rule.params)
-  rule.params = `${prefix}${rule.params}`
-})
-if (keyframes.size === 0) {
-  throw new Error("Hero.astro: expected @keyframes in the 5.4.3 CSS")
-}
-const keyframeName = new RegExp(
-  `(^|[^-\\w])(${[...keyframes].join("|")})(?![-\\w])`,
-  "g",
+const counts = new Map(
+  changelogSections(changelog, releaseVersion).map((section) => [
+    section.title,
+    section.entries.length,
+  ]),
 )
-root.walkDecls((decl) => {
-  if (/^(--)?animation/.test(decl.prop)) {
-    decl.value = decl.value.replaceAll(keyframeName, `$1${prefix}$2`)
-  } else if (keyframeName.test(decl.value)) {
-    keyframeName.lastIndex = 0
-    throw new Error(
-      `Hero.astro: keyframe name outside an animation property in "${decl.prop}: ${decl.value}"`,
-    )
-  }
-  keyframeName.lastIndex = 0
-})
 
-root.walkAtRules("scope", (rule) => {
-  rule.params = renameClasses(rule.params)
-})
+const numeral = releaseVersion.split(".").slice(0, 2).join(".")
 
-root.walkRules((rule) => {
-  const parent = rule.parent
-  if (parent?.type === "rule") {
-    rule.selector = renameClasses(rule.selector)
-    return
-  }
-  if (parent?.type === "atrule" && parent.name.endsWith("keyframes")) return
-  rule.selector = scopeSelector(rule.selector)
-})
+const facts = [
+  `${counts.get("Added") ?? 0} added, ${counts.get("Breaking") ?? 0} breaking`,
+  "Carousel, Menu, AvatarGroup",
+  "Four example themes",
+  "React and Svelte",
+].toSorted((a, b) => a.localeCompare(b, "en"))
 
-for (const [selector, count] of expected) {
-  if (count === 0) {
-    throw new Error(`Hero.astro: expected "${selector}" in the 5.4.3 CSS`)
-  }
-}
-
-const scopedCss = `@layer release-five {\n${root
-  .toString()
-  .replaceAll(/^\s+/gm, "")
-  .replaceAll(/\n{2,}/g, "\n")}\n}`
-
-const versions = [
-  { label: "5.4.3", name: "five" },
-  { label: "6.0", name: "six" },
-]
+const dust = Array.from({ length: 12 }, (_, index) => index)
 ---
 
 <div class="hero ui-not-rich-text" id={id}>
-  <Fieldset class="hero-toggle">
-    <FieldLegend>Version</FieldLegend>
-    <ToggleGroup name={id} size="small">
+  <div class="hero-stage hero-play">
+    <div class="hero-slam">
+      <div aria-hidden="true" class="hero-ring"></div>
       {
-        versions.map((version) => (
-          <ToggleButton checked={version.name === "five"} value={version.name}>
-            {version.label}
-          </ToggleButton>
+        dust.map((index) => (
+          <i aria-hidden="true" class="hero-dust" style={`--i: ${index}`} />
         ))
       }
-    </ToggleGroup>
-  </Fieldset>
-
-  <div class="hero-scroller">
-    <div class="hero-stage">
-      <div class="hero-layer hero-five" data-version="five" inert>
-        <div class="v5-card v5-elevated hero-card">
-          <hgroup>
-            <h3 class="v5-h5">Invite a teammate</h3>
-            <p>They get an email with a link that works for seven days.</p>
-          </hgroup>
-          <div class="v5-content">
-            <div class="hero-meta">
-              <div class="v5-chip v5-small v5-tonal">
-                <span class="v5-text">Pro plan</span>
-              </div>
-              <span class="v5-anchor v5-badge">
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 32 32"
-                  ><path
-                    fill="currentColor"
-                    d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-                  ></path></svg
-                >
-                <span class="v5-anchor-floating">
-                  <span
-                    aria-label="3 pending invites"
-                    class="v5-badge-indicator">3</span
-                  >
-                </span>
-              </span>
-            </div>
-            <label class="v5-text-field">
-              <span class="v5-label">Email</span>
-              <span class="v5-field">
-                <input
-                  id="hero-five-email"
-                  name="hero-five-email"
-                  placeholder="name@example.com"
-                  type="email"
-                />
-              </span>
-            </label>
-            <label class="v5-select">
-              <span class="v5-label" id="hero-five-role-label">Role</span>
-              <span class="v5-field">
-                <select
-                  aria-labelledby="hero-five-role-label"
-                  id="hero-five-role"
-                  name="hero-five-role"
-                >
-                  <button>
-                    <selectedcontent></selectedcontent>
-                  </button>
-                  <div class="v5-list">
-                    <option>Editor</option>
-                    <option>Owner</option>
-                    <option>Viewer</option>
-                  </div>
-                </select>
-              </span>
-            </label>
-            <label class="v5-checkbox">
-              <input name="hero-five-copy" type="checkbox" />
-              <span class="v5-label">Send me a copy</span>
-            </label>
-          </div>
-          <div class="v5-actions">
-            <button class="v5-button v5-filled v5-primary">Send invite</button>
-            <button class="v5-button v5-outlined">Preview</button>
-            <button class="v5-button v5-tonal">Cancel</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-layer hero-six ui-palette" data-version="six">
-        <Card class="hero-card" variant="elevated">
-          <CardHeader>
-            <h3>Invite a teammate</h3>
-            <p>They get an email with a link that works for seven days.</p>
-          </CardHeader>
-          <CardContent>
-            <div class="hero-meta">
-              <Chip label="Pro plan" size="small" variant="tonal" />
-              <Badge hideLabel label="3 pending invites">
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 32 32"
-                  ><path
-                    fill="currentColor"
-                    d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-                  ></path></svg
-                >
-                <Fragment slot="indicator">3</Fragment>
-              </Badge>
-            </div>
-            <TextField
-              label="Email"
-              name="hero-email"
-              placeholder="name@example.com"
-              type="email"
-            />
-            <Select label="Role" name="hero-role">
-              <option>Editor</option>
-              <option>Owner</option>
-              <option>Viewer</option>
-            </Select>
-            <Checkbox label="Send me a copy" name="hero-copy" />
-          </CardContent>
-          <CardActions>
-            <Button color="primary" variant="filled">Send invite</Button>
-            <Button variant="outlined">Preview</Button>
-            <Button variant="tonal">Cancel</Button>
-          </CardActions>
-        </Card>
-      </div>
-
-      <p aria-hidden="true" class="hero-caption">
-        {
-          versions.map((version) => (
-            <span data-version={version.name}>{version.label}</span>
-          ))
-        }
-      </p>
+      <p class="hero-numeral">{numeral}</p>
     </div>
+    <p class="hero-tagline">Four frameworks. Four themes. One naming model.</p>
+    <ul class="hero-facts">
+      {
+        facts.map((fact, index) => (
+          <li style={`--i: ${index}`}>
+            <Chip label={fact} size="small" variant="outlined" />
+          </li>
+        ))
+      }
+    </ul>
   </div>
+  <Button class="hero-replay" size="small" variant="outlined">Replay</Button>
 </div>
 
-<style is:inline set:html={scopedCss}></style>
+<script>
+  const stage = document.querySelector<HTMLElement>("#hero .hero-stage")
+  document
+    .querySelector("#hero .hero-replay")
+    ?.addEventListener("click", () => {
+      stage?.classList.remove("hero-play")
+      stage?.getBoundingClientRect()
+      stage?.classList.add("hero-play")
+    })
+</script>
 
 <style is:global>
   .hero {
+    --_impact: 0.55s;
+
     display: grid;
     gap: var(--ui-space-3);
+    justify-items: center;
     margin-block: var(--ui-space-5);
 
-    & .ui-fieldset {
-      gap: var(--ui-space-1);
-    }
-
-    & legend {
-      font-size: var(--ui-font-size-caption);
-    }
-  }
-
-  .hero-stage {
-    display: grid;
-    position: relative;
-  }
-
-  .hero-layer {
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-large);
-    container-type: inline-size;
-    display: grid;
-    grid-area: 1 / 1;
-    padding: var(--ui-space-7) var(--ui-space-4) var(--ui-space-6);
-    place-items: center;
-
-    @media (width < 600px) {
-      padding: var(--ui-space-7) var(--ui-space-2) var(--ui-space-4);
-    }
-    transition-duration: var(--ui-duration-slow);
-    transition-property: opacity, visibility;
-    transition-timing-function: var(--ui-ease);
-
-    & h3 {
-      margin: 0;
-    }
-
-    & p {
-      margin: 0;
-    }
-  }
-
-  .hero-five {
-    block-size: auto;
-    min-block-size: 0;
-
-    & h3 {
-      font-family: inherit;
-    }
-
-    & .v5-content {
+    & .hero-stage {
+      align-content: center;
+      background:
+        radial-gradient(
+          ellipse 70% 60% at 50% 55%,
+          oklch(from var(--ui-primary) l c h / 18%),
+          transparent
+        ),
+        var(--ui-surface-tonal);
+      border-radius: var(--ui-radius-large);
       display: grid;
-      gap: var(--size-3);
+      gap: var(--ui-space-4);
+      inline-size: 100%;
+      isolation: isolate;
+      justify-items: center;
+      min-block-size: clamp(18rem, 60vh, 36rem);
+      overflow: clip;
+      padding: var(--ui-space-4);
+      position: relative;
+      text-align: center;
     }
-  }
 
-  .hero-six {
-    background-color: var(--ui-surface);
-    color: var(--ui-text);
-    font-family: var(--ui-font-body);
-    opacity: 0;
-    transition-behavior: allow-discrete;
-    visibility: hidden;
+    & .hero-slam {
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
 
-    & h3 {
+    & .hero-numeral {
+      background: linear-gradient(
+        160deg,
+        var(--ui-primary-text),
+        oklch(from var(--ui-primary-text) calc(l + 0.08) c h)
+      );
+      background-clip: text;
+      color: transparent;
       font-family: var(--ui-font-heading, var(--ui-font-body));
-      font-size: var(--ui-font-size-h5);
+      font-size: clamp(8rem, 22vw, 16rem);
+      font-weight: var(--ui-font-weight-bold);
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+      margin: 0;
+      position: relative;
+      z-index: 1;
     }
 
-    & .ui-header {
-      display: grid;
-      gap: var(--ui-space-2);
+    & .hero-ring {
+      aspect-ratio: 1;
+      border: 4px solid var(--ui-primary);
+      border-radius: 50%;
+      inline-size: min(18rem, 80%);
+      inset: 50% auto auto 50%;
+      opacity: 0;
+      position: absolute;
+      scale: 0.2;
+      translate: -50% -50%;
     }
 
-    & .ui-content {
-      display: grid;
-      gap: var(--ui-space-3);
-    }
-  }
+    & .hero-dust {
+      --_angle: calc(190deg + var(--i) * 14.5deg);
+      --_distance: calc(9rem + mod(var(--i), 3) * 3rem);
 
-  .hero-card {
-    inline-size: min(100%, 26rem);
-  }
-
-  .hero-meta {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-3);
-  }
-
-  .hero-caption {
-    display: grid;
-    inset-block-start: var(--ui-space-3);
-    inset-inline-start: var(--ui-space-3);
-    margin: 0;
-    pointer-events: none;
-    position: absolute;
-
-    & span {
-      background-color: var(--ui-surface-tonal);
+      background: var(--ui-primary);
+      block-size: 0.5rem;
       border-radius: var(--ui-radius-round);
+      inline-size: calc(0.875rem + mod(var(--i), 2) * 0.5rem);
+      inset: 82% auto auto 50%;
+      opacity: 0;
+      position: absolute;
+      rotate: var(--_angle);
+    }
+
+    & .hero-tagline {
       color: var(--ui-text);
-      font-family: var(--ui-font-code);
-      font-size: var(--ui-font-size-caption);
+      font-size: var(--ui-font-size-400);
       font-weight: var(--ui-font-weight-medium);
-      grid-area: 1 / 1;
-      line-height: 1;
-      padding: var(--ui-space-1) var(--ui-space-2);
-      transition: opacity var(--ui-duration-slow) var(--ui-ease);
+      margin: 0;
+      text-wrap: balance;
     }
 
-    & [data-version="six"] {
-      opacity: 0;
-    }
-  }
-
-  #hero:has([name="hero"][value="six"]:checked) {
-    & .hero-five,
-    & .hero-caption [data-version="five"] {
-      opacity: 0;
-    }
-
-    & .hero-five {
-      visibility: hidden;
-    }
-
-    & .hero-six,
-    & .hero-caption [data-version="six"] {
-      opacity: 1;
-      visibility: visible;
+    & .hero-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-2);
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
   }
 
-  @supports (animation-timeline: scroll()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .hero-toggle {
-        display: none;
-      }
-
-      .hero-scroller {
-        block-size: 280lvh;
-        view-timeline-name: --hero;
-      }
-
-      .hero-stage {
-        inset-block-start: calc(var(--size-10) + var(--site-gap));
-        position: sticky;
-
-        @media (width < 1140px) {
-          inset-block-start: calc(
-            var(--size-10) + var(--size-8) + var(--site-gap)
-          );
-        }
-
-        @media (width < 900px) {
-          inset-block-start: calc(
-            var(--size-10) + var(--size-8) + var(--ui-space-2)
-          );
-        }
-      }
-
-      .hero-layer,
-      .hero-caption span {
-        animation-fill-mode: both;
-        animation-range: contain 20% contain 80%;
-        animation-timeline: --hero;
-        animation-timing-function: linear;
-        transition: none;
-      }
-
-      .hero-five {
-        animation-name: hero-then;
-        transform-origin: 50% 40%;
-      }
-
-      .hero-six {
-        animation-name: hero-now;
-        transform-origin: 50% 60%;
-      }
-
-      .hero-caption [data-version="five"] {
-        animation-name: hero-caption-then;
-      }
-
-      .hero-caption [data-version="six"] {
-        animation-name: hero-caption-now;
-      }
+  @media (width < 40rem) {
+    .hero .hero-stage {
+      min-block-size: clamp(16rem, 46vh, 24rem);
     }
   }
 
-  @keyframes hero-then {
+  .hero .hero-play {
+    animation: hero-shake 150ms linear var(--_impact) backwards;
+
+    & .hero-numeral {
+      animation: hero-drop 0.9s linear backwards;
+    }
+
+    & .hero-ring {
+      animation: hero-ring 0.7s ease-out var(--_impact) backwards;
+    }
+
+    & .hero-dust {
+      animation: hero-dust 0.65s cubic-bezier(0.1, 0.7, 0.3, 1) var(--_impact)
+        backwards;
+    }
+
+    & .hero-tagline {
+      animation: hero-rise 0.5s var(--ui-ease-enter) 0.95s backwards;
+    }
+
+    & .hero-facts li {
+      animation: hero-rise 0.5s var(--ui-ease-enter)
+        calc(1.15s + var(--i) * 80ms) backwards;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero .hero-play,
+    .hero .hero-play :is(.hero-numeral, .hero-ring, .hero-dust, .hero-tagline),
+    .hero .hero-play .hero-facts li {
+      animation: none;
+    }
+
+    .hero .hero-replay {
+      display: none;
+    }
+  }
+
+  @keyframes hero-drop {
     from {
-      filter: blur(0);
+      animation-timing-function: cubic-bezier(0.6, 0, 1, 0.5);
+      opacity: 0;
+      scale: 2.4;
+      translate: 0 -110%;
+    }
+
+    30% {
       opacity: 1;
+    }
+
+    61% {
+      animation-timing-function: ease-out;
       scale: 1;
+      translate: 0 0;
+    }
+
+    72% {
+      animation-timing-function: ease-in-out;
+      scale: 1.08 0.88;
+      translate: 0 5%;
+    }
+
+    86% {
+      animation-timing-function: ease-in-out;
+      scale: 0.98 1.03;
+      translate: 0 -1.5%;
     }
 
     to {
-      filter: blur(6px);
-      opacity: 0;
-      scale: 0.96;
-    }
-  }
-
-  @keyframes hero-now {
-    0%,
-    10% {
-      filter: blur(6px);
-      opacity: 0;
-      scale: 1.04;
-      visibility: hidden;
-    }
-
-    to {
-      filter: blur(0);
-      opacity: 1;
       scale: 1;
-      visibility: visible;
+      translate: 0 0;
     }
   }
 
-  @keyframes hero-caption-then {
+  @keyframes hero-shake {
+    from,
+    to {
+      animation-timing-function: step-end;
+      translate: 0 0;
+    }
+
+    25% {
+      animation-timing-function: step-end;
+      translate: 4px -5px;
+    }
+
+    50% {
+      animation-timing-function: step-end;
+      translate: -4px 4px;
+    }
+
+    75% {
+      animation-timing-function: step-end;
+      translate: 2px -2px;
+    }
+  }
+
+  @keyframes hero-ring {
     from {
+      opacity: 0;
+      scale: 0.2;
+    }
+
+    12% {
+      opacity: 0.9;
+    }
+
+    to {
+      opacity: 0;
+      scale: 1.6;
+    }
+  }
+
+  @keyframes hero-dust {
+    from {
+      opacity: 0;
+      scale: 1;
+      translate: 0 0;
+    }
+
+    10%,
+    55% {
       opacity: 1;
     }
 
     to {
       opacity: 0;
+      scale: 0.5;
+      translate: calc(cos(var(--_angle)) * var(--_distance))
+        calc(sin(var(--_angle)) * var(--_distance) * 0.8);
     }
   }
 
-  @keyframes hero-caption-now {
+  @keyframes hero-rise {
     from {
       opacity: 0;
+      translate: 0 1rem;
     }
 
     to {
       opacity: 1;
+      translate: 0 0;
     }
   }
 </style>

@@ -21,8 +21,11 @@ function wireRanges() {
     wired.add(output)
     const suffix = output.dataset.suffix ?? ""
     const update = (value = input.value) => {
-      output.textContent = `${value}${suffix}`
-      if (suffix) input.setAttribute("aria-valuetext", output.textContent)
+      const text = `${value}${suffix}`
+      const node = output.firstChild
+      if (node instanceof Text && !node.nextSibling) node.data = text
+      else output.textContent = text
+      if (suffix) input.setAttribute("aria-valuetext", text)
     }
     input.addEventListener("input", () => update())
     input.form?.addEventListener("reset", (event) =>

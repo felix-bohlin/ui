@@ -522,6 +522,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
+- `Range` `range.js` writes the live readout through the `<output>` text node instead of replacing it, so each input no longer re-styles the whole page through `:has()` rules.
 - `Range` and `ToggleButton` in Vue take the `FieldGroup` name.
 - `Range` invalid state colors the thumb and its halo too, except on a disabled range.
 - `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.

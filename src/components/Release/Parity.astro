@@ -1,5 +1,5 @@
 ---
-import { Chip } from "opui-css/astro"
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
 import {
   examplePath,
   exampleModules,
@@ -7,7 +7,6 @@ import {
 } from "../../utils/examples"
 import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
 import AstroLogo from "../AstroLogo.astro"
-import CodeGroup from "../CodeGroup.astro"
 import Html5Logo from "../Html5Logo.astro"
 import ReactLogo from "../ReactLogo.astro"
 import SvelteLogo from "../SvelteLogo.astro"
@@ -16,6 +15,8 @@ import VueLogo from "../VueLogo.astro"
 const id = "parity"
 const slug = "card"
 const name = "Clickable"
+const reference: FrameworkId = "astro"
+const groupName = `${id}-framework`
 
 const logos = {
   astro: AstroLogo,
@@ -25,17 +26,64 @@ const logos = {
   vue: VueLogo,
 }
 
-const langs: Partial<Record<FrameworkId, string>> = { react: "tsx" }
+const parts: Record<string, string> = {
+  Button: "button",
+  Card: "card",
+  CardActions: "cardactions",
+  CardContent: "cardcontent",
+  CardHeader: "cardheader",
+  outlined: "outlined",
+  "ui-actions": "cardactions",
+  "ui-button": "button",
+  "ui-card": "card",
+  "ui-card-link": "cardlink",
+  "ui-content": "cardcontent",
+  "ui-header": "cardheader",
+  "ui-outlined": "outlined",
+}
+
+const PART_TOKEN =
+  /(<\/?)?\b(CardActions|CardContent|CardHeader|Card|Button|ui-card-link|ui-actions|ui-button|ui-card|ui-content|ui-header|ui-outlined|outlined)\b/g
+
+const escape = (text: string) =>
+  text.replace(/[&<>]/g, (char) => `&#${char.charCodeAt(0)};`)
+
+const markParts = (code: string) => {
+  const opened: Record<string, number> = {}
+  const stacks: Record<string, number[]> = {}
+  let html = ""
+  let last = 0
+  for (const match of code.matchAll(PART_TOKEN)) {
+    const [, prefix = "", token] = match
+    const part = parts[token]
+    const isTag = prefix.startsWith("<")
+    const isImport = !isTag && /^[A-Z]/.test(token)
+    let occurrence: string
+    if (prefix === "</") {
+      occurrence = `${stacks[part]?.pop() ?? 0}-close`
+    } else if (isImport) {
+      occurrence = "import"
+    } else {
+      opened[part] = (opened[part] ?? 0) + 1
+      if (isTag) (stacks[part] ??= []).push(opened[part])
+      occurrence = `${opened[part]}`
+    }
+    html += escape(code.slice(last, match.index)) + escape(prefix)
+    html += `<mark class="parity-part" style="--parity-part: ${id}-${part}-${occurrence}">${token}</mark>`
+    last = match.index + match[0].length
+  }
+  return html + escape(code.slice(last))
+}
 
 const source = (framework: FrameworkId) => {
   const code = exampleSources[examplePath(slug, name, framework)]
   if (!code) {
     throw new Error(`Parity.astro: ${slug}/${name} has no ${framework} file`)
   }
-  return code
+  return code.trimEnd()
 }
 
-const tiles = FRAMEWORKS.map(({ id: framework, label }) => ({
+const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   Component:
     framework === "html"
       ? undefined
@@ -44,76 +92,100 @@ const tiles = FRAMEWORKS.map(({ id: framework, label }) => ({
   framework,
   html: framework === "html" ? source("html") : undefined,
   label,
+  marked: markParts(source(framework)),
 }))
 
-const tabs = tiles.map(({ framework, label }) => ({
-  code: source(framework),
-  lang: langs[framework] ?? framework,
-  title: label,
-}))
+const stage = renders.find((render) => render.framework === reference)!
+const others = renders.filter((render) => render.framework !== reference)
+
+const activeSourceCss = FRAMEWORKS.map(
+  ({ id: framework }) =>
+    `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .parity-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
+#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .parity-source[data-framework="${framework}"] .parity-part { view-transition-name: var(--parity-part); }`,
+).join("\n")
 ---
 
 <div class="parity ui-not-rich-text" id={id}>
-  <ol class="parity-grid">
-    {
-      tiles.map(({ Component, Logo, framework, html, label }, index) => (
-        <li
-          class="parity-tile"
-          data-framework={framework}
-          style={`--parity-index: ${index}`}
-        >
-          <p class="parity-tile-label">
-            <span aria-hidden="true" class="parity-tile-logo">
+  <div class="parity-stage">
+    <div class="parity-render example-preview" data-framework={stage.framework}>
+      {stage.Component && <stage.Component />}
+    </div>
+    <div class="parity-verdict" hidden>
+      <p class="parity-stamp">
+        Identical markup in {FRAMEWORKS.length} frameworks
+      </p>
+      <p class="parity-note">
+        Compared in your browser just now, the same way the test suite does it.
+      </p>
+      <details class="parity-diffs" hidden>
+        <summary>Show the differences</summary>
+      </details>
+    </div>
+    <div class="parity-others" hidden inert>
+      {
+        others.map(({ Component, framework, html }) => (
+          <div class="parity-render example-preview" data-framework={framework}>
+            {html ? <Fragment set:html={html} /> : Component && <Component />}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div class="parity-morph">
+    <ToggleGroup
+      aria-label="Framework"
+      class="parity-toggle"
+      name={groupName}
+      size="small"
+    >
+      {
+        renders.map(({ Logo, framework, label }) => (
+          <ToggleButton checked={framework === reference} value={framework}>
+            <span aria-hidden="true" class="parity-logo">
               <Logo />
             </span>
             {label}
-          </p>
-          <div class="parity-render example-preview">
-            {html ? <Fragment set:html={html} /> : Component && <Component />}
-          </div>
-          <div class="parity-result" />
-        </li>
-      ))
-    }
-  </ol>
-  <template class="parity-chip-reference">
-    <Chip label="Reference" severity="neutral" size="small" />
-  </template>
-  <template class="parity-chip-identical">
-    <Chip label="Identical markup" severity="success" size="small" />
-  </template>
-  <template class="parity-chip-differs">
-    <Chip label="Differs from Astro" severity="warning" size="small" />
-  </template>
-  <CodeGroup tabs={tabs} />
+          </ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+    <div class="parity-code">
+      {
+        renders.map(({ framework, marked }) => (
+          <pre
+            class="parity-source"
+            data-framework={framework}
+            set:html={`<code>${marked}</code>`}
+          />
+        ))
+      }
+    </div>
+  </div>
 </div>
+
+<style is:inline set:html={activeSourceCss}></style>
 
 <style is:global>
   .parity {
+    align-items: start;
     container-type: inline-size;
     display: grid;
     gap: var(--ui-space-4);
+    grid-template-columns: minmax(0, 1fr);
     margin-block: var(--ui-space-5);
 
-    & .code-group {
-      margin-block: 0;
+    @container (inline-size >= 48rem) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     }
   }
 
-  .parity-grid {
+  .parity-stage {
     display: grid;
     gap: var(--ui-space-3);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    @container (inline-size >= 52rem) {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
+    position: relative;
   }
 
-  .parity-tile {
+  .parity-render {
     background-color: var(--ui-surface);
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius-large);
@@ -121,33 +193,7 @@ const tabs = tiles.map(({ framework, label }) => ({
     display: grid;
     font-family: var(--ui-font-body);
     gap: var(--ui-space-3);
-    grid-template-rows: auto 1fr auto;
-    min-inline-size: 0;
-    padding: var(--ui-space-3);
-  }
-
-  .parity-tile-label {
-    align-items: center;
-    display: flex;
-    font-size: var(--ui-font-size-caption);
-    font-weight: var(--ui-font-weight-semibold);
-    gap: var(--ui-space-2);
-    margin: 0;
-    text-transform: uppercase;
-  }
-
-  .parity-tile-logo {
-    display: inline-flex;
-
-    & svg {
-      block-size: 1.25rem;
-      inline-size: 1.25rem;
-    }
-  }
-
-  .parity-render {
-    display: grid;
-    gap: var(--ui-space-3);
+    padding: var(--ui-space-4);
 
     & h3 {
       font-size: var(--ui-font-size-h6);
@@ -155,25 +201,67 @@ const tabs = tiles.map(({ framework, label }) => ({
     }
   }
 
-  .parity-result {
+  .parity-verdict {
     display: grid;
     gap: var(--ui-space-2);
-    justify-items: start;
+  }
 
-    & .ui-chip {
-      transition-delay: calc(var(--parity-index) * 60ms * var(--ui-motion));
-      transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
-      transition-property: opacity, scale;
-      transition-timing-function: var(--ui-ease-enter);
+  .parity-stamp {
+    background-color: oklch(from var(--ui-surface) l c h / 85%);
+    border: 0.2em double currentColor;
+    border-radius: var(--ui-radius-small);
+    color: var(--ui-success-text, var(--ui-success));
+    font-family: var(--ui-font-body);
+    font-size: clamp(0.7rem, 1.2cqi + 0.35rem, 1rem);
+    font-weight: 800;
+    inset-block-start: calc(-1 * var(--ui-space-4));
+    inset-inline-end: calc(-1 * var(--ui-space-2));
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+    margin: 0;
+    max-inline-size: 12em;
+    padding: 0.4em 0.6em;
+    pointer-events: none;
+    position: absolute;
+    rotate: -8deg;
+    text-align: center;
+    text-transform: uppercase;
+    text-wrap: balance;
+    transform-origin: center;
+    transition-duration: calc(var(--ui-duration-slow) * 1.5 * var(--ui-motion));
+    transition-property: opacity, rotate, scale;
+    transition-timing-function: linear(0, 1.18 55%, 0.94 76%, 1);
 
-      @starting-style {
-        opacity: 0;
-        scale: 0.6;
-      }
+    @starting-style {
+      opacity: 0;
+      rotate: 6deg;
+      scale: 2.4;
     }
 
-    @media (scripting: none) {
-      display: none;
+    &.is-different {
+      color: var(--ui-warning-text, var(--ui-warning));
+    }
+  }
+
+  .parity-note {
+    color: var(--ui-text-subtle);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-caption);
+    margin: 0;
+    text-align: end;
+  }
+
+  .parity-diffs {
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+
+    & summary {
+      cursor: pointer;
+    }
+
+    & p {
+      font-weight: var(--ui-font-weight-semibold);
+      margin-block: var(--ui-space-2) var(--ui-space-1);
     }
   }
 
@@ -211,25 +299,96 @@ const tabs = tiles.map(({ framework, label }) => ({
     }
   }
 
-  @supports (animation-timeline: view()) {
-    .parity-tile {
-      animation: parity-rise linear both;
-      animation-range: entry calc(var(--parity-index) * 8%) entry
-        calc(50% + var(--parity-index) * 8%);
-      animation-timeline: view();
+  .parity-morph {
+    display: grid;
+    gap: var(--ui-space-3);
+    min-inline-size: 0;
+  }
+
+  .parity-toggle {
+    & .ui-toggle-button {
+      flex: 1 1 auto;
     }
   }
 
-  @keyframes parity-rise {
-    from {
-      opacity: 0;
-      translate: 0 1.5rem;
+  .parity-logo {
+    display: inline-flex;
+
+    & svg {
+      block-size: 1.1em;
+      inline-size: 1.1em;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .parity-tile {
-      animation: none;
+  .parity-code {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .parity-source {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: none;
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    grid-area: 1 / 1;
+    line-height: 1.45;
+    margin: 0;
+    min-inline-size: 0;
+    overflow-x: auto;
+    padding: var(--ui-space-3) var(--ui-space-2);
+    tab-size: 2;
+    view-transition-class: parity-code;
+    view-transition-group: contain;
+
+    & code {
+      background: none;
+      color: inherit;
+      display: block;
+      font: inherit;
+      padding: 0;
+      white-space: pre;
+    }
+  }
+
+  .parity-part {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    color: var(--ui-palette-text, var(--ui-text-strong));
+    font-weight: var(--ui-font-weight-semibold);
+    margin-inline: -0.15em;
+    padding-inline: 0.15em;
+    view-transition-class: parity-part;
+    view-transition-name: none;
+  }
+
+  html.parity-morphing {
+    view-transition-name: none;
+  }
+
+  ::view-transition-group(*.parity-code),
+  ::view-transition-group(*.parity-part),
+  ::view-transition-old(*.parity-code),
+  ::view-transition-new(*.parity-code),
+  ::view-transition-old(*.parity-part),
+  ::view-transition-new(*.parity-part) {
+    animation-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  ::view-transition-group(*.parity-code) {
+    overflow: clip;
+  }
+
+  ::view-transition-group(*.parity-part) {
+    z-index: 1;
+  }
+
+  @media (scripting: none) {
+    .parity-verdict {
+      display: none;
     }
   }
 </style>
@@ -453,13 +612,6 @@ const tabs = tiles.map(({ framework, label }) => ({
     return serialize(nodes, ids, 0).join("\n") + "\n"
   }
 
-  const chipFrom = (root: HTMLElement, kind: string) => {
-    const template = root.querySelector<HTMLTemplateElement>(
-      `.parity-chip-${kind}`,
-    )!
-    return template.content.cloneNode(true)
-  }
-
   const diffOf = (expected: string, actual: string) => {
     const lines = diffLines(expected, actual).flatMap((part) =>
       part.value
@@ -504,29 +656,69 @@ const tabs = tiles.map(({ framework, label }) => ({
     return pre
   }
 
-  const initParity = (root: HTMLElement) => {
-    const tiles = [...root.querySelectorAll<HTMLElement>(".parity-tile")]
+  const compare = (root: HTMLElement) => {
+    const renders = [...root.querySelectorAll<HTMLElement>(".parity-render")]
     const markup = new Map(
-      tiles.map((tile) => [
-        tile.dataset.framework,
-        normalize(tile.querySelector(".parity-render")!),
+      renders.map((render) => [
+        render.dataset.framework ?? "",
+        normalize(render),
       ]),
     )
     const reference = markup.get("astro") ?? ""
+    const differing = [...markup].filter(
+      ([framework, actual]) => framework !== "astro" && actual !== reference,
+    )
 
-    for (const tile of tiles) {
-      const result = tile.querySelector(".parity-result")!
-      const { framework } = tile.dataset
-      const actual = markup.get(framework) ?? ""
-      if (framework === "astro") {
-        result.append(chipFrom(root, "reference"))
-      } else if (actual === reference) {
-        result.append(chipFrom(root, "identical"))
-      } else {
-        result.append(chipFrom(root, "differs"), diffOf(reference, actual))
+    const verdict = root.querySelector<HTMLElement>(".parity-verdict")!
+    const stamp = root.querySelector<HTMLElement>(".parity-stamp")!
+    const diffs = root.querySelector<HTMLElement>(".parity-diffs")!
+    if (differing.length) {
+      stamp.classList.add("is-different")
+      stamp.textContent = `Markup differs in ${differing.length} of ${markup.size} frameworks`
+      for (const [framework, actual] of differing) {
+        const label = document.createElement("p")
+        label.textContent = `${framework} against astro`
+        diffs.append(label, diffOf(reference, actual))
       }
+      diffs.hidden = false
     }
+    root.dataset.parity = differing.length
+      ? differing.map(([framework]) => framework).join(" ")
+      : "identical"
+    verdict.hidden = false
   }
 
-  document.querySelectorAll<HTMLElement>(".parity").forEach(initParity)
+  const initMorph = (root: HTMLElement) => {
+    const checked = root.querySelector<HTMLInputElement>(
+      ".parity-toggle input:checked",
+    )
+    const groupName = checked?.name
+    root.dataset.framework = checked?.value ?? "astro"
+    let running = 0
+    root.addEventListener("change", (event) => {
+      const input = event.target
+      if (!(input instanceof HTMLInputElement) || input.name !== groupName) {
+        return
+      }
+      const swap = () => {
+        root.dataset.framework = input.value
+      }
+      if (typeof document.startViewTransition !== "function") {
+        swap()
+        return
+      }
+      const html = document.documentElement
+      html.classList.add("parity-morphing")
+      running += 1
+      document.startViewTransition(swap).finished.finally(() => {
+        running -= 1
+        if (running === 0) html.classList.remove("parity-morphing")
+      })
+    })
+  }
+
+  document.querySelectorAll<HTMLElement>(".parity").forEach((root) => {
+    compare(root)
+    initMorph(root)
+  })
 </script>

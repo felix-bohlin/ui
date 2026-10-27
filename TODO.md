@@ -556,6 +556,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep deploying from `check`.
   > Fix with option A
   - Fixed: option A. On `main`, `check` uploads the build without test pages as the `dist-production` artifact, and a new `deploy` job that needs `check` and `e2e` runs `netlify deploy --prod` from it, so a commit that fails e2e no longer reaches production. README and RELEASING.md say so. The job skips `pnpm install`, since `pnpm dlx` doesn't need it; the first push to `main` shows whether `netlify deploy` agrees.
+- [ ] (2) CSS: the scroll lock selector `html:has(.ui-dialog:modal, .ui-scroll-lock[open]:not(.ui-backdrop-transparent))` makes Chromium re-resolve the style of the whole document on any DOM insertion, so a readout written with `textContent` costs 15 to 22ms on a page with many components (`packages/opui/core/utils.css:47-54`)
+  - Summary: Any script that inserts a node on a page with a modal-capable dialog pays a whole-document style pass.
+  - Recommended: Fix with option A. It removes the document-wide invalidation without changing what the lock does.
+  - Fix: measure first on `/learn/release-6/` with the rule removed: the hue slider of the contrast lab is the clearest case.
+  - Options:
+    - A (recommended): scope the lock to a class that the dialog and drawer scripts toggle on `html` when they open and close, so no `:has()` on `html` remains.
+    - B: keep the rule and document that live readouts write `Text.data` instead of `textContent`, as `css/js/range.js` does since 6.0.
+  - Found while profiling `/learn/release-6/`: deleting every `:has()` rule took a text node replacement from 20ms to 0.5ms, and this rule alone accounted for 22ms to 15ms.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.

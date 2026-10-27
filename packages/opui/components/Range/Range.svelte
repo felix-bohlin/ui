@@ -36,8 +36,6 @@
   const uid = $props.id()
   const field = getFieldGroupContext()
   const initialValue = untrack(() => value)
-  // Firefox and Safari replace an output's children on form reset, which
-  // detaches the nodes Svelte updates, so each reset renders a new output
   let resets = $state(0)
 
   const hasLabel = $derived(!!label)

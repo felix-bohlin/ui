@@ -527,7 +527,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
 - `Range` tick labels line up with the thumb at both ends.
-- `Range` updates its value `<output>` after its form is reset, in every browser, and leaves it when a `reset` listener cancels the reset. In Vue and Svelte, a range rendered on the client resets to the value it started with, instead of the middle of its range. Firefox and Safari replace the content of an `<output>` when its form resets, which left the Vue output showing the value from before the reset and stopped the Svelte output, and a React `valueText`, from following the slider afterwards: the React, Svelte and Vue components render a new output after each reset.
+- `Range` updates its value `<output>` after its form is reset, in every browser and with custom readout content, and leaves it when a `reset` listener cancels the reset. In Vue and Svelte, a range rendered on the client resets to the value it started with, instead of the middle of its range.
 - `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value-text` slot content and ranges it didn't render alone, and wires each output once.
 - `Range` thumb stays centered on the track when `--_thumb-size` or `--_track-block-size` changes, also on touch screens.
 - `Range` in a disabled `fieldset` gets the disabled thumb and no hover ring, like a disabled range.

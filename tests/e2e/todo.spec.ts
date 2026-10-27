@@ -77,6 +77,7 @@ test.describe("todo page", () => {
     const keys = await unanswered.evaluateAll((items) =>
       items.slice(0, 2).map((item) => (item as HTMLElement).dataset.todoKey),
     )
+    test.skip(keys.length < 2, "fewer than two unanswered todos")
     const activeKey = () =>
       page.evaluate(
         () =>

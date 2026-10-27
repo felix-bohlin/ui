@@ -11,6 +11,11 @@ export default {
     },
     {
       description:
+        "On a sortable header's button, sorts the rows by that column, ascending first, then the other way.",
+      keys: ["Enter", "Space"],
+    },
+    {
+      description:
         "Scrolls the focused table or scroll box a little at a time.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },

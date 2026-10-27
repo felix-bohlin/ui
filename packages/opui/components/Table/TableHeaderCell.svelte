@@ -4,6 +4,7 @@
   let {
     class: className,
     numeric,
+    sortable,
 
     // Snippets
     children,
@@ -11,6 +12,14 @@
   }: Props = $props()
 </script>
 
-<th class={[{ "ui-numeric": numeric }, className]} {...rest}>
-  {@render children?.()}
+<th
+  class={[{ "ui-numeric": numeric }, className]}
+  data-sort={sortable ? "" : undefined}
+  {...rest}
+>
+  {#if sortable}
+    <button type="button">{@render children?.()}</button>
+  {:else}
+    {@render children?.()}
+  {/if}
 </th>

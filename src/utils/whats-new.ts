@@ -392,6 +392,10 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `The root selector is wrapped in <code>:where()</code>, like other components, so your own selectors win (<a href="#under-the-hood">Under the hood</a>).`,
     `The hover <a href="#basics">halo</a> only shows on devices that can hover, so it no longer sticks after a tap.`,
+    {
+      default: `<a href="#select-all"><code>SelectAll</code></a> makes a <code>data-select-all</code> checkbox check and uncheck the others in a group, and shows it indeterminate when some are checked, with the <code>&lt;opui-select-all&gt;</code> custom element, which the component loads.`,
+      html: `<a href="#select-all"><code>&lt;opui-select-all&gt;</code></a> makes a <code>data-select-all</code> checkbox check and uncheck the others in a group, and shows it indeterminate when some are checked. Import <code>opui-css/elements/select-all.js</code>.`,
+    },
   ],
   chip: [
     `Themes can set <a href="#api"><code>--ui-chip-radius</code></a> for a corner radius of its own.`,
@@ -1073,6 +1077,10 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<a href="#normal">Rows</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `Styles use logical properties only, so the <a href="#normal">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    {
+      default: `<a href="#sorting">Sorting</a>: <code>SortableTable</code> and <code>sortable</code> header cells sort the rows by a column, set <code>aria-sort</code> and fire a cancelable <code>sort</code> event, with the <code>&lt;opui-sortable-table&gt;</code> custom element, which the component loads.`,
+      html: `<a href="#sorting">Sorting</a>: <code>&lt;opui-sortable-table&gt;</code> sorts the rows by a header marked <code>data-sort</code>, sets <code>aria-sort</code> and fires a cancelable <code>sort</code> event. Import <code>opui-css/elements/sortable-table.js</code>.`,
+    },
   ],
   tabs: [
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,

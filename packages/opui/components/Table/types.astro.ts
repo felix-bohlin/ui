@@ -15,7 +15,8 @@ export type TableColumnProps = Base.TableColumnProps & HTMLAttributes<"col">
 
 export type TableFootProps = HTMLAttributes<"tfoot">
 
-export type TableHeaderCellProps = Base.TableCellProps & HTMLAttributes<"th">
+export type TableHeaderCellProps = Base.TableHeaderCellProps &
+  HTMLAttributes<"th">
 
 export type TableHeadProps = HTMLAttributes<"thead">
 

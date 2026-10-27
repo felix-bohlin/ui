@@ -15,7 +15,8 @@ export type TableColumnProps = Base.TableColumnProps & ComponentProps<"col">
 
 export type TableFootProps = ComponentProps<"tfoot">
 
-export type TableHeaderCellProps = Base.TableCellProps & ComponentProps<"th">
+export type TableHeaderCellProps = Base.TableHeaderCellProps &
+  ComponentProps<"th">
 
 export type TableHeadProps = ComponentProps<"thead">
 

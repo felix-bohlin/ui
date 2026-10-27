@@ -1,28 +1,22 @@
 <script lang="ts">
-  import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/svelte"
-
-  const items = ["Apples", "Bananas", "Cherries"]
-  let checked = $state([true, false, false])
-
-  const allChecked = $derived(checked.every(Boolean))
-  const someChecked = $derived(checked.some(Boolean))
-  const indeterminate = $derived(someChecked && !allChecked)
-
-  function toggleAll() {
-    const next = !allChecked
-    checked = checked.map(() => next)
-  }
+  import {
+    Checkbox,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    SelectAll,
+  } from "opui-css/svelte"
 </script>
 
-<Fieldset>
-  <FieldLegend>
-    <Checkbox bind:checked={() => allChecked, toggleAll} {indeterminate}
-      >Select all</Checkbox
-    >
-  </FieldLegend>
-  <FieldGroup name="indeterminate-children">
-    {#each items as item, index (item)}
-      <Checkbox bind:checked={checked[index]}>{item}</Checkbox>
-    {/each}
-  </FieldGroup>
-</Fieldset>
+<SelectAll>
+  <Fieldset>
+    <FieldLegend>
+      <Checkbox data-select-all="">Select all</Checkbox>
+    </FieldLegend>
+    <FieldGroup name="indeterminate-children">
+      <Checkbox checked>Apples</Checkbox>
+      <Checkbox>Bananas</Checkbox>
+      <Checkbox>Cherries</Checkbox>
+    </FieldGroup>
+  </Fieldset>
+</SelectAll>

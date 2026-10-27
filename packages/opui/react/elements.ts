@@ -17,6 +17,14 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >
+      "opui-select-all": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
+      "opui-sortable-table": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
     }
   }
 }

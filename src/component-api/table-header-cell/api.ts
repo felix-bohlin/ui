@@ -11,6 +11,14 @@ export default {
       group: "Numeric",
       prop: "numeric",
     },
+    {
+      attribute: "[data-sort]",
+      default: "false",
+      description:
+        "Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
+      group: "Sortable",
+      prop: "sortable",
+    },
   ],
   page: "table",
   parts: [],

@@ -3,6 +3,7 @@ import type {
   Props as BaseProps,
   TableCellProps as BaseTableCellProps,
   TableColumnProps as BaseTableColumnProps,
+  TableHeaderCellProps as BaseTableHeaderCellProps,
 } from "./types"
 
 export type Props = BaseProps & Class
@@ -19,7 +20,7 @@ export type TableColumnProps = BaseTableColumnProps & Class
 
 export type TableFootProps = Class
 
-export type TableHeaderCellProps = BaseTableCellProps & Class
+export type TableHeaderCellProps = BaseTableHeaderCellProps & Class
 
 export type TableHeadProps = Class
 

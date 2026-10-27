@@ -49,6 +49,8 @@ export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
 export { default as Range } from "../components/Range/Range.vue"
 export { default as Select } from "../components/Select/Select.vue"
+export { default as SelectAll } from "../components/SelectAll/SelectAll.vue"
+export { default as SortableTable } from "../components/SortableTable/SortableTable.vue"
 export { default as Switch } from "../components/Switch/Switch.vue"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.vue"
 export { default as Table } from "../components/Table/Table.vue"
@@ -148,6 +150,9 @@ export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.vue-props"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.vue-props"
+export type { Props as SelectAllProps } from "../components/SelectAll/types.vue-props"
+export type { SortDetail } from "../components/SortableTable/types"
+export type { Props as SortableTableProps } from "../components/SortableTable/types.vue-props"
 export type {
   SwitchInputProps,
   Props as SwitchProps,

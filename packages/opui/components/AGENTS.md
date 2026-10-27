@@ -525,6 +525,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.
+- `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
 - `TextField`: the field border is real, but the focus outline gets `Highlight` and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
@@ -535,7 +536,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Anchor`, `Form`, `Layout`, `DescriptionList`: layout only, no boundary or state of their own.
+- `Anchor`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own.
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.

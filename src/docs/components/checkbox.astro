@@ -22,10 +22,13 @@ import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
 import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
+import SelectAllCSS from "@opui/css/components/select-all.css?raw"
+import SelectAllJS from "@opui/elements/select-all.js?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
 import checkboxInputApi from "../../component-api/checkbox-input/api"
 import fieldGroupApi from "../../component-api/field-group/api"
+import selectAllApi from "../../component-api/select-all/api"
 
 import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
@@ -41,6 +44,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     { title: "Checkbox API", api: checkboxApi },
     { title: "Checkbox input API", api: checkboxInputApi },
     { title: "Field group API", api: fieldGroupApi },
+    { title: "Select all API", api: selectAllApi },
   ]}
   changelogPaths={[
     {
@@ -60,12 +64,20 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     { path: "src/component-api/checkbox", type: "api" },
     { path: "src/component-api/checkbox-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
+    {
+      path: "packages/opui/components/SelectAll",
+      type: "component",
+    },
+    { path: "packages/opui/elements/select-all.js", type: "component" },
+    { path: "src/component-api/select-all", type: "api" },
   ]}
   installationTabs={[
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
     { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
+    { title: "select-all.css", code: SelectAllCSS, lang: "css" },
+    { title: "select-all.js", code: SelectAllJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Checkbox</Fragment>
@@ -89,9 +101,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       >.
     </li>
     <li slot="when">
-      Selecting all the items of a list at once, with an <a
-        href="#indeterminate">indeterminate</a
-      > checkbox while some are checked.
+      Selecting all the items of a list at once, with a <a href="#select-all"
+        >select all</a
+      > checkbox that is indeterminate while some are checked.
     </li>
     <li slot="when-not">
       A setting that applies right away. Use a <DocLink
@@ -246,7 +258,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
                   >el.indeterminate = true</code
                 > on load. The <code>:indeterminate</code> CSS pseudo-class then matches
                 and the dash glyph appears. To change the state later, set
-                <code>el.indeterminate</code> yourself, as the example does.
+                <code>el.indeterminate</code> yourself, or let <a
+                  href="#select-all">SelectAll</a
+                > set it.
               </div>
             </UICalloutContent>
           </UICallout>
@@ -291,6 +305,29 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       </div>
     </Conditional>
 
+    <h3 id="select-all">Select all</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Wrap the group in <code>SelectAll</code> and add <code
+          >data-select-all=""</code
+        > to the checkbox that controls it. Checking it checks the other enabled checkboxes
+        inside, and it's checked when they all are and indeterminate when some are,
+        also after a form reset. It works around a <code>Fieldset</code> or a <DocLink
+          href="/components/table#sorting">Table</DocLink
+        >, and it fires each checkbox's own change, so your handlers and
+        bindings follow.
+      </Fragment>
+      <Fragment slot="html">
+        Wrap the group in <code
+          >&lt;opui-select-all class="ui-select-all"&gt;</code
+        >, add <code>data-select-all</code> to the checkbox that controls it and import
+        <code>opui-css/elements/select-all.js</code>. Checking it checks the
+        other enabled checkboxes inside, and it's checked when they all are and
+        indeterminate when some are, also after a form reset. It works around a
+        fieldset or a <DocLink href="/components/table#sorting">table</DocLink>,
+        and it fires each checkbox's own <code>change</code> event.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Indeterminate" column centered spacious />
   </section>
 

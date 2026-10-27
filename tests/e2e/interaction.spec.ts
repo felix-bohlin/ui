@@ -153,6 +153,12 @@ interaction(
     await root.getByText("Bananas", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect(all).not.toBeChecked()
+    for (const child of await children.all()) {
+      await expect(child).not.toBeChecked()
+    }
   },
 )
 
@@ -1188,3 +1194,57 @@ interaction(
     await expect(input).toHaveValue(String(held))
   },
 )
+
+interaction(
+  "table",
+  "Sortable",
+  "sortable headers sort the rows and move aria-sort",
+  async ({ root }) => {
+    const header = (name: string) =>
+      root.getByRole("columnheader", { name, exact: true })
+    const first = root.locator("tbody tr").first().locator("td").first()
+
+    await expect(header("Planet")).toHaveAttribute("aria-sort", "ascending")
+    await expect(first).toHaveText("Earth")
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(header("Moons")).toHaveAttribute("aria-sort", "ascending")
+    await expect(header("Planet")).not.toHaveAttribute("aria-sort")
+    await expect(first).toHaveText("Mercury")
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(header("Moons")).toHaveAttribute("aria-sort", "descending")
+    await expect(first).toHaveText("Saturn")
+
+    await root.getByRole("button", { name: "Diameter" }).press("Enter")
+    await expect(header("Diameter")).toHaveAttribute("aria-sort", "ascending")
+    await expect(first).toHaveText("Mercury")
+    await expect(root.getByRole("status")).toHaveText("Diameter, ascending")
+  },
+)
+
+test("the data-table block selects and sorts its rows together", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "blocks/data-table")
+  const all = page.getByRole("checkbox", { name: "Select all customers" })
+  const rows = page.getByRole("checkbox", { name: /^Select (?!all)/ })
+  const firstCustomer = page.locator("tbody tr").first().locator("td").nth(1)
+
+  await expect(all).toHaveJSProperty("indeterminate", true)
+  await all.click()
+  await expect(rows).toHaveCount(5)
+  for (const row of await rows.all()) await expect(row).toBeChecked()
+
+  await page.getByRole("button", { name: "MRR" }).click()
+  await expect(firstCustomer).toContainText("Kwame Mensah")
+  await page.getByRole("button", { name: "MRR" }).click()
+  await expect(firstCustomer).toContainText("Astrid Nyström")
+  await page.getByRole("button", { name: "Signed up" }).click()
+  await expect(firstCustomer).toContainText("Sofia Lund")
+  for (const row of await rows.all()) await expect(row).toBeChecked()
+
+  await page.getByRole("checkbox", { name: "Select Mats Berg" }).click()
+  await expect(all).not.toBeChecked()
+  await expect(all).toHaveJSProperty("indeterminate", true)
+})

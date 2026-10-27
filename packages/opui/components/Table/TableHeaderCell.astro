@@ -1,9 +1,21 @@
 ---
 import type { TableHeaderCellProps as Props } from "./types.astro"
 
-const { class: className, numeric, ...rest } = Astro.props
+const { class: className, numeric, sortable, ...rest } = Astro.props
 ---
 
-<th class:list={[{ "ui-numeric": numeric }, className]} {...rest}>
-  <slot />
+<th
+  class:list={[{ "ui-numeric": numeric }, className]}
+  data-sort={sortable ? "" : undefined}
+  {...rest}
+>
+  {
+    sortable ? (
+      <button type="button">
+        <slot />
+      </button>
+    ) : (
+      <slot />
+    )
+  }
 </th>

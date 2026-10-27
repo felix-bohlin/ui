@@ -18,7 +18,10 @@ import {
   TableRow as UITableRow,
 } from "opui-css/astro"
 
+import SortableTableCSS from "@opui/css/components/sortable-table.css?raw"
 import TableCSS from "@opui/css/components/table.css?raw"
+import SortableTableJS from "@opui/elements/sortable-table.js?raw"
+import sortableTableApi from "../../component-api/sortable-table/api"
 import tableApi from "../../component-api/table/api"
 import tableCellApi from "../../component-api/table-cell/api"
 import tableColumnApi from "../../component-api/table-column/api"
@@ -40,8 +43,13 @@ export const description =
     { title: "Table cell API", api: tableCellApi },
     { title: "Table column group API", api: tableColumnGroupApi },
     { title: "Table column API", api: tableColumnApi },
+    { title: "Sortable table API", api: sortableTableApi },
   ]}
-  installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
+  installationTabs={[
+    { title: "table.css", code: TableCSS, lang: "css" },
+    { title: "sortable-table.css", code: SortableTableCSS, lang: "css" },
+    { title: "sortable-table.js", code: SortableTableJS, lang: "js" },
+  ]}
   browserSupport={[
     "container-scroll-state-queries",
     "has",
@@ -65,6 +73,16 @@ export const description =
     { path: "src/component-api/table-column", type: "api" },
     { path: "src/component-api/table-header-cell", type: "api" },
     { path: "src/component-api/table-column-group", type: "api" },
+    {
+      path: "packages/opui/components/SortableTable",
+      type: "component",
+    },
+    { path: "packages/opui/elements/sortable-table.js", type: "component" },
+    {
+      path: "packages/opui/css/components/sortable-table.css",
+      type: "css",
+    },
+    { path: "src/component-api/sortable-table", type: "api" },
   ]}
 >
   <Fragment slot="title">Table</Fragment>
@@ -107,6 +125,11 @@ export const description =
     <li slot="when">
       Numbers that need to line up, with <a href="#numbers"
         ><PropOrClass prop="numeric" class=".ui-numeric" /></a
+      >.
+    </li>
+    <li slot="when">
+      Rows people reorder by a column, like customers by revenue, with <a
+        href="#sorting">sorting</a
       >.
     </li>
     <li slot="when-not">
@@ -247,6 +270,86 @@ export const description =
   </section>
 
   <section>
+    <h2 id="sorting">Sorting</h2>
+    <Conditional as="div">
+      <Fragment slot="components">
+        <p>
+          Wrap the <code>Table</code> in <code>SortableTable</code> and set <code
+            >sortable</code
+          > on the header cells to sort by. Their label becomes a button: a press
+          sorts the body rows by that column, ascending first, sets <code
+            >aria-sort</code
+          > on the header and announces the column and the direction. Set <code
+            >aria-sort="ascending"</code
+          > on the header the rows start sorted by.
+        </p>
+      </Fragment>
+      <Fragment slot="html">
+        <p>
+          Wrap the table in <code
+            >&lt;opui-sortable-table class="ui-sortable-table"&gt;</code
+          >, add <code>data-sort</code> to each header to sort by, with its label
+          in a <code>&lt;button type="button"&gt;</code>, and import <code
+            >opui-css/elements/sortable-table.js</code
+          >. A press sorts the body rows by that column, ascending first, sets <code
+            >aria-sort</code
+          > on the header and announces the column and the direction. Set <code
+            >aria-sort="ascending"</code
+          > on the header the rows start sorted by.
+        </p>
+      </Fragment>
+    </Conditional>
+    <p>
+      A cell sorts by its <code>data-sort-value</code>, or else its text,
+      compared with <code>Intl.Collator</code> and <code>numeric: true</code>,
+      so 9 comes before 10. Give formatted numbers and dates a plain <code
+        >data-sort-value</code
+      >, like the diameters below.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html">
+        The element fires a cancelable <code>sort</code> event with the column index,
+        the direction and the header in <code>event.detail</code> before it moves
+        the rows. Without the script the buttons do nothing, so a page that must sort
+        without JavaScript links its headers to a sorted page instead.
+      </Fragment>
+      <Fragment slot="react">
+        When the rows come from your data, pass <code>onSort</code>, call <code
+          >event.preventDefault()</code
+        > and sort the data with <code>event.detail.column</code> and <code
+          >event.detail.direction</code
+        >. The element then leaves the rows to React and still sets <code
+          >aria-sort</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        When the rows come from your data, pass <code>onsort</code>, call <code
+          >event.preventDefault()</code
+        > and sort the data with <code>event.detail.column</code> and <code
+          >event.detail.direction</code
+        >. The element then leaves the rows to Svelte and still sets <code
+          >aria-sort</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        When the rows come from your data, listen with <code>@sort</code>, call <code
+          >event.preventDefault()</code
+        > and sort the data with <code>event.detail.column</code> and <code
+          >event.detail.direction</code
+        >. The element then leaves the rows to Vue and still sets <code
+          >aria-sort</code
+        >.
+      </Fragment>
+      <Fragment slot="astro">
+        The element fires a cancelable <code>sort</code> event with the column index,
+        the direction and the header in <code>event.detail</code> before it moves
+        the rows.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sortable" />
+  </section>
+
+  <section>
     <h2 id="advanced">Advanced</h2>
     <p>
       An advanced table showcasing the use of <code>colgroup</code>, <code
@@ -282,6 +385,12 @@ export const description =
         class="ui-link"
         href="#sticky-header">Sticky header</a
       >.
+    </p>
+    <p>
+      A sortable header's label is a button inside the <code>&lt;th&gt;</code>,
+      so the header keeps its role and <code>aria-sort</code>, and screen
+      readers read the sort state with each cell. After a sort the element also
+      says the column and the direction in a polite status region.
     </p>
     <KeyboardSupport />
   </Fragment>

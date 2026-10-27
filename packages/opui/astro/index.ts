@@ -49,6 +49,8 @@ export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
 export { default as Range } from "../components/Range/Range.astro"
 export { default as Select } from "../components/Select/Select.astro"
+export { default as SelectAll } from "../components/SelectAll/SelectAll.astro"
+export { default as SortableTable } from "../components/SortableTable/SortableTable.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
 export { default as Table } from "../components/Table/Table.astro"
@@ -148,6 +150,9 @@ export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.astro"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.astro"
+export type { Props as SelectAllProps } from "../components/SelectAll/types.astro"
+export type { SortDetail } from "../components/SortableTable/types"
+export type { Props as SortableTableProps } from "../components/SortableTable/types.astro"
 export type {
   SwitchInputProps,
   Props as SwitchProps,

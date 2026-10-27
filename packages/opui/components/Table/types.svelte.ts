@@ -15,7 +15,7 @@ export type TableColumnProps = Base.TableColumnProps & SvelteHTMLElements["col"]
 
 export type TableFootProps = SvelteHTMLElements["tfoot"]
 
-export type TableHeaderCellProps = Base.TableCellProps &
+export type TableHeaderCellProps = Base.TableHeaderCellProps &
   SvelteHTMLElements["th"]
 
 export type TableHeadProps = SvelteHTMLElements["thead"]

@@ -1,40 +1,22 @@
 ---
-import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  SelectAll,
+} from "opui-css/astro"
 ---
 
-<Fieldset>
-  <FieldLegend>
-    <Checkbox indeterminate>Select all</Checkbox>
-  </FieldLegend>
-  <FieldGroup name="indeterminate-children">
-    <Checkbox checked>Apples</Checkbox>
-    <Checkbox>Bananas</Checkbox>
-    <Checkbox>Cherries</Checkbox>
-  </FieldGroup>
-</Fieldset>
-
-<script>
-  document
-    .querySelectorAll("fieldset:has(> legend input[data-indeterminate])")
-    .forEach((root) => {
-      const parent = root.querySelector<HTMLInputElement>("legend input")
-      const children = [
-        ...root.querySelectorAll<HTMLInputElement>(".ui-field-group input"),
-      ]
-      if (!parent || children.length === 0) return
-
-      const sync = () => {
-        const checkedCount = children.filter((c) => c.checked).length
-        parent.checked = checkedCount === children.length
-        parent.indeterminate =
-          checkedCount > 0 && checkedCount < children.length
-      }
-
-      parent.addEventListener("change", () => {
-        children.forEach((c) => (c.checked = parent.checked))
-        parent.indeterminate = false
-      })
-      children.forEach((c) => c.addEventListener("change", sync))
-      sync()
-    })
-</script>
+<SelectAll>
+  <Fieldset>
+    <FieldLegend>
+      <Checkbox data-select-all="">Select all</Checkbox>
+    </FieldLegend>
+    <FieldGroup name="indeterminate-children">
+      <Checkbox checked>Apples</Checkbox>
+      <Checkbox>Bananas</Checkbox>
+      <Checkbox>Cherries</Checkbox>
+    </FieldGroup>
+  </Fieldset>
+</SelectAll>

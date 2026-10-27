@@ -12,3 +12,7 @@ export type TableCellProps = {
 export type TableColumnProps = {
   width?: string
 }
+
+export type TableHeaderCellProps = TableCellProps & {
+  sortable?: boolean
+}

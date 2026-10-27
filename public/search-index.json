@@ -2373,7 +2373,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "In one breath One library, four frameworks Slots become parts, props get one naming model Tokens, rebuilt 1. One token, from knob to CSS property 2. Turn a knob inside a scope 3. Whose layer wins Contrast as a guarantee Four example themes The platform did the work What it took Browser support, honestly Migrating",
+    "headings": "In one breath Slots become parts, props get one naming model Tokens, rebuilt 1. One token, from knob to CSS property 2. Turn a knob inside a scope 3. Whose layer wins Contrast as a guarantee Four example themes The platform did the work The CSS is the component What it took Browser support, honestly Migrating",
     "category": "Blog",
     "url": "/blog/release-6"
   },

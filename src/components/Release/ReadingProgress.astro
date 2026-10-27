@@ -1,4 +1,6 @@
-<div aria-hidden="true" class="reading-progress"></div>
+<svg aria-hidden="true" class="reading-progress">
+  <rect pathLength="100"></rect>
+</svg>
 
 <style is:global>
   .reading-progress {
@@ -6,32 +8,77 @@
   }
 
   @supports (animation-timeline: scroll()) {
-    .site-header {
-      anchor-name: --site-header;
+    .site-header header .ui-content {
+      anchor-name: --site-header-box;
     }
 
     .reading-progress {
-      animation: reading-progress-fill linear both;
+      --_stroke: 2px;
+
+      animation: reading-progress-reveal linear both;
+      animation-range: 0 150px;
       animation-timeline: scroll(root block);
-      background-color: var(--ui-primary);
-      block-size: 3px;
+      block-size: anchor-size(--site-header-box block);
       display: block;
-      inset-block-start: anchor(--site-header bottom, 0px);
-      inset-inline-start: 0;
+      inline-size: anchor-size(--site-header-box inline);
+      inset-block-start: anchor(--site-header-box top);
+      inset-inline-start: anchor(--site-header-box left);
       margin: 0;
+      max-block-size: none;
+      max-inline-size: none;
+      overflow: visible;
       pointer-events: none;
       position: fixed;
+      position-anchor: --site-header-box;
       z-index: 23;
+
+      rect {
+        animation: reading-progress-draw linear both;
+        animation-timeline: scroll(root block);
+        fill: none;
+        height: calc(100% - var(--_stroke));
+        rx: 0;
+        stroke: var(--ui-primary);
+        stroke-dasharray: 100;
+        stroke-linecap: round;
+        stroke-width: var(--_stroke);
+        width: calc(100% - var(--_stroke));
+        x: calc(var(--_stroke) / 2);
+        y: calc(var(--_stroke) / 2);
+
+        @media (width >= 1150px) {
+          rx: var(--radius-3);
+        }
+
+        @supports (corner-shape: squircle) {
+          rx: 0;
+
+          @media (width >= 1150px) {
+            rx: auto;
+            ry: calc(50% - var(--_stroke) / 2);
+          }
+        }
+      }
     }
   }
 
-  @keyframes reading-progress-fill {
+  @keyframes reading-progress-reveal {
     from {
-      inline-size: 0%;
+      opacity: 0;
     }
 
     to {
-      inline-size: 100%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes reading-progress-draw {
+    from {
+      stroke-dashoffset: 100;
+    }
+
+    to {
+      stroke-dashoffset: 0;
     }
   }
 </style>

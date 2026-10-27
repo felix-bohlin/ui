@@ -12,11 +12,69 @@ import ReactLogo from "../ReactLogo.astro"
 import SvelteLogo from "../SvelteLogo.astro"
 import VueLogo from "../VueLogo.astro"
 
-const id = "parity"
+const id = "shells"
 const slug = "card"
 const name = "Clickable"
 const reference: FrameworkId = "astro"
 const groupName = `${id}-framework`
+
+const astroSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.astro",
+  { eager: true, import: "default", query: "?raw" },
+)
+const cssSources = import.meta.glob<string>(
+  "../../../packages/opui/css/components/*.css",
+  { eager: true, import: "default", query: "?raw" },
+)
+const jsSources = import.meta.glob<string>(
+  "../../../packages/opui/css/js/*.js",
+  { eager: true, import: "default", query: "?raw" },
+)
+const reactSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.react.tsx",
+  { eager: true, import: "default", query: "?raw" },
+)
+const svelteSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.svelte",
+  { eager: true, import: "default", query: "?raw" },
+)
+const vueSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.vue",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const lineCount = (source: string) =>
+  source
+    ? (source.match(/\n/g)?.length ?? 0) + (source.endsWith("\n") ? 0 : 1)
+    : 0
+
+const layers = [
+  { core: false, label: "Astro components", sources: astroSources },
+  { core: true, label: "Component CSS", sources: cssSources },
+  { core: true, label: "JavaScript shipped", sources: jsSources },
+  { core: false, label: "React components", sources: reactSources },
+  { core: false, label: "Svelte components", sources: svelteSources },
+  { core: false, label: "Vue components", sources: vueSources },
+]
+  .map(({ core, label, sources }) => {
+    const files = Object.values(sources)
+    return {
+      core,
+      files: files.length,
+      label,
+      lines: files.reduce((sum, source) => sum + lineCount(source), 0),
+    }
+  })
+  .toSorted((a, b) => a.label.localeCompare(b.label, "en"))
+
+const longest = Math.max(...layers.map((layer) => layer.lines))
+
+const reactFiles = Object.values(reactSources)
+const serverComponents = reactFiles.filter(
+  (source) => !source.includes('"use client"'),
+).length
+
+const format = (value: number) => value.toLocaleString("en")
 
 const logos = {
   astro: AstroLogo,
@@ -69,7 +127,7 @@ const markParts = (code: string) => {
       occurrence = `${opened[part]}`
     }
     html += escape(code.slice(last, match.index)) + escape(prefix)
-    html += `<mark class="parity-part" style="--parity-part: ${id}-${part}-${occurrence}">${token}</mark>`
+    html += `<mark class="shells-part" style="--shells-part: ${id}-${part}-${occurrence}">${token}</mark>`
     last = match.index + match[0].length
   }
   return html + escape(code.slice(last))
@@ -78,7 +136,7 @@ const markParts = (code: string) => {
 const source = (framework: FrameworkId) => {
   const code = exampleSources[examplePath(slug, name, framework)]
   if (!code) {
-    throw new Error(`Parity.astro: ${slug}/${name} has no ${framework} file`)
+    throw new Error(`Shells.astro: ${slug}/${name} has no ${framework} file`)
   }
   return code.trimEnd()
 }
@@ -95,53 +153,52 @@ const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   marked: markParts(source(framework)),
 }))
 
-const stage = renders.find((render) => render.framework === reference)!
-const others = renders.filter((render) => render.framework !== reference)
-
 const activeSourceCss = FRAMEWORKS.map(
   ({ id: framework }) =>
-    `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .parity-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
-#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .parity-source[data-framework="${framework}"] .parity-part { view-transition-name: var(--parity-part); }`,
+    `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
+#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] .shells-part { view-transition-name: var(--shells-part); }`,
 ).join("\n")
 ---
 
-<div class="parity ui-not-rich-text" id={id}>
-  <div class="parity-stage">
-    <div class="parity-render example-preview" data-framework={stage.framework}>
-      {stage.Component && <stage.Component />}
-    </div>
-    <div class="parity-verdict" hidden>
-      <p class="parity-stamp">
-        Identical markup in {FRAMEWORKS.length} frameworks
-      </p>
-      <p class="parity-note">
-        Compared in your browser just now, the same way the test suite does it.
-      </p>
-      <details class="parity-diffs" hidden>
-        <summary>Show the differences</summary>
-      </details>
-    </div>
-    <div class="parity-others" hidden inert>
+<div class="shells ui-not-rich-text" id={id}>
+  <figure class="shells-cost">
+    <figcaption class="shells-cost-title">
+      What a framework costs, measured in <code>packages/opui</code> at build time
+    </figcaption>
+    <ul class="shells-layers">
       {
-        others.map(({ Component, framework, html }) => (
-          <div class="parity-render example-preview" data-framework={framework}>
-            {html ? <Fragment set:html={html} /> : Component && <Component />}
-          </div>
+        layers.map(({ core, files, label, lines }, index) => (
+          <li
+            class="shells-layer"
+            data-core={core ? "" : undefined}
+            style={`--shells-i: ${index}; --shells-share: ${lines / longest}`}
+          >
+            <span class="shells-layer-label">{label}</span>
+            <span class="shells-layer-files">
+              {format(files)} {files === 1 ? "file" : "files"}
+            </span>
+            <span class="shells-layer-lines">{format(lines)} lines</span>
+            <span aria-hidden="true" class="shells-bar" />
+          </li>
         ))
       }
-    </div>
-  </div>
-  <div class="parity-morph">
+    </ul>
+    <p class="shells-server">
+      {serverComponents} of {reactFiles.length} React components render on the server:
+      no <code>"use client"</code>.
+    </p>
+  </figure>
+  <div class="shells-morph">
     <ToggleGroup
       aria-label="Framework"
-      class="parity-toggle"
+      class="shells-toggle"
       name={groupName}
       size="small"
     >
       {
         renders.map(({ Logo, framework, label }) => (
           <ToggleButton checked={framework === reference} value={framework}>
-            <span aria-hidden="true" class="parity-logo">
+            <span aria-hidden="true" class="shells-logo">
               <Logo />
             </span>
             {label}
@@ -149,109 +206,210 @@ const activeSourceCss = FRAMEWORKS.map(
         ))
       }
     </ToggleGroup>
-    <div class="parity-code">
+    <div class="shells-code">
       {
         renders.map(({ framework, marked }) => (
           <pre
-            class="parity-source"
+            class="shells-source"
             data-framework={framework}
             set:html={`<code>${marked}</code>`}
           />
         ))
       }
     </div>
+    <div class="shells-verdict" hidden>
+      <p class="shells-note">
+        Compared in your browser just now: the same markup in all {
+          FRAMEWORKS.length
+        } frameworks, the way the test suite checks it.
+      </p>
+      <details class="shells-diffs" hidden>
+        <summary>Show the differences</summary>
+      </details>
+    </div>
+  </div>
+  <div class="shells-renders" hidden inert>
+    {
+      renders.map(({ Component, framework, html }) => (
+        <div class="shells-render example-preview" data-framework={framework}>
+          {html ? <Fragment set:html={html} /> : Component && <Component />}
+        </div>
+      ))
+    }
   </div>
 </div>
 
 <style is:inline set:html={activeSourceCss}></style>
 
 <style is:global>
-  .parity {
-    align-items: start;
+  .shells {
     container-type: inline-size;
     display: grid;
-    gap: var(--ui-space-4);
+    gap: var(--ui-space-5);
     grid-template-columns: minmax(0, 1fr);
     margin-block: var(--ui-space-5);
+  }
 
-    @container (inline-size >= 48rem) {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  .shells-cost {
+    display: grid;
+    gap: var(--ui-space-3);
+    justify-items: stretch;
+    margin: 0;
+    view-timeline: --shells-cost block;
+  }
+
+  .shells-cost-title {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .shells-layers {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .shells-layer {
+    align-items: center;
+    column-gap: var(--ui-space-3);
+    display: grid;
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    grid-template-areas:
+      "label files lines"
+      "bar bar bar";
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    row-gap: var(--ui-space-1);
+
+    @container (inline-size >= 40rem) {
+      grid-template-areas: "label bar files lines";
+      grid-template-columns: 11rem minmax(0, 1fr) 5.5rem 6.5rem;
     }
   }
 
-  .parity-stage {
-    display: grid;
-    gap: var(--ui-space-3);
-    position: relative;
+  .shells-layer-label {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-medium);
+    grid-area: label;
   }
 
-  .parity-render {
+  .shells-layer-files,
+  .shells-layer-lines {
+    color: var(--ui-text-subtle);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  .shells-layer-files {
+    grid-area: files;
+  }
+
+  .shells-layer-lines {
+    grid-area: lines;
+  }
+
+  .shells-bar {
+    background-color: oklch(from var(--ui-primary) l c h / 40%);
+    block-size: 0.5rem;
+    border-radius: var(--ui-radius-small);
+    grid-area: bar;
+    inline-size: calc(var(--shells-share) * 100%);
+    transform-origin: 0 50%;
+
+    [data-core] & {
+      background-color: var(--ui-primary);
+    }
+  }
+
+  .shells-server {
+    color: var(--ui-text);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+
+  .shells-morph {
+    display: grid;
+    gap: var(--ui-space-3);
+    min-inline-size: 0;
+  }
+
+  .shells-toggle {
+    & .ui-toggle-button {
+      flex: 1 1 auto;
+    }
+  }
+
+  .shells-logo {
+    display: inline-flex;
+
+    & svg {
+      block-size: 1.1em;
+      inline-size: 1.1em;
+    }
+  }
+
+  .shells-code {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .shells-source {
     background-color: var(--ui-surface);
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius-large);
     color: var(--ui-text);
-    display: grid;
-    font-family: var(--ui-font-body);
-    gap: var(--ui-space-3);
-    padding: var(--ui-space-4);
+    display: none;
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    grid-area: 1 / 1;
+    line-height: 1.45;
+    margin: 0;
+    min-inline-size: 0;
+    overflow-x: auto;
+    padding: var(--ui-space-3) var(--ui-space-2);
+    tab-size: 2;
+    view-transition-class: shells-code;
+    view-transition-group: contain;
 
-    & h3 {
-      font-size: var(--ui-font-size-h6);
-      margin: 0;
+    & code {
+      background: none;
+      color: inherit;
+      display: block;
+      font: inherit;
+      padding: 0;
+      white-space: pre;
     }
   }
 
-  .parity-verdict {
+  .shells-part {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    color: var(--ui-palette-text, var(--ui-text-strong));
+    font-weight: var(--ui-font-weight-semibold);
+    margin-inline: -0.15em;
+    padding-inline: 0.15em;
+    view-transition-class: shells-part;
+    view-transition-name: none;
+  }
+
+  .shells-verdict {
     display: grid;
     gap: var(--ui-space-2);
   }
 
-  .parity-stamp {
-    background-color: oklch(from var(--ui-surface) l c h / 85%);
-    border: 0.2em double currentColor;
-    border-radius: var(--ui-radius-small);
-    color: var(--ui-success-text, var(--ui-success));
-    font-family: var(--ui-font-body);
-    font-size: clamp(0.7rem, 1.2cqi + 0.35rem, 1rem);
-    font-weight: 800;
-    inset-block-start: calc(-1 * var(--ui-space-4));
-    inset-inline-end: calc(-1 * var(--ui-space-2));
-    letter-spacing: 0.06em;
-    line-height: 1.1;
-    margin: 0;
-    max-inline-size: 12em;
-    padding: 0.4em 0.6em;
-    pointer-events: none;
-    position: absolute;
-    rotate: -8deg;
-    text-align: center;
-    text-transform: uppercase;
-    text-wrap: balance;
-    transform-origin: center;
-    transition-duration: calc(var(--ui-duration-slow) * 1.5 * var(--ui-motion));
-    transition-property: opacity, rotate, scale;
-    transition-timing-function: linear(0, 1.18 55%, 0.94 76%, 1);
-
-    @starting-style {
-      opacity: 0;
-      rotate: 6deg;
-      scale: 2.4;
-    }
-
-    &.is-different {
-      color: var(--ui-warning-text, var(--ui-warning));
-    }
-  }
-
-  .parity-note {
+  .shells-note {
     color: var(--ui-text-subtle);
     font-family: var(--ui-font-body);
     font-size: var(--ui-font-size-caption);
     margin: 0;
-    text-align: end;
   }
 
-  .parity-diffs {
+  .shells-diffs {
     font-family: var(--ui-font-body);
     font-size: var(--ui-font-size-small);
 
@@ -265,7 +423,7 @@ const activeSourceCss = FRAMEWORKS.map(
     }
   }
 
-  .parity-diff {
+  .shells-diff {
     background-color: var(--ui-surface-tonal);
     border-radius: var(--ui-radius-small);
     font-family: var(--ui-font-code);
@@ -293,102 +451,48 @@ const activeSourceCss = FRAMEWORKS.map(
       color: var(--ui-success-text, var(--ui-text));
     }
 
-    & .parity-gap {
+    & .shells-gap {
       display: block;
       opacity: 0.6;
     }
   }
 
-  .parity-morph {
-    display: grid;
-    gap: var(--ui-space-3);
-    min-inline-size: 0;
-  }
-
-  .parity-toggle {
-    & .ui-toggle-button {
-      flex: 1 1 auto;
-    }
-  }
-
-  .parity-logo {
-    display: inline-flex;
-
-    & svg {
-      block-size: 1.1em;
-      inline-size: 1.1em;
-    }
-  }
-
-  .parity-code {
-    display: grid;
-    min-inline-size: 0;
-  }
-
-  .parity-source {
-    background-color: var(--ui-surface);
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius-large);
-    color: var(--ui-text);
-    display: none;
-    font-family: var(--ui-font-code);
-    font-size: var(--ui-font-size-caption);
-    grid-area: 1 / 1;
-    line-height: 1.45;
-    margin: 0;
-    min-inline-size: 0;
-    overflow-x: auto;
-    padding: var(--ui-space-3) var(--ui-space-2);
-    tab-size: 2;
-    view-transition-class: parity-code;
-    view-transition-group: contain;
-
-    & code {
-      background: none;
-      color: inherit;
-      display: block;
-      font: inherit;
-      padding: 0;
-      white-space: pre;
-    }
-  }
-
-  .parity-part {
-    background-color: var(--ui-surface-tonal);
-    border-radius: var(--ui-radius-small);
-    color: var(--ui-palette-text, var(--ui-text-strong));
-    font-weight: var(--ui-font-weight-semibold);
-    margin-inline: -0.15em;
-    padding-inline: 0.15em;
-    view-transition-class: parity-part;
+  html.shells-morphing {
     view-transition-name: none;
   }
 
-  html.parity-morphing {
-    view-transition-name: none;
-  }
-
-  ::view-transition-group(*.parity-code),
-  ::view-transition-group(*.parity-part),
-  ::view-transition-old(*.parity-code),
-  ::view-transition-new(*.parity-code),
-  ::view-transition-old(*.parity-part),
-  ::view-transition-new(*.parity-part) {
+  ::view-transition-group(*.shells-code),
+  ::view-transition-group(*.shells-part),
+  ::view-transition-old(*.shells-code),
+  ::view-transition-new(*.shells-code),
+  ::view-transition-old(*.shells-part),
+  ::view-transition-new(*.shells-part) {
     animation-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
     animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
   }
 
-  ::view-transition-group(*.parity-code) {
+  ::view-transition-group(*.shells-code) {
     overflow: clip;
   }
 
-  ::view-transition-group(*.parity-part) {
+  ::view-transition-group(*.shells-part) {
     z-index: 1;
   }
 
-  @media (scripting: none) {
-    .parity-verdict {
-      display: none;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .shells-bar {
+        animation: shells-grow cubic-bezier(0.2, 0, 0, 1) both;
+        animation-range: entry calc(var(--shells-i) * 8%) entry
+          calc(55% + var(--shells-i) * 8%);
+        animation-timeline: --shells-cost;
+      }
+    }
+  }
+
+  @keyframes shells-grow {
+    from {
+      scale: 0 1;
     }
   }
 </style>
@@ -630,7 +734,7 @@ const activeSourceCss = FRAMEWORKS.map(
     )
 
     const pre = document.createElement("pre")
-    pre.className = "parity-diff"
+    pre.className = "shells-diff"
     let gap = false
     lines.forEach(({ line, type }, index) => {
       if (!shown.has(index)) {
@@ -639,7 +743,7 @@ const activeSourceCss = FRAMEWORKS.map(
       }
       if (gap && pre.childNodes.length) {
         const separator = document.createElement("span")
-        separator.className = "parity-gap"
+        separator.className = "shells-gap"
         separator.textContent = "..."
         pre.append(separator)
       }
@@ -657,7 +761,7 @@ const activeSourceCss = FRAMEWORKS.map(
   }
 
   const compare = (root: HTMLElement) => {
-    const renders = [...root.querySelectorAll<HTMLElement>(".parity-render")]
+    const renders = [...root.querySelectorAll<HTMLElement>(".shells-render")]
     const markup = new Map(
       renders.map((render) => [
         render.dataset.framework ?? "",
@@ -669,12 +773,11 @@ const activeSourceCss = FRAMEWORKS.map(
       ([framework, actual]) => framework !== "astro" && actual !== reference,
     )
 
-    const verdict = root.querySelector<HTMLElement>(".parity-verdict")!
-    const stamp = root.querySelector<HTMLElement>(".parity-stamp")!
-    const diffs = root.querySelector<HTMLElement>(".parity-diffs")!
+    const verdict = root.querySelector<HTMLElement>(".shells-verdict")!
+    const note = root.querySelector<HTMLElement>(".shells-note")!
+    const diffs = root.querySelector<HTMLElement>(".shells-diffs")!
     if (differing.length) {
-      stamp.classList.add("is-different")
-      stamp.textContent = `Markup differs in ${differing.length} of ${markup.size} frameworks`
+      note.textContent = `Compared in your browser just now: the markup differs in ${differing.length} of ${markup.size} frameworks, the way the test suite checks it.`
       for (const [framework, actual] of differing) {
         const label = document.createElement("p")
         label.textContent = `${framework} against astro`
@@ -682,7 +785,7 @@ const activeSourceCss = FRAMEWORKS.map(
       }
       diffs.hidden = false
     }
-    root.dataset.parity = differing.length
+    root.dataset.compared = differing.length
       ? differing.map(([framework]) => framework).join(" ")
       : "identical"
     verdict.hidden = false
@@ -690,7 +793,7 @@ const activeSourceCss = FRAMEWORKS.map(
 
   const initMorph = (root: HTMLElement) => {
     const checked = root.querySelector<HTMLInputElement>(
-      ".parity-toggle input:checked",
+      ".shells-toggle input:checked",
     )
     const groupName = checked?.name
     root.dataset.framework = checked?.value ?? "astro"
@@ -708,16 +811,16 @@ const activeSourceCss = FRAMEWORKS.map(
         return
       }
       const html = document.documentElement
-      html.classList.add("parity-morphing")
+      html.classList.add("shells-morphing")
       running += 1
       document.startViewTransition(swap).finished.finally(() => {
         running -= 1
-        if (running === 0) html.classList.remove("parity-morphing")
+        if (running === 0) html.classList.remove("shells-morphing")
       })
     })
   }
 
-  document.querySelectorAll<HTMLElement>(".parity").forEach((root) => {
+  document.querySelectorAll<HTMLElement>(".shells").forEach((root) => {
     compare(root)
     initMorph(root)
   })

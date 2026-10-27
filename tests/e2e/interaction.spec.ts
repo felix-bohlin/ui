@@ -379,9 +379,7 @@ interaction(
     await slider.focus()
     await page.keyboard.press("End")
     await expect(output).toHaveText("360°")
-    // Enter, not a click: focus() scrolls the page smoothly, and WebKit can
-    // press the button and release on the form while it scrolls
-    await root.getByRole("button", { name: "Reset" }).press("Enter")
+    await root.getByRole("button", { name: "Reset" }).click()
     await expect(slider).toHaveValue(before)
     await expect(output).toHaveText(`${before}°`)
     await expect(slider).toHaveAttribute("aria-valuetext", `${before}°`)

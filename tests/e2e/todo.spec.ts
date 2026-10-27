@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test"
+import { instantScrolling } from "./fixtures"
 
 test.describe("todo page", () => {
   test.beforeEach(async ({ page }) => {
+    await instantScrolling(page)
     await page.addInitScript(() => {
       navigator.clipboard.writeText = async (text) => {
         document.documentElement.dataset.copied = text

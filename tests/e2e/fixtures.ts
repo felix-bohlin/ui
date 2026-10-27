@@ -77,12 +77,20 @@ export const hasExample = (
     new URL(`${component}/${name}.${exampleExtension(framework)}`, examplesDir),
   )
 
+export const instantScrolling = (page: Page) =>
+  page.addInitScript(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+      document.documentElement.style.scrollBehavior = "auto"
+    })
+  })
+
 export const openFixture = async (
   page: Page,
   framework: Framework,
   component: string,
   search = "",
 ) => {
+  await instantScrolling(page)
   const inflight = new Set<Request>()
   page.on("request", (request) => inflight.add(request))
   page.on("requestfailed", (request) => inflight.delete(request))

@@ -117,16 +117,8 @@
     }
 
     .chat-composer {
-      align-items: end;
       border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      display: flex;
-      gap: var(--ui-space-2);
       padding: var(--ui-space-3);
-
-      .ui-textarea {
-        flex: 1;
-        min-inline-size: 0;
-      }
     }
   }
 </style>
@@ -428,7 +420,7 @@
 
     <div>
       <p aria-live="polite" class="chat-typing ui-caption">Saga is typing…</p>
-      <form action="#" class="chat-composer">
+      <form action="#" class="ui-field-group ui-horizontal chat-composer">
         <button
           aria-label="Attach a file"
           class="ui-button ui-round"

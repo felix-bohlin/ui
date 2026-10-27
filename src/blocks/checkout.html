@@ -14,10 +14,6 @@
       }
     }
 
-    .checkout-row {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    }
-
     .checkout-delivery {
       border: var(--ui-border-width) solid var(--ui-border-color);
       border-radius: var(--ui-radius);
@@ -61,14 +57,6 @@
       );
       border-radius: var(--ui-radius);
       inline-size: 3rem;
-    }
-
-    .checkout-discount {
-      align-items: end;
-
-      .ui-text-field {
-        flex: 1;
-      }
     }
 
     .checkout-total {
@@ -120,7 +108,7 @@
       <fieldset class="ui-fieldset">
         <legend>Shipping address</legend>
         <div class="ui-field-group">
-          <div class="ui-layout-grid checkout-row">
+          <div class="ui-field-group ui-horizontal">
             <label class="ui-text-field">
               <span class="ui-label">First name</span>
               <span class="ui-field">
@@ -158,7 +146,7 @@
               />
             </span>
           </label>
-          <div class="ui-layout-grid checkout-row">
+          <div class="ui-field-group ui-horizontal">
             <label class="ui-text-field">
               <span class="ui-label">Postal code</span>
               <span class="ui-field">
@@ -185,7 +173,7 @@
               </span>
             </label>
           </div>
-          <div class="ui-layout-grid checkout-row">
+          <div class="ui-field-group ui-horizontal">
             <label class="ui-select">
               <span class="ui-label" id="checkout-country-label">Country</span>
               <span class="ui-field">
@@ -320,7 +308,7 @@
                   </span>
                 </span>
               </label>
-              <div class="ui-layout-grid checkout-row">
+              <div class="ui-field-group ui-horizontal">
                 <label class="ui-text-field">
                   <span class="ui-label">Expiry date</span>
                   <span class="ui-field">
@@ -472,7 +460,7 @@
 
         <hr class="ui-divider" />
 
-        <div class="ui-layout-row ui-small checkout-discount">
+        <div class="ui-field-group ui-horizontal">
           <label class="ui-text-field ui-small">
             <span class="ui-label">Discount code</span>
             <span class="ui-field">

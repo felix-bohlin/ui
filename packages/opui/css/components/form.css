@@ -115,8 +115,17 @@
     }
 
     &.ui-horizontal {
+      --_field-min-inline-size: 11rem;
+
+      align-items: end;
       flex-direction: row;
       flex-wrap: wrap;
+      gap: var(--ui-space-3);
+
+      & > :where(.ui-number-stepper, .ui-select, .ui-text-field, .ui-textarea) {
+        flex: 1 1 var(--_field-min-inline-size);
+        min-inline-size: 0;
+      }
 
       &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)) {
         gap: var(--ui-space-4);

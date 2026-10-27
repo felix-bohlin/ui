@@ -464,7 +464,10 @@
 
     /* Primary */
     --ui-primary-source: light-dark(
-      oklch(0.499 0.191 222.8),
+      oklch(
+        from var(--ui-palette-source) 0.499 min(0.191, calc(0.382 * (c / 0.21)))
+          h
+      ),
       var(--ui-color-6)
     );
     --ui-primary: light-dark(

@@ -6,6 +6,7 @@ import {
   type InputHTMLAttributes,
   onBeforeUnmount,
   onMounted,
+  ref,
   useAttrs,
   useId,
   useTemplateRef,
@@ -45,11 +46,13 @@ const model = computed({
 })
 
 const input = useTemplateRef<HTMLInputElement>("input")
+const resets = ref(0)
 let form: HTMLFormElement | null | undefined
 const syncAfterReset = (event: Event) =>
   setTimeout(() => {
-    if (input.value && !event.defaultPrevented)
-      model.value = resetValue(input.value)
+    if (!input.value || event.defaultPrevented) return
+    model.value = resetValue(input.value)
+    resets.value++
   })
 onMounted(() => {
   if (input.value && !input.value.hasAttribute("value") && model.value != null)
@@ -105,6 +108,7 @@ const endTextId = `range-end-${uid}`
       class="ui-value"
       :for="inputId"
       :data-suffix="valueSuffix"
+      :key="resets"
     >
       <slot name="value-text" :value="Number(model ?? middle)"
         >{{ model ?? middle }}{{ valueSuffix }}</slot

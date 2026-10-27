@@ -37,6 +37,7 @@ export default function Range({
   const uid = useId()
   const field = useFieldGroupContext()
   const [current, setCurrent] = useState(defaultValueProp)
+  const [resets, setResets] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -44,8 +45,9 @@ export default function Range({
     if (!form) return
     const sync = (event: Event) =>
       setTimeout(() => {
-        if (inputRef.current && !event.defaultPrevented)
-          setCurrent(resetValue(inputRef.current))
+        if (!inputRef.current || event.defaultPrevented) return
+        setCurrent(resetValue(inputRef.current))
+        setResets((count) => count + 1)
       })
     form.addEventListener("reset", sync)
     return () => form.removeEventListener("reset", sync)
@@ -96,6 +98,7 @@ export default function Range({
           className="ui-value"
           data-suffix={valueSuffix}
           htmlFor={inputId}
+          key={resets}
         >
           {valueText
             ? valueText(Number(shown))

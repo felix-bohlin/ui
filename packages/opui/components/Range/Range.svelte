@@ -36,6 +36,7 @@
   const uid = $props.id()
   const field = getFieldGroupContext()
   const initialValue = untrack(() => value)
+  let resets = $state(0)
 
   const hasLabel = $derived(!!label)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)
@@ -71,16 +72,18 @@
     </span>
   {/if}
   {#if hasValue}
-    <output
-      aria-live="off"
-      class="ui-value"
-      for={inputId}
-      data-suffix={valueSuffix}
-    >
-      {#if valueText}{@render valueText(
-          Number(value ?? middle),
-        )}{:else}{value ?? middle}{valueSuffix ?? ""}{/if}
-    </output>
+    {#key resets}
+      <output
+        aria-live="off"
+        class="ui-value"
+        for={inputId}
+        data-suffix={valueSuffix}
+      >
+        {#if valueText}{@render valueText(
+            Number(value ?? middle),
+          )}{:else}{value ?? middle}{valueSuffix ?? ""}{/if}
+      </output>
+    {/key}
   {/if}
   {#if startText}
     <span class="ui-start-text" id={startTextId}>
@@ -110,7 +113,9 @@
       const form = input.form
       const sync = (event: Event) =>
         setTimeout(() => {
-          if (!event.defaultPrevented) value = resetValue(input)
+          if (event.defaultPrevented) return
+          value = resetValue(input)
+          resets++
         })
       form?.addEventListener("reset", sync)
       return () => form?.removeEventListener("reset", sync)

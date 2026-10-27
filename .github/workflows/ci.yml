@@ -33,12 +33,12 @@ jobs:
           mapfile -t files < <(jq -r '.files[], .sections[]' scripts/generated-files.json)
           test "${#files[@]}" -gt 0
           git add --intent-to-add -- "${files[@]}"
-      - if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+      - if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository || github.actor == 'dependabot[bot]'
         name: Check the regenerated files
         run: |
           mapfile -t files < <(jq -r '.files[], .sections[]' scripts/generated-files.json)
           git diff --exit-code -- "${files[@]}"
-      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         name: Commit the regenerated files
         run: |
           mapfile -t files < <(jq -r '.files[], .sections[]' scripts/generated-files.json)
@@ -76,7 +76,7 @@ jobs:
           name: dist-production
           path: dist/
           retention-days: 1
-      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: |
           url=$(pnpm --silent --package=netlify-cli@27.11.2 dlx netlify deploy --no-build --dir=dist --filter open-props-ui-docs --alias "pr-$PR" --message "PR #$PR ${SHA::7}" --json | jq -r .deploy_url)
           test -n "$url"
@@ -197,7 +197,7 @@ jobs:
           retention-days: 14
 
   e2e-engines:
-    name: e2e (${{ matrix.project }})
+    name: e2e engines
     if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'e2e-engines')
     needs: check
     runs-on: ubuntu-latest

@@ -44,18 +44,19 @@ The project is managed as a monorepo with two main parts:
 
 ### Development
 
-Use Node 26.10 (`.nvmrc`) and pnpm 12. `pnpm install` refuses an older Node (`engineStrict` in `pnpm-workspace.yaml`), and Claude Code cloud sessions fetch the `.nvmrc` version in `.claude/hooks/session-start.sh`. Run the documentation site locally for development:
+The first ten minutes:
 
-```bash
-pnpm install
-pnpm dev
-```
+1. Install Node 26.10 (`.nvmrc`, so `nvm use` picks it), pnpm 12 (`corepack enable`) and Git LFS (`brew install git-lfs` or `apt install git-lfs`, then `git lfs install`). `pnpm install` refuses an older Node (`engineStrict` in `pnpm-workspace.yaml`), and Claude Code cloud sessions fetch the `.nvmrc` version in `.claude/hooks/session-start.sh`.
+2. `pnpm install`. It also sets `.githooks` as the hooks directory.
+3. `pnpm dev` serves the docs at http://localhost:4321/, with the stress test pages at `/tests/`.
+4. `pnpm check:fast` before a commit, `pnpm check` before a pull request.
+5. `pnpm exec playwright install chromium`, then `pnpm test:e2e --project=light --project=dark` when a change affects rendering or behavior.
 
 Run `pnpm check` before you commit. `pnpm check:fast` skips the build and runs the other checks side by side. The `pre-commit` hook in `.githooks` runs the character, color and declaration order checks, Prettier, oxlint and Stylelint on the staged files, as they are in the working tree, and the `TODO.md` and guide tests when those are staged (`scripts/check-staged.mjs`); `git commit --no-verify` skips it.
 
 Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). `pnpm check` sets it, so it builds and checks them as CI does. The stress test pages at `/tests/` also render in `pnpm dev`.
 
-`pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. The run lists the images it added, changed and removed in a comment on the PR (one comment, updated by each run): open them before merging. Until then, a new component's visual test fails locally. The baselines are in Git LFS, so the visual tests need `git lfs pull` first (see [Visual baselines in Git LFS](#visual-baselines-in-git-lfs)).
+`pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. The run lists the images it added, changed and removed in a comment on the PR (one comment, updated by each run): open them before merging. Until then, a new component's visual test fails locally. The baselines are in Git LFS, so the visual tests need `git lfs pull` first (see [Visual baselines in Git LFS](#visual-baselines-in-git-lfs)). A failed e2e job uploads `playwright-report-<project>-<shard>` with the traces and, for a visual test, the expected, actual and diff images: download and unpack it, then `pnpm exec playwright show-report playwright-report` opens it.
 
 Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`. The `history` CI job fails on a pull request that adds to either unless one of its commits has the trailer `Ledger-Change: intended` (`scripts/check-ratchets.mjs`).
 
@@ -66,6 +67,10 @@ CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The 
 ### Pull requests
 
 One topic per pull request, so it can be reviewed, reverted and logged on its own. A change to a component is one topic: the component in every framework, its CSS, its `api.ts`, the docs page, the examples, the CHANGELOG entry and the What's new note go in together, and a fix you find on the way gets its own pull request. A release is its own pull request too, with the version bump, the CHANGELOG and the release checks in `docs/releases/`, and no features or fixes.
+
+### Dependencies
+
+`.github/dependabot.yml` opens pull requests on Mondays: one for the minor and patch updates of the npm packages in every workspace manifest, one per major update, and one for the GitHub Actions. Their commits and titles start with `chore:`, as `scripts/check-commits.mjs` requires. `@playwright/test` is left out: bump it by hand together with the `mcr.microsoft.com/playwright` image in the workflows, which `tests/unit/playwright.test.ts` keeps equal. A Dependabot pull request gets a read-only token and no secrets, so CI checks the regenerated files instead of committing them and skips the preview deploy.
 
 ### Visual baselines in Git LFS
 

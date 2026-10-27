@@ -7,6 +7,7 @@ import {
   ToggleGroup,
 } from "opui-css/astro"
 import {
+  CODE_FONTS,
   FONTS,
   controlTokens,
   type Control,
@@ -26,7 +27,15 @@ const originId = `${base}-origin`
 const describedBy = [hintId, valueId, originId].filter(Boolean).join(" ")
 const tokens = controlTokens(control)
 const fontOf = (label: string) =>
-  FONTS.find((font) => font.label === label)?.value
+  [...FONTS, ...CODE_FONTS].find((font) => font.label === label)?.value
+const optionGroups =
+  control.kind === "choice" && control.display === "select"
+    ? [...new Set(control.options.map((option) => option.group))]
+    : []
+const groupedOptions = (group: string | undefined) =>
+  control.kind === "choice"
+    ? control.options.filter((option) => option.group === group)
+    : []
 const options =
   control.kind === "choice"
     ? control.options
@@ -51,6 +60,27 @@ const name = control.kind === "brand" ? "Brand color" : control.label
     <span class="builder-control-origin ui-sr-only" data-origin id={originId}
       >Default value</span
     >
+    <Button
+      aria-label={`Show what ${name.toLowerCase()} changes`}
+      class="builder-control-spot"
+      data-spot
+      round
+      size="x-small"
+      title="Show me in the preview"
+      variant="transparent"
+    >
+      <svg
+        aria-hidden="true"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path
+          fill="currentColor"
+          d="M12 9.005a4 4 0 1 1 0 8a4 4 0 0 1 0-8m0 1.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5M12 5.5c4.613 0 8.596 3.15 9.701 7.564a.75.75 0 1 1-1.455.365a8.504 8.504 0 0 0-16.493.004a.75.75 0 0 1-1.455-.363A10.003 10.003 0 0 1 12 5.5"
+        ></path></svg
+      >
+    </Button>
     <Button
       aria-label={`Reset ${name.toLowerCase()}`}
       class="builder-control-reset"
@@ -167,18 +197,21 @@ const name = control.kind === "brand" ? "Brand color" : control.label
         <option disabled hidden value="custom">
           Custom
         </option>
-        {control.options.map((option) => (
-          <option
-            style={
-              control.font && fontOf(option.label)
-                ? `font-family: ${fontOf(option.label)}`
-                : undefined
-            }
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
+        {optionGroups.map((group) => {
+          const options = groupedOptions(group).map((option) => (
+            <option
+              style={
+                control.font && fontOf(option.label)
+                  ? `font-family: ${fontOf(option.label)}`
+                  : undefined
+              }
+              value={option.value}
+            >
+              {option.label}
+            </option>
+          ))
+          return group ? <optgroup label={group}>{options}</optgroup> : options
+        })}
       </Select>
     )
   }
@@ -263,6 +296,15 @@ const name = control.kind === "brand" ? "Brand color" : control.label
 
   .builder-control-reset:disabled {
     visibility: hidden;
+  }
+
+  .builder-control-spot {
+    opacity: 0.6;
+
+    .builder-control:hover &,
+    &:focus-visible {
+      opacity: 1;
+    }
   }
 
   .builder-control-hint,

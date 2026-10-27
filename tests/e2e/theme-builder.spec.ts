@@ -111,7 +111,7 @@ test("a mood applies a bundle of changes that Undo or a second press takes back"
     "aria-pressed",
     "false",
   )
-  await expect(page.locator('[data-mood="playful"]')).toBeFocused()
+  await expect(page.locator("[data-redo-history]")).toBeFocused()
   await page.locator('[data-mood="playful"]').click()
   await expect(toast(page)).toHaveText("Playful applied.")
   await page.locator('[data-mood="playful"]').click()
@@ -127,8 +127,9 @@ test("shuffle skips locked rooms", async ({ page }) => {
   await open(page)
   await expect(page.locator('[data-lock="status"]')).toHaveAttribute(
     "aria-pressed",
-    "true",
+    "false",
   )
+  await page.locator('[data-lock="status"]').click()
   await page.locator("[data-shuffle]").click()
   await expect(toast(page)).toHaveText("Shuffled the unlocked settings.")
   await expect(changes(page)).not.toHaveText("No changes")
@@ -156,11 +157,15 @@ test("the contrast drawer links a check to its setting", async ({ page }) => {
     "checks pass",
   )
   expect(
-    await drawer.evaluate((dialog) => [
-      dialog.scrollHeight > dialog.clientHeight,
-      getComputedStyle(document.documentElement).overflow,
-    ]),
-  ).toEqual([false, "clip"])
+    await drawer.evaluate((dialog) => {
+      dialog.scrollTop = 50
+      return [
+        dialog.scrollTop,
+        getComputedStyle(dialog).overflowY,
+        getComputedStyle(document.documentElement).overflow,
+      ]
+    }),
+  ).toEqual([0, "clip", "clip"])
   await drawer.locator('[data-go="critical"]').click()
   await expect(drawer).not.toHaveAttribute("open")
   await expect(group(page, "status")).toBeVisible()
@@ -216,4 +221,192 @@ test("has no axe violations, with the drawers open too", async ({ page }) => {
   await page.keyboard.press("Escape")
   await page.getByRole("button", { name: "Export CSS" }).click()
   await check("export drawer")
+})
+
+test("pasting a color, a theme.css or an image sets the theme", async ({
+  page,
+}) => {
+  await open(page)
+  const paste = page.locator('input[name="builder-paste"]')
+  await paste.fill("#ff6600")
+  await paste.dispatchEvent("change")
+  await expect(toast(page)).toContainText("Brand color set to oklch(")
+  await expect(changes(page)).toHaveText("2 changes")
+  await paste.fill("nothing useful")
+  await paste.dispatchEvent("change")
+  await expect(toast(page)).toHaveText(
+    "Nothing to use there. Paste a color, a theme.css or an image.",
+  )
+  await paste.fill(`@layer theme.custom {
+    :where(html, .ui-palette, .ui-contrast-more) {
+      --ui-radius: 1rem;
+      --ui-density: 0.875;
+    }
+  }`)
+  await paste.dispatchEvent("change")
+  await expect(toast(page)).toHaveText(
+    "Loaded Default with 2 tokens from the CSS.",
+  )
+  await expect(
+    page.locator('[data-control="corners"] .builder-control-origin'),
+  ).toHaveText("Changed")
+  await page.evaluate(() => {
+    const box = document.createElement("div")
+    box.id = "swatch"
+    box.style.cssText =
+      "position: fixed; inset: 0; z-index: 99999; background: rgb(30, 90, 220)"
+    document.body.append(box)
+  })
+  const png = await page.screenshot({
+    clip: { height: 32, width: 32, x: 0, y: 0 },
+  })
+  await page.evaluate(() => document.getElementById("swatch")?.remove())
+  await page
+    .locator("[data-paste-file]")
+    .setInputFiles({ buffer: png, mimeType: "image/png", name: "blue.png" })
+  await expect(toast(page)).toContainText("from the image.")
+  await expect(
+    page.locator('[data-control="brand"] [data-caption]').first(),
+  ).toContainText(/ 2[5-7]\d/)
+})
+
+test("undo and redo walk the history, also from the keyboard", async ({
+  page,
+}) => {
+  await open(page)
+  await expect(page.locator("[data-undo-history]")).toBeDisabled()
+  await page.locator('[data-mood="corporate"]').click()
+  await expect(toast(page)).toHaveText("Corporate applied.")
+  await page.locator('[data-mood="playful"]').click()
+  await expect(toast(page)).toHaveText("Playful applied.")
+  await page.locator("[data-undo-history]").click()
+  await expect(toast(page)).toHaveText("Undone.")
+  await expect(page.locator('[data-mood="corporate"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
+  await page.locator("[data-redo-history]").click()
+  await expect(toast(page)).toHaveText("Redone.")
+  await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
+  await page.locator(".builder-title").click()
+  await page.keyboard.press("Control+z")
+  await expect(toast(page)).toHaveText("Undone.")
+  await page.keyboard.press("Control+z")
+  await expect(changes(page)).toHaveText("No changes")
+  await expect(page.locator("[data-redo-history]")).toBeEnabled()
+})
+
+test("saved themes load, compare and delete, and the gallery loads", async ({
+  page,
+}) => {
+  await open(page)
+  await page.locator('[data-mood="minimal"]').click()
+  await page.locator("[data-saved]").click()
+  const drawer = page.locator("#builder-saved")
+  await expect(drawer).toHaveAttribute("open")
+  await drawer.locator('input[name="snapshot-name"]').fill("Mono")
+  await drawer.locator("[data-save-form] button[type=submit]").click()
+  await expect(drawer.locator("[data-saved-status]")).toHaveText("Saved Mono.")
+  await expect(drawer.locator("[data-snapshots] li")).toHaveCount(1)
+  await drawer.locator("[data-snapshots] [data-compare]").click()
+  await expect(drawer).not.toHaveAttribute("open")
+  await expect(
+    page.locator('input[name="preview-tab"][value="compare"]'),
+  ).toBeChecked()
+  await expect(page.locator("#preview-compare-other")).toHaveText("Mono")
+  await expect(page.locator("#preview-compare-yours")).toHaveText("Yours")
+  await page.locator("[data-reset-all]").click()
+  await expect(changes(page)).toHaveText("No changes")
+  await page.locator("[data-saved]").click()
+  await drawer.locator("[data-snapshots] [data-load]").click()
+  await expect(toast(page)).toHaveText("Loaded Mono.")
+  await expect(page.locator('[data-mood="minimal"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  )
+  await page.locator("[data-saved]").click()
+  await drawer.locator('[data-gallery="paper"] [data-gallery-use]').click()
+  await expect(toast(page)).toHaveText("Using Paper from the gallery.")
+  await expect(changes(page)).not.toHaveText("No changes")
+  await page.locator("[data-saved]").click()
+  await drawer.locator("[data-snapshots] [data-delete]").click()
+  await expect(drawer.locator("[data-snapshots] li")).toHaveCount(0)
+  await expect(drawer.locator("[data-snapshots-empty]")).toBeVisible()
+})
+
+test("the States tab shows forced states and Show me spotlights the canvas", async ({
+  page,
+}) => {
+  await open(page)
+  await page.locator(".preview-tabs label", { hasText: "States" }).click()
+  await expect(
+    page.locator('[data-tab="states"] button[disabled]').first(),
+  ).toBeVisible()
+  await expect(
+    page.locator('[data-tab="states"] [aria-invalid="true"]').first(),
+  ).toBeAttached()
+  await room(page, "corners").click()
+  await page.locator('[data-control="corners"] [data-spot]').click()
+  await expect(
+    page.locator('input[name="preview-tab"][value="components"]'),
+  ).toBeChecked()
+  await expect(page.locator(".is-spotlit").first()).toBeVisible()
+  await expect(page.locator(".is-spotlit")).toHaveCount(0, { timeout: 5000 })
+})
+
+test("the All tokens room resolves every token and takes a value", async ({
+  page,
+}) => {
+  await open(page)
+  await room(page, "tokens").click()
+  await expect(group(page, "tokens")).toBeVisible()
+  await expect(
+    page.locator('[data-token="--ui-radius"] [data-light] [data-text]'),
+  ).toHaveText(/^0?\.5rem$/)
+  await expect(
+    page.locator('[data-token="--ui-primary"] [data-dark] [data-text]'),
+  ).toContainText("oklch(")
+  const field = page.locator('input[name="token-ui-space-7"]')
+  await field.fill("9rem")
+  await field.dispatchEvent("change")
+  await expect(changes(page)).toHaveText("1 change")
+  await expect(page.locator('[data-room-count="tokens"]')).toHaveText("1")
+  await field.fill("url(evil)")
+  await field.dispatchEvent("change")
+  await expect(toast(page)).toContainText(
+    "is not a value --ui-space-7 can take",
+  )
+  await expect(field).toHaveValue("9rem")
+  await page.locator('input[name="builder-search"]').fill("space-7")
+  await expect(page.locator("[data-search-summary]")).toHaveText(
+    '1 setting matches "space-7".',
+  )
+  await expect(page.locator("[data-token]:visible")).toHaveCount(1)
+})
+
+test("a web font loads on the site and the export imports it", async ({
+  page,
+}) => {
+  await page.route("**/fontsource/css/**", (route) =>
+    route.fulfill({ body: "", contentType: "text/css" }),
+  )
+  await open(page)
+  await room(page, "typography").click()
+  await page.locator('[data-control="font-body"] select').selectOption("Lora")
+  await expect(page.locator('link[href*="fontsource/css/lora"]')).toHaveCount(4)
+  await page.getByRole("button", { name: "Export CSS" }).click()
+  await expect(page.locator("#builder-export [data-css]")).toContainText(
+    '@import url("https://cdn.jsdelivr.net/fontsource/css/lora@latest/400.css");',
+  )
+  await expect(page.locator("#builder-export [data-font-text]")).toContainText(
+    "loads Lora from the Fontsource CDN",
+  )
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.locator("[data-json-download]").click(),
+  ])
+  expect(download.suggestedFilename()).toBe("tokens.json")
 })

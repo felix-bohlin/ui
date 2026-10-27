@@ -61,6 +61,9 @@ const setup = `@import "opui-css/css/imports.css";
         <Button color="primary" data-css-download size="small" variant="filled"
           >Download</Button
         >
+        <Button data-json-download size="small" variant="outlined"
+          >tokens.json</Button
+        >
       </div>
       <pre
         tabindex="0"
@@ -74,8 +77,9 @@ const setup = `@import "opui-css/css/imports.css";
   import { highlightAll } from "microlighter"
   import { exampleTheme } from "../../utils/example-themes"
   import { copyText } from "../../utils/storage"
-  import { exportCss, themeStore } from "../../utils/theme"
-  import { FONTS, canonical } from "../../utils/theme-builder-controls"
+  import { exportCss, themeFontIds, themeStore } from "../../utils/theme"
+  import { WEB_FONTS, firstFamily } from "../../utils/theme-fonts"
+  import { resolveTokens, tokensExport } from "../../utils/tokens-export"
 
   const section = document.querySelector<HTMLElement>(".builder-export")
   if (section) {
@@ -102,32 +106,41 @@ const setup = `@import "opui-css/css/imports.css";
     let timer = 0
     let frame = 0
 
-    const fontsOf = (stacks: (string | undefined)[]) => {
-      const names = new Set<string>()
+    const fontsOf = (theme: ReturnType<typeof themeStore.get>) => {
+      const ids = themeFontIds(theme)
+      const named = ids.map(
+        (id) => WEB_FONTS.find((font) => font.id === id)?.family ?? id,
+      )
+      const preset = exampleTheme(theme.preset)?.tokens ?? {}
       const custom = new Set<string>()
-      for (const stack of stacks) {
+      for (const token of [
+        "--ui-font-body",
+        "--ui-font-code",
+        "--ui-font-heading",
+      ]) {
+        const stack = theme.tokens[token] ?? preset[token]
         if (!stack || stack === "revert-layer") continue
-        const known = FONTS.find(
-          (font) => canonical(font.value, "", {}) === canonical(stack, "", {}),
-        )
-        const first = stack
-          .split(",")[0]
-          .trim()
-          .replace(/^["']|["']$/g, "")
-        if (known?.load) names.add(known.load)
-        else if (!known && first && !GENERIC.has(first.toLowerCase())) {
+        const first = firstFamily(stack)
+        if (
+          first &&
+          !GENERIC.has(first.toLowerCase()) &&
+          !WEB_FONTS.some(
+            (font) => font.family.toLowerCase() === first.toLowerCase(),
+          )
+        ) {
           custom.add(first)
         }
       }
-      return {
-        count: names.size + custom.size,
-        list: [
-          ...[...names].toSorted(),
-          ...(custom.size === 0
-            ? []
-            : [custom.size === 1 ? "a custom font" : "custom fonts"]),
-        ],
-      }
+      return { custom: [...custom].toSorted(), named }
+    }
+
+    const download = (name: string, text: string, type: string) => {
+      const url = URL.createObjectURL(new Blob([text], { type }))
+      const anchor = document.createElement("a")
+      anchor.href = url
+      anchor.download = name
+      anchor.click()
+      setTimeout(() => URL.revokeObjectURL(url))
     }
 
     const render = () => {
@@ -138,17 +151,20 @@ const setup = `@import "opui-css/css/imports.css";
       highlightAll()
       const lines = css.trimEnd().split("\n").length
       meta.textContent = `${lines} lines`
-      const preset = exampleTheme(theme.preset)?.tokens ?? {}
-      const fonts = fontsOf(
-        ["--ui-font-body", "--ui-font-code", "--ui-font-heading"].map(
-          (token) => theme.tokens[token] ?? preset[token],
-        ),
-      )
-      fontNote.hidden = fonts.count === 0
-      const list = new Intl.ListFormat("en", { type: "conjunction" }).format(
-        fonts.list,
-      )
-      fontText.textContent = `This theme uses ${list}. The file names the ${fonts.count === 1 ? "font" : "fonts"} but doesn't load ${fonts.count === 1 ? "it" : "them"}, so load ${fonts.count === 1 ? "it" : "them"} in your project too, for example from Fontsource or Google Fonts.`
+      const fonts = fontsOf(theme)
+      fontNote.hidden = fonts.named.length === 0 && fonts.custom.length === 0
+      const list = (names: string[]) =>
+        new Intl.ListFormat("en", { type: "conjunction" }).format(names)
+      fontText.textContent = [
+        fonts.named.length > 0
+          ? `The file loads ${list(fonts.named)} from the Fontsource CDN with the import ${fonts.named.length === 1 ? "line" : "lines"} at the top. Host ${fonts.named.length === 1 ? "it" : "them"} yourself for production, for example with the @fontsource ${fonts.named.length === 1 ? "package" : "packages"}.`
+          : "",
+        fonts.custom.length > 0
+          ? `It names ${list(fonts.custom)} but doesn't load ${fonts.custom.length === 1 ? "it" : "them"}, so load ${fonts.custom.length === 1 ? "it" : "them"} in your project too.`
+          : "",
+      ]
+        .filter(Boolean)
+        .join(" ")
     }
 
     const schedule = () => {
@@ -172,13 +188,20 @@ const setup = `@import "opui-css/css/imports.css";
     section
       .querySelector("[data-css-download]")!
       .addEventListener("click", () => {
-        const url = URL.createObjectURL(new Blob([css], { type: "text/css" }))
-        const anchor = document.createElement("a")
-        anchor.href = url
-        anchor.download = "theme.css"
-        anchor.click()
-        setTimeout(() => URL.revokeObjectURL(url))
+        download("theme.css", css, "text/css")
         say("Downloaded theme.css.")
+      })
+
+    section
+      .querySelector("[data-json-download]")!
+      .addEventListener("click", () => {
+        const theme = themeStore.get()
+        download(
+          "tokens.json",
+          tokensExport(theme, resolveTokens(document.body)),
+          "application/json",
+        )
+        say("Downloaded tokens.json with every token resolved per mode.")
       })
 
     render()

@@ -1,3 +1,4 @@
+import { formatOklch, parseOklch } from "./color-utils"
 import { CORNERS, cornersUpdate, type ThemeTokens } from "./theme"
 import {
   CONTROLS,
@@ -22,7 +23,55 @@ export type Mood = {
   label: string
 }
 
-export const LOCKED_BY_DEFAULT = ["status"]
+export const LOCKED_BY_DEFAULT: string[] = []
+
+export const STATUS_HUES: Record<string, { hue: number; lightness: number }> = {
+  "--ui-critical": { hue: 25, lightness: 0.53 },
+  "--ui-info": { hue: 240, lightness: 0.53 },
+  "--ui-success": { hue: 145, lightness: 0.53 },
+  "--ui-warning": { hue: 75, lightness: 0.66 },
+}
+
+const hueDelta = (from: number, to: number) =>
+  ((((to - from) % 360) + 540) % 360) - 180
+
+const nudge = (hue: number, toward: number, max: number) =>
+  (hue + Math.max(-max, Math.min(max, hueDelta(hue, toward))) + 360) % 360
+
+export const statusFromBrand = (brand: string): ThemeTokens => {
+  const source = parseOklch(brand)
+  if (!source) return {}
+  const chroma = Math.min(0.2, Math.max(0.14, source.C))
+  return Object.fromEntries(
+    Object.entries(STATUS_HUES).map(([token, { hue, lightness }]) => [
+      token,
+      formatOklch({
+        C: token === "--ui-warning" ? Math.min(chroma, 0.17) : chroma,
+        H: nudge(hue, source.H, 12),
+        L: lightness,
+      }),
+    ]),
+  )
+}
+
+export const HARMONIES = ["analogous", "brand", "complementary", "pure"]
+
+export const grayFromBrand = (brand: string, harmony: string): ThemeTokens => {
+  const source = parseOklch(brand)
+  if (!source || harmony === "pure") {
+    return { "--ui-gray-chroma": "0", "--ui-gray-hue": "0" }
+  }
+  const hue =
+    harmony === "analogous"
+      ? (source.H + 30) % 360
+      : harmony === "complementary"
+        ? (source.H + 180) % 360
+        : source.H
+  return {
+    "--ui-gray-chroma": harmony === "complementary" ? "0.008" : "0.012",
+    "--ui-gray-hue": `${Math.round(hue)}`,
+  }
+}
 
 export const MOODS: Mood[] = [
   {
@@ -137,12 +186,29 @@ export const shuffleRemix = (
   random = Math.random,
 ): Remix => {
   const remix: Remix = { brand: null, parts: [] }
+  const brand = locked.includes("brand")
+    ? (tokens["--ui-palette-source"] ?? null)
+    : randomBrand(random)
   for (const group of GROUPS) {
     if (locked.includes(group.id)) continue
     for (const control of group.controls) {
       if (control.tier !== "basic") continue
       if (control.kind === "brand") {
-        remix.brand = randomBrand(random)
+        remix.brand = brand
+      } else if (control.id === "gray-tint" && brand) {
+        remix.parts.push({
+          control: control.id,
+          tokens: grayFromBrand(brand, pick(HARMONIES, random)),
+        })
+      } else if (control.kind === "color" && group.id === "status") {
+        if (!brand) continue
+        const status = statusFromBrand(brand)
+        if (control.token in status) {
+          remix.parts.push({
+            control: control.id,
+            tokens: { [control.token]: status[control.token] },
+          })
+        }
       } else if (control.kind === "corners") {
         remix.parts.push({
           control: control.id,

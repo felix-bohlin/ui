@@ -8,8 +8,14 @@ import {
   type ThemeTokens,
 } from "./theme"
 import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
+import { WEB_FONTS, fontStack } from "./theme-fonts"
 
-export type ChoiceOption = { label: string; tokens: ThemeTokens; value: string }
+export type ChoiceOption = {
+  group?: string
+  label: string
+  tokens: ThemeTokens
+  value: string
+}
 
 type Base = { hint?: string; id: string; label: string; tier: "basic" | "fine" }
 
@@ -61,39 +67,52 @@ const revert = (...tokens: string[]) =>
 
 export { BALANCED_PRIMARY, COMPONENT_RADII, FOLLOW_RADIUS, MONOCHROME_PRIMARY }
 
-export const FONTS = [
+const SYSTEM_FONTS = [
   {
-    label: "DM Sans",
-    load: "DM Sans",
-    value:
-      '"DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
-  },
-  {
-    label: "Geist",
-    load: "Geist",
-    value:
-      "Geist, Inter, Roboto, Helvetica Neue, Arial Nova, Nimbus Sans, Arial, sans-serif",
-  },
-  {
+    group: "System",
     label: "Native (Bootstrap)",
     value:
       'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif',
   },
   {
-    label: "Roboto",
-    load: "Roboto",
-    value:
-      "Roboto, Inter, Helvetica Neue, Arial Nova, Nimbus Sans, Arial, sans-serif",
-  },
-  {
+    group: "System",
     label: "Serif",
     value: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
   },
-  { label: "System", value: "system-ui, sans-serif" },
+  { group: "System", label: "System", value: "system-ui, sans-serif" },
 ]
 
-const fontOptions = (token: string) =>
-  FONTS.map((font) => ({
+const GROUP_LABELS = { mono: "Mono", sans: "Sans serif", serif: "Serif" }
+
+export const FONTS = [
+  ...SYSTEM_FONTS,
+  ...WEB_FONTS.filter((font) => font.category !== "mono").map((font) => ({
+    group: GROUP_LABELS[font.category],
+    label: font.family,
+    load: font.family,
+    value: fontStack(font),
+  })),
+].toSorted(
+  (a, b) => a.group.localeCompare(b.group) || a.label.localeCompare(b.label),
+)
+
+export const CODE_FONTS = [
+  {
+    group: "System",
+    label: "System mono",
+    value: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+  },
+  ...WEB_FONTS.filter((font) => font.category === "mono").map((font) => ({
+    group: "Mono",
+    label: font.family,
+    load: font.family,
+    value: fontStack(font),
+  })),
+]
+
+const fontOptions = (token: string, fonts = FONTS) =>
+  fonts.map((font) => ({
+    group: font.group,
     label: font.label,
     tokens: { [token]: font.value },
     value: font.label,
@@ -753,6 +772,7 @@ export const GROUPS: ControlGroup[] = [
         label: "Heading font",
         options: [
           {
+            group: "System",
             label: "Same as body",
             tokens: revert("--ui-font-heading"),
             value: "body",
@@ -762,24 +782,19 @@ export const GROUPS: ControlGroup[] = [
         tier: "fine",
       },
       {
-        display: "toggle",
+        display: "select",
+        font: true,
         id: "font-code",
         kind: "choice",
         label: "Code font",
         options: [
           {
+            group: "System",
             label: "Default",
             tokens: revert("--ui-font-code"),
             value: "default",
           },
-          {
-            label: "System mono",
-            tokens: {
-              "--ui-font-code":
-                "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-            },
-            value: "system",
-          },
+          ...fontOptions("--ui-font-code", CODE_FONTS),
         ],
         tier: "fine",
       },

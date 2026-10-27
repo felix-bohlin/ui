@@ -1,0 +1,368 @@
+---
+import {
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  TextField,
+} from "opui-css/astro"
+import { inlineTokens } from "../../utils/theme-art"
+import { artDefaults } from "../../utils/theme-art-defaults"
+import { changeCount } from "../../utils/theme-builder-controls"
+import { GALLERY } from "../../utils/theme-gallery"
+import { exampleTheme } from "../../utils/example-themes"
+import ThemeArt from "./ThemeArt.astro"
+
+const defaults = artDefaults()
+const gallery = GALLERY.map((entry) => ({
+  ...entry,
+  changes: changeCount(entry.theme),
+  preset: exampleTheme(entry.theme.preset)?.label ?? "Default",
+  style: inlineTokens(defaults, entry.theme),
+}))
+---
+
+<Drawer
+  class="builder-saved-drawer"
+  id="builder-saved"
+  scrollLock
+  side="inline-end"
+>
+  <DrawerHeader>
+    <DrawerTitle>Saved themes</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent class="builder-saved">
+    <form class="builder-save-form" data-save-form>
+      <TextField
+        autocomplete="off"
+        class="builder-save-name"
+        label="Save the current theme as"
+        maxlength="60"
+        name="snapshot-name"
+        placeholder="Name"
+        size="small"
+      />
+      <Button color="primary" size="small" type="submit" variant="filled"
+        >Save</Button
+      >
+    </form>
+    <p class="builder-saved-status" data-saved-status role="status"></p>
+
+    <section aria-labelledby="builder-snapshots-title" class="builder-section">
+      <h3 id="builder-snapshots-title">Yours</h3>
+      <p class="builder-saved-empty" data-snapshots-empty>
+        Nothing saved yet. Saved themes stay in this browser.
+      </p>
+      <ul class="builder-theme-list" data-snapshots></ul>
+    </section>
+
+    <section aria-labelledby="builder-gallery-title" class="builder-section">
+      <h3 id="builder-gallery-title">Gallery</h3>
+      <p class="builder-saved-hint">
+        Starting points from the community. Each one is a share link, so add
+        yours with a pull request to <code>src/utils/theme-gallery.ts</code>.
+      </p>
+      <ul class="builder-theme-list">
+        {
+          gallery.map((entry) => (
+            <li class="builder-theme" data-gallery={entry.id}>
+              <ThemeArt style={entry.style} />
+              <div class="builder-theme-text">
+                <p class="builder-theme-name">{entry.name}</p>
+                <p class="builder-theme-meta">
+                  {entry.preset}, {entry.changes}{" "}
+                  {entry.changes === 1 ? "change" : "changes"}, by{" "}
+                  {entry.author}
+                </p>
+                <p class="builder-theme-meta">{entry.description}</p>
+              </div>
+              <div class="builder-theme-actions">
+                <Button
+                  color="primary"
+                  data-gallery-use
+                  size="x-small"
+                  variant="tonal"
+                >
+                  Use
+                </Button>
+                <Button data-gallery-compare size="x-small" variant="outlined">
+                  Compare
+                </Button>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </DrawerContent>
+</Drawer>
+
+<template data-snapshot-template>
+  <li class="builder-theme">
+    <ThemeArt />
+    <div class="builder-theme-text">
+      <p class="builder-theme-name" data-name></p>
+      <p class="builder-theme-meta" data-meta></p>
+    </div>
+    <div class="builder-theme-actions">
+      <Button color="primary" data-load size="x-small" variant="tonal"
+        >Load</Button
+      >
+      <Button data-compare size="x-small" variant="outlined">Compare</Button>
+      <Button data-link size="x-small" variant="outlined">Copy link</Button>
+      <Button data-delete size="x-small" variant="transparent">Delete</Button>
+    </div>
+  </li>
+</template>
+
+<script>
+  import { exampleTheme } from "../../utils/example-themes"
+  import { copyText } from "../../utils/storage"
+  import { themeStore, type Theme } from "../../utils/theme"
+  import { inlineTokens } from "../../utils/theme-art"
+  import { changeCount } from "../../utils/theme-builder-controls"
+  import { GALLERY } from "../../utils/theme-gallery"
+  import { shareUrl } from "../../utils/theme-share"
+  import {
+    addSnapshot,
+    readSnapshots,
+    removeSnapshot,
+    writeSnapshots,
+    type Snapshot,
+  } from "../../utils/theme-snapshots"
+
+  const drawer = document.querySelector<HTMLDialogElement>("#builder-saved")
+  const template = document.querySelector<HTMLTemplateElement>(
+    "[data-snapshot-template]",
+  )
+  const controls = document.querySelector<HTMLElement>(".builder-controls")
+  if (drawer && template && controls) {
+    const defaults = JSON.parse(controls.dataset.defaults ?? "{}")
+    const form = drawer.querySelector<HTMLFormElement>("[data-save-form]")!
+    const nameField = form.querySelector<HTMLInputElement>(
+      'input[name="snapshot-name"]',
+    )!
+    const list = drawer.querySelector<HTMLElement>("[data-snapshots]")!
+    const empty = drawer.querySelector<HTMLElement>("[data-snapshots-empty]")!
+    const status = drawer.querySelector<HTMLElement>("[data-saved-status]")!
+    let snapshots = readSnapshots()
+    let timer = 0
+
+    const say = (message: string) => {
+      clearTimeout(timer)
+      status.textContent = message
+      timer = window.setTimeout(() => {
+        status.textContent = ""
+      }, 4000)
+    }
+
+    const describe = (theme: Theme) => {
+      const count = changeCount(theme)
+      return `${exampleTheme(theme.preset)?.label ?? "Default"}, ${count} ${count === 1 ? "change" : "changes"}`
+    }
+
+    const dateOf = (saved: number) =>
+      new Intl.DateTimeFormat("en", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }).format(saved)
+
+    const render = () => {
+      list.replaceChildren(
+        ...snapshots.map((snapshot) => {
+          const item = template.content.firstElementChild!.cloneNode(
+            true,
+          ) as HTMLElement
+          item.dataset.snapshot = snapshot.id
+          item
+            .querySelector<HTMLElement>("[data-art]")!
+            .setAttribute("style", inlineTokens(defaults, snapshot.theme))
+          item.querySelector("[data-name]")!.textContent = snapshot.name
+          item.querySelector("[data-meta]")!.textContent =
+            `${describe(snapshot.theme)}, saved ${dateOf(snapshot.saved)}`
+          for (const button of item.querySelectorAll("button")) {
+            button.setAttribute(
+              "aria-label",
+              `${button.textContent?.trim()} ${snapshot.name}`,
+            )
+          }
+          return item
+        }),
+      )
+      empty.hidden = snapshots.length > 0
+    }
+
+    const persist = () => {
+      writeSnapshots(snapshots)
+      render()
+    }
+
+    const load = (theme: Theme, message: string) =>
+      document.dispatchEvent(
+        new CustomEvent("builder:load", { detail: { message, theme } }),
+      )
+
+    const compare = (theme: Theme, name: string) => {
+      drawer.close()
+      document.dispatchEvent(
+        new CustomEvent("builder:compare", { detail: { name, theme } }),
+      )
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      snapshots = addSnapshot(snapshots, nameField.value, themeStore.get())
+      persist()
+      say(`Saved ${snapshots[0].name}.`)
+      nameField.value = ""
+    })
+
+    drawer.addEventListener("click", async (event) => {
+      const button = (event.target as Element).closest("button")
+      if (!button) return
+      const item = button.closest<HTMLElement>("[data-snapshot]")
+      const snapshot = snapshots.find(
+        (entry) => entry.id === item?.dataset.snapshot,
+      )
+      const galleryItem = button.closest<HTMLElement>("[data-gallery]")
+      const entry = GALLERY.find(
+        (candidate) => candidate.id === galleryItem?.dataset.gallery,
+      )
+      if (snapshot) {
+        if (button.matches("[data-load]")) {
+          drawer.close()
+          load(snapshot.theme, `Loaded ${snapshot.name}.`)
+        } else if (button.matches("[data-compare]")) {
+          compare(snapshot.theme, snapshot.name)
+        } else if (button.matches("[data-link]")) {
+          const copied = await copyText(
+            shareUrl(snapshot.theme, location.origin),
+          )
+          say(copied ? "Link copied." : "Could not copy the link.")
+        } else if (button.matches("[data-delete]")) {
+          snapshots = removeSnapshot(snapshots, snapshot.id)
+          persist()
+          say(`Deleted ${snapshot.name}.`)
+          nameField.focus()
+        }
+      } else if (entry) {
+        if (button.matches("[data-gallery-use]")) {
+          drawer.close()
+          load(entry.theme, `Using ${entry.name} from the gallery.`)
+        } else if (button.matches("[data-gallery-compare]")) {
+          compare(entry.theme, entry.name)
+        }
+      }
+    })
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === null || event.key === "opui-builder-snapshots") {
+        snapshots = readSnapshots()
+        render()
+      }
+    })
+
+    render()
+  }
+
+  export type { Snapshot }
+</script>
+
+<style>
+  .builder-saved-drawer {
+    inline-size: min(36rem, 100vi);
+  }
+
+  .builder-saved {
+    display: grid;
+    gap: var(--size-5);
+  }
+
+  .builder-save-form {
+    align-items: end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+
+    :global(.builder-save-name) {
+      flex: 1 1 12rem;
+    }
+  }
+
+  .builder-saved-status {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+    min-block-size: 1lh;
+  }
+
+  .builder-section {
+    display: grid;
+    gap: var(--size-3);
+
+    h3 {
+      font-size: var(--ui-font-size-h5);
+      margin: 0;
+    }
+  }
+
+  .builder-saved-empty,
+  .builder-saved-hint {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-theme-list {
+    display: grid;
+    gap: var(--size-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .builder-theme {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--radius-3);
+    display: grid;
+    gap: var(--size-2) var(--size-3);
+    grid-template-columns: 8rem minmax(0, 1fr);
+    padding: var(--size-3);
+
+    :global(.theme-art) {
+      grid-row: 1 / span 2;
+    }
+  }
+
+  .builder-theme-text {
+    display: grid;
+    gap: var(--size-1);
+    min-inline-size: 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-theme-name {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-theme-meta {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .builder-theme-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+</style>

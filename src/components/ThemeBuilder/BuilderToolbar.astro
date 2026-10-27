@@ -42,7 +42,28 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
       >
       <span>Shuffle</span>
     </Button>
+    <Button
+      aria-keyshortcuts="Control+Z Meta+Z"
+      data-undo-history
+      disabled
+      size="small"
+      variant="outlined">Undo</Button
+    >
+    <Button
+      aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
+      data-redo-history
+      disabled
+      size="small"
+      variant="outlined">Redo</Button
+    >
     <Button data-reset-all size="small" variant="transparent">Reset</Button>
+    <Button
+      command="show-modal"
+      commandfor="builder-saved"
+      data-saved
+      size="small"
+      variant="outlined">Saved</Button
+    >
     <Button
       class="builder-contrast"
       command="show-modal"
@@ -79,11 +100,10 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
   import { copyText } from "../../utils/storage"
   import { themeStore, type Theme } from "../../utils/theme"
   import { changeCount } from "../../utils/theme-builder-controls"
+  import { createHistory } from "../../utils/theme-history"
   import { SHARE_PARAM, decodeTheme, shareUrl } from "../../utils/theme-share"
 
-  type Undo = { focus: HTMLElement; restore: () => void }
-
-  type Say = { before?: Theme; focus?: HTMLElement; message: string }
+  type Say = { focus?: HTMLElement; message: string }
 
   const toolbar = document.querySelector<HTMLElement>(".builder-toolbar")
   if (toolbar) {
@@ -101,23 +121,51 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     const statusBox = document.querySelector<HTMLElement>("[data-toast]")!
     const status = document.querySelector<HTMLElement>("[data-toast-text]")!
     const undoButton = document.querySelector<HTMLButtonElement>("[data-undo]")!
-    let pending: (Undo & { state: string }) | null = null
+    const undoHistory = toolbar.querySelector<HTMLButtonElement>(
+      "[data-undo-history]",
+    )!
+    const redoHistory = toolbar.querySelector<HTMLButtonElement>(
+      "[data-redo-history]",
+    )!
+    const stack = createHistory()
+    let restoring = false
     let clearTimer = 0
-
-    const stateOf = () => JSON.stringify(themeStore.get())
 
     const clear = () => {
       status.textContent = ""
       statusBox.hidden = true
     }
 
-    const say = (message: string, undo?: Undo) => {
+    const say = (message: string, undoable = false) => {
       clearTimeout(clearTimer)
       status.textContent = message
       statusBox.hidden = false
-      pending = undo ? { ...undo, state: stateOf() } : null
-      undoButton.hidden = !undo
-      if (!undo) clearTimer = window.setTimeout(clear, 6000)
+      undoButton.hidden = !undoable
+      clearTimer = window.setTimeout(clear, undoable ? 8000 : 6000)
+    }
+
+    const syncHistory = () => {
+      const active = document.activeElement
+      undoHistory.disabled = !stack.canUndo
+      redoHistory.disabled = !stack.canRedo
+      if (active === undoHistory && undoHistory.disabled) {
+        ;(redoHistory.disabled ? shuffleButton : redoHistory).focus({
+          preventScroll: true,
+        })
+      } else if (active === redoHistory && redoHistory.disabled) {
+        ;(undoHistory.disabled ? shuffleButton : undoHistory).focus({
+          preventScroll: true,
+        })
+      }
+    }
+
+    const restore = async (theme: Theme | null, message: string) => {
+      if (!theme) return
+      restoring = true
+      await morph(() => themeStore.set(theme))
+      restoring = false
+      syncHistory()
+      say(message)
     }
 
     const undoable = async (
@@ -125,9 +173,9 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
       focus: HTMLElement,
       action: () => Promise<void>,
     ) => {
-      const theme = themeStore.get()
       await action()
-      say(message, { focus, restore: () => themeStore.set(theme) })
+      focus.focus({ preventScroll: true })
+      say(message, true)
     }
 
     const describe = (theme: Theme) => {
@@ -151,22 +199,38 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
         count === 0
           ? "No changes"
           : `${count} ${count === 1 ? "change" : "changes"}`
-      if (pending && stateOf() !== pending.state) {
-        if (document.activeElement === undoButton) pending.focus.focus()
-        pending = null
-        undoButton.hidden = true
-        clear()
+      if (!restoring) {
+        stack.push(theme)
+        syncHistory()
       }
     }
 
     document.addEventListener("builder:say", (event) => {
-      const { before, focus, message } = (event as CustomEvent<Say>).detail
-      if (before && focus) {
-        say(message, { focus, restore: () => themeStore.set(before) })
-      } else {
-        say(message)
-      }
+      const { focus, message } = (event as CustomEvent<Say>).detail
+      say(message, !!focus)
     })
+
+    document.addEventListener("keydown", (event) => {
+      const target = event.target as HTMLElement | null
+      if (
+        !(event.ctrlKey || event.metaKey) ||
+        event.altKey ||
+        event.key.toLowerCase() !== "z" ||
+        target?.closest("input, textarea, select, [contenteditable]")
+      ) {
+        return
+      }
+      event.preventDefault()
+      if (event.shiftKey) restore(stack.redo(), "Redone.")
+      else restore(stack.undo(), "Undone.")
+    })
+
+    undoHistory.addEventListener("click", () =>
+      restore(stack.undo(), "Undone."),
+    )
+    redoHistory.addEventListener("click", () =>
+      restore(stack.redo(), "Redone."),
+    )
 
     document.addEventListener("builder:contrast", (event) => {
       const { failing } = (event as CustomEvent<{ failing: number }>).detail
@@ -196,13 +260,9 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
         say(copied ? "Link copied." : "Could not copy the link.")
       })
 
-    undoButton.addEventListener("click", async () => {
-      if (!pending) return
-      const { focus, restore } = pending
-      pending = null
-      await morph(restore)
-      focus.focus()
-      say("Undone.")
+    undoButton.addEventListener("click", () => {
+      undoHistory.focus({ preventScroll: true })
+      restore(stack.undo(), "Undone.")
     })
 
     const params = new URLSearchParams(location.search)
@@ -248,6 +308,7 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
       }
     }
 
+    stack.push(themeStore.get())
     sync()
     themeStore.subscribe(sync)
   }

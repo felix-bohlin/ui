@@ -1,8 +1,20 @@
 ---
-import { Select, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import {
+  Select,
+  Tabs,
+  TabsItem,
+  TabsLabel,
+  TabsPanel,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
 import { allBlocks, blockPreviewHref } from "../../utils/blocks"
+import { artDefaults } from "../../utils/theme-art-defaults"
 import PreviewSpecimen from "./PreviewSpecimen.astro"
+import PreviewStates from "./PreviewStates.astro"
 import PreviewView from "./PreviewView.astro"
+
+const defaults = JSON.stringify(artDefaults())
 
 const FRAME_WIDTHS: Record<string, number> = {
   "account-settings": 720,
@@ -32,7 +44,7 @@ const { link } = Astro.locals
 const siteHref = link("/")
 ---
 
-<section aria-label="Preview" class="builder-preview">
+<section aria-label="Preview" class="builder-preview" data-defaults={defaults}>
   <Tabs class="preview-tabs" name="preview-tab">
     <TabsItem checked value="components">
       <TabsLabel>Components</TabsLabel>
@@ -139,6 +151,80 @@ const siteHref = link("/")
         </div>
       </TabsPanel>
     </TabsItem>
+    <TabsItem value="states">
+      <TabsLabel>States</TabsLabel>
+      <TabsPanel data-tab="states">
+        <div class="preview-toolbar">
+          <PreviewView name="preview-states" />
+        </div>
+        <p class="preview-note" data-more-note hidden>
+          Your device or the site's high contrast setting asks for more
+          contrast, so the preview always shows it.
+        </p>
+        <div class="preview-panes" data-view="both">
+          {
+            schemes.map(({ label, scheme }) => (
+              <div
+                aria-labelledby={`preview-states-${scheme}`}
+                class={`preview-pane ui-palette ui-${scheme}`}
+                data-scheme={scheme}
+                role="group"
+              >
+                <p
+                  class="preview-pane-label"
+                  data-label={label}
+                  id={`preview-states-${scheme}`}
+                >
+                  {label}
+                </p>
+                <PreviewStates scheme={scheme} />
+              </div>
+            ))
+          }
+        </div>
+      </TabsPanel>
+    </TabsItem>
+    <TabsItem value="compare">
+      <TabsLabel>Compare</TabsLabel>
+      <TabsPanel data-tab="compare">
+        <div class="preview-toolbar">
+          <ToggleGroup
+            aria-label="Color mode"
+            class="preview-view"
+            name="preview-compare-scheme"
+            size="small"
+          >
+            <ToggleButton checked data-compare-scheme value="light"
+              >Light</ToggleButton
+            >
+            <ToggleButton data-compare-scheme value="dark">Dark</ToggleButton>
+          </ToggleGroup>
+          <p class="preview-note preview-compare-note" data-compare-note>
+            Pick Compare on a saved or gallery theme to see it beside yours.
+          </p>
+        </div>
+        <div class="preview-panes preview-compare" data-view="both" hidden>
+          <div
+            aria-labelledby="preview-compare-yours"
+            class="preview-pane ui-palette ui-light"
+            data-compare-pane="yours"
+            role="group"
+          >
+            <p class="preview-pane-label" id="preview-compare-yours">Yours</p>
+            <PreviewSpecimen scheme="light" />
+          </div>
+          <div
+            aria-labelledby="preview-compare-other"
+            class="preview-pane ui-palette ui-light"
+            data-compare-pane="other"
+            role="group"
+          >
+            <p class="preview-pane-label" id="preview-compare-other"></p>
+            <PreviewSpecimen scheme="dark" />
+          </div>
+        </div>
+      </TabsPanel>
+    </TabsItem>
     <TabsItem value="site">
       <TabsLabel>This site</TabsLabel>
       <TabsPanel data-tab="site">
@@ -160,7 +246,9 @@ const siteHref = link("/")
 
 <script>
   import { readStored, writeStored } from "../../utils/storage"
-  import { themeStore } from "../../utils/theme"
+  import { themeStore, type Theme } from "../../utils/theme"
+  import { inlineTokens } from "../../utils/theme-art"
+  import { spotlightFor } from "../../utils/theme-spotlight"
 
   type View = "both" | "dark" | "light"
 
@@ -187,6 +275,16 @@ const siteHref = link("/")
       ...root.querySelectorAll<HTMLIFrameElement>(".preview-frame iframe"),
     ]
     const site = root.querySelector<HTMLIFrameElement>("[data-site]")!
+    const defaults = JSON.parse(root.dataset.defaults ?? "{}")
+    const compare = root.querySelector<HTMLElement>(".preview-compare")!
+    const compareNote = root.querySelector<HTMLElement>("[data-compare-note]")!
+    const comparePanes = {
+      other: root.querySelector<HTMLElement>('[data-compare-pane="other"]')!,
+      yours: root.querySelector<HTMLElement>('[data-compare-pane="yours"]')!,
+    }
+    let comparing: { name: string; theme: Theme } | null = null
+    let compareScheme = "light"
+    let spotTimer = 0
     const tabs = [
       ...root.querySelectorAll<HTMLInputElement>('input[name="preview-tab"]'),
     ]
@@ -255,7 +353,9 @@ const siteHref = link("/")
     const render = () => {
       const forced = pageMore()
       const more = state.more || forced
-      for (const pane of root.querySelectorAll<HTMLElement>(".preview-pane")) {
+      for (const pane of root.querySelectorAll<HTMLElement>(
+        ".preview-pane[data-scheme]",
+      )) {
         pane.hidden =
           state.view !== "both" && pane.dataset.scheme !== state.view
         pane.classList.toggle("ui-contrast-more", more)
@@ -287,6 +387,63 @@ const siteHref = link("/")
       select.value = state.block
       open.href = option().dataset.href!
       loadFrames()
+      renderCompare()
+    }
+
+    const renderCompare = () => {
+      compare.hidden = !comparing
+      compareNote.hidden = !!comparing
+      for (const pane of Object.values(comparePanes)) {
+        pane.classList.toggle("ui-light", compareScheme === "light")
+        pane.classList.toggle("ui-dark", compareScheme === "dark")
+      }
+      if (!comparing) return
+      comparePanes.other.querySelector(".preview-pane-label")!.textContent =
+        comparing.name
+      comparePanes.other.setAttribute(
+        "style",
+        inlineTokens(defaults, comparing.theme),
+      )
+      comparePanes.yours.setAttribute(
+        "style",
+        inlineTokens(defaults, themeStore.get()),
+      )
+    }
+
+    const spotlight = (id: string) => {
+      const selector = spotlightFor(id)
+      if (!selector) return
+      if (state.tab !== "components") {
+        state.tab = "components"
+        save()
+        render()
+      }
+      const panel = root.querySelector<HTMLElement>('[data-tab="components"]')!
+      clearTimeout(spotTimer)
+      for (const lit of panel.querySelectorAll(".is-spotlit")) {
+        lit.classList.remove("is-spotlit")
+      }
+      const hits = [...panel.querySelectorAll(".preview-pane")].flatMap(
+        (pane) => [...pane.querySelectorAll(selector)],
+      )
+      for (const hit of hits) hit.classList.add("is-spotlit")
+      panel.classList.toggle("is-spotlighting", hits.length > 0)
+      const first = hits[0]
+      const scroller = first?.closest<HTMLElement>(
+        ".builder-canvas, .ui-content",
+      )
+      if (first && scroller) {
+        const target = first.getBoundingClientRect()
+        const box = scroller.getBoundingClientRect()
+        scroller.scrollBy({
+          behavior: "smooth",
+          top: target.top - box.top - box.height / 2 + target.height / 2,
+        })
+      }
+      spotTimer = window.setTimeout(() => {
+        for (const hit of hits) hit.classList.remove("is-spotlit")
+        panel.classList.remove("is-spotlighting")
+      }, 2400)
     }
 
     root.addEventListener("change", ({ target }) => {
@@ -297,6 +454,10 @@ const siteHref = link("/")
       } else if (target.matches("[data-more]")) {
         state.more = target.checked
       } else if (!target.checked) {
+        return
+      } else if (target.matches("[data-compare-scheme]")) {
+        compareScheme = target.value
+        renderCompare()
         return
       } else if (target.matches("[data-view]")) {
         state.view = target.value as View
@@ -335,7 +496,26 @@ const siteHref = link("/")
     })
     for (const frame of frames) boxes.observe(frame.parentElement!)
 
-    themeStore.subscribe(() => requestAnimationFrame(() => frames.forEach(fit)))
+    document.addEventListener("builder:compare", (event) => {
+      comparing = (event as CustomEvent<{ name: string; theme: Theme }>).detail
+      state.tab = "compare"
+      save()
+      render()
+      root
+        .querySelector<HTMLInputElement>(
+          'input[name="preview-tab"][value="compare"]',
+        )
+        ?.focus({ preventScroll: true })
+    })
+    document.addEventListener("builder:spotlight", (event) =>
+      spotlight((event as CustomEvent<string>).detail),
+    )
+    themeStore.subscribe(() =>
+      requestAnimationFrame(() => {
+        frames.forEach(fit)
+        renderCompare()
+      }),
+    )
     new MutationObserver(render).observe(document.documentElement, {
       attributeFilter: ["class"],
       attributes: true,
@@ -431,6 +611,29 @@ const siteHref = link("/")
       scale: var(--frame-scale);
       transform-origin: 0 0;
     }
+  }
+
+  .preview-compare-note {
+    margin: 0;
+  }
+
+  .preview-compare[hidden] {
+    display: none;
+  }
+
+  .is-spotlighting :global(.specimen-block:not(:has(.is-spotlit))),
+  .is-spotlighting
+    :global(
+      .specimen-block:has(.is-spotlit) > *:not(:has(.is-spotlit), .is-spotlit)
+    ) {
+    opacity: 0.35;
+    transition: opacity var(--ui-duration) var(--ui-ease);
+  }
+
+  .is-spotlighting :global(.is-spotlit) {
+    border-radius: var(--ui-radius-small);
+    outline: var(--ui-border-width-thick) solid var(--ui-primary);
+    outline-offset: 3px;
   }
 
   .preview-site-box {

@@ -1,10 +1,11 @@
 ---
-import { Chip } from "opui-css/astro"
+import { Button, Chip, TextField } from "opui-css/astro"
 import themeCss from "../../../packages/opui/css/theme.css?raw"
 import { GROUPS, libraryDefaults } from "../../utils/theme-builder-controls"
 import { MOODS } from "../../utils/theme-remix"
 import BuilderControl from "./BuilderControl.astro"
 import BuilderPresets from "./BuilderPresets.astro"
+import BuilderTokens from "./BuilderTokens.astro"
 
 const defaults = JSON.stringify(libraryDefaults(themeCss))
 ---
@@ -66,6 +67,39 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
                   take them back.
                 </p>
               </div>
+              <div class="builder-paste" data-paste>
+                <p class="builder-paste-title" id="builder-paste-title">
+                  Paste anything
+                </p>
+                <div class="builder-paste-row">
+                  <TextField
+                    aria-describedby="builder-paste-hint"
+                    autocomplete="off"
+                    class="builder-paste-field"
+                    hideLabel
+                    label="Paste a color, a theme.css or an image"
+                    name="builder-paste"
+                    placeholder="A color, a theme.css or an image"
+                    size="small"
+                    spellcheck="false"
+                  />
+                  <Button data-paste-image size="small" variant="outlined">
+                    Choose image
+                  </Button>
+                  <input
+                    accept="image/*"
+                    aria-label="Image for the brand color"
+                    class="ui-sr-only"
+                    data-paste-file
+                    type="file"
+                  />
+                </div>
+                <p class="builder-paste-hint" id="builder-paste-hint">
+                  A hex, rgb or oklch color becomes the brand color. A theme.css
+                  from this builder replaces the theme. An image gives its main
+                  color. You can also drop them here.
+                </p>
+              </div>
             </div>
           )}
           <div class="builder-tier" data-tier="basic">
@@ -92,6 +126,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       )
     })
   }
+  <BuilderTokens />
 </section>
 
 <script>
@@ -109,13 +144,17 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     CORNERS,
     cornersTokens,
     cornersUpdate,
+    isSafeToken,
     themeStore,
     type Theme,
     type ThemeTokens,
   } from "../../utils/theme"
-  import { switchPreset } from "../../utils/theme-brand"
+  import { resolveOklch, switchPreset } from "../../utils/theme-brand"
+  import { imageColor, parsePaste, type Paste } from "../../utils/theme-import"
+  import { resolveTokens } from "../../utils/tokens-export"
   import {
     BALANCED_PRIMARY,
+    BUILDER_TOKENS,
     COMPONENT_RADII,
     CONTROLS,
     FOLLOW_RADIUS,
@@ -174,6 +213,15 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       ...document.querySelectorAll<HTMLButtonElement>("[data-lock]"),
     ]
     const presets = root.querySelector<HTMLElement>("[data-presets]")!
+    const pasteField = root.querySelector<HTMLInputElement>(
+      'input[name="builder-paste"]',
+    )!
+    const pasteFile = root.querySelector<HTMLInputElement>("[data-paste-file]")!
+    const tokensGroup = root.querySelector<HTMLElement>(
+      '[data-group="tokens"]',
+    )!
+    const tokenRows = [...root.querySelectorAll<HTMLElement>("[data-token]")]
+    let tokenTimer = 0
     const moodButtons = [
       ...root.querySelectorAll<HTMLButtonElement>("[data-mood]"),
     ]
@@ -640,6 +688,31 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         button.setAttribute("aria-pressed", `${holds}`)
       }
 
+      const extra = Object.keys(theme.tokens).filter(
+        (token) => !BUILDER_TOKENS.includes(token),
+      ).length
+      const tokensBadge =
+        tokensGroup.querySelector<HTMLElement>("[data-count]")!
+      tokensBadge.hidden = extra === 0
+      tokensBadge.textContent = extra === 1 ? "1 token" : `${extra} tokens`
+      const tokensRail = document.querySelector<HTMLElement>(
+        '[data-room-count="tokens"]',
+      )
+      if (tokensRail) {
+        tokensRail.hidden = extra === 0
+        tokensRail.textContent = `${extra}`
+        tokensRail.setAttribute("aria-label", tokensBadge.textContent)
+      }
+      for (const row of tokenRows) {
+        const name = row.dataset.token!
+        const input = row.querySelector("input")!
+        if (document.activeElement !== input) {
+          input.value = theme.tokens[name] ?? ""
+        }
+        row.classList.toggle("is-set", name in theme.tokens)
+      }
+      scheduleTokenValues()
+
       const total = changeCount(theme)
       for (const radio of presets.querySelectorAll<HTMLInputElement>(
         "input[type=radio]",
@@ -728,9 +801,128 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       write(update)
     }
 
+    const renderTokenValues = () => {
+      tokenTimer = 0
+      if (tokensGroup.hidden) return
+      const resolved = resolveTokens(root)
+      for (const row of tokenRows) {
+        const name = row.dataset.token!
+        for (const scheme of ["dark", "light"] as const) {
+          const cell = row.querySelector<HTMLElement>(`[data-${scheme}]`)!
+          const value = resolved[scheme][name] ?? ""
+          cell.querySelector("[data-text]")!.textContent = value || "unset"
+          const swatch = cell.querySelector<HTMLElement>("[data-swatch]")!
+          swatch.hidden = !value.startsWith("oklch(")
+          swatch.style.backgroundColor = value
+        }
+      }
+    }
+
+    const scheduleTokenValues = () => {
+      if (tokenTimer) return
+      tokenTimer = window.setTimeout(renderTokenValues, 150)
+    }
+
+    const useBrand = (color: string, message: string) => {
+      const before = themeStore.get()
+      dual.delete("brand")
+      picked.delete("brand")
+      morph(() => write(applyBrand(color))).then(() =>
+        say(message, pasteField, before),
+      )
+    }
+
+    const usePaste = (paste: Paste) => {
+      if (paste.kind === "none") {
+        say("Nothing to use there. Paste a color, a theme.css or an image.")
+        return
+      }
+      if (paste.kind === "css") {
+        const before = themeStore.get()
+        const count = Object.keys(paste.theme.tokens).length
+        morph(() => themeStore.set(paste.theme)).then(() =>
+          say(
+            `Loaded ${exampleTheme(paste.theme.preset)?.label ?? "Default"} with ${count} ${count === 1 ? "token" : "tokens"} from the CSS.`,
+            pasteField,
+            before,
+          ),
+        )
+        return
+      }
+      const color = resolveOklch(paste.colors[0])
+      if (!color) {
+        say(`Could not read ${paste.colors[0]} as a color.`)
+        return
+      }
+      useBrand(
+        color,
+        paste.colors.length > 1
+          ? `Used the first of ${paste.colors.length} colors, ${color}, as the brand color.`
+          : `Brand color set to ${color}.`,
+      )
+    }
+
+    const useImage = async (file: File) => {
+      try {
+        const bitmap = await createImageBitmap(file)
+        const size = 64
+        const canvas = document.createElement("canvas")
+        canvas.width = size
+        canvas.height = size
+        const context = canvas.getContext("2d")!
+        context.drawImage(bitmap, 0, 0, size, size)
+        bitmap.close()
+        const color = imageColor(context.getImageData(0, 0, size, size).data)
+        if (!color) {
+          say("That image has no color to take. Try one with a strong hue.")
+          return
+        }
+        useBrand(color, `Brand color set to ${color} from the image.`)
+      } catch {
+        say("Could not read that image.")
+      }
+    }
+
+    const useDrop = (transfer: DataTransfer | null) => {
+      const file = [...(transfer?.files ?? [])].find((entry) =>
+        entry.type.startsWith("image/"),
+      )
+      if (file) {
+        useImage(file)
+        return true
+      }
+      const text = transfer?.getData("text") ?? ""
+      if (text.trim() === "") return false
+      usePaste(parsePaste(text))
+      return true
+    }
+
     const onChange = (event: Event) => {
       const target = event.target
       if (!(target instanceof HTMLElement)) return
+      if (target === pasteField) {
+        if (event.type !== "change" || pasteField.value.trim() === "") return
+        usePaste(parsePaste(pasteField.value))
+        pasteField.value = ""
+        return
+      }
+      if (
+        target instanceof HTMLInputElement &&
+        target.name.startsWith("token-")
+      ) {
+        if (event.type !== "change") return
+        const name = `--${target.name.slice("token-".length)}`
+        const value = target.value.trim()
+        if (value === "") {
+          write({ [name]: null })
+        } else if (isSafeToken(name, value)) {
+          write({ [name]: value })
+        } else {
+          say(`${value} is not a value ${name} can take.`)
+          target.value = theme.tokens[name] ?? ""
+        }
+        return
+      }
       if (
         target instanceof HTMLInputElement &&
         target.name === "builder-preset"
@@ -803,6 +995,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         button.setAttribute("aria-current", `${button.dataset.room === id}`)
       }
       root.scrollTo({ top: 0 })
+      if (id === "tokens") scheduleTokenValues()
       if (focus) {
         groups
           .find((group) => group.dataset.group === id)!
@@ -823,6 +1016,12 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (query === "") {
         summary.hidden = true
         for (const element of elements.values()) element.hidden = false
+        for (const row of tokenRows) row.hidden = false
+        for (const section of tokensGroup.querySelectorAll<HTMLElement>(
+          "[data-token-section]",
+        )) {
+          section.hidden = false
+        }
         for (const group of groups) {
           group
             .querySelector<HTMLElement>("[data-fine-title]")
@@ -846,12 +1045,31 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             if (element.dataset.tier === "fine") inFine++
           }
         }
+        if (group === tokensGroup) {
+          for (const section of group.querySelectorAll<HTMLElement>(
+            "[data-token-section]",
+          )) {
+            let inSection = 0
+            for (const row of section.querySelectorAll<HTMLElement>(
+              "[data-token]",
+            )) {
+              const hit = (row.dataset.search ?? "")
+                .toLowerCase()
+                .includes(query)
+              row.hidden = !hit
+              if (hit) inSection++
+            }
+            section.hidden = inSection === 0
+            inGroup += inSection
+          }
+        }
         group.hidden = inGroup === 0
         group
           .querySelector<HTMLElement>("[data-fine-title]")
           ?.toggleAttribute("hidden", inFine === 0)
         shown += inGroup
       }
+      scheduleTokenValues()
       for (const button of rooms) button.setAttribute("aria-current", "false")
       summary.hidden = false
       summary.textContent =
@@ -922,6 +1140,20 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         )
         return
       }
+      if (target.closest("[data-paste-image]")) {
+        pasteFile.click()
+        return
+      }
+      const spot = target.closest<HTMLButtonElement>("[data-spot]")
+      if (spot) {
+        document.dispatchEvent(
+          new CustomEvent("builder:spotlight", {
+            detail:
+              spot.closest<HTMLElement>("[data-control]")!.dataset.control,
+          }),
+        )
+        return
+      }
       const dualButton = target.closest<HTMLButtonElement>("[data-dual]")
       const button = target.closest<HTMLButtonElement>("[data-reset]")
       const element = (dualButton ?? button)?.closest<HTMLElement>(
@@ -979,6 +1211,40 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         search.value = ""
         applySearch()
       }
+    })
+
+    pasteField.addEventListener("paste", (event) => {
+      if (useDrop(event.clipboardData)) event.preventDefault()
+    })
+    const pasteBox = root.querySelector<HTMLElement>("[data-paste]")!
+    pasteBox.addEventListener("dragover", (event) => {
+      event.preventDefault()
+      pasteBox.classList.add("is-dropping")
+    })
+    pasteBox.addEventListener("dragleave", () =>
+      pasteBox.classList.remove("is-dropping"),
+    )
+    pasteBox.addEventListener("drop", (event) => {
+      event.preventDefault()
+      pasteBox.classList.remove("is-dropping")
+      useDrop(event.dataTransfer)
+    })
+    pasteFile.addEventListener("change", () => {
+      const file = pasteFile.files?.[0]
+      if (file) useImage(file)
+      pasteFile.value = ""
+    })
+
+    document.addEventListener("builder:load", (event) => {
+      const { message, theme: loaded } = (
+        event as CustomEvent<{ message: string; theme: Theme }>
+      ).detail
+      const before = themeStore.get()
+      dual.clear()
+      picked.clear()
+      morph(() => themeStore.set(loaded)).then(() =>
+        say(message, presets.querySelector("input:checked") ?? root, before),
+      )
     })
 
     document.addEventListener("builder:shuffle", shuffle)
@@ -1118,6 +1384,44 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   }
 
   .builder-moods-hint {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+  }
+
+  .builder-paste {
+    border: var(--ui-border-width) dashed var(--ui-border-color);
+    border-radius: var(--radius-3);
+    display: grid;
+    gap: var(--size-2);
+    padding: var(--size-3);
+
+    &.is-dropping {
+      background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+      border-color: var(--ui-primary);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-paste-title {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-paste-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+
+    :global(.builder-paste-field) {
+      flex: 1 1 12rem;
+    }
+  }
+
+  .builder-paste-hint {
     color: var(--ui-text-subtle);
     font-size: var(--ui-font-size-caption);
   }

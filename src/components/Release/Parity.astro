@@ -1,0 +1,532 @@
+---
+import { Chip } from "opui-css/astro"
+import {
+  examplePath,
+  exampleModules,
+  exampleSources,
+} from "../../utils/examples"
+import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
+import AstroLogo from "../AstroLogo.astro"
+import CodeGroup from "../CodeGroup.astro"
+import Html5Logo from "../Html5Logo.astro"
+import ReactLogo from "../ReactLogo.astro"
+import SvelteLogo from "../SvelteLogo.astro"
+import VueLogo from "../VueLogo.astro"
+
+const id = "parity"
+const slug = "card"
+const name = "Clickable"
+
+const logos = {
+  astro: AstroLogo,
+  html: Html5Logo,
+  react: ReactLogo,
+  svelte: SvelteLogo,
+  vue: VueLogo,
+}
+
+const langs: Partial<Record<FrameworkId, string>> = { react: "tsx" }
+
+const source = (framework: FrameworkId) => {
+  const code = exampleSources[examplePath(slug, name, framework)]
+  if (!code) {
+    throw new Error(`Parity.astro: ${slug}/${name} has no ${framework} file`)
+  }
+  return code
+}
+
+const tiles = FRAMEWORKS.map(({ id: framework, label }) => ({
+  Component:
+    framework === "html"
+      ? undefined
+      : exampleModules[examplePath(slug, name, framework)]?.default,
+  Logo: logos[framework],
+  framework,
+  html: framework === "html" ? source("html") : undefined,
+  label,
+}))
+
+const tabs = tiles.map(({ framework, label }) => ({
+  code: source(framework),
+  lang: langs[framework] ?? framework,
+  title: label,
+}))
+---
+
+<div class="parity ui-not-rich-text" id={id}>
+  <ol class="parity-grid">
+    {
+      tiles.map(({ Component, Logo, framework, html, label }, index) => (
+        <li
+          class="parity-tile"
+          data-framework={framework}
+          style={`--parity-index: ${index}`}
+        >
+          <p class="parity-tile-label">
+            <span aria-hidden="true" class="parity-tile-logo">
+              <Logo />
+            </span>
+            {label}
+          </p>
+          <div class="parity-render example-preview">
+            {html ? <Fragment set:html={html} /> : Component && <Component />}
+          </div>
+          <div class="parity-result" />
+        </li>
+      ))
+    }
+  </ol>
+  <template class="parity-chip-reference">
+    <Chip label="Reference" severity="neutral" size="small" />
+  </template>
+  <template class="parity-chip-identical">
+    <Chip label="Identical markup" severity="success" size="small" />
+  </template>
+  <template class="parity-chip-differs">
+    <Chip label="Differs from Astro" severity="warning" size="small" />
+  </template>
+  <CodeGroup tabs={tabs} />
+</div>
+
+<style is:global>
+  .parity {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-4);
+    margin-block: var(--ui-space-5);
+
+    & .code-group {
+      margin-block: 0;
+    }
+  }
+
+  .parity-grid {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @container (inline-size >= 52rem) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .parity-tile {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: grid;
+    font-family: var(--ui-font-body);
+    gap: var(--ui-space-3);
+    grid-template-rows: auto 1fr auto;
+    min-inline-size: 0;
+    padding: var(--ui-space-3);
+  }
+
+  .parity-tile-label {
+    align-items: center;
+    display: flex;
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    gap: var(--ui-space-2);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .parity-tile-logo {
+    display: inline-flex;
+
+    & svg {
+      block-size: 1.25rem;
+      inline-size: 1.25rem;
+    }
+  }
+
+  .parity-render {
+    display: grid;
+    gap: var(--ui-space-3);
+
+    & h3 {
+      font-size: var(--ui-font-size-h6);
+      margin: 0;
+    }
+  }
+
+  .parity-result {
+    display: grid;
+    gap: var(--ui-space-2);
+    justify-items: start;
+
+    & .ui-chip {
+      transition-delay: calc(var(--parity-index) * 60ms * var(--ui-motion));
+      transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+      transition-property: opacity, scale;
+      transition-timing-function: var(--ui-ease-enter);
+
+      @starting-style {
+        opacity: 0;
+        scale: 0.6;
+      }
+    }
+
+    @media (scripting: none) {
+      display: none;
+    }
+  }
+
+  .parity-diff {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    inline-size: 100%;
+    line-height: 1.6;
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--ui-space-2);
+    tab-size: 2;
+
+    & del,
+    & ins {
+      display: block;
+      text-decoration: none;
+    }
+
+    & del {
+      background-color: oklch(from var(--ui-critical) l c h / 20%);
+      color: var(--ui-critical-text, var(--ui-text));
+    }
+
+    & ins {
+      background-color: oklch(from var(--ui-success) l c h / 20%);
+      color: var(--ui-success-text, var(--ui-text));
+    }
+
+    & .parity-gap {
+      display: block;
+      opacity: 0.6;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    .parity-tile {
+      animation: parity-rise linear both;
+      animation-range: entry calc(var(--parity-index) * 8%) entry
+        calc(50% + var(--parity-index) * 8%);
+      animation-timeline: view();
+    }
+  }
+
+  @keyframes parity-rise {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parity-tile {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { diffLines } from "diff"
+
+  const DROPPED_ELEMENTS = new Set(["script", "style"])
+
+  const DROPPED_ATTRIBUTE =
+    /^(data-astro-|data-svelte-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
+
+  const ID_REFERENCE_ATTRIBUTES = new Set([
+    "anchor",
+    "aria-activedescendant",
+    "aria-controls",
+    "aria-describedby",
+    "aria-details",
+    "aria-errormessage",
+    "aria-flowto",
+    "aria-labelledby",
+    "aria-owns",
+    "commandfor",
+    "for",
+    "form",
+    "headers",
+    "interestfor",
+    "list",
+    "popovertarget",
+  ])
+
+  const VOID_ELEMENTS = new Set([
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "source",
+    "track",
+    "wbr",
+  ])
+
+  const INLINE_ELEMENTS = new Set([
+    "a",
+    "abbr",
+    "b",
+    "bdi",
+    "bdo",
+    "button",
+    "cite",
+    "code",
+    "data",
+    "del",
+    "dfn",
+    "em",
+    "i",
+    "img",
+    "input",
+    "ins",
+    "kbd",
+    "label",
+    "mark",
+    "meter",
+    "output",
+    "progress",
+    "q",
+    "s",
+    "samp",
+    "select",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "svg",
+    "textarea",
+    "time",
+    "u",
+    "var",
+  ])
+
+  const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?_R_\w+_)$/
+
+  const CONTEXT = 2
+
+  const childrenOf = (node: Node) =>
+    node instanceof HTMLTemplateElement
+      ? [...node.content.childNodes]
+      : [...node.childNodes]
+
+  const collectIds = (nodes: Node[], ids: Map<string, string>) => {
+    for (const node of nodes) {
+      if (!(node instanceof Element) || DROPPED_ELEMENTS.has(node.localName)) {
+        continue
+      }
+      const id = node.getAttribute("id")
+      if (id && !ids.has(id)) ids.set(id, `id-${ids.size + 1}`)
+      const name = node.getAttribute("name")
+      if (name && GENERATED_NAME.test(name) && !ids.has(`name:${name}`)) {
+        ids.set(`name:${name}`, `name-${ids.size + 1}`)
+      }
+      collectIds(childrenOf(node), ids)
+    }
+  }
+
+  const normalizeAttribute = (
+    name: string,
+    value: string,
+    ids: Map<string, string>,
+  ) => {
+    if (name === "class") {
+      return value.split(/\s+/).filter(Boolean).toSorted().join(" ")
+    }
+    if (name === "id") return ids.get(value) ?? value
+    if (name === "name") return ids.get(`name:${value}`) ?? value
+    if (ID_REFERENCE_ATTRIBUTES.has(name)) {
+      return value
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((token) => ids.get(token) ?? token)
+        .join(" ")
+    }
+    if (name === "href" && value.startsWith("#")) {
+      return `#${ids.get(value.slice(1)) ?? value.slice(1)}`
+    }
+    if (name === "style") {
+      return value
+        .split(";")
+        .map((declaration) => declaration.trim().replace(/\s*:\s*/, ": "))
+        .filter(Boolean)
+        .map((declaration) => {
+          const colon = declaration.indexOf(":")
+          return colon === -1
+            ? declaration
+            : `${declaration.slice(0, colon).trim()}: ${declaration.slice(colon + 1).trim()}`
+        })
+        .join("; ")
+    }
+    return value.trim()
+  }
+
+  const serialize = (
+    nodes: Node[],
+    ids: Map<string, string>,
+    depth: number,
+  ): string[] => {
+    const indent = "  ".repeat(depth)
+    const lines: string[] = []
+
+    let pending = ""
+    let previousInline = false
+    const flush = (nextInline: boolean) => {
+      const text = pending.replace(/\s+/g, " ").trim()
+      if (text) {
+        const lead = previousInline && /^\s/.test(pending) ? "␣" : ""
+        const trail = nextInline && /\s$/.test(pending) ? "␣" : ""
+        lines.push(indent + lead + text + trail)
+      }
+      pending = ""
+    }
+
+    for (const node of nodes) {
+      if (node instanceof Text) {
+        pending += node.data
+        continue
+      }
+      if (node instanceof Comment) continue
+      const inline =
+        node instanceof Element && INLINE_ELEMENTS.has(node.localName)
+      flush(inline)
+      previousInline = inline
+      if (!(node instanceof Element) || DROPPED_ELEMENTS.has(node.localName)) {
+        continue
+      }
+
+      const attrs = node
+        .getAttributeNames()
+        .filter((name) => !DROPPED_ATTRIBUTE.test(name))
+        .map((name) => ({
+          name,
+          value: normalizeAttribute(name, node.getAttribute(name) ?? "", ids),
+        }))
+        .filter(
+          (attr) =>
+            !((attr.name === "class" || attr.name === "style") && !attr.value),
+        )
+        .toSorted((a, b) => a.name.localeCompare(b.name))
+        .map((attr) =>
+          attr.value ? `${attr.name}="${attr.value}"` : attr.name,
+        )
+
+      const open = `<${[node.localName, ...attrs].join(" ")}>`
+      if (VOID_ELEMENTS.has(node.localName)) {
+        lines.push(indent + open)
+        continue
+      }
+
+      const children = serialize(childrenOf(node), ids, depth + 1)
+      if (children.length === 0) {
+        lines.push(`${indent}${open}</${node.localName}>`)
+      } else if (children.length === 1 && !children[0].trim().startsWith("<")) {
+        lines.push(`${indent}${open}${children[0].trim()}</${node.localName}>`)
+      } else {
+        lines.push(indent + open, ...children, `${indent}</${node.localName}>`)
+      }
+    }
+    flush(false)
+
+    return lines
+  }
+
+  const normalize = (root: Element) => {
+    const nodes = childrenOf(root)
+    const ids = new Map<string, string>()
+    collectIds(nodes, ids)
+    return serialize(nodes, ids, 0).join("\n") + "\n"
+  }
+
+  const chipFrom = (root: HTMLElement, kind: string) => {
+    const template = root.querySelector<HTMLTemplateElement>(
+      `.parity-chip-${kind}`,
+    )!
+    return template.content.cloneNode(true)
+  }
+
+  const diffOf = (expected: string, actual: string) => {
+    const lines = diffLines(expected, actual).flatMap((part) =>
+      part.value
+        .replace(/\n$/, "")
+        .split("\n")
+        .map((line) => ({
+          line,
+          type: part.added ? "ins" : part.removed ? "del" : undefined,
+        })),
+    )
+    const changed = lines.flatMap(({ type }, index) => (type ? [index] : []))
+    const shown = new Set(
+      changed.flatMap((index) =>
+        Array.from({ length: CONTEXT * 2 + 1 }, (_, i) => index - CONTEXT + i),
+      ),
+    )
+
+    const pre = document.createElement("pre")
+    pre.className = "parity-diff"
+    let gap = false
+    lines.forEach(({ line, type }, index) => {
+      if (!shown.has(index)) {
+        gap = true
+        return
+      }
+      if (gap && pre.childNodes.length) {
+        const separator = document.createElement("span")
+        separator.className = "parity-gap"
+        separator.textContent = "..."
+        pre.append(separator)
+      }
+      gap = false
+      const element = type ? document.createElement(type) : null
+      const text = `${type === "ins" ? "+" : type === "del" ? "-" : " "} ${line}\n`
+      if (element) {
+        element.textContent = text
+        pre.append(element)
+      } else {
+        pre.append(text)
+      }
+    })
+    return pre
+  }
+
+  const initParity = (root: HTMLElement) => {
+    const tiles = [...root.querySelectorAll<HTMLElement>(".parity-tile")]
+    const markup = new Map(
+      tiles.map((tile) => [
+        tile.dataset.framework,
+        normalize(tile.querySelector(".parity-render")!),
+      ]),
+    )
+    const reference = markup.get("astro") ?? ""
+
+    for (const tile of tiles) {
+      const result = tile.querySelector(".parity-result")!
+      const { framework } = tile.dataset
+      const actual = markup.get(framework) ?? ""
+      if (framework === "astro") {
+        result.append(chipFrom(root, "reference"))
+      } else if (actual === reference) {
+        result.append(chipFrom(root, "identical"))
+      } else {
+        result.append(chipFrom(root, "differs"), diffOf(reference, actual))
+      }
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>(".parity").forEach(initParity)
+</script>

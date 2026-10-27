@@ -2173,7 +2173,7 @@
     "id": "learn-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "Four example themes",
+    "headings": "Then and now One library, four frameworks Slots become parts, props get one naming model Tokens, rebuilt Contrast as a guarantee Four example themes The platform did the work What it took Browser support, honestly Migrating",
     "category": "Learn",
     "url": "/learn/release-6"
   },

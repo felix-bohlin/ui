@@ -68,6 +68,7 @@
     "css-declaration-sorter": "^7.4.0",
     "diff": "^9.0.0",
     "hast-util-select": "^6.0.4",
+    "opui-css-5": "npm:opui-css@5.4.3",
     "oxlint": "^1.85.0",
     "parse5": "^8.0.1",
     "postcss": "^8.5.28",

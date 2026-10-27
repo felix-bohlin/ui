@@ -297,6 +297,9 @@ importers:
       hast-util-select:
         specifier: ^6.0.4
         version: 6.0.4
+      opui-css-5:
+        specifier: npm:opui-css@5.4.3
+        version: opui-css@5.4.3(astro@7.3.6(@types/node@24.13.2)(yaml@2.9.0))(open-props@1.7.23)(svelte@5.57.2)(vue@3.5.39(typescript@6.0.3))
       oxlint:
         specifier: ^1.85.0
         version: 1.85.0
@@ -3103,6 +3106,22 @@ packages:
   open@11.0.0:
     resolution: {integrity: sha512-smsWv2LzFjP03xmvFoJ331ss6h+jixfA4UUV/Bsiyuu4YJPfN+FIQGOIiv4w9/+MoHkfkJ22UIaQWRVFRfH6Vw==}
     engines: {node: '>=20'}
+
+  opui-css@5.4.3:
+    resolution: {integrity: sha512-xPz1+aNgIun319RpiSG04mKRh66M49k/yWS20uioyjJvKTombEZ3PIQOm0r8BWd1WzKt/OWf6/4ydCkurXjLTA==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      astro: ^7.0.6
+      open-props: ^1.7.23
+      svelte: ^5.56.4
+      vue: ^3.5.39
+    peerDependenciesMeta:
+      astro:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
 
   oxlint@1.85.0:
     resolution: {integrity: sha512-bc26s97nuvPj1ViyPsqmKecVkUWFMEdtayO8MaQ6oiLfs1pj94cQlZZhrh4BPNlr9HQosjhIlwgZKsfcwmcNgg==}
@@ -6770,6 +6789,14 @@ snapshots:
       is-inside-container: 1.0.0
       powershell-utils: 0.1.0
       wsl-utils: 0.3.1
+
+  opui-css@5.4.3(astro@7.3.6(@types/node@24.13.2)(yaml@2.9.0))(open-props@1.7.23)(svelte@5.57.2)(vue@3.5.39(typescript@6.0.3)):
+    dependencies:
+      open-props: 1.7.23
+    optionalDependencies:
+      astro: 7.3.6(@types/node@24.13.2)(yaml@2.9.0)
+      svelte: 5.57.2
+      vue: 3.5.39(typescript@6.0.3)
 
   oxlint@1.85.0:
     optionalDependencies:

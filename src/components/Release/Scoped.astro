@@ -1,0 +1,334 @@
+---
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+  Range,
+  TextField,
+} from "opui-css/astro"
+
+const id = "scoped"
+
+const knobs = [
+  { max: 360, min: 0, name: "--ui-palette-hue", step: 1, value: 145 },
+  { max: 1, min: 0, name: "--ui-palette-chroma", step: 0.05, value: 0.5 },
+  { max: 1.25, min: 0.75, name: "--ui-density", step: 0.125, value: 1 },
+]
+
+const roles = [
+  { name: "--ui-primary", property: "background-color" },
+  { name: "--ui-palette-tint", property: "background-color" },
+  { name: "--ui-palette-text", property: "background-color" },
+  { name: "--ui-palette-border", property: "background-color" },
+  { name: "--ui-control-size", property: "inline-size" },
+]
+
+const regions = [
+  {
+    heading: "Inside the scope",
+    note: "A .ui-palette element with the knobs set inline. Every role is derived again from them.",
+    scope: true,
+    slug: "inside",
+  },
+  {
+    heading: "Outside the scope",
+    note: "Reads the roles the page's theme derived on html. The knobs on the scope don't reach it, so it stays put.",
+    scope: false,
+    slug: "outside",
+  },
+]
+---
+
+<div class="scoped ui-not-rich-text" id={id}>
+  <div class="scoped-regions">
+    {
+      regions.map((region) => (
+        <section
+          aria-labelledby={`${id}-${region.slug}-heading`}
+          class="scoped-region"
+          data-scope={region.scope ? "" : undefined}
+        >
+          <div class="scoped-head">
+            <h3 class="scoped-heading" id={`${id}-${region.slug}-heading`}>
+              {region.heading}
+            </h3>
+            <p class="scoped-note">{region.note}</p>
+            {region.scope ? (
+              <fieldset class="scoped-knobs">
+                <legend class="ui-sr-only">Knobs on the scope</legend>
+                {knobs.map((knob) => (
+                  <Range
+                    max={knob.max}
+                    min={knob.min}
+                    name={knob.name}
+                    size="small"
+                    step={knob.step}
+                    value={knob.value}
+                    valueSuffix=""
+                  >
+                    <code slot="label">{knob.name}</code>
+                  </Range>
+                ))}
+              </fieldset>
+            ) : (
+              <p class="scoped-knobs scoped-no-knobs">
+                No knobs here: the theme's defaults
+              </p>
+            )}
+          </div>
+          <div
+            class:list={["scoped-stage", region.scope && "ui-palette"]}
+            id={region.scope ? `${id}-stage` : undefined}
+          >
+            <Card class="scoped-card" variant="elevated">
+              <CardHeader>
+                <div class="scoped-card-title">
+                  <h4>Weekly report</h4>
+                  <Chip label="Draft" size="small" variant="tonal" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <TextField
+                  label="Send to"
+                  name={`${id}-${region.slug}-email`}
+                  placeholder="name@example.com"
+                  type="email"
+                />
+                <Callout severity="info">
+                  <CalloutIcon />
+                  <CalloutContent>
+                    <p>Recipients get a link that works for seven days.</p>
+                  </CalloutContent>
+                </Callout>
+              </CardContent>
+              <CardActions>
+                <Button color="primary" variant="filled">
+                  Send
+                </Button>
+                <Button variant="tonal">Save draft</Button>
+              </CardActions>
+            </Card>
+            <ul class="scoped-roles">
+              {roles.map((role) => (
+                <li>
+                  <span
+                    aria-hidden="true"
+                    class="scoped-swatch"
+                    data-size={role.property === "inline-size" ? "" : undefined}
+                    style={`${role.property}: var(${role.name})`}
+                  />
+                  <code>{role.name}</code>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const root = document.getElementById("scoped")
+  const stage = document.getElementById("scoped-stage")
+  const inputs = root?.querySelectorAll<HTMLInputElement>('input[type="range"]')
+  if (root && stage && inputs) {
+    const style = getComputedStyle(stage)
+    for (const input of inputs) {
+      const output = root.querySelector<HTMLOutputElement>(
+        `output[for="${input.id}"]`,
+      )
+      const current = parseFloat(style.getPropertyValue(input.name))
+      if (!Number.isNaN(current)) input.value = String(current)
+      if (output) output.textContent = input.value
+      input.addEventListener("input", () => {
+        stage.style.setProperty(input.name, input.value)
+        stage.style.setProperty(
+          "--ui-palette-source",
+          "oklch(58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue))",
+        )
+        stage.style.setProperty(
+          "--ui-primary-source",
+          "light-dark(var(--ui-color-9), var(--ui-color-6))",
+        )
+        if (output) output.textContent = input.value
+      })
+    }
+  }
+</script>
+
+<style is:global>
+  .scoped {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block: var(--ui-space-5);
+  }
+
+  .scoped-regions {
+    display: grid;
+    gap: var(--ui-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  }
+
+  .scoped-region {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-template-rows: auto 1fr;
+    min-inline-size: 0;
+  }
+
+  .scoped-head {
+    display: grid;
+    gap: var(--ui-space-2);
+  }
+
+  .scoped-heading {
+    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-size: var(--ui-font-size-h6);
+    margin: 0;
+  }
+
+  .scoped-note {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+
+  .scoped-knobs {
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-2);
+    margin: 0;
+    min-block-size: 7.5rem;
+    padding: 0;
+
+    & .ui-range {
+      column-gap: var(--ui-space-2);
+    }
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+
+  .scoped-no-knobs {
+    align-content: center;
+    border: var(--ui-border-width) dashed var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    padding: var(--ui-space-3);
+    text-align: center;
+  }
+
+  .scoped-stage {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: grid;
+    font-family: var(--ui-font-body);
+    gap: var(--ui-space-4);
+    padding: var(--ui-space-4);
+
+    &,
+    & * {
+      transition-duration: calc(var(--ui-duration-slow) * 2 * var(--ui-motion));
+      transition-property:
+        background-color, block-size, border-color, color, fill, inline-size,
+        min-block-size, outline-color, padding;
+      transition-timing-function: var(--ui-ease);
+    }
+
+    & h4,
+    & p {
+      margin: 0;
+    }
+  }
+
+  .scoped-region[data-scope] .scoped-stage {
+    border-color: var(--ui-palette-border);
+    border-style: dashed;
+    border-width: var(--ui-border-width-thick);
+  }
+
+  .scoped-card {
+    & .ui-content {
+      display: grid;
+      gap: var(--ui-space-3);
+    }
+
+    & h4 {
+      font-family: var(--ui-font-heading, var(--ui-font-body));
+      font-size: var(--ui-font-size-h5);
+    }
+  }
+
+  .scoped-card-title {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+    justify-content: space-between;
+  }
+
+  .scoped-roles {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-items: center;
+      column-gap: var(--ui-space-2);
+      display: grid;
+      grid-template-columns: var(--ui-space-8) 1fr;
+    }
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+
+  .scoped-swatch {
+    block-size: var(--ui-space-4);
+    border: var(--ui-border-width) solid currentColor;
+    border-radius: var(--ui-radius-small);
+    forced-color-adjust: none;
+    inline-size: var(--ui-space-7);
+
+    &[data-size] {
+      background-color: var(--ui-surface-tonal);
+      block-size: var(--ui-space-2);
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .scoped-region {
+        animation: scoped-rise linear both;
+        animation-range: entry 0% entry 40%;
+        animation-timeline: view();
+      }
+
+      .scoped-region + .scoped-region {
+        animation-range: entry 15% entry 55%;
+      }
+    }
+  }
+
+  @keyframes scoped-rise {
+    from {
+      opacity: 0;
+      translate: 0 var(--ui-space-6);
+    }
+  }
+</style>

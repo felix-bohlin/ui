@@ -1,0 +1,627 @@
+---
+import { readFileSync } from "node:fs"
+import { fileURLToPath } from "node:url"
+import { gzipSync } from "node:zlib"
+import {
+  Chip,
+  FieldLegend,
+  Fieldset,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import { features } from "web-features"
+import {
+  baselineYears,
+  ENGINE_GATES,
+  featureIds,
+  keepsFallback,
+} from "../../../packages/opui/scripts/features.mjs"
+import { getBaselineMappings } from "../../utils/baseline"
+import {
+  computeEngineBrowserSupport,
+  computeFeatureSupport,
+  type EngineId,
+  type SupportLevel,
+} from "../../utils/browser-support"
+import { compatCss } from "../../utils/compat"
+import { componentName } from "../../utils/names"
+import Chrome from "../icons/browsers/Chrome.astro"
+import Edge from "../icons/browsers/Edge.astro"
+import Firefox from "../icons/browsers/Firefox.astro"
+import Safari from "../icons/browsers/Safari.astro"
+
+const id = "support-matrix"
+const { link } = Astro.locals
+
+const ICONS = {
+  chromium: [Chrome, Edge],
+  gecko: [Firefox],
+  webkit: [Safari],
+} satisfies Record<EngineId, unknown[]>
+
+const ENGINE_LABELS = {
+  chromium: "Chromium",
+  gecko: "Gecko",
+  webkit: "WebKit",
+} satisfies Record<EngineId, string>
+
+const LEVELS = {
+  full: "Supported",
+  none: "No",
+  partial: "Partial",
+} satisfies Record<SupportLevel, string>
+
+const BASELINE = {
+  high: { label: "Widely available", severity: "success" },
+  low: { label: "Newly available", severity: "info" },
+  none: { label: "Not Baseline", severity: "warning" },
+} as const
+
+const baselineOf = (status: string) =>
+  status === "high" || status === "low" ? BASELINE[status] : BASELINE.none
+
+const FILTERS = [
+  { label: "All", value: "all" },
+  { label: "Baseline widely available", value: "high" },
+  { label: "Baseline newly available", value: "low" },
+  { label: "Not Baseline", value: "none" },
+]
+
+const yearOf = (date?: string) => date?.match(/\d{4}/)?.[0]
+
+const statusOf = (featureId: string) => {
+  const feature = features[featureId]
+  return feature && "status" in feature ? feature.status : undefined
+}
+
+const { featureToComponents } = await getBaselineMappings()
+
+const featureRows = Object.keys(featureToComponents)
+  .map((featureId) => {
+    const { baseline, name } = computeFeatureSupport(featureId)
+    const status = statusOf(featureId)
+    return {
+      baseline: baseline || "none",
+      components: featureToComponents[featureId],
+      engines: computeEngineBrowserSupport([featureId]),
+      id: featureId,
+      name,
+      year:
+        baseline === "high"
+          ? yearOf(status?.baseline_high_date)
+          : baseline === "low"
+            ? yearOf(status?.baseline_low_date)
+            : undefined,
+    }
+  })
+  .toSorted((a, b) => a.name.localeCompare(b.name))
+
+const years = baselineYears()
+
+const builds = [
+  "opui.css",
+  ...years.map((year) => `opui.baseline-${year}.css`),
+  "opui.no-compat.css",
+]
+
+const compatRows = Object.entries(compatCss)
+  .flatMap(([file, css]) => {
+    const slug = file.replace(/\.css$/, "")
+    return [...css.matchAll(/@supports\s+([^{]+?)\s*\{/g)].map(
+      ([, condition]) => {
+        const gate = ENGINE_GATES.includes(condition)
+        const ids = gate ? [] : featureIds(condition)
+        const needs = gate
+          ? ["webkit" as const]
+          : computeEngineBrowserSupport(ids)
+              .filter((entry) => entry.level !== "full")
+              .map((entry) => entry.engine)
+        return {
+          component: componentName(slug),
+          condition,
+          features: ids.map((featureId) => ({
+            id: featureId,
+            name: computeFeatureSupport(featureId).name,
+          })),
+          file,
+          gate,
+          included: builds.map(
+            (build) =>
+              build !== "opui.no-compat.css" &&
+              (build === "opui.css" ||
+                keepsFallback(condition, Number(build.match(/\d{4}/)?.[0]))),
+          ),
+          needs,
+          slug,
+        }
+      },
+    )
+  })
+  .toSorted((a, b) => a.component.localeCompare(b.component))
+
+const distDir = fileURLToPath(
+  new URL("../../../packages/opui/dist/", import.meta.url),
+)
+
+const formatSize = (bytes: number) => `${(bytes / 1024).toFixed(1)} kB`
+
+const sizes = builds.flatMap((file) => {
+  try {
+    const bytes = readFileSync(`${distDir}${file}`)
+    return [
+      {
+        file,
+        gzip: formatSize(gzipSync(bytes).length),
+        raw: formatSize(bytes.length),
+      },
+    ]
+  } catch {
+    return []
+  }
+})
+
+const check = "M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+const warn = "M12 2 1 21h22zm0 4.53L19.53 19H4.47zM11 10v5h2v-5zm0 7v2h2v-2z"
+const cross =
+  "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+
+const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
+  SupportLevel,
+  string
+>
+---
+
+<div class="support-matrix ui-not-rich-text" id={id}>
+  <div class="support-matrix-controls">
+    <Fieldset>
+      <FieldLegend>View</FieldLegend>
+      <ToggleGroup name={`${id}-view`} size="small">
+        <ToggleButton checked value="features">Features by engine</ToggleButton>
+        <ToggleButton value="compat">What the compat layer covers</ToggleButton>
+      </ToggleGroup>
+    </Fieldset>
+    <Fieldset class="support-matrix-filter">
+      <FieldLegend>Baseline</FieldLegend>
+      <ToggleGroup aria-label="Baseline" name={`${id}-filter`} size="small">
+        {
+          FILTERS.map((filter) => (
+            <ToggleButton checked={filter.value === "all"} value={filter.value}>
+              {filter.label}
+            </ToggleButton>
+          ))
+        }
+      </ToggleGroup>
+    </Fieldset>
+  </div>
+
+  <div class="support-matrix-views">
+    <div class="support-matrix-view" data-view="features">
+      <div class="support-matrix-scroll">
+        <Table aria-label="Features by engine" flush stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell scope="col">Feature</TableHeaderCell>
+              {
+                (["chromium", "gecko", "webkit"] as const).map((engine) => (
+                  <TableHeaderCell scope="col">
+                    <span class="support-matrix-engine">
+                      <span class="support-matrix-icons" aria-hidden="true">
+                        {ICONS[engine].map((Icon) => (
+                          <Icon />
+                        ))}
+                      </span>
+                      {ENGINE_LABELS[engine]}
+                    </span>
+                  </TableHeaderCell>
+                ))
+              }
+              <TableHeaderCell scope="col">Baseline</TableHeaderCell>
+              <TableHeaderCell scope="col">Used by</TableHeaderCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              featureRows.map((row) => (
+                <TableRow data-baseline={row.baseline}>
+                  <TableHeaderCell scope="row">
+                    {row.name}
+                    <code>{row.id}</code>
+                  </TableHeaderCell>
+                  {row.engines.map((entry) => (
+                    <TableCell>
+                      <span class:list={["support-matrix-level", entry.level]}>
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d={PATHS[entry.level]} fill="currentColor" />
+                        </svg>
+                        {entry.level === "full" && entry.sinceVersion
+                          ? `${entry.sinceVersion}+`
+                          : LEVELS[entry.level]}
+                      </span>
+                    </TableCell>
+                  ))}
+                  <TableCell>
+                    <span class="support-matrix-baseline">
+                      <Chip
+                        dot
+                        label={baselineOf(row.baseline).label}
+                        severity={baselineOf(row.baseline).severity}
+                        size="small"
+                      />
+                      {row.year && <span>{row.year}</span>}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span class="support-matrix-chips">
+                      {row.components.map((component) => (
+                        <Chip
+                          href={link(`/components/${component.slug}`)}
+                          label={component.name}
+                          size="small"
+                          variant="outlined"
+                        />
+                      ))}
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+
+    <div class="support-matrix-view" data-view="compat">
+      <div class="support-matrix-scroll">
+        <Table aria-label="What the compat layer covers" flush stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell scope="col">Component</TableHeaderCell>
+              <TableHeaderCell scope="col">Fallback</TableHeaderCell>
+              <TableHeaderCell scope="col">Stands in for</TableHeaderCell>
+              <TableHeaderCell scope="col">Needed today by</TableHeaderCell>
+              {
+                builds.map((build) => (
+                  <TableHeaderCell scope="col">
+                    <code>{build}</code>
+                  </TableHeaderCell>
+                ))
+              }
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              compatRows.map((row) => (
+                <TableRow>
+                  <TableHeaderCell scope="row">
+                    {row.component}
+                    <code>css/compat/{row.file}</code>
+                  </TableHeaderCell>
+                  <TableCell>
+                    <span class="support-matrix-baseline">
+                      <Chip
+                        label={row.gate ? "Engine gate" : "Feature test"}
+                        severity={row.gate ? "warning" : "info"}
+                        size="small"
+                      />
+                      <code>@supports {row.condition}</code>
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    {row.gate ? (
+                      "A browser bug"
+                    ) : (
+                      <span class="support-matrix-chips">
+                        {row.features.map((feature) => (
+                          <Chip
+                            label={feature.name}
+                            size="small"
+                            variant="outlined"
+                          />
+                        ))}
+                      </span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <span class="support-matrix-chips">
+                      {row.needs.length === 0 && "No engine"}
+                      {row.needs.map((engine) => (
+                        <span class="support-matrix-engine">
+                          <span class="support-matrix-icons" aria-hidden="true">
+                            {ICONS[engine].map((Icon) => (
+                              <Icon />
+                            ))}
+                          </span>
+                          {ENGINE_LABELS[engine]}
+                          {row.gate && " on iOS"}
+                        </span>
+                      ))}
+                    </span>
+                  </TableCell>
+                  {row.included.map((included) => (
+                    <TableCell>
+                      <span
+                        class:list={[
+                          "support-matrix-level",
+                          included ? "full" : "none",
+                        ]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d={included ? check : cross}
+                            fill="currentColor"
+                          />
+                        </svg>
+                        {included ? "Included" : "Left out"}
+                      </span>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  </div>
+
+  <p class="support-matrix-sizes">
+    {
+      sizes.length > 0 ? (
+        sizes.map((size) => (
+          <span>
+            <code>{size.file}</code> {size.raw} ({size.gzip} gzipped)
+          </span>
+        ))
+      ) : (
+        <span>
+          The file sizes are read from <code>packages/opui/dist</code>, which
+          this build did not have.
+        </span>
+      )
+    }
+  </p>
+</div>
+
+<style is:global>
+  .support-matrix {
+    --_duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block: var(--ui-space-5);
+    max-inline-size: 100%;
+    min-inline-size: 0;
+
+    & .ui-fieldset {
+      gap: var(--ui-space-1);
+    }
+
+    & legend {
+      font-size: var(--ui-font-size-caption);
+    }
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+
+  .support-matrix-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    min-inline-size: 0;
+  }
+
+  .support-matrix:has([name="support-matrix-view"][value="compat"]:checked)
+    .support-matrix-filter {
+    display: none;
+  }
+
+  .support-matrix-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-1);
+
+    td > & {
+      inline-size: max-content;
+      max-inline-size: 30rem;
+    }
+  }
+
+  .support-matrix-views {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .support-matrix-view {
+    grid-area: 1 / 1;
+    min-inline-size: 0;
+    opacity: 1;
+    transition:
+      display var(--_duration) allow-discrete,
+      opacity var(--_duration) var(--ui-ease);
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  .support-matrix:has([name="support-matrix-view"][value="compat"]:checked)
+    .support-matrix-view[data-view="features"],
+  .support-matrix:has([name="support-matrix-view"][value="features"]:checked)
+    .support-matrix-view[data-view="compat"] {
+    display: none;
+    opacity: 0;
+  }
+
+  .support-matrix-scroll {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    max-block-size: min(70vh, 32rem);
+    overflow: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+
+    & .ui-table {
+      border: 0;
+      border-radius: 0;
+      inline-size: max-content;
+      min-inline-size: 100%;
+    }
+
+    & th,
+    & td {
+      border-radius: 0;
+      vertical-align: top;
+    }
+
+    & td {
+      white-space: nowrap;
+    }
+
+    & thead {
+      z-index: 2;
+    }
+
+    & thead th:first-child,
+    & tbody th[scope="row"] {
+      inset-inline-start: 0;
+      position: sticky;
+      z-index: 1;
+    }
+
+    & tbody th[scope="row"] {
+      max-inline-size: 14rem;
+      min-inline-size: 10rem;
+
+      & code {
+        color: var(--ui-text-subtle);
+        display: block;
+        font-weight: var(--ui-font-weight-normal);
+      }
+    }
+
+    & tbody tr:hover th[scope="row"] {
+      background-color: var(--ui-surface-filled);
+    }
+
+    @supports (animation-timeline: view()) {
+      & tbody td {
+        animation: support-matrix-rise linear both;
+        animation-range: entry 0% cover 20%;
+        animation-timeline: view();
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      & tbody td {
+        animation: none;
+      }
+    }
+  }
+
+  @keyframes support-matrix-rise {
+    from {
+      opacity: 0;
+      translate: 0 var(--ui-space-3);
+    }
+  }
+
+  .support-matrix:has([name="support-matrix-filter"][value="high"]:checked)
+    [data-view="features"]
+    tbody
+    tr:not([data-baseline="high"]),
+  .support-matrix:has([name="support-matrix-filter"][value="low"]:checked)
+    [data-view="features"]
+    tbody
+    tr:not([data-baseline="low"]),
+  .support-matrix:has([name="support-matrix-filter"][value="none"]:checked)
+    [data-view="features"]
+    tbody
+    tr:not([data-baseline="none"]) {
+    display: none;
+  }
+
+  .support-matrix-engine {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--ui-space-1);
+    white-space: nowrap;
+  }
+
+  .support-matrix-icons {
+    align-items: center;
+    display: inline-flex;
+
+    & svg {
+      block-size: var(--ui-icon-size-small);
+      inline-size: var(--ui-icon-size-small);
+    }
+
+    & > :not(:first-child) {
+      margin-inline-start: -0.25em;
+    }
+  }
+
+  .support-matrix-level {
+    align-items: center;
+    display: inline-flex;
+    font-variant-numeric: tabular-nums;
+    gap: var(--ui-space-1);
+
+    & svg {
+      block-size: var(--ui-icon-size-small);
+      inline-size: var(--ui-icon-size-small);
+    }
+
+    &.full svg {
+      color: var(--ui-success);
+    }
+
+    &.partial svg {
+      color: var(--ui-warning);
+    }
+
+    &.none {
+      color: var(--ui-text-subtle);
+
+      & svg {
+        color: var(--ui-critical);
+      }
+    }
+  }
+
+  .support-matrix-baseline {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--ui-space-2);
+
+    & > span:last-child:not(.ui-chip) {
+      color: var(--ui-text-subtle);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .support-matrix-sizes {
+    color: var(--ui-text-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-1) var(--ui-space-4);
+    margin: 0;
+  }
+</style>

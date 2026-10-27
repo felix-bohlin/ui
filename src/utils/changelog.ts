@@ -105,3 +105,16 @@ function resolveTypes(
     types: [...typeSet],
   }
 }
+
+export const changelogSections = (text: string, version: string) => {
+  const start = text.indexOf(`\n## ${version} `)
+  if (start === -1) return []
+  const end = text.indexOf("\n## ", start + 1)
+  const body = text.slice(start, end === -1 ? undefined : end)
+  return [...body.matchAll(/^### (\w+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm)]
+    .map(([, title, entries]) => ({
+      entries: entries.split("\n").filter((line) => line.startsWith("- ")),
+      title,
+    }))
+    .toSorted((a, b) => a.title.localeCompare(b.title, "en"))
+}

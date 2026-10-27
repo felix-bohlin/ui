@@ -1,0 +1,669 @@
+---
+import {
+  Badge,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+  List,
+  ListItem,
+  Range,
+  Switch,
+  TextField,
+} from "opui-css/astro"
+import themeCss from "@opui/css/theme.css?raw"
+import { themeTokenPromises } from "../../utils/theme-token-promises"
+
+const id = "contrast-lab"
+
+const block = (css: string, selector: string) => {
+  const start = css.indexOf(selector)
+  if (start === -1) {
+    throw new Error(`ContrastLab.astro: expected "${selector}" in theme.css`)
+  }
+  const open = css.indexOf("{", start)
+  let depth = 0
+  for (let index = open; index < css.length; index += 1) {
+    if (css[index] === "{") depth += 1
+    if (css[index] === "}") {
+      depth -= 1
+      if (depth === 0) return css.slice(open + 1, index)
+    }
+  }
+  throw new Error(`ContrastLab.astro: unclosed "${selector}" in theme.css`)
+}
+
+const declarations = (css: string) =>
+  new Map(
+    [...css.matchAll(/(--ui-[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => [
+      name,
+      value.replaceAll(/\s+/g, " ").trim(),
+    ]),
+  )
+
+const stripped = themeCss.replaceAll(/\/\*[\s\S]*?\*\//g, "")
+const normal = declarations(block(stripped, ":where(html) {"))
+const more = declarations(block(stripped, ":where(.ui-contrast-more) {"))
+
+const knobs = [...more]
+  .filter(([name]) => name !== "--ui-contrast")
+  .map(([name, to]) => {
+    const from = normal.get(name)
+    if (!from) {
+      throw new Error(`ContrastLab.astro: ${name} has no normal value`)
+    }
+    return { from, name, to }
+  })
+  .toSorted((a, b) => a.name.localeCompare(b.name))
+
+const knobCss = `@layer theme.custom {\n#${id} .contrast-lab-stage {\n${knobs
+  .map(
+    ({ from, name, to }) =>
+      `  ${name}: calc(${from} + (${to} - ${from}) * var(--_amount));`,
+  )
+  .join("\n")}\n}\n}`
+
+const pairs = [
+  {
+    key: "strong",
+    label: "Strong text",
+    selector: ".contrast-lab-strong",
+    token: "--ui-text-strong",
+  },
+  {
+    key: "body",
+    label: "Body text",
+    selector: ".contrast-lab-body",
+    token: "--ui-text",
+  },
+  {
+    key: "muted",
+    label: "Muted text",
+    selector: ".contrast-lab-muted",
+    token: "--ui-text-subtle",
+  },
+  {
+    key: "link",
+    label: "Link",
+    selector: ".contrast-lab-link",
+    token: "--ui-primary-text",
+  },
+  {
+    key: "primary",
+    label: "Text on primary fill",
+    selector: ".ui-button.ui-filled",
+    token: "--ui-on-primary",
+  },
+  {
+    key: "tonal",
+    label: "Tonal button text",
+    selector: ".ui-button.ui-tonal",
+    token: "--ui-palette-on-tint",
+  },
+  {
+    key: "outlined",
+    label: "Outlined button text",
+    selector: ".ui-button.ui-outlined",
+    token: "--ui-primary-text",
+  },
+  {
+    key: "helper",
+    label: "Field helper text",
+    selector: ".ui-text-field .ui-end-text",
+    token: "--ui-field-helper-text-color",
+  },
+  {
+    key: "badge",
+    label: "Badge text",
+    selector: ".ui-badge .ui-indicator",
+    token: "--ui-on-primary",
+  },
+  {
+    key: "chip",
+    label: "Chip text",
+    selector: ".ui-chip",
+    token: "--ui-text-strong",
+  },
+  {
+    key: "selected",
+    label: "Selected list item",
+    selector: '[aria-current="page"]',
+    token: "--ui-text-strong",
+  },
+  {
+    key: "focus",
+    label: "Focus ring",
+    outline: true,
+    selector: ".contrast-lab-focused",
+    token: "--ui-focus-ring-color",
+  },
+].map((pair) => {
+  const promise = themeTokenPromises[pair.token]
+  if (!promise) {
+    throw new Error(`ContrastLab.astro: ${pair.token} promises no ratio`)
+  }
+  return { ...pair, ratio: promise.ratio }
+})
+---
+
+<div class="contrast-lab ui-not-rich-text" id={id}>
+  <div class="contrast-lab-controls">
+    <Range
+      label="Contrast knobs"
+      max={100}
+      min={0}
+      name="contrast-lab-amount"
+      step={1}
+      value={0}
+      valueSuffix="%"
+    />
+    <Range
+      label="Palette hue"
+      max={360}
+      min={0}
+      name="contrast-lab-hue"
+      step={1}
+      value={145}
+      valueSuffix="°"
+    />
+    <Switch label="More contrast class" name="contrast-lab-more" />
+    <Switch label="Dark scheme" name="contrast-lab-dark" />
+  </div>
+
+  <div class="contrast-lab-lab">
+    <div class="contrast-lab-stage">
+      <div class="contrast-lab-scope ui-palette">
+        <Card class="contrast-lab-card">
+          <CardHeader>
+            <h3 class="contrast-lab-strong">Contrast as a guarantee</h3>
+            <p class="contrast-lab-body">
+              Every text role keeps its ratio on every surface, at any hue.
+            </p>
+            <p class="contrast-lab-muted">Checked live on this page</p>
+          </CardHeader>
+          <CardContent>
+            <p class="contrast-lab-body">
+              The knobs are listed in the <a
+                class="ui-link contrast-lab-link"
+                href="#contrast-guarantee">theme guide</a
+              >.
+            </p>
+            <div class="contrast-lab-meta">
+              <Chip label="Tonal chip" size="small" />
+              <Badge hideLabel label="3 unread">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 32 32"
+                  ><path
+                    fill="currentColor"
+                    d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                  ></path></svg
+                >
+                <Fragment slot="indicator">3</Fragment>
+              </Badge>
+            </div>
+            <TextField
+              endText="Shown on every invoice"
+              label="Team name"
+              name="contrast-lab-team"
+              value="Acme"
+            />
+            <List>
+              <ListItem
+                aria-current="page"
+                href="#contrast-guarantee"
+                label="Selected item"
+              />
+              <ListItem href="#contrast-guarantee" label="Another item" />
+            </List>
+          </CardContent>
+          <CardActions>
+            <Button color="primary" variant="filled">Save</Button>
+            <Button color="primary" variant="tonal">Preview</Button>
+            <Button color="primary" variant="outlined">Cancel</Button>
+            <Button class="contrast-lab-focused" type="button">
+              Focus ring
+            </Button>
+          </CardActions>
+        </Card>
+        <span class="contrast-lab-probe" hidden></span>
+      </div>
+    </div>
+
+    <table class="ui-table contrast-lab-table">
+      <caption class="ui-sr-only">Contrast of each pair in the card</caption>
+      <thead>
+        <tr>
+          <th scope="col">Pair</th>
+          <th scope="col">Ratio</th>
+          <th scope="col">Needs</th>
+          <th scope="col">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          pairs.map((pair) => (
+            <tr
+              data-outline={pair.outline ? "" : undefined}
+              data-pair={pair.key}
+              data-ratio={pair.ratio}
+              data-selector={pair.selector}
+              data-status="pending"
+            >
+              <th scope="row">
+                {pair.label}
+                <code>{pair.token}</code>
+              </th>
+              <td class="contrast-lab-ratio">
+                <span class="contrast-lab-ratio-text">0.00</span>
+                <span class="contrast-lab-ratio-count" aria-hidden="true" />
+              </td>
+              <td>{pair.ratio}:1</td>
+              <td class="contrast-lab-status">
+                <span class="contrast-lab-mark">Pending</span>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style is:inline set:html={knobCss}></style>
+
+<style is:global>
+  @property --contrast-lab-ratio {
+    inherits: true;
+    initial-value: 0;
+    syntax: "<number>";
+  }
+
+  .contrast-lab {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-4);
+    margin-block: var(--ui-space-5);
+  }
+
+  .contrast-lab-controls {
+    align-items: end;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+
+  .contrast-lab-lab {
+    align-items: start;
+    display: grid;
+    gap: var(--ui-space-4);
+
+    @container (min-width: 56rem) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .contrast-lab-stage {
+    --_amount: 0;
+
+    display: grid;
+  }
+
+  .contrast-lab-scope {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: grid;
+    font-family: var(--ui-font-body);
+    padding: var(--ui-space-6) var(--ui-space-4);
+    place-items: center;
+
+    & h3 {
+      font-family: var(--ui-font-heading, var(--ui-font-body));
+      font-size: var(--ui-font-size-h5);
+      margin: 0;
+    }
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .contrast-lab-muted {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+  }
+
+  .contrast-lab-card {
+    inline-size: min(100%, 30rem);
+
+    & .ui-header {
+      display: grid;
+      gap: var(--ui-space-2);
+    }
+
+    & .ui-content {
+      display: grid;
+      gap: var(--ui-space-3);
+    }
+
+    & .ui-actions {
+      flex-wrap: wrap;
+    }
+
+    & .ui-list {
+      margin: 0;
+    }
+  }
+
+  .contrast-lab-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+  }
+
+  .contrast-lab .contrast-lab-focused {
+    outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+      var(--ui-focus-ring-color);
+    outline-offset: var(--ui-focus-ring-offset);
+  }
+
+  .contrast-lab-table {
+    margin-block: 0;
+
+    & th[scope="row"] {
+      font-weight: var(--ui-font-weight-normal);
+
+      & code {
+        color: var(--ui-text-subtle);
+        display: block;
+        font-size: var(--ui-font-size-caption);
+      }
+    }
+
+    & td {
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+  }
+
+  .contrast-lab-ratio-count {
+    --contrast-lab-ratio: 0;
+
+    transition: --contrast-lab-ratio
+      calc(var(--ui-duration-slow) * 2 * var(--ui-motion)) var(--ui-ease);
+  }
+
+  @supports (counter-set: whole calc(round(down, 1.5, 1))) {
+    .contrast-lab-ratio-text {
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+    }
+
+    .contrast-lab-ratio-count::before {
+      content: counter(whole) "." counter(fraction, decimal-leading-zero);
+      counter-reset: whole calc(round(down, var(--contrast-lab-ratio), 1))
+        fraction
+        calc(
+          min(
+            99,
+            round(
+              nearest,
+              (
+                  var(--contrast-lab-ratio) -
+                    round(down, var(--contrast-lab-ratio), 1)
+                ) *
+                100,
+              1
+            )
+          )
+        );
+    }
+  }
+
+  .contrast-lab-mark {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--ui-space-1);
+    transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+    transition-property: opacity, scale;
+    transition-timing-function: var(--ui-ease-enter);
+
+    &::before {
+      background-color: currentColor;
+      block-size: 0.5em;
+      border-radius: var(--ui-radius-round);
+      content: "";
+      inline-size: 0.5em;
+    }
+
+    @starting-style {
+      opacity: 0;
+      scale: 0.6;
+    }
+  }
+
+  .contrast-lab-table tr[data-status="pass"] .contrast-lab-mark {
+    color: var(--ui-success-text);
+  }
+
+  .contrast-lab-table tr[data-status="fail"] .contrast-lab-mark {
+    color: var(--ui-critical-text);
+    font-weight: var(--ui-font-weight-bold);
+  }
+
+  .contrast-lab-table tr[data-status="pending"] .contrast-lab-mark {
+    color: var(--ui-text-subtle);
+  }
+</style>
+
+<script>
+  type Rgba = [number, number, number, number]
+
+  const lab = document.getElementById("contrast-lab")
+  const stage = lab?.querySelector<HTMLElement>(".contrast-lab-stage")
+  const scope = lab?.querySelector<HTMLElement>(".contrast-lab-scope")
+  const probe = lab?.querySelector<HTMLElement>(".contrast-lab-probe")
+  const amount = lab?.querySelector<HTMLInputElement>(
+    '[name="contrast-lab-amount"]',
+  )
+  const hue = lab?.querySelector<HTMLInputElement>('[name="contrast-lab-hue"]')
+  const moreSwitch = lab?.querySelector<HTMLInputElement>(
+    '[name="contrast-lab-more"]',
+  )
+  const darkSwitch = lab?.querySelector<HTMLInputElement>(
+    '[name="contrast-lab-dark"]',
+  )
+
+  if (
+    lab &&
+    stage &&
+    scope &&
+    probe &&
+    amount &&
+    hue &&
+    moreSwitch &&
+    darkSwitch
+  ) {
+    const rows = [...lab.querySelectorAll<HTMLTableRowElement>("tbody tr")].map(
+      (row) => ({
+        count: row.querySelector<HTMLElement>(".contrast-lab-ratio-count")!,
+        mark: row.querySelector<HTMLElement>(".contrast-lab-mark")!,
+        needs: Number(row.dataset.ratio),
+        outline: row.dataset.outline !== undefined,
+        row,
+        selector: row.dataset.selector!,
+        text: row.querySelector<HTMLElement>(".contrast-lab-ratio-text")!,
+      }),
+    )
+
+    const clip = (value: number) => Math.min(1, Math.max(0, value))
+
+    const parseChannels = (value: string): Rgba | null => {
+      const srgb = value.match(
+        /^color\(srgb ([^\s/)]+) ([^\s/)]+) ([^\s/)]+)(?: \/ ([^)]+))?\)$/,
+      )
+      const rgb = value.match(/^rgba?\(([^)]+)\)$/)
+      const channels = srgb
+        ? srgb
+            .slice(1)
+            .map((channel, index) =>
+              channel === undefined && index === 3 ? 1 : Number(channel),
+            )
+        : rgb
+          ? rgb[1]
+              .split(/[\s,/]+/)
+              .map((channel, index) =>
+                index < 3
+                  ? Number(channel) / 255
+                  : channel.endsWith("%")
+                    ? Number(channel.slice(0, -1)) / 100
+                    : Number(channel),
+              )
+          : null
+      if (!channels || channels.some((channel) => !Number.isFinite(channel))) {
+        return null
+      }
+      const [r, g, b, a = 1] = channels
+      return [clip(r), clip(g), clip(b), clip(a)]
+    }
+
+    const parseColor = (value: string): Rgba | null => {
+      probe.style.color = ""
+      probe.style.color = `color(from ${value} srgb r g b / alpha)`
+      return probe.style.color === ""
+        ? parseChannels(value)
+        : parseChannels(getComputedStyle(probe).color)
+    }
+
+    const composite = (top: Rgba, base: Rgba): Rgba => {
+      const alpha = top[3] + base[3] * (1 - top[3])
+      if (alpha === 0) return [0, 0, 0, 0]
+      const channel = (index: number) =>
+        (top[index] * top[3] + base[index] * base[3] * (1 - top[3])) / alpha
+      return [channel(0), channel(1), channel(2), alpha]
+    }
+
+    const linear = (channel: number) =>
+      channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+
+    const luminance = ([r, g, b]: Rgba) =>
+      0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b)
+
+    const contrast = (a: Rgba, b: Rgba) => {
+      const [high, low] = [luminance(a), luminance(b)].toSorted((x, y) => y - x)
+      return (high + 0.05) / (low + 0.05)
+    }
+
+    const backgroundOf = (start: Element | null) => {
+      const layers: Rgba[] = []
+      let opaque: Rgba | null = null
+      let node = start
+      while (node && node !== document.documentElement) {
+        const color = parseColor(getComputedStyle(node).backgroundColor)
+        if (color && color[3] > 0) {
+          if (color[3] > 0.999) {
+            opaque = color
+            break
+          }
+          layers.push(color)
+        }
+        node = node.parentElement
+      }
+      let base: Rgba = opaque ?? [1, 1, 1, 1]
+      for (const layer of layers.toReversed()) base = composite(layer, base)
+      return { approximated: !opaque, color: base, layers: layers.length }
+    }
+
+    const update = () => {
+      let failing = 0
+      const settled = scope.cloneNode(true) as HTMLElement
+      settled.hidden = true
+      settled.inert = true
+      for (const element of settled.querySelectorAll("[id]")) {
+        element.removeAttribute("id")
+      }
+      stage.append(settled)
+      for (const pair of rows) {
+        const element = settled.querySelector(pair.selector)
+        if (!element) continue
+        const style = getComputedStyle(element)
+        const fg = parseColor(pair.outline ? style.outlineColor : style.color)
+        const background = backgroundOf(
+          pair.outline ? element.parentElement : element,
+        )
+        if (!fg) continue
+        const ratio = contrast(
+          composite(fg, background.color),
+          background.color,
+        )
+        const shown = (Math.floor(ratio * 100) / 100).toFixed(2)
+        const status = ratio >= pair.needs ? "pass" : "fail"
+        if (status === "fail") failing += 1
+        pair.count.style.setProperty("--contrast-lab-ratio", shown)
+        pair.text.textContent = shown
+        pair.row.dataset.layers = String(background.layers)
+        pair.row.toggleAttribute("data-approximated", background.approximated)
+        if (pair.row.dataset.status !== status) {
+          pair.row.dataset.status = status
+          const mark = pair.mark.cloneNode(true) as HTMLElement
+          mark.textContent = status === "pass" ? "Pass" : "Fail"
+          pair.mark.replaceWith(mark)
+          pair.mark = mark
+        }
+      }
+      settled.remove()
+      lab.dataset.failing = String(failing)
+    }
+
+    const applyAmount = () =>
+      stage.style.setProperty("--_amount", String(Number(amount.value) / 100))
+    const applyHue = () =>
+      stage.style.setProperty("--ui-palette-hue", hue.value)
+    const applyMore = () =>
+      scope.classList.toggle("ui-contrast-more", moreSwitch.checked)
+    const applyDark = () => {
+      stage.classList.toggle("ui-dark", darkSwitch.checked)
+      stage.classList.toggle("ui-light", !darkSwitch.checked)
+    }
+
+    darkSwitch.checked =
+      document.documentElement.classList.contains("ui-dark") ||
+      (!document.documentElement.classList.contains("ui-light") &&
+        matchMedia("(prefers-color-scheme: dark)").matches)
+
+    amount.addEventListener("input", () => {
+      applyAmount()
+      update()
+    })
+    hue.addEventListener("input", () => {
+      applyHue()
+      update()
+    })
+    moreSwitch.addEventListener("change", () => {
+      applyMore()
+      update()
+    })
+    darkSwitch.addEventListener("change", () => {
+      applyDark()
+      update()
+    })
+
+    applyAmount()
+    applyHue()
+    applyMore()
+    applyDark()
+    update()
+  }
+</script>

@@ -99,7 +99,7 @@ import { Range } from "opui-css/astro"
 
 - `Range` slot props (`ReactNode`): `datalist`, `endText`, `label`, `startText` and `valueText`.
 - Client components (`"use client"`): `Range`.
-- Hydration: `valueSuffix` and `valueText` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.
+- Hydration: `valueSuffix` and `valueText` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.
 
 ### Example: Basics
 
@@ -117,7 +117,7 @@ export default function Basics() {
 
 - `Range` slot snippets: `datalist`, `endText`, `label`, `startText` and `valueText`.
 - Hydration: `bind:value` on `Range`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `valueSuffix` and `valueText` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.
+- Hydration: `valueSuffix` and `valueText` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.
 
 ### Example: Basics
 
@@ -135,7 +135,7 @@ export default function Basics() {
 
 - `Range` named slots: `datalist`, `end-text`, `label`, `start-text` and `value-text`. Fill one with `<template #datalist>`.
 - Hydration: `v-model` on `Range`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `valueSuffix` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.
+- Hydration: `valueSuffix` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.
 
 ### Example: Basics
 

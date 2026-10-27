@@ -6,9 +6,6 @@ export const FIREFOX_SELF_RTL =
 export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"
 
-export const WEBKIT_FALLBACK_ITEM_CLICK =
-  "WebKit can leave a popover that a position-try fallback placed open after a click on a button in it that hides it"
-
 export const WEBKIT_RADIO_NO_WRAP =
   "WebKit stops at the last radio of a group instead of wrapping to the first with the arrow keys"
 
@@ -19,7 +16,6 @@ export const ENGINE_BUGS = {
   firefox: [FIREFOX_SELF_RTL],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,
-    WEBKIT_FALLBACK_ITEM_CLICK,
     WEBKIT_RADIO_NO_WRAP,
     WEBKIT_TOP_LAYER_ANCHOR,
   ],

@@ -3,7 +3,7 @@ import Document from "./Document.astro"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import { Divider } from "opui-css/astro"
 import { canonicalPath, hrefFor } from "../utils/framework"
-import { categories, componentName, posts, walkthroughs } from "../utils/learn"
+import { categories, componentName, posts, walkthroughs } from "../utils/blog"
 
 type Props = {
   description?: string
@@ -15,7 +15,7 @@ type Props = {
 
 const {
   description,
-  overline = "Learn",
+  overline = "Blog",
   showToc = true,
   title,
   wide,
@@ -24,7 +24,7 @@ const {
 const currentFramework = Astro.locals.framework
 
 const currentPost = posts.find(
-  (post) => canonicalPath(Astro.url.pathname) === `/learn/${post.slug}`,
+  (post) => canonicalPath(Astro.url.pathname) === `/blog/${post.slug}`,
 )
 
 const linkTo = (href: string, label: string) => ({
@@ -33,7 +33,7 @@ const linkTo = (href: string, label: string) => ({
 })
 
 const groups = [
-  { label: "Learn", links: [linkTo("/learn", "All posts")] },
+  { label: "Blog", links: [linkTo("/blog", "All posts")] },
   ...categories.map((category) => ({
     label: category.label,
     links: posts
@@ -45,7 +45,7 @@ const groups = [
       )
       .map((post) =>
         linkTo(
-          `/learn/${post.slug}`,
+          `/blog/${post.slug}`,
           post.navLabel ??
             (post.component ? componentName(post.component) : post.title),
         ),
@@ -54,7 +54,7 @@ const groups = [
   {
     label: "Walkthrough only",
     links: walkthroughs.map((slug) =>
-      linkTo(`/learn/under-the-hood#${slug}`, componentName(slug)),
+      linkTo(`/blog/under-the-hood#${slug}`, componentName(slug)),
     ),
   },
 ]
@@ -66,7 +66,7 @@ const groups = [
   showToc={showToc}
   sidebarGroups={groups}
   title={title}
-  transitionName={currentPost && `learn-${currentPost.slug}`}
+  transitionName={currentPost && `blog-${currentPost.slug}`}
   wide={wide}
 >
   <FrameworkPicker size="small" slot="sidebar" />

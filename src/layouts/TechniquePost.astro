@@ -1,5 +1,5 @@
 ---
-import Learn from "./Learn.astro"
+import Blog from "./Blog.astro"
 import ReadMore from "../components/UnderTheHood/ReadMore.astro"
 import { references } from "../components/UnderTheHood/references"
 import { formatInline } from "../utils/format-inline"
@@ -9,7 +9,7 @@ import {
   formatDate,
   posts,
   seriesOf,
-} from "../utils/learn"
+} from "../utils/blog"
 import { hrefFor } from "../utils/framework"
 
 type Props = {
@@ -21,7 +21,7 @@ const { slug, topic: topicProp } = Astro.props
 const post = posts.find((entry) => entry.slug === slug)!
 const { component } = post
 if (component && (!post.before || !post.now)) {
-  throw new Error(`learn-posts.ts: ${slug} needs before and now`)
+  throw new Error(`blog-posts.ts: ${slug} needs before and now`)
 }
 
 const { link } = Astro.locals
@@ -43,7 +43,7 @@ const topic =
     : undefined)
 ---
 
-<Learn
+<Blog
   description={post.description}
   overline={formatDate(post.date)}
   title={post.title}
@@ -53,15 +53,15 @@ const topic =
 
   {
     series && (
-      <nav aria-label="Series" class="learn-series ui-not-rich-text">
+      <nav aria-label="Series" class="blog-series ui-not-rich-text">
         <p>
           Part {series.part} of {series.total} in{" "}
-          <a href={link(`/learn#${series.id}`)}>{series.label}</a>
+          <a href={link(`/blog#${series.id}`)}>{series.label}</a>
         </p>
         <ul>
           {series.previous && (
             <li>
-              <a href={link(`/learn/${series.previous.slug}`)} rel="prev">
+              <a href={link(`/blog/${series.previous.slug}`)} rel="prev">
                 <span class="ui-caption">Previous</span>
                 {series.previous.title}
               </a>
@@ -69,7 +69,7 @@ const topic =
           )}
           {series.next && (
             <li>
-              <a href={link(`/learn/${series.next.slug}`)} rel="next">
+              <a href={link(`/blog/${series.next.slug}`)} rel="next">
                 <span class="ui-caption">Next</span>
                 {series.next.title}
               </a>
@@ -108,7 +108,7 @@ const topic =
             <a href={`${docsHref}#under-the-hood`}>{name}, under the hood</a>
           </li>
           <li>
-            <a href={hrefFor(currentFramework, "/learn/under-the-hood")}>
+            <a href={hrefFor(currentFramework, "/blog/under-the-hood")}>
               Every component, under the hood
             </a>
           </li>
@@ -117,10 +117,10 @@ const topic =
       </section>
     )
   }
-</Learn>
+</Blog>
 
 <style>
-  .learn-series {
+  .blog-series {
     display: grid;
     font-size: var(--ui-font-size-small);
     gap: var(--ui-space-2);

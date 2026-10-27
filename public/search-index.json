@@ -2250,212 +2250,212 @@
     "url": "/vue/guide/getting-started"
   },
   {
-    "id": "learn-accordion-height-auto",
+    "id": "blog-accordion-height-auto",
     "title": "An accordion that animates to auto",
     "description": "interpolate-size and ::details-content let a details element transition to its natural height.",
     "headings": "The problem The trick Try it Fallback interpolate-size JavaScript that measures the content and animates a pixel height. `interpolate-size: allow-keywords` and `::details-content` transition a `<details>` to its natural height. details-content interpolate-size",
-    "category": "Learn",
-    "url": "/learn/accordion-height-auto"
+    "category": "Blog",
+    "url": "/blog/accordion-height-auto"
   },
   {
-    "id": "learn-anchor-hover-cards",
+    "id": "blog-anchor-hover-cards",
     "title": "Hover cards without JavaScript",
     "description": "interestfor, popover=hint and anchor positioning open a hover card on hover and focus.",
     "headings": "The problem The trick Try it Fallback interestfor Timers for hover intent, focus and blur listeners, and a positioning library that measures and flips the card. `interestfor` and `popover=\"hint\"` open it on hover and focus, and anchor positioning places it. anchor-positioning interest-invokers popover-hint",
-    "category": "Learn",
-    "url": "/learn/anchor-hover-cards"
+    "category": "Blog",
+    "url": "/blog/anchor-hover-cards"
   },
   {
-    "id": "learn-avatar-squircles",
+    "id": "blog-avatar-squircles",
     "title": "Squircle avatars with corner-shape",
     "description": "aspect-ratio, :has(img) and corner-shape for avatars.",
     "headings": "The problem The trick Try it Fallback corner-shape An SVG mask or a `clip-path` path: a fixed shape that clips borders and shadows too. `corner-shape: squircle` draws the corner, and `aspect-ratio: 1` keeps the avatar square. aspect-ratio corner-shape has",
-    "category": "Learn",
-    "url": "/learn/avatar-squircles"
+    "category": "Blog",
+    "url": "/blog/avatar-squircles"
   },
   {
-    "id": "learn-button-icon-only-has",
+    "id": "blog-button-icon-only-has",
     "title": "One Button, no IconButton",
     "description": ":has(> svg:only-child) turns any Button into an icon button.",
     "headings": "The problem The trick Try it Fallback Gotchas :has() A separate `IconButton` component or an `iconOnly` prop, with every size and variant built twice. `:has(> svg:only-child)` lets the button see that it only holds an icon. has",
-    "category": "Learn",
-    "url": "/learn/button-icon-only-has"
+    "category": "Blog",
+    "url": "/blog/button-icon-only-has"
   },
   {
-    "id": "learn-callout-relative-colors",
+    "id": "blog-callout-relative-colors",
     "title": "Severity colors from one source color",
     "description": "Relative colors and light-dark() derive every severity shade from one color.",
     "headings": "The problem The trick Try it Fallback oklch(from …) 40 hand-picked colors for five severities in two schemes, or a preprocessor that only works at build time. One `--ui-palette-source` per severity, and `oklch(from …)` derives every shade. light-dark relative-color",
-    "category": "Learn",
-    "url": "/learn/callout-relative-colors"
+    "category": "Blog",
+    "url": "/blog/callout-relative-colors"
   },
   {
-    "id": "learn-carousel-css-only",
+    "id": "blog-carousel-css-only",
     "title": "A carousel made of CSS",
     "description": "Scroll snap, ::scroll-button() and ::scroll-marker: a carousel without JavaScript.",
     "headings": "The problem The trick Try it Fallback ::scroll-button() JavaScript that listens to scroll events to run the buttons and dots, with their accessibility done by hand. `::scroll-button()` and `::scroll-marker` generate focusable buttons and dots. scroll-buttons scroll-markers scroll-snap",
-    "category": "Learn",
-    "url": "/learn/carousel-css-only"
+    "category": "Blog",
+    "url": "/blog/carousel-css-only"
   },
   {
-    "id": "learn-checkbox-appearance-none",
+    "id": "blog-checkbox-appearance-none",
     "title": "Drawing a checkbox",
     "description": "appearance: none, a clip-path checkmark and system colors for a native checkbox.",
     "headings": "The problem The trick Try it Fallback appearance: none A hidden input and a fake box with an SVG check that mirrors every state. `appearance: none` lets the real input draw its own box and check. appearance clip-path",
-    "category": "Learn",
-    "url": "/learn/checkbox-appearance-none"
+    "category": "Blog",
+    "url": "/blog/checkbox-appearance-none"
   },
   {
-    "id": "learn-description-list-leader-lines",
+    "id": "blog-description-list-leader-lines",
     "title": "Leader lines with grid",
     "description": "A container query and a grid pseudo-element draw dotted leader lines.",
     "headings": "The problem The trick Try it Fallback @container A row of clipped dots, a repeating background or an empty filler element, and a media query that only knows the viewport. A grid per pair with a dotted `::after` between term and description, and a container query for the column. container-queries",
-    "category": "Learn",
-    "url": "/learn/description-list-leader-lines"
+    "category": "Blog",
+    "url": "/blog/description-list-leader-lines"
   },
   {
-    "id": "learn-dialog-closedby",
+    "id": "blog-dialog-closedby",
     "title": "Dialogs without JavaScript",
     "description": "Invoker commands, closedby and @starting-style for modal dialogs.",
     "headings": "The problem The trick Keyboard shortcuts Try it Scroll lock Fallback closedby A click handler for `showModal()`, another for `close()`, and a backdrop listener that checks where the click landed. `commandfor`, `command` and `closedby` open and close it, and `@starting-style` fades it in. dialog-closedby invoker-commands starting-style",
-    "category": "Learn",
-    "url": "/learn/dialog-closedby"
+    "category": "Blog",
+    "url": "/blog/dialog-closedby"
   },
   {
-    "id": "learn-drawer-starting-style",
+    "id": "blog-drawer-starting-style",
     "title": "Sliding drawers with @starting-style",
     "description": "A dialog that slides in from any edge, and out again with allow-discrete.",
     "headings": "The problem The trick Try it Fallback @starting-style A fixed `<div>` with JavaScript for the focus trap, Esc and backdrop clicks, and a class removed after `transitionend` to animate it out. A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`. overlay starting-style transition-behavior",
-    "category": "Learn",
-    "url": "/learn/drawer-starting-style"
+    "category": "Blog",
+    "url": "/blog/drawer-starting-style"
   },
   {
-    "id": "learn-fluid-type-progress",
+    "id": "blog-fluid-type-progress",
     "title": "Fluid type with progress()",
     "description": "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
     "headings": "The problem The trick Try it Fallback progress() A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths. `progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it. progress-function",
-    "category": "Learn",
-    "url": "/learn/fluid-type-progress"
+    "category": "Blog",
+    "url": "/blog/fluid-type-progress"
   },
   {
-    "id": "learn-form-fieldset-has",
+    "id": "blog-form-fieldset-has",
     "title": "Smarter fieldsets with :has()",
     "description": ":has() lets fieldsets and legends style themselves from what they contain.",
     "headings": "The problem The trick Try it Fallback :has(:required) Modifier classes or props kept in sync with what the fieldset contains. `:has()` lets the fieldset and legend style themselves from their content. has",
-    "category": "Learn",
-    "url": "/learn/form-fieldset-has"
+    "category": "Blog",
+    "url": "/blog/form-fieldset-has"
   },
   {
-    "id": "learn-menu-popover-anchor",
+    "id": "blog-menu-popover-anchor",
     "title": "Menus with popover and anchor positioning",
     "description": "Popover, invoker commands and anchor positioning: a menu with no JavaScript.",
     "headings": "The problem The trick Try it Fallback popover JavaScript to toggle and dismiss it, `z-index` fights, and a positioning library that measures and flips. `popover`, invoker commands and anchor positioning, with the trigger as the implicit anchor. anchor-positioning invoker-commands popover",
-    "category": "Learn",
-    "url": "/learn/menu-popover-anchor"
+    "category": "Blog",
+    "url": "/blog/menu-popover-anchor"
   },
   {
-    "id": "learn-progress-native",
+    "id": "blog-progress-native",
     "title": "Styling the native progress bar",
     "description": "appearance: none and :indeterminate on the native progress element.",
     "headings": "The problem The trick Try it Fallback :indeterminate A `<div role=\"progressbar\">` with its ARIA attributes kept in sync by hand. The native `<progress>` with `appearance: none`, so the role and the value stay native. appearance container-style-queries indeterminate",
-    "category": "Learn",
-    "url": "/learn/progress-native"
+    "category": "Blog",
+    "url": "/blog/progress-native"
   },
   {
-    "id": "learn-range-tick-marks",
+    "id": "blog-range-tick-marks",
     "title": "Range sliders with datalist ticks",
     "description": "A scroll-driven gradient fill and datalist tick marks for input range.",
     "headings": "The problem The trick Try it Fallback <datalist> Vendor pseudo-elements, a fill only Firefox could draw, and tick labels that never showed. A scroll-driven animation on the thumb fills the track, and `display: flex` brings the `<datalist>` labels back. datalist input-range scroll-driven-animations",
-    "category": "Learn",
-    "url": "/learn/range-tick-marks"
+    "category": "Blog",
+    "url": "/blog/range-tick-marks"
   },
   {
-    "id": "learn-release-6",
+    "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
     "headings": "In one breath One library, four frameworks Slots become parts, props get one naming model Tokens, rebuilt Contrast as a guarantee Four example themes The platform did the work What it took Browser support, honestly Migrating",
-    "category": "Learn",
-    "url": "/learn/release-6"
+    "category": "Blog",
+    "url": "/blog/release-6"
   },
   {
-    "id": "learn-select-base-select",
+    "id": "blog-select-base-select",
     "title": "A select you can style",
     "description": "appearance: base-select, ::picker(select) and :open for a fully styled select.",
     "headings": "The problem The trick Try it Fallback base-select A rebuilt listbox: a button, a popup, ARIA roles and JavaScript for focus, keyboard and typeahead. `appearance: base-select` makes the real `<select>` stylable, with `<selectedcontent>` and `::picker(select)`. customizable-select open-pseudo",
-    "category": "Learn",
-    "url": "/learn/select-base-select"
+    "category": "Blog",
+    "url": "/blog/select-base-select"
   },
   {
-    "id": "learn-spinner-aria-busy",
+    "id": "blog-spinner-aria-busy",
     "title": "Spinners from aria-busy",
     "description": "aria-busy=true is all it takes to show a spinner.",
     "headings": "The problem The trick Try it Fallback aria-busy A spinner class for sighted users and `aria-busy` for assistive technology, kept in sync. `[aria-busy=\"true\"]` is the only switch, and a `::before` ring spins. animations-css not",
-    "category": "Learn",
-    "url": "/learn/spinner-aria-busy"
+    "category": "Blog",
+    "url": "/blog/spinner-aria-busy"
   },
   {
-    "id": "learn-switch-checkbox",
+    "id": "blog-switch-checkbox",
     "title": "A switch from a checkbox",
     "description": "A native checkbox, appearance: none and an outline trick.",
     "headings": "The problem The trick Try it Fallback appearance: none A `<button>` with `aria-checked` toggled in JavaScript, or a hidden checkbox plus extra spans. `<input type=\"checkbox\" role=\"switch\">` with `appearance: none` draws its own track and dot. appearance light-dark",
-    "category": "Learn",
-    "url": "/learn/switch-checkbox"
+    "category": "Blog",
+    "url": "/blog/switch-checkbox"
   },
   {
-    "id": "learn-table-scroll-state",
+    "id": "blog-table-scroll-state",
     "title": "A header that knows it's stuck",
     "description": "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
     "headings": "The problem The trick Scroll shadows Try it Fallback scroll-state() A scroll listener, or an `IntersectionObserver` with a sentinel element. `container-type: scroll-state` and `@container scroll-state(stuck: block-start)` show the shadow. anchor-positioning container-scroll-state-queries",
-    "category": "Learn",
-    "url": "/learn/table-scroll-state"
+    "category": "Blog",
+    "url": "/blog/table-scroll-state"
   },
   {
-    "id": "learn-tabs-radio-buttons",
+    "id": "blog-tabs-radio-buttons",
     "title": "Tabs from radio buttons",
     "description": "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
     "headings": "The problem The trick Try it Fallback :nth-child(of S) JavaScript for clicks, `aria-selected` and panels, or CSS tabs with one selector per tab. One radio group, and `:checked + label + panel` shows the right panel. nth-child-of",
-    "category": "Learn",
-    "url": "/learn/tabs-radio-buttons"
+    "category": "Blog",
+    "url": "/blog/tabs-radio-buttons"
   },
   {
-    "id": "learn-text-field-user-invalid",
+    "id": "blog-text-field-user-invalid",
     "title": "Validation that waits with :user-invalid",
     "description": ":user-invalid shows errors after the user interacts, not on page load.",
     "headings": "The problem The trick Try it Fallback :user-invalid JavaScript that adds a touched class on blur. `:user-invalid` only matches after the user has changed the field. user-pseudos",
-    "category": "Learn",
-    "url": "/learn/text-field-user-invalid"
+    "category": "Blog",
+    "url": "/blog/text-field-user-invalid"
   },
   {
-    "id": "learn-textarea-field-sizing",
+    "id": "blog-textarea-field-sizing",
     "title": "Textareas that grow with field-sizing",
     "description": "field-sizing: content and lh units for auto-growing textareas.",
     "headings": "The problem The trick Try it Fallback field-sizing JavaScript that resets the height to `scrollHeight` on every keystroke. `field-sizing: content` grows and shrinks the textarea with its text. field-sizing lh",
-    "category": "Learn",
-    "url": "/learn/textarea-field-sizing"
+    "category": "Blog",
+    "url": "/blog/textarea-field-sizing"
   },
   {
-    "id": "learn-tooltip-interest-invokers",
+    "id": "blog-tooltip-interest-invokers",
     "title": "Tooltips with interestfor",
     "description": "interestfor, calc-size() and @position-try for tooltips that stay on screen.",
     "headings": "The problem The trick Staying on screen Try it Fallback interestfor Event listeners, delays and a positioning library that measures and flips. `interestfor` and `popover=\"hint\"` open it on hover and focus, and anchor positioning keeps it on screen. anchor-positioning calc-size interest-invokers popover-hint",
-    "category": "Learn",
-    "url": "/learn/tooltip-interest-invokers"
+    "category": "Blog",
+    "url": "/blog/tooltip-interest-invokers"
   },
   {
-    "id": "learn-under-the-hood",
+    "id": "blog-under-the-hood",
     "title": "Under the hood",
     "description": "Every component, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
     "headings": "How it works",
-    "category": "Learn",
-    "url": "/learn/under-the-hood"
+    "category": "Blog",
+    "url": "/blog/under-the-hood"
   },
   {
-    "id": "learn-vertical-rhythm-round",
+    "id": "blog-vertical-rhythm-round",
     "title": "Vertical rhythm with round()",
     "description": "round() snaps line heights and font sizes to a rhythm step.",
     "headings": "The problem The trick Try it Fallback round() A Sass function per font size, which breaks once sizes are fluid. `round(up, value, step)` snaps every line height to the grid at computed time. registered-custom-properties round-mod-rem",
-    "category": "Learn",
-    "url": "/learn/vertical-rhythm-round"
+    "category": "Blog",
+    "url": "/blog/vertical-rhythm-round"
   },
   {
     "id": "block-account-settings",

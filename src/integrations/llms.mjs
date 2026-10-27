@@ -100,11 +100,11 @@ function llmsTxt({ framework, pages, site, isRoot }) {
 
   const guide = pages.filter((p) => p.kind === "guide").sort(byGuideOrder)
   const components = pages.filter((p) => p.kind === "component").sort(byTitle)
-  const learn = pages.filter((p) => p.kind === "learn").sort(byTitle)
+  const blog = pages.filter((p) => p.kind === "blog").sort(byTitle)
   const blocks = pages.filter((p) => p.kind === "block").sort(byTitle)
   const optional = pages.filter((p) => p.kind === "api").map(link)
   optional.push(
-    `- [Full documentation](${new URL(`/${framework.id}/llms-full.txt`, site)}): Every guide, component and Learn page for ${framework.label} in one file.`,
+    `- [Full documentation](${new URL(`/${framework.id}/llms-full.txt`, site)}): Every guide, component and blog post for ${framework.label} in one file.`,
     ...pages.filter((p) => p.pathname === "/theme-builder/").map(link),
   )
 
@@ -120,7 +120,7 @@ function llmsTxt({ framework, pages, site, isRoot }) {
     "",
     ...section("Guide", guide.map(link)),
     ...section("Components", components.map(link)),
-    ...section("Learn", learn.map(link)),
+    ...section("Blog", blog.map(link)),
     ...section("Blocks", blocks.map(link)),
     ...section("Frameworks", frameworks),
     ...section("Optional", optional),
@@ -174,8 +174,8 @@ export async function pageFrom(tree, pathname, rewriteHref) {
         ? "guide"
         : section === "api"
           ? "api"
-          : section === "learn" && slug
-            ? "learn"
+          : section === "blog" && slug
+            ? "blog"
             : section === "blocks" && slug && third !== "preview"
               ? "block"
               : "other"
@@ -183,7 +183,7 @@ export async function pageFrom(tree, pathname, rewriteHref) {
   return {
     ...meta,
     full:
-      kind === "component" || kind === "guide" || kind === "learn"
+      kind === "component" || kind === "guide" || kind === "blog"
         ? await articleToMarkdown(tree, {
             omitInstallationCode: kind === "component",
             rewriteHref,
@@ -200,7 +200,7 @@ export async function pageFrom(tree, pathname, rewriteHref) {
  * @param {{ framework: Framework, pages: Page[], site: string | undefined }} options
  */
 function fullTxt({ framework, pages, site }) {
-  const order = ["guide", "component", "learn"]
+  const order = ["guide", "component", "blog"]
   const full = pages
     .filter((p) => p.full)
     .sort(
@@ -235,9 +235,9 @@ async function devPages(framework, origin, rewriteHref) {
     ...slugsIn("../docs/components/")
       .filter((slug) => componentHasFramework(framework.id, slug))
       .map((slug) => `/${framework.id}/components/${slug}/`),
-    ...slugsIn("../docs/learn/")
+    ...slugsIn("../docs/blog/")
       .filter((slug) => slug !== "index")
-      .map((slug) => `/learn/${slug}/`),
+      .map((slug) => `/blog/${slug}/`),
     ...fs
       .readdirSync(new URL("../blocks/", import.meta.url))
       .filter((file) => file.endsWith(".html"))

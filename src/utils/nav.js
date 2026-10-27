@@ -1,5 +1,5 @@
 // @ts-check
-/** @typedef {"API" | "Blocks" | "Component" | "Guide" | "Learn"} SearchCategoryId */
+/** @typedef {"API" | "Blocks" | "Blog" | "Component" | "Guide"} SearchCategoryId */
 
 /** @type {{ category?: SearchCategoryId, href: string, label: string, section: string }[]} */
 export const navItems = [
@@ -17,6 +17,6 @@ export const navItems = [
   },
   { category: "Blocks", href: "/blocks", label: "Blocks", section: "/blocks" },
   { href: "/theme-builder", label: "Themes", section: "/theme-builder" },
-  { category: "Learn", href: "/learn", label: "Learn", section: "/learn" },
+  { category: "Blog", href: "/blog", label: "Blog", section: "/blog" },
   { category: "API", href: "/api", label: "API", section: "/api" },
 ]

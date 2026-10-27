@@ -1,5 +1,5 @@
 ---
-import Learn from "../../layouts/Learn.astro"
+import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
 import {
   buildPostSlugs,
@@ -7,7 +7,7 @@ import {
   componentName,
   formatDate,
   posts,
-} from "../../utils/learn"
+} from "../../utils/blog"
 
 const post = posts.find((entry) => entry.slug === "under-the-hood")!
 
@@ -41,7 +41,7 @@ const builds = Object.entries(modules)
   .toSorted((a, b) => a.heading.localeCompare(b.heading))
 ---
 
-<Learn
+<Blog
   description={post.description}
   overline={formatDate(post.date)}
   title={post.title}
@@ -72,7 +72,7 @@ const builds = Object.entries(modules)
           </li>
           {buildPost && (
             <li>
-              <DocLink href={`/learn/${buildPost.slug}`}>
+              <DocLink href={`/blog/${buildPost.slug}`}>
                 {buildPost.title}
               </DocLink>
             </li>
@@ -82,7 +82,7 @@ const builds = Object.entries(modules)
       </section>
     ))
   }
-</Learn>
+</Blog>
 
 <style>
   .build-links {

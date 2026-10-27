@@ -92,7 +92,7 @@ describe("check-dist", () => {
         "/html/guide/start/index.html": page(""),
         "/html/guide/start.md": "# Start\n",
       },
-      "/html/guide/start.md is not linked from /html/llms.txt; llmsTxt in src/integrations/llms.mjs lists component, guide, learn, block and api pages <- /html/guide/start/",
+      "/html/guide/start.md is not linked from /html/llms.txt; llmsTxt in src/integrations/llms.mjs lists component, guide, blog, block and api pages <- /html/guide/start/",
     ],
     [
       "a missing llms.txt",

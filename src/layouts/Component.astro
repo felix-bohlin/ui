@@ -33,7 +33,7 @@ import {
   type ChangelogPathEntry,
 } from "../utils/changelog"
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
-import { posts } from "../utils/learn-posts"
+import { posts } from "../utils/blog-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 import { blockHref, blocksUsing } from "../utils/blocks"
 import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
@@ -159,7 +159,7 @@ const imports =
       }
     : undefined
 
-const learnPosts = currentSlug
+const blogPosts = currentSlug
   ? posts.filter((post) => post.component === currentSlug)
   : []
 
@@ -260,10 +260,10 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     Astro.slots.has("under-the-hood") && (
       <section>
         <h2 id="under-the-hood">Under the hood</h2>
-        {learnPosts.map((learnPost) => (
+        {blogPosts.map((blogPost) => (
           <p>
             Read the post:
-            <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
+            <a href={link(`/blog/${blogPost.slug}`)}>{blogPost.title}</a>
           </p>
         ))}
         <slot name="under-the-hood" />

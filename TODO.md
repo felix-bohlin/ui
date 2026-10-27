@@ -46,7 +46,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: keep the command pair on every trigger, as today.
     - C: like A, without the compat fallback: tooltips on action buttons show only in engines with interest invokers.
   > Fix with option A
-  - Fixed: option A. The Tooltip examples (Basics, Arrow, Position, RichContent) in all five formats, the product-detail block's wishlist button, the Under the hood steps and the interest invokers Learn post drop `commandfor` and `command="toggle-popover"`, so an action button is a plain button with the tooltip as its description: no expanded state, and Enter only runs its action. `css/compat/tooltip.css` shows the tooltip while its trigger is hovered (in `@media (hover: hover)`) or has keyboard focus, inside `@supports not selector(:interest-source)`, anchored to the wrapper's `--anchor`. Those rules, forced in Chromium on a trigger without `interestfor`, showed the tooltip on hover and on Tab, above the trigger with its arrow. A Toggletip section and example (an info button with `interestfor`, `commandfor` and `command="toggle-popover"`) show the pair where a press only shows the text. The page, `api.ts`, the Compat layer list on Browser support, the CHANGELOG (Added) and What's new say so. `compat.spec.ts` expects the fallback in Firefox and WebKit, the hover test in `interaction.spec.ts` runs in every engine, and the click test moved to Toggletip. The parity snapshots of the four changed examples are updated, intended; the Toggletip visual baselines need the `update-snapshots` label. The stress test pages keep the pair, since `contrast.spec.ts` and `stress-overlays.ts` open their tooltips with a click.
+  - Fixed: option A. The Tooltip examples (Basics, Arrow, Position, RichContent) in all five formats, the product-detail block's wishlist button, the Under the hood steps and the interest invokers blog post drop `commandfor` and `command="toggle-popover"`, so an action button is a plain button with the tooltip as its description: no expanded state, and Enter only runs its action. `css/compat/tooltip.css` shows the tooltip while its trigger is hovered (in `@media (hover: hover)`) or has keyboard focus, inside `@supports not selector(:interest-source)`, anchored to the wrapper's `--anchor`. Those rules, forced in Chromium on a trigger without `interestfor`, showed the tooltip on hover and on Tab, above the trigger with its arrow. A Toggletip section and example (an info button with `interestfor`, `commandfor` and `command="toggle-popover"`) show the pair where a press only shows the text. The page, `api.ts`, the Compat layer list on Browser support, the CHANGELOG (Added) and What's new say so. `compat.spec.ts` expects the fallback in Firefox and WebKit, the hover test in `interaction.spec.ts` runs in every engine, and the click test moved to Toggletip. The parity snapshots of the four changed examples are updated, intended; the Toggletip visual baselines need the `update-snapshots` label. The stress test pages keep the pair, since `contrast.spec.ts` and `stress-overlays.ts` open their tooltips with a click.
 
 ## Bugs
 
@@ -106,7 +106,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   > Fix
-  - Fixed: `css/compat/menu.css` sets `anchor-name: --ui-menu` on every menu with a submenu and `anchor-scope` only on the root, which keeps `--ui-menu-root` next to `--ui-menu`. In Chromium with the gate forced on, the second level of a three-level menu sat at the top-left (4, 0); now it opens next to its parent, and at the end edge both submenus flip and the third keeps the flipped direction. The Learn post on menu anchoring and the Menu entry in the CHANGELOG say so.
+  - Fixed: `css/compat/menu.css` sets `anchor-name: --ui-menu` on every menu with a submenu and `anchor-scope` only on the root, which keeps `--ui-menu-root` next to `--ui-menu`. In Chromium with the gate forced on, the second level of a three-level menu sat at the top-left (4, 0); now it opens next to its parent, and at the end edge both submenus flip and the third keeps the flipped direction. The blog post on menu anchoring and the Menu entry in the CHANGELOG say so.
 
 ---
 
@@ -418,13 +418,13 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Note: the Tokens item chose option A, so the exception is `--ui-on-fill` now. It stays one: it sits on any intent fill kept within the fill lightness cap, and there is no `--ui-fill`.
   > Fix
   - Fixed: `css-properties.test.ts` fails on a `-contrast` token (`--ui-contrast` aside) and on an `--ui-on-{fill}` without its `--ui-{fill}` or `--ui-surface-{fill}`, with `--ui-on-fill` as the one named exception and the `-on-filled` and `-on-raised` context suffixes skipped; a known-bad fixture tests it. Both lines in `packages/opui/components/AGENTS.md` name the test now.
-- [x] (1) Learn: nothing checks the Learn registry's order, and an unknown web-features id in a post's `features` or an Under the hood step only logs a warning and renders as limited availability (`src/utils/learn-posts.ts`, `src/components/UnderTheHood/BuildUp.astro:130`, `src/utils/browser-support.ts:52-56`)
-  - Summary: A Learn post can show a wrong browser support chip or sit out of order, and only a review notices.
+- [x] (1) Learn: nothing checks the Learn registry's order, and an unknown web-features id in a post's `features` or an Under the hood step only logs a warning and renders as limited availability (`src/utils/blog-posts.ts`, `src/components/UnderTheHood/BuildUp.astro:130`, `src/utils/browser-support.ts:52-56`)
+  - Summary: A blog post can show a wrong browser support chip or sit out of order, and only a review notices.
   - Recommended: Fix. Both are a few lines in a unit test.
   - Replaces: the Registry rule in `.claude/agents/blog.md:28`.
-  - Fix: a `learn.test.ts` that checks the order and that every `features` id exists in `web-features`, and make the warning an error in the build.
+  - Fix: a `blog.test.ts` that checks the order and that every `features` id exists in `web-features`, and make the warning an error in the build.
   > Fix
-  - Fixed: `tests/unit/learn.test.ts` checks the registry's order (by component, then slug), sorted keys, sorted `features` and `topics` without duplicates, and that every `features` id of a post or Under the hood step is a live web-features id. `getSupportForFeature` throws in production builds, so an unknown id fails the build, and the blog agent's Registry line names the test.
+  - Fixed: `tests/unit/blog.test.ts` checks the registry's order (by component, then slug), sorted keys, sorted `features` and `topics` without duplicates, and that every `features` id of a post or Under the hood step is a live web-features id. `getSupportForFeature` throws in production builds, so an unknown id fails the build, and the blog agent's Registry line names the test.
 - [x] (1) Tests: the reasons passed to `failingIn` and `test.fail` are separate copies of the strings in `engines.spec.ts`, and the WebKit one is worded differently in the two files, so nothing ties an expected failure to its browser repro (`tests/e2e/engines.spec.ts:4-8`, `tests/e2e/stress-overlays.ts:22-26`)
   - Summary: An expected browser failure can lose its plain-HTML repro without any test noticing.
   - Recommended: Fix. Sharing the strings makes the link explicit.
@@ -587,11 +587,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (2) CSS: the scroll lock selector `html:has(.ui-dialog:modal, .ui-scroll-lock[open]:not(.ui-backdrop-transparent))` makes Chromium re-resolve the style of the whole document on any DOM insertion, so a readout written with `textContent` costs 15 to 22ms on a page with many components (`packages/opui/core/utils.css:47-54`)
   - Summary: Any script that inserts a node on a page with a modal-capable dialog pays a whole-document style pass.
   - Recommended: Fix with option A. It removes the document-wide invalidation without changing what the lock does.
-  - Fix: measure first on `/learn/release-6/` with the rule removed: the hue slider of the contrast lab is the clearest case.
+  - Fix: measure first on `/blog/release-6/` with the rule removed: the hue slider of the contrast lab is the clearest case.
   - Options:
     - A (recommended): scope the lock to a class that the dialog and drawer scripts toggle on `html` when they open and close, so no `:has()` on `html` remains.
     - B: keep the rule and document that live readouts write `Text.data` instead of `textContent`, as `css/js/range.js` does since 6.0.
-  - Found while profiling `/learn/release-6/`: deleting every `:has()` rule took a text node replacement from 20ms to 0.5ms, and this rule alone accounted for 22ms to 15ms.
+  - Found while profiling `/blog/release-6/`: deleting every `:has()` rule took a text node replacement from 20ms to 0.5ms, and this rule alone accounted for 22ms to 15ms.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.
@@ -631,7 +631,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: draw the Badge severity fill and the choice mark with `--ui-palette-strong` and read `--ui-palette-on-strong` (a visual change in dark mode).
     - C: keep `--ui-on-accent` and document it as the one `--ui-on-*` without a fill token.
   > Fix with option A
-  - Fixed: option A. `--ui-on-accent` is `--ui-on-fill`, the text on an intent fill kept within `--ui-accent-fill-max-lightness` (Button and Badge fills) or `--ui-choice-fill-max-lightness` (choice marks), and its description says why `--ui-palette-on-strong` isn't a drop-in. Every reader (`theme.css`, `badge.css`, `button.css`, `choice.css`, the Under the hood builds, the checkbox Learn post, the token page, the contrast promises and tests) moved; it equals the old value in every scope and mode. It wasn't released (not in `released-tokens.json`), so the four Unreleased entries that named it changed instead of a Breaking one.
+  - Fixed: option A. `--ui-on-accent` is `--ui-on-fill`, the text on an intent fill kept within `--ui-accent-fill-max-lightness` (Button and Badge fills) or `--ui-choice-fill-max-lightness` (choice marks), and its description says why `--ui-palette-on-strong` isn't a drop-in. Every reader (`theme.css`, `badge.css`, `button.css`, `choice.css`, the Under the hood builds, the checkbox blog post, the token page, the contrast promises and tests) moved; it equals the old value in every scope and mode. It wasn't released (not in `released-tokens.json`), so the four Unreleased entries that named it changed instead of a Breaking one.
 - [x] (1) Tokens: `--ui-line-height-relaxed` (`1.75`) is the page line height on `html` and the `Tabs` label line height, so it can't fold into `--ui-line-height-control` (`1.5`) without shrinking the tabs and changing all page text (`packages/opui/core/normalize.css:21`, `packages/opui/css/components/tabs.css:84`)
   - Summary: Page text and tab labels share the relaxed line height, so folding it into the control line height would change both.
   - Recommended: Fix with option A. It is marked recommended and keeps the tokens as documented, and normalize and tabs still read the relaxed value.

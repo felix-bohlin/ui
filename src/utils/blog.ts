@@ -5,7 +5,7 @@ import {
   hrefFor,
   type FrameworkId,
 } from "./framework"
-import { posts } from "./learn-posts"
+import { posts } from "./blog-posts"
 import { componentName } from "./names"
 
 export { componentName, posts }
@@ -102,7 +102,7 @@ export const topics = [
   { id: "typography", label: "Typography" },
 ]
 
-const postSources = import.meta.glob<string>("../docs/learn/*.astro", {
+const postSources = import.meta.glob<string>("../docs/blog/*.astro", {
   eager: true,
   import: "default",
   query: "?raw",

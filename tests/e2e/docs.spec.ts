@@ -12,14 +12,14 @@ const pages = (directory: string, prefix = "/html") =>
 const DOCS_PAGES = [
   "/",
   "/blocks/",
+  "/blog/",
   "/html/api/",
   "/html/components/",
   "/html/guide/getting-started/",
-  "/learn/",
   "/theme-builder/",
+  ...pages("blog", ""),
   ...pages("components"),
   ...pages("guide"),
-  ...pages("learn", ""),
 ].toSorted()
 
 test.beforeEach(({ page }) => instantScrolling(page))

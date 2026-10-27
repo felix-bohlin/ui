@@ -1025,7 +1025,7 @@ describe("generate-search-index", () => {
       ]),
     ).toEqual([
       "Unknown search categories: Notes",
-      "Search categories without entries: Learn",
+      "Search categories without entries: Blog",
       "Search entries without a title or description: guide-empty",
     ])
   })
@@ -1033,7 +1033,7 @@ describe("generate-search-index", () => {
   test("accepts an index with every category", () => {
     expect(
       indexProblems(
-        ["API", "Blocks", "Component", "Guide", "Learn"].map((id) => entry(id)),
+        ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
   })

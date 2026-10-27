@@ -2,9 +2,9 @@ import { readFileSync, readdirSync } from "node:fs"
 import ts from "typescript"
 import { features } from "web-features"
 import { expect, test } from "vitest"
-import { posts } from "../../src/utils/learn-posts"
+import { posts } from "../../src/utils/blog-posts"
 
-const REGISTRY = "src/utils/learn-posts.ts"
+const REGISTRY = "src/utils/blog-posts.ts"
 const BUILDS = "src/components/UnderTheHood"
 
 const sorted = (items: string[]) =>
@@ -89,7 +89,7 @@ const stepFeatures = readdirSync(BUILDS)
     ),
   )
 
-test("the Learn registry is in order", () => {
+test("the Blog registry is in order", () => {
   expect(posts.length).toBeGreaterThan(10)
   expect(registryProblems(readFileSync(REGISTRY, "utf8"))).toEqual([])
 })

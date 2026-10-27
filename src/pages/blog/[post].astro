@@ -3,7 +3,7 @@ import type { AstroInstance } from "astro"
 
 export const posts = Object.fromEntries(
   Object.entries(
-    import.meta.glob<AstroInstance>("../../docs/learn/*.astro", {
+    import.meta.glob<AstroInstance>("../../docs/blog/*.astro", {
       eager: true,
     }),
   ).map(([path, module]) => [

@@ -4,7 +4,7 @@ import { fileURLToPath, pathToFileURL } from "url"
 import { globby } from "globby"
 
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
-import { posts } from "../src/utils/learn-posts.ts"
+import { posts } from "../src/utils/blog-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 import { componentName } from "../src/utils/names.js"
 import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
@@ -203,15 +203,12 @@ async function generateIndex() {
     })
   }
 
-  // Learn posts are framework-agnostic and live at /learn/<slug>.
+  // Blog posts are framework-agnostic and live at /blog/<slug>.
   for (const post of posts.toSorted((a, b) => a.slug.localeCompare(b.slug))) {
-    const content = fs.readFileSync(
-      `src/docs/learn/${post.slug}.astro`,
-      "utf-8",
-    )
+    const content = fs.readFileSync(`src/docs/blog/${post.slug}.astro`, "utf-8")
 
     index.push({
-      id: `learn-${post.slug}`,
+      id: `blog-${post.slug}`,
       title: post.title,
       description: post.description,
       headings: [
@@ -223,8 +220,8 @@ async function generateIndex() {
       ]
         .filter(Boolean)
         .join(" "),
-      category: "Learn",
-      url: `/learn/${post.slug}`,
+      category: "Blog",
+      url: `/blog/${post.slug}`,
     })
   }
 

@@ -22,7 +22,7 @@ import { allBlocks, blockPreviewHref } from "../utils/blocks"
 import { components } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
-import { posts } from "../utils/learn-posts"
+import { posts } from "../utils/blog-posts"
 import { componentName } from "../utils/names"
 import { packageVersion, prerelease, unreleased } from "../utils/release"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
@@ -286,20 +286,20 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </div>
       </section>
 
-      <section class="sheet" aria-labelledby="learn-heading">
+      <section class="sheet" aria-labelledby="blog-heading">
         <header class="sheet-header">
-          <h2 class="ui-h2" id="learn-heading">Then JavaScript, now CSS</h2>
+          <h2 class="ui-h2" id="blog-heading">Then JavaScript, now CSS</h2>
           <p>Short posts on the new CSS inside each component.</p>
         </header>
 
-        <ul class="learn-showcase">
+        <ul class="blog-showcase">
           {
             featuredPosts.map((post) => (
               <li>
-                <article class="ui-card ui-outlined learn-card">
+                <article class="ui-card ui-outlined blog-card">
                   <hgroup>
                     <h3>
-                      <a href={link(`/learn/${post.slug}`)}>{post.title}</a>
+                      <a href={link(`/blog/${post.slug}`)}>{post.title}</a>
                     </h3>
                     <p>{post.description}</p>
                   </hgroup>
@@ -318,7 +318,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
                         </dd>
                       </div>
                     </dl>
-                    <ul aria-label="Tags" class="learn-chips">
+                    <ul aria-label="Tags" class="blog-chips">
                       {post.component && (
                         <li>
                           <Chip
@@ -337,7 +337,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </ul>
 
         <div class="hero-ctas">
-          <Button href={link("/learn")} variant="outlined" color="primary">
+          <Button href={link("/blog")} variant="outlined" color="primary">
             Read all {posts.length} posts
           </Button>
         </div>
@@ -910,7 +910,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
   }
 
-  .learn-showcase {
+  .blog-showcase {
     display: grid;
     gap: var(--size-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
@@ -919,7 +919,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     padding: 0;
   }
 
-  .learn-card {
+  .blog-card {
     block-size: 100%;
     gap: var(--size-4);
     position: relative;
@@ -980,7 +980,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
   }
 
-  .learn-chips {
+  .blog-chips {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-1);

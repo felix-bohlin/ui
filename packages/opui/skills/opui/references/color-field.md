@@ -18,8 +18,8 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `.ui-indicator`: The swatch in the picker button, painted with the color over a checkerboard that shows its opacity.
 - `<input type="text">` (model): The input element, which holds the `oklch()` value.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `.ui-floating` (prop `alpha`): The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color.
-- `.ui-floating > .ui-header`: The preview, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons.
+- `.ui-floating` (prop `opacity`): The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.
+- `.ui-floating > .ui-header`: The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons. The color fades into the tint below it.
 - `.ui-header > .ui-value`: The `oklch()` value, on the preview.
 - `.ui-header > .ui-actions` (prop `copiedLabel`, prop `copyLabel`, prop `eyedropperLabel`): The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.
 - `.ui-floating > .ui-description`: Under the sliders, which screens show the color: sRGB, Display P3 or beyond.
@@ -27,7 +27,6 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 
 ### Props and modifiers
 
-- `alpha`: `boolean`. Adds an opacity slider, and keeps the alpha in the value.
 - `autoFit`: `boolean`, `.ui-text-field.ui-auto-fit`. Lets the width follow the value, from `25ch`, like a `TextField`.
 - `chromaLabel`: `string`, default `"Chroma"`. The label of the chroma slider.
 - `contrastLabel`: `string`, default `"{light}:1 on light, {dark}:1 on dark"`. What a screen reader gets for the contrast ratios in the picker, with `{light}` and `{dark}` where the numbers go.
@@ -42,7 +41,8 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `invalidText`: `string`, default `"Not a color. Try oklch(0.6 0.2 250) or any CSS color."`. The validation message and the line under the sliders while the text isn't a color.
 - `lightnessLabel`: `string`, default `"Lightness"`. The label of the lightness slider.
 - `name`: `string`. The name of the `<input>`, which submits the `oklch()` value. Inside a `FieldGroup`, the group's `name` applies.
-- `opacityLabel`: `string`, default `"Opacity"`. The label of the opacity slider, with `alpha`.
+- `opacity`: `"none"`, `"slider"` (default). The opacity slider, which keeps the alpha in the value. `"none"` leaves it out, so the value is always opaque.
+- `opacityLabel`: `string`, default `"Opacity"`. The label of the opacity slider, unless `opacity="none"`.
 - `p3Text`: `string`, default `"Display P3. Wide-gamut screens show it, others show the nearest sRGB color."`. The line under the sliders for a color outside sRGB but inside Display P3.
 - `pickerLabel`: `string`, default `"Pick a color"`. The accessible name of the picker button.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
@@ -68,9 +68,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### color-field.css
 
 - `--_picker-inline-size`: Width of the picker popover.
+- `--_tint-chroma`: Highest chroma of the picker's tint, `0.03` by default. `0` turns the tint off.
 - `--_track-block-size`: Thickness of the slider tracks, thicker than a `Range`'s.
 
-Outputs: `--_c`, `--_h`, `--_indicator-bg-color`, `--_l`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_to`, `--_track`, `--_track-fill-bg-color` and `--_trigger-size`.
+Outputs: `--_c`, `--_h`, `--_indicator-bg-color`, `--_l`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_tint-alpha`, `--_tint-bg-color`, `--_to`, `--_track`, `--_track-fill-bg-color` and `--_trigger-size`.
 
 ### text-field.css
 
@@ -134,16 +135,17 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       class="ui-label"
       for="color-field-basics-1"
       id="color-field-basics-1-label"
-      >Brand color</label
     >
+      Brand color
+    </label>
     <span class="ui-field">
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-basics-1-picker"
           command="toggle-popover"
+          commandfor="color-field-basics-1-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -151,9 +153,9 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.6 0.15 250)"
         id="color-field-basics-1"
         type="text"
-        value="oklch(0.6 0.15 250)"
       />
     </span>
   </div>
@@ -169,11 +171,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       <span class="ui-actions">
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Pick from the screen"
           command="--eyedropper"
           commandfor="color-field-basics-1"
           hidden
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -190,10 +192,10 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         </button>
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Copy"
           command="--copy"
           commandfor="color-field-basics-1"
+          class="ui-button ui-round ui-small"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24"></svg>
         </button>
@@ -201,9 +203,9 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       <span class="ui-sr-only" role="status"></span>
     </div>
     <label class="ui-range" for="color-field-basics-1-lightness">
-      <span class="ui-label" id="color-field-basics-1-lightness-label"
-        >Lightness</span
-      >
+      <span class="ui-label" id="color-field-basics-1-lightness-label">
+        Lightness
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -217,12 +219,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-basics-1-chroma">
-      <span class="ui-label" id="color-field-basics-1-chroma-label"
-        >Chroma</span
-      >
+      /> </label
+    ><label class="ui-range" for="color-field-basics-1-chroma">
+      <span class="ui-label" id="color-field-basics-1-chroma-label">
+        Chroma
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -237,10 +238,9 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-basics-1-hue">
-      <span class="ui-label" id="color-field-basics-1-hue-label">Hue</span>
+      /> </label
+    ><label class="ui-range" for="color-field-basics-1-hue">
+      <span class="ui-label" id="color-field-basics-1-hue-label"> Hue </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -253,6 +253,24 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         max="360"
         min="0"
         step="0.1"
+        type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-basics-1-opacity">
+      <span class="ui-label" id="color-field-basics-1-opacity-label">
+        Opacity
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-basics-1-opacity"
+      ></output>
+      <input
+        aria-labelledby="color-field-basics-1-opacity-label"
+        data-channel="alpha"
+        id="color-field-basics-1-opacity"
+        max="1"
+        min="0"
+        step="0.01"
         type="range"
       />
     </label>

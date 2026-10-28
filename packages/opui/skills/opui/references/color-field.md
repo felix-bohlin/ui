@@ -83,7 +83,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_tint-chroma`: Highest chroma of the picker's tint, `0.03` by default. `0` turns the tint off.
 - `--_track-block-size`: Thickness of the slider tracks, thicker than a `Range`'s.
 
-Outputs: `--_c`, `--_h`, `--_indicator-bg-color`, `--_l`, `--_plane-x`, `--_plane-y`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_tint-alpha`, `--_tint-bg-color`, `--_to`, `--_track`, `--_track-fill-bg-color` and `--_trigger-size`.
+Outputs: `--_picked-bg-color`, `--_picked-c`, `--_picked-h`, `--_picked-l`, `--_picked-text-color`, `--_plane-x`, `--_plane-y`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_thumb-picked-bg-color`, `--_tint-alpha`, `--_tint-bg-color`, `--_to`, `--_track`, `--_track-fill-bg-color` and `--_trigger-size`.
 
 ### text-field.css
 

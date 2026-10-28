@@ -1,6 +1,6 @@
 # Color field
 
-A text field for an oklch() color, with a picker of lightness, chroma, hue and opacity sliders.
+A text field for a color, with a picker of sliders in 16 color spaces, from hex to oklch().
 
 - CSS: `opui-css/css/components/color-field.css`, `opui-css/css/components/text-field.css`, `opui-css/css/components/range.css` and `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/color-field.md), [Astro](https://open-props-ui.netlify.app/astro/components/color-field.md), [React](https://open-props-ui.netlify.app/react/components/color-field.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/color-field.md), [Vue](https://open-props-ui.netlify.app/vue/components/color-field.md).
@@ -17,11 +17,12 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `.ui-field > .ui-start` (prop `pickerLabel`): The picker button, with `command="toggle-popover"`. Hidden until the element is defined.
 - `.ui-swatch-only > .ui-button` (prop `swatchOnly`): With `swatchOnly`, the swatch button in place of the field, with `command="toggle-popover"`, `aria-labelledby` naming the label and the input's `aria-describedby`.
 - `.ui-indicator`: The swatch in the picker button, painted with the color over a checkerboard that shows its opacity.
-- `<input type="text">` (model): The input element, which holds the `oklch()` value.
+- `<input type="text">` (model): The input element, which holds the color text.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `.ui-floating` (prop `opacity`): The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.
-- `.ui-floating > .ui-header`: The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons. The color fades into the tint below it.
-- `.ui-header > .ui-value`: The `oklch()` value, on the preview.
+- `.ui-floating > .ui-select` (prop `colorSpaceLabel`): The color space select. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.
+- `.ui-floating > .ui-header`: The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the value and the buttons. The color fades into the tint below it.
+- `.ui-header > .ui-value`: The value, on the preview.
 - `.ui-header > .ui-actions` (prop `copiedLabel`, prop `copyLabel`, prop `eyedropperLabel`): The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.
 - `.ui-floating > .ui-description`: Under the sliders, which screens show the color: sRGB, Display P3 or beyond.
 - `.ui-floating > .ui-footer` (prop `contrastLabel`): The color's contrast ratio as text on white and on black, in two chips, read out through `contrastLabel`.
@@ -29,36 +30,43 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 ### Props and modifiers
 
 - `autoFit`: `boolean`, `.ui-text-field.ui-auto-fit`. Lets the width follow the value, from `25ch`, like a `TextField`.
-- `chromaLabel`: `string`, default `"Chroma"`. The label of the chroma slider.
+- `blacknessLabel`: `string`, default `"Blackness"`. The label of the blackness slider, in `hwb`. Also the element's `blackness-label` attribute.
+- `blueLabel`: `string`, default `"Blue"`. The label of the blue slider, in `hex`, `rgb` and the RGB spaces of `color()`. Also the element's `blue-label` attribute.
+- `chromaLabel`: `string`, default `"Chroma"`. The label of the chroma slider, in `lch` and `oklch`. Also the element's `chroma-label` attribute.
+- `colorSpaceLabel`: `string`, default `"Color space"`. The label of the color space select.
 - `contrastLabel`: `string`, default `"{light}:1 on light, {dark}:1 on dark"`. What a screen reader gets for the contrast ratios in the picker, with `{light}` and `{dark}` where the numbers go.
 - `copiedLabel`: `string`, default `"Copied"`. What the picker announces after the copy button copied the value.
 - `copyLabel`: `string`, default `"Copy"`. The accessible name of the copy button in the picker.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input and the picker button.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `eyedropperLabel`: `string`, default `"Pick from the screen"`. The accessible name of the eyedropper button in the picker, shown in browsers with the EyeDropper API.
+- `greenLabel`: `string`, default `"Green"`. The label of the green slider, in `hex`, `rgb` and the RGB spaces of `color()`. Also the element's `green-label` attribute.
 - `hideLabel`: `boolean`, `.ui-text-field > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `hueLabel`: `string`, default `"Hue"`. The label of the hue slider.
+- `hueLabel`: `string`, default `"Hue"`. The label of the hue slider, in `hsl`, `hwb`, `lch` and `oklch`. Also the element's `hue-label` attribute.
 - `id`: `string`. The id of the `<input>`. The label, the picker button and the sliders build their ids from it, so the component generates one when it's left out.
 - `invalidText`: `string`, default `"Not a color. Try oklch(0.6 0.2 250) or any CSS color."`. The validation message and the line under the sliders while the text isn't a color.
-- `lightnessLabel`: `string`, default `"Lightness"`. The label of the lightness slider.
-- `name`: `string`. The name of the `<input>`, which submits the `oklch()` value. Inside a `FieldGroup`, the group's `name` applies.
+- `lightnessLabel`: `string`, default `"Lightness"`. The label of the lightness slider, in `hsl`, `lab`, `lch`, `oklab` and `oklch`. Also the element's `lightness-label` attribute.
+- `name`: `string`. The name of the `<input>`, which submits the color text. Inside a `FieldGroup`, the group's `name` applies.
 - `opacity`: `"none"`, `"slider"` (default). The opacity slider, which keeps the alpha in the value. `"none"` leaves it out, so the value is always opaque.
 - `opacityLabel`: `string`, default `"Opacity"`. The label of the opacity slider, unless `opacity="none"`.
 - `p3Text`: `string`, default `"Display P3. Wide-gamut screens show it, others show the nearest sRGB color."`. The line under the sliders for a color outside sRGB but inside Display P3.
 - `pickerLabel`: `string`, default `"Pick a color"`. The accessible name of the picker button. With `swatchOnly`, the label names the swatch instead.
+- `redLabel`: `string`, default `"Red"`. The label of the red slider, in `hex`, `rgb` and the RGB spaces of `color()`. Also the element's `red-label` attribute.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
+- `saturationLabel`: `string`, default `"Saturation"`. The label of the saturation slider, in `hsl`. Also the element's `saturation-label` attribute.
 - `size`: `"large"` (`.ui-text-field.ui-large`), `"medium"` (default), `"small"` (`.ui-text-field.ui-small`), `"x-small"` (`.ui-text-field.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-text-field.ui-spread`. Pushes the label and start text to one side and the field to the other.
 - `srgbText`: `string`, default `"sRGB. Every screen shows it."`. The line under the sliders for a color inside sRGB.
 - `swatchOnly`: `boolean`, `.ui-swatch-only`. Shows only the swatch, a round button the size of the field, named by the label. The `.ui-text-field` with the label and the input moves into the picker, under the preview.
 - `variant`: `"filled"` (`.ui-text-field.ui-filled`), `"outlined"` (default). The variant to use.
+- `whitenessLabel`: `string`, default `"Whiteness"`. The label of the whiteness slider, in `hwb`. Also the element's `whiteness-label` attribute.
 - `wideText`: `string`, default `"Beyond Display P3. Screens show the nearest color they can."`. The line under the sliders for a color outside Display P3.
 
-Model: `value` (`string`), the `oklch()` color, as the input's text. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the color, as the input's text, written in the color space the picker shows. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
-- HTML: Put the picker button in the field's `.ui-start`, with `commandfor` naming the picker and `command="toggle-popover"`, and the sliders in the `.ui-floating` popover, each `input[type=range]` with `data-channel` set to `L`, `C`, `H` or `alpha`. Give the `<label>` a `for` and an id for the picker's `aria-labelledby`, and import `opui-css/elements/color-field.js`. Without it, the picker button is hidden and the field takes an `oklch()` string.
+- HTML: Put the picker button in the field's `.ui-start`, with `commandfor` naming the picker and `command="toggle-popover"`, and the sliders in the `.ui-floating` popover, a `.ui-select` with the color spaces (`oklch` selected, `aria-describedby` naming the gamut line) and three `input[type=range]` with `data-channel` set to `l`, `c` and `h`, plus one set to `alpha` for opacity. The element sets the sliders' channels, ranges and labels for the space it shows, from the `*-label` attributes. Give the `<label>` a `for` and an id for the picker's `aria-labelledby`, and import `opui-css/elements/color-field.js`. Without it, the picker button is hidden and the field takes an `oklch()` string.
 - Astro: Attributes that aren't props go to the `<input>`, like `name`, `placeholder` and `required`, and `class` and `style` go to the root `<opui-color-field>`. The component loads `opui-css/elements/color-field.js`, which runs the picker.
 - React: Attributes that aren't props go to the `<input>`, like `name`, `placeholder` and `required`, and `className` and `style` go to the root `<opui-color-field>`. Use `value` with `onChange`, or `defaultValue`. The picker works once the component hydrates, or once the page imports `opui-css/elements/color-field.js`. Until then it's a text field that takes an `oklch()` string.
 - Svelte and Vue: Attributes that aren't props go to the `<input>`, like `name`, `placeholder` and `required`, and `class` and `style` go to the root `<opui-color-field>`. The picker works once the component hydrates, or once the page imports `opui-css/elements/color-field.js`. Until then it's a text field that takes an `oklch()` string.
@@ -124,7 +132,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -204,6 +212,38 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       </span>
       <span class="ui-sr-only" role="status"></span>
     </div>
+    <label class="ui-select ui-small ui-spread">
+      <span class="ui-label" id="color-field-basics-1-space-label">
+        Color space
+      </span>
+      <span class="ui-field">
+        <select
+          aria-describedby="color-field-basics-1-gamut"
+          aria-labelledby="color-field-basics-1-space-label"
+          id="color-field-basics-1-space"
+        >
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="a98-rgb">a98-rgb</option>
+            <option value="display-p3">display-p3</option>
+            <option value="hex">hex</option>
+            <option value="hsl">hsl</option>
+            <option value="hwb">hwb</option>
+            <option value="lab">lab</option>
+            <option value="lch">lch</option>
+            <option value="oklab">oklab</option>
+            <option selected value="oklch">oklch</option>
+            <option value="prophoto-rgb">prophoto-rgb</option>
+            <option value="rec2020">rec2020</option>
+            <option value="rgb">rgb</option>
+            <option value="srgb-linear">srgb-linear</option>
+            <option value="xyz">xyz</option>
+            <option value="xyz-d50">xyz-d50</option>
+            <option value="xyz-d65">xyz-d65</option>
+          </div>
+        </select>
+      </span>
+    </label>
     <label class="ui-range" for="color-field-basics-1-lightness">
       <span class="ui-label" id="color-field-basics-1-lightness-label">
         Lightness
@@ -215,7 +255,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       ></output>
       <input
         aria-labelledby="color-field-basics-1-lightness-label"
-        data-channel="L"
+        data-channel="l"
         id="color-field-basics-1-lightness"
         max="1"
         min="0"
@@ -232,9 +272,8 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         for="color-field-basics-1-chroma"
       ></output>
       <input
-        aria-describedby="color-field-basics-1-gamut"
         aria-labelledby="color-field-basics-1-chroma-label"
-        data-channel="C"
+        data-channel="c"
         id="color-field-basics-1-chroma"
         max="0.37"
         min="0"
@@ -250,7 +289,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       ></output>
       <input
         aria-labelledby="color-field-basics-1-hue-label"
-        data-channel="H"
+        data-channel="h"
         id="color-field-basics-1-hue"
         max="360"
         min="0"

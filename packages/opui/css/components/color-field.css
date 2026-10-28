@@ -1,15 +1,56 @@
+@property --_picked-bg-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+
+@property --_picked-c {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.1;
+}
+
+@property --_picked-h {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 250;
+}
+
+@property --_picked-l {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.6;
+}
+
+@property --_picked-text-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+
+@property --_plane-x {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --_plane-y {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --_tint-alpha {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 @layer components.extended {
   :where(.ui-color-field) {
-    --_c: 0.1;
-    --_h: 250;
-    --_indicator-bg-color: transparent;
-    --_l: 0.6;
     --_picker-inline-size: 16rem;
     --_plane-block-size: 9rem;
-    --_plane-x: 0;
-    --_plane-y: 0;
     --_preview-text-color: var(--ui-text);
-    --_tint-alpha: 0;
     --_tint-chroma: 0.03;
 
     display: grid;
@@ -52,7 +93,7 @@
 
     & .ui-indicator {
       background:
-        linear-gradient(var(--_indicator-bg-color), var(--_indicator-bg-color)),
+        linear-gradient(var(--_picked-bg-color), var(--_picked-bg-color)),
         repeating-conic-gradient(
             var(--ui-surface-tonal) 0 25%,
             var(--ui-surface) 0 50%
@@ -69,9 +110,13 @@
     }
 
     & > .ui-floating {
+      --_picked-c: 0.1;
+      --_picked-h: 250;
+      --_tint-alpha: 0;
       --_tint-bg-color: oklch(
-        from var(--ui-surface-elevated) l min(var(--_tint-chroma), var(--_c))
-          var(--_h) / var(--_tint-alpha)
+        from var(--ui-surface-elevated) l
+          min(var(--_tint-chroma), var(--_picked-c)) var(--_picked-h) /
+          var(--_tint-alpha)
       );
 
       background-color: var(--ui-surface-elevated);
@@ -110,10 +155,7 @@
       & > .ui-header {
         align-items: center;
         background:
-          linear-gradient(
-            var(--_indicator-bg-color),
-            var(--_indicator-bg-color)
-          ),
+          linear-gradient(var(--_picked-bg-color), var(--_picked-bg-color)),
           repeating-conic-gradient(
               var(--ui-surface-tonal) 0 25%,
               var(--ui-surface) 0 50%
@@ -142,8 +184,10 @@
         }
 
         &::after {
+          --_picked-bg-color: inherit;
+
           background-image: linear-gradient(
-            var(--_indicator-bg-color),
+            var(--_picked-bg-color),
             transparent
           );
           block-size: var(--ui-space-3);
@@ -192,7 +236,11 @@
         }
 
         &::after {
-          background-color: var(--_indicator-bg-color);
+          --_picked-bg-color: inherit;
+          --_plane-x: inherit;
+          --_plane-y: inherit;
+
+          background-color: var(--_picked-bg-color);
           block-size: var(--ui-space-4);
           border: var(--ui-border-width-thick) solid oklch(1 0 0);
           border-radius: var(--ui-radius-round);
@@ -215,16 +263,31 @@
         --_track-block-size: 1.5ex;
 
         & > input[type="range"] {
+          --_thumb-picked-bg-color: transparent;
           --_to: to right;
           --_track: none;
           --_track-fill-bg-color: transparent;
 
+          animation-name: none;
+          timeline-scope: none;
+
+          &:focus-visible {
+            animation-duration: calc(var(--ui-duration) * var(--ui-motion));
+            animation-name: ui-focus-ring;
+            animation-range: normal;
+            animation-timeline: auto;
+            animation-timing-function: var(--ui-ease);
+          }
+
           &[data-channel="alpha"] {
+            --_picked-c: 0.1;
+            --_picked-h: 250;
+            --_picked-l: 0.6;
             --_track:
               linear-gradient(
                 var(--_to),
-                oklch(var(--_l) var(--_c) var(--_h) / 0),
-                oklch(var(--_l) var(--_c) var(--_h))
+                oklch(var(--_picked-l) var(--_picked-c) var(--_picked-h) / 0),
+                oklch(var(--_picked-l) var(--_picked-c) var(--_picked-h))
               ),
               repeating-conic-gradient(
                   var(--ui-surface-tonal) 0 25%,
@@ -254,12 +317,13 @@
           }
 
           &::-webkit-slider-thumb {
-            background: var(--_indicator-bg-color);
+            background: var(--_thumb-picked-bg-color);
             outline: var(--ui-border-width) solid var(--ui-text-strong);
+            view-timeline: none;
           }
 
           &::-moz-range-thumb {
-            background: var(--_indicator-bg-color);
+            background: var(--_thumb-picked-bg-color);
             outline: var(--ui-border-width) solid var(--ui-text-strong);
           }
         }
@@ -277,8 +341,10 @@
         margin: 0;
 
         & > [data-contrast] {
+          --_picked-text-color: transparent;
+
           border-radius: var(--ui-radius-small);
-          color: var(--_indicator-bg-color);
+          color: var(--_picked-text-color);
           font-size: var(--ui-font-size-caption);
           font-variant-numeric: tabular-nums;
           padding-block: var(--ui-space-1);

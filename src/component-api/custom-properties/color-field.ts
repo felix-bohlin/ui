@@ -1,24 +1,29 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_c": {
+  "--_picked-bg-color": {
     description:
-      "Chroma of the color, which the lightness, hue and opacity tracks and the tint are painted with. The element sets it.",
+      "The color, which the swatch, the preview and the plane's marker are painted with, `transparent` when the text isn't a color. The element sets it on each of them; it's registered and doesn't inherit.",
     kind: "output",
   },
-  "--_h": {
+  "--_picked-c": {
     description:
-      "Hue of the color, which the lightness, chroma and opacity tracks and the tint are painted with. The element sets it.",
+      "Chroma of the color, which the opacity track and the tint are painted with. The element sets it on the picker and the opacity slider; it's registered with `@property` and doesn't inherit, so a change restyles only those.",
     kind: "output",
   },
-  "--_indicator-bg-color": {
+  "--_picked-h": {
     description:
-      "The swatch and thumb color. The element sets it to the field's color, and to `transparent` when the text isn't a color.",
+      "Hue of the color, which the opacity track and the tint are painted with. The element sets it on the picker and the opacity slider; it's registered and doesn't inherit.",
     kind: "output",
   },
-  "--_l": {
+  "--_picked-l": {
     description:
-      "Lightness of the color, which the chroma, hue and opacity tracks are painted with. The element sets it.",
+      "Lightness of the color, which the opacity track is painted with. The element sets it on the opacity slider; it's registered and doesn't inherit.",
+    kind: "output",
+  },
+  "--_picked-text-color": {
+    description:
+      "The color as the text of the contrast chips. The element sets it on each chip; it's registered and doesn't inherit.",
     kind: "output",
   },
   "--_picker-inline-size": {
@@ -55,9 +60,14 @@ export default {
       "Text color of the picker's buttons, the `Button` property set to `--_preview-text-color` so they stay readable on the color.",
     kind: "output",
   },
+  "--_thumb-picked-bg-color": {
+    description:
+      "The color on a slider's thumb. The element sets it on each slider, where it inherits into the thumb inside the slider.",
+    kind: "output",
+  },
   "--_tint-alpha": {
     description:
-      "Alpha of the picker's tint. The element sets it to `1` while the field holds a color, and `0` when the text is empty or isn't a color, so the plain surface shows.",
+      "Alpha of the picker's tint. The element sets it on the picker, `1` while the field holds a color and `0` when the text is empty or isn't a color, so the plain surface shows; it's registered and doesn't inherit.",
     kind: "output",
   },
   "--_tint-bg-color": {

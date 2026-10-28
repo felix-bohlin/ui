@@ -758,6 +758,18 @@ const displayOf = (id, entry, value) => {
   return `${round(value, entry.step < 0.01 ? 3 : entry.step < 1 ? 1 : 0)}`
 }
 
+const paint = (elements, name, value) => {
+  for (const element of elements) {
+    if (element && element.style.getPropertyValue(name) !== value) {
+      element.style.setProperty(name, value)
+    }
+  }
+}
+
+const show = (node, text) => {
+  if (node && node.textContent !== text) node.textContent = text
+}
+
 const alphaText = (value) => `${Math.round(value * 100)}%`
 
 const GAMUT_TEXT = {
@@ -1251,27 +1263,29 @@ export class ColorField extends Base {
     const light = this.querySelector('[data-contrast="light"]')
     const dark = this.querySelector('[data-contrast="dark"]')
     if (!color) {
-      this.style.removeProperty("--_preview-text-color")
-      for (const node of [value, sr, light, dark]) {
-        if (node) node.textContent = ""
-      }
+      this.querySelector(".ui-floating > .ui-header")?.style.removeProperty(
+        "--_preview-text-color",
+      )
+      for (const node of [value, sr, light, dark]) show(node, "")
       return
     }
     const luminance = luminanceOf(color)
     const onLight = round(contrast(luminance, 1), 1)
     const onDark = round(contrast(luminance, 0), 1)
-    this.style.setProperty(
+    paint(
+      [this.querySelector(".ui-floating > .ui-header")],
       "--_preview-text-color",
       onLight > onDark ? "oklch(1 0 0)" : "oklch(0 0 0)",
     )
-    if (value) value.textContent = this.#format()
-    if (light) light.textContent = `${onLight}:1`
-    if (dark) dark.textContent = `${onDark}:1`
-    if (sr) {
-      sr.textContent = this.#text("contrast-label", CONTRAST_LABEL)
+    show(value, this.#format())
+    show(light, `${onLight}:1`)
+    show(dark, `${onDark}:1`)
+    show(
+      sr,
+      this.#text("contrast-label", CONTRAST_LABEL)
         .replace("{light}", `${onLight}`)
-        .replace("{dark}", `${onDark}`)
-    }
+        .replace("{dark}", `${onDark}`),
+    )
   }
 
   #render({ alpha, coords, space }, skip) {
@@ -1285,21 +1299,19 @@ export class ColorField extends Base {
       ...this.#oklchOf({ coords, space }),
       alpha: this.#alpha ? alpha : 1,
     }
-    this.style.setProperty(
-      "--_indicator-bg-color",
-      formatOklch(this.#color, this.#color.alpha),
-    )
+    this.#paintColor(formatOklch(this.#color, this.#color.alpha))
     this.#preview(this.#color)
-    this.style.setProperty("--_l", `${this.#color.L}`)
-    this.style.setProperty("--_c", `${this.#color.C}`)
-    this.style.setProperty("--_h", `${this.#color.H}`)
+    const { C, H, L } = this.#color
+    const floating = this.querySelector(".ui-floating")
+    const opacity = this.querySelector('input[data-channel="alpha"]')
+    paint([floating, opacity], "--_picked-c", `${C}`)
+    paint([floating, opacity], "--_picked-h", `${H}`)
+    paint([opacity], "--_picked-l", `${L}`)
+    paint([floating], "--_tint-alpha", "1")
     this.#valid = true
-    this.style.setProperty("--_tint-alpha", "1")
-    this.style.setProperty(
-      "--_plane-x",
-      `${clampUnit(this.#color.C / PLANE_CHROMA)}`,
-    )
-    this.style.setProperty("--_plane-y", `${this.#color.L}`)
+    const panel = this.#panel()
+    paint([panel], "--_plane-x", `${clampUnit(C / PLANE_CHROMA)}`)
+    paint([panel], "--_plane-y", `${L}`)
     if (this.#open) this.#schedule()
     input?.setCustomValidity("")
     const entries = SPACES[this.#space].channels
@@ -1308,26 +1320,42 @@ export class ColorField extends Base {
       if (!entry) return
       const number = this.#coords[index]
       if (slider !== skip) slider.value = `${number}`
-      slider.style.setProperty("--_track", this.#track(index))
-      slider.setAttribute(
-        "aria-valuetext",
-        displayOf(this.#space, entry, number),
-      )
-      const output = slider.closest(".ui-range")?.querySelector(".ui-value")
-      if (output) output.textContent = displayOf(this.#space, entry, number)
+      paint([slider], "--_track", this.#track(index))
+      const text = displayOf(this.#space, entry, number)
+      slider.setAttribute("aria-valuetext", text)
+      show(slider.closest(".ui-range")?.querySelector(".ui-value"), text)
     })
-    const opacity = this.querySelector('input[data-channel="alpha"]')
     if (opacity) {
       if (opacity !== skip) opacity.value = `${this.#color.alpha}`
-      opacity.setAttribute("aria-valuetext", alphaText(this.#color.alpha))
-      const output = opacity.closest(".ui-range")?.querySelector(".ui-value")
-      if (output) output.textContent = alphaText(this.#color.alpha)
+      const text = alphaText(this.#color.alpha)
+      opacity.setAttribute("aria-valuetext", text)
+      show(opacity.closest(".ui-range")?.querySelector(".ui-value"), text)
     }
-    const gamut = this.querySelector(".ui-floating > .ui-description")
-    if (gamut) {
-      const range = oklchGamut(this.#color.L, this.#color.C, this.#color.H)
-      gamut.textContent = this.#text(`${range}-text`, GAMUT_TEXT[range])
-    }
+    const range = oklchGamut(L, C, H)
+    show(
+      this.querySelector(".ui-floating > .ui-description"),
+      this.#text(`${range}-text`, GAMUT_TEXT[range]),
+    )
+  }
+
+  #paintColor(value) {
+    paint(
+      this.querySelectorAll(
+        ".ui-indicator, .ui-floating > :is(.ui-header, .ui-panel)",
+      ),
+      "--_picked-bg-color",
+      value,
+    )
+    paint(
+      this.querySelectorAll(".ui-range > input"),
+      "--_thumb-picked-bg-color",
+      value,
+    )
+    paint(
+      this.querySelectorAll("[data-contrast]"),
+      "--_picked-text-color",
+      value,
+    )
   }
 
   #sync() {
@@ -1349,9 +1377,9 @@ export class ColorField extends Base {
     const input = this.input
     if (!input) return
     const empty = !input.value.trim()
-    this.style.setProperty("--_indicator-bg-color", "transparent")
+    this.#paintColor("transparent")
     this.#valid = false
-    this.style.setProperty("--_tint-alpha", "0")
+    paint([this.querySelector(".ui-floating")], "--_tint-alpha", "0")
     this.#preview(null)
     const text = empty ? "" : this.#text("invalid-text", INVALID_TEXT)
     input.setCustomValidity(text)

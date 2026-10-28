@@ -78,5 +78,6 @@ export declare class ColorField extends HTMLElement {
   copy(source?: HTMLElement): Promise<boolean>
   pick(): Promise<string | null>
   readonly input: HTMLInputElement | null
+  readonly oklch: string
   value: string
 }

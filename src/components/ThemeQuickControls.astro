@@ -64,6 +64,7 @@ import BrandPicker from "./BrandPicker.astro"
 
 <script>
   import { syncBrandPicker } from "../utils/brand-picker"
+  import { formatOklch, parseOklch } from "../utils/color-utils"
   import { exampleTheme } from "../utils/example-themes"
   import type { ColorField } from "opui-css/elements/color-field.js"
   import {
@@ -80,6 +81,8 @@ import BrandPicker from "./BrandPicker.astro"
     switchPreset,
   } from "../utils/theme-brand"
 
+  const PREVIEW_DELAY = 100
+
   const fingerprint = (theme: Theme) => JSON.stringify(normalizeTheme(theme))
 
   for (const form of document.querySelectorAll<HTMLFormElement>(
@@ -93,6 +96,7 @@ import BrandPicker from "./BrandPicker.astro"
     const status = form.querySelector<HTMLElement>(".theme-quick-status")!
     const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
     let pendingColor: string | null = null
+    let pendingTimer = 0
     let undoTheme: Theme | null = null
     let undoFingerprint = ""
 
@@ -115,7 +119,8 @@ import BrandPicker from "./BrandPicker.astro"
         brand && isBrandColor(brand)
           ? brand
           : (resolveOklch("var(--ui-primary)") ?? custom.value)
-      if (resolveOklch(custom.value) !== resolveOklch(shown)) {
+      const parsed = parseOklch(shown)
+      if (!parsed || custom.oklch !== formatOklch(parsed, parsed.alpha)) {
         custom.value = shown
       }
 
@@ -179,16 +184,21 @@ import BrandPicker from "./BrandPicker.astro"
       form.querySelector<HTMLElement>(".theme-quick-reset")!.focus()
     })
 
-    custom.addEventListener("input", (event) => {
-      if (event.target !== custom.input) return
-      const queued = pendingColor !== null
-      pendingColor = resolveOklch(custom.value) ?? custom.value
-      if (queued) return
-      requestAnimationFrame(() => {
-        if (pendingColor) applyBrand(pendingColor)
-        pendingColor = null
+    const applyPending = () => {
+      clearTimeout(pendingTimer)
+      if (pendingColor) applyBrand(pendingColor)
+      pendingColor = null
+    }
+
+    for (const type of ["change", "input"]) {
+      custom.addEventListener(type, (event) => {
+        if (event.target !== custom.input) return
+        pendingColor = custom.oklch || custom.value
+        clearTimeout(pendingTimer)
+        if (type === "change") applyPending()
+        else pendingTimer = window.setTimeout(applyPending, PREVIEW_DELAY)
       })
-    })
+    }
 
     sync()
     themeStore.subscribe(sync)

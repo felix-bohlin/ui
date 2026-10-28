@@ -375,7 +375,7 @@ export default {
   ],
   root: {
     description:
-      "The `<opui-color-field>` custom element. It keeps the sliders, the swatch and the input in step, and marks text that isn't a color invalid.",
+      "The `<opui-color-field>` custom element. It keeps the sliders, the swatch and the input in step, and marks text that isn't a color invalid. Its `value` reads and sets the text, and `oklch` reads the color as `oklch()` whatever the space.",
     selector: "opui-color-field.ui-color-field",
   },
   source: "ColorField",

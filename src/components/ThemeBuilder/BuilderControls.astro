@@ -229,7 +229,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     const picked = new Set<string>()
     let theme = themeStore.get()
     let queued: Update | null = null
-    let frame = 0
+    let timer = 0
     let room = ""
 
     const hosts = (["light", "dark"] as const).map((scheme) => {
@@ -329,18 +329,23 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     }
 
     const flush = () => {
-      cancelAnimationFrame(frame)
-      frame = 0
+      clearTimeout(timer)
+      timer = 0
       if (!queued) return
       const update = queued
       queued = null
       themeStore.update(update)
     }
 
+    const PREVIEW_DELAY = 100
+
     const write = (update: Update, throttle = false) => {
       queued = { ...queued, ...update }
       if (!throttle) flush()
-      else if (!frame) frame = requestAnimationFrame(flush)
+      else {
+        clearTimeout(timer)
+        timer = window.setTimeout(flush, PREVIEW_DELAY)
+      }
     }
 
     const say = (message: string, focus?: HTMLElement, before?: Theme) =>
@@ -488,7 +493,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
       const dualButton = element.querySelector<HTMLElement>("[data-dual]")!
       const show = (field: ColorField, value: string) => {
-        if (resolveOklch(field.value) !== value) field.value = value
+        if (field.oklch !== value) field.value = value
       }
       if (light) show(lightInput, light.value)
       show(darkInput, (dark ?? light)?.value ?? "")
@@ -746,7 +751,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       throttle: boolean,
     ) => {
       const [light, dark] = [...colorFields(element)].map(
-        (field) => resolveOklch(field.value) ?? field.value,
+        (field) => field.oklch || field.value,
       )
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {

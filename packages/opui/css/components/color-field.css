@@ -87,13 +87,17 @@
       inline-size: var(--_picker-inline-size);
       inset: auto;
       margin: var(--ui-space-1);
+      max-block-size: calc(100% - var(--ui-space-1) * 2);
       max-inline-size: calc(100dvi - var(--ui-space-4));
+      overflow-block: auto;
+      overscroll-behavior: contain;
       padding: var(--ui-space-3);
       position-area: block-end span-inline-end;
       position-try-fallbacks:
         flip-block,
         flip-inline,
         flip-block flip-inline;
+      position-try-order: most-block-size;
 
       &:popover-open {
         display: grid;
@@ -124,12 +128,14 @@
         color: var(--_preview-text-color);
         display: flex;
         gap: var(--ui-space-2);
+        inset-block-start: calc(var(--ui-space-3) * -1);
         justify-content: space-between;
         margin-block-start: calc(var(--ui-space-3) * -1);
         margin-inline: calc(var(--ui-space-3) * -1);
         min-block-size: calc(var(--ui-space-6) * 2);
         padding: var(--ui-space-3);
-        position: relative;
+        position: sticky;
+        z-index: 1;
 
         @media (forced-colors: active) {
           forced-color-adjust: none;

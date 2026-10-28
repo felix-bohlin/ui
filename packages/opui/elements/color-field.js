@@ -689,6 +689,7 @@ export const parseColor = (text) => {
 const PLANE_CHROMA = 0.37
 const PLANE_COLUMNS = 96
 const PLANE_ROWS = 64
+const PLANE_LINE_STEPS = 40
 const PLANE_GAMUTS = [
   { dash: [], id: "srgb" },
   { dash: [4, 3], id: "display-p3" },
@@ -696,16 +697,40 @@ const PLANE_GAMUTS = [
 
 const clampUnit = (value) => Math.min(1, Math.max(0, value))
 
-const maxChroma = (id, lightness, hue) => {
+const [[, LA1, LB1], [, LA2, LB2], [, LA3, LB3]] = OKLAB_TO_LMS
+
+const PLANE_MATRICES = {}
+
+const planeMatrix = (id) =>
+  (PLANE_MATRICES[id] ??= RGB[id].from.map((row) =>
+    [0, 1, 2].map(
+      (column) =>
+        row[0] * LMS_TO_XYZ[0][column] +
+        row[1] * LMS_TO_XYZ[1][column] +
+        row[2] * LMS_TO_XYZ[2][column],
+    ),
+  ))
+
+const planeLinear = (matrix, lightness, a, b, out) => {
+  const l = (lightness + LA1 * a + LB1 * b) ** 3
+  const m = (lightness + LA2 * a + LB2 * b) ** 3
+  const s = (lightness + LA3 * a + LB3 * b) ** 3
+  for (let channel = 0; channel < 3; channel++) {
+    const row = matrix[channel]
+    out[channel] = row[0] * l + row[1] * m + row[2] * s
+  }
+  return out
+}
+
+const maxChroma = (matrix, lightness, cos, sin) => {
+  const linear = [0, 0, 0]
   let min = 0
   let max = PLANE_CHROMA
-  for (let step = 0; step < 14; step++) {
+  for (let step = 0; step < 12; step++) {
     const middle = (min + max) / 2
-    if (inRgbGamut(xyzToRgb(id, oklchToXyz([lightness, middle, hue])))) {
-      min = middle
-    } else {
-      max = middle
-    }
+    planeLinear(matrix, lightness, middle * cos, middle * sin, linear)
+    if (inRgbGamut(linear)) min = middle
+    else max = middle
   }
   return min
 }
@@ -767,6 +792,12 @@ export class ColorField extends Base {
   #controller
   #copied
   #observer
+  #open = false
+  #pointerOpen = false
+  #valid = false
+  #plane
+  #planeBox
+  #planeFrame
   #planeHue
   #timeout
 
@@ -776,6 +807,10 @@ export class ColorField extends Base {
 
   get value() {
     return this.input?.value ?? ""
+  }
+
+  get oklch() {
+    return this.#valid ? formatOklch(this.#color, this.#color.alpha) : ""
   }
 
   set value(value) {
@@ -845,6 +880,8 @@ export class ColorField extends Base {
   }
 
   disconnectedCallback() {
+    cancelAnimationFrame(this.#planeFrame)
+    this.#planeFrame = undefined
     this.#controller?.abort()
     this.#observer?.disconnect()
     this.#uncopy()
@@ -1007,44 +1044,83 @@ export class ColorField extends Base {
   }
 
   #toggle(event) {
-    if (event.newState !== "open") return
-    this.#planeHue = undefined
+    this.#open = event.newState === "open"
+    if (!this.#open) return
+    this.#measure()
     this.#draw()
-    this.#sliders()[0]?.focus()
+    this.#sliders()[0]?.focus({ preventScroll: this.#pointerOpen })
+    this.#pointerOpen = false
   }
 
-  #plane() {
+  #panel() {
     return this.querySelector(".ui-floating > .ui-panel")
   }
 
+  #measure() {
+    const canvas = this.#panel()?.querySelector("canvas")
+    if (!canvas?.clientWidth) {
+      this.#plane = undefined
+      return
+    }
+    const ratio = globalThis.devicePixelRatio || 1
+    canvas.width = Math.round(canvas.clientWidth * ratio)
+    canvas.height = Math.round(canvas.clientHeight * ratio)
+    const context = canvas.getContext("2d", { colorSpace: "display-p3" })
+    if (!context) return
+    const wide = context.getContextAttributes?.().colorSpace === "display-p3"
+    const small = this.ownerDocument.createElement("canvas")
+    small.width = PLANE_COLUMNS
+    small.height = PLANE_ROWS
+    const smallContext = small.getContext(
+      "2d",
+      wide ? { colorSpace: "display-p3" } : undefined,
+    )
+    this.#plane = {
+      context,
+      image: smallContext.createImageData(PLANE_COLUMNS, PLANE_ROWS),
+      ratio,
+      rtl: getComputedStyle(canvas).direction === "rtl",
+      small,
+      smallContext,
+      target: wide ? "display-p3" : "srgb",
+    }
+    this.#planeHue = undefined
+  }
+
   #press(event) {
-    const plane = this.#plane()
-    if (event.button !== 0 || !plane?.contains(event.target)) return
+    if (this.#trigger()?.contains(event.target)) this.#pointerOpen = true
+    const panel = this.#panel()
+    if (event.button !== 0 || !panel?.contains(event.target)) return
     event.preventDefault()
-    plane.setPointerCapture(event.pointerId)
-    this.#pick(event)
+    panel.setPointerCapture(event.pointerId)
+    this.#pick(event, panel.getBoundingClientRect())
   }
 
   #drag(event) {
-    if (this.#plane()?.hasPointerCapture(event.pointerId)) this.#pick(event)
+    const panel = this.#panel()
+    if (panel?.hasPointerCapture(event.pointerId)) {
+      this.#pick(event, this.#planeBox ?? panel.getBoundingClientRect())
+    }
   }
 
   #release(event) {
-    const plane = this.#plane()
-    if (event.target !== plane) return
-    if (plane.hasPointerCapture(event.pointerId)) {
-      plane.releasePointerCapture(event.pointerId)
+    const panel = this.#panel()
+    if (event.target !== panel) return
+    if (panel.hasPointerCapture(event.pointerId)) {
+      panel.releasePointerCapture(event.pointerId)
       return
     }
-    if (event.type === "lostpointercapture") this.#emit("change")
+    if (event.type === "lostpointercapture") {
+      this.#planeBox = undefined
+      this.#emit("change")
+    }
   }
 
-  #pick(event) {
-    const plane = this.#plane()
-    const box = plane.getBoundingClientRect()
+  #pick(event, box) {
+    this.#planeBox = box
     const x = clampUnit((event.clientX - box.left) / box.width)
     const y = clampUnit((event.clientY - box.top) / box.height)
-    const across = getComputedStyle(plane).direction === "rtl" ? 1 - x : x
+    const across = this.#plane?.rtl ? 1 - x : x
     const oklch = [1 - y, across * PLANE_CHROMA, this.#color.H]
     this.#render({
       alpha: this.#color.alpha,
@@ -1054,55 +1130,59 @@ export class ColorField extends Base {
     if (this.#write(this.#format())) this.#emit("input")
   }
 
+  #schedule() {
+    if (this.#planeFrame || this.#planeHue === this.#color.H) return
+    this.#planeFrame = requestAnimationFrame(() => {
+      this.#planeFrame = undefined
+      this.#draw()
+    })
+  }
+
   #draw() {
-    const canvas = this.#plane()?.querySelector("canvas")
+    const plane = this.#plane
     const hue = this.#color.H
-    if (!canvas?.clientWidth || this.#planeHue === hue) return
+    if (!plane || this.#planeHue === hue) return
     this.#planeHue = hue
-    const ratio = globalThis.devicePixelRatio || 1
-    const width = Math.round(canvas.clientWidth * ratio)
-    const height = Math.round(canvas.clientHeight * ratio)
-    canvas.width = width
-    canvas.height = height
-    const context = canvas.getContext("2d", { colorSpace: "display-p3" })
-    if (!context) return
-    const wide = context.getContextAttributes?.().colorSpace === "display-p3"
-    const target = wide ? "display-p3" : "srgb"
-    const rtl = getComputedStyle(canvas).direction === "rtl"
-    const image = context.createImageData(PLANE_COLUMNS, PLANE_ROWS)
+    const { context, image, ratio, rtl, small, smallContext, target } = plane
+    const { height, width } = context.canvas
+    const matrix = planeMatrix(target)
+    const encode = RGB[target].transfer.encode
+    const cos = Math.cos((hue * Math.PI) / 180)
+    const sin = Math.sin((hue * Math.PI) / 180)
+    const linear = [0, 0, 0]
+    const data = image.data
+    let index = 0
     for (let row = 0; row < PLANE_ROWS; row++) {
       const lightness = 1 - (row + 0.5) / PLANE_ROWS
       for (let column = 0; column < PLANE_COLUMNS; column++) {
         const across = (column + 0.5) / PLANE_COLUMNS
         const chroma = (rtl ? 1 - across : across) * PLANE_CHROMA
-        const rgb = xyzToRgb(target, oklchToXyz([lightness, chroma, hue]))
-        const index = (row * PLANE_COLUMNS + column) * 4
-        rgb.forEach((value, channel) => {
-          image.data[index + channel] = Math.round(clampUnit(value) * 255)
-        })
-        image.data[index + 3] = 255
+        planeLinear(matrix, lightness, chroma * cos, chroma * sin, linear)
+        data[index] = Math.round(encode(clampUnit(linear[0])) * 255)
+        data[index + 1] = Math.round(encode(clampUnit(linear[1])) * 255)
+        data[index + 2] = Math.round(encode(clampUnit(linear[2])) * 255)
+        data[index + 3] = 255
+        index += 4
       }
     }
-    const small = this.ownerDocument.createElement("canvas")
-    small.width = PLANE_COLUMNS
-    small.height = PLANE_ROWS
-    small
-      .getContext("2d", wide ? { colorSpace: "display-p3" } : undefined)
-      ?.putImageData(image, 0, 0)
+    smallContext.putImageData(image, 0, 0)
     context.imageSmoothingEnabled = true
+    context.shadowBlur = 0
     context.drawImage(small, 0, 0, width, height)
     context.lineWidth = 1.5 * ratio
     context.shadowBlur = 2 * ratio
     context.shadowColor = "oklch(0 0 0 / 0.6)"
     context.strokeStyle = "oklch(1 0 0 / 0.9)"
     for (const gamut of PLANE_GAMUTS) {
+      const gamutMatrix = planeMatrix(gamut.id)
       context.setLineDash(gamut.dash.map((length) => length * ratio))
       context.beginPath()
-      for (let step = 0; step <= PLANE_ROWS; step++) {
-        const lightness = 1 - step / PLANE_ROWS
-        const across = maxChroma(gamut.id, lightness, hue) / PLANE_CHROMA
+      for (let step = 0; step <= PLANE_LINE_STEPS; step++) {
+        const lightness = 1 - step / PLANE_LINE_STEPS
+        const across =
+          maxChroma(gamutMatrix, lightness, cos, sin) / PLANE_CHROMA
         const x = (rtl ? 1 - across : across) * width
-        const y = (step / PLANE_ROWS) * height
+        const y = (step / PLANE_LINE_STEPS) * height
         if (step === 0) context.moveTo(x, y)
         else context.lineTo(x, y)
       }
@@ -1213,13 +1293,14 @@ export class ColorField extends Base {
     this.style.setProperty("--_l", `${this.#color.L}`)
     this.style.setProperty("--_c", `${this.#color.C}`)
     this.style.setProperty("--_h", `${this.#color.H}`)
+    this.#valid = true
     this.style.setProperty("--_tint-alpha", "1")
     this.style.setProperty(
       "--_plane-x",
       `${clampUnit(this.#color.C / PLANE_CHROMA)}`,
     )
     this.style.setProperty("--_plane-y", `${this.#color.L}`)
-    if (this.querySelector(".ui-floating:popover-open")) this.#draw()
+    if (this.#open) this.#schedule()
     input?.setCustomValidity("")
     const entries = SPACES[this.#space].channels
     this.#channels().forEach((slider, index) => {
@@ -1269,6 +1350,7 @@ export class ColorField extends Base {
     if (!input) return
     const empty = !input.value.trim()
     this.style.setProperty("--_indicator-bg-color", "transparent")
+    this.#valid = false
     this.style.setProperty("--_tint-alpha", "0")
     this.#preview(null)
     const text = empty ? "" : this.#text("invalid-text", INVALID_TEXT)

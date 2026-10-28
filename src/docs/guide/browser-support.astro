@@ -77,6 +77,12 @@ const years = Object.keys(categorized)
         trigger item.
       </li>
       <li>
+        OneTimeCode (<code>css/compat/one-time-code.css</code>): on iOS Safari,
+        the input keeps a fixed width with room for the caret and the next empty
+        box isn't ringed, because iOS Safari hides the last typed character
+        while the input sizes itself to its content.
+      </li>
+      <li>
         Tooltip (<code>css/compat/tooltip.css</code>): without interest
         invokers, the tooltip shows while its trigger is hovered or has keyboard
         focus. It isn't in the top layer there, so an ancestor that clips its

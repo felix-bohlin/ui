@@ -163,7 +163,11 @@ document.addEventListener("input", ({ target }) => {
       (<code>field-sizing: content</code>), and the ring sits right after it.
       Browsers without <code>field-sizing</code> (Firefox before 152, Safari before
       26.2) show no ring and outline every box in the accent color while the field
-      has focus.
+      has focus. So does iOS Safari, which hides the last typed character while the
+      input sizes itself to its value (<DocLink
+        href="/guide/browser-support#compat"
+        class="ui-link">compat layer</DocLink
+      >).
     </p>
 
     <AutoExample name="Basics" />
@@ -375,8 +379,8 @@ document.addEventListener("input", ({ target }) => {
       </li>
       <li>
         Focus is shown on the boxes instead of an outline: a thicker accent ring
-        on the next empty box, or on every box without <code>field-sizing</code
-        >. Forced colors mode draws the boxes and ring in system colors.
+        on the next empty box, or on every box without <code>field-sizing</code> and
+        on iOS Safari. Forced colors mode draws the boxes and ring in system colors.
       </li>
       <li>
         <Conditional>

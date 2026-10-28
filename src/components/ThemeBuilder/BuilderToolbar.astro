@@ -1,5 +1,11 @@
 ---
-import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Toaster,
+} from "opui-css/astro"
 ---
 
 <Callout class="builder-share" data-share hidden severity="info">
@@ -163,10 +169,7 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
   </div>
 </div>
 
-<div class="builder-status" data-toast hidden>
-  <p data-toast-text role="status"></p>
-  <Button data-undo hidden size="x-small" variant="tonal">Undo</Button>
-</div>
+<Toaster align="center" class="builder-toaster" id="builder-toaster" />
 
 <script>
   import { exampleTheme } from "../../utils/example-themes"
@@ -175,6 +178,7 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
   import { themeStore, type Theme } from "../../utils/theme"
   import { changeCount } from "../../utils/theme-builder-controls"
   import { createHistory } from "../../utils/theme-history"
+  import { toast, type Toaster } from "opui-css/elements/toaster.js"
   import { SHARE_PARAM, decodeTheme, shareUrl } from "../../utils/theme-share"
 
   type Say = { focus?: HTMLElement; message: string }
@@ -192,9 +196,7 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     )!
     const presetName = toolbar.querySelector<HTMLElement>("[data-preset-name]")!
     const changes = toolbar.querySelector<HTMLElement>("[data-change-count]")!
-    const statusBox = document.querySelector<HTMLElement>("[data-toast]")!
-    const status = document.querySelector<HTMLElement>("[data-toast-text]")!
-    const undoButton = document.querySelector<HTMLButtonElement>("[data-undo]")!
+    const toaster = document.querySelector<Toaster>("#builder-toaster")!
     const undoHistory = toolbar.querySelector<HTMLButtonElement>(
       "[data-undo-history]",
     )!
@@ -203,19 +205,30 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     )!
     const stack = createHistory()
     let restoring = false
-    let clearTimer = 0
+    let current: HTMLLIElement | null = null
 
-    const clear = () => {
-      status.textContent = ""
-      statusBox.hidden = true
+    const undoAction = () => {
+      const button = document.createElement("button")
+      button.className = "ui-button ui-small ui-tonal"
+      button.dataset.undo = ""
+      button.type = "button"
+      button.textContent = "Undo"
+      button.addEventListener("click", () => {
+        undoHistory.focus({ preventScroll: true })
+        restore(stack.undo(), "Undone.")
+      })
+      return button
     }
 
     const say = (message: string, undoable = false) => {
-      clearTimeout(clearTimer)
-      status.textContent = message
-      statusBox.hidden = false
-      undoButton.hidden = !undoable
-      clearTimer = window.setTimeout(clear, undoable ? 8000 : 6000)
+      if (current) toaster.dismiss(current)
+      current = toast(message, {
+        duration: undoable ? 8000 : 5000,
+        toaster,
+      })
+      if (current && undoable) {
+        current.querySelector(".ui-content")?.append(undoAction())
+      }
     }
 
     const syncHistory = () => {
@@ -335,11 +348,6 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
         )
         say(copied ? "Link copied." : "Could not copy the link.")
       })
-
-    undoButton.addEventListener("click", () => {
-      undoHistory.focus({ preventScroll: true })
-      restore(stack.undo(), "Undone.")
-    })
 
     const params = new URLSearchParams(location.search)
     if (params.has(SHARE_PARAM)) {
@@ -529,33 +537,11 @@ import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
     }
   }
 
-  .builder-status {
+  .builder-toaster :global(.ui-content) {
     align-items: center;
-    background-color: var(--ui-surface-inverse);
-    border-radius: var(--ui-radius-round);
-    box-shadow: var(--ui-shadow-overlay);
-    color: var(--ui-on-inverse);
     display: flex;
-    gap: var(--size-3);
-    inset-block-end: var(--size-4);
-    inset-inline-start: 50%;
-    max-inline-size: calc(100vi - var(--size-4) * 2);
-    padding: var(--size-2) var(--size-4);
-    position: fixed;
-    translate: -50% 0;
-    z-index: 21;
-
-    &[hidden] {
-      display: none;
-    }
-
-    p {
-      font-size: var(--ui-font-size-small);
-      margin: 0;
-    }
-
-    :global([hidden]) {
-      display: none;
-    }
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-3);
+    justify-content: space-between;
   }
 </style>

@@ -12,7 +12,8 @@ const open = async (page: Page, width = 1440) => {
 
 const changes = (page: Page) => page.locator("[data-change-count]")
 
-const toast = (page: Page) => page.locator("[data-toast-text]")
+const toast = (page: Page) =>
+  page.locator("#builder-toaster li .ui-content > p")
 
 const room = (page: Page, id: string) => page.locator(`[data-room="${id}"]`)
 

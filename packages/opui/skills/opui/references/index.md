@@ -37,6 +37,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Select | `select.md` | Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu. |
 | Spinner | `spinner.md` | Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar. |
 | Stat | `stat.md` | A stat shows one number with its label and the change behind it. |
+| Stepper | `stepper.md` | Shows where someone is in a flow of steps, such as a checkout. |
 | Switch | `switch.md` | Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group. |
 | Table | `table.md` | Displays tabular data. Basic tables with row and column headers, and optional captions and footers. |
 | Tabs | `tabs.md` | The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group. |
@@ -83,6 +84,7 @@ Components documented on another component's page:
 | RadioInput | `radio.md` |
 | SelectAll | `checkbox.md` |
 | SortableTable | `table.md` |
+| StepperItem | `stepper.md` |
 | SwitchInput | `switch.md` |
 | TableBody | `table.md` |
 | TableCaption | `table.md` |

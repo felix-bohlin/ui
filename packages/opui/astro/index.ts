@@ -58,6 +58,8 @@ export { default as Select } from "../components/Select/Select.astro"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.astro"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.astro"
 export { default as Stat } from "../components/Stat/Stat.astro"
+export { default as Stepper } from "../components/Stepper/Stepper.astro"
+export { default as StepperItem } from "../components/Stepper/StepperItem.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
 export { default as Table } from "../components/Table/Table.astro"
@@ -172,6 +174,10 @@ export type { Props as SelectAllProps } from "../components/SelectAll/types.astr
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.astro"
 export type { Props as StatProps } from "../components/Stat/types.astro"
+export type {
+  StepperItemProps,
+  Props as StepperProps,
+} from "../components/Stepper/types.astro"
 export type {
   SwitchInputProps,
   Props as SwitchProps,

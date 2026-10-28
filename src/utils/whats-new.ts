@@ -1125,6 +1125,9 @@ export const whatsNew = {
   stat: [
     `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
   ],
+  stepper: [
+    `New: a <a href="#basics">Stepper</a> shows where someone is in a flow of steps, like a checkout, with <a href="#complete">complete</a> steps, steps with an <a href="#errors">error</a> and a <a href="#narrow">vertical</a> layout in narrow containers.`,
+  ],
   tabs: [
     `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1474,6 +1477,7 @@ export const highlighted = new Set<string>([
   "one-time-code",
   "rating",
   "stat",
+  "stepper",
   "tabs",
   "timeline",
   "toast",
@@ -1491,6 +1495,7 @@ export const added = new Set<string>([
   "one-time-code",
   "rating",
   "stat",
+  "stepper",
   "timeline",
   "toast",
 ] satisfies (keyof typeof whatsNew)[])

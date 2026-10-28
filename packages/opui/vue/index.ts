@@ -58,6 +58,8 @@ export { default as Select } from "../components/Select/Select.vue"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.vue"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.vue"
 export { default as Stat } from "../components/Stat/Stat.vue"
+export { default as Stepper } from "../components/Stepper/Stepper.vue"
+export { default as StepperItem } from "../components/Stepper/StepperItem.vue"
 export { default as Switch } from "../components/Switch/Switch.vue"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.vue"
 export { default as Table } from "../components/Table/Table.vue"
@@ -173,6 +175,10 @@ export type { Props as SelectAllProps } from "../components/SelectAll/types.vue-
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.vue-props"
 export type { Props as StatProps } from "../components/Stat/types.vue-props"
+export type {
+  StepperItemProps,
+  Props as StepperProps,
+} from "../components/Stepper/types.vue-props"
 export type {
   SwitchInputProps,
   Props as SwitchProps,

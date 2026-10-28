@@ -59,6 +59,8 @@ export { default as Select } from "../components/Select/Select.react"
 export { default as SelectAll } from "../components/SelectAll/SelectAll.react"
 export { default as SortableTable } from "../components/SortableTable/SortableTable.react"
 export { default as Stat } from "../components/Stat/Stat.react"
+export { default as Stepper } from "../components/Stepper/Stepper.react"
+export { default as StepperItem } from "../components/Stepper/StepperItem.react"
 export { default as Switch } from "../components/Switch/Switch.react"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.react"
 export { default as Table } from "../components/Table/Table.react"
@@ -174,6 +176,10 @@ export type { Props as SelectAllProps } from "../components/SelectAll/types.reac
 export type { SortDetail } from "../components/SortableTable/types"
 export type { Props as SortableTableProps } from "../components/SortableTable/types.react"
 export type { Props as StatProps } from "../components/Stat/types.react"
+export type {
+  StepperItemProps,
+  Props as StepperProps,
+} from "../components/Stepper/types.react"
 export type {
   SwitchInputProps,
   Props as SwitchProps,

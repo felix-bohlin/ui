@@ -1550,6 +1550,56 @@
     "url": "/vue/components/stat"
   },
   {
+    "id": "component-stepper-html",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Sizes Descriptions Custom check Complete Errors Screen reader labels Vertical Narrow containers",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/stepper"
+  },
+  {
+    "id": "component-stepper-astro",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Sizes Descriptions Custom check Complete Errors Screen reader labels Vertical Narrow containers",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/stepper"
+  },
+  {
+    "id": "component-stepper-react",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Sizes Descriptions Custom check Complete Errors Screen reader labels Vertical Narrow containers",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/stepper"
+  },
+  {
+    "id": "component-stepper-svelte",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Sizes Descriptions Custom check Complete Errors Screen reader labels Vertical Narrow containers",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/stepper"
+  },
+  {
+    "id": "component-stepper-vue",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Sizes Descriptions Custom check Complete Errors Screen reader labels Vertical Narrow containers",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/stepper"
+  },
+  {
     "id": "component-switch-html",
     "title": "Switch",
     "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
@@ -5452,6 +5502,106 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#stat"
+  },
+  {
+    "id": "api-stepper-item-astro",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item Astro component.",
+    "headings": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-checked The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completedLabel Screen reader text after the label of a complete step. current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#stepper-item"
+  },
+  {
+    "id": "api-stepper-item-html",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item HTML component.",
+    "headings": "li A step. Replaces the check in the marker of a complete step. Hidden from screen readers. .ui-icon-checked The label, as a link back to the step. a A short line under the label. .ui-description .ui-complete Complete Marks the step complete: a check in the marker and the line to the next step in the accent color. [aria-current=\"step\"] Current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. .ui-error Validation Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#stepper-item"
+  },
+  {
+    "id": "api-stepper-item-react",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item React component.",
+    "headings": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-checked The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completedLabel Screen reader text after the label of a complete step. current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#stepper-item"
+  },
+  {
+    "id": "api-stepper-item-svelte",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item Svelte component.",
+    "headings": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-checked The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completedLabel Screen reader text after the label of a complete step. current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#stepper-item"
+  },
+  {
+    "id": "api-stepper-item-vue",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item Vue component.",
+    "headings": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-checked The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completedLabel Screen reader text after the label of a complete step. current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#stepper-item"
+  },
+  {
+    "id": "api-stepper-astro",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Astro component.",
+    "headings": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completedLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#stepper"
+  },
+  {
+    "id": "api-stepper-html",
+    "title": "Stepper API",
+    "description": "Reference for Stepper HTML component.",
+    "headings": "ol.ui-stepper The list of steps. A step, with its marker and the line to the next one. li [aria-label] Label Accessible name of the stepper. .ui-horizontal .ui-vertical Orientation The orientation of the element. `auto` stacks the steps below `32rem`. .ui-small Sizes The size of the element.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#stepper"
+  },
+  {
+    "id": "api-stepper-react",
+    "title": "Stepper API",
+    "description": "Reference for Stepper React component.",
+    "headings": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completedLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#stepper"
+  },
+  {
+    "id": "api-stepper-svelte",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Svelte component.",
+    "headings": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completedLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#stepper"
+  },
+  {
+    "id": "api-stepper-vue",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Vue component.",
+    "headings": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completedLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#stepper"
   },
   {
     "id": "api-switch-input-astro",

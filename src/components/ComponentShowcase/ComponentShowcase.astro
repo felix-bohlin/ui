@@ -41,6 +41,7 @@ import {
   Range,
   Rating,
   Stat,
+  Stepper,
   Switch,
   Table,
   TableBody,
@@ -453,6 +454,16 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
     <Fragment slot="stat">
       <Stat aria-hidden="true" label="Visitors">48 210</Stat>
+    </Fragment>
+
+    <Fragment slot="stepper">
+      <Stepper
+        aria-hidden="true"
+        current={1}
+        items={[{ label: "Cart" }, { label: "Details" }, { label: "Done" }]}
+        orientation="horizontal"
+        size="small"
+      />
     </Fragment>
 
     <Fragment slot="tabs">

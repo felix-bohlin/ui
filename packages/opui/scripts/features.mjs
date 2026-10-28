@@ -61,7 +61,7 @@ export const patterns = [
   { id: "container-scroll-state-queries", pattern: /scroll-state\(/ },
   {
     id: "container-style-queries",
-    pattern: /@container\s+(?:[\w-]+\s+)?(?:not\s+)?style\(/,
+    pattern: /@container\s[^{]*?(?<![\w-])style\(/,
   },
   { id: "corner-shape", pattern: /corner-shape:/ },
   {

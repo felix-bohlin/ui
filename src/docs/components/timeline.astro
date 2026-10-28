@@ -49,7 +49,7 @@ export const description =
   <Fragment slot="preamble">
     An ordered list of dated events with markers and a connecting line. The
     dates line up in their own column, whatever their length. For the steps of a
-    task, use a <DocLink href="/components/list">List</DocLink>.
+    flow, use a <DocLink href="/components/stepper">Stepper</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -65,6 +65,11 @@ export const description =
     <li slot="when-not">
       Items with no date or order, like features. Use a <DocLink
         href="/components/list">List</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      The steps of a flow done in order, like a checkout. Use a <DocLink
+        href="/components/stepper">Stepper</DocLink
       >.
     </li>
     <li slot="when-not">

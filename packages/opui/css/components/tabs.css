@@ -5,6 +5,7 @@
     --_ease: var(--ui-ease);
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_indicator-bg-color: transparent;
+    --_indicator-duration: calc(var(--ui-duration) * var(--_motion));
     --_indicator-size: var(--ui-border-width-thick);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
     --_panel-gap: var(--ui-space-2);
@@ -253,6 +254,74 @@
         & > .ui-label {
           &:not(:nth-last-child(1 of .ui-label)) {
             margin-inline-end: var(--ui-space-1);
+          }
+        }
+      }
+    }
+
+    @supports (anchor-name: --x) {
+      @media not (forced-colors: active) {
+        anchor-scope: --ui-tabs-selected;
+        isolation: isolate;
+
+        &::after {
+          background-color: var(--_selected-bg-color);
+          border: var(--ui-border-width) solid var(--_selected-border-color);
+          border-radius: calc(
+            var(--_radius) - var(--_inset) - var(--_track-border-width)
+          );
+          box-shadow: var(--_selected-shadow);
+          content: "";
+          inset: anchor(--ui-tabs-selected inside);
+          pointer-events: none;
+          position: absolute;
+          transition: inset var(--_indicator-duration) var(--_ease);
+          z-index: -2;
+        }
+
+        &.ui-line::after {
+          background-color: var(--_indicator-bg-color);
+          border: 0;
+          border-radius: var(--_indicator-size);
+          box-shadow: none;
+          inset-block-start: calc(
+            anchor(--ui-tabs-selected end) - var(--_indicator-size)
+          );
+        }
+
+        & > .ui-input[type="radio"] {
+          &:checked + .ui-label::before {
+            anchor-name: --ui-tabs-selected;
+            background-color: transparent;
+            border-color: transparent;
+            box-shadow: none;
+          }
+
+          &:focus-visible + .ui-label {
+            z-index: auto;
+          }
+        }
+
+        & > .ui-label {
+          background-color: transparent;
+          isolation: auto;
+
+          &::after {
+            background-color: var(--_track-bg-color);
+            block-size: auto;
+            border-radius: inherit;
+            inset-block: calc(-1 * var(--_track-border-width));
+            opacity: 1;
+            transition: none;
+            z-index: -3;
+          }
+
+          &:nth-child(1 of .ui-label)::after {
+            inset-inline-start: calc(-1 * var(--_track-border-width));
+          }
+
+          &:nth-last-child(1 of .ui-label)::after {
+            inset-inline-end: calc(-1 * var(--_track-border-width));
           }
         }
       }

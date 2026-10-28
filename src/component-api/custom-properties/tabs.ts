@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_duration": {
     description:
-      "Duration of the transitions, `--ui-duration-fast` times `--_motion`.",
+      "Duration of the color transitions, `--ui-duration-fast` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
@@ -20,6 +20,11 @@ export default {
     description:
       "Color of the line under the selected tab. `transparent` unless `.ui-line`, which reads `--ui-tabs-accent` and falls back to `--ui-text-strong`.",
     kind: "input",
+  },
+  "--_indicator-duration": {
+    description:
+      "Duration of the slide of the selected pill or line to another tab, `--ui-duration` times `--_motion`. Where anchor positioning works, one indicator on the root follows the selected tab.",
+    kind: "output",
   },
   "--_indicator-size": {
     description: "Thickness of the line under the selected tab.",

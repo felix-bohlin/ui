@@ -1173,6 +1173,7 @@ export const whatsNew = {
     },
     `The focus ring sits at <a href="#api"><code>--ui-focus-ring-inset</code></a>, like every other inset ring.`,
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    `The selected pill, and the line of <a href="#line">line tabs</a>, slides to the tab you select, where anchor positioning works (<a href="#basics">Basics</a>).`,
   ],
   "text-field": [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,

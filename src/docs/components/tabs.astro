@@ -41,6 +41,7 @@ import tabsApi from "../../component-api/tabs/api"
     { title: "Tabs panel API", api: tabsPanelApi },
   ]}
   browserSupport={[
+    "anchor-positioning",
     "container-queries",
     "lh",
     "light-dark",
@@ -120,6 +121,12 @@ import tabsApi from "../../component-api/tabs/api"
         a tonal track and the selected tab is a raised pill.
       </Fragment>
     </Conditional>
+    <p>
+      The pill slides to the tab you select, like the line of <a href="#line"
+        >line tabs</a
+      >, in browsers with anchor positioning. Elsewhere it fades from tab to
+      tab, and in forced colors it stays on each tab.
+    </p>
     <AutoExample name="Basics" />
   </section>
 

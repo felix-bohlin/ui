@@ -384,6 +384,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Switch` turns its checked track red when invalid, like `Checkbox` and `Radio`, with a `--ui-on-fill` thumb.
 - `Table` centers a checkbox that is alone in a cell and shrinks the column to fit it.
 - `Table` dense cells have less block padding.
+- `Tabs` slide the selected pill, or the line of `.ui-line`, to the tab you select over `--_indicator-duration` (`--ui-duration`), where anchor positioning works: one indicator on the root follows the checked tab's `::before`, and each tab draws its part of the track on its `::after`. Elsewhere, and in forced colors, the pill stays on each tab and fades.
 - `Textarea` minimum height is three lines plus padding at every size. Small was a fixed 64px.
 - `TextField`, `Select` and `Textarea` with `.ui-small` set their text in `--ui-font-size-small`, like small buttons, instead of the default size. On touch screens, small and x-small fields keep `--ui-font-size-control`, since iOS Safari zooms in on a focused field with text under 16px.
 - `TextField` file input takes `--ui-shadow-field` like other fields instead of an inset Open Props shadow, so it's flat by default.

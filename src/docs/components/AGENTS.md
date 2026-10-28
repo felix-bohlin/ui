@@ -123,7 +123,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up.
+4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<h2 id="basics">Basics</h2>`.
    2. Variants, colors and severities.
@@ -265,7 +265,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 
 ### 5.7 Usage
 
-Every component page fills the `usage` slot with the `Usage` partial ([partials/Usage.astro](partials/Usage.astro)). The layout renders it as "Usage" after the preamble and the hero anatomy, and the partial adds the "When to use" and "When not to use" headings. Each `<li slot="when">` and `<li slot="when-not">` is one item:
+Every component page fills the `usage` slot with the `Usage` partial ([partials/Usage.astro](partials/Usage.astro)). The layout renders it as a collapsed "Usage" accordion after the preamble and the hero anatomy (a link to `#when-to-use` or `#when-not-to-use` opens it), and the partial adds the "When to use" and "When not to use" headings. Each `<li slot="when">` and `<li slot="when-not">` is one item:
 
 ```astro
 <Usage slot="usage">

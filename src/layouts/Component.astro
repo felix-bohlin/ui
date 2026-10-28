@@ -12,6 +12,9 @@ import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import Pagination from "../components/Pagination.astro"
 import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
   Button,
   Callout,
   CalloutContent,
@@ -225,10 +228,17 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     Astro.slots.has("usage") && (
-      <section>
-        <h2 id="usage">Usage</h2>
-        <slot name="usage" />
-      </section>
+      <>
+        <h2 id="usage" class="ui-sr-only">
+          Usage
+        </h2>
+        <Accordion class="component-usage">
+          <AccordionSummary>Usage</AccordionSummary>
+          <AccordionContent>
+            <slot name="usage" />
+          </AccordionContent>
+        </Accordion>
+      </>
     )
   }
 
@@ -458,6 +468,10 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     .component-hero > h2 {
       margin: 0;
       position: absolute;
+    }
+
+    :global(.component-usage) {
+      margin-block-end: var(--size-4);
     }
 
     .component-footer {

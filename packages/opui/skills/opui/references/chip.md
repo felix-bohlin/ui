@@ -33,18 +33,20 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### chip.css
 
+- `--_ease`: Easing of the hover and pressed transitions. Defaults to `--ui-ease`.
 - `--_font-size`: The font size. `.ui-large` sets it.
 - `--_icon-padding-inline`: Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.
 - `--_icon-size`: Width of an `svg`. `.ui-large` sets it.
+- `--_motion`: Motion multiplier for the hover and pressed transitions. `0` turns them off.
 - `--_padding-inline`: The inline padding. `.ui-large` sets it.
 - `--_pressed-bg-color`: Background of a button chip with `aria-pressed="true"`. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.
 - `--_size`: The height. Defaults to `--ui-chip-size`, set by the size classes.
 
-Outputs: `--_accent`, `--_bg-color`, `--_border-color`, `--_dot-bg-color` and `--_text-color`.
+Outputs: `--_accent`, `--_bg-color`, `--_border-color`, `--_dot-bg-color`, `--_duration` and `--_text-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-chip-radius`, `--ui-chip-size`, `--ui-chip-size-large`, `--ui-chip-size-small`, `--ui-chip-size-x-small`, `--ui-contrast`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-disabled-opacity`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-info`, `--ui-neutral`, `--ui-on-primary`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-selected`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-success`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-strong` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-chip-radius`, `--ui-chip-size`, `--ui-chip-size-large`, `--ui-chip-size-small`, `--ui-chip-size-x-small`, `--ui-contrast`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-ease-move`, `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-info`, `--ui-motion`, `--ui-neutral`, `--ui-on-primary`, `--ui-on-selected`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-press-scale`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-selected`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-success`, `--ui-surface`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-strong` and `--ui-warning`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

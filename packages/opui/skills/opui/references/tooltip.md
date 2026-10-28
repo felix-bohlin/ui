@@ -35,15 +35,15 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_arrow-size`: Size of the arrow in `.ui-arrow`.
 - `--_bg-color`: Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.
-- `--_ease`: Easing of the fade. Defaults to `--ui-ease-enter`.
+- `--_ease`: Easing of the fade and the scale. Defaults to `--ui-ease-enter`.
 - `--_max-inline-size`: The maximum width. Longer content wraps.
 - `--_min-inline-size`: The minimum width, unless the content is narrower.
-- `--_motion`: Motion multiplier for the fade. `0` turns it off.
+- `--_motion`: Motion multiplier for the fade and the scale. `0` turns them off.
 - `--_offset`: Distance from the trigger. `.ui-arrow` computes it from `--_arrow-size`.
 - `--_shift`: How far a shifted tooltip reaches past the center of the trigger.
 - `--_text-color`: The text color. Defaults to `--ui-on-inverse`.
 
-Outputs: `--_duration`.
+Outputs: `--_duration` and `--_ease-move`.
 
 ### anchor.css
 
@@ -52,7 +52,7 @@ Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-move`, `--ui-font-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-inverse`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4` and `--ui-surface-inverse`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

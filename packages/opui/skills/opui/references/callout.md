@@ -36,7 +36,9 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_font-size`: Font size of `.ui-content`.
 - `--_gap`: Gap between a direct child `svg` and `.ui-content`.
 - `--_icon-size`: Width of the icon column when there's a direct child `svg`.
+- `--_link-ease`: Easing of the link color transition. Defaults to `--ui-ease`.
 - `--_link-hover-text-color`: Link color on hover and focus. Defaults to `--ui-primary-text`, not used in `.ui-outlined`.
+- `--_motion`: Motion multiplier for the link color transition. `0` turns it off.
 - `--_outlined-bg-color`: Background of `.ui-outlined`. Defaults to `--ui-surface`.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the severity classes.
 - `--_outlined-icon-text-color`: Icon color of `.ui-outlined`. Set by the severity classes.
@@ -47,11 +49,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_surface-bg-color`: The opaque background under the tint. Defaults to `--ui-surface`.
 - `--_title-font-size`: Font size of headings in `.ui-content`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color` and `--_text-color`.
+Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-duration` and `--_text-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-2`, `--ui-space-3`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-2`, `--ui-space-3`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

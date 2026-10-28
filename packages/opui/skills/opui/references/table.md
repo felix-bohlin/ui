@@ -109,13 +109,13 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### table.css
 
-- `--_ease`: Easing of the header shadow transition. Defaults to `--ui-ease`.
-- `--_motion`: Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.
+- `--_ease`: Easing of the row and header shadow transitions. Defaults to `--ui-ease`.
+- `--_motion`: Motion multiplier for the row and header shadow transitions. `0` turns them off.
 - `--_radius`: Corner radius of the table and its corner cells. Defaults to `--ui-radius`.
 - `--_scroll-shadow`: Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.
 - `--_sticky-offset`: Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks.
 
-Outputs: `--_duration`.
+Outputs: `--_duration` and `--_row-duration`.
 
 ### sortable-table.css
 
@@ -128,7 +128,7 @@ Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-filled`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-radius-small`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface`, `--ui-surface-filled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-border-width`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color-on-filled`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size-small`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-radius-small`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface`, `--ui-surface-filled`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

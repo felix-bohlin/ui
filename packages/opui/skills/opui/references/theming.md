@@ -209,6 +209,18 @@ Each component reads it through its own `--_motion`, so you can turn one off:
 </button>
 ```
 
+### Springy movement
+
+Two optional tokens give the controls some personality. `--ui-ease-move` is the easing of things that move: the checkbox check, the radio dot and the switch thumb as they turn on, the tabs indicator, the press scale, and menus, selects, tooltips and toasts as they open. Nothing closing reads it. `--ui-press-scale` shrinks buttons, toggle buttons and chips while they're pressed. Both are unset, so nothing bounces or shrinks until a theme sets them, and both follow `--ui-motion`.
+
+```css
+:root {
+  --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
+    1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
+  --ui-press-scale: 0.97;
+}
+```
+
 To follow it in your own CSS:
 
 ```css

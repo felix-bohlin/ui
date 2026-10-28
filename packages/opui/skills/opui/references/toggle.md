@@ -80,10 +80,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### toggle-button.css
 
-- `--_ease`: Easing of the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the hover and selected transitions and the focus ring animation. Defaults to `--ui-ease`.
 - `--_font-size`: The font size. Defaults to `--ui-font-size-control`. Set by the size classes on the button or its group.
 - `--_icon-size`: Size of a direct child `svg`. Defaults to `--ui-icon-size`.
-- `--_motion`: Motion multiplier for the focus ring animation. `0` turns it off.
+- `--_motion`: Motion multiplier for the hover and selected transitions and the focus ring animation. `0` turns them off.
 - `--_selected-bg-color`: Background of the checked button. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.
 - `--_size`: Height and minimum width. Defaults to `--ui-button-size`, set by the size classes on the button or its group.
 
@@ -91,7 +91,7 @@ Outputs: `--_bg-color` and `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-shadow-control`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-text-disabled` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-ease-move`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-motion`, `--ui-on-primary`, `--ui-on-selected`, `--ui-press-scale`, `--ui-primary`, `--ui-radius`, `--ui-selected`, `--ui-shadow-control`, `--ui-space-2`, `--ui-space-3`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-text-disabled` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

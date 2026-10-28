@@ -47,11 +47,15 @@ Outputs: `--_count-digits`, `--_font-scale` and `--_start-digits`.
 
 ### link.css
 
+- `--_ease`: Easing of the hover and focus color transition. Defaults to `--ui-ease`.
+- `--_motion`: Motion multiplier for the hover and focus color transition. `0` turns it off.
 - `--_text-color`: Text and underline color of `.ui-link` and of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`.
+
+Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-duration`, `--ui-ease`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-motion`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

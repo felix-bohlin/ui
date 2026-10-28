@@ -10,7 +10,7 @@ import {
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 import { describe, expect, test } from "vitest"
-import { styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
+import { binOf, run, styledGlobs, suites } from "../../.claude/hooks/checks.mjs"
 import { checkFiles, report } from "../../scripts/check-staged.mjs"
 
 const EM_DASH = String.fromCodePoint(0x2014)
@@ -162,6 +162,14 @@ describe("stop", () => {
 test("the stop hook lints the stylesheets the lint script names", () => {
   expect(styledGlobs()).toEqual(["packages/opui/**/*.css", "src/**/*.css"])
 })
+
+test.each(["oxlint", "prettier", "stylelint", "vitest"])(
+  "the checks start %s with Node, which also works on Windows",
+  (name) => {
+    expect(binOf(name)).not.toContain(".bin")
+    expect(run(name, ["--version"])).toEqual([])
+  },
+)
 
 test("the hooks run the TODO.md and guide tests for those files", () => {
   expect(suites(["TODO.md"])).toEqual(["tests/unit/todo.test.ts"])

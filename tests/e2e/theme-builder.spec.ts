@@ -13,7 +13,7 @@ const open = async (page: Page, width = 1440) => {
 const changes = (page: Page) => page.locator("[data-change-count]")
 
 const toast = (page: Page) =>
-  page.locator("#builder-toaster li .ui-content > p")
+  page.locator("#builder-toaster li:not([inert]) .ui-content > p")
 
 const room = (page: Page, id: string) => page.locator(`[data-room="${id}"]`)
 
@@ -105,7 +105,7 @@ test("a mood applies a bundle of changes that Undo or a second press takes back"
   await expect(
     page.locator('[data-control="corners"] .builder-control-origin'),
   ).toHaveText("Changed")
-  await page.locator("[data-undo]").click()
+  await page.locator("#builder-toaster li:not([inert]) [data-undo]").click()
   await expect(toast(page)).toHaveText("Undone.")
   await expect(changes(page)).toHaveText("No changes")
   await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(

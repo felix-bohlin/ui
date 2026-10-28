@@ -20,8 +20,6 @@
 @import "./components/divider.css";
 @import "./components/drawer.css";
 @import "./components/link.css";
-@import "./components/message.css";
-@import "./components/one-time-code.css";
 @import "./components/progress.css";
 @import "./components/radio.css";
 @import "./components/range.css";
@@ -47,7 +45,9 @@
 @import "./components/form.css";
 @import "./components/list.css";
 @import "./components/menu.css";
+@import "./components/message.css";
 @import "./components/number-stepper.css";
+@import "./components/one-time-code.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
 @import "./components/textarea.css";

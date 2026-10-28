@@ -27,10 +27,13 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Layout | `layout.md` | Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | A popover list of actions or links. |
+| Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
 | Number stepper | `number-stepper.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
+| One-time code | `one-time-code.md` | A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill. |
 | Progress | `progress.md` | See also: Spinner. |
 | Radio | `radio.md` | See also: Form documentation. |
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |
+| Rating | `rating.md` | A star rating: a meter that shows a score, or radios that collect one. |
 | Select | `select.md` | Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu. |
 | Spinner | `spinner.md` | Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar. |
 | Stat | `stat.md` | A stat shows one number with its label and the change behind it. |
@@ -39,6 +42,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Tabs | `tabs.md` | The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group. |
 | Text field | `text-field.md` | An input for single-line text data. Basic text fields with labels, field descriptions, and validation states. |
 | Textarea | `textarea.md` | An input for multi-line text data. Basic textareas with labels, supporting text, and validation states. |
+| Timeline | `timeline.md` | A list of dated events with markers and a connecting line. |
 | Toast | `toast.md` | Short messages that confirm an action and dismiss themselves. |
 | Toggle | `toggle.md` | Toggle buttons and toggle groups switch options on and off, alone or as a set. |
 | Tooltip | `tooltip.md` | Built on top of Anchor. |
@@ -75,6 +79,7 @@ Components documented on another component's page:
 | FieldLegend | `form.md` |
 | Fieldset | `form.md` |
 | ListItem | `list.md` |
+| Messages | `message.md` |
 | RadioInput | `radio.md` |
 | SelectAll | `checkbox.md` |
 | SortableTable | `table.md` |
@@ -91,6 +96,7 @@ Components documented on another component's page:
 | TabsItem | `tabs.md` |
 | TabsLabel | `tabs.md` |
 | TabsPanel | `tabs.md` |
+| TimelineItem | `timeline.md` |
 | Toaster | `toast.md` |
 | ToggleButton | `toggle.md` |
 | ToggleGroup | `toggle.md` |

@@ -241,7 +241,7 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Server rendering
 
-Components that need context, state or effects are marked `"use client"`: `Anchor`, `Callout`, `ColorField`, `Copy`, `Dialog`, `Drawer`, `FieldGroup`, `Menu`, `NumberStepper`, `Range`, `Select`, `SelectAll`, `SortableTable`, `Tabs`, `TextField`, `Textarea`, `Toaster`, `ToggleButton` and `ToggleGroup`, and the `CheckboxInput`, `RadioInput` and `SwitchInput` parts. The rest also render as React Server Components. This list is read from the component sources.
+Components that need context, state or effects are marked `"use client"`: `Anchor`, `Callout`, `ColorField`, `Copy`, `Dialog`, `Drawer`, `FieldGroup`, `Menu`, `NumberStepper`, `OneTimeCode`, `Range`, `Rating`, `Select`, `SelectAll`, `SortableTable`, `Tabs`, `TextField`, `Textarea`, `Toaster`, `ToggleButton` and `ToggleGroup`, and the `CheckboxInput`, `RadioInput` and `SwitchInput` parts. The rest also render as React Server Components. This list is read from the component sources.
 
 Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
 

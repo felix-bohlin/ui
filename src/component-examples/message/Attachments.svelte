@@ -25,9 +25,7 @@
       <CardContent class="ui-layout-media ui-small">
         {@render icon()}
         <div>
-          <a class="ui-link" href="#message-attachments-1"
-            >Pricing-proposal.pdf</a
-          >
+          <a class="ui-link" href="#attachments">Pricing-proposal.pdf</a>
           <p class="ui-caption">PDF, 2.4 MB</p>
         </div>
       </CardContent>
@@ -39,9 +37,7 @@
       <CardContent class="ui-layout-media ui-small">
         {@render icon()}
         <div>
-          <a class="ui-link" href="#message-attachments-2"
-            >Contract-signed.pdf</a
-          >
+          <a class="ui-link" href="#attachments">Contract-signed.pdf</a>
           <p class="ui-caption">PDF, 860 kB</p>
         </div>
       </CardContent>

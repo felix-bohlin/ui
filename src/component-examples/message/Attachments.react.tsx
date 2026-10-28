@@ -3,7 +3,7 @@ import { Avatar, Card, CardContent, Message, Messages } from "opui-css/react"
 const icon = (
   <svg
     aria-hidden="true"
-    class="ui-icon"
+    className="ui-icon"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
   >
@@ -32,7 +32,7 @@ export default function Attachments() {
           <CardContent className="ui-layout-media ui-small">
             {icon}
             <div>
-              <a className="ui-link" href="#message-attachments-1">
+              <a className="ui-link" href="#attachments">
                 Pricing-proposal.pdf
               </a>
               <p className="ui-caption">PDF, 2.4 MB</p>
@@ -46,7 +46,7 @@ export default function Attachments() {
           <CardContent className="ui-layout-media ui-small">
             {icon}
             <div>
-              <a className="ui-link" href="#message-attachments-2">
+              <a className="ui-link" href="#attachments">
                 Contract-signed.pdf
               </a>
               <p className="ui-caption">PDF, 860 kB</p>

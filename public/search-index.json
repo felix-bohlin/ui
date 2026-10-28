@@ -1050,6 +1050,56 @@
     "url": "/vue/components/menu"
   },
   {
+    "id": "component-message-html",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Typing indicator",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/message"
+  },
+  {
+    "id": "component-message-astro",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Typing indicator",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/message"
+  },
+  {
+    "id": "component-message-react",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Typing indicator",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/message"
+  },
+  {
+    "id": "component-message-svelte",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Typing indicator",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/message"
+  },
+  {
+    "id": "component-message-vue",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Typing indicator",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/message"
+  },
+  {
     "id": "component-number-stepper-html",
     "title": "Number stepper",
     "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
@@ -1098,6 +1148,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/number-stepper"
+  },
+  {
+    "id": "component-one-time-code-html",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-astro",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-react",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-svelte",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-vue",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/one-time-code"
   },
   {
     "id": "component-progress-html",
@@ -1248,6 +1348,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/range"
+  },
+  {
+    "id": "component-rating-html",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization Keyboard support",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/rating"
+  },
+  {
+    "id": "component-rating-astro",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization Keyboard support",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/rating"
+  },
+  {
+    "id": "component-rating-react",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/rating"
+  },
+  {
+    "id": "component-rating-svelte",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/rating"
+  },
+  {
+    "id": "component-rating-vue",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization Keyboard support",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/rating"
   },
   {
     "id": "component-select-html",
@@ -1648,6 +1798,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/textarea"
+  },
+  {
+    "id": "component-timeline-html",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Sizes Custom marker Current item Tracked Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/timeline"
+  },
+  {
+    "id": "component-timeline-astro",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Sizes Custom marker Current item Tracked Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/timeline"
+  },
+  {
+    "id": "component-timeline-react",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Sizes Custom marker Current item Tracked Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/timeline"
+  },
+  {
+    "id": "component-timeline-svelte",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Sizes Custom marker Current item Tracked Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/timeline"
+  },
+  {
+    "id": "component-timeline-vue",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Sizes Custom marker Current item Tracked Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/timeline"
   },
   {
     "id": "component-toast-html",
@@ -4554,6 +4754,106 @@
     "url": "/vue/api#menu"
   },
   {
+    "id": "api-message-astro",
+    "title": "Message API",
+    "description": "Reference for Message Astro component.",
+    "headings": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end A row under the bubble, for reactions in a `ToggleGroup`. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#message"
+  },
+  {
+    "id": "api-message-html",
+    "title": "Message API",
+    "description": "Reference for Message HTML component.",
+    "headings": "li.ui-message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. .ui-avatar The bubble. .ui-content The sender's name. .ui-header The time, and content such as a read receipt. .ui-footer Content after the time, such as a read receipt. .ui-end A row under the bubble, for reactions in a `ToggleGroup`. .ui-bottom [datetime] Datetime The machine-readable date and time of `time`. .ui-new-author New author Starts a new run when the author changes, for a group chat. .ui-outgoing Outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. .ui-typing Typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#message"
+  },
+  {
+    "id": "api-message-react",
+    "title": "Message API",
+    "description": "Reference for Message React component.",
+    "headings": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end A row under the bubble, for reactions in a `ToggleGroup`. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#message"
+  },
+  {
+    "id": "api-message-svelte",
+    "title": "Message API",
+    "description": "Reference for Message Svelte component.",
+    "headings": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end A row under the bubble, for reactions in a `ToggleGroup`. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#message"
+  },
+  {
+    "id": "api-message-vue",
+    "title": "Message API",
+    "description": "Reference for Message Vue component.",
+    "headings": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end A row under the bubble, for reactions in a `ToggleGroup`. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#message"
+  },
+  {
+    "id": "api-messages-astro",
+    "title": "Messages API",
+    "description": "Reference for Messages Astro component.",
+    "headings": "Messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#messages"
+  },
+  {
+    "id": "api-messages-html",
+    "title": "Messages API",
+    "description": "Reference for Messages HTML component.",
+    "headings": "ol.ui-messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run. li.ui-message",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#messages"
+  },
+  {
+    "id": "api-messages-react",
+    "title": "Messages API",
+    "description": "Reference for Messages React component.",
+    "headings": "Messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#messages"
+  },
+  {
+    "id": "api-messages-svelte",
+    "title": "Messages API",
+    "description": "Reference for Messages Svelte component.",
+    "headings": "Messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#messages"
+  },
+  {
+    "id": "api-messages-vue",
+    "title": "Messages API",
+    "description": "Reference for Messages Vue component.",
+    "headings": "Messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#messages"
+  },
+  {
     "id": "api-number-stepper-astro",
     "title": "Number Stepper API",
     "description": "Reference for Number Stepper Astro component.",
@@ -4602,6 +4902,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#number-stepper"
+  },
+  {
+    "id": "api-one-time-code-astro",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Astro component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-html",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code HTML component.",
+    "headings": "label.ui-text-field.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. [maxlength] Length The number of characters and boxes, from 4 to 8. [required] Required Adds a required mark after the label. The form won't submit while the code is incomplete. .ui-large .ui-small .ui-x-small Sizes The size of the element.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-react",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code React component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-svelte",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Svelte component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-vue",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Vue component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#one-time-code"
   },
   {
     "id": "api-progress-astro",
@@ -4802,6 +5152,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#range"
+  },
+  {
+    "id": "api-rating-astro",
+    "title": "Rating API",
+    "description": "Reference for Rating Astro component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the clear radio. size The size of the stars. starLabel Returns the accessible name of each star radio. Use it to translate.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#rating"
+  },
+  {
+    "id": "api-rating-html",
+    "title": "Rating API",
+    "description": "Reference for Rating HTML component.",
+    "headings": ".ui-rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. legend Clears the rating. Drawn as a muted icon, left out with `required`. input[value=\"0\"] A star, one per value from `1` to `max`. input[value=\"1\"] The checked and total count, such as `3/5`. Hidden from screen readers. fieldset.ui-rating::after [disabled] Disabled Disables the input. [aria-invalid=\"true\"] Validation Marks the radios invalid and tints the empty stars. [max] --_max Max Number of stars. [required] Required Requires a star and drops the clear radio. .ui-large .ui-small Sizes The size of the stars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#rating"
+  },
+  {
+    "id": "api-rating-react",
+    "title": "Rating API",
+    "description": "Reference for Rating React component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. onChange Called when a star or the clear radio is picked. required Requires a star and drops the clear radio. size The size of the stars. starLabel Returns the accessible name of each star radio. Use it to translate.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#rating"
+  },
+  {
+    "id": "api-rating-svelte",
+    "title": "Rating API",
+    "description": "Reference for Rating Svelte component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the clear radio. size The size of the stars. starLabel Returns the accessible name of each star radio. Use it to translate.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#rating"
+  },
+  {
+    "id": "api-rating-vue",
+    "title": "Rating API",
+    "description": "Reference for Rating Vue component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the clear radio. size The size of the stars. starLabel Returns the accessible name of each star radio. Use it to translate.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#rating"
   },
   {
     "id": "api-select-all-astro",
@@ -5702,6 +6102,106 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#textarea"
+  },
+  {
+    "id": "api-timeline-item-astro",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Astro component.",
+    "headings": "TimelineItem An event. Replaces the dot with an icon. It follows the item's color and the current state. marker The date, in its own column. datetime time The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. Rich content goes in the `label` slot. time The date as shown, in the date column.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-html",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item HTML component.",
+    "headings": "li An event. Replaces the dot with an icon. It follows the item's color and the current state. .ui-marker The date, in its own column. time The title of the event. h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. [aria-current] Current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. [datetime] Datetime The machine-readable date of `time`.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-react",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item React component.",
+    "headings": "TimelineItem An event. Replaces the dot with an icon. It follows the item's color and the current state. marker The date, in its own column. datetime time The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. Rich content goes in the `label` slot. time The date as shown, in the date column.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-svelte",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Svelte component.",
+    "headings": "TimelineItem An event. Replaces the dot with an icon. It follows the item's color and the current state. marker The date, in its own column. datetime time The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. Rich content goes in the `label` slot. time The date as shown, in the date column.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-vue",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Vue component.",
+    "headings": "TimelineItem An event. Replaces the dot with an icon. It follows the item's color and the current state. marker The date, in its own column. datetime time The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. Rich content goes in the `label` slot. time The date as shown, in the date column.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-astro",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Astro component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, label, time }` objects. `description` renders a paragraph. size The size of the element. tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#timeline"
+  },
+  {
+    "id": "api-timeline-html",
+    "title": "Timeline API",
+    "description": "Reference for Timeline HTML component.",
+    "headings": "ol.ui-timeline Container element. An event, with its marker and the line to the next one. li .ui-small Sizes The size of the element. .ui-tracked Tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#timeline"
+  },
+  {
+    "id": "api-timeline-react",
+    "title": "Timeline API",
+    "description": "Reference for Timeline React component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, label, time }` objects. `description` renders a paragraph. size The size of the element. tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#timeline"
+  },
+  {
+    "id": "api-timeline-svelte",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Svelte component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, label, time }` objects. `description` renders a paragraph. size The size of the element. tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#timeline"
+  },
+  {
+    "id": "api-timeline-vue",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Vue component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, label, time }` objects. `description` renders a paragraph. size The size of the element. tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#timeline"
   },
   {
     "id": "api-toast-astro",

@@ -1,5 +1,4 @@
 export type Props = {
-  alpha?: boolean
   autoFit?: boolean
   chromaLabel?: string
   contrastLabel?: string
@@ -13,6 +12,7 @@ export type Props = {
   invalidText?: string
   label?: string
   lightnessLabel?: string
+  opacity?: "none" | "slider"
   opacityLabel?: string
   p3Text?: string
   pickerLabel?: string

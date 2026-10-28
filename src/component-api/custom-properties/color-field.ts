@@ -3,12 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_c": {
     description:
-      "Chroma of the color, which the lightness, hue and opacity tracks are painted with. The element sets it.",
+      "Chroma of the color, which the lightness, hue and opacity tracks and the tint are painted with. The element sets it.",
     kind: "output",
   },
   "--_h": {
     description:
-      "Hue of the color, which the lightness, chroma and opacity tracks are painted with. The element sets it.",
+      "Hue of the color, which the lightness, chroma and opacity tracks and the tint are painted with. The element sets it.",
     kind: "output",
   },
   "--_indicator-bg-color": {
@@ -39,6 +39,21 @@ export default {
     description:
       "Text color of the picker's buttons, the `Button` property set to `--_preview-text-color` so they stay readable on the color.",
     kind: "output",
+  },
+  "--_tint-alpha": {
+    description:
+      "Alpha of the picker's tint. The element sets it to `1` while the field holds a color, and `0` when the text is empty or isn't a color, so the plain surface shows.",
+    kind: "output",
+  },
+  "--_tint-bg-color": {
+    description:
+      "The picker's tint: the surface's lightness with the color's hue, its chroma capped by `--_tint-chroma`.",
+    kind: "output",
+  },
+  "--_tint-chroma": {
+    description:
+      "Highest chroma of the picker's tint, `0.03` by default. `0` turns the tint off.",
+    kind: "input",
   },
   "--_to": {
     description:

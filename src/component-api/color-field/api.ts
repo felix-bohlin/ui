@@ -55,12 +55,6 @@ export default {
   },
   options: [
     {
-      default: "false",
-      description: "Adds an opacity slider, and keeps the alpha in the value.",
-      group: "Alpha",
-      prop: "alpha",
-    },
-    {
       class: ".ui-auto-fit",
       default: "false",
       description:
@@ -155,8 +149,16 @@ export default {
       type: "string",
     },
     {
+      default: '"slider"',
+      description:
+        'The opacity slider, which keeps the alpha in the value. `"none"` leaves it out, so the value is always opaque.',
+      group: "Opacity",
+      prop: "opacity",
+      values: { none: null, slider: null },
+    },
+    {
       default: '"Opacity"',
-      description: "The label of the opacity slider, with `alpha`.",
+      description: 'The label of the opacity slider, unless `opacity="none"`.',
       prop: "opacityLabel",
     },
     {
@@ -269,13 +271,13 @@ export default {
     },
     {
       description:
-        "The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color.",
-      props: ["alpha"],
+        "The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.",
+      props: ["opacity"],
       selector: ".ui-floating",
     },
     {
       description:
-        "The preview, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons.",
+        "The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons. The color fades into the tint below it.",
       selector: ".ui-floating > .ui-header",
     },
     {

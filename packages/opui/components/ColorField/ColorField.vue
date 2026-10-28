@@ -19,7 +19,6 @@ defineOptions({
 })
 
 const {
-  alpha,
   autoFit,
   chromaLabel,
   contrastLabel,
@@ -34,6 +33,7 @@ const {
   invalidText,
   label,
   lightnessLabel,
+  opacity,
   opacityLabel,
   p3Text,
   pickerLabel = "Pick a color",
@@ -60,7 +60,7 @@ const model = computed({
 const generatedId = useId()
 const inputId = computed(() => id ?? generatedId)
 const sliders = computed(() =>
-  channelsFor(alpha, {
+  channelsFor(opacity, {
     chroma: chromaLabel,
     hue: hueLabel,
     lightness: lightnessLabel,

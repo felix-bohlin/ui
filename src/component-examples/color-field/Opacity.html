@@ -4,16 +4,17 @@
       class="ui-label"
       for="color-field-opacity-1"
       id="color-field-opacity-1-label"
-      >Overlay</label
     >
+      Overlay
+    </label>
     <span class="ui-field">
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-opacity-1-picker"
           command="toggle-popover"
+          commandfor="color-field-opacity-1-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -21,9 +22,9 @@
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.3 0.05 260 / 0.6)"
         id="color-field-opacity-1"
         type="text"
-        value="oklch(0.3 0.05 260 / 0.6)"
       />
     </span>
   </div>
@@ -39,11 +40,11 @@
       <span class="ui-actions">
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Pick from the screen"
           command="--eyedropper"
           commandfor="color-field-opacity-1"
           hidden
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -60,10 +61,10 @@
         </button>
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Copy"
           command="--copy"
           commandfor="color-field-opacity-1"
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -82,9 +83,9 @@
       <span class="ui-sr-only" role="status"></span>
     </div>
     <label class="ui-range" for="color-field-opacity-1-lightness">
-      <span class="ui-label" id="color-field-opacity-1-lightness-label"
-        >Lightness</span
-      >
+      <span class="ui-label" id="color-field-opacity-1-lightness-label">
+        Lightness
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -98,12 +99,11 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-opacity-1-chroma">
-      <span class="ui-label" id="color-field-opacity-1-chroma-label"
-        >Chroma</span
-      >
+      /> </label
+    ><label class="ui-range" for="color-field-opacity-1-chroma">
+      <span class="ui-label" id="color-field-opacity-1-chroma-label">
+        Chroma
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -118,10 +118,9 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-opacity-1-hue">
-      <span class="ui-label" id="color-field-opacity-1-hue-label">Hue</span>
+      /> </label
+    ><label class="ui-range" for="color-field-opacity-1-hue">
+      <span class="ui-label" id="color-field-opacity-1-hue-label"> Hue </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -135,12 +134,11 @@
         min="0"
         step="0.1"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-opacity-1-opacity">
-      <span class="ui-label" id="color-field-opacity-1-opacity-label"
-        >Opacity</span
-      >
+      /> </label
+    ><label class="ui-range" for="color-field-opacity-1-opacity">
+      <span class="ui-label" id="color-field-opacity-1-opacity-label">
+        Opacity
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -157,6 +155,152 @@
       />
     </label>
     <p class="ui-description" id="color-field-opacity-1-gamut"></p>
+    <p class="ui-footer">
+      <span aria-hidden="true" data-contrast="light"></span>
+      <span aria-hidden="true" data-contrast="dark"></span>
+      <span class="ui-sr-only"></span>
+    </p>
+  </div>
+</opui-color-field>
+<opui-color-field class="ui-color-field">
+  <div class="ui-text-field">
+    <label
+      class="ui-label"
+      for="color-field-opacity-2"
+      id="color-field-opacity-2-label"
+    >
+      Brand color
+    </label>
+    <span class="ui-field">
+      <span class="ui-start">
+        <button
+          type="button"
+          aria-label="Pick a color"
+          command="toggle-popover"
+          commandfor="color-field-opacity-2-picker"
+          class="ui-button ui-round"
+        >
+          <span class="ui-indicator"></span>
+        </button>
+      </span>
+      <input
+        autocomplete="off"
+        spellcheck="false"
+        value="oklch(0.6 0.15 250)"
+        id="color-field-opacity-2"
+        type="text"
+      />
+    </span>
+  </div>
+  <div
+    aria-labelledby="color-field-opacity-2-label"
+    class="ui-floating"
+    id="color-field-opacity-2-picker"
+    popover="auto"
+    role="dialog"
+  >
+    <div class="ui-header">
+      <span aria-hidden="true" class="ui-value"></span>
+      <span class="ui-actions">
+        <button
+          type="button"
+          aria-label="Pick from the screen"
+          command="--eyedropper"
+          commandfor="color-field-opacity-2"
+          hidden
+          class="ui-button ui-round ui-small"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42M6.92 19 5 17.08l8.06-8.06 1.92 1.92z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          aria-label="Copy"
+          command="--copy"
+          commandfor="color-field-opacity-2"
+          class="ui-button ui-round ui-small"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm0-2h9V4H9zm-4 6q-.825 0-1.412-.587T3 20V6h2v14h11v2z"
+            ></path>
+          </svg>
+        </button>
+      </span>
+      <span class="ui-sr-only" role="status"></span>
+    </div>
+    <label class="ui-range" for="color-field-opacity-2-lightness">
+      <span class="ui-label" id="color-field-opacity-2-lightness-label">
+        Lightness
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-2-lightness"
+      ></output>
+      <input
+        aria-labelledby="color-field-opacity-2-lightness-label"
+        data-channel="L"
+        id="color-field-opacity-2-lightness"
+        max="1"
+        min="0"
+        step="0.001"
+        type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-opacity-2-chroma">
+      <span class="ui-label" id="color-field-opacity-2-chroma-label">
+        Chroma
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-2-chroma"
+      ></output>
+      <input
+        aria-describedby="color-field-opacity-2-gamut"
+        aria-labelledby="color-field-opacity-2-chroma-label"
+        data-channel="C"
+        id="color-field-opacity-2-chroma"
+        max="0.37"
+        min="0"
+        step="0.001"
+        type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-opacity-2-hue">
+      <span class="ui-label" id="color-field-opacity-2-hue-label"> Hue </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-opacity-2-hue"
+      ></output>
+      <input
+        aria-labelledby="color-field-opacity-2-hue-label"
+        data-channel="H"
+        id="color-field-opacity-2-hue"
+        max="360"
+        min="0"
+        step="0.1"
+        type="range"
+      />
+    </label>
+    <p class="ui-description" id="color-field-opacity-2-gamut"></p>
     <p class="ui-footer">
       <span aria-hidden="true" data-contrast="light"></span>
       <span aria-hidden="true" data-contrast="dark"></span>

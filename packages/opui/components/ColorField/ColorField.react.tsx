@@ -9,7 +9,6 @@ import { copyPath, eyedropperPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function ColorField({
-  alpha,
   autoFit,
   chromaLabel,
   className,
@@ -24,6 +23,7 @@ export default function ColorField({
   invalidText,
   lightnessLabel,
   name,
+  opacity,
   opacityLabel,
   p3Text,
   pickerLabel = "Pick a color",
@@ -149,7 +149,7 @@ export default function ColorField({
           </span>
           <span className="ui-sr-only" role="status"></span>
         </div>
-        {channelsFor(alpha, {
+        {channelsFor(opacity, {
           chroma: chromaLabel,
           hue: hueLabel,
           lightness: lightnessLabel,

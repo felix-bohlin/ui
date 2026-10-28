@@ -10,7 +10,6 @@
   const generatedId = $props.id()
 
   let {
-    alpha,
     autoFit,
     chromaLabel,
     class: className,
@@ -25,6 +24,7 @@
     invalidText,
     lightnessLabel,
     name,
+    opacity,
     opacityLabel,
     p3Text,
     pickerLabel = "Pick a color",
@@ -152,7 +152,7 @@
       </span>
       <span class="ui-sr-only" role="status"></span>
     </div>
-    {#each channelsFor( alpha, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
+    {#each channelsFor( opacity, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
       <label class="ui-range" for={`${inputId}-${slider.name}`}>
         <span class="ui-label" id={`${inputId}-${slider.name}-label`}
           >{slider.label}</span

@@ -5,16 +5,17 @@
         class="ui-label"
         for="color-field-form-value-1"
         id="color-field-form-value-1-label"
-        >Brand color</label
       >
+        Brand color
+      </label>
       <span class="ui-field">
         <span class="ui-start">
           <button
             type="button"
-            class="ui-button ui-round"
             aria-label="Pick a color"
-            commandfor="color-field-form-value-1-picker"
             command="toggle-popover"
+            commandfor="color-field-form-value-1-picker"
+            class="ui-button ui-round"
           >
             <span class="ui-indicator"></span>
           </button>
@@ -22,10 +23,10 @@
         <input
           autocomplete="off"
           spellcheck="false"
+          value="oklch(0.6 0.15 250)"
           id="color-field-form-value-1"
           name="brand"
           type="text"
-          value="oklch(0.6 0.15 250)"
         />
       </span>
     </div>
@@ -41,11 +42,11 @@
         <span class="ui-actions">
           <button
             type="button"
-            class="ui-button ui-round ui-small"
             aria-label="Pick from the screen"
             command="--eyedropper"
             commandfor="color-field-form-value-1"
             hidden
+            class="ui-button ui-round ui-small"
           >
             <svg
               aria-hidden="true"
@@ -62,10 +63,10 @@
           </button>
           <button
             type="button"
-            class="ui-button ui-round ui-small"
             aria-label="Copy"
             command="--copy"
             commandfor="color-field-form-value-1"
+            class="ui-button ui-round ui-small"
           >
             <svg
               aria-hidden="true"
@@ -84,9 +85,9 @@
         <span class="ui-sr-only" role="status"></span>
       </div>
       <label class="ui-range" for="color-field-form-value-1-lightness">
-        <span class="ui-label" id="color-field-form-value-1-lightness-label"
-          >Lightness</span
-        >
+        <span class="ui-label" id="color-field-form-value-1-lightness-label">
+          Lightness
+        </span>
         <output
           aria-live="off"
           class="ui-value"
@@ -100,12 +101,11 @@
           min="0"
           step="0.001"
           type="range"
-        />
-      </label>
-      <label class="ui-range" for="color-field-form-value-1-chroma">
-        <span class="ui-label" id="color-field-form-value-1-chroma-label"
-          >Chroma</span
-        >
+        /> </label
+      ><label class="ui-range" for="color-field-form-value-1-chroma">
+        <span class="ui-label" id="color-field-form-value-1-chroma-label">
+          Chroma
+        </span>
         <output
           aria-live="off"
           class="ui-value"
@@ -120,12 +120,11 @@
           min="0"
           step="0.001"
           type="range"
-        />
-      </label>
-      <label class="ui-range" for="color-field-form-value-1-hue">
-        <span class="ui-label" id="color-field-form-value-1-hue-label"
-          >Hue</span
-        >
+        /> </label
+      ><label class="ui-range" for="color-field-form-value-1-hue">
+        <span class="ui-label" id="color-field-form-value-1-hue-label">
+          Hue
+        </span>
         <output
           aria-live="off"
           class="ui-value"
@@ -139,6 +138,24 @@
           min="0"
           step="0.1"
           type="range"
+        /> </label
+      ><label class="ui-range" for="color-field-form-value-1-opacity">
+        <span class="ui-label" id="color-field-form-value-1-opacity-label">
+          Opacity
+        </span>
+        <output
+          aria-live="off"
+          class="ui-value"
+          for="color-field-form-value-1-opacity"
+        ></output>
+        <input
+          aria-labelledby="color-field-form-value-1-opacity-label"
+          data-channel="alpha"
+          id="color-field-form-value-1-opacity"
+          max="1"
+          min="0"
+          step="0.01"
+          type="range"
         />
       </label>
       <p class="ui-description" id="color-field-form-value-1-gamut"></p>
@@ -150,10 +167,9 @@
     </div>
   </opui-color-field>
   <div class="ui-field-group">
-    <button class="ui-button" type="reset">Reset</button>
+    <button type="reset" class="ui-button">Reset</button>
   </div>
 </form>
-
 <script type="module">
   import "opui-css/elements/color-field.js"
 </script>

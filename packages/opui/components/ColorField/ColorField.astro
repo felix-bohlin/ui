@@ -10,7 +10,6 @@ import { copyPath, eyedropperPath } from "./icons"
 export const title = "Color Field"
 
 const {
-  alpha,
   "aria-invalid": ariaInvalid,
   autoFit,
   chromaLabel,
@@ -28,6 +27,7 @@ const {
   label,
   lightnessLabel,
   name,
+  opacity,
   opacityLabel,
   p3Text,
   pickerLabel = "Pick a color",
@@ -166,7 +166,7 @@ const inputId = id ?? $id("color-field")
       <span class="ui-sr-only" role="status"></span>
     </div>
     {
-      channelsFor(alpha, {
+      channelsFor(opacity, {
         chroma: chromaLabel,
         hue: hueLabel,
         lightness: lightnessLabel,

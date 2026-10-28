@@ -129,23 +129,36 @@ export const description =
   <section>
     <h2 id="picker">Picker</h2>
     <p>
-      The picker previews the color on a larger area, with its <code
-        >oklch()</code
+      The picker previews the color across its top, with its <code>oklch()</code
       > value and two buttons: one copies the value, and the eyedropper picks a color
       from the screen in browsers with the EyeDropper API (Chromium), and stays hidden
       elsewhere. Under the sliders, a line says which screens show the color, and
       two chips show its contrast ratio as text on white and on black.
     </p>
+    <p>
+      Below the preview, the color fades into a faint tint of its hue that stays
+      behind the sliders. The tint keeps the surface's lightness, so the labels
+      read as well as on the plain surface. <code>--_tint-chroma</code> caps its chroma
+      (<code>0.03</code> by default), and <code>0</code> turns it off.
+    </p>
   </section>
 
   <section>
     <h2 id="opacity">Opacity</h2>
-    <p>
-      <PropOrClass prop="alpha" class='input[data-channel="alpha"]' /> adds an opacity
-      slider, and the value keeps its alpha, like <code
-        >oklch(0.3 0.05 260 / 0.6)</code
-      >. Without it, the value is opaque.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The picker has an opacity slider, and the value keeps its alpha, like <code
+          >oklch(0.3 0.05 260 / 0.6)</code
+        >. For a color that must stay opaque, like a brand color, <code
+          >opacity="none"</code
+        > leaves the slider out.
+      </Fragment>
+      <Fragment slot="html">
+        The <code>input[data-channel="alpha"]</code> slider keeps the alpha in the
+        value, like <code>oklch(0.3 0.05 260 / 0.6)</code>. For a color that
+        must stay opaque, like a brand color, leave the slider out.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Opacity" />
   </section>
 

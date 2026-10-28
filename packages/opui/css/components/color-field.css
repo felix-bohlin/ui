@@ -6,6 +6,8 @@
     --_l: 0.6;
     --_picker-inline-size: 16rem;
     --_preview-text-color: var(--ui-text);
+    --_tint-alpha: 0;
+    --_tint-chroma: 0.03;
 
     display: grid;
 
@@ -50,7 +52,16 @@
     }
 
     & > .ui-floating {
+      --_tint-bg-color: oklch(
+        from var(--ui-surface-elevated) l min(var(--_tint-chroma), var(--_c))
+          var(--_h) / var(--_tint-alpha)
+      );
+
       background-color: var(--ui-surface-elevated);
+      background-image: linear-gradient(
+        var(--_tint-bg-color),
+        var(--_tint-bg-color)
+      );
       border: var(--ui-border-width) solid var(--ui-border-color-on-raised);
       border-radius: var(--ui-radius);
       box-shadow: var(--ui-shadow-overlay);
@@ -71,6 +82,10 @@
         display: grid;
       }
 
+      @media (forced-colors: active) {
+        background-image: none;
+      }
+
       & > .ui-header {
         align-items: center;
         background:
@@ -83,18 +98,37 @@
               var(--ui-surface) 0 50%
             )
             0 0 / var(--ui-space-3) var(--ui-space-3);
-        border-radius: var(--ui-radius-small);
-        box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
+        border-start-end-radius: calc(
+          var(--ui-radius) - var(--ui-border-width)
+        );
+        border-start-start-radius: calc(
+          var(--ui-radius) - var(--ui-border-width)
+        );
         color: var(--_preview-text-color);
         display: flex;
         gap: var(--ui-space-2);
         justify-content: space-between;
+        margin-block-start: calc(var(--ui-space-3) * -1);
+        margin-inline: calc(var(--ui-space-3) * -1);
         min-block-size: calc(var(--ui-space-6) * 2);
-        padding-block: var(--ui-space-2);
-        padding-inline: var(--ui-space-3);
+        padding: var(--ui-space-3);
+        position: relative;
 
         @media (forced-colors: active) {
           forced-color-adjust: none;
+        }
+
+        &::after {
+          background-image: linear-gradient(
+            var(--_indicator-bg-color),
+            transparent
+          );
+          block-size: var(--ui-space-3);
+          content: "";
+          inset-block-start: 100%;
+          inset-inline: 0;
+          pointer-events: none;
+          position: absolute;
         }
 
         & > .ui-value {

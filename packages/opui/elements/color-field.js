@@ -364,6 +364,7 @@ export class ColorField extends Base {
     this.style.setProperty("--_l", `${this.#color.L}`)
     this.style.setProperty("--_c", `${this.#color.C}`)
     this.style.setProperty("--_h", `${this.#color.H}`)
+    this.style.setProperty("--_tint-alpha", "1")
     input?.setCustomValidity("")
     for (const slider of this.#sliders()) {
       const channel = slider.dataset.channel
@@ -400,6 +401,7 @@ export class ColorField extends Base {
     if (!input) return
     const empty = !input.value.trim()
     this.style.setProperty("--_indicator-bg-color", "transparent")
+    this.style.setProperty("--_tint-alpha", "0")
     this.#preview(null)
     const text = empty ? "" : this.#text("invalid-text", INVALID_TEXT)
     input.setCustomValidity(text)

@@ -4,16 +4,17 @@
       class="ui-label"
       for="color-field-sizes-1"
       id="color-field-sizes-1-label"
-      >x-small</label
     >
+      x-small
+    </label>
     <span class="ui-field">
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-sizes-1-picker"
           command="toggle-popover"
+          commandfor="color-field-sizes-1-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -21,9 +22,9 @@
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.7 0.14 150)"
         id="color-field-sizes-1"
         type="text"
-        value="oklch(0.7 0.14 150)"
       />
     </span>
   </div>
@@ -39,11 +40,11 @@
       <span class="ui-actions">
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Pick from the screen"
           command="--eyedropper"
           commandfor="color-field-sizes-1"
           hidden
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -60,10 +61,10 @@
         </button>
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Copy"
           command="--copy"
           commandfor="color-field-sizes-1"
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -82,9 +83,9 @@
       <span class="ui-sr-only" role="status"></span>
     </div>
     <label class="ui-range" for="color-field-sizes-1-lightness">
-      <span class="ui-label" id="color-field-sizes-1-lightness-label"
-        >Lightness</span
-      >
+      <span class="ui-label" id="color-field-sizes-1-lightness-label">
+        Lightness
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -98,10 +99,11 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-1-chroma">
-      <span class="ui-label" id="color-field-sizes-1-chroma-label">Chroma</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-1-chroma">
+      <span class="ui-label" id="color-field-sizes-1-chroma-label">
+        Chroma
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -116,10 +118,9 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-1-hue">
-      <span class="ui-label" id="color-field-sizes-1-hue-label">Hue</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-1-hue">
+      <span class="ui-label" id="color-field-sizes-1-hue-label"> Hue </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -133,6 +134,24 @@
         min="0"
         step="0.1"
         type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-1-opacity">
+      <span class="ui-label" id="color-field-sizes-1-opacity-label">
+        Opacity
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-sizes-1-opacity"
+      ></output>
+      <input
+        aria-labelledby="color-field-sizes-1-opacity-label"
+        data-channel="alpha"
+        id="color-field-sizes-1-opacity"
+        max="1"
+        min="0"
+        step="0.01"
+        type="range"
       />
     </label>
     <p class="ui-description" id="color-field-sizes-1-gamut"></p>
@@ -143,23 +162,23 @@
     </p>
   </div>
 </opui-color-field>
-
 <opui-color-field class="ui-color-field">
   <div class="ui-text-field ui-small">
     <label
       class="ui-label"
       for="color-field-sizes-2"
       id="color-field-sizes-2-label"
-      >Small</label
     >
+      Small
+    </label>
     <span class="ui-field">
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-sizes-2-picker"
           command="toggle-popover"
+          commandfor="color-field-sizes-2-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -167,9 +186,9 @@
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.7 0.14 150)"
         id="color-field-sizes-2"
         type="text"
-        value="oklch(0.7 0.14 150)"
       />
     </span>
   </div>
@@ -185,11 +204,11 @@
       <span class="ui-actions">
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Pick from the screen"
           command="--eyedropper"
           commandfor="color-field-sizes-2"
           hidden
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -206,10 +225,10 @@
         </button>
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Copy"
           command="--copy"
           commandfor="color-field-sizes-2"
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -228,9 +247,9 @@
       <span class="ui-sr-only" role="status"></span>
     </div>
     <label class="ui-range" for="color-field-sizes-2-lightness">
-      <span class="ui-label" id="color-field-sizes-2-lightness-label"
-        >Lightness</span
-      >
+      <span class="ui-label" id="color-field-sizes-2-lightness-label">
+        Lightness
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -244,10 +263,11 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-2-chroma">
-      <span class="ui-label" id="color-field-sizes-2-chroma-label">Chroma</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-2-chroma">
+      <span class="ui-label" id="color-field-sizes-2-chroma-label">
+        Chroma
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -262,10 +282,9 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-2-hue">
-      <span class="ui-label" id="color-field-sizes-2-hue-label">Hue</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-2-hue">
+      <span class="ui-label" id="color-field-sizes-2-hue-label"> Hue </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -279,6 +298,24 @@
         min="0"
         step="0.1"
         type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-2-opacity">
+      <span class="ui-label" id="color-field-sizes-2-opacity-label">
+        Opacity
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-sizes-2-opacity"
+      ></output>
+      <input
+        aria-labelledby="color-field-sizes-2-opacity-label"
+        data-channel="alpha"
+        id="color-field-sizes-2-opacity"
+        max="1"
+        min="0"
+        step="0.01"
+        type="range"
       />
     </label>
     <p class="ui-description" id="color-field-sizes-2-gamut"></p>
@@ -289,23 +326,23 @@
     </p>
   </div>
 </opui-color-field>
-
 <opui-color-field class="ui-color-field">
   <div class="ui-text-field">
     <label
       class="ui-label"
       for="color-field-sizes-3"
       id="color-field-sizes-3-label"
-      >Medium</label
     >
+      Medium
+    </label>
     <span class="ui-field">
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-sizes-3-picker"
           command="toggle-popover"
+          commandfor="color-field-sizes-3-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -313,9 +350,9 @@
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.7 0.14 150)"
         id="color-field-sizes-3"
         type="text"
-        value="oklch(0.7 0.14 150)"
       />
     </span>
   </div>
@@ -331,11 +368,11 @@
       <span class="ui-actions">
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Pick from the screen"
           command="--eyedropper"
           commandfor="color-field-sizes-3"
           hidden
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -352,10 +389,10 @@
         </button>
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Copy"
           command="--copy"
           commandfor="color-field-sizes-3"
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -374,9 +411,9 @@
       <span class="ui-sr-only" role="status"></span>
     </div>
     <label class="ui-range" for="color-field-sizes-3-lightness">
-      <span class="ui-label" id="color-field-sizes-3-lightness-label"
-        >Lightness</span
-      >
+      <span class="ui-label" id="color-field-sizes-3-lightness-label">
+        Lightness
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -390,10 +427,11 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-3-chroma">
-      <span class="ui-label" id="color-field-sizes-3-chroma-label">Chroma</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-3-chroma">
+      <span class="ui-label" id="color-field-sizes-3-chroma-label">
+        Chroma
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -408,10 +446,9 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-3-hue">
-      <span class="ui-label" id="color-field-sizes-3-hue-label">Hue</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-3-hue">
+      <span class="ui-label" id="color-field-sizes-3-hue-label"> Hue </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -425,6 +462,24 @@
         min="0"
         step="0.1"
         type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-3-opacity">
+      <span class="ui-label" id="color-field-sizes-3-opacity-label">
+        Opacity
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-sizes-3-opacity"
+      ></output>
+      <input
+        aria-labelledby="color-field-sizes-3-opacity-label"
+        data-channel="alpha"
+        id="color-field-sizes-3-opacity"
+        max="1"
+        min="0"
+        step="0.01"
+        type="range"
       />
     </label>
     <p class="ui-description" id="color-field-sizes-3-gamut"></p>
@@ -435,23 +490,23 @@
     </p>
   </div>
 </opui-color-field>
-
 <opui-color-field class="ui-color-field">
   <div class="ui-text-field ui-large">
     <label
       class="ui-label"
       for="color-field-sizes-4"
       id="color-field-sizes-4-label"
-      >Large</label
     >
+      Large
+    </label>
     <span class="ui-field">
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-sizes-4-picker"
           command="toggle-popover"
+          commandfor="color-field-sizes-4-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -459,9 +514,9 @@
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.7 0.14 150)"
         id="color-field-sizes-4"
         type="text"
-        value="oklch(0.7 0.14 150)"
       />
     </span>
   </div>
@@ -477,11 +532,11 @@
       <span class="ui-actions">
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Pick from the screen"
           command="--eyedropper"
           commandfor="color-field-sizes-4"
           hidden
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -498,10 +553,10 @@
         </button>
         <button
           type="button"
-          class="ui-button ui-round ui-small"
           aria-label="Copy"
           command="--copy"
           commandfor="color-field-sizes-4"
+          class="ui-button ui-round ui-small"
         >
           <svg
             aria-hidden="true"
@@ -520,9 +575,9 @@
       <span class="ui-sr-only" role="status"></span>
     </div>
     <label class="ui-range" for="color-field-sizes-4-lightness">
-      <span class="ui-label" id="color-field-sizes-4-lightness-label"
-        >Lightness</span
-      >
+      <span class="ui-label" id="color-field-sizes-4-lightness-label">
+        Lightness
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -536,10 +591,11 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-4-chroma">
-      <span class="ui-label" id="color-field-sizes-4-chroma-label">Chroma</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-4-chroma">
+      <span class="ui-label" id="color-field-sizes-4-chroma-label">
+        Chroma
+      </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -554,10 +610,9 @@
         min="0"
         step="0.001"
         type="range"
-      />
-    </label>
-    <label class="ui-range" for="color-field-sizes-4-hue">
-      <span class="ui-label" id="color-field-sizes-4-hue-label">Hue</span>
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-4-hue">
+      <span class="ui-label" id="color-field-sizes-4-hue-label"> Hue </span>
       <output
         aria-live="off"
         class="ui-value"
@@ -570,6 +625,24 @@
         max="360"
         min="0"
         step="0.1"
+        type="range"
+      /> </label
+    ><label class="ui-range" for="color-field-sizes-4-opacity">
+      <span class="ui-label" id="color-field-sizes-4-opacity-label">
+        Opacity
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for="color-field-sizes-4-opacity"
+      ></output>
+      <input
+        aria-labelledby="color-field-sizes-4-opacity-label"
+        data-channel="alpha"
+        id="color-field-sizes-4-opacity"
+        max="1"
+        min="0"
+        step="0.01"
         type="range"
       />
     </label>

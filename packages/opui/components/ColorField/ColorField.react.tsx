@@ -31,6 +31,7 @@ export default function ColorField({
   spread,
   srgbText,
   style,
+  swatchOnly,
   variant,
   wideText,
   endText,
@@ -48,7 +49,11 @@ export default function ColorField({
 
   return (
     <opui-color-field
-      className={cx(["ui-color-field", className])}
+      className={cx([
+        "ui-color-field",
+        { "ui-swatch-only": swatchOnly },
+        className,
+      ])}
       contrast-label={contrastLabel}
       copied-label={copiedLabel}
       invalid-text={invalidText}
@@ -57,50 +62,62 @@ export default function ColorField({
       style={style}
       wide-text={wideText}
     >
-      <div
-        className={cx([
-          "ui-text-field",
-          {
-            "ui-auto-fit": autoFit,
-            "ui-filled": variant === "filled",
-            "ui-spread": spread,
-          },
-          size && size !== "medium" && `ui-${size}`,
-        ])}
-      >
-        {label && (
-          <label
-            className={hideLabel ? "ui-sr-only" : "ui-label"}
-            htmlFor={inputId}
-            id={`${inputId}-label`}
-          >
-            {label}
-          </label>
-        )}
-        {startText && <span className="ui-start-text">{startText}</span>}
-        <span className="ui-field">
-          <span className="ui-start">
-            <Button
-              aria-label={pickerLabel}
-              command="toggle-popover"
-              commandfor={`${inputId}-picker`}
-              round
+      {swatchOnly ? (
+        <Button
+          aria-labelledby={`${inputId}-label`}
+          command="toggle-popover"
+          commandfor={`${inputId}-picker`}
+          round
+          size={size}
+        >
+          <span className="ui-indicator"></span>
+        </Button>
+      ) : (
+        <div
+          className={cx([
+            "ui-text-field",
+            {
+              "ui-auto-fit": autoFit,
+              "ui-filled": variant === "filled",
+              "ui-spread": spread,
+            },
+            size && size !== "medium" && `ui-${size}`,
+          ])}
+        >
+          {label && (
+            <label
+              className={hideLabel ? "ui-sr-only" : "ui-label"}
+              htmlFor={inputId}
+              id={`${inputId}-label`}
             >
-              <span className="ui-indicator"></span>
-            </Button>
+              {label}
+            </label>
+          )}
+          {startText && <span className="ui-start-text">{startText}</span>}
+          <span className="ui-field">
+            <span className="ui-start">
+              <Button
+                aria-label={pickerLabel}
+                command="toggle-popover"
+                commandfor={`${inputId}-picker`}
+                round
+              >
+                <span className="ui-indicator"></span>
+              </Button>
+            </span>
+            <input
+              autoComplete="off"
+              spellCheck="false"
+              {...rest}
+              aria-invalid={error ? "true" : rest["aria-invalid"]}
+              id={inputId}
+              name={name ?? field?.name}
+              type="text"
+            />
           </span>
-          <input
-            autoComplete="off"
-            spellCheck="false"
-            {...rest}
-            aria-invalid={error ? "true" : rest["aria-invalid"]}
-            id={inputId}
-            name={name ?? field?.name}
-            type="text"
-          />
-        </span>
-        {endText && <span className="ui-end-text">{endText}</span>}
-      </div>
+          {endText && <span className="ui-end-text">{endText}</span>}
+        </div>
+      )}
       <div
         aria-labelledby={`${inputId}-label`}
         className="ui-floating"
@@ -149,6 +166,42 @@ export default function ColorField({
           </span>
           <span className="ui-sr-only" role="status"></span>
         </div>
+        {swatchOnly && (
+          <div
+            className={cx([
+              "ui-text-field",
+              {
+                "ui-auto-fit": autoFit,
+                "ui-filled": variant === "filled",
+                "ui-spread": spread,
+              },
+              size && size !== "medium" && `ui-${size}`,
+            ])}
+          >
+            {label && (
+              <label
+                className={hideLabel ? "ui-sr-only" : "ui-label"}
+                htmlFor={inputId}
+                id={`${inputId}-label`}
+              >
+                {label}
+              </label>
+            )}
+            {startText && <span className="ui-start-text">{startText}</span>}
+            <span className="ui-field">
+              <input
+                autoComplete="off"
+                spellCheck="false"
+                {...rest}
+                aria-invalid={error ? "true" : rest["aria-invalid"]}
+                id={inputId}
+                name={name ?? field?.name}
+                type="text"
+              />
+            </span>
+            {endText && <span className="ui-end-text">{endText}</span>}
+          </div>
+        )}
         {channelsFor(opacity, {
           chroma: chromaLabel,
           hue: hueLabel,

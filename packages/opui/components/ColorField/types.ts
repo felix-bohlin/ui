@@ -20,6 +20,7 @@ export type Props = {
   spread?: boolean
   srgbText?: string
   startText?: string
+  swatchOnly?: boolean
   variant?: "outlined" | "filled"
   wideText?: string
 }

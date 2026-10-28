@@ -170,7 +170,8 @@ export default {
     },
     {
       default: '"Pick a color"',
-      description: "The accessible name of the picker button.",
+      description:
+        "The accessible name of the picker button. With `swatchOnly`, the label names the swatch instead.",
       prop: "pickerLabel",
     },
     {
@@ -209,6 +210,14 @@ export default {
       default: '"sRGB. Every screen shows it."',
       description: "The line under the sliders for a color inside sRGB.",
       prop: "srgbText",
+    },
+    {
+      class: ".ui-swatch-only",
+      default: "false",
+      description:
+        "Shows only the swatch, a round button the size of the field, named by the label. The `.ui-text-field` with the label and the input moves into the picker, under the preview.",
+      group: "Swatch only",
+      prop: "swatchOnly",
     },
     {
       default: '"outlined"',
@@ -251,6 +260,12 @@ export default {
         'The picker button, with `command="toggle-popover"`. Hidden until the element is defined.',
       props: ["pickerLabel"],
       selector: ".ui-field > .ui-start",
+    },
+    {
+      description:
+        'With `swatchOnly`, the swatch button in place of the field, with `command="toggle-popover"` and `aria-labelledby` naming the label.',
+      props: ["swatchOnly"],
+      selector: ".ui-swatch-only > .ui-button",
     },
     {
       description:

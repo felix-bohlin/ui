@@ -32,6 +32,7 @@
     spread,
     srgbText,
     style,
+    swatchOnly,
     value = $bindable(),
     variant,
     wideText,
@@ -48,7 +49,7 @@
 </script>
 
 <opui-color-field
-  class={["ui-color-field", className]}
+  class={["ui-color-field", { "ui-swatch-only": swatchOnly }, className]}
   contrast-label={contrastLabel}
   copied-label={copiedLabel}
   invalid-text={invalidText}
@@ -57,53 +58,65 @@
   {style}
   wide-text={wideText}
 >
-  <div
-    class={[
-      "ui-text-field",
-      {
-        "ui-auto-fit": autoFit,
-        "ui-filled": variant === "filled",
-        "ui-spread": spread,
-      },
-      size && size !== "medium" && `ui-${size}`,
-    ]}
-  >
-    {#if label}
-      <label
-        class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-        for={inputId}
-        id={`${inputId}-label`}>{@render content(label)}</label
-      >
-    {/if}
-    {#if startText}
-      <span class="ui-start-text">{@render content(startText)}</span>
-    {/if}
-    <span class="ui-field">
-      <span class="ui-start">
-        <Button
-          aria-label={pickerLabel}
-          command="toggle-popover"
-          commandfor={`${inputId}-picker`}
-          round
+  {#if swatchOnly}
+    <Button
+      aria-labelledby={`${inputId}-label`}
+      command="toggle-popover"
+      commandfor={`${inputId}-picker`}
+      round
+      {size}
+    >
+      <span class="ui-indicator"></span>
+    </Button>
+  {:else}
+    <div
+      class={[
+        "ui-text-field",
+        {
+          "ui-auto-fit": autoFit,
+          "ui-filled": variant === "filled",
+          "ui-spread": spread,
+        },
+        size && size !== "medium" && `ui-${size}`,
+      ]}
+    >
+      {#if label}
+        <label
+          class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+          for={inputId}
+          id={`${inputId}-label`}>{@render content(label)}</label
         >
-          <span class="ui-indicator"></span>
-        </Button>
+      {/if}
+      {#if startText}
+        <span class="ui-start-text">{@render content(startText)}</span>
+      {/if}
+      <span class="ui-field">
+        <span class="ui-start">
+          <Button
+            aria-label={pickerLabel}
+            command="toggle-popover"
+            commandfor={`${inputId}-picker`}
+            round
+          >
+            <span class="ui-indicator"></span>
+          </Button>
+        </span>
+        <input
+          autocomplete="off"
+          spellcheck="false"
+          {...rest}
+          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          bind:value
+          id={inputId}
+          name={name ?? field?.name}
+          type="text"
+        />
       </span>
-      <input
-        autocomplete="off"
-        spellcheck="false"
-        {...rest}
-        aria-invalid={error ? "true" : rest["aria-invalid"]}
-        bind:value
-        id={inputId}
-        name={name ?? field?.name}
-        type="text"
-      />
-    </span>
-    {#if endText}
-      <span class="ui-end-text">{@render content(endText)}</span>
-    {/if}
-  </div>
+      {#if endText}
+        <span class="ui-end-text">{@render content(endText)}</span>
+      {/if}
+    </div>
+  {/if}
   <div
     aria-labelledby={`${inputId}-label`}
     class="ui-floating"
@@ -152,6 +165,45 @@
       </span>
       <span class="ui-sr-only" role="status"></span>
     </div>
+    {#if swatchOnly}
+      <div
+        class={[
+          "ui-text-field",
+          {
+            "ui-auto-fit": autoFit,
+            "ui-filled": variant === "filled",
+            "ui-spread": spread,
+          },
+          size && size !== "medium" && `ui-${size}`,
+        ]}
+      >
+        {#if label}
+          <label
+            class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+            for={inputId}
+            id={`${inputId}-label`}>{@render content(label)}</label
+          >
+        {/if}
+        {#if startText}
+          <span class="ui-start-text">{@render content(startText)}</span>
+        {/if}
+        <span class="ui-field">
+          <input
+            autocomplete="off"
+            spellcheck="false"
+            {...rest}
+            aria-invalid={error ? "true" : rest["aria-invalid"]}
+            bind:value
+            id={inputId}
+            name={name ?? field?.name}
+            type="text"
+          />
+        </span>
+        {#if endText}
+          <span class="ui-end-text">{@render content(endText)}</span>
+        {/if}
+      </div>
+    {/if}
     {#each channelsFor( opacity, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
       <label class="ui-range" for={`${inputId}-${slider.name}`}>
         <span class="ui-label" id={`${inputId}-${slider.name}-label`}

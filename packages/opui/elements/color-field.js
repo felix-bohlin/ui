@@ -143,6 +143,11 @@ export class ColorField extends Base {
     return this.input?.value ?? ""
   }
 
+  set value(value) {
+    this.#write(value)
+    this.#sync()
+  }
+
   connectedCallback() {
     this.#controller = new AbortController()
     const { signal } = this.#controller
@@ -242,6 +247,10 @@ export class ColorField extends Base {
     return !!this.querySelector('input[data-channel="alpha"]')
   }
 
+  #trigger() {
+    return this.querySelector('button[command="toggle-popover"]')
+  }
+
   #sliders() {
     return this.querySelectorAll("input[type=range][data-channel]")
   }
@@ -294,7 +303,7 @@ export class ColorField extends Base {
       picker?.contains(event.target) &&
       next instanceof Node &&
       !picker.contains(next) &&
-      next !== this.querySelector(".ui-field > .ui-start > button") &&
+      next !== this.#trigger() &&
       picker.matches(":popover-open")
     ) {
       picker.hidePopover()
@@ -384,7 +393,7 @@ export class ColorField extends Base {
   #sync() {
     const input = this.input
     if (!input) return
-    const trigger = this.querySelector(".ui-field > .ui-start > button")
+    const trigger = this.#trigger()
     if (trigger && trigger.disabled !== input.disabled) {
       trigger.disabled = input.disabled
     }

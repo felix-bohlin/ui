@@ -11,6 +11,20 @@
 
     display: grid;
 
+    &.ui-swatch-only {
+      display: inline-grid;
+
+      & > .ui-button {
+        inline-size: var(--_size);
+        padding: 0;
+
+        & > .ui-indicator {
+          block-size: 100%;
+          inline-size: 100%;
+        }
+      }
+    }
+
     &:has(> .ui-auto-fit) {
       inline-size: fit-content;
       max-inline-size: 100%;

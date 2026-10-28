@@ -41,6 +41,7 @@ const {
   spread,
   srgbText,
   startText,
+  swatchOnly,
   value,
   variant,
   wideText,
@@ -73,7 +74,7 @@ const field = inject(FieldGroupKey, undefined)
 <template>
   <component
     is="opui-color-field"
-    :class="['ui-color-field', $props.class]"
+    :class="['ui-color-field', { 'ui-swatch-only': swatchOnly }, $props.class]"
     :contrast-label="contrastLabel"
     :copied-label="copiedLabel"
     :invalid-text="invalidText"
@@ -82,7 +83,18 @@ const field = inject(FieldGroupKey, undefined)
     :style="$attrs.style"
     :wide-text="wideText"
   >
+    <Button
+      v-if="swatchOnly"
+      :aria-labelledby="`${inputId}-label`"
+      command="toggle-popover"
+      :commandfor="`${inputId}-picker`"
+      round
+      :size="size"
+    >
+      <span class="ui-indicator"></span>
+    </Button>
     <div
+      v-if="!swatchOnly"
       :class="[
         'ui-text-field',
         {
@@ -180,6 +192,48 @@ const field = inject(FieldGroupKey, undefined)
           </Button>
         </span>
         <span class="ui-sr-only" role="status"></span>
+      </div>
+      <div
+        v-if="swatchOnly"
+        :class="[
+          'ui-text-field',
+          {
+            'ui-auto-fit': autoFit,
+            'ui-filled': variant === 'filled',
+            'ui-spread': spread,
+          },
+          size && size !== 'medium' && `ui-${size}`,
+        ]"
+      >
+        <label
+          v-if="label || $slots.label"
+          :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+          :for="inputId"
+          :id="`${inputId}-label`"
+        >
+          {{ label }}<slot name="label"></slot>
+        </label>
+
+        <span v-if="startText || $slots['start-text']" class="ui-start-text">
+          {{ startText }}<slot name="start-text"></slot>
+        </span>
+
+        <span class="ui-field">
+          <input
+            autocomplete="off"
+            spellcheck="false"
+            v-bind="inputAttrs"
+            v-model="model"
+            :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+            :id="inputId"
+            :name="attrs.name ?? field?.name"
+            type="text"
+          />
+        </span>
+
+        <span v-if="endText || $slots['end-text']" class="ui-end-text">
+          {{ endText }}<slot name="end-text"></slot>
+        </span>
       </div>
       <label
         v-for="slider in sliders"

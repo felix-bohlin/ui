@@ -1530,6 +1530,27 @@ interaction(
 
 interaction(
   "color-field",
+  "SwatchOnly",
+  "swatch-only color field opens a picker with the text field inside",
+  async ({ page, root }) => {
+    const swatch = root.getByRole("button", { name: "Accent" })
+    const input = root.getByRole("textbox", { name: "Accent" })
+
+    await expect(input).toBeHidden()
+    await swatch.click()
+    await expect(root.getByRole("slider", { name: "Lightness" })).toBeFocused()
+    await expect(input).toHaveValue("oklch(0.7 0.18 30)")
+    await input.fill("red")
+    await input.press("Tab")
+    await expect(input).toHaveValue(/^oklch\(0\.6\d* 0\.2\d* 29(\.\d+)?\)$/)
+    await page.keyboard.press("Escape")
+    await expect(input).toBeHidden()
+    await expect(swatch).toBeFocused()
+  },
+)
+
+interaction(
+  "color-field",
   "Basics",
   "color field turns a typed color into oklch() and flags text that isn't one",
   async ({ root }) => {

@@ -527,6 +527,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
+- `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.

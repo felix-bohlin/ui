@@ -19,16 +19,6 @@
       max-inline-size: 34rem;
     }
 
-    .hero-stars {
-      color: var(--ui-warning);
-      display: flex;
-
-      svg {
-        block-size: 1rem;
-        inline-size: auto;
-      }
-    }
-
     .hero-preview {
       background-image: linear-gradient(
         135deg,
@@ -131,20 +121,12 @@
       </div>
 
       <p class="ui-layout-row">
-        <span class="hero-stars" aria-hidden="true">
-          <svg
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="120"
-            height="24"
-            viewBox="0 0 120 24"
-          >
-            <path
-              fill="currentColor"
-              d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-            ></path>
-          </svg>
-        </span>
+        <meter
+          class="ui-rating ui-small"
+          aria-hidden="true"
+          max="5"
+          value="4.9"
+        ></meter>
         <span><strong>4.9/5</strong> from 1&nbsp;200+ product teams</span>
       </p>
     </div>

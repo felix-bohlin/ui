@@ -918,6 +918,9 @@ export const whatsNew = {
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
   ],
+  rating: [
+    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover.`,
+  ],
   select: [
     `The <a href="#variants">picker</a> is <code>--ui-surface-elevated</code> with the raised edge, like menus, and reads <code>--ui-border-color-raised</code> when a theme sets it.`,
     `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
@@ -1447,6 +1450,7 @@ export const highlighted = new Set<string>([
   "message",
   "number-stepper",
   "one-time-code",
+  "rating",
   "stat",
   "tabs",
   "timeline",
@@ -1463,6 +1467,7 @@ export const added = new Set<string>([
   "message",
   "number-stepper",
   "one-time-code",
+  "rating",
   "stat",
   "timeline",
   "toast",

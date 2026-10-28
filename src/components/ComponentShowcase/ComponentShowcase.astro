@@ -39,6 +39,7 @@ import {
   Progress,
   Radio,
   Range,
+  Rating,
   Stat,
   Switch,
   Table,
@@ -405,6 +406,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         min={0}
         max={100}
       />
+    </Fragment>
+
+    <Fragment slot="rating">
+      <Rating aria-hidden="true" label="Rated 4.5 out of 5" value={4.5} />
     </Fragment>
 
     <Fragment slot="select">

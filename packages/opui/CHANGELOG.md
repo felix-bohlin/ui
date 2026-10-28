@@ -202,6 +202,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` takes an `error` prop (`aria-invalid="true"` on the input) for the invalid state, like the other fields.
 - `Range` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`), like the other form controls. The thumb and the track scale with it.
 - `Range` has a `--_track-base-bg-color` property for the empty track at rest. The pressed and disabled states override it.
+- `Rating` component (`meter.ui-rating` for a score, `fieldset.ui-rating` for input) in Astro, React, Svelte and Vue: stars drawn with one mask. The meter fills the exact fraction and is `max` stars wide, read with typed `attr()` or `--_max`. With `name` it renders a `<fieldset>` of radios, one per star plus a clear radio, that preview on hover and show a `3/5` counter, and takes `clearLabel`, `starLabel`, `disabled`, `error`, `required`, the sizes (`.ui-small`, `.ui-large`) and `value` as the model. The empty stars read `--ui-track-bg-color` when a theme sets it.
 - `Select` items take `selected`, and `value` preselects options in Astro, Svelte and Vue, and `defaultValue` or `value` in React (an array with `multiple`). Options render `selected` on the server.
 - `Select` and `Range` export `SelectItem` and `RangeItem` from every framework barrel.
 - `Select` takes `autoFit` (`.ui-auto-fit`), like `TextField`: the field's width follows the selected option, from `25ch`.

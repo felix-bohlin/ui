@@ -31,6 +31,10 @@
     padding-block: 0;
     padding-inline: var(--ui-space-2);
     position: relative;
+    transition:
+      background-color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease),
+      color var(--_duration) var(--_ease);
     -webkit-user-select: none;
     user-select: none;
 

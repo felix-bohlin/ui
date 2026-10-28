@@ -32,9 +32,24 @@ export default {
       "The current color of a direct child `svg`. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
+  "--_link-duration": {
+    description:
+      "Duration of the link color transition, `--ui-duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_link-ease": {
+    description:
+      "Easing of the link color transition. Defaults to `--ui-ease`.",
+    kind: "input",
+  },
   "--_link-hover-text-color": {
     description:
       "Link color on hover and focus. Defaults to `--ui-primary-text`, not used in `.ui-outlined`.",
+    kind: "input",
+  },
+  "--_motion": {
+    description:
+      "Motion multiplier for the link color transition. `0` turns it off.",
     kind: "input",
   },
   "--_outlined-bg-color": {

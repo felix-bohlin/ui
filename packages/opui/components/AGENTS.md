@@ -567,3 +567,9 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 
 A new stylesheet goes in the group of the layer it declares, and a file that needs a layer its group doesn't allow moves group instead of opening the layer.
+
+---
+
+## 11. Motion
+
+A hover, pressed, checked or selected change that recolors or moves a control transitions, over a `--_*duration` the component scales by `--_motion` (Stylelint's `opui/motion-duration`) and with its `--_ease`, so it matches `Button` next to it. Rows you sweep the pointer across (`List`, `Menu` and `Table` rows, `Select` options) change at once on hover, with `transition-duration: 0s` in the `:hover` rule, and fade back over `--ui-duration-fast`, so a menu never lags behind the pointer. A change of the line itself (`text-decoration-line`, a `text-decoration-thickness` from `auto`) can't interpolate and stays a jump.

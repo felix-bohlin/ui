@@ -50,7 +50,9 @@
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_size);
 
-      transition: border-color var(--_duration) var(--_ease);
+      transition:
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
     }
 
     :where(.ui-field) ::placeholder {

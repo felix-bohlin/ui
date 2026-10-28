@@ -181,6 +181,10 @@
       }
     }
 
+    &:has(.ui-card-link) {
+      transition: border-color var(--_duration) var(--_ease);
+    }
+
     @media (hover: hover) {
       &:has(.ui-card-link:hover):not(
           :has(:is(.ui-accordion, .ui-card, .ui-dialog) .ui-card-link:hover)

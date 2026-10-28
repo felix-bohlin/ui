@@ -16,11 +16,12 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the focus ring animation, `--ui-duration` times `--_motion`.",
+      "Duration of the card link border transition and the focus ring animation, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the focus ring animation. Defaults to `--ui-ease`.",
+    description:
+      "Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_elevated-bg-color": {
@@ -35,7 +36,7 @@ export default {
   },
   "--_motion": {
     description:
-      "Motion multiplier for the focus ring animation. `0` turns it off.",
+      "Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.",
     kind: "input",
   },
   "--_outlined-border-color": {

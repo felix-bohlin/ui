@@ -1,11 +1,14 @@
 @layer components.root {
   :where(.ui-chip) {
+    --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-tonal);
     --_border-color: var(
       --ui-control-border-color-filled,
       var(--ui-border-color)
     );
     --_dot-bg-color: currentColor;
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_font-size: var(--ui-font-size-caption);
     --_icon-padding-inline: var(--ui-space-1);
     --_icon-size: var(--ui-icon-size-small);
@@ -26,6 +29,10 @@
     max-inline-size: 100%;
     padding-inline: var(--_padding-inline);
     text-decoration: none;
+    transition:
+      background-color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease),
+      color var(--_duration) var(--_ease);
 
     &:not(.ui-multiline) > .ui-text {
       min-inline-size: 0;
@@ -99,6 +106,9 @@
       content: "";
       flex-shrink: 0;
       inline-size: var(--ui-space-2);
+      transition:
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
 
       @media (forced-colors: active) {
         background-color: CanvasText;

@@ -20,6 +20,15 @@ export default {
     description: "Background of hovered items, from `--ui-primary`.",
     kind: "input",
   },
+  "--_item-duration": {
+    description:
+      "Duration of the row transitions, `--ui-duration-fast` times `--_motion`. A hovered row changes at once and fades back over this duration.",
+    kind: "output",
+  },
+  "--_item-ease": {
+    description: "Easing of the row transitions. Defaults to `--ui-ease`.",
+    kind: "input",
+  },
   "--_item-gap": {
     description: "Gap between the content of an item. Smaller in `.ui-dense`.",
     kind: "input",
@@ -27,6 +36,11 @@ export default {
   "--_item-padding-inline": {
     description:
       "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.",
+    kind: "input",
+  },
+  "--_motion": {
+    description:
+      "Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a `Select` read their own.",
     kind: "input",
   },
   "--_radius": {

@@ -8,11 +8,12 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the focus ring animation, `--ui-duration` times `--_motion`.",
+      "Duration of the hover and selected transitions and the focus ring animation, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the focus ring animation. Defaults to `--ui-ease`.",
+    description:
+      "Easing of the hover and selected transitions and the focus ring animation. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_font-size": {
@@ -26,7 +27,7 @@ export default {
   },
   "--_motion": {
     description:
-      "Motion multiplier for the focus ring animation. `0` turns it off.",
+      "Motion multiplier for the hover and selected transitions and the focus ring animation. `0` turns them off.",
     kind: "input",
   },
   "--_selected-bg-color": {

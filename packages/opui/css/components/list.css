@@ -13,6 +13,8 @@ Lists meant to be used stand-alone or as part of Select elements
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
+    --_item-duration: calc(var(--ui-duration-fast) * var(--_motion));
+    --_item-ease: var(--ui-ease);
     --_item-gap: var(--ui-space-3);
     --_item-padding-inline: var(
       --ui-list-item-padding-inline,
@@ -50,6 +52,10 @@ Lists meant to be used stand-alone or as part of Select elements
     &.ui-list {
       border-radius: var(--_radius);
       overflow: clip;
+
+      &:not(select .ui-list) {
+        --_motion: var(--ui-motion);
+      }
 
       :where(.ui-accordion, .ui-card, .ui-dialog) > & {
         --_radius: 0;
@@ -176,6 +182,10 @@ Lists meant to be used stand-alone or as part of Select elements
       padding-block: var(--ui-space-2);
       padding-inline: var(--_item-padding-inline);
       position: relative;
+      transition:
+        background-color var(--_item-duration) var(--_item-ease),
+        box-shadow var(--_item-duration) var(--_item-ease),
+        color var(--_item-duration) var(--_item-ease);
 
       &::before {
         display: none;
@@ -223,6 +233,7 @@ Lists meant to be used stand-alone or as part of Select elements
         @media (hover: hover) {
           &:hover {
             background-color: var(--_hover-bg-color);
+            transition-duration: 0s;
           }
         }
 
@@ -265,11 +276,16 @@ Lists meant to be used stand-alone or as part of Select elements
         padding-inline: var(--_item-padding-inline);
         text-align: start;
         text-decoration: none;
+        transition:
+          background-color var(--_item-duration) var(--_item-ease),
+          box-shadow var(--_item-duration) var(--_item-ease),
+          color var(--_item-duration) var(--_item-ease);
         z-index: 0;
 
         @media (hover: hover) {
           &:hover {
             background-color: var(--_hover-bg-color);
+            transition-duration: 0s;
           }
         }
 

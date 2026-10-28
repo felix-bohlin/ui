@@ -2,6 +2,9 @@
   @scope (.ui-link, .ui-rich-text) to (.ui-not-rich-text) {
     :where(:scope.ui-link),
     a[href]:where(:not([class*="ui-"])) {
+      --_motion: var(--ui-motion);
+      --_duration: calc(var(--ui-duration) * var(--_motion));
+      --_ease: var(--ui-ease);
       --_text-color: var(--ui-primary-text);
 
       color: var(--_text-color);
@@ -10,6 +13,9 @@
       text-decoration: underline;
       text-decoration-color: var(--_text-color);
       text-underline-offset: var(--ui-underline-offset);
+      transition:
+        color var(--_duration) var(--_ease),
+        text-decoration-color var(--_duration) var(--_ease);
     }
 
     :where(:scope.ui-link)[href],

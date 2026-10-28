@@ -82,7 +82,7 @@ export default {
     {
       code: "<li>",
       description:
-        "A toast, a `Callout` with the severity class, its icon, the message in `.ui-content` and a close `Button`. The element adds and removes it.",
+        "A toast, a `Callout` with the severity class, its icon, the message in `.ui-content` and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.",
       selector: "ol > .ui-callout",
     },
     {
@@ -94,7 +94,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { duration, severity })` or `toast.success(message)` does it from a script.',
+      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { duration, severity })` or `toast.success(message)` does it from a script. `dismiss(toast)` returns a promise that resolves once the toast is gone.',
     selector: "opui-toaster.ui-toaster",
   },
   source: "Toaster",

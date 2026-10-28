@@ -34,6 +34,7 @@ export class Toaster extends Base {
   #controller
   #focused = false
   #hovered = false
+  #leaving = new Map()
   #timers = new Map()
 
   get list() {
@@ -140,18 +141,37 @@ export class Toaster extends Base {
 
   dismiss(item) {
     const list = this.list
-    if (!list || !list.contains(item)) return
+    if (this.#leaving.has(item)) return this.#leaving.get(item)
+    if (!list || !list.contains(item)) return Promise.resolve()
     clearTimeout(this.#timers.get(item)?.id)
     this.#timers.delete(item)
     const focused = item.contains(this.ownerDocument.activeElement)
-    const next = item.nextElementSibling ?? item.previousElementSibling
-    item.remove()
+    const staying = [...list.children].filter(
+      (child) => child !== item && !this.#leaving.has(child),
+    )
+    const next =
+      staying.find(
+        (child) =>
+          item.compareDocumentPosition(child) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ) ?? staying.at(-1)
+    item.inert = true
     if (focused) next?.querySelector("button")?.focus()
-    if (!list.children.length) {
+    if (!staying.length) {
       this.#focused = false
       this.#hovered = false
-      if (list.matches(":popover-open")) list.hidePopover()
     }
+    const left = Promise.allSettled(
+      item.getAnimations().map((animation) => animation.finished),
+    ).then(() => {
+      this.#leaving.delete(item)
+      item.remove()
+      if (!list.children.length && list.matches(":popover-open")) {
+        list.hidePopover()
+      }
+    })
+    this.#leaving.set(item, left)
+    return left
   }
 
   #announce(message) {

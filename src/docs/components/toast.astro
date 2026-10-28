@@ -22,6 +22,7 @@ export const description =
   slug="toast"
   browserSupport={[
     "container-style-queries",
+    "interpolate-size",
     "invoker-commands",
     "light-dark",
     "popover",
@@ -153,6 +154,9 @@ export const description =
       >, <code>toast.critical</code> and <code>toast.neutral</code> set the severity,
       and <code>duration</code> is an option. The toast shows in the first toaster
       on the page, or in the one <code>toaster</code> names, by id or element.
+      <code>dismiss(toast)</code> on the toaster fades a toast out, closes the gap
+      it leaves and resolves its promise once the toast is gone. With reduced motion
+      it goes at once.
     </p>
     <AutoExample name="Script" row />
   </section>

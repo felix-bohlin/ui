@@ -24,7 +24,8 @@
       position: fixed;
 
       &:popover-open {
-        display: grid;
+        display: flex;
+        flex-direction: column;
       }
 
       .ui-block-start > & {
@@ -47,6 +48,7 @@
         display: grid;
         gap: var(--ui-space-2);
         grid-template-columns: 1fr auto;
+        interpolate-size: allow-keywords;
         transition:
           opacity var(--_duration) var(--_ease),
           translate var(--_duration) var(--_ease);
@@ -61,6 +63,29 @@
 
         @starting-style {
           opacity: 0;
+          translate: 0 var(--ui-space-3);
+
+          .ui-block-start > ol > & {
+            translate: 0 calc(-1 * var(--ui-space-3));
+          }
+        }
+
+        &[inert] {
+          --_ease: var(--ui-ease-exit);
+
+          block-size: 0;
+          border-block-width: 0;
+          margin-block-end: calc(-1 * var(--_gap));
+          opacity: 0;
+          overflow: clip;
+          padding-block: 0;
+          transition:
+            block-size var(--_duration) var(--_ease) var(--_duration),
+            border-block-width var(--_duration) var(--_ease) var(--_duration),
+            margin-block-end var(--_duration) var(--_ease) var(--_duration),
+            opacity var(--_duration) var(--_ease),
+            padding-block var(--_duration) var(--_ease) var(--_duration),
+            translate var(--_duration) var(--_ease);
           translate: 0 var(--ui-space-3);
 
           .ui-block-start > ol > & {

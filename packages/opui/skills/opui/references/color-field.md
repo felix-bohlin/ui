@@ -21,7 +21,7 @@ A text field for a color, with a picker of sliders in 16 color spaces, from hex 
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `.ui-floating` (prop `opacity`): The picker, a popover dialog with a slider per channel, a `<label>` around an `input[type=range]` that `color-field.css` styles on its own, lighter than a `Range`. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.
 - `.ui-floating > .ui-panel`: The plane under the preview, a `<canvas>` with chroma across and lightness up at the color's hue, and lines where sRGB and Display P3 end. Dragging on it sets lightness and chroma; it's hidden from assistive technology, where the sliders set the same channels.
-- `.ui-floating > .ui-select` (prop `colorSpaceLabel`): The color space select. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.
+- `.ui-floating > .ui-select` (prop `colorSpaceLabel`): The color space select, a native `<select>` without the customizable `<button>`, so phones show their own picker. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.
 - `.ui-floating > .ui-header`: The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the value and the buttons. The color fades into the tint below it.
 - `.ui-header > .ui-value`: The value, on the preview.
 - `.ui-header > .ui-actions` (prop `copiedLabel`, prop `copyLabel`, prop `eyedropperLabel`): The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.
@@ -213,25 +213,22 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
           aria-labelledby="color-field-basics-1-space-label"
           id="color-field-basics-1-space"
         >
-          <button><selectedcontent></selectedcontent></button>
-          <div class="ui-list">
-            <option value="a98-rgb">a98-rgb</option>
-            <option value="display-p3">display-p3</option>
-            <option value="hex">hex</option>
-            <option value="hsl">hsl</option>
-            <option value="hwb">hwb</option>
-            <option value="lab">lab</option>
-            <option value="lch">lch</option>
-            <option value="oklab">oklab</option>
-            <option selected value="oklch">oklch</option>
-            <option value="prophoto-rgb">prophoto-rgb</option>
-            <option value="rec2020">rec2020</option>
-            <option value="rgb">rgb</option>
-            <option value="srgb-linear">srgb-linear</option>
-            <option value="xyz">xyz</option>
-            <option value="xyz-d50">xyz-d50</option>
-            <option value="xyz-d65">xyz-d65</option>
-          </div>
+          <option value="a98-rgb">a98-rgb</option>
+          <option value="display-p3">display-p3</option>
+          <option value="hex">hex</option>
+          <option value="hsl">hsl</option>
+          <option value="hwb">hwb</option>
+          <option value="lab">lab</option>
+          <option value="lch">lch</option>
+          <option value="oklab">oklab</option>
+          <option selected value="oklch">oklch</option>
+          <option value="prophoto-rgb">prophoto-rgb</option>
+          <option value="rec2020">rec2020</option>
+          <option value="rgb">rgb</option>
+          <option value="srgb-linear">srgb-linear</option>
+          <option value="xyz">xyz</option>
+          <option value="xyz-d50">xyz-d50</option>
+          <option value="xyz-d65">xyz-d65</option>
         </select>
       </span>
     </label>

@@ -110,7 +110,28 @@ export default defineConfig({
           }
         },
       },
+      {
+        name: "opui-raw-without-module-edge",
+        apply: "serve",
+        enforce: "pre",
+        load(id) {
+          const [file, query] = id.split("?")
+          if (!query?.split("&").includes("raw") || !existsSync(file)) return
+          return `export default ${JSON.stringify(readFileSync(file, "utf-8"))}`
+        },
+      },
     ],
+    server: {
+      preTransformRequests: true,
+      watch: {
+        ignored: [
+          "**/.claude/worktrees/**",
+          "**/dist-test/**",
+          "**/playwright-report/**",
+          "**/tests/e2e/__screenshots__/**",
+        ],
+      },
+    },
   },
   devToolbar: { enabled: false },
   fonts: [

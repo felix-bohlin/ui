@@ -213,6 +213,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
 
 ## Limitations
 
+- [ ] (2) Tooling: on the first request after `astro dev` starts, Astro's CSS collector (`ensureModulesLoaded` in `astro/dist/vite-plugin-css/index.js`) compiles every module the page's graph reaches, dynamic imports included, and follows the edge Vite adds from a `?raw` import to its file. `opui-raw-without-module-edge` drops that edge, but the component and Learn routes still reach every docs page and every example in every framework, so their first request compiles about 3,000 modules (`astro.config.mjs:113-134`, `src/utils/examples.ts:8-17`)
+  - Summary: The first component or Learn page after the dev server starts takes about 9 seconds, while later pages load almost at once.
+  - Recommended: Fix with option A. It is a one-line fix in Astro that lets the workaround go.
+  - Fix: `collectCSSWithOrder` in the same file already stops at `?raw`, so `ensureModulesLoaded` should too.
+  - Options:
+    - A (recommended): report it to Astro, and remove `opui-raw-without-module-edge` once a release skips `?raw` in `ensureModulesLoaded`.
+    - B: also give each component page its own route and let each docs page glob only its own examples, so the first request compiles one component's modules.
+
 ## Questions
 
 - [x] (1) Dialog, Drawer: the two overlays split their regions differently. `DialogHeader` (an `hgroup`) names the Dialog, a `DrawerTitle` `h2` inside `DrawerHeader` names the Drawer. Dialog ends in `DialogActions` (`.ui-actions`, with `align`), Drawer in `DrawerFooter` (`.ui-footer`, no `align`). The drawer title is `--ui-font-size-large` (through `--_header-font-size`), while the Dialog title (`.ui-h4`) follows `--ui-font-size-h4`, so in m3 they're 20px and 28px. Neither spaces the paragraphs in `.ui-content`, which touch in LongContent and the drawer Basics (`src/component-api/dialog/api.ts:20-39`, `src/component-api/drawer/api.ts:52-75`, `packages/opui/css/components/drawer.css:16,66,121-127`, `packages/opui/css/components/callout.css:65-71`)

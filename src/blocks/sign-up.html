@@ -1,25 +1,7 @@
 <style>
   .sign-up {
-    container-type: inline-size;
-
     .sign-up-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        align-items: center;
-        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      }
-    }
-
-    .ui-card {
-      padding-block: var(--ui-space-3);
-    }
-
-    .sign-up-names {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+      align-items: center;
     }
 
     .sign-up-strength-label {
@@ -27,7 +9,6 @@
     }
 
     .sign-up-strong {
-      color: var(--ui-success-text);
       font-weight: var(--ui-font-weight-semibold);
     }
 
@@ -36,7 +17,6 @@
     }
 
     .sign-up-price {
-      font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
 
@@ -55,8 +35,11 @@
 </style>
 
 <div class="sign-up ui-layout-container" style="--_max-inline-size: 66rem">
-  <div class="sign-up-layout">
-    <div class="ui-card ui-outlined">
+  <div
+    class="ui-layout-columns sign-up-layout"
+    style="--_columns: 7fr 5fr; --_gap: var(--ui-space-6)"
+  >
+    <div class="ui-card ui-outlined ui-spacious">
       <hgroup>
         <h1 class="ui-h4">Create your Northwind account</h1>
         <p>Free for 14 days. No credit card needed.</p>
@@ -64,7 +47,7 @@
       <div class="ui-content">
         <form class="ui-form" action="#">
           <div class="ui-field-group">
-            <div class="ui-layout-grid sign-up-names">
+            <div class="ui-field-group ui-horizontal">
               <label class="ui-text-field">
                 <span class="ui-label">First name</span>
                 <span class="ui-field">
@@ -162,7 +145,9 @@
                 class="ui-layout-row ui-spread sign-up-strength-label"
                 id="sign-up-strength"
                 ><span>Password strength</span
-                ><span class="sign-up-strong">Strong</span></span
+                ><span class="ui-p ui-success sign-up-strong"
+                  >Strong</span
+                ></span
               >
               <div class="ui-progress">
                 <progress
@@ -185,7 +170,7 @@
                     <p>Up to 3 projects for one person.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€0</span>
+                    <span class="ui-tabular-nums sign-up-price">€0</span>
                     <input
                       id="sign-up-plan-starter"
                       name="sign-up-plan"
@@ -202,7 +187,9 @@
                     <p>Unlimited projects and shared workspaces.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€12 / user</span>
+                    <span class="ui-tabular-nums sign-up-price"
+                      >€12 / user</span
+                    >
                     <input
                       checked
                       id="sign-up-plan-team"
@@ -220,7 +207,9 @@
                     <p>SSO, audit logs and priority support.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€29 / user</span>
+                    <span class="ui-tabular-nums sign-up-price"
+                      >€29 / user</span
+                    >
                     <input
                       id="sign-up-plan-business"
                       name="sign-up-plan"

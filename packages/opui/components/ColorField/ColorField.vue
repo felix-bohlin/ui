@@ -11,6 +11,7 @@ import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { useInputAttrs } from "../vue"
 import { channelsFor } from "./channels"
+import { copyPath, eyedropperPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
 
 defineOptions({
@@ -19,17 +20,30 @@ defineOptions({
 
 const {
   alpha,
+  autoFit,
+  chromaLabel,
+  contrastLabel,
+  copiedLabel,
+  copyLabel = "Copy",
   endText,
   error,
+  eyedropperLabel = "Pick from the screen",
   hideLabel,
+  hueLabel,
   id,
+  invalidText,
   label,
+  lightnessLabel,
+  opacityLabel,
+  p3Text,
   pickerLabel = "Pick a color",
   size,
   spread,
+  srgbText,
   startText,
   value,
   variant,
+  wideText,
 } = defineProps<Props>()
 defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
@@ -45,7 +59,14 @@ const model = computed({
 
 const generatedId = useId()
 const inputId = computed(() => id ?? generatedId)
-const sliders = computed(() => channelsFor(alpha))
+const sliders = computed(() =>
+  channelsFor(alpha, {
+    chroma: chromaLabel,
+    hue: hueLabel,
+    lightness: lightnessLabel,
+    opacity: opacityLabel,
+  }),
+)
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -53,12 +74,19 @@ const field = inject(FieldGroupKey, undefined)
   <component
     is="opui-color-field"
     :class="['ui-color-field', $props.class]"
+    :contrast-label="contrastLabel"
+    :copied-label="copiedLabel"
+    :invalid-text="invalidText"
+    :p3-text="p3Text"
+    :srgb-text="srgbText"
     :style="$attrs.style"
+    :wide-text="wideText"
   >
     <div
       :class="[
         'ui-text-field',
         {
+          'ui-auto-fit': autoFit,
           'ui-filled': variant === 'filled',
           'ui-spread': spread,
         },
@@ -112,6 +140,47 @@ const field = inject(FieldGroupKey, undefined)
       popover="auto"
       role="dialog"
     >
+      <div class="ui-header">
+        <span aria-hidden="true" class="ui-value"></span>
+        <span class="ui-actions">
+          <Button
+            :aria-label="eyedropperLabel"
+            command="--eyedropper"
+            :commandfor="inputId"
+            hidden
+            round
+            size="small"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" :d="eyedropperPath"></path>
+            </svg>
+          </Button>
+          <Button
+            :aria-label="copyLabel"
+            command="--copy"
+            :commandfor="inputId"
+            round
+            size="small"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" :d="copyPath"></path>
+            </svg>
+          </Button>
+        </span>
+        <span class="ui-sr-only" role="status"></span>
+      </div>
       <label
         v-for="slider in sliders"
         :key="slider.name"
@@ -140,6 +209,11 @@ const field = inject(FieldGroupKey, undefined)
         />
       </label>
       <p class="ui-description" :id="`${inputId}-gamut`"></p>
+      <p class="ui-footer">
+        <span aria-hidden="true" data-contrast="light"></span>
+        <span aria-hidden="true" data-contrast="dark"></span>
+        <span class="ui-sr-only"></span>
+      </p>
     </div>
   </component>
 </template>

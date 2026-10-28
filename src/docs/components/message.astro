@@ -1,0 +1,269 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import Usage from "./partials/Usage.astro"
+import {
+  Avatar as UIAvatar,
+  Message as UIMessage,
+  Messages as UIMessages,
+  ToggleButton as UIToggleButton,
+  ToggleGroup as UIToggleGroup,
+} from "opui-css/astro"
+
+import AvatarCSS from "@opui/css/components/avatar.css?raw"
+import MessageCSS from "@opui/css/components/message.css?raw"
+
+import messageApi from "../../component-api/message/api"
+import messagesApi from "../../component-api/messages/api"
+
+export const description =
+  "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
+---
+
+<Component
+  description={description}
+  slug="message"
+  heroAnatomy
+  apis={[
+    { title: "Messages API", api: messagesApi },
+    { title: "Message API", api: messageApi },
+  ]}
+  browserSupport={[
+    "container-queries",
+    "container-style-queries",
+    "corner-shape",
+    "has",
+    "lh",
+  ]}
+  changelogPaths={[
+    { path: "packages/opui/components/Message", type: "component" },
+    { path: "src/docs/components/message.astro", type: "docs" },
+    { path: "src/component-examples/message", type: "docs" },
+    { path: "packages/opui/css/components/message.css", type: "css" },
+    { path: "src/component-api/message", type: "api" },
+    { path: "src/component-api/messages", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "message.css", code: MessageCSS, lang: "css" },
+    { title: "avatar.css", code: AvatarCSS, lang: "css", isDependency: true },
+  ]}
+  seeAlsoLinks={[
+    { name: "Avatar", href: "/components/avatar" },
+    { name: "Toggle", href: "/components/toggle" },
+  ]}
+>
+  <Fragment slot="title">Message</Fragment>
+  <Fragment slot="preamble">
+    Chat bubbles for a conversation. Consecutive messages from the same side
+    group into a run, with tighter corners on the avatar side, the author on the
+    first message and the <DocLink href="/components/avatar">Avatar</DocLink> on the
+    last. For a note from the app, use a <DocLink href="/components/callout"
+      >Callout</DocLink
+    >.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
+        <UIMessage author="Saga" datetime="2026-10-08T14:31" time="14:31">
+          <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
+            >SN</UIAvatar
+          >
+          <p>Here's the current draft.</p>
+          <Fragment slot="end">Read</Fragment>
+          <UIToggleGroup
+            aria-label="Reactions"
+            multiple
+            name="reaction"
+            size="small"
+            slot="bottom"
+          >
+            <UIToggleButton aria-label="Thumbs up, 2" checked value="+1"
+              ><span aria-hidden="true">👍 2</span></UIToggleButton
+            >
+          </UIToggleGroup>
+        </UIMessage>
+      </UIMessages>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A conversation between people, like support chat or direct messages, in a
+      list of <a href="#basics">messages</a>.
+    </li>
+    <li slot="when">
+      A channel with several senders, like a team chat, with a <a
+        href="#group-chat">new author</a
+      > marking each change of sender.
+    </li>
+    <li slot="when-not">
+      A note from the app, like a warning or a success. Use a <DocLink
+        href="/components/callout">Callout</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Comments on a post, which are read in order rather than as a chat. Use a <DocLink
+        href="/components/list">List</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Each message is an <code>li.ui-message</code> in an <code
+          >ol.ui-messages</code
+        >. Add <code>.ui-outgoing</code> to the messages you sent, put the sender
+        in <code>p.ui-header</code>, the text in <code>.ui-content</code>
+        and the time in <code>p.ui-footer</code>.</Fragment
+      >
+      <Fragment slot="components"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent, <code>author</code> and <code>time</code> on every
+        message, and the sender's <code>Avatar</code> in the <code>start</code> slot.</Fragment
+      >
+      <Fragment slot="react"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent, <code>author</code> and <code>time</code> on every
+        message, and the sender's <code>Avatar</code> in the <code>start</code> prop.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent, <code>author</code> and <code>time</code> on every
+        message, and the sender's <code>Avatar</code> in the <code>start</code> snippet.</Fragment
+      >
+    </Conditional>
+    <p>
+      Bubbles are at most 85% as wide as the list. The author of an outgoing
+      message, and of every message in a run but the first, is visually hidden
+      and still read by screen readers.
+    </p>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="group-chat">Group chat</h2>
+    <p>
+      CSS can't compare authors, so mark the first message after the sender
+      changes with <PropOrClass prop="newAuthor" class=".ui-new-author" />. Any
+      other <code>li</code> between messages, such as a date <DocLink
+        href="/components/divider">Divider</DocLink
+      >, also starts a new run.
+    </p>
+    <AutoExample name="GroupChat" />
+  </section>
+
+  <section>
+    <h2 id="attachments">Attachments</h2>
+    <p>
+      A file is an outlined <DocLink href="/components/card">Card</DocLink> in the
+      bubble, with an icon, a link and the details in a <DocLink
+        href="/components/layout#media">media layout</DocLink
+      >.
+    </p>
+    <AutoExample name="Attachments" />
+  </section>
+
+  <section>
+    <h2 id="reactions">Reactions</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
+        checkboxes in <code>.ui-bottom</code>, under the bubble. The label of
+        each input names the emoji and the count, and <code>checked</code> marks your
+        own reaction.</Fragment
+      >
+      <Fragment slot="components"
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
+        checkboxes in the <code>bottom</code> slot, under the bubble. The label of
+        each toggle names the emoji and the count, and <code>checked</code>
+        marks your own reaction.</Fragment
+      >
+      <Fragment slot="react"
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
+        checkboxes in the <code>bottom</code> prop, under the bubble. The label of
+        each toggle names the emoji and the count, and <code
+          >defaultChecked</code
+        > marks your own reaction.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
+        checkboxes in the <code>bottom</code> snippet, under the bubble. The label
+        of each toggle names the emoji and the count, and <code>checked</code> marks
+        your own reaction.</Fragment
+      >
+    </Conditional>
+    <p>
+      Saving a toggle and adding a new emoji are up to you: listen for <code
+        >change</code
+      > on the group, and update the count in the label.
+    </p>
+    <AutoExample name="Reactions" />
+  </section>
+
+  <section>
+    <h2 id="typing">Typing indicator</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Add <code>.ui-typing</code> to a message to animate three dots in its bubble.
+        Give the bubble <code>role="status"</code> and visually hidden text, such
+        as "Saga is typing", so screen readers announce it once.</Fragment
+      >
+      <Fragment slot="components"
+        >Set <code>typing</code> on a message to animate three dots in its bubble.
+        The default slot becomes visually hidden status text, such as "Saga is typing",
+        which screen readers announce once.</Fragment
+      >
+      <Fragment slot="react"
+        >Set <code>typing</code> on a message to animate three dots in its bubble.
+        The children become visually hidden status text, such as "Saga is typing",
+        which screen readers announce once.</Fragment
+      >
+    </Conditional>
+    <p>The dots stand still under reduced motion.</p>
+    <AutoExample name="Typing" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The conversation is an <code>ol</code>, named with <code>aria-label</code
+      >, so a screen reader announces the number of messages and reads them in
+      order. The author is in every bubble, hidden visually where the run makes
+      it clear, so each message is read with its sender. Put the time in a <code
+        >time</code
+      > element with <code>datetime</code>.
+    </p>
+    <p>
+      Color alone never carries meaning: an outgoing message is also at the end
+      of the list, with "You" as its author. In forced colors mode the bubbles
+      get a border and the typing dots stay visible.
+    </p>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>li.ui-message</code> is a grid with a <code>start</code> area for the
+      avatar, a <code>content</code> area for the bubble and a <code
+        >bottom</code
+      > area under it. <code>.ui-outgoing</code> swaps the columns and aligns the
+      message to the end.
+    </p>
+    <p>
+      A run is found with <code>:has()</code>: a message followed by one on the
+      same side tightens its bottom corner on the avatar side and hides its
+      avatar, and a message after one on the same side tightens its top corner
+      and hides its author. <code>.ui-new-author</code> and any other <code
+        >li</code
+      > break the chain.
+    </p>
+  </Fragment>
+</Component>

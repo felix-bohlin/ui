@@ -151,6 +151,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Gutterless */
     &.ui-flush {
+      padding-block: 0;
+
       & > :where(li, option),
       & > :where([role="group"], optgroup) > :where(option) {
         padding-inline: 0;

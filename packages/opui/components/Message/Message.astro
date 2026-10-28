@@ -1,0 +1,62 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Message"
+
+const {
+  author,
+  class: className,
+  datetime,
+  newAuthor,
+  outgoing,
+  time,
+  typing,
+  ...rest
+} = Astro.props
+---
+
+<li
+  class:list={[
+    "ui-message",
+    {
+      "ui-new-author": newAuthor,
+      "ui-outgoing": outgoing,
+      "ui-typing": typing,
+    },
+    className,
+  ]}
+  {...rest}
+>
+  <slot name="start" />
+  {
+    typing ? (
+      <div class="ui-content" role="status">
+        <span class="ui-sr-only">
+          <slot />
+        </span>
+      </div>
+    ) : (
+      <div class="ui-content">
+        {author && <p class="ui-header">{author}</p>}
+        <slot />
+        {(time || Astro.slots.has("end")) && (
+          <p class="ui-footer">
+            {time && <time datetime={datetime}>{time}</time>}
+            {Astro.slots.has("end") && (
+              <span class="ui-end">
+                <slot name="end" />
+              </span>
+            )}
+          </p>
+        )}
+      </div>
+    )
+  }
+  {
+    Astro.slots.has("bottom") && (
+      <div class="ui-bottom">
+        <slot name="bottom" />
+      </div>
+    )
+  }
+</li>

@@ -1,16 +1,7 @@
 <style>
   .hero {
-    container-type: inline-size;
-
     .hero-inner {
       align-items: center;
-      display: grid;
-      gap: var(--ui-space-8);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-      }
     }
 
     .hero-copy {
@@ -26,16 +17,6 @@
     .hero-pitch {
       font-size: var(--ui-font-size-large);
       max-inline-size: 34rem;
-    }
-
-    .hero-stars {
-      color: var(--ui-warning);
-      display: flex;
-
-      svg {
-        block-size: 1rem;
-        inline-size: auto;
-      }
     }
 
     .hero-preview {
@@ -77,20 +58,6 @@
       }
     }
 
-    .hero-stats {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
-      .ui-card {
-        gap: var(--ui-space-1);
-        padding: var(--ui-space-2);
-      }
-
-      strong {
-        font-size: var(--ui-font-size-large);
-        font-variant-numeric: tabular-nums;
-      }
-    }
-
     .hero-tasks {
       .ui-text p:last-child {
         font-size: var(--ui-font-size-caption);
@@ -104,7 +71,10 @@
 </style>
 
 <div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
-  <div class="hero-inner">
+  <div
+    class="ui-layout-columns hero-inner"
+    style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+  >
     <div class="ui-layout-column ui-large hero-copy">
       <a class="ui-chip ui-outlined" href="#hero-release">
         <span class="ui-text">New: Northwind 6.0 with AI planning</span>
@@ -151,20 +121,12 @@
       </div>
 
       <p class="ui-layout-row">
-        <span class="hero-stars" aria-hidden="true">
-          <svg
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="120"
-            height="24"
-            viewBox="0 0 120 24"
-          >
-            <path
-              fill="currentColor"
-              d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-            ></path>
-          </svg>
-        </span>
+        <meter
+          class="ui-rating ui-small"
+          aria-hidden="true"
+          max="5"
+          value="4.9"
+        ></meter>
         <span><strong>4.9/5</strong> from 1&nbsp;200+ product teams</span>
       </p>
     </div>
@@ -190,18 +152,33 @@
               <span class="ui-text">Ends Oct 16</span>
             </span>
           </div>
-          <div class="ui-layout-grid ui-small hero-stats">
-            <div class="ui-card ui-outlined">
-              <span class="ui-caption">Done</span>
-              <strong>18</strong>
+          <div
+            class="ui-layout-grid ui-small"
+            style="--_max-columns: 3; --_min-inline-size: 4rem"
+          >
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">Done</dt>
+                  <dd class="ui-value">18</dd>
+                </dl>
+              </div>
             </div>
-            <div class="ui-card ui-outlined">
-              <span class="ui-caption">In review</span>
-              <strong>6</strong>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">In review</dt>
+                  <dd class="ui-value">6</dd>
+                </dl>
+              </div>
             </div>
-            <div class="ui-card ui-outlined">
-              <span class="ui-caption">Velocity</span>
-              <strong>34</strong>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">Velocity</dt>
+                  <dd class="ui-value">34</dd>
+                </dl>
+              </div>
             </div>
           </div>
           <ul class="ui-list ui-transparent ui-dense ui-bordered hero-tasks">

@@ -2,19 +2,8 @@
   .testimonials {
     container-type: inline-size;
 
-    .testimonials-intro {
-      align-items: center;
-      margin-inline: auto;
-      max-inline-size: 40rem;
-      text-align: center;
-
-      h1 {
-        text-wrap: balance;
-      }
-    }
-
-    .testimonials-summary {
-      --_justify-content: center;
+    .testimonials-intro h1 {
+      text-wrap: balance;
     }
 
     .testimonials-list {
@@ -42,20 +31,6 @@
       }
     }
 
-    .testimonials-stars {
-      color: var(--ui-warning);
-      display: flex;
-
-      svg {
-        block-size: 1rem;
-        inline-size: auto;
-      }
-
-      .testimonials-star-empty {
-        color: var(--ui-border-color);
-      }
-    }
-
     .testimonials-name {
       font-weight: var(--ui-font-weight-medium);
     }
@@ -66,7 +41,10 @@
   class="testimonials ui-layout-container ui-layout-column ui-large"
   aria-labelledby="testimonials-heading"
 >
-  <div class="ui-layout-column testimonials-intro">
+  <div
+    class="ui-layout-container ui-layout-column ui-align-center testimonials-intro"
+    style="--_max-inline-size: 40rem; --_padding-inline: 0"
+  >
     <hgroup class="ui-hgroup">
       <p>Customer stories</p>
       <h1 class="ui-h2" id="testimonials-heading">
@@ -77,21 +55,13 @@
         customers say.
       </p>
     </hgroup>
-    <p class="ui-layout-row testimonials-summary">
-      <span class="testimonials-stars" aria-hidden="true">
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="120"
-          height="24"
-          viewBox="0 0 120 24"
-        >
-          <path
-            fill="currentColor"
-            d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-          ></path>
-        </svg>
-      </span>
+    <p class="ui-layout-row ui-align-center">
+      <meter
+        class="ui-rating ui-small"
+        aria-hidden="true"
+        max="5"
+        value="4.9"
+      ></meter>
       <span><strong>4.9 out of 5</strong> from 2&nbsp;300+ reviews</span>
     </p>
   </div>
@@ -100,24 +70,12 @@
     <li>
       <figure class="ui-card ui-outlined">
         <div class="ui-content">
-          <span
-            class="testimonials-stars"
-            role="img"
+          <meter
+            class="ui-rating ui-small"
             aria-label="Rated 5 out of 5"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="120"
-              height="24"
-              viewBox="0 0 120 24"
-            >
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-            </svg>
-          </span>
+            max="5"
+            value="5"
+          ></meter>
           <blockquote>
             <p>
               We replaced three tools with Northwind and our planning meeting
@@ -138,24 +96,12 @@
     <li>
       <figure class="ui-card ui-outlined">
         <div class="ui-content">
-          <span
-            class="testimonials-stars"
-            role="img"
+          <meter
+            class="ui-rating ui-small"
             aria-label="Rated 5 out of 5"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="120"
-              height="24"
-              viewBox="0 0 120 24"
-            >
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-            </svg>
-          </span>
+            max="5"
+            value="5"
+          ></meter>
           <blockquote>
             <p>
               Setup took an afternoon. The Jira import kept every comment and
@@ -175,29 +121,12 @@
     <li>
       <figure class="ui-card ui-outlined">
         <div class="ui-content">
-          <span
-            class="testimonials-stars"
-            role="img"
+          <meter
+            class="ui-rating ui-small"
             aria-label="Rated 4 out of 5"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="120"
-              height="24"
-              viewBox="0 0 120 24"
-            >
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-              <path
-                class="testimonials-star-empty"
-                fill="currentColor"
-                d="m108 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-            </svg>
-          </span>
+            max="5"
+            value="4"
+          ></meter>
           <blockquote>
             <p>
               The insights dashboard made our cycle time visible for the first
@@ -218,24 +147,12 @@
     <li>
       <figure class="ui-card ui-outlined">
         <div class="ui-content">
-          <span
-            class="testimonials-stars"
-            role="img"
+          <meter
+            class="ui-rating ui-small"
             aria-label="Rated 5 out of 5"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="120"
-              height="24"
-              viewBox="0 0 120 24"
-            >
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-            </svg>
-          </span>
+            max="5"
+            value="5"
+          ></meter>
           <blockquote>
             <p>
               Our support team links customer requests straight to roadmap
@@ -255,24 +172,12 @@
     <li>
       <figure class="ui-card ui-outlined">
         <div class="ui-content">
-          <span
-            class="testimonials-stars"
-            role="img"
+          <meter
+            class="ui-rating ui-small"
             aria-label="Rated 5 out of 5"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="120"
-              height="24"
-              viewBox="0 0 120 24"
-            >
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-            </svg>
-          </span>
+            max="5"
+            value="5"
+          ></meter>
           <blockquote>
             <p>Honestly the calmest tool we use. No noise, just the work.</p>
           </blockquote>
@@ -289,24 +194,12 @@
     <li>
       <figure class="ui-card ui-outlined">
         <div class="ui-content">
-          <span
-            class="testimonials-stars"
-            role="img"
+          <meter
+            class="ui-rating ui-small"
             aria-label="Rated 5 out of 5"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="120"
-              height="24"
-              viewBox="0 0 120 24"
-            >
-              <path
-                fill="currentColor"
-                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
-              ></path>
-            </svg>
-          </span>
+            max="5"
+            value="5"
+          ></meter>
           <blockquote>
             <p>
               SSO, audit logs and EU hosting were must-haves for us. Northwind

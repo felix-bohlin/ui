@@ -1,19 +1,5 @@
 <style>
   .shopping-cart {
-    container-type: inline-size;
-
-    .cart-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-5);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        gap: var(--ui-space-6);
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      }
-    }
-
     .cart-items {
       --_gap: 0;
 
@@ -73,12 +59,7 @@
       }
     }
 
-    .cart-qty {
-      inline-size: 8.5rem;
-    }
-
     .cart-line-price {
-      font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-semibold);
       text-align: end;
 
@@ -89,34 +70,9 @@
     }
 
     .cart-summary {
-      @container (inline-size >= 56rem) {
-        inset-block-start: var(--ui-space-4);
-        position: sticky;
-      }
-
       .ui-content {
         display: grid;
         gap: var(--ui-space-4);
-      }
-    }
-
-    .cart-discount {
-      align-items: end;
-
-      .ui-text-field {
-        flex: 1;
-      }
-    }
-
-    .cart-total {
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      font-size: var(--ui-font-size-large);
-      font-weight: var(--ui-font-weight-bold);
-      padding-block-start: var(--ui-space-3);
-
-      dd,
-      dt {
-        color: var(--ui-text-strong);
       }
     }
 
@@ -136,7 +92,7 @@
     <p>3 items, prices include VAT</p>
   </hgroup>
 
-  <div class="cart-layout">
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
     <section aria-label="Cart items" class="ui-card ui-outlined">
       <ul class="ui-layout-column cart-items">
         <li class="cart-item">
@@ -170,7 +126,7 @@
           <div class="cart-buy">
             <opui-number-stepper
               aria-label="Quantity of Merino Trail Hoodie"
-              class="ui-number-stepper ui-small cart-qty"
+              class="ui-number-stepper ui-small"
               role="group"
             >
               <label class="ui-sr-only" for="shopping-cart-qty-hoodie"
@@ -227,7 +183,7 @@
                 </span>
               </span>
             </opui-number-stepper>
-            <p class="cart-line-price">
+            <p class="ui-tabular-nums cart-line-price">
               €119.00
               <s class="ui-caption"
                 ><span class="ui-sr-only">Was </span>€149.00</s
@@ -267,7 +223,7 @@
           <div class="cart-buy">
             <opui-number-stepper
               aria-label="Quantity of Wool hiking socks"
-              class="ui-number-stepper ui-small cart-qty"
+              class="ui-number-stepper ui-small"
               role="group"
             >
               <label class="ui-sr-only" for="shopping-cart-qty-socks"
@@ -324,7 +280,7 @@
                 </span>
               </span>
             </opui-number-stepper>
-            <p class="cart-line-price">€48.00</p>
+            <p class="ui-tabular-nums cart-line-price">€48.00</p>
           </div>
         </li>
 
@@ -357,7 +313,7 @@
           <div class="cart-buy">
             <opui-number-stepper
               aria-label="Quantity of Trail running cap"
-              class="ui-number-stepper ui-small cart-qty"
+              class="ui-number-stepper ui-small"
               role="group"
             >
               <label class="ui-sr-only" for="shopping-cart-qty-cap"
@@ -414,7 +370,7 @@
                 </span>
               </span>
             </opui-number-stepper>
-            <p class="cart-line-price">€29.00</p>
+            <p class="ui-tabular-nums cart-line-price">€29.00</p>
           </div>
         </li>
       </ul>
@@ -422,7 +378,7 @@
 
     <section
       aria-labelledby="shopping-cart-summary-heading"
-      class="ui-card ui-outlined cart-summary"
+      class="ui-card ui-outlined ui-sticky cart-summary"
     >
       <hgroup>
         <h2 class="ui-h5" id="shopping-cart-summary-heading">Order summary</h2>
@@ -441,7 +397,7 @@
           </div>
         </div>
 
-        <div class="ui-layout-row ui-small cart-discount">
+        <div class="ui-field-group ui-horizontal">
           <label class="ui-text-field ui-small">
             <span class="ui-label">Discount code</span>
             <span class="ui-field">
@@ -488,7 +444,7 @@
             <dt>Delivery</dt>
             <dd>Free</dd>
           </div>
-          <div class="cart-total">
+          <div class="ui-total">
             <dt>Total</dt>
             <dd>€176.40</dd>
           </div>

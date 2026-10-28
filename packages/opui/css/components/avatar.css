@@ -3,8 +3,11 @@
     --_bg-color: var(--ui-primary);
     --_font-size: 1em;
     --_icon-size: var(--ui-icon-size-large);
+    --_outlined-border-color: var(--ui-border-color);
     --_size: var(--ui-control-size);
     --_text-color: var(--ui-on-primary);
+    --_tonal-bg-color: var(--ui-primary-tonal, var(--ui-palette-tint));
+    --_tonal-text-color: var(--ui-on-primary-tonal, var(--ui-palette-on-tint));
 
     align-items: center;
     aspect-ratio: 1;
@@ -23,6 +26,18 @@
 
     &:has(img) {
       background-color: transparent;
+    }
+
+    &.ui-tonal {
+      --_bg-color: var(--_tonal-bg-color);
+      --_text-color: var(--_tonal-text-color);
+    }
+
+    &.ui-outlined {
+      --_bg-color: transparent;
+      --_text-color: var(--ui-text-strong);
+
+      border: var(--ui-border-width) solid var(--_outlined-border-color);
     }
 
     svg {

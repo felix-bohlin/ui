@@ -2,6 +2,7 @@ import { expect, test } from "vitest"
 import { components } from "../../src/utils/components"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import {
+  added,
   highlighted,
   notesFor,
   whatsNew,
@@ -16,6 +17,9 @@ const unknownKeys = (notes: Notes, pages: Set<string>) =>
 
 const unnoted = (marked: Iterable<string>, notes: Notes) =>
   [...marked].filter((slug) => !Object.hasOwn(notes, slug))
+
+const unmarked = (pages: Iterable<string>, marked: Set<string>) =>
+  [...pages].filter((slug) => !marked.has(slug))
 
 const unlinked = (notes: Notes) =>
   Object.entries(notes).flatMap(([slug, entries]) => [
@@ -37,6 +41,13 @@ test("highlighted pages have What's new notes", () => {
   expect(
     unnoted(highlighted, whatsNew),
     "add notes for the page, or drop it from highlighted",
+  ).toEqual([])
+})
+
+test("added pages are highlighted", () => {
+  expect(
+    unmarked(added, highlighted),
+    "add the page to highlighted too, or drop it from added",
   ).toEqual([])
 })
 
@@ -62,6 +73,7 @@ test("the rules flag their samples", () => {
     "nope",
   ])
   expect(unnoted(["button", "tabs"], { button: [linked] })).toEqual(["tabs"])
+  expect(unmarked(["menu", "toast"], new Set(["menu"]))).toEqual(["toast"])
   expect(unlinked({ button: [linked, "No link here."] })).toEqual([
     "button: No link here.",
   ])

@@ -23,12 +23,15 @@
 @import "./components/progress.css";
 @import "./components/radio.css";
 @import "./components/range.css";
+@import "./components/rating.css";
 @import "./components/select-all.css";
 @import "./components/sortable-table.css";
 @import "./components/spinner.css";
+@import "./components/stat.css";
 @import "./components/switch.css";
 @import "./components/table.css";
 @import "./components/tabs.css";
+@import "./components/timeline.css";
 @import "./components/toggle-button.css";
 @import "./components/typography.css";
 
@@ -42,7 +45,9 @@
 @import "./components/form.css";
 @import "./components/list.css";
 @import "./components/menu.css";
+@import "./components/message.css";
 @import "./components/number-stepper.css";
+@import "./components/one-time-code.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
 @import "./components/textarea.css";

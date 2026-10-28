@@ -34,6 +34,53 @@
     popover="auto"
     role="dialog"
   >
+    <div class="ui-header">
+      <span aria-hidden="true" class="ui-value"></span>
+      <span class="ui-actions">
+        <button
+          type="button"
+          class="ui-button ui-round ui-small"
+          aria-label="Pick from the screen"
+          command="--eyedropper"
+          commandfor="color-field-basics-1"
+          hidden
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42M6.92 19 5 17.08l8.06-8.06 1.92 1.92z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="ui-button ui-round ui-small"
+          aria-label="Copy"
+          command="--copy"
+          commandfor="color-field-basics-1"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm0-2h9V4H9zm-4 6q-.825 0-1.412-.587T3 20V6h2v14h11v2z"
+            ></path>
+          </svg>
+        </button>
+      </span>
+      <span class="ui-sr-only" role="status"></span>
+    </div>
     <label class="ui-range" for="color-field-basics-1-lightness">
       <span class="ui-label" id="color-field-basics-1-lightness-label"
         >Lightness</span
@@ -91,6 +138,11 @@
       />
     </label>
     <p class="ui-description" id="color-field-basics-1-gamut"></p>
+    <p class="ui-footer">
+      <span aria-hidden="true" data-contrast="light"></span>
+      <span aria-hidden="true" data-contrast="dark"></span>
+      <span class="ui-sr-only"></span>
+    </p>
   </div>
 </opui-color-field>
 

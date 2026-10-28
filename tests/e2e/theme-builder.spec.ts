@@ -33,7 +33,7 @@ test("opens on Start with the preset cards and no changes", async ({
   ).toHaveValue("")
   await expect(changes(page)).toHaveText("No changes")
   await expect(page.locator("[data-contrast-text]")).toHaveText(
-    "Contrast passes",
+    /^All \d+ contrast checks pass$/,
   )
 })
 

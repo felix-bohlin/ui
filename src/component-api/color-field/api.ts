@@ -60,6 +60,37 @@ export default {
       prop: "alpha",
     },
     {
+      class: ".ui-auto-fit",
+      default: "false",
+      description:
+        "Lets the width follow the value, from `25ch`, like a `TextField`.",
+      group: "Auto fit",
+      part: ".ui-text-field",
+      prop: "autoFit",
+    },
+    {
+      default: '"Chroma"',
+      description: "The label of the chroma slider.",
+      prop: "chromaLabel",
+    },
+    {
+      default: '"{light}:1 on light, {dark}:1 on dark"',
+      description:
+        "What a screen reader gets for the contrast ratios in the picker, with `{light}` and `{dark}` where the numbers go.",
+      prop: "contrastLabel",
+    },
+    {
+      default: '"Copied"',
+      description:
+        "What the picker announces after the copy button copied the value.",
+      prop: "copiedLabel",
+    },
+    {
+      default: '"Copy"',
+      description: "The accessible name of the copy button in the picker.",
+      prop: "copyLabel",
+    },
+    {
       attribute: "[disabled]",
       default: "false",
       description: "Dims the field and blocks input and the picker button.",
@@ -78,6 +109,12 @@ export default {
       prop: "error",
     },
     {
+      default: '"Pick from the screen"',
+      description:
+        "The accessible name of the eyedropper button in the picker, shown in browsers with the EyeDropper API.",
+      prop: "eyedropperLabel",
+    },
+    {
       class: ".ui-sr-only",
       default: "false",
       description:
@@ -87,6 +124,11 @@ export default {
       prop: "hideLabel",
     },
     {
+      default: '"Hue"',
+      description: "The label of the hue slider.",
+      prop: "hueLabel",
+    },
+    {
       description:
         "The id of the `<input>`. The label, the picker button and the sliders build their ids from it, so the component generates one when it's left out.",
       inherited: true,
@@ -94,11 +136,34 @@ export default {
       type: "string",
     },
     {
+      default: '"Not a color. Try oklch(0.6 0.2 250) or any CSS color."',
+      description:
+        "The validation message and the line under the sliders while the text isn't a color.",
+      prop: "invalidText",
+    },
+    {
+      default: '"Lightness"',
+      description: "The label of the lightness slider.",
+      prop: "lightnessLabel",
+    },
+    {
       description:
         "The name of the `<input>`, which submits the `oklch()` value. Inside a `FieldGroup`, the group's `name` applies.",
       inherited: true,
       prop: "name",
       type: "string",
+    },
+    {
+      default: '"Opacity"',
+      description: "The label of the opacity slider, with `alpha`.",
+      prop: "opacityLabel",
+    },
+    {
+      default:
+        '"Display P3. Wide-gamut screens show it, others show the nearest sRGB color."',
+      description:
+        "The line under the sliders for a color outside sRGB but inside Display P3.",
+      prop: "p3Text",
     },
     {
       default: '"Pick a color"',
@@ -138,12 +203,22 @@ export default {
       prop: "spread",
     },
     {
+      default: '"sRGB. Every screen shows it."',
+      description: "The line under the sliders for a color inside sRGB.",
+      prop: "srgbText",
+    },
+    {
       default: '"outlined"',
       description: "The variant to use.",
       group: "Variants",
       part: ".ui-text-field",
       prop: "variant",
       values: { filled: ".ui-filled", outlined: null },
+    },
+    {
+      default: '"Beyond Display P3. Screens show the nearest color they can."',
+      description: "The line under the sliders for a color outside Display P3.",
+      prop: "wideText",
     },
   ],
   parts: [
@@ -198,8 +273,29 @@ export default {
     },
     {
       description:
+        "The preview, painted with the color, with the `oklch()` value and the buttons.",
+      selector: ".ui-floating > .ui-header",
+    },
+    {
+      description: "The `oklch()` value, on the preview.",
+      selector: ".ui-header > .ui-value",
+    },
+    {
+      description:
+        'The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.',
+      props: ["copiedLabel", "copyLabel", "eyedropperLabel"],
+      selector: ".ui-header > .ui-actions",
+    },
+    {
+      description:
         "Under the sliders, which screens show the color: sRGB, Display P3 or beyond.",
       selector: ".ui-floating > .ui-description",
+    },
+    {
+      description:
+        "The color's contrast ratio as text on white and on black, in two chips, read out through `contrastLabel`.",
+      props: ["contrastLabel"],
+      selector: ".ui-floating > .ui-footer",
     },
   ],
   root: {

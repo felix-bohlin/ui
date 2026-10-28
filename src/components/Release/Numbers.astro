@@ -5,7 +5,7 @@ import { changelogSections } from "../../utils/changelog"
 import { components } from "../../utils/components"
 import { EXAMPLE_THEMES } from "../../utils/example-themes"
 import { FRAMEWORKS } from "../../utils/framework"
-import { posts } from "../../utils/learn-posts"
+import { posts } from "../../utils/blog-posts"
 import { releaseVersion } from "../../utils/release"
 import { themeTokens } from "../../utils/theme-tokens"
 
@@ -52,7 +52,7 @@ const tiles = [
   { caption: "", label: "Components", value: components.length },
   { caption: "", label: "Example themes", value: EXAMPLE_THEMES.length },
   { caption: "", label: "Frameworks", value: FRAMEWORKS.length },
-  { caption: "", label: "Learn posts", value: posts.length },
+  { caption: "", label: "Blog posts", value: posts.length },
   { caption: "", label: "Theme tokens", value: themeTokens().length },
 ].toSorted((a, b) => a.label.localeCompare(b.label, "en"))
 ---

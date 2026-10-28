@@ -296,7 +296,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
       const counts = summarize(results)
       document.dispatchEvent(
         new CustomEvent("builder:contrast", {
-          detail: { failing: counts.failing },
+          detail: { checks: counts.checks, failing: counts.failing },
         }),
       )
       const { detail, title } = summaryText(counts)

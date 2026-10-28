@@ -19,6 +19,7 @@
     name,
     size,
     spread,
+    stretch,
     style,
     value = $bindable(),
     variant,
@@ -44,6 +45,7 @@
     {
       "ui-filled": variant === "filled",
       "ui-spread": spread,
+      "ui-stretch": stretch,
     },
     size && size !== "medium" && `ui-${size}`,
     className,

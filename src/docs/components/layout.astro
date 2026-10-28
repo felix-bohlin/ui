@@ -22,12 +22,12 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
 >
   <Fragment slot="title">Layout</Fragment>
   <Fragment slot="preamble">
-    Five classes for the space between components: <code>.ui-layout-column</code
+    Six classes for the space between components: <code>.ui-layout-column</code
     >,
     <code>.ui-layout-row</code>, <code>.ui-layout-grid</code>, <code
-      >.ui-layout-media</code
-    > and <code>.ui-layout-container</code>. Put them on wrapper elements, such
-    as <code>div</code>, <code>section</code> or
+      >.ui-layout-columns</code
+    >, <code>.ui-layout-media</code> and <code>.ui-layout-container</code>. Put
+    them on wrapper elements, such as <code>div</code>, <code>section</code> or
     <code>ul</code>. They sit in the <code>utils</code> layer, so on a component they
     replace its own layout. Their gaps come from the <DocLink
       href="/guide/theming#spacing"><code>--ui-space-*</code> scale</DocLink
@@ -39,8 +39,11 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       Space between components on a page, in a column, a row or a grid.
     </li>
     <li slot="when">
-      Cards that fill the width in as many columns as fit, without breakpoints,
-      with <a href="#grid"><code>.ui-layout-grid</code></a>.
+      Cards that fill the width in as many columns as fit, with <a href="#grid"
+        ><code>.ui-layout-grid</code></a
+      >, or content next to a sidebar that stacks when narrow, with <a
+        href="#columns"><code>.ui-layout-columns</code></a
+      >.
     </li>
     <li slot="when">
       An avatar or an icon next to text, with <a href="#media"
@@ -64,15 +67,25 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       between them.
     </p>
     <AutoExample name="Column" />
+
+    <h3 id="column-align">Align</h3>
+    <p>
+      <code>.ui-align-center</code> lines the children and their text up in the middle,
+      for the intro of a page, and <code>.ui-align-end</code> at the end. On a row,
+      the same classes push the children along the row, so the buttons under the intro
+      sit at the end.
+    </p>
+    <AutoExample name="Align" />
   </section>
 
   <section>
     <h2 id="row">Row</h2>
     <p>
       <code>.ui-layout-row</code> puts its children in a row, centered on one line,
-      and wraps them when they run out of room. Set <code
-        >--_justify-content</code
-      > to push them to the end.
+      and wraps them when they run out of room. <code>.ui-align-center</code> and
+      <code>.ui-align-end</code> push them along the row (<a
+        href="#column-align">Align</a
+      >), and <code>--_justify-content</code> takes any other distribution.
     </p>
     <AutoExample name="Row" />
 
@@ -93,6 +106,24 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
     </p>
     <AutoExample name="Grid" />
 
+    <h3 id="stretch">Stretch</h3>
+    <p>
+      The columns keep their width when there are fewer children than fit, so a
+      row of two cards in a wide grid leaves the rest empty. <code
+        >.ui-stretch</code
+      > stretches them over the row instead, for a row of stats.
+    </p>
+    <AutoExample name="Stretch" />
+
+    <h3 id="max-columns">Most columns</h3>
+    <p>
+      <code>--_max-columns</code> caps the count, so three features never spread over
+      four columns. Below the cap, the columns still follow <code
+        >--_min-inline-size</code
+      >.
+    </p>
+    <AutoExample name="MaxColumns" />
+
     <h3 id="lists">Lists</h3>
     <p>
       On a <code>ul</code> or <code>ol</code>, <code>.ui-layout-row</code> and <code
@@ -102,6 +133,39 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       height.
     </p>
     <AutoExample name="List" />
+  </section>
+
+  <section>
+    <h2 id="columns">Columns</h2>
+    <p>
+      <code>.ui-layout-columns</code> is one column that becomes the tracks in <code
+        >--_columns</code
+      > (<code>1fr 1fr</code> by default) once its container is <code
+        >56rem</code
+      >
+      wide. Any <code>grid-template-columns</code> value works, such as <code
+        >3fr 2fr</code
+      > for content next to a summary or <code>15rem 1fr</code> for a sidebar. It
+      measures the nearest container: a <a href="#container"
+        ><code>.ui-layout-container</code></a
+      > or any element with <code>container-type: inline-size</code>. Pick
+      another of the three <a href="#breakpoints">breakpoints</a> with <code
+        >.ui-breakpoint-small</code
+      > (<code>40rem</code>) and <code>.ui-breakpoint-large</code> (<code
+        >72rem</code
+      >).
+    </p>
+    <AutoExample name="Columns" />
+
+    <h3 id="sticky">Sticky</h3>
+    <p>
+      <code>.ui-sticky</code> on a column keeps it in view, <code
+        >--_sticky-inset</code
+      > (<code>--ui-space-4</code>) from the top, while the other column
+      scrolls, such as an order summary next to a long form. It only sticks once
+      the columns sit side by side.
+    </p>
+    <AutoExample name="Sticky" />
   </section>
 
   <section>
@@ -120,9 +184,9 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
     <p>
       The size classes set the gap of <code>.ui-layout-column</code>, <code
         >.ui-layout-row</code
-      > and <code>.ui-layout-grid</code>: <code>.ui-x-small</code> is <code
-        >--ui-space-1</code
-      >, <code>.ui-small</code>
+      >, <code>.ui-layout-grid</code> and <code>.ui-layout-columns</code>: <code
+        >.ui-x-small</code
+      > is <code>--ui-space-1</code>, <code>.ui-small</code>
       <code>--ui-space-2</code>, the default <code>--ui-space-3</code> and <code
         >.ui-large</code
       >
@@ -140,7 +204,9 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       <code>.ui-layout-container</code> centers its content, caps its width at <code
         >--_max-inline-size</code
       > (<code>72rem</code> by default) and keeps <code>--_padding-inline</code> from
-      the edges. Combine the classes to lay out a whole section:
+      the edges. It is also a <code>container-type: inline-size</code> container,
+      which <a href="#columns"><code>.ui-layout-columns</code></a> and your own container
+      queries measure. Combine the classes to lay out a whole section:
     </p>
     <AutoExample name="Composition" />
   </section>
@@ -148,11 +214,16 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="breakpoints">Breakpoints</h2>
     <p>
-      The layout classes need none, but a page that changes shape uses the same
-      three container widths everywhere, so similar layouts reflow at the same
-      point. Measure the container, not the viewport, with <code
+      A page that changes shape uses the same three container widths everywhere,
+      so similar layouts reflow at the same point. <a href="#columns"
+        ><code>.ui-layout-columns</code></a
+      > picks one with <code>.ui-breakpoint-small</code>, nothing and <code
+        >.ui-breakpoint-large</code
+      >. Measure the container, not the viewport, with <code
         >container-type: inline-size</code
-      > on the wrapper:
+      > on the wrapper, or a <a href="#container"
+        ><code>.ui-layout-container</code></a
+      >:
     </p>
     <ul>
       <li>

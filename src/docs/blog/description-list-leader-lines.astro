@@ -1,0 +1,128 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Resizable from "../../components/Blog/Resizable.astro"
+import Bordered from "../../component-examples/description-list/Bordered.astro"
+---
+
+<TechniquePost slug="description-list-leader-lines">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      Spec sheets, price lists and receipts put the term on the left, the value
+      on the right and a dotted line in between. The old ways are a row of dots
+      clipped with <code>overflow: hidden</code>, a repeating background, or an
+      empty filler element.
+    </p>
+    <p>
+      Side by side also only works when there is room, and a media query knows
+      the viewport, not the column the list sits in.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        Each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is wrapped in
+        a <code>&lt;div&gt;</code>, which is valid in a
+        {" "}<code>&lt;dl&gt;</code>, so every pair is its own grid
+      </li>
+      <li>
+        The plain list is two columns with <code
+          >justify-content: space-between</code
+        >: term at the start, description at the end, nothing in between
+      </li>
+      <li>
+        The bordered variants add a third column. The pair's
+        {" "}<code>::after</code> is a grid item too. <code>order: 1</code> puts it
+        between the term and the description, and the <code>1fr</code> column stretches
+        it
+      </li>
+      <li>
+        Its bottom border is the line. <code>dotted</code> only swaps the border style
+        and width
+      </li>
+      <li>
+        <code>container-type: inline-size</code> on the list: at
+        {" "}<code>45ch</code> or narrower, the term stacks above the description
+        and the line goes
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.list {
+  container-type: inline-size;
+}
+
+.list > .item {
+  align-items: baseline;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+}
+
+.list.bordered.dotted {
+  --border-style: dotted;
+  --border-width: var(--ui-border-width-thick);
+}
+
+.list.bordered > .item {
+  grid-template-columns: auto 1fr auto;
+}
+
+.list.bordered > .item::after {
+  block-size: var(--ui-border-width-thick);
+  border-block-end: var(--border-width, var(--ui-border-width))
+    var(--border-style, solid) var(--ui-border-color);
+  content: "";
+  order: 1;
+}
+
+.list.bordered > .item dd {
+  order: 2;
+}
+
+@container (inline-size <= 45ch) {
+  .list > .item {
+    grid-template-columns: none;
+  }
+
+  .list > .item::after {
+    content: none;
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <p>
+      The solid and the dotted variant. Drag the edge of the dashed box, or use
+      the <strong>List width</strong> slider. At <code>45ch</code> or narrower the
+      pairs stack, whatever the size of the window.
+    </p>
+    <Example wide showCode={false}>
+      <Resizable label="List width">
+        <Bordered />
+      </Resizable>
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without container queries the <code>@container</code> block is skipped: every
+        pair keeps its row, and the bordered variants their line, at any width
+      </li>
+      <li>
+        The line is an empty pseudo-element, so assistive tech still reads term,
+        then description
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

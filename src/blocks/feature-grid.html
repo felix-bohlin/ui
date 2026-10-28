@@ -1,7 +1,5 @@
 <style>
   .feature-grid {
-    container-type: inline-size;
-
     .feature-intro {
       margin-inline: auto;
       max-inline-size: 42rem;
@@ -13,16 +11,6 @@
     }
 
     .feature-list {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
       .ui-content {
         display: grid;
         gap: var(--ui-space-2);
@@ -37,10 +25,6 @@
       display: grid;
       padding: var(--ui-space-2);
       place-items: center;
-    }
-
-    .feature-footer {
-      --_justify-content: center;
     }
   }
 </style>
@@ -60,7 +44,10 @@
     </p>
   </hgroup>
 
-  <ul class="ui-layout-grid ui-large feature-list">
+  <ul
+    class="ui-layout-grid ui-large feature-list"
+    style="--_max-columns: 3; --_min-inline-size: 18rem"
+  >
     <li>
       <article class="ui-card ui-outlined">
         <div class="ui-content">
@@ -224,7 +211,7 @@
     </li>
   </ul>
 
-  <div class="ui-layout-row feature-footer">
+  <div class="ui-layout-row ui-align-center">
     <a class="ui-button ui-filled" href="#feature-grid-trial"
       >Start free trial</a
     >

@@ -4,12 +4,12 @@ import type {
   Slots,
 } from "./types.vue-props"
 
-defineProps<Props>()
+const { total } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="[$props.class]">
+  <div :class="[total && 'ui-total', $props.class]">
     <slot></slot>
   </div>
 </template>

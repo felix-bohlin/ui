@@ -1,0 +1,82 @@
+---
+import Document from "./Document.astro"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import { Divider } from "opui-css/astro"
+import { canonicalPath, hrefFor } from "../utils/framework"
+import { categories, componentName, posts, walkthroughs } from "../utils/blog"
+
+type Props = {
+  description?: string
+  overline?: string
+  showToc?: boolean
+  title?: string
+  wide?: boolean
+}
+
+const {
+  description,
+  overline = "Blog",
+  showToc = true,
+  title,
+  wide,
+} = Astro.props
+
+const currentFramework = Astro.locals.framework
+
+const currentPost = posts.find(
+  (post) => canonicalPath(Astro.url.pathname) === `/blog/${post.slug}`,
+)
+
+const linkTo = (href: string, label: string) => ({
+  href: hrefFor(currentFramework, href),
+  label,
+})
+
+const groups = [
+  { label: "Blog", links: [linkTo("/blog", "All posts")] },
+  ...categories.map((category) => ({
+    label: category.label,
+    links: posts
+      .filter((post) => post.category === category.id)
+      .toSorted(
+        (a, b) =>
+          Number(!!a.component) - Number(!!b.component) ||
+          (a.component ?? "").localeCompare(b.component ?? ""),
+      )
+      .map((post) =>
+        linkTo(
+          `/blog/${post.slug}`,
+          post.navLabel ??
+            (post.component ? componentName(post.component) : post.title),
+        ),
+      ),
+  })),
+  {
+    label: "Walkthrough only",
+    links: walkthroughs.map((slug) =>
+      linkTo(`/blog/under-the-hood#${slug}`, componentName(slug)),
+    ),
+  },
+]
+---
+
+<Document
+  description={description}
+  overline={overline}
+  showToc={showToc}
+  sidebarGroups={groups}
+  title={title}
+  transitionName={currentPost && `blog-${currentPost.slug}`}
+  wide={wide}
+>
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
+  <slot slot="title" name="title" />
+  <slot slot="preamble" name="preamble">
+    {description} The posts are plain HTML and CSS, the same on every framework; the
+    component links follow the framework you picked.
+  </slot>
+  <slot />
+</Document>

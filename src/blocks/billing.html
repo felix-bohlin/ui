@@ -2,14 +2,6 @@
   .billing {
     container-type: inline-size;
 
-    .billing-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
-    }
-
     .billing-plan-price {
       align-items: baseline;
       display: flex;
@@ -18,13 +10,8 @@
 
       strong {
         font-size: var(--ui-font-size-800);
-        font-variant-numeric: tabular-nums;
         line-height: 1;
       }
-    }
-
-    .billing-meter span:last-child {
-      font-variant-numeric: tabular-nums;
     }
 
     .billing-card-logo {
@@ -55,7 +42,7 @@
     <h1 class="ui-h3">Billing</h1>
   </hgroup>
 
-  <div class="ui-layout-grid ui-large billing-grid">
+  <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
     <section aria-labelledby="billing-plan-heading" class="ui-card ui-outlined">
       <hgroup>
         <p>Current plan</p>
@@ -63,7 +50,8 @@
       </hgroup>
       <div class="ui-content">
         <p class="billing-plan-price">
-          <strong>€192</strong><span>per month, 8 seats × €24</span>
+          <strong class="ui-tabular-nums">€192</strong
+          ><span>per month, 8 seats × €24</span>
         </p>
         <div class="ui-layout-row ui-small">
           <span class="ui-chip ui-small"
@@ -96,7 +84,7 @@
         <ul class="ui-layout-column">
           <li class="ui-layout-column ui-x-small">
             <span
-              class="ui-layout-row ui-spread billing-meter"
+              class="ui-layout-row ui-spread ui-tabular-nums"
               id="billing-usage-seats"
               ><span>Seats</span><span>8 of 10</span></span
             >
@@ -110,7 +98,7 @@
           </li>
           <li class="ui-layout-column ui-x-small">
             <span
-              class="ui-layout-row ui-spread billing-meter"
+              class="ui-layout-row ui-spread ui-tabular-nums"
               id="billing-usage-storage"
               ><span>Storage</span><span>142 of 200 GB</span></span
             >
@@ -124,7 +112,7 @@
           </li>
           <li class="ui-layout-column ui-x-small">
             <span
-              class="ui-layout-row ui-spread billing-meter"
+              class="ui-layout-row ui-spread ui-tabular-nums"
               id="billing-usage-api"
               ><span>API requests</span><span>91 400 of 100 000</span></span
             >

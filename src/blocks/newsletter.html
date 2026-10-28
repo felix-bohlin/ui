@@ -3,14 +3,9 @@
     container-type: inline-size;
 
     .newsletter-card {
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
       padding: var(--ui-space-5);
 
       @container (inline-size >= 56rem) {
-        gap: var(--ui-space-8);
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
         padding: var(--ui-space-7);
       }
     }
@@ -24,14 +19,6 @@
       gap: var(--ui-space-5);
     }
 
-    .newsletter-signup {
-      align-items: end;
-
-      .ui-text-field {
-        flex: 1 1 14rem;
-      }
-    }
-
     .newsletter-topics {
       grid-template-columns: minmax(0, 1fr);
 
@@ -43,7 +30,10 @@
 </style>
 
 <div class="newsletter ui-layout-container" style="--_max-inline-size: 64rem">
-  <div class="ui-card ui-outlined newsletter-card">
+  <div
+    class="ui-card ui-outlined ui-layout-columns newsletter-card"
+    style="--_columns: 1fr 1.2fr; --_gap: var(--ui-space-6)"
+  >
     <div class="ui-layout-column ui-large">
       <hgroup class="ui-hgroup">
         <p>The Northwind Dispatch</p>
@@ -80,7 +70,7 @@
     </div>
 
     <form class="ui-form newsletter-form" action="#">
-      <div class="ui-layout-row ui-small newsletter-signup">
+      <div class="ui-field-group ui-horizontal">
         <label class="ui-text-field">
           <span class="ui-label">Email</span>
           <span class="ui-field">

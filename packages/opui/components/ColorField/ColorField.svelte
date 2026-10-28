@@ -4,23 +4,37 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { channelsFor } from "./channels"
+  import { copyPath, eyedropperPath } from "./icons"
   import type { Props } from "./types.svelte"
 
   const generatedId = $props.id()
 
   let {
     alpha,
+    autoFit,
+    chromaLabel,
     class: className,
+    contrastLabel,
+    copiedLabel,
+    copyLabel = "Copy",
     error,
+    eyedropperLabel = "Pick from the screen",
     hideLabel,
+    hueLabel,
     id,
+    invalidText,
+    lightnessLabel,
     name,
+    opacityLabel,
+    p3Text,
     pickerLabel = "Pick a color",
     size,
     spread,
+    srgbText,
     style,
     value = $bindable(),
     variant,
+    wideText,
 
     // Snippets
     endText,
@@ -33,11 +47,21 @@
   const inputId = $derived(id ?? generatedId)
 </script>
 
-<opui-color-field class={["ui-color-field", className]} {style}>
+<opui-color-field
+  class={["ui-color-field", className]}
+  contrast-label={contrastLabel}
+  copied-label={copiedLabel}
+  invalid-text={invalidText}
+  p3-text={p3Text}
+  srgb-text={srgbText}
+  {style}
+  wide-text={wideText}
+>
   <div
     class={[
       "ui-text-field",
       {
+        "ui-auto-fit": autoFit,
         "ui-filled": variant === "filled",
         "ui-spread": spread,
       },
@@ -87,7 +111,48 @@
     popover="auto"
     role="dialog"
   >
-    {#each channelsFor(alpha) as slider (slider.name)}
+    <div class="ui-header">
+      <span aria-hidden="true" class="ui-value"></span>
+      <span class="ui-actions">
+        <Button
+          aria-label={eyedropperLabel}
+          command="--eyedropper"
+          commandfor={inputId}
+          hidden
+          round
+          size="small"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={eyedropperPath}></path>
+          </svg>
+        </Button>
+        <Button
+          aria-label={copyLabel}
+          command="--copy"
+          commandfor={inputId}
+          round
+          size="small"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={copyPath}></path>
+          </svg>
+        </Button>
+      </span>
+      <span class="ui-sr-only" role="status"></span>
+    </div>
+    {#each channelsFor( alpha, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
       <label class="ui-range" for={`${inputId}-${slider.name}`}>
         <span class="ui-label" id={`${inputId}-${slider.name}-label`}
           >{slider.label}</span
@@ -112,5 +177,10 @@
       </label>
     {/each}
     <p class="ui-description" id={`${inputId}-gamut`}></p>
+    <p class="ui-footer">
+      <span aria-hidden="true" data-contrast="light"></span>
+      <span aria-hidden="true" data-contrast="dark"></span>
+      <span class="ui-sr-only"></span>
+    </p>
   </div>
 </opui-color-field>

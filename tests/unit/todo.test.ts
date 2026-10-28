@@ -193,7 +193,7 @@ describe("parseTodo", () => {
         "- [ ] (2) Checkbox: the label wraps (`packages/opui/css/components/choice.css:30-36`, `src/docs/components/checkbox.astro`)",
         "- [ ] (2) Tabs: the pill is off (`layout` Surfaces)",
         "- [ ] (2) Layout: the gap collapses (`layout` Surfaces, `packages/opui/css/components/layout.css:12`)",
-        "- [ ] (2) Layout: the gap grows (`src/components/{A,B}Build.astro`, `src/utils/learn-posts.ts`)",
+        "- [ ] (2) Layout: the gap grows (`src/components/{A,B}Build.astro`, `src/utils/blog-posts.ts`)",
       ].join("\n"),
     ).sections
 
@@ -735,7 +735,7 @@ describe("TODO.md", () => {
     "Docs",
     "Docs site",
     "Examples",
-    "Learn",
+    "Blog",
     "Package",
     "Release",
     "Repo",

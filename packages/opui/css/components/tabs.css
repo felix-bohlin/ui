@@ -7,6 +7,7 @@
     --_indicator-bg-color: transparent;
     --_indicator-size: var(--ui-border-width-thick);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
+    --_panel-gap: var(--ui-space-2);
     --_radius: var(--ui-radius);
     --_selected-bg-color: light-dark(
       var(--ui-surface),
@@ -165,7 +166,7 @@
     & > .ui-panel {
       display: none;
       inline-size: 100%;
-      margin-block-start: var(--ui-space-2);
+      margin-block-start: var(--_panel-gap);
       order: 2;
     }
 

@@ -64,6 +64,7 @@ const captions = [
 
   <div class="severity-layers-body">
     <figure class="severity-layers-stack">
+      <p class="severity-layers-label">The layer stack</p>
       <ol>
         {
           layers.map((layer) => (
@@ -90,19 +91,22 @@ const captions = [
       </figcaption>
     </figure>
 
-    <div class="severity-layers-stage ui-palette">
-      {
-        callouts.map((callout) => (
-          <Callout severity={callout.severity}>
-            <CalloutIcon />
-            <CalloutContent>
-              <h4>{callout.title}</h4>
-              <p>{callout.text}</p>
-            </CalloutContent>
-          </Callout>
-        ))
-      }
-      <Button color="primary" variant="filled">Save changes</Button>
+    <div class="severity-layers-pane">
+      <p class="severity-layers-label">What renders</p>
+      <div class="severity-layers-stage ui-palette">
+        {
+          callouts.map((callout) => (
+            <Callout severity={callout.severity}>
+              <CalloutIcon />
+              <CalloutContent>
+                <h4>{callout.title}</h4>
+                <p>{callout.text}</p>
+              </CalloutContent>
+            </Callout>
+          ))
+        }
+        <Button color="primary" variant="filled">Save changes</Button>
+      </div>
     </div>
   </div>
 </div>
@@ -139,6 +143,18 @@ const captions = [
     display: grid;
     gap: var(--ui-space-4);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+
+  .severity-layers-label {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-medium);
+    margin: 0;
+  }
+
+  .severity-layers-pane {
+    display: grid;
+    gap: var(--ui-space-3);
   }
 
   .severity-layers-stack {

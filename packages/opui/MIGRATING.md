@@ -1138,10 +1138,18 @@ A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-
 }
 ```
 
-The default palette is green in both color schemes. v5 switched it to blue in dark mode; to keep that, set the hue for dark mode yourself:
+The default palette is blue (hue `222.8`) in both color schemes, and the primary is `oklch(0.499 0.191 222.8)` in light mode. v5 was green in light mode and blue in dark mode; to keep that, set the hues yourself and take the primary from the palette:
 
 ```css
 @layer theme.custom {
+  :where(html) {
+    --ui-palette-hue: 145;
+  }
+
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
+  }
+
   :where(html.ui-dark) {
     --ui-palette-hue: 240;
   }

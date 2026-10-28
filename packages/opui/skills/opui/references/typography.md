@@ -16,7 +16,7 @@ Styles for headings, body text, and other text content. Use util classes anywher
 - Blockquote: `.ui-blockquote`. Quoted block with a start border.
 - Caption: `.ui-caption`. Muted supporting text.
 - Code block: `pre.ui-code-block`. Monospace preformatted block.
-- Colors: `critical` (`.ui-critical`), `info` (`.ui-info`), `neutral` (`.ui-neutral`), `success` (`.ui-success`), `warning` (`.ui-warning`). Tone of `.ui-swatch`. Without it, the swatch takes the palette accent of the scope it sits in.
+- Colors: `critical` (`.ui-critical`), `info` (`.ui-info`), `neutral` (`.ui-neutral`), `success` (`.ui-success`), `warning` (`.ui-warning`). Tone of `.ui-swatch`, and the text color of `.ui-p`, `.ui-caption` and `.ui-overline`. Without it, the swatch takes the palette accent of the scope it sits in.
 - Heading: `h1` (`.ui-h1`), `h2` (`.ui-h2`), `h3` (`.ui-h3`), `h4` (`.ui-h4`), `h5` (`.ui-h5`), `h6` (`.ui-h6`). Heading styles for any element.
 - Heading group: `.ui-hgroup`. Groups an overline, heading, and optional body copy.
 - Icon: `.ui-icon`. Sizes an inline `svg` to `--ui-icon-size` and keeps it from shrinking in a flex row.
@@ -27,6 +27,7 @@ Styles for headings, body text, and other text content. Use util classes anywher
 - Paragraph: `.ui-p`. Body paragraph styling.
 - Sizes: `large` (`.ui-large`), `medium` (default), `small` (`.ui-small`). Size modifiers on `.ui-p` and `.ui-icon`. An icon reads `--ui-icon-size-small` and `--ui-icon-size-large`.
 - Swatch: `.ui-swatch`. A small colored dot for a legend, in `--_swatch-bg-color`, the palette accent of its tone or scope.
+- Tabular nums: `.ui-tabular-nums`. Digits of one width, so numbers line up in a column of prices or stats.
 
 ### Notes
 
@@ -50,7 +51,7 @@ Outputs: `--_count-digits`, `--_font-scale` and `--_start-digits`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

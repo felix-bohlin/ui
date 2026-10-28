@@ -20,7 +20,7 @@ import { Button, Card, CardContent } from "opui-css/vue"
           <CardContent>Support</CardContent>
         </Card>
       </div>
-      <div class="ui-layout-row" style="--_justify-content: flex-end">
+      <div class="ui-layout-row ui-align-end">
         <Button>Cancel</Button>
         <Button color="primary" variant="filled">Invite</Button>
       </div>

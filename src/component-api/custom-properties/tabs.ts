@@ -34,6 +34,11 @@ export default {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
   },
+  "--_panel-gap": {
+    description:
+      "Space between the tab list and the panel. Defaults to `--ui-space-2`.",
+    kind: "input",
+  },
   "--_radius": {
     description:
       "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",

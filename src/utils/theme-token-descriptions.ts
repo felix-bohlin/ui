@@ -308,7 +308,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-chroma":
     "Chroma of the palette source color, as a multiplier of `0.21`.",
   "--ui-palette-hue":
-    "Hue of the palette source color in degrees. `145` (green) by default, in both color schemes.",
+    "Hue of the palette source color in degrees. `222.8` (blue) by default, in both color schemes.",
   "--ui-palette-hue-rotate-by":
     "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. The severity scopes use `1` for livelier tints, the brand palette `0`.",
   "--ui-palette-on-strong": "Text color on `--ui-palette-strong`.",

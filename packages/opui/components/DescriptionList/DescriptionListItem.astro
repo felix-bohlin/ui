@@ -1,9 +1,9 @@
 ---
 import type { DescriptionListItemProps as Props } from "./types.astro"
 
-const { class: className, ...rest } = Astro.props
+const { class: className, total, ...rest } = Astro.props
 ---
 
-<div class:list={[className]} {...rest}>
+<div class:list={[total && "ui-total", className]} {...rest}>
   <slot />
 </div>

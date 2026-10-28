@@ -84,6 +84,7 @@ export const whatsNew = {
     ),
   ],
   avatar: [
+    `<a href="#variants"><code>variant</code></a> takes <code>tonal</code> for the primary tint and <code>outlined</code> for the border color with no fill.`,
     components(
       `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
     ),
@@ -257,6 +258,7 @@ export const whatsNew = {
     `<a href="#severities">Links</a> in a callout only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
   card: [
+    `<a href="#density"><code>density</code></a> takes <code>spacious</code> for a card that stands alone, such as a sign-in form, and <code>dense</code> for a small stat.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a>.`,
     {
       ...components(
@@ -449,8 +451,8 @@ export const whatsNew = {
   ],
   "color-field": [
     {
-      default: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens lightness, chroma, hue and <a href="#opacity">opacity</a> sliders, run by the <code>&lt;opui-color-field&gt;</code> custom element, which the component loads. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
-      html: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens lightness, chroma, hue and <a href="#opacity">opacity</a> sliders. Import <code>opui-css/elements/color-field.js</code> for the <code>&lt;opui-color-field&gt;</code> custom element that runs them. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
+      default: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens a <a href="#picker">picker</a> that previews the color, copies it, picks one from the screen and shows its contrast, over lightness, chroma, hue and <a href="#opacity">opacity</a> sliders, run by the <code>&lt;opui-color-field&gt;</code> custom element, which the component loads. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
+      html: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens a <a href="#picker">picker</a> that previews the color, copies it, picks one from the screen and shows its contrast, over lightness, chroma, hue and <a href="#opacity">opacity</a> sliders. Import <code>opui-css/elements/color-field.js</code> for the <code>&lt;opui-color-field&gt;</code> custom element that runs them. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
     },
   ],
   copy: [
@@ -460,6 +462,7 @@ export const whatsNew = {
     },
   ],
   "description-list": [
+    `<a href="#total"><code>total</code></a> on the last item draws a line above it and makes it larger and bold, for an order summary.`,
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>DescriptionListItem</code></a>. The <code>DescriptionList.Item</code> aliases are gone.`,
     },
@@ -644,15 +647,19 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#field-group-horizontal"><code>.ui-row</code> and <code>.ui-column</code></a> on a field group are <code>.ui-horizontal</code> and <code>.ui-vertical</code>.`,
     },
+    `A <a href="#field-group-horizontal">horizontal</a> field group lines its fields up at their end and grows a text field, textarea, select or number stepper to share the row, so a field and its button sit on one line.`,
   ],
   layout: [
     `New: <a href="#column"><code>.ui-layout-column</code></a>, <a href="#row"><code>.ui-layout-row</code></a>, <a href="#grid"><code>.ui-layout-grid</code></a> and <a href="#container"><code>.ui-layout-container</code></a> lay out the space between components.`,
-    `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header.`,
+    `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header, and <a href="#column-align"><code>.ui-align-center</code> and <code>.ui-align-end</code></a> line up a row or a column.`,
+    `<a href="#stretch"><code>.ui-stretch</code></a> stretches the columns of a grid over the row when fewer children than fit, and <a href="#max-columns"><code>--_max-columns</code></a> caps the count.`,
     `<a href="#media"><code>.ui-layout-media</code></a> puts an avatar or an icon next to text that fills the rest and truncates.`,
     `On a <code>ul</code> or <code>ol</code>, <a href="#lists">rows and grids</a> drop the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
-    `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks.`,
+    `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,
+    `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
   ],
   list: [
+    `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
     components(
       `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
@@ -740,11 +747,17 @@ export const whatsNew = {
       `A <code>Menu</code> without an <code>id</code> warns in development, since its trigger and items point at it (<a href="#basics">Basics</a>).`,
     ),
   ],
+  message: [
+    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+  ],
   "number-stepper": [
     {
-      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads.`,
-      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them.`,
+      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width.`,
+      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width.`,
     },
+  ],
+  "one-time-code": [
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
   ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
@@ -904,6 +917,9 @@ export const whatsNew = {
     },
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
+  ],
+  rating: [
+    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover.`,
   ],
   select: [
     `The <a href="#variants">picker</a> is <code>--ui-surface-elevated</code> with the raised edge, like menus, and reads <code>--ui-border-color-raised</code> when a theme sets it.`,
@@ -1094,7 +1110,11 @@ export const whatsNew = {
       html: `<a href="#sorting">Sorting</a>: <code>&lt;opui-sortable-table&gt;</code> sorts the rows by a header marked <code>data-sort</code>, sets <code>aria-sort</code> and fires a cancelable <code>sort</code> event. Import <code>opui-css/elements/sortable-table.js</code>.`,
     },
   ],
+  stat: [
+    `New: a <a href="#basics">Stat</a> shows one number with its label and the change behind it, in a row of <a href="#cards">cards</a> on a dashboard.`,
+  ],
   tabs: [
+    `<a href="#api"><code>--_panel-gap</code></a> sets the space between the tab list and the panel.`,
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-tabs-accent</code></a> for the selected label and the <a href="#line">line</a> indicator.`,
     `The <a href="#basics">selected pill</a> has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
@@ -1273,10 +1293,13 @@ export const whatsNew = {
       html: `<a href="#character-count">Character count</a>: <code>&lt;opui-character-count&gt;</code> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit. Import <code>opui-css/elements/character-count.js</code>.`,
     },
   ],
+  timeline: [
+    `New: a <a href="#basics">Timeline</a> lists dated events with markers and a connecting line, with <a href="#colors">colors</a>, a <a href="#current">current item</a> and a <a href="#tracked">tracked</a> line.`,
+  ],
   toast: [
     {
-      default: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <code>show()</code>, run by the <code>&lt;opui-toaster&gt;</code> custom element, which the component loads.`,
-      html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <code>show()</code>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them.`,
+      default: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>, run by the <code>&lt;opui-toaster&gt;</code> custom element, which the component loads. <a href="#position"><code>side</code> and <code>align</code></a> choose the corner.`,
+      html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them.`,
     },
   ],
   toggle: [
@@ -1378,6 +1401,7 @@ export const whatsNew = {
     `In browsers without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus (<a href="#accessibility">Accessibility</a>).`,
   ],
   typography: [
+    `A <a href="#severity">severity class</a> on <code>.ui-p</code>, <code>.ui-caption</code> or <code>.ui-overline</code> colors the text in that tone, and <a href="#tabular-numbers"><code>.ui-tabular-nums</code></a> lines numbers up.`,
     `<a href="#heading-group">Overlines</a> read <code>--ui-text-subtle</code>, so a theme's secondary text color reaches them.`,
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
     `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read <code>--ui-critical-text</code>, <code>--ui-success-text</code> and <code>--ui-info</code>.`,
@@ -1423,10 +1447,30 @@ export const highlighted = new Set<string>([
   "copy",
   "layout",
   "menu",
+  "message",
   "number-stepper",
+  "one-time-code",
+  "rating",
+  "stat",
   "tabs",
+  "timeline",
   "toast",
   "typography",
+] satisfies (keyof typeof whatsNew)[])
+
+export const added = new Set<string>([
+  "carousel",
+  "color-field",
+  "copy",
+  "layout",
+  "menu",
+  "message",
+  "number-stepper",
+  "one-time-code",
+  "rating",
+  "stat",
+  "timeline",
+  "toast",
 ] satisfies (keyof typeof whatsNew)[])
 
 export const notesFor = (notes: Note[], framework: FrameworkId) =>

@@ -130,6 +130,7 @@ describe("check-browser-support", () => {
     "scrollbar-width": ".a { scrollbar-width: thin; }",
     "sibling-count": ".a { --n: sibling-count(); }",
     "starting-style": "@starting-style { .a { opacity: 0; } }",
+    subgrid: ".a { grid-template-columns: subgrid; }",
     "text-box": ".a { text-box: trim-both cap alphabetic; }",
     "text-wrap-pretty": ".a { text-wrap: pretty; }",
     "transition-behavior": ".a { transition-behavior: allow-discrete; }",
@@ -1025,7 +1026,7 @@ describe("generate-search-index", () => {
       ]),
     ).toEqual([
       "Unknown search categories: Notes",
-      "Search categories without entries: Learn",
+      "Search categories without entries: Blog",
       "Search entries without a title or description: guide-empty",
     ])
   })
@@ -1033,7 +1034,7 @@ describe("generate-search-index", () => {
   test("accepts an index with every category", () => {
     expect(
       indexProblems(
-        ["API", "Blocks", "Component", "Guide", "Learn"].map((id) => entry(id)),
+        ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
   })

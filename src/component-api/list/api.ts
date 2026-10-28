@@ -41,7 +41,8 @@ export default {
     {
       class: ".ui-flush",
       default: "false",
-      description: "Removes the inline padding.",
+      description:
+        "Removes the inline padding of the items and the block padding of the list.",
       group: "Flush",
       prop: "flush",
     },

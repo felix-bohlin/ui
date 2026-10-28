@@ -212,7 +212,7 @@ export const distProblems = ({ dist, searchIndex, site }) => {
       }
       if (!listed.has(markdownPath(path))) {
         problem(
-          `${markdownPath(path)} is not linked from ${llms}; llmsTxt in src/integrations/llms.mjs lists component, guide, learn, block and api pages`,
+          `${markdownPath(path)} is not linked from ${llms}; llmsTxt in src/integrations/llms.mjs lists component, guide, blog, block and api pages`,
           path,
         )
       }

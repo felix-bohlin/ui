@@ -24,9 +24,27 @@ export default {
     ...components(
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates, or once the page imports `opui-css/elements/toaster.js`; the Astro component loads it.",
     ),
+    astro:
+      "Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.",
+    react:
+      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/react` exports `toast()` next to `Toaster`.",
+    svelte:
+      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.",
+    vue: "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/vue` exports `toast()` next to `Toaster`.",
     html: 'Put an `<ol popover="manual">` and a `<div class="ui-sr-only" role="status">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.',
   },
   options: [
+    {
+      default: '"end"',
+      description: "Where the toasts sit along their side of the viewport.",
+      group: "Alignment",
+      prop: "align",
+      values: {
+        center: ".ui-align-center",
+        end: null,
+        start: ".ui-align-start",
+      },
+    },
     {
       attribute: "[close-label]",
       default: '"Close"',
@@ -46,18 +64,25 @@ export default {
       description: "The id the buttons point at with `commandfor`. Required.",
       prop: "id",
     },
+    {
+      default: '"block-end"',
+      description: "The side of the viewport the toasts sit on.",
+      group: "Position",
+      prop: "side",
+      values: { "block-end": null, "block-start": ".ui-block-start" },
+    },
   ],
   parts: [
     {
       code: '<ol popover="manual">',
       description:
-        "The stack of toasts, a manual popover at the block end and the inline end of the viewport. It opens with the first toast and closes after the last.",
+        "The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.",
       selector: "ol",
     },
     {
       code: "<li>",
       description:
-        "A toast, a `Callout` with the severity class, the message in `.ui-content` and a close `Button`. The element adds and removes it.",
+        "A toast, a `Callout` with the severity class, its icon, the message in `.ui-content` and a close `Button`. The element adds and removes it.",
       selector: "ol > .ui-callout",
     },
     {
@@ -69,7 +94,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `show(message, { duration, severity })` does it from a script.',
+      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { duration, severity })` or `toast.success(message)` does it from a script.',
     selector: "opui-toaster.ui-toaster",
   },
   source: "Toaster",

@@ -1,31 +1,12 @@
 <style>
   .product-detail {
-    container-type: inline-size;
-
     .pd-breadcrumb li + li::before {
       content: "/";
       margin-inline-end: var(--ui-space-2);
     }
 
-    .pd-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        gap: var(--ui-space-8);
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      }
-    }
-
     .pd-gallery {
       position: relative;
-
-      @container (inline-size >= 56rem) {
-        inset-block-start: var(--ui-space-4);
-        position: sticky;
-      }
     }
 
     .pd-image {
@@ -38,14 +19,8 @@
       border-radius: var(--ui-radius);
     }
 
-    .pd-stars {
-      color: var(--ui-warning-text);
-      display: flex;
-    }
-
     .pd-price strong {
       font-size: var(--ui-font-size-700);
-      font-variant-numeric: tabular-nums;
     }
 
     .pd-swatch {
@@ -66,10 +41,6 @@
     .pd-buy {
       align-items: end;
 
-      .ui-number-stepper {
-        inline-size: 9rem;
-      }
-
       .pd-add {
         flex: 1 1 12rem;
       }
@@ -77,10 +48,6 @@
 
     .pd-form {
       gap: var(--ui-space-5);
-    }
-
-    .pd-perks {
-      padding-block: 0;
     }
 
     .pd-details ul {
@@ -99,8 +66,8 @@
     </ol>
   </nav>
 
-  <div class="pd-layout">
-    <div class="pd-gallery">
+  <div class="ui-layout-columns" style="--_gap: var(--ui-space-6)">
+    <div class="ui-sticky pd-gallery">
       <ul
         aria-label="Product images"
         class="ui-carousel ui-markers"
@@ -148,74 +115,13 @@
       </hgroup>
 
       <div class="ui-layout-row ui-small">
-        <span class="pd-stars" aria-hidden="true">
-          <svg
-            class="ui-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-            ></path>
-          </svg>
-          <svg
-            class="ui-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-            ></path>
-          </svg>
-          <svg
-            class="ui-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-            ></path>
-          </svg>
-          <svg
-            class="ui-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-            ></path>
-          </svg>
-          <svg
-            class="ui-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z"
-            ></path>
-          </svg>
-        </span>
+        <meter class="ui-rating" aria-hidden="true" max="5" value="4.7"></meter>
         <span>4.7 out of 5</span>
         <a class="ui-link" href="#product-detail-reviews">128 reviews</a>
       </div>
 
       <div class="ui-layout-row ui-small pd-price">
-        <strong>€119.00</strong>
+        <strong class="ui-tabular-nums">€119.00</strong>
         <s><span class="ui-sr-only">Was </span>€149.00</s>
         <span class="ui-chip ui-small"
           ><span class="ui-text">Save 20%</span></span
@@ -403,7 +309,7 @@
         </div>
       </form>
 
-      <ul class="ui-list ui-dense ui-transparent ui-flush pd-perks">
+      <ul class="ui-list ui-dense ui-transparent ui-flush">
         <li>
           <div class="ui-start">
             <svg

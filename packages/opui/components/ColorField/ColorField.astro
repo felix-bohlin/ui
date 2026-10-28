@@ -5,25 +5,39 @@ import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { createId } from "../id"
 import { channelsFor } from "./channels"
+import { copyPath, eyedropperPath } from "./icons"
 
 export const title = "Color Field"
 
 const {
   alpha,
   "aria-invalid": ariaInvalid,
+  autoFit,
+  chromaLabel,
   class: className,
+  contrastLabel,
+  copiedLabel,
+  copyLabel = "Copy",
   endText,
   error,
+  eyedropperLabel = "Pick from the screen",
   hideLabel,
+  hueLabel,
   id,
+  invalidText,
   label,
+  lightnessLabel,
   name,
+  opacityLabel,
+  p3Text,
   pickerLabel = "Pick a color",
   size,
   spread,
+  srgbText,
   startText,
   style,
   variant,
+  wideText,
   ...rest
 } = Astro.props
 
@@ -32,11 +46,21 @@ const $id = createId(Astro.locals)
 const inputId = id ?? $id("color-field")
 ---
 
-<opui-color-field class:list={["ui-color-field", className]} style={style}>
+<opui-color-field
+  class:list={["ui-color-field", className]}
+  contrast-label={contrastLabel}
+  copied-label={copiedLabel}
+  invalid-text={invalidText}
+  p3-text={p3Text}
+  srgb-text={srgbText}
+  style={style}
+  wide-text={wideText}
+>
   <div
     class:list={[
       "ui-text-field",
       {
+        "ui-auto-fit": autoFit,
         "ui-filled": variant === "filled",
         "ui-spread": spread,
       },
@@ -100,8 +124,54 @@ const inputId = id ?? $id("color-field")
     popover="auto"
     role="dialog"
   >
+    <div class="ui-header">
+      <span aria-hidden="true" class="ui-value"></span>
+      <span class="ui-actions">
+        <Button
+          aria-label={eyedropperLabel}
+          command="--eyedropper"
+          commandfor={inputId}
+          hidden
+          round
+          size="small"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={eyedropperPath}></path>
+          </svg>
+        </Button>
+        <Button
+          aria-label={copyLabel}
+          command="--copy"
+          commandfor={inputId}
+          round
+          size="small"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={copyPath}></path>
+          </svg>
+        </Button>
+      </span>
+      <span class="ui-sr-only" role="status"></span>
+    </div>
     {
-      channelsFor(alpha).map((slider) => (
+      channelsFor(alpha, {
+        chroma: chromaLabel,
+        hue: hueLabel,
+        lightness: lightnessLabel,
+        opacity: opacityLabel,
+      }).map((slider) => (
         <label class="ui-range" for={`${inputId}-${slider.name}`}>
           <span class="ui-label" id={`${inputId}-${slider.name}-label`}>
             {slider.label}
@@ -127,6 +197,11 @@ const inputId = id ?? $id("color-field")
       ))
     }
     <p class="ui-description" id={`${inputId}-gamut`}></p>
+    <p class="ui-footer">
+      <span aria-hidden="true" data-contrast="light"></span>
+      <span aria-hidden="true" data-contrast="dark"></span>
+      <span class="ui-sr-only"></span>
+    </p>
   </div>
 </opui-color-field>
 

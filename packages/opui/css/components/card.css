@@ -30,6 +30,17 @@
     padding-inline: 0;
     position: relative;
 
+    /* Density */
+    &.ui-dense {
+      --_padding: var(--ui-space-2);
+
+      gap: var(--ui-space-2);
+    }
+
+    &.ui-spacious {
+      --_padding: var(--ui-space-5);
+    }
+
     /* Variants */
     &.ui-transparent {
       --_bg-color: transparent;

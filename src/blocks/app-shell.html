@@ -33,15 +33,6 @@
       }
     }
 
-    .shell-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: 15rem minmax(0, 1fr);
-      }
-    }
-
     .shell-sidebar {
       border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       display: none;
@@ -58,22 +49,6 @@
 
     main {
       padding: var(--ui-space-5) var(--ui-space-4);
-    }
-
-    .shell-stats {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-
-      hgroup > p:last-child {
-        font-size: var(--ui-font-size-caption);
-      }
-    }
-
-    .shell-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 72rem) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
     }
   }
 </style>
@@ -196,7 +171,7 @@
     </menu>
   </header>
 
-  <div class="shell-layout">
+  <div class="ui-layout-columns" style="--_columns: 15rem 1fr; --_gap: 0">
     <nav aria-label="Main" class="shell-sidebar">
       <ul class="ui-list ui-dense ui-transparent">
         <li>
@@ -352,37 +327,46 @@
         </button>
       </div>
 
-      <ul class="ui-layout-grid shell-stats">
+      <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 11rem">
         <li>
           <div class="ui-card ui-outlined">
-            <hgroup>
-              <p>Open tasks</p>
-              <h2 class="ui-h4">12</h2>
-              <p>3 marked as urgent</p>
-            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Open tasks</dt>
+                <dd class="ui-value">12</dd>
+                <dd class="ui-description">3 marked as urgent</dd>
+              </dl>
+            </div>
           </div>
         </li>
         <li>
           <div class="ui-card ui-outlined">
-            <hgroup>
-              <p>Due this week</p>
-              <h2 class="ui-h4">5</h2>
-              <p>Next one on Friday</p>
-            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Due this week</dt>
+                <dd class="ui-value">5</dd>
+                <dd class="ui-description">Next one on Friday</dd>
+              </dl>
+            </div>
           </div>
         </li>
         <li>
           <div class="ui-card ui-outlined">
-            <hgroup>
-              <p>Completed in October</p>
-              <h2 class="ui-h4">38</h2>
-              <p>Up from 29 in September</p>
-            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-stat">
+                <dt class="ui-label">Completed in October</dt>
+                <dd class="ui-value">38</dd>
+                <dd class="ui-description">Up from 29 in September</dd>
+              </dl>
+            </div>
           </div>
         </li>
       </ul>
 
-      <div class="ui-layout-grid ui-large shell-grid">
+      <div
+        class="ui-layout-columns ui-large ui-breakpoint-large"
+        style="--_columns: 3fr 2fr"
+      >
         <section
           aria-labelledby="app-shell-upcoming-heading"
           class="ui-card ui-outlined"

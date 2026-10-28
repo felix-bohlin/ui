@@ -1,6 +1,5 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
@@ -114,25 +113,75 @@ export const description =
       <code>data-toast-severity</code> takes <code>info</code>, <code
         >success</code
       >, <code>warning</code>, <code>critical</code> or <code>neutral</code>,
-      and colors the toast like a Callout of that severity. The words carry the
-      meaning, so write them so they work without the color.
+      and colors the toast like a Callout of that severity, with its icon. The
+      words still carry the meaning, so write them so they work without the
+      color.
     </p>
     <AutoExample name="Severities" row />
   </section>
 
   <section>
     <h2 id="from-a-script">From a script</h2>
+    <Conditional as="p">
+      <Fragment slot="react">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/react</code
+        > next to <code>Toaster</code>, shows a toast from your own code, like
+        after a request finishes.
+      </Fragment>
+      <Fragment slot="svelte">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/svelte</code
+        > next to <code>Toaster</code>, shows a toast from your own code, like
+        after a request finishes.
+      </Fragment>
+      <Fragment slot="vue">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/vue</code
+        > next to <code>Toaster</code>, shows a toast from your own code, like
+        after a request finishes.
+      </Fragment>
+      <Fragment slot="html">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/elements/toaster.js</code
+        >, shows a toast from your own code, like after a request finishes.
+      </Fragment>
+    </Conditional>
     <p>
-      <code>show(message, options)</code> shows a toast from your own code, like after
-      a request finishes. <code>severity</code> and <code>duration</code>
-      are optional.
+      <code>toast.success(message)</code>, <code>toast.info</code>, <code
+        >toast.warning</code
+      >, <code>toast.critical</code> and <code>toast.neutral</code> set the severity,
+      and <code>duration</code> is an option. The toast shows in the first toaster
+      on the page, or in the one <code>toaster</code> names, by id or element.
     </p>
-    <Code
-      lang="js"
-      code={`document
-  .getElementById("toaster")
-  .show("Changes saved", { severity: "success" })`}
-    />
+    <AutoExample name="Script" row />
+  </section>
+
+  <section>
+    <h2 id="position">Position</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The toasts sit at the block end and the inline end of the viewport. <code
+          >side="block-start"</code
+        > moves them to the block start, and <code>align</code> takes <code
+          >start</code
+        >, <code>center</code> or <code>end</code> (the default) along that side,
+        so a top left stack in a left-to-right page is <code
+          >side="block-start" align="start"</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        The toasts sit at the block end and the inline end of the viewport. <code
+          >.ui-block-start</code
+        > on the toaster moves them to the block start, and <code
+          >.ui-align-start</code
+        > or <code>.ui-align-center</code> moves them along that side, so a top left
+        stack in a left-to-right page is <code
+          >.ui-block-start.ui-align-start</code
+        >.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Position" column />
   </section>
 
   <section>

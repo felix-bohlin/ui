@@ -316,8 +316,15 @@ const problemsOf = (api: ComponentApi) => {
   }
 
   const names = new Set(props.map((option) => option.prop))
-  if (names.has("dense") && names.has("density")) {
-    found.push(`${api.component}: has both dense and density`)
+  for (const option of props.filter(({ values }) => !values)) {
+    for (const [concept, { values }] of Object.entries(vocabulary)) {
+      if (names.has(concept) && values.includes(kebab(option.prop))) {
+        report(
+          option,
+          `has both ${option.prop} and ${concept}, never a boolean and an enum for one concept`,
+        )
+      }
+    }
   }
   return found
 }
@@ -382,6 +389,21 @@ test.each([
           group: "Density",
           prop: "density",
           values: { dense: ".ui-dense", normal: null },
+        }),
+      ],
+    },
+  ],
+  [
+    "a vertical boolean next to orientation",
+    "has both vertical and orientation",
+    {
+      options: [
+        option({ default: "false", group: "Vertical", prop: "vertical" }),
+        option({
+          default: '"horizontal"',
+          group: "Orientation",
+          prop: "orientation",
+          values: { horizontal: null, vertical: ".ui-vertical" },
         }),
       ],
     },

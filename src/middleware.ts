@@ -13,7 +13,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Pre-bind a framework-aware link resolver for this request. Authoring
   // shared docs content can then write `link("/components/button")` and get
   // `/html/components/button` or `/astro/components/button` automatically.
-  // Framework-free pages (`/blocks`, `/learn`, `/theme-builder`) are built once
+  // Framework-free pages (`/blocks`, `/blog`, `/theme-builder`) are built once
   // with the default framework; `Layout.astro` `relinkDocs()` repoints their
   // framework-prefixed links to the visitor's framework (`FRAMEWORK_STORAGE_KEY`)
   // at runtime.

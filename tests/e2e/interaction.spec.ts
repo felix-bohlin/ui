@@ -1331,6 +1331,67 @@ interaction(
 
 interaction(
   "toast",
+  "Script",
+  "toast() shows a toast with its severity icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Save changes" }).click()
+    const toast = page.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Changes saved")
+    await expect(toast).toHaveClass(/ui-success/)
+    await expect(toast.locator(':scope > svg[aria-hidden="true"]')).toHaveCount(
+      1,
+    )
+    await expect(toast.getByRole("img")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Position",
+  "side and align move the toasts",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const { height, width } = page.viewportSize()!
+    const names = [
+      "Top start",
+      "Top center",
+      "Top end",
+      "Bottom start",
+      "Bottom center",
+      "Bottom end",
+    ]
+    for (const [index, name] of names.entries()) {
+      await root.getByRole("button", { name }).click()
+      const list = root.locator(`#toast-position-${index + 1} ol`)
+      await expect(list).toBeVisible()
+      const box = (await list.boundingBox())!
+      const [side, align] = name.split(" ")
+      if (side === "Top") expect(box.y).toBeLessThan(height / 2)
+      else expect(box.y).toBeGreaterThan(height / 2)
+      const center = box.x + box.width / 2
+      if (align === "start") expect(center).toBeLessThan(width / 3)
+      else if (align === "end") expect(center).toBeGreaterThan((width * 2) / 3)
+      else expect(Math.abs(center - width / 2)).toBeLessThan(2)
+    }
+  },
+)
+
+interaction(
+  "toast",
+  "Severities",
+  "a toast without a severity has no icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Default" }).click()
+    const toast = root.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Draft saved")
+    await expect(toast.locator(":scope > svg")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
   "Basics",
   "toast dismisses itself and waits while hovered",
   async ({ page, root }) => {
@@ -1439,7 +1500,7 @@ interaction(
     await picker.click()
     const hue = root.getByRole("slider", { name: "Hue" })
     await expect(hue).toBeVisible()
-    await expect(hue).toHaveAttribute("aria-valuetext", "250 degrees")
+    await expect(hue).toHaveAttribute("aria-valuetext", "250°")
     await hue.focus()
     await page.keyboard.press("End")
     await expect(input).toHaveValue("oklch(0.6 0.15 0)")
@@ -1472,6 +1533,76 @@ interaction(
     expect(
       await input.evaluate((el: HTMLInputElement) => el.validity.valid),
     ).toBe(false)
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
+  "color field picker previews the color, copies it and shows its contrast",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    const picker = root.getByRole("dialog")
+    await expect(picker.locator(".ui-header > .ui-value")).toHaveText(
+      "oklch(0.6 0.15 250)",
+    )
+    await expect(picker.locator(".ui-footer > .ui-sr-only")).toHaveText(
+      /^\d+(\.\d+)?:1 on light, \d+(\.\d+)?:1 on dark$/,
+    )
+    await stubClipboard(page)
+    const copy = picker.getByRole("button", { name: "Copy" })
+    await copy.click()
+    await expect.poll(() => copiedTexts(page)).toEqual(["oklch(0.6 0.15 250)"])
+    await expect(copy).toHaveAttribute("data-copied", "")
+    await expect(picker.locator('.ui-header > [role="status"]')).toHaveText(
+      "Copied",
+    )
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
+  "color field eyedropper shows where the browser has it and picks a color",
+  async ({ page, root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+    const dropper = root.getByRole("button", { name: "Pick from the screen" })
+
+    await page.evaluate(() => {
+      delete (window as { EyeDropper?: unknown }).EyeDropper
+    })
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    await expect(dropper).toBeHidden()
+    await page.keyboard.press("Escape")
+
+    await page.evaluate(() => {
+      Object.assign(window, {
+        EyeDropper: class {
+          open() {
+            return Promise.resolve({ sRGBHex: "#ff0000" })
+          }
+        },
+      })
+    })
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    await expect(dropper).toBeVisible()
+    await dropper.click()
+    await expect(input).toHaveValue(/^oklch\(0\.62\d* 0\.25\d* 29\.\d+\)$/)
+  },
+)
+
+interaction(
+  "color-field",
+  "AutoFit",
+  "a color field fills the width unless it auto fits",
+  async ({ page, root }) => {
+    const fitted = root.locator("opui-color-field")
+    const filled = page
+      .locator('[data-example="Basics"]')
+      .locator("opui-color-field")
+    const available = (await root.boundingBox())!.width
+    expect((await fitted.boundingBox())!.width).toBeLessThan(available / 2)
+    expect((await filled.boundingBox())!.width).toBeGreaterThan(available * 0.9)
   },
 )
 

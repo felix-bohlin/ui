@@ -181,6 +181,26 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   </section>
 
   <section>
+    <h2 id="pagination">Pagination</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A group of link buttons in a <code>nav</code> is a pagination. <code
+          >aria-current="page"</code
+        > marks the current page, which the button shows as pressed, and <code
+          >disabled</code
+        > on the first or last link drops its <code>href</code>.
+      </Fragment>
+      <Fragment slot="html">
+        A group of link buttons in a <code>nav</code> is a pagination. <code
+          >aria-current="page"</code
+        > marks the current page, which the button shows as pressed, and a link without
+        an <code>href</code> takes <code>aria-disabled="true"</code> at the ends.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Pagination" row />
+  </section>
+
+  <section>
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="components">

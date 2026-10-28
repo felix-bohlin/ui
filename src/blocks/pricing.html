@@ -7,23 +7,11 @@
       display: none;
     }
 
-    .pricing-intro {
-      align-items: center;
-      margin-inline: auto;
-      max-inline-size: 40rem;
-      text-align: center;
-
-      h1 {
-        text-wrap: balance;
-      }
-    }
-
-    .pricing-period {
-      --_justify-content: center;
+    .pricing-intro h1 {
+      text-wrap: balance;
     }
 
     .pricing-save {
-      color: var(--ui-success-text);
       font-weight: var(--ui-font-weight-medium);
     }
 
@@ -55,7 +43,6 @@
 
     .pricing-amount {
       font-size: var(--ui-font-size-800);
-      font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-bold);
       line-height: 1;
     }
@@ -102,7 +89,10 @@
 </style>
 
 <div class="pricing ui-layout-container ui-layout-column ui-large">
-  <div class="ui-layout-column ui-large pricing-intro">
+  <div
+    class="ui-layout-container ui-layout-column ui-large ui-align-center pricing-intro"
+    style="--_max-inline-size: 40rem; --_padding-inline: 0"
+  >
     <hgroup class="ui-hgroup">
       <p>Pricing</p>
       <h1 class="ui-h2">Simple plans that grow with your team</h1>
@@ -111,7 +101,7 @@
         14-day trial.
       </p>
     </hgroup>
-    <div class="ui-layout-row ui-small pricing-period">
+    <div class="ui-layout-row ui-small ui-align-center">
       <div
         aria-label="Billing period"
         class="ui-toggle-group"
@@ -137,7 +127,9 @@
           Yearly
         </label>
       </div>
-      <span class="pricing-save">Save 2 months with yearly billing</span>
+      <span class="ui-p ui-success pricing-save"
+        >Save 2 months with yearly billing</span
+      >
     </div>
   </div>
 
@@ -153,7 +145,8 @@
         </hgroup>
         <div class="ui-content">
           <div class="ui-layout-column ui-small">
-            <span class="pricing-amount">€0</span><span>Free forever</span>
+            <span class="ui-tabular-nums pricing-amount">€0</span
+            ><span>Free forever</span>
           </div>
           <a class="ui-button ui-outlined" href="#pricing-starter"
             >Get started</a
@@ -181,11 +174,11 @@
         </hgroup>
         <div class="ui-content">
           <div class="ui-layout-column ui-small pricing-monthly">
-            <span class="pricing-amount">€12</span
+            <span class="ui-tabular-nums pricing-amount">€12</span
             ><span>per member / month</span>
           </div>
           <div class="ui-layout-column ui-small pricing-yearly">
-            <span class="pricing-amount">€10</span
+            <span class="ui-tabular-nums pricing-amount">€10</span
             ><span>per member / month, billed yearly</span>
           </div>
           <a class="ui-button ui-filled" href="#pricing-team"
@@ -212,11 +205,11 @@
         </hgroup>
         <div class="ui-content">
           <div class="ui-layout-column ui-small pricing-monthly">
-            <span class="pricing-amount">€24</span
+            <span class="ui-tabular-nums pricing-amount">€24</span
             ><span>per member / month</span>
           </div>
           <div class="ui-layout-column ui-small pricing-yearly">
-            <span class="pricing-amount">€20</span
+            <span class="ui-tabular-nums pricing-amount">€20</span
             ><span>per member / month, billed yearly</span>
           </div>
           <a class="ui-button ui-outlined" href="#pricing-business"

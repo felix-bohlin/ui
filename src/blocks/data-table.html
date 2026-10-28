@@ -1,26 +1,5 @@
 <style>
   .data-table {
-    container-type: inline-size;
-
-    .data-table-toolbar {
-      align-items: end;
-      display: grid;
-      gap: var(--ui-space-2);
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      .ui-text-field {
-        grid-column: 1 / -1;
-      }
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, 11rem));
-
-        .ui-text-field {
-          grid-column: auto;
-        }
-      }
-    }
-
     .data-table-bulk {
       border: var(--ui-border-width) solid var(--ui-border-color);
       border-radius: var(--ui-radius);
@@ -91,7 +70,7 @@
     </div>
   </div>
 
-  <search class="data-table-toolbar">
+  <search class="ui-field-group ui-horizontal">
     <label class="ui-text-field">
       <span class="ui-sr-only">Search customers</span>
       <span class="ui-field">

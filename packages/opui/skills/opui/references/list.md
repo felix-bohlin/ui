@@ -16,7 +16,7 @@ Lists are continuous, vertical indexes of text and images and video. Use lists t
 
 - `bordered`: `boolean`, `.ui-bordered`. Adds a border between list items.
 - `dense`: `boolean`, `.ui-dense`. Packs the items tighter.
-- `flush`: `boolean`, `.ui-flush`. Removes the inline padding.
+- `flush`: `boolean`, `.ui-flush`. Removes the inline padding of the items and the block padding of the list.
 - `variant`: `"filled"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `filled` list uses the filled surface.
 
 ### Slots

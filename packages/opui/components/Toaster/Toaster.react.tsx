@@ -6,10 +6,12 @@ import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Toaster({
+  align,
   className,
   closeLabel,
   duration,
   id,
+  side,
   ...rest
 }: Props) {
   warnMissingId("Toaster", id)
@@ -20,7 +22,12 @@ export default function Toaster({
 
   return (
     <opui-toaster
-      className={cx(["ui-toaster", className])}
+      className={cx([
+        "ui-toaster",
+        side && side !== "block-end" && `ui-${side}`,
+        align && align !== "end" && `ui-align-${align}`,
+        className,
+      ])}
       close-label={closeLabel}
       duration={duration}
       id={id}

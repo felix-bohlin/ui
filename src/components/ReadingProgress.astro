@@ -1,0 +1,41 @@
+<div aria-hidden="true" class="reading-progress"></div>
+
+<style>
+  .reading-progress {
+    display: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .reading-progress {
+      background-color: var(--ui-border-color);
+      border-radius: var(--ui-radius-round);
+      display: block;
+      inline-size: 2px;
+      inset-block: var(--site-gap);
+      inset-inline-start: calc(var(--site-gap) / 2);
+      overflow: clip;
+      pointer-events: none;
+      position: absolute;
+
+      &::before {
+        animation: reading-progress-fill linear both;
+        animation-timeline: scroll(root block);
+        background-color: var(--ui-primary);
+        content: "";
+        inset: 0;
+        position: absolute;
+        transform-origin: top;
+      }
+    }
+  }
+
+  @keyframes reading-progress-fill {
+    from {
+      scale: 1 0;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+</style>

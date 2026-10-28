@@ -1,0 +1,827 @@
+---
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
+import {
+  examplePath,
+  exampleModules,
+  exampleSources,
+} from "../../utils/examples"
+import { FRAMEWORKS, type FrameworkId } from "../../utils/framework"
+import AstroLogo from "../AstroLogo.astro"
+import Html5Logo from "../Html5Logo.astro"
+import ReactLogo from "../ReactLogo.astro"
+import SvelteLogo from "../SvelteLogo.astro"
+import VueLogo from "../VueLogo.astro"
+
+const id = "shells"
+const slug = "card"
+const name = "Clickable"
+const reference: FrameworkId = "astro"
+const groupName = `${id}-framework`
+
+const astroSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.astro",
+  { eager: true, import: "default", query: "?raw" },
+)
+const cssSources = import.meta.glob<string>(
+  "../../../packages/opui/css/components/*.css",
+  { eager: true, import: "default", query: "?raw" },
+)
+const jsSources = import.meta.glob<string>(
+  "../../../packages/opui/css/js/*.js",
+  { eager: true, import: "default", query: "?raw" },
+)
+const reactSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.react.tsx",
+  { eager: true, import: "default", query: "?raw" },
+)
+const svelteSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.svelte",
+  { eager: true, import: "default", query: "?raw" },
+)
+const vueSources = import.meta.glob<string>(
+  "../../../packages/opui/components/**/*.vue",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const lineCount = (source: string) =>
+  source
+    ? (source.match(/\n/g)?.length ?? 0) + (source.endsWith("\n") ? 0 : 1)
+    : 0
+
+const layers = [
+  { core: false, label: "Astro components", sources: astroSources },
+  { core: true, label: "Component CSS", sources: cssSources },
+  { core: true, label: "JavaScript shipped", sources: jsSources },
+  { core: false, label: "React components", sources: reactSources },
+  { core: false, label: "Svelte components", sources: svelteSources },
+  { core: false, label: "Vue components", sources: vueSources },
+]
+  .map(({ core, label, sources }) => {
+    const files = Object.values(sources)
+    return {
+      core,
+      files: files.length,
+      label,
+      lines: files.reduce((sum, source) => sum + lineCount(source), 0),
+    }
+  })
+  .toSorted((a, b) => a.label.localeCompare(b.label, "en"))
+
+const longest = Math.max(...layers.map((layer) => layer.lines))
+
+const reactFiles = Object.values(reactSources)
+const serverComponents = reactFiles.filter(
+  (source) => !source.includes('"use client"'),
+).length
+
+const format = (value: number) => value.toLocaleString("en")
+
+const logos = {
+  astro: AstroLogo,
+  html: Html5Logo,
+  react: ReactLogo,
+  svelte: SvelteLogo,
+  vue: VueLogo,
+}
+
+const parts: Record<string, string> = {
+  Button: "button",
+  Card: "card",
+  CardActions: "cardactions",
+  CardContent: "cardcontent",
+  CardHeader: "cardheader",
+  outlined: "outlined",
+  "ui-actions": "cardactions",
+  "ui-button": "button",
+  "ui-card": "card",
+  "ui-card-link": "cardlink",
+  "ui-content": "cardcontent",
+  "ui-header": "cardheader",
+  "ui-outlined": "outlined",
+}
+
+const PART_TOKEN =
+  /(<\/?)?\b(CardActions|CardContent|CardHeader|Card|Button|ui-card-link|ui-actions|ui-button|ui-card|ui-content|ui-header|ui-outlined|outlined)\b/g
+
+const escape = (text: string) =>
+  text.replace(/[&<>]/g, (char) => `&#${char.charCodeAt(0)};`)
+
+const markParts = (code: string) => {
+  const opened: Record<string, number> = {}
+  const stacks: Record<string, number[]> = {}
+  let html = ""
+  let last = 0
+  for (const match of code.matchAll(PART_TOKEN)) {
+    const [, prefix = "", token] = match
+    const part = parts[token]
+    const isTag = prefix.startsWith("<")
+    const isImport = !isTag && /^[A-Z]/.test(token)
+    let occurrence: string
+    if (prefix === "</") {
+      occurrence = `${stacks[part]?.pop() ?? 0}-close`
+    } else if (isImport) {
+      occurrence = "import"
+    } else {
+      opened[part] = (opened[part] ?? 0) + 1
+      if (isTag) (stacks[part] ??= []).push(opened[part])
+      occurrence = `${opened[part]}`
+    }
+    html += escape(code.slice(last, match.index)) + escape(prefix)
+    html += `<mark class="shells-part" style="--shells-part: ${id}-${part}-${occurrence}">${token}</mark>`
+    last = match.index + match[0].length
+  }
+  return html + escape(code.slice(last))
+}
+
+const source = (framework: FrameworkId) => {
+  const code = exampleSources[examplePath(slug, name, framework)]
+  if (!code) {
+    throw new Error(`Shells.astro: ${slug}/${name} has no ${framework} file`)
+  }
+  return code.trimEnd()
+}
+
+const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
+  Component:
+    framework === "html"
+      ? undefined
+      : exampleModules[examplePath(slug, name, framework)]?.default,
+  Logo: logos[framework],
+  framework,
+  html: framework === "html" ? source("html") : undefined,
+  label,
+  marked: markParts(source(framework)),
+}))
+
+const activeSourceCss = FRAMEWORKS.map(
+  ({ id: framework }) =>
+    `#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] { display: block; view-transition-name: ${id}-code; }
+#${id}:is([data-framework="${framework}"], :not([data-framework]):has([name="${groupName}"][value="${framework}"]:checked)) .shells-source[data-framework="${framework}"] .shells-part { view-transition-name: var(--shells-part); }`,
+).join("\n")
+---
+
+<div class="shells ui-not-rich-text" id={id}>
+  <figure class="shells-cost">
+    <figcaption class="shells-cost-title">
+      What a framework costs, measured in <code>packages/opui</code> at build time
+    </figcaption>
+    <ul class="shells-layers">
+      {
+        layers.map(({ core, files, label, lines }, index) => (
+          <li
+            class="shells-layer"
+            data-core={core ? "" : undefined}
+            style={`--shells-i: ${index}; --shells-share: ${lines / longest}`}
+          >
+            <span class="shells-layer-label">{label}</span>
+            <span class="shells-layer-files">
+              {format(files)} {files === 1 ? "file" : "files"}
+            </span>
+            <span class="shells-layer-lines">{format(lines)} lines</span>
+            <span aria-hidden="true" class="shells-bar" />
+          </li>
+        ))
+      }
+    </ul>
+    <p class="shells-server">
+      {serverComponents} of {reactFiles.length} React components render on the server:
+      no <code>"use client"</code>.
+    </p>
+  </figure>
+  <div class="shells-morph">
+    <ToggleGroup
+      aria-label="Framework"
+      class="shells-toggle"
+      name={groupName}
+      size="small"
+    >
+      {
+        renders.map(({ Logo, framework, label }) => (
+          <ToggleButton checked={framework === reference} value={framework}>
+            <span aria-hidden="true" class="shells-logo">
+              <Logo />
+            </span>
+            {label}
+          </ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+    <div class="shells-code">
+      {
+        renders.map(({ framework, marked }) => (
+          <pre
+            class="shells-source"
+            data-framework={framework}
+            set:html={`<code>${marked}</code>`}
+          />
+        ))
+      }
+    </div>
+    <div class="shells-verdict" hidden>
+      <p class="shells-note">
+        Compared in your browser just now: the same markup in all {
+          FRAMEWORKS.length
+        } frameworks, the way the test suite checks it.
+      </p>
+      <details class="shells-diffs" hidden>
+        <summary>Show the differences</summary>
+      </details>
+    </div>
+  </div>
+  <div class="shells-renders" hidden inert>
+    {
+      renders.map(({ Component, framework, html }) => (
+        <div class="shells-render example-preview" data-framework={framework}>
+          {html ? <Fragment set:html={html} /> : Component && <Component />}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style is:inline set:html={activeSourceCss}></style>
+
+<style is:global>
+  .shells {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-5);
+    grid-template-columns: minmax(0, 1fr);
+    margin-block: var(--ui-space-5);
+  }
+
+  .shells-cost {
+    display: grid;
+    gap: var(--ui-space-3);
+    justify-items: stretch;
+    margin: 0;
+    view-timeline: --shells-cost block;
+  }
+
+  .shells-cost-title {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .shells-layers {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .shells-layer {
+    align-items: center;
+    column-gap: var(--ui-space-3);
+    display: grid;
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    grid-template-areas:
+      "label files lines"
+      "bar bar bar";
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    row-gap: var(--ui-space-1);
+
+    @container (inline-size >= 40rem) {
+      grid-template-areas: "label bar files lines";
+      grid-template-columns: 11rem minmax(0, 1fr) 5.5rem 6.5rem;
+    }
+  }
+
+  .shells-layer-label {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-medium);
+    grid-area: label;
+  }
+
+  .shells-layer-files,
+  .shells-layer-lines {
+    color: var(--ui-text-subtle);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  .shells-layer-files {
+    grid-area: files;
+  }
+
+  .shells-layer-lines {
+    grid-area: lines;
+  }
+
+  .shells-bar {
+    background-color: oklch(from var(--ui-primary) l c h / 40%);
+    block-size: 0.5rem;
+    border-radius: var(--ui-radius-small);
+    grid-area: bar;
+    inline-size: calc(var(--shells-share) * 100%);
+    transform-origin: 0 50%;
+
+    [data-core] & {
+      background-color: var(--ui-primary);
+    }
+  }
+
+  .shells-server {
+    color: var(--ui-text);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+
+  .shells-morph {
+    display: grid;
+    gap: var(--ui-space-3);
+    min-inline-size: 0;
+  }
+
+  .shells-toggle {
+    & .ui-toggle-button {
+      flex: 1 1 auto;
+    }
+  }
+
+  .shells-logo {
+    display: inline-flex;
+
+    & svg {
+      block-size: 1.1em;
+      inline-size: 1.1em;
+    }
+  }
+
+  .shells-code {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .shells-source {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: none;
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    grid-area: 1 / 1;
+    line-height: 1.45;
+    margin: 0;
+    min-inline-size: 0;
+    overflow-x: auto;
+    padding: var(--ui-space-3) var(--ui-space-2);
+    tab-size: 2;
+    view-transition-class: shells-code;
+    view-transition-group: contain;
+
+    & code {
+      background: none;
+      color: inherit;
+      display: block;
+      font: inherit;
+      padding: 0;
+      white-space: pre;
+    }
+  }
+
+  .shells-part {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    color: var(--ui-palette-text, var(--ui-text-strong));
+    font-weight: var(--ui-font-weight-semibold);
+    margin-inline: -0.15em;
+    padding-inline: 0.15em;
+    view-transition-class: shells-part;
+    view-transition-name: none;
+  }
+
+  .shells-verdict {
+    display: grid;
+    gap: var(--ui-space-2);
+  }
+
+  .shells-note {
+    color: var(--ui-text-subtle);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-caption);
+    margin: 0;
+  }
+
+  .shells-diffs {
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+
+    & summary {
+      cursor: pointer;
+    }
+
+    & p {
+      font-weight: var(--ui-font-weight-semibold);
+      margin-block: var(--ui-space-2) var(--ui-space-1);
+    }
+  }
+
+  .shells-diff {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    inline-size: 100%;
+    line-height: 1.6;
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--ui-space-2);
+    tab-size: 2;
+
+    & del,
+    & ins {
+      display: block;
+      text-decoration: none;
+    }
+
+    & del {
+      background-color: oklch(from var(--ui-critical) l c h / 20%);
+      color: var(--ui-critical-text, var(--ui-text));
+    }
+
+    & ins {
+      background-color: oklch(from var(--ui-success) l c h / 20%);
+      color: var(--ui-success-text, var(--ui-text));
+    }
+
+    & .shells-gap {
+      display: block;
+      opacity: 0.6;
+    }
+  }
+
+  html.shells-morphing {
+    view-transition-name: none;
+  }
+
+  ::view-transition-group(*.shells-code),
+  ::view-transition-group(*.shells-part),
+  ::view-transition-old(*.shells-code),
+  ::view-transition-new(*.shells-code),
+  ::view-transition-old(*.shells-part),
+  ::view-transition-new(*.shells-part) {
+    animation-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  ::view-transition-group(*.shells-code) {
+    overflow: clip;
+  }
+
+  ::view-transition-group(*.shells-part) {
+    z-index: 1;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .shells-bar {
+        animation: shells-grow cubic-bezier(0.2, 0, 0, 1) both;
+        animation-range: entry calc(var(--shells-i) * 8%) entry
+          calc(55% + var(--shells-i) * 8%);
+        animation-timeline: --shells-cost;
+      }
+    }
+  }
+
+  @keyframes shells-grow {
+    from {
+      scale: 0 1;
+    }
+  }
+</style>
+
+<script>
+  import { diffLines } from "diff"
+
+  const DROPPED_ELEMENTS = new Set(["script", "style"])
+
+  const DROPPED_ATTRIBUTE =
+    /^(data-astro-|data-svelte-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
+
+  const ID_REFERENCE_ATTRIBUTES = new Set([
+    "anchor",
+    "aria-activedescendant",
+    "aria-controls",
+    "aria-describedby",
+    "aria-details",
+    "aria-errormessage",
+    "aria-flowto",
+    "aria-labelledby",
+    "aria-owns",
+    "commandfor",
+    "for",
+    "form",
+    "headers",
+    "interestfor",
+    "list",
+    "popovertarget",
+  ])
+
+  const VOID_ELEMENTS = new Set([
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "source",
+    "track",
+    "wbr",
+  ])
+
+  const INLINE_ELEMENTS = new Set([
+    "a",
+    "abbr",
+    "b",
+    "bdi",
+    "bdo",
+    "button",
+    "cite",
+    "code",
+    "data",
+    "del",
+    "dfn",
+    "em",
+    "i",
+    "img",
+    "input",
+    "ins",
+    "kbd",
+    "label",
+    "mark",
+    "meter",
+    "output",
+    "progress",
+    "q",
+    "s",
+    "samp",
+    "select",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "svg",
+    "textarea",
+    "time",
+    "u",
+    "var",
+  ])
+
+  const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?_R_\w+_)$/
+
+  const CONTEXT = 2
+
+  const childrenOf = (node: Node) =>
+    node instanceof HTMLTemplateElement
+      ? [...node.content.childNodes]
+      : [...node.childNodes]
+
+  const collectIds = (nodes: Node[], ids: Map<string, string>) => {
+    for (const node of nodes) {
+      if (!(node instanceof Element) || DROPPED_ELEMENTS.has(node.localName)) {
+        continue
+      }
+      const id = node.getAttribute("id")
+      if (id && !ids.has(id)) ids.set(id, `id-${ids.size + 1}`)
+      const name = node.getAttribute("name")
+      if (name && GENERATED_NAME.test(name) && !ids.has(`name:${name}`)) {
+        ids.set(`name:${name}`, `name-${ids.size + 1}`)
+      }
+      collectIds(childrenOf(node), ids)
+    }
+  }
+
+  const normalizeAttribute = (
+    name: string,
+    value: string,
+    ids: Map<string, string>,
+  ) => {
+    if (name === "class") {
+      return value.split(/\s+/).filter(Boolean).toSorted().join(" ")
+    }
+    if (name === "id") return ids.get(value) ?? value
+    if (name === "name") return ids.get(`name:${value}`) ?? value
+    if (ID_REFERENCE_ATTRIBUTES.has(name)) {
+      return value
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((token) => ids.get(token) ?? token)
+        .join(" ")
+    }
+    if (name === "href" && value.startsWith("#")) {
+      return `#${ids.get(value.slice(1)) ?? value.slice(1)}`
+    }
+    if (name === "style") {
+      return value
+        .split(";")
+        .map((declaration) => declaration.trim().replace(/\s*:\s*/, ": "))
+        .filter(Boolean)
+        .map((declaration) => {
+          const colon = declaration.indexOf(":")
+          return colon === -1
+            ? declaration
+            : `${declaration.slice(0, colon).trim()}: ${declaration.slice(colon + 1).trim()}`
+        })
+        .join("; ")
+    }
+    return value.trim()
+  }
+
+  const serialize = (
+    nodes: Node[],
+    ids: Map<string, string>,
+    depth: number,
+  ): string[] => {
+    const indent = "  ".repeat(depth)
+    const lines: string[] = []
+
+    let pending = ""
+    let previousInline = false
+    const flush = (nextInline: boolean) => {
+      const text = pending.replace(/\s+/g, " ").trim()
+      if (text) {
+        const lead = previousInline && /^\s/.test(pending) ? "␣" : ""
+        const trail = nextInline && /\s$/.test(pending) ? "␣" : ""
+        lines.push(indent + lead + text + trail)
+      }
+      pending = ""
+    }
+
+    for (const node of nodes) {
+      if (node instanceof Text) {
+        pending += node.data
+        continue
+      }
+      if (node instanceof Comment) continue
+      const inline =
+        node instanceof Element && INLINE_ELEMENTS.has(node.localName)
+      flush(inline)
+      previousInline = inline
+      if (!(node instanceof Element) || DROPPED_ELEMENTS.has(node.localName)) {
+        continue
+      }
+
+      const attrs = node
+        .getAttributeNames()
+        .filter((name) => !DROPPED_ATTRIBUTE.test(name))
+        .map((name) => ({
+          name,
+          value: normalizeAttribute(name, node.getAttribute(name) ?? "", ids),
+        }))
+        .filter(
+          (attr) =>
+            !((attr.name === "class" || attr.name === "style") && !attr.value),
+        )
+        .toSorted((a, b) => a.name.localeCompare(b.name))
+        .map((attr) =>
+          attr.value ? `${attr.name}="${attr.value}"` : attr.name,
+        )
+
+      const open = `<${[node.localName, ...attrs].join(" ")}>`
+      if (VOID_ELEMENTS.has(node.localName)) {
+        lines.push(indent + open)
+        continue
+      }
+
+      const children = serialize(childrenOf(node), ids, depth + 1)
+      if (children.length === 0) {
+        lines.push(`${indent}${open}</${node.localName}>`)
+      } else if (children.length === 1 && !children[0].trim().startsWith("<")) {
+        lines.push(`${indent}${open}${children[0].trim()}</${node.localName}>`)
+      } else {
+        lines.push(indent + open, ...children, `${indent}</${node.localName}>`)
+      }
+    }
+    flush(false)
+
+    return lines
+  }
+
+  const normalize = (root: Element) => {
+    const nodes = childrenOf(root)
+    const ids = new Map<string, string>()
+    collectIds(nodes, ids)
+    return serialize(nodes, ids, 0).join("\n") + "\n"
+  }
+
+  const diffOf = (expected: string, actual: string) => {
+    const lines = diffLines(expected, actual).flatMap((part) =>
+      part.value
+        .replace(/\n$/, "")
+        .split("\n")
+        .map((line) => ({
+          line,
+          type: part.added ? "ins" : part.removed ? "del" : undefined,
+        })),
+    )
+    const changed = lines.flatMap(({ type }, index) => (type ? [index] : []))
+    const shown = new Set(
+      changed.flatMap((index) =>
+        Array.from({ length: CONTEXT * 2 + 1 }, (_, i) => index - CONTEXT + i),
+      ),
+    )
+
+    const pre = document.createElement("pre")
+    pre.className = "shells-diff"
+    let gap = false
+    lines.forEach(({ line, type }, index) => {
+      if (!shown.has(index)) {
+        gap = true
+        return
+      }
+      if (gap && pre.childNodes.length) {
+        const separator = document.createElement("span")
+        separator.className = "shells-gap"
+        separator.textContent = "..."
+        pre.append(separator)
+      }
+      gap = false
+      const element = type ? document.createElement(type) : null
+      const text = `${type === "ins" ? "+" : type === "del" ? "-" : " "} ${line}\n`
+      if (element) {
+        element.textContent = text
+        pre.append(element)
+      } else {
+        pre.append(text)
+      }
+    })
+    return pre
+  }
+
+  const compare = (root: HTMLElement) => {
+    const renders = [...root.querySelectorAll<HTMLElement>(".shells-render")]
+    const markup = new Map(
+      renders.map((render) => [
+        render.dataset.framework ?? "",
+        normalize(render),
+      ]),
+    )
+    const reference = markup.get("astro") ?? ""
+    const differing = [...markup].filter(
+      ([framework, actual]) => framework !== "astro" && actual !== reference,
+    )
+
+    const verdict = root.querySelector<HTMLElement>(".shells-verdict")!
+    const note = root.querySelector<HTMLElement>(".shells-note")!
+    const diffs = root.querySelector<HTMLElement>(".shells-diffs")!
+    if (differing.length) {
+      note.textContent = `Compared in your browser just now: the markup differs in ${differing.length} of ${markup.size} frameworks, the way the test suite checks it.`
+      for (const [framework, actual] of differing) {
+        const label = document.createElement("p")
+        label.textContent = `${framework} against astro`
+        diffs.append(label, diffOf(reference, actual))
+      }
+      diffs.hidden = false
+    }
+    root.dataset.compared = differing.length
+      ? differing.map(([framework]) => framework).join(" ")
+      : "identical"
+    verdict.hidden = false
+  }
+
+  const initMorph = (root: HTMLElement) => {
+    const checked = root.querySelector<HTMLInputElement>(
+      ".shells-toggle input:checked",
+    )
+    const groupName = checked?.name
+    root.dataset.framework = checked?.value ?? "astro"
+    let running = 0
+    root.addEventListener("change", (event) => {
+      const input = event.target
+      if (!(input instanceof HTMLInputElement) || input.name !== groupName) {
+        return
+      }
+      const swap = () => {
+        root.dataset.framework = input.value
+      }
+      if (typeof document.startViewTransition !== "function") {
+        swap()
+        return
+      }
+      const html = document.documentElement
+      html.classList.add("shells-morphing")
+      running += 1
+      document.startViewTransition(swap).finished.finally(() => {
+        running -= 1
+        if (running === 0) html.classList.remove("shells-morphing")
+      })
+    })
+  }
+
+  document.querySelectorAll<HTMLElement>(".shells").forEach((root) => {
+    compare(root)
+    initMorph(root)
+  })
+</script>

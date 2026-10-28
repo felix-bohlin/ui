@@ -10,9 +10,19 @@ export default {
     description: "Width of the picker popover.",
     kind: "input",
   },
+  "--_preview-text-color": {
+    description:
+      "Text color on the picker's preview, black or white by the color's luminance.",
+    kind: "output",
+  },
   "--_size": {
     description:
       "Size of the picker button, set from `--_trigger-size` on the `.ui-button`.",
+    kind: "output",
+  },
+  "--_text-color": {
+    description:
+      "Text color of the picker's buttons, the `Button` property set to `--_preview-text-color` so they stay readable on the color.",
     kind: "output",
   },
   "--_trigger-size": {

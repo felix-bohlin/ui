@@ -1,0 +1,23 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Stat"
+
+const { class: className, description, label, size, ...rest } = Astro.props
+---
+
+<dl
+  class:list={["ui-stat", size && size !== "medium" && `ui-${size}`, className]}
+  {...rest}
+>
+  <dt class="ui-label">{label}<slot name="label" /></dt>
+  <dd class="ui-value"><slot /></dd>
+  {
+    (description || Astro.slots.has("description")) && (
+      <dd class="ui-description">
+        {description}
+        <slot name="description" />
+      </dd>
+    )
+  }
+</dl>

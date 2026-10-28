@@ -1,0 +1,388 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import DocLink from "../../components/DocLink.astro"
+import ContrastLab from "../../components/Release/ContrastLab.astro"
+import Hero from "../../components/Release/Hero.astro"
+import Numbers from "../../components/Release/Numbers.astro"
+import Renames from "../../components/Release/Renames.astro"
+import Scoped from "../../components/Release/Scoped.astro"
+import SeverityLayers from "../../components/Release/SeverityLayers.astro"
+import Shells from "../../components/Release/Shells.astro"
+import SupportMatrix from "../../components/Release/SupportMatrix.astro"
+import ThemeSwitch from "../../components/Release/ThemeSwitch.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
+---
+
+<TechniquePost slug="release-6">
+  <Hero />
+  <section>
+    <h2 id="in-one-breath">In one breath</h2>
+    <ul>
+      <li>
+        6.0 in one breath: React and Svelte, Carousel, Menu, AvatarGroup, the
+        Layout classes, four example themes, <code>tokens.json</code>, every
+        token prefixed <code>--ui-</code>, scope classes that re-derive every
+        token, contrast through knobs, one naming model.
+      </li>
+      <li>
+        Why a major: 105 breaking entries, the first major since 5.0, most of
+        them renames.
+      </li>
+      <li>
+        What stayed: CSS first, HTML as a first-class target, feature first.
+      </li>
+      <li>
+        Where to go next: <DocLink href="/guide/migrating">Migrating</DocLink>
+        for the mechanics, this post for the reasons.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="one-naming-model">
+      Slots become parts, props get one naming model
+    </h2>
+    <Renames />
+    <ul>
+      <li>
+        Slots become parts: CardHeader, CardContent, CardActions, DialogTitle,
+        DialogFooter, AnchorContent, TooltipContent, AccordionSummary.
+      </li>
+      <li>
+        Props named after the native attribute or the CSS they set:
+        <code>positionArea</code>, <code>checked</code>,
+        <code>orientation</code>, <code>start</code> and <code>end</code>,
+        <code>size="small"</code>, <code>type="button"</code> by default.
+      </li>
+      <li>
+        Private custom properties follow one shape: <code>--_accent</code>,
+        <code>--_text-color</code>, <code>--_bg-color</code>,
+        <code>--_size</code>, <code>--_radius</code>.
+      </li>
+      <li>
+        The naming model as a written rule in the components guide, enforced by
+        a unit test.
+      </li>
+      <li>Removed: IconButton (Button does it), ClassicSelect, Toast.</li>
+      <li>
+        The explorer above holds the 119 renames the migration guide documents
+        as pairs; structural changes (slots to parts) are in the guide only.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="tokens-rebuilt">Tokens, rebuilt</h2>
+    <h3 id="tokens-tiers">1. One token, from knob to CSS property</h3>
+    <p>
+      Read a column top to bottom: a knob the theme sets, the role a component
+      reads, the private property the component sets, the CSS property it ends
+      up on.
+    </p>
+    <TokenTiers />
+    <h3 id="tokens-scope">2. Turn a knob inside a scope</h3>
+    <p>
+      Drag a knob. The card inside the scope derives every role again; the card
+      outside reads the page's theme and stays put.
+    </p>
+    <Scoped />
+    <h3 id="tokens-layers">3. Whose layer wins</h3>
+    <p>
+      Switch your theme on and watch which layer the callouts follow, then
+      compare with how 5.x behaved.
+    </p>
+    <SeverityLayers />
+    <ul>
+      <li>
+        Every token prefixed <code>--ui-</code>, and the rename table in
+        <DocLink href="/guide/migrating#theme-and-tokens"
+          >Theme and tokens</DocLink
+        >.
+      </li>
+      <li>
+        Three tiers, knobs then roles then hooks, and which one to touch for
+        what (<DocLink href="/guide/theme-tokens">Theme tokens</DocLink>).
+      </li>
+      <li>
+        Derived roles declared on
+        <code>:where(html, .ui-palette, .ui-contrast-more)</code>, so a
+        <code>.ui-palette</code> subtree with an inline knob re-themes itself.
+      </li>
+      <li>
+        The layers: <code>theme.palette</code>, <code>theme.base</code>,
+        <code>theme.custom</code>, <code>theme.severity</code>, and why severity
+        sits above your theme.
+      </li>
+      <li>
+        Overriding a palette step no longer cascades into components: override
+        the role, or scope it.
+      </li>
+      <li>
+        Design scales: space <code>--ui-space-1</code> to
+        <code>--ui-space-8</code> times <code>--ui-space-scale</code>,
+        <code>--ui-density</code>, the type scale
+        <code>--ui-font-size-100</code> to <code>--ui-font-size-900</code>,
+        motion times <code>--ui-motion</code>, one
+        <code>--ui-shadow-color</code> for both schemes.
+      </li>
+      <li>
+        Open Props is optional; <code>theme.css</code> reads nothing from it.
+      </li>
+      <li>
+        <code>tokens.json</code> in the W3C design tokens format, with tiers, dark
+        and more-contrast modes, and the promised contrast per token.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="contrast-guarantee">Contrast as a guarantee</h2>
+    <ContrastLab />
+    <ul>
+      <li>
+        <code>--ui-contrast: more</code> tightens 25 lightness and strength knobs
+        and never sets a color directly. The lab blends those knobs between their
+        normal and more values.
+      </li>
+      <li>
+        The <code>-text</code> roles promise 4.5:1 on every surface; the promise is
+        recorded in <code>tokens.json</code> and tested.
+      </li>
+      <li>
+        <code>--ui-on-primary</code> picked from the fill's luminance with relative
+        color.
+      </li>
+      <li>Focus ring black or white by surface lightness.</li>
+      <li>
+        <code>.ui-contrast-more</code> and <code>--ui-primary-source</code> keep the
+        hue while tightening.
+      </li>
+      <li>
+        The sweep: hue 0 to 360 in steps of 10, both contrast extremes, light
+        and dark, 2664 pairs, none below the promise. The closest call is
+        on-primary text at hue 190 in light mode, 4.95:1.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="four-themes">Four example themes</h2>
+    <ThemeSwitch />
+    <ul>
+      <li>
+        Bootstrap, Brutalist, M3 and Shadcn: what each one proves about the
+        token model.
+      </li>
+      <li>
+        All colors in OKLCH; the contrast test lists each theme's known
+        exceptions.
+      </li>
+      <li>
+        The <DocLink href="/theme-builder">Theme builder</DocLink> and the share link.
+      </li>
+      <li>
+        Hooks a theme can reach: <code>--ui-control-accent</code>,
+        <code>--ui-selected</code>, <code>--ui-button-hover: layer</code>,
+        <code>--ui-border-color-raised</code>.
+      </li>
+      <li>
+        Default in the demo mirrors the site preset the reader picked, by
+        design.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="platform-did-the-work">The platform did the work</h2>
+    <ul>
+      <li>
+        New components: <DocLink href="/components/carousel">Carousel</DocLink>
+        with CSS scroll buttons and markers (<DocLink
+          href="/blog/carousel-css-only">Blog</DocLink
+        >), <DocLink href="/components/menu">Menu</DocLink> as a popover with submenus,
+        anchored without <code>anchor-name</code> (<DocLink
+          href="/blog/menu-popover-anchor">Blog</DocLink
+        >), AvatarGroup on the
+        <DocLink href="/components/avatar">Avatar</DocLink> page, the
+        <DocLink href="/components/layout">Layout</DocLink> classes.
+      </li>
+      <li>
+        Invoker commands for Dialog, Drawer and Menu (<DocLink
+          href="/blog/dialog-closedby">Blog</DocLink
+        >, <DocLink href="/blog/drawer-starting-style">Blog</DocLink>).
+      </li>
+      <li>
+        <code>interestfor</code> for Tooltip and Anchor, and the
+        <code>id</code> that is now yours to pass (<DocLink
+          href="/blog/tooltip-interest-invokers">Blog</DocLink
+        >, <DocLink href="/blog/anchor-hover-cards">Blog</DocLink>).
+      </li>
+      <li>
+        Scroll-driven Range fill (<DocLink href="/blog/range-tick-marks"
+          >Blog</DocLink
+        >), scroll-state shadows on Dialog, Drawer and sticky Table headers (<DocLink
+          href="/blog/table-scroll-state">Blog</DocLink
+        >).
+      </li>
+      <li>
+        Select on <code>appearance: base-select</code> with
+        <code>autoFit</code> (<DocLink href="/blog/select-base-select"
+          >Blog</DocLink
+        >).
+      </li>
+      <li>
+        Fluid headings with <code>progress()</code> (<DocLink
+          href="/blog/fluid-type-progress">Blog</DocLink
+        >), rhythm snapped with <code>round()</code> (<DocLink
+          href="/blog/vertical-rhythm-round">Blog</DocLink
+        >), the <code>components.prose</code> layer.
+      </li>
+      <li>
+        Tabs announced as a radio group (<DocLink
+          href="/blog/tabs-radio-buttons">Blog</DocLink
+        >), <code>aria-invalid</code> replacing <code>data-invalid</code>
+        (<DocLink href="/blog/text-field-user-invalid">Blog</DocLink>),
+        forced-colors fixes across the board.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="the-css-is-the-component">The CSS is the component</h2>
+    <Shells />
+    <ul>
+      <li>
+        The core idea: a component is its stylesheet and the native HTML it
+        styles. Popovers, invokers, anchor positioning, scroll-driven fills and
+        <code>:has()</code> carry the behavior.
+      </li>
+      <li>
+        A framework layer is a binding: props to attributes and classes, slots
+        to parts, events to native events. About 2,500 lines each, 90 lines of
+        JavaScript shared by all.
+      </li>
+      <li>
+        Why React and Svelte could land in one release, and what each binding
+        adds: React 19 with Server Components by default and
+        <code>"use client"</code> only on stateful components; Svelte 5 with
+        <code>bind:value</code>, <code>bind:checked</code> and
+        <code>bind:group</code>; Astro and Vue with parts instead of slots.
+      </li>
+      <li>
+        The parity test keeps the shells honest: every example rendered in every
+        framework and compared against Astro, accepted drift in a
+        <code>.diff</code> ledger that only shrinks, 22 alignment fixes in this release.
+      </li>
+      <li>
+        What the idea costs: a new feature needs one engine to ship it, so the
+        browser support section is the other half of this one.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="what-it-took">What it took</h2>
+    <Numbers />
+    <ul>
+      <li>
+        The numbers above are computed at build time from the changelog, the
+        docs and the package. The commit count needs a full clone.
+      </li>
+      <li>
+        Palette knobs declared twice, and the copy that disagreed and never
+        applied.
+      </li>
+      <li>
+        Themes overriding the severity palette until the
+        <code>theme.severity</code> layer.
+      </li>
+      <li>
+        The compat layer: one file per component, every rule behind
+        <code>@supports not</code> or an engine gate with a plain-HTML repro.
+      </li>
+      <li>
+        The checks that hold the line: released tokens and released API ledgers,
+        parity drift, the a11y violations ledger, ratchets that only shrink.
+      </li>
+      <li>
+        <code>npx opui-css skill</code>: a per-component reference for coding
+        agents, generated from the API data.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="browser-support">Browser support, honestly</h2>
+    <SupportMatrix />
+    <ul>
+      <li>Feature first: one engine shipping is enough.</li>
+      <li>
+        Expected failures per engine, each with a plain-HTML repro, removed the
+        day the engine catches up.
+      </li>
+      <li>
+        The compat layer and what it covers today (<DocLink
+          href="/guide/browser-support">Browser support</DocLink
+        >).
+      </li>
+      <li>
+        <code>opui.no-compat.css</code> and
+        <code>opui.baseline-&lt;year&gt;.css</code>: pick by audience.
+      </li>
+      <li>
+        Known gaps to name: iOS checked by hand, logical
+        <code>overflow-inline</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="migrating">Migrating</h2>
+    <ul>
+      <li>
+        Import order: <code>layers.css</code> first; <code>choice.css</code>,
+        <code>utils.css</code> and <code>compat.css</code> with single-file imports.
+      </li>
+      <li>
+        Types from the framework entry; <code>types.vue-props.ts</code>.
+      </li>
+      <li>
+        The <a href="#one-naming-model">rename explorer</a> for props, classes, tokens
+        and private properties.
+      </li>
+      <li>
+        Visual shifts to expect: rich text spacing and heading sizes, the Tabs
+        look, control sizes in rem, Radio at 20px, darker dark-mode shadows.
+      </li>
+      <li>
+        Everything else, per component, in
+        <DocLink href="/guide/migrating">Migrating</DocLink>.
+      </li>
+    </ul>
+  </section>
+</TechniquePost>
+
+<style>
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      section > h2,
+      section > :global(:not(h2)) {
+        animation: release-reveal linear backwards;
+        animation-range: entry 0% entry 30%;
+        animation-timeline: view();
+      }
+    }
+  }
+
+  @keyframes release-reveal {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: none;
+    }
+  }
+</style>

@@ -287,10 +287,10 @@ const tour = [
 
   .frame {
     bottom: anchor(bottom);
-    left: anchor(left);
+    left: max(anchor(left), anchor(var(--subject) left));
     position: absolute;
     position-anchor: var(--part);
-    right: anchor(right);
+    right: max(anchor(right), anchor(var(--subject) right));
     top: anchor(top);
 
     &::before {

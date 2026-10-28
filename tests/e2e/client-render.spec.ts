@@ -6,11 +6,18 @@ const CLIENT_RENDERED: Framework[] = ["react", "svelte", "vue"]
 
 const snapshot = (page: Page, framework: Framework, html?: string) =>
   page.evaluate(
-    ([name, source]) => {
-      const root = source
-        ? new DOMParser().parseFromString(source, "text/html")
-        : document
-      return [...root.querySelectorAll(`[data-${name}-example]`)].map(
+    async ([name, source]) => {
+      const container = source ? document.createElement("form") : undefined
+      if (container) {
+        const parsed = new DOMParser().parseFromString(source, "text/html")
+        for (const script of parsed.querySelectorAll("script")) script.remove()
+        container.hidden = true
+        container.append(...document.adoptNode(parsed.body).childNodes)
+        document.body.append(container)
+      }
+      await new Promise((resolve) => setTimeout(resolve))
+      const root = container ?? document
+      const examples = [...root.querySelectorAll(`[data-${name}-example]`)].map(
         (example) => {
           const state = [
             ...example.querySelectorAll<HTMLElement>(
@@ -73,6 +80,8 @@ const snapshot = (page: Page, framework: Framework, html?: string) =>
           }
         },
       )
+      container?.remove()
+      return examples
     },
     [framework, html ?? ""] as const,
   )

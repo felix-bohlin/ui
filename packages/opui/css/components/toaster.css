@@ -27,6 +27,19 @@
         display: grid;
       }
 
+      .ui-block-start > & {
+        inset-block: var(--_inset) auto;
+      }
+
+      .ui-align-start > & {
+        inset-inline: var(--_inset) auto;
+      }
+
+      .ui-align-center > & {
+        inset-inline: 0;
+        margin-inline: auto;
+      }
+
       & > .ui-callout {
         --_shadow: var(--ui-shadow-overlay);
 
@@ -38,9 +51,21 @@
           opacity var(--_duration) var(--_ease),
           translate var(--_duration) var(--_ease);
 
+        &:has(> svg) {
+          grid-template-columns: auto 1fr auto;
+
+          & > svg {
+            margin-block-start: 0;
+          }
+        }
+
         @starting-style {
           opacity: 0;
           translate: 0 var(--ui-space-3);
+
+          .ui-block-start > ol > & {
+            translate: 0 calc(-1 * var(--ui-space-3));
+          }
         }
 
         & > .ui-button {

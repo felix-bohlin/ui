@@ -14,6 +14,7 @@ import {
 } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
@@ -116,6 +117,20 @@ import cardActionsApi from "../../component-api/card-actions/api"
         </UICalloutContent>
       </UICallout>
     </div>
+  </section>
+
+  <section>
+    <h2 id="density">Density</h2>
+    <p>
+      <PropOrClass prop='density="spacious"' class=".ui-spacious" /> pads the parts
+      with <code>--ui-space-5</code> instead of <code>--ui-space-3</code>, for a
+      card that stands alone on the page, such as a sign-in form. <PropOrClass
+        prop='density="dense"'
+        class=".ui-dense"
+      /> tightens them to <code>--ui-space-2</code>, for a small stat. A theme
+      sets the default for every card with <code>--ui-card-padding</code>.
+    </p>
+    <AutoExample name="Density" column />
   </section>
 
   <section>

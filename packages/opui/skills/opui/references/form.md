@@ -81,6 +81,14 @@ Spacing and grouping for form fields.
 
 - HTML: To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.
 
+## Component properties
+
+Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
+
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
+
 ## Theme tokens
 
 The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-font-size-small`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-8` and `--ui-text`. `theming.md` and `tokens.json` describe them.

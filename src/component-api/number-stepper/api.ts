@@ -15,7 +15,7 @@ export default {
     },
     {
       description:
-        "On a step button, steps the value down or up by `step`, and stops at `min` and `max`.",
+        "On a step button, steps the value down or up by `step`, and stops at `min` and `max`. Held down, it repeats.",
       keys: ["Enter", "Space"],
     },
     {
@@ -124,6 +124,14 @@ export default {
         "Pushes the label and start text to one side and the field to the other.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      class: ".ui-stretch",
+      default: "false",
+      description:
+        "Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`).",
+      group: "Stretch",
+      prop: "stretch",
     },
     {
       default: '"outlined"',

@@ -52,6 +52,18 @@ export default {
       prop: "src",
     },
     {
+      default: '"filled"',
+      description:
+        "The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+      group: "Variants",
+      prop: "variant",
+      values: {
+        filled: null,
+        outlined: ".ui-outlined",
+        tonal: ".ui-tonal",
+      },
+    },
+    {
       description:
         'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
       frameworks: ["html"],

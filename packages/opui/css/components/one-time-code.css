@@ -21,9 +21,10 @@
     inline-size: min((var(--_length) - 0.25) * var(--_max-cell-size), 100%);
     min-inline-size: 0;
 
-    .ui-field {
+    &.ui-one-time-code .ui-field {
       background: none;
       border: 0;
+      box-shadow: none;
       cursor: text;
       direction: ltr;
       font-family: var(--ui-font-code);
@@ -97,7 +98,8 @@
       mask-image: var(--_box-focus-image);
     }
 
-    .ui-field:has(:focus-visible) {
+    &.ui-one-time-code .ui-field:has(> input:focus-within):has(:focus-visible) {
+      animation: none;
       outline: 0;
     }
 

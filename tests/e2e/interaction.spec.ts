@@ -1552,6 +1552,33 @@ interaction(
 interaction(
   "color-field",
   "Basics",
+  "color field writes the color in the space the select picks",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+    const space = root.getByRole("combobox", { name: "Color space" })
+
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    await space.selectOption("hex")
+    await expect(input).toHaveValue("#2784d5")
+    await expect(root.getByRole("slider", { name: "Red" })).toHaveAttribute(
+      "aria-valuetext",
+      "39",
+    )
+    await space.selectOption("hsl")
+    await expect(input).toHaveValue(
+      /^hsl\(20[78](\.\d+)? 69(\.\d)?% 49(\.\d)?%\)$/,
+    )
+    await expect(root.getByRole("slider", { name: "Saturation" })).toBeVisible()
+    await input.fill("color(display-p3 1 0 0)")
+    await input.press("Tab")
+    await expect(root.locator(".ui-floating select")).toHaveValue("display-p3")
+    await expect(input).toHaveValue("color(display-p3 1 0 0)")
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
   "color field turns a typed color into oklch() and flags text that isn't one",
   async ({ root }) => {
     const input = root.getByRole("textbox", { name: "Brand color" })

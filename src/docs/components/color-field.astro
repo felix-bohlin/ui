@@ -17,7 +17,7 @@ import ColorFieldJS from "@opui/elements/color-field.js?raw"
 import colorFieldApi from "../../component-api/color-field/api"
 
 export const description =
-  "A text field for an oklch() color, with a picker of lightness, chroma, hue and opacity sliders."
+  "A text field for a color, with a picker of sliders in 16 color spaces, from hex to oklch()."
 ---
 
 <Component
@@ -25,13 +25,19 @@ export const description =
   slug="color-field"
   browserSupport={[
     "container-style-queries",
+    "customizable-select",
+    "display-animation",
     "field-sizing",
     "invoker-commands",
     "light-dark",
+    "open-pseudo",
+    "overlay",
     "popover",
     "registered-custom-properties",
     "relative-color",
     "scroll-driven-animations",
+    "starting-style",
+    "transition-behavior",
   ]}
   apis={[{ title: "Color field API", api: colorFieldApi }]}
   changelogPaths={[
@@ -64,11 +70,10 @@ export const description =
   <Fragment slot="title">Color field</Fragment>
   <Fragment slot="preamble">
     <p>
-      A <DocLink href="/components/text-field">Text field</DocLink> for an <code
-        >oklch()</code
-      > color, with a swatch that opens <DocLink href="/components/range"
-        >Range</DocLink
-      > sliders for lightness, chroma, hue and opacity. The <code
+      A <DocLink href="/components/text-field">Text field</DocLink> for a color, with
+      a swatch that opens <DocLink href="/components/range">Range</DocLink>
+      sliders for lightness, chroma, hue and opacity, or the channels of 15 other
+      <a href="#color-spaces">color spaces</a>. The <code
         >&lt;opui-color-field&gt;</code
       > custom element keeps them in step.
     </p>
@@ -140,6 +145,33 @@ export const description =
       behind the sliders. The tint keeps the surface's lightness, so the labels
       read as well as on the plain surface. <code>--_tint-chroma</code> caps its chroma
       (<code>0.03</code> by default), and <code>0</code> turns it off.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="color-spaces">Color spaces</h2>
+    <p>
+      The select at the top of the picker writes the value in one of 16 color
+      spaces: <code>hex</code>, <code>rgb()</code>, <code>hsl()</code>, <code
+        >hwb()</code
+      >, <code>lab()</code>, <code>lch()</code>, <code>oklab()</code>, <code
+        >oklch()</code
+      > and <code>color()</code> in <code>a98-rgb</code>, <code>display-p3</code
+      >,
+      <code>prophoto-rgb</code>, <code>rec2020</code>, <code>srgb-linear</code>,
+      <code>xyz</code>, <code>xyz-d50</code> and <code>xyz-d65</code>. The
+      sliders switch to that space's channels, like red, green and blue for <code
+        >rgb()</code
+      >, and each track shows the colors its channel reaches.
+    </p>
+    <p>
+      A color that doesn't fit a smaller space, like a wide-gamut <code
+        >oklch()</code
+      > color in <code>hex</code>, is mapped into it the way CSS Color 4 maps
+      colors: the chroma drops at the same lightness and hue until the color
+      fits. Type or paste a color written in one of the spaces and the picker
+      switches to it; any other CSS color, like <code>red</code>, keeps the
+      space the picker shows.
     </p>
   </section>
 

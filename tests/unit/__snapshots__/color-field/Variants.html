@@ -27,27 +27,50 @@
       </span>
       <span class="ui-sr-only" role="status"></span>
     </div>
-    <label class="ui-range" for="id-5">
-      <span class="ui-label" id="id-4">Lightness</span>
-      <output aria-live="off" class="ui-value" for="id-5"></output>
-      <input aria-labelledby="id-4" data-channel="L" id="id-5" max="1" min="0" step="0.001" type="range">
+    <label class="ui-select ui-small ui-spread">
+      <span class="ui-label" id="id-4">Color space</span>
+      <span class="ui-field">
+        <select aria-describedby="id-14" aria-labelledby="id-4" id="id-5">
+          <option value="a98-rgb">a98-rgb</option>
+          <option value="display-p3">display-p3</option>
+          <option value="hex">hex</option>
+          <option value="hsl">hsl</option>
+          <option value="hwb">hwb</option>
+          <option value="lab">lab</option>
+          <option value="lch">lch</option>
+          <option value="oklab">oklab</option>
+          <option selected value="oklch">oklch</option>
+          <option value="prophoto-rgb">prophoto-rgb</option>
+          <option value="rec2020">rec2020</option>
+          <option value="rgb">rgb</option>
+          <option value="srgb-linear">srgb-linear</option>
+          <option value="xyz">xyz</option>
+          <option value="xyz-d50">xyz-d50</option>
+          <option value="xyz-d65">xyz-d65</option>
+        </select>
+      </span>
     </label>
     <label class="ui-range" for="id-7">
-      <span class="ui-label" id="id-6">Chroma</span>
+      <span class="ui-label" id="id-6">Lightness</span>
       <output aria-live="off" class="ui-value" for="id-7"></output>
-      <input aria-describedby="id-12" aria-labelledby="id-6" data-channel="C" id="id-7" max="0.37" min="0" step="0.001" type="range">
+      <input aria-labelledby="id-6" data-channel="l" id="id-7" max="1" min="0" step="0.001" type="range">
     </label>
     <label class="ui-range" for="id-9">
-      <span class="ui-label" id="id-8">Hue</span>
+      <span class="ui-label" id="id-8">Chroma</span>
       <output aria-live="off" class="ui-value" for="id-9"></output>
-      <input aria-labelledby="id-8" data-channel="H" id="id-9" max="360" min="0" step="0.1" type="range">
+      <input aria-labelledby="id-8" data-channel="c" id="id-9" max="0.37" min="0" step="0.001" type="range">
     </label>
     <label class="ui-range" for="id-11">
-      <span class="ui-label" id="id-10">Opacity</span>
+      <span class="ui-label" id="id-10">Hue</span>
       <output aria-live="off" class="ui-value" for="id-11"></output>
-      <input aria-labelledby="id-10" data-channel="alpha" id="id-11" max="1" min="0" step="0.01" type="range">
+      <input aria-labelledby="id-10" data-channel="h" id="id-11" max="360" min="0" step="0.1" type="range">
     </label>
-    <p class="ui-description" id="id-12"></p>
+    <label class="ui-range" for="id-13">
+      <span class="ui-label" id="id-12">Opacity</span>
+      <output aria-live="off" class="ui-value" for="id-13"></output>
+      <input aria-labelledby="id-12" data-channel="alpha" id="id-13" max="1" min="0" step="0.01" type="range">
+    </label>
+    <p class="ui-description" id="id-14"></p>
     <p class="ui-footer">
       <span aria-hidden="true" data-contrast="light"></span>
       <span aria-hidden="true" data-contrast="dark"></span>
@@ -57,26 +80,26 @@
 </opui-color-field>
 <opui-color-field class="ui-color-field">
   <div class="ui-filled ui-text-field">
-    <label class="ui-label" for="id-14" id="id-13">Filled</label>
+    <label class="ui-label" for="id-16" id="id-15">Filled</label>
     <span class="ui-field">
       <span class="ui-start">
-        <button aria-label="Pick a color" class="ui-button ui-round" command="toggle-popover" commandfor="id-15" type="button">
+        <button aria-label="Pick a color" class="ui-button ui-round" command="toggle-popover" commandfor="id-17" type="button">
           <span class="ui-indicator"></span>
         </button>
       </span>
-      <input autocomplete="off" id="id-14" spellcheck="false" type="text" value="oklch(0.65 0.18 30)">
+      <input autocomplete="off" id="id-16" spellcheck="false" type="text" value="oklch(0.65 0.18 30)">
     </span>
   </div>
-  <div aria-labelledby="id-13" class="ui-floating" id="id-15" popover="auto" role="dialog">
+  <div aria-labelledby="id-15" class="ui-floating" id="id-17" popover="auto" role="dialog">
     <div class="ui-header">
       <span aria-hidden="true" class="ui-value"></span>
       <span class="ui-actions">
-        <button aria-label="Pick from the screen" class="ui-button ui-round ui-small" command="--eyedropper" commandfor="id-14" hidden type="button">
+        <button aria-label="Pick from the screen" class="ui-button ui-round ui-small" command="--eyedropper" commandfor="id-16" hidden type="button">
           <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42M6.92 19 5 17.08l8.06-8.06 1.92 1.92z" fill="currentColor"></path>
           </svg>
         </button>
-        <button aria-label="Copy" class="ui-button ui-round ui-small" command="--copy" commandfor="id-14" type="button">
+        <button aria-label="Copy" class="ui-button ui-round ui-small" command="--copy" commandfor="id-16" type="button">
           <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm0-2h9V4H9zm-4 6q-.825 0-1.412-.587T3 20V6h2v14h11v2z" fill="currentColor"></path>
           </svg>
@@ -84,27 +107,50 @@
       </span>
       <span class="ui-sr-only" role="status"></span>
     </div>
-    <label class="ui-range" for="id-17">
-      <span class="ui-label" id="id-16">Lightness</span>
-      <output aria-live="off" class="ui-value" for="id-17"></output>
-      <input aria-labelledby="id-16" data-channel="L" id="id-17" max="1" min="0" step="0.001" type="range">
-    </label>
-    <label class="ui-range" for="id-19">
-      <span class="ui-label" id="id-18">Chroma</span>
-      <output aria-live="off" class="ui-value" for="id-19"></output>
-      <input aria-describedby="id-24" aria-labelledby="id-18" data-channel="C" id="id-19" max="0.37" min="0" step="0.001" type="range">
+    <label class="ui-select ui-small ui-spread">
+      <span class="ui-label" id="id-18">Color space</span>
+      <span class="ui-field">
+        <select aria-describedby="id-28" aria-labelledby="id-18" id="id-19">
+          <option value="a98-rgb">a98-rgb</option>
+          <option value="display-p3">display-p3</option>
+          <option value="hex">hex</option>
+          <option value="hsl">hsl</option>
+          <option value="hwb">hwb</option>
+          <option value="lab">lab</option>
+          <option value="lch">lch</option>
+          <option value="oklab">oklab</option>
+          <option selected value="oklch">oklch</option>
+          <option value="prophoto-rgb">prophoto-rgb</option>
+          <option value="rec2020">rec2020</option>
+          <option value="rgb">rgb</option>
+          <option value="srgb-linear">srgb-linear</option>
+          <option value="xyz">xyz</option>
+          <option value="xyz-d50">xyz-d50</option>
+          <option value="xyz-d65">xyz-d65</option>
+        </select>
+      </span>
     </label>
     <label class="ui-range" for="id-21">
-      <span class="ui-label" id="id-20">Hue</span>
+      <span class="ui-label" id="id-20">Lightness</span>
       <output aria-live="off" class="ui-value" for="id-21"></output>
-      <input aria-labelledby="id-20" data-channel="H" id="id-21" max="360" min="0" step="0.1" type="range">
+      <input aria-labelledby="id-20" data-channel="l" id="id-21" max="1" min="0" step="0.001" type="range">
     </label>
     <label class="ui-range" for="id-23">
-      <span class="ui-label" id="id-22">Opacity</span>
+      <span class="ui-label" id="id-22">Chroma</span>
       <output aria-live="off" class="ui-value" for="id-23"></output>
-      <input aria-labelledby="id-22" data-channel="alpha" id="id-23" max="1" min="0" step="0.01" type="range">
+      <input aria-labelledby="id-22" data-channel="c" id="id-23" max="0.37" min="0" step="0.001" type="range">
     </label>
-    <p class="ui-description" id="id-24"></p>
+    <label class="ui-range" for="id-25">
+      <span class="ui-label" id="id-24">Hue</span>
+      <output aria-live="off" class="ui-value" for="id-25"></output>
+      <input aria-labelledby="id-24" data-channel="h" id="id-25" max="360" min="0" step="0.1" type="range">
+    </label>
+    <label class="ui-range" for="id-27">
+      <span class="ui-label" id="id-26">Opacity</span>
+      <output aria-live="off" class="ui-value" for="id-27"></output>
+      <input aria-labelledby="id-26" data-channel="alpha" id="id-27" max="1" min="0" step="0.01" type="range">
+    </label>
+    <p class="ui-description" id="id-28"></p>
     <p class="ui-footer">
       <span aria-hidden="true" data-contrast="light"></span>
       <span aria-hidden="true" data-contrast="dark"></span>

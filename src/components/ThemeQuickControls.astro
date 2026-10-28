@@ -111,10 +111,13 @@ import BrandPicker from "./BrandPicker.astro"
 
       const brand = tokens["--ui-palette-source"] ?? null
       syncBrandPicker(picker, preset, brand)
-      custom.value =
+      const shown =
         brand && isBrandColor(brand)
           ? brand
           : (resolveOklch("var(--ui-primary)") ?? custom.value)
+      if (resolveOklch(custom.value) !== resolveOklch(shown)) {
+        custom.value = shown
+      }
 
       check("theme-corners", cornersOf(tokens) ?? "")
 
@@ -179,7 +182,7 @@ import BrandPicker from "./BrandPicker.astro"
     custom.addEventListener("input", (event) => {
       if (event.target !== custom.input) return
       const queued = pendingColor !== null
-      pendingColor = custom.value
+      pendingColor = resolveOklch(custom.value) ?? custom.value
       if (queued) return
       requestAnimationFrame(() => {
         if (pendingColor) applyBrand(pendingColor)

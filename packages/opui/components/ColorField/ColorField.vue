@@ -10,7 +10,7 @@ import {
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { useInputAttrs } from "../vue"
-import { channelsFor } from "./channels"
+import { channelsFor, COLOR_SPACES } from "./channels"
 import { copyPath, eyedropperPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -20,13 +20,17 @@ defineOptions({
 
 const {
   autoFit,
+  blacknessLabel,
+  blueLabel,
   chromaLabel,
+  colorSpaceLabel = "Color space",
   contrastLabel,
   copiedLabel,
   copyLabel = "Copy",
   endText,
   error,
   eyedropperLabel = "Pick from the screen",
+  greenLabel,
   hideLabel,
   hueLabel,
   id,
@@ -37,6 +41,8 @@ const {
   opacityLabel,
   p3Text,
   pickerLabel = "Pick a color",
+  redLabel,
+  saturationLabel,
   size,
   spread,
   srgbText,
@@ -44,6 +50,7 @@ const {
   swatchOnly,
   value,
   variant,
+  whitenessLabel,
   wideText,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -74,13 +81,22 @@ const field = inject(FieldGroupKey, undefined)
 <template>
   <component
     is="opui-color-field"
+    :blackness-label="blacknessLabel"
+    :blue-label="blueLabel"
+    :chroma-label="chromaLabel"
     :class="['ui-color-field', { 'ui-swatch-only': swatchOnly }, $props.class]"
     :contrast-label="contrastLabel"
     :copied-label="copiedLabel"
+    :green-label="greenLabel"
+    :hue-label="hueLabel"
     :invalid-text="invalidText"
+    :lightness-label="lightnessLabel"
     :p3-text="p3Text"
+    :red-label="redLabel"
+    :saturation-label="saturationLabel"
     :srgb-text="srgbText"
     :style="$attrs.style"
+    :whiteness-label="whitenessLabel"
     :wide-text="wideText"
   >
     <Button
@@ -236,6 +252,32 @@ const field = inject(FieldGroupKey, undefined)
           {{ endText }}<slot name="end-text"></slot>
         </span>
       </div>
+      <label class="ui-select ui-small ui-spread">
+        <span class="ui-label" :id="`${inputId}-space-label`">{{
+          colorSpaceLabel
+        }}</span>
+        <span class="ui-field">
+          <select
+            :aria-describedby="`${inputId}-gamut`"
+            :aria-labelledby="`${inputId}-space-label`"
+            :id="`${inputId}-space`"
+          >
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="ui-list">
+              <option
+                v-for="space in COLOR_SPACES"
+                :key="space"
+                :selected="space === 'oklch' || undefined"
+                :value="space"
+              >
+                {{ space }}
+              </option>
+            </div>
+          </select>
+        </span>
+      </label>
       <label
         v-for="slider in sliders"
         :key="slider.name"
@@ -251,9 +293,6 @@ const field = inject(FieldGroupKey, undefined)
           :for="`${inputId}-${slider.name}`"
         ></output>
         <input
-          :aria-describedby="
-            slider.channel === 'C' ? `${inputId}-gamut` : undefined
-          "
           :aria-labelledby="`${inputId}-${slider.name}-label`"
           :data-channel="slider.channel"
           :id="`${inputId}-${slider.name}`"

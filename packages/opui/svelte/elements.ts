@@ -8,11 +8,20 @@ declare module "svelte/elements" {
       label?: string | undefined | null
     }
     "opui-color-field": HTMLAttributes<HTMLElement> & {
+      "blackness-label"?: string | undefined | null
+      "blue-label"?: string | undefined | null
+      "chroma-label"?: string | undefined | null
       "contrast-label"?: string | undefined | null
       "copied-label"?: string | undefined | null
+      "green-label"?: string | undefined | null
+      "hue-label"?: string | undefined | null
       "invalid-text"?: string | undefined | null
+      "lightness-label"?: string | undefined | null
       "p3-text"?: string | undefined | null
+      "red-label"?: string | undefined | null
+      "saturation-label"?: string | undefined | null
       "srgb-text"?: string | undefined | null
+      "whiteness-label"?: string | undefined | null
       "wide-text"?: string | undefined | null
     }
     "opui-copy": HTMLAttributes<HTMLElement> & {

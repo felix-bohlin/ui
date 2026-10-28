@@ -6,7 +6,7 @@ const hydrated =
 
 export default {
   component: "ColorField",
-  css: ["button", "color-field", "range", "text-field"],
+  css: ["button", "color-field", "range", "select", "text-field"],
   keyboard: [
     {
       description:
@@ -34,7 +34,8 @@ export default {
     },
   ],
   model: {
-    description: "The `oklch()` color, as the input's text.",
+    description:
+      "The color, as the input's text, written in the color space the picker shows.",
     prop: "value",
     type: "string",
   },
@@ -51,7 +52,7 @@ export default {
         vue: hydrated,
       },
     ),
-    html: "Put the picker button in the field's `.ui-start`, with `commandfor` naming the picker and `command=\"toggle-popover\"`, and the sliders in the `.ui-floating` popover, each `input[type=range]` with `data-channel` set to `L`, `C`, `H` or `alpha`. Give the `<label>` a `for` and an id for the picker's `aria-labelledby`, and import `opui-css/elements/color-field.js`. Without it, the picker button is hidden and the field takes an `oklch()` string.",
+    html: "Put the picker button in the field's `.ui-start`, with `commandfor` naming the picker and `command=\"toggle-popover\"`, and the sliders in the `.ui-floating` popover, a `.ui-select` with the color spaces (`oklch` selected, `aria-describedby` naming the gamut line) and three `input[type=range]` with `data-channel` set to `l`, `c` and `h`, plus one set to `alpha` for opacity. The element sets the sliders' channels, ranges and labels for the space it shows, from the `*-label` attributes. Give the `<label>` a `for` and an id for the picker's `aria-labelledby`, and import `opui-css/elements/color-field.js`. Without it, the picker button is hidden and the field takes an `oklch()` string.",
   },
   options: [
     {
@@ -64,9 +65,27 @@ export default {
       prop: "autoFit",
     },
     {
+      default: '"Blackness"',
+      description:
+        "The label of the blackness slider, in `hwb`. Also the element's `blackness-label` attribute.",
+      prop: "blacknessLabel",
+    },
+    {
+      default: '"Blue"',
+      description:
+        "The label of the blue slider, in `hex`, `rgb` and the RGB spaces of `color()`. Also the element's `blue-label` attribute.",
+      prop: "blueLabel",
+    },
+    {
       default: '"Chroma"',
-      description: "The label of the chroma slider.",
+      description:
+        "The label of the chroma slider, in `lch` and `oklch`. Also the element's `chroma-label` attribute.",
       prop: "chromaLabel",
+    },
+    {
+      default: '"Color space"',
+      description: "The label of the color space select.",
+      prop: "colorSpaceLabel",
     },
     {
       default: '"{light}:1 on light, {dark}:1 on dark"',
@@ -110,6 +129,12 @@ export default {
       prop: "eyedropperLabel",
     },
     {
+      default: '"Green"',
+      description:
+        "The label of the green slider, in `hex`, `rgb` and the RGB spaces of `color()`. Also the element's `green-label` attribute.",
+      prop: "greenLabel",
+    },
+    {
       class: ".ui-sr-only",
       default: "false",
       description:
@@ -120,7 +145,8 @@ export default {
     },
     {
       default: '"Hue"',
-      description: "The label of the hue slider.",
+      description:
+        "The label of the hue slider, in `hsl`, `hwb`, `lch` and `oklch`. Also the element's `hue-label` attribute.",
       prop: "hueLabel",
     },
     {
@@ -138,12 +164,13 @@ export default {
     },
     {
       default: '"Lightness"',
-      description: "The label of the lightness slider.",
+      description:
+        "The label of the lightness slider, in `hsl`, `lab`, `lch`, `oklab` and `oklch`. Also the element's `lightness-label` attribute.",
       prop: "lightnessLabel",
     },
     {
       description:
-        "The name of the `<input>`, which submits the `oklch()` value. Inside a `FieldGroup`, the group's `name` applies.",
+        "The name of the `<input>`, which submits the color text. Inside a `FieldGroup`, the group's `name` applies.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -175,6 +202,12 @@ export default {
       prop: "pickerLabel",
     },
     {
+      default: '"Red"',
+      description:
+        "The label of the red slider, in `hex`, `rgb` and the RGB spaces of `color()`. Also the element's `red-label` attribute.",
+      prop: "redLabel",
+    },
+    {
       attribute: "[required]",
       description:
         "Adds a required mark after the label. The form won't submit while the field is empty.",
@@ -183,6 +216,12 @@ export default {
       part: "input",
       prop: "required",
       type: "boolean",
+    },
+    {
+      default: '"Saturation"',
+      description:
+        "The label of the saturation slider, in `hsl`. Also the element's `saturation-label` attribute.",
+      prop: "saturationLabel",
     },
     {
       default: '"medium"',
@@ -226,6 +265,12 @@ export default {
       part: ".ui-text-field",
       prop: "variant",
       values: { filled: ".ui-filled", outlined: null },
+    },
+    {
+      default: '"Whiteness"',
+      description:
+        "The label of the whiteness slider, in `hwb`. Also the element's `whiteness-label` attribute.",
+      prop: "whitenessLabel",
     },
     {
       default: '"Beyond Display P3. Screens show the nearest color they can."',
@@ -274,7 +319,7 @@ export default {
     },
     {
       code: '<input type="text">',
-      description: "The input element, which holds the `oklch()` value.",
+      description: "The input element, which holds the color text.",
       model: true,
       selector: ".ui-field > input",
     },
@@ -292,11 +337,17 @@ export default {
     },
     {
       description:
-        "The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons. The color fades into the tint below it.",
+        "The color space select. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.",
+      props: ["colorSpaceLabel"],
+      selector: ".ui-floating > .ui-select",
+    },
+    {
+      description:
+        "The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the value and the buttons. The color fades into the tint below it.",
       selector: ".ui-floating > .ui-header",
     },
     {
-      description: "The `oklch()` value, on the preview.",
+      description: "The value, on the preview.",
       selector: ".ui-header > .ui-value",
     },
     {

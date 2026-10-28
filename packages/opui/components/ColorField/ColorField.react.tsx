@@ -1,22 +1,26 @@
 "use client"
 
-import { useEffect, useId } from "react"
+import { createElement, useEffect, useId } from "react"
 import Button from "../Button/Button.react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { channelsFor } from "./channels"
+import { channelsFor, COLOR_SPACES } from "./channels"
 import { copyPath, eyedropperPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function ColorField({
   autoFit,
+  blacknessLabel,
+  blueLabel,
   chromaLabel,
   className,
+  colorSpaceLabel = "Color space",
   contrastLabel,
   copiedLabel,
   copyLabel = "Copy",
   error,
   eyedropperLabel = "Pick from the screen",
+  greenLabel,
   hideLabel,
   hueLabel,
   id,
@@ -27,12 +31,15 @@ export default function ColorField({
   opacityLabel,
   p3Text,
   pickerLabel = "Pick a color",
+  redLabel,
+  saturationLabel,
   size,
   spread,
   srgbText,
   style,
   swatchOnly,
   variant,
+  whitenessLabel,
   wideText,
   endText,
   label,
@@ -49,6 +56,9 @@ export default function ColorField({
 
   return (
     <opui-color-field
+      blackness-label={blacknessLabel}
+      blue-label={blueLabel}
+      chroma-label={chromaLabel}
       className={cx([
         "ui-color-field",
         { "ui-swatch-only": swatchOnly },
@@ -56,10 +66,16 @@ export default function ColorField({
       ])}
       contrast-label={contrastLabel}
       copied-label={copiedLabel}
+      green-label={greenLabel}
+      hue-label={hueLabel}
       invalid-text={invalidText}
+      lightness-label={lightnessLabel}
       p3-text={p3Text}
+      red-label={redLabel}
+      saturation-label={saturationLabel}
       srgb-text={srgbText}
       style={style}
+      whiteness-label={whitenessLabel}
       wide-text={wideText}
     >
       {swatchOnly ? (
@@ -203,6 +219,28 @@ export default function ColorField({
             {endText && <span className="ui-end-text">{endText}</span>}
           </div>
         )}
+        <label className="ui-select ui-small ui-spread">
+          <span className="ui-label" id={`${inputId}-space-label`}>
+            {colorSpaceLabel}
+          </span>
+          <span className="ui-field">
+            <select
+              aria-describedby={`${inputId}-gamut`}
+              aria-labelledby={`${inputId}-space-label`}
+              defaultValue="oklch"
+              id={`${inputId}-space`}
+            >
+              <button>{createElement("selectedcontent")}</button>
+              <div className="ui-list">
+                {COLOR_SPACES.map((space) => (
+                  <option key={space} value={space}>
+                    {space}
+                  </option>
+                ))}
+              </div>
+            </select>
+          </span>
+        </label>
         {channelsFor(opacity, {
           chroma: chromaLabel,
           hue: hueLabel,
@@ -223,9 +261,6 @@ export default function ColorField({
               htmlFor={`${inputId}-${slider.name}`}
             />
             <input
-              aria-describedby={
-                slider.channel === "C" ? `${inputId}-gamut` : undefined
-              }
               aria-labelledby={`${inputId}-${slider.name}-label`}
               data-channel={slider.channel}
               id={`${inputId}-${slider.name}`}

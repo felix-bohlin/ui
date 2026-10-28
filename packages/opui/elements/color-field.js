@@ -84,24 +84,632 @@ export const readColor = (text) => {
   return parsed
 }
 
-const CHANNELS = {
-  C: {
-    spoken: (value) => `${round(value, 3)}`,
-    text: (value) => `${round(value, 3)}`,
+const multiply = (matrix, [a, b, c]) =>
+  matrix.map(([x, y, z]) => x * a + y * b + z * c)
+
+const signed = (transfer) => (value) =>
+  Math.sign(value) * transfer(Math.abs(value))
+
+const SRGB_TRANSFER = {
+  decode: signed((value) =>
+    value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4,
+  ),
+  encode: signed((value) =>
+    value <= 0.0031308 ? value * 12.92 : 1.055 * value ** (1 / 2.4) - 0.055,
+  ),
+}
+
+const LINEAR = { decode: (value) => value, encode: (value) => value }
+
+const D65_TO_D50 = [
+  [1.0479297925449969, 0.022946870601609652, -0.05019226628920524],
+  [0.02962780877005599, 0.9904344267538799, -0.017073799063418826],
+  [-0.009243040646204504, 0.015055191490298152, 0.7518742814281371],
+]
+
+const D50_TO_D65 = [
+  [0.955473421488075, -0.02309845494876471, 0.06325924320057072],
+  [-0.0283697093338637, 1.0099953980813041, 0.021041441191917323],
+  [0.012314014864481998, -0.020507649298898964, 1.330365926242124],
+]
+
+const REC2020_ALPHA = 1.09929682680944
+const REC2020_BETA = 0.018053968510807
+
+const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585]
+
+const RGB = {
+  "a98-rgb": {
+    from: [
+      [2.0415879038107465, -0.5650069742788596, -0.34473135077832956],
+      [-0.9692436362808795, 1.8759675015077202, 0.04155505740717557],
+      [0.013444280632031142, -0.11836239223101838, 1.0151749943912054],
+    ],
+    to: [
+      [0.5766690429101305, 0.1855582379065463, 0.1882286462349947],
+      [0.29734497525053605, 0.6273635662554661, 0.07529145849399788],
+      [0.02703136138641234, 0.07068885253582723, 0.9913375368376388],
+    ],
+    transfer: {
+      decode: signed((value) => value ** (563 / 256)),
+      encode: signed((value) => value ** (256 / 563)),
+    },
   },
-  H: {
-    spoken: (value) => `${round(value, 1)}°`,
-    text: (value) => `${round(value, 1)}°`,
+  "display-p3": {
+    from: [
+      [2.493496911941425, -0.9313836179191239, -0.40271078445071684],
+      [-0.8294889695615747, 1.7626640603183463, 0.023624685841943577],
+      [0.03584583024378447, -0.07617238926804182, 0.9568845240076872],
+    ],
+    to: [
+      [0.4865709486482162, 0.26566769316909306, 0.1982172852343625],
+      [0.2289745640697488, 0.6917385218365064, 0.079286914093745],
+      [0, 0.04511338185890264, 1.043944368900976],
+    ],
+    transfer: SRGB_TRANSFER,
   },
-  L: {
-    spoken: (value) => `${round(value * 100, 1)}%`,
-    text: (value) => `${round(value * 100, 1)}%`,
+  "prophoto-rgb": {
+    d50: true,
+    from: [
+      [1.3457868816471583, -0.25557208737979464, -0.05110186497554526],
+      [-0.5446307051249019, 1.5082477428451468, 0.02052744743642139],
+      [0, 0, 1.2119675456389452],
+    ],
+    to: [
+      [0.7977666449006423, 0.13518129740053308, 0.0313477341283922],
+      [0.2880748288194013, 0.711835234241873, 0.00008993693872564],
+      [0, 0, 0.8251046025104602],
+    ],
+    transfer: {
+      decode: signed((value) => (value < 16 / 512 ? value / 16 : value ** 1.8)),
+      encode: signed((value) =>
+        value >= 1 / 512 ? value ** (1 / 1.8) : value * 16,
+      ),
+    },
   },
-  alpha: {
-    spoken: (value) => `${Math.round(value * 100)}%`,
-    text: (value) => `${Math.round(value * 100)}%`,
+  rec2020: {
+    from: [
+      [1.716651187971268, -0.355670783776392, -0.25336628137366],
+      [-0.666684351832489, 1.616481236634939, 0.0157685458139111],
+      [0.017639857445311, -0.042770613257809, 0.942103121235474],
+    ],
+    to: [
+      [0.6369580483012914, 0.14461690358620832, 0.1688809751641721],
+      [0.2627002120112671, 0.6779980715188708, 0.05930171646986196],
+      [0, 0.028072693049087428, 1.060985057710791],
+    ],
+    transfer: {
+      decode: signed((value) =>
+        value < REC2020_BETA * 4.5
+          ? value / 4.5
+          : ((value + REC2020_ALPHA - 1) / REC2020_ALPHA) ** (1 / 0.45),
+      ),
+      encode: signed((value) =>
+        value < REC2020_BETA
+          ? value * 4.5
+          : REC2020_ALPHA * value ** 0.45 - (REC2020_ALPHA - 1),
+      ),
+    },
+  },
+  srgb: {
+    from: [
+      [3.2409699419045226, -1.537383177570094, -0.4986107602930034],
+      [-0.9692436362808796, 1.8759675015077202, 0.04155505740717559],
+      [0.05563007969699366, -0.20397695888897652, 1.0569715142428786],
+    ],
+    to: [
+      [0.41239079926595934, 0.357584339383878, 0.1804807884018343],
+      [0.21263900587151027, 0.715168678767756, 0.07219231536073371],
+      [0.01933081871559182, 0.11919477979462598, 0.9505321522496607],
+    ],
+    transfer: SRGB_TRANSFER,
   },
 }
+
+RGB["srgb-linear"] = { ...RGB.srgb, transfer: LINEAR }
+
+const XYZ_TO_LMS = [
+  [0.819022437996703, 0.3619062600528904, -0.1288737815209879],
+  [0.0329836539323885, 0.9292868615863434, 0.0361446663506424],
+  [0.0481771893596242, 0.2642395317527308, 0.6335478284694309],
+]
+
+const LMS_TO_XYZ = [
+  [1.2268798758459243, -0.5578149944602171, 0.2813910456659647],
+  [-0.0405757452148008, 1.112286803280317, -0.0717110580655164],
+  [-0.0763729366746601, -0.4214933324022432, 1.5869240198367816],
+]
+
+const LMS_TO_OKLAB = [
+  [0.210454268309314, 0.7936177747023054, -0.0040720430116193],
+  [1.9779985324311684, -2.4285922420485799, 0.450593709617411],
+  [0.0259040424655478, 0.7827717124575296, -0.8086757549230774],
+]
+
+const OKLAB_TO_LMS = [
+  [1, 0.3963377773761749, 0.2158037573099136],
+  [1, -0.1055613458156586, -0.0638541728258133],
+  [1, -0.0894841775298119, -1.2914855480194092],
+]
+
+const xyzToOklab = (xyz) =>
+  multiply(LMS_TO_OKLAB, multiply(XYZ_TO_LMS, xyz).map(Math.cbrt))
+
+const oklabToXyz = (oklab) =>
+  multiply(
+    LMS_TO_XYZ,
+    multiply(OKLAB_TO_LMS, oklab).map((value) => value ** 3),
+  )
+
+const toPolar = ([l, a, b]) => {
+  const hue = (Math.atan2(b, a) * 180) / Math.PI
+  return [l, Math.hypot(a, b), (hue + 360) % 360]
+}
+
+const toCartesian = ([l, c, h]) => {
+  const radians = (h * Math.PI) / 180
+  return [l, c * Math.cos(radians), c * Math.sin(radians)]
+}
+
+const LAB_E = 216 / 24389
+const LAB_K = 24389 / 27
+
+const xyzToLab = (xyz) => {
+  const f = multiply(D65_TO_D50, xyz).map((value, index) => {
+    const scaled = value / D50[index]
+    return scaled > LAB_E ? Math.cbrt(scaled) : (LAB_K * scaled + 16) / 116
+  })
+  return [116 * f[1] - 16, 500 * (f[0] - f[1]), 200 * (f[1] - f[2])]
+}
+
+const labToXyz = ([l, a, b]) => {
+  const fy = (l + 16) / 116
+  const fx = a / 500 + fy
+  const fz = fy - b / 200
+  const xyz = [
+    fx ** 3 > LAB_E ? fx ** 3 : (116 * fx - 16) / LAB_K,
+    l > LAB_K * LAB_E ? fy ** 3 : l / LAB_K,
+    fz ** 3 > LAB_E ? fz ** 3 : (116 * fz - 16) / LAB_K,
+  ]
+  return multiply(
+    D50_TO_D65,
+    xyz.map((value, index) => value * D50[index]),
+  )
+}
+
+const rgbToXyz = (id, rgb) => {
+  const space = RGB[id]
+  const xyz = multiply(space.to, rgb.map(space.transfer.decode))
+  return space.d50 ? multiply(D50_TO_D65, xyz) : xyz
+}
+
+const xyzToRgb = (id, xyz) => {
+  const space = RGB[id]
+  return multiply(space.from, space.d50 ? multiply(D65_TO_D50, xyz) : xyz).map(
+    space.transfer.encode,
+  )
+}
+
+const rgbToHsl = ([r, g, b]) => {
+  const max = Math.max(r, g, b)
+  const min = Math.min(r, g, b)
+  const light = (max + min) / 2
+  const delta = max - min
+  let hue = 0
+  let saturation = 0
+  if (delta !== 0) {
+    saturation =
+      light === 0 || light === 1
+        ? 0
+        : (max - light) / Math.min(light, 1 - light)
+    hue =
+      max === r
+        ? (g - b) / delta + (g < b ? 6 : 0)
+        : max === g
+          ? (b - r) / delta + 2
+          : (r - g) / delta + 4
+    hue *= 60
+  }
+  if (saturation < 0) {
+    hue += 180
+    saturation = Math.abs(saturation)
+  }
+  return [hue % 360, saturation * 100, light * 100]
+}
+
+const hslToRgb = ([hue, saturation, light]) => {
+  const s = saturation / 100
+  const l = light / 100
+  const f = (n) => {
+    const k = (n + hue / 30) % 12
+    return l - s * Math.min(l, 1 - l) * Math.max(-1, Math.min(k - 3, 9 - k, 1))
+  }
+  return [f(0), f(8), f(4)]
+}
+
+const rgbToHwb = (rgb) => {
+  const [hue] = rgbToHsl(rgb)
+  return [hue, Math.min(...rgb) * 100, (1 - Math.max(...rgb)) * 100]
+}
+
+const hwbToRgb = ([hue, whiteness, blackness]) => {
+  const w = whiteness / 100
+  const b = blackness / 100
+  if (w + b >= 1) {
+    const gray = w / (w + b)
+    return [gray, gray, gray]
+  }
+  return hslToRgb([hue, 100, 50]).map((value) => value * (1 - w - b) + w)
+}
+
+const channel = (key, label, min, max, step, options = {}) => ({
+  key,
+  label,
+  max,
+  min,
+  percent: max,
+  step,
+  ...options,
+})
+
+const HUE = channel("h", "hue", 0, 360, 0.1, { hue: true })
+const PERCENT = { digits: 1, unit: "%" }
+
+const rgbChannels = (max, step, digits) =>
+  ["r", "g", "b"].map((key, index) =>
+    channel(key, ["red", "green", "blue"][index], 0, max, step, { digits }),
+  )
+
+const xyzChannels = ["x", "y", "z"].map((key) =>
+  channel(key, key.toUpperCase(), 0, 1.1, 0.001, { digits: 4, percent: 1 }),
+)
+
+const colorFunction = (id) => ({
+  channels: id.startsWith("xyz") ? xyzChannels : rgbChannels(1, 0.001, 4),
+  css: id,
+})
+
+const fromRgb = (id, encode = (rgb) => rgb) => ({
+  fromXyz: (xyz) => encode(xyzToRgb(id, xyz)),
+  gamut: id,
+})
+
+const SPACES = {
+  "a98-rgb": {
+    ...colorFunction("a98-rgb"),
+    ...fromRgb("a98-rgb"),
+    toXyz: (rgb) => rgbToXyz("a98-rgb", rgb),
+  },
+  "display-p3": {
+    ...colorFunction("display-p3"),
+    ...fromRgb("display-p3"),
+    toXyz: (rgb) => rgbToXyz("display-p3", rgb),
+  },
+  hex: {
+    channels: rgbChannels(255, 1, 0),
+    ...fromRgb("srgb", (rgb) => rgb.map((value) => value * 255)),
+    toXyz: (rgb) =>
+      rgbToXyz(
+        "srgb",
+        rgb.map((value) => value / 255),
+      ),
+  },
+  hsl: {
+    channels: [
+      HUE,
+      channel("s", "saturation", 0, 100, 0.1, PERCENT),
+      channel("l", "lightness", 0, 100, 0.1, PERCENT),
+    ],
+    fn: "hsl",
+    ...fromRgb("srgb", rgbToHsl),
+    powerless: ([, saturation, light]) =>
+      saturation < 0.01 || light < 0.01 || light > 99.99,
+    toXyz: (hsl) => rgbToXyz("srgb", hslToRgb(hsl)),
+  },
+  hwb: {
+    channels: [
+      HUE,
+      channel("w", "whiteness", 0, 100, 0.1, PERCENT),
+      channel("b", "blackness", 0, 100, 0.1, PERCENT),
+    ],
+    fn: "hwb",
+    ...fromRgb("srgb", rgbToHwb),
+    powerless: ([, whiteness, blackness]) => whiteness + blackness > 99.99,
+    toXyz: (hwb) => rgbToXyz("srgb", hwbToRgb(hwb)),
+  },
+  lab: {
+    channels: [
+      channel("l", "lightness", 0, 100, 0.1, { clamp: true, digits: 2 }),
+      channel("a", "a", -125, 125, 0.1, { digits: 2, percent: 125 }),
+      channel("b", "b", -125, 125, 0.1, { digits: 2, percent: 125 }),
+    ],
+    fn: "lab",
+    fromXyz: xyzToLab,
+    toXyz: labToXyz,
+  },
+  lch: {
+    channels: [
+      channel("l", "lightness", 0, 100, 0.1, { clamp: true, digits: 2 }),
+      channel("c", "chroma", 0, 150, 0.1, { digits: 2 }),
+      HUE,
+    ],
+    fn: "lch",
+    fromXyz: (xyz) => toPolar(xyzToLab(xyz)),
+    powerless: ([, chroma]) => chroma < 0.0015,
+    toXyz: (lch) => labToXyz(toCartesian(lch)),
+  },
+  oklab: {
+    channels: [
+      channel("l", "lightness", 0, 1, 0.001, { digits: 4 }),
+      channel("a", "a", -0.4, 0.4, 0.001, { digits: 4 }),
+      channel("b", "b", -0.4, 0.4, 0.001, { digits: 4 }),
+    ],
+    fn: "oklab",
+    fromXyz: xyzToOklab,
+    toXyz: oklabToXyz,
+  },
+  oklch: {
+    channels: [
+      channel("l", "lightness", 0, 1, 0.001, { digits: 4 }),
+      channel("c", "chroma", 0, 0.37, 0.001, { digits: 4, percent: 0.4 }),
+      HUE,
+    ],
+    fn: "oklch",
+    fromXyz: (xyz) => toPolar(xyzToOklab(xyz)),
+    powerless: ([, chroma]) => chroma < 0.00004,
+    toXyz: (lch) => oklabToXyz(toCartesian(lch)),
+  },
+  "prophoto-rgb": {
+    ...colorFunction("prophoto-rgb"),
+    ...fromRgb("prophoto-rgb"),
+    toXyz: (rgb) => rgbToXyz("prophoto-rgb", rgb),
+  },
+  rec2020: {
+    ...colorFunction("rec2020"),
+    ...fromRgb("rec2020"),
+    toXyz: (rgb) => rgbToXyz("rec2020", rgb),
+  },
+  rgb: {
+    channels: rgbChannels(255, 1, 0),
+    fn: "rgb",
+    ...fromRgb("srgb", (rgb) => rgb.map((value) => value * 255)),
+    toXyz: (rgb) =>
+      rgbToXyz(
+        "srgb",
+        rgb.map((value) => value / 255),
+      ),
+  },
+  "srgb-linear": {
+    ...colorFunction("srgb-linear"),
+    ...fromRgb("srgb-linear"),
+    toXyz: (rgb) => rgbToXyz("srgb-linear", rgb),
+  },
+  xyz: { ...colorFunction("xyz"), fromXyz: (xyz) => xyz, toXyz: (xyz) => xyz },
+  "xyz-d50": {
+    ...colorFunction("xyz-d50"),
+    fromXyz: (xyz) => multiply(D65_TO_D50, xyz),
+    toXyz: (xyz) => multiply(D50_TO_D65, xyz),
+  },
+  "xyz-d65": {
+    ...colorFunction("xyz-d65"),
+    fromXyz: (xyz) => xyz,
+    toXyz: (xyz) => xyz,
+  },
+}
+
+export const COLOR_SPACES = Object.keys(SPACES)
+
+const JND = 0.02
+const MAP_EPSILON = 0.0001
+const IN_GAMUT_EPSILON = 0.000001
+
+const inRgbGamut = (rgb) =>
+  rgb.every(
+    (value) => value >= -IN_GAMUT_EPSILON && value <= 1 + IN_GAMUT_EPSILON,
+  )
+
+const oklchToXyz = (oklch) => SPACES.oklch.toXyz(oklch)
+
+const clipToGamut = (id, oklch) => {
+  const rgb = xyzToRgb(id, oklchToXyz(oklch)).map((value) =>
+    Math.min(1, Math.max(0, value)),
+  )
+  return SPACES.oklch.fromXyz(rgbToXyz(id, rgb))
+}
+
+const deltaEOK = (one, two) => {
+  const [l1, a1, b1] = toCartesian(one)
+  const [l2, a2, b2] = toCartesian(two)
+  return Math.hypot(l1 - l2, a1 - a2, b1 - b2)
+}
+
+export const gamutMap = (id, oklch) => {
+  const [lightness, chroma, hue] = oklch
+  if (lightness >= 1) return [1, 0, hue]
+  if (lightness <= 0) return [0, 0, hue]
+  if (inRgbGamut(xyzToRgb(id, oklchToXyz(oklch)))) return oklch
+  let current = oklch
+  let clipped = clipToGamut(id, current)
+  if (deltaEOK(clipped, current) < JND) return clipped
+  let min = 0
+  let max = chroma
+  let minInGamut = true
+  while (max - min > MAP_EPSILON) {
+    const middle = (min + max) / 2
+    current = [lightness, middle, hue]
+    if (minInGamut && inRgbGamut(xyzToRgb(id, oklchToXyz(current)))) {
+      min = middle
+      continue
+    }
+    clipped = clipToGamut(id, current)
+    const delta = deltaEOK(clipped, current)
+    if (delta < JND) {
+      if (JND - delta < MAP_EPSILON) break
+      minInGamut = false
+      min = middle
+    } else {
+      max = middle
+    }
+  }
+  return clipped
+}
+
+const hueIndex = (space) => space.channels.findIndex((entry) => entry.hue)
+
+export const toSpace = (id, oklch, previous) => {
+  const space = SPACES[id]
+  const mapped = space.gamut ? gamutMap(space.gamut, oklch) : oklch
+  const coords = space.fromXyz(oklchToXyz(mapped)).map((value, index) => {
+    const { clamp, max, min } = space.channels[index]
+    return space.gamut || clamp ? Math.min(max, Math.max(min, value)) : value
+  })
+  const hue = hueIndex(space)
+  if (hue !== -1) {
+    if (space.powerless?.(coords)) {
+      coords[hue] = id === "oklch" ? oklch[2] : (previous?.[hue] ?? 0)
+    }
+    coords[hue] = ((coords[hue] % 360) + 360) % 360
+  }
+  return coords
+}
+
+export const fromSpace = (id, coords) => {
+  if (id === "oklch") return [...coords]
+  const oklch = SPACES.oklch.fromXyz(SPACES[id].toXyz(coords))
+  if (oklch[1] < 0.00004) oklch[2] = 0
+  return oklch
+}
+
+const hexByte = (value) =>
+  Math.round(Math.min(255, Math.max(0, value)))
+    .toString(16)
+    .padStart(2, "0")
+
+export const formatColor = (id, coords, alpha = 1) => {
+  const space = SPACES[id]
+  const opacity = alpha < 1 ? round(alpha, 3) : undefined
+  if (id === "hex") {
+    return `#${[...coords, ...(opacity === undefined ? [] : [alpha * 255])]
+      .map(hexByte)
+      .join("")}`
+  }
+  const values = coords.map((value, index) => {
+    const { digits = 0, hue, unit = "" } = space.channels[index]
+    const number = hue
+      ? space.powerless?.(coords)
+        ? 0
+        : round(value, 2) % 360
+      : round(value, digits)
+    return `${Object.is(number, -0) ? 0 : number}${unit}`
+  })
+  const body = `${values.join(" ")}${opacity === undefined ? "" : ` / ${opacity}`}`
+  return space.css ? `color(${space.css} ${body})` : `${space.fn}(${body})`
+}
+
+const FUNCTIONS = {
+  hsl: "hsl",
+  hsla: "hsl",
+  hwb: "hwb",
+  lab: "lab",
+  lch: "lch",
+  oklab: "oklab",
+  oklch: "oklch",
+  rgb: "rgb",
+  rgba: "rgb",
+}
+
+const ANGLE = { deg: 1, grad: 0.9, rad: 180 / Math.PI, turn: 360 }
+
+const TOKEN = /^(-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?)(%|deg|grad|rad|turn)?$/i
+
+const readNumber = (token, entry) => {
+  if (token.toLowerCase() === "none") return 0
+  const match = TOKEN.exec(token)
+  if (!match) return null
+  const number = Number(match[1])
+  const unit = match[2]?.toLowerCase()
+  if (unit === "%") return (number / 100) * entry.percent
+  if (unit) return entry.hue ? number * ANGLE[unit] : null
+  return number
+}
+
+const readAlpha = (token) => {
+  if (token === undefined) return 1
+  const value = readNumber(token, { percent: 1 })
+  return value === null ? null : Math.min(1, Math.max(0, value))
+}
+
+export const parseColor = (text) => {
+  const value = text.trim()
+  const hex = /^#([\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})$/i.exec(value)
+  if (hex) {
+    const digits =
+      hex[1].length < 6
+        ? [...hex[1]].map((digit) => digit + digit)
+        : hex[1].match(/../g)
+    const bytes = digits.map((pair) => parseInt(pair, 16))
+    return {
+      alpha: bytes.length === 4 ? round(bytes[3] / 255, 3) : 1,
+      coords: bytes.slice(0, 3),
+      space: "hex",
+    }
+  }
+  const call = /^([a-z-]+)\(([^()]*)\)$/i.exec(value)
+  if (!call) return null
+  const name = call[1].toLowerCase()
+  let body = call[2].trim()
+  let id = FUNCTIONS[name]
+  if (name === "color") {
+    const [space, ...rest] = body.split(/\s+/)
+    id = space.toLowerCase() === "srgb" ? "srgb" : space.toLowerCase()
+    if (!(id in SPACES) && id !== "srgb") return null
+    if (SPACES[id] && !SPACES[id].css) return null
+    body = rest.join(" ")
+  }
+  if (!id) return null
+  const legacy = body.includes(",")
+  const parts = legacy
+    ? body.split(",").map((part) => part.trim())
+    : body.split("/").map((part) => part.trim())
+  const tokens = legacy ? parts.slice(0, 3) : parts[0].split(/\s+/)
+  const alphaToken = legacy ? parts[3] : parts[1]
+  if (tokens.length !== 3 || (!legacy && parts.length > 2)) return null
+  const space = id === "srgb" ? SPACES["srgb-linear"] : SPACES[id]
+  const coords = tokens.map((token, index) =>
+    readNumber(token, space.channels[index]),
+  )
+  const alpha = readAlpha(alphaToken)
+  if (coords.includes(null) || alpha === null) return null
+  if (id === "srgb") {
+    return { alpha, coords: coords.map((value) => value * 255), space: "rgb" }
+  }
+  return { alpha, coords, space: id }
+}
+
+const LABELS = {
+  blackness: "Blackness",
+  blue: "Blue",
+  chroma: "Chroma",
+  green: "Green",
+  hue: "Hue",
+  lightness: "Lightness",
+  red: "Red",
+  saturation: "Saturation",
+  whiteness: "Whiteness",
+}
+
+const INTERPOLATION = { hex: "srgb", rgb: "srgb" }
+
+const displayOf = (id, entry, value) => {
+  if (entry.hue) return `${round(value, 1)}°`
+  if (entry.unit) return `${round(value, 1)}${entry.unit}`
+  if ((id === "oklab" || id === "oklch") && entry.key === "l") {
+    return `${round(value * 100, 1)}%`
+  }
+  return `${round(value, entry.step < 0.01 ? 3 : entry.step < 1 ? 1 : 0)}`
+}
+
+const alphaText = (value) => `${Math.round(value * 100)}%`
 
 const GAMUT_TEXT = {
   p3: "Display P3. Wide-gamut screens show it, others show the nearest sRGB color.",
@@ -130,6 +738,8 @@ const valueSetter = globalThis.HTMLInputElement
 
 export class ColorField extends Base {
   #color = { C: 0.1, H: 250, L: 0.6, alpha: 1 }
+  #coords = [0.6, 0.1, 250]
+  #space = "oklch"
   #controller
   #copied
   #observer
@@ -172,6 +782,7 @@ export class ColorField extends Base {
       signal,
     })
     this.#syncEyedropper()
+    this.#configure()
     this.ownerDocument.addEventListener(
       "reset",
       (event) => {
@@ -233,10 +844,10 @@ export class ColorField extends Base {
     } catch {
       return null
     }
-    const color = readColor(result.sRGBHex)
+    const color = this.#read(result.sRGBHex, false)
     if (!color) return null
     this.#render(color)
-    if (this.#write(this.#format(this.#color))) {
+    if (this.#write(this.#format())) {
       this.#emit("input")
       this.#emit("change")
     }
@@ -255,6 +866,16 @@ export class ColorField extends Base {
     return this.querySelectorAll("input[type=range][data-channel]")
   }
 
+  #channels() {
+    return this.querySelectorAll(
+      'input[type=range][data-channel]:not([data-channel="alpha"])',
+    )
+  }
+
+  #select() {
+    return this.querySelector(".ui-floating select")
+  }
+
   #emit(type) {
     this.input?.dispatchEvent(new Event(type, { bubbles: true }))
   }
@@ -270,30 +891,71 @@ export class ColorField extends Base {
   #input(event) {
     const target = event.target
     if (target === this.input) {
-      const color = readColor(target.value)
+      const color = this.#read(target.value, false)
       if (color) this.#render(color)
       return
     }
     const channel = target?.dataset?.channel
-    if (!channel || !(channel in CHANNELS)) return
-    const color = { ...this.#color, [channel]: Number(target.value) }
+    if (!channel) return
+    const color = {
+      alpha: this.#color.alpha,
+      coords: [...this.#coords],
+      space: this.#space,
+    }
+    const index = [...this.#channels()].indexOf(target)
+    if (channel === "alpha") color.alpha = Number(target.value)
+    else if (index !== -1) color.coords[index] = Number(target.value)
+    else return
     this.#render(color, target)
-    if (this.#write(this.#format(color))) this.#emit("input")
+    if (this.#write(this.#format())) this.#emit("input")
   }
 
   #change(event) {
     const target = event.target
     if (target === this.input) {
-      const color = readColor(target.value)
+      const color = this.#read(target.value, true)
       if (!color) {
         this.#invalid()
         return
       }
       this.#render(color)
-      if (this.#write(this.#format(color))) this.#emit("input")
+      if (this.#write(this.#format())) this.#emit("input")
+      return
+    }
+    if (target === this.#select() && target.value in SPACES) {
+      const { C, H, L } = this.#color
+      this.#render({
+        alpha: this.#color.alpha,
+        coords: toSpace(target.value, [L, C, H]),
+        space: target.value,
+      })
+      if (this.#write(this.#format())) {
+        this.#emit("input")
+        this.#emit("change")
+      }
       return
     }
     if (target?.dataset?.channel) this.#emit("change")
+  }
+
+  #read(text, switchSpace) {
+    const parsed = parseColor(text)
+    if (parsed && switchSpace) return parsed
+    const color = parsed
+      ? { ...this.#oklchOf(parsed), alpha: parsed.alpha }
+      : readColor(text)
+    if (!color) return null
+    const { C, H, L, alpha } = color
+    return {
+      alpha,
+      coords: toSpace(this.#space, [L, C, H], this.#coords),
+      space: this.#space,
+    }
+  }
+
+  #oklchOf({ coords, space }) {
+    const [L, C, H] = fromSpace(space, coords)
+    return { C, H: C < 0.00004 ? this.#color.H : H, L }
   }
 
   #leave(event) {
@@ -314,8 +976,41 @@ export class ColorField extends Base {
     if (event.newState === "open") this.#sliders()[0]?.focus()
   }
 
-  #format(color) {
-    return formatOklch(color, this.#alpha ? color.alpha : 1)
+  #format() {
+    return formatColor(this.#space, this.#coords, this.#color.alpha)
+  }
+
+  #configure() {
+    const space = SPACES[this.#space]
+    const select = this.#select()
+    if (select && select.value !== this.#space) select.value = this.#space
+    this.#channels().forEach((slider, index) => {
+      const entry = space.channels[index]
+      if (!entry) return
+      slider.min = `${entry.min}`
+      slider.max = `${entry.max}`
+      slider.step = `${entry.step}`
+      slider.dataset.channel = entry.key
+      const label = slider.closest(".ui-range")?.querySelector(".ui-label")
+      if (label) {
+        label.textContent =
+          entry.label in LABELS
+            ? this.#text(`${entry.label}-label`, LABELS[entry.label])
+            : entry.label
+      }
+    })
+  }
+
+  #track(index) {
+    const space = SPACES[this.#space]
+    const entry = space.channels[index]
+    const stops = [entry.min, entry.max].map((value) => {
+      const coords = [...this.#coords]
+      coords[index] = value
+      return formatColor(this.#space, coords)
+    })
+    const method = `${INTERPOLATION[this.#space] ?? this.#space}${entry.hue ? " longer hue" : ""}`
+    return `linear-gradient(var(--_to) in ${method}, ${stops.join(", ")})`
   }
 
   #command(event) {
@@ -355,7 +1050,7 @@ export class ColorField extends Base {
       "--_preview-text-color",
       onLight > onDark ? "oklch(1 0 0)" : "oklch(0 0 0)",
     )
-    if (value) value.textContent = this.#format(color)
+    if (value) value.textContent = this.#format()
     if (light) light.textContent = `${onLight}:1`
     if (dark) dark.textContent = `${onDark}:1`
     if (sr) {
@@ -365,23 +1060,47 @@ export class ColorField extends Base {
     }
   }
 
-  #render(color, skip) {
+  #render({ alpha, coords, space }, skip) {
     const input = this.input
-    this.#color = { ...color, alpha: this.#alpha ? color.alpha : 1 }
-    this.style.setProperty("--_indicator-bg-color", this.#format(this.#color))
+    if (space !== this.#space) {
+      this.#space = space
+      this.#configure()
+    }
+    this.#coords = coords
+    this.#color = {
+      ...this.#oklchOf({ coords, space }),
+      alpha: this.#alpha ? alpha : 1,
+    }
+    this.style.setProperty(
+      "--_indicator-bg-color",
+      formatOklch(this.#color, this.#color.alpha),
+    )
     this.#preview(this.#color)
     this.style.setProperty("--_l", `${this.#color.L}`)
     this.style.setProperty("--_c", `${this.#color.C}`)
     this.style.setProperty("--_h", `${this.#color.H}`)
     this.style.setProperty("--_tint-alpha", "1")
     input?.setCustomValidity("")
-    for (const slider of this.#sliders()) {
-      const channel = slider.dataset.channel
-      const number = this.#color[channel]
+    const entries = SPACES[this.#space].channels
+    this.#channels().forEach((slider, index) => {
+      const entry = entries[index]
+      if (!entry) return
+      const number = this.#coords[index]
       if (slider !== skip) slider.value = `${number}`
-      slider.setAttribute("aria-valuetext", CHANNELS[channel].spoken(number))
+      slider.style.setProperty("--_track", this.#track(index))
+      slider.setAttribute(
+        "aria-valuetext",
+        displayOf(this.#space, entry, number),
+      )
       const output = slider.closest(".ui-range")?.querySelector(".ui-value")
-      if (output) output.textContent = CHANNELS[channel].text(number)
+      if (output) output.textContent = displayOf(this.#space, entry, number)
+    })
+    const opacity = this.querySelector('input[data-channel="alpha"]')
+    if (opacity) {
+      if (opacity !== skip) opacity.value = `${this.#color.alpha}`
+      opacity.setAttribute("aria-valuetext", alphaText(this.#color.alpha))
+      const output = opacity.closest(".ui-range")?.querySelector(".ui-value")
+      if (output) output.textContent = alphaText(this.#color.alpha)
     }
     const gamut = this.querySelector(".ui-floating > .ui-description")
     if (gamut) {
@@ -397,7 +1116,7 @@ export class ColorField extends Base {
     if (trigger && trigger.disabled !== input.disabled) {
       trigger.disabled = input.disabled
     }
-    const color = readColor(input.value)
+    const color = this.#read(input.value, true)
     if (color) {
       this.#render(color)
       return

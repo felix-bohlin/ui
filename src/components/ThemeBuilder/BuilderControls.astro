@@ -487,8 +487,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const [lightInput, darkInput] = [...colorFields(element)]
       const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
       const dualButton = element.querySelector<HTMLElement>("[data-dual]")!
-      if (light) lightInput.value = light.value
-      darkInput.value = (dark ?? light)?.value ?? ""
+      const show = (field: ColorField, value: string) => {
+        if (resolveOklch(field.value) !== value) field.value = value
+      }
+      if (light) show(lightInput, light.value)
+      show(darkInput, (dark ?? light)?.value ?? "")
       darkField.hidden = !isDual
       dualButton.setAttribute("aria-pressed", `${isDual}`)
       element.classList.toggle("is-dual", isDual)
@@ -743,7 +746,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       throttle: boolean,
     ) => {
       const [light, dark] = [...colorFields(element)].map(
-        (input) => input.value,
+        (field) => resolveOklch(field.value) ?? field.value,
       )
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {

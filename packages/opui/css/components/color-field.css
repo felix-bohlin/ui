@@ -174,30 +174,6 @@
           --_track: none;
           --_track-fill-bg-color: transparent;
 
-          &[data-channel="L"] {
-            --_track: linear-gradient(
-              var(--_to) in oklch,
-              oklch(0 var(--_c) var(--_h)),
-              oklch(1 var(--_c) var(--_h))
-            );
-          }
-
-          &[data-channel="C"] {
-            --_track: linear-gradient(
-              var(--_to) in oklab,
-              oklch(var(--_l) 0 var(--_h)),
-              oklch(var(--_l) 0.37 var(--_h))
-            );
-          }
-
-          &[data-channel="H"] {
-            --_track: linear-gradient(
-              var(--_to) in oklch longer hue,
-              oklch(var(--_l) var(--_c) 0),
-              oklch(var(--_l) var(--_c) 360)
-            );
-          }
-
           &[data-channel="alpha"] {
             --_track:
               linear-gradient(

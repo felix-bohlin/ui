@@ -3,7 +3,7 @@
   import Button from "../Button/Button.svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { channelsFor } from "./channels"
+  import { channelsFor, COLOR_SPACES } from "./channels"
   import { copyPath, eyedropperPath } from "./icons"
   import type { Props } from "./types.svelte"
 
@@ -11,13 +11,17 @@
 
   let {
     autoFit,
+    blacknessLabel,
+    blueLabel,
     chromaLabel,
     class: className,
+    colorSpaceLabel = "Color space",
     contrastLabel,
     copiedLabel,
     copyLabel = "Copy",
     error,
     eyedropperLabel = "Pick from the screen",
+    greenLabel,
     hideLabel,
     hueLabel,
     id,
@@ -28,6 +32,8 @@
     opacityLabel,
     p3Text,
     pickerLabel = "Pick a color",
+    redLabel,
+    saturationLabel,
     size,
     spread,
     srgbText,
@@ -35,6 +41,7 @@
     swatchOnly,
     value = $bindable(),
     variant,
+    whitenessLabel,
     wideText,
 
     // Snippets
@@ -49,13 +56,22 @@
 </script>
 
 <opui-color-field
+  blackness-label={blacknessLabel}
+  blue-label={blueLabel}
+  chroma-label={chromaLabel}
   class={["ui-color-field", { "ui-swatch-only": swatchOnly }, className]}
   contrast-label={contrastLabel}
   copied-label={copiedLabel}
+  green-label={greenLabel}
+  hue-label={hueLabel}
   invalid-text={invalidText}
+  lightness-label={lightnessLabel}
   p3-text={p3Text}
+  red-label={redLabel}
+  saturation-label={saturationLabel}
   srgb-text={srgbText}
   {style}
+  whiteness-label={whitenessLabel}
   wide-text={wideText}
 >
   {#if swatchOnly}
@@ -205,6 +221,29 @@
         {/if}
       </div>
     {/if}
+    <label class="ui-select ui-small ui-spread">
+      <span class="ui-label" id={`${inputId}-space-label`}
+        >{colorSpaceLabel}</span
+      >
+      <span class="ui-field">
+        <select
+          aria-describedby={`${inputId}-gamut`}
+          aria-labelledby={`${inputId}-space-label`}
+          id={`${inputId}-space`}
+        >
+          <button>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            {#each COLOR_SPACES as space (space)}
+              <option selected={space === "oklch" || undefined} value={space}
+                >{space}</option
+              >
+            {/each}
+          </div>
+        </select>
+      </span>
+    </label>
     {#each channelsFor( opacity, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
       <label class="ui-range" for={`${inputId}-${slider.name}`}>
         <span class="ui-label" id={`${inputId}-${slider.name}-label`}
@@ -216,9 +255,6 @@
           for={`${inputId}-${slider.name}`}
         ></output>
         <input
-          aria-describedby={slider.channel === "C"
-            ? `${inputId}-gamut`
-            : undefined}
           aria-labelledby={`${inputId}-${slider.name}-label`}
           data-channel={slider.channel}
           id={`${inputId}-${slider.name}`}

@@ -4,7 +4,7 @@ import Button from "../Button/Button.astro"
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { createId } from "../id"
-import { channelsFor } from "./channels"
+import { channelsFor, COLOR_SPACES } from "./channels"
 import { copyPath, eyedropperPath } from "./icons"
 
 export const title = "Color Field"
@@ -12,14 +12,18 @@ export const title = "Color Field"
 const {
   "aria-invalid": ariaInvalid,
   autoFit,
+  blacknessLabel,
+  blueLabel,
   chromaLabel,
   class: className,
+  colorSpaceLabel = "Color space",
   contrastLabel,
   copiedLabel,
   copyLabel = "Copy",
   endText,
   error,
   eyedropperLabel = "Pick from the screen",
+  greenLabel,
   hideLabel,
   hueLabel,
   id,
@@ -31,6 +35,8 @@ const {
   opacityLabel,
   p3Text,
   pickerLabel = "Pick a color",
+  redLabel,
+  saturationLabel,
   size,
   spread,
   srgbText,
@@ -38,6 +44,7 @@ const {
   style,
   swatchOnly,
   variant,
+  whitenessLabel,
   wideText,
   ...rest
 } = Astro.props
@@ -48,13 +55,22 @@ const inputId = id ?? $id("color-field")
 ---
 
 <opui-color-field
+  blackness-label={blacknessLabel}
+  blue-label={blueLabel}
+  chroma-label={chromaLabel}
   class:list={["ui-color-field", { "ui-swatch-only": swatchOnly }, className]}
   contrast-label={contrastLabel}
   copied-label={copiedLabel}
+  green-label={greenLabel}
+  hue-label={hueLabel}
   invalid-text={invalidText}
+  lightness-label={lightnessLabel}
   p3-text={p3Text}
+  red-label={redLabel}
+  saturation-label={saturationLabel}
   srgb-text={srgbText}
   style={style}
+  whiteness-label={whitenessLabel}
   wide-text={wideText}
 >
   {
@@ -224,6 +240,31 @@ const inputId = id ?? $id("color-field")
         </div>
       )
     }
+    <label class="ui-select ui-small ui-spread">
+      <span class="ui-label" id={`${inputId}-space-label`}>
+        {colorSpaceLabel}
+      </span>
+      <span class="ui-field">
+        <select
+          aria-describedby={`${inputId}-gamut`}
+          aria-labelledby={`${inputId}-space-label`}
+          id={`${inputId}-space`}
+        >
+          <button>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            {
+              COLOR_SPACES.map((space) => (
+                <option selected={space === "oklch"} value={space}>
+                  {space}
+                </option>
+              ))
+            }
+          </div>
+        </select>
+      </span>
+    </label>
     {
       channelsFor(opacity, {
         chroma: chromaLabel,
@@ -241,9 +282,6 @@ const inputId = id ?? $id("color-field")
             for={`${inputId}-${slider.name}`}
           />
           <input
-            aria-describedby={
-              slider.channel === "C" ? `${inputId}-gamut` : undefined
-            }
             aria-labelledby={`${inputId}-${slider.name}-label`}
             data-channel={slider.channel}
             id={`${inputId}-${slider.name}`}

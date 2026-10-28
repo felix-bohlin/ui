@@ -46,6 +46,12 @@
   initial-value: 0;
 }
 
+@property --_tint-bg-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+
 @layer components.extended {
   :where(.ui-color-field) {
     --_picker-inline-size: 16rem;
@@ -259,25 +265,48 @@
         }
       }
 
-      & > .ui-range {
-        --_track-block-size: 1.5ex;
+      & > label:not(.ui-select) {
+        --_thumb-size: 1.25em;
+        --_track-block-size: 0.75em;
+
+        align-items: baseline;
+        display: grid;
+        gap: var(--ui-space-1) var(--ui-space-2);
+        grid-template-columns: minmax(0, 1fr) auto;
+
+        @media (pointer: coarse) {
+          --_thumb-size: 1.75em;
+        }
+
+        & > .ui-label {
+          color: var(--ui-field-label-text-color);
+          font-size: var(--ui-field-label-font-size);
+          font-weight: var(--ui-field-label-font-weight);
+        }
+
+        & > .ui-value {
+          color: var(--ui-field-helper-text-color);
+          font-size: var(--ui-field-helper-font-size);
+          font-variant-numeric: tabular-nums;
+          font-weight: var(--ui-font-weight-semibold);
+          text-align: end;
+        }
 
         & > input[type="range"] {
           --_thumb-picked-bg-color: transparent;
+          --_thumb-scale: 1;
           --_to: to right;
           --_track: none;
-          --_track-fill-bg-color: transparent;
 
-          animation-name: none;
-          timeline-scope: none;
-
-          &:focus-visible {
-            animation-duration: calc(var(--ui-duration) * var(--ui-motion));
-            animation-name: ui-focus-ring;
-            animation-range: normal;
-            animation-timeline: auto;
-            animation-timing-function: var(--ui-ease);
-          }
+          appearance: none;
+          background: none;
+          block-size: var(--_thumb-size);
+          border-radius: var(--ui-radius-round);
+          cursor: pointer;
+          grid-column: 1 / -1;
+          inline-size: 100%;
+          margin: 0;
+          outline-offset: var(--ui-focus-ring-offset);
 
           &[data-channel="alpha"] {
             --_picked-c: 0.1;
@@ -300,31 +329,71 @@
             --_to: to left;
           }
 
+          @media (hover: hover) {
+            &:hover {
+              --_thumb-scale: 1.1;
+            }
+          }
+
+          &:active {
+            --_thumb-scale: 1.2;
+          }
+
           @media (forced-colors: active) {
             forced-color-adjust: none;
           }
 
           &::-webkit-slider-runnable-track {
             background: var(--_track);
+            block-size: var(--_track-block-size);
+            border-radius: var(--ui-radius-round);
             box-shadow: inset 0 0 0 var(--ui-border-width)
-              var(--ui-border-color);
+              var(--ui-field-border-color);
           }
 
           &::-moz-range-track {
             background: var(--_track);
+            block-size: var(--_track-block-size);
+            border-radius: var(--ui-radius-round);
             box-shadow: inset 0 0 0 var(--ui-border-width)
-              var(--ui-border-color);
+              var(--ui-field-border-color);
+          }
+
+          &::-moz-range-progress {
+            background: none;
           }
 
           &::-webkit-slider-thumb {
+            appearance: none;
             background: var(--_thumb-picked-bg-color);
-            outline: var(--ui-border-width) solid var(--ui-text-strong);
-            view-timeline: none;
+            block-size: var(--_thumb-size);
+            border: var(--ui-border-width-thick) solid oklch(1 0 0);
+            border-radius: var(--ui-radius-round);
+            box-shadow:
+              0 0 0 var(--ui-border-width) oklch(0 0 0 / 0.35),
+              0 var(--ui-border-width) var(--ui-space-1) oklch(0 0 0 / 0.3);
+            inline-size: var(--_thumb-size);
+            margin-block-start: calc(
+              (var(--_track-block-size) - var(--_thumb-size)) / 2
+            );
+            scale: var(--_thumb-scale);
+            transition: scale calc(var(--ui-duration-fast) * var(--ui-motion))
+              var(--ui-ease);
           }
 
           &::-moz-range-thumb {
             background: var(--_thumb-picked-bg-color);
-            outline: var(--ui-border-width) solid var(--ui-text-strong);
+            block-size: var(--_thumb-size);
+            border: var(--ui-border-width-thick) solid oklch(1 0 0);
+            border-radius: var(--ui-radius-round);
+            box-shadow:
+              0 0 0 var(--ui-border-width) oklch(0 0 0 / 0.35),
+              0 var(--ui-border-width) var(--ui-space-1) oklch(0 0 0 / 0.3);
+            box-sizing: border-box;
+            inline-size: var(--_thumb-size);
+            scale: var(--_thumb-scale);
+            transition: scale calc(var(--ui-duration-fast) * var(--ui-motion))
+              var(--ui-ease);
           }
         }
       }

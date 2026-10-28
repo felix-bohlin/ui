@@ -284,7 +284,6 @@ const field = inject(FieldGroupKey, undefined)
       <label
         v-for="slider in sliders"
         :key="slider.name"
-        class="ui-range"
         :for="`${inputId}-${slider.name}`"
       >
         <span class="ui-label" :id="`${inputId}-${slider.name}-label`">{{

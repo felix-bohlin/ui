@@ -686,6 +686,8 @@ export const parseColor = (text) => {
   return { alpha, coords, space: id }
 }
 
+const TINT_DELAY = 100
+
 const PLANE_CHROMA = 0.37
 const PLANE_COLUMNS = 96
 const PLANE_ROWS = 64
@@ -767,7 +769,10 @@ const paint = (elements, name, value) => {
 }
 
 const show = (node, text) => {
-  if (node && node.textContent !== text) node.textContent = text
+  if (!node || node.textContent === text) return
+  const only = node.firstChild
+  if (only?.nodeType === 3 && !only.nextSibling && text) only.data = text
+  else node.textContent = text
 }
 
 const alphaText = (value) => `${Math.round(value * 100)}%`
@@ -805,6 +810,8 @@ export class ColorField extends Base {
   #copied
   #observer
   #open = false
+  #tintPending = false
+  #tintTimer
   #pointerOpen = false
   #valid = false
   #plane
@@ -892,6 +899,8 @@ export class ColorField extends Base {
   }
 
   disconnectedCallback() {
+    clearTimeout(this.#tintTimer)
+    this.#tintTimer = undefined
     cancelAnimationFrame(this.#planeFrame)
     this.#planeFrame = undefined
     this.#controller?.abort()
@@ -1217,7 +1226,7 @@ export class ColorField extends Base {
       slider.max = `${entry.max}`
       slider.step = `${entry.step}`
       slider.dataset.channel = entry.key
-      const label = slider.closest(".ui-range")?.querySelector(".ui-label")
+      const label = slider.closest("label")?.querySelector(".ui-label")
       if (label) {
         label.textContent =
           entry.label in LABELS
@@ -1302,13 +1311,12 @@ export class ColorField extends Base {
     this.#paintColor(formatOklch(this.#color, this.#color.alpha))
     this.#preview(this.#color)
     const { C, H, L } = this.#color
-    const floating = this.querySelector(".ui-floating")
     const opacity = this.querySelector('input[data-channel="alpha"]')
-    paint([floating, opacity], "--_picked-c", `${C}`)
-    paint([floating, opacity], "--_picked-h", `${H}`)
+    paint([opacity], "--_picked-c", `${C}`)
+    paint([opacity], "--_picked-h", `${H}`)
     paint([opacity], "--_picked-l", `${L}`)
-    paint([floating], "--_tint-alpha", "1")
     this.#valid = true
+    this.#tint()
     const panel = this.#panel()
     paint([panel], "--_plane-x", `${clampUnit(C / PLANE_CHROMA)}`)
     paint([panel], "--_plane-y", `${L}`)
@@ -1323,19 +1331,36 @@ export class ColorField extends Base {
       paint([slider], "--_track", this.#track(index))
       const text = displayOf(this.#space, entry, number)
       slider.setAttribute("aria-valuetext", text)
-      show(slider.closest(".ui-range")?.querySelector(".ui-value"), text)
+      show(slider.closest("label")?.querySelector(".ui-value"), text)
     })
     if (opacity) {
       if (opacity !== skip) opacity.value = `${this.#color.alpha}`
       const text = alphaText(this.#color.alpha)
       opacity.setAttribute("aria-valuetext", text)
-      show(opacity.closest(".ui-range")?.querySelector(".ui-value"), text)
+      show(opacity.closest("label")?.querySelector(".ui-value"), text)
     }
     const range = oklchGamut(L, C, H)
     show(
       this.querySelector(".ui-floating > .ui-description"),
       this.#text(`${range}-text`, GAMUT_TEXT[range]),
     )
+  }
+
+  #tint() {
+    if (this.#tintTimer) {
+      this.#tintPending = true
+      return
+    }
+    const floating = this.querySelector(".ui-floating")
+    paint([floating], "--_picked-c", `${this.#color.C}`)
+    paint([floating], "--_picked-h", `${this.#color.H}`)
+    paint([floating], "--_tint-alpha", this.#valid ? "1" : "0")
+    this.#tintTimer = setTimeout(() => {
+      this.#tintTimer = undefined
+      if (!this.#tintPending) return
+      this.#tintPending = false
+      this.#tint()
+    }, TINT_DELAY)
   }
 
   #paintColor(value) {
@@ -1347,7 +1372,7 @@ export class ColorField extends Base {
       value,
     )
     paint(
-      this.querySelectorAll(".ui-range > input"),
+      this.querySelectorAll(".ui-floating > label > input[type=range]"),
       "--_thumb-picked-bg-color",
       value,
     )
@@ -1379,7 +1404,7 @@ export class ColorField extends Base {
     const empty = !input.value.trim()
     this.#paintColor("transparent")
     this.#valid = false
-    paint([this.querySelector(".ui-floating")], "--_tint-alpha", "0")
+    this.#tint()
     this.#preview(null)
     const text = empty ? "" : this.#text("invalid-text", INVALID_TEXT)
     input.setCustomValidity(text)

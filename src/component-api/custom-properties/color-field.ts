@@ -65,6 +65,16 @@ export default {
       "The color on a slider's thumb. The element sets it on each slider, where it inherits into the thumb inside the slider.",
     kind: "output",
   },
+  "--_thumb-scale": {
+    description:
+      "Scale of a slider's thumb: `1`, `1.1` on hover and `1.2` while it's dragged.",
+    kind: "output",
+  },
+  "--_thumb-size": {
+    description:
+      "Size of the slider thumbs and the height of the sliders, `1.25em`, or `1.75em` on a coarse pointer.",
+    kind: "input",
+  },
   "--_tint-alpha": {
     description:
       "Alpha of the picker's tint. The element sets it on the picker, `1` while the field holds a color and `0` when the text is empty or isn't a color, so the plain surface shows; it's registered and doesn't inherit.",
@@ -72,7 +82,7 @@ export default {
   },
   "--_tint-bg-color": {
     description:
-      "The picker's tint: the surface's lightness with the color's hue, its chroma capped by `--_tint-chroma`.",
+      "The picker's tint: the surface's lightness with the color's hue, its chroma capped by `--_tint-chroma`. Registered so it doesn't inherit, so a new tint restyles only the picker, which the element updates at most every 100ms while the color changes.",
     kind: "output",
   },
   "--_tint-chroma": {
@@ -91,13 +101,8 @@ export default {
     kind: "output",
   },
   "--_track-block-size": {
-    description: "Thickness of the slider tracks, thicker than a `Range`'s.",
+    description: "Thickness of the slider tracks, `0.75em`.",
     kind: "input",
-  },
-  "--_track-fill-bg-color": {
-    description:
-      "The `Range` track fill, `transparent` so the gradient shows end to end.",
-    kind: "output",
   },
   "--_trigger-size": {
     description:

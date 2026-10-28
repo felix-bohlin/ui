@@ -10,7 +10,6 @@ import PropOrClass from "../../components/PropOrClass.astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
 import ColorFieldCSS from "@opui/css/components/color-field.css?raw"
-import RangeCSS from "@opui/css/components/range.css?raw"
 import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 import ColorFieldJS from "@opui/elements/color-field.js?raw"
 
@@ -35,7 +34,6 @@ export const description =
     "popover",
     "registered-custom-properties",
     "relative-color",
-    "scroll-driven-animations",
     "starting-style",
     "transition-behavior",
   ]}
@@ -63,7 +61,6 @@ export const description =
       lang: "css",
       isDependency: true,
     },
-    { title: "range.css", code: RangeCSS, lang: "css", isDependency: true },
     { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
   ]}
 >
@@ -71,8 +68,8 @@ export const description =
   <Fragment slot="preamble">
     <p>
       A <DocLink href="/components/text-field">Text field</DocLink> for a color, with
-      a swatch that opens <DocLink href="/components/range">Range</DocLink>
-      sliders for lightness, chroma, hue and opacity, or the channels of 15 other
+      a swatch that opens sliders for lightness, chroma, hue and opacity, or the channels
+      of 15 other
       <a href="#color-spaces">color spaces</a>. The <code
         >&lt;opui-color-field&gt;</code
       > custom element keeps them in step.
@@ -116,10 +113,10 @@ export const description =
         part with a <code>&lt;label for&gt;</code>, and a <code
           >.ui-floating</code
         >
-        popover with a <code>.ui-range</code> per channel, each <code
+        popover with a <code>&lt;label&gt;</code> per channel around an <code
           >input[type=range]</code
-        > with <code>data-channel</code> set to <code>L</code>, <code>C</code>,
-        <code>H</code> or <code>alpha</code>. The swatch button opens it with <code
+        > with <code>data-channel</code> set to <code>l</code>, <code>c</code>,
+        <code>h</code> or <code>alpha</code>. The swatch button opens it with <code
           >commandfor</code
         > and <code>command="toggle-popover"</code>. Then import <code
           >opui-css/elements/color-field.js</code

@@ -248,7 +248,7 @@
       </span>
     </label>
     {#each channelsFor( opacity, { chroma: chromaLabel, hue: hueLabel, lightness: lightnessLabel, opacity: opacityLabel } ) as slider (slider.name)}
-      <label class="ui-range" for={`${inputId}-${slider.name}`}>
+      <label for={`${inputId}-${slider.name}`}>
         <span class="ui-label" id={`${inputId}-${slider.name}-label`}
           >{slider.label}</span
         >

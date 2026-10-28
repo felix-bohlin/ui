@@ -6,7 +6,7 @@ const hydrated =
 
 export default {
   component: "ColorField",
-  css: ["button", "color-field", "range", "select", "text-field"],
+  css: ["button", "color-field", "select", "text-field"],
   keyboard: [
     {
       description:
@@ -331,7 +331,7 @@ export default {
     },
     {
       description:
-        "The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.",
+        "The picker, a popover dialog with a slider per channel, a `<label>` around an `input[type=range]` that `color-field.css` styles on its own, lighter than a `Range`. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.",
       props: ["opacity"],
       selector: ".ui-floating",
     },

@@ -275,7 +275,7 @@ const inputId = id ?? $id("color-field")
         lightness: lightnessLabel,
         opacity: opacityLabel,
       }).map((slider) => (
-        <label class="ui-range" for={`${inputId}-${slider.name}`}>
+        <label for={`${inputId}-${slider.name}`}>
           <span class="ui-label" id={`${inputId}-${slider.name}-label`}>
             {slider.label}
           </span>

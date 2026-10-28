@@ -250,11 +250,7 @@ export default function ColorField({
           lightness: lightnessLabel,
           opacity: opacityLabel,
         }).map((slider) => (
-          <label
-            className="ui-range"
-            htmlFor={`${inputId}-${slider.name}`}
-            key={slider.name}
-          >
+          <label htmlFor={`${inputId}-${slider.name}`} key={slider.name}>
             <span className="ui-label" id={`${inputId}-${slider.name}-label`}>
               {slider.label}
             </span>

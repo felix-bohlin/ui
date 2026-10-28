@@ -1,19 +1,23 @@
+@property --_dot-radius {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 @layer components.root {
   :where(label.ui-radio) {
     /* Input */
     input[type="radio"] {
-      --_dot-radius: calc(
-        var(--_size) / 2 - var(--ui-field-border-width) -
-          round(
-            down,
-            (var(--_size) - 2 * var(--ui-field-border-width)) / 4,
-            1px
-          )
-      );
+      --_dot-radius: 0px;
 
       appearance: none;
       aspect-ratio: 1;
       background-color: var(--ui-surface);
+      background-image: radial-gradient(
+        circle,
+        var(--_on-accent) calc(var(--_dot-radius) - 0.25px),
+        transparent calc(var(--_dot-radius) + min(var(--_dot-radius), 0.25px))
+      );
       block-size: var(--_size);
       border: var(--ui-field-border-width) solid
         var(--ui-choice-border-color, var(--ui-field-border-color));
@@ -25,15 +29,23 @@
       padding: 0;
       position: relative;
       transform-style: preserve-3d;
+      transition:
+        --_dot-radius var(--_duration) var(--_ease),
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
 
       /* Dot */
       &:checked {
-        background-color: var(--_accent);
-        background-image: radial-gradient(
-          circle,
-          var(--_on-accent) calc(var(--_dot-radius) - 0.25px),
-          var(--_accent) calc(var(--_dot-radius) + 0.25px)
+        --_dot-radius: calc(
+          var(--_size) / 2 - var(--ui-field-border-width) -
+            round(
+              down,
+              (var(--_size) - 2 * var(--ui-field-border-width)) / 4,
+              1px
+            )
         );
+
+        background-color: var(--_accent);
         border-color: var(--_accent);
       }
     }

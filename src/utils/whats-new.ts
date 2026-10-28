@@ -400,6 +400,7 @@ export const whatsNew = {
       default: `<a href="#select-all"><code>SelectAll</code></a> makes a <code>data-select-all</code> checkbox check and uncheck the others in a group, and shows it indeterminate when some are checked, with the <code>&lt;opui-select-all&gt;</code> custom element, which the component loads.`,
       html: `<a href="#select-all"><code>&lt;opui-select-all&gt;</code></a> makes a <code>data-select-all</code> checkbox check and uncheck the others in a group, and shows it indeterminate when some are checked. Import <code>opui-css/elements/select-all.js</code>.`,
     },
+    `A <a href="#basics">checkbox</a> fades its fill and scales its check in when checked and out when unchecked, and an <a href="#indeterminate">indeterminate</a> dash morphs into the check.`,
   ],
   chip: [
     `Themes can set <a href="#api"><code>--ui-chip-radius</code></a> for a corner radius of its own.`,
@@ -850,6 +851,7 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `The root selector is wrapped in <code>:where()</code>, like other components, so your own selectors win (<a href="#under-the-hood">Under the hood</a>).`,
     `The hover <a href="#basics">halo</a> only shows on devices that can hover, so it no longer sticks after a tap.`,
+    `A <a href="#basics">radio</a> fades its fill and grows its dot from the center when checked, and shrinks it when another radio takes over.`,
   ],
   range: [
     components(

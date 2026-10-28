@@ -8,7 +8,7 @@ export default {
   },
   "--_dot-radius": {
     description:
-      "Radius of the checked dot, computed from `--_size` and `--ui-field-border-width`.",
+      "Radius of the dot: `0px`, and computed from `--_size` and `--ui-field-border-width` when checked. A registered `<length>`, so the dot grows and shrinks over `--_duration`.",
     kind: "output",
   },
   "--_on-accent": {

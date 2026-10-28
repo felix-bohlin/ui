@@ -327,6 +327,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Card` tonal and elevated variants (and `Dialog`) have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them also use the page background.
 - `Card` actions stick to the bottom of stretched cards and wrap.
 - `Card`, `Accordion`, `Dialog` and `Drawer` content (`.ui-content`) is a stack: a grid with `--ui-space-3` between its children, which lose their block margins, so a body with a heading, a paragraph and a list needs no CSS of its own. Content with inline children (links, `strong`, chips, buttons) or a `Carousel` keeps the normal flow, and rich text content (`.ui-content.ui-rich-text`) keeps its own spacing. The rules have no specificity, so a `display` or `gap` set on the content wins.
+- `Checkbox` and `Radio` animate when checked: the fill and border fade over `--_duration`, the check scales and fades in and out, an indeterminate dash morphs into the check (the dash is a six-point `clip-path` like the check), and the radio dot grows from the center and shrinks back. `--_dot-radius` is a registered `<length>`, `0px` while unchecked.
 - `Checkbox`, `Radio` and `Switch` keep a light marker in dark mode on a fill darkened to keep 3:1 contrast.
 - `Checkbox`, `Radio` and `Switch` line up with the first line of their label and center on it.
 - `Checkbox` and `Radio` root selectors are wrapped in `:where()`, like other components.

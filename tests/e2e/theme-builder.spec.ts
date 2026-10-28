@@ -150,7 +150,7 @@ test("shuffle skips locked rooms", async ({ page }) => {
 
 test("the contrast drawer links a check to its setting", async ({ page }) => {
   await open(page)
-  await page.locator("[data-contrast]").click()
+  await page.locator("button[data-contrast]").click()
   const drawer = page.locator("#builder-contrast")
   await expect(drawer).toHaveAttribute("open")
   await expect(drawer.locator("[data-summary='success']")).toContainText(
@@ -170,7 +170,9 @@ test("the contrast drawer links a check to its setting", async ({ page }) => {
   await expect(drawer).not.toHaveAttribute("open")
   await expect(group(page, "status")).toBeVisible()
   await expect(
-    page.locator('[data-control="critical"] .oklch-trigger').first(),
+    page
+      .locator('[data-control="critical"] button[command="toggle-popover"]')
+      .first(),
   ).toBeFocused()
 })
 
@@ -216,7 +218,7 @@ test("has no axe violations, with the drawers open too", async ({ page }) => {
     expect(axeNodes(violations), label).toEqual([])
   }
   await check("start")
-  await page.locator("[data-contrast]").click()
+  await page.locator("button[data-contrast]").click()
   await check("contrast drawer")
   await page.keyboard.press("Escape")
   await page.getByRole("button", { name: "Export CSS" }).click()

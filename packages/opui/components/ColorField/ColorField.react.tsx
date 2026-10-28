@@ -64,6 +64,7 @@ export default function ColorField({
     >
       {swatchOnly ? (
         <Button
+          aria-describedby={rest["aria-describedby"]}
           aria-labelledby={`${inputId}-label`}
           command="toggle-popover"
           commandfor={`${inputId}-picker`}

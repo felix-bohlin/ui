@@ -65,7 +65,7 @@ import BrandPicker from "./BrandPicker.astro"
 <script>
   import { syncBrandPicker } from "../utils/brand-picker"
   import { exampleTheme } from "../utils/example-themes"
-  import type { OklchInput } from "../utils/oklch-input"
+  import type { ColorField } from "opui-css/elements/color-field.js"
   import {
     cornersOf,
     cornersUpdate,
@@ -89,7 +89,7 @@ import BrandPicker from "./BrandPicker.astro"
       ...form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`),
     ]
     const picker = form.querySelector<HTMLElement>(".brand-picker")!
-    const custom = picker.querySelector<OklchInput>("[data-brand-custom]")!
+    const custom = picker.querySelector<ColorField>(".brand-custom")!
     const status = form.querySelector<HTMLElement>(".theme-quick-status")!
     const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
     let pendingColor: string | null = null
@@ -176,7 +176,8 @@ import BrandPicker from "./BrandPicker.astro"
       form.querySelector<HTMLElement>(".theme-quick-reset")!.focus()
     })
 
-    custom.addEventListener("input", () => {
+    custom.addEventListener("input", (event) => {
+      if (event.target !== custom.input) return
       const queued = pendingColor !== null
       pendingColor = custom.value
       if (queued) return

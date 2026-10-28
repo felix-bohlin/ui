@@ -138,7 +138,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   } from "../../utils/color-utils"
   import { exampleTheme } from "../../utils/example-themes"
   import { morph } from "../../utils/morph"
-  import { OklchInput } from "../../utils/oklch-input"
+  import type { ColorField } from "opui-css/elements/color-field.js"
   import { readStored, writeStored } from "../../utils/storage"
   import {
     CORNERS,
@@ -474,14 +474,17 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       }
     }
 
+    const colorFields = (element: HTMLElement) =>
+      [...element.querySelectorAll("input[data-color]")].map((input) =>
+        input.closest<ColorField>("opui-color-field")!,
+      )
+
     const setColorInputs = (
       element: HTMLElement,
       [light, dark]: ReturnType<typeof toColor>[],
       isDual: boolean,
     ) => {
-      const [lightInput, darkInput] = [
-        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
-      ]
+      const [lightInput, darkInput] = [...colorFields(element)]
       const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
       const dualButton = element.querySelector<HTMLElement>("[data-dual]")!
       if (light) lightInput.value = light.value
@@ -496,9 +499,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         : colorText(light)
       darkCaption.textContent = `Dark ${colorText(dark)}`
       const name = element.dataset.name ?? ""
-      lightInput.label = isDual
+      lightInput.querySelector(".ui-text-field > label")!.textContent = isDual
         ? `${name} in light mode`
-        : (lightInput.dataset.label ?? name)
+        : (lightInput.input?.dataset.label ?? name)
     }
 
     const formatRange = (control: RangeControl, value: number) =>
@@ -739,9 +742,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       element: HTMLElement,
       throttle: boolean,
     ) => {
-      const [light, dark] = [
-        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
-      ].map((input) => input.value)
+      const [light, dark] = [...colorFields(element)].map(
+        (input) => input.value,
+      )
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {
         if (isDual) dual.add(control.id)
@@ -770,8 +773,10 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         element.classList.add("is-dual")
         render()
         element
-          .querySelector<OklchInput>("oklch-input[data-color=dark]")
-          ?.button.focus()
+          .querySelector("input[data-color=dark]")
+          ?.closest("opui-color-field")
+          ?.querySelector<HTMLElement>('button[command="toggle-popover"]')
+          ?.focus()
       } else {
         const opened = dual.delete(control.id)
         const changedColor = picked.delete(control.id)
@@ -940,7 +945,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (!element || !control) return
       const throttle = event.type === "input"
 
-      if (target instanceof OklchInput) {
+      const colorField = target.closest<ColorField>("opui-color-field")
+      if (colorField) {
+        if (target !== colorField.input) return
         if (element.classList.contains("is-dual")) picked.add(control.id)
         onColor(control, element, throttle)
         return
@@ -951,8 +958,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
       if (control.kind === "brand" && target instanceof HTMLInputElement) {
         if (event.type !== "change" || !target.checked) return
-        const dark = element.querySelector<OklchInput>(
-          'oklch-input[data-color="dark"]',
+        const dark = element.querySelector<HTMLInputElement>(
+          'input[data-color="dark"]',
         )!
         if (target.value && element.classList.contains("is-dual")) {
           dual.add(control.id)
@@ -1088,7 +1095,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       showRoom(groupOf.get(id)!)
       element
         .querySelector<HTMLElement>(
-          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+          "input:not([type=checkbox], [type=radio], .ui-floating input), select, input:checked, input[type=radio], button[command='toggle-popover']",
         )
         ?.focus()
       element.scrollIntoView({ block: "center" })
@@ -1174,7 +1181,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       write(resetTokens(control))
       element
         .querySelector<HTMLElement>(
-          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+          "input:not([type=checkbox], [type=radio], .ui-floating input), select, input:checked, input[type=radio], button[command='toggle-popover']",
         )
         ?.focus()
     })

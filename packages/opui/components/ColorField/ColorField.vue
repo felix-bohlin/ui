@@ -85,6 +85,7 @@ const field = inject(FieldGroupKey, undefined)
   >
     <Button
       v-if="swatchOnly"
+      :aria-describedby="attrs['aria-describedby']"
       :aria-labelledby="`${inputId}-label`"
       command="toggle-popover"
       :commandfor="`${inputId}-picker`"

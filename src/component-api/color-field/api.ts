@@ -263,7 +263,7 @@ export default {
     },
     {
       description:
-        'With `swatchOnly`, the swatch button in place of the field, with `command="toggle-popover"` and `aria-labelledby` naming the label.',
+        'With `swatchOnly`, the swatch button in place of the field, with `command="toggle-popover"`, `aria-labelledby` naming the label and the input\'s `aria-describedby`.',
       props: ["swatchOnly"],
       selector: ".ui-swatch-only > .ui-button",
     },

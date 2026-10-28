@@ -368,7 +368,6 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` in Vue scopes the `value-text` slot with the current `value`, so custom readout content follows the thumb.
 - `Range` with a value readout announces each step once, with its unit: the input gets `aria-valuetext` (the value and `valueSuffix`) and the `.ui-value` output `aria-live="off"`, so screen readers no longer read the value twice. In HTML, `range.js` keeps `aria-valuetext` in sync when the output has a `data-suffix`.
 - `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`.
-- `Select` keeps the browser's checkmark at the end of the selected option instead of hiding it.
 - `Select` group labels take a shade of the picker's surface and `--ui-text` for their text, instead of fixed gray steps.
 - `Select` chevron flips when the picker opens, with a transition, like the `Accordion` flip marker.
 - `Select` and `TextField` auto-suggest arrows share one size and inset, and keep the same space for the arrow, at every size.

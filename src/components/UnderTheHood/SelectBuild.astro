@@ -107,8 +107,7 @@ selectedcontent {
 }
 
 .list > option::checkmark {
-  margin-inline-start: auto;
-  order: 1;
+  display: none;
 }
 
 .list > option:checked {
@@ -118,13 +117,14 @@ selectedcontent {
       from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
     )
   );
+  box-shadow: inset var(--ui-border-width-thick) 0 0 var(--ui-selected-strong);
 }`,
     features: ["relative-color"],
     notes: [
       "<code>::picker(select)</code> is the dropdown, a popover anchored to the select",
       "The picker is see-through and rounded like the list, so no square corners show behind it",
       "Options are ordinary boxes now: padding, <code>:hover</code>, <code>:checked</code>",
-      "The browser's checkmark marks the choice, the tint only backs it up",
+      "<code>::checkmark</code> hides the browser's checkmark, a bar on the start edge marks the choice and the tint backs it up",
       "Open the select",
     ],
     title: "Picker",

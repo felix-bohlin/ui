@@ -946,7 +946,7 @@ export const whatsNew = {
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
     `<a href="#sizes">Small and x-small fields</a> set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
-    `The field border reaches <a href="#accessibility">3:1</a> against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
+    `The field border reaches <a href="#accessibility">3:1</a> against the page by default.`,
     `<a href="#option-groups">Group labels</a> take a shade of the picker's surface and <code>--ui-text</code> instead of fixed grays.`,
     `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,

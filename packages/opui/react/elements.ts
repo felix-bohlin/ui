@@ -22,7 +22,7 @@ declare module "react" {
         HTMLElement
       >
       "opui-copy": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
-      "opui-number-stepper": DetailedHTMLProps<
+      "opui-number-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >

@@ -1150,9 +1150,9 @@ interaction(
 )
 
 interaction(
-  "number-stepper",
+  "number-field",
   "Basics",
-  "number stepper steps with its buttons and stops at the limits",
+  "number field steps with its buttons and stops at the limits",
   async ({ root }) => {
     const input = root.getByRole("spinbutton", { name: "Quantity" })
     const decrease = root.getByRole("button", { name: "Decrease" })
@@ -1175,9 +1175,9 @@ interaction(
 )
 
 interaction(
-  "number-stepper",
+  "number-field",
   "EndText",
-  "number stepper end text describes the input",
+  "number field end text describes the input",
   async ({ root }) => {
     await expect(
       root.getByRole("spinbutton", { name: "Guests" }),
@@ -1186,9 +1186,9 @@ interaction(
 )
 
 interaction(
-  "number-stepper",
+  "number-field",
   "Basics",
-  "number stepper repeats while a button is held",
+  "number field repeats while a button is held",
   async ({ page, root }) => {
     const input = root.getByRole("spinbutton", { name: "Quantity" })
     const increase = root.getByRole("button", { name: "Increase" })

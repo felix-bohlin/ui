@@ -547,7 +547,7 @@ The components without a block, and why:
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Toaster`: every toast is a `Callout`, whose boundary is a real border.
 - `Stat`: text only, no boundary or state.
-- `NumberStepper`: `number-stepper.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
+- `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.

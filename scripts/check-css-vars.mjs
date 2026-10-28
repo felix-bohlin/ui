@@ -29,7 +29,7 @@ const BASES = {
   "button-group.css": ["button.css"],
   "checkbox.css": ["choice.css"],
   "dialog.css": ["card.css"],
-  "number-stepper.css": ["text-field.css"],
+  "number-field.css": ["text-field.css"],
   "one-time-code.css": ["text-field.css"],
   "radio.css": ["choice.css"],
   "select.css": ["text-field.css"],

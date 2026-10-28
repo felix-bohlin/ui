@@ -49,7 +49,7 @@ export { default as ListItem } from "../components/ListItem/ListItem.svelte"
 export { default as Menu } from "../components/Menu/Menu.svelte"
 export { default as Message } from "../components/Message/Message.svelte"
 export { default as Messages } from "../components/Message/Messages.svelte"
-export { default as NumberStepper } from "../components/NumberStepper/NumberStepper.svelte"
+export { default as NumberField } from "../components/NumberField/NumberField.svelte"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
 export { default as Radio } from "../components/Radio/Radio.svelte"
@@ -159,7 +159,7 @@ export type {
   Props as MessageProps,
   MessagesProps,
 } from "../components/Message/types.svelte"
-export type { Props as NumberStepperProps } from "../components/NumberStepper/types.svelte"
+export type { Props as NumberFieldProps } from "../components/NumberField/types.svelte"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.svelte"
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
 export type {

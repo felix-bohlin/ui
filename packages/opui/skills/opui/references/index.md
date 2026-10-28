@@ -28,7 +28,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | A popover list of actions or links. |
 | Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
-| Number stepper | `number-stepper.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
+| Number field | `number-field.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
 | One-time code | `one-time-code.md` | A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill. |
 | Progress | `progress.md` | See also: Spinner. |
 | Radio | `radio.md` | See also: Form documentation. |

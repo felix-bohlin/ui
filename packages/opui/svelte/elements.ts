@@ -27,7 +27,7 @@ declare module "svelte/elements" {
     "opui-copy": HTMLAttributes<HTMLElement> & {
       "copied-label"?: string | undefined | null
     }
-    "opui-number-stepper": HTMLAttributes<HTMLElement>
+    "opui-number-field": HTMLAttributes<HTMLElement>
     "opui-select-all": HTMLAttributes<HTMLElement>
     "opui-sortable-table": HTMLAttributes<HTMLElement>
     "opui-text-field": HTMLAttributes<HTMLElement>

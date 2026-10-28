@@ -122,7 +122,7 @@
       flex-wrap: wrap;
       gap: var(--ui-space-3);
 
-      & > :where(.ui-number-stepper, .ui-select, .ui-text-field, .ui-textarea) {
+      & > :where(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea) {
         flex: 1 1 var(--_field-min-inline-size);
         min-inline-size: 0;
       }

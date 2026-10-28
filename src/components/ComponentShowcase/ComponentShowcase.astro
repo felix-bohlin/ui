@@ -34,7 +34,7 @@ import {
   ListItem,
   Message,
   Messages,
-  NumberStepper,
+  NumberField,
   OneTimeCode,
   Progress,
   Radio,
@@ -370,11 +370,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       </Messages>
     </Fragment>
 
-    <Fragment slot="number-stepper">
+    <Fragment slot="number-field">
       <div aria-hidden="true" inert>
-        <NumberStepper
+        <NumberField
           hideLabel
-          id="index-number-stepper-showcase"
+          id="index-number-field-showcase"
           label="Quantity"
           min={1}
           value={2}

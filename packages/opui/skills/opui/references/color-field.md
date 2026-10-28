@@ -15,6 +15,7 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed input area.
 - `.ui-field > .ui-start` (prop `pickerLabel`): The picker button, with `command="toggle-popover"`. Hidden until the element is defined.
+- `.ui-swatch-only > .ui-button` (prop `swatchOnly`): With `swatchOnly`, the swatch button in place of the field, with `command="toggle-popover"`, `aria-labelledby` naming the label and the input's `aria-describedby`.
 - `.ui-indicator`: The swatch in the picker button, painted with the color over a checkerboard that shows its opacity.
 - `<input type="text">` (model): The input element, which holds the `oklch()` value.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
@@ -44,11 +45,12 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `opacity`: `"none"`, `"slider"` (default). The opacity slider, which keeps the alpha in the value. `"none"` leaves it out, so the value is always opaque.
 - `opacityLabel`: `string`, default `"Opacity"`. The label of the opacity slider, unless `opacity="none"`.
 - `p3Text`: `string`, default `"Display P3. Wide-gamut screens show it, others show the nearest sRGB color."`. The line under the sliders for a color outside sRGB but inside Display P3.
-- `pickerLabel`: `string`, default `"Pick a color"`. The accessible name of the picker button.
+- `pickerLabel`: `string`, default `"Pick a color"`. The accessible name of the picker button. With `swatchOnly`, the label names the swatch instead.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-text-field.ui-large`), `"medium"` (default), `"small"` (`.ui-text-field.ui-small`), `"x-small"` (`.ui-text-field.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-text-field.ui-spread`. Pushes the label and start text to one side and the field to the other.
 - `srgbText`: `string`, default `"sRGB. Every screen shows it."`. The line under the sliders for a color inside sRGB.
+- `swatchOnly`: `boolean`, `.ui-swatch-only`. Shows only the swatch, a round button the size of the field, named by the label. The `.ui-text-field` with the label and the input moves into the picker, under the preview.
 - `variant`: `"filled"` (`.ui-text-field.ui-filled`), `"outlined"` (default). The variant to use.
 - `wideText`: `string`, default `"Beyond Display P3. Screens show the nearest color they can."`. The line under the sliders for a color outside Display P3.
 

@@ -32,6 +32,8 @@ import {
   Form,
   List,
   ListItem,
+  Message,
+  Messages,
   NumberStepper,
   OneTimeCode,
   Progress,
@@ -354,6 +356,17 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           </button>
         </li>
       </menu>
+    </Fragment>
+
+    <Fragment slot="message">
+      <Messages aria-hidden="true" style="inline-size: 14rem">
+        <Message author="Saga">
+          <p>Deck is out!</p>
+        </Message>
+        <Message author="You" outgoing>
+          <p>Great work.</p>
+        </Message>
+      </Messages>
     </Fragment>
 
     <Fragment slot="number-stepper">

@@ -59,57 +59,6 @@
       }
     }
 
-    .chat-message {
-      align-items: end;
-      display: flex;
-      gap: var(--ui-space-2);
-      max-inline-size: min(100%, 34rem);
-    }
-
-    .chat-bubble {
-      background-color: var(--ui-surface-tonal);
-      border-radius: var(--ui-radius);
-      padding: var(--ui-space-2) var(--ui-space-3);
-    }
-
-    .chat-outgoing {
-      align-self: end;
-      flex-direction: row-reverse;
-
-      .chat-bubble {
-        background-color: var(--ui-primary);
-        color: var(--ui-on-primary);
-
-        .ui-caption {
-          color: inherit;
-          text-align: end;
-        }
-      }
-    }
-
-    .chat-attachment {
-      background-color: var(--ui-surface);
-      border: var(--ui-border-width) solid var(--ui-border-color);
-      border-radius: var(--ui-radius);
-      padding: var(--ui-space-2);
-
-      svg {
-        color: var(--ui-primary);
-      }
-
-      .ui-link {
-        font-weight: var(--ui-font-weight-medium);
-      }
-    }
-
-    .chat-typing {
-      padding: 0 var(--ui-space-3) var(--ui-space-2);
-
-      @container (inline-size >= 40rem) {
-        padding-inline: var(--ui-space-5);
-      }
-    }
-
     .chat-composer {
       border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       padding: var(--ui-space-3);
@@ -345,82 +294,95 @@
 
       <ol
         aria-label="Messages with Saga Nyström"
-        class="ui-layout-column chat-messages"
+        class="ui-messages chat-messages"
       >
         <li class="ui-divider">Today</li>
-        <li class="chat-message">
+        <li class="ui-message">
           <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
-          <div class="ui-layout-column ui-x-small chat-bubble">
+          <div class="ui-content">
+            <p class="ui-header">Saga</p>
             <p>
               Hi! Did you get a chance to look at the pricing proposal for
               Tromsø Outdoor?
             </p>
-            <p class="ui-caption">
+            <p class="ui-footer">
               <time datetime="2026-10-08T14:02">14:02</time>
             </p>
           </div>
         </li>
-        <li class="chat-message chat-outgoing">
-          <div class="ui-layout-column ui-x-small chat-bubble">
+        <li class="ui-message ui-outgoing">
+          <div class="ui-content">
+            <p class="ui-header">You</p>
             <p>
               Yes, looks good. I'd lead with the annual plan and keep the 3-seat
               starter as a fallback.
             </p>
-            <p class="ui-caption">
+            <p class="ui-footer">
               <time datetime="2026-10-08T14:18">14:18</time>
             </p>
           </div>
         </li>
-        <li class="chat-message chat-outgoing">
-          <div class="ui-layout-column ui-x-small chat-bubble">
+        <li class="ui-message ui-outgoing">
+          <div class="ui-content">
+            <p class="ui-header">You</p>
             <p>Can you add the case study from Bergen Bikes too?</p>
-            <p class="ui-caption">
-              <time datetime="2026-10-08T14:19">14:19</time>, read
+            <p class="ui-footer">
+              <time datetime="2026-10-08T14:19">14:19</time>
+              <span class="ui-end">Read</span>
             </p>
           </div>
         </li>
-        <li class="chat-message">
+        <li class="ui-message">
           <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
-          <div class="ui-layout-column ui-x-small chat-bubble">
+          <div class="ui-content">
+            <p class="ui-header">Saga</p>
             <p>Good call. Here's the current draft:</p>
-            <div class="ui-layout-media ui-small chat-attachment">
-              <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
-                ></path>
-              </svg>
-              <div>
-                <a class="ui-link" href="#chat-file-proposal"
-                  >Tromso-Outdoor-proposal.pdf</a
+            <div class="ui-card ui-outlined">
+              <div class="ui-content ui-layout-media ui-small">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
                 >
-                <p class="ui-caption">PDF, 2.4 MB</p>
+                  <path
+                    fill="currentColor"
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+                  ></path>
+                </svg>
+                <div>
+                  <a class="ui-link" href="#chat-file-proposal"
+                    >Tromso-Outdoor-proposal.pdf</a
+                  >
+                  <p class="ui-caption">PDF, 2.4 MB</p>
+                </div>
               </div>
             </div>
-            <p class="ui-caption">
+            <p class="ui-footer">
               <time datetime="2026-10-08T14:31">14:31</time>
             </p>
           </div>
         </li>
-        <li class="chat-message">
+        <li class="ui-message">
           <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
-          <div class="ui-layout-column ui-x-small chat-bubble">
+          <div class="ui-content">
+            <p class="ui-header">Saga</p>
             <p>Perfect, I'll send the deck tonight 🙌</p>
-            <p class="ui-caption">
+            <p class="ui-footer">
               <time datetime="2026-10-08T14:32">14:32</time>
             </p>
+          </div>
+        </li>
+        <li class="ui-message ui-typing">
+          <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
+          <div class="ui-content" role="status">
+            <span class="ui-sr-only">Saga is typing</span>
           </div>
         </li>
       </ol>
 
       <div>
-        <p aria-live="polite" class="chat-typing ui-caption">Saga is typing…</p>
         <form action="#" class="ui-field-group ui-horizontal chat-composer">
           <button
             aria-label="Attach a file"

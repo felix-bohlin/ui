@@ -45,6 +45,8 @@ export { default as Form } from "../components/Form/Form.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
 export { default as Menu } from "../components/Menu/Menu.astro"
+export { default as Message } from "../components/Message/Message.astro"
+export { default as Messages } from "../components/Message/Messages.astro"
 export { default as NumberStepper } from "../components/NumberStepper/NumberStepper.astro"
 export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
@@ -149,6 +151,10 @@ export type {
   MenuItem,
   Props as MenuProps,
 } from "../components/Menu/types.astro"
+export type {
+  Props as MessageProps,
+  MessagesProps,
+} from "../components/Message/types.astro"
 export type { Props as NumberStepperProps } from "../components/NumberStepper/types.astro"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"

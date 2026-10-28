@@ -1,3 +1,5 @@
+"use client"
+
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"

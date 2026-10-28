@@ -747,6 +747,9 @@ export const whatsNew = {
       `A <code>Menu</code> without an <code>id</code> warns in development, since its trigger and items point at it (<a href="#basics">Basics</a>).`,
     ),
   ],
+  message: [
+    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+  ],
   "number-stepper": [
     {
       default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width.`,
@@ -1441,6 +1444,7 @@ export const highlighted = new Set<string>([
   "copy",
   "layout",
   "menu",
+  "message",
   "number-stepper",
   "one-time-code",
   "stat",
@@ -1456,6 +1460,7 @@ export const added = new Set<string>([
   "copy",
   "layout",
   "menu",
+  "message",
   "number-stepper",
   "one-time-code",
   "stat",

@@ -1,321 +1,116 @@
 ---
-import {
-  Button,
-  Callout,
-  CalloutContent,
-  CalloutIcon,
-  FieldLegend,
-  Fieldset,
-  Switch,
-  ToggleButton,
-  ToggleGroup,
-} from "opui-css/astro"
-
-const id = "severity-layers"
+import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 
 const callouts = [
-  { severity: "info", text: "Exports run nightly at 02:00.", title: "Info" },
-  { severity: "success", text: "Your changes are saved.", title: "Success" },
-  { severity: "warning", text: "Two fields are empty.", title: "Warning" },
-  { severity: "critical", text: "The upload failed.", title: "Critical" },
+  { severity: "info", title: "Info" },
+  { severity: "success", title: "Success" },
+  { severity: "warning", title: "Warning" },
+  { severity: "critical", title: "Critical" },
 ] as const
 
-const layers = [
-  { name: "theme.palette", note: "palette.css" },
-  { name: "theme.base", note: "theme.css" },
+const panels = [
   {
-    name: "theme.base",
-    note: "Severity scopes, under your theme",
+    caption: "Your hue reaches the callouts.",
+    label: "5.x",
+    layers: [
+      { name: "theme.palette" },
+      { name: "theme.base" },
+      { name: "severity scopes", nested: true },
+      { name: "theme.custom", note: "your theme", wins: true },
+    ],
     version: "5",
   },
-  { name: "theme.custom", note: "Your theme", yours: true },
-  { name: "theme.severity", note: "Severity scopes", version: "6" },
-]
-
-const captions = [
   {
-    state: "off",
-    text: "Switch the theme on to see which layer wins.",
-  },
-  {
-    state: "6",
-    text: "theme.severity sits above theme.custom, so .ui-info, .ui-success, .ui-warning and .ui-critical keep their palette source and only the button follows your hue.",
-  },
-  {
-    state: "5",
-    text: "Emulated: the severity sources sat in theme.base, below your theme, so a theme that pinned --ui-palette-source on .ui-palette recolored every callout too.",
+    caption: "Callouts keep their meaning.",
+    label: "6.0",
+    layers: [
+      { name: "theme.palette" },
+      { name: "theme.base" },
+      { name: "theme.custom", note: "your theme" },
+      { name: "theme.severity", wins: true },
+    ],
+    version: "6",
   },
 ]
 ---
 
-<div class="severity-layers ui-not-rich-text" id={id}>
-  <div class="severity-layers-controls">
-    <Switch name={`${id}-theme`} value="on">
-      Your theme sets <code>--ui-palette-hue: 300</code>
-    </Switch>
-    <Fieldset>
-      <FieldLegend>Layer order</FieldLegend>
-      <ToggleGroup name={`${id}-version`} size="small">
-        <ToggleButton checked value="6">6.0</ToggleButton>
-        <ToggleButton value="5">How 5.x behaved</ToggleButton>
-      </ToggleGroup>
-    </Fieldset>
-  </div>
-
-  <div class="severity-layers-body">
-    <figure class="severity-layers-stack">
-      <p class="severity-layers-label">The layer stack</p>
-      <ol>
-        {
-          layers.map((layer) => (
+<div class="severity-layers ui-not-rich-text" id="severity-layers">
+  {
+    panels.map((panel) => (
+      <figure
+        class="severity-layers-panel ui-palette"
+        data-version={panel.version}
+      >
+        <p class="severity-layers-version">{panel.label}</p>
+        <ol class="severity-layers-stack">
+          {panel.layers.map((layer) => (
             <li
-              data-version={layer.version}
-              data-yours={layer.yours ? "" : undefined}
+              data-nested={"nested" in layer ? "" : undefined}
+              data-wins={layer.wins ? "" : undefined}
             >
-              <code class="severity-layers-name">{layer.name}</code>
-              <span class="severity-layers-note">{layer.note}</span>
-              {layer.yours && (
-                <code class="severity-layers-value">--ui-palette-hue: 300</code>
+              {"nested" in layer ? (
+                <span>{layer.name}</span>
+              ) : (
+                <code>{layer.name}</code>
+              )}
+              {layer.note && (
+                <span class="severity-layers-note">{layer.note}</span>
+              )}
+              {layer.wins && (
+                <span class="severity-layers-wins">colors the callouts</span>
               )}
             </li>
-          ))
-        }
-      </ol>
-      <figcaption>
-        Each layer beats the ones above it.
-        {
-          captions.map((caption) => (
-            <span data-state={caption.state}>{caption.text}</span>
-          ))
-        }
-      </figcaption>
-    </figure>
-
-    <div class="severity-layers-pane">
-      <p class="severity-layers-label">What renders</p>
-      <div class="severity-layers-stage ui-palette">
-        {
-          callouts.map((callout) => (
-            <Callout severity={callout.severity}>
-              <CalloutIcon />
-              <CalloutContent>
-                <h4>{callout.title}</h4>
-                <p>{callout.text}</p>
-              </CalloutContent>
-            </Callout>
-          ))
-        }
-        <Button color="primary" variant="filled">Save changes</Button>
-      </div>
-    </div>
-  </div>
+          ))}
+        </ol>
+        <div class="severity-layers-stage">
+          <Button color="primary" size="small" variant="filled">
+            Save changes
+          </Button>
+          <div class="severity-layers-callouts">
+            {callouts.map((callout) => (
+              <Callout class="ui-palette" severity={callout.severity}>
+                <CalloutIcon />
+                <CalloutContent>
+                  <p>{callout.title}</p>
+                </CalloutContent>
+              </Callout>
+            ))}
+          </div>
+        </div>
+        <figcaption>{panel.caption}</figcaption>
+      </figure>
+    ))
+  }
 </div>
 
 <style is:global>
-  .severity-layers {
-    container-type: inline-size;
-    display: grid;
-    gap: var(--ui-space-4);
-    margin-block: var(--ui-space-5);
-
-    & .ui-fieldset {
-      gap: var(--ui-space-1);
-    }
-
-    & legend {
-      font-size: var(--ui-font-size-caption);
-    }
-  }
-
-  .severity-layers-controls {
-    align-items: end;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-3) var(--ui-space-5);
-
-    & code {
-      font-size: var(--ui-font-size-small);
-    }
-  }
-
-  .severity-layers-body {
-    align-items: start;
-    display: grid;
-    gap: var(--ui-space-4);
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  }
-
-  .severity-layers-label {
-    color: var(--ui-text-subtle);
-    font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-medium);
-    margin: 0;
-  }
-
-  .severity-layers-pane {
-    display: grid;
-    gap: var(--ui-space-3);
-  }
-
-  .severity-layers-stack {
-    display: grid;
-    gap: var(--ui-space-3);
-    interpolate-size: allow-keywords;
-    margin: 0;
-
-    & ol {
-      display: grid;
-      list-style: none;
-      margin: 0;
-      padding: 0 0 0 var(--ui-space-6);
-      position: relative;
-
-      &::before {
-        background-image: linear-gradient(transparent, var(--ui-primary));
-        border-radius: var(--ui-radius-round);
-        content: "";
-        inline-size: 3px;
-        inset-block: var(--ui-space-2);
-        inset-inline-start: var(--ui-space-2);
-        position: absolute;
-      }
-
-      &::after {
-        border-block-start: 8px solid var(--ui-primary);
-        border-inline: 6px solid transparent;
-        content: "";
-        inset-block-end: 0;
-        inset-inline-start: calc(var(--ui-space-2) - 4.5px);
-        position: absolute;
-      }
-    }
-
-    & li {
-      align-items: center;
-      background-color: var(--ui-surface-tonal);
-      border: var(--ui-border-width) solid transparent;
-      border-radius: var(--ui-radius-small);
-      column-gap: var(--ui-space-3);
-      display: grid;
-      grid-template-columns: minmax(8rem, auto) 1fr;
-      margin-block-start: var(--ui-space-2);
-      padding: var(--ui-space-2) var(--ui-space-3);
-      row-gap: var(--ui-space-1);
-      transition-duration: calc(var(--ui-duration-slow) * 2 * var(--ui-motion));
-      transition-property:
-        background-color, block-size, border-color, box-shadow,
-        margin-block-start, padding-block, visibility;
-      transition-timing-function: var(--ui-ease);
-
-      &:first-child {
-        margin-block-start: 0;
-      }
-    }
-
-    & [data-yours] {
-      background-color: var(--ui-palette-tint-subtle);
-      border-color: var(--ui-primary);
-      border-style: dashed;
-    }
-
-    & [data-version] {
-      block-size: auto;
-      overflow: hidden;
-    }
-
-    & figcaption {
-      color: var(--ui-text);
-      font-size: var(--ui-font-size-small);
-      text-align: start;
-
-      & span {
-        display: none;
+  @layer theme.custom {
+    .severity-layers-panel[data-version="6"] {
+      &,
+      & .ui-palette {
+        --ui-palette-hue: 300;
+        --ui-palette-source: oklch(0.58 0.21 300);
       }
     }
   }
 
-  .severity-layers-name {
-    font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-semibold);
-  }
-
-  .severity-layers-note {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
-  }
-
-  .severity-layers-value {
-    display: none;
-    font-size: var(--ui-font-size-caption);
-    grid-column: 1 / -1;
-    opacity: 1;
-    transition-behavior: allow-discrete;
-    transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
-    transition-property: display, opacity;
-
-    @starting-style {
-      opacity: 0;
-    }
-  }
-
-  .severity-layers:has([name="severity-layers-version"][value="6"]:checked)
-    .severity-layers-stack
-    [data-version="5"],
-  .severity-layers:has([name="severity-layers-version"][value="5"]:checked)
-    .severity-layers-stack
-    [data-version="6"] {
-    block-size: 0;
-    border-block-width: 0;
-    margin-block-start: 0;
-    padding-block: 0;
-    visibility: hidden;
-  }
-
-  .severity-layers:has([name="severity-layers-theme"]:checked) {
-    & .severity-layers-value {
-      display: block;
-    }
-
-    & .severity-layers-stack [data-version] {
-      background-color: var(--ui-palette-tint);
-      border-color: var(--ui-palette-accent);
-      box-shadow: var(--ui-shadow-selected);
-      color: var(--ui-palette-on-tint);
-    }
-
-    & .severity-layers-stage {
+  .severity-layers-panel[data-version="5"] {
+    &,
+    & .ui-palette {
       --ui-palette-hue: 300;
-      --ui-palette-source: oklch(
-        58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue)
-      );
-      --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
-    }
-
-    &:has([name="severity-layers-version"][value="5"]:checked)
-      .severity-layers-stage
-      .ui-callout {
-      --ui-palette-source: oklch(
-        58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue)
-      );
-    }
-
-    &:has([name="severity-layers-version"][value="6"]:checked)
-      figcaption
-      [data-state="6"],
-    &:has([name="severity-layers-version"][value="5"]:checked)
-      figcaption
-      [data-state="5"] {
-      display: inline;
+      --ui-palette-source: oklch(0.58 0.21 300);
     }
   }
 
-  .severity-layers:not(:has([name="severity-layers-theme"]:checked))
-    figcaption
-    [data-state="off"] {
-    display: inline;
+  .severity-layers {
+    display: grid;
+    gap: var(--ui-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    margin-block: var(--ui-space-5);
   }
 
-  .severity-layers-stage {
+  .severity-layers-panel {
+    align-content: start;
     background-color: var(--ui-surface);
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius-large);
@@ -323,51 +118,108 @@ const captions = [
     display: grid;
     font-family: var(--ui-font-body);
     gap: var(--ui-space-3);
-    justify-items: start;
+    justify-items: stretch;
+    margin: 0;
     padding: var(--ui-space-4);
 
-    &,
-    & * {
-      transition-duration: calc(var(--ui-duration-slow) * 2 * var(--ui-motion));
-      transition-property: background-color, border-color, color, fill;
-      transition-timing-function: var(--ui-ease);
+    & figcaption {
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-small);
+      font-weight: var(--ui-font-weight-medium);
     }
+  }
+
+  .severity-layers-version {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-size: var(--ui-font-size-body);
+    font-weight: var(--ui-font-weight-semibold);
+    margin: 0;
+  }
+
+  .severity-layers-stack {
+    display: grid;
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-items: baseline;
+      border-radius: var(--ui-radius-small);
+      color: var(--ui-text-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--ui-space-2);
+      padding: var(--ui-space-1) var(--ui-space-2) var(--ui-space-1)
+        var(--ui-space-3);
+    }
+
+    & code {
+      font-size: inherit;
+    }
+
+    & [data-nested] {
+      margin-inline-start: var(--ui-space-4);
+    }
+
+    & [data-wins] {
+      --_stripe: linear-gradient(
+        var(--ui-palette-accent),
+        var(--ui-palette-accent)
+      );
+
+      background-color: var(--ui-surface-tonal);
+      background-image: var(--_stripe);
+      background-repeat: no-repeat;
+      background-size: var(--ui-space-1) 100%;
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-semibold);
+    }
+  }
+
+  .severity-layers-panel[data-version="6"] [data-wins] {
+    --_stripe: linear-gradient(
+      var(--ui-info) 25%,
+      var(--ui-success) 25% 50%,
+      var(--ui-warning) 50% 75%,
+      var(--ui-critical) 75%
+    );
+  }
+
+  .severity-layers-note {
+    font-weight: var(--ui-font-weight-normal);
+  }
+
+  .severity-layers-wins {
+    color: var(--ui-text-subtle);
+    font-weight: var(--ui-font-weight-normal);
+  }
+
+  .severity-layers-stage {
+    display: grid;
+    gap: var(--ui-space-2);
+    justify-items: start;
+  }
+
+  .severity-layers-callouts {
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    inline-size: 100%;
 
     & .ui-callout {
-      inline-size: 100%;
-    }
+      --_gap: var(--ui-space-2);
+      --_icon-size: 1.125rem;
+      --_padding: var(--ui-space-2);
 
-    & h4 {
-      font-family: var(--ui-font-heading, var(--ui-font-body));
-      font-size: var(--ui-font-size-body);
-      margin: 0;
+      align-items: center;
     }
 
     & p {
+      font-weight: var(--ui-font-weight-semibold);
       margin: 0;
-    }
-  }
-
-  @container (width < 40rem) {
-    .severity-layers-body {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .severity-layers-stage > * {
-        animation: severity-layers-rise linear both;
-        animation-range: entry 0% entry 50%;
-        animation-timeline: view();
-      }
-    }
-  }
-
-  @keyframes severity-layers-rise {
-    from {
-      opacity: 0;
-      translate: 0 var(--ui-space-5);
     }
   }
 </style>

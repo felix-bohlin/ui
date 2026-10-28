@@ -132,6 +132,44 @@ const scopedCss = EXAMPLE_THEMES.map(({ css, name }) => {
     }
   }
 
+  @supports (animation-timeline: view()) {
+    section:has(> #takeover) {
+      view-timeline: --act-three block;
+    }
+
+    .takeover {
+      animation: takeover-dock linear both;
+      animation-range: contain 0% contain 100%;
+      animation-timeline: --act-three;
+      inset-block: auto
+        calc(var(--ui-space-4) + env(safe-area-inset-bottom, 0px));
+      inset-inline: 0;
+      margin-block: 0;
+      position: fixed;
+    }
+  }
+
+  @keyframes takeover-dock {
+    0% {
+      opacity: 0;
+      translate: 0 1rem;
+      visibility: hidden;
+    }
+
+    3%,
+    97% {
+      opacity: 1;
+      translate: none;
+      visibility: visible;
+    }
+
+    100% {
+      opacity: 0;
+      translate: 0 1rem;
+      visibility: hidden;
+    }
+  }
+
   @media (width < 30rem) {
     .takeover {
       padding-inline-start: var(--ui-space-1);

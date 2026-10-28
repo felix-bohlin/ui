@@ -7,11 +7,8 @@ import ContrastLab from "../../components/Release/ContrastLab.astro"
 import Hero from "../../components/Release/Hero.astro"
 import Numbers from "../../components/Release/Numbers.astro"
 import Ratchets from "../../components/Release/Ratchets.astro"
-import ReadableFive from "../../components/Release/ReadableFive.astro"
-import Receipt from "../../components/Release/Receipt.astro"
 import ReleaseRiver from "../../components/Release/ReleaseRiver.astro"
 import Renames from "../../components/Release/Renames.astro"
-import Scoped from "../../components/Release/Scoped.astro"
 import SeverityLayers from "../../components/Release/SeverityLayers.astro"
 import Shells from "../../components/Release/Shells.astro"
 import SupportMatrix from "../../components/Release/SupportMatrix.astro"
@@ -72,7 +69,6 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
       </li>
     </ul>
     <h3 id="readable-on-purpose">Readable on purpose</h3>
-    <ReadableFive />
     <ul>
       <li>
         Plain CSS that anyone at any level can read and change, a value the
@@ -104,7 +100,6 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
       </li>
     </ul>
     <h3 id="the-trade">The trade, said openly</h3>
-    <Receipt />
     <ul>
       <li>
         The CSS got less readable, and that paid for features. This is the
@@ -125,13 +120,22 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
     <Ratchets />
     <ul>
       <li>
-        Without writing every line, the checks hold the line: released tokens
-        and released API ledgers, parity drift, the a11y violations ledger,
-        ratchets that only shrink.
+        Instead of keeping every detail in your head, lean on tools and scripts
+        to harden the library, and spend the attention on architecture and the
+        big picture.
       </li>
       <li>
-        Palette knobs declared twice, and the copy that disagreed and never
-        applied: the kind of bug the checks now catch.
+        What hardens it: released tokens and released API ledgers, parity drift,
+        the a11y violations ledger, contrast promises, ratchets that only
+        shrink.
+      </li>
+      <li>
+        The kind of bug they catch: palette knobs declared twice, with a copy
+        that disagreed and never applied.
+      </li>
+      <li>
+        The exception is adding something new: that is where the fun is,
+        micro-managing and directing every detail carefully.
       </li>
       <li>
         <code>npx opui-css skill</code>: the library speaks to coding agents
@@ -243,16 +247,14 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
     </p>
     <TokenTiers />
     <h4 id="tokens-scope">2. Turn a knob inside a scope</h4>
-    <p>
-      Drag a knob. The card inside the scope derives every role again; the card
-      outside reads the page's theme and stays put.
-    </p>
-    <Scoped />
+    <ul>
+      <li>
+        A <code>.ui-palette</code> element with a knob set inline derives every role
+        again from it; everything outside keeps the page's theme.
+      </li>
+    </ul>
     <h4 id="tokens-layers">3. Whose layer wins</h4>
-    <p>
-      Switch your theme on and watch which layer the callouts follow, then
-      compare with how 5.x behaved.
-    </p>
+    <p>Both panels use the same theme, one that pins a purple brand hue.</p>
     <SeverityLayers />
     <ul>
       <li>
@@ -300,9 +302,8 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
     <ContrastLab />
     <ul>
       <li>
-        <code>--ui-contrast: more</code> tightens 25 lightness and strength knobs
-        and never sets a color directly. The lab blends those knobs between their
-        normal and more values.
+        <code>--ui-contrast: more</code> tightens 26 knobs, lightness, strength, alpha
+        and widths, and never sets a color directly.
       </li>
       <li>
         The <code>-text</code> roles promise 4.5:1 on every surface; the promise is
@@ -318,9 +319,9 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
         hue while tightening.
       </li>
       <li>
-        The sweep: hue 0 to 360 in steps of 10, both contrast extremes, light
-        and dark, 2664 pairs, none below the promise. The closest call is
-        on-primary text at hue 190 in light mode, 4.95:1.
+        The sweep: hue 0 to 360 in steps of 10, normal and more contrast, light
+        and dark, 1036 pairs, none below the promise. The closest call is
+        on-primary text at hue 190 in light mode, 4.77:1.
       </li>
     </ul>
 
@@ -451,7 +452,7 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       section > h2,
-      section > :global(:not(h2)) {
+      section > :global(:not(h2, #takeover)) {
         animation: release-reveal linear backwards;
         animation-range: entry 0% entry 30%;
         animation-timeline: view();

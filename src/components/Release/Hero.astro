@@ -28,7 +28,7 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
 ---
 
 <div class="hero ui-not-rich-text" id={id}>
-  <div class="hero-stage hero-play">
+  <div class="hero-stage">
     <div class="hero-slam">
       <div aria-hidden="true" class="hero-ring"></div>
       {
@@ -54,6 +54,19 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
 
 <script>
   const stage = document.querySelector<HTMLElement>("#hero .hero-stage")
+  if (stage && CSS.supports("timeline-trigger", "--hero view()")) {
+    stage.classList.add("hero-play")
+  } else if (stage) {
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          stage.classList.add("hero-play")
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.4 },
+    ).observe(stage)
+  }
   document
     .querySelector("#hero .hero-replay")
     ?.addEventListener("click", () => {
@@ -190,6 +203,21 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
     & .hero-facts li {
       animation: hero-rise 0.5s var(--ui-ease-enter)
         calc(1.15s + var(--i) * 80ms) backwards;
+    }
+  }
+
+  @supports (timeline-trigger: --hero view()) {
+    .hero .hero-stage {
+      timeline-trigger: --hero view() entry 40% exit 100%;
+    }
+
+    .hero .hero-play {
+      animation-trigger: --hero play-once;
+
+      & :is(.hero-numeral, .hero-ring, .hero-dust, .hero-tagline),
+      & .hero-facts li {
+        animation-trigger: --hero play-once;
+      }
     }
   }
 

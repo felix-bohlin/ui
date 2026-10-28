@@ -1,47 +1,211 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
+import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
+import Blueprint from "../../components/Release/Blueprint.astro"
 import ContrastLab from "../../components/Release/ContrastLab.astro"
 import Hero from "../../components/Release/Hero.astro"
 import Numbers from "../../components/Release/Numbers.astro"
+import Ratchets from "../../components/Release/Ratchets.astro"
+import ReadableFive from "../../components/Release/ReadableFive.astro"
+import Receipt from "../../components/Release/Receipt.astro"
+import ReleaseRiver from "../../components/Release/ReleaseRiver.astro"
 import Renames from "../../components/Release/Renames.astro"
 import Scoped from "../../components/Release/Scoped.astro"
 import SeverityLayers from "../../components/Release/SeverityLayers.astro"
 import Shells from "../../components/Release/Shells.astro"
 import SupportMatrix from "../../components/Release/SupportMatrix.astro"
+import Takeover from "../../components/Release/Takeover.astro"
 import ThemeSwitch from "../../components/Release/ThemeSwitch.astro"
+import TitleCard from "../../components/Release/TitleCard.astro"
 import TokenTiers from "../../components/TokenTiers.astro"
+import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
 ---
 
 <TechniquePost slug="release-6">
-  <Hero />
+  <Callout class="release-tldr" severity="info">
+    <CalloutIcon />
+    <CalloutContent>
+      <p><strong>TL;DR</strong></p>
+      <ul>
+        <li>
+          What is in 6.0: React and Svelte, Carousel, Menu, AvatarGroup, the
+          Layout classes, four example themes, <code>tokens.json</code>, every
+          token prefixed <code>--ui-</code>, scope classes that re-derive every
+          token, contrast through knobs, one naming model.
+        </li>
+        <li>
+          Why a major: 105 breaking entries, the first major since 5.0, most of
+          them renames.
+        </li>
+        <li>
+          What stayed: CSS first, HTML as a first-class target, feature first.
+        </li>
+        <li>
+          Where to go next: <DocLink href="/guide/migrating">Migrating</DocLink>
+          for the mechanics, this post for the reasons.
+        </li>
+      </ul>
+    </CalloutContent>
+  </Callout>
+
   <section>
-    <h2 id="in-one-breath">In one breath</h2>
+    <h2 id="by-hand">Act 1: By hand</h2>
+    <TitleCard />
+    <h3 id="the-gap">The gap</h3>
     <ul>
       <li>
-        6.0 in one breath: React and Svelte, Carousel, Menu, AvatarGroup, the
-        Layout classes, four example themes, <code>tokens.json</code>, every
-        token prefixed <code>--ui-</code>, scope classes that re-derive every
-        token, contrast through knobs, one naming model.
+        No component library used modern CSS and HTML as its foundation, so the
+        project set out to be that library.
       </li>
       <li>
-        Why a major: 105 breaking entries, the first major since 5.0, most of
-        them renames.
+        Three reasons: be that library, learn the techniques, and pass them on.
+        The <DocLink href="/blog">Blog</DocLink> posts are the evidence.
       </li>
+    </ul>
+    <h3 id="releases">42 releases</h3>
+    <ReleaseRiver />
+    <ul>
       <li>
-        What stayed: CSS first, HTML as a first-class target, feature first.
+        From 1.0.0 in January 2025 to 6.0, every release read from the
+        changelog.
       </li>
+    </ul>
+    <h3 id="readable-on-purpose">Readable on purpose</h3>
+    <ReadableFive />
+    <ul>
       <li>
-        Where to go next: <DocLink href="/guide/migrating">Migrating</DocLink>
-        for the mechanics, this post for the reasons.
+        Plain CSS that anyone at any level can read and change, a value the
+        whole of 1.x to 5.x was built on.
+      </li>
+      <li>The docs site, also written by hand, as a project of its own.</li>
+    </ul>
+    <h3 id="the-shelved-sketch">The shelved sketch</h3>
+    <Blueprint state="sketch" />
+    <ul>
+      <li>
+        Layers, tiers and theming were in mind from the start, and felt like
+        overkill for a hand-written library.
       </li>
     </ul>
   </section>
 
   <section>
-    <h2 id="one-naming-model">
+    <h2 id="the-turn">Act 2: The turn</h2>
+    <h3 id="the-bottleneck-moved">The bottleneck moved</h3>
+    <ul>
+      <li>
+        Once AI was good enough, the hard part was deciding and reviewing, not
+        typing.
+      </li>
+      <li>
+        Scope and architecture could grow, so the project started from a clean
+        slate to build the original vision.
+      </li>
+    </ul>
+    <h3 id="the-trade">The trade, said openly</h3>
+    <Receipt />
+    <ul>
+      <li>
+        The CSS got less readable, and that paid for features. This is the
+        tension of the post.
+      </li>
+    </ul>
+    <h3 id="where-readability-went">Where readability went</h3>
+    <ButtonBuild />
+    <ul>
+      <li>
+        Readability moved out of the source and into the docs: the
+        <DocLink href="/blog/under-the-hood">Under the hood</DocLink> build-ups step
+        through each component one rule at a time, because the files got harder to
+        read.
+      </li>
+    </ul>
+    <h3 id="the-new-by-hand">The new "by hand"</h3>
+    <Ratchets />
+    <ul>
+      <li>
+        Without writing every line, the checks hold the line: released tokens
+        and released API ledgers, parity drift, the a11y violations ledger,
+        ratchets that only shrink.
+      </li>
+      <li>
+        Palette knobs declared twice, and the copy that disagreed and never
+        applied: the kind of bug the checks now catch.
+      </li>
+      <li>
+        <code>npx opui-css skill</code>: the library speaks to coding agents
+        directly, with a per-component reference generated from the API data.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="the-vision-built">Act 3: The vision, built</h2>
+    <Hero />
+    <h3 id="one-css-any-style">One CSS, any style</h3>
+    <Takeover />
+    <ThemeSwitch />
+    <ul>
+      <li>
+        Bootstrap, Brutalist, M3 and Shadcn: what each one proves about the
+        token model.
+      </li>
+      <li>
+        All colors in OKLCH; the contrast test lists each theme's known
+        exceptions.
+      </li>
+      <li>
+        The <DocLink href="/theme-builder">Theme builder</DocLink> and the share link.
+      </li>
+      <li>
+        Hooks a theme can reach: <code>--ui-control-accent</code>,
+        <code>--ui-selected</code>, <code>--ui-button-hover: layer</code>,
+        <code>--ui-border-color-raised</code>.
+      </li>
+      <li>
+        Default in the demo mirrors the site preset the reader picked, by
+        design.
+      </li>
+    </ul>
+
+    <h3 id="the-css-is-the-component">The CSS is the component</h3>
+    <Shells />
+    <ul>
+      <li>
+        The core idea: a component is its stylesheet and the native HTML it
+        styles. Popovers, invokers, anchor positioning, scroll-driven fills and
+        <code>:has()</code> carry the behavior.
+      </li>
+      <li>
+        A framework layer is a binding: props to attributes and classes, slots
+        to parts, events to native events. About 2,500 lines each.
+      </li>
+      <li>
+        Behavior HTML cannot give lives in custom elements, shared by every
+        framework and by plain HTML.
+      </li>
+      <li>
+        Why React and Svelte could land in one release, and what each binding
+        adds: React 19 with Server Components by default and
+        <code>"use client"</code> only on stateful components; Svelte 5 with
+        <code>bind:value</code>, <code>bind:checked</code> and
+        <code>bind:group</code>; Astro and Vue with parts instead of slots.
+      </li>
+      <li>
+        The parity test keeps the shells honest: every example rendered in every
+        framework and compared against Astro, accepted drift in a
+        <code>.diff</code> ledger that only shrinks, 22 alignment fixes in this release.
+      </li>
+      <li>
+        What the idea costs: a new feature needs one engine to ship it, so the
+        browser support section is the other half of this one.
+      </li>
+    </ul>
+
+    <h3 id="one-naming-model">
       Slots become parts, props get one naming model
-    </h2>
+    </h3>
     <Renames />
     <ul>
       <li>
@@ -69,24 +233,22 @@ import TokenTiers from "../../components/TokenTiers.astro"
         as pairs; structural changes (slots to parts) are in the guide only.
       </li>
     </ul>
-  </section>
 
-  <section>
-    <h2 id="tokens-rebuilt">Tokens, rebuilt</h2>
-    <h3 id="tokens-tiers">1. One token, from knob to CSS property</h3>
+    <h3 id="tokens-rebuilt">Tokens, rebuilt</h3>
+    <h4 id="tokens-tiers">1. One token, from knob to CSS property</h4>
     <p>
       Read a column top to bottom: a knob the theme sets, the role a component
       reads, the private property the component sets, the CSS property it ends
       up on.
     </p>
     <TokenTiers />
-    <h3 id="tokens-scope">2. Turn a knob inside a scope</h3>
+    <h4 id="tokens-scope">2. Turn a knob inside a scope</h4>
     <p>
       Drag a knob. The card inside the scope derives every role again; the card
       outside reads the page's theme and stays put.
     </p>
     <Scoped />
-    <h3 id="tokens-layers">3. Whose layer wins</h3>
+    <h4 id="tokens-layers">3. Whose layer wins</h4>
     <p>
       Switch your theme on and watch which layer the callouts follow, then
       compare with how 5.x behaved.
@@ -133,10 +295,8 @@ import TokenTiers from "../../components/TokenTiers.astro"
         and more-contrast modes, and the promised contrast per token.
       </li>
     </ul>
-  </section>
 
-  <section>
-    <h2 id="contrast-guarantee">Contrast as a guarantee</h2>
+    <h3 id="contrast-guarantee">Contrast as a guarantee</h3>
     <ContrastLab />
     <ul>
       <li>
@@ -163,37 +323,8 @@ import TokenTiers from "../../components/TokenTiers.astro"
         on-primary text at hue 190 in light mode, 4.95:1.
       </li>
     </ul>
-  </section>
 
-  <section>
-    <h2 id="four-themes">Four example themes</h2>
-    <ThemeSwitch />
-    <ul>
-      <li>
-        Bootstrap, Brutalist, M3 and Shadcn: what each one proves about the
-        token model.
-      </li>
-      <li>
-        All colors in OKLCH; the contrast test lists each theme's known
-        exceptions.
-      </li>
-      <li>
-        The <DocLink href="/theme-builder">Theme builder</DocLink> and the share link.
-      </li>
-      <li>
-        Hooks a theme can reach: <code>--ui-control-accent</code>,
-        <code>--ui-selected</code>, <code>--ui-button-hover: layer</code>,
-        <code>--ui-border-color-raised</code>.
-      </li>
-      <li>
-        Default in the demo mirrors the site preset the reader picked, by
-        design.
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2 id="platform-did-the-work">The platform did the work</h2>
+    <h3 id="platform-did-the-work">The platform did the work</h3>
     <ul>
       <li>
         New components: <DocLink href="/components/carousel">Carousel</DocLink>
@@ -245,74 +376,8 @@ import TokenTiers from "../../components/TokenTiers.astro"
         forced-colors fixes across the board.
       </li>
     </ul>
-  </section>
 
-  <section>
-    <h2 id="the-css-is-the-component">The CSS is the component</h2>
-    <Shells />
-    <ul>
-      <li>
-        The core idea: a component is its stylesheet and the native HTML it
-        styles. Popovers, invokers, anchor positioning, scroll-driven fills and
-        <code>:has()</code> carry the behavior.
-      </li>
-      <li>
-        A framework layer is a binding: props to attributes and classes, slots
-        to parts, events to native events. About 2,500 lines each, 90 lines of
-        JavaScript shared by all.
-      </li>
-      <li>
-        Why React and Svelte could land in one release, and what each binding
-        adds: React 19 with Server Components by default and
-        <code>"use client"</code> only on stateful components; Svelte 5 with
-        <code>bind:value</code>, <code>bind:checked</code> and
-        <code>bind:group</code>; Astro and Vue with parts instead of slots.
-      </li>
-      <li>
-        The parity test keeps the shells honest: every example rendered in every
-        framework and compared against Astro, accepted drift in a
-        <code>.diff</code> ledger that only shrinks, 22 alignment fixes in this release.
-      </li>
-      <li>
-        What the idea costs: a new feature needs one engine to ship it, so the
-        browser support section is the other half of this one.
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2 id="what-it-took">What it took</h2>
-    <Numbers />
-    <ul>
-      <li>
-        The numbers above are computed at build time from the changelog, the
-        docs and the package. The commit count needs a full clone.
-      </li>
-      <li>
-        Palette knobs declared twice, and the copy that disagreed and never
-        applied.
-      </li>
-      <li>
-        Themes overriding the severity palette until the
-        <code>theme.severity</code> layer.
-      </li>
-      <li>
-        The compat layer: one file per component, every rule behind
-        <code>@supports not</code> or an engine gate with a plain-HTML repro.
-      </li>
-      <li>
-        The checks that hold the line: released tokens and released API ledgers,
-        parity drift, the a11y violations ledger, ratchets that only shrink.
-      </li>
-      <li>
-        <code>npx opui-css skill</code>: a per-component reference for coding
-        agents, generated from the API data.
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2 id="browser-support">Browser support, honestly</h2>
+    <h3 id="browser-support">Browser support, honestly</h3>
     <SupportMatrix />
     <ul>
       <li>Feature first: one engine shipping is enough.</li>
@@ -332,6 +397,26 @@ import TokenTiers from "../../components/TokenTiers.astro"
       <li>
         Known gaps to name: iOS checked by hand, logical
         <code>overflow-inline</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="where-it-landed">Where it landed</h2>
+    <Blueprint state="built" />
+    <Numbers />
+    <ul>
+      <li>
+        The numbers above are computed at build time from the changelog, the
+        docs and the package. The commit count needs a full clone.
+      </li>
+      <li>
+        Themes overriding the severity palette until the
+        <code>theme.severity</code> layer.
+      </li>
+      <li>
+        The compat layer: one file per component, every rule behind
+        <code>@supports not</code> or an engine gate with a plain-HTML repro.
       </li>
     </ul>
   </section>

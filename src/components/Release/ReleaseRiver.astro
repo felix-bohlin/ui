@@ -1,0 +1,432 @@
+---
+import { readFileSync } from "node:fs"
+import { Tooltip, TooltipContent } from "opui-css/astro"
+
+const id = "release-river"
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
+const now = Date.now()
+const reference = 44 * 16
+const lane = 24
+
+const plain = (line: string) =>
+  line
+    .replace(/^- /, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[`*]/g, "")
+    .replace(/\p{Extended_Pictographic}/gu, "")
+    .trim()
+
+const sentence = (text: string) => {
+  const first = text.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? text
+  if (first.length <= 110) return first
+  return `${first.slice(0, first.lastIndexOf(" ", 108))}…`
+}
+
+const headings = [...changelog.matchAll(/^## (\S+)(?: - (.*))?$/gm)]
+
+const parsed = headings
+  .map((match, index) => {
+    const [heading, version, label = ""] = match
+    const body = changelog.slice(
+      match.index + heading.length,
+      headings[index + 1]?.index,
+    )
+    const lines = body.split("\n")
+    const first = lines
+      .map((line) => line.trim())
+      .find((line) => line && !line.startsWith("#"))
+    const date = /^\d{4}-\d{2}-\d{2}$/.test(label) ? label : undefined
+    return {
+      date,
+      entries: lines.filter((line) => line.startsWith("- ")).length,
+      label: date ? "" : label,
+      major: /^\d+\.0\.0$/.test(version),
+      minor: /^\d+\.\d+\.0$/.test(version),
+      summary: first ? sentence(plain(first)) : "",
+      version,
+    }
+  })
+  .toReversed()
+
+const times = parsed.map((release, index) => {
+  if (release.date) return Date.parse(release.date)
+  const before = parsed.findLastIndex((other, at) => at < index && other.date)
+  const after = parsed.findIndex((other, at) => at > index && other.date)
+  if (after === -1) return now
+  const start = Date.parse(parsed[before]?.date ?? parsed[after].date!)
+  const end = Date.parse(parsed[after].date!)
+  return start + ((end - start) * (index - before)) / (after - before)
+})
+
+const firstYear = new Date(times[0]).getUTCFullYear()
+const lastYear = new Date(now).getUTCFullYear()
+const domainStart = Date.UTC(firstYear, 0, 1)
+const domainEnd = Math.max(now, ...times)
+const position = (time: number) =>
+  (time - domainStart) / (domainEnd - domainStart)
+
+const formatDate = new Intl.DateTimeFormat("en", {
+  dateStyle: "long",
+  timeZone: "UTC",
+})
+
+const latest = parsed.length - 1
+
+const releases = parsed.map((release, index) => {
+  const short = release.version.replace(/\.0$/, "")
+  const text =
+    index === latest ? `${short}, now` : release.major ? release.version : ""
+  const neighbours = [parsed[index - 1], parsed[index + 1]]
+    .filter((other) => other?.date)
+    .map((other) => other!.version)
+  return {
+    ...release,
+    dateText: release.date
+      ? formatDate.format(Date.parse(release.date))
+      : release.label || `Undated, between ${neighbours.join(" and ")}`,
+    latest: index === latest,
+    slug: release.version.replaceAll(".", "-"),
+    text,
+    width: text ? text.length * 7.5 + 24 : lane,
+    x: position(times[index]),
+  }
+})
+
+const placed: { lane: number; width: number; x: number }[] = []
+const lanes = new Map<string, number>()
+const order = [
+  ...releases.filter((release) => release.text),
+  ...releases.filter((release) => !release.text),
+]
+const candidates = Array.from({ length: 41 }, (_, index) =>
+  index % 2 ? (index + 1) / 2 : -index / 2,
+)
+for (const release of order) {
+  const free = candidates.find((candidate) =>
+    placed.every(
+      (other) =>
+        other.lane !== candidate ||
+        Math.abs(other.x - release.x) * reference >=
+          (other.width + release.width) / 2 + 4,
+    ),
+  )!
+  placed.push({ lane: free, width: release.width, x: release.x })
+  lanes.set(release.version, free)
+}
+
+const above = Math.max(0, ...lanes.values())
+const below = Math.max(0, ...[...lanes.values()].map((value) => -value))
+
+const years = Array.from(
+  { length: lastYear - firstYear + 1 },
+  (_, index) => firstYear + index,
+).map((year) => ({ x: position(Date.UTC(year, 0, 1)), year }))
+
+const first = releases[0]
+const last = releases[latest]
+---
+
+<div
+  class="release-river ui-not-rich-text"
+  id={id}
+  style={{
+    "--above": above,
+    "--below": below,
+    "--first": first.x,
+    "--last": last.x,
+  }}
+>
+  <div class="release-river-scroll">
+    <div class="release-river-track">
+      <div class="release-river-axis" aria-hidden="true">
+        <span class="release-river-line"></span>
+        <span class="release-river-progress"></span>
+        {
+          years.map((tick) => (
+            <span class="release-river-year" style={{ "--x": tick.x }}>
+              {tick.year}
+            </span>
+          ))
+        }
+      </div>
+      <ol
+        aria-label={`${releases.length} releases, ${first.version} to ${last.version}`}
+        class="release-river-list"
+      >
+        {
+          releases.map((release) => (
+            <li
+              class="release-river-item"
+              data-kind={
+                release.latest
+                  ? "latest"
+                  : release.major
+                    ? "major"
+                    : release.minor
+                      ? "minor"
+                      : "patch"
+              }
+              style={{ "--lane": lanes.get(release.version), "--x": release.x }}
+            >
+              <Tooltip class="release-river-node" id={`${id}-${release.slug}`}>
+                <button
+                  aria-label={release.text ? undefined : release.version}
+                  class="release-river-button"
+                  command="toggle-popover"
+                  commandfor={`${id}-${release.slug}`}
+                  interestfor={`${id}-${release.slug}`}
+                  type="button"
+                >
+                  {release.text}
+                </button>
+                <TooltipContent>
+                  <span class="release-river-tip">
+                    <strong>{release.version}</strong>
+                    <span>{release.dateText}</span>
+                    {release.summary && <span>{release.summary}</span>}
+                    {release.entries > 0 && (
+                      <span class="release-river-count">
+                        {release.entries}{" "}
+                        {release.entries === 1 ? "entry" : "entries"}
+                      </span>
+                    )}
+                  </span>
+                </TooltipContent>
+              </Tooltip>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .release-river {
+    --_lane: 1.5rem;
+    --_pad: 3rem;
+
+    margin-block: var(--ui-space-5);
+    view-timeline-name: --release-river;
+  }
+
+  .release-river-scroll {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+
+  .release-river-track {
+    --_center: calc((var(--above) + 1) * var(--_lane) + var(--ui-space-3));
+
+    block-size: calc(
+      (var(--above) + var(--below) + 2) * var(--_lane) + var(--ui-space-3) +
+        2.5rem
+    );
+    inline-size: max(100%, 50rem);
+    padding-inline: var(--_pad);
+    position: relative;
+  }
+
+  .release-river-axis,
+  .release-river-list {
+    inset-block: 0;
+    inset-inline: var(--_pad);
+    margin: 0;
+    padding: 0;
+    position: absolute;
+  }
+
+  .release-river-list {
+    list-style: none;
+  }
+
+  .release-river-line,
+  .release-river-progress {
+    block-size: 0.25rem;
+    border-radius: var(--ui-radius-round);
+    inset-block-start: calc(var(--_center) - 0.125rem);
+    position: absolute;
+  }
+
+  .release-river-line {
+    background-color: var(--ui-border-color);
+    inset-inline: 0;
+  }
+
+  .release-river-progress {
+    background-color: var(--ui-primary);
+    inline-size: calc((var(--last) - var(--first)) * 100%);
+    inset-inline-start: calc(var(--first) * 100%);
+    transform-origin: left center;
+  }
+
+  .release-river-year {
+    border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
+    color: var(--ui-text-subtle);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    inset-block: calc(var(--_center) - 0.5rem) 0;
+    inset-inline-start: calc(var(--x) * 100%);
+    line-height: 1;
+    padding-block-start: calc(var(--below) * var(--_lane) + 1.75rem);
+    padding-inline-start: var(--ui-space-1);
+    position: absolute;
+  }
+
+  .release-river-item {
+    inset-block-start: calc(var(--_center) - var(--lane) * var(--_lane));
+    inset-inline-start: calc(var(--x) * 100%);
+    position: absolute;
+    translate: -50% -50%;
+  }
+
+  .release-river-node {
+    display: block;
+  }
+
+  .release-river-button {
+    --_dot: 0.5rem;
+
+    align-items: center;
+    background-color: transparent;
+    block-size: var(--_lane);
+    border: 0;
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-text);
+    cursor: pointer;
+    display: grid;
+    font: inherit;
+    inline-size: var(--_lane);
+    justify-items: center;
+    padding: 0;
+
+    &::before {
+      background-color: currentColor;
+      block-size: var(--_dot);
+      border: var(--ui-border-width-thick) solid currentColor;
+      border-radius: inherit;
+      box-sizing: border-box;
+      content: "";
+      inline-size: var(--_dot);
+    }
+
+    &:focus-visible {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+  }
+
+  [data-kind="minor"] .release-river-button {
+    --_dot: 0.75rem;
+  }
+
+  [data-kind="patch"] .release-river-button {
+    color: var(--ui-text-subtle);
+
+    &::before {
+      background-color: var(--ui-surface);
+    }
+  }
+
+  :is([data-kind="major"], [data-kind="latest"]) .release-river-button {
+    background-color: var(--ui-surface-elevated);
+    block-size: 1.75rem;
+    border: var(--ui-border-width-thick) solid var(--ui-text);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+    inline-size: auto;
+    padding-inline: var(--ui-space-2);
+    white-space: nowrap;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  [data-kind="latest"] .release-river-button {
+    background-color: var(--ui-primary);
+    border-color: var(--ui-primary);
+    color: var(--ui-on-primary);
+  }
+
+  .release-river-tip {
+    display: grid;
+    gap: var(--ui-space-1);
+    text-align: start;
+
+    & strong {
+      font-family: var(--ui-font-code);
+    }
+  }
+
+  .release-river-count {
+    opacity: 0.8;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .release-river-progress {
+        animation: release-river-draw linear both;
+        animation-range: cover 10% cover 40%;
+        animation-timeline: --release-river;
+      }
+
+      .release-river-node {
+        animation: release-river-light linear both;
+        animation-range: cover calc(10% + var(--x) * 30%) cover
+          calc(12% + var(--x) * 30%);
+        animation-timeline: --release-river;
+      }
+
+      :is([data-kind="major"], [data-kind="latest"]) .release-river-node {
+        animation-name: release-river-pop;
+        animation-range: cover calc(9% + var(--x) * 30%) cover
+          calc(14% + var(--x) * 30%);
+      }
+    }
+  }
+
+  @keyframes release-river-draw {
+    from {
+      scale: 0 1;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+
+  @keyframes release-river-light {
+    from {
+      opacity: 0.2;
+      scale: 0.4;
+    }
+
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  @keyframes release-river-pop {
+    from {
+      opacity: 0;
+      scale: 0;
+    }
+
+    70% {
+      opacity: 1;
+      scale: 1.2;
+    }
+
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+</style>

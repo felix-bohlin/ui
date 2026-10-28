@@ -30,6 +30,10 @@ const jsSources = import.meta.glob<string>(
   "../../../packages/opui/css/js/*.js",
   { eager: true, import: "default", query: "?raw" },
 )
+const elementSources = import.meta.glob<string>(
+  "../../../packages/opui/elements/*.js",
+  { eager: true, import: "default", query: "?raw" },
+)
 const reactSources = import.meta.glob<string>(
   "../../../packages/opui/components/**/*.react.tsx",
   { eager: true, import: "default", query: "?raw" },
@@ -51,7 +55,8 @@ const lineCount = (source: string) =>
 const layers = [
   { core: false, label: "Astro components", sources: astroSources },
   { core: true, label: "Component CSS", sources: cssSources },
-  { core: true, label: "JavaScript shipped", sources: jsSources },
+  { core: true, label: "Custom elements", sources: elementSources },
+  { core: true, label: "Init helpers", sources: jsSources },
   { core: false, label: "React components", sources: reactSources },
   { core: false, label: "Svelte components", sources: svelteSources },
   { core: false, label: "Vue components", sources: vueSources },
@@ -141,6 +146,9 @@ const source = (framework: FrameworkId) => {
   return code.trimEnd()
 }
 
+const displayLabel = (framework: FrameworkId, label: string) =>
+  framework === "html" ? "No framework" : label
+
 const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   Component:
     framework === "html"
@@ -149,7 +157,7 @@ const renders = FRAMEWORKS.map(({ id: framework, label }) => ({
   Logo: logos[framework],
   framework,
   html: framework === "html" ? source("html") : undefined,
-  label,
+  label: displayLabel(framework, label),
   marked: markParts(source(framework)),
 }))
 
@@ -221,7 +229,7 @@ const activeSourceCss = FRAMEWORKS.map(
       <p class="shells-note">
         Compared in your browser just now: the same markup in all {
           FRAMEWORKS.length
-        } frameworks, the way the test suite checks it.
+        } versions, the way the test suite checks it.
       </p>
       <details class="shells-diffs" hidden>
         <summary>Show the differences</summary>
@@ -230,8 +238,12 @@ const activeSourceCss = FRAMEWORKS.map(
   </div>
   <div class="shells-renders" hidden inert>
     {
-      renders.map(({ Component, framework, html }) => (
-        <div class="shells-render example-preview" data-framework={framework}>
+      renders.map(({ Component, framework, html, label }) => (
+        <div
+          class="shells-render example-preview"
+          data-framework={framework}
+          data-label={label}
+        >
           {html ? <Fragment set:html={html} /> : Component && <Component />}
         </div>
       ))
@@ -768,6 +780,12 @@ const activeSourceCss = FRAMEWORKS.map(
         normalize(render),
       ]),
     )
+    const labels = new Map(
+      renders.map((render) => [
+        render.dataset.framework ?? "",
+        render.dataset.label ?? "",
+      ]),
+    )
     const reference = markup.get("astro") ?? ""
     const differing = [...markup].filter(
       ([framework, actual]) => framework !== "astro" && actual !== reference,
@@ -777,10 +795,10 @@ const activeSourceCss = FRAMEWORKS.map(
     const note = root.querySelector<HTMLElement>(".shells-note")!
     const diffs = root.querySelector<HTMLElement>(".shells-diffs")!
     if (differing.length) {
-      note.textContent = `Compared in your browser just now: the markup differs in ${differing.length} of ${markup.size} frameworks, the way the test suite checks it.`
+      note.textContent = `Compared in your browser just now: the markup differs in ${differing.length} of ${markup.size} versions, the way the test suite checks it.`
       for (const [framework, actual] of differing) {
         const label = document.createElement("p")
-        label.textContent = `${framework} against astro`
+        label.textContent = `${labels.get(framework)} against ${labels.get("astro")}`
         diffs.append(label, diffOf(reference, actual))
       }
       diffs.hidden = false

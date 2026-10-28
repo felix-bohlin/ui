@@ -1,0 +1,446 @@
+---
+import { readdirSync, readFileSync } from "node:fs"
+import { FRAMEWORKS } from "../../utils/framework"
+
+type Props = {
+  state: "built" | "sketch"
+}
+
+const { state } = Astro.props
+const built = state === "built"
+const id = `blueprint-${state}`
+
+const read = (path: string) => readFileSync(path, "utf8")
+
+const layerNames = [
+  ...read("packages/opui/css/layers.css").matchAll(/@layer ([^;{]+);/g),
+].flatMap(([, list]) => list.split(",").map((name) => name.trim()))
+
+const layers = new Map<string, string[]>()
+for (const name of layerNames) {
+  const [parent, child] = name.split(".")
+  const children = layers.get(parent) ?? []
+  if (child) children.push(child)
+  layers.set(parent, children)
+}
+
+const tiers = [
+  ...read("src/components/TokenTiers.astro").matchAll(
+    /name: "([^"]+)",[\s\S]*?tokens: \[([^\]]*)\]/g,
+  ),
+].map(([, name, tokens]) => ({
+  name,
+  token: tokens.match(/"([^"]+)"/)?.[1] ?? "",
+}))
+
+if (layers.size < 3 || tiers.length < 5) {
+  throw new Error(
+    "Blueprint.astro: expected the @layer order in layers.css and the tiers in TokenTiers.astro",
+  )
+}
+
+const elements = readdirSync("packages/opui/elements")
+  .filter((file) => file.endsWith(".js"))
+  .flatMap((file) => [
+    ...read(`packages/opui/elements/${file}`).matchAll(
+      /customElements\.define\("([^"]+)"/g,
+    ),
+  ])
+  .map(([, name]) => name)
+  .toSorted((a, b) => a.localeCompare(b, "en"))
+
+const packageName = JSON.parse(read("packages/opui/package.json")).name
+
+const pathLength = built ? 1 : undefined
+---
+
+<figure class="blueprint ui-not-rich-text" data-state={state} id={id}>
+  <div class="blueprint-paper">
+    <div class="blueprint-grid">
+      <div class="blueprint-panel">
+        <p class="blueprint-title" id={`${id}-layers`}>Cascade layers</p>
+        <ol aria-labelledby={`${id}-layers`} class="blueprint-chain">
+          {
+            [...layers].map(([name, children], index) => (
+              <li>
+                {index > 0 && (
+                  <svg aria-hidden="true" class="blueprint-wire">
+                    <line
+                      pathLength={pathLength}
+                      x1="50%"
+                      x2="50%"
+                      y1="0"
+                      y2="100%"
+                    />
+                  </svg>
+                )}
+                <div class="blueprint-node">
+                  <code class="blueprint-label">{name}</code>
+                  {children.length > 0 && (
+                    <ol class="blueprint-chips">
+                      {children.map((child) => (
+                        <li>
+                          <code>{child}</code>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <svg aria-hidden="true" class="blueprint-wire blueprint-link">
+        <line
+          class="blueprint-across"
+          pathLength={pathLength}
+          x1="0"
+          x2="100%"
+          y1="50%"
+          y2="50%"></line>
+        <line
+          class="blueprint-down"
+          pathLength={pathLength}
+          x1="50%"
+          x2="50%"
+          y1="0"
+          y2="100%"></line>
+      </svg>
+
+      <div class="blueprint-panel">
+        <p class="blueprint-title" id={`${id}-tiers`}>Token tiers</p>
+        <ol aria-labelledby={`${id}-tiers`} class="blueprint-chain">
+          {
+            tiers.map((tier, index) => (
+              <li>
+                {index > 0 && (
+                  <svg aria-hidden="true" class="blueprint-wire">
+                    <line
+                      pathLength={pathLength}
+                      x1="50%"
+                      x2="50%"
+                      y1="0"
+                      y2="100%"
+                    />
+                  </svg>
+                )}
+                <div class="blueprint-node">
+                  <span class="blueprint-label">{tier.name}</span>
+                  {tier.token && <code>{tier.token}</code>}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <svg aria-hidden="true" class="blueprint-wire blueprint-link">
+        <line
+          class="blueprint-across"
+          pathLength={pathLength}
+          x1="0"
+          x2="100%"
+          y1="50%"
+          y2="50%"></line>
+        <line
+          class="blueprint-down"
+          pathLength={pathLength}
+          x1="50%"
+          x2="50%"
+          y1="0"
+          y2="100%"></line>
+      </svg>
+
+      <div class="blueprint-panel">
+        <p class="blueprint-title" id={`${id}-delivery`}>Delivery</p>
+        <div class="blueprint-chain">
+          <div class="blueprint-node">
+            <code class="blueprint-label">{packageName}</code>
+          </div>
+          <svg aria-hidden="true" class="blueprint-wire">
+            <line pathLength={pathLength} x1="50%" x2="50%" y1="0" y2="100%"
+            ></line>
+          </svg>
+          <ul aria-labelledby={`${id}-delivery`} class="blueprint-surfaces">
+            {
+              FRAMEWORKS.map((framework) => (
+                <li class="blueprint-node">
+                  <span class="blueprint-label">{framework.label}</span>
+                </li>
+              ))
+            }
+            <li class="blueprint-node blueprint-elements">
+              <span class="blueprint-label">Custom elements</span>
+              <ul class="blueprint-chips">
+                {
+                  elements.map((element) => (
+                    <li>
+                      <code>{element}</code>
+                    </li>
+                  ))
+                }
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style is:global>
+  .blueprint {
+    container-type: inline-size;
+    margin: var(--ui-space-5) 0;
+  }
+
+  .blueprint-paper {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    display: grid;
+    gap: var(--ui-space-2);
+    overflow: clip;
+    padding: var(--ui-space-5) var(--ui-space-4) var(--ui-space-4);
+  }
+
+  .blueprint-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5rem 1fr 1.5rem 1fr;
+  }
+
+  .blueprint-panel {
+    align-content: start;
+    display: grid;
+    gap: var(--ui-space-3);
+    min-inline-size: 0;
+  }
+
+  .blueprint-title {
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .blueprint-chain {
+    display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & > li {
+      display: grid;
+    }
+  }
+
+  .blueprint-node {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    display: grid;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-1);
+    justify-items: center;
+    line-height: var(--ui-line-height-tight);
+    padding: var(--ui-space-2);
+    text-align: center;
+
+    & code {
+      font-family: var(--ui-font-code);
+      font-size: var(--ui-font-size-caption);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .blueprint-label {
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  code.blueprint-label {
+    font-size: var(--ui-font-size-small);
+  }
+
+  .blueprint-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-1);
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & > li {
+      border-radius: var(--ui-radius-small);
+      padding: 0.125rem var(--ui-space-1);
+    }
+  }
+
+  .blueprint-surfaces {
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-columns: 1fr 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blueprint-elements {
+    grid-column: 1 / -1;
+  }
+
+  .blueprint-wire {
+    block-size: var(--ui-space-4);
+    display: block;
+    fill: none;
+    inline-size: 100%;
+    overflow: visible;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .blueprint-link {
+    block-size: 100%;
+  }
+
+  .blueprint-down {
+    display: none;
+  }
+
+  .blueprint[data-state="sketch"] {
+    & .blueprint-paper {
+      --_grid: oklch(from var(--ui-primary) l c h / 12%);
+      --_grid-strong: oklch(from var(--ui-primary) l c h / 22%);
+
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          var(--_grid-strong) 0 1px,
+          transparent 1px 5rem
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          var(--_grid-strong) 0 1px,
+          transparent 1px 5rem
+        ),
+        repeating-linear-gradient(
+          to right,
+          var(--_grid) 0 1px,
+          transparent 1px 1rem
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          var(--_grid) 0 1px,
+          transparent 1px 1rem
+        );
+      border-style: dashed;
+      color: var(--ui-text-subtle);
+      font-family: var(--ui-font-code);
+    }
+
+    & .blueprint-title {
+      font-weight: var(--ui-font-weight-normal);
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    & .blueprint-node,
+    & .blueprint-chips > li {
+      border: var(--ui-border-width) dashed currentColor;
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    }
+
+    & .blueprint-node {
+      font-family: var(--ui-font-code);
+      rotate: -0.6deg;
+    }
+
+    & li:nth-child(even) > .blueprint-node,
+    & .blueprint-surfaces > li:nth-child(even) {
+      rotate: 0.5deg;
+    }
+
+    & .blueprint-label {
+      font-weight: var(--ui-font-weight-normal);
+    }
+
+    & .blueprint-wire {
+      stroke-dasharray: 4 4;
+      stroke-width: 1.25;
+    }
+  }
+
+  .blueprint[data-state="built"] {
+    & .blueprint-title {
+      color: var(--ui-primary-text);
+    }
+
+    & .blueprint-node {
+      background-color: var(--ui-surface-elevated);
+      border-color: var(--ui-primary);
+      box-shadow: var(--ui-shadow-surface);
+
+      & code {
+        color: var(--ui-primary-text);
+      }
+    }
+
+    & code.blueprint-label {
+      color: var(--ui-text);
+    }
+
+    & .blueprint-chips > li {
+      background-color: var(--ui-surface-tonal);
+    }
+
+    & .blueprint-wire {
+      color: var(--ui-primary);
+      stroke-dasharray: 1;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @container (width < 42rem) {
+    .blueprint-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blueprint-link {
+      block-size: var(--ui-space-6);
+    }
+
+    .blueprint-across {
+      display: none;
+    }
+
+    .blueprint-down {
+      display: inline;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .blueprint[data-state="built"] {
+        & .blueprint-wire {
+          animation: blueprint-draw linear both;
+          animation-range: entry 100% cover 22%;
+          animation-timeline: view();
+        }
+      }
+    }
+  }
+
+  @keyframes blueprint-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

@@ -1,0 +1,403 @@
+---
+import ciSource from "../../../.github/workflows/ci.yml?raw"
+import {
+  driftLines,
+  entries,
+  ratchetEntries,
+} from "../../../scripts/check-ratchets.mjs"
+
+const id = "ratchets"
+
+const ledgerSources = import.meta.glob<string>(
+  [
+    "../../../scripts/css-vars-allowlist.json",
+    "../../../tests/e2e/a11y-known-violations.json",
+    "../../../tests/unit/todo-allowlist.json",
+    "../../../tests/unit/untested-scripts.json",
+  ],
+  { eager: true, import: "default", query: "?raw" },
+)
+const driftSources = import.meta.glob<string>(
+  "../../../tests/unit/__snapshots__/**/*.diff",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const read = (file: string) => {
+  const source = ledgerSources[`../../../${file}`]
+  if (source === undefined) {
+    throw new Error(`Ratchets.astro: ${file} is missing`)
+  }
+  return JSON.parse(source)
+}
+
+const plural = (count: number, word: string) =>
+  `${count.toLocaleString("en")} ${word}${count === 1 ? "" : "s"}`
+
+const driftFiles = Object.values(driftSources)
+const driftLineCount = driftFiles.reduce(
+  (sum, diff) => sum + driftLines(diff).length,
+  0,
+)
+
+const ledgers = [
+  {
+    count: entries(read("tests/e2e/a11y-known-violations.json")).length,
+    file: "tests/e2e/a11y-known-violations.json",
+    holds: "Known axe violations still accepted",
+    label: "Accessibility ledger",
+    unit: "violation",
+  },
+  {
+    count: ratchetEntries({}, read("scripts/css-vars-allowlist.json")).length,
+    file: "scripts/css-vars-allowlist.json",
+    holds: "Literal lengths and palette reads in component CSS",
+    label: "CSS vars allowlist",
+    unit: "entry",
+  },
+  {
+    count: driftFiles.length,
+    detail: plural(driftLineCount, "drift line"),
+    file: "tests/unit/__snapshots__/**/*.diff",
+    holds: "Accepted markup drift between frameworks",
+    label: "Parity drift",
+    unit: "file",
+  },
+  {
+    count: ratchetEntries({}, read("tests/unit/todo-allowlist.json")).length,
+    file: "tests/unit/todo-allowlist.json",
+    holds: "Old TODO.md items exempt from the headline rules",
+    label: "TODO allowlist",
+    unit: "entry",
+  },
+  {
+    count: ratchetEntries(
+      { keys: true },
+      read("tests/unit/untested-scripts.json"),
+    ).length,
+    file: "tests/unit/untested-scripts.json",
+    holds: "Scripts that only their output can test",
+    label: "Untested scripts",
+    unit: "script",
+  },
+].toSorted((a, b) => a.label.localeCompare(b.label, "en"))
+
+const unitOf = (count: number, unit: string) =>
+  count === 1
+    ? unit
+    : unit.endsWith("y")
+      ? `${unit.slice(0, -1)}ies`
+      : `${unit}s`
+
+const historyJob = ciSource.match(
+  /^ {2}history:\n(?: {4,}.*\n|\n)*? {6}- run: (node scripts\/check-ratchets\.mjs .+)$/m,
+)
+if (!historyJob) {
+  throw new Error(
+    "Ratchets.astro: the history job in .github/workflows/ci.yml no longer runs scripts/check-ratchets.mjs",
+  )
+}
+const command = historyJob[1]
+
+const center = { x: 50, y: 58 }
+const teeth = 12
+const outer = 34
+const root = 26
+
+const point = (radius: number, degrees: number) => {
+  const angle = (degrees * Math.PI) / 180
+  const x = center.x + radius * Math.cos(angle)
+  const y = center.y + radius * Math.sin(angle)
+  return `${Math.round(x * 100) / 100} ${Math.round(y * 100) / 100}`
+}
+
+const step = 360 / teeth
+const gear = `M ${point(root, 0)} ${Array.from(
+  { length: teeth },
+  (_, tooth) =>
+    `L ${point(outer, tooth * step)} L ${point(root, (tooth + 1) * step)}`,
+).join(" ")} Z`
+---
+
+<div class="ratchets ui-not-rich-text" id={id}>
+  <ul class="ratchets-tiles">
+    {
+      ledgers.map(({ count, detail, file, holds, label, unit }, index) => (
+        <li class="ratchets-tile" style={`--ratchets-i: ${index}`}>
+          <svg
+            aria-hidden="true"
+            class="ratchets-wheel"
+            focusable="false"
+            viewBox="0 0 100 100"
+          >
+            <g class="ratchets-gear">
+              <path class="ratchets-teeth" d={gear} />
+              <circle class="ratchets-hub" cx={center.x} cy={center.y} r="9" />
+              <circle class="ratchets-axle" cx={center.x} cy={center.y} r="3" />
+            </g>
+            <g class="ratchets-pawl">
+              <path
+                class="ratchets-pawl-arm"
+                d="M 19.5 10.2 L 49.2 25.5 L 49.2 31.2 L 36 28.6 L 15.5 21.5 Z"
+              />
+              <circle class="ratchets-pivot" cx="18" cy="16" r="6.5" />
+              <circle class="ratchets-axle" cx="18" cy="16" r="2" />
+            </g>
+          </svg>
+          <p class="ratchets-label">{label}</p>
+          <p class="ratchets-count">
+            <span class="ratchets-number">{count.toLocaleString("en")}</span>
+            <span class="ratchets-unit">
+              {[unitOf(count, unit), detail].filter(Boolean).join(", ")}
+            </span>
+          </p>
+          <p class="ratchets-holds">{holds}</p>
+          <code class="ratchets-file">
+            {file.split(/(?<=\/)/).map((segment) => (
+              <span class="ratchets-segment">{segment}</span>
+            ))}
+          </code>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="ratchets-ci">
+    Each list only shrinks: the <code>history</code> job in <code
+      >.github/workflows/ci.yml</code
+    > runs <code>{command}</code> on every pull request. The a11y ledger and the parity
+    drift may grow only in a commit marked
+    <code>Ledger-Change: intended</code>.
+  </p>
+</div>
+
+<style is:global>
+  .ratchets {
+    display: grid;
+    gap: var(--ui-space-4);
+    margin-block: var(--ui-space-5);
+  }
+
+  .ratchets-tiles {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ratchets-tile {
+    align-content: start;
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    column-gap: var(--ui-space-3);
+    display: grid;
+    font-family: var(--ui-font-body);
+    grid-template-areas:
+      "wheel label"
+      "wheel count"
+      "holds holds"
+      "file file";
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    min-inline-size: 0;
+    padding: var(--ui-space-3);
+    row-gap: var(--ui-space-1);
+    view-timeline: --ratchets-tile block;
+  }
+
+  .ratchets-wheel {
+    align-self: center;
+    block-size: 4.5rem;
+    grid-area: wheel;
+    inline-size: 4.5rem;
+    overflow: visible;
+  }
+
+  .ratchets-teeth {
+    fill: var(--ui-surface-tonal);
+    stroke: var(--ui-text-subtle);
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .ratchets-hub {
+    fill: var(--ui-surface);
+    stroke: var(--ui-text-subtle);
+    stroke-width: 2;
+  }
+
+  .ratchets-axle {
+    fill: var(--ui-text-subtle);
+  }
+
+  .ratchets-gear {
+    transform-box: view-box;
+    transform-origin: 50px 58px;
+  }
+
+  .ratchets-pawl {
+    transform-box: view-box;
+    transform-origin: 18px 16px;
+  }
+
+  .ratchets-pawl-arm,
+  .ratchets-pivot {
+    fill: var(--ui-primary);
+    stroke: var(--ui-text-strong);
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+
+  .ratchets-pawl .ratchets-axle {
+    fill: var(--ui-surface);
+  }
+
+  .ratchets-label {
+    align-self: end;
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+    grid-area: label;
+    margin: 0;
+  }
+
+  .ratchets-count {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--ui-space-2);
+    grid-area: count;
+    margin: 0;
+  }
+
+  .ratchets-number {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-heading);
+    font-size: var(--ui-font-size-h3);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-bold);
+    line-height: 1.1;
+  }
+
+  .ratchets-unit {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+  }
+
+  .ratchets-holds {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    grid-area: holds;
+    margin: var(--ui-space-2) 0 0;
+  }
+
+  .ratchets-file {
+    color: var(--ui-text-subtle);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    grid-area: file;
+  }
+
+  .ratchets-segment {
+    display: inline-block;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .ratchets-ci {
+    color: var(--ui-text-subtle);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    & code {
+      overflow-wrap: anywhere;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .ratchets-gear,
+      .ratchets-pawl {
+        animation: linear both;
+        animation-range: entry calc(var(--ratchets-i) * 3%) cover
+          calc(28% + var(--ratchets-i) * 3%);
+        animation-timeline: --ratchets-tile;
+      }
+
+      .ratchets-gear {
+        animation-name: ratchets-turn;
+      }
+
+      .ratchets-pawl {
+        animation-name: ratchets-click;
+      }
+    }
+  }
+
+  @keyframes ratchets-turn {
+    0% {
+      rotate: 0deg;
+    }
+
+    25%,
+    33.33% {
+      rotate: 30deg;
+    }
+
+    58.33%,
+    66.67% {
+      rotate: 60deg;
+    }
+
+    91.67%,
+    100% {
+      rotate: 90deg;
+    }
+  }
+
+  @keyframes ratchets-click {
+    0% {
+      rotate: 0deg;
+    }
+
+    23.5% {
+      rotate: -16deg;
+    }
+
+    24.5% {
+      rotate: 2deg;
+    }
+
+    27%,
+    33.33% {
+      rotate: 0deg;
+    }
+
+    56.83% {
+      rotate: -16deg;
+    }
+
+    57.83% {
+      rotate: 2deg;
+    }
+
+    60.33%,
+    66.67% {
+      rotate: 0deg;
+    }
+
+    90.17% {
+      rotate: -16deg;
+    }
+
+    91.17% {
+      rotate: 2deg;
+    }
+
+    93.67%,
+    100% {
+      rotate: 0deg;
+    }
+  }
+</style>

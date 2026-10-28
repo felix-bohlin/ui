@@ -1,9 +1,24 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_c": {
+    description:
+      "Chroma of the color, which the lightness, hue and opacity tracks are painted with. The element sets it.",
+    kind: "output",
+  },
+  "--_h": {
+    description:
+      "Hue of the color, which the lightness, chroma and opacity tracks are painted with. The element sets it.",
+    kind: "output",
+  },
   "--_indicator-bg-color": {
     description:
-      "The swatch color. The element sets it to the field's color, and to `transparent` when the text isn't a color.",
+      "The swatch and thumb color. The element sets it to the field's color, and to `transparent` when the text isn't a color.",
+    kind: "output",
+  },
+  "--_l": {
+    description:
+      "Lightness of the color, which the chroma, hue and opacity tracks are painted with. The element sets it.",
     kind: "output",
   },
   "--_picker-inline-size": {
@@ -23,6 +38,25 @@ export default {
   "--_text-color": {
     description:
       "Text color of the picker's buttons, the `Button` property set to `--_preview-text-color` so they stay readable on the color.",
+    kind: "output",
+  },
+  "--_to": {
+    description:
+      "Direction of the track gradients, `to right`, or `to left` in right-to-left text.",
+    kind: "output",
+  },
+  "--_track": {
+    description:
+      "The gradient of a slider's track, from its channel's lowest to its highest value at the current color.",
+    kind: "output",
+  },
+  "--_track-block-size": {
+    description: "Thickness of the slider tracks, thicker than a `Range`'s.",
+    kind: "input",
+  },
+  "--_track-fill-bg-color": {
+    description:
+      "The `Range` track fill, `transparent` so the gradient shows end to end.",
     kind: "output",
   },
   "--_trigger-size": {

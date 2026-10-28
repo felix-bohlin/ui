@@ -10,11 +10,12 @@ export default {
   keyboard: [
     {
       description:
-        "Moves focus between the picker button and the input. While the picker is open, its sliders come right after the picker button.",
+        "Moves focus between the picker button and the input. While the picker is open, its buttons and sliders come right after the picker button, and moving focus out of the picker closes it.",
       keys: ["Tab"],
     },
     {
-      description: "On the picker button, opens or closes the picker.",
+      description:
+        "On the picker button, opens the picker and moves focus to its first slider, or closes it.",
       keys: ["Enter", "Space"],
     },
     {
@@ -250,7 +251,8 @@ export default {
       selector: ".ui-field > .ui-start",
     },
     {
-      description: "The swatch in the picker button, painted with the color.",
+      description:
+        "The swatch in the picker button, painted with the color over a checkerboard that shows its opacity.",
       selector: ".ui-indicator",
     },
     {
@@ -267,13 +269,13 @@ export default {
     },
     {
       description:
-        "The picker, a popover dialog with a `.ui-range` slider per channel.",
+        "The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color.",
       props: ["alpha"],
       selector: ".ui-floating",
     },
     {
       description:
-        "The preview, painted with the color, with the `oklch()` value and the buttons.",
+        "The preview, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons.",
       selector: ".ui-floating > .ui-header",
     },
     {

@@ -1513,6 +1513,24 @@ interaction(
 interaction(
   "color-field",
   "Basics",
+  "color field moves focus into the picker and closes it when focus leaves",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+    const picker = root.getByRole("button", { name: "Pick a color" })
+    const lightness = root.getByRole("slider", { name: "Lightness" })
+
+    await picker.focus()
+    await picker.press("Enter")
+    await expect(lightness).toBeFocused()
+    await input.focus()
+    await expect(lightness).toBeHidden()
+    await expect(input).toBeFocused()
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
   "color field turns a typed color into oklch() and flags text that isn't one",
   async ({ root }) => {
     const input = root.getByRole("textbox", { name: "Brand color" })

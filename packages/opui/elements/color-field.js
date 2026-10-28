@@ -157,9 +157,15 @@ export class ColorField extends Base {
     })
     this.querySelector(".ui-floating")?.addEventListener(
       "toggle",
-      () => this.#syncEyedropper(),
+      (event) => {
+        this.#syncEyedropper()
+        this.#toggle(event)
+      },
       { signal },
     )
+    this.addEventListener("focusout", (event) => this.#leave(event), {
+      signal,
+    })
     this.#syncEyedropper()
     this.ownerDocument.addEventListener(
       "reset",
@@ -281,6 +287,24 @@ export class ColorField extends Base {
     if (target?.dataset?.channel) this.#emit("change")
   }
 
+  #leave(event) {
+    const picker = this.querySelector(".ui-floating")
+    const next = event.relatedTarget
+    if (
+      picker?.contains(event.target) &&
+      next instanceof Node &&
+      !picker.contains(next) &&
+      next !== this.querySelector(".ui-field > .ui-start > button") &&
+      picker.matches(":popover-open")
+    ) {
+      picker.hidePopover()
+    }
+  }
+
+  #toggle(event) {
+    if (event.newState === "open") this.#sliders()[0]?.focus()
+  }
+
   #format(color) {
     return formatOklch(color, this.#alpha ? color.alpha : 1)
   }
@@ -337,6 +361,9 @@ export class ColorField extends Base {
     this.#color = { ...color, alpha: this.#alpha ? color.alpha : 1 }
     this.style.setProperty("--_indicator-bg-color", this.#format(this.#color))
     this.#preview(this.#color)
+    this.style.setProperty("--_l", `${this.#color.L}`)
+    this.style.setProperty("--_c", `${this.#color.C}`)
+    this.style.setProperty("--_h", `${this.#color.H}`)
     input?.setCustomValidity("")
     for (const slider of this.#sliders()) {
       const channel = slider.dataset.channel

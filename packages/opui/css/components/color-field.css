@@ -1,6 +1,9 @@
 @layer components.extended {
   :where(.ui-color-field) {
+    --_c: 0.1;
+    --_h: 250;
     --_indicator-bg-color: transparent;
+    --_l: 0.6;
     --_picker-inline-size: 16rem;
     --_preview-text-color: var(--ui-text);
 
@@ -29,7 +32,13 @@
     }
 
     & .ui-indicator {
-      background-color: var(--_indicator-bg-color);
+      background:
+        linear-gradient(var(--_indicator-bg-color), var(--_indicator-bg-color)),
+        repeating-conic-gradient(
+            var(--ui-surface-tonal) 0 25%,
+            var(--ui-surface) 0 50%
+          )
+          0 0 / 50% 50%;
       block-size: min(var(--ui-icon-size), var(--_size) * 0.75);
       border-radius: var(--ui-radius-round);
       box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
@@ -53,7 +62,10 @@
       max-inline-size: calc(100dvi - var(--ui-space-4));
       padding: var(--ui-space-3);
       position-area: block-end span-inline-end;
-      position-try-fallbacks: flip-block, flip-inline;
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
 
       &:popover-open {
         display: grid;
@@ -61,7 +73,16 @@
 
       & > .ui-header {
         align-items: center;
-        background-color: var(--_indicator-bg-color);
+        background:
+          linear-gradient(
+            var(--_indicator-bg-color),
+            var(--_indicator-bg-color)
+          ),
+          repeating-conic-gradient(
+              var(--ui-surface-tonal) 0 25%,
+              var(--ui-surface) 0 50%
+            )
+            0 0 / var(--ui-space-3) var(--ui-space-3);
         border-radius: var(--ui-radius-small);
         box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
         color: var(--_preview-text-color);
@@ -93,6 +114,84 @@
             &[hidden] {
               display: none;
             }
+          }
+        }
+      }
+
+      & > .ui-range {
+        --_track-block-size: 1.5ex;
+
+        & > input[type="range"] {
+          --_to: to right;
+          --_track: none;
+          --_track-fill-bg-color: transparent;
+
+          &[data-channel="L"] {
+            --_track: linear-gradient(
+              var(--_to) in oklch,
+              oklch(0 var(--_c) var(--_h)),
+              oklch(1 var(--_c) var(--_h))
+            );
+          }
+
+          &[data-channel="C"] {
+            --_track: linear-gradient(
+              var(--_to) in oklab,
+              oklch(var(--_l) 0 var(--_h)),
+              oklch(var(--_l) 0.37 var(--_h))
+            );
+          }
+
+          &[data-channel="H"] {
+            --_track: linear-gradient(
+              var(--_to) in oklch longer hue,
+              oklch(var(--_l) var(--_c) 0),
+              oklch(var(--_l) var(--_c) 360)
+            );
+          }
+
+          &[data-channel="alpha"] {
+            --_track:
+              linear-gradient(
+                var(--_to),
+                oklch(var(--_l) var(--_c) var(--_h) / 0),
+                oklch(var(--_l) var(--_c) var(--_h))
+              ),
+              repeating-conic-gradient(
+                  var(--ui-surface-tonal) 0 25%,
+                  var(--ui-surface) 0 50%
+                )
+                0 0 / var(--_track-block-size) var(--_track-block-size);
+          }
+
+          &:dir(rtl) {
+            --_to: to left;
+          }
+
+          @media (forced-colors: active) {
+            forced-color-adjust: none;
+          }
+
+          &::-webkit-slider-runnable-track {
+            background: var(--_track);
+            box-shadow: inset 0 0 0 var(--ui-border-width)
+              var(--ui-border-color);
+          }
+
+          &::-moz-range-track {
+            background: var(--_track);
+            box-shadow: inset 0 0 0 var(--ui-border-width)
+              var(--ui-border-color);
+          }
+
+          &::-webkit-slider-thumb {
+            background: var(--_indicator-bg-color);
+            outline: var(--ui-border-width) solid var(--ui-text-strong);
+          }
+
+          &::-moz-range-thumb {
+            background: var(--_indicator-bg-color);
+            outline: var(--ui-border-width) solid var(--ui-text-strong);
           }
         }
       }

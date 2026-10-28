@@ -102,6 +102,8 @@ export const description =
           >#3b82f6</code
         > or <code>red</code>, and it becomes <code>oklch()</code> when the field
         loses focus. The swatch opens the sliders, and they write the value back.
+        Each slider's track shows the colors its channel reaches from the current
+        color.
       </p>
       <p slot="html">
         Give the root <code>.ui-color-field</code>, a <code>.ui-text-field</code
@@ -117,7 +119,8 @@ export const description =
         > and <code>command="toggle-popover"</code>. Then import <code
           >opui-css/elements/color-field.js</code
         >. Type or paste any CSS color and it becomes <code>oklch()</code> when the
-        field loses focus.
+        field loses focus. Each slider's track shows the colors its channel reaches
+        from the current color.
       </p>
     </Conditional>
     <AutoExample name="Basics" />
@@ -248,6 +251,11 @@ export const description =
         >, and opens a dialog named after the field. Each slider reads its value
         out, like "60%" or "250°", and the chroma slider is described by the
         gamut line under the sliders.
+      </li>
+      <li>
+        Opening the picker moves focus to its first slider. Moving focus out of
+        the picker closes it, and <kbd>Esc</kbd> closes it and returns focus to the
+        swatch button.
       </li>
       <li>
         Before the element loads, the swatch button is hidden and the field

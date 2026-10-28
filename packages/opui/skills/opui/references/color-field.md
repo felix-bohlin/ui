@@ -15,11 +15,11 @@ A text field for an oklch() color, with a picker of lightness, chroma, hue and o
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed input area.
 - `.ui-field > .ui-start` (prop `pickerLabel`): The picker button, with `command="toggle-popover"`. Hidden until the element is defined.
-- `.ui-indicator`: The swatch in the picker button, painted with the color.
+- `.ui-indicator`: The swatch in the picker button, painted with the color over a checkerboard that shows its opacity.
 - `<input type="text">` (model): The input element, which holds the `oklch()` value.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `.ui-floating` (prop `alpha`): The picker, a popover dialog with a `.ui-range` slider per channel.
-- `.ui-floating > .ui-header`: The preview, painted with the color, with the `oklch()` value and the buttons.
+- `.ui-floating` (prop `alpha`): The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color.
+- `.ui-floating > .ui-header`: The preview, painted with the color over a checkerboard that shows its opacity, with the `oklch()` value and the buttons.
 - `.ui-header > .ui-value`: The `oklch()` value, on the preview.
 - `.ui-header > .ui-actions` (prop `copiedLabel`, prop `copyLabel`, prop `eyedropperLabel`): The eyedropper button (`command="--eyedropper"`, shown where the browser has the EyeDropper API) and the copy button (`command="--copy"`), which announces `copiedLabel`.
 - `.ui-floating > .ui-description`: Under the sliders, which screens show the color: sRGB, Display P3 or beyond.
@@ -68,8 +68,9 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### color-field.css
 
 - `--_picker-inline-size`: Width of the picker popover.
+- `--_track-block-size`: Thickness of the slider tracks, thicker than a `Range`'s.
 
-Outputs: `--_indicator-bg-color`, `--_preview-text-color`, `--_size`, `--_text-color` and `--_trigger-size`.
+Outputs: `--_c`, `--_h`, `--_indicator-bg-color`, `--_l`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_to`, `--_track`, `--_track-fill-bg-color` and `--_trigger-size`.
 
 ### text-field.css
 

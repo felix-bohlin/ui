@@ -59,6 +59,7 @@
         calc(-1 * var(--ui-border-width)) 0 0 0 var(--_divider-border-color),
         0 calc(-1 * var(--ui-border-width)) 0 0 var(--_divider-border-color);
       flex: auto;
+      scale: none;
 
       @media (forced-colors: active) {
         --_border-color: ButtonBorder;

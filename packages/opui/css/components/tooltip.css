@@ -95,14 +95,18 @@
 
     /* Fade */
     & > .ui-floating[popover] {
+      --_ease-move: var(--_ease);
+
       opacity: 0;
       transition:
         display var(--_duration) allow-discrete,
         opacity var(--_duration) var(--_ease),
         overlay var(--_duration) allow-discrete,
-        scale var(--_duration) var(--_ease);
+        scale var(--_duration) var(--_ease-move);
 
       &:popover-open {
+        --_ease-move: var(--ui-ease-move, var(--_ease));
+
         opacity: 1;
 
         @starting-style {

@@ -20,6 +20,11 @@ export default {
       "Easing of the fade and the scale. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
+  "--_ease-move": {
+    description:
+      "Easing of the scale. `--ui-ease-move` while opening when a theme sets it, otherwise `--_ease`.",
+    kind: "output",
+  },
   "--_max-inline-size": {
     description: "The maximum width. Longer content wraps.",
     kind: "input",

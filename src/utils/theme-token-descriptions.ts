@@ -131,7 +131,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ease-enter":
     "Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.",
   "--ui-ease-exit":
-    "Easing for elements leaving the screen: closing `Drawer` and `Menu`.",
+    "Easing for elements leaving the screen: closing `Dialog`, `Drawer` and `Menu`, and a dismissed toast.",
+  "--ui-ease-move":
+    "Easing for movement a theme may make springy: the `Checkbox` check, the `Radio` dot and the `Switch` thumb as they turn on, the `Tabs` indicator, the press scale, and `Menu`, `Select`, `Tooltip` and toasts as they open. Never for anything closing. When unset, each reads its own easing; a `linear()` spring with a little overshoot gives the controls some bounce.",
   "--ui-field-bg-color":
     "Background of `TextField`, `Textarea` and `Select` fields. When unset, `--ui-surface`, the page color.",
   "--ui-field-border-color":
@@ -331,6 +333,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The lowest OKLCH lightness of `--ui-palette-tint` in light mode. `0`, and `0.84` with more contrast.",
   "--ui-palette-tint-subtle":
     "A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.",
+  "--ui-press-scale":
+    "Scale of `Button`, `ToggleButton` and button and link `Chip`s while pressed, over `--ui-duration` with `--ui-ease-move`. Unset, so pressing doesn't scale; `0.97` gives a light press. Buttons in a `ButtonGroup` and toggles in a `ToggleGroup` never scale.",
   "--ui-primary":
     "Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.",
   "--ui-primary-max-lightness":

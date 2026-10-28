@@ -434,6 +434,26 @@ const surfaceRoles = [
       lang="html"
     />
 
+    <h3 id="motion-personality">Springy movement</h3>
+    <p>
+      Two optional tokens give the controls some personality. <code
+        >--ui-ease-move</code
+      > is the easing of things that move: the checkbox check, the radio dot and the
+      switch thumb as they turn on, the tabs indicator, the press scale, and menus,
+      selects, tooltips and toasts as they open. Nothing closing reads it.
+      <code>--ui-press-scale</code> shrinks buttons, toggle buttons and chips while
+      they're pressed. Both are unset, so nothing bounces or shrinks until a theme
+      sets them, and both follow <code>--ui-motion</code>.
+    </p>
+    <Code
+      code={`:root {
+  --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
+    1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
+  --ui-press-scale: 0.97;
+}`}
+      lang="css"
+    />
+
     <p>To follow it in your own CSS:</p>
     <Code
       code={`transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);`}

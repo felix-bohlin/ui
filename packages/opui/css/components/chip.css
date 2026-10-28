@@ -32,7 +32,8 @@
     transition:
       background-color var(--_duration) var(--_ease),
       border-color var(--_duration) var(--_ease),
-      color var(--_duration) var(--_ease);
+      color var(--_duration) var(--_ease),
+      scale var(--_duration) var(--ui-ease-move, var(--_ease));
 
     &:not(.ui-multiline) > .ui-text {
       min-inline-size: 0;
@@ -55,6 +56,10 @@
         &:hover {
           --_bg-color: var(--ui-surface-tonal-hover);
         }
+      }
+
+      &:active {
+        scale: var(--ui-press-scale, none);
       }
     }
 

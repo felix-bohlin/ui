@@ -275,7 +275,8 @@
           inset: anchor(--ui-tabs-selected inside);
           pointer-events: none;
           position: absolute;
-          transition: inset var(--_indicator-duration) var(--_ease);
+          transition: inset var(--_indicator-duration)
+            var(--ui-ease-move, var(--_ease));
           z-index: -2;
         }
 

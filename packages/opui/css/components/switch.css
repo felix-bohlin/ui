@@ -68,7 +68,7 @@
         position: absolute;
         transition:
           background-color var(--_duration) var(--_ease),
-          inset-inline-start var(--_duration) var(--_ease),
+          inset-inline-start var(--_duration) var(--ui-ease-move, var(--_ease)),
           outline-color var(--_duration) var(--_ease),
           outline-width var(--_duration) var(--_ease);
       }

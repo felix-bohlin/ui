@@ -51,7 +51,7 @@
         interpolate-size: allow-keywords;
         transition:
           opacity var(--_duration) var(--_ease),
-          translate var(--_duration) var(--_ease);
+          translate var(--_duration) var(--ui-ease-move, var(--_ease));
 
         &:has(> svg) {
           grid-template-columns: auto 1fr auto;

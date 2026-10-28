@@ -47,6 +47,10 @@
 
         background-color: var(--_accent);
         border-color: var(--_accent);
+        transition:
+          --_dot-radius var(--_duration) var(--ui-ease-move, var(--_ease)),
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
       }
     }
 

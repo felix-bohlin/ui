@@ -132,6 +132,7 @@
       border-color var(--_duration) var(--_ease),
       box-shadow var(--_duration) var(--_ease),
       color var(--_duration) var(--_ease),
+      scale var(--_duration) var(--ui-ease-move, var(--_ease)),
       translate var(--_duration) var(--_ease);
     -webkit-user-select: none;
     user-select: none;
@@ -183,6 +184,10 @@
       &:where(:active),
       &[aria-current="page"] {
         --_bg-color: var(--_default-active-bg-color);
+      }
+
+      &:where(:active) {
+        scale: var(--ui-press-scale, none);
       }
     }
 

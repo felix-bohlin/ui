@@ -55,6 +55,10 @@
       &:indeterminate::after {
         opacity: 1;
         scale: 1;
+        transition:
+          clip-path var(--_duration) var(--_ease),
+          opacity var(--_duration) var(--_ease),
+          scale var(--_duration) var(--ui-ease-move, var(--_ease));
       }
 
       /* Indeterminate dash */

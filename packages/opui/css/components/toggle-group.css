@@ -26,6 +26,7 @@
         0 calc(-1 * var(--ui-border-width)) 0 0 var(--_border-color);
       flex: auto;
       margin: 0;
+      scale: none;
     }
 
     &.ui-vertical {

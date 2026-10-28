@@ -29,6 +29,11 @@ export default {
       "Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
     kind: "output",
   },
+  "--_ease-move": {
+    description:
+      "Easing of the scale. `--ui-ease-move` while opening when a theme sets it, otherwise `--_ease`.",
+    kind: "output",
+  },
   "--_hover-bg-color": {
     description:
       "Hover background of `.ui-critical` items, from `--ui-critical`.",

@@ -38,6 +38,8 @@
 
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
+      --_ease-move: var(--_ease);
+
       inset: auto;
       margin-block: var(--_margin-block);
       margin-inline: var(--_margin-inline);
@@ -56,7 +58,7 @@
         display var(--_duration) allow-discrete,
         opacity var(--_duration) var(--_ease),
         overlay var(--_duration) allow-discrete,
-        scale var(--_duration) var(--_ease);
+        scale var(--_duration) var(--_ease-move);
 
       /* Where calc-size() works: cap to the side's space, flip below --_min-block-size */
       @supports (min-block-size: calc-size(fit-content, size)) {
@@ -72,6 +74,7 @@
 
       &:popover-open {
         --_ease: var(--ui-ease-enter);
+        --_ease-move: var(--ui-ease-move, var(--_ease));
 
         opacity: 1;
         scale: 1;

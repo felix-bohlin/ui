@@ -34,7 +34,8 @@
     transition:
       background-color var(--_duration) var(--_ease),
       border-color var(--_duration) var(--_ease),
-      color var(--_duration) var(--_ease);
+      color var(--_duration) var(--_ease),
+      scale var(--_duration) var(--ui-ease-move, var(--_ease));
     -webkit-user-select: none;
     user-select: none;
 
@@ -55,6 +56,10 @@
           oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
         );
       }
+    }
+
+    &:active:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
+      scale: var(--ui-press-scale, none);
     }
 
     &:has(input:focus-visible) {

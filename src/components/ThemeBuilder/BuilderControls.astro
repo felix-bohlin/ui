@@ -230,6 +230,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     let theme = themeStore.get()
     let queued: Update | null = null
     let timer = 0
+    let pressed = false
     let room = ""
 
     const hosts = (["light", "dark"] as const).map((scheme) => {
@@ -339,12 +340,12 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
     const PREVIEW_DELAY = 100
 
-    const write = (update: Update, throttle = false) => {
+    const write = (update: Update, throttle = false, hold = false) => {
       queued = { ...queued, ...update }
       if (!throttle) flush()
       else {
         clearTimeout(timer)
-        timer = window.setTimeout(flush, PREVIEW_DELAY)
+        if (!hold) timer = window.setTimeout(flush, PREVIEW_DELAY)
       }
     }
 
@@ -749,6 +750,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       control: Control,
       element: HTMLElement,
       throttle: boolean,
+      hold = false,
     ) => {
       const [light, dark] = [...colorFields(element)].map(
         (field) => field.oklch || field.value,
@@ -756,7 +758,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {
         if (isDual) dual.add(control.id)
-        write(applyBrand(light, isDual ? dark : undefined), throttle)
+        write(applyBrand(light, isDual ? dark : undefined), throttle, hold)
       } else if (control.kind === "color") {
         const value = isDual ? `light-dark(${light}, ${dark})` : light
         write(
@@ -770,6 +772,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             ),
           },
           throttle,
+          hold,
         )
       }
     }
@@ -957,7 +960,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (colorField) {
         if (target !== colorField.input) return
         if (element.classList.contains("is-dual")) picked.add(control.id)
-        onColor(control, element, throttle)
+        onColor(control, element, true, throttle && pressed)
         return
       }
       if (event.type !== "change" && !(target instanceof HTMLInputElement)) {
@@ -1130,6 +1133,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       )
     }
 
+    root.addEventListener(
+      "pointerdown",
+      () => {
+        pressed = true
+      },
+      { capture: true },
+    )
+    for (const type of ["pointercancel", "pointerup"]) {
+      document.addEventListener(type, () => {
+        pressed = false
+      })
+    }
     root.addEventListener("input", onChange)
     root.addEventListener("change", onChange)
     root.addEventListener("click", (event) => {

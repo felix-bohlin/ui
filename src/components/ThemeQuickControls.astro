@@ -97,6 +97,7 @@ import BrandPicker from "./BrandPicker.astro"
     const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
     let pendingColor: string | null = null
     let pendingTimer = 0
+    let pressed = false
     let undoTheme: Theme | null = null
     let undoFingerprint = ""
 
@@ -195,8 +196,21 @@ import BrandPicker from "./BrandPicker.astro"
         if (event.target !== custom.input) return
         pendingColor = custom.oklch || custom.value
         clearTimeout(pendingTimer)
-        if (type === "change") applyPending()
-        else pendingTimer = window.setTimeout(applyPending, PREVIEW_DELAY)
+        if (type === "input" && pressed) return
+        pendingTimer = window.setTimeout(applyPending, PREVIEW_DELAY)
+      })
+    }
+
+    custom.addEventListener(
+      "pointerdown",
+      () => {
+        pressed = true
+      },
+      { capture: true },
+    )
+    for (const type of ["pointercancel", "pointerup"]) {
+      document.addEventListener(type, () => {
+        pressed = false
       })
     }
 

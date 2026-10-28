@@ -33,6 +33,7 @@ import {
   List,
   ListItem,
   NumberStepper,
+  OneTimeCode,
   Progress,
   Radio,
   Range,
@@ -365,6 +366,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           value={2}
         />
       </div>
+    </Fragment>
+
+    <Fragment slot="one-time-code">
+      <OneTimeCode aria-hidden="true" grouped label="Code" value="4821" />
     </Fragment>
 
     <Fragment slot="progress">

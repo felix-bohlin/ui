@@ -523,6 +523,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `ColorField`: the swatch is the picked color itself, so it keeps it with `forced-color-adjust: none`.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
+- `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.

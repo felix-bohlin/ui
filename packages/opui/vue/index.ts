@@ -46,6 +46,7 @@ export { default as List } from "../components/List/List.vue"
 export { default as ListItem } from "../components/ListItem/ListItem.vue"
 export { default as Menu } from "../components/Menu/Menu.vue"
 export { default as NumberStepper } from "../components/NumberStepper/NumberStepper.vue"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
 export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
@@ -150,6 +151,7 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.vue-props"
 export type { Props as NumberStepperProps } from "../components/NumberStepper/types.vue-props"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.vue-props"
 export type { Props as ProgressProps } from "../components/Progress/types.vue-props"
 export type {
   RadioInputProps,

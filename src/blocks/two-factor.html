@@ -1,10 +1,5 @@
 <style>
   .two-factor {
-    .two-factor-code input {
-      letter-spacing: 0.5em;
-      text-align: center;
-    }
-
     .two-factor-phone {
       white-space: nowrap;
     }
@@ -48,18 +43,16 @@
 
       <form class="ui-form" action="#">
         <div class="ui-field-group">
-          <label class="ui-text-field ui-large two-factor-code">
+          <label class="ui-text-field ui-one-time-code ui-large">
             <span class="ui-label">Verification code</span>
             <span class="ui-field">
               <input
-                class="ui-tabular-nums"
                 aria-describedby="two-factor-code-hint"
                 autocomplete="one-time-code"
                 inputmode="numeric"
                 maxlength="6"
                 name="code"
                 pattern="[0-9]{6}"
-                placeholder="000000"
                 required
                 type="text"
               />

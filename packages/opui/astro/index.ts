@@ -46,6 +46,7 @@ export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
 export { default as Menu } from "../components/Menu/Menu.astro"
 export { default as NumberStepper } from "../components/NumberStepper/NumberStepper.astro"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
 export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
@@ -149,6 +150,7 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.astro"
 export type { Props as NumberStepperProps } from "../components/NumberStepper/types.astro"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
 export type {
   RadioInputProps,

@@ -1,0 +1,72 @@
+---
+import type { Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
+
+export const title = "One-Time Code"
+
+const {
+  "aria-invalid": ariaInvalid,
+  alphanumeric,
+  autocapitalize,
+  autocomplete = "one-time-code",
+  class: className,
+  endText,
+  error,
+  grouped,
+  inputmode,
+  label,
+  length = 6,
+  name,
+  pattern,
+  size,
+  spellcheck,
+  style,
+  ...rest
+} = Astro.props
+
+const field = fieldGroupContext.get()
+---
+
+<label
+  class:list={[
+    "ui-text-field",
+    "ui-one-time-code",
+    { "ui-grouped": grouped },
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  style={style}
+>
+  {
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-label">
+        {label}
+        <slot name="label" />
+      </span>
+    )
+  }
+  <span class="ui-field">
+    <input
+      {...rest}
+      aria-invalid={error ? "true" : ariaInvalid}
+      autocapitalize={autocapitalize ??
+        (alphanumeric ? "characters" : undefined)}
+      autocomplete={autocomplete}
+      inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
+      maxlength={length}
+      name={name ?? field?.name}
+      pattern={pattern ??
+        (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
+      spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
+      type="text"
+    />
+  </span>
+  {
+    (endText || Astro.slots.has("end-text")) && (
+      <span class="ui-end-text">
+        {endText}
+        <slot name="end-text" />
+      </span>
+    )
+  }
+</label>

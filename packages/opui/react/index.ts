@@ -47,6 +47,7 @@ export { default as List } from "../components/List/List.react"
 export { default as ListItem } from "../components/ListItem/ListItem.react"
 export { default as Menu } from "../components/Menu/Menu.react"
 export { default as NumberStepper } from "../components/NumberStepper/NumberStepper.react"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.react"
 export { default as Progress } from "../components/Progress/Progress.react"
 export { default as Radio } from "../components/Radio/Radio.react"
 export { default as RadioInput } from "../components/Radio/RadioInput.react"
@@ -151,6 +152,7 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.react"
 export type { Props as NumberStepperProps } from "../components/NumberStepper/types.react"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.react"
 export type { Props as ProgressProps } from "../components/Progress/types.react"
 export type {
   RadioInputProps,

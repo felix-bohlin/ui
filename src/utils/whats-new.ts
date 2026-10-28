@@ -753,6 +753,9 @@ export const whatsNew = {
       html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width.`,
     },
   ],
+  "one-time-code": [
+    `New: a <a href="#basics">One-time code</a> field draws one input as a box per character, with <a href="#grouped">grouped</a> halves, a <a href="#length">length</a> from 4 to 8 and <a href="#alphanumeric">alphanumeric</a> codes.`,
+  ],
   progress: [
     `The <a href="#determinate">track</a> is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
     `The track reads <a href="#api"><code>--ui-track-bg-color</code></a> when a theme sets it.`,
@@ -1439,6 +1442,7 @@ export const highlighted = new Set<string>([
   "layout",
   "menu",
   "number-stepper",
+  "one-time-code",
   "stat",
   "tabs",
   "timeline",
@@ -1453,6 +1457,7 @@ export const added = new Set<string>([
   "layout",
   "menu",
   "number-stepper",
+  "one-time-code",
   "stat",
   "timeline",
   "toast",

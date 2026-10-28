@@ -131,13 +131,13 @@ export const description =
   <section>
     <h2 id="picker">Picker</h2>
     <p>
-      The picker previews the color across its top, with its <code>oklch()</code
-      > value and two buttons: one copies the value, and the eyedropper picks a color
-      from the screen in browsers with the EyeDropper API (Chromium), and stays hidden
-      elsewhere. Under the sliders, a line says which screens show the color, and
-      two chips show its contrast ratio as text on white and on black. The picker
-      opens on the side of the field with more room, and when it's taller than that
-      side it scrolls, with the preview pinned at its top.
+      The picker previews the color across its top, with its value on one line
+      and two buttons: one copies the value, and the eyedropper picks a color
+      from the screen in browsers with the EyeDropper API (Chromium), and stays
+      hidden elsewhere. Under the sliders, a line says which screens show the
+      color, and two chips show its contrast ratio as text on white and on
+      black. The picker opens on the side of the field with more room, and when
+      it's taller than that side it scrolls, with the preview pinned at its top.
     </p>
     <p>
       Under the preview, a plane shows the colors at the current hue, with
@@ -295,6 +295,13 @@ export const description =
         >oklch()</code
       > text, a form reset brings back the starting color, and the sliders follow.
       Text that isn't a color makes the field invalid, so the form won't submit it.
+    </p>
+    <p>
+      While a slider or the plane is held down, by the pointer or a key, the
+      picker follows every move, and the field's text with its <code>input</code
+      > event at most every 100ms, and letting go writes the last value. The element's
+      <code>value</code> and <code>oklch</code> properties always read the current
+      color.
     </p>
     <AutoExample name="FormValue" />
   </section>

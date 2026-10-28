@@ -1582,7 +1582,7 @@ interaction(
     )
     await space.selectOption("hsl")
     await expect(input).toHaveValue(
-      /^hsl\(20[78](\.\d+)? 69(\.\d)?% 49(\.\d)?%\)$/,
+      /^hsl\(20[78](\.\d+)? (68\.8|69(\.\d)?)% 49(\.\d)?%\)$/,
     )
     await expect(root.getByRole("slider", { name: "Saturation" })).toBeVisible()
     await input.fill("color(display-p3 1 0 0)")

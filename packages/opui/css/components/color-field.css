@@ -205,9 +205,14 @@
         }
 
         & > .ui-value {
+          block-size: 1lh;
+          contain: strict;
+          flex: 1;
           font-family: var(--ui-font-code);
           font-size: var(--ui-font-size-small);
-          overflow-wrap: anywhere;
+          min-inline-size: 0;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         & > .ui-actions {
@@ -285,10 +290,13 @@
         }
 
         & > .ui-value {
+          block-size: 1lh;
           color: var(--ui-field-helper-text-color);
+          contain: strict;
           font-size: var(--ui-field-helper-font-size);
           font-variant-numeric: tabular-nums;
           font-weight: var(--ui-font-weight-semibold);
+          inline-size: 7ch;
           text-align: end;
         }
 
@@ -412,12 +420,17 @@
         & > [data-contrast] {
           --_picked-text-color: transparent;
 
+          block-size: calc(1lh + var(--ui-space-1) * 2);
           border-radius: var(--ui-radius-small);
+          box-sizing: border-box;
           color: var(--_picked-text-color);
+          contain: strict;
           font-size: var(--ui-font-size-caption);
           font-variant-numeric: tabular-nums;
+          inline-size: calc(6ch + var(--ui-space-2) * 2);
           padding-block: var(--ui-space-1);
           padding-inline: var(--ui-space-2);
+          text-align: center;
 
           @media (forced-colors: active) {
             forced-color-adjust: none;

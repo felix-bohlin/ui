@@ -686,11 +686,20 @@ export const parseColor = (text) => {
   return { alpha, coords, space: id }
 }
 
-const TINT_DELAY = 100
+const SETTLE_DELAY = 100
+
+const PINNED = [
+  "inline-size",
+  "left",
+  "max-block-size",
+  "position-area",
+  "position-try-fallbacks",
+  "top",
+]
 
 const PLANE_CHROMA = 0.37
-const PLANE_COLUMNS = 96
-const PLANE_ROWS = 64
+const PLANE_COLUMNS = 80
+const PLANE_ROWS = 48
 const PLANE_LINE_STEPS = 40
 const PLANE_GAMUTS = [
   { dash: [], id: "srgb" },
@@ -768,6 +777,9 @@ const paint = (elements, name, value) => {
   }
 }
 
+const near = (slider, value) =>
+  Math.abs(Number(slider.value) - value) <= Number(slider.step || 0) / 2
+
 const show = (node, text) => {
   if (!node || node.textContent === text) return
   const only = node.firstChild
@@ -809,9 +821,13 @@ export class ColorField extends Base {
   #controller
   #copied
   #observer
+  #emitting = false
   #open = false
-  #tintPending = false
-  #tintTimer
+  #pinned
+  #settlePending = false
+  #settleTimer
+  #writePending = false
+  #writeTimer
   #pointerOpen = false
   #valid = false
   #plane
@@ -825,7 +841,7 @@ export class ColorField extends Base {
   }
 
   get value() {
-    return this.input?.value ?? ""
+    return this.#writePending ? this.#format() : (this.input?.value ?? "")
   }
 
   get oklch() {
@@ -866,9 +882,17 @@ export class ColorField extends Base {
     this.addEventListener("pointermove", (event) => this.#drag(event), {
       signal,
     })
-    for (const type of ["lostpointercapture", "pointerup"]) {
+    for (const type of ["lostpointercapture", "pointercancel", "pointerup"]) {
       this.addEventListener(type, (event) => this.#release(event), { signal })
     }
+    this.addEventListener(
+      "keydown",
+      (event) => {
+        if (this.#holds(event.target)) this.#pin()
+      },
+      { signal },
+    )
+    this.addEventListener("keyup", () => this.#unpin(), { signal })
     this.#syncEyedropper()
     this.#configure()
     this.ownerDocument.addEventListener(
@@ -899,8 +923,11 @@ export class ColorField extends Base {
   }
 
   disconnectedCallback() {
-    clearTimeout(this.#tintTimer)
-    this.#tintTimer = undefined
+    clearTimeout(this.#settleTimer)
+    this.#settleTimer = undefined
+    clearTimeout(this.#writeTimer)
+    this.#writeTimer = undefined
+    this.#writePending = false
     cancelAnimationFrame(this.#planeFrame)
     this.#planeFrame = undefined
     this.#controller?.abort()
@@ -969,7 +996,9 @@ export class ColorField extends Base {
   }
 
   #emit(type) {
+    this.#emitting = true
     this.input?.dispatchEvent(new Event(type, { bubbles: true }))
+    this.#emitting = false
   }
 
   #write(value) {
@@ -981,6 +1010,7 @@ export class ColorField extends Base {
   }
 
   #input(event) {
+    if (this.#emitting) return
     const target = event.target
     if (target === this.input) {
       const color = this.#read(target.value, false)
@@ -999,10 +1029,11 @@ export class ColorField extends Base {
     else if (index !== -1) color.coords[index] = Number(target.value)
     else return
     this.#render(color, target)
-    if (this.#write(this.#format())) this.#emit("input")
+    this.#update()
   }
 
   #change(event) {
+    if (this.#emitting) return
     const target = event.target
     if (target === this.input) {
       const color = this.#read(target.value, true)
@@ -1027,7 +1058,10 @@ export class ColorField extends Base {
       }
       return
     }
-    if (target?.dataset?.channel) this.#emit("change")
+    if (target?.dataset?.channel) {
+      this.#flush()
+      this.#emit("change")
+    }
   }
 
   #read(text, switchSpace) {
@@ -1066,6 +1100,7 @@ export class ColorField extends Base {
 
   #toggle(event) {
     this.#open = event.newState === "open"
+    this.#unpin()
     if (!this.#open) return
     this.#measure()
     this.#draw()
@@ -1110,6 +1145,7 @@ export class ColorField extends Base {
 
   #press(event) {
     if (this.#trigger()?.contains(event.target)) this.#pointerOpen = true
+    if (event.button === 0 && this.#holds(event.target)) this.#pin()
     const panel = this.#panel()
     if (event.button !== 0 || !panel?.contains(event.target)) return
     event.preventDefault()
@@ -1125,6 +1161,7 @@ export class ColorField extends Base {
   }
 
   #release(event) {
+    if (event.type !== "lostpointercapture") this.#unpin()
     const panel = this.#panel()
     if (event.target !== panel) return
     if (panel.hasPointerCapture(event.pointerId)) {
@@ -1148,6 +1185,27 @@ export class ColorField extends Base {
       coords: toSpace(this.#space, oklch, this.#coords),
       space: this.#space,
     })
+    this.#update()
+  }
+
+  #update() {
+    if (!this.#pinned) {
+      if (this.#write(this.#format())) this.#emit("input")
+      return
+    }
+    if (this.#writeTimer) {
+      this.#writePending = true
+      return
+    }
+    if (this.#write(this.#format())) this.#emit("input")
+    this.#writeTimer = setTimeout(() => this.#flush(), SETTLE_DELAY)
+  }
+
+  #flush() {
+    clearTimeout(this.#writeTimer)
+    this.#writeTimer = undefined
+    if (!this.#writePending) return
+    this.#writePending = false
     if (this.#write(this.#format())) this.#emit("input")
   }
 
@@ -1188,26 +1246,26 @@ export class ColorField extends Base {
     }
     smallContext.putImageData(image, 0, 0)
     context.imageSmoothingEnabled = true
-    context.shadowBlur = 0
     context.drawImage(small, 0, 0, width, height)
-    context.lineWidth = 1.5 * ratio
-    context.shadowBlur = 2 * ratio
-    context.shadowColor = "oklch(0 0 0 / 0.6)"
-    context.strokeStyle = "oklch(1 0 0 / 0.9)"
     for (const gamut of PLANE_GAMUTS) {
       const gamutMatrix = planeMatrix(gamut.id)
-      context.setLineDash(gamut.dash.map((length) => length * ratio))
-      context.beginPath()
+      const line = new Path2D()
       for (let step = 0; step <= PLANE_LINE_STEPS; step++) {
         const lightness = 1 - step / PLANE_LINE_STEPS
         const across =
           maxChroma(gamutMatrix, lightness, cos, sin) / PLANE_CHROMA
         const x = (rtl ? 1 - across : across) * width
         const y = (step / PLANE_LINE_STEPS) * height
-        if (step === 0) context.moveTo(x, y)
-        else context.lineTo(x, y)
+        if (step === 0) line.moveTo(x, y)
+        else line.lineTo(x, y)
       }
-      context.stroke()
+      context.setLineDash(gamut.dash.map((length) => length * ratio))
+      context.lineWidth = 3 * ratio
+      context.strokeStyle = "oklch(0 0 0 / 0.35)"
+      context.stroke(line)
+      context.lineWidth = 1.5 * ratio
+      context.strokeStyle = "oklch(1 0 0 / 0.9)"
+      context.stroke(line)
     }
   }
 
@@ -1268,33 +1326,21 @@ export class ColorField extends Base {
 
   #preview(color) {
     const value = this.querySelector(".ui-header > .ui-value")
-    const sr = this.querySelector(".ui-footer > .ui-sr-only")
-    const light = this.querySelector('[data-contrast="light"]')
-    const dark = this.querySelector('[data-contrast="dark"]')
+    const header = this.querySelector(".ui-floating > .ui-header")
     if (!color) {
-      this.querySelector(".ui-floating > .ui-header")?.style.removeProperty(
-        "--_preview-text-color",
-      )
-      for (const node of [value, sr, light, dark]) show(node, "")
+      header?.style.removeProperty("--_preview-text-color")
+      show(value, "")
       return
     }
     const luminance = luminanceOf(color)
-    const onLight = round(contrast(luminance, 1), 1)
-    const onDark = round(contrast(luminance, 0), 1)
     paint(
-      [this.querySelector(".ui-floating > .ui-header")],
+      [header],
       "--_preview-text-color",
-      onLight > onDark ? "oklch(1 0 0)" : "oklch(0 0 0)",
+      contrast(luminance, 1) > contrast(luminance, 0)
+        ? "oklch(1 0 0)"
+        : "oklch(0 0 0)",
     )
     show(value, this.#format())
-    show(light, `${onLight}:1`)
-    show(dark, `${onDark}:1`)
-    show(
-      sr,
-      this.#text("contrast-label", CONTRAST_LABEL)
-        .replace("{light}", `${onLight}`)
-        .replace("{dark}", `${onDark}`),
-    )
   }
 
   #render({ alpha, coords, space }, skip) {
@@ -1316,7 +1362,7 @@ export class ColorField extends Base {
     paint([opacity], "--_picked-h", `${H}`)
     paint([opacity], "--_picked-l", `${L}`)
     this.#valid = true
-    this.#tint()
+    this.#settle()
     const panel = this.#panel()
     paint([panel], "--_plane-x", `${clampUnit(C / PLANE_CHROMA)}`)
     paint([panel], "--_plane-y", `${L}`)
@@ -1327,40 +1373,95 @@ export class ColorField extends Base {
       const entry = entries[index]
       if (!entry) return
       const number = this.#coords[index]
-      if (slider !== skip) slider.value = `${number}`
+      if (slider !== skip && !near(slider, number)) slider.value = `${number}`
       paint([slider], "--_track", this.#track(index))
       const text = displayOf(this.#space, entry, number)
       slider.setAttribute("aria-valuetext", text)
       show(slider.closest("label")?.querySelector(".ui-value"), text)
     })
     if (opacity) {
-      if (opacity !== skip) opacity.value = `${this.#color.alpha}`
+      if (opacity !== skip && !near(opacity, this.#color.alpha)) {
+        opacity.value = `${this.#color.alpha}`
+      }
       const text = alphaText(this.#color.alpha)
       opacity.setAttribute("aria-valuetext", text)
       show(opacity.closest("label")?.querySelector(".ui-value"), text)
     }
-    const range = oklchGamut(L, C, H)
-    show(
-      this.querySelector(".ui-floating > .ui-description"),
-      this.#text(`${range}-text`, GAMUT_TEXT[range]),
+  }
+
+  #settle() {
+    if (this.#settleTimer) {
+      this.#settlePending = true
+      return
+    }
+    const { C, H, L } = this.#color
+    const floating = this.querySelector(".ui-floating")
+    paint([floating], "--_picked-c", `${C}`)
+    paint([floating], "--_picked-h", `${H}`)
+    paint([floating], "--_tint-alpha", this.#valid ? "1" : "0")
+    const chips = this.querySelectorAll("[data-contrast]")
+    const sr = this.querySelector(".ui-footer > .ui-sr-only")
+    const gamut = this.querySelector(".ui-floating > .ui-description")
+    if (this.#valid) {
+      const luminance = luminanceOf(this.#color)
+      const onLight = round(contrast(luminance, 1), 1)
+      const onDark = round(contrast(luminance, 0), 1)
+      paint(
+        chips,
+        "--_picked-text-color",
+        formatOklch(this.#color, this.#color.alpha),
+      )
+      show(chips[0], `${onLight}:1`)
+      show(chips[1], `${onDark}:1`)
+      show(
+        sr,
+        this.#text("contrast-label", CONTRAST_LABEL)
+          .replace("{light}", `${onLight}`)
+          .replace("{dark}", `${onDark}`),
+      )
+      const range = oklchGamut(L, C, H)
+      show(gamut, this.#text(`${range}-text`, GAMUT_TEXT[range]))
+    } else {
+      paint(chips, "--_picked-text-color", "transparent")
+      for (const node of [...chips, sr]) show(node, "")
+    }
+    this.#settleTimer = setTimeout(() => {
+      this.#settleTimer = undefined
+      if (!this.#settlePending) return
+      this.#settlePending = false
+      this.#settle()
+    }, SETTLE_DELAY)
+  }
+
+  #holds(target) {
+    return Boolean(
+      target.closest?.(".ui-floating > :is(label, .ui-panel)") &&
+      !target.closest(".ui-select"),
     )
   }
 
-  #tint() {
-    if (this.#tintTimer) {
-      this.#tintPending = true
-      return
-    }
+  #pin() {
     const floating = this.querySelector(".ui-floating")
-    paint([floating], "--_picked-c", `${this.#color.C}`)
-    paint([floating], "--_picked-h", `${this.#color.H}`)
-    paint([floating], "--_tint-alpha", this.#valid ? "1" : "0")
-    this.#tintTimer = setTimeout(() => {
-      this.#tintTimer = undefined
-      if (!this.#tintPending) return
-      this.#tintPending = false
-      this.#tint()
-    }, TINT_DELAY)
+    if (this.#pinned || !floating?.matches(":popover-open")) return
+    const box = floating.getBoundingClientRect()
+    const margin = parseFloat(getComputedStyle(floating).marginTop) || 0
+    this.#pinned = floating
+    Object.assign(floating.style, {
+      inlineSize: `${box.width}px`,
+      left: `${box.left - margin}px`,
+      maxBlockSize: `${box.height}px`,
+      positionArea: "none",
+      positionTryFallbacks: "none",
+      top: `${box.top - margin}px`,
+    })
+  }
+
+  #unpin() {
+    const floating = this.#pinned
+    if (!floating) return
+    this.#pinned = undefined
+    this.#flush()
+    for (const name of PINNED) floating.style.removeProperty(name)
   }
 
   #paintColor(value) {
@@ -1374,11 +1475,6 @@ export class ColorField extends Base {
     paint(
       this.querySelectorAll(".ui-floating > label > input[type=range]"),
       "--_thumb-picked-bg-color",
-      value,
-    )
-    paint(
-      this.querySelectorAll("[data-contrast]"),
-      "--_picked-text-color",
       value,
     )
   }
@@ -1404,7 +1500,7 @@ export class ColorField extends Base {
     const empty = !input.value.trim()
     this.#paintColor("transparent")
     this.#valid = false
-    this.#tint()
+    this.#settle()
     this.#preview(null)
     const text = empty ? "" : this.#text("invalid-text", INVALID_TEXT)
     input.setCustomValidity(text)

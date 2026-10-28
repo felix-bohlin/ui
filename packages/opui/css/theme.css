@@ -120,11 +120,11 @@
 
     /* Motion */
     --ui-duration-fast: 0.1s;
-    --ui-duration: 0.2s;
-    --ui-duration-slow: 0.3s;
+    --ui-duration: 0.15s;
+    --ui-duration-slow: 0.25s;
     --ui-ease: ease;
     --ui-ease-enter: cubic-bezier(0, 0, 0.3, 1);
-    --ui-ease-exit: cubic-bezier(0.7, 0, 1, 1);
+    --ui-ease-exit: cubic-bezier(0.4, 0, 1, 1);
     /* --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1); */
     --ui-motion: 1;
     /* --ui-press-scale: 0.97; */

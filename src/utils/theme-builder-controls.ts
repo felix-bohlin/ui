@@ -1204,18 +1204,18 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Snappy",
             tokens: {
-              "--ui-duration": "0.15s",
-              "--ui-duration-fast": "0.1s",
-              "--ui-duration-slow": "0.2s",
+              "--ui-duration": "0.1s",
+              "--ui-duration-fast": "0.075s",
+              "--ui-duration-slow": "0.15s",
             },
             value: "snappy",
           },
           {
             label: "Default",
             tokens: {
-              "--ui-duration": "0.2s",
+              "--ui-duration": "0.15s",
               "--ui-duration-fast": "0.1s",
-              "--ui-duration-slow": "0.3s",
+              "--ui-duration-slow": "0.25s",
             },
             value: "default",
           },

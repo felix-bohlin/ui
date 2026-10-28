@@ -229,9 +229,6 @@
       inline-size: 100%;
       overflow: visible;
       padding: var(--_padding);
-      transition:
-        background-color var(--_duration) var(--_ease),
-        border-color var(--_duration) var(--_ease);
 
       &:not(.ui-spread) {
         column-gap: var(--ui-space-3);

@@ -19,9 +19,6 @@
       place-items: center;
       position: relative;
       transform-style: preserve-3d;
-      transition:
-        background-color var(--_duration) var(--_ease),
-        border-color var(--_duration) var(--_ease);
 
       &:checked,
       &:indeterminate {
@@ -44,33 +41,16 @@
         inset: 0;
         opacity: 0;
         position: absolute;
-        scale: 0.6;
-        transition:
-          clip-path var(--_duration) var(--_ease),
-          opacity var(--_duration) var(--_ease),
-          scale var(--_duration) var(--_ease);
       }
 
       &:checked::after,
       &:indeterminate::after {
         opacity: 1;
-        scale: 1;
-        transition:
-          clip-path var(--_duration) var(--_ease),
-          opacity var(--_duration) var(--_ease),
-          scale var(--_duration) var(--ui-ease-move, var(--_ease));
       }
 
       /* Indeterminate dash */
       &:indeterminate::after {
-        clip-path: polygon(
-          20% 55%,
-          50% 55%,
-          80% 55%,
-          80% 45%,
-          50% 45%,
-          20% 45%
-        );
+        clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
       }
     }
 

@@ -1,8 +1,5 @@
 @layer components.root {
   :where(.ui-switch) {
-    --_motion: var(--ui-motion);
-    --_duration: calc(var(--ui-duration) * var(--_motion));
-    --_ease: var(--ui-ease);
     --_icon-size: min(
       var(--_thumb-size),
       max(
@@ -49,9 +46,6 @@
         inline-size: var(--_track-inline-size);
         inset: 0;
         position: absolute;
-        transition:
-          background-color var(--_duration) var(--_ease),
-          border-color var(--_duration) var(--_ease);
       }
 
       /* Dot */
@@ -66,11 +60,6 @@
         outline: var(--_thumb-outline-size) solid var(--_thumb-bg-color);
         outline-offset: calc(-1 * var(--ui-border-width));
         position: absolute;
-        transition:
-          background-color var(--_duration) var(--_ease),
-          inset-inline-start var(--_duration) var(--ui-ease-move, var(--_ease)),
-          outline-color var(--_duration) var(--_ease),
-          outline-width var(--_duration) var(--_ease);
       }
 
       /* Checked */

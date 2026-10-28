@@ -1256,7 +1256,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Springy checks, switches, tabs and menus, and buttons that give a little when pressed",
+        hint: "Springy tabs, menus and tooltips, and buttons that give a little when pressed",
         id: "motion-personality",
         kind: "choice",
         label: "Motion personality",

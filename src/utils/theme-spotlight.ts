@@ -59,7 +59,7 @@ const BY_CONTROL: Record<string, string> = {
   "line-height": ".specimen-type p, .ui-list",
   "list-padding": ".ui-list",
   "menu-radius": ".ui-menu",
-  "motion-personality": ".ui-switch, .ui-tabs, .ui-button, .ui-checkbox",
+  "motion-personality": ".ui-tabs, .ui-button, .ui-chip, .ui-toggle-group",
   neutral:
     ".ui-callout.ui-neutral, .ui-chip:not([class*='ui-s'], [class*='ui-c'])",
   "primary-text": ".ui-link, .ui-button.ui-primary.ui-transparent",

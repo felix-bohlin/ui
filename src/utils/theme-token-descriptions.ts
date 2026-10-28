@@ -133,7 +133,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ease-exit":
     "Easing for elements leaving the screen: closing `Dialog`, `Drawer` and `Menu`, and a dismissed toast.",
   "--ui-ease-move":
-    "Easing for movement a theme may make springy: the `Checkbox` check, the `Radio` dot and the `Switch` thumb as they turn on, the `Tabs` indicator, the press scale, and `Menu`, `Select`, `Tooltip` and toasts as they open. Never for anything closing. When unset, each reads its own easing; a `linear()` spring with a little overshoot gives the controls some bounce.",
+    "Easing for movement a theme may make springy: the `Tabs` indicator, the press scale, and `Menu`, `Select`, `Tooltip` and toasts as they open. Never for anything closing. When unset, each reads its own easing; a `linear()` spring with a little overshoot gives the controls some bounce.",
   "--ui-field-bg-color":
     "Background of `TextField`, `Textarea` and `Select` fields. When unset, `--ui-surface`, the page color.",
   "--ui-field-border-color":

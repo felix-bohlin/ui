@@ -342,7 +342,7 @@ export default {
     },
     {
       description:
-        "The color space select. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.",
+        "The color space select, a native `<select>` without the customizable `<button>`, so phones show their own picker. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.",
       props: ["colorSpaceLabel"],
       selector: ".ui-floating > .ui-select",
     },

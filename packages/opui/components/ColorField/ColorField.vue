@@ -265,19 +265,14 @@ const field = inject(FieldGroupKey, undefined)
             :aria-labelledby="`${inputId}-space-label`"
             :id="`${inputId}-space`"
           >
-            <button>
-              <selectedcontent></selectedcontent>
-            </button>
-            <div class="ui-list">
-              <option
-                v-for="space in COLOR_SPACES"
-                :key="space"
-                :selected="space === 'oklch' || undefined"
-                :value="space"
-              >
-                {{ space }}
-              </option>
-            </div>
+            <option
+              v-for="space in COLOR_SPACES"
+              :key="space"
+              :selected="space === 'oklch' || undefined"
+              :value="space"
+            >
+              {{ space }}
+            </option>
           </select>
         </span>
       </label>

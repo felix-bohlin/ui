@@ -253,18 +253,13 @@ const inputId = id ?? $id("color-field")
           aria-labelledby={`${inputId}-space-label`}
           id={`${inputId}-space`}
         >
-          <button>
-            <selectedcontent></selectedcontent>
-          </button>
-          <div class="ui-list">
-            {
-              COLOR_SPACES.map((space) => (
-                <option selected={space === "oklch"} value={space}>
-                  {space}
-                </option>
-              ))
-            }
-          </div>
+          {
+            COLOR_SPACES.map((space) => (
+              <option selected={space === "oklch"} value={space}>
+                {space}
+              </option>
+            ))
+          }
         </select>
       </span>
     </label>

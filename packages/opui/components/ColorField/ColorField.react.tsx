@@ -1,6 +1,6 @@
 "use client"
 
-import { createElement, useEffect, useId } from "react"
+import { useEffect, useId } from "react"
 import Button from "../Button/Button.react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
@@ -233,14 +233,11 @@ export default function ColorField({
               defaultValue="oklch"
               id={`${inputId}-space`}
             >
-              <button>{createElement("selectedcontent")}</button>
-              <div className="ui-list">
-                {COLOR_SPACES.map((space) => (
-                  <option key={space} value={space}>
-                    {space}
-                  </option>
-                ))}
-              </div>
+              {COLOR_SPACES.map((space) => (
+                <option key={space} value={space}>
+                  {space}
+                </option>
+              ))}
             </select>
           </span>
         </label>

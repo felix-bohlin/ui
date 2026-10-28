@@ -234,16 +234,11 @@
           aria-labelledby={`${inputId}-space-label`}
           id={`${inputId}-space`}
         >
-          <button>
-            <selectedcontent></selectedcontent>
-          </button>
-          <div class="ui-list">
-            {#each COLOR_SPACES as space (space)}
-              <option selected={space === "oklch" || undefined} value={space}
-                >{space}</option
-              >
-            {/each}
-          </div>
+          {#each COLOR_SPACES as space (space)}
+            <option selected={space === "oklch" || undefined} value={space}
+              >{space}</option
+            >
+          {/each}
         </select>
       </span>
     </label>

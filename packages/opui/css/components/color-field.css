@@ -5,6 +5,9 @@
     --_indicator-bg-color: transparent;
     --_l: 0.6;
     --_picker-inline-size: 16rem;
+    --_plane-block-size: 9rem;
+    --_plane-x: 0;
+    --_plane-y: 0;
     --_preview-text-color: var(--ui-text);
     --_tint-alpha: 0;
     --_tint-chroma: 0.03;
@@ -163,6 +166,42 @@
               display: none;
             }
           }
+        }
+      }
+
+      & > .ui-panel {
+        block-size: var(--_plane-block-size);
+        border-radius: var(--ui-radius-small);
+        box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
+        cursor: crosshair;
+        forced-color-adjust: none;
+        position: relative;
+        touch-action: none;
+
+        & > canvas {
+          block-size: 100%;
+          border-radius: inherit;
+          display: block;
+          inline-size: 100%;
+        }
+
+        &::after {
+          background-color: var(--_indicator-bg-color);
+          block-size: var(--ui-space-4);
+          border: var(--ui-border-width-thick) solid oklch(1 0 0);
+          border-radius: var(--ui-radius-round);
+          box-shadow: 0 0 0 var(--ui-border-width) oklch(0 0 0 / 0.5);
+          content: "";
+          inline-size: var(--ui-space-4);
+          inset-block-start: calc((1 - var(--_plane-y)) * 100%);
+          inset-inline-start: calc(var(--_plane-x) * 100%);
+          pointer-events: none;
+          position: absolute;
+          translate: -50% -50%;
+        }
+
+        &:dir(rtl)::after {
+          translate: 50% -50%;
         }
       }
 

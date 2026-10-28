@@ -219,6 +219,9 @@ export default function ColorField({
             {endText && <span className="ui-end-text">{endText}</span>}
           </div>
         )}
+        <div aria-hidden="true" className="ui-panel">
+          <canvas></canvas>
+        </div>
         <label className="ui-select ui-small ui-spread">
           <span className="ui-label" id={`${inputId}-space-label`}>
             {colorSpaceLabel}

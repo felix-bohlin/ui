@@ -686,6 +686,30 @@ export const parseColor = (text) => {
   return { alpha, coords, space: id }
 }
 
+const PLANE_CHROMA = 0.37
+const PLANE_COLUMNS = 96
+const PLANE_ROWS = 64
+const PLANE_GAMUTS = [
+  { dash: [], id: "srgb" },
+  { dash: [4, 3], id: "display-p3" },
+]
+
+const clampUnit = (value) => Math.min(1, Math.max(0, value))
+
+const maxChroma = (id, lightness, hue) => {
+  let min = 0
+  let max = PLANE_CHROMA
+  for (let step = 0; step < 14; step++) {
+    const middle = (min + max) / 2
+    if (inRgbGamut(xyzToRgb(id, oklchToXyz([lightness, middle, hue])))) {
+      min = middle
+    } else {
+      max = middle
+    }
+  }
+  return min
+}
+
 const LABELS = {
   blackness: "Blackness",
   blue: "Blue",
@@ -743,6 +767,7 @@ export class ColorField extends Base {
   #controller
   #copied
   #observer
+  #planeHue
   #timeout
 
   get input() {
@@ -781,6 +806,15 @@ export class ColorField extends Base {
     this.addEventListener("focusout", (event) => this.#leave(event), {
       signal,
     })
+    this.addEventListener("pointerdown", (event) => this.#press(event), {
+      signal,
+    })
+    this.addEventListener("pointermove", (event) => this.#drag(event), {
+      signal,
+    })
+    for (const type of ["lostpointercapture", "pointerup"]) {
+      this.addEventListener(type, (event) => this.#release(event), { signal })
+    }
     this.#syncEyedropper()
     this.#configure()
     this.ownerDocument.addEventListener(
@@ -973,7 +1007,107 @@ export class ColorField extends Base {
   }
 
   #toggle(event) {
-    if (event.newState === "open") this.#sliders()[0]?.focus()
+    if (event.newState !== "open") return
+    this.#planeHue = undefined
+    this.#draw()
+    this.#sliders()[0]?.focus()
+  }
+
+  #plane() {
+    return this.querySelector(".ui-floating > .ui-panel")
+  }
+
+  #press(event) {
+    const plane = this.#plane()
+    if (event.button !== 0 || !plane?.contains(event.target)) return
+    event.preventDefault()
+    plane.setPointerCapture(event.pointerId)
+    this.#pick(event)
+  }
+
+  #drag(event) {
+    if (this.#plane()?.hasPointerCapture(event.pointerId)) this.#pick(event)
+  }
+
+  #release(event) {
+    const plane = this.#plane()
+    if (event.target !== plane) return
+    if (plane.hasPointerCapture(event.pointerId)) {
+      plane.releasePointerCapture(event.pointerId)
+      return
+    }
+    if (event.type === "lostpointercapture") this.#emit("change")
+  }
+
+  #pick(event) {
+    const plane = this.#plane()
+    const box = plane.getBoundingClientRect()
+    const x = clampUnit((event.clientX - box.left) / box.width)
+    const y = clampUnit((event.clientY - box.top) / box.height)
+    const across = getComputedStyle(plane).direction === "rtl" ? 1 - x : x
+    const oklch = [1 - y, across * PLANE_CHROMA, this.#color.H]
+    this.#render({
+      alpha: this.#color.alpha,
+      coords: toSpace(this.#space, oklch, this.#coords),
+      space: this.#space,
+    })
+    if (this.#write(this.#format())) this.#emit("input")
+  }
+
+  #draw() {
+    const canvas = this.#plane()?.querySelector("canvas")
+    const hue = this.#color.H
+    if (!canvas?.clientWidth || this.#planeHue === hue) return
+    this.#planeHue = hue
+    const ratio = globalThis.devicePixelRatio || 1
+    const width = Math.round(canvas.clientWidth * ratio)
+    const height = Math.round(canvas.clientHeight * ratio)
+    canvas.width = width
+    canvas.height = height
+    const context = canvas.getContext("2d", { colorSpace: "display-p3" })
+    if (!context) return
+    const wide = context.getContextAttributes?.().colorSpace === "display-p3"
+    const target = wide ? "display-p3" : "srgb"
+    const rtl = getComputedStyle(canvas).direction === "rtl"
+    const image = context.createImageData(PLANE_COLUMNS, PLANE_ROWS)
+    for (let row = 0; row < PLANE_ROWS; row++) {
+      const lightness = 1 - (row + 0.5) / PLANE_ROWS
+      for (let column = 0; column < PLANE_COLUMNS; column++) {
+        const across = (column + 0.5) / PLANE_COLUMNS
+        const chroma = (rtl ? 1 - across : across) * PLANE_CHROMA
+        const rgb = xyzToRgb(target, oklchToXyz([lightness, chroma, hue]))
+        const index = (row * PLANE_COLUMNS + column) * 4
+        rgb.forEach((value, channel) => {
+          image.data[index + channel] = Math.round(clampUnit(value) * 255)
+        })
+        image.data[index + 3] = 255
+      }
+    }
+    const small = this.ownerDocument.createElement("canvas")
+    small.width = PLANE_COLUMNS
+    small.height = PLANE_ROWS
+    small
+      .getContext("2d", wide ? { colorSpace: "display-p3" } : undefined)
+      ?.putImageData(image, 0, 0)
+    context.imageSmoothingEnabled = true
+    context.drawImage(small, 0, 0, width, height)
+    context.lineWidth = 1.5 * ratio
+    context.shadowBlur = 2 * ratio
+    context.shadowColor = "oklch(0 0 0 / 0.6)"
+    context.strokeStyle = "oklch(1 0 0 / 0.9)"
+    for (const gamut of PLANE_GAMUTS) {
+      context.setLineDash(gamut.dash.map((length) => length * ratio))
+      context.beginPath()
+      for (let step = 0; step <= PLANE_ROWS; step++) {
+        const lightness = 1 - step / PLANE_ROWS
+        const across = maxChroma(gamut.id, lightness, hue) / PLANE_CHROMA
+        const x = (rtl ? 1 - across : across) * width
+        const y = (step / PLANE_ROWS) * height
+        if (step === 0) context.moveTo(x, y)
+        else context.lineTo(x, y)
+      }
+      context.stroke()
+    }
   }
 
   #format() {
@@ -1080,6 +1214,12 @@ export class ColorField extends Base {
     this.style.setProperty("--_c", `${this.#color.C}`)
     this.style.setProperty("--_h", `${this.#color.H}`)
     this.style.setProperty("--_tint-alpha", "1")
+    this.style.setProperty(
+      "--_plane-x",
+      `${clampUnit(this.#color.C / PLANE_CHROMA)}`,
+    )
+    this.style.setProperty("--_plane-y", `${this.#color.L}`)
+    if (this.querySelector(".ui-floating:popover-open")) this.#draw()
     input?.setCustomValidity("")
     const entries = SPACES[this.#space].channels
     this.#channels().forEach((slider, index) => {

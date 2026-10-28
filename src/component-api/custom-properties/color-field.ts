@@ -25,6 +25,21 @@ export default {
     description: "Width of the picker popover.",
     kind: "input",
   },
+  "--_plane-block-size": {
+    description:
+      "Height of the plane at the top of the picker, `9rem` by default.",
+    kind: "input",
+  },
+  "--_plane-x": {
+    description:
+      "Where the color sits across the plane, its chroma as a fraction of `0.37`. The element sets it.",
+    kind: "output",
+  },
+  "--_plane-y": {
+    description:
+      "Where the color sits up the plane, its OKLCH lightness. The element sets it.",
+    kind: "output",
+  },
   "--_preview-text-color": {
     description:
       "Text color on the picker's preview, black or white by the color's luminance.",

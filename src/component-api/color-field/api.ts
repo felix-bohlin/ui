@@ -337,6 +337,11 @@ export default {
     },
     {
       description:
+        "The plane under the preview, a `<canvas>` with chroma across and lightness up at the color's hue, and lines where sRGB and Display P3 end. Dragging on it sets lightness and chroma; it's hidden from assistive technology, where the sliders set the same channels.",
+      selector: ".ui-floating > .ui-panel",
+    },
+    {
+      description:
         "The color space select. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.",
       props: ["colorSpaceLabel"],
       selector: ".ui-floating > .ui-select",

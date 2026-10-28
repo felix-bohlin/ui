@@ -1552,6 +1552,22 @@ interaction(
 interaction(
   "color-field",
   "Basics",
+  "color field plane sets lightness and chroma where it's clicked",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Brand color" })
+
+    await root.getByRole("button", { name: "Pick a color" }).click()
+    const plane = root.locator(".ui-floating > .ui-panel")
+    const box = (await plane.boundingBox())!
+    await plane.click({ position: { x: box.width / 2, y: box.height / 4 } })
+    await expect(input).toHaveValue(/^oklch\(0\.7\d* 0\.18\d* 250\)$/)
+    await expect(root.getByRole("slider", { name: "Lightness" })).toBeFocused()
+  },
+)
+
+interaction(
+  "color-field",
+  "Basics",
   "color field writes the color in the space the select picks",
   async ({ root }) => {
     const input = root.getByRole("textbox", { name: "Brand color" })

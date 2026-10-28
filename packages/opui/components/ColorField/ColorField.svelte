@@ -221,6 +221,9 @@
         {/if}
       </div>
     {/if}
+    <div aria-hidden="true" class="ui-panel">
+      <canvas></canvas>
+    </div>
     <label class="ui-select ui-small ui-spread">
       <span class="ui-label" id={`${inputId}-space-label`}
         >{colorSpaceLabel}</span

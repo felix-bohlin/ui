@@ -252,6 +252,9 @@ const field = inject(FieldGroupKey, undefined)
           {{ endText }}<slot name="end-text"></slot>
         </span>
       </div>
+      <div aria-hidden="true" class="ui-panel">
+        <canvas></canvas>
+      </div>
       <label class="ui-select ui-small ui-spread">
         <span class="ui-label" :id="`${inputId}-space-label`">{{
           colorSpaceLabel

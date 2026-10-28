@@ -2,7 +2,7 @@
 
 A text field for a color, with a picker of sliders in 16 color spaces, from hex to oklch().
 
-- CSS: `opui-css/css/components/color-field.css`, `opui-css/css/components/text-field.css`, `opui-css/css/components/range.css` and `opui-css/css/components/button.css`.
+- CSS: `opui-css/css/components/color-field.css`, `opui-css/css/components/text-field.css` and `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/color-field.md), [Astro](https://open-props-ui.netlify.app/astro/components/color-field.md), [React](https://open-props-ui.netlify.app/react/components/color-field.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/color-field.md), [Vue](https://open-props-ui.netlify.app/vue/components/color-field.md).
 
 ## ColorField
@@ -19,7 +19,7 @@ A text field for a color, with a picker of sliders in 16 color spaces, from hex 
 - `.ui-indicator`: The swatch in the picker button, painted with the color over a checkerboard that shows its opacity.
 - `<input type="text">` (model): The input element, which holds the color text.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
-- `.ui-floating` (prop `opacity`): The picker, a popover dialog with a `.ui-range` slider per channel. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.
+- `.ui-floating` (prop `opacity`): The picker, a popover dialog with a slider per channel, a `<label>` around an `input[type=range]` that `color-field.css` styles on its own, lighter than a `Range`. Each slider's track shows the colors its channel reaches, and its thumb shows the color. Its background takes a faint tint of the color's hue, `--_tint-chroma` at most.
 - `.ui-floating > .ui-panel`: The plane under the preview, a `<canvas>` with chroma across and lightness up at the color's hue, and lines where sRGB and Display P3 end. Dragging on it sets lightness and chroma; it's hidden from assistive technology, where the sliders set the same channels.
 - `.ui-floating > .ui-select` (prop `colorSpaceLabel`): The color space select. Picking a space converts the color into it, mapping it into the space's gamut when it doesn't fit, and swaps the sliders for the space's channels. Typing or pasting a color written in one of the spaces picks that space.
 - `.ui-floating > .ui-header`: The preview across the top of the picker, painted with the color over a checkerboard that shows its opacity, with the value and the buttons. The color fades into the tint below it.
@@ -80,10 +80,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_picker-inline-size`: Width of the picker popover.
 - `--_plane-block-size`: Height of the plane at the top of the picker, `9rem` by default.
+- `--_thumb-size`: Size of the slider thumbs and the height of the sliders, `1.25em`, or `1.75em` on a coarse pointer.
 - `--_tint-chroma`: Highest chroma of the picker's tint, `0.03` by default. `0` turns the tint off.
-- `--_track-block-size`: Thickness of the slider tracks, thicker than a `Range`'s.
+- `--_track-block-size`: Thickness of the slider tracks, `0.75em`.
 
-Outputs: `--_picked-bg-color`, `--_picked-c`, `--_picked-h`, `--_picked-l`, `--_picked-text-color`, `--_plane-x`, `--_plane-y`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_thumb-picked-bg-color`, `--_tint-alpha`, `--_tint-bg-color`, `--_to`, `--_track`, `--_track-fill-bg-color` and `--_trigger-size`.
+Outputs: `--_picked-bg-color`, `--_picked-c`, `--_picked-h`, `--_picked-l`, `--_picked-text-color`, `--_plane-x`, `--_plane-y`, `--_preview-text-color`, `--_size`, `--_text-color`, `--_thumb-picked-bg-color`, `--_thumb-scale`, `--_tint-alpha`, `--_tint-bg-color`, `--_to`, `--_track` and `--_trigger-size`.
 
 ### text-field.css
 
@@ -99,19 +100,6 @@ Outputs: `--_picked-bg-color`, `--_picked-c`, `--_picked-h`, `--_picked-l`, `--_
 - `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
 
 Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit` and `--_helper-text-color`.
-
-### range.css
-
-- `--_accent`: Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state.
-- `--_ease`: Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.
-- `--_motion`: Motion multiplier for the thumb highlight and focus ring. `0` turns them off.
-- `--_thumb-border-width`: Width of the page-colored ring between the thumb and the track. Set on the `<input>`.
-- `--_thumb-size`: Width and height of the thumb. Set by the sizes, and larger on touch screens at the default size.
-- `--_track-base-bg-color`: Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.
-- `--_track-block-size`: Height of the track. Set by the sizes.
-- `--_track-radius`: Corner radius of the track.
-
-Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_inset`, `--_thumb-bg-color`, `--_thumb-highlight-bg-color`, `--_thumb-highlight-size`, `--_thumb-offset`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
 
 ### button.css
 
@@ -134,7 +122,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong`, `--ui-text-subtle` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-bg-color`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-padding-inline`, `--ui-field-padding-inline-large`, `--ui-field-placeholder-text-color`, `--ui-field-radius`, `--ui-field-required-text-color`, `--ui-field-size`, `--ui-field-size-large`, `--ui-field-size-small`, `--ui-field-size-x-small`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-body`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-font-weight-normal`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-icon-size-small`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-shadow-overlay`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma`, `--ui-text-min-lightness`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -247,7 +235,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         </select>
       </span>
     </label>
-    <label class="ui-range" for="color-field-basics-1-lightness">
+    <label for="color-field-basics-1-lightness">
       <span class="ui-label" id="color-field-basics-1-lightness-label">
         Lightness
       </span>
@@ -265,7 +253,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         step="0.001"
         type="range"
       /> </label
-    ><label class="ui-range" for="color-field-basics-1-chroma">
+    ><label for="color-field-basics-1-chroma">
       <span class="ui-label" id="color-field-basics-1-chroma-label">
         Chroma
       </span>
@@ -283,7 +271,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         step="0.001"
         type="range"
       /> </label
-    ><label class="ui-range" for="color-field-basics-1-hue">
+    ><label for="color-field-basics-1-hue">
       <span class="ui-label" id="color-field-basics-1-hue-label"> Hue </span>
       <output
         aria-live="off"
@@ -299,7 +287,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
         step="0.1"
         type="range"
       /> </label
-    ><label class="ui-range" for="color-field-basics-1-opacity">
+    ><label for="color-field-basics-1-opacity">
       <span class="ui-label" id="color-field-basics-1-opacity-label">
         Opacity
       </span>

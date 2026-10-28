@@ -12,13 +12,13 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the open transition and scroll shadows, `--ui-duration-slow` times `--_motion`.",
+      "Duration of the open and close transitions and scroll shadows, `--ui-duration-slow` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the open transition. Defaults to `--ui-ease-enter`.",
-    kind: "input",
+      "Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
+    kind: "output",
   },
   "--_elevated-shadow": {
     description:

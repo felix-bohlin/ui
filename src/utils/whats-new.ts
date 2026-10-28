@@ -545,7 +545,7 @@ export const whatsNew = {
     components(
       `<a href="#footer"><code>DialogFooter</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
     ),
-    `The backdrop fades in with the panel when a <a href="#modal">modal dialog</a> opens.`,
+    `A <a href="#modal">modal dialog</a> fades and scales in with its backdrop, and fades and scales out again when it closes, over <code>--ui-duration-slow</code>.`,
     components(
       `<code>DialogTitle</code> warns in development when the dialog's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Dialog</code> to keep it (<a href="#api">API</a>).`,
     ),
@@ -1411,6 +1411,7 @@ export const whatsNew = {
       `A <code>Tooltip</code> without an <code>id</code> warns in development, since its trigger points at it with <code>interestfor</code> (<a href="#basics">Basics</a>).`,
     ),
     `In browsers without interest invokers, the compat layer shows the tooltip while its trigger is hovered or has keyboard focus (<a href="#accessibility">Accessibility</a>).`,
+    `A <a href="#basics">tooltip</a> scales in as it fades, like a menu. One with an <a href="#arrow">arrow</a> only fades.`,
   ],
   typography: [
     `A <a href="#severity">severity class</a> on <code>.ui-p</code>, <code>.ui-caption</code> or <code>.ui-overline</code> colors the text in that tone, and <a href="#tabular-numbers"><code>.ui-tabular-nums</code></a> lines numbers up.`,

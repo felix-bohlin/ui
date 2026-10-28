@@ -141,8 +141,14 @@ export const posts = [
     date: "2026-10-02",
     description:
       "Invoker commands, closedby and @starting-style for modal dialogs.",
-    features: ["dialog-closedby", "invoker-commands", "starting-style"],
-    now: "`commandfor`, `command` and `closedby` open and close it, and `@starting-style` fades it in.",
+    features: [
+      "dialog-closedby",
+      "invoker-commands",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
+    now: "`commandfor`, `command` and `closedby` open and close it, `@starting-style` fades it in, and `allow-discrete` fades it out.",
     slug: "dialog-closedby",
     technique: "closedby",
     title: "Dialogs without JavaScript",

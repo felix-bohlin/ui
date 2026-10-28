@@ -148,14 +148,14 @@ html:has(.dialog:modal) {
     css: `
 .dialog {
   opacity: 0;
-}
-
-.dialog[open] {
-  opacity: 1;
   transition:
     display 0.2s allow-discrete,
     opacity 0.2s,
     overlay 0.2s allow-discrete;
+}
+
+.dialog[open] {
+  opacity: 1;
 
   @starting-style {
     opacity: 0;
@@ -169,7 +169,7 @@ html:has(.dialog:modal) {
     ],
     notes: [
       "<code>@starting-style</code> gives the entry transition a starting point",
-      "The transition only lives on <code>[open]</code>, so closing is instant, on purpose",
+      "The transition lives on the closed dialog too, so closing fades out, and <code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> until it ends",
     ],
     title: "Fade",
   },

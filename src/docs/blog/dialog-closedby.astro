@@ -41,7 +41,9 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
       </li>
       <li>
         <code>@starting-style</code> gives the fade a starting opacity. The transition
-        only lives on <code>[open]</code>, so closing is instant, on purpose
+        lives on the closed dialog too, and <code>allow-discrete</code> keeps
+        <code>display</code> and <code>overlay</code> until it ends, so closing fades
+        out the same way
       </li>
     </ul>
     <Code
@@ -101,6 +103,10 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
         but not on a click outside
       </li>
       <li>Without <code>@starting-style</code> it opens without the fade</li>
+      <li>
+        Without <code>overlay</code> it leaves the top layer as soon as it closes,
+        so it fades out under the page instead of over it
+      </li>
     </ul>
   </section>
 </TechniquePost>

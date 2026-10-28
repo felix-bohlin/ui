@@ -338,11 +338,11 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Chip` small is `--ui-chip-size-small` (28px, the x-small control size) instead of 24px.
 - `Chip` labels truncate with an ellipsis unless the chip is `multiline`.
 - `Chip` hover is stronger in light mode: button and link chips without a `severity` read `--ui-surface-tonal-hover`, the hover of filled fields.
-- `Dialog` and `Drawer` open over `--ui-duration-slow` (`0.3s`, was `0.2s`) with `--ui-ease-enter`, and `Drawer` closes with `--ui-ease-exit`, as the tokens describe.
+- `Dialog` and `Drawer` open over `--ui-duration-slow` (`0.3s`, was `0.2s`) with `--ui-ease-enter`, and close over the same duration with `--ui-ease-exit`, as the tokens describe. `Dialog` used to close at once.
 - `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
 - `Dialog` has a maximum height. The header and footer stay in place and the content scrolls.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
-- `Dialog` fades its backdrop in with the panel.
+- `Dialog` fades and scales in from `0.96` with its backdrop, and fades and scales out again when it closes, kept in the top layer by `display` and `overlay` transitions with `allow-discrete`.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 - `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
@@ -395,6 +395,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `ToggleButton` disabled state uses `--ui-disabled-opacity` like `Button`, and `--ui-text-disabled` when unchecked (a checked one keeps its selected text color), its hover uses `--ui-state-hover-alpha-light`, and `ToggleButton` and `ToggleGroup` read `--ui-button-size*` instead of `--ui-field-size*`.
 - `ToggleButton` grows from `--ui-button-size` with its content instead of having a fixed height.
 - `ToggleGroup` is in the `components.extended` layer, like `ButtonGroup`.
+- `Tooltip` without an arrow scales in from `0.96` as it fades, like `Menu`. Tooltips with `.ui-arrow` only fade, since a scale would move the arrow's containing block.
 - `Tooltip` uses `--ui-surface-inverse` and `--ui-on-inverse`.
 - `Typography` inline `code` in rich text is rounded with `--ui-radius-small` (5px by default) like `kbd` and `mark`, instead of the full `--ui-radius`.
 - `Typography` rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--ui-rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.

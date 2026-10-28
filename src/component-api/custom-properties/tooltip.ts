@@ -11,11 +11,13 @@ export default {
     kind: "input",
   },
   "--_duration": {
-    description: "Duration of the fade, `--ui-duration` times `--_motion`.",
+    description:
+      "Duration of the fade and, without an arrow, the scale, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the fade. Defaults to `--ui-ease-enter`.",
+    description:
+      "Easing of the fade and the scale. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_max-inline-size": {
@@ -27,7 +29,8 @@ export default {
     kind: "input",
   },
   "--_motion": {
-    description: "Motion multiplier for the fade. `0` turns it off.",
+    description:
+      "Motion multiplier for the fade and the scale. `0` turns them off.",
     kind: "input",
   },
   "--_offset": {

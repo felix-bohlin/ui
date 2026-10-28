@@ -99,13 +99,26 @@
       transition:
         display var(--_duration) allow-discrete,
         opacity var(--_duration) var(--_ease),
-        overlay var(--_duration) allow-discrete;
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
 
       &:popover-open {
         opacity: 1;
 
         @starting-style {
           opacity: 0;
+        }
+      }
+    }
+
+    &:not(.ui-arrow) > .ui-floating[popover] {
+      scale: 0.96;
+
+      &:popover-open {
+        scale: none;
+
+        @starting-style {
+          scale: 0.96;
         }
       }
     }

@@ -80,7 +80,9 @@ const years = Object.keys(categorized)
         OneTimeCode (<code>css/compat/one-time-code.css</code>): on iOS Safari,
         the input keeps a fixed width with room for the caret and the next empty
         box isn't ringed, because iOS Safari hides the last typed character
-        while the input sizes itself to its content.
+        while the input sizes itself to its content. A required field hides its
+        caret once the code is complete, since iOS draws the caret past the last
+        box, where the field's <code>overflow: clip</code> doesn't reach it.
       </li>
       <li>
         Tooltip (<code>css/compat/tooltip.css</code>): without interest

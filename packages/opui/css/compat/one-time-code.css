@@ -8,6 +8,10 @@
         padding-inline-end: 0;
       }
 
+      .ui-field input:required:valid {
+        caret-color: transparent;
+      }
+
       &:focus-within .ui-field {
         &::before {
           mask-image: var(--_box-focus-image);

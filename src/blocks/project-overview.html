@@ -1,66 +1,6 @@
 <style>
   .project-overview {
     container-type: inline-size;
-
-    .project-milestones {
-      --_gap: 0;
-
-      li {
-        display: grid;
-        gap: 0 var(--ui-space-3);
-        grid-template-columns: var(--ui-icon-size-large) minmax(0, 1fr) auto;
-        padding-block-end: var(--ui-space-4);
-        position: relative;
-
-        &:not(:last-child)::before {
-          background-color: var(--ui-border-color);
-          content: "";
-          inline-size: var(--ui-border-width-thick);
-          inset-block: var(--ui-icon-size-large) 0;
-          inset-inline-start: calc(
-            (var(--ui-icon-size-large) - var(--ui-border-width-thick)) / 2
-          );
-          position: absolute;
-        }
-
-        &:last-child {
-          padding-block-end: 0;
-        }
-      }
-
-      p.ui-caption {
-        grid-column: 2;
-      }
-
-      time {
-        grid-column: 3;
-        grid-row: 1;
-        white-space: nowrap;
-      }
-
-      .ui-progress {
-        grid-column: 2 / -1;
-        margin-block-start: var(--ui-space-2);
-      }
-    }
-
-    .project-done svg {
-      color: var(--ui-success);
-    }
-
-    .project-current {
-      svg {
-        color: var(--ui-primary);
-      }
-
-      p:first-of-type {
-        font-weight: var(--ui-font-weight-semibold);
-      }
-    }
-
-    .project-upcoming svg {
-      color: var(--ui-text);
-    }
   }
 </style>
 
@@ -232,85 +172,83 @@
           <p>3 of 5 completed.</p>
         </hgroup>
         <div class="ui-content">
-          <ol class="ui-layout-column project-milestones">
-            <li class="project-done">
-              <svg
-                aria-hidden="true"
-                class="ui-icon ui-large"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
-                ></path>
-              </svg>
-              <p>Discovery and research</p>
-              <time class="ui-caption ui-tabular-nums" datetime="2026-08-14"
-                >14 Aug</time
-              >
+          <ol class="ui-timeline">
+            <li class="ui-success">
+              <span class="ui-marker">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-08-14">14 Aug</time>
+              <h3 class="ui-h6">Discovery and research</h3>
               <p class="ui-caption">Completed, 12 user interviews</p>
             </li>
-            <li class="project-done">
-              <svg
-                aria-hidden="true"
-                class="ui-icon ui-large"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
-                ></path>
-              </svg>
-              <p>Design system and prototypes</p>
-              <time class="ui-caption ui-tabular-nums" datetime="2026-09-05"
-                >5 Sep</time
-              >
+            <li class="ui-success">
+              <span class="ui-marker">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-09-05">5 Sep</time>
+              <h3 class="ui-h6">Design system and prototypes</h3>
               <p class="ui-caption">Completed, signed off by the client</p>
             </li>
-            <li class="project-done">
-              <svg
-                aria-hidden="true"
-                class="ui-icon ui-large"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
-                ></path>
-              </svg>
-              <p>Core features</p>
-              <time class="ui-caption ui-tabular-nums" datetime="2026-09-26"
-                >26 Sep</time
-              >
+            <li class="ui-success">
+              <span class="ui-marker">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-09-26">26 Sep</time>
+              <h3 class="ui-h6">Core features</h3>
               <p class="ui-caption">Completed, two days late</p>
             </li>
-            <li class="project-current">
-              <svg
-                aria-hidden="true"
-                class="ui-icon ui-large"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16m0-14v12a6 6 0 0 0 0-12"
-                ></path>
-              </svg>
-              <p id="project-overview-beta-label">Beta and user testing</p>
-              <time class="ui-caption ui-tabular-nums" datetime="2026-10-14"
-                >14 Oct</time
-              >
+            <li aria-current="step">
+              <span class="ui-marker">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16m0-14v12a6 6 0 0 0 0-12"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-10-14">14 Oct</time>
+              <h3 class="ui-h6" id="project-overview-beta-label">
+                Beta and user testing
+              </h3>
               <p class="ui-caption">In progress, 18 of 26 tasks done</p>
               <div class="ui-progress">
                 <progress
@@ -320,24 +258,23 @@
                 ></progress>
               </div>
             </li>
-            <li class="project-upcoming">
-              <svg
-                aria-hidden="true"
-                class="ui-icon ui-large"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16"
-                ></path>
-              </svg>
-              <p>App Store launch</p>
-              <time class="ui-caption ui-tabular-nums" datetime="2026-10-31"
-                >31 Oct</time
-              >
+            <li>
+              <span class="ui-marker">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16"
+                  ></path>
+                </svg>
+              </span>
+              <time datetime="2026-10-31">31 Oct</time>
+              <h3 class="ui-h6">App Store launch</h3>
               <p class="ui-caption">Upcoming</p>
             </li>
           </ol>

@@ -72,6 +72,8 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.astro"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.astro"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
+export { default as Timeline } from "../components/Timeline/Timeline.astro"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.astro"
 export { default as Toaster } from "../components/Toaster/Toaster.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
@@ -184,6 +186,10 @@ export type {
 } from "../components/Tabs/types.astro"
 export type { Props as TextareaProps } from "../components/Textarea/types.astro"
 export type { Props as TextFieldProps } from "../components/TextField/types.astro"
+export type {
+  TimelineItemProps,
+  Props as TimelineProps,
+} from "../components/Timeline/types.astro"
 export type { Props as ToasterProps } from "../components/Toaster/types.astro"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.astro"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.astro"

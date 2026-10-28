@@ -530,6 +530,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
 - `TextField`: the field border is real, but the focus outline gets `Highlight` and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers between buttons are shadows, so they become `CanvasText` borders.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.

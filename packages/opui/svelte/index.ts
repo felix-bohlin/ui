@@ -74,6 +74,8 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.svelte"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.svelte"
 export { default as Textarea } from "../components/Textarea/Textarea.svelte"
 export { default as TextField } from "../components/TextField/TextField.svelte"
+export { default as Timeline } from "../components/Timeline/Timeline.svelte"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.svelte"
 export { default as Toaster } from "../components/Toaster/Toaster.svelte"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.svelte"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.svelte"
@@ -187,6 +189,10 @@ export type {
 } from "../components/Tabs/types.svelte"
 export type { Props as TextareaProps } from "../components/Textarea/types.svelte"
 export type { Props as TextFieldProps } from "../components/TextField/types.svelte"
+export type {
+  TimelineItemProps,
+  Props as TimelineProps,
+} from "../components/Timeline/types.svelte"
 export type { Props as ToasterProps } from "../components/Toaster/types.svelte"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.svelte"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.svelte"

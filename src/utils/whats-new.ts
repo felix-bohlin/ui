@@ -1284,6 +1284,9 @@ export const whatsNew = {
       html: `<a href="#character-count">Character count</a>: <code>&lt;opui-character-count&gt;</code> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit. Import <code>opui-css/elements/character-count.js</code>.`,
     },
   ],
+  timeline: [
+    `New: a <a href="#basics">Timeline</a> lists dated events with markers and a connecting line, with <a href="#colors">colors</a>, a <a href="#current">current item</a> and a <a href="#tracked">tracked</a> line.`,
+  ],
   toast: [
     {
       default: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>, run by the <code>&lt;opui-toaster&gt;</code> custom element, which the component loads. <a href="#position"><code>side</code> and <code>align</code></a> choose the corner.`,
@@ -1438,6 +1441,7 @@ export const highlighted = new Set<string>([
   "number-stepper",
   "stat",
   "tabs",
+  "timeline",
   "toast",
   "typography",
 ] satisfies (keyof typeof whatsNew)[])
@@ -1449,6 +1453,8 @@ export const added = new Set<string>([
   "layout",
   "menu",
   "number-stepper",
+  "stat",
+  "timeline",
   "toast",
 ] satisfies (keyof typeof whatsNew)[])
 

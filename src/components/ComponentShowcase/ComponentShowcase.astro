@@ -50,6 +50,8 @@ import {
   TabsPanel,
   Textarea,
   TextField,
+  Timeline,
+  TimelineItem,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -453,6 +455,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
     <Fragment slot="textarea">
       <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
+    </Fragment>
+
+    <Fragment slot="timeline">
+      <Timeline aria-hidden="true" size="small" style="inline-size: 14rem">
+        <TimelineItem color="success" label="Shipped" time="Oct 1" />
+        <TimelineItem current label="Beta" time="Oct 14" />
+        <TimelineItem label="Launch" time="Oct 31" />
+      </Timeline>
     </Fragment>
 
     <Fragment slot="toast">

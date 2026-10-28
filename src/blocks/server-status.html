@@ -72,14 +72,6 @@
 
       font-weight: var(--ui-font-weight-normal);
     }
-
-    .status-updates li {
-      border-inline-start: var(--ui-border-width-thick) solid
-        var(--ui-border-color);
-      display: grid;
-      gap: var(--ui-space-1);
-      padding-inline-start: var(--ui-space-3);
-    }
   }
 </style>
 
@@ -384,20 +376,18 @@
           </svg>
         </summary>
         <div class="ui-content">
-          <ol class="ui-layout-column status-updates" reversed>
+          <ol class="ui-timeline ui-small" reversed>
             <li>
-              <p class="ui-caption">
-                <time datetime="2026-10-08T13:40">13:40</time>, identified
-              </p>
+              <time datetime="2026-10-08T13:40">13:40</time>
+              <p class="ui-caption">Identified</p>
               <p>
                 A search index rebuild is competing for disk with live traffic.
                 We're moving the rebuild to a separate node.
               </p>
             </li>
             <li>
-              <p class="ui-caption">
-                <time datetime="2026-10-08T12:18">12:18</time>, investigating
-              </p>
+              <time datetime="2026-10-08T12:18">12:18</time>
+              <p class="ui-caption">Investigating</p>
               <p>
                 We're seeing slower search responses in eu-north and are looking
                 into it.

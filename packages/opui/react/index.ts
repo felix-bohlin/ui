@@ -73,6 +73,8 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.react"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.react"
 export { default as Textarea } from "../components/Textarea/Textarea.react"
 export { default as TextField } from "../components/TextField/TextField.react"
+export { default as Timeline } from "../components/Timeline/Timeline.react"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.react"
 export { default as Toaster } from "../components/Toaster/Toaster.react"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.react"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.react"
@@ -186,6 +188,10 @@ export type {
 } from "../components/Tabs/types.react"
 export type { Props as TextareaProps } from "../components/Textarea/types.react"
 export type { Props as TextFieldProps } from "../components/TextField/types.react"
+export type {
+  TimelineItemProps,
+  Props as TimelineProps,
+} from "../components/Timeline/types.react"
 export type { Props as ToasterProps } from "../components/Toaster/types.react"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.react"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.react"

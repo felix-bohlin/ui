@@ -72,6 +72,8 @@ export { default as TabsLabel } from "../components/Tabs/TabsLabel.vue"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
 export { default as Textarea } from "../components/Textarea/Textarea.vue"
 export { default as TextField } from "../components/TextField/TextField.vue"
+export { default as Timeline } from "../components/Timeline/Timeline.vue"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.vue"
 export { default as Toaster } from "../components/Toaster/Toaster.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
@@ -185,6 +187,10 @@ export type {
 } from "../components/Tabs/types.vue-props"
 export type { Props as TextareaProps } from "../components/Textarea/types.vue-props"
 export type { Props as TextFieldProps } from "../components/TextField/types.vue-props"
+export type {
+  TimelineItemProps,
+  Props as TimelineProps,
+} from "../components/Timeline/types.vue-props"
 export type { Props as ToasterProps } from "../components/Toaster/types.vue-props"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.vue-props"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.vue-props"

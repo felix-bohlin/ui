@@ -1256,6 +1256,30 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
+        hint: "Springy checks, switches, tabs and menus, and buttons that give a little when pressed",
+        id: "motion-personality",
+        kind: "choice",
+        label: "Motion personality",
+        options: [
+          {
+            label: "Calm",
+            tokens: revert("--ui-ease-move", "--ui-press-scale"),
+            value: "calm",
+          },
+          {
+            label: "Lively",
+            tokens: {
+              "--ui-ease-move":
+                "linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1)",
+              "--ui-press-scale": "0.97",
+            },
+            value: "lively",
+          },
+        ],
+        tier: "fine",
+      },
+      {
+        display: "toggle",
         hint: "Behind dialogs and drawers",
         id: "backdrop-blur",
         kind: "choice",

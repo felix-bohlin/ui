@@ -9,7 +9,7 @@ A text field for a color, with a picker of sliders in 16 color spaces, from hex 
 
 ### Parts
 
-- `opui-color-field.ui-color-field` (root): The `<opui-color-field>` custom element. It keeps the sliders, the swatch and the input in step, and marks text that isn't a color invalid.
+- `opui-color-field.ui-color-field` (root): The `<opui-color-field>` custom element. It keeps the sliders, the swatch and the input in step, and marks text that isn't a color invalid. Its `value` reads and sets the text, and `oklch` reads the color as `oklch()` whatever the space.
 - `.ui-color-field > .ui-text-field`: The field, a `TextField` part that holds the label, the input and the texts.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.

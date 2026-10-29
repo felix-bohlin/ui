@@ -15,15 +15,23 @@ export default {
     ...components(
       "Attributes that aren't props go to the root `<opui-copy>`. The button works once the component hydrates, or once the page imports `opui-css/elements/copy.js`; the Astro component loads it.",
     ),
-    html: 'Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.',
+    html: 'Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.',
   },
   options: [
     {
       attribute: "[copied-label]",
       default: '"Copied"',
-      description: "The text announced after a copy.",
+      description: "The text shown and announced after a copy.",
       group: "Label",
       prop: "copiedLabel",
+    },
+    {
+      attribute: "[failed-label]",
+      default: '"Copy failed"',
+      description:
+        "The text shown and announced when the clipboard is blocked.",
+      group: "Failed label",
+      prop: "failedLabel",
     },
     {
       description:
@@ -38,10 +46,17 @@ export default {
         "The live region that announces the copy, visually hidden with `.ui-sr-only`.",
       selector: '[role="status"]',
     },
+    {
+      code: "<span popover>",
+      description:
+        "The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy.",
+      props: ["copiedLabel", "failedLabel"],
+      selector: ".ui-floating",
+    },
   ],
   root: {
     description:
-      'The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons, and gets `data-copied` for two seconds.',
+      'The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Where the clipboard is blocked, it selects the text instead.',
     selector: "opui-copy.ui-copy",
   },
   slots: [

@@ -6,9 +6,75 @@
     &:not(:defined) ~ :where([command="--copy"]) {
       display: none;
     }
-  }
 
-  :where(.ui-button[command="--copy"][data-copied]) {
-    --_accent: var(--ui-success);
+    & > .ui-floating[popover] {
+      --_motion: var(--ui-motion);
+      --_accent: var(
+        --ui-button-accent,
+        var(--ui-control-accent, var(--ui-palette-strong))
+      );
+      --_bg-color: var(--ui-surface-elevated);
+      --_border-color: var(--ui-control-border-color, var(--_accent));
+      --_duration: calc(var(--ui-duration) * var(--_motion));
+      --_ease: var(--ui-ease-enter);
+      --_font-size: var(--ui-font-size-control);
+      --_hidden: inset(0 0 0 100%);
+      --_offset: var(--ui-space-1);
+      --_radius: var(--ui-button-radius, var(--ui-radius));
+      --_text-color: light-dark(
+        var(--_accent),
+        oklch(
+          from var(--_accent) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
+
+      @container style(--ui-contrast: more) {
+        --_border-color: var(--ui-control-border-color, var(--_text-color));
+      }
+
+      align-content: center;
+      background-color: var(--_bg-color);
+      block-size: anchor-size(block);
+      border: var(--ui-border-width) solid var(--_border-color);
+      border-radius: var(--_radius);
+      box-shadow: var(--ui-shadow-control);
+      clip-path: var(--_hidden);
+      color: var(--_text-color);
+      font-size: var(--_font-size);
+      font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
+      inset: unset;
+      line-height: var(--ui-line-height-tight);
+      margin-block: 0;
+      margin-inline: var(--_offset);
+      opacity: 0;
+      overflow: clip;
+      padding-block: 0;
+      padding-inline: var(--ui-button-padding-inline, 1.5ex);
+      pointer-events: none;
+      position-area: var(--ui-anchor-position-area, self-inline-start);
+      position-try-fallbacks: flip-inline;
+      position-visibility: anchors-visible;
+      transition:
+        clip-path var(--_duration) var(--_ease),
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete;
+      white-space: nowrap;
+
+      &:dir(rtl) {
+        --_hidden: inset(0 100% 0 0);
+      }
+
+      &:popover-open {
+        clip-path: inset(0);
+        opacity: 1;
+
+        @starting-style {
+          clip-path: var(--_hidden);
+          opacity: 0;
+        }
+      }
+    }
   }
 }

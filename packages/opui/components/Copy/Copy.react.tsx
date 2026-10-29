@@ -8,6 +8,7 @@ import type { Props } from "./types.react"
 export default function Copy({
   className,
   copiedLabel,
+  failedLabel,
   id,
   children,
   ...rest
@@ -22,11 +23,13 @@ export default function Copy({
     <opui-copy
       className={cx(["ui-copy", className])}
       copied-label={copiedLabel}
+      failed-label={failedLabel}
       id={id}
       {...rest}
     >
       {children}
       <span className="ui-sr-only" role="status"></span>
+      <span aria-hidden="true" className="ui-floating" popover=""></span>
     </opui-copy>
   )
 }

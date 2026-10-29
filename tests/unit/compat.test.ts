@@ -192,7 +192,7 @@ test("the -text and on-fill formulas wait for @function in Firefox and Safari", 
   const { support } = feature.status
   expect(
     !!support.firefox && !!support.safari,
-    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css and button-group.css once each",
+    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css, button-group.css and copy.css once each",
   ).toBe(false)
 })
 

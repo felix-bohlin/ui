@@ -7,6 +7,7 @@
   let {
     class: className,
     copiedLabel,
+    failedLabel,
     id,
 
     // Snippets
@@ -20,9 +21,11 @@
 <opui-copy
   class={["ui-copy", className]}
   copied-label={copiedLabel}
+  failed-label={failedLabel}
   {id}
   {...rest}
 >
   {@render children?.()}
   <span class="ui-sr-only" role="status"></span>
+  <span aria-hidden="true" class="ui-floating" popover=""></span>
 </opui-copy>

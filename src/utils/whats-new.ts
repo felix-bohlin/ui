@@ -457,8 +457,8 @@ export const whatsNew = {
   ],
   copy: [
     {
-      default: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and announces it, run by the <code>&lt;opui-copy&gt;</code> custom element, which the component loads.`,
-      html: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and announces it. Import <code>opui-css/elements/copy.js</code> for the <code>&lt;opui-copy&gt;</code> custom element that runs it.`,
+      default: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and confirms it with a label next to the button, run by the <code>&lt;opui-copy&gt;</code> custom element, which the component loads.`,
+      html: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and confirms it with a label next to the button. Import <code>opui-css/elements/copy.js</code> for the <code>&lt;opui-copy&gt;</code> custom element that runs it.`,
     },
   ],
   "description-list": [

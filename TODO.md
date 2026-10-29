@@ -463,6 +463,13 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): `tests/unit/example-scripts.test.ts` with the hook-to-module table and the inline-script presence check, each with a sample it flags; `src/docs/components/AGENTS.md:309` and the scripts clause of `.claude/agents/framework-parity.md:33` then name the test, and the agent only compares what the inline scripts do.
     - B: Keep it with the `framework-parity` agent and remove the item.
+- [ ] (1) Docs site: the code blocks keep their own copy button, with a green "Copied!" label and no message when the copy fails, instead of the library `Copy`, because they leave the removed lines of a diff out of the copied text, which `Copy` can't do (`src/components/Code.astro:69`, `src/components/Code.astro:251-264`, `src/components/Code.astro:292-304`)
+  - Summary: Code blocks confirm a copy differently from the Copy component and say nothing when it fails.
+  - Recommended: Fix with option A. It keeps the diff behavior and drops the site's own copy script.
+  - Fix: switch `Code.astro` to `Copy` with a `Button` once `Copy` can leave elements out of the copied text, and keep `docs.spec.ts` checking that a diff copies without its removed lines.
+  - Options:
+    - A (recommended): `copy.js` also leaves out elements marked `data-copy-ignore`, and `Code.astro` marks its removed diff lines with it.
+    - B: `Copy` takes the text to copy from a `copy-text` attribute when it has one, and `Code.astro` sets it to the code without the removed lines.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.

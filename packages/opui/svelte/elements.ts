@@ -9,6 +9,7 @@ declare module "svelte/elements" {
     }
     "opui-copy": HTMLAttributes<HTMLElement> & {
       "copied-label"?: string | undefined | null
+      "failed-label"?: string | undefined | null
     }
     "opui-number-field": HTMLAttributes<HTMLElement>
     "opui-select-all": HTMLAttributes<HTMLElement>

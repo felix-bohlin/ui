@@ -1310,9 +1310,10 @@ const copiedTexts = (page: Page) =>
 interaction(
   "copy",
   "Basics",
-  "copy copies the field value and announces it",
+  "copy copies the field value and shows and announces it next to the button",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
 
     await expect(button).toBeVisible()
     await stubClipboard(page)
@@ -1320,23 +1321,84 @@ interaction(
     await expect
       .poll(() => copiedTexts(page))
       .toEqual(["https://example.com/invite/8f3k2"])
-    await expect(button).toHaveAttribute("data-copied", "")
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText("Copied")
     await expect(root.getByRole("status")).toHaveText("Copied")
-    await expect(button).not.toHaveAttribute("data-copied", { timeout: 4000 })
+    const [labelBox, buttonBox] = await Promise.all([
+      label.boundingBox(),
+      button.boundingBox(),
+    ])
+    expect(labelBox!.height).toBeCloseTo(buttonBox!.height, 0)
+    expect(labelBox!.y).toBeCloseTo(buttonBox!.y, 0)
+    await expect(button).not.toHaveAttribute("data-copied")
+    await expect(label).toBeHidden({ timeout: 4000 })
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy shows a failure until Esc and selects the field when the clipboard is blocked",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const field = root.getByRole("textbox", { name: "Invite link" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () =>
+        Promise.reject(new DOMException("Blocked", "NotAllowedError"))
+    })
+    await button.click()
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText("Copy failed")
+    await expect(root.getByRole("status")).toHaveText("Copy failed")
+    await expect(field).toBeFocused()
+    await expect
+      .poll(() =>
+        field.evaluate((input: HTMLInputElement) =>
+          input.value.slice(input.selectionStart!, input.selectionEnd!),
+        ),
+      )
+      .toBe("https://example.com/invite/8f3k2")
+    await page.keyboard.press("Escape")
+    await expect(label).toBeHidden()
   },
 )
 
 interaction(
   "copy",
   "Snippet",
-  "copy leaves the button out of the copied text",
+  "copy leaves the button and its tooltip out of the copied text",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
 
     await expect(button).toBeVisible()
     await stubClipboard(page)
     await button.click()
     await expect.poll(() => copiedTexts(page)).toEqual(["npm install opui-css"])
+    await expect(label).toHaveText("Copied")
+  },
+)
+
+interaction(
+  "copy",
+  "Snippet",
+  "copy keeps the tooltip closed while the label shows",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+    const tooltip = root.locator(".ui-tooltip > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect(label).toBeVisible()
+    await expect(tooltip).toBeHidden()
+    await page.waitForTimeout(1000)
+    await expect(label).toBeVisible()
+    await expect(tooltip).toBeHidden()
   },
 )
 

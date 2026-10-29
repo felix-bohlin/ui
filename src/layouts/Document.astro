@@ -13,7 +13,6 @@ type Props = {
   overline?: string
   showToc?: boolean
   sidebarGroups?: SidebarGroup[]
-  transitionName?: string
   wide?: boolean
 }
 
@@ -24,7 +23,6 @@ const {
   overline,
   showToc = true,
   sidebarGroups = [],
-  transitionName,
   wide,
 } = Astro.props
 const hasSidebarNav = sidebarGroups.length > 0
@@ -96,24 +94,8 @@ const descText =
     <main id="main-content">
       <article class="ui-rich-text">
         <hgroup id="main-heading">
-          {
-            overline && (
-              <p
-                class:list={{ "doc-transition": transitionName }}
-                style={
-                  transitionName &&
-                  `view-transition-name: ${transitionName}-date`
-                }
-              >
-                {overline}
-              </p>
-            )
-          }
-          <h1
-            class:list={{ "doc-transition": transitionName }}
-            style={transitionName &&
-              `view-transition-name: ${transitionName}-title`}
-          >
+          {overline && <p>{overline}</p>}
+          <h1>
             <slot name="title" />
           </h1>
           {
@@ -121,14 +103,7 @@ const descText =
               (preambleHasBlockMarkup ? (
                 <Fragment set:html={preamble} />
               ) : (
-                <p
-                  class:list={{ "doc-transition": transitionName }}
-                  set:html={preamble}
-                  style={
-                    transitionName &&
-                    `view-transition-name: ${transitionName}-description`
-                  }
-                />
+                <p set:html={preamble} />
               ))
           }
         </hgroup>
@@ -183,15 +158,6 @@ const descText =
 </script>
 
 <style is:global>
-  .doc-transition {
-    inline-size: fit-content;
-    view-transition-class: doc-heading;
-  }
-
-  h1 + .doc-transition {
-    view-transition-class: doc-heading doc-reflow;
-  }
-
   @property --content-inline-size {
     inherits: true;
     initial-value: 100%;

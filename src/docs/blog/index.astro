@@ -178,9 +178,7 @@ const filterCss = [
           <span class="blog-release-glow" />
         </div>
         <div class="blog-release-content">
-          <h2 style={`view-transition-name: blog-${release.slug}-title`}>
-            {release.title}
-          </h2>
+          <h2>{release.title}</h2>
           <p>{release.description}</p>
           <div class="blog-release-actions">
             <Button href={link(`/blog/${release.slug}`)} variant="filled">
@@ -210,7 +208,7 @@ const filterCss = [
       <article class="blog-builds ui-card ui-tonal ui-not-rich-text">
         <div class="ui-content">
           <hgroup>
-            <h2 style={`view-transition-name: blog-${underTheHood.slug}-title`}>
+            <h2>
               <DocLink href={`/blog/${underTheHood.slug}`}>
                 {underTheHood.title}
               </DocLink>
@@ -320,7 +318,7 @@ const filterCss = [
               <p class="blog-row-component">{componentName(post.component!)}</p>
               <div class="blog-row-text">
                 <hgroup>
-                  <h2 style={`view-transition-name: blog-${post.slug}-title`}>
+                  <h2>
                     <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
                   </h2>
                   <p>{post.description}</p>
@@ -568,7 +566,6 @@ const filterCss = [
       letter-spacing: -0.03em;
       line-height: 1;
       margin: 0;
-      view-transition-class: doc-heading;
     }
 
     & > p {
@@ -619,7 +616,6 @@ const filterCss = [
     & h2 {
       font-size: var(--ui-font-size-h4);
       inline-size: fit-content;
-      view-transition-class: doc-heading;
     }
 
     & h2 a {
@@ -732,7 +728,6 @@ const filterCss = [
       & > * {
         inline-size: fit-content;
         margin: 0;
-        view-transition-class: doc-heading;
       }
 
       & > p:last-child {
@@ -740,7 +735,6 @@ const filterCss = [
         line-height: 1.45;
         max-inline-size: 60ch;
         text-wrap: pretty;
-        view-transition-class: doc-heading doc-reflow;
       }
     }
 

@@ -2,7 +2,7 @@
 import Document from "./Document.astro"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import { Divider } from "opui-css/astro"
-import { canonicalPath, hrefFor } from "../utils/framework"
+import { hrefFor } from "../utils/framework"
 import { categories, componentName, posts, walkthroughs } from "../utils/blog"
 
 type Props = {
@@ -22,10 +22,6 @@ const {
 } = Astro.props
 
 const currentFramework = Astro.locals.framework
-
-const currentPost = posts.find(
-  (post) => canonicalPath(Astro.url.pathname) === `/blog/${post.slug}`,
-)
 
 const linkTo = (href: string, label: string) => ({
   href: hrefFor(currentFramework, href),
@@ -66,7 +62,6 @@ const groups = [
   showToc={showToc}
   sidebarGroups={groups}
   title={title}
-  transitionName={currentPost && `blog-${currentPost.slug}`}
   wide={wide}
 >
   <FrameworkPicker size="small" slot="sidebar" />
@@ -77,3 +72,28 @@ const groups = [
   <slot slot="preamble" name="preamble" />
   <slot />
 </Document>
+
+<style is:global>
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) {
+      animation: blog-page-out 0.15s ease-in both;
+    }
+
+    ::view-transition-new(root) {
+      animation: blog-page-in 0.3s 0.1s cubic-bezier(0.2, 0, 0, 1) both;
+    }
+  }
+
+  @keyframes blog-page-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes blog-page-in {
+    from {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+</style>

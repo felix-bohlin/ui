@@ -18,9 +18,10 @@
       --_duration: calc(var(--ui-duration) * var(--_motion));
       --_ease: var(--ui-ease-enter);
       --_font-size: var(--ui-font-size-control);
-      --_hidden: inset(0 0 0 100%);
+      --_hidden: inset(-100vmax -100vmax -100vmax 100%);
       --_offset: var(--ui-space-1);
       --_radius: var(--ui-button-radius, var(--ui-radius));
+      --_shown: inset(-100vmax -100vmax -100vmax calc(-1 * var(--ui-space-4)));
       --_text-color: light-dark(
         var(--_accent),
         oklch(
@@ -63,11 +64,14 @@
       white-space: nowrap;
 
       &:dir(rtl) {
-        --_hidden: inset(0 100% 0 0);
+        --_hidden: inset(-100vmax 100% -100vmax -100vmax);
+        --_shown: inset(
+          -100vmax calc(-1 * var(--ui-space-4)) -100vmax -100vmax
+        );
       }
 
       &:popover-open {
-        clip-path: inset(0);
+        clip-path: var(--_shown);
         opacity: 1;
 
         @starting-style {

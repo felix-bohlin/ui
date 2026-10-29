@@ -32,7 +32,8 @@ export default {
     kind: "output",
   },
   "--_hidden": {
-    description: "The `clip-path` the label reveals from, toward the button.",
+    description:
+      "The `clip-path` the label reveals from, at its edge toward the button.",
     kind: "output",
   },
   "--_motion": {
@@ -47,6 +48,11 @@ export default {
   "--_radius": {
     description:
       "Corner radius of the label. `copy.js` sets the button's radius before it shows the label.",
+    kind: "output",
+  },
+  "--_shown": {
+    description:
+      "The `clip-path` of the open label, wide enough to keep its shadow.",
     kind: "output",
   },
   "--_text-color": {

@@ -1,7 +1,7 @@
 const Base = globalThis.HTMLElement ?? class {}
 
 const COPIED = 2000
-const TIMEOUT = 2000
+const TIMEOUT = 1000
 
 export class Copy extends Base {
   #controller

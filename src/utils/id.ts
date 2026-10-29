@@ -20,6 +20,7 @@ export const exampleIdBase = (key: string) => {
 export const EXAMPLE_ID_PARTS: Record<string, string> = {
   bottom: "-bottom",
   "color-field": "",
+  "dialog-title": "-title",
   "end-text": "-end-text",
   "number-stepper": "",
   range: "",

@@ -24,7 +24,11 @@ const unknownIdPrefixes = (sources: string[]) =>
   [
     ...new Set(
       sources.flatMap((source) =>
-        [...source.matchAll(/\$id\("([^"]+)"\)/g)].map((match) => match[1]),
+        [
+          ...source.matchAll(
+            /(?:\$id|createId\(Astro\.locals\))\("([^"]+)"\)/g,
+          ),
+        ].map((match) => match[1]),
       ),
     ),
   ].filter(
@@ -141,7 +145,12 @@ describe("example ids", () => {
   })
 
   test("every $id() prefix in the components has an example id part", () => {
-    expect(unknownIdPrefixes(['$id("new-part")'])).toEqual(["new-part"])
+    expect(
+      unknownIdPrefixes([
+        '$id("new-part")',
+        'createId(Astro.locals)("other-part")',
+      ]),
+    ).toEqual(["new-part", "other-part"])
     expect(unknownIdPrefixes(Object.values(componentSources))).toEqual([])
   })
 

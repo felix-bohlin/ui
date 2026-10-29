@@ -1,0 +1,7 @@
+{
+  "badge/VisibilityCode.html": "Badge drops the <!-- --> placeholder that marks where the icon goes",
+  "select/Preselected.react.tsx": "The page documents preselecting with value and onChange",
+  "select/Preselected.svelte": "The page documents preselecting with bind:value",
+  "select/Preselected.vue": "The page documents preselecting with v-model",
+  "text-field/NoLabel.html": "The page tells HTML readers to put .ui-text-field on a <div>, while the component renders a <label>"
+}

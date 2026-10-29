@@ -15,6 +15,12 @@ import {
   Textarea,
   TextField,
 } from "opui-css/astro"
+
+const roleItems = [
+  { label: "Designer", value: "design" },
+  { label: "Developer", value: "dev" },
+  { label: "Manager", value: "manager" },
+]
 ---
 
 <Form id="form-kitchen-sink-1">
@@ -37,14 +43,7 @@ import {
         placeholder="jane@example.com"
         required
       />
-      <Select
-        label="Role"
-        items={[
-          { label: "Designer", value: "design" },
-          { label: "Developer", value: "dev" },
-          { label: "Manager", value: "manager" },
-        ]}
-      />
+      <Select label="Role" items={roleItems} />
     </FieldGroup>
   </Fieldset>
 

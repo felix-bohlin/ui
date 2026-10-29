@@ -1,25 +1,31 @@
 <button
   type="button"
-  class="ui-button ui-outlined"
   commandfor="menu-manual-1"
   command="toggle-popover"
+  class="ui-button ui-outlined"
 >
   View
 </button>
 <menu class="ui-menu" id="menu-manual-1" popover="manual">
   <li>
     <button type="button">
-      <div class="ui-text"><p>Zoom in</p></div>
+      <div class="ui-text">
+        <p>Zoom in</p>
+      </div>
     </button>
   </li>
   <li>
     <button type="button">
-      <div class="ui-text"><p>Zoom out</p></div>
+      <div class="ui-text">
+        <p>Zoom out</p>
+      </div>
     </button>
   </li>
   <li class="ui-border-top">
-    <button type="button" commandfor="menu-manual-1" command="hide-popover">
-      <div class="ui-text"><p>Done</p></div>
+    <button type="button" command="hide-popover" commandfor="menu-manual-1">
+      <div class="ui-text">
+        <p>Done</p>
+      </div>
     </button>
   </li>
 </menu>

@@ -1,7 +1,9 @@
 <table class="ui-table">
   <thead>
     <tr>
-      <th><span class="ui-sr-only">Pick</span></th>
+      <th>
+        <span class="ui-sr-only">Pick</span>
+      </th>
       <th>Plan</th>
       <th>Price</th>
     </tr>
@@ -10,7 +12,7 @@
     <tr>
       <td>
         <label class="ui-radio">
-          <input name="radio-hidden-label" type="radio" value="basic" />
+          <input type="radio" name="radio-hidden-label" value="basic" />
           <span class="ui-sr-only">Pick Basic</span>
         </label>
       </td>
@@ -20,7 +22,7 @@
     <tr>
       <td>
         <label class="ui-radio">
-          <input name="radio-hidden-label" type="radio" value="pro" checked />
+          <input type="radio" name="radio-hidden-label" checked value="pro" />
           <span class="ui-sr-only">Pick Pro</span>
         </label>
       </td>
@@ -30,7 +32,7 @@
     <tr>
       <td>
         <label class="ui-radio">
-          <input name="radio-hidden-label" type="radio" value="team" />
+          <input type="radio" name="radio-hidden-label" value="team" />
           <span class="ui-sr-only">Pick Team</span>
         </label>
       </td>
@@ -44,16 +46,16 @@
   Ship to
   <label class="ui-radio">
     <input
-      name="radio-hidden-label-shipping"
       type="radio"
-      value="home"
+      name="radio-hidden-label-shipping"
       checked
+      value="home"
     />
     <span class="ui-sr-only">Home</span>
   </label>
   home or
   <label class="ui-radio">
-    <input name="radio-hidden-label-shipping" type="radio" value="office" />
+    <input type="radio" name="radio-hidden-label-shipping" value="office" />
     <span class="ui-sr-only">Office</span>
   </label>
   the office.

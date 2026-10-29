@@ -1,12 +1,11 @@
-<div role="group" class="ui-button-group ui-outlined">
+<div class="ui-button-group ui-outlined" role="group">
   <button type="button" class="ui-button">Save</button>
-
   <button
     type="button"
-    class="ui-button"
     aria-label="More save options"
     commandfor="button-group-split-button-1"
     command="toggle-popover"
+    class="ui-button"
   >
     <svg
       aria-hidden="true"
@@ -21,15 +20,16 @@
       ></path>
     </svg>
   </button>
-
-  <menu id="button-group-split-button-1" class="ui-menu ui-align-end" popover>
+  <menu class="ui-menu ui-align-end" id="button-group-split-button-1" popover>
     <li>
       <button
         type="button"
         command="hide-popover"
         commandfor="button-group-split-button-1"
       >
-        <div class="ui-text"><p>Save as draft</p></div>
+        <div class="ui-text">
+          <p>Save as draft</p>
+        </div>
       </button>
     </li>
     <li>
@@ -38,7 +38,9 @@
         command="hide-popover"
         commandfor="button-group-split-button-1"
       >
-        <div class="ui-text"><p>Save and publish</p></div>
+        <div class="ui-text">
+          <p>Save and publish</p>
+        </div>
       </button>
     </li>
   </menu>

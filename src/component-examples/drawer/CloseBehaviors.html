@@ -8,19 +8,19 @@
 </button>
 
 <dialog
-  class="ui-drawer ui-scroll-lock"
-  id="drawer-close-behaviors-1"
-  aria-labelledby="drawer-close-behaviors-1-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock"
+  aria-labelledby="drawer-close-behaviors-1-heading"
+  id="drawer-close-behaviors-1"
 >
   <div class="ui-header">
     <h2 id="drawer-close-behaviors-1-heading">How to close</h2>
     <button
       type="button"
-      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-close-behaviors-1"
       command="close"
+      commandfor="drawer-close-behaviors-1"
+      class="ui-button ui-round ui-small"
     >
       <svg
         aria-hidden="true"
@@ -32,7 +32,7 @@
         <path
           fill="currentColor"
           d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-        />
+        ></path>
       </svg>
     </button>
   </div>
@@ -58,24 +58,20 @@
   <div class="ui-footer">
     <button
       type="button"
-      class="ui-button ui-small"
       commandfor="drawer-close-behaviors-1"
       command="close"
+      class="ui-button ui-small"
     >
       Close manually
     </button>
   </div>
 </dialog>
 
-<script>
-  {
-    const drawer = document.getElementById("drawer-close-behaviors-1")
-    document
-      .querySelectorAll('input[name="closedby-demo"]')
-      .forEach((radio) => {
-        radio.addEventListener("change", () =>
-          drawer?.setAttribute("closedby", radio.value),
-        )
-      })
-  }
+<script type="module">
+  const drawer = document.getElementById("drawer-close-behaviors-1")
+  document.querySelectorAll('input[name="closedby-demo"]').forEach((radio) => {
+    radio.addEventListener("change", () =>
+      drawer?.setAttribute("closedby", radio.value),
+    )
+  })
 </script>

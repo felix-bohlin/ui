@@ -1,60 +1,58 @@
-<div role="radiogroup" class="ui-toggle-group" aria-label="View">
+<div class="ui-toggle-group" role="radiogroup" aria-label="View">
   <label class="ui-toggle-button">
-    <input type="radio" name="calendar-view" value="day" />
-    Day
-  </label>
+    <input name="calendar-view" type="radio" value="day" />
+    Day</label
+  >
   <label class="ui-toggle-button">
-    <input type="radio" name="calendar-view" value="week" checked />
-    Week
-  </label>
+    <input checked name="calendar-view" type="radio" value="week" />
+    Week</label
+  >
   <label class="ui-toggle-button">
-    <input type="radio" name="calendar-view" value="month" />
-    Month
-  </label>
+    <input name="calendar-view" type="radio" value="month" />
+    Month</label
+  >
 </div>
-<div role="group" class="ui-toggle-group" aria-label="Text format">
+<div class="ui-toggle-group" role="group" aria-label="Text format">
   <label class="ui-toggle-button">
-    <input type="checkbox" name="text-format" value="bold" checked />
-    Bold
-  </label>
+    <input checked name="text-format" type="checkbox" value="bold" />
+    Bold</label
+  >
   <label class="ui-toggle-button">
-    <input type="checkbox" name="text-format" value="italic" />
-    Italic
-  </label>
+    <input name="text-format" type="checkbox" value="italic" />
+    Italic</label
+  >
   <label class="ui-toggle-button">
-    <input type="checkbox" name="text-format" value="underline" />
-    Underline
-  </label>
+    <input name="text-format" type="checkbox" value="underline" />
+    Underline</label
+  >
 </div>
 <p class="toggle-binding-text">View: week. Format: bold.</p>
 <button type="button" class="ui-button toggle-binding-reset">Reset</button>
 
-<script>
-  {
-    const text = document.querySelector(".toggle-binding-text")
-    const inputs = [
-      ...document.querySelectorAll(
-        '[name="calendar-view"], [name="text-format"]',
-      ),
-    ]
-    const checked = (name) =>
-      inputs
-        .filter((input) => input.name === name && input.checked)
-        .map((input) => input.value)
+<script type="module">
+  const text = document.querySelector(".toggle-binding-text")
+  const inputs = [
+    ...document.querySelectorAll(
+      '[name="calendar-view"], [name="text-format"]',
+    ),
+  ]
+  const checked = (name) =>
+    inputs
+      .filter((input) => input.name === name && input.checked)
+      .map((input) => input.value)
 
-    const update = () => {
-      if (!text) return
-      text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
-        checked("text-format").join(", ") || "none"
-      }.`
-    }
-
-    inputs.forEach((input) => input.addEventListener("change", update))
-    document
-      .querySelector(".toggle-binding-reset")
-      ?.addEventListener("click", () => {
-        inputs.forEach((input) => (input.checked = input.defaultChecked))
-        update()
-      })
+  const update = () => {
+    if (!text) return
+    text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
+      checked("text-format").join(", ") || "none"
+    }.`
   }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".toggle-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
 </script>

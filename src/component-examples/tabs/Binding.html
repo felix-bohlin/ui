@@ -1,30 +1,28 @@
 <div class="ui-tabs">
   <input
-    type="radio"
-    name="tabs-binding"
-    id="tabs-binding-1"
     class="ui-input"
+    id="tabs-binding-1"
+    name="tabs-binding"
+    type="radio"
     value="profile"
   />
   <label for="tabs-binding-1" class="ui-label">Profile</label>
   <div class="ui-panel">Profile settings and information.</div>
-
   <input
-    type="radio"
-    name="tabs-binding"
-    id="tabs-binding-2"
-    class="ui-input"
-    value="settings"
     checked
+    class="ui-input"
+    id="tabs-binding-2"
+    name="tabs-binding"
+    type="radio"
+    value="settings"
   />
   <label for="tabs-binding-2" class="ui-label">Settings</label>
   <div class="ui-panel">General account settings.</div>
-
   <input
-    type="radio"
-    name="tabs-binding"
-    id="tabs-binding-3"
     class="ui-input"
+    id="tabs-binding-3"
+    name="tabs-binding"
+    type="radio"
     value="notifications"
   />
   <label for="tabs-binding-3" class="ui-label">Notifications</label>
@@ -33,26 +31,22 @@
 <p class="tabs-binding-text">Selected: settings</p>
 <button type="button" class="ui-button tabs-binding-reset">Reset</button>
 
-<script>
-  function setupTabsBinding() {
-    const text = document.querySelector(".tabs-binding-text")
-    const inputs = [...document.querySelectorAll('[name="tabs-binding"]')]
+<script type="module">
+  const text = document.querySelector(".tabs-binding-text")
+  const inputs = [...document.querySelectorAll('[name="tabs-binding"]')]
 
-    function update() {
-      if (!text) return
-      text.textContent = `Selected: ${
-        inputs.find((input) => input.checked)?.value ?? "none"
-      }`
-    }
-
-    inputs.forEach((input) => input.addEventListener("change", update))
-    document
-      .querySelector(".tabs-binding-reset")
-      ?.addEventListener("click", () => {
-        inputs.forEach((input) => (input.checked = input.defaultChecked))
-        update()
-      })
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
   }
 
-  setupTabsBinding()
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".tabs-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
 </script>

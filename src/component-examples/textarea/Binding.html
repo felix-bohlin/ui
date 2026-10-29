@@ -7,24 +7,20 @@
 <p class="textarea-binding-text">22 characters</p>
 <button type="button" class="ui-button textarea-binding-reset">Reset</button>
 
-<script>
-  function setupTextareaBinding() {
-    const text = document.querySelector(".textarea-binding-text")
-    const textarea = document.querySelector('[name="textarea-binding"]')
+<script type="module">
+  const text = document.querySelector(".textarea-binding-text")
+  const textarea = document.querySelector('[name="textarea-binding"]')
 
-    function update() {
-      if (!text || !textarea) return
-      text.textContent = `${textarea.value.length} characters`
-    }
-
-    textarea?.addEventListener("input", update)
-    document
-      .querySelector(".textarea-binding-reset")
-      ?.addEventListener("click", () => {
-        if (textarea) textarea.value = textarea.defaultValue
-        update()
-      })
+  function update() {
+    if (!text || !textarea) return
+    text.textContent = `${textarea.value.length} characters`
   }
 
-  setupTextareaBinding()
+  textarea?.addEventListener("input", update)
+  document
+    .querySelector(".textarea-binding-reset")
+    ?.addEventListener("click", () => {
+      if (textarea) textarea.value = textarea.defaultValue
+      update()
+    })
 </script>

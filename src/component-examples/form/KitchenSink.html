@@ -1,4 +1,4 @@
-<form class="ui-form" id="form-kitchen-sink-1">
+<form id="form-kitchen-sink-1" class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>User Profile</legend>
     <p class="ui-description">Please provide your basic contact details.</p>
@@ -8,9 +8,9 @@
         <span class="ui-field">
           <input
             autocomplete="name"
-            type="text"
             placeholder="Jane Doe"
             required
+            type="text"
           />
         </span>
       </label>
@@ -19,17 +19,17 @@
         <span class="ui-field">
           <input
             autocomplete="email"
-            type="email"
             placeholder="jane@example.com"
             required
+            type="email"
           />
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="form-kitchen-sink-2-label">Role</span>
+        <span class="ui-label" id="form-kitchen-sink-1-label">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="form-kitchen-sink-2-label">
-            <button type="button">
+          <select aria-labelledby="form-kitchen-sink-1-label">
+            <button>
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
@@ -42,9 +42,7 @@
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Notifications</legend>
     <p class="ui-description">Configure how you want to receive updates.</p>
@@ -59,9 +57,7 @@
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-description">Select your preferred visual style.</p>
@@ -80,35 +76,31 @@
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Experience Level</legend>
     <p class="ui-description">How many years of experience do you have?</p>
     <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="form-kitchen-sink-3-label"
+        <span class="ui-label" id="form-kitchen-sink-2-label"
           >Professional Experience</span
         >
-        <span class="ui-start-text" id="form-kitchen-sink-3-start-text"
+        <span class="ui-start-text" id="form-kitchen-sink-2-start-text"
           >Drag the slider to match your total tenure.</span
         >
         <input
-          type="range"
-          aria-describedby="form-kitchen-sink-3-start-text"
-          aria-labelledby="form-kitchen-sink-3-label"
-          min="0"
+          aria-describedby="form-kitchen-sink-2-start-text"
+          aria-labelledby="form-kitchen-sink-2-label"
           max="20"
+          min="0"
           step="1"
+          type="range"
           value="5"
         />
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
     <p class="ui-description">Anything else we should know?</p>
@@ -117,17 +109,15 @@
         <span class="ui-label">Biography</span>
         <span class="ui-field">
           <textarea
-            name="biography"
             placeholder="Tell us about yourself..."
             rows="4"
+            name="biography"
           ></textarea>
         </span>
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
     <div class="ui-field-group">
@@ -138,11 +128,9 @@
       </label>
     </div>
   </fieldset>
-
   <hr class="ui-divider" />
-
   <div class="ui-field-group">
-    <button class="ui-button ui-filled" type="submit">Send</button>
+    <button type="submit" class="ui-button ui-filled">Send</button>
     <button type="button" class="ui-button">Cancel</button>
   </div>
 </form>

@@ -9,9 +9,9 @@
 
 <dialog
   aria-labelledby="dialog-close-behaviors-1-title"
-  id="dialog-close-behaviors-1"
   class="ui-dialog ui-elevated"
   closedby="any"
+  id="dialog-close-behaviors-1"
 >
   <div class="ui-header">
     <h2 id="dialog-close-behaviors-1-title">How to close</h2>
@@ -47,15 +47,11 @@
   </div>
 </dialog>
 
-<script>
-  {
-    const dialog = document.getElementById("dialog-close-behaviors-1")
-    document
-      .querySelectorAll('input[name="closedby-demo"]')
-      .forEach((radio) => {
-        radio.addEventListener("change", () =>
-          dialog?.setAttribute("closedby", radio.value),
-        )
-      })
-  }
+<script type="module">
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document.querySelectorAll('input[name="closedby-demo"]').forEach((radio) => {
+    radio.addEventListener("change", () =>
+      dialog?.setAttribute("closedby", radio.value),
+    )
+  })
 </script>

@@ -2,15 +2,15 @@
   <legend>Shipping</legend>
   <div class="ui-field-group">
     <label class="ui-radio">
-      <input name="radio-controlled" type="radio" value="standard" checked />
+      <input type="radio" name="radio-controlled" checked value="standard" />
       <span class="ui-label">Standard</span>
     </label>
     <label class="ui-radio">
-      <input name="radio-controlled" type="radio" value="express" />
+      <input type="radio" name="radio-controlled" value="express" />
       <span class="ui-label">Express</span>
     </label>
     <label class="ui-radio">
-      <input name="radio-controlled" type="radio" value="pickup" />
+      <input type="radio" name="radio-controlled" value="pickup" />
       <span class="ui-label">Pickup</span>
     </label>
   </div>
@@ -18,26 +18,22 @@
 <p class="radio-controlled-text">Selected: standard</p>
 <button type="button" class="ui-button radio-controlled-reset">Reset</button>
 
-<script>
-  function setupRadioControlled() {
-    const text = document.querySelector(".radio-controlled-text")
-    const inputs = [...document.querySelectorAll('[name="radio-controlled"]')]
+<script type="module">
+  const text = document.querySelector(".radio-controlled-text")
+  const inputs = [...document.querySelectorAll('[name="radio-controlled"]')]
 
-    function update() {
-      if (!text) return
-      text.textContent = `Selected: ${
-        inputs.find((input) => input.checked)?.value ?? "none"
-      }`
-    }
-
-    inputs.forEach((input) => input.addEventListener("change", update))
-    document
-      .querySelector(".radio-controlled-reset")
-      ?.addEventListener("click", () => {
-        inputs.forEach((input) => (input.checked = input.defaultChecked))
-        update()
-      })
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
   }
 
-  setupRadioControlled()
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".radio-controlled-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
 </script>

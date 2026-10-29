@@ -3,20 +3,20 @@
   <div class="ui-field-group">
     <label class="ui-switch">
       <input
-        name="switch-binding"
         type="checkbox"
         role="switch"
-        value="email"
+        name="switch-binding"
         checked
+        value="email"
       />
       <span class="ui-label">Email</span>
     </label>
     <label class="ui-switch">
-      <input name="switch-binding" type="checkbox" role="switch" value="push" />
+      <input type="checkbox" role="switch" name="switch-binding" value="push" />
       <span class="ui-label">Push</span>
     </label>
     <label class="ui-switch">
-      <input name="switch-binding" type="checkbox" role="switch" value="sms" />
+      <input type="checkbox" role="switch" name="switch-binding" value="sms" />
       <span class="ui-label">SMS</span>
     </label>
   </div>
@@ -24,29 +24,25 @@
 <p class="switch-binding-text">Selected: email</p>
 <button type="button" class="ui-button switch-binding-reset">Reset</button>
 
-<script>
-  function setupSwitchBinding() {
-    const text = document.querySelector(".switch-binding-text")
-    const inputs = [...document.querySelectorAll('[name="switch-binding"]')]
+<script type="module">
+  const text = document.querySelector(".switch-binding-text")
+  const inputs = [...document.querySelectorAll('[name="switch-binding"]')]
 
-    function update() {
-      if (!text) return
-      text.textContent = `Selected: ${
-        inputs
-          .filter((input) => input.checked)
-          .map((input) => input.value)
-          .join(", ") || "none"
-      }`
-    }
-
-    inputs.forEach((input) => input.addEventListener("change", update))
-    document
-      .querySelector(".switch-binding-reset")
-      ?.addEventListener("click", () => {
-        inputs.forEach((input) => (input.checked = input.defaultChecked))
-        update()
-      })
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
   }
 
-  setupSwitchBinding()
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".switch-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
 </script>

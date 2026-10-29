@@ -1,25 +1,31 @@
 <button
   type="button"
-  class="ui-button ui-outlined"
   commandfor="menu-submenu-1"
   command="toggle-popover"
+  class="ui-button ui-outlined"
 >
   File
 </button>
 <menu class="ui-menu" id="menu-submenu-1" popover>
   <li>
-    <button type="button" commandfor="menu-submenu-1" command="hide-popover">
-      <div class="ui-text"><p>New</p></div>
+    <button type="button" command="hide-popover" commandfor="menu-submenu-1">
+      <div class="ui-text">
+        <p>New</p>
+      </div>
     </button>
   </li>
   <li>
-    <button type="button" commandfor="menu-submenu-1" command="hide-popover">
-      <div class="ui-text"><p>Open</p></div>
+    <button type="button" command="hide-popover" commandfor="menu-submenu-1">
+      <div class="ui-text">
+        <p>Open</p>
+      </div>
     </button>
   </li>
   <li>
     <button type="button" commandfor="menu-submenu-2" command="toggle-popover">
-      <div class="ui-text"><p>Export</p></div>
+      <div class="ui-text">
+        <p>Export</p>
+      </div>
       <div class="ui-end">
         <svg
           aria-hidden="true"
@@ -31,7 +37,7 @@
           <path
             fill="currentColor"
             d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
-          />
+          ></path>
         </svg>
       </div>
     </button>
@@ -39,28 +45,34 @@
       <li>
         <button
           type="button"
-          commandfor="menu-submenu-1"
           command="hide-popover"
+          commandfor="menu-submenu-1"
         >
-          <div class="ui-text"><p>PDF</p></div>
+          <div class="ui-text">
+            <p>PDF</p>
+          </div>
         </button>
       </li>
       <li>
         <button
           type="button"
-          commandfor="menu-submenu-1"
           command="hide-popover"
+          commandfor="menu-submenu-1"
         >
-          <div class="ui-text"><p>PNG</p></div>
+          <div class="ui-text">
+            <p>PNG</p>
+          </div>
         </button>
       </li>
       <li>
         <button
           type="button"
-          commandfor="menu-submenu-1"
           command="hide-popover"
+          commandfor="menu-submenu-1"
         >
-          <div class="ui-text"><p>SVG</p></div>
+          <div class="ui-text">
+            <p>SVG</p>
+          </div>
         </button>
       </li>
     </menu>

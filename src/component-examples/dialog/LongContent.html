@@ -8,14 +8,14 @@
 </button>
 
 <dialog
-  id="dialog-long-content-1"
-  class="ui-dialog ui-elevated"
   aria-labelledby="dialog-long-content-1-title"
+  class="ui-dialog ui-elevated"
+  id="dialog-long-content-1"
 >
   <div class="ui-header">
     <h2 id="dialog-long-content-1-title">Terms of service</h2>
   </div>
-  <div class="ui-content" tabindex="0" role="region" aria-label="Terms">
+  <div class="ui-content" aria-label="Terms" role="region" tabindex="0">
     <p>
       These terms cover your use of the service and any content you upload. By
       creating an account you agree to them, and to any updates we publish on
@@ -82,18 +82,18 @@
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       commandfor="dialog-long-content-1"
       command="close"
       class="ui-button"
-      type="button"
     >
       Decline
     </button>
     <button
+      type="button"
       commandfor="dialog-long-content-1"
       command="close"
       class="ui-button ui-filled"
-      type="button"
     >
       Accept
     </button>

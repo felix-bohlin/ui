@@ -1,12 +1,12 @@
 ---
-import { List } from "@opui/astro"
-import { ListItem } from "@opui/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <svg
       slot="start"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -18,9 +18,10 @@ import { ListItem } from "@opui/astro"
       ></path>
     </svg>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <svg
       slot="start"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"

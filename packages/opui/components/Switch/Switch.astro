@@ -1,46 +1,42 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
-import type { SwitchProps as Props } from "./types.astro"
+import type { Props } from "./types.astro"
+import { hasName, warnUnnamed } from "../dev"
 
 export const title = "Switch"
 
 const {
+  "aria-invalid": ariaInvalid,
+  card,
   class: className,
+  endText,
   error,
   hideLabel,
-  name,
-  small,
+  label,
+  orientation,
+  size,
   spread,
-  stack,
+  style,
+  variant,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
-const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
-
-if (
-  import.meta.env.DEV &&
-  !Astro.slots.has("default") &&
-  !Astro.props["aria-label"] &&
-  !Astro.props["aria-labelledby"]
-) {
-  console.warn(
-    "[OPUI Switch] Missing accessible name. Provide a default slot, `aria-label`, or `aria-labelledby`.",
-  )
-}
+warnUnnamed("Switch", hasName(Astro.props, Astro.slots.has("default")))
 ---
 
 <label
   class:list={[
     "ui-switch",
     {
-      "ui-small": small,
-      "ui-stack": stack,
+      "ui-card": card,
       "ui-spread": spread,
     },
+    card && variant && variant !== "outlined" && `ui-${variant}`,
+    orientation && orientation !== "horizontal" && `ui-${orientation}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
+  style={style}
 >
   {
     Astro.slots.has("icon-unchecked") && (
@@ -56,17 +52,19 @@ if (
       </span>
     )
   }
-  <SwitchInput aria-describedby={endTextId} name={name} {...rest} />
+  <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   {
-    Astro.slots.has("default") && (
+    (label || Astro.slots.has("default")) && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+        {label}
         <slot />
       </span>
     )
   }
   {
-    Astro.slots.has("end-text") && (
-      <span id={endTextId} class="ui-end-text">
+    (endText || Astro.slots.has("end-text")) && (
+      <span class="ui-end-text">
+        {endText}
         <slot name="end-text" />
       </span>
     )

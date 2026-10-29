@@ -1,0 +1,30 @@
+<label class="ui-text-field">
+  <span class="ui-label">Name</span>
+  <span class="ui-field">
+    <input name="text-field-binding" type="text" value="Ada" />
+  </span>
+</label>
+<p class="text-field-binding-text">Hello, Ada.</p>
+<button type="button" class="ui-button text-field-binding-reset">Reset</button>
+
+<script>
+  function setupTextFieldBinding() {
+    const text = document.querySelector(".text-field-binding-text")
+    const input = document.querySelector('[name="text-field-binding"]')
+
+    function update() {
+      if (!text || !input) return
+      text.textContent = `Hello, ${input.value || "stranger"}.`
+    }
+
+    input?.addEventListener("input", update)
+    document
+      .querySelector(".text-field-binding-reset")
+      ?.addEventListener("click", () => {
+        if (input) input.value = input.defaultValue
+        update()
+      })
+  }
+
+  setupTextFieldBinding()
+</script>

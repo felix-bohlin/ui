@@ -1,42 +1,43 @@
 ---
 import type { Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { toggleGroupContext } from "../ToggleGroup/context.astro"
 
 export const title = "Toggle Button"
 
 const {
+  checked,
   class: className,
-  disabled,
   label,
   name,
-  pressed,
   size,
+  style,
   type,
   value,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
-const finalType = type || "checkbox"
-const id = rest.id || $id("toggle")
+const field = fieldGroupContext.get()
+const group = toggleGroupContext.get()
+
+const finalName = name || group?.groupName || field?.name
+const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
 ---
 
 <label
   class:list={[
     "ui-toggle-button",
-    { "ui-disabled": disabled },
-    size && `ui-${size}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
+  style={style}
 >
   <input
-    aria-pressed={finalType === "checkbox" ? pressed : undefined}
-    checked={pressed}
-    disabled={disabled}
-    id={id}
-    name={name}
+    checked={checked}
+    name={finalName}
     type={finalType}
-    value={value || label}
+    value={value}
     {...rest}
   />
-  <slot />
+  <slot>{label}</slot>
 </label>

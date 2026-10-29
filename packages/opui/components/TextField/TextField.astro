@@ -1,121 +1,174 @@
 ---
+import Button from "../Button/Button.astro"
+
 import type { Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { createId, idRefs } from "../id"
+import { hidePath, showPath } from "./icons"
 
 export const title = "Text Field"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   autoFit,
+  characterCount,
+  characterCountLabel,
   class: className,
-  error,
-  description,
-  disabled,
   endText,
-  filled,
+  error,
+  hideLabel,
   id,
+  inputmode,
   label,
-  list,
-  max,
-  min,
   name,
-  placeholder,
-  required,
-  small,
+  passwordToggle,
+  passwordToggleLabel = "Show password",
+  pattern,
+  size,
   spread,
   startText,
-  step,
+  style,
   type = "text",
-  value,
+  variant,
   ...rest
 } = Astro.props
 
-const startTextValue = description || startText
+const field = fieldGroupContext.get()
+const $id = createId(Astro.locals)
+const Root = passwordToggle ? "opui-text-field" : "label"
+const Label = passwordToggle ? "label" : "span"
+const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
+const hasEndText = Boolean(
+  endText || Astro.slots.has("end-text") || characterCount,
+)
+const inputId = passwordToggle ? (id ?? $id("text-field")) : id
+const startTextId =
+  passwordToggle && hasStartText ? $id("start-text") : undefined
+const endTextId = passwordToggle && hasEndText ? $id("end-text") : undefined
 ---
 
-<label
+<Root
   class:list={[
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
+      <Label
+        class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}
+        for={passwordToggle ? inputId : undefined}
+      >
         {label}
         <slot name="label" />
-      </span>
+      </Label>
     )
   }
   {
-    (startTextValue || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {startTextValue}
-        <slot name="description" />
+    hasStartText && (
+      <span class="ui-start-text" id={startTextId}>
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <input
-      disabled={disabled}
-      id={id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
-      list={list}
-      max={max}
-      min={min}
-      name={name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
-      placeholder={placeholder}
-      required={required}
-      step={step}
+      {...rest}
+      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
+      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
+      name={name ?? field?.name}
+      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
-      value={value}
     />
     {
-      Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
-          <slot name="prefix" />
+      Astro.slots.has("start") && (
+        <span class="ui-start">
+          <slot name="start" />
         </span>
       )
     }
     {
-      Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
-          <slot name="suffix" />
+      (Astro.slots.has("end") || passwordToggle) && (
+        <span class="ui-end">
+          <slot name="end" />
+          {passwordToggle && (
+            <Button
+              aria-label={passwordToggleLabel}
+              aria-pressed="false"
+              command="--toggle-password"
+              commandfor={inputId}
+              round
+            >
+              <svg
+                aria-hidden="true"
+                class="ui-icon-unchecked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d={showPath} />
+              </svg>
+              <svg
+                aria-hidden="true"
+                class="ui-icon-checked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d={hidePath} />
+              </svg>
+            </Button>
+          )}
         </span>
       )
     }
     {
-      Astro.slots.has("header") && (
-        <span class="ui-header">
-          <slot name="header" />
+      Astro.slots.has("top") && (
+        <span class="ui-top">
+          <slot name="top" />
         </span>
       )
     }
     {
-      Astro.slots.has("footer") && (
-        <span class="ui-footer">
-          <slot name="footer" />
+      Astro.slots.has("bottom") && (
+        <span class="ui-bottom">
+          <slot name="bottom" />
         </span>
       )
     }
   </span>
   {
-    (endText ||
-      Astro.slots.has("end-text") ||
-      Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text">
+    hasEndText && (
+      <span class="ui-end-text" id={endTextId}>
         {endText}
         <slot name="end-text" />
-        <slot name="supporting-text" />
+        {characterCount && (
+          <opui-character-count
+            aria-hidden="true"
+            class="ui-value"
+            label={characterCountLabel}
+          />
+        )}
       </span>
     )
   }
   <slot />
-</label>
+</Root>
+
+<script>
+  import "../../elements/character-count.js"
+  import "../../elements/text-field.js"
+</script>

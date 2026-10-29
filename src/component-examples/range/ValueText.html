@@ -1,0 +1,24 @@
+<label class="ui-range" for="range-value-text-1">
+  <span class="ui-label" id="range-value-text-1-label">Temperature</span>
+  <output aria-live="off" class="ui-value" for="range-value-text-1"
+    ><b>21°</b></output
+  >
+  <input
+    aria-labelledby="range-value-text-1-label"
+    type="range"
+    id="range-value-text-1"
+    min="10"
+    max="30"
+    value="21"
+  />
+</label>
+
+<script>
+  {
+    const input = document.getElementById("range-value-text-1")
+    const value = document.querySelector('output[for="range-value-text-1"] b')
+    input.addEventListener("input", () => {
+      value.textContent = `${input.value}°`
+    })
+  }
+</script>

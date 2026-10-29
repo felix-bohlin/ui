@@ -1,0 +1,11 @@
+import { Rating } from "opui-css/react"
+
+export default function Max() {
+  return (
+    <>
+      <Rating label="Rated 2 out of 3" max={3} value={2} />
+      <Rating label="Rated 7.5 out of 10" max={10} value={7.5} />
+      <Rating label="Difficulty" max={3} name="difficulty" value={2} />
+    </>
+  )
+}

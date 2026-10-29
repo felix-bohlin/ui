@@ -4,9 +4,10 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline">
+    <ListItem label="Headline">
       <template #start
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -18,9 +19,10 @@ import { List, ListItem } from "opui-css/vue"
           ></path></svg
       ></template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

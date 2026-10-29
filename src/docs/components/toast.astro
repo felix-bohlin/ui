@@ -1,180 +1,247 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
-
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
-import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
-import ToastCSS from "@opui/css/components/toast.css?raw"
-import { Badge, Callout as UICallout } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import CalloutCSS from "@opui/css/components/callout.css?raw"
+import ToasterCSS from "@opui/css/components/toaster.css?raw"
+import ToasterJS from "@opui/elements/toaster.js?raw"
+
+import toastApi from "../../component-api/toast/api"
 
 export const description =
-  "Non-interruptive and stackable notifications. They pop up like... toast."
+  "Short messages that confirm an action and dismiss themselves."
+
+export const keywords = ["notification", "snackbar"]
 ---
 
 <Component
   description={description}
   slug="toast"
-  browserSupport={["popover", "light-dark", "invoker-commands"]}
+  browserSupport={[
+    "container-style-queries",
+    "interpolate-size",
+    "invoker-commands",
+    "light-dark",
+    "popover",
+    "relative-color",
+    "scope",
+    "starting-style",
+  ]}
+  apis={[{ title: "Toaster API", api: toastApi }]}
   changelogPaths={[
+    {
+      path: "packages/opui/components/Toaster/Toaster.astro",
+      type: "component",
+    },
     { path: "src/docs/components/toast.astro", type: "docs" },
     { path: "src/component-examples/toast", type: "docs" },
-    {
-      path: "packages/opui/css/components/toast.css",
-      type: "css",
-    },
+    { path: "packages/opui/css/components/toaster.css", type: "css" },
+    { path: "packages/opui/elements/toaster.js", type: "component" },
     { path: "src/component-api/toast", type: "api" },
   ]}
-  installationTabs={[{ title: "toast.css", code: ToastCSS, lang: "css" }]}
+  installationTabs={[
+    { title: "toaster.css", code: ToasterCSS, lang: "css" },
+    { title: "toaster.js", code: ToasterJS, lang: "js" },
+    {
+      title: "callout.css",
+      code: CalloutCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+  ]}
 >
-  <Fragment slot="title">
-    <Badge color="warning" label="ALPHA">Toast</Badge>
+  <Fragment slot="title">Toast</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      Short messages that confirm an action and dismiss themselves. Each toast
+      is a <DocLink href="/components/callout">Callout</DocLink>, stacked in a
+      popover by the <code>&lt;opui-toaster&gt;</code> custom element.
+    </p>
   </Fragment>
 
-  <div class="ui-not-rich-text">
-    <UICallout severity="warning">
-      <Fragment slot="title">Alpha stage</Fragment>
-      <p>This is in no way finished, just an idea put out in the open.</p>
-    </UICallout>
-  </div>
-
-  <section>
-    <h2 id="how-it-works">How it works</h2>
-    <p>
-      Toasts are managed by a global container. Trigger them either completely
-      with HTML (using <a
-        href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-        class="ui-link">invoker commands</a
-      >) or with JavaScript.
-    </p>
-    <p>
-      Structure lives in HTML via a default <code
-        >&lt;template id="toast-template"&gt;</code
-      >. CSS owns the lifetime through <code
-        >attr(data-duration type(&lt;time&gt;))</code
-      >. JS only clones the template, fills the structural slots (<code
-        >[data-toast-title]</code
-      >, <code>[data-toast-description]</code>, <code>[data-toast-icon]</code>,
-      <code>[data-toast-close]</code>) using <code>textContent</code>, and
-      removes the toast on <code>animationend</code>. Provide your own <code
-        >&lt;template&gt;</code
-      > with the same slot markers and reference it via <code
-        >data-template</code
-      >
-      on the trigger to override the default look.
-    </p>
-
-    <h3 id="html">HTML</h3>
-    <p>
-      Use <code>commandfor="toast-manager"</code> and <code
-        >command="--show-toast"</code
-      >
-      on a button. The <code>data-title</code> attribute will be used as the message.
-    </p>
-
-    <AutoExample name="HTML" centered />
-
-    <h3 id="javascript">JavaScript</h3>
-    <p>
-      This is arguably the most common way. After some kind of fetch you might
-      want to display some kind of message.
-    </p>
-    <p>
-      Use the <code>showToast</code> helper or by dispatching a <code
-        >CommandEvent</code
+  <Usage slot="usage">
+    <li slot="when">
+      Confirming an action that just happened, like <a href="#basics"
+        >saved changes</a
       >.
-    </p>
+    </li>
+    <li slot="when">
+      A notice that needs no answer, like a <a href="#severities">new version</a
+      >.
+    </li>
+    <li slot="when-not">
+      A message people must read or act on, like errors in a form. Use a <DocLink
+        href="/components/callout">Callout</DocLink
+      > on the page.
+    </li>
+    <li slot="when-not">
+      Confirming a copy to the clipboard. <DocLink href="/components/copy"
+        >Copy</DocLink
+      > announces its own.
+    </li>
+  </Usage>
 
-    <Example centered>
-      <Example.Preview slot="preview-html" code={JavascriptHtml} />
-      <Example.Code slot="code-js" code={JavascriptJS} />
-    </Example>
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Put one <code>Toaster</code> with an <code>id</code> on the page. A <code
+          >Button</code
+        > with <code>commandfor</code> set to that id and <code
+          >command="--toast"</code
+        > shows the text in its <code>data-toast</code> attribute.
+      </p>
+      <p slot="html">
+        Put one <code>&lt;opui-toaster class="ui-toaster"&gt;</code> with an id, an
+        <code>&lt;ol popover="manual"&gt;</code> and a <code
+          >&lt;div class="ui-sr-only" role="status"&gt;</code
+        > on the page, and import <code>opui-css/elements/toaster.js</code>. A
+        button with <code>commandfor</code> set to that id and <code
+          >command="--toast"</code
+        > shows the text in its <code>data-toast</code> attribute.
+      </p>
+    </Conditional>
+    <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="severities">Severities</h2>
+  <section id="severities">
+    <h2>Severities</h2>
     <p>
-      Use the <code>data-severity</code> attribute to change the appearance of the
-      toast.
+      <code>data-toast-severity</code> takes <code>info</code>, <code
+        >success</code
+      >, <code>warning</code>, <code>critical</code> or <code>neutral</code>,
+      and colors the toast like a Callout of that severity, with its icon. The
+      words still carry the meaning, so write them so they work without the
+      color.
     </p>
-
-    <AutoExample name="Severity" row centered />
+    <AutoExample name="Severities" row />
   </section>
 
-  <section>
-    <h2 id="title-description">Title + description</h2>
+  <section id="from-a-script">
+    <h2>From a script</h2>
+    <Conditional as="p">
+      <Fragment slot="react">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/react</code
+        > next to <code>Toaster</code>, shows a toast from your own code, like
+        after a request finishes.
+      </Fragment>
+      <Fragment slot="svelte">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/svelte</code
+        > next to <code>Toaster</code>, shows a toast from your own code, like
+        after a request finishes.
+      </Fragment>
+      <Fragment slot="vue">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/vue</code
+        > next to <code>Toaster</code>, shows a toast from your own code, like
+        after a request finishes.
+      </Fragment>
+      <Fragment slot="html">
+        <code>toast(message, options)</code>, exported from <code
+          >opui-css/elements/toaster.js</code
+        >, shows a toast from your own code, like after a request finishes.
+      </Fragment>
+    </Conditional>
     <p>
-      Use <code>data-title</code> for a single-line toast, or add <code
-        >data-description</code
-      > for a two-line toast with additional context.
+      <code>toast.success(message)</code>, <code>toast.info</code>, <code
+        >toast.warning</code
+      >, <code>toast.critical</code> and <code>toast.neutral</code> set the severity,
+      and <a href="#action"><code>action</code></a> and <code>duration</code> are
+      options. The toast shows in the first toaster on the page, or in the one <code
+        >toaster</code
+      > names, by id or element.
+      <code>dismiss(toast)</code> on the toaster fades a toast out, closes the gap
+      it leaves and resolves its promise once the toast is gone. With reduced motion
+      it goes at once.
     </p>
-
-    <AutoExample name="TitleDescription" row centered />
+    <AutoExample name="Script" row />
   </section>
 
-  <section>
-    <h2 id="duration">Duration</h2>
+  <section id="action">
+    <h2>Action</h2>
     <p>
-      Control how long the toast stays visible using <code>data-duration</code>.
-      Supports CSS time units such as <code>ms</code> or <code>s</code>.
+      <code>action</code> adds a button before the close button, like Undo after an
+      archive. It takes a <code>label</code> and an <code>onClick</code> that runs
+      before the toast is dismissed. Call <code>event.preventDefault()</code> in it
+      to keep the toast. A toast with an action stays twice as long, so there's time
+      to reach the button.
     </p>
-
-    <AutoExample name="Duration" row centered />
+    <p>
+      The toast goes away on its own, so the action is a shortcut, never the
+      only way to do something. Keep the label to a verb or two.
+    </p>
+    <AutoExample name="Action" row />
   </section>
 
-  <Fragment slot="anatomy">
-    <p>
-      1. Container (Manager)<br />
-      2. Individual Toast Body<br />
-      3. Content Area<br />
-      4. Close Button (Optional)
-    </p>
+  <section id="position">
+    <h2>Position</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The toasts sit at the block end and the inline end of the viewport. <code
+          >side="block-start"</code
+        > moves them to the block start, and <code>align</code> takes <code
+          >start</code
+        >, <code>center</code> or <code>end</code> (the default) along that side,
+        so a top left stack in a left-to-right page is <code
+          >side="block-start" align="start"</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        The toasts sit at the block end and the inline end of the viewport. <code
+          >.ui-block-start</code
+        > on the toaster moves them to the block start, and <code
+          >.ui-align-start</code
+        > or <code>.ui-align-center</code> moves them along that side, so a top left
+        stack in a left-to-right page is <code
+          >.ui-block-start.ui-align-start</code
+        >.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Position" column />
+  </section>
 
-    <Example>
-      <div
-        class="anatomy-demo"
-        style="position: relative; inset: auto; display: flex; z-index: 1;"
-      >
-        <div class="ui-toast ui-info anatomy">
-          <div class="ui-content">Notification message content</div>
-          <button class="ui-close-button" aria-label="Close">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
-            >
-          </button>
-        </div>
-      </div>
-    </Example>
+  <section id="duration">
+    <h2>Duration</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A toast stays for 5 seconds, or <code>duration</code> milliseconds, and twice
+        as long with an <a href="#action">action</a>. The timer pauses while the
+        pointer is over the toasts or focus is in them, and every toast has a
+        close button.
+      </Fragment>
+      <Fragment slot="html">
+        A toast stays for 5 seconds, or the <code>duration</code> attribute in milliseconds,
+        and twice as long with an <a href="#action">action</a>. The timer pauses
+        while the pointer is over the toasts or focus is in them, and every
+        toast has a close button.
+      </Fragment>
+    </Conditional>
+  </section>
 
-    <style is:global>
-      .anatomy-demo {
-        outline: var(--_anatomy-border-gray);
-        outline-offset: -2px;
-
-        .ui-toast.anatomy {
-          outline: var(--_anatomy-border-red);
-          outline-offset: -4px;
-        }
-
-        .ui-content {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
-        }
-
-        .ui-close-button {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
-        }
-      }
-    </style>
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Each toast is announced through a polite live region that sits outside
+        the popover, so it's in the page before the first toast shows.
+      </li>
+      <li>
+        The toasts sit where the toaster is in the page, so Tab reaches their
+        action and close buttons from there. Put the toaster near the content it
+        confirms, or at the end of the page.
+      </li>
+      <li>
+        Under a modal Dialog or Drawer, the toasts can't be focused or closed,
+        and dismiss themselves.
+      </li>
+    </ul>
+    <KeyboardSupport />
   </Fragment>
 </Component>

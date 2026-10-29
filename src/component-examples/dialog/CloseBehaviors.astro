@@ -1,49 +1,54 @@
 ---
-import { Dialog } from "@opui/astro"
-import { Radio } from "@opui/astro"
-import { Button } from "@opui/astro"
-import { FieldSet as Fieldset } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <Button
-  commandfor="closing-behaviors-dialog"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   variant="outlined"
 >
   Open dialog
 </Button>
 
-<Dialog id="closing-behaviors-dialog" closedby="any">
-  <h2 class="ui-h4" slot="header">How to close</h2>
-  <Fieldset slot="content">
-    <FieldLegend>Choose a closing behavior:</FieldLegend>
-    <FieldGroup name="closedby-demo">
-      <Radio value="any" checked>any</Radio>
-      <Radio value="closerequest">closerequest</Radio>
-      <Radio value="none">none</Radio>
-    </FieldGroup>
-  </Fieldset>
-  <Fragment slot="actions">
-    <Button commandfor="closing-behaviors-dialog" command="close">
+<Dialog id="dialog-close-behaviors-1" closedby="any">
+  <DialogHeader>
+    <DialogTitle>How to close</DialogTitle>
+  </DialogHeader>
+  <DialogContent>
+    <Fieldset>
+      <FieldLegend>Choose a closing behavior:</FieldLegend>
+      <FieldGroup name="closedby-demo">
+        <Radio value="any" checked>any</Radio>
+        <Radio value="closerequest">closerequest</Radio>
+        <Radio value="none">none</Radio>
+      </FieldGroup>
+    </Fieldset>
+  </DialogContent>
+  <DialogFooter>
+    <Button commandfor="dialog-close-behaviors-1" command="close">
       Close manually
     </Button>
-  </Fragment>
+  </DialogFooter>
 </Dialog>
 
 <script>
-  const dialog = document.getElementById(
-    "closing-behaviors-dialog",
-  ) as HTMLDialogElement
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-      const target = e.target as HTMLInputElement
-      if (dialog) {
-        dialog.setAttribute("closedby", target.value)
-      }
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document
+    .querySelectorAll<HTMLInputElement>('input[name="closedby-demo"]')
+    .forEach((radio) => {
+      radio.addEventListener("change", () =>
+        dialog?.setAttribute("closedby", radio.value),
+      )
     })
-  })
 </script>

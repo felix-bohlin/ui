@@ -1,0 +1,44 @@
+---
+import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
+import {
+  majorPublished,
+  packageVersion,
+  prerelease,
+  publishedVersion,
+  releaseVersion,
+  unreleased,
+} from "../utils/release"
+
+type Props = {
+  file: string
+}
+
+const { file } = Astro.props
+const { link } = Astro.locals
+const publishedMajor = publishedVersion.split(".")[0]
+
+const note = majorPublished
+  ? `${releaseVersion} isn't on npm yet, so the jsDelivr links on this page load ${publishedVersion} until it is published.`
+  : [
+      `${releaseVersion} isn't on npm yet, so the jsDelivr links on this page work once it is published.`,
+      prerelease
+        ? `<code>opui-css@next</code> has the release candidate, ${packageVersion}.`
+        : "",
+      `Until then, build the package from <a class="ui-link" href="https://github.com/felix-bohlin/ui">the repository</a> (<code>pnpm install</code>, then <code>pnpm --filter opui-css build</code>) and use <code>packages/opui/${file}</code>, or load <code>opui-css@${publishedMajor}</code> (${publishedVersion}), the previous major: <a class="ui-link" href="${link("/guide/migrating")}">Migrating</a> lists what changed since.`,
+    ]
+      .filter(Boolean)
+      .join(" ")
+---
+
+{
+  unreleased && (
+    <div class="ui-not-rich-text">
+      <Callout severity="warning">
+        <CalloutIcon />
+        <CalloutContent>
+          <p set:html={note} />
+        </CalloutContent>
+      </Callout>
+    </div>
+  )
+}

@@ -1,0 +1,283 @@
+import themeSource from "@opui/css/theme.css?raw"
+import { paletteSteps } from "./palette-steps"
+import { themeTokenTiers } from "./theme-token-tiers"
+
+export type ThemeToken = {
+  dark?: string
+  moreContrast?: string
+  name: string
+  optional?: boolean
+  value: string
+}
+
+export type ThemeSection = {
+  note?: string
+  title: string
+  tokens: ThemeToken[]
+}
+
+const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
+const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
+const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
+const CONTRAST_SCOPE =
+  /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/
+const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
+const FALLBACK_SCOPE = /@supports not\b/
+const THEME_SCOPE = /\bhtml\b/
+const SECTION_ORDER = [
+  "Color scheme",
+  "Palette",
+  "Palette steps",
+  "Palette roles",
+  "Named colors (no severity meaning)",
+  "Intent tokens",
+  "Primary",
+  "Text",
+  "Surfaces",
+  "Borders",
+  "Field / input",
+  "Focus ring",
+  "Typography",
+  "Code",
+  "Spacing",
+  "Controls",
+  "Control sizes",
+  "Button",
+  "Tabs",
+  "Divider",
+  "Motion",
+  "Contrast",
+  "State",
+  "Icons",
+  "Choice controls",
+  "Elevation",
+  "Overlays",
+  "Instance inputs",
+]
+const sectionOrder = (title: string) => {
+  const index = SECTION_ORDER.indexOf(title)
+  return index < 0 ? SECTION_ORDER.length : index
+}
+
+type Line =
+  | { kind: "comment" }
+  | { kind: "close" }
+  | {
+      kind: "declaration"
+      contrast: boolean
+      dark: boolean
+      end: number
+      indent: string
+      name: string
+      value: string
+    }
+  | { kind: "header"; note?: string; title: string }
+  | { kind: "optional"; name: string; value: string }
+  | { kind: "open" }
+  | { kind: "other" }
+
+function* walk(lines: string[]): Generator<[number, Line]> {
+  const scopes: string[] = []
+  let inComment = false
+  let prelude = ""
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index]
+    if (inComment) {
+      if (line.includes("*/")) inComment = false
+      yield [index, { kind: "comment" }]
+      continue
+    }
+    const header = line.match(HEADER)
+    if (header) {
+      yield [index, { kind: "header", note: header[2], title: header[1] }]
+      continue
+    }
+    if (line.includes("/*") && !line.includes("*/")) {
+      inComment = true
+      yield [index, { kind: "comment" }]
+      continue
+    }
+    const optional = line.match(OPTIONAL)
+    if (optional && scopes.some((scope) => THEME_SCOPE.test(scope))) {
+      yield [
+        index,
+        { kind: "optional", name: optional[1], value: optional[2].trim() },
+      ]
+      continue
+    }
+    if (/^\s*\/\*.*\*\/\s*$/.test(line)) {
+      yield [index, { kind: "comment" }]
+      continue
+    }
+    if (line.trimEnd().endsWith("{")) {
+      scopes.push(`${prelude} ${line}`)
+      prelude = ""
+      yield [index, { kind: "open" }]
+      continue
+    }
+    if (line.trim() === "}") {
+      scopes.pop()
+      prelude = ""
+      yield [index, { kind: "close" }]
+      continue
+    }
+    const declaration = line.match(DECLARATION)
+    const contrast = scopes.some((scope) => CONTRAST_SCOPE.test(scope))
+    if (
+      !declaration ||
+      scopes.some((scope) => FALLBACK_SCOPE.test(scope)) ||
+      !(contrast || scopes.some((scope) => THEME_SCOPE.test(scope)))
+    ) {
+      prelude =
+        !declaration && line.trim() !== "" && !line.trimEnd().endsWith(";")
+          ? `${prelude} ${line.trim()}`
+          : ""
+      yield [index, { kind: "other" }]
+      continue
+    }
+    const start = index
+    let value = declaration[3]
+    while (!value.trimEnd().endsWith(";") && index + 1 < lines.length) {
+      value += ` ${lines[++index].trim()}`
+    }
+    yield [
+      start,
+      {
+        contrast,
+        dark: scopes.some((scope) => DARK_SCOPE.test(scope)),
+        end: index,
+        indent: declaration[1],
+        kind: "declaration",
+        name: declaration[2],
+        value: value.trim().replace(/;$/, ""),
+      },
+    ]
+  }
+}
+
+export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
+  const sections: ThemeSection[] = []
+  let section: ThemeSection | undefined
+  for (const [, line] of walk(css.split("\n"))) {
+    if (line.kind === "header") {
+      section = sections.find((candidate) => candidate.title === line.title)
+      if (!section) {
+        section = {
+          note: line.note,
+          title: line.title,
+          tokens: [],
+        }
+        sections.push(section)
+      }
+      continue
+    }
+    if (line.kind === "optional" && section) {
+      if (!themeTokensIn(sections).some((token) => token.name === line.name)) {
+        section.tokens.push({
+          name: line.name,
+          optional: true,
+          value: line.value,
+        })
+      }
+      continue
+    }
+    if (line.kind !== "declaration" || !section) continue
+    const existing = sections
+      .flatMap((candidate) => candidate.tokens)
+      .find((token) => token.name === line.name)
+    if (line.contrast) {
+      if (existing && !existing.moreContrast) existing.moreContrast = line.value
+      continue
+    }
+    if (existing?.optional && !line.dark) {
+      existing.optional = undefined
+      existing.value = line.value
+      continue
+    }
+    if (existing) {
+      if (line.dark) existing.dark = line.value
+      continue
+    }
+    if (line.dark) continue
+    section.tokens.push({ name: line.name, value: line.value })
+  }
+  return sections.toSorted(
+    (a, b) => sectionOrder(a.title) - sectionOrder(b.title),
+  )
+}
+
+export const OVERRIDE_HOOKS = [
+  "--ui-border-color-raised",
+  "--ui-choice-accent",
+  "--ui-control-accent",
+  "--ui-control-border-color",
+  "--ui-control-border-color-filled",
+  "--ui-on-control-accent",
+  "--ui-on-selected",
+  "--ui-primary-tonal",
+  "--ui-selected",
+  "--ui-track-bg-color",
+] as const
+
+export const INSTANCE_INPUTS: ThemeToken[] = [
+  {
+    name: "--ui-anchor-position-area",
+    optional: true,
+    value: "self-block-end",
+  },
+]
+
+export type TokenTier =
+  "component" | "hook" | "input" | "knob" | "primitive" | "role"
+
+export const tokenTier = (name: string): TokenTier =>
+  (OVERRIDE_HOOKS as readonly string[]).includes(name)
+    ? "hook"
+    : INSTANCE_INPUTS.some((token) => token.name === name)
+      ? "input"
+      : (themeTokenTiers[name] ?? "role")
+
+const themeTokensIn = (sections: ThemeSection[]) =>
+  sections.flatMap((section) => section.tokens)
+
+export const themeTokenSections = (): ThemeSection[] =>
+  [
+    ...parseThemeTokens(),
+    {
+      note: "The 16 steps `core/palette.css` derives from `--ui-palette-source` on `:root`, `.ui-palette` and every severity scope, and the grays at their lightness. Components read the palette roles, not the steps.",
+      title: "Palette steps",
+      tokens: paletteSteps().map(({ name, value }) => ({ name, value })),
+    },
+    {
+      note: "Read by components but set on an element, by a prop or a style, for that element and everything inside it. A theme doesn't set them, and each component has its own default.",
+      title: "Instance inputs",
+      tokens: INSTANCE_INPUTS,
+    },
+  ]
+    .filter((section) => section.tokens.length > 0)
+    .toSorted((a, b) => sectionOrder(a.title) - sectionOrder(b.title))
+
+export const themeTokens = () =>
+  themeTokensIn(themeTokenSections()).filter(
+    (token) => tokenTier(token.name) !== "input",
+  )
+
+export const setThemeToken = (css: string, name: string, value: string) => {
+  const lines = css.split("\n")
+  for (const [index, line] of walk(lines)) {
+    if (
+      line.kind !== "declaration" ||
+      line.contrast ||
+      line.dark ||
+      line.name !== name
+    )
+      continue
+    lines.splice(
+      index,
+      line.end - index + 1,
+      `${line.indent}${name}: ${value};`,
+    )
+    return lines.join("\n")
+  }
+  throw new Error(`${name} is not declared in theme.css`)
+}

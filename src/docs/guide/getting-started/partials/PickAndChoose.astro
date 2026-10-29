@@ -1,0 +1,32 @@
+---
+import Code from "../../../../components/Code.astro"
+import DocLink from "../../../../components/DocLink.astro"
+
+type Props = {
+  file?: string
+}
+
+const { file } = Astro.props
+
+const css = `@import "opui-css/css/layers.css";
+@import "opui-css/core/palette.css";
+@import "opui-css/css/theme.css";
+@import "opui-css/core/normalize.css";
+@import "opui-css/css/components/button.css";
+@import "opui-css/css/components/choice.css";
+@import "opui-css/css/components/checkbox.css";
+@import "opui-css/css/compat.css";
+@import "opui-css/core/utils.css";`
+---
+
+<Code code={file ? `/* ${file} */\n${css}` : css} lang="css" />
+<p>
+  Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
+  <code>.ui-sr-only</code> and the motion classes. Add <code>choice.css</code> with
+  <code>checkbox.css</code>, <code>radio.css</code> or <code>switch.css</code>.
+  Import <code>opui-css/css/components.css</code> instead of single component files
+  to get every component. <code>compat.css</code> holds the <DocLink
+    href="/guide/browser-support#compat">browser fallbacks</DocLink
+  >, and you can leave it out.
+</p>
+<slot />

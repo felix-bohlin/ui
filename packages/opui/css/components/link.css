@@ -1,21 +1,59 @@
 @layer components.root {
-  :where(.ui-link) {
-    color: var(--primary);
-    cursor: pointer;
-    font-weight: 700;
-    text-decoration: underline;
-    text-decoration-color: var(--primary);
-    text-underline-offset: 2px;
+  @scope (.ui-link, .ui-rich-text) to (.ui-not-rich-text) {
+    :where(:scope.ui-link),
+    a[href]:where(:not([class*="ui-"])) {
+      --_motion: var(--ui-motion);
+      --_duration: calc(var(--ui-duration) * var(--_motion));
+      --_ease: var(--ui-ease);
+      --_text-color: var(--ui-primary-text);
 
-    &[href] {
-      &:hover,
+      color: var(--_text-color);
+      cursor: pointer;
+      font-weight: var(--ui-font-weight-bold);
+      text-decoration: underline;
+      text-decoration-color: var(--_text-color);
+      text-underline-offset: var(--ui-underline-offset);
+      transition:
+        color var(--_duration) var(--_ease),
+        text-decoration-color var(--_duration) var(--_ease);
+    }
+
+    :where(:scope.ui-link)[href],
+    a[href]:where(:not([class*="ui-"])) {
+      @media (hover: hover) {
+        &:hover {
+          color: light-dark(
+            oklch(from var(--_text-color) calc(l * 0.8) c h),
+            oklch(from var(--_text-color) calc(l * 1.15) c h)
+          );
+          text-decoration-color: currentColor;
+          text-decoration-thickness: var(--ui-underline-thickness-hover);
+        }
+      }
+
       &:focus-visible {
-        color: var(--primary-light);
+        color: light-dark(
+          oklch(from var(--_text-color) calc(l * 0.8) c h),
+          oklch(from var(--_text-color) calc(l * 1.15) c h)
+        );
+        text-decoration-color: currentColor;
+        text-decoration-thickness: var(--ui-underline-thickness-hover);
       }
     }
 
-    @supports (-moz-appearance: none) {
-      text-underline-offset: 2px;
+    mark a[href]:where(:not([class*="ui-"])) {
+      &,
+      &:focus-visible {
+        color: inherit;
+        text-decoration-color: currentColor;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: inherit;
+          text-decoration-color: currentColor;
+        }
+      }
     }
   }
 }

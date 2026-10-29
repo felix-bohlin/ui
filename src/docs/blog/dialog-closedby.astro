@@ -1,0 +1,112 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro"
+---
+
+<TechniquePost slug="dialog-closedby">
+  <section id="the-problem">
+    <h2>The problem</h2>
+    <p>
+      <code>&lt;dialog&gt;</code> brought the top layer, an inert page and focus handling,
+      but opening it as a modal still took JavaScript: a click handler calling <code
+        >showModal()</code
+      >, another calling
+      {" "}<code>close()</code>, and a backdrop listener that checks where the
+      click landed.
+    </p>
+    <p>
+      Fading it in was awkward too, since the dialog starts out at
+      {" "}<code>display: none</code>.
+    </p>
+  </section>
+
+  <section id="the-trick">
+    <h2>The trick</h2>
+    <ul>
+      <li>
+        <code>commandfor</code> and <code>command=&quot;show-modal&quot;</code>{
+          " "
+        }
+        on a <code>&lt;button&gt;</code> open the dialog as a modal
+      </li>
+      <li>
+        <code>command=&quot;close&quot;</code> on a button inside closes it
+      </li>
+      <li>
+        <code>closedby=&quot;any&quot;</code> closes it on <kbd>Esc</kbd> and on a
+        click outside
+      </li>
+      <li>
+        <code>@starting-style</code> gives the fade a starting opacity. The transition
+        lives on the closed dialog too, and <code>allow-discrete</code> keeps
+        <code>display</code> and <code>overlay</code> until it ends, so closing fades
+        out the same way
+      </li>
+    </ul>
+    <Code
+      lang="html"
+      code={`<button type="button" commandfor="shortcuts" command="show-modal">
+  Shortcuts
+</button>
+
+<dialog
+  class="dialog"
+  id="shortcuts"
+  aria-labelledby="shortcuts-title"
+  closedby="any"
+>
+  <h2 id="shortcuts-title">Keyboard shortcuts</h2>
+  <div class="content">…</div>
+  <button type="button" commandfor="shortcuts" command="close">Close</button>
+</dialog>`}
+    />
+  </section>
+
+  <section id="try-it">
+    <h2>Try it</h2>
+    <p>
+      Open the dialog, pick a closing behavior, then try <kbd>Esc</kbd> and a click
+      outside.
+    </p>
+    <Example row showCode={false}>
+      <CloseBehaviors />
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section id="scroll-lock">
+    <h2>Scroll lock</h2>
+    <p>
+      The page behind an open modal is inert, but it still scrolls.
+      {" "}<code>html:has(.ui-dialog:modal)</code> sets <code
+        >overflow: clip</code
+      >{" "}
+      on the root while a modal dialog is open, and
+      {" "}<code>scrollbar-gutter: stable</code> keeps the layout from shifting when
+      the scrollbar goes away.
+    </p>
+  </section>
+
+  <section id="fallback">
+    <h2>Fallback</h2>
+    <ul>
+      <li>
+        Without Invoker Commands the buttons do nothing. Call
+        {" "}<code>showModal()</code> and <code>close()</code> from click handlers
+        instead
+      </li>
+      <li>
+        Without <code>closedby</code> a modal still closes on <kbd>Esc</kbd>,
+        but not on a click outside
+      </li>
+      <li>Without <code>@starting-style</code> it opens without the fade</li>
+      <li>
+        Without <code>overlay</code> it leaves the top layer as soon as it closes,
+        so it fades out under the page instead of over it
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

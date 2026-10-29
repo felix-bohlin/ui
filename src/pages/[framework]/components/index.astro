@@ -1,24 +1,12 @@
 ---
 import ComponentList from "../../../components/ComponentList.astro"
 import Component from "../../../layouts/Component.astro"
-import { frameworkPaths } from "../../../utils/framework-routing"
+import { frameworkPaths } from "../../../utils/framework"
 
 export const getStaticPaths = frameworkPaths
 ---
 
-<Component showToc={false}>
+<Component showToc={false} overline="">
   <Fragment slot="title">Components</Fragment>
-  <Fragment slot="preamble">
-    Here are all OPUI components. More components are continuously being added!
-  </Fragment>
-
-  <section>
-    <ComponentList />
-  </section>
+  <ComponentList />
 </Component>
-
-<style>
-  section {
-    margin-block-start: var(--size-8);
-  }
-</style>

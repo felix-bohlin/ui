@@ -1,0 +1,248 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { NumberField as UINumberField } from "opui-css/astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import NumberFieldCSS from "@opui/css/components/number-field.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import NumberFieldJS from "@opui/elements/number-field.js?raw"
+
+import numberFieldApi from "../../component-api/number-field/api"
+
+export const description =
+  "A number field with buttons that step the value down and up, for amounts like a quantity."
+
+export const keywords = ["counter", "quantity", "spin button", "stepper"]
+---
+
+<Component
+  description={description}
+  heroAnatomy
+  slug="number-field"
+  browserSupport={[
+    "color-mix",
+    "container-queries",
+    "container-style-queries",
+    "field-sizing",
+    "has",
+    "invoker-commands",
+    "lh",
+    "light-dark",
+    "popover",
+    "relative-color",
+    "user-pseudos",
+  ]}
+  apis={[{ title: "Number field API", api: numberFieldApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/NumberField/NumberField.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/number-field.astro", type: "docs" },
+    { path: "src/component-examples/number-field", type: "docs" },
+    {
+      path: "packages/opui/css/components/number-field.css",
+      type: "css",
+    },
+    { path: "packages/opui/elements/number-field.js", type: "component" },
+    { path: "src/component-api/number-field", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "number-field.css", code: NumberFieldCSS, lang: "css" },
+    { title: "number-field.js", code: NumberFieldJS, lang: "js" },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+  ]}
+>
+  <Fragment slot="title">Number field</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A number field with buttons that step the value down and up. It's a <DocLink
+        href="/components/text-field">Text field</DocLink
+      > around an <code>&lt;input type="number"&gt;</code>, and the <code
+        >&lt;opui-number-field&gt;</code
+      > custom element runs the buttons.
+    </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UINumberField
+        endText="Up to 10 per order."
+        id="number-field-anatomy"
+        label="Quantity"
+        max={10}
+        min={1}
+        startText="In stock."
+        style="inline-size: 16rem"
+        value={1}
+      />
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A small amount people raise or lower a step at a time, like a <a
+        href="#basics">quantity</a
+      > in a cart.
+    </li>
+    <li slot="when">
+      A number with limits and a step, like an <a href="#step">opacity</a> from 0
+      to 1.
+    </li>
+    <li slot="when-not">
+      Numbers that are really text, like a card number or a code. Use a <DocLink
+        href="/components/text-field#numeric-vs-input-type-number"
+        >Text field</DocLink
+      > with <code>inputmode="numeric"</code>.
+    </li>
+    <li slot="when-not">
+      A value on a wide scale, like volume. Use a <DocLink
+        href="/components/range">Range</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Set <code>min</code>, <code>max</code> and <code>step</code> as on an <code
+          >&lt;input type="number"&gt;</code
+        >. The buttons step the value, stop at the limits and repeat while
+        they're held.
+      </p>
+      <p slot="html">
+        Give the root <code>.ui-number-field</code>, put a <code
+          >&lt;label for&gt;</code
+        > before the <code>.ui-field</code>, and the decrease and increase
+        buttons in <code>.ui-start</code> and <code>.ui-end</code>, with <code
+          >commandfor</code
+        > naming the input and <code>command="--step-down"</code> or <code
+          >command="--step-up"</code
+        >. Then import <code>opui-css/elements/number-field.js</code>. The
+        buttons step the value, stop at the limits and repeat while they're
+        held.
+      </p>
+    </Conditional>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Number fields are outlined by default. Use <PropOrClass
+        prop='variant="filled"'
+        class=".ui-filled"
+      /> for a filled field.
+    </p>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >. The buttons follow the field's height.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. The buttons follow the field's
+        height.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="stretch">
+    <h2>Stretch</h2>
+    <p>
+      The field fits its value, from <code>--_min-inline-size</code> (4 characters).
+      <PropOrClass prop="stretch" class=".ui-stretch" /> fills the available width
+      instead.
+    </p>
+    <AutoExample name="Stretch" column />
+  </section>
+
+  <section id="step">
+    <h2>Step</h2>
+    <p>
+      A <code>step</code> below 1 steps in decimals. The input keeps the browser's
+      own validation, so a value that's off the step or out of range is invalid.
+    </p>
+    <AutoExample name="Step" />
+  </section>
+
+  <section id="end-text">
+    <h2>End text</h2>
+    <p>
+      Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
+      below the field, like the limit.
+    </p>
+    <AutoExample name="EndText" />
+  </section>
+
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      Where the context names the field, like a row in a cart, <PropOrClass
+        prop="hideLabel"
+        class=".ui-sr-only"
+      /> hides the label and keeps it as the field's accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <p>
+      A disabled input dims the field, and the buttons get <code
+        >aria-disabled="true"</code
+      >.
+    </p>
+    <AutoExample name="Disabled" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The input is a spinbutton, named by its <code>&lt;label for&gt;</code>
+        and described by the start and end text through <code
+          >aria-describedby</code
+        >. The root isn't a <code>&lt;label&gt;</code>, because a button inside
+        a label would join the input's name.
+      </li>
+      <li>
+        The buttons are named by <Conditional
+          ><Fragment slot="components"
+            ><code>decreaseLabel</code> and <code>increaseLabel</code></Fragment
+          ><Fragment slot="html"><code>aria-label</code></Fragment></Conditional
+        >. At <code>min</code> or <code>max</code> a button gets <code
+          >aria-disabled="true"</code
+        > instead of <code>disabled</code>, so it keeps focus.
+      </li>
+      <li>
+        Before the element loads, the buttons are hidden and the input keeps the
+        browser's own spin buttons.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

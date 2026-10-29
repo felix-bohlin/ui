@@ -1,0 +1,17 @@
+---
+import { Range } from "opui-css/astro"
+---
+
+<Range id="range-value-text-1" label="Temperature" max="30" min="10" value="21">
+  <b slot="value-text">21°</b>
+</Range>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>("#range-value-text-1")
+  const value = document.querySelector('output[for="range-value-text-1"] b')
+  if (input && value) {
+    input.addEventListener("input", () => {
+      value.textContent = `${input.value}°`
+    })
+  }
+</script>

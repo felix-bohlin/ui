@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const props = withDefaults(defineProps<Props>(), {
-  as: "legend",
-})
+const { as = "legend" } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>
   <component
-    :is="props.as"
-    :class="[{ 'ui-legend': props.as !== 'legend' }, props.class]"
+    :is="as"
+    :class="[{ 'ui-legend': as !== 'legend' }, $props.class]"
     v-bind="$attrs"
   >
     <slot></slot>

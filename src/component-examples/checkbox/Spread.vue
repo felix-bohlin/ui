@@ -20,6 +20,6 @@ import { Checkbox } from "opui-css/vue"
 
   <Checkbox name="checkbox-spread" spread error>
     Invalid Checkbox
-    <template #end-text>There is an error with this checkbox.</template>
+    <template #end-text>Check this box to continue.</template>
   </Checkbox>
 </template>

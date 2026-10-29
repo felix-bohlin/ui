@@ -1,0 +1,248 @@
+---
+import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import LayoutCSS from "@opui/css/components/layout.css?raw"
+
+export const keywords = ["columns", "container", "grid", "stack"]
+---
+
+<Component
+  slug="layout"
+  changelogPaths={[
+    { path: "src/docs/components/layout.astro", type: "docs" },
+    { path: "src/component-examples/layout", type: "docs" },
+    {
+      path: "packages/opui/css/components/layout.css",
+      type: "css",
+    },
+    { path: "src/component-api/layout", type: "api" },
+  ]}
+  installationTabs={[{ title: "layout.css", code: LayoutCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Layout</Fragment>
+  <Fragment slot="preamble">
+    Six classes for the space between components: <code>.ui-layout-column</code
+    >,
+    <code>.ui-layout-row</code>, <code>.ui-layout-grid</code>, <code
+      >.ui-layout-columns</code
+    >, <code>.ui-layout-media</code> and <code>.ui-layout-container</code>. Put
+    them on wrapper elements, such as <code>div</code>, <code>section</code> or
+    <code>ul</code>. They sit in the <code>utils</code> layer, so on a component they
+    replace its own layout. Their gaps come from the <DocLink
+      href="/guide/theming#spacing"><code>--ui-space-*</code> scale</DocLink
+    >, so they follow <code>--ui-space-scale</code>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Space between components on a page, in a column, a row or a grid.
+    </li>
+    <li slot="when">
+      Cards that fill the width in as many columns as fit, with <a href="#grid"
+        ><code>.ui-layout-grid</code></a
+      >, or content next to a sidebar that stacks when narrow, with <a
+        href="#columns"><code>.ui-layout-columns</code></a
+      >.
+    </li>
+    <li slot="when">
+      An avatar or an icon next to text, with <a href="#media"
+        ><code>.ui-layout-media</code></a
+      >.
+    </li>
+    <li slot="when-not">
+      Space inside a component. Components set their own, and a layout class on
+      one replaces it, so put the class on a wrapper.
+    </li>
+    <li slot="when-not">
+      Form fields. Use <DocLink href="/components/form">Form</DocLink>, which
+      spaces and groups them.
+    </li>
+  </Usage>
+
+  <section id="column">
+    <h2>Column</h2>
+    <p>
+      <code>.ui-layout-column</code> stacks its children in a column with even space
+      between them.
+    </p>
+    <AutoExample name="Column" />
+
+    <h3 id="column-align">Align</h3>
+    <p>
+      <code>.ui-align-center</code> lines the children and their text up in the middle,
+      for the intro of a page, and <code>.ui-align-end</code> at the end. On a row,
+      the same classes push the children along the row, so the buttons under the intro
+      sit at the end.
+    </p>
+    <AutoExample name="Align" />
+  </section>
+
+  <section id="row">
+    <h2>Row</h2>
+    <p>
+      <code>.ui-layout-row</code> puts its children in a row, centered on one line,
+      and wraps them when they run out of room. <code>.ui-align-center</code> and
+      <code>.ui-align-end</code> push them along the row (<a
+        href="#column-align">Align</a
+      >), and <code>--_justify-content</code> takes any other distribution.
+    </p>
+    <AutoExample name="Row" />
+
+    <h3 id="spread">Spread</h3>
+    <p>
+      <code>.ui-spread</code> pushes the children to the two ends of the row. A page
+      header is a spread row around a heading group and a row of actions.
+    </p>
+    <AutoExample name="Spread" />
+  </section>
+
+  <section id="grid">
+    <h2>Grid</h2>
+    <p>
+      <code>.ui-layout-grid</code> fills the width with as many columns as fit at
+      <code>--_min-inline-size</code> (<code>16rem</code> by default), and wraps the
+      rest. No breakpoints: it follows the space it has.
+    </p>
+    <AutoExample name="Grid" />
+
+    <h3 id="stretch">Stretch</h3>
+    <p>
+      The columns keep their width when there are fewer children than fit, so a
+      row of two cards in a wide grid leaves the rest empty. <code
+        >.ui-stretch</code
+      > stretches them over the row instead, for a row of stats.
+    </p>
+    <AutoExample name="Stretch" />
+
+    <h3 id="max-columns">Most columns</h3>
+    <p>
+      <code>--_max-columns</code> caps the count, so three features never spread over
+      four columns. Below the cap, the columns still follow <code
+        >--_min-inline-size</code
+      >.
+    </p>
+    <AutoExample name="MaxColumns" />
+
+    <h3 id="lists">Lists</h3>
+    <p>
+      On a <code>ul</code> or <code>ol</code>, <code>.ui-layout-row</code> and <code
+        >.ui-layout-grid</code
+      > drop the bullets and the list margins, and a <code>.ui-card</code> alone in
+      an <code>li</code> of a grid fills its cell, so the cards in a row share one
+      height.
+    </p>
+    <AutoExample name="List" />
+  </section>
+
+  <section id="columns">
+    <h2>Columns</h2>
+    <p>
+      <code>.ui-layout-columns</code> is one column that becomes the tracks in <code
+        >--_columns</code
+      > (<code>1fr 1fr</code> by default) once its container is <code
+        >56rem</code
+      >
+      wide. Any <code>grid-template-columns</code> value works, such as <code
+        >3fr 2fr</code
+      > for content next to a summary or <code>15rem 1fr</code> for a sidebar. It
+      measures the nearest container: a <a href="#container"
+        ><code>.ui-layout-container</code></a
+      > or any element with <code>container-type: inline-size</code>. Pick
+      another of the three <a href="#breakpoints">breakpoints</a> with <code
+        >.ui-breakpoint-small</code
+      > (<code>40rem</code>) and <code>.ui-breakpoint-large</code> (<code
+        >72rem</code
+      >).
+    </p>
+    <AutoExample name="Columns" />
+
+    <h3 id="sticky">Sticky</h3>
+    <p>
+      <code>.ui-sticky</code> on a column keeps it in view, <code
+        >--_sticky-inset</code
+      > (<code>--ui-space-4</code>) from the top, while the other column
+      scrolls, such as an order summary next to a long form. It only sticks once
+      the columns sit side by side.
+    </p>
+    <AutoExample name="Sticky" />
+  </section>
+
+  <section id="media">
+    <h2>Media</h2>
+    <p>
+      <code>.ui-layout-media</code> puts a fixed-size start, such as an avatar or
+      an icon, next to text. The last child fills the rest of the row, truncates instead
+      of pushing the row wider, and its paragraphs lose their margins. The size classes
+      set the gap.
+    </p>
+    <AutoExample name="Media" />
+  </section>
+
+  <section id="gap">
+    <h2>Gap</h2>
+    <p>
+      The size classes set the gap of <code>.ui-layout-column</code>, <code
+        >.ui-layout-row</code
+      >, <code>.ui-layout-grid</code> and <code>.ui-layout-columns</code>: <code
+        >.ui-x-small</code
+      > is <code>--ui-space-1</code>, <code>.ui-small</code>
+      <code>--ui-space-2</code>, the default <code>--ui-space-3</code> and <code
+        >.ui-large</code
+      >
+      <code>--ui-space-5</code>. For anything else, set <code>--_gap</code>. On
+      a
+      <code>p</code> or a <code>span</code>, <code>.ui-small</code> also makes the
+      text smaller, so put a small layout on a <code>div</code>.
+    </p>
+    <AutoExample name="Gap" />
+  </section>
+
+  <section id="container">
+    <h2>Container</h2>
+    <p>
+      <code>.ui-layout-container</code> centers its content, caps its width at <code
+        >--_max-inline-size</code
+      > (<code>72rem</code> by default) and keeps <code>--_padding-inline</code> from
+      the edges. It is also a <code>container-type: inline-size</code> container,
+      which <a href="#columns"><code>.ui-layout-columns</code></a> and your own container
+      queries measure. Combine the classes to lay out a whole section:
+    </p>
+    <AutoExample name="Composition" />
+  </section>
+
+  <section id="breakpoints">
+    <h2>Breakpoints</h2>
+    <p>
+      A page that changes shape uses the same three container widths everywhere,
+      so similar layouts reflow at the same point. <a href="#columns"
+        ><code>.ui-layout-columns</code></a
+      > picks one with <code>.ui-breakpoint-small</code>, nothing and <code
+        >.ui-breakpoint-large</code
+      >. Measure the container, not the viewport, with <code
+        >container-type: inline-size</code
+      > on the wrapper, or a <a href="#container"
+        ><code>.ui-layout-container</code></a
+      >:
+    </p>
+    <ul>
+      <li>
+        <code>40rem</code>: two columns, such as a form next to its summary, or
+        a toolbar that stops wrapping.
+      </li>
+      <li>
+        <code>56rem</code>: a sidebar next to the content, or three columns.
+      </li>
+      <li>
+        <code>72rem</code>: three panes, such as folders, a list and a reading
+        pane.
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.page {\n  container-type: inline-size;\n}\n\n@container (inline-size >= 40rem) {\n  .page-columns {\n    grid-template-columns: 1fr 1fr;\n  }\n}`}
+    />
+  </section>
+</Component>

@@ -1,0 +1,41 @@
+<button
+  type="button"
+  commandfor="dialog-basics-1"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Open dialog
+</button>
+
+<dialog
+  id="dialog-basics-1"
+  class="ui-dialog ui-elevated"
+  aria-labelledby="dialog-basics-1-title"
+>
+  <div class="ui-header">
+    <h2 id="dialog-basics-1-title">Newsletter</h2>
+  </div>
+  <div class="ui-content">
+    <p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>
+  </div>
+  <div class="ui-footer">
+    <button
+      commandfor="dialog-basics-1"
+      command="close"
+      class="ui-button"
+      type="button"
+    >
+      Not now
+    </button>
+    <button
+      commandfor="dialog-basics-1"
+      command="close"
+      class="ui-button ui-filled"
+      type="button"
+    >
+      Subscribe
+    </button>
+  </div>
+</dialog>

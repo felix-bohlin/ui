@@ -1,41 +1,56 @@
 ---
-import type { CheckboxProps as Props } from "./types.astro"
+import type { Props } from "./types.astro"
+import { hasName, warnUnnamed } from "../dev"
 import CheckboxInput from "./CheckboxInput.astro"
 
 export const title = "Checkbox"
 
 const {
+  "aria-invalid": ariaInvalid,
+  card,
   class: className,
+  endText,
   error,
   hideLabel,
-  name,
+  label,
+  orientation,
   size,
   spread,
-  stack,
+  style,
+  variant,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
-const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+warnUnnamed("Checkbox", hasName(Astro.props, Astro.slots.has("default")))
 ---
 
 <label
   class:list={[
     "ui-checkbox",
-    size && `ui-${size}`,
     {
-      "ui-stack": stack,
+      "ui-card": card,
       "ui-spread": spread,
     },
+    card && variant && variant !== "outlined" && `ui-${variant}`,
+    orientation && orientation !== "horizontal" && `ui-${orientation}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
+  style={style}
 >
-  <CheckboxInput aria-describedby={endTextId} name={name} {...rest} />
-  <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
+  <CheckboxInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   {
-    Astro.slots.has("end-text") && (
-      <span id={endTextId} class="ui-end-text">
+    (label || Astro.slots.has("default")) && (
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+        {label}
+        <slot />
+      </span>
+    )
+  }
+  {
+    (endText || Astro.slots.has("end-text")) && (
+      <span class="ui-end-text">
+        {endText}
         <slot name="end-text" />
       </span>
     )

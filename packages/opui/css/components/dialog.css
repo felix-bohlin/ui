@@ -1,64 +1,167 @@
 @layer components.extended {
   :where(.ui-dialog) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--ui-motion);
+    --_backdrop-bg-color: var(--ui-backdrop-bg-color);
+    --_backdrop-blur: blur(var(--ui-backdrop-blur));
+    --_duration: calc(var(--ui-duration-slow) * var(--_motion));
+    --_ease: var(--ui-ease-exit);
+    --_elevated-shadow: var(--ui-shadow-overlay);
+    --_max-inline-size: 60ch;
+    --_scroll-shadow: var(--ui-shadow-scroll);
+    --_title-font-size: var(--ui-font-size-h4);
+    border-radius: var(--ui-dialog-radius, var(--ui-radius));
     inline-size: 100%;
     inset: 0;
     margin: auto;
-    margin-block-start: 15%;
-    max-inline-size: calc(100% - var(--size-4));
+    margin-block-start: 15dvb;
+    max-block-size: calc(85dvb - var(--ui-space-4));
+    max-inline-size: min(var(--_max-inline-size), 100% - var(--ui-space-4));
+
+    /* Animation */
+    opacity: 0;
+    overflow: auto;
     padding-block: 0;
     pointer-events: none;
     position: fixed;
-
-    @media (width > 600px) {
-      max-inline-size: 60ch;
-    }
-
-    /* Animation */
-    /* There's no close animation, intentionally */
-    opacity: 0;
+    scale: 0.96;
+    transition:
+      display var(--_duration) allow-discrete,
+      opacity var(--_duration) var(--_ease),
+      overlay var(--_duration) allow-discrete,
+      scale var(--_duration) var(--_ease);
 
     &::backdrop {
-      backdrop-filter: blur(1px);
-      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: var(--_backdrop-blur);
+      background-color: var(--_backdrop-bg-color);
+      opacity: 0;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete;
     }
 
     &:not([open]) {
       display: none;
     }
 
-    &[open] {
-      pointer-events: all;
+    & > :where(:not(.ui-content)) {
+      flex-shrink: 0;
     }
 
-    .ui-actions {
+    & > .ui-header {
+      align-items: center;
+      column-gap: var(--ui-space-1);
+      display: flex;
+      flex-wrap: wrap;
+
+      & > :where(h1, h2, h3, h4, h5, h6) {
+        color: var(--ui-text-strong);
+        flex: 1;
+        font-size: var(--_title-font-size);
+        letter-spacing: var(--ui-letter-spacing-heading);
+        line-height: round(
+          up,
+          1em + 2 * var(--ui-rhythm-step),
+          var(--ui-rhythm-step)
+        );
+      }
+
+      & > :where(p) {
+        flex-basis: 100%;
+      }
+    }
+
+    & > .ui-content {
+      anchor-name: --ui-dialog-content;
+      anchor-scope: --ui-dialog-content;
+      container-type: scroll-state;
+      overflow-block: auto;
+      overscroll-behavior: contain;
+
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
+
+      &::before,
+      &::after {
+        block-size: var(--ui-space-2);
+        box-shadow: var(--_scroll-shadow);
+        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
+        content: "";
+        inset-inline: anchor(--ui-dialog-content inside);
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        transition: opacity var(--_duration);
+        z-index: 1;
+      }
+
+      &::before {
+        inset-block-end: anchor(--ui-dialog-content outside);
+      }
+
+      &::after {
+        inset-block-start: anchor(--ui-dialog-content outside);
+        scale: 1 -1;
+      }
+    }
+
+    @container scroll-state(scrollable: block-start) {
+      & > .ui-content::before {
+        opacity: 1;
+      }
+    }
+
+    @container scroll-state(scrollable: block-end) {
+      & > .ui-content::after {
+        opacity: 1;
+      }
+    }
+
+    & > .ui-footer {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-2);
       justify-content: end;
-      padding-inline: var(--size-3) var(--size-1);
+      margin-block-start: auto;
+      padding-block: var(--ui-space-2);
+      padding-inline: var(--_padding);
+
+      &.ui-align-start {
+        justify-content: start;
+      }
+
+      & > .ui-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--ui-space-2);
+      }
+
+      & > * + .ui-actions {
+        margin-inline-start: auto;
+      }
     }
 
     &[open] {
+      --_ease: var(--ui-ease-enter);
+
       opacity: 1;
-      transition:
-        display calc(0.2s * var(--_motion)) allow-discrete,
-        overlay calc(0.2s * var(--_motion)) allow-discrete,
-        opacity calc(0.2s * var(--_motion)) var(--ease-out-1);
+      pointer-events: all;
+      scale: none;
+
+      &::backdrop {
+        opacity: 1;
+      }
 
       @starting-style {
         opacity: 0;
+        scale: 0.96;
+
+        &::backdrop {
+          opacity: 0;
+        }
       }
     }
-
-    &[open] {
-      margin-block-start: 15%;
-
-      @starting-style {
-        opacity: 0;
-      }
-    }
-  }
-
-  :where(html:has(.ui-dialog[open])) {
-    block-size: 100%;
-    overflow: hidden;
   }
 }

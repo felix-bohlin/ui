@@ -1,0 +1,57 @@
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="toast-severities-1"
+  command="--toast"
+  data-toast="Draft saved"
+>
+  Default
+</button>
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="toast-severities-1"
+  command="--toast"
+  data-toast="A new version is available"
+  data-toast-severity="info"
+>
+  Info
+</button>
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="toast-severities-1"
+  command="--toast"
+  data-toast="Changes saved"
+  data-toast-severity="success"
+>
+  Success
+</button>
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="toast-severities-1"
+  command="--toast"
+  data-toast="Your trial ends in 3 days"
+  data-toast-severity="warning"
+>
+  Warning
+</button>
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="toast-severities-1"
+  command="--toast"
+  data-toast="Couldn't save your changes"
+  data-toast-severity="critical"
+>
+  Critical
+</button>
+<opui-toaster class="ui-toaster" id="toast-severities-1">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

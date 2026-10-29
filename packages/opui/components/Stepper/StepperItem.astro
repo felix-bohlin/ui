@@ -1,0 +1,56 @@
+---
+import type { StepperItemProps as Props } from "./types.astro"
+
+const {
+  class: className,
+  complete,
+  completedLabel = ", completed",
+  current,
+  description,
+  error,
+  errorLabel = ", error",
+  href,
+  label,
+  ...rest
+} = Astro.props
+
+const state = error ? errorLabel : complete ? completedLabel : undefined
+const link = href && !current && (complete || error)
+---
+
+<li
+  aria-current={current ? "step" : undefined}
+  class:list={[{ "ui-complete": complete, "ui-error": error }, className]}
+  {...rest}
+>
+  {
+    Astro.slots.has("icon-checked") && (
+      <span aria-hidden="true" class="ui-icon-checked">
+        <slot name="icon-checked" />
+      </span>
+    )
+  }
+  {
+    link ? (
+      <a href={href}>
+        {label}
+        <slot name="label" />
+        {state && <span class="ui-sr-only">{state}</span>}
+      </a>
+    ) : (
+      <Fragment>
+        {label}
+        <slot name="label" />
+        {state && <span class="ui-sr-only">{state}</span>}
+      </Fragment>
+    )
+  }
+  {
+    (description || Astro.slots.has("description")) && (
+      <span class="ui-description">
+        {description}
+        <slot name="description" />
+      </span>
+    )
+  }
+</li>

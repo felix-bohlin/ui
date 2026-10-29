@@ -1,0 +1,161 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.dl {
+  display: grid;
+  margin: 0;
+}
+
+.item {
+  align-items: baseline;
+  display: grid;
+  gap: 0.25rem;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+}
+
+.item + .item {
+  margin-block-start: 0.25rem;
+}
+
+.item dt {
+  font-weight: 700;
+}
+
+.item dd {
+  color: var(--ui-text);
+  margin: 0;
+  text-align: end;
+}`,
+    html: `
+<dl class="dl">
+  <div class="item">
+    <dt>Price</dt>
+    <dd>6 950 000</dd>
+  </div>
+  …
+</dl>`,
+    notes: [
+      "A <code>&lt;div&gt;</code> around each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is valid HTML",
+      "One box per pair: easy to lay out, easy to space",
+      "Term and description share a row by default",
+    ],
+    title: "Row",
+  },
+  {
+    css: `
+.bordered > .item {
+  grid-template-columns: auto 1fr auto;
+}
+
+.bordered > .item::after {
+  block-size: 2px;
+  border-block-end: var(--line-width, 1px) var(--line-style, solid)
+    var(--ui-border-color);
+  content: "";
+  order: 1;
+}
+
+.bordered > .item dd {
+  order: 2;
+}`,
+    notes: [
+      "<code>::after</code> is a grid item too",
+      "<code>order</code> slots it between term and description",
+      "The <code>1fr</code> middle column stretches the line to fill the gap",
+    ],
+    title: "Leader line",
+  },
+  {
+    css: `
+.bordered.dotted {
+  --line-style: dotted;
+  --line-width: 2px;
+}`,
+    notes: [
+      "The variant only sets two custom properties",
+      "The leader line rule stays the same",
+    ],
+    title: "Dotted",
+  },
+  {
+    css: `
+.dl {
+  container-type: inline-size;
+}
+
+@container (inline-size <= 45ch) {
+  .dl:not(.inline) > .item {
+    align-items: normal;
+    gap: 0;
+    grid-template-columns: none;
+    justify-content: normal;
+  }
+
+  .dl:not(.inline) > .item + .item {
+    margin-block-start: 0.75rem;
+  }
+
+  .dl:not(.inline) > .item dd {
+    color: inherit;
+    text-align: start;
+  }
+
+  .dl:not(.inline) > .item::after {
+    content: none;
+  }
+}`,
+    features: ["container-queries"],
+    notes: [
+      "The list measures itself, not the viewport",
+      "<code>45ch</code> or narrower: the term stacks above the description, and the line goes",
+      "Drag <strong>Width</strong> below the breakpoint to stack it",
+      "<code>.inline</code> keeps the row at any width",
+    ],
+    title: "Container query",
+  },
+]
+
+const knobs = [
+  {
+    label: "Width",
+    max: 60,
+    min: 20,
+    property: "--width",
+    step: 1,
+    unit: "ch",
+    value: 50,
+  },
+]
+
+const items = [
+  { description: "1962", term: "Built" },
+  { description: "112 m²", term: "Living area" },
+  { description: "6 950 000", term: "Price" },
+  { description: "4", term: "Rooms" },
+]
+---
+
+<BuildUp id="build-description-list" knobs={knobs} steps={steps}>
+  <dl class="dl bordered dotted">
+    {
+      items.map((item) => (
+        <div class="item">
+          <dt>{item.term}</dt>
+          <dd>{item.description}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</BuildUp>
+
+<style>
+  .dl {
+    font-size: var(--ui-font-size-small);
+    inline-size: min(100%, var(--width));
+    padding: 0;
+  }
+</style>

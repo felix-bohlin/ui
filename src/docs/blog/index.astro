@@ -1,0 +1,922 @@
+---
+import Blog from "../../layouts/Blog.astro"
+import DocLink from "../../components/DocLink.astro"
+import PostPreview from "../../components/Blog/PostPreview.astro"
+import {
+  Button,
+  Carousel,
+  Chip,
+  FieldLegend,
+  Fieldset,
+  Select,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import {
+  componentName,
+  levelOf,
+  levels,
+  posts,
+  readingMinutes,
+  series,
+  topics,
+  walkthroughs,
+} from "../../utils/blog"
+
+const { link } = Astro.locals
+
+const icons = {
+  buildUps:
+    "M1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5zM2.5 3a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5zm2.58 10c.21.58.77 1 1.42 1h3A5.5 5.5 0 0 0 15 8.5v-1c0-.65-.42-1.2-1-1.41V8.5A4.5 4.5 0 0 1 9.5 13zm-.58-1a1.5 1.5 0 0 1-1.42-1H9.5A2.5 2.5 0 0 0 12 8.5V4.09c.58.2 1 .76 1 1.41v3A3.5 3.5 0 0 1 9.5 12z",
+  download:
+    "M3.5 13H12.5C12.7761 13 13 13.2239 13 13.5C13 13.7455 12.8231 13.9496 12.5899 13.9919L12.5 14H3.5C3.22386 14 3 13.7761 3 13.5C3 13.2545 3.17688 13.0504 3.41012 13.0081L3.5 13H12.5H3.5ZM7.91012 1.00806L8 1C8.24546 1 8.44961 1.17688 8.49194 1.41012L8.5 1.5V10.292L11.182 7.61091C11.3555 7.43735 11.625 7.41806 11.8198 7.55306L11.8891 7.61091C12.0627 7.78448 12.0819 8.0539 11.9469 8.24877L11.8891 8.31802L8.35355 11.8536C8.17999 12.0271 7.91056 12.0464 7.71569 11.9114L7.64645 11.8536L4.11091 8.31802C3.91565 8.12276 3.91565 7.80617 4.11091 7.61091C4.28448 7.43735 4.5539 7.41806 4.74877 7.55306L4.81802 7.61091L7.5 10.292V1.5C7.5 1.25454 7.67688 1.05039 7.91012 1.00806L8 1L7.91012 1.00806Z",
+  filter:
+    "M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m2 4c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m2 4c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5",
+  level:
+    "M14 3.5a1.5 1.5 0 0 0-3 0v9a1.5 1.5 0 0 0 3 0zM12.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5M10 6.5a1.5 1.5 0 1 0-3 0v6a1.5 1.5 0 0 0 3 0zM8.5 6c.28 0 .5.22.5.5v6a.5.5 0 0 1-1 0v-6c0-.28.22-.5.5-.5m-4 2C5.33 8 6 8.67 6 9.5v3a1.5 1.5 0 0 1-3 0v-3C3 8.67 3.67 8 4.5 8M5 9.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0z",
+  readingTime:
+    "M2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8m6-7a7 7 0 1 0 0 14A7 7 0 0 0 8 1m0 3.5a.5.5 0 0 0-1 0v4c0 .28.22.5.5.5h3a.5.5 0 0 0 0-1H8z",
+  topics:
+    "M11 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-8.41 4.14a2 2 0 0 1 0-2.83L7.33 2.6c.37-.37.88-.58 1.4-.59L12 2A2 2 0 0 1 14 4l-.02 3.37c0 .53-.22 1.03-.6 1.4l-4.66 4.65c-.78.77-2.05.77-2.84 0zm.7-2.12a1 1 0 0 0 0 1.41l3.3 3.28a1 1 0 0 0 1.42 0l4.67-4.65a1 1 0 0 0 .3-.7L13 4a1 1 0 0 0-1-1L8.73 3a1 1 0 0 0-.7.3z",
+}
+
+const buildCount = Object.keys(
+  import.meta.glob("../../components/UnderTheHood/*Build.astro"),
+).length
+
+const labelOf = (list: { id: string; label: string }[], id: string) =>
+  list.find((entry) => entry.id === id)?.label ?? id
+
+const entries = posts
+  .toSorted(
+    (a, b) =>
+      Number(!!a.component) - Number(!!b.component) ||
+      (a.component ?? "").localeCompare(b.component ?? ""),
+  )
+  .map((post) => ({
+    ...post,
+    level: post.features && levelOf(post.features),
+    meta: [
+      {
+        icon: icons.readingTime,
+        label: "Reading time",
+        value: `${readingMinutes(post.slug)} min`,
+      },
+      post.features && {
+        icon: icons.level,
+        label: "Level",
+        value: labelOf(levels, levelOf(post.features)),
+      },
+      post.topics && {
+        icon: icons.topics,
+        label: "Topics",
+        value: post.topics.map((topic) => labelOf(topics, topic)).join(", "),
+      },
+      post.slug === "under-the-hood" && {
+        icon: icons.buildUps,
+        label: "Build-ups",
+        value: `${buildCount} build-ups`,
+      },
+    ].filter((item) => !!item),
+  }))
+
+const release = entries
+  .filter((post) => post.category === "release")
+  .toSorted((a, b) => a.date.localeCompare(b.date))
+  .at(-1)
+
+const underTheHood = entries.find((post) => post.slug === "under-the-hood")
+
+const componentPosts = entries.filter((post) => post.component)
+
+const stars = (count: number, seed: number) => {
+  let value = seed
+  const random = () => {
+    value = (value * 16807) % 2147483647
+    return value / 2147483647
+  }
+  return Array.from({ length: count }, () => {
+    const size = random() < 0.2 ? 1.5 : 1
+    const x = (random() * 100).toFixed(1)
+    const y = (random() * 75).toFixed(1)
+    return `radial-gradient(${size}px ${size}px at ${x}% ${y}%, var(--star-color), transparent)`
+  }).join(", ")
+}
+
+const starLayers = [stars(36, 7), stars(28, 19), stars(20, 41)]
+
+const buildSteps = [
+  { label: "HTML", variant: "raw" },
+  { label: "Base", variant: "ui-tonal" },
+  { icon: true, label: "Icon", variant: "ui-tonal" },
+  { icon: true, label: "Done", variant: "ui-filled" },
+]
+
+const levelChecked = (id: string) =>
+  `:has([name="blog-level"][value="${id}"]:checked)`
+
+const topicChecked = (id: string) =>
+  `:has([name="blog-topic"] [value="${id}"]:checked)`
+
+const matches = (
+  entry: (typeof entries)[number],
+  level?: string,
+  topic?: string,
+) =>
+  !!entry.level &&
+  (!level || entry.level === level) &&
+  (!topic || !!entry.topics?.includes(topic))
+
+const filterCss = [
+  ...levels.map(
+    ({ id }) => `
+.blog-browse${levelChecked(id)} .blog-post[data-level]:not([data-level="${id}"]) {
+  display: none;
+}`,
+  ),
+  ...topics.map(
+    ({ id }) => `
+.blog-browse${topicChecked(id)} .blog-post[data-topics]:not([data-topics~="${id}"]) {
+  display: none;
+}`,
+  ),
+  ...[undefined, ...levels.map(({ id }) => id)].flatMap((level) =>
+    [undefined, ...topics.map(({ id }) => id)]
+      .filter(
+        (topic) =>
+          (level || topic) &&
+          !entries.some((entry) => matches(entry, level, topic)),
+      )
+      .map(
+        (topic) => `
+.blog-browse${level ? levelChecked(level) : ""}${topic ? topicChecked(topic) : ""} .blog-empty {
+  display: block;
+}`,
+      ),
+  ),
+].join("\n")
+---
+
+<Blog
+  description="How the components are made, one technique at a time."
+  overline=""
+  showToc={false}
+  wide
+>
+  <Fragment slot="title">Blog</Fragment>
+
+  {
+    release && (
+      <article class="blog-release ui-not-rich-text">
+        <div aria-hidden="true" class="blog-release-sky">
+          {starLayers.map((layer, index) => (
+            <span
+              class="blog-release-stars"
+              style={`--layer: ${index}; background-image: ${layer}`}
+            />
+          ))}
+          <span class="blog-release-glow" />
+        </div>
+        <div class="blog-release-content">
+          <h2>{release.title}</h2>
+          <p>{release.description}</p>
+          <div class="blog-release-actions">
+            <Button href={link(`/blog/${release.slug}`)} variant="filled">
+              Read the release
+            </Button>
+            <dl class="blog-meta">
+              {release.meta.map((item) => (
+                <div>
+                  <dt>
+                    <svg aria-hidden="true" viewBox="0 0 16 16">
+                      <path d={item.icon} />
+                    </svg>
+                    <span class="ui-sr-only">{item.label}</span>
+                  </dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </article>
+    )
+  }
+
+  {
+    underTheHood && (
+      <article class="blog-builds ui-card ui-tonal ui-not-rich-text">
+        <div class="ui-content">
+          <hgroup>
+            <h2>
+              <DocLink href={`/blog/${underTheHood.slug}`}>
+                {underTheHood.title}
+              </DocLink>
+            </h2>
+            <p>{underTheHood.description}</p>
+          </hgroup>
+          <dl class="blog-meta">
+            {underTheHood.meta.map((item) => (
+              <div>
+                <dt>
+                  <svg aria-hidden="true" viewBox="0 0 16 16">
+                    <path d={item.icon} />
+                  </svg>
+                  <span class="ui-sr-only">{item.label}</span>
+                </dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <ol class="blog-steps" inert>
+          {buildSteps.map((step, index) => (
+            <li style={`--step: ${index}`}>
+              <button
+                class:list={[
+                  step.variant === "raw"
+                    ? "blog-step-raw"
+                    : ["ui-button", "ui-small", step.variant],
+                ]}
+                type="button"
+              >
+                {step.icon && (
+                  <svg
+                    aria-hidden="true"
+                    height="32"
+                    viewBox="0 0 16 16"
+                    width="32"
+                  >
+                    <path d={icons.download} fill="currentColor" />
+                  </svg>
+                )}
+                <span class="ui-text">Save</span>
+              </button>
+              <span class="blog-step-label">
+                {index + 1} {step.label}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </article>
+    )
+  }
+
+  <div class="blog-browse ui-not-rich-text">
+    <div class="blog-toolbar">
+      <Button
+        class="blog-filter-button"
+        command="toggle-popover"
+        commandfor="blog-filters"
+        size="small"
+        variant="outlined"
+      >
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16">
+          <path d={icons.filter}></path>
+        </svg>
+        <span class="ui-text">Filter</span>
+        <span aria-hidden="true" class="blog-filter-dot"></span>
+      </Button>
+
+      <div class="blog-filters" id="blog-filters" popover>
+        <Fieldset>
+          <FieldLegend>Level</FieldLegend>
+          <ToggleGroup name="blog-level" size="small">
+            <ToggleButton checked value="">All</ToggleButton>
+            {
+              levels.map((level) => (
+                <ToggleButton value={level.id}>{level.label}</ToggleButton>
+              ))
+            }
+          </ToggleGroup>
+        </Fieldset>
+        <Select
+          autoFit
+          items={[
+            { label: "All", value: "" },
+            ...topics.map((topic) => ({ label: topic.label, value: topic.id })),
+          ]}
+          label="Topic"
+          name="blog-topic"
+          size="small"
+          value=""
+        />
+      </div>
+    </div>
+
+    <p class="blog-empty">No post matches this level and topic.</p>
+
+    <ul class="blog-posts">
+      {
+        componentPosts.map((post) => (
+          <li
+            class="blog-post"
+            data-level={post.level}
+            data-topics={post.topics?.join(" ")}
+          >
+            <article class="blog-row">
+              <p class="blog-row-component">{componentName(post.component!)}</p>
+              <div class="blog-row-text">
+                <hgroup>
+                  <h2>
+                    <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+                  </h2>
+                  <p>{post.description}</p>
+                </hgroup>
+                <div class="blog-row-meta">
+                  {post.technique && (
+                    <Chip size="small">
+                      <code slot="label">{post.technique}</code>
+                    </Chip>
+                  )}
+                  <dl class="blog-meta">
+                    {post.meta.map((item) => (
+                      <div>
+                        <dt>
+                          <svg aria-hidden="true" viewBox="0 0 16 16">
+                            <path d={item.icon} />
+                          </svg>
+                          <span class="ui-sr-only">{item.label}</span>
+                        </dt>
+                        <dd>{item.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
+              <PostPreview slug={post.slug} />
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <section class="blog-series-list" id="series">
+    <h2>Series</h2>
+    <p>Posts that build on each other, in reading order.</p>
+    {
+      series.map((entry) => (
+        <section class="ui-not-rich-text">
+          <h3 id={entry.id}>{entry.label}</h3>
+          <Carousel aria-label={entry.label} buttons="outside">
+            {entry.posts.map((slug, index) => (
+              <li>
+                <article class="ui-card ui-tonal blog-series-slide">
+                  <hgroup>
+                    <p class="blog-series-number">
+                      <span class="ui-sr-only">Part </span>
+                      {index + 1}
+                    </p>
+                    <h4>
+                      <DocLink href={`/blog/${slug}`}>
+                        {posts.find((post) => post.slug === slug)!.title}
+                      </DocLink>
+                    </h4>
+                    <p>{readingMinutes(slug)} min</p>
+                  </hgroup>
+                </article>
+              </li>
+            ))}
+          </Carousel>
+        </section>
+      ))
+    }
+  </section>
+
+  <section id="walkthrough-only">
+    <h2>Walkthrough only</h2>
+    <p>
+      These components have a step-by-step build-up on the
+      <DocLink href="/blog/under-the-hood">Under the hood</DocLink> page, but no post
+      yet.
+    </p>
+    <ul aria-label="Walkthroughs" class="blog-chips ui-not-rich-text">
+      {
+        walkthroughs.map((slug) => (
+          <li>
+            <Chip
+              href={link(`/blog/under-the-hood#${slug}`)}
+              label={componentName(slug)}
+              variant="outlined"
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Blog>
+
+<style is:inline set:html={filterCss}></style>
+
+<style>
+  .blog-browse {
+    display: grid;
+    gap: var(--ui-space-4);
+  }
+
+  .blog-toolbar {
+    display: flex;
+  }
+
+  .blog-filter-button svg {
+    block-size: 1rem;
+    fill: currentColor;
+    inline-size: 1rem;
+  }
+
+  .blog-filter-dot {
+    background-color: var(--ui-primary);
+    block-size: 0.5rem;
+    border-radius: 50%;
+    display: none;
+    inline-size: 0.5rem;
+  }
+
+  .blog-browse:has(
+      [name="blog-level"]:checked:not([value=""]),
+      [name="blog-topic"] option:checked:not([value=""])
+    )
+    .blog-filter-dot {
+    display: block;
+  }
+
+  .blog-filters {
+    --ui-border-color: var(--ui-border-color-on-raised);
+    --ui-field-border-color: var(--ui-field-border-color-on-raised);
+
+    background-color: var(--ui-surface-elevated);
+    border: var(--ui-border-width) solid var(--ui-border-color-on-raised);
+    border-radius: var(--ui-radius);
+    box-shadow: var(--ui-shadow-overlay);
+    color: inherit;
+    gap: var(--ui-space-4);
+    inset: auto;
+    margin: var(--ui-space-1) 0 0;
+    max-inline-size: calc(100vi - 2 * var(--ui-space-4));
+    padding: var(--ui-space-4);
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+
+    &:popover-open {
+      display: grid;
+    }
+
+    & .ui-fieldset {
+      gap: 0;
+    }
+
+    & :is(legend, .ui-label) {
+      font-size: var(--ui-font-size-caption);
+      margin-block-end: var(--ui-space-1);
+    }
+  }
+
+  .blog-empty {
+    display: none;
+    margin: 0;
+  }
+
+  .blog-release {
+    --glow-inner: light-dark(oklch(0.88 0.14 70), oklch(0.78 0.16 55));
+    --glow-outer: light-dark(
+      oklch(0.84 0.12 25 / 75%),
+      oklch(0.6 0.17 15 / 55%)
+    );
+    --sky-bottom: light-dark(
+      oklch(from var(--ui-primary) 0.94 0.04 h),
+      oklch(from var(--ui-primary) 0.3 0.09 h)
+    );
+    --sky-top: light-dark(
+      oklch(from var(--ui-primary) 0.86 0.07 h),
+      oklch(from var(--ui-primary) 0.16 0.05 h)
+    );
+    --star-color: light-dark(oklch(1 0 0 / 70%), oklch(1 0 0));
+    --star-opacity: light-dark(0.25, 0.9);
+
+    border-radius: var(--ui-radius-large);
+    color: light-dark(var(--ui-text-strong), oklch(0.97 0.01 90));
+    display: grid;
+    isolation: isolate;
+    min-block-size: clamp(18rem, 45dvb, 28rem);
+    overflow: clip;
+    position: relative;
+  }
+
+  .blog-release-sky {
+    background-image: linear-gradient(var(--sky-top), var(--sky-bottom));
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .blog-release-stars {
+    inset: 0;
+    opacity: var(--star-opacity);
+    position: absolute;
+  }
+
+  .blog-release-glow {
+    background-image:
+      radial-gradient(120% 70% at 50% 115%, var(--glow-inner), transparent 60%),
+      radial-gradient(160% 90% at 50% 120%, var(--glow-outer), transparent 70%);
+    inset: 0;
+    position: absolute;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blog-release-stars {
+      animation: blog-twinkle calc(5s + var(--layer) * 2s)
+        calc(var(--layer) * -1.7s) ease-in-out infinite alternate;
+    }
+
+    .blog-release-glow {
+      animation: blog-dawn 2.4s var(--ui-ease-enter) both;
+    }
+  }
+
+  @keyframes blog-twinkle {
+    from {
+      opacity: var(--star-opacity);
+    }
+
+    to {
+      opacity: calc(var(--star-opacity) * 0.35);
+    }
+  }
+
+  @keyframes blog-dawn {
+    from {
+      opacity: 0.2;
+      translate: 0 25%;
+    }
+  }
+
+  .blog-release-content {
+    align-content: center;
+    display: grid;
+    gap: var(--ui-space-3);
+    justify-items: center;
+    padding: var(--ui-space-8) var(--ui-space-5);
+    text-align: center;
+
+    & h2 {
+      font-size: clamp(2.5rem, 1.5rem + 5vi, 4.5rem);
+      inline-size: fit-content;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin: 0;
+    }
+
+    & > p {
+      font-size: var(--ui-font-size-large);
+      margin: 0;
+      max-inline-size: 40ch;
+      text-wrap: balance;
+    }
+
+    & .blog-meta dt {
+      color: inherit;
+    }
+  }
+
+  .blog-release-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-4);
+    justify-content: center;
+    margin-block-start: var(--ui-space-2);
+  }
+
+  .blog-builds {
+    align-items: center;
+    display: grid;
+    gap: var(--ui-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    margin-block: var(--ui-space-4) var(--ui-space-6);
+    padding: var(--ui-space-4);
+    position: relative;
+
+    & > .ui-content {
+      display: grid;
+      gap: var(--ui-space-2);
+      padding: 0;
+    }
+
+    & hgroup {
+      display: grid;
+      gap: var(--ui-space-1);
+
+      & > * {
+        margin: 0;
+      }
+    }
+
+    & h2 {
+      font-size: var(--ui-font-size-h4);
+      inline-size: fit-content;
+    }
+
+    & h2 a {
+      color: var(--ui-text-strong);
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
+    }
+  }
+
+  .blog-steps {
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-content: space-between;
+      background-color: var(--ui-surface);
+      border-radius: var(--ui-radius);
+      display: grid;
+      gap: var(--ui-space-2);
+      justify-items: center;
+      min-block-size: 5.5rem;
+      padding: var(--ui-space-3) var(--ui-space-1) var(--ui-space-2);
+    }
+  }
+
+  .blog-step-raw {
+    all: revert;
+  }
+
+  .blog-step-label {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blog-builds:has(a:hover) .blog-steps li {
+      animation: blog-step 2.4s calc(var(--step) * 0.6s) infinite;
+    }
+  }
+
+  @keyframes blog-step {
+    0%,
+    20% {
+      box-shadow: 0 0 0 2px var(--ui-primary);
+      scale: 1.05;
+    }
+
+    30%,
+    100% {
+      box-shadow: 0 0 0 2px transparent;
+      scale: 1;
+    }
+  }
+
+  .blog-posts {
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blog-post {
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    container-type: inline-size;
+  }
+
+  .blog-row {
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-6);
+    grid-template-areas: "component" "text";
+    padding-block: var(--ui-space-5);
+    position: relative;
+
+    & > :global(.blog-preview) {
+      display: none;
+    }
+
+    @container (inline-size >= 44rem) {
+      align-items: start;
+      grid-template-areas: "component text preview";
+      grid-template-columns: 7rem minmax(0, 1fr) 16rem;
+
+      & > :global(.blog-preview) {
+        display: grid;
+      }
+    }
+
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
+    }
+
+    & hgroup {
+      display: grid;
+      gap: var(--ui-space-1);
+
+      & > * {
+        inline-size: fit-content;
+        margin: 0;
+      }
+
+      & > p:last-child {
+        color: var(--ui-text);
+        line-height: 1.45;
+        max-inline-size: 60ch;
+        text-wrap: pretty;
+      }
+    }
+
+    & h2 {
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-h5);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+
+    & h2 a {
+      color: inherit;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    &:has(a:hover) h2 a {
+      color: var(--ui-primary-text);
+    }
+  }
+
+  .blog-row-component {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-weight: 600;
+    grid-area: component;
+    letter-spacing: 0.04em;
+    margin: 0;
+    text-transform: uppercase;
+
+    @container (inline-size >= 44rem) {
+      padding-block-start: 0.3em;
+    }
+  }
+
+  .blog-row-text {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-area: text;
+  }
+
+  .blog-row-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-4);
+  }
+
+  .blog-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blog-series-list {
+    & > section {
+      display: grid;
+      gap: var(--ui-space-2);
+      margin-block-start: var(--ui-space-6);
+    }
+
+    & h3 {
+      font-size: var(--ui-font-size-h5);
+      margin: 0;
+    }
+
+    & .ui-carousel {
+      --_items-per-view: 1.3;
+
+      @media (width >= 40rem) {
+        --_items-per-view: 2.3;
+      }
+
+      @media (width >= 64rem) {
+        --_items-per-view: 3.3;
+      }
+    }
+  }
+
+  .blog-series-slide {
+    block-size: 100%;
+    position: relative;
+
+    & hgroup {
+      display: grid;
+      gap: var(--ui-space-2);
+    }
+
+    & h4 {
+      font-size: var(--ui-font-size-body);
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+
+    & h4 a {
+      color: var(--ui-text-strong);
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+    }
+
+    & hgroup > p:last-child {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+    }
+
+    &:has(a:hover) {
+      background-color: var(--ui-surface-tonal-hover);
+    }
+
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
+
+      & a {
+        outline: none;
+      }
+    }
+  }
+
+  .blog-series-number {
+    color: var(--ui-primary-text);
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1) var(--ui-space-4);
+    line-height: 1.3;
+    margin: 0;
+
+    & div {
+      align-items: center;
+      display: flex;
+      gap: var(--ui-space-1);
+    }
+
+    & dt {
+      color: var(--ui-text);
+      display: flex;
+    }
+
+    & svg {
+      block-size: 1rem;
+      fill: currentColor;
+      inline-size: 1rem;
+    }
+
+    & dd {
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+</style>

@@ -1,14 +1,13 @@
 ---
+import { navItems } from "../utils/nav"
+
 const { link } = Astro.locals
 
 // Hrefs starting with `/` are framework-aware doc paths and get resolved per
 // request via `link()`. Absolute URLs (e.g. https://...) are external and
 // passed through untouched.
-const navItems = [
-  { label: "Guide", href: link("/guide/getting-started") },
-  { label: "Components", href: link("/components") },
-  { label: "API", href: link("/api") },
-  // { label: "Blog", href: link("/blog") },
+const footerItems = [
+  ...navItems.map(({ label, href }) => ({ label, href: link(href) })),
   {
     label: "Open Props",
     href: "https://open-props.style",
@@ -18,10 +17,10 @@ const navItems = [
 
 <footer>
   <div class="ui-content">
-    <nav>
+    <nav aria-label="Footer">
       <ul>
         {
-          navItems.map((item) => (
+          footerItems.map((item) => (
             <li>
               <a class="ui-link" href={item.href} title={item.label}>
                 {item.label}
@@ -69,15 +68,15 @@ const navItems = [
 
 <style>
   footer {
-    background-color: var(--surface-2);
+    background-color: var(--ui-surface-tonal);
     margin-block-start: var(--size-12);
     padding-block: var(--size-9);
   }
 
   .ui-content {
     margin: 0 auto;
-    max-inline-size: var(--_content-md);
-    padding-inline: var(--_gap);
+    max-inline-size: var(--site-content-md);
+    padding-inline: var(--site-gap);
   }
 
   ul {
@@ -91,23 +90,23 @@ const navItems = [
   }
 
   a {
-    color: var(--text-2);
+    color: var(--ui-text);
     text-decoration: none;
 
     &:hover {
-      color: var(--text-1);
+      color: var(--ui-text-strong);
       text-decoration: underline;
     }
   }
 
   hr {
-    border-block-start: 1px solid var(--surface-3);
     border: none;
+    border-block-start: 1px solid var(--ui-border-color);
     margin-block: var(--size-8);
   }
 
   p {
-    color: var(--text-2);
+    color: var(--ui-text);
     font-size: var(--font-size-0);
     text-align: center;
   }

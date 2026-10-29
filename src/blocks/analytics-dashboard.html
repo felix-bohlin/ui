@@ -1,0 +1,337 @@
+<style>
+  .analytics-dashboard {
+    container-type: inline-size;
+
+    .analytics-chart {
+      align-items: end;
+      block-size: 12rem;
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      display: grid;
+      gap: var(--ui-space-2);
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        align-items: center;
+        block-size: 100%;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        justify-items: center;
+        row-gap: var(--ui-space-1);
+      }
+
+      .analytics-bar {
+        align-self: end;
+        background-color: var(--ui-primary);
+        block-size: var(--value);
+        border-start-end-radius: var(--ui-radius-small);
+        border-start-start-radius: var(--ui-radius-small);
+        inline-size: min(100%, 2.5rem);
+        opacity: 0.85;
+      }
+
+      li:last-child .analytics-bar {
+        opacity: 1;
+      }
+
+      .analytics-day {
+        translate: 0 calc(100% + var(--ui-space-1));
+      }
+    }
+
+    .analytics-chart-card .ui-content {
+      padding-block-end: var(--ui-space-6);
+    }
+  }
+</style>
+
+<div
+  class="analytics-dashboard ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 80rem"
+>
+  <div class="ui-layout-row ui-spread">
+    <hgroup class="ui-hgroup">
+      <p>northwind.example</p>
+      <h1 class="ui-h3">Analytics</h1>
+    </hgroup>
+    <div class="ui-layout-row ui-small">
+      <div
+        aria-label="Date range"
+        class="ui-toggle-group ui-small"
+        role="radiogroup"
+      >
+        <label class="ui-toggle-button">
+          <input name="analytics-range" type="radio" value="7" checked />
+          7 days
+        </label>
+        <label class="ui-toggle-button">
+          <input name="analytics-range" type="radio" value="30" />
+          30 days
+        </label>
+        <label class="ui-toggle-button">
+          <input name="analytics-range" type="radio" value="90" />
+          90 days
+        </label>
+      </div>
+      <button class="ui-button ui-outlined ui-small" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+          ></path></svg
+        ><span class="ui-text">Export</span>
+      </button>
+    </div>
+  </div>
+
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Visitors</dt>
+            <dd class="ui-value">48 210</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+12.4%</span> from last week
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Page views</dt>
+            <dd class="ui-value">162 904</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+8.1%</span> from last week
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Bounce rate</dt>
+            <dd class="ui-value">41.2%</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-critical">+2.3%</span> from last week
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Visit duration</dt>
+            <dd class="ui-value">3m 12s</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+0.4%</span> from last week
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+    <section
+      aria-labelledby="analytics-visitors-heading"
+      class="ui-card ui-outlined analytics-chart-card"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="analytics-visitors-heading">Visitors per day</h2>
+        <p>Unique visitors over the last 7 days.</p>
+      </hgroup>
+      <div class="ui-content">
+        <ol class="analytics-chart">
+          <li>
+            <span class="analytics-bar" style="--value: 52%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Mon</span
+              ><span class="ui-sr-only">Monday: 5 840 visitors</span></span
+            >
+          </li>
+          <li>
+            <span class="analytics-bar" style="--value: 64%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Tue</span
+              ><span class="ui-sr-only">Tuesday: 7 120 visitors</span></span
+            >
+          </li>
+          <li>
+            <span class="analytics-bar" style="--value: 58%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Wed</span
+              ><span class="ui-sr-only">Wednesday: 6 480 visitors</span></span
+            >
+          </li>
+          <li>
+            <span class="analytics-bar" style="--value: 80%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Thu</span
+              ><span class="ui-sr-only">Thursday: 8 910 visitors</span></span
+            >
+          </li>
+          <li>
+            <span class="analytics-bar" style="--value: 72%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Fri</span
+              ><span class="ui-sr-only">Friday: 8 040 visitors</span></span
+            >
+          </li>
+          <li>
+            <span class="analytics-bar" style="--value: 34%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Sat</span
+              ><span class="ui-sr-only">Saturday: 3 790 visitors</span></span
+            >
+          </li>
+          <li>
+            <span class="analytics-bar" style="--value: 90%"></span>
+            <span class="analytics-day ui-caption"
+              ><span aria-hidden="true">Sun</span
+              ><span class="ui-sr-only">Sunday: 10 030 visitors</span></span
+            >
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="analytics-sources-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="analytics-sources-heading">Top sources</h2>
+        <p>Where visitors came from.</p>
+      </hgroup>
+      <div class="ui-content">
+        <ul class="ui-layout-column">
+          <li class="ui-layout-column ui-x-small">
+            <span class="ui-layout-row ui-spread" id="analytics-source-search"
+              ><span>Search</span><span>46%</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="analytics-source-search"
+                max="100"
+                value="46"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <span class="ui-layout-row ui-spread" id="analytics-source-direct"
+              ><span>Direct</span><span>28%</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="analytics-source-direct"
+                max="100"
+                value="28"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <span class="ui-layout-row ui-spread" id="analytics-source-social"
+              ><span>Social</span><span>17%</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="analytics-source-social"
+                max="100"
+                value="17"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <span class="ui-layout-row ui-spread" id="analytics-source-email"
+              ><span>Email</span><span>9%</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="analytics-source-email"
+                max="100"
+                value="9"
+              ></progress>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <section
+    aria-labelledby="analytics-pages-heading"
+    class="ui-card ui-outlined"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="analytics-pages-heading">Top pages</h2>
+    </hgroup>
+    <div class="ui-content">
+      <table
+        aria-labelledby="analytics-pages-heading"
+        class="ui-table ui-dense ui-flush ui-overflow-scroll"
+        tabindex="0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Page</th>
+            <th class="ui-numeric" scope="col">Visitors</th>
+            <th class="ui-numeric" scope="col">Views</th>
+            <th class="ui-numeric" scope="col">Bounce</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="ui-link" href="#analytics-page-home">/</a></td>
+            <td class="ui-numeric">18 402</td>
+            <td class="ui-numeric">40 116</td>
+            <td class="ui-numeric">32%</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#analytics-page-pricing">/pricing</a>
+            </td>
+            <td class="ui-numeric">9 214</td>
+            <td class="ui-numeric">14 870</td>
+            <td class="ui-numeric">38%</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#analytics-page-docs"
+                >/docs/getting-started</a
+              >
+            </td>
+            <td class="ui-numeric">6 530</td>
+            <td class="ui-numeric">21 008</td>
+            <td class="ui-numeric">24%</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#analytics-page-blog"
+                >/blog/shipping-6-0</a
+              >
+            </td>
+            <td class="ui-numeric">4 118</td>
+            <td class="ui-numeric">5 002</td>
+            <td class="ui-numeric">61%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

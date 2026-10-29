@@ -1,0 +1,23 @@
+// @ts-check
+import { navItems } from "./nav.js"
+
+/** @typedef {import("./framework.js").FrameworkId} FrameworkId */
+/** @typedef {import("./nav.js").SearchCategoryId} SearchCategoryId */
+
+/**
+ * @typedef {object} SearchItem
+ * @property {SearchCategoryId} category
+ * @property {string} [description]
+ * @property {FrameworkId} [frameworkId]
+ * @property {string} [headings]
+ * @property {string} id
+ * @property {string} [keywords]
+ * @property {string} [page]
+ * @property {string} [terms]
+ * @property {string} title
+ * @property {string} url
+ */
+
+export const SEARCH_CATEGORIES = navItems.flatMap(({ category, label }) =>
+  category ? [{ id: category, label }] : [],
+)

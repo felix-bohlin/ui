@@ -1,0 +1,81 @@
+---
+type Props = {
+  roles: { name: string; note: string }[]
+}
+
+const { roles } = Astro.props
+---
+
+<figure class="role-swatches ui-not-rich-text">
+  <ul>
+    {
+      roles.map((role) => (
+        <li>
+          <span
+            class="swatch"
+            style={`background-color: var(${role.name})`}
+            aria-hidden="true"
+          />
+          <code>{role.name}</code>
+          <span class="note">{role.note}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <figcaption>
+    Each role with its current value, live with the theme.
+  </figcaption>
+</figure>
+
+<style>
+  .role-swatches {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block: var(--ui-space-5);
+  }
+
+  ul {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    align-items: center;
+    column-gap: var(--ui-space-3);
+    display: grid;
+    grid-template-columns: auto minmax(12rem, auto) 1fr;
+  }
+
+  .swatch {
+    block-size: var(--ui-space-5);
+    border: var(--ui-border-width) solid currentColor;
+    border-radius: var(--ui-radius-small);
+    forced-color-adjust: none;
+    inline-size: var(--ui-space-7);
+  }
+
+  code {
+    font-size: var(--ui-font-size-small);
+  }
+
+  .note,
+  figcaption {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    text-align: start;
+  }
+
+  @container (width < 36rem) {
+    li {
+      grid-template-columns: auto 1fr;
+    }
+
+    .note {
+      grid-column: 2;
+    }
+  }
+</style>

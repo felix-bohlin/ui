@@ -1,35 +1,39 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
-import type { RadioInputProps } from "./types"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
+import type { RadioInputProps } from "./types.vue-props"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 defineProps<RadioInputProps>()
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 
-const checked = computed(() =>
-  modelValue.value === undefined
-    ? attrs.checked !== undefined && attrs.checked !== false
-    : modelValue.value === (attrs.value ?? true),
-)
-const select = () => {
-  modelValue.value = (attrs.value as string | number | undefined) ?? true
-}
+const unchecked = Symbol()
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.checked !== undefined && attrs.checked !== false
+      ? attrs.value
+      : unchecked),
+  set: (value: string | number | boolean | undefined) => {
+    modelValue.value = value
+  },
+})
 </script>
 
 <template>
   <input
     type="radio"
-    :name="currentFieldName"
+    :class="$props.class"
     v-bind="$attrs"
-    :checked="checked || undefined"
-    @change="select"
+    :name="attrs.name ?? field?.name"
+    :value="attrs.value"
+    v-model="model"
   />
 </template>

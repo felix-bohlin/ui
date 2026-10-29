@@ -1,0 +1,621 @@
+---
+import { readFileSync } from "node:fs"
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
+import DocLink from "../../components/DocLink.astro"
+import BlockShuffle from "../../components/Release/BlockShuffle.astro"
+import Blueprint from "../../components/Release/Blueprint.astro"
+import ContrastLab from "../../components/Release/ContrastLab.astro"
+import Hero from "../../components/Release/Hero.astro"
+import NewComponents from "../../components/Release/NewComponents.astro"
+import Numbers from "../../components/Release/Numbers.astro"
+import Ratchets from "../../components/Release/Ratchets.astro"
+import Renames from "../../components/Release/Renames.astro"
+import Shells from "../../components/Release/Shells.astro"
+import SupportMatrix from "../../components/Release/SupportMatrix.astro"
+import Takeover from "../../components/Release/Takeover.astro"
+import ThemeDice from "../../components/Release/ThemeDice.astro"
+import TitleCard from "../../components/Release/TitleCard.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
+import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
+import { allBlocks, blockGroups } from "../../utils/blocks"
+import { addedComponents } from "../../utils/changelog"
+import { releaseVersion } from "../../utils/release"
+
+const newComponents = addedComponents(
+  readFileSync("packages/opui/CHANGELOG.md", "utf8"),
+  releaseVersion,
+)
+---
+
+<TechniquePost slug="release-6">
+  <Callout class="release-tldr" severity="info">
+    <CalloutIcon />
+    <CalloutContent>
+      <p><strong>TL;DR</strong></p>
+      <ul>
+        <li>
+          What is in 6.0: React and Svelte, {newComponents.length} new components
+          and the Layout classes, a token system with four example themes to prove
+          it, blocks, the Theme builder and a lot more docs.
+        </li>
+        <li>
+          Why a major: 105 breaking entries, the first major since 5.0, most of
+          them renames.
+        </li>
+        <li>
+          What stayed: CSS first, HTML as a first-class target, feature first.
+        </li>
+        <li>
+          Where to go next: <DocLink href="/guide/migrating">Migrating</DocLink>
+          for the mechanics, this post for the reasons.
+        </li>
+      </ul>
+    </CalloutContent>
+  </Callout>
+
+  <TitleCard />
+
+  <p>
+    When the project started everything was written by hand. The focus was to be
+    the component library that uses modern CSS and HTML that didn't seem to
+    exist yet. In short, I wanted to build that library, learn all the cool
+    tricks and techniques and ultimately pass them on. Not that I counted on
+    having a massive user base, but inspiring at least one person was a win and
+    good enough for me. I really liked the shadcn model - they did the hard
+    work, you get to grab everything and make it your own, so a key
+    consideration from the start was to have very pragmatic and readable CSS
+    that any user at any level could grasp and then modify.
+  </p>
+
+  <p>That was then.</p>
+
+  <p>
+    Well I mean you can still do all these things (don't worry), but since AI
+    has gotten so good that writing anything by hand has become unnecessary, the
+    core concepts stayed but the scope changed. I could think bigger in terms of
+    the library's scope and architecture. In 6.0, the CSS has become less
+    readable for sure, but with the added benefit of the features that the new
+    design system and layer architecture provided. I always had the 6.0
+    structure in mind when I started out the project, but it felt like it
+    wouldn't be very approachable for people and I had worries about maintaining
+    that on a hobby level.
+  </p>
+
+  <Blueprint state="sketch" />
+
+  <p>
+    Now with a chance to start fresh, I wanted to implement my initial vision.
+    Wouldn't it be cool to have one CSS codebase that was flexible and thought
+    through enough to handle almost any style - shadcn, Material design,
+    Bootstrap (I know, but it has charm), some wacky brutalist experiment, you
+    name it! If I could make that work, I could be pretty certain it would be
+    flexible enough that anyone else could probably customize it to their needs
+    as well.
+  </p>
+
+  <p>
+    After deciding on this direction, I still wanted a way for people to pick up
+    on the CSS tricks, so I went all in on documentation. Not only better
+    component docs, but also a whole new blog dedicated to explaining the inner
+    workings and design decisions behind each component. Now, I know very few
+    people will read it, I know, I know, but maybe someone will point their LLM
+    to it and it will find it useful. I don't know, somehow I'd like to move the
+    needle regardless of how little. If nothing else I'm having a lot of fun
+    doing this anyhow.
+  </p>
+
+  <p>Enough yapping, here's what I'd like to highlight for 6.0!</p>
+
+  <Hero />
+
+  <section id="design-system">
+    <h2>It's a proper design system now</h2>
+    <p>
+      Or at least I've tried. I'm no Brad Frost or Dave Rupert or whatever, but
+      I've been around and hopefully picked up a thing or two along the way. In
+      case I haven't, that's why I'm throwing all these example themes on the
+      library as a stress test. CSS variable/token tiering and more robust
+      architecture are two of my absolute favorite additions to 6.0. This
+      re-architecture also exposed a lot of weak points in the previous design,
+      so I was kind of forced to go through all components and update them.
+    </p>
+    <p>Don't take my word for it. Pick a theme and this whole post wears it.</p>
+    <Takeover />
+
+    <h3 id="example-themes">Four example themes</h3>
+    <ul>
+      <li>
+        Bootstrap, Brutalist, M3 and Shadcn: what each one proves about the
+        token model.
+      </li>
+      <li>
+        All colors in OKLCH; the contrast test lists each theme's known
+        exceptions.
+      </li>
+      <li>
+        Hooks a theme can reach: <code>--ui-control-accent</code>,
+        <code>--ui-selected</code>, <code>--ui-button-hover: layer</code>,
+        <code>--ui-border-color-raised</code>.
+      </li>
+    </ul>
+
+    <h3 id="tokens-tiers">Token tiers</h3>
+    <p>
+      Read a column top to bottom: a knob the theme sets, the role a component
+      reads, the private property the component sets, the CSS property it ends
+      up on.
+    </p>
+    <TokenTiers />
+    <ul>
+      <li>
+        Every token prefixed <code>--ui-</code>, and the rename table in
+        <DocLink href="/guide/migrating#theme-and-tokens"
+          >Theme and tokens</DocLink
+        >.
+      </li>
+      <li>
+        Three tiers, knobs then roles then hooks, and which one to touch for
+        what (<DocLink href="/guide/theme-tokens">Theme tokens</DocLink>).
+      </li>
+      <li>
+        Derived roles declared on
+        <code>:where(html, .ui-palette, .ui-contrast-more)</code>, so a
+        <code>.ui-palette</code> subtree with an inline knob re-themes itself.
+      </li>
+      <li>
+        The layers: <code>theme.palette</code>, <code>theme.base</code>,
+        <code>theme.custom</code>, <code>theme.severity</code>, and why severity
+        sits above your theme.
+      </li>
+      <li>
+        Design scales: space <code>--ui-space-1</code> to
+        <code>--ui-space-8</code> times <code>--ui-space-scale</code>,
+        <code>--ui-density</code>, the type scale
+        <code>--ui-font-size-100</code> to <code>--ui-font-size-900</code>,
+        motion times <code>--ui-motion</code>, one
+        <code>--ui-shadow-color</code> for both schemes.
+      </li>
+      <li>
+        Open Props is optional; <code>theme.css</code> reads nothing from it.
+      </li>
+      <li>
+        <code>tokens.json</code> in the W3C design tokens format, with tiers, dark
+        and more-contrast modes, and the promised contrast per token.
+      </li>
+    </ul>
+
+    <h3 id="contrast-guarantee">Contrast as a guarantee</h3>
+    <ContrastLab />
+    <ul>
+      <li>
+        <code>--ui-contrast: more</code> tightens 26 knobs, lightness, strength, alpha
+        and widths, and never sets a color directly.
+      </li>
+      <li>
+        The <code>-text</code> roles promise 4.5:1 on every surface; the promise is
+        recorded in <code>tokens.json</code> and tested.
+      </li>
+      <li>
+        <code>--ui-on-primary</code> picked from the fill's luminance with relative
+        color.
+      </li>
+      <li>Focus ring black or white by surface lightness.</li>
+      <li>
+        The sweep: hue 0 to 360 in steps of 10, normal and more contrast, light
+        and dark, 1036 pairs, none below the promise. The closest call is
+        on-primary text at hue 190 in light mode, 4.77:1.
+      </li>
+    </ul>
+  </section>
+
+  <section id="new-components">
+    <h2>Loads of new components</h2>
+    <p>
+      {newComponents.length} of them, plus the Layout classes. When HTML can't do
+      the job on its own, a tiny custom element does it, the same one for every framework
+      and for plain HTML.
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/avatar#grouped">AvatarGroup</DocLink>:
+        overlapping avatars that make room for the focus ring.
+      </li>
+      <li>
+        <DocLink href="/components/carousel">Carousel</DocLink>: scroll snap,
+        with the buttons and markers generated by CSS.
+      </li>
+      <li>
+        <DocLink href="/components/copy">Copy</DocLink>: copies a field or a
+        snippet with one invoker command.
+      </li>
+      <li>
+        <DocLink href="/components/layout">Layout</DocLink>: rows, grids and
+        columns that wrap without breakpoints.
+      </li>
+      <li>
+        <DocLink href="/components/menu">Menu</DocLink>: a popover with
+        submenus, opened with invoker commands.
+      </li>
+      <li>
+        <DocLink href="/components/message">Message</DocLink>: chat bubbles that
+        group themselves into runs with <code>:has()</code>.
+      </li>
+      <li>
+        <DocLink href="/components/number-field">NumberField</DocLink>: decrease
+        and increase buttons around a number input.
+      </li>
+      <li>
+        <DocLink href="/components/one-time-code">OneTimeCode</DocLink>: one
+        input, drawn as a box per character.
+      </li>
+      <li>
+        <DocLink href="/components/rating">Rating</DocLink>: stars from one
+        mask, as a score or as input.
+      </li>
+      <li>
+        <DocLink href="/components/checkbox#select-all">SelectAll</DocLink>: one
+        checkbox that checks the rest of its group.
+      </li>
+      <li>
+        <DocLink href="/components/table#sorting">SortableTable</DocLink>: press
+        a header to sort the rows.
+      </li>
+      <li>
+        <DocLink href="/components/stat">Stat</DocLink>: the big number on a
+        dashboard.
+      </li>
+      <li>
+        <DocLink href="/components/stepper">Stepper</DocLink>: the steps of a
+        flow such as a checkout.
+      </li>
+      <li>
+        <DocLink href="/components/timeline">Timeline</DocLink>: dated events,
+        lined up with subgrid.
+      </li>
+      <li>
+        <DocLink href="/components/toast">Toaster</DocLink>: toasts from a
+        button, without a line of your own JavaScript.
+      </li>
+    </ul>
+    <p>
+      And the smaller ones: a <DocLink
+        href="/components/text-field#password-toggle">password toggle</DocLink
+      > and a <DocLink href="/components/text-field#character-count"
+        >character count</DocLink
+      > on TextField, <DocLink href="/components/divider#content"
+        >content in a Divider</DocLink
+      >, and x-small and large sizes for every field. Go on, poke at a few:
+    </p>
+    <NewComponents />
+  </section>
+
+  <section id="docs">
+    <h2>So much cool stuff in the docs</h2>
+    <ul>
+      <li>
+        Anatomy diagrams that name every part of a component and the class that
+        styles it.
+      </li>
+      <li>
+        API tables built from the same data the tests check, and the
+        <DocLink href="/api">API index</DocLink> with every component on one page.
+      </li>
+      <li>
+        Browser support on every component page, with Baseline status, and a
+        <DocLink href="/guide/browser-support">guide</DocLink> to the compat layer.
+      </li>
+      <li>
+        Every page in HTML, Astro, React, Svelte and Vue, with the examples and
+        the API of the framework you picked.
+      </li>
+      <li>
+        Markdown for your agent: a <code>.md</code> copy of every page,
+        <code>llms.txt</code> per framework, and <code>npx opui-css skill</code>
+        to drop a skill for opui into your project.
+      </li>
+      <li>
+        The <DocLink href="/blog">blog</DocLink>: a post per technique, and an
+        <DocLink href="/blog/under-the-hood">Under the hood</DocLink> build-up for
+        most components.
+      </li>
+      <li>
+        What's new and Migrating from 5.x notes at the top of each component
+        page.
+      </li>
+    </ul>
+    <p>
+      The build-ups are my answer to the less readable CSS. Here's the Button,
+      one rule at a time:
+    </p>
+    <ButtonBuild />
+  </section>
+
+  <section id="blocks">
+    <h2>Blocks!</h2>
+    <p>
+      I know no one will probably use a single one of them. AI will barf out
+      these blocks in five seconds - it's why Tailwind Plus (or whatever it's
+      called) isn't a thing anymore. But if no one uses them, they will at least
+      serve as a showcase of what can be done and how you can work with OPUI.
+      Also a great way to find new components to add back to the library. For
+      each block I add, I hope to demonstrate the possibilities but also find
+      ways to improve the library itself.
+    </p>
+    <p>
+      There are {allBlocks.length} of them in {blockGroups.length} categories, plain
+      HTML and CSS, the same in every framework.
+    </p>
+    <BlockShuffle />
+  </section>
+
+  <section id="theme-builder">
+    <h2>Theme builder</h2>
+    <p>This one is exciting!</p>
+    <p>
+      Not only do I really get to use OPUI and stretch its legs here, but for
+      users it provides a way to easily customize their themes without having to
+      learn every token and variable and how they interact.
+    </p>
+    <ul>
+      <li>Export to <code>theme.css</code> or <code>tokens.json</code>.</li>
+      <li>
+        Import a theme's CSS, a list of colors, or an image to take the brand
+        color from.
+      </li>
+      <li>Moods, and a shuffle that leaves the settings you locked alone.</li>
+      <li>
+        Preview on components, states, blocks or this whole site, in light, dark
+        and more contrast, with a contrast report.
+      </li>
+      <li>
+        Save up to 50 themes in the browser, undo and redo, and share a theme as
+        a link.
+      </li>
+      <li>
+        Start from the default, an example theme or one of the gallery themes.
+      </li>
+    </ul>
+    <p>Roll one below. If you like it, take it with you to the builder.</p>
+    <ThemeDice />
+  </section>
+
+  <section id="the-css-is-the-component">
+    <h2>The CSS is the component</h2>
+    <Shells />
+    <ul>
+      <li>
+        The core idea: a component is its stylesheet and the native HTML it
+        styles. Popovers, invokers, anchor positioning, scroll-driven fills and
+        <code>:has()</code> carry the behavior.
+      </li>
+      <li>
+        A framework layer is a binding: props to attributes and classes, slots
+        to parts, events to native events. About 2,500 lines each.
+      </li>
+      <li>
+        Behavior HTML cannot give lives in custom elements, shared by every
+        framework and by plain HTML.
+      </li>
+      <li>
+        Why React and Svelte could land in one release, and what each binding
+        adds: React 19 with Server Components by default and
+        <code>"use client"</code> only on stateful components; Svelte 5 with
+        <code>bind:value</code>, <code>bind:checked</code> and
+        <code>bind:group</code>; Astro and Vue with parts instead of slots.
+      </li>
+      <li>
+        The parity test keeps the shells honest: every example rendered in every
+        framework and compared against Astro, accepted drift in a
+        <code>.diff</code> ledger that only shrinks, 22 alignment fixes in this release.
+      </li>
+      <li>
+        What the idea costs: a new feature needs one engine to ship it, so the
+        browser support section is the other half of this one.
+      </li>
+    </ul>
+  </section>
+
+  <section id="one-naming-model">
+    <h2>Slots become parts, props get one naming model</h2>
+    <Renames />
+    <ul>
+      <li>
+        Slots become parts: CardHeader, CardContent, CardActions, DialogTitle,
+        DialogFooter, AnchorContent, TooltipContent, AccordionSummary.
+      </li>
+      <li>
+        Props named after the native attribute or the CSS they set:
+        <code>positionArea</code>, <code>checked</code>,
+        <code>orientation</code>, <code>start</code> and <code>end</code>,
+        <code>size="small"</code>, <code>type="button"</code> by default.
+      </li>
+      <li>
+        Private custom properties follow one shape: <code>--_accent</code>,
+        <code>--_text-color</code>, <code>--_bg-color</code>,
+        <code>--_size</code>, <code>--_radius</code>.
+      </li>
+      <li>
+        The naming model as a written rule in the components guide, enforced by
+        a unit test.
+      </li>
+      <li>Removed: IconButton (Button does it), ClassicSelect, Toast.</li>
+      <li>
+        The explorer above holds the 119 renames the migration guide documents
+        as pairs; structural changes (slots to parts) are in the guide only.
+      </li>
+    </ul>
+  </section>
+
+  <section id="platform-did-the-work">
+    <h2>The platform did the work</h2>
+    <ul>
+      <li>
+        <DocLink href="/components/carousel">Carousel</DocLink> with CSS scroll buttons
+        and markers (<DocLink href="/blog/carousel-css-only">Blog</DocLink>), <DocLink
+          href="/components/menu">Menu</DocLink
+        > as a popover with submenus, anchored without <code>anchor-name</code> (<DocLink
+          href="/blog/menu-popover-anchor">Blog</DocLink
+        >).
+      </li>
+      <li>
+        Invoker commands for Dialog, Drawer and Menu (<DocLink
+          href="/blog/dialog-closedby">Blog</DocLink
+        >, <DocLink href="/blog/drawer-starting-style">Blog</DocLink>).
+      </li>
+      <li>
+        <code>interestfor</code> for Tooltip and Anchor, and the
+        <code>id</code> that is now yours to pass (<DocLink
+          href="/blog/tooltip-interest-invokers">Blog</DocLink
+        >, <DocLink href="/blog/anchor-hover-cards">Blog</DocLink>).
+      </li>
+      <li>
+        Scroll-driven Range fill (<DocLink href="/blog/range-tick-marks"
+          >Blog</DocLink
+        >), scroll-state shadows on Dialog, Drawer and sticky Table headers (<DocLink
+          href="/blog/table-scroll-state">Blog</DocLink
+        >).
+      </li>
+      <li>
+        Select on <code>appearance: base-select</code> with
+        <code>autoFit</code> (<DocLink href="/blog/select-base-select"
+          >Blog</DocLink
+        >).
+      </li>
+      <li>
+        Fluid headings with <code>progress()</code> (<DocLink
+          href="/blog/fluid-type-progress">Blog</DocLink
+        >), rhythm snapped with <code>round()</code> (<DocLink
+          href="/blog/vertical-rhythm-round">Blog</DocLink
+        >), the <code>components.prose</code> layer.
+      </li>
+      <li>
+        Tabs announced as a radio group (<DocLink
+          href="/blog/tabs-radio-buttons">Blog</DocLink
+        >), <code>aria-invalid</code> replacing <code>data-invalid</code>
+        (<DocLink href="/blog/text-field-user-invalid">Blog</DocLink>),
+        forced-colors fixes across the board.
+      </li>
+    </ul>
+  </section>
+
+  <section id="browser-support">
+    <h2>Browser support, honestly</h2>
+    <SupportMatrix />
+    <ul>
+      <li>Feature first: one engine shipping is enough.</li>
+      <li>
+        Expected failures per engine, each with a plain-HTML repro, removed the
+        day the engine catches up.
+      </li>
+      <li>
+        The compat layer and what it covers today (<DocLink
+          href="/guide/browser-support">Browser support</DocLink
+        >).
+      </li>
+      <li>
+        <code>opui.no-compat.css</code> and
+        <code>opui.baseline-&lt;year&gt;.css</code>: pick by audience.
+      </li>
+      <li>
+        Known gaps to name: iOS checked by hand, logical
+        <code>overflow-inline</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section id="new-by-hand">
+    <h2>The new "by hand"</h2>
+    <Ratchets />
+    <ul>
+      <li>
+        Instead of keeping every detail in your head, lean on tools and scripts
+        to harden the library, and spend the attention on architecture and the
+        big picture.
+      </li>
+      <li>
+        What hardens it: released tokens and released API ledgers, parity drift,
+        the a11y violations ledger, contrast promises, ratchets that only
+        shrink.
+      </li>
+      <li>
+        The kind of bug they catch: palette knobs declared twice, with a copy
+        that disagreed and never applied.
+      </li>
+      <li>
+        The exception is adding something new: that is where the fun is,
+        micro-managing and directing every detail carefully.
+      </li>
+    </ul>
+  </section>
+
+  <section id="where-it-landed">
+    <h2>Where it landed</h2>
+    <Blueprint state="built" />
+    <Numbers />
+    <ul>
+      <li>
+        The numbers above are computed at build time from the changelog, the
+        docs and the package. The commit count needs a full clone.
+      </li>
+      <li>
+        Themes overriding the severity palette until the
+        <code>theme.severity</code> layer.
+      </li>
+      <li>
+        The compat layer: one file per component, every rule behind
+        <code>@supports not</code> or an engine gate with a plain-HTML repro.
+      </li>
+    </ul>
+  </section>
+
+  <section id="migrating">
+    <h2>Migrating</h2>
+    <ul>
+      <li>
+        Import order: <code>layers.css</code> first; <code>choice.css</code>,
+        <code>utils.css</code> and <code>compat.css</code> with single-file imports.
+      </li>
+      <li>
+        Types from the framework entry; <code>types.vue-props.ts</code>.
+      </li>
+      <li>
+        The <a href="#one-naming-model">rename explorer</a> for props, classes, tokens
+        and private properties.
+      </li>
+      <li>
+        Visual shifts to expect: rich text spacing and heading sizes, the Tabs
+        look, control sizes in rem, Radio at 20px, darker dark-mode shadows.
+      </li>
+      <li>
+        Everything else, per component, in
+        <DocLink href="/guide/migrating">Migrating</DocLink>.
+      </li>
+    </ul>
+  </section>
+</TechniquePost>
+
+<style>
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      section > h2,
+      section > :global(:not(h2, #takeover)) {
+        animation: release-reveal linear backwards;
+        animation-range: entry 0% entry 30%;
+        animation-timeline: view();
+      }
+    }
+  }
+
+  @keyframes release-reveal {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: none;
+    }
+  }
+</style>

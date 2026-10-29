@@ -1,17 +1,19 @@
 ---
-import { Checkbox } from "@opui/astro"
+import { Checkbox } from "opui-css/astro"
 ---
 
-<div class="example-row ui-spacious">
+<div class="example-row">
   <Checkbox required name="checkbox-validation">Default</Checkbox>
-  <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
+  <Checkbox orientation="vertical" required name="checkbox-validation"
+    >Stack</Checkbox
+  >
 </div>
-<div class="example-row ui-spacious">
+<div class="example-row">
   <Checkbox error checked name="checkbox-validation">
     Default
     <Fragment slot="end-text">Check yourself</Fragment>
   </Checkbox>
-  <Checkbox stack error name="checkbox-validation">
+  <Checkbox orientation="vertical" error name="checkbox-validation">
     Stack
     <Fragment slot="end-text">Before you wreck yourself</Fragment>
   </Checkbox>

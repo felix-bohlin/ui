@@ -3,21 +3,21 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Favorite Pet</FieldLegend>
     <FieldDescription
       >Please select your favorite type of pet.</FieldDescription
     >
     <FieldGroup name="pet">
-      <Radio value="dog">Dog</Radio>
       <Radio value="cat">Cat</Radio>
+      <Radio value="dog">Dog</Radio>
       <Radio value="hamster">Hamster</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>

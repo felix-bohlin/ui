@@ -1,24 +1,39 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { DescriptionList as UIDescriptionList } from "@opui/astro"
+import {
+  DescriptionList as UIDescriptionList,
+  DescriptionListDescription as UIDescriptionListDescription,
+  DescriptionListItem as UIDescriptionListItem,
+  DescriptionListTerm as UIDescriptionListTerm,
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
+import descriptionListItemApi from "../../component-api/description-list-item/api"
+import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
   "Description lists are used to display a list of terms and their descriptions."
+
+export const keywords = ["dl", "key value", "properties"]
 ---
 
 <Component
   description={description}
   slug="description-list"
   heroAnatomy
-  apis={[{ title: "Description list API", api: descriptionListApi }]}
-  browserSupport={["container-queries", "has"]}
+  apis={[
+    { title: "Description list API", api: descriptionListApi },
+    { title: "Description list item API", api: descriptionListItemApi },
+  ]}
+  browserSupport={["container-queries"]}
   changelogPaths={[
     {
       path: "packages/opui/components/DescriptionList",
@@ -42,44 +57,96 @@ export const description =
 >
   <Fragment slot="title">Description list</Fragment>
 
-  <AutoExample name="Default" />
+  <Usage slot="usage">
+    <li slot="when">
+      Labels with values, like the details of an order or a profile.
+    </li>
+    <li slot="when">
+      Totals and summaries in a sidebar or a card, side by side with <PropOrClass
+        prop='orientation="horizontal"'
+        class=".ui-horizontal"
+      />.
+    </li>
+    <li slot="when-not">
+      Data in several columns that people compare. Use a <DocLink
+        href="/components/table">Table</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Values that people edit. Use form fields, like a <DocLink
+        href="/components/text-field">Text field</DocLink
+      >.
+    </li>
+  </Usage>
 
-  <section>
-    <h2 id="bordered">Bordered</h2>
-    <Conditional>
-      <Fragment slot="astro">
+  <section id="basics">
+    <h2>Basics</h2>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="bordered">
+    <h2>Bordered</h2>
+    <Conditional as="div">
+      <Fragment slot="components">
         <p>
           Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
-          between the term and description on all items. Use{" "}
-          <code>bordered="dotted"</code> for a dotted style.
+          between the term and description on all items, and <code>dotted</code>
+          with it for a dotted one.
         </p>
       </Fragment>
       <Fragment slot="html">
         <p>
-          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element. For
-          a dotted style, also add <code>.ui-dotted</code>.
-        </p>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>
-          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
-          between the term and description on all items. Use{" "}
-          <code>bordered="dotted"</code> for a dotted style.
+          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element to
+          add a separator between the term and description on all items, and <code
+            >.ui-dotted</code
+          > with it for a dotted one.
         </p>
       </Fragment>
     </Conditional>
+    <p>
+      Above <code>45ch</code> the term and description share a row and the border
+      fills the gap between them. Narrower lists stack and show no border, unless
+      they're horizontal (<PropOrClass
+        prop='orientation="horizontal"'
+        class=".ui-horizontal"
+      />).
+    </p>
     <AutoExample name="Bordered" column spacious />
   </section>
 
+  <section id="orientation">
+    <h2>Orientation</h2>
+    <p>
+      By default the term and the description stack when the list is <code
+        >45ch</code
+      > or narrower, and sit side by side when it's wider. Set <PropOrClass
+        prop='orientation="horizontal"'
+        class=".ui-horizontal"
+      /> to keep them side by side at any width, for example for totals in a sidebar
+      or summary card.
+    </p>
+    <AutoExample name="Orientation" />
+  </section>
+
+  <section id="total">
+    <h2>Total</h2>
+    <p>
+      <PropOrClass prop="total" class=".ui-total" /> on the last item draws a line
+      above it and makes it larger and bold, for the total of an order summary or
+      an invoice.
+    </p>
+    <AutoExample name="Total" />
+  </section>
+
+  <DescriptionListBuild slot="under-the-hood" />
+
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
-      <UIDescriptionList bordered="dotted" style="inline-size: 16rem">
-        <UIDescriptionList.Item>
-          <UIDescriptionList.Term>Price</UIDescriptionList.Term>
-          <UIDescriptionList.Description
-            >6 950 000</UIDescriptionList.Description
-          >
-        </UIDescriptionList.Item>
+      <UIDescriptionList style="inline-size: 16rem">
+        <UIDescriptionListItem>
+          <UIDescriptionListTerm>Price</UIDescriptionListTerm>
+          <UIDescriptionListDescription>6 950 000</UIDescriptionListDescription>
+        </UIDescriptionListItem>
       </UIDescriptionList>
     </Anatomy>
   </Fragment>

@@ -1,0 +1,344 @@
+---
+import { readFileSync } from "node:fs"
+import { Button, Chip } from "opui-css/astro"
+import { addedComponents, changelogSections } from "../../utils/changelog"
+import { releaseVersion } from "../../utils/release"
+
+const id = "hero"
+
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
+
+const counts = new Map(
+  changelogSections(changelog, releaseVersion).map((section) => [
+    section.title,
+    section.entries.length,
+  ]),
+)
+
+const newComponents = addedComponents(changelog, releaseVersion).length
+
+const numeral = releaseVersion.split(".").slice(0, 2).join(".")
+
+const facts = [
+  `${counts.get("Added") ?? 0} added, ${counts.get("Breaking") ?? 0} breaking`,
+  `${newComponents} new components`,
+  "Four example themes",
+  "React and Svelte",
+].toSorted((a, b) => a.localeCompare(b, "en"))
+
+const dust = Array.from({ length: 12 }, (_, index) => index)
+---
+
+<div class="hero ui-not-rich-text" id={id}>
+  <div class="hero-stage">
+    <div class="hero-slam">
+      <div aria-hidden="true" class="hero-ring"></div>
+      {
+        dust.map((index) => (
+          <i aria-hidden="true" class="hero-dust" style={`--i: ${index}`} />
+        ))
+      }
+      <p class="hero-numeral">{numeral}</p>
+    </div>
+    <p class="hero-tagline">Four frameworks. Four themes. One naming model.</p>
+    <ul class="hero-facts">
+      {
+        facts.map((fact, index) => (
+          <li style={`--i: ${index}`}>
+            <Chip label={fact} size="small" variant="outlined" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <Button class="hero-replay" size="small" variant="outlined">Replay</Button>
+</div>
+
+<script>
+  const stage = document.querySelector<HTMLElement>("#hero .hero-stage")
+  if (stage && CSS.supports("timeline-trigger", "--hero view()")) {
+    stage.classList.add("hero-play")
+  } else if (stage) {
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          stage.classList.add("hero-play")
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.4 },
+    ).observe(stage)
+  }
+  document
+    .querySelector("#hero .hero-replay")
+    ?.addEventListener("click", () => {
+      stage?.classList.remove("hero-play")
+      stage?.getBoundingClientRect()
+      stage?.classList.add("hero-play")
+    })
+</script>
+
+<style is:global>
+  .hero {
+    --_impact: 0.55s;
+
+    display: grid;
+    gap: var(--ui-space-3);
+    justify-items: center;
+    margin-block: var(--ui-space-5);
+
+    & .hero-stage {
+      align-content: center;
+      background: radial-gradient(
+        ellipse 50% 50% at 50% 45%,
+        oklch(from var(--ui-primary) l c h / 18%),
+        transparent
+      );
+      display: grid;
+      gap: var(--ui-space-4);
+      inline-size: 100%;
+      isolation: isolate;
+      justify-items: center;
+      min-block-size: clamp(18rem, 60vh, 36rem);
+      overflow: clip visible;
+      padding: var(--ui-space-4);
+      position: relative;
+      text-align: center;
+    }
+
+    & .hero-slam {
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    & .hero-numeral {
+      background: linear-gradient(
+        160deg,
+        var(--ui-primary-text),
+        oklch(from var(--ui-primary-text) calc(l + 0.08) c h)
+      );
+      background-clip: text;
+      color: transparent;
+      font-family: var(--ui-font-heading, var(--ui-font-body));
+      font-size: clamp(8rem, 22vw, 16rem);
+      font-weight: var(--ui-font-weight-bold);
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+      margin: 0;
+      padding: 0.05em 0.12em;
+      position: relative;
+      z-index: 1;
+    }
+
+    & .hero-ring {
+      aspect-ratio: 1;
+      border: 4px solid var(--ui-primary);
+      border-radius: 50%;
+      inline-size: min(18rem, 80%);
+      inset: 50% auto auto 50%;
+      opacity: 0;
+      position: absolute;
+      scale: 0.2;
+      translate: -50% -50%;
+    }
+
+    & .hero-dust {
+      --_angle: calc(190deg + var(--i) * 14.5deg);
+      --_distance: calc(9rem + mod(var(--i), 3) * 3rem);
+
+      background: var(--ui-primary);
+      block-size: 0.5rem;
+      border-radius: var(--ui-radius-round);
+      inline-size: calc(0.875rem + mod(var(--i), 2) * 0.5rem);
+      inset: 82% auto auto 50%;
+      opacity: 0;
+      position: absolute;
+      rotate: var(--_angle);
+    }
+
+    & .hero-tagline {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-400);
+      font-weight: var(--ui-font-weight-medium);
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    & .hero-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-2);
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  @media (width < 40rem) {
+    .hero .hero-stage {
+      min-block-size: clamp(16rem, 46vh, 24rem);
+    }
+  }
+
+  .hero .hero-play {
+    animation: hero-shake 150ms linear var(--_impact) backwards;
+
+    & .hero-numeral {
+      animation: hero-drop 0.9s linear backwards;
+    }
+
+    & .hero-ring {
+      animation: hero-ring 0.7s ease-out var(--_impact) backwards;
+    }
+
+    & .hero-dust {
+      animation: hero-dust 0.65s cubic-bezier(0.1, 0.7, 0.3, 1) var(--_impact)
+        backwards;
+    }
+
+    & .hero-tagline {
+      animation: hero-rise 0.5s var(--ui-ease-enter) 0.95s backwards;
+    }
+
+    & .hero-facts li {
+      animation: hero-rise 0.5s var(--ui-ease-enter)
+        calc(1.15s + var(--i) * 80ms) backwards;
+    }
+  }
+
+  @supports (timeline-trigger: --hero view()) {
+    .hero .hero-stage {
+      timeline-trigger: --hero view() entry 40% exit 100%;
+    }
+
+    .hero .hero-play {
+      animation-trigger: --hero play-once;
+
+      & :is(.hero-numeral, .hero-ring, .hero-dust, .hero-tagline),
+      & .hero-facts li {
+        animation-trigger: --hero play-once;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero .hero-play,
+    .hero .hero-play :is(.hero-numeral, .hero-ring, .hero-dust, .hero-tagline),
+    .hero .hero-play .hero-facts li {
+      animation: none;
+    }
+
+    .hero .hero-replay {
+      display: none;
+    }
+  }
+
+  @keyframes hero-drop {
+    from {
+      animation-timing-function: cubic-bezier(0.6, 0, 1, 0.5);
+      opacity: 0;
+      scale: 2.4;
+      translate: 0 -110%;
+    }
+
+    30% {
+      opacity: 1;
+    }
+
+    61% {
+      animation-timing-function: ease-out;
+      scale: 1;
+      translate: 0 0;
+    }
+
+    72% {
+      animation-timing-function: ease-in-out;
+      scale: 1.08 0.88;
+      translate: 0 5%;
+    }
+
+    86% {
+      animation-timing-function: ease-in-out;
+      scale: 0.98 1.03;
+      translate: 0 -1.5%;
+    }
+
+    to {
+      scale: 1;
+      translate: 0 0;
+    }
+  }
+
+  @keyframes hero-shake {
+    from,
+    to {
+      animation-timing-function: step-end;
+      translate: 0 0;
+    }
+
+    25% {
+      animation-timing-function: step-end;
+      translate: 4px -5px;
+    }
+
+    50% {
+      animation-timing-function: step-end;
+      translate: -4px 4px;
+    }
+
+    75% {
+      animation-timing-function: step-end;
+      translate: 2px -2px;
+    }
+  }
+
+  @keyframes hero-ring {
+    from {
+      opacity: 0;
+      scale: 0.2;
+    }
+
+    12% {
+      opacity: 0.9;
+    }
+
+    to {
+      opacity: 0;
+      scale: 1.6;
+    }
+  }
+
+  @keyframes hero-dust {
+    from {
+      opacity: 0;
+      scale: 1;
+      translate: 0 0;
+    }
+
+    10%,
+    55% {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+      scale: 0.5;
+      translate: calc(cos(var(--_angle)) * var(--_distance))
+        calc(sin(var(--_angle)) * var(--_distance) * 0.8);
+    }
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>

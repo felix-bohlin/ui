@@ -1,0 +1,161 @@
+---
+import {
+  Button,
+  Checkbox,
+  Chip,
+  Radio,
+  Select,
+  Switch,
+  TextField,
+  Textarea,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+
+type Props = {
+  scheme: "dark" | "light"
+}
+
+const { scheme } = Astro.props
+
+const name = (part: string) => `states-${scheme}-${part}`
+---
+
+<div class="states">
+  <div class="states-block">
+    <p class="states-caption">Disabled</p>
+    <div class="states-row">
+      <Button color="primary" disabled type="button" variant="filled"
+        >Filled</Button
+      >
+      <Button disabled type="button" variant="tonal">Tonal</Button>
+      <Button disabled type="button" variant="outlined">Outlined</Button>
+      <Button disabled type="button">Text</Button>
+      <Chip as="button" disabled label="Chip" type="button" />
+    </div>
+    <div class="states-row">
+      <Checkbox checked disabled name={name("disabled-check")}>Checked</Checkbox
+      >
+      <Radio checked disabled name={name("disabled-radio")} value="a"
+        >Chosen</Radio
+      >
+      <Switch checked disabled name={name("disabled-switch")}>On</Switch>
+    </div>
+    <TextField
+      disabled
+      label="Disabled field"
+      name={name("disabled-field")}
+      value="Read but not written"
+    />
+  </div>
+
+  <div class="states-block">
+    <p class="states-caption">Invalid</p>
+    <TextField
+      endText="Use at least 8 characters."
+      error
+      label="Password"
+      name={name("invalid-field")}
+      type="password"
+      value="1234"
+    />
+    <Select error label="Country" name={name("invalid-select")}>
+      <option>Choose one</option>
+    </Select>
+    <div class="states-row">
+      <Checkbox error name={name("invalid-check")}
+        >I agree to the terms</Checkbox
+      >
+      <Switch error name={name("invalid-switch")}>Notifications</Switch>
+    </div>
+  </div>
+
+  <div class="states-block">
+    <p class="states-caption">Checked and pressed</p>
+    <div class="states-row">
+      <Checkbox checked name={name("checked")}>Checked</Checkbox>
+      <Checkbox indeterminate name={name("mixed")}>Mixed</Checkbox>
+      <Radio checked name={name("radio")} value="a">Chosen</Radio>
+      <Switch checked name={name("switch")}>On</Switch>
+    </div>
+    <div class="states-row">
+      <ToggleGroup aria-label="Alignment" name={name("toggle")} size="small">
+        <ToggleButton checked value="left">Pressed</ToggleButton>
+        <ToggleButton value="center">Rest</ToggleButton>
+      </ToggleGroup>
+      <Chip
+        aria-pressed="true"
+        as="button"
+        label="Pressed chip"
+        type="button"
+      />
+      <Chip as="button" label="Rest chip" type="button" />
+    </div>
+  </div>
+
+  <div class="states-block">
+    <p class="states-caption">Read-only and placeholder</p>
+    <TextField
+      label="Order number"
+      name={name("readonly")}
+      readonly
+      value="A-10492"
+    />
+    <Textarea
+      label="Notes"
+      name={name("placeholder")}
+      placeholder="Placeholder text"
+      rows="2"
+    />
+  </div>
+
+  <p class="states-note">
+    Hover, focus and press show on the Components tab when you use the controls.
+    Contrast of the invalid message and the focus ring is in the contrast
+    report.
+  </p>
+</div>
+
+<style>
+  .states {
+    columns: 18rem 2;
+    gap: var(--ui-space-5);
+  }
+
+  .states-block {
+    break-inside: avoid;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block-end: var(--ui-space-6);
+    min-inline-size: 0;
+
+    & :global(.ui-text-field),
+    & :global(.ui-select),
+    & :global(.ui-textarea) {
+      inline-size: 100%;
+    }
+  }
+
+  .states-caption {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .states-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-3);
+  }
+
+  .states-note {
+    color: var(--ui-text-subtle);
+    column-span: all;
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+import ThemeBuilder from "../components/ThemeBuilder/ThemeBuilder.astro"
+import Default from "../layouts/Default.astro"
+
+const description =
+  "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file."
+---
+
+<Default description={description} hasMarkdown title="Theme builder">
+  <main class="builder-main" id="main-content">
+    <article class="ui-sr-only">
+      <h1>Theme builder</h1>
+      <p>{description}</p>
+    </article>
+    <ThemeBuilder />
+  </main>
+</Default>
+
+<style>
+  .builder-main {
+    padding-inline: var(--site-gap);
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import { Progress, Range, Switch } from "opui-css/astro"
+
+const value = 40
+---
+
+<div class="progress-state">
+  <p aria-atomic="true" aria-live="polite" class="progress-state-status">
+    <code>:indeterminate</code>
+    <span class="progress-state-match" data-match="true">matches</span>
+    <span class="progress-state-match" data-match="false">doesn't match</span>
+  </p>
+  <Progress aria-label="Upload" max={100} value={value} />
+  <div class="progress-state-controls">
+    <Range label="Value" max={100} min={0} value={value} valueSuffix="%" />
+    <Switch label="Indeterminate" name="indeterminate" />
+  </div>
+</div>
+
+<style>
+  .progress-state {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: min(100%, 28rem);
+  }
+
+  .progress-state-status {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .progress-state-match {
+    color: var(--ui-text);
+
+    &[data-match="true"] {
+      color: var(--ui-primary);
+      display: none;
+    }
+
+    .progress-state:has(progress:indeterminate) &[data-match="true"] {
+      display: inline;
+    }
+
+    .progress-state:has(progress:indeterminate) &[data-match="false"] {
+      display: none;
+    }
+  }
+
+  .progress-state-controls {
+    align-items: end;
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-5);
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".progress-state").forEach((demo) => {
+    const progress = demo.querySelector("progress")
+    const range = demo.querySelector<HTMLInputElement>("input[type=range]")
+    const toggle = demo.querySelector<HTMLInputElement>("input[type=checkbox]")
+    if (!progress || !range || !toggle) return
+
+    const render = () => {
+      range.disabled = toggle.checked
+      if (toggle.checked) {
+        progress.removeAttribute("value")
+      } else {
+        progress.value = Number(range.value)
+      }
+    }
+
+    range.addEventListener("input", render)
+    toggle.addEventListener("change", render)
+  })
+</script>

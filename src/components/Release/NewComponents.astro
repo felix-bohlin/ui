@@ -1,0 +1,274 @@
+---
+import { readFileSync } from "node:fs"
+import {
+  Avatar,
+  Button,
+  Copy,
+  Message,
+  Messages,
+  NumberField,
+  OneTimeCode,
+  Rating,
+  Stat,
+  Stepper,
+  TextField,
+  Timeline,
+  TimelineItem,
+  Toaster,
+} from "opui-css/astro"
+import DocLink from "../DocLink.astro"
+import { addedComponents } from "../../utils/changelog"
+import { releaseVersion } from "../../utils/release"
+
+const id = "new-components-demo"
+
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
+
+const count = addedComponents(changelog, releaseVersion).length
+
+const dateOf = (version: string) => {
+  const date = changelog.match(
+    new RegExp(
+      `^## ${version.replaceAll(".", "\\.")} - (\\d{4}-\\d{2}-\\d{2})$`,
+      "m",
+    ),
+  )?.[1]
+  if (!date) {
+    throw new Error(
+      `NewComponents.astro: expected a dated ${version} in the changelog`,
+    )
+  }
+  return date
+}
+
+const month = new Intl.DateTimeFormat("en", {
+  month: "short",
+  timeZone: "UTC",
+  year: "numeric",
+})
+
+const milestones = ["1.0.0", "5.0.0"].map((version) => {
+  const date = dateOf(version)
+  return {
+    date,
+    label: version.replace(/\.0$/, ""),
+    time: month.format(new Date(date)),
+  }
+})
+
+const steps = [
+  { href: "#blueprint-sketch", label: "Sketch" },
+  { href: "#design-system", label: "Build" },
+  { href: "#new-by-hand", label: "Review" },
+  { href: "#migrating", label: "Ship" },
+]
+
+if (count < 1) {
+  throw new Error(
+    "NewComponents.astro: expected `Name` component entries in the Added section",
+  )
+}
+---
+
+<ul
+  aria-label="New components to try"
+  class="new-components ui-not-rich-text"
+  id={id}
+>
+  <li class="new-components-tile new-components-wide new-components-tall">
+    <p class="new-components-name">
+      <DocLink href="/components/message">Message</DocLink>
+    </p>
+    <Messages aria-label="Messages about the release">
+      <Message author="You" datetime="2026-10-27T09:12" outgoing time="09:12">
+        <p>Is 6.0 out yet?</p>
+      </Message>
+      <Message author="You" datetime="2026-10-27T09:12" outgoing time="09:12">
+        <p>Asking for a friend.</p>
+      </Message>
+      <Message author="Felix" datetime="2026-10-27T09:14" time="09:14">
+        <Avatar aria-label="Felix" role="img" slot="start">F</Avatar>
+        <p>Almost. Scroll down, it's all in here.</p>
+      </Message>
+    </Messages>
+  </li>
+  <li class="new-components-tile">
+    <p class="new-components-name">
+      <DocLink href="/components/stat">Stat</DocLink>
+    </p>
+    <Stat label="New components">
+      {count}
+      <Fragment slot="description">since 5.x, and counting</Fragment>
+    </Stat>
+  </li>
+  <li class="new-components-tile">
+    <p class="new-components-name">
+      <DocLink href="/components/toast">Toaster</DocLink>
+    </p>
+    <Button
+      command="--toast"
+      commandfor={`${id}-toaster`}
+      data-toast="6.0 shipped. Go have a coffee."
+      data-toast-severity="success"
+      variant="filled">Ship 6.0</Button
+    >
+    <Toaster id={`${id}-toaster`} />
+  </li>
+  <li class="new-components-tile new-components-full">
+    <p class="new-components-name">
+      <DocLink href="/components/stepper">Stepper</DocLink>
+    </p>
+    <Stepper aria-label="Release steps" current={4} items={steps} />
+  </li>
+  <li class="new-components-tile">
+    <p class="new-components-name">
+      <DocLink href="/components/copy">Copy</DocLink>
+    </p>
+    <div class="new-components-row">
+      <Copy id={`${id}-copy`}>
+        <TextField
+          hideLabel
+          label="Install command"
+          readonly
+          size="small"
+          value="npm i opui-css@next"
+        />
+      </Copy>
+      <Button
+        command="--copy"
+        commandfor={`${id}-copy`}
+        size="small"
+        variant="outlined">Copy</Button
+      >
+    </div>
+  </li>
+  <li class="new-components-tile">
+    <p class="new-components-name">
+      <DocLink href="/components/rating">Rating</DocLink>
+    </p>
+    <Rating label="Rate this release" name={`${id}-rating`} value={5} />
+  </li>
+  <li class="new-components-tile">
+    <p class="new-components-name">
+      <DocLink href="/components/number-field">NumberField</DocLink>
+    </p>
+    <NumberField
+      id={`${id}-coffees`}
+      label="Coffees, roughly"
+      min={0}
+      size="small"
+      step={10}
+      value={410}
+    />
+  </li>
+  <li class="new-components-tile">
+    <p class="new-components-name">
+      <DocLink href="/components/one-time-code">OneTimeCode</DocLink>
+    </p>
+    <OneTimeCode
+      endText="Hint: the version, twice."
+      label="Unlock code"
+      length={4}
+      name={`${id}-code`}
+      size="small"
+    />
+  </li>
+  <li class="new-components-tile new-components-wide">
+    <p class="new-components-name">
+      <DocLink href="/components/timeline">Timeline</DocLink>
+    </p>
+    <Timeline>
+      {
+        milestones.map((milestone) => (
+          <TimelineItem
+            datetime={milestone.date}
+            label={milestone.label}
+            time={milestone.time}
+          />
+        ))
+      }
+      <TimelineItem current="step" label="6.0" time="Now">
+        <p>You are here.</p>
+      </TimelineItem>
+    </Timeline>
+  </li>
+</ul>
+
+<style is:global>
+  .new-components {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    list-style: none;
+    margin-block: var(--ui-space-5);
+    padding: 0;
+  }
+
+  .new-components-tile {
+    align-content: start;
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    display: grid;
+    gap: var(--ui-space-3);
+    justify-items: start;
+    min-inline-size: 0;
+    padding: var(--ui-space-4);
+
+    & > * {
+      margin: 0;
+      max-inline-size: 100%;
+    }
+  }
+
+  .new-components-wide {
+    justify-items: stretch;
+
+    @container (inline-size >= 34rem) {
+      grid-column: span 2;
+    }
+  }
+
+  .new-components-tall {
+    @container (inline-size >= 34rem) {
+      grid-row: span 2;
+    }
+  }
+
+  .new-components-full {
+    grid-column: 1 / -1;
+    justify-items: stretch;
+  }
+
+  .new-components-name {
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-medium);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    & a {
+      color: var(--ui-text);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--ui-text-strong);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .new-components-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+    inline-size: 100%;
+
+    & > :first-child {
+      flex: 1 1 12rem;
+      min-inline-size: 0;
+    }
+  }
+</style>

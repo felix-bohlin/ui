@@ -1,0 +1,1456 @@
+---
+import { Button, Chip, TextField } from "opui-css/astro"
+import themeCss from "../../../packages/opui/css/theme.css?raw"
+import { GROUPS, libraryDefaults } from "../../utils/theme-builder-controls"
+import { MOODS } from "../../utils/theme-remix"
+import BuilderControl from "./BuilderControl.astro"
+import BuilderPresets from "./BuilderPresets.astro"
+import BuilderTokens from "./BuilderTokens.astro"
+
+const defaults = JSON.stringify(libraryDefaults(themeCss))
+---
+
+<section
+  aria-labelledby="builder-settings-title"
+  class="builder-controls"
+  data-defaults={defaults}
+>
+  <h2 class="ui-sr-only" id="builder-settings-title">Settings</h2>
+  <p class="builder-search-summary" data-search-summary hidden role="status">
+  </p>
+  {
+    GROUPS.map((group, index) => {
+      const basic = group.controls.filter((control) => control.tier === "basic")
+      const fine = group.controls.filter((control) => control.tier === "fine")
+      return (
+        <section
+          aria-labelledby={`builder-group-${group.id}`}
+          class="builder-group"
+          data-group={group.id}
+          hidden={index > 0}
+        >
+          <header class="builder-group-head">
+            <h3 id={`builder-group-${group.id}`} tabindex="-1">
+              {group.label}
+              <span class="builder-count" data-count hidden />
+            </h3>
+            <p>{group.description}</p>
+          </header>
+          {group.id === "brand" && (
+            <div class="builder-start" data-start>
+              <BuilderPresets />
+              <div
+                aria-labelledby="builder-moods-title"
+                class="builder-moods"
+                role="group"
+              >
+                <p class="builder-moods-title" id="builder-moods-title">
+                  Mood
+                </p>
+                <div class="builder-moods-list">
+                  {MOODS.map((mood) => (
+                    <Chip
+                      as="button"
+                      aria-pressed="false"
+                      data-mood={mood.id}
+                      label={mood.label}
+                      size="small"
+                      title={mood.hint}
+                      type="button"
+                      variant="outlined"
+                    />
+                  ))}
+                </div>
+                <p class="builder-moods-hint">
+                  A mood sets a handful of settings on top of your starting
+                  point and stays marked while they all hold. Press it again to
+                  take them back.
+                </p>
+              </div>
+              <div class="builder-paste" data-paste>
+                <p class="builder-paste-title" id="builder-paste-title">
+                  Paste anything
+                </p>
+                <div class="builder-paste-row">
+                  <TextField
+                    aria-describedby="builder-paste-hint"
+                    autocomplete="off"
+                    class="builder-paste-field"
+                    hideLabel
+                    label="Paste a color, a theme.css or an image"
+                    name="builder-paste"
+                    placeholder="A color, a theme.css or an image"
+                    size="small"
+                    spellcheck="false"
+                  />
+                  <Button data-paste-image size="small" variant="outlined">
+                    Choose image
+                  </Button>
+                  <input
+                    accept="image/*"
+                    aria-label="Image for the brand color"
+                    class="ui-sr-only"
+                    data-paste-file
+                    type="file"
+                  />
+                </div>
+                <p class="builder-paste-hint" id="builder-paste-hint">
+                  A hex, rgb or oklch color becomes the brand color. A theme.css
+                  from this builder replaces the theme. An image gives its main
+                  color. You can also drop them here.
+                </p>
+              </div>
+            </div>
+          )}
+          <div class="builder-tier" data-tier="basic">
+            {basic.map((control) => (
+              <BuilderControl control={control} />
+            ))}
+          </div>
+          {fine.length > 0 && (
+            <h4 class="builder-fine-title" data-fine-title>
+              Fine-tune
+              <span class="builder-fine-meta" data-fine-meta>
+                {fine.length} {fine.length === 1 ? "setting" : "settings"}
+              </span>
+            </h4>
+          )}
+          {fine.length > 0 && (
+            <div class="builder-tier" data-tier="fine">
+              {fine.map((control) => (
+                <BuilderControl control={control} />
+              ))}
+            </div>
+          )}
+        </section>
+      )
+    })
+  }
+  <BuilderTokens />
+</section>
+
+<script>
+  import { syncBrandPicker } from "../../utils/brand-picker"
+  import {
+    colorToOklch,
+    formatOklch,
+    parseOklch,
+  } from "../../utils/color-utils"
+  import { exampleTheme } from "../../utils/example-themes"
+  import { morph } from "../../utils/morph"
+  import { OklchInput } from "../../utils/oklch-input"
+  import { readStored, writeStored } from "../../utils/storage"
+  import {
+    CORNERS,
+    cornersTokens,
+    cornersUpdate,
+    isSafeToken,
+    themeStore,
+    type Theme,
+    type ThemeTokens,
+  } from "../../utils/theme"
+  import { resolveOklch, switchPreset } from "../../utils/theme-brand"
+  import { imageColor, parsePaste, type Paste } from "../../utils/theme-import"
+  import { resolveTokens } from "../../utils/tokens-export"
+  import {
+    BALANCED_PRIMARY,
+    BUILDER_TOKENS,
+    COMPONENT_RADII,
+    CONTROLS,
+    FOLLOW_RADIUS,
+    MONOCHROME_PRIMARY,
+    canonical,
+    changeCount,
+    controlTokens,
+    isChanged,
+    isFollow,
+    matchOption,
+    ownTokens,
+    tidy,
+    type ChoiceControl,
+    type ColorControl,
+    type Control,
+    type RangeControl,
+  } from "../../utils/theme-builder-controls"
+  import { brandTokens, brandUpdate } from "../../utils/theme-brand"
+  import {
+    LOCKED_BY_DEFAULT,
+    MOODS,
+    moodRemix,
+    shuffleRemix,
+    type Remix,
+  } from "../../utils/theme-remix"
+
+  type Update = Record<string, string | null>
+
+  const ROOM_KEY = "opui-builder-room"
+  const LOCKS_KEY = "opui-builder-locks"
+
+  const root = document.querySelector<HTMLElement>(".builder-controls")
+  if (root) {
+    const defaults: ThemeTokens = JSON.parse(root.dataset.defaults ?? "{}")
+    const controls = new Map(CONTROLS.map((control) => [control.id, control]))
+    const elements = new Map(
+      [...root.querySelectorAll<HTMLElement>("[data-control]")].map(
+        (element) => [element.dataset.control!, element],
+      ),
+    )
+    const groups = [...root.querySelectorAll<HTMLElement>("[data-group]")]
+    const groupOf = new Map(
+      [...elements].map(([id, element]) => [
+        id,
+        element.closest<HTMLElement>("[data-group]")!.dataset.group!,
+      ]),
+    )
+    const summary = root.querySelector<HTMLElement>("[data-search-summary]")!
+    const search = document.querySelector<HTMLInputElement>(
+      'input[name="builder-search"]',
+    )
+    const rooms = [
+      ...document.querySelectorAll<HTMLButtonElement>("[data-room]"),
+    ]
+    const locks = [
+      ...document.querySelectorAll<HTMLButtonElement>("[data-lock]"),
+    ]
+    const presets = root.querySelector<HTMLElement>("[data-presets]")!
+    const pasteField = root.querySelector<HTMLInputElement>(
+      'input[name="builder-paste"]',
+    )!
+    const pasteFile = root.querySelector<HTMLInputElement>("[data-paste-file]")!
+    const tokensGroup = root.querySelector<HTMLElement>(
+      '[data-group="tokens"]',
+    )!
+    const tokenRows = [...root.querySelectorAll<HTMLElement>("[data-token]")]
+    let tokenTimer = 0
+    const moodButtons = [
+      ...root.querySelectorAll<HTMLButtonElement>("[data-mood]"),
+    ]
+    const dual = new Set<string>()
+    const picked = new Set<string>()
+    let theme = themeStore.get()
+    let queued: Update | null = null
+    let frame = 0
+    let room = ""
+
+    const hosts = (["light", "dark"] as const).map((scheme) => {
+      const host = document.createElement("div")
+      host.className = `ui-${scheme}`
+      host.hidden = true
+      host.style.color = "transparent"
+      host.style.forcedColorAdjust = "none"
+      root.append(host)
+      return host
+    })
+    const lengthProbe = document.createElement("div")
+    lengthProbe.hidden = true
+    lengthProbe.style.forcedColorAdjust = "none"
+    root.append(lengthProbe)
+
+    const presetTokens = () => exampleTheme(theme.preset)?.tokens ?? {}
+    const valueOf = (token: string) =>
+      theme.tokens[token] ?? presetTokens()[token]
+    const baseOf = (token: string) => presetTokens()[token]
+    const same = (token: string, a?: string, b?: string) =>
+      canonical(a, token, defaults) === canonical(b, token, defaults)
+
+    const toColor = (value: string) => {
+      const parsed = parseOklch(value)
+      return parsed && { value: formatOklch(parsed, parsed.alpha) }
+    }
+
+    const resolveColors = (expressions: string[]) => {
+      for (const host of hosts) {
+        host.replaceChildren(
+          ...expressions.map((expression) => {
+            const probe = document.createElement("div")
+            probe.style.color = `oklch(from ${expression} l c h / alpha)`
+            return probe
+          }),
+        )
+      }
+      const resolved = hosts.map((host) =>
+        [...host.children].map((probe) =>
+          toColor(getComputedStyle(probe).color),
+        ),
+      )
+      return new Map(
+        expressions.map((expression, index) => [
+          expression,
+          resolved.map((mode) => mode[index]),
+        ]),
+      )
+    }
+
+    const resolvePx = (expression: string) => {
+      lengthProbe.style.inlineSize = expression
+      const px = parseFloat(getComputedStyle(lengthProbe).inlineSize)
+      lengthProbe.style.inlineSize = ""
+      return Number.isFinite(px) ? px : null
+    }
+
+    const round = (value: number, digits = 4) => +value.toFixed(digits)
+
+    const colorText = (color: ReturnType<typeof toColor>) =>
+      color ? color.value : "not set"
+
+    const describeColor = (
+      [light, dark]: ReturnType<typeof toColor>[],
+      isDual: boolean,
+    ) =>
+      isDual
+        ? `Light ${colorText(light)}, dark ${colorText(dark)}`
+        : colorText(light)
+
+    const changed = (control: Control) =>
+      isChanged(control, theme.tokens, presetTokens())
+
+    const resetTokens = (control: Control): Update => {
+      if (control.kind === "corners") {
+        return Object.fromEntries(
+          Object.keys(cornersTokens(null))
+            .filter(
+              (token) =>
+                !COMPONENT_RADII.includes(token) ||
+                isFollow(theme.tokens[token]),
+            )
+            .map((token) => [token, null]),
+        )
+      }
+      return Object.fromEntries(
+        ownTokens(control, theme.tokens).map((token) => [
+          token,
+          COMPONENT_RADII.includes(token) &&
+          "--ui-radius" in theme.tokens &&
+          (baseOf(token) === undefined || isFollow(baseOf(token)))
+            ? FOLLOW_RADIUS
+            : null,
+        ]),
+      )
+    }
+
+    const flush = () => {
+      cancelAnimationFrame(frame)
+      frame = 0
+      if (!queued) return
+      const update = queued
+      queued = null
+      themeStore.update(update)
+    }
+
+    const write = (update: Update, throttle = false) => {
+      queued = { ...queued, ...update }
+      if (!throttle) flush()
+      else if (!frame) frame = requestAnimationFrame(flush)
+    }
+
+    const say = (message: string, focus?: HTMLElement, before?: Theme) =>
+      document.dispatchEvent(
+        new CustomEvent("builder:say", { detail: { before, focus, message } }),
+      )
+
+    const paletteColor = () =>
+      resolveColors(["var(--ui-palette-source)"]).get(
+        "var(--ui-palette-source)",
+      )?.[0]?.value ?? null
+
+    const fitted = new Map<string, string>()
+
+    const autoPrimary = (color: string | null) => {
+      if (!color) return null
+      if (!fitted.has(color)) {
+        fitted.set(color, brandTokens(color)["--ui-primary-source"])
+      }
+      return fitted.get(color)!
+    }
+
+    const isFitted = (primary: string) => {
+      const source = valueOf("--ui-palette-source")
+      const base = source ? colorToOklch(source) : null
+      const sides = primary
+        .match(/^light-dark\((.*)\)$/)?.[1]
+        .split(/,(?![^(]*\))/)
+        .map((side) => side.trim())
+      if (!source || !base || sides?.length !== 2) return false
+      const others = sides.filter((side) => !same("", side, source))
+      return (
+        others.length === 1 &&
+        others.every((side) => {
+          const fit = colorToOklch(side)
+          return (
+            !!fit &&
+            Math.abs(fit.C - base.C) < 0.002 &&
+            (base.C < 0.002 ||
+              Math.abs(((fit.H - base.H + 540) % 360) - 180) < 0.2)
+          )
+        })
+      )
+    }
+
+    const toneOf = (primary: string | undefined, color: string | null) => {
+      const token = "--ui-primary-source"
+      if (same(token, primary, BALANCED_PRIMARY)) return "balanced"
+      if (same(token, primary, MONOCHROME_PRIMARY)) return "monochrome"
+      if (
+        primary?.startsWith("light-dark(") &&
+        !primary.includes("var(") &&
+        !isFitted(primary) &&
+        !same(token, primary, autoPrimary(color) ?? undefined)
+      ) {
+        return "dual"
+      }
+      return "brand"
+    }
+
+    const grayHue = (color: string | null) => {
+      const oklch = color ? colorToOklch(color) : null
+      return oklch ? `${Math.round(oklch.H)}` : null
+    }
+
+    const applyBrand = (color: string, darkColor?: string) => {
+      const update: Update = brandUpdate(
+        {
+          ...theme.tokens,
+          "--ui-palette-source":
+            theme.tokens["--ui-palette-source"] ?? paletteColor() ?? "",
+        },
+        color,
+      )
+      if (darkColor) {
+        update["--ui-primary-source"] = `light-dark(${color}, ${darkColor})`
+      }
+      return update
+    }
+
+    const choiceTokens = (control: ChoiceControl, value: string): Update => {
+      if (control.dynamic === "primary-tone") {
+        const primary =
+          value === "balanced"
+            ? BALANCED_PRIMARY
+            : value === "monochrome"
+              ? MONOCHROME_PRIMARY
+              : autoPrimary(paletteColor())
+        return { "--ui-primary-source": primary }
+      }
+      if (control.dynamic === "brand-hue" && value === "brand") {
+        return {
+          "--ui-gray-chroma": "0.012",
+          "--ui-gray-hue": grayHue(paletteColor()),
+        }
+      }
+      const option = control.options.find((entry) => entry.value === value)
+      return Object.fromEntries(
+        controlTokens(control).map((token) => [
+          token,
+          option?.tokens[token] ?? null,
+        ]),
+      )
+    }
+
+    const choiceValue = (
+      control: ChoiceControl,
+      read: (token: string) => string | undefined,
+      color: string | null,
+    ) => {
+      if (control.dynamic === "primary-tone") {
+        const tone = toneOf(read("--ui-primary-source"), color)
+        return tone === "dual" ? "brand" : tone
+      }
+      if (
+        control.dynamic === "brand-hue" &&
+        color &&
+        same("--ui-gray-chroma", read("--ui-gray-chroma"), "0.012") &&
+        same("--ui-gray-hue", read("--ui-gray-hue"), grayHue(color) ?? "")
+      ) {
+        return "brand"
+      }
+      return matchOption(control.options, read, defaults)?.value ?? null
+    }
+
+    const check = (element: HTMLElement, value: string | null) => {
+      for (const radio of element.querySelectorAll<HTMLInputElement>(
+        "input[type=radio]",
+      )) {
+        radio.checked = radio.value.toLowerCase() === value?.toLowerCase()
+      }
+    }
+
+    const setColorInputs = (
+      element: HTMLElement,
+      [light, dark]: ReturnType<typeof toColor>[],
+      isDual: boolean,
+    ) => {
+      const [lightInput, darkInput] = [
+        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
+      ]
+      const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
+      const dualButton = element.querySelector<HTMLElement>("[data-dual]")!
+      if (light) lightInput.value = light.value
+      darkInput.value = (dark ?? light)?.value ?? ""
+      darkField.hidden = !isDual
+      dualButton.setAttribute("aria-pressed", `${isDual}`)
+      element.classList.toggle("is-dual", isDual)
+      const [lightCaption, darkCaption] =
+        element.querySelectorAll<HTMLElement>("[data-caption]")
+      lightCaption.textContent = isDual
+        ? `Light ${colorText(light)}`
+        : colorText(light)
+      darkCaption.textContent = `Dark ${colorText(dark)}`
+      const name = element.dataset.name ?? ""
+      lightInput.label = isDual
+        ? `${name} in light mode`
+        : (lightInput.dataset.label ?? name)
+    }
+
+    const formatRange = (control: RangeControl, value: number) =>
+      control.display === "percent"
+        ? `${Math.round(value * 100)}%`
+        : `${round(value)}${control.unit}`
+
+    const rangeNumber = (control: RangeControl) => {
+      const raw = valueOf(control.token)
+      const value = raw?.trim()
+      const toUnit = (number: number, unit: string) =>
+        control.unit === "rem" && unit === "px"
+          ? number / 16
+          : control.unit === "px" && unit === "rem"
+            ? number * 16
+            : number
+      const plain = value?.match(/^(-?[\d.]+)(px|rem)?$/)
+      if (plain) return toUnit(Number(plain[1]), plain[2] ?? control.unit)
+      const scaled = value?.match(
+        /^calc\((-?[\d.]+)(px|rem) \* var\(--ui-density\)\)$/,
+      )
+      if (scaled) return toUnit(Number(scaled[1]), scaled[2])
+      if (control.unit === "") {
+        return Number(defaults[control.token] ?? control.min)
+      }
+      const px = resolvePx(
+        `var(${control.token}${control.fallback ? `, ${control.fallback}` : ""})`,
+      )
+      if (px === null) return control.min
+      const density =
+        control.scale === "density"
+          ? Number(valueOf("--ui-density") ?? defaults["--ui-density"] ?? 1)
+          : 1
+      return toUnit(px / density, "px")
+    }
+
+    const render = () => {
+      fitted.clear()
+      const colorExpressions = [
+        "var(--ui-palette-source)",
+        "var(--ui-primary-source)",
+        ...CONTROLS.filter(
+          (control): control is ColorControl => control.kind === "color",
+        ).map((control) => `var(${control.token})`),
+      ]
+      const colors = resolveColors(colorExpressions)
+      const palette = colors.get("var(--ui-palette-source)")?.[0]?.value ?? null
+      const tone = toneOf(valueOf("--ui-primary-source"), palette)
+      const ranges = new Map(
+        CONTROLS.filter(
+          (control): control is RangeControl => control.kind === "range",
+        ).map((control) => [control.id, rangeNumber(control)]),
+      )
+
+      for (const [id, element] of elements) {
+        const control = controls.get(id)
+        if (!control) continue
+        const isChanged = changed(control)
+        const origin = element.querySelector<HTMLElement>("[data-origin]")!
+        origin.textContent = isChanged
+          ? "Changed"
+          : theme.preset
+            ? "Preset value"
+            : "Default value"
+        origin.classList.toggle("ui-sr-only", !isChanged)
+        element.classList.toggle("is-changed", isChanged)
+        element.querySelector<HTMLButtonElement>("[data-reset]")!.disabled =
+          !isChanged
+        const valueText = element.querySelector<HTMLElement>("[data-value]")!
+        const owner = isChanged ? "Your" : theme.preset ? "Preset" : "Default"
+        let text = ""
+
+        if (control.kind === "brand") {
+          const isDual = dual.has(id) || tone === "dual"
+          const pair = isDual
+            ? colors.get("var(--ui-primary-source)")!
+            : colors.get("var(--ui-palette-source)")!
+          setColorInputs(element, pair, isDual)
+          syncBrandPicker(
+            element.querySelector<HTMLElement>(".brand-picker")!,
+            theme.preset,
+            theme.tokens["--ui-palette-source"] ?? null,
+          )
+          text = describeColor(pair, isDual)
+        } else if (control.kind === "color") {
+          const pair = colors.get(`var(${control.token})`)!
+          const isDual =
+            dual.has(id) ||
+            (!!pair[0] && !!pair[1] && pair[0].value !== pair[1].value)
+          setColorInputs(element, pair, isDual)
+          text = describeColor(pair, isDual)
+        } else if (control.kind === "corners") {
+          const radius = valueOf("--ui-radius")
+          const match = CORNERS.find((corner) =>
+            same("--ui-radius", radius, corner.value),
+          )
+          check(element, match?.value ?? null)
+          const value = radius ?? defaults["--ui-radius"]
+          text = match ? `${match.label}, ${value}` : `${owner} value, ${value}`
+        } else if (control.kind === "choice") {
+          const value = choiceValue(control, valueOf, palette)
+          const option = control.options.find((entry) => entry.value === value)
+          if (control.display === "select") {
+            const select = element.querySelector("select")!
+            if (document.activeElement !== select) {
+              select.value = value ?? "custom"
+            }
+          } else {
+            check(element, value)
+          }
+          const tokens = controlTokens(control)
+          text = option
+            ? ""
+            : tokens.length === 1
+              ? `${owner} value, ${tidy(valueOf(tokens[0]) ?? "not set")}`
+              : `${owner} values: ${tokens
+                  .filter((token) => valueOf(token) !== undefined)
+                  .map((token) => `${token}: ${tidy(valueOf(token)!)}`)
+                  .join("; ")}`
+          if (control.display === "select") {
+            element.querySelector<HTMLOptionElement>(
+              "option[value=custom]",
+            )!.textContent = `${owner} value`
+          }
+        } else if (control.kind === "range") {
+          const raw = valueOf(control.token)
+          const number = ranges.get(id) ?? control.min
+          const input =
+            element.querySelector<HTMLInputElement>("input[type=range]")!
+          if (document.activeElement !== input) {
+            input.value = `${Math.min(control.max, Math.max(control.min, number))}`
+          }
+          const formatted = formatRange(control, number)
+          text =
+            control.follows && (raw === undefined || isFollow(raw))
+              ? `${control.follows}, ${formatted}`
+              : formatted
+          input.setAttribute("aria-valuetext", text)
+        }
+        valueText.textContent = text
+      }
+
+      for (const group of groups) {
+        const all = [...group.querySelectorAll<HTMLElement>("[data-control]")]
+        const count = all.filter((element) =>
+          element.classList.contains("is-changed"),
+        ).length
+        const label = count === 1 ? "1 change" : `${count} changes`
+        const badge = group.querySelector<HTMLElement>("[data-count]")!
+        badge.hidden = count === 0
+        badge.textContent = label
+        const railCount = document.querySelector<HTMLElement>(
+          `[data-room-count="${group.dataset.group}"]`,
+        )
+        if (railCount) {
+          railCount.hidden = count === 0
+          railCount.textContent = `${count}`
+          railCount.setAttribute("aria-label", label)
+        }
+        const fineMeta = group.querySelector<HTMLElement>("[data-fine-meta]")
+        if (fineMeta) {
+          const fineControls = all.filter(
+            (element) => element.dataset.tier === "fine",
+          )
+          const fineCount = fineControls.filter((element) =>
+            element.classList.contains("is-changed"),
+          ).length
+          fineMeta.textContent =
+            fineCount > 0
+              ? `${fineCount} of ${fineControls.length} changed`
+              : `${fineControls.length} ${fineControls.length === 1 ? "setting" : "settings"}`
+        }
+      }
+
+      const radius = valueOf("--ui-radius")
+      for (const button of moodButtons) {
+        const mood = MOODS.find((entry) => entry.id === button.dataset.mood)!
+        const holds =
+          same("--ui-radius", radius, mood.corners) &&
+          Object.entries(mood.choices).every(([id, value]) => {
+            const control = controls.get(id)
+            return (
+              control?.kind === "choice" &&
+              choiceValue(control, valueOf, palette) === value
+            )
+          })
+        button.setAttribute("aria-pressed", `${holds}`)
+      }
+
+      const extra = Object.keys(theme.tokens).filter(
+        (token) => !BUILDER_TOKENS.includes(token),
+      ).length
+      const tokensBadge =
+        tokensGroup.querySelector<HTMLElement>("[data-count]")!
+      tokensBadge.hidden = extra === 0
+      tokensBadge.textContent = extra === 1 ? "1 token" : `${extra} tokens`
+      const tokensRail = document.querySelector<HTMLElement>(
+        '[data-room-count="tokens"]',
+      )
+      if (tokensRail) {
+        tokensRail.hidden = extra === 0
+        tokensRail.textContent = `${extra}`
+        tokensRail.setAttribute("aria-label", tokensBadge.textContent)
+      }
+      for (const row of tokenRows) {
+        const name = row.dataset.token!
+        const input = row.querySelector("input")!
+        if (document.activeElement !== input) {
+          input.value = theme.tokens[name] ?? ""
+        }
+        row.classList.toggle("is-set", name in theme.tokens)
+      }
+      scheduleTokenValues()
+
+      const total = changeCount(theme)
+      for (const radio of presets.querySelectorAll<HTMLInputElement>(
+        "input[type=radio]",
+      )) {
+        radio.checked = radio.value === (theme.preset ?? "")
+        const card = radio.closest<HTMLElement>(".preset-card")!
+        card.classList.toggle("is-current", radio.checked)
+      }
+      const current = presets.querySelector<HTMLElement>(
+        "input:checked ~ .preset-card-name [data-preset-changes]",
+      )
+      for (const tag of presets.querySelectorAll<HTMLElement>(
+        "[data-preset-changes]",
+      )) {
+        tag.hidden = tag !== current || total === 0
+      }
+      if (current) {
+        current.textContent = `+${total} ${total === 1 ? "change" : "changes"}`
+      }
+    }
+
+    const onColor = (
+      control: Control,
+      element: HTMLElement,
+      throttle: boolean,
+    ) => {
+      const [light, dark] = [
+        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
+      ].map((input) => input.value)
+      const isDual = element.classList.contains("is-dual")
+      if (control.kind === "brand") {
+        if (isDual) dual.add(control.id)
+        write(applyBrand(light, isDual ? dark : undefined), throttle)
+      } else if (control.kind === "color") {
+        const value = isDual ? `light-dark(${light}, ${dark})` : light
+        write(
+          {
+            [control.token]: value,
+            ...Object.fromEntries(
+              (control.follow ?? []).map((token) => [
+                token,
+                `var(${control.token})`,
+              ]),
+            ),
+          },
+          throttle,
+        )
+      }
+    }
+
+    const setDual = (control: Control, element: HTMLElement, on: boolean) => {
+      if (on) {
+        dual.add(control.id)
+        picked.delete(control.id)
+        element.classList.add("is-dual")
+        render()
+        element
+          .querySelector<OklchInput>("oklch-input[data-color=dark]")
+          ?.button.focus()
+      } else {
+        const opened = dual.delete(control.id)
+        const changedColor = picked.delete(control.id)
+        element.classList.remove("is-dual")
+        if (opened && !changedColor) render()
+        else onColor(control, element, false)
+      }
+    }
+
+    const nullIfBase = (part: Update) =>
+      Object.entries(part).every(([token, written]) =>
+        same(token, written ?? undefined, baseOf(token)),
+      )
+        ? Object.fromEntries(Object.keys(part).map((token) => [token, null]))
+        : part
+
+    const applyRemix = (remix: Remix) => {
+      const update: Update = {}
+      for (const part of remix.parts) {
+        Object.assign(update, nullIfBase(part.tokens))
+      }
+      if (remix.brand) {
+        dual.delete("brand")
+        picked.delete("brand")
+        Object.assign(update, applyBrand(remix.brand))
+      }
+      write(update)
+    }
+
+    const renderTokenValues = () => {
+      tokenTimer = 0
+      if (tokensGroup.hidden) return
+      const resolved = resolveTokens(root)
+      for (const row of tokenRows) {
+        const name = row.dataset.token!
+        for (const scheme of ["dark", "light"] as const) {
+          const cell = row.querySelector<HTMLElement>(`[data-${scheme}]`)!
+          const value = resolved[scheme][name] ?? ""
+          cell.querySelector("[data-text]")!.textContent = value || "unset"
+          const swatch = cell.querySelector<HTMLElement>("[data-swatch]")!
+          swatch.hidden = !value.startsWith("oklch(")
+          swatch.style.backgroundColor = value
+        }
+      }
+    }
+
+    const scheduleTokenValues = () => {
+      if (tokenTimer) return
+      tokenTimer = window.setTimeout(renderTokenValues, 150)
+    }
+
+    const useBrand = (color: string, message: string) => {
+      const before = themeStore.get()
+      dual.delete("brand")
+      picked.delete("brand")
+      morph(() => write(applyBrand(color))).then(() =>
+        say(message, pasteField, before),
+      )
+    }
+
+    const usePaste = (paste: Paste) => {
+      if (paste.kind === "none") {
+        say("Nothing to use there. Paste a color, a theme.css or an image.")
+        return
+      }
+      if (paste.kind === "css") {
+        const before = themeStore.get()
+        const count = Object.keys(paste.theme.tokens).length
+        morph(() => themeStore.set(paste.theme)).then(() =>
+          say(
+            `Loaded ${exampleTheme(paste.theme.preset)?.label ?? "Default"} with ${count} ${count === 1 ? "token" : "tokens"} from the CSS.`,
+            pasteField,
+            before,
+          ),
+        )
+        return
+      }
+      const color = resolveOklch(paste.colors[0])
+      if (!color) {
+        say(`Could not read ${paste.colors[0]} as a color.`)
+        return
+      }
+      useBrand(
+        color,
+        paste.colors.length > 1
+          ? `Used the first of ${paste.colors.length} colors, ${color}, as the brand color.`
+          : `Brand color set to ${color}.`,
+      )
+    }
+
+    const useImage = async (file: File) => {
+      try {
+        const bitmap = await createImageBitmap(file)
+        const size = 64
+        const canvas = document.createElement("canvas")
+        canvas.width = size
+        canvas.height = size
+        const context = canvas.getContext("2d")!
+        context.drawImage(bitmap, 0, 0, size, size)
+        bitmap.close()
+        const color = imageColor(context.getImageData(0, 0, size, size).data)
+        if (!color) {
+          say("That image has no color to take. Try one with a strong hue.")
+          return
+        }
+        useBrand(color, `Brand color set to ${color} from the image.`)
+      } catch {
+        say("Could not read that image.")
+      }
+    }
+
+    const useDrop = (transfer: DataTransfer | null) => {
+      const file = [...(transfer?.files ?? [])].find((entry) =>
+        entry.type.startsWith("image/"),
+      )
+      if (file) {
+        useImage(file)
+        return true
+      }
+      const text = transfer?.getData("text") ?? ""
+      if (text.trim() === "") return false
+      usePaste(parsePaste(text))
+      return true
+    }
+
+    const onChange = (event: Event) => {
+      const target = event.target
+      if (!(target instanceof HTMLElement)) return
+      if (target === pasteField) {
+        if (event.type !== "change" || pasteField.value.trim() === "") return
+        usePaste(parsePaste(pasteField.value))
+        pasteField.value = ""
+        return
+      }
+      if (
+        target instanceof HTMLInputElement &&
+        target.name.startsWith("token-")
+      ) {
+        if (event.type !== "change") return
+        const name = `--${target.name.slice("token-".length)}`
+        const value = target.value.trim()
+        if (value === "") {
+          write({ [name]: null })
+        } else if (isSafeToken(name, value)) {
+          write({ [name]: value })
+        } else {
+          say(`${value} is not a value ${name} can take.`)
+          target.value = theme.tokens[name] ?? ""
+        }
+        return
+      }
+      if (
+        target instanceof HTMLInputElement &&
+        target.name === "builder-preset"
+      ) {
+        if (event.type !== "change" || !target.checked) return
+        const before = themeStore.get()
+        const label = exampleTheme(target.value)?.label ?? "Default"
+        morph(() => switchPreset(target.value || null)).then(() =>
+          say(`Starting from ${label}. Your changes are kept.`, target, before),
+        )
+        return
+      }
+      const element = target.closest<HTMLElement>("[data-control]")
+      const control = element && controls.get(element.dataset.control!)
+      if (!element || !control) return
+      const throttle = event.type === "input"
+
+      if (target instanceof OklchInput) {
+        if (element.classList.contains("is-dual")) picked.add(control.id)
+        onColor(control, element, throttle)
+        return
+      }
+      if (event.type !== "change" && !(target instanceof HTMLInputElement)) {
+        return
+      }
+
+      if (control.kind === "brand" && target instanceof HTMLInputElement) {
+        if (event.type !== "change" || !target.checked) return
+        const dark = element.querySelector<OklchInput>(
+          'oklch-input[data-color="dark"]',
+        )!
+        if (target.value && element.classList.contains("is-dual")) {
+          dual.add(control.id)
+          write(applyBrand(target.value, dark.value))
+          return
+        }
+        dual.delete(control.id)
+        picked.delete(control.id)
+        write(target.value ? applyBrand(target.value) : resetTokens(control))
+      } else if (
+        control.kind === "corners" &&
+        event.type === "change" &&
+        target instanceof HTMLInputElement &&
+        target.checked
+      ) {
+        write(cornersUpdate(theme.tokens, target.value))
+      } else if (control.kind === "choice" && event.type === "change") {
+        const value = (target as HTMLInputElement | HTMLSelectElement).value
+        if (target instanceof HTMLInputElement && !target.checked) return
+        write(nullIfBase(choiceTokens(control, value)))
+      } else if (control.kind === "range") {
+        const number = Number((target as HTMLInputElement).value)
+        target.setAttribute("aria-valuetext", formatRange(control, number))
+        const value =
+          control.scale === "density"
+            ? `calc(${number}${control.unit} * var(--ui-density))`
+            : `${number}${control.unit}`
+        write({ [control.token]: value }, throttle)
+      }
+    }
+
+    const showRoom = (id: string, focus = false) => {
+      if (!groups.some((group) => group.dataset.group === id)) return
+      room = id
+      writeStored(ROOM_KEY, id)
+      for (const group of groups) {
+        group.hidden = group.dataset.group !== id
+      }
+      for (const button of rooms) {
+        button.setAttribute("aria-current", `${button.dataset.room === id}`)
+      }
+      root.scrollTo({ top: 0 })
+      if (id === "tokens") scheduleTokenValues()
+      if (focus) {
+        groups
+          .find((group) => group.dataset.group === id)!
+          .querySelector<HTMLElement>("h3")!
+          .focus()
+      }
+    }
+
+    const matches = (control: Control, query: string) =>
+      [control.label, control.hint ?? "", ...controlTokens(control)]
+        .join(" ")
+        .toLowerCase()
+        .includes(query)
+
+    const applySearch = () => {
+      const query = search?.value.trim().toLowerCase() ?? ""
+      root.classList.toggle("is-searching", query !== "")
+      if (query === "") {
+        summary.hidden = true
+        for (const element of elements.values()) element.hidden = false
+        for (const row of tokenRows) row.hidden = false
+        for (const section of tokensGroup.querySelectorAll<HTMLElement>(
+          "[data-token-section]",
+        )) {
+          section.hidden = false
+        }
+        for (const group of groups) {
+          group
+            .querySelector<HTMLElement>("[data-fine-title]")
+            ?.toggleAttribute("hidden", false)
+        }
+        showRoom(room)
+        return
+      }
+      let shown = 0
+      for (const group of groups) {
+        let inGroup = 0
+        let inFine = 0
+        for (const element of group.querySelectorAll<HTMLElement>(
+          "[data-control]",
+        )) {
+          const control = controls.get(element.dataset.control!)!
+          const hit = matches(control, query)
+          element.hidden = !hit
+          if (hit) {
+            inGroup++
+            if (element.dataset.tier === "fine") inFine++
+          }
+        }
+        if (group === tokensGroup) {
+          for (const section of group.querySelectorAll<HTMLElement>(
+            "[data-token-section]",
+          )) {
+            let inSection = 0
+            for (const row of section.querySelectorAll<HTMLElement>(
+              "[data-token]",
+            )) {
+              const hit = (row.dataset.search ?? "")
+                .toLowerCase()
+                .includes(query)
+              row.hidden = !hit
+              if (hit) inSection++
+            }
+            section.hidden = inSection === 0
+            inGroup += inSection
+          }
+        }
+        group.hidden = inGroup === 0
+        group
+          .querySelector<HTMLElement>("[data-fine-title]")
+          ?.toggleAttribute("hidden", inFine === 0)
+        shown += inGroup
+      }
+      scheduleTokenValues()
+      for (const button of rooms) button.setAttribute("aria-current", "false")
+      summary.hidden = false
+      summary.textContent =
+        shown === 0
+          ? `No settings match "${search!.value.trim()}".`
+          : `${shown} ${shown === 1 ? "setting matches" : "settings match"} "${search!.value.trim()}".`
+    }
+
+    const goTo = (id: string) => {
+      const element = elements.get(id)
+      if (!element) return
+      if (search && search.value !== "") {
+        search.value = ""
+        applySearch()
+      }
+      showRoom(groupOf.get(id)!)
+      element
+        .querySelector<HTMLElement>(
+          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+        )
+        ?.focus()
+      element.scrollIntoView({ block: "center" })
+      element.classList.add("is-highlighted")
+      element.addEventListener(
+        "animationend",
+        () => element.classList.remove("is-highlighted"),
+        { once: true },
+      )
+    }
+
+    const lockedRooms = () =>
+      locks
+        .filter((lock) => lock.getAttribute("aria-pressed") === "true")
+        .map((lock) => lock.dataset.lock!)
+
+    const shuffle = () => {
+      const before = themeStore.get()
+      const remix = shuffleRemix(lockedRooms(), theme.tokens)
+      const focus =
+        document.querySelector<HTMLElement>("[data-shuffle]") ?? root
+      morph(() => applyRemix(remix)).then(() =>
+        say("Shuffled the unlocked settings.", focus, before),
+      )
+    }
+
+    root.addEventListener("input", onChange)
+    root.addEventListener("change", onChange)
+    root.addEventListener("click", (event) => {
+      const target = event.target as Element
+      const mood = target.closest<HTMLButtonElement>("[data-mood]")
+      if (mood) {
+        const definition = MOODS.find((entry) => entry.id === mood.dataset.mood)
+        if (!definition) return
+        const before = themeStore.get()
+        if (mood.getAttribute("aria-pressed") === "true") {
+          const update: Update = {}
+          for (const id of ["corners", ...Object.keys(definition.choices)]) {
+            Object.assign(update, resetTokens(controls.get(id)!))
+          }
+          morph(() => write(update)).then(() =>
+            say(`${definition.label} removed.`, mood, before),
+          )
+          return
+        }
+        const remix = moodRemix(definition, theme.tokens)
+        morph(() => applyRemix(remix)).then(() =>
+          say(`${definition.label} applied.`, mood, before),
+        )
+        return
+      }
+      if (target.closest("[data-paste-image]")) {
+        pasteFile.click()
+        return
+      }
+      const spot = target.closest<HTMLButtonElement>("[data-spot]")
+      if (spot) {
+        document.dispatchEvent(
+          new CustomEvent("builder:spotlight", {
+            detail:
+              spot.closest<HTMLElement>("[data-control]")!.dataset.control,
+          }),
+        )
+        return
+      }
+      const dualButton = target.closest<HTMLButtonElement>("[data-dual]")
+      const button = target.closest<HTMLButtonElement>("[data-reset]")
+      const element = (dualButton ?? button)?.closest<HTMLElement>(
+        "[data-control]",
+      )
+      const control = element && controls.get(element.dataset.control!)
+      if (!element || !control) return
+      if (dualButton) {
+        setDual(
+          control,
+          element,
+          dualButton.getAttribute("aria-pressed") !== "true",
+        )
+        return
+      }
+      dual.delete(control.id)
+      picked.delete(control.id)
+      write(resetTokens(control))
+      element
+        .querySelector<HTMLElement>(
+          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+        )
+        ?.focus()
+    })
+
+    for (const button of rooms) {
+      button.addEventListener("click", () => {
+        if (search && search.value !== "") {
+          search.value = ""
+          applySearch()
+        }
+        showRoom(button.dataset.room!, true)
+      })
+    }
+
+    const storedLocks = readStored<unknown>(LOCKS_KEY, null)
+    const initialLocks = Array.isArray(storedLocks)
+      ? storedLocks.filter((entry) => typeof entry === "string")
+      : LOCKED_BY_DEFAULT
+    for (const lock of locks) {
+      lock.setAttribute(
+        "aria-pressed",
+        `${initialLocks.includes(lock.dataset.lock!)}`,
+      )
+      lock.addEventListener("click", () => {
+        const on = lock.getAttribute("aria-pressed") !== "true"
+        lock.setAttribute("aria-pressed", `${on}`)
+        writeStored(LOCKS_KEY, lockedRooms())
+      })
+    }
+
+    search?.addEventListener("input", applySearch)
+    search?.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && search.value !== "") {
+        search.value = ""
+        applySearch()
+      }
+    })
+
+    pasteField.addEventListener("paste", (event) => {
+      if (useDrop(event.clipboardData)) event.preventDefault()
+    })
+    const pasteBox = root.querySelector<HTMLElement>("[data-paste]")!
+    pasteBox.addEventListener("dragover", (event) => {
+      event.preventDefault()
+      pasteBox.classList.add("is-dropping")
+    })
+    pasteBox.addEventListener("dragleave", () =>
+      pasteBox.classList.remove("is-dropping"),
+    )
+    pasteBox.addEventListener("drop", (event) => {
+      event.preventDefault()
+      pasteBox.classList.remove("is-dropping")
+      useDrop(event.dataTransfer)
+    })
+    pasteFile.addEventListener("change", () => {
+      const file = pasteFile.files?.[0]
+      if (file) useImage(file)
+      pasteFile.value = ""
+    })
+
+    document.addEventListener("builder:load", (event) => {
+      const { message, theme: loaded } = (
+        event as CustomEvent<{ message: string; theme: Theme }>
+      ).detail
+      const before = themeStore.get()
+      dual.clear()
+      picked.clear()
+      morph(() => themeStore.set(loaded)).then(() =>
+        say(message, presets.querySelector("input:checked") ?? root, before),
+      )
+    })
+
+    document.addEventListener("builder:shuffle", shuffle)
+    document.addEventListener("builder:go", (event) =>
+      goTo((event as CustomEvent<string>).detail),
+    )
+
+    const storedRoom = readStored<unknown>(ROOM_KEY, null)
+    showRoom(
+      typeof storedRoom === "string" &&
+        groups.some((group) => group.dataset.group === storedRoom)
+        ? storedRoom
+        : groups[0].dataset.group!,
+    )
+    render()
+    themeStore.subscribe((next) => {
+      theme = next
+      render()
+    })
+    new MutationObserver(render).observe(document.documentElement, {
+      attributeFilter: ["class"],
+    })
+  }
+</script>
+
+<style>
+  .builder-controls {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: minmax(0, 1fr);
+    min-inline-size: 0;
+
+    &.is-searching {
+      gap: var(--size-6);
+    }
+  }
+
+  .builder-search-summary {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-group {
+    display: grid;
+    gap: var(--size-5);
+
+    &[hidden] {
+      display: none;
+    }
+
+    h3 {
+      outline: none;
+    }
+  }
+
+  .builder-group-head {
+    display: grid;
+    gap: var(--size-1);
+
+    h3 {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--ui-font-size-h5);
+      gap: var(--size-2);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text-subtle);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+      max-inline-size: 48ch;
+    }
+
+    .is-searching & {
+      h3 {
+        color: var(--ui-text-subtle);
+        font-size: var(--ui-font-size-caption);
+        font-weight: var(--ui-font-weight-semibold);
+        letter-spacing: var(--ui-letter-spacing-caps);
+        text-transform: uppercase;
+      }
+
+      p {
+        display: none;
+      }
+    }
+  }
+
+  .builder-count {
+    background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-on-primary-tonal, var(--ui-text-strong));
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    padding: 0.125em 0.75em;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-start {
+    display: grid;
+    gap: var(--size-5);
+
+    .is-searching & {
+      display: none;
+    }
+  }
+
+  .builder-moods {
+    display: grid;
+    gap: var(--size-2);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-moods-title {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-moods-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .builder-moods-hint {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+  }
+
+  .builder-paste {
+    border: var(--ui-border-width) dashed var(--ui-border-color);
+    border-radius: var(--radius-3);
+    display: grid;
+    gap: var(--size-2);
+    padding: var(--size-3);
+
+    &.is-dropping {
+      background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+      border-color: var(--ui-primary);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-paste-title {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-paste-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+
+    :global(.builder-paste-field) {
+      flex: 1 1 12rem;
+    }
+  }
+
+  .builder-paste-hint {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+  }
+
+  .builder-tier {
+    display: grid;
+    gap: var(--size-5);
+  }
+
+  .builder-fine-title {
+    align-items: center;
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    color: var(--ui-text-strong);
+    display: flex;
+    font-size: var(--ui-font-size-body);
+    font-weight: var(--ui-font-weight-semibold);
+    gap: var(--size-2);
+    justify-content: space-between;
+    margin: 0;
+    padding-block-start: var(--size-4);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-fine-meta {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-normal);
+  }
+</style>

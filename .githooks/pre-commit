@@ -1,0 +1,3 @@
+#!/bin/sh
+command -v node >/dev/null || exit 0
+exec node "$(dirname "$0")/../scripts/check-staged.mjs"

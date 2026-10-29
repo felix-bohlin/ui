@@ -1,0 +1,22 @@
+<opui-copy class="ui-copy" id="copy-basics-1">
+  <label class="ui-text-field">
+    <span class="ui-sr-only">Invite link</span>
+    <span class="ui-field">
+      <input readonly type="text" value="https://example.com/invite/8f3k2" />
+    </span>
+  </label>
+  <span class="ui-sr-only" role="status"></span>
+  <span class="ui-floating" popover aria-hidden="true"></span>
+</opui-copy>
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="copy-basics-1"
+  command="--copy"
+>
+  Copy
+</button>
+
+<script type="module">
+  import "opui-css/elements/copy.js"
+</script>

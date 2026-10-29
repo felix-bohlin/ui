@@ -1,11 +1,11 @@
 ---
-import { Chip } from "@opui/astro"
+import { Chip } from "opui-css/astro"
 ---
 
-<Chip as="a" href="#" variant="tonal" label="Tonal link" />
-<Chip as="a" href="#" variant="outlined">
-  <span class="ui-text">Outlined link</span>
+<Chip href="#" variant="tonal" label="Tonal link" />
+<Chip href="#" variant="outlined" label="Outlined link">
   <svg
+    aria-hidden="true"
     slot="end"
     xmlns="http://www.w3.org/2000/svg"
     width="32"

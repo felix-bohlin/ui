@@ -1,28 +1,64 @@
 ---
 import Component from "../../layouts/Component.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Table as UITable, ToggleGroup, ToggleButton } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+import {
+  Table as UITable,
+  TableBody as UITableBody,
+  TableCaption as UITableCaption,
+  TableCell as UITableCell,
+  TableFoot as UITableFoot,
+  TableHead as UITableHead,
+  TableHeaderCell as UITableHeaderCell,
+  TableRow as UITableRow,
+} from "opui-css/astro"
 
-import Default from "../../component-examples/table/Default.astro"
-import DefaultVue from "../../component-examples/table/Default.vue"
-import DefaultAstro from "../../component-examples/table/Default.astro?raw"
-import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
-import DefaultHtml from "../../component-examples/table/Default.html?raw"
-
+import SortableTableCSS from "@opui/css/components/sortable-table.css?raw"
+import TableCSS from "@opui/css/components/table.css?raw"
+import SortableTableJS from "@opui/elements/sortable-table.js?raw"
+import sortableTableApi from "../../component-api/sortable-table/api"
 import tableApi from "../../component-api/table/api"
+import tableCellApi from "../../component-api/table-cell/api"
+import tableColumnApi from "../../component-api/table-column/api"
+import tableColumnGroupApi from "../../component-api/table-column-group/api"
+import tableHeaderCellApi from "../../component-api/table-header-cell/api"
+import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
   "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
+
+export const keywords = ["data table", "grid", "rows", "sort"]
 ---
 
 <Component
   description={description}
   slug="table"
   heroAnatomy
-  apis={[{ title: "Table API", api: tableApi }]}
-  browserSupport={["has", "container-queries", "relative-color"]}
+  apis={[
+    { title: "Table API", api: tableApi },
+    { title: "Table header cell API", api: tableHeaderCellApi },
+    { title: "Table cell API", api: tableCellApi },
+    { title: "Table column group API", api: tableColumnGroupApi },
+    { title: "Table column API", api: tableColumnApi },
+    { title: "Sortable table API", api: sortableTableApi },
+  ]}
+  installationTabs={[
+    { title: "table.css", code: TableCSS, lang: "css" },
+    { title: "sortable-table.css", code: SortableTableCSS, lang: "css" },
+    { title: "sortable-table.js", code: SortableTableJS, lang: "js" },
+  ]}
+  browserSupport={[
+    "container-scroll-state-queries",
+    "has",
+    "overflow-clip",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Table",
@@ -35,6 +71,20 @@ export const description =
       type: "css",
     },
     { path: "src/component-api/table", type: "api" },
+    { path: "src/component-api/table-cell", type: "api" },
+    { path: "src/component-api/table-column", type: "api" },
+    { path: "src/component-api/table-header-cell", type: "api" },
+    { path: "src/component-api/table-column-group", type: "api" },
+    {
+      path: "packages/opui/components/SortableTable",
+      type: "component",
+    },
+    { path: "packages/opui/elements/sortable-table.js", type: "component" },
+    {
+      path: "packages/opui/css/components/sortable-table.css",
+      type: "css",
+    },
+    { path: "src/component-api/sortable-table", type: "api" },
   ]}
 >
   <Fragment slot="title">Table</Fragment>
@@ -42,91 +92,310 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITable>
-        <UITable.Head>
-          <UITable.Row>
-            <UITable.HeaderCell>Name</UITable.HeaderCell>
-            <UITable.HeaderCell>Size</UITable.HeaderCell>
-          </UITable.Row>
-        </UITable.Head>
-        <UITable.Body>
-          <UITable.Row>
-            <UITable.Cell>Card</UITable.Cell>
-            <UITable.Cell>2 kB</UITable.Cell>
-          </UITable.Row>
-          <UITable.Row>
-            <UITable.Cell>Dialog</UITable.Cell>
-            <UITable.Cell>3 kB</UITable.Cell>
-          </UITable.Row>
-        </UITable.Body>
+        <UITableCaption>Components</UITableCaption>
+        <UITableHead>
+          <UITableRow>
+            <UITableHeaderCell>Name</UITableHeaderCell>
+            <UITableHeaderCell>Size</UITableHeaderCell>
+          </UITableRow>
+        </UITableHead>
+        <UITableBody>
+          <UITableRow>
+            <UITableCell>Card</UITableCell>
+            <UITableCell>2 kB</UITableCell>
+          </UITableRow>
+          <UITableRow>
+            <UITableCell>Dialog</UITableCell>
+            <UITableCell>3 kB</UITableCell>
+          </UITableRow>
+        </UITableBody>
+        <UITableFoot>
+          <UITableRow>
+            <UITableCell>Total</UITableCell>
+            <UITableCell>5 kB</UITableCell>
+          </UITableRow>
+        </UITableFoot>
       </UITable>
     </Anatomy>
   </Fragment>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <Usage slot="usage">
+    <li slot="when">
+      Data in rows and columns that people scan and compare, like invoices or a
+      price list.
+    </li>
+    <li slot="when">
+      Numbers that need to line up, with <a href="#numbers"
+        ><PropOrClass prop="numeric" class=".ui-numeric" /></a
+      >.
+    </li>
+    <li slot="when">
+      Rows people reorder by a column, like customers by revenue, with <a
+        href="#sorting">sorting</a
+      >.
+    </li>
+    <li slot="when-not">
+      Laying out content that isn't data. Use the <DocLink
+        href="/components/layout">Layout</DocLink
+      > classes.
+    </li>
+    <li slot="when-not">
+      Labels with single values. Use a <DocLink
+        href="/components/description-list">Description list</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Rows with one label each. Use a <DocLink href="/components/list"
+        >List</DocLink
+      >.
+    </li>
+  </Usage>
 
-    <h3 id="default">Default</h3>
-    <p>
-      Toggle between different padding densities for the table using the
-      controls below.
-    </p>
+  <section id="density">
+    <h2>Density</h2>
 
-    <Example wrapperClass="table-interactive-example">
-      <ToggleGroup slot="controls" size="x-small" selection="single">
-        <ToggleButton data-size="dense">Dense</ToggleButton>
-        <ToggleButton data-size="default" pressed>Default</ToggleButton>
-        <ToggleButton data-size="spacious">Spacious</ToggleButton>
-      </ToggleGroup>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Change the cell padding with <code>density="dense"</code> or <code
+          >density="spacious"</code
+        >. The default is <code>normal</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Change the cell padding with the <code>.ui-dense</code> or <code
+          >.ui-spacious</code
+        > class.
+      </Fragment>
+    </Conditional>
 
-      <Example.Preview slot="preview-astro" code={Default} />
-      <Example.Preview slot="preview-html" code={DefaultHtml} />
-      <Example.Preview slot="preview-vue" code={DefaultVue} />
-      <Example.Code slot="code-astro" code={DefaultAstro} />
-      <Example.Code slot="code-vue" code={DefaultVueRaw} />
-      <Example.Code slot="code-html" code={DefaultHtml} />
-    </Example>
+    <h3 id="normal">Normal</h3>
+    <AutoExample name="Normal" />
+
+    <h3 id="dense">Dense</h3>
+    <AutoExample name="Dense" />
+
+    <h3 id="spacious">Spacious</h3>
+    <AutoExample name="Spacious" />
   </section>
 
-  <section>
-    <h2 id="advanced">Advanced</h2>
+  <section id="numbers">
+    <h2>Numbers</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>numeric</code> on the cells of a number column, header included.
+        They align to the end and use tabular figures, so the digits line up from
+        row to row.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-numeric</code> to the cells of a number column, header included.
+        They align to the end and use tabular figures, so the digits line up from
+        row to row.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Numeric" />
+  </section>
+
+  <section id="in-a-card">
+    <h2>In a card</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A table on the page keeps a block margin. <code>flush</code> drops it for
+        a table in a card or another padded box, and <code
+          >overflow="scroll"</code
+        > keeps each cell on one line and scrolls the table sideways when the columns
+        don't fit, instead of wrapping the cell text. The last column takes the space
+        left over, so give it no fixed width.
+      </Fragment>
+      <Fragment slot="html">
+        A table on the page keeps a block margin. <code>.ui-flush</code> drops it
+        for a table in a card or another padded box, and <code
+          >.ui-overflow-scroll</code
+        > keeps each cell on one line and scrolls the table sideways when the columns
+        don't fit, instead of wrapping the cell text. The last column takes the space
+        left over, so give it no fixed width.
+      </Fragment>
+    </Conditional>
+    <p>
+      A scrolling table needs <code>tabindex="0"</code>, so keyboard users can
+      scroll it. The caption names it.
+    </p>
+    <AutoExample name="InCard" />
+  </section>
+
+  <section id="controls-in-cells">
+    <h2>Controls in cells</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A <code>TextField</code> or <code>Select</code> in a cell keeps a <code
+          >12ch</code
+        > minimum width, in every density. Set <code>hideLabel</code> and name the
+        row in <code>label</code>, since the column header isn't part of the
+        control's name.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-text-field</code> or <code>.ui-select</code> in a cell keeps a
+        <code>12ch</code> minimum width, in every density. Hide the label with
+        <code>.ui-sr-only</code> and name the row in it, since the column header isn't
+        part of the control's name.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Controls" />
+  </section>
+
+  <section id="sticky-header">
+    <h2>Sticky header</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-sticky-header</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+    </Conditional>
+
+    <p>
+      The scroll box has <code>role="region"</code>, an <code>aria-label</code> and
+      {" "}<code>tabindex="0"</code>. A table has nothing focusable, so without
+      <code>tabindex</code> keyboard users can't reach the box to scroll it, and the
+      name tells screen reader users what the region holds.
+    </p>
+
+    <AutoExample name="StickyHeader" />
+  </section>
+
+  <section id="sorting">
+    <h2>Sorting</h2>
+    <Conditional as="div">
+      <Fragment slot="components">
+        <p>
+          Wrap the <code>Table</code> in <code>SortableTable</code> and set <code
+            >sortable</code
+          > on the header cells to sort by. Their label becomes a button: a press
+          sorts the body rows by that column, ascending first, sets <code
+            >aria-sort</code
+          > on the header and announces the column and the direction. Set <code
+            >aria-sort="ascending"</code
+          > on the header the rows start sorted by.
+        </p>
+      </Fragment>
+      <Fragment slot="html">
+        <p>
+          Wrap the table in <code
+            >&lt;opui-sortable-table class="ui-sortable-table"&gt;</code
+          >, add <code>data-sort</code> to each header to sort by, with its label
+          in a <code>&lt;button type="button"&gt;</code>, and import <code
+            >opui-css/elements/sortable-table.js</code
+          >. A press sorts the body rows by that column, ascending first, sets <code
+            >aria-sort</code
+          > on the header and announces the column and the direction. Set <code
+            >aria-sort="ascending"</code
+          > on the header the rows start sorted by.
+        </p>
+      </Fragment>
+    </Conditional>
+    <p>
+      A cell sorts by its <code>data-sort-value</code>, or else its text,
+      compared with <code>Intl.Collator</code> and <code>numeric: true</code>,
+      so 9 comes before 10. Give formatted numbers and dates a plain <code
+        >data-sort-value</code
+      >, like the diameters below.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html">
+        The element fires a cancelable <code>sort</code> event with the column index,
+        the direction and the header in <code>event.detail</code> before it moves
+        the rows. Without the script the buttons do nothing, so a page that must sort
+        without JavaScript links its headers to a sorted page instead.
+      </Fragment>
+      <Fragment slot="react">
+        When the rows come from your data, pass <code>onSort</code>, call <code
+          >event.preventDefault()</code
+        > and sort the data with <code>event.detail.column</code> and <code
+          >event.detail.direction</code
+        >. The element then leaves the rows to React and still sets <code
+          >aria-sort</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        When the rows come from your data, pass <code>onsort</code>, call <code
+          >event.preventDefault()</code
+        > and sort the data with <code>event.detail.column</code> and <code
+          >event.detail.direction</code
+        >. The element then leaves the rows to Svelte and still sets <code
+          >aria-sort</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        When the rows come from your data, listen with <code>@sort</code>, call <code
+          >event.preventDefault()</code
+        > and sort the data with <code>event.detail.column</code> and <code
+          >event.detail.direction</code
+        >. The element then leaves the rows to Vue and still sets <code
+          >aria-sort</code
+        >.
+      </Fragment>
+      <Fragment slot="astro">
+        The element fires a cancelable <code>sort</code> event with the column index,
+        the direction and the header in <code>event.detail</code> before it moves
+        the rows.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sortable" />
+  </section>
+
+  <section id="advanced">
+    <h2>Advanced</h2>
     <p>
       An advanced table showcasing the use of <code>colgroup</code>, <code
         >rowspan</code
-      >, and <code>colspan</code>.
+      >, and <code>colspan</code>. The headers that span columns have <code
+        >scope="colgroup"</code
+      > and the other column headers <code>scope="col"</code>, so screen readers
+      read "Capital" together with "Major Cities".
+    </p>
+    <p>
+      The first cell of each row is a row header, <code
+        >&lt;th scope="row"&gt;</code
+      >. Row headers keep the body background, so only the column headers are
+      filled.
     </p>
 
     <AutoExample name="Advanced" />
   </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      A <code>&lt;caption&gt;</code> names the table, and screen readers announce
+      it when the user enters the table. <code>&lt;th&gt;</code> cells in
+      {" "}<code>&lt;thead&gt;</code> are column headers, read out with each cell
+      below them. Use <code>&lt;th scope="row"&gt;</code> for a row header in the
+      body. A <code>&lt;tfoot&gt;</code> keeps totals and summaries apart from the
+      data rows.
+    </p>
+    <p>
+      A table in a scroll box needs <code>tabindex="0"</code> on the box so keyboard
+      users can scroll it, and a name from <code>aria-label</code> with
+      {" "}<code>role="region"</code>, as in <a
+        class="ui-link"
+        href="#sticky-header">Sticky header</a
+      >.
+    </p>
+    <p>
+      A sortable header's label is a button inside the <code>&lt;th&gt;</code>,
+      so the header keeps its role and <code>aria-sort</code>, and screen
+      readers read the sort state with each cell. After a sort the element also
+      says the column and the direction in a polite status region.
+    </p>
+    <KeyboardSupport />
+  </Fragment>
+
+  <TableBuild slot="under-the-hood" />
 </Component>
-
-<script>
-  function setupTableInteractive() {
-    document
-      .querySelectorAll<HTMLElement>(".ui-table-interactive-example")
-      .forEach((container) => {
-        if (container.dataset.tableInteractiveSetup) return
-        container.dataset.tableInteractiveSetup = "true"
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement) || input.type !== "radio") {
-            return
-          }
-          if (!input.checked) return
-
-          const size = input.getAttribute("data-size")
-          if (!size) return
-
-          container.querySelectorAll("table").forEach((table) => {
-            table.classList.remove("ui-dense", "ui-spacious")
-            if (size !== "default") {
-              table.classList.add(`ui-${size}`)
-            }
-          })
-        })
-      })
-  }
-
-  setupTableInteractive()
-  document.addEventListener("astro:after-swap", setupTableInteractive)
-</script>

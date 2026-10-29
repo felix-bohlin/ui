@@ -1,0 +1,80 @@
+import { Textarea } from "opui-css/react"
+
+export default function Spread() {
+  return (
+    <>
+      <Textarea
+        spread
+        placeholder="Hello, world!"
+        label="Message"
+        startText="You can write your message here. Keep it short, preferably under 100 characters."
+      />
+
+      <Textarea
+        spread
+        placeholder="Additional notes..."
+        variant="filled"
+        label="Notes"
+        startText="Add any additional notes or comments"
+        endText="Maximum 500 characters"
+      />
+
+      <Textarea
+        spread
+        required
+        label="Required"
+        startText="You must provide a response"
+      />
+
+      <Textarea
+        spread
+        disabled
+        label="Disabled"
+        startText="This textarea is disabled"
+      />
+
+      <Textarea
+        spread
+        error
+        label="Invalid Message"
+        startText="This textarea has an error"
+        endText="This value is too short."
+      />
+
+      <Textarea
+        spread
+        label="Bio"
+        placeholder="Tell us about yourself..."
+        startText="Shown on your public profile"
+        start={
+          <svg
+            aria-hidden="true"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        }
+        bottom="280 characters left"
+      />
+
+      <Textarea
+        spread
+        variant="filled"
+        label="Release notes"
+        placeholder="Markdown supported..."
+        startText="Shown on the changelog page"
+        top="v1.4.0"
+        bottom="Saved 2 minutes ago"
+        endText="Drafts are auto-saved"
+      />
+    </>
+  )
+}

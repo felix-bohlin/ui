@@ -4,26 +4,19 @@ export default {
   component: "Avatar",
   options: [
     {
-      description: "Alternative text for the image.",
-      frameworks: ["astro", "vue"],
+      description:
+        "Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it.",
       prop: "alt",
-      type: "string",
     },
     {
-      description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.',
+      default: '"div"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
     },
     {
-      description: "The command to send to the `commandfor` target.",
-      prop: "command",
-    },
-    {
-      description: "The id of the element the command targets.",
-      prop: "commandfor",
-    },
-    {
-      description: 'Disables the avatar when `as` is `"button"`.',
+      default: "false",
+      description:
+        'Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled="true"` instead.',
       prop: "disabled",
     },
     {
@@ -31,31 +24,52 @@ export default {
       prop: "href",
     },
     {
-      description: "The id of the element to show on interest.",
-      prop: "interestfor",
-    },
-    {
-      attribute: '[role="group"]',
-      default: "false",
-      description: "Renders a container that groups avatars.",
-      group: "Group",
-      prop: "isGroup",
-    },
-    {
-      description: "The image source. Replaces the default slot.",
-      frameworks: ["astro", "vue"],
-      prop: "src",
-      type: "string",
-    },
-    {
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "variant",
+      default: '"circle"',
+      description: "The shape of the avatar.",
+      group: "Shape",
+      prop: "shape",
       values: {
+        circle: null,
         rounded: ".ui-rounded",
         squared: ".ui-squared",
         squircle: ".ui-squircle",
       },
+    },
+    {
+      default: '"medium"',
+      description: "The size of the element.",
+      group: "Sizes",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
+      description: "The image source. Replaces the content.",
+      prop: "src",
+    },
+    {
+      default: '"filled"',
+      description:
+        "The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+      group: "Variants",
+      prop: "variant",
+      values: {
+        filled: null,
+        outlined: ".ui-outlined",
+        tonal: ".ui-tonal",
+      },
+    },
+    {
+      description:
+        'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: { button: "button[disabled]", link: 'a[aria-disabled="true"]' },
     },
   ],
   parts: [

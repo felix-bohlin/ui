@@ -1,0 +1,105 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import PaletteHue from "../../components/Blog/PaletteHue.astro"
+import Severities from "../../component-examples/callout/Severities.astro"
+---
+
+<TechniquePost slug="callout-relative-colors">
+  <section id="the-problem">
+    <h2>The problem</h2>
+    <p>
+      A callout with severities needs a background, border, text and icon color
+      for each one, in light and in dark. Five severities times four colors
+      times two schemes is 40 hand-picked values, plus a media query or theme
+      class to switch between them.
+    </p>
+    <p>
+      Add a severity or tweak a hue and you pick them all again. Preprocessors
+      could compute shades, but only at build time, not from a custom property.
+    </p>
+  </section>
+
+  <section id="the-trick">
+    <h2>The trick</h2>
+    <ul>
+      <li>
+        Each severity class sets a single <code>--ui-palette-source</code> color.
+        It takes its hue from the severity role, so a theme that changes <code
+          >--ui-info</code
+        > recolors every info shade
+      </li>
+      <li>
+        The palette derives 16 shades from it with <code>oklch(from …)</code>: a
+        fixed lightness per step, chroma scaled from the source, the hue nudged
+        {" "}<code>--ui-palette-hue-rotate-by</code> degrees per step
+      </li>
+      <li>
+        The theme picks the shades for each role with <code>light-dark()</code>,
+        so dark mode needs no media query. The callout only reads the roles
+      </li>
+      <li>
+        The tint sits on a translucent <code>::before</code> layer over the opaque
+        surface
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.info {
+  --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
+  --ui-color-3: oklch(from var(--ui-palette-source) 93% calc(0.1 * (c / 0.21)) calc(h + (2 * var(--ui-palette-hue-rotate-by))));
+  --ui-color-6: oklch(from var(--ui-palette-source) 71% calc(0.19 * (c / 0.21)) calc(h + (5 * var(--ui-palette-hue-rotate-by))));
+  --ui-palette-tint-subtle: light-dark(
+    oklch(from var(--ui-color-3) l c h / 60%),
+    oklch(from var(--ui-color-6) l c h / 5%)
+  );
+}
+
+.callout.info {
+  --bg-color: var(--ui-palette-tint-subtle);
+  --border-color: var(--ui-palette-border);
+  --icon-color: var(--ui-palette-accent);
+  color: var(--ui-palette-strong);
+}`}
+    />
+  </section>
+
+  <section id="try-it">
+    <h2>Try it</h2>
+    <p>
+      Drag the hue. It changes one custom property, <code>--ui-info</code>, and
+      the 16 shades below follow, with every border, icon, text and tint in the
+      callouts.
+    </p>
+    <Example showCode={false}>
+      <PaletteHue />
+    </Example>
+    <p>
+      Every severity is one source color. Switch the color scheme and the shades
+      follow.
+    </p>
+    <Example column showCode={false}>
+      <Severities />
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section id="fallback">
+    <h2>Fallback</h2>
+    <ul>
+      <li>
+        There's no <code>@supports</code> fallback. The whole palette, grays included,
+        is built from relative colors
+      </li>
+      <li>
+        Without relative colors or <code>light-dark()</code>, the declarations
+        that use them are invalid at computed-value time and fall back to their
+        initial or inherited values, so the theme loses its colors, not just the
+        callout
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

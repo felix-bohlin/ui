@@ -1,0 +1,308 @@
+---
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "opui-css/astro"
+import { PLACEHOLDER_CSS } from "../../utils/theme"
+import Code from "../Code.astro"
+import "../../styles/syntax.css"
+
+const { link } = Astro.locals
+const setup = `@import "opui-css/css/imports.css";
+@import "./theme.css";`
+---
+
+<Drawer
+  class="builder-export-drawer"
+  id="builder-export"
+  scrollLock
+  side="inline-end"
+>
+  <DrawerHeader>
+    <DrawerTitle>Export</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent class="builder-export">
+    <div class="builder-export-intro">
+      <p>
+        Your theme is one CSS file. It holds the preset you started from and
+        your changes, and it works in light and dark mode.
+      </p>
+      <ol>
+        <li>
+          Load opui-css as shown in <a
+            class="ui-link"
+            href={link("/guide/getting-started")}>Getting started</a
+          >.
+        </li>
+        <li>
+          Save this file as <code>theme.css</code> and load it after opui-css.
+        </li>
+      </ol>
+      <Code code={setup} lang="css" />
+      <Callout data-font-note hidden severity="info">
+        <CalloutIcon />
+        <CalloutContent>
+          <p data-font-text></p>
+        </CalloutContent>
+      </Callout>
+    </div>
+
+    <div class="builder-css">
+      <div class="builder-css-head">
+        <span class="builder-css-title">theme.css</span>
+        <span class="builder-css-meta" data-css-meta></span>
+        <Button data-css-copy size="small" variant="outlined">Copy</Button>
+        <Button color="primary" data-css-download size="small" variant="filled"
+          >Download</Button
+        >
+        <Button data-json-download size="small" variant="outlined"
+          >tokens.json</Button
+        >
+      </div>
+      <pre
+        tabindex="0"
+        aria-label="theme.css"><code class="language-css" data-css>{PLACEHOLDER_CSS}</code></pre>
+      <p class="builder-css-status" data-css-status role="status"></p>
+    </div>
+  </DrawerContent>
+</Drawer>
+
+<script>
+  import { highlightAll } from "microlighter"
+  import { exampleTheme } from "../../utils/example-themes"
+  import { copyText } from "../../utils/storage"
+  import { exportCss, themeFontIds, themeStore } from "../../utils/theme"
+  import { WEB_FONTS, firstFamily } from "../../utils/theme-fonts"
+  import { resolveTokens, tokensExport } from "../../utils/tokens-export"
+
+  const section = document.querySelector<HTMLElement>(".builder-export")
+  if (section) {
+    const code = section.querySelector<HTMLElement>("[data-css]")!
+    const meta = section.querySelector<HTMLElement>("[data-css-meta]")!
+    const status = section.querySelector<HTMLElement>("[data-css-status]")!
+    const fontNote = section.querySelector<HTMLElement>("[data-font-note]")!
+    const fontText = section.querySelector<HTMLElement>("[data-font-text]")!
+    const GENERIC = new Set([
+      "-apple-system",
+      "blinkmacsystemfont",
+      "cursive",
+      "fantasy",
+      "monospace",
+      "sans-serif",
+      "serif",
+      "system-ui",
+      "ui-monospace",
+      "ui-rounded",
+      "ui-sans-serif",
+      "ui-serif",
+    ])
+    let css = ""
+    let timer = 0
+    let frame = 0
+
+    const fontsOf = (theme: ReturnType<typeof themeStore.get>) => {
+      const ids = themeFontIds(theme)
+      const named = ids.map(
+        (id) => WEB_FONTS.find((font) => font.id === id)?.family ?? id,
+      )
+      const preset = exampleTheme(theme.preset)?.tokens ?? {}
+      const custom = new Set<string>()
+      for (const token of [
+        "--ui-font-body",
+        "--ui-font-code",
+        "--ui-font-heading",
+      ]) {
+        const stack = theme.tokens[token] ?? preset[token]
+        if (!stack || stack === "revert-layer") continue
+        const first = firstFamily(stack)
+        if (
+          first &&
+          !GENERIC.has(first.toLowerCase()) &&
+          !WEB_FONTS.some(
+            (font) => font.family.toLowerCase() === first.toLowerCase(),
+          )
+        ) {
+          custom.add(first)
+        }
+      }
+      return { custom: [...custom].toSorted(), named }
+    }
+
+    const download = (name: string, text: string, type: string) => {
+      const url = URL.createObjectURL(new Blob([text], { type }))
+      const anchor = document.createElement("a")
+      anchor.href = url
+      anchor.download = name
+      anchor.click()
+      setTimeout(() => URL.revokeObjectURL(url))
+    }
+
+    const render = () => {
+      frame = 0
+      const theme = themeStore.get()
+      css = exportCss(theme)
+      code.textContent = css
+      highlightAll()
+      const lines = css.trimEnd().split("\n").length
+      meta.textContent = `${lines} lines`
+      const fonts = fontsOf(theme)
+      fontNote.hidden = fonts.named.length === 0 && fonts.custom.length === 0
+      const list = (names: string[]) =>
+        new Intl.ListFormat("en", { type: "conjunction" }).format(names)
+      fontText.textContent = [
+        fonts.named.length > 0
+          ? `The file loads ${list(fonts.named)} from the Fontsource CDN with the import ${fonts.named.length === 1 ? "line" : "lines"} at the top. Host ${fonts.named.length === 1 ? "it" : "them"} yourself for production, for example with the @fontsource ${fonts.named.length === 1 ? "package" : "packages"}.`
+          : "",
+        fonts.custom.length > 0
+          ? `It names ${list(fonts.custom)} but doesn't load ${fonts.custom.length === 1 ? "it" : "them"}, so load ${fonts.custom.length === 1 ? "it" : "them"} in your project too.`
+          : "",
+      ]
+        .filter(Boolean)
+        .join(" ")
+    }
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(render)
+    }
+
+    const say = (message: string) => {
+      clearTimeout(timer)
+      status.textContent = message
+      timer = window.setTimeout(() => {
+        status.textContent = ""
+      }, 4000)
+    }
+
+    section
+      .querySelector("[data-css-copy]")!
+      .addEventListener("click", async () => {
+        say((await copyText(css)) ? "Copied theme.css." : "Could not copy.")
+      })
+
+    section
+      .querySelector("[data-css-download]")!
+      .addEventListener("click", () => {
+        download("theme.css", css, "text/css")
+        say("Downloaded theme.css.")
+      })
+
+    section
+      .querySelector("[data-json-download]")!
+      .addEventListener("click", () => {
+        const theme = themeStore.get()
+        download(
+          "tokens.json",
+          tokensExport(theme, resolveTokens(document.body)),
+          "application/json",
+        )
+        say("Downloaded tokens.json with every token resolved per mode.")
+      })
+
+    render()
+    themeStore.subscribe(schedule)
+  }
+</script>
+
+<style>
+  .builder-export-drawer {
+    inline-size: min(44rem, 100vi);
+  }
+
+  .builder-export {
+    align-items: start;
+    display: grid;
+    gap: var(--size-5);
+  }
+
+  .builder-export-intro {
+    display: grid;
+    gap: var(--size-3);
+
+    ol,
+    p {
+      margin: 0;
+    }
+
+    ol {
+      display: grid;
+      gap: var(--size-2);
+      padding-inline-start: var(--size-5);
+    }
+
+    :global([hidden]) {
+      display: none;
+    }
+  }
+
+  .builder-css {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+
+    pre {
+      background: oklch(0.235 0 0);
+      border-radius: var(--ui-radius);
+      color-scheme: dark;
+      margin: 0;
+      max-block-size: 70vb;
+      overflow: auto;
+      padding: var(--size-4);
+    }
+
+    code {
+      --syntax-comment: oklch(0.658 0.1014 137);
+      --syntax-constant: oklch(0.823 0.059 135);
+      --syntax-function: oklch(0.882 0.066 108);
+      --syntax-keyword: oklch(0.702 0.109 329);
+      --syntax-operator: oklch(0.87 0 0);
+      --syntax-property: oklch(0.863 0.08 232);
+      --syntax-punctuation: oklch(0.667 0 0);
+      --syntax-selector: oklch(0.8 0.086 85);
+      --syntax-string: oklch(0.71 0.083 43);
+      --syntax-tag: oklch(0.671 0.112 246);
+      --syntax-type: oklch(0.76 0.115 177);
+      --syntax-value: oklch(0.71 0.083 43);
+      --syntax-variable: oklch(0.863 0.08 232);
+
+      background: none;
+      color: oklch(0.87 0 0);
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--font-size-0);
+      line-height: 1.65;
+      padding: 0;
+      white-space: pre;
+    }
+  }
+
+  .builder-css-head {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .builder-css-title {
+    font-family: var(--font-mono);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-css-meta {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+    margin-inline-end: auto;
+  }
+
+  .builder-css-status {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+    min-block-size: 1lh;
+  }
+</style>

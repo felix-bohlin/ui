@@ -1,0 +1,45 @@
+---
+import { Switch, ToggleButton, ToggleGroup } from "opui-css/astro"
+
+type Props = {
+  name: string
+}
+
+const { name } = Astro.props
+---
+
+<ToggleGroup
+  aria-label="Color mode"
+  class="preview-view"
+  name={`${name}-view`}
+  size="small"
+>
+  <ToggleButton data-view value="light">
+    <svg aria-hidden="true" viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M12 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2m5 10a5 5 0 1 1-10 0a5 5 0 0 1 10 0m4.25.75a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zM12 19a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 19m-7.75-6.25a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zm-.03-8.53a.75.75 0 0 1 1.06 0l1.5 1.5a.75.75 0 0 1-1.06 1.06l-1.5-1.5a.75.75 0 0 1 0-1.06m1.06 15.56a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 1 1 1.06 1.06zm14.5-15.56a.75.75 0 0 0-1.06 0l-1.5 1.5a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06m-1.06 15.56a.75.75 0 1 0 1.06-1.06l-1.5-1.5a.75.75 0 1 0-1.06 1.06z"
+      ></path></svg
+    >
+    Light
+  </ToggleButton>
+  <ToggleButton data-view value="dark">
+    <svg aria-hidden="true" viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"
+      ></path></svg
+    >
+    Dark
+  </ToggleButton>
+  <ToggleButton checked data-view value="both">
+    <svg aria-hidden="true" viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2v16a8 8 0 1 1 0-16"
+      ></path></svg
+    >
+    Both
+  </ToggleButton>
+</ToggleGroup>
+<Switch data-more name={`${name}-more`} size="small">More contrast</Switch>

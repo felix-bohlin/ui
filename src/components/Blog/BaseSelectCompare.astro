@@ -1,0 +1,87 @@
+---
+import { Select } from "opui-css/astro"
+
+const columns = [
+  { appearance: "base-select", caption: "styled with CSS" },
+  { appearance: "auto", caption: "the browser's own picker" },
+]
+
+const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
+---
+
+<div class="base-select-compare">
+  {
+    columns.map((column) => (
+      <fieldset
+        class="base-select-compare-column"
+        data-appearance={column.appearance}
+      >
+        <legend class="base-select-compare-title">
+          <code>appearance: {column.appearance}</code>
+          <span>{column.caption}</span>
+        </legend>
+        <Select label="Car" name={`base-select-${column.appearance}`}>
+          <option value="">Pick one</option>
+          {options.map((option) => (
+            <option>{option}</option>
+          ))}
+        </Select>
+      </fieldset>
+    ))
+  }
+</div>
+
+<style>
+  .base-select-compare {
+    align-items: start;
+    display: grid;
+    gap: var(--ui-space-4) var(--ui-space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .base-select-compare-column {
+    align-content: start;
+    border: 0;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+
+    &[data-appearance="auto"] :global(select),
+    &[data-appearance="auto"] :global(select)::picker(select) {
+      appearance: auto;
+    }
+  }
+
+  .base-select-compare-title {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0 0 var(--ui-space-3);
+    padding: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".base-select-compare")
+    .forEach((compare) => {
+      const selects = [...compare.querySelectorAll("select")]
+      selects.forEach((select) =>
+        select.addEventListener("change", () =>
+          selects.forEach((twin) => {
+            if (twin !== select) twin.value = select.value
+          }),
+        ),
+      )
+    })
+</script>

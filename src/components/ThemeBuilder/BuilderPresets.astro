@@ -1,0 +1,120 @@
+---
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+import { inlineTokens } from "../../utils/theme-art"
+import { artDefaults } from "../../utils/theme-art-defaults"
+import ThemeArt from "./ThemeArt.astro"
+
+const defaults = artDefaults()
+const presets = [
+  {
+    label: "Default",
+    style: inlineTokens(defaults, { preset: null, tokens: {} }),
+    value: "",
+  },
+  ...EXAMPLE_THEMES.map((theme) => ({
+    label: theme.label,
+    style: inlineTokens(defaults, { preset: theme.name, tokens: {} }),
+    value: theme.name,
+  })),
+]
+---
+
+<fieldset class="preset-cards" data-presets>
+  <legend class="preset-cards-legend">Start from</legend>
+  {
+    presets.map((preset) => (
+      <label class="preset-card">
+        <input
+          class="preset-card-input"
+          name="builder-preset"
+          type="radio"
+          value={preset.value}
+        />
+        <ThemeArt style={preset.style} />
+        <span class="preset-card-name">
+          {preset.label}
+          <span class="preset-card-changes" data-preset-changes hidden />
+        </span>
+      </label>
+    ))
+  }
+</fieldset>
+
+<style>
+  .preset-cards {
+    border: 0;
+    display: grid;
+    gap: var(--size-2);
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    margin: 0;
+    min-inline-size: 0;
+    padding: 0;
+  }
+
+  .preset-cards-legend {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+    margin-block-end: var(--size-2);
+    padding: 0;
+  }
+
+  .preset-card {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--radius-3);
+    cursor: pointer;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+    padding: var(--size-2);
+    position: relative;
+
+    &:has(:checked) {
+      border-color: var(--ui-primary);
+      box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-primary);
+    }
+
+    &:has(:focus-visible) {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+
+    &:hover {
+      background-color: var(--ui-surface-tonal);
+    }
+  }
+
+  .preset-card-input {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .preset-card-name {
+    align-items: center;
+    color: var(--ui-text-strong);
+    display: flex;
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-medium);
+    gap: var(--size-2);
+    justify-content: space-between;
+  }
+
+  .preset-card-changes {
+    background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-on-primary-tonal, var(--ui-text-strong));
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    padding: 0.125em 0.625em;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+</style>

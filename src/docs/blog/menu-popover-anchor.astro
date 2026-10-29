@@ -1,0 +1,146 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import AnchorPlayground from "../../components/Blog/AnchorPlayground.astro"
+import { Button, Menu } from "opui-css/astro"
+import Basics from "../../component-examples/menu/Basics.astro"
+---
+
+<TechniquePost slug="menu-popover-anchor">
+  <section id="the-problem">
+    <h2>The problem</h2>
+    <p>
+      A dropdown menu used to be all JavaScript: toggle it, close it on
+      {" "}<kbd>Esc</kbd> and on a click outside, fight <code>z-index</code> and
+      {" "}<code>overflow: hidden</code> ancestors, and run a positioning library
+      that measures the trigger and flips the menu near the viewport edge.
+    </p>
+  </section>
+
+  <section id="the-trick">
+    <h2>The trick</h2>
+    <ul>
+      <li>
+        <code>popover</code> puts the menu in the top layer, with light dismiss and
+        {" "}<kbd>Esc</kbd>
+      </li>
+      <li>
+        <code>commandfor</code> and
+        {" "}<code>command=&quot;toggle-popover&quot;</code> open it from a button
+      </li>
+      <li>
+        The invoker is the implicit anchor, so there is no
+        {" "}<code>anchor-name</code> to wire up
+      </li>
+      <li>
+        <code>position-area</code> places it below the trigger, and
+        {" "}<code>anchor-size(inline)</code> keeps it at least as wide. The <code
+          >self-</code
+        > keywords read the menu's own writing mode and direction, not the containing
+        block's
+      </li>
+      <li>
+        <code>max-block-size</code> with <code>100%</code> caps it to the space on
+        its side, where it scrolls. <code>calc-size()</code> keeps at least <code
+          >12rem</code
+        > of it, or 40% of a short viewport, so it only flips when that side has less
+        room
+      </li>
+      <li>
+        <code>position-try-fallbacks</code> flips it when it would overflow. Two
+        {" "}<code>@position-try</code> rules move it below or above, spanning both
+        sides, when neither side fits
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.menu[popover] {
+  inset: auto;
+  margin: 0.25rem 0;
+  min-inline-size: max(12rem, anchor-size(inline));
+  position-area: self-block-end span-self-inline-end;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline,
+    --menu-block-end,
+    --menu-block-start;
+}
+
+@position-try --menu-block-end {
+  margin: 0.25rem 0;
+  position-area: self-block-end span-all;
+}`}
+    />
+  </section>
+
+  <section id="try-it">
+    <h2>Try it</h2>
+    <p>
+      Open the menu, then drag the button around, or move it with the sliders.
+      Bring it close to the bottom of the window and the menu opens upward.
+    </p>
+    <Example wide showCode={false}>
+      <AnchorPlayground>
+        <Button
+          command="toggle-popover"
+          commandfor="menu-playground"
+          variant="outlined"
+        >
+          Options
+        </Button>
+        <Menu
+          id="menu-playground"
+          items={[
+            { label: "Edit", shortcut: "Ctrl+E" },
+            { label: "Duplicate", shortcut: "Ctrl+D" },
+            { disabled: true, label: "Archive" },
+            { borderTop: true, color: "critical", label: "Delete" },
+          ]}
+        />
+      </AnchorPlayground>
+    </Example>
+    <ul>
+      <li>
+        The button is the menu's implicit anchor through <code>commandfor</code
+        >, so moving the button moves the menu with it
+      </li>
+      <li>
+        The menu is in the top layer, so it measures the window, not the box
+      </li>
+    </ul>
+    <p>
+      Open the menu, then scroll until the button is near an edge and open it
+      again.
+    </p>
+    <Example centered row showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section id="fallback">
+    <h2>Fallback</h2>
+    <ul>
+      <li>
+        Without anchor positioning the popover still opens, light dismisses and
+        works with the keyboard, but it isn't placed next to its trigger
+      </li>
+      <li>
+        Without Invoker Commands the button does nothing.
+        {" "}<code>popovertarget</code> or <code>showPopover()</code> are the older
+        ways in
+      </li>
+      <li>
+        On iOS, submenus anchor to their parent menu instead of their trigger
+        item: an <code>@supports (-webkit-touch-callout: none)</code> block in the
+        compat layer (<code>css/compat/menu.css</code>) sets <code
+          >anchor-name</code
+        > on every menu that has a submenu, and <code>anchor-scope</code> only on
+        the root menu, so a submenu three levels deep still finds its own parent
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

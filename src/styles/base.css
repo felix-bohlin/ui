@@ -2,18 +2,70 @@
   navigation: auto;
 }
 
-*::selection {
-  background: var(--color-12);
-  color: var(--color-1);
+.site-header {
+  view-transition-name: site-header;
 }
 
-:where(h1, h2, h3, h4, h5, h6, hgroup h1 + p) {
+aside.sidebar {
+  view-transition-name: site-sidebar;
+}
+
+::view-transition-group(site-header),
+::view-transition-group(site-sidebar),
+::view-transition-new(site-header),
+::view-transition-new(site-sidebar) {
+  animation: none;
+}
+
+::view-transition-old(site-header),
+::view-transition-old(site-sidebar) {
+  display: none;
+}
+
+*::selection {
+  background: var(--ui-color-12);
+  color: var(--ui-color-1);
+}
+
+@layer theme.base {
+  :where(html.ui-dark) {
+    --shadow-color: 220 40% 2%;
+    --shadow-strength: 20%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --shadow-color: 220 40% 2%;
+      --shadow-strength: 20%;
+    }
+  }
+
+  :where(
+    html:not([data-example-theme]),
+    html:not([data-example-theme])
+      :where(.ui-palette, .ui-contrast-more):not(.preview-pane)
+  ) {
+    --ui-border-color-on-raised: light-dark(
+      color-mix(
+        in oklch,
+        var(--ui-text-strong) var(--ui-border-strength-light),
+        var(--ui-surface)
+      ),
+      var(--ui-surface)
+    );
+  }
+}
+
+:where(:root:not([data-example-theme], [data-theme-font]))
+  :where(h1, h2, h3, h4, h5, h6, hgroup h1 + p):not(
+    :where(.anatomy-diagram, .example-preview) *
+  ) {
   font-family: var(--font-bricolage-grotesque), sans-serif;
 }
 
 .anatomy {
+  --_anatomy-border-gray: 2px dotted oklch(0.6 0 0);
   --_anatomy-border-red: 2px dotted tomato;
-  --_anatomy-border-gray: 2px dotted gray;
 
   pointer-events: none;
 
@@ -42,52 +94,48 @@
 
 /* Setup */
 :root {
-  --_gap: var(--size-4, 20px);
-  --_page-gutters: var(--_gap);
+  --site-gap: var(--size-4, 20px);
+  --site-header-end-inline-size: 675px;
+  --site-page-gutters: var(--site-gap);
 
   @media (width >=600px) {
-    --_page-gutters: calc(var(--_gap) * 2);
+    --site-page-gutters: calc(var(--site-gap) * 2);
   }
 
   /* Content width */
-  --_content-document: 80ch;
-  --_content-sm: 540px;
-  --_content-md: 1140px;
-  --_content-lg: 1500px;
-  --_content-text: 65ch;
+  --site-content-document: 80ch;
+  --site-content-md: 1140px;
+  --site-content-lg: 1500px;
+  --site-content-text: 65ch;
 }
 
-:where(h1, h2, h3, h4, h5, h6) {
+:where(h1, h2, h3, h4, h5, h6, section[id]) {
   scroll-margin: var(--size-11);
 }
 
 /* Wrapper for consistent widths and gutters */
 .container {
   margin: 0 auto;
-  max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-md));
+  max-inline-size: min(
+    calc(100% - var(--site-page-gutters)),
+    var(--site-content-md)
+  );
 
   /* Sizes */
-  &.ui-small {
-    max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-sm));
-  }
-
-  &.ui-large {
-    max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-lg));
-  }
-
-  &.ui-text {
+  &.is-wide {
     max-inline-size: min(
-      calc(100% - var(--_page-gutters)),
-      var(--_content-text)
+      calc(100% - var(--site-page-gutters)),
+      var(--site-content-lg)
     );
   }
+}
 
-  /* Horizontal alignment */
-  &.ui-start {
-    margin-inline: var(--_gap) auto;
+.code-tabs {
+  & > .ui-label:first-of-type {
+    margin-inline-start: var(--size-2);
   }
 
-  &.ui-end {
-    margin-inline: auto var(--_gap);
+  & > .ui-panel {
+    margin-block-start: 0;
   }
 }

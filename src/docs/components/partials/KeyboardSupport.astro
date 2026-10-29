@@ -1,0 +1,51 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import DocsTable from "../../../components/DocsTable.astro"
+import type { ApiKey } from "../../../component-api/keyboard"
+import type { ComponentApi } from "../../../component-api/types"
+import { formatInline } from "../../../utils/format-inline"
+
+type Props = {
+  api?: ComponentApi
+}
+
+const apis = import.meta.glob<ComponentApi>("../../../component-api/*/api.ts", {
+  eager: true,
+  import: "default",
+})
+
+const { componentSlug, link } = Astro.locals
+const api =
+  Astro.props.api ?? apis[`../../../component-api/${componentSlug}/api.ts`]
+
+if (!api?.keyboard) {
+  throw new Error(
+    `KeyboardSupport: ${api?.component ?? componentSlug} has no keyboard in its api.ts`,
+  )
+}
+
+const keyCell = (keys: ApiKey[]) =>
+  keys
+    .map((key) =>
+      key === "Printable characters"
+        ? key
+        : key
+            .split(" + ")
+            .map((part) => `<kbd>${part}</kbd>`)
+            .join(" + "),
+    )
+    .join(", ")
+---
+
+<h3 id="keyboard-support">Keyboard support</h3>
+<slot />
+<DocsTable columns={[{ label: "Key", width: "30%" }, { label: "Function" }]}>
+  {
+    api.keyboard.map(({ description, keys }) => (
+      <TableRow>
+        <TableCell set:html={keyCell(keys)} />
+        <TableCell set:html={formatInline(description, link)} />
+      </TableRow>
+    ))
+  }
+</DocsTable>

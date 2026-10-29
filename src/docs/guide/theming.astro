@@ -1,0 +1,652 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+import RoleSwatches from "../../components/RoleSwatches.astro"
+import TokenFlow from "../../components/TokenFlow.astro"
+
+const surfaceRoles = [
+  { name: "--ui-surface", note: "The page" },
+  {
+    name: "--ui-surface-elevated",
+    note: "Elevated cards and accordions, dialogs, drawers, menus",
+  },
+  { name: "--ui-surface-tonal", note: "Tonal variants" },
+  { name: "--ui-surface-filled", note: "Lists, tracks, table headers" },
+  { name: "--ui-surface-inverse", note: "Tooltips" },
+  { name: "--ui-text-strong", note: "Headings, labels, values" },
+  { name: "--ui-text", note: "Body copy" },
+  { name: "--ui-border-color", note: "Dividers, outlined variants" },
+  { name: "--ui-field-border-color", note: "Fields" },
+]
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Theming</Fragment>
+  <Fragment slot="preamble">
+    The knobs and roles behind colors, density, spacing, corners, fonts,
+    elevation, motion and contrast, and the classes that scope them.
+  </Fragment>
+
+  <section>
+    <p>
+      A theme sets <DocLink href="/guide/concepts#token-tiers"
+        >knobs and roles</DocLink
+      >, and every component reads the roles:
+    </p>
+    <TokenFlow />
+    <p>
+      Snippets on this page belong in <code>@layer theme.custom</code>, see <DocLink
+        href="/guide/customizing#your-theme">Your theme</DocLink
+      >. Every token and its default is on <DocLink href="/guide/theme-tokens"
+        >Theme tokens</DocLink
+      >, and the <DocLink href="/theme-builder">Theme builder</DocLink> writes a theme
+      for you and checks its contrast.
+    </p>
+  </section>
+
+  <section id="palette">
+    <h2>Palette</h2>
+    <p>
+      One hue and chroma in <code>theme.css</code> become a source color, <code
+        >--ui-palette-source</code
+      >, and <code>core/palette.css</code> derives the <code>--ui-color-1</code> to
+      <code>--ui-color-16</code> steps from it.
+    </p>
+
+    <Code
+      code={`:where(html) {
+  --ui-palette-chroma: 0.5;
+  --ui-palette-hue: 222.8;
+  --ui-palette-hue-rotate-by: 0;
+}`}
+      lang="css"
+    />
+
+    <ul>
+      <li>
+        <code>--ui-palette-chroma</code> scales the saturation, from <code
+          >0</code
+        >
+        (gray) to <code>1</code>.
+      </li>
+      <li>
+        <code>--ui-palette-hue</code> is a hue angle in degrees, <code
+          >222.8</code
+        > (blue) by default.
+      </li>
+      <li>
+        <code>--ui-palette-hue-rotate-by</code> turns the hue by this many degrees
+        per step, so <code>1</code> spreads 15° across the palette. The severity scopes
+        use <code>1</code> for livelier tints.
+      </li>
+    </ul>
+
+    <p>
+      Or set <code>--ui-palette-source</code> to any color: the palette keeps its
+      oklch hue, scales its chroma and sets the lightness per step. The palette is
+      computed on <code>:root</code>, <code>.ui-palette</code>, <code
+        >.ui-contrast-more</code
+      >, the severity classes and the inline <code>del</code>, <code>ins</code>,
+      <code>abbr</code> and <code>dfn</code> elements and their classes, so the knobs
+      do nothing anywhere else. Each severity class takes its hue from its intent
+      token, so setting <code>--ui-critical</code>, <code>--ui-info</code>, <code
+        >--ui-neutral</code
+      >, <code>--ui-success</code> or <code>--ui-warning</code> recolors the scope.
+      <code>.ui-neutral</code> also keeps the chroma of <code>--ui-neutral</code
+      >, which follows <code>--ui-gray-hue</code> and <code
+        >--ui-gray-chroma</code
+      > by default:
+    </p>
+
+    <Code
+      code={`:where(.ui-warning) {
+  --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section id="scopes">
+    <h2>Scopes</h2>
+    <p>
+      A scope class re-themes an element and everything inside it, so one page
+      can carry several brands, a dark panel or one red for every critical
+      component:
+    </p>
+    <Example centered row>
+      <section
+        class="ui-palette scope-demo"
+        style="--ui-palette-hue: 30; --ui-palette-source: oklch(58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue)); --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6))"
+      >
+        <p class="ui-caption">.ui-palette with --ui-palette-hue: 30</p>
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Primary
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Tonal
+        </button>
+      </section>
+      <aside class="ui-dark scope-demo">
+        <p class="ui-caption">.ui-dark</p>
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Primary
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Tonal
+        </button>
+      </aside>
+      <section class="scope-demo">
+        <p class="ui-caption">.ui-critical on each</p>
+        <article class="ui-callout ui-critical">
+          <div class="ui-content">Card declined</div>
+        </article>
+        <button class="ui-button ui-tonal ui-critical" type="button">
+          Remove card
+        </button>
+      </section>
+    </Example>
+    <ul>
+      <li>
+        <code>.ui-palette</code> re-derives the palette and every derived token (colors,
+        control sizes, spacing, type roles and radii) from the knobs the element sets
+        or inherits, <code>--ui-primary</code> and the intent colors included. <code
+          >.ui-contrast-more</code
+        > does the same with the contrast knobs tightened.
+      </li>
+      <li>
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >, <code>.ui-success</code> and <code>.ui-warning</code> swap the palette
+        steps for the intent color and leave <code>--ui-primary</code> and the text
+        colors alone. <DocLink href="/guide/concepts#palette-scopes"
+          >Concepts</DocLink
+        > shows the steps of each one.
+      </li>
+      <li>
+        <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. On
+        an element they only pick the other side of <code>light-dark()</code>:
+        the surface and text colors and <code>--ui-shadow-elevated</code> switch,
+        while the shadow color and strength still come from the page.
+      </li>
+    </ul>
+  </section>
+
+  <section id="surfaces">
+    <h2>Surfaces</h2>
+    <p>
+      Five surfaces, two text colors and two border colors paint everything that
+      isn't an accent:
+    </p>
+    <RoleSwatches roles={surfaceRoles} />
+    <p>
+      A raised component (tonal and elevated <code>Card</code> and <code
+        >Accordion</code
+      >, <code>Dialog</code>, <code>Drawer</code>, <code>Menu</code> and a <code
+        >Callout</code
+      > without a severity) sets <code>--ui-border-color</code> to <code
+        >--ui-border-color-on-raised</code
+      > and <code>--ui-field-border-color</code> to <code
+        >--ui-field-border-color-on-raised</code
+      > on its root, so dividers and fields inside it stay visible on the raised fill.
+      Both default to the plain border colors. Filled lists and table headers do the
+      same with the <code>-on-filled</code> pair. A theme that wants another border
+      on raised surfaces sets the <code>-on-raised</code> tokens.
+    </p>
+    <p>
+      The edge of the raised surface itself is <code
+        >--ui-border-color-raised</code
+      >, one word shorter. Every raised component reads it, the <code
+        >Select</code
+      > picker too, and each keeps its own edge until a theme sets it: cards, accordions
+      and dialogs the page background, callouts their fill, drawers, menus and the
+      picker <code>--ui-border-color-on-raised</code>. Set it to outline them
+      all, or to <code>transparent</code> to drop their edges, like the m3 theme.
+    </p>
+  </section>
+
+  <section id="density">
+    <h2>Density</h2>
+    <p>
+      <code>--ui-density</code> scales the <code>--ui-control-size*</code> roles,
+      so fields, buttons and list items grow or shrink together, and their padding
+      shrinks down to the height of the text. Set it on <code>html</code>, or on
+      a
+      <code>.ui-palette</code> element to change one part of the page.
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-density: 0.875;
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section id="spacing">
+    <h2>Spacing</h2>
+    <p>
+      <code>--ui-space-1</code> to <code>--ui-space-8</code> pad and space containers,
+      forms and rich text. Each is a fixed step (<code>0.25rem</code>, <code
+        >0.5rem</code
+      >, <code>1rem</code>, <code>1.25rem</code>, <code>1.5rem</code>, <code
+        >1.75rem</code
+      >, <code>2rem</code> and <code>3rem</code>) times
+      <code>--ui-space-scale</code>, set on <code>html</code> or a <code
+        >.ui-palette</code
+      > element. Controls follow <code>--ui-density</code> instead, so a roomy form
+      can keep compact fields.
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-space-scale: 1.25;
+}
+
+/* Or tie spacing to density */
+:where(html) {
+  --ui-density: 0.875;
+  --ui-space-scale: var(--ui-density);
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section id="corners">
+    <h2>Corners</h2>
+    <p>
+      <code>--ui-radius</code> rounds every component, and buttons and fields follow
+      it until you set <code>--ui-button-radius</code> or <code
+        >--ui-field-radius</code
+      >. Small parts like <code>kbd</code>, tooltips and checkboxes never get
+      rounder than it, so <code>0</code> squares everything. <code
+        >--ui-radius-x-small</code
+      >, <code>--ui-radius-small</code> and <code>--ui-radius-large</code> derive
+      from it (capped at 2px and 5px, and times 1.5), and <code
+        >--ui-radius-round</code
+      > is the pill.
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-radius: 0;
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section id="fonts">
+    <h2>Fonts</h2>
+    <p>
+      <code>--ui-font-body</code> sets the text and controls, <code
+        >--ui-font-code</code
+      > code, <code>kbd</code> and <code>samp</code>, and <code
+        >--ui-font-heading</code
+      > the headings, which follow the body font until you set it.
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-font-body: "Inter", system-ui, sans-serif;
+  --ui-font-code: "JetBrains Mono", ui-monospace, monospace;
+  --ui-font-heading: "Fraunces", serif;
+}`}
+      lang="css"
+    />
+    <p>
+      The type scale, <code>--ui-font-size-100</code> to <code
+        >--ui-font-size-900</code
+      > (12px to 56px), is a primitive. Components read the roles on top of it, like
+      <code>--ui-font-size-caption</code>, <code>--ui-font-size-control</code> and
+      <code>--ui-font-size-h1</code>. Pin a role, move a step and every role on
+      it follows, or replace the scale:
+    </p>
+    <Code
+      code={`:where(html) {
+  /* Pin one role */
+  --ui-font-size-caption: 0.8125rem;
+
+  /* Or a modular scale: 1rem base, minor third */
+  --ui-font-size-100: calc(1rem * pow(1.2, -2));
+  --ui-font-size-200: calc(1rem * pow(1.2, -1));
+  --ui-font-size-300: 1rem;
+  --ui-font-size-400: calc(1rem * pow(1.2, 1));
+  --ui-font-size-500: calc(1rem * pow(1.2, 2));
+  --ui-font-size-600: calc(1rem * pow(1.2, 3));
+  --ui-font-size-700: calc(1rem * pow(1.2, 4));
+  --ui-font-size-800: calc(1rem * pow(1.2, 5));
+  --ui-font-size-900: calc(1rem * pow(1.2, 6));
+}`}
+      lang="css"
+    />
+    <h3 id="fluid-headings">Fluid headings</h3>
+    <p>
+      <code>--ui-font-size-h1</code> to <code>--ui-font-size-h4</code> grow from one
+      step to the next as the viewport widens, together, over one window: <code
+        >--ui-fluid-min-inline-size</code
+      > (20rem) to <code>--ui-fluid-max-inline-size</code> (48rem). <code
+        >--ui-fluid-progress</code
+      > is the position in that window, 0 to 1, from <code>progress()</code>, so
+      a theme can ramp other values on the same window. Move the window, reuse
+      the ramp, or pin a heading to a step:
+    </p>
+    <Code
+      code={`:where(html) {
+  /* Headings reach full size on wider screens */
+  --ui-fluid-min-inline-size: 24rem;
+  --ui-fluid-max-inline-size: 64rem;
+
+  /* Tighter spacing on narrow screens, on the same ramp */
+  --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+
+  /* Or pin a heading */
+  --ui-font-size-h1: var(--ui-font-size-800);
+}`}
+      lang="css"
+    />
+    <p>
+      Browsers without <code>progress()</code> (before Firefox 155 and Safari 26)
+      keep <code>clamp()</code> heading sizes and have no <code
+        >--ui-fluid-progress</code
+      >.
+    </p>
+  </section>
+
+  <section id="elevation">
+    <h2>Elevation</h2>
+    <ul>
+      <li>
+        <code>--ui-shadow-control</code>: buttons with a variant, chips, toggle
+        buttons and fields. <code>none</code> until a theme sets it, and the optional
+        <code>--ui-shadow-field</code> splits off the fields.
+      </li>
+      <li>
+        <code>--ui-shadow-elevated</code>: elevated cards and accordions.
+      </li>
+      <li>
+        <code>--ui-shadow-overlay</code>: dialogs, drawers, menus, <code
+          >select</code
+        >
+        pickers and the carousel buttons.
+      </li>
+      <li>
+        <code>--ui-shadow-scroll</code>: the edges of scrolled dialogs, drawers
+        and sticky table headers.
+      </li>
+      <li>
+        <code>--ui-shadow-surface</code>: tonal and outlined cards and
+        accordions, and callouts. <code>none</code> by default.
+      </li>
+      <li><code>--ui-shadow-selected</code>: the selected tab.</li>
+      <li>
+        <code>--ui-shadow-color</code>: the color and base opacity every default
+        shadow is built from, a <code>light-dark()</code> pair, so shadows darken
+        in dark mode, also in <code>.ui-dark</code> parts of the page. Each layer
+        adds its own opacity on top.
+      </li>
+    </ul>
+    <Code
+      code={`:where(html) {
+  --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
+  --ui-shadow-elevated: none;
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section id="motion">
+    <h2>Motion</h2>
+    <p>
+      <code>--ui-motion</code> multiplies every duration. It is <code>1</code>,
+      or
+      <code>0</code> under <code>prefers-reduced-motion: reduce</code>.
+    </p>
+
+    <h3 id="motion-global">Global classes</h3>
+    <p>
+      On <code>html</code>, these override the OS preference for every
+      transition and animation. Smooth scrolling follows the system setting
+      only, since <code>normalize.css</code> keys it on <code
+        >prefers-reduced-motion</code
+      >.
+    </p>
+    <ul>
+      <li>
+        <code>.ui-motion-off</code>: sets <code>--ui-motion: 0</code>.
+      </li>
+      <li>
+        <code>.ui-motion-on</code>: sets <code>--ui-motion: 1</code>.
+      </li>
+      <li>
+        <code>.ui-motion-debug</code>: sets <code>--ui-motion: 10</code> (slows down
+        transitions 10x).
+      </li>
+    </ul>
+    <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
+
+    <h3 id="motion-local">Local overrides</h3>
+    <p>
+      Each component reads it through its own <code>--_motion</code>, so you can
+      turn one off:
+    </p>
+    <Code
+      code={`<button class="ui-button" style="--_motion: 0" type="button">
+  Instant interaction
+</button>`}
+      lang="html"
+    />
+
+    <h3 id="motion-personality">Springy movement</h3>
+    <p>
+      Two optional tokens give the controls some personality. <code
+        >--ui-ease-move</code
+      > is the easing of things that move: the tabs indicator, the press scale, and
+      menus, selects, tooltips and toasts as they open. Nothing closing reads it.
+      <code>--ui-press-scale</code> shrinks buttons, toggle buttons and chips while
+      they're pressed. Both are unset, so nothing bounces or shrinks until a theme
+      sets them, and both follow <code>--ui-motion</code>.
+    </p>
+    <Code
+      code={`:root {
+  --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
+    1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
+  --ui-press-scale: 0.97;
+}`}
+      lang="css"
+    />
+
+    <p>To follow it in your own CSS:</p>
+    <Code
+      code={`transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);`}
+      lang="css"
+    />
+  </section>
+
+  <section id="contrast">
+    <h2>Contrast</h2>
+    <p>
+      <code>--ui-contrast</code> is <code>normal</code>, or <code>more</code> under
+      <code>prefers-contrast: more</code>. More contrast changes no color
+      directly. It tightens the knobs the roles are derived from, and every role
+      follows:
+      <code>--ui-text-strength-light</code> and <code
+        >--ui-text-strength-dark</code
+      >
+      (how much of <code>--ui-text-strong</code> goes into <code>--ui-text</code
+      >),
+      <code>--ui-border-strength-light</code>, <code
+        >--ui-border-strength-dark</code
+      >
+      and <code>--ui-field-border-strength</code> for the borders, <code
+        >--ui-text-max-lightness</code
+      >, <code>--ui-text-min-lightness</code> and <code
+        >--ui-text-max-chroma</code
+      >
+      for the <code>-text</code> roles, <code
+        >--ui-accent-fill-max-lightness</code
+      > for intent fills, <code>--ui-primary-max-lightness</code> and <code
+        >--ui-primary-min-lightness</code
+      > for the primary, the <code>--ui-palette-*-lightness</code> limits for the
+      palette roles, and <code>--ui-focus-ring-width</code>. Their values in
+      both modes are on
+      <DocLink href="/guide/theme-tokens#contrast">Theme tokens</DocLink>.
+      Components with translucent fills or text have style queries of their own
+      for the shape changes.
+    </p>
+    <p>
+      A theme that sets a knob or <code>--ui-primary-source</code> keeps working with
+      more contrast. The example themes set their brand color that way and let
+      <code>--ui-on-primary</code> and <code>--ui-primary-text</code> derive from
+      it, so Bootstrap's blue darkens under more contrast and its text follows. A
+      theme that pins a role directly, such as <code
+        >--ui-border-color: oklch(0.95 0 0)</code
+      >, owns that role in every contrast mode. Set the knob instead, or hand
+      the role back to the library under more contrast with <code
+        >revert-layer</code
+      >, which drops the theme's value and keeps the library's formula, computed
+      from the theme's own <code>--ui-text-strong</code> and <code
+        >--ui-surface</code
+      >:
+    </p>
+    <Code
+      code={`@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-border-color: oklch(0.95 0 0);
+  }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      The example themes do this for their borders, field borders, focus ring
+      and subtle text, so they keep their originals' look at normal contrast and
+      meet every contrast promise with more contrast. Hand back a role only
+      where the library's value is stronger: a theme whose <code>--ui-text</code
+      > already equals <code>--ui-text-strong</code> keeps it, and brutalist, whose
+      borders are already black, draws them in <code>--ui-text</code> instead so they
+      stay visible in dark mode. The Theme builder hands back the same roles when
+      you set them.
+    </p>
+
+    <Example row showCode={false}>
+      <div class="contrast-demo">
+        <section>
+          <p class="ui-caption">Default</p>
+          <label class="ui-text-field">
+            <span class="ui-label">Email</span>
+            <span class="ui-field">
+              <input type="email" placeholder="name@example.com" />
+            </span>
+            <span class="ui-end-text">We'll never share it.</span>
+          </label>
+          <button class="ui-button ui-primary ui-outlined" type="button">
+            Subscribe
+          </button>
+        </section>
+        <section class="ui-contrast-more">
+          <p class="ui-caption">.ui-contrast-more</p>
+          <label class="ui-text-field">
+            <span class="ui-label">Email</span>
+            <span class="ui-field">
+              <input type="email" placeholder="name@example.com" />
+            </span>
+            <span class="ui-end-text">We'll never share it.</span>
+          </label>
+          <button class="ui-button ui-primary ui-outlined" type="button">
+            Subscribe
+          </button>
+        </section>
+      </div>
+    </Example>
+
+    <h3 id="contrast-classes">Classes</h3>
+    <ul>
+      <li>
+        <code>.ui-contrast-more</code>: sets <code>--ui-contrast: more</code> and
+        the tightened knobs, on <code>html</code> or any element. On an element it
+        is a scope like <code>.ui-palette</code>, so every role inside is
+        derived again.
+      </li>
+      <li>
+        <code>.ui-contrast-normal</code>: sets <code>--ui-contrast: normal</code
+        >, on <code>html</code> to ignore the OS preference. It can't lower the contrast
+        inside a <code>.ui-contrast-more</code> ancestor.
+      </li>
+    </ul>
+    <Code code={`<html lang="en" class="ui-contrast-more">`} lang="html" />
+
+    <h3 id="contrast-custom">Custom values</h3>
+    <p>
+      To tune more contrast, set the knobs where the library sets them: on <code
+        >html</code
+      > under the media query, and on <code>.ui-contrast-more</code>.
+    </p>
+    <Code
+      code={`@layer theme.custom {
+  @media (prefers-contrast: more) {
+    :where(html:not(.ui-contrast-normal)) {
+      --ui-border-strength-light: 70%;
+      --ui-field-border-strength: 80%;
+    }
+  }
+
+  :where(.ui-contrast-more) {
+    --ui-border-strength-light: 70%;
+    --ui-field-border-strength: 80%;
+  }
+}`}
+      lang="css"
+    />
+
+    <h3 id="forced-colors">Forced colors</h3>
+    <p>
+      Under <code>forced-colors: active</code>, selected tabs, toggles and list
+      items use <code>SelectedItem</code>, switches, ranges, progress bars and
+      dividers
+      <code>CanvasText</code>, and focused fields a <code>Highlight</code> outline.
+      Nothing to configure.
+    </p>
+  </section>
+</Guide>
+
+<style>
+  .scope-demo {
+    align-items: start;
+    border-radius: var(--ui-radius);
+    display: grid;
+    gap: var(--ui-space-3);
+    padding: var(--ui-space-4);
+
+    .ui-caption {
+      margin: 0;
+    }
+  }
+
+  .contrast-demo {
+    display: grid;
+    gap: var(--ui-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+
+    section {
+      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: var(--ui-space-3);
+    }
+
+    .ui-text-field {
+      inline-size: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,344 @@
+<style>
+  .billing {
+    container-type: inline-size;
+
+    .billing-plan-price {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-1);
+
+      strong {
+        font-size: var(--ui-font-size-800);
+        line-height: 1;
+      }
+    }
+
+    .billing-card-logo {
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        var(--ui-primary),
+        oklch(from var(--ui-primary) calc(l - 0.15) c calc(h + 40))
+      );
+      block-size: 2rem;
+      border-radius: var(--ui-radius-small);
+      color: var(--ui-on-primary);
+      display: flex;
+      font-size: var(--ui-font-size-caption);
+      font-weight: var(--ui-font-weight-bold);
+      inline-size: 4rem;
+      justify-content: center;
+    }
+  }
+</style>
+
+<div
+  class="billing ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 64rem"
+>
+  <hgroup class="ui-hgroup">
+    <p>Acme Outdoors workspace</p>
+    <h1 class="ui-h3">Billing</h1>
+  </hgroup>
+
+  <div class="ui-layout-columns ui-large" style="--_columns: 3fr 2fr">
+    <section aria-labelledby="billing-plan-heading" class="ui-card ui-outlined">
+      <hgroup>
+        <p>Current plan</p>
+        <h2 class="ui-h5" id="billing-plan-heading">Team</h2>
+      </hgroup>
+      <div class="ui-content">
+        <p class="billing-plan-price">
+          <strong class="ui-tabular-nums">€192</strong
+          ><span>per month, 8 seats × €24</span>
+        </p>
+        <div class="ui-layout-row ui-small">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Billed monthly</span></span
+          >
+          <span class="ui-chip ui-small"
+            ><span class="ui-text"
+              >Renews <time datetime="2026-11-01">1 Nov 2026</time></span
+            ></span
+          >
+        </div>
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button ui-filled" type="button">Change plan</button>
+        <button class="ui-button ui-outlined" type="button">
+          Switch to yearly, save 20%
+        </button>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="billing-usage-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="billing-usage-heading">Usage</h2>
+        <p>Resets on 1 November.</p>
+      </hgroup>
+      <div class="ui-content">
+        <ul class="ui-layout-column">
+          <li class="ui-layout-column ui-x-small">
+            <span
+              class="ui-layout-row ui-spread ui-tabular-nums"
+              id="billing-usage-seats"
+              ><span>Seats</span><span>8 of 10</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="billing-usage-seats"
+                max="10"
+                value="8"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <span
+              class="ui-layout-row ui-spread ui-tabular-nums"
+              id="billing-usage-storage"
+              ><span>Storage</span><span>142 of 200 GB</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="billing-usage-storage"
+                max="200"
+                value="142"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <span
+              class="ui-layout-row ui-spread ui-tabular-nums"
+              id="billing-usage-api"
+              ><span>API requests</span><span>91 400 of 100 000</span></span
+            >
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="billing-usage-api"
+                max="100000"
+                value="91400"
+              ></progress>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <article class="ui-callout ui-warning">
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z"
+      ></path>
+    </svg>
+    <div class="ui-content">
+      <p>
+        You've used 91% of this month's API requests. Requests over the limit
+        cost €0.40 per 1 000.
+        <a class="ui-link" href="#billing-limits">Raise the limit</a>
+      </p>
+    </div>
+  </article>
+
+  <section
+    aria-labelledby="billing-payment-heading"
+    class="ui-card ui-outlined"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="billing-payment-heading">Payment details</h2>
+    </hgroup>
+    <div class="ui-content">
+      <div class="ui-layout-media">
+        <span aria-hidden="true" class="billing-card-logo">VISA</span>
+        <div>
+          <p>Visa ending in 4242</p>
+          <p>Expires 08 / 2028, Default</p>
+        </div>
+      </div>
+      <dl class="ui-description-list">
+        <div>
+          <dt>Billing email</dt>
+          <dd>finance@acme-outdoors.example</dd>
+        </div>
+        <div>
+          <dt>Company</dt>
+          <dd>Acme Outdoors AB</dd>
+        </div>
+        <div>
+          <dt>VAT number</dt>
+          <dd>SE556677889901</dd>
+        </div>
+        <div>
+          <dt>Address</dt>
+          <dd>Storgatan 12, 903 26 Umeå, Sweden</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="ui-actions">
+      <button class="ui-button ui-outlined" type="button">Update card</button>
+      <button class="ui-button" type="button">Edit details</button>
+    </div>
+  </section>
+
+  <section
+    aria-labelledby="billing-invoices-heading"
+    class="ui-card ui-outlined"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="billing-invoices-heading">Invoices</h2>
+    </hgroup>
+    <div class="ui-content">
+      <table
+        aria-labelledby="billing-invoices-heading"
+        class="ui-table ui-flush ui-overflow-scroll"
+        tabindex="0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Invoice</th>
+            <th scope="col">Status</th>
+            <th class="ui-numeric" scope="col">Amount</th>
+            <th scope="col"><span class="ui-sr-only">Download</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><time datetime="2026-10-01">1 Oct 2026</time></td>
+            <td>INV-2026-0010</td>
+            <td>
+              <span class="ui-chip ui-dot ui-warning ui-small ui-outlined"
+                ><span class="ui-text">Due 15 Oct</span></span
+              >
+            </td>
+            <td class="ui-numeric">€192.00</td>
+            <td>
+              <button
+                aria-label="Download INV-2026-0010"
+                class="ui-button ui-round ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td><time datetime="2026-09-01">1 Sep 2026</time></td>
+            <td>INV-2026-0009</td>
+            <td>
+              <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
+                ><span class="ui-text">Paid</span></span
+              >
+            </td>
+            <td class="ui-numeric">€192.00</td>
+            <td>
+              <button
+                aria-label="Download INV-2026-0009"
+                class="ui-button ui-round ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td><time datetime="2026-08-01">1 Aug 2026</time></td>
+            <td>INV-2026-0008</td>
+            <td>
+              <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
+                ><span class="ui-text">Paid</span></span
+              >
+            </td>
+            <td class="ui-numeric">€168.00</td>
+            <td>
+              <button
+                aria-label="Download INV-2026-0008"
+                class="ui-button ui-round ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td><time datetime="2026-07-01">1 Jul 2026</time></td>
+            <td>INV-2026-0007</td>
+            <td>
+              <span class="ui-chip ui-dot ui-neutral ui-small ui-outlined"
+                ><span class="ui-text">Refunded</span></span
+              >
+            </td>
+            <td class="ui-numeric">€168.00</td>
+            <td>
+              <button
+                aria-label="Download INV-2026-0007"
+                class="ui-button ui-round ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ui-actions">
+      <a class="ui-button" href="#billing-all-invoices">View all invoices</a>
+    </div>
+  </section>
+</div>

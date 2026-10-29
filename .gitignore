@@ -31,3 +31,6 @@ pnpm-debug.log*
 dist-test/
 playwright-report/
 test-results/
+
+# Claude Code agent worktrees
+.claude/worktrees/

@@ -1,35 +1,36 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
+import { tagAttrs } from "../tag"
 
 export const title = "Button"
 
-const props = Astro.props as Props
 const {
   as,
   class: className,
   color,
-  size,
-  variant,
   disabled,
   href,
+  round,
+  size,
+  variant,
   ...rest
-} = props
+} = Astro.props
 
-const Tag = (as || (href ? "a" : "button")) as any
-const isButton = Tag === "button"
+const Tag = as || (href ? "a" : "button")
 ---
 
 <Tag
   class:list={[
     "ui-button",
-    size && `ui-${size}`,
-    variant && `ui-${variant}`,
+    { "ui-round": round },
     color && `ui-${color}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}
-  disabled={isButton ? disabled : undefined}
-  href={href}
-  {...rest as any}
+  {...tagAttrs(Tag, disabled, href)}
+  {...rest as HTMLAttributes<"button">}
 >
   <slot />
 </Tag>

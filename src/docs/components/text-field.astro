@@ -1,53 +1,30 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
   Switch as UISwitch,
   TextField as UITextField,
-} from "@opui/astro"
+} from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
-import InputTypes from "../../component-examples/text-field/InputTypes.astro"
-import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
-import InputTypesVueRaw from "../../component-examples/text-field/InputTypes.vue?raw"
-import InputTypesPreviewVue from "../../component-examples/text-field/InputTypes.vue"
-import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
-
-import Numeric from "../../component-examples/text-field/Numeric.astro"
-import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
-import NumericVueRaw from "../../component-examples/text-field/Numeric.vue?raw"
-import NumericPreviewVue from "../../component-examples/text-field/Numeric.vue"
-import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
-
-import File from "../../component-examples/text-field/File.astro"
-import FileAstro from "../../component-examples/text-field/File.astro?raw"
-import FileVueRaw from "../../component-examples/text-field/File.vue?raw"
-import FilePreviewVue from "../../component-examples/text-field/File.vue"
-import FileHtml from "../../component-examples/text-field/File.html?raw"
-
-import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
-import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
-import AutosuggestVueRaw from "../../component-examples/text-field/Autosuggest.vue?raw"
-import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
-import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
-
-import NoLabel from "../../component-examples/text-field/NoLabel.astro"
-import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
-import NoLabelVueRaw from "../../component-examples/text-field/NoLabel.vue?raw"
-import NoLabelPreviewVue from "../../component-examples/text-field/NoLabel.vue"
-import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
-
-import FieldCSS from "@opui/css/components/text-field.css?raw"
-import TextFieldCSS from "@opui/css/components/text-input.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
-import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
+
+export const keywords = ["email", "input", "password", "search", "text box"]
 ---
 
 <Component
@@ -55,16 +32,16 @@ export const description =
   heroAnatomy
   slug="text-field"
   browserSupport={[
+    "container-queries",
     "datalist",
     "field-sizing",
     "has",
-    "light-dark",
+    "invoker-commands",
+    "lh",
     "relative-color",
+    "user-pseudos",
   ]}
-  apis={[
-    { title: "Text field API", api: textFieldApi },
-    { title: "Text input API", html: TextInputAPIHTML },
-  ]}
+  apis={[{ title: "Text field API", api: textFieldApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/TextField/TextField.astro",
@@ -76,169 +53,319 @@ export const description =
       path: "packages/opui/css/components/text-field.css",
       type: "css",
     },
-    {
-      path: "packages/opui/css/components/text-input.css",
-      type: "css",
-    },
     { path: "src/component-api/text-field", type: "api" },
-    { path: "src/component-api/text-input", type: "api" },
   ]}
   installationTabs={[
-    { title: "text-field.css", code: FieldCSS, lang: "css" },
-    {
-      title: "text-input.css",
-      code: TextFieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
+    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <Usage slot="usage">
+    <li slot="when">
+      Short free text, like a name, an email address or a search.
+    </li>
+    <li slot="when">
+      Numbers that are really text, like a card number or a code, with <a
+        href="#numeric-vs-input-type-number"><code>inputmode="numeric"</code></a
+      > instead of <code>type="number"</code>.
+    </li>
+    <li slot="when">
+      Free text with suggestions, with a <a href="#autosuggest"
+        ><code>&lt;datalist&gt;</code></a
+      >.
+    </li>
+    <li slot="when-not">
+      Text that runs over several lines, like a comment. Use a <DocLink
+        href="/components/textarea">Textarea</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Picking from a fixed list. Use a <DocLink href="/components/select"
+        >Select</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A value on a scale, like volume, or an amount you step, like a quantity.
+      Use a <DocLink href="/components/range">Range</DocLink> or a <DocLink
+        href="/components/number-field">Number field</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field.
+      </p>
+      <p slot="html">
+        Text fields are outlined by default. Add <code>.ui-filled</code> for a filled
+        field.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      On touch screens, x-small and small fields keep the default text size (<code
+        >--ui-font-size-control</code
+      >, 16px), so iOS Safari doesn't zoom in when one is focused.
+    </p>
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="end-text">End text</h2>
-    <AutoExample name="SupportingText" centered />
-  </section>
-
-  <section>
-    <h2 id="affix">Affix</h2>
+  <section id="start-text">
+    <h2>Start text</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
+      <Fragment slot="components">
+        Use the <code>startText</code> prop or <code>start-text</code> slot for text
+        between the label and the input.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
-          >.ui-header</code
-        >, or
-        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
-        inside the field's border. Prefix and suffix sit beside the input, while header
-        and footer span the field's full width with a divider.
+        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
+        {" "}<code>.ui-field</code> for text between the label and the input.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>startText</code> prop for text between the label and the input.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>startText</code> prop or snippet for text between the label
+        and the input.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="StartText" row />
+  </section>
+
+  <section id="end-text">
+    <h2>End text</h2>
+    <AutoExample name="EndText" centered />
+  </section>
+
+  <section id="character-count">
+    <h2>Character count</h2>
+    <Conditional as="div">
+      <p slot="components">
+        With <code>maxlength</code>, set <code>characterCount</code> to show the characters
+        typed out of the limit at the end of the end text. Once 10% or 10 characters
+        are left, whichever is more, a pause in typing announces how many are left.
+        Pass the words, translated, as <code>characterCountLabel</code>, with <code
+          >{"{count}"}</code
+        > where the number goes ("Characters left:
+        {"{count}"}" by default). In Svelte, pass it as an expression, like <code
+          >{'characterCountLabel={"{count} left"}'}</code
+        >, since Svelte reads braces in a string.
+      </p>
+      <p slot="html">
+        With <code>maxlength</code>, add <code
+          >&lt;opui-character-count class="ui-value" aria-hidden="true"&gt;</code
+        > at the end of <code>.ui-end-text</code> and import <code
+          >opui-css/elements/character-count.js</code
+        >. It shows the characters typed out of the limit, and once 10% or 10
+        characters are left, whichever is more, a pause in typing announces how
+        many are left. Set the words, translated, as its <code>label</code>,
+        with
+        <code>{"{count}"}</code> where the number goes ("Characters left: {
+          "{count}"
+        }" by default).
+      </p>
+    </Conditional>
+    <p>
+      The visible count is <code>aria-hidden</code>, so it doesn't join the
+      field's name on every keystroke. The announcement comes from one live
+      region the element adds to the page, outside the label.
+    </p>
+    <AutoExample name="CharacterCount" centered />
+  </section>
+
+  <section id="password-toggle">
+    <h2>Password toggle</h2>
+    <Conditional as="div">
+      <p slot="components">
+        On a <code>type="password"</code> field, <code>passwordToggle</code> adds
+        a button at the end that shows and hides the password. It's named by <code
+          >passwordToggleLabel</code
+        > ("Show password" by default) and pressed while the password shows. The password
+        hides again when the form is submitted or reset.
+      </p>
+      <p slot="html">
+        On a <code>type="password"</code> field, a <code>.ui-button</code> in <code
+          >.ui-end</code
+        > with <code>aria-pressed="false"</code>, <code>commandfor</code> naming the
+        input and <code>command="--toggle-password"</code> shows and hides the password,
+        once <code>opui-css/elements/text-field.js</code> is imported. The password
+        hides again when the form is submitted or reset.
+      </p>
+    </Conditional>
+    <p>
+      A button inside a <code>&lt;label&gt;</code> would join the field's name, like
+      "Password Show password". So the root is the <code
+        >&lt;opui-text-field&gt;</code
+      > custom element with a <code>&lt;label for&gt;</code>, and the end text
+      describes the input through <code>aria-describedby</code>. Until the
+      element loads, the button is hidden.
+    </p>
+    <AutoExample name="PasswordToggle" row />
+  </section>
+
+  <section id="affix">
+    <h2>Affix</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
+          >bottom</code
+        > slots to affix content inside the field's border. Start and end sit beside
+        the input, while top and bottom span the field's full width with a divider.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>,
+        or{" "}
+        <code>.ui-bottom</code> elements inside <code>.ui-field</code> to affix content
+        inside the field's border. Start and end sit beside the input, while top and
+        bottom span the field's full width with a divider.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
+          >bottom</code
+        > props to affix content inside the field's border. Start and end sit beside
+        the input, while top and bottom span the field's full width with a divider.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
+          >bottom</code
+        > snippets to affix content inside the field's border. Start and end sit beside
+        the input, while top and bottom span the field's full width with a divider.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" column />
 
-    <h3 id="headers-and-footers">Headers and footers</h3>
+    <h3 id="top-and-bottom">Top and bottom</h3>
     <p>
-      Use the <code>header</code> slot for inside-field captions (filenames, categories)
-      and the <code>footer</code> slot for counters, hints, or action buttons.
+      Use the top for inside-field captions (filenames, categories) and the
+      bottom for counters and hints.
     </p>
 
-    <AutoExample name="Headers" column />
+    <AutoExample name="TopAndBottom" column />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
+  <section id="binding">
+    <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Set <code>required</code> on the component to toggle required styles on the
-        input.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
-        required styles.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        Astro renders the field on the server, so it has no bound value. The
+        value lives in the <code>input</code>: read it in a script on <code
+          >input</code
+        >, or submit it with a form. Set <code
+          >input.value = input.defaultValue</code
+        > to go back to the <code>value</code> prop.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> on the root element to toggle invalid styles.
-        Make use of the end text to give extra feedback on the error.
+        The value lives in the <code>input</code>: read it in a script on <code
+          >input</code
+        >, or submit it with a form. Set <code
+          >input.value = input.defaultValue</code
+        > to go back to the value in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Keep the value in your own state. Pass <code>value</code> and an <code
+          >onChange</code
+        > that stores <code>event.currentTarget.value</code>, or <code
+          >defaultValue</code
+        > to leave the input in charge.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the value with <code>bind:value</code>. Changing the field updates
+        the variable, and setting the variable updates the field.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the value with <code>v-model</code>. Changing the field updates the
+        ref, and setting the ref updates the field.
       </Fragment>
     </Conditional>
+    <AutoExample name="Binding" column />
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <ValidationNotes element="input" named subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
 
-  <section>
-    <h2 id="spread">Spread</h2>
+  <section id="spread">
+    <h2>Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
+      <Fragment slot="components">
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
-        on the left with the input on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Add the <code>.ui-spread</code> class to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
-  <section>
-    <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+  <section id="auto-fit">
+    <h2>Auto-fit</h2>
+    <p>
+      Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's width
+      follow its content, from <code>25ch</code>.
+    </p>
 
-    <AutoExample name="AutoFit" exampleClass="flex" />
+    <AutoExample name="AutoFit" class="flex" />
   </section>
 
-  <section>
-    <h2 id="input-types">Input types</h2>
-    <Example row>
-      <UISwitch small slot="controls" id="text-field-filled-toggle"
-        >Filled</UISwitch
+  <section id="input-types">
+    <h2>Input types</h2>
+    <AutoExample name="InputTypes" row>
+      <UISwitch
+        size="small"
+        slot="controls"
+        data-toggle-class="ui-filled"
+        data-toggle-target=".ui-text-field">Filled</UISwitch
       >
-      <UISwitch small slot="controls" id="text-field-small-toggle"
-        >Small</UISwitch
+      <UISwitch
+        size="small"
+        slot="controls"
+        data-toggle-class="ui-small"
+        data-toggle-target=".ui-text-field">Small</UISwitch
       >
-
-      <Example.Preview slot="preview-astro" code={InputTypes} />
-      <Example.Preview slot="preview-html" code={InputTypesHtml} />
-      <Example.Preview slot="preview-vue" code={InputTypesPreviewVue} />
-      <Example.Code slot="code-astro" code={InputTypesAstro} />
-      <Example.Code slot="code-vue" code={InputTypesVueRaw} />
-      <Example.Code slot="code-html" code={InputTypesHtml} />
-    </Example>
+    </AutoExample>
 
     <div class="ui-not-rich-text">
       <UICallout>
-        <Fragment slot="title">Date inputs</Fragment>
-        <div class="ui-rich-text">
-          Date-related inputs never show as empty, so the label is always
-          visible. There are only hacks with compromises and no neat ways of
-          dealing with that issue. You're free to implement a solution of your
-          own here that works with your project.
-        </div>
+        <UICalloutContent>
+          <h3>Date inputs</h3>
+          <div class="ui-rich-text">
+            Date-related inputs never show as empty, so the label is always
+            visible. There are only hacks with compromises and no neat ways of
+            dealing with that issue. You're free to implement a solution of your
+            own here that works with your project.
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
 
@@ -246,88 +373,76 @@ export const description =
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
 
-    <Example>
-      <Numeric slot="preview-astro" />
-      <Numeric slot="preview-html" />
-      <NumericPreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={NumericAstro} />
-      <Example.Code slot="code-vue" code={NumericVueRaw} />
-      <Example.Code slot="code-html" code={NumericHtml} />
-    </Example>
+    <AutoExample name="Numeric" />
 
     <div class="ui-not-rich-text">
       <UICallout severity="critical">
-        <Fragment slot="title"
-          >You most likely don't need <code>&lt;input type="number"&gt;</code
-          ></Fragment
-        >
-        <div class="ui-rich-text">
-          <p>
-            While <code>&lt;input type="number"&gt;</code> may seem logical for numeric
-            data it should only be used when mathematical operations are needed on
-            the input (which is... never). Data like credit card numbers, IDs or social
-            security numbers - are actually text that happen to be numeric rather
-            than mathematical values. Therefore, consider using
-            <code
-              >&lt;input type="text" inputmode="numeric" pattern="[0-9]*"&gt;</code
-            > instead.
-          </p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3>
+            You most likely don't need <code>&lt;input type="number"&gt;</code>
+          </h3>
+          <div class="ui-rich-text">
+            <p>
+              While <code>&lt;input type="number"&gt;</code> may seem logical for
+              numeric data it should only be used when mathematical operations are
+              needed on the input (which is... never). Data like credit card numbers,
+              IDs or social security numbers - are actually text that happen to be
+              numeric rather than mathematical values. Therefore, consider using{
+                " "
+              }
+              <code
+                >&lt;input type="text" inputmode="numeric" pattern="[0-9]*"&gt;</code
+              > instead.
+            </p>
 
-          <p><strong>You will have a bad time.</strong></p>
+            <p><strong>You will have a bad time.</strong></p>
 
-          <p>
-            This triggers the numeric keyboard on mobile devices while avoiding
-            the jank of number inputs, such as:
-          </p>
+            <p>
+              This triggers the numeric keyboard on mobile devices while
+              avoiding the jank of number inputs, such as:
+            </p>
 
-          <ul>
-            <li>Unexpected value increments from scroll wheels</li>
-            <li>Browser-specific validation differences</li>
-            <li>Accessibility problems</li>
-            <li>Removal of leading zeros</li>
-            <li>Allows for some non-numeric mathematical characters</li>
-          </ul>
+            <ul>
+              <li>Unexpected value increments from scroll wheels</li>
+              <li>Browser-specific validation differences</li>
+              <li>Accessibility problems</li>
+              <li>Removal of leading zeros</li>
+              <li>Allows for some non-numeric mathematical characters</li>
+            </ul>
 
-          <p>
-            It should probably be called <code>&lt;input type="math"&gt;</code> instead.
-          </p>
+            <p>
+              It should probably be called <code>&lt;input type="math"&gt;</code
+              > instead.
+            </p>
 
-          <p>
-            The British Government has a <a
-              href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
-              class="ui-link">great article</a
-            > about how bad input number is and goes in-depth. It's a very interesting
-            read.
-          </p>
-        </div>
+            <p>
+              The British Government has a <a
+                href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
+                class="ui-link">great article</a
+              > about how bad input number is and goes in-depth. It's a very interesting
+              read.
+            </p>
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
 
     <h3 id="file">File</h3>
     <p>
-      Use <code>aria-label</code> instead of the <code>&lt;label&gt;</code> element.
-    </p>
-
-    <p>
       File is a weird one. Should it really be an <code>&lt;input&gt;</code> element?
-      Well, it's what we've got :sweat_smile:
+      Well, it's what we've got.
     </p>
 
-    <Example row>
-      <File slot="preview-astro" />
-      <File slot="preview-html" />
-      <FilePreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={FileAstro} />
-      <Example.Code slot="code-vue" code={FileVueRaw} />
-      <Example.Code slot="code-html" code={FileHtml} />
-    </Example>
+    <AutoExample name="File" row />
   </section>
 
-  <section>
-    <h2 id="autosuggest">Autosuggest</h2>
+  <section id="autosuggest">
+    <h2>Autosuggest</h2>
     <p>
       Leverages the <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> element
-      combo.
+      combo. An input with a <code>list</code> shows the Select chevron in place of
+      the browser's arrow.
     </p>
 
     <ul>
@@ -335,44 +450,39 @@ export const description =
       <li><code>&lt;datalist id="DATALISTID"&gt;</code></li>
     </ul>
 
-    <Example row>
-      <Autosuggest slot="preview-astro" />
-      <Autosuggest slot="preview-html" />
-      <AutosuggestPreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={AutosuggestAstro} />
-      <Example.Code slot="code-vue" code={AutosuggestVueRaw} />
-      <Example.Code slot="code-html" code={AutosuggestHtml} />
-    </Example>
+    <AutoExample name="Autosuggest" row />
 
     <div class="ui-not-rich-text">
       <UICallout>
-        <div class="ui-rich-text">
-          <p>
-            Think of <code>&lt;datalist&gt;</code> as a list of <em
-              >suggested</em
-            > values.
-          </p>
+        <UICalloutContent>
+          <div class="ui-rich-text">
+            <p>
+              Think of <code>&lt;datalist&gt;</code> as a list of <em
+                >suggested</em
+              > values.
+            </p>
 
-          <ul>
-            <li>
-              <code>&lt;select&gt;</code> only allows you to choose between its provided
-              values.
-            </li>
-            <li>
-              <code>&lt;input&gt;</code> lets you input anything you want.
-            </li>
-            <li>
-              <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> is a hybrid
-              between the two.
-            </li>
-          </ul>
-        </div>
+            <ul>
+              <li>
+                <code>&lt;select&gt;</code> only allows you to choose between its
+                provided values.
+              </li>
+              <li>
+                <code>&lt;input&gt;</code> lets you input anything you want.
+              </li>
+              <li>
+                <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> is a hybrid
+                between the two.
+              </li>
+            </ul>
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
   </section>
 
-  <section>
-    <h2 id="do-i-have-to-use-label">
+  <section id="do-i-have-to-use-label">
+    <h2>
       Do I have to use <code>&lt;label&gt;</code>?
     </h2>
     <p>
@@ -380,16 +490,21 @@ export const description =
         >&lt;label&gt;</code
       >. It's recommended to label your inputs somehow.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The component renders a <code>&lt;label&gt;</code>, so name the input
+        with <code>aria-label</code> when it has no visible label.
+      </Fragment>
+      <Fragment slot="html">
+        Put <code>.ui-text-field</code> on a <code>&lt;div&gt;</code> and name the
+        input with <code>aria-label</code>.
+      </Fragment>
+    </Conditional>
 
-    <Example>
-      <NoLabel slot="preview-astro" />
-      <NoLabel slot="preview-html" />
-      <NoLabelPreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={NoLabelAstro} />
-      <Example.Code slot="code-vue" code={NoLabelVueRaw} />
-      <Example.Code slot="code-html" code={NoLabelHtml} />
-    </Example>
+    <AutoExample name="NoLabel" />
   </section>
+
+  <TextFieldBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>
@@ -398,62 +513,39 @@ export const description =
           >Don't use <code>&lt;input type="number"&gt;</code></a
         > unless your user research tells you to.
       </li>
+      <li>
+        The <code>&lt;label&gt;</code> wraps the whole field, so the label, the start
+        and end text and the affixes are all part of the input's name, like "Amount
+        € EUR". Keep them short.
+      </li>
+      <li>
+        With a <a href="#password-toggle">password toggle</a>, the label is a <code
+          >&lt;label for&gt;</code
+        > instead: the input is named by the label alone, and the start and end text
+        describe it.
+      </li>
     </ul>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITextField
-        description="Description"
+        characterCount
         endText="Supporting text"
+        id="text-field-anatomy"
         label="Label"
+        maxlength={24}
+        passwordToggle
         placeholder="Placeholder"
+        startText="Start text"
+        type="password"
         value="Value"
       >
-        <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
-        <span slot="suffix">EUR</span>
-        <span slot="footer">Footer</span>
+        <span slot="top">Top</span>
+        <span slot="start">€</span>
+        <span slot="bottom">Bottom</span>
       </UITextField>
     </Anatomy>
   </Fragment>
 </Component>
-
-<script>
-  function setupInputTypesControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        if (!container.querySelector("#text-field-filled-toggle")) return
-        if (container.dataset.inputTypesSetup) return
-        container.dataset.inputTypesSetup = "true"
-
-        const filledToggle = container.querySelector<HTMLInputElement>(
-          "#text-field-filled-toggle",
-        )
-        const smallToggle = container.querySelector<HTMLInputElement>(
-          "#text-field-small-toggle",
-        )
-
-        const updateFields = () => {
-          if (!filledToggle || !smallToggle) return
-          container.querySelectorAll(".input-type-field").forEach((field) => {
-            field.classList.toggle("ui-filled", filledToggle.checked)
-            field.classList.toggle("ui-small", smallToggle.checked)
-          })
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (input !== filledToggle && input !== smallToggle) return
-          updateFields()
-        })
-
-        updateFields()
-      })
-  }
-
-  setupInputTypesControls()
-  document.addEventListener("astro:after-swap", setupInputTypesControls)
-</script>

@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { Anchor } from "opui-css/vue"
+import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Anchor>
-    <button>Hover me</button>
-    <template #anchored
-      ><span
-        style="
-          background: var(--surface-2);
-          padding: var(--size-2) var(--size-3);
-          border-radius: var(--radius-2);
-          box-shadow: var(--shadow-3);
-        "
-        >Floating content</span
-      ></template
-    >
+  <Anchor positionArea="inline-end">
+    <Button variant="outlined">Export</Button>
+    <AnchorContent>
+      <Card variant="tonal" class="coach-mark">
+        <CardContent>
+          <strong>New</strong> Export to PDF and CSV from the same menu.
+        </CardContent>
+      </Card>
+    </AnchorContent>
   </Anchor>
 </template>
+
+<style>
+.coach-mark {
+  font-size: var(--ui-font-size-body);
+  margin-inline-start: var(--ui-space-2);
+  max-inline-size: 220px;
+}
+</style>

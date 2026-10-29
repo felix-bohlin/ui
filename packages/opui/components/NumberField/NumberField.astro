@@ -1,0 +1,128 @@
+---
+import Button from "../Button/Button.astro"
+
+import type { Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { createId, idRefs } from "../id"
+import { minusPath, plusPath } from "./icons"
+
+export const title = "Number Field"
+
+const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  class: className,
+  decreaseLabel = "Decrease",
+  endText,
+  error,
+  hideLabel,
+  id,
+  increaseLabel = "Increase",
+  label,
+  name,
+  size,
+  spread,
+  startText,
+  stretch,
+  style,
+  variant,
+  ...rest
+} = Astro.props
+
+const field = fieldGroupContext.get()
+const $id = createId(Astro.locals)
+const inputId = id ?? $id("number-field")
+const startTextId =
+  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+---
+
+<opui-number-field
+  class:list={[
+    "ui-number-field",
+    {
+      "ui-filled": variant === "filled",
+      "ui-spread": spread,
+      "ui-stretch": stretch,
+    },
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  style={style}
+>
+  {
+    (label || Astro.slots.has("label")) && (
+      <label class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
+        {label}
+        <slot name="label" />
+      </label>
+    )
+  }
+  {
+    (startText || Astro.slots.has("start-text")) && (
+      <span class="ui-start-text" id={startTextId}>
+        {startText}
+        <slot name="start-text" />
+      </span>
+    )
+  }
+  <span class="ui-field">
+    <span class="ui-start">
+      <Button
+        aria-label={decreaseLabel}
+        command="--step-down"
+        commandfor={inputId}
+        round
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d={minusPath}></path>
+        </svg>
+      </Button>
+    </span>
+    <input
+      {...rest}
+      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-invalid={error ? "true" : ariaInvalid}
+      id={inputId}
+      name={name ?? field?.name}
+      type="number"
+    />
+    <span class="ui-end">
+      <Button
+        aria-label={increaseLabel}
+        command="--step-up"
+        commandfor={inputId}
+        round
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d={plusPath}></path>
+        </svg>
+      </Button>
+    </span>
+  </span>
+  {
+    (endText || Astro.slots.has("end-text")) && (
+      <span class="ui-end-text" id={endTextId}>
+        {endText}
+        <slot name="end-text" />
+      </span>
+    )
+  }
+</opui-number-field>
+
+<script>
+  import "../../elements/number-field.js"
+</script>

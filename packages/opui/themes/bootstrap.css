@@ -1,0 +1,243 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
+@layer theme.palette, theme.base, theme.custom, theme.severity;
+
+@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-backdrop-blur: 0px;
+    --ui-border-color: light-dark(
+      oklch(0.91 0.007 248),
+      oklch(0.428 0.015 248)
+    );
+    --ui-border-color-on-filled: var(--ui-border-color);
+    --ui-border-color-raised: var(--ui-border-color);
+    --ui-radius: 0.375rem;
+    --ui-radius-small: 0.375rem;
+    --ui-radius-x-small: 0.25rem;
+    --ui-button-accent: light-dark(
+      oklch(0.525 0.017 245),
+      oklch(0.77 0.014 248)
+    );
+    --ui-button-on-accent: light-dark(oklch(1 0 0), oklch(0 0 0));
+    --ui-button-font-weight: 400;
+    --ui-button-padding-inline: 0.75rem;
+    --ui-button-padding-inline-large: 1rem;
+    --ui-button-padding-inline-small: 0.5rem;
+    --ui-button-padding-inline-x-small: 0.5rem;
+    --ui-choice-ripple-bg-color: transparent;
+    --ui-choice-size: 1rem;
+    --ui-code-bg-color: transparent;
+    --ui-critical: oklch(0.592 0.202 21.2);
+    --ui-density: 0.95;
+    --ui-dialog-radius: 0.5rem;
+    --ui-disabled-opacity: 0.65;
+    --ui-field-border-color: light-dark(
+      oklch(0.91 0.007 248),
+      oklch(0.428 0.015 248)
+    );
+    --ui-field-border-color-on-filled: var(--ui-field-border-color);
+    --ui-field-helper-font-size: 0.875rem;
+    --ui-field-helper-text-color: light-dark(
+      oklch(0.262 0.01 248 / 0.75),
+      oklch(0.91 0.007 248 / 0.75)
+    );
+    --ui-field-label-text-color: var(--ui-text);
+    --ui-field-label-font-size: 1rem;
+    --ui-field-label-font-weight: 400;
+    --ui-field-padding-inline: 0.75rem;
+    --ui-focus-ring-color: oklch(0.578 0.228 260 / 0.25);
+    --ui-focus-ring-offset: 0px;
+    --ui-focus-ring-width: 0.25rem;
+    --ui-font-body:
+      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      "Noto Sans", "Liberation Sans", Arial, sans-serif;
+    --ui-font-size-h1: min(calc(1.375rem + 1.5vi), 2.5rem);
+    --ui-font-size-h2: min(calc(1.325rem + 0.9vi), 2rem);
+    --ui-font-size-h3: min(calc(1.3rem + 0.6vi), 1.75rem);
+    --ui-font-size-h4: min(calc(1.275rem + 0.3vi), 1.5rem);
+    --ui-font-size-h5: 1.25rem;
+    --ui-font-size-h6: 1rem;
+    --ui-font-weight-bold: 500;
+    --ui-font-weight-semibold: 700;
+    --ui-gray-chroma: 0.012;
+    --ui-gray-hue: 250;
+    --ui-info: oklch(0.775 0.1379 218);
+    --ui-letter-spacing-display: 0;
+    --ui-letter-spacing-heading: 0;
+    --ui-line-height: 1.5;
+    --ui-line-height-relaxed: 1.5;
+    --ui-neutral: oklch(0.558 0.016 245);
+    --ui-on-inverse: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
+    --ui-palette-source: oklch(0.578 0.228 260);
+    --ui-primary-source: oklch(0.578 0.228 260);
+    --ui-selected: var(--ui-primary);
+    --ui-on-selected: var(--ui-on-primary);
+    --ui-shadow-overlay: none;
+    --ui-shadow-elevated: 0 0.125rem 0.25rem oklch(0 0 0 / 0.075);
+    --ui-shadow-scroll: 0 0.125rem 0.25rem oklch(0 0 0 / 0.075);
+    --ui-shadow-selected: none;
+    --ui-success: oklch(0.552 0.1234 157);
+    --ui-surface: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
+    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.306 0.011 248));
+    --ui-surface-filled: light-dark(
+      oklch(0.942 0.005 248),
+      oklch(0.345 0.013 248)
+    );
+    --ui-surface-inverse: light-dark(oklch(0 0 0), oklch(1 0 0));
+    --ui-surface-tonal: light-dark(
+      oklch(0.982 0.002 249),
+      oklch(0.306 0.011 248)
+    );
+    --ui-switch-thumb-bg-color: light-dark(
+      oklch(0 0 0 / 0.25),
+      oklch(1 0 0 / 0.25)
+    );
+    --ui-switch-thumb-size: 0.75rem;
+    --ui-switch-track-bg-color: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
+    --ui-switch-track-block-size: 1rem;
+    --ui-switch-track-inline-size: 2rem;
+    --ui-text: light-dark(oklch(0.262 0.01 248), oklch(0.91 0.007 248));
+    --ui-text-strong: light-dark(oklch(0.262 0.01 248), oklch(1 0 0));
+    --ui-text-subtle: light-dark(
+      oklch(0.473 0.006 248),
+      oklch(0.765 0.007 248)
+    );
+    --ui-underline-offset: auto;
+    --ui-underline-thickness-hover: auto;
+    --ui-warning: oklch(0.844 0.17217 85);
+  }
+
+  :where(.ui-critical) {
+    --ui-palette-accent: oklch(0.592 0.202 21.2);
+    --ui-palette-border: light-dark(oklch(0.815 0.08 12), oklch(0.41 0.134 21));
+    --ui-palette-strong: light-dark(
+      oklch(0.312 0.098 19),
+      oklch(0.73 0.123 15)
+    );
+    --ui-palette-text: light-dark(oklch(0.312 0.098 19), oklch(0.73 0.123 15));
+    --ui-palette-tint-subtle: light-dark(
+      oklch(0.907 0.037 12),
+      oklch(0.207 0.055 18)
+    );
+  }
+
+  :where(.ui-info) {
+    --ui-palette-accent: oklch(0.775 0.1379 218);
+    --ui-palette-border: light-dark(
+      oklch(0.893 0.077 211),
+      oklch(0.5321 0.094 218)
+    );
+    --ui-palette-strong: light-dark(
+      oklch(0.401 0.0695 216),
+      oklch(0.846 0.1074 213)
+    );
+    --ui-palette-text: light-dark(
+      oklch(0.401 0.0695 216),
+      oklch(0.846 0.1074 213)
+    );
+    --ui-palette-tint-subtle: light-dark(
+      oklch(0.943 0.04 212),
+      oklch(0.256 0.043 216)
+    );
+  }
+
+  :where(.ui-neutral) {
+    --ui-palette-accent: oklch(0.558 0.016 245);
+    --ui-palette-border: light-dark(
+      oklch(0.83 0.006 240),
+      oklch(0.39 0.011 248)
+    );
+    --ui-palette-strong: light-dark(
+      oklch(0.302 0.008 240),
+      oklch(0.742 0.009 248)
+    );
+    --ui-palette-text: light-dark(
+      oklch(0.302 0.008 240),
+      oklch(0.742 0.009 248)
+    );
+    --ui-palette-tint-subtle: light-dark(
+      oklch(0.916 0.003 265),
+      oklch(0.204 0.004 265)
+    );
+  }
+
+  :where(.ui-success) {
+    --ui-palette-accent: oklch(0.552 0.1234 157);
+    --ui-palette-border: light-dark(
+      oklch(0.817 0.054 166),
+      oklch(0.386 0.083 157.5)
+    );
+    --ui-palette-strong: light-dark(
+      oklch(0.297 0.06 159),
+      oklch(0.726 0.082 163)
+    );
+    --ui-palette-text: light-dark(
+      oklch(0.297 0.06 159),
+      oklch(0.726 0.082 163)
+    );
+    --ui-palette-tint-subtle: light-dark(
+      oklch(0.91 0.027 167),
+      oklch(0.2 0.035 162)
+    );
+  }
+
+  :where(.ui-warning) {
+    --ui-palette-accent: oklch(0.844 0.17217 85);
+    --ui-palette-border: light-dark(
+      oklch(0.929 0.097 92),
+      oklch(0.58 0.1176 86)
+    );
+    --ui-palette-strong: light-dark(
+      oklch(0.435 0.0876 87),
+      oklch(0.898 0.1366 91)
+    );
+    --ui-palette-text: light-dark(
+      oklch(0.435 0.0876 87),
+      oklch(0.898 0.1366 91)
+    );
+    --ui-palette-tint-subtle: light-dark(
+      oklch(0.964 0.051 93),
+      oklch(0.28 0.056 91)
+    );
+  }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+      --ui-field-border-color: revert-layer;
+      --ui-field-helper-text-color: revert-layer;
+      --ui-focus-ring-color: revert-layer;
+      --ui-text-subtle: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+    --ui-field-border-color: revert-layer;
+    --ui-field-helper-text-color: revert-layer;
+    --ui-focus-ring-color: revert-layer;
+    --ui-text-subtle: revert-layer;
+  }
+
+  @media (prefers-contrast: more) {
+    :where(html:not(.ui-contrast-normal))
+      :where(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+      --ui-palette-accent: revert-layer;
+      --ui-palette-border: revert-layer;
+      --ui-palette-strong: revert-layer;
+      --ui-palette-text: revert-layer;
+      --ui-palette-tint-subtle: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more)
+    :where(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+    --ui-palette-accent: revert-layer;
+    --ui-palette-border: revert-layer;
+    --ui-palette-strong: revert-layer;
+    --ui-palette-text: revert-layer;
+    --ui-palette-tint-subtle: revert-layer;
+  }
+}

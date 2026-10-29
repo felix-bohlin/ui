@@ -1,0 +1,233 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import ListCSS from "@opui/css/components/list.css?raw"
+import MenuCSS from "@opui/css/components/menu.css?raw"
+
+import menuApi from "../../component-api/menu/api"
+
+export const description = "A popover list of actions or links."
+
+export const keywords = ["actions", "context menu", "dropdown", "popover"]
+---
+
+<Component
+  description={description}
+  slug="menu"
+  browserSupport={[
+    "anchor-positioning",
+    "calc-size",
+    "container-style-queries",
+    "dir-pseudo",
+    "display-animation",
+    "has",
+    "invoker-commands",
+    "overlay",
+    "popover",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={[{ title: "Menu API", api: menuApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Menu/Menu.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/menu.astro", type: "docs" },
+    { path: "src/component-examples/menu", type: "docs" },
+    { path: "packages/opui/css/components/menu.css", type: "css" },
+    { path: "src/component-api/menu", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "menu.css", code: MenuCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Menu</Fragment>
+  <Fragment slot="preamble">
+    A popover <DocLink href="/components/list">List</DocLink>, anchored to a
+    {" "}<DocLink href="/components/button">Button</DocLink>. Use a Menu for
+    actions and navigation. To pick a value in a form, use a <DocLink
+      href="/components/select">Select</DocLink
+    >.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Actions on a page or an item that don't fit as buttons, like Edit,
+      Duplicate and Delete.
+    </li>
+    <li slot="when">Links that open from a button, like an account menu.</li>
+    <li slot="when">
+      More options next to a main action, in a <DocLink
+        href="/components/button-group#split-button">split button</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Picking a value in a form. Use a <DocLink href="/components/select"
+        >Select</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Two or three actions that fit on screen. Show them as <DocLink
+        href="/components/button">Buttons</DocLink
+      >, one click away.
+    </li>
+    <li slot="when-not">
+      Rich content, like a form or a card. Use an <DocLink
+        href="/components/anchor">Anchor</DocLink
+      > or a <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        ><code>items</code> with <code>borderTop</code>, <code>color</code>, <code
+          >disabled</code
+        >, <code>href</code> and <code>shortcut</code>.</Fragment
+      >
+      <Fragment slot="html"
+        ><code>command="toggle-popover"</code> to open, and <code
+          >command="hide-popover"</code
+        > to close. A link item is an <code>&lt;a&gt;</code> with <code
+          >href</code
+        >.</Fragment
+      >
+    </Conditional>
+    <p>
+      A link item doesn't close the menu, since <code>command</code> only works on
+      buttons. A link to another page leaves the menu behind, but a link to a section
+      of the same page, or one that opens a new tab, keeps it open until a click outside
+      or <kbd>Esc</kbd>.
+    </p>
+
+    <AutoExample name="Basics" centered row />
+  </section>
+
+  <section id="bordered">
+    <h2>Bordered</h2>
+    <p>
+      <PropOrClass prop="bordered" class=".ui-bordered" /> draws a line between every
+      item.
+    </p>
+
+    <AutoExample name="Bordered" centered />
+  </section>
+
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>
+      <PropOrClass prop="dense" class=".ui-dense" /> packs the items tighter.
+    </p>
+
+    <AutoExample name="Dense" centered />
+  </section>
+
+  <section id="custom">
+    <h2>Custom items</h2>
+    <p>If you want to decide yourself what goes into your list.</p>
+
+    <AutoExample name="Custom" centered />
+  </section>
+
+  <section id="placement">
+    <h2>Placement</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        ><code>side</code> (<code>block-end</code> by default), or any <code
+          >--ui-anchor-position-area</code
+        >. <code>align="end"</code> to line up with the end edge.</Fragment
+      >
+      <Fragment slot="html"
+        ><code>.ui-block-start</code>, <code>.ui-inline-start</code>, <code
+          >.ui-inline-end</code
+        >, or any <code>--ui-anchor-position-area</code>. <code
+          >.ui-align-end</code
+        > to line up with the end edge.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Placement" row centered />
+  </section>
+
+  <section id="submenu">
+    <h2>Submenu</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library, with <code
+          >aria-hidden="true"</code
+        >, in the <code>end</code> slot. Submenu items close the whole menu.
+      </Fragment>
+      <Fragment slot="html">
+        Put a <code>menu</code> in the <code>li</code>, after its button. Mark
+        the item with an icon from your icon library, with <code
+          >aria-hidden="true"</code
+        >, in <code>div.ui-end</code>. Point the <code>commandfor</code> of the submenu
+        items at the root menu to close the whole menu.
+      </Fragment>
+      <Fragment slot="react">
+        Pass a <code>Menu</code> to the <code>submenu</code> prop of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library, with <code
+          >aria-hidden="true"</code
+        >, in the <code>end</code> prop. Submenu items close the whole menu.
+      </Fragment>
+      <Fragment slot="svelte">
+        Pass a <code>Menu</code> to the <code>submenu</code> snippet of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library, with <code
+          >aria-hidden="true"</code
+        >, in the <code>end</code> snippet. Submenu items close the whole menu.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Submenu" centered />
+  </section>
+
+  <section id="manual">
+    <h2>Manual</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >keepOpen: true</code
+        > on the ones that should keep it open.</Fragment
+      >
+      <Fragment slot="html"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Give <code>command="hide-popover"</code> only to the
+        items that should close it.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Manual" centered />
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      A menu is a <code>&lt;menu&gt;</code> of buttons and links, not an ARIA menu.
+      It has no <code>role="menu"</code> or <code>role="menuitem"</code>, so
+      screen readers announce a list of buttons, and the keyboard works like it
+      does for any other button. The ARIA menu pattern needs a script for the
+      arrow keys, which the library doesn't ship. Since <code>commandfor</code>
+      ties the trigger to the menu, Chromium reports the trigger as collapsed or expanded.
+    </p>
+
+    <KeyboardSupport />
+  </Fragment>
+  <MenuBuild slot="under-the-hood" />
+</Component>

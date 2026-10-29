@@ -1,0 +1,171 @@
+---
+import AutoExample from "../../../components/AutoExample.astro"
+import Conditional from "../../../components/Conditional.astro"
+import DocLink from "../../../components/DocLink.astro"
+
+type Props = {
+  control: "checkbox" | "radio" | "switch"
+}
+
+const { control } = Astro.props
+
+const Component = { checkbox: "Checkbox", radio: "Radio", switch: "Switch" }[
+  control
+]
+const plural = { checkbox: "Checkboxes", radio: "Radios", switch: "Switches" }[
+  control
+]
+const single = control === "radio"
+const checked = control === "switch" ? "on" : "checked"
+const values = single ? "selected value" : "checked values"
+---
+
+<p>Use field groups to group related {plural.toLowerCase()}.</p>
+<Conditional as="div">
+  <p slot="components">
+    The <code>name</code> prop will get passed down to each {control} in the group.
+  </p>
+  <p slot="html">
+    Give every <code>&lt;input&gt;</code> in the group the same <code>name</code
+    >
+    attribute so they're submitted together.
+  </p>
+</Conditional>
+<p>
+  See also: <DocLink href="/components/form" class="ui-link"
+    >Form documentation</DocLink
+  >.
+</p>
+
+<slot />
+
+<h3 id="field-group-orientation">Orientation</h3>
+<Conditional as="p">
+  <Fragment slot="components">
+    {plural} stack vertically by default. Set <code
+      >orientation="horizontal"</code
+    >
+    on the <code>FieldGroup</code> to put them in a row.
+  </Fragment>
+  <Fragment slot="html">
+    {plural} stack vertically by default. Add <code>.ui-horizontal</code> to the
+    <code>.ui-field-group</code> to put them in a row.
+  </Fragment>
+</Conditional>
+<AutoExample name="FieldGroupOrientation" row />
+
+<h3 id="field-group-field-description">Field description</h3>
+<p>Can be placed above and below the fields.</p>
+<AutoExample name="FieldGroupFieldDescription" column centered spacious />
+
+<h3 id="field-group-disabled">Disabled</h3>
+<Conditional as="p">
+  <Fragment slot="components">
+    Set <code>disabled</code> on the <code>Fieldset</code> to disable every {
+      control
+    } in it, or on a single <code>{Component}</code>.
+  </Fragment>
+  <Fragment slot="html">
+    Attach the <code>disabled</code> attribute to the <code
+      >&lt;fieldset&gt;</code
+    >
+    element to disable every {control} in it, or to a single <code
+      >&lt;input&gt;</code
+    >.
+  </Fragment>
+</Conditional>
+<p>
+  <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the same,
+  but keeps the {control} focusable and its value in the form. It doesn't stop the
+  change, so block it with a script.
+</p>
+<AutoExample name="FieldGroupDisabled" row />
+
+<h3 id="field-group-required">Required</h3>
+{
+  single ? (
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set the <code>required</code> prop on at least one{" "}
+        <code>{Component}</code>. It is forwarded to the underlying{" "}
+        <code>&lt;input&gt;</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>required</code> attribute to at least one of your{" "}
+        <code>&lt;input&gt;</code> elements.
+      </Fragment>
+    </Conditional>
+  ) : (
+    <p>
+      Each {control} with <code>required</code> must be {checked} before the
+      form submits. There's no native "at least one" for {plural.toLowerCase()}.
+    </p>
+  )
+}
+<AutoExample name="FieldGroupRequired" row />
+
+<h3 id="field-group-validation">Validation</h3>
+<Conditional as="div">
+  <p slot="components">
+    Set <code>error</code> on each <code>{Component}</code> in the group. The end
+    text of the <code>Fieldset</code> turns red with them.
+  </p>
+  <p slot="html">
+    Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in the
+    group. The end text of the <code>.ui-fieldset</code> turns red with them.
+  </p>
+</Conditional>
+<p>
+  Give the end text an <code>id</code> and point <code>aria-describedby</code> on
+  the fieldset at it, so screen readers read the error with the group.
+</p>
+<AutoExample name="FieldGroupValidation" row />
+
+<h3 id="field-group-binding">Binding</h3>
+<Conditional as="p">
+  <Fragment slot="astro">
+    Astro renders the group on the server, so it has no bound value. The {
+      values
+    }
+    live in the inputs, which share the group's <code>name</code>. Submit them
+    with a form, where <code>FormData.{single ? "get" : "getAll"}()</code> reads
+    {single ? "it" : "them"}, or read the checked {single ? "input" : "inputs"}
+    in a script on <code>change</code>. Set <code
+      >input.checked = input.defaultChecked</code
+    > to go back to the <code>checked</code>
+    {single ? "radio" : plural.toLowerCase()}.
+  </Fragment>
+  <Fragment slot="html">
+    The {values} live in the inputs, which share a <code>name</code>. Submit
+    them with a form, where <code>FormData.{single ? "get" : "getAll"}()</code> reads
+    {single ? "it" : "them"}, or read the checked {single ? "input" : "inputs"}
+    in a script on <code>change</code>. Set <code
+      >input.checked = input.defaultChecked</code
+    > to go back to the <code>checked</code>
+    {single ? "input" : "inputs"} in the markup.
+  </Fragment>
+  <Fragment slot="react">
+    Keep the {values} in your own state. Pass each <code>{Component}</code> a <code
+      >checked</code
+    > and an <code>onChange</code> that {single ? "stores" : "adds or removes"} its
+    <code>value</code>.
+  </Fragment>
+  <Fragment slot="svelte">
+    Bind the {values} with <code>bind:group</code> on each <code
+      >{Component}</code
+    >. {single ? "It holds" : "The array holds"} the <code>value</code> of {
+      single ? "the checked radio" : `every checked ${control}`
+    }, and setting it updates the {plural.toLowerCase()}.
+  </Fragment>
+  <Fragment slot="vue">
+    Bind the {values} with <code>v-model</code>{
+      single ? "" : " and an array ref"
+    } on each <code>{Component}</code>. {
+      single ? "It holds" : "The array holds"
+    }
+    the <code>value</code> of {
+      single ? "the checked radio" : `every checked ${control}`
+    }, and setting it updates the {plural.toLowerCase()}.
+  </Fragment>
+</Conditional>
+<AutoExample name="FieldGroupBinding" centered column />

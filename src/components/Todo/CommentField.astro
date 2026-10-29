@@ -1,0 +1,27 @@
+---
+import { Textarea } from "opui-css/astro"
+import { plainText } from "../../utils/todo"
+
+type Props = {
+  text: string
+}
+
+const { text } = Astro.props
+---
+
+<Textarea class="comment-field" placeholder="Comment" rows={1} size="small">
+  <span class="ui-sr-only" slot="label">
+    {`Comment on: ${plainText(text)}`}
+  </span>
+  <span class="comment-saved" data-comment-saved slot="end-text"></span>
+</Textarea>
+
+<style>
+  :global(.comment-field textarea) {
+    field-sizing: content;
+  }
+
+  .comment-saved:empty {
+    display: none;
+  }
+</style>

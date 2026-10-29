@@ -1,5 +1,5 @@
 ---
-import { Chip, Tooltip } from "@opui/astro"
+import { Chip, Tooltip, TooltipContent } from "opui-css/astro"
 import {
   computeEngineBrowserSupport,
   type EngineId,
@@ -15,13 +15,13 @@ type Props = {
 
 const { ids } = Astro.props
 const { $id } = Astro.locals
-const entries = computeEngineBrowserSupport(ids)
+const entries = ids.length > 0 ? computeEngineBrowserSupport(ids) : []
 
-const ICONS: Record<EngineId, any[]> = {
+const ICONS = {
   chromium: [Chrome, Edge],
   gecko: [Firefox],
   webkit: [Safari],
-}
+} satisfies Record<EngineId, unknown[]>
 
 const HEADINGS = {
   full: "Full support",
@@ -59,12 +59,12 @@ const HEADINGS = {
                 <Icon />
               ))}
             </span>
-            <span class="ui-text">
+            <Fragment slot="label">
               {entry.label}
               {entry.level === "full" && entry.sinceVersion && (
                 <span class="version">{entry.sinceVersion}+</span>
               )}
-            </span>
+            </Fragment>
             <svg
               slot="end"
               xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ const HEADINGS = {
               )}
             </svg>
           </Chip>
-          <Fragment slot="content">
+          <TooltipContent>
             <strong class="tooltip-heading">{heading}</strong>
             {entry.level === "full" && entry.sinceVersion && (
               <span>Supported since v{entry.sinceVersion}.</span>
@@ -108,11 +108,12 @@ const HEADINGS = {
                 <code>{entry.unsupportedFeatures.join(", ")}</code>.
               </span>
             )}
-          </Fragment>
+          </TooltipContent>
         </Tooltip>
       )
     })
   }
+  <slot />
 </div>
 
 <style>
@@ -124,8 +125,8 @@ const HEADINGS = {
   }
 
   .engine-icons {
-    display: flex;
     align-items: center;
+    display: flex;
 
     > :global(*:not(:first-child)) {
       margin-inline-start: -0.25em;
@@ -136,25 +137,25 @@ const HEADINGS = {
     cursor: help;
 
     .version {
-      color: var(--text-muted);
+      color: var(--ui-text);
       margin-inline-start: var(--size-1);
     }
 
     .status-icon {
-      color: var(--text-muted);
+      color: var(--ui-text);
     }
 
     &.full .status-icon {
-      color: var(--text-ok, #2e7d32);
+      color: var(--ui-success);
     }
 
     &.partial {
       .status-icon {
-        color: var(--text-warning, #ed6c02);
+        color: var(--ui-warning);
       }
 
       .version {
-        color: var(--text-warning, #ed6c02);
+        color: var(--ui-warning);
       }
     }
 
@@ -162,7 +163,7 @@ const HEADINGS = {
       opacity: 0.85;
 
       .status-icon {
-        color: var(--text-critical, #c62828);
+        color: var(--ui-critical);
       }
     }
   }

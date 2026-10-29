@@ -1,0 +1,481 @@
+// @ts-check
+import fs from "node:fs"
+import { availableParallelism } from "node:os"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+import { Worker } from "node:worker_threads"
+
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  FRAMEWORK_FREE_PREFIXES,
+  FRAMEWORKS,
+  isFrameworkFree,
+} from "../utils/framework.js"
+import { guideIndex } from "../utils/guide.ts"
+import { markdownPath } from "../utils/markdown.js"
+import {
+  majorPublished,
+  publishedVersion,
+  releaseVersion,
+  unreleased,
+} from "../utils/release.ts"
+import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
+
+/** @typedef {(typeof FRAMEWORKS)[number]} Framework */
+/** @typedef {NonNullable<Awaited<ReturnType<typeof pageFrom>>>} Page */
+/** @typedef {(href: string) => string} RewriteHref */
+
+const DOC_PREFIXES = ["/api", "/components", "/guide"]
+
+const { description: SUMMARY } = JSON.parse(
+  fs.readFileSync(
+    new URL("../../packages/opui/package.json", import.meta.url),
+    "utf-8",
+  ),
+)
+
+/**
+ * @param {{ title: string }} a
+ * @param {{ title: string }} b
+ */
+const byTitle = (a, b) => a.title.localeCompare(b.title, "en")
+
+/** @param {Page} page */
+const guideSlug = (page) => page.pathname.split("/")[3]
+
+/**
+ * @param {Page} a
+ * @param {Page} b
+ */
+const byGuideOrder = (a, b) =>
+  guideIndex(guideSlug(a)) - guideIndex(guideSlug(b)) || byTitle(a, b)
+
+/** @param {string} dir */
+function htmlFiles(dir) {
+  return fs
+    .readdirSync(dir, { encoding: "utf-8", recursive: true })
+    .filter((file) => path.basename(file) === "index.html")
+    .map((file) => path.join(dir, file))
+}
+
+/** @param {Framework} framework */
+const header = (framework) =>
+  [
+    "# Open Props UI",
+    "",
+    `> ${SUMMARY}`,
+    "",
+    `These docs show ${framework.label} usage. Install with \`npm install opui-css\`.`,
+    "",
+    "- Every class is prefixed with `ui-` (e.g. `.ui-button`, `.ui-filled`).",
+    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.',
+    ...(unreleased
+      ? [
+          majorPublished
+            ? `- ${releaseVersion} isn't on npm yet, so \`npm install opui-css\` and the CDN link get ${publishedVersion} until it is published.`
+            : `- ${releaseVersion} isn't on npm yet, so the CDN link works once it is published, and \`npm install opui-css\` gets ${publishedVersion}, the previous major. Until then, build the package from https://github.com/felix-bohlin/ui with \`pnpm install\` and \`pnpm --filter opui-css build\`.`,
+        ]
+      : []),
+    ...(framework.id === DEFAULT_FRAMEWORK
+      ? []
+      : [
+          `- ${framework.label} components are imported from \`opui-css/${framework.id}\` (e.g. \`import { Button } from "opui-css/${framework.id}"\`). Props mirror the CSS modifiers without the \`ui-\` prefix.`,
+        ]),
+  ].join("\n")
+
+/**
+ * @param {{ framework: Framework, isRoot: boolean, pages: Page[], site: string | undefined }} options
+ */
+function llmsTxt({ framework, pages, site, isRoot }) {
+  /** @param {Page} page */
+  const link = (page) =>
+    `- [${page.title}](${new URL(page.mdPath, site)})${page.description ? `: ${page.description}` : ""}`
+  /**
+   * @param {string} title
+   * @param {string[]} entries
+   */
+  const section = (title, entries) =>
+    entries.length ? [`## ${title}`, "", ...entries, ""] : []
+
+  const guide = pages.filter((p) => p.kind === "guide").sort(byGuideOrder)
+  const components = pages.filter((p) => p.kind === "component").sort(byTitle)
+  const blog = pages.filter((p) => p.kind === "blog").sort(byTitle)
+  const blocks = pages.filter((p) => p.kind === "block").sort(byTitle)
+  const optional = pages.filter((p) => p.kind === "api").map(link)
+  optional.push(
+    `- [Full documentation](${new URL(`/${framework.id}/llms-full.txt`, site)}): Every guide, component and blog post for ${framework.label} in one file.`,
+    ...pages.filter((p) => p.pathname === "/theme-builder/").map(link),
+  )
+
+  const frameworks = isRoot
+    ? FRAMEWORKS.filter((f) => f.id !== framework.id).map(
+        (f) =>
+          `- [${f.label}](${new URL(`/${f.id}/llms.txt`, site)}): The same docs with ${f.label} examples.`,
+      )
+    : []
+
+  return [
+    header(framework),
+    "",
+    ...section("Guide", guide.map(link)),
+    ...section("Components", components.map(link)),
+    ...section("Blog", blog.map(link)),
+    ...section("Blocks", blocks.map(link)),
+    ...section("Frameworks", frameworks),
+    ...section("Optional", optional),
+  ].join("\n")
+}
+
+/**
+ * @param {string} frameworkId
+ * @param {string | undefined} site
+ * @returns {RewriteHref}
+ */
+export const hrefRewriter = (frameworkId, site) => (href) => {
+  if (!href.startsWith("/") || href.startsWith("//")) return href
+  const [pathname, hash] = href.split("#")
+  const localized = DOC_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  )
+    ? `/${frameworkId}${pathname}`
+    : pathname
+  const isDoc =
+    !path.extname(localized) &&
+    (FRAMEWORKS.some(
+      (f) => localized === `/${f.id}` || localized.startsWith(`/${f.id}/`),
+    ) ||
+      (isFrameworkFree(localized) &&
+        !/\/preview\/?$|^\/todo\/example\//.test(localized)))
+  const target = isDoc ? markdownPath(localized) : localized
+  return `${new URL(target, site)}${hash ? `#${hash}` : ""}`
+}
+
+/**
+ * @param {ReturnType<typeof parseHtml>} tree
+ * @param {string} pathname
+ * @param {RewriteHref} rewriteHref
+ */
+export async function pageFrom(tree, pathname, rewriteHref) {
+  const meta = pageMeta(tree)
+  if (meta.isRedirect) return null
+
+  const markdown = await articleToMarkdown(tree, { rewriteHref })
+  if (!markdown) return null
+
+  const [, first, second, third] = pathname.split("/")
+  const [section, slug] = isFrameworkFree(`/${first}`)
+    ? [first, second]
+    : [second, third]
+  const kind =
+    section === "components" && slug
+      ? "component"
+      : section === "guide" && slug
+        ? "guide"
+        : section === "api"
+          ? "api"
+          : section === "blog" && slug
+            ? "blog"
+            : section === "blocks" && slug && third !== "preview"
+              ? "block"
+              : "other"
+
+  return {
+    ...meta,
+    full:
+      kind === "component" || kind === "guide" || kind === "blog"
+        ? await articleToMarkdown(tree, {
+            omitInstallationCode: kind === "component",
+            rewriteHref,
+          })
+        : null,
+    kind,
+    markdown,
+    mdPath: markdownPath(pathname),
+    pathname,
+  }
+}
+
+/**
+ * @param {{ framework: Framework, pages: Page[], site: string | undefined }} options
+ */
+function fullTxt({ framework, pages, site }) {
+  const order = ["guide", "component", "blog"]
+  const full = pages
+    .filter((p) => p.full)
+    .sort(
+      (a, b) =>
+        order.indexOf(a.kind) - order.indexOf(b.kind) ||
+        (a.kind === "guide" ? byGuideOrder(a, b) : byTitle(a, b)),
+    )
+    .map((p) => `Source: ${new URL(p.pathname, site)}\n\n${p.full}`)
+    .join("\n\n---\n\n")
+  return `${header(framework)}\n\n---\n\n${full}\n`
+}
+
+/** @param {string} relDir */
+const slugsIn = (relDir) =>
+  fs
+    .readdirSync(new URL(relDir, import.meta.url))
+    .filter((file) => file.endsWith(".astro"))
+    .map((file) => file.replace(/\.astro$/, ""))
+    .toSorted()
+
+/**
+ * @param {Framework} framework
+ * @param {string} origin
+ * @param {RewriteHref} rewriteHref
+ */
+async function devPages(framework, origin, rewriteHref) {
+  const pathnames = [
+    `/${framework.id}/api/`,
+    ...["getting-started", ...slugsIn("../docs/guide/")]
+      .toSorted()
+      .map((slug) => `/${framework.id}/guide/${slug}/`),
+    ...slugsIn("../docs/components/")
+      .filter((slug) => componentHasFramework(framework.id, slug))
+      .map((slug) => `/${framework.id}/components/${slug}/`),
+    ...slugsIn("../docs/blog/")
+      .filter((slug) => slug !== "index")
+      .map((slug) => `/blog/${slug}/`),
+    ...fs
+      .readdirSync(new URL("../blocks/", import.meta.url))
+      .filter((file) => file.endsWith(".html"))
+      .map((file) => `/blocks/${file.replace(/\.html$/, "")}/`)
+      .toSorted(),
+    "/theme-builder/",
+  ]
+  /** @type {Page[]} */
+  const pages = []
+  for (let index = 0; index < pathnames.length; index += 6) {
+    const batch = await Promise.all(
+      pathnames.slice(index, index + 6).map(async (pathname) => {
+        for (let attempt = 0; attempt < 3; attempt++) {
+          try {
+            const response = await fetch(new URL(pathname, origin))
+            if (!response.ok) return null
+            return pageFrom(
+              parseHtml(await response.text()),
+              pathname,
+              rewriteHref,
+            )
+          } catch {
+            await new Promise((resolve) => setTimeout(resolve, 500))
+          }
+        }
+        return null
+      }),
+    )
+    pages.push(...batch.filter((page) => page !== null))
+  }
+  return pages
+}
+
+/**
+ * Converts the built pages to Markdown in worker threads, one per core.
+ * @param {{ file: string, frameworkId: string, pathname: string }[]} tasks
+ * @param {string | undefined} site
+ * @returns {Promise<(Page | null)[]>} One entry per task, in the same order.
+ */
+async function pagesFromFiles(tasks, site) {
+  /** @type {(Page | null)[]} */
+  const pages = Array.from(tasks, () => null)
+  if (!tasks.length) return pages
+  /** @type {Worker[]} */
+  const workers = []
+  let next = 0
+  try {
+    await Promise.all(
+      Array.from(
+        { length: Math.min(availableParallelism(), tasks.length) },
+        () =>
+          new Promise((resolve, reject) => {
+            const worker = new Worker(
+              new URL("./llms-worker.mjs", import.meta.url),
+              { workerData: { site } },
+            )
+            workers.push(worker)
+            const send = () => {
+              if (next >= tasks.length) {
+                resolve(undefined)
+                return
+              }
+              worker.postMessage({ ...tasks[next], index: next })
+              next++
+            }
+            worker.on(
+              "message",
+              /** @param {{ index: number, page: Page | null }} result */
+              ({ index, page }) => {
+                pages[index] = page
+                send()
+              },
+            )
+            worker.on("error", reject)
+            send()
+          }),
+      ),
+    )
+  } finally {
+    await Promise.all(workers.map((worker) => worker.terminate()))
+  }
+  return pages
+}
+
+/** @returns {import("astro").AstroIntegration} */
+export default function llms() {
+  /** @type {string | undefined} */
+  let site
+
+  return {
+    name: "llms",
+    hooks: {
+      "astro:config:done": ({ config }) => {
+        site = config.site
+      },
+      "astro:server:setup": ({ server }) => {
+        const devCache = new Map()
+        server.watcher.on("all", (_, file) => {
+          if (/\/(packages|src)\//.test(file) && !file.includes("node_modules"))
+            devCache.clear()
+        })
+
+        server.middlewares.use(async (req, res, next) => {
+          const { pathname } = new URL(req.url ?? "/", "http://localhost")
+          const llmsFile = pathname.match(
+            new RegExp(
+              `^/(?:(${FRAMEWORKS.map((f) => f.id).join("|")})/)?(llms(?:-full)?)\\.txt$`,
+            ),
+          )
+          if (llmsFile) {
+            const [, frameworkId, file] = llmsFile
+            const framework = FRAMEWORKS.find(
+              (f) => f.id === (frameworkId ?? DEFAULT_FRAMEWORK),
+            )
+            if (!framework || (!frameworkId && file !== "llms")) return next()
+
+            if (!devCache.has(framework.id)) {
+              devCache.set(
+                framework.id,
+                devPages(
+                  framework,
+                  `http://${req.headers.host}`,
+                  hrefRewriter(framework.id, site),
+                ),
+              )
+            }
+            const pages = await devCache.get(framework.id)
+            res.setHeader("Content-Type", "text/plain; charset=utf-8")
+            res.end(
+              file === "llms"
+                ? llmsTxt({ framework, pages, site, isRoot: !frameworkId })
+                : fullTxt({ framework, pages, site }),
+            )
+            return
+          }
+          const framework =
+            FRAMEWORKS.find((f) => pathname.startsWith(`/${f.id}/`)) ??
+            (isFrameworkFree(pathname.replace(/\.md$/, ""))
+              ? FRAMEWORKS.find((f) => f.id === DEFAULT_FRAMEWORK)
+              : undefined)
+          if (!framework || !pathname.endsWith(".md")) return next()
+
+          const page = await fetch(
+            new URL(
+              pathname.replace(/\.md$/, "/"),
+              `http://${req.headers.host}`,
+            ),
+          )
+          if (!page.ok) return next()
+
+          const markdown = await articleToMarkdown(
+            parseHtml(await page.text()),
+            { rewriteHref: hrefRewriter(framework.id, site) },
+          )
+          if (!markdown) return next()
+
+          res.setHeader("Content-Type", "text/markdown; charset=utf-8")
+          res.end(`${markdown}\n`)
+        })
+      },
+      "astro:build:done": async ({ dir, logger }) => {
+        const outDir = fileURLToPath(dir)
+        /** @param {string} file */
+        const pathnameOf = (file) =>
+          `/${path.relative(outDir, path.dirname(file)).split(path.sep).join("/")}/`
+
+        const prefixes = FRAMEWORK_FREE_PREFIXES.filter((prefix) =>
+          fs.existsSync(path.join(outDir, prefix)),
+        )
+        const frameworks = FRAMEWORKS.filter((framework) =>
+          fs.existsSync(path.join(outDir, framework.id)),
+        )
+        const frameworkFreeTasks = prefixes.flatMap((prefix) =>
+          htmlFiles(path.join(outDir, prefix)).map((file) => ({
+            file,
+            frameworkId: DEFAULT_FRAMEWORK,
+            pathname: pathnameOf(file),
+            prefix,
+          })),
+        )
+        const frameworkTasks = frameworks.flatMap((framework) =>
+          htmlFiles(path.join(outDir, framework.id)).map((file) => ({
+            file,
+            framework,
+            frameworkId: framework.id,
+            pathname: pathnameOf(file),
+          })),
+        )
+        const converted = await pagesFromFiles(
+          [...frameworkFreeTasks, ...frameworkTasks],
+          site,
+        )
+        for (const page of converted) {
+          if (!page) continue
+          fs.writeFileSync(path.join(outDir, page.mdPath), `${page.markdown}\n`)
+        }
+
+        /** @type {Page[]} */
+        const frameworkFreePages = []
+        for (const prefix of prefixes) {
+          let count = 0
+          frameworkFreeTasks.forEach((task, index) => {
+            const page = converted[index]
+            if (task.prefix !== prefix || !page) return
+            frameworkFreePages.push(page)
+            count++
+          })
+          logger.info(`${prefix}: ${count} markdown pages`)
+        }
+
+        for (const framework of frameworks) {
+          const frameworkDir = path.join(outDir, framework.id)
+          const pages = [...frameworkFreePages]
+          frameworkTasks.forEach((task, index) => {
+            const page = converted[frameworkFreeTasks.length + index]
+            if (task.framework === framework && page) pages.push(page)
+          })
+
+          fs.writeFileSync(
+            path.join(frameworkDir, "llms-full.txt"),
+            fullTxt({ framework, pages, site }),
+          )
+          fs.writeFileSync(
+            path.join(frameworkDir, "llms.txt"),
+            llmsTxt({ framework, pages, site, isRoot: false }),
+          )
+          if (framework.id === DEFAULT_FRAMEWORK) {
+            fs.writeFileSync(
+              path.join(outDir, "llms.txt"),
+              llmsTxt({ framework, pages, site, isRoot: true }),
+            )
+          }
+
+          logger.info(
+            `${framework.id}: ${pages.length - frameworkFreePages.length} markdown pages, llms.txt, llms-full.txt`,
+          )
+        }
+      },
+    },
+  }
+}

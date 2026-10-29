@@ -1,0 +1,156 @@
+---
+import themeCss from "../../packages/opui/css/theme.css?raw"
+import { CUSTOM_COLOR } from "../utils/brand-picker"
+import { BRAND_SWATCHES } from "../utils/theme"
+import OklchInput from "./OklchInput.astro"
+
+type Props = {
+  "aria-describedby"?: string
+  "aria-labelledby"?: string
+  custom?: Record<string, string>
+  name: string
+}
+
+const {
+  "aria-describedby": describedBy,
+  "aria-labelledby": labelledBy,
+  custom,
+  name,
+} = Astro.props
+const knob = (token: string) =>
+  themeCss.match(new RegExp(`${token}:\\s*([\\d.]+);`))?.[1]
+const chroma = Number(knob("--ui-palette-chroma") ?? 0.5)
+const fallback = `oklch(0.58 ${+(0.21 * chroma).toFixed(3)} ${knob("--ui-palette-hue") ?? 145})`
+---
+
+<div
+  aria-describedby={describedBy}
+  aria-labelledby={labelledBy}
+  class="brand-picker"
+  data-default={fallback}
+  role={labelledBy ? "group" : undefined}
+>
+  <label
+    class="brand-swatch"
+    data-brand-start
+    style={`--swatch: ${fallback}`}
+    title="Default"
+  >
+    <input
+      aria-label="Default"
+      checked
+      class="brand-swatch-input"
+      name={name}
+      type="radio"
+      value=""
+    />
+  </label>
+  {
+    BRAND_SWATCHES.map((swatch) => (
+      <label
+        class="brand-swatch"
+        style={`--swatch: ${swatch.value}`}
+        title={swatch.label}
+      >
+        <input
+          aria-label={swatch.label}
+          class="brand-swatch-input"
+          name={name}
+          type="radio"
+          value={swatch.value}
+        />
+      </label>
+    ))
+  }
+  <OklchInput
+    class="brand-swatch brand-custom"
+    data-brand-custom
+    data-label={CUSTOM_COLOR}
+    label={CUSTOM_COLOR}
+    {...custom}
+  >
+    <span aria-hidden="true" class="brand-custom-fill"></span>
+  </OklchInput>
+</div>
+
+<style>
+  .brand-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .brand-picker :global(.brand-swatch) {
+    background-color: var(--swatch);
+    block-size: var(--ui-control-size-small);
+    border-radius: var(--ui-radius-round);
+    box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
+    cursor: pointer;
+    flex: none;
+    forced-color-adjust: none;
+    inline-size: var(--ui-control-size-small);
+    position: relative;
+
+    &:has(:checked) {
+      box-shadow:
+        inset 0 0 0 var(--ui-border-width) var(--ui-border-color),
+        0 0 0 var(--ui-border-width-thick) var(--ui-surface),
+        0 0 0 calc(var(--ui-border-width-thick) * 2) var(--ui-text-strong);
+    }
+  }
+
+  .brand-picker :global(.brand-custom) {
+    background: conic-gradient(
+      in oklch longer hue,
+      oklch(0.7 0.17 25),
+      oklch(0.7 0.17 25)
+    );
+  }
+
+  .brand-picker:not(:has(:checked)) :global(.brand-custom) {
+    box-shadow:
+      0 0 0 var(--ui-border-width-thick) var(--ui-surface),
+      0 0 0 calc(var(--ui-border-width-thick) * 2) var(--ui-text-strong);
+  }
+
+  .brand-picker :global(.brand-swatch:has(:focus-visible)) {
+    outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+      var(--ui-focus-ring-color);
+    outline-offset: calc(
+      var(--ui-border-width-thick) * 2 + var(--ui-focus-ring-offset)
+    );
+  }
+
+  .brand-picker :global(.brand-custom .oklch-trigger) {
+    inset: 0;
+    position: absolute;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .brand-custom-fill {
+    background-color: var(--swatch);
+    border-radius: inherit;
+    display: none;
+    inset: 25%;
+    pointer-events: none;
+    position: absolute;
+
+    :where(.brand-picker:not(:has(:checked))) & {
+      display: block;
+    }
+  }
+
+  .brand-swatch-input {
+    appearance: none;
+    block-size: 100%;
+    cursor: inherit;
+    inline-size: 100%;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+  }
+</style>

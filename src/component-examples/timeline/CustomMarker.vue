@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import { Timeline, TimelineItem } from "opui-css/vue"
+</script>
+
+<template>
+  <Timeline>
+    <TimelineItem
+      color="success"
+      datetime="2026-10-01"
+      time="Oct 1"
+      label="Ordered"
+    >
+      <template #marker
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6 9 17l-5-5"></path></svg
+      ></template>
+    </TimelineItem>
+    <TimelineItem
+      color="success"
+      datetime="2026-10-02"
+      time="Oct 2"
+      label="Packed"
+    >
+      <template #marker
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6 9 17l-5-5"></path></svg
+      ></template>
+    </TimelineItem>
+    <TimelineItem
+      color="success"
+      datetime="2026-10-03"
+      time="Oct 3"
+      label="Shipped"
+    >
+      <template #marker
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 6 9 17l-5-5"></path></svg
+      ></template>
+      <p>On its way from Gothenburg.</p>
+    </TimelineItem>
+    <TimelineItem datetime="2026-10-06" time="Oct 6" label="Delivered">
+      <p>Expected</p>
+    </TimelineItem>
+  </Timeline>
+</template>

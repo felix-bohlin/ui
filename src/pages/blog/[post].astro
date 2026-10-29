@@ -1,0 +1,24 @@
+---
+import type { AstroInstance } from "astro"
+
+export const posts = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<AstroInstance>("../../docs/blog/*.astro", {
+      eager: true,
+    }),
+  ).map(([path, module]) => [
+    path.split("/").pop()!.replace(".astro", ""),
+    module.default,
+  ]),
+)
+
+export const getStaticPaths = () =>
+  Object.keys(posts)
+    .filter((slug) => slug !== "index")
+    .toSorted()
+    .map((post) => ({ params: { post } }))
+
+const Doc = posts[Astro.params.post]
+---
+
+<Doc />

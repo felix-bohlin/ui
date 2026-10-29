@@ -4,7 +4,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><video controls muted>
           <source
@@ -14,7 +14,7 @@ import { List, ListItem } from "opui-css/vue"
       ></template>
       <template #end>13:37</template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><video controls muted>
           <source

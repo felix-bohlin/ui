@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { provide } from "vue"
-import { CurrentFieldNameKey, type Props, type Slots } from "./types.d.vue"
+import { computed, inject, provide, reactive } from "vue"
+import { FieldGroupKey } from "./context.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const props = defineProps<Props>()
+const { name, orientation } = defineProps<Props>()
 defineSlots<Slots>()
 
-if (props.name) {
-  provide(CurrentFieldNameKey, props.name)
-}
+const parent = inject(FieldGroupKey, undefined)
+provide(FieldGroupKey, reactive({ name: computed(() => name || parent?.name) }))
 </script>
 
 <template>
   <div
     :class="[
       'ui-field-group',
-      props.direction && `ui-${props.direction}`,
-      props.class,
+      orientation && orientation !== 'auto' && `ui-${orientation}`,
+      $props.class,
     ]"
-    v-bind="$attrs"
-    role="group"
   >
     <slot></slot>
   </div>

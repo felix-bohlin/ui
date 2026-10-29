@@ -1,24 +1,23 @@
 ---
-import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+import { DEFAULT_FRAMEWORK } from "../utils/framework"
 
 type Props = {
-  [key: string]: any
   as?: "p" | "div" | "span" | "section"
 }
 
 const { as: Tag = "span" } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
-// Find the slot for the active framework. Fall back to the default framework
-// (currently HTML) if the page didn't author one for the active framework, so
-// pages don't go blank during incremental migration.
-const slotName = Astro.slots.has(currentFramework)
-  ? currentFramework
-  : Astro.slots.has(DEFAULT_FRAMEWORK)
-    ? DEFAULT_FRAMEWORK
-    : undefined
+// Find the slot for the active framework, then the shared `components` slot on
+// every framework except HTML. Fall back to the default framework (currently
+// HTML) if the page didn't author either, so pages don't go blank during
+// incremental migration.
+const slotName = [
+  currentFramework,
+  currentFramework !== "html" && "components",
+  DEFAULT_FRAMEWORK,
+].find((name) => name && Astro.slots.has(name))
 
 const content = slotName ? await Astro.slots.render(slotName) : ""
 ---

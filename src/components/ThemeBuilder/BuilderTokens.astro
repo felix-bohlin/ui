@@ -1,0 +1,172 @@
+---
+import { TextField } from "opui-css/astro"
+import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
+import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
+
+const sections = themeTokenSections()
+  .map((section) => ({
+    title: section.title,
+    tokens: section.tokens.filter((token) => tokenTier(token.name) !== "input"),
+  }))
+  .filter((section) => section.tokens.length > 0)
+const descriptions = themeTokenDescriptions as Record<string, string>
+const count = sections.reduce((sum, section) => sum + section.tokens.length, 0)
+---
+
+<section
+  aria-labelledby="builder-group-tokens"
+  class="builder-group builder-tokens"
+  data-group="tokens"
+  hidden
+>
+  <header class="builder-group-head">
+    <h3 id="builder-group-tokens" tabindex="-1">
+      All tokens
+      <span class="builder-count" data-count hidden></span>
+    </h3>
+    <p>
+      Every one of the {count} theme tokens with its value in light and dark mode.
+      Type a value to set it, clear it to go back.
+    </p>
+  </header>
+  {
+    sections.map((section) => (
+      <div class="builder-token-section" data-token-section>
+        <h4 class="builder-token-title">{section.title}</h4>
+        <ul class="builder-token-list">
+          {section.tokens.map((token) => (
+            <li
+              class="builder-token"
+              data-search={`${token.name} ${descriptions[token.name] ?? ""}`}
+              data-token={token.name}
+              title={descriptions[token.name]}
+            >
+              <code class="builder-token-name">{token.name}</code>
+              <span class="builder-token-values">
+                <span class="builder-token-value" data-light>
+                  <span class="builder-token-swatch" data-swatch hidden />
+                  <span data-text />
+                </span>
+                <span class="builder-token-value" data-dark>
+                  <span class="builder-token-swatch" data-swatch hidden />
+                  <span data-text />
+                </span>
+              </span>
+              <TextField
+                autocomplete="off"
+                class="builder-token-field"
+                hideLabel
+                label={`${token.name} value`}
+                name={`token-${token.name.slice(2)}`}
+                placeholder="Set a value"
+                size="small"
+                spellcheck="false"
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .builder-tokens {
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-token-section {
+    display: grid;
+    gap: var(--size-3);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-token-title {
+    color: var(--ui-text-strong);
+    font-size: var(--ui-font-size-body);
+    font-weight: var(--ui-font-weight-semibold);
+    margin: 0;
+  }
+
+  .builder-token-list {
+    display: grid;
+    gap: var(--size-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .builder-token {
+    display: grid;
+    gap: var(--size-1) var(--size-3);
+    grid-template-columns: minmax(0, 1fr);
+    min-inline-size: 0;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &.is-set .builder-token-name {
+      color: var(--ui-primary-text);
+    }
+  }
+
+  .builder-token-name {
+    background: none;
+    color: var(--ui-text-strong);
+    font-family: var(--font-mono);
+    font-size: var(--ui-font-size-caption);
+    overflow-wrap: anywhere;
+    padding: 0;
+  }
+
+  .builder-token-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1) var(--size-3);
+  }
+
+  .builder-token-value {
+    align-items: center;
+    color: var(--ui-text-subtle);
+    display: inline-flex;
+    font-family: var(--font-mono);
+    font-size: var(--ui-font-size-caption);
+    gap: var(--size-1);
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+
+    &::before {
+      color: var(--ui-text-subtle);
+      content: "Light";
+      font-family: var(--ui-font-body);
+    }
+
+    &[data-dark]::before {
+      content: "Dark";
+    }
+  }
+
+  .builder-token-swatch {
+    block-size: 0.875rem;
+    border-radius: var(--ui-radius-x-small);
+    box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
+    display: inline-block;
+    flex: none;
+    forced-color-adjust: none;
+    inline-size: 0.875rem;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-token-field {
+    inline-size: 100%;
+  }
+</style>

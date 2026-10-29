@@ -1,5 +1,5 @@
 export const HEADING_EXCLUSION_SELECTOR =
-  'dialog, [role="dialog"], [role="alertdialog"], [role="note"], [role="status"], .ui-toast, .example-container, .example-preview, [inert]'
+  'dialog, [role="dialog"], [role="alertdialog"], [role="note"], [role="status"], .build-up-stage, .example-container, .ui-accordion, .ui-card, .example-preview, [inert]'
 
 /**
  * Filter headings to exclude those inside certain containers (dialogs, examples, etc.)
@@ -16,9 +16,19 @@ export function isContentHeading(heading: Element) {
  */
 export function getHeadings(
   container: ParentNode = document,
-  selector: string = "h2, h3, h4",
+  selector = "h2, h3, h4",
 ) {
   return Array.from(
     container.querySelectorAll<HTMLHeadingElement>(selector),
   ).filter(isContentHeading)
+}
+
+export function headingId(heading: Element) {
+  const parent = heading.parentElement
+  return (
+    heading.id ||
+    (parent?.localName === "section" && parent.firstElementChild === heading
+      ? parent.id
+      : "")
+  )
 }

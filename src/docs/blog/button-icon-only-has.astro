@@ -1,0 +1,104 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import IconOnlyDemo from "../../components/Blog/IconOnly.astro"
+import IconOnly from "../../component-examples/button/IconOnly.astro"
+---
+
+<TechniquePost slug="button-icon-only-has">
+  <section id="the-problem">
+    <h2>The problem</h2>
+    <p>
+      An icon-only button needs to be square: no inline padding, the same width
+      as height, and a bigger icon. Most libraries ship a separate <code
+        >IconButton</code
+      > or an <code>iconOnly</code> prop for it, and every size, variant and state
+      gets implemented twice.
+    </p>
+    <p>
+      CSS couldn't style an element based on what's inside it, so the markup had
+      to say it. Now the button can look at its own children.
+    </p>
+  </section>
+
+  <section id="the-trick">
+    <h2>The trick</h2>
+    <ul>
+      <li>
+        <code>:has(&gt; svg:only-child)</code> matches a button whose only child element
+        is an icon
+      </li>
+      <li>
+        The minimum width becomes the button's height, so it's square at every
+        size
+      </li>
+      <li>The icon scales with the height instead of the line</li>
+      <li>
+        <code>:where()</code> adds no specificity, so your overrides still win
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.button {
+  --icon: 0.7lh;
+  --min-height: var(--ui-button-size);
+  min-block-size: var(--min-height);
+  padding-inline: 1.5ex;
+}
+
+.button:where(:has(> svg:only-child)) {
+  --icon: calc(var(--min-height) * 0.6);
+  min-inline-size: var(--min-height);
+  padding-inline: 0;
+}
+
+.button > svg {
+  max-block-size: var(--icon);
+}`}
+    />
+  </section>
+
+  <section id="try-it">
+    <h2>Try it</h2>
+    <p>
+      Delete the label. Once the icon is the only child, the button turns
+      square, and the label comes back as <code>aria-label</code>.
+    </p>
+    <Example showCode={false}>
+      <IconOnlyDemo />
+    </Example>
+    <p>Every button here holds only an icon, so every one is square.</p>
+    <Example column spacious showCode={false}>
+      <IconOnly />
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section id="fallback">
+    <h2>Fallback</h2>
+    <ul>
+      <li>
+        Without <code>:has()</code>, the icon-only rules are ignored
+      </li>
+      <li>
+        The button keeps its text padding and line-sized icon: wider than
+        square, but it works
+      </li>
+    </ul>
+  </section>
+
+  <section id="gotchas">
+    <h2>Gotchas</h2>
+    <ul>
+      <li>
+        <code>:only-child</code> only counts elements. In <code
+          >&lt;svg&gt; Download</code
+        >, the text node doesn't count, so the button is treated as icon-only.
+        Wrap the label in a <code>&lt;span&gt;</code>
+      </li>
+      <li>An icon-only button still needs an <code>aria-label</code></li>
+    </ul>
+  </section>
+</TechniquePost>

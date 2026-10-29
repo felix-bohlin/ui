@@ -1,26 +1,29 @@
 ---
 import Guide from "../../layouts/Guide.astro"
-import { Callout } from "@opui/astro"
+import { Callout, CalloutContent } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
-import type { Props } from "astro"
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Why Open Props UI?</Fragment>
   <Fragment slot="preamble">
-    A CSS UI library exploring how next-gen HTML & CSS features can change the
-    way we create components. Designed to be used by professional teams as well
-    as tinkering hobbyists.
+    Components built from the HTML and CSS the platform ships today, as files
+    you can read, copy and own.
   </Fragment>
 
-  <p>
-    Everything is made with ease-of-use and scalability in mind. Last but not
-    least - you <strong>copy and paste the components</strong> into your repo. It's
-    the best way to have a complete understanding and ownership over your stuff.
-  </p>
+  <section id="own-your-code">
+    <h2>Own your code</h2>
+    <p>
+      You can <strong>copy and paste the components</strong> into your repo instead
+      of installing a package. It's the best way to have a complete understanding
+      and ownership over your code. Every component is a CSS file you can read, change
+      and keep, and its page lists the files it depends on, with a button that copies
+      them all.
+    </p>
+  </section>
 
-  <section>
-    <h2 id="backstory">Backstory</h2>
+  <section id="backstory">
+    <h2>Backstory</h2>
     <p>
       When I started this project it was a reaction to UI libraries being slow
       to adopt widespread CSS features. Some barely used CSS grid or <code
@@ -41,7 +44,7 @@ import type { Props } from "astro"
     <p>
       As I've been working on this I have gotten more convinced that right now, <DocLink
         href="/guide/browser-support">and going forwards</DocLink
-      >, frontend developers need to re-examine their assumtions. If nothing
+      >, frontend developers need to re-examine their assumptions. If nothing
       else, library developers have to look more closely at what the platform
       offers. AI has pushed developers into an architect kind of role, so if
       we're not as involved in how the code is written anymore, we need to make
@@ -56,8 +59,8 @@ import type { Props } from "astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-goal">The goal of OPUI</h2>
+  <section id="the-goal">
+    <h2>The goal of OPUI</h2>
     <ul>
       <li>
         Have pragmatic defaults without sacrificing flexibility and control
@@ -71,16 +74,23 @@ import type { Props } from "astro"
 
   <div class="ui-not-rich-text">
     <Callout>
-      <Fragment slot="title"
-        >"If you only use the latest features, that means this is can never
-        enter production"</Fragment
-      >
-      <p>
-        Yes and no. Right now that's true for many components. The point is to
-        let the spec and the components mature alongside each other and in time
-        the library will be ready for production.
-      </p>
-      <p>We're all adults here, we make the decisions we think are best.</p>
+      <CalloutContent>
+        <h3>
+          "If you only use the latest features, that means this can never enter
+          production"
+        </h3>
+        <p>
+          Yes and no. Components use a new feature as soon as a browser ships
+          it, whichever browser that is. Browsers without it fall back to what
+          they do by default, or to a fallback from the <DocLink
+            href="/guide/browser-support#compat">compat layer</DocLink
+          >, which is included unless you leave it out. If your users' browsers
+          have the features, or those fallbacks are good enough, it's ready. The
+          point is to let the spec and the components mature alongside each
+          other.
+        </p>
+        <p>We're all adults here, we make the decisions we think are best.</p>
+      </CalloutContent>
     </Callout>
   </div>
 </Guide>

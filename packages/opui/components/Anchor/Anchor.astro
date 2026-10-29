@@ -1,41 +1,37 @@
 ---
 import type { Props } from "./types.astro"
+import { anchorContext } from "./context.astro"
+import { warnMissingId } from "../dev"
+import { mergeStyle } from "../style"
+import { extendsAnchor } from "./root"
 
 export const title = "Anchor"
 
 const {
-  alignment,
   class: className,
   id: idProp,
-  trigger = "always",
+  positionArea,
+  style,
+  trigger,
   ...rest
 } = Astro.props
 
 const isHover = trigger === "hover"
-const id = isHover ? (idProp ?? Astro.locals.$id("anchor")) : undefined
-
-const insetMap: Record<string, string> = {
-  "start start": "auto 100% 100% auto",
-  "start end": "auto auto 100% 100%",
-  "end start": "100% 100% auto auto",
-  "end end": "100% auto auto 100%",
+const id = isHover ? (idProp ?? undefined) : undefined
+if (isHover && !extendsAnchor(className)) {
+  warnMissingId("Anchor", id, "interestfor")
 }
-
-const positionArea = alignment
-  ? {
-      "--anchor-position-area": alignment,
-      "--_anchor-inset": insetMap[alignment],
-    }
-  : undefined
+const html = await anchorContext.provide(
+  { floatingId: id, popover: isHover ? "hint" : undefined },
+  () => Astro.slots.render("default"),
+)
 ---
 
-<span class:list={["ui-anchor", className]} style={positionArea} {...rest}>
-  <slot />
-  <span
-    class="ui-anchor-floating"
-    id={id}
-    popover={isHover ? "hint" : undefined}
-  >
-    <slot name="anchored" />
-  </span>
+<span
+  class:list={[!extendsAnchor(className) && "ui-anchor", className]}
+  id={isHover ? undefined : idProp}
+  style={mergeStyle({ "--ui-anchor-position-area": positionArea }, style)}
+  {...rest}
+>
+  <Fragment set:html={html} />
 </span>

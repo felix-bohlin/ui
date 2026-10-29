@@ -1,0 +1,453 @@
+<style>
+  .sales-dashboard {
+    container-type: inline-size;
+
+    .sales-actions {
+      align-items: end;
+    }
+
+    .sales-revenue {
+      --_swatch-bg-color: var(--ui-primary);
+    }
+
+    .sales-target-line {
+      border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+      inline-size: var(--ui-space-3);
+    }
+
+    .sales-chart-card .ui-content {
+      padding-block-end: var(--ui-space-6);
+    }
+
+    .sales-chart {
+      align-items: end;
+      block-size: 12rem;
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      display: grid;
+      gap: var(--ui-space-1);
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      list-style-type: none;
+      padding: 0;
+      position: relative;
+
+      &::before {
+        border-block-start: var(--ui-border-width-thick) dashed var(--ui-text);
+        content: "";
+        inset-block-end: var(--target);
+        inset-inline: 0;
+        position: absolute;
+      }
+
+      li {
+        align-items: center;
+        block-size: 100%;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        justify-items: center;
+        row-gap: var(--ui-space-1);
+      }
+
+      .sales-bar {
+        align-self: end;
+        background-color: var(--ui-primary);
+        block-size: var(--value);
+        border-start-end-radius: var(--ui-radius-small);
+        border-start-start-radius: var(--ui-radius-small);
+        inline-size: min(100%, 2.5rem);
+      }
+
+      .sales-current .sales-bar {
+        opacity: 0.5;
+      }
+
+      .sales-month {
+        translate: 0 calc(100% + var(--ui-space-1));
+      }
+    }
+
+    .sales-target span:last-child {
+      margin-inline-start: auto;
+    }
+  }
+</style>
+
+<div
+  class="sales-dashboard ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 80rem"
+>
+  <div class="ui-layout-row ui-spread">
+    <hgroup class="ui-hgroup">
+      <p>Updated 8 October, 14:05</p>
+      <h1 class="ui-h3">Sales</h1>
+    </hgroup>
+    <div class="ui-layout-row ui-small sales-actions">
+      <label class="ui-select ui-small">
+        <span class="ui-label" id="sales-dashboard-period-label">Period</span>
+        <span class="ui-field">
+          <select
+            aria-labelledby="sales-dashboard-period-label"
+            name="sales-dashboard-period"
+          >
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="ui-list">
+              <option selected>Year to date</option>
+              <option>Last 90 days</option>
+              <option>Last 12 months</option>
+            </div>
+          </select>
+        </span>
+      </label>
+      <button class="ui-button ui-outlined ui-small" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+          ></path></svg
+        ><span class="ui-text">Export</span>
+      </button>
+    </div>
+  </div>
+
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Revenue</dt>
+            <dd class="ui-value">8 808 300 kr</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+14.2%</span> from last year
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Orders</dt>
+            <dd class="ui-value">24 816</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+6.8%</span> from last year
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Average order value</dt>
+            <dd class="ui-value">355 kr</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-critical">−1.9%</span> from last year
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Conversion rate</dt>
+            <dd class="ui-value">3.4%</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+0.3 pp</span> from last year
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
+    <section
+      aria-labelledby="sales-dashboard-revenue-heading"
+      class="ui-card ui-outlined sales-chart-card"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="sales-dashboard-revenue-heading">
+          Monthly revenue
+        </h2>
+        <p>Against the monthly target of 1 000 000 kr.</p>
+      </hgroup>
+      <div class="ui-content">
+        <ul aria-hidden="true" class="ui-layout-row ui-caption">
+          <li class="ui-layout-row ui-x-small">
+            <span class="ui-swatch sales-revenue"></span>Revenue
+          </li>
+          <li class="ui-layout-row ui-x-small">
+            <span class="sales-target-line"></span>Target
+          </li>
+        </ul>
+        <ol class="sales-chart" style="--target: 77%">
+          <li>
+            <span class="sales-bar" style="--value: 58%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Jan</span
+              ><span class="ui-sr-only">January: 752 000 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 55%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Feb</span
+              ><span class="ui-sr-only">February: 715 400 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 66%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Mar</span
+              ><span class="ui-sr-only">March: 861 900 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 71%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Apr</span
+              ><span class="ui-sr-only">April: 924 300 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 80%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">May</span
+              ><span class="ui-sr-only">May: 1 041 800 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 74%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Jun</span
+              ><span class="ui-sr-only">June: 963 200 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 62%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Jul</span
+              ><span class="ui-sr-only">July: 806 500 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 84%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Aug</span
+              ><span class="ui-sr-only">August: 1 092 700 kr</span></span
+            >
+          </li>
+          <li>
+            <span class="sales-bar" style="--value: 93%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Sep</span
+              ><span class="ui-sr-only">September: 1 208 400 kr</span></span
+            >
+          </li>
+          <li class="sales-current">
+            <span class="sales-bar" style="--value: 34%"></span>
+            <span class="sales-month ui-caption"
+              ><span aria-hidden="true">Oct</span
+              ><span class="ui-sr-only">October so far: 442 100 kr</span></span
+            >
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="sales-dashboard-targets-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="sales-dashboard-targets-heading">
+          October targets
+        </h2>
+        <p>Month to date, by sales channel.</p>
+      </hgroup>
+      <div class="ui-content">
+        <ul class="ui-layout-column">
+          <li class="ui-layout-column ui-x-small">
+            <div
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              id="sales-dashboard-target-online"
+            >
+              <span>Online store</span
+              ><span class="ui-caption">248k of 520k kr</span>
+            </div>
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="sales-dashboard-target-online"
+                max="520"
+                value="248"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <div
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              id="sales-dashboard-target-retail"
+            >
+              <span>Retail stores</span
+              ><span class="ui-caption">112k of 330k kr</span>
+            </div>
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="sales-dashboard-target-retail"
+                max="330"
+                value="112"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <div
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              id="sales-dashboard-target-b2b"
+            >
+              <span>Business sales</span
+              ><span class="ui-caption">64k of 100k kr</span>
+            </div>
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="sales-dashboard-target-b2b"
+                max="100"
+                value="64"
+              ></progress>
+            </div>
+          </li>
+          <li class="ui-layout-column ui-x-small">
+            <div
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
+              id="sales-dashboard-target-wholesale"
+            >
+              <span>Wholesale</span
+              ><span class="ui-caption">18k of 50k kr</span>
+            </div>
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="sales-dashboard-target-wholesale"
+                max="50"
+                value="18"
+              ></progress>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="ui-actions">
+        <a class="ui-button ui-small" href="#sales-dashboard-targets"
+          >Edit targets</a
+        >
+      </div>
+    </section>
+  </div>
+
+  <section
+    aria-labelledby="sales-dashboard-orders-heading"
+    class="ui-card ui-outlined"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="sales-dashboard-orders-heading">Latest orders</h2>
+    </hgroup>
+    <div class="ui-content">
+      <table
+        aria-labelledby="sales-dashboard-orders-heading"
+        class="ui-table ui-dense ui-flush ui-overflow-scroll"
+        tabindex="0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th class="ui-numeric" scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <a class="ui-link" href="#sales-dashboard-order-24816">#24816</a>
+            </td>
+            <td>Klara Holmgren</td>
+            <td>8 Oct, 13:58</td>
+            <td>
+              <span class="ui-chip ui-dot ui-info ui-small ui-outlined"
+                ><span class="ui-text">Processing</span></span
+              >
+            </td>
+            <td class="ui-numeric">1 249 kr</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#sales-dashboard-order-24815">#24815</a>
+            </td>
+            <td>Café Ljung AB</td>
+            <td>8 Oct, 13:41</td>
+            <td>
+              <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
+                ><span class="ui-text">Paid</span></span
+              >
+            </td>
+            <td class="ui-numeric">12 880 kr</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#sales-dashboard-order-24814">#24814</a>
+            </td>
+            <td>Yusuf Demir</td>
+            <td>8 Oct, 13:12</td>
+            <td>
+              <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
+                ><span class="ui-text">Paid</span></span
+              >
+            </td>
+            <td class="ui-numeric">389 kr</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#sales-dashboard-order-24813">#24813</a>
+            </td>
+            <td>Ines Carvalho</td>
+            <td>8 Oct, 12:47</td>
+            <td>
+              <span class="ui-chip ui-dot ui-warning ui-small ui-outlined"
+                ><span class="ui-text">Awaiting payment</span></span
+              >
+            </td>
+            <td class="ui-numeric">2 095 kr</td>
+          </tr>
+          <tr>
+            <td>
+              <a class="ui-link" href="#sales-dashboard-order-24812">#24812</a>
+            </td>
+            <td>Oliver Bäckström</td>
+            <td>8 Oct, 12:30</td>
+            <td>
+              <span class="ui-chip ui-dot ui-critical ui-small ui-outlined"
+                ><span class="ui-text">Refunded</span></span
+              >
+            </td>
+            <td class="ui-numeric">−649 kr</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ui-actions">
+      <a class="ui-button ui-small" href="#sales-dashboard-orders"
+        >View all orders</a
+      >
+    </div>
+  </section>
+</div>

@@ -1,7 +1,7 @@
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input name="switch-group-disabled" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -13,6 +13,38 @@
       <label class="ui-switch">
         <input name="switch-group-disabled" type="checkbox" role="switch" />
         <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>One by one</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-switch">
+        <input
+          name="switch-group-disabled-single"
+          type="checkbox"
+          role="switch"
+          checked
+        />
+        <span class="ui-label">Enabled</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-disabled-single"
+          type="checkbox"
+          role="switch"
+          disabled
+        />
+        <span class="ui-label">Disabled</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-disabled-single"
+          type="checkbox"
+          role="switch"
+          aria-disabled="true"
+        />
+        <span class="ui-label">Aria-disabled</span>
       </label>
     </div>
   </fieldset>

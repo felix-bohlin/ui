@@ -1,0 +1,22 @@
+<button type="button" class="ui-button ui-filled" id="toast-action-1-button">
+  Archive
+</button>
+<opui-toaster class="ui-toaster" id="toast-action-1">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+
+<script type="module">
+  import { toast } from "opui-css/elements/toaster.js"
+
+  document
+    .getElementById("toast-action-1-button")
+    .addEventListener("click", () =>
+      toast("Conversation archived", {
+        action: {
+          label: "Undo",
+          onClick: () => toast("Conversation restored"),
+        },
+      }),
+    )
+</script>

@@ -1,26 +1,26 @@
 <form class="ui-form" id="id-1">
   <fieldset class="ui-fieldset">
     <legend>User Profile</legend>
-    <p class="ui-field-description">Please provide your basic contact details.</p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description">Please provide your basic contact details.</p>
+    <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
-          <input placeholder="Jane Doe" required type="text">
+          <input autocomplete="name" placeholder="Jane Doe" required type="text">
         </span>
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Email Address</span>
         <span class="ui-field">
-          <input placeholder="jane@example.com" required type="email">
+          <input autocomplete="email" placeholder="jane@example.com" required type="email">
         </span>
       </label>
       <label class="ui-select">
         <span class="ui-label" id="id-2">Role</span>
         <span class="ui-field">
           <select aria-labelledby="id-2">
-            <option value="dev">Developer</option>
             <option value="design">Designer</option>
+            <option value="dev">Developer</option>
             <option value="manager">Manager</option>
           </select>
         </span>
@@ -30,8 +30,8 @@
   <hr class="ui-divider">
   <fieldset class="ui-fieldset">
     <legend>Notifications</legend>
-    <p class="ui-field-description">Configure how you want to receive updates.</p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description">Configure how you want to receive updates.</p>
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input checked name="email_notifs" role="switch" type="checkbox">
         <span class="ui-label">Email Notifications</span>
@@ -45,8 +45,8 @@
   <hr class="ui-divider">
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
-    <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description">Select your preferred visual style.</p>
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input checked name="theme" type="radio" value="light">
         <span class="ui-label">Light Theme</span>
@@ -64,8 +64,8 @@
   <hr class="ui-divider">
   <fieldset class="ui-fieldset">
     <legend>Experience Level</legend>
-    <p class="ui-field-description">How many years of experience do you have?</p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description">How many years of experience do you have?</p>
+    <div class="ui-field-group">
       <label class="ui-range">
         <span class="ui-label" id="id-3">Professional Experience</span>
         <span class="ui-start-text" id="id-4">Drag the slider to match your total tenure.</span>
@@ -76,12 +76,12 @@
   <hr class="ui-divider">
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
-    <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <p class="ui-description">Anything else we should know?</p>
+    <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
-          <textarea name="details" placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea name="biography" placeholder="Tell us about yourself..." rows="4"></textarea>
         </span>
       </label>
     </div>
@@ -89,17 +89,17 @@
   <hr class="ui-divider">
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input aria-describedby="id-5" name="terms" required type="checkbox">
+        <input name="terms" required type="checkbox">
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="id-5">Support this text</span>
+        <span class="ui-end-text">Support this text</span>
       </label>
     </div>
   </fieldset>
   <hr class="ui-divider">
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button class="ui-button" type="button">Cancel</button>
   </div>
 </form>

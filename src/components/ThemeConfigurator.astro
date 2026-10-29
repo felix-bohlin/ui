@@ -1,26 +1,18 @@
 ---
 import {
   Button,
-  Chip,
   Divider,
   Drawer,
+  DrawerContent,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   FieldGroup,
   FieldLegend,
-  FieldSet,
-  Range,
+  Fieldset,
   Switch,
-  TextField,
-} from "@opui/astro"
-
-const borderRadiusItems = [
-  { text: "0", value: "0" },
-  { text: "1", value: "var(--radius-1)" },
-  { text: "2", value: "var(--radius-2)" },
-  { text: "3", value: "var(--radius-3)" },
-  { text: "4", value: "var(--radius-4)" },
-]
+} from "opui-css/astro"
+import ThemeQuickControls from "./ThemeQuickControls.astro"
 
 const { link } = Astro.locals
 ---
@@ -29,405 +21,145 @@ const { link } = Astro.locals
   backdrop="transparent"
   closedby="any"
   id="theme-configurator-drawer"
-  scrollLock={false}
   side="inline-end"
 >
-  <DrawerHeader slot="header">
-    <h3>Theme config</h3>
+  <DrawerHeader>
+    <DrawerTitle>Theme</DrawerTitle>
   </DrawerHeader>
-  <Fragment slot="content">
+  <DrawerContent>
     <div class="configurator-content">
-      <form class="ui-form" id="theme-configurator-form">
-        <FieldSet>
-          <FieldLegend>Theme mode</FieldLegend>
-          <FieldGroup direction="row">
-            <Switch spread id="theme-switcher">
-              Dark mode
-              <svg
-                slot="icon-checked"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                ><path
-                  fill="currentColor"
-                  d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"
-                ></path></svg
-              >
+      <Fieldset class="ui-form">
+        <FieldLegend>Appearance</FieldLegend>
+        <FieldGroup orientation="horizontal">
+          <Switch spread id="theme-switcher">
+            Dark mode
+            <svg
+              slot="icon-checked"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              ><path
+                fill="currentColor"
+                d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"
+              ></path></svg
+            >
 
-              <svg
-                slot="icon-unchecked"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                ><path
-                  fill="currentColor"
-                  d="M12 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2m5 10a5 5 0 1 1-10 0a5 5 0 0 1 10 0m4.25.75a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zM12 19a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 19m-7.75-6.25a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zm-.03-8.53a.75.75 0 0 1 1.06 0l1.5 1.5a.75.75 0 0 1-1.06 1.06l-1.5-1.5a.75.75 0 0 1 0-1.06m1.06 15.56a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 1 1 1.06 1.06zm14.5-15.56a.75.75 0 0 0-1.06 0l-1.5 1.5a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06m-1.06 15.56a.75.75 0 1 0 1.06-1.06l-1.5-1.5a.75.75 0 1 0-1.06 1.06z"
-                ></path></svg
-              >
-            </Switch>
-          </FieldGroup>
-        </FieldSet>
+            <svg
+              slot="icon-unchecked"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              ><path
+                fill="currentColor"
+                d="M12 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2m5 10a5 5 0 1 1-10 0a5 5 0 0 1 10 0m4.25.75a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zM12 19a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 19m-7.75-6.25a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zm-.03-8.53a.75.75 0 0 1 1.06 0l1.5 1.5a.75.75 0 0 1-1.06 1.06l-1.5-1.5a.75.75 0 0 1 0-1.06m1.06 15.56a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 1 1 1.06 1.06zm14.5-15.56a.75.75 0 0 0-1.06 0l-1.5 1.5a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06m-1.06 15.56a.75.75 0 1 0 1.06-1.06l-1.5-1.5a.75.75 0 1 0-1.06 1.06z"
+              ></path></svg
+            >
+          </Switch>
+          <Switch spread id="contrast-switcher">
+            More contrast
+            <svg
+              slot="icon-checked"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              ><path
+                fill="currentColor"
+                d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2v16a8 8 0 1 1 0-16"
+              ></path></svg
+            >
+            <svg
+              slot="icon-unchecked"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              ><path
+                fill="currentColor"
+                d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2a8 8 0 1 1 0 16a8 8 0 0 1 0-16"
+              ></path></svg
+            >
+          </Switch>
+        </FieldGroup>
+      </Fieldset>
 
-        <Divider />
+      <Divider />
 
-        <FieldSet>
-          <FieldLegend>Color palette</FieldLegend>
-          <FieldGroup>
-            <TextField
-              type="color"
-              label="Source color"
-              name="--palette-source-color"
-              value="#000000"
-              spread
-              small
-            />
-            <Range
-              label="Hue"
-              name="--palette-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="240"
-              valueSuffix="°"
-            />
-            <Range
-              label="Chroma"
-              name="--palette-chroma"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.5"
-              valueSuffix=""
-            />
-            <Range
-              label="Hue rotation"
-              name="--palette-hue-rotate-by"
-              min="-10"
-              max="10"
-              step="1"
-              value="0"
-              valueSuffix=""
-            />
-          </FieldGroup>
-        </FieldSet>
+      <ThemeQuickControls />
 
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Grays</FieldLegend>
-          <FieldGroup>
-            <Switch id="enable-grays" name="enable-grays" checked spread>
-              Enable
-            </Switch>
-            <Range
-              label="Gray chroma"
-              name="--gray-chroma"
-              min="0"
-              max="0.1"
-              step="0.001"
-              value="0.01"
-              valueSuffix=""
-            />
-            <Range
-              label="Gray hue"
-              name="--gray-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="255"
-              valueSuffix="°"
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Border radii/radiuses/radiopedes/you know</FieldLegend>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Field border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--field-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Button border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--button-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-        </FieldSet>
-      </form>
+      <p>
+        Fonts, density, shadows, status colors and a contrast check are in the <a
+          class="ui-link"
+          href={link("/theme-builder")}>theme builder</a
+        >.
+      </p>
     </div>
-  </Fragment>
+  </DrawerContent>
 
-  <DrawerFooter slot="footer">
+  <DrawerFooter>
     <Button size="small" commandfor="theme-configurator-drawer" command="close"
       >Close</Button
     >
-    <Button size="small" id="theme-configurator-reset">Reset</Button>
-    <Button
-      href={link("/guide/theme-generator#generated-css")}
-      size="small"
-      variant="outlined"
-      id="theme-configurator-get-css">Get CSS</Button
+    <Button href={link("/theme-builder")} size="small" variant="outlined"
+      >Theme builder</Button
     >
   </DrawerFooter>
 </Drawer>
 
 <script>
-  import {
-    themeStore,
-    TOKENS,
-    TOKEN_DEFAULTS,
-    type Mode,
-    type Token,
-  } from "../utils/theme-store"
-  import { hexToOklch, oklchToHex } from "../utils/color-utils"
-
-  const TOKEN_SET = new Set<string>(TOKENS)
-
-  const form = document.getElementById(
-    "theme-configurator-form",
-  ) as HTMLFormElement | null
-  const resetBtn = document.getElementById("theme-configurator-reset")
   const themeSwitcher = document.getElementById(
     "theme-switcher",
   ) as HTMLInputElement | null
-  const drawer = document.getElementById("theme-configurator-drawer")
+  const contrastSwitcher = document.getElementById(
+    "contrast-switcher",
+  ) as HTMLInputElement | null
 
-  function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
-    if (!form) return
-    const config = themeStore.get(mode)
-
-    TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
-      if (!value) return
-      const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
-      if (input && input.type !== "checkbox") {
-        input.value = value
-
-        input.dispatchEvent(new Event("input", { bubbles: false }))
-      }
-
-      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
-      chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
-      })
-      if (!foundMatch && chips.length > 0) {
-        chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
-            chip.classList.add("ui-tonal")
-            chip.classList.remove("ui-outlined")
-          }
-        })
-      }
-    })
-
-    const enableGrays = form.querySelector<HTMLInputElement>(
-      '[name="enable-grays"]',
-    )
-    if (enableGrays) enableGrays.checked = themeStore.isGraysEnabled(mode)
-
-    const colorPicker = form.querySelector<HTMLInputElement>(
-      '[name="--palette-source-color"]',
-    )
-    if (colorPicker) {
-      const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
-      )
-      const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
-      )
-      colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
-    }
-  }
-
-  themeStore.applyMode()
-  syncFormFromStore()
-
-  if (themeSwitcher) {
+  function syncThemeSwitcher() {
+    if (!themeSwitcher) return
     themeSwitcher.checked =
       document.documentElement.classList.contains("ui-dark")
-    themeSwitcher.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.contains("ui-dark")
-      const newTheme: Mode = isDark ? "light" : "dark"
-
-      ;(window as any).themeUtils?.setTheme(newTheme)
-      themeSwitcher.checked = newTheme === "dark"
-
-      themeStore.applyMode(newTheme)
-      syncFormFromStore(newTheme)
-    })
   }
 
-  form?.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement | null
-    if (!target) return
-    const name = target.name || target.getAttribute("name")
-    if (!name) return
-
-    const mode = themeStore.getActiveSiteMode()
-
-    if (target.type === "checkbox") {
-      if (name === "enable-grays") {
-        themeStore.setEnableGrays(mode, target.checked)
-      }
-      return
-    }
-
-    if (name === "--palette-source-color") {
-      const { C, H } = hexToOklch(target.value)
-      const hue = String(Math.round(H))
-      const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
-      themeStore.setToken(mode, "--palette-hue", hue)
-      themeStore.setToken(mode, "--palette-chroma", chroma)
-      return
-    }
-
-    if (TOKEN_SET.has(name)) {
-      themeStore.setToken(mode, name as Token, target.value)
-    }
+  syncThemeSwitcher()
+  themeSwitcher?.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.contains("ui-dark")
+    window.themeUtils?.setTheme(isDark ? "light" : "dark")
+    syncThemeSwitcher()
   })
 
-  form?.addEventListener("click", (e) => {
-    const chip = (e.target as HTMLElement).closest<HTMLElement>(
-      "[data-name][data-value]",
-    )
-    if (!chip || !form.contains(chip)) return
+  function syncContrastSwitcher() {
+    if (!contrastSwitcher) return
+    contrastSwitcher.checked =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--ui-contrast")
+        .trim() === "more"
+  }
 
-    const name = chip.dataset.name
-    const value = chip.dataset.value
-    if (!name || value === undefined) return
+  syncContrastSwitcher()
+  matchMedia("(prefers-contrast: more)").addEventListener(
+    "change",
+    syncContrastSwitcher,
+  )
 
-    if (TOKEN_SET.has(name)) {
-      themeStore.setToken(themeStore.getActiveSiteMode(), name as Token, value)
-    }
-
-    const chips = form.querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
-    chips.forEach((c) => {
-      if (c === chip) {
-        c.classList.add("ui-tonal")
-        c.classList.remove("ui-outlined")
-      } else {
-        c.classList.remove("ui-tonal")
-        c.classList.add("ui-outlined")
-      }
-    })
+  contrastSwitcher?.addEventListener("click", () => {
+    window.themeUtils?.setContrast(contrastSwitcher.checked ? "more" : "normal")
   })
 
-  resetBtn?.addEventListener("click", () => {
-    themeStore.reset()
-    form?.reset()
-    if (themeSwitcher) {
-      themeSwitcher.checked =
-        document.documentElement.classList.contains("ui-dark")
-    }
-    const allChips =
-      form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
-    allChips.forEach((chip) => {
-      if (chip.dataset.default === "true") {
-        chip.classList.add("ui-tonal")
-        chip.classList.remove("ui-outlined")
-      } else {
-        chip.classList.remove("ui-tonal")
-        chip.classList.add("ui-outlined")
-      }
-    })
-  })
+  matchMedia("(prefers-color-scheme: dark)").addEventListener(
+    "change",
+    syncThemeSwitcher,
+  )
 
-  themeStore.subscribe((detail) => {
-    if (detail.mode !== themeStore.getActiveSiteMode()) return
-    syncFormFromStore(detail.mode)
+  new MutationObserver(() => {
+    syncThemeSwitcher()
+    syncContrastSwitcher()
+  }).observe(document.documentElement, {
+    attributeFilter: ["class"],
+    attributes: true,
   })
 </script>
-
-<style is:global>
-  html.no-grays {
-    --surface-default: light-dark(var(--color-1), var(--color-14));
-    --surface-filled: light-dark(var(--color-5), var(--color-16));
-    --surface-tonal: light-dark(var(--color-4), var(--color-12));
-    --surface-elevated: light-dark(var(--color-1), var(--color-12));
-    --border-color: light-dark(var(--color-4), var(--color-12));
-    --field-border-color: light-dark(var(--color-4), var(--color-12));
-  }
-</style>
 
 <style>
   .configurator-content {
@@ -436,8 +168,8 @@ const { link } = Astro.locals
     gap: var(--size-4);
 
     p {
-      color: var(--text-muted);
-      font-size: var(--font-size-05);
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
       margin: 0;
     }
 
@@ -445,23 +177,6 @@ const { link } = Astro.locals
       display: flex;
       flex-direction: column;
       gap: var(--size-4);
-    }
-
-    .chip-group-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-2);
-
-      .ui-label {
-        font-size: var(--font-size-05);
-        font-weight: var(--font-weight-5);
-      }
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
     }
   }
 </style>

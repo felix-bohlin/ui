@@ -4,7 +4,7 @@ import {
   Divider,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   TextField,
 } from "opui-css/vue"
@@ -12,16 +12,17 @@ import {
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Post Content</FieldLegend>
       <FieldGroup>
         <TextField label="Title" placeholder="My new post" />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
     <FieldGroup>
+      <Button>Save draft</Button>
       <Button variant="filled">Publish</Button>
     </FieldGroup>
   </Form>

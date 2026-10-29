@@ -1,0 +1,164 @@
+---
+import { execFileSync } from "node:child_process"
+import { readFileSync } from "node:fs"
+import { changelogSections } from "../../utils/changelog"
+import { components } from "../../utils/components"
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+import { FRAMEWORKS } from "../../utils/framework"
+import { posts } from "../../utils/blog-posts"
+import { releaseVersion } from "../../utils/release"
+import { themeTokens } from "../../utils/theme-tokens"
+
+const id = "numbers"
+const previous = "5.4.3"
+
+const git = (...args: string[]) =>
+  execFileSync("git", args, { encoding: "utf8", stdio: "pipe" }).trim()
+
+const commitsSince = (version: string) => {
+  try {
+    const hashes = git(
+      "log",
+      `-S"version": "${version}"`,
+      "--format=%H",
+      "--",
+      "packages/opui/package.json",
+    )
+      .split("\n")
+      .filter(Boolean)
+    const release = hashes.at(-1)
+    if (!release) return
+    const manifest = git("show", `${release}:packages/opui/package.json`)
+    if (JSON.parse(manifest).version !== version) return
+    return Number(git("rev-list", "--count", `${release}..HEAD`))
+  } catch {
+    return
+  }
+}
+
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
+
+const commits = commitsSince(previous)
+
+const tiles = [
+  ...changelogSections(changelog, releaseVersion).map((section) => ({
+    caption: "changelog entries",
+    label: section.title,
+    value: section.entries.length,
+  })),
+  ...(commits === undefined
+    ? []
+    : [{ caption: "", label: `Commits since ${previous}`, value: commits }]),
+  { caption: "", label: "Components", value: components.length },
+  { caption: "", label: "Example themes", value: EXAMPLE_THEMES.length },
+  { caption: "", label: "Frameworks", value: FRAMEWORKS.length },
+  { caption: "", label: "Blog posts", value: posts.length },
+  { caption: "", label: "Theme tokens", value: themeTokens().length },
+].toSorted((a, b) => a.label.localeCompare(b.label, "en"))
+---
+
+<div class="numbers ui-not-rich-text" id={id}>
+  <ul class="numbers-tiles">
+    {
+      tiles.map((tile) => (
+        <li class="numbers-tile">
+          <p class="numbers-value">
+            <span
+              aria-hidden="true"
+              class="numbers-count"
+              style={`--n: ${tile.value}`}
+            />
+            <span class="ui-sr-only">{tile.value}</span>
+          </p>
+          <p class="numbers-label">
+            {tile.label}
+            {tile.caption && (
+              <span class="numbers-caption">{tile.caption}</span>
+            )}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style is:global>
+  @property --n {
+    syntax: "<integer>";
+    inherits: false;
+    initial-value: 0;
+  }
+
+  .numbers {
+    margin-block: var(--ui-space-5);
+  }
+
+  .numbers-tiles {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    view-timeline: --numbers block;
+  }
+
+  .numbers-tile {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    display: grid;
+    gap: var(--ui-space-1);
+    padding: var(--ui-space-4) var(--ui-space-3);
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .numbers-value {
+    color: var(--ui-primary);
+    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-size: var(--ui-font-size-h2);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--ui-font-weight-bold);
+    line-height: 1;
+  }
+
+  .numbers-count {
+    counter-reset: n var(--n);
+
+    &::before {
+      content: counter(n);
+    }
+  }
+
+  .numbers-label {
+    color: var(--ui-text-strong);
+    display: grid;
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-medium);
+  }
+
+  .numbers-caption {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-normal);
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .numbers-count {
+        animation: numbers-count linear both;
+        animation-range: entry;
+        animation-timeline: --numbers;
+      }
+    }
+  }
+
+  @keyframes numbers-count {
+    from {
+      --n: 0;
+    }
+  }
+</style>

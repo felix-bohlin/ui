@@ -1,0 +1,646 @@
+{
+  "classes": [
+    ".ui-abbr",
+    ".ui-accordion",
+    ".ui-actions",
+    ".ui-align-end",
+    ".ui-anchor",
+    ".ui-anchor-floating",
+    ".ui-auto-fit",
+    ".ui-avatar",
+    ".ui-backdrop-transparent",
+    ".ui-badge",
+    ".ui-badge-indicator",
+    ".ui-block-end",
+    ".ui-block-start",
+    ".ui-blockquote",
+    ".ui-border-filled",
+    ".ui-border-primary",
+    ".ui-border-tonal",
+    ".ui-border-top",
+    ".ui-bordered",
+    ".ui-button",
+    ".ui-button-group",
+    ".ui-callout",
+    ".ui-caption",
+    ".ui-card",
+    ".ui-checkbox",
+    ".ui-chip",
+    ".ui-cite",
+    ".ui-close-button",
+    ".ui-code-block",
+    ".ui-content",
+    ".ui-critical",
+    ".ui-dark",
+    ".ui-default",
+    ".ui-del",
+    ".ui-dense",
+    ".ui-description",
+    ".ui-description-list",
+    ".ui-dfn",
+    ".ui-dialog",
+    ".ui-disabled",
+    ".ui-divider",
+    ".ui-dot",
+    ".ui-dotted",
+    ".ui-drawer",
+    ".ui-elevated",
+    ".ui-end",
+    ".ui-end-end",
+    ".ui-end-start",
+    ".ui-end-text",
+    ".ui-exiting",
+    ".ui-field",
+    ".ui-field-description",
+    ".ui-field-group",
+    ".ui-fieldset",
+    ".ui-fieldset-item",
+    ".ui-filled",
+    ".ui-footer",
+    ".ui-form",
+    ".ui-gutterless",
+    ".ui-h1",
+    ".ui-h2",
+    ".ui-h3",
+    ".ui-h4",
+    ".ui-h5",
+    ".ui-h6",
+    ".ui-header",
+    ".ui-hgroup",
+    ".ui-icon",
+    ".ui-icon-button",
+    ".ui-icon-checked",
+    ".ui-icon-only",
+    ".ui-icon-unchecked",
+    ".ui-info",
+    ".ui-inline-end",
+    ".ui-inline-start",
+    ".ui-ins",
+    ".ui-inset",
+    ".ui-invisible",
+    ".ui-item",
+    ".ui-kbd",
+    ".ui-label",
+    ".ui-large",
+    ".ui-legend",
+    ".ui-light",
+    ".ui-link",
+    ".ui-list",
+    ".ui-mark",
+    ".ui-motion-debug",
+    ".ui-motion-off",
+    ".ui-motion-on",
+    ".ui-multiline",
+    ".ui-neutral",
+    ".ui-not-rich-text",
+    ".ui-outlined",
+    ".ui-overline",
+    ".ui-p",
+    ".ui-palette",
+    ".ui-prefix",
+    ".ui-primary",
+    ".ui-progress",
+    ".ui-radio",
+    ".ui-range",
+    ".ui-rich-text",
+    ".ui-rounded",
+    ".ui-row",
+    ".ui-s",
+    ".ui-samp",
+    ".ui-scroll-lock",
+    ".ui-select",
+    ".ui-small",
+    ".ui-spacious",
+    ".ui-spread",
+    ".ui-squared",
+    ".ui-squircle",
+    ".ui-sr-only",
+    ".ui-stack",
+    ".ui-start",
+    ".ui-start-start",
+    ".ui-start-text",
+    ".ui-sub",
+    ".ui-success",
+    ".ui-suffix",
+    ".ui-sup",
+    ".ui-switch",
+    ".ui-tab-input",
+    ".ui-tab-label",
+    ".ui-tab-panel",
+    ".ui-table",
+    ".ui-tabs",
+    ".ui-term",
+    ".ui-text",
+    ".ui-text-field",
+    ".ui-textarea",
+    ".ui-title",
+    ".ui-toast",
+    ".ui-toggle-button",
+    ".ui-toggle-group",
+    ".ui-tonal",
+    ".ui-tooltip",
+    ".ui-transparent",
+    ".ui-u",
+    ".ui-value",
+    ".ui-var",
+    ".ui-vertical",
+    ".ui-warning",
+    ".ui-with-arrow",
+    ".ui-x-small"
+  ],
+  "inputs": {
+    "accordion": [
+      "--_actions-gap",
+      "--_actions-margin-block-start",
+      "--_actions-padding-block-end",
+      "--_actions-padding-inline",
+      "--_bg-color",
+      "--_content-padding-inline",
+      "--_divider-border-color",
+      "--_duration",
+      "--_focus-ring-offset",
+      "--_group-radius",
+      "--_item-padding-inline",
+      "--_item-summary-padding-inline",
+      "--_margin-inline",
+      "--_motion",
+      "--_overflow",
+      "--_radius",
+      "--_shadow",
+      "--_summary-padding-inline"
+    ],
+    "anchor": ["--_shift-x", "--_shift-y"],
+    "avatar": [
+      "--_bg-color",
+      "--_font-size",
+      "--_icon-size",
+      "--_margin",
+      "--_outline-color",
+      "--_outline-width",
+      "--_size",
+      "--_text-color"
+    ],
+    "badge": [
+      "--_accent",
+      "--_direction",
+      "--_duration",
+      "--_inset",
+      "--_inset-block",
+      "--_shift-x"
+    ],
+    "button-group": ["--_border-color"],
+    "button": [
+      "--_accent",
+      "--_accent-fill",
+      "--_accent-text",
+      "--_actions-shift",
+      "--_default-active-bg-color",
+      "--_filled-active-bg-color",
+      "--_icon-size",
+      "--_motion",
+      "--_on-accent",
+      "--_on-accent-fill",
+      "--_on-accent-tonal",
+      "--_outlined-active-bg-color",
+      "--_radius",
+      "--_shadow"
+    ],
+    "callout": [
+      "--_bg-color",
+      "--_font-size",
+      "--_gap",
+      "--_icon-size",
+      "--_icon-text-color",
+      "--_outlined-bg-color",
+      "--_outlined-border-color",
+      "--_outlined-icon-text-color",
+      "--_outlined-text-color",
+      "--_padding",
+      "--_radius",
+      "--_shadow",
+      "--_surface-bg-color",
+      "--_text-color"
+    ],
+    "card": [
+      "--_bg-color",
+      "--_elevated-bg-color",
+      "--_elevated-shadow",
+      "--_motion",
+      "--_outlined-border-color",
+      "--_padding",
+      "--_shadow",
+      "--_tonal-bg-color"
+    ],
+    "carousel": [
+      "--_block-room",
+      "--_button-bg-color",
+      "--_button-border-color",
+      "--_button-end-flip",
+      "--_button-image-size",
+      "--_button-inset",
+      "--_button-next-label",
+      "--_button-prev-label",
+      "--_button-scale",
+      "--_button-size",
+      "--_button-start-flip",
+      "--_gap",
+      "--_inline-room",
+      "--_marker-bg-color",
+      "--_marker-border-color",
+      "--_marker-gap",
+      "--_marker-label",
+      "--_marker-selected-bg-color",
+      "--_marker-selected-padding",
+      "--_marker-size",
+      "--_markers-gap",
+      "--_media-aspect-ratio",
+      "--_media-radius",
+      "--_motion",
+      "--_padding-block",
+      "--_padding-inline",
+      "--_scale-duration",
+      "--_snap-align"
+    ],
+    "chip": [
+      "--_accent",
+      "--_icon-padding-inline",
+      "--_icon-size",
+      "--_padding-inline",
+      "--_pressed-bg-color",
+      "--_size"
+    ],
+    "choice": [
+      "--_accent",
+      "--_bg-color",
+      "--_checked-bg-color",
+      "--_duration",
+      "--_hover-bg-color",
+      "--_motion",
+      "--_on-accent",
+      "--_ripple-size",
+      "--_shadow"
+    ],
+    "description-list": ["--_border-style", "--_border-width"],
+    "dialog": [
+      "--_backdrop-bg-color",
+      "--_backdrop-blur",
+      "--_duration",
+      "--_elevated-shadow",
+      "--_max-inline-size",
+      "--_motion",
+      "--_scroll-shadow",
+      "--_title-font-size"
+    ],
+    "divider": ["--_divider-border-color"],
+    "drawer": [
+      "--_backdrop-bg-color",
+      "--_backdrop-blur",
+      "--_bg-color",
+      "--_block-size",
+      "--_border-color",
+      "--_border-width",
+      "--_content-padding",
+      "--_direction",
+      "--_footer-gap",
+      "--_footer-padding",
+      "--_header-padding",
+      "--_inline-size",
+      "--_motion",
+      "--_scroll-shadow",
+      "--_shadow",
+      "--_text-color",
+      "--_title-font-size"
+    ],
+    "layout": [
+      "--_gap",
+      "--_justify-content",
+      "--_max-inline-size",
+      "--_min-inline-size",
+      "--_padding-inline"
+    ],
+    "link": ["--_text-color"],
+    "list": [
+      "--_bg-color",
+      "--_description-text-color",
+      "--_divider-border-color",
+      "--_hover-bg-color",
+      "--_item-gap",
+      "--_item-padding-inline",
+      "--_radius",
+      "--_selected-bg-color",
+      "--_selected-indicator-bg-color",
+      "--_selected-indicator-size",
+      "--_selected-shadow",
+      "--_start-image-size",
+      "--_start-size",
+      "--_start-video-size"
+    ],
+    "menu": [
+      "--_bg-color",
+      "--_border-color",
+      "--_border-width",
+      "--_divider-border-color",
+      "--_duration",
+      "--_min-block-size",
+      "--_min-inline-size",
+      "--_motion",
+      "--_offset",
+      "--_position-area",
+      "--_shadow"
+    ],
+    "progress": [
+      "--_accent",
+      "--_bg-color",
+      "--_duration",
+      "--_loop-duration",
+      "--_motion"
+    ],
+    "radio": ["--_accent", "--_dot-radius"],
+    "range": [
+      "--_accent",
+      "--_duration",
+      "--_focus-ring-duration",
+      "--_thumb-bg-color",
+      "--_thumb-highlight-bg-color",
+      "--_track-base-bg-color",
+      "--_track-bg-color",
+      "--_track-fill-bg-color"
+    ],
+    "select": ["--_bg-color"],
+    "spinner": ["--_motion"],
+    "switch": [
+      "--_accent",
+      "--_duration",
+      "--_icon-size",
+      "--_on-accent",
+      "--_size",
+      "--_thumb-inset",
+      "--_track-bg-color",
+      "--_track-block-size",
+      "--_track-border-color",
+      "--_track-inline-size"
+    ],
+    "table": [
+      "--_duration",
+      "--_motion",
+      "--_radius",
+      "--_scroll-shadow",
+      "--_sticky-offset"
+    ],
+    "tabs": [
+      "--_duration",
+      "--_focus-ring-duration",
+      "--_indicator-size",
+      "--_inset",
+      "--_motion",
+      "--_radius",
+      "--_selected-bg-color",
+      "--_selected-border-color",
+      "--_selected-shadow",
+      "--_selected-text-color",
+      "--_text-color",
+      "--_track-bg-color",
+      "--_track-border-color",
+      "--_track-border-width"
+    ],
+    "text-field": [
+      "--_accent",
+      "--_affix-text-color",
+      "--_arrow-padding",
+      "--_chevron-size",
+      "--_duration",
+      "--_field-padding-block",
+      "--_field-padding-block-fit",
+      "--_font-size",
+      "--_helper-text-color",
+      "--_size"
+    ],
+    "textarea": ["--_max-block-size"],
+    "toggle-button": [
+      "--_bg-color",
+      "--_font-size",
+      "--_icon-size",
+      "--_motion",
+      "--_selected-bg-color",
+      "--_size"
+    ],
+    "toggle-group": ["--_bg-color", "--_border-color", "--_radius"],
+    "tooltip": [
+      "--_arrow-size",
+      "--_bg-color",
+      "--_duration",
+      "--_max-inline-size",
+      "--_min-inline-size",
+      "--_motion",
+      "--_offset",
+      "--_shift",
+      "--_text-color"
+    ],
+    "typography": ["--_count-digits", "--_font-scale"]
+  },
+  "inputsVersion": "6.0.0",
+  "props": {
+    "Accordion": {
+      "Accordion": ["name", "open", "variant"]
+    },
+    "Anchor": {
+      "Anchor": ["alignment", "trigger"]
+    },
+    "Avatar": {
+      "Avatar": [
+        "alt",
+        "as",
+        "command",
+        "commandfor",
+        "disabled",
+        "href",
+        "interestfor",
+        "isGroup",
+        "src",
+        "variant"
+      ]
+    },
+    "Badge": {
+      "Badge": ["alignment", "color", "dot", "invisible", "label"]
+    },
+    "Button": {
+      "Button": ["as", "color", "disabled", "href", "size", "variant"]
+    },
+    "ButtonGroup": {
+      "ButtonGroup": ["color", "orientation", "size", "variant"]
+    },
+    "Callout": {
+      "Callout": ["severity", "variant"]
+    },
+    "Card": {
+      "Card": ["actionsAlign", "variant"]
+    },
+    "Checkbox": {
+      "Checkbox": [
+        "error",
+        "hideLabel",
+        "indeterminate",
+        "size",
+        "spread",
+        "stack"
+      ],
+      "CheckboxInput": ["indeterminate"]
+    },
+    "Chip": {
+      "Chip": ["as", "label", "multiline", "size", "variant"]
+    },
+    "ClassicSelect": {
+      "ClassicSelect": [
+        "endText",
+        "error",
+        "id",
+        "items",
+        "label",
+        "size",
+        "variant"
+      ]
+    },
+    "DescriptionList": {
+      "Description": ["bordered"],
+      "DescriptionList": ["bordered"]
+    },
+    "Dialog": {
+      "Dialog": ["actionsAlign"]
+    },
+    "Divider": {
+      "Divider": ["variant"]
+    },
+    "Drawer": {
+      "Drawer": ["backdrop", "closedby", "id", "scrollLock", "side"],
+      "DrawerFooter": [],
+      "DrawerHeader": ["heading"]
+    },
+    "FieldDescription": {
+      "FieldDescription": []
+    },
+    "FieldGroup": {
+      "FieldGroup": ["direction", "name"]
+    },
+    "FieldLegend": {
+      "FieldLegend": ["as"]
+    },
+    "FieldSet": {
+      "FieldSet": ["as"]
+    },
+    "Form": {
+      "Form": ["as"]
+    },
+    "IconButton": {
+      "IconButton": ["as", "color", "disabled", "href", "size", "variant"]
+    },
+    "List": {
+      "List": ["bordered", "dense", "divided", "gutterless", "variant"]
+    },
+    "ListItem": {
+      "ListItem": [
+        "as",
+        "borderTop",
+        "description",
+        "disabled",
+        "for",
+        "headline",
+        "href",
+        "inset",
+        "type"
+      ]
+    },
+    "Progress": {
+      "Progress": [
+        "aria-busy",
+        "aria-describedby",
+        "aria-label",
+        "id",
+        "max",
+        "value",
+        "variant"
+      ]
+    },
+    "Radio": {
+      "Radio": ["error", "hideLabel", "size", "stack"],
+      "RadioInput": []
+    },
+    "Range": {
+      "Range": [
+        "endText",
+        "id",
+        "label",
+        "list",
+        "options",
+        "spread",
+        "startText",
+        "value",
+        "valueSuffix",
+        "variant"
+      ]
+    },
+    "Select": {
+      "Select": [
+        "dense",
+        "description",
+        "endText",
+        "error",
+        "items",
+        "label",
+        "size",
+        "spread",
+        "variant"
+      ]
+    },
+    "Switch": {
+      "Switch": ["error", "hideLabel", "small", "spread", "stack"],
+      "SwitchInput": []
+    },
+    "Table": {
+      "Table": ["variant"]
+    },
+    "Tabs": {
+      "Tabs": ["name"],
+      "TabsItem": ["name", "open", "panelId", "tabId"],
+      "TabsPanel": ["panelId", "tabId"],
+      "TabsTab": ["tabId"]
+    },
+    "Textarea": {
+      "Textarea": [
+        "autoFit",
+        "description",
+        "endText",
+        "error",
+        "filled",
+        "id",
+        "label",
+        "small",
+        "spread"
+      ]
+    },
+    "TextField": {
+      "TextField": [
+        "autoFit",
+        "description",
+        "endText",
+        "error",
+        "filled",
+        "id",
+        "label",
+        "small",
+        "spread",
+        "startText",
+        "type"
+      ]
+    },
+    "ToggleButton": {
+      "ToggleButton": ["label", "pressed", "size", "type"]
+    },
+    "ToggleGroup": {
+      "ToggleGroup": ["name", "orientation", "selection", "size"]
+    },
+    "Tooltip": {
+      "Tooltip": ["alignment", "arrow", "id", "label"]
+    }
+  },
+  "version": "5.4.3"
+}

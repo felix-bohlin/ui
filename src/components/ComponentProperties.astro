@@ -1,0 +1,77 @@
+---
+import { TableCell, TableRow } from "@opui/astro"
+import {
+  customPropertyRows,
+  pageStylesheets,
+} from "../component-api/custom-properties"
+import { components, dependenciesOf } from "../utils/components"
+import { formatInline } from "../utils/format-inline"
+import DocLink from "./DocLink.astro"
+import DocsTable from "./DocsTable.astro"
+
+type Props = {
+  slug: string
+}
+
+const { slug } = Astro.props
+const { link } = Astro.locals
+
+const dependencies = dependenciesOf(slug)
+const stylesheets = pageStylesheets(slug)
+  .map((stylesheet) => ({
+    dependency: dependencies.includes(stylesheet)
+      ? components.find((component) => component.slug === stylesheet)
+      : undefined,
+    rows: customPropertyRows(stylesheet),
+    stylesheet,
+  }))
+  .filter(({ rows }) => rows.length > 0)
+---
+
+{
+  stylesheets.length > 0 && (
+    <section id="component-properties">
+      <h2>Component properties</h2>
+      <p>
+        Set these on the component itself, inline or in your own CSS. Inputs are
+        the knobs. Outputs are derived from the inputs and the current state, so
+        overriding one fixes it in every state.{" "}
+        <DocLink
+          href="/guide/customizing#component-properties"
+          set:text="Customizing"
+        />{" "}
+        has examples.
+      </p>
+      {stylesheets.map(({ dependency, rows, stylesheet }) => (
+        <Fragment>
+          {stylesheets.length > 1 && <h3>{stylesheet}.css</h3>}
+          {dependency && (
+            <p>
+              A dependency, from{" "}
+              <DocLink href={dependency.href}>{dependency.name}</DocLink>.
+            </p>
+          )}
+          <DocsTable
+            columns={[
+              { label: "Property", width: "30%" },
+              { label: "Kind", width: "15%" },
+              { label: "Description" },
+            ]}
+          >
+            {rows.map((row) => (
+              <TableRow>
+                <TableCell>
+                  <code>{row.name}</code>
+                </TableCell>
+                <TableCell>
+                  {row.kind === "input" ? "Input" : "Output"}
+                </TableCell>
+                <TableCell set:html={formatInline(row.description, link)} />
+              </TableRow>
+            ))}
+          </DocsTable>
+        </Fragment>
+      ))}
+    </section>
+  )
+}

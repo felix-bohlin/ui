@@ -1,0 +1,11 @@
+<script setup lang="ts">
+import { Chip } from "opui-css/vue"
+</script>
+
+<template>
+  <Chip label="Past due" severity="critical" />
+  <Chip label="Processing" severity="info" />
+  <Chip label="Refunded" severity="neutral" />
+  <Chip label="Paid" severity="success" />
+  <Chip label="Due 15 Oct" severity="warning" />
+</template>

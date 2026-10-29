@@ -1,29 +1,57 @@
 ---
-import { components, componentHrefFor } from "../utils/components"
-import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+import { componentsFor, componentHrefFor } from "../utils/components"
+import { added, isWhatsNewHighlighted } from "../utils/whats-new"
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
+
+const sectionOf = (slug: string) =>
+  !isWhatsNewHighlighted(currentFramework, slug)
+    ? "other"
+    : added.has(slug)
+      ? "new"
+      : "updated"
+
+const sections = [
+  { id: "new", label: "New components" },
+  { id: "updated", label: "Updated components" },
+  { id: "other", label: "Other components" },
+]
+  .map((section) => ({
+    ...section,
+    components: componentsFor(currentFramework).filter(
+      ({ slug }) => sectionOf(slug) === section.id,
+    ),
+  }))
+  .filter((section) => section.components.length > 0)
 ---
 
-<ul class="card-grid">
-  {
-    components.map((component) => (
-      <li>
-        <a
-          class="ui-card ui-outlined"
-          href={componentHrefFor(currentFramework, component.slug)}
-        >
-          <div class="ui-content">
-            <p>{component.name}</p>
-          </div>
-        </a>
-      </li>
-    ))
-  }
-</ul>
+{
+  sections.map((section) => (
+    <section id={sections.length > 1 ? `${section.id}-components` : undefined}>
+      {sections.length > 1 && <h2>{section.label}</h2>}
+      <ul class="card-grid">
+        {section.components.map((component) => (
+          <li>
+            <a
+              class="ui-card ui-outlined"
+              href={componentHrefFor(currentFramework, component.slug)}
+            >
+              <div class="ui-content">
+                <p>{component.name}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))
+}
 
 <style>
+  section {
+    margin-block-start: var(--size-8);
+  }
+
   .card-grid {
     align-items: stretch;
     display: grid;

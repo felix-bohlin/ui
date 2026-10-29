@@ -1,0 +1,115 @@
+---
+import "@opui/css/imports.css"
+import "@opui/open-props.css"
+import ThemeBootstrap from "../../../components/ThemeBootstrap.astro"
+import { allBlocks, isFullPage } from "../../../utils/blocks"
+import { importMap } from "../../../utils/import-map"
+import { testPagesEnabled } from "../../../utils/test-pages"
+
+export function getStaticPaths() {
+  return allBlocks.map((block) => ({
+    params: { block: block.slug },
+    props: { block },
+  }))
+}
+
+const { block } = Astro.props
+const fullPage = isFullPage(block.source)
+const themes = testPagesEnabled()
+  ? Object.fromEntries(
+      Object.entries(
+        import.meta.glob<string>("../../../../packages/opui/themes/*.css", {
+          eager: true,
+          import: "default",
+          query: "?raw",
+        }),
+      ).map(([path, css]) => [path.match(/themes\/([^/]+)\.css$/)![1], css]),
+    )
+  : {}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{`${block.name} - Open Props UI blocks`}</title>
+    <ThemeBootstrap overrides />
+    <script is:inline type="importmap" set:html={importMap} />
+    <script is:inline>
+      {
+        let parentDocument
+        try {
+          localStorage.getItem("opui-theme")
+        } catch {
+          try {
+            if (window.parent !== window)
+              parentDocument = window.parent.document
+          } catch {}
+        }
+
+        if (parentDocument) {
+          const params = new URLSearchParams(location.search)
+          const root = document.documentElement
+          const parentRoot = parentDocument.documentElement
+          const sync = () => {
+            if (!params.has("scheme") && !params.has("contrast")) {
+              root.className = parentRoot.className
+            }
+            if (params.has("theme")) return
+            window.themeUtils.applyThemeCss(
+              parentRoot.dataset.exampleTheme ?? null,
+              parentDocument.getElementById("opui-theme")?.textContent ?? "",
+            )
+            root.toggleAttribute(
+              "data-theme-font",
+              parentRoot.hasAttribute("data-theme-font"),
+            )
+          }
+          sync()
+          const observer = new MutationObserver(sync)
+          observer.observe(parentRoot, {
+            attributeFilter: ["class", "data-example-theme", "data-theme-font"],
+            attributes: true,
+          })
+          observer.observe(parentDocument.head, {
+            characterData: true,
+            childList: true,
+            subtree: true,
+          })
+        }
+      }
+    </script>
+  </head>
+  <body>
+    {
+      fullPage ? (
+        <div class="block-preview" data-block={block.slug}>
+          <Fragment set:html={block.source} />
+        </div>
+      ) : (
+        <main class="block-preview" data-block={block.slug}>
+          <Fragment set:html={block.source} />
+        </main>
+      )
+    }
+    <script is:inline define:vars={{ themes }}>
+      const theme = new URLSearchParams(location.search).get("theme")
+      if (theme && Object.hasOwn(themes, theme)) {
+        window.themeUtils.applyStoredTheme = () => {}
+        window.themeUtils.applyThemeCss(null, "", {})
+        const style = document.createElement("style")
+        style.textContent = themes[theme]
+        document.head.append(style)
+        document.documentElement.dataset.theme = theme
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  main.block-preview {
+    padding-block: var(--ui-space-6);
+  }
+</style>

@@ -1,0 +1,41 @@
+<label class="ui-select">
+  <span class="ui-label" id="select-binding-1-label">Fruit</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-binding-1-label" name="select-binding">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option selected value="apples">Apples</option>
+        <option value="bananas">Bananas</option>
+        <option value="cherries">Cherries</option>
+      </div>
+    </select>
+  </span>
+</label>
+<p class="select-binding-text">Selected: apples</p>
+<button type="button" class="ui-button select-binding-reset">Reset</button>
+
+<script>
+  function setupSelectBinding() {
+    const text = document.querySelector(".select-binding-text")
+    const select = document.querySelector('[name="select-binding"]')
+
+    function update() {
+      if (!text || !select) return
+      text.textContent = `Selected: ${select.value}`
+    }
+
+    select?.addEventListener("change", update)
+    document
+      .querySelector(".select-binding-reset")
+      ?.addEventListener("click", () => {
+        for (const option of select?.options ?? []) {
+          option.selected = option.defaultSelected
+        }
+        update()
+      })
+  }
+
+  setupSelectBinding()
+</script>

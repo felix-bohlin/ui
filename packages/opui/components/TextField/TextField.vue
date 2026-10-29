@@ -1,84 +1,169 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
-import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import "../../elements/character-count.js"
+import "../../elements/text-field.js"
+import {
+  computed,
+  inject,
+  type InputHTMLAttributes,
+  useAttrs,
+  useId,
+  useSlots,
+} from "vue"
+import Button from "../Button/Button.vue"
+import { idRefs } from "../id"
+import { useInputAttrs } from "../vue"
+import { hidePath, showPath } from "./icons"
+import type { Props, Slots } from "./types.vue-props"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<Props>(), {
-  type: "text",
-})
+const {
+  autoFit,
+  characterCount,
+  characterCountLabel,
+  endText,
+  error,
+  hideLabel,
+  id,
+  label,
+  passwordToggle,
+  passwordToggleLabel = "Show password",
+  size,
+  spread,
+  startText,
+  type = "text",
+  value,
+  variant,
+} = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
+const inputAttrs = useInputAttrs()
+const slots = useSlots()
 const modelValue = defineModel<string | number>()
 
 const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | number | undefined),
+  get: () => modelValue.value ?? value,
   set: (value) => {
     modelValue.value = value
   },
 })
 
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
-const startTextValue = computed(() => props.description || props.startText)
+const uid = useId()
+const hasStartText = computed(() => Boolean(startText || slots["start-text"]))
+const hasEndText = computed(() =>
+  Boolean(endText || slots["end-text"] || characterCount),
+)
+const inputId = computed(() =>
+  passwordToggle ? (id ?? `${uid}-text-field`) : id,
+)
+const startTextId = computed(() =>
+  passwordToggle && hasStartText.value ? `${uid}-start-text` : undefined,
+)
+const endTextId = computed(() =>
+  passwordToggle && hasEndText.value ? `${uid}-end-text` : undefined,
+)
+
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
-  <label
+  <component
+    :is="passwordToggle ? 'opui-text-field' : 'label'"
     :class="[
       'ui-text-field',
       {
-        'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
-        'ui-spread': props.spread,
-        'ui-small': props.small,
+        'ui-auto-fit': autoFit,
+        'ui-filled': variant === 'filled',
+        'ui-spread': spread,
       },
-      props.class,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
-    <span v-if="props.label || $slots.label" class="ui-label">
-      <slot name="label">{{ props.label }}</slot>
-    </span>
+    <component
+      :is="passwordToggle ? 'label' : 'span'"
+      v-if="label || $slots.label"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :for="passwordToggle ? inputId : undefined"
+    >
+      {{ label }}<slot name="label"></slot>
+    </component>
 
-    <span v-if="startTextValue || $slots.description" class="ui-start-text">
-      <slot name="description">{{ startTextValue }}</slot>
+    <span v-if="hasStartText" class="ui-start-text" :id="startTextId">
+      {{ startText }}<slot name="start-text"></slot>
     </span>
 
     <span class="ui-field">
       <input
-        :id="props.id"
-        :name="currentFieldName"
-        :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
-        :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
-        :type="props.type === 'numeric' ? 'text' : props.type"
-        v-bind="$attrs"
+        v-bind="inputAttrs"
         v-model="model"
+        :aria-describedby="
+          idRefs(startTextId, endTextId, attrs['aria-describedby'] as string)
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :id="inputId"
+        :inputmode="
+          attrs.inputmode ?? (type === 'numeric' ? 'numeric' : undefined)
+        "
+        :name="attrs.name ?? field?.name"
+        :pattern="attrs.pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
+        :type="type === 'numeric' ? 'text' : type"
       />
-      <span class="ui-prefix" v-if="$slots.prefix"
-        ><slot name="prefix"></slot
+      <span class="ui-start" v-if="$slots.start"
+        ><slot name="start"></slot
       ></span>
-      <span class="ui-suffix" v-if="$slots.suffix"
-        ><slot name="suffix"></slot
+      <span class="ui-end" v-if="$slots.end || passwordToggle"
+        ><slot name="end"></slot
+        ><Button
+          v-if="passwordToggle"
+          :aria-label="passwordToggleLabel"
+          aria-pressed="false"
+          command="--toggle-password"
+          :commandfor="inputId"
+          round
+        >
+          <svg
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" :d="showPath" />
+          </svg>
+          <svg
+            aria-hidden="true"
+            class="ui-icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" :d="hidePath" />
+          </svg> </Button
       ></span>
-      <span class="ui-header" v-if="$slots.header"
-        ><slot name="header"></slot
-      ></span>
-      <span class="ui-footer" v-if="$slots.footer"
-        ><slot name="footer"></slot
+      <span class="ui-top" v-if="$slots.top"><slot name="top"></slot></span>
+      <span class="ui-bottom" v-if="$slots.bottom"
+        ><slot name="bottom"></slot
       ></span>
     </span>
 
-    <span
-      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ props.endText }}</slot
-      ><slot name="supporting-text"></slot>
+    <span v-if="hasEndText" class="ui-end-text" :id="endTextId">
+      {{ endText }}<slot name="end-text"></slot
+      ><component
+        is="opui-character-count"
+        v-if="characterCount"
+        aria-hidden="true"
+        class="ui-value"
+        :label="characterCountLabel"
+      ></component>
     </span>
 
     <slot></slot>
-  </label>
+  </component>
 </template>

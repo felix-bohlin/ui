@@ -1,0 +1,499 @@
+---
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Chip,
+  FieldLegend,
+  Fieldset,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import migrating from "../../../packages/opui/MIGRATING.md?raw"
+import { parseRenames } from "../../utils/renames"
+
+const id = "renames"
+const SHOWN = 8
+
+const { link } = Astro.locals
+const { renames } = parseRenames(migrating)
+const first = renames.slice(0, SHOWN)
+const rest = renames.slice(SHOWN)
+
+type Piece = string | [from: string, to: string]
+
+const STYLE = "style"
+
+const snippet: Piece[][] = [
+  ["<Card", [' actionsAlign="end"', ""], ">"],
+  [
+    "  <",
+    ['h3 slot="header"', "CardHeader><h3"],
+    ">Invite a teammate</",
+    ["h3", "h3></CardHeader"],
+    ">",
+  ],
+  [
+    "  <",
+    ['p slot="content"', "CardContent><p"],
+    ">They get a link for a week.</",
+    ["p", "p></CardContent"],
+    ">",
+  ],
+  [
+    "  <",
+    ['Button slot="actions"', 'CardActions align="end"><Button'],
+    ">Send invite</",
+    ["Button", "Button></CardActions"],
+    ">",
+  ],
+  ["</Card>"],
+  [""],
+  [
+    "<TextField ",
+    ["small", 'size="small"'],
+    ' label="Email" ',
+    ["description", "startText"],
+    '="Work address" />',
+  ],
+  ["<Switch ", ["stack", 'orientation="vertical"'], ">Send me a copy</Switch>"],
+  [
+    "<Avatar ",
+    ["variant", "shape"],
+    '="rounded" alt="Jane Doe" src="/jane.jpg" />',
+  ],
+  [
+    "<Tooltip ",
+    ["alignment", "positionArea"],
+    '="block-end" id="hint">…</Tooltip>',
+  ],
+  [""],
+  [`<${STYLE}>`],
+  ["  .invite {"],
+  ["    ", ["--_card-shadow", "--_shadow"], ": none;"],
+  ["    border-radius: var(", ["--border-radius", "--ui-radius"], ");"],
+  ["    color: var(", ["--text-primary", "--ui-text-strong"], ");"],
+  ["  }"],
+  [`</${STYLE}>`],
+]
+
+const escape = (text: string) =>
+  text.replace(/[&<>"]/g, (char) => `&#${char.charCodeAt(0)};`)
+
+let index = 0
+const code = snippet
+  .map((line) =>
+    line
+      .map((piece) => {
+        if (typeof piece === "string") return escape(piece)
+        const [from, to] = piece
+        const style = `--_from: ${from.length}ch; --_to: ${to.length}ch; --i: ${index++}`
+        return `<span class="renames-pair" style="${style}"><span class="renames-old" aria-hidden="true">${escape(from)}</span><span class="renames-new">${escape(to)}</span></span>`
+      })
+      .join(""),
+  )
+  .join("\n")
+
+const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
+---
+
+<div class="renames ui-not-rich-text" id={id}>
+  <div class="renames-diff">
+    <Fieldset class="renames-version">
+      <FieldLegend>Version</FieldLegend>
+      <ToggleGroup name={`${id}-version`} size="small">
+        <ToggleButton value="5">5.x</ToggleButton>
+        <ToggleButton checked value="6">6.0</ToggleButton>
+      </ToggleGroup>
+    </Fieldset>
+    <pre class="renames-code ui-code-block"><code set:html={code} /></pre>
+  </div>
+
+  <div class="renames-explorer">
+    <TextField
+      autocomplete="off"
+      class="renames-search"
+      label="Filter renames"
+      name={`${id}-query`}
+      placeholder="slot, --primary, alignment"
+      type="search"
+    >
+      <svg
+        aria-hidden="true"
+        slot="start"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill="currentColor"
+          d="M9.5 3a6.5 6.5 0 0 1 5.2 10.4l5.45 5.45-1.4 1.4-5.45-5.44A6.5 6.5 0 1 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9"
+        ></path></svg
+      >
+    </TextField>
+    <p class="renames-count" role="status">{renames.length} renames</p>
+    <p class="renames-empty" hidden>No rename matches that name.</p>
+    <ul class="renames-list">
+      {
+        first.map((rename) => (
+          <li
+            class="renames-item"
+            data-names={`${rename.from} ${rename.to}`.toLowerCase()}
+          >
+            <span class="renames-names">
+              <code class="renames-from">{rename.from}</code>
+              <span aria-hidden="true">→</span>
+              <code class="renames-to">{rename.to}</code>
+            </span>
+            <span class="renames-meta">
+              <Chip label={rename.kind} size="x-small" />
+              {rename.scope && (
+                <span class="renames-scope">{rename.scope}</span>
+              )}
+              {rename.sections.map((section) => (
+                <a href={sectionHref(section.anchor)}>{section.title}</a>
+              ))}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+    <Accordion class="renames-more" variant="transparent">
+      <AccordionSummary>
+        <span class="renames-show">Show all {renames.length}</span>
+        <span class="renames-hide">Show the first {SHOWN}</span>
+      </AccordionSummary>
+      <AccordionContent>
+        <ul class="renames-list">
+          {
+            rest.map((rename) => (
+              <li
+                class="renames-item"
+                data-names={`${rename.from} ${rename.to}`.toLowerCase()}
+              >
+                <span class="renames-names">
+                  <code class="renames-from">{rename.from}</code>
+                  <span aria-hidden="true">→</span>
+                  <code class="renames-to">{rename.to}</code>
+                </span>
+                <span class="renames-meta">
+                  <Chip label={rename.kind} size="x-small" />
+                  {rename.scope && (
+                    <span class="renames-scope">{rename.scope}</span>
+                  )}
+                  {rename.sections.map((section) => (
+                    <a href={sectionHref(section.anchor)}>{section.title}</a>
+                  ))}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </AccordionContent>
+    </Accordion>
+  </div>
+</div>
+
+<script>
+  const root = document.getElementById("renames")
+  if (root) {
+    const input = root.querySelector<HTMLInputElement>(
+      'input[name="renames-query"]',
+    )
+    const count = root.querySelector(".renames-count")
+    const empty = root.querySelector<HTMLElement>(".renames-empty")
+    const more = root.querySelector<HTMLDetailsElement>(".renames-more")
+    const items = [...root.querySelectorAll<HTMLElement>(".renames-item")]
+    const total = items.length
+    let autoOpened = false
+
+    const filter = () => {
+      if (!input || !count || !empty || !more) return
+      const query = input.value.trim().toLowerCase()
+      let shown = 0
+      for (const item of items) {
+        const match = query === "" || (item.dataset.names ?? "").includes(query)
+        item.hidden = !match
+        if (match) shown += 1
+      }
+      root.classList.toggle("is-filtering", query !== "")
+      count.textContent =
+        query === "" ? `${total} renames` : `${shown} of ${total} renames`
+      empty.hidden = shown > 0
+      if (query !== "" && !more.open) {
+        more.open = true
+        autoOpened = true
+      } else if (query === "" && autoOpened) {
+        more.open = false
+        autoOpened = false
+      }
+    }
+
+    input?.addEventListener("input", filter)
+    input?.form?.addEventListener("reset", () => queueMicrotask(filter))
+
+    const olds = root.querySelectorAll(".renames-old")
+    const news = root.querySelectorAll(".renames-new")
+    for (const radio of root.querySelectorAll<HTMLInputElement>(
+      'input[name="renames-version"]',
+    )) {
+      radio.addEventListener("change", () => {
+        const showOld = radio.checked && radio.value === "5"
+        for (const span of olds) span.ariaHidden = showOld ? null : "true"
+        for (const span of news) span.ariaHidden = showOld ? "true" : null
+      })
+    }
+  }
+</script>
+
+<style is:global>
+  .renames {
+    display: grid;
+    gap: var(--ui-space-5);
+    margin-block: var(--ui-space-5);
+
+    & .ui-fieldset {
+      gap: var(--ui-space-1);
+    }
+
+    & legend {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+
+  .renames-diff {
+    display: grid;
+    gap: var(--ui-space-3);
+  }
+
+  .renames-code {
+    line-height: var(--ui-line-height);
+    margin: 0;
+    view-timeline-name: --renames;
+  }
+
+  .renames-pair {
+    --_from: 0ch;
+    --_to: 0ch;
+
+    block-size: 1lh;
+    display: inline-grid;
+    inline-size: var(--_to);
+    overflow: clip;
+    transition: inline-size calc(var(--ui-duration-slow) * var(--ui-motion))
+      var(--ui-ease);
+    vertical-align: top;
+
+    & > span {
+      border-radius: var(--ui-radius-small);
+      grid-area: 1 / 1;
+      transition:
+        opacity calc(var(--ui-duration-slow) * var(--ui-motion)) var(--ui-ease),
+        translate calc(var(--ui-duration-slow) * var(--ui-motion))
+          var(--ui-ease);
+      white-space: pre;
+    }
+  }
+
+  .renames-old {
+    --_text-color: light-dark(
+      oklch(from var(--ui-critical-text) calc(l + 0.3) calc(c * 0.8) h),
+      var(--ui-critical-text)
+    );
+
+    background-color: oklch(from var(--_text-color) l c h / 15%);
+    color: var(--_text-color);
+    opacity: 0;
+    translate: 0 -100%;
+  }
+
+  .renames-new {
+    --_text-color: light-dark(
+      oklch(from var(--ui-success-text) calc(l + 0.3) calc(c * 0.8) h),
+      var(--ui-success-text)
+    );
+
+    background-color: oklch(from var(--_text-color) l c h / 15%);
+    color: var(--_text-color);
+  }
+
+  .renames:has([name="renames-version"][value="5"]:checked) {
+    & .renames-pair {
+      inline-size: var(--_from);
+    }
+
+    & .renames-old {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    & .renames-new {
+      opacity: 0;
+      translate: 0 100%;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .renames-version {
+        display: none;
+      }
+
+      .renames-pair {
+        animation: renames-width linear both;
+        animation-range-end: cover calc(32% + var(--i) * 2.5%);
+        animation-range-start: cover calc(12% + var(--i) * 2.5%);
+        animation-timeline: --renames;
+        transition: none;
+
+        & > span {
+          transition: none;
+        }
+      }
+
+      .renames-old {
+        animation: renames-out linear both;
+        animation-range-end: cover calc(32% + var(--i) * 2.5%);
+        animation-range-start: cover calc(12% + var(--i) * 2.5%);
+        animation-timeline: --renames;
+      }
+
+      .renames-new {
+        animation: renames-in linear both;
+        animation-range-end: cover calc(32% + var(--i) * 2.5%);
+        animation-range-start: cover calc(12% + var(--i) * 2.5%);
+        animation-timeline: --renames;
+      }
+    }
+  }
+
+  @keyframes renames-width {
+    from {
+      inline-size: var(--_from);
+    }
+
+    to {
+      inline-size: var(--_to);
+    }
+  }
+
+  @keyframes renames-out {
+    from {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    to {
+      opacity: 0;
+      translate: 0 -100%;
+    }
+  }
+
+  @keyframes renames-in {
+    from {
+      opacity: 0;
+      translate: 0 100%;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  .renames-explorer {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-3);
+  }
+
+  .renames-count,
+  .renames-empty {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+
+  .renames-list {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &:not(:has(.renames-item:not([hidden]))) {
+      display: none;
+    }
+  }
+
+  .renames-item {
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: grid;
+    gap: var(--ui-space-1) var(--ui-space-3);
+    padding-block-end: var(--ui-space-2);
+
+    &[hidden] {
+      display: none;
+    }
+
+    @container (inline-size > 36rem) {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
+
+  .renames-names {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+
+    & code {
+      font-size: var(--ui-font-size-small);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .renames-from {
+    color: var(--ui-critical-text);
+  }
+
+  .renames-to {
+    color: var(--ui-success-text);
+  }
+
+  .renames-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-2);
+
+    & a {
+      color: var(--ui-primary-text);
+    }
+  }
+
+  .renames-scope {
+    color: var(--ui-text);
+  }
+
+  .renames-more {
+    & > summary {
+      font-size: var(--ui-font-size-small);
+    }
+
+    &[open] .renames-show,
+    &:not([open]) .renames-hide {
+      display: none;
+    }
+
+    & .ui-content {
+      padding-block-start: var(--ui-space-2);
+    }
+  }
+
+  .renames.is-filtering .renames-more > summary {
+    display: none;
+  }
+</style>

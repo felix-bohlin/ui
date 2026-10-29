@@ -1,52 +1,39 @@
 ---
 import "@opui/css/imports.css"
-import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
+import "@opui/open-props.css"
+import {
+  exampleModules,
+  exampleSources,
+  parseExamplePath,
+} from "../../../utils/examples"
+import { FRAMEWORK_IDS, type FrameworkId } from "../../../utils/framework"
+import { importMap } from "../../../utils/import-map"
+import { fixturePagesEnabled } from "../../../utils/test-pages"
 
-type Framework = (typeof FRAMEWORK_IDS)[number]
+const allExamples = Object.entries(exampleSources).map(([path, source]) => ({
+  ...parseExamplePath(path),
+  Component: exampleModules[path]?.default,
+  source,
+}))
 
-const astroModules = import.meta.glob<{ default: any }>(
-  "../../../component-examples/*/*.astro",
-  { eager: true },
-)
-const vueModules = import.meta.glob<{ default: any }>(
-  "../../../component-examples/*/*.vue",
-  { eager: true },
-)
-const htmlSources = import.meta.glob<string>(
-  "../../../component-examples/*/*.html",
-  { eager: true, import: "default", query: "?raw" },
-)
-
-const parse = (path: string) => {
-  const [, slug, name] = path.match(
-    /component-examples\/([^/]+)\/([^/]+)\.\w+$/,
-  )!
-  return { name, slug }
-}
-
-const examplesFor = (framework: Framework, slug: string) => {
-  const modules = { astro: astroModules, html: htmlSources, vue: vueModules }[
-    framework
-  ]
-  return Object.entries(modules)
-    .map(([path, module]) => ({ ...parse(path), module }))
+const examplesFor = (framework: FrameworkId, slug: string) => {
+  const examples = allExamples.filter(
+    (example) => example.framework === framework && example.slug === slug,
+  )
+  const names = new Set(examples.map((example) => example.name))
+  return examples
     .filter(
-      (example) => example.slug === slug && !example.name.endsWith("Code"),
+      ({ name }) => !(name.endsWith("Code") && names.has(name.slice(0, -4))),
     )
     .toSorted((a, b) => a.name.localeCompare(b.name))
 }
 
 export function getStaticPaths() {
-  if (!process.env.OPUI_TEST_PAGES) return []
+  if (!fixturePagesEnabled()) return []
 
-  const paths = import.meta.glob(
-    "../../../component-examples/*/*.{astro,html,vue}",
-  )
   const slugs = [
     ...new Set(
-      Object.keys(paths).map(
-        (path) => path.match(/component-examples\/([^/]+)\//)![1],
-      ),
+      Object.keys(exampleSources).map((path) => parseExamplePath(path).slug),
     ),
   ].toSorted()
 
@@ -57,7 +44,7 @@ export function getStaticPaths() {
 
 const { component, framework } = Astro.params as {
   component: string
-  framework: Framework
+  framework: FrameworkId
 }
 const examples = examplesFor(framework, component)
 ---
@@ -69,22 +56,43 @@ const examples = examplesFor(framework, component)
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex" />
     <title>{`${component} - ${framework}`}</title>
+    <script is:inline type="importmap" set:html={importMap} />
   </head>
   <body>
     <main>
       {
-        examples.map(({ module, name }) => (
+        examples.map((example) => (
           <section class="fixture">
-            <h2>{name}</h2>
-            <div class="fixture-preview" data-example={name}>
-              {framework === "astro" && <module.default />}
-              {framework === "html" && <Fragment set:html={module} />}
-              {framework === "vue" && (
+            <h2>{example.name}</h2>
+            <div class="fixture-preview" data-example={example.name}>
+              {example.framework === "astro" && example.Component && (
+                <example.Component />
+              )}
+              {example.framework === "html" && (
+                <Fragment set:html={example.source} />
+              )}
+              {example.framework === "react" && example.Component && (
                 <div
                   class="preview-render"
-                  data-vue-example={`${component}/${name}`}
+                  data-react-example={`${component}/${example.name}`}
                 >
-                  <module.default />
+                  <example.Component />
+                </div>
+              )}
+              {example.framework === "svelte" && example.Component && (
+                <div
+                  class="preview-render"
+                  data-svelte-example={`${component}/${example.name}`}
+                >
+                  <example.Component />
+                </div>
+              )}
+              {example.framework === "vue" && example.Component && (
+                <div
+                  class="preview-render"
+                  data-vue-example={`${component}/${example.name}`}
+                >
+                  <example.Component />
                 </div>
               )}
             </div>
@@ -92,21 +100,10 @@ const examples = examplesFor(framework, component)
         ))
       }
     </main>
-    {
-      component === "toast" && (
-        <output
-          aria-live="polite"
-          id="toast-manager"
-          popover="manual"
-          role="status"
-        />
-      )
-    }
     <script>
+      import "../../../components/Example/mount-react-examples"
+      import "../../../components/Example/mount-svelte-examples"
       import "../../../components/Example/mount-vue-examples"
-      import { initToastManager } from "@opui/css/js/toast.js"
-
-      initToastManager()
     </script>
   </body>
 </html>
@@ -143,5 +140,33 @@ const examples = examplesFor(framework, component)
     flex-wrap: wrap;
     gap: var(--size-3);
     justify-content: center;
+  }
+
+  .example-compass {
+    align-items: center;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-areas:
+      ". block-start ."
+      "inline-start . inline-end"
+      ". block-end .";
+    justify-content: center;
+    justify-items: center;
+
+    & > :nth-child(1) {
+      grid-area: block-start;
+    }
+
+    & > :nth-child(2) {
+      grid-area: inline-start;
+    }
+
+    & > :nth-child(3) {
+      grid-area: inline-end;
+    }
+
+    & > :nth-child(4) {
+      grid-area: block-end;
+    }
   }
 </style>

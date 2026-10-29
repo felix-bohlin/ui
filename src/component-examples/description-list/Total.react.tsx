@@ -1,0 +1,25 @@
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/react"
+
+export default function Total() {
+  return (
+    <DescriptionList bordered orientation="horizontal">
+      <DescriptionListItem>
+        <DescriptionListTerm>Subtotal</DescriptionListTerm>
+        <DescriptionListDescription>€166.00</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Shipping</DescriptionListTerm>
+        <DescriptionListDescription>€4.90</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem total>
+        <DescriptionListTerm>Total</DescriptionListTerm>
+        <DescriptionListDescription>€170.90</DescriptionListDescription>
+      </DescriptionListItem>
+    </DescriptionList>
+  )
+}

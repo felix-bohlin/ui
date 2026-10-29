@@ -4,20 +4,12 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem aria-selected="true">
-      <a href="#">
-        <div class="ui-text">
-          <p>Selected item</p>
-          <p>This item has aria-selected="true" applied to the ListItem</p>
-        </div>
-      </a>
-    </ListItem>
-    <ListItem>
-      <a href="#">
-        <div class="ui-text">
-          <p>Normal item</p>
-        </div>
-      </a>
-    </ListItem>
+    <ListItem
+      href="#"
+      aria-current="page"
+      label="Selected item"
+      description='This item has aria-current="page" on its link'
+    />
+    <ListItem href="#" label="Normal item" />
   </List>
 </template>

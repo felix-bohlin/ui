@@ -1,8 +1,9 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
+import Code from "../../../components/Code.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
 ---
 
 <Guide overline="Guide">
@@ -12,46 +13,45 @@ import Theming from "./_theming.astro"
     you need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
-
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props astro -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props astro -S",
-          lang: "sh",
-        },
-      ]}
-    />
-  </section>
-
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
-      Astro components ship markup only - the CSS still has to be imported in
-      your app somehow. Import everything:
+      The components ship as uncompiled <code>.astro</code> files, which Astro compiles
+      as they are. They need Astro 7 or later.
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
+    <InstallCommand />
+  </section>
+
+  <section id="css">
+    <h2>Import the CSS</h2>
+    <p>
+      Astro components ship markup only - the CSS still has to be imported once.
+      The frontmatter of the layout every page uses is a good spot. Import
+      everything:
+    </p>
     <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
+      code={`---
+// src/layouts/Layout.astro
+import "opui-css/css/imports.css"
+---`}
+      lang="astro"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in the layout
+      instead:
+    </p>
+    <PickAndChoose file="src/styles/global.css" />
+    <Code
+      code={`---
+// src/layouts/Layout.astro
+import "../styles/global.css"
+---`}
+      lang="astro"
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`---
 import { Button } from "opui-css/astro"
@@ -60,7 +60,53 @@ import { Button } from "opui-css/astro"
 <Button variant="filled">Click me</Button>`}
       lang="astro"
     />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and <code
+        >DialogFooter</code
+      >. Other components take named slots for rich content, such as <code
+        >end-text</code
+      > on a <code>TextField</code>.
+    </p>
+    <NextSteps />
   </section>
 
-  <Theming />
+  <section id="server-runtime">
+    <h2>Server runtime</h2>
+    <p>
+      The components pass settings to their parts with <code
+        >AsyncLocalStorage</code
+      > from <code>node:async_hooks</code>, so they run on Node, Deno and Bun.
+      On Cloudflare, enable the <code>nodejs_compat</code> compatibility flag.
+    </p>
+
+    <h3 id="ids">Ids</h3>
+    <p>
+      Components that link elements with ids (form fields, Tabs, Drawer, Menu)
+      read <code>Astro.locals.$id</code> when it exists and otherwise generate a random
+      id per render. For stable, per-request ids, useful for snapshot tests, define
+      it in a middleware:
+    </p>
+    <Code
+      code={`// src/middleware.ts
+import { defineMiddleware } from "astro:middleware"
+
+export const onRequest = defineMiddleware((context, next) => {
+  const counts = new Map<string, number>()
+  context.locals.$id = (prefix) => {
+    const count = (counts.get(prefix) ?? 0) + 1
+    counts.set(prefix, count)
+    return \`\${prefix}-\${count}\`
+  }
+  return next()
+})`}
+      lang="ts"
+    />
+    <p>
+      Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to your
+      <code>env.d.ts</code> to type <code>$id</code> and the <code
+        >interestfor</code
+      >
+      attribute on <code>a</code> and <code>button</code>.
+    </p>
+  </section>
 </Guide>

@@ -1,0 +1,214 @@
+---
+import { TextField } from "opui-css/astro"
+import { GROUPS } from "../../utils/theme-builder-controls"
+---
+
+<nav aria-label="Settings" class="builder-rail">
+  <TextField
+    autocomplete="off"
+    class="builder-search"
+    hideLabel
+    label="Search settings"
+    name="builder-search"
+    placeholder="Search settings"
+    size="small"
+    type="search"
+  />
+  <ul class="builder-rooms">
+    {
+      GROUPS.map((group) => (
+        <li class="builder-room">
+          <button
+            aria-current="false"
+            class="builder-room-button"
+            data-room={group.id}
+            type="button"
+          >
+            <span class="builder-room-label">{group.label}</span>
+            <span class="builder-count" data-room-count={group.id} hidden />
+          </button>
+          <button
+            aria-label={`Keep ${group.label} when shuffling`}
+            aria-pressed="false"
+            class="builder-lock"
+            data-lock={group.id}
+            title={`Keep ${group.label} when shuffling`}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <>
+                <path
+                  class="builder-lock-open"
+                  d="M12 2a5 5 0 0 1 5 5v1h-2V7a3 3 0 1 0-6 0v3h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5m0 12a1.5 1.5 0 0 0-1 2.6V18h2v-1.4A1.5 1.5 0 0 0 12 14"
+                  fill="currentColor"
+                />
+                <path
+                  class="builder-lock-closed"
+                  d="M12 2a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3v3h6V7a3 3 0 0 0-3-3m0 10a1.5 1.5 0 0 0-1 2.6V18h2v-1.4A1.5 1.5 0 0 0 12 14"
+                  fill="currentColor"
+                />
+              </>
+            </svg>
+          </button>
+        </li>
+      ))
+    }
+    <li class="builder-room">
+      <button
+        aria-current="false"
+        class="builder-room-button"
+        data-room="tokens"
+        type="button"
+      >
+        <span class="builder-room-label">All tokens</span>
+        <span class="builder-count" data-room-count="tokens" hidden></span>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .builder-rail {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: minmax(0, 1fr);
+    min-inline-size: 0;
+  }
+
+  .builder-search {
+    inline-size: 100%;
+  }
+
+  .builder-rooms {
+    display: flex;
+    gap: var(--size-1);
+    list-style: none;
+    margin: 0;
+    overflow-x: auto;
+    padding: 0;
+    scrollbar-width: thin;
+
+    @media (width >= 900px) {
+      flex-direction: column;
+      overflow: visible;
+    }
+  }
+
+  .builder-room {
+    align-items: center;
+    display: flex;
+    flex: none;
+    gap: var(--size-1);
+    min-inline-size: 0;
+  }
+
+  .builder-room-button {
+    align-items: center;
+    appearance: none;
+    background: none;
+    border: 0;
+    border-radius: var(--ui-radius);
+    color: var(--ui-text);
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    font: inherit;
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-medium);
+    gap: var(--size-2);
+    justify-content: space-between;
+    min-block-size: var(--ui-control-size-small);
+    min-inline-size: 0;
+    padding: var(--size-1) var(--size-3);
+    text-align: start;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: var(--ui-surface-tonal);
+    }
+
+    &[aria-current="true"] {
+      background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+      color: var(--ui-on-primary-tonal, var(--ui-text-strong));
+    }
+
+    &:focus-visible {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+  }
+
+  .builder-room-label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .builder-count {
+    background-color: var(--ui-surface-inverse);
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-on-inverse);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    line-height: var(--ui-line-height-tight);
+    padding: 0.125em 0.5em;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-lock {
+    appearance: none;
+    background: none;
+    border: 0;
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-text-subtle);
+    cursor: pointer;
+    display: grid;
+    flex: none;
+    inline-size: var(--ui-control-size-x-small);
+    opacity: 0.6;
+    padding: 0;
+    place-items: center;
+
+    & svg {
+      block-size: 1rem;
+      inline-size: 1rem;
+    }
+
+    & .builder-lock-closed {
+      display: none;
+    }
+
+    &[aria-pressed="true"] {
+      color: var(--ui-text-strong);
+      opacity: 1;
+
+      & .builder-lock-open {
+        display: none;
+      }
+
+      & .builder-lock-closed {
+        display: block;
+      }
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      opacity: 1;
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+  }
+</style>

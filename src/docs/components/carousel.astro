@@ -1,0 +1,593 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import Example from "../../components/Example"
+import PropOrClass from "../../components/PropOrClass.astro"
+import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+  Card as UICard,
+  CardHeader as UICardHeader,
+  Carousel as UICarousel,
+  Select as UISelect,
+  Switch as UISwitch,
+} from "opui-css/astro"
+
+import CarouselCSS from "@opui/css/components/carousel.css?raw"
+
+import carouselApi from "../../component-api/carousel/api"
+
+const photos = [
+  { alt: "A deep blue fjord between steep mountains", id: 1015 },
+  { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
+  { alt: "Green cliffs and a winding road under a cloudy sky", id: 1018 },
+  { alt: "Yellow tents in a snowy mountain camp", id: 1036 },
+  { alt: "A waterfall in a green forest valley", id: 1039 },
+  { alt: "A forest path covered in autumn leaves", id: 1043 },
+]
+
+const destinations = [
+  { text: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  {
+    text: "Ceviche by the Pacific, colonial plazas and clifftop parks above the ocean.",
+    title: "Lima",
+  },
+  { text: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { text: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  {
+    text: "Medina markets, Mediterranean light and the ruins of Carthage a short train ride away.",
+    title: "Tunis",
+  },
+  { text: "Canals, bikes and brown cafés.", title: "Utrecht" },
+]
+
+export const description =
+  "A scrolling list with snap points, buttons and markers."
+
+export const keywords = ["gallery", "scroll snap", "slider", "slideshow"]
+---
+
+<Component
+  description={description}
+  slug="carousel"
+  heroAnatomy
+  apis={[{ title: "Carousel API", api: carouselApi }]}
+  browserSupport={[
+    "anchor-positioning",
+    "container-style-queries",
+    "dir-pseudo",
+    "light-dark",
+    "relative-color",
+    "scroll-buttons",
+    "scroll-marker-targets",
+    "scroll-markers",
+    "scroll-snap",
+    "scrollbar-width",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Carousel/Carousel.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/carousel.astro", type: "docs" },
+    { path: "src/component-examples/carousel", type: "docs" },
+    { path: "packages/opui/css/components/carousel.css", type: "css" },
+    { path: "src/component-api/carousel", type: "api" },
+  ]}
+  installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Carousel</Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UICarousel
+        buttons="outside"
+        aria-label="Destinations"
+        markers
+        itemsPerView={2}
+        persistentButtons
+      >
+        {
+          ["Kyoto", "Lima", "Lisbon"].map((title) => (
+            <li>
+              <UICard variant="tonal">
+                <UICardHeader>
+                  <p>Destination</p>
+                  <h3>{title}</h3>
+                </UICardHeader>
+              </UICard>
+            </li>
+          ))
+        }
+      </UICarousel>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A row of items that people browse rather than read in full, like photos,
+      products or related articles.
+    </li>
+    <li slot="when">
+      A set of similar items in a small space, where a few in view at a time are
+      enough.
+    </li>
+    <li slot="when-not">
+      Content that everyone has to see, like the only call to action. Items out
+      of view are easy to miss, so show it on the page.
+    </li>
+    <li slot="when-not">
+      Items that people compare side by side. Show them all in a <DocLink
+        href="/components/layout#grid">layout grid</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >The carousel has previous and next buttons by default, and <code
+          >buttons="none"</code
+        > leaves them out. Set <code>markers</code> to add a marker per item.</Fragment
+      >
+      <Fragment slot="html"
+        >The carousel has previous and next buttons without a class, and <code
+          >.ui-buttons-none</code
+        > leaves them out. Add <code>.ui-markers</code> for a marker per item.</Fragment
+      >
+    </Conditional>
+    <p>
+      Browsers without <code>::scroll-button()</code> and <code
+        >::scroll-marker</code
+      > get a plain scroll-snap list with a scrollbar.
+    </p>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="items-per-view">
+    <h2>Items per view</h2>
+    <p>
+      Set <PropOrClass prop="itemsPerView" class="--_items-per-view" /> to show more
+      than one item at a time.
+    </p>
+
+    <AutoExample name="ItemsPerView" />
+  </section>
+
+  <section id="stretch">
+    <h2>Stretch</h2>
+    <p>
+      Items in a row are as tall as the tallest one, but their content keeps its
+      own height.
+    </p>
+    <p>
+      <PropOrClass prop="stretch" class=".ui-stretch" /> stretches the content of
+      each item, such as a card, to the item's height.
+    </p>
+
+    <AutoExample name="Stretch" />
+  </section>
+
+  <section id="peek">
+    <h2>Peek</h2>
+    <p>
+      Use <PropOrClass prop="peek" class=".ui-peek" /> to show part of the neighboring
+      items, and <PropOrClass prop='align="center"' class=".ui-align-center" /> to
+      snap items to the center.
+    </p>
+
+    <AutoExample name="Peek" />
+  </section>
+
+  <section id="vertical">
+    <h2>Vertical</h2>
+    <p>
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> scrolls on
+      the block axis. Set its height with <code>--_block-size</code>.
+    </p>
+
+    <AutoExample name="Vertical" />
+  </section>
+
+  <section id="images">
+    <h2>Images</h2>
+    <p>
+      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> crops images
+      to the same shape, <code>16 / 9</code> by default.
+    </p>
+
+    <AutoExample name="Images" />
+
+    <h3 id="gallery">Gallery</h3>
+    <p>Square photos, three per view.</p>
+
+    <AutoExample name="Gallery" />
+  </section>
+
+  <section id="video">
+    <h2>Video</h2>
+    <p><code>video</code> fills the item too.</p>
+
+    <AutoExample name="Videos" />
+
+    <h3 id="embeds">Embeds</h3>
+    <p>So does an <code>iframe</code>.</p>
+
+    <AutoExample name="Embeds" />
+  </section>
+
+  <section id="buttons-outside">
+    <h2>Buttons outside</h2>
+    <p>
+      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" /> to
+      keep the buttons off the content.
+    </p>
+
+    <AutoExample name="ButtonsOutside" />
+  </section>
+
+  <section id="persistent-buttons">
+    <h2>Persistent buttons</h2>
+    <p>
+      Use <PropOrClass
+        prop="persistentButtons"
+        class=".ui-persistent-buttons"
+      /> to keep both buttons visible at the ends. A disabled button has a muted border.
+    </p>
+
+    <AutoExample name="PersistentButtons" />
+  </section>
+
+  <section id="custom-buttons">
+    <h2>Custom buttons</h2>
+    <p>
+      <code>--_button-image</code> takes any SVG, for example from your icon library.
+      Draw a white glyph that points right. The previous button mirrors it, and a
+      vertical carousel rotates it. Set <code>--_button-image-size</code> to scale
+      it.
+    </p>
+
+    <AutoExample name="CustomButtons" />
+  </section>
+
+  <section id="playground">
+    <h2>Playground</h2>
+    <p>
+      Try the options together. The code below the carousel updates as you go.
+    </p>
+
+    <Example showCode={false}>
+      <div class="carousel-playground-controls" slot="controls">
+        <UISelect
+          data-control="content"
+          items={[
+            { label: "Images", value: "images" },
+            { label: "Cards", value: "cards" },
+          ]}
+          label="Content"
+          size="small"
+        />
+        <UISelect
+          data-control="buttons"
+          items={[
+            { label: "Inside", value: "inside" },
+            { label: "Outside", value: "outside" },
+            { label: "None", value: "none" },
+          ]}
+          label="Buttons"
+          size="small"
+        />
+        <UISelect
+          data-control="items-per-view"
+          items={["1", "2", "3", "4"].map((value) => ({ label: value, value }))}
+          label="Items per view"
+          size="small"
+        />
+        <UISelect
+          data-control="aspect-ratio"
+          items={["16 / 9", "4 / 3", "1", "3 / 4"].map((value) => ({
+            label: value,
+            value,
+          }))}
+          label="Aspect ratio"
+          size="small"
+        />
+        {
+          [
+            ["persistent", "Persistent buttons"],
+            ["markers", "Markers"],
+            ["peek", "Peek"],
+            ["stretch", "Stretch"],
+            ["vertical", "Vertical"],
+            ["center", "Center"],
+          ].map(([control, label]) => (
+            <UISwitch data-control={control} size="small">
+              {label}
+            </UISwitch>
+          ))
+        }
+      </div>
+      <div class="carousel-playground" data-carousel-playground>
+        <ul
+          aria-label="Photos"
+          class="ui-carousel"
+          data-content="images"
+          style="--_block-size: 20rem"
+        >
+          {
+            photos.map((photo) => (
+              <li>
+                <img
+                  alt={photo.alt}
+                  height="450"
+                  loading="lazy"
+                  src={`https://picsum.photos/id/${photo.id}/800/450`}
+                  width="800"
+                />
+              </li>
+            ))
+          }
+        </ul>
+        <ul
+          aria-label="Destinations"
+          class="ui-carousel"
+          data-content="cards"
+          hidden
+          style="--_block-size: 20rem"
+        >
+          {
+            destinations.map((destination) => (
+              <li>
+                <div class="ui-card ui-tonal">
+                  <hgroup>
+                    <p>Destination</p>
+                    <h3>{destination.title}</h3>
+                    <p>{destination.text}</p>
+                  </hgroup>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <pre
+          class="carousel-playground-code"><code data-playground-code /></pre>
+      </div>
+    </Example>
+  </section>
+
+  <section id="grid-and-flex-layouts">
+    <h2>Grid and flex layouts</h2>
+    <p>
+      With <PropOrClass prop="markers" class=".ui-markers" />, the markers are a
+      box next to the carousel, not inside it. In a grid or flex parent they
+      become an item of their own and land in the next cell. Wrap the carousel
+      in a <code>div</code> to keep them together.
+    </p>
+
+    <AutoExample name="GridLayout" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <div class="ui-not-rich-text">
+      <UICallout severity="warning">
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3>Work in progress</h3>
+          <p>
+            The buttons and markers are generated by CSS, and browser vendors
+            are still working out how these are named, focused and shown in high
+            contrast. Until that settles, making a carousel accessible is up to
+            you: test it with the screen readers and settings your users rely
+            on, and add your own controls where it falls short.
+          </p>
+        </UICalloutContent>
+      </UICallout>
+    </div>
+    <p>
+      Screen readers announce the position of each item. The buttons and markers
+      have accessible names: "Previous", "Next" and "Slide" followed by the
+      number. Translate them with <code>--_button-prev-label</code>, <code
+        >--_button-next-label</code
+      > and <code>--_marker-label</code>. The number always follows the marker
+      word. Chromium exposes the markers as tabs in a tab list.
+    </p>
+    <p>
+      The buttons and markers get the library's focus ring. In forced colors
+      mode the markers get an outline, and the current marker is filled with <code
+        >SelectedItem</code
+      >.
+    </p>
+    <p>
+      The buttons and markers scroll smoothly unless motion is off: with reduced
+      motion, <code>.ui-motion-off</code> on the carousel or a parent, or <code
+        >--ui-motion: 0</code
+      > on a parent.
+    </p>
+    <KeyboardSupport>
+      <p>
+        These are Chromium's keys. Other browsers may name and focus the buttons
+        and markers differently.
+      </p>
+    </KeyboardSupport>
+  </Fragment>
+  <CarouselBuild slot="under-the-hood" />
+</Component>
+
+<script>
+  type State = {
+    align?: string
+    aspectRatio: string
+    buttons: string
+    content: string
+    markers: boolean
+    orientation?: string
+    peek: boolean
+    persistentButtons: boolean
+    itemsPerView: number
+    stretch: boolean
+  }
+
+  const htmlSnippet = (state: State, label: string) => {
+    const classes = [
+      "ui-carousel",
+      state.persistentButtons && "ui-persistent-buttons",
+      state.peek && "ui-peek",
+      state.stretch && "ui-stretch",
+      state.orientation && "ui-vertical",
+      state.markers && "ui-markers",
+      state.align && "ui-align-center",
+      state.buttons !== "inside" && `ui-buttons-${state.buttons}`,
+    ].filter(Boolean)
+    const style = [
+      state.itemsPerView > 1 && `--_items-per-view: ${state.itemsPerView}`,
+      state.aspectRatio !== "16 / 9" &&
+        `--_media-aspect-ratio: ${state.aspectRatio}`,
+      state.orientation && "--_block-size: 20rem",
+    ].filter(Boolean)
+    return [
+      "<ul",
+      `  aria-label="${label}"`,
+      `  class="${classes.join(" ")}"`,
+      style.length > 0 && `  style="${style.join("; ")}"`,
+      ">",
+    ]
+      .filter(Boolean)
+      .join("\n")
+  }
+
+  const componentSnippet = (state: State, label: string, framework: string) => {
+    const expression = (prop: string, value: string) =>
+      framework === "vue" ? `:${prop}="${value}"` : `${prop}={${value}}`
+    const props = [
+      state.align && `align="center"`,
+      `aria-label="${label}"`,
+      state.aspectRatio !== "16 / 9" && `aspectRatio="${state.aspectRatio}"`,
+      state.buttons !== "inside" && `buttons="${state.buttons}"`,
+      state.markers && "markers",
+      state.orientation && `orientation="vertical"`,
+      state.peek && "peek",
+      state.persistentButtons && "persistentButtons",
+      state.itemsPerView > 1 &&
+        expression("itemsPerView", String(state.itemsPerView)),
+      state.stretch && "stretch",
+      state.orientation &&
+        (framework === "react"
+          ? `style={{ "--_block-size": "20rem" }}`
+          : `style="--_block-size: 20rem"`),
+    ].filter(Boolean)
+    return ["<Carousel", ...props.map((prop) => `  ${prop}`), ">"].join("\n")
+  }
+
+  for (const playground of document.querySelectorAll<HTMLElement>(
+    "[data-carousel-playground]",
+  )) {
+    const container = playground.closest(".example-container") ?? playground
+    const carousels = playground.querySelectorAll<HTMLElement>(".ui-carousel")
+    const code = playground.querySelector("[data-playground-code]")
+    const framework = document.documentElement.dataset.framework ?? "html"
+
+    const control = (name: string) =>
+      container.querySelector<HTMLInputElement | HTMLSelectElement>(
+        `[data-control="${name}"]`,
+      )
+    const checked = (name: string) =>
+      control(name) instanceof HTMLInputElement &&
+      (control(name) as HTMLInputElement).checked
+    const value = (name: string) => control(name)?.value ?? ""
+
+    const update = () => {
+      const state: State = {
+        align: checked("center") ? "center" : undefined,
+        aspectRatio: value("aspect-ratio"),
+        buttons: value("buttons"),
+        content: value("content"),
+        markers: checked("markers"),
+        orientation: checked("vertical") ? "vertical" : undefined,
+        peek: checked("peek"),
+        persistentButtons: checked("persistent"),
+        itemsPerView: Number(value("items-per-view")),
+        stretch: checked("stretch"),
+      }
+
+      for (const carousel of carousels) {
+        carousel.hidden = carousel.dataset.content !== state.content
+        carousel.classList.toggle("ui-align-center", !!state.align)
+        carousel.classList.toggle(
+          "ui-buttons-outside",
+          state.buttons === "outside",
+        )
+        carousel.classList.toggle(
+          "ui-persistent-buttons",
+          state.persistentButtons,
+        )
+        carousel.classList.toggle("ui-peek", state.peek)
+        carousel.classList.toggle("ui-stretch", state.stretch)
+        carousel.classList.toggle("ui-vertical", !!state.orientation)
+        carousel.classList.toggle("ui-buttons-none", state.buttons === "none")
+        carousel.classList.toggle("ui-markers", state.markers)
+        carousel.style.setProperty(
+          "--_items-per-view",
+          String(state.itemsPerView),
+        )
+        carousel.style.setProperty("--_media-aspect-ratio", state.aspectRatio)
+      }
+
+      const label = state.content === "images" ? "Photos" : "Destinations"
+      if (code)
+        code.textContent =
+          framework === "html"
+            ? htmlSnippet(state, label)
+            : componentSnippet(state, label, framework)
+    }
+
+    container.addEventListener("change", update)
+    update()
+  }
+</script>
+
+<style>
+  .carousel-playground-controls {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+
+    .ui-select {
+      inline-size: 9rem;
+    }
+
+    .ui-switch {
+      align-self: end;
+      min-block-size: var(--ui-control-size-small);
+    }
+  }
+
+  .carousel-playground {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+    min-inline-size: 0;
+
+    & > [hidden] {
+      display: none;
+    }
+  }
+
+  .carousel-playground-code {
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius);
+    font-size: var(--font-size-0);
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--size-3);
+  }
+</style>

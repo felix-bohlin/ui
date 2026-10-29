@@ -1,0 +1,52 @@
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-1-label">Spread Layout</span>
+  <span class="ui-start-text" id="range-spread-1-start-text">Start text</span>
+  <input
+    aria-describedby="range-spread-1-start-text range-spread-1-end-text"
+    aria-labelledby="range-spread-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-spread-1-end-text">End text</span>
+</label>
+
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-2-label">Disabled</span>
+  <span class="ui-start-text" id="range-spread-2-start-text">Start text</span>
+  <input
+    aria-describedby="range-spread-2-start-text range-spread-2-end-text"
+    aria-labelledby="range-spread-2-label"
+    type="range"
+    disabled
+  />
+  <span class="ui-end-text" id="range-spread-2-end-text">End text</span>
+</label>
+
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-3-label">Invalid Range</span>
+  <span class="ui-start-text" id="range-spread-3-start-text">Start text</span>
+  <input
+    aria-invalid="true"
+    aria-describedby="range-spread-3-start-text range-spread-3-end-text"
+    aria-labelledby="range-spread-3-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-spread-3-end-text"
+    >Pick a value below 50.</span
+  >
+</label>
+
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-4-label">Tick marks with labels</span>
+  <input
+    aria-labelledby="range-spread-4-label"
+    list="range-spread-4-list"
+    type="range"
+  />
+  <datalist aria-hidden="true" id="range-spread-4-list">
+    <option value="0" label="0%"></option>
+    <option value="25" label="25%"></option>
+    <option value="50" label="50%"></option>
+    <option value="75" label="75%"></option>
+    <option value="100" label="100%"></option>
+  </datalist>
+</label>

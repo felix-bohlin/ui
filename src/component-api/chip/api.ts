@@ -2,11 +2,45 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Chip",
+  keyboard: [
+    {
+      description:
+        "Moves focus to a button or link chip. A static chip is skipped, and so is a disabled one.",
+      keys: ["Tab"],
+    },
+    {
+      description: "Activates a button chip, or follows a link chip.",
+      keys: ["Enter"],
+    },
+    {
+      description: "Activates a button chip. A link chip ignores it.",
+      keys: ["Space"],
+    },
+  ],
   options: [
     {
       default: '"div"',
       description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
+      type: '"a" | "button" | "div"',
+    },
+    {
+      default: "false",
+      description:
+        'Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead.',
+      prop: "disabled",
+    },
+    {
+      class: ".ui-dot",
+      default: "false",
+      description:
+        "Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.",
+      group: "Dot",
+      prop: "dot",
+    },
+    {
+      description: "The link to use. Renders an `<a>`.",
+      prop: "href",
     },
     {
       class: ".ui-multiline",
@@ -16,17 +50,56 @@ export default {
       prop: "multiline",
     },
     {
+      attribute: '[aria-pressed="true"]',
+      description:
+        "Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice.",
+      frameworks: ["html"],
+      group: "Pressed",
+      prop: "pressed",
+    },
+    {
+      description:
+        "The severity of a status chip. It tints the chip, and colors and shapes its dot.",
+      group: "Severities",
+      prop: "severity",
+      values: {
+        critical: ".ui-critical",
+        info: ".ui-info",
+        neutral: ".ui-neutral",
+        success: ".ui-success",
+        warning: ".ui-warning",
+      },
+    },
+    {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
+      description:
+        "Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.",
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: {
+        button: "button[disabled]",
+        link: 'a[aria-disabled="true"]',
+        static: ".ui-disabled",
+      },
     },
     {
       default: '"tonal"',
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
-      values: { outlined: ".ui-outlined", tonal: ".ui-tonal" },
+      values: { outlined: ".ui-outlined", tonal: null },
     },
   ],
   parts: [
@@ -37,9 +110,10 @@ export default {
       slots: ["start"],
     },
     {
-      description: "The label.",
+      description: "The label, text or rich content.",
       props: ["label"],
-      selector: ".ui-text",
+      selector: ".ui-chip > .ui-text",
+      slots: ["label"],
     },
     {
       code: "<svg>",
@@ -52,11 +126,5 @@ export default {
     description: "Container element. Can be a `<div>`, `<a>` or `<button>`.",
     selector: ".ui-chip",
   },
-  slots: [
-    {
-      description: "Content placed before the label.",
-      name: "default",
-    },
-  ],
   source: "Chip",
 } satisfies ComponentApi

@@ -1,0 +1,94 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
+import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import FieldSizingCompare from "../../components/Blog/FieldSizingCompare.astro"
+import AutoFit from "../../component-examples/textarea/AutoFit.astro"
+---
+
+<TechniquePost slug="textarea-field-sizing">
+  <section id="the-problem">
+    <h2>The problem</h2>
+    <p>
+      A <code>&lt;textarea&gt;</code> is as tall as its <code>rows</code> attribute
+      says, no matter what's in it. Short notes leave empty space, long ones scroll
+      inside a tiny box.
+    </p>
+    <p>
+      The usual fix is JavaScript that listens to <code>input</code>, resets the
+      height and sets it to <code>scrollHeight</code> on every keystroke. Not anymore.
+    </p>
+  </section>
+
+  <section id="the-trick">
+    <h2>The trick</h2>
+    <ul>
+      <li>
+        <code>field-sizing: content</code> sizes the textarea to its text: it grows
+        as you type and shrinks as you delete
+      </li>
+      <li>
+        <code>lh</code> is one line of the textarea's own text, so limits read as
+        line counts
+      </li>
+      <li>
+        <code>min-block-size</code> keeps at least three lines, <code
+          >max-block-size</code
+        > caps it at 20, then it scrolls
+      </li>
+      <li><code>resize: block</code> still lets the user drag it taller</li>
+    </ul>
+    <Code
+      lang="css"
+      code={`textarea {
+  block-size: auto;
+  field-sizing: content;
+  max-block-size: var(--_max-block-size, 20lh);
+  min-block-size: calc(var(--_field-padding-block-fit) * 2 + 3lh);
+  resize: block;
+}`}
+    />
+  </section>
+
+  <section id="try-it">
+    <h2>Try it</h2>
+    <p>
+      Type in either box, both get the same text. Then move the line limits.
+    </p>
+    <Example wide showCode={false}>
+      <FieldSizingCompare />
+    </Example>
+    <ul>
+      <li>
+        <code>content</code> grows a line at a time until the max, then scrolls. Delete
+        text and it shrinks back to the min
+      </li>
+      <li>
+        <code>fixed</code> is the default: the box stays at its <code>rows</code
+        > and scrolls inside
+      </li>
+      <li>
+        The limits are in <code>lh</code>, so they read as line counts whatever
+        the font size
+      </li>
+    </ul>
+    <p>Type a few lines. It grows with them, and shrinks when you delete.</p>
+    <Example showCode={false}>
+      <AutoFit />
+    </Example>
+    <BuildUpLink />
+  </section>
+
+  <section id="fallback">
+    <h2>Fallback</h2>
+    <ul>
+      <li>
+        Browsers without <code>field-sizing</code> ignore it, and the textarea keeps
+        its <code>rows</code> height, never less than three lines
+      </li>
+      <li>Long text scrolls and the resize handle still works</li>
+      <li>Nothing breaks, it just doesn't grow</li>
+    </ul>
+  </section>
+</TechniquePost>

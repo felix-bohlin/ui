@@ -1,13 +1,15 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Callout",
-  notes: {
-    html: 'The root needs `role="note"`.',
-  },
+  notes: components(
+    'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
+  ),
   options: [
     {
-      description: "The severity. Sets the color and the default icon.",
+      description:
+        "The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -29,26 +31,26 @@ export default {
   parts: [
     {
       code: "<svg>",
+      component: "CalloutIcon",
       description:
-        "An optional icon. `info`, `warning` and `critical` have a default icon.",
+        "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.",
       selector: ".ui-callout > svg",
-      slots: ["icon"],
     },
     {
-      description: "The content.",
+      component: "CalloutContent",
+      description: "The content, with an optional heading first.",
       selector: ".ui-content",
-      slots: ["default"],
-    },
-    {
-      code: "<h3>",
-      description: "An optional title inside the content.",
-      selector: ".ui-content > h3",
-      slots: ["title"],
     },
   ],
   root: {
     description: "Container element.",
     selector: ".ui-callout",
   },
+  slots: [
+    {
+      description: "The callout parts, and any other content.",
+      name: "default",
+    },
+  ],
   source: "Callout",
 } satisfies ComponentApi

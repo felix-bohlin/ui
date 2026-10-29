@@ -1,0 +1,86 @@
+---
+import type { Props } from "./types.astro"
+import { menuContext } from "./context.astro"
+import { warnMissingId } from "../dev"
+import { tagAttrs } from "../tag"
+
+export const title = "Menu"
+
+const {
+  align,
+  bordered,
+  class: className,
+  dense,
+  id,
+  items,
+  popover = "auto",
+  side,
+  ...rest
+} = Astro.props
+
+warnMissingId("Menu", id)
+const rootId = menuContext.get()?.rootId ?? id
+const html = await menuContext.provide({ rootId }, () =>
+  Astro.slots.render("default"),
+)
+---
+
+<menu
+  class:list={[
+    "ui-menu",
+    {
+      "ui-align-end": align === "end",
+      "ui-bordered": bordered,
+      "ui-dense": dense,
+    },
+    side && side !== "block-end" && `ui-${side}`,
+    className,
+  ]}
+  id={id}
+  popover={popover === "auto" ? "" : popover}
+  {...rest}
+>
+  {
+    items?.map(
+      ({
+        borderTop,
+        color,
+        disabled,
+        href,
+        keepOpen,
+        label,
+        shortcut,
+        ...itemRest
+      }) => {
+        const Tag = href ? "a" : "button"
+        const closes = !href && !keepOpen && !disabled
+
+        return (
+          <li
+            class:list={[
+              { "ui-border-top": borderTop },
+              color && `ui-${color}`,
+            ]}
+          >
+            <Tag
+              {...tagAttrs(Tag, disabled, href)}
+              command={closes ? "hide-popover" : undefined}
+              commandfor={closes ? rootId : undefined}
+              {...itemRest}
+            >
+              <div class="ui-text">
+                <p>{label}</p>
+              </div>
+              {shortcut && (
+                <div class="ui-end">
+                  <kbd>{shortcut}</kbd>
+                </div>
+              )}
+            </Tag>
+          </li>
+        )
+      },
+    )
+  }
+  <Fragment set:html={html} />
+</menu>

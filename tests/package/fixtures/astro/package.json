@@ -1,0 +1,14 @@
+{
+  "name": "opui-fixture-astro",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "astro": "catalog:",
+    "open-props": "catalog:",
+    "opui-css": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
+  }
+}

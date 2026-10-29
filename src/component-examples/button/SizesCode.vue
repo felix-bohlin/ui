@@ -3,24 +3,30 @@ import { Button } from "opui-css/vue"
 </script>
 
 <template>
+  <Button size="x-small">X-small</Button>
   <Button size="small">Small</Button>
-  <Button>Default</Button>
+  <Button>Medium</Button>
   <Button size="large">Large</Button>
 
+  <Button variant="filled" size="x-small">X-small</Button>
   <Button variant="filled" size="small">Small</Button>
-  <Button variant="filled">Default</Button>
+  <Button variant="filled">Medium</Button>
   <Button variant="filled" size="large">Large</Button>
 
+  <Button size="x-small" variant="outlined">
+    <span class="ui-text">X-small</span>
+    <svg aria-hidden="true"><!-- --></svg>
+  </Button>
   <Button size="small" variant="outlined">
-    Small
-    <svg><!-- --></svg>
+    <span class="ui-text">Small</span>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    Default
-    <svg><!-- --></svg>
+    <span class="ui-text">Medium</span>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">
-    Large
-    <svg><!-- --></svg>
+    <span class="ui-text">Large</span>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
 </template>

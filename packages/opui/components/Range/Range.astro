@@ -1,69 +1,87 @@
 ---
-import type { RangeProps as Props } from "./types.astro"
+import type { Props } from "./types.astro"
+import { createId, idRefs } from "../id"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { defaultValue } from "./value"
 
 export const title = "Range"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
+  "aria-valuetext": ariaValueText,
   class: className,
-  disabled,
   endText,
   error,
+  hideLabel,
   id,
+  items,
   label,
   list,
   max,
   min,
   name,
-  options,
+  size,
   spread,
   startText,
   step,
+  style,
   value,
   valueSuffix,
   variant,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const field = fieldGroupContext.get()
+const $id = createId(Astro.locals)
 
-const hasLabel = !!label || Astro.slots.has("default")
+const hasLabel = !!label || Astro.slots.has("label")
 const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
-const hasValue = valueSuffix !== undefined || Astro.slots.has("value")
-const valueText = [value, valueSuffix]
-  .filter((part) => part !== undefined)
-  .join("")
+const hasValueText = Astro.slots.has("value-text")
+const hasValue = valueSuffix !== undefined || hasValueText
+const hasDatalist = !!items || Astro.slots.has("datalist")
+const valueText = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
 
 const inputId = id || (hasValue ? $id("range") : undefined)
 const labelId = hasLabel ? $id("range-label") : undefined
 const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
+const listId = list ?? (hasDatalist ? $id("range-list") : undefined)
 
-const describedBy =
-  [startTextId, endTextId].filter(Boolean).join(" ") || undefined
+const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
 ---
 
 <label
   class:list={[
     "ui-range",
-    variant && `ui-${variant}`,
     { "ui-spread": spread },
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "outlined" && `ui-${variant}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
+  for={hasValue ? inputId : undefined}
+  style={style}
 >
   {
     hasLabel && (
-      <span class="ui-label" id={labelId}>
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
         {label}
-        <slot />
+        <slot name="label" />
       </span>
     )
   }
   {
     hasValue && (
-      <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
-        <slot name="value">{valueText}</slot>
+      <output
+        aria-live="off"
+        class="ui-value"
+        data-live={hasValueText ? undefined : ""}
+        for={inputId}
+        data-suffix={valueSuffix}
+      >
+        <slot name="value-text">{valueText}</slot>
       </output>
     )
   }
@@ -76,23 +94,25 @@ const describedBy =
     )
   }
   <input
+    {...rest}
     aria-describedby={describedBy}
-    aria-labelledby={labelId}
-    disabled={disabled}
+    aria-invalid={error ? "true" : ariaInvalid}
+    aria-labelledby={labelId ?? ariaLabelledBy}
+    aria-valuetext={ariaValueText ??
+      (valueSuffix && !hasValueText ? valueText : undefined)}
     id={inputId}
-    list={list}
+    list={listId}
     max={max}
     min={min}
-    name={name}
+    name={name ?? field?.name}
     step={step}
     type="range"
     value={value}
-    {...rest}
   />
   {
-    (options || Astro.slots.has("datalist")) && (
-      <datalist id={list}>
-        {options?.map((option) =>
+    hasDatalist && (
+      <datalist aria-hidden="true" id={listId}>
+        {items?.map((option) =>
           typeof option === "object" ? (
             <option value={option.value} label={option.label} />
           ) : (
@@ -114,20 +134,5 @@ const describedBy =
 </label>
 
 <script>
-  // Mirror the slider's current value into its associated <output> on every
-  // input event. Idempotent: each .ui-range is wired once, and ignores ranges
-  // without a value display.
-  for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
-    const input = range.querySelector<HTMLInputElement>('input[type="range"]')
-    const output = range.querySelector<HTMLOutputElement>(
-      ":scope > output.ui-value",
-    )
-    if (!input || !output) continue
-    const suffix = output.dataset.suffix ?? ""
-    const update = () => {
-      output.textContent = `${input.value}${suffix}`
-    }
-    input.addEventListener("input", update)
-    update()
-  }
+  import "../../css/js/range.js"
 </script>

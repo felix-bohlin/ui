@@ -1,52 +1,93 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
+import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Vue components. Install the package, import what you
+    need, and you're set.
+  </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props vue -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props vue -S",
-          lang: "sh",
-        },
-      ]}
-    />
-  </section>
-
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
-      Vue components ship markup only - the CSS still has to be imported in your
-      app somehow. Import everything:
+      The components ship as uncompiled single-file components (<code>.vue</code
+      > and <code>.ts</code>), so your build has to compile them. They need Vue
+      3.5 or later, so add <code>vue</code> if it isn't installed yet. Any setup with
+      Vue SFC support works, for example Vite with <code
+        >@vitejs/plugin-vue</code
+      >, Nuxt, or Astro with <code>@astrojs/vue</code>.
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
+    <InstallCommand />
+    <p>
+      For server rendering, the server build has to compile the package too,
+      since Node can't load <code>.vue</code> files from <code
+        >node_modules</code
+      >. In Nuxt, add it to <code>build.transpile</code>:
+    </p>
     <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
+      code={`// nuxt.config.ts
+export default defineNuxtConfig({
+  build: { transpile: ["opui-css"] },
+})`}
+      lang="ts"
+    />
+    <p>
+      In a Vite SSR setup of your own, add it to <code>ssr.noExternal</code>:
+    </p>
+    <Code
+      code={`// vite.config.ts
+import vue from "@vitejs/plugin-vue"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [vue()],
+  ssr: { noExternal: ["opui-css"] },
+})`}
+      lang="ts"
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
+    <p>
+      Vue components ship markup only - the CSS still has to be imported once,
+      in the entry file that creates your app. Import everything:
+    </p>
+    <Code
+      code={`// src/main.ts
+import { createApp } from "vue"
+import "opui-css/css/imports.css"
+import App from "./App.vue"
+
+createApp(App).mount("#app")`}
+      lang="ts"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in <code
+        >main.ts</code
+      > instead:
+    </p>
+    <PickAndChoose file="src/styles/main.css">
+      <p>
+        In Nuxt, add the file to <code>css</code> in <code>nuxt.config.ts</code> instead.
+      </p>
+    </PickAndChoose>
+    <Code
+      code={`// src/main.ts
+import "./styles/main.css"`}
+      lang="ts"
+    />
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`<script setup lang="ts">
 import { Button } from "opui-css/vue"
@@ -57,7 +98,53 @@ import { Button } from "opui-css/vue"
 </template>`}
       lang="vue"
     />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and <code
+        >DialogFooter</code
+      >. Other components take named slots for rich content, such as <code
+        >end-text</code
+      > on a <code>TextField</code>.
+    </p>
+    <NextSteps />
   </section>
 
-  <Theming />
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Without hydration (Nuxt, or Astro with <code>@astrojs/vue</code> and no <code
+        >client:*</code
+      > directive), every component renders complete HTML. The native controls work
+      and submit with their form. A few things only update on the client:
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/checkbox#indeterminate">Checkbox</DocLink>
+        <code>indeterminate</code>: it's a DOM property, so the box looks
+        unchecked. Or call <code>activateIndeterminate()</code> from <code
+          >opui-css/css/js/checkbox.js</code
+        >.
+      </li>
+      <li>
+        <DocLink href="/components/range#value">Range</DocLink> value: the <code
+          >&lt;output&gt;</code
+        > doesn't follow the thumb. The track fill is CSS, so it's fine.
+      </li>
+      <li>
+        <code>v-model</code> on <DocLink href="/components/checkbox"
+          >Checkbox</DocLink
+        >, <DocLink href="/components/radio">Radio</DocLink>, <DocLink
+          href="/components/range">Range</DocLink
+        >, <DocLink href="/components/select">Select</DocLink>, <DocLink
+          href="/components/switch">Switch</DocLink
+        >, <DocLink href="/components/text-field">Text field</DocLink> and <DocLink
+          href="/components/textarea">Textarea</DocLink
+        >: the ref stays put. The native value still changes and submits.
+      </li>
+    </ul>
+    <p>
+      Hydrate those (<code>client:load</code> in Astro) or use them in a client-rendered
+      Vue app. Component pages say what needs hydration next to the browser support
+      chips, and the API tables mark each prop with a crossed-out server icon.
+    </p>
+  </section>
 </Guide>

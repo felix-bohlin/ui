@@ -1,0 +1,99 @@
+---
+import Document from "./Document.astro"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import { Divider } from "opui-css/astro"
+import { hrefFor } from "../utils/framework"
+import { categories, componentName, posts, walkthroughs } from "../utils/blog"
+
+type Props = {
+  description?: string
+  overline?: string
+  showToc?: boolean
+  title?: string
+  wide?: boolean
+}
+
+const {
+  description,
+  overline = "Blog",
+  showToc = true,
+  title,
+  wide,
+} = Astro.props
+
+const currentFramework = Astro.locals.framework
+
+const linkTo = (href: string, label: string) => ({
+  href: hrefFor(currentFramework, href),
+  label,
+})
+
+const groups = [
+  { label: "Blog", links: [linkTo("/blog", "All posts")] },
+  ...categories.map((category) => ({
+    label: category.label,
+    links: posts
+      .filter((post) => post.category === category.id)
+      .toSorted(
+        (a, b) =>
+          Number(!!a.component) - Number(!!b.component) ||
+          (a.component ?? "").localeCompare(b.component ?? ""),
+      )
+      .map((post) =>
+        linkTo(
+          `/blog/${post.slug}`,
+          post.navLabel ??
+            (post.component ? componentName(post.component) : post.title),
+        ),
+      ),
+  })),
+  {
+    label: "Walkthrough only",
+    links: walkthroughs.map((slug) =>
+      linkTo(`/blog/under-the-hood#${slug}`, componentName(slug)),
+    ),
+  },
+]
+---
+
+<Document
+  description={description}
+  overline={overline}
+  showToc={showToc}
+  sidebarGroups={groups}
+  title={title}
+  wide={wide}
+>
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
+  <slot slot="title" name="title" />
+  <slot slot="preamble" name="preamble" />
+  <slot />
+</Document>
+
+<style is:global>
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) {
+      animation: blog-page-out 0.15s ease-in both;
+    }
+
+    ::view-transition-new(root) {
+      animation: blog-page-in 0.3s 0.1s cubic-bezier(0.2, 0, 0, 1) both;
+    }
+  }
+
+  @keyframes blog-page-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes blog-page-in {
+    from {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+</style>

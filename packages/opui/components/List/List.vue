@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const { bordered, dense, gutterless, variant } = defineProps<Props>()
+const { bordered, dense, flush, variant } = defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
 </script>
 
 <template>
@@ -16,12 +12,11 @@ defineOptions({
       {
         'ui-bordered': bordered,
         'ui-dense': dense,
-        'ui-gutterless': gutterless,
+        'ui-flush': flush,
       },
-      variant && `ui-${variant}`,
+      variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,
     ]"
-    v-bind="$attrs"
   >
     <slot></slot>
   </ul>

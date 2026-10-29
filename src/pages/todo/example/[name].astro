@@ -1,0 +1,105 @@
+---
+import SchemeFromQuery from "../../../components/SchemeFromQuery.astro"
+import "@opui/css/imports.css"
+import "@opui/open-props.css"
+import { testPagesEnabled } from "../../../utils/test-pages"
+import {
+  todoExamples,
+  todoExampleSource,
+  type TodoExampleName,
+} from "../../../utils/todo-examples"
+
+export function getStaticPaths() {
+  if (!testPagesEnabled()) return []
+  return Object.keys(todoExamples)
+    .toSorted()
+    .map((name) => ({ params: { name } }))
+}
+
+const { name } = Astro.params as { name: TodoExampleName }
+const source = todoExampleSource(name)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{`${name} example`}</title>
+    <SchemeFromQuery />
+  </head>
+  <body>
+    <main>
+      <Fragment set:html={source} />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+  }
+
+  main {
+    align-items: start;
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    padding: var(--size-4);
+
+    > .ui-text-field {
+      inline-size: 16rem;
+    }
+  }
+
+  .todo-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-current,
+  .todo-fixed {
+    align-content: start;
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-block-start-width: var(--border-size-3);
+    border-radius: var(--ui-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    min-inline-size: 0;
+    padding: var(--size-3);
+  }
+
+  .todo-current {
+    border-block-start-color: var(--ui-critical);
+  }
+
+  .todo-fixed {
+    border-block-start-color: var(--ui-success);
+  }
+
+  .todo-label {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .todo-note,
+  .todo-measure {
+    color: var(--ui-text);
+    font-size: var(--font-size-0);
+  }
+
+  .todo-measure {
+    font-family: var(--font-mono);
+    white-space: pre-wrap;
+  }
+</style>

@@ -1,24 +1,52 @@
 ---
+import FieldGroupNotes from "./partials/FieldGroupNotes.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Switch as UISwitch } from "@opui/astro"
+import {
+  Switch as UISwitch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SwitchCSS from "@opui/css/components/switch.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
 import switchApi from "../../component-api/switch/api"
+import switchInputApi from "../../component-api/switch-input/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
+
+export const keywords = ["on off", "toggle"]
 ---
 
 <Component
   slug="switch"
-  browserSupport={["has", "light-dark"]}
+  browserSupport={[
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "round-mod-rem",
+    "user-pseudos",
+  ]}
   heroAnatomy
   apis={[
     { title: "Switch API", api: switchApi },
+    { title: "Switch input API", api: switchInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -37,16 +65,25 @@ import Conditional from "../../components/Conditional.astro"
       type: "css",
     },
     { path: "src/component-api/switch", type: "api" },
+    { path: "src/component-api/switch-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
     { title: "switch.css", code: SwitchCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Switch</Fragment>
   <Fragment slot="preamble">
-    See also: <a href="#field-group" class="ui-link">Switch field group</a>.
+    Use a Switch for a setting that applies right away. Use a <DocLink
+      href="/components/checkbox">Checkbox</DocLink
+    > for choices that are submitted with a form, and a <DocLink
+      href="/components/toggle">Toggle</DocLink
+    > for options in a toolbar. See also: <a href="#field-group" class="ui-link"
+      >Switch field group</a
+    >.
   </Fragment>
 
   <!--
@@ -56,276 +93,339 @@ import Conditional from "../../components/Conditional.astro"
   https://webkit.org/blog/15054/an-html-switch-control/
    -->
 
-  <p>
-    All switches should have an accessible name. Either provide a visible or
-    visually-hidden label inside the component, or set <code>aria-label</code> on
-    the input. Both approaches are fine.
-  </p>
-
-  <AutoExample name="Variants" row />
-
-  <section>
-    <h2 id="visible-label">Visible label</h2>
-    <p>
-      Render the label text inside an element with a <code>.ui-label</code> class.
-      Also, don't miss the info on label <a
-        href="#accessibility"
-        class="ui-link">accessibility</a
+  <Usage slot="usage">
+    <li slot="when">
+      A setting that applies right away, like notifications or dark mode.
+    </li>
+    <li slot="when">
+      A list of settings, with each switch at the end of its row with <a
+        href="#spread"><PropOrClass prop="spread" class=".ui-spread" /></a
       >.
-    </p>
+    </li>
+    <li slot="when-not">
+      A choice that is submitted with a form, like agreeing to the terms. Use a <DocLink
+        href="/components/checkbox">Checkbox</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Options in a toolbar, like bold. Use a <DocLink href="/components/toggle"
+        >Toggle</DocLink
+      >.
+    </li>
+  </Usage>
 
-    <AutoExample name="VisibleLabel" column centered />
-
-    <h3 id="label-position">Label position</h3>
-    <AutoExample name="LabelPosition" row spacious />
-
-    <h3 id="end-text">End text</h3>
-    <AutoExample name="SupportingText" row spacious />
-
-    <h3 id="validation">Validation</h3>
-    <ul>
-      <Conditional>
-        <li slot="astro">
-          Set <code>required</code> on the component to toggle required styles on
-          the input.
-        </li>
-        <li slot="vue">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="html">
-          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
-          toggle required styles.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          <code>data-invalid</code> on the root element. Make use of the end text
-          to give extra feedback on the error.
-        </li>
-        <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          <code>data-invalid</code> on the root element. Make use of the end text
-          to give extra feedback on the error.
-        </li>
-        <li slot="html">
-          Add <code>data-invalid</code> on the root element to toggle invalid styles.
-          Make use of the end text to give extra feedback on the error.
-        </li>
-      </Conditional>
-    </ul>
-
-    <AutoExample name="Validation" column centered spacious />
-  </section>
-
-  <section>
-    <h2 id="spread">Spread</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to the <code
-          >&lt;label class="ui-switch"&gt;</code
-        >
-        to push the label to the left and the switch to the right. This is useful
-        for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
+      <Fragment slot="components"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: set <code
+          >hideLabel</code
+        > to hide it visually.</Fragment
+      >
+      <Fragment slot="html"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: use <code
+          >.ui-sr-only</code
+        > instead of <code>.ui-label</code>.</Fragment
+      >
     </Conditional>
 
-    <AutoExample name="Spread" column />
+    <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Set the <code>small</code> prop for a smaller Switch variant.
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-small</code> class on the <code
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>, on the <code
           >&lt;label class="ui-switch"&gt;</code
-        >
-        for a smaller Switch variant.
-      </Fragment>
-      <Fragment slot="vue">
-        Set the <code>small</code> prop for a smaller Switch variant.
+        >.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Sizes" column centered spacious />
   </section>
 
-  <section>
-    <h2 id="icons">Icons</h2>
+  <section id="visible-label">
+    <h2>Visible label</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="html"
+        >Render the label text inside an element with a <code>.ui-label</code> class.
+        Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="react"
+        ><code>children</code> is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="svelte"
+        >The <code>children</code> snippet is the label. Also, don't miss the info
+        on label <a href="#accessibility" class="ui-link">accessibility</a
+        >.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="VisibleLabel" column centered />
+
+    <h3 id="hidden-label">Hidden label</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>hideLabel</code> to keep the label for screen readers only. The
+        switch then centers in a table cell or a line of text, and keeps a 24px click
+        target.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-sr-only</code> instead of <code>.ui-label</code> to keep the
+        label for screen readers only. The switch then centers in a table cell or
+        a line of text, and keeps a 24px click target.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="HiddenLabel" column centered />
+
+    <h3 id="label-position">Label position</h3>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>orientation="vertical"</code> to put the label under the switch.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-vertical</code> to the <code
+          >&lt;label class="ui-switch"&gt;</code
+        > to put the label under the switch.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="LabelPosition" row spacious />
+
+    <h3 id="end-text">End text</h3>
+    <AutoExample name="EndText" row spacious />
+  </section>
+
+  <section id="icons">
+    <h2>Icons</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Put an icon in the <code>icon-unchecked</code> and <code
+          >icon-checked</code
+        > slots to show it in the thumb. The component hides them from screen readers.</Fragment
+      >
+      <Fragment slot="html"
+        >Put the icons in <code>.ui-icon-unchecked</code> and <code
+          >.ui-icon-checked</code
+        > spans with <code>aria-hidden="true"</code> before the <code
+          >&lt;input&gt;</code
+        >.</Fragment
+      >
+      <Fragment slot="react"
+        >Put an icon in the <code>iconUnchecked</code> and <code
+          >iconChecked</code
+        > props to show it in the thumb. The component hides them from screen readers.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Put an icon in the <code>iconUnchecked</code> and <code
+          >iconChecked</code
+        > snippets to show it in the thumb. The component hides them from screen readers.</Fragment
+      >
+    </Conditional>
     <AutoExample name="Icons" column centered />
   </section>
 
-  <section>
-    <h2 id="field-group">Field group</h2>
-    <p>Use field groups to group related switches.</p>
-    <Conditional>
-      <p slot="astro">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
-      <p slot="html">
-        Give every <code>&lt;input&gt;</code> in the group the same <code
-          >name</code
+  <section id="validation">
+    <h2>Validation</h2>
+    <ValidationNotes element="input" named subject="Switches" />
+
+    <AutoExample name="Validation" column centered spacious />
+  </section>
+
+  <section id="spread">
+    <h2>Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use the <code>spread</code> prop to push the label to the left and the switch
+        to the right. Handy for full-width items like lists and menus, and for <a
+          class="ui-link"
+          href="#cards">cards</a
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to the <code
+          >&lt;label class="ui-switch"&gt;</code
         >
-        attribute so they're submitted together.
-      </p>
-      <p slot="vue">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
+        {" "}to push the label to the left and the switch to the right. Handy
+        for full-width items like lists and menus, and for <a
+          class="ui-link"
+          href="#cards">cards</a
+        >.
+      </Fragment>
     </Conditional>
+
+    <AutoExample name="Spread" column />
+  </section>
+
+  <section id="cards">
+    <h2>Cards</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>card</code> renders the switch as a card that tints when hovered and
+        when checked. Combine it with <code>spread</code> for the switch at the end,
+        and <code>variant="tonal"</code> or
+        <code>variant="elevated"</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a horizontal <code>FieldGroup</code> the cards share the row.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-card</code> renders the switch as a card that tints when hovered
+        and when checked. Combine it with <code>.ui-spread</code> for the switch at
+        the end, and <code>.ui-tonal</code> or
+        <code>.ui-elevated</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a <code>.ui-field-group.ui-horizontal</code> the cards share the row.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CardsMatrix" column />
+  </section>
+
+  <section id="label-alignment">
+    <h2>Label alignment</h2>
+    <LabelAlignment control="switch" />
+  </section>
+
+  <section id="switch-input">
+    <h2>Switch input</h2>
     <p>
-      See also: <DocLink href="/components/form" class="ui-link"
-        >Form documentation</DocLink
+      Use <PropOrClass
+        prop="SwitchInput"
+        class='<input type="checkbox" role="switch">'
+      /> without the label for a custom layout, such as the end of a list item. See
+      {" "}<DocLink href="/components/list#switch" class="ui-link">List</DocLink
       >.
     </p>
-
-    <AutoExample name="FieldGroup" centered column />
-
-    <h3 id="field-group-direction">Direction</h3>
-    <AutoExample name="FieldGroupDirection" row />
-
-    <h3 id="field-group-field-description">Field description</h3>
-    <p>Can be placed above and below the fields.</p>
-    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-
-    <h3 id="field-group-disabled">Disabled</h3>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
-    <AutoExample name="FieldGroupDisabled" row />
-
-    <h3 id="field-group-required">Required</h3>
-    <p>
-      Attach the <code>required</code> attribute to at least one of your <code
-        >&lt;input&gt;</code
-      > elements.
-    </p>
-    <AutoExample name="FieldGroupRequired" row />
-
-    <h3 id="field-group-validation">Validation</h3>
-    <Conditional>
-      <p slot="html">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element.
-      </p>
-      <p slot="astro">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >Fieldset</code
-        > component.
-      </p>
-      <p slot="vue">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >Fieldset</code
-        > component.
-      </p>
-    </Conditional>
-    <AutoExample name="FieldGroupValidation" row />
   </section>
+
+  <section id="field-group">
+    <h2>Field group</h2>
+    <FieldGroupNotes control="switch">
+      <AutoExample name="FieldGroup" centered column />
+    </FieldGroupNotes>
+  </section>
+
+  <SwitchBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <h3 id="role-attributes">Role & attributes</h3>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Role/attribute</th>
-          <th>Usage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>role="switch"</code></td>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Role/attribute</TableHeaderCell>
+          <TableHeaderCell>Usage</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>role="switch"</code></TableCell>
+          <TableCell>
             Required on the <code>input</code> element. Identifies the element that
             serves as a switch.
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="labels">Labels</h3>
     <p>
       Accessible switches should have a label. The first two approaches are
       equally ok:
     </p>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Approach</th>
-          <th>Usage in Switch component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Provide a label inside the element</td>
-          <td
-            >Use a <code>.ui-label</code> child for a <a
-              href="#visible-label"
-              class="ui-link">visible label</a
-            >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
-            it accessible. In Astro, set the <code>hideLabel</code> prop to render
-            the slot content as <code>.ui-sr-only</code>.</td
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Approach</TableHeaderCell>
+          <TableHeaderCell>Usage in Switch component</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Provide a label inside the element</TableCell>
+          <TableCell>
+            <Conditional>
+              <Fragment slot="components"
+                >The default slot is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
+              >
+              <Fragment slot="html"
+                >Use a <code>.ui-label</code> child for a <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
+                it accessible.</Fragment
+              >
+              <Fragment slot="react"
+                ><code>children</code> is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
+              >
+              <Fragment slot="svelte"
+                >The <code>children</code> snippet is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
+              >
+            </Conditional>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Add an <code>aria-label</code> on the input</TableCell>
+          <TableCell
+            >Not used. Use <PropOrClass prop="hideLabel" class=".ui-sr-only" /> instead,
+            also for icon-only switches.</TableCell
           >
-        </tr>
-        <tr>
-          <td>Add an <code>aria-label</code> on the input</td>
-          <td
-            >Used when there's no visible label inside the component (e.g.
-            icon-only switches). In Astro, pass <code>aria-label</code> as a prop
-            on the component and it will land on the input.</td
-          >
-        </tr>
-        <tr>
-          <td>
+        </TableRow>
+        <TableRow>
+          <TableCell>
             Have a visible label that you reference with <code
               >aria-labelledby</code
             >
-          </td>
-          <td>Not used.</td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+          <TableCell>Not used.</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
-    <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><kbd>Space</kbd></td>
-            <td>When Switch is focused it changes its state.</td>
-          </tr>
-          <tr>
-            <td><kbd>Enter</kbd></td>
-            <td>(Optional) When Switch is focused it changes its state.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>
       <div class="switch-anatomy">
-        <UISwitch aria-label="Theme">
+        <UISwitch hideLabel>
+          Theme
           <svg
             slot="icon-unchecked"
             xmlns="http://www.w3.org/2000/svg"
@@ -370,15 +470,6 @@ import Conditional from "../../components/Conditional.astro"
 </Component>
 
 <style is:global>
-  .example-row {
-    display: flex;
-    gap: var(--size-3);
-    align-items: center;
-  }
-  .example-row.ui-spacious {
-    gap: var(--size-6);
-  }
-
   .switch-anatomy {
     align-items: start;
     display: flex;

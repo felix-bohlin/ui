@@ -1,0 +1,16 @@
+{
+  "name": "opui-fixture-vue",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "open-props": "catalog:",
+    "opui-css": "workspace:*",
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.3",
+    "vue-tsc": "^3.3.11"
+  }
+}

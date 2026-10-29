@@ -1,0 +1,103 @@
+---
+import { Button, TextField } from "opui-css/astro"
+
+const label = "Edit"
+const icon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"></path></svg>`
+---
+
+<div class="icon-only">
+  <p aria-atomic="true" aria-live="polite" class="icon-only-status">
+    <code>:has(&gt; svg:only-child)</code>
+    <span class="icon-only-match" data-match="true">matches</span>
+    <span class="icon-only-match" data-match="false">doesn't match</span>
+  </p>
+  <div class="icon-only-stage">
+    <Button type="button" variant="filled">
+      <Fragment set:html={icon} />
+      <span>{label}</span>
+    </Button>
+    <Button type="button" variant="outlined">
+      <Fragment set:html={icon} />
+      <span>{label}</span>
+    </Button>
+  </div>
+  <TextField label="Button label" value={label} />
+</div>
+
+<style>
+  .icon-only {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: min(100%, 28rem);
+  }
+
+  .icon-only-status {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .icon-only-match {
+    color: var(--ui-text);
+
+    &[data-match="true"] {
+      color: var(--ui-primary);
+      display: none;
+    }
+
+    .icon-only:has(.icon-only-stage > :global(.ui-button) > svg:only-child)
+      &[data-match="true"] {
+      display: inline;
+    }
+
+    .icon-only:has(.icon-only-stage > :global(.ui-button) > svg:only-child)
+      &[data-match="false"] {
+      display: none;
+    }
+  }
+
+  .icon-only-stage {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+    min-block-size: var(--ui-button-size);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".icon-only").forEach((demo) => {
+    const input = demo.querySelector("input")
+    const buttons = [...demo.querySelectorAll("button")]
+    const spans = buttons.map((button) => button.querySelector("span"))
+    let name = input?.value.trim() || "Edit"
+
+    const render = () => {
+      const label = input?.value.trim() ?? ""
+      if (label) name = label
+      buttons.forEach((button, index) => {
+        const span = spans[index]
+        if (!span) return
+        span.textContent = label
+        if (label) {
+          button.removeAttribute("aria-label")
+          if (!span.isConnected) button.append(span)
+        } else {
+          button.setAttribute("aria-label", name)
+          span.remove()
+        }
+      })
+    }
+
+    input?.addEventListener("input", render)
+    render()
+  })
+</script>

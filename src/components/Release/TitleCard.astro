@@ -1,0 +1,166 @@
+---
+import { readFileSync } from "node:fs"
+
+const id = "title-card"
+
+const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
+
+const date = changelog.match(/^## 1\.0\.0 - (\d{4}-\d{2}-\d{2})$/m)?.[1]
+
+if (!date) {
+  throw new Error("TitleCard.astro: expected a dated 1.0.0 in the changelog")
+}
+
+const month = new Intl.DateTimeFormat("en", {
+  month: "long",
+  timeZone: "UTC",
+  year: "numeric",
+}).format(new Date(date))
+
+const version = "1.0"
+---
+
+<div class="title-card ui-not-rich-text" id={id}>
+  <p class="title-card-version" style={`--_chars: ${version.length}`}>
+    <span class="title-card-typed">{version}</span>
+  </p>
+  <p class="title-card-date"><time datetime={date}>{month}</time></p>
+</div>
+
+<script>
+  const card = document.querySelector<HTMLElement>("#title-card")
+  if (card && CSS.supports("timeline-trigger", "--title-card view()")) {
+    card.classList.add("title-card-play")
+  } else if (card) {
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          card.classList.add("title-card-play")
+          observer.disconnect()
+        }
+      },
+      { threshold: 1 },
+    ).observe(card)
+  }
+</script>
+
+<style is:global>
+  .title-card {
+    --_type: 1.1s;
+
+    display: grid;
+    gap: var(--ui-space-1);
+    justify-items: start;
+    margin-block: var(--ui-space-4) var(--ui-space-6);
+
+    & p {
+      margin: 0;
+    }
+
+    & .title-card-version {
+      align-items: center;
+      color: var(--ui-text-strong);
+      display: flex;
+      font-family: var(--ui-font-code);
+      font-size: clamp(2.75rem, 7.5vw, 5.25rem);
+      font-weight: var(--ui-font-weight-normal);
+      letter-spacing: 0;
+      line-height: 1.1;
+
+      &::after {
+        background-color: var(--ui-primary);
+        block-size: 0.9em;
+        content: "";
+        inline-size: 0.08em;
+        margin-inline-start: 0.04em;
+        opacity: 0;
+      }
+    }
+
+    & .title-card-typed {
+      display: block;
+      inline-size: calc(var(--_chars) * 1ch);
+      overflow: clip;
+      white-space: nowrap;
+    }
+
+    & .title-card-date {
+      color: var(--ui-text-subtle);
+      font-size: var(--ui-font-size-small);
+      letter-spacing: 0.04em;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .title-card.title-card-play {
+      & .title-card-typed {
+        animation: title-card-type var(--_type) linear 0.3s backwards;
+      }
+
+      & .title-card-version::after {
+        animation: title-card-caret 1.1s step-end calc(var(--_type) + 0.3s) 4
+          both;
+      }
+
+      & .title-card-date {
+        animation: title-card-date 0.6s var(--ui-ease-enter)
+          calc(var(--_type) + 0.4s) backwards;
+      }
+    }
+
+    @supports (timeline-trigger: --title-card view()) {
+      .title-card {
+        timeline-trigger: --title-card view() entry 100% exit 100%;
+      }
+
+      .title-card.title-card-play :is(.title-card-typed, .title-card-date),
+      .title-card.title-card-play .title-card-version::after {
+        animation-trigger: --title-card play-once;
+      }
+    }
+  }
+
+  @keyframes title-card-type {
+    from {
+      animation-timing-function: step-end;
+      inline-size: 0;
+    }
+
+    30% {
+      animation-timing-function: step-end;
+      inline-size: 1ch;
+    }
+
+    52% {
+      animation-timing-function: step-end;
+      inline-size: 2ch;
+    }
+
+    to {
+      inline-size: calc(var(--_chars) * 1ch);
+    }
+  }
+
+  @keyframes title-card-caret {
+    from {
+      opacity: 1;
+    }
+
+    50%,
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes title-card-date {
+    from {
+      opacity: 0;
+      translate: 0 0.25rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>

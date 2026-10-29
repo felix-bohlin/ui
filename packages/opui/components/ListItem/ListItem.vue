@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import { computed, useAttrs } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { tagAttrs } from "../tag"
+import type { Props, Slots } from "./types.vue-props"
 
-const props = defineProps<Props>()
+const {
+  as,
+  borderTop,
+  color,
+  description,
+  disabled,
+  for: htmlFor,
+  href,
+  inset,
+  label,
+  type,
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs()
 
@@ -10,20 +22,18 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const hasLabel = computed(
-  () =>
-    props.type &&
-    (props.type === "checkbox" ||
-      props.type === "radio" ||
-      props.type === "switch"),
+const hasControl = computed(
+  () => type === "checkbox" || type === "radio" || type === "switch",
 )
-const labelClass = computed(() => props.type || "")
-const Tag = computed(() => props.as)
+const Tag = computed(() =>
+  hasControl.value ? "label" : (as ?? (href ? "a" : undefined)),
+)
 
-const liAttrs = computed(() => (Tag.value ? {} : attrs))
-const innerAttrs = computed(() => (Tag.value ? attrs : {}))
-const disabled = computed(() =>
-  "disabled" in props ? props.disabled : undefined,
+const liAttrs = computed(() => (hasControl.value || !Tag.value ? attrs : {}))
+const tagProps = computed(() =>
+  hasControl.value
+    ? { class: `ui-${type}`, for: htmlFor }
+    : { ...tagAttrs(Tag.value ?? "", disabled, href), ...attrs },
 )
 </script>
 
@@ -31,52 +41,26 @@ const disabled = computed(() =>
   <li
     :class="[
       {
-        'ui-border-top': props.borderTop,
-        'ui-inset': props.inset,
+        'ui-border-top': borderTop,
+        'ui-inset': inset,
       },
-      props.class,
+      color && `ui-${color}`,
+      $props.class,
     ]"
     v-bind="liAttrs"
   >
-    <label
-      v-if="hasLabel"
-      :class="labelClass && `ui-${labelClass}`"
-      :for="props.for"
-    >
+    <component :is="Tag" v-if="Tag" v-bind="tagProps">
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
       <div
-        v-if="slots.text || props.headline || props.description"
+        v-if="label || description || slots.label || slots.description"
         class="ui-text"
       >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
-        <slot name="text"></slot>
-      </div>
-      <div v-if="slots.end" class="ui-end">
-        <slot name="end"></slot>
-      </div>
-      <slot></slot>
-    </label>
-
-    <component
-      :is="Tag"
-      v-else-if="Tag"
-      :disabled="disabled"
-      :href="props.href"
-      v-bind="innerAttrs"
-    >
-      <div v-if="slots.start" class="ui-start">
-        <slot name="start"></slot>
-      </div>
-      <div
-        v-if="props.headline || props.description || slots.text"
-        class="ui-text"
-      >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
-        <slot name="text"></slot>
+        <p v-if="label || slots.label">{{ label }}<slot name="label"></slot></p>
+        <p v-if="description || slots.description">
+          {{ description }}<slot name="description"></slot>
+        </p>
         <slot></slot>
       </div>
       <slot v-else></slot>
@@ -90,12 +74,13 @@ const disabled = computed(() =>
         <slot name="start"></slot>
       </div>
       <div
-        v-if="props.headline || props.description || slots.text"
+        v-if="label || description || slots.label || slots.description"
         class="ui-text"
       >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
-        <slot name="text"></slot>
+        <p v-if="label || slots.label">{{ label }}<slot name="label"></slot></p>
+        <p v-if="description || slots.description">
+          {{ description }}<slot name="description"></slot>
+        </p>
         <slot></slot>
       </div>
       <slot v-else></slot>
@@ -103,5 +88,6 @@ const disabled = computed(() =>
         <slot name="end"></slot>
       </div>
     </template>
+    <slot name="submenu"></slot>
   </li>
 </template>

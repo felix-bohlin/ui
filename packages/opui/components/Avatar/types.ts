@@ -1,29 +1,33 @@
 export type Props = {
-  command?: string
-  commandfor?: string
-  interestfor?: string
-  isGroup?: boolean
-  variant?: "squared" | "rounded" | "squircle"
+  shape?: "circle" | "rounded" | "squared" | "squircle"
+  size?: "x-small" | "small" | "medium" | "large"
+  variant?: "filled" | "outlined" | "tonal"
 } & (
   | {
       as?: "div"
-      href: never
       disabled?: never
+      href?: never
     }
   | {
       as?: "a"
+      disabled?: boolean
       href: string
-      disabled?: never
     }
   | {
-      as?: "button"
-      href?: never
+      as: "button"
       disabled?: boolean
+      href?: never
     }
-)
+) &
+  (
+    | {
+        alt: string
+        src: string
+      }
+    | {
+        alt?: never
+        src?: never
+      }
+  )
 
-export type Slots<S> = {
-  children?: S
-}
-
-export type ImageProps = "src" | "alt"
+export type AvatarGroupProps = {}

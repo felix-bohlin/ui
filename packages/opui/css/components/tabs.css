@@ -1,84 +1,349 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_accent-color: var(--primary);
-    --_bg-color: transparent;
+    --_motion: var(--ui-motion);
+    --_duration: calc(var(--ui-duration-fast) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
+    --_indicator-bg-color: transparent;
+    --_indicator-duration: calc(var(--ui-duration) * var(--_motion));
+    --_indicator-size: var(--ui-border-width-thick);
+    --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
+    --_panel-gap: var(--ui-space-2);
+    --_radius: var(--ui-radius);
+    --_selected-bg-color: light-dark(
+      var(--ui-surface),
+      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
+    );
+    --_selected-border-color: var(
+      --ui-control-border-color,
+      var(--ui-field-border-color)
+    );
+    --_selected-shadow: var(--ui-shadow-selected);
+    --_selected-text-color: var(--ui-tabs-accent, var(--ui-text-strong));
+    --_text-color: var(--ui-text-subtle);
+    --_track-bg-color: var(--ui-surface-tonal);
+    --_track-border-color: transparent;
+    --_track-border-width: var(--ui-border-width);
 
     align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
-    gap: 0 var(--size-1);
+    gap: 0;
     position: relative;
 
-    & > .ui-tab-input[type="radio"] {
-      /* utils > .ui-sr-only */
+    & > .ui-input[type="radio"] {
       /* TODO: use mixin for this when available */
-      block-size: 1px;
+      block-size: 1lh;
       clip-path: inset(50%);
-      inline-size: 1px;
+      inline-size: 1ch;
       overflow: hidden;
       position: absolute;
       white-space: nowrap;
 
       &:checked {
         /* Checked Tab */
-        & + [role="tab"],
-        & + .ui-tab-label {
-          border-block-end-color: var(--_accent-color);
-          color: var(--_accent-color);
+        & + .ui-label {
+          color: var(--_selected-text-color);
+
+          &::before {
+            background-color: var(--_selected-bg-color);
+            border-color: var(--_selected-border-color);
+            box-shadow: var(--_selected-shadow);
+          }
+
+          &::after {
+            opacity: 1;
+          }
 
           /* Checked Panel */
-          & + [role="tabpanel"],
-          & + .ui-tab-panel {
+          & + .ui-panel {
             display: block;
           }
         }
       }
 
       &:focus-visible {
-        & + [role="tab"],
-        & + .ui-tab-label {
-          --focus-ring-color: var(--text-muted);
-          --focus-ring-offset: calc(-1 * var(--size-2));
-          outline: var(--focus-ring-width) var(--focus-ring-style)
-            var(--focus-ring-color);
-          outline-offset: var(--focus-ring-offset);
+        & + .ui-label {
+          z-index: 1;
+
+          &::before {
+            animation: ui-focus-ring var(--_focus-ring-duration) var(--_ease);
+            outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+              var(--ui-focus-ring-color);
+            outline-offset: var(--ui-focus-ring-offset);
+          }
         }
       }
     }
 
     /* Tab */
-    & > [role="tab"],
-    & > .ui-tab-label {
+    & > .ui-label {
       align-items: center;
-      background-color: transparent;
-      border-bottom: 2px solid transparent;
-      border-radius: 0;
-      color: var(--text-muted);
+      background-color: var(--_track-bg-color);
+      border-block: var(--_track-border-width) solid var(--_track-border-color);
+      color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
-      font-weight: 600;
+      font-size: var(--ui-font-size-control);
+      font-weight: var(--ui-font-weight-medium);
+      gap: var(--ui-space-2);
+      isolation: isolate;
       justify-content: center;
-      line-height: var(--font-lineheight-4);
+      line-height: var(--ui-line-height-relaxed);
       order: 1;
-      padding: var(--size-2) var(--size-3);
+      padding-block: calc(
+        var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
+      );
+      padding-inline: var(--ui-space-3);
       position: relative;
-      transition: color 0.1s;
+      transition: color var(--_duration) var(--_ease);
+      -webkit-user-select: none;
       user-select: none;
+      white-space: nowrap;
 
-      &:hover {
-        background-color: light-dark(
-          oklch(from var(--_accent-color) calc(l * 0.75) none h / 5%),
-          oklch(from var(--_accent-color) calc(l * 1.25) none h / 5%)
+      &::before {
+        border: var(--ui-border-width) solid transparent;
+        border-radius: calc(
+          var(--_radius) - var(--_inset) - var(--_track-border-width)
         );
+        content: "";
+        inset-block: var(--_inset);
+        inset-inline: 0;
+        position: absolute;
+        transition:
+          background-color var(--_duration) var(--_ease),
+          box-shadow var(--_duration) var(--_ease);
+        z-index: -1;
+      }
+
+      &::after {
+        background-color: var(--_indicator-bg-color);
+        block-size: var(--_indicator-size);
+        border-radius: var(--_indicator-size);
+        content: "";
+        inset-block-end: 0;
+        inset-inline: 0;
+        opacity: 0;
+        position: absolute;
+        transition: opacity var(--_duration) var(--_ease);
+      }
+
+      &:nth-child(1 of .ui-label) {
+        border-end-start-radius: var(--_radius);
+        border-inline-start: var(--_track-border-width) solid
+          var(--_track-border-color);
+        border-start-start-radius: var(--_radius);
+        padding-inline-start: calc(
+          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+        );
+
+        &::before {
+          inset-inline-start: var(--_inset);
+        }
+      }
+
+      &:nth-last-child(1 of .ui-label) {
+        border-end-end-radius: var(--_radius);
+        border-inline-end: var(--_track-border-width) solid
+          var(--_track-border-color);
+        border-start-end-radius: var(--_radius);
+        padding-inline-end: calc(
+          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+        );
+
+        &::before {
+          inset-inline-end: var(--_inset);
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--ui-text-strong);
+        }
       }
     }
 
     /* Tab Panel */
-    & > [role="tabpanel"],
-    & > .ui-tab-panel {
+    & > .ui-panel {
       display: none;
       inline-size: 100%;
+      margin-block-start: var(--_panel-gap);
       order: 2;
+    }
+
+    &.ui-filled {
+      --_selected-bg-color: var(--ui-selected-strong);
+      --_selected-border-color: transparent;
+      --_selected-text-color: var(--ui-on-selected-strong);
+    }
+
+    &.ui-line {
+      --_indicator-bg-color: var(--ui-tabs-accent, var(--ui-text-strong));
+      --_inset: 0px;
+      --_selected-bg-color: transparent;
+      --_selected-border-color: transparent;
+      --_selected-shadow: none;
+      --_track-bg-color: transparent;
+      --_track-border-width: 0px;
+
+      column-gap: var(--ui-space-1);
+    }
+
+    &.ui-outlined {
+      --_selected-bg-color: var(--ui-surface-tonal);
+      --_selected-border-color: transparent;
+      --_selected-shadow: none;
+      --_track-bg-color: transparent;
+      --_track-border-color: var(
+        --ui-control-border-color,
+        var(--ui-border-color)
+      );
+    }
+
+    :where(.ui-accordion, .ui-card, .ui-dialog) > & {
+      & > .ui-input[type="radio"]:focus-visible + .ui-label::before {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
+
+      &.ui-filled > .ui-input:checked + .ui-label::before {
+        --ui-focus-ring-color: var(--ui-on-selected-strong);
+      }
+    }
+
+    &.ui-overflow-scroll {
+      column-gap: 0;
+      container-type: inline-size;
+      display: grid;
+      grid-auto-columns: max-content;
+      overflow-inline: auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
+
+      & > .ui-input[type="radio"] {
+        grid-column: calc((sibling-index() + 2) / 3) / span 1;
+        grid-row: 1 / span 1;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        margin: 0;
+
+        &:focus-visible {
+          & + .ui-label::before {
+            outline-offset: var(--ui-focus-ring-inset);
+          }
+        }
+      }
+
+      &.ui-filled > .ui-input:checked + .ui-label::before {
+        --ui-focus-ring-color: var(--ui-on-selected-strong);
+      }
+
+      & > .ui-label {
+        grid-row: 1;
+      }
+
+      & > .ui-panel {
+        grid-column: 1 / span calc(sibling-count() / 3);
+        grid-row: 2;
+        inline-size: 100cqi;
+        inset-inline-start: 0;
+        margin-inline-end: -100cqi;
+        position: sticky;
+      }
+
+      &.ui-line {
+        & > .ui-label {
+          &:not(:nth-last-child(1 of .ui-label)) {
+            margin-inline-end: var(--ui-space-1);
+          }
+        }
+      }
+    }
+
+    @supports (anchor-name: --x) {
+      @media not (forced-colors: active) {
+        anchor-scope: --ui-tabs-selected;
+        isolation: isolate;
+
+        &::after {
+          background-color: var(--_selected-bg-color);
+          border: var(--ui-border-width) solid var(--_selected-border-color);
+          border-radius: calc(
+            var(--_radius) - var(--_inset) - var(--_track-border-width)
+          );
+          box-shadow: var(--_selected-shadow);
+          content: "";
+          inset: anchor(--ui-tabs-selected inside);
+          pointer-events: none;
+          position: absolute;
+          transition: inset var(--_indicator-duration)
+            var(--ui-ease-move, var(--_ease));
+          z-index: -2;
+        }
+
+        &.ui-line::after {
+          background-color: var(--_indicator-bg-color);
+          border: 0;
+          border-radius: var(--_indicator-size);
+          box-shadow: none;
+          inset-block-start: calc(
+            anchor(--ui-tabs-selected end) - var(--_indicator-size)
+          );
+        }
+
+        & > .ui-input[type="radio"] {
+          &:checked + .ui-label::before {
+            anchor-name: --ui-tabs-selected;
+            background-color: transparent;
+            border-color: transparent;
+            box-shadow: none;
+          }
+
+          &:focus-visible + .ui-label {
+            z-index: auto;
+          }
+        }
+
+        & > .ui-label {
+          background-color: transparent;
+          isolation: auto;
+
+          &::after {
+            background-color: var(--_track-bg-color);
+            block-size: auto;
+            border-radius: inherit;
+            inset-block: calc(-1 * var(--_track-border-width));
+            opacity: 1;
+            transition: none;
+            z-index: -3;
+          }
+
+          &:nth-child(1 of .ui-label)::after {
+            inset-inline-start: calc(-1 * var(--_track-border-width));
+          }
+
+          &:nth-last-child(1 of .ui-label)::after {
+            inset-inline-end: calc(-1 * var(--_track-border-width));
+          }
+        }
+      }
+    }
+
+    @media (forced-colors: active) {
+      & > .ui-label::before {
+        border-color: Canvas;
+      }
+
+      & > .ui-input:checked + .ui-label {
+        --_indicator-bg-color: SelectedItem;
+        --_selected-bg-color: SelectedItem;
+        --_selected-border-color: SelectedItem;
+        --_selected-text-color: SelectedItemText;
+        --_track-bg-color: Canvas;
+        --ui-focus-ring-color: CanvasText;
+
+        border-color: CanvasText;
+        forced-color-adjust: none;
+      }
     }
   }
 }

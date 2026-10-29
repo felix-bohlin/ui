@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import type { DrawerFooterProps, DrawerFooterSlots } from "./types.d.vue"
+import type { DrawerFooterProps as Props, Slots } from "./types.vue-props"
 
-defineProps<DrawerFooterProps>()
-defineSlots<DrawerFooterSlots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
+const { align } = defineProps<Props>()
+defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="['ui-footer', $props.class]" v-bind="$attrs">
+  <div
+    :class="[
+      'ui-footer',
+      align && align !== 'end' && `ui-align-${align}`,
+      $props.class,
+    ]"
+  >
     <slot></slot>
   </div>
 </template>

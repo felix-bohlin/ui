@@ -1,12 +1,28 @@
 ---
-import { Anchor } from "@opui/astro"
+import {
+  Anchor,
+  AnchorContent,
+  Button,
+  Card,
+  CardContent,
+} from "opui-css/astro"
 ---
 
-<Anchor>
-  <button>Hover me</button>
-  <span
-    slot="anchored"
-    style="background: var(--surface-2); padding: var(--size-2) var(--size-3); border-radius: var(--radius-2); box-shadow: var(--shadow-3);"
-    >Floating content</span
-  >
+<Anchor positionArea="inline-end">
+  <Button variant="outlined">Export</Button>
+  <AnchorContent>
+    <Card variant="tonal" class="coach-mark">
+      <CardContent>
+        <strong>New</strong> Export to PDF and CSV from the same menu.
+      </CardContent>
+    </Card>
+  </AnchorContent>
 </Anchor>
+
+<style>
+  .coach-mark {
+    font-size: var(--ui-font-size-body);
+    margin-inline-start: var(--ui-space-2);
+    max-inline-size: 220px;
+  }
+</style>

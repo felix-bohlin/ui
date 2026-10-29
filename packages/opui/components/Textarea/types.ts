@@ -1,33 +1,23 @@
 export type Props = {
   autoFit?: boolean
-  description?: string
+  characterCount?: boolean
+  characterCountLabel?: string
   endText?: string
   error?: boolean
-  filled?: boolean
+  hideLabel?: boolean
   label?: string
-  small?: boolean
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
+  startText?: string
+  variant?: "outlined" | "filled"
 }
 
 export type Slots<S> = {
-  description?: string | S
+  bottom?: string | S
+  end?: string | S
   endText?: string | S
-  footer?: string | S
-  header?: string | S
   label?: string | S
-  prefix?: string | S
+  start?: string | S
   startText?: string | S
-  suffix?: string | S
-  supportingText?: string | S
+  top?: string | S
 }
-
-export type TextareaProps =
-  | "cols"
-  | "disabled"
-  | "maxlength"
-  | "minlength"
-  | "name"
-  | "placeholder"
-  | "required"
-  | "rows"
-  | "value"

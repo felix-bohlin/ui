@@ -4,21 +4,22 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Amount" placeholder="0.00">
-    <template #prefix>¢</template>
-    <template #suffix>EUR</template>
+    <template #start>€</template>
+    <template #end>EUR</template>
   </TextField>
 
   <TextField label="Website" placeholder="example.com">
-    <template #prefix>https://</template>
+    <template #start>https://</template>
   </TextField>
 
   <TextField label="Weight" type="numeric" placeholder="0">
-    <template #suffix>kg</template>
+    <template #end>kg</template>
   </TextField>
 
   <TextField label="Search" placeholder="Search...">
-    <template #prefix
+    <template #start
       ><svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"

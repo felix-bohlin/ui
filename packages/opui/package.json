@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
-  "version": "5.5.0",
-  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
+  "version": "6.0.0-rc.1",
+  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -16,62 +16,112 @@
   },
   "keywords": [
     "astro",
+    "astro-component",
     "components",
     "css",
     "design-system",
     "html",
     "open-props",
+    "react",
+    "react-components",
+    "svelte",
+    "svelte-components",
     "ui",
-    "vue"
+    "vue",
+    "vue-components",
+    "withastro"
   ],
   "sideEffects": [
     "*.css",
-    "./css/js/*.js"
+    "./css/js/*.js",
+    "./elements/*.js"
   ],
+  "bin": {
+    "opui-css": "./bin/opui-css.mjs"
+  },
   "files": [
     "astro",
+    "bin",
     "components",
+    "!components/AGENTS.md",
     "core",
     "css",
     "dist",
+    "elements",
     "env.d.ts",
     "open-props.css",
+    "react",
+    "skills",
+    "svelte",
+    "themes",
+    "tokens.json",
     "vue",
     "CHANGELOG.md",
     "LICENSE",
+    "MIGRATING-legacy.md",
     "MIGRATING.md",
     "README.md"
   ],
   "style": "./dist/opui.css",
+  "svelte": "./svelte/index.ts",
   "exports": {
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
+    "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
+    "./react": "./react/index.ts",
+    "./svelte": {
+      "svelte": "./svelte/index.ts",
+      "default": "./svelte/index.ts"
+    },
+    "./themes/*.css": "./themes/*.css",
+    "./themes/*": "./themes/*.css",
+    "./tokens.json": "./tokens.json",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
+    "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
+    "./css/js/*": "./css/js/*",
+    "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./elements/*": "./elements/*",
+    "./env.d.ts": "./env.d.ts",
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
     "prepack": "node scripts/build.mjs",
-    "release": "pnpm version patch && pnpm publish && git push --follow-tags",
-    "release:minor": "pnpm version minor && pnpm publish && git push --follow-tags",
-    "release:major": "pnpm version major && pnpm publish && git push --follow-tags"
+    "release": "node ../../scripts/release.mjs patch",
+    "release:major": "node ../../scripts/release.mjs major",
+    "release:minor": "node ../../scripts/release.mjs minor",
+    "release:prerelease": "node ../../scripts/release.mjs prerelease"
   },
   "devDependencies": {
+    "open-props": "^1.7.23",
     "postcss": "^8.4.0",
-    "postcss-import": "^16.1.0"
+    "postcss-import": "^16.1.0",
+    "web-features": "catalog:"
   },
   "peerDependencies": {
-    "astro": "^7.0.6",
+    "astro": "^7",
     "open-props": "^1.7.23",
-    "svelte": "^5.56.4",
-    "vue": "^3.5.39"
+    "react": "^19",
+    "react-dom": "^19",
+    "svelte": "^5.57",
+    "vue": "^3.5"
   },
   "peerDependenciesMeta": {
     "astro": {
+      "optional": true
+    },
+    "open-props": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
       "optional": true
     },
     "svelte": {

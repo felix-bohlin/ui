@@ -1,0 +1,46 @@
+import { Select } from "opui-css/react"
+
+export default function Affix() {
+  return (
+    <>
+      <Select label="Currency" start="¤">
+        <option value="">-</option>
+        <option>EUR</option>
+        <option>SEK</option>
+        <option>USD</option>
+      </Select>
+
+      <Select
+        label="Country"
+        start={
+          <svg
+            aria-hidden="true"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M2 12h20"></path>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        }
+      >
+        <option value="">-</option>
+        <option>Denmark</option>
+        <option>Norway</option>
+        <option>Sweden</option>
+      </Select>
+
+      <Select label="Delivery time" end="days">
+        <option>1</option>
+        <option>3</option>
+        <option>5</option>
+      </Select>
+    </>
+  )
+}

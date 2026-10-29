@@ -1,5 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -8,12 +10,29 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import TooltipCSS from "@opui/css/components/tooltip.css?raw"
 
 import tooltipApi from "../../component-api/tooltip/api"
+import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
+
+export const keywords = ["hint", "hover", "title", "toggletip"]
 ---
 
 <Component
+  description="Built on top of Anchor."
   slug="tooltip"
   apis={[{ title: "Tooltip API", api: tooltipApi }]}
-  browserSupport={["anchor-positioning", "popover-hint"]}
+  browserSupport={[
+    "anchor-positioning",
+    "calc-size",
+    "container-style-queries",
+    "display-animation",
+    "interest-invokers",
+    "invoker-commands",
+    "overlay",
+    "popover",
+    "popover-hint",
+    "starting-style",
+    "text-wrap-pretty",
+    "transition-behavior",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Tooltip/Tooltip.astro",
@@ -29,122 +48,150 @@ import tooltipApi from "../../component-api/tooltip/api"
   ]}
   installationTabs={[
     { title: "tooltip.css", code: TooltipCSS, lang: "css" },
-    { title: "anchor.css", code: AnchorCSS, lang: "css" },
+    { title: "anchor.css", code: AnchorCSS, lang: "css", isDependency: true },
   ]}
-  seeAlsoLinks={[{ name: "Anchor", href: "/components/anchor" }]}
 >
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">
     <p>
       Built on top of <DocLink href="/components/anchor">Anchor</DocLink>.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
+        <code>id</code>. Set <code>interestfor</code> with that id on the trigger
+        element itself (it only works on real invokers like{" "}
+        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
+        in
+        <code>TooltipContent</code> after the trigger.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-tooltip</code> class to the wrapper. Give the <code
+          >.ui-floating</code
+        > element <code>popover="hint"</code> and an id, and add <code
+          >interestfor</code
+        > with that id to the trigger.
+      </Fragment>
+    </Conditional>
   </Fragment>
 
-  <Conditional as="p">
-    <Fragment slot="html">
-      Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on
-      the wrapper. Wire <code>interestfor</code> on the trigger to the
-      <code>.ui-anchor-floating[popover="hint"]</code> element's ID.
-    </Fragment>
-    <Fragment slot="astro">
-      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
-      <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
-      and <code>command="toggle-popover"</code> on the trigger element itself (these
-      attributes are only valid on real invokers like
-      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
-      <code>label</code> prop for plain text or use the <code>content</code> slot
-      for richer markup.
-    </Fragment>
-    <Fragment slot="vue">
-      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
-      <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
-      and <code>command="toggle-popover"</code> on the trigger element itself (these
-      attributes are only valid on real invokers like
-      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
-      <code>label</code> prop for plain text or use the <code>content</code> slot
-      for richer markup.
-    </Fragment>
-  </Conditional>
-  <section>
-    <h2 id="basics">Basics</h2>
+  <Usage slot="usage">
+    <li slot="when">
+      A visible label for an icon-only button that already has an <code
+        >aria-label</code
+      >, like Save.
+    </li>
+    <li slot="when">A hint or a keyboard shortcut for a control.</li>
+    <li slot="when-not">
+      Information people need to finish their task. The tooltip only shows on
+      hover, focus or a long press, so put it on the page, or in a <a
+        href="#toggletip">toggletip</a
+      >.
+    </li>
+    <li slot="when-not">
+      Links, buttons or other interactive content. Use an <DocLink
+        href="/components/anchor#hover-trigger">Anchor</DocLink
+      > hover card or a <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
     <h3 id="text-only">Text only...</h3>
     <Conditional as="p">
+      <Fragment slot="components">
+        Put plain text in <code>TooltipContent</code>.
+      </Fragment>
       <Fragment slot="html">
-        Set the tooltip text inside <code
-          >.ui-anchor-floating[popover="hint"]</code
-        >.
-      </Fragment>
-      <Fragment slot="astro">
-        Pass plain text via the <code>label</code> prop.
-      </Fragment>
-      <Fragment slot="vue">
-        Pass plain text via the <code>label</code> prop.
+        Set the tooltip text inside <code>.ui-floating[popover="hint"]</code>.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Basics" centered />
 
-    <section>
-      <h3 id="anything">... or any markup you want</h3>
-      <Conditional as="p">
-        <Fragment slot="html">
-          You can place any markup you want (famous last words) inside <code
-            >.ui-anchor-floating[popover="hint"]</code
-          >, not only text.
-        </Fragment>
-        <Fragment slot="astro">
-          Use the <code>content</code> slot instead, and it let's you put anything
-          in the tooltip.
-        </Fragment>
-        <Fragment slot="vue">
-          Use the <code>content</code> slot instead, and it let's you put anything
-          in the tooltip.
-        </Fragment>
-      </Conditional>
-
-      <AutoExample name="RichContent" centered />
-    </section>
-  </section>
-
-  <section>
-    <h2 id="alignment">Alignment</h2>
+    <h3 id="anything">... or any markup you want</h3>
     <Conditional as="p">
+      <Fragment slot="components">
+        <code>TooltipContent</code> takes any markup, not only text.
+      </Fragment>
       <Fragment slot="html">
-        Set <code>--anchor-position-area</code> on the parent with your preferred
-        <code>position-area</code> value.
-      </Fragment>
-      <Fragment slot="astro">
-        Use the <code>alignment</code> prop.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>alignment</code> prop.
+        You can place any markup you want (famous last words) inside <code
+          >.ui-floating[popover="hint"]</code
+        >, not only text.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Alignment" row spacious />
+    <AutoExample name="RichContent" centered />
   </section>
 
-  <section>
-    <h2 id="arrow">Arrow</h2>
+  <section id="position">
+    <h2>Position</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>positionArea</code> to any <code>position-area</code> value.
+      </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-with-arrow</code> class on the <code>.ui-tooltip</code
-        >. This would be cool to solve with <code>corner-shape</code> one day.
+        Set <code>--ui-anchor-position-area</code> on the parent with your preferred
+        {" "}<code>position-area</code> value.
       </Fragment>
-      <Fragment slot="astro">
+    </Conditional>
+
+    <AutoExample name="Position" row spacious />
+  </section>
+
+  <section id="arrow">
+    <h2>Arrow</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >
-        one day.
+        {" "}one day.
       </Fragment>
-      <Fragment slot="vue">
-        Set the <code>arrow</code> prop. This would be cool to solve with <code
-          >corner-shape</code
-        >
-        one day.
+      <Fragment slot="html">
+        Add the <code>.ui-arrow</code> class on the <code>.ui-tooltip</code>.
+        This would be cool to solve with <code>corner-shape</code> one day.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Arrow" centered />
   </section>
+
+  <section id="toggletip">
+    <h2>Toggletip</h2>
+    <p>
+      A button whose only job is to show the text, like an info button, can
+      toggle the tooltip on a press. Add <code>commandfor</code> and <code
+        >command="toggle-popover"</code
+      > with the tooltip's id next to <code>interestfor</code>, so a tap or a
+      click opens it in every browser with Invoker Commands, touch screens
+      without interest invokers included. Keep them off buttons that act, like
+      Save: a press would run the action and toggle the tooltip at once.
+    </p>
+
+    <AutoExample name="Toggletip" centered />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Chromium exposes the tooltip text as the trigger's description, but only
+        while the tooltip is shown. Put what the user must know in the trigger's
+        own name, like an <code>aria-label</code> on an icon-only button.
+      </li>
+      <li>
+        On a <a href="#toggletip">toggletip</a>, <code>commandfor</code> ties the
+        button to the tooltip, so Chromium also reports it as collapsed or expanded.
+      </li>
+      <li>
+        In browsers without interest invokers, the compat layer shows the
+        tooltip while its trigger is hovered or has keyboard focus. It isn't in
+        the top layer there, so an ancestor that clips its overflow can hide it,
+        and <kbd>Esc</kbd> doesn't close it.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <TooltipBuild slot="under-the-hood" />
 </Component>

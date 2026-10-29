@@ -1,5 +1,7 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
+import { tagAttrs } from "../tag"
 
 export const title = "Avatar"
 
@@ -7,23 +9,27 @@ const {
   alt,
   as,
   class: className,
+  disabled,
   href,
-  isGroup,
+  shape,
+  size,
   src,
   variant,
   ...rest
 } = Astro.props
 
-const Tag = (as || (href ? "a" : "div")) as any
+const Tag = as || (href ? "a" : "div")
 ---
 
 <Tag
   class:list={[
-    { "ui-avatar": !isGroup },
-    !isGroup && variant && `ui-${variant}`,
+    "ui-avatar",
+    shape && shape !== "circle" && `ui-${shape}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}
-  href={href}
-  role={isGroup ? "group" : undefined}
-  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag
+  {...tagAttrs(Tag, disabled, href)}
+  {...rest as HTMLAttributes<"button">}
+  >{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag
 >

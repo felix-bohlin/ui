@@ -1,61 +1,73 @@
 @layer components.root {
   :where(.ui-callout) {
-    --_bg-color: var(--surface-tonal);
-    --_border-color: var(--surface-tonal);
-    --_color: var(--text-primary);
-    --_icon-color: currentColor;
-    --_link-hover-color: var(--primary);
-    --_padding: var(--size-3);
-    --_border-radius: var(--border-radius);
-    --_gap: var(--size-3);
-    --_content-gap: var(--size-2);
-    --_font-size: var(--font-size-05);
-    --_title-font-size: var(--font-size-1);
-    --_icon-size: var(--size-4);
-    --_surface-bg: var(--surface-default);
+    --_motion: var(--ui-motion);
+    --_bg-color: var(--ui-surface-tonal);
+    --_border-color: var(--ui-border-color-raised, var(--ui-surface-tonal));
+    --_content-gap: var(--ui-space-2);
+    --_font-size: var(--ui-font-size-small);
+    --_gap: var(--ui-space-3);
+    --_icon-size: var(--ui-icon-size);
+    --_icon-text-color: currentColor;
+    --_link-duration: calc(var(--ui-duration) * var(--_motion));
+    --_link-ease: var(--ui-ease);
+    --_link-hover-text-color: var(--ui-primary-text);
+    --_outlined-bg-color: var(--ui-surface);
+    --_outlined-border-color: var(--ui-border-color);
+    --_outlined-icon-text-color: currentColor;
+    --_outlined-text-color: var(--ui-text-strong);
+    --_padding: var(--ui-space-3);
+    --_radius: var(--ui-radius);
+    --_shadow: var(--ui-shadow-surface);
+    --_surface-bg-color: var(--ui-surface);
+    --_text-color: var(--ui-text-strong);
+    --_title-font-size: var(--ui-font-size-body);
+    --ui-divider-gap: var(--ui-space-3);
 
-    --_outlined-bg-color: var(--surface-default);
-    --_outlined-border-color: var(--border-color);
-    --_outlined-color: var(--text-primary);
-    --_outlined-icon-color: currentColor;
-
-    background-color: var(--_bg-color, var(--_surface-bg));
-    border: 1px solid var(--_border-color, var(--border-color));
-    border-radius: var(--_border-radius);
-    color: var(--_color);
+    background-color: var(--_surface-bg-color);
+    border: var(--ui-border-width) solid var(--_border-color);
+    border-radius: var(--_radius);
+    box-shadow: var(--_shadow);
+    color: var(--_text-color);
     isolation: isolate;
     padding: var(--_padding);
     position: relative;
+
+    &:not(
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-outlined,
+      .ui-success,
+      .ui-warning
+    ) {
+      --ui-border-color: var(--ui-border-color-on-raised);
+      --ui-field-border-color: var(--ui-field-border-color-on-raised);
+    }
 
     &.ui-critical,
     &.ui-info,
     &.ui-neutral,
     &.ui-success,
     &.ui-warning {
-      --_bg-color: light-dark(
-        oklch(from var(--color-2) l c h / 20%),
-        oklch(from var(--color-6) l c h / 5%)
-      );
-      --_border-color: light-dark(var(--color-5), var(--color-11));
-      --_color: light-dark(var(--color-16), var(--color-1));
-      --_icon-color: var(--color-9);
-
-      --_outlined-bg-color: var(--surface-default);
-      --_outlined-border-color: var(--color-9);
-      --_outlined-color: light-dark(var(--color-15), var(--color-1));
-      --_outlined-icon-color: var(--color-9);
+      --_bg-color: var(--ui-palette-tint-subtle);
+      --_border-color: var(--ui-palette-border);
+      --_icon-text-color: var(--ui-palette-accent);
+      --_outlined-border-color: var(--ui-palette-accent);
+      --_outlined-icon-text-color: var(--ui-palette-accent);
+      --_outlined-text-color: var(--ui-palette-strong);
+      --_text-color: var(--ui-palette-strong);
     }
 
     &.ui-outlined {
       --_bg-color: var(--_outlined-bg-color);
       --_border-color: var(--_outlined-border-color);
-      --_color: var(--_outlined-color);
-      --_icon-color: var(--_outlined-icon-color);
+      --_icon-text-color: var(--_outlined-icon-text-color);
+      --_text-color: var(--_outlined-text-color);
     }
 
     &::before {
       background-color: var(--_bg-color);
-      border-radius: inherit;
+      border-radius: max(0px, calc(var(--_radius) - var(--ui-border-width)));
       content: "";
       inset: 0;
       pointer-events: none;
@@ -64,9 +76,12 @@
     }
 
     & > .ui-content {
-      display: grid;
+      display: flow-root;
       font-size: var(--_font-size);
-      gap: var(--_content-gap);
+
+      & > * + * {
+        margin-block-start: var(--_content-gap);
+      }
 
       h1,
       h2,
@@ -76,7 +91,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: 600;
+        font-weight: var(--ui-font-weight-semibold);
 
         * {
           font-size: inherit;
@@ -91,22 +106,55 @@
       a[href] {
         color: inherit;
 
-        &:hover {
-          color: var(--_link-hover-color);
+        &:where(:not([class*="ui-"])) {
+          transition: color var(--_link-duration) var(--_link-ease);
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            color: var(--_link-hover-text-color);
+          }
+        }
+
+        &:focus-visible {
+          color: var(--_link-hover-text-color);
         }
       }
     }
 
     /* Icon */
-    &:has(svg) {
+    &:has(> svg) {
+      align-content: start;
       display: grid;
       gap: var(--_gap);
       grid-template-columns: var(--_icon-size) 1fr;
 
-      svg {
-        margin-block-start: 0.15rem;
-        stroke: var(--_icon-color);
+      & > svg {
+        color: var(--_icon-text-color);
+        margin-block-start: 0.15em;
       }
+    }
+  }
+
+  @scope (.ui-rich-text) to (.ui-not-rich-text) {
+    .ui-callout > .ui-content,
+    .ui-callout > :scope.ui-content {
+      display: block;
+    }
+
+    .ui-callout > .ui-content > * + *,
+    .ui-callout > :scope.ui-content > * + * {
+      margin-block-start: revert-layer;
+    }
+
+    .ui-callout > .ui-content :is(h1, h2, h3, h4, h5, h6):where(:not([class])),
+    .ui-callout
+      > :scope.ui-content
+      :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
+      letter-spacing: inherit;
+      line-height: inherit;
+      margin-block: 0;
+      text-wrap: inherit;
     }
   }
 }

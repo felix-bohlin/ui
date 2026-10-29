@@ -1,45 +1,46 @@
+import { modalKeyboard } from "../keyboard.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Dialog",
+  css: ["card", "dialog"],
+  keyboard: modalKeyboard("dialog"),
   notes: {
-    html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
-    vue: "Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.",
+    default:
+      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.",
+    html: "Add `.ui-elevated` to the root for the raised surface.",
   },
   options: [
-    {
-      description: "Alignment for the actions.",
-      group: "Alignment",
-      part: ".ui-actions",
-      prop: "actionsAlign",
-      values: { end: ".ui-align-end", start: null },
-    },
     {
       attribute: "[closedby]",
       description:
         'How the dialog can be closed. `"any"` also closes it on a click outside.',
-      frameworks: ["astro", "html", "vue"],
-      group: "Close behavior",
+      group: "Behavior",
       prop: "closedby",
-      type: '"any" | "closerequest" | "none"',
     },
   ],
   parts: [
     {
-      code: "<hgroup>",
-      description: "The dialog header.",
-      selector: "hgroup",
-      slots: ["header"],
+      component: "DialogHeader",
+      description: "The header, a row for the title and anything next to it.",
+      selector: ".ui-header",
     },
     {
-      description: "The dialog content.",
+      code: "<h2>",
+      component: "DialogTitle",
+      description: "The title. Names the dialog through `aria-labelledby`.",
+      selector: ".ui-header > h2",
+    },
+    {
+      anchorName: "--ui-dialog-content",
+      component: "DialogContent",
+      description: "The scrollable content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
-      description: "A group of actions, such as buttons.",
-      selector: ".ui-actions",
-      slots: ["actions"],
+      component: "DialogFooter",
+      description: "The footer, a row at the end.",
+      selector: ".ui-footer",
     },
   ],
   root: {
@@ -48,7 +49,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the dialog.",
+      description: "The dialog parts, and any other content.",
       name: "default",
     },
   ],

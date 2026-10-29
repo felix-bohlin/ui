@@ -1,42 +1,87 @@
 ---
+import Code from "./Code.astro"
 import CodeGroup from "./CodeGroup.astro"
-import { components } from "../utils/components"
+import { compatCss } from "../utils/compat"
+import { components, dependentsOf } from "../utils/components"
+import { componentHasFramework } from "../utils/framework"
 
 export type Tab = {
   title: string
-  code?: string
+  code: string
   lang?: string
   isDependency?: boolean
-  seeAlso?: boolean
 }
 
 type Props = {
+  imports?: { names: string[]; package: string }
+  slug?: string
   tabs: Tab[]
 }
 
-const { tabs } = Astro.props
+const { imports, slug, tabs } = Astro.props
+
+const importLine = imports
+  ? `import { ${imports.names.join(", ")} } from "${imports.package}"`
+  : ""
+const importCode =
+  imports && importLine.length > 80
+    ? `import {\n${imports.names.map((name) => `  ${name},`).join("\n")}\n} from "${imports.package}"`
+    : importLine
+
 const { link } = Astro.locals
+
+const pageFor = (tab: Tab) =>
+  components.find((c) => c.slug === tab.title.replace(/\.css$/, ""))
 
 const dependencies = tabs
   .filter((tab) => tab.isDependency)
-  .map((tab) => {
-    const slug = tab.title.replace(".css", "")
-    return components.find((c) => c.href.endsWith(slug))
-  })
-  .filter((c): c is (typeof components)[number] => c != null)
+  .map(pageFor)
+  .filter((c) => c !== undefined)
 
-const seeAlsoLinks = tabs
-  .filter((tab) => tab.seeAlso)
-  .map((tab) => {
-    const slug = tab.title.replace(".css", "")
-    return components.find((c) => c.href.endsWith(slug))
-  })
-  .filter(Boolean) as (typeof components)[number][]
+const allTabs = [
+  ...tabs,
+  ...tabs.flatMap((tab) =>
+    compatCss[tab.title]
+      ? [
+          {
+            code: compatCss[tab.title],
+            isDependency: tab.isDependency,
+            lang: "css",
+            title: `compat/${tab.title}`,
+          },
+        ]
+      : [],
+  ),
+]
+
+const cssTabs = allTabs.filter((tab) => tab.title.endsWith(".css"))
+const allCss = cssTabs
+  .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
+  .join("\n")
+
+const usedBy = slug
+  ? dependentsOf(slug).filter((c) =>
+      componentHasFramework(Astro.locals.framework, c.slug),
+    )
+  : []
 ---
 
-<section>
-  <h2 id="installation">Installation</h2>
+<section id="installation">
+  <h2>Installation</h2>
   <slot />
+
+  {
+    imports && imports.names.length > 0 && (
+      <>
+        <p>
+          Import{" "}
+          {imports.names.length === 1 ? "the component" : "the components"} from{" "}
+          <code>{imports.package}</code>:
+        </p>
+        <Code code={importCode} lang="ts" />
+      </>
+    )
+  }
 
   {
     dependencies.length > 0 && (
@@ -54,11 +99,11 @@ const seeAlsoLinks = tabs
   }
 
   {
-    seeAlsoLinks.length > 0 && (
+    usedBy.length > 0 && (
       <>
-        <h3 id="see-also">See also</h3>
+        <h3 id="used-by">Used by</h3>
         <ul>
-          {seeAlsoLinks.map((item) => (
+          {usedBy.map((item) => (
             <li>
               <a href={link(item.href)}>{item.name}</a>
             </li>
@@ -68,5 +113,56 @@ const seeAlsoLinks = tabs
     )
   }
 
-  <CodeGroup tabs={tabs.filter((tab) => tab.code)} />
+  {
+    cssTabs.length > 0 && (
+      <div class="copy-all-css">
+        <p>
+          Copy the CSS into your project to own it. It reads tokens from Open
+          Props, <code>palette.css</code> and <code>theme.css</code>, so those
+          go on the page too, after <code>layers.css</code>. See
+          <a href={link("/guide/getting-started")}>Getting started</a>.
+        </p>
+        {cssTabs.length > 1 && (
+          <button
+            type="button"
+            class="ui-button ui-outlined ui-small"
+            data-css={allCss}
+          >
+            Copy all CSS
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  <CodeGroup tabs={allTabs} />
 </section>
+
+<style>
+  .copy-all-css {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+    justify-content: space-between;
+
+    p {
+      flex: 1 1 30ch;
+      margin: 0;
+    }
+  }
+</style>
+
+<script>
+  import { copyText } from "../utils/storage"
+
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as Element).closest<HTMLElement>(
+      ".copy-all-css [data-css]",
+    )
+    if (!button || !(await copyText(button.dataset.css ?? ""))) return
+    const label = button.textContent
+    button.textContent = "Copied"
+    setTimeout(() => (button.textContent = label), 1500)
+  })
+</script>

@@ -1,25 +1,52 @@
 ---
+import FieldGroupNotes from "./partials/FieldGroupNotes.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
+import Usage from "./partials/Usage.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Checkbox as UICheckbox } from "@opui/astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  Checkbox as UICheckbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
+import SelectAllCSS from "@opui/css/components/select-all.css?raw"
+import SelectAllJS from "@opui/elements/select-all.js?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
+import checkboxInputApi from "../../component-api/checkbox-input/api"
 import fieldGroupApi from "../../component-api/field-group/api"
+import selectAllApi from "../../component-api/select-all/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
+
+export const keywords = ["check", "tick"]
 ---
 
 <Component
   slug="checkbox"
   heroAnatomy
-  browserSupport={["has"]}
+  browserSupport={["has", "lh", "light-dark", "relative-color", "user-pseudos"]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
+    { title: "Checkbox input API", api: checkboxInputApi },
     { title: "Field group API", api: fieldGroupApi },
+    { title: "Select all API", api: selectAllApi },
   ]}
   changelogPaths={[
     {
@@ -37,82 +64,185 @@ import Conditional from "../../components/Conditional.astro"
       type: "css",
     },
     { path: "src/component-api/checkbox", type: "api" },
+    { path: "src/component-api/checkbox-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
+    {
+      path: "packages/opui/components/SelectAll",
+      type: "component",
+    },
+    { path: "packages/opui/elements/select-all.js", type: "component" },
+    { path: "src/component-api/select-all", type: "api" },
   ]}
   installationTabs={[
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
+    { title: "select-all.css", code: SelectAllCSS, lang: "css" },
+    { title: "select-all.js", code: SelectAllJS, lang: "js" },
   ]}
 >
   <Fragment slot="title">Checkbox</Fragment>
   <Fragment slot="preamble">
-    See also: <a href="#field-group" class="ui-link">Checkbox field group</a>.
+    Use a Checkbox for choices that are submitted with a form. For a setting
+    that applies right away, use a <DocLink href="/components/switch"
+      >Switch</DocLink
+    >, and for options in a toolbar a <DocLink href="/components/toggle"
+      >Toggle</DocLink
+    >. See also: <a href="#field-group" class="ui-link">Checkbox field group</a
+    >.
   </Fragment>
 
-  <AutoExample name="Variants" row />
-
-  <section>
-    <h2 id="visible-label">Visible label</h2>
-    <p>
-      Render the label text inside an element with a <code>.ui-label</code> class.
-      Also, don't miss the info on label <a
-        href="#accessibility"
-        class="ui-link">accessibility</a
+  <Usage slot="usage">
+    <li slot="when">
+      A choice that is submitted with a form, like agreeing to the terms.
+    </li>
+    <li slot="when">
+      Any number of options from a short list, in a <a href="#field-group"
+        >field group</a
       >.
-    </p>
+    </li>
+    <li slot="when">
+      Selecting all the items of a list at once, with a <a href="#select-all"
+        >select all</a
+      > checkbox that is indeterminate while some are checked.
+    </li>
+    <li slot="when-not">
+      A setting that applies right away. Use a <DocLink
+        href="/components/switch">Switch</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      One choice out of several. Use a <DocLink href="/components/radio"
+        >Radio</DocLink
+      > group.
+    </li>
+    <li slot="when-not">
+      Options in a toolbar, like bold. Use a <DocLink href="/components/toggle"
+        >Toggle</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <AutoExample name="Basics" row />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>, on the <code
+          >&lt;label class="ui-checkbox"&gt;</code
+        >.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
+
+  <section id="visible-label">
+    <h2>Visible label</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="html"
+        >Render the label text inside an element with a <code>.ui-label</code> class.
+        Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="react"
+        ><code>children</code> is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="svelte"
+        >The <code>children</code> snippet is the label. Also, don't miss the info
+        on label <a href="#accessibility" class="ui-link">accessibility</a
+        >.</Fragment
+      >
+    </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
+    <h3 id="hidden-label">Hidden label</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>hideLabel</code> to keep the label for screen readers only. The
+        checkbox then centers in a table cell or a line of text, and keeps a 24px
+        click target.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-sr-only</code> instead of <code>.ui-label</code> to keep the
+        label for screen readers only. The checkbox then centers in a table cell or
+        a line of text, and keeps a 24px click target.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="HiddenLabel" column centered />
+
     <h3 id="label-position">Label position</h3>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> to put
+      the label under the checkbox.
+    </p>
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
-    <AutoExample name="SupportingText" row spacious />
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Use the <code>endText</code> prop or the <code>end-text</code> slot for supporting
+        text under the label. It sits inside the <code>&lt;label&gt;</code>, so
+        screen readers read it with the label.</Fragment
+      >
+      <Fragment slot="html"
+        >Add a <code>&lt;span class="ui-end-text"&gt;</code> after the <code
+          >.ui-label</code
+        > for supporting text under the label. It sits inside the <code
+          >&lt;label&gt;</code
+        >, so screen readers read it with the label.</Fragment
+      >
+      <Fragment slot="react"
+        >Use the <code>endText</code> prop for supporting text under the label. It
+        sits inside the <code>&lt;label&gt;</code>, so screen readers read it
+        with the label.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Use the <code>endText</code> prop for supporting text under the label. It
+        sits inside the <code>&lt;label&gt;</code>, so screen readers read it
+        with the label.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="EndText" row spacious />
 
     <h3 id="validation">Validation</h3>
-    <ul>
-      <Conditional>
-        <li slot="astro">
-          Set <code>required</code> on the component to toggle required styles on
-          the input.
-        </li>
-        <li slot="vue">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="html">
-          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
-          toggle required styles.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          <code>data-invalid</code> on the root element. Make use of the end text
-          to give extra feedback on the error.
-        </li>
-        <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          <code>data-invalid</code> on the root element. Make use of the end text
-          to give extra feedback on the error.
-        </li>
-        <li slot="html">
-          Add <code>data-invalid</code> on the root element to toggle invalid styles.
-          Make use of the end text to give extra feedback on the error.
-        </li>
-      </Conditional>
-    </ul>
+    <ValidationNotes element="input" named subject="Checkboxes" />
 
     <AutoExample name="Validation" column spacious />
   </section>
 
-  <section>
-    <h2 id="indeterminate">Indeterminate</h2>
-    <Conditional>
+  <section id="indeterminate">
+    <h2>Indeterminate</h2>
+    <Conditional as="div">
       <Fragment slot="astro">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
-          <code>indeterminate</code> is a JavaScript-only property on <code
+          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
           the property at runtime.
@@ -120,225 +250,193 @@ import Conditional from "../../components/Conditional.astro"
 
         <div class="ui-not-rich-text">
           <UICallout>
-            <Fragment slot="title">JavaScript required</Fragment>
-            <div class="ui-rich-text">
-              The <code>indeterminate</code> state cannot be set with HTML or CSS
-              alone. The browser only exposes it as a property on <code
-                >HTMLInputElement</code
-              >, so a small script is needed to flip <code
-                >el.indeterminate = true</code
-              > after the element is in the DOM. The <code>:indeterminate</code> CSS
-              pseudo-class then matches and the dash glyph appears.
-            </div>
+            <UICalloutContent>
+              <h3>JavaScript required</h3>
+              <div class="ui-rich-text">
+                The <code>indeterminate</code> state cannot be set with HTML or CSS
+                alone. The browser only exposes it as a property on <code
+                  >HTMLInputElement</code
+                >, so the component ships a script that sets <code
+                  >el.indeterminate = true</code
+                > on load. The <code>:indeterminate</code> CSS pseudo-class then matches
+                and the dash glyph appears. To change the state later, set
+                <code>el.indeterminate</code> yourself, or let <a
+                  href="#select-all">SelectAll</a
+                > set it.
+              </div>
+            </UICalloutContent>
           </UICallout>
         </div>
       </Fragment>
-
-      <Fragment slot="vue">
+      <Fragment slot="components">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
-          <code>indeterminate</code> is a JavaScript-only property on <code
+          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
           the property at runtime.
         </p>
       </Fragment>
-
       <div slot="html" class="ui-not-rich-text">
         <p>
           Add <code>data-indeterminate</code> to the <code
             >&lt;input type="checkbox"&gt;</code
-          > and run a script that sets <code>el.indeterminate = true</code>. <code
-            >indeterminate</code
-          > is a JavaScript-only property on <code>HTMLInputElement</code> - the attribute
-          alone has no effect.
+          > and call <code>activateIndeterminate()</code> from <code
+            >opui-css/css/js/checkbox.js</code
+          > once the element is in the DOM. The attribute alone has no effect. When
+          you add or remove <code>data-indeterminate</code> later, call <code
+            >syncIndeterminate(input)</code
+          >.
         </p>
 
         <UICallout>
-          <Fragment slot="title">JavaScript required</Fragment>
-          <div class="ui-rich-text">
-            The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
-            The browser only exposes it as a property on <code
-              >HTMLInputElement</code
-            >, so a small script is needed to flip <code
-              >el.indeterminate = true</code
-            > after the element is in the DOM. The <code>:indeterminate</code> CSS
-            pseudo-class then matches and the dash glyph appears.
-          </div>
+          <UICalloutContent>
+            <h3>JavaScript required</h3>
+            <div class="ui-rich-text">
+              The <code>indeterminate</code> state cannot be set with HTML or CSS
+              alone. The browser only exposes it as a property on <code
+                >HTMLInputElement</code
+              >, so <code>activateIndeterminate()</code> sets <code
+                >el.indeterminate = true</code
+              > on every input with <code>data-indeterminate</code>. The <code
+                >:indeterminate</code
+              > CSS pseudo-class then matches and the dash glyph appears.
+            </div>
+          </UICalloutContent>
         </UICallout>
       </div>
     </Conditional>
 
+    <h3 id="select-all">Select all</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Wrap the group in <code>SelectAll</code> and add <code
+          >data-select-all=""</code
+        > to the checkbox that controls it. Checking it checks the other enabled checkboxes
+        inside, and it's checked when they all are and indeterminate when some are,
+        also after a form reset. It works around a <code>Fieldset</code> or a <DocLink
+          href="/components/table#sorting">Table</DocLink
+        >, and it fires each checkbox's own change, so your handlers and
+        bindings follow.
+      </Fragment>
+      <Fragment slot="html">
+        Wrap the group in <code
+          >&lt;opui-select-all class="ui-select-all"&gt;</code
+        >, add <code>data-select-all</code> to the checkbox that controls it and import
+        <code>opui-css/elements/select-all.js</code>. Checking it checks the
+        other enabled checkboxes inside, and it's checked when they all are and
+        indeterminate when some are, also after a form reset. It works around a
+        fieldset or a <DocLink href="/components/table#sorting">table</DocLink>,
+        and it fires each checkbox's own <code>change</code> event.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Indeterminate" column centered spacious />
-
-    <section>
-      <h2 id="spread">Spread</h2>
-      <Conditional as="p">
-        <Fragment slot="astro">
-          Use the <code>spread</code> prop to push the label to the left and the checkbox
-          to the right. This is useful for full-width items like lists and menus.
-        </Fragment>
-        <Fragment slot="html">
-          Add the <code>.ui-spread</code> class to the <code
-            >&lt;label class="ui-checkbox"&gt;</code
-          >
-          to push the label to the left and the checkbox to the right. This is useful
-          for full-width items like lists and menus.
-        </Fragment>
-        <Fragment slot="vue">
-          Use the <code>spread</code> prop to push the label to the left and the checkbox
-          to the right. This is useful for full-width items like lists and menus.
-        </Fragment>
-      </Conditional>
-
-      <AutoExample name="Spread" column />
-    </section>
-
-    <section>
-      <h2 id="sizes">Sizes</h2>
-      <AutoExample name="Sizes" column centered spacious />
-    </section>
-
-    <section>
-      <h2 id="field-group">Field group</h2>
-      <p>Use field groups to group related checkboxes.</p>
-      <Conditional>
-        <p slot="astro">
-          The <code>name</code> prop will get passed down to each checkbox in the
-          group.
-        </p>
-        <p slot="html">
-          Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
-          <code>name</code> attribute so they're submitted together.
-        </p>
-        <p slot="vue">
-          The <code>name</code> prop will get passed down to each checkbox in the
-          group.
-        </p>
-      </Conditional>
-      <p>
-        See also: <DocLink href="/components/form" class="ui-link"
-          >Form documentation</DocLink
-        >.
-      </p>
-
-      <AutoExample name="FieldGroup" centered column />
-
-      <h3 id="field-group-direction">Direction</h3>
-      <AutoExample name="FieldGroupDirection" row />
-
-      <h3 id="field-group-field-description">Field description</h3>
-      <p>Can be placed above and below the fields.</p>
-      <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-
-      <h3 id="field-group-disabled">Disabled</h3>
-      <p>
-        Attach the <code>disabled</code> attribute to the <code
-          >&lt;fieldset&gt;</code
-        > element.
-      </p>
-      <AutoExample name="FieldGroupDisabled" row />
-
-      <h3 id="field-group-required">Required</h3>
-      <p>
-        Attach the <code>required</code> attribute to at least one of your <code
-          >&lt;input&gt;</code
-        > elements.
-      </p>
-      <AutoExample name="FieldGroupRequired" row />
-
-      <h3 id="field-group-validation">Validation</h3>
-      <Conditional>
-        <p slot="html">
-          Attach the <code>data-invalid</code> attribute to your <code
-            >&lt;fieldset class="ui-fieldset"&gt;</code
-          > element
-        </p>
-        <p slot="astro">
-          Attach the <code>data-invalid</code> attribute to your <code
-            >Fieldset</code
-          > component.
-        </p>
-        <p slot="vue">
-          Attach the <code>data-invalid</code> attribute to your <code
-            >FieldSet</code
-          > component.
-        </p>
-      </Conditional>
-      <AutoExample name="FieldGroupValidation" row />
-    </section>
-
-    <Fragment slot="accessibility">
-      <h3 id="labels">Labels</h3>
-      <p>
-        Accessible checkboxes must have a label. You can choose between three
-        approaches:
-      </p>
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Approach</th>
-            <th>Usage in Checkbox component</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              Provide a label text inside the <code>label</code>/<code
-                >role="checkbox"</code
-              > element
-            </td>
-            <td>Default</td>
-          </tr>
-          <tr>
-            <td>Add a <code>aria-label</code> on the input element</td>
-            <td>Not used</td>
-          </tr>
-          <tr>
-            <td>
-              Have a visible label that you reference with <code
-                >aria-labelledby</code
-              >
-            </td>
-            <td>Not used</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3 id="keyboard-support">Keyboard support</h3>
-      <div class="ui-not-rich-text">
-        <table class="ui-table">
-          <thead>
-            <tr>
-              <th>Key</th>
-              <th>Function</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><kbd>Space</kbd></td>
-              <td>When Checkbox is focused it changes its state.</td>
-            </tr>
-            <tr>
-              <td><kbd>Enter</kbd></td>
-              <td>(Optional) When Checkbox is focused it changes its state.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </Fragment>
   </section>
 
-  <style is:global>
-    .example-row {
-      display: flex;
-      gap: var(--size-3);
-      align-items: center;
-    }
-    .example-row.ui-spacious {
-      gap: var(--size-6);
-    }
-  </style>
+  <section id="spread">
+    <h2>Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use the <code>spread</code> prop to push the label to the left and the checkbox
+        to the right. Handy for full-width items like lists and menus, and for <a
+          class="ui-link"
+          href="#cards">cards</a
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to the <code
+          >&lt;label class="ui-checkbox"&gt;</code
+        >
+        {" "}to push the label to the left and the checkbox to the right. Handy
+        for full-width items like lists and menus, and for <a
+          class="ui-link"
+          href="#cards">cards</a
+        >.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Spread" column />
+  </section>
+
+  <section id="cards">
+    <h2>Cards</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>card</code> renders the checkbox as a card that tints when hovered and
+        when checked. Combine it with <code>spread</code> for the checkbox at the
+        end, and <code>variant="tonal"</code> or
+        <code>variant="elevated"</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a horizontal <code>FieldGroup</code> the cards share the row.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-card</code> renders the checkbox as a card that tints when hovered
+        and when checked. Combine it with <code>.ui-spread</code> for the checkbox
+        at the end, and <code>.ui-tonal</code> or
+        <code>.ui-elevated</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a <code>.ui-field-group.ui-horizontal</code> the cards share the row.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CardsMatrix" column />
+  </section>
+
+  <section id="label-alignment">
+    <h2>Label alignment</h2>
+    <LabelAlignment control="checkbox" />
+  </section>
+
+  <section id="field-group">
+    <h2>Field group</h2>
+    <FieldGroupNotes control="checkbox">
+      <AutoExample name="FieldGroup" centered column />
+    </FieldGroupNotes>
+  </section>
+
+  <CheckboxBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <h3 id="labels">Labels</h3>
+    <p>
+      Accessible checkboxes must have a label. You can choose between three
+      approaches:
+    </p>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Approach</TableHeaderCell>
+          <TableHeaderCell>Usage in Checkbox component</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>
+            Provide a label text inside the <code>label</code> element
+          </TableCell>
+          <TableCell>Default</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell
+            >Add an <code>aria-label</code> on the input element</TableCell
+          >
+          <TableCell>Not used</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            Have a visible label that you reference with <code
+              >aria-labelledby</code
+            >
+          </TableCell>
+          <TableCell>Not used</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>

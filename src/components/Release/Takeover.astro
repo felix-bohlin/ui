@@ -1,0 +1,226 @@
+---
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+
+const id = "takeover"
+
+const content = "#main-content"
+
+const picked = `:has(#${id} [name="${id}"]:checked:not([value=""]))`
+
+const stageOf = (name: string) =>
+  `${content}:has(#${id} [name="${id}"][value="${name}"]:checked)`
+
+const rewrite = (css: string, from: string, to: string) => {
+  if (!css.includes(from)) {
+    throw new Error(`Takeover.astro: expected "${from}" in the theme CSS`)
+  }
+  return css.replaceAll(from, to)
+}
+
+const tokens = [
+  ...new Set(EXAMPLE_THEMES.flatMap((theme) => Object.keys(theme.tokens))),
+].toSorted()
+
+const resetCss = `@layer theme.custom {\n${content}:where(${picked}) {\n${tokens
+  .map((token) => `${token}: revert-layer;`)
+  .join("\n")}\n}\n}`
+
+const scopedCss = EXAMPLE_THEMES.map(({ css, name }) => {
+  const rewrites = [
+    [":where(html, .ui-palette, .ui-contrast-more)", "&"],
+    ["html:not(.ui-contrast-normal)", "html:not(.ui-contrast-normal) &"],
+    [
+      ":where(.ui-contrast-more, .ui-contrast-more .ui-palette)",
+      ":where(& .ui-contrast-more, .ui-contrast-more &)",
+    ],
+    ["@layer theme.custom {", `@layer theme.custom {\n${stageOf(name)} {`],
+  ]
+  const body = css.replace(/^@layer [^{]+;\n/gm, "").trimEnd()
+  return `${rewrites.reduce(
+    (result, [from, to]) => rewrite(result, from, to),
+    body,
+  )}\n}`
+}).join("\n")
+---
+
+<div class="takeover ui-not-rich-text" id={id}>
+  <span class="takeover-label" id={`${id}-label`}>Theme the post</span>
+  <ToggleGroup
+    aria-labelledby={`${id}-label`}
+    name={id}
+    overflow="scroll"
+    size="small"
+  >
+    <ToggleButton checked value="">Default</ToggleButton>
+    {
+      EXAMPLE_THEMES.map((theme) => (
+        <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
+      ))
+    }
+  </ToggleGroup>
+</div>
+
+<style is:inline set:html={`${resetCss}\n${scopedCss}`}></style>
+
+<script>
+  const content = document.querySelector<HTMLElement>("#main-content")
+  const dock = document.querySelector<HTMLElement>("#takeover")
+  let timer = 0
+
+  const sync = () => {
+    const value = dock?.querySelector<HTMLInputElement>(":checked")?.value
+    content?.classList.toggle("ui-palette", Boolean(value))
+  }
+
+  dock?.addEventListener("change", () => {
+    content?.classList.add("takeover-fading")
+    sync()
+    window.clearTimeout(timer)
+    timer = window.setTimeout(
+      () => content?.classList.remove("takeover-fading"),
+      1000,
+    )
+  })
+
+  const lazy = () =>
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => content?.classList.add("takeover-lazy")),
+    )
+
+  sync()
+  window.addEventListener("pageshow", sync)
+  if (document.readyState === "complete") lazy()
+  else window.addEventListener("load", lazy, { once: true })
+</script>
+
+<style is:global>
+  .takeover {
+    --_offset: calc(
+      2.625rem + var(--ui-space-4) + env(safe-area-inset-bottom, 0px)
+    );
+
+    align-items: center;
+    background-color: var(--ui-surface-elevated);
+    border: var(--ui-border-width) solid
+      var(--ui-border-color-raised, var(--ui-border-color));
+    border-radius: var(--ui-radius-large);
+    box-shadow: var(--ui-shadow-overlay);
+    color: var(--ui-text);
+    display: flex;
+    gap: var(--ui-space-3);
+    inline-size: fit-content;
+    inset-block-start: calc(100dvh - var(--_offset));
+    margin-block: var(--ui-space-2) var(--ui-space-4);
+    margin-inline: auto;
+    max-inline-size: 100%;
+    padding: var(--ui-space-1);
+    padding-inline-start: var(--ui-space-3);
+    position: sticky;
+    z-index: 20;
+
+    & .takeover-label {
+      color: var(--ui-text-subtle);
+      flex: none;
+      font-size: var(--ui-font-size-caption);
+      font-weight: var(--ui-font-weight-medium);
+      white-space: nowrap;
+    }
+
+    & .ui-toggle-group {
+      min-inline-size: 0;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    section:has(> #takeover) {
+      view-timeline: --act-three block;
+    }
+
+    .takeover {
+      animation: takeover-dock linear both;
+      animation-range: contain 0% contain 100%;
+      animation-timeline: --act-three;
+      inset-block: auto
+        calc(var(--ui-space-4) + env(safe-area-inset-bottom, 0px));
+      inset-inline: 0;
+      margin-block: 0;
+      position: fixed;
+    }
+  }
+
+  @keyframes takeover-dock {
+    0% {
+      opacity: 0;
+      translate: 0 1rem;
+      visibility: hidden;
+    }
+
+    3%,
+    97% {
+      opacity: 1;
+      translate: none;
+      visibility: visible;
+    }
+
+    100% {
+      opacity: 0;
+      translate: 0 1rem;
+      visibility: hidden;
+    }
+  }
+
+  @media (width < 30rem) {
+    .takeover {
+      padding-inline-start: var(--ui-space-1);
+
+      & .takeover-label {
+        display: none;
+      }
+    }
+  }
+
+  #main-content:has(#takeover [name="takeover"]:checked:not([value=""])) {
+    accent-color: var(--ui-primary);
+    background-color: var(--ui-surface);
+    border-radius: var(--ui-radius-large);
+    caret-color: var(--ui-primary);
+    color: var(--ui-text);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-body);
+    font-weight: var(--ui-font-weight-normal);
+    line-height: var(--ui-line-height-relaxed);
+
+    @media (width < 900px) {
+      margin-inline: calc(var(--site-gap) * -1);
+      padding-inline: var(--site-gap);
+    }
+  }
+
+  #main-content article > section > .ui-not-rich-text:not(#hero, #takeover) {
+    contain-intrinsic-block-size: auto 30rem;
+    overflow-clip-margin: var(--ui-space-8);
+  }
+
+  #main-content.takeover-lazy
+    article
+    > section
+    > .ui-not-rich-text:not(#hero, #takeover) {
+    content-visibility: auto;
+  }
+
+  @layer theme.custom {
+    :where(#main-content.takeover-fading) {
+      transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+      transition-property: background-color, color;
+      transition-timing-function: var(--ui-ease);
+    }
+
+    :where(#main-content.takeover-fading *) {
+      transition-duration: calc(var(--ui-duration-slow) * var(--ui-motion));
+      transition-property:
+        background-color, border-color, outline-color, text-decoration-color;
+      transition-timing-function: var(--ui-ease);
+    }
+  }
+</style>

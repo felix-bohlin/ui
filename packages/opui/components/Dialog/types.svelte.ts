@@ -1,7 +1,15 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
-import type { Snippet } from "svelte"
 
-type Snippets = Base.Slots<Snippet>
+export type Props = Base.Props & Omit<SvelteHTMLElements["dialog"], "closedby">
 
-export type Props = Base.Props & Snippets & SvelteHTMLElements["dialog"]
+export type DialogContentProps = Base.DialogContentProps &
+  SvelteHTMLElements["div"]
+
+export type DialogFooterProps = Base.DialogFooterProps &
+  SvelteHTMLElements["div"]
+
+export type DialogHeaderProps = Base.DialogHeaderProps &
+  SvelteHTMLElements["div"]
+
+export type DialogTitleProps = Base.DialogTitleProps & SvelteHTMLElements["h2"]

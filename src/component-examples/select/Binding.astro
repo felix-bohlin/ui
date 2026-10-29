@@ -1,0 +1,38 @@
+---
+import { Button, Select } from "opui-css/astro"
+---
+
+<Select
+  label="Fruit"
+  name="select-binding"
+  items={[
+    { label: "Apples", value: "apples" },
+    { label: "Bananas", value: "bananas" },
+    { label: "Cherries", value: "cherries" },
+  ]}
+  value="apples"
+/>
+<p class="select-binding-text">Selected: apples</p>
+<Button class="select-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".select-binding-text")
+  const select = document.querySelector<HTMLSelectElement>(
+    '[name="select-binding"]',
+  )
+
+  function update() {
+    if (!text || !select) return
+    text.textContent = `Selected: ${select.value}`
+  }
+
+  select?.addEventListener("change", update)
+  document
+    .querySelector(".select-binding-reset")
+    ?.addEventListener("click", () => {
+      for (const option of select?.options ?? []) {
+        option.selected = option.defaultSelected
+      }
+      update()
+    })
+</script>

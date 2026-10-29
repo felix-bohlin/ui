@@ -1,0 +1,45 @@
+---
+import {
+  Button,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Switch,
+} from "opui-css/astro"
+---
+
+<Fieldset>
+  <FieldLegend>Notifications</FieldLegend>
+  <FieldGroup name="switch-binding">
+    <Switch checked value="email">Email</Switch>
+    <Switch value="push">Push</Switch>
+    <Switch value="sms">SMS</Switch>
+  </FieldGroup>
+</Fieldset>
+<p class="switch-binding-text">Selected: email</p>
+<Button class="switch-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".switch-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>('[name="switch-binding"]'),
+  ]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".switch-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

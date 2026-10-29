@@ -1,0 +1,217 @@
+---
+import {
+  Button,
+  FieldLegend,
+  Fieldset,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import { EXAMPLE_THEMES } from "../utils/example-themes"
+import { CORNERS } from "../utils/theme"
+import BrandPicker from "./BrandPicker.astro"
+---
+
+<form class="theme-quick ui-form">
+  <Fieldset>
+    <FieldLegend>Start from</FieldLegend>
+    <ToggleGroup aria-label="Start from" name="theme-preset" size="small">
+      <ToggleButton checked value="">Default</ToggleButton>
+      {
+        EXAMPLE_THEMES.map((theme) => (
+          <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+  </Fieldset>
+
+  <Fieldset>
+    <FieldLegend>Brand color</FieldLegend>
+    <BrandPicker name="theme-brand" />
+  </Fieldset>
+
+  <Fieldset>
+    <FieldLegend>Corners</FieldLegend>
+    <ToggleGroup aria-label="Corners" name="theme-corners" size="small">
+      <ToggleButton checked class="theme-quick-start" value="">
+        Default
+      </ToggleButton>
+      {
+        CORNERS.map((option) => (
+          <ToggleButton value={option.value}>{option.label}</ToggleButton>
+        ))
+      }
+      <ToggleButton class="theme-quick-custom" value="custom"
+        >Custom</ToggleButton
+      >
+    </ToggleGroup>
+  </Fieldset>
+
+  <div class="theme-quick-actions">
+    <Button
+      class="theme-quick-reset"
+      size="small"
+      type="button"
+      variant="outlined"
+    >
+      Reset theme
+    </Button>
+    <p aria-live="polite" class="theme-quick-status"></p>
+    <Button class="theme-quick-undo" hidden size="small" type="button">
+      Undo
+    </Button>
+  </div>
+</form>
+
+<script>
+  import { syncBrandPicker } from "../utils/brand-picker"
+  import { exampleTheme } from "../utils/example-themes"
+  import type { OklchInput } from "../utils/oklch-input"
+  import {
+    cornersOf,
+    cornersUpdate,
+    normalizeTheme,
+    themeStore,
+    type Theme,
+  } from "../utils/theme"
+  import {
+    brandUpdate,
+    isBrandColor,
+    resolveOklch,
+    switchPreset,
+  } from "../utils/theme-brand"
+
+  const fingerprint = (theme: Theme) => JSON.stringify(normalizeTheme(theme))
+
+  for (const form of document.querySelectorAll<HTMLFormElement>(
+    ".theme-quick",
+  )) {
+    const radios = (name: string) => [
+      ...form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`),
+    ]
+    const picker = form.querySelector<HTMLElement>(".brand-picker")!
+    const custom = picker.querySelector<OklchInput>("[data-brand-custom]")!
+    const status = form.querySelector<HTMLElement>(".theme-quick-status")!
+    const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
+    let pendingColor: string | null = null
+    let undoTheme: Theme | null = null
+    let undoFingerprint = ""
+
+    const check = (name: string, value: string | null) => {
+      for (const radio of radios(name)) radio.checked = radio.value === value
+    }
+
+    const sync = () => {
+      const theme = themeStore.get()
+      const { preset, tokens } = theme
+      check("theme-preset", preset ?? "")
+      const start = exampleTheme(preset)?.label ?? "Default"
+      for (const label of form.querySelectorAll(".theme-quick-start")) {
+        label.lastChild!.textContent = start
+      }
+
+      const brand = tokens["--ui-palette-source"] ?? null
+      syncBrandPicker(picker, preset, brand)
+      custom.value =
+        brand && isBrandColor(brand)
+          ? brand
+          : (resolveOklch("var(--ui-primary)") ?? custom.value)
+
+      check("theme-corners", cornersOf(tokens) ?? "")
+
+      if (undoTheme && fingerprint(theme) !== undoFingerprint) {
+        undoTheme = null
+        undo.hidden = true
+        status.textContent = ""
+      }
+    }
+
+    const undoable = (message: string, action: () => void) => {
+      const before = themeStore.get()
+      action()
+      undoTheme = before
+      undoFingerprint = fingerprint(themeStore.get())
+      status.textContent = message
+      undo.hidden = false
+    }
+
+    const applyBrand = (value: string | null) =>
+      themeStore.update(
+        value
+          ? brandUpdate(themeStore.get().tokens, value)
+          : { "--ui-palette-source": null, "--ui-primary-source": null },
+      )
+
+    form.addEventListener("submit", (event) => event.preventDefault())
+
+    form.addEventListener("change", (event) => {
+      const target = event.target
+      if (!(target instanceof HTMLInputElement)) return
+      if (target.type === "radio" && !target.checked) return
+      if (target.name === "theme-preset") {
+        switchPreset(target.value || null)
+      } else if (target.name === "theme-brand") {
+        applyBrand(target.value || null)
+      } else if (target.name === "theme-corners") {
+        if (target.value !== "custom") {
+          themeStore.update(
+            cornersUpdate(themeStore.get().tokens, target.value || null),
+          )
+        }
+      }
+    })
+
+    form
+      .querySelector(".theme-quick-reset")!
+      .addEventListener("click", () =>
+        undoable("Theme reset.", () => themeStore.reset()),
+      )
+
+    undo.addEventListener("click", () => {
+      if (!undoTheme) return
+      const theme = undoTheme
+      undoTheme = null
+      undo.hidden = true
+      themeStore.set(theme)
+      status.textContent = "Undone."
+      form.querySelector<HTMLElement>(".theme-quick-reset")!.focus()
+    })
+
+    custom.addEventListener("input", () => {
+      const queued = pendingColor !== null
+      pendingColor = custom.value
+      if (queued) return
+      requestAnimationFrame(() => {
+        if (pendingColor) applyBrand(pendingColor)
+        pendingColor = null
+      })
+    })
+
+    sync()
+    themeStore.subscribe(sync)
+  }
+</script>
+
+<style>
+  .theme-quick {
+    display: grid;
+    gap: var(--size-4);
+
+    :global([hidden]),
+    :global(.theme-quick-custom:not(:has(:checked))) {
+      display: none;
+    }
+  }
+
+  .theme-quick-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .theme-quick-status {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+</style>

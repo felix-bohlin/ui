@@ -1,0 +1,210 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import DocLink from "../../components/DocLink.astro"
+import DocsTable from "../../components/DocsTable.astro"
+import Guide from "../../layouts/Guide.astro"
+import { formatInline } from "../../utils/format-inline"
+import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
+import {
+  describePromise,
+  themeTokenPromises,
+} from "../../utils/theme-token-promises"
+import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
+
+const describe = (name: string) =>
+  [
+    themeTokenDescriptions[name] ?? "",
+    themeTokenPromises[name] && describePromise(themeTokenPromises[name]),
+  ]
+    .filter(Boolean)
+    .join(" ")
+
+const sections = themeTokenSections().filter(
+  (section) => section.tokens.length > 0,
+)
+const slug = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Theme tokens</Fragment>
+  <Fragment slot="preamble">
+    Every token <code>theme.css</code> and <code>core/palette.css</code> declare,
+    with its default and its <DocLink href="/guide/concepts#token-tiers"
+      >tier</DocLink
+    >, and the instance inputs components read. Most are roles; the others are
+    marked <em>knob</em>, <em>primitive</em>, <em>hook</em>, <em>component</em>
+    or <em>input</em>. The tests check every promised contrast ratio in light
+    and dark mode, with and without more contrast.
+  </Fragment>
+
+  <section>
+    <p>
+      v6 renames every token: <code>--primary</code> is <code>--ui-primary</code
+      >,
+      <code>--text-primary</code> is <code>--ui-text-strong</code>, <code
+        >--surface-default</code
+      > is <code>--ui-surface</code>. The full table is in <DocLink
+        href="/guide/migrating#theme-and-tokens">Migrating</DocLink
+      >.
+    </p>
+  </section>
+
+  <section id="overriding">
+    <h2>Overriding tokens</h2>
+    <p>
+      Set them in <code>@layer theme.custom</code>, see <DocLink
+        href="/guide/customizing#your-theme">Your theme</DocLink
+      >. Roles work on <code>html</code> and on any element, for the subtree inside
+      it. Knobs (<code>--ui-density</code>, <code>--ui-space-scale</code> and the
+      <code>--ui-palette-*</code> inputs) are only read on <code>html</code> and inside
+      a <DocLink href="/guide/theming#scopes"
+        ><code>.ui-palette</code> scope</DocLink
+      >, so a knob on a form does nothing. The <DocLink href="/theme-builder"
+        >Theme builder</DocLink
+      > writes the ones you change into one <code>theme.css</code>, after the
+      example theme you start from.
+    </p>
+  </section>
+
+  <section id="tokens-json">
+    <h2>tokens.json</h2>
+    <p>
+      The same list ships as <code>opui-css/tokens.json</code> (also at <a
+        href="/tokens.json"
+        class="ui-link">/tokens.json</a
+      >) in the <a href="https://www.designtokens.org/" class="ui-link"
+        >W3C design tokens</a
+      > format: each token has a <code>$type</code>, a <code>$description</code>
+      and a <code>$value</code>, and <code>$extensions.opui</code> holds its variable,
+      tier, promise and its dark and more-contrast values. A plain number, a <code
+        >px</code
+      > or <code>rem</code> length and a token that aliases another are native values
+      (<code>0.41</code>, <code>{"{"}"unit": "px", "value": 1{"}"}</code>, <code
+        >{"{"}typography.ui-font-size-100{"}"}</code
+      >), with the CSS beside them as <code>$extensions.opui.css</code>. Every
+      other value is the CSS expression itself, since a color or a size that
+      follows another token or the color scheme has no resolved value, so a
+      design tool resolves it first. Tokens that are unset by default have no <code
+        >$value</code
+      >, only an <code>example</code>.
+    </p>
+    <p>
+      The tier is <code>knob</code> (an input a theme turns, such as <code
+        >--ui-palette-hue</code
+      > or a contrast limit), <code>primitive</code> (derived from the knobs and read
+      by no component, such as <code>--ui-font-size-300</code>), <code
+        >role</code
+      >,
+      <code>hook</code> (an optional role such as <code>--ui-selected</code> that
+      every component with that job reads, each with a default of its own until a
+      theme sets it), <code>component</code> (read by one component) or <code
+        >input</code
+      > (set on an element and never by a theme, such as <code
+        >--ui-anchor-position-area</code
+      >).
+    </p>
+  </section>
+
+  <section id="naming">
+    <h2>How tokens are named</h2>
+    <p>
+      <code>--ui-</code>, then a family or role, then variant and context. Each
+      word means one thing:
+    </p>
+    <ul>
+      <li>
+        <code>--ui-on-*</code> is the text and icon color on a fill: <code
+          >--ui-on-primary</code
+        > on <code>--ui-primary</code>, <code>--ui-on-inverse</code> on <code
+          >--ui-surface-inverse</code
+        >. The one fill without a token of its own is the intent fill, an intent
+        color kept within <code>--ui-accent-fill-max-lightness</code>, and <code
+          >--ui-on-fill</code
+        > is the text on every one of them.
+      </li>
+      <li>
+        <code>-text</code> after a color is that color tuned for reading, such as
+        <code>--ui-primary-text</code> and <code>--ui-invalid-text</code>. Every
+        intent has one, and they keep 4.5:1 on every surface by staying within
+        <code>--ui-text-max-lightness</code> and
+        <code>--ui-text-min-lightness</code>.
+      </li>
+      <li>
+        <code>-on-</code> before a surface names what is drawn on it, such as <code
+          >--ui-border-color-on-raised</code
+        >.
+      </li>
+      <li>
+        <code>light</code> and <code>dark</code> only name a color scheme, <code
+          >inverse</code
+        > only the opposite of it, and <code>contrast</code> only the contrast mode.
+      </li>
+      <li>
+        Component tokens start with the component and end in the property they
+        set, such as <code>-bg-color</code>, <code>-text-color</code>, <code
+          >-border-color</code
+        >, <code>-size</code>, <code>-radius</code>, <code>-gap</code>, <code
+          >-padding</code
+        > or <code>-shadow</code>, like the <code>--_*</code> properties, or in the
+        type of their value, such as <code>-font-weight</code>, <code
+          >-blur</code
+        >,
+        <code>-offset</code> or a keyword like <code>-hover</code>.
+      </li>
+    </ul>
+  </section>
+
+  {
+    sections.map((section) => (
+      <section id={slug(section.title)}>
+        <h2>{section.title}</h2>
+        {section.note && (
+          <p set:html={formatInline(section.note, Astro.locals.link)} />
+        )}
+        <DocsTable
+          columns={[
+            { label: "Token", width: "30%" },
+            { label: "Default", width: "30%" },
+            { label: "Description" },
+          ]}
+        >
+          {section.tokens.map((token) => (
+            <TableRow>
+              <TableCell>
+                <code>{token.name}</code>
+                {tokenTier(token.name) !== "role" && (
+                  <Fragment>
+                    {" "}
+                    <em>{tokenTier(token.name)}</em>
+                  </Fragment>
+                )}
+              </TableCell>
+              <TableCell>
+                {token.optional ? (
+                  <Fragment>
+                    Unset. For example <code>{token.value}</code>
+                  </Fragment>
+                ) : (
+                  <code>{token.value}</code>
+                )}
+                {token.dark && (
+                  <Fragment>
+                    <br />
+                    <code>{token.dark}</code> in dark mode
+                  </Fragment>
+                )}
+              </TableCell>
+              <TableCell
+                set:html={formatInline(describe(token.name), Astro.locals.link)}
+              />
+            </TableRow>
+          ))}
+        </DocsTable>
+      </section>
+    ))
+  }
+</Guide>

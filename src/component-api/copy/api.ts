@@ -56,7 +56,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Without the Clipboard API, or when it refuses or takes longer than two seconds, it copies through a selection, and where that is blocked too it selects the text instead.',
+      'The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead.',
     selector: "opui-copy.ui-copy",
   },
   slots: [

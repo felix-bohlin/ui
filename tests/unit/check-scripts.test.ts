@@ -46,8 +46,11 @@ import {
   intended,
 } from "../../scripts/check-ratchets.mjs"
 import {
+  frameworkIndex,
   indexProblems,
   readHeadings,
+  readKeywords,
+  readSections,
 } from "../../scripts/generate-search-index.mjs"
 import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
@@ -1030,7 +1033,7 @@ describe("generate-search-index", () => {
     ).toEqual([
       "Unknown search categories: Notes",
       "Search categories without entries: Blog",
-      "Search entries without a title or description: guide-empty",
+      "Search entries without a title, or without a description or page: guide-empty",
     ])
   })
 
@@ -1040,6 +1043,61 @@ describe("generate-search-index", () => {
         ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
+  })
+
+  test("accepts a section entry with a page instead of a description", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "guide-sizes"), description: "", page: "Button" },
+      ]),
+    ).toEqual([])
+  })
+
+  test("reads the id and title of each section and h3 with an id, once per id", () => {
+    expect(
+      readSections(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n</section>\n<section id="sizes">\n  <h2>Sizes again</h2>\n</section>\n<h2>Notes</h2>',
+      ),
+    ).toEqual([
+      { id: "sizes", title: "Sizes" },
+      { id: "small", title: "Small sm" },
+    ])
+  })
+
+  test("reads the keywords a page exports", () => {
+    expect(
+      readKeywords(
+        'export const description = "A page."\nexport const keywords = [\n  "modal",\n  "popup",\n]\n',
+      ),
+    ).toEqual(["modal", "popup"])
+    expect(readKeywords('export const description = "A page."')).toEqual([])
+  })
+
+  test("keeps the shared entries and one framework's entries, without the framework id", () => {
+    expect(
+      frameworkIndex(
+        [
+          { ...entry("Blog", "blog-post"), url: "/blog/post" },
+          {
+            ...entry("Component", "component-button-html"),
+            frameworkId: "html",
+            url: "/html/components/button",
+          },
+          {
+            ...entry("Component", "component-button-react"),
+            frameworkId: "react",
+            url: "/react/components/button",
+          },
+        ] as Parameters<typeof frameworkIndex>[0],
+        "react",
+      ).map(({ id, ...item }) => [id, "frameworkId" in item]),
+    ).toEqual([
+      ["blog-post", false],
+      ["component-button-react", false],
+    ])
   })
 
   test("reads the h2 of a section with an id and the h3s with an id, in order", () => {

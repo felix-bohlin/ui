@@ -143,7 +143,7 @@ export const distProblems = ({ dist, searchIndex, site }) => {
     }
   }
 
-  for (const item of searchIndex) checkLink(item.url, "/search-index.json")
+  for (const item of searchIndex) checkLink(item.url, "/search-index/")
 
   for (const file of files.filter((file) => /\.(?:md|txt)$/.test(file))) {
     const from = urlPath(file)
@@ -230,8 +230,11 @@ export const distProblems = ({ dist, searchIndex, site }) => {
 const main = () => {
   const { pages, problems } = distProblems({
     dist: join(root, "dist"),
-    searchIndex: JSON.parse(
-      readFileSync(join(root, "public/search-index.json"), "utf-8"),
+    searchIndex: readdirSync(join(root, "public/search-index")).flatMap(
+      (file) =>
+        JSON.parse(
+          readFileSync(join(root, "public/search-index", file), "utf-8"),
+        ),
     ),
     site: new URL(
       readFileSync(join(root, "astro.config.mjs"), "utf-8").match(

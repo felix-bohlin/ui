@@ -151,20 +151,98 @@ test.describe("search", () => {
     const titles = await page
       .locator("#results-list .ui-title")
       .allTextContents()
-    const target = titles.indexOf("Dialog")
-    expect(target).toBeGreaterThan(0)
+    expect(titles[0]).toBe("Dialog")
 
     expect(await selectedTitle(input)).toBe(titles[0])
-    for (let index = 1; index <= target; index++) {
-      await input.press("ArrowDown")
-      expect(await selectedTitle(input)).toBe(titles[index])
-    }
-    await input.press("ArrowUp")
-    expect(await selectedTitle(input)).toBe(titles[target - 1])
     await input.press("ArrowDown")
+    expect(await selectedTitle(input)).toBe(titles[1])
+    await input.press("ArrowDown")
+    expect(await selectedTitle(input)).toBe(titles[2])
+    await input.press("ArrowUp")
+    await input.press("ArrowUp")
+    expect(await selectedTitle(input)).toBe(titles[0])
     await input.press("Enter")
     await page.waitForURL(/\/html\/components\/dialog\/?$/)
     await expect(page.locator("h1")).toHaveText("Dialog")
+  })
+
+  test("links a section result to its heading", async ({ page }) => {
+    await openSearch(page, "dialog close")
+    const option = page.locator("#results-list [role=option]").first()
+    await expect(option.locator(".ui-title")).toHaveText(
+      "How to close a dialog",
+    )
+    await expect(option.locator(".ui-description")).toHaveText("Dialog")
+    await expect(option.locator("a")).toHaveAttribute(
+      "href",
+      "/html/components/dialog#how-to-close",
+    )
+    await expect(option.locator("mark").first()).toHaveText("close")
+    await option.click()
+    await page.waitForURL(/\/html\/components\/dialog\/?#how-to-close$/)
+    await expect(page.locator("#search-dialog")).toBeHidden()
+  })
+
+  test("finds a component by a keyword its page lists", async ({ page }) => {
+    await openSearch(page, "snackbar")
+    await expect(
+      page.locator("#results-list [role=option] .ui-title").first(),
+    ).toHaveText("Toast")
+  })
+
+  test("moves the caret with the arrow keys and changes the category at either end", async ({
+    page,
+  }) => {
+    const input = await openSearch(page, "Dialog")
+    const pressed = page.locator(".filter-chip[aria-pressed=true]")
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+    await input.press("ArrowLeft")
+    expect(
+      await input.evaluate((el: HTMLInputElement) => el.selectionStart),
+    ).toBe(5)
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+    await input.press("ArrowRight")
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+    await input.press("ArrowRight")
+    await expect(pressed).not.toHaveAttribute("data-filter", "all")
+    await input.press("Home")
+    await input.press("ArrowLeft")
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+  })
+
+  test("shows the first results of a group and the rest of it on Show all", async ({
+    page,
+  }) => {
+    const input = await openSearch(page, "keyboard")
+    const more = page.locator("#results-list .search-more").first()
+    await expect(more).toContainText(/Show all \d+/)
+    const options = page.locator("#results-list [role=option]")
+    const before = await options.count()
+    await more.click()
+    await expect(input).toBeFocused()
+    await expect(
+      page.locator(".filter-chip[aria-pressed=true]"),
+    ).not.toHaveAttribute("data-filter", "all")
+    await expect(page.locator("#results-list .search-more")).toHaveCount(0)
+    expect(await options.count()).toBeGreaterThan(before - 1)
+  })
+
+  test("shows results from other frameworks when the current one has none", async ({
+    page,
+  }) => {
+    await openSearch(page, "itemsPerView")
+    await expect(page.locator("#search-empty")).toHaveText(
+      "No results in HTML.",
+    )
+    await expect(
+      page.locator("#results-list .command-group-heading"),
+    ).toHaveText(["Other frameworks"])
+    await expect(
+      page.locator("#results-list [role=option] a").first(),
+    ).toHaveAttribute("href", /^\/(astro|react|svelte|vue)\/api#carousel$/)
+    await expect(page.locator("#search-status")).toHaveText(
+      /^No results in HTML, \d+ in other frameworks$/,
+    )
   })
 
   test("closes with Esc", async ({ page }) => {

@@ -1,0 +1,4524 @@
+[
+  {
+    "id": "component-accordion-svelte",
+    "title": "Accordion",
+    "description": "Lets you show and hide content, on its own or as a group.",
+    "keywords": "collapse details disclosure expand summary",
+    "category": "Component",
+    "url": "/svelte/components/accordion"
+  },
+  {
+    "id": "component-accordion-svelte-basics",
+    "title": "Basics",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#basics"
+  },
+  {
+    "id": "component-accordion-svelte-variants",
+    "title": "Variants",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#variants"
+  },
+  {
+    "id": "component-accordion-svelte-accordion-group",
+    "title": "Accordion group",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#accordion-group"
+  },
+  {
+    "id": "component-accordion-svelte-mutually-exclusive",
+    "title": "Mutually exclusive",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#mutually-exclusive"
+  },
+  {
+    "id": "component-accordion-svelte-actions",
+    "title": "Actions",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#actions"
+  },
+  {
+    "id": "component-accordion-svelte-custom-marker",
+    "title": "Custom marker",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#custom-marker"
+  },
+  {
+    "id": "component-accordion-svelte-marker-animation",
+    "title": "Marker animation",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#marker-animation"
+  },
+  {
+    "id": "component-accordion-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/svelte/components/accordion#keyboard-support"
+  },
+  {
+    "id": "component-anchor-svelte",
+    "title": "Anchor",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
+    "keywords": "anchor positioning floating popover position-anchor",
+    "category": "Component",
+    "url": "/svelte/components/anchor"
+  },
+  {
+    "id": "component-anchor-svelte-always-visible",
+    "title": "Always visible",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/svelte/components/anchor#always-visible"
+  },
+  {
+    "id": "component-anchor-svelte-hover-trigger",
+    "title": "Hover trigger",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/svelte/components/anchor#hover-trigger"
+  },
+  {
+    "id": "component-anchor-svelte-link-preview",
+    "title": "Link preview",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/svelte/components/anchor#link-preview"
+  },
+  {
+    "id": "component-anchor-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/svelte/components/anchor#keyboard-support"
+  },
+  {
+    "id": "component-avatar-svelte",
+    "title": "Avatar",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
+    "keywords": "initials photo profile picture user",
+    "category": "Component",
+    "url": "/svelte/components/avatar"
+  },
+  {
+    "id": "component-avatar-svelte-image",
+    "title": "Image",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#image"
+  },
+  {
+    "id": "component-avatar-svelte-letter",
+    "title": "Letter",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#letter"
+  },
+  {
+    "id": "component-avatar-svelte-icon",
+    "title": "Icon",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#icon"
+  },
+  {
+    "id": "component-avatar-svelte-variants",
+    "title": "Variants",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#variants"
+  },
+  {
+    "id": "component-avatar-svelte-shapes",
+    "title": "Shapes",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#shapes"
+  },
+  {
+    "id": "component-avatar-svelte-sizes",
+    "title": "Sizes",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#sizes"
+  },
+  {
+    "id": "component-avatar-svelte-disabled",
+    "title": "Disabled",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#disabled"
+  },
+  {
+    "id": "component-avatar-svelte-grouped",
+    "title": "Grouped",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar#grouped"
+  },
+  {
+    "id": "component-badge-svelte",
+    "title": "Badge",
+    "description": "Badges attach a small count or status dot to another element.",
+    "keywords": "counter dot indicator notification count",
+    "category": "Component",
+    "url": "/svelte/components/badge"
+  },
+  {
+    "id": "component-badge-svelte-basics",
+    "title": "Basics",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/svelte/components/badge#basics"
+  },
+  {
+    "id": "component-badge-svelte-colors",
+    "title": "Colors",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/svelte/components/badge#colors"
+  },
+  {
+    "id": "component-badge-svelte-indicator",
+    "title": "Indicator",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/svelte/components/badge#indicator"
+  },
+  {
+    "id": "component-badge-svelte-visibility",
+    "title": "Visibility",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/svelte/components/badge#visibility"
+  },
+  {
+    "id": "component-badge-svelte-corners",
+    "title": "Corners",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/svelte/components/badge#corners"
+  },
+  {
+    "id": "component-button-group-svelte",
+    "title": "Button group",
+    "description": "Groups related buttons.",
+    "keywords": "segmented control split button toolbar",
+    "category": "Component",
+    "url": "/svelte/components/button-group"
+  },
+  {
+    "id": "component-button-group-svelte-variants",
+    "title": "Variants",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#variants"
+  },
+  {
+    "id": "component-button-group-svelte-colors",
+    "title": "Colors",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#colors"
+  },
+  {
+    "id": "component-button-group-svelte-sizes",
+    "title": "Sizes",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#sizes"
+  },
+  {
+    "id": "component-button-group-svelte-icons",
+    "title": "Icons",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#icons"
+  },
+  {
+    "id": "component-button-group-svelte-split-button",
+    "title": "Split button",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#split-button"
+  },
+  {
+    "id": "component-button-group-svelte-pagination",
+    "title": "Pagination",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#pagination"
+  },
+  {
+    "id": "component-button-group-svelte-disabled",
+    "title": "Disabled",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#disabled"
+  },
+  {
+    "id": "component-button-group-svelte-vertical-orientation",
+    "title": "Vertical orientation",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#vertical-orientation"
+  },
+  {
+    "id": "component-button-group-svelte-overflow",
+    "title": "Overflow",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#overflow"
+  },
+  {
+    "id": "component-button-group-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/svelte/components/button-group#keyboard-support"
+  },
+  {
+    "id": "component-button-svelte",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "keywords": "btn cta icon button submit",
+    "category": "Component",
+    "url": "/svelte/components/button"
+  },
+  {
+    "id": "component-button-svelte-variants",
+    "title": "Variants",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#variants"
+  },
+  {
+    "id": "component-button-svelte-colors",
+    "title": "Colors",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#colors"
+  },
+  {
+    "id": "component-button-svelte-sizes",
+    "title": "Sizes",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#sizes"
+  },
+  {
+    "id": "component-button-svelte-buttons-with-icon-and-label",
+    "title": "Buttons with icon and label",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#buttons-with-icon-and-label"
+  },
+  {
+    "id": "component-button-svelte-keyboard",
+    "title": "Keyboard",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#keyboard"
+  },
+  {
+    "id": "component-button-svelte-icon-only",
+    "title": "Icon-only",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#icon-only"
+  },
+  {
+    "id": "component-button-svelte-disabled",
+    "title": "Disabled",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#disabled"
+  },
+  {
+    "id": "component-button-svelte-file-upload",
+    "title": "File upload",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#file-upload"
+  },
+  {
+    "id": "component-button-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Button",
+    "category": "Component",
+    "url": "/svelte/components/button#keyboard-support"
+  },
+  {
+    "id": "component-callout-svelte",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "keywords": "alert banner message box notice warning",
+    "category": "Component",
+    "url": "/svelte/components/callout"
+  },
+  {
+    "id": "component-callout-svelte-variants",
+    "title": "Variants",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/svelte/components/callout#variants"
+  },
+  {
+    "id": "component-callout-svelte-severities",
+    "title": "Severities",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/svelte/components/callout#severities"
+  },
+  {
+    "id": "component-callout-svelte-icon",
+    "title": "Icon",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/svelte/components/callout#icon"
+  },
+  {
+    "id": "component-card-svelte",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "keywords": "panel surface tile",
+    "category": "Component",
+    "url": "/svelte/components/card"
+  },
+  {
+    "id": "component-card-svelte-variants",
+    "title": "Variants",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card#variants"
+  },
+  {
+    "id": "component-card-svelte-density",
+    "title": "Density",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card#density"
+  },
+  {
+    "id": "component-card-svelte-header",
+    "title": "Header",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card#header"
+  },
+  {
+    "id": "component-card-svelte-actions",
+    "title": "Actions",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card#actions"
+  },
+  {
+    "id": "component-card-svelte-actions-alignment",
+    "title": "Alignment",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card#actions-alignment"
+  },
+  {
+    "id": "component-card-svelte-clickable",
+    "title": "Clickable card",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card#clickable"
+  },
+  {
+    "id": "component-carousel-svelte",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "keywords": "gallery scroll snap slider slideshow",
+    "category": "Component",
+    "url": "/svelte/components/carousel"
+  },
+  {
+    "id": "component-carousel-svelte-basics",
+    "title": "Basics",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#basics"
+  },
+  {
+    "id": "component-carousel-svelte-items-per-view",
+    "title": "Items per view",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#items-per-view"
+  },
+  {
+    "id": "component-carousel-svelte-stretch",
+    "title": "Stretch",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#stretch"
+  },
+  {
+    "id": "component-carousel-svelte-peek",
+    "title": "Peek",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#peek"
+  },
+  {
+    "id": "component-carousel-svelte-vertical",
+    "title": "Vertical",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#vertical"
+  },
+  {
+    "id": "component-carousel-svelte-images",
+    "title": "Images",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#images"
+  },
+  {
+    "id": "component-carousel-svelte-gallery",
+    "title": "Gallery",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#gallery"
+  },
+  {
+    "id": "component-carousel-svelte-video",
+    "title": "Video",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#video"
+  },
+  {
+    "id": "component-carousel-svelte-embeds",
+    "title": "Embeds",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#embeds"
+  },
+  {
+    "id": "component-carousel-svelte-buttons-outside",
+    "title": "Buttons outside",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#buttons-outside"
+  },
+  {
+    "id": "component-carousel-svelte-persistent-buttons",
+    "title": "Persistent buttons",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#persistent-buttons"
+  },
+  {
+    "id": "component-carousel-svelte-custom-buttons",
+    "title": "Custom buttons",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#custom-buttons"
+  },
+  {
+    "id": "component-carousel-svelte-playground",
+    "title": "Playground",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#playground"
+  },
+  {
+    "id": "component-carousel-svelte-grid-and-flex-layouts",
+    "title": "Grid and flex layouts",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#grid-and-flex-layouts"
+  },
+  {
+    "id": "component-carousel-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/svelte/components/carousel#keyboard-support"
+  },
+  {
+    "id": "component-checkbox-svelte",
+    "title": "Checkbox",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "keywords": "check tick",
+    "category": "Component",
+    "url": "/svelte/components/checkbox"
+  },
+  {
+    "id": "component-checkbox-svelte-basics",
+    "title": "Basics",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#basics"
+  },
+  {
+    "id": "component-checkbox-svelte-sizes",
+    "title": "Sizes",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#sizes"
+  },
+  {
+    "id": "component-checkbox-svelte-visible-label",
+    "title": "Visible label",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#visible-label"
+  },
+  {
+    "id": "component-checkbox-svelte-hidden-label",
+    "title": "Hidden label",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#hidden-label"
+  },
+  {
+    "id": "component-checkbox-svelte-label-position",
+    "title": "Label position",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#label-position"
+  },
+  {
+    "id": "component-checkbox-svelte-end-text",
+    "title": "End text",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#end-text"
+  },
+  {
+    "id": "component-checkbox-svelte-validation",
+    "title": "Validation",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#validation"
+  },
+  {
+    "id": "component-checkbox-svelte-indeterminate",
+    "title": "Indeterminate",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#indeterminate"
+  },
+  {
+    "id": "component-checkbox-svelte-select-all",
+    "title": "Select all",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#select-all"
+  },
+  {
+    "id": "component-checkbox-svelte-spread",
+    "title": "Spread",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#spread"
+  },
+  {
+    "id": "component-checkbox-svelte-cards",
+    "title": "Cards",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#cards"
+  },
+  {
+    "id": "component-checkbox-svelte-label-alignment",
+    "title": "Label alignment",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#label-alignment"
+  },
+  {
+    "id": "component-checkbox-svelte-field-group",
+    "title": "Field group",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#field-group"
+  },
+  {
+    "id": "component-checkbox-svelte-labels",
+    "title": "Labels",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#labels"
+  },
+  {
+    "id": "component-checkbox-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/svelte/components/checkbox#keyboard-support"
+  },
+  {
+    "id": "component-chip-svelte",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "keywords": "filter pill tag token",
+    "category": "Component",
+    "url": "/svelte/components/chip"
+  },
+  {
+    "id": "component-chip-svelte-variants",
+    "title": "Variants",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#variants"
+  },
+  {
+    "id": "component-chip-svelte-severities",
+    "title": "Severities",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#severities"
+  },
+  {
+    "id": "component-chip-svelte-sizes",
+    "title": "Sizes",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#sizes"
+  },
+  {
+    "id": "component-chip-svelte-icon",
+    "title": "Icon",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#icon"
+  },
+  {
+    "id": "component-chip-svelte-dot",
+    "title": "Dot",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#dot"
+  },
+  {
+    "id": "component-chip-svelte-button",
+    "title": "Button",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#button"
+  },
+  {
+    "id": "component-chip-svelte-link",
+    "title": "Link",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#link"
+  },
+  {
+    "id": "component-chip-svelte-pressed",
+    "title": "Pressed",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#pressed"
+  },
+  {
+    "id": "component-chip-svelte-disabled",
+    "title": "Disabled",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#disabled"
+  },
+  {
+    "id": "component-chip-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/svelte/components/chip#keyboard-support"
+  },
+  {
+    "id": "component-copy-svelte",
+    "title": "Copy",
+    "description": "A button that copies text or a field's value to the clipboard.",
+    "keywords": "clipboard copy to clipboard",
+    "category": "Component",
+    "url": "/svelte/components/copy"
+  },
+  {
+    "id": "component-copy-svelte-basics",
+    "title": "Basics",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/svelte/components/copy#basics"
+  },
+  {
+    "id": "component-copy-svelte-snippet",
+    "title": "Snippet",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/svelte/components/copy#snippet"
+  },
+  {
+    "id": "component-copy-svelte-failed",
+    "title": "Failed copy",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/svelte/components/copy#failed"
+  },
+  {
+    "id": "component-copy-svelte-without-javascript",
+    "title": "Without JavaScript",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/svelte/components/copy#without-javascript"
+  },
+  {
+    "id": "component-copy-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/svelte/components/copy#keyboard-support"
+  },
+  {
+    "id": "component-description-list-svelte",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "keywords": "dl key value properties",
+    "category": "Component",
+    "url": "/svelte/components/description-list"
+  },
+  {
+    "id": "component-description-list-svelte-basics",
+    "title": "Basics",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/svelte/components/description-list#basics"
+  },
+  {
+    "id": "component-description-list-svelte-bordered",
+    "title": "Bordered",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/svelte/components/description-list#bordered"
+  },
+  {
+    "id": "component-description-list-svelte-orientation",
+    "title": "Orientation",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/svelte/components/description-list#orientation"
+  },
+  {
+    "id": "component-description-list-svelte-total",
+    "title": "Total",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/svelte/components/description-list#total"
+  },
+  {
+    "id": "component-dialog-svelte",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
+    "keywords": "lightbox modal overlay popup",
+    "category": "Component",
+    "url": "/svelte/components/dialog"
+  },
+  {
+    "id": "component-dialog-svelte-basics",
+    "title": "Basics",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#basics"
+  },
+  {
+    "id": "component-dialog-svelte-modal",
+    "title": "Modal",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#modal"
+  },
+  {
+    "id": "component-dialog-svelte-footer",
+    "title": "Footer",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#footer"
+  },
+  {
+    "id": "component-dialog-svelte-alert-dialog",
+    "title": "Alert dialog",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#alert-dialog"
+  },
+  {
+    "id": "component-dialog-svelte-width",
+    "title": "Width",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#width"
+  },
+  {
+    "id": "component-dialog-svelte-long-content",
+    "title": "Long content",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#long-content"
+  },
+  {
+    "id": "component-dialog-svelte-how-to-close",
+    "title": "How to close a dialog",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#how-to-close"
+  },
+  {
+    "id": "component-dialog-svelte-role-attributes",
+    "title": "Role & attributes",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#role-attributes"
+  },
+  {
+    "id": "component-dialog-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/svelte/components/dialog#keyboard-support"
+  },
+  {
+    "id": "component-divider-svelte",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "keywords": "hr rule separator",
+    "category": "Component",
+    "url": "/svelte/components/divider"
+  },
+  {
+    "id": "component-divider-svelte-basics",
+    "title": "Basics",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/svelte/components/divider#basics"
+  },
+  {
+    "id": "component-divider-svelte-variants",
+    "title": "Variants",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/svelte/components/divider#variants"
+  },
+  {
+    "id": "component-divider-svelte-content",
+    "title": "Content",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/svelte/components/divider#content"
+  },
+  {
+    "id": "component-divider-svelte-spacing",
+    "title": "Spacing",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/svelte/components/divider#spacing"
+  },
+  {
+    "id": "component-drawer-svelte",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "keywords": "off-canvas sheet side panel sidebar",
+    "category": "Component",
+    "url": "/svelte/components/drawer"
+  },
+  {
+    "id": "component-drawer-svelte-basics",
+    "title": "Basics",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer#basics"
+  },
+  {
+    "id": "component-drawer-svelte-how-to-close",
+    "title": "How to close a drawer",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer#how-to-close"
+  },
+  {
+    "id": "component-drawer-svelte-role-attributes",
+    "title": "Role & attributes",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer#role-attributes"
+  },
+  {
+    "id": "component-drawer-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/svelte/components/drawer#keyboard-support"
+  },
+  {
+    "id": "component-form-svelte",
+    "title": "Form",
+    "description": "Spacing and grouping for form fields.",
+    "keywords": "fieldset input group label validation",
+    "category": "Component",
+    "url": "/svelte/components/form"
+  },
+  {
+    "id": "component-form-svelte-basics",
+    "title": "Basics",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#basics"
+  },
+  {
+    "id": "component-form-svelte-fieldset",
+    "title": "Fieldset",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#fieldset"
+  },
+  {
+    "id": "component-form-svelte-field-group",
+    "title": "Field group",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#field-group"
+  },
+  {
+    "id": "component-form-svelte-field-group-horizontal",
+    "title": "Horizontal",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#field-group-horizontal"
+  },
+  {
+    "id": "component-form-svelte-states",
+    "title": "States",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#states"
+  },
+  {
+    "id": "component-form-svelte-fieldset-disabled",
+    "title": "Disabled",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#fieldset-disabled"
+  },
+  {
+    "id": "component-form-svelte-fieldset-invalid",
+    "title": "Invalid",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#fieldset-invalid"
+  },
+  {
+    "id": "component-form-svelte-fieldset-required",
+    "title": "Required",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#fieldset-required"
+  },
+  {
+    "id": "component-form-svelte-actions",
+    "title": "Actions",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#actions"
+  },
+  {
+    "id": "component-form-svelte-without-fieldset",
+    "title": "Without fieldset",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#without-fieldset"
+  },
+  {
+    "id": "component-form-svelte-kitchen-sink",
+    "title": "Kitchen sink",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form#kitchen-sink"
+  },
+  {
+    "id": "component-layout-svelte",
+    "title": "Layout",
+    "description": "Six classes for the space between components: .ui-layout-column,\n    .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put\n    them on wrapper elements, such as div, section or\n    ul. They sit in the utils layer, so on a component they\n    replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "keywords": "columns container grid stack",
+    "category": "Component",
+    "url": "/svelte/components/layout"
+  },
+  {
+    "id": "component-layout-svelte-column",
+    "title": "Column",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#column"
+  },
+  {
+    "id": "component-layout-svelte-column-align",
+    "title": "Align",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#column-align"
+  },
+  {
+    "id": "component-layout-svelte-row",
+    "title": "Row",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#row"
+  },
+  {
+    "id": "component-layout-svelte-spread",
+    "title": "Spread",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#spread"
+  },
+  {
+    "id": "component-layout-svelte-grid",
+    "title": "Grid",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#grid"
+  },
+  {
+    "id": "component-layout-svelte-stretch",
+    "title": "Stretch",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#stretch"
+  },
+  {
+    "id": "component-layout-svelte-max-columns",
+    "title": "Most columns",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#max-columns"
+  },
+  {
+    "id": "component-layout-svelte-lists",
+    "title": "Lists",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#lists"
+  },
+  {
+    "id": "component-layout-svelte-columns",
+    "title": "Columns",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#columns"
+  },
+  {
+    "id": "component-layout-svelte-sticky",
+    "title": "Sticky",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#sticky"
+  },
+  {
+    "id": "component-layout-svelte-media",
+    "title": "Media",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#media"
+  },
+  {
+    "id": "component-layout-svelte-gap",
+    "title": "Gap",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#gap"
+  },
+  {
+    "id": "component-layout-svelte-container",
+    "title": "Container",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#container"
+  },
+  {
+    "id": "component-layout-svelte-breakpoints",
+    "title": "Breakpoints",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/svelte/components/layout#breakpoints"
+  },
+  {
+    "id": "component-list-svelte",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "keywords": "listbox menu list ul",
+    "category": "Component",
+    "url": "/svelte/components/list"
+  },
+  {
+    "id": "component-list-svelte-basics",
+    "title": "Basics",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#basics"
+  },
+  {
+    "id": "component-list-svelte-configurations",
+    "title": "Configurations",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#configurations"
+  },
+  {
+    "id": "component-list-svelte-variants",
+    "title": "Variants",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#variants"
+  },
+  {
+    "id": "component-list-svelte-clickable-list-item",
+    "title": "Clickable list item",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#clickable-list-item"
+  },
+  {
+    "id": "component-list-svelte-selected",
+    "title": "Selected item",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#selected"
+  },
+  {
+    "id": "component-list-svelte-text",
+    "title": "Text",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#text"
+  },
+  {
+    "id": "component-list-svelte-start-items",
+    "title": "Start items",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#start-items"
+  },
+  {
+    "id": "component-list-svelte-icon",
+    "title": "Icon",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#icon"
+  },
+  {
+    "id": "component-list-svelte-avatar",
+    "title": "Avatar",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#avatar"
+  },
+  {
+    "id": "component-list-svelte-image",
+    "title": "Image",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#image"
+  },
+  {
+    "id": "component-list-svelte-video",
+    "title": "Video",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#video"
+  },
+  {
+    "id": "component-list-svelte-end-items",
+    "title": "End items",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#end-items"
+  },
+  {
+    "id": "component-list-svelte-end-text",
+    "title": "Text",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#end-text"
+  },
+  {
+    "id": "component-list-svelte-keyboard-command",
+    "title": "Keyboard command",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#keyboard-command"
+  },
+  {
+    "id": "component-list-svelte-checkbox",
+    "title": "Checkbox",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#checkbox"
+  },
+  {
+    "id": "component-list-svelte-radio",
+    "title": "Radio",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#radio"
+  },
+  {
+    "id": "component-list-svelte-switch",
+    "title": "Switch",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#switch"
+  },
+  {
+    "id": "component-list-svelte-inset",
+    "title": "Inset",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#inset"
+  },
+  {
+    "id": "component-list-svelte-flush",
+    "title": "Flush",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#flush"
+  },
+  {
+    "id": "component-list-svelte-borders",
+    "title": "Borders",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#borders"
+  },
+  {
+    "id": "component-list-svelte-on-every-item",
+    "title": "On every item",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#on-every-item"
+  },
+  {
+    "id": "component-list-svelte-on-one-item",
+    "title": "On one item",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#on-one-item"
+  },
+  {
+    "id": "component-list-svelte-dense",
+    "title": "Dense",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#dense"
+  },
+  {
+    "id": "component-list-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "List",
+    "category": "Component",
+    "url": "/svelte/components/list#keyboard-support"
+  },
+  {
+    "id": "component-menu-svelte",
+    "title": "Menu",
+    "description": "A popover list of actions or links.",
+    "keywords": "actions context menu dropdown popover",
+    "category": "Component",
+    "url": "/svelte/components/menu"
+  },
+  {
+    "id": "component-menu-svelte-basics",
+    "title": "Basics",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#basics"
+  },
+  {
+    "id": "component-menu-svelte-bordered",
+    "title": "Bordered",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#bordered"
+  },
+  {
+    "id": "component-menu-svelte-dense",
+    "title": "Dense",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#dense"
+  },
+  {
+    "id": "component-menu-svelte-custom",
+    "title": "Custom items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#custom"
+  },
+  {
+    "id": "component-menu-svelte-placement",
+    "title": "Placement",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#placement"
+  },
+  {
+    "id": "component-menu-svelte-submenu",
+    "title": "Submenu",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#submenu"
+  },
+  {
+    "id": "component-menu-svelte-manual",
+    "title": "Manual",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#manual"
+  },
+  {
+    "id": "component-menu-svelte-role-attributes",
+    "title": "Role & attributes",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#role-attributes"
+  },
+  {
+    "id": "component-menu-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu#keyboard-support"
+  },
+  {
+    "id": "component-message-svelte",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "keywords": "chat chat bubble conversation",
+    "category": "Component",
+    "url": "/svelte/components/message"
+  },
+  {
+    "id": "component-message-svelte-basics",
+    "title": "Basics",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message#basics"
+  },
+  {
+    "id": "component-message-svelte-group-chat",
+    "title": "Group chat",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message#group-chat"
+  },
+  {
+    "id": "component-message-svelte-attachments",
+    "title": "Attachments",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message#attachments"
+  },
+  {
+    "id": "component-message-svelte-reactions",
+    "title": "Reactions",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message#reactions"
+  },
+  {
+    "id": "component-message-svelte-typing",
+    "title": "Typing indicator",
+    "page": "Message",
+    "category": "Component",
+    "url": "/svelte/components/message#typing"
+  },
+  {
+    "id": "component-number-field-svelte",
+    "title": "Number field",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "keywords": "counter quantity spin button stepper",
+    "category": "Component",
+    "url": "/svelte/components/number-field"
+  },
+  {
+    "id": "component-number-field-svelte-basics",
+    "title": "Basics",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#basics"
+  },
+  {
+    "id": "component-number-field-svelte-variants",
+    "title": "Variants",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#variants"
+  },
+  {
+    "id": "component-number-field-svelte-sizes",
+    "title": "Sizes",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#sizes"
+  },
+  {
+    "id": "component-number-field-svelte-stretch",
+    "title": "Stretch",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#stretch"
+  },
+  {
+    "id": "component-number-field-svelte-step",
+    "title": "Step",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#step"
+  },
+  {
+    "id": "component-number-field-svelte-end-text",
+    "title": "End text",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#end-text"
+  },
+  {
+    "id": "component-number-field-svelte-hidden-label",
+    "title": "Hidden label",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#hidden-label"
+  },
+  {
+    "id": "component-number-field-svelte-disabled",
+    "title": "Disabled",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#disabled"
+  },
+  {
+    "id": "component-number-field-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/svelte/components/number-field#keyboard-support"
+  },
+  {
+    "id": "component-one-time-code-svelte",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "keywords": "2fa otp pin verification code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-svelte-basics",
+    "title": "Basics",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#basics"
+  },
+  {
+    "id": "component-one-time-code-svelte-grouped",
+    "title": "Grouped",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#grouped"
+  },
+  {
+    "id": "component-one-time-code-svelte-sizes",
+    "title": "Sizes",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#sizes"
+  },
+  {
+    "id": "component-one-time-code-svelte-length",
+    "title": "Length",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#length"
+  },
+  {
+    "id": "component-one-time-code-svelte-alphanumeric",
+    "title": "Alphanumeric",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#alphanumeric"
+  },
+  {
+    "id": "component-one-time-code-svelte-validation",
+    "title": "Validation",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#validation"
+  },
+  {
+    "id": "component-one-time-code-svelte-disabled",
+    "title": "Disabled",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#disabled"
+  },
+  {
+    "id": "component-one-time-code-svelte-right-to-left",
+    "title": "Right-to-left",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#right-to-left"
+  },
+  {
+    "id": "component-one-time-code-svelte-paste-and-auto-submit",
+    "title": "Paste and auto-submit",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/svelte/components/one-time-code#paste-and-auto-submit"
+  },
+  {
+    "id": "component-progress-svelte",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "keywords": "loading meter progress bar",
+    "category": "Component",
+    "url": "/svelte/components/progress"
+  },
+  {
+    "id": "component-progress-svelte-indeterminate",
+    "title": "Indeterminate",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/svelte/components/progress#indeterminate"
+  },
+  {
+    "id": "component-progress-svelte-determinate",
+    "title": "Determinate",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/svelte/components/progress#determinate"
+  },
+  {
+    "id": "component-progress-svelte-variants",
+    "title": "Variants",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/svelte/components/progress#variants"
+  },
+  {
+    "id": "component-progress-svelte-inline",
+    "title": "Inline",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/svelte/components/progress#inline"
+  },
+  {
+    "id": "component-radio-svelte",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "keywords": "option radio button radio group",
+    "category": "Component",
+    "url": "/svelte/components/radio"
+  },
+  {
+    "id": "component-radio-svelte-basics",
+    "title": "Basics",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#basics"
+  },
+  {
+    "id": "component-radio-svelte-sizes",
+    "title": "Sizes",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#sizes"
+  },
+  {
+    "id": "component-radio-svelte-visible-label",
+    "title": "Visible label",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#visible-label"
+  },
+  {
+    "id": "component-radio-svelte-hidden-label",
+    "title": "Hidden label",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#hidden-label"
+  },
+  {
+    "id": "component-radio-svelte-label-position",
+    "title": "Label position",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#label-position"
+  },
+  {
+    "id": "component-radio-svelte-end-text",
+    "title": "End text",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#end-text"
+  },
+  {
+    "id": "component-radio-svelte-spread",
+    "title": "Spread",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#spread"
+  },
+  {
+    "id": "component-radio-svelte-cards",
+    "title": "Cards",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#cards"
+  },
+  {
+    "id": "component-radio-svelte-label-alignment",
+    "title": "Label alignment",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#label-alignment"
+  },
+  {
+    "id": "component-radio-svelte-radio-input",
+    "title": "Radio input",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#radio-input"
+  },
+  {
+    "id": "component-radio-svelte-field-group",
+    "title": "Field group",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#field-group"
+  },
+  {
+    "id": "component-radio-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/svelte/components/radio#keyboard-support"
+  },
+  {
+    "id": "component-range-svelte",
+    "title": "Range",
+    "description": "Range lets users pick a number by sliding a thumb along a track.",
+    "keywords": "slider",
+    "category": "Component",
+    "url": "/svelte/components/range"
+  },
+  {
+    "id": "component-range-svelte-basics",
+    "title": "Basics",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#basics"
+  },
+  {
+    "id": "component-range-svelte-variants",
+    "title": "Variants",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#variants"
+  },
+  {
+    "id": "component-range-svelte-sizes",
+    "title": "Sizes",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#sizes"
+  },
+  {
+    "id": "component-range-svelte-start-end-text",
+    "title": "Start and end text",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#start-end-text"
+  },
+  {
+    "id": "component-range-svelte-value",
+    "title": "Value",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#value"
+  },
+  {
+    "id": "component-range-svelte-tick-marks",
+    "title": "Tick marks",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#tick-marks"
+  },
+  {
+    "id": "component-range-svelte-disabled",
+    "title": "Disabled",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#disabled"
+  },
+  {
+    "id": "component-range-svelte-validation",
+    "title": "Validation",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#validation"
+  },
+  {
+    "id": "component-range-svelte-spread",
+    "title": "Spread",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#spread"
+  },
+  {
+    "id": "component-range-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Range",
+    "category": "Component",
+    "url": "/svelte/components/range#keyboard-support"
+  },
+  {
+    "id": "component-rating-svelte",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "keywords": "review score stars",
+    "category": "Component",
+    "url": "/svelte/components/rating"
+  },
+  {
+    "id": "component-rating-svelte-basics",
+    "title": "Basics",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#basics"
+  },
+  {
+    "id": "component-rating-svelte-input",
+    "title": "Input",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#input"
+  },
+  {
+    "id": "component-rating-svelte-sizes",
+    "title": "Sizes",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#sizes"
+  },
+  {
+    "id": "component-rating-svelte-fractions",
+    "title": "Fractions",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#fractions"
+  },
+  {
+    "id": "component-rating-svelte-max",
+    "title": "Max",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#max"
+  },
+  {
+    "id": "component-rating-svelte-disabled",
+    "title": "Disabled",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#disabled"
+  },
+  {
+    "id": "component-rating-svelte-validation",
+    "title": "Validation",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#validation"
+  },
+  {
+    "id": "component-rating-svelte-localization",
+    "title": "Localization",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#localization"
+  },
+  {
+    "id": "component-rating-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/svelte/components/rating#keyboard-support"
+  },
+  {
+    "id": "component-select-svelte",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "keywords": "combobox dropdown option picker",
+    "category": "Component",
+    "url": "/svelte/components/select"
+  },
+  {
+    "id": "component-select-svelte-variants",
+    "title": "Variants",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#variants"
+  },
+  {
+    "id": "component-select-svelte-sizes",
+    "title": "Sizes",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#sizes"
+  },
+  {
+    "id": "component-select-svelte-dense",
+    "title": "Dense",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#dense"
+  },
+  {
+    "id": "component-select-svelte-end-text",
+    "title": "End text",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#end-text"
+  },
+  {
+    "id": "component-select-svelte-affix",
+    "title": "Affix",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#affix"
+  },
+  {
+    "id": "component-select-svelte-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#top-and-bottom"
+  },
+  {
+    "id": "component-select-svelte-preselected",
+    "title": "Preselected",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#preselected"
+  },
+  {
+    "id": "component-select-svelte-binding",
+    "title": "Binding",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#binding"
+  },
+  {
+    "id": "component-select-svelte-option-groups",
+    "title": "Option groups",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#option-groups"
+  },
+  {
+    "id": "component-select-svelte-optgroup",
+    "title": "Optgroup",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#optgroup"
+  },
+  {
+    "id": "component-select-svelte-validation",
+    "title": "Validation",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#validation"
+  },
+  {
+    "id": "component-select-svelte-spread",
+    "title": "Spread",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#spread"
+  },
+  {
+    "id": "component-select-svelte-auto-fit",
+    "title": "Auto-fit",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#auto-fit"
+  },
+  {
+    "id": "component-select-svelte-fallback",
+    "title": "Fallback",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#fallback"
+  },
+  {
+    "id": "component-select-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select#keyboard-support"
+  },
+  {
+    "id": "component-spinner-svelte",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "keywords": "busy loader loading",
+    "category": "Component",
+    "url": "/svelte/components/spinner"
+  },
+  {
+    "id": "component-spinner-svelte-basics",
+    "title": "Basics",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/svelte/components/spinner#basics"
+  },
+  {
+    "id": "component-spinner-svelte-sizes",
+    "title": "Sizes",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/svelte/components/spinner#sizes"
+  },
+  {
+    "id": "component-spinner-svelte-buttons",
+    "title": "Buttons",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/svelte/components/spinner#buttons"
+  },
+  {
+    "id": "component-spinner-svelte-no-spinner",
+    "title": "When aria-busy=\"true\" shows no spinner",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/svelte/components/spinner#no-spinner"
+  },
+  {
+    "id": "component-spinner-svelte-blocked-by-another-use-case",
+    "title": "1. Because it's blocked by another use case",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/svelte/components/spinner#blocked-by-another-use-case"
+  },
+  {
+    "id": "component-spinner-svelte-doesnt-make-sense",
+    "title": "2. Because it doesn't make sense",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/svelte/components/spinner#doesnt-make-sense"
+  },
+  {
+    "id": "component-stat-svelte",
+    "title": "Stat",
+    "description": "A stat shows one number with its label and the change behind it.",
+    "keywords": "kpi metric number",
+    "category": "Component",
+    "url": "/svelte/components/stat"
+  },
+  {
+    "id": "component-stat-svelte-basics",
+    "title": "Basics",
+    "page": "Stat",
+    "category": "Component",
+    "url": "/svelte/components/stat#basics"
+  },
+  {
+    "id": "component-stat-svelte-sizes",
+    "title": "Sizes",
+    "page": "Stat",
+    "category": "Component",
+    "url": "/svelte/components/stat#sizes"
+  },
+  {
+    "id": "component-stat-svelte-cards",
+    "title": "Cards",
+    "page": "Stat",
+    "category": "Component",
+    "url": "/svelte/components/stat#cards"
+  },
+  {
+    "id": "component-stepper-svelte",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "keywords": "progress steps wizard",
+    "category": "Component",
+    "url": "/svelte/components/stepper"
+  },
+  {
+    "id": "component-stepper-svelte-basics",
+    "title": "Basics",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#basics"
+  },
+  {
+    "id": "component-stepper-svelte-sizes",
+    "title": "Sizes",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#sizes"
+  },
+  {
+    "id": "component-stepper-svelte-descriptions",
+    "title": "Descriptions",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#descriptions"
+  },
+  {
+    "id": "component-stepper-svelte-custom-check",
+    "title": "Custom check",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#custom-check"
+  },
+  {
+    "id": "component-stepper-svelte-complete",
+    "title": "Complete",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#complete"
+  },
+  {
+    "id": "component-stepper-svelte-errors",
+    "title": "Errors",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#errors"
+  },
+  {
+    "id": "component-stepper-svelte-labels",
+    "title": "Screen reader labels",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#labels"
+  },
+  {
+    "id": "component-stepper-svelte-vertical",
+    "title": "Vertical",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#vertical"
+  },
+  {
+    "id": "component-stepper-svelte-narrow",
+    "title": "Narrow containers",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/svelte/components/stepper#narrow"
+  },
+  {
+    "id": "component-switch-svelte",
+    "title": "Switch",
+    "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
+    "keywords": "on off toggle",
+    "category": "Component",
+    "url": "/svelte/components/switch"
+  },
+  {
+    "id": "component-switch-svelte-basics",
+    "title": "Basics",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#basics"
+  },
+  {
+    "id": "component-switch-svelte-sizes",
+    "title": "Sizes",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#sizes"
+  },
+  {
+    "id": "component-switch-svelte-visible-label",
+    "title": "Visible label",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#visible-label"
+  },
+  {
+    "id": "component-switch-svelte-hidden-label",
+    "title": "Hidden label",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#hidden-label"
+  },
+  {
+    "id": "component-switch-svelte-label-position",
+    "title": "Label position",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#label-position"
+  },
+  {
+    "id": "component-switch-svelte-end-text",
+    "title": "End text",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#end-text"
+  },
+  {
+    "id": "component-switch-svelte-icons",
+    "title": "Icons",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#icons"
+  },
+  {
+    "id": "component-switch-svelte-validation",
+    "title": "Validation",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#validation"
+  },
+  {
+    "id": "component-switch-svelte-spread",
+    "title": "Spread",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#spread"
+  },
+  {
+    "id": "component-switch-svelte-cards",
+    "title": "Cards",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#cards"
+  },
+  {
+    "id": "component-switch-svelte-label-alignment",
+    "title": "Label alignment",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#label-alignment"
+  },
+  {
+    "id": "component-switch-svelte-switch-input",
+    "title": "Switch input",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#switch-input"
+  },
+  {
+    "id": "component-switch-svelte-field-group",
+    "title": "Field group",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#field-group"
+  },
+  {
+    "id": "component-switch-svelte-role-attributes",
+    "title": "Role & attributes",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#role-attributes"
+  },
+  {
+    "id": "component-switch-svelte-labels",
+    "title": "Labels",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#labels"
+  },
+  {
+    "id": "component-switch-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/svelte/components/switch#keyboard-support"
+  },
+  {
+    "id": "component-table-svelte",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "keywords": "data table grid rows sort",
+    "category": "Component",
+    "url": "/svelte/components/table"
+  },
+  {
+    "id": "component-table-svelte-density",
+    "title": "Density",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#density"
+  },
+  {
+    "id": "component-table-svelte-normal",
+    "title": "Normal",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#normal"
+  },
+  {
+    "id": "component-table-svelte-dense",
+    "title": "Dense",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#dense"
+  },
+  {
+    "id": "component-table-svelte-spacious",
+    "title": "Spacious",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#spacious"
+  },
+  {
+    "id": "component-table-svelte-numbers",
+    "title": "Numbers",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#numbers"
+  },
+  {
+    "id": "component-table-svelte-in-a-card",
+    "title": "In a card",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#in-a-card"
+  },
+  {
+    "id": "component-table-svelte-controls-in-cells",
+    "title": "Controls in cells",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#controls-in-cells"
+  },
+  {
+    "id": "component-table-svelte-sticky-header",
+    "title": "Sticky header",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#sticky-header"
+  },
+  {
+    "id": "component-table-svelte-sorting",
+    "title": "Sorting",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#sorting"
+  },
+  {
+    "id": "component-table-svelte-advanced",
+    "title": "Advanced",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#advanced"
+  },
+  {
+    "id": "component-table-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table#keyboard-support"
+  },
+  {
+    "id": "component-tabs-svelte",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "keywords": "tab panel tablist",
+    "category": "Component",
+    "url": "/svelte/components/tabs"
+  },
+  {
+    "id": "component-tabs-svelte-basics",
+    "title": "Basics",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#basics"
+  },
+  {
+    "id": "component-tabs-svelte-filled",
+    "title": "Filled",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#filled"
+  },
+  {
+    "id": "component-tabs-svelte-line",
+    "title": "Line",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#line"
+  },
+  {
+    "id": "component-tabs-svelte-outlined",
+    "title": "Outlined",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#outlined"
+  },
+  {
+    "id": "component-tabs-svelte-overflow",
+    "title": "Overflow",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#overflow"
+  },
+  {
+    "id": "component-tabs-svelte-binding",
+    "title": "Binding",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#binding"
+  },
+  {
+    "id": "component-tabs-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs#keyboard-support"
+  },
+  {
+    "id": "component-text-field-svelte",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "keywords": "email input password search text box",
+    "category": "Component",
+    "url": "/svelte/components/text-field"
+  },
+  {
+    "id": "component-text-field-svelte-variants",
+    "title": "Variants",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#variants"
+  },
+  {
+    "id": "component-text-field-svelte-sizes",
+    "title": "Sizes",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#sizes"
+  },
+  {
+    "id": "component-text-field-svelte-start-text",
+    "title": "Start text",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#start-text"
+  },
+  {
+    "id": "component-text-field-svelte-end-text",
+    "title": "End text",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#end-text"
+  },
+  {
+    "id": "component-text-field-svelte-character-count",
+    "title": "Character count",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#character-count"
+  },
+  {
+    "id": "component-text-field-svelte-password-toggle",
+    "title": "Password toggle",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#password-toggle"
+  },
+  {
+    "id": "component-text-field-svelte-affix",
+    "title": "Affix",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#affix"
+  },
+  {
+    "id": "component-text-field-svelte-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#top-and-bottom"
+  },
+  {
+    "id": "component-text-field-svelte-binding",
+    "title": "Binding",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#binding"
+  },
+  {
+    "id": "component-text-field-svelte-validation",
+    "title": "Validation",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#validation"
+  },
+  {
+    "id": "component-text-field-svelte-spread",
+    "title": "Spread",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#spread"
+  },
+  {
+    "id": "component-text-field-svelte-auto-fit",
+    "title": "Auto-fit",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#auto-fit"
+  },
+  {
+    "id": "component-text-field-svelte-input-types",
+    "title": "Input types",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#input-types"
+  },
+  {
+    "id": "component-text-field-svelte-numeric-vs-input-type-number",
+    "title": "Numeric vs &lt;input type=\"number\"&gt;",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#numeric-vs-input-type-number"
+  },
+  {
+    "id": "component-text-field-svelte-file",
+    "title": "File",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#file"
+  },
+  {
+    "id": "component-text-field-svelte-autosuggest",
+    "title": "Autosuggest",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#autosuggest"
+  },
+  {
+    "id": "component-text-field-svelte-do-i-have-to-use-label",
+    "title": "Do I have to use &lt;label&gt;?",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#do-i-have-to-use-label"
+  },
+  {
+    "id": "component-text-field-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field#keyboard-support"
+  },
+  {
+    "id": "component-textarea-svelte",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "keywords": "multiline text area",
+    "category": "Component",
+    "url": "/svelte/components/textarea"
+  },
+  {
+    "id": "component-textarea-svelte-variants",
+    "title": "Variants",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#variants"
+  },
+  {
+    "id": "component-textarea-svelte-sizes",
+    "title": "Sizes",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#sizes"
+  },
+  {
+    "id": "component-textarea-svelte-start-text",
+    "title": "Start text",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#start-text"
+  },
+  {
+    "id": "component-textarea-svelte-end-text",
+    "title": "End text",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#end-text"
+  },
+  {
+    "id": "component-textarea-svelte-character-count",
+    "title": "Character count",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#character-count"
+  },
+  {
+    "id": "component-textarea-svelte-affix",
+    "title": "Affix",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#affix"
+  },
+  {
+    "id": "component-textarea-svelte-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#top-and-bottom"
+  },
+  {
+    "id": "component-textarea-svelte-binding",
+    "title": "Binding",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#binding"
+  },
+  {
+    "id": "component-textarea-svelte-validation",
+    "title": "Validation",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#validation"
+  },
+  {
+    "id": "component-textarea-svelte-spread",
+    "title": "Spread",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#spread"
+  },
+  {
+    "id": "component-textarea-svelte-auto-fit",
+    "title": "Auto-fit",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#auto-fit"
+  },
+  {
+    "id": "component-textarea-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/svelte/components/textarea#keyboard-support"
+  },
+  {
+    "id": "component-timeline-svelte",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "keywords": "activity feed history",
+    "category": "Component",
+    "url": "/svelte/components/timeline"
+  },
+  {
+    "id": "component-timeline-svelte-basics",
+    "title": "Basics",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#basics"
+  },
+  {
+    "id": "component-timeline-svelte-colors",
+    "title": "Colors",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#colors"
+  },
+  {
+    "id": "component-timeline-svelte-sizes",
+    "title": "Sizes",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#sizes"
+  },
+  {
+    "id": "component-timeline-svelte-custom-marker",
+    "title": "Custom marker",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#custom-marker"
+  },
+  {
+    "id": "component-timeline-svelte-current",
+    "title": "Current item",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#current"
+  },
+  {
+    "id": "component-timeline-svelte-tracked",
+    "title": "Tracked",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#tracked"
+  },
+  {
+    "id": "component-timeline-svelte-narrow",
+    "title": "Narrow containers",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#narrow"
+  },
+  {
+    "id": "component-timeline-svelte-items",
+    "title": "Items",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/svelte/components/timeline#items"
+  },
+  {
+    "id": "component-toast-svelte",
+    "title": "Toast",
+    "description": "Short messages that confirm an action and dismiss themselves.",
+    "keywords": "notification snackbar",
+    "category": "Component",
+    "url": "/svelte/components/toast"
+  },
+  {
+    "id": "component-toast-svelte-basics",
+    "title": "Basics",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#basics"
+  },
+  {
+    "id": "component-toast-svelte-severities",
+    "title": "Severities",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#severities"
+  },
+  {
+    "id": "component-toast-svelte-from-a-script",
+    "title": "From a script",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#from-a-script"
+  },
+  {
+    "id": "component-toast-svelte-action",
+    "title": "Action",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#action"
+  },
+  {
+    "id": "component-toast-svelte-position",
+    "title": "Position",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#position"
+  },
+  {
+    "id": "component-toast-svelte-duration",
+    "title": "Duration",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#duration"
+  },
+  {
+    "id": "component-toast-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/svelte/components/toast#keyboard-support"
+  },
+  {
+    "id": "component-toggle-svelte",
+    "title": "Toggle",
+    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
+    "keywords": "pressed toggle button",
+    "category": "Component",
+    "url": "/svelte/components/toggle"
+  },
+  {
+    "id": "component-toggle-svelte-toggle-button",
+    "title": "Toggle button",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#toggle-button"
+  },
+  {
+    "id": "component-toggle-svelte-sizes",
+    "title": "Sizes",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#sizes"
+  },
+  {
+    "id": "component-toggle-svelte-toggle-group",
+    "title": "Toggle group",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#toggle-group"
+  },
+  {
+    "id": "component-toggle-svelte-multi-select",
+    "title": "Multi-select",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#multi-select"
+  },
+  {
+    "id": "component-toggle-svelte-single-select",
+    "title": "Single-select",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#single-select"
+  },
+  {
+    "id": "component-toggle-svelte-binding",
+    "title": "Binding",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#binding"
+  },
+  {
+    "id": "component-toggle-svelte-text-icon",
+    "title": "Text + icon",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#text-icon"
+  },
+  {
+    "id": "component-toggle-svelte-vertical-orientation",
+    "title": "Vertical orientation",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#vertical-orientation"
+  },
+  {
+    "id": "component-toggle-svelte-overflow",
+    "title": "Overflow",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#overflow"
+  },
+  {
+    "id": "component-toggle-svelte-disabled",
+    "title": "Disabled",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#disabled"
+  },
+  {
+    "id": "component-toggle-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Toggle",
+    "category": "Component",
+    "url": "/svelte/components/toggle#keyboard-support"
+  },
+  {
+    "id": "component-tooltip-svelte",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"}\n        id. Set interestfor with that id on the trigger\n        element itself (it only works on real invokers like{\" \"}\n        &lt;button&gt; or &lt;a&gt;). Put the tooltip\n        in\n        TooltipContent after the trigger.",
+    "keywords": "hint hover title toggletip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip"
+  },
+  {
+    "id": "component-tooltip-svelte-basics",
+    "title": "Basics",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#basics"
+  },
+  {
+    "id": "component-tooltip-svelte-text-only",
+    "title": "Text only...",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#text-only"
+  },
+  {
+    "id": "component-tooltip-svelte-anything",
+    "title": "... or any markup you want",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#anything"
+  },
+  {
+    "id": "component-tooltip-svelte-position",
+    "title": "Position",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#position"
+  },
+  {
+    "id": "component-tooltip-svelte-arrow",
+    "title": "Arrow",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#arrow"
+  },
+  {
+    "id": "component-tooltip-svelte-toggletip",
+    "title": "Toggletip",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#toggletip"
+  },
+  {
+    "id": "component-tooltip-svelte-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/svelte/components/tooltip#keyboard-support"
+  },
+  {
+    "id": "component-typography-svelte",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "keywords": "font heading prose text",
+    "category": "Component",
+    "url": "/svelte/components/typography"
+  },
+  {
+    "id": "component-typography-svelte-class-based",
+    "title": "Class-based",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#class-based"
+  },
+  {
+    "id": "component-typography-svelte-variants",
+    "title": "Variants",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#variants"
+  },
+  {
+    "id": "component-typography-svelte-heading-group",
+    "title": "Heading group",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#heading-group"
+  },
+  {
+    "id": "component-typography-svelte-blockquote",
+    "title": "Blockquote",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#blockquote"
+  },
+  {
+    "id": "component-typography-svelte-link",
+    "title": "Link",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#link"
+  },
+  {
+    "id": "component-typography-svelte-code-block",
+    "title": "Code block",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#code-block"
+  },
+  {
+    "id": "component-typography-svelte-icon",
+    "title": "Icon",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#icon"
+  },
+  {
+    "id": "component-typography-svelte-swatch",
+    "title": "Swatch",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#swatch"
+  },
+  {
+    "id": "component-typography-svelte-severity",
+    "title": "Severity",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#severity"
+  },
+  {
+    "id": "component-typography-svelte-tabular-numbers",
+    "title": "Tabular numbers",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#tabular-numbers"
+  },
+  {
+    "id": "component-typography-svelte-inline-text-elements",
+    "title": "Inline text elements",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#inline-text-elements"
+  },
+  {
+    "id": "component-typography-svelte-classless",
+    "title": "Classless",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#classless"
+  },
+  {
+    "id": "component-typography-svelte-rich-text-showcase",
+    "title": "Classless showcase",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/svelte/components/typography#rich-text-showcase"
+  },
+  {
+    "id": "guide-accessibility-svelte",
+    "title": "Accessibility",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility"
+  },
+  {
+    "id": "guide-accessibility-svelte-native-elements",
+    "title": "Built on native elements",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#native-elements"
+  },
+  {
+    "id": "guide-accessibility-svelte-accessible-names",
+    "title": "Accessible names",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#accessible-names"
+  },
+  {
+    "id": "guide-accessibility-svelte-keyboard",
+    "title": "Keyboard",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#keyboard"
+  },
+  {
+    "id": "guide-accessibility-svelte-focus",
+    "title": "Focus",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#focus"
+  },
+  {
+    "id": "guide-accessibility-svelte-contrast-and-motion",
+    "title": "Contrast, forced colors and motion",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#contrast-and-motion"
+  },
+  {
+    "id": "guide-accessibility-svelte-per-component",
+    "title": "Per component",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#per-component"
+  },
+  {
+    "id": "guide-accessibility-svelte-known-gaps",
+    "title": "Known gaps",
+    "page": "Accessibility",
+    "category": "Guide",
+    "url": "/svelte/guide/accessibility#known-gaps"
+  },
+  {
+    "id": "guide-acknowledgments-svelte",
+    "title": "Acknowledgments",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "category": "Guide",
+    "url": "/svelte/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-svelte-contributors",
+    "title": "Contributors",
+    "page": "Acknowledgments",
+    "category": "Guide",
+    "url": "/svelte/guide/acknowledgments#contributors"
+  },
+  {
+    "id": "guide-acknowledgments-svelte-thank-you",
+    "title": "Thank you to",
+    "page": "Acknowledgments",
+    "category": "Guide",
+    "url": "/svelte/guide/acknowledgments#thank-you"
+  },
+  {
+    "id": "guide-acknowledgments-svelte-sources-of-inspiration",
+    "title": "Sources of inspiration/theft",
+    "page": "Acknowledgments",
+    "category": "Guide",
+    "url": "/svelte/guide/acknowledgments#sources-of-inspiration"
+  },
+  {
+    "id": "guide-acknowledgments-svelte-other-resources",
+    "title": "Other amazing resources",
+    "page": "Acknowledgments",
+    "category": "Guide",
+    "url": "/svelte/guide/acknowledgments#other-resources"
+  },
+  {
+    "id": "guide-browser-support-svelte",
+    "title": "Browser support",
+    "description": "The web platform features the components rely on, and the browsers that ship\n    each one.",
+    "category": "Guide",
+    "url": "/svelte/guide/browser-support"
+  },
+  {
+    "id": "guide-browser-support-svelte-policy",
+    "title": "Policy",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/svelte/guide/browser-support#policy"
+  },
+  {
+    "id": "guide-browser-support-svelte-compat",
+    "title": "Compat layer",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/svelte/guide/browser-support#compat"
+  },
+  {
+    "id": "guide-browser-support-svelte-support-level",
+    "title": "Support level",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/svelte/guide/browser-support#support-level"
+  },
+  {
+    "id": "guide-browser-support-svelte-polyfills",
+    "title": "Polyfills",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/svelte/guide/browser-support#polyfills"
+  },
+  {
+    "id": "guide-concepts-svelte",
+    "title": "Concepts",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts"
+  },
+  {
+    "id": "guide-concepts-svelte-cascade-layers",
+    "title": "Cascade layers",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#cascade-layers"
+  },
+  {
+    "id": "guide-concepts-svelte-token-tiers",
+    "title": "Token tiers",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#token-tiers"
+  },
+  {
+    "id": "guide-concepts-svelte-light-and-dark",
+    "title": "Light and dark",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#light-and-dark"
+  },
+  {
+    "id": "guide-concepts-svelte-palette-scopes",
+    "title": "Palette scopes",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#palette-scopes"
+  },
+  {
+    "id": "guide-concepts-svelte-props-and-classes",
+    "title": "Props and classes",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#props-and-classes"
+  },
+  {
+    "id": "guide-concepts-svelte-naming",
+    "title": "Naming",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#naming"
+  },
+  {
+    "id": "guide-concepts-svelte-variants",
+    "title": "Variants",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#variants"
+  },
+  {
+    "id": "guide-concepts-svelte-start-and-end",
+    "title": "Start and end",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#start-and-end"
+  },
+  {
+    "id": "guide-concepts-svelte-checked",
+    "title": "Checked",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#checked"
+  },
+  {
+    "id": "guide-concepts-svelte-rich-text",
+    "title": "Rich text",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#rich-text"
+  },
+  {
+    "id": "guide-concepts-svelte-javascript",
+    "title": "JavaScript",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#javascript"
+  },
+  {
+    "id": "guide-concepts-svelte-custom-elements",
+    "title": "Custom elements",
+    "page": "Concepts",
+    "category": "Guide",
+    "url": "/svelte/guide/concepts#custom-elements"
+  },
+  {
+    "id": "guide-customizing-svelte",
+    "title": "Customizing",
+    "description": "Where your CSS goes: a theme in theme.custom changes the whole library,\n    a component's --_* properties change one component or one instance,\n    and your own layer holds the rest.",
+    "category": "Guide",
+    "url": "/svelte/guide/customizing"
+  },
+  {
+    "id": "guide-customizing-svelte-your-theme",
+    "title": "Your theme",
+    "page": "Customizing",
+    "category": "Guide",
+    "url": "/svelte/guide/customizing#your-theme"
+  },
+  {
+    "id": "guide-customizing-svelte-example-themes",
+    "title": "Example themes",
+    "page": "Customizing",
+    "category": "Guide",
+    "url": "/svelte/guide/customizing#example-themes"
+  },
+  {
+    "id": "guide-customizing-svelte-component-properties",
+    "title": "Component properties",
+    "page": "Customizing",
+    "category": "Guide",
+    "url": "/svelte/guide/customizing#component-properties"
+  },
+  {
+    "id": "guide-customizing-svelte-unlayered-or-your-own-layer",
+    "title": "Unlayered or your own layer",
+    "page": "Customizing",
+    "category": "Guide",
+    "url": "/svelte/guide/customizing#unlayered-or-your-own-layer"
+  },
+  {
+    "id": "guide-migrating-svelte",
+    "title": "Migrating from v5 to v6",
+    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "headings": "Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "category": "Guide",
+    "url": "/svelte/guide/migrating"
+  },
+  {
+    "id": "guide-migrating-svelte-older-versions",
+    "title": "Older versions",
+    "page": "Migrating from v5 to v6",
+    "category": "Guide",
+    "url": "/svelte/guide/migrating#older-versions"
+  },
+  {
+    "id": "guide-theme-tokens-svelte",
+    "title": "Theme tokens",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "category": "Guide",
+    "url": "/svelte/guide/theme-tokens"
+  },
+  {
+    "id": "guide-theme-tokens-svelte-overriding",
+    "title": "Overriding tokens",
+    "page": "Theme tokens",
+    "category": "Guide",
+    "url": "/svelte/guide/theme-tokens#overriding"
+  },
+  {
+    "id": "guide-theme-tokens-svelte-tokens-json",
+    "title": "tokens.json",
+    "page": "Theme tokens",
+    "category": "Guide",
+    "url": "/svelte/guide/theme-tokens#tokens-json"
+  },
+  {
+    "id": "guide-theme-tokens-svelte-naming",
+    "title": "How tokens are named",
+    "page": "Theme tokens",
+    "category": "Guide",
+    "url": "/svelte/guide/theme-tokens#naming"
+  },
+  {
+    "id": "guide-theming-svelte",
+    "title": "Theming",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
+    "category": "Guide",
+    "url": "/svelte/guide/theming"
+  },
+  {
+    "id": "guide-theming-svelte-palette",
+    "title": "Palette",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#palette"
+  },
+  {
+    "id": "guide-theming-svelte-scopes",
+    "title": "Scopes",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#scopes"
+  },
+  {
+    "id": "guide-theming-svelte-surfaces",
+    "title": "Surfaces",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#surfaces"
+  },
+  {
+    "id": "guide-theming-svelte-density",
+    "title": "Density",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#density"
+  },
+  {
+    "id": "guide-theming-svelte-spacing",
+    "title": "Spacing",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#spacing"
+  },
+  {
+    "id": "guide-theming-svelte-corners",
+    "title": "Corners",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#corners"
+  },
+  {
+    "id": "guide-theming-svelte-fonts",
+    "title": "Fonts",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#fonts"
+  },
+  {
+    "id": "guide-theming-svelte-fluid-headings",
+    "title": "Fluid headings",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#fluid-headings"
+  },
+  {
+    "id": "guide-theming-svelte-elevation",
+    "title": "Elevation",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#elevation"
+  },
+  {
+    "id": "guide-theming-svelte-motion",
+    "title": "Motion",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#motion"
+  },
+  {
+    "id": "guide-theming-svelte-motion-global",
+    "title": "Global classes",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#motion-global"
+  },
+  {
+    "id": "guide-theming-svelte-motion-local",
+    "title": "Local overrides",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#motion-local"
+  },
+  {
+    "id": "guide-theming-svelte-motion-personality",
+    "title": "Springy movement",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#motion-personality"
+  },
+  {
+    "id": "guide-theming-svelte-contrast",
+    "title": "Contrast",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#contrast"
+  },
+  {
+    "id": "guide-theming-svelte-contrast-classes",
+    "title": "Classes",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#contrast-classes"
+  },
+  {
+    "id": "guide-theming-svelte-contrast-custom",
+    "title": "Custom values",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#contrast-custom"
+  },
+  {
+    "id": "guide-theming-svelte-forced-colors",
+    "title": "Forced colors",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/svelte/guide/theming#forced-colors"
+  },
+  {
+    "id": "guide-why-opui-svelte",
+    "title": "Why Open Props UI?",
+    "description": "Components built from the HTML and CSS the platform ships today, as files\n    you can read, copy and own.",
+    "category": "Guide",
+    "url": "/svelte/guide/why-opui"
+  },
+  {
+    "id": "guide-why-opui-svelte-own-your-code",
+    "title": "Own your code",
+    "page": "Why Open Props UI?",
+    "category": "Guide",
+    "url": "/svelte/guide/why-opui#own-your-code"
+  },
+  {
+    "id": "guide-why-opui-svelte-backstory",
+    "title": "Backstory",
+    "page": "Why Open Props UI?",
+    "category": "Guide",
+    "url": "/svelte/guide/why-opui#backstory"
+  },
+  {
+    "id": "guide-why-opui-svelte-the-goal",
+    "title": "The goal of OPUI",
+    "page": "Why Open Props UI?",
+    "category": "Guide",
+    "url": "/svelte/guide/why-opui#the-goal"
+  },
+  {
+    "id": "guide-getting-started-svelte",
+    "title": "Getting started",
+    "description": "OPUI ships first-class Svelte 5 components. Install the package, import what\n    you need, and you're set.",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started"
+  },
+  {
+    "id": "guide-getting-started-svelte-installation",
+    "title": "Install via NPM",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started#installation"
+  },
+  {
+    "id": "guide-getting-started-svelte-css",
+    "title": "Import the CSS",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started#css"
+  },
+  {
+    "id": "guide-getting-started-svelte-usage",
+    "title": "How to use",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started#usage"
+  },
+  {
+    "id": "guide-getting-started-svelte-ssr",
+    "title": "Server rendering",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started#ssr"
+  },
+  {
+    "id": "blog-accordion-height-auto",
+    "title": "An accordion that animates to auto",
+    "description": "interpolate-size and ::details-content let a details element transition to its natural height.",
+    "headings": "The problem The trick Try it Fallback interpolate-size JavaScript that measures the content and animates a pixel height. `interpolate-size: allow-keywords` and `::details-content` transition a `<details>` to its natural height. details-content interpolate-size",
+    "category": "Blog",
+    "url": "/blog/accordion-height-auto"
+  },
+  {
+    "id": "blog-anchor-hover-cards",
+    "title": "Hover cards without JavaScript",
+    "description": "interestfor, popover=hint and anchor positioning open a hover card on hover and focus.",
+    "headings": "The problem The trick Try it Fallback interestfor Timers for hover intent, focus and blur listeners, and a positioning library that measures and flips the card. `interestfor` and `popover=\"hint\"` open it on hover and focus, and anchor positioning places it. anchor-positioning interest-invokers popover-hint",
+    "category": "Blog",
+    "url": "/blog/anchor-hover-cards"
+  },
+  {
+    "id": "blog-avatar-squircles",
+    "title": "Squircle avatars with corner-shape",
+    "description": "aspect-ratio, :has(img) and corner-shape for avatars.",
+    "headings": "The problem The trick Try it Fallback corner-shape An SVG mask or a `clip-path` path: a fixed shape that clips borders and shadows too. `corner-shape: squircle` draws the corner, and `aspect-ratio: 1` keeps the avatar square. aspect-ratio corner-shape has",
+    "category": "Blog",
+    "url": "/blog/avatar-squircles"
+  },
+  {
+    "id": "blog-button-icon-only-has",
+    "title": "One Button, no IconButton",
+    "description": ":has(> svg:only-child) turns any Button into an icon button.",
+    "headings": "The problem The trick Try it Fallback Gotchas :has() A separate `IconButton` component or an `iconOnly` prop, with every size and variant built twice. `:has(> svg:only-child)` lets the button see that it only holds an icon. has",
+    "category": "Blog",
+    "url": "/blog/button-icon-only-has"
+  },
+  {
+    "id": "blog-callout-relative-colors",
+    "title": "Severity colors from one source color",
+    "description": "Relative colors and light-dark() derive every severity shade from one color.",
+    "headings": "The problem The trick Try it Fallback oklch(from …) 40 hand-picked colors for five severities in two schemes, or a preprocessor that only works at build time. One `--ui-palette-source` per severity, and `oklch(from …)` derives every shade. light-dark relative-color",
+    "category": "Blog",
+    "url": "/blog/callout-relative-colors"
+  },
+  {
+    "id": "blog-carousel-css-only",
+    "title": "A carousel made of CSS",
+    "description": "Scroll snap, ::scroll-button() and ::scroll-marker: a carousel without JavaScript.",
+    "headings": "The problem The trick Try it Fallback ::scroll-button() JavaScript that listens to scroll events to run the buttons and dots, with their accessibility done by hand. `::scroll-button()` and `::scroll-marker` generate focusable buttons and dots. scroll-buttons scroll-markers scroll-snap",
+    "category": "Blog",
+    "url": "/blog/carousel-css-only"
+  },
+  {
+    "id": "blog-checkbox-appearance-none",
+    "title": "Drawing a checkbox",
+    "description": "appearance: none, a clip-path checkmark and system colors for a native checkbox.",
+    "headings": "The problem The trick Try it Fallback appearance: none A hidden input and a fake box with an SVG check that mirrors every state. `appearance: none` lets the real input draw its own box and check. appearance clip-path",
+    "category": "Blog",
+    "url": "/blog/checkbox-appearance-none"
+  },
+  {
+    "id": "blog-description-list-leader-lines",
+    "title": "Leader lines with grid",
+    "description": "A container query and a grid pseudo-element draw dotted leader lines.",
+    "headings": "The problem The trick Try it Fallback @container A row of clipped dots, a repeating background or an empty filler element, and a media query that only knows the viewport. A grid per pair with a dotted `::after` between term and description, and a container query for the column. container-queries",
+    "category": "Blog",
+    "url": "/blog/description-list-leader-lines"
+  },
+  {
+    "id": "blog-dialog-closedby",
+    "title": "Dialogs without JavaScript",
+    "description": "Invoker commands, closedby and @starting-style for modal dialogs.",
+    "headings": "The problem The trick Keyboard shortcuts Try it Scroll lock Fallback closedby A click handler for `showModal()`, another for `close()`, and a backdrop listener that checks where the click landed. `commandfor`, `command` and `closedby` open and close it, `@starting-style` fades it in, and `allow-discrete` fades it out. dialog-closedby invoker-commands overlay starting-style transition-behavior",
+    "category": "Blog",
+    "url": "/blog/dialog-closedby"
+  },
+  {
+    "id": "blog-drawer-starting-style",
+    "title": "Sliding drawers with @starting-style",
+    "description": "A dialog that slides in from any edge, and out again with allow-discrete.",
+    "headings": "The problem The trick Try it Fallback @starting-style A fixed `<div>` with JavaScript for the focus trap, Esc and backdrop clicks, and a class removed after `transitionend` to animate it out. A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`. overlay starting-style transition-behavior",
+    "category": "Blog",
+    "url": "/blog/drawer-starting-style"
+  },
+  {
+    "id": "blog-fluid-type-progress",
+    "title": "Fluid type with progress()",
+    "description": "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
+    "headings": "The problem The trick Try it Fallback progress() A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths. `progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it. progress-function",
+    "category": "Blog",
+    "url": "/blog/fluid-type-progress"
+  },
+  {
+    "id": "blog-form-fieldset-has",
+    "title": "Smarter fieldsets with :has()",
+    "description": ":has() lets fieldsets and legends style themselves from what they contain.",
+    "headings": "The problem The trick Try it Fallback :has(:required) Modifier classes or props kept in sync with what the fieldset contains. `:has()` lets the fieldset and legend style themselves from their content. has",
+    "category": "Blog",
+    "url": "/blog/form-fieldset-has"
+  },
+  {
+    "id": "blog-menu-popover-anchor",
+    "title": "Menus with popover and anchor positioning",
+    "description": "Popover, invoker commands and anchor positioning: a menu with no JavaScript.",
+    "headings": "The problem The trick Try it Fallback popover JavaScript to toggle and dismiss it, `z-index` fights, and a positioning library that measures and flips. `popover`, invoker commands and anchor positioning, with the trigger as the implicit anchor. anchor-positioning invoker-commands popover",
+    "category": "Blog",
+    "url": "/blog/menu-popover-anchor"
+  },
+  {
+    "id": "blog-progress-native",
+    "title": "Styling the native progress bar",
+    "description": "appearance: none and :indeterminate on the native progress element.",
+    "headings": "The problem The trick Try it Fallback :indeterminate A `<div role=\"progressbar\">` with its ARIA attributes kept in sync by hand. The native `<progress>` with `appearance: none`, so the role and the value stay native. appearance container-style-queries indeterminate",
+    "category": "Blog",
+    "url": "/blog/progress-native"
+  },
+  {
+    "id": "blog-range-tick-marks",
+    "title": "Range sliders with datalist ticks",
+    "description": "A scroll-driven gradient fill and datalist tick marks for input range.",
+    "headings": "The problem The trick Try it Fallback <datalist> Vendor pseudo-elements, a fill only Firefox could draw, and tick labels that never showed. A scroll-driven animation on the thumb fills the track, and `display: flex` brings the `<datalist>` labels back. datalist input-range scroll-driven-animations",
+    "category": "Blog",
+    "url": "/blog/range-tick-marks"
+  },
+  {
+    "id": "blog-release-6",
+    "title": "opui 6.0",
+    "description": "What changed in 6.0 and why, with live demos.",
+    "headings": "It's a proper design system now Four example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
+    "category": "Blog",
+    "url": "/blog/release-6"
+  },
+  {
+    "id": "blog-select-base-select",
+    "title": "A select you can style",
+    "description": "appearance: base-select, ::picker(select) and :open for a fully styled select.",
+    "headings": "The problem The trick Try it Fallback base-select A rebuilt listbox: a button, a popup, ARIA roles and JavaScript for focus, keyboard and typeahead. `appearance: base-select` makes the real `<select>` stylable, with `<selectedcontent>` and `::picker(select)`. customizable-select open-pseudo",
+    "category": "Blog",
+    "url": "/blog/select-base-select"
+  },
+  {
+    "id": "blog-spinner-aria-busy",
+    "title": "Spinners from aria-busy",
+    "description": "aria-busy=true is all it takes to show a spinner.",
+    "headings": "The problem The trick Try it Fallback aria-busy A spinner class for sighted users and `aria-busy` for assistive technology, kept in sync. `[aria-busy=\"true\"]` is the only switch, and a `::before` ring spins. animations-css not",
+    "category": "Blog",
+    "url": "/blog/spinner-aria-busy"
+  },
+  {
+    "id": "blog-switch-checkbox",
+    "title": "A switch from a checkbox",
+    "description": "A native checkbox, appearance: none and an outline trick.",
+    "headings": "The problem The trick Try it Fallback appearance: none A `<button>` with `aria-checked` toggled in JavaScript, or a hidden checkbox plus extra spans. `<input type=\"checkbox\" role=\"switch\">` with `appearance: none` draws its own track and dot. appearance light-dark",
+    "category": "Blog",
+    "url": "/blog/switch-checkbox"
+  },
+  {
+    "id": "blog-table-scroll-state",
+    "title": "A header that knows it's stuck",
+    "description": "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
+    "headings": "The problem The trick Scroll shadows Try it Fallback scroll-state() A scroll listener, or an `IntersectionObserver` with a sentinel element. `container-type: scroll-state` and `@container scroll-state(stuck: block-start)` show the shadow. anchor-positioning container-scroll-state-queries",
+    "category": "Blog",
+    "url": "/blog/table-scroll-state"
+  },
+  {
+    "id": "blog-tabs-radio-buttons",
+    "title": "Tabs from radio buttons",
+    "description": "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
+    "headings": "The problem The trick Try it Fallback :nth-child(of S) JavaScript for clicks, `aria-selected` and panels, or CSS tabs with one selector per tab. One radio group, and `:checked + label + panel` shows the right panel. nth-child-of",
+    "category": "Blog",
+    "url": "/blog/tabs-radio-buttons"
+  },
+  {
+    "id": "blog-text-field-user-invalid",
+    "title": "Validation that waits with :user-invalid",
+    "description": ":user-invalid shows errors after the user interacts, not on page load.",
+    "headings": "The problem The trick Try it Fallback :user-invalid JavaScript that adds a touched class on blur. `:user-invalid` only matches after the user has changed the field. user-pseudos",
+    "category": "Blog",
+    "url": "/blog/text-field-user-invalid"
+  },
+  {
+    "id": "blog-textarea-field-sizing",
+    "title": "Textareas that grow with field-sizing",
+    "description": "field-sizing: content and lh units for auto-growing textareas.",
+    "headings": "The problem The trick Try it Fallback field-sizing JavaScript that resets the height to `scrollHeight` on every keystroke. `field-sizing: content` grows and shrinks the textarea with its text. field-sizing lh",
+    "category": "Blog",
+    "url": "/blog/textarea-field-sizing"
+  },
+  {
+    "id": "blog-tooltip-interest-invokers",
+    "title": "Tooltips with interestfor",
+    "description": "interestfor, calc-size() and @position-try for tooltips that stay on screen.",
+    "headings": "The problem The trick Staying on screen Try it Fallback interestfor Event listeners, delays and a positioning library that measures and flips. `interestfor` and `popover=\"hint\"` open it on hover and focus, and anchor positioning keeps it on screen. anchor-positioning calc-size interest-invokers popover-hint",
+    "category": "Blog",
+    "url": "/blog/tooltip-interest-invokers"
+  },
+  {
+    "id": "blog-under-the-hood",
+    "title": "Under the hood",
+    "description": "Every component, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
+    "headings": "How it works",
+    "category": "Blog",
+    "url": "/blog/under-the-hood"
+  },
+  {
+    "id": "blog-vertical-rhythm-round",
+    "title": "Vertical rhythm with round()",
+    "description": "round() snaps line heights and font sizes to a rhythm step.",
+    "headings": "The problem The trick Try it Fallback round() A Sass function per font size, which breaks once sizes are fluid. `round(up, value, step)` snaps every line height to the grid at computed time. registered-custom-properties round-mod-rem",
+    "category": "Blog",
+    "url": "/blog/vertical-rhythm-round"
+  },
+  {
+    "id": "block-account-settings",
+    "title": "Account settings",
+    "description": "Profile, password and preference forms split over tabs, with a danger zone at the end.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/account-settings"
+  },
+  {
+    "id": "block-analytics-dashboard",
+    "title": "Analytics dashboard",
+    "description": "Key metrics, a bar chart, top pages and traffic sources for a selectable date range.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/analytics-dashboard"
+  },
+  {
+    "id": "block-app-shell",
+    "title": "App shell",
+    "description": "A header, a navigation sidebar that turns into a drawer on small screens, and a main area.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/app-shell"
+  },
+  {
+    "id": "block-billing",
+    "title": "Billing",
+    "description": "The current plan, usage against its limits, the payment method and past invoices.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/billing"
+  },
+  {
+    "id": "block-blog-list",
+    "title": "Blog list",
+    "description": "A featured post followed by a grid of post cards with tags, authors and reading time.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/blog-list"
+  },
+  {
+    "id": "block-changelog",
+    "title": "Changelog",
+    "description": "Releases on a timeline, each with a version, a date and grouped changes.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/changelog"
+  },
+  {
+    "id": "block-chat",
+    "title": "Chat",
+    "description": "Conversations next to a message thread with a composer at the bottom.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/chat"
+  },
+  {
+    "id": "block-checkout",
+    "title": "Checkout",
+    "description": "Contact, shipping and payment details next to an order summary.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/checkout"
+  },
+  {
+    "id": "block-data-table",
+    "title": "Data table",
+    "description": "A searchable, filterable table with row selection, statuses, row actions and pagination.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/data-table"
+  },
+  {
+    "id": "block-empty-states",
+    "title": "Empty states",
+    "description": "Empty states for a first run, an empty search, a cleared inbox and a missing permission.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/empty-states"
+  },
+  {
+    "id": "block-error-page",
+    "title": "Error page",
+    "description": "A not found page with a search field and links to get back on track.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/error-page"
+  },
+  {
+    "id": "block-faq",
+    "title": "FAQ",
+    "description": "Frequently asked questions in an accordion group, with a way to reach support.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/faq"
+  },
+  {
+    "id": "block-feature-grid",
+    "title": "Feature grid",
+    "description": "A grid of features, each with an icon, a title and a summary.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/feature-grid"
+  },
+  {
+    "id": "block-file-manager",
+    "title": "File manager",
+    "description": "Storage usage, folders and a file table with sorting and row actions.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/file-manager"
+  },
+  {
+    "id": "block-forgot-password",
+    "title": "Forgot password",
+    "description": "An email field to request a reset link, and the message shown after sending it.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/forgot-password"
+  },
+  {
+    "id": "block-hero",
+    "title": "Hero",
+    "description": "A headline, a short pitch, two calls to action and a product preview.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/hero"
+  },
+  {
+    "id": "block-inbox",
+    "title": "Inbox",
+    "description": "Folders, a message list with unread states and a reading pane.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/inbox"
+  },
+  {
+    "id": "block-invoice",
+    "title": "Invoice",
+    "description": "Sender and recipient, line items, totals and payment details for an invoice.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/invoice"
+  },
+  {
+    "id": "block-kanban-board",
+    "title": "Kanban board",
+    "description": "Columns of task cards with labels, assignees, due dates and counts.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/kanban-board"
+  },
+  {
+    "id": "block-newsletter",
+    "title": "Newsletter",
+    "description": "A newsletter sign-up with an email field, topic choices and a privacy note.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/newsletter"
+  },
+  {
+    "id": "block-notification-settings",
+    "title": "Notification settings",
+    "description": "A table of switches that sets which notifications go to email, push and SMS.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/notification-settings"
+  },
+  {
+    "id": "block-notifications",
+    "title": "Notifications",
+    "description": "Notifications grouped by day, with tabs, unread markers and inline actions.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/notifications"
+  },
+  {
+    "id": "block-onboarding-checklist",
+    "title": "Onboarding checklist",
+    "description": "A getting started checklist with progress and a call to action per step.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/onboarding-checklist"
+  },
+  {
+    "id": "block-order-history",
+    "title": "Order history",
+    "description": "Past orders with their status, items, totals and actions to track or reorder.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/order-history"
+  },
+  {
+    "id": "block-pricing",
+    "title": "Pricing",
+    "description": "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/pricing"
+  },
+  {
+    "id": "block-product-detail",
+    "title": "Product detail",
+    "description": "A product gallery, color and size choices, quantity, add to cart and details.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/product-detail"
+  },
+  {
+    "id": "block-project-overview",
+    "title": "Project overview",
+    "description": "Milestones, progress, the team and recent activity for a single project.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/project-overview"
+  },
+  {
+    "id": "block-sales-dashboard",
+    "title": "Sales dashboard",
+    "description": "Revenue, orders and conversion with sales targets and the latest orders.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/sales-dashboard"
+  },
+  {
+    "id": "block-server-status",
+    "title": "Server status",
+    "description": "Service health, uptime history, response times and incidents.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/server-status"
+  },
+  {
+    "id": "block-shopping-cart",
+    "title": "Shopping cart",
+    "description": "Cart items with quantity controls, a discount code and an order summary.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/shopping-cart"
+  },
+  {
+    "id": "block-sign-in",
+    "title": "Sign in",
+    "description": "An email and password form with a remember me option and social sign-in.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/sign-in"
+  },
+  {
+    "id": "block-sign-up",
+    "title": "Sign up",
+    "description": "An account form with a password hint, a plan choice and terms.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/sign-up"
+  },
+  {
+    "id": "block-team-members",
+    "title": "Team members",
+    "description": "An invite form and a member list with roles, statuses and actions.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/team-members"
+  },
+  {
+    "id": "block-testimonials",
+    "title": "Testimonials",
+    "description": "Customer quotes with names, roles and ratings.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/testimonials"
+  },
+  {
+    "id": "block-two-factor",
+    "title": "Two-factor authentication",
+    "description": "A one-time code form for two-factor authentication, with a way to resend the code.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/two-factor"
+  },
+  {
+    "id": "block-user-directory",
+    "title": "User directory",
+    "description": "A filterable grid of people cards with avatars, roles and contact actions.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/user-directory"
+  },
+  {
+    "id": "theme-builder",
+    "title": "Theme builder",
+    "description": "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file.",
+    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors",
+    "category": "Guide",
+    "url": "/theme-builder"
+  },
+  {
+    "id": "api-accordion-actions-svelte",
+    "title": "Accordion Actions API",
+    "description": "Reference for Accordion Actions Svelte component.",
+    "terms": "AccordionActions A group of actions, such as buttons. align Alignment for the actions.",
+    "category": "API",
+    "url": "/svelte/api#accordion-actions"
+  },
+  {
+    "id": "api-accordion-summary-svelte",
+    "title": "Accordion Summary API",
+    "description": "Reference for Accordion Summary Svelte component.",
+    "terms": "AccordionSummary The always visible header. The marker. Renders a chevron by default. Only `.ui-marker` animates. marker",
+    "category": "API",
+    "url": "/svelte/api#accordion-summary"
+  },
+  {
+    "id": "api-accordion-svelte",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Svelte component.",
+    "terms": "Accordion Container element. The always visible header. The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.",
+    "category": "API",
+    "url": "/svelte/api#accordion"
+  },
+  {
+    "id": "api-anchor-svelte",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Svelte component.",
+    "terms": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger=\"hover\"`. positionArea Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. trigger Shows the floating content on hover and focus with `popover=\"hint\"`. Without it, the content always shows.",
+    "category": "API",
+    "url": "/svelte/api#anchor"
+  },
+  {
+    "id": "api-avatar-group-svelte",
+    "title": "Avatar Group API",
+    "description": "Reference for Avatar Group Svelte component.",
+    "terms": "AvatarGroup A group of overlapping avatars.",
+    "category": "API",
+    "url": "/svelte/api#avatar-group"
+  },
+  {
+    "id": "api-avatar-svelte",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Svelte component.",
+    "terms": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. variant The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+    "category": "API",
+    "url": "/svelte/api#avatar"
+  },
+  {
+    "id": "api-badge-svelte",
+    "title": "Badge API",
+    "description": "Reference for Badge Svelte component.",
+    "terms": "Badge Container element. The element the badge is anchored to. default The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. label indicator color Optional colors. corner The corner the indicator sits on. dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. hideLabel Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. invisible Hides the indicator.",
+    "category": "API",
+    "url": "/svelte/api#badge"
+  },
+  {
+    "id": "api-button-group-svelte",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Svelte component.",
+    "terms": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "category": "API",
+    "url": "/svelte/api#button-group"
+  },
+  {
+    "id": "api-button-svelte",
+    "title": "Button API",
+    "description": "Reference for Button Svelte component.",
+    "terms": "Button Container element. An optional icon. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#button"
+  },
+  {
+    "id": "api-callout-svelte",
+    "title": "Callout API",
+    "description": "Reference for Callout Svelte component.",
+    "terms": "Callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical. The content, with an optional heading first. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#callout"
+  },
+  {
+    "id": "api-card-actions-svelte",
+    "title": "Card Actions API",
+    "description": "Reference for Card Actions Svelte component.",
+    "terms": "CardActions A group of actions, such as buttons. align Alignment for the actions.",
+    "category": "API",
+    "url": "/svelte/api#card-actions"
+  },
+  {
+    "id": "api-card-svelte",
+    "title": "Card API",
+    "description": "Reference for Card Svelte component.",
+    "terms": "Card Container element. The card header. The card content. A group of actions, such as buttons. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. variant The variant to use. The default `plain` card has the page surface color and no border.",
+    "category": "API",
+    "url": "/svelte/api#card"
+  },
+  {
+    "id": "api-carousel-svelte",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Svelte component.",
+    "terms": "Carousel The scroller. An item. default The previous button. `::scroll-button(block-start)` when vertical. buttons The next button. `::scroll-button(block-end)` when vertical. buttons A marker, one per item. markers align Where items snap. aria-label Accessible name of the carousel. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. itemsPerView Number of visible items. markers One marker per item, after the list. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "category": "API",
+    "url": "/svelte/api#carousel"
+  },
+  {
+    "id": "api-checkbox-input-svelte",
+    "title": "Checkbox Input API",
+    "description": "Reference for Checkbox Input Svelte component.",
+    "terms": "CheckboxInput The checkbox input, without a label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
+    "category": "API",
+    "url": "/svelte/api#checkbox-input"
+  },
+  {
+    "id": "api-checkbox-svelte",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Svelte component.",
+    "terms": "Checkbox Container element. The checkbox input. The label. label default Supporting text displayed below the label. endText end-text card Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the checkbox and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until it's checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "category": "API",
+    "url": "/svelte/api#checkbox"
+  },
+  {
+    "id": "api-chip-svelte",
+    "title": "Chip API",
+    "description": "Reference for Chip Svelte component.",
+    "terms": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#chip"
+  },
+  {
+    "id": "api-copy-svelte",
+    "title": "Copy API",
+    "description": "Reference for Copy Svelte component.",
+    "terms": "Copy The `<opui-copy>` custom element, with `display: contents`. A button with `command=\"--copy\"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead. The live region that announces the copy, visually hidden with `.ui-sr-only`. The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy. copiedLabel failedLabel copiedLabel The text shown and announced after a copy. failedLabel The text shown and announced when the clipboard is blocked. id The id the copy button points at with `commandfor`. Required.",
+    "category": "API",
+    "url": "/svelte/api#copy"
+  },
+  {
+    "id": "api-description-list-item-svelte",
+    "title": "Description List Item API",
+    "description": "Reference for Description List Item Svelte component.",
+    "terms": "DescriptionListItem Groups a term with its description. total Marks the item as the total of the list: a line above it, larger bold text and the strong text color, for the last row of an order summary.",
+    "category": "API",
+    "url": "/svelte/api#description-list-item"
+  },
+  {
+    "id": "api-description-list-svelte",
+    "title": "Description List API",
+    "description": "Reference for Description List Svelte component.",
+    "terms": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a line between the term and the description. dotted Makes the `bordered` line dotted. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "category": "API",
+    "url": "/svelte/api#description-list"
+  },
+  {
+    "id": "api-dialog-footer-svelte",
+    "title": "Dialog Footer API",
+    "description": "Reference for Dialog Footer Svelte component.",
+    "terms": "DialogFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
+    "category": "API",
+    "url": "/svelte/api#dialog-footer"
+  },
+  {
+    "id": "api-dialog-svelte",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Svelte component.",
+    "terms": "Dialog Container element. The header, a row for the title and anything next to it. The title. Names the dialog through `aria-labelledby`. The scrollable content. The footer, a row at the end. closedby How the dialog can be closed. `\"any\"` also closes it on a click outside.",
+    "category": "API",
+    "url": "/svelte/api#dialog"
+  },
+  {
+    "id": "api-divider-svelte",
+    "title": "Divider API",
+    "description": "Reference for Divider Svelte component.",
+    "terms": "Divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. align Where the content sits on the line. color Optional colors. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#divider"
+  },
+  {
+    "id": "api-drawer-footer-svelte",
+    "title": "Drawer Footer API",
+    "description": "Reference for Drawer Footer Svelte component.",
+    "terms": "DrawerFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
+    "category": "API",
+    "url": "/svelte/api#drawer-footer"
+  },
+  {
+    "id": "api-drawer-header-svelte",
+    "title": "Drawer Header API",
+    "description": "Reference for Drawer Header Svelte component.",
+    "terms": "DrawerHeader Container element. Closes the drawer. closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.",
+    "category": "API",
+    "url": "/svelte/api#drawer-header"
+  },
+  {
+    "id": "api-drawer-svelte",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Svelte component.",
+    "terms": "Drawer Container element. The header, a row for the title and anything next to it, with a close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
+    "category": "API",
+    "url": "/svelte/api#drawer"
+  },
+  {
+    "id": "api-field-description-svelte",
+    "title": "Field Description API",
+    "description": "Reference for Field Description Svelte component.",
+    "terms": "FieldDescription Supporting text for a fieldset.",
+    "category": "API",
+    "url": "/svelte/api#field-description"
+  },
+  {
+    "id": "api-field-group-svelte",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Svelte component.",
+    "terms": "FieldGroup Container element. name Sets `name` on the OPUI fields inside that don't set their own. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
+    "category": "API",
+    "url": "/svelte/api#field-group"
+  },
+  {
+    "id": "api-field-legend-svelte",
+    "title": "Field Legend API",
+    "description": "Reference for Field Legend Svelte component.",
+    "terms": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`.",
+    "category": "API",
+    "url": "/svelte/api#field-legend"
+  },
+  {
+    "id": "api-fieldset-svelte",
+    "title": "Fieldset API",
+    "description": "Reference for Fieldset Svelte component.",
+    "terms": "Fieldset Container element. The label of the fieldset. Supporting text displayed below the legend. Supporting or error text for the whole group, after the fields. as The element to render. Elements other than `fieldset` get `role=\"group\"`. Point their `aria-labelledby` at the legend. disabled Disables every field inside. Only on a `<fieldset>`.",
+    "category": "API",
+    "url": "/svelte/api#fieldset"
+  },
+  {
+    "id": "api-form-svelte",
+    "title": "Form API",
+    "description": "Reference for Form Svelte component.",
+    "terms": "Form Container element. Spaces its fieldsets and fields. as The element to render.",
+    "category": "API",
+    "url": "/svelte/api#form"
+  },
+  {
+    "id": "api-layout-svelte",
+    "title": "Layout API",
+    "description": "Reference for Layout Svelte component.",
+    "terms": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. column A column with even space between its children. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and truncates. row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-media`. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
+    "category": "API",
+    "url": "/svelte/api#layout"
+  },
+  {
+    "id": "api-list-item-svelte",
+    "title": "List Item API",
+    "description": "Reference for List Item Svelte component.",
+    "terms": "ListItem The list item. The clickable row, rendered by `as`, `href` or `type`. as href type Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"` or `\"button\"`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
+    "category": "API",
+    "url": "/svelte/api#list-item"
+  },
+  {
+    "id": "api-list-svelte",
+    "title": "List API",
+    "description": "Reference for List Svelte component.",
+    "terms": "List Container element. A list item. bordered Adds a border between list items. dense Packs the items tighter. flush Removes the inline padding of the items and the block padding of the list. variant The variant to use. The default `filled` list uses the filled surface.",
+    "category": "API",
+    "url": "/svelte/api#list"
+  },
+  {
+    "id": "api-menu-svelte",
+    "title": "Menu API",
+    "description": "Reference for Menu Svelte component.",
+    "terms": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`. popover The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
+    "category": "API",
+    "url": "/svelte/api#menu"
+  },
+  {
+    "id": "api-message-svelte",
+    "title": "Message API",
+    "description": "Reference for Message Svelte component.",
+    "terms": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "url": "/svelte/api#message"
+  },
+  {
+    "id": "api-messages-svelte",
+    "title": "Messages API",
+    "description": "Reference for Messages Svelte component.",
+    "terms": "Messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "category": "API",
+    "url": "/svelte/api#messages"
+  },
+  {
+    "id": "api-number-field-svelte",
+    "title": "Number Field API",
+    "description": "Reference for Number Field Svelte component.",
+    "terms": "NumberField The `<opui-number-field>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Hidden until the element is defined. decreaseLabel The input element. The increase button, with `command=\"--step-up\"`. Hidden until the element is defined. increaseLabel Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#number-field"
+  },
+  {
+    "id": "api-one-time-code-svelte",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Svelte component.",
+    "terms": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element.",
+    "category": "API",
+    "url": "/svelte/api#one-time-code"
+  },
+  {
+    "id": "api-progress-svelte",
+    "title": "Progress API",
+    "description": "Reference for Progress Svelte component.",
+    "terms": "Progress Container element. The progress bar. value max max The maximum value. value The current value. Omit it for an indeterminate state. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#progress"
+  },
+  {
+    "id": "api-radio-input-svelte",
+    "title": "Radio Input API",
+    "description": "Reference for Radio Input Svelte component.",
+    "terms": "RadioInput The radio input, without a label.",
+    "category": "API",
+    "url": "/svelte/api#radio-input"
+  },
+  {
+    "id": "api-radio-svelte",
+    "title": "Radio API",
+    "description": "Reference for Radio Svelte component.",
+    "terms": "Radio Container element. The radio input. The label. label default Supporting text displayed below the label. endText end-text card Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the radio and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until one radio in the group is checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "category": "API",
+    "url": "/svelte/api#radio"
+  },
+  {
+    "id": "api-range-svelte",
+    "title": "Range API",
+    "description": "Reference for Range Svelte component.",
+    "terms": "Range Container element. The label for the range. label label Shows the current value, with an optional `valueSuffix`. valueSuffix value-text Description text displayed above the input. startText start-text The range input. Tick marks and their labels, under the input. items list datalist Supporting text displayed below the input. endText end-text disabled Dims the slider and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. Generated when omitted and the value is shown. items Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. list The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. size The size of the element. spread Pushes the label and start text to one side and the input to the other. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.",
+    "category": "API",
+    "url": "/svelte/api#range"
+  },
+  {
+    "id": "api-rating-svelte",
+    "title": "Rating API",
+    "description": "Reference for Rating Svelte component.",
+    "terms": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the clear radio. size The size of the stars. starLabel Returns the accessible name of each star radio. Use it to translate.",
+    "category": "API",
+    "url": "/svelte/api#rating"
+  },
+  {
+    "id": "api-select-all-svelte",
+    "title": "Select All API",
+    "description": "Reference for Select All Svelte component.",
+    "terms": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.",
+    "category": "API",
+    "url": "/svelte/api#select-all"
+  },
+  {
+    "id": "api-select-svelte",
+    "title": "Select API",
+    "description": "Reference for Select Svelte component.",
+    "terms": "Select Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed select area. Content above the select, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. end Content below the select, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text autoFit Lets the width follow the selected option, from `25ch`. dense Packs the items tighter. disabled Dims the select and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<select>`. items The options, as `{ label, selected, value }` objects. name The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit until an option with a value is selected. size The size of the element. spread Pushes the label and start text to one side and the select to the other. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#select"
+  },
+  {
+    "id": "api-sortable-table-svelte",
+    "title": "Sortable Table API",
+    "description": "Reference for Sortable Table Svelte component.",
+    "terms": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. onsort Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.",
+    "category": "API",
+    "url": "/svelte/api#sortable-table"
+  },
+  {
+    "id": "api-spinner-svelte",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Svelte component.",
+    "terms": "Spinner Renders a spinner pseudo-element on the element. Always indeterminate. size Spinner size follows the element's computed font size.",
+    "category": "API",
+    "url": "/svelte/api#spinner"
+  },
+  {
+    "id": "api-stat-svelte",
+    "title": "Stat API",
+    "description": "Reference for Stat Svelte component.",
+    "terms": "Stat A `dl` with the label, the value and the description, so a screen reader reads them as one term with its details. The label. label label The value, in tabular numbers. default The description. description description description Text under the value, such as the change since last week. Rich content, such as a severity colored change, goes in the `description` slot. label What the value counts, such as Visitors. Rich content goes in the `label` slot. size The size of the value.",
+    "category": "API",
+    "url": "/svelte/api#stat"
+  },
+  {
+    "id": "api-stepper-item-svelte",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item Svelte component.",
+    "terms": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-checked The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completedLabel Screen reader text after the label of a complete step. current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "category": "API",
+    "url": "/svelte/api#stepper-item"
+  },
+  {
+    "id": "api-stepper-svelte",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Svelte component.",
+    "terms": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completedLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "category": "API",
+    "url": "/svelte/api#stepper"
+  },
+  {
+    "id": "api-switch-input-svelte",
+    "title": "Switch Input API",
+    "description": "Reference for Switch Input Svelte component.",
+    "terms": "SwitchInput The switch input, without a label.",
+    "category": "API",
+    "url": "/svelte/api#switch-input"
+  },
+  {
+    "id": "api-switch-svelte",
+    "title": "Switch API",
+    "description": "Reference for Switch Svelte component.",
+    "terms": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "category": "API",
+    "url": "/svelte/api#switch"
+  },
+  {
+    "id": "api-table-cell-svelte",
+    "title": "Table Cell API",
+    "description": "Reference for Table Cell Svelte component.",
+    "terms": "TableCell A data cell, inside `TableRow`. numeric Aligns the cell to the end and uses tabular figures, so the digits of a column line up.",
+    "category": "API",
+    "url": "/svelte/api#table-cell"
+  },
+  {
+    "id": "api-table-column-group-svelte",
+    "title": "Table Column Group API",
+    "description": "Reference for Table Column Group Svelte component.",
+    "terms": "TableColumnGroup A group of columns, before the table head.",
+    "category": "API",
+    "url": "/svelte/api#table-column-group"
+  },
+  {
+    "id": "api-table-column-svelte",
+    "title": "Table Column API",
+    "description": "Reference for Table Column Svelte component.",
+    "terms": "TableColumn A column, inside `TableColumnGroup`. width The column width, merged into `style`.",
+    "category": "API",
+    "url": "/svelte/api#table-column"
+  },
+  {
+    "id": "api-table-header-cell-svelte",
+    "title": "Table Header Cell API",
+    "description": "Reference for Table Header Cell Svelte component.",
+    "terms": "TableHeaderCell A header cell, inside `TableRow`. numeric Aligns the header to the end, over a column of `numeric` cells. sortable Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
+    "category": "API",
+    "url": "/svelte/api#table-header-cell"
+  },
+  {
+    "id": "api-table-svelte",
+    "title": "Table API",
+    "description": "Reference for Table Svelte component.",
+    "terms": "Table Container element. The header rows. A header cell. The body rows. A row. A data cell. Optional footer rows, such as totals. An optional title for the table. density The cell padding. flush Drops the block margin, for a table that sits in a card or another padded box. overflow What the table does when its columns don't fit. `\"wrap\"` lets the cells wrap their text, and `\"scroll\"` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex=\"0\"`, so keyboard users can scroll it. stickyHeader Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.",
+    "category": "API",
+    "url": "/svelte/api#table"
+  },
+  {
+    "id": "api-tabs-item-svelte",
+    "title": "Tabs Item API",
+    "description": "Reference for Tabs Item Svelte component.",
+    "terms": "TabsItem The radio input for a tab, followed by the tab and the panel. checked Selects the tab. id The id of the input. Generated when omitted. name Overrides the name shared by the tab inputs. value The value of the input. The tab is selected while it matches the `value` of `Tabs`.",
+    "category": "API",
+    "url": "/svelte/api#tabs-item"
+  },
+  {
+    "id": "api-tabs-label-svelte",
+    "title": "Tabs Label API",
+    "description": "Reference for Tabs Label Svelte component.",
+    "terms": "TabsLabel The tab. for The id of the input it labels. Set by the item.",
+    "category": "API",
+    "url": "/svelte/api#tabs-label"
+  },
+  {
+    "id": "api-tabs-panel-svelte",
+    "title": "Tabs Panel API",
+    "description": "Reference for Tabs Panel Svelte component.",
+    "terms": "TabsPanel The panel.",
+    "category": "API",
+    "url": "/svelte/api#tabs-panel"
+  },
+  {
+    "id": "api-tabs-svelte",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Svelte component.",
+    "terms": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
+    "category": "API",
+    "url": "/svelte/api#tabs"
+  },
+  {
+    "id": "api-text-field-svelte",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Svelte component.",
+    "terms": "TextField Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The button needs `opui-css/elements/text-field.js`. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#text-field"
+  },
+  {
+    "id": "api-textarea-svelte",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Svelte component.",
+    "terms": "Textarea Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed textarea area. Content above the textarea, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The textarea element. Content at the inline-end of the field, inside the border. end Content below the textarea, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content and allows resizing in both directions. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<textarea>`. name The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the textarea to the other. variant The variant to use.",
+    "category": "API",
+    "url": "/svelte/api#textarea"
+  },
+  {
+    "id": "api-timeline-item-svelte",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Svelte component.",
+    "terms": "TimelineItem An event. Replaces the dot with an icon. It follows the item's color and the current state. marker The date, in its own column. datetime time The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. Rich content goes in the `label` slot. time The date as shown, in the date column.",
+    "category": "API",
+    "url": "/svelte/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-svelte",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Svelte component.",
+    "terms": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, label, time }` objects. `description` renders a paragraph. size The size of the element. tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "url": "/svelte/api#timeline"
+  },
+  {
+    "id": "api-toast-svelte",
+    "title": "Toast API",
+    "description": "Reference for Toast Svelte component.",
+    "terms": "Toaster The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command=\"--toast\"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone. The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last. A toast, a `Callout` with the severity class, its icon, the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it. The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page. align Where the toasts sit along their side of the viewport. closeLabel The accessible name of the close button of each toast. duration How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. id The id the buttons point at with `commandfor`. Required. side The side of the viewport the toasts sit on.",
+    "category": "API",
+    "url": "/svelte/api#toast"
+  },
+  {
+    "id": "api-toggle-button-svelte",
+    "title": "Toggle Button API",
+    "description": "Reference for Toggle Button Svelte component.",
+    "terms": "ToggleButton Container element. A visually hidden checkbox or radio input. checked Selects the button. disabled Disables the button. id The id of the `<input>`. label The button text when there is no child content. name The name of the input. Set by the group. required The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. value The value of the input.",
+    "category": "API",
+    "url": "/svelte/api#toggle-button"
+  },
+  {
+    "id": "api-toggle-group-svelte",
+    "title": "Toggle Group API",
+    "description": "Reference for Toggle Group Svelte component.",
+    "terms": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons.",
+    "category": "API",
+    "url": "/svelte/api#toggle-group"
+  },
+  {
+    "id": "api-tooltip-svelte",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Svelte component.",
+    "terms": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command=\"toggle-popover\"` too. Required. positionArea Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+    "category": "API",
+    "url": "/svelte/api#tooltip"
+  },
+  {
+    "id": "api-typography-svelte",
+    "title": "Typography API",
+    "description": "Reference for Typography Svelte component.",
+    "terms": "Typography Classless typography for uncontrolled child markup. blockquote Quoted block with a start border. caption Muted supporting text. codeBlock Monospace preformatted block. color Tone of `.ui-swatch`, and the text color of `.ui-p`, `.ui-caption` and `.ui-overline`. Without it, the swatch takes the palette accent of the scope it sits in. heading Heading styles for any element. headingGroup Groups an overline, heading, and optional body copy. icon Sizes an inline `svg` to `--ui-icon-size` and keeps it from shrinking in a flex row. inline Inline text element utilities. link Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. notRichText Ends the `.ui-rich-text` styles inside it. overline Small uppercase label text. paragraph Body paragraph styling. size Size modifiers on `.ui-p` and `.ui-icon`. An icon reads `--ui-icon-size-small` and `--ui-icon-size-large`. tabularNums Digits of one width, so numbers line up in a column of prices or stats. swatch A small colored dot for a legend, in `--_swatch-bg-color`, the palette accent of its tone or scope.",
+    "category": "API",
+    "url": "/svelte/api#typography"
+  }
+]

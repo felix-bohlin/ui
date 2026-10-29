@@ -94,6 +94,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     </div>
     <div id="results-list" role="listbox" aria-label="Results"></div>
   </div>
+  <div id="search-status" class="ui-sr-only" role="status"></div>
 
   <Fragment slot="footer">
     <div class="helper">
@@ -110,9 +111,10 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 </Command>
 
 <script>
-  import MiniSearch from "minisearch"
+  import MiniSearch, { type SearchResult } from "minisearch"
   import {
     DEFAULT_FRAMEWORK,
+    FRAMEWORKS,
     frameworkPrefixPattern,
     isFrameworkId,
     type FrameworkId,
@@ -132,31 +134,51 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   const emptyState = document.getElementById("search-empty")
   const filterGroup = document.getElementById("search-filters")
   const closeBtn = document.getElementById("search-close")
+  const status = document.getElementById("search-status")
 
-  let miniSearch: MiniSearch<SearchItem> | null = null
-  let searchIndex: SearchItem[] = []
+  type Result = SearchItem & {
+    framework?: FrameworkId
+    score: number
+    terms: string[]
+  }
+  type RecentItem = Pick<
+    SearchItem,
+    "category" | "description" | "id" | "page" | "title" | "url"
+  >
+
+  const GROUP_LIMIT = 5
+  const CATEGORY_BOOST: Partial<Record<string, number>> = {
+    API: 0.8,
+    Blocks: 0.9,
+    Blog: 0.7,
+    Component: 1.2,
+  }
+  const indexes = new Map<FrameworkId, Promise<MiniSearch<SearchItem>>>()
   let selectedIndex = -1
   let activeFilter = "all"
+  let statusTimer: ReturnType<typeof setTimeout> | undefined
+  let renderRun = 0
+  const optionItems = new WeakMap<Element, RecentItem>()
 
   function getActiveFrameworkId(): FrameworkId {
     const framework = document.documentElement.dataset.framework
     return isFrameworkId(framework) ? framework : DEFAULT_FRAMEWORK
   }
 
-  function getItemFrameworkId(
-    item: Pick<SearchItem, "frameworkId" | "url">,
-  ): FrameworkId | undefined {
-    if (isFrameworkId(item.frameworkId)) return item.frameworkId
-    const fromUrl = item.url?.match(frameworkPrefixPattern())?.[1]
-    if (isFrameworkId(fromUrl)) return fromUrl
-    return undefined
+  function matchesActiveFramework(item: Pick<SearchItem, "url">): boolean {
+    const frameworkId = item.url?.match(frameworkPrefixPattern())?.[1]
+    return !isFrameworkId(frameworkId) || frameworkId === getActiveFrameworkId()
   }
 
-  function matchesActiveFramework(
-    item: Pick<SearchItem, "frameworkId" | "url">,
-  ): boolean {
-    const frameworkId = getItemFrameworkId(item)
-    return !frameworkId || frameworkId === getActiveFrameworkId()
+  function selectFilter(filter: string) {
+    filterGroup?.querySelectorAll(".filter-chip").forEach((c) => {
+      c.setAttribute(
+        "aria-pressed",
+        String((c as HTMLElement).dataset.filter === filter),
+      )
+    })
+    activeFilter = filter
+    updateResults()
   }
 
   // Handle filter clicks
@@ -165,53 +187,82 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     const filterChip = target.closest(".filter-chip")
 
     if (filterChip) {
-      filterGroup.querySelectorAll(".filter-chip").forEach((c) => {
-        c.setAttribute("aria-pressed", "false")
-      })
-      filterChip.setAttribute("aria-pressed", "true")
-      activeFilter = (filterChip as HTMLElement).dataset.filter || "all"
-      updateResults()
+      selectFilter((filterChip as HTMLElement).dataset.filter || "all")
       input.focus()
     }
   })
 
   // Initialize MiniSearch
-  async function initSearch() {
-    try {
-      const response = await fetch("/search-index.json")
-      searchIndex = await response.json()
-
-      miniSearch = new MiniSearch<SearchItem>({
-        fields: ["title", "description", "headings"], // fields to index for full-text search
-        storeFields: [
-          "title",
-          "description",
-          "category",
-          "url",
-          "headings",
-          "frameworkId",
-        ],
-        searchOptions: {
-          fuzzy: 0.2,
-          prefix: true,
-        },
+  function loadIndex(framework = getActiveFrameworkId()) {
+    let index = indexes.get(framework)
+    if (!index) {
+      index = fetch(`/search-index/${framework}.json`)
+        .then((response) => response.json())
+        .then((items: SearchItem[]) => {
+          const miniSearch = new MiniSearch<SearchItem>({
+            fields: [
+              "title",
+              "keywords",
+              "page",
+              "headings",
+              "description",
+              "terms",
+            ], // fields to index for full-text search
+            storeFields: ["category", "description", "page", "title", "url"],
+            searchOptions: {
+              boost: {
+                description: 1,
+                headings: 1,
+                keywords: 3,
+                page: 2,
+                terms: 0.5,
+                title: 4,
+              },
+              boostDocument: (_id, _term, item) =>
+                (CATEGORY_BOOST[String(item?.category)] ?? 1) *
+                (item?.page ? 1 : 1.5),
+              combineWith: "AND",
+              fuzzy: 0.2,
+              prefix: true,
+            },
+          })
+          miniSearch.addAll(items)
+          return miniSearch
+        })
+      index.catch((e) => {
+        indexes.delete(framework)
+        console.error("Failed to initialize search", e)
       })
-
-      miniSearch.addAll(searchIndex)
-    } catch (e) {
-      console.error("Failed to initialize search", e)
+      indexes.set(framework, index)
     }
+    return index
+  }
+
+  function search(miniSearch: MiniSearch<SearchItem>, query: string) {
+    const results = miniSearch.search(query)
+    return (
+      results.length > 0
+        ? results
+        : miniSearch.search(query, { combineWith: "OR" })
+    ).map((result: SearchResult) => result as unknown as Result)
   }
 
   const getRecentSearches = () =>
-    readStored<SearchItem[]>("opui-recent-searches", [])
+    readStored<RecentItem[]>("opui-recent-searches", [])
 
-  function saveRecentSearch(item: SearchItem) {
+  function saveRecentSearch({
+    category,
+    description,
+    id,
+    page,
+    title,
+    url,
+  }: RecentItem) {
     let recent = getRecentSearches()
     // Remove if exists
-    recent = recent.filter((r) => r.url !== item.url)
+    recent = recent.filter((r) => r.url !== url)
     // Add to front
-    recent.unshift(item)
+    recent.unshift({ category, description, id, page, title, url })
     // Limit to 5
     recent = recent.slice(0, 5)
     writeStored("opui-recent-searches", recent)
@@ -220,53 +271,152 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   const escapeHtml = (text: string) =>
     text.replace(/[&<>"]/g, (char) => `&#${char.charCodeAt(0)};`)
 
-  function highlight(text: string, query: string) {
-    if (!query) return escapeHtml(text)
-    const pattern = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  function highlight(text: string, terms: string[]) {
+    if (terms.length === 0) return escapeHtml(text)
+    const pattern = terms
+      .toSorted((a, b) => b.length - a.length)
+      .map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join("|")
     return text
-      .split(new RegExp(`(${pattern})`, "gi"))
+      .split(
+        new RegExp(`(?<![\\p{L}\\p{N}])(${pattern})(?![\\p{L}\\p{N}])`, "giu"),
+      )
       .map((part, index) =>
         index % 2 ? `<mark>${escapeHtml(part)}</mark>` : escapeHtml(part),
       )
       .join("")
   }
 
-  function renderItem(item: SearchItem, id: string, isSelected: boolean) {
-    const query = input.value.trim()
+  function renderItem(
+    item: RecentItem & Partial<Result>,
+    id: string,
+    isSelected: boolean,
+  ) {
+    const terms = item.terms ?? []
     const li = document.createElement("li")
     li.id = id
     li.setAttribute("aria-selected", String(isSelected))
     li.setAttribute("role", "option")
 
-    const displayTitle = highlight(item.title, query)
-    const displayDesc = highlight(item.description || "", query)
+    const displayTitle = highlight(item.title, terms)
+    const displayDesc = highlight(item.page ?? item.description ?? "", terms)
+    const end = item.framework
+      ? FRAMEWORKS.find(({ id }) => id === item.framework)?.label
+      : item.category
 
-    li.innerHTML = `
-      <a>
-        <div class="ui-text">
-          <p class="ui-title">${displayTitle}</p>
-          <p class="ui-description">${displayDesc}</p>
-        </div>
-        <div class="ui-end">
-          ${item.category ? `<span class="command-item-shortcut">${item.category}</span>` : ""}
-        </div>
-      </a>
+    const link = document.createElement("a")
+    link.href = item.url
+    link.tabIndex = -1
+    link.innerHTML = `
+      <div class="ui-text">
+        <p class="ui-title">${displayTitle}</p>
+        <p class="ui-description">${displayDesc}</p>
+      </div>
+      <div class="ui-end">
+        ${end ? `<span class="command-item-shortcut">${end}</span>` : ""}
+      </div>
     `
+    li.append(link)
+    optionItems.set(li, item)
 
-    li.addEventListener("click", (e) => {
+    link.addEventListener("click", (e) => {
       saveRecentSearch(item)
-      if (e.ctrlKey || e.metaKey) {
-        window.open(item.url, "_blank")
-        return
-      }
-      dialog.close()
-      window.location.href = item.url
+      if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) dialog.close()
     })
 
     return li
   }
 
-  function updateResults() {
+  function renderMore(category: string, count: number, id: string) {
+    const li = document.createElement("li")
+    li.id = id
+    li.className = "search-more"
+    li.setAttribute("aria-selected", "false")
+    li.setAttribute("role", "option")
+    li.innerHTML = `<button type="button" tabindex="-1"><span class="ui-text"><span class="ui-title">Show all ${count}</span></span></button>`
+    li.addEventListener("click", () => {
+      selectFilter(category)
+      input.focus()
+    })
+    return li
+  }
+
+  function announce(text: string) {
+    clearTimeout(statusTimer)
+    statusTimer = setTimeout(() => {
+      if (status) status.textContent = text
+    }, 500)
+  }
+
+  function renderGroups(
+    items: Result[],
+    { heading, limit }: { heading?: string; limit: boolean },
+  ) {
+    // Group and sort by category
+    const grouped = new Map<string, Result[]>()
+    for (const item of items) {
+      const group = heading ?? item.category
+      grouped.set(group, [...(grouped.get(group) ?? []), item])
+    }
+
+    let globalIndex = resultsList!.querySelectorAll("[role=option]").length
+    for (const [category, groupItems] of grouped) {
+      const headingId = `search-group-${category.toLowerCase().replace(/\W+/g, "-")}`
+      const groupDiv = document.createElement("div")
+      groupDiv.className = "command-group"
+      groupDiv.innerHTML = `<div class="command-group-heading" id="${headingId}">${category}</div>`
+
+      const ul = document.createElement("ul")
+      ul.className = "ui-list ui-transparent"
+      ul.setAttribute("aria-labelledby", headingId)
+      ul.setAttribute("role", "group")
+
+      const shown =
+        limit && groupItems.length > GROUP_LIMIT + 1
+          ? groupItems.slice(0, GROUP_LIMIT)
+          : groupItems
+      shown.forEach((item) => {
+        ul.appendChild(
+          renderItem(item, `search-result-${globalIndex++}`, false),
+        )
+      })
+      if (shown.length < groupItems.length) {
+        ul.appendChild(
+          renderMore(
+            category,
+            groupItems.length,
+            `search-result-${globalIndex++}`,
+          ),
+        )
+      }
+
+      groupDiv.appendChild(ul)
+      resultsList!.appendChild(groupDiv)
+    }
+    return globalIndex
+  }
+
+  async function searchOtherFrameworks(query: string) {
+    const current = getActiveFrameworkId()
+    const others = await Promise.all(
+      FRAMEWORKS.filter(({ id }) => id !== current).map(async ({ id }) =>
+        search(await loadIndex(id), query)
+          .filter((r) => activeFilter === "all" || r.category === activeFilter)
+          .map((r) => ({ ...r, framework: id })),
+      ),
+    )
+    return others
+      .flat()
+      .filter(
+        (result, index, all) =>
+          all.findIndex((other) => other.url === result.url) === index,
+      )
+      .toSorted((a, b) => b.score - a.score)
+      .slice(0, GROUP_LIMIT)
+  }
+
+  async function updateResults() {
+    const run = ++renderRun
     const query = input.value.trim()
     resultsList!.innerHTML = ""
     selectedIndex = -1
@@ -277,18 +427,17 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     if (!query) {
       recentGroup!.style.display = "block"
       emptyState!.style.display = "none"
+      announce("")
       renderRecent()
       return
     }
 
     recentGroup!.style.display = "none"
 
-    if (!miniSearch) return
+    const miniSearch = await loadIndex().catch(() => undefined)
+    if (!miniSearch || run !== renderRun) return
 
-    const results = miniSearch
-      .search(query)
-      .map((result) => result as unknown as SearchItem)
-      .filter((r) => matchesActiveFramework(r))
+    const results = search(miniSearch, query)
 
     // Update Category Chips with counts
     updateChipCounts(results.length, countByCategory(results))
@@ -298,59 +447,41 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       finalResults = finalResults.filter((r) => r.category === activeFilter)
     }
 
+    resultsList!.innerHTML = ""
+
     if (finalResults.length === 0) {
+      const framework = FRAMEWORKS.find(
+        ({ id }) => id === getActiveFrameworkId(),
+      )?.label
+      emptyState!.textContent = `No results in ${framework}.`
       emptyState!.style.display = "block"
-      resultsList!.innerHTML = ""
+      const others = await searchOtherFrameworks(query)
+      if (run !== renderRun) return
+      announce(
+        others.length > 0
+          ? `No results in ${framework}, ${others.length} in other frameworks`
+          : `No results in ${framework}`,
+      )
+      if (others.length > 0) {
+        renderGroups(others, { heading: "Other frameworks", limit: false })
+        selectedIndex = 0
+        updateSelection()
+      }
       return
     }
 
     emptyState!.style.display = "none"
+    announce(
+      `${finalResults.length} ${finalResults.length === 1 ? "result" : "results"}`,
+    )
 
-    // Group and sort by category
-    const grouped: Partial<Record<string, SearchItem[]>> = {}
-    for (const item of finalResults) {
-      ;(grouped[item.category] ??= []).push(item)
-    }
-
-    const categoryOrder = SEARCH_CATEGORIES.map((category) => category.id)
-    const sortedCategories = Object.keys(grouped).sort((a, b) => {
-      const indexA = categoryOrder.indexOf(a as SearchItem["category"])
-      const indexB = categoryOrder.indexOf(b as SearchItem["category"])
-      if (indexA === -1 && indexB === -1) return a.localeCompare(b)
-      if (indexA === -1) return 1
-      if (indexB === -1) return -1
-      return indexA - indexB
-    })
-
-    let globalIndex = 0
-    for (const category of sortedCategories) {
-      const headingId = `search-group-${category.toLowerCase()}`
-      const groupDiv = document.createElement("div")
-      groupDiv.className = "command-group"
-      groupDiv.innerHTML = `<div class="command-group-heading" id="${headingId}">${category}</div>`
-
-      const ul = document.createElement("ul")
-      ul.className = "ui-list ui-transparent"
-      ul.setAttribute("aria-labelledby", headingId)
-      ul.setAttribute("role", "group")
-
-      grouped[category]?.forEach((item) => {
-        ul.appendChild(
-          renderItem(item, `search-result-${globalIndex++}`, false),
-        )
-      })
-
-      groupDiv.appendChild(ul)
-      resultsList!.appendChild(groupDiv)
-    }
-
-    if (globalIndex > 0) {
+    if (renderGroups(finalResults, { limit: activeFilter === "all" }) > 0) {
       selectedIndex = 0
       updateSelection()
     }
   }
 
-  function countByCategory(items: SearchItem[]) {
+  function countByCategory(items: Pick<SearchItem, "category">[]) {
     const counts: Record<string, number> = {}
     for (const item of items) {
       counts[item.category] = (counts[item.category] || 0) + 1
@@ -428,9 +559,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
   function getActiveItems() {
     if (input.value.trim()) {
-      return resultsList!.querySelectorAll("li")
+      return resultsList!.querySelectorAll<HTMLElement>("[role=option]")
     } else {
-      return recentList!.querySelectorAll("li")
+      return recentList!.querySelectorAll<HTMLElement>("[role=option]")
     }
   }
 
@@ -441,7 +572,14 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   })
 
   input.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+    const atStart = input.selectionStart === 0 && input.selectionEnd === 0
+    const atEnd =
+      input.selectionStart === input.value.length &&
+      input.selectionEnd === input.value.length
+    if (
+      (e.key === "ArrowLeft" && atStart) ||
+      (e.key === "ArrowRight" && atEnd)
+    ) {
       const chips = Array.from(
         filterGroup!.querySelectorAll(".filter-chip"),
       ) as HTMLElement[]
@@ -458,12 +596,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
       e.preventDefault()
       // Update UI (same logic as click handler)
-      chips.forEach((c) => {
-        c.setAttribute("aria-pressed", "false")
-      })
-      targetChip.setAttribute("aria-pressed", "true")
-      activeFilter = targetChip.dataset.filter || "all"
-      updateResults()
+      selectFilter(targetChip.dataset.filter || "all")
       return
     }
 
@@ -479,8 +612,15 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       selectedIndex = (selectedIndex - 1 + items.length) % items.length
       updateSelection()
     } else if (e.key === "Enter") {
-      const selected = items[selectedIndex] as HTMLElement | undefined
-      selected?.click()
+      const selected = items[selectedIndex]
+      const item = selected && optionItems.get(selected)
+      e.preventDefault()
+      if (item && (e.ctrlKey || e.metaKey)) {
+        saveRecentSearch(item)
+        window.open(item.url, "_blank")
+        return
+      }
+      selected?.querySelector<HTMLElement>("a, button")?.click()
     }
   })
 
@@ -512,10 +652,17 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     } else {
       dialog.showModal()
       input.focus()
-      if (!miniSearch) initSearch()
       updateResults()
     }
   }
+
+  const prefetch = (e: Event) => {
+    if ((e.target as HTMLElement).closest?.("[data-open-search]")) {
+      loadIndex().catch(() => {})
+    }
+  }
+  document.addEventListener("pointerover", prefetch, { passive: true })
+  document.addEventListener("focusin", prefetch)
 
   // Handle open from other elements
   document.addEventListener("click", (e) => {
@@ -722,6 +869,11 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       font-size: var(--font-size-1);
       padding-block: var(--size-8);
       text-align: center;
+    }
+
+    .search-more .ui-title {
+      color: var(--ui-primary);
+      font-weight: var(--font-weight-6);
     }
 
     mark {

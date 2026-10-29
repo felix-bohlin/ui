@@ -105,7 +105,7 @@ describe("check-dist", () => {
 
   test("reports a search index entry for a missing page", () => {
     expect(check(clean(), [{ url: "/html/components/gone/" }])).toEqual([
-      "/html/components/gone/ does not exist <- /search-index.json",
+      "/html/components/gone/ does not exist <- /search-index/",
     ])
   })
 

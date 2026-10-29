@@ -3,3 +3,6 @@
 
 /*.txt
   Content-Type: text/plain; charset=utf-8
+
+/search-index/*
+  Cache-Control: no-cache

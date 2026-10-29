@@ -243,7 +243,12 @@ const filterCss = [
                 type="button"
               >
                 {step.icon && (
-                  <svg aria-hidden="true" viewBox="0 0 16 16">
+                  <svg
+                    aria-hidden="true"
+                    height="32"
+                    viewBox="0 0 16 16"
+                    width="32"
+                  >
                     <path d={icons.download} fill="currentColor" />
                   </svg>
                 )}
@@ -268,7 +273,7 @@ const filterCss = [
         size="small"
         variant="outlined"
       >
-        <svg aria-hidden="true" viewBox="0 0 16 16">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16">
           <path d={icons.filter}></path>
         </svg>
         <span class="ui-text">Filter</span>

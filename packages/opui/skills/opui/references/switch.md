@@ -109,22 +109,19 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 
 ```html
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" checked />
+  <input type="checkbox" role="switch" name="switch-basics" checked />
   <span class="ui-sr-only">Label</span>
 </label>
-
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" />
+  <input type="checkbox" role="switch" name="switch-basics" />
   <span class="ui-sr-only">Label</span>
 </label>
-
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" checked disabled />
+  <input type="checkbox" role="switch" name="switch-basics" checked disabled />
   <span class="ui-sr-only">Label</span>
 </label>
-
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" disabled />
+  <input type="checkbox" role="switch" name="switch-basics" disabled />
   <span class="ui-sr-only">Label</span>
 </label>
 ```

@@ -122,10 +122,10 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       <span class="ui-start">
         <button
           type="button"
-          class="ui-button ui-round"
           aria-label="Pick a color"
-          commandfor="color-field-basics-1-picker"
           command="toggle-popover"
+          commandfor="color-field-basics-1-picker"
+          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>
@@ -133,9 +133,9 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
       <input
         autocomplete="off"
         spellcheck="false"
+        value="oklch(0.6 0.15 250)"
         id="color-field-basics-1"
         type="text"
-        value="oklch(0.6 0.15 250)"
       />
     </span>
   </div>

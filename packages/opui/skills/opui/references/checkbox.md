@@ -113,27 +113,23 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 
 ```html
 <label class="ui-checkbox">
-  <input name="checkbox-basics" type="checkbox" checked />
+  <input type="checkbox" name="checkbox-basics" checked />
   <span class="ui-sr-only">Checked</span>
 </label>
-
 <label class="ui-checkbox">
-  <input name="checkbox-basics" type="checkbox" />
+  <input type="checkbox" name="checkbox-basics" />
   <span class="ui-sr-only">Unchecked</span>
 </label>
-
 <label class="ui-checkbox">
-  <input name="checkbox-basics" type="checkbox" data-indeterminate />
+  <input type="checkbox" data-indeterminate name="checkbox-basics" />
   <span class="ui-sr-only">Indeterminate</span>
 </label>
-
 <label class="ui-checkbox">
-  <input name="checkbox-basics" type="checkbox" disabled />
+  <input type="checkbox" name="checkbox-basics" disabled />
   <span class="ui-sr-only">Disabled</span>
 </label>
-
 <label class="ui-checkbox">
-  <input name="checkbox-basics" type="checkbox" checked disabled />
+  <input type="checkbox" name="checkbox-basics" checked disabled />
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
 

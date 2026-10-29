@@ -101,47 +101,47 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 <div class="example-compass">
   <button
     type="button"
-    class="ui-button"
     commandfor="drawer-basics-3"
     command="show-modal"
+    class="ui-button"
   >
     Block Start
   </button>
   <button
     type="button"
-    class="ui-button"
     commandfor="drawer-basics-1"
     command="show-modal"
+    class="ui-button"
   >
     Inline Start
   </button>
   <button
     type="button"
-    class="ui-button"
     commandfor="drawer-basics-2"
     command="show-modal"
+    class="ui-button"
   >
     Inline End
   </button>
   <button
     type="button"
-    class="ui-button"
     commandfor="drawer-basics-4"
     command="show-modal"
+    class="ui-button"
   >
     Block End
   </button>
 </div>
 
 <dialog
-  class="ui-drawer ui-scroll-lock"
-  id="drawer-basics-1"
-  aria-labelledby="drawer-basics-1-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock"
+  aria-labelledby="drawer-basics-1-heading"
+  id="drawer-basics-1"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-1-heading">Inline Start</h2>
-    <button type="button" class="ui-button ui-round ui-small" aria-label="Edit">
+    <button type="button" aria-label="Edit" class="ui-button ui-round ui-small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -152,15 +152,15 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         <path
           fill="currentColor"
           d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        />
+        ></path>
       </svg>
     </button>
     <button
       type="button"
-      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-basics-1"
       command="close"
+      commandfor="drawer-basics-1"
+      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -176,9 +176,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-footer">
     <button
       type="button"
-      class="ui-button ui-small"
       commandfor="drawer-basics-1"
       command="close"
+      class="ui-button ui-small"
     >
       Close
     </button>
@@ -186,19 +186,19 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-inline-end"
-  id="drawer-basics-2"
-  aria-labelledby="drawer-basics-2-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock ui-inline-end"
+  aria-labelledby="drawer-basics-2-heading"
+  id="drawer-basics-2"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-2-heading">Inline End</h2>
     <button
       type="button"
-      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-basics-2"
       command="close"
+      commandfor="drawer-basics-2"
+      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -214,9 +214,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-footer">
     <button
       type="button"
-      class="ui-button ui-small"
       commandfor="drawer-basics-2"
       command="close"
+      class="ui-button ui-small"
     >
       Close
     </button>
@@ -224,19 +224,19 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-block-start"
-  id="drawer-basics-3"
-  aria-labelledby="drawer-basics-3-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock ui-block-start"
+  aria-labelledby="drawer-basics-3-heading"
+  id="drawer-basics-3"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-3-heading">Block Start</h2>
     <button
       type="button"
-      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-basics-3"
       command="close"
+      commandfor="drawer-basics-3"
+      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -257,9 +257,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-footer">
     <button
       type="button"
-      class="ui-button ui-small"
       commandfor="drawer-basics-3"
       command="close"
+      class="ui-button ui-small"
     >
       Close
     </button>
@@ -267,19 +267,19 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-block-end"
-  id="drawer-basics-4"
-  aria-labelledby="drawer-basics-4-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock ui-block-end"
+  aria-labelledby="drawer-basics-4-heading"
+  id="drawer-basics-4"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-4-heading">Block End</h2>
     <button
       type="button"
-      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-basics-4"
       command="close"
+      commandfor="drawer-basics-4"
+      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -300,9 +300,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-footer">
     <button
       type="button"
-      class="ui-button ui-small"
       commandfor="drawer-basics-4"
       command="close"
+      class="ui-button ui-small"
     >
       Close
     </button>

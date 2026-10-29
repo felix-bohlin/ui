@@ -63,28 +63,28 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 ### Example: Variants
 
 ```html
-<div role="group" class="ui-button-group">
+<div class="ui-button-group" role="group">
   <button type="button" class="ui-button">Transparent</button>
   <button type="button" class="ui-button">Transparent</button>
-  <a class="ui-button" href="#">Transparent</a>
+  <a href="#" class="ui-button">Transparent</a>
 </div>
 
-<div role="group" class="ui-button-group ui-outlined">
+<div class="ui-button-group ui-outlined" role="group">
   <button type="button" class="ui-button">Outlined</button>
   <button type="button" class="ui-button">Outlined</button>
-  <a class="ui-button" href="#">Outlined</a>
+  <a href="#" class="ui-button">Outlined</a>
 </div>
 
-<div role="group" class="ui-button-group ui-tonal">
+<div class="ui-button-group ui-tonal" role="group">
   <button type="button" class="ui-button">Tonal</button>
   <button type="button" class="ui-button">Tonal</button>
-  <a class="ui-button" href="#">Tonal</a>
+  <a href="#" class="ui-button">Tonal</a>
 </div>
 
-<div role="group" class="ui-button-group ui-filled">
+<div class="ui-button-group ui-filled" role="group">
   <button type="button" class="ui-button">Filled</button>
   <button type="button" class="ui-button">Filled</button>
-  <a class="ui-button" href="#">Filled</a>
+  <a href="#" class="ui-button">Filled</a>
 </div>
 ```
 

@@ -54,7 +54,6 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 <div class="ui-chip">
   <span class="ui-text">Tonal</span>
 </div>
-
 <div class="ui-chip ui-outlined">
   <span class="ui-text">Outlined</span>
 </div>

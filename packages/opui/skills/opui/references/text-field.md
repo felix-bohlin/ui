@@ -83,14 +83,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 <label class="ui-text-field">
   <span class="ui-label">Outlined</span>
   <span class="ui-field">
-    <input type="text" placeholder="Placeholder" />
+    <input placeholder="Placeholder" type="text" />
   </span>
 </label>
-
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Filled</span>
   <span class="ui-field">
-    <input type="text" placeholder="Placeholder" />
+    <input placeholder="Placeholder" type="text" />
   </span>
 </label>
 ```

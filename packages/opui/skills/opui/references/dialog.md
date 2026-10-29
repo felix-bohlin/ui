@@ -92,9 +92,9 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </button>
 
 <dialog
-  id="dialog-basics-1"
-  class="ui-dialog ui-elevated"
   aria-labelledby="dialog-basics-1-title"
+  class="ui-dialog ui-elevated"
+  id="dialog-basics-1"
 >
   <div class="ui-header">
     <h2 id="dialog-basics-1-title">Newsletter</h2>
@@ -106,18 +106,18 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       commandfor="dialog-basics-1"
       command="close"
       class="ui-button"
-      type="button"
     >
       Not now
     </button>
     <button
+      type="button"
       commandfor="dialog-basics-1"
       command="close"
       class="ui-button ui-filled"
-      type="button"
     >
       Subscribe
     </button>

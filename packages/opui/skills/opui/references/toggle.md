@@ -99,11 +99,11 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radi
 
 ```html
 <label class="ui-toggle-button">
-  <input type="checkbox" name="standalone-demo-1" />
-  Toggle me
-</label>
+  <input name="standalone-demo-1" type="checkbox" />
+  Toggle me</label
+>
 <label class="ui-toggle-button">
-  <input type="checkbox" name="standalone-demo-2" />
+  <input name="standalone-demo-2" type="checkbox" />
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -120,8 +120,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-radi
     <path d="M12 8v4"></path>
     <path d="M12 16h.01"></path>
   </svg>
-  Toggle with icon
-</label>
+  Toggle with icon</label
+>
 ```
 
 ## Astro

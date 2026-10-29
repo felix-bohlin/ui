@@ -102,15 +102,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
     <legend>Legend</legend>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input name="radio-group" type="radio" value="1" checked />
+        <input type="radio" name="radio-group" value="1" checked />
         <span class="ui-label">Radio 1</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group" type="radio" value="2" />
+        <input type="radio" name="radio-group" value="2" />
         <span class="ui-label">Radio 2</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group" type="radio" value="3" />
+        <input type="radio" name="radio-group" value="3" />
         <span class="ui-label">Radio 3</span>
       </label>
     </div>

@@ -88,15 +88,15 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
 ```html
 <button
   type="button"
-  class="ui-button ui-filled"
-  commandfor="toast-basics-1"
   command="--toast"
+  commandfor="toast-basics-1"
   data-toast="Changes saved"
   data-toast-severity="success"
+  class="ui-button ui-filled"
 >
   Save changes
 </button>
-<opui-toaster class="ui-toaster" id="toast-basics-1">
+<opui-toaster id="toast-basics-1" class="ui-toaster">
   <ol popover="manual"></ol>
   <div class="ui-sr-only" role="status"></div>
 </opui-toaster>

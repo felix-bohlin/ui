@@ -43,20 +43,20 @@ The stylesheets read `--ui-success`. `theming.md` and `tokens.json` describe the
 ### Example: Basics
 
 ```html
-<opui-copy class="ui-copy" id="copy-basics-1">
+<opui-copy id="copy-basics-1" class="ui-copy">
   <label class="ui-text-field">
     <span class="ui-sr-only">Invite link</span>
     <span class="ui-field">
-      <input readonly type="text" value="https://example.com/invite/8f3k2" />
+      <input readonly value="https://example.com/invite/8f3k2" type="text" />
     </span>
   </label>
   <span class="ui-sr-only" role="status"></span>
 </opui-copy>
 <button
   type="button"
-  class="ui-button ui-outlined"
-  commandfor="copy-basics-1"
   command="--copy"
+  commandfor="copy-basics-1"
+  class="ui-button ui-outlined"
 >
   Copy
 </button>

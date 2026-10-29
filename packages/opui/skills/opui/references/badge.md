@@ -64,19 +64,19 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width-thick`
     ></path>
   </svg>
   <span class="ui-floating">
-    <span class="ui-indicator"
-      ><span aria-hidden="true">5</span
-      ><span class="ui-sr-only">5 unread messages</span></span
-    >
+    <span class="ui-indicator">
+      <span aria-hidden="true">5</span>
+      <span class="ui-sr-only">5 unread messages</span>
+    </span>
   </span>
 </span>
 
 <span class="ui-badge ui-dot">
   <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
   <span class="ui-floating">
-    <span class="ui-indicator"
-      ><span class="ui-sr-only">New messages</span></span
-    >
+    <span class="ui-indicator">
+      <span class="ui-sr-only">New messages</span>
+    </span>
   </span>
 </span>
 ```

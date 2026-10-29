@@ -64,24 +64,24 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 ```html
 <div class="example-row">
   <button type="button" class="ui-button">Transparent</button>
-  <button type="button" class="ui-button" disabled>Disabled</button>
-  <a class="ui-button" href="#">Link</a>
-  <a class="ui-button" href="#" aria-current="page">Current</a>
+  <button disabled type="button" class="ui-button">Disabled</button>
+  <a href="#" class="ui-button">Link</a>
+  <a href="#" aria-current="page" class="ui-button">Current</a>
 </div>
 <div class="example-row">
   <button type="button" class="ui-button ui-outlined">Outlined</button>
-  <button type="button" class="ui-button ui-outlined" disabled>Disabled</button>
-  <a class="ui-button ui-outlined" href="#">Link</a>
+  <button disabled type="button" class="ui-button ui-outlined">Disabled</button>
+  <a href="#" class="ui-button ui-outlined">Link</a>
 </div>
 <div class="example-row">
   <button type="button" class="ui-button ui-tonal">Tonal</button>
-  <button type="button" class="ui-button ui-tonal" disabled>Disabled</button>
-  <a class="ui-button ui-tonal" href="#">Link</a>
+  <button disabled type="button" class="ui-button ui-tonal">Disabled</button>
+  <a href="#" class="ui-button ui-tonal">Link</a>
 </div>
 <div class="example-row">
   <button type="button" class="ui-button ui-filled">Filled</button>
-  <button type="button" class="ui-button ui-filled" disabled>Disabled</button>
-  <a class="ui-button ui-filled" href="#">Link</a>
+  <button disabled type="button" class="ui-button ui-filled">Disabled</button>
+  <a href="#" class="ui-button ui-filled">Link</a>
 </div>
 ```
 

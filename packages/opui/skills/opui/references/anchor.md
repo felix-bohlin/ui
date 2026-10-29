@@ -46,7 +46,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
   <span class="ui-floating">
     <div class="ui-card ui-tonal coach-mark">
       <div class="ui-content">
-        <strong>New</strong> Export to PDF and CSV from the same menu.
+        <strong>New</strong>
+        Export to PDF and CSV from the same menu.
       </div>
     </div>
   </span>

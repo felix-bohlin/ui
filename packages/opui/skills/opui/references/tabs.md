@@ -119,20 +119,18 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 ```html
 <div class="ui-tabs">
   <input
-    type="radio"
-    name="basic-tabs"
-    id="tabs-basics-1"
-    class="ui-input"
     checked
+    class="ui-input"
+    id="tabs-basics-1"
+    name="basic-tabs"
+    type="radio"
   />
   <label for="tabs-basics-1" class="ui-label">Profile</label>
   <div class="ui-panel">Profile settings and information.</div>
-
-  <input type="radio" name="basic-tabs" id="tabs-basics-2" class="ui-input" />
+  <input class="ui-input" id="tabs-basics-2" name="basic-tabs" type="radio" />
   <label for="tabs-basics-2" class="ui-label">Settings</label>
   <div class="ui-panel">General account settings.</div>
-
-  <input type="radio" name="basic-tabs" id="tabs-basics-3" class="ui-input" />
+  <input class="ui-input" id="tabs-basics-3" name="basic-tabs" type="radio" />
   <label for="tabs-basics-3" class="ui-label">Notifications</label>
   <div class="ui-panel">Manage your notifications.</div>
 </div>

@@ -12,7 +12,10 @@ const { intro, sections, title } = parseMigrating(
 )
 const content = [
   intro,
-  ...sections.map((section) => `<section>${section}</section>`),
+  ...sections.map(
+    (section) =>
+      `${section.replace(/^<h2 id="([^"]*)"/, '<section id="$1"><h2')}</section>`,
+  ),
 ].join("\n")
 
 const CODE_BLOCK =
@@ -49,8 +52,8 @@ const segments = content.split(CODE_BLOCK)
     )
   }
 
-  <section>
-    <h2 id="older-versions">Older versions</h2>
+  <section id="older-versions">
+    <h2>Older versions</h2>
     <p>
       Coming from an older version? The notes for v3, v4 and v5 are in <a
         href="https://github.com/felix-bohlin/ui/blob/main/packages/opui/MIGRATING-legacy.md"

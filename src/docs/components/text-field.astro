@@ -91,8 +91,8 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="div">
       <p slot="components">
         Text fields are outlined by default. Set <code>variant="filled"</code> for
@@ -106,8 +106,8 @@ export const description =
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
@@ -130,8 +130,8 @@ export const description =
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="start-text">Start text</h2>
+  <section id="start-text">
+    <h2>Start text</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>startText</code> prop or <code>start-text</code> slot for text
@@ -152,13 +152,13 @@ export const description =
     <AutoExample name="StartText" row />
   </section>
 
-  <section>
-    <h2 id="end-text">End text</h2>
+  <section id="end-text">
+    <h2>End text</h2>
     <AutoExample name="EndText" centered />
   </section>
 
-  <section>
-    <h2 id="character-count">Character count</h2>
+  <section id="character-count">
+    <h2>Character count</h2>
     <Conditional as="div">
       <p slot="components">
         With <code>maxlength</code>, set <code>characterCount</code> to show the characters
@@ -193,8 +193,8 @@ export const description =
     <AutoExample name="CharacterCount" centered />
   </section>
 
-  <section>
-    <h2 id="password-toggle">Password toggle</h2>
+  <section id="password-toggle">
+    <h2>Password toggle</h2>
     <Conditional as="div">
       <p slot="components">
         On a <code>type="password"</code> field, <code>passwordToggle</code> adds
@@ -223,8 +223,8 @@ export const description =
     <AutoExample name="PasswordToggle" row />
   </section>
 
-  <section>
-    <h2 id="affix">Affix</h2>
+  <section id="affix">
+    <h2>Affix</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
@@ -264,8 +264,8 @@ export const description =
     <AutoExample name="TopAndBottom" column />
   </section>
 
-  <section>
-    <h2 id="binding">Binding</h2>
+  <section id="binding">
+    <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Astro renders the field on the server, so it has no bound value. The
@@ -301,15 +301,15 @@ export const description =
     <AutoExample name="Binding" column />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
+  <section id="validation">
+    <h2>Validation</h2>
     <ValidationNotes element="input" named subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
 
-  <section>
-    <h2 id="spread">Spread</h2>
+  <section id="spread">
+    <h2>Spread</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>spread</code> boolean prop to display the label and start text
@@ -326,8 +326,8 @@ export const description =
     <AutoExample name="Spread" column spacious />
   </section>
 
-  <section>
-    <h2 id="auto-fit">Auto-fit</h2>
+  <section id="auto-fit">
+    <h2>Auto-fit</h2>
     <p>
       Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's width
       follow its content, from <code>25ch</code>.
@@ -336,8 +336,8 @@ export const description =
     <AutoExample name="AutoFit" class="flex" />
   </section>
 
-  <section>
-    <h2 id="input-types">Input types</h2>
+  <section id="input-types">
+    <h2>Input types</h2>
     <AutoExample name="InputTypes" row>
       <UISwitch
         size="small"
@@ -435,8 +435,8 @@ export const description =
     <AutoExample name="File" row />
   </section>
 
-  <section>
-    <h2 id="autosuggest">Autosuggest</h2>
+  <section id="autosuggest">
+    <h2>Autosuggest</h2>
     <p>
       Leverages the <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> element
       combo. An input with a <code>list</code> shows the Select chevron in place of
@@ -479,8 +479,8 @@ export const description =
     </div>
   </section>
 
-  <section>
-    <h2 id="do-i-have-to-use-label">
+  <section id="do-i-have-to-use-label">
+    <h2>
       Do I have to use <code>&lt;label&gt;</code>?
     </h2>
     <p>

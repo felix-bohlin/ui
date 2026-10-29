@@ -9,7 +9,7 @@ A button that copies text or a field's value to the clipboard.
 
 ### Parts
 
-- `opui-copy.ui-copy` (root): The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Where the clipboard is blocked, it selects the text instead.
+- `opui-copy.ui-copy` (root): The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead.
 - `<span role="status">`: The live region that announces the copy, visually hidden with `.ui-sr-only`.
 - `<span popover>` (prop `copiedLabel`, prop `failedLabel`): The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy.
 
@@ -39,11 +39,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the reveal and the fade. `0` turns them off.
 - `--_offset`: The gap between the label and the button.
 
-Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden`, `--_radius` and `--_text-color`.
+Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden`, `--_radius`, `--_shown` and `--_text-color`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-font-weight`, `--ui-button-padding-inline`, `--ui-button-radius`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-control`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-palette-strong`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-surface-elevated`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-font-weight`, `--ui-button-padding-inline`, `--ui-button-radius`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-control`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-palette-strong`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-4`, `--ui-surface-elevated`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

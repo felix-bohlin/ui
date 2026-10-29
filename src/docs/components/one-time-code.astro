@@ -118,8 +118,8 @@ document.addEventListener("input", ({ target }) => {
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         The code has 6 digits by default. The input gets <code
@@ -173,8 +173,8 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="grouped">Grouped</h2>
+  <section id="grouped">
+    <h2>Grouped</h2>
     <p>
       <PropOrClass prop="grouped" class=".ui-grouped" /> draws a dash between the
       two halves of the code, such as 3 + 3 or 4 + 4. Use it with an even length.
@@ -183,8 +183,8 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="Grouped" />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Choose between three sizes with the <code>size</code> prop: <code
@@ -216,8 +216,8 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="Sizes" />
   </section>
 
-  <section>
-    <h2 id="length">Length</h2>
+  <section id="length">
+    <h2>Length</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets <code
@@ -248,8 +248,8 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="Length" />
   </section>
 
-  <section>
-    <h2 id="alphanumeric">Alphanumeric</h2>
+  <section id="alphanumeric">
+    <h2>Alphanumeric</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Set <code>alphanumeric</code> for codes with letters. The pattern accepts
@@ -292,8 +292,8 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="Alphanumeric" />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
+  <section id="validation">
+    <h2>Validation</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Use the <code>error</code> prop for server-side errors. It sets <code
@@ -328,14 +328,14 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="Validation" />
   </section>
 
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="disabled">
+    <h2>Disabled</h2>
 
     <AutoExample name="Disabled" />
   </section>
 
-  <section>
-    <h2 id="right-to-left">Right-to-left</h2>
+  <section id="right-to-left">
+    <h2>Right-to-left</h2>
     <p>
       The code always runs left to right, also on right-to-left pages. Digits
       are written left to right in Arabic and Hebrew too, so the code reads the
@@ -353,8 +353,8 @@ document.addEventListener("input", ({ target }) => {
     <AutoExample name="RightToLeft" />
   </section>
 
-  <section>
-    <h2 id="paste-and-auto-submit">Paste and auto-submit</h2>
+  <section id="paste-and-auto-submit">
+    <h2>Paste and auto-submit</h2>
     <p>
       Without JavaScript, letters can be typed into a numeric code (they turn
       red when the field loses focus), and a pasted <code>123 456</code> or <code

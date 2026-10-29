@@ -8,8 +8,8 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
 ---
 
 <TechniquePost slug="range-tick-marks">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>&lt;input type="range"&gt;</code> handles dragging, keyboard steps and
       the form value. Styling it means vendor pseudo-elements for the track and the
@@ -22,8 +22,8 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>appearance: none</code> on the input and on the thumb, then style
@@ -134,8 +134,8 @@ datalist > option {
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Pick a step. The <code>&lt;datalist&gt;</code> is rebuilt with one option per
       step, and the labels place themselves.
@@ -161,8 +161,8 @@ datalist > option {
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without scroll-driven animations <code>--track-fill</code> stays at <code

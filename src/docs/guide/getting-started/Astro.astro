@@ -13,8 +13,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     you need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
       The components ship as uncompiled <code>.astro</code> files, which Astro compiles
       as they are. They need Astro 7 or later.
@@ -22,8 +22,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     <InstallCommand />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
       Astro components ship markup only - the CSS still has to be imported once.
       The frontmatter of the layout every page uses is a good spot. Import
@@ -50,8 +50,8 @@ import "../styles/global.css"
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`---
 import { Button } from "opui-css/astro"
@@ -70,8 +70,8 @@ import { Button } from "opui-css/astro"
     <NextSteps />
   </section>
 
-  <section>
-    <h2 id="server-runtime">Server runtime</h2>
+  <section id="server-runtime">
+    <h2>Server runtime</h2>
     <p>
       The components pass settings to their parts with <code
         >AsyncLocalStorage</code

@@ -113,8 +113,8 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="div">
       <p slot="components">
         Set <code>min</code>, <code>max</code> and <code>step</code> as on an <code
@@ -138,8 +138,8 @@ export const description =
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <p>
       Number fields are outlined by default. Use <PropOrClass
         prop='variant="filled"'
@@ -149,8 +149,8 @@ export const description =
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
@@ -169,8 +169,8 @@ export const description =
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="stretch">Stretch</h2>
+  <section id="stretch">
+    <h2>Stretch</h2>
     <p>
       The field fits its value, from <code>--_min-inline-size</code> (4 characters).
       <PropOrClass prop="stretch" class=".ui-stretch" /> fills the available width
@@ -179,8 +179,8 @@ export const description =
     <AutoExample name="Stretch" column />
   </section>
 
-  <section>
-    <h2 id="step">Step</h2>
+  <section id="step">
+    <h2>Step</h2>
     <p>
       A <code>step</code> below 1 steps in decimals. The input keeps the browser's
       own validation, so a value that's off the step or out of range is invalid.
@@ -188,8 +188,8 @@ export const description =
     <AutoExample name="Step" />
   </section>
 
-  <section>
-    <h2 id="end-text">End text</h2>
+  <section id="end-text">
+    <h2>End text</h2>
     <p>
       Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
       below the field, like the limit.
@@ -197,8 +197,8 @@ export const description =
     <AutoExample name="EndText" />
   </section>
 
-  <section>
-    <h2 id="hidden-label">Hidden label</h2>
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
     <p>
       Where the context names the field, like a row in a cart, <PropOrClass
         prop="hideLabel"
@@ -208,8 +208,8 @@ export const description =
     <AutoExample name="HiddenLabel" />
   </section>
 
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="disabled">
+    <h2>Disabled</h2>
     <p>
       A disabled input dims the field, and the buttons get <code
         >aria-disabled="true"</code

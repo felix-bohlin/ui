@@ -69,8 +69,8 @@ const { link } = Astro.locals
         const ApiComponent = pickFrameworkVariant(apis as FrameworkApis)
         return (
           ApiComponent && (
-            <section>
-              {!hideTitle && <h2 id="api">{titleProp || "API"}</h2>}
+            <section id={hideTitle ? undefined : "api"}>
+              {!hideTitle && <h2>{titleProp || "API"}</h2>}
               <div class="api-table-container">
                 <ApiComponent />
               </div>
@@ -79,8 +79,8 @@ const { link } = Astro.locals
         )
       })()
     : apiList.length > 0 && (
-        <section>
-          {!hideTitle && <h2 id="api">{titleProp || "API"}</h2>}
+        <section id={hideTitle ? undefined : "api"}>
+          {!hideTitle && <h2>{titleProp || "API"}</h2>}
           {apiList.map((api) => {
             if (isFrameworkKeyedApi(api)) {
               const ApiComponent = pickFrameworkVariant(api)

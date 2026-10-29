@@ -1362,6 +1362,19 @@ const stubClipboard = (page: Page) =>
     }
   })
 
+const stubCopyCommand = (page: Page, works: boolean) =>
+  page.evaluate((works) => {
+    const copied: string[] = []
+    Object.assign(window, { copied })
+    document.execCommand = (command: string) => {
+      const field = document.activeElement as HTMLTextAreaElement
+      if (works && command === "copy") {
+        copied.push(field.value.slice(field.selectionStart, field.selectionEnd))
+      }
+      return works
+    }
+  }, works)
+
 const copiedTexts = (page: Page) =>
   page.evaluate(() => (window as unknown as { copied: string[] }).copied)
 
@@ -1403,6 +1416,7 @@ interaction(
     const label = root.locator(".ui-copy > .ui-floating")
 
     await expect(button).toBeVisible()
+    await stubCopyCommand(page, false)
     await page.evaluate(() => {
       navigator.clipboard.writeText = () =>
         Promise.reject(new DOMException("Blocked", "NotAllowedError"))
@@ -1421,6 +1435,48 @@ interaction(
       .toBe("https://example.com/invite/8f3k2")
     await page.keyboard.press("Escape")
     await expect(label).toBeHidden()
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies with a selection where the page has no Clipboard API",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, true)
+    await page.evaluate(() =>
+      Object.defineProperty(navigator, "clipboard", { value: undefined }),
+    )
+    await button.click()
+    await expect(label).toHaveText("Copied")
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies with a selection when the clipboard never answers",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, true)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () => new Promise(() => {})
+    })
+    await button.click()
+    await expect(label).toHaveText("Copied", { timeout: 5000 })
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
   },
 )
 

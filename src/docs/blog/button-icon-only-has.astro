@@ -8,8 +8,8 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
 ---
 
 <TechniquePost slug="button-icon-only-has">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       An icon-only button needs to be square: no inline padding, the same width
       as height, and a bigger icon. Most libraries ship a separate <code
@@ -23,8 +23,8 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>:has(&gt; svg:only-child)</code> matches a button whose only child element
@@ -60,8 +60,8 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Delete the label. Once the icon is the only child, the button turns
       square, and the label comes back as <code>aria-label</code>.
@@ -76,8 +76,8 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without <code>:has()</code>, the icon-only rules are ignored
@@ -89,8 +89,8 @@ import IconOnly from "../../component-examples/button/IconOnly.astro"
     </ul>
   </section>
 
-  <section>
-    <h2 id="gotchas">Gotchas</h2>
+  <section id="gotchas">
+    <h2>Gotchas</h2>
     <ul>
       <li>
         <code>:only-child</code> only counts elements. In <code

@@ -7,8 +7,8 @@ import RhythmCompare from "../../components/Blog/RhythmCompare.astro"
 ---
 
 <TechniquePost slug="vertical-rhythm-round" topic="rhythm">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A unitless <code>line-height</code> multiplies the font size, so a 29px heading
       at <code>1.2</code> gets a 34.8px line. Every heading size lands somewhere different,
@@ -20,8 +20,8 @@ import RhythmCompare from "../../components/Blog/RhythmCompare.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>round(up, value, step)</code> rounds a length up to a multiple of <code
@@ -65,8 +65,8 @@ h2 {
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Drag the font size. The lines mark every step, and the shaded bands are
       the line boxes.
@@ -99,8 +99,8 @@ h2 {
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         <code>round()</code> is Baseline since 2024, so this works in every current

@@ -217,10 +217,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     heroAnatomy && Astro.slots.has("anatomy") && (
-      <section class="component-hero">
-        <h2 id="anatomy" class="ui-sr-only">
-          Anatomy
-        </h2>
+      <section class="component-hero" id="anatomy">
+        <h2 class="ui-sr-only">Anatomy</h2>
         <slot name="anatomy" />
       </section>
     )
@@ -228,17 +226,15 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     Astro.slots.has("usage") && (
-      <>
-        <h2 id="usage" class="ui-sr-only">
-          Usage
-        </h2>
+      <section id="usage">
+        <h2 class="ui-sr-only">Usage</h2>
         <Accordion class="component-usage">
           <AccordionSummary>Usage</AccordionSummary>
           <AccordionContent>
             <slot name="usage" />
           </AccordionContent>
         </Accordion>
-      </>
+      </section>
     )
   }
 
@@ -246,8 +242,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     Astro.slots.has("accessibility") && (
-      <section>
-        <h2 id="accessibility">Accessibility</h2>
+      <section id="accessibility">
+        <h2>Accessibility</h2>
         <slot name="accessibility" />
       </section>
     )
@@ -255,8 +251,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     !heroAnatomy && Astro.slots.has("anatomy") && (
-      <section>
-        <h2 id="anatomy">Anatomy</h2>
+      <section id="anatomy">
+        <h2>Anatomy</h2>
         <slot name="anatomy" />
       </section>
     )
@@ -268,8 +264,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     Astro.slots.has("under-the-hood") && (
-      <section>
-        <h2 id="under-the-hood">Under the hood</h2>
+      <section id="under-the-hood">
+        <h2>Under the hood</h2>
         {blogPosts.map((blogPost) => (
           <p>
             Read the post:
@@ -299,8 +295,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     usedInBlocks.length > 0 && (
-      <section>
-        <h2 id="used-in-blocks">Used in blocks</h2>
+      <section id="used-in-blocks">
+        <h2>Used in blocks</h2>
         <ul class="used-in-blocks ui-not-rich-text">
           {usedInBlocks.map((block) => (
             <li>
@@ -316,8 +312,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     !!seeAlsoLinks?.length && (
-      <section>
-        <h2 id="see-also">See also</h2>
+      <section id="see-also">
+        <h2>See also</h2>
         <ul>
           {seeAlsoLinks.map((entry) => (
             <li>
@@ -337,8 +333,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {
     (notes.length > 0 || changelog.length > 0) && (
-      <section>
-        <h2 id="changelog">Changelog</h2>
+      <section id="changelog">
+        <h2>Changelog</h2>
         {whatsNew.length > 0 && (
           <Callout severity="info" variant="tonal" class="whats-new">
             <CalloutIcon />

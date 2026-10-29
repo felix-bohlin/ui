@@ -53,8 +53,8 @@ const slug = (title: string) =>
     </p>
   </section>
 
-  <section>
-    <h2 id="overriding">Overriding tokens</h2>
+  <section id="overriding">
+    <h2>Overriding tokens</h2>
     <p>
       Set them in <code>@layer theme.custom</code>, see <DocLink
         href="/guide/customizing#your-theme">Your theme</DocLink
@@ -70,8 +70,8 @@ const slug = (title: string) =>
     </p>
   </section>
 
-  <section>
-    <h2 id="tokens-json">tokens.json</h2>
+  <section id="tokens-json">
+    <h2>tokens.json</h2>
     <p>
       The same list ships as <code>opui-css/tokens.json</code> (also at <a
         href="/tokens.json"
@@ -109,8 +109,8 @@ const slug = (title: string) =>
     </p>
   </section>
 
-  <section>
-    <h2 id="naming">How tokens are named</h2>
+  <section id="naming">
+    <h2>How tokens are named</h2>
     <p>
       <code>--ui-</code>, then a family or role, then variant and context. Each
       word means one thing:
@@ -160,8 +160,8 @@ const slug = (title: string) =>
 
   {
     sections.map((section) => (
-      <section>
-        <h2 id={slug(section.title)}>{section.title}</h2>
+      <section id={slug(section.title)}>
+        <h2>{section.title}</h2>
         {section.note && (
           <p set:html={formatInline(section.note, Astro.locals.link)} />
         )}

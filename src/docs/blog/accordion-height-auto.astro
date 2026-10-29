@@ -8,8 +8,8 @@ import Basics from "../../component-examples/accordion/Basics.astro"
 ---
 
 <TechniquePost slug="accordion-height-auto">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A <code>&lt;details&gt;</code> element gives you an accordion for free: keyboard
       support, focus, open state and find-in-page. What it never gave you is an animation.
@@ -23,8 +23,8 @@ import Basics from "../../component-examples/accordion/Basics.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>interpolate-size: allow-keywords</code> lets <code
@@ -60,8 +60,8 @@ details[open]::details-content {
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       The same <code>&lt;details&gt;</code> twice, with and without <code
         >interpolate-size: allow-keywords</code
@@ -90,8 +90,8 @@ details[open]::details-content {
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Browsers without <code>::details-content</code> ignore the rules and open

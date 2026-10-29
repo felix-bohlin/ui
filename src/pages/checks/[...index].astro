@@ -56,8 +56,8 @@ const count = sections.reduce(
 
   {
     sections.map((section) => (
-      <section data-check-section={section.title}>
-        <h2 id={slugify(section.title)}>{section.title}</h2>
+      <section data-check-section={section.title} id={slugify(section.title)}>
+        <h2>{section.title}</h2>
         <p class="checks-section-progress" data-section-progress />
         <ol class="checks-list ui-not-rich-text">
           {section.items.map((item) => (

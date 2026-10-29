@@ -16,8 +16,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     naming, rich text, and where JavaScript is still needed.
   </Fragment>
 
-  <section>
-    <h2 id="cascade-layers">Cascade layers</h2>
+  <section id="cascade-layers">
+    <h2>Cascade layers</h2>
     <p>
       Every rule lives in a layer, ordered once in <code>layers.css</code>:
     </p>
@@ -45,8 +45,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="token-tiers">Token tiers</h2>
+  <section id="token-tiers">
+    <h2>Token tiers</h2>
     <p>
       Each tier reads from the ones before it. A theme sets knobs, roles and
       component tokens, and component CSS starts reading at the roles. <DocLink
@@ -89,8 +89,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="light-and-dark">Light and dark</h2>
+  <section id="light-and-dark">
+    <h2>Light and dark</h2>
     <p>
       Every color token holds both schemes in one <code>light-dark()</code> under
       <code>color-scheme: light dark</code>, so the OS setting drives them and
@@ -116,8 +116,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </Example>
   </section>
 
-  <section>
-    <h2 id="palette-scopes">Palette scopes</h2>
+  <section id="palette-scopes">
+    <h2>Palette scopes</h2>
     <p>
       Every color comes from one 16-step palette. A severity class re-derives it
       from the intent color for an element and everything inside, so one class
@@ -155,8 +155,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </figure>
   </section>
 
-  <section>
-    <h2 id="props-and-classes">Props and classes</h2>
+  <section id="props-and-classes">
+    <h2>Props and classes</h2>
     <p>
       A component is one <code>ui-</code> class on a native element, with modifier
       classes for its options. The Astro, React, Svelte and Vue components render
@@ -203,8 +203,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="naming">Naming</h2>
+  <section id="naming">
+    <h2>Naming</h2>
     <p>
       One idea has one prop name and one set of values in every component, so
       what you learn on one page carries over to the next.
@@ -400,8 +400,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="rich-text">Rich text</h2>
+  <section id="rich-text">
+    <h2>Rich text</h2>
     <p>
       <code>.ui-rich-text</code> styles the classless elements inside it, for Markdown
       or CMS output. Elements with a class are left alone, so components keep their
@@ -428,8 +428,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="javascript">JavaScript</h2>
+  <section id="javascript">
+    <h2>JavaScript</h2>
     <p>These work without JavaScript:</p>
     <ul>
       <li>

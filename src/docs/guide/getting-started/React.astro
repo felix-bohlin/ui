@@ -22,8 +22,8 @@ const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(
     you need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
       The components ship as uncompiled TypeScript (<code>.tsx</code> and <code
         >.ts</code
@@ -38,8 +38,8 @@ const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(
     <InstallCommand />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
       React components ship markup only - the CSS still has to be imported once,
       in your root layout or the entry file that renders your app. Import
@@ -62,8 +62,8 @@ import "./styles/main.css"`}
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`import { Button } from "opui-css/react"
 
@@ -85,8 +85,8 @@ export default function App() {
     <NextSteps />
   </section>
 
-  <section>
-    <h2 id="ssr">Server rendering</h2>
+  <section id="ssr">
+    <h2>Server rendering</h2>
     <p>
       Components that need context, state or effects are marked <code
         >"use client"</code

@@ -14,8 +14,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     you need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
       The components ship as uncompiled Svelte components (<code>.svelte</code> and
       <code>.ts</code>), so your build has to compile them. They need Svelte
@@ -47,8 +47,8 @@ export default defineConfig({
     />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
       Svelte components ship markup only - the CSS still has to be imported
       once, in your root layout or the entry file that mounts your app. Import
@@ -83,8 +83,8 @@ export default defineConfig({
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`<script lang="ts">
   import { Button } from "opui-css/svelte"
@@ -107,8 +107,8 @@ export default defineConfig({
     <NextSteps />
   </section>
 
-  <section>
-    <h2 id="ssr">Server rendering</h2>
+  <section id="ssr">
+    <h2>Server rendering</h2>
     <p>
       Without hydration (SvelteKit with <code>csr = false</code>, or Astro with <code
         >@astrojs/svelte</code

@@ -8,8 +8,8 @@ import Basics from "../../component-examples/drawer/Basics.astro"
 ---
 
 <TechniquePost slug="drawer-starting-style">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A slide-in panel used to be a fixed <code>&lt;div&gt;</code> with a transform,
       plus JavaScript for the focus trap, <kbd>Esc</kbd>, backdrop clicks and an
@@ -22,8 +22,8 @@ import Basics from "../../component-examples/drawer/Basics.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         The drawer is a modal <code>&lt;dialog&gt;</code>, pinned to an edge
@@ -69,8 +69,8 @@ import Basics from "../../component-examples/drawer/Basics.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Two panels with the drawer's transition. Only one has <code
         >@starting-style</code
@@ -97,8 +97,8 @@ import Basics from "../../component-examples/drawer/Basics.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without <code>@starting-style</code> and <code>allow-discrete</code> the drawer

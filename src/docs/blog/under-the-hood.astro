@@ -49,8 +49,8 @@ const builds = Object.entries(modules)
   <Fragment slot="title">{post.title}</Fragment>
   <Fragment slot="preamble">{post.description}</Fragment>
 
-  <section>
-    <h2 id="how-it-works">How it works</h2>
+  <section id="how-it-works">
+    <h2>How it works</h2>
     <ul>
       <li>Pick a step: the demo runs only the CSS up to that step</li>
       <li>The code shown is the code that runs</li>
@@ -64,8 +64,8 @@ const builds = Object.entries(modules)
 
   {
     builds.map(({ Build, docsHref, heading, id, name, post: buildPost }) => (
-      <section>
-        <h2 id={id}>{heading}</h2>
+      <section id={id}>
+        <h2>{heading}</h2>
         <ul class="build-links">
           <li>
             <a href={docsHref}>{name} docs</a>

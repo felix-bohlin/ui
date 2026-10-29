@@ -7,8 +7,8 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
 ---
 
 <TechniquePost slug="dialog-closedby">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>&lt;dialog&gt;</code> brought the top layer, an inert page and focus handling,
       but opening it as a modal still took JavaScript: a click handler calling <code
@@ -23,8 +23,8 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>commandfor</code> and <code>command=&quot;show-modal&quot;</code>{
@@ -65,8 +65,8 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Open the dialog, pick a closing behavior, then try <kbd>Esc</kbd> and a click
       outside.
@@ -77,8 +77,8 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="scroll-lock">Scroll lock</h2>
+  <section id="scroll-lock">
+    <h2>Scroll lock</h2>
     <p>
       The page behind an open modal is inert, but it still scrolls.
       {" "}<code>html:has(.ui-dialog:modal)</code> sets <code
@@ -90,8 +90,8 @@ import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro
     </p>
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without Invoker Commands the buttons do nothing. Call

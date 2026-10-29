@@ -9,8 +9,8 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
 ---
 
 <TechniquePost slug="anchor-hover-cards">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A hover card, like GitHub's repository preview, needs a lot of JavaScript:
       timers for hover intent, listeners for focus and blur, a positioning
@@ -23,8 +23,8 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>interestfor</code> on a <code>&lt;button&gt;</code>, <code
@@ -67,8 +67,8 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Drag the link around, or move it with the sliders. The card stays open
       here so you can watch it: at an edge of the box it flips to the other
@@ -115,8 +115,8 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without interest invokers, hover and focus do nothing. A trigger with <code

@@ -8,8 +8,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
 ---
 
 <TechniquePost slug="progress-native">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>&lt;progress&gt;</code> comes with the right role, a value screen readers
       announce and an indeterminate state when there is no <code>value</code>.
@@ -23,8 +23,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>appearance: none</code> drops the native look, a wrapper draws the track
@@ -76,8 +76,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Drag the value, then switch to indeterminate. That removes the <code
         >value</code
@@ -93,8 +93,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Each vendor pseudo-element has its own rule, so an engine drops only the

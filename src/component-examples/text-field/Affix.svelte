@@ -28,6 +28,6 @@
       stroke-linejoin="round"
     >
       <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.3-4.3"></path></svg
-    >{/snippet}
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>{/snippet}
 </TextField>

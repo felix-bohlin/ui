@@ -76,9 +76,9 @@
 
   <Fieldset>
     <FieldLegend>Experience Level</FieldLegend>
-    <FieldDescription>
-      How many years of experience do you have?
-    </FieldDescription>
+    <FieldDescription
+      >How many years of experience do you have?</FieldDescription
+    >
     <FieldGroup>
       <Range
         label="Professional Experience"

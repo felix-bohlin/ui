@@ -46,13 +46,11 @@
 </Table>
 
 <p>
-  Play
-  <Switch checked hideLabel name="switch-hidden-label-sound" value="sounds"
+  Play <Switch checked hideLabel name="switch-hidden-label-sound" value="sounds"
     >Sounds</Switch
-  >
-  sounds and
-  <Switch hideLabel name="switch-hidden-label-sound" value="haptics"
-    >Haptics</Switch
-  >
-  haptics.
+  > sounds and <Switch
+    hideLabel
+    name="switch-hidden-label-sound"
+    value="haptics">Haptics</Switch
+  > haptics.
 </p>

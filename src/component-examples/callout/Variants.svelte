@@ -15,9 +15,10 @@
   <CalloutContent>
     <h3>Another Callout</h3>
     <p>
-      This is an outlined Callout. Why not use a
-      <a class="ui-link" href="#">Card</a> since they look very similar? For one,
-      the Callout is a more focused component with different properties.
+      This is an outlined Callout. Why not use a <a class="ui-link" href="#"
+        >Card</a
+      > since they look very similar? For one, the Callout is a more focused component
+      with different properties.
     </p>
   </CalloutContent>
 </Callout>

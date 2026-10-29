@@ -3,6 +3,6 @@
 </script>
 
 <Switch name="switch-end-text" endText="Supporting text">Default</Switch>
-<Switch name="switch-end-text" orientation="vertical" endText="Supporting text"
-  >Stack</Switch
->
+<Switch name="switch-end-text" orientation="vertical" endText="Supporting text">
+  Stack
+</Switch>

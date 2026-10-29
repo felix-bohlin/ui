@@ -52,13 +52,14 @@
 </Table>
 
 <p>
-  Notify me by
-  <Checkbox checked hideLabel name="checkbox-hidden-label-notify" value="email"
-    >Email</Checkbox
-  >
-  email and
-  <Checkbox hideLabel name="checkbox-hidden-label-notify" value="sms"
-    >SMS</Checkbox
-  >
-  SMS.
+  Notify me by <Checkbox
+    checked
+    hideLabel
+    name="checkbox-hidden-label-notify"
+    value="email">Email</Checkbox
+  > email and <Checkbox
+    hideLabel
+    name="checkbox-hidden-label-notify"
+    value="sms">SMS</Checkbox
+  > SMS.
 </p>

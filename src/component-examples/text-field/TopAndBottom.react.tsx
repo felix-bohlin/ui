@@ -10,9 +10,9 @@ export default function TopAndBottom() {
       />
 
       <TextField
+        bottom="0 / 80"
         label="Tagline"
         placeholder="A short description"
-        bottom="0 / 80"
       />
     </>
   )

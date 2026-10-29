@@ -17,6 +17,7 @@ export default function FooterContent() {
       >
         Export data
       </Button>
+
       <Dialog id="dialog-footer-content-1">
         <DialogHeader>
           <DialogTitle>Export data</DialogTitle>

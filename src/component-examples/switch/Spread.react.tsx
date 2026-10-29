@@ -4,9 +4,9 @@ export default function Spread() {
   return (
     <>
       <Switch
+        endText="Receive alerts when someone mentions you."
         name="switch-spread"
         spread
-        endText="Receive alerts when someone mentions you."
       >
         Notifications
       </Switch>

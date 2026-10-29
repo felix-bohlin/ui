@@ -9,9 +9,9 @@ export default function Button() {
       </div>
       <div className="example-row">
         <Chip
-          label="Open now"
           as="button"
           variant="tonal"
+          label="Open now"
           start={
             <svg
               aria-hidden="true"
@@ -28,9 +28,9 @@ export default function Button() {
           }
         />
         <Chip
-          label="Sort by"
           as="button"
           variant="outlined"
+          label="Sort by"
           end={
             <svg
               aria-hidden="true"

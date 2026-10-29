@@ -55,7 +55,7 @@ export default function KitchenSink() {
           Configure how you want to receive updates.
         </FieldDescription>
         <FieldGroup>
-          <Switch defaultChecked name="email_notifs">
+          <Switch name="email_notifs" defaultChecked>
             Email Notifications
           </Switch>
           <Switch name="sms_notifs">SMS Notifications</Switch>
@@ -115,7 +115,7 @@ export default function KitchenSink() {
       <Fieldset>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
-          <Checkbox name="terms" required endText="Support this text">
+          <Checkbox endText="Support this text" name="terms" required>
             I agree to the terms and conditions
           </Checkbox>
         </FieldGroup>

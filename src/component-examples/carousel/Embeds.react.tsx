@@ -6,10 +6,7 @@ const tutorials = [
     title: "CSS only carousel? Learn ::scroll-button() in 9 minutes",
   },
   { id: "bP8mrNdR-hs", title: "I love the new CSS functions" },
-  {
-    id: "qu1jE41O_8o",
-    title: "Use these CSS features instead of JavaScript",
-  },
+  { id: "qu1jE41O_8o", title: "Use these CSS features instead of JavaScript" },
 ]
 
 export default function Embeds() {

@@ -17,6 +17,7 @@ export default function LongContent() {
       >
         Read the terms
       </Button>
+
       <Dialog id="dialog-long-content-1">
         <DialogHeader>
           <DialogTitle>Terms of service</DialogTitle>

@@ -17,11 +17,11 @@ export default function Spread() {
       </Select>
 
       <Select
-        spread
-        variant="filled"
-        label="Language"
-        startText="Choose your preferred language"
         endText="This affects UI translations"
+        label="Language"
+        spread
+        startText="Choose your preferred language"
+        variant="filled"
       >
         <option value="">Select a language</option>
         <option>Danish</option>
@@ -75,10 +75,9 @@ export default function Spread() {
       </Select>
 
       <Select
-        spread
-        variant="filled"
+        endText="Cannot be changed after deploy"
         label="Region"
-        startText="Affects data residency and latency"
+        spread
         start={
           <svg
             aria-hidden="true"
@@ -96,7 +95,8 @@ export default function Spread() {
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
           </svg>
         }
-        endText="Cannot be changed after deploy"
+        startText="Affects data residency and latency"
+        variant="filled"
       >
         <option value="">-</option>
         <option>ap-southeast-1</option>

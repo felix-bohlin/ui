@@ -18,6 +18,7 @@ export default function AlertDialog() {
       >
         Delete project
       </Button>
+
       <Dialog
         id="dialog-alert-dialog-1"
         role="alertdialog"

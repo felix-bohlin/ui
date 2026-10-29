@@ -10,9 +10,9 @@ export default function TopAndBottom() {
       />
 
       <Textarea
+        bottom="0 / 280"
         label="Comment"
         placeholder="Write a comment..."
-        bottom="0 / 280"
       />
     </>
   )

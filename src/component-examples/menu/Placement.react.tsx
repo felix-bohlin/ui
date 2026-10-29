@@ -13,6 +13,7 @@ export default function Placement() {
         Block start
       </Button>
       <Menu id="menu-placement-1" items={items} side="block-start" />
+
       <Button
         commandfor="menu-placement-2"
         command="toggle-popover"
@@ -21,6 +22,7 @@ export default function Placement() {
         Block end
       </Button>
       <Menu id="menu-placement-2" items={items} />
+
       <Button
         commandfor="menu-placement-3"
         command="toggle-popover"
@@ -29,6 +31,7 @@ export default function Placement() {
         Inline start
       </Button>
       <Menu id="menu-placement-3" items={items} side="inline-start" />
+
       <Button
         commandfor="menu-placement-4"
         command="toggle-popover"
@@ -37,6 +40,7 @@ export default function Placement() {
         Inline end
       </Button>
       <Menu id="menu-placement-4" items={items} side="inline-end" />
+
       <Button
         commandfor="menu-placement-5"
         command="toggle-popover"

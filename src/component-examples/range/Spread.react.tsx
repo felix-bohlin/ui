@@ -4,10 +4,10 @@ export default function Spread() {
   return (
     <>
       <Range
+        endText="End text"
         label="Spread Layout"
         spread
         startText="Start text"
-        endText="End text"
       />
 
       <Range

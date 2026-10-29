@@ -17,6 +17,7 @@ export default function FooterAlignment() {
       >
         Show shortcuts
       </Button>
+
       <Dialog id="dialog-footer-alignment-1">
         <DialogHeader>
           <DialogTitle>Keyboard shortcuts</DialogTitle>

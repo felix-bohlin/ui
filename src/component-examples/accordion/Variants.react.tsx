@@ -13,6 +13,7 @@ export default function Variants() {
           </p>
         </AccordionContent>
       </Accordion>
+
       <Accordion variant="elevated">
         <AccordionSummary>Elevated</AccordionSummary>
         <AccordionContent>
@@ -23,6 +24,7 @@ export default function Variants() {
           </p>
         </AccordionContent>
       </Accordion>
+
       <Accordion variant="outlined">
         <AccordionSummary>Outlined</AccordionSummary>
         <AccordionContent>
@@ -33,6 +35,7 @@ export default function Variants() {
           </p>
         </AccordionContent>
       </Accordion>
+
       <Accordion variant="tonal">
         <AccordionSummary>Tonal</AccordionSummary>
         <AccordionContent>
@@ -43,6 +46,7 @@ export default function Variants() {
           </p>
         </AccordionContent>
       </Accordion>
+
       <Accordion variant="transparent">
         <AccordionSummary>Transparent</AccordionSummary>
         <AccordionContent>

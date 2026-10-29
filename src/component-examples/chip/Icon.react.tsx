@@ -4,8 +4,8 @@ export default function Icon() {
   return (
     <>
       <Chip
-        label="Tonal"
         variant="tonal"
+        label="Tonal"
         start={
           <svg
             aria-hidden="true"
@@ -22,8 +22,8 @@ export default function Icon() {
         }
       />
       <Chip
-        label="Outlined"
         variant="outlined"
+        label="Outlined"
         end={
           <svg
             aria-hidden="true"

@@ -4,9 +4,9 @@ export default function Spread() {
   return (
     <>
       <Checkbox
+        endText="I have read and agree to the privacy policy."
         name="checkbox-spread"
         spread
-        endText="I have read and agree to the privacy policy."
       >
         Accept Terms & Conditions
       </Checkbox>

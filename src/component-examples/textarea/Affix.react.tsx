@@ -25,9 +25,9 @@ export default function Affix() {
       />
 
       <Textarea
+        end="Markdown"
         label="Comment"
         placeholder="Write a comment..."
-        end="Markdown"
       />
     </>
   )

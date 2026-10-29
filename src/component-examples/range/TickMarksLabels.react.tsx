@@ -16,9 +16,9 @@ export default function TickMarksLabels() {
       <Range
         datalist={
           <>
-            <option value="0" label="Low" />
-            <option value="1" label="Medium" />
-            <option value="2" label="High" />
+            <option value="0" label="Low"></option>
+            <option value="1" label="Medium"></option>
+            <option value="2" label="High"></option>
           </>
         }
         label="Quality"

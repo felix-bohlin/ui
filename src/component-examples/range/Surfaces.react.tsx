@@ -12,20 +12,20 @@ export default function Surfaces() {
         }
       />
       <Range
+        variant="filled"
         label={
           <>
             <code>filled</code> = <code>var(--ui-surface-filled)</code>
           </>
         }
-        variant="filled"
       />
       <Range
+        variant="tonal"
         label={
           <>
             <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
           </>
         }
-        variant="tonal"
       />
     </>
   )

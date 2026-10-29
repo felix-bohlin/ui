@@ -5,9 +5,9 @@ export default function Link() {
     <>
       <Chip href="#" variant="tonal" label="Tonal link" />
       <Chip
-        label="Outlined link"
         href="#"
         variant="outlined"
+        label="Outlined link"
         end={
           <svg
             aria-hidden="true"

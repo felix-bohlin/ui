@@ -22,6 +22,10 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >
+      "opui-reactions": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >
       "opui-select-all": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement

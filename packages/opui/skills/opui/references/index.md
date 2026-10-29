@@ -81,6 +81,7 @@ Components documented on another component's page:
 | ListItem | `list.md` |
 | Messages | `message.md` |
 | RadioInput | `radio.md` |
+| Reactions | `message.md` |
 | SelectAll | `checkbox.md` |
 | SortableTable | `table.md` |
 | StepperItem | `stepper.md` |

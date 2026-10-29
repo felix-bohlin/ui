@@ -10,12 +10,12 @@ export default {
     },
     {
       description:
-        "On the add reaction button, opens or closes the picker. On an emoji, picks it, closes the picker and returns focus to the button.",
+        "On the add reaction button, opens or closes the picker. On an emoji, asks for it with a `reaction` event, closes the picker and returns focus to the button.",
       keys: ["Enter"],
     },
     {
       description:
-        "Checks or unchecks the focused reaction. On a button, works like Enter.",
+        "Asks to check or uncheck the focused reaction with a `reaction` event. It changes when the reply is applied. On a button, works like Enter.",
       keys: ["Space"],
     },
     {

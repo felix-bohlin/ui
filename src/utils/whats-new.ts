@@ -751,7 +751,7 @@ export const whatsNew = {
     `Themes can make a menu spring open with <a href="#api"><code>--ui-ease-move</code></a>. It closes with <code>--ui-ease-exit</code>.`,
   ],
   message: [
-    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+    `New: a <a href="#basics">Message</a> is a chat bubble that groups into runs, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> that wait for your server (<a href="#saving-reactions">saving reactions</a>) and a <a href="#typing">typing indicator</a>.`,
   ],
   "number-field": [
     {

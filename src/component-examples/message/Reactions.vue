@@ -5,17 +5,21 @@ import {
   Menu,
   Message,
   Messages,
+  Reactions,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/vue"
 
-const picker = [
+const emoji = [
   { "aria-label": "Thumbs up", label: "👍", value: "+1" },
   { "aria-label": "Heart", label: "❤️", value: "heart" },
   { "aria-label": "Laughing", label: "😂", value: "joy" },
   { "aria-label": "Party", label: "🎉", value: "tada" },
   { "aria-label": "Eyes", label: "👀", value: "eyes" },
 ]
+
+const picker = (id: string) =>
+  emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
 </script>
 
 <template>
@@ -28,7 +32,7 @@ const picker = [
       <template #actions>
         <Button
           aria-label="Add reaction"
-          commandfor="message-reactions-1"
+          commandfor="message-reactions-1-picker"
           command="toggle-popover"
           round
           size="x-small"
@@ -48,21 +52,23 @@ const picker = [
         </Button>
         <Menu
           aria-label="Add reaction"
-          id="message-reactions-1"
-          :items="picker"
+          id="message-reactions-1-picker"
+          :items="picker('message-reactions-1')"
           orientation="horizontal"
           side="block-start"
         />
       </template>
       <template #bottom>
-        <ToggleGroup aria-label="Reactions" multiple name="reaction">
-          <ToggleButton aria-label="Thumbs up, 2" checked value="+1"
-            ><span aria-hidden="true">👍 2</span></ToggleButton
-          >
-          <ToggleButton aria-label="Party, 1" value="tada"
-            ><span aria-hidden="true">🎉 1</span></ToggleButton
-          >
-        </ToggleGroup>
+        <Reactions id="message-reactions-1">
+          <ToggleGroup aria-label="Reactions" multiple name="reaction">
+            <ToggleButton aria-label="Thumbs up, 2" checked value="+1"
+              ><span aria-hidden="true">👍 2</span></ToggleButton
+            >
+            <ToggleButton aria-label="Party, 1" value="tada"
+              ><span aria-hidden="true">🎉 1</span></ToggleButton
+            >
+          </ToggleGroup>
+        </Reactions>
       </template>
     </Message>
     <Message author="You" datetime="2026-10-08T16:07" outgoing time="16:07">
@@ -70,7 +76,7 @@ const picker = [
       <template #actions>
         <Button
           aria-label="Add reaction"
-          commandfor="message-reactions-2"
+          commandfor="message-reactions-2-picker"
           command="toggle-popover"
           round
           size="x-small"
@@ -91,18 +97,20 @@ const picker = [
         <Menu
           align="end"
           aria-label="Add reaction"
-          id="message-reactions-2"
-          :items="picker"
+          id="message-reactions-2-picker"
+          :items="picker('message-reactions-2')"
           orientation="horizontal"
           side="block-start"
         />
       </template>
       <template #bottom>
-        <ToggleGroup aria-label="Reactions" multiple name="reaction">
-          <ToggleButton aria-label="Heart, 1" value="heart"
-            ><span aria-hidden="true">❤️ 1</span></ToggleButton
-          >
-        </ToggleGroup>
+        <Reactions id="message-reactions-2">
+          <ToggleGroup aria-label="Reactions" multiple name="reaction">
+            <ToggleButton aria-label="Heart, 1" value="heart"
+              ><span aria-hidden="true">❤️ 1</span></ToggleButton
+            >
+          </ToggleGroup>
+        </Reactions>
       </template>
     </Message>
   </Messages>

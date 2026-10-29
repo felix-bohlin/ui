@@ -1,0 +1,16 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Reactions"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<opui-reactions class:list={["ui-reactions", className]} {...rest}>
+  <slot />
+  <span class="ui-sr-only" role="status"></span>
+</opui-reactions>
+
+<script>
+  import "../../elements/reactions.js"
+</script>

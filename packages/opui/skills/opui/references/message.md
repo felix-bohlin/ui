@@ -42,6 +42,27 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `time`: `string`. The time as shown, at the end of the bubble.
 - `typing`: `boolean`, `.ui-typing`. Shows animated dots instead of the content. The default slot becomes the status text for screen readers.
 
+## Reactions
+
+### Parts
+
+- `opui-reactions.ui-reactions` (root): The `<opui-reactions>` custom element, with `display: contents`, around the `ToggleGroup` of reactions. A click on a pill, or on a button with `command="--react"` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes.
+- `<span role="status">`: The live region that `announce()` writes to, visually hidden with `.ui-sr-only`.
+
+### Props and modifiers
+
+- `onreaction` (Svelte): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change the data.
+- `onReaction` (React): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change the data.
+
+### Slots
+
+- `default`: The `ToggleGroup` of reactions.
+
+### Notes
+
+- HTML: Wrap the `ToggleGroup` in `<opui-reactions class="ui-reactions">` with an empty `<span class="ui-sr-only" role="status">` after it, and import `opui-css/elements/reactions.js`. `set(value, { checked, label, text })` adds or updates a pill, `delete(value)` removes one, and `announce(message)` reads a message to screen readers.
+- Astro, React, Svelte and Vue: The component loads `opui-css/elements/reactions.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Render the pills from your data and change the data when the reply comes, since a click never checks or unchecks a pill on its own. `announce(message)` on `event.target` reads a message to screen readers. In Vue, listen with `@reaction`.
+
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
@@ -122,7 +143,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ## Astro
 
-`import { Message, Messages } from "opui-css/astro"`
+`import { Message, Messages, Reactions } from "opui-css/astro"`
 
 - `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `slot="actions"` on a child.
 
@@ -154,9 +175,10 @@ import { Avatar, Message, Messages } from "opui-css/astro"
 
 ## React
 
-`import { Message, Messages } from "opui-css/react"`
+`import { Message, Messages, Reactions } from "opui-css/react"`
 
 - `Message` slot props (`ReactNode`): `actions`, `bottom`, `children`, `end` and `start`.
+- Client components (`"use client"`): `Reactions`.
 
 ### Example: Basics
 
@@ -209,7 +231,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Message, Messages } from "opui-css/svelte"`
+`import { Message, Messages, Reactions } from "opui-css/svelte"`
 
 - `Message` slot snippets: `actions`, `bottom`, `children`, `end` and `start`.
 
@@ -245,7 +267,7 @@ export default function Basics() {
 
 ## Vue
 
-`import { Message, Messages } from "opui-css/vue"`
+`import { Message, Messages, Reactions } from "opui-css/vue"`
 
 - `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `<template #actions>`.
 

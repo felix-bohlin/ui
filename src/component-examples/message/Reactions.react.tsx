@@ -4,6 +4,7 @@ import {
   Menu,
   Message,
   Messages,
+  Reactions,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
@@ -23,7 +24,7 @@ const addReactionIcon = (
   </svg>
 )
 
-const picker = [
+const emoji = [
   { "aria-label": "Thumbs up", label: "👍", value: "+1" },
   { "aria-label": "Heart", label: "❤️", value: "heart" },
   { "aria-label": "Laughing", label: "😂", value: "joy" },
@@ -31,7 +32,10 @@ const picker = [
   { "aria-label": "Eyes", label: "👀", value: "eyes" },
 ]
 
-export default function Reactions() {
+const picker = (id: string) =>
+  emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
+
+export default function ReactionsExample() {
   return (
     <Messages aria-label="Messages with Saga">
       <Message
@@ -39,7 +43,7 @@ export default function Reactions() {
           <>
             <Button
               aria-label="Add reaction"
-              commandfor="message-reactions-1"
+              commandfor="message-reactions-1-picker"
               command="toggle-popover"
               round
               size="x-small"
@@ -48,8 +52,8 @@ export default function Reactions() {
             </Button>
             <Menu
               aria-label="Add reaction"
-              id="message-reactions-1"
-              items={picker}
+              id="message-reactions-1-picker"
+              items={picker("message-reactions-1")}
               orientation="horizontal"
               side="block-start"
             />
@@ -57,14 +61,16 @@ export default function Reactions() {
         }
         author="Saga"
         bottom={
-          <ToggleGroup aria-label="Reactions" multiple name="reaction">
-            <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1">
-              <span aria-hidden="true">👍 2</span>
-            </ToggleButton>
-            <ToggleButton aria-label="Party, 1" value="tada">
-              <span aria-hidden="true">🎉 1</span>
-            </ToggleButton>
-          </ToggleGroup>
+          <Reactions id="message-reactions-1">
+            <ToggleGroup aria-label="Reactions" multiple name="reaction">
+              <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1">
+                <span aria-hidden="true">👍 2</span>
+              </ToggleButton>
+              <ToggleButton aria-label="Party, 1" value="tada">
+                <span aria-hidden="true">🎉 1</span>
+              </ToggleButton>
+            </ToggleGroup>
+          </Reactions>
         }
         datetime="2026-10-08T16:05"
         start={
@@ -81,7 +87,7 @@ export default function Reactions() {
           <>
             <Button
               aria-label="Add reaction"
-              commandfor="message-reactions-2"
+              commandfor="message-reactions-2-picker"
               command="toggle-popover"
               round
               size="x-small"
@@ -91,8 +97,8 @@ export default function Reactions() {
             <Menu
               align="end"
               aria-label="Add reaction"
-              id="message-reactions-2"
-              items={picker}
+              id="message-reactions-2-picker"
+              items={picker("message-reactions-2")}
               orientation="horizontal"
               side="block-start"
             />
@@ -100,11 +106,13 @@ export default function Reactions() {
         }
         author="You"
         bottom={
-          <ToggleGroup aria-label="Reactions" multiple name="reaction">
-            <ToggleButton aria-label="Heart, 1" value="heart">
-              <span aria-hidden="true">❤️ 1</span>
-            </ToggleButton>
-          </ToggleGroup>
+          <Reactions id="message-reactions-2">
+            <ToggleGroup aria-label="Reactions" multiple name="reaction">
+              <ToggleButton aria-label="Heart, 1" value="heart">
+                <span aria-hidden="true">❤️ 1</span>
+              </ToggleButton>
+            </ToggleGroup>
+          </Reactions>
         }
         datetime="2026-10-08T16:07"
         outgoing

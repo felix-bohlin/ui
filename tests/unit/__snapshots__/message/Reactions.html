@@ -16,35 +16,35 @@
       </button>
       <menu aria-label="Add reaction" class="ui-block-start ui-horizontal ui-menu" id="id-1" popover>
         <li>
-          <button aria-label="Thumbs up" command="hide-popover" commandfor="id-1" type="button" value="+1">
+          <button aria-label="Thumbs up" command="--react" commandfor="id-2" type="button" value="+1">
             <div class="ui-text">
               <p>👍</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Heart" command="hide-popover" commandfor="id-1" type="button" value="heart">
+          <button aria-label="Heart" command="--react" commandfor="id-2" type="button" value="heart">
             <div class="ui-text">
               <p>❤️</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Laughing" command="hide-popover" commandfor="id-1" type="button" value="joy">
+          <button aria-label="Laughing" command="--react" commandfor="id-2" type="button" value="joy">
             <div class="ui-text">
               <p>😂</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Party" command="hide-popover" commandfor="id-1" type="button" value="tada">
+          <button aria-label="Party" command="--react" commandfor="id-2" type="button" value="tada">
             <div class="ui-text">
               <p>🎉</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Eyes" command="hide-popover" commandfor="id-1" type="button" value="eyes">
+          <button aria-label="Eyes" command="--react" commandfor="id-2" type="button" value="eyes">
             <div class="ui-text">
               <p>👀</p>
             </div>
@@ -53,16 +53,19 @@
       </menu>
     </div>
     <div class="ui-bottom">
-      <div aria-label="Reactions" class="ui-toggle-group" role="group">
-        <label class="ui-toggle-button">
-          <input aria-label="Thumbs up, 2" checked name="reaction" type="checkbox" value="+1">
-          <span aria-hidden="true">👍 2</span>
-        </label>
-        <label class="ui-toggle-button">
-          <input aria-label="Party, 1" name="reaction" type="checkbox" value="tada">
-          <span aria-hidden="true">🎉 1</span>
-        </label>
-      </div>
+      <opui-reactions class="ui-reactions" id="id-2">
+        <div aria-label="Reactions" class="ui-toggle-group" role="group">
+          <label class="ui-toggle-button">
+            <input aria-label="Thumbs up, 2" checked name="reaction" type="checkbox" value="+1">
+            <span aria-hidden="true">👍 2</span>
+          </label>
+          <label class="ui-toggle-button">
+            <input aria-label="Party, 1" name="reaction" type="checkbox" value="tada">
+            <span aria-hidden="true">🎉 1</span>
+          </label>
+        </div>
+        <span class="ui-sr-only" role="status"></span>
+      </opui-reactions>
     </div>
   </li>
   <li class="ui-message ui-outgoing">
@@ -74,42 +77,42 @@
       </p>
     </div>
     <div class="ui-actions">
-      <button aria-label="Add reaction" class="ui-button ui-round ui-x-small" command="toggle-popover" commandfor="id-2" type="button">
+      <button aria-label="Add reaction" class="ui-button ui-round ui-x-small" command="toggle-popover" commandfor="id-3" type="button">
         <svg aria-hidden="true" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z" fill="currentColor"></path>
         </svg>
       </button>
-      <menu aria-label="Add reaction" class="ui-align-end ui-block-start ui-horizontal ui-menu" id="id-2" popover>
+      <menu aria-label="Add reaction" class="ui-align-end ui-block-start ui-horizontal ui-menu" id="id-3" popover>
         <li>
-          <button aria-label="Thumbs up" command="hide-popover" commandfor="id-2" type="button" value="+1">
+          <button aria-label="Thumbs up" command="--react" commandfor="id-4" type="button" value="+1">
             <div class="ui-text">
               <p>👍</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Heart" command="hide-popover" commandfor="id-2" type="button" value="heart">
+          <button aria-label="Heart" command="--react" commandfor="id-4" type="button" value="heart">
             <div class="ui-text">
               <p>❤️</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Laughing" command="hide-popover" commandfor="id-2" type="button" value="joy">
+          <button aria-label="Laughing" command="--react" commandfor="id-4" type="button" value="joy">
             <div class="ui-text">
               <p>😂</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Party" command="hide-popover" commandfor="id-2" type="button" value="tada">
+          <button aria-label="Party" command="--react" commandfor="id-4" type="button" value="tada">
             <div class="ui-text">
               <p>🎉</p>
             </div>
           </button>
         </li>
         <li>
-          <button aria-label="Eyes" command="hide-popover" commandfor="id-2" type="button" value="eyes">
+          <button aria-label="Eyes" command="--react" commandfor="id-4" type="button" value="eyes">
             <div class="ui-text">
               <p>👀</p>
             </div>
@@ -118,12 +121,15 @@
       </menu>
     </div>
     <div class="ui-bottom">
-      <div aria-label="Reactions" class="ui-toggle-group" role="group">
-        <label class="ui-toggle-button">
-          <input aria-label="Heart, 1" name="reaction" type="checkbox" value="heart">
-          <span aria-hidden="true">❤️ 1</span>
-        </label>
-      </div>
+      <opui-reactions class="ui-reactions" id="id-4">
+        <div aria-label="Reactions" class="ui-toggle-group" role="group">
+          <label class="ui-toggle-button">
+            <input aria-label="Heart, 1" name="reaction" type="checkbox" value="heart">
+            <span aria-hidden="true">❤️ 1</span>
+          </label>
+        </div>
+        <span class="ui-sr-only" role="status"></span>
+      </opui-reactions>
     </div>
   </li>
 </ol>

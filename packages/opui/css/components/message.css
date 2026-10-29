@@ -9,6 +9,10 @@
     padding: 0;
   }
 
+  :where(.ui-reactions) {
+    display: contents;
+  }
+
   :where(.ui-message) {
     --_motion: var(--ui-motion);
     --_actions-opacity: 0;
@@ -115,7 +119,12 @@
       margin-block: calc(-1 * var(--ui-space-2)) var(--ui-space-1);
       padding-inline: var(--ui-space-2);
 
-      & > .ui-toggle-group {
+      &:not(:has(.ui-toggle-button)) {
+        margin-block: 0;
+      }
+
+      & > .ui-toggle-group,
+      & > .ui-reactions > .ui-toggle-group {
         background-color: transparent;
         gap: var(--ui-space-1);
         outline: 0;
@@ -268,7 +277,12 @@
         forced-color-adjust: none;
       }
 
-      & > .ui-bottom > .ui-toggle-group > .ui-toggle-button:has(input:checked) {
+      & > .ui-bottom > .ui-toggle-group > .ui-toggle-button:has(input:checked),
+      &
+        > .ui-bottom
+        > .ui-reactions
+        > .ui-toggle-group
+        > .ui-toggle-button:has(input:checked) {
         --ui-focus-ring-color: SelectedItemText;
 
         background-color: SelectedItem;

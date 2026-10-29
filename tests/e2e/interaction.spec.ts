@@ -1039,6 +1039,29 @@ interaction(
 
 interaction(
   "menu",
+  "Horizontal",
+  "a horizontal menu lays its items out in one row that fits them",
+  async ({ root }) => {
+    const menu = root.locator("menu.ui-menu")
+
+    await root.getByRole("button", { name: "React" }).click()
+    await expect(menu).toBeVisible()
+    const items = await menu.getByRole("button").all()
+    const boxes = await Promise.all(items.map((item) => item.boundingBox()))
+    const tops = new Set(boxes.map((box) => Math.round(box!.y)))
+    const width = (await menu.boundingBox())!.width
+    const itemsWidth = boxes.reduce((sum, box) => sum + box!.width, 0)
+
+    expect(items).toHaveLength(5)
+    expect(tops.size).toBe(1)
+    expect(width).toBeLessThan(itemsWidth * 1.5)
+    await menu.getByRole("button", { name: "Party" }).click()
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
   "Basics",
   "menu closes with Escape and returns focus to the trigger",
   async ({ page, root }) => {

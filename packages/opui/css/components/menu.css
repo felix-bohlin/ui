@@ -86,6 +86,31 @@
       }
     }
 
+    /* Orientation */
+    &.ui-horizontal {
+      --_min-block-size: 0;
+      --_min-inline-size: 0;
+
+      gap: var(--ui-space-1);
+      overflow-inline: auto;
+      padding: var(--ui-space-1);
+
+      &:popover-open {
+        display: flex;
+      }
+
+      & > li {
+        flex: none;
+
+        & > :is(a, button) {
+          border-radius: var(--ui-radius-small);
+          justify-content: center;
+          min-inline-size: var(--ui-control-size);
+          padding-inline: var(--ui-space-2);
+        }
+      }
+    }
+
     /* Placements */
     &.ui-block-start {
       --_side: self-block-start;

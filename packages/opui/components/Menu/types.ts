@@ -14,6 +14,7 @@ export type Props = {
   dense?: boolean
   id: string
   items?: MenuItem[]
+  orientation?: "horizontal" | "vertical"
   popover?: "auto" | "manual"
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }

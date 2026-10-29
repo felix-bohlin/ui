@@ -12,6 +12,7 @@
     dense,
     id,
     items,
+    orientation,
     popover = "auto",
     side,
 
@@ -39,6 +40,7 @@
       "ui-bordered": bordered,
       "ui-dense": dense,
     },
+    orientation && orientation !== "vertical" && `ui-${orientation}`,
     side && side !== "block-end" && `ui-${side}`,
     className,
   ]}

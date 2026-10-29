@@ -2,6 +2,7 @@
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
 import {
+  Button,
   Chip,
   FieldLegend,
   Fieldset,
@@ -27,6 +28,8 @@ const { link } = Astro.locals
 const icons = {
   buildUps:
     "M1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5zM2.5 3a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5zm2.58 10c.21.58.77 1 1.42 1h3A5.5 5.5 0 0 0 15 8.5v-1c0-.65-.42-1.2-1-1.41V8.5A4.5 4.5 0 0 1 9.5 13zm-.58-1a1.5 1.5 0 0 1-1.42-1H9.5A2.5 2.5 0 0 0 12 8.5V4.09c.58.2 1 .76 1 1.41v3A3.5 3.5 0 0 1 9.5 12z",
+  filter:
+    "M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m2 4c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m2 4c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5",
   level:
     "M14 3.5a1.5 1.5 0 0 0-3 0v9a1.5 1.5 0 0 0 3 0zM12.5 3c.28 0 .5.22.5.5v9a.5.5 0 0 1-1 0v-9c0-.28.22-.5.5-.5M10 6.5a1.5 1.5 0 1 0-3 0v6a1.5 1.5 0 0 0 3 0zM8.5 6c.28 0 .5.22.5.5v6a.5.5 0 0 1-1 0v-6c0-.28.22-.5.5-.5m-4 2C5.33 8 6 8.67 6 9.5v3a1.5 1.5 0 0 1-3 0v-3C3 8.67 3.67 8 4.5 8M5 9.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0z",
   readingTime:
@@ -113,7 +116,23 @@ const filterCss = [
   <Fragment slot="title">Blog</Fragment>
 
   <div class="blog-browse ui-not-rich-text">
-    <div class="blog-filters">
+    <div class="blog-toolbar">
+      <Button
+        class="blog-filter-button"
+        command="toggle-popover"
+        commandfor="blog-filters"
+        size="small"
+        variant="outlined"
+      >
+        <svg aria-hidden="true" viewBox="0 0 16 16">
+          <path d={icons.filter}></path>
+        </svg>
+        Filter
+        <span aria-hidden="true" class="blog-filter-dot"></span>
+      </Button>
+    </div>
+
+    <div class="blog-filters" id="blog-filters" popover>
       <Fieldset>
         <FieldLegend>Level</FieldLegend>
         <ToggleGroup name="blog-level" size="small">
@@ -303,11 +322,52 @@ const filterCss = [
     gap: var(--ui-space-4);
   }
 
-  .blog-filters {
-    align-items: end;
+  .blog-toolbar {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-3) var(--ui-space-6);
+  }
+
+  .blog-filter-button svg {
+    block-size: 1rem;
+    fill: currentColor;
+    inline-size: 1rem;
+  }
+
+  .blog-filter-dot {
+    background-color: var(--ui-primary);
+    block-size: 0.5rem;
+    border-radius: 50%;
+    display: none;
+    inline-size: 0.5rem;
+  }
+
+  .blog-browse:has(
+      [name="blog-level"]:checked:not([value=""]),
+      [name="blog-topic"] option:checked:not([value=""])
+    )
+    .blog-filter-dot {
+    display: block;
+  }
+
+  .blog-filters {
+    --ui-border-color: var(--ui-border-color-on-raised);
+    --ui-field-border-color: var(--ui-field-border-color-on-raised);
+
+    background-color: var(--ui-surface-elevated);
+    border: var(--ui-border-width) solid var(--ui-border-color-on-raised);
+    border-radius: var(--ui-radius);
+    box-shadow: var(--ui-shadow-overlay);
+    color: inherit;
+    gap: var(--ui-space-4);
+    inset: auto;
+    margin: var(--ui-space-1) 0 0;
+    max-inline-size: calc(100vi - 2 * var(--ui-space-4));
+    padding: var(--ui-space-4);
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+
+    &:popover-open {
+      display: grid;
+    }
 
     & .ui-fieldset {
       gap: 0;

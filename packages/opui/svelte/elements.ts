@@ -7,6 +7,10 @@ declare module "svelte/elements" {
     "opui-character-count": HTMLAttributes<HTMLElement> & {
       label?: string | undefined | null
     }
+    "opui-command": HTMLAttributes<HTMLElement> & {
+      "empty-label"?: string | undefined | null
+      filter?: "none" | undefined | null
+    }
     "opui-copy": HTMLAttributes<HTMLElement> & {
       "copied-label"?: string | undefined | null
       "failed-label"?: string | undefined | null

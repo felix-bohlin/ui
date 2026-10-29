@@ -1,0 +1,25 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Command"
+
+const { class: className, emptyLabel, filter, variant, ...rest } = Astro.props
+---
+
+<opui-command
+  class:list={[
+    "ui-command",
+    variant && variant !== "transparent" && `ui-${variant}`,
+    className,
+  ]}
+  empty-label={emptyLabel}
+  filter={filter && filter !== "auto" ? filter : undefined}
+  {...rest}
+>
+  <slot />
+  <p role="status"></p>
+</opui-command>
+
+<script>
+  import "../../elements/command.js"
+</script>

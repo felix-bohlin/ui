@@ -202,6 +202,7 @@ Lists meant to be used stand-alone or as part of Select elements
         &:where([role="option"])[aria-selected="true"]
           > :where(a, button, label),
         &:where([role="option"])[aria-selected="true"],
+        & > :where(a, button):where([role="option"])[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
@@ -433,6 +434,7 @@ Lists meant to be used stand-alone or as part of Select elements
       @media (forced-colors: active) {
         &:where(option, [role="option"])[aria-selected="true"],
         &:where([role="option"])[aria-selected="true"] > :is(a, button, label),
+        & > :where(a, button):where([role="option"])[aria-selected="true"],
         &:checked,
         & > :is(a, button, label)[aria-current="page"] {
           background-color: SelectedItem;

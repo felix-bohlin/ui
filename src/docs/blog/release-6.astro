@@ -46,44 +46,70 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
     </CalloutContent>
   </Callout>
 
-  <section id="by-hand">
-    <h2>Act 1: By hand</h2>
+  <p>
+    When the project started everything was written by hand. The focus was to be
+    the component library that uses modern CSS and HTML that didn't seem to
+    exist yet. In short, I wanted to build that library, learn all the cool
+    tricks and techniques and ultimately pass them on. Not that I counted on
+    having a massive user base, but inspiring at least one person was win and
+    good enough for me. I really liked the shadcn model - they did the hard
+    work, you get to grab everything and make it your own, so a key
+    consideration from the start was to have very pragmatic and readable CSS
+    that any user at any level could grasp and then modify.
+  </p>
+
+  <p>That was then.</p>
+
+  <p>
+    Well I mean you can still do all these things (don't worry), but since AI
+    has gotten so good that writing anything by hand has become unnecessary, the
+    core concepts stayed but the scope changed. I could think bigger in terms of
+    the library scope, architecture. In 6.0, the CSS has become less readable
+    for sure, but with the added benefit in features that the new design system
+    and layer architecture provided. I always had the 6.0 structure in mind when
+    I started out the project but it felt like it wouldn't be very approachable
+    for people and I had worries about maintaining that on a hobby level.
+  </p>
+
+  <p>
+    Now with a chance to start fresh, I wanted to implement my initial vision.
+    Wouldn't it be cool to have one CSS code-base that was flexible and thought
+    through enough to handle almost any style - shadcn, Material design,
+    Bootstrap (I know but it has charm), some whacky brutalist experiment, you
+    name it! If I could make that work, I could be pretty certain it would be
+    flexible enough that anyone else could probably customize it to their needs
+    as well.
+  </p>
+
+  <p>
+    After deciding on this direction, I still wanted a way for people to pick up
+    on the CSS tricks still, so I went all in on documentation. Not only better
+    component docs, but also a whole new blog dedicated to explaining the inner
+    workings and design decisions behind each component. Now I know very few
+    people will read it I know I know, but maybe someone will point their LLM to
+    it and it will find it useful. I don't know, somehow I'd like to move the
+    needle regardless of how little. If nothing else I'm having a lot of fun
+    doing this anyhow.
+  </p>
+
+  <p>Enough yapping, here's what I'd like to highlight for 6.0!</p>
+
+  <h3>It's a proper design system now</h3>
+  <p>
+    Or at least I've tried. I'm no Brad Frost or Dave Rupert or whatever, but
+    I've been around and hopefully picked up a thing or two along the way. In
+    case I haven't, that's why I'm throwing all these example themes on the
+    library as a stress test. CSS variable/token tiering and more robust
+    architecture are one of my absolute favorite additions to 6.0. This
+    re-architecture also exposed a lot of weak points in the previous design, so
+    I was kind of forced to go through all components and update them.
+  </p>
+
+  <h3>Load of new components</h3>
+  <ul></ul>
+
+  <section id="beginning">
     <TitleCard />
-    <h3 id="the-gap">The gap</h3>
-    <ul>
-      <li>
-        No component library used modern CSS and HTML as its foundation, so the
-        project set out to be that library.
-      </li>
-      <li>
-        Three reasons: be that library, learn the techniques, and pass them on.
-        The <DocLink href="/blog">Blog</DocLink> posts are the evidence.
-      </li>
-    </ul>
-    <h3 id="releases">42 releases</h3>
-    <ReleaseRiver />
-    <ul>
-      <li>
-        From 1.0.0 in January 2025 to 6.0, every release read from the
-        changelog.
-      </li>
-    </ul>
-    <h3 id="readable-on-purpose">Readable on purpose</h3>
-    <ul>
-      <li>
-        Plain CSS that anyone at any level can read and change, a value the
-        whole of 1.x to 5.x was built on.
-      </li>
-      <li>The docs site, also written by hand, as a project of its own.</li>
-    </ul>
-    <h3 id="the-shelved-sketch">The shelved sketch</h3>
-    <Blueprint state="sketch" />
-    <ul>
-      <li>
-        Layers, tiers and theming were in mind from the start, and felt like
-        overkill for a hand-written library.
-      </li>
-    </ul>
   </section>
 
   <section id="the-turn">

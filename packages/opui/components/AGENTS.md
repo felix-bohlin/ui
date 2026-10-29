@@ -522,7 +522,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
-- `Message`: the bubble is a fill, so it gets a `CanvasText` border, and the typing dots keep `CanvasText`.
+- `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.

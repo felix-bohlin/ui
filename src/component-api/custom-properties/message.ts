@@ -27,7 +27,7 @@ export default {
   },
   "--_font-size": {
     description:
-      "Font size of the avatar's initials, set to `--ui-font-size-caption` on the `.ui-avatar` in the `start` slot.",
+      "Font size of the avatar's initials and the reactions, set to `--ui-font-size-caption` on the `.ui-avatar` in the `start` slot and the `.ui-toggle-button` pills in the `bottom` slot.",
     kind: "output",
   },
   "--_max-inline-size": {
@@ -47,7 +47,7 @@ export default {
   },
   "--_size": {
     description:
-      "Size of the `.ui-avatar` in the `start` slot, set to `--_avatar-size`.",
+      "Size of the `.ui-avatar` in the `start` slot, set to `--_avatar-size`, and of the `.ui-toggle-button` pills in the `bottom` slot, set to `--ui-button-size-x-small`.",
     kind: "output",
   },
   "--_text-color": {

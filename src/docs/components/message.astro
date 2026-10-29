@@ -33,6 +33,7 @@ export const description =
     { title: "Message API", api: messageApi },
   ]}
   browserSupport={[
+    "color-mix",
     "container-queries",
     "container-style-queries",
     "corner-shape",
@@ -79,7 +80,6 @@ export const description =
             aria-label="Reactions"
             multiple
             name="reaction"
-            size="small"
             slot="bottom"
           >
             <UIToggleButton aria-label="Thumbs up, 2" checked value="+1"
@@ -177,34 +177,30 @@ export const description =
     <h2 id="reactions">Reactions</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
-        checkboxes in <code>.ui-bottom</code>, under the bubble. The label of
-        each input names the emoji and the count, and <code>checked</code> marks your
-        own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
+        in <code>.ui-bottom</code>. The label of each input names the emoji and
+        the count, and <code>checked</code> marks your own reaction.</Fragment
       >
       <Fragment slot="components"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
-        checkboxes in the <code>bottom</code> slot, under the bubble. The label of
-        each toggle names the emoji and the count, and <code>checked</code>
-        marks your own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
+        in the <code>bottom</code> slot. The label of each toggle names the emoji
+        and the count, and <code>checked</code> marks your own reaction.</Fragment
       >
       <Fragment slot="react"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
-        checkboxes in the <code>bottom</code> prop, under the bubble. The label of
-        each toggle names the emoji and the count, and <code
-          >defaultChecked</code
-        > marks your own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
+        in the <code>bottom</code> prop. The label of each toggle names the emoji
+        and the count, and <code>defaultChecked</code> marks your own reaction.</Fragment
       >
       <Fragment slot="svelte"
-        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of small
-        checkboxes in the <code>bottom</code> snippet, under the bubble. The label
-        of each toggle names the emoji and the count, and <code>checked</code> marks
-        your own reaction.</Fragment
+        >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
+        in the <code>bottom</code> snippet. The label of each toggle names the emoji
+        and the count, and <code>checked</code> marks your own reaction.</Fragment
       >
     </Conditional>
     <p>
-      Saving a toggle and adding a new emoji are up to you: listen for <code
-        >change</code
+      The message draws the toggles as separate pills over the bottom edge of
+      the bubble, with your own reactions tinted in the primary color. Saving a
+      toggle and adding a new emoji are up to you: listen for <code>change</code
       > on the group, and update the count in the label.
     </p>
     <AutoExample name="Reactions" />
@@ -254,8 +250,10 @@ export const description =
       <code>li.ui-message</code> is a grid with a <code>start</code> area for the
       avatar, a <code>content</code> area for the bubble and a <code
         >bottom</code
-      > area under it. <code>.ui-outgoing</code> swaps the columns and aligns the
-      message to the end.
+      > area under it, pulled up by a negative margin so the reactions sit on the
+      bubble's edge. A ring in the page's surface color around each pill keeps it
+      apart from the bubble. <code>.ui-outgoing</code> swaps the columns and aligns
+      the message to the end.
     </p>
     <p>
       A run is found with <code>:has()</code>: a message followed by one on the

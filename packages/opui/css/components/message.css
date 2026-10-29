@@ -93,7 +93,45 @@
       flex-wrap: wrap;
       gap: var(--ui-space-1);
       grid-area: bottom;
-      margin-block-start: var(--ui-space-1);
+      margin-block: calc(-1 * var(--ui-space-2)) var(--ui-space-1);
+      padding-inline: var(--ui-space-2);
+
+      & > .ui-toggle-group {
+        background-color: transparent;
+        gap: var(--ui-space-1);
+        outline: 0;
+        overflow: visible;
+
+        & > .ui-toggle-button {
+          --_font-size: var(--ui-font-size-caption);
+          --_size: var(--ui-button-size-x-small);
+
+          background-color: var(--ui-surface);
+          border: var(--ui-border-width) solid var(--ui-border-color);
+          border-radius: var(--ui-radius-round);
+          box-shadow: 0 0 0 var(--ui-border-width) var(--ui-surface);
+          flex: none;
+          margin: 0;
+
+          @media (hover: hover) {
+            &:hover {
+              border-color: var(--ui-text-subtle);
+            }
+          }
+
+          &:has(input:checked) {
+            --ui-focus-ring-color: inherit;
+
+            background-color: color-mix(
+              in oklch,
+              var(--ui-primary) var(--ui-state-selected-alpha-accent),
+              var(--ui-surface)
+            );
+            border-color: var(--ui-primary);
+            color: var(--ui-text-strong);
+          }
+        }
+      }
     }
 
     &.ui-outgoing {
@@ -205,6 +243,14 @@
       &.ui-typing > .ui-content::before {
         color: CanvasText;
         forced-color-adjust: none;
+      }
+
+      & > .ui-bottom > .ui-toggle-group > .ui-toggle-button:has(input:checked) {
+        --ui-focus-ring-color: SelectedItemText;
+
+        background-color: SelectedItem;
+        border-color: SelectedItem;
+        color: SelectedItemText;
       }
     }
   }

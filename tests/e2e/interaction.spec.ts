@@ -1123,6 +1123,29 @@ interaction(
 )
 
 interaction(
+  "message",
+  "Reactions",
+  "reactions sit on the bubble's bottom edge and a checked one keeps the focus ring color",
+  async ({ page, root }) => {
+    const message = root.locator(".ui-message").first()
+    const bubble = await message.locator(".ui-content").boundingBox()
+    const pill = message.locator(".ui-toggle-button").first()
+    const box = await pill.boundingBox()
+
+    expect(box!.y).toBeLessThan(bubble!.y + bubble!.height)
+    expect(box!.y + box!.height).toBeGreaterThan(bubble!.y + bubble!.height)
+
+    await expect(pill.getByRole("checkbox")).toBeChecked()
+    await pill.getByRole("checkbox").focus()
+    await page.keyboard.press("Shift+Tab")
+    await page.keyboard.press("Tab")
+    expect(await computed(pill, "outline-color")).toBe(
+      await resolveColor(root, "var(--ui-focus-ring-color)"),
+    )
+  },
+)
+
+interaction(
   "table",
   "StickyHeader",
   "the sticky header stays while the body scrolls",

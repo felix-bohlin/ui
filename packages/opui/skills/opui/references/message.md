@@ -30,7 +30,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `.ui-header` (prop `author`): The sender's name.
 - `.ui-footer` (prop `datetime`, prop `time`): The time, and content such as a read receipt.
 - `.ui-end` (slot `end`): Content after the time, such as a read receipt.
-- `.ui-bottom` (slot `bottom`): A row under the bubble, for reactions in a `ToggleGroup`.
+- `.ui-bottom` (slot `bottom`): Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble.
 
 ### Props and modifiers
 
@@ -73,7 +73,7 @@ Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_fon
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-contrast`, `--ui-control-size-small`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -1,8 +1,10 @@
 ---
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
+import PostPreview from "../../components/Blog/PostPreview.astro"
 import {
   Button,
+  Carousel,
   Chip,
   FieldLegend,
   Fieldset,
@@ -28,6 +30,8 @@ const { link } = Astro.locals
 const icons = {
   buildUps:
     "M1 3.5C1 2.67 1.67 2 2.5 2h7c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 1 8.5zM2.5 3a.5.5 0 0 0-.5.5v5c0 .28.22.5.5.5h7a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5zm2.58 10c.21.58.77 1 1.42 1h3A5.5 5.5 0 0 0 15 8.5v-1c0-.65-.42-1.2-1-1.41V8.5A4.5 4.5 0 0 1 9.5 13zm-.58-1a1.5 1.5 0 0 1-1.42-1H9.5A2.5 2.5 0 0 0 12 8.5V4.09c.58.2 1 .76 1 1.41v3A3.5 3.5 0 0 1 9.5 12z",
+  download:
+    "M3.5 13H12.5C12.7761 13 13 13.2239 13 13.5C13 13.7455 12.8231 13.9496 12.5899 13.9919L12.5 14H3.5C3.22386 14 3 13.7761 3 13.5C3 13.2545 3.17688 13.0504 3.41012 13.0081L3.5 13H12.5H3.5ZM7.91012 1.00806L8 1C8.24546 1 8.44961 1.17688 8.49194 1.41012L8.5 1.5V10.292L11.182 7.61091C11.3555 7.43735 11.625 7.41806 11.8198 7.55306L11.8891 7.61091C12.0627 7.78448 12.0819 8.0539 11.9469 8.24877L11.8891 8.31802L8.35355 11.8536C8.17999 12.0271 7.91056 12.0464 7.71569 11.9114L7.64645 11.8536L4.11091 8.31802C3.91565 8.12276 3.91565 7.80617 4.11091 7.61091C4.28448 7.43735 4.5539 7.41806 4.74877 7.55306L4.81802 7.61091L7.5 10.292V1.5C7.5 1.25454 7.67688 1.05039 7.91012 1.00806L8 1L7.91012 1.00806Z",
   filter:
     "M2 3.5c0-.28.22-.5.5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m2 4c0-.28.22-.5.5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m2 4c0-.28.22-.5.5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5",
   level:
@@ -58,9 +62,50 @@ const entries = posts
       name: computeFeatureSupport(id).name,
     })),
     level: post.features && levelOf(post.features),
-    minutes: readingMinutes(post.slug),
+    meta: [
+      {
+        icon: icons.readingTime,
+        label: "Reading time",
+        value: `${readingMinutes(post.slug)} min`,
+      },
+      post.features && {
+        icon: icons.level,
+        label: "Level",
+        value: labelOf(levels, levelOf(post.features)),
+      },
+      post.topics && {
+        icon: icons.topics,
+        label: "Topics",
+        value: post.topics.map((topic) => labelOf(topics, topic)).join(", "),
+      },
+      post.slug === "under-the-hood" && {
+        icon: icons.buildUps,
+        label: "Build-ups",
+        value: `${buildCount} build-ups`,
+      },
+    ].filter((item) => !!item),
     series: seriesOf(post.slug),
+    version:
+      post.category === "release"
+        ? post.title.match(/\d+(\.\d+)*/)?.[0]
+        : undefined,
   }))
+
+const featured = entries
+  .filter((post) => !post.component)
+  .toSorted(
+    (a, b) =>
+      Number(b.category === "release") - Number(a.category === "release"),
+  )
+
+const componentPosts = entries.filter((post) => post.component)
+
+const buildSteps = [
+  { label: "HTML", variant: "raw" },
+  { label: "Base", variant: "ui-tonal" },
+  { icon: true, label: "Icon", variant: "ui-tonal" },
+  { icon: true, label: "Done", variant: "ui-filled" },
+]
 
 const levelChecked = (id: string) =>
   `:has([name="blog-level"][value="${id}"]:checked)`
@@ -127,55 +172,117 @@ const filterCss = [
         <svg aria-hidden="true" viewBox="0 0 16 16">
           <path d={icons.filter}></path>
         </svg>
-        Filter
+        <span class="ui-text">Filter</span>
         <span aria-hidden="true" class="blog-filter-dot"></span>
       </Button>
-    </div>
 
-    <div class="blog-filters" id="blog-filters" popover>
-      <Fieldset>
-        <FieldLegend>Level</FieldLegend>
-        <ToggleGroup name="blog-level" size="small">
-          <ToggleButton checked value="">All</ToggleButton>
-          {
-            levels.map((level) => (
-              <ToggleButton value={level.id}>{level.label}</ToggleButton>
-            ))
-          }
-        </ToggleGroup>
-      </Fieldset>
-      <Select
-        autoFit
-        items={[
-          { label: "All", value: "" },
-          ...topics.map((topic) => ({ label: topic.label, value: topic.id })),
-        ]}
-        label="Topic"
-        name="blog-topic"
-        size="small"
-        value=""
-      />
+      <div class="blog-filters" id="blog-filters" popover>
+        <Fieldset>
+          <FieldLegend>Level</FieldLegend>
+          <ToggleGroup name="blog-level" size="small">
+            <ToggleButton checked value="">All</ToggleButton>
+            {
+              levels.map((level) => (
+                <ToggleButton value={level.id}>{level.label}</ToggleButton>
+              ))
+            }
+          </ToggleGroup>
+        </Fieldset>
+        <Select
+          autoFit
+          items={[
+            { label: "All", value: "" },
+            ...topics.map((topic) => ({ label: topic.label, value: topic.id })),
+          ]}
+          label="Topic"
+          name="blog-topic"
+          size="small"
+          value=""
+        />
+      </div>
     </div>
 
     <p class="blog-empty">No post matches this level and topic.</p>
 
-    <ul class="blog-posts">
+    <ul class="blog-hero">
       {
-        entries.map((post) => (
+        featured.map((post) => (
           <li
             class:list={[
               "blog-post",
-              { "blog-post-featured": !post.component },
+              "blog-post-featured",
+              `blog-hero-${post.category}`,
             ]}
+          >
+            <article class="ui-card ui-tonal">
+              {post.version && (
+                <span aria-hidden="true" class="blog-hero-version">
+                  {post.version}
+                </span>
+              )}
+              {post.category === "under-the-hood" && (
+                <ol class="blog-steps" inert>
+                  {buildSteps.map((step, index) => (
+                    <li style={`--step: ${index}`}>
+                      <button
+                        class:list={[
+                          step.variant === "raw"
+                            ? "blog-step-raw"
+                            : ["ui-button", "ui-small", step.variant],
+                        ]}
+                        type="button"
+                      >
+                        {step.icon && (
+                          <svg aria-hidden="true" viewBox="0 0 16 16">
+                            <path d={icons.download} fill="currentColor" />
+                          </svg>
+                        )}
+                        <span class="ui-text">Save</span>
+                      </button>
+                      <span class="blog-step-label">
+                        {index + 1} {step.label}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+              <hgroup>
+                <h2 style={`view-transition-name: blog-${post.slug}-title`}>
+                  <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+                </h2>
+                <p>{post.description}</p>
+              </hgroup>
+              <div class="ui-content">
+                <dl class="blog-meta">
+                  {post.meta.map((item) => (
+                    <div>
+                      <dt>
+                        <svg aria-hidden="true" viewBox="0 0 16 16">
+                          <path d={item.icon} />
+                        </svg>
+                        <span class="ui-sr-only">{item.label}</span>
+                      </dt>
+                      <dd>{item.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="blog-posts">
+      {
+        componentPosts.map((post) => (
+          <li
+            class="blog-post"
             data-level={post.level}
             data-topics={post.topics?.join(" ")}
           >
-            <article
-              class:list={[
-                "ui-card",
-                post.component ? "ui-outlined" : "ui-tonal",
-              ]}
-            >
+            <article class="ui-card ui-outlined">
+              <PostPreview slug={post.slug} />
               <hgroup>
                 <h2 style={`view-transition-name: blog-${post.slug}-title`}>
                   <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
@@ -223,42 +330,17 @@ const filterCss = [
                   ))}
                 </ul>
                 <dl class="blog-meta">
-                  {[
-                    {
-                      icon: icons.readingTime,
-                      label: "Reading time",
-                      value: `${post.minutes} min`,
-                    },
-                    post.level && {
-                      icon: icons.level,
-                      label: "Level",
-                      value: labelOf(levels, post.level),
-                    },
-                    post.topics && {
-                      icon: icons.topics,
-                      label: "Topics",
-                      value: post.topics
-                        .map((topic) => labelOf(topics, topic))
-                        .join(", "),
-                    },
-                    post.slug === "under-the-hood" && {
-                      icon: icons.buildUps,
-                      label: "Build-ups",
-                      value: `${buildCount} build-ups`,
-                    },
-                  ]
-                    .filter((item) => !!item)
-                    .map((item) => (
-                      <div>
-                        <dt>
-                          <svg aria-hidden="true" viewBox="0 0 16 16">
-                            <path d={item.icon} />
-                          </svg>
-                          <span class="ui-sr-only">{item.label}</span>
-                        </dt>
-                        <dd>{item.value}</dd>
-                      </div>
-                    ))}
+                  {post.meta.map((item) => (
+                    <div>
+                      <dt>
+                        <svg aria-hidden="true" viewBox="0 0 16 16">
+                          <path d={item.icon} />
+                        </svg>
+                        <span class="ui-sr-only">{item.label}</span>
+                      </dt>
+                      <dd>{item.value}</dd>
+                    </div>
+                  ))}
                 </dl>
               </div>
             </article>
@@ -271,24 +353,33 @@ const filterCss = [
   <section class="blog-series-list">
     <h2 id="series">Series</h2>
     <p>Posts that build on each other, in reading order.</p>
-    <div class="blog-series-grid ui-not-rich-text">
-      {
-        series.map((entry) => (
-          <section>
-            <h3 id={entry.id}>{entry.label}</h3>
-            <ol>
-              {entry.posts.map((slug) => (
-                <li>
-                  <DocLink href={`/blog/${slug}`}>
-                    {posts.find((post) => post.slug === slug)!.title}
-                  </DocLink>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))
-      }
-    </div>
+    {
+      series.map((entry) => (
+        <section class="ui-not-rich-text">
+          <h3 id={entry.id}>{entry.label}</h3>
+          <Carousel aria-label={entry.label} buttons="outside">
+            {entry.posts.map((slug, index) => (
+              <li>
+                <article class="ui-card ui-tonal blog-series-slide">
+                  <hgroup>
+                    <p class="blog-series-number">
+                      <span class="ui-sr-only">Part </span>
+                      {index + 1}
+                    </p>
+                    <h4>
+                      <DocLink href={`/blog/${slug}`}>
+                        {posts.find((post) => post.slug === slug)!.title}
+                      </DocLink>
+                    </h4>
+                    <p>{readingMinutes(slug)} min</p>
+                  </hgroup>
+                </article>
+              </li>
+            ))}
+          </Carousel>
+        </section>
+      ))
+    }
   </section>
 
   <section>
@@ -471,9 +562,101 @@ const filterCss = [
     }
   }
 
-  .blog-post-featured {
-    grid-column: 1 / -1;
+  .blog-hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
+  .blog-hero-release {
+    flex: 3 1 24rem;
+
+    & .ui-card {
+      align-content: end;
+      overflow: clip;
+    }
+
+    & hgroup,
+    & .blog-meta {
+      position: relative;
+    }
+  }
+
+  .blog-hero-under-the-hood {
+    flex: 2 1 18rem;
+  }
+
+  .blog-hero-version {
+    color: oklch(from var(--ui-primary) l c h / 22%);
+    font-size: clamp(6rem, 2rem + 20cqi, 11rem);
+    font-weight: 800;
+    inset-block-start: var(--ui-space-2);
+    inset-inline-end: var(--ui-space-4);
+    letter-spacing: -0.06em;
+    line-height: 0.8;
+    pointer-events: none;
+    position: absolute;
+    transition: scale 0.4s var(--ui-ease-move, ease);
+
+    .blog-post:has(a:hover) & {
+      scale: 1.06;
+    }
+  }
+
+  .blog-steps {
+    display: grid;
+    gap: var(--ui-space-2);
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-content: space-between;
+      background-color: var(--ui-surface);
+      border-radius: var(--ui-radius);
+      display: grid;
+      gap: var(--ui-space-2);
+      justify-items: center;
+      min-block-size: 5.5rem;
+      padding: var(--ui-space-3) var(--ui-space-1) var(--ui-space-2);
+    }
+  }
+
+  .blog-step-raw {
+    all: revert;
+  }
+
+  .blog-step-label {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blog-hero-under-the-hood:has(a:hover) .blog-steps li {
+      animation: blog-step 2.4s calc(var(--step) * 0.6s) infinite;
+    }
+  }
+
+  @keyframes blog-step {
+    0%,
+    20% {
+      box-shadow: 0 0 0 2px var(--ui-primary);
+      scale: 1.05;
+    }
+
+    30%,
+    100% {
+      box-shadow: 0 0 0 2px transparent;
+      scale: 1;
+    }
+  }
+
+  .blog-post-featured {
     & h2 {
       font-size: clamp(1.25rem, 0.75rem + 2.5cqi, 1.875rem);
     }
@@ -496,22 +679,83 @@ const filterCss = [
     opacity: 0.7;
   }
 
-  .blog-series-grid {
-    display: grid;
-    gap: var(--ui-space-4);
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  .blog-series-list {
+    & > section {
+      display: grid;
+      gap: var(--ui-space-2);
+      margin-block-start: var(--ui-space-6);
+    }
 
     & h3 {
       font-size: var(--ui-font-size-h5);
-      margin-block: 0 var(--ui-space-2);
+      margin: 0;
     }
 
-    & ol {
-      display: grid;
-      gap: var(--ui-space-1);
-      margin: 0;
-      padding-inline-start: var(--ui-space-5);
+    & .ui-carousel {
+      --_items-per-view: 1.3;
+
+      @media (width >= 40rem) {
+        --_items-per-view: 2.3;
+      }
+
+      @media (width >= 64rem) {
+        --_items-per-view: 3.3;
+      }
     }
+  }
+
+  .blog-series-slide {
+    block-size: 100%;
+    position: relative;
+
+    & hgroup {
+      display: grid;
+      gap: var(--ui-space-2);
+    }
+
+    & h4 {
+      font-size: var(--ui-font-size-body);
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+
+    & h4 a {
+      color: var(--ui-text-strong);
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+    }
+
+    & hgroup > p:last-child {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+    }
+
+    &:has(a:hover) {
+      background-color: var(--ui-surface-tonal-hover);
+    }
+
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
+
+      & a {
+        outline: none;
+      }
+    }
+  }
+
+  .blog-series-number {
+    color: var(--ui-primary-text);
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
   }
 
   .blog-meta {

@@ -2623,7 +2623,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "Act 1: By hand The gap 42 releases Readable on purpose The shelved sketch Act 2: The turn The bottleneck moved The trade, said openly Where readability went The new \"by hand\" Act 3: The vision, built One CSS, any style The CSS is the component Slots become parts, props get one naming model Tokens, rebuilt Contrast as a guarantee The platform did the work Browser support, honestly Where it landed Migrating",
+    "headings": "Act 2: The turn The bottleneck moved The trade, said openly Where readability went The new \"by hand\" Act 3: The vision, built One CSS, any style The CSS is the component Slots become parts, props get one naming model Tokens, rebuilt Contrast as a guarantee The platform did the work Browser support, honestly Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6"
   },

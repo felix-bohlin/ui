@@ -1,7 +1,7 @@
 ---
 import { readFileSync } from "node:fs"
 import { Button, Chip } from "opui-css/astro"
-import { changelogSections } from "../../utils/changelog"
+import { addedComponents, changelogSections } from "../../utils/changelog"
 import { releaseVersion } from "../../utils/release"
 
 const id = "hero"
@@ -15,11 +15,13 @@ const counts = new Map(
   ]),
 )
 
+const newComponents = addedComponents(changelog, releaseVersion).length
+
 const numeral = releaseVersion.split(".").slice(0, 2).join(".")
 
 const facts = [
   `${counts.get("Added") ?? 0} added, ${counts.get("Breaking") ?? 0} breaking`,
-  "Carousel, Menu, AvatarGroup",
+  `${newComponents} new components`,
   "Four example themes",
   "React and Svelte",
 ].toSorted((a, b) => a.localeCompare(b, "en"))

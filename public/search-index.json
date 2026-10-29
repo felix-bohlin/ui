@@ -2623,7 +2623,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "Act 2: The turn The bottleneck moved The trade, said openly Where readability went The new \"by hand\" Act 3: The vision, built One CSS, any style The CSS is the component Slots become parts, props get one naming model Tokens, rebuilt Contrast as a guarantee The platform did the work Browser support, honestly Where it landed Migrating",
+    "headings": "It's a proper design system now Four example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6"
   },

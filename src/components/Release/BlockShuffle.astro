@@ -1,0 +1,142 @@
+---
+import { Button } from "opui-css/astro"
+import { allBlocks, blockHref, blockPreviewHref } from "../../utils/blocks"
+
+const id = "block-shuffle"
+
+const { link } = Astro.locals
+
+const blocks = allBlocks.map((block) => ({
+  description: block.description,
+  href: link(blockHref(block.slug)),
+  name: block.name,
+  preview: link(blockPreviewHref(block.slug)),
+}))
+
+const [first] = blocks
+---
+
+<figure
+  class="block-shuffle ui-not-rich-text"
+  data-blocks={JSON.stringify(blocks)}
+  id={id}
+>
+  <div class="block-shuffle-frame">
+    <iframe
+      inert
+      loading="lazy"
+      src={first.preview}
+      tabindex="-1"
+      title={`${first.name} preview`}></iframe>
+  </div>
+  <figcaption class="block-shuffle-caption">
+    <p aria-live="polite" class="block-shuffle-text">
+      <a class="block-shuffle-name" href={first.href}>{first.name}</a>
+      <span class="block-shuffle-description">{first.description}</span>
+    </p>
+    <Button class="block-shuffle-next" size="small" variant="outlined"
+      >Show me another one</Button
+    >
+    <p class="block-shuffle-count">
+      <span class="block-shuffle-index">1</span> of {blocks.length}
+    </p>
+  </figcaption>
+</figure>
+
+<script>
+  type ShuffleBlock = {
+    description: string
+    href: string
+    name: string
+    preview: string
+  }
+
+  const root = document.querySelector<HTMLElement>("#block-shuffle")
+  const blocks: ShuffleBlock[] = JSON.parse(root?.dataset.blocks ?? "[]")
+  const frame = root?.querySelector("iframe")
+  const name = root?.querySelector<HTMLAnchorElement>(".block-shuffle-name")
+  const description = root?.querySelector(".block-shuffle-description")
+  const index = root?.querySelector(".block-shuffle-index")
+  const seen = new Set([0])
+  let current = 0
+
+  root?.querySelector(".block-shuffle-next")?.addEventListener("click", () => {
+    if (seen.size === blocks.length) seen.clear()
+    const unseen = blocks
+      .map((_, position) => position)
+      .filter((position) => position !== current && !seen.has(position))
+    current = unseen[Math.floor(Math.random() * unseen.length)] ?? 0
+    seen.add(current)
+    const block = blocks[current]
+    if (!frame || !name || !description || !index || !block) return
+    frame.src = block.preview
+    frame.title = `${block.name} preview`
+    name.href = block.href
+    name.textContent = block.name
+    description.textContent = block.description
+    index.textContent = String(current + 1)
+  })
+</script>
+
+<style is:global>
+  .block-shuffle {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-template-columns: minmax(0, 1fr);
+    margin: var(--ui-space-5) 0;
+  }
+
+  .block-shuffle-frame {
+    aspect-ratio: 16 / 10;
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    container-type: inline-size;
+    inline-size: 100%;
+    overflow: hidden;
+    pointer-events: none;
+
+    & iframe {
+      block-size: 800px;
+      border: 0;
+      color-scheme: normal;
+      display: block;
+      inline-size: 1280px;
+      transform: scale(tan(atan2(100cqi, 1280px)));
+      transform-origin: 0 0;
+    }
+  }
+
+  .block-shuffle-caption {
+    align-items: start;
+    display: grid;
+    gap: var(--ui-space-2) var(--ui-space-4);
+    grid-template-columns: 1fr auto;
+    padding: 0;
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .block-shuffle-text {
+    display: grid;
+    gap: var(--ui-space-1);
+  }
+
+  .block-shuffle-name {
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-medium);
+  }
+
+  .block-shuffle-description,
+  .block-shuffle-count {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .block-shuffle-count {
+    font-variant-numeric: tabular-nums;
+    grid-column: 1 / -1;
+  }
+</style>

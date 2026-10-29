@@ -1,0 +1,212 @@
+---
+import {
+  Badge,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Checkbox,
+  Chip,
+  Select,
+  TextField,
+} from "opui-css/astro"
+
+const id = "theme-dice"
+
+const { link } = Astro.locals
+---
+
+<div class="theme-dice ui-not-rich-text" id={id}>
+  <div class="theme-dice-controls">
+    <Button class="theme-dice-roll" variant="filled">Roll a theme</Button>
+    <Button class="theme-dice-reset" disabled variant="outlined"
+      >Back to this site's theme</Button
+    >
+    <Button class="theme-dice-open" href={link("/theme-builder/")}
+      >Open it in the Theme builder</Button
+    >
+    <p aria-live="polite" class="theme-dice-status"></p>
+  </div>
+
+  <div class="theme-dice-stage ui-palette">
+    <Card class="theme-dice-card" variant="elevated">
+      <CardHeader>
+        <h3>Invite a teammate</h3>
+        <p>They get an email with a link that works for seven days.</p>
+      </CardHeader>
+      <CardContent>
+        <div class="theme-dice-meta">
+          <Chip label="Pro plan" size="small" variant="tonal" />
+          <Badge hideLabel label="3 pending invites">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 32 32"
+              ><path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            >
+            <Fragment slot="indicator">3</Fragment>
+          </Badge>
+        </div>
+        <TextField
+          label="Email"
+          name="theme-dice-email"
+          placeholder="name@example.com"
+          type="email"
+        />
+        <Select label="Role" name="theme-dice-role">
+          <option>Editor</option>
+          <option>Owner</option>
+          <option>Viewer</option>
+        </Select>
+        <Checkbox label="Send me a copy" name="theme-dice-copy" />
+      </CardContent>
+      <CardActions>
+        <Button color="primary" variant="filled">Send invite</Button>
+        <Button variant="outlined">Preview</Button>
+        <Button variant="tonal">Cancel</Button>
+      </CardActions>
+    </Card>
+  </div>
+</div>
+
+<script>
+  import { brandTokens } from "../../utils/theme-brand"
+  import { themeFontIds } from "../../utils/theme"
+  import { fontCssUrls } from "../../utils/theme-fonts"
+  import { shuffleRemix } from "../../utils/theme-remix"
+  import { shareUrl } from "../../utils/theme-share"
+
+  const root = document.querySelector<HTMLElement>("#theme-dice")
+  const stage = root?.querySelector<HTMLElement>(".theme-dice-stage")
+  const reset = root?.querySelector<HTMLButtonElement>(".theme-dice-reset")
+  const open = root?.querySelector<HTMLAnchorElement>(".theme-dice-open")
+  const status = root?.querySelector(".theme-dice-status")
+  const home = open?.href
+  let written: string[] = []
+
+  const loadFonts = (tokens: Record<string, string>) => {
+    for (const fontId of themeFontIds({ preset: null, tokens })) {
+      for (const url of fontCssUrls(fontId)) {
+        if (document.head.querySelector(`link[href="${url}"]`)) continue
+        const sheet = document.createElement("link")
+        sheet.href = url
+        sheet.rel = "stylesheet"
+        document.head.append(sheet)
+      }
+    }
+  }
+
+  const clear = () => {
+    for (const token of written) stage?.style.removeProperty(token)
+    written = []
+  }
+
+  root?.querySelector(".theme-dice-roll")?.addEventListener("click", () => {
+    if (!stage || !reset || !open || !status) return
+    const remix = shuffleRemix([], {})
+    const tokens: Record<string, string> = {}
+    for (const part of remix.parts) {
+      for (const [token, value] of Object.entries(part.tokens)) {
+        if (value !== null) tokens[token] = value
+      }
+    }
+    if (remix.brand) Object.assign(tokens, brandTokens(remix.brand))
+    clear()
+    loadFonts(tokens)
+    for (const [token, value] of Object.entries(tokens)) {
+      stage.style.setProperty(token, value)
+      written.push(token)
+    }
+    open.href = shareUrl({ preset: null, tokens }, location.origin)
+    reset.disabled = false
+    status.textContent = remix.brand
+      ? `Rolled a theme around ${remix.brand}.`
+      : "Rolled a theme."
+  })
+
+  reset?.addEventListener("click", () => {
+    clear()
+    if (open && home) open.href = home
+    if (status) status.textContent = "Back to this site's theme."
+    reset.disabled = true
+  })
+</script>
+
+<style is:global>
+  .theme-dice {
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block: var(--ui-space-5);
+  }
+
+  .theme-dice-controls {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-3);
+
+    & p {
+      flex-basis: 100%;
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+
+  .theme-dice-stage {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    container-type: inline-size;
+    display: grid;
+    font-family: var(--ui-font-body);
+    padding: var(--ui-space-6) var(--ui-space-4);
+    place-items: center;
+
+    & h3 {
+      font-family: var(--ui-font-heading, var(--ui-font-body));
+      font-size: var(--ui-font-size-h5);
+      margin: 0;
+    }
+
+    & p {
+      margin: 0;
+    }
+
+    &,
+    & * {
+      transition-duration: calc(var(--ui-duration-slow) * 2 * var(--ui-motion));
+      transition-property:
+        background-color, border-color, border-radius, box-shadow, color, fill,
+        outline-color;
+      transition-timing-function: var(--ui-ease);
+    }
+  }
+
+  .theme-dice-card {
+    inline-size: min(100%, 26rem);
+
+    & .ui-header {
+      display: grid;
+      gap: var(--ui-space-2);
+    }
+
+    & .ui-content {
+      display: grid;
+      gap: var(--ui-space-3);
+    }
+  }
+
+  .theme-dice-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+  }
+</style>

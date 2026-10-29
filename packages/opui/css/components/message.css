@@ -119,6 +119,10 @@
           box-shadow: none;
         }
 
+        & > .ui-card {
+          color: var(--ui-text-strong);
+        }
+
         & > :not(.ui-card) a {
           color: inherit;
           text-decoration-color: currentColor;

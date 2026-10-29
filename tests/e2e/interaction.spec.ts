@@ -1110,6 +1110,19 @@ interaction(
 )
 
 interaction(
+  "message",
+  "Attachments",
+  "a card in an outgoing message keeps the text color of an incoming one",
+  async ({ root }) => {
+    const [incoming, outgoing] = await root
+      .locator(".ui-card .ui-icon")
+      .evaluateAll((icons) => icons.map((icon) => getComputedStyle(icon).color))
+
+    expect(outgoing).toBe(incoming)
+  },
+)
+
+interaction(
   "table",
   "StickyHeader",
   "the sticky header stays while the body scrolls",

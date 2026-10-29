@@ -8,8 +8,8 @@ import Severities from "../../component-examples/callout/Severities.astro"
 ---
 
 <TechniquePost slug="callout-relative-colors">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A callout with severities needs a background, border, text and icon color
       for each one, in light and in dark. Five severities times four colors
@@ -22,8 +22,8 @@ import Severities from "../../component-examples/callout/Severities.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         Each severity class sets a single <code>--ui-palette-source</code> color.
@@ -67,8 +67,8 @@ import Severities from "../../component-examples/callout/Severities.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Drag the hue. It changes one custom property, <code>--ui-info</code>, and
       the 16 shades below follow, with every border, icon, text and tint in the
@@ -87,8 +87,8 @@ import Severities from "../../component-examples/callout/Severities.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         There's no <code>@supports</code> fallback. The whole palette, grays included,

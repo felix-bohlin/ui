@@ -30,7 +30,7 @@ const REMOVE_SELECTORS = [
   "button",
   "input",
   "script",
-  "section:has(> #changelog):not(:has(.whats-new, .migrating))",
+  "section#changelog:not(:has(.whats-new, .migrating))",
   "style",
   "svg",
   "template",
@@ -266,7 +266,7 @@ export async function articleToMarkdown(
   unwrapTemplates(article, isClass("example-code"))
 
   if (omitInstallationCode) {
-    const installation = select("section:has(> #installation)", article)
+    const installation = select("section#installation", article)
     if (installation) {
       prune(installation, new Set(selectAll(".code-block", installation)))
       replace(installation, isClass("code-group"), installationGroup)

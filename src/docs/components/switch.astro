@@ -112,8 +112,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >All switches should have an accessible name. Put the label text inside
@@ -132,8 +132,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
@@ -154,8 +154,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="Sizes" column centered spacious />
   </section>
 
-  <section>
-    <h2 id="visible-label">Visible label</h2>
+  <section id="visible-label">
+    <h2>Visible label</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >The default slot is the label. Also, don't miss the info on label <a
@@ -217,8 +217,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="EndText" row spacious />
   </section>
 
-  <section>
-    <h2 id="icons">Icons</h2>
+  <section id="icons">
+    <h2>Icons</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >Put an icon in the <code>icon-unchecked</code> and <code
@@ -246,15 +246,15 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="Icons" column centered />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
+  <section id="validation">
+    <h2>Validation</h2>
     <ValidationNotes element="input" named subject="Switches" />
 
     <AutoExample name="Validation" column centered spacious />
   </section>
 
-  <section>
-    <h2 id="spread">Spread</h2>
+  <section id="spread">
+    <h2>Spread</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>spread</code> prop to push the label to the left and the switch
@@ -278,8 +278,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="Spread" column />
   </section>
 
-  <section>
-    <h2 id="cards">Cards</h2>
+  <section id="cards">
+    <h2>Cards</h2>
     <Conditional as="p">
       <Fragment slot="components">
         <code>card</code> renders the switch as a card that tints when hovered and
@@ -304,13 +304,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="CardsMatrix" column />
   </section>
 
-  <section>
-    <h2 id="label-alignment">Label alignment</h2>
+  <section id="label-alignment">
+    <h2>Label alignment</h2>
     <LabelAlignment control="switch" />
   </section>
 
-  <section>
-    <h2 id="switch-input">Switch input</h2>
+  <section id="switch-input">
+    <h2>Switch input</h2>
     <p>
       Use <PropOrClass
         prop="SwitchInput"
@@ -321,8 +321,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="field-group">Field group</h2>
+  <section id="field-group">
+    <h2>Field group</h2>
     <FieldGroupNotes control="switch">
       <AutoExample name="FieldGroup" centered column />
     </FieldGroupNotes>

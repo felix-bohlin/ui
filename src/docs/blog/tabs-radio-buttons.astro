@@ -7,8 +7,8 @@ import Basics from "../../component-examples/tabs/Basics.astro"
 ---
 
 <TechniquePost slug="tabs-radio-buttons">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       Tabs usually mean JavaScript: click handlers, <code>aria-selected</code>,
       hiding and showing panels. CSS-only tabs with radios are old news, but
@@ -17,8 +17,8 @@ import Basics from "../../component-examples/tabs/Basics.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         One radio group holds the state, and arrow keys move between the radios
@@ -70,8 +70,8 @@ import Basics from "../../component-examples/tabs/Basics.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>Click a tab, or focus one and use the arrow keys.</p>
     <Example showCode={false}>
       <Basics />
@@ -79,8 +79,8 @@ import Basics from "../../component-examples/tabs/Basics.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Browsers without <code>:nth-child(of S)</code> drop those rules: the first

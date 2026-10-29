@@ -8,8 +8,8 @@ import Basics from "../../component-examples/switch/Basics.astro"
 ---
 
 <TechniquePost slug="switch-checkbox">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A switch is a checkbox that reads as on and off. Libraries tend to build
       it from a <code>&lt;button&gt;</code> with <code>aria-checked</code> toggled
@@ -21,8 +21,8 @@ import Basics from "../../component-examples/switch/Basics.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>&lt;input type="checkbox" role="switch"&gt;</code> keeps the native
@@ -74,8 +74,8 @@ import Basics from "../../component-examples/switch/Basics.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       The same checkbox with and without <code>appearance: none</code>. Drag the
       size, and flip one: its twin follows.
@@ -101,8 +101,8 @@ import Basics from "../../component-examples/switch/Basics.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         There is no <code>@supports</code>: <code>appearance: none</code>,

@@ -45,7 +45,10 @@ import {
   entries,
   intended,
 } from "../../scripts/check-ratchets.mjs"
-import { indexProblems } from "../../scripts/generate-search-index.mjs"
+import {
+  indexProblems,
+  readHeadings,
+} from "../../scripts/generate-search-index.mjs"
 import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
@@ -1037,6 +1040,14 @@ describe("generate-search-index", () => {
         ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
+  })
+
+  test("reads the h2 of a section with an id and the h3s with an id, in order", () => {
+    expect(
+      readHeadings(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n  <h3>Draft</h3>\n</section>\n<section>\n  <h2>Notes</h2>\n</section>',
+      ),
+    ).toEqual(["Sizes", "Small sm"])
   })
 })
 

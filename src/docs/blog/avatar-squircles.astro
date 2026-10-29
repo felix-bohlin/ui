@@ -8,8 +8,8 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
 ---
 
 <TechniquePost slug="avatar-squircles">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>border-radius</code> only draws round arcs. A squircle, the smooth superellipse
       you know from app icons, used to need an SVG mask or a <code
@@ -23,8 +23,8 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>aspect-ratio: 1</code>: set the width, the height follows
@@ -61,8 +61,8 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Drag the exponent. The radius stays where you set it, only
       {" "}<code>corner-shape</code> changes, and the keywords are points on the same
@@ -93,8 +93,8 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without <code>corner-shape</code>, the compat layer swaps the full

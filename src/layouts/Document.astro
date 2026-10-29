@@ -124,7 +124,7 @@ const descText =
 </Default>
 
 <script>
-  import { isContentHeading } from "../utils/headings"
+  import { headingId, isContentHeading } from "../utils/headings"
 
   const headings = document.querySelectorAll(
     "#main-content :is(h2, h3, h4, h5, h6)",
@@ -142,14 +142,15 @@ const descText =
       heading.appendChild(span)
     }
 
+    const id = headingId(heading)
     if (
       !heading.querySelector(".header-anchor") &&
-      heading.id &&
+      id &&
       !heading.matches(".ui-sr-only")
     ) {
       const anchor = document.createElement("a")
       anchor.className = "header-anchor"
-      anchor.href = `#${heading.id}`
+      anchor.href = `#${id}`
       anchor.ariaLabel = `Permalink to "${heading.textContent?.trim()}"`
       anchor.textContent = "\u200B"
       heading.appendChild(anchor)

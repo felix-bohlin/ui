@@ -8,8 +8,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
 ---
 
 <TechniquePost slug="spinner-aria-busy">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A loading state is usually two things to keep in sync: a spinner element
       or class for sighted users, and <code>aria-busy</code> for assistive technology.
@@ -18,8 +18,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <p>If the attribute is already there, it can be the only switch.</p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>[aria-busy="true"]</code> is the selector, no class and no extra element
@@ -77,8 +77,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Flip the switch. It sets <code>aria-busy</code> on a button, a paragraph and
       a text field, and nothing else changes.
@@ -103,8 +103,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         <code>:not()</code> with a selector list is Selectors Level 4. A browser without

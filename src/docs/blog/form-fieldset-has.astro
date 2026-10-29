@@ -8,8 +8,8 @@ import FieldsetRequired from "../../component-examples/form/FieldsetRequired.ast
 ---
 
 <TechniquePost slug="form-fieldset-has">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> are the right
       markup for a group of fields, but they come with a border, padding and a legend
@@ -22,8 +22,8 @@ import FieldsetRequired from "../../component-examples/form/FieldsetRequired.ast
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>all: unset</code> on both drops the native box and the notch. What's
@@ -72,8 +72,8 @@ import FieldsetRequired from "../../component-examples/form/FieldsetRequired.ast
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Flip the switches. The fieldset has no class for either state, the
       selectors read it from what it contains.
@@ -102,8 +102,8 @@ import FieldsetRequired from "../../component-examples/form/FieldsetRequired.ast
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         <code>:has()</code> and <code>all</code> are widely available

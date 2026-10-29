@@ -8,8 +8,8 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
 ---
 
 <TechniquePost slug="textarea-field-sizing">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A <code>&lt;textarea&gt;</code> is as tall as its <code>rows</code> attribute
       says, no matter what's in it. Short notes leave empty space, long ones scroll
@@ -21,8 +21,8 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>field-sizing: content</code> sizes the textarea to its text: it grows
@@ -51,8 +51,8 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Type in either box, both get the same text. Then move the line limits.
     </p>
@@ -80,8 +80,8 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Browsers without <code>field-sizing</code> ignore it, and the textarea keeps

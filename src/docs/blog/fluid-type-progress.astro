@@ -8,8 +8,8 @@ import Variants from "../../component-examples/typography/Variants.astro"
 ---
 
 <TechniquePost slug="fluid-type-progress" topic="fluid">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       Fluid type used to be a <code>clamp()</code> per heading: a minimum, a slope
       in <code>vi</code>, a maximum. The slope decides where the heading starts
@@ -35,8 +35,8 @@ import Variants from "../../component-examples/typography/Variants.astro"
     </ul>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>progress(value, start, end)</code> returns where <code>value</code
@@ -91,8 +91,8 @@ import Variants from "../../component-examples/typography/Variants.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Drag the edge of the dashed box, or across a chart. Each dot is a heading,
       from 0% at its smaller step to 100% at its larger one. The readouts in the
@@ -127,8 +127,8 @@ import Variants from "../../component-examples/typography/Variants.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         <code>progress()</code> is Baseline newly available since September 2026:

@@ -8,8 +8,8 @@ import Basics from "../../component-examples/checkbox/Basics.astro"
 ---
 
 <TechniquePost slug="checkbox-appearance-none">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       A native checkbox is drawn by the browser. You can tint it with
       {" "}<code>accent-color</code>, but not its size, border, radius or
@@ -22,8 +22,8 @@ import Basics from "../../component-examples/checkbox/Basics.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>appearance: none</code> drops the native box. The input stays a real
@@ -81,8 +81,8 @@ input:checked::after {
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       The same inputs with and without <code>appearance: none</code>. Drag the
       size, and click one box: its twin follows.
@@ -108,8 +108,8 @@ input:checked::after {
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         <code>appearance</code> and <code>clip-path</code> are widely available, so

@@ -27,10 +27,8 @@ const sections = [
 
 {
   sections.map((section) => (
-    <section>
-      {sections.length > 1 && (
-        <h2 id={`${section.id}-components`}>{section.label}</h2>
-      )}
+    <section id={sections.length > 1 ? `${section.id}-components` : undefined}>
+      {sections.length > 1 && <h2>{section.label}</h2>}
       <ul class="card-grid">
         {section.components.map((component) => (
           <li>

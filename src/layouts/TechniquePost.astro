@@ -84,8 +84,8 @@ const topic =
 
   {
     post.before && post.now && (
-      <section>
-        <h2 id="then-and-now">Then and now</h2>
+      <section id="then-and-now">
+        <h2>Then and now</h2>
         <dl>
           <dt>Then</dt>
           <dd set:html={formatInline(post.before, link)} />
@@ -98,8 +98,8 @@ const topic =
 
   {
     component && (
-      <section>
-        <h2 id="read-more">Read more</h2>
+      <section id="read-more">
+        <h2>Read more</h2>
         <ul>
           <li>
             <a href={docsHref}>{name} docs</a>

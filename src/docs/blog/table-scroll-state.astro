@@ -16,8 +16,8 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
 ---
 
 <TechniquePost slug="table-scroll-state">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>position: sticky</code> keeps a table header in view, but the header looks
       the same whether it's resting at the top of the table or floating over the rows.
@@ -30,8 +30,8 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>container-type: scroll-state</code> on the sticky
@@ -69,8 +69,8 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
     />
   </section>
 
-  <section>
-    <h2 id="scroll-shadows">Scroll shadows</h2>
+  <section id="scroll-shadows">
+    <h2>Scroll shadows</h2>
     <p>
       <DocLink href="/components/dialog">Dialog</DocLink> and <DocLink
         href="/components/drawer">Drawer</DocLink
@@ -145,8 +145,8 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>Scroll the table until the header sticks.</p>
     <Example showCode={false}>
       <StickyHeader />
@@ -195,8 +195,8 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without scroll state queries the header still sticks and the content

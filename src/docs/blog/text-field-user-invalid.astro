@@ -8,8 +8,8 @@ import Validation from "../../component-examples/text-field/Validation.astro"
 ---
 
 <TechniquePost slug="text-field-user-invalid">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>:invalid</code> matches as soon as the page loads. A required field that
       is still empty turns red before anyone has typed a thing, and the form opens
@@ -22,8 +22,8 @@ import Validation from "../../component-examples/text-field/Validation.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>:user-invalid</code> only matches after the user has changed the field
@@ -64,8 +64,8 @@ import Validation from "../../component-examples/text-field/Validation.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       Two required email fields, one styled with each selector. Compare them on
       load, after you type and leave, after <strong>Submit</strong> and after
@@ -94,8 +94,8 @@ import Validation from "../../component-examples/text-field/Validation.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         <code>:user-invalid</code> is Baseline since 2023, so this works in every

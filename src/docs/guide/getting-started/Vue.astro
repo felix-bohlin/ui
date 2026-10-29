@@ -14,8 +14,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
       The components ship as uncompiled single-file components (<code>.vue</code
       > and <code>.ts</code>), so your build has to compile them. They need Vue
@@ -54,8 +54,8 @@ export default defineConfig({
     />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
       Vue components ship markup only - the CSS still has to be imported once,
       in the entry file that creates your app. Import everything:
@@ -86,8 +86,8 @@ import "./styles/main.css"`}
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`<script setup lang="ts">
 import { Button } from "opui-css/vue"
@@ -108,8 +108,8 @@ import { Button } from "opui-css/vue"
     <NextSteps />
   </section>
 
-  <section>
-    <h2 id="ssr">Server rendering</h2>
+  <section id="ssr">
+    <h2>Server rendering</h2>
     <p>
       Without hydration (Nuxt, or Astro with <code>@astrojs/vue</code> and no <code
         >client:*</code

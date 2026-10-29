@@ -113,8 +113,8 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="html"
         >Each message is an <code>li.ui-message</code> in an <code
@@ -150,8 +150,8 @@ export const description =
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="group-chat">Group chat</h2>
+  <section id="group-chat">
+    <h2>Group chat</h2>
     <p>
       CSS can't compare authors, so mark the first message after the sender
       changes with <PropOrClass prop="newAuthor" class=".ui-new-author" />. Any
@@ -162,8 +162,8 @@ export const description =
     <AutoExample name="GroupChat" />
   </section>
 
-  <section>
-    <h2 id="attachments">Attachments</h2>
+  <section id="attachments">
+    <h2>Attachments</h2>
     <p>
       A file is an outlined <DocLink href="/components/card">Card</DocLink> in the
       bubble, with an icon, a link and the details in a <DocLink
@@ -173,8 +173,8 @@ export const description =
     <AutoExample name="Attachments" />
   </section>
 
-  <section>
-    <h2 id="reactions">Reactions</h2>
+  <section id="reactions">
+    <h2>Reactions</h2>
     <Conditional as="p">
       <Fragment slot="html"
         >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
@@ -206,8 +206,8 @@ export const description =
     <AutoExample name="Reactions" />
   </section>
 
-  <section>
-    <h2 id="typing">Typing indicator</h2>
+  <section id="typing">
+    <h2>Typing indicator</h2>
     <Conditional as="p">
       <Fragment slot="html"
         >Add <code>.ui-typing</code> to a message to animate three dots in its bubble.

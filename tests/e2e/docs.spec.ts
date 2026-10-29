@@ -184,10 +184,7 @@ for (const framework of FRAMEWORK_IDS) {
       }
     })
     await page.goto(`/${framework}/components/button/`)
-    const example = page
-      .locator("section", { has: page.locator("h2#variants") })
-      .locator(".example-container")
-      .first()
+    const example = page.locator("section#variants .example-container").first()
     await example.locator(".show-code-button").focus()
     await page.keyboard.press("Enter")
     const block = example.locator(".code-block").first()

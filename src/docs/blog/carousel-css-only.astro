@@ -7,8 +7,8 @@ import Basics from "../../component-examples/carousel/Basics.astro"
 ---
 
 <TechniquePost slug="carousel-css-only">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       Scroll snap made swiping between slides a CSS job years ago. The controls
       never were: previous and next buttons, dots that show where you are, and
@@ -21,8 +21,8 @@ import Basics from "../../component-examples/carousel/Basics.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         A grid with <code>grid-auto-flow: column</code> and <code
@@ -76,8 +76,8 @@ import Basics from "../../component-examples/carousel/Basics.astro"
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>Scroll, use the buttons or the dots. No JavaScript runs here.</p>
     <Example showCode={false}>
       <Basics />
@@ -85,8 +85,8 @@ import Basics from "../../component-examples/carousel/Basics.astro"
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Without the pseudo-elements there are no buttons or dots, just a scroll

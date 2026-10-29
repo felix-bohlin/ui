@@ -8,8 +8,8 @@ import Variants from "../../component-examples/select/Variants.astro"
 ---
 
 <TechniquePost slug="select-base-select">
-  <section>
-    <h2 id="the-problem">The problem</h2>
+  <section id="the-problem">
+    <h2>The problem</h2>
     <p>
       <code>&lt;select&gt;</code> has always been the control you couldn't style.
       The dropdown belongs to the operating system, options hold only text and nothing
@@ -21,8 +21,8 @@ import Variants from "../../component-examples/select/Variants.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="the-trick">The trick</h2>
+  <section id="the-trick">
+    <h2>The trick</h2>
     <ul>
       <li>
         <code>appearance: base-select</code> on the select and on <code
@@ -75,8 +75,8 @@ select:not(:open)::picker(select) {
     />
   </section>
 
-  <section>
-    <h2 id="try-it">Try it</h2>
+  <section id="try-it">
+    <h2>Try it</h2>
     <p>
       The same <code>&lt;select&gt;</code> twice. Open both, then pick an option in
       one: the other follows.
@@ -107,8 +107,8 @@ select:not(:open)::picker(select) {
     <BuildUpLink />
   </section>
 
-  <section>
-    <h2 id="fallback">Fallback</h2>
+  <section id="fallback">
+    <h2>Fallback</h2>
     <ul>
       <li>
         Older parsers drop the <code>&lt;button&gt;</code> and wrapper elements inside

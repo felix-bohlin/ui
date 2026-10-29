@@ -20,8 +20,8 @@ import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
 
   {
     blockGroups.map((group) => (
-      <section class="ui-not-rich-text">
-        <h2 id={group.id}>{group.label}</h2>
+      <section class="ui-not-rich-text" id={group.id}>
+        <h2>{group.label}</h2>
         <ul class="block-grid">
           {group.blocks.map((block) => (
             <li>

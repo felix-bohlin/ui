@@ -189,8 +189,9 @@ const count = itemCount(sections)
       <section
         data-todo-section={section.title}
         data-todo-section-slug={slugify(section.title)}
+        id={slugify(section.title)}
       >
-        <h2 id={slugify(section.title)}>{section.title}</h2>
+        <h2>{section.title}</h2>
         <ol class="todo-list ui-not-rich-text">
           {section.items.map((item, index) => (
             <li

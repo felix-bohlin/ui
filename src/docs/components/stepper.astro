@@ -102,8 +102,8 @@ export const description =
     </Anatomy>
   </Fragment>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >Pass the steps as <code>items</code> and the index of the current one, from
@@ -125,8 +125,8 @@ export const description =
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <p>
       <PropOrClass prop='size="small"' class=".ui-small" /> makes the markers and
       the text smaller.
@@ -135,8 +135,8 @@ export const description =
     <AutoExample name="Sizes" />
   </section>
 
-  <section>
-    <h2 id="descriptions">Descriptions</h2>
+  <section id="descriptions">
+    <h2>Descriptions</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >Give a step a <code>description</code> for a short line under its label.</Fragment
@@ -150,8 +150,8 @@ export const description =
     <AutoExample name="Descriptions" />
   </section>
 
-  <section>
-    <h2 id="custom-check">Custom check</h2>
+  <section id="custom-check">
+    <h2>Custom check</h2>
     <Conditional as="p">
       <Fragment slot="html"
         >Put an icon in a <code
@@ -188,8 +188,8 @@ export const description =
     <AutoExample name="CustomCheck" />
   </section>
 
-  <section>
-    <h2 id="complete">Complete</h2>
+  <section id="complete">
+    <h2>Complete</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >Set <code>complete</code>, or <code>current</code> to the number of steps,
@@ -204,8 +204,8 @@ export const description =
     <AutoExample name="Complete" />
   </section>
 
-  <section>
-    <h2 id="errors">Errors</h2>
+  <section id="errors">
+    <h2>Errors</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >Set <code>error</code> on a step that needs another look. Its marker shows
@@ -225,8 +225,8 @@ export const description =
     <AutoExample name="Errors" />
   </section>
 
-  <section>
-    <h2 id="labels">Screen reader labels</h2>
+  <section id="labels">
+    <h2>Screen reader labels</h2>
     <Conditional as="p">
       <Fragment slot="components"
         >Screen readers hear ", completed" after the label of a complete step
@@ -244,8 +244,8 @@ export const description =
     <AutoExample name="Labels" />
   </section>
 
-  <section>
-    <h2 id="vertical">Vertical</h2>
+  <section id="vertical">
+    <h2>Vertical</h2>
     <p>
       <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> stacks the
       steps. Use it for long labels or many steps.
@@ -254,8 +254,8 @@ export const description =
     <AutoExample name="Vertical" />
   </section>
 
-  <section>
-    <h2 id="narrow">Narrow containers</h2>
+  <section id="narrow">
+    <h2>Narrow containers</h2>
     <p>
       A stepper narrower than <code>32rem</code> stacks its steps on its own. It measures
       its own width, so in a flex row give it one, for example with <code

@@ -82,8 +82,8 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="div">
       <p slot="components">
         Wrap the field or the text in <code>Copy</code> with an <code>id</code>,
@@ -119,8 +119,8 @@ export const description =
     <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="snippet">Snippet</h2>
+  <section id="snippet">
+    <h2>Snippet</h2>
     <p>
       The button can sit inside the element too. Buttons and popovers are left
       out of the copied text, so an icon button with a <DocLink
@@ -131,8 +131,8 @@ export const description =
     <AutoExample name="Snippet" row />
   </section>
 
-  <section>
-    <h2 id="failed">Failed copy</h2>
+  <section id="failed">
+    <h2>Failed copy</h2>
     <Conditional as="div">
       <p slot="components">
         Where the page has no Clipboard API, like without HTTPS, or the
@@ -155,8 +155,8 @@ export const description =
     </Conditional>
   </section>
 
-  <section>
-    <h2 id="without-javascript">Without JavaScript</h2>
+  <section id="without-javascript">
+    <h2>Without JavaScript</h2>
     <p>
       Until <code>copy.js</code> loads, a copy button inside the element or right
       after it is hidden, and the text can still be selected. Put the button in one

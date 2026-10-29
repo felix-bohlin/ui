@@ -9,7 +9,6 @@ import {
   TextField,
 } from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
-import ChipRain from "../components/ChipRain.astro"
 import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
@@ -175,8 +174,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           </div>
         </figure>
       </div>
-
-      <ChipRain />
     </section>
 
     <div class="sheets">
@@ -517,7 +514,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   .hero {
     border-block-end: 1px solid var(--blueprint-line-major);
     padding-block: var(--size-8);
-    position: relative;
 
     @media (width >= 900px) {
       padding-block: var(--size-10);

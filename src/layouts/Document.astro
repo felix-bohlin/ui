@@ -165,7 +165,11 @@ const descText =
   }
 
   :where(#main-content > .ui-rich-text) > :where(:not(section)),
-  :where(#main-content > .ui-rich-text) > section > :where(:not(.is-wide)) {
+  :where(#main-content > .ui-rich-text) > section > :where(:not(.is-wide)),
+  :where(#main-content > .ui-rich-text)
+    > section
+    > :where(.conditional)
+    > :where(:not(.is-wide)) {
     max-inline-size: var(--content-inline-size);
   }
 

@@ -220,6 +220,51 @@ for (const path of DOCS_PAGES) {
   })
 }
 
+const uncappedBlocks = (page: Page) =>
+  page.evaluate(() => {
+    const main = document.querySelector("#main-content > .ui-rich-text")
+    const blocks = (parent: Element): Element[] =>
+      [...parent.children].flatMap((child) =>
+        getComputedStyle(child).display === "contents" ||
+        (parent === main && child.localName === "section")
+          ? blocks(child)
+          : [child],
+      )
+    return blocks(main!)
+      .filter(
+        (block) =>
+          !block.matches(".is-wide") &&
+          getComputedStyle(block).maxInlineSize === "none",
+      )
+      .map(
+        (block) =>
+          `${block.localName}: ${block.textContent?.trim().slice(0, 40)}`,
+      )
+  })
+
+for (const path of DOCS_PAGES.filter(
+  (path) => !["/", "/theme-builder/"].includes(path),
+)) {
+  test(`${path} keeps its blocks within the content width`, async ({
+    page,
+  }) => {
+    await page.goto(path)
+    await page
+      .locator("#main-content > .ui-rich-text > section")
+      .first()
+      .evaluate((section) =>
+        section.insertAdjacentHTML(
+          "beforeend",
+          '<div style="display: contents"><p>Sample</p></div>',
+        ),
+      )
+    expect(
+      await uncappedBlocks(page),
+      "Every block in the page content, also inside a display: contents wrapper, keeps the content width unless it has .is-wide",
+    ).toEqual(["p: Sample"])
+  })
+}
+
 for (const [component, trigger] of [
   ["accordion", "summary"],
   ["dialog", '[command="show-modal"]'],

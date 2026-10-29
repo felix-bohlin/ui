@@ -705,14 +705,22 @@ const filterCss = [
   .blog-row {
     display: grid;
     gap: var(--ui-space-3) var(--ui-space-6);
-    grid-template-areas: "component" "text" "preview";
+    grid-template-areas: "component" "text";
     padding-block: var(--ui-space-5);
     position: relative;
+
+    & > :global(.blog-preview) {
+      display: none;
+    }
 
     @container (inline-size >= 44rem) {
       align-items: start;
       grid-template-areas: "component text preview";
       grid-template-columns: 7rem minmax(0, 1fr) 16rem;
+
+      & > :global(.blog-preview) {
+        display: grid;
+      }
     }
 
     &:has(a:focus-visible) {

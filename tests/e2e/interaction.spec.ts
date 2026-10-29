@@ -1169,6 +1169,41 @@ interaction(
 )
 
 interaction(
+  "message",
+  "Reactions",
+  "the add reaction button shows on hover and focus and its menu returns focus after a pick",
+  async ({ page, root }) => {
+    const message = root.locator(".ui-message").first()
+    const actions = message.locator(".ui-actions")
+    const add = message.getByRole("button", { name: "Add reaction" })
+    const menu = message.locator("menu.ui-menu")
+    const opacity = () => computed(actions, "opacity")
+
+    await page.mouse.move(0, 0)
+    await expect.poll(opacity).toBe("0")
+    await message.locator(".ui-content").hover()
+    await expect.poll(opacity).toBe("1")
+    await page.mouse.move(0, 0)
+    await expect.poll(opacity).toBe("0")
+    await add.focus()
+    await expect.poll(opacity).toBe("1")
+
+    await page.keyboard.press("Enter")
+    await expect(menu).toBeVisible()
+    await page.mouse.move(0, 0)
+    await add.blur()
+    await expect.poll(opacity).toBe("1")
+    const menuBox = (await menu.boundingBox())!
+    const addBox = (await add.boundingBox())!
+    expect(menuBox.y + menuBox.height).toBeLessThanOrEqual(addBox.y)
+
+    await menu.getByRole("button", { name: "Party" }).click()
+    await expect(menu).toBeHidden()
+    await expect(add).toBeFocused()
+  },
+)
+
+interaction(
   "table",
   "StickyHeader",
   "the sticky header stays while the body scrolls",

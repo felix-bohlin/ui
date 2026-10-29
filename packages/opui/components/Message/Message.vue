@@ -30,6 +30,9 @@ const slots = defineSlots<Slots>()
         <span v-if="slots.end" class="ui-end"><slot name="end"></slot></span>
       </p>
     </div>
+    <div v-if="slots.actions" class="ui-actions">
+      <slot name="actions"></slot>
+    </div>
     <div v-if="slots.bottom" class="ui-bottom">
       <slot name="bottom"></slot>
     </div>

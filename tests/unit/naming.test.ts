@@ -156,6 +156,7 @@ const parts = new Set([
 ])
 const partExceptions = new Set([".ui-card-link"])
 const slots = new Set([
+  "actions",
   "bottom",
   "datalist",
   "default",

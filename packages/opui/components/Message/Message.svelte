@@ -12,6 +12,7 @@
 
     // Snippets
     children,
+    actions,
     bottom,
     end,
     start,
@@ -53,6 +54,9 @@
         </p>
       {/if}
     </div>
+  {/if}
+  {#if actions}
+    <div class="ui-actions">{@render actions()}</div>
   {/if}
   {#if bottom}
     <div class="ui-bottom">{@render bottom()}</div>

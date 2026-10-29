@@ -53,6 +53,13 @@ const {
     )
   }
   {
+    Astro.slots.has("actions") && (
+      <div class="ui-actions">
+        <slot name="actions" />
+      </div>
+    )
+  }
+  {
     Astro.slots.has("bottom") && (
       <div class="ui-bottom">
         <slot name="bottom" />

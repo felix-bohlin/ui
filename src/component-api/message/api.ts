@@ -2,6 +2,28 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Message",
+  keyboard: [
+    {
+      description:
+        "Moves to the buttons in the actions, such as the add reaction button, and then to the reactions. On a device that can hover, the actions show while focus is in the message. An open picker comes right after its button, and from its last emoji focus moves on while it stays open.",
+      keys: ["Tab"],
+    },
+    {
+      description:
+        "On the add reaction button, opens or closes the picker. On an emoji, picks it, closes the picker and returns focus to the button.",
+      keys: ["Enter"],
+    },
+    {
+      description:
+        "Checks or unchecks the focused reaction. On a button, works like Enter.",
+      keys: ["Space"],
+    },
+    {
+      description:
+        "Closes the picker and returns focus to the add reaction button.",
+      keys: ["Esc"],
+    },
+  ],
   options: [
     {
       description:
@@ -77,6 +99,12 @@ export default {
       description: "Content after the time, such as a read receipt.",
       selector: ".ui-end",
       slots: ["end"],
+    },
+    {
+      description:
+        "Buttons beside the bubble, such as a round `Button` that opens a horizontal `Menu` of emoji. On a device that can hover, they show while the message is hovered, holds focus or has a popover open.",
+      selector: ".ui-actions",
+      slots: ["actions"],
     },
     {
       description:

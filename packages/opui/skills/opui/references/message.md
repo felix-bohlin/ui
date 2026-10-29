@@ -30,6 +30,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `.ui-header` (prop `author`): The sender's name.
 - `.ui-footer` (prop `datetime`, prop `time`): The time, and content such as a read receipt.
 - `.ui-end` (slot `end`): Content after the time, such as a read receipt.
+- `.ui-actions` (slot `actions`): Buttons beside the bubble, such as a round `Button` that opens a horizontal `Menu` of emoji. On a device that can hover, they show while the message is hovered, holds focus or has a popover open.
 - `.ui-bottom` (slot `bottom`): Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble.
 
 ### Props and modifiers
@@ -47,15 +48,17 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### message.css
 
+- `--_actions-opacity`: Opacity of the actions on a device that can hover, while the message isn't hovered, doesn't hold focus and has no popover open. Defaults to `0`; `1` always shows them.
 - `--_avatar-size`: Size of the avatar next to the bubble. Defaults to `--ui-control-size-small`.
 - `--_bg-color`: Background of the bubble. Defaults to `--ui-surface-tonal`, and `--ui-primary` with `.ui-outgoing`.
+- `--_ease`: Easing of the fade of the actions. Defaults to `--ui-ease`.
 - `--_max-inline-size`: Widest bubble. Defaults to `36rem`, or 85% of the list when that is narrower.
-- `--_motion`: Multiplies the typing animation. Defaults to `--ui-motion`, `0` under reduced motion.
+- `--_motion`: Multiplies the typing animation and the fade of the actions. Defaults to `--ui-motion`, `0` under reduced motion.
 - `--_radius`: Radius of the bubble corners. Defaults to `--ui-radius`, larger with `corner-shape: squircle`.
 - `--_text-color`: Text color in the bubble. Defaults to `--ui-text-strong`, and `--ui-on-primary` with `.ui-outgoing`.
 - `--_tight-radius`: Radius of the corners inside a run. Defaults to `--ui-radius-small`.
 
-Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_font-size` and `--_size`.
+Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_duration`, `--_font-size` and `--_size`.
 
 ### avatar.css
 
@@ -73,7 +76,7 @@ Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_fon
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-duration`, `--ui-ease`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -121,7 +124,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 `import { Message, Messages } from "opui-css/astro"`
 
-- `Message` named slots: `bottom`, `end` and `start`. Fill one with `slot="bottom"` on a child.
+- `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `slot="actions"` on a child.
 
 ### Example: Basics
 
@@ -153,7 +156,7 @@ import { Avatar, Message, Messages } from "opui-css/astro"
 
 `import { Message, Messages } from "opui-css/react"`
 
-- `Message` slot props (`ReactNode`): `bottom`, `children`, `end` and `start`.
+- `Message` slot props (`ReactNode`): `actions`, `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
@@ -208,7 +211,7 @@ export default function Basics() {
 
 `import { Message, Messages } from "opui-css/svelte"`
 
-- `Message` slot snippets: `bottom`, `children`, `end` and `start`.
+- `Message` slot snippets: `actions`, `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
@@ -244,7 +247,7 @@ export default function Basics() {
 
 `import { Message, Messages } from "opui-css/vue"`
 
-- `Message` named slots: `bottom`, `end` and `start`. Fill one with `<template #bottom>`.
+- `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `<template #actions>`.
 
 ### Example: Basics
 

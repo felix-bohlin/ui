@@ -5,9 +5,11 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import {
   Avatar as UIAvatar,
+  Button as UIButton,
   Message as UIMessage,
   Messages as UIMessages,
   ToggleButton as UIToggleButton,
@@ -19,6 +21,8 @@ import MessageCSS from "@opui/css/components/message.css?raw"
 
 import messageApi from "../../component-api/message/api"
 import messagesApi from "../../component-api/messages/api"
+
+const addReactionIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"></path></svg>`
 
 export const description =
   "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
@@ -38,7 +42,9 @@ export const description =
     "container-style-queries",
     "corner-shape",
     "has",
+    "invoker-commands",
     "lh",
+    "popover",
   ]}
   changelogPaths={[
     { path: "packages/opui/components/Message", type: "component" },
@@ -54,6 +60,7 @@ export const description =
   ]}
   seeAlsoLinks={[
     { name: "Avatar", href: "/components/avatar" },
+    { name: "Menu", href: "/components/menu" },
     { name: "Toggle", href: "/components/toggle" },
   ]}
 >
@@ -70,12 +77,25 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy>
       <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
-        <UIMessage author="Saga" datetime="2026-10-08T14:31" time="14:31">
+        <UIMessage
+          author="Saga"
+          datetime="2026-10-08T14:31"
+          style="--_actions-opacity: 1"
+          time="14:31"
+        >
           <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
             >SN</UIAvatar
           >
           <p>Here's the current draft.</p>
           <Fragment slot="end">Read</Fragment>
+          <UIButton
+            aria-label="Add reaction"
+            round
+            size="x-small"
+            slot="actions"
+          >
+            <Fragment set:html={addReactionIcon} />
+          </UIButton>
           <UIToggleGroup
             aria-label="Reactions"
             multiple
@@ -199,9 +219,54 @@ export const description =
     </Conditional>
     <p>
       The message draws the toggles as separate pills over the bottom edge of
-      the bubble, with your own reactions tinted in the primary color. Saving a
-      toggle and adding a new emoji are up to you: listen for <code>change</code
-      > on the group, and update the count in the label.
+      the bubble, with your own reactions tinted in the primary color.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >To add a reaction, put a round <code>.ui-button</code> in <code
+          >.ui-actions</code
+        >, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>.ui-block-start</code>. Add <code
+          >.ui-align-end</code
+        > to the menu of an outgoing message, so it opens away from the bubble.</Fragment
+      >
+      <Fragment slot="components"
+        >To add a reaction, put a round <code>Button</code> in the <code
+          >actions</code
+        > slot, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>side="block-start"</code>. Set <code
+          >align="end"</code
+        > on the menu of an outgoing message, so it opens away from the bubble.</Fragment
+      >
+      <Fragment slot="react"
+        >To add a reaction, put a round <code>Button</code> in the <code
+          >actions</code
+        > prop, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>side="block-start"</code>. Set <code
+          >align="end"</code
+        > on the menu of an outgoing message, so it opens away from the bubble.</Fragment
+      >
+      <Fragment slot="svelte"
+        >To add a reaction, put a round <code>Button</code> in the <code
+          >actions</code
+        > snippet, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>side="block-start"</code>. Set <code
+          >align="end"</code
+        > on the menu of an outgoing message, so it opens away from the bubble.</Fragment
+      >
+    </Conditional>
+    <p>
+      On a device that can hover, the actions show while the message is hovered,
+      holds focus or has its menu open. Picking an emoji closes the menu and
+      returns focus to the button. Saving a reaction is up to you: listen for <code
+        >change</code
+      > on the group and <code>click</code> on the menu, read the <code
+        >value</code
+      >, and update the count in the label.
     </p>
     <AutoExample name="Reactions" />
   </section>
@@ -243,17 +308,27 @@ export const description =
       of the list, with "You" as its author. In forced colors mode the bubbles
       get a border and the typing dots stay visible.
     </p>
+    <p>
+      The add reaction button has no visible text, so give it an <code
+        >aria-label</code
+      >, and give each emoji in the menu one with its name, such as "Thumbs up".
+      The actions hide with <code>opacity</code>, so they stay in the tab order
+      and are read by screen readers.
+    </p>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="under-the-hood">
     <p>
       <code>li.ui-message</code> is a grid with a <code>start</code> area for the
-      avatar, a <code>content</code> area for the bubble and a <code
-        >bottom</code
-      > area under it, pulled up by a negative margin so the reactions sit on the
-      bubble's edge. A ring in the page's surface color around each pill keeps it
-      apart from the bubble. <code>.ui-outgoing</code> swaps the columns and aligns
-      the message to the end.
+      avatar, a <code>content</code> area for the bubble, an <code>actions</code
+      > area beside it and a <code>bottom</code> area under it, pulled up by a negative
+      margin so the reactions sit on the bubble's edge. A ring in the page's surface
+      color around each pill keeps it apart from the bubble. <code
+        >.ui-outgoing</code
+      > swaps the columns and aligns the message to the end. On a device that can
+      hover, <code>:not(:hover, :focus-within, :has(:popover-open))</code> fades the
+      actions out.
     </p>
     <p>
       A run is found with <code>:has()</code>: a message followed by one on the

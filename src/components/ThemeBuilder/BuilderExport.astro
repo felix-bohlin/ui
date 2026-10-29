@@ -74,7 +74,6 @@ const setup = `@import "opui-css/css/imports.css";
 </Drawer>
 
 <script>
-  import { highlightAll } from "microlighter"
   import { exampleTheme } from "../../utils/example-themes"
   import { copyText } from "../../utils/storage"
   import { exportCss, themeFontIds, themeStore } from "../../utils/theme"
@@ -148,7 +147,7 @@ const setup = `@import "opui-css/css/imports.css";
       const theme = themeStore.get()
       css = exportCss(theme)
       code.textContent = css
-      highlightAll()
+      document.dispatchEvent(new Event("syntax-highlight"))
       const lines = css.trimEnd().split("\n").length
       meta.textContent = `${lines} lines`
       const fonts = fontsOf(theme)

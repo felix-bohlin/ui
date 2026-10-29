@@ -64,8 +64,9 @@ import BrandPicker from "./BrandPicker.astro"
 
 <script>
   import { syncBrandPicker } from "../utils/brand-picker"
+  import { formatOklch, parseOklch } from "../utils/color-utils"
   import { exampleTheme } from "../utils/example-themes"
-  import type { OklchInput } from "../utils/oklch-input"
+  import type { ColorField } from "opui-css/elements/color-field.js"
   import {
     cornersOf,
     cornersUpdate,
@@ -80,6 +81,8 @@ import BrandPicker from "./BrandPicker.astro"
     switchPreset,
   } from "../utils/theme-brand"
 
+  const PREVIEW_DELAY = 100
+
   const fingerprint = (theme: Theme) => JSON.stringify(normalizeTheme(theme))
 
   for (const form of document.querySelectorAll<HTMLFormElement>(
@@ -89,10 +92,12 @@ import BrandPicker from "./BrandPicker.astro"
       ...form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`),
     ]
     const picker = form.querySelector<HTMLElement>(".brand-picker")!
-    const custom = picker.querySelector<OklchInput>("[data-brand-custom]")!
+    const custom = picker.querySelector<ColorField>(".brand-custom")!
     const status = form.querySelector<HTMLElement>(".theme-quick-status")!
     const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
     let pendingColor: string | null = null
+    let pendingTimer = 0
+    let pressed = false
     let undoTheme: Theme | null = null
     let undoFingerprint = ""
 
@@ -111,10 +116,14 @@ import BrandPicker from "./BrandPicker.astro"
 
       const brand = tokens["--ui-palette-source"] ?? null
       syncBrandPicker(picker, preset, brand)
-      custom.value =
+      const shown =
         brand && isBrandColor(brand)
           ? brand
           : (resolveOklch("var(--ui-primary)") ?? custom.value)
+      const parsed = parseOklch(shown)
+      if (!parsed || custom.oklch !== formatOklch(parsed, parsed.alpha)) {
+        custom.value = shown
+      }
 
       check("theme-corners", cornersOf(tokens) ?? "")
 
@@ -176,15 +185,34 @@ import BrandPicker from "./BrandPicker.astro"
       form.querySelector<HTMLElement>(".theme-quick-reset")!.focus()
     })
 
-    custom.addEventListener("input", () => {
-      const queued = pendingColor !== null
-      pendingColor = custom.value
-      if (queued) return
-      requestAnimationFrame(() => {
-        if (pendingColor) applyBrand(pendingColor)
-        pendingColor = null
+    const applyPending = () => {
+      clearTimeout(pendingTimer)
+      if (pendingColor) applyBrand(pendingColor)
+      pendingColor = null
+    }
+
+    for (const type of ["change", "input"]) {
+      custom.addEventListener(type, (event) => {
+        if (event.target !== custom.input) return
+        pendingColor = custom.oklch || custom.value
+        clearTimeout(pendingTimer)
+        if (type === "input" && pressed) return
+        pendingTimer = window.setTimeout(applyPending, PREVIEW_DELAY)
       })
-    })
+    }
+
+    custom.addEventListener(
+      "pointerdown",
+      () => {
+        pressed = true
+      },
+      { capture: true },
+    )
+    for (const type of ["pointercancel", "pointerup"]) {
+      document.addEventListener(type, () => {
+        pressed = false
+      })
+    }
 
     sync()
     themeStore.subscribe(sync)

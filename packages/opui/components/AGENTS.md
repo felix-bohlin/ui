@@ -520,6 +520,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
+- `ColorField`: the swatch is the picked color itself, so it keeps it with `forced-color-adjust: none`.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, and the typing dots keep `CanvasText`.

@@ -1,8 +1,8 @@
 ---
 import themeCss from "../../packages/opui/css/theme.css?raw"
 import { CUSTOM_COLOR } from "../utils/brand-picker"
+import { ColorField } from "opui-css/astro"
 import { BRAND_SWATCHES } from "../utils/theme"
-import OklchInput from "./OklchInput.astro"
 
 type Props = {
   "aria-describedby"?: string
@@ -62,15 +62,15 @@ const fallback = `oklch(0.58 ${+(0.21 * chroma).toFixed(3)} ${knob("--ui-palette
       </label>
     ))
   }
-  <OklchInput
-    class="brand-swatch brand-custom"
-    data-brand-custom
+  <ColorField
+    class="brand-custom"
     data-label={CUSTOM_COLOR}
     label={CUSTOM_COLOR}
+    opacity="none"
+    size="small"
+    swatchOnly
     {...custom}
-  >
-    <span aria-hidden="true" class="brand-custom-fill"></span>
-  </OklchInput>
+  />
 </div>
 
 <style>
@@ -99,18 +99,30 @@ const fallback = `oklch(0.58 ${+(0.21 * chroma).toFixed(3)} ${knob("--ui-palette
     }
   }
 
-  .brand-picker :global(.brand-custom) {
+  .brand-picker :global(.brand-custom > .ui-button) {
     background: conic-gradient(
       in oklch longer hue,
       oklch(0.7 0.17 25),
       oklch(0.7 0.17 25)
     );
+    box-shadow: inset 0 0 0 var(--ui-border-width) var(--ui-border-color);
   }
 
-  .brand-picker:not(:has(:checked)) :global(.brand-custom) {
+  .brand-picker:not(:has(:checked)) :global(.brand-custom > .ui-button) {
     box-shadow:
       0 0 0 var(--ui-border-width-thick) var(--ui-surface),
       0 0 0 calc(var(--ui-border-width-thick) * 2) var(--ui-text-strong);
+  }
+
+  .brand-picker :global(.brand-custom > .ui-button > .ui-indicator) {
+    block-size: 50%;
+    inline-size: 50%;
+    visibility: hidden;
+  }
+
+  .brand-picker:not(:has(:checked))
+    :global(.brand-custom > .ui-button > .ui-indicator) {
+    visibility: visible;
   }
 
   .brand-picker :global(.brand-swatch:has(:focus-visible)) {
@@ -119,28 +131,6 @@ const fallback = `oklch(0.58 ${+(0.21 * chroma).toFixed(3)} ${knob("--ui-palette
     outline-offset: calc(
       var(--ui-border-width-thick) * 2 + var(--ui-focus-ring-offset)
     );
-  }
-
-  .brand-picker :global(.brand-custom .oklch-trigger) {
-    inset: 0;
-    position: absolute;
-
-    &:focus-visible {
-      outline: none;
-    }
-  }
-
-  .brand-custom-fill {
-    background-color: var(--swatch);
-    border-radius: inherit;
-    display: none;
-    inset: 25%;
-    pointer-events: none;
-    position: absolute;
-
-    :where(.brand-picker:not(:has(:checked))) & {
-      display: block;
-    }
   }
 
   .brand-swatch-input {

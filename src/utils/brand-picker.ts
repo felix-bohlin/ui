@@ -30,9 +30,9 @@ export const syncBrandPicker = (
             radio.value.toLowerCase() === brand.toLowerCase(),
         )
   for (const radio of radios) radio.checked = radio === match
-  const trigger = picker.querySelector(
-    '.brand-custom > button[command="toggle-popover"]',
-  )!
+  const custom = picker.querySelector<HTMLElement>("[data-brand-custom]")!
+  custom.style.setProperty("--swatch", match ? "" : (brand ?? ""))
+  const trigger = custom.querySelector(".oklch-trigger")!
   if (match) trigger.removeAttribute("aria-current")
   else trigger.setAttribute("aria-current", "true")
 }

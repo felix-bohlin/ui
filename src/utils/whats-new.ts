@@ -454,12 +454,6 @@ export const whatsNew = {
     `<a href="#button">Button and link chips</a> fade their hover and <a href="#pressed">pressed</a> colors, like buttons.`,
     `Themes can shrink a button or link chip while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>.`,
   ],
-  "color-field": [
-    {
-      default: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens a <a href="#picker">picker</a> that previews the color across its top, tints itself with its hue, plots lightness against chroma with the sRGB and Display P3 edges, copies it, picks one from the screen and shows its contrast, over sliders for lightness, chroma, hue and <a href="#opacity">opacity</a>, or the channels of 15 other <a href="#color-spaces">color spaces</a>, run by the <code>&lt;opui-color-field&gt;</code> custom element, which the component loads. <a href="#swatch-only"><code>swatchOnly</code></a> shows just the swatch. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
-      html: `New component. A <a href="#basics">text field for an <code>oklch()</code> color</a> with a swatch that opens a <a href="#picker">picker</a> that previews the color across its top, tints itself with its hue, plots lightness against chroma with the sRGB and Display P3 edges, copies it, picks one from the screen and shows its contrast, over sliders for lightness, chroma, hue and <a href="#opacity">opacity</a>, or the channels of 15 other <a href="#color-spaces">color spaces</a>. <a href="#swatch-only"><code>.ui-swatch-only</code></a> shows just the swatch. Import <code>opui-css/elements/color-field.js</code> for the <code>&lt;opui-color-field&gt;</code> custom element that runs them. The <a href="#form-value">form</a> submits and resets the <code>oklch()</code> text.`,
-    },
-  ],
   copy: [
     {
       default: `New component. A <a href="#basics">button that copies</a> a field's value or a text to the clipboard and announces it, run by the <code>&lt;opui-copy&gt;</code> custom element, which the component loads.`,
@@ -1468,7 +1462,6 @@ export const highlighted = new Set<string>([
   "button",
   "card",
   "carousel",
-  "color-field",
   "copy",
   "layout",
   "menu",
@@ -1486,7 +1479,6 @@ export const highlighted = new Set<string>([
 
 export const added = new Set<string>([
   "carousel",
-  "color-field",
   "copy",
   "layout",
   "menu",

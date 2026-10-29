@@ -303,22 +303,6 @@ const preClass = isDiff ? "is-diff" : undefined
     setTimeout(() => button.removeAttribute("data-copied"), 1500)
   })
 
-  const highlight = () => {
-    for (const code of document.querySelectorAll("pre > code")) {
-      inView.observe(code)
-    }
-    highlightAll({ selector: "pre > code[data-in-view]" })
-  }
-  const inView = new IntersectionObserver(
-    (entries) => {
-      for (const { isIntersecting, target } of entries) {
-        target.toggleAttribute("data-in-view", isIntersecting)
-      }
-      highlight()
-    },
-    { rootMargin: "50% 0%" },
-  )
-
-  document.addEventListener("syntax-highlight", highlight)
-  highlight()
+  document.addEventListener("syntax-highlight", () => highlightAll())
+  highlightAll()
 </script>

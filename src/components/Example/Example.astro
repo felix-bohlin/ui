@@ -170,42 +170,41 @@ const outputId = `${groupName}-output`
   {hasControls && <div class="controls" set:html={controlsHtml} />}
   {
     hasPreview && (
-      <div class="example-stage">
-        <div
-          class:list={[
-            "example-preview",
-            className,
-            {
-              "example-column": column,
-              "example-row": row,
-              "ui-spacious": spacious,
-              "has-show-code": hasCode,
-            },
-          ]}
-        >
-          <slot />
-          {isLivePreview ? (
-            <div
-              class="preview-render"
-              data-vue-example={vueExampleId}
-              set:html={previewHtml}
-            />
-          ) : isLiveReactPreview ? (
-            <div
-              class="preview-render"
-              data-react-example={reactExampleId}
-              set:html={previewHtml}
-            />
-          ) : isLiveSveltePreview ? (
-            <div
-              class="preview-render"
-              data-svelte-example={svelteExampleId}
-              set:html={previewHtml}
-            />
-          ) : (
-            previewHtml && <div class="preview-render" set:html={previewHtml} />
-          )}
-        </div>
+      <div
+        class:list={[
+          "example-preview",
+          className,
+          {
+            "example-column": column,
+            "example-row": row,
+            "ui-spacious": spacious,
+            "has-show-code": hasCode,
+          },
+        ]}
+      >
+        <slot />
+        {isLivePreview ? (
+          <div
+            class="preview-render"
+            data-vue-example={vueExampleId}
+            set:html={previewHtml}
+          />
+        ) : isLiveReactPreview ? (
+          <div
+            class="preview-render"
+            data-react-example={reactExampleId}
+            set:html={previewHtml}
+          />
+        ) : isLiveSveltePreview ? (
+          <div
+            class="preview-render"
+            data-svelte-example={svelteExampleId}
+            set:html={previewHtml}
+          />
+        ) : (
+          previewHtml && <div class="preview-render" set:html={previewHtml} />
+        )}
+
         {showCode && hasCode && (
           <Chip
             as="button"
@@ -275,6 +274,7 @@ const outputId = `${groupName}-output`
 
 <style>
   .example-container {
+    anchor-scope: --example-preview;
     box-shadow: var(--shadow-2);
     display: grid;
     gap: 0;
@@ -307,25 +307,16 @@ const outputId = `${groupName}-output`
       }
     }
 
-    .example-stage {
-      display: grid;
-      min-inline-size: 0;
-      position: relative;
-
-      &:not(:last-child) {
-        border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      }
-    }
-
     .show-code-button {
       align-items: center;
+      bottom: anchor(bottom);
       display: flex;
       gap: var(--size-2);
-      inset-block-end: 0;
-      inset-inline-end: 0;
       margin: var(--size-2);
       opacity: 0.64;
-      position: absolute;
+      position: fixed;
+      position-anchor: --example-preview;
+      right: anchor(right);
       z-index: 10;
 
       &[aria-expanded="true"] svg {
@@ -338,6 +329,7 @@ const outputId = `${groupName}-output`
     }
 
     .example-preview {
+      anchor-name: --example-preview;
       gap: var(--size-3);
       isolation: isolate;
       min-block-size: var(--size-10);
@@ -351,6 +343,10 @@ const outputId = `${groupName}-output`
 
       &.has-show-code {
         padding-block: var(--size-8);
+      }
+
+      &:not(:last-child) {
+        border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       }
 
       &.ui-spacious {

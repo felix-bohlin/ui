@@ -138,7 +138,6 @@ test("the tarball ships the package and nothing else", () => {
     "dist/opui.css",
     "dist/opui.no-compat.css",
     "elements/character-count.js",
-    "elements/color-field.js",
     "elements/copy.js",
     "elements/number-field.js",
     "elements/select-all.js",

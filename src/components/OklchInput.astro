@@ -1,0 +1,39 @@
+---
+import "../styles/oklch-picker.css"
+
+type Props = {
+  [key: `data-${string}`]: string | undefined
+  "aria-describedby"?: string
+  alpha?: boolean
+  class?: string
+  label: string
+}
+
+const {
+  "aria-describedby": describedBy,
+  alpha,
+  class: className,
+  label,
+  ...rest
+} = Astro.props
+---
+
+<oklch-input
+  class:list={["oklch-input", className]}
+  data-alpha={alpha ? "" : undefined}
+  {...rest}
+>
+  <button
+    aria-describedby={describedBy}
+    aria-expanded="false"
+    aria-haspopup="dialog"
+    aria-label={label}
+    class="oklch-trigger"
+    title={label}
+    type="button"></button>
+  <slot />
+</oklch-input>
+
+<script>
+  import "../utils/oklch-input"
+</script>

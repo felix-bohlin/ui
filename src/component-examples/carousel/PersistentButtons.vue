@@ -11,8 +11,8 @@ const places = [
 
 <template>
   <Carousel
-    aria-label="Destinations"
     buttons="outside"
+    aria-label="Destinations"
     :itemsPerView="2"
     persistentButtons
   >

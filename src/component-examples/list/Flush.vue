@@ -5,8 +5,8 @@ import { Button, List, ListItem } from "opui-css/vue"
 <template>
   <List flush>
     <ListItem label="Gutterless list item">
-      <template #end>
-        <Button aria-label="Delete" round size="small">
+      <template #end
+        ><Button aria-label="Delete" round size="small">
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -18,9 +18,8 @@ import { Button, List, ListItem } from "opui-css/vue"
               fill="currentColor"
               d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
             ></path>
-          </svg>
-        </Button>
-      </template>
+          </svg> </Button
+      ></template>
     </ListItem>
     <ListItem label="Headline" description="Supporting text">
       <template #start

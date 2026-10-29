@@ -15,9 +15,9 @@ import { Range } from "opui-css/vue"
   />
   <Range label="Quality" max="2">
     <template #datalist>
-      <option value="0" label="Low" />
-      <option value="1" label="Medium" />
-      <option value="2" label="High" />
+      <option value="0" label="Low"></option>
+      <option value="1" label="Medium"></option>
+      <option value="2" label="High"></option>
     </template>
   </Range>
 </template>

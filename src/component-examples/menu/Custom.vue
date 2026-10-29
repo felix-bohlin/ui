@@ -29,8 +29,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       commandfor="menu-custom-1"
       command="hide-popover"
     >
-      <template #start>
-        <svg
+      <template #start
+        ><svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -38,9 +38,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           <path
             fill="currentColor"
             d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
-          ></path>
-        </svg>
-      </template>
+          ></path></svg
+      ></template>
       <template #end><kbd>F2</kbd></template>
     </ListItem>
     <ListItem
@@ -49,8 +48,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       commandfor="menu-custom-1"
       command="hide-popover"
     >
-      <template #start>
-        <svg
+      <template #start
+        ><svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -58,9 +57,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           <path
             fill="currentColor"
             d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
-          ></path>
-        </svg>
-      </template>
+          ></path></svg
+      ></template>
       <template #end><kbd>Ctrl+C</kbd></template>
     </ListItem>
     <ListItem
@@ -68,8 +66,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       href="/guide/getting-started/"
       target="_blank"
     >
-      <template #start>
-        <svg
+      <template #start
+        ><svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -77,9 +75,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           <path
             fill="currentColor"
             d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
-          ></path>
-        </svg>
-      </template>
+          ></path></svg
+      ></template>
     </ListItem>
     <ListItem
       as="button"
@@ -89,8 +86,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       commandfor="menu-custom-1"
       command="hide-popover"
     >
-      <template #start>
-        <svg
+      <template #start
+        ><svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -98,9 +95,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           <path
             fill="currentColor"
             d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
-          ></path>
-        </svg>
-      </template>
+          ></path></svg
+      ></template>
     </ListItem>
   </Menu>
 </template>

@@ -12,7 +12,6 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
-import { computeFeatureSupport } from "../../utils/browser-support"
 import {
   componentName,
   levelOf,
@@ -20,7 +19,6 @@ import {
   posts,
   readingMinutes,
   series,
-  seriesOf,
   topics,
   walkthroughs,
 } from "../../utils/blog"
@@ -57,10 +55,6 @@ const entries = posts
   )
   .map((post) => ({
     ...post,
-    features: (post.features ?? []).map((id) => ({
-      id,
-      name: computeFeatureSupport(id).name,
-    })),
     level: post.features && levelOf(post.features),
     meta: [
       {
@@ -84,21 +78,32 @@ const entries = posts
         value: `${buildCount} build-ups`,
       },
     ].filter((item) => !!item),
-    series: seriesOf(post.slug),
-    version:
-      post.category === "release"
-        ? post.title.match(/\d+(\.\d+)*/)?.[0]
-        : undefined,
   }))
 
-const featured = entries
-  .filter((post) => !post.component)
-  .toSorted(
-    (a, b) =>
-      Number(b.category === "release") - Number(a.category === "release"),
-  )
+const release = entries
+  .filter((post) => post.category === "release")
+  .toSorted((a, b) => a.date.localeCompare(b.date))
+  .at(-1)
+
+const underTheHood = entries.find((post) => post.slug === "under-the-hood")
 
 const componentPosts = entries.filter((post) => post.component)
+
+const stars = (count: number, seed: number) => {
+  let value = seed
+  const random = () => {
+    value = (value * 16807) % 2147483647
+    return value / 2147483647
+  }
+  return Array.from({ length: count }, () => {
+    const size = random() < 0.2 ? 1.5 : 1
+    const x = (random() * 100).toFixed(1)
+    const y = (random() * 75).toFixed(1)
+    return `radial-gradient(${size}px ${size}px at ${x}% ${y}%, var(--star-color), transparent)`
+  }).join(", ")
+}
+
+const starLayers = [stars(36, 7), stars(28, 19), stars(20, 41)]
 
 const buildSteps = [
   { label: "HTML", variant: "raw" },
@@ -160,6 +165,100 @@ const filterCss = [
 >
   <Fragment slot="title">Blog</Fragment>
 
+  {
+    release && (
+      <article class="blog-release ui-not-rich-text">
+        <div aria-hidden="true" class="blog-release-sky">
+          {starLayers.map((layer, index) => (
+            <span
+              class="blog-release-stars"
+              style={`--layer: ${index}; background-image: ${layer}`}
+            />
+          ))}
+          <span class="blog-release-glow" />
+        </div>
+        <div class="blog-release-content">
+          <h2 style={`view-transition-name: blog-${release.slug}-title`}>
+            {release.title}
+          </h2>
+          <p>{release.description}</p>
+          <div class="blog-release-actions">
+            <Button href={link(`/blog/${release.slug}`)} variant="filled">
+              Read the release
+            </Button>
+            <dl class="blog-meta">
+              {release.meta.map((item) => (
+                <div>
+                  <dt>
+                    <svg aria-hidden="true" viewBox="0 0 16 16">
+                      <path d={item.icon} />
+                    </svg>
+                    <span class="ui-sr-only">{item.label}</span>
+                  </dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </article>
+    )
+  }
+
+  {
+    underTheHood && (
+      <article class="blog-builds ui-card ui-tonal ui-not-rich-text">
+        <div class="ui-content">
+          <hgroup>
+            <h2 style={`view-transition-name: blog-${underTheHood.slug}-title`}>
+              <DocLink href={`/blog/${underTheHood.slug}`}>
+                {underTheHood.title}
+              </DocLink>
+            </h2>
+            <p>{underTheHood.description}</p>
+          </hgroup>
+          <dl class="blog-meta">
+            {underTheHood.meta.map((item) => (
+              <div>
+                <dt>
+                  <svg aria-hidden="true" viewBox="0 0 16 16">
+                    <path d={item.icon} />
+                  </svg>
+                  <span class="ui-sr-only">{item.label}</span>
+                </dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <ol class="blog-steps" inert>
+          {buildSteps.map((step, index) => (
+            <li style={`--step: ${index}`}>
+              <button
+                class:list={[
+                  step.variant === "raw"
+                    ? "blog-step-raw"
+                    : ["ui-button", "ui-small", step.variant],
+                ]}
+                type="button"
+              >
+                {step.icon && (
+                  <svg aria-hidden="true" viewBox="0 0 16 16">
+                    <path d={icons.download} fill="currentColor" />
+                  </svg>
+                )}
+                <span class="ui-text">Save</span>
+              </button>
+              <span class="blog-step-label">
+                {index + 1} {step.label}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </article>
+    )
+  }
+
   <div class="blog-browse ui-not-rich-text">
     <div class="blog-toolbar">
       <Button
@@ -204,75 +303,6 @@ const filterCss = [
 
     <p class="blog-empty">No post matches this level and topic.</p>
 
-    <ul class="blog-hero">
-      {
-        featured.map((post) => (
-          <li
-            class:list={[
-              "blog-post",
-              "blog-post-featured",
-              `blog-hero-${post.category}`,
-            ]}
-          >
-            <article class="ui-card ui-tonal">
-              {post.version && (
-                <span aria-hidden="true" class="blog-hero-version">
-                  {post.version}
-                </span>
-              )}
-              {post.category === "under-the-hood" && (
-                <ol class="blog-steps" inert>
-                  {buildSteps.map((step, index) => (
-                    <li style={`--step: ${index}`}>
-                      <button
-                        class:list={[
-                          step.variant === "raw"
-                            ? "blog-step-raw"
-                            : ["ui-button", "ui-small", step.variant],
-                        ]}
-                        type="button"
-                      >
-                        {step.icon && (
-                          <svg aria-hidden="true" viewBox="0 0 16 16">
-                            <path d={icons.download} fill="currentColor" />
-                          </svg>
-                        )}
-                        <span class="ui-text">Save</span>
-                      </button>
-                      <span class="blog-step-label">
-                        {index + 1} {step.label}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              )}
-              <hgroup>
-                <h2 style={`view-transition-name: blog-${post.slug}-title`}>
-                  <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
-                </h2>
-                <p>{post.description}</p>
-              </hgroup>
-              <div class="ui-content">
-                <dl class="blog-meta">
-                  {post.meta.map((item) => (
-                    <div>
-                      <dt>
-                        <svg aria-hidden="true" viewBox="0 0 16 16">
-                          <path d={item.icon} />
-                        </svg>
-                        <span class="ui-sr-only">{item.label}</span>
-                      </dt>
-                      <dd>{item.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </article>
-          </li>
-        ))
-      }
-    </ul>
-
     <ul class="blog-posts">
       {
         componentPosts.map((post) => (
@@ -281,68 +311,37 @@ const filterCss = [
             data-level={post.level}
             data-topics={post.topics?.join(" ")}
           >
-            <article class="ui-card ui-outlined">
-              <PostPreview slug={post.slug} />
-              <hgroup>
-                <h2 style={`view-transition-name: blog-${post.slug}-title`}>
-                  <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
-                </h2>
-                <p>{post.description}</p>
-              </hgroup>
-              <div class="ui-content">
-                <ul aria-label="Tags" class="blog-chips">
+            <article class="blog-row">
+              <p class="blog-row-component">{componentName(post.component!)}</p>
+              <div class="blog-row-text">
+                <hgroup>
+                  <h2 style={`view-transition-name: blog-${post.slug}-title`}>
+                    <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+                  </h2>
+                  <p>{post.description}</p>
+                </hgroup>
+                <div class="blog-row-meta">
                   {post.technique && (
-                    <li>
-                      <Chip size="small">
-                        <code slot="label">{post.technique}</code>
-                      </Chip>
-                    </li>
+                    <Chip size="small">
+                      <code slot="label">{post.technique}</code>
+                    </Chip>
                   )}
-                  {post.component && (
-                    <li>
-                      <Chip
-                        size="small"
-                        variant="outlined"
-                        label={componentName(post.component)}
-                      />
-                    </li>
-                  )}
-                  {post.series && (
-                    <li>
-                      <Chip size="small" variant="outlined">
-                        <Fragment slot="label">
-                          {post.series.label}
-                          <span class="blog-chip-part">
-                            {post.series.part}/{post.series.total}
-                          </span>
-                        </Fragment>
-                      </Chip>
-                    </li>
-                  )}
-                  {post.features.map((feature) => (
-                    <li>
-                      <Chip
-                        size="small"
-                        variant="outlined"
-                        label={feature.name}
-                      />
-                    </li>
-                  ))}
-                </ul>
-                <dl class="blog-meta">
-                  {post.meta.map((item) => (
-                    <div>
-                      <dt>
-                        <svg aria-hidden="true" viewBox="0 0 16 16">
-                          <path d={item.icon} />
-                        </svg>
-                        <span class="ui-sr-only">{item.label}</span>
-                      </dt>
-                      <dd>{item.value}</dd>
-                    </div>
-                  ))}
-                </dl>
+                  <dl class="blog-meta">
+                    {post.meta.map((item) => (
+                      <div>
+                        <dt>
+                          <svg aria-hidden="true" viewBox="0 0 16 16">
+                            <path d={item.icon} />
+                          </svg>
+                          <span class="ui-sr-only">{item.label}</span>
+                        </dt>
+                        <dd>{item.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
               </div>
+              <PostPreview slug={post.slug} />
             </article>
           </li>
         ))
@@ -475,37 +474,132 @@ const filterCss = [
     margin: 0;
   }
 
-  .blog-posts {
-    display: grid;
-    gap: var(--ui-space-4);
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .blog-release {
+    --glow-inner: light-dark(oklch(0.88 0.14 70), oklch(0.78 0.16 55));
+    --glow-outer: light-dark(
+      oklch(0.84 0.12 25 / 75%),
+      oklch(0.6 0.17 15 / 55%)
+    );
+    --sky-bottom: light-dark(
+      oklch(from var(--ui-primary) 0.94 0.04 h),
+      oklch(from var(--ui-primary) 0.3 0.09 h)
+    );
+    --sky-top: light-dark(
+      oklch(from var(--ui-primary) 0.86 0.07 h),
+      oklch(from var(--ui-primary) 0.16 0.05 h)
+    );
+    --star-color: light-dark(oklch(1 0 0 / 70%), oklch(1 0 0));
+    --star-opacity: light-dark(0.25, 0.9);
 
-    @supports (display: grid-lanes) {
-      display: grid-lanes;
+    border-radius: var(--ui-radius-large);
+    color: light-dark(var(--ui-text-strong), oklch(0.97 0.01 90));
+    display: grid;
+    isolation: isolate;
+    min-block-size: clamp(18rem, 45dvb, 28rem);
+    overflow: clip;
+    position: relative;
+  }
+
+  .blog-release-sky {
+    background-image: linear-gradient(var(--sky-top), var(--sky-bottom));
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .blog-release-stars {
+    inset: 0;
+    opacity: var(--star-opacity);
+    position: absolute;
+  }
+
+  .blog-release-glow {
+    background-image:
+      radial-gradient(120% 70% at 50% 115%, var(--glow-inner), transparent 60%),
+      radial-gradient(160% 90% at 50% 120%, var(--glow-outer), transparent 70%);
+    inset: 0;
+    position: absolute;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blog-release-stars {
+      animation: blog-twinkle calc(5s + var(--layer) * 2s)
+        calc(var(--layer) * -1.7s) ease-in-out infinite alternate;
+    }
+
+    .blog-release-glow {
+      animation: blog-dawn 2.4s var(--ui-ease-enter) both;
     }
   }
 
-  .blog-post {
-    container-type: inline-size;
+  @keyframes blog-twinkle {
+    from {
+      opacity: var(--star-opacity);
+    }
+
+    to {
+      opacity: calc(var(--star-opacity) * 0.35);
+    }
+  }
+
+  @keyframes blog-dawn {
+    from {
+      opacity: 0.2;
+      translate: 0 25%;
+    }
+  }
+
+  .blog-release-content {
+    align-content: center;
     display: grid;
+    gap: var(--ui-space-3);
+    justify-items: center;
+    padding: var(--ui-space-8) var(--ui-space-5);
+    text-align: center;
 
-    & .ui-card {
-      gap: var(--ui-space-3);
-      position: relative;
-      transition: border-color 0.2s;
+    & h2 {
+      font-size: clamp(2.5rem, 1.5rem + 5vi, 4.5rem);
+      inline-size: fit-content;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin: 0;
+      view-transition-class: doc-heading;
+    }
 
-      &:has(a:hover) {
-        border-color: var(--ui-primary);
-      }
+    & > p {
+      font-size: var(--ui-font-size-large);
+      margin: 0;
+      max-inline-size: 40ch;
+      text-wrap: balance;
+    }
 
-      &:has(a:focus-visible) {
-        outline: var(--ui-focus-ring-width, 2px) solid
-          var(--ui-focus-ring-color, var(--ui-primary));
-        outline-offset: 2px;
-      }
+    & .blog-meta dt {
+      color: inherit;
+    }
+  }
+
+  .blog-release-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-4);
+    justify-content: center;
+    margin-block-start: var(--ui-space-2);
+  }
+
+  .blog-builds {
+    align-items: center;
+    display: grid;
+    gap: var(--ui-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    margin-block: var(--ui-space-4) var(--ui-space-6);
+    padding: var(--ui-space-4);
+    position: relative;
+
+    & > .ui-content {
+      display: grid;
+      gap: var(--ui-space-2);
+      padding: 0;
     }
 
     & hgroup {
@@ -515,39 +609,16 @@ const filterCss = [
       & > * {
         margin: 0;
       }
-
-      & > * {
-        inline-size: fit-content;
-        view-transition-class: doc-heading;
-      }
-
-      & > p:last-child {
-        view-transition-class: doc-heading doc-reflow;
-      }
-
-      & > p:last-child {
-        color: var(--ui-text);
-        font-size: clamp(0.8125rem, 0.75rem + 0.6cqi, 0.9375rem);
-        line-height: 1.45;
-        text-wrap: pretty;
-      }
     }
 
     & h2 {
-      color: var(--ui-text-strong);
-      font-size: clamp(1rem, 0.8rem + 2.5cqi, 1.25rem);
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      text-wrap: balance;
-    }
-
-    & .ui-content {
-      display: grid;
-      gap: var(--ui-space-3);
+      font-size: var(--ui-font-size-h4);
+      inline-size: fit-content;
+      view-transition-class: doc-heading;
     }
 
     & h2 a {
-      color: inherit;
+      color: var(--ui-text-strong);
       text-decoration: none;
 
       &::after {
@@ -560,49 +631,11 @@ const filterCss = [
         outline: none;
       }
     }
-  }
 
-  .blog-hero {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-4);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .blog-hero-release {
-    flex: 3 1 24rem;
-
-    & .ui-card {
-      align-content: end;
-      overflow: clip;
-    }
-
-    & hgroup,
-    & .blog-meta {
-      position: relative;
-    }
-  }
-
-  .blog-hero-under-the-hood {
-    flex: 2 1 18rem;
-  }
-
-  .blog-hero-version {
-    color: oklch(from var(--ui-primary) l c h / 22%);
-    font-size: clamp(6rem, 2rem + 20cqi, 11rem);
-    font-weight: 800;
-    inset-block-start: var(--ui-space-2);
-    inset-inline-end: var(--ui-space-4);
-    letter-spacing: -0.06em;
-    line-height: 0.8;
-    pointer-events: none;
-    position: absolute;
-    transition: scale 0.4s var(--ui-ease-move, ease);
-
-    .blog-post:has(a:hover) & {
-      scale: 1.06;
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
     }
   }
 
@@ -637,7 +670,7 @@ const filterCss = [
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .blog-hero-under-the-hood:has(a:hover) .blog-steps li {
+    .blog-builds:has(a:hover) .blog-steps li {
       animation: blog-step 2.4s calc(var(--step) * 0.6s) infinite;
     }
   }
@@ -656,14 +689,109 @@ const filterCss = [
     }
   }
 
-  .blog-post-featured {
-    & h2 {
-      font-size: clamp(1.25rem, 0.75rem + 2.5cqi, 1.875rem);
+  .blog-posts {
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blog-post {
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    container-type: inline-size;
+  }
+
+  .blog-row {
+    display: grid;
+    gap: var(--ui-space-3) var(--ui-space-6);
+    grid-template-areas: "component" "text" "preview";
+    padding-block: var(--ui-space-5);
+    position: relative;
+
+    @container (inline-size >= 44rem) {
+      align-items: start;
+      grid-template-areas: "component text preview";
+      grid-template-columns: 7rem minmax(0, 1fr) 16rem;
     }
 
-    & hgroup > p:last-child {
-      max-inline-size: 65ch;
+    &:has(a:focus-visible) {
+      outline: var(--ui-focus-ring-width, 2px) solid
+        var(--ui-focus-ring-color, var(--ui-primary));
+      outline-offset: 2px;
     }
+
+    & hgroup {
+      display: grid;
+      gap: var(--ui-space-1);
+
+      & > * {
+        inline-size: fit-content;
+        margin: 0;
+        view-transition-class: doc-heading;
+      }
+
+      & > p:last-child {
+        color: var(--ui-text);
+        line-height: 1.45;
+        max-inline-size: 60ch;
+        text-wrap: pretty;
+        view-transition-class: doc-heading doc-reflow;
+      }
+    }
+
+    & h2 {
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-h5);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+
+    & h2 a {
+      color: inherit;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    &:has(a:hover) h2 a {
+      color: var(--ui-primary-text);
+    }
+  }
+
+  .blog-row-component {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-weight: 600;
+    grid-area: component;
+    letter-spacing: 0.04em;
+    margin: 0;
+    text-transform: uppercase;
+
+    @container (inline-size >= 44rem) {
+      padding-block-start: 0.3em;
+    }
+  }
+
+  .blog-row-text {
+    display: grid;
+    gap: var(--ui-space-3);
+    grid-area: text;
+  }
+
+  .blog-row-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2) var(--ui-space-4);
   }
 
   .blog-chips {
@@ -673,10 +801,6 @@ const filterCss = [
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  .blog-chip-part {
-    opacity: 0.7;
   }
 
   .blog-series-list {

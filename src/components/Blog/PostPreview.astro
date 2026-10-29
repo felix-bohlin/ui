@@ -414,11 +414,12 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
   .blog-preview {
     align-items: center;
     background-color: var(--ui-surface-tonal);
+    block-size: 10rem;
     border-radius: var(--ui-radius);
     container-type: inline-size;
     display: grid;
+    grid-area: preview;
     justify-items: center;
-    min-block-size: 8rem;
     overflow: clip;
     padding: var(--ui-space-4);
     position: relative;
@@ -455,10 +456,6 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
 
   [data-preview="description-list-leader-lines"] .ui-description-list {
     inline-size: 100%;
-  }
-
-  [data-preview="dialog-closedby"] {
-    min-block-size: 10rem;
   }
 
   .blog-preview-anchor {
@@ -538,7 +535,6 @@ const id = (name: string) => `blog-preview-${slug}-${name}`
 
   [data-preview="tooltip-interest-invokers"] {
     align-items: end;
-    min-block-size: 7rem;
   }
 
   .blog-preview-type {

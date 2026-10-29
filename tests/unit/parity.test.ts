@@ -16,7 +16,7 @@ import {
   FRAMEWORK_IDS as FRAMEWORKS,
   type FrameworkId as Framework,
 } from "../../src/utils/framework"
-import { createIdGenerator } from "../../src/utils/id"
+import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
 
 const RECORD = !!process.env.PARITY_RECORD
@@ -144,14 +144,8 @@ const markup = (example: Example, framework: Framework) => {
   return cache.get(cacheKey)!
 }
 
-const idPattern = (key: string) => {
-  const [slug, name] = key.split("/")
-  const example = name
-    .replace(/Code$/, "")
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .toLowerCase()
-  return new RegExp(`^${slug}-${example}-\\d+(-[a-z]+)*$`)
-}
+const idPattern = (key: string) =>
+  new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*$`)
 
 const authoredIds = async (example: Example, framework: Framework) => {
   const source =

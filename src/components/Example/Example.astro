@@ -4,6 +4,7 @@ import {
   DEFAULT_FRAMEWORK,
   type FrameworkId,
 } from "../../utils/framework"
+import { clean } from "../../utils/clean-html"
 import Code from "../Code.astro"
 import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import { format } from "prettier"
@@ -12,16 +13,6 @@ import MountSvelteExamples from "./MountSvelteExamples.astro"
 import MountVueExamples from "./MountVueExamples.astro"
 
 const { $id } = Astro.locals
-
-const clean = (html: string) =>
-  html
-    .replace(/[ \t]*data-astro-source-file=(?:"[^"]*"|'[^']*'|[^ >]*)/g, "")
-    .replace(/[ \t]*data-astro-source-loc=(?:"[^"]*"|'[^']*'|[^ >]*)/g, "")
-    .replace(
-      /[ \t]*data-astro-cid-[a-zA-Z0-9-]+(?:=(?:"[^"]*"|'[^']*'|[^ >]*))?/g,
-      "",
-    )
-    .replace(/[ \t]*<!-- prettier-ignore -->[ \t]*\r?\n?/g, "")
 
 const prettify = async (html: string) => {
   const cleanHtml = clean(html)

@@ -8,6 +8,29 @@ import {
 } from "../../packages/opui/components/id"
 import { mergeStyle, styleVars } from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
+import {
+  createExampleIdGenerator,
+  EXAMPLE_ID_PARTS,
+  EXAMPLE_NAME_PREFIXES,
+  exampleIdBase,
+} from "../../src/utils/id"
+
+const componentSources = import.meta.glob<string>(
+  "../../packages/opui/components/*/*.astro",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const unknownIdPrefixes = (sources: string[]) =>
+  [
+    ...new Set(
+      sources.flatMap((source) =>
+        [...source.matchAll(/\$id\("([^"]+)"\)/g)].map((match) => match[1]),
+      ),
+    ),
+  ].filter(
+    (prefix) =>
+      !(prefix in EXAMPLE_ID_PARTS) && !EXAMPLE_NAME_PREFIXES.includes(prefix),
+  )
 
 describe("cx", () => {
   test("joins strings, arrays and truthy object keys", () => {
@@ -106,6 +129,73 @@ describe("ids", () => {
     const id = createId({})
     expect(id("field")).toMatch(/^field-[0-9a-f]{8}$/)
     expect(id("field")).not.toBe(id("field"))
+  })
+})
+
+describe("example ids", () => {
+  test("exampleIdBase is the slug and the kebab-case name without Code", () => {
+    expect(exampleIdBase("select/Spread")).toBe("select-spread")
+    expect(exampleIdBase("button/IconAndLabelCode")).toBe(
+      "button-icon-and-label",
+    )
+  })
+
+  test("every $id() prefix in the components has an example id part", () => {
+    expect(unknownIdPrefixes(['$id("new-part")'])).toEqual(["new-part"])
+    expect(unknownIdPrefixes(Object.values(componentSources))).toEqual([])
+  })
+
+  test("parts of one component share an instance number", () => {
+    const $id = createExampleIdGenerator("select/Spread")
+    expect(
+      [
+        "select-label",
+        "start-text",
+        "select-label",
+        "start-text",
+        "end-text",
+        "select-label",
+      ].map($id),
+    ).toEqual([
+      "select-spread-1-label",
+      "select-spread-1-start-text",
+      "select-spread-2-label",
+      "select-spread-2-start-text",
+      "select-spread-2-end-text",
+      "select-spread-3-label",
+    ])
+  })
+
+  test("ids without a part get one instance each", () => {
+    const $id = createExampleIdGenerator("tabs/Basics")
+    expect(["tab", "tab", "tab"].map($id)).toEqual([
+      "tabs-basics-1",
+      "tabs-basics-2",
+      "tabs-basics-3",
+    ])
+  })
+
+  test("group names are counted apart from ids", () => {
+    const $id = createExampleIdGenerator("tabs/Basics")
+    expect(["tabs", "tab", "tabs"].map($id)).toEqual([
+      "tabs-basics-1",
+      "tabs-basics-1",
+      "tabs-basics-2",
+    ])
+  })
+
+  test("skips the ids the example writes itself", () => {
+    const $id = createExampleIdGenerator(
+      "tabs/Binding",
+      '<TabsItem id="tabs-binding-1" />',
+    )
+    expect($id("tab")).toBe("tabs-binding-2")
+  })
+
+  test("throws on a prefix without a part", () => {
+    expect(() => createExampleIdGenerator("a/B")("new-part")).toThrow(
+      "EXAMPLE_ID_PARTS",
+    )
   })
 })
 

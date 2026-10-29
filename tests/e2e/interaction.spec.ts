@@ -1348,6 +1348,55 @@ interaction(
 
 interaction(
   "toast",
+  "Action",
+  "an action runs, dismisses its toast, and preventDefault keeps it",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const toasts = page.locator("opui-toaster li:not([inert])")
+    await root.getByRole("button", { name: "Archive" }).click()
+    const archived = toasts.filter({ hasText: "Conversation archived" })
+    await expect(archived).toHaveCount(1)
+    await expect(archived.getByRole("button")).toHaveText(["Undo", ""])
+    await expect(archived.getByRole("button").last()).toHaveAccessibleName(
+      "Close",
+    )
+    await archived.getByRole("button", { name: "Undo" }).click()
+    await expect(archived).toHaveCount(0)
+    await expect(
+      toasts.filter({ hasText: "Conversation restored" }),
+    ).toHaveCount(1)
+
+    const kept = await page.evaluate(async () => {
+      const toaster = document.querySelector<
+        HTMLElement & {
+          show: (
+            message: string,
+            options: {
+              action: { label: string; onClick: (event: MouseEvent) => void }
+            },
+          ) => HTMLLIElement | null
+        }
+      >("opui-toaster")!
+      let ran = 0
+      const item = toaster.show("Kept", {
+        action: {
+          label: "Stay",
+          onClick: (event) => {
+            ran++
+            event.preventDefault()
+          },
+        },
+      })
+      item?.querySelector<HTMLButtonElement>("button")?.click()
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      return { open: !!item?.isConnected && !item.inert, ran }
+    })
+    expect(kept).toEqual({ open: true, ran: 1 })
+  },
+)
+
+interaction(
+  "toast",
   "Position",
   "side and align move the toasts",
   async ({ page, root }) => {

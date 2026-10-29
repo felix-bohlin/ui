@@ -61,6 +61,14 @@
           }
         }
 
+        &:has(> .ui-button + .ui-button) {
+          grid-template-columns: 1fr auto auto;
+        }
+
+        &:has(> svg):has(> .ui-button + .ui-button) {
+          grid-template-columns: auto 1fr auto auto;
+        }
+
         @starting-style {
           opacity: 0;
           translate: 0 var(--ui-space-3);

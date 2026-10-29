@@ -1,7 +1,13 @@
 export type ToastSeverity =
   "critical" | "info" | "neutral" | "success" | "warning"
 
+export type ToastAction = {
+  label: string
+  onClick?: (event: MouseEvent) => void
+}
+
 export type ToastOptions = {
+  action?: ToastAction
   duration?: number
   severity?: ToastSeverity
 }

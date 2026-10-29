@@ -152,13 +152,31 @@ export const description =
       <code>toast.success(message)</code>, <code>toast.info</code>, <code
         >toast.warning</code
       >, <code>toast.critical</code> and <code>toast.neutral</code> set the severity,
-      and <code>duration</code> is an option. The toast shows in the first toaster
-      on the page, or in the one <code>toaster</code> names, by id or element.
+      and <a href="#action"><code>action</code></a> and <code>duration</code> are
+      options. The toast shows in the first toaster on the page, or in the one <code
+        >toaster</code
+      > names, by id or element.
       <code>dismiss(toast)</code> on the toaster fades a toast out, closes the gap
       it leaves and resolves its promise once the toast is gone. With reduced motion
       it goes at once.
     </p>
     <AutoExample name="Script" row />
+  </section>
+
+  <section>
+    <h2 id="action">Action</h2>
+    <p>
+      <code>action</code> adds a button before the close button, like Undo after an
+      archive. It takes a <code>label</code> and an <code>onClick</code> that runs
+      before the toast is dismissed. Call <code>event.preventDefault()</code> in it
+      to keep the toast. A toast with an action stays twice as long, so there's time
+      to reach the button.
+    </p>
+    <p>
+      The toast goes away on its own, so the action is a shortcut, never the
+      only way to do something. Keep the label to a verb or two.
+    </p>
+    <AutoExample name="Action" row />
   </section>
 
   <section>
@@ -192,14 +210,16 @@ export const description =
     <h2 id="duration">Duration</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        A toast stays for 5 seconds, or <code>duration</code> milliseconds. The timer
-        pauses while the pointer is over the toasts or focus is in them, and every
-        toast has a close button.
+        A toast stays for 5 seconds, or <code>duration</code> milliseconds, and twice
+        as long with an <a href="#action">action</a>. The timer pauses while the
+        pointer is over the toasts or focus is in them, and every toast has a
+        close button.
       </Fragment>
       <Fragment slot="html">
-        A toast stays for 5 seconds, or the <code>duration</code> attribute in milliseconds.
-        The timer pauses while the pointer is over the toasts or focus is in them,
-        and every toast has a close button.
+        A toast stays for 5 seconds, or the <code>duration</code> attribute in milliseconds,
+        and twice as long with an <a href="#action">action</a>. The timer pauses
+        while the pointer is over the toasts or focus is in them, and every
+        toast has a close button.
       </Fragment>
     </Conditional>
   </section>
@@ -212,8 +232,8 @@ export const description =
       </li>
       <li>
         The toasts sit where the toaster is in the page, so Tab reaches their
-        close buttons from there. Put the toaster near the content it confirms,
-        or at the end of the page.
+        action and close buttons from there. Put the toaster near the content it
+        confirms, or at the end of the page.
       </li>
       <li>
         Under a modal Dialog or Drawer, the toasts can't be focused or closed,

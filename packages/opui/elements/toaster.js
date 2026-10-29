@@ -61,7 +61,9 @@ export class Toaster extends Base {
       "click",
       (event) => {
         const item = event.target.closest?.("li")
-        if (item && event.target.closest("button")) this.dismiss(item)
+        if (item && event.target.closest("button") && !event.defaultPrevented) {
+          this.dismiss(item)
+        }
       },
       { signal },
     )
@@ -115,7 +117,7 @@ export class Toaster extends Base {
     this.#timers.clear()
   }
 
-  show(message, { duration, severity } = {}) {
+  show(message, { action, duration, severity } = {}) {
     const list = this.list
     if (!list) return null
     const item = this.ownerDocument.createElement("li")
@@ -129,11 +131,14 @@ export class Toaster extends Base {
     content.append(text)
     const icon = this.#icon(severity)
     if (icon) item.append(icon)
-    item.append(content, this.#closeButton())
+    item.append(content)
+    if (action?.label) item.append(this.#actionButton(action))
+    item.append(this.#closeButton())
     list.append(item)
     if (!list.matches(":popover-open")) list.showPopover?.()
     this.#announce(message)
-    const time = duration ?? (Number(this.getAttribute("duration")) || DURATION)
+    const base = Number(this.getAttribute("duration")) || DURATION
+    const time = duration ?? (action?.label ? base * 2 : base)
     this.#timers.set(item, { id: undefined, remaining: time, start: 0 })
     if (!this.#focused && !this.#hovered) this.#start(item)
     return item
@@ -196,6 +201,15 @@ export class Toaster extends Base {
     path.setAttribute("d", icon.d)
     svg.append(path)
     return svg
+  }
+
+  #actionButton({ label, onClick }) {
+    const button = this.ownerDocument.createElement("button")
+    button.type = "button"
+    button.className = "ui-button ui-small"
+    button.textContent = label
+    if (onClick) button.addEventListener("click", onClick)
+    return button
   }
 
   #closeButton() {

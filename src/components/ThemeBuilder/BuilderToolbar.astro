@@ -169,7 +169,7 @@ import {
   </div>
 </div>
 
-<Toaster align="center" class="builder-toaster" id="builder-toaster" />
+<Toaster align="center" id="builder-toaster" />
 
 <script>
   import { exampleTheme } from "../../utils/example-themes"
@@ -207,28 +207,20 @@ import {
     let restoring = false
     let current: HTMLLIElement | null = null
 
-    const undoAction = () => {
-      const button = document.createElement("button")
-      button.className = "ui-button ui-small ui-tonal"
-      button.dataset.undo = ""
-      button.type = "button"
-      button.textContent = "Undo"
-      button.addEventListener("click", () => {
+    const undoAction = {
+      label: "Undo",
+      onClick: () => {
         undoHistory.focus({ preventScroll: true })
         restore(stack.undo(), "Undone.")
-      })
-      return button
+      },
     }
 
     const say = (message: string, undoable = false) => {
       if (current) toaster.dismiss(current)
       current = toast(message, {
-        duration: undoable ? 8000 : 5000,
+        action: undoable ? undoAction : undefined,
         toaster,
       })
-      if (current && undoable) {
-        current.querySelector(".ui-content")?.append(undoAction())
-      }
     }
 
     const syncHistory = () => {
@@ -535,17 +527,5 @@ import {
     @media (width < 640px) {
       display: none;
     }
-  }
-
-  .builder-toaster :global(.ui-content) {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2) var(--size-3);
-    justify-content: space-between;
-  }
-
-  .builder-toaster :global(.ui-content > *) {
-    margin-block: 0;
   }
 </style>

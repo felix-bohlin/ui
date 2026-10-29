@@ -7,12 +7,12 @@ export default {
   keyboard: [
     {
       description:
-        "Moves focus to the close buttons of the toasts, where the toaster sits in the page. While focus is in a toast, the toasts stay.",
+        "Moves focus to the action and close buttons of the toasts, where the toaster sits in the page. While focus is in a toast, the toasts stay.",
       keys: ["Tab"],
     },
     {
       description:
-        'On a button with `command="--toast"`, shows its toast. On a close button, dismisses the toast.',
+        'On a button with `command="--toast"`, shows its toast. On an action button, runs the action and dismisses the toast. On a close button, dismisses the toast.',
       keys: ["Enter", "Space"],
     },
     {
@@ -82,7 +82,7 @@ export default {
     {
       code: "<li>",
       description:
-        "A toast, a `Callout` with the severity class, its icon, the message in `.ui-content` and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.",
+        "A toast, a `Callout` with the severity class, its icon, the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.",
       selector: "ol > .ui-callout",
     },
     {
@@ -94,7 +94,7 @@ export default {
   ],
   root: {
     description:
-      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { duration, severity })` or `toast.success(message)` does it from a script. `dismiss(toast)` returns a promise that resolves once the toast is gone.',
+      'The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone.',
     selector: "opui-toaster.ui-toaster",
   },
   source: "Toaster",

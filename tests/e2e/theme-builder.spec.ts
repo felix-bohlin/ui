@@ -105,7 +105,10 @@ test("a mood applies a bundle of changes that Undo or a second press takes back"
   await expect(
     page.locator('[data-control="corners"] .builder-control-origin'),
   ).toHaveText("Changed")
-  await page.locator("#builder-toaster li:not([inert]) [data-undo]").click()
+  await page
+    .locator("#builder-toaster li:not([inert])")
+    .getByRole("button", { name: "Undo" })
+    .click()
   await expect(toast(page)).toHaveText("Undone.")
   await expect(changes(page)).toHaveText("No changes")
   await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(

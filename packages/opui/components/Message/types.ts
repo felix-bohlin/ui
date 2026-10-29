@@ -10,6 +10,7 @@ export type Props = {
 export type MessagesProps = {}
 
 export type Slots<S> = {
+  actions?: S
   bottom?: S
   end?: S
   start?: S

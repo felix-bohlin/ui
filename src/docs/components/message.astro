@@ -2,12 +2,15 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import {
   Avatar as UIAvatar,
+  Button as UIButton,
   Message as UIMessage,
   Messages as UIMessages,
   ToggleButton as UIToggleButton,
@@ -16,9 +19,157 @@ import {
 
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 import MessageCSS from "@opui/css/components/message.css?raw"
+import ReactionsJS from "@opui/elements/reactions.js?raw"
 
 import messageApi from "../../component-api/message/api"
 import messagesApi from "../../component-api/messages/api"
+import reactionsApi from "../../component-api/reactions/api"
+
+const saveDom = `document.addEventListener("reaction", async (event) => {
+  const reactions = event.target
+  const { checked, value } = event.detail
+  const { id } = reactions.closest(".ui-message").dataset
+  const response = await fetch(\`/messages/\${id}/reactions/\${value}\`, {
+    method: checked ? "PUT" : "DELETE",
+  })
+  if (!response.ok) {
+    reactions.announce("Couldn't save the reaction")
+    return
+  }
+  const reply = await response.json()
+  for (const input of reactions.querySelectorAll("input")) {
+    if (!reply.reactions.some((reaction) => reaction.value === input.value)) {
+      reactions.delete(input.value)
+    }
+  }
+  for (const reaction of reply.reactions) {
+    reactions.set(reaction.value, {
+      checked: reaction.mine,
+      label: reaction.label,
+      text: \`\${reaction.emoji} \${reaction.count}\`,
+    })
+  }
+  reactions.announce(reply.status)
+})`
+
+const saveReact = `const [reactions, setReactions] = useState(message.reactions)
+const mine = reactions.filter((reaction) => reaction.mine)
+
+async function save(event) {
+  const { checked, value } = event.detail
+  const response = await fetch(\`/messages/\${message.id}/reactions/\${value}\`, {
+    method: checked ? "PUT" : "DELETE",
+  })
+  if (!response.ok) {
+    event.target.announce("Couldn't save the reaction")
+    return
+  }
+  const reply = await response.json()
+  setReactions(reply.reactions)
+  event.target.announce(reply.status)
+}
+
+return (
+  <Reactions id={\`message-\${message.id}\`} onReaction={save}>
+    <ToggleGroup
+      aria-label="Reactions"
+      multiple
+      name="reaction"
+      value={mine.map((reaction) => reaction.value)}
+    >
+      {reactions.map((reaction) => (
+        <ToggleButton
+          aria-label={reaction.label}
+          key={reaction.value}
+          value={reaction.value}
+        >
+          <span aria-hidden="true">
+            {reaction.emoji} {reaction.count}
+          </span>
+        </ToggleButton>
+      ))}
+    </ToggleGroup>
+  </Reactions>
+)`
+
+const saveSvelte = `<script>
+  let { message } = $props()
+  let reactions = $state(message.reactions)
+  const mine = $derived(reactions.filter((reaction) => reaction.mine))
+
+  async function save(event) {
+    const { checked, value } = event.detail
+    const response = await fetch(\`/messages/\${message.id}/reactions/\${value}\`, {
+      method: checked ? "PUT" : "DELETE",
+    })
+    if (!response.ok) {
+      event.target.announce("Couldn't save the reaction")
+      return
+    }
+    const reply = await response.json()
+    reactions = reply.reactions
+    event.target.announce(reply.status)
+  }
+</script>
+
+<Reactions id="message-{message.id}" onreaction={save}>
+  <ToggleGroup
+    aria-label="Reactions"
+    multiple
+    name="reaction"
+    value={mine.map((reaction) => reaction.value)}
+  >
+    {#each reactions as reaction (reaction.value)}
+      <ToggleButton aria-label={reaction.label} value={reaction.value}>
+        <span aria-hidden="true">{reaction.emoji} {reaction.count}</span>
+      </ToggleButton>
+    {/each}
+  </ToggleGroup>
+</Reactions>`
+
+const saveVue = `<script setup>
+import { computed, ref } from "vue"
+
+const { message } = defineProps(["message"])
+const reactions = ref(message.reactions)
+const mine = computed(() => reactions.value.filter((reaction) => reaction.mine))
+
+async function save(event) {
+  const { checked, value } = event.detail
+  const response = await fetch(\`/messages/\${message.id}/reactions/\${value}\`, {
+    method: checked ? "PUT" : "DELETE",
+  })
+  if (!response.ok) {
+    event.target.announce("Couldn't save the reaction")
+    return
+  }
+  const reply = await response.json()
+  reactions.value = reply.reactions
+  event.target.announce(reply.status)
+}
+</script>
+
+<template>
+  <Reactions :id="\`message-\${message.id}\`" @reaction="save">
+    <ToggleGroup
+      aria-label="Reactions"
+      multiple
+      name="reaction"
+      :model-value="mine.map((reaction) => reaction.value)"
+    >
+      <ToggleButton
+        v-for="reaction in reactions"
+        :key="reaction.value"
+        :aria-label="reaction.label"
+        :value="reaction.value"
+      >
+        <span aria-hidden="true">{{ reaction.emoji }} {{ reaction.count }}</span>
+      </ToggleButton>
+    </ToggleGroup>
+  </Reactions>
+</template>`
+
+const addReactionIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"></path></svg>`
 
 export const description =
   "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
@@ -31,6 +182,7 @@ export const description =
   apis={[
     { title: "Messages API", api: messagesApi },
     { title: "Message API", api: messageApi },
+    { title: "Reactions API", api: reactionsApi },
   ]}
   browserSupport={[
     "color-mix",
@@ -38,22 +190,29 @@ export const description =
     "container-style-queries",
     "corner-shape",
     "has",
+    "invoker-commands",
     "lh",
+    "popover",
   ]}
   changelogPaths={[
     { path: "packages/opui/components/Message", type: "component" },
+    { path: "packages/opui/components/Reactions", type: "component" },
+    { path: "packages/opui/elements/reactions.js", type: "component" },
     { path: "src/docs/components/message.astro", type: "docs" },
     { path: "src/component-examples/message", type: "docs" },
     { path: "packages/opui/css/components/message.css", type: "css" },
     { path: "src/component-api/message", type: "api" },
     { path: "src/component-api/messages", type: "api" },
+    { path: "src/component-api/reactions", type: "api" },
   ]}
   installationTabs={[
     { title: "message.css", code: MessageCSS, lang: "css" },
+    { title: "reactions.js", code: ReactionsJS, lang: "js" },
     { title: "avatar.css", code: AvatarCSS, lang: "css", isDependency: true },
   ]}
   seeAlsoLinks={[
     { name: "Avatar", href: "/components/avatar" },
+    { name: "Menu", href: "/components/menu" },
     { name: "Toggle", href: "/components/toggle" },
   ]}
 >
@@ -70,12 +229,25 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy>
       <UIMessages aria-label="Messages with Saga" style="inline-size: 22rem">
-        <UIMessage author="Saga" datetime="2026-10-08T14:31" time="14:31">
+        <UIMessage
+          author="Saga"
+          datetime="2026-10-08T14:31"
+          style="--_actions-opacity: 1"
+          time="14:31"
+        >
           <UIAvatar aria-label="Saga Nyström" role="img" slot="start"
             >SN</UIAvatar
           >
           <p>Here's the current draft.</p>
           <Fragment slot="end">Read</Fragment>
+          <UIButton
+            aria-label="Add reaction"
+            round
+            size="x-small"
+            slot="actions"
+          >
+            <Fragment set:html={addReactionIcon} />
+          </UIButton>
           <UIToggleGroup
             aria-label="Reactions"
             multiple
@@ -178,32 +350,188 @@ export const description =
     <Conditional as="p">
       <Fragment slot="html"
         >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in <code>.ui-bottom</code>. The label of each input names the emoji and
-        the count, and <code>checked</code> marks your own reaction.</Fragment
+        in <code>&lt;opui-reactions class="ui-reactions"&gt;</code>, with an
+        empty <code>&lt;span class="ui-sr-only" role="status"&gt;</code> after it,
+        in <code>.ui-bottom</code>, and import <code
+          >opui-css/elements/reactions.js</code
+        >. The label of each input names the emoji and the count, and <code
+          >checked</code
+        > marks your own reaction.</Fragment
       >
       <Fragment slot="components"
         >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in the <code>bottom</code> slot. The label of each toggle names the emoji
-        and the count, and <code>checked</code> marks your own reaction.</Fragment
+        in <code>Reactions</code>, in the <code>bottom</code> slot. The label of each
+        toggle names the emoji and the count, and <code>checked</code> marks your
+        own reaction.</Fragment
       >
       <Fragment slot="react"
         >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in the <code>bottom</code> prop. The label of each toggle names the emoji
-        and the count, and <code>defaultChecked</code> marks your own reaction.</Fragment
+        in <code>Reactions</code>, in the <code>bottom</code> prop. The label of each
+        toggle names the emoji and the count, and <code>defaultChecked</code> marks
+        your own reaction.</Fragment
       >
       <Fragment slot="svelte"
         >Put a <DocLink href="/components/toggle">Toggle group</DocLink> of checkboxes
-        in the <code>bottom</code> snippet. The label of each toggle names the emoji
-        and the count, and <code>checked</code> marks your own reaction.</Fragment
+        in <code>Reactions</code>, in the <code>bottom</code> snippet. The label of
+        each toggle names the emoji and the count, and <code>checked</code> marks
+        your own reaction.</Fragment
       >
     </Conditional>
     <p>
       The message draws the toggles as separate pills over the bottom edge of
-      the bubble, with your own reactions tinted in the primary color. Saving a
-      toggle and adding a new emoji are up to you: listen for <code>change</code
-      > on the group, and update the count in the label.
+      the bubble, with your own reactions tinted in the primary color.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >To add a reaction, put a round <code>.ui-button</code> in <code
+          >.ui-actions</code
+        >, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>.ui-block-start</code>. Give each emoji <code
+          >command="--react"</code
+        >, the id of the <code>opui-reactions</code> in <code>commandfor</code> and
+        the emoji in <code>value</code>. Add <code>.ui-align-end</code> to the menu
+        of an outgoing message, so it opens away from the bubble.</Fragment
+      >
+      <Fragment slot="components"
+        >To add a reaction, put a round <code>Button</code> in the <code
+          >actions</code
+        > slot, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>side="block-start"</code>. Give each item <code
+          >command: "--react"</code
+        >, the id of the <code>Reactions</code> in <code>commandfor</code> and the
+        emoji in <code>value</code>. Set <code>align="end"</code> on the menu of an
+        outgoing message, so it opens away from the bubble.</Fragment
+      >
+      <Fragment slot="react"
+        >To add a reaction, put a round <code>Button</code> in the <code
+          >actions</code
+        > prop, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>side="block-start"</code>. Give each item <code
+          >command: "--react"</code
+        >, the id of the <code>Reactions</code> in <code>commandfor</code> and the
+        emoji in <code>value</code>. Set <code>align="end"</code> on the menu of an
+        outgoing message, so it opens away from the bubble.</Fragment
+      >
+      <Fragment slot="svelte"
+        >To add a reaction, put a round <code>Button</code> in the <code
+          >actions</code
+        > snippet, beside the bubble, that opens a <DocLink
+          href="/components/menu#horizontal">horizontal menu</DocLink
+        > of emoji with <code>side="block-start"</code>. Give each item <code
+          >command: "--react"</code
+        >, the id of the <code>Reactions</code> in <code>commandfor</code> and the
+        emoji in <code>value</code>. Set <code>align="end"</code> on the menu of an
+        outgoing message, so it opens away from the bubble.</Fragment
+      >
+    </Conditional>
+    <p>
+      On a device that can hover, the actions show while the message is hovered,
+      holds focus or has its menu open. Picking an emoji closes the menu and
+      returns focus to the button. Neither a pick nor a click on a pill changes
+      the pills: they ask your server first, see <a href="#saving-reactions"
+        >Saving reactions</a
+      >. Here a pretend server answers after half a second.
     </p>
     <AutoExample name="Reactions" />
+  </section>
+
+  <section id="saving-reactions">
+    <h2>Saving reactions</h2>
+    <p>
+      A click on a pill, or on an emoji in the menu, fires a <code
+        >reaction</code
+      > event that bubbles from the <code>opui-reactions</code> element, with the
+      emoji's <code>value</code> and the state asked for in <code
+        >event.detail.checked</code
+      >, and changes nothing. Picking an emoji you already reacted with asks to
+      remove it, like a click on its pill. Send the change to your server and
+      apply its reply, so the pills only show what the server saved.
+    </p>
+    <Conditional as="div">
+      <Fragment slot="html"
+        ><p>
+          Apply the reply with <code
+            >set(value, &lbrace; checked, label, text &rbrace;)</code
+          >, which updates a pill or adds one at the end, and <code
+            >delete(value)</code
+          >, which removes one and moves focus to the next pill when the removed
+          one had it. <code>announce(message)</code> reads a sentence to screen readers,
+          such as "Thumbs up added" or "Couldn't save the reaction". Here the server
+          answers with the message's reactions, each with its <code>value</code
+          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          it's <code>mine</code>, and a <code>status</code> sentence, and each <code
+            >li.ui-message</code
+          > has a <code>data-id</code>.
+        </p>
+        <Code lang="js" code={saveDom} /></Fragment
+      >
+      <Fragment slot="astro"
+        ><p>
+          The page is static HTML, so save the reaction in a <code
+            >&lt;script&gt;</code
+          >. Apply the reply with <code
+            >set(value, &lbrace; checked, label, text &rbrace;)</code
+          >, which updates a pill or adds one at the end, and <code
+            >delete(value)</code
+          >, which removes one and moves focus to the next pill when the removed
+          one had it. <code>announce(message)</code> reads a sentence to screen readers,
+          such as "Thumbs up added" or "Couldn't save the reaction". Here the server
+          answers with the message's reactions, each with its <code>value</code
+          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          it's <code>mine</code>, and a <code>status</code> sentence, and each <code
+            >Message</code
+          > has a <code>data-id</code>.
+        </p>
+        <Code lang="js" code={saveDom} /></Fragment
+      >
+      <Fragment slot="react"
+        ><p>
+          Render the pills from state, and set it from the reply in <code
+            >onReaction</code
+          >. <code>event.target.announce(message)</code> reads a sentence to screen
+          readers, such as "Thumbs up added" or "Couldn't save the reaction". Here
+          the server answers with the message's reactions, each with its <code
+            >value</code
+          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          it's <code>mine</code>, and a <code>status</code> sentence.
+        </p>
+        <Code lang="tsx" code={saveReact} /></Fragment
+      >
+      <Fragment slot="svelte"
+        ><p>
+          Render the pills from state, and set it from the reply in <code
+            >onreaction</code
+          >. <code>event.target.announce(message)</code> reads a sentence to screen
+          readers, such as "Thumbs up added" or "Couldn't save the reaction". Here
+          the server answers with the message's reactions, each with its <code
+            >value</code
+          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          it's <code>mine</code>, and a <code>status</code> sentence.
+        </p>
+        <Code lang="svelte" code={saveSvelte} /></Fragment
+      >
+      <Fragment slot="vue"
+        ><p>
+          Render the pills from state, and set it from the reply in <code
+            >@reaction</code
+          >. <code>event.target.announce(message)</code> reads a sentence to screen
+          readers, such as "Thumbs up added" or "Couldn't save the reaction". Here
+          the server answers with the message's reactions, each with its <code
+            >value</code
+          >, <code>emoji</code>, <code>count</code>, <code>label</code> and whether
+          it's <code>mine</code>, and a <code>status</code> sentence.
+        </p>
+        <Code lang="vue" code={saveVue} /></Fragment
+      >
+    </Conditional>
+    <p>
+      To show a reaction before the server answers, apply it in the event
+      handler as well, and apply the reply again when it comes, or undo the
+      change when the request fails.
+    </p>
   </section>
 
   <section id="typing">
@@ -243,17 +571,48 @@ export const description =
       of the list, with "You" as its author. In forced colors mode the bubbles
       get a border and the typing dots stay visible.
     </p>
+    <p>
+      The add reaction button has no visible text, so give it an <code
+        >aria-label</code
+      >, and give each emoji in the menu one with its name, such as "Thumbs up".
+      The actions hide with <code>opacity</code>, so they stay in the tab order
+      and are read by screen readers.
+    </p>
+    <p>
+      A reaction changes after the server answers, while focus is back on the
+      add reaction button or still on the pill, so the change itself isn't read.
+      Pass a sentence to <code>announce()</code>, which writes it to the
+      visually hidden <code>role="status"</code> region inside <code
+        >opui-reactions</code
+      >, and a screen reader reads it once. Write it in the page's language, for
+      a failure too.
+    </p>
+    <KeyboardSupport />
   </Fragment>
 
   <Fragment slot="under-the-hood">
     <p>
       <code>li.ui-message</code> is a grid with a <code>start</code> area for the
-      avatar, a <code>content</code> area for the bubble and a <code
-        >bottom</code
-      > area under it, pulled up by a negative margin so the reactions sit on the
-      bubble's edge. A ring in the page's surface color around each pill keeps it
-      apart from the bubble. <code>.ui-outgoing</code> swaps the columns and aligns
-      the message to the end.
+      avatar, a <code>content</code> area for the bubble, an <code>actions</code
+      > area beside it and a <code>bottom</code> area under it, pulled up by a negative
+      margin so the reactions sit on the bubble's edge. A ring in the page's surface
+      color around each pill keeps it apart from the bubble. <code
+        >.ui-outgoing</code
+      > swaps the columns and aligns the message to the end. On a device that can
+      hover, <code>:not(:hover, :focus-within, :has(:popover-open))</code> fades the
+      actions out.
+    </p>
+    <p>
+      <code>opui-reactions</code> has <code>display: contents</code>. It calls <code
+        >preventDefault()</code
+      > on the click of a checkbox inside it, which keeps the checkbox as it was,
+      and listens for the <code>command</code> event that a button with <code
+        >commandfor</code
+      > and <code>command="--react"</code> fires on it, then closes the popover the
+      button is in, which returns focus to the button that opened it. A <code
+        >.ui-bottom</code
+      > without pills loses its margins, so a message whose last reaction is removed
+      closes up.
     </p>
     <p>
       A run is found with <code>:has()</code>: a message followed by one on the
@@ -265,3 +624,39 @@ export const description =
     </p>
   </Fragment>
 </Component>
+
+<script>
+  import type { Reactions } from "opui-css/elements/reactions.js"
+
+  document.addEventListener("reaction", (event) => {
+    const reactions = event.target as Reactions
+    if (!reactions.id?.startsWith("message-reactions-")) return
+    const { checked, value } = (event as CustomEvent).detail
+    const input = [...reactions.querySelectorAll("input")].find(
+      (pill) => pill.value === value,
+    )
+    const [name, count = "0"] =
+      input?.getAttribute("aria-label")?.split(", ") ?? []
+    const option = document.querySelector(
+      `[command="--react"][commandfor="${reactions.id}"][value="${value}"]`,
+    )
+    const label = name ?? option?.getAttribute("aria-label") ?? value
+    const emoji =
+      input?.parentElement?.textContent?.trim().split(" ")[0] ??
+      option?.textContent?.trim() ??
+      ""
+    const next = Number(count) + (checked ? 1 : -1)
+    setTimeout(() => {
+      if (next > 0) {
+        reactions.set(value, {
+          checked,
+          label: `${label}, ${next}`,
+          text: `${emoji} ${next}`,
+        })
+      } else {
+        reactions.delete(value)
+      }
+      reactions.announce(`${label} ${checked ? "added" : "removed"}`)
+    }, 500)
+  })
+</script>

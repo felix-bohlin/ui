@@ -9,12 +9,19 @@
     padding: 0;
   }
 
+  :where(.ui-reactions) {
+    display: contents;
+  }
+
   :where(.ui-message) {
     --_motion: var(--ui-motion);
+    --_actions-opacity: 0;
     --_avatar-size: var(--ui-control-size-small);
     --_bg-color: var(--ui-surface-tonal);
     --_block-end-radius: var(--_radius);
     --_block-start-radius: var(--_radius);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_max-inline-size: min(36rem, 85cqi);
     --_radius: var(--ui-radius);
     --_text-color: var(--ui-text-strong);
@@ -23,8 +30,8 @@
     align-items: end;
     align-self: start;
     display: grid;
-    grid-template-areas: "start content" ". bottom";
-    grid-template-columns: auto minmax(0, auto);
+    grid-template-areas: "start content actions" ". bottom .";
+    grid-template-columns: auto minmax(0, auto) auto;
     max-inline-size: var(--_max-inline-size);
 
     @supports (corner-shape: squircle) {
@@ -88,6 +95,22 @@
       }
     }
 
+    & > .ui-actions {
+      align-items: center;
+      align-self: center;
+      display: flex;
+      gap: var(--ui-space-1);
+      grid-area: actions;
+      margin-inline-start: var(--ui-space-1);
+      transition: opacity var(--_duration) var(--_ease);
+    }
+
+    @media (hover: hover) {
+      &:not(:hover, :focus-within, :has(:popover-open)) > .ui-actions {
+        opacity: var(--_actions-opacity);
+      }
+    }
+
     & > .ui-bottom {
       display: flex;
       flex-wrap: wrap;
@@ -96,7 +119,12 @@
       margin-block: calc(-1 * var(--ui-space-2)) var(--ui-space-1);
       padding-inline: var(--ui-space-2);
 
-      & > .ui-toggle-group {
+      &:not(:has(.ui-toggle-button)) {
+        margin-block: 0;
+      }
+
+      & > .ui-toggle-group,
+      & > .ui-reactions > .ui-toggle-group {
         background-color: transparent;
         gap: var(--ui-space-1);
         outline: 0;
@@ -139,11 +167,15 @@
       --_text-color: var(--ui-on-primary);
 
       align-self: end;
-      grid-template-areas: "content start" "bottom .";
-      grid-template-columns: minmax(0, auto) auto;
+      grid-template-areas: "actions content start" ". bottom .";
+      grid-template-columns: auto minmax(0, auto) auto;
 
       & > .ui-avatar {
         margin-inline: var(--ui-space-2) 0;
+      }
+
+      & > .ui-actions {
+        margin-inline: 0 var(--ui-space-1);
       }
 
       & > .ui-content {
@@ -245,7 +277,12 @@
         forced-color-adjust: none;
       }
 
-      & > .ui-bottom > .ui-toggle-group > .ui-toggle-button:has(input:checked) {
+      & > .ui-bottom > .ui-toggle-group > .ui-toggle-button:has(input:checked),
+      &
+        > .ui-bottom
+        > .ui-reactions
+        > .ui-toggle-group
+        > .ui-toggle-button:has(input:checked) {
         --ui-focus-ring-color: SelectedItemText;
 
         background-color: SelectedItem;

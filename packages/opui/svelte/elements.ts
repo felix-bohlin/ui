@@ -12,6 +12,7 @@ declare module "svelte/elements" {
       "failed-label"?: string | undefined | null
     }
     "opui-number-field": HTMLAttributes<HTMLElement>
+    "opui-reactions": HTMLAttributes<HTMLElement>
     "opui-select-all": HTMLAttributes<HTMLElement>
     "opui-sortable-table": HTMLAttributes<HTMLElement>
     "opui-text-field": HTMLAttributes<HTMLElement>

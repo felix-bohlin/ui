@@ -100,6 +100,14 @@ export default {
       },
     },
     {
+      default: '"vertical"',
+      description:
+        "The orientation of the element. `horizontal` lays the items out in a row, for short labels such as emoji.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: ".ui-horizontal", vertical: null },
+    },
+    {
       default: '"auto"',
       description:
         "The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.",

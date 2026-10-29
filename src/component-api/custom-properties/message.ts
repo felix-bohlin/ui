@@ -1,6 +1,11 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_actions-opacity": {
+    description:
+      "Opacity of the actions on a device that can hover, while the message isn't hovered, doesn't hold focus and has no popover open. Defaults to `0`; `1` always shows them.",
+    kind: "input",
+  },
   "--_avatar-size": {
     description:
       "Size of the avatar next to the bubble. Defaults to `--ui-control-size-small`.",
@@ -25,6 +30,15 @@ export default {
     description: "One dot of the typing indicator.",
     kind: "output",
   },
+  "--_duration": {
+    description:
+      "Duration of the fade of the actions, `--ui-duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the fade of the actions. Defaults to `--ui-ease`.",
+    kind: "input",
+  },
   "--_font-size": {
     description:
       "Font size of the avatar's initials and the reactions, set to `--ui-font-size-caption` on the `.ui-avatar` in the `start` slot and the `.ui-toggle-button` pills in the `bottom` slot.",
@@ -37,7 +51,7 @@ export default {
   },
   "--_motion": {
     description:
-      "Multiplies the typing animation. Defaults to `--ui-motion`, `0` under reduced motion.",
+      "Multiplies the typing animation and the fade of the actions. Defaults to `--ui-motion`, `0` under reduced motion.",
     kind: "input",
   },
   "--_radius": {

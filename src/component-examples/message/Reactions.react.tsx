@@ -1,25 +1,76 @@
 import {
   Avatar,
+  Button,
+  Menu,
   Message,
   Messages,
+  Reactions,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/react"
 
-export default function Reactions() {
+const addReactionIcon = (
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+    ></path>
+  </svg>
+)
+
+const emoji = [
+  { "aria-label": "Thumbs up", label: "👍", value: "+1" },
+  { "aria-label": "Heart", label: "❤️", value: "heart" },
+  { "aria-label": "Laughing", label: "😂", value: "joy" },
+  { "aria-label": "Party", label: "🎉", value: "tada" },
+  { "aria-label": "Eyes", label: "👀", value: "eyes" },
+]
+
+const picker = (id: string) =>
+  emoji.map((item) => ({ ...item, command: "--react", commandfor: id }))
+
+export default function ReactionsExample() {
   return (
     <Messages aria-label="Messages with Saga">
       <Message
+        actions={
+          <>
+            <Button
+              aria-label="Add reaction"
+              commandfor="message-reactions-1-picker"
+              command="toggle-popover"
+              round
+              size="x-small"
+            >
+              {addReactionIcon}
+            </Button>
+            <Menu
+              aria-label="Add reaction"
+              id="message-reactions-1-picker"
+              items={picker("message-reactions-1")}
+              orientation="horizontal"
+              side="block-start"
+            />
+          </>
+        }
         author="Saga"
         bottom={
-          <ToggleGroup aria-label="Reactions" multiple name="reaction">
-            <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1">
-              <span aria-hidden="true">👍 2</span>
-            </ToggleButton>
-            <ToggleButton aria-label="Party, 1" value="tada">
-              <span aria-hidden="true">🎉 1</span>
-            </ToggleButton>
-          </ToggleGroup>
+          <Reactions id="message-reactions-1">
+            <ToggleGroup aria-label="Reactions" multiple name="reaction">
+              <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1">
+                <span aria-hidden="true">👍 2</span>
+              </ToggleButton>
+              <ToggleButton aria-label="Party, 1" value="tada">
+                <span aria-hidden="true">🎉 1</span>
+              </ToggleButton>
+            </ToggleGroup>
+          </Reactions>
         }
         datetime="2026-10-08T16:05"
         start={
@@ -32,13 +83,36 @@ export default function Reactions() {
         <p>The deck is out. Thanks everyone!</p>
       </Message>
       <Message
+        actions={
+          <>
+            <Button
+              aria-label="Add reaction"
+              commandfor="message-reactions-2-picker"
+              command="toggle-popover"
+              round
+              size="x-small"
+            >
+              {addReactionIcon}
+            </Button>
+            <Menu
+              align="end"
+              aria-label="Add reaction"
+              id="message-reactions-2-picker"
+              items={picker("message-reactions-2")}
+              orientation="horizontal"
+              side="block-start"
+            />
+          </>
+        }
         author="You"
         bottom={
-          <ToggleGroup aria-label="Reactions" multiple name="reaction">
-            <ToggleButton aria-label="Heart, 1" value="heart">
-              <span aria-hidden="true">❤️ 1</span>
-            </ToggleButton>
-          </ToggleGroup>
+          <Reactions id="message-reactions-2">
+            <ToggleGroup aria-label="Reactions" multiple name="reaction">
+              <ToggleButton aria-label="Heart, 1" value="heart">
+                <span aria-hidden="true">❤️ 1</span>
+              </ToggleButton>
+            </ToggleGroup>
+          </Reactions>
         }
         datetime="2026-10-08T16:07"
         outgoing

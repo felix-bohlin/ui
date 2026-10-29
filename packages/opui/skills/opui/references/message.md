@@ -30,6 +30,7 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `.ui-header` (prop `author`): The sender's name.
 - `.ui-footer` (prop `datetime`, prop `time`): The time, and content such as a read receipt.
 - `.ui-end` (slot `end`): Content after the time, such as a read receipt.
+- `.ui-actions` (slot `actions`): Buttons beside the bubble, such as a round `Button` that opens a horizontal `Menu` of emoji. On a device that can hover, they show while the message is hovered, holds focus or has a popover open.
 - `.ui-bottom` (slot `bottom`): Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble.
 
 ### Props and modifiers
@@ -41,21 +42,44 @@ Chat bubbles that group by sender, with attachments, reactions and a typing indi
 - `time`: `string`. The time as shown, at the end of the bubble.
 - `typing`: `boolean`, `.ui-typing`. Shows animated dots instead of the content. The default slot becomes the status text for screen readers.
 
+## Reactions
+
+### Parts
+
+- `opui-reactions.ui-reactions` (root): The `<opui-reactions>` custom element, with `display: contents`, around the `ToggleGroup` of reactions. A click on a pill, or on a button with `command="--react"` and the emoji as its `value`, fires a `reaction` event that bubbles, and changes nothing. A pick of an emoji you already reacted with asks to uncheck it, and the menu the button is in closes.
+- `<span role="status">`: The live region that `announce()` writes to, visually hidden with `.ui-sr-only`.
+
+### Props and modifiers
+
+- `onreaction` (Svelte): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change the data.
+- `onReaction` (React): `(event: CustomEvent<ReactionDetail>) => void`. Called when a pill is clicked or an emoji is picked, with the emoji's `value` and the `checked` state asked for in `event.detail`. Nothing changes until you change the data.
+
+### Slots
+
+- `default`: The `ToggleGroup` of reactions.
+
+### Notes
+
+- HTML: Wrap the `ToggleGroup` in `<opui-reactions class="ui-reactions">` with an empty `<span class="ui-sr-only" role="status">` after it, and import `opui-css/elements/reactions.js`. `set(value, { checked, label, text })` adds or updates a pill, `delete(value)` removes one, and `announce(message)` reads a message to screen readers.
+- Astro, React, Svelte and Vue: The component loads `opui-css/elements/reactions.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Render the pills from your data and change the data when the reply comes, since a click never checks or unchecks a pill on its own. `announce(message)` on `event.target` reads a message to screen readers. In Vue, listen with `@reaction`.
+
 ## Component properties
 
 Set inputs on the component, inline or in your CSS. Outputs follow the variant and state, so never override them.
 
 ### message.css
 
+- `--_actions-opacity`: Opacity of the actions on a device that can hover, while the message isn't hovered, doesn't hold focus and has no popover open. Defaults to `0`; `1` always shows them.
 - `--_avatar-size`: Size of the avatar next to the bubble. Defaults to `--ui-control-size-small`.
 - `--_bg-color`: Background of the bubble. Defaults to `--ui-surface-tonal`, and `--ui-primary` with `.ui-outgoing`.
+- `--_ease`: Easing of the fade of the actions. Defaults to `--ui-ease`.
 - `--_max-inline-size`: Widest bubble. Defaults to `36rem`, or 85% of the list when that is narrower.
-- `--_motion`: Multiplies the typing animation. Defaults to `--ui-motion`, `0` under reduced motion.
+- `--_motion`: Multiplies the typing animation and the fade of the actions. Defaults to `--ui-motion`, `0` under reduced motion.
 - `--_radius`: Radius of the bubble corners. Defaults to `--ui-radius`, larger with `corner-shape: squircle`.
 - `--_text-color`: Text color in the bubble. Defaults to `--ui-text-strong`, and `--ui-on-primary` with `.ui-outgoing`.
 - `--_tight-radius`: Radius of the corners inside a run. Defaults to `--ui-radius-small`.
 
-Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_font-size` and `--_size`.
+Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_duration`, `--_font-size` and `--_size`.
 
 ### avatar.css
 
@@ -73,7 +97,7 @@ Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_fon
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size-x-small`, `--ui-contrast`, `--ui-control-size-small`, `--ui-duration`, `--ui-ease`, `--ui-font-size-caption`, `--ui-font-weight-semibold`, `--ui-motion`, `--ui-on-primary`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-7`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-text-subtle`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -119,9 +143,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 
 ## Astro
 
-`import { Message, Messages } from "opui-css/astro"`
+`import { Message, Messages, Reactions } from "opui-css/astro"`
 
-- `Message` named slots: `bottom`, `end` and `start`. Fill one with `slot="bottom"` on a child.
+- `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `slot="actions"` on a child.
 
 ### Example: Basics
 
@@ -151,9 +175,10 @@ import { Avatar, Message, Messages } from "opui-css/astro"
 
 ## React
 
-`import { Message, Messages } from "opui-css/react"`
+`import { Message, Messages, Reactions } from "opui-css/react"`
 
-- `Message` slot props (`ReactNode`): `bottom`, `children`, `end` and `start`.
+- `Message` slot props (`ReactNode`): `actions`, `bottom`, `children`, `end` and `start`.
+- Client components (`"use client"`): `Reactions`.
 
 ### Example: Basics
 
@@ -206,9 +231,9 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Message, Messages } from "opui-css/svelte"`
+`import { Message, Messages, Reactions } from "opui-css/svelte"`
 
-- `Message` slot snippets: `bottom`, `children`, `end` and `start`.
+- `Message` slot snippets: `actions`, `bottom`, `children`, `end` and `start`.
 
 ### Example: Basics
 
@@ -242,9 +267,9 @@ export default function Basics() {
 
 ## Vue
 
-`import { Message, Messages } from "opui-css/vue"`
+`import { Message, Messages, Reactions } from "opui-css/vue"`
 
-- `Message` named slots: `bottom`, `end` and `start`. Fill one with `<template #bottom>`.
+- `Message` named slots: `actions`, `bottom`, `end` and `start`. Fill one with `<template #actions>`.
 
 ### Example: Basics
 

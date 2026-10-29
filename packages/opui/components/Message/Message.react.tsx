@@ -10,6 +10,7 @@ export default function Message({
   time,
   typing,
   children,
+  actions,
   bottom,
   end,
   start,
@@ -45,6 +46,7 @@ export default function Message({
           )}
         </div>
       )}
+      {actions && <div className="ui-actions">{actions}</div>}
       {bottom && <div className="ui-bottom">{bottom}</div>}
     </li>
   )

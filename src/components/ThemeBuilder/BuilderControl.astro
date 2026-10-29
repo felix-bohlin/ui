@@ -1,6 +1,7 @@
 ---
 import {
   Button,
+  ColorField,
   Range,
   Select,
   ToggleButton,
@@ -14,7 +15,6 @@ import {
 } from "../../utils/theme-builder-controls"
 import { CORNERS } from "../../utils/theme"
 import BrandPicker from "../BrandPicker.astro"
-import OklchInput from "../OklchInput.astro"
 
 type Props = { control: Control }
 
@@ -124,23 +124,24 @@ const name = control.kind === "brand" ? "Brand color" : control.label
               name={`${base}-swatch`}
             />
           ) : (
-            <OklchInput
-              alpha
+            <ColorField
               aria-describedby={describedBy}
-              class="oklch-field"
               data-color="light"
               data-label={name}
               label={name}
+              size="small"
+              swatchOnly
             />
           )}
           <span aria-hidden="true" class="builder-color-caption" data-caption />
         </div>
         <div class="builder-color" data-mode="dark" hidden>
-          <OklchInput
-            alpha={control.kind === "color"}
-            class="oklch-field"
+          <ColorField
             data-color="dark"
             label={`${name} in dark mode`}
+            opacity={control.kind === "color" ? "slider" : "none"}
+            size="small"
+            swatchOnly
           />
           <span aria-hidden="true" class="builder-color-caption" data-caption />
         </div>

@@ -29,75 +29,77 @@
   );
 }
 
-::highlight(comment),
-::highlight(quote) {
-  color: var(--syntax-comment);
-}
+:where(pre > code, pre > code *) {
+  &::highlight(comment),
+  &::highlight(quote) {
+    color: var(--syntax-comment);
+  }
 
-::highlight(at-rule),
-::highlight(doctype),
-::highlight(important),
-::highlight(keyword),
-::highlight(section),
-::highlight(storage) {
-  color: var(--syntax-keyword);
-}
+  &::highlight(at-rule),
+  &::highlight(doctype),
+  &::highlight(important),
+  &::highlight(keyword),
+  &::highlight(section),
+  &::highlight(storage) {
+    color: var(--syntax-keyword);
+  }
 
-::highlight(operator) {
-  color: var(--syntax-operator);
-}
+  &::highlight(operator) {
+    color: var(--syntax-operator);
+  }
 
-::highlight(punctuation) {
-  color: var(--syntax-punctuation);
-}
+  &::highlight(punctuation) {
+    color: var(--syntax-punctuation);
+  }
 
-::highlight(link),
-::highlight(raw),
-::highlight(regexp),
-::highlight(string) {
-  color: var(--syntax-string);
-}
+  &::highlight(link),
+  &::highlight(raw),
+  &::highlight(regexp),
+  &::highlight(string) {
+    color: var(--syntax-string);
+  }
 
-::highlight(attribute-value) {
-  color: var(--syntax-value);
-}
+  &::highlight(attribute-value) {
+    color: var(--syntax-value);
+  }
 
-::highlight(anchor),
-::highlight(boolean),
-::highlight(character-entity),
-::highlight(constant),
-::highlight(numeric),
-::highlight(symbol) {
-  color: var(--syntax-constant);
-}
+  &::highlight(anchor),
+  &::highlight(boolean),
+  &::highlight(character-entity),
+  &::highlight(constant),
+  &::highlight(numeric),
+  &::highlight(symbol) {
+    color: var(--syntax-constant);
+  }
 
-::highlight(animation),
-::highlight(decorator),
-::highlight(function) {
-  color: var(--syntax-function);
-}
+  &::highlight(animation),
+  &::highlight(decorator),
+  &::highlight(function) {
+    color: var(--syntax-function);
+  }
 
-::highlight(support),
-::highlight(type) {
-  color: var(--syntax-type);
-}
+  &::highlight(support),
+  &::highlight(type) {
+    color: var(--syntax-type);
+  }
 
-::highlight(interpolation),
-::highlight(variable) {
-  color: var(--syntax-variable);
-}
+  &::highlight(interpolation),
+  &::highlight(variable) {
+    color: var(--syntax-variable);
+  }
 
-::highlight(attribute-name),
-::highlight(key),
-::highlight(property) {
-  color: var(--syntax-property);
-}
+  &::highlight(attribute-name),
+  &::highlight(key),
+  &::highlight(property) {
+    color: var(--syntax-property);
+  }
 
-::highlight(tag) {
-  color: var(--syntax-tag);
-}
+  &::highlight(tag) {
+    color: var(--syntax-tag);
+  }
 
-::highlight(entity),
-::highlight(selector) {
-  color: var(--syntax-selector);
+  &::highlight(entity),
+  &::highlight(selector) {
+    color: var(--syntax-selector);
+  }
 }

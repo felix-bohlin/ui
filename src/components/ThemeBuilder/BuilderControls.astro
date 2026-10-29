@@ -138,7 +138,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   } from "../../utils/color-utils"
   import { exampleTheme } from "../../utils/example-themes"
   import { morph } from "../../utils/morph"
-  import { OklchInput } from "../../utils/oklch-input"
+  import type { ColorField } from "opui-css/elements/color-field.js"
   import { readStored, writeStored } from "../../utils/storage"
   import {
     CORNERS,
@@ -229,7 +229,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     const picked = new Set<string>()
     let theme = themeStore.get()
     let queued: Update | null = null
-    let frame = 0
+    let timer = 0
+    let pressed = false
     let room = ""
 
     const hosts = (["light", "dark"] as const).map((scheme) => {
@@ -329,18 +330,23 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     }
 
     const flush = () => {
-      cancelAnimationFrame(frame)
-      frame = 0
+      clearTimeout(timer)
+      timer = 0
       if (!queued) return
       const update = queued
       queued = null
       themeStore.update(update)
     }
 
-    const write = (update: Update, throttle = false) => {
+    const PREVIEW_DELAY = 100
+
+    const write = (update: Update, throttle = false, hold = false) => {
       queued = { ...queued, ...update }
       if (!throttle) flush()
-      else if (!frame) frame = requestAnimationFrame(flush)
+      else {
+        clearTimeout(timer)
+        if (!hold) timer = window.setTimeout(flush, PREVIEW_DELAY)
+      }
     }
 
     const say = (message: string, focus?: HTMLElement, before?: Theme) =>
@@ -474,18 +480,24 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       }
     }
 
+    const colorFields = (element: HTMLElement) =>
+      [...element.querySelectorAll("input[data-color]")].map((input) =>
+        input.closest<ColorField>("opui-color-field")!,
+      )
+
     const setColorInputs = (
       element: HTMLElement,
       [light, dark]: ReturnType<typeof toColor>[],
       isDual: boolean,
     ) => {
-      const [lightInput, darkInput] = [
-        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
-      ]
+      const [lightInput, darkInput] = [...colorFields(element)]
       const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
       const dualButton = element.querySelector<HTMLElement>("[data-dual]")!
-      if (light) lightInput.value = light.value
-      darkInput.value = (dark ?? light)?.value ?? ""
+      const show = (field: ColorField, value: string) => {
+        if (field.oklch !== value) field.value = value
+      }
+      if (light) show(lightInput, light.value)
+      show(darkInput, (dark ?? light)?.value ?? "")
       darkField.hidden = !isDual
       dualButton.setAttribute("aria-pressed", `${isDual}`)
       element.classList.toggle("is-dual", isDual)
@@ -496,9 +508,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         : colorText(light)
       darkCaption.textContent = `Dark ${colorText(dark)}`
       const name = element.dataset.name ?? ""
-      lightInput.label = isDual
+      lightInput.querySelector(".ui-text-field > label")!.textContent = isDual
         ? `${name} in light mode`
-        : (lightInput.dataset.label ?? name)
+        : (lightInput.input?.dataset.label ?? name)
     }
 
     const formatRange = (control: RangeControl, value: number) =>
@@ -738,14 +750,15 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       control: Control,
       element: HTMLElement,
       throttle: boolean,
+      hold = false,
     ) => {
-      const [light, dark] = [
-        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
-      ].map((input) => input.value)
+      const [light, dark] = [...colorFields(element)].map(
+        (field) => field.oklch || field.value,
+      )
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {
         if (isDual) dual.add(control.id)
-        write(applyBrand(light, isDual ? dark : undefined), throttle)
+        write(applyBrand(light, isDual ? dark : undefined), throttle, hold)
       } else if (control.kind === "color") {
         const value = isDual ? `light-dark(${light}, ${dark})` : light
         write(
@@ -759,6 +772,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             ),
           },
           throttle,
+          hold,
         )
       }
     }
@@ -770,8 +784,10 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         element.classList.add("is-dual")
         render()
         element
-          .querySelector<OklchInput>("oklch-input[data-color=dark]")
-          ?.button.focus()
+          .querySelector("input[data-color=dark]")
+          ?.closest("opui-color-field")
+          ?.querySelector<HTMLElement>('button[command="toggle-popover"]')
+          ?.focus()
       } else {
         const opened = dual.delete(control.id)
         const changedColor = picked.delete(control.id)
@@ -940,9 +956,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (!element || !control) return
       const throttle = event.type === "input"
 
-      if (target instanceof OklchInput) {
+      const colorField = target.closest<ColorField>("opui-color-field")
+      if (colorField) {
+        if (target !== colorField.input) return
         if (element.classList.contains("is-dual")) picked.add(control.id)
-        onColor(control, element, throttle)
+        onColor(control, element, true, throttle && pressed)
         return
       }
       if (event.type !== "change" && !(target instanceof HTMLInputElement)) {
@@ -951,8 +969,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
       if (control.kind === "brand" && target instanceof HTMLInputElement) {
         if (event.type !== "change" || !target.checked) return
-        const dark = element.querySelector<OklchInput>(
-          'oklch-input[data-color="dark"]',
+        const dark = element.querySelector<HTMLInputElement>(
+          'input[data-color="dark"]',
         )!
         if (target.value && element.classList.contains("is-dual")) {
           dual.add(control.id)
@@ -1088,7 +1106,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       showRoom(groupOf.get(id)!)
       element
         .querySelector<HTMLElement>(
-          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+          "input:not([type=checkbox], [type=radio], .ui-floating input), select, input:checked, input[type=radio], button[command='toggle-popover']",
         )
         ?.focus()
       element.scrollIntoView({ block: "center" })
@@ -1115,6 +1133,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       )
     }
 
+    root.addEventListener(
+      "pointerdown",
+      () => {
+        pressed = true
+      },
+      { capture: true },
+    )
+    for (const type of ["pointercancel", "pointerup"]) {
+      document.addEventListener(type, () => {
+        pressed = false
+      })
+    }
     root.addEventListener("input", onChange)
     root.addEventListener("change", onChange)
     root.addEventListener("click", (event) => {
@@ -1174,7 +1204,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       write(resetTokens(control))
       element
         .querySelector<HTMLElement>(
-          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
+          "input:not([type=checkbox], [type=radio], .ui-floating input), select, input:checked, input[type=radio], button[command='toggle-popover']",
         )
         ?.focus()
     })

@@ -4,5 +4,5 @@
     "packages/opui/tokens.json",
     "public/search-index.json"
   ],
-  "sections": ["packages/opui/README.md"]
+  "sections": ["packages/opui/README.md", "src/component-examples"]
 }

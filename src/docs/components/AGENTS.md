@@ -40,11 +40,11 @@ Before creating or refactoring a page, perform the following research:
 - **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell.
 - **Route Shell** (do not edit per-component): [`src/pages/[framework]/components/[component].astro`](../../pages/%5Bframework%5D/components/%5Bcomponent%5D.astro) generates one route per (framework × component) and delegates to `src/docs/components/[name].astro`.
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
-  - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example has a file for each framework its component ships: `pnpm check-components` fails when one is missing, except for the examples in `FRAMEWORK_AGNOSTIC_EXAMPLES` and the HTML file of a `*Code` override, and the parity test compares them.
+  - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Write the `.astro` file: `pnpm build-examples` ([scripts/build-examples.mjs](../../../scripts/build-examples.mjs)) writes the others from it, and `pnpm check:fast` and `pnpm build` run it first. An example with a client `<script>` keeps hand-written React, Svelte and Vue files, and [scripts/hand-written-examples.json](../../../scripts/hand-written-examples.json) lists the other hand-written files with the reason. Every example has a file for each framework its component ships: `pnpm check-components` fails when one is missing, except for the examples in `FRAMEWORK_AGNOSTIC_EXAMPLES` and the HTML file of a `*Code` override, and the parity test compares them.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`. `Usage` and `KeyboardSupport` render the sections every component page shares (see 5.7 and 5.8).
 - **Checks**: `pnpm check-components` checks the example files (names, React default exports and `"use client"`, outer wrappers, and that a page shows each one through `<AutoExample>` or an import). `tests/unit/docs-pages.test.ts` checks the pages (links, section headings, examples in sections, the anatomy slot, `isDependency`, callouts and `<Conditional>` tags), and `tests/unit/parity.test.ts` that decorative SVGs are hidden.
-- **Code files**: If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
+- **Code files**: If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix, such as `SizesCode.astro`, which `pnpm build-examples` turns into the other formats like any example. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
 ## 3. Implementation Pattern: Externalized Examples
 
@@ -110,8 +110,7 @@ The manual form remains supported and unchanged:
 ### 3.2 Refactoring Steps
 
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
-    - `.astro`, `.react.tsx`, `.svelte` and `.vue` files mirror one another with the components from `opui-css/<framework>` (see **Path Resolution**).
-    - `.html` files hold the vanilla HTML equivalent (see **Functional Parity**).
+    - Write the `.astro` file with the components from `opui-css/astro` (see **Path Resolution**), and run `pnpm build-examples` for the `.html`, `.react.tsx`, `.svelte` and `.vue` files (see §2).
     - Set `row` / `column` on `<AutoExample>` for the example's layout. Sibling `example-row` / `example-column` groups inside one example are fine.
 2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.
 3.  **Cleanup**: Remove the now-unused `?raw` and component imports from the page frontmatter.
@@ -227,6 +226,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 Place logic in a `<script>` tag.
 
 - Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate.
+- The HTML example gets the `<script>` without its types, in one `<script type="module">` that also imports the custom elements its components render. Write the React, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
 - The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)
@@ -306,7 +306,7 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
   - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout" or "Resize any button with the `.ui-small` and `.ui-large` classes").
   - **Omit** when the heading is self-explanatory and the configuration is static or default (e.g., "Image", "Letter", or "Icon" sections for an Avatar). If the section merely showcases a built-in capability without requiring specific prop-based modification logic to understand, skip the description to avoid "stating the obvious."
   - **Framework-Specific Counterparts**: Descriptions should always have framework-specific counterparts when referring to implementation details (like props vs. classes). Use the `<Conditional>` component (or `<PropOrClass>` for a single prop or class) to ensure the technical guidance matches the active framework's URL.
-- **Functional Parity**: Ensure that HTML examples are just as functional and complete as their Astro counterparts. Both versions should result in the same visual and functional output in their respective previews.
+- **Functional Parity**: The hand-written React, Svelte and Vue versions of a script example do what its `<script>` does, so every format results in the same visual and functional output in its preview.
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.
 - **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content". The "When not to use" list in Usage is the exception, and each of its items says what to use instead.
@@ -315,7 +315,7 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
 ## 7. Key Learnings & Debugging
 
 - **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.locals.framework` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
-- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
+- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)), and teach `scripts/build-examples.mjs` to write its examples. `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.

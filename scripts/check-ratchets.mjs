@@ -9,6 +9,11 @@ const RATCHETS = [
     fix: "use a --ui-* role or a documented input instead of a new allowlist entry",
   },
   {
+    file: "scripts/hand-written-examples.json",
+    fix: "support the construct in scripts/build-examples.mjs instead of writing the file by hand",
+    keys: true,
+  },
+  {
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },

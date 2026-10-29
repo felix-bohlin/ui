@@ -131,7 +131,7 @@ test.describe("search", () => {
 
   test("finds components, guide pages and API props", async ({ page }) => {
     const input = await openSearch(page, "Dialog")
-    const groups = page.locator("#results-list .command-group-heading")
+    const groups = page.locator("#results-list .ui-command-group > .ui-label")
     const titles = page.locator("#results-list .ui-title")
 
     await expect(groups).toContainText(["Component"])
@@ -173,7 +173,7 @@ test.describe("search", () => {
       "How to close a dialog",
     )
     await expect(option.locator(".ui-description")).toHaveText("Dialog")
-    await expect(option.locator("a")).toHaveAttribute(
+    await expect(option).toHaveAttribute(
       "href",
       "/html/components/dialog#how-to-close",
     )
@@ -231,14 +231,11 @@ test.describe("search", () => {
     page,
   }) => {
     await openSearch(page, "itemsPerView")
-    await expect(page.locator("#search-empty")).toHaveText(
-      "No results in HTML.",
-    )
     await expect(
-      page.locator("#results-list .command-group-heading"),
+      page.locator("#results-list .ui-command-group > .ui-label"),
     ).toHaveText(["Other frameworks"])
     await expect(
-      page.locator("#results-list [role=option] a").first(),
+      page.locator("#results-list [role=option]").first(),
     ).toHaveAttribute("href", /^\/(astro|react|svelte|vue)\/api#carousel$/)
     await expect(page.locator("#search-status")).toHaveText(
       /^No results in HTML, \d+ in other frameworks$/,

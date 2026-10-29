@@ -1,0 +1,93 @@
+@layer components.root {
+  :where(.ui-command) {
+    --_max-block-size: 20rem;
+    --_radius: var(--ui-radius);
+
+    color: var(--ui-text-strong);
+    display: flex;
+    flex-direction: column;
+    min-block-size: 0;
+
+    &.ui-outlined {
+      background-color: var(--ui-surface);
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--_radius);
+      overflow: clip;
+    }
+
+    &:not(:defined) > :where(.ui-header, p[role="status"]) {
+      display: none;
+    }
+
+    & > .ui-header {
+      align-items: center;
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      display: flex;
+      flex-shrink: 0;
+      gap: var(--ui-space-2);
+      padding-inline: var(--ui-space-3);
+
+      &:has(> input:focus-visible) {
+        box-shadow: inset 0 calc(-1 * var(--ui-focus-ring-width)) 0
+          var(--ui-focus-ring-color);
+      }
+
+      & > svg {
+        block-size: var(--ui-icon-size);
+        color: var(--ui-text-subtle);
+        flex-shrink: 0;
+        inline-size: var(--ui-icon-size);
+      }
+
+      & > input {
+        background: none;
+        border: 0;
+        color: inherit;
+        flex: 1;
+        font: inherit;
+        font-size: var(--ui-font-size-body);
+        min-block-size: var(--ui-control-size-large);
+        min-inline-size: 0;
+        outline: none;
+        padding: 0;
+      }
+    }
+
+    & > .ui-content {
+      flex: 1;
+      max-block-size: var(--_max-block-size);
+      overflow-block: auto;
+      overscroll-behavior: contain;
+
+      & > .ui-command-group > .ui-label {
+        color: var(--ui-text-subtle);
+        font-size: var(--ui-font-size-caption);
+        font-weight: var(--ui-font-weight-semibold);
+        letter-spacing: var(--ui-letter-spacing-caps);
+        margin: 0;
+        padding-block-start: var(--ui-space-3);
+        padding-inline: var(--ui-list-item-padding-inline, var(--ui-space-3));
+        text-transform: uppercase;
+      }
+    }
+
+    & > p[role="status"] {
+      color: var(--ui-text-subtle);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+      padding-block: var(--ui-space-6);
+      padding-inline: var(--ui-space-3);
+      text-align: center;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+}
+
+@layer components.extended {
+  :where(.ui-command) > .ui-content :where(.ui-list > li[hidden]) {
+    display: none;
+  }
+}

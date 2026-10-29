@@ -1,0 +1,231 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import {
+  Command as UICommand,
+  CommandGroup as UICommandGroup,
+  CommandInput as UICommandInput,
+  CommandList as UICommandList,
+  ListItem as UIListItem,
+} from "opui-css/astro"
+
+import CommandCSS from "@opui/css/components/command.css?raw"
+import ListCSS from "@opui/css/components/list.css?raw"
+import CommandJS from "@opui/elements/command.js?raw"
+
+import commandApi from "../../component-api/command/api"
+import commandGroupApi from "../../component-api/command-group/api"
+
+export const description =
+  "A search input above a list of links and actions that it filters as you type."
+
+export const keywords = [
+  "autocomplete",
+  "combobox",
+  "command palette",
+  "filter",
+  "quick open",
+  "search",
+]
+---
+
+<Component
+  description={description}
+  slug="command"
+  browserSupport={[
+    "dialog-closedby",
+    "dir-pseudo",
+    "has",
+    "invoker-commands",
+    "overflow-clip",
+    "relative-color",
+  ]}
+  apis={[
+    { title: "Command API", api: commandApi },
+    { title: "Command group API", api: commandGroupApi },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Command/Command.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/command.astro", type: "docs" },
+    { path: "src/component-examples/command", type: "docs" },
+    { path: "packages/opui/css/components/command.css", type: "css" },
+    { path: "packages/opui/elements/command.js", type: "component" },
+    { path: "src/component-api/command", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "command.css", code: CommandCSS, lang: "css" },
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "command.js", code: CommandJS, lang: "js" },
+  ]}
+>
+  <Fragment slot="title">Command</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A search input above a list of links and actions that it filters as you
+      type, on its own or as a command palette in a <DocLink
+        href="/components/dialog">Dialog</DocLink
+      >. The options are a <DocLink href="/components/list">List</DocLink>, and
+      the <code>&lt;opui-command&gt;</code> custom element adds the filter, the arrow
+      keys and the roles. To choose a value for a form, use a <DocLink
+        href="/components/select">Select</DocLink
+      >.
+    </p>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Jumping to a page or running an action by name, like a <a href="#palette"
+        >command palette</a
+      >.
+    </li>
+    <li slot="when">
+      A long list of options people search more than they scan, like <a
+        href="#keywords">settings</a
+      >.
+    </li>
+    <li slot="when-not">
+      Choosing a value that a form submits. Use a <DocLink
+        href="/components/select">Select</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A few actions behind a button. Use a <DocLink href="/components/menu"
+        >Menu</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Put a <code>CommandInput</code> and a <code>CommandList</code> in <code
+          >Command</code
+        >, and the options in <code>CommandGroup</code>s, as <code
+          >ListItem</code
+        >s with <code>href</code> or <code>as="button"</code>. The input needs
+        an <code>aria-label</code>. Typing hides the options that don't hold
+        every word and the groups left empty, and selects the first match. Up
+        and Down move the selection, and Enter follows the link or presses the
+        button.
+      </p>
+      <p slot="html">
+        Put a <code>.ui-header</code> with an <code>input</code> and a <code
+          >.ui-content</code
+        > with <code>.ui-command-group</code>s in <code
+          >&lt;opui-command class="ui-command"&gt;</code
+        >, end it with <code>&lt;p role="status"&gt;</code>, and import <code
+          >opui-css/elements/command.js</code
+        >. Each group is a label and a <code>ul.ui-list.ui-transparent</code> of list
+        items with a link or a button. Typing hides the options that don't hold every
+        word and the groups left empty, and selects the first match. Up and Down move
+        the selection, and Enter follows the link or presses the button.
+      </p>
+    </Conditional>
+    <p>
+      <PropOrClass prop='variant="outlined"' class=".ui-outlined" /> gives it a surface
+      and a border. The list scrolls past 20rem; set <code
+        >--_max-block-size</code
+      > on the root to change it.
+    </p>
+    <AutoExample name="Basics" column />
+  </section>
+
+  <section id="keywords">
+    <h2>Keywords</h2>
+    <p>
+      An option also matches the words in its <code>data-keywords</code>, for
+      names people use that aren't on it, like "dark" for Appearance.
+    </p>
+    <AutoExample name="Keywords" column />
+  </section>
+
+  <section id="empty-label">
+    <h2>Empty label</h2>
+    <p>
+      When the text matches nothing, the element shows "No results" in its
+      status line, and a screen reader hears it. <PropOrClass
+        prop="emptyLabel"
+        class="empty-label"
+      /> changes the words.
+    </p>
+    <AutoExample name="EmptyLabel" column />
+  </section>
+
+  <section id="palette">
+    <h2>Palette</h2>
+    <p>
+      In a <DocLink href="/components/dialog">Dialog</DocLink> with an <code
+        >aria-label</code
+      >, the command is a palette. Buttons that close the dialog with <code
+        >commandfor</code
+      > and <code>command="close"</code> close it from Enter too, since Enter clicks
+      the selected option. Open it from a shortcut such as Ctrl+K with a few lines
+      of script that call <code>showModal()</code>.
+    </p>
+    <AutoExample name="Palette" row />
+  </section>
+
+  <section id="custom-filtering">
+    <h2>Custom filtering</h2>
+    <p>
+      With <code>filter="none"</code>, the element leaves the options alone, so
+      your code can render the ones that match, from a search index or a server.
+      The arrow keys, Enter, the roles and the empty label still work, and the
+      first option is selected whenever the list changes. This docs site's
+      search works this way.
+    </p>
+  </section>
+
+  <section id="without-javascript">
+    <h2>Without JavaScript</h2>
+    <p>
+      Until <code>command.js</code> loads, the input and the status line are hidden,
+      and the options are a list of links and buttons that work as they are.
+    </p>
+  </section>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UICommand style="inline-size: 20rem" variant="outlined">
+        <UICommandInput aria-label="Search commands" placeholder="Search" />
+        <UICommandList>
+          <UICommandGroup label="Actions">
+            <UIListItem as="button" label="New file" />
+            <UIListItem href="#anatomy" label="Settings" />
+          </UICommandGroup>
+        </UICommandList>
+      </UICommand>
+    </Anatomy>
+  </Fragment>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The element makes the input a combobox that controls the list, a listbox
+        named after the input. Each group is a group named by its label, and
+        each link or button an option.
+      </li>
+      <li>
+        Focus stays in the input. The selected option is its <code
+          >aria-activedescendant</code
+        >, so a screen reader reads it as the arrow keys move.
+      </li>
+      <li>
+        The options take <code>tabindex="-1"</code>, so Tab leaves the command
+        instead of walking every option.
+      </li>
+      <li>The empty label is announced through a polite live region.</li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+</Component>

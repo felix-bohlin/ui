@@ -17,6 +17,13 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       > & { label?: string | undefined }
+      "opui-command": DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        "empty-label"?: string | undefined
+        filter?: "none" | undefined
+      }
       "opui-copy": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
       "opui-number-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,

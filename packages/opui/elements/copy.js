@@ -1,6 +1,7 @@
 const Base = globalThis.HTMLElement ?? class {}
 
 const COPIED = 2000
+const TIMEOUT = 2000
 
 export class Copy extends Base {
   #controller
@@ -48,13 +49,8 @@ export class Copy extends Base {
 
   async copy(source) {
     this.#reset()
-    let copied = true
-    try {
-      await navigator.clipboard.writeText(this.text)
-    } catch {
-      copied = false
-      this.#select()
-    }
+    const copied = await this.#write(this.text)
+    if (!copied) this.#select()
     const message = copied
       ? (this.getAttribute("copied-label") ?? "Copied")
       : (this.getAttribute("failed-label") ?? "Copy failed")
@@ -90,6 +86,38 @@ export class Copy extends Base {
       return
     }
     this.ownerDocument.getSelection()?.selectAllChildren(this)
+  }
+
+  async #write(text) {
+    if (!navigator.clipboard?.writeText) return this.#writeWithField(text)
+    try {
+      await Promise.race([
+        navigator.clipboard.writeText(text),
+        new Promise((_, reject) => setTimeout(reject, TIMEOUT)),
+      ])
+      return true
+    } catch {
+      return this.#writeWithField(text)
+    }
+  }
+
+  #writeWithField(text) {
+    const { activeElement, body } = this.ownerDocument
+    const field = this.ownerDocument.createElement("textarea")
+    field.readOnly = true
+    field.style.cssText =
+      "font-size: 16px; inset-block-start: 0; opacity: 0; position: fixed;"
+    field.value = text
+    body.append(field)
+    field.focus({ preventScroll: true })
+    field.setSelectionRange(0, text.length)
+    let copied = false
+    try {
+      copied = this.ownerDocument.execCommand("copy")
+    } catch {}
+    field.remove()
+    activeElement?.focus?.({ preventScroll: true })
+    return copied
   }
 
   #show(source, message) {

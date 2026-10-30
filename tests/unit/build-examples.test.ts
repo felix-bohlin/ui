@@ -1,26 +1,24 @@
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import type { AstroInstance } from "astro"
-import { describe, expect, test } from "vitest"
+import { readFileSync } from "node:fs"
+import { beforeAll, describe, expect, test } from "vitest"
 import {
   cleanRender,
-  compare,
   convertExample,
-  exampleLocals,
-  generatedTargets,
+  generate,
   HTML_SCRIPT_RULES,
   htmlFromRender,
-  layoutClasses,
   REACT_DEFAULT_VALUE,
-  readHandWritten,
-  TARGETS,
 } from "../../scripts/build-examples.mjs"
+import {
+  astroSourceOf,
+  generatedTargets,
+  readHandWritten,
+  staleProblems,
+  TARGETS,
+} from "../../scripts/example-targets.mjs"
 import type { ComponentApi } from "../../src/component-api/types"
 
 const EXAMPLES = "../../src/component-examples/"
 
-const astroModules = import.meta.glob<AstroInstance>(
-  "../../src/component-examples/**/*.astro",
-)
 const sources = import.meta.glob<string>(
   "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
@@ -36,18 +34,12 @@ const keys = Object.keys(sources)
   .toSorted()
 
 const handWritten = readHandWritten()
-const classes = await layoutClasses()
-const container = await AstroContainer.create()
-
-const generate = async (key: string, framework: keyof typeof TARGETS) => {
-  const file = `src/component-examples/${key}.astro`
-  const source = sources[`${EXAMPLES}${key}.astro`]
-  if (framework !== "html") return convertExample(source, framework, file)
-  const module = await astroModules[`${EXAMPLES}${key}.astro`]()
-  const rendered = await container.renderToString(module.default, {
-    locals: exampleLocals(key, source),
-  })
-  return htmlFromRender(rendered, source, file, classes)
+const committed = (file: string) => {
+  try {
+    return readFileSync(file, "utf8")
+  } catch {
+    return undefined
+  }
 }
 
 const astro = (body: string, imports = "", consts = "") =>
@@ -359,16 +351,6 @@ describe("HTML", () => {
   })
 })
 
-test("compare sorts a change into the smallest bucket", () => {
-  expect(compare(undefined, "<p>a</p>")).toBe("new")
-  expect(compare("<p>a</p>", "<p>a</p>")).toBe("identical")
-  expect(compare("<p>a</p>", "<p>\n  a\n</p>")).toBe("whitespace")
-  expect(compare('<p a="1" b="2"></p>', '<p b="2" a="1"></p>')).toBe("order")
-  expect(compare('<p class="a b"></p>', '<p class="b a"></p>')).toBe("order")
-  expect(compare("<path />", "<path></path>")).toBe("whitespace")
-  expect(compare("<p>a</p>", "<p>b</p>")).toBe("changed")
-})
-
 test("REACT_DEFAULT_VALUE lists the components that hold their value as state", () => {
   const state = Object.values(apis)
     .filter(
@@ -381,12 +363,42 @@ test("REACT_DEFAULT_VALUE lists the components that hold their value as state", 
   expect(REACT_DEFAULT_VALUE).toEqual(state)
 })
 
-describe("hand-written examples", () => {
+describe("generated examples", () => {
+  let all: Awaited<ReturnType<typeof generate>>
+  let withoutList: Awaited<ReturnType<typeof generate>>
+  const listed = Object.keys(handWritten)
+  const listedSlugs = [...new Set(listed.map((file) => file.split("/")[0]))]
+
+  beforeAll(async () => {
+    all = await generate()
+    withoutList = await generate({ handWritten: {}, only: listedSlugs })
+  }, 300_000)
+
+  test("every example converts", () => {
+    expect(all.problems).toEqual([])
+  })
+
+  test("every generated file is up to date", () => {
+    expect(staleProblems(all.outputs, committed)).toEqual([])
+  })
+
+  test("every example has its generated files", () => {
+    const expected = keys.flatMap((key) =>
+      generatedTargets(
+        key,
+        sources[`${EXAMPLES}${key}.astro`],
+        handWritten,
+      ).map(
+        (framework) => `src/component-examples/${key}${TARGETS[framework]}`,
+      ),
+    )
+    expect([...all.outputs.keys()].toSorted()).toEqual(expected.toSorted())
+  })
+
   test("hand-written-examples.json is sorted and names existing files", () => {
-    const files = Object.keys(handWritten)
-    expect(files).toEqual(files.toSorted())
+    expect(listed).toEqual(listed.toSorted())
     expect(
-      files.filter(
+      listed.filter(
         (file) =>
           !sources[`${EXAMPLES}${file}`] ||
           !sources[
@@ -396,20 +408,13 @@ describe("hand-written examples", () => {
     ).toEqual([])
   })
 
-  test.each(Object.keys(handWritten))(
-    "%s would differ if it were generated",
-    async (file) => {
-      const key = file.replace(/\.(html|react\.tsx|svelte|vue)$/, "")
-      const framework = (Object.keys(TARGETS) as (keyof typeof TARGETS)[]).find(
-        (candidate) => file === `${key}${TARGETS[candidate]}`,
-      )!
-      const generated = await generate(key, framework).catch(() => undefined)
-      expect(
-        generated,
-        `${file} generates as it is; remove it from scripts/hand-written-examples.json`,
-      ).not.toBe(sources[`${EXAMPLES}${file}`])
-    },
-  )
+  test.each(listed)("%s would differ if it were generated", (file) => {
+    const generated = withoutList.outputs.get(`src/component-examples/${file}`)
+    expect(
+      generated,
+      `${file} generates as it is; remove it from scripts/hand-written-examples.json`,
+    ).not.toBe(sources[`${EXAMPLES}${file}`])
+  })
 
   test("an example with a client <script> keeps its React, Svelte and Vue", () => {
     const scripted = keys.filter((key) =>
@@ -424,20 +429,66 @@ describe("hand-written examples", () => {
   })
 })
 
-describe.each(keys)("%s", (key) => {
-  const targets = generatedTargets(
-    key,
-    sources[`${EXAMPLES}${key}.astro`],
-    handWritten,
-  ) as (keyof typeof TARGETS)[]
-  test.each(targets)(
-    "%s is generated from the Astro file",
-    async (framework) => {
-      const file = `${key}${TARGETS[framework]}`
-      expect(
-        sources[`${EXAMPLES}${file}`],
-        `${file} is generated from ${key}.astro: edit ${key}.astro and run pnpm build-examples`,
-      ).toBe(await generate(key, framework))
-    },
-  )
+describe("stale files", () => {
+  const outputs = new Map([
+    ["src/component-examples/a/B.html", "<p>b</p>\n"],
+    ["src/component-examples/a/B.react.tsx", "export default 1\n"],
+    ["src/component-examples/a/C.vue", "<template>c</template>\n"],
+  ])
+  const files: Record<string, string> = {
+    "src/component-examples/a/B.html": "<p>b</p>\n",
+    "src/component-examples/a/B.react.tsx": "export default 2\n",
+  }
+
+  test("names each file that differs or is missing, with the Astro file to edit", () => {
+    expect(staleProblems(outputs, (file: string) => files[file])).toEqual([
+      "src/component-examples/a/B.react.tsx is stale: edit src/component-examples/a/B.astro and run pnpm build-examples",
+      "src/component-examples/a/C.vue is stale: edit src/component-examples/a/C.astro and run pnpm build-examples",
+    ])
+  })
+
+  test("reports nothing when every file matches", () => {
+    expect(staleProblems(outputs, (file: string) => outputs.get(file))).toEqual(
+      [],
+    )
+  })
+
+  test("a generated file maps to its Astro file, and a hand-written one does not", () => {
+    const read = (file: string) => sources[`../../${file}`]
+    expect(astroSourceOf("src/component-examples/button/Sizes.vue", read)).toBe(
+      "src/component-examples/button/Sizes.astro",
+    )
+    expect(astroSourceOf("src/component-examples/tabs/Binding.vue", read)).toBe(
+      undefined,
+    )
+    expect(
+      astroSourceOf("src/component-examples/tabs/Binding.html", read),
+    ).toBe("src/component-examples/tabs/Binding.astro")
+    expect(
+      astroSourceOf("src/component-examples/text-field/NoLabel.html", read),
+    ).toBe(undefined)
+    expect(
+      astroSourceOf("src/component-examples/button/Sizes.astro", read),
+    ).toBe(undefined)
+    expect(astroSourceOf("README.md", read)).toBe(undefined)
+  })
+})
+
+describe("package scripts", () => {
+  const { scripts } = JSON.parse(readFileSync("package.json", "utf8"))
+  const group = new RegExp(scripts["check:fast"].match(/"\/(.+)\/"/)[1])
+
+  test("check:fast checks the examples and writes none", () => {
+    expect(group.test("check-examples")).toBe(true)
+    expect(group.test("build-examples")).toBe(false)
+    expect(scripts["check:fast"]).not.toContain("build-examples")
+    expect(scripts["check-examples"]).toBe(
+      "node scripts/build-examples.mjs --check",
+    )
+  })
+
+  test("build writes the examples first and check runs check:fast", () => {
+    expect(scripts.build.startsWith("pnpm build-examples && ")).toBe(true)
+    expect(scripts.check).toContain("pnpm check:fast")
+  })
 })

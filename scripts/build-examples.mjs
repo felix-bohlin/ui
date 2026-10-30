@@ -1,9 +1,9 @@
-import { execFileSync } from "node:child_process"
-import { existsSync, readFileSync, realpathSync } from "node:fs"
+import { readFileSync, realpathSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { stripTypeScriptTypes } from "node:module"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
+import { parseArgs } from "node:util"
 import { parse } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import postcss from "postcss"
@@ -11,23 +11,20 @@ import { format, resolveConfig } from "prettier"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { clean } from "../src/utils/clean-html.ts"
-import { DEFAULT_FRAMEWORK } from "../src/utils/framework.js"
 import { createExampleIdGenerator } from "../src/utils/id.ts"
+import {
+  generatedTargets,
+  readHandWritten,
+  staleProblems,
+  TARGETS,
+} from "./example-targets.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const examplesDir = join(root, "src/component-examples")
 const componentsDir = join(root, "packages/opui/components")
 const cssDir = join(root, "packages/opui/css/components")
-const handWrittenFile = join(root, "scripts/hand-written-examples.json")
 
-export const TARGETS = {
-  html: ".html",
-  react: ".react.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
-
-export const REACT_ATTRIBUTES = {
+const REACT_ATTRIBUTES = {
   allowfullscreen: "allowFullScreen",
   autocomplete: "autoComplete",
   class: "className",
@@ -45,14 +42,6 @@ export const REACT_ATTRIBUTES = {
   tabindex: "tabIndex",
 }
 
-export const REACT_KEPT_ATTRIBUTES = [
-  "closedby",
-  "command",
-  "commandfor",
-  "interestfor",
-  "popover",
-]
-
 export const REACT_DEFAULT_VALUE = [
   "ColorField",
   "NumberStepper",
@@ -64,7 +53,7 @@ export const REACT_DEFAULT_VALUE = [
   "ToggleGroup",
 ]
 
-export const NUMERIC_ATTRIBUTES = [
+const NUMERIC_ATTRIBUTES = [
   "colspan",
   "maxlength",
   "minlength",
@@ -316,7 +305,7 @@ const expressionNode = (node, context) => {
   }
 }
 
-export const parseExample = async (source, file = "Example.astro") => {
+const parseExample = async (source, file = "Example.astro") => {
   const { ast } = await parse(source, { position: false })
   const frontmatter =
     ast.children.find((node) => node.type === "frontmatter")?.value ?? ""
@@ -537,7 +526,7 @@ const markupTarget = (framework) => {
   return emit
 }
 
-export const toSvelte = (example) => {
+const toSvelte = (example) => {
   const emit = markupTarget("svelte")
   const snippets = [...example.markup.values()]
     .filter((item) => item.shared)
@@ -558,7 +547,7 @@ export const toSvelte = (example) => {
   return `${script ? `<script lang="ts">\n${script}\n</script>\n\n` : ""}${snippets}${emit(example.tree, example.markup)}${styles}\n`
 }
 
-export const toVue = (example) => {
+const toVue = (example) => {
   const emit = markupTarget("vue")
   const script = [
     importLine(example, "vue"),
@@ -627,11 +616,7 @@ const reactProps = (node, context) => {
     ) {
       name = "defaultValue"
     }
-    if (
-      name.includes("-") &&
-      !/^(aria|data)-/.test(name) &&
-      !REACT_KEPT_ATTRIBUTES.includes(name)
-    ) {
+    if (name.includes("-") && !/^(aria|data)-/.test(name)) {
       throw unsupported(context.file, `the attribute ${item.name}`, "React")
     }
     if (item.kind === "boolean") return { code: name, name }
@@ -767,7 +752,7 @@ const reactElement = (node, context, key) => {
   return `${openTag(node.name, attributes)}>${content}</${node.name}>`
 }
 
-export const toReact = (example, name, file = `${name}.astro`) => {
+const toReact = (example, name, file = `${name}.astro`) => {
   const context = { file, markup: example.markup }
   const components = usedComponents(example)
   const functionName = components.includes(name) ? `${name}Example` : name
@@ -919,7 +904,7 @@ const topLevelBreaks = (html, blankLines) => {
     .join("\n")
 }
 
-export const BOOLEAN_ATTRIBUTES = new Set([
+const BOOLEAN_ATTRIBUTES = new Set([
   "allowfullscreen",
   "async",
   "autofocus",
@@ -965,7 +950,7 @@ const tidyTag = (tag) =>
 
 const tidyText = (text) => text.replace(/&quot;/g, '"').replace(/&#39;/g, "'")
 
-export const layoutClasses = async () => {
+const layoutClasses = async () => {
   const classes = new Map()
   for (const file of await readdir(cssDir)) {
     if (!file.endsWith(".css")) continue
@@ -1105,13 +1090,6 @@ export const htmlFromRender = async (rendered, source, file, classes) => {
   )
 }
 
-export const exampleLocals = (key, source) => ({
-  $id: createExampleIdGenerator(key, source),
-  componentSlug: key.split("/")[0],
-  framework: DEFAULT_FRAMEWORK,
-  link: (path) => path,
-})
-
 const createRenderer = async () => {
   const { getViteConfig } = await import("astro/config")
   const { createViteServer } = await import("vitest/node")
@@ -1140,30 +1118,22 @@ const createRenderer = async () => {
         `/src/component-examples/${key}.astro`,
       )
       return container.renderToString(module.default, {
-        locals: exampleLocals(key, source),
+        locals: { $id: createExampleIdGenerator(key, source) },
       })
     },
   }
 }
 
-export const readHandWritten = () =>
-  existsSync(handWrittenFile)
-    ? JSON.parse(readFileSync(handWrittenFile, "utf8"))
-    : {}
-
-export const isHandWritten = (file, source, handWritten) =>
-  file in handWritten || (!file.endsWith(".html") && /^<script\b/m.test(source))
-
-export const generatedTargets = (key, source, handWritten) =>
-  Object.keys(TARGETS).filter(
-    (framework) =>
-      !isHandWritten(`${key}${TARGETS[framework]}`, source, handWritten),
-  )
-
 const exampleKeys = async (only) => {
+  const slugs = (await readdir(examplesDir)).toSorted()
+  const unknown = only.filter((slug) => !slugs.includes(slug))
+  if (unknown.length > 0) {
+    throw new Error(`--only names no examples folder: ${unknown.join(", ")}`)
+  }
   const keys = []
-  for (const slug of (await readdir(examplesDir)).toSorted()) {
-    if (only.length > 0 && !only.includes(slug)) continue
+  for (const slug of slugs.filter(
+    (slug) => only.length === 0 || only.includes(slug),
+  )) {
     for (const file of (await readdir(join(examplesDir, slug))).toSorted()) {
       if (file.endsWith(".astro")) keys.push(`${slug}/${file.slice(0, -6)}`)
     }
@@ -1182,9 +1152,12 @@ const checkScriptRules = async () => {
   }
 }
 
-export const generate = async ({ only = [] } = {}) => {
+/** @param {{ only?: string[], handWritten?: Record<string, string> }} [options] */
+export const generate = async ({
+  only = [],
+  handWritten = readHandWritten(),
+} = {}) => {
   await checkScriptRules()
-  const handWritten = readHandWritten()
   const keys = await exampleKeys(only)
   const classes = await layoutClasses()
   const renderer = await createRenderer()
@@ -1252,87 +1225,38 @@ const parseLoose = async (source) => {
   return { blankLines, scripts, styles }
 }
 
-const sortedAttributes = (code) =>
-  code
-    .replace(/\s+/g, " ")
-    .replace(/<([\w-]+)((?: [^<>]*?)?)(\/?)>/g, (_, tag, attributes, slash) => {
-      const list =
-        attributes.match(
-          /[^\s=]+(?:=(?:"[^"]*"|'[^']*'|\{[^}]*\}|[^\s>]+))?/g,
-        ) ?? []
-      return `<${tag} ${list
-        .map((item) =>
-          item.replace(
-            /^(class(?:Name)?)="([^"]*)"$/,
-            (__, name, value) =>
-              `${name}="${value.split(" ").toSorted().join(" ")}"`,
-          ),
-        )
-        .toSorted()
-        .join(" ")}${slash}>`
-    })
-
-const selfClosed = (code) =>
-  code.replace(/<([a-z][\w-]*)\b([^<>]*?)\s*\/>/g, (_, tag, attributes) =>
-    VOID_ELEMENTS.has(tag)
-      ? `<${tag}${attributes}>`
-      : `<${tag}${attributes}></${tag}>`,
-  )
-
-export const compare = (before, after) => {
-  if (before === undefined) return "new"
-  if (before === after) return "identical"
-  const [a, b] = [before, after].map(selfClosed)
-  if (a.replace(/\s+/g, "") === b.replace(/\s+/g, "")) return "whitespace"
-  if (
-    sortedAttributes(a).replace(/\s+/g, "") ===
-    sortedAttributes(b).replace(/\s+/g, "")
-  ) {
-    return "order"
-  }
-  return "changed"
-}
-
-const atRef = (ref, file) => {
-  try {
-    return execFileSync("git", ["show", `${ref}:${file}`], {
-      cwd: root,
-      encoding: "utf8",
-      maxBuffer: 1 << 26,
-      stdio: ["ignore", "pipe", "ignore"],
-    })
-  } catch {
-    return undefined
-  }
-}
-
-const BUCKETS = ["identical", "whitespace", "order", "changed", "new"]
-
 const main = async () => {
-  const args = process.argv.slice(2)
-  const value = (flag) => {
-    const index = args.indexOf(flag)
-    return index === -1 ? undefined : args[index + 1]
-  }
-  const only = value("--only")?.split(",") ?? []
-  const against = value("--against")
-  const { outputs, problems } = await generate({ only })
-  const buckets = new Map(BUCKETS.map((bucket) => [bucket, []]))
-  for (const [file, code] of outputs) {
-    const current = await readFile(join(root, file), "utf8").catch(
-      () => undefined,
-    )
-    if (current !== code) await writeFile(join(root, file), code)
-    const before = against ? atRef(against, file) : current
-    buckets.get(compare(before, code)).push(file)
-  }
-  if (args.includes("--report")) {
-    for (const [bucket, files] of buckets) {
-      console.log(`${bucket}: ${files.length}`)
-      if (bucket !== "identical") {
-        for (const file of files) console.log(`  ${file}`)
-      }
+  const { values } = parseArgs({
+    options: {
+      check: { type: "boolean" },
+      only: { type: "string" },
+    },
+    strict: true,
+  })
+  const { outputs, problems } = await generate({
+    only: values.only?.split(",") ?? [],
+  })
+  const read = (file) => {
+    try {
+      return readFileSync(join(root, file), "utf8")
+    } catch {
+      return undefined
     }
+  }
+  const stale = staleProblems(outputs, read)
+  if (values.check) {
+    const errors = [...problems, ...stale]
+    if (errors.length > 0) {
+      console.error(errors.join("\n"))
+      process.exit(1)
+    }
+    console.log(`Checked ${outputs.size} example files.`)
+    return
+  }
+  for (const [file, code] of outputs) {
+    if (read(file) === code) continue
+    await writeFile(join(root, file), code)
+    console.log(`Wrote ${file}`)
   }
   if (problems.length > 0) {
     console.error(problems.join("\n"))
@@ -1345,5 +1269,8 @@ if (
   process.argv[1] &&
   realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  await main()
+  await main().catch((error) => {
+    console.error(error.message)
+    process.exit(1)
+  })
 }

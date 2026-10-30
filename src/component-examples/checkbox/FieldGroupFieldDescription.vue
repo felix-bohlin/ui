@@ -15,8 +15,8 @@ import {
       <FieldLegend>Legend</FieldLegend>
       <FieldDescription>Field description above fields</FieldDescription>
       <FieldGroup
-        orientation="horizontal"
         name="checkbox-group-field-description-1"
+        orientation="horizontal"
       >
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
@@ -27,8 +27,8 @@ import {
     <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup
-        orientation="horizontal"
         name="checkbox-group-field-description-2"
+        orientation="horizontal"
       >
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>

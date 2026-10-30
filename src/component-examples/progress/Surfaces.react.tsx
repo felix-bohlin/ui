@@ -5,11 +5,11 @@ export default function Surfaces() {
     <>
       <Progress
         aria-label="Storage used"
-        value="25"
         max="100"
+        value="25"
         variant="filled"
       />
-      <Progress aria-label="Memory used" value="75" max="100" variant="tonal" />
+      <Progress aria-label="Memory used" max="100" value="75" variant="tonal" />
     </>
   )
 }

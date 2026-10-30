@@ -7,17 +7,17 @@
   {#snippet endText()}I have read and agree to the privacy policy.{/snippet}
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread required>
+<Checkbox name="checkbox-spread" required spread>
   Required
   {#snippet endText()}You must accept this to continue.{/snippet}
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread disabled>
+<Checkbox disabled name="checkbox-spread" spread>
   Disabled
   {#snippet endText()}This checkbox is disabled.{/snippet}
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread error>
+<Checkbox error name="checkbox-spread" spread>
   Invalid Checkbox
   {#snippet endText()}Check this box to continue.{/snippet}
 </Checkbox>

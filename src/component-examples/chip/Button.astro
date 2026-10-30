@@ -3,11 +3,11 @@ import { Chip } from "opui-css/astro"
 ---
 
 <div class="example-row">
-  <Chip as="button" variant="tonal" label="Tonal button" />
-  <Chip as="button" variant="outlined" label="Outlined button" />
+  <Chip as="button" label="Tonal button" variant="tonal" />
+  <Chip as="button" label="Outlined button" variant="outlined" />
 </div>
 <div class="example-row">
-  <Chip as="button" variant="tonal" label="Open now">
+  <Chip as="button" label="Open now" variant="tonal">
     <svg
       aria-hidden="true"
       slot="start"
@@ -22,7 +22,7 @@ import { Chip } from "opui-css/astro"
       ></path>
     </svg>
   </Chip>
-  <Chip as="button" variant="outlined" label="Sort by">
+  <Chip as="button" label="Sort by" variant="outlined">
     <svg
       aria-hidden="true"
       slot="end"

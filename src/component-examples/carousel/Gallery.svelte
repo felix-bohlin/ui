@@ -10,7 +10,7 @@
   ]
 </script>
 
-<Carousel aria-label="Gallery" itemsPerView={3} aspectRatio="1">
+<Carousel aria-label="Gallery" aspectRatio="1" itemsPerView={3}>
   {#each photos as { alt, id } (id)}
     <li>
       <img

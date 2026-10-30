@@ -11,8 +11,8 @@ import {
 
 <template>
   <Button
-    commandfor="dialog-long-content-1"
     command="show-modal"
+    commandfor="dialog-long-content-1"
     variant="outlined"
   >
     Read the terms
@@ -89,12 +89,12 @@ import {
       </p>
     </DialogContent>
     <DialogFooter>
-      <Button commandfor="dialog-long-content-1" command="close">
+      <Button command="close" commandfor="dialog-long-content-1">
         Decline
       </Button>
       <Button
-        commandfor="dialog-long-content-1"
         command="close"
+        commandfor="dialog-long-content-1"
         variant="filled"
       >
         Accept

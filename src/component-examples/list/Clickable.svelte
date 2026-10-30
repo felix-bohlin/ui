@@ -6,7 +6,7 @@
   <ListItem as="button" label="Button list item" />
   <ListItem as="button" disabled label="Archived" />
   <ListItem href="#clickable-list-item" label="Link list item" />
-  <ListItem type="checkbox" label="Checkbox list item">
+  <ListItem label="Checkbox list item" type="checkbox">
     {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>

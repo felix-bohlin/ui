@@ -3,16 +3,16 @@ import { Button, ButtonGroup } from "opui-css/react"
 export default function Overflow() {
   return (
     <>
-      <ButtonGroup variant="outlined" style={{ maxInlineSize: "18rem" }}>
+      <ButtonGroup style={{ maxInlineSize: "18rem" }} variant="outlined">
         <Button>Archive</Button>
         <Button>Move to folder</Button>
         <Button>Mark as unread</Button>
         <Button>Delete</Button>
       </ButtonGroup>
       <ButtonGroup
-        variant="outlined"
         overflow="scroll"
         style={{ maxInlineSize: "18rem" }}
+        variant="outlined"
       >
         <Button>Archive</Button>
         <Button>Move to folder</Button>
@@ -20,9 +20,9 @@ export default function Overflow() {
         <Button>Delete</Button>
       </ButtonGroup>
       <ButtonGroup
-        variant="outlined"
         overflow="shrink"
         style={{ maxInlineSize: "18rem" }}
+        variant="outlined"
       >
         <Button>Archive</Button>
         <Button>Move to folder</Button>

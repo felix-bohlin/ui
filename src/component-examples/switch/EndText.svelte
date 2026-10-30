@@ -2,7 +2,7 @@
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch name="switch-end-text" endText="Supporting text">Default</Switch>
-<Switch name="switch-end-text" orientation="vertical" endText="Supporting text">
+<Switch endText="Supporting text" name="switch-end-text">Default</Switch>
+<Switch endText="Supporting text" name="switch-end-text" orientation="vertical">
   Stack
 </Switch>

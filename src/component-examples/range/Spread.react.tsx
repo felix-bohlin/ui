@@ -11,24 +11,22 @@ export default function Spread() {
       />
 
       <Range
+        disabled
+        endText="End text"
         label="Disabled"
         spread
-        disabled
         startText="Start text"
-        endText="End text"
       />
 
       <Range
+        endText="Pick a value below 50."
+        error
         label="Invalid Range"
         spread
-        error
-        endText="Pick a value below 50."
         startText="Start text"
       />
 
       <Range
-        label="Tick marks with labels"
-        spread
         items={[
           { value: 0, label: "0%" },
           { value: 25, label: "25%" },
@@ -36,6 +34,8 @@ export default function Spread() {
           { value: 75, label: "75%" },
           { value: 100, label: "100%" },
         ]}
+        label="Tick marks with labels"
+        spread
       />
     </>
   )

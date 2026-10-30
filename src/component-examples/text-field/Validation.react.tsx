@@ -15,18 +15,18 @@ export default function Validation() {
 
       <div className="example-row">
         <TextField
-          label="Label"
-          placeholder="Placeholder"
           defaultValue="This isn't right"
           endText="Only double-negatives are allowed."
           error
-        />
-        <TextField
           label="Label"
           placeholder="Placeholder"
+        />
+        <TextField
           defaultValue="Uh-oh"
           endText="Only letters from the first half of the alphabet are allowed."
           error
+          label="Label"
+          placeholder="Placeholder"
           variant="filled"
         />
       </div>

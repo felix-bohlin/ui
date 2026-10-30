@@ -3,11 +3,11 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Label" placeholder="Default" endText="Supporting text" />
+  <Textarea endText="Supporting text" label="Label" placeholder="Default" />
   <Textarea
+    endText="Supporting text"
     label="Label"
     placeholder="Filled"
-    endText="Supporting text"
     variant="filled"
   />
 </template>

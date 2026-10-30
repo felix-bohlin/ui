@@ -12,7 +12,7 @@ export default function AlwaysVisible() {
       <Anchor positionArea="inline-end">
         <Button variant="outlined">Export</Button>
         <AnchorContent>
-          <Card variant="tonal" className="coach-mark">
+          <Card className="coach-mark" variant="tonal">
             <CardContent>
               <strong>New</strong> Export to PDF and CSV from the same menu.
             </CardContent>

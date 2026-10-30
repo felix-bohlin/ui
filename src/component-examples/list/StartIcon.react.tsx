@@ -21,8 +21,8 @@ export default function StartIcon() {
         }
       />
       <ListItem
-        label="Headline"
         description="Supporting text"
+        label="Headline"
         start={
           <svg
             aria-hidden="true"

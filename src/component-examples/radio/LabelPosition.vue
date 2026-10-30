@@ -3,8 +3,8 @@ import { Radio } from "opui-css/vue"
 </script>
 
 <template>
-  <Radio name="radio-label-position" value="default" checked>Default</Radio>
-  <Radio name="radio-label-position" value="stack" orientation="vertical"
+  <Radio checked name="radio-label-position" value="default">Default</Radio>
+  <Radio name="radio-label-position" orientation="vertical" value="stack"
     >Stack</Radio
   >
 </template>

@@ -8,17 +8,17 @@ import { Checkbox } from "opui-css/vue"
     <template #end-text>I have read and agree to the privacy policy.</template>
   </Checkbox>
 
-  <Checkbox name="checkbox-spread" spread required>
+  <Checkbox name="checkbox-spread" required spread>
     Required
     <template #end-text>You must accept this to continue.</template>
   </Checkbox>
 
-  <Checkbox name="checkbox-spread" spread disabled>
+  <Checkbox disabled name="checkbox-spread" spread>
     Disabled
     <template #end-text>This checkbox is disabled.</template>
   </Checkbox>
 
-  <Checkbox name="checkbox-spread" spread error>
+  <Checkbox error name="checkbox-spread" spread>
     Invalid Checkbox
     <template #end-text>Check this box to continue.</template>
   </Checkbox>

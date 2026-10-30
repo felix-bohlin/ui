@@ -6,7 +6,7 @@ export default function Basics() {
       <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="radio-group">
-          <Radio value="1" defaultChecked>
+          <Radio defaultChecked value="1">
             Radio 1
           </Radio>
           <Radio value="2">Radio 2</Radio>

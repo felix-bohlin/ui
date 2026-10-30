@@ -3,14 +3,14 @@ import { Select } from "opui-css/react"
 export default function EndText() {
   return (
     <>
-      <Select label="Label" endText="Supporting text">
+      <Select endText="Supporting text" label="Label">
         <option value="">-</option>
         <option>Outlined (default)</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </Select>
 
-      <Select label="Label" variant="filled" endText="Supporting text">
+      <Select endText="Supporting text" label="Label" variant="filled">
         <option value="">-</option>
         <option>Filled</option>
         <option>Option Two</option>

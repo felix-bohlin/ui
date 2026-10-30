@@ -4,30 +4,30 @@ export default function Sizes() {
   return (
     <>
       <div className="example-row">
-        <Switch name="switch-sizes" size="x-small" defaultChecked hideLabel>
+        <Switch defaultChecked hideLabel name="switch-sizes" size="x-small">
           X-small
         </Switch>
-        <Switch name="switch-sizes" size="small" defaultChecked hideLabel>
+        <Switch defaultChecked hideLabel name="switch-sizes" size="small">
           Small
         </Switch>
-        <Switch name="switch-sizes" defaultChecked hideLabel>
+        <Switch defaultChecked hideLabel name="switch-sizes">
           Medium
         </Switch>
-        <Switch name="switch-sizes" size="large" defaultChecked hideLabel>
+        <Switch defaultChecked hideLabel name="switch-sizes" size="large">
           Large
         </Switch>
       </div>
       <div className="example-row">
-        <Switch name="switch-sizes" size="x-small" defaultChecked>
+        <Switch defaultChecked name="switch-sizes" size="x-small">
           X-small
         </Switch>
-        <Switch name="switch-sizes" size="small" defaultChecked>
+        <Switch defaultChecked name="switch-sizes" size="small">
           Small
         </Switch>
-        <Switch name="switch-sizes" defaultChecked>
+        <Switch defaultChecked name="switch-sizes">
           Medium
         </Switch>
-        <Switch name="switch-sizes" size="large" defaultChecked>
+        <Switch defaultChecked name="switch-sizes" size="large">
           Large
         </Switch>
       </div>

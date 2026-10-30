@@ -3,10 +3,10 @@ import { Radio } from "opui-css/react"
 export default function VisibleLabel() {
   return (
     <>
-      <Radio name="radio-visible-label" value="a" defaultChecked>
+      <Radio defaultChecked name="radio-visible-label" value="a">
         Choice A
       </Radio>
-      <Radio name="radio-visible-label" value="b" disabled>
+      <Radio disabled name="radio-visible-label" value="b">
         Disabled
       </Radio>
       <Radio name="radio-visible-label" value="c">

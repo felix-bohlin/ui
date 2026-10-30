@@ -4,8 +4,8 @@ import { Range } from "opui-css/vue"
 
 <template>
   <Range
+    endText="End helper text"
     label="Label"
     startText="Start helper text"
-    endText="End helper text"
   />
 </template>

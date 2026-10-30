@@ -3,11 +3,8 @@ import { Chip } from "opui-css/react"
 export default function Link() {
   return (
     <>
-      <Chip href="#" variant="tonal" label="Tonal link" />
+      <Chip href="#" label="Tonal link" variant="tonal" />
       <Chip
-        href="#"
-        variant="outlined"
-        label="Outlined link"
         end={
           <svg
             aria-hidden="true"
@@ -22,6 +19,9 @@ export default function Link() {
             ></path>
           </svg>
         }
+        href="#"
+        label="Outlined link"
+        variant="outlined"
       />
     </>
   )

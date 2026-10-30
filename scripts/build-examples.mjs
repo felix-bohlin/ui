@@ -12,9 +12,15 @@ import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { clean } from "../src/utils/clean-html.ts"
 import {
+  reactKinds,
+  reactPropsOf,
+  resolveReactProp,
+} from "./example-react-props.mjs"
+import {
   attributeText,
   decodeAttribute,
   decodeText,
+  decodeTextarea,
   jsxAttribute,
   jsxText,
   markupText,
@@ -22,6 +28,7 @@ import {
 } from "./example-encoders.mjs"
 import { createExampleIdGenerator } from "../src/utils/id.ts"
 import {
+  byAttributeName,
   generatedTargets,
   handWrittenProblems,
   readHandWritten,
@@ -34,23 +41,15 @@ const examplesDir = join(root, "src/component-examples")
 const componentsDir = join(root, "packages/opui/components")
 const cssDir = join(root, "packages/opui/css/components")
 
-const REACT_ATTRIBUTES = {
-  allowfullscreen: "allowFullScreen",
-  autocomplete: "autoComplete",
-  class: "className",
-  colspan: "colSpan",
-  for: "htmlFor",
-  maxlength: "maxLength",
-  minlength: "minLength",
-  playsinline: "playsInline",
-  readonly: "readOnly",
-  referrerpolicy: "referrerPolicy",
-  rowspan: "rowSpan",
-  "stroke-linecap": "strokeLinecap",
-  "stroke-linejoin": "strokeLinejoin",
-  "stroke-width": "strokeWidth",
-  tabindex: "tabIndex",
-}
+export const REACT_FIXED_VALUE_TYPES = [
+  "button",
+  "checkbox",
+  "hidden",
+  "image",
+  "radio",
+  "reset",
+  "submit",
+]
 
 export const REACT_DEFAULT_VALUE = [
   "ColorField",
@@ -356,7 +355,11 @@ const toTree = (nodes, context) =>
       })
       return [
         {
-          attributes: attributes.filter((item) => item.name !== "slot"),
+          attributes: attributes
+            .filter((item) => item.name !== "slot")
+            .toSorted((a, b) =>
+              node.type === "component" ? byAttributeName(a.name, b.name) : 0,
+            ),
           children:
             context.svg || node.name === "svg"
               ? svgChildren(children)
@@ -903,13 +906,6 @@ const styleObject = (css) =>
     })
     .join(", ")} }}`
 
-const isSorted = (names) =>
-  names.length > 1 &&
-  names.every(
-    (name, index) =>
-      index === 0 || names[index - 1].localeCompare(name, "en") <= 0,
-  )
-
 const reactExpression = (nodes, context, extra = "") => {
   const inlined = nodes.flatMap((node) =>
     node.type === "html" && !context.markup.get(node.name).shared
@@ -924,63 +920,179 @@ const reactExpression = (nodes, context, extra = "") => {
     : `<>${reactNodes(inlined, context)}${extra}</>`
 }
 
-const reactProps = (node, context) => {
-  const selected =
-    node.name === "Select"
-      ? node.children
-          .filter(
-            (child) => child.type === "element" && child.name === "option",
-          )
-          .find((option) =>
-            option.attributes.some((item) => item.name === "selected"),
-          )
-      : undefined
-  const readonly = node.attributes.some((item) => item.name === "readonly")
-  const props = node.attributes.map((item) => {
-    let name = REACT_ATTRIBUTES[item.name] ?? item.name
-    if (item.name === "checked") name = "defaultChecked"
-    if (
-      item.name === "value" &&
-      !readonly &&
-      (REACT_DEFAULT_VALUE.includes(node.name) ||
-        (!node.component && ["input", "textarea"].includes(node.name)))
-    ) {
-      name = "defaultValue"
-    }
-    if (name.includes("-") && !/^(aria|data)-/.test(name)) {
-      throw unsupported(context.file, `the attribute ${item.name}`, "React")
-    }
-    if (item.kind === "boolean") return { code: name, name }
-    if (
-      NUMERIC_ATTRIBUTES.includes(item.name) &&
-      item.kind === "string" &&
-      /^-?\d+$/.test(item.value)
-    ) {
-      return { code: `${name}={${item.value}}`, name }
-    }
-    if (item.name === "style" && item.kind === "string") {
-      return { code: `${name}=${styleObject(item.value)}`, name }
-    }
-    if (item.kind === "string") {
-      return { code: jsxAttribute(name, item.value), name }
-    }
-    return { code: `${name}={${item.value}}`, name }
+const ASCII_WHITESPACE = /[\t\n\f\r ]+/g
+
+const optionsOf = (nodes) =>
+  nodes.flatMap((child) => {
+    if (child.type !== "element" || child.component) return []
+    if (child.name === "option") return [child]
+    return child.name === "optgroup" ? optionsOf(child.children) : []
   })
-  if (selected) {
-    const value =
-      selected.attributes.find((item) => item.name === "value")?.value ??
-      decodeText(
-        selected.children.map((child) => child.value ?? "").join(""),
-      ).trim()
-    props.push({
-      code: jsxAttribute("defaultValue", value),
+
+const optionValue = (option) =>
+  option.attributes.find((item) => item.name === "value")?.value ??
+  decodeText(option.children.map((child) => child.value ?? "").join(""))
+    .replace(ASCII_WHITESPACE, " ")
+    .replace(/^ | $/g, "")
+
+const withoutSelected = (nodes) =>
+  nodes.map((child) => {
+    if (child.type !== "element" || child.component) return child
+    if (child.name === "option") {
+      return {
+        ...child,
+        attributes: child.attributes.filter((item) => item.name !== "selected"),
+      }
+    }
+    return child.name === "optgroup"
+      ? { ...child, children: withoutSelected(child.children) }
+      : child
+  })
+
+const stringProp = (name, value) =>
+  value.includes("\n")
+    ? `${name}={${JSON.stringify(value)}}`
+    : jsxAttribute(name, value)
+
+const reactFormState = (node, table, context) => {
+  const attribute = (name) => node.attributes.find((item) => item.name === name)
+  const where = `<${node.name}>`
+  const state = { children: node.children, extra: [], valueIsState: false }
+  const selected = optionsOf(node.children).filter((option) =>
+    option.attributes.some((item) => item.name === "selected"),
+  )
+  if (selected.length > 0) {
+    if (!table.has("defaultValue")) {
+      throw unsupported(
+        context.file,
+        `a selected <option> inside ${where}, which has no defaultValue`,
+        "React",
+      )
+    }
+    if (attribute("value") || attribute("defaultValue")) {
+      throw unsupported(
+        context.file,
+        `a selected <option> next to a value on ${where}`,
+        "React",
+      )
+    }
+    const multiple = attribute("multiple")
+    if (!multiple && selected.length > 1) {
+      throw unsupported(
+        context.file,
+        `several selected options in ${where} without multiple`,
+        "React",
+      )
+    }
+    const values = selected.map(optionValue)
+    state.extra.push({
+      code: multiple
+        ? `defaultValue={${JSON.stringify(values)}}`
+        : jsxAttribute("defaultValue", values[0]),
       name: "defaultValue",
     })
+    state.children = withoutSelected(node.children)
   }
+  if (!node.component && node.name === "textarea") {
+    if (node.children.some((child) => child.type !== "text")) {
+      throw unsupported(context.file, "a <textarea> with markup", "React")
+    }
+    const text = decodeTextarea(
+      node.children.map((child) => child.value).join(""),
+    )
+    if (text) {
+      state.extra.push({
+        code: stringProp("defaultValue", text),
+        name: "defaultValue",
+      })
+    }
+    state.children = []
+  }
+  if (!attribute("readonly")) {
+    if (node.component) {
+      state.valueIsState = REACT_DEFAULT_VALUE.includes(node.name)
+    } else if (node.name === "textarea") {
+      state.valueIsState = true
+    } else if (node.name === "input") {
+      const type = attribute("type")
+      if (type && type.kind !== "string") {
+        throw unsupported(
+          context.file,
+          "an <input> with a dynamic type",
+          "React",
+        )
+      }
+      state.valueIsState = !REACT_FIXED_VALUE_TYPES.includes(type?.value)
+    }
+  }
+  return state
+}
+
+const reactPropCode = (name, item, kinds, where, context) => {
+  const has = (...names) => names.some((kind) => kinds.has(kind))
+  const fail = (what) =>
+    unsupported(
+      context.file,
+      `${what} for the prop ${name} of ${where}, which React types as ${[...kinds].join(" or ") || "nothing"}`,
+      "React",
+    )
+  if (item.kind === "boolean") {
+    if (has("boolean", "any", "other")) return name
+    if (has("string")) return `${name}=""`
+    throw fail("an attribute without a value")
+  }
+  if (item.kind === "string") {
+    if (name === "style") return `${name}=${styleObject(item.value)}`
+    if (has("string", "any", "other")) return jsxAttribute(name, item.value)
+    if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
+      return `${name}={${item.value}}`
+    }
+    throw fail(`the string ${JSON.stringify(item.value)}`)
+  }
+  return `${name}={${item.value}}`
+}
+
+const reactProps = (node, context) => {
+  const where = `<${node.name}>`
+  const table = reactPropsOf(node.name, node.component)
+  if (!table) {
+    throw unsupported(
+      context.file,
+      `${where}, which React's types don't have`,
+      "React",
+    )
+  }
+  const state = reactFormState(node, table, context)
+  const props = node.attributes.map((item) => {
+    const name =
+      item.name === "checked" && table.has("defaultChecked")
+        ? "defaultChecked"
+        : item.name === "value" && state.valueIsState
+          ? "defaultValue"
+          : resolveReactProp(table, item.name)
+    if (!name) {
+      throw unsupported(
+        context.file,
+        `the attribute ${item.name} on ${where}, which React's types for it don't have`,
+        "React",
+      )
+    }
+    return {
+      code: reactPropCode(name, item, reactKinds(table, name), where, context),
+      name,
+    }
+  })
   const slots = node.children
     .filter((child) => child.slot)
     .map((child) => {
       const name = slotProp(child.slot)
+      if (!table.has(name)) {
+        throw unsupported(
+          context.file,
+          `the slot ${child.slot} of ${where}, which has no ${name} prop in React`,
+          "React",
+        )
+      }
       const content =
         child.type === "fragment"
           ? trimTree(child.children)
@@ -995,12 +1107,16 @@ const reactProps = (node, context) => {
       }
       return { code: `${name}={${reactExpression(content, context)}}`, name }
     })
-  const all = isSorted(node.attributes.map(({ name }) => name))
-    ? [...props, ...slots].toSorted((a, b) =>
-        a.name.localeCompare(b.name, "en"),
-      )
-    : [...props, ...slots]
-  return all.map(({ code }) => code).join(" ")
+  const all = [...props, ...state.extra, ...slots]
+  return {
+    children: state.children,
+    code: (node.component
+      ? all.toSorted((a, b) => byAttributeName(a.name, b.name))
+      : all
+    )
+      .map(({ code }) => code)
+      .join(" "),
+  }
 }
 
 const reactChildren = (nodes) => {
@@ -1056,21 +1172,8 @@ const reactNodes = (nodes, context) => {
 }
 
 const reactElement = (node, context, key) => {
-  const props = reactProps(node, context)
-  const attributes = key ? `key={${key}}${props ? ` ${props}` : ""}` : props
-  const children =
-    node.name === "Select"
-      ? node.children.map((child) =>
-          child.type === "element" && child.name === "option"
-            ? {
-                ...child,
-                attributes: child.attributes.filter(
-                  (item) => item.name !== "selected",
-                ),
-              }
-            : child,
-        )
-      : node.children
+  const { children, code } = reactProps(node, context)
+  const attributes = key ? `key={${key}}${code ? ` ${code}` : ""}` : code
   const content = reactNodes(children, context)
   if (VOID_ELEMENTS.has(node.name) || (!content.trim() && node.component)) {
     return `${openTag(node.name, attributes)} />`

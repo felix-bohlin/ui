@@ -4,13 +4,12 @@ export default function Button() {
   return (
     <>
       <div className="example-row">
-        <Chip as="button" variant="tonal" label="Tonal button" />
-        <Chip as="button" variant="outlined" label="Outlined button" />
+        <Chip as="button" label="Tonal button" variant="tonal" />
+        <Chip as="button" label="Outlined button" variant="outlined" />
       </div>
       <div className="example-row">
         <Chip
           as="button"
-          variant="tonal"
           label="Open now"
           start={
             <svg
@@ -26,11 +25,10 @@ export default function Button() {
               ></path>
             </svg>
           }
+          variant="tonal"
         />
         <Chip
           as="button"
-          variant="outlined"
-          label="Sort by"
           end={
             <svg
               aria-hidden="true"
@@ -45,6 +43,8 @@ export default function Button() {
               ></path>
             </svg>
           }
+          label="Sort by"
+          variant="outlined"
         />
       </div>
     </>

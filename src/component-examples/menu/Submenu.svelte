@@ -4,15 +4,15 @@
   const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 </script>
 
-<Button commandfor="menu-submenu-1" command="toggle-popover" variant="outlined">
+<Button command="toggle-popover" commandfor="menu-submenu-1" variant="outlined">
   File
 </Button>
 <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
   <ListItem
     as="button"
-    label="Export"
-    commandfor="menu-submenu-2"
     command="toggle-popover"
+    commandfor="menu-submenu-2"
+    label="Export"
   >
     {#snippet end()}<svg
         aria-hidden="true"

@@ -4,8 +4,8 @@ export default function Dense() {
   return (
     <>
       <Button
-        commandfor="menu-dense-1"
         command="toggle-popover"
+        commandfor="menu-dense-1"
         variant="outlined"
       >
         Options

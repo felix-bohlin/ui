@@ -17,6 +17,8 @@ export const TARGETS = Object.fromEntries(
   ]),
 )
 
+export const byAttributeName = (a, b) => a.localeCompare(b, "en")
+
 export const readHandWritten = () =>
   JSON.parse(readFileSync(handWrittenFile, "utf8"))
 

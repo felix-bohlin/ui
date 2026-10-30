@@ -10,7 +10,7 @@ const photos = [
 
 export default function Gallery() {
   return (
-    <Carousel aria-label="Gallery" itemsPerView={3} aspectRatio="1">
+    <Carousel aria-label="Gallery" aspectRatio="1" itemsPerView={3}>
       {photos.map(({ alt, id }) => (
         <li key={id}>
           <img

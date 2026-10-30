@@ -90,7 +90,7 @@ describe("React", () => {
       '<TextField autoComplete="off" className="field" defaultValue="Ada" />',
     )
     expect(code).toContain('<label htmlFor="name" tabIndex={0}>')
-    expect(code).toContain('<Radio name="pick" value="b" defaultChecked />')
+    expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
   })
 
   test("keeps value on a read-only field", async () => {
@@ -110,7 +110,7 @@ describe("React", () => {
       ),
       "react",
     )
-    expect(code).toContain('<Select label="Pick" defaultValue="b">')
+    expect(code).toContain('<Select defaultValue="b" label="Pick">')
     expect(code).not.toContain("selected")
   })
 

@@ -17,7 +17,7 @@
         ></path>
       </svg>{/snippet}
   </ListItem>
-  <ListItem label="Headline" description="Supporting text">
+  <ListItem description="Supporting text" label="Headline">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

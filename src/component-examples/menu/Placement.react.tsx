@@ -6,8 +6,8 @@ export default function Placement() {
   return (
     <>
       <Button
-        commandfor="menu-placement-1"
         command="toggle-popover"
+        commandfor="menu-placement-1"
         variant="outlined"
       >
         Block start
@@ -15,8 +15,8 @@ export default function Placement() {
       <Menu id="menu-placement-1" items={items} side="block-start" />
 
       <Button
-        commandfor="menu-placement-2"
         command="toggle-popover"
+        commandfor="menu-placement-2"
         variant="outlined"
       >
         Block end
@@ -24,8 +24,8 @@ export default function Placement() {
       <Menu id="menu-placement-2" items={items} />
 
       <Button
-        commandfor="menu-placement-3"
         command="toggle-popover"
+        commandfor="menu-placement-3"
         variant="outlined"
       >
         Inline start
@@ -33,8 +33,8 @@ export default function Placement() {
       <Menu id="menu-placement-3" items={items} side="inline-start" />
 
       <Button
-        commandfor="menu-placement-4"
         command="toggle-popover"
+        commandfor="menu-placement-4"
         variant="outlined"
       >
         Inline end
@@ -42,8 +42,8 @@ export default function Placement() {
       <Menu id="menu-placement-4" items={items} side="inline-end" />
 
       <Button
-        commandfor="menu-placement-5"
         command="toggle-popover"
+        commandfor="menu-placement-5"
         variant="outlined"
       >
         Align end

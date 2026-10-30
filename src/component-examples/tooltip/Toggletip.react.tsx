@@ -5,9 +5,9 @@ export default function Toggletip() {
     <Tooltip id="tooltip-toggletip-1">
       <Button
         aria-label="About billing"
-        interestfor="tooltip-toggletip-1"
-        commandfor="tooltip-toggletip-1"
         command="toggle-popover"
+        commandfor="tooltip-toggletip-1"
+        interestfor="tooltip-toggletip-1"
         round
       >
         <svg

@@ -4,11 +4,11 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 
 <template>
   <Button
+    aria-label="More actions"
+    command="toggle-popover"
+    commandfor="menu-custom-1"
     round
     size="small"
-    aria-label="More actions"
-    commandfor="menu-custom-1"
-    command="toggle-popover"
   >
     <svg
       aria-hidden="true"
@@ -25,9 +25,9 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <li class="ui-heading">Document</li>
     <ListItem
       as="button"
-      label="Rename"
-      commandfor="menu-custom-1"
       command="hide-popover"
+      commandfor="menu-custom-1"
+      label="Rename"
     >
       <template #start
         ><svg
@@ -44,9 +44,9 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     </ListItem>
     <ListItem
       as="button"
-      label="Copy"
-      commandfor="menu-custom-1"
       command="hide-popover"
+      commandfor="menu-custom-1"
+      label="Copy"
     >
       <template #start
         ><svg
@@ -62,8 +62,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       <template #end><kbd>Ctrl+C</kbd></template>
     </ListItem>
     <ListItem
-      label="Open in new tab"
       href="/guide/getting-started/"
+      label="Open in new tab"
       target="_blank"
     >
       <template #start
@@ -80,11 +80,11 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     </ListItem>
     <ListItem
       as="button"
-      label="Delete"
       borderTop
       color="critical"
-      commandfor="menu-custom-1"
       command="hide-popover"
+      commandfor="menu-custom-1"
+      label="Delete"
     >
       <template #start
         ><svg

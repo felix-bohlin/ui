@@ -12,15 +12,15 @@
   <Fieldset>
     <FieldLegend>Input at the end</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio value="outlined" checked card spread>
+      <Radio card checked spread value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Radio>
-      <Radio value="tonal" card variant="tonal" spread>
+      <Radio card spread value="tonal" variant="tonal">
         Tonal
         {#snippet endText()}A tinted surface.{/snippet}
       </Radio>
-      <Radio value="elevated" card variant="elevated" spread>
+      <Radio card spread value="elevated" variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Radio>
@@ -29,15 +29,15 @@
   <Fieldset>
     <FieldLegend>Input at the start</FieldLegend>
     <FieldGroup name="radio-cards-start" orientation="horizontal">
-      <Radio value="outlined" checked card>
+      <Radio card checked value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Radio>
-      <Radio value="tonal" card variant="tonal">
+      <Radio card value="tonal" variant="tonal">
         Tonal
         {#snippet endText()}A tinted surface.{/snippet}
       </Radio>
-      <Radio value="elevated" card variant="elevated">
+      <Radio card value="elevated" variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Radio>

@@ -4,27 +4,27 @@ export default function Validation() {
   return (
     <>
       <div className="example-row">
-        <Checkbox required name="checkbox-validation">
+        <Checkbox name="checkbox-validation" required>
           Default
         </Checkbox>
-        <Checkbox orientation="vertical" required name="checkbox-validation">
+        <Checkbox name="checkbox-validation" orientation="vertical" required>
           Stack
         </Checkbox>
       </div>
       <div className="example-row">
         <Checkbox
-          error
           defaultChecked
-          name="checkbox-validation"
           endText="Check yourself"
+          error
+          name="checkbox-validation"
         >
           Default
         </Checkbox>
         <Checkbox
-          orientation="vertical"
+          endText="Before you wreck yourself"
           error
           name="checkbox-validation"
-          endText="Before you wreck yourself"
+          orientation="vertical"
         >
           Stack
         </Checkbox>

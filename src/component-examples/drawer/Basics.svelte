@@ -10,11 +10,11 @@
 </script>
 
 <div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
+  <Button command="show-modal" commandfor="drawer-basics-3">Block Start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1">Inline Start</Button
   >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
 </div>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -83,7 +83,7 @@
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
+    <Button command="close" commandfor="drawer-basics-1" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -112,7 +112,7 @@
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
+    <Button command="close" commandfor="drawer-basics-2" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -136,7 +136,7 @@
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
+    <Button command="close" commandfor="drawer-basics-3" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -160,7 +160,7 @@
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
+    <Button command="close" commandfor="drawer-basics-4" size="small"
       >Close</Button
     >
   </DrawerFooter>

@@ -4,10 +4,10 @@ export default function Selected() {
   return (
     <List>
       <ListItem
-        href="#"
         aria-current="page"
-        label="Selected item"
         description='This item has aria-current="page" on its link'
+        href="#"
+        label="Selected item"
       />
       <ListItem href="#" label="Normal item" />
     </List>

@@ -3,8 +3,8 @@ import { List, ListItem } from "opui-css/react"
 export default function EndKeyboard() {
   return (
     <List>
-      <ListItem label="Save all" end={<kbd>Ctrl+Shift+S</kbd>} />
-      <ListItem label="Save" end={<kbd>Ctrl+S</kbd>} />
+      <ListItem end={<kbd>Ctrl+Shift+S</kbd>} label="Save all" />
+      <ListItem end={<kbd>Ctrl+S</kbd>} label="Save" />
     </List>
   )
 }

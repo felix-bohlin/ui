@@ -8,7 +8,7 @@ import {
 </script>
 
 <template>
-  <Card variant="outlined" role="group">
+  <Card role="group" variant="outlined">
     <Accordion>
       <AccordionSummary>Accordion title</AccordionSummary>
       <AccordionContent>

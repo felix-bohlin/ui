@@ -4,7 +4,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 <template>
   <ToggleGroup name="transport">
-    <ToggleButton value="walking" checked>
+    <ToggleButton checked value="walking">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

@@ -12,28 +12,28 @@ export default function Spread() {
       </Checkbox>
 
       <Checkbox
-        name="checkbox-spread"
-        spread
-        required
         endText="You must accept this to continue."
+        name="checkbox-spread"
+        required
+        spread
       >
         Required
       </Checkbox>
 
       <Checkbox
-        name="checkbox-spread"
-        spread
         disabled
         endText="This checkbox is disabled."
+        name="checkbox-spread"
+        spread
       >
         Disabled
       </Checkbox>
 
       <Checkbox
+        endText="Check this box to continue."
+        error
         name="checkbox-spread"
         spread
-        error
-        endText="Check this box to continue."
       >
         Invalid Checkbox
       </Checkbox>

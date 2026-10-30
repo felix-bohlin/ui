@@ -21,7 +21,7 @@ import { Button, List, ListItem } from "opui-css/vue"
           </svg> </Button
       ></template>
     </ListItem>
-    <ListItem label="Headline" description="Supporting text">
+    <ListItem description="Supporting text" label="Headline">
       <template #start
         ><svg
           aria-hidden="true"

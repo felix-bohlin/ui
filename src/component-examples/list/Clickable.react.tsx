@@ -7,9 +7,9 @@ export default function Clickable() {
       <ListItem as="button" disabled label="Archived" />
       <ListItem href="#clickable-list-item" label="Link list item" />
       <ListItem
-        type="checkbox"
-        label="Checkbox list item"
         end={<CheckboxInput />}
+        label="Checkbox list item"
+        type="checkbox"
       />
     </List>
   )

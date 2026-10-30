@@ -11,7 +11,7 @@
   {#snippet start()}https://{/snippet}
 </TextField>
 
-<TextField label="Weight" type="numeric" placeholder="0">
+<TextField label="Weight" placeholder="0" type="numeric">
   {#snippet end()}kg{/snippet}
 </TextField>
 

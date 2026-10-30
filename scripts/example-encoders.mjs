@@ -8,6 +8,11 @@ export const decodeText = (source) =>
     .childNodes.map((node) => node.value ?? "")
     .join("")
 
+export const decodeTextarea = (source) =>
+  parseFragment(`<textarea>${source}</textarea>`)
+    .childNodes[0].childNodes.map((node) => node.value)
+    .join("")
+
 export const decodeAttribute = (raw, quote = '"') =>
   parseFragment(`<a b=${quote}${raw}${quote}>`).childNodes[0].attrs[0].value
 

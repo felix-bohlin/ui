@@ -5,13 +5,13 @@ export default function Disabled() {
     <>
       <div className="example-row">
         <Button disabled>Text</Button>
-        <Button variant="outlined" disabled>
+        <Button disabled variant="outlined">
           Outlined
         </Button>
-        <Button variant="tonal" disabled>
+        <Button disabled variant="tonal">
           Tonal
         </Button>
-        <Button variant="filled" disabled>
+        <Button disabled variant="filled">
           Filled
         </Button>
       </div>
@@ -31,7 +31,7 @@ export default function Disabled() {
             ></path>
           </svg>
         </Button>
-        <Button variant="outlined" disabled>
+        <Button disabled variant="outlined">
           <span className="ui-text">Outlined</span>
           <svg
             aria-hidden="true"
@@ -46,7 +46,7 @@ export default function Disabled() {
             ></path>
           </svg>
         </Button>
-        <Button variant="tonal" disabled>
+        <Button disabled variant="tonal">
           <span className="ui-text">Tonal</span>
           <svg
             aria-hidden="true"
@@ -61,7 +61,7 @@ export default function Disabled() {
             ></path>
           </svg>
         </Button>
-        <Button variant="filled" disabled>
+        <Button disabled variant="filled">
           <span className="ui-text">Filled</span>
           <svg
             aria-hidden="true"
@@ -81,13 +81,13 @@ export default function Disabled() {
         <Button disabled href="#">
           Text link
         </Button>
-        <Button variant="outlined" disabled href="#">
+        <Button disabled href="#" variant="outlined">
           Outlined link
         </Button>
-        <Button variant="tonal" disabled href="#">
+        <Button disabled href="#" variant="tonal">
           Tonal link
         </Button>
-        <Button variant="filled" disabled href="#">
+        <Button disabled href="#" variant="filled">
           Filled link
         </Button>
       </div>

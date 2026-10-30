@@ -14,14 +14,14 @@ import {
 ---
 
 <Button
-  commandfor="dialog-close-behaviors-1"
   command="show-modal"
+  commandfor="dialog-close-behaviors-1"
   variant="outlined"
 >
   Open dialog
 </Button>
 
-<Dialog id="dialog-close-behaviors-1" closedby="any">
+<Dialog closedby="any" id="dialog-close-behaviors-1">
   <DialogHeader>
     <DialogTitle>How to close</DialogTitle>
   </DialogHeader>
@@ -29,14 +29,14 @@ import {
     <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
-        <Radio value="any" checked>any</Radio>
+        <Radio checked value="any">any</Radio>
         <Radio value="closerequest">closerequest</Radio>
         <Radio value="none">none</Radio>
       </FieldGroup>
     </Fieldset>
   </DialogContent>
   <DialogFooter>
-    <Button commandfor="dialog-close-behaviors-1" command="close">
+    <Button command="close" commandfor="dialog-close-behaviors-1">
       Close manually
     </Button>
   </DialogFooter>

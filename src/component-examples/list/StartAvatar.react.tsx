@@ -8,8 +8,8 @@ export default function StartAvatar() {
         start={<Avatar aria-hidden="true">AB</Avatar>}
       />
       <ListItem
-        label="Headline"
         description="Supporting text"
+        label="Headline"
         start={
           <Avatar>
             <img

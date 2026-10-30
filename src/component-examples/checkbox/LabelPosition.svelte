@@ -3,4 +3,4 @@
 </script>
 
 <Checkbox name="checkbox-label-position">Default</Checkbox>
-<Checkbox orientation="vertical" name="checkbox-label-position">Stack</Checkbox>
+<Checkbox name="checkbox-label-position" orientation="vertical">Stack</Checkbox>

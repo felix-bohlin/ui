@@ -310,7 +310,7 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.
 - **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content". The "When not to use" list in Usage is the exception, and each of its items says what to use instead.
-- **Alphabetical Order**: Organize imports and props alphabetically where possible.
+- **Alphabetical Order**: Organize imports alphabetically where possible. `pnpm check-components` checks the order of the props of a component in an example.
 
 ## 7. Key Learnings & Debugging
 

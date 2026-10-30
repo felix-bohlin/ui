@@ -7,15 +7,15 @@ import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Input at the end</FieldLegend>
       <FieldGroup name="switch-cards-end" orientation="horizontal">
-        <Switch value="outlined" checked card spread>
+        <Switch card checked spread value="outlined">
           Outlined
           <template #end-text>The default surface.</template>
         </Switch>
-        <Switch value="tonal" card variant="tonal" spread>
+        <Switch card spread value="tonal" variant="tonal">
           Tonal
           <template #end-text>A tinted surface.</template>
         </Switch>
-        <Switch value="elevated" card variant="elevated" spread>
+        <Switch card spread value="elevated" variant="elevated">
           Elevated
           <template #end-text>A raised surface.</template>
         </Switch>
@@ -24,15 +24,15 @@ import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Input at the start</FieldLegend>
       <FieldGroup name="switch-cards-start" orientation="horizontal">
-        <Switch value="outlined" checked card>
+        <Switch card checked value="outlined">
           Outlined
           <template #end-text>The default surface.</template>
         </Switch>
-        <Switch value="tonal" card variant="tonal">
+        <Switch card value="tonal" variant="tonal">
           Tonal
           <template #end-text>A tinted surface.</template>
         </Switch>
-        <Switch value="elevated" card variant="elevated">
+        <Switch card value="elevated" variant="elevated">
           Elevated
           <template #end-text>A raised surface.</template>
         </Switch>

@@ -15,8 +15,8 @@ import {
       <FieldLegend>Legend</FieldLegend>
       <FieldDescription>Field description above fields</FieldDescription>
       <FieldGroup
-        orientation="horizontal"
         name="switch-group-field-description-1"
+        orientation="horizontal"
       >
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
@@ -27,8 +27,8 @@ import {
     <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup
-        orientation="horizontal"
         name="switch-group-field-description-2"
+        orientation="horizontal"
       >
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>

@@ -12,6 +12,7 @@ import {
   attributeText,
   decodeAttribute,
   decodeText,
+  decodeTextarea,
   jsxAttribute,
   jsxText,
   markupText,
@@ -135,6 +136,19 @@ describe("decodeText and markupText", () => {
 
   test("a sample the round trip must flag: encoding nothing changes the text", () => {
     expect(decodeText("a &amp; b")).not.toBe("a &amp; b")
+  })
+})
+
+describe("decodeTextarea", () => {
+  test("reads tags as text, decodes references and drops the first newline", () => {
+    expect(decodeTextarea("a <b>b</b> &amp; &lt;i&gt;")).toBe(
+      "a <b>b</b> & <i>",
+    )
+    expect(decodeTextarea("\nline 1\nline 2")).toBe("line 1\nline 2")
+  })
+
+  test("a sample the round trip must flag: decodeText reads the tags as markup", () => {
+    expect(decodeText("a <b>b</b>")).not.toBe("a <b>b</b>")
   })
 })
 

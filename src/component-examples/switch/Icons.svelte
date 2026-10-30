@@ -2,7 +2,7 @@
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch name="switch-icons" size="small" hideLabel>
+<Switch hideLabel name="switch-icons" size="small">
   Toggle theme
   {#snippet iconUnchecked()}<svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@
     </svg>{/snippet}
 </Switch>
 
-<Switch name="switch-icons" checked hideLabel>
+<Switch checked hideLabel name="switch-icons">
   Toggle theme
   {#snippet iconUnchecked()}<svg
       xmlns="http://www.w3.org/2000/svg"

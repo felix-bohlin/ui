@@ -11,7 +11,7 @@ import { Select } from "opui-css/vue"
       <option>Come on!</option>
     </Select>
 
-    <Select label="Label" variant="filled" required>
+    <Select label="Label" required variant="filled">
       <option value="">-</option>
       <option>Pick me!</option>
       <option>No me!!</option>
@@ -20,14 +20,14 @@ import { Select } from "opui-css/vue"
   </div>
 
   <div class="example-row">
-    <Select label="Label" error endText="Pick another option.">
+    <Select endText="Pick another option." error label="Label">
       <option value="">-</option>
       <option selected>Wrong option</option>
       <option>Also wrong!</option>
       <option>Nothing's right!</option>
     </Select>
 
-    <Select label="Label" variant="filled" error endText="Pick another option.">
+    <Select endText="Pick another option." error label="Label" variant="filled">
       <option value="">-</option>
       <option selected>Wrong option</option>
       <option>Also wrong!</option>

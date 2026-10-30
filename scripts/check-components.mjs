@@ -12,6 +12,7 @@ import {
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
 import { BARREL_TYPES, barrelExports } from "../src/utils/package-source.js"
+import { byAttributeName } from "./example-targets.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
@@ -204,6 +205,26 @@ export const checkVariableTagClassList = async (source) => {
     ) {
       problems.push(
         `<${node.name}> is a variable tag with class:list, which Astro renders after the other attributes; use class={cx([...])} and import cx from "../cx"`,
+      )
+    }
+    node.children?.forEach(visit)
+  }
+  visit(ast)
+  return problems
+}
+
+export const checkAttributeOrder = async (source) => {
+  const { ast } = await parseAstro(source, { position: false })
+  const problems = []
+  const visit = (node) => {
+    const names = node.attributes?.map(({ name }) => name) ?? []
+    const expected = names.toSorted(byAttributeName)
+    if (
+      node.type === "component" &&
+      names.some((name, index) => name !== expected[index])
+    ) {
+      problems.push(
+        `the attributes of <${node.name}> are not in alphabetical order: write ${expected.join(", ")}`,
       )
     }
     node.children?.forEach(visit)
@@ -1129,6 +1150,9 @@ const main = async () => {
         reportAll(path, checkReactExample(path, name, source))
       }
       reportAll(path, checkExampleWrapper(path, name, source))
+      if (file.endsWith(".astro")) {
+        reportAll(path, await checkAttributeOrder(source))
+      }
     }
     for (const name of names) {
       if (!/^[A-Z][A-Za-z0-9]*$/.test(name)) {

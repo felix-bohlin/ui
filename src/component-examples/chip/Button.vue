@@ -4,11 +4,11 @@ import { Chip } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Chip as="button" variant="tonal" label="Tonal button" />
-    <Chip as="button" variant="outlined" label="Outlined button" />
+    <Chip as="button" label="Tonal button" variant="tonal" />
+    <Chip as="button" label="Outlined button" variant="outlined" />
   </div>
   <div class="example-row">
-    <Chip as="button" variant="tonal" label="Open now">
+    <Chip as="button" label="Open now" variant="tonal">
       <template #start
         ><svg
           aria-hidden="true"
@@ -23,7 +23,7 @@ import { Chip } from "opui-css/vue"
           ></path></svg
       ></template>
     </Chip>
-    <Chip as="button" variant="outlined" label="Sort by">
+    <Chip as="button" label="Sort by" variant="outlined">
       <template #end
         ><svg
           aria-hidden="true"

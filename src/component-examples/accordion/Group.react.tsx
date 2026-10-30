@@ -7,7 +7,7 @@ import {
 
 export default function Group() {
   return (
-    <Card variant="outlined" role="group">
+    <Card role="group" variant="outlined">
       <Accordion>
         <AccordionSummary>Accordion title</AccordionSummary>
         <AccordionContent>

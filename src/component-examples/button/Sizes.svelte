@@ -9,10 +9,10 @@
   <Button size="large">Large</Button>
 </div>
 <div class="example-row">
-  <Button variant="filled" size="x-small">X-small</Button>
-  <Button variant="filled" size="small">Small</Button>
+  <Button size="x-small" variant="filled">X-small</Button>
+  <Button size="small" variant="filled">Small</Button>
   <Button variant="filled">Medium</Button>
-  <Button variant="filled" size="large">Large</Button>
+  <Button size="large" variant="filled">Large</Button>
 </div>
 
 <div class="example-row">
@@ -61,7 +61,7 @@
       ></path>
     </svg>
   </Button>
-  <Button variant="outlined" size="large">
+  <Button size="large" variant="outlined">
     <span class="ui-text">Large</span>
     <svg
       aria-hidden="true"

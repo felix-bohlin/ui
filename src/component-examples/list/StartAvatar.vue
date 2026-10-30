@@ -7,7 +7,7 @@ import { Avatar, List, ListItem } from "opui-css/vue"
     <ListItem label="Headline">
       <template #start><Avatar aria-hidden="true">AB</Avatar></template>
     </ListItem>
-    <ListItem label="Headline" description="Supporting text">
+    <ListItem description="Supporting text" label="Headline">
       <template #start
         ><Avatar>
           <img

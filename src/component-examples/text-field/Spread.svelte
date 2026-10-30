@@ -2,54 +2,54 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField spread placeholder="Evil Rabbit">
+<TextField placeholder="Evil Rabbit" spread>
   {#snippet label()}Name{/snippet}
   {#snippet startText()}Provide your full name for identification{/snippet}
 </TextField>
 
-<TextField spread placeholder="you@example.com" type="email" variant="filled">
+<TextField placeholder="you@example.com" spread type="email" variant="filled">
   {#snippet label()}Email{/snippet}
   {#snippet startText()}We'll use this to contact you{/snippet}
   {#snippet endText()}Please use a valid email address{/snippet}
 </TextField>
 
-<TextField spread required label="Required">
+<TextField label="Required" required spread>
   {#snippet startText()}You must fill this in{/snippet}
 </TextField>
 
-<TextField spread disabled label="Disabled">
+<TextField disabled label="Disabled" spread>
   {#snippet startText()}This field is disabled{/snippet}
 </TextField>
 
-<TextField spread error label="Invalid Name">
+<TextField error label="Invalid Name" spread>
   {#snippet startText()}This field has an error{/snippet}
   {#snippet endText()}Enter at least two characters.{/snippet}
 </TextField>
 
-<TextField spread label="Amount" placeholder="0.00">
+<TextField label="Amount" placeholder="0.00" spread>
   {#snippet startText()}Daily spending limit{/snippet}
   {#snippet start()}€{/snippet}
   {#snippet end()}EUR{/snippet}
 </TextField>
 
-<TextField spread label="Website" placeholder="example.com" variant="filled">
+<TextField label="Website" placeholder="example.com" spread variant="filled">
   {#snippet startText()}Your public profile URL{/snippet}
   {#snippet start()}https://{/snippet}
   {#snippet endText()}Must include a valid domain{/snippet}
 </TextField>
 
-<TextField spread label="Project name" placeholder="my-project">
+<TextField label="Project name" placeholder="my-project" spread>
   {#snippet startText()}Used to generate the project URL{/snippet}
   {#snippet top()}acme.dev/{/snippet}
   {#snippet bottom()}Lowercase letters and dashes only{/snippet}
 </TextField>
 
 <TextField
-  spread
-  variant="filled"
   label="API key"
   placeholder="Paste your key"
+  spread
   type="password"
+  variant="filled"
 >
   {#snippet startText()}Stored encrypted at rest{/snippet}
   {#snippet start()}

@@ -36,7 +36,7 @@ export default function Affix() {
         <option>Sweden</option>
       </Select>
 
-      <Select label="Delivery time" end="days">
+      <Select end="days" label="Delivery time">
         <option>1</option>
         <option>3</option>
         <option>5</option>

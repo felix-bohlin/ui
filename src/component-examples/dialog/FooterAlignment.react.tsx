@@ -11,8 +11,8 @@ export default function FooterAlignment() {
   return (
     <>
       <Button
-        commandfor="dialog-footer-alignment-1"
         command="show-modal"
+        commandfor="dialog-footer-alignment-1"
         variant="outlined"
       >
         Show shortcuts
@@ -29,8 +29,8 @@ export default function FooterAlignment() {
         </DialogContent>
         <DialogFooter align="start">
           <Button
-            commandfor="dialog-footer-alignment-1"
             command="close"
+            commandfor="dialog-footer-alignment-1"
             variant="filled"
           >
             Got it

@@ -39,11 +39,11 @@ export default function KitchenSink() {
           <TextField
             autoComplete="email"
             label="Email Address"
-            type="email"
             placeholder="jane@example.com"
             required
+            type="email"
           />
-          <Select label="Role" items={roleItems} />
+          <Select items={roleItems} label="Role" />
         </FieldGroup>
       </Fieldset>
 
@@ -55,7 +55,7 @@ export default function KitchenSink() {
           Configure how you want to receive updates.
         </FieldDescription>
         <FieldGroup>
-          <Switch name="email_notifs" defaultChecked>
+          <Switch defaultChecked name="email_notifs">
             Email Notifications
           </Switch>
           <Switch name="sms_notifs">SMS Notifications</Switch>
@@ -68,7 +68,7 @@ export default function KitchenSink() {
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
-          <Radio value="light" defaultChecked>
+          <Radio defaultChecked value="light">
             Light Theme
           </Radio>
           <Radio value="dark">Dark Theme</Radio>
@@ -85,12 +85,12 @@ export default function KitchenSink() {
         </FieldDescription>
         <FieldGroup>
           <Range
-            label="Professional Experience"
-            min="0"
-            max="20"
-            step="1"
             defaultValue="5"
+            label="Professional Experience"
+            max="20"
+            min="0"
             startText="Drag the slider to match your total tenure."
+            step="1"
           />
         </FieldGroup>
       </Fieldset>
@@ -124,7 +124,7 @@ export default function KitchenSink() {
       <Divider />
 
       <FieldGroup>
-        <Button variant="filled" type="submit">
+        <Button type="submit" variant="filled">
           Send
         </Button>
         <Button>Cancel</Button>

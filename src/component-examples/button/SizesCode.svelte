@@ -7,10 +7,10 @@
 <Button>Medium</Button>
 <Button size="large">Large</Button>
 
-<Button variant="filled" size="x-small">X-small</Button>
-<Button variant="filled" size="small">Small</Button>
+<Button size="x-small" variant="filled">X-small</Button>
+<Button size="small" variant="filled">Small</Button>
 <Button variant="filled">Medium</Button>
-<Button variant="filled" size="large">Large</Button>
+<Button size="large" variant="filled">Large</Button>
 
 <Button size="x-small" variant="outlined">
   <span class="ui-text">X-small</span>
@@ -24,7 +24,7 @@
   <span class="ui-text">Medium</span>
   <svg aria-hidden="true"><!-- --></svg>
 </Button>
-<Button variant="outlined" size="large">
+<Button size="large" variant="outlined">
   <span class="ui-text">Large</span>
   <svg aria-hidden="true"><!-- --></svg>
 </Button>

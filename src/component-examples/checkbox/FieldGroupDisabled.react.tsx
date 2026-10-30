@@ -11,7 +11,7 @@ export default function FieldGroupDisabled() {
     <Form>
       <Fieldset disabled>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="checkbox-group-disabled">
+        <FieldGroup name="checkbox-group-disabled" orientation="horizontal">
           <Checkbox defaultChecked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>

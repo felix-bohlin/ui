@@ -4,30 +4,30 @@ export default function Sizes() {
   return (
     <>
       <div className="example-row">
-        <Checkbox hideLabel size="x-small" defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked hideLabel name="checkbox-sizes" size="x-small">
           Label
         </Checkbox>
-        <Checkbox hideLabel size="small" defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked hideLabel name="checkbox-sizes" size="small">
           Label
         </Checkbox>
-        <Checkbox hideLabel defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked hideLabel name="checkbox-sizes">
           Label
         </Checkbox>
-        <Checkbox hideLabel size="large" defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked hideLabel name="checkbox-sizes" size="large">
           Label
         </Checkbox>
       </div>
       <div className="example-row">
-        <Checkbox size="x-small" defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked name="checkbox-sizes" size="x-small">
           x-small
         </Checkbox>
-        <Checkbox size="small" defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked name="checkbox-sizes" size="small">
           Small
         </Checkbox>
         <Checkbox defaultChecked name="checkbox-sizes">
           Medium
         </Checkbox>
-        <Checkbox size="large" defaultChecked name="checkbox-sizes">
+        <Checkbox defaultChecked name="checkbox-sizes" size="large">
           Large
         </Checkbox>
       </div>

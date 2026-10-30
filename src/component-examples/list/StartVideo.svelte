@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem label="Headline" description="Supporting text">
+  <ListItem description="Supporting text" label="Headline">
     {#snippet start()}<video controls muted>
         <source
           src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
@@ -12,7 +12,7 @@
       </video>{/snippet}
     {#snippet end()}13:37{/snippet}
   </ListItem>
-  <ListItem label="Headline" description="Supporting text">
+  <ListItem description="Supporting text" label="Headline">
     {#snippet start()}<video controls muted>
         <source
           src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"

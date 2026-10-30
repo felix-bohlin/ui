@@ -3,11 +3,11 @@
 </script>
 
 <div class="example-row">
-  <Chip as="button" variant="tonal" label="Tonal button" />
-  <Chip as="button" variant="outlined" label="Outlined button" />
+  <Chip as="button" label="Tonal button" variant="tonal" />
+  <Chip as="button" label="Outlined button" variant="outlined" />
 </div>
 <div class="example-row">
-  <Chip as="button" variant="tonal" label="Open now">
+  <Chip as="button" label="Open now" variant="tonal">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@
         ></path>
       </svg>{/snippet}
   </Chip>
-  <Chip as="button" variant="outlined" label="Sort by">
+  <Chip as="button" label="Sort by" variant="outlined">
     {#snippet end()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

@@ -3,5 +3,5 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea label="Auto-fit" placeholder="Auto-fit" autoFit />
+  <Textarea autoFit label="Auto-fit" placeholder="Auto-fit" />
 </template>

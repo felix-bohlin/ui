@@ -9,7 +9,7 @@ import type { Component as SvelteComponent } from "svelte"
 import { render } from "svelte/server"
 import { createSSRApp, type Component as VueComponent } from "vue"
 import { renderToString } from "vue/server-renderer"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 import {
   DEFAULT_FRAMEWORK,
   exampleExtension,
@@ -112,14 +112,36 @@ const renderers: {
       },
     }),
   html: async (loaded) => loaded,
-  react: async (loaded) =>
-    renderReact(createElement(loaded.default)).replace(
-      /<link rel="preload" as="image"[^>]*\/>/g,
-      "",
-    ),
+  react: async (loaded, key) => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {})
+    try {
+      const html = renderReact(createElement(loaded.default))
+      if (spy.mock.calls.length > 0) {
+        throw new Error(
+          `${key} logged a React error: ${String(spy.mock.calls[0][0]).slice(0, 200)}`,
+        )
+      }
+      return html.replace(/<link rel="preload" as="image"[^>]*\/>/g, "")
+    } finally {
+      spy.mockRestore()
+    }
+  },
   svelte: async (loaded) => render(loaded.default).body,
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }
+
+test("the React renderer fails on a console.error", async () => {
+  const Controlled = () => createElement("input", { value: "x" })
+  await expect(
+    renderers.react({ default: Controlled }, "sample/Controlled"),
+  ).rejects.toThrow("sample/Controlled logged a React error")
+  expect(
+    await renderers.react(
+      { default: () => createElement("input", { defaultValue: "x" }) },
+      "sample/Uncontrolled",
+    ),
+  ).toBe('<input value="x"/>')
+})
 
 const renderExample = <F extends Framework>(example: Example, framework: F) =>
   example.loaders[framework]!().then((loaded) =>

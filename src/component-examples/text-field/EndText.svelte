@@ -2,4 +2,4 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Label" placeholder="Outlined" endText="Supporting text" />
+<TextField endText="Supporting text" label="Label" placeholder="Outlined" />

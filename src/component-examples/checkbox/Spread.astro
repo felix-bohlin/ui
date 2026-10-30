@@ -9,17 +9,17 @@ import { Checkbox } from "opui-css/astro"
   >
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread required>
+<Checkbox name="checkbox-spread" required spread>
   Required
   <Fragment slot="end-text">You must accept this to continue.</Fragment>
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread disabled>
+<Checkbox disabled name="checkbox-spread" spread>
   Disabled
   <Fragment slot="end-text">This checkbox is disabled.</Fragment>
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread error>
+<Checkbox error name="checkbox-spread" spread>
   Invalid Checkbox
   <Fragment slot="end-text">Check this box to continue.</Fragment>
 </Checkbox>

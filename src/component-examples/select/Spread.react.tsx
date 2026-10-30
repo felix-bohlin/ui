@@ -4,8 +4,8 @@ export default function Spread() {
   return (
     <>
       <Select
-        spread
         label="Country"
+        spread
         startText="Select your country of residence"
       >
         <option value="">Select a country</option>
@@ -32,9 +32,9 @@ export default function Spread() {
       </Select>
 
       <Select
-        spread
-        required
         label="Required"
+        required
+        spread
         startText="You must select an option"
       >
         <option value="">Select an option</option>
@@ -43,29 +43,29 @@ export default function Spread() {
       </Select>
 
       <Select
-        spread
         disabled
         label="Disabled"
+        spread
         startText="This select is disabled"
       >
         <option>Option 1</option>
       </Select>
 
       <Select
-        spread
+        endText="Please select a valid option."
         error
         label="Invalid Select"
+        spread
         startText="This select has an error"
-        endText="Please select a valid option."
       >
         <option>Option 1</option>
       </Select>
 
       <Select
-        spread
         label="Time zone"
-        startText="Used for reminders and due dates"
+        spread
         start="UTC"
+        startText="Used for reminders and due dates"
       >
         <option>-03:00</option>
         <option>+00:00</option>

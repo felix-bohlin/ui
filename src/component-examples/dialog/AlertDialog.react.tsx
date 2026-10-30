@@ -12,17 +12,17 @@ export default function AlertDialog() {
     <>
       <Button
         color="critical"
-        commandfor="dialog-alert-dialog-1"
         command="show-modal"
+        commandfor="dialog-alert-dialog-1"
         variant="outlined"
       >
         Delete project
       </Button>
 
       <Dialog
+        aria-describedby="dialog-alert-dialog-1-description"
         id="dialog-alert-dialog-1"
         role="alertdialog"
-        aria-describedby="dialog-alert-dialog-1-description"
       >
         <DialogHeader>
           <DialogTitle>Delete project?</DialogTitle>
@@ -33,13 +33,13 @@ export default function AlertDialog() {
           </p>
         </DialogContent>
         <DialogFooter>
-          <Button commandfor="dialog-alert-dialog-1" command="close">
+          <Button command="close" commandfor="dialog-alert-dialog-1">
             Cancel
           </Button>
           <Button
             color="critical"
-            commandfor="dialog-alert-dialog-1"
             command="close"
+            commandfor="dialog-alert-dialog-1"
             variant="filled"
           >
             Delete

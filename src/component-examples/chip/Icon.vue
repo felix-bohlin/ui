@@ -3,7 +3,7 @@ import { Chip } from "opui-css/vue"
 </script>
 
 <template>
-  <Chip variant="tonal" label="Tonal">
+  <Chip label="Tonal" variant="tonal">
     <template #start
       ><svg
         aria-hidden="true"
@@ -18,7 +18,7 @@ import { Chip } from "opui-css/vue"
         ></path></svg
     ></template>
   </Chip>
-  <Chip variant="outlined" label="Outlined">
+  <Chip label="Outlined" variant="outlined">
     <template #end
       ><svg
         aria-hidden="true"

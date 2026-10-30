@@ -6,7 +6,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
   <Form>
     <Fieldset disabled>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="switch-group-disabled">
+      <FieldGroup name="switch-group-disabled" orientation="horizontal">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
@@ -14,7 +14,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
     </Fieldset>
     <Fieldset>
       <FieldLegend>One by one</FieldLegend>
-      <FieldGroup orientation="horizontal" name="switch-group-disabled-single">
+      <FieldGroup name="switch-group-disabled-single" orientation="horizontal">
         <Switch checked>Enabled</Switch>
         <Switch disabled>Disabled</Switch>
         <Switch aria-disabled="true">Aria-disabled</Switch>

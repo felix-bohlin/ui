@@ -14,8 +14,8 @@ import {
 ---
 
 <Button
-  commandfor="drawer-close-behaviors-1"
   command="show-modal"
+  commandfor="drawer-close-behaviors-1"
   variant="outlined"
 >
   Open drawer
@@ -29,14 +29,14 @@ import {
     <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
-        <Radio value="any" checked>any</Radio>
+        <Radio checked value="any">any</Radio>
         <Radio value="closerequest">closerequest</Radio>
         <Radio value="none">none</Radio>
       </FieldGroup>
     </Fieldset>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-close-behaviors-1" command="close">
+    <Button command="close" commandfor="drawer-close-behaviors-1" size="small">
       Close manually
     </Button>
   </DrawerFooter>

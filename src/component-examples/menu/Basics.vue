@@ -4,8 +4,8 @@ import { Button, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    commandfor="menu-basics-1"
     command="toggle-popover"
+    commandfor="menu-basics-1"
     variant="outlined"
   >
     Options

@@ -2,7 +2,7 @@
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip variant="tonal" label="Tonal">
+<Chip label="Tonal" variant="tonal">
   {#snippet start()}<svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
       ></path>
     </svg>{/snippet}
 </Chip>
-<Chip variant="outlined" label="Outlined">
+<Chip label="Outlined" variant="outlined">
   {#snippet end()}<svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

@@ -12,28 +12,28 @@ export default function Spread() {
       </Switch>
 
       <Switch
-        name="switch-spread"
-        spread
-        required
         endText="You must accept this to proceed."
+        name="switch-spread"
+        required
+        spread
       >
         Required
       </Switch>
 
       <Switch
-        name="switch-spread"
-        spread
         disabled
         endText="This switch is disabled."
+        name="switch-spread"
+        spread
       >
         Disabled
       </Switch>
 
       <Switch
+        endText="Turn this on to continue."
+        error
         name="switch-spread"
         spread
-        error
-        endText="Turn this on to continue."
       >
         Invalid Switch
       </Switch>

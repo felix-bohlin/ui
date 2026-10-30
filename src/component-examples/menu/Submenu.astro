@@ -4,15 +4,15 @@ import { Button, ListItem, Menu } from "opui-css/astro"
 const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 ---
 
-<Button commandfor="menu-submenu-1" command="toggle-popover" variant="outlined">
+<Button command="toggle-popover" commandfor="menu-submenu-1" variant="outlined">
   File
 </Button>
 <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
   <ListItem
     as="button"
-    label="Export"
-    commandfor="menu-submenu-2"
     command="toggle-popover"
+    commandfor="menu-submenu-2"
+    label="Export"
   >
     <svg
       slot="end"
@@ -28,10 +28,10 @@ const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
       ></path>
     </svg>
     <Menu
-      slot="submenu"
       id="menu-submenu-2"
       items={formats}
       side="inline-end"
+      slot="submenu"
     />
   </ListItem>
 </Menu>

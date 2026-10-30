@@ -13,9 +13,9 @@
 <div>
   The source lives in
   <Anchor
+    id="anchor-repo-card-1"
     positionArea="block-end span-inline-end"
     trigger="hover"
-    id="anchor-repo-card-1"
   >
     <a
       class="ui-link"
@@ -23,13 +23,13 @@
       interestfor="anchor-repo-card-1">felix-bohlin/ui</a
     >
     <AnchorContent>
-      <Card variant="elevated" class="repo-card">
+      <Card class="repo-card" variant="elevated">
         <CardContent>
           <div class="repo-card-identity">
             <Avatar
-              src="https://github.com/felix-bohlin.png"
               alt=""
               shape="rounded"
+              src="https://github.com/felix-bohlin.png"
             />
             <div>
               <strong>felix-bohlin/ui</strong>
@@ -43,7 +43,7 @@
           <p class="ui-caption">CSS, MIT license</p>
         </CardContent>
         <CardActions>
-          <Button variant="outlined" size="small">Star</Button>
+          <Button size="small" variant="outlined">Star</Button>
         </CardActions>
       </Card>
     </AnchorContent>

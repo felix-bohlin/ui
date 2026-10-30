@@ -3,8 +3,8 @@ import { Chip } from "opui-css/vue"
 </script>
 
 <template>
-  <Chip href="#" variant="tonal" label="Tonal link" />
-  <Chip href="#" variant="outlined" label="Outlined link">
+  <Chip href="#" label="Tonal link" variant="tonal" />
+  <Chip href="#" label="Outlined link" variant="outlined">
     <template #end
       ><svg
         aria-hidden="true"

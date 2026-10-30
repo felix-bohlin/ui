@@ -4,18 +4,18 @@ export default function EndText() {
   return (
     <>
       <Radio
-        name="radio-end-text"
-        value="default"
         defaultChecked
         endText="Supporting text"
+        name="radio-end-text"
+        value="default"
       >
         Default
       </Radio>
       <Radio
-        name="radio-end-text"
-        value="stack"
-        orientation="vertical"
         endText="Supporting text"
+        name="radio-end-text"
+        orientation="vertical"
+        value="stack"
       >
         Stack
       </Radio>

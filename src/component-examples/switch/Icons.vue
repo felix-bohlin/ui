@@ -3,7 +3,7 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch name="switch-icons" size="small" hideLabel>
+  <Switch hideLabel name="switch-icons" size="small">
     Toggle theme
     <template #icon-unchecked
       ><svg
@@ -31,7 +31,7 @@ import { Switch } from "opui-css/vue"
     ></template>
   </Switch>
 
-  <Switch name="switch-icons" checked hideLabel>
+  <Switch checked hideLabel name="switch-icons">
     Toggle theme
     <template #icon-unchecked
       ><svg

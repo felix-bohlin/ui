@@ -4,18 +4,18 @@ export default function Pressed() {
   return (
     <>
       <div className="example-row">
-        <Chip aria-pressed="true" as="button" variant="outlined" label="All" />
+        <Chip aria-pressed="true" as="button" label="All" variant="outlined" />
         <Chip
           aria-pressed="false"
           as="button"
-          variant="outlined"
           label="Open"
+          variant="outlined"
         />
         <Chip
           aria-pressed="false"
           as="button"
-          variant="outlined"
           label="Closed"
+          variant="outlined"
         />
       </div>
       <div className="example-row">

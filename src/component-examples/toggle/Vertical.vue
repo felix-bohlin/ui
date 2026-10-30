@@ -5,7 +5,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 <template>
   <ToggleGroup name="view" orientation="vertical">
     <ToggleButton value="day">Day</ToggleButton>
-    <ToggleButton value="week" checked>Week</ToggleButton>
+    <ToggleButton checked value="week">Week</ToggleButton>
     <ToggleButton value="month">Month</ToggleButton>
   </ToggleGroup>
 </template>

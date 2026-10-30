@@ -2,4 +2,4 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField startText="As it appears on your ID" label="Name" />
+<TextField label="Name" startText="As it appears on your ID" />

@@ -2,32 +2,32 @@
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea spread placeholder="Hello, world!">
+<Textarea placeholder="Hello, world!" spread>
   {#snippet label()}Message{/snippet}
   {#snippet startText()}You can write your message here. Keep it short,
     preferably under 100 characters.{/snippet}
 </Textarea>
 
-<Textarea spread placeholder="Additional notes..." variant="filled">
+<Textarea placeholder="Additional notes..." spread variant="filled">
   {#snippet label()}Notes{/snippet}
   {#snippet startText()}Add any additional notes or comments{/snippet}
   {#snippet endText()}Maximum 500 characters{/snippet}
 </Textarea>
 
-<Textarea spread required label="Required">
+<Textarea label="Required" required spread>
   {#snippet startText()}You must provide a response{/snippet}
 </Textarea>
 
-<Textarea spread disabled label="Disabled">
+<Textarea disabled label="Disabled" spread>
   {#snippet startText()}This textarea is disabled{/snippet}
 </Textarea>
 
-<Textarea spread error label="Invalid Message">
+<Textarea error label="Invalid Message" spread>
   {#snippet startText()}This textarea has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </Textarea>
 
-<Textarea spread label="Bio" placeholder="Tell us about yourself...">
+<Textarea label="Bio" placeholder="Tell us about yourself..." spread>
   {#snippet startText()}Shown on your public profile{/snippet}
   {#snippet start()}
     <svg
@@ -50,10 +50,10 @@
 </Textarea>
 
 <Textarea
-  spread
-  variant="filled"
   label="Release notes"
   placeholder="Markdown supported..."
+  spread
+  variant="filled"
 >
   {#snippet startText()}Shown on the changelog page{/snippet}
   {#snippet top()}v1.4.0{/snippet}

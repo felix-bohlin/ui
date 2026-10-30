@@ -3,7 +3,6 @@
 </script>
 
 <Range
-  label="Tick marks with labels"
   items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
@@ -11,6 +10,7 @@
     { value: 75, label: "75%" },
     { value: 100, label: "100%" },
   ]}
+  label="Tick marks with labels"
 />
 <Range label="Quality" max="2">
   {#snippet datalist()}

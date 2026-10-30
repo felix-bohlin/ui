@@ -9,7 +9,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <Button>Enabled</Button>
   </ButtonGroup>
 
-  <ButtonGroup variant="filled" color="primary">
+  <ButtonGroup color="primary" variant="filled">
     <Button>Enabled</Button>
     <Button disabled>Disabled</Button>
     <Button>Enabled</Button>

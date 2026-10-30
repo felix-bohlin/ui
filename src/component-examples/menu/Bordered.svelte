@@ -3,8 +3,8 @@
 </script>
 
 <Button
-  commandfor="menu-bordered-1"
   command="toggle-popover"
+  commandfor="menu-bordered-1"
   variant="outlined"
 >
   Options

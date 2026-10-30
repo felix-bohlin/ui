@@ -7,25 +7,25 @@ export default function Validation() {
         <Switch name="switch-validation" required>
           Default
         </Switch>
-        <Switch name="switch-validation" required orientation="vertical">
+        <Switch name="switch-validation" orientation="vertical" required>
           Stack
         </Switch>
       </div>
 
       <div className="example-row">
         <Switch
-          name="switch-validation"
-          error
           defaultChecked
           endText="Supporting text"
+          error
+          name="switch-validation"
         >
           Default
         </Switch>
         <Switch
-          name="switch-validation"
-          error
-          orientation="vertical"
           endText="Supporting text"
+          error
+          name="switch-validation"
+          orientation="vertical"
         >
           Stack
         </Switch>

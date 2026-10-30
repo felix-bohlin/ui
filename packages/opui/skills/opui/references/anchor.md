@@ -90,7 +90,7 @@ import {
   </AnchorContent>
 </Anchor>
 
-<style>
+<style is:global>
   .coach-mark {
     font-size: var(--ui-font-size-body);
     margin-inline-start: var(--ui-space-2);

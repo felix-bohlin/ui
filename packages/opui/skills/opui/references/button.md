@@ -100,22 +100,22 @@ import { Button } from "opui-css/astro"
   <Button>Transparent</Button>
   <Button disabled>Disabled</Button>
   <Button href="#">Link</Button>
-  <Button href="#" aria-current="page">Current</Button>
+  <Button aria-current="page" href="#">Current</Button>
 </div>
 <div class="example-row">
   <Button variant="outlined">Outlined</Button>
-  <Button variant="outlined" disabled>Disabled</Button>
-  <Button variant="outlined" href="#">Link</Button>
+  <Button disabled variant="outlined">Disabled</Button>
+  <Button href="#" variant="outlined">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="tonal">Tonal</Button>
-  <Button variant="tonal" disabled>Disabled</Button>
-  <Button variant="tonal" href="#">Link</Button>
+  <Button disabled variant="tonal">Disabled</Button>
+  <Button href="#" variant="tonal">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="filled">Filled</Button>
-  <Button variant="filled" disabled>Disabled</Button>
-  <Button variant="filled" href="#">Link</Button>
+  <Button disabled variant="filled">Disabled</Button>
+  <Button href="#" variant="filled">Link</Button>
 </div>
 ```
 
@@ -135,34 +135,34 @@ export default function Variants() {
         <Button>Transparent</Button>
         <Button disabled>Disabled</Button>
         <Button href="#">Link</Button>
-        <Button href="#" aria-current="page">
+        <Button aria-current="page" href="#">
           Current
         </Button>
       </div>
       <div className="example-row">
         <Button variant="outlined">Outlined</Button>
-        <Button variant="outlined" disabled>
+        <Button disabled variant="outlined">
           Disabled
         </Button>
-        <Button variant="outlined" href="#">
+        <Button href="#" variant="outlined">
           Link
         </Button>
       </div>
       <div className="example-row">
         <Button variant="tonal">Tonal</Button>
-        <Button variant="tonal" disabled>
+        <Button disabled variant="tonal">
           Disabled
         </Button>
-        <Button variant="tonal" href="#">
+        <Button href="#" variant="tonal">
           Link
         </Button>
       </div>
       <div className="example-row">
         <Button variant="filled">Filled</Button>
-        <Button variant="filled" disabled>
+        <Button disabled variant="filled">
           Disabled
         </Button>
-        <Button variant="filled" href="#">
+        <Button href="#" variant="filled">
           Link
         </Button>
       </div>
@@ -186,22 +186,22 @@ export default function Variants() {
   <Button>Transparent</Button>
   <Button disabled>Disabled</Button>
   <Button href="#">Link</Button>
-  <Button href="#" aria-current="page">Current</Button>
+  <Button aria-current="page" href="#">Current</Button>
 </div>
 <div class="example-row">
   <Button variant="outlined">Outlined</Button>
-  <Button variant="outlined" disabled>Disabled</Button>
-  <Button variant="outlined" href="#">Link</Button>
+  <Button disabled variant="outlined">Disabled</Button>
+  <Button href="#" variant="outlined">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="tonal">Tonal</Button>
-  <Button variant="tonal" disabled>Disabled</Button>
-  <Button variant="tonal" href="#">Link</Button>
+  <Button disabled variant="tonal">Disabled</Button>
+  <Button href="#" variant="tonal">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="filled">Filled</Button>
-  <Button variant="filled" disabled>Disabled</Button>
-  <Button variant="filled" href="#">Link</Button>
+  <Button disabled variant="filled">Disabled</Button>
+  <Button href="#" variant="filled">Link</Button>
 </div>
 ```
 
@@ -221,22 +221,22 @@ import { Button } from "opui-css/vue"
     <Button>Transparent</Button>
     <Button disabled>Disabled</Button>
     <Button href="#">Link</Button>
-    <Button href="#" aria-current="page">Current</Button>
+    <Button aria-current="page" href="#">Current</Button>
   </div>
   <div class="example-row">
     <Button variant="outlined">Outlined</Button>
-    <Button variant="outlined" disabled>Disabled</Button>
-    <Button variant="outlined" href="#">Link</Button>
+    <Button disabled variant="outlined">Disabled</Button>
+    <Button href="#" variant="outlined">Link</Button>
   </div>
   <div class="example-row">
     <Button variant="tonal">Tonal</Button>
-    <Button variant="tonal" disabled>Disabled</Button>
-    <Button variant="tonal" href="#">Link</Button>
+    <Button disabled variant="tonal">Disabled</Button>
+    <Button href="#" variant="tonal">Link</Button>
   </div>
   <div class="example-row">
     <Button variant="filled">Filled</Button>
-    <Button variant="filled" disabled>Disabled</Button>
-    <Button variant="filled" href="#">Link</Button>
+    <Button disabled variant="filled">Disabled</Button>
+    <Button href="#" variant="filled">Link</Button>
   </div>
 </template>
 ```

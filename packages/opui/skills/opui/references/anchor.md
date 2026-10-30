@@ -82,7 +82,7 @@ import {
 <Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
-    <Card variant="tonal" class="coach-mark">
+    <Card class="coach-mark" variant="tonal">
       <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
       </CardContent>
@@ -122,7 +122,7 @@ export default function AlwaysVisible() {
       <Anchor positionArea="inline-end">
         <Button variant="outlined">Export</Button>
         <AnchorContent>
-          <Card variant="tonal" className="coach-mark">
+          <Card className="coach-mark" variant="tonal">
             <CardContent>
               <strong>New</strong> Export to PDF and CSV from the same menu.
             </CardContent>
@@ -161,7 +161,7 @@ export default function AlwaysVisible() {
 <Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
-    <Card variant="tonal" class="coach-mark">
+    <Card class="coach-mark" variant="tonal">
       <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
       </CardContent>
@@ -195,7 +195,7 @@ import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/vue"
   <Anchor positionArea="inline-end">
     <Button variant="outlined">Export</Button>
     <AnchorContent>
-      <Card variant="tonal" class="coach-mark">
+      <Card class="coach-mark" variant="tonal">
         <CardContent>
           <strong>New</strong> Export to PDF and CSV from the same menu.
         </CardContent>

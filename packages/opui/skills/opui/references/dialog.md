@@ -85,8 +85,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 <button
   class="ui-button ui-outlined"
   type="button"
-  commandfor="dialog-basics-1"
   command="show-modal"
+  commandfor="dialog-basics-1"
 >
   Open dialog
 </button>
@@ -108,16 +108,16 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <button
       class="ui-button"
       type="button"
-      commandfor="dialog-basics-1"
       command="close"
+      commandfor="dialog-basics-1"
     >
       Not now
     </button>
     <button
       class="ui-button ui-filled"
       type="button"
-      commandfor="dialog-basics-1"
       command="close"
+      commandfor="dialog-basics-1"
     >
       Subscribe
     </button>
@@ -143,7 +143,7 @@ import {
 } from "opui-css/astro"
 ---
 
-<Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+<Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
   Open dialog
 </Button>
 
@@ -157,8 +157,8 @@ import {
     </p>
   </DialogContent>
   <DialogFooter>
-    <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
-    <Button commandfor="dialog-basics-1" command="close" variant="filled">
+    <Button command="close" commandfor="dialog-basics-1"> Not now </Button>
+    <Button command="close" commandfor="dialog-basics-1" variant="filled">
       Subscribe
     </Button>
   </DialogFooter>
@@ -187,8 +187,8 @@ export default function Basics() {
   return (
     <>
       <Button
-        commandfor="dialog-basics-1"
         command="show-modal"
+        commandfor="dialog-basics-1"
         variant="outlined"
       >
         Open dialog
@@ -205,10 +205,10 @@ export default function Basics() {
           </p>
         </DialogContent>
         <DialogFooter>
-          <Button commandfor="dialog-basics-1" command="close">
+          <Button command="close" commandfor="dialog-basics-1">
             Not now
           </Button>
-          <Button commandfor="dialog-basics-1" command="close" variant="filled">
+          <Button command="close" commandfor="dialog-basics-1" variant="filled">
             Subscribe
           </Button>
         </DialogFooter>
@@ -236,7 +236,7 @@ export default function Basics() {
   } from "opui-css/svelte"
 </script>
 
-<Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+<Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
   Open dialog
 </Button>
 
@@ -250,8 +250,8 @@ export default function Basics() {
     </p>
   </DialogContent>
   <DialogFooter>
-    <Button commandfor="dialog-basics-1" command="close">Not now</Button>
-    <Button commandfor="dialog-basics-1" command="close" variant="filled">
+    <Button command="close" commandfor="dialog-basics-1">Not now</Button>
+    <Button command="close" commandfor="dialog-basics-1" variant="filled">
       Subscribe
     </Button>
   </DialogFooter>
@@ -277,7 +277,7 @@ import {
 </script>
 
 <template>
-  <Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+  <Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
     Open dialog
   </Button>
 
@@ -291,8 +291,8 @@ import {
       </p>
     </DialogContent>
     <DialogFooter>
-      <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
-      <Button commandfor="dialog-basics-1" command="close" variant="filled">
+      <Button command="close" commandfor="dialog-basics-1"> Not now </Button>
+      <Button command="close" commandfor="dialog-basics-1" variant="filled">
         Subscribe
       </Button>
     </DialogFooter>

@@ -72,8 +72,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-widt
 import { Chip } from "opui-css/astro"
 ---
 
-<Chip variant="tonal" label="Tonal" />
-<Chip variant="outlined" label="Outlined" />
+<Chip label="Tonal" variant="tonal" />
+<Chip label="Outlined" variant="outlined" />
 ```
 
 ## React
@@ -90,8 +90,8 @@ import { Chip } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Chip variant="tonal" label="Tonal" />
-      <Chip variant="outlined" label="Outlined" />
+      <Chip label="Tonal" variant="tonal" />
+      <Chip label="Outlined" variant="outlined" />
     </>
   )
 }
@@ -110,8 +110,8 @@ export default function Variants() {
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip variant="tonal" label="Tonal" />
-<Chip variant="outlined" label="Outlined" />
+<Chip label="Tonal" variant="tonal" />
+<Chip label="Outlined" variant="outlined" />
 ```
 
 ## Vue
@@ -128,7 +128,7 @@ import { Chip } from "opui-css/vue"
 </script>
 
 <template>
-  <Chip variant="tonal" label="Tonal" />
-  <Chip variant="outlined" label="Outlined" />
+  <Chip label="Tonal" variant="tonal" />
+  <Chip label="Outlined" variant="outlined" />
 </template>
 ```

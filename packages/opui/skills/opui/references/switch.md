@@ -139,10 +139,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch name="switch-basics" checked hideLabel>Label</Switch>
-<Switch name="switch-basics" hideLabel>Label</Switch>
-<Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
-<Switch name="switch-basics" disabled hideLabel>Label</Switch>
+<Switch checked hideLabel name="switch-basics">Label</Switch>
+<Switch hideLabel name="switch-basics">Label</Switch>
+<Switch checked disabled hideLabel name="switch-basics">Label</Switch>
+<Switch disabled hideLabel name="switch-basics">Label</Switch>
 ```
 
 ## React
@@ -160,16 +160,16 @@ import { Switch } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      <Switch name="switch-basics" defaultChecked hideLabel>
+      <Switch defaultChecked hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" hideLabel>
+      <Switch hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" defaultChecked disabled hideLabel>
+      <Switch defaultChecked disabled hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" disabled hideLabel>
+      <Switch disabled hideLabel name="switch-basics">
         Label
       </Switch>
     </>
@@ -191,10 +191,10 @@ export default function Basics() {
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch name="switch-basics" checked hideLabel>Label</Switch>
-<Switch name="switch-basics" hideLabel>Label</Switch>
-<Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
-<Switch name="switch-basics" disabled hideLabel>Label</Switch>
+<Switch checked hideLabel name="switch-basics">Label</Switch>
+<Switch hideLabel name="switch-basics">Label</Switch>
+<Switch checked disabled hideLabel name="switch-basics">Label</Switch>
+<Switch disabled hideLabel name="switch-basics">Label</Switch>
 ```
 
 ## Vue
@@ -212,9 +212,9 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch name="switch-basics" checked hideLabel>Label</Switch>
-  <Switch name="switch-basics" hideLabel>Label</Switch>
-  <Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
-  <Switch name="switch-basics" disabled hideLabel>Label</Switch>
+  <Switch checked hideLabel name="switch-basics">Label</Switch>
+  <Switch hideLabel name="switch-basics">Label</Switch>
+  <Switch checked disabled hideLabel name="switch-basics">Label</Switch>
+  <Switch disabled hideLabel name="switch-basics">Label</Switch>
 </template>
 ```

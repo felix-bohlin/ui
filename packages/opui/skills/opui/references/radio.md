@@ -102,7 +102,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
     <legend>Legend</legend>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input type="radio" name="radio-group" value="1" checked />
+        <input type="radio" name="radio-group" checked value="1" />
         <span class="ui-label">Radio 1</span>
       </label>
       <label class="ui-radio">
@@ -135,7 +135,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
   <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio value="1" checked>Radio 1</Radio>
+      <Radio checked value="1">Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
@@ -161,7 +161,7 @@ export default function Basics() {
       <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="radio-group">
-          <Radio value="1" defaultChecked>
+          <Radio defaultChecked value="1">
             Radio 1
           </Radio>
           <Radio value="2">Radio 2</Radio>
@@ -197,7 +197,7 @@ export default function Basics() {
   <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio value="1" checked>Radio 1</Radio>
+      <Radio checked value="1">Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
@@ -224,7 +224,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup name="radio-group">
-        <Radio value="1" checked>Radio 1</Radio>
+        <Radio checked value="1">Radio 1</Radio>
         <Radio value="2">Radio 2</Radio>
         <Radio value="3">Radio 3</Radio>
       </FieldGroup>

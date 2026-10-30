@@ -91,8 +91,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 <button
   class="ui-button ui-outlined"
   type="button"
-  commandfor="menu-basics-1"
   command="toggle-popover"
+  commandfor="menu-basics-1"
 >
   Options
 </button>
@@ -152,7 +152,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 import { Button, Menu } from "opui-css/astro"
 ---
 
-<Button commandfor="menu-basics-1" command="toggle-popover" variant="outlined">
+<Button command="toggle-popover" commandfor="menu-basics-1" variant="outlined">
   Options
 </Button>
 <Menu
@@ -182,8 +182,8 @@ export default function Basics() {
   return (
     <>
       <Button
-        commandfor="menu-basics-1"
         command="toggle-popover"
+        commandfor="menu-basics-1"
         variant="outlined"
       >
         Options
@@ -214,7 +214,7 @@ export default function Basics() {
   import { Button, Menu } from "opui-css/svelte"
 </script>
 
-<Button commandfor="menu-basics-1" command="toggle-popover" variant="outlined">
+<Button command="toggle-popover" commandfor="menu-basics-1" variant="outlined">
   Options
 </Button>
 <Menu
@@ -242,8 +242,8 @@ import { Button, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    commandfor="menu-basics-1"
     command="toggle-popover"
+    commandfor="menu-basics-1"
     variant="outlined"
   >
     Options

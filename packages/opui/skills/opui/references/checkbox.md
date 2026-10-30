@@ -153,12 +153,12 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 import { Checkbox } from "opui-css/astro"
 ---
 
-<Checkbox checked name="checkbox-basics" hideLabel>Checked</Checkbox>
-<Checkbox name="checkbox-basics" hideLabel>Unchecked</Checkbox>
-<Checkbox indeterminate name="checkbox-basics" hideLabel>Indeterminate</Checkbox
+<Checkbox checked hideLabel name="checkbox-basics">Checked</Checkbox>
+<Checkbox hideLabel name="checkbox-basics">Unchecked</Checkbox>
+<Checkbox hideLabel indeterminate name="checkbox-basics">Indeterminate</Checkbox
 >
-<Checkbox disabled name="checkbox-basics" hideLabel>Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-basics" hideLabel
+<Checkbox disabled hideLabel name="checkbox-basics">Disabled</Checkbox>
+<Checkbox checked disabled hideLabel name="checkbox-basics"
   >Checked and disabled</Checkbox
 >
 ```
@@ -179,19 +179,19 @@ import { Checkbox } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      <Checkbox defaultChecked name="checkbox-basics" hideLabel>
+      <Checkbox defaultChecked hideLabel name="checkbox-basics">
         Checked
       </Checkbox>
-      <Checkbox name="checkbox-basics" hideLabel>
+      <Checkbox hideLabel name="checkbox-basics">
         Unchecked
       </Checkbox>
-      <Checkbox indeterminate name="checkbox-basics" hideLabel>
+      <Checkbox hideLabel indeterminate name="checkbox-basics">
         Indeterminate
       </Checkbox>
-      <Checkbox disabled name="checkbox-basics" hideLabel>
+      <Checkbox disabled hideLabel name="checkbox-basics">
         Disabled
       </Checkbox>
-      <Checkbox defaultChecked disabled name="checkbox-basics" hideLabel>
+      <Checkbox defaultChecked disabled hideLabel name="checkbox-basics">
         Checked and disabled
       </Checkbox>
     </>
@@ -214,12 +214,12 @@ export default function Basics() {
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox checked name="checkbox-basics" hideLabel>Checked</Checkbox>
-<Checkbox name="checkbox-basics" hideLabel>Unchecked</Checkbox>
-<Checkbox indeterminate name="checkbox-basics" hideLabel>Indeterminate</Checkbox
+<Checkbox checked hideLabel name="checkbox-basics">Checked</Checkbox>
+<Checkbox hideLabel name="checkbox-basics">Unchecked</Checkbox>
+<Checkbox hideLabel indeterminate name="checkbox-basics">Indeterminate</Checkbox
 >
-<Checkbox disabled name="checkbox-basics" hideLabel>Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-basics" hideLabel
+<Checkbox disabled hideLabel name="checkbox-basics">Disabled</Checkbox>
+<Checkbox checked disabled hideLabel name="checkbox-basics"
   >Checked and disabled</Checkbox
 >
 ```
@@ -240,13 +240,13 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox checked name="checkbox-basics" hideLabel>Checked</Checkbox>
-  <Checkbox name="checkbox-basics" hideLabel>Unchecked</Checkbox>
-  <Checkbox indeterminate name="checkbox-basics" hideLabel
+  <Checkbox checked hideLabel name="checkbox-basics">Checked</Checkbox>
+  <Checkbox hideLabel name="checkbox-basics">Unchecked</Checkbox>
+  <Checkbox hideLabel indeterminate name="checkbox-basics"
     >Indeterminate</Checkbox
   >
-  <Checkbox disabled name="checkbox-basics" hideLabel>Disabled</Checkbox>
-  <Checkbox checked disabled name="checkbox-basics" hideLabel
+  <Checkbox disabled hideLabel name="checkbox-basics">Disabled</Checkbox>
+  <Checkbox checked disabled hideLabel name="checkbox-basics"
     >Checked and disabled</Checkbox
   >
 </template>

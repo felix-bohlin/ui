@@ -129,8 +129,8 @@ import { List, ListItem } from "opui-css/astro"
 <List>
   <ListItem label="Headline" />
   <ListItem
-    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
+    label="Headline"
   />
   <ListItem label="Trailing supporting text">
     <Fragment slot="end">100+</Fragment>
@@ -154,10 +154,10 @@ export default function Basics() {
     <List>
       <ListItem label="Headline" />
       <ListItem
-        label="Headline"
         description="Supporting text that truly is quite long enough to fill up multiple lines."
+        label="Headline"
       />
-      <ListItem label="Trailing supporting text" end="100+" />
+      <ListItem end="100+" label="Trailing supporting text" />
     </List>
   )
 }
@@ -179,8 +179,8 @@ export default function Basics() {
 <List>
   <ListItem label="Headline" />
   <ListItem
-    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
+    label="Headline"
   />
   <ListItem label="Trailing supporting text">
     {#snippet end()}100+{/snippet}
@@ -205,8 +205,8 @@ import { List, ListItem } from "opui-css/vue"
   <List>
     <ListItem label="Headline" />
     <ListItem
-      label="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
+      label="Headline"
     />
     <ListItem label="Trailing supporting text">
       <template #end>100+</template>

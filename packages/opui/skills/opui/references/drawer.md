@@ -102,32 +102,32 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <button
     class="ui-button"
     type="button"
-    commandfor="drawer-basics-3"
     command="show-modal"
+    commandfor="drawer-basics-3"
   >
     Block Start
   </button>
   <button
     class="ui-button"
     type="button"
-    commandfor="drawer-basics-1"
     command="show-modal"
+    commandfor="drawer-basics-1"
   >
     Inline Start
   </button>
   <button
     class="ui-button"
     type="button"
-    commandfor="drawer-basics-2"
     command="show-modal"
+    commandfor="drawer-basics-2"
   >
     Inline End
   </button>
   <button
     class="ui-button"
     type="button"
-    commandfor="drawer-basics-4"
     command="show-modal"
+    commandfor="drawer-basics-4"
   >
     Block End
   </button>
@@ -177,8 +177,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <button
       class="ui-button ui-small"
       type="button"
-      commandfor="drawer-basics-1"
       command="close"
+      commandfor="drawer-basics-1"
     >
       Close
     </button>
@@ -215,8 +215,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <button
       class="ui-button ui-small"
       type="button"
-      commandfor="drawer-basics-2"
       command="close"
+      commandfor="drawer-basics-2"
     >
       Close
     </button>
@@ -258,8 +258,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <button
       class="ui-button ui-small"
       type="button"
-      commandfor="drawer-basics-3"
       command="close"
+      commandfor="drawer-basics-3"
     >
       Close
     </button>
@@ -301,8 +301,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     <button
       class="ui-button ui-small"
       type="button"
-      commandfor="drawer-basics-4"
       command="close"
+      commandfor="drawer-basics-4"
     >
       Close
     </button>
@@ -331,11 +331,11 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 ---
 
 <div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
+  <Button command="show-modal" commandfor="drawer-basics-3">Block Start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1">Inline Start</Button
   >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
 </div>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -354,7 +354,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
+    <Button command="close" commandfor="drawer-basics-1" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -373,7 +373,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
+    <Button command="close" commandfor="drawer-basics-2" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -397,7 +397,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
+    <Button command="close" commandfor="drawer-basics-3" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -421,7 +421,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
+    <Button command="close" commandfor="drawer-basics-4" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -451,16 +451,16 @@ export default function Basics() {
   return (
     <>
       <div className="example-compass">
-        <Button commandfor="drawer-basics-3" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-3">
           Block Start
         </Button>
-        <Button commandfor="drawer-basics-1" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-1">
           Inline Start
         </Button>
-        <Button commandfor="drawer-basics-2" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-2">
           Inline End
         </Button>
-        <Button commandfor="drawer-basics-4" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-4">
           Block End
         </Button>
       </div>
@@ -481,7 +481,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-1" command="close">
+          <Button command="close" commandfor="drawer-basics-1" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -500,7 +500,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-2" command="close">
+          <Button command="close" commandfor="drawer-basics-2" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -525,7 +525,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-3" command="close">
+          <Button command="close" commandfor="drawer-basics-3" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -550,7 +550,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-4" command="close">
+          <Button command="close" commandfor="drawer-basics-4" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -581,11 +581,11 @@ export default function Basics() {
 </script>
 
 <div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
+  <Button command="show-modal" commandfor="drawer-basics-3">Block Start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1">Inline Start</Button
   >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
 </div>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -604,7 +604,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
+    <Button command="close" commandfor="drawer-basics-1" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -623,7 +623,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
+    <Button command="close" commandfor="drawer-basics-2" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -647,7 +647,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
+    <Button command="close" commandfor="drawer-basics-3" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -671,7 +671,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
+    <Button command="close" commandfor="drawer-basics-4" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -698,16 +698,16 @@ import {
 
 <template>
   <div class="example-compass">
-    <Button commandfor="drawer-basics-3" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-3"
       >Block Start</Button
     >
-    <Button commandfor="drawer-basics-1" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-1"
       >Inline Start</Button
     >
-    <Button commandfor="drawer-basics-2" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-2"
       >Inline End</Button
     >
-    <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+    <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
   </div>
 
   <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -726,7 +726,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-1" command="close"
+      <Button command="close" commandfor="drawer-basics-1" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -745,7 +745,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-2" command="close"
+      <Button command="close" commandfor="drawer-basics-2" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -769,7 +769,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-3" command="close"
+      <Button command="close" commandfor="drawer-basics-3" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -793,7 +793,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-4" command="close"
+      <Button command="close" commandfor="drawer-basics-4" size="small"
         >Close</Button
       >
     </DrawerFooter>

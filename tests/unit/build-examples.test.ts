@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs"
+import { format, resolveConfig } from "prettier"
 import { beforeAll, describe, expect, test } from "vitest"
 import {
   cleanRender,
@@ -6,6 +7,7 @@ import {
   generate,
   HTML_SCRIPT_RULES,
   htmlFromRender,
+  parseExample,
   REACT_DEFAULT_VALUE,
 } from "../../scripts/build-examples.mjs"
 import {
@@ -45,12 +47,18 @@ const committed = (file: string) => {
 const astro = (body: string, imports = "", consts = "") =>
   `---\n${imports ? `import { ${imports} } from "opui-css/astro"\n` : ""}${consts}---\n\n${body}\n`
 
-const convert = (source: string, framework: string, name = "Example") =>
-  convertExample(
-    source,
-    framework,
-    `src/component-examples/sample/${name}.astro`,
-  )
+const sampleFile = (name = "Example") =>
+  `src/component-examples/sample/${name}.astro`
+
+const formatted = async (source: string, name?: string, printWidth?: number) =>
+  format(source, {
+    ...(await resolveConfig(sampleFile(name))),
+    filepath: sampleFile(name),
+    ...(printWidth ? { printWidth } : {}),
+  })
+
+const convert = async (source: string, framework: string, name?: string) =>
+  convertExample(await formatted(source, name), framework, sampleFile(name))
 
 describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
@@ -265,18 +273,338 @@ describe("Vue", () => {
   })
 })
 
+const PLACES = `const places = [{ id: "a", title: "A" }, { id: "b", title: "B" }]\n`
+
+describe("reading .map", () => {
+  const layouts = {
+    "a component body": [
+      "<ul>{places.map(({ id, title }) => <Card>{title}</Card>)}</ul>",
+      "Card",
+    ],
+    "extra parentheses": [
+      "<ul>{places.map(({ id, title }) => ((<li>{title}</li>)))}</ul>",
+      "",
+    ],
+    "no parentheses": [
+      "<ul>{places.map(({ id, title }) => <li>{title}</li>)}</ul>",
+      "",
+    ],
+    "one line": [
+      "<ul>{places.map(({ id, title }) => (<li>{title}</li>))}</ul>",
+      "",
+    ],
+    "the head over 80 columns": [
+      `<ul>{
+        places.map(
+          ({
+            id,
+            title,
+          }) => (
+            <li>{title}</li>
+          ),
+        )
+      }</ul>`,
+      "",
+    ],
+  }
+
+  test.each(Object.entries(layouts))("reads %s", async (_, [body, imports]) => {
+    const { tree } = await parseExample(
+      astro(body, imports, PLACES),
+      sampleFile(),
+    )
+    const [list] = tree
+    const map = list.children.find(
+      (child: { type: string }) => child.type === "map",
+    )
+    expect(map).toMatchObject({ array: "places", key: "id", type: "map" })
+    expect(map.params.replace(/\s+/g, " ")).toMatch(/^\{ ?id, ?title,? ?\}$/)
+  })
+
+  test("reads a string array and keys it by the string", async () => {
+    const { tree } = await parseExample(
+      astro(
+        "<ul>{names.map((name) => <li>{name}</li>)}</ul>",
+        "",
+        'const names = ["a", "b"]\n',
+      ),
+      sampleFile(),
+    )
+    expect(
+      tree[0].children.find((c: { type: string }) => c.type === "map"),
+    ).toMatchObject({
+      key: "name",
+      params: "name",
+    })
+  })
+
+  test("reads a const with as const", async () => {
+    const { tree } = await parseExample(
+      astro(
+        "<ul>{names.map((name) => <li>{name}</li>)}</ul>",
+        "",
+        'const names = ["a", "b"] as const\n',
+      ),
+      sampleFile(),
+    )
+    expect(
+      tree[0].children.find((c: { type: string }) => c.type === "map"),
+    ).toMatchObject({
+      key: "name",
+    })
+  })
+
+  test.each([
+    [
+      "a key after id, value, name and title",
+      "<ul>{rows.map(({ code }) => <li>{code}</li>)}</ul>",
+      'const rows = [{ code: "x", name: "same" }, { code: "y", name: "same" }]\n',
+      "code",
+    ],
+    [
+      "name before title",
+      "<ul>{rows.map(({ name, title }) => <li>{title}</li>)}</ul>",
+      'const rows = [{ name: "x", title: "same" }, { name: "y", title: "same" }]\n',
+      "name",
+    ],
+    [
+      "a field of the item when the parameter is not destructured",
+      "<ul>{rows.map((row) => <li>{row.label}</li>)}</ul>",
+      'const rows = [{ id: 1, label: "x" }, { id: 2, label: "y" }]\n',
+      "row.id",
+    ],
+    [
+      "the local name of a renamed field",
+      "<ul>{rows.map(({ id: ident }) => <li>{ident}</li>)}</ul>",
+      "const rows = [{ id: 1 }, { id: 2 }]\n",
+      "ident",
+    ],
+  ])("keys by %s", async (_, body, consts, key) => {
+    const { tree } = await parseExample(astro(body, "", consts), sampleFile())
+    expect(
+      tree[0].children.find((c: { type: string }) => c.type === "map"),
+    ).toMatchObject({ key })
+  })
+
+  test.each([
+    [
+      "a .map over something that is not a frontmatter const",
+      "<ul>{items.map(({ id }) => <li>{id}</li>)}</ul>",
+      "",
+      "items.map, which isn't over an array const in the frontmatter",
+    ],
+    [
+      "a callback with an index",
+      "<ul>{places.map(({ id }, index) => <li>{id}</li>)}</ul>",
+      PLACES,
+      "the places.map callback, which must take one parameter",
+    ],
+    [
+      "a callback with a block body",
+      "<ul>{places.map(({ id }) => { return <li>{id}</li> })}</ul>",
+      PLACES,
+      "the places.map callback body, which must be one element",
+    ],
+    [
+      "a parameter with a default",
+      "<ul>{places.map(({ id = 1 }) => <li>{id}</li>)}</ul>",
+      PLACES,
+      "the places.map callback parameter",
+    ],
+    [
+      "duplicate values in every field",
+      "<ul>{rows.map(({ label }) => <li>{label}</li>)}</ul>",
+      'const rows = [{ label: "x" }, { label: "x" }]\n',
+      "rows.map without a field that is destructured, present in every item, a string or number, and unique",
+    ],
+    [
+      "a unique field that the callback does not destructure",
+      "<ul>{rows.map(({ label }) => <li>{label}</li>)}</ul>",
+      'const rows = [{ id: 1, label: "x" }, { id: 2, label: "x" }]\n',
+      "rows.map without a field that is destructured",
+    ],
+    [
+      "duplicate strings",
+      "<ul>{names.map((name) => <li>{name}</li>)}</ul>",
+      'const names = ["a", "a"]\n',
+      "names.map over items that aren't unique",
+    ],
+    [
+      "an empty array",
+      "<ul>{names.map((name) => <li>{name}</li>)}</ul>",
+      "const names = []\n",
+      "names.map over an empty array",
+    ],
+    [
+      "two elements in one expression",
+      "<p>{flag ? <b>a</b> : <i>b</i>}</p>",
+      "",
+      "an expression with more than one element",
+    ],
+    [
+      "markup in an expression that is not a .map",
+      "<p>{flag && <b>a</b>}</p>",
+      "",
+      "an expression with markup other than array.map(callback)",
+    ],
+    [
+      "an expression that is not a property chain",
+      "<p>{make()}</p>",
+      "",
+      "the expression {make()}",
+    ],
+  ])("rejects %s", async (_, body, consts, reason) => {
+    await expect(
+      parseExample(astro(body, "", consts), sampleFile()),
+    ).rejects.toThrow(reason)
+  })
+
+  test("a .map renders in every target with the key from the data", async () => {
+    const source = astro(
+      "<ul>{places.map(({ id, title }) => <li>{title}</li>)}</ul>",
+      "",
+      PLACES,
+    )
+    expect(await convert(source, "react")).toContain(
+      "<li key={id}>{title}</li>",
+    )
+    expect(await convert(source, "svelte")).toContain(
+      "{#each places as { id, title } (id)}",
+    )
+    expect(await convert(source, "vue")).toContain(
+      '<li v-for="{ id, title } in places" :key="id">',
+    )
+  })
+})
+
+describe("reading the frontmatter", () => {
+  test("keeps type annotations, as const and comments in every target", async () => {
+    const source = astro(
+      "<p>{title}</p>",
+      "",
+      '// The title\nconst title: string = "Hi" // trailing\nconst sizes = ["a", "b"] as const\n',
+    )
+    for (const framework of ["react", "svelte", "vue"]) {
+      const code = await convert(source, framework)
+      expect(code, framework).toContain("// The title")
+      expect(code, framework).toContain(
+        'const title: string = "Hi" // trailing',
+      )
+      expect(code, framework).toContain('const sizes = ["a", "b"] as const')
+    }
+  })
+
+  test("carries a type import that a declaration uses and drops one that none does", async () => {
+    const source = astro(
+      "<p>{title}</p>",
+      "",
+      'import type { Used } from "./types"\nimport type { Unused } from "./types"\nconst title: Used = "Hi"\n',
+    )
+    const code = await convert(source, "react")
+    expect(code).toContain('import type { Used } from "./types"')
+    expect(code).not.toContain("Unused")
+  })
+
+  test.each([
+    ["a call", "const x = make()\n", "`x = make()`"],
+    ["a type assertion", 'const x = <string>"a"\n', '`x = <string>"a"`'],
+    ["a function", "function f() {}\n", "the frontmatter statement"],
+    ["an export", 'export const x = "a"\n', "the frontmatter statement"],
+    [
+      "a comment on a const that set:html removes",
+      '// The icon\nconst icon = "<svg></svg>"\n',
+      "a comment on the set:html const icon",
+    ],
+  ])("rejects %s", async (_, consts, reason) => {
+    const body = consts.includes("icon")
+      ? "<Button><Fragment set:html={icon} /></Button>"
+      : "<p>{x}</p>"
+    await expect(
+      parseExample(
+        astro(body, consts.includes("icon") ? "Button" : "", consts),
+        sampleFile(),
+      ),
+    ).rejects.toThrow(reason)
+  })
+})
+
+describe("reading slots", () => {
+  const icon = 'const icon = `<svg aria-hidden="true"></svg>`\n'
+
+  test("keeps the slot of a Fragment that renders set:html", async () => {
+    const source = astro(
+      '<Badge label="New"><Fragment slot="indicator" set:html={icon} /></Badge>',
+      "Badge",
+      icon,
+    )
+    expect(await convert(source, "react")).toContain(
+      'indicator={<svg aria-hidden="true"></svg>}',
+    )
+    expect(await convert(source, "svelte")).toMatch(
+      /\{#snippet indicator\(\)\}\s*<svg/,
+    )
+    expect(await convert(source, "vue")).toMatch(/<template #indicator>\s*<svg/)
+  })
+
+  test.each([
+    [
+      "a slot on a native element's child",
+      '<div><span slot="x">hi</span></div>',
+      'slot="x" outside the direct children of a component',
+    ],
+    [
+      "a slot on the body of a .map",
+      '<Card>{places.map(({ id }) => <li slot="x">{id}</li>)}</Card>',
+      'slot="x" outside the direct children of a component',
+    ],
+    [
+      "a slot inside a slot",
+      '<Card><Fragment slot="a"><b slot="b">x</b></Fragment></Card>',
+      'slot="b" outside the direct children of a component',
+    ],
+    [
+      "a slot that is an expression",
+      "<Card><p slot={name}>x</p></Card>",
+      "a slot attribute that isn't a plain string",
+    ],
+    [
+      "another attribute on a Fragment",
+      '<Card><Fragment slot="a" class="x">y</Fragment></Card>',
+      "the attribute class on a <Fragment>",
+    ],
+    [
+      "a Fragment without a slot",
+      "<Card><Fragment>y</Fragment></Card>",
+      "a <Fragment> without a slot",
+    ],
+  ])("rejects %s", async (_, body, reason) => {
+    await expect(
+      parseExample(
+        astro(body, "Card", PLACES + "const name = 'a'\n"),
+        sampleFile(),
+      ),
+    ).rejects.toThrow(reason)
+  })
+})
+
+describe("React roots", () => {
+  test("wraps anything but one element in a fragment", async () => {
+    const consts = 'const title = "Hi"\n'
+    expect(await convert(astro("{title}", "", consts), "react")).toMatch(
+      /return \(?\s*<>\s*\{title\}\s*<\/>/,
+    )
+    expect(await convert(astro("Hello", "", consts), "react")).toMatch(
+      /return \(?\s*<>\s*Hello\s*<\/>/,
+    )
+    expect(await convert(astro("<p>Hi</p>", "", consts), "react")).toMatch(
+      /return <p>Hi<\/p>/,
+    )
+  })
+})
+
 describe("unsupported sources", () => {
   test.each([
-    ["a frontmatter statement", astro("<p>{x}</p>", "", "const x = make()\n")],
     ["a component that isn't imported", astro("<Button>Go</Button>")],
-    [
-      "a .map without a key",
-      astro(
-        "<ul>{items.map(({ label }) => (<li>{label}</li>))}</ul>",
-        "",
-        "const items = []\n",
-      ),
-    ],
     ["a directive", astro('<p class:list={["a"]}>Hi</p>')],
     [
       "a client script",
@@ -285,6 +613,72 @@ describe("unsupported sources", () => {
   ])("rejects %s", async (_, source) => {
     await expect(convert(source, "react")).rejects.toThrow("can't convert")
   })
+})
+
+describe("the source layout", () => {
+  const shape = (nodes: Record<string, unknown>[]): Record<string, unknown>[] =>
+    nodes.flatMap((node): Record<string, unknown>[] => {
+      if (node.type === "text") {
+        const value = String(node.value).replace(/\s+/g, " ").trim()
+        return value ? [{ type: "text", value }] : []
+      }
+      return [
+        {
+          ...node,
+          ...(node.attributes
+            ? {
+                attributes: (
+                  node.attributes as { kind: string; value: string }[]
+                ).map((attribute) =>
+                  attribute.kind === "expression"
+                    ? {
+                        ...attribute,
+                        value: attribute.value
+                          .replace(/\s+/g, "")
+                          .replace(/,([\]})])/g, "$1"),
+                      }
+                    : attribute,
+                ),
+              }
+            : {}),
+          ...(node.children
+            ? { children: shape(node.children as Record<string, unknown>[]) }
+            : {}),
+          ...(node.child
+            ? { child: shape([node.child as Record<string, unknown>])[0] }
+            : {}),
+        },
+      ]
+    })
+
+  test("a sample the check must flag: shape tells a change from a reformat", async () => {
+    const a = await parseExample(astro("<p>a</p>"), sampleFile())
+    const b = await parseExample(astro("<p>b</p>"), sampleFile())
+    const c = await parseExample(astro("<p>\n  a\n</p>"), sampleFile())
+    expect(shape(a.tree)).not.toEqual(shape(b.tree))
+    expect(shape(a.tree)).toEqual(shape(c.tree))
+  })
+
+  test("every example reads the same at print widths 40 and 120", async () => {
+    const problems: string[] = []
+    for (const key of keys) {
+      const source = sources[`${EXAMPLES}${key}.astro`]
+      const name = key.split("/")[1]
+      const expected = shape(
+        (await parseExample(source, sampleFile(name))).tree,
+      )
+      for (const width of [40, 120]) {
+        const reformatted = await formatted(source, name, width)
+        const tree = shape(
+          (await parseExample(reformatted, sampleFile(name))).tree,
+        )
+        if (JSON.stringify(tree) !== JSON.stringify(expected)) {
+          problems.push(`${key} at ${width}`)
+        }
+      }
+    }
+    expect(problems).toEqual([])
+  }, 300_000)
 })
 
 describe("HTML", () => {

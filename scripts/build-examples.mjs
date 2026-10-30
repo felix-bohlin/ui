@@ -79,25 +79,76 @@ const VOID_ELEMENTS = new Set([
   "wbr",
 ])
 
-const MAP_KEYS = ["id", "name", "title"]
+const MAP_KEY_ORDER = ["id", "value", "name", "title"]
+
+const MARKUP = "__markup__"
 
 const unsupported = (file, what, target) =>
   new Error(
     `${file} uses ${what}, which scripts/build-examples.mjs can't convert${target ? ` to ${target}` : ""}: support it there, or list the file in scripts/hand-written-examples.json with the reason`,
   )
 
-const isLiteral = (node) =>
-  ts.isStringLiteral(node) ||
-  ts.isNoSubstitutionTemplateLiteral(node) ||
-  ts.isNumericLiteral(node) ||
-  node.kind === ts.SyntaxKind.TrueKeyword ||
-  node.kind === ts.SyntaxKind.FalseKeyword ||
-  (ts.isArrayLiteralExpression(node) && node.elements.every(isLiteral)) ||
-  (ts.isObjectLiteralExpression(node) &&
-    node.properties.every(
-      (property) =>
-        ts.isPropertyAssignment(property) && isLiteral(property.initializer),
-    ))
+const NOT_LITERAL = Symbol("not a literal")
+
+const unwrap = (node) => {
+  while (
+    ts.isParenthesizedExpression(node) ||
+    ts.isAsExpression(node) ||
+    ts.isSatisfiesExpression(node)
+  ) {
+    node = node.expression
+  }
+  return node
+}
+
+const literalValue = (node) => {
+  node = unwrap(node)
+  if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
+    return node.text
+  }
+  if (ts.isNumericLiteral(node)) return Number(node.text)
+  if (node.kind === ts.SyntaxKind.TrueKeyword) return true
+  if (node.kind === ts.SyntaxKind.FalseKeyword) return false
+  if (ts.isArrayLiteralExpression(node)) {
+    const items = node.elements.map(literalValue)
+    return items.includes(NOT_LITERAL) ? NOT_LITERAL : items
+  }
+  if (ts.isObjectLiteralExpression(node)) {
+    const entries = node.properties.map((property) => {
+      const name = property.name
+      const key =
+        name && (ts.isIdentifier(name) || ts.isStringLiteral(name))
+          ? name.text
+          : undefined
+      const value = ts.isPropertyAssignment(property)
+        ? literalValue(property.initializer)
+        : NOT_LITERAL
+      return key === undefined || value === NOT_LITERAL
+        ? NOT_LITERAL
+        : [key, value]
+    })
+    return entries.includes(NOT_LITERAL)
+      ? NOT_LITERAL
+      : Object.fromEntries(entries)
+  }
+  return NOT_LITERAL
+}
+
+const hasTypeAssertion = (node) =>
+  ts.isTypeAssertionExpression(node) ||
+  ts.forEachChild(node, hasTypeAssertion) === true
+
+const commentsAround = (code, statement) => {
+  const text = ({ pos, end }) => code.slice(pos, end)
+  return {
+    leading: (
+      ts.getLeadingCommentRanges(code, statement.getFullStart()) ?? []
+    ).map(text),
+    trailing: (ts.getTrailingCommentRanges(code, statement.getEnd()) ?? []).map(
+      text,
+    ),
+  }
+}
 
 const readFrontmatter = (code, file) => {
   const sourceFile = ts.createSourceFile(
@@ -107,6 +158,7 @@ const readFrontmatter = (code, file) => {
     true,
   )
   const imports = []
+  const typeImports = []
   const consts = []
   for (const statement of sourceFile.statements) {
     if (
@@ -123,25 +175,49 @@ const readFrontmatter = (code, file) => {
       continue
     }
     if (
-      ts.isVariableStatement(statement) &&
-      statement.declarationList.flags & ts.NodeFlags.Const
+      ts.isImportDeclaration(statement) &&
+      statement.importClause?.isTypeOnly &&
+      !statement.moduleSpecifier.text.startsWith("opui-css/")
     ) {
-      for (const declaration of statement.declarationList.declarations) {
+      typeImports.push({
+        names: statement.importClause.namedBindings?.elements?.map(
+          (element) => element.name.text,
+        ) ?? [statement.importClause.name?.text],
+        text: statement.getText(sourceFile),
+      })
+      continue
+    }
+    if (
+      ts.isVariableStatement(statement) &&
+      statement.declarationList.flags & ts.NodeFlags.Const &&
+      !statement.modifiers
+    ) {
+      const { declarations } = statement.declarationList
+      const comments = commentsAround(code, statement)
+      declarations.forEach((declaration, index) => {
+        const items = declaration.initializer
+          ? literalValue(declaration.initializer)
+          : NOT_LITERAL
         if (
           !ts.isIdentifier(declaration.name) ||
-          !declaration.initializer ||
-          !isLiteral(declaration.initializer)
+          items === NOT_LITERAL ||
+          hasTypeAssertion(declaration)
         ) {
           throw unsupported(file, `\`${declaration.getText(sourceFile)}\``)
         }
         consts.push({
-          code: declaration.initializer.getText(sourceFile),
+          comments: [
+            ...(index === 0 ? comments.leading : []),
+            ...(index === declarations.length - 1 ? comments.trailing : []),
+          ],
+          items,
           name: declaration.name.text,
-          value: ts.isStringLiteralLike(declaration.initializer)
-            ? declaration.initializer.text
-            : undefined,
+          text: `const ${declaration.getText(sourceFile)}`,
+          trailing: index === declarations.length - 1 ? comments.trailing : [],
+          leading: index === 0 ? comments.leading : [],
+          value: typeof items === "string" ? items : undefined,
         })
-      }
+      })
       continue
     }
     throw unsupported(
@@ -149,7 +225,7 @@ const readFrontmatter = (code, file) => {
       `the frontmatter statement \`${statement.getText(sourceFile).split("\n")[0]}\``,
     )
   }
-  return { consts, imports }
+  return { consts, imports, typeImports }
 }
 
 const attribute = (node, name) =>
@@ -159,11 +235,6 @@ const textOf = (node) =>
   node.children
     .map((child) => (child.type === "text" ? child.value : ""))
     .join("")
-
-const SIMPLE_EXPRESSION = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*)*$/
-
-const MAP_START =
-  /^\s*([A-Za-z_$][\w$.]*)\.map\(\s*\(?\s*(\{[^}]*\}|[A-Za-z_$][\w$]*)\s*\)?\s*=>\s*\(\s*$/
 
 const SVG_TEXT = new Set(["desc", "text", "title"])
 
@@ -181,29 +252,59 @@ const svgChildren = (children) => {
         })
 }
 
+const slotOf = (node, context) => {
+  const slot = attribute(node, "slot")
+  if (!slot) return undefined
+  if (slot.kind !== "quoted") {
+    throw unsupported(
+      context.file,
+      "a slot attribute that isn't a plain string",
+    )
+  }
+  if (!context.slotHost) {
+    throw unsupported(
+      context.file,
+      `slot="${slot.value}" outside the direct children of a component`,
+    )
+  }
+  return slot.value
+}
+
+const htmlNode = (html, context) => {
+  const name = html.value.trim()
+  const markup =
+    html.kind === "expression" ? context.markup.get(name) : undefined
+  if (!markup) throw unsupported(context.file, `set:html={${html.value}}`)
+  markup.uses++
+  return { name, type: "html" }
+}
+
 const toTree = (nodes, context) =>
   nodes.flatMap((node) => {
     if (node.type === "text") return [{ type: "text", value: node.value }]
     if (node.type === "comment") return [{ type: "comment", value: node.value }]
     if (node.type === "expression") return [expressionNode(node, context)]
     if (node.type === "fragment") {
-      const html = attribute(node, "set:html")
-      if (html?.kind === "expression") {
-        const markup = context.markup.get(html.value.trim())
-        if (!markup) {
-          throw unsupported(context.file, `set:html={${html.value}}`)
+      for (const item of node.attributes) {
+        if (item.name !== "slot" && item.name !== "set:html") {
+          throw unsupported(
+            context.file,
+            `the attribute ${item.name} on a <Fragment>`,
+          )
         }
-        markup.uses++
-        return [{ name: html.value.trim(), type: "html" }]
       }
-      const slot = attribute(node, "slot")
-      if (!slot || node.attributes.length !== 1) {
-        throw unsupported(context.file, "a <Fragment> without a slot")
+      const slot = slotOf(node, context)
+      const html = attribute(node, "set:html")
+      if (html && !slot) {
+        return [htmlNode(html, context)]
       }
+      if (!slot) throw unsupported(context.file, "a <Fragment> without a slot")
       return [
         {
-          children: toTree(node.children, context),
-          slot: slot.value,
+          children: html
+            ? [htmlNode(html, context)]
+            : toTree(node.children, { ...context, slotHost: false }),
+          slot,
           type: "fragment",
         },
       ]
@@ -235,23 +336,24 @@ const toTree = (nodes, context) =>
         }
         throw unsupported(context.file, `the attribute ${item.name}`)
       })
-      const slot = attributes.find((item) => item.name === "slot")
+      const slot = slotOf(node, context)
       const children = toTree(node.children, {
         ...context,
+        slotHost: node.type === "component",
         svg: SVG_TEXT.has(node.name)
           ? false
           : context.svg || node.name === "svg",
       })
       return [
         {
-          attributes: attributes.filter((item) => item !== slot),
+          attributes: attributes.filter((item) => item.name !== "slot"),
           children:
             context.svg || node.name === "svg"
               ? svgChildren(children)
               : children,
           component: node.type === "component",
           name: node.name,
-          slot: slot?.value,
+          slot,
           type: "element",
         },
       ]
@@ -259,57 +361,204 @@ const toTree = (nodes, context) =>
     throw unsupported(context.file, `a ${node.type} node`)
   })
 
-const expressionNode = (node, context) => {
-  const elements = node.children.filter((child) => child.type !== "text")
-  if (elements.length === 0) {
-    const code = textOf(node).trim()
-    const literal = code.match(/^"([^"\\]*)"$/)
-    if (literal) return { type: "text", value: literal[1] }
-    if (SIMPLE_EXPRESSION.test(code)) return { code, type: "expression" }
-    throw unsupported(context.file, `the expression {${code}}`)
-  }
-  const [first, ...rest] = node.children
-  const last = rest.pop()
-  const start = first?.type === "text" ? first.value.match(MAP_START) : null
-  const body = rest.filter(
-    (child) => !(child.type === "text" && !child.value.trim()),
+const parseExpression = (code, file) => {
+  const sourceFile = ts.createSourceFile(
+    "expression.ts",
+    `(${code})`,
+    ts.ScriptTarget.Latest,
+    true,
   )
+  const [statement] = sourceFile.statements
   if (
-    !start ||
-    last?.type !== "text" ||
-    !/^\s*\)\s*\)\s*$/.test(last.value) ||
-    body.length !== 1 ||
-    body[0].type !== "element"
+    sourceFile.parseDiagnostics.length > 0 ||
+    sourceFile.statements.length !== 1 ||
+    !ts.isExpressionStatement(statement)
   ) {
-    throw unsupported(context.file, "an expression with markup other than .map")
+    throw unsupported(file, `the expression {${code}}`)
   }
-  const [, array, params] = start
-  const names = params.startsWith("{")
-    ? params
-        .slice(1, -1)
-        .split(",")
-        .map((name) => name.trim())
-    : [params]
-  const key = params.startsWith("{")
-    ? MAP_KEYS.find((name) => names.includes(name))
-    : params
-  if (!key) {
-    throw unsupported(context.file, `${array}.map without an id, name or title`)
+  return unwrap(statement.expression)
+}
+
+const isPropertyChain = (node) =>
+  ts.isIdentifier(node) ||
+  (ts.isPropertyAccessExpression(node) && isPropertyChain(node.expression))
+
+const FIELD_KINDS = new Set(["number", "string"])
+
+const mapKey = (name, items, param, file) => {
+  const objects = items.filter(
+    (item) => item && typeof item === "object" && !Array.isArray(item),
+  )
+  const usable = (field) =>
+    objects.length === items.length &&
+    items.every((item) => FIELD_KINDS.has(typeof item[field])) &&
+    new Set(items.map((item) => String(item[field]))).size === items.length
+  if (items.length === 0) {
+    throw unsupported(file, `${name}.map over an empty array`)
+  }
+  if (
+    ts.isIdentifier(param.name) &&
+    items.every((item) => FIELD_KINDS.has(typeof item))
+  ) {
+    if (new Set(items.map(String)).size !== items.length) {
+      throw unsupported(
+        file,
+        `${name}.map over items that aren't unique, so React and Vue have no key`,
+      )
+    }
+    return param.name.text
+  }
+  const fields = [
+    ...new Set([
+      ...MAP_KEY_ORDER,
+      ...(objects.length ? Object.keys(objects[0]) : []),
+    ]),
+  ]
+  if (ts.isIdentifier(param.name)) {
+    const field = fields.find(usable)
+    if (field) return `${param.name.text}.${field}`
+  } else {
+    const locals = new Map(
+      param.name.elements.map((element) => [
+        (element.propertyName ?? element.name).text,
+        element.name.text,
+      ]),
+    )
+    const field = fields.find(
+      (candidate) => locals.has(candidate) && usable(candidate),
+    )
+    if (field) return locals.get(field)
+  }
+  throw unsupported(
+    file,
+    `${name}.map without a field that is destructured, present in every item, a string or number, and unique, for the React and Vue key`,
+  )
+}
+
+const paramText = (binding) =>
+  ts.isIdentifier(binding)
+    ? binding.text
+    : `{ ${binding.elements
+        .map((element) =>
+          element.propertyName
+            ? `${element.propertyName.text}: ${element.name.text}`
+            : element.name.text,
+        )
+        .join(", ")} }`
+
+const mapArrow = (call, context) => {
+  const callee = call.expression
+  if (
+    !ts.isPropertyAccessExpression(callee) ||
+    callee.name.text !== "map" ||
+    !ts.isIdentifier(callee.expression) ||
+    call.arguments.length !== 1 ||
+    !ts.isArrowFunction(call.arguments[0])
+  ) {
+    throw unsupported(
+      context.file,
+      "an expression with markup other than array.map(callback)",
+    )
+  }
+  const array = callee.expression.text
+  const items = context.arrays.get(array)
+  if (!items) {
+    throw unsupported(
+      context.file,
+      `${array}.map, which isn't over an array const in the frontmatter`,
+    )
+  }
+  const [arrow] = call.arguments
+  if (arrow.parameters.length !== 1) {
+    throw unsupported(
+      context.file,
+      `the ${array}.map callback, which must take one parameter`,
+    )
+  }
+  const [param] = arrow.parameters
+  const simpleBinding = (binding) =>
+    ts.isIdentifier(binding) ||
+    (ts.isObjectBindingPattern(binding) &&
+      binding.elements.every(
+        (element) =>
+          !element.dotDotDotToken &&
+          !element.initializer &&
+          ts.isIdentifier(element.name) &&
+          (!element.propertyName || ts.isIdentifier(element.propertyName)),
+      ))
+  if (
+    param.dotDotDotToken ||
+    param.initializer ||
+    param.questionToken ||
+    !simpleBinding(param.name)
+  ) {
+    throw unsupported(
+      context.file,
+      `the ${array}.map callback parameter \`${param.getText()}\``,
+    )
+  }
+  const body = unwrap(arrow.body)
+  if (!ts.isIdentifier(body) || body.text !== MARKUP) {
+    throw unsupported(
+      context.file,
+      `the ${array}.map callback body, which must be one element`,
+    )
   }
   return {
     array,
-    child: toTree([body[0]], context)[0],
-    key,
-    params,
+    key: mapKey(array, items, param, context.file),
+    params: paramText(param.name),
+  }
+}
+
+const expressionNode = (node, context) => {
+  const markup = node.children.filter((child) => child.type !== "text")
+  if (markup.length > 1) {
+    throw unsupported(context.file, "an expression with more than one element")
+  }
+  const code = node.children
+    .map((child) => (child.type === "text" ? child.value : MARKUP))
+    .join("")
+    .trim()
+  const expression = parseExpression(code, context.file)
+  if (markup.length === 0) {
+    if (
+      (ts.isStringLiteral(expression) ||
+        ts.isNoSubstitutionTemplateLiteral(expression)) &&
+      !expression.getText().includes("\\")
+    ) {
+      return { type: "text", value: expression.text }
+    }
+    if (isPropertyChain(expression)) {
+      return { code: expression.getText(), type: "expression" }
+    }
+    throw unsupported(context.file, `the expression {${code}}`)
+  }
+  if (!ts.isCallExpression(expression)) {
+    throw unsupported(
+      context.file,
+      "an expression with markup other than array.map(callback)",
+    )
+  }
+  const [child] = markup
+  if (child.type !== "element" && child.type !== "component") {
+    throw unsupported(
+      context.file,
+      `a <${child.name ?? child.type}> as the body of array.map`,
+    )
+  }
+  return {
+    ...mapArrow(expression, context),
+    child: toTree([child], { ...context, slotHost: false })[0],
     type: "map",
   }
 }
 
-const parseExample = async (source, file = "Example.astro") => {
+export const parseExample = async (source, file = "Example.astro") => {
   const { ast } = await parse(source, { position: false })
   const frontmatter =
     ast.children.find((node) => node.type === "frontmatter")?.value ?? ""
-  const { consts, imports } = readFrontmatter(frontmatter, file)
+  const { consts, imports, typeImports } = readFrontmatter(frontmatter, file)
   const usedAsHtml = new Set(
     [...source.matchAll(/set:html=\{\s*([\w$]+)\s*\}/g)].map(
       (match) => match[1],
@@ -321,9 +570,17 @@ const parseExample = async (source, file = "Example.astro") => {
       throw unsupported(file, `set:html={${item.name}} with a non-string`)
     }
     const { ast: parsed } = await parse(item.value, { position: false })
+    if (item.comments.length > 0) {
+      throw unsupported(file, `a comment on the set:html const ${item.name}`)
+    }
     markup.set(item.name, { nodes: parsed.children, uses: 0 })
   }
-  const context = { file, imports, markup }
+  const arrays = new Map(
+    consts
+      .filter(({ items }) => Array.isArray(items))
+      .map(({ items, name }) => [name, items]),
+  )
+  const context = { arrays, file, imports, markup, slotHost: false }
   const styles = []
   const scripts = []
   const body = []
@@ -352,6 +609,7 @@ const parseExample = async (source, file = "Example.astro") => {
     scripts,
     styles,
     tree: trimTree(tree),
+    typeImports,
   }
 }
 
@@ -395,6 +653,21 @@ const usedComponents = (example) => {
   walk(example.tree)
   for (const item of example.markup.values()) walk(item.tree)
   return example.imports.filter((name) => names.has(name))
+}
+
+const declarations = ({ consts, typeImports }) => {
+  const text = consts.map((item) => item.text).join("\n")
+  const used = typeImports
+    .filter(({ names }) =>
+      names.some((name) => new RegExp(`\\b${name}\\b`).test(text)),
+    )
+    .map(({ text: line }) => line)
+  return [
+    ...used,
+    ...consts.map(({ leading, text: line, trailing }) =>
+      [...leading, [line, ...trailing].join(" ")].join("\n"),
+    ),
+  ]
 }
 
 const importLine = (example, framework) => {
@@ -535,10 +808,7 @@ const toSvelte = (example) => {
         `{#snippet ${item.name}()}\n${emit(item.tree, example.markup)}\n{/snippet}\n\n`,
     )
     .join("")
-  const script = [
-    importLine(example, "svelte"),
-    ...example.consts.map(({ code, name }) => `const ${name} = ${code}`),
-  ]
+  const script = [importLine(example, "svelte"), ...declarations(example)]
     .filter(Boolean)
     .join("\n\n")
   const styles = example.styles
@@ -549,10 +819,7 @@ const toSvelte = (example) => {
 
 const toVue = (example) => {
   const emit = markupTarget("vue")
-  const script = [
-    importLine(example, "vue"),
-    ...example.consts.map(({ code, name }) => `const ${name} = ${code}`),
-  ]
+  const script = [importLine(example, "vue"), ...declarations(example)]
     .filter(Boolean)
     .join("\n\n")
   const styles = example.styles
@@ -592,6 +859,20 @@ const jsxString = (name, value) =>
     : !value.includes("'")
       ? `${name}='${value}'`
       : `${name}={${JSON.stringify(value)}}`
+
+const reactExpression = (nodes, context, extra = "") => {
+  const inlined = nodes.flatMap((node) =>
+    node.type === "html" && !context.markup.get(node.name).shared
+      ? context.markup.get(node.name).tree
+      : [node],
+  )
+  const significant = inlined.filter(
+    (node) => !(node.type === "text" && !node.value.trim()),
+  )
+  return significant.length === 1 && significant[0].type === "element" && !extra
+    ? reactNodes(significant, context)
+    : `<>${reactNodes(inlined, context)}${extra}</>`
+}
 
 const reactProps = (node, context) => {
   const selected =
@@ -663,16 +944,7 @@ const reactProps = (node, context) => {
           .trim()
         return { code: jsxString(name, text), name }
       }
-      const elements = content.filter(
-        (item) => !(item.type === "text" && !item.value.trim()),
-      )
-      return {
-        code:
-          elements.length === 1 && elements[0].type === "element"
-            ? `${name}={${reactNodes(elements, context)}}`
-            : `${name}={<>${reactNodes(content, context)}</>}`,
-        name,
-      }
+      return { code: `${name}={${reactExpression(content, context)}}`, name }
     })
   const all = isSorted(node.attributes.map(({ name }) => name))
     ? [...props, ...slots].toSorted((a, b) =>
@@ -759,27 +1031,19 @@ const toReact = (example, name, file = `${name}.astro`) => {
   const shared = [...example.markup.values()]
     .filter((item) => item.shared)
     .map(
-      (item) =>
-        `const ${item.name} = (${reactNodes(item.tree, context).trim()})`,
+      (item) => `const ${item.name} = (${reactExpression(item.tree, context)})`,
     )
   const header = [
     importLine(example, "react"),
-    ...example.consts.map(({ code, name }) => `const ${name} = ${code}`),
+    ...declarations(example),
     ...shared,
   ]
     .filter(Boolean)
     .join("\n\n")
-  const roots = example.tree.filter(
-    (node) => !(node.type === "text" && !node.value.trim()),
-  )
   const styles = example.styles.map(
     (css) => `\n<style>{\`\n${indent(css, 8)}\n      \`}</style>`,
   )
-  const markup = reactNodes(example.tree, context)
-  const body =
-    roots.length > 1 || styles.length > 0
-      ? `<>${markup}${styles.join("")}</>`
-      : markup
+  const body = reactExpression(example.tree, context, styles.join(""))
   return `${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
 }
 

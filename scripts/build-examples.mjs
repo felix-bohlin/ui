@@ -11,6 +11,15 @@ import { format, resolveConfig } from "prettier"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { clean } from "../src/utils/clean-html.ts"
+import {
+  attributeText,
+  decodeAttribute,
+  decodeText,
+  jsxAttribute,
+  jsxText,
+  markupText,
+  templateLiteral,
+} from "./example-encoders.mjs"
 import { createExampleIdGenerator } from "../src/utils/id.ts"
 import {
   generatedTargets,
@@ -528,7 +537,7 @@ const expressionNode = (node, context) => {
         ts.isNoSubstitutionTemplateLiteral(expression)) &&
       !expression.getText().includes("\\")
     ) {
-      return { type: "text", value: expression.text }
+      return { type: "text", value: markupText(expression.text) }
     }
     if (isPropertyChain(expression)) {
       return { code: expression.getText(), type: "expression" }
@@ -658,6 +667,12 @@ export const parseExample = async (source, file = "Example.astro") => {
     if (item.value === undefined) {
       throw unsupported(file, `set:html={${item.name}} with a non-string`)
     }
+    if (/[{}]/.test(item.value)) {
+      throw unsupported(
+        file,
+        `set:html={${item.name}} with a string that contains { or }, which the Astro compiler reads as an expression here and as text in the HTML`,
+      )
+    }
     const { ast: parsed } = await parse(item.value, { position: false })
     if (item.comments.length > 0) {
       throw unsupported(file, `a comment on the set:html const ${item.name}`)
@@ -751,9 +766,6 @@ const importLine = (example, framework) => {
   return `import { ${names.join(", ")} } from "opui-css/${framework}"`
 }
 
-const attributeValue = (value) =>
-  value.replace(/&(?=[a-zA-Z#][a-zA-Z0-9]*;)/g, "&amp;").replace(/"/g, "&quot;")
-
 const markupAttributes = (node, expression, braces) =>
   node.attributes
     .map((item) => {
@@ -763,45 +775,18 @@ const markupAttributes = (node, expression, braces) =>
           return expression({ ...item, kind: "expression" })
         }
       }
-      if (item.kind === "string" && !(braces && /[{}]/.test(item.value))) {
-        if (!item.value.includes('"') || item.value.includes("'")) {
-          return `${item.name}="${attributeValue(item.value)}"`
-        }
-        return braces
-          ? expression({ ...item, value: `'${item.value}'` })
-          : `${item.name}='${item.value}'`
+      if (item.kind !== "string") return expression(item)
+      const quoted = item.value.includes('"') && !item.value.includes("'")
+      if (braces && (/[{}]/.test(item.value) || quoted)) {
+        return expression({ ...item, value: JSON.stringify(item.value) })
       }
-      return expression(
-        item.kind === "string"
-          ? { ...item, value: JSON.stringify(item.value) }
-          : item,
-      )
+      const quote = quoted ? "'" : '"'
+      return `${item.name}=${quote}${attributeText(item.value, quote)}${quote}`
     })
     .join(" ")
 
 const openTag = (name, attributes) =>
   attributes ? `<${name} ${attributes}` : `<${name}`
-
-const singleQuoted = (code) => {
-  const scanner = ts.createScanner(ts.ScriptTarget.Latest, false)
-  scanner.setText(code)
-  let result = ""
-  let position = 0
-  for (
-    let token = scanner.scan();
-    token !== ts.SyntaxKind.EndOfFileToken;
-    token = scanner.scan()
-  ) {
-    if (token === ts.SyntaxKind.StringLiteral) {
-      const start = scanner.getTokenStart()
-      const text = scanner.getTokenValue()
-      result += code.slice(position, start)
-      result += `'${text.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'`
-      position = scanner.getTokenEnd()
-    }
-  }
-  return result + code.slice(position)
-}
 
 const markupTarget = (framework) => {
   const vue = framework === "vue"
@@ -858,7 +843,7 @@ const markupTarget = (framework) => {
     vue
       ? item.name === "v-for"
         ? `v-for="${item.value}"`
-        : `:${item.name}="${attributeValue(singleQuoted(item.value))}"`
+        : `:${item.name}="${attributeText(item.value)}"`
       : `${item.name}={${item.value}}`
   const element = (node, html) => {
     const attributes = markupAttributes(node, expression, !vue)
@@ -925,16 +910,6 @@ const isSorted = (names) =>
       index === 0 || names[index - 1].localeCompare(name, "en") <= 0,
   )
 
-const jsxText = (value) =>
-  value.replace(/[{}>]/g, (character) => `{${JSON.stringify(character)}}`)
-
-const jsxString = (name, value) =>
-  !value.includes('"')
-    ? `${name}="${value}"`
-    : !value.includes("'")
-      ? `${name}='${value}'`
-      : `${name}={${JSON.stringify(value)}}`
-
 const reactExpression = (nodes, context, extra = "") => {
   const inlined = nodes.flatMap((node) =>
     node.type === "html" && !context.markup.get(node.name).shared
@@ -987,19 +962,18 @@ const reactProps = (node, context) => {
       return { code: `${name}=${styleObject(item.value)}`, name }
     }
     if (item.kind === "string") {
-      return { code: jsxString(name, item.value), name }
+      return { code: jsxAttribute(name, item.value), name }
     }
     return { code: `${name}={${item.value}}`, name }
   })
   if (selected) {
     const value =
       selected.attributes.find((item) => item.name === "value")?.value ??
-      selected.children
-        .map((child) => child.value ?? "")
-        .join("")
-        .trim()
+      decodeText(
+        selected.children.map((child) => child.value ?? "").join(""),
+      ).trim()
     props.push({
-      code: `defaultValue=${JSON.stringify(value)}`,
+      code: jsxAttribute("defaultValue", value),
       name: "defaultValue",
     })
   }
@@ -1017,7 +991,7 @@ const reactProps = (node, context) => {
           .join("")
           .replace(/\s+/g, " ")
           .trim()
-        return { code: jsxString(name, text), name }
+        return { code: jsxAttribute(name, decodeText(text)), name }
       }
       return { code: `${name}={${reactExpression(content, context)}}`, name }
     })
@@ -1059,7 +1033,12 @@ const reactNodes = (nodes, context) => {
         if (index === children.length - 1) text = text.trimEnd()
         return jsxText(text)
       }
-      if (node.type === "comment") return `{/*${node.value}*/}`
+      if (node.type === "comment") {
+        if (node.value.includes("*/")) {
+          throw unsupported(context.file, "a comment that contains */", "React")
+        }
+        return `{/*${node.value}*/}`
+      }
       if (node.type === "expression") return `{${node.code}}`
       if (node.type === "html") {
         const item = context.markup.get(node.name)
@@ -1116,7 +1095,8 @@ const toReact = (example, name, file = `${name}.astro`) => {
     .filter(Boolean)
     .join("\n\n")
   const styles = example.styles.map(
-    (css) => `\n<style>{\`\n${indent(css, 8)}\n      \`}</style>`,
+    (css) =>
+      `\n<style>{\`\n${indent(templateLiteral(css), 8)}\n      \`}</style>`,
   )
   const body = reactExpression(example.tree, context, styles.join(""))
   return `${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
@@ -1385,7 +1365,10 @@ const tidyTag = (tag) =>
     (match, space, name, value) => {
       if (name === "slot") return ""
       if (value !== undefined) {
-        return `${space}${name}=${value.replace(/&amp;(?![a-zA-Z][a-zA-Z0-9]*;|#)/g, "&")}`
+        const quote = value[0] === '"' || value[0] === "'" ? value[0] : ""
+        if (!quote) return `${space}${name}=${value}`
+        const decoded = decodeAttribute(value.slice(1, -1), quote)
+        return `${space}${name}=${quote}${attributeText(decoded, quote)}${quote}`
       }
       return BOOLEAN_ATTRIBUTES.has(name) || /^(aria|data)-/.test(name)
         ? match

@@ -28,6 +28,7 @@ import {
   checkSortedKeys,
   checkTypeNames,
   checkTypesImport,
+  checkVariableTagClassList,
   checkVueAttrs,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
@@ -628,6 +629,61 @@ describe("check-ratchets", () => {
   test("accepts the trailer on any commit, in any case", () => {
     expect(intended("\n\nIntended\n")).toBe(true)
     expect(intended("\nnot intended\n")).toBe(false)
+  })
+})
+
+describe("checkVariableTagClassList", () => {
+  const source = (body: string, imports = "") =>
+    `---\n${imports}\nconst Tag = "div"\n---\n${body}\n`
+
+  test("flags class:list on a variable tag, also inside another element", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source('<Tag class:list={["ui-a", className]}><slot /></Tag>'),
+      ),
+    ).toEqual([
+      '<Tag> is a variable tag with class:list, which Astro renders after the other attributes; use class={cx([...])} and import cx from "../cx"',
+    ])
+    expect(
+      await checkVariableTagClassList(
+        source('<section><Tag class:list={["a"]} /></section>'),
+      ),
+    ).toHaveLength(1)
+  })
+
+  test("flags every variable tag", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source('<Root class:list={["a"]}><Label class:list={["b"]} /></Root>'),
+      ),
+    ).toHaveLength(2)
+  })
+
+  test("allows class:list on an element and on an imported component", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source(
+          '<div class:list={["a"]} /><Anchor class:list={["b"]} /><Ns.Part class:list={["c"]} />',
+          'import Anchor from "../Anchor/Anchor.astro"\nimport * as Ns from "./ns"',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      await checkVariableTagClassList(
+        source('<Part class:list={["c"]} />', 'import { Part } from "./part"'),
+      ),
+    ).toEqual([])
+  })
+
+  test("allows cx on a variable tag", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source(
+          '<Tag class={cx(["ui-a", className])} />',
+          'import { cx } from "../cx"',
+        ),
+      ),
+    ).toEqual([])
   })
 })
 

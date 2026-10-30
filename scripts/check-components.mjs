@@ -2,6 +2,7 @@ import { realpathSync } from "node:fs"
 import { readdir, readFile } from "node:fs/promises"
 import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
+import { parse as parseAstro } from "@astrojs/compiler"
 import ts from "typescript"
 import {
   componentHasFramework,
@@ -61,7 +62,7 @@ export const checkClassPrefix = (lists, label) =>
     .map((name) => `${label} has the class "${name}"; prefix it with ui-`)
 
 const CLASS_LISTS = [
-  [".astro", /class:list=\{\[/g, "class:list"],
+  [".astro", /class:list=\{\[|\bclass=\{cx\(\[/g, "class:list"],
   [".react.tsx", /\bcx\(\[|\bclassName=\{(?!cx\()/g, "cx"],
   [".svelte", /\bclass=\{\[/g, "class"],
   [".vue", /:class="\[/g, ":class"],
@@ -171,6 +172,45 @@ const classLists = (source, pattern) =>
     }
     return splitTopLevel(source.slice(match.index + match[0].length, end - 1))
   })
+
+export const checkVariableTagClassList = async (source) => {
+  const { ast } = await parseAstro(source, { position: false })
+  const frontmatter = ast.children.find((node) => node.type === "frontmatter")
+  const imported = new Set()
+  const sourceFile = ts.createSourceFile(
+    "frontmatter.ts",
+    frontmatter?.value ?? "",
+    ts.ScriptTarget.Latest,
+    true,
+  )
+  for (const statement of sourceFile.statements.filter(
+    ts.isImportDeclaration,
+  )) {
+    const { importClause } = statement
+    if (importClause?.name) imported.add(importClause.name.text)
+    const bindings = importClause?.namedBindings
+    if (bindings && ts.isNamespaceImport(bindings))
+      imported.add(bindings.name.text)
+    if (bindings && ts.isNamedImports(bindings)) {
+      for (const element of bindings.elements) imported.add(element.name.text)
+    }
+  }
+  const problems = []
+  const visit = (node) => {
+    if (
+      node.type === "component" &&
+      !imported.has(node.name.split(".")[0]) &&
+      node.attributes.some((attribute) => attribute.name === "class:list")
+    ) {
+      problems.push(
+        `<${node.name}> is a variable tag with class:list, which Astro renders after the other attributes; use class={cx([...])} and import cx from "../cx"`,
+      )
+    }
+    node.children?.forEach(visit)
+  }
+  visit(ast)
+  return problems
+}
 
 export const checkClassOrder = (lists, label) =>
   lists
@@ -973,6 +1013,9 @@ const main = async () => {
         reportAll(path, checkDestructuring(path, source))
       }
       if (extname(file) === ".ts") reportAll(path, checkIndexSignature(source))
+      if (file.endsWith(".astro")) {
+        reportAll(path, await checkVariableTagClassList(source))
+      }
       for (const [extension, pattern, label] of CLASS_LISTS) {
         if (!file.endsWith(extension)) continue
         const lists = classLists(

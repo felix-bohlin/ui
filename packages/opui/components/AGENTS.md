@@ -164,7 +164,7 @@ Components often share another component's styles (`Accordion` and `Dialog` look
 
 ## 3. Class Management
 
-Use `class:list` exclusively in Astro, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
+Use `class:list` in Astro, or `class={cx([...])}` with `cx` from `../cx` on a variable tag such as `Tag`, which `pnpm check-components` checks, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
 
 Follow this order for readability:
 

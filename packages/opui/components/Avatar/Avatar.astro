@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
 import { tagAttrs } from "../tag"
+import { cx } from "../cx"
 
 export const title = "Avatar"
 
@@ -21,12 +22,12 @@ const Tag = as || (href ? "a" : "div")
 ---
 
 <Tag
-  class:list={[
+  class={cx([
     "ui-avatar",
     shape && shape !== "circle" && `ui-${shape}`,
     size && size !== "medium" && `ui-${size}`,
     className,
-  ]}
+  ])}
   {...tagAttrs(Tag, disabled, href)}
   {...rest as HTMLAttributes<"button">}
   >{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag

@@ -1,11 +1,11 @@
 ---
 import type { Props } from "./types.astro"
+import { cx } from "../cx"
 export const title = "Field Legend"
 
 const { as: Tag = "legend", class: className, ...rest } = Astro.props
 const isLegend = Tag === "legend"
 ---
 
-<Tag class:list={[{ "ui-legend": !isLegend }, className]} {...rest}
-  ><slot /></Tag
+<Tag class={cx([{ "ui-legend": !isLegend }, className])} {...rest}><slot /></Tag
 >

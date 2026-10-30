@@ -5,6 +5,7 @@ import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { createId, idRefs } from "../id"
 import { hidePath, showPath } from "./icons"
+import { cx } from "../cx"
 
 export const title = "Text Field"
 
@@ -49,7 +50,7 @@ const endTextId = passwordToggle && hasEndText ? $id("end-text") : undefined
 ---
 
 <Root
-  class:list={[
+  class={cx([
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
@@ -58,13 +59,13 @@ const endTextId = passwordToggle && hasEndText ? $id("end-text") : undefined
     },
     size && size !== "medium" && `ui-${size}`,
     className,
-  ]}
+  ])}
   style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
       <Label
-        class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}
+        class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
         for={passwordToggle ? inputId : undefined}
       >
         {label}

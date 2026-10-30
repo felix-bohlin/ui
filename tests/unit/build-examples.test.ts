@@ -1,18 +1,23 @@
 import { readFileSync } from "node:fs"
+import { stripTypeScriptTypes } from "node:module"
 import { format, resolveConfig } from "prettier"
 import { beforeAll, describe, expect, test } from "vitest"
 import {
   cleanRender,
   convertExample,
   generate,
-  HTML_SCRIPT_RULES,
+  elementTags,
   htmlFromRender,
   parseExample,
+  readExample,
+  runtimeImports,
+  scriptImports,
   REACT_DEFAULT_VALUE,
 } from "../../scripts/build-examples.mjs"
 import {
   astroSourceOf,
   generatedTargets,
+  handWrittenProblems,
   readHandWritten,
   staleProblems,
   TARGETS,
@@ -36,6 +41,7 @@ const keys = Object.keys(sources)
   .toSorted()
 
 const handWritten = readHandWritten()
+const tags = await elementTags()
 const committed = (file: string) => {
   try {
     return readFileSync(file, "utf8")
@@ -46,6 +52,17 @@ const committed = (file: string) => {
 
 const astro = (body: string, imports = "", consts = "") =>
   `---\n${imports ? `import { ${imports} } from "opui-css/astro"\n` : ""}${consts}---\n\n${body}\n`
+
+const collapse = (text: string) =>
+  text.replace(/\s+/g, "").replace(/,([)\]}])/g, "$1")
+
+const scriptIn = async (html: string, script: string) => {
+  const code = await format(stripTypeScriptTypes(script).trim(), {
+    ...(await resolveConfig(sampleFile())),
+    parser: "babel",
+  })
+  return collapse(html).includes(collapse(code))
+}
 
 const sampleFile = (name = "Example") =>
   `src/component-examples/sample/${name}.astro`
@@ -184,7 +201,7 @@ describe("React", () => {
   test("puts a <style> at the end of the fragment", async () => {
     const code = await convert(
       astro(
-        '<p class="note">Hi</p>\n\n<style>\n  .note {\n    color: red;\n  }\n</style>',
+        '<p class="note">Hi</p>\n\n<style is:global>\n  .note {\n    color: red;\n  }\n</style>',
       ),
       "react",
     )
@@ -246,7 +263,9 @@ describe("Svelte", () => {
   test("makes styles global", async () => {
     expect(
       await convert(
-        astro("<p>Hi</p>\n\n<style>\n  p {\n    color: red;\n  }\n</style>"),
+        astro(
+          "<p>Hi</p>\n\n<style is:global>\n  p {\n    color: red;\n  }\n</style>",
+        ),
         "svelte",
       ),
     ).toContain(
@@ -715,8 +734,7 @@ describe("HTML", () => {
   })
 
   test("imports the scripts the rendered components need", () => {
-    const imports = (html: string) =>
-      HTML_SCRIPT_RULES.flatMap((rule) => rule.match(html))
+    const imports = (html: string) => scriptImports(html, tags)
     expect(imports("<opui-toaster></opui-toaster><opui-copy>")).toEqual([
       'import "opui-css/elements/copy.js"',
       'import "opui-css/elements/toaster.js"',
@@ -726,6 +744,31 @@ describe("HTML", () => {
     )
     expect(imports('<output class="ui-value" data-live>')).toEqual([
       'import "opui-css/css/js/range.js"',
+    ])
+  })
+
+  test("matches elements and attributes, not text", () => {
+    expect(
+      scriptImports("<code>data-indeterminate</code><p>opui-copy</p>", tags),
+    ).toEqual([])
+    expect(
+      scriptImports("<code>opui-toaster</code><span data-live></span>", tags),
+    ).toEqual([])
+  })
+
+  test("takes the element-to-file map from the customElements.define calls", () => {
+    expect(tags.get("opui-text-field")).toBe("elements/text-field.js")
+    expect(tags.get("opui-character-count")).toBe("elements/character-count.js")
+    expect(
+      scriptImports(
+        "<opui-select-all><input data-indeterminate></opui-select-all>",
+        tags,
+      ),
+    ).toEqual([
+      'import "opui-css/elements/select-all.js"',
+      'import { activateIndeterminate } from "opui-css/css/js/checkbox.js"',
+      "",
+      "activateIndeterminate()",
     ])
   })
 
@@ -778,26 +821,33 @@ describe("generated examples", () => {
 
   test("every example has its generated files", () => {
     const expected = keys.flatMap((key) =>
-      generatedTargets(
-        key,
-        sources[`${EXAMPLES}${key}.astro`],
-        handWritten,
-      ).map(
+      generatedTargets(key, handWritten).map(
         (framework) => `src/component-examples/${key}${TARGETS[framework]}`,
       ),
     )
     expect([...all.outputs.keys()].toSorted()).toEqual(expected.toSorted())
   })
 
-  test("hand-written-examples.json is sorted and names existing files", () => {
-    expect(listed).toEqual(listed.toSorted())
+  test("handWrittenProblems reports an unsorted list and files that don't exist", () => {
+    const exists = (file: string) =>
+      file !== "src/component-examples/a/Gone.vue"
     expect(
-      listed.filter(
-        (file) =>
-          !sources[`${EXAMPLES}${file}`] ||
-          !sources[
-            `${EXAMPLES}${file.replace(/\.(html|react\.tsx|svelte|vue)$/, ".astro")}`
-          ],
+      handWrittenProblems({ "a/B.vue": "r", "a/A.vue": "r" }, exists),
+    ).toEqual(["scripts/hand-written-examples.json is not sorted"])
+    expect(handWrittenProblems({ "a/Gone.vue": "r" }, exists)).toEqual([
+      "scripts/hand-written-examples.json names a/Gone.vue, which doesn't exist",
+    ])
+    expect(
+      handWrittenProblems({ "a/B.vue": "r" }, (file: string) =>
+        file.endsWith(".vue"),
+      ),
+    ).toEqual([
+      "scripts/hand-written-examples.json names a/B.vue, which has no a/B.astro",
+    ])
+    expect(
+      handWrittenProblems(
+        handWritten,
+        (file: string) => `../../${file}` in sources,
       ),
     ).toEqual([])
   })
@@ -810,16 +860,216 @@ describe("generated examples", () => {
     ).not.toBe(sources[`${EXAMPLES}${file}`])
   })
 
-  test("an example with a client <script> keeps its React, Svelte and Vue", () => {
-    const scripted = keys.filter((key) =>
-      /^<script\b/m.test(sources[`${EXAMPLES}${key}.astro`]),
-    )
+  test("an example with a client <script> lists its React, Svelte and Vue files", async () => {
+    const scripted = []
+    for (const key of keys) {
+      const { scripts } = await readExample(
+        sources[`${EXAMPLES}${key}.astro`],
+        sampleFile(),
+      )
+      if (scripts.length > 0) scripted.push(key)
+    }
     expect(scripted.length).toBeGreaterThan(0)
     for (const key of scripted) {
-      expect(
-        generatedTargets(key, sources[`${EXAMPLES}${key}.astro`], {}),
-      ).toEqual(["html"])
+      expect(generatedTargets(key, handWritten), key).toEqual(["html"])
     }
+  })
+
+  test("a client script is generated into the HTML file", async () => {
+    for (const key of keys) {
+      const { scripts } = await readExample(
+        sources[`${EXAMPLES}${key}.astro`],
+        sampleFile(),
+      )
+      for (const script of scripts) {
+        expect(
+          await scriptIn(sources[`${EXAMPLES}${key}.html`], script),
+          key,
+        ).toBe(true)
+      }
+    }
+  })
+
+  test("scriptIn flags a script that is missing or changed", async () => {
+    const html = '<p>Hi</p>\n<script type="module">\n  const a = 1\n</script>\n'
+    expect(await scriptIn(html, "const a = 1")).toBe(true)
+    expect(await scriptIn(html, "const a = 2")).toBe(false)
+    expect(await scriptIn("<p>Hi</p>", "const a = 1")).toBe(false)
+  })
+})
+
+describe("an example's structure", () => {
+  const read = (body: string, consts = "") =>
+    readExample(astro(body, "", consts), sampleFile())
+
+  test("finds a script in the syntax, not in text that looks like one", async () => {
+    const quoted = await read(
+      "<p>Hi</p>",
+      'const code = "<script>1</script>"\n// <script>\n',
+    )
+    expect(quoted.scripts).toEqual([])
+    const indented = await read("<p>Hi</p>\n  <script>\n    1\n  </script>")
+    expect(indented.scripts).toHaveLength(1)
+  })
+
+  test("reads every script and style, blank lines and the body", async () => {
+    const read2 = await read(
+      "<p>A</p>\n\n<p>B</p>\n<p>C</p>\n<style is:global>\n  p {}\n</style>\n<script>\n  1\n</script>\n<script>\n  2\n</script>",
+    )
+    expect(read2.scripts).toHaveLength(2)
+    expect(read2.styles).toEqual(["p {}"])
+    expect(read2.blankLines).toEqual([true, false])
+  })
+
+  test.each([
+    ["is:inline", "<script is:inline>1</script>", "the attribute is:inline"],
+    ["src", '<script src="/a.js"></script>', "the attribute src"],
+    ["type=module", '<script type="module">1</script>', "the attribute type"],
+    [
+      "define:vars",
+      "<script define:vars={{ a: 1 }}>1</script>",
+      "the attribute define:vars",
+    ],
+  ])("rejects a script with %s in every target", async (_, script, reason) => {
+    const source = astro(`<p>Hi</p>\n${script}`)
+    await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
+    for (const framework of ["react", "svelte", "vue"]) {
+      await expect(
+        convertExample(source, framework, sampleFile()),
+      ).rejects.toThrow(reason)
+    }
+    await expect(
+      htmlFromRender("<p>Hi</p>", source, sampleFile(), new Map()),
+    ).rejects.toThrow(reason)
+  })
+
+  test.each([
+    ["a style without is:global", "<style>p {}</style>"],
+    ["a style with lang", '<style is:global lang="scss">p {}</style>'],
+    [
+      "a style with define:vars",
+      "<style is:global define:vars={{ a: 1 }}>p {}</style>",
+    ],
+  ])("rejects %s in every target", async (_, style) => {
+    const source = astro(`<p>Hi</p>\n${style}`)
+    const reason = "a <style> that isn't exactly <style is:global>"
+    await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
+    for (const framework of ["react", "svelte", "vue"]) {
+      await expect(
+        convertExample(source, framework, sampleFile()),
+      ).rejects.toThrow(reason)
+    }
+    await expect(
+      htmlFromRender("<p>Hi</p>", source, sampleFile(), new Map()),
+    ).rejects.toThrow(reason)
+  })
+
+  test.each([
+    ["a side-effect import", 'import "./x.js"'],
+    ["a default import", 'import x from "./x.js"'],
+    ["a namespace import", 'import * as x from "./x.js"'],
+    ["a named import", 'import { x } from "./x.js"'],
+    ["a re-export", 'export * from "./x.js"'],
+    ["a dynamic import", 'import("./x.js")'],
+  ])("rejects %s in a script", async (_, code) => {
+    await expect(
+      read(`<p>Hi</p>\n<script>\n  ${code}\n</script>`),
+    ).rejects.toThrow("an import in a <script>")
+  })
+
+  test.each([
+    ["a nested script", "<div><script>1</script></div>", "a nested <script>"],
+    [
+      "a nested style",
+      "<div><style is:global>p {}</style></div>",
+      "a nested <style>",
+    ],
+    [
+      "a comment directly inside a component",
+      "<Card><!-- x --></Card>",
+      "a comment directly inside <Card>, which the Astro compiler drops",
+    ],
+    [
+      "a comment directly inside a Fragment",
+      '<Card><Fragment slot="a"><!-- x --></Fragment></Card>',
+      "a comment directly inside <Fragment>",
+    ],
+  ])("rejects %s", async (_, body, reason) => {
+    await expect(
+      readExample(astro(body, "Card"), sampleFile()),
+    ).rejects.toThrow(reason)
+  })
+
+  test("a comment inside an element is fine", async () => {
+    const { body } = await read("<svg><!-- icon --><path /></svg>")
+    expect(body.length).toBeGreaterThan(0)
+  })
+
+  test("two scripts become two modules after the rule imports", async () => {
+    const html = await htmlFromRender(
+      "<opui-copy></opui-copy>",
+      astro(
+        "<opui-copy></opui-copy>\n<script>\n  const a = 1\n</script>\n<script>\n  const a = 2\n</script>",
+      ),
+      sampleFile(),
+      new Map(),
+    )
+    expect(html.match(/<script type="module">/g)).toHaveLength(3)
+    expect(html.indexOf('import "opui-css/elements/copy.js"')).toBeLessThan(
+      html.indexOf("const a = 1"),
+    )
+    expect(html.indexOf("const a = 1")).toBeLessThan(
+      html.indexOf("const a = 2"),
+    )
+  })
+})
+
+describe("component runtimes", () => {
+  test.each([
+    [
+      "a side-effect import",
+      'import "../../elements/copy.js"',
+      ["../../elements/copy.js"],
+    ],
+    [
+      "a named import",
+      'import { a } from "../../css/js/range.js"',
+      ["../../css/js/range.js"],
+    ],
+    [
+      "a default import",
+      'import a from "../../css/js/range.js"',
+      ["../../css/js/range.js"],
+    ],
+    [
+      "a namespace import",
+      'import * as a from "../../css/js/range.js"',
+      ["../../css/js/range.js"],
+    ],
+    [
+      "a re-export",
+      'export { a } from "../../css/js/range.js"',
+      ["../../css/js/range.js"],
+    ],
+    [
+      "a dynamic import",
+      'import("../../elements/copy.js")',
+      ["../../elements/copy.js"],
+    ],
+    [
+      "a template literal import",
+      "import(`../../elements/copy.js`)",
+      ["../../elements/copy.js"],
+    ],
+    ["no import", "console.log(1)", []],
+  ])("finds %s", (_, code, expected) => {
+    expect(runtimeImports(code, "Component.astro")).toEqual(expected)
+  })
+
+  test("rejects a computed import", () => {
+    expect(() => runtimeImports("import(path)", "Component.astro")).toThrow(
+      "Component.astro has a computed import()",
+    )
   })
 })
 

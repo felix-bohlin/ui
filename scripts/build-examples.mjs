@@ -1,10 +1,10 @@
-import { readFileSync, realpathSync } from "node:fs"
+import { existsSync, readFileSync, realpathSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { stripTypeScriptTypes } from "node:module"
-import { join } from "node:path"
+import { join, posix } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
-import { parse } from "@astrojs/compiler"
+import { parse, transform } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import postcss from "postcss"
 import { format, resolveConfig } from "prettier"
@@ -14,6 +14,7 @@ import { clean } from "../src/utils/clean-html.ts"
 import { createExampleIdGenerator } from "../src/utils/id.ts"
 import {
   generatedTargets,
+  handWrittenProblems,
   readHandWritten,
   staleProblems,
   TARGETS,
@@ -83,9 +84,9 @@ const MAP_KEY_ORDER = ["id", "value", "name", "title"]
 
 const MARKUP = "__markup__"
 
-const unsupported = (file, what, target) =>
+const unsupported = (file, what, target, hint) =>
   new Error(
-    `${file} uses ${what}, which scripts/build-examples.mjs can't convert${target ? ` to ${target}` : ""}: support it there, or list the file in scripts/hand-written-examples.json with the reason`,
+    `${file} uses ${what}, which scripts/build-examples.mjs can't convert${target ? ` to ${target}` : ""}: ${hint ?? "change the example, or support the construct in scripts/build-examples.mjs"}`,
   )
 
 const NOT_LITERAL = Symbol("not a literal")
@@ -554,10 +555,98 @@ const expressionNode = (node, context) => {
   }
 }
 
-export const parseExample = async (source, file = "Example.astro") => {
+const hasImport = (code) => {
+  const sourceFile = ts.createSourceFile(
+    "script.ts",
+    code,
+    ts.ScriptTarget.Latest,
+    true,
+  )
+  const visit = (node) =>
+    ts.isImportDeclaration(node) ||
+    (ts.isExportDeclaration(node) && !!node.moduleSpecifier) ||
+    (ts.isCallExpression(node) &&
+      node.expression.kind === ts.SyntaxKind.ImportKeyword) ||
+    ts.forEachChild(node, visit) === true
+  return visit(sourceFile)
+}
+
+const checkNesting = (node, file) => {
+  for (const child of node.children ?? []) {
+    if (
+      child.type === "element" &&
+      (child.name === "script" || child.name === "style")
+    ) {
+      throw unsupported(file, `a nested <${child.name}>`)
+    }
+    if (
+      child.type === "comment" &&
+      (node.type === "component" || node.type === "fragment")
+    ) {
+      throw unsupported(
+        file,
+        `a comment directly inside <${node.name}>, which the Astro compiler drops`,
+      )
+    }
+    checkNesting(child, file)
+  }
+}
+
+export const readExample = async (source, file = "Example.astro") => {
   const { ast } = await parse(source, { position: false })
   const frontmatter =
     ast.children.find((node) => node.type === "frontmatter")?.value ?? ""
+  const scripts = []
+  const styles = []
+  const body = []
+  const blankLines = []
+  let gap = ""
+  let seen = false
+  for (const node of ast.children) {
+    if (node.type === "frontmatter") continue
+    if (node.type === "element" && node.name === "script") {
+      if (node.attributes.length > 0) {
+        throw unsupported(
+          file,
+          `a <script> with the attribute ${node.attributes[0].name}`,
+        )
+      }
+      const text = textOf(node)
+      if (hasImport(text)) throw unsupported(file, "an import in a <script>")
+      scripts.push(text)
+      continue
+    }
+    if (node.type === "element" && node.name === "style") {
+      if (
+        node.attributes.length !== 1 ||
+        node.attributes[0].name !== "is:global"
+      ) {
+        throw unsupported(
+          file,
+          "a <style> that isn't exactly <style is:global>",
+        )
+      }
+      styles.push(dedent(textOf(node)))
+      continue
+    }
+    body.push(node)
+    if (node.type === "text") {
+      gap += node.value
+      continue
+    }
+    checkNesting({ children: [node], type: "root" }, file)
+    if (seen) blankLines.push(/\n[^\S\n]*\n/.test(gap))
+    seen = true
+    gap = ""
+  }
+  return { blankLines, body, frontmatter, scripts, styles }
+}
+
+export const parseExample = async (source, file = "Example.astro") => {
+  const { blankLines, body, frontmatter, scripts, styles } = await readExample(
+    source,
+    file,
+  )
   const { consts, imports, typeImports } = readFrontmatter(frontmatter, file)
   const usedAsHtml = new Set(
     [...source.matchAll(/set:html=\{\s*([\w$]+)\s*\}/g)].map(
@@ -581,21 +670,6 @@ export const parseExample = async (source, file = "Example.astro") => {
       .map(({ items, name }) => [name, items]),
   )
   const context = { arrays, file, imports, markup, slotHost: false }
-  const styles = []
-  const scripts = []
-  const body = []
-  for (const node of ast.children) {
-    if (node.type === "frontmatter") continue
-    if (node.type === "element" && node.name === "script") {
-      scripts.push(textOf(node))
-      continue
-    }
-    if (node.type === "element" && node.name === "style") {
-      styles.push(dedent(textOf(node)))
-      continue
-    }
-    body.push(node)
-  }
   const tree = toTree(body, context)
   for (const [name, item] of markup) {
     item.tree = toTree(item.nodes, context)
@@ -603,6 +677,7 @@ export const parseExample = async (source, file = "Example.astro") => {
     item.shared = item.uses > 1 || markup.size > 1
   }
   return {
+    blankLines,
     consts: consts.filter(({ name }) => !markup.has(name)),
     imports,
     markup,
@@ -1072,7 +1147,12 @@ export const convertExample = async (source, framework, file) => {
     .replace(/\.astro$/, "")
   const example = await parseExample(source, file)
   if (example.scripts.length > 0) {
-    throw unsupported(file, "a client <script>", framework)
+    throw unsupported(
+      file,
+      "a client <script>",
+      framework,
+      "write the React, Svelte and Vue files by hand and list them in scripts/hand-written-examples.json",
+    )
   }
   const target = file.replace(/\.astro$/, TARGETS[framework])
   if (framework === "react") {
@@ -1086,53 +1166,154 @@ export const convertExample = async (source, framework, file) => {
   return prettierFormat(toVue(example), target)
 }
 
-const componentScripts = async () => {
+export const runtimeImports = (code, file) => {
+  const sourceFile = ts.createSourceFile(
+    "script.ts",
+    code,
+    ts.ScriptTarget.Latest,
+    true,
+  )
+  const specifiers = []
+  const visit = (node) => {
+    if (
+      (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+      node.moduleSpecifier
+    ) {
+      specifiers.push(node.moduleSpecifier.text)
+    }
+    if (
+      ts.isCallExpression(node) &&
+      node.expression.kind === ts.SyntaxKind.ImportKeyword
+    ) {
+      const [argument] = node.arguments
+      if (
+        !argument ||
+        !(
+          ts.isStringLiteral(argument) ||
+          ts.isNoSubstitutionTemplateLiteral(argument)
+        )
+      ) {
+        throw new Error(
+          `${file} has a computed import(), which scripts/build-examples.mjs can't follow to the HTML scripts`,
+        )
+      }
+      specifiers.push(argument.text)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+  return specifiers
+}
+
+const componentRuntimes = async () => {
   const paths = new Set()
   for (const folder of await readdir(componentsDir, { withFileTypes: true })) {
     if (!folder.isDirectory()) continue
     for (const file of await readdir(join(componentsDir, folder.name))) {
       if (!file.endsWith(".astro")) continue
-      const source = await readFile(
-        join(componentsDir, folder.name, file),
-        "utf8",
-      )
-      for (const [, path] of source.matchAll(
-        /import\s+(?:\{[^}]*\}\s+from\s+)?"\.\.\/\.\.\/((?:elements|css\/js)\/[\w-]+\.js)"/g,
-      )) {
-        paths.add(path)
+      const where = `packages/opui/components/${folder.name}/${file}`
+      const source = await readFile(join(root, where), "utf8")
+      const { scripts } = await transform(source, { filename: where })
+      for (const script of scripts) {
+        for (const specifier of runtimeImports(script.code ?? "", where)) {
+          const path = posix.join(posix.dirname(where), specifier)
+          const [, runtime] =
+            /^packages\/opui\/((?:elements|css\/js)\/[\w-]+\.js)$/.exec(path) ??
+            []
+          if (runtime) paths.add(runtime)
+        }
       }
     }
   }
   return [...paths].toSorted()
 }
 
+let tagFiles
+export const elementTags = () => {
+  tagFiles ??= (async () => {
+    const tags = new Map()
+    const elementsDir = join(root, "packages/opui/elements")
+    for (const file of (await readdir(elementsDir)).toSorted()) {
+      if (!file.endsWith(".js")) continue
+      const sourceFile = ts.createSourceFile(
+        file,
+        await readFile(join(elementsDir, file), "utf8"),
+        ts.ScriptTarget.Latest,
+        true,
+      )
+      const visit = (node) => {
+        if (
+          ts.isCallExpression(node) &&
+          node.expression.getText(sourceFile) === "customElements.define" &&
+          ts.isStringLiteral(node.arguments[0])
+        ) {
+          tags.set(node.arguments[0].text, `elements/${file}`)
+        }
+        ts.forEachChild(node, visit)
+      }
+      visit(sourceFile)
+    }
+    return tags
+  })()
+  return tagFiles
+}
+
+const htmlElements = (markup) => {
+  const found = []
+  const walk = (nodes) => {
+    for (const node of nodes) {
+      if (!node.tagName) continue
+      found.push({
+        attrs: new Set(node.attrs.map(({ name }) => name)),
+        tag: node.tagName,
+      })
+      walk(node.content?.childNodes ?? node.childNodes)
+    }
+  }
+  walk(parseFragment(markup).childNodes)
+  return found
+}
+
 export const HTML_SCRIPT_RULES = [
   {
-    match: (html) =>
-      [...new Set([...html.matchAll(/<opui-([\w-]+)/g)].map((m) => m[1]))]
+    covers: (path, tags) => [...tags.values()].includes(path),
+    lines: (elements, tags) =>
+      [
+        ...new Set(
+          elements
+            .filter(({ tag }) => tags.has(tag))
+            .map(({ tag }) => tags.get(tag)),
+        ),
+      ]
         .toSorted()
-        .map((tag) => `import "opui-css/elements/${tag}.js"`),
-    paths: /^elements\//,
+        .map((path) => `import "opui-css/${path}"`),
   },
   {
-    match: (html) =>
-      /\bdata-indeterminate\b/.test(html)
+    covers: (path) => path === "css/js/checkbox.js",
+    lines: (elements) =>
+      elements.some(({ attrs }) => attrs.has("data-indeterminate"))
         ? [
             'import { activateIndeterminate } from "opui-css/css/js/checkbox.js"',
             "",
             "activateIndeterminate()",
           ]
         : [],
-    paths: /^css\/js\/checkbox\.js$/,
   },
   {
-    match: (html) =>
-      /<output\b[^>]*\bdata-live\b/.test(html)
+    covers: (path) => path === "css/js/range.js",
+    lines: (elements) =>
+      elements.some(
+        ({ attrs, tag }) => tag === "output" && attrs.has("data-live"),
+      )
         ? ['import "opui-css/css/js/range.js"']
         : [],
-    paths: /^css\/js\/range\.js$/,
   },
 ]
+
+export const scriptImports = (markup, tags) => {
+  const elements = htmlElements(markup)
+  return HTML_SCRIPT_RULES.flatMap((rule) => rule.lines(elements, tags))
+}
 
 const stripTypes = (code) => {
   const { emitWarning } = process
@@ -1338,15 +1519,17 @@ export const cleanRender = (html, blankLines = [], classes = new Map()) =>
   )
 
 export const htmlFromRender = async (rendered, source, file, classes) => {
-  const example = await parseLoose(source)
+  const example = await readExample(source, file)
   const markup = cleanRender(rendered, example.blankLines, classes)
-  const imports = HTML_SCRIPT_RULES.flatMap((rule) => rule.match(markup))
-  const own = example.scripts.map((script) => stripTypes(script).trim())
-  const script = [imports.join("\n"), ...own].filter(Boolean).join("\n\n")
+  const imports = scriptImports(markup, await elementTags())
+  const modules = [
+    imports.join("\n"),
+    ...example.scripts.map((script) => stripTypes(script).trim()),
+  ].filter(Boolean)
   const parts = [
     markup,
     ...example.styles.map((css) => `<style>\n${indent(css, 2)}\n</style>`),
-    ...(script ? [`<script type="module">\n${script}\n</script>`] : []),
+    ...modules.map((code) => `<script type="module">\n${code}\n</script>`),
   ]
   return prettierFormat(
     `${parts.join("\n\n")}\n`,
@@ -1406,8 +1589,9 @@ const exampleKeys = async (only) => {
 }
 
 const checkScriptRules = async () => {
-  const missing = (await componentScripts()).filter(
-    (path) => !HTML_SCRIPT_RULES.some((rule) => rule.paths.test(path)),
+  const tags = await elementTags()
+  const missing = (await componentRuntimes()).filter(
+    (path) => !HTML_SCRIPT_RULES.some((rule) => rule.covers(path, tags)),
   )
   if (missing.length > 0) {
     throw new Error(
@@ -1426,12 +1610,14 @@ export const generate = async ({
   const classes = await layoutClasses()
   const renderer = await createRenderer()
   const outputs = new Map()
-  const problems = []
+  const problems = handWrittenProblems(handWritten, (file) =>
+    existsSync(join(root, file)),
+  )
   try {
     for (const key of keys) {
       const astroFile = `src/component-examples/${key}.astro`
       const source = await readFile(join(root, astroFile), "utf8")
-      for (const framework of generatedTargets(key, source, handWritten)) {
+      for (const framework of generatedTargets(key, handWritten)) {
         const target = `src/component-examples/${key}${TARGETS[framework]}`
         try {
           if (framework === "html") {
@@ -1459,34 +1645,6 @@ export const generate = async ({
     await renderer.close()
   }
   return { outputs, problems }
-}
-
-const parseLoose = async (source) => {
-  const { ast } = await parse(source, { position: false })
-  const scripts = []
-  const styles = []
-  const blankLines = []
-  let gap = ""
-  let seen = false
-  for (const node of ast.children) {
-    if (node.type === "element" && node.name === "script") {
-      scripts.push(textOf(node))
-      continue
-    }
-    if (node.type === "element" && node.name === "style") {
-      styles.push(dedent(textOf(node)))
-      continue
-    }
-    if (node.type === "text") {
-      gap += node.value
-      continue
-    }
-    if (node.type === "frontmatter") continue
-    if (seen) blankLines.push(/\n[^\S\n]*\n/.test(gap))
-    seen = true
-    gap = ""
-  }
-  return { blankLines, scripts, styles }
 }
 
 const main = async () => {

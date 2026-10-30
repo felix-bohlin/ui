@@ -9,11 +9,6 @@ const RATCHETS = [
     fix: "use a --ui-* role or a documented input instead of a new allowlist entry",
   },
   {
-    file: "scripts/hand-written-examples.json",
-    fix: "support the construct in scripts/build-examples.mjs instead of writing the file by hand",
-    keys: true,
-  },
-  {
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },
@@ -25,6 +20,7 @@ const RATCHETS = [
 ]
 
 const A11Y_LEDGER = "tests/e2e/a11y-known-violations.json"
+const HAND_WRITTEN = "scripts/hand-written-examples.json"
 const DRIFT_DIR = "tests/unit/__snapshots__"
 export const TRAILER = "Ledger-Change"
 
@@ -128,7 +124,14 @@ const main = () => {
       .filter((file) => file.endsWith(".diff"))
       .map((file) => [file, show(mergeBase, file) ?? ""]),
   )
+  const handWritten = show(mergeBase, HAND_WRITTEN)
   const ledgerAdditions = [
+    ...(handWritten === undefined
+      ? []
+      : added(
+          Object.keys(JSON.parse(handWritten)),
+          Object.keys(JSON.parse(readFileSync(HAND_WRITTEN, "utf-8"))),
+        ).map((file) => `${HAND_WRITTEN} gained "${file}"`)),
     ...(ledger === undefined
       ? []
       : added(
@@ -162,7 +165,7 @@ const main = () => {
     } else {
       errors.push(
         ...ledgerAdditions.map((entry) => `${entry}.`),
-        `The accessibility ledger and the parity drift only grow for an intended change. Fix the violation or the drift, or, when it is intended, add the trailer "${TRAILER}: intended" to a commit on the branch (git commit --amend --trailer "${TRAILER}: intended") and say in its message what it accepts.`,
+        `The accessibility ledger, the parity drift and the hand-written examples only grow for an intended change. Fix the violation or the drift, support the construct in scripts/build-examples.mjs, or, when it is intended, add the trailer "${TRAILER}: intended" to a commit on the branch (git commit --amend --trailer "${TRAILER}: intended") and say in its message what it accepts.`,
       )
     }
   }
@@ -173,7 +176,7 @@ const main = () => {
   }
 
   console.log(
-    `Checked ${RATCHETS.length} allowlists, ${A11Y_LEDGER} and the parity drift against ${base}.`,
+    `Checked ${RATCHETS.length} allowlists, ${A11Y_LEDGER}, ${HAND_WRITTEN} and the parity drift against ${base}.`,
   )
 }
 

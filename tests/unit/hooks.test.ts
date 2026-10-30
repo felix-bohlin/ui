@@ -62,16 +62,11 @@ describe("post-edit", () => {
     const examples = join(project, "src/component-examples/sample")
     mkdirSync(examples, { recursive: true })
     writeFileSync(join(examples, "Plain.astro"), "<p>Hi</p>\n")
-    writeFileSync(
-      join(examples, "Scripted.astro"),
-      "<p>Hi</p>\n<script>\n  1\n</script>\n",
-    )
     for (const file of [
       "Plain.html",
       "Plain.react.tsx",
       "Plain.svelte",
       "Plain.vue",
-      "Scripted.html",
     ]) {
       writeFileSync(join(examples, file), "One, two.\n")
       const result = hook(
@@ -86,24 +81,23 @@ describe("post-edit", () => {
     }
   })
 
-  test("allows edits to Astro examples and to hand-written example files", () => {
-    const examples = join(project, "src/component-examples/sample")
+  test("allows edits to Astro examples and to the hand-written files in the list", () => {
+    const examples = join(project, "src/component-examples/tabs")
     mkdirSync(examples, { recursive: true })
-    writeFileSync(
-      join(examples, "Scripted.astro"),
-      "<p>Hi</p>\n<script>\n  1\n</script>\n",
-    )
-    writeFileSync(join(examples, "Scripted.vue"), "One, two.\n")
-    writeFileSync(join(examples, "Other.astro"), "<p>Hi</p>\n")
+    writeFileSync(join(examples, "Binding.astro"), "<p>Hi</p>\n")
+    writeFileSync(join(examples, "Binding.vue"), "One, two.\n")
+    writeFileSync(join(examples, "Binding.html"), "One, two.\n")
     writeFileSync(join(examples, "Orphan.vue"), "One, two.\n")
-    for (const file of ["Scripted.vue", "Other.astro", "Orphan.vue"]) {
-      const result = hook(
+    const status = (file: string) =>
+      hook(
         ".claude/hooks/post-edit.mjs",
         { tool_input: { file_path: join(examples, file) } },
         project,
-      )
-      expect(result.status, file).toBe(0)
-    }
+      ).status
+    expect(status("Binding.astro")).toBe(0)
+    expect(status("Binding.vue")).toBe(0)
+    expect(status("Orphan.vue")).toBe(0)
+    expect(status("Binding.html")).toBe(2)
   })
 
   test("stays quiet for a clean file and for files outside the project", () => {

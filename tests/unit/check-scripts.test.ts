@@ -532,6 +532,67 @@ describe("check-ratchets", () => {
     ).toEqual(["dark/html/b: list", "light/html/a: color-contrast"])
   })
 
+  test("the hand-written examples list grows only with the intended trailer", () => {
+    const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    const git = (...args: string[]) =>
+      execFileSync(
+        "git",
+        ["-c", "user.email=a@example.com", "-c", "user.name=A", ...args],
+        { cwd: dir, encoding: "utf8", stdio: "pipe" },
+      )
+    const list = join(dir, "scripts/hand-written-examples.json")
+    mkdirSync(join(dir, "scripts"))
+    git("init", "-q", "-b", "main")
+    writeFileSync(list, JSON.stringify({ "a/B.vue": "reason" }))
+    git("add", ".")
+    git("commit", "-q", "-m", "chore: add the list")
+    git("checkout", "-q", "-b", "work")
+    const run = () =>
+      spawnSync(
+        "node",
+        [join(process.cwd(), "scripts/check-ratchets.mjs"), "main"],
+        { cwd: dir, encoding: "utf8" },
+      )
+
+    writeFileSync(list, JSON.stringify({ "a/B.vue": "reason" }))
+    expect(run().status).toBe(0)
+
+    writeFileSync(
+      list,
+      JSON.stringify({ "a/B.vue": "reason", "a/C.vue": "reason" }),
+    )
+    git("commit", "-q", "-am", "chore: write C by hand")
+    const refused = run()
+    expect(refused.status).toBe(1)
+    expect(refused.stderr).toContain(
+      'scripts/hand-written-examples.json gained "a/C.vue"',
+    )
+
+    git(
+      "commit",
+      "-q",
+      "--amend",
+      "--no-edit",
+      "--trailer",
+      "Ledger-Change: intended",
+    )
+    expect(run().status).toBe(0)
+
+    writeFileSync(list, JSON.stringify({}))
+    git(
+      "commit",
+      "-q",
+      "-am",
+      "chore: generate B",
+      "--trailer",
+      "Ledger-Change: intended",
+    )
+    git("checkout", "-q", "-b", "shrink", "main")
+    writeFileSync(list, JSON.stringify({}))
+    git("commit", "-q", "-am", "chore: generate B")
+    expect(run().status).toBe(0)
+  })
+
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
     expect(

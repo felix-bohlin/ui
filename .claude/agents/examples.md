@@ -21,7 +21,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Check
 
-- **Files.** `pnpm check-components` checks the file set, names, React exports, `"use client"`, outer wrappers and that a page shows every example, and `tests/unit/parity.test.ts` checks decorative SVGs. A `*Code.astro` file exists when a preview needs one, and shows the same thing as its preview without the doc-only parts. `pnpm build-examples` writes the HTML, React, Svelte and Vue files from the `.astro` ones, so review the `.astro` file and the hand-written files: the React, Svelte and Vue files of an example with a client `<script>`, and the files in `scripts/hand-written-examples.json`.
+- **Files.** `pnpm check-components` checks the file set, names, React exports, `"use client"`, outer wrappers and that a page shows every example, and `tests/unit/parity.test.ts` checks decorative SVGs. A `*Code.astro` file exists when a preview needs one, and shows the same thing as its preview without the doc-only parts. `pnpm build-examples` writes the HTML, React, Svelte and Vue files from the `.astro` ones, so review the `.astro` file and the hand-written files in `scripts/hand-written-examples.json`, which lists each with its reason. A listed file that the generator could write is a defect.
 - **Coverage.** Every variant, size, color and state the CSS and `api.ts` document has an example on the page.
 - **Imports.** Each example imports from its own framework's `opui-css/<framework>` (`pnpm check-components` fails on `@opui/`), and uses components instead of hand-written markup where a component exists.
 - **Content.** Realistic, short text. Lists of options, sizes and variants are in ascending order unless the visual order means something.

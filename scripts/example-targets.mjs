@@ -1,29 +1,53 @@
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
+import {
+  componentHasFramework,
+  exampleExtension,
+  FRAMEWORK_IDS,
+} from "../src/utils/framework.js"
 
 const handWrittenFile = fileURLToPath(
   new URL("hand-written-examples.json", import.meta.url),
 )
 
-export const TARGETS = {
-  html: ".html",
-  react: ".react.tsx",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+export const TARGETS = Object.fromEntries(
+  FRAMEWORK_IDS.filter((id) => id !== "astro").map((id) => [
+    id,
+    `.${exampleExtension(id)}`,
+  ]),
+)
 
 export const readHandWritten = () =>
   JSON.parse(readFileSync(handWrittenFile, "utf8"))
 
-export const isHandWritten = (file, source, handWritten) =>
-  file in handWritten || (!file.endsWith(".html") && /^<script\b/m.test(source))
-
 /** @returns {(keyof typeof TARGETS)[]} */
-export const generatedTargets = (key, source, handWritten) =>
+export const generatedTargets = (key, handWritten) =>
   Object.keys(TARGETS).filter(
     (framework) =>
-      !isHandWritten(`${key}${TARGETS[framework]}`, source, handWritten),
+      componentHasFramework(framework, key.split("/")[0]) &&
+      !(`${key}${TARGETS[framework]}` in handWritten),
   )
+
+export const handWrittenProblems = (handWritten, exists) => {
+  const files = Object.keys(handWritten)
+  const list = "scripts/hand-written-examples.json"
+  return [
+    ...(files.every((file, index) => !index || files[index - 1] <= file)
+      ? []
+      : [`${list} is not sorted`]),
+    ...files.flatMap((file) => {
+      const astro = file.replace(/\.(html|react\.tsx|svelte|vue)$/, ".astro")
+      return [
+        ...(exists(`src/component-examples/${file}`)
+          ? []
+          : [`${list} names ${file}, which doesn't exist`]),
+        ...(exists(`src/component-examples/${astro}`)
+          ? []
+          : [`${list} names ${file}, which has no ${astro}`]),
+      ]
+    }),
+  ]
+}
 
 const GENERATED_FILE = new RegExp(
   `^src/component-examples/(.+?)(${Object.values(TARGETS)
@@ -33,10 +57,10 @@ const GENERATED_FILE = new RegExp(
 
 export const astroSourceOf = (file, read) => {
   const [, key, extension] = GENERATED_FILE.exec(file) ?? []
-  if (!key) return undefined
-  const source = read(`src/component-examples/${key}.astro`)
-  if (source === undefined) return undefined
-  const generated = generatedTargets(key, source, readHandWritten()).some(
+  if (!key || read(`src/component-examples/${key}.astro`) === undefined) {
+    return undefined
+  }
+  const generated = generatedTargets(key, readHandWritten()).some(
     (framework) => TARGETS[framework] === extension,
   )
   return generated ? `src/component-examples/${key}.astro` : undefined

@@ -87,12 +87,12 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
 
 ```html
 <button
+  class="ui-button ui-filled"
   type="button"
   command="--toast"
   commandfor="toast-basics-1"
   data-toast="Changes saved"
   data-toast-severity="success"
-  class="ui-button ui-filled"
 >
   Save changes
 </button>

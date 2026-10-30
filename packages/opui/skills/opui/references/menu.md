@@ -89,10 +89,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ```html
 <button
+  class="ui-button ui-outlined"
   type="button"
   commandfor="menu-basics-1"
   command="toggle-popover"
-  class="ui-button ui-outlined"
 >
   Options
 </button>

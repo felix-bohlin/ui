@@ -110,7 +110,7 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-field-helper-font-size`, `--
     </div>
   </fieldset>
   <div class="ui-field-group">
-    <button type="submit" class="ui-button ui-filled">Send</button>
+    <button class="ui-button ui-filled" type="submit">Send</button>
   </div>
 </form>
 ```

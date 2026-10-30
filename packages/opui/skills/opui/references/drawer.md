@@ -100,34 +100,34 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 ```html
 <div class="example-compass">
   <button
+    class="ui-button"
     type="button"
     commandfor="drawer-basics-3"
     command="show-modal"
-    class="ui-button"
   >
     Block Start
   </button>
   <button
+    class="ui-button"
     type="button"
     commandfor="drawer-basics-1"
     command="show-modal"
-    class="ui-button"
   >
     Inline Start
   </button>
   <button
+    class="ui-button"
     type="button"
     commandfor="drawer-basics-2"
     command="show-modal"
-    class="ui-button"
   >
     Inline End
   </button>
   <button
+    class="ui-button"
     type="button"
     commandfor="drawer-basics-4"
     command="show-modal"
-    class="ui-button"
   >
     Block End
   </button>
@@ -141,7 +141,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 >
   <div class="ui-header">
     <h2 id="drawer-basics-1-heading">Inline Start</h2>
-    <button type="button" aria-label="Edit" class="ui-button ui-round ui-small">
+    <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -156,11 +156,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       </svg>
     </button>
     <button
+      class="ui-button ui-round ui-small"
       type="button"
       aria-label="Close"
       command="close"
       commandfor="drawer-basics-1"
-      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -175,10 +175,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
+      class="ui-button ui-small"
       type="button"
       commandfor="drawer-basics-1"
       command="close"
-      class="ui-button ui-small"
     >
       Close
     </button>
@@ -194,11 +194,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-header">
     <h2 id="drawer-basics-2-heading">Inline End</h2>
     <button
+      class="ui-button ui-round ui-small"
       type="button"
       aria-label="Close"
       command="close"
       commandfor="drawer-basics-2"
-      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -213,10 +213,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
+      class="ui-button ui-small"
       type="button"
       commandfor="drawer-basics-2"
       command="close"
-      class="ui-button ui-small"
     >
       Close
     </button>
@@ -232,11 +232,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-header">
     <h2 id="drawer-basics-3-heading">Block Start</h2>
     <button
+      class="ui-button ui-round ui-small"
       type="button"
       aria-label="Close"
       command="close"
       commandfor="drawer-basics-3"
-      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -256,10 +256,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
+      class="ui-button ui-small"
       type="button"
       commandfor="drawer-basics-3"
       command="close"
-      class="ui-button ui-small"
     >
       Close
     </button>
@@ -275,11 +275,11 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   <div class="ui-header">
     <h2 id="drawer-basics-4-heading">Block End</h2>
     <button
+      class="ui-button ui-round ui-small"
       type="button"
       aria-label="Close"
       command="close"
       commandfor="drawer-basics-4"
-      class="ui-button ui-round ui-small"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -299,10 +299,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
+      class="ui-button ui-small"
       type="button"
       commandfor="drawer-basics-4"
       command="close"
-      class="ui-button ui-small"
     >
       Close
     </button>

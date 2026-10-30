@@ -83,10 +83,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 ```html
 <button
+  class="ui-button ui-outlined"
   type="button"
   commandfor="dialog-basics-1"
   command="show-modal"
-  class="ui-button ui-outlined"
 >
   Open dialog
 </button>
@@ -106,18 +106,18 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
+      class="ui-button"
       type="button"
       commandfor="dialog-basics-1"
       command="close"
-      class="ui-button"
     >
       Not now
     </button>
     <button
+      class="ui-button ui-filled"
       type="button"
       commandfor="dialog-basics-1"
       command="close"
-      class="ui-button ui-filled"
     >
       Subscribe
     </button>

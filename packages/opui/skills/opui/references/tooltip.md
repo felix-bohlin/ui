@@ -60,7 +60,7 @@ The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `-
 
 ```html
 <span class="ui-tooltip">
-  <button type="button" interestfor="tooltip-basics-1" class="ui-button">
+  <button class="ui-button" type="button" interestfor="tooltip-basics-1">
     Save
   </button>
   <span class="ui-floating" id="tooltip-basics-1" popover="hint"

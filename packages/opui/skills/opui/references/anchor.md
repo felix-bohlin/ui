@@ -42,7 +42,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ```html
 <span class="ui-anchor" style="--ui-anchor-position-area: inline-end">
-  <button type="button" class="ui-button ui-outlined">Export</button>
+  <button class="ui-button ui-outlined" type="button">Export</button>
   <span class="ui-floating">
     <div class="ui-card ui-tonal coach-mark">
       <div class="ui-content">

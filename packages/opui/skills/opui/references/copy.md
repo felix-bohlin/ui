@@ -53,10 +53,10 @@ The stylesheets read `--ui-success`. `theming.md` and `tokens.json` describe the
   <span class="ui-sr-only" role="status"></span>
 </opui-copy>
 <button
+  class="ui-button ui-outlined"
   type="button"
   command="--copy"
   commandfor="copy-basics-1"
-  class="ui-button ui-outlined"
 >
   Copy
 </button>

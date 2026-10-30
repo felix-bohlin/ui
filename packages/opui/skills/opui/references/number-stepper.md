@@ -93,11 +93,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
   <span class="ui-field">
     <span class="ui-start">
       <button
+        class="ui-button ui-round"
         type="button"
         aria-label="Decrease"
         command="--step-down"
         commandfor="number-stepper-basics-1"
-        class="ui-button ui-round"
       >
         <svg
           aria-hidden="true"
@@ -119,11 +119,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
     />
     <span class="ui-end">
       <button
+        class="ui-button ui-round"
         type="button"
         aria-label="Increase"
         command="--step-up"
         commandfor="number-stepper-basics-1"
-        class="ui-button ui-round"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24"></svg>
       </button>

@@ -121,11 +121,11 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
     <span class="ui-field">
       <span class="ui-start">
         <button
+          class="ui-button ui-round"
           type="button"
           aria-label="Pick a color"
           command="toggle-popover"
           commandfor="color-field-basics-1-picker"
-          class="ui-button ui-round"
         >
           <span class="ui-indicator"></span>
         </button>

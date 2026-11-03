@@ -6,4 +6,5 @@ export type Props = Base.Props & SvelteHTMLElements["article"]
 export type CalloutContentProps = Base.CalloutContentProps &
   SvelteHTMLElements["div"]
 
-export type CalloutIconProps = Base.CalloutIconProps & SvelteHTMLElements["svg"]
+export type CalloutIconProps = Base.CalloutIconProps &
+  Omit<SvelteHTMLElements["svg"], "children">

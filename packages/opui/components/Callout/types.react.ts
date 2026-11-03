@@ -6,4 +6,5 @@ export type Props = Base.Props & ComponentProps<"article">
 export type CalloutContentProps = Base.CalloutContentProps &
   ComponentProps<"div">
 
-export type CalloutIconProps = Base.CalloutIconProps & ComponentProps<"svg">
+export type CalloutIconProps = Base.CalloutIconProps &
+  Omit<ComponentProps<"svg">, "children">

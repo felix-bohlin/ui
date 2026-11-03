@@ -262,6 +262,59 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a tag that is sometimes Fragment compiles as two branches, with a function const and a cast", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { trimEdges } from "../whitespace"\n\nconst hint = (text: string) => text.toUpperCase()\n\nconst { class: className, label, ...rest } = Astro.props as Props\n\nconst labelSlot = Astro.slots.has("label")\n  ? trimEdges(await Astro.slots.render("label"))\n  : ""\nconst LabelTag = label || labelSlot ? "span" : Fragment\n---\n\n<label class:list={["ui-sample", className]} data-hint={hint(label ?? "")} {...rest}>\n  <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>\n</label>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "  const hint = (text: string) => text.toUpperCase()\n",
+    )
+    expect(ports["react.tsx"]).toContain(
+      '      {label ? <span className="ui-label">{label}</span> : label}\n',
+    )
+    expect(ports.svelte).toContain(
+      "  const hint = (text: string) => text.toUpperCase()\n",
+    )
+    expect(ports.svelte).toContain(
+      '  {#if label}<span class="ui-label">{@render content(label)}</span\n    >{:else}{@render content(label)}{/if}\n',
+    )
+    expect(ports.vue).toContain(
+      "const hint = (text: string) => text.toUpperCase()\n",
+    )
+    expect(ports.vue).toContain(
+      '    <span v-if="label || $slots.label" class="ui-label"\n      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span\n    ><template v-else\n      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"\n    /></template>\n',
+    )
+  })
+
+  test("a map callback returning a condition keys both branches", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      '      {items?.map((option, index) =>\n        typeof option === "object" ? (\n          <option key={index} value={option.value} label={option.label} />\n        ) : (\n          <option key={index} value={option} />\n        ),\n      )}\n',
+    )
+    expect(ports.svelte).toContain(
+      '{#each items ?? [] as option, index (index)}{#if typeof option === "object"}<option',
+    )
+    expect(ports.vue).toContain(
+      '<template v-for="(option, index) in items" :key="index"',
+    )
+  })
+
+  test("accepts a helper import from another component folder", async () => {
+    await expect(
+      readComponent(
+        astro(
+          "<div {...rest}>\n  <slot />\n</div>",
+          'import { isSelected } from "../ToggleGroup/selection"',
+        ),
+        sampleFile(),
+      ),
+    ).resolves.toMatchObject({
+      imports: ['import { isSelected } from "../ToggleGroup/selection"'],
+    })
+  })
+
   test.each([
     [
       "<div {...rest}>\n  <slot />\n</div>\n<p>Two</p>",
@@ -276,8 +329,8 @@ describe("the three ports of a sample", () => {
       "a <script>",
     ],
     [
-      "<div {...rest}>{items.map((item) => (item.b ? <b>{item.b}</b> : <i />))}</div>",
-      "map callback doesn't return one element",
+      "<div {...rest}>{items.map((item) => (item.b ? <b>{item.b}</b> : item.b))}</div>",
+      "map callback doesn't return one element or a condition between two",
     ],
     [
       "<div {...rest}>{items.map((item, index) => <b>{index}</b>)}</div>",
@@ -300,8 +353,8 @@ describe("the three ports of a sample", () => {
 
   test.each([
     [
-      'const isLegend = Tag === "legend"',
-      "the frontmatter statement `const isLegend",
+      "export const other = 1",
+      "the frontmatter statement `export const other = 1`",
     ],
     ['import { getContext } from "../context"', "the import of ../context"],
   ])("rejects the frontmatter %s", async (line, reason) => {
@@ -337,8 +390,12 @@ describe("the three ports of a sample", () => {
       "a handler string in `const closeAttrs",
     ],
     [
-      'const LabelTag = className ? "span" : Fragment',
+      'const LabelTag = className ? "span" : Fragment ?? "p"',
       "Fragment as a value in `const LabelTag",
+    ],
+    [
+      "const named = hasName(Astro.props, false)",
+      "Astro.props in `const named",
     ],
   ])("rejects the const %s", async (line, reason) => {
     await expect(
@@ -394,6 +451,54 @@ describe("toTypes", () => {
     )
   })
 
+  test("slots on a union, a string-or-slot prop, a custom element root and a plain alias", () => {
+    const types = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "button"; href?: never } & HTMLAttributes<"button">)\n  | (Base.Props & { as?: "a"; href: string } & HTMLAttributes<"a">)\n\nexport type SampleItem = Base.SampleItem & Omit<HTMLAttributes<"a">, "children">\n\nexport type SampleTagProps = Base.SampleTagProps & Omit<HTMLAttributes<"div">, "id">\n',
+        base: 'export type Props = {\n  size?: "small"\n}\n\nexport type Slots<S> =\n  | { "aria-label": string; children?: S }\n  | { "aria-label"?: string; children: S }\n\nexport type SampleItem = { label: string }\n\nexport type SampleTagProps = { id: string }\n\nexport type SampleTagSlots<S> = {\n  end?: S\n  label?: string | S\n}\n',
+      },
+      { Sample: ["default"], SampleTag: ["end", "label"] },
+      {},
+      { SampleTag: ["opui-sample"] },
+    )
+    expect(types.react).toContain(
+      '  | (Base.Props & Base.Slots<ReactNode> & { as?: "button"; href?: never } & ComponentProps<"button">)\n  | (Base.Props & Base.Slots<ReactNode> & { as?: "a"; href: string } & ComponentProps<"a">)',
+    )
+    expect(types.react).toContain(
+      "type Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never",
+    )
+    expect(types.react).toContain(
+      'export type SampleTagProps = Without<Base.SampleTagProps, "label"> & Base.SampleTagSlots<ReactNode> & Omit<ComponentProps<"opui-sample">, "children" | "id">',
+    )
+    expect(types.svelte).toContain(
+      'export type SampleItem = Base.SampleItem & Omit<SvelteHTMLElements["a"], "children">',
+    )
+    expect(types.vue).toContain(
+      'export type SampleItem = BaseSampleItem & Omit<IntrinsicElementAttributes["a"], "children">',
+    )
+    expect(types.vue).toContain("export type Slots = DefaultSlots")
+    expect(types.vue).toContain(
+      "export type SampleTagSlots = { end?: Slot; label?: Slot }",
+    )
+  })
+
+  test("a Props alias keeps its Omit and literal parts in Vue", () => {
+    const { vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Omit<Base.Props, "items"> & {\n  items?: string[]\n} & Omit<HTMLAttributes<"menu">, "id">\n',
+        base: "export type Props = {\n  id: string\n  items?: number[]\n}\n",
+      },
+      { Sample: ["default"] },
+    )
+    expect(vue).toContain(
+      'export type Props = Omit<BaseProps, "items"> & {\n  items?: string[]\n} & Class',
+    )
+  })
+
   test("a polymorphic root lists its tags for Vue", () => {
     const { vue } = toTypes(
       "Sample",
@@ -430,7 +535,7 @@ describe("toTypes", () => {
     )
     expect(types.vue).toContain('import type { Slot } from "vue"')
     expect(types.vue).toContain(
-      "export type Slots = BaseSlots<Slot> & DefaultSlots",
+      "export type Slots = { end?: Slot } & DefaultSlots",
     )
   })
 
@@ -443,18 +548,19 @@ describe("toTypes", () => {
     [
       {
         astro: simple,
-        base: `${base}\nexport type Slots<S> = { variant?: string | S }\n`,
+        base: `${base}\nexport type Slots<S> = { variant?: S }\n`,
       },
       { Sample: ["default", "variant"] },
       "a prop and a slot both named variant",
     ],
     [
       {
-        astro: simple,
-        base: `${base}\nexport type Slots<S> = { "end-text"?: S } | { children: S }\n`,
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Extra & HTMLAttributes<"div">\n',
+        base,
       },
-      { Sample: ["default", "end-text"] },
-      "the type Slots, which is a union or sits on a union",
+      { Sample: ["default"] },
+      "the type Props, whose part Extra has no Vue form",
     ],
     [
       {

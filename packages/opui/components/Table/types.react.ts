@@ -11,7 +11,8 @@ export type TableCellProps = Base.TableCellProps & ComponentProps<"td">
 
 export type TableColumnGroupProps = ComponentProps<"colgroup">
 
-export type TableColumnProps = Base.TableColumnProps & ComponentProps<"col">
+export type TableColumnProps = Base.TableColumnProps &
+  Omit<ComponentProps<"col">, "children">
 
 export type TableFootProps = ComponentProps<"tfoot">
 

@@ -466,8 +466,8 @@ type Props = { items?: Item[] }
 
 1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.react.tsx`, `.svelte` and `.vue` per example, written from the `.astro` one by `pnpm build-examples`). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
 2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). `[component-api]` problems in `pnpm test` and the build list what it's missing.
-3.  **Implement**: Follow the checklist in Section 0, for Astro, React, Svelte and Vue.
-4.  **Verify**: Run `pnpm exec vitest run tests/unit/parity.test.ts`, then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+3.  **Implement**: Write the Astro file first, following the checklist in Section 0. `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`) then writes or updates the React, Svelte and Vue files from it and loops on the component tests.
+4.  **Verify**: Run `pnpm exec vitest run tests/unit/component-contract.test.ts tests/unit/parity.test.ts -t <Name>`, then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 ---
 

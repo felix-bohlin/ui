@@ -7,6 +7,11 @@ Read the guide for the files you're editing:
 - `src/component-api/AGENTS.md`: the `api.ts` data behind the API tables and anatomy diagrams.
 - `src/docs/components/AGENTS.md`: the component docs pages and their examples.
 
+## Workflows
+
+- An example: write the `.astro` file in `src/component-examples/<slug>/`, run `pnpm build-examples`, commit the HTML, React, Svelte and Vue files it writes.
+- A component: write the `.astro` file and its types, then `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`) writes the React, Svelte and Vue files and loops on the component tests until the four frameworks render the same markup.
+
 ## Characters
 
 - Never write the em dash (U+2014) or the middle dot (U+00B7): `pnpm check-characters` fails on them in every tracked or new text file, and `scripts/check-commits.mjs` in commit messages and pull request titles.

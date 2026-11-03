@@ -13,7 +13,8 @@ describe("tooling bugs the generator and the components work around", () => {
     const { ast } = await parse('<a title="a &amp; b">t</a>', {
       position: true,
     })
-    const [attribute] = ast.children[0].attributes
+    const [element] = ast.children
+    const [attribute] = element.type === "element" ? element.attributes : []
     expect(attribute.value).toBe("a & b")
     expect(
       attribute.raw,

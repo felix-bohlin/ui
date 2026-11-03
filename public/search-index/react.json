@@ -3234,13 +3234,6 @@
     "url": "/react/guide/migrating"
   },
   {
-    "id": "guide-migrating-react-older-versions",
-    "title": "Older versions",
-    "page": "Migrating from v5 to v6",
-    "category": "Guide",
-    "url": "/react/guide/migrating#older-versions"
-  },
-  {
     "id": "guide-theme-tokens-react",
     "title": "Theme tokens",
     "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. The largest group is roles; the\n    others are marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",

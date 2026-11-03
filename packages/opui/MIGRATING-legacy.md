@@ -31,7 +31,7 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 + .ui-button.ui-filled { /* override */ }
 ```
 
-The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
+The full list of renamed classes is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
 CSS custom properties (`--primary`, `--surface-default`, …) are unchanged in v5. The theme tokens get a `--ui-` prefix in v6 (Open Props tokens such as `--size-3` keep their names), see [Theme and tokens](./MIGRATING.md#theme-and-tokens).
 

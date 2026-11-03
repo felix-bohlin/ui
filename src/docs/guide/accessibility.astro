@@ -20,7 +20,9 @@ import { componentsWithSlot } from "../../utils/components"
       Components are styled native elements: <code>&lt;button&gt;</code>,
       <code>&lt;dialog&gt;</code>, <code>&lt;details&gt;</code>, popovers and
       form inputs. The browser gives them their roles, keyboard support and
-      focus handling, so there are no ARIA widgets that need JavaScript to work.
+      focus handling, so almost no ARIA needs JavaScript. The exception is a
+      sortable <DocLink href="/components/table">Table</DocLink>, whose script
+      sets <code>aria-sort</code> on the header you press.
     </p>
     <ul>
       <li>

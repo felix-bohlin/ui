@@ -316,7 +316,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-on-strong": "Text color on `--ui-palette-strong`.",
   "--ui-palette-on-tint": "Text color on `--ui-palette-tint`.",
   "--ui-palette-source":
-    "The source color the palette is derived from. Set it to replace `--ui-palette-hue` and `--ui-palette-chroma`. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
+    "The source color the palette is derived from. A theme leaves it unset, and `palette.css` builds it from `--ui-palette-hue` and `--ui-palette-chroma`: `oklch(58% 0.105 222.8)` by default. Set it to replace those two knobs. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
   "--ui-palette-strong":
     "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Severity `Chip` text reads it. Re-derived inside every severity scope.",
   "--ui-palette-text":

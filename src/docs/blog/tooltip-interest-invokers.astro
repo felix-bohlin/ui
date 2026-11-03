@@ -40,14 +40,12 @@ import Position from "../../component-examples/tooltip/Position.astro"
     </ul>
     <Code
       lang="html"
-      code={`<button
-  type="button"
-  interestfor="tooltip"
->
-  Save
-</button>
-
-<span class="tooltip" id="tooltip" popover="hint">Save changes</span>`}
+      code={`<span class="ui-tooltip">
+  <button type="button" class="ui-button" interestfor="tooltip">
+    Save
+  </button>
+  <span class="ui-floating" id="tooltip" popover="hint">Save changes</span>
+</span>`}
     />
   </section>
 

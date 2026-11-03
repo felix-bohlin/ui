@@ -40,8 +40,8 @@ const newComponents = addedComponents(
           it, blocks, the Theme builder and a lot more docs.
         </li>
         <li>
-          Why a major: 105 breaking entries, the first major since 5.0, most of
-          them renames.
+          Why a major: 105 breaking entries, the first major since 5.0, 31 of
+          them plain renames.
         </li>
         <li>
           What stayed: CSS first, HTML as a first-class target, feature first.
@@ -154,8 +154,10 @@ const newComponents = addedComponents(
         >.
       </li>
       <li>
-        Three tiers, knobs then roles then hooks, and which one to touch for
-        what (<DocLink href="/guide/theme-tokens">Theme tokens</DocLink>).
+        Tiers: knobs, roles (some optional hooks) and component tokens, and
+        which one to touch for what (<DocLink href="/guide/theme-tokens"
+          >Theme tokens</DocLink
+        >).
       </li>
       <li>
         Derived roles declared on
@@ -193,7 +195,7 @@ const newComponents = addedComponents(
       </li>
       <li>
         The <code>-text</code> roles promise 4.5:1 on every surface; the promise is
-        recorded in <code>tokens.json</code> and tested.
+        recorded in <code>tokens.json</code> and tested at the default hue.
       </li>
       <li>
         <code>--ui-on-primary</code> picked from the fill's luminance with relative
@@ -202,8 +204,9 @@ const newComponents = addedComponents(
       <li>Focus ring black or white by surface lightness.</li>
       <li>
         The sweep: hue 0 to 360 in steps of 10, normal and more contrast, light
-        and dark, 1036 pairs, none below the promise. The closest call is
-        on-primary text at hue 190 in light mode, 4.77:1.
+        and dark, 1036 pairs. One pair misses: primary text on the filled
+        surface in light mode drops below 4.5:1 at hues 160 to 220, to 4.24:1 at
+        hue 190. The default hue keeps it at 4.57:1.
       </li>
     </ul>
   </section>
@@ -464,7 +467,7 @@ const newComponents = addedComponents(
       <li>
         Invoker commands for Dialog, Drawer and Menu (<DocLink
           href="/blog/dialog-closedby">Blog</DocLink
-        >, <DocLink href="/blog/drawer-starting-style">Blog</DocLink>).
+        >).
       </li>
       <li>
         <code>interestfor</code> for Tooltip and Anchor, and the

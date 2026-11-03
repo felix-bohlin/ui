@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import { failsIn } from "./engine-bugs"
-import { axeNodes, openFixture } from "./fixtures"
+import { axeNodes, computed, openFixture } from "./fixtures"
 import {
   SCENARIOS,
   id,
@@ -28,48 +28,23 @@ for (const { name, skipAxe, steps, unreachableIn } of SCENARIOS) {
       if (await isOpen(page, id(overlay))) overlays.push(overlay)
     }
     expect(overlays, "the last overlay is open").toContain(opened(steps).at(-1))
+    for (const overlay of overlays) {
+      await expect
+        .poll(() => computed(page.locator(id(overlay)), "opacity"), overlay)
+        .toBe("1")
+    }
 
     const builder = new AxeBuilder({ page }).exclude('iframe[src*="youtube"]')
     for (const overlay of overlays) builder.include(id(overlay))
     const { violations } = await builder.analyze()
-    const contrast = []
-    for (const node of violations
+    const contrast = violations
       .filter((violation) => violation.id === "color-contrast")
-      .flatMap((violation) => violation.nodes)) {
-      contrast.push({
-        target: node.target,
-        ...node.any[0]?.data,
-        element: await page
-          .locator(String(node.target[0]))
-          .evaluate((element) => {
-            const style = getComputedStyle(element)
-            const rect = element.getBoundingClientRect()
-            return {
-              animations: element
-                .getAnimations()
-                .map(
-                  (animation) =>
-                    `${(animation as CSSTransition).transitionProperty} ${animation.playState} ${animation.currentTime}`,
-                ),
-              backgroundColor: style.backgroundColor,
-              opacity: style.opacity,
-              rect: [rect.left, rect.top, rect.width, rect.height].map(
-                Math.round,
-              ),
-              stack: document
-                .elementsFromPoint(
-                  rect.left + rect.width / 2,
-                  rect.top + rect.height / 2,
-                )
-                .slice(0, 4)
-                .map(
-                  (hit) =>
-                    `${hit.tagName.toLowerCase()}${hit.id ? `#${hit.id}` : ""} ${getComputedStyle(hit).backgroundColor} ${getComputedStyle(hit).opacity}`,
-                ),
-            }
-          }),
-      })
-    }
+      .flatMap((violation) =>
+        violation.nodes.map((node) => ({
+          target: node.target,
+          ...node.any[0]?.data,
+        })),
+      )
     expect(axeNodes(violations), JSON.stringify(contrast)).toEqual([])
   })
 }

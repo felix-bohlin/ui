@@ -304,19 +304,21 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 Form controls (TextField, Textarea, Select, Range, Checkbox, Radio, Switch), ListItem, Chip, Badge and the like keep a prop and slot API. A text region takes a string prop as a shorthand and a named slot (Astro, Vue), snippet (Svelte) or `ReactNode` prop (React) for rich content.
 
 ```astro
+---
+import { trimEdges } from "../whitespace"
+
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
+---
+
 <div class="ui-component">
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
+  <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>
 </div>
 ```
 
-Check that a named slot exists before rendering its wrapper.
+Check that a named slot exists before rendering its wrapper. `tests/unit/component-whitespace.test.ts` checks the whitespace around every slot in the `api.ts` files.
 
 ---
 

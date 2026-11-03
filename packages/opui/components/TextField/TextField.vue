@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
 import {
@@ -89,7 +90,7 @@ const field = inject(FieldGroupKey, undefined)
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="passwordToggle ? inputId : undefined"
     >
-      {{ label }}<slot name="label"></slot>
+      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
     </component>
 
     <span v-if="hasStartText" class="ui-start-text" :id="startTextId">

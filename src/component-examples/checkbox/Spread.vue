@@ -9,7 +9,8 @@ import { Checkbox } from "opui-css/vue"
   </Checkbox>
 
   <Checkbox name="checkbox-spread" required spread>
-    Required <template #end-text>You must accept this to continue.</template>
+    Required
+    <template #end-text>You must accept this to continue.</template>
   </Checkbox>
 
   <Checkbox disabled name="checkbox-spread" spread>

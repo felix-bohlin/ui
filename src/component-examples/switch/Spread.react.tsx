@@ -17,7 +17,7 @@ export default function Spread() {
         required
         spread
       >
-        Required{" "}
+        Required
       </Switch>
 
       <Switch

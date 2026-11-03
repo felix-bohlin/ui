@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import RadioInput from "./RadioInput.vue"
 import type { Props, Slots } from "./types.vue-props"
 import { type InputHTMLAttributes, useAttrs } from "vue"
@@ -53,8 +54,8 @@ warnUnnamed("Radio", hasName({ ...attrs, label }, slots.default))
     <span
       v-if="label || $slots.default"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      >{{ label }}<slot></slot
-    ></span>
+      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
+    /></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text">
       {{ endText }}<slot name="end-text"></slot>
     </span>

@@ -4,6 +4,7 @@ import Button from "../Button/Button.astro"
 import type { DrawerHeaderProps as Props } from "./types.astro"
 import { drawerContext } from "./context.astro"
 import { closePath } from "./icons"
+import { trimEdges } from "../whitespace"
 
 const {
   class: className,
@@ -17,11 +18,18 @@ const closeAttrs =
   commandfor || drawer
     ? { command: "close", commandfor: commandfor ?? drawer?.id }
     : { onclick: "this.closest('dialog')?.close()" }
+const content = Astro.slots.has("default")
+  ? trimEdges(await Astro.slots.render("default"))
+  : ""
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  <slot />
-  <Button aria-label={closeLabel} round size="small" {...closeAttrs}>
+  <Fragment set:html={content} /><Button
+    aria-label={closeLabel}
+    round
+    size="small"
+    {...closeAttrs}
+  >
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

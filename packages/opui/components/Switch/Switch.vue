@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import SwitchInput from "./SwitchInput.vue"
 import type { Props, Slots } from "./types.vue-props"
 import { type InputHTMLAttributes, useAttrs } from "vue"
@@ -71,7 +72,7 @@ warnUnnamed("Switch", hasName({ ...attrs, label }, slots.default))
       v-if="label || $slots.default"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
     >
-      {{ label }}<slot></slot>
+      {{ label }}<TrimmedSlot :nodes="$slots.default?.()" />
     </span>
 
     <span v-if="endText || $slots['end-text']" class="ui-end-text">

@@ -1,5 +1,6 @@
 ---
 import type { SelectItem } from "./types"
+import { trimEdges } from "../whitespace"
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
 import { createIds, idRefs } from "../id"
@@ -53,7 +54,10 @@ const isSelected = (item: SelectItem) =>
     : Array.isArray(value)
       ? value.some((selected) => selected === item.value)
       : item.value === value
-const LabelTag = label || Astro.slots.has("label") ? "span" : Fragment
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
 ---
 
 <label
@@ -70,7 +74,7 @@ const LabelTag = label || Astro.slots.has("label") ? "span" : Fragment
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
-    >{label}<slot name="label" /></LabelTag
+    >{label}<Fragment set:html={labelSlot} /></LabelTag
   >
   {
     (startText || Astro.slots.has("start-text")) && (

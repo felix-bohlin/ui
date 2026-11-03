@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import "../../elements/color-field.js"
 import {
   computed,
@@ -71,7 +72,7 @@ const field = inject(FieldGroupKey, undefined)
         :for="inputId"
         :id="`${inputId}-label`"
       >
-        {{ label }}<slot name="label"></slot>
+        {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
       </label>
 
       <span v-if="startText || $slots['start-text']" class="ui-start-text">

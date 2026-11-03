@@ -1,5 +1,6 @@
 ---
 import Button from "../Button/Button.astro"
+import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
@@ -38,12 +39,11 @@ const {
 const field = fieldGroupContext.get()
 const ids = createIds(Astro.locals, "text-field", id)
 const Root = passwordToggle ? "opui-text-field" : "label"
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
 const Label =
-  label || Astro.slots.has("label")
-    ? passwordToggle
-      ? "label"
-      : "span"
-    : Fragment
+  label || labelSlot ? (passwordToggle ? "label" : "span") : Fragment
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
@@ -70,7 +70,7 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
   <Label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
     for={passwordToggle ? inputId : undefined}
-    >{label}<slot name="label" /></Label
+    >{label}<Fragment set:html={labelSlot} /></Label
   >
   {
     hasStartText && (

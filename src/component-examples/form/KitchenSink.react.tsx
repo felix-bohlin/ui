@@ -106,7 +106,7 @@ export default function KitchenSink() {
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
           <Checkbox endText="Support this text" name="terms" required>
-            I agree to the terms and conditions{" "}
+            I agree to the terms and conditions
           </Checkbox>
         </FieldGroup>
       </Fieldset>

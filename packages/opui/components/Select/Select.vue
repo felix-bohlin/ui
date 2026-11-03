@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import {
   computed,
   inject,
@@ -88,7 +89,7 @@ const field = inject(FieldGroupKey, undefined)
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :id="labelId"
     >
-      {{ label }}<slot name="label"></slot>
+      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
     </span>
 
     <span

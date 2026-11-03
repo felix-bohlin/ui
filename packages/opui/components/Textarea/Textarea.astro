@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { cx } from "../cx"
 
@@ -27,7 +28,10 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const LabelTag = label || Astro.slots.has("label") ? "span" : Fragment
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
 ---
 
 <label
@@ -44,7 +48,7 @@ const LabelTag = label || Astro.slots.has("label") ? "span" : Fragment
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    >{label}<slot name="label" /></LabelTag
+    >{label}<Fragment set:html={labelSlot} /></LabelTag
   >
 
   {

@@ -102,8 +102,8 @@
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup>
       <Checkbox name="terms" required>
-        I agree to the terms and conditions{" "}{#snippet endText()}Support this
-          text{/snippet}
+        I agree to the terms and conditions
+        {#snippet endText()}Support this text{/snippet}
       </Checkbox>
     </FieldGroup>
   </Fieldset>

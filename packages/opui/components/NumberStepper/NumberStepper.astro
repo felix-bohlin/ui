@@ -1,5 +1,6 @@
 ---
 import Button from "../Button/Button.astro"
+import { trimEdges } from "../whitespace"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
@@ -36,7 +37,10 @@ const startTextId =
   startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
-const LabelTag = label || Astro.slots.has("label") ? "label" : Fragment
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "label" : Fragment
 ---
 
 <opui-number-stepper
@@ -52,7 +56,7 @@ const LabelTag = label || Astro.slots.has("label") ? "label" : Fragment
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={inputId}
-    >{label}<slot name="label" /></LabelTag
+    >{label}<Fragment set:html={labelSlot} /></LabelTag
   >
   {
     (startText || Astro.slots.has("start-text")) && (

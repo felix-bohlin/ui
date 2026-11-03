@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import { computed, inject } from "vue"
 import Button from "../Button/Button.vue"
 import { DrawerKey } from "./context.vue"
@@ -19,7 +20,7 @@ const closeAttrs = computed(() =>
 
 <template>
   <div :class="['ui-header', $props.class]">
-    <slot></slot>
+    <TrimmedSlot :nodes="$slots.default?.()" />
     <Button :aria-label="closeLabel" round size="small" v-bind="closeAttrs">
       <svg
         aria-hidden="true"

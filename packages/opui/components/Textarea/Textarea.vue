@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import "../../elements/character-count.js"
 import { computed, inject, type TextareaHTMLAttributes, useAttrs } from "vue"
 import { useInputAttrs } from "../vue"
@@ -57,7 +58,7 @@ const field = inject(FieldGroupKey, undefined)
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
     >
-      {{ label }}<slot name="label"></slot>
+      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
     </span>
 
     <span v-if="startText || $slots['start-text']" class="ui-start-text">

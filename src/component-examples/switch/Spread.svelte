@@ -8,7 +8,8 @@
 </Switch>
 
 <Switch name="switch-spread" required spread>
-  Required{" "}{#snippet endText()}You must accept this to proceed.{/snippet}
+  Required
+  {#snippet endText()}You must accept this to proceed.{/snippet}
 </Switch>
 
 <Switch disabled name="switch-spread" spread>

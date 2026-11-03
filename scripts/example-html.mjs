@@ -122,13 +122,23 @@ export const cleanRender = (
   }
   const isBlock = (node) =>
     node.type === "element" && boxes.get(node).outer === "block"
-  const serialize = (children, context, parent) => {
+  const serialize = (children, context, parent, container = false) => {
     let out = ""
     let pending = false
     const verbatim = (node) =>
       node?.type === "text" && rendered.get(node).verbatim
     const breakHere = () => {
       if ((parent || out !== "") && !/\s$/.test(out)) out += "\n"
+    }
+    if (
+      parent &&
+      context === "flow" &&
+      container &&
+      children.length > 1 &&
+      !verbatim(children[0]) &&
+      !boxes.get(parent).before
+    ) {
+      breakHere()
     }
     children.forEach((node, index) => {
       if (node.type === "text") {
@@ -141,6 +151,8 @@ export const cleanRender = (
           ),
         })
         if (pending && !entry.verbatim && !/^\s/.test(text)) text = `\n${text}`
+        if (!entry.verbatim && out.endsWith("\n"))
+          text = text.replace(/^\n+/, "")
         pending = false
         out += text
         return
@@ -162,14 +174,24 @@ export const cleanRender = (
       } else if (!isHtml(node) && node.close === "") {
         out += open.replace(/>$/, " />")
       } else {
-        out += `${open}${serialize(node.children, childContext(node, context), node)}</${node.tag}>`
+        out += `${open}${serialize(
+          node.children,
+          childContext(node, context),
+          node,
+          context === "items" || boxes.get(node).outer !== "inline",
+        )}</${node.tag}>`
       }
     })
     if (
       parent &&
       ((context === "items" &&
         children.some((child) => child.type === "element")) ||
-        (context === "flow" && isBlock(children.at(-1) ?? {}))) &&
+        (context === "flow" && isBlock(children.at(-1) ?? {})) ||
+        (context === "flow" &&
+          container &&
+          children.length > 1 &&
+          children.at(-1)?.type === "element" &&
+          !boxes.get(parent).after)) &&
       !verbatim(children.at(-1))
     ) {
       breakHere()

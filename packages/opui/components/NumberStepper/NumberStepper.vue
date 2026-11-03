@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TrimmedSlot } from "../whitespace.vue"
 import "../../elements/number-stepper.js"
 import {
   computed,
@@ -76,7 +77,7 @@ const field = inject(FieldGroupKey, undefined)
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="inputId"
     >
-      {{ label }}<slot name="label"></slot>
+      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
     </label>
 
     <span

@@ -61,7 +61,7 @@ describe("cleanRender", () => {
       clean("<p>\n  Read<a> terms</a> and <strong>Note: </strong>go\n</p>"),
     ).toBe("<p>\nRead<a> terms</a> and <strong>Note: </strong>go\n</p>")
     expect(clean("<p><kbd>A</kbd> <kbd>B</kbd></p>")).toBe(
-      "<p><kbd>A</kbd> <kbd>B</kbd></p>",
+      "<p>\n<kbd>A</kbd> <kbd>B</kbd>\n</p>",
     )
     expect(clean('<a class="ui-button">\n  Link\n</a>')).toBe(
       '<a class="ui-button">Link</a>',
@@ -69,7 +69,7 @@ describe("cleanRender", () => {
   })
 
   test("a comment between inline siblings keeps its spaces", () => {
-    expect(clean("<p>a <!-- c --> b</p>")).toBe("<p>a <!-- c -->\nb</p>")
+    expect(clean("<p>a <!-- c --> b</p>")).toBe("<p>\na <!-- c -->\nb</p>")
     expect(same("<p>a <!-- c --> b</p>", "<p>a <!-- c -->\nb</p>")).toBe(
       undefined,
     )
@@ -100,6 +100,17 @@ describe("cleanRender", () => {
     ).toBe('<b class="row">\n<i>a</i>\n<i>b</i>\n</b>')
   })
 
+  test("breaks lines at the edges of a block container, but not next to generated content", () => {
+    const label = (required: string) =>
+      `<label class="ui-checkbox"><input${required} type="checkbox"><span class="ui-label">a <a href="#">b</a></span></label>`
+    expect(clean(label(""))).toContain(
+      '<span class="ui-label">\na <a href="#">b</a>\n</span>',
+    )
+    expect(clean(label(" required"))).toContain(
+      '<span class="ui-label">\na <a href="#">b</a></span>',
+    )
+  })
+
   test("keeps a select's button, selectedcontent and div", () => {
     expect(
       clean(
@@ -112,7 +123,7 @@ describe("cleanRender", () => {
 
   test("a custom element is an inline element", () => {
     expect(clean("<p>See <link-card>a</link-card> now</p>")).toBe(
-      "<p>See <link-card>a</link-card> now</p>",
+      "<p>\nSee <link-card>a</link-card> now</p>",
     )
   })
 

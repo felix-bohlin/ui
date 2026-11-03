@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
 import { hasName, warnUnnamed } from "../dev"
 import RadioInput from "./RadioInput.astro"
 import { cx } from "../cx"
@@ -23,7 +24,10 @@ const {
 } = Astro.props
 
 warnUnnamed("Radio", hasName(Astro.props, Astro.slots.has("default")))
-const LabelTag = label || Astro.slots.has("default") ? "span" : Fragment
+const labelSlot = Astro.slots.has("default")
+  ? trimEdges(await Astro.slots.render("default"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
 ---
 
 <label
@@ -42,7 +46,7 @@ const LabelTag = label || Astro.slots.has("default") ? "span" : Fragment
 >
   <RadioInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    >{label}<slot /></LabelTag
+    >{label}<Fragment set:html={labelSlot} /></LabelTag
   >
   {
     (endText || Astro.slots.has("end-text")) && (

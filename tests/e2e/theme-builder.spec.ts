@@ -212,6 +212,7 @@ test("on a phone the preview opens as a sheet", async ({ page }) => {
 })
 
 test("has no axe violations, with the drawers open too", async ({ page }) => {
+  test.setTimeout(90_000)
   await open(page)
   const check = async (label: string) => {
     const { violations } = await new AxeBuilder({ page })

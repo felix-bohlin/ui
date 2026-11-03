@@ -84,7 +84,7 @@
     "svelte": "catalog:",
     "svelte-check": "^4.7.6",
     "unified": "^11.0.5",
-    "vitest": "^5.0.2",
+    "vitest": "^5.1.0",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
   },

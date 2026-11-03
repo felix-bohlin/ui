@@ -24,7 +24,7 @@ A number field with buttons that step the value down and up, for amounts like a 
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input and the step buttons.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-number-stepper > label.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out.
+- `id`: `string`. The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.
 - `increaseLabel`: `string`, default `"Increase"`. The accessible name of the increase button.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.

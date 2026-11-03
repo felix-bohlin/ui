@@ -27,7 +27,7 @@ Leverages the List component to provide markup for the Select popover. Use a Sel
 - `disabled`: `boolean`, `select[disabled]`. Dims the select and blocks input.
 - `error`: `boolean`, `select[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-select > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<select>`.
+- `id`: `string`. The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-top` and `x-bottom` for `id="x"`.
 - `items`: `SelectItem[]`, default `[]`. The options, as `{ label, selected, value }` objects.
 - `name`: `string`. The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies.
 - `required`: `boolean`, `select[required]`. Adds a required mark after the label. The form won't submit until an option with a value is selected.

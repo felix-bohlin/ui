@@ -26,7 +26,7 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 ### Notes
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
+- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
 
 ## DialogFooter
 

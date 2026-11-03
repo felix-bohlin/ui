@@ -22,7 +22,7 @@ Range lets users pick a number by sliding a thumb along a track.
 - `disabled`: `boolean`, `input[disabled]`. Dims the slider and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-range > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown.
+- `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.
 - `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick.
 - `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.

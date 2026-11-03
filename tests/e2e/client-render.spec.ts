@@ -102,6 +102,10 @@ for (const framework of FRAMEWORKS) {
       expect(errors, "page errors").toEqual([])
       if (!client) return
 
+      await page.addInitScript(() => {
+        customElements.define = () => {}
+      })
+      await openFixture(page, framework, component)
       const server = await snapshot(page, framework, await response.text())
       const rendered = await snapshot(page, framework)
       expect(rendered.map(({ example }) => example)).toEqual(

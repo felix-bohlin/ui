@@ -8,10 +8,10 @@ import {
   rewriteExpression,
   rewriteStatement,
   scriptImports,
-  selectionImport,
   styleOption,
   withImport,
 } from "./component-emit.mjs"
+import { kindOf, MODEL_KINDS } from "./component-models.mjs"
 import {
   allCodes,
   byName,
@@ -113,10 +113,9 @@ export const toVue = (component) => {
   }
   if (component.model?.refusal) throw component.model.refusal
   const { model } = component
-  const explicitAttrs =
-    (model?.kind === "checked" && !model.item) || model?.kind === "radio"
-  const generic =
-    model?.kind === "group" && model.read.startsWith("selectionOf")
+  const kind = MODEL_KINDS[kindOf(model)]?.vue
+  const explicitAttrs = kind?.explicitAttrs === true
+  const generic = kind?.generic?.(model) === true
   const { item } = component
   const forwarded = (component.baseProps ?? [])
     .filter(
@@ -132,16 +131,14 @@ export const toVue = (component) => {
       ? [{ prop: "class", text: `class: ${classProp.local}` }]
       : []),
     ...forwarded.map((key) => ({ prop: key, text: key })),
-    ...(model?.kind === "value" && !model.local
-      ? [{ prop: model.prop, text: model.prop }]
-      : []),
+    ...(kind?.declared?.(model) ?? []).map((prop) => ({ prop, text: prop })),
     ...props
       .filter(
         ({ local, prop }) =>
           prop !== "class" &&
           prop !== "style" &&
           !prop.includes("-") &&
-          !(model?.kind === "group" && prop === model.prop) &&
+          !kind?.undeclared?.(model, prop) &&
           (used.has(local) ||
             prop === model?.prop ||
             (generic && prop === "multiple")),
@@ -279,16 +276,12 @@ export const toVue = (component) => {
             ...node.attributes.slice(last + 1),
           ]
         : node.attributes
-    const bindScope =
-      node.item && model?.item && component.item.checked
-        ? {
-            ...scope,
-            rename: new Map([
-              ...scope.rename,
-              [component.item.checked, `model ?? ${component.item.checked}`],
-            ]),
-          }
-        : scope
+    const checkedRename = node.item
+      ? kind?.checkedRename?.(component.item)
+      : undefined
+    const bindScope = checkedRename
+      ? { ...scope, rename: new Map([...scope.rename, checkedRename]) }
+      : scope
     const attributes = [
       ...(clause ? [clause] : []),
       ...bound
@@ -296,13 +289,7 @@ export const toVue = (component) => {
           item.kind === "bound" ? item.text : attribute(node, item, bindScope),
         )
         .filter(Boolean),
-      ...(node.model
-        ? model.kind === "forward"
-          ? ['v-model="modelValue"']
-          : model.kind === "radio"
-            ? [':value="attrs.value"', 'v-model="model"']
-            : ['v-model="model"']
-        : []),
+      ...(node.model ? kind.attributes(model) : []),
       ...(node.item ? ['@change="change"'] : []),
       ...((rootElements.includes(node) ||
         (multiRoot &&
@@ -340,21 +327,21 @@ export const toVue = (component) => {
       : "Slots"
   const provided = provide
     ? [
-        ...(model?.kind === "group" ? ["change"] : []),
-        ...provide.value.map(({ code, key }) =>
-          model?.kind === "group" && key === model.prop
-            ? `${key}: model`
-            : derivedNames.has(code)
+        ...(kind?.providedFirst?.() ?? []),
+        ...provide.value.map(
+          ({ code, key }) =>
+            kind?.providedEntry?.(model, key) ??
+            (derivedNames.has(code)
               ? code === key
                 ? key
                 : `${key}: ${code}`
-              : `${key}: computed(() => ${rewriteExpression(code, script)})`,
+              : `${key}: computed(() => ${rewriteExpression(code, script)})`),
         ),
       ]
     : undefined
   const vueImports = [
     ...(computedConsts.length ||
-    (model && model.kind !== "forward" && !model.item) ||
+    kind?.computed === true ||
     provided?.some((entry) => entry.includes("computed("))
       ? ["computed"]
       : []),
@@ -374,9 +361,7 @@ export const toVue = (component) => {
       ? [`import { ${vueImports.join(", ")} } from "vue"`]
       : []),
     ...(computedAttrs ? [`import { useInputAttrs } from "../vue"`] : []),
-    ...(model?.kind === "group" && model.read.startsWith("selectionOf")
-      ? [`import { selectionOf } from "${selectionImport(component)}"`]
-      : []),
+    ...(kind?.imports?.(component, model) ?? []),
     ...(usesTrimmedSlot
       ? [`import { TrimmedSlot } from "../whitespace.vue"`]
       : []),
@@ -423,36 +408,7 @@ export const toVue = (component) => {
           : restUsed
             ? ["const attrs = useAttrs() as HTMLAttributes"]
             : []),
-    ...(model?.kind === "value"
-      ? [
-          `const modelValue = defineModel<${model.type}>()`,
-          `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
-        ]
-      : model?.kind === "checked" && model.item
-        ? [
-            `const model = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-          ]
-        : model?.kind === "checked"
-          ? [
-              `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-              "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
-            ]
-          : model?.kind === "radio"
-            ? [
-                `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-                "const unchecked = Symbol()",
-                `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
-              ]
-            : model?.kind === "forward"
-              ? [
-                  `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-                ]
-              : model?.kind === "group"
-                ? [
-                    `const model = defineModel<${generic ? "Model" : model.type}>()`,
-                    `const change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = ${model.read}${generic ? " as Model" : ""}\n}`,
-                  ]
-                : []),
+    ...(kind?.setup?.(model, generic) ?? []),
     ...reads.map(
       ({ context, name }) =>
         `const ${name} = inject(${context.name}Key, undefined)`,
@@ -466,10 +422,9 @@ export const toVue = (component) => {
     ...warnings.map((code) => rewriteStatement(code, script)),
     ...(item
       ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, model?.item && item.checked ? `${item.checked} ?? model.value` : (item.checked ?? "undefined")).replace(`, ${item.grouped},`, `, ${item.grouped}.value,`)},\n)`,
-          model?.item
-            ? `const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (${item.grouped}.value === undefined) model.value = input.checked\n  ${item.parent}?.change?.(input)\n}`
-            : `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
+          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined").replace(`, ${item.grouped},`, `, ${item.grouped}.value,`)},\n)`,
+          kind?.change?.(item) ??
+            `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
         ]
       : []),
     ...(provide

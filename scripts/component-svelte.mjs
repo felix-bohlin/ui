@@ -8,10 +8,10 @@ import {
   rewriteExpression,
   rewriteStatement,
   scriptImports,
-  selectionImport,
   slotOrder,
   withImport,
 } from "./component-emit.mjs"
+import { kindOf, MODEL_KINDS } from "./component-models.mjs"
 import { byName, propKey, unsupported } from "./component-shared.mjs"
 
 export const toSvelte = (component) => {
@@ -50,16 +50,10 @@ export const toSvelte = (component) => {
     )
   }
   const { model } = component
-  const bindableProps =
-    model?.kind === "value"
-      ? [model.prop]
-      : (model?.bindables.map(({ prop }) => prop) ?? [])
+  const kind = MODEL_KINDS[kindOf(model)]?.svelte
+  const bindableProps = kind ? kind.bindables(model) : []
   const plainProps = [
-    ...(model?.kind === "checked" && !model.item
-      ? ["value"]
-      : model?.kind === "radio"
-        ? ["checked", "onchange", "value"]
-        : []),
+    ...(kind?.plainProps?.(model) ?? []),
     ...(component.item ? ["onchange"] : []),
   ]
   const added = [...bindableProps, ...plainProps]
@@ -72,21 +66,7 @@ export const toSvelte = (component) => {
         ? `${prop} = $bindable(${fallback ?? ""})`
         : `${prop === local ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
     )
-  const modelAttributes = !model
-    ? []
-    : model.kind === "value"
-      ? [`bind:${model.prop}`]
-      : model.kind === "checked"
-        ? model.item
-          ? []
-          : ["bind:checked={getChecked, setChecked}", "{value}"]
-        : model.kind === "radio"
-          ? [
-              "checked={(checked ?? group === (value ?? true)) || undefined}",
-              "onchange={(event) => {\n  group = value ?? true\n  onchange?.(event)\n}}",
-              "{value}",
-            ]
-          : model.bindables.map(({ prop }) => `bind:${prop}`)
+  const modelAttributes = kind?.attributes?.(model) ?? []
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   let usesElements = false
   let usesContent = false
@@ -164,7 +144,7 @@ export const toSvelte = (component) => {
           ...(node.model ? modelAttributes : []),
           ...(node.item
             ? [
-                `onchange={(event) => {\n${model?.item ? `  if (${component.item.grouped} === undefined) ${model.prop} = event.currentTarget.checked\n` : ""}  ${component.item.parent}?.change?.(event.currentTarget)\n  onchange?.(event)\n}}`,
+                `onchange={(event) => {\n${(kind?.onchange?.(model, component.item) ?? []).map((line) => `  ${line}\n`).join("")}  ${component.item.parent}?.change?.(event.currentTarget)\n  onchange?.(event)\n}}`,
               ]
             : []),
         ].join(" ")
@@ -189,12 +169,7 @@ export const toSvelte = (component) => {
       ? [`import { untrack } from "svelte"`]
       : []),
     ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
-    ...(model?.kind === "group" && model.read.startsWith("selectionOf")
-      ? [`import { selectionOf } from "${selectionImport(component)}"`]
-      : []),
-    ...(model?.kind === "checked" && !model.item
-      ? [`import { toggleInGroup } from "../group"`]
-      : []),
+    ...(kind?.imports?.(component, model) ?? []),
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),
@@ -223,12 +198,7 @@ export const toSvelte = (component) => {
       ({ context, name }) => `const ${name} = get${context.name}Context()`,
     ),
     ...(uid ? ["const uid = $props.id()"] : []),
-    ...(model?.kind === "checked" && !model.item
-      ? [
-          "const getChecked = () => (group ? group.includes(value) : !!checked)",
-          "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
-        ]
-      : []),
+    ...(kind?.script?.(model) ?? []),
     ...derived.map(({ code, fn, name }) =>
       fn
         ? `const ${name} = ${rewriteExpression(code, options)}`
@@ -247,11 +217,7 @@ export const toSvelte = (component) => {
     ...(provide
       ? [
           `set${provide.context.name}Context({\n${[
-            ...(model?.kind === "group"
-              ? [
-                  `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
-                ]
-              : []),
+            ...(kind?.context?.(model) ?? []),
             ...provide.value.map(
               ({ code, key }) =>
                 `get ${key}() {\nreturn ${rewriteExpression(code, options)}\n},`,

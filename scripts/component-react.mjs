@@ -9,11 +9,11 @@ import {
   propsImport,
   rewriteExpression,
   rewriteStatement,
-  selectionImport,
   slotOrder,
   styleOption,
   withImport,
 } from "./component-emit.mjs"
+import { kindOf, MODEL_KINDS } from "./component-models.mjs"
 import { byName, isBlank, testsIn } from "./component-shared.mjs"
 
 const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
@@ -37,10 +37,11 @@ export const toReact = (component) => {
     warnings,
   } = component
   if (component.model?.everywhere) throw component.model.refusal
+  const kind = MODEL_KINDS[kindOf(component.model)]?.react
   const props = component.props.filter(
     ({ local }) =>
       !stringSlots.includes(local) &&
-      !(component.model?.kind === "value" && local === component.model.local),
+      !(kind?.inRest && local === component.model.local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
@@ -85,9 +86,8 @@ export const toReact = (component) => {
   })
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   const { item, model, multiRoot } = component
-  const group = model?.kind === "group" ? model : undefined
   const extraEntries = [
-    ...(group ? ["defaultValue", "onValueChange"] : []),
+    ...(kind?.entries?.() ?? []),
     ...(item ? ["defaultChecked", "onChange"] : []),
   ]
     .filter((key) => !entries.some((entry) => entry.key === key))
@@ -104,12 +104,7 @@ export const toReact = (component) => {
       ({ context, name }) => `const ${name} = use${context.name}Context()`,
     ),
     ...(uid ? ["const uid = useId()"] : []),
-    ...(group
-      ? [
-          "const [inner, setInner] = useState(defaultValue)",
-          `const change = (input: HTMLInputElement) => {\n  const next = ${group.read}\n  if (inner !== undefined) setInner(next)\n  onValueChange?.(next${/\[\]/.test(group.type) ? " as never" : ""})\n}`,
-        ]
-      : []),
+    ...(kind?.body?.(model) ?? []),
     ...tagProps.map(
       ({ local, prop, default: fallback }) =>
         `const ${local}: ElementType = ${fallback ? `${prop} || ${fallback}` : prop}`,
@@ -244,16 +239,8 @@ export const toReact = (component) => {
       .join("")
   const [rootNode] = tree
   const rendered = rootNode.type === "if" ? conditional(rootNode) : emit(tree)
-  const providedValue = group
-    ? [
-        { code: "change", key: "change" },
-        ...provide.value.map((entry) =>
-          entry.key === group.prop
-            ? { code: `${group.prop} ?? inner`, key: entry.key }
-            : entry,
-        ),
-      ]
-    : provide?.value
+  const providedValue =
+    kind?.provided && provide ? kind.provided(model, provide) : provide?.value
   const returned = provide
     ? `<${provide.context.name}Context value={${rewriteExpression(objectCode(providedValue), options)}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
     : multiRoot
@@ -262,7 +249,7 @@ export const toReact = (component) => {
   const reactValues = [
     ...(scripts.length ? ["useEffect"] : []),
     ...(uid ? ["useId"] : []),
-    ...(group ? ["useState"] : []),
+    ...(kind?.reactValues?.() ?? []),
   ]
   const usesElementType = tagProps.length > 0 || tagConsts.length > 0
   const reactImport = reactValues.length
@@ -280,9 +267,7 @@ export const toReact = (component) => {
       provide: (name) => `${name}Context`,
       read: (name) => `use${name}Context`,
     }),
-    ...(group?.read.startsWith("selectionOf")
-      ? [`import { selectionOf } from "${selectionImport(component)}"`]
-      : []),
+    ...(kind?.imports?.(component, model) ?? []),
     ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
     propsImport(propsType, "types.react"),
   ]

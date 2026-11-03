@@ -1,0 +1,143 @@
+import { selectionImport } from "./component-emit.mjs"
+
+const arrayRead = (model) => model.read.startsWith("selectionOf")
+
+const bindableProps = (model) => model.bindables.map(({ prop }) => prop)
+
+const optionalModel = (model) =>
+  `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`
+
+const selectionImports = (component, model) =>
+  arrayRead(model)
+    ? [`import { selectionOf } from "${selectionImport(component)}"`]
+    : []
+
+export const kindOf = (model) =>
+  model && (model.item ? "checkedItem" : model.kind)
+
+export const MODEL_KINDS = {
+  checked: {
+    svelte: {
+      attributes: () => ["bind:checked={getChecked, setChecked}", "{value}"],
+      bindables: bindableProps,
+      imports: () => [`import { toggleInGroup } from "../group"`],
+      plainProps: () => ["value"],
+      script: () => [
+        "const getChecked = () => (group ? group.includes(value) : !!checked)",
+        "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
+      ],
+    },
+    vue: {
+      attributes: () => ['v-model="model"'],
+      computed: true,
+      explicitAttrs: true,
+      setup: (model) => [
+        optionalModel(model),
+        "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
+      ],
+    },
+  },
+  checkedItem: {
+    svelte: {
+      bindables: bindableProps,
+      onchange: (model, item) => [
+        `if (${item.grouped} === undefined) ${model.prop} = event.currentTarget.checked`,
+      ],
+    },
+    vue: {
+      change: (item) =>
+        `const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (${item.grouped}.value === undefined) model.value = input.checked\n  ${item.parent}?.change?.(input)\n}`,
+      checkedRename: (item) =>
+        item.checked ? [item.checked, `model ?? ${item.checked}`] : undefined,
+      setup: (model) => [optionalModel(model).replace("modelValue", "model")],
+      warningChecked: (item) =>
+        item.checked ? `${item.checked} ?? model.value` : undefined,
+    },
+  },
+  forward: {
+    svelte: {
+      attributes: (model) => model.bindables.map(({ prop }) => `bind:${prop}`),
+      bindables: bindableProps,
+    },
+    vue: {
+      attributes: () => ['v-model="modelValue"'],
+      setup: (model) => [optionalModel(model)],
+    },
+  },
+  group: {
+    react: {
+      body: (model) => [
+        "const [inner, setInner] = useState(defaultValue)",
+        `const change = (input: HTMLInputElement) => {\n  const next = ${model.read}\n  if (inner !== undefined) setInner(next)\n  onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+      ],
+      entries: () => ["defaultValue", "onValueChange"],
+      imports: selectionImports,
+      provided: (model, provide) => [
+        { code: "change", key: "change" },
+        ...provide.value.map((entry) =>
+          entry.key === model.prop
+            ? { code: `${model.prop} ?? inner`, key: entry.key }
+            : entry,
+        ),
+      ],
+      reactValues: () => ["useState"],
+    },
+    svelte: {
+      bindables: bindableProps,
+      context: (model) => [
+        `change(input) {\nif (${model.prop} !== undefined) ${model.prop} = ${model.read}\n},`,
+      ],
+      imports: selectionImports,
+    },
+    vue: {
+      computed: true,
+      generic: arrayRead,
+      imports: selectionImports,
+      providedEntry: (model, key) =>
+        key === model.prop ? `${key}: model` : undefined,
+      providedFirst: () => ["change"],
+      setup: (model, generic) => [
+        `const model = defineModel<${generic ? "Model" : model.type}>()`,
+        `const change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = ${model.read}${generic ? " as Model" : ""}\n}`,
+      ],
+      undeclared: (model, prop) => prop === model.prop,
+    },
+  },
+  radio: {
+    svelte: {
+      attributes: () => [
+        "checked={(checked ?? group === (value ?? true)) || undefined}",
+        "onchange={(event) => {\n  group = value ?? true\n  onchange?.(event)\n}}",
+        "{value}",
+      ],
+      bindables: bindableProps,
+      plainProps: () => ["checked", "onchange", "value"],
+    },
+    vue: {
+      attributes: () => [':value="attrs.value"', 'v-model="model"'],
+      computed: true,
+      explicitAttrs: true,
+      setup: (model) => [
+        optionalModel(model),
+        "const unchecked = Symbol()",
+        `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
+      ],
+    },
+  },
+  value: {
+    react: { inRest: true },
+    svelte: {
+      attributes: (model) => [`bind:${model.prop}`],
+      bindables: (model) => [model.prop],
+    },
+    vue: {
+      attributes: () => ['v-model="model"'],
+      computed: true,
+      declared: (model) => (model.local ? [] : [model.prop]),
+      setup: (model) => [
+        `const modelValue = defineModel<${model.type}>()`,
+        `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+      ],
+    },
+  },
+}

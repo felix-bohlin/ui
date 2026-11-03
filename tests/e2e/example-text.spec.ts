@@ -1,14 +1,7 @@
 import { expect, test, type Page } from "@playwright/test"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
-const KNOWN_DIFFERENCES: Record<string, string> = {
-  "react/checkbox/Spread": "Step 8",
-  "react/form/KitchenSink": "Step 8",
-  "react/switch/Spread": "Step 8",
-  "svelte/checkbox/Spread": "Step 8",
-  "svelte/form/KitchenSink": "Step 8",
-  "svelte/switch/Spread": "Step 8",
-}
+const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const texts = async (page: Page, framework: Framework, component: string) => {
   await openFixture(page, framework, component)

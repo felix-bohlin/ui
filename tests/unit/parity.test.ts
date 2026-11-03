@@ -51,14 +51,7 @@ const EXAMPLE_CLASSES = new Set(
   ),
 )
 
-const KNOWN_DIFFERENCES: Record<string, string> = {
-  "checkbox/Spread: react": "Step 8",
-  "checkbox/Spread: svelte": "Step 8",
-  "form/KitchenSink: react": "Step 8",
-  "form/KitchenSink: svelte": "Step 8",
-  "switch/Spread: react": "Step 8",
-  "switch/Spread: svelte": "Step 8",
-}
+const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],

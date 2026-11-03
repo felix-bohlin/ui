@@ -11,8 +11,7 @@
 </script>
 
 <div>
-  The source lives in
-  <Anchor
+  The source lives in <Anchor
     id="anchor-repo-card-1"
     positionArea="block-end span-inline-end"
     trigger="hover"
@@ -47,8 +46,7 @@
         </CardActions>
       </Card>
     </AnchorContent>
-  </Anchor>
-  on GitHub.
+  </Anchor> on GitHub.
 </div>
 
 <style>

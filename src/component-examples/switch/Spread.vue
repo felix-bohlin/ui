@@ -9,8 +9,7 @@ import { Switch } from "opui-css/vue"
   </Switch>
 
   <Switch name="switch-spread" required spread>
-    Required
-    <template #end-text>You must accept this to proceed.</template>
+    Required <template #end-text>You must accept this to proceed.</template>
   </Switch>
 
   <Switch disabled name="switch-spread" spread>

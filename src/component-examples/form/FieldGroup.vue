@@ -22,7 +22,6 @@ import {
         <Radio value="king-of-limbs">The King of Limbs</Radio>
       </FieldGroup>
     </Fieldset>
-
     <Fieldset>
       <FieldLegend>Which side projects do you follow?</FieldLegend>
       <FieldDescription>Some are better than others.</FieldDescription>

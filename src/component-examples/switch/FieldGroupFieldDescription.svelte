@@ -22,7 +22,6 @@
       <Switch>Switch 3</Switch>
     </FieldGroup>
   </Fieldset>
-
   <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup

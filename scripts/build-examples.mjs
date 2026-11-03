@@ -34,6 +34,8 @@ import {
   cleanRender,
   meaningChange,
   meaningOf,
+  WHITESPACE_MARK,
+  whitespaceRoles,
 } from "./example-html.mjs"
 import {
   byAttributeName,
@@ -237,7 +239,14 @@ const textOf = (node) =>
     .map((child) => (child.type === "text" ? child.value : ""))
     .join("")
 
-const SVG_TEXT = new Set(["desc", "text", "title"])
+const SVG_TEXT = new Set([
+  "desc",
+  "foreignObject",
+  "text",
+  "textPath",
+  "title",
+  "tspan",
+])
 
 const svgChildren = (children) => {
   const nodes = children.filter(
@@ -282,7 +291,11 @@ const htmlNode = (html, context) => {
 
 const toTree = (nodes, context) =>
   nodes.flatMap((node) => {
-    if (node.type === "text") return [{ type: "text", value: node.value }]
+    if (node.type === "text") {
+      return [
+        { start: node.position?.start.offset, type: "text", value: node.value },
+      ]
+    }
     if (node.type === "comment") return [{ type: "comment", value: node.value }]
     if (node.type === "expression") return [expressionNode(node, context)]
     if (node.type === "fragment") {
@@ -597,7 +610,7 @@ const checkNesting = (node, file) => {
 }
 
 export const readExample = async (source, file = "Example.astro") => {
-  const { ast } = await parse(source, { position: false })
+  const { ast } = await parse(source, { position: true })
   const frontmatter =
     ast.children.find((node) => node.type === "frontmatter")?.value ?? ""
   const scripts = []
@@ -647,6 +660,56 @@ export const readExample = async (source, file = "Example.astro") => {
 }
 
 const BLANK_LINE = /\n[^\S\n]*\n/
+
+const RAW_TEXT = new Set([
+  "listing",
+  "pre",
+  "script",
+  "style",
+  "textarea",
+  "title",
+  "xmp",
+])
+
+export const markWhitespace = async (source) => {
+  const { ast } = await parse(source, { position: true })
+  const marks = []
+  const visit = (nodes, parent, raw) => {
+    for (const node of nodes) {
+      if (node.type === "text") {
+        if (raw || parent === "root" || parent === "expression") continue
+        for (const match of node.value.matchAll(/[\t\n\f\r ]+/g)) {
+          marks.push(
+            node.position.start.offset +
+              Buffer.byteLength(node.value.slice(0, match.index)),
+          )
+        }
+        continue
+      }
+      if (!node.children) continue
+      const setsContent = node.attributes?.some((item) =>
+        ["set:html", "set:text"].includes(item.name),
+      )
+      visit(
+        node.children,
+        node.type,
+        raw ||
+          setsContent ||
+          (node.type === "element" && RAW_TEXT.has(node.name)),
+      )
+    }
+  }
+  visit(ast.children, "root", false)
+  let bytes = Buffer.from(source)
+  for (const offset of marks.toReversed()) {
+    bytes = Buffer.concat([
+      bytes.subarray(0, offset),
+      Buffer.from(`<Fragment set:html="<!--${WHITESPACE_MARK}${offset}-->" />`),
+      bytes.subarray(offset),
+    ])
+  }
+  return bytes.toString()
+}
 
 export const markTopLevelBlankLines = async (source) => {
   const { ast } = await parse(source, { position: true })
@@ -718,7 +781,9 @@ export const parseExample = async (source, file = "Example.astro") => {
       .map(({ items, name }) => [name, items]),
   )
   const context = { arrays, file, imports, markup, slotHost: false }
-  const tree = toTree(body, context)
+  const tree = toTree(body, context).map((node) =>
+    node.type === "text" ? { ...node, topLevel: true } : node,
+  )
   for (const [name, item] of markup) {
     item.tree = toTree(item.nodes, context)
     item.name = name
@@ -821,12 +886,38 @@ const markupAttributes = (node, expression, braces) =>
 const openTag = (name, attributes) =>
   attributes ? `<${name} ${attributes}` : `<${name}`
 
-const markupTarget = (framework) => {
+const markupTarget = (framework, roles) => {
   const vue = framework === "vue"
+  const isBlankText = (node) => node.type === "text" && !node.value.trim()
+  const markupText = (node, index, nodes) => {
+    const content = nodes.filter((item) => !item.slot)
+    const at = content.indexOf(node)
+    const leading = content.slice(0, at).every(isBlankText)
+    const trailing = content.slice(at + 1).every(isBlankText)
+    const parts = textParts(node, roles)
+    const between =
+      isBlankText(node) &&
+      nodes[index - 1]?.type !== "text" &&
+      nodes[index + 1]?.type !== "text"
+    return parts
+      .map((part, position) => {
+        if (part.text !== undefined) return part.text
+        const run =
+          part.run === "\n\n" ? "\n\n" : part.run.includes("\n") ? "\n" : " "
+        if (part.role !== "space") return run
+        const edge =
+          (leading && position === 0) ||
+          (trailing && position === parts.length - 1)
+        if (vue)
+          return between || (edge && isBlankText(node)) ? '{{ " " }}' : " "
+        return edge ? '{" "}' : " "
+      })
+      .join("")
+  }
   const emit = (nodes, html) =>
     nodes
-      .map((node) => {
-        if (node.type === "text") return node.value
+      .map((node, index) => {
+        if (node.type === "text") return markupText(node, index, nodes)
         if (node.type === "comment") return `<!--${node.value}-->`
         if (node.type === "expression") {
           return vue ? `{{ ${node.code} }}` : `{${node.code}}`
@@ -860,18 +951,27 @@ const markupTarget = (framework) => {
             : node.params
           return `{#each ${node.array} as ${params} (${node.key})}\n${element(node.child, html)}\n{/each}`
         }
+        const block = (code) =>
+          `${/\s$/.test(nodes[index - 1]?.value ?? "") ? "" : "\n"}${code}${/^\s/.test(nodes[index + 1]?.value ?? "") ? "" : "\n"}`
         if (node.type === "fragment") {
-          return slotWrapper(node.slot, emit(node.children, html))
+          return block(slotWrapper(node.slot, emit(node.children, html)))
         }
         return node.slot
-          ? slotWrapper(node.slot, element({ ...node, slot: undefined }, html))
+          ? block(
+              slotWrapper(
+                node.slot,
+                element({ ...node, slot: undefined }, html),
+              ),
+            )
           : element(node, html)
       })
       .join("")
-  const slotWrapper = (slot, content) =>
-    vue
-      ? `<template #${slot}>${content}</template>`
-      : `{#snippet ${slotProp(slot)}()}${content}{/snippet}`
+  const slotWrapper = (slot, content) => {
+    const inner = `${content.startsWith("<") ? "\n" : ""}${content}${content.endsWith(">") ? "\n" : ""}`
+    return vue
+      ? `<template #${slot}>${inner}</template>`
+      : `{#snippet ${slotProp(slot)}()}${inner}{/snippet}`
+  }
   const expression = (item) =>
     vue
       ? item.name === "v-for"
@@ -892,8 +992,22 @@ const markupTarget = (framework) => {
   return emit
 }
 
+const SVG_TEXT_CONTENT = new Set(["text", "textPath", "tspan"])
+
+const mixedSvgText = (nodes) =>
+  nodes.some(
+    (node) =>
+      node.type === "element" &&
+      ((SVG_TEXT_CONTENT.has(node.name) &&
+        node.children.some((child) => child.type === "element") &&
+        node.children.some(
+          (child) => child.type === "text" && child.value.trim(),
+        )) ||
+        mixedSvgText(node.children)),
+  )
+
 const toSvelte = (example) => {
-  const emit = markupTarget("svelte")
+  const emit = markupTarget("svelte", example.roles)
   const snippets = [...example.markup.values()]
     .filter((item) => item.shared)
     .map(
@@ -911,7 +1025,7 @@ const toSvelte = (example) => {
 }
 
 const toVue = (example) => {
-  const emit = markupTarget("vue")
+  const emit = markupTarget("vue", example.roles)
   const script = [importLine(example, "vue"), ...declarations(example)]
     .filter(Boolean)
     .join("\n\n")
@@ -1149,12 +1263,50 @@ const reactProps = (node, context) => {
   }
 }
 
+const textParts = (node, roles) => {
+  const parts = []
+  let last = 0
+  for (const match of node.value.matchAll(/[\t\n\f\r ]+/g)) {
+    if (match.index > last)
+      parts.push({ text: node.value.slice(last, match.index) })
+    const offset =
+      node.start === undefined
+        ? undefined
+        : node.start + Buffer.byteLength(node.value.slice(0, match.index))
+    parts.push({
+      role: node.topLevel
+        ? "drop"
+        : (roles?.get(offset) ?? (match[0].includes("\n") ? "drop" : "space")),
+      run: node.topLevel && /\n[^\S\n]*\n/.test(match[0]) ? "\n\n" : match[0],
+    })
+    last = match.index + match[0].length
+  }
+  if (last < node.value.length) parts.push({ text: node.value.slice(last) })
+  return parts
+}
+
+const joinRuns = (parts) =>
+  parts.reduce((joined, part) => {
+    const previous = joined.at(-1)
+    if (part.run !== undefined && previous?.run !== undefined) {
+      joined[joined.length - 1] = {
+        role:
+          previous.role === "space" || part.role === "space" ? "space" : "drop",
+        run: previous.run === "\n\n" || part.run === "\n\n" ? "\n\n" : part.run,
+      }
+    } else {
+      joined.push(part)
+    }
+    return joined
+  }, [])
+
 const reactChildren = (nodes) => {
   const merged = []
   for (const node of nodes) {
     const previous = merged.at(-1)
     if (node.type === "text" && previous?.type === "text") {
       merged[merged.length - 1] = {
+        parts: [...previous.parts, ...node.parts],
         type: "text",
         value: previous.value + node.value,
       }
@@ -1166,18 +1318,31 @@ const reactChildren = (nodes) => {
 }
 
 const reactNodes = (nodes, context) => {
-  const children = reactChildren(nodes.filter((node) => !node.slot))
+  const children = reactChildren(
+    nodes
+      .filter((node) => !node.slot)
+      .map((node) =>
+        node.type === "text"
+          ? { ...node, parts: textParts(node, context.roles) }
+          : node,
+      ),
+  )
   return children
-    .map((node, index) => {
+    .map((node) => {
       if (node.type === "text") {
-        if (!node.value.trim()) {
-          if (!/\n/.test(node.value)) return " "
-          return /\n[^\n]*\n/.test(node.value) ? "\n\n" : "\n"
-        }
-        let text = node.value.replace(/\s+/g, " ")
-        if (index === 0) text = text.trimStart()
-        if (index === children.length - 1) text = text.trimEnd()
-        return jsxText(text)
+        return jsxText(
+          joinRuns(node.parts)
+            .map(
+              (part) =>
+                part.text ??
+                (part.role === "space"
+                  ? " "
+                  : part.run === "\n\n"
+                    ? "\n\n"
+                    : "\n"),
+            )
+            .join(""),
+        )
       }
       if (node.type === "comment") {
         if (node.value.includes("*/")) {
@@ -1212,7 +1377,7 @@ const reactElement = (node, context, key) => {
 }
 
 const toReact = (example, name, file = `${name}.astro`) => {
-  const context = { file, markup: example.markup }
+  const context = { file, markup: example.markup, roles: example.roles }
   const components = usedComponents(example)
   const functionName = components.includes(name) ? `${name}Example` : name
   const shared = [...example.markup.values()]
@@ -1253,12 +1418,18 @@ const reactStyleIndent = (code) =>
       `${spaces}<style>{\`\n${indent(dedent(css), spaces.length + 2)}\n${spaces}\`}</style>`,
   )
 
-export const convertExample = async (source, framework, file) => {
+/** @param {string} source @param {string} framework @param {string} file @param {{ roles?: Map<number, string> }} [options] */
+export const convertExample = async (
+  source,
+  framework,
+  file,
+  { roles } = {},
+) => {
   const name = file
     .split("/")
     .at(-1)
     .replace(/\.astro$/, "")
-  const example = await parseExample(source, file)
+  const example = { ...(await parseExample(source, file)), roles }
   if (example.scripts.length > 0) {
     throw unsupported(
       file,
@@ -1271,6 +1442,14 @@ export const convertExample = async (source, framework, file) => {
   if (framework === "react") {
     return reactStyleIndent(
       await prettierFormat(toReact(example, name, file), target),
+    )
+  }
+  if (framework !== "react" && mixedSvgText(example.tree)) {
+    throw unsupported(
+      file,
+      "text next to an element inside an SVG <text>",
+      framework,
+      "Prettier for Svelte and Vue puts them on separate lines, which renders a space: write the file by hand and list it in scripts/hand-written-examples.json",
     )
   }
   if (framework === "svelte") {
@@ -1472,7 +1651,7 @@ export const htmlFromRender = async (rendered, source, file) => {
 
 export const EXAMPLE_ASTRO_CONFIG = { compressHTML: false, logLevel: "error" }
 
-const createRenderer = async () => {
+export const createRenderer = async () => {
   const { getViteConfig } = await import("astro/config")
   const { createViteServer } = await import("vitest/node")
   const config = await getViteConfig(
@@ -1482,15 +1661,23 @@ const createRenderer = async () => {
     command: "serve",
     mode: "development",
   })
+  const sources = new Map()
   const server = await createViteServer({
     ...config,
     plugins: [
       {
         enforce: "pre",
+        load: (id) => sources.get(id),
+        name: "opui-example-sources",
+        resolveId: (id) =>
+          sources.has(join(root, id)) ? join(root, id) : undefined,
+      },
+      {
+        enforce: "pre",
         name: "opui-example-blank-lines",
         transform: (code, id) =>
           id.startsWith(examplesDir) && id.endsWith(".astro")
-            ? markTopLevelBlankLines(code)
+            ? markWhitespace(code).then(markTopLevelBlankLines)
             : undefined,
       },
       ...config.plugins,
@@ -1504,20 +1691,23 @@ const createRenderer = async () => {
   const { experimental_AstroContainer } =
     await server.ssrLoadModule("astro/container")
   const container = await experimental_AstroContainer.create()
+  const renderModule = async (id) =>
+    container.renderToString((await server.ssrLoadModule(id)).default, {
+      locals: { $id: createExampleIdPlaceholders() },
+    })
   return {
     close: () => server.close().catch(() => {}),
+    renderSource: (file, source) => {
+      sources.set(join(root, file), source)
+      return renderModule(`/${file}`)
+    },
     render: async (key, source) => {
       if (source.includes(ID_PLACEHOLDER)) {
         throw new Error(
           `src/component-examples/${key}.astro contains ${ID_PLACEHOLDER}, which the generator uses for ids from Astro.locals.$id`,
         )
       }
-      const module = await server.ssrLoadModule(
-        `/src/component-examples/${key}.astro`,
-      )
-      return container.renderToString(module.default, {
-        locals: { $id: createExampleIdPlaceholders() },
-      })
+      return renderModule(`/src/component-examples/${key}.astro`)
     },
   }
 }
@@ -1567,22 +1757,31 @@ export const generate = async ({
     for (const key of keys) {
       const astroFile = `src/component-examples/${key}.astro`
       const source = await readFile(join(root, astroFile), "utf8")
-      for (const framework of generatedTargets(key, handWritten)) {
+      const targets = generatedTargets(key, handWritten)
+      let rendered
+      let roles
+      try {
+        if (targets.length > 0) {
+          rendered = await renderer.render(key, source)
+          const { styles } = await readExample(source, astroFile)
+          roles = whitespaceRoles(rendered, styles)
+        }
+      } catch (error) {
+        problems.push(`${astroFile}: ${error.message}`)
+        continue
+      }
+      for (const framework of targets) {
         const target = `src/component-examples/${key}${TARGETS[framework]}`
         try {
           if (framework === "html") {
             outputs.set(
               target,
-              await htmlFromRender(
-                await renderer.render(key, source),
-                source,
-                astroFile,
-              ),
+              await htmlFromRender(rendered, source, astroFile),
             )
           } else {
             outputs.set(
               target,
-              await convertExample(source, framework, astroFile),
+              await convertExample(source, framework, astroFile, { roles }),
             )
           }
         } catch (error) {

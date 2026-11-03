@@ -12,7 +12,7 @@ export default function Icon() {
             fill="currentColor"
             d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-1 15-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10z"
           ></path>
-        </svg>{" "}
+        </svg>
         All checks passed
       </p>
       <p className="ui-layout-row ui-small">
@@ -26,7 +26,7 @@ export default function Icon() {
             fill="currentColor"
             d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-1 15-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10z"
           ></path>
-        </svg>{" "}
+        </svg>
         Small
       </p>
       <p className="ui-layout-row ui-small">
@@ -40,7 +40,7 @@ export default function Icon() {
             fill="currentColor"
             d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-1 15-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10z"
           ></path>
-        </svg>{" "}
+        </svg>
         Large
       </p>
     </>

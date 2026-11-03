@@ -23,7 +23,6 @@ import {
         <Checkbox>Checkbox 3</Checkbox>
       </FieldGroup>
     </Fieldset>
-
     <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup

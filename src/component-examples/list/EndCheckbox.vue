@@ -6,11 +6,15 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
   <List>
     <ListItem type="checkbox">
       <template #label>Checkbox 1</template>
-      <template #end><CheckboxInput /></template>
+      <template #end>
+        <CheckboxInput />
+      </template>
     </ListItem>
     <ListItem type="checkbox">
       <template #label>Checkbox 2</template>
-      <template #end><CheckboxInput /></template>
+      <template #end>
+        <CheckboxInput />
+      </template>
     </ListItem>
   </List>
 </template>

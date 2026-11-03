@@ -3,8 +3,7 @@
 </script>
 
 <div>
-  Learn more about
-  <Anchor
+  Learn more about <Anchor
     id="anchor-link-preview-1"
     positionArea="block-end span-inline-end"
     trigger="hover"
@@ -26,8 +25,7 @@
         </CardHeader>
       </Card>
     </AnchorContent>
-  </Anchor>
-  on MDN.
+  </Anchor> on MDN.
 </div>
 
 <style>

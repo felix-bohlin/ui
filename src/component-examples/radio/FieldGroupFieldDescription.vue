@@ -23,7 +23,6 @@ import {
         <Radio value="3">Radio 3</Radio>
       </FieldGroup>
     </Fieldset>
-
     <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup

@@ -46,9 +46,7 @@
       <Select items={roleItems} label="Role" />
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
     <FieldDescription>
@@ -59,9 +57,7 @@
       <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
@@ -71,9 +67,7 @@
       <Radio value="system">System Default</Radio>
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Experience Level</FieldLegend>
     <FieldDescription
@@ -90,9 +84,7 @@
       />
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
@@ -105,21 +97,17 @@
       />
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup>
       <Checkbox name="terms" required>
-        I agree to the terms and conditions
-        {#snippet endText()}Support this text{/snippet}
+        I agree to the terms and conditions{" "}{#snippet endText()}Support this
+          text{/snippet}
       </Checkbox>
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <FieldGroup>
     <Button type="submit" variant="filled">Send</Button>
     <Button>Cancel</Button>

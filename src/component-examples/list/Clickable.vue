@@ -8,7 +8,9 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
     <ListItem as="button" disabled label="Archived" />
     <ListItem href="#clickable-list-item" label="Link list item" />
     <ListItem label="Checkbox list item" type="checkbox">
-      <template #end><CheckboxInput /></template>
+      <template #end>
+        <CheckboxInput />
+      </template>
     </ListItem>
   </List>
 </template>

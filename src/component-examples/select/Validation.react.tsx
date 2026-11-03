@@ -10,7 +10,6 @@ export default function Validation() {
           <option>No me!!</option>
           <option>Come on!</option>
         </Select>
-
         <Select label="Label" required variant="filled">
           <option value="">-</option>
           <option>Pick me!</option>
@@ -31,7 +30,6 @@ export default function Validation() {
           <option>Also wrong!</option>
           <option>Nothing's right!</option>
         </Select>
-
         <Select
           defaultValue="Wrong option"
           endText="Pick another option."

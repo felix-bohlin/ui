@@ -46,9 +46,7 @@ export default function KitchenSink() {
           <Select items={roleItems} label="Role" />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
         <FieldDescription>
@@ -61,9 +59,7 @@ export default function KitchenSink() {
           <Switch name="sms_notifs">SMS Notifications</Switch>
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
@@ -75,9 +71,7 @@ export default function KitchenSink() {
           <Radio value="system">System Default</Radio>
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Experience Level</FieldLegend>
         <FieldDescription>
@@ -94,9 +88,7 @@ export default function KitchenSink() {
           />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Additional Info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
@@ -109,20 +101,16 @@ export default function KitchenSink() {
           />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
           <Checkbox endText="Support this text" name="terms" required>
-            I agree to the terms and conditions
+            I agree to the terms and conditions{" "}
           </Checkbox>
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <FieldGroup>
         <Button type="submit" variant="filled">
           Send

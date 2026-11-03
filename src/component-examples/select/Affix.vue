@@ -12,8 +12,8 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select label="Country">
-    <template #start
-      ><svg
+    <template #start>
+      <svg
         aria-hidden="true"
         width="16"
         height="16"
@@ -28,8 +28,9 @@ import { Select } from "opui-css/vue"
         <path d="M2 12h20"></path>
         <path
           d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-        ></path></svg
-    ></template>
+        ></path>
+      </svg>
+    </template>
     <option value="">-</option>
     <option>Denmark</option>
     <option>Norway</option>

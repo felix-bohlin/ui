@@ -46,7 +46,6 @@
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="outlined">
     <Button aria-label="Increase">
       {@render plusIcon()}
@@ -55,7 +54,6 @@
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="tonal">
     <Button aria-label="Increase">
       {@render plusIcon()}
@@ -64,7 +62,6 @@
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="filled">
     <Button aria-label="Increase">
       {@render plusIcon()}
@@ -80,17 +77,14 @@
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="outlined">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="tonal">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="filled">
     <Button>Up</Button>
     <Button>Down</Button>

@@ -176,15 +176,6 @@ describe("React", () => {
     ).toContain("export default function ButtonExample()")
   })
 
-  test("keeps the space before inline elements", async () => {
-    expect(
-      await convert(
-        astro('<p>\n  Read the\n  <a href="#">terms</a>.\n</p>'),
-        "react",
-      ),
-    ).toContain('Read the <a href="#">terms</a>.')
-  })
-
   test("quotes a value with double quotes in single quotes", async () => {
     expect(
       await convert(

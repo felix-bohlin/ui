@@ -6,11 +6,15 @@ import { List, ListItem, SwitchInput } from "opui-css/vue"
   <List>
     <ListItem type="switch">
       <template #label>Switch 1</template>
-      <template #end><SwitchInput /></template>
+      <template #end>
+        <SwitchInput />
+      </template>
     </ListItem>
     <ListItem type="switch">
       <template #label>Switch 2</template>
-      <template #end><SwitchInput /></template>
+      <template #end>
+        <SwitchInput />
+      </template>
     </ListItem>
   </List>
 </template>

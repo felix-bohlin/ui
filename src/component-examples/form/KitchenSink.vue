@@ -47,9 +47,7 @@ const roleItems = [
         <Select :items="roleItems" label="Role" />
       </FieldGroup>
     </Fieldset>
-
     <Divider />
-
     <Fieldset>
       <FieldLegend>Notifications</FieldLegend>
       <FieldDescription>
@@ -60,9 +58,7 @@ const roleItems = [
         <Switch name="sms_notifs">SMS Notifications</Switch>
       </FieldGroup>
     </Fieldset>
-
     <Divider />
-
     <Fieldset>
       <FieldLegend>Theme Preference</FieldLegend>
       <FieldDescription>Select your preferred visual style.</FieldDescription>
@@ -72,9 +68,7 @@ const roleItems = [
         <Radio value="system">System Default</Radio>
       </FieldGroup>
     </Fieldset>
-
     <Divider />
-
     <Fieldset>
       <FieldLegend>Experience Level</FieldLegend>
       <FieldDescription
@@ -91,9 +85,7 @@ const roleItems = [
         />
       </FieldGroup>
     </Fieldset>
-
     <Divider />
-
     <Fieldset>
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
@@ -106,9 +98,7 @@ const roleItems = [
         />
       </FieldGroup>
     </Fieldset>
-
     <Divider />
-
     <Fieldset>
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup>
@@ -118,9 +108,7 @@ const roleItems = [
         </Checkbox>
       </FieldGroup>
     </Fieldset>
-
     <Divider />
-
     <FieldGroup>
       <Button type="submit" variant="filled">Send</Button>
       <Button>Cancel</Button>

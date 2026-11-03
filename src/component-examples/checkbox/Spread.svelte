@@ -8,8 +8,7 @@
 </Checkbox>
 
 <Checkbox name="checkbox-spread" required spread>
-  Required
-  {#snippet endText()}You must accept this to continue.{/snippet}
+  Required{" "}{#snippet endText()}You must accept this to continue.{/snippet}
 </Checkbox>
 
 <Checkbox disabled name="checkbox-spread" spread>

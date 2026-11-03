@@ -10,7 +10,6 @@ import { Select } from "opui-css/vue"
       <option>No me!!</option>
       <option>Come on!</option>
     </Select>
-
     <Select label="Label" required variant="filled">
       <option value="">-</option>
       <option>Pick me!</option>
@@ -26,7 +25,6 @@ import { Select } from "opui-css/vue"
       <option>Also wrong!</option>
       <option>Nothing's right!</option>
     </Select>
-
     <Select endText="Pick another option." error label="Label" variant="filled">
       <option value="">-</option>
       <option selected>Wrong option</option>

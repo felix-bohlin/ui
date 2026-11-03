@@ -19,7 +19,6 @@
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
   </Fieldset>
-
   <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group-field-description-2" orientation="horizontal">

@@ -60,6 +60,7 @@ const SAMPLES: Record<string, unknown> = {
 
 const REACT_NAMES: Record<string, string> = {
   checked: "defaultChecked",
+  class: "className",
   for: "htmlFor",
   value: "defaultValue",
 }
@@ -161,6 +162,7 @@ const casesOf = (api: ComponentApi): Case[] => {
   return [
     { ...base, name: "nothing", props: {}, slots: [] },
     { ...base, name: "every slot", props: {}, slots },
+    { ...base, name: 'class="Text"', props: { class: TEXT }, slots },
     ...shared.flatMap(([name, type]) =>
       valuesOf(type).map((value) => ({
         ...base,
@@ -172,9 +174,33 @@ const casesOf = (api: ComponentApi): Case[] => {
   ]
 }
 
+const partCasesOf = (api: ComponentApi): Case[] =>
+  api.parts
+    .filter(
+      (part) =>
+        part.component &&
+        !Object.values(apis).some(
+          (other) => other.component === part.component,
+        ),
+    )
+    .flatMap((part) => {
+      const slots = (part.slots ?? ["default"]).toSorted()
+      const base = {
+        component: part.component!,
+        types: Object.fromEntries(
+          FRAMEWORKS.map((framework) => [framework, new Map()]),
+        ) as Record<Framework, Map<string, string>>,
+      }
+      return [
+        { ...base, name: "nothing", props: {}, slots: [] },
+        { ...base, name: "every slot", props: {}, slots },
+        { ...base, name: 'class="Text"', props: { class: TEXT }, slots },
+      ]
+    })
+
 const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
-  .flatMap(casesOf)
+  .flatMap((api) => [...casesOf(api), ...partCasesOf(api)])
 
 let renderer: Awaited<ReturnType<typeof createRenderer>>
 

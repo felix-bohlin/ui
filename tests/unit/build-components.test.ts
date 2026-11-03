@@ -47,6 +47,32 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("casts rest on an element that isn't the one the types extend", async () => {
+    const { outputs } = await compileComponent(
+      astro(
+        '{Astro.slots.has("default") ? (<div class:list={["ui-sample", className]} {...rest}><slot /></div>) : (<hr class:list={["ui-sample", className]} {...rest} />)}',
+      ),
+      sampleFile(),
+      {
+        types:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"hr">\n',
+      },
+    )
+    const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
+    expect(svelte).toContain(
+      'import type { SvelteHTMLElements } from "svelte/elements"',
+    )
+    expect(svelte).toContain(
+      '<div\n    class={["ui-sample", className]}\n    {...rest as SvelteHTMLElements["div"]}\n  >',
+    )
+    expect(svelte).toContain(
+      '<hr class={["ui-sample", className]} {...rest} />',
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
+      '<div className={cx(["ui-sample", className])} {...rest}>',
+    )
+  })
+
   test("a variable tag with a default and a rest cast", async () => {
     const ports = await compile(
       `---\nimport type { Props } from "./types.astro"\nimport { cx } from "../cx"\n\nconst { as: Tag = "fieldset", class: className, ...rest } = Astro.props\n---\n\n<Tag class={cx(["ui-sample", className])} role={Tag === "fieldset" ? undefined : "group"} {...rest}>\n  <slot />\n</Tag>\n`,
@@ -62,9 +88,8 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toContain(
       'const { as = "fieldset" } = defineProps<Props>()',
     )
-    expect(ports.vue).toContain("defineOptions({\n  inheritAttrs: false,\n})")
     expect(ports.vue).toContain(
-      '<component\n    :is="as"\n    :class="[\'ui-sample\', $props.class]"\n    :role="as === \'fieldset\' ? undefined : \'group\'"\n    v-bind="$attrs"\n  >',
+      "<component\n    :is=\"as\"\n    :class=\"['ui-sample', $props.class]\"\n    :role=\"as === 'fieldset' ? undefined : 'group'\"\n  >",
     )
   })
 
@@ -89,10 +114,10 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  label,\n  numeric,\n  sortable,\n  children,\n  endText,\n  ...rest\n}: Props) {\n  return (\n    <th\n      className={cx([{ "ui-numeric": numeric }, className])}\n      data-sort={sortable ? "" : undefined}\n      {...rest}\n    >\n      {sortable ? <button type="button">{children}</button> : <>{children}</>}\n      {label && (\n        <span className="ui-label">\n          {label}\n          {endText}\n        </span>\n      )}\n    </th>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
-      '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n    numeric,\n    sortable,\n\n    // Snippets\n    children,\n    endText,\n    ...rest\n  }: Props = $props()\n</script>\n\n<th\n  class={[{ "ui-numeric": numeric }, className]}\n  data-sort={sortable ? "" : undefined}\n  {...rest}\n>\n  {#if sortable}<button type="button">\n      {@render children?.()}\n    </button>{:else}{@render children?.()}{/if}\n  {#if label}<span class="ui-label">{label}{@render endText?.()}</span>{/if}\n</th>\n',
+      '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n    numeric,\n    sortable,\n\n    // Snippets\n    children,\n    endText,\n    ...rest\n  }: Props = $props()\n</script>\n\n<th\n  class={[{ "ui-numeric": numeric }, className]}\n  data-sort={sortable ? "" : undefined}\n  {...rest}\n>\n  {#if sortable}<button type="button">{@render children?.()}</button\n    >{:else}{@render children?.()}{/if}\n  {#if label}<span class="ui-label">{label}{@render endText?.()}</span>{/if}\n</th>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <th\n    :class="[{ \'ui-numeric\': numeric }, $props.class]"\n    :data-sort="sortable ? \'\' : undefined"\n  >\n    <button v-if="sortable" type="button">\n      <slot></slot></button\n    ><slot v-else></slot>\n    <span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
+      '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <th\n    :class="[{ \'ui-numeric\': numeric }, $props.class]"\n    :data-sort="sortable ? \'\' : undefined"\n  >\n    <button v-if="sortable" type="button"><slot></slot></button\n    ><slot v-else></slot>\n    <span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
     )
   })
 
@@ -104,10 +129,10 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport Button from "../Button/Button.react"\nimport { markerPath } from "./icons"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  children,\n  marker,\n  ...rest\n}: Props) {\n  return (\n    <summary className={cx([className])} {...rest}>\n      {children}{" "}\n      {marker === undefined ? (\n        <svg aria-hidden="true">\n          <path d={markerPath} />\n        </svg>\n      ) : (\n        marker\n      )}\n      <Button round size="small">\n        Close\n      </Button>\n    </summary>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
-      '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary class={[className]} {...rest}>\n  {@render children?.()}{" "}{#if marker}{@render marker()}{:else}<svg\n      aria-hidden="true"\n    >\n      <path d={markerPath} />\n    </svg>{/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
+      '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary class={[className]} {...rest}>\n  {@render children?.()}{" "}{#if marker}{@render marker()}{:else}<svg\n      aria-hidden="true"><path d={markerPath} /></svg\n    >{/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary :class="[$props.class]">\n    <slot></slot>{{ " "\n    }}<slot name="marker"\n      ><svg aria-hidden="true">\n        <path :d="markerPath"></path></svg\n    ></slot>\n    <Button round size="small">Close</Button>\n  </summary>\n</template>\n',
+      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary :class="[$props.class]">\n    <slot></slot>{{ " "\n    }}<slot name="marker"\n      ><svg aria-hidden="true"><path :d="markerPath"></path></svg\n    ></slot>\n    <Button round size="small">Close</Button>\n  </summary>\n</template>\n',
     )
   })
 
@@ -133,7 +158,7 @@ describe("the three ports of a sample", () => {
     ],
     [
       "<div>\n  <slot />\n</div>",
-      "a template that doesn't spread rest on its root",
+      "a template that doesn't spread rest on each root or on one inner element",
     ],
     [
       "<div {...rest}>\n  <slot />\n</div>\n\n<script>\n  init()\n</script>",
@@ -213,24 +238,60 @@ describe("toTypes", () => {
     )
   })
 
+  const simple =
+    'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n'
+
+  test("a Slots type joins the props in every framework", () => {
+    const types = toTypes(
+      "Sample",
+      { astro: simple, base: `${base}\nexport type Slots<S> = { end?: S }\n` },
+      { Sample: ["default", "end"] },
+    )
+    expect(types.react).toContain(
+      'import type { ComponentProps, ReactNode } from "react"',
+    )
+    expect(types.react).toContain(
+      'export type Props = Base.Props & Base.Slots<ReactNode> & ComponentProps<"div">',
+    )
+    expect(types.svelte).toContain('import type { Snippet } from "svelte"')
+    expect(types.svelte).toContain(
+      'export type Props = Base.Props & Base.Slots<Snippet> & SvelteHTMLElements["div"]',
+    )
+    expect(types.vue).toContain('import type { Slot } from "vue"')
+    expect(types.vue).toContain(
+      "export type Slots = BaseSlots<Slot> & DefaultSlots",
+    )
+  })
+
   test.each([
     [
-      {
-        astro:
-          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
-        base: `${base}\nexport type Slots<S> = { end?: S }\n`,
-      },
-      {},
-      "a Slots type in types.ts",
+      { astro: simple, base },
+      { Sample: ["default", "end-text"] },
+      "the slot end-text of Sample, which types.ts has no Slots type for",
     ],
     [
       {
-        astro:
-          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
-        base,
+        astro: simple,
+        base: `${base}\nexport type Slots<S> = { variant?: string | S }\n`,
+      },
+      { Sample: ["default", "variant"] },
+      "a prop and a slot both named variant",
+    ],
+    [
+      {
+        astro: simple,
+        base: `${base}\nexport type Slots<S> = { "end-text"?: S } | { children: S }\n`,
       },
       { Sample: ["default", "end-text"] },
-      "the named slots end-text",
+      "the type Slots, which is a union or sits on a union",
+    ],
+    [
+      {
+        astro: simple,
+        base: `${base}\nexport type Slots<S> = { endText?: S }\n`,
+      },
+      { Sample: ["default", "endText"] },
+      "the slot endText, whose Vue name is kebab-case",
     ],
   ])("rejects %j", (files, slots, reason) => {
     expect(() => toTypes("Sample", files, slots)).toThrow(reason)
@@ -263,7 +324,7 @@ describe("the compiled components", () => {
     ).toEqual([])
   })
 
-  test("the ledger is sorted, names files that exist and only files the compiler refuses", () => {
+  test("the ledger is sorted, names files that exist and only files the compiler refuses or that differ from its output", () => {
     expect(
       handWrittenProblems(handWritten, (file: string) => existsSync(file)),
     ).toEqual([])
@@ -281,8 +342,13 @@ describe("the compiled components", () => {
       }),
     )
     expect(
-      Object.keys(handWritten).filter((file) => !refused.has(file)),
-      "these files compile now: remove them from scripts/hand-written-components.json and run pnpm build-components",
+      Object.keys(handWritten).filter(
+        (file) =>
+          !refused.has(file) &&
+          unledgered.outputs.get(`packages/opui/components/${file}`) ===
+            read(`packages/opui/components/${file}`),
+      ),
+      "these files compile to what is committed: remove them from scripts/hand-written-components.json",
     ).toEqual([])
   })
 
@@ -344,6 +410,7 @@ describe("the compiled components", () => {
           file,
         )
         for (const [target, code] of outputs) {
+          if (!all.outputs.has(target)) continue
           expect(
             code,
             `${target} from ${file} at printWidth ${printWidth}`,

@@ -12,9 +12,11 @@ export default function Button({
   round,
   size,
   variant,
+  children,
   ...rest
 }: Props) {
-  const Tag: ElementType = as || (href ? "a" : "button")
+  const tag = as || (href ? "a" : "button")
+  const Tag: ElementType = tag
 
   return (
     <Tag
@@ -26,8 +28,10 @@ export default function Button({
         variant && variant !== "transparent" && `ui-${variant}`,
         className,
       ])}
-      {...tagAttrs(Tag as string, disabled, href)}
+      {...tagAttrs(tag, disabled, href)}
       {...(rest as object)}
-    />
+    >
+      {children}
+    </Tag>
   )
 }

@@ -16,7 +16,7 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
+const Tag = computed(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
@@ -24,21 +24,17 @@ const Tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
     :is="Tag"
     :class="[
       'ui-chip',
-      {
-        'ui-dot': dot,
-        'ui-multiline': multiline,
-      },
+      { 'ui-dot': dot, 'ui-multiline': multiline },
       severity && `ui-${severity}`,
       size && size !== 'medium' && `ui-${size}`,
       variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"
-  >
-    <slot name="start"></slot>
-    <span v-if="label || $slots.label" class="ui-text"
-      >{{ label }}<slot name="label"></slot
-    ></span>
-    <slot name="end"></slot>
-  </component>
+    ><slot name="start"></slot
+    ><span v-if="label || $slots.label" class="ui-text">
+      {{ label }}
+      <slot name="label"></slot> </span
+    ><slot name="end"></slot
+  ></component>
 </template>

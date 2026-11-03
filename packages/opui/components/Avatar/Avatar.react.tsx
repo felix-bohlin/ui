@@ -15,7 +15,8 @@ export default function Avatar({
   children,
   ...rest
 }: Props) {
-  const Tag: ElementType = as || (href ? "a" : "div")
+  const tag = as || (href ? "a" : "div")
+  const Tag: ElementType = tag
 
   return (
     <Tag
@@ -25,10 +26,10 @@ export default function Avatar({
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
-      {...tagAttrs(Tag as string, disabled, href)}
+      {...tagAttrs(tag, disabled, href)}
       {...(rest as object)}
     >
-      {src ? <img src={src} alt={alt ?? ""} /> : children}
+      {src ? <img src={src} alt={alt ?? ""} /> : <>{children}</>}
     </Tag>
   )
 }

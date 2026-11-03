@@ -1,5 +1,5 @@
-import Anchor from "../Anchor/Anchor.react"
 import { cx } from "../cx"
+import Anchor from "../Anchor/Anchor.react"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
@@ -8,6 +8,7 @@ export default function Tooltip({
   className,
   id,
   positionArea,
+  children,
   ...rest
 }: Props) {
   warnMissingId("Tooltip", id, "interestfor")
@@ -19,6 +20,8 @@ export default function Tooltip({
       positionArea={positionArea}
       trigger="hover"
       {...rest}
-    />
+    >
+      {children}
+    </Anchor>
   )
 }

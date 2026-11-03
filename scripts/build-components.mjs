@@ -1,9 +1,10 @@
 import { existsSync, readFileSync, realpathSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
-import { join } from "node:path"
+import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
 import { parse } from "@astrojs/compiler"
+import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import { format, resolveConfig } from "prettier"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
@@ -43,15 +44,25 @@ const unwrap = (node) => {
   return node
 }
 
+const HELPER_MODULES = new Set(["../dev", "../tag"])
+
+const containsKind = (node, test) =>
+  test(node) ||
+  ts.forEachChild(node, (child) => containsKind(child, test)) === true
+
 const readFrontmatter = (code, file) => {
   const sourceFile = sourceFileOf(code)
   const result = {
     components: [],
+    derived: [],
+    helpers: [],
     imports: [],
     props: [],
     propsType: undefined,
     rest: undefined,
+    warnings: [],
   }
+  const devFunctions = new Set()
   for (const statement of sourceFile.statements) {
     if (ts.isImportDeclaration(statement)) {
       const specifier = statement.moduleSpecifier.text
@@ -63,7 +74,7 @@ const readFrontmatter = (code, file) => {
       }
       if (specifier === "../cx" || specifier === "astro/types") continue
       if (specifier.endsWith(".astro") && clause.name) {
-        const match = /^\.\.\/([^/]+)\/([^/]+)\.astro$/.exec(specifier)
+        const match = /^(?:\.\.\/([^/]+)|\.)\/([^/]+)\.astro$/.exec(specifier)
         if (!match) throw unsupported(file, `the import of ${specifier}`)
         result.components.push({
           folder: match[1],
@@ -73,10 +84,22 @@ const readFrontmatter = (code, file) => {
         continue
       }
       if (
-        specifier === "./icons" &&
         clause.namedBindings &&
-        ts.isNamedImports(clause.namedBindings)
+        ts.isNamedImports(clause.namedBindings) &&
+        (specifier === "./icons" || HELPER_MODULES.has(specifier))
       ) {
+        if (specifier === "../dev") {
+          for (const element of clause.namedBindings.elements) {
+            devFunctions.add(element.name.text)
+          }
+        }
+        if (specifier === "../tag") {
+          result.helpers.push(
+            ...clause.namedBindings.elements.map(
+              (element) => element.name.text,
+            ),
+          )
+        }
         result.imports.push(statement.getText(sourceFile))
         continue
       }
@@ -91,6 +114,7 @@ const readFrontmatter = (code, file) => {
     ) {
       continue
     }
+    const text = statement.getText(sourceFile).split("\n")[0]
     if (ts.isVariableStatement(statement)) {
       const [declaration] = statement.declarationList.declarations
       if (
@@ -104,31 +128,48 @@ const readFrontmatter = (code, file) => {
             result.rest = element.name.text
             continue
           }
-          const prop = element.propertyName
-            ? ts.isIdentifier(element.propertyName)
-              ? element.propertyName.text
-              : element.propertyName.text
-            : element.name.text
           result.props.push({
             default: element.initializer?.getText(sourceFile),
-            defaultIsLiteral: element.initializer
-              ? ts.isStringLiteral(element.initializer)
-              : undefined,
             local: element.name.text,
-            prop,
+            prop: element.propertyName
+              ? element.propertyName.text
+              : element.name.text,
           })
         }
         continue
       }
-      throw unsupported(
-        file,
-        `the frontmatter statement \`${statement.getText(sourceFile).split("\n")[0]}\``,
-      )
+      if (
+        statement.declarationList.declarations.length === 1 &&
+        ts.isIdentifier(declaration.name) &&
+        !declaration.type &&
+        declaration.initializer &&
+        (result.props.length > 0 || result.rest) &&
+        !containsKind(
+          declaration.initializer,
+          (node) =>
+            ts.isAwaitExpression(node) ||
+            ts.isArrowFunction(node) ||
+            ts.isFunctionExpression(node),
+        )
+      ) {
+        result.derived.push({
+          code: declaration.initializer.getText(sourceFile),
+          name: declaration.name.text,
+        })
+        continue
+      }
+      throw unsupported(file, `the frontmatter statement \`${text}\``)
     }
-    throw unsupported(
-      file,
-      `the frontmatter statement \`${statement.getText(sourceFile).split("\n")[0]}\``,
-    )
+    if (
+      ts.isExpressionStatement(statement) &&
+      ts.isCallExpression(statement.expression) &&
+      ts.isIdentifier(statement.expression.expression) &&
+      devFunctions.has(statement.expression.expression.text)
+    ) {
+      result.warnings.push(statement.expression.getText(sourceFile))
+      continue
+    }
+    throw unsupported(file, `the frontmatter statement \`${text}\``)
   }
   if (!result.propsType) throw unsupported(file, "no Props import")
   if (result.props.length === 0 && !result.rest) {
@@ -142,7 +183,10 @@ const attributeNode = (item, context) => {
     return { kind: "static", name: item.name, value: item.value }
   }
   if (item.kind === "empty") return { kind: "boolean", name: item.name }
-  if (item.kind === "spread") return { kind: "spread", code: item.name }
+  if (item.kind === "spread") {
+    const cast = /^(\w+) as [\s\S]+$/.exec(item.name.trim())
+    return { code: cast ? cast[1] : item.name.trim(), kind: "spread" }
+  }
   if (item.kind === "expression") {
     if (item.name === "class:list") return { kind: "class", code: item.value }
     const code = item.value.trim()
@@ -242,6 +286,47 @@ const expressionNode = (node, context) => {
 
 const isBox = (node) => ["element", "if", "slot"].includes(node.type)
 
+const INLINE_ELEMENTS = new Set([
+  "a",
+  "abbr",
+  "audio",
+  "b",
+  "bdi",
+  "bdo",
+  "br",
+  "button",
+  "cite",
+  "code",
+  "data",
+  "dfn",
+  "em",
+  "i",
+  "img",
+  "input",
+  "kbd",
+  "label",
+  "mark",
+  "meter",
+  "output",
+  "progress",
+  "q",
+  "ruby",
+  "s",
+  "samp",
+  "select",
+  "small",
+  "span",
+  "strong",
+  "sub",
+  "sup",
+  "svg",
+  "textarea",
+  "time",
+  "u",
+  "var",
+  "video",
+])
+
 const boxesOnLines = (children) => {
   const boxes = children.filter(isBox)
   if (
@@ -303,7 +388,10 @@ const toTree = (nodes, context) =>
           attributes: node.attributes.map((item) =>
             attributeNode(item, context),
           ),
-          children: boxesOnLines(toTree(node.children, context)),
+          children:
+            node.type === "element" && !INLINE_ELEMENTS.has(node.name)
+              ? boxesOnLines(toTree(node.children, context))
+              : toTree(node.children, context),
           component,
           tag: node.name,
           type: "element",
@@ -313,6 +401,22 @@ const toTree = (nodes, context) =>
     }
     throw unsupported(context.file, `a ${node.type} node`)
   })
+
+const elementsIn = (nodes) =>
+  nodes.flatMap((node) => {
+    if (node.type === "element") return [node, ...elementsIn(node.children)]
+    if (node.type === "if") {
+      return [
+        ...elementsIn(node.consequent),
+        ...elementsIn(node.alternate ?? []),
+      ]
+    }
+    if (node.type === "slot") return elementsIn(node.fallback)
+    return []
+  })
+
+const spreads = (node, code) =>
+  node.attributes.some((item) => item.kind === "spread" && item.code === code)
 
 export const readComponent = async (source, file) => {
   const { ast } = await parse(source, { position: true })
@@ -327,7 +431,10 @@ export const readComponent = async (source, file) => {
   const context = {
     components: frontmatter.components,
     file,
-    locals: new Set(frontmatter.props.map(({ local }) => local)),
+    locals: new Set([
+      ...frontmatter.props.map(({ local }) => local),
+      ...frontmatter.derived.map(({ name }) => name),
+    ]),
   }
   const tree = toTree(body, context)
   const slots = []
@@ -344,27 +451,71 @@ export const readComponent = async (source, file) => {
   }
   visit(tree)
   const roots = tree.filter((node) => !isBlank(node))
-  if (roots.length !== 1 || roots[0].type !== "element") {
+  const [rootNode] = roots
+  const rootElements =
+    roots.length === 1 && rootNode.type === "element"
+      ? [rootNode]
+      : roots.length === 1 &&
+          rootNode.type === "if" &&
+          rootNode.alternate &&
+          [rootNode.consequent, rootNode.alternate].every(
+            (branch) =>
+              branch.filter((node) => !isBlank(node)).length === 1 &&
+              branch.find((node) => !isBlank(node)).type === "element",
+          )
+        ? [rootNode.consequent, rootNode.alternate].map((branch) =>
+            branch.find((node) => !isBlank(node)),
+          )
+        : undefined
+  if (!rootElements) {
     throw unsupported(file, "a template that isn't one element")
   }
-  const [rootNode] = roots
-  if (
-    !rootNode.attributes.some(
-      (item) => item.kind === "spread" && item.code === frontmatter.rest,
-    )
-  ) {
+  const restElements = elementsIn(roots).filter((node) =>
+    spreads(node, frontmatter.rest),
+  )
+  if (restElements.length !== rootElements.length) {
     throw unsupported(
       file,
-      `a template that doesn't spread ${frontmatter.rest} on its root`,
+      `a template that doesn't spread ${frontmatter.rest} on each root or on one inner element`,
     )
   }
-  return { ...frontmatter, file, slots: slots.toSorted(), tree: roots }
+  const variableTags = [
+    ...new Set(
+      elementsIn(roots)
+        .filter((node) => node.variable)
+        .map((node) => node.tag),
+    ),
+  ]
+  const stringSlots = frontmatter.props
+    .filter(({ prop }) => slots.includes(prop))
+    .map(({ local }) => local)
+  return {
+    ...frontmatter,
+    file,
+    restOnRoot: rootElements.some((node) => spreads(node, frontmatter.rest)),
+    stringSlots,
+    rootElements,
+    slots: slots.toSorted(),
+    tree: roots,
+    variableTags,
+  }
 }
 
-const rewriteExpression = (code, { quote = '"', rename = new Map() } = {}) => {
+const rewriteExpression = (
+  code,
+  { quote = '"', rename = new Map(), slotHas = (name) => name } = {},
+) => {
   const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
   const transformer = (context) => (node) => {
     const visit = (child) => {
+      if (
+        ts.isCallExpression(child) &&
+        child.expression.getText(sourceFile) === "Astro.slots.has" &&
+        child.arguments.length === 1 &&
+        ts.isStringLiteral(child.arguments[0])
+      ) {
+        return ts.factory.createIdentifier(slotHas(child.arguments[0].text))
+      }
       if (
         ts.isIdentifier(child) &&
         rename.has(child.text) &&
@@ -378,6 +529,18 @@ const rewriteExpression = (code, { quote = '"', rename = new Map() } = {}) => {
       }
       if (ts.isStringLiteral(child) && quote === "'") {
         return ts.factory.createStringLiteral(child.text, true)
+      }
+      if (
+        ts.isBinaryExpression(child) &&
+        child.operatorToken.kind === ts.SyntaxKind.BarBarToken
+      ) {
+        const left = ts.visitNode(child.left, visit)
+        const right = ts.visitNode(child.right, visit)
+        const text = (node) =>
+          printer.printNode(ts.EmitHint.Expression, node, sourceFile)
+        return text(left) === text(right)
+          ? left
+          : ts.factory.createBinaryExpression(left, child.operatorToken, right)
       }
       if (ts.isObjectLiteralExpression(child)) {
         return ts.factory.createObjectLiteralExpression(
@@ -405,8 +568,6 @@ const rewriteExpression = (code, { quote = '"', rename = new Map() } = {}) => {
   return text.replace(/^\((.*)\)$/s, "$1")
 }
 
-const oneLine = (code) => rewriteExpression(code)
-
 const identifiersIn = (code) => {
   const names = new Set()
   const visit = (node) => {
@@ -424,6 +585,9 @@ const identifiersIn = (code) => {
   visit(sourceFileOf(`(${code})`, "expression.ts"))
   return names
 }
+
+const slotsUsedIn = (code) =>
+  [...code.matchAll(/Astro\.slots\.has\("([^"]+)"\)/g)].map((match) => match[1])
 
 const codesIn = (nodes) =>
   nodes.flatMap((node) => {
@@ -451,6 +615,12 @@ const codesIn = (nodes) =>
     return []
   })
 
+const allCodes = (component) => [
+  ...codesIn(component.tree),
+  ...component.derived.map(({ code }) => code),
+  ...component.warnings,
+]
+
 const byName = (a, b) => a.localeCompare(b, "en")
 
 const slotOrder = (slots) => [
@@ -464,23 +634,44 @@ const indent = (text, spaces) =>
     .map((line) => (line ? " ".repeat(spaces) + line : line))
     .join("\n")
 
+const componentImport = ({ folder, local, name }, extension) =>
+  `import ${local} from "${folder ? `../${folder}` : "."}/${name}${extension}"`
+
+const propsImport = (propsType, file, extra = []) =>
+  `import type { ${[propsType === "Props" ? "Props" : `${propsType} as Props`, ...extra].join(", ")} } from "./${file}"`
+
 const toReact = (component) => {
-  const { components, imports, props, propsType, rest, slots, tree } = component
-  const variableTags = props.filter(
-    ({ local }) =>
-      /^[A-Z]/.test(local) &&
-      codesIn(tree).length >= 0 &&
-      JSON.stringify(tree).includes(`"tag":"${local}"`),
+  const {
+    components,
+    derived,
+    imports,
+    propsType,
+    rest,
+    slots,
+    stringSlots,
+    tree,
+    variableTags,
+    warnings,
+  } = component
+  const props = component.props.filter(
+    ({ local }) => !stringSlots.includes(local),
   )
-  const rename = new Map(
-    props
+  const tagProps = props.filter(({ local }) => variableTags.includes(local))
+  const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
+  const lowered = (name) => `${name[0].toLowerCase()}${name.slice(1)}`
+  const rename = new Map([
+    ...props
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
-  )
+    ...tagConsts.map(({ name }) => [name, lowered(name)]),
+  ])
+  const options = {
+    rename,
+    slotHas: (name) => slotProp(name),
+  }
   const entries = props.map((entry) => {
-    const variable = variableTags.includes(entry)
     if (entry.prop === "class") return { key: "className", text: "className" }
-    if (variable) return { key: entry.prop, text: entry.prop }
+    if (tagProps.includes(entry)) return { key: entry.prop, text: entry.prop }
     if (entry.local !== entry.prop) {
       return {
         key: entry.local,
@@ -498,20 +689,31 @@ const toReact = (component) => {
     ...slotEntries,
     ...(rest ? [`...${rest}`] : []),
   ]
-  const derived = variableTags.map(
-    ({ local, prop, default: fallback }) =>
-      `const ${local}: ElementType = ${fallback ? `${prop} || ${fallback}` : prop}`,
-  )
+  const body = [
+    ...tagProps.map(
+      ({ local, prop, default: fallback }) =>
+        `const ${local}: ElementType = ${fallback ? `${prop} || ${fallback}` : prop}`,
+    ),
+    ...derived.flatMap(({ code, name }) =>
+      variableTags.includes(name)
+        ? [
+            `const ${lowered(name)} = ${rewriteExpression(code, options)}`,
+            `const ${name}: ElementType = ${lowered(name)}`,
+          ]
+        : [`const ${name} = ${rewriteExpression(code, options)}`],
+    ),
+    ...warnings.map((code) => rewriteExpression(code, options)),
+  ]
   let usesCx = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
       usesCx = true
-      return `className={cx(${rewriteExpression(item.code, { rename })})}`
+      return `className={cx(${rewriteExpression(item.code, options)})}`
     }
     if (item.kind === "spread") {
-      return node.variable
+      return node.variable && item.code === rest
         ? `{...(${item.code} as object)}`
-        : `{...${item.code}}`
+        : `{...${rewriteExpression(item.code, options)}}`
     }
     const name = node.component
       ? item.name
@@ -524,31 +726,37 @@ const toReact = (component) => {
             ) ?? item.name)))
     if (item.kind === "static") return `${name}=${JSON.stringify(item.value)}`
     if (item.kind === "boolean") return name
-    return `${name}={${rewriteExpression(item.code, { rename })}}`
+    return `${name}={${rewriteExpression(item.code, options)}}`
+  }
+  const wrapFragment = (code, nodes) => {
+    const significant = nodes.filter((node) => !isBlank(node))
+    return significant.length === 1 && significant[0].type === "element"
+      ? code
+      : `<>${code}</>`
+  }
+  const conditional = (node) => {
+    const test = rewriteExpression(node.test, options)
+    const consequent = wrapFragment(emit(node.consequent), node.consequent)
+    if (!node.alternate) return `${test} && (${consequent})`
+    const alternate = wrapFragment(emit(node.alternate), node.alternate)
+    return `${test} ? (${consequent}) : (${alternate})`
   }
   const emit = (nodes) =>
     nodes
       .map((node) => {
-        if (node.type === "text")
+        if (node.type === "text") {
           return node.value === " " ? '{" "}' : node.value
+        }
         if (node.type === "expression") {
-          return `{${rewriteExpression(node.code, { rename })}}`
+          return `{${rewriteExpression(node.code, options)}}`
         }
         if (node.type === "slot") {
           const name = slotProp(node.name)
+          if (stringSlots.includes(node.name)) return ""
           if (node.fallback.length === 0) return `{${name}}`
           return `{${name} === undefined ? (${wrapFragment(emit(node.fallback), node.fallback)}) : (${name})}`
         }
-        if (node.type === "if") {
-          const test = rewriteExpression(node.test, { rename })
-          const consequent = wrapFragment(
-            emit(node.consequent),
-            node.consequent,
-          )
-          if (!node.alternate) return `{${test} && (${consequent})}`
-          const alternate = wrapFragment(emit(node.alternate), node.alternate)
-          return `{${test} ? (${consequent}) : (${alternate})}`
-        }
+        if (node.type === "if") return `{${conditional(node)}}`
         const attributes = node.attributes
           .map((item) => attribute(node, item))
           .join(" ")
@@ -558,32 +766,39 @@ const toReact = (component) => {
           : `${open}>${emit(node.children)}</${node.tag}>`
       })
       .join("")
-  const wrapFragment = (code, nodes) => {
-    const significant = nodes.filter((node) => !isBlank(node))
-    return significant.length === 1 && significant[0].type === "element"
-      ? code
-      : `<>${code}</>`
-  }
-  const body = emit(tree)
+  const [rootNode] = tree
+  const returned = rootNode.type === "if" ? conditional(rootNode) : emit(tree)
   const importLines = [
     ...(variableTags.length
       ? [`import type { ElementType } from "react"`]
       : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
     ...components
-      .map(
-        ({ folder, local, name }) =>
-          `import ${local} from "../${folder}/${name}.react"`,
-      )
+      .map((entry) => componentImport(entry, ".react"))
       .toSorted(byName),
     ...imports,
-    `import type { ${propsType === "Props" ? "Props" : `${propsType} as Props`} } from "./types.react"`,
+    propsImport(propsType, "types.react"),
   ]
-  return `${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${derived.map((line) => `  ${line}\n`).join("")}${derived.length ? "\n" : ""}  return (\n${indent(body, 4)}\n  )\n}\n`
+  return `${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
 }
 
 const toSvelte = (component) => {
-  const { components, imports, props, propsType, rest, slots, tree } = component
+  const {
+    components,
+    derived,
+    element,
+    imports,
+    propsType,
+    rest,
+    slots,
+    stringSlots,
+    tree,
+    warnings,
+  } = component
+  const options = { slotHas: (name) => slotProp(name) }
+  const props = component.props.filter(
+    ({ local }) => !stringSlots.includes(local),
+  )
   const entries = props
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(
@@ -591,28 +806,50 @@ const toSvelte = (component) => {
         `${prop === local ? prop : `${prop}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
     )
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
+  let usesElements = false
   const attribute = (node, item) => {
-    if (item.kind === "class") return `class={${oneLine(item.code)}}`
-    if (item.kind === "spread") return `{...${item.code}}`
+    if (item.kind === "class") {
+      return `class={${rewriteExpression(item.code, options)}}`
+    }
+    if (item.kind === "spread") {
+      if (
+        item.code === rest &&
+        !node.variable &&
+        !node.component &&
+        element &&
+        node.tag !== element
+      ) {
+        usesElements = true
+        return `{...${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}]}`
+      }
+      return `{...${rewriteExpression(item.code, options)}}`
+    }
     if (item.kind === "static") {
       return `${item.name}=${JSON.stringify(item.value)}`
     }
     if (item.kind === "boolean") return item.name
-    return `${item.name}={${oneLine(item.code)}}`
+    return `${item.name}={${rewriteExpression(item.code, options)}}`
   }
   const emit = (nodes) =>
     nodes
       .map((node) => {
-        if (node.type === "text")
+        if (node.type === "text") {
           return node.value === " " ? '{" "}' : node.value
-        if (node.type === "expression") return `{${oneLine(node.code)}}`
+        }
+        if (node.type === "expression") {
+          if (stringSlots.includes(node.code.trim())) return ""
+          return `{${rewriteExpression(node.code, options)}}`
+        }
         if (node.type === "slot") {
           const name = slotProp(node.name)
+          if (stringSlots.includes(node.name)) {
+            return `{@render content(${name})}`
+          }
           if (node.fallback.length === 0) return `{@render ${name}?.()}`
           return `{#if ${name}}{@render ${name}()}{:else}${emit(node.fallback)}{/if}`
         }
         if (node.type === "if") {
-          const test = oneLine(node.test)
+          const test = rewriteExpression(node.test, options)
           const consequent = emit(node.consequent)
           if (!node.alternate) return `{#if ${test}}${consequent}{/if}`
           return `{#if ${test}}${consequent}{:else}${emit(node.alternate)}{/if}`
@@ -626,15 +863,20 @@ const toSvelte = (component) => {
         return `${open}>${emit(node.children)}</${tag}>`
       })
       .join("")
+  const markup = emit(tree)
   const importLines = [
+    ...(warnings.length ? [`import { untrack } from "svelte"`] : []),
+    ...(stringSlots.length
+      ? [`import { content } from "../content.svelte"`]
+      : []),
     ...components
-      .map(
-        ({ folder, local, name }) =>
-          `import ${local} from "../${folder}/${name}.svelte"`,
-      )
+      .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),
     ...imports,
-    `import type { ${propsType === "Props" ? "Props" : `${propsType} as Props`} } from "./types.svelte"`,
+    propsImport(propsType, "types.svelte"),
+    ...(usesElements
+      ? [`import type { SvelteHTMLElements } from "svelte/elements"`]
+      : []),
   ]
   const destructured = [
     ...entries,
@@ -644,54 +886,91 @@ const toSvelte = (component) => {
   const lines = destructured.map((line) =>
     line === "" ? "" : line.startsWith("//") ? `    ${line}` : `    ${line},`,
   )
-  return `<script lang="ts">\n${importLines.map((line) => `  ${line}`).join("\n")}\n\n  let {\n${lines.join("\n")}\n  }: Props = $props()\n</script>\n\n${emit(tree)}\n`
+  const script = [
+    ...derived.map(
+      ({ code, name }) =>
+        `const ${name} = $derived(${rewriteExpression(code, options)})`,
+    ),
+    ...warnings.map(
+      (code) => `untrack(() => ${rewriteExpression(code, options)})`,
+    ),
+  ]
+  return `<script lang="ts">\n${importLines.map((line) => `  ${line}`).join("\n")}\n\n  let {\n${lines.join("\n")}\n  }: Props = $props()\n${script.length ? `\n${script.map((line) => `  ${line}`).join("\n")}\n` : ""}</script>\n\n${markup}\n`
 }
 
+const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
+
 const toVue = (component) => {
-  const { components, imports, props, propsType, rest, slots, tree } = component
+  const {
+    components,
+    derived,
+    imports,
+    props,
+    propsType,
+    rest,
+    restOnRoot,
+    rootElements,
+    slots,
+    tree,
+    variableTags,
+    warnings,
+  } = component
   const rename = new Map(
     props.map(({ local, prop }) => [
       local,
-      prop === "class" ? "$props.class" : prop,
+      prop === "class"
+        ? "$props.class"
+        : prop === "style"
+          ? "$attrs.style"
+          : prop,
     ]),
   )
-  const tagsIn = (nodes) =>
-    nodes.flatMap((node) => [
-      ...(node.type === "element" && node.variable ? [node.tag] : []),
-      ...tagsIn(node.children ?? []),
-      ...tagsIn(node.fallback ?? []),
-      ...tagsIn(node.consequent ?? []),
-      ...tagsIn(node.alternate ?? []),
-    ])
+  const scriptRename = new Map([
+    ...rename,
+    ...derived.map(({ name }) => [name, `${name}.value`]),
+  ])
+  const template = {
+    quote: "'",
+    rename,
+    slotHas: (name) => `$slots${vueSlot(name)}`,
+  }
+  const script = {
+    rename: scriptRename,
+    slotHas: (name) => `slots${vueSlot(name)}`,
+  }
+  const codes = allCodes(component)
   const used = new Set([
-    ...codesIn(tree).flatMap((code) => [...identifiersIn(code)]),
-    ...tagsIn(tree),
+    ...codes.flatMap((code) => [...identifiersIn(code)]),
+    ...variableTags,
   ])
   const declared = props
-    .filter(({ local, prop }) => prop !== "class" && used.has(local))
+    .filter(
+      ({ local, prop }) =>
+        prop !== "class" && prop !== "style" && used.has(local),
+    )
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(({ default: fallback, prop }) =>
       fallback ? `${prop} = ${fallback}` : prop,
     )
-  const options = { quote: "'", rename }
-  let attrsOnInner = false
+  const slotsInScript = [...derived.map(({ code }) => code), ...warnings].some(
+    (code) => slotsUsedIn(code).length > 0,
+  )
+  const attrsOnInner = !restOnRoot
   const attribute = (node, item) => {
     if (item.kind === "class") {
-      return `:class="${rewriteExpression(item.code, options)}"`
+      return `:class="${rewriteExpression(item.code, template)}"`
     }
     if (item.kind === "spread") {
-      if (item.code !== rest) {
-        throw unsupported(component.file, `the spread {...${item.code}}`)
+      if (item.code === rest) {
+        return rootElements.includes(node) ? "" : `v-bind="attrs"`
       }
-      if (node === tree[0] && !node.variable) return ""
-      attrsOnInner = true
-      return `v-bind="$attrs"`
+      return `v-bind="${rewriteExpression(item.code, template)}"`
     }
     if (item.kind === "static") {
       return `${item.name}=${JSON.stringify(item.value)}`
     }
     if (item.kind === "boolean") return item.name
-    return `:${item.name}="${rewriteExpression(item.code, options)}"`
+    return `:${item.name}="${rewriteExpression(item.code, template)}"`
   }
   const directive = (nodes, name, test) => {
     const significant = nodes.filter((node) => !isBlank(node))
@@ -702,10 +981,11 @@ const toVue = (component) => {
     return `<template ${clause}>${emit(nodes)}</template>`
   }
   const emitOne = (node, clause) => {
-    if (node.type === "text")
+    if (node.type === "text") {
       return node.value === " " ? '{{ " " }}' : node.value
+    }
     if (node.type === "expression") {
-      const code = rewriteExpression(node.code, options)
+      const code = rewriteExpression(node.code, template)
       return clause
         ? `<template ${clause}>{{ ${code} }}</template>`
         : `{{ ${code} }}`
@@ -716,7 +996,7 @@ const toVue = (component) => {
       return `<slot${slotClause}${name}>${emit(node.fallback)}</slot>`
     }
     if (node.type === "if") {
-      const test = rewriteExpression(node.test, options)
+      const test = rewriteExpression(node.test, template)
       const consequent = directive(node.consequent, "v-if", test)
       if (!node.alternate) return consequent
       return `${consequent}${directive(node.alternate, "v-else")}`
@@ -724,43 +1004,60 @@ const toVue = (component) => {
     const attributes = [
       ...(clause ? [clause] : []),
       ...node.attributes.map((item) => attribute(node, item)).filter(Boolean),
-      ...(node === tree[0] &&
+      ...(rootElements.includes(node) &&
       !node.attributes.some((item) => item.kind === "class")
         ? [':class="$props.class"']
         : []),
     ].join(" ")
     const tag = node.variable ? "component" : node.tag
     const open = `<${tag}${node.variable ? ` :is="${rename.get(node.tag) ?? node.tag}"` : ""}${attributes ? ` ${attributes}` : ""}`
-    if (node.children.length === 0 && (node.component || node.variable)) {
+    if (
+      node.children.length === 0 &&
+      (node.component || node.variable || VOID_ELEMENTS.has(node.tag))
+    ) {
       return `${open} />`
     }
     return `${open}>${emit(node.children)}</${tag}>`
   }
   const emit = (nodes) => nodes.map((node) => emitOne(node)).join("")
-  const template = emit(tree)
+  const markup = emit(tree)
   const slotsType =
     propsType !== "Props" && slots.some((slot) => slot !== "default")
       ? `${component.name}Slots`
       : "Slots"
+  const vueImports = [
+    ...(derived.length ? ["computed"] : []),
+    ...(attrsOnInner ? [] : []),
+  ]
   const importLines = [
-    `import type { ${propsType === "Props" ? "Props" : `${propsType} as Props`}, ${slotsType} } from "./types.vue-props"`,
+    ...(vueImports.length
+      ? [`import { ${vueImports.join(", ")} } from "vue"`]
+      : []),
+    ...(attrsOnInner ? [`import { useInputAttrs } from "../vue"`] : []),
     ...components
-      .map(
-        ({ folder, local, name }) =>
-          `import ${local} from "../${folder}/${name}.vue"`,
-      )
+      .map((entry) => componentImport(entry, ".vue"))
       .toSorted(byName),
     ...imports,
+    propsImport(propsType, "types.vue-props", [slotsType]),
   ]
   const propsLine = declared.length
     ? `const { ${declared.join(", ")} } = defineProps<Props>()`
     : "defineProps<Props>()"
+  const slotsLine = slotsInScript
+    ? `const slots = defineSlots<${slotsType}>()`
+    : `defineSlots<${slotsType}>()`
   const setup = [
     importLines.join("\n"),
-    `${propsLine}\ndefineSlots<${slotsType}>()`,
+    `${propsLine}\n${slotsLine}`,
     ...(attrsOnInner ? ["defineOptions({\n  inheritAttrs: false,\n})"] : []),
-  ].join("\n\n")
-  return `<script setup lang="ts">\n${setup}\n</script>\n\n<template>\n${indent(template, 2)}\n</template>\n`
+    ...(attrsOnInner ? ["const attrs = useInputAttrs()"] : []),
+    ...derived.map(
+      ({ code, name }) =>
+        `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
+    ),
+    ...warnings.map((code) => rewriteExpression(code, script)),
+  ]
+  return `<script setup lang="ts">\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
 }
 
 const HTML_ATTRIBUTES = /HTMLAttributes<("[^"]+")>/g
@@ -774,58 +1071,153 @@ const typeAliases = (code) =>
       typeParameters: statement.typeParameters?.length ?? 0,
     }))
 
+const objectKeys = (node) =>
+  ts.isTypeLiteralNode(node)
+    ? node.members.map((member) => member.name.getText())
+    : ts.isIntersectionTypeNode(node)
+      ? node.types.flatMap(objectKeys)
+      : ts.isParenthesizedTypeNode(node)
+        ? objectKeys(node.type)
+        : []
+
+const isUnion = (node) =>
+  ts.isUnionTypeNode(node) ||
+  (ts.isParenthesizedTypeNode(node) && isUnion(node.type)) ||
+  (ts.isIntersectionTypeNode(node) && node.types.some(isUnion))
+
 export const toTypes = (folder, { astro, base }, slotsByComponent) => {
   const file = `packages/opui/components/${folder}/types.astro.ts`
-  if (typeAliases(base).some(({ name }) => name.endsWith("Slots"))) {
-    throw unsupported(file, "a Slots type in types.ts")
-  }
   if (!astro.includes('import type * as Base from "./types"')) {
     throw unsupported(file, "a types.astro.ts without the Base import")
   }
+  const baseFile = sourceFileOf(base, "types.ts")
+  const baseAliases = baseFile.statements.filter(ts.isTypeAliasDeclaration)
+  const slotTypes = new Map(
+    baseAliases
+      .filter(({ name }) => name.text.endsWith("Slots"))
+      .map((alias) => [alias.name.text, alias]),
+  )
+  const slotsTypeOf = (name) =>
+    name === "Props" ? "Slots" : name.replace(/Props$/, "Slots")
   const aliases = typeAliases(astro)
   for (const alias of aliases) {
     if (!/^export type \w+ =[\s\S]*HTMLAttributes</.test(alias.text)) {
       throw unsupported(file, `the type ${alias.name}`)
     }
   }
+  const slotted = aliases.filter(({ name }) => slotTypes.has(slotsTypeOf(name)))
+  for (const { name } of slotted) {
+    const slotsAlias = slotTypes.get(slotsTypeOf(name))
+    const propsAlias = baseAliases.find((alias) => alias.name.text === name)
+    const slotKeys = objectKeys(slotsAlias.type)
+    if (
+      isUnion(slotsAlias.type) ||
+      (propsAlias && isUnion(propsAlias.type)) ||
+      slotKeys.length === 0
+    ) {
+      throw unsupported(
+        file,
+        `the type ${slotsTypeOf(name)}, which is a union or sits on a union`,
+      )
+    }
+    const overlap = slotKeys.filter((key) =>
+      objectKeys(
+        propsAlias?.type ?? ts.factory.createTypeLiteralNode([]),
+      ).includes(key),
+    )
+    if (overlap.length > 0) {
+      throw unsupported(
+        file,
+        `a prop and a slot both named ${overlap.join(", ")}`,
+      )
+    }
+    if (slotKeys.some((key) => /[A-Z]/.test(key))) {
+      throw unsupported(
+        file,
+        `the slot ${slotKeys.find((key) => /[A-Z]/.test(key))}, whose Vue name is kebab-case`,
+      )
+    }
+  }
+  const withSlots = (text, name, member) =>
+    slotTypes.has(slotsTypeOf(name))
+      ? text.replace(
+          `Base.${name} &`,
+          `Base.${name} & Base.${slotsTypeOf(name)}<${member}> &`,
+        )
+      : text
   const asValues = (text) =>
     [...text.matchAll(/\bas\??: ("[^"]+")/g)]
       .map((match) => match[1])
       .toSorted()
-  const react = astro
-    .replace(
-      'import type { HTMLAttributes } from "astro/types"',
-      'import type { ComponentProps } from "react"',
+  const react = aliases
+    .reduce(
+      (text, { name }) => withSlots(text, name, "ReactNode"),
+      astro.replace(
+        'import type { HTMLAttributes } from "astro/types"',
+        `import type { ComponentProps${slotted.length ? ", ReactNode" : ""} } from "react"`,
+      ),
     )
     .replace(HTML_ATTRIBUTES, "ComponentProps<$1>")
-  const svelte = astro
-    .replace(
-      'import type { HTMLAttributes } from "astro/types"',
-      'import type { SvelteHTMLElements } from "svelte/elements"',
+  const svelte = aliases
+    .reduce(
+      (text, { name }) => withSlots(text, name, "Snippet"),
+      astro.replace(
+        'import type { HTMLAttributes } from "astro/types"',
+        `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}`,
+      ),
     )
     .replace(HTML_ATTRIBUTES, "SvelteHTMLElements[$1]")
   const based = aliases
     .filter(({ name, text }) => text.includes(`Base.${name}`))
     .map(({ name }) => name)
     .toSorted(byName)
-  const slotNames = [...new Set(Object.values(slotsByComponent).flat())]
-  const namedSlots = slotNames.filter((slot) => slot !== "default")
-  if (namedSlots.length > 0) {
-    throw unsupported(file, `the named slots ${namedSlots.join(", ")}`)
+  for (const [component, slots] of Object.entries(slotsByComponent)) {
+    const named = slots.filter((slot) => slot !== "default")
+    const alias = aliases.find(
+      ({ name }) =>
+        name === (component === folder ? "Props" : `${component}Props`),
+    )
+    const covered =
+      alias && slotTypes.has(slotsTypeOf(alias.name))
+        ? objectKeys(slotTypes.get(slotsTypeOf(alias.name)).type)
+        : []
+    const uncovered = named.filter((slot) => !covered.includes(slot))
+    if (uncovered.length > 0) {
+      throw unsupported(
+        file,
+        `the slot ${uncovered[0]} of ${component}, which types.ts has no Slots type for`,
+      )
+    }
   }
+  const vueSlotTypes = slotted.map(({ name }) => {
+    const slotsName = slotsTypeOf(name)
+    const component = name === "Props" ? folder : name.replace(/Props$/, "")
+    const hasDefault = (slotsByComponent[component] ?? ["default"]).includes(
+      "default",
+    )
+    return `export type ${slotsName} = Base${slotsName}<Slot>${hasDefault ? " & DefaultSlots" : ""}`
+  })
+  const imported = [
+    ...based.map((name) => `${name} as Base${name}`),
+    ...slotted.map(
+      ({ name }) => `${slotsTypeOf(name)} as Base${slotsTypeOf(name)}`,
+    ),
+  ].toSorted(byName)
   const vue = [
     [
+      ...(slotted.length ? ['import type { Slot } from "vue"'] : []),
       'import type { Class, DefaultSlots } from "../vue"',
-      `import type {\n${based.map((name) => `  ${name} as Base${name},`).join("\n")}\n} from "./types"`,
+      `import type {\n${imported.map((entry) => `  ${entry},`).join("\n")}\n} from "./types"`,
     ].join("\n"),
     ...aliases
       .toSorted((a, b) => byName(a.name, b.name))
       .map(({ name, text }) => {
         const values = asValues(text)
-        const base = based.includes(name) ? `Base${name} & ` : ""
-        return `export type ${name} = ${base}Class${values.length ? ` & { as?: ${values.join(" | ")} }` : ""}`
+        const basePart = based.includes(name) ? `Base${name} & ` : ""
+        return `export type ${name} = ${basePart}Class${values.length ? ` & { as?: ${values.join(" | ")} }` : ""}`
       }),
-    "export type Slots = DefaultSlots",
+    ...(slotTypes.has("Slots") ? [] : ["export type Slots = DefaultSlots"]),
+    ...vueSlotTypes,
   ].join("\n\n")
   return { react, svelte, vue: `${vue}\n` }
 }
@@ -841,14 +1233,37 @@ const prettierFormat = async (code, file) => {
   return formatted
 }
 
-export const compileComponent = async (source, file) => {
+const astroTypesOf = (file) => {
+  const path = join(root, dirname(file), "types.astro.ts")
+  return existsSync(path) ? readFileSync(path, "utf8") : undefined
+}
+
+const propsElement = (types, propsType) => {
+  if (!types) return undefined
+  const alias = typeAliases(types).find(({ name }) => name === propsType)
+  const elements = [...(alias?.text.matchAll(HTML_ATTRIBUTES) ?? [])].map(
+    ([, element]) => JSON.parse(element),
+  )
+  return elements.length === 1 ? elements[0] : undefined
+}
+
+export const compileComponent = async (
+  source,
+  file,
+  { types = astroTypesOf(file) } = {},
+) => {
   const component = await readComponent(source, file)
   const name = file
     .split("/")
     .at(-1)
     .replace(/\.astro$/, "")
   const folder = file.split("/").at(-2)
-  const named = { ...component, folder, name }
+  const named = {
+    ...component,
+    element: propsElement(types, component.propsType),
+    folder,
+    name,
+  }
   const outputs = new Map()
   for (const [framework, extension] of Object.entries(PORTS)) {
     const target = `packages/opui/components/${folder}/${name}${extension}`

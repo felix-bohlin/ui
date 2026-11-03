@@ -8,13 +8,13 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type Props = BaseProps & Class
-
 export type AccordionActionsProps = BaseAccordionActionsProps & Class
 
 export type AccordionContentProps = BaseAccordionContentProps & Class
 
 export type AccordionSummaryProps = BaseAccordionSummaryProps & Class
+
+export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots
 

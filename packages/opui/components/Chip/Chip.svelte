@@ -28,10 +28,7 @@
   this={Tag}
   class={[
     "ui-chip",
-    {
-      "ui-dot": dot,
-      "ui-multiline": multiline,
-    },
+    { "ui-dot": dot, "ui-multiline": multiline },
     severity && `ui-${severity}`,
     size && size !== "medium" && `ui-${size}`,
     variant !== "tonal" && `ui-${variant}`,
@@ -39,7 +36,7 @@
   ]}
   {...tagAttrs(Tag, disabled, href)}
   {...rest}
-  >{@render start?.()}{#if label}<span class="ui-text"
-      >{@render content(label)}</span
-    >{/if}{@render end?.()}</svelte:element
+  >{@render start?.()}{#if label}<span class="ui-text">
+      {@render content(label)}
+    </span>{/if}{@render end?.()}</svelte:element
 >

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { markerPath } from "./icons"
 import type {
   AccordionSummaryProps as Props,
   AccordionSummarySlots,
 } from "./types.vue-props"
-import { markerPath } from "./icons"
 
 defineProps<Props>()
 defineSlots<AccordionSummarySlots>()

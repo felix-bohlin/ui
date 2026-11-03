@@ -71,6 +71,7 @@ const change = (event: Event) => {
       :value="value"
       v-bind="attrs"
       @change="change"
-    />{{ " " }}<slot>{{ label }}</slot>
+    />{{ " " }}<slot v-if="$slots.default"></slot
+    ><template v-else>{{ label }}</template>
   </label>
 </template>

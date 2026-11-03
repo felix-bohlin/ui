@@ -973,10 +973,16 @@ export const readComponent = async (source, file, api) => {
   const stringSlots = frontmatter.props
     .filter(({ prop }) => slots.some((slot) => slotProp(slot) === prop))
     .map(({ local }) => local)
+  const item = itemOf(frontmatter, roots, file.split("/").at(-2))
   const component = {
     ...frontmatter,
     file,
-    item: itemOf(frontmatter, roots, file.split("/").at(-2)),
+    item,
+    warnings: item
+      ? frontmatter.warnings.filter(
+          (code) => !code.startsWith("warnGroupedChecked("),
+        )
+      : frontmatter.warnings,
     model: modelOf(frontmatter, roots, api, file, file.split("/").at(-2)),
     multiRoot,
     restOnRoot: (rootElements ?? []).some((node) =>

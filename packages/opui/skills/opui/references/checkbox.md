@@ -49,6 +49,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Props and modifiers
 
 - `indeterminate`: `boolean`, `[data-indeterminate]`. Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 
 Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro and React `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 

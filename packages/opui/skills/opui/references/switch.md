@@ -49,7 +49,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 ### Props and modifiers
 
-- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 
 Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro and React `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 

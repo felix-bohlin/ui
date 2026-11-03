@@ -134,7 +134,7 @@ describe("the three ports of a sample", () => {
       '<script lang="ts">\n  import Button from "../Button/Button.svelte"\n  import { markerPath } from "./icons"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n\n    // Snippets\n    children,\n    marker,\n    ...rest\n  }: Props = $props()\n</script>\n\n<summary class={[className]} {...rest}>\n  {@render children?.()}{" "}{#if marker}{@render marker()}{:else}<svg\n      aria-hidden="true"><path d={markerPath} /></svg\n    >{/if}\n  <Button round size="small">Close</Button>\n</summary>\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary :class="[$props.class]">\n    <slot></slot>{{ " "\n    }}<slot name="marker"\n      ><svg aria-hidden="true"><path :d="markerPath" /></svg\n    ></slot>\n    <Button round size="small">Close</Button>\n  </summary>\n</template>\n',
+      '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary :class="[$props.class]">\n    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot\n    ><svg v-else aria-hidden="true"><path :d="markerPath" /></svg>\n    <Button round size="small">Close</Button>\n  </summary>\n</template>\n',
     )
   })
 

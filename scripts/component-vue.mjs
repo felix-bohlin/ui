@@ -212,7 +212,9 @@ export const toVue = (component) => {
         return `<TrimmedSlot${slotClause} :nodes="$slots${vueSlot(node.name)}?.()" />`
       }
       const name = node.name === "default" ? "" : ` name="${node.name}"`
-      return `<slot${slotClause}${name}>${emit(node.fallback, scope)}</slot>`
+      if (node.fallback.length === 0) return `<slot${slotClause}${name}></slot>`
+      const pair = `<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>${directive(node.fallback, "v-else", undefined, scope)}`
+      return clause ? `<template ${clause}>${pair}</template>` : pair
     }
     if (node.type === "if") {
       const test = rewriteExpression(node.test, scope)

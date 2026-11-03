@@ -1,6 +1,7 @@
 import { readFileSync, realpathSync } from "node:fs"
 import { isAbsolute, matchesGlob, relative } from "node:path"
 import { fileURLToPath } from "node:url"
+import { astroAttributeProblems } from "./astro-attributes.mjs"
 import { FIX as CHARACTERS, findProblems } from "./check-characters.mjs"
 import { FIX as COLORS, colorProblems } from "./check-colors.mjs"
 import { IGNORED, SORTED, sortSource } from "./sort-css.mjs"
@@ -24,7 +25,10 @@ export const fileProblems = async (file, text) => {
     (await sortSource(file, text)) !== text
       ? [`${file}: CSS declarations are out of order. Run pnpm sort-css.`]
       : []
-  return [...characters, ...colors, ...sorted]
+  const attributes = file.endsWith(".astro")
+    ? await astroAttributeProblems(file, text)
+    : []
+  return [...characters, ...colors, ...sorted, ...attributes]
 }
 
 const main = async () => {

@@ -142,7 +142,7 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 - **Inference**: Default to `"a"` if `href` is present.
 - **Override**: Allow manual override via the `as` prop.
 - **Button type**: A rendered `<button>` gets `type="button"` unless the user passes `type`, so it never submits a form by accident.
-- **Empty unknown elements**: Astro writes an empty element it doesn't know as self-closing, which the browser reads as an unclosed start tag, so `Select` renders `<selectedcontent>` through a variable tag (`const SelectedContent = "selectedcontent"`), which keeps its end tag. `tests/unit/component-whitespace.test.ts` checks the rendered Select for it.
+- **Empty unknown elements**: Astro drops the end tag of an empty element it doesn't know, which the browser reads as an unclosed start tag, so `Select` renders `<selectedcontent>` through a variable tag (`const SelectedContent = "selectedcontent"`), which keeps its end tag. `tests/unit/component-whitespace.test.ts` checks the rendered Select for it, and `tests/unit/tooling-bugs.test.ts` says when Astro no longer needs it.
 
 ### Styling Inheritance
 

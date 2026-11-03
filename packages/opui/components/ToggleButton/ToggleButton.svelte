@@ -1,9 +1,9 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { warnGroupedChecked } from "../dev"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
+  import { warnGroupedChecked } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -24,13 +24,11 @@
 
   const field = getFieldGroupContext()
   const group = getToggleGroupContext()
-
   const finalName = $derived(name || group?.groupName || field?.name)
   const finalType = $derived(
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
   const grouped = $derived(isSelected(group?.value, value))
-
   untrack(() => warnGroupedChecked("ToggleButton", grouped, checked))
 </script>
 
@@ -50,7 +48,7 @@
     {...rest}
     onchange={(event) => {
       if (grouped === undefined) checked = event.currentTarget.checked
-      group?.change(event.currentTarget)
+      group?.change?.(event.currentTarget)
       onchange?.(event)
     }}
   />

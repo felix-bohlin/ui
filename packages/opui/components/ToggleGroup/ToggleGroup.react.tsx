@@ -4,6 +4,7 @@ import { useId, useState } from "react"
 import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
 import { selectionOf } from "./selection"
+import { createId } from "../id"
 import type { Props } from "./types.react"
 
 export default function ToggleGroup({
@@ -20,15 +21,15 @@ export default function ToggleGroup({
   ...rest
 }: Props) {
   const uid = useId()
-  const groupName = name || `toggle-group-${uid}`
-  const inputType = multiple ? "checkbox" : "radio"
   const [inner, setInner] = useState(defaultValue)
-
   const change = (input: HTMLInputElement) => {
     const next = selectionOf(input, multiple)
     if (inner !== undefined) setInner(next)
     onValueChange?.(next as never)
   }
+  const idOf = createId(uid)
+  const groupName = name || idOf("toggle-group")
+  const inputType = multiple ? "checkbox" : "radio"
 
   return (
     <ToggleGroupContext
@@ -37,9 +38,7 @@ export default function ToggleGroup({
       <div
         className={cx([
           "ui-toggle-group",
-          {
-            "ui-vertical": orientation === "vertical",
-          },
+          { "ui-vertical": orientation === "vertical" },
           overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
           size && size !== "medium" && `ui-${size}`,
           className,

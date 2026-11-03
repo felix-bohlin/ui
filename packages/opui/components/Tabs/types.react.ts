@@ -4,7 +4,6 @@ import type { ComponentProps } from "react"
 export type Props = Base.Props & {
   defaultValue?: string
   onValueChange?: (value: string) => void
-} & {
   value?: string
 } & Omit<ComponentProps<"div">, "defaultValue">
 

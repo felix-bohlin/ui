@@ -1320,6 +1320,7 @@ export const whatsNew = {
     ),
     `A disabled <a href="#disabled">toggle</a> dims like a disabled button, and hover uses the button hover strength.`,
     {
+      astro: `<code>value</code> on <code>ToggleGroup</code> checks the buttons whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selection with <code>v-model</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,

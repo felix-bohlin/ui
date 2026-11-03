@@ -21,7 +21,7 @@ Toggle buttons and toggle groups switch options on and off, alone or as a set.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons.
-- `value` (React): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`.
+- `value` (Astro and React): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
 
 ### Slots
 
@@ -31,7 +31,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 
 ### Notes
 
-- Astro: The selection lives in the inputs. Read it from the form, or listen for `change` in a script.
+- Astro: `value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
 - React: Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.
 - Svelte: Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.
@@ -41,7 +41,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 ### Parts
 
 - `label.ui-toggle-button` (root): Container element.
-- `<input>`: A visually hidden checkbox or radio input.
+- `<input>` (model): A visually hidden checkbox or radio input.
 
 ### Props and modifiers
 

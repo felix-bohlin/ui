@@ -52,20 +52,20 @@ export default function Textarea({
         <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
           {label}
         </span>
-      )}
-      {startText && <span className="ui-start-text">{startText}</span>}
+      )}{" "}
+      {startText && <span className="ui-start-text">{startText}</span>}{" "}
       <span className="ui-field">
         <textarea
           {...rest}
           aria-invalid={error ? "true" : ariaInvalid}
           id={id}
           name={name ?? field?.name}
-        />
-        {start && <span className="ui-start">{start}</span>}
-        {end && <span className="ui-end">{end}</span>}
-        {top && <span className="ui-top">{top}</span>}
+        />{" "}
+        {start && <span className="ui-start">{start}</span>}{" "}
+        {end && <span className="ui-end">{end}</span>}{" "}
+        {top && <span className="ui-top">{top}</span>}{" "}
         {bottom && <span className="ui-bottom">{bottom}</span>}
-      </span>
+      </span>{" "}
       {(endText || characterCount) && (
         <span className="ui-end-text">
           {endText}
@@ -77,7 +77,7 @@ export default function Textarea({
             />
           )}
         </span>
-      )}
+      )}{" "}
       {children}
     </label>
   )

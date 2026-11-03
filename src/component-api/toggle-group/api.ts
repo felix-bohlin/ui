@@ -28,7 +28,7 @@ export default {
   },
   notes: {
     astro:
-      "The selection lives in the inputs. Read it from the form, or listen for `change` in a script.",
+      "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
     svelte:
@@ -92,8 +92,8 @@ export default {
     },
     {
       description:
-        "The value of the checked button, or the values of the checked buttons with `multiple`.",
-      frameworks: ["react"],
+        "The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
+      frameworks: ["astro", "react"],
       prop: "value",
     },
   ],

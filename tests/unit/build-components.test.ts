@@ -586,6 +586,88 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a newline between two inline children renders as a space in React and Vue", async () => {
+    const { outputs } = await compileComponent(
+      astro(
+        '<label class:list={["ui-sample", className]}>\n  <input type="checkbox" {...rest} />\n  <slot />\n</label>',
+      ),
+      sampleFile(),
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
+      '<input type="checkbox" {...rest} /> {children}\n    </label>',
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      '<input type="checkbox" {...rest} />\n  {@render children?.()}\n</label>',
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
+      '<input type="checkbox" v-bind="attrs" />{{ " " }}<slot></slot>',
+    )
+  })
+
+  test("a group with an array value ties it to multiple in the Vue generic", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, multiple, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+      sampleFile(),
+      {
+        api: {
+          component: "Sample",
+          model: { description: "", prop: "value", type: "string | string[]" },
+          options: [],
+          parts: [],
+        },
+      },
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain(
+      '<script setup lang="ts" generic="Multiple extends boolean = false">',
+    )
+    expect(vue).toContain(
+      "type Model = Multiple extends true ? string[] : string\n\nconst { multiple } = defineProps<Props & { multiple?: Multiple }>()",
+    )
+    expect(vue).toContain(
+      "const model = defineModel<Model>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined)\n    model.value = selectionOf(input, multiple) as Model\n}",
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
+      "    const next = selectionOf(input, multiple)\n    if (inner !== undefined) setInner(next)\n    onValueChange?.(next as never)\n",
+    )
+  })
+
+  test("an item with a checked model binds it when the group has no value", async () => {
+    await loadApis()
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport { isSelected } from "../ToggleGroup/selection"\nimport { toggleGroupContext } from "../ToggleGroup/context.astro"\n\nconst { checked, class: className, type, value, ...rest } = Astro.props\n\nconst group = toggleGroupContext.get()\nconst finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")\nconst grouped = isSelected(group?.value, value)\n---\n\n<label class:list={["ui-sample", className]}>\n  <input checked={grouped ?? checked} type={finalType} value={value} {...rest} />\n  <slot />\n</label>\n',
+      sampleFile(),
+      {
+        api: {
+          component: "Sample",
+          model: { description: "", prop: "checked", type: "boolean" },
+          options: [],
+          parts: [
+            { description: "", model: true, selector: ".ui-sample > input" },
+          ],
+        },
+      },
+    )
+    const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
+    expect(svelte).toContain("    checked = $bindable(),\n")
+    expect(svelte).not.toContain("toggleInGroup")
+    expect(svelte).toContain(
+      "    onchange={(event) => {\n      if (grouped === undefined) checked = event.currentTarget.checked\n      group?.change?.(event.currentTarget)\n      onchange?.(event)\n    }}\n",
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain(
+      "const model = defineModel<boolean | undefined>({\n  default: undefined,\n})",
+    )
+    expect(vue).toContain(
+      'warnGroupedChecked("Sample", grouped.value, checked ?? model.value)',
+    )
+    expect(vue).toContain(
+      "const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}",
+    )
+    expect(vue).toContain(':checked="grouped ?? model ?? checked"')
+    expect(vue).not.toContain("v-model")
+  })
+
   test.each([
     [
       "<div>\n  <slot />\n</div>\n<p>Two</p>",
@@ -769,7 +851,7 @@ describe("toTypes", () => {
   })
 
   test("the React types of a group add defaultValue and onValueChange", () => {
-    const { react, svelte } = toTypes(
+    const { react, svelte, vue } = toTypes(
       "Sample",
       {
         astro:
@@ -789,11 +871,38 @@ describe("toTypes", () => {
       },
     )
     expect(react).toContain(
-      'export type Props = Base.Props & { defaultValue?: string; onValueChange?: (value: string) => void } & { value?: string } & Omit<ComponentProps<"div">, "defaultValue">',
+      'export type Props = Base.Props & { defaultValue?: string; onValueChange?: (value: string) => void; value?: string } & Omit<ComponentProps<"div">, "defaultValue">',
     )
     expect(svelte).toContain(
       'export type Props = Base.Props & { value?: string } & SvelteHTMLElements["div"]\n',
     )
+    expect(vue).toContain("export type Props = BaseProps & Class\n")
+  })
+
+  test("the types of a group tie the value's React props to each declaration of it", () => {
+    const { react, vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props &\n  Base.Selection<{ value?: string }, { value?: string[] }> &\n  Omit<HTMLAttributes<"div">, "size">\n',
+        base: `${base}\n\nexport type Selection<Single, Multiple> =\n  ({ multiple?: false } & Single) | ({ multiple: true } & Multiple)\n`,
+      },
+      { Sample: ["default"] },
+      { Sample: ["value"] },
+      {},
+      {
+        Sample: {
+          bindables: [{ prop: "value", type: "string | string[]" }],
+          kind: "group",
+          prop: "value",
+          type: "string | string[]",
+        },
+      },
+    )
+    expect(react).toContain(
+      'export type Props = Base.Props &\n  Base.Selection<{ defaultValue?: string; onValueChange?: (value: string) => void; value?: string }, { defaultValue?: string[]; onValueChange?: (value: string[]) => void; value?: string[] }> &\n  Omit<ComponentProps<"div">, "defaultValue" | "size">',
+    )
+    expect(vue).toContain("export type Props = BaseProps & Class\n")
   })
 
   test("the Svelte types declare a model's bindables", () => {

@@ -98,9 +98,9 @@ const endTextId = computed(() =>
           >
             <path fill="currentColor" :d="minusPath" />
           </svg>
-        </Button>
-      </span>
-      <input
+        </Button> </span
+      >{{ " "
+      }}<input
         v-bind="attrs"
         :aria-describedby="
           idRefs(startTextId, endTextId, attrs['aria-describedby'])
@@ -110,8 +110,8 @@ const endTextId = computed(() =>
         :name="name ?? field?.name"
         type="number"
         v-model="model"
-      />
-      <span class="ui-end">
+      />{{ " "
+      }}<span class="ui-end">
         <Button
           :aria-label="increaseLabel"
           command="--step-up"

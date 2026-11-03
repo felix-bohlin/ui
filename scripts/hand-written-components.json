@@ -38,17 +38,5 @@
   "TextField/TextField.vue": "write it as a condition between one tag and Fragment",
   "TextField/types.react.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
   "TextField/types.svelte.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "TextField/types.vue-props.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "ToggleButton/ToggleButton.react.tsx": "the checked state read from the ToggleGroup's value model, which the Astro file doesn't express",
-  "ToggleButton/ToggleButton.svelte": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "ToggleButton/ToggleButton.vue": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "ToggleButton/types.react.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "ToggleButton/types.svelte.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "ToggleButton/types.vue-props.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "ToggleGroup/ToggleGroup.react.tsx": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "ToggleGroup/ToggleGroup.svelte": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "ToggleGroup/ToggleGroup.vue": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "ToggleGroup/types.react.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "ToggleGroup/types.svelte.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason",
-  "ToggleGroup/types.vue-props.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"
+  "TextField/types.vue-props.ts": "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"
 }

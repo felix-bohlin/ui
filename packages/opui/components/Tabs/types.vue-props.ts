@@ -7,9 +7,7 @@ import type {
   TabsPanelProps as BaseTabsPanelProps,
 } from "./types"
 
-export type Props = BaseProps & {
-  value?: string
-} & Class & { value?: string }
+export type Props = BaseProps & Class
 
 export type TabsItemProps = BaseTabsItemProps &
   Class & {

@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { toggleGroupContext } from "../ToggleGroup/context.astro"
+import { isSelected } from "../ToggleGroup/selection"
 
 export const title = "Toggle Button"
 
@@ -22,6 +23,7 @@ const group = toggleGroupContext.get()
 
 const finalName = name || group?.groupName || field?.name
 const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
+const grouped = isSelected(group?.value, value)
 ---
 
 <label
@@ -33,7 +35,7 @@ const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
   style={style}
 >
   <input
-    checked={checked}
+    checked={grouped ?? checked}
     name={finalName}
     type={finalType}
     value={value}

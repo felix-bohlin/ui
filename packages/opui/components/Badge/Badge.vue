@@ -21,8 +21,8 @@ const hidden = computed(() => dot || hideLabel)
       $props.class,
     ]"
   >
-    <slot></slot>
-    <AnchorContent>
+    <slot></slot>{{ " "
+    }}<AnchorContent>
       <span class="ui-indicator"
         ><template v-if="hidden"
           ><span v-if="!dot && $slots.indicator" aria-hidden="true"

@@ -91,6 +91,7 @@ export default {
     {
       code: "<input>",
       description: "A visually hidden checkbox or radio input.",
+      model: true,
       selector: ".ui-toggle-button > input",
     },
   ],

@@ -78,7 +78,7 @@ export default function NumberStepper({
               <path fill="currentColor" d={minusPath} />
             </svg>
           </Button>
-        </span>
+        </span>{" "}
         <input
           {...rest}
           aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
@@ -86,7 +86,7 @@ export default function NumberStepper({
           id={inputId}
           name={name ?? field?.name}
           type="number"
-        />
+        />{" "}
         <span className="ui-end">
           <Button
             aria-label={increaseLabel}

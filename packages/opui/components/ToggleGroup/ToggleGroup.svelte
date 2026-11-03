@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { setToggleGroupContext } from "./context.svelte"
   import { selectionOf } from "./selection"
+  import { setToggleGroupContext } from "./context.svelte"
+  import { createId } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -18,9 +19,9 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const groupName = $derived(name || `toggle-group-${uid}`)
+  const idOf = $derived(createId(uid))
+  const groupName = $derived(name || idOf("toggle-group"))
   const inputType = $derived(multiple ? "checkbox" : "radio")
-
   setToggleGroupContext({
     change(input) {
       if (value !== undefined) value = selectionOf(input, multiple)
@@ -40,9 +41,7 @@
 <div
   class={[
     "ui-toggle-group",
-    {
-      "ui-vertical": orientation === "vertical",
-    },
+    { "ui-vertical": orientation === "vertical" },
     overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     size && size !== "medium" && `ui-${size}`,
     className,

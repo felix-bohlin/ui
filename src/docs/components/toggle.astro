@@ -187,8 +187,11 @@ export const description =
     <h3 id="binding">Binding</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Astro renders the group on the server, so it has no bound value. The
-        selection lives in the inputs, which share the group's <code>name</code
+        Astro renders the group on the server: <code>value</code> checks the buttons
+        whose <code>value</code> matches, a string, or an array of strings with <code
+          >multiple</code
+        >. After that the selection lives in the inputs, which share the group's <code
+          >name</code
         >. Submit them with a form, where <code>FormData.get()</code> reads a single-select
         group and <code>getAll()</code> a multi-select one, or read the checked inputs
         in a script on <code>change</code>. Set <code

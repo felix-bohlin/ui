@@ -734,6 +734,18 @@ const slotOfHtml = (value, context) => {
 const blockChildren = (children) =>
   children.every(isBlank) ? [] : boxesOnLines(children)
 
+const inlineChildren = (children) =>
+  children.map((child, index) =>
+    isBlank(child) &&
+    child.value === "\n" &&
+    index > 0 &&
+    index < children.length - 1 &&
+    !isBlank(children[index - 1]) &&
+    !isBlank(children[index + 1])
+      ? { ...child, inline: true }
+      : child,
+  )
+
 const toTree = (nodes, context) =>
   nodes.flatMap((node) => {
     if (node.type === "text") {
@@ -812,7 +824,7 @@ const toTree = (nodes, context) =>
                   attributeNode(item, context),
                 ),
                 children: INLINE_ELEMENTS.has(optionalTag.tag)
-                  ? children
+                  ? inlineChildren(children)
                   : blockChildren(children),
                 component: undefined,
                 custom: false,
@@ -851,7 +863,7 @@ const toTree = (nodes, context) =>
         ? [htmlSlot]
         : node.type !== "component" && !INLINE_ELEMENTS.has(node.name)
           ? blockChildren(toTree(node.children, inner))
-          : toTree(node.children, inner)
+          : inlineChildren(toTree(node.children, inner))
       return [
         {
           attributes: node.attributes
@@ -1180,6 +1192,16 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     )
   }
   const element = matches[0].node
+  if (element.item && declared.prop === "checked") {
+    return {
+      bindables,
+      element,
+      item: true,
+      kind: "checked",
+      prop: declared.prop,
+      type: declared.type,
+    }
+  }
   const type = staticAttribute(element, "type")
   const kind =
     declared.prop === "value" &&
@@ -1474,6 +1496,11 @@ const withImport = (lines, module, name) => {
 const groupWarning = (component, item, checked) =>
   `warnGroupedChecked(${JSON.stringify(component.name)}, ${item.grouped}, ${checked}${item.group === "ToggleGroup" ? "" : `, ${JSON.stringify(item.group)}`})`
 
+const selectionImport = (component) =>
+  component.file.split("/").at(-2) === "ToggleGroup"
+    ? "./selection"
+    : "../ToggleGroup/selection"
+
 const scriptImports = (component) =>
   component.scripts.map((specifier) => `import ${JSON.stringify(specifier)}`)
 
@@ -1669,7 +1696,7 @@ const toReact = (component) => {
     nodes
       .map((node) => {
         if (node.type === "text") {
-          return node.value === " " ? '{" "}' : node.value
+          return node.value === " " || node.inline ? '{" "}' : node.value
         }
         if (node.type === "expression") {
           return `{${rewriteExpression(node.code, options)}}`
@@ -1762,7 +1789,7 @@ const toReact = (component) => {
       read: (name) => `use${name}Context`,
     }),
     ...(group?.read.startsWith("selectionOf")
-      ? [`import { selectionOf } from "../ToggleGroup/selection"`]
+      ? [`import { selectionOf } from "${selectionImport(component)}"`]
       : []),
     ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
     propsImport(propsType, "types.react"),
@@ -1812,7 +1839,7 @@ const toSvelte = (component) => {
       ? [model.prop]
       : (model?.bindables.map(({ prop }) => prop) ?? [])
   const plainProps = [
-    ...(model?.kind === "checked"
+    ...(model?.kind === "checked" && !model.item
       ? ["value"]
       : model?.kind === "radio"
         ? ["checked", "onchange", "value"]
@@ -1834,7 +1861,9 @@ const toSvelte = (component) => {
     : model.kind === "value"
       ? [`bind:${model.prop}`]
       : model.kind === "checked"
-        ? ["bind:checked={getChecked, setChecked}", "{value}"]
+        ? model.item
+          ? []
+          : ["bind:checked={getChecked, setChecked}", "{value}"]
         : model.kind === "radio"
           ? [
               "checked={(checked ?? group === (value ?? true)) || undefined}",
@@ -1919,7 +1948,7 @@ const toSvelte = (component) => {
           ...(node.model ? modelAttributes : []),
           ...(node.item
             ? [
-                `onchange={(event) => {\n  ${component.item.parent}?.change?.(event.currentTarget)\n  onchange?.(event)\n}}`,
+                `onchange={(event) => {\n${model?.item ? `  if (${component.item.grouped} === undefined) ${model.prop} = event.currentTarget.checked\n` : ""}  ${component.item.parent}?.change?.(event.currentTarget)\n  onchange?.(event)\n}}`,
               ]
             : []),
         ].join(" ")
@@ -1945,9 +1974,9 @@ const toSvelte = (component) => {
       : []),
     ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
     ...(model?.kind === "group" && model.read.startsWith("selectionOf")
-      ? [`import { selectionOf } from "../ToggleGroup/selection"`]
+      ? [`import { selectionOf } from "${selectionImport(component)}"`]
       : []),
-    ...(model?.kind === "checked"
+    ...(model?.kind === "checked" && !model.item
       ? [`import { toggleInGroup } from "../group"`]
       : []),
     ...components
@@ -1978,7 +2007,7 @@ const toSvelte = (component) => {
       ({ context, name }) => `const ${name} = get${context.name}Context()`,
     ),
     ...(uid ? ["const uid = $props.id()"] : []),
-    ...(model?.kind === "checked"
+    ...(model?.kind === "checked" && !model.item
       ? [
           "const getChecked = () => (group ? group.includes(value) : !!checked)",
           "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
@@ -2106,7 +2135,10 @@ const toVue = (component) => {
   }
   if (component.model?.refusal) throw component.model.refusal
   const { model } = component
-  const explicitAttrs = model?.kind === "checked" || model?.kind === "radio"
+  const explicitAttrs =
+    (model?.kind === "checked" && !model.item) || model?.kind === "radio"
+  const generic =
+    model?.kind === "group" && model.read.startsWith("selectionOf")
   const { item } = component
   const forwarded = (component.baseProps ?? [])
     .filter(
@@ -2132,7 +2164,9 @@ const toVue = (component) => {
           prop !== "style" &&
           !prop.includes("-") &&
           !(model?.kind === "group" && prop === model.prop) &&
-          (used.has(local) || prop === model?.prop),
+          (used.has(local) ||
+            prop === model?.prop ||
+            (generic && prop === "multiple")),
       )
       .map(({ default: fallback, local, prop }) => ({
         prop,
@@ -2185,7 +2219,7 @@ const toVue = (component) => {
   }
   const emitOne = (node, clause, scope) => {
     if (node.type === "text") {
-      return node.value === " " ? '{{ " " }}' : node.value
+      return node.value === " " || node.inline ? '{{ " " }}' : node.value
     }
     if (node.type === "expression") {
       const code = rewriteExpression(node.code, scope)
@@ -2265,11 +2299,21 @@ const toVue = (component) => {
             ...node.attributes.slice(last + 1),
           ]
         : node.attributes
+    const bindScope =
+      node.item && model?.item && component.item.checked
+        ? {
+            ...scope,
+            rename: new Map([
+              ...scope.rename,
+              [component.item.checked, `model ?? ${component.item.checked}`],
+            ]),
+          }
+        : scope
     const attributes = [
       ...(clause ? [clause] : []),
       ...bound
         .map((item) =>
-          item.kind === "bound" ? item.text : attribute(node, item, scope),
+          item.kind === "bound" ? item.text : attribute(node, item, bindScope),
         )
         .filter(Boolean),
       ...(node.model
@@ -2330,7 +2374,7 @@ const toVue = (component) => {
     : undefined
   const vueImports = [
     ...(computedConsts.length ||
-    (model && model.kind !== "forward") ||
+    (model && model.kind !== "forward" && !model.item) ||
     provided?.some((entry) => entry.includes("computed("))
       ? ["computed"]
       : []),
@@ -2351,7 +2395,7 @@ const toVue = (component) => {
       : []),
     ...(computedAttrs ? [`import { useInputAttrs } from "../vue"`] : []),
     ...(model?.kind === "group" && model.read.startsWith("selectionOf")
-      ? [`import { selectionOf } from "../ToggleGroup/selection"`]
+      ? [`import { selectionOf } from "${selectionImport(component)}"`]
       : []),
     ...(usesTrimmedSlot
       ? [`import { TrimmedSlot } from "../whitespace.vue"`]
@@ -2366,9 +2410,23 @@ const toVue = (component) => {
     ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
     propsImport(propsType, "types.vue-props", slots.length ? [slotsType] : []),
   ]
-  const propsLine = declared.length
-    ? `const { ${declared.join(", ")} } = defineProps<Props>()`
-    : "defineProps<Props>()"
+  const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
+  const modelType = generic
+    ? `type Model = Multiple extends true ? ${model.type
+        .split("|")
+        .map((member) => member.trim())
+        .filter((member) => member.endsWith("[]"))
+        .join(" | ")} : ${model.type
+        .split("|")
+        .map((member) => member.trim())
+        .filter((member) => !member.endsWith("[]"))
+        .join(" | ")}`
+    : undefined
+  const propsLine = `${modelType ? `${modelType}\n\n` : ""}${
+    declared.length
+      ? `const { ${declared.join(", ")} } = defineProps<${vueProps}>()`
+      : `defineProps<${vueProps}>()`
+  }`
   const slotsLine = slotsInScript
     ? `const slots = defineSlots<${slotsType}>()`
     : `defineSlots<${slotsType}>()`
@@ -2394,27 +2452,31 @@ const toVue = (component) => {
           `const modelValue = defineModel<${model.type}>()`,
           `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
         ]
-      : model?.kind === "checked"
+      : model?.kind === "checked" && model.item
         ? [
-            `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-            "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
+            `const model = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
           ]
-        : model?.kind === "radio"
+        : model?.kind === "checked"
           ? [
               `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
-              "const unchecked = Symbol()",
-              `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
+              "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
             ]
-          : model?.kind === "forward"
+          : model?.kind === "radio"
             ? [
                 `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
+                "const unchecked = Symbol()",
+                `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
               ]
-            : model?.kind === "group"
+            : model?.kind === "forward"
               ? [
-                  `const model = defineModel<${model.type}>()`,
-                  `const change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = ${model.read}\n}`,
+                  `const modelValue = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
                 ]
-              : []),
+              : model?.kind === "group"
+                ? [
+                    `const model = defineModel<${generic ? "Model" : model.type}>()`,
+                    `const change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = ${model.read}${generic ? " as Model" : ""}\n}`,
+                  ]
+                : []),
     ...reads.map(
       ({ context, name }) =>
         `const ${name} = inject(${context.name}Key, undefined)`,
@@ -2428,8 +2490,10 @@ const toVue = (component) => {
     ...warnings.map((code) => rewriteStatement(code, script)),
     ...(item
       ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, item.checked ?? "undefined").replace(`, ${item.grouped},`, `, ${item.grouped}.value,`)},\n)`,
-          `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
+          `watchEffect(() =>\n  ${groupWarning(component, item, model?.item && item.checked ? `${item.checked} ?? model.value` : (item.checked ?? "undefined")).replace(`, ${item.grouped},`, `, ${item.grouped}.value,`)},\n)`,
+          model?.item
+            ? `const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (${item.grouped}.value === undefined) model.value = input.checked\n  ${item.parent}?.change?.(input)\n}`
+            : `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
         ]
       : []),
     ...(provide
@@ -2438,7 +2502,7 @@ const toVue = (component) => {
         ]
       : []),
   ]
-  return `<script setup lang="ts">\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
+  return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
 }
 
 const HTML_ATTRIBUTES = /HTMLAttributes<("[^"]+")>/g
@@ -2667,11 +2731,49 @@ export const toTypes = (
       .find((match) => match.startsWith(`export type ${alias.name} =`))
     if (!current) return text
     const declaresProp = new RegExp(`\\b${model.prop}\\??:`).test(current)
-    const typed = current
-      .replace(
-        `Base.${alias.name} &`,
-        `Base.${alias.name} & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProp ? "" : `; ${model.prop}?: ${model.type}`} } &`,
-      )
+    const literals = []
+    const visit = (node) => {
+      if (ts.isTypeLiteralNode(node)) {
+        const member = node.members.find(
+          (entry) =>
+            ts.isPropertySignature(entry) &&
+            entry.type &&
+            entry.name.getText() === model.prop,
+        )
+        if (member) {
+          literals.push({
+            end: node.end,
+            members: node.members
+              .filter((entry) => entry !== member)
+              .map((entry) => entry.getText().replace(/[;,]$/, "")),
+            start: node.getStart(),
+            type: member.type.getText(),
+          })
+        }
+      }
+      ts.forEachChild(node, visit)
+    }
+    visit(sourceFileOf(current, "types.astro.ts"))
+    const tied = literals.length
+      ? literals
+          .toReversed()
+          .reduce(
+            (text, { end, members, start, type }) =>
+              `${text.slice(0, start)}{ ${[
+                ...members,
+                `defaultValue?: ${type}`,
+                `onValueChange?: (value: ${type}) => void`,
+                `${model.prop}?: ${type}`,
+              ]
+                .toSorted(byName)
+                .join("; ")} }${text.slice(end)}`,
+            current,
+          )
+      : current.replace(
+          `Base.${alias.name} &`,
+          `Base.${alias.name} & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProp ? "" : `; ${model.prop}?: ${model.type}`} } &`,
+        )
+    const typed = tied
       .replace(
         /Omit<\s*HTMLAttributes<("[^"]+")>\s*,\s*((?:"[^"]+"\s*\|?\s*)+)>/g,
         (_, element, keys) =>
@@ -2762,6 +2864,12 @@ export const toTypes = (
     .map((name) => `${name} as Base${name}`)
     .toSorted(byName)
   const vueMembers = (alias) => {
+    const model = modelsByComponent[componentOf(alias.name)]
+    const modelOnly = (node) =>
+      model?.kind === "group" &&
+      ts.isTypeLiteralNode(node) &&
+      node.members.length > 0 &&
+      node.members.every((member) => member.name.getText() === model.prop)
     const node = sourceFileOf(alias.text, "types.astro.ts").statements[0].type
     const parts = ts.isIntersectionTypeNode(node) ? node.types : [node]
     const kept = []
@@ -2770,6 +2878,14 @@ export const toTypes = (
       const text = part.getText()
       if (new RegExp(HTML_ATTRIBUTES.source).test(text)) {
         hasClass = true
+        continue
+      }
+      if (
+        modelOnly(part) ||
+        (ts.isTypeReferenceNode(part) &&
+          part.typeArguments?.length > 0 &&
+          part.typeArguments.every(modelOnly))
+      ) {
         continue
       }
       if (ts.isTypeLiteralNode(part)) {
@@ -2794,13 +2910,18 @@ export const toTypes = (
     const component = componentOf(name)
     const baseAlias = baseAliases.find((alias) => alias.name.text === name)
     const known = baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
+    const modelled = modelsByComponent[component]
     const extras = (propsByComponent[component] ?? [])
-      .filter((prop) => prop !== "as" && !known.includes(prop))
+      .filter(
+        (prop) =>
+          prop !== "as" &&
+          !known.includes(prop) &&
+          !(modelled?.kind === "group" && prop === modelled.prop),
+      )
       .toSorted(byName)
     const elements = [...text.matchAll(HTML_ATTRIBUTES)].map(([, element]) =>
       JSON.parse(element),
     )
-    const modelled = modelsByComponent[component]
     if (
       extras.some((prop) => prop !== modelled?.prop) &&
       elements.length !== 1
@@ -2810,10 +2931,9 @@ export const toTypes = (
         `the prop ${extras[0]} of ${component}, which the Vue types can't take from ${elements.length} elements`,
       )
     }
-    const model = modelsByComponent[component]
     return extras.map((prop) =>
-      model?.prop === prop
-        ? `${propKey(prop)}?: ${model.type}`
+      modelled?.prop === prop
+        ? `${propKey(prop)}?: ${modelled.type}`
         : `${propKey(prop)}?: IntrinsicElementAttributes[${JSON.stringify(elements[0])}][${JSON.stringify(prop)}]`,
     )
   }

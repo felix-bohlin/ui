@@ -49,13 +49,13 @@ warnUnnamed("Checkbox", hasName({ ...attrs.value, label }, slots.default))
       :indeterminate="indeterminate"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="modelValue"
-    />
-    <span
+    />{{ " "
+    }}<span
       v-if="label || $slots.default"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
-    /></span>
-    <span v-if="endText || $slots['end-text']" class="ui-end-text"
+      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()" /></span
+    >{{ " "
+    }}<span v-if="endText || $slots['end-text']" class="ui-end-text"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </label>

@@ -65,7 +65,7 @@ export default function ColorField({
             >
               <span className="ui-indicator" />
             </Button>
-          </span>
+          </span>{" "}
           <input
             autoComplete="off"
             spellCheck="false"

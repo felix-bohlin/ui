@@ -80,9 +80,9 @@ const inputId = computed(() => createIds(uid, "color-field", id)())
             round
           >
             <span class="ui-indicator"></span>
-          </Button>
-        </span>
-        <input
+          </Button> </span
+        >{{ " "
+        }}<input
           autocomplete="off"
           spellcheck="false"
           v-bind="attrs"

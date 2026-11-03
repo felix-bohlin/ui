@@ -28,7 +28,7 @@ export default function Badge({
       ])}
       {...rest}
     >
-      {children}
+      {children}{" "}
       <AnchorContent>
         <span className="ui-indicator">
           {hidden && (

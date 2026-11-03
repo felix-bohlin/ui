@@ -47,25 +47,25 @@ warnUnnamed("Switch", hasName({ ...attrs.value, label }, slots.default))
       v-if="$slots['icon-unchecked']"
       class="ui-icon-unchecked"
       aria-hidden="true"
-      ><slot name="icon-unchecked"></slot
-    ></span>
-    <span
+      ><slot name="icon-unchecked"></slot></span
+    >{{ " "
+    }}<span
       v-if="$slots['icon-checked']"
       class="ui-icon-checked"
       aria-hidden="true"
-      ><slot name="icon-checked"></slot
-    ></span>
-    <SwitchInput
+      ><slot name="icon-checked"></slot></span
+    >{{ " "
+    }}<SwitchInput
       v-bind="attrs"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       v-model="modelValue"
-    />
-    <span
+    />{{ " "
+    }}<span
       v-if="label || $slots.default"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()"
-    /></span>
-    <span v-if="endText || $slots['end-text']" class="ui-end-text"
+      >{{ label }}<TrimmedSlot :nodes="$slots.default?.()" /></span
+    >{{ " "
+    }}<span v-if="endText || $slots['end-text']" class="ui-end-text"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </label>

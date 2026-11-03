@@ -36,7 +36,7 @@
   ]}
   {...tagAttrs(Tag, disabled, href)}
   {...rest}
-  >{@render start?.()}{#if label}<span class="ui-text">
-      {@render content(label)}
-    </span>{/if}{@render end?.()}</svelte:element
+  >{@render start?.()}{#if label}<span class="ui-text"
+      >{@render content(label)}</span
+    >{/if}{@render end?.()}</svelte:element
 >

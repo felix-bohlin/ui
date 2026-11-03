@@ -19,7 +19,8 @@ const {
 } = Astro.props
 
 warnMissingId("Menu", id)
-const rootId = menuContext.get()?.rootId ?? id
+const parent = menuContext.get()
+const rootId = parent?.rootId ?? id
 const html = await menuContext.provide({ rootId }, () =>
   Astro.slots.render("default"),
 )

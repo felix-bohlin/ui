@@ -111,7 +111,7 @@ describe("the three ports of a sample", () => {
       ),
     )
     expect(ports["react.tsx"]).toBe(
-      'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  label,\n  numeric,\n  sortable,\n  children,\n  endText,\n  ...rest\n}: Props) {\n  return (\n    <th\n      className={cx([{ "ui-numeric": numeric }, className])}\n      data-sort={sortable ? "" : undefined}\n      {...rest}\n    >\n      {sortable ? <button type="button">{children}</button> : <>{children}</>}\n      {label && (\n        <span className="ui-label">\n          {label}\n          {endText}\n        </span>\n      )}\n    </th>\n  )\n}\n',
+      'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  label,\n  numeric,\n  sortable,\n  children,\n  endText,\n  ...rest\n}: Props) {\n  return (\n    <th\n      className={cx([{ "ui-numeric": numeric }, className])}\n      data-sort={sortable ? "" : undefined}\n      {...rest}\n    >\n      {sortable ? <button type="button">{children}</button> : children}\n      {label && (\n        <span className="ui-label">\n          {label}\n          {endText}\n        </span>\n      )}\n    </th>\n  )\n}\n',
     )
     expect(ports.svelte).toBe(
       '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n    numeric,\n    sortable,\n\n    // Snippets\n    children,\n    endText,\n    ...rest\n  }: Props = $props()\n</script>\n\n<th\n  class={[{ "ui-numeric": numeric }, className]}\n  data-sort={sortable ? "" : undefined}\n  {...rest}\n>\n  {#if sortable}<button type="button">{@render children?.()}</button\n    >{:else}{@render children?.()}{/if}\n  {#if label}<span class="ui-label">{label}{@render endText?.()}</span>{/if}\n</th>\n',
@@ -209,6 +209,59 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a trimmed slot renders through TrimmedSlot in Vue and tests as the slot", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { trimEdges } from "../whitespace"\n\nconst { class: className, label, ...rest } = Astro.props\n\nconst endSlot = Astro.slots.has("end")\n  ? trimEdges(await Astro.slots.render("end"))\n  : ""\n---\n\n<span class:list={["ui-sample", className]} {...rest}\n  >{label}<Fragment set:html={endSlot} />{\n    !label && endSlot && <i aria-hidden="true" set:html={endSlot} />\n  }</span\n>\n',
+    )
+    expect(ports["react.tsx"]).toBe(
+      'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, label, end, ...rest }: Props) {\n  return (\n    <span className={cx(["ui-sample", className])} {...rest}>\n      {label}\n      {end}\n      {!label && end && <i aria-hidden="true">{end}</i>}\n    </span>\n  )\n}\n',
+    )
+    expect(ports.svelte).toBe(
+      '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    label,\n\n    // Snippets\n    end,\n    ...rest\n  }: Props = $props()\n</script>\n\n<span class={["ui-sample", className]} {...rest}\n  >{label}{@render end?.()}{#if !label && end}<i aria-hidden="true"\n      >{@render end?.()}</i\n    >{/if}</span\n>\n',
+    )
+    expect(ports.vue).toBe(
+      '<script setup lang="ts">\nimport { TrimmedSlot } from "../whitespace.vue"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <span :class="[\'ui-sample\', $props.class]"\n    >{{ label }}<TrimmedSlot :nodes="$slots.end?.()" /><i\n      v-if="!label && $slots.end"\n      aria-hidden="true"\n      ><TrimmedSlot :nodes="$slots.end?.()" /></i\n  ></span>\n</template>\n',
+    )
+  })
+
+  test("a set:html ternary over a trimmed slot renders it behind a condition", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { trimEdges } from "../whitespace"\n\nconst { class: className, hidden, ...rest } = Astro.props\n\nconst endSlot = Astro.slots.has("end")\n  ? trimEdges(await Astro.slots.render("end"))\n  : ""\n---\n\n<span class:list={[className]} {...rest}><Fragment set:html={hidden ? "" : endSlot} /></span>\n',
+    )
+    expect(ports["react.tsx"]).toContain("{!hidden && end}")
+    expect(ports.svelte).toContain("{#if !hidden}{@render end?.()}{/if}")
+    expect(ports.vue).toContain(
+      '<TrimmedSlot v-if="!hidden" :nodes="$slots.end?.()"\n  /></span>',
+    )
+  })
+
+  test("two spreads on one element merge into one Vue v-bind in source order", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { tagAttrs } from "../tag"\n\nconst { class: className, disabled, extra, href, ...rest } = Astro.props\n---\n\n<li class:list={[className]} {...rest}>\n  <a {...tagAttrs("a", disabled, href)} aria-label="Open" tabindex={disabled ? -1 : 0} {...extra}>\n    <slot />\n  </a>\n</li>\n',
+    )
+    expect(ports.vue).toContain(
+      "v-bind=\"{\n        ...tagAttrs('a', disabled, href),\n        'aria-label': 'Open',\n        tabindex: disabled ? -1 : 0,\n        ...extra,\n      }\"",
+    )
+    expect(ports["react.tsx"]).toContain(
+      '<a\n        {...tagAttrs("a", disabled, href)}\n        aria-label="Open"\n        tabIndex={disabled ? -1 : 0}\n        {...extra}\n      >',
+    )
+  })
+
+  test("a map callback with consts becomes a keyed each block", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<ul class:list={["ui-sample", className]} {...rest}>\n  {\n    items?.map(({ href, label, ...itemRest }) => {\n      const Tag = href ? "a" : "span"\n      return (\n        <li>\n          <Tag href={href} {...itemRest}>{label}</Tag>\n        </li>\n      )\n    })\n  }\n  <slot />\n</ul>\n',
+    )
+    expect(ports["react.tsx"]).toBe(
+      'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, items, children, ...rest }: Props) {\n  return (\n    <ul className={cx(["ui-sample", className])} {...rest}>\n      {items?.map(({ href, label, ...itemRest }, index) => {\n        const Tag = href ? "a" : "span"\n        return (\n          <li key={index}>\n            <Tag href={href} {...itemRest}>\n              {label}\n            </Tag>\n          </li>\n        )\n      })}\n      {children}\n    </ul>\n  )\n}\n',
+    )
+    expect(ports.svelte).toContain(
+      '{#each items ?? [] as { href, label, ...itemRest }, index (index)}{@const Tag =\n      href ? "a" : "span"}\n    <li>\n      <svelte:element this={Tag} {href} {...itemRest}>{label}</svelte:element>\n    </li>{/each}',
+    )
+    expect(ports.vue).toBe(
+      '<script setup lang="ts">\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { items } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <ul :class="[\'ui-sample\', $props.class]">\n    <li v-for="({ href, label, ...itemRest }, index) in items" :key="index">\n      <component :is="href ? \'a\' : \'span\'" :href="href" v-bind="itemRest">{{\n        label\n      }}</component>\n    </li>\n    <slot></slot>\n  </ul>\n</template>\n',
+    )
+  })
+
   test.each([
     [
       "<div {...rest}>\n  <slot />\n</div>\n<p>Two</p>",
@@ -223,10 +276,14 @@ describe("the three ports of a sample", () => {
       "a <script>",
     ],
     [
-      "<div {...rest}>{items.map((item) => <b>{item}</b>)}</div>",
-      "the expression {items.map((item) => __markup0)}",
+      "<div {...rest}>{items.map((item) => (item.b ? <b>{item.b}</b> : <i />))}</div>",
+      "map callback doesn't return one element",
     ],
-    ["<div {...rest} set:html={html} />", "the directive set:html"],
+    [
+      "<div {...rest}>{items.map((item, index) => <b>{index}</b>)}</div>",
+      "map callback doesn't take one parameter",
+    ],
+    ["<div {...rest} set:html={html} />", "set:html={html}"],
     [
       "<div {...rest}><Fragment set:html={html} /></div>",
       "<Fragment set:html>",
@@ -246,10 +303,7 @@ describe("the three ports of a sample", () => {
       'const isLegend = Tag === "legend"',
       "the frontmatter statement `const isLegend",
     ],
-    [
-      'import { trimEdges } from "../whitespace"',
-      "the import of ../whitespace",
-    ],
+    ['import { getContext } from "../context"', "the import of ../context"],
   ])("rejects the frontmatter %s", async (line, reason) => {
     await expect(
       readComponent(
@@ -272,6 +326,24 @@ describe("the three ports of a sample", () => {
     await expect(
       readComponent(
         `---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, ...rest } = Astro.props\n\n${lines}\n---\n\n<div {...rest}>\n  <slot />\n</div>\n`,
+        sampleFile(),
+      ),
+    ).rejects.toThrow(reason)
+  })
+
+  test.each([
+    [
+      "const closeAttrs = { onclick: \"this.closest('dialog')?.close()\" }",
+      "a handler string in `const closeAttrs",
+    ],
+    [
+      'const LabelTag = className ? "span" : Fragment',
+      "Fragment as a value in `const LabelTag",
+    ],
+  ])("rejects the const %s", async (line, reason) => {
+    await expect(
+      readComponent(
+        `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n\n${line}\n---\n\n<div {...rest}>\n  <slot />\n</div>\n`,
         sampleFile(),
       ),
     ).rejects.toThrow(reason)

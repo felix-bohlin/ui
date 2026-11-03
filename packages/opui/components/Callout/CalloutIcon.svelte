@@ -16,7 +16,5 @@
     width="32"
     height="32"
     viewBox={icon.viewBox}
-    {...rest}
-  >
-    <path fill="currentColor" d={icon.d} />
-  </svg>{/if}
+    {...rest}><path fill="currentColor" d={icon.d} /></svg
+  >{/if}

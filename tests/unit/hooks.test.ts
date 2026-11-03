@@ -83,15 +83,15 @@ describe("post-edit", () => {
 
   test("rejects an edit to a compiled component and allows a hand-written one", () => {
     const components = join(project, "packages/opui/components")
-    for (const folder of ["Badge", "Card"]) {
+    for (const folder of ["ListItem", "Card"]) {
       mkdirSync(join(components, folder), { recursive: true })
     }
     writeFileSync(join(components, "Card/CardActions.astro"), "<p>Hi</p>\n")
     writeFileSync(join(components, "Card/CardActions.vue"), "One, two.\n")
     writeFileSync(join(components, "Card/types.astro.ts"), "export {}\n")
     writeFileSync(join(components, "Card/types.react.ts"), "export {}\n")
-    writeFileSync(join(components, "Badge/Badge.astro"), "<p>Hi</p>\n")
-    writeFileSync(join(components, "Badge/Badge.vue"), "One, two.\n")
+    writeFileSync(join(components, "ListItem/ListItem.astro"), "<p>Hi</p>\n")
+    writeFileSync(join(components, "ListItem/ListItem.vue"), "One, two.\n")
     const run = (file: string) =>
       hook(
         ".claude/hooks/post-edit.mjs",
@@ -105,7 +105,7 @@ describe("post-edit", () => {
       "is compiled from packages/opui/components/Card/types.astro.ts",
     )
     expect(run("Card/CardActions.astro").status).toBe(0)
-    expect(run("Badge/Badge.vue").status).toBe(0)
+    expect(run("ListItem/ListItem.vue").status).toBe(0)
   })
 
   test("allows edits to Astro examples and to the hand-written files in the list", () => {

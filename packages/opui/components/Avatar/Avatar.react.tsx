@@ -29,7 +29,7 @@ export default function Avatar({
       {...tagAttrs(tag, disabled, href)}
       {...(rest as object)}
     >
-      {src ? <img src={src} alt={alt ?? ""} /> : <>{children}</>}
+      {src ? <img src={src} alt={alt ?? ""} /> : children}
     </Tag>
   )
 }

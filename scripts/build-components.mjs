@@ -69,8 +69,38 @@ const readFrontmatter = (code, file) => {
     provide: undefined,
     reads: [],
     rest: undefined,
+    trimmedSlots: [],
     warnings: [],
   }
+  const compact = (node) =>
+    node.getText(sourceFile).replace(/\s+/g, "").replace(/,\)/g, ")")
+  const trimmedSlotOf = (node) => {
+    if (!ts.isConditionalExpression(node)) return undefined
+    const has = /^Astro\.slots\.has\("([^"]+)"\)$/.exec(compact(node.condition))
+    const call = unwrap(node.whenTrue)
+    const awaited =
+      ts.isCallExpression(call) &&
+      call.expression.getText(sourceFile) === "trimEdges" &&
+      call.arguments.length === 1
+        ? unwrap(call.arguments[0])
+        : undefined
+    const rendered =
+      awaited &&
+      ts.isAwaitExpression(awaited) &&
+      SLOT_RENDER.exec(compact(unwrap(awaited.expression)))
+    const empty = unwrap(node.whenFalse)
+    return has &&
+      rendered &&
+      has[1] === rendered[1] &&
+      ts.isStringLiteral(empty) &&
+      empty.text === ""
+      ? has[1]
+      : undefined
+  }
+  const handlerString = (node) =>
+    ts.isPropertyAssignment(node) &&
+    /^on[a-z]/.test(node.name.getText(sourceFile)) &&
+    ts.isStringLiteral(node.initializer)
   const devFunctions = new Set()
   const contextOf = (node) =>
     ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression)
@@ -94,7 +124,13 @@ const readFrontmatter = (code, file) => {
         result.propsType = element.propertyName?.text ?? element.name.text
         continue
       }
-      if (specifier === "../cx" || specifier === "astro/types") continue
+      if (
+        specifier === "../cx" ||
+        specifier === "../whitespace" ||
+        specifier === "astro/types"
+      ) {
+        continue
+      }
       const named =
         clause.namedBindings && ts.isNamedImports(clause.namedBindings)
           ? clause.namedBindings.elements
@@ -194,6 +230,34 @@ const readFrontmatter = (code, file) => {
         })
         continue
       }
+      const trimmedSlot = simple ? trimmedSlotOf(initializer) : undefined
+      if (trimmedSlot) {
+        result.trimmedSlots.push({
+          local: declaration.name.text,
+          slot: trimmedSlot,
+        })
+        continue
+      }
+      if (
+        simple &&
+        containsKind(
+          initializer,
+          (node) => ts.isIdentifier(node) && node.text === "Fragment",
+        )
+      ) {
+        throw unsupported(
+          file,
+          `Fragment as a value in \`${text}\``,
+          "a tag that is sometimes no element has no port; render the wrapper and the bare content as two branches",
+        )
+      }
+      if (simple && containsKind(initializer, handlerString)) {
+        throw unsupported(
+          file,
+          `a handler string in \`${text}\``,
+          "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
+        )
+      }
       if (simple && ts.isAwaitExpression(initializer)) {
         const call = unwrap(initializer.expression)
         const [value, render] = ts.isCallExpression(call)
@@ -203,7 +267,7 @@ const readFrontmatter = (code, file) => {
           render &&
           ts.isArrowFunction(render) &&
           render.parameters.length === 0 &&
-          SLOT_RENDER.exec(unwrap(render.body).getText(sourceFile))
+          SLOT_RENDER.exec(compact(unwrap(render.body)))
         if (
           rendered &&
           contextCall(call, "provide") &&
@@ -317,6 +381,15 @@ const isBlank = (node) => node.type === "text" && !node.value.trim()
 
 const markupIdentifier = (index) => `${MARKUP}${index}`
 
+const bindingNames = (name) =>
+  ts.isIdentifier(name)
+    ? [name.text]
+    : ts.isObjectBindingPattern(name) || ts.isArrayBindingPattern(name)
+      ? name.elements.flatMap((element) =>
+          ts.isBindingElement(element) ? bindingNames(element.name) : [],
+        )
+      : []
+
 const expressionNode = (node, context) => {
   const markup = []
   const code = node.children
@@ -345,53 +418,127 @@ const expressionNode = (node, context) => {
   }
   const hasPlaceholder = (expression) =>
     expression.getText(sourceFile).includes(MARKUP)
-  const branch = (expression) => {
-    const child = placeholder(expression)
-    if (child) return toTree([child], context)
-    if (hasPlaceholder(expression)) {
+  const nodesOf = (expression, scope) => {
+    const inner = unwrap(expression)
+    const child = placeholder(inner)
+    if (child) return toTree([child], { ...scope, jsx: true })
+    if (
+      ts.isBinaryExpression(inner) &&
+      inner.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken &&
+      placeholder(inner.right)
+    ) {
+      if (hasPlaceholder(inner.left)) {
+        throw unsupported(context.file, `the expression {${code}}`)
+      }
+      return [
+        {
+          consequent: nodesOf(inner.right, scope),
+          test: inner.left.getText(sourceFile),
+          type: "if",
+        },
+      ]
+    }
+    if (ts.isConditionalExpression(inner) && hasPlaceholder(inner)) {
+      if (hasPlaceholder(inner.condition)) {
+        throw unsupported(context.file, `the expression {${code}}`)
+      }
+      return [
+        {
+          alternate: nodesOf(inner.whenFalse, scope),
+          consequent: nodesOf(inner.whenTrue, scope),
+          test: inner.condition.getText(sourceFile),
+          type: "if",
+        },
+      ]
+    }
+    if (hasPlaceholder(inner)) {
       throw unsupported(
         context.file,
         `the expression {${code}}, whose branches hold more than one element`,
       )
     }
-    const text = expression.getText(sourceFile)
+    const text = inner.getText(sourceFile)
     return text === "undefined" || text === "null"
       ? []
       : [{ code: text, type: "expression" }]
   }
   const expression = unwrap(statement.expression)
-  if (
-    ts.isBinaryExpression(expression) &&
-    expression.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken &&
-    placeholder(expression.right)
-  ) {
-    if (hasPlaceholder(expression.left)) {
-      throw unsupported(context.file, `the expression {${code}}`)
+  const callback =
+    ts.isCallExpression(expression) &&
+    ts.isPropertyAccessExpression(expression.expression) &&
+    expression.expression.name.text === "map" &&
+    expression.arguments.length === 1
+      ? unwrap(expression.arguments[0])
+      : undefined
+  if (callback && ts.isArrowFunction(callback) && hasPlaceholder(callback)) {
+    const describe = (what) =>
+      unsupported(context.file, `the expression {${code}}, whose ${what}`)
+    if (callback.parameters.length !== 1) {
+      throw describe("map callback doesn't take one parameter")
     }
-    return {
-      consequent: branch(expression.right),
-      test: expression.left.getText(sourceFile),
-      type: "if",
+    const [parameter] = callback.parameters
+    const statements = ts.isBlock(callback.body) ? callback.body.statements : []
+    const consts = []
+    let returned = ts.isBlock(callback.body) ? undefined : callback.body
+    for (const [index, inner] of statements.entries()) {
+      const [declaration] = ts.isVariableStatement(inner)
+        ? inner.declarationList.declarations
+        : []
+      if (
+        declaration &&
+        inner.declarationList.declarations.length === 1 &&
+        ts.isIdentifier(declaration.name) &&
+        declaration.initializer &&
+        !hasPlaceholder(declaration.initializer)
+      ) {
+        consts.push({
+          code: declaration.initializer.getText(sourceFile),
+          name: declaration.name.text,
+        })
+        continue
+      }
+      if (
+        ts.isReturnStatement(inner) &&
+        inner.expression &&
+        index === statements.length - 1
+      ) {
+        returned = inner.expression
+        continue
+      }
+      throw describe(
+        `map callback has the statement \`${inner.getText(sourceFile).split("\n")[0]}\``,
+      )
     }
+    if (!returned) throw describe("map callback returns nothing")
+    const scope = {
+      ...context,
+      locals: new Set([
+        ...context.locals,
+        ...bindingNames(parameter.name),
+        ...consts.map(({ name }) => name),
+      ]),
+    }
+    const children = nodesOf(returned, scope)
+    const roots = children.filter((child) => !isBlank(child))
+    if (roots.length !== 1 || roots[0].type !== "element") {
+      throw describe("map callback doesn't return one element")
+    }
+    roots[0].keyed = true
+    return [
+      {
+        children,
+        consts,
+        item: parameter.getText(sourceFile),
+        list: expression.expression.expression.getText(sourceFile),
+        optional: !!expression.expression.questionDotToken,
+        type: "each",
+      },
+    ]
   }
-  if (ts.isConditionalExpression(expression) && hasPlaceholder(expression)) {
-    if (hasPlaceholder(expression.condition)) {
-      throw unsupported(context.file, `the expression {${code}}`)
-    }
-    return {
-      alternate: branch(expression.whenFalse),
-      consequent: branch(expression.whenTrue),
-      test: expression.condition.getText(sourceFile),
-      type: "if",
-    }
-  }
-  if (hasPlaceholder(expression)) {
-    throw unsupported(context.file, `the expression {${code}}`)
-  }
-  return { code, type: "expression" }
+  return nodesOf(expression, context)
 }
 
-const isBox = (node) => ["element", "if", "slot"].includes(node.type)
+const isBox = (node) => ["each", "element", "if", "slot"].includes(node.type)
 
 const INLINE_ELEMENTS = new Set([
   "a",
@@ -446,12 +593,53 @@ const boxesOnLines = (children) => {
   return [line, ...boxes.flatMap((box) => [box, line])]
 }
 
+const slotOfHtml = (value, context) => {
+  const code = value.trim()
+  if (code === context.provide?.html) {
+    return { fallback: [], name: context.provide.slot, type: "slot" }
+  }
+  if (context.trimmedSlots.has(code)) {
+    return {
+      fallback: [],
+      name: context.trimmedSlots.get(code),
+      trimmed: true,
+      type: "slot",
+    }
+  }
+  const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
+  const [statement] = sourceFile.statements
+  const expression =
+    statement && ts.isExpressionStatement(statement)
+      ? unwrap(statement.expression)
+      : undefined
+  if (expression && ts.isConditionalExpression(expression)) {
+    const isEmpty = (node) =>
+      ts.isStringLiteral(unwrap(node)) && unwrap(node).text === ""
+    const branches = [expression.whenTrue, expression.whenFalse]
+    const shown = branches.find((branch) => !isEmpty(branch))
+    const slot =
+      shown && branches.some(isEmpty)
+        ? slotOfHtml(unwrap(shown).getText(sourceFile), context)
+        : undefined
+    if (slot?.type === "slot") {
+      const condition = expression.condition.getText(sourceFile)
+      return {
+        consequent: [slot],
+        test: shown === expression.whenTrue ? condition : `!(${condition})`,
+        type: "if",
+      }
+    }
+  }
+  return undefined
+}
+
 const blockChildren = (children) =>
   children.every(isBlank) ? [] : boxesOnLines(children)
 
 const toTree = (nodes, context) =>
   nodes.flatMap((node) => {
     if (node.type === "text") {
+      if (isBlank(node) && context.jsx && node.value.includes("\n")) return []
       return [
         {
           type: "text",
@@ -464,7 +652,7 @@ const toTree = (nodes, context) =>
       ]
     }
     if (node.type === "comment") return []
-    if (node.type === "expression") return [expressionNode(node, context)]
+    if (node.type === "expression") return expressionNode(node, context)
     if (node.type === "element" && node.name === "slot") {
       const name = node.attributes.find((item) => item.name === "name")
       if (node.attributes.some((item) => item.name !== "name")) {
@@ -483,19 +671,16 @@ const toTree = (nodes, context) =>
     }
     if (node.type === "fragment") {
       const [attribute] = node.attributes
-      if (
+      if (node.attributes.length === 0) return toTree(node.children, context)
+      const slot =
         node.attributes.length === 1 &&
         attribute.kind === "expression" &&
         attribute.name === "set:html" &&
-        attribute.value.trim() === context.provide?.html &&
         node.children.length === 0
-      ) {
-        return [{ fallback: [], name: context.provide.slot, type: "slot" }]
-      }
-      throw unsupported(
-        context.file,
-        attribute ? `<Fragment ${attribute.name}>` : "<Fragment>",
-      )
+          ? slotOfHtml(attribute.value, context)
+          : undefined
+      if (slot) return [slot]
+      throw unsupported(context.file, `<Fragment ${attribute.name}>`)
     }
     if (
       node.type === "element" ||
@@ -517,15 +702,25 @@ const toTree = (nodes, context) =>
         node.type === "element" && /^(math|svg)$/.test(node.name)
           ? { ...context, foreign: true }
           : context
+      const html = node.attributes.find((item) => item.name === "set:html")
+      const htmlSlot =
+        html && node.children.length === 0 && html.kind === "expression"
+          ? slotOfHtml(html.value, context)
+          : undefined
+      if (html && !htmlSlot) {
+        throw unsupported(context.file, `set:html={${html.value}}`)
+      }
+      const children = htmlSlot
+        ? [htmlSlot]
+        : node.type !== "component" && !INLINE_ELEMENTS.has(node.name)
+          ? blockChildren(toTree(node.children, inner))
+          : toTree(node.children, inner)
       return [
         {
-          attributes: node.attributes.map((item) =>
-            attributeNode(item, context),
-          ),
-          children:
-            node.type !== "component" && !INLINE_ELEMENTS.has(node.name)
-              ? blockChildren(toTree(node.children, inner))
-              : toTree(node.children, inner),
+          attributes: node.attributes
+            .filter((item) => item !== html)
+            .map((item) => attributeNode(item, context)),
+          children,
           component,
           custom: node.type === "custom-element",
           foreign: context.foreign === true,
@@ -541,6 +736,7 @@ const toTree = (nodes, context) =>
 const elementsIn = (nodes) =>
   nodes.flatMap((node) => {
     if (node.type === "element") return [node, ...elementsIn(node.children)]
+    if (node.type === "each") return elementsIn(node.children)
     if (node.type === "if") {
       return [
         ...elementsIn(node.consequent),
@@ -587,6 +783,9 @@ export const readComponent = async (source, file) => {
       ...frontmatter.derived.map(({ name }) => name),
     ]),
     provide: frontmatter.provide,
+    trimmedSlots: new Map(
+      frontmatter.trimmedSlots.map(({ local, slot }) => [local, slot]),
+    ),
   }
   const tree = toTree(
     body.filter((node) => !isScript(node)),
@@ -605,6 +804,9 @@ export const readComponent = async (source, file) => {
     }
   }
   visit(tree)
+  for (const { slot } of frontmatter.trimmedSlots) {
+    if (!slots.includes(slot)) slots.push(slot)
+  }
   const roots = tree.filter((node) => !isBlank(node))
   const [rootNode] = roots
   const branches =
@@ -790,6 +992,13 @@ const slotsUsedIn = (code) =>
 const codesIn = (nodes) =>
   nodes.flatMap((node) => {
     if (node.type === "expression") return [node.code]
+    if (node.type === "each") {
+      return [
+        node.list,
+        ...node.consts.map(({ code }) => code),
+        ...codesIn(node.children),
+      ]
+    }
     if (node.type === "if") {
       return [
         node.test,
@@ -871,6 +1080,9 @@ const indent = (text, spaces) =>
 const componentImport = ({ folder, local, name }, extension) =>
   `import ${local} from "${folder ? `../${folder}` : "."}/${name}${extension}"`
 
+const propKey = (prop) =>
+  /^[A-Za-z_$][\w$]*$/.test(prop) ? prop : JSON.stringify(prop)
+
 const propsImport = (propsType, file, extra = []) =>
   `import type { ${[propsType === "Props" ? "Props" : `${propsType} as Props`, ...extra].join(", ")} } from "./${file}"`
 
@@ -887,6 +1099,7 @@ const toReact = (component) => {
     slots,
     stringSlots,
     tree,
+    trimmedSlots,
     uid,
     variableTags,
     warnings,
@@ -902,6 +1115,7 @@ const toReact = (component) => {
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
     ...tagConsts.map(({ name }) => [name, lowered(name)]),
+    ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
   ])
   const options = {
     rename,
@@ -984,9 +1198,14 @@ const toReact = (component) => {
   }
   const wrapFragment = (code, nodes) => {
     const significant = nodes.filter((node) => !isBlank(node))
-    return significant.length === 1 && significant[0].type === "element"
-      ? code
-      : `<>${code}</>`
+    const [only] = significant
+    if (significant.length !== 1) return `<>${code}</>`
+    if (only.type === "element") return code
+    if (only.type === "slot" && only.fallback.length === 0) {
+      return slotProp(only.name)
+    }
+    if (only.type === "expression") return rewriteExpression(only.code, options)
+    return `<>${code}</>`
   }
   const conditional = (node) => {
     const test = rewriteExpression(node.test, options)
@@ -1011,9 +1230,21 @@ const toReact = (component) => {
           return `{${name} === undefined ? (${wrapFragment(emit(node.fallback), node.fallback)}) : (${name})}`
         }
         if (node.type === "if") return `{${conditional(node)}}`
-        const attributes = node.attributes
-          .map((item) => attribute(node, item))
-          .join(" ")
+        if (node.type === "each") {
+          const consts = node.consts.map(
+            ({ code, name }) =>
+              `const ${name} = ${rewriteExpression(code, options)}`,
+          )
+          const body = wrapFragment(emit(node.children), node.children)
+          const returned = consts.length
+            ? `{\n${consts.join("\n")}\nreturn (\n${body}\n)\n}`
+            : `(\n${body}\n)`
+          return `{${node.list}${node.optional ? "?" : ""}.map((${node.item}, index) => ${returned})}`
+        }
+        const attributes = [
+          ...(node.keyed ? ["key={index}"] : []),
+          ...node.attributes.map((item) => attribute(node, item)),
+        ].join(" ")
         const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
         return node.children.length === 0
           ? `${open} />`
@@ -1029,9 +1260,10 @@ const toReact = (component) => {
     ...(scripts.length ? ["useEffect"] : []),
     ...(uid ? ["useId"] : []),
   ]
+  const usesElementType = tagProps.length > 0 || tagConsts.length > 0
   const reactImport = reactValues.length
-    ? `import { ${[...(variableTags.length ? ["type ElementType"] : []), ...reactValues].join(", ")} } from "react"`
-    : variableTags.length
+    ? `import { ${[...(usesElementType ? ["type ElementType"] : []), ...reactValues].join(", ")} } from "react"`
+    : usesElementType
       ? `import type { ElementType } from "react"`
       : undefined
   const importLines = [
@@ -1064,10 +1296,16 @@ const toSvelte = (component) => {
     slots,
     stringSlots,
     tree,
+    trimmedSlots,
     uid,
     warnings,
   } = component
-  const options = { slotHas: (name) => slotProp(name) }
+  const options = {
+    rename: new Map(
+      trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
+    ),
+    slotHas: (name) => slotProp(name),
+  }
   const props = component.props.filter(
     ({ local }) => !stringSlots.includes(local),
   )
@@ -1075,7 +1313,7 @@ const toSvelte = (component) => {
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(
       ({ default: fallback, local, prop }) =>
-        `${prop === local ? prop : `${prop}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
+        `${prop === local ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
     )
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   let usesElements = false
@@ -1126,6 +1364,15 @@ const toSvelte = (component) => {
           const consequent = emit(node.consequent)
           if (!node.alternate) return `{#if ${test}}${consequent}{/if}`
           return `{#if ${test}}${consequent}{:else}${emit(node.alternate)}{/if}`
+        }
+        if (node.type === "each") {
+          const consts = node.consts
+            .map(
+              ({ code, name }) =>
+                `{@const ${name} = ${rewriteExpression(code, options)}}`,
+            )
+            .join("")
+          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, index (index)}${consts}${emit(node.children)}{/each}`
         }
         const attributes = node.attributes
           .map((item) => attribute(node, item))
@@ -1216,6 +1463,7 @@ const toVue = (component) => {
     rootElements,
     slots,
     tree,
+    trimmedSlots,
     uid,
     variableTags,
     warnings,
@@ -1249,12 +1497,14 @@ const toVue = (component) => {
           : [],
     ),
     ...(restUsed ? [[rest, "attrs"]] : []),
+    ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
   ])
   const derivedNames = new Set(derived.map(({ name }) => name))
   const scriptRename = new Map([
     ...rename,
     ...(classInScript ? [[classProp.local, classProp.local]] : []),
     ...derived.map(({ name }) => [name, `${name}.value`]),
+    ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
   ])
   const template = {
     quote: "'",
@@ -1278,62 +1528,131 @@ const toVue = (component) => {
       )
       .map(({ default: fallback, local, prop }) => ({
         prop,
-        text: `${local === prop ? prop : `${prop}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
+        text: `${local === prop ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
       })),
   ]
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(({ text }) => text)
   const slotsInScript = scriptCodes(component).some(
-    (code) => slotsUsedIn(code).length > 0,
+    (code) =>
+      slotsUsedIn(code).length > 0 ||
+      trimmedSlots.some(({ local }) => identifiersIn(code).has(local)),
   )
-  const attribute = (node, item) => {
+  let usesTrimmedSlot = false
+  const attribute = (node, item, scope) => {
     if (item.kind === "class") {
-      return `:class="${rewriteExpression(item.code, template)}"`
+      return `:class="${rewriteExpression(item.code, scope)}"`
     }
     if (item.kind === "spread") {
       if (item.code === rest) {
         return rootElements.includes(node) ? "" : `v-bind="attrs"`
       }
-      return `v-bind="${rewriteExpression(item.code, template)}"`
+      return `v-bind="${rewriteExpression(item.code, scope)}"`
     }
     if (item.kind === "static") {
       return `${item.name}=${JSON.stringify(item.value)}`
     }
     if (item.kind === "boolean") return item.name
-    return `:${item.name}="${rewriteExpression(item.code, template)}"`
+    return `:${item.name}="${rewriteExpression(item.code, scope)}"`
   }
-  const directive = (nodes, name, test) => {
+  const directive = (nodes, name, test, scope) => {
     const significant = nodes.filter((node) => !isBlank(node))
     const clause = test === undefined ? name : `${name}="${test}"`
     if (significant.length === 1 && significant[0].type !== "if") {
-      return emitOne(significant[0], clause)
+      return emitOne(significant[0], clause, scope)
     }
-    return `<template ${clause}>${emit(nodes)}</template>`
+    return `<template ${clause}>${emit(nodes, scope)}</template>`
   }
-  const emitOne = (node, clause) => {
+  const emitOne = (node, clause, scope) => {
     if (node.type === "text") {
       return node.value === " " ? '{{ " " }}' : node.value
     }
     if (node.type === "expression") {
-      const code = rewriteExpression(node.code, template)
+      const code = rewriteExpression(node.code, scope)
       return clause
         ? `<template ${clause}>{{ ${code} }}</template>`
         : `{{ ${code} }}`
     }
     if (node.type === "slot") {
-      const name = node.name === "default" ? "" : ` name="${node.name}"`
       const slotClause = clause ? ` ${clause}` : ""
-      return `<slot${slotClause}${name}>${emit(node.fallback)}</slot>`
+      if (node.trimmed) {
+        usesTrimmedSlot = true
+        return `<TrimmedSlot${slotClause} :nodes="$slots${vueSlot(node.name)}?.()" />`
+      }
+      const name = node.name === "default" ? "" : ` name="${node.name}"`
+      return `<slot${slotClause}${name}>${emit(node.fallback, scope)}</slot>`
     }
     if (node.type === "if") {
-      const test = rewriteExpression(node.test, template)
-      const consequent = directive(node.consequent, "v-if", test)
+      const test = rewriteExpression(node.test, scope)
+      const consequent = directive(node.consequent, "v-if", test, scope)
       if (!node.alternate) return consequent
-      return `${consequent}${directive(node.alternate, "v-else")}`
+      return `${consequent}${directive(node.alternate, "v-else", undefined, scope)}`
     }
+    if (node.type === "each") {
+      const inner = {
+        ...scope,
+        rename: new Map([
+          ...scope.rename,
+          ...node.consts.map(({ code, name }) => [
+            name,
+            `(${rewriteExpression(code, scope)})`,
+          ]),
+        ]),
+      }
+      const root = node.children.find((child) => !isBlank(child))
+      return emitOne(
+        root,
+        `v-for="(${node.item}, index) in ${rewriteExpression(node.list, scope)}" :key="index"`,
+        inner,
+      )
+    }
+    const spreads = node.attributes.filter(
+      (item) =>
+        item.kind === "spread" &&
+        !(item.code === rest && rootElements.includes(node)),
+    )
+    const first = node.attributes.indexOf(spreads[0])
+    const last = node.attributes.indexOf(spreads.at(-1))
+    const merged = (item) => {
+      const key = /^[A-Za-z_$][\w$]*$/.test(item.name ?? "")
+        ? item.name
+        : `'${item.name}'`
+      if (item.kind === "spread") {
+        return `...${item.code === rest ? "attrs" : rewriteExpression(item.code, scope)}`
+      }
+      if (item.kind === "static") {
+        return `${key}: ${rewriteExpression(JSON.stringify(item.value), scope)}`
+      }
+      if (item.kind === "boolean") return `${key}: true`
+      if (item.kind === "expression") {
+        return `${key}: ${rewriteExpression(item.code, scope)}`
+      }
+      throw unsupported(
+        component.file,
+        `a class list between two spreads on <${node.tag}>`,
+      )
+    }
+    const bound =
+      spreads.length > 1
+        ? [
+            ...node.attributes.slice(0, first),
+            {
+              kind: "bound",
+              text: `v-bind="{ ${node.attributes
+                .slice(first, last + 1)
+                .map(merged)
+                .join(", ")} }"`,
+            },
+            ...node.attributes.slice(last + 1),
+          ]
+        : node.attributes
     const attributes = [
       ...(clause ? [clause] : []),
-      ...node.attributes.map((item) => attribute(node, item)).filter(Boolean),
+      ...bound
+        .map((item) =>
+          item.kind === "bound" ? item.text : attribute(node, item, scope),
+        )
+        .filter(Boolean),
       ...(rootElements.includes(node) &&
       !node.attributes.some((item) => item.kind === "class")
         ? [':class="$props.class"']
@@ -1341,7 +1660,7 @@ const toVue = (component) => {
     ].join(" ")
     const tag = node.variable || node.custom ? "component" : node.tag
     const is = node.variable
-      ? ` :is="${node.tag}"`
+      ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
       : node.custom
         ? ` is="${node.tag}"`
         : ""
@@ -1355,17 +1674,20 @@ const toVue = (component) => {
     ) {
       return `${open} />`
     }
-    return `${open}>${emit(node.children)}</${tag}>`
+    return `${open}>${emit(node.children, scope)}</${tag}>`
   }
-  const emit = (nodes) => nodes.map((node) => emitOne(node)).join("")
-  const markup = emit(tree)
+  const emit = (nodes, scope) =>
+    nodes.map((node) => emitOne(node, undefined, scope)).join("")
+  const markup = emit(tree, template)
   const slotsType =
     propsType !== "Props" && slots.some((slot) => slot !== "default")
       ? `${component.name}Slots`
       : "Slots"
   const provided = provide?.value.map(({ code, key }) =>
     derivedNames.has(code)
-      ? `${key}: ${code}`
+      ? code === key
+        ? key
+        : `${key}: ${code}`
       : `${key}: computed(() => ${rewriteExpression(code, script)})`,
   )
   const vueImports = [
@@ -1383,6 +1705,9 @@ const toVue = (component) => {
       ? [`import { ${vueImports.join(", ")} } from "vue"`]
       : []),
     ...(attrsOnInner ? [`import { useInputAttrs } from "../vue"`] : []),
+    ...(usesTrimmedSlot
+      ? [`import { TrimmedSlot } from "../whitespace.vue"`]
+      : []),
     ...components
       .map((entry) => componentImport(entry, ".vue"))
       .toSorted(byName),
@@ -1494,6 +1819,12 @@ export const toTypes = (
   for (const alias of aliases) {
     if (!/^export type \w+ =[\s\S]*HTMLAttributes</.test(alias.text)) {
       throw unsupported(file, `the type ${alias.name}`)
+    }
+    if (!alias.name.endsWith("Props")) {
+      throw unsupported(
+        file,
+        `the type ${alias.name}, which isn't a component's Props`,
+      )
     }
   }
   const slotted = aliases.filter(({ name }) => slotTypes.has(slotsTypeOf(name)))

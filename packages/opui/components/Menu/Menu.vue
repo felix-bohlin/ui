@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, provide, reactive } from "vue"
-import { warnMissingId } from "../dev"
 import { MenuKey } from "./context.vue"
+import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -16,15 +16,17 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-warnMissingId("Menu", id)
 const parent = inject(MenuKey, undefined)
+
 const rootId = computed(() => parent?.rootId ?? id)
+
+warnMissingId("Menu", id)
+
 provide(MenuKey, reactive({ rootId }))
 </script>
 
 <template>
   <menu
-    :id="id"
     :class="[
       'ui-menu',
       {
@@ -35,6 +37,7 @@ provide(MenuKey, reactive({ rootId }))
       side && side !== 'block-end' && `ui-${side}`,
       $props.class,
     ]"
+    :id="id"
     :popover="popover === 'auto' ? '' : popover"
   >
     <li
@@ -56,20 +59,19 @@ provide(MenuKey, reactive({ rootId }))
     >
       <component
         :is="href ? 'a' : 'button'"
-        :command="!href && !keepOpen && !disabled ? 'hide-popover' : undefined"
-        :commandfor="!href && !keepOpen && !disabled ? rootId : undefined"
         v-bind="{
           ...tagAttrs(href ? 'a' : 'button', disabled, href),
+          command: !href && !keepOpen && !disabled ? 'hide-popover' : undefined,
+          commandfor: !href && !keepOpen && !disabled ? rootId : undefined,
           ...itemRest,
         }"
-      >
-        <div class="ui-text">
+        ><div class="ui-text">
           <p>{{ label }}</p>
         </div>
         <div v-if="shortcut" class="ui-end">
           <kbd>{{ shortcut }}</kbd>
-        </div>
-      </component>
+        </div></component
+      >
     </li>
     <slot></slot>
   </menu>

@@ -1,6 +1,6 @@
+import { cx } from "../cx"
 import Anchor from "../Anchor/Anchor.react"
 import AnchorContent from "../Anchor/AnchorContent.react"
-import { cx } from "../cx"
 import type { Props } from "./types.react"
 
 export default function Badge({
@@ -15,14 +15,13 @@ export default function Badge({
   indicator,
   ...rest
 }: Props) {
+  const hidden = dot || hideLabel
+
   return (
     <Anchor
       className={cx([
         "ui-badge",
-        {
-          "ui-dot": dot,
-          "ui-invisible": invisible,
-        },
+        { "ui-dot": dot, "ui-invisible": invisible },
         color && `ui-${color}`,
         corner && corner !== "start-end" && `ui-${corner}`,
         className,
@@ -32,17 +31,14 @@ export default function Badge({
       {children}
       <AnchorContent>
         <span className="ui-indicator">
-          {dot || hideLabel ? (
+          {hidden && (
             <>
               {!dot && indicator && <span aria-hidden="true">{indicator}</span>}
               {label && <span className="ui-sr-only">{label}</span>}
             </>
-          ) : (
-            <>
-              {label}
-              {indicator}
-            </>
           )}
+          {hidden ? undefined : label}
+          {!hidden && indicator}
         </span>
       </AnchorContent>
     </Anchor>

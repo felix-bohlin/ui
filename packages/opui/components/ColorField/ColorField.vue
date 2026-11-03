@@ -44,7 +44,7 @@ const model = computed({
 })
 
 const generatedId = useId()
-const inputId = computed(() => id ?? generatedId)
+const inputId = computed(() => id ?? `color-field-${generatedId}`)
 const sliders = computed(() => channelsFor(alpha))
 const field = inject(FieldGroupKey, undefined)
 </script>

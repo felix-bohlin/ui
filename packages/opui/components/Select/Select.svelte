@@ -40,11 +40,12 @@
 
   const uid = $props.id()
   const field = getFieldGroupContext()
-  const labelId = `select-label-${uid}`
-  const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
-  const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
-  const topId = $derived(top ? `top-${uid}` : undefined)
-  const bottomId = $derived(bottom ? `bottom-${uid}` : undefined)
+  const base = $derived(id ?? `select-${uid}`)
+  const labelId = $derived(`${base}-label`)
+  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
+  const topId = $derived(top ? `${base}-top` : undefined)
+  const bottomId = $derived(bottom ? `${base}-bottom` : undefined)
   const describedBy = $derived(
     idRefs(topId, startTextId, endTextId, bottomId, rest["aria-describedby"]),
   )

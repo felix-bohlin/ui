@@ -39,11 +39,12 @@ export default function TextField({
   const Root = passwordToggle ? "opui-text-field" : "label"
   const Label = passwordToggle ? "label" : "span"
   const hasEndText = Boolean(endText || characterCount)
-  const inputId = passwordToggle ? (id ?? `${generatedId}text-field`) : id
+  const base = id ?? `text-field-${generatedId}`
+  const inputId = passwordToggle ? base : id
   const startTextId =
-    passwordToggle && startText ? `${generatedId}start-text` : undefined
+    passwordToggle && startText ? `${base}-start-text` : undefined
   const endTextId =
-    passwordToggle && hasEndText ? `${generatedId}end-text` : undefined
+    passwordToggle && hasEndText ? `${base}-end-text` : undefined
 
   useEffect(() => {
     if (characterCount) void import("../../elements/character-count.js")

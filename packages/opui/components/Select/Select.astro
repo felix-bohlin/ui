@@ -2,7 +2,7 @@
 import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
-import { createId, idRefs } from "../id"
+import { createIds, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 export const title = "Select"
@@ -32,14 +32,14 @@ const {
 
 const SelectedContent = "selectedcontent"
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
-const labelId = $id("select-label")
+const ids = createIds(Astro.locals, "select", id)
+const labelId = ids("label")
 const startTextId =
-  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+  startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
-  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
-const topId = Astro.slots.has("top") ? $id("top") : undefined
-const bottomId = Astro.slots.has("bottom") ? $id("bottom") : undefined
+  endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
+const topId = Astro.slots.has("top") ? ids("top") : undefined
+const bottomId = Astro.slots.has("bottom") ? ids("bottom") : undefined
 const describedBy = idRefs(
   topId,
   startTextId,

@@ -43,13 +43,12 @@
   const hasDatalist = $derived(!!items || !!datalist)
   const middle = $derived(defaultValue({ max, min, step }))
 
-  const inputId = $derived(id || (hasValue ? `range-${uid}` : undefined))
-  const labelId = $derived(hasLabel ? `range-label-${uid}` : undefined)
-  const startTextId = $derived(startText ? `range-start-${uid}` : undefined)
-  const endTextId = $derived(endText ? `range-end-${uid}` : undefined)
-  const listId = $derived(
-    list ?? (hasDatalist ? `range-list-${uid}` : undefined),
-  )
+  const base = $derived(id || `range-${uid}`)
+  const inputId = $derived(id || (hasValue ? base : undefined))
+  const labelId = $derived(hasLabel ? `${base}-label` : undefined)
+  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
+  const listId = $derived(list ?? (hasDatalist ? `${base}-list` : undefined))
   const describedBy = $derived(
     idRefs(startTextId, endTextId, rest["aria-describedby"]),
   )

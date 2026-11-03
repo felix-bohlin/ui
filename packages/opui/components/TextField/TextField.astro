@@ -3,7 +3,7 @@ import Button from "../Button/Button.astro"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createId, idRefs } from "../id"
+import { createIds, idRefs } from "../id"
 import { hidePath, showPath } from "./icons"
 import { cx } from "../cx"
 
@@ -36,7 +36,7 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
+const ids = createIds(Astro.locals, "text-field", id)
 const Root = passwordToggle ? "opui-text-field" : "label"
 const Label =
   label || Astro.slots.has("label")
@@ -48,10 +48,10 @@ const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
 )
-const inputId = passwordToggle ? (id ?? $id("text-field")) : id
+const inputId = passwordToggle ? ids() : id
 const startTextId =
-  passwordToggle && hasStartText ? $id("start-text") : undefined
-const endTextId = passwordToggle && hasEndText ? $id("end-text") : undefined
+  passwordToggle && hasStartText ? ids("start-text") : undefined
+const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
 ---
 
 <Root

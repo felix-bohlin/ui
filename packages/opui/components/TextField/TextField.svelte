@@ -42,12 +42,13 @@
 
   const field = getFieldGroupContext()
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const inputId = $derived(passwordToggle ? (id ?? `${uid}-text-field`) : id)
+  const base = $derived(id ?? `text-field-${uid}`)
+  const inputId = $derived(passwordToggle ? base : id)
   const startTextId = $derived(
-    passwordToggle && startText ? `${uid}-start-text` : undefined,
+    passwordToggle && startText ? `${base}-start-text` : undefined,
   )
   const endTextId = $derived(
-    passwordToggle && hasEndText ? `${uid}-end-text` : undefined,
+    passwordToggle && hasEndText ? `${base}-end-text` : undefined,
   )
 </script>
 

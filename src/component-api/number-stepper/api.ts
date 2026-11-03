@@ -78,7 +78,7 @@ export default {
     },
     {
       description:
-        "The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out.",
+        'The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it\'s left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",

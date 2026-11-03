@@ -71,16 +71,15 @@ const field = inject(FieldGroupKey, undefined)
 const hasValue = computed(
   () => valueSuffix !== undefined || !!slots["value-text"],
 )
-const inputId = computed(
-  () => id || (hasValue.value ? `range-${uid}` : undefined),
-)
+const base = computed(() => id || `range-${uid}`)
+const inputId = computed(() => id || (hasValue.value ? base.value : undefined))
 const listId = computed(
-  () => list ?? (items || slots.datalist ? `range-list-${uid}` : undefined),
+  () => list ?? (items || slots.datalist ? `${base.value}-list` : undefined),
 )
 
-const labelId = `range-label-${uid}`
-const startTextId = `range-start-${uid}`
-const endTextId = `range-end-${uid}`
+const labelId = computed(() => `${base.value}-label`)
+const startTextId = computed(() => `${base.value}-start-text`)
+const endTextId = computed(() => `${base.value}-end-text`)
 </script>
 
 <template>

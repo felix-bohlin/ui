@@ -47,12 +47,12 @@ const model = computed({
 })
 
 const generatedId = useId()
-const inputId = computed(() => id ?? generatedId)
+const inputId = computed(() => id ?? `number-stepper-${generatedId}`)
 const startTextId = computed(() =>
-  startText || slots["start-text"] ? `${generatedId}-start-text` : undefined,
+  startText || slots["start-text"] ? `${inputId.value}-start-text` : undefined,
 )
 const endTextId = computed(() =>
-  endText || slots["end-text"] ? `${generatedId}-end-text` : undefined,
+  endText || slots["end-text"] ? `${inputId.value}-end-text` : undefined,
 )
 const field = inject(FieldGroupKey, undefined)
 </script>

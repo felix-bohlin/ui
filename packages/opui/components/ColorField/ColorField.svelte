@@ -30,7 +30,7 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const inputId = $derived(id ?? generatedId)
+  const inputId = $derived(id ?? `color-field-${generatedId}`)
 </script>
 
 <opui-color-field class={["ui-color-field", className]} {style}>

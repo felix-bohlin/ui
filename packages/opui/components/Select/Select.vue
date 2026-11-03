@@ -60,11 +60,12 @@ const isSelected = (value: unknown) =>
     : model.value === value
 
 const uid = useId()
-const labelId = `select-label-${uid}`
-const startTextId = `start-text-${uid}`
-const endTextId = `end-text-${uid}`
-const topId = `top-${uid}`
-const bottomId = `bottom-${uid}`
+const base = computed(() => id ?? `select-${uid}`)
+const labelId = computed(() => `${base.value}-label`)
+const startTextId = computed(() => `${base.value}-start-text`)
+const endTextId = computed(() => `${base.value}-end-text`)
+const topId = computed(() => `${base.value}-top`)
+const bottomId = computed(() => `${base.value}-bottom`)
 const field = inject(FieldGroupKey, undefined)
 </script>
 

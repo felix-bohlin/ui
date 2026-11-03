@@ -495,6 +495,9 @@ export const whatsNew = {
     `The container query reads <code>inline-size</code>, so the <a href="#orientation">orientation</a> follows the writing mode.`,
   ],
   dialog: [
+    components(
+      `The generated title id starts with the dialog's <a href="#api"><code>id</code></a>: <code>x-title</code> for <code>id="x"</code>.`,
+    ),
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
     {
       html: `Breaking: the <a href="#basics">header</a> is a <code>div.ui-header</code> row instead of an <code>hgroup</code>, like the <code>Drawer</code> header, and <code>.ui-footer</code> replaces <code>.ui-actions</code>. Point <code>aria-labelledby</code> at the title heading.`,
@@ -741,6 +744,9 @@ export const whatsNew = {
     ),
   ],
   "number-stepper": [
+    components(
+      `The start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
+    ),
     {
       default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-stepper&gt;</code> custom element, which the component loads.`,
       html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-stepper.js</code> for the <code>&lt;opui-number-stepper&gt;</code> custom element that runs them.`,
@@ -835,6 +841,9 @@ export const whatsNew = {
   ],
   range: [
     components(
+      `The ids the range generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code> and <code>x-list</code> for <code>id="x"</code>.`,
+    ),
+    components(
       `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
     ),
     `Breaking: <code>--_thumb-highlight-color</code>, <code>--_track-color</code>, <code>--_track-fill-color</code>, <code>--_track-fill</code> and <code>--_track-height</code> are <code>--_thumb-highlight-bg-color</code>, <code>--_track-bg-color</code>, <code>--_track-fill-bg-color</code>, <code>--_track-fill-fraction</code> and <code>--_track-block-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -906,6 +915,9 @@ export const whatsNew = {
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
   ],
   select: [
+    components(
+      `The ids the select generates start with its <a href="#api"><code>id</code></a>: <code>x-label</code>, <code>x-start-text</code>, <code>x-end-text</code>, <code>x-top</code> and <code>x-bottom</code> for <code>id="x"</code>.`,
+    ),
     `The <a href="#variants">picker</a> is <code>--ui-surface-elevated</code> with the raised edge, like menus, and reads <code>--ui-border-color-raised</code> when a theme sets it.`,
     `Helper text reads <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
@@ -1146,6 +1158,9 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   "text-field": [
+    components(
+      `With <code>passwordToggle</code>, the start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
+    ),
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-field-bg-color</code></a>, <code>--ui-field-padding-inline</code> (<code>--ui-field-padding-inline-large</code> for large fields) and <code>--ui-field-placeholder-text-color</code>.`,
     components(

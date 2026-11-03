@@ -27,9 +27,9 @@ export default function NumberStepper({
 }: Props) {
   const field = useFieldGroupContext()
   const generatedId = useId()
-  const inputId = id ?? generatedId
-  const startTextId = startText ? `${generatedId}start-text` : undefined
-  const endTextId = endText ? `${generatedId}end-text` : undefined
+  const inputId = id ?? `number-stepper-${generatedId}`
+  const startTextId = startText ? `${inputId}-start-text` : undefined
+  const endTextId = endText ? `${inputId}-end-text` : undefined
 
   useEffect(() => {
     void import("../../elements/number-stepper.js")

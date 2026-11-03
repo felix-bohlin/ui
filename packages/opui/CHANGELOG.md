@@ -330,6 +330,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Dialog` has a maximum height. The header and footer stay in place and the content scrolls.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
 - `Dialog` fades its backdrop in with the panel.
+- `Dialog`, `NumberStepper`, `Range`, `Select` and `TextField` start every id they generate with the `id` you pass, or with one id they generate per instance: for `id="x"` the label is `x-label`, the start and end text `x-start-text` and `x-end-text`, the top and bottom of a Select `x-top` and `x-bottom`, the tick list of a Range `x-list` and the title of a Dialog `x-title`.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 - `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.

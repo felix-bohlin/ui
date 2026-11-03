@@ -1,6 +1,6 @@
 ---
 import type { Props } from "./types.astro"
-import { createId, idRefs } from "../id"
+import { createIds, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { defaultValue } from "./value"
 
@@ -34,7 +34,7 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
+const ids = createIds(Astro.locals, "range", id || undefined)
 
 const hasLabel = !!label || Astro.slots.has("label")
 const hasStartText = !!startText || Astro.slots.has("start-text")
@@ -44,11 +44,11 @@ const hasValue = valueSuffix !== undefined || hasValueText
 const hasDatalist = !!items || Astro.slots.has("datalist")
 const valueText = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
 
-const inputId = id || (hasValue ? $id("range") : undefined)
-const labelId = hasLabel ? $id("range-label") : undefined
-const startTextId = hasStartText ? $id("range-start") : undefined
-const endTextId = hasEndText ? $id("range-end") : undefined
-const listId = list ?? (hasDatalist ? $id("range-list") : undefined)
+const inputId = id || (hasValue ? ids() : undefined)
+const labelId = hasLabel ? ids("label") : undefined
+const startTextId = hasStartText ? ids("start-text") : undefined
+const endTextId = hasEndText ? ids("end-text") : undefined
+const listId = list ?? (hasDatalist ? ids("list") : undefined)
 
 const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
 ---

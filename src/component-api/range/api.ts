@@ -109,7 +109,7 @@ export default {
     },
     {
       description:
-        "The id of the `<input>`. Generated when omitted and the value is shown.",
+        'The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",

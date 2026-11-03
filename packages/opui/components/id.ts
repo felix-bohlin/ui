@@ -2,6 +2,18 @@ export const createId = (locals: { $id?: (prefix: string) => string }) =>
   locals.$id ??
   ((prefix: string) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`)
 
+export const createIds = (
+  locals: { $id?: (prefix: string) => string },
+  prefix: string,
+  id?: string | null,
+) => {
+  let base = id
+  return (part?: string) => {
+    base ??= createId(locals)(prefix)
+    return part ? `${base}-${part}` : base
+  }
+}
+
 export const autoLabelledBy = (attrs: Record<string, unknown>, id: string) =>
   attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : id
 

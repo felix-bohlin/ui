@@ -13,7 +13,7 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const titleId = `dialog-title-${uid}`
+  const titleId = $derived(`${rest.id ?? `dialog-${uid}`}-title`)
   const labelledBy = $derived(autoLabelledBy(rest, titleId))
 
   setDialogContext({

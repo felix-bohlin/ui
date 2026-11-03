@@ -345,13 +345,18 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 
 ### End Text & ARIA
 
-When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
 
 ```astro
 ---
-const { "aria-describedby": ariaDescribedBy, endText, ...rest } = Astro.props
-const $id = createId(Astro.locals)
-const endTextId = endText ? $id("end-text") : undefined
+const {
+  "aria-describedby": ariaDescribedBy,
+  endText,
+  id,
+  ...rest
+} = Astro.props
+const ids = createIds(Astro.locals, "number-stepper", id)
+const endTextId = endText ? ids("end-text") : undefined
 ---
 
 <input {...rest} aria-describedby={idRefs(endTextId, ariaDescribedBy)} />
@@ -411,6 +416,8 @@ When building forms, follow this nesting order inside a `Fieldset`:
 ### Unique IDs
 
 Always use `createId(Astro.locals)` from `../id` for IDs in Astro. It falls back to random IDs when no middleware sets `Astro.locals.$id`. In React and Vue, use `useId()`, and in Svelte, `$props.id()`. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page. Only generate an id for elements the component links itself; don't generate an input `id` the user didn't pass.
+
+A component with several linked parts takes one base per instance, the `id` the user passed or one generated id, and names each part after it: `${base}-label`, `${base}-start-text`, `${base}-end-text`. In Astro, `createIds(Astro.locals, prefix, id)` from `../id` returns that function and asks `$id` for the base at most once; in React, Svelte and Vue the base is `` id ?? `${prefix}-${uid}` ``. `tests/unit/component-ids.test.ts` checks it in every framework.
 
 ```astro
 ---

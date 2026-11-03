@@ -3,7 +3,7 @@ import Button from "../Button/Button.astro"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createId, idRefs } from "../id"
+import { createIds, idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import { cx } from "../cx"
 
@@ -30,12 +30,12 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
-const inputId = id ?? $id("number-stepper")
+const ids = createIds(Astro.locals, "number-stepper", id)
+const inputId = ids()
 const startTextId =
-  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+  startText || Astro.slots.has("start-text") ? ids("start-text") : undefined
 const endTextId =
-  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+  endText || Astro.slots.has("end-text") ? ids("end-text") : undefined
 const LabelTag = label || Astro.slots.has("label") ? "label" : Fragment
 ---
 

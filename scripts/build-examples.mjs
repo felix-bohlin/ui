@@ -26,7 +26,12 @@ import {
   markupText,
   templateLiteral,
 } from "./example-encoders.mjs"
-import { createExampleIdGenerator } from "../src/utils/id.ts"
+import {
+  assignExampleIds,
+  createExampleIdPlaceholders,
+  exampleKeyOf,
+  ID_PLACEHOLDER,
+} from "./example-ids.mjs"
 import {
   byAttributeName,
   generatedTargets,
@@ -1564,7 +1569,11 @@ export const cleanRender = (html, blankLines = [], classes = new Map()) =>
 
 export const htmlFromRender = async (rendered, source, file, classes) => {
   const example = await readExample(source, file)
-  const markup = cleanRender(rendered, example.blankLines, classes)
+  const markup = cleanRender(
+    assignExampleIds(rendered, exampleKeyOf(file)),
+    example.blankLines,
+    classes,
+  )
   const imports = scriptImports(markup, await elementTags())
   const modules = [
     imports.join("\n"),
@@ -1605,11 +1614,16 @@ const createRenderer = async () => {
   return {
     close: () => server.close().catch(() => {}),
     render: async (key, source) => {
+      if (source.includes(ID_PLACEHOLDER)) {
+        throw new Error(
+          `src/component-examples/${key}.astro contains ${ID_PLACEHOLDER}, which the generator uses for ids from Astro.locals.$id`,
+        )
+      }
       const module = await server.ssrLoadModule(
         `/src/component-examples/${key}.astro`,
       )
       return container.renderToString(module.default, {
-        locals: { $id: createExampleIdGenerator(key, source) },
+        locals: { $id: createExampleIdPlaceholders() },
       })
     },
   }

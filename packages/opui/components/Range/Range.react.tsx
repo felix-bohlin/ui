@@ -68,11 +68,12 @@ export default function Range({
   const middle = () => defaultValue({ max, min, step })
   const shown = value ?? current ?? middle()
 
-  const inputId = id || (hasValue ? `range-${uid}` : undefined)
-  const labelId = hasLabel ? `range-label-${uid}` : undefined
-  const startTextId = startText ? `range-start-${uid}` : undefined
-  const endTextId = endText ? `range-end-${uid}` : undefined
-  const listId = list ?? (hasDatalist ? `range-list-${uid}` : undefined)
+  const base = id || `range-${uid}`
+  const inputId = id || (hasValue ? base : undefined)
+  const labelId = hasLabel ? `${base}-label` : undefined
+  const startTextId = startText ? `${base}-start-text` : undefined
+  const endTextId = endText ? `${base}-end-text` : undefined
+  const listId = list ?? (hasDatalist ? `${base}-list` : undefined)
   const describedBy = idRefs(startTextId, endTextId, rest["aria-describedby"])
 
   return (

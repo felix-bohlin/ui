@@ -35,11 +35,12 @@ export default function Select({
 }: Props) {
   const uid = useId()
   const field = useFieldGroupContext()
-  const labelId = `select-label-${uid}`
-  const startTextId = startText ? `start-text-${uid}` : undefined
-  const endTextId = endText ? `end-text-${uid}` : undefined
-  const topId = top ? `top-${uid}` : undefined
-  const bottomId = bottom ? `bottom-${uid}` : undefined
+  const base = id ?? `select-${uid}`
+  const labelId = `${base}-label`
+  const startTextId = startText ? `${base}-start-text` : undefined
+  const endTextId = endText ? `${base}-end-text` : undefined
+  const topId = top ? `${base}-top` : undefined
+  const bottomId = bottom ? `${base}-bottom` : undefined
   const describedBy = idRefs(
     topId,
     startTextId,

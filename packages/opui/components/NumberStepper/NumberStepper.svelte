@@ -31,11 +31,9 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const inputId = $derived(id ?? generatedId)
-  const startTextId = $derived(
-    startText ? `${generatedId}-start-text` : undefined,
-  )
-  const endTextId = $derived(endText ? `${generatedId}-end-text` : undefined)
+  const inputId = $derived(id ?? `number-stepper-${generatedId}`)
+  const startTextId = $derived(startText ? `${inputId}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${inputId}-end-text` : undefined)
 </script>
 
 <opui-number-stepper

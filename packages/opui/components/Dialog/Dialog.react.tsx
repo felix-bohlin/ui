@@ -7,7 +7,8 @@ import { DialogContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function Dialog({ className, closedby, ...rest }: Props) {
-  const titleId = `dialog-title-${useId()}`
+  const uid = useId()
+  const titleId = `${rest.id ?? `dialog-${uid}`}-title`
   const labelledBy = autoLabelledBy(rest, titleId)
 
   return (

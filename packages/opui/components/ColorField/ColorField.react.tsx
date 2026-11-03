@@ -26,7 +26,7 @@ export default function ColorField({
 }: Props) {
   const field = useFieldGroupContext()
   const generatedId = useId()
-  const inputId = id ?? generatedId
+  const inputId = id ?? `color-field-${generatedId}`
 
   useEffect(() => {
     void import("../../elements/color-field.js")

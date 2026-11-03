@@ -1,13 +1,13 @@
 ---
 import type { Props } from "./types.astro"
-import { autoLabelledBy, createId } from "../id"
+import { autoLabelledBy, createIds } from "../id"
 import { dialogContext } from "./context.astro"
 
 export const title = "Dialog"
 
 const { class: className, closedby, ...rest } = Astro.props
 
-const titleId = createId(Astro.locals)("dialog-title")
+const titleId = createIds(Astro.locals, "dialog", rest.id)("title")
 const labelledBy = autoLabelledBy(rest, titleId)
 const html = await dialogContext.provide({ titleId: labelledBy }, () =>
   Astro.slots.render("default"),

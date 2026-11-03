@@ -56,14 +56,13 @@ const hasStartText = computed(() => Boolean(startText || slots["start-text"]))
 const hasEndText = computed(() =>
   Boolean(endText || slots["end-text"] || characterCount),
 )
-const inputId = computed(() =>
-  passwordToggle ? (id ?? `${uid}-text-field`) : id,
-)
+const base = computed(() => id ?? `text-field-${uid}`)
+const inputId = computed(() => (passwordToggle ? base.value : id))
 const startTextId = computed(() =>
-  passwordToggle && hasStartText.value ? `${uid}-start-text` : undefined,
+  passwordToggle && hasStartText.value ? `${base.value}-start-text` : undefined,
 )
 const endTextId = computed(() =>
-  passwordToggle && hasEndText.value ? `${uid}-end-text` : undefined,
+  passwordToggle && hasEndText.value ? `${base.value}-end-text` : undefined,
 )
 
 const field = inject(FieldGroupKey, undefined)

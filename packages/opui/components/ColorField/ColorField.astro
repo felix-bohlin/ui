@@ -3,7 +3,7 @@ import Button from "../Button/Button.astro"
 
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { createId } from "../id"
+import { createIds } from "../id"
 import { channelsFor } from "./channels"
 
 export const title = "Color Field"
@@ -28,8 +28,7 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
-const inputId = id ?? $id("color-field")
+const inputId = createIds(Astro.locals, "color-field", id)()
 ---
 
 <opui-color-field class:list={["ui-color-field", className]} style={style}>

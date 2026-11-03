@@ -148,12 +148,13 @@ export const withImport = (lines, module, name) => {
 }
 
 export const groupWarning = (component, item, checked) =>
-  `warnGroupedChecked(${JSON.stringify(component.name)}, ${item.grouped}, ${checked}${item.group === "ToggleGroup" ? "" : `, ${JSON.stringify(item.group)}`})`
+  `warnGroupedChecked(${JSON.stringify(component.name)}, ${item.grouped}, ${checked}, ${JSON.stringify(item.group)})`
+
+const helperImport = (component, folder, module) =>
+  `${component.file.split("/").at(-2) === folder ? "." : `../${folder}`}/${module}`
 
 export const selectionImport = (component) =>
-  component.file.split("/").at(-2) === "ToggleGroup"
-    ? "./selection"
-    : "../ToggleGroup/selection"
+  helperImport(component, "ToggleGroup", "selection")
 
 export const scriptImports = (component) =>
   component.scripts.map((specifier) => `import ${JSON.stringify(specifier)}`)

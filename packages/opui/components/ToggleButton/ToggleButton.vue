@@ -40,7 +40,12 @@ const finalType = computed(() =>
 const grouped = computed(() => isSelected(group?.value, value))
 
 watchEffect(() =>
-  warnGroupedChecked("ToggleButton", grouped.value, checked ?? model.value),
+  warnGroupedChecked(
+    "ToggleButton",
+    grouped.value,
+    checked ?? model.value,
+    "ToggleGroup",
+  ),
 )
 
 const change = (event: Event) => {

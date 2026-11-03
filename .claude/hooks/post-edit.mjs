@@ -28,8 +28,11 @@ try {
     )
     process.exit(2)
   }
-  const compiled = compiledFrom(file, (path) =>
-    existsSync(resolve(project, path)),
+  const ledger = resolve(project, "scripts/hand-written-components.json")
+  const compiled = compiledFrom(
+    file,
+    (path) => existsSync(resolve(project, path)),
+    existsSync(ledger) ? JSON.parse(readFileSync(ledger, "utf-8")) : {},
   )
   if (compiled) {
     console.error(

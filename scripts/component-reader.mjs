@@ -11,10 +11,12 @@ import {
   containsKind,
   elementsIn,
   identifiersIn,
+  isArrayType,
   isBlank,
   root,
   sourceFileOf,
   spreads,
+  unionMembers,
   unsupported,
   unwrap,
 } from "./component-shared.mjs"
@@ -704,17 +706,31 @@ const slotOfHtml = (value, context) => {
 const blockChildren = (children) =>
   children.every(isBlank) ? [] : boxesOnLines(children)
 
-const inlineChildren = (children) =>
-  children.map((child, index) =>
+const line = { type: "text", value: "\n" }
+
+const inlineChildren = (children) => {
+  const split = children.flatMap((child, index) => {
+    if (child.type !== "text" || isBlank(child)) return [child]
+    const leading = index > 0 && /^\s*\n/.test(child.value)
+    const trailing = index < children.length - 1 && /\n\s*$/.test(child.value)
+    if (!leading && !trailing) return [child]
+    return [
+      ...(leading ? [line] : []),
+      { type: "text", value: child.value.trim() },
+      ...(trailing ? [line] : []),
+    ]
+  })
+  return split.map((child, index) =>
     isBlank(child) &&
     child.value === "\n" &&
     index > 0 &&
-    index < children.length - 1 &&
-    !isBlank(children[index - 1]) &&
-    !isBlank(children[index + 1])
+    index < split.length - 1 &&
+    !isBlank(split[index - 1]) &&
+    !isBlank(split[index + 1])
       ? { ...child, inline: true }
       : child,
   )
+}
 
 const toTree = (nodes, context) =>
   nodes.flatMap((node) => {
@@ -853,6 +869,7 @@ const toTree = (nodes, context) =>
   })
 
 export const readComponent = async (source, file, api) => {
+  await loadApis()
   const { ast } = await parse(source, { position: true })
   const frontmatterNode = ast.children.find(
     (node) => node.type === "frontmatter",
@@ -1087,7 +1104,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
         everywhere: true,
       }
     }
-    const multiple = /\[\]/.test(declared.type)
+    const multiple = unionMembers(declared.type).some(isArrayType)
     if (
       multiple &&
       !frontmatter.props.some(({ prop }) => prop === "multiple")

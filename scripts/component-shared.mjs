@@ -43,7 +43,11 @@ export const elementsIn = (nodes) =>
 export const spreads = (node, code) =>
   node.attributes.some((item) => item.kind === "spread" && item.code === code)
 
+const identifierCache = new Map()
+
 export const identifiersIn = (code) => {
+  const cached = identifierCache.get(code)
+  if (cached) return cached
   const names = new Set()
   const visit = (node) => {
     if (
@@ -58,7 +62,27 @@ export const identifiersIn = (code) => {
     ts.forEachChild(node, visit)
   }
   visit(sourceFileOf(`(${code})`, "expression.ts"))
+  identifierCache.set(code, names)
   return names
+}
+
+const typeNodeOf = (type) =>
+  sourceFileOf(`type T = ${type}`, "type.ts").statements[0].type
+
+export const unionMembers = (type) => {
+  const node = typeNodeOf(type)
+  return (ts.isUnionTypeNode(node) ? node.types : [node]).map((member) =>
+    member.getText(),
+  )
+}
+
+export const isArrayType = (member) => {
+  const node = typeNodeOf(member)
+  return (
+    ts.isArrayTypeNode(node) ||
+    (ts.isTypeReferenceNode(node) &&
+      /^(?:Readonly)?Array$/.test(node.typeName.getText()))
+  )
 }
 
 export const slotsUsedIn = (code) =>

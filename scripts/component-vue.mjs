@@ -16,10 +16,12 @@ import {
   allCodes,
   byName,
   identifiersIn,
+  isArrayType,
   isBlank,
   propKey,
   scriptCodes,
   slotsUsedIn,
+  unionMembers,
   unsupported,
 } from "./component-shared.mjs"
 
@@ -281,7 +283,7 @@ export const toVue = (component) => {
             ...scope,
             rename: new Map([
               ...scope.rename,
-              [component.item.checked, `model ?? ${component.item.checked}`],
+              [component.item.checked, `(model ?? ${component.item.checked})`],
             ]),
           }
         : scope
@@ -388,14 +390,10 @@ export const toVue = (component) => {
   ]
   const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"
   const modelType = generic
-    ? `type Model = Multiple extends true ? ${model.type
-        .split("|")
-        .map((member) => member.trim())
-        .filter((member) => member.endsWith("[]"))
-        .join(" | ")} : ${model.type
-        .split("|")
-        .map((member) => member.trim())
-        .filter((member) => !member.endsWith("[]"))
+    ? `type Model = Multiple extends true ? ${unionMembers(model.type)
+        .filter(isArrayType)
+        .join(" | ")} : ${unionMembers(model.type)
+        .filter((member) => !isArrayType(member))
         .join(" | ")}`
     : undefined
   const propsLine = `${modelType ? `${modelType}\n\n` : ""}${

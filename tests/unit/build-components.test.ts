@@ -13,6 +13,7 @@ import {
   toTypes,
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
+import { isArrayType, unionMembers } from "../../scripts/component-shared.mjs"
 
 const sampleFile = (name = "Sample") =>
   `packages/opui/components/Sample/${name}.astro`
@@ -604,6 +605,24 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("text with a newline at its edge renders a space before or after an inline sibling in React", async () => {
+    const { outputs } = await compileComponent(
+      astro(
+        '<label class:list={["ui-sample", className]}>\n  Text\n  <input type="checkbox" {...rest} />\n  More\n</label>',
+      ),
+      sampleFile(),
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".react.tsx"))).toContain(
+      'Text <input type="checkbox" {...rest} /> More',
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      '  >Text\n  <input type="checkbox" {...rest} />\n  More</label\n>',
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
+      '>Text{{ " " }}<input type="checkbox" v-bind="attrs" />{{ " " }}More</label',
+    )
+  })
+
   test("a group with an array value ties it to multiple in the Vue generic", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, multiple, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
@@ -635,7 +654,7 @@ describe("the three ports of a sample", () => {
   test("an item with a checked model binds it when the group has no value", async () => {
     await loadApis()
     const { outputs } = await compileComponent(
-      '---\nimport type { Props } from "./types.astro"\nimport { isSelected } from "../ToggleGroup/selection"\nimport { toggleGroupContext } from "../ToggleGroup/context.astro"\n\nconst { checked, class: className, type, value, ...rest } = Astro.props\n\nconst group = toggleGroupContext.get()\nconst finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")\nconst grouped = isSelected(group?.value, value)\n---\n\n<label class:list={["ui-sample", className]}>\n  <input checked={grouped ?? checked} type={finalType} value={value} {...rest} />\n  <slot />\n</label>\n',
+      '---\nimport type { Props } from "./types.astro"\nimport { isSelected } from "../ToggleGroup/selection"\nimport { toggleGroupContext } from "../ToggleGroup/context.astro"\n\nconst { checked, class: className, type, value, ...rest } = Astro.props\n\nconst group = toggleGroupContext.get()\nconst finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")\nconst grouped = isSelected(group?.value, value)\n---\n\n<label class:list={["ui-sample", className]}>\n  <input checked={grouped ?? checked} data-off={!checked} type={finalType} value={value} {...rest} />\n  <slot />\n</label>\n',
       sampleFile(),
       {
         api: {
@@ -659,12 +678,13 @@ describe("the three ports of a sample", () => {
       "const model = defineModel<boolean | undefined>({\n  default: undefined,\n})",
     )
     expect(vue).toContain(
-      'warnGroupedChecked("Sample", grouped.value, checked ?? model.value)',
+      'warnGroupedChecked(\n    "Sample",\n    grouped.value,\n    checked ?? model.value,\n    "ToggleGroup",\n  )',
     )
     expect(vue).toContain(
       "const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (grouped.value === undefined) model.value = input.checked\n  group?.change?.(input)\n}",
     )
     expect(vue).toContain(':checked="grouped ?? model ?? checked"')
+    expect(vue).toContain(':data-off="!(model ?? checked)"')
     expect(vue).not.toContain("v-model")
   })
 
@@ -771,6 +791,17 @@ describe("the three ports of a sample", () => {
       ),
     ).rejects.toThrow(reason)
   })
+})
+
+test("a model type splits into its members at the top level, and arrays are told apart", () => {
+  expect(unionMembers("Array<string | number> | string")).toEqual([
+    "Array<string | number>",
+    "string",
+  ])
+  expect(
+    ["string[]", "Array<string>", "ReadonlyArray<string>"].map(isArrayType),
+  ).toEqual([true, true, true])
+  expect(isArrayType("string")).toBe(false)
 })
 
 describe("toTypes", () => {

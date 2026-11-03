@@ -55,7 +55,7 @@ export const compileComponent = async (source, file, options = {}) => {
   const component = await readComponent(
     source,
     file,
-    api === undefined && folder !== "Sample" ? await apiOf(folder, name) : api,
+    "api" in options ? api : await apiOf(folder, name),
   )
   const named = {
     ...component,
@@ -127,7 +127,6 @@ export const astroSourceOf = (
   return exists(source) ? source : undefined
 }
 
-/** @param {{ only?: string[], handWritten?: Record<string, string> }} [options] */
 export const generate = async ({
   only = [],
   handWritten = readHandWritten(),

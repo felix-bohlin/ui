@@ -92,6 +92,11 @@ describe("post-edit", () => {
     writeFileSync(join(components, "Card/types.react.ts"), "export {}\n")
     writeFileSync(join(components, "ListItem/ListItem.astro"), "<p>Hi</p>\n")
     writeFileSync(join(components, "ListItem/ListItem.vue"), "One, two.\n")
+    mkdirSync(join(project, "scripts"), { recursive: true })
+    writeFileSync(
+      join(project, "scripts/hand-written-components.json"),
+      JSON.stringify({ "ListItem/ListItem.vue": "a conditional rest" }),
+    )
     const run = (file: string) =>
       hook(
         ".claude/hooks/post-edit.mjs",

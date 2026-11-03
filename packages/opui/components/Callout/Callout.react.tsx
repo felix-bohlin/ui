@@ -8,6 +8,7 @@ export default function Callout({
   className,
   severity,
   variant,
+  children,
   ...rest
 }: Props) {
   return (
@@ -20,7 +21,9 @@ export default function Callout({
           className,
         ])}
         {...rest}
-      />
+      >
+        {children}
+      </article>
     </CalloutContext>
   )
 }

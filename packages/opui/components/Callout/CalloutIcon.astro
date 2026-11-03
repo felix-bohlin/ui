@@ -5,7 +5,8 @@ import { iconFor } from "./icons"
 
 const { class: className, ...rest } = Astro.props
 
-const icon = iconFor(calloutContext.get()?.severity)
+const callout = calloutContext.get()
+const icon = iconFor(callout?.severity)
 ---
 
 {

@@ -7,6 +7,7 @@ const { name, orientation } = defineProps<Props>()
 defineSlots<Slots>()
 
 const parent = inject(FieldGroupKey, undefined)
+
 provide(FieldGroupKey, reactive({ name: computed(() => name || parent?.name) }))
 </script>
 

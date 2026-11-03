@@ -21,7 +21,7 @@ defineSlots<AccordionSummarySlots>()
         height="24"
         viewBox="0 0 24 24"
       >
-        <path fill="currentColor" :d="markerPath"></path></svg
+        <path fill="currentColor" :d="markerPath" /></svg
     ></slot>
   </summary>
 </template>

@@ -5,10 +5,10 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type Props = BaseProps & Class
-
 export type CalloutContentProps = BaseCalloutContentProps & Class
 
 export type CalloutIconProps = BaseCalloutIconProps & Class
+
+export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots

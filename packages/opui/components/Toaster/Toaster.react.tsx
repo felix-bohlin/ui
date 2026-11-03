@@ -13,7 +13,6 @@ export default function Toaster({
   ...rest
 }: Props) {
   warnMissingId("Toaster", id)
-
   useEffect(() => {
     void import("../../elements/toaster.js")
   }, [])
@@ -26,8 +25,8 @@ export default function Toaster({
       id={id}
       {...rest}
     >
-      <ol popover="manual"></ol>
-      <div className="ui-sr-only" role="status"></div>
+      <ol popover="manual" />
+      <div className="ui-sr-only" role="status" />
     </opui-toaster>
   )
 }

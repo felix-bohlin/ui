@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "vue"
+import type { IntrinsicElementAttributes } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   DialogContentProps as BaseDialogContentProps,
@@ -8,8 +8,6 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type Props = BaseProps & Class
-
 export type DialogContentProps = BaseDialogContentProps & Class
 
 export type DialogFooterProps = BaseDialogFooterProps & Class
@@ -17,8 +15,8 @@ export type DialogFooterProps = BaseDialogFooterProps & Class
 export type DialogHeaderProps = BaseDialogHeaderProps & Class
 
 export type DialogTitleProps = BaseDialogTitleProps &
-  Class & {
-    id?: HTMLAttributes["id"]
-  }
+  Class & { id?: IntrinsicElementAttributes["h2"]["id"] }
+
+export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots

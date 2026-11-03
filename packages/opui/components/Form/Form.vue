@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { as = "form" } = defineProps<Props>()
+const { as: Tag = "form" } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
-  <component :is="as" :class="['ui-form', $props.class]">
+  <component :is="Tag" :class="['ui-form', $props.class]">
     <slot></slot>
   </component>
 </template>

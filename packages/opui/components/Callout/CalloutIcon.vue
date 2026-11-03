@@ -7,6 +7,7 @@ import type { CalloutIconProps as Props } from "./types.vue-props"
 defineProps<Props>()
 
 const callout = inject(CalloutKey, undefined)
+
 const icon = computed(() => iconFor(callout?.severity))
 </script>
 

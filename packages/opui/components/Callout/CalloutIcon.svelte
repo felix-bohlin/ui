@@ -9,8 +9,7 @@
   const icon = $derived(iconFor(callout?.severity))
 </script>
 
-{#if icon}
-  <svg
+{#if icon}<svg
     aria-hidden="true"
     class={[className]}
     xmlns="http://www.w3.org/2000/svg"
@@ -20,5 +19,4 @@
     {...rest}
   >
     <path fill="currentColor" d={icon.d} />
-  </svg>
-{/if}
+  </svg>{/if}

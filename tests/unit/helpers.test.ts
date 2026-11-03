@@ -120,10 +120,12 @@ describe("ids", () => {
     expect(calls).toEqual(["select"])
   })
 
-  test("createId uses the page's generator and falls back to a random suffix", () => {
+  test("createId uses the page's generator, a framework's id or a random suffix", () => {
     expect(createId({ $id: (prefix) => `${prefix}-1` })("field")).toBe(
       "field-1",
     )
+    expect(createId("r1")("field")).toBe("field-r1")
+    expect(createIds("r1", "dialog")("title")).toBe("dialog-r1-title")
     const id = createId({})
     expect(id("field")).toMatch(/^field-[0-9a-f]{8}$/)
     expect(id("field")).not.toBe(id("field"))

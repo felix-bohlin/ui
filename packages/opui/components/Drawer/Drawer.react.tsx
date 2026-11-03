@@ -1,9 +1,9 @@
 "use client"
 
 import { cx } from "../cx"
-import { warnMissingId } from "../dev"
-import { autoLabelledBy } from "../id"
 import { DrawerContext } from "./context.react"
+import { autoLabelledBy } from "../id"
+import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Drawer({
@@ -13,14 +13,16 @@ export default function Drawer({
   id,
   scrollLock,
   side = "inline-start",
+  children,
   ...rest
 }: Props) {
-  warnMissingId("Drawer", id)
   const labelledBy = autoLabelledBy(rest, `${id}-heading`)
+  warnMissingId("Drawer", id)
 
   return (
     <DrawerContext value={{ id, titleId: labelledBy }}>
       <dialog
+        closedby={closedby}
         className={cx([
           "ui-drawer",
           {
@@ -31,10 +33,11 @@ export default function Drawer({
           className,
         ])}
         aria-labelledby={labelledBy}
-        closedby={closedby}
         id={id}
         {...rest}
-      />
+      >
+        {children}
+      </dialog>
     </DrawerContext>
   )
 }

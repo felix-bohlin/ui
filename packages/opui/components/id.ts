@@ -1,9 +1,13 @@
-export const createId = (locals: { $id?: (prefix: string) => string }) =>
-  locals.$id ??
-  ((prefix: string) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`)
+type Locals = string | { $id?: (prefix: string) => string }
+
+export const createId = (locals: Locals) =>
+  typeof locals === "string"
+    ? (prefix: string) => `${prefix}-${locals}`
+    : (locals.$id ??
+      ((prefix: string) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`))
 
 export const createIds = (
-  locals: { $id?: (prefix: string) => string },
+  locals: Locals,
   prefix: string,
   id?: string | null,
 ) => {
@@ -14,8 +18,10 @@ export const createIds = (
   }
 }
 
-export const autoLabelledBy = (attrs: Record<string, unknown>, id: string) =>
-  attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : id
+export const autoLabelledBy = (
+  attrs: { "aria-label"?: unknown; "aria-labelledby"?: unknown },
+  id: string,
+) => (attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : id)
 
 export const idRefs = (...ids: (string | false | null | undefined)[]) =>
   ids.filter(Boolean).join(" ") || undefined

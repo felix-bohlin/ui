@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { as = "fieldset" } = defineProps<Props>()
+const { as: Tag = "fieldset" } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
   <component
-    :is="as"
+    :is="Tag"
     :class="['ui-fieldset', $props.class]"
-    :role="as === 'fieldset' ? undefined : 'group'"
+    :role="Tag === 'fieldset' ? undefined : 'group'"
   >
     <slot></slot>
   </component>

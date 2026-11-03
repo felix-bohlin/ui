@@ -1,8 +1,8 @@
 <script lang="ts">
   import { untrack } from "svelte"
+  import { setAnchorContext } from "./context.svelte"
   import { warnMissingId } from "../dev"
   import { mergeStyle } from "../style"
-  import { setAnchorContext } from "./context.svelte"
   import { extendsAnchor } from "./root"
   import type { Props } from "./types.svelte"
 
@@ -20,13 +20,11 @@
 
   const isHover = $derived(trigger === "hover")
   const id = $derived(isHover ? (idProp ?? undefined) : undefined)
-
   untrack(() => {
     if (isHover && !extendsAnchor(className)) {
       warnMissingId("Anchor", id, "interestfor")
     }
   })
-
   setAnchorContext({
     get floatingId() {
       return id

@@ -1,17 +1,26 @@
 <script setup lang="ts">
-import { computed, provide, reactive, useAttrs, useId } from "vue"
-import { autoLabelledBy } from "../id"
+import {
+  computed,
+  type HTMLAttributes,
+  provide,
+  reactive,
+  useAttrs,
+  useId,
+} from "vue"
 import { DialogKey } from "./context.vue"
+import { autoLabelledBy, createIds } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
 const { closedby } = defineProps<Props>()
 defineSlots<Slots>()
 
-const attrs = useAttrs()
+const attrs = useAttrs() as HTMLAttributes
+
 const uid = useId()
-const labelledBy = computed(() =>
-  autoLabelledBy(attrs, `${attrs.id ?? `dialog-${uid}`}-title`),
-)
+
+const titleId = computed(() => createIds(uid, "dialog", attrs.id)("title"))
+
+const labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))
 
 provide(DialogKey, reactive({ titleId: labelledBy }))
 </script>

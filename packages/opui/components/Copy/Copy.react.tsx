@@ -13,7 +13,6 @@ export default function Copy({
   ...rest
 }: Props) {
   warnMissingId("Copy", id)
-
   useEffect(() => {
     void import("../../elements/copy.js")
   }, [])
@@ -26,7 +25,7 @@ export default function Copy({
       {...rest}
     >
       {children}
-      <span className="ui-sr-only" role="status"></span>
+      <span className="ui-sr-only" role="status" />
     </opui-copy>
   )
 }

@@ -4,7 +4,7 @@ import { cx } from "../cx"
 import { useAnchorContext } from "./context.react"
 import type { AnchorContentProps as Props } from "./types.react"
 
-export default function AnchorContent({ className, ...rest }: Props) {
+export default function AnchorContent({ className, children, ...rest }: Props) {
   const anchor = useAnchorContext()
 
   return (
@@ -13,6 +13,8 @@ export default function AnchorContent({ className, ...rest }: Props) {
       id={anchor?.floatingId}
       popover={anchor?.popover}
       {...rest}
-    />
+    >
+      {children}
+    </span>
   )
 }

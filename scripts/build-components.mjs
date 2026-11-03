@@ -44,7 +44,13 @@ const unwrap = (node) => {
   return node
 }
 
-const HELPER_MODULES = new Set(["../dev", "../tag"])
+const HELPER_MODULES = new Set(["../dev", "../id", "../style", "../tag"])
+
+const CONTEXT_MODULE = /^(?:\.\.\/([^/]+)|\.)\/context\.astro$/
+
+const SLOT_RENDER = /^Astro\.slots\.render\("([^"]+)"\)$/
+
+const capitalize = (name) => `${name[0].toUpperCase()}${name.slice(1)}`
 
 const containsKind = (node, test) =>
   test(node) ||
@@ -54,15 +60,31 @@ const readFrontmatter = (code, file) => {
   const sourceFile = sourceFileOf(code)
   const result = {
     components: [],
+    contexts: [],
     derived: [],
     helpers: [],
     imports: [],
     props: [],
     propsType: undefined,
+    provide: undefined,
+    reads: [],
     rest: undefined,
     warnings: [],
   }
   const devFunctions = new Set()
+  const contextOf = (node) =>
+    ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression)
+      ? result.contexts.find(({ local }) => local === node.expression.text)
+      : undefined
+  const contextCall = (node, method) =>
+    ts.isCallExpression(node) &&
+    contextOf(node.expression) &&
+    node.expression.name.text === method
+  const isWarning = (statement) =>
+    ts.isExpressionStatement(statement) &&
+    ts.isCallExpression(statement.expression) &&
+    ts.isIdentifier(statement.expression.expression) &&
+    devFunctions.has(statement.expression.expression.text)
   for (const statement of sourceFile.statements) {
     if (ts.isImportDeclaration(statement)) {
       const specifier = statement.moduleSpecifier.text
@@ -73,6 +95,22 @@ const readFrontmatter = (code, file) => {
         continue
       }
       if (specifier === "../cx" || specifier === "astro/types") continue
+      const named =
+        clause.namedBindings && ts.isNamedImports(clause.namedBindings)
+          ? clause.namedBindings.elements
+          : undefined
+      const context = CONTEXT_MODULE.exec(specifier)
+      if (context && named) {
+        for (const element of named) {
+          const local = element.name.text
+          result.contexts.push({
+            folder: context[1],
+            local,
+            name: capitalize(local.replace(/Context$/, "")),
+          })
+        }
+        continue
+      }
       if (specifier.endsWith(".astro") && clause.name) {
         const match = /^(?:\.\.\/([^/]+)|\.)\/([^/]+)\.astro$/.exec(specifier)
         if (!match) throw unsupported(file, `the import of ${specifier}`)
@@ -84,9 +122,9 @@ const readFrontmatter = (code, file) => {
         continue
       }
       if (
-        clause.namedBindings &&
-        ts.isNamedImports(clause.namedBindings) &&
-        (specifier === "./icons" || HELPER_MODULES.has(specifier))
+        named &&
+        ((specifier.startsWith("./") && !specifier.endsWith(".astro")) ||
+          HELPER_MODULES.has(specifier))
       ) {
         if (specifier === "../dev") {
           for (const element of clause.namedBindings.elements) {
@@ -138,14 +176,77 @@ const readFrontmatter = (code, file) => {
         }
         continue
       }
-      if (
+      const simple =
         statement.declarationList.declarations.length === 1 &&
         ts.isIdentifier(declaration.name) &&
         !declaration.type &&
-        declaration.initializer &&
-        (result.props.length > 0 || result.rest) &&
+        !!declaration.initializer &&
+        (result.props.length > 0 || result.rest)
+      const initializer = simple ? unwrap(declaration.initializer) : undefined
+      if (
+        simple &&
+        contextCall(initializer, "get") &&
+        initializer.arguments.length === 0
+      ) {
+        result.reads.push({
+          context: contextOf(initializer.expression),
+          name: declaration.name.text,
+        })
+        continue
+      }
+      if (simple && ts.isAwaitExpression(initializer)) {
+        const call = unwrap(initializer.expression)
+        const [value, render] = ts.isCallExpression(call)
+          ? call.arguments.map(unwrap)
+          : []
+        const rendered =
+          render &&
+          ts.isArrowFunction(render) &&
+          render.parameters.length === 0 &&
+          SLOT_RENDER.exec(unwrap(render.body).getText(sourceFile))
+        if (
+          rendered &&
+          contextCall(call, "provide") &&
+          call.arguments.length === 2 &&
+          ts.isObjectLiteralExpression(value) &&
+          value.properties.every(
+            (property) =>
+              ts.isShorthandPropertyAssignment(property) ||
+              (ts.isPropertyAssignment(property) &&
+                ts.isIdentifier(property.name)),
+          )
+        ) {
+          if (result.provide) {
+            throw unsupported(file, "a second context provide")
+          }
+          result.provide = {
+            context: contextOf(call.expression),
+            html: declaration.name.text,
+            slot: rendered[1],
+            value: value.properties.map((property) => ({
+              code: ts.isShorthandPropertyAssignment(property)
+                ? property.name.text
+                : property.initializer.getText(sourceFile),
+              key: property.name.text,
+            })),
+          }
+          continue
+        }
+      }
+      if (
+        simple &&
+        containsKind(initializer, (node) => contextCall(node, "get"))
+      ) {
+        throw unsupported(
+          file,
+          `a context get() inside \`${text}\``,
+          "assign the get() to its own const first",
+        )
+      }
+      if (
+        simple &&
         !containsKind(
-          declaration.initializer,
+          initializer,
           (node) =>
             ts.isAwaitExpression(node) ||
             ts.isArrowFunction(node) ||
@@ -160,13 +261,19 @@ const readFrontmatter = (code, file) => {
       }
       throw unsupported(file, `the frontmatter statement \`${text}\``)
     }
-    if (
-      ts.isExpressionStatement(statement) &&
-      ts.isCallExpression(statement.expression) &&
-      ts.isIdentifier(statement.expression.expression) &&
-      devFunctions.has(statement.expression.expression.text)
-    ) {
+    if (isWarning(statement)) {
       result.warnings.push(statement.expression.getText(sourceFile))
+      continue
+    }
+    if (
+      ts.isIfStatement(statement) &&
+      !statement.elseStatement &&
+      (ts.isBlock(statement.thenStatement)
+        ? statement.thenStatement.statements
+        : [statement.thenStatement]
+      ).every(isWarning)
+    ) {
+      result.warnings.push(statement.getText(sourceFile))
       continue
     }
     throw unsupported(file, `the frontmatter statement \`${text}\``)
@@ -339,6 +446,9 @@ const boxesOnLines = (children) => {
   return [line, ...boxes.flatMap((box) => [box, line])]
 }
 
+const blockChildren = (children) =>
+  children.every(isBlank) ? [] : boxesOnLines(children)
+
 const toTree = (nodes, context) =>
   nodes.flatMap((node) => {
     if (node.type === "text") {
@@ -371,7 +481,27 @@ const toTree = (nodes, context) =>
         },
       ]
     }
-    if (node.type === "element" || node.type === "component") {
+    if (node.type === "fragment") {
+      const [attribute] = node.attributes
+      if (
+        node.attributes.length === 1 &&
+        attribute.kind === "expression" &&
+        attribute.name === "set:html" &&
+        attribute.value.trim() === context.provide?.html &&
+        node.children.length === 0
+      ) {
+        return [{ fallback: [], name: context.provide.slot, type: "slot" }]
+      }
+      throw unsupported(
+        context.file,
+        attribute ? `<Fragment ${attribute.name}>` : "<Fragment>",
+      )
+    }
+    if (
+      node.type === "element" ||
+      node.type === "component" ||
+      node.type === "custom-element"
+    ) {
       if (node.type === "element" && /^(script|style)$/.test(node.name)) {
         throw unsupported(context.file, `a <${node.name}>`)
       }
@@ -383,16 +513,22 @@ const toTree = (nodes, context) =>
       if (node.type === "component" && !component && !variable) {
         throw unsupported(context.file, `<${node.name}>`)
       }
+      const inner =
+        node.type === "element" && /^(math|svg)$/.test(node.name)
+          ? { ...context, foreign: true }
+          : context
       return [
         {
           attributes: node.attributes.map((item) =>
             attributeNode(item, context),
           ),
           children:
-            node.type === "element" && !INLINE_ELEMENTS.has(node.name)
-              ? boxesOnLines(toTree(node.children, context))
-              : toTree(node.children, context),
+            node.type !== "component" && !INLINE_ELEMENTS.has(node.name)
+              ? blockChildren(toTree(node.children, inner))
+              : toTree(node.children, inner),
           component,
+          custom: node.type === "custom-element",
+          foreign: context.foreign === true,
           tag: node.name,
           type: "element",
           variable,
@@ -425,9 +561,24 @@ export const readComponent = async (source, file) => {
   )
   const frontmatter = readFrontmatter(frontmatterNode?.value ?? "", file)
   const body = ast.children.filter((node) => node.type !== "frontmatter")
-  if (body.some((node) => node.type === "element" && node.name === "script")) {
-    throw unsupported(file, "a <script>")
-  }
+  const isScript = (node) => node.type === "element" && node.name === "script"
+  const scripts = body.filter(isScript).flatMap((node) => {
+    const { statements } = sourceFileOf(
+      node.children.map((child) => child.value ?? "").join(""),
+      "script.ts",
+    )
+    if (
+      node.attributes.length > 0 ||
+      statements.length === 0 ||
+      !statements.every(
+        (statement) =>
+          ts.isImportDeclaration(statement) && !statement.importClause,
+      )
+    ) {
+      throw unsupported(file, "a <script> with more than side-effect imports")
+    }
+    return statements.map((statement) => statement.moduleSpecifier.text)
+  })
   const context = {
     components: frontmatter.components,
     file,
@@ -435,8 +586,12 @@ export const readComponent = async (source, file) => {
       ...frontmatter.props.map(({ local }) => local),
       ...frontmatter.derived.map(({ name }) => name),
     ]),
+    provide: frontmatter.provide,
   }
-  const tree = toTree(body, context)
+  const tree = toTree(
+    body.filter((node) => !isScript(node)),
+    context,
+  )
   const slots = []
   const visit = (nodes) => {
     for (const node of nodes) {
@@ -452,20 +607,23 @@ export const readComponent = async (source, file) => {
   visit(tree)
   const roots = tree.filter((node) => !isBlank(node))
   const [rootNode] = roots
+  const branches =
+    roots.length === 1 && rootNode.type === "if"
+      ? [
+          rootNode.consequent,
+          ...(rootNode.alternate ? [rootNode.alternate] : []),
+        ]
+      : []
   const rootElements =
     roots.length === 1 && rootNode.type === "element"
       ? [rootNode]
-      : roots.length === 1 &&
-          rootNode.type === "if" &&
-          rootNode.alternate &&
-          [rootNode.consequent, rootNode.alternate].every(
+      : branches.length > 0 &&
+          branches.every(
             (branch) =>
               branch.filter((node) => !isBlank(node)).length === 1 &&
               branch.find((node) => !isBlank(node)).type === "element",
           )
-        ? [rootNode.consequent, rootNode.alternate].map((branch) =>
-            branch.find((node) => !isBlank(node)),
-          )
+        ? branches.map((branch) => branch.find((node) => !isBlank(node)))
         : undefined
   if (!rootElements) {
     throw unsupported(file, "a template that isn't one element")
@@ -489,24 +647,30 @@ export const readComponent = async (source, file) => {
   const stringSlots = frontmatter.props
     .filter(({ prop }) => slots.includes(prop))
     .map(({ local }) => local)
-  return {
+  const component = {
     ...frontmatter,
     file,
     restOnRoot: rootElements.some((node) => spreads(node, frontmatter.rest)),
+    scripts,
     stringSlots,
     rootElements,
     slots: slots.toSorted(),
     tree: roots,
     variableTags,
   }
+  return {
+    ...component,
+    uid: allCodes(component).some((code) => /\bAstro\.locals\b/.test(code)),
+  }
 }
 
-const rewriteExpression = (
-  code,
-  { quote = '"', rename = new Map(), slotHas = (name) => name } = {},
-) => {
-  const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
-  const transformer = (context) => (node) => {
+const transformer =
+  (
+    sourceFile,
+    { quote = '"', rename = new Map(), slotHas = (name) => name, style } = {},
+  ) =>
+  (context) =>
+  (node) => {
     const visit = (child) => {
       if (
         ts.isCallExpression(child) &&
@@ -515,6 +679,26 @@ const rewriteExpression = (
         ts.isStringLiteral(child.arguments[0])
       ) {
         return ts.factory.createIdentifier(slotHas(child.arguments[0].text))
+      }
+      if (
+        ts.isPropertyAccessExpression(child) &&
+        child.getText(sourceFile) === "Astro.locals"
+      ) {
+        return ts.factory.createIdentifier("uid")
+      }
+      if (
+        style &&
+        ts.isCallExpression(child) &&
+        ts.isIdentifier(child.expression) &&
+        child.expression.text === "mergeStyle" &&
+        child.arguments.length === 2 &&
+        ts.isIdentifier(child.arguments[1]) &&
+        child.arguments[1].text === style.local
+      ) {
+        return ts.factory.createCallExpression(child.expression, undefined, [
+          ts.visitNode(child.arguments[0], visit),
+          ts.factory.createIdentifier(style.code),
+        ])
       }
       if (
         ts.isIdentifier(child) &&
@@ -558,14 +742,28 @@ const rewriteExpression = (
     }
     return ts.visitNode(node, visit)
   }
-  const [statement] = ts.transform(sourceFile, [transformer]).transformed[0]
-    .statements
+
+const transformed = (sourceFile, options) =>
+  ts.transform(sourceFile, [transformer(sourceFile, options)]).transformed[0]
+
+const rewriteExpression = (code, options) => {
+  const sourceFile = sourceFileOf(`(${code})`, "expression.ts")
+  const [statement] = transformed(sourceFile, options).statements
   const text = printer.printNode(
     ts.EmitHint.Expression,
     statement.expression,
     sourceFile,
   )
   return text.replace(/^\((.*)\)$/s, "$1")
+}
+
+const rewriteStatement = (code, options) => {
+  const sourceFile = sourceFileOf(code, "statement.ts")
+  return transformed(sourceFile, options)
+    .statements.map((statement) =>
+      printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile),
+    )
+    .join("\n")
 }
 
 const identifiersIn = (code) => {
@@ -619,7 +817,43 @@ const allCodes = (component) => [
   ...codesIn(component.tree),
   ...component.derived.map(({ code }) => code),
   ...component.warnings,
+  ...(component.provide?.value.map(({ code }) => code) ?? []),
 ]
+
+const scriptCodes = (component) => [
+  ...component.derived.map(({ code }) => code),
+  ...component.warnings,
+  ...(component.provide?.value.map(({ code }) => code) ?? []),
+]
+
+const styleOption = (component, code) => {
+  const style = component.props.find(({ prop }) => prop === "style")
+  return style ? { code, local: style.local } : undefined
+}
+
+const objectCode = (entries) =>
+  `{ ${entries.map(({ code, key }) => (code === key ? key : `${key}: ${code}`)).join(", ")} }`
+
+const contextImports = (component, file, namesOf) =>
+  component.contexts.flatMap((context) => {
+    const names = [
+      ...new Set([
+        ...(component.provide?.context === context
+          ? [namesOf.provide(context.name)]
+          : []),
+        ...(component.reads.some((read) => read.context === context)
+          ? [namesOf.read(context.name)]
+          : []),
+      ]),
+    ].toSorted(byName)
+    if (names.length === 0) return []
+    return [
+      `import { ${names.join(", ")} } from "${context.folder ? `../${context.folder}` : "."}/context.${file}"`,
+    ]
+  })
+
+const scriptImports = (component) =>
+  component.scripts.map((specifier) => `import ${JSON.stringify(specifier)}`)
 
 const byName = (a, b) => a.localeCompare(b, "en")
 
@@ -646,10 +880,14 @@ const toReact = (component) => {
     derived,
     imports,
     propsType,
+    provide,
+    reads,
     rest,
+    scripts,
     slots,
     stringSlots,
     tree,
+    uid,
     variableTags,
     warnings,
   } = component
@@ -668,14 +906,22 @@ const toReact = (component) => {
   const options = {
     rename,
     slotHas: (name) => slotProp(name),
+    style: styleOption(component, "style ?? {}"),
   }
   const entries = props.map((entry) => {
     if (entry.prop === "class") return { key: "className", text: "className" }
     if (tagProps.includes(entry)) return { key: entry.prop, text: entry.prop }
+    const reactProp = REACT_ATTRIBUTE_NAMES[entry.prop] ?? entry.prop
+    if (reactProp === entry.local) {
+      return {
+        key: entry.local,
+        text: entry.default ? `${entry.local} = ${entry.default}` : entry.local,
+      }
+    }
     if (entry.local !== entry.prop) {
       return {
         key: entry.local,
-        text: `${JSON.stringify(entry.prop)}: ${entry.local}${entry.default ? ` = ${entry.default}` : ""}`,
+        text: `${JSON.stringify(reactProp)}: ${entry.local}${entry.default ? ` = ${entry.default}` : ""}`,
       }
     }
     return {
@@ -690,6 +936,10 @@ const toReact = (component) => {
     ...(rest ? [`...${rest}`] : []),
   ]
   const body = [
+    ...reads.map(
+      ({ context, name }) => `const ${name} = use${context.name}Context()`,
+    ),
+    ...(uid ? ["const uid = useId()"] : []),
     ...tagProps.map(
       ({ local, prop, default: fallback }) =>
         `const ${local}: ElementType = ${fallback ? `${prop} || ${fallback}` : prop}`,
@@ -702,7 +952,11 @@ const toReact = (component) => {
           ]
         : [`const ${name} = ${rewriteExpression(code, options)}`],
     ),
-    ...warnings.map((code) => rewriteExpression(code, options)),
+    ...warnings.map((code) => rewriteStatement(code, options)),
+    ...scripts.map(
+      (specifier) =>
+        `useEffect(() => {\n  void import(${JSON.stringify(specifier)})\n}, [])`,
+    ),
   ]
   let usesCx = false
   const attribute = (node, item) => {
@@ -718,7 +972,7 @@ const toReact = (component) => {
     const name = node.component
       ? item.name
       : (REACT_ATTRIBUTE_NAMES[item.name] ??
-        (node.variable
+        (node.variable || node.custom
           ? item.name
           : (resolveReactProp(
               reactPropsOf(node.tag, false) ?? new Map(),
@@ -767,19 +1021,34 @@ const toReact = (component) => {
       })
       .join("")
   const [rootNode] = tree
-  const returned = rootNode.type === "if" ? conditional(rootNode) : emit(tree)
+  const rendered = rootNode.type === "if" ? conditional(rootNode) : emit(tree)
+  const returned = provide
+    ? `<${provide.context.name}Context value={${rewriteExpression(objectCode(provide.value), options)}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
+    : rendered
+  const reactValues = [
+    ...(scripts.length ? ["useEffect"] : []),
+    ...(uid ? ["useId"] : []),
+  ]
+  const reactImport = reactValues.length
+    ? `import { ${[...(variableTags.length ? ["type ElementType"] : []), ...reactValues].join(", ")} } from "react"`
+    : variableTags.length
+      ? `import type { ElementType } from "react"`
+      : undefined
   const importLines = [
-    ...(variableTags.length
-      ? [`import type { ElementType } from "react"`]
-      : []),
+    ...(reactImport ? [reactImport] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".react"))
       .toSorted(byName),
+    ...contextImports(component, "react", {
+      provide: (name) => `${name}Context`,
+      read: (name) => `use${name}Context`,
+    }),
     ...imports,
     propsImport(propsType, "types.react"),
   ]
-  return `${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
+  const client = reads.length > 0 || provide || scripts.length > 0
+  return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
 }
 
 const toSvelte = (component) => {
@@ -789,10 +1058,13 @@ const toSvelte = (component) => {
     element,
     imports,
     propsType,
+    provide,
+    reads,
     rest,
     slots,
     stringSlots,
     tree,
+    uid,
     warnings,
   } = component
   const options = { slotHas: (name) => slotProp(name) }
@@ -816,6 +1088,7 @@ const toSvelte = (component) => {
         item.code === rest &&
         !node.variable &&
         !node.component &&
+        !node.custom &&
         element &&
         node.tag !== element
       ) {
@@ -859,12 +1132,21 @@ const toSvelte = (component) => {
           .join(" ")
         const tag = node.variable ? "svelte:element" : node.tag
         const open = `<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes ? ` ${attributes}` : ""}`
-        if (node.children.length === 0) return `${open} />`
+        if (
+          node.children.length === 0 &&
+          (node.component ||
+            node.variable ||
+            node.foreign ||
+            VOID_ELEMENTS.has(node.tag))
+        ) {
+          return `${open} />`
+        }
         return `${open}>${emit(node.children)}</${tag}>`
       })
       .join("")
   const markup = emit(tree)
   const importLines = [
+    ...scriptImports(component),
     ...(warnings.length ? [`import { untrack } from "svelte"`] : []),
     ...(stringSlots.length
       ? [`import { content } from "../content.svelte"`]
@@ -872,6 +1154,10 @@ const toSvelte = (component) => {
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),
+    ...contextImports(component, "svelte", {
+      provide: (name) => `set${name}Context`,
+      read: (name) => `get${name}Context`,
+    }),
     ...imports,
     propsImport(propsType, "types.svelte"),
     ...(usesElements
@@ -887,13 +1173,29 @@ const toSvelte = (component) => {
     line === "" ? "" : line.startsWith("//") ? `    ${line}` : `    ${line},`,
   )
   const script = [
+    ...reads.map(
+      ({ context, name }) => `const ${name} = get${context.name}Context()`,
+    ),
+    ...(uid ? ["const uid = $props.id()"] : []),
     ...derived.map(
       ({ code, name }) =>
         `const ${name} = $derived(${rewriteExpression(code, options)})`,
     ),
-    ...warnings.map(
-      (code) => `untrack(() => ${rewriteExpression(code, options)})`,
+    ...warnings.map((code) =>
+      /^if\b/.test(code)
+        ? `untrack(() => {\n${rewriteStatement(code, options)}\n})`
+        : `untrack(() => ${rewriteExpression(code, options)})`,
     ),
+    ...(provide
+      ? [
+          `set${provide.context.name}Context({\n${provide.value
+            .map(
+              ({ code, key }) =>
+                `get ${key}() {\nreturn ${rewriteExpression(code, options)}\n},`,
+            )
+            .join("\n")}\n})`,
+        ]
+      : []),
   ]
   return `<script lang="ts">\n${importLines.map((line) => `  ${line}`).join("\n")}\n\n  let {\n${lines.join("\n")}\n  }: Props = $props()\n${script.length ? `\n${script.map((line) => `  ${line}`).join("\n")}\n` : ""}</script>\n\n${markup}\n`
 }
@@ -907,55 +1209,83 @@ const toVue = (component) => {
     imports,
     props,
     propsType,
+    provide,
+    reads,
     rest,
     restOnRoot,
     rootElements,
     slots,
     tree,
+    uid,
     variableTags,
     warnings,
   } = component
-  const rename = new Map(
-    props.map(({ local, prop }) => [
-      local,
-      prop === "class"
-        ? "$props.class"
-        : prop === "style"
-          ? "$attrs.style"
-          : prop,
-    ]),
+  const codes = allCodes(component)
+  const used = new Set([
+    ...codes.flatMap((code) => [...identifiersIn(code)]),
+    ...variableTags,
+  ])
+  const usedInScript = new Set(
+    scriptCodes(component).flatMap((code) => [...identifiersIn(code)]),
   )
+  const attrsOnInner = !restOnRoot
+  const restUsed =
+    !!rest &&
+    codes.some((code) => code !== rest && identifiersIn(code).has(rest))
+  if (attrsOnInner && codes.some((code) => /\bmergeStyle\(/.test(code))) {
+    throw unsupported(
+      component.file,
+      `mergeStyle with ${rest} on an inner element`,
+    )
+  }
+  const classProp = props.find(({ prop }) => prop === "class")
+  const classInScript = classProp && usedInScript.has(classProp.local)
+  const rename = new Map([
+    ...props.flatMap(({ local, prop }) =>
+      prop === "class"
+        ? [[local, "$props.class"]]
+        : prop === "style"
+          ? [[local, "$attrs.style"]]
+          : [],
+    ),
+    ...(restUsed ? [[rest, "attrs"]] : []),
+  ])
+  const derivedNames = new Set(derived.map(({ name }) => name))
   const scriptRename = new Map([
     ...rename,
+    ...(classInScript ? [[classProp.local, classProp.local]] : []),
     ...derived.map(({ name }) => [name, `${name}.value`]),
   ])
   const template = {
     quote: "'",
     rename,
     slotHas: (name) => `$slots${vueSlot(name)}`,
+    style: styleOption(component, "{}"),
   }
   const script = {
     rename: scriptRename,
     slotHas: (name) => `slots${vueSlot(name)}`,
+    style: styleOption(component, "{}"),
   }
-  const codes = allCodes(component)
-  const used = new Set([
-    ...codes.flatMap((code) => [...identifiersIn(code)]),
-    ...variableTags,
-  ])
-  const declared = props
-    .filter(
-      ({ local, prop }) =>
-        prop !== "class" && prop !== "style" && used.has(local),
-    )
+  const declared = [
+    ...(classInScript
+      ? [{ prop: "class", text: `class: ${classProp.local}` }]
+      : []),
+    ...props
+      .filter(
+        ({ local, prop }) =>
+          prop !== "class" && prop !== "style" && used.has(local),
+      )
+      .map(({ default: fallback, local, prop }) => ({
+        prop,
+        text: `${local === prop ? prop : `${prop}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
+      })),
+  ]
     .toSorted((a, b) => byName(a.prop, b.prop))
-    .map(({ default: fallback, prop }) =>
-      fallback ? `${prop} = ${fallback}` : prop,
-    )
-  const slotsInScript = [...derived.map(({ code }) => code), ...warnings].some(
+    .map(({ text }) => text)
+  const slotsInScript = scriptCodes(component).some(
     (code) => slotsUsedIn(code).length > 0,
   )
-  const attrsOnInner = !restOnRoot
   const attribute = (node, item) => {
     if (item.kind === "class") {
       return `:class="${rewriteExpression(item.code, template)}"`
@@ -1009,11 +1339,19 @@ const toVue = (component) => {
         ? [':class="$props.class"']
         : []),
     ].join(" ")
-    const tag = node.variable ? "component" : node.tag
-    const open = `<${tag}${node.variable ? ` :is="${rename.get(node.tag) ?? node.tag}"` : ""}${attributes ? ` ${attributes}` : ""}`
+    const tag = node.variable || node.custom ? "component" : node.tag
+    const is = node.variable
+      ? ` :is="${node.tag}"`
+      : node.custom
+        ? ` is="${node.tag}"`
+        : ""
+    const open = `<${tag}${is}${attributes ? ` ${attributes}` : ""}`
     if (
       node.children.length === 0 &&
-      (node.component || node.variable || VOID_ELEMENTS.has(node.tag))
+      (node.component ||
+        node.variable ||
+        node.foreign ||
+        VOID_ELEMENTS.has(node.tag))
     ) {
       return `${open} />`
     }
@@ -1025,11 +1363,22 @@ const toVue = (component) => {
     propsType !== "Props" && slots.some((slot) => slot !== "default")
       ? `${component.name}Slots`
       : "Slots"
+  const provided = provide?.value.map(({ code, key }) =>
+    derivedNames.has(code)
+      ? `${key}: ${code}`
+      : `${key}: computed(() => ${rewriteExpression(code, script)})`,
+  )
   const vueImports = [
-    ...(derived.length ? ["computed"] : []),
-    ...(attrsOnInner ? [] : []),
-  ]
+    ...(derived.length || provided?.some((entry) => entry.includes("computed("))
+      ? ["computed"]
+      : []),
+    ...(reads.length ? ["inject"] : []),
+    ...(provide ? ["provide", "reactive"] : []),
+    ...(restUsed && !attrsOnInner ? ["type HTMLAttributes", "useAttrs"] : []),
+    ...(uid ? ["useId"] : []),
+  ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const importLines = [
+    ...scriptImports(component),
     ...(vueImports.length
       ? [`import { ${vueImports.join(", ")} } from "vue"`]
       : []),
@@ -1037,8 +1386,12 @@ const toVue = (component) => {
     ...components
       .map((entry) => componentImport(entry, ".vue"))
       .toSorted(byName),
+    ...contextImports(component, "vue", {
+      provide: (name) => `${name}Key`,
+      read: (name) => `${name}Key`,
+    }),
     ...imports,
-    propsImport(propsType, "types.vue-props", [slotsType]),
+    propsImport(propsType, "types.vue-props", slots.length ? [slotsType] : []),
   ]
   const propsLine = declared.length
     ? `const { ${declared.join(", ")} } = defineProps<Props>()`
@@ -1048,14 +1401,28 @@ const toVue = (component) => {
     : `defineSlots<${slotsType}>()`
   const setup = [
     importLines.join("\n"),
-    `${propsLine}\n${slotsLine}`,
+    slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
     ...(attrsOnInner ? ["defineOptions({\n  inheritAttrs: false,\n})"] : []),
-    ...(attrsOnInner ? ["const attrs = useInputAttrs()"] : []),
+    ...(attrsOnInner
+      ? ["const attrs = useInputAttrs()"]
+      : restUsed
+        ? ["const attrs = useAttrs() as HTMLAttributes"]
+        : []),
+    ...reads.map(
+      ({ context, name }) =>
+        `const ${name} = inject(${context.name}Key, undefined)`,
+    ),
+    ...(uid ? ["const uid = useId()"] : []),
     ...derived.map(
       ({ code, name }) =>
         `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
     ),
-    ...warnings.map((code) => rewriteExpression(code, script)),
+    ...warnings.map((code) => rewriteStatement(code, script)),
+    ...(provide
+      ? [
+          `provide(${provide.context.name}Key, reactive({ ${provided.join(", ")} }))`,
+        ]
+      : []),
   ]
   return `<script setup lang="ts">\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
 }
@@ -1085,7 +1452,31 @@ const isUnion = (node) =>
   (ts.isParenthesizedTypeNode(node) && isUnion(node.type)) ||
   (ts.isIntersectionTypeNode(node) && node.types.some(isUnion))
 
-export const toTypes = (folder, { astro, base }, slotsByComponent) => {
+const typeKeys = (node, aliases) =>
+  ts.isIntersectionTypeNode(node)
+    ? node.types.flatMap((type) => typeKeys(type, aliases))
+    : ts.isUnionTypeNode(node)
+      ? node.types
+          .map((type) => typeKeys(type, aliases))
+          .reduce((shared, keys) => shared.filter((key) => keys.includes(key)))
+      : ts.isParenthesizedTypeNode(node)
+        ? typeKeys(node.type, aliases)
+        : ts.isTypeReferenceNode(node) &&
+            aliases.some((alias) => alias.name.text === node.typeName.getText())
+          ? typeKeys(
+              aliases.find(
+                (alias) => alias.name.text === node.typeName.getText(),
+              ).type,
+              aliases,
+            )
+          : objectKeys(node)
+
+export const toTypes = (
+  folder,
+  { astro, base },
+  slotsByComponent,
+  propsByComponent = {},
+) => {
   const file = `packages/opui/components/${folder}/types.astro.ts`
   if (!astro.includes('import type * as Base from "./types"')) {
     throw unsupported(file, "a types.astro.ts without the Base import")
@@ -1203,9 +1594,41 @@ export const toTypes = (folder, { astro, base }, slotsByComponent) => {
       ({ name }) => `${slotsTypeOf(name)} as Base${slotsTypeOf(name)}`,
     ),
   ].toSorted(byName)
+  const extrasOf = ({ name, text }) => {
+    const component = name === "Props" ? folder : name.replace(/Props$/, "")
+    const baseAlias = baseAliases.find((alias) => alias.name.text === name)
+    const known = baseAlias ? typeKeys(baseAlias.type, baseAliases) : []
+    const extras = (propsByComponent[component] ?? [])
+      .filter((prop) => prop !== "as" && !known.includes(prop))
+      .toSorted(byName)
+    const elements = [...text.matchAll(HTML_ATTRIBUTES)].map(([, element]) =>
+      JSON.parse(element),
+    )
+    if (extras.length > 0 && elements.length !== 1) {
+      throw unsupported(
+        file,
+        `the prop ${extras[0]} of ${component}, which the Vue types can't take from ${elements.length} elements`,
+      )
+    }
+    return extras.map(
+      (prop) =>
+        `${prop}?: IntrinsicElementAttributes[${JSON.stringify(elements[0])}][${JSON.stringify(prop)}]`,
+    )
+  }
+  const extrasByAlias = new Map(
+    aliases.map((alias) => [alias.name, extrasOf(alias)]),
+  )
+  const vueTypeImports = [
+    ...([...extrasByAlias.values()].some((extras) => extras.length > 0)
+      ? ["IntrinsicElementAttributes"]
+      : []),
+    ...(slotted.length ? ["Slot"] : []),
+  ]
   const vue = [
     [
-      ...(slotted.length ? ['import type { Slot } from "vue"'] : []),
+      ...(vueTypeImports.length
+        ? [`import type { ${vueTypeImports.join(", ")} } from "vue"`]
+        : []),
       'import type { Class, DefaultSlots } from "../vue"',
       `import type {\n${imported.map((entry) => `  ${entry},`).join("\n")}\n} from "./types"`,
     ].join("\n"),
@@ -1213,8 +1636,12 @@ export const toTypes = (folder, { astro, base }, slotsByComponent) => {
       .toSorted((a, b) => byName(a.name, b.name))
       .map(({ name, text }) => {
         const values = asValues(text)
+        const members = [
+          ...(values.length ? [`as?: ${values.join(" | ")}`] : []),
+          ...extrasByAlias.get(name),
+        ]
         const basePart = based.includes(name) ? `Base${name} & ` : ""
-        return `export type ${name} = ${basePart}Class${values.length ? ` & { as?: ${values.join(" | ")} }` : ""}`
+        return `export type ${name} = ${basePart}Class${members.length ? ` & { ${members.join("; ")} }` : ""}`
       }),
     ...(slotTypes.has("Slots") ? [] : ["export type Slots = DefaultSlots"]),
     ...vueSlotTypes,
@@ -1342,6 +1769,7 @@ export const generate = async ({
     if (only.length > 0 && !only.includes(folder)) continue
     const files = (await readdir(join(componentsDir, folder))).toSorted()
     const slotsByComponent = {}
+    const propsByComponent = {}
     let allCompiled = true
     for (const file of files.filter((entry) => entry.endsWith(".astro"))) {
       const key = `${folder}/${file}`
@@ -1352,6 +1780,9 @@ export const generate = async ({
           relative,
         )
         slotsByComponent[component.name] = component.slots
+        propsByComponent[component.name] = component.props
+          .filter(({ prop }) => prop !== "class" && prop !== "style")
+          .map(({ prop }) => prop)
         for (const [target, code] of compiled) {
           const ledgerKey = target.replace("packages/opui/components/", "")
           if (ledgerKey in handWritten) continue
@@ -1386,6 +1817,7 @@ export const generate = async ({
           base: await readFile(join(componentsDir, folder, "types.ts"), "utf8"),
         },
         slotsByComponent,
+        propsByComponent,
       )
       for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
         const target = `packages/opui/components/${folder}/${typeFile}`

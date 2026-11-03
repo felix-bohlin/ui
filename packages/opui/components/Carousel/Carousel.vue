@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { mergeStyle } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -31,12 +32,13 @@ defineSlots<Slots>()
       $props.class,
     ]"
     :style="
-      itemsPerView || aspectRatio
-        ? {
-            '--_items-per-view': itemsPerView,
-            '--_media-aspect-ratio': aspectRatio,
-          }
-        : undefined
+      mergeStyle(
+        {
+          '--_items-per-view': itemsPerView,
+          '--_media-aspect-ratio': aspectRatio,
+        },
+        {},
+      )
     "
   >
     <slot></slot>

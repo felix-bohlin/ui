@@ -1,5 +1,28 @@
 import ts from "typescript"
-import { byName, printer, sourceFileOf } from "./component-shared.mjs"
+import { byName, printer, sourceFileOf, unwrap } from "./component-shared.mjs"
+
+const synthesize = (node) => {
+  ts.setTextRange(node, { end: -1, pos: -1 })
+  ts.forEachChild(node, synthesize)
+}
+
+const synthesized = (node) => {
+  synthesize(node)
+  return node
+}
+
+const expressionOf = (text, quote) => {
+  const sourceFile = sourceFileOf(`(${text})`, "replacement.ts")
+  const parsed = synthesized(unwrap(sourceFile.statements[0].expression))
+  const requote = (node) =>
+    ts.isStringLiteral(node) && quote === "'"
+      ? ts.factory.createStringLiteral(node.text, true)
+      : ts.visitEachChild(node, requote, ts.nullTransformationContext)
+  const node = requote(parsed)
+  return ts.isBinaryExpression(node) || ts.isConditionalExpression(node)
+    ? ts.factory.createParenthesizedExpression(node)
+    : node
+}
 
 const transformer =
   (
@@ -15,7 +38,7 @@ const transformer =
         child.arguments.length === 1 &&
         ts.isStringLiteral(child.arguments[0])
       ) {
-        return ts.factory.createIdentifier(slotHas(child.arguments[0].text))
+        return expressionOf(slotHas(child.arguments[0].text), quote)
       }
       if (
         ts.isPropertyAccessExpression(child) &&
@@ -34,7 +57,7 @@ const transformer =
       ) {
         return ts.factory.createCallExpression(child.expression, undefined, [
           ts.visitNode(child.arguments[0], visit),
-          ts.factory.createIdentifier(style.code),
+          expressionOf(style.code, quote),
         ])
       }
       if (
@@ -46,7 +69,7 @@ const transformer =
         ) &&
         !(ts.isPropertyAssignment(child.parent) && child.parent.name === child)
       ) {
-        return ts.factory.createIdentifier(rename.get(child.text))
+        return expressionOf(rename.get(child.text), quote)
       }
       if (ts.isStringLiteral(child) && quote === "'") {
         return ts.factory.createStringLiteral(child.text, true)

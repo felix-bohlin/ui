@@ -229,7 +229,7 @@ export const toVue = (component) => {
           ...scope.rename,
           ...node.consts.map(({ code, name }) => [
             name,
-            `(${rewriteExpression(code, scope)})`,
+            rewriteExpression(code, scope),
           ]),
         ]),
       }
@@ -285,7 +285,7 @@ export const toVue = (component) => {
             ...scope,
             rename: new Map([
               ...scope.rename,
-              [component.item.checked, `(model ?? ${component.item.checked})`],
+              [component.item.checked, `model ?? ${component.item.checked}`],
             ]),
           }
         : scope

@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { cx } from "../cx"
 
 export const title = "Textarea"
 
@@ -26,6 +27,7 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
+const LabelTag = label || Astro.slots.has("label") ? "span" : Fragment
 ---
 
 <label
@@ -41,14 +43,9 @@ const field = fieldGroupContext.get()
   ]}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    >{label}<slot name="label" /></LabelTag
+  >
 
   {
     (startText || Astro.slots.has("start-text")) && (

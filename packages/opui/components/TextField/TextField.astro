@@ -38,7 +38,12 @@ const {
 const field = fieldGroupContext.get()
 const $id = createId(Astro.locals)
 const Root = passwordToggle ? "opui-text-field" : "label"
-const Label = passwordToggle ? "label" : "span"
+const Label =
+  label || Astro.slots.has("label")
+    ? passwordToggle
+      ? "label"
+      : "span"
+    : Fragment
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
@@ -62,17 +67,11 @@ const endTextId = passwordToggle && hasEndText ? $id("end-text") : undefined
   ])}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <Label
-        class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-        for={passwordToggle ? inputId : undefined}
-      >
-        {label}
-        <slot name="label" />
-      </Label>
-    )
-  }
+  <Label
+    class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    for={passwordToggle ? inputId : undefined}
+    >{label}<slot name="label" /></Label
+  >
   {
     hasStartText && (
       <span class="ui-start-text" id={startTextId}>

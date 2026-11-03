@@ -1,6 +1,7 @@
 ---
 import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
+import { cx } from "../cx"
 import { createId, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 
@@ -29,6 +30,7 @@ const {
   ...rest
 } = Astro.props
 
+const SelectedContent = "selectedcontent"
 const field = fieldGroupContext.get()
 const $id = createId(Astro.locals)
 const labelId = $id("select-label")
@@ -51,6 +53,7 @@ const isSelected = (item: SelectItem) =>
     : Array.isArray(value)
       ? value.some((selected) => selected === item.value)
       : item.value === value
+const LabelTag = label || Astro.slots.has("label") ? "span" : Fragment
 ---
 
 <label
@@ -66,14 +69,9 @@ const isSelected = (item: SelectItem) =>
   ]}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
+    >{label}<slot name="label" /></LabelTag
+  >
   {
     (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text" id={startTextId}>
@@ -94,7 +92,7 @@ const isSelected = (item: SelectItem) =>
       name={name ?? field?.name}
     >
       <button>
-        <selectedcontent></selectedcontent>
+        <SelectedContent />
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>
         {

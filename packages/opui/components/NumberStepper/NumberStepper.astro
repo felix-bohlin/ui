@@ -5,6 +5,7 @@ import type { Props } from "./types.astro"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { createId, idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
+import { cx } from "../cx"
 
 export const title = "Number Stepper"
 
@@ -35,6 +36,7 @@ const startTextId =
   startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const LabelTag = label || Astro.slots.has("label") ? "label" : Fragment
 ---
 
 <opui-number-stepper
@@ -49,14 +51,9 @@ const endTextId =
   ]}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <label class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
-        {label}
-        <slot name="label" />
-      </label>
-    )
-  }
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={inputId}
+    >{label}<slot name="label" /></LabelTag
+  >
   {
     (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text" id={startTextId}>

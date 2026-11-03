@@ -478,6 +478,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox` and `Radio` no longer set `--ui-primary` when invalid, so links and other content in their label keep the primary color.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Fieldset` required asterisks are left out of the accessible name, so screen readers don't read "star".
 - `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TextField` and `Textarea` in Vue render a text prop and its slot together, like Astro, instead of dropping the prop.
+- `Checkbox`, `NumberStepper`, `Radio`, `Select`, `Switch`, `TextField` and `Textarea` in Astro render the label text and the label slot without whitespace around them, so a required field no longer shows a space before its asterisk.
 - `Checkbox` draws a disabled box in `GrayText` in forced colors mode, like `Switch`, instead of the enabled colors at reduced opacity.
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` disabled text color applies to tonal and outlined chips.
@@ -560,6 +561,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Select` adds its top slot, start text (`.ui-start-text`), end text and bottom slot to `aria-describedby`, in that order.
 - `Select` `--_motion: 0` on the root also stops the picker animation.
 - `Select` and `Range` in Astro merge a passed `aria-labelledby` instead of rendering the attribute twice.
+- `Select` in Astro closes its `<selectedcontent>` element. The Astro compiler drops the end tag of a literal `<selectedcontent>`, so the whitespace after it ended up inside it.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--ui-motion: 0`) instead of ignoring it.
 - `Spinner` no longer sets `position: relative` on dialogs and popovers, so a busy `Drawer` stays in place.
 - `Spinner` keeps the gap in its ring in forced colors, so the spin stays visible.

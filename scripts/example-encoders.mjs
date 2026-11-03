@@ -40,7 +40,8 @@ const ambiguousAmpersand = (tail, quote) => {
 
 export const attributeText = (value, quote = '"') => {
   let encoded = ""
-  for (const [index, character] of [...value].entries()) {
+  for (let index = 0; index < value.length; index++) {
+    const character = value[index]
     if (character === quote) {
       encoded += quote === '"' ? "&quot;" : "&#39;"
     } else if (character === "&") {

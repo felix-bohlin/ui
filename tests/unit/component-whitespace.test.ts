@@ -160,6 +160,12 @@ describe("whitespace around slot content", () => {
     },
   )
 
+  test("the Astro Select closes its selectedcontent", async () => {
+    const html = await astro("Select", "label", TIGHT)
+    expect(html).toContain("<selectedcontent></selectedcontent>")
+    expect(html).not.toContain("<selectedcontent/>")
+  })
+
   test("a sample the check must flag: a space before the required asterisk", () => {
     const label = (text: string) =>
       `<label class="ui-checkbox"><input required type="checkbox"><span class="ui-label">${text}</span></label>`

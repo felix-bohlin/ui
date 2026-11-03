@@ -132,6 +132,29 @@ describe("React", () => {
         "react",
       ),
     ).toContain('style={{ maxInlineSize: "18rem", "--_size": "2rem" }}')
+    expect(
+      await convert(
+        astro(
+          '<div style="background: url(data:image/png;base64,AAA); color: red"></div>',
+        ),
+        "react",
+      ),
+    ).toContain(
+      'style={{ background: "url(data:image/png;base64,AAA)", color: "red" }}',
+    )
+  })
+
+  test("a set:html inside a comment keeps the const", async () => {
+    const code = await convert(
+      astro(
+        "<!-- <Fragment set:html={note} /> -->\n<p>{note}</p>",
+        "",
+        'const note = "<em>Hi</em>"',
+      ),
+      "react",
+    )
+    expect(code).toContain('const note = "<em>Hi</em>"')
+    expect(code).toContain("<p>{note}</p>")
   })
 
   test("keys a .map by its id, name or title", async () => {

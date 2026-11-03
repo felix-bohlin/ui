@@ -23,7 +23,7 @@ const run = (whitespace) => (whitespace.includes("\n") ? "\n" : " ")
 
 const isHtml = (node) => node.namespace === HTML_NAMESPACE
 
-const mergeText = (nodes) =>
+export const mergeText = (nodes) =>
   nodes.reduce((merged, node) => {
     const previous = merged.at(-1)
     if (node.type === "text" && previous?.type === "text") {
@@ -224,7 +224,7 @@ export const cleanRender = (
   }
 }
 
-const declarations = (style) =>
+export const declarations = (style) =>
   style
     .split(";")
     .map((declaration) => declaration.trim().replace(/\s+/g, " "))

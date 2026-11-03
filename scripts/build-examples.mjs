@@ -9,11 +9,7 @@ import { parseFragment } from "parse5"
 import { format, resolveConfig } from "prettier"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import {
-  reactKinds,
-  reactPropsOf,
-  resolveReactProp,
-} from "./example-react-props.mjs"
+import { splitTopLevel } from "./example-display.mjs"
 import {
   attributeText,
   decodeText,
@@ -24,12 +20,6 @@ import {
   templateLiteral,
 } from "./example-encoders.mjs"
 import {
-  assignExampleIds,
-  createExampleIdPlaceholders,
-  exampleKeyOf,
-  ID_PLACEHOLDER,
-} from "./example-ids.mjs"
-import {
   BLANK_LINE_MARKER,
   cleanRender,
   meaningChange,
@@ -37,6 +27,17 @@ import {
   WHITESPACE_MARK,
   whitespaceRoles,
 } from "./example-html.mjs"
+import {
+  assignExampleIds,
+  createExampleIdPlaceholders,
+  exampleKeyOf,
+  ID_PLACEHOLDER,
+} from "./example-ids.mjs"
+import {
+  reactKinds,
+  reactPropsOf,
+  resolveReactProp,
+} from "./example-react-props.mjs"
 import {
   byAttributeName,
   generatedTargets,
@@ -85,6 +86,8 @@ const NUMERIC_ATTRIBUTES = [
 const MAP_KEY_ORDER = ["id", "value", "name", "title"]
 
 const MARKUP = "__markup__"
+
+const BLANK_LINE = /\n[^\S\n]*\n/
 
 const unsupported = (file, what, target, hint) =>
   new Error(
@@ -209,15 +212,11 @@ const readFrontmatter = (code, file) => {
           throw unsupported(file, `\`${declaration.getText(sourceFile)}\``)
         }
         consts.push({
-          comments: [
-            ...(index === 0 ? comments.leading : []),
-            ...(index === declarations.length - 1 ? comments.trailing : []),
-          ],
           items,
+          leading: index === 0 ? comments.leading : [],
           name: declaration.name.text,
           text: `const ${declaration.getText(sourceFile)}`,
           trailing: index === declarations.length - 1 ? comments.trailing : [],
-          leading: index === 0 ? comments.leading : [],
           value: typeof items === "string" ? items : undefined,
         })
       })
@@ -652,14 +651,12 @@ export const readExample = async (source, file = "Example.astro") => {
       continue
     }
     checkNesting({ children: [node], type: "root" }, file)
-    if (seen) blankLines.push(/\n[^\S\n]*\n/.test(gap))
+    if (seen) blankLines.push(BLANK_LINE.test(gap))
     seen = true
     gap = ""
   }
   return { blankLines, body, frontmatter, scripts, styles }
 }
-
-const BLANK_LINE = /\n[^\S\n]*\n/
 
 const RAW_TEXT = new Set([
   "listing",
@@ -747,34 +744,55 @@ export const markTopLevelBlankLines = async (source) => {
   return bytes.toString()
 }
 
-export const parseExample = async (source, file = "Example.astro") => {
-  const { blankLines, body, frontmatter, scripts, styles } = await readExample(
-    source,
-    file,
-  )
-  const { consts, imports, typeImports } = readFrontmatter(frontmatter, file)
-  const usedAsHtml = new Set(
-    [...source.matchAll(/set:html=\{\s*([\w$]+)\s*\}/g)].map(
-      (match) => match[1],
-    ),
-  )
-  const markup = new Map()
-  for (const item of consts.filter(({ name }) => usedAsHtml.has(name))) {
-    if (item.value === undefined) {
-      throw unsupported(file, `set:html={${item.name}} with a non-string`)
-    }
-    if (/[{}]/.test(item.value)) {
-      throw unsupported(
-        file,
-        `set:html={${item.name}} with a string that contains { or }, which the Astro compiler reads as an expression here and as text in the HTML`,
-      )
-    }
-    const { ast: parsed } = await parse(item.value, { position: false })
-    if (item.comments.length > 0) {
-      throw unsupported(file, `a comment on the set:html const ${item.name}`)
-    }
-    markup.set(item.name, { nodes: parsed.children, uses: 0 })
+const setHtmlNames = (nodes, names = new Set()) => {
+  for (const node of nodes) {
+    const html = attribute(node, "set:html")
+    if (html?.kind === "expression") names.add(html.value.trim())
+    if (node.children) setHtmlNames(node.children, names)
   }
+  return names
+}
+
+/** @param {string} source @param {string} [file] @param {{ read?: Awaited<ReturnType<typeof readExample>> }} [options] */
+export const parseExample = async (
+  source,
+  file = "Example.astro",
+  { read } = {},
+) => {
+  const { blankLines, body, frontmatter, scripts, styles } =
+    read ?? (await readExample(source, file))
+  const { consts, imports, typeImports } = readFrontmatter(frontmatter, file)
+  const parsedMarkup = new Map()
+  const usedAsHtml = setHtmlNames(body)
+  for (let found = true; found;) {
+    found = false
+    for (const item of consts) {
+      if (!usedAsHtml.has(item.name) || parsedMarkup.has(item.name)) continue
+      if (item.value === undefined) {
+        throw unsupported(file, `set:html={${item.name}} with a non-string`)
+      }
+      if (/[{}]/.test(item.value)) {
+        throw unsupported(
+          file,
+          `set:html={${item.name}} with a string that contains { or }, which the Astro compiler reads as an expression here and as text in the HTML`,
+        )
+      }
+      const { ast: parsed } = await parse(item.value, { position: false })
+      if (item.leading.length > 0 || item.trailing.length > 0) {
+        throw unsupported(file, `a comment on the set:html const ${item.name}`)
+      }
+      parsedMarkup.set(item.name, { nodes: parsed.children, uses: 0 })
+      for (const name of setHtmlNames(parsed.children)) {
+        found ||= !usedAsHtml.has(name)
+        usedAsHtml.add(name)
+      }
+    }
+  }
+  const markup = new Map(
+    consts
+      .filter(({ name }) => parsedMarkup.has(name))
+      .map(({ name }) => [name, parsedMarkup.get(name)]),
+  )
   const arrays = new Map(
     consts
       .filter(({ items }) => Array.isArray(items))
@@ -1036,10 +1054,7 @@ const toVue = (example) => {
 }
 
 const styleObject = (css) =>
-  `{{ ${css
-    .split(";")
-    .map((declaration) => declaration.trim())
-    .filter(Boolean)
+  `{{ ${splitTopLevel(css, ";")
     .map((declaration) => {
       const colon = declaration.indexOf(":")
       const property = declaration.slice(0, colon).trim()
@@ -1277,7 +1292,7 @@ const textParts = (node, roles) => {
       role: node.topLevel
         ? "drop"
         : (roles?.get(offset) ?? (match[0].includes("\n") ? "drop" : "space")),
-      run: node.topLevel && /\n[^\S\n]*\n/.test(match[0]) ? "\n\n" : match[0],
+      run: node.topLevel && BLANK_LINE.test(match[0]) ? "\n\n" : match[0],
     })
     last = match.index + match[0].length
   }
@@ -1418,18 +1433,18 @@ const reactStyleIndent = (code) =>
       `${spaces}<style>{\`\n${indent(dedent(css), spaces.length + 2)}\n${spaces}\`}</style>`,
   )
 
-/** @param {string} source @param {string} framework @param {string} file @param {{ roles?: Map<number, string> }} [options] */
+/** @param {string} source @param {string} framework @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>>, roles?: Map<number, string> }} [options] */
 export const convertExample = async (
   source,
   framework,
   file,
-  { roles } = {},
+  { read, roles } = {},
 ) => {
   const name = file
     .split("/")
     .at(-1)
     .replace(/\.astro$/, "")
-  const example = { ...(await parseExample(source, file)), roles }
+  const example = { ...(await parseExample(source, file, { read })), roles }
   if (example.scripts.length > 0) {
     throw unsupported(
       file,
@@ -1617,8 +1632,9 @@ const stripTypes = (code) => {
   }
 }
 
-export const htmlFromRender = async (rendered, source, file) => {
-  const example = await readExample(source, file)
+/** @param {string} rendered @param {string} source @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>> }} [options] */
+export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
+  const example = read ?? (await readExample(source, file))
   const { markup, nodes } = cleanRender(
     assignExampleIds(rendered, exampleKeyOf(file)),
     { css: example.styles, file },
@@ -1758,13 +1774,14 @@ export const generate = async ({
       const astroFile = `src/component-examples/${key}.astro`
       const source = await readFile(join(root, astroFile), "utf8")
       const targets = generatedTargets(key, handWritten)
+      let read
       let rendered
       let roles
       try {
         if (targets.length > 0) {
           rendered = await renderer.render(key, source)
-          const { styles } = await readExample(source, astroFile)
-          roles = whitespaceRoles(rendered, styles)
+          read = await readExample(source, astroFile)
+          roles = whitespaceRoles(rendered, read.styles)
         }
       } catch (error) {
         problems.push(`${astroFile}: ${error.message}`)
@@ -1776,12 +1793,15 @@ export const generate = async ({
           if (framework === "html") {
             outputs.set(
               target,
-              await htmlFromRender(rendered, source, astroFile),
+              await htmlFromRender(rendered, source, astroFile, { read }),
             )
           } else {
             outputs.set(
               target,
-              await convertExample(source, framework, astroFile, { roles }),
+              await convertExample(source, framework, astroFile, {
+                read,
+                roles,
+              }),
             )
           }
         } catch (error) {

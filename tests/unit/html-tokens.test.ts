@@ -95,6 +95,10 @@ describe("parseHtml", () => {
       '<option value="a" value="b">A</option>',
       "the attribute value twice with different values on <option>",
     ],
+    [
+      "<option value=a VALUE='b'>A</option>",
+      "the attribute value twice with different values on <option>",
+    ],
     ["<p>a<div>b</div></p>", "the HTML parser builds a different tree"],
     [
       "<table><tr><td>a</td></tr></table>",

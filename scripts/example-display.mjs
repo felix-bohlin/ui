@@ -135,7 +135,7 @@ const layerOrder = () => {
 
 const COMBINATORS = new Set([" ", ">", "+", "~"])
 
-const splitTopLevel = (text, separator) => {
+export const splitTopLevel = (text, separator) => {
   const parts = []
   let depth = 0
   let quote = ""

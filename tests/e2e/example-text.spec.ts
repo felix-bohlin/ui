@@ -5,7 +5,8 @@ const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const texts = async (page: Page, framework: Framework, component: string) => {
   await openFixture(page, framework, component)
-  await page.evaluate(() => {
+  await page.evaluate(async () => {
+    await new Promise((resolve) => setTimeout(resolve))
     for (const details of document.querySelectorAll<HTMLDetailsElement>(
       "[data-example] details",
     )) {

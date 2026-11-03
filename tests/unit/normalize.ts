@@ -1,4 +1,5 @@
 import { renderedText } from "../../scripts/example-display.mjs"
+import { declarations, mergeText } from "../../scripts/example-html.mjs"
 import { parseHtml, VOID_ELEMENTS } from "../../scripts/html-tokens.mjs"
 
 type Node = ReturnType<typeof parseHtml>[number]
@@ -49,23 +50,15 @@ const collectIds = (nodes: Node[], ids: Map<string, string>) => {
 }
 
 const withoutComments = (nodes: Node[]): Node[] =>
-  nodes
-    .filter((node) => node.type !== "comment")
-    .reduce<Node[]>((merged, node) => {
-      const previous = merged.at(-1)
-      if (node.type === "text" && previous?.type === "text") {
-        merged[merged.length - 1] = {
-          ...previous,
-          raw: previous.raw + node.raw,
-          value: previous.value + node.value,
-        }
-      } else if (node.type === "element") {
-        merged.push({ ...node, children: withoutComments(node.children) })
-      } else {
-        merged.push(node)
-      }
-      return merged
-    }, [])
+  mergeText(
+    nodes
+      .filter((node) => node.type !== "comment")
+      .map((node) =>
+        node.type === "element"
+          ? { ...node, children: withoutComments(node.children) }
+          : node,
+      ),
+  )
 
 const normalizeAttribute = (
   name: string,
@@ -87,19 +80,7 @@ const normalizeAttribute = (
   if (name === "href" && value.startsWith("#")) {
     return `#${ids.get(value.slice(1)) ?? value.slice(1)}`
   }
-  if (name === "style") {
-    return value
-      .split(";")
-      .map((declaration) => declaration.trim().replace(/\s*:\s*/, ": "))
-      .filter(Boolean)
-      .map((declaration) => {
-        const colon = declaration.indexOf(":")
-        return colon === -1
-          ? declaration
-          : `${declaration.slice(0, colon).trim()}: ${declaration.slice(colon + 1).trim()}`
-      })
-      .join("; ")
-  }
+  if (name === "style") return declarations(value)
   return value.trim()
 }
 

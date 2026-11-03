@@ -167,6 +167,8 @@ describe("attributeText", () => {
     ["&#65;", "&amp;#65;"],
     ['say "hi"', "say &quot;hi&quot;"],
     ["a b", "a&nbsp;b"],
+    ["🎉 & more", "🎉 & more"],
+    ["🎉 &amp; more", "🎉 &amp;amp; more"],
   ])("encodes %j as %j", (value, expected) => {
     expect(attributeText(value)).toBe(expected)
   })

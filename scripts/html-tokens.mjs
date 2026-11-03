@@ -62,7 +62,25 @@ const TEXT_MODES = new Map([
   ["xmp", TokenizerMode.RAWTEXT],
 ])
 
-const TOLERATED_ERRORS = new Set(["incorrectly-opened-comment"])
+const TOLERATED_ERRORS = new Set([
+  "duplicate-attribute",
+  "incorrectly-opened-comment",
+])
+
+const RAW_ATTRIBUTE =
+  /[\t\n\f\r /]+([^\t\n\f\r />=]+)(?:[\t\n\f\r ]*=[\t\n\f\r ]*("[^"]*"|'[^']*'|[^\t\n\f\r >]+))?/g
+
+const repeatedAttribute = (open) => {
+  const seen = new Map()
+  for (const [, name, raw = ""] of open
+    .replace(/^<[^\t\n\f\r />]+/, "")
+    .matchAll(RAW_ATTRIBUTE)) {
+    const key = name.toLowerCase()
+    if (seen.has(key) && seen.get(key) !== raw) return key
+    seen.set(key, raw)
+  }
+  return undefined
+}
 
 const LEADING_NEWLINE = new Set(["listing", "pre", "textarea"])
 
@@ -114,7 +132,6 @@ const parseTree = (source) => {
   const top = () => stack.at(-1)
   let offset = 0
   let chars = ""
-  let duplicates = []
   const flush = (end) => {
     if (offset < end) {
       const parent = top()
@@ -181,27 +198,22 @@ const parseTree = (source) => {
       onNullCharacter: onText,
       onParseError: (error) => {
         if (TOLERATED_ERRORS.has(error.code)) return
-        if (error.code === "duplicate-attribute") {
-          duplicates.push(tokenizer.currentAttr)
-          return
-        }
         throw fail(source, error.startOffset, `the parse error ${error.code}`)
       },
       onStartTag: (token) => {
         const { location } = token
         flush(location.startOffset)
         offset = location.endOffset
-        for (const duplicate of duplicates) {
-          const kept = token.attrs.find(({ name }) => name === duplicate.name)
-          if (kept.value !== duplicate.value) {
-            throw fail(
-              source,
-              location.startOffset,
-              `the attribute ${duplicate.name} twice with different values on <${token.tagName}>`,
-            )
-          }
+        const repeated = repeatedAttribute(
+          source.slice(location.startOffset, location.endOffset),
+        )
+        if (repeated) {
+          throw fail(
+            source,
+            location.startOffset,
+            `the attribute ${repeated} twice with different values on <${token.tagName}>`,
+          )
         }
-        duplicates = []
         const parent = top()
         const namespace = namespaceOf(token.tagName, parent)
         const name = token.tagName

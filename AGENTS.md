@@ -3,6 +3,7 @@
 Read the guide for the files you're editing:
 
 - `packages/opui/components/AGENTS.md`: the Astro, React, Svelte and Vue components and their type files.
+- `scripts/AGENTS.md`: the example generator, its modules and the test behind each one.
 - `src/component-api/AGENTS.md`: the `api.ts` data behind the API tables and anatomy diagrams.
 - `src/docs/components/AGENTS.md`: the component docs pages and their examples.
 

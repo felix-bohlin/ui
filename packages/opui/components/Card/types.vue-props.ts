@@ -6,12 +6,12 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type Props = BaseProps & Class
-
 export type CardActionsProps = BaseCardActionsProps & Class
 
 export type CardContentProps = BaseCardContentProps & Class
 
 export type CardHeaderProps = BaseCardHeaderProps & Class
+
+export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots

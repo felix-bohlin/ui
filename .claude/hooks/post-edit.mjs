@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs"
 import { isAbsolute, relative, resolve } from "node:path"
 import { fileProblems } from "../../scripts/check-file.mjs"
+import { astroSourceOf as compiledFrom } from "../../scripts/build-components.mjs"
 import { astroSourceOf } from "../../scripts/example-targets.mjs"
 import { input, project, suites, vitest } from "./checks.mjs"
 
@@ -24,6 +25,15 @@ try {
   if (astro) {
     console.error(
       `${file} is generated from ${astro}: undo this edit, edit ${astro} and run pnpm build-examples`,
+    )
+    process.exit(2)
+  }
+  const compiled = compiledFrom(file, (path) =>
+    existsSync(resolve(project, path)),
+  )
+  if (compiled) {
+    console.error(
+      `${file} is compiled from ${compiled}: undo this edit, edit ${compiled} and run pnpm build-components`,
     )
     process.exit(2)
   }

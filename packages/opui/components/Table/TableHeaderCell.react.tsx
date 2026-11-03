@@ -14,7 +14,7 @@ export default function TableHeaderCell({
       data-sort={sortable ? "" : undefined}
       {...rest}
     >
-      {sortable ? <button type="button">{children}</button> : children}
+      {sortable ? <button type="button">{children}</button> : <>{children}</>}
     </th>
   )
 }

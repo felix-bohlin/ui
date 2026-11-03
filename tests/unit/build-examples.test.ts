@@ -1161,7 +1161,10 @@ describe("package scripts", () => {
   })
 
   test("build writes the examples first and check runs check:fast", () => {
-    expect(scripts.build.startsWith("pnpm build-examples && ")).toBe(true)
+    expect(scripts.build).toContain("pnpm build-examples && ")
+    expect(scripts.build.indexOf("pnpm build-examples")).toBeLessThan(
+      scripts.build.indexOf("astro build"),
+    )
     expect(scripts.check).toContain("pnpm check:fast")
   })
 })

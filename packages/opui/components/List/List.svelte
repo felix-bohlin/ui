@@ -17,11 +17,7 @@
 <ul
   class={[
     "ui-list",
-    {
-      "ui-bordered": bordered,
-      "ui-dense": dense,
-      "ui-flush": flush,
-    },
+    { "ui-bordered": bordered, "ui-dense": dense, "ui-flush": flush },
     variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}

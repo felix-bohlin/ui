@@ -16,10 +16,7 @@
 <dl
   class={[
     "ui-description-list",
-    {
-      "ui-bordered": bordered,
-      "ui-dotted": dotted,
-    },
+    { "ui-bordered": bordered, "ui-dotted": dotted },
     orientation && orientation !== "auto" && `ui-${orientation}`,
     className,
   ]}

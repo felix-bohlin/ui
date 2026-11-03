@@ -7,21 +7,20 @@ export default function List({
   dense,
   flush,
   variant,
+  children,
   ...rest
 }: Props) {
   return (
     <ul
       className={cx([
         "ui-list",
-        {
-          "ui-bordered": bordered,
-          "ui-dense": dense,
-          "ui-flush": flush,
-        },
+        { "ui-bordered": bordered, "ui-dense": dense, "ui-flush": flush },
         variant && variant !== "filled" && `ui-${variant}`,
         className,
       ])}
       {...rest}
-    />
+    >
+      {children}
+    </ul>
   )
 }

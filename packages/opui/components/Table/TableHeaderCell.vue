@@ -10,7 +10,8 @@ defineSlots<Slots>()
     :class="[{ 'ui-numeric': numeric }, $props.class]"
     :data-sort="sortable ? '' : undefined"
   >
-    <button v-if="sortable" type="button"><slot></slot></button>
-    <slot v-else></slot>
+    <button v-if="sortable" type="button">
+      <slot></slot></button
+    ><slot v-else></slot>
   </th>
 </template>

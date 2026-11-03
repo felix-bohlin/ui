@@ -86,6 +86,11 @@ const years = Object.keys(categorized)
         > when it's vertical, instead of spilling its items into the page.
       </li>
       <li>
+        Copy (<code>css/compat/copy.css</code>): without interest invokers, a
+        Tooltip on the copy button stays hidden while the Copied label shows,
+        since the Tooltip fallback would show it while the button is hovered.
+      </li>
+      <li>
         Dialog (<code>css/compat/dialog.css</code>): without <code
           >overflow-block</code
         >, the content scrolls through <code>overflow-y</code>.

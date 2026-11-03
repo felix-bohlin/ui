@@ -32,6 +32,14 @@ for (const { name, skipAxe, steps, unreachableIn } of SCENARIOS) {
     const builder = new AxeBuilder({ page }).exclude('iframe[src*="youtube"]')
     for (const overlay of overlays) builder.include(id(overlay))
     const { violations } = await builder.analyze()
-    expect(axeNodes(violations)).toEqual([])
+    const contrast = violations
+      .filter((violation) => violation.id === "color-contrast")
+      .flatMap((violation) =>
+        violation.nodes.map((node) => ({
+          target: node.target,
+          ...node.any[0]?.data,
+        })),
+      )
+    expect(axeNodes(violations), JSON.stringify(contrast)).toEqual([])
   })
 }

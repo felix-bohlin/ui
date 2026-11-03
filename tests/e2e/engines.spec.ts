@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
 import {
   ENGINE_BUGS,
+  FIREFOX_FALLBACK_FADE,
   FIREFOX_SELF_RTL,
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_RADIO_NO_WRAP,
@@ -94,6 +95,64 @@ repro(WEBKIT_TOP_LAYER_ANCHOR, () => {
     await tab.locator("#trigger").click()
     await expect.poll(async () => (await placement(tab)).below).toBe(0)
   })
+})
+
+repro(FIREFOX_FALLBACK_FADE, () => {
+  for (const fallback of [false, true]) {
+    test(`a popover ${fallback ? "that a position-try fallback places" : "at its own position"} finishes fading in`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(browserName, fallback ? { firefox: FIREFOX_FALLBACK_FADE } : {})
+      await tab.setContent(`<!doctype html>
+<style>
+  body { margin: 0; padding: ${fallback ? "8px" : "200px"} 8px }
+  #popover {
+    inset: auto;
+    margin: 0;
+    opacity: 0;
+    position-area: block-start;
+    position-try-fallbacks: flip-block;
+    transition:
+      display 0.15s allow-discrete,
+      opacity 0.15s,
+      overlay 0.15s allow-discrete;
+  }
+  #popover:popover-open { opacity: 1 }
+  @starting-style {
+    #popover:popover-open { opacity: 0 }
+  }
+</style>
+${trigger}`)
+      await tab.locator("#trigger").click()
+      await expect
+        .poll(
+          () =>
+            tab.evaluate(() => {
+              const trigger = document
+                .getElementById("trigger")!
+                .getBoundingClientRect()
+              const popover = document
+                .getElementById("popover")!
+                .getBoundingClientRect()
+              return popover.top >= trigger.bottom ? "below" : "above"
+            }),
+          {
+            message: fallback
+              ? "the fallback places the popover below its trigger"
+              : "the popover stays above its trigger",
+          },
+        )
+        .toBe(fallback ? "below" : "above")
+      await expect
+        .poll(() =>
+          tab
+            .locator("#popover")
+            .evaluate((element) => getComputedStyle(element).opacity),
+        )
+        .toBe("1")
+    })
+  }
 })
 
 repro(FIREFOX_SELF_RTL, () => {

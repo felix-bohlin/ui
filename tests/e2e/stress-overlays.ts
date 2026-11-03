@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test"
 import type { Page } from "@playwright/test"
 import {
+  FIREFOX_FALLBACK_FADE,
   FIREFOX_SELF_RTL,
   WEBKIT_TOP_LAYER_ANCHOR,
   type EngineBugs,
@@ -23,6 +24,7 @@ export type Scenario = {
   stillOpen?: string[]
   top: string
   unreachableIn?: EngineBugs
+  unsettledIn?: EngineBugs
 }
 
 export const id = (name: string) => `#stress-overlays-${name}`
@@ -191,6 +193,7 @@ export const SCENARIOS: Scenario[] = [
       open("edge-top-start-tooltip"),
     ],
     top: id("edge-top-start-tooltip"),
+    unsettledIn: { firefox: FIREFOX_FALLBACK_FADE },
   },
   {
     name: "end aligned menu at top end",
@@ -354,6 +357,7 @@ export const SCENARIOS: Scenario[] = [
       open("table-sticky-tip-4"),
     ],
     top: id("table-sticky-tip-4"),
+    unsettledIn: { firefox: FIREFOX_FALLBACK_FADE },
   },
   {
     name: "row menu at the end of a sticky header table",
@@ -406,18 +410,21 @@ export const SCENARIOS: Scenario[] = [
     name: "tooltip on a square button in a drawer header",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-edit")],
     top: id("toolbar-drawer-tip-edit"),
+    unsettledIn: { firefox: FIREFOX_FALLBACK_FADE },
   },
   {
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "tooltip on an aria-disabled button in a drawer header",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-share")],
     top: id("toolbar-drawer-tip-share"),
+    unsettledIn: { firefox: FIREFOX_FALLBACK_FADE },
   },
   {
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "tooltip on the close button at the drawer edge",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-close")],
     top: id("toolbar-drawer-tip-close"),
+    unsettledIn: { firefox: FIREFOX_FALLBACK_FADE },
   },
   {
     failingIn: { firefox: FIREFOX_SELF_RTL },

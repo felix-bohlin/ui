@@ -11,10 +11,10 @@ import {
   run,
 } from "./stress-overlays"
 
-for (const { name, skipAxe, steps, unreachableIn } of SCENARIOS) {
+for (const { name, skipAxe, steps, unreachableIn, unsettledIn } of SCENARIOS) {
   test(`open ${name} has no axe violations`, async ({ browserName, page }) => {
     test.skip(skipAxe !== undefined, skipAxe)
-    failsIn(browserName, unreachableIn)
+    failsIn(browserName, { ...unreachableIn, ...unsettledIn })
     await openFixture(page, "html", "stress/overlays")
     await needsSelect(page, steps)
     for (const step of steps) await run(page, step)

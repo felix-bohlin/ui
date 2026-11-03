@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
 import { tagAttrs } from "../tag"
+import { trimEdges } from "../whitespace"
 
 export const title = "List Item"
 
@@ -24,6 +25,9 @@ const hasControl = type === "checkbox" || type === "radio" || type === "switch"
 const Tag = hasControl ? "label" : as
 const liProps = Tag && !hasControl ? {} : rest
 const hasLabel = !!label || Astro.slots.has("label")
+const submenu = Astro.slots.has("submenu")
+  ? trimEdges(await Astro.slots.render("submenu"))
+  : ""
 const hasDescription = !!description || Astro.slots.has("description")
 const tagProps = hasControl
   ? { class: `ui-${type}`, for: htmlFor }
@@ -110,6 +114,5 @@ const tagProps = hasControl
         )}
       </>
     )
-  }
-  <slot name="submenu" />
+  }<Fragment set:html={submenu} />
 </li>

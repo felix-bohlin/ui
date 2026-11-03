@@ -1,0 +1,343 @@
+import { createElement, type ComponentType, type ReactNode } from "react"
+import { renderToString as renderReact } from "react-dom/server"
+import { createRawSnippet, type Component as SvelteComponent } from "svelte"
+import { render as renderSvelte } from "svelte/server"
+import { createSSRApp, h, type Component as VueComponent } from "vue"
+import { renderToString as renderVue } from "vue/server-renderer"
+import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { createRenderer } from "../../scripts/build-examples.mjs"
+import { parseHtml } from "../../scripts/html-tokens.mjs"
+import { slotProp } from "../../src/component-api/frameworks"
+import type { ComponentApi } from "../../src/component-api/types"
+import { frameworkProps, splitUnion } from "../../src/utils/component-source"
+import { createIdGenerator } from "../../src/utils/id"
+import { normalize } from "./normalize"
+
+const apis = import.meta.glob<ComponentApi>(
+  "../../src/component-api/*/api.ts",
+  { eager: true, import: "default" },
+)
+const astroPaths = Object.keys(
+  import.meta.glob("../../packages/opui/components/*/*.astro"),
+)
+const reactComponents = import.meta.glob<{
+  default: ComponentType<Record<string, unknown>>
+}>("../../packages/opui/components/*/*.react.tsx")
+const svelteComponents = import.meta.glob<{
+  default: SvelteComponent<Record<string, unknown>>
+}>("../../packages/opui/components/*/*.svelte")
+const vueComponents = import.meta.glob<VueComponent>(
+  "../../packages/opui/components/*/*.vue",
+  { import: "default" },
+)
+
+const FRAMEWORKS = ["astro", "react", "svelte", "vue"] as const
+
+type Framework = (typeof FRAMEWORKS)[number]
+
+type Node = ReturnType<typeof parseHtml>[number]
+
+const TEXT = "Text"
+
+const SLOT_CONTENT: Record<string, string> = {
+  Table: "<tbody><tr><td>Text</td></tr></tbody>",
+  TableBody: "<tr><td>Text</td></tr>",
+  TableColumnGroup: "<col>",
+  TableFoot: "<tr><td>Text</td></tr>",
+  TableHead: "<tr><td>Text</td></tr>",
+  TableRow: "<td>Text</td>",
+}
+
+const SAMPLES: Record<string, unknown> = {
+  "MenuItem[]": [{ label: "A", value: "a" }],
+  "RangeItem[]": [{ label: "A", value: 1 }],
+  "SelectItem[]": [{ label: "A", value: "a" }],
+  HTMLInputTypeAttribute: "text",
+  boolean: true,
+  number: 2,
+  string: TEXT,
+}
+
+const REACT_NAMES: Record<string, string> = {
+  checked: "defaultChecked",
+  for: "htmlFor",
+  value: "defaultValue",
+}
+
+const SLOT_TYPE = /\b(ReactNode|Snippet)\b/
+
+const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
+
+const KNOWN_DIFFERENCES: Record<string, string> = {}
+
+const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
+  Object.entries(modules).find(([path]) =>
+    path
+      .replace(/\.react\.tsx$/, ".tsx")
+      .endsWith(`/${name}.${path.split(".").at(-1)}`),
+  )?.[1]
+
+const contentOf = (component: string) => SLOT_CONTENT[component] ?? TEXT
+
+const attributesOf = (node: Node & { type: "element" }) =>
+  Object.fromEntries(
+    node.attrs.map(({ name, value }: { name: string; value: string }) => [
+      name,
+      value,
+    ]),
+  )
+
+const reactNodes = (nodes: Node[]): ReactNode[] =>
+  nodes.flatMap((node, index) =>
+    node.type === "text"
+      ? [node.value]
+      : node.type === "element"
+        ? [
+            createElement(
+              node.tag,
+              { ...attributesOf(node), key: index },
+              ...reactNodes(node.children),
+            ),
+          ]
+        : [],
+  )
+
+const vueNodes = (nodes: Node[]): unknown[] =>
+  nodes.flatMap((node) =>
+    node.type === "text"
+      ? [node.value]
+      : node.type === "element"
+        ? [h(node.tag, attributesOf(node), vueNodes(node.children))]
+        : [],
+  )
+
+const valuesOf = (type: string) =>
+  [
+    ...new Set(
+      splitUnion(type).flatMap((member) => {
+        const literal = /^"(.*)"$/.exec(member)
+        if (literal) return [literal[1]]
+        if (member === "true") return [true]
+        return member in SAMPLES ? [SAMPLES[member]] : []
+      }),
+    ),
+  ].slice(0, 6)
+
+const slotsOf = (api: ComponentApi) =>
+  [
+    ...new Set([
+      ...(api.slots ?? []).map(({ name }) => name),
+      ...api.parts.flatMap((part) => part.slots ?? []),
+    ]),
+  ].toSorted()
+
+const propName = (framework: Framework, name: string) =>
+  framework === "react" ? (REACT_NAMES[name] ?? name) : name
+
+type Case = {
+  component: string
+  name: string
+  props: Record<string, unknown>
+  slots: string[]
+  types: Record<Framework, Map<string, string>>
+}
+
+const casesOf = (api: ComponentApi): Case[] => {
+  const types = Object.fromEntries(
+    FRAMEWORKS.map((framework) => [framework, frameworkProps(api, framework)]),
+  ) as Record<Framework, Map<string, string>>
+  const shared = [...types.astro]
+    .filter(
+      ([name, type]) =>
+        !SLOT_TYPE.test(type) &&
+        FRAMEWORKS.every((framework) => {
+          const own = types[framework].get(propName(framework, name))
+          return own !== undefined && !SLOT_TYPE.test(own)
+        }),
+    )
+    .toSorted(([a], [b]) => a.localeCompare(b, "en"))
+  const slots = slotsOf(api)
+  const base = { component: api.component, types }
+  return [
+    { ...base, name: "nothing", props: {}, slots: [] },
+    { ...base, name: "every slot", props: {}, slots },
+    ...shared.flatMap(([name, type]) =>
+      valuesOf(type).map((value) => ({
+        ...base,
+        name: `${name}=${JSON.stringify(value)}`,
+        props: { [name]: value },
+        slots,
+      })),
+    ),
+  ]
+}
+
+const CASES = Object.values(apis)
+  .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
+  .flatMap(casesOf)
+
+let renderer: Awaited<ReturnType<typeof createRenderer>>
+
+beforeAll(async () => {
+  renderer = await createRenderer()
+}, 60_000)
+
+afterAll(() => renderer.close())
+
+const fixtureOf = (component: string, slots: string[]) => {
+  const path = astroPaths.find((candidate) =>
+    candidate.endsWith(`/${component}.astro`),
+  )
+  if (!path) return undefined
+  const content = JSON.stringify(contentOf(component))
+  const children = slots
+    .map((slot) =>
+      slot === "default"
+        ? `<Fragment set:html={${content}} />`
+        : `<Fragment slot="${slot}" set:html={${content}} />`,
+    )
+    .join("")
+  return {
+    file: `tests/unit/.contract/${component}.${slots.length ? "slots" : "bare"}.astro`,
+    source: `---\nimport Component from "${path.replace("../../", "../../../")}"\n\nconst { props } = Astro.props\n---\n\n<Component {...props}>${children}</Component>\n`,
+  }
+}
+
+const slotValue = (
+  framework: Framework,
+  type: string | undefined,
+  nodes: () => unknown,
+) => {
+  if (framework === "svelte") {
+    return createRawSnippet(() => ({ render: () => String(nodes()) }))
+  }
+  return type?.includes("=>") ? nodes : nodes()
+}
+
+const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
+  {
+    astro: async ({ component, props, slots }) => {
+      const fixture = fixtureOf(component, slots)
+      if (!fixture) return undefined
+      return renderer.renderSource(fixture.file, fixture.source, {
+        locals: {
+          $id: createIdGenerator(),
+          framework: "astro",
+          link: (path: string) => path,
+        },
+        props: { props },
+      })
+    },
+    react: async ({ component, props, slots, types }) => {
+      const load = loaderOf(reactComponents, component)
+      if (!load) return undefined
+      const { default: Component } = await load()
+      const nodes = () => reactNodes(parseHtml(contentOf(component)))
+      return renderReact(
+        createElement(Component, {
+          ...Object.fromEntries(
+            Object.entries(props).map(([key, value]) => [
+              propName("react", key),
+              value,
+            ]),
+          ),
+          ...Object.fromEntries(
+            slots
+              .filter(
+                (slot) => slot === "default" || types.react.has(slotProp(slot)),
+              )
+              .map((slot) => [
+                slotProp(slot),
+                slotValue("react", types.react.get(slotProp(slot)), nodes),
+              ]),
+          ),
+        }),
+      ).replace(PRELOAD, "")
+    },
+    svelte: async ({ component, props, slots, types }) => {
+      const load = loaderOf(svelteComponents, component)
+      if (!load) return undefined
+      const { default: Component } = await load()
+      return renderSvelte(Component, {
+        props: {
+          ...props,
+          ...Object.fromEntries(
+            slots
+              .filter(
+                (slot) =>
+                  slot === "default" || types.svelte.has(slotProp(slot)),
+              )
+              .map((slot) => [
+                slotProp(slot),
+                slotValue("svelte", undefined, () => contentOf(component)),
+              ]),
+          ),
+        },
+      }).body
+    },
+    vue: async ({ component, props, slots }) => {
+      const load = loaderOf(vueComponents, component)
+      if (!load) return undefined
+      const Component = await load()
+      return renderVue(
+        createSSRApp({
+          render: () =>
+            h(
+              Component,
+              props,
+              Object.fromEntries(
+                slots.map((slot) => [
+                  slot,
+                  () => vueNodes(parseHtml(contentOf(component))),
+                ]),
+              ),
+            ),
+        }),
+      )
+    },
+  }
+
+describe("every component renders the same in Astro, React, Svelte and Vue", () => {
+  test("covers the components with a matrix of props and slots", () => {
+    expect(
+      new Set(CASES.map(({ component }) => component)).size,
+    ).toBeGreaterThan(60)
+    expect(CASES.length).toBeGreaterThan(300)
+  })
+
+  test.each(CASES)("$component with $name", async (entry) => {
+    const expected = await render.astro(entry)
+    if (expected === undefined) return
+    const reference = normalize(expected)
+    for (const framework of FRAMEWORKS.filter((id) => id !== "astro")) {
+      const actual = await render[framework](entry)
+      if (actual === undefined) continue
+      const key = `${entry.component} ${entry.name} ${framework}`
+      if (key in KNOWN_DIFFERENCES) {
+        expect
+          .soft(
+            normalize(actual) === reference,
+            `${key} is in KNOWN_DIFFERENCES (${KNOWN_DIFFERENCES[key]}) but no longer differs; delete it`,
+          )
+          .toBe(false)
+        continue
+      }
+      expect
+        .soft(
+          normalize(actual),
+          `${entry.component} with ${entry.name}: ${framework} differs from Astro`,
+        )
+        .toBe(reference)
+    }
+  })
+
+  test("a sample the check must flag: a class one framework forgets", () => {
+    expect(
+      normalize(
+        '<label class="ui-checkbox ui-card"><input type="checkbox"></label>',
+      ),
+    ).not.toBe(
+      normalize('<label class="ui-checkbox"><input type="checkbox"></label>'),
+    )
+  })
+})

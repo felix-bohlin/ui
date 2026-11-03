@@ -27,8 +27,12 @@
 </script>
 
 <div class={["ui-header", className]} {...rest}>
-  {@render children?.()}
-  <Button aria-label={closeLabel} round size="small" {...closeAttrs}>
+  {@render children?.()}<Button
+    aria-label={closeLabel}
+    round
+    size="small"
+    {...closeAttrs}
+  >
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

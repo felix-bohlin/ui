@@ -30,7 +30,10 @@ const ID_REFERENCE_ATTRIBUTES = new Set([
 
 const ASCII_WHITESPACE = /[\t\n\f\r ]+/
 
-const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?_R_\w+_)$/
+const GENERATED_NAME =
+  /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?(_R_\w+_|s\d+))$/
+
+const GENERATED_REFERENCE = /(^|-)(\d+|_R_\w+_|s\d+|v-\d+)(-|$)/
 
 const attribute = (node: Node, name: string) =>
   node.attrs.find((attr: { name: string }) => attr.name === name)?.value as
@@ -74,7 +77,14 @@ const normalizeAttribute = (
     return value
       .split(ASCII_WHITESPACE)
       .filter(Boolean)
-      .map((token) => ids.get(token) ?? token)
+      .map((token) => {
+        if (ids.has(token)) return ids.get(token)
+        if (!GENERATED_REFERENCE.test(token)) return token
+        if (!ids.has(`ref:${token}`)) {
+          ids.set(`ref:${token}`, `ref-${ids.size + 1}`)
+        }
+        return ids.get(`ref:${token}`)
+      })
       .join(" ")
   }
   if (name === "href" && value.startsWith("#")) {
@@ -166,7 +176,7 @@ const serialize = (
 export const idsOf = (html: string) => {
   const ids = new Map<string, string>()
   collectIds(parseHtml(html), ids)
-  return [...ids.keys()].filter((key) => !key.startsWith("name:"))
+  return [...ids.keys()].filter((key) => !/^(name|ref):/.test(key))
 }
 
 export const normalize = (

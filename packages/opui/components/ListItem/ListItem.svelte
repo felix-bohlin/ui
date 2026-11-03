@@ -75,6 +75,5 @@
     </svelte:element>
   {:else}
     {@render body()}
-  {/if}
-  {@render submenu?.()}
+  {/if}{@render submenu?.()}
 </li>

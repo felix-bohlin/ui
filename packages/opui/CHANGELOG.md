@@ -436,6 +436,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Badge` dots sit in every corner, not only the default one.
 - `Badge` and `Anchor` no longer write the unused `--_anchor-inset`, and aligned badges no longer write `--ui-anchor-position-area`.
 - `Badge` with `invisible` hides the indicator from screen readers too.
+- `Badge` in Astro renders `label` and the `indicator` slot next to each other, without the space its source line break added, like React, Svelte and Vue.
 - `Button` `kbd` uses the button's text color, also on hover, instead of 80% of it, so it passes contrast on colored buttons.
 - `Button` critical text buttons have readable text on tonal surfaces in dark mode.
 - `Button` and `ButtonGroup` style `[aria-disabled="true"]` the same as `[disabled]`, e.g. for `<a class="ui-button" aria-disabled="true">` or focusable disabled buttons.
@@ -497,6 +498,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
 - `Drawer` clips its own overflow, so a drawer without a footer no longer scrolls by the height of the bottom scroll shadow and only `.ui-content` scrolls.
+- `DrawerHeader` in Svelte renders the close button right after the content, without the space its source line break added.
 - `FieldGroup` `name` only applies to its own fields in Astro and Vue.
 - `FieldGroup` `orientation="vertical"` stacks a group of only buttons.
 - `FieldGroup` in Vue passes a `name` that changes or comes from an outer group to its inputs.
@@ -518,6 +520,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `List` `.ui-end` passes clicks to a `label`, `select`, `summary`, `textarea` or `[tabindex]` element inside it, not only to links, buttons and inputs.
 - `List` rows no longer force every element inside them to the row's font size, so a `Chip`, `Badge` or `Button` in `.ui-start` or `.ui-end` keeps its own size.
 - `List` on touch screens only stops text selection in clickable rows (`a`, `button` and `label`), so end text and `Select` options can be selected and copied.
+- `ListItem` in Astro and Svelte renders the `submenu` slot without the whitespace before it, like React and Vue.
 - `ListItem` with `href` and no `as` renders a link in Astro and Vue.
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.

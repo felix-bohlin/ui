@@ -35,6 +35,7 @@ import {
   staleProblems,
   TARGETS,
 } from "./example-targets.mjs"
+import { BOOLEAN_ATTRIBUTES, VOID_ELEMENTS } from "./html-tokens.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const examplesDir = join(root, "src/component-examples")
@@ -71,22 +72,6 @@ const NUMERIC_ATTRIBUTES = [
   "span",
   "tabindex",
 ]
-
-const VOID_ELEMENTS = new Set([
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "link",
-  "meta",
-  "source",
-  "track",
-  "wbr",
-])
 
 const MAP_KEY_ORDER = ["id", "value", "name", "title"]
 
@@ -1431,33 +1416,6 @@ const topLevelBreaks = (html, blankLines) => {
     })
     .join("\n")
 }
-
-const BOOLEAN_ATTRIBUTES = new Set([
-  "allowfullscreen",
-  "async",
-  "autofocus",
-  "autoplay",
-  "checked",
-  "controls",
-  "default",
-  "defer",
-  "disabled",
-  "formnovalidate",
-  "hidden",
-  "inert",
-  "loop",
-  "multiple",
-  "muted",
-  "nomodule",
-  "novalidate",
-  "open",
-  "playsinline",
-  "popover",
-  "readonly",
-  "required",
-  "reversed",
-  "selected",
-])
 
 const BLOCK_ELEMENTS =
   "address|article|aside|blockquote|caption|dd|details|dialog|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hgroup|hr|legend|li|main|nav|ol|p|pre|section|summary|table|tbody|td|tfoot|th|thead|tr|ul"

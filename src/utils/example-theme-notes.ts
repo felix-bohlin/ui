@@ -6,7 +6,7 @@ export const EXAMPLE_THEME_NOTES = {
   },
   brutalist: {
     description:
-      "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover without changing color, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links and 500 weight body text.",
+      "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links and 500 weight body text.",
     original: "neobrutalism",
   },
   m3: {

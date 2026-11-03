@@ -19,9 +19,9 @@ Six classes for the space between components: .ui-layout-column, .ui-layout-row,
 - Columns: `.ui-layout-columns`. One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`.
 - Container: `.ui-layout-container`. Centers its content, caps its width and is the container `.ui-layout-columns` measures.
 - Grid: `.ui-layout-grid`. Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell.
-- Media: `.ui-layout-media`. A media object: a fixed-size start, such as an avatar, next to text that fills the rest and truncates.
+- Media: `.ui-layout-media`. A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row.
 - Row: `.ui-layout-row`. A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins.
-- Sizes: `large` (`.ui-large`), `medium` (default), `small` (`.ui-small`), `x-small` (`.ui-x-small`). The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-media`.
+- Sizes: `large` (`.ui-large`), `medium` (default), `small` (`.ui-small`), `x-small` (`.ui-x-small`). The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`.
 - Spread: `.ui-spread`. Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.
 - Sticky: `.ui-sticky`. On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side.
 - Stretch: `.ui-stretch`. Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.

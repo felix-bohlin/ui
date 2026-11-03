@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state.",
+      "Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, then `--ui-control-accent`, then `--ui-primary`, and is set by the invalid state.",
     kind: "input",
   },
   "--_duration": {

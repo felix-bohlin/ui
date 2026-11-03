@@ -53,11 +53,15 @@ const builds = Object.entries(modules)
     <h2>How it works</h2>
     <ul>
       <li>Pick a step: the demo runs only the CSS up to that step</li>
-      <li>The code shown is the code that runs</li>
+      <li>
+        The code shown is the code that runs, apart from a scoped stylesheet
+        some demos add for layout
+      </li>
       <li>Sliders write custom properties on the demo</li>
       <li>Browser support for each new feature, per step</li>
       <li>
-        The stepper itself: radio inputs + <code>:has()</code>, no JavaScript
+        The stepper itself: radio inputs + <code>:has()</code>; only Previous,
+        Next and the sliders run a small script
       </li>
     </ul>
   </section>

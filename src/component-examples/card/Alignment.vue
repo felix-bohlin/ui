@@ -4,7 +4,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 
 <template>
   <Card variant="outlined">
-    <CardContent>Buttons aligned to the end. Works too!</CardContent>
+    <CardContent>Buttons aligned to the start. Works too!</CardContent>
     <CardActions align="start">
       <Button>Cancel</Button>
       <Button>Save</Button>
@@ -12,7 +12,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Again, buttons are aligned to the end!</CardContent>
+    <CardContent>Again, buttons are aligned to the start!</CardContent>
     <CardActions align="start">
       <Button variant="outlined">Cancel</Button>
       <Button variant="filled">Save</Button>
@@ -20,7 +20,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Icon buttons aligned to the end!</CardContent>
+    <CardContent>Icon buttons aligned to the start!</CardContent>
     <CardActions align="start">
       <Button aria-label="Favorite" round size="small">
         <svg

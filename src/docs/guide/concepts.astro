@@ -49,7 +49,9 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     <h2>Token tiers</h2>
     <p>
       Each tier reads from the ones before it. A theme sets knobs, roles and
-      component tokens, and component CSS starts reading at the roles. <DocLink
+      component tokens, and component CSS reads the roles, a few knobs such as <code
+        >--ui-motion</code
+      > and <code>--ui-contrast</code>, and never the primitives. <DocLink
         href="/guide/theme-tokens">Theme tokens</DocLink
       > and <code>tokens.json</code> name the tier of every token:
     </p>
@@ -57,12 +59,11 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     <p>
       <strong>Knobs</strong> like <code>--ui-palette-hue</code> and <code
         >--ui-density</code
-      > are the inputs. <strong>Primitives</strong>, the palette steps <code
+      > are the inputs. <strong>Primitives</strong> are the palette steps <code
         >--ui-color-1</code
-      > to <code>--ui-color-16</code> and the type scale <code
-        >--ui-font-size-100</code
-      > to <code>--ui-font-size-900</code>, derive from them, and component CSS
-      never reads them. <strong>Roles</strong>
+      > to <code>--ui-color-16</code>, derived from the knobs, and the type
+      scale <code>--ui-font-size-100</code> to <code>--ui-font-size-900</code>,
+      plain values. Component CSS never reads them. <strong>Roles</strong>
       such as <code>--ui-primary</code> and <code>--ui-space-3</code> are the contract
       every component reads, each listed on <DocLink href="/guide/theme-tokens"
         >Theme tokens</DocLink
@@ -75,16 +76,16 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       >, and a theme that has to reach into component CSS points at a missing
       role.
       <strong>Component tokens</strong> like <code>--ui-button-size</code> cover a
-      job only one component has. <strong>Private properties</strong> like <code
-        >--_accent</code
-      > are one component's wiring for one element, see <DocLink
+      job a few related components share (Button, ToggleButton and ToggleGroup read
+      that one). <strong>Private properties</strong> like <code>--_accent</code> are
+      one component's wiring for one element, see <DocLink
         href="/guide/customizing#component-properties"
         >Component properties</DocLink
       >. The documented inputs among them are per instance: the component
-      declares them on itself in <code>components.root</code>, so a theme in <code
-        >theme.custom</code
-      > can't set them site-wide. <DocLink href="/guide/theming"
-        >Theming</DocLink
+      declares them on itself, in <code>components.root</code> or <code
+        >components.extended</code
+      >, so a theme in <code>theme.custom</code> can't set them site-wide. <DocLink
+        href="/guide/theming">Theming</DocLink
       > walks through the knobs.
     </p>
   </section>
@@ -92,13 +93,16 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
   <section id="light-and-dark">
     <h2>Light and dark</h2>
     <p>
-      Every color token holds both schemes in one <code>light-dark()</code> under
-      <code>color-scheme: light dark</code>, so the OS setting drives them and
-      there is no class to toggle. <code>.ui-light</code> and <code
-        >.ui-dark</code
-      > pick a side for <code>html</code> or one element, see <DocLink
-        href="/guide/theming#scopes">Scopes</DocLink
-      >.
+      Most color roles hold both schemes in one <code>light-dark()</code>. <code
+        >html</code
+      > sets <code>color-scheme</code> from <code>--ui-color-scheme</code>, <code
+        >light</code
+      > by default and <code>dark</code> under <code
+        >prefers-color-scheme: dark</code
+      >, so the OS setting drives them and there is no class to toggle. <code
+        >.ui-light</code
+      > and <code>.ui-dark</code> pick a side for <code>html</code> or one element,
+      see <DocLink href="/guide/theming#scopes">Scopes</DocLink>.
     </p>
     <Example>
       <div class="concepts-schemes">
@@ -199,7 +203,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       Boolean props become a class of the same name (<code>round</code> is <code
         >.ui-round</code
       >), and native states stay native attributes, like <code>disabled</code>.
-      The API tables list prop and class side by side.
+      The HTML API tables list the classes, and the framework tables the props.
     </p>
   </section>
 
@@ -319,7 +323,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
         href="/components/callout#severities">Callout</DocLink
       > or the shaped dot of a <DocLink href="/components/chip#severities"
         >Chip</DocLink
-      >, because a color alone doesn't tell everyone.
+      > with <code>dot</code>, because a color alone doesn't tell everyone.
     </p>
 
     <h3 id="variants">Variants</h3>
@@ -328,12 +332,14 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       counts against it. <code>filled</code> is a solid fill in the component's own
       color: the accent on a Button, a surface on a field or a track. <code
         >tonal</code
-      > is the tonal surface, <code>outlined</code> a border with no fill, <code
-        >elevated</code
-      > a raised surface with a shadow, <code>transparent</code> no surface and no
-      border at rest, and <code>line</code> an indicator with no track, on <DocLink
-        href="/components/tabs#line">Tabs</DocLink
-      >. <code>plain</code> is the page surface with no border, and only differs from
+      > is the tonal surface, <code>outlined</code> a border, around the page surface
+      on a Card, Accordion, Callout, Chip or field and around no fill on a Button,
+      Avatar or Tabs, <code>elevated</code> a raised surface with a shadow, <code
+        >transparent</code
+      > no surface and no border at rest, and <code>line</code> an indicator with
+      no track, on <DocLink href="/components/tabs#line">Tabs</DocLink>. <code
+        >plain</code
+      > is the page surface with no border, and only differs from
       <code>transparent</code> on a tinted background:
     </p>
     <Example centered>
@@ -369,7 +375,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       </div>
     </Example>
     <p>
-      Every enum names its default, which adds no class: <code
+      Most enums name their default, which adds no class: <code
         >size="medium"</code
       >, <code>variant="transparent"</code> on a Button, <code
         >variant="plain"</code
@@ -404,8 +410,14 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     <h2>Rich text</h2>
     <p>
       <code>.ui-rich-text</code> styles the classless elements inside it, for Markdown
-      or CMS output. Elements with a class are left alone, so components keep their
-      styles, and <code>.ui-not-rich-text</code> opts a subtree out.
+      or CMS output. Headings, lists, tables, definition lists, details and rules
+      with a class, and links with a <code>ui-</code> class, are left alone; <code
+        >p</code
+      >, <code>address</code>, <code>blockquote</code>, <code>pre</code> and <code
+        >figure</code
+      > are styled whatever their class. Components keep their own styles because
+      rich text sits in <code>components.prose</code>, the lowest component
+      layer, and <code>.ui-not-rich-text</code> opts a subtree out.
     </p>
     <Example>
       <article class="ui-rich-text">

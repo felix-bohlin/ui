@@ -2,7 +2,14 @@
 import { Range } from "opui-css/astro"
 ---
 
-<Range id="range-value-text-1" label="Temperature" max="30" min="10" value="21">
+<Range
+  aria-valuetext="21°"
+  id="range-value-text-1"
+  label="Temperature"
+  max="30"
+  min="10"
+  value="21"
+>
   <b slot="value-text">21°</b>
 </Range>
 
@@ -12,6 +19,7 @@ import { Range } from "opui-css/astro"
   if (input && value) {
     input.addEventListener("input", () => {
       value.textContent = `${input.value}°`
+      input.setAttribute("aria-valuetext", `${input.value}°`)
     })
   }
 </script>

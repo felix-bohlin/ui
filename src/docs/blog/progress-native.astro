@@ -58,6 +58,10 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
   border: 0;
 }
 
+.progress > progress::-webkit-progress-bar {
+  background: none;
+}
+
 .progress > progress[value]::-webkit-progress-value {
   background-color: var(--ui-primary);
 }
@@ -106,7 +110,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
       </li>
       <li>
         Under reduced motion the bar pulses in place instead of sliding.
-        Browsers without container style queries skip the pulse
+        Browsers without container style queries skip the pulse, so under
+        reduced motion they show an empty track
       </li>
     </ul>
   </section>

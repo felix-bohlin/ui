@@ -186,8 +186,9 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
       <li>
         In browsers without interest invokers, the compat layer shows the
         tooltip while its trigger is hovered or has keyboard focus. It isn't in
-        the top layer there, so an ancestor that clips its overflow can hide it,
-        and <kbd>Esc</kbd> doesn't close it.
+        the top layer there, so an ancestor that clips its overflow and has a
+        transform, filter or containment can hide it, later content can cover
+        it, and <kbd>Esc</kbd> doesn't close it.
       </li>
     </ul>
     <KeyboardSupport />

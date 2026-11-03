@@ -24,7 +24,7 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 ### Props and modifiers
 
 - `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content and allows resizing in both directions.
-- `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`.
+- `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `disabled`: `boolean`, `textarea[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `textarea[aria-invalid="true"]`. Marks the control invalid and shows error styles.
@@ -44,8 +44,8 @@ Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `
 
 ### Notes
 
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `placeholder` and `rows`, and `class` and `style` go to the root `<label>`.
-- React: Attributes that aren't props go to the `<textarea>`, like `placeholder` and `rows`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the root `<label>`.
+- React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
@@ -53,7 +53,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.

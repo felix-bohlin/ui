@@ -287,7 +287,7 @@
   {
     "id": "component-button-astro",
     "title": "Button",
-    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "description": "Buttons allow users to take actions with a single tap.",
     "keywords": "btn cta icon button submit",
     "category": "Component",
     "url": "/astro/components/button"
@@ -1301,7 +1301,7 @@
   },
   {
     "id": "component-list-astro-on-every-item",
-    "title": "On every item",
+    "title": "Between items",
     "page": "List",
     "category": "Component",
     "url": "/astro/components/list#on-every-item"
@@ -3243,7 +3243,7 @@
   {
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. The largest group is roles; the\n    others are marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
     "category": "Guide",
     "url": "/astro/guide/theme-tokens"
   },
@@ -3540,15 +3540,15 @@
     "id": "blog-drawer-starting-style",
     "title": "Sliding drawers with @starting-style",
     "description": "A dialog that slides in from any edge, and out again with allow-discrete.",
-    "headings": "The problem The trick Try it Fallback @starting-style A fixed `<div>` with JavaScript for the focus trap, Esc and backdrop clicks, and a class removed after `transitionend` to animate it out. A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`. overlay starting-style transition-behavior",
+    "headings": "The problem The trick Try it Fallback @starting-style A fixed `<div>` with JavaScript for the focus trap, Esc and backdrop clicks, and a class removed after `transitionend` to animate it out. A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`. display-animation overlay starting-style transition-behavior",
     "category": "Blog",
     "url": "/blog/drawer-starting-style"
   },
   {
     "id": "blog-fluid-type-progress",
     "title": "Fluid type with progress()",
-    "description": "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
-    "headings": "The problem The trick Try it Fallback progress() A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths. `progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it. progress-function",
+    "description": "progress() turns the viewport width into one 0 to 1 ramp that the four fluid heading sizes share.",
+    "headings": "The problem The trick Try it Fallback progress() A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths. `progress(100vi, start, end)` is one shared ramp, and each fluid heading mixes its two steps with it. progress-function",
     "category": "Blog",
     "url": "/blog/fluid-type-progress"
   },
@@ -3636,7 +3636,7 @@
     "id": "blog-text-field-user-invalid",
     "title": "Validation that waits with :user-invalid",
     "description": ":user-invalid shows errors after the user interacts, not on page load.",
-    "headings": "The problem The trick Try it Fallback :user-invalid JavaScript that adds a touched class on blur. `:user-invalid` only matches after the user has changed the field. user-pseudos",
+    "headings": "The problem The trick Try it Fallback :user-invalid JavaScript that adds a touched class on blur. `:user-invalid` only matches after the user has changed the field and left it, or tried to submit. user-pseudos",
     "category": "Blog",
     "url": "/blog/text-field-user-invalid"
   },
@@ -3659,7 +3659,7 @@
   {
     "id": "blog-under-the-hood",
     "title": "Under the hood",
-    "description": "Every component, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
+    "description": "Most components, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
     "headings": "How it works",
     "category": "Blog",
     "url": "/blog/under-the-hood"
@@ -3683,7 +3683,7 @@
   {
     "id": "block-analytics-dashboard",
     "title": "Analytics dashboard",
-    "description": "Key metrics, a bar chart, top pages and traffic sources for a selectable date range.",
+    "description": "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
     "headings": "Dashboards",
     "category": "Blocks",
     "url": "/blocks/analytics-dashboard"
@@ -3739,7 +3739,7 @@
   {
     "id": "block-data-table",
     "title": "Data table",
-    "description": "A searchable, filterable table with row selection, statuses, row actions and pagination.",
+    "description": "A table with a search field, filters, row selection, sorting, statuses, row actions and pagination links.",
     "headings": "Data display",
     "category": "Blocks",
     "url": "/blocks/data-table"
@@ -3779,7 +3779,7 @@
   {
     "id": "block-file-manager",
     "title": "File manager",
-    "description": "Storage usage, folders and a file table with sorting and row actions.",
+    "description": "Storage usage, folders and a file table with sort headers and row actions.",
     "headings": "Application",
     "category": "Blocks",
     "url": "/blocks/file-manager"
@@ -3955,7 +3955,7 @@
   {
     "id": "block-user-directory",
     "title": "User directory",
-    "description": "A filterable grid of people cards with avatars, roles and contact actions.",
+    "description": "A grid of people cards with a search field, team filters, avatars, roles and contact actions.",
     "headings": "Data display",
     "category": "Blocks",
     "url": "/blocks/user-directory"
@@ -3988,7 +3988,7 @@
     "id": "api-accordion-astro",
     "title": "Accordion API",
     "description": "Reference for Accordion Astro component.",
-    "terms": "Accordion Container element. The always visible header. The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.",
+    "terms": "Accordion Container element. The always visible header. The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/astro/api#accordion"
   },
@@ -4028,7 +4028,7 @@
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
-    "terms": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "terms": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size when the row scrolls; when it shrinks they keep their height but get narrower. size The size of the buttons. variant The variant of the buttons.",
     "category": "API",
     "url": "/astro/api#button-group"
   },
@@ -4212,7 +4212,7 @@
     "id": "api-layout-astro",
     "title": "Layout API",
     "description": "Reference for Layout Astro component.",
-    "terms": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. column A column with even space between its children. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and truncates. row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-media`. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
+    "terms": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. column A column with even space between its children. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
     "category": "API",
     "url": "/astro/api#layout"
   },
@@ -4316,7 +4316,7 @@
     "id": "api-select-all-astro",
     "title": "Select All API",
     "description": "Reference for Select All Astro component.",
-    "terms": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.",
+    "terms": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other checkboxes inside without a `disabled` attribute (one in a disabled fieldset still counts). It's checked when they all are, and `indeterminate` when some are.",
     "category": "API",
     "url": "/astro/api#select-all"
   },
@@ -4380,7 +4380,7 @@
     "id": "api-switch-astro",
     "title": "Switch API",
     "description": "Reference for Switch Astro component.",
-    "terms": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "terms": "Switch Container element. The switch input. An optional icon on the track, shown while unchecked. icon-unchecked An optional icon on the track, shown while checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
     "category": "API",
     "url": "/astro/api#switch"
   },
@@ -4460,7 +4460,7 @@
     "id": "api-text-field-astro",
     "title": "Text Field API",
     "description": "Reference for Text Field Astro component.",
-    "terms": "TextField Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The button needs `opui-css/elements/text-field.js`. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "terms": "TextField Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
     "category": "API",
     "url": "/astro/api#text-field"
   },
@@ -4468,7 +4468,7 @@
     "id": "api-textarea-astro",
     "title": "Textarea API",
     "description": "Reference for Textarea Astro component.",
-    "terms": "Textarea Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed textarea area. Content above the textarea, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The textarea element. Content at the inline-end of the field, inside the border. end Content below the textarea, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content and allows resizing in both directions. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<textarea>`. name The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the textarea to the other. variant The variant to use.",
+    "terms": "Textarea Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed textarea area. Content above the textarea, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The textarea element. Content at the inline-end of the field, inside the border. end Content below the textarea, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content and allows resizing in both directions. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<textarea>`. name The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the textarea to the other. variant The variant to use.",
     "category": "API",
     "url": "/astro/api#textarea"
   },
@@ -4508,7 +4508,7 @@
     "id": "api-toggle-group-astro",
     "title": "Toggle Group API",
     "description": "Reference for Toggle Group Astro component.",
-    "terms": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons.",
+    "terms": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size when the row scrolls and shrink with the rest when it shrinks. size The size of the buttons.",
     "category": "API",
     "url": "/astro/api#toggle-group"
   },

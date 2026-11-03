@@ -145,9 +145,10 @@ export const keywords = ["gallery", "scroll snap", "slider", "slideshow"]
       >
     </Conditional>
     <p>
-      Browsers without <code>::scroll-button()</code> and <code
-        >::scroll-marker</code
-      > get a plain scroll-snap list with a scrollbar.
+      Firefox, and Safari 26 and later, have no <code>::scroll-button()</code> or
+      <code>::scroll-marker</code> and get a plain scroll-snap list with a scrollbar.
+      In Chrome 134 and older and Safari 18 and older the carousel doesn't scroll:
+      its items spill out into the page.
     </p>
 
     <AutoExample name="Basics" />

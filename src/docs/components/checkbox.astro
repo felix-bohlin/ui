@@ -312,22 +312,23 @@ export const keywords = ["check", "tick"]
       <Fragment slot="components">
         Wrap the group in <code>SelectAll</code> and add <code
           >data-select-all=""</code
-        > to the checkbox that controls it. Checking it checks the other enabled checkboxes
-        inside, and it's checked when they all are and indeterminate when some are,
-        also after a form reset. It works around a <code>Fieldset</code> or a <DocLink
-          href="/components/table#sorting">Table</DocLink
-        >, and it fires each checkbox's own change, so your handlers and
-        bindings follow.
+        > to the checkbox that controls it. Checking it checks the other checkboxes
+        inside without a <code>disabled</code> attribute (one in a disabled fieldset
+        still counts), and it's checked when they all are and indeterminate when some
+        are, also after a form reset. It works around a <code>Fieldset</code> or a
+        <DocLink href="/components/table">Table</DocLink>, and it fires each
+        checkbox's own change, so your handlers and bindings follow.
       </Fragment>
       <Fragment slot="html">
         Wrap the group in <code
           >&lt;opui-select-all class="ui-select-all"&gt;</code
         >, add <code>data-select-all</code> to the checkbox that controls it and import
         <code>opui-css/elements/select-all.js</code>. Checking it checks the
-        other enabled checkboxes inside, and it's checked when they all are and
-        indeterminate when some are, also after a form reset. It works around a
-        fieldset or a <DocLink href="/components/table#sorting">table</DocLink>,
-        and it fires each checkbox's own <code>change</code> event.
+        other checkboxes inside without a <code>disabled</code> attribute (one in
+        a disabled fieldset still counts), and it's checked when they all are and
+        indeterminate when some are, also after a form reset. It works around a fieldset
+        or a <DocLink href="/components/table">table</DocLink>, and it fires
+        each checkbox's own <code>change</code> event.
       </Fragment>
     </Conditional>
     <AutoExample name="Indeterminate" column centered spacious />

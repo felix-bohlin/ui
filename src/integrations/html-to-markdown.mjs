@@ -121,7 +121,16 @@ function unwrapTemplates(node, test) {
 /** @param {Element} node */
 const codeBlock = (node) => {
   const lang = node.properties?.dataLanguage
-  const code = textContent(select("code", node) ?? node)
+  const lines = selectAll(".diff-line", node)
+  const code = lines.length
+    ? lines
+        .map((line) => {
+          const type = line.properties?.dataDiff
+          const marker = type === "ins" ? "+" : type === "del" ? "-" : " "
+          return marker + textContent(line)
+        })
+        .join("\n")
+    : textContent(select("code", node) ?? node)
   return element("pre", {}, [
     element("code", { className: lang ? [`language-${lang}`] : [] }, [
       text(code),

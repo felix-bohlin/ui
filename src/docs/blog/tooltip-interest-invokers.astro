@@ -35,7 +35,7 @@ import Position from "../../component-examples/tooltip/Position.astro"
       <li>
         <code>position-area: self-block-start</code> centers it above the trigger.
         The <code>self-</code> keywords read the tooltip's own writing mode, so a
-        vertical tooltip or one in a right-to-left page still sits on its block start
+        vertical tooltip still sits on its block start
       </li>
     </ul>
     <Code
@@ -64,7 +64,8 @@ import Position from "../../component-examples/tooltip/Position.astro"
       </li>
       <li>
         <code>position-visibility: anchors-visible</code> hides it when the trigger
-        scrolls out of view
+        is scrolled out of view inside a scrolling container (page scroll doesn't
+        hide it)
       </li>
       <li>
         An arrow follows along: the tooltip is its own anchor, and <code
@@ -131,7 +132,8 @@ import Position from "../../component-examples/tooltip/Position.astro"
       </li>
       <li>
         There it isn't in the top layer, so an ancestor that clips its overflow
-        can hide it, and touch screens get nothing. A toggletip, a button whose
+        and has a transform, filter or containment can hide it, later content
+        can cover it, and touch screens get nothing. A toggletip, a button whose
         only job is to show the text, adds <code>commandfor</code> with <code
           >command="toggle-popover"</code
         > for a tap

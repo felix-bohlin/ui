@@ -35,8 +35,10 @@ const slug = (title: string) =>
     Every token <code>theme.css</code> and <code>core/palette.css</code> declare,
     with its default and its <DocLink href="/guide/concepts#token-tiers"
       >tier</DocLink
-    >, and the instance inputs components read. Most are roles; the others are
-    marked <em>knob</em>, <em>primitive</em>, <em>hook</em>, <em>component</em>
+    >, and the instance inputs components read. The largest group is roles; the
+    others are marked <em>knob</em>, <em>primitive</em>, <em>hook</em>, <em
+      >component</em
+    >
     or <em>input</em>. The tests check every promised contrast ratio in light
     and dark mode, with and without more contrast.
   </Fragment>
@@ -58,10 +60,16 @@ const slug = (title: string) =>
     <p>
       Set them in <code>@layer theme.custom</code>, see <DocLink
         href="/guide/customizing#your-theme">Your theme</DocLink
-      >. Roles work on <code>html</code> and on any element, for the subtree inside
-      it. Knobs (<code>--ui-density</code>, <code>--ui-space-scale</code> and the
-      <code>--ui-palette-*</code> inputs) are only read on <code>html</code> and inside
-      a <DocLink href="/guide/theming#scopes"
+      >. Roles work on <code>html</code> and on any element for the components that
+      read them directly; roles derived from them follow only on <code
+        >html</code
+      > and in a <code>.ui-palette</code> or <code>.ui-contrast-more</code> scope.
+      Knobs are only read where the library derives from them: <code
+        >--ui-density</code
+      > and <code>--ui-space-scale</code> on <code>html</code>, <code
+        >.ui-palette</code
+      > and <code>.ui-contrast-more</code>, and the <code>--ui-palette-*</code> inputs
+      on <code>html</code> and in a <DocLink href="/guide/theming#scopes"
         ><code>.ui-palette</code> scope</DocLink
       >, so a knob on a form does nothing. The <DocLink href="/theme-builder"
         >Theme builder</DocLink
@@ -78,12 +86,15 @@ const slug = (title: string) =>
         class="ui-link">/tokens.json</a
       >) in the <a href="https://www.designtokens.org/" class="ui-link"
         >W3C design tokens</a
-      > format: each token has a <code>$type</code>, a <code>$description</code>
-      and a <code>$value</code>, and <code>$extensions.opui</code> holds its variable,
-      tier, promise and its dark and more-contrast values. A plain number, a <code
-        >px</code
-      > or <code>rem</code> length and a token that aliases another are native values
-      (<code>0.41</code>, <code>{"{"}"unit": "px", "value": 1{"}"}</code>, <code
+      > format: each token has a <code>$description</code>, a <code>$type</code>
+      when the format has one for it (five keyword tokens such as <code
+        >--ui-color-scheme</code
+      > and <code>--ui-contrast</code> have none), and a <code>$value</code> unless
+      it is unset, and <code>$extensions.opui</code> holds its variable, tier, promise
+      and its dark and more-contrast values. A plain number, a <code>px</code> or
+      <code>rem</code> length and a token that aliases another are native values (<code
+        >0.41</code
+      >, <code>{"{"}"unit": "px", "value": 1{"}"}</code>, <code
         >{"{"}typography.ui-font-size-100{"}"}</code
       >), with the CSS beside them as <code>$extensions.opui.css</code>. Every
       other value is the CSS expression itself, since a color or a size that
@@ -95,10 +106,10 @@ const slug = (title: string) =>
     <p>
       The tier is <code>knob</code> (an input a theme turns, such as <code
         >--ui-palette-hue</code
-      > or a contrast limit), <code>primitive</code> (derived from the knobs and read
-      by no component, such as <code>--ui-font-size-300</code>), <code
-        >role</code
-      >,
+      > or a contrast limit), <code>primitive</code> (a palette step derived from
+      the knobs or a plain type scale step, read by no component, such as <code
+        >--ui-font-size-300</code
+      >), <code>role</code>,
       <code>hook</code> (an optional role such as <code>--ui-selected</code> that
       every component with that job reads, each with a default of its own until a
       theme sets it), <code>component</code> (read by one component) or <code

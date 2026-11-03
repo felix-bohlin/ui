@@ -135,8 +135,7 @@ const newComponents = addedComponents(
       </li>
       <li>
         Hooks a theme can reach: <code>--ui-control-accent</code>,
-        <code>--ui-selected</code>, <code>--ui-button-hover: layer</code>,
-        <code>--ui-border-color-raised</code>.
+        <code>--ui-selected</code>, <code>--ui-border-color-raised</code>.
       </li>
     </ul>
 
@@ -400,7 +399,8 @@ const newComponents = addedComponents(
       <li>
         Why React and Svelte could land in one release, and what each binding
         adds: React 19 with Server Components by default and
-        <code>"use client"</code> only on stateful components; Svelte 5 with
+        <code>"use client"</code> only on components that need context, state or effects;
+        Svelte 5 with
         <code>bind:value</code>, <code>bind:checked</code> and
         <code>bind:group</code>; Astro and Vue with parts instead of slots.
       </li>
@@ -439,7 +439,10 @@ const newComponents = addedComponents(
         The naming model as a written rule in the components guide, enforced by
         a unit test.
       </li>
-      <li>Removed: IconButton (Button does it), ClassicSelect, Toast.</li>
+      <li>
+        Removed: IconButton (Button does it), ClassicSelect, Toast (Toaster
+        replaces it).
+      </li>
       <li>
         The explorer above holds the 119 renames the migration guide documents
         as pairs; structural changes (slots to parts) are in the guide only.
@@ -564,7 +567,8 @@ const newComponents = addedComponents(
       </li>
       <li>
         The compat layer: one file per component, every rule behind
-        <code>@supports not</code> or an engine gate with a plain-HTML repro.
+        <code>@supports not</code> or an engine gate, with a plain-HTML repro or,
+        for iOS, steps to check it by hand.
       </li>
     </ul>
   </section>

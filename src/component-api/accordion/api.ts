@@ -54,7 +54,7 @@ export default {
     {
       default: '"plain"',
       description:
-        "The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.",
+        "The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
       group: "Variants",
       prop: "variant",
       values: {

@@ -181,7 +181,7 @@ The components pass settings to their parts with `AsyncLocalStorage` from `node:
 
 #### Ids
 
-Components that link elements with ids (form fields, Tabs, Drawer, Menu) read `Astro.locals.$id` when it exists and otherwise generate a random id per render. For stable, per-request ids, useful for snapshot tests, define it in a middleware:
+Form fields, Tabs, ToggleGroup and the Dialog title read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids, useful for snapshot tests, define it in a middleware:
 
 ```ts
 import { defineMiddleware } from "astro:middleware"

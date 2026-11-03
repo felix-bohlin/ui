@@ -20,7 +20,7 @@ Lets you show and hide content, on its own or as a group.
 - `markerAnimation`: `"flip"` (`.ui-marker-animation-flip`), `"rotate"` (default), `"turn"` (`.ui-marker-animation-turn`). How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open.
 - `name`: `string`, `[name]`. Groups accordions so only one of them can be open at a time.
 - `open`: `boolean`, `[open]`. Whether the accordion is open.
-- `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.
+- `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.
 
 ### Slots
 

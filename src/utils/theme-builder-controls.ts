@@ -260,7 +260,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Tonal buttons and chips",
+        hint: "Primary tonal buttons, tonal avatars and checked choice cards",
         id: "tonal",
         kind: "choice",
         label: "Tonal fill",
@@ -410,7 +410,7 @@ export const GROUPS: ControlGroup[] = [
         { hint: "Cards, menus and dialogs" },
       ),
       color("surface-filled", "Filled surface", "--ui-surface-filled", "fine", {
-        hint: "Filled cards and fields",
+        hint: "Lists, table headers and footers, and filled dividers, progress bars and range tracks",
       }),
       color("surface-tonal", "Tonal surface", "--ui-surface-tonal", "fine", {
         hint: "Tonal buttons, chips and hover fills",
@@ -914,7 +914,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Text in buttons, fields and menus",
+        hint: "Text in buttons, fields, tabs and toggle buttons",
         id: "control-text",
         kind: "choice",
         label: "Control text size",

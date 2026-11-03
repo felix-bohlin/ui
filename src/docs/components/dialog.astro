@@ -244,16 +244,21 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     <h2>Long content</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The dialog grows up to 85% of the viewport height. The header and footer
-        stay put while the <code>DialogContent</code> scrolls, with a shadow on the
-        scrolled edge. A modal dialog also locks page scroll. The content is a stack
-        with <code>--ui-space-3</code> between its children, like a Card's, unless
-        it has inline children such as links.
+        The dialog grows up to 85% of the viewport height, minus <code
+          >--ui-space-4</code
+        >. The header and footer stay put while the <code>DialogContent</code> scrolls,
+        with a shadow on the scrolled edge. A modal dialog also locks page scroll,
+        with a rule in <code>core/utils.css</code>. The content is a stack with <code
+          >--ui-space-3</code
+        > between its children, like a Card's, unless it has inline children such
+        as links.
       </Fragment>
       <Fragment slot="html">
-        The dialog grows up to 85% of the viewport height. The header and footer
-        stay put while <code>.ui-content</code> scrolls, with a shadow on the scrolled
-        edge. A modal dialog also locks page scroll. The content is a stack with <code
+        The dialog grows up to 85% of the viewport height, minus <code
+          >--ui-space-4</code
+        >. The header and footer stay put while <code>.ui-content</code> scrolls,
+        with a shadow on the scrolled edge. A modal dialog also locks page scroll,
+        with a rule in <code>core/utils.css</code>. The content is a stack with <code
           >--ui-space-3</code
         > between its children, like a Card's, unless it has inline children such
         as links.

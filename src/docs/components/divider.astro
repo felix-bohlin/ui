@@ -110,10 +110,11 @@ export const keywords = ["hr", "rule", "separator"]
     <h2>Spacing</h2>
     <p>
       The space above and below a divider is <code>--ui-divider-gap</code>.
-      Cards, callouts, dialogs and drawers set a tighter value, and a divider
-      that is a direct child of a card has no margin, since the card's gap
-      already spaces it. Set <code>--ui-divider-gap</code> on any wrapper to change
-      it for every divider inside.
+      Accordions, cards, callouts, dialogs and drawers set a tighter value, and
+      a divider that is a direct child of a card has no margin, since the card's
+      gap already spaces it. Set <code>--ui-divider-gap</code> on any wrapper to change
+      it for every divider inside that isn't in one of those components, and on the
+      component itself for the dividers in it.
     </p>
     <AutoExample name="Spacing" column />
   </section>

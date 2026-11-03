@@ -42,8 +42,9 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
         >, such as a section pointing to its progress bar
       </li>
       <li>
-        <code>:not(:empty)</code> adds a gap only next to text, and skips the library's
-        button, which has its own gap
+        <code>:not(:empty)</code> adds a gap when the element has any child, text,
+        an icon or even whitespace, and skips the library's button, which has its
+        own gap
       </li>
     </ul>
     <Code
@@ -89,8 +90,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <ul>
       <li>The button and the paragraph get a ring, the field doesn't</li>
       <li>
-        <code>:not(input, …)</code> skips it, because a spinning ring inside a field
-        would sit on the text
+        <code>:not(input, …)</code> skips fields, where <code>::before</code> paints
+        nothing
       </li>
     </ul>
     <p>
@@ -108,11 +109,12 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <ul>
       <li>
         <code>:not()</code> with a selector list is Selectors Level 4. A browser without
-        it drops the rule: no spinner, but <code>aria-busy</code> is still announced
+        it drops the rule: no spinner, but <code>aria-busy</code> is still exposed
+        to assistive technology
       </li>
       <li>
-        Under reduced motion it spins at half speed instead of stopping, so it
-        still reads as busy
+        Under reduced motion it spins about half as fast (1.5s instead of 0.7s)
+        instead of stopping, so it still reads as busy
       </li>
     </ul>
   </section>

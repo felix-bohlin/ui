@@ -6,7 +6,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-accent-max-chroma":
     "The highest OKLCH chroma of `--ui-primary`, `--ui-invalid` and `--ui-palette-text` in dark mode when more contrast lifts them. `1` (no cap), and `0.1` with more contrast.",
   "--ui-accent-max-lightness":
-    "The highest OKLCH lightness of the named colors, `--ui-neutral` and `--ui-palette-accent` in light mode. `1` (no cap), and `0.42` with more contrast.",
+    "The highest OKLCH lightness of the named colors except `--ui-orange`, `--ui-neutral` and `--ui-palette-accent` in light mode. `1` (no cap), and `0.42` with more contrast.",
   "--ui-anchor-position-area":
     "The `position-area` of the floating content of an `Anchor`, a popover `Menu` or a `Tooltip`. The `positionArea` prop sets it on one instance, or set it on an element for everything inside it. When unset, each keeps its own: `self-start self-end` for `Anchor`, its `side` and `span` for `Menu` (`self-block-end span-self-inline-end`) and `self-block-start` for `Tooltip`.",
   "--ui-backdrop-bg-color":
@@ -19,9 +19,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-color-on-filled":
     "Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.",
   "--ui-border-color-on-raised":
-    "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
+    "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
   "--ui-border-color-raised":
-    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, `Callout` without a severity, `Drawer`, `Menu` and the `Select` picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color-on-raised`. The borders inside a raised surface are `--ui-border-color-on-raised`.",
+    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, tonal `Callout` without a severity, `Drawer`, `Menu` and the `Select` picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color-on-raised`. The borders inside a raised surface are `--ui-border-color-on-raised`.",
   "--ui-border-strength-dark":
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-border-color` in dark mode. `11%`, and `55%` with more contrast.",
   "--ui-border-strength-light":
@@ -37,7 +37,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
   "--ui-button-hover":
-    "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer in `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
+    "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
   "--ui-button-hover-shadow":
     "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-shadow-control`.",
   "--ui-button-hover-translate":
@@ -101,13 +101,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-color-scheme":
     "The color scheme in force: `light`, or `dark` under `prefers-color-scheme: dark`. `html` reads it as its `color-scheme`, `.ui-light` and `.ui-dark` set it on a part of the page, and `Typography` reads it in a style query. Set the classes, not the token.",
   "--ui-contrast":
-    "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, the `*-max-lightness` and `*-min-lightness` limits and `--ui-focus-ring-width`), and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
+    "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-accent-max-chroma`, the `*-max-lightness` and `*-min-lightness` limits, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`), and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
   "--ui-control-accent":
     "The accent every control shares: `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the `Range` thumb and fill. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them.",
   "--ui-control-border-color":
     "Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-border-color-filled":
-    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge and dividers of a `ButtonGroup` with one of them, a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
+    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge of a filled or tonal `ButtonGroup` and the dividers of a tonal or default one (filled groups keep `currentColor` dividers, or a shade of the accent in primary and critical ones), a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",
@@ -181,7 +181,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
   "--ui-focus-ring-offset": "Distance between a control and its focus ring.",
   "--ui-focus-ring-style": "Outline style of the focus ring.",
-  "--ui-focus-ring-width": "Width of the focus ring.",
+  "--ui-focus-ring-width": "Width of the focus ring. `3px` with more contrast.",
   "--ui-font-body":
     "Font family for body text, fields and buttons. `system-ui, sans-serif` by default.",
   "--ui-font-code":
@@ -225,9 +225,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-size-h6":
     "Font size for `h6` and `.ui-h6`. Defaults to `--ui-font-size-300`.",
   "--ui-font-size-large":
-    "Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.",
+    "Font size of lead paragraphs, `.ui-p.ui-large`, large `Avatar` initials, the `DescriptionList` total row, the value of a small `Stat` and the `OneTimeCode` digits. Defaults to `--ui-font-size-500`.",
   "--ui-font-size-small":
-    "Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.",
+    "Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, `List` text, small buttons, toggles and fields, and large chips. Defaults to `--ui-font-size-200`.",
   "--ui-font-weight-bold": "Font weight for headings, buttons and terms.",
   "--ui-font-weight-medium":
     "Font weight for badges, overlines and group labels.",
@@ -263,13 +263,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-letter-spacing-heading":
     "Letter spacing of `h3` and `h4`, slightly tighter than the body.",
   "--ui-line-height":
-    "Line height of body copy: prose, captions and `List` text.",
+    "Line height of captions, `List` text, the `Stat` label and description and the `Stepper` description. Body text and prose use `--ui-line-height-relaxed`.",
   "--ui-line-height-control":
     "Line height of interface text: labels, helpers, choice labels and field hints.",
   "--ui-line-height-relaxed":
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
-    "Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+    "Line height of single-line controls and compact text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
   "--ui-list-item-padding-inline":
     "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":
@@ -290,7 +290,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-primary-tonal":
     "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
   "--ui-on-selected":
-    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary-text` on a selected `Select` option.",
+    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and selected `Select` options.",
   "--ui-on-selected-strong":
     "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs`. Defaults to `--ui-on-primary`.",
   "--ui-on-warning":
@@ -312,7 +312,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-hue":
     "Hue of the palette source color in degrees. `222.8` (blue) by default, in both color schemes.",
   "--ui-palette-hue-rotate-by":
-    "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. The severity scopes use `1` for livelier tints, the brand palette `0`.",
+    "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. `.ui-critical`, `.ui-info`, `.ui-success` and `.ui-warning` use `1` for livelier tints; `.ui-neutral` and the brand palette `0`.",
   "--ui-palette-on-strong": "Text color on `--ui-palette-strong`.",
   "--ui-palette-on-tint": "Text color on `--ui-palette-tint`.",
   "--ui-palette-source":
@@ -344,7 +344,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-primary-source":
     "The brand color `--ui-primary` is derived from, within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set it to a theme's brand color so more contrast can darken or lighten it while keeping its hue. Setting `--ui-primary` directly pins the color in every contrast mode.",
   "--ui-primary-text":
-    "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`, and a selected `Select` option. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
+    "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
     "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`, and of a checked `Checkbox`, `Radio` or `Switch` card. When unset, buttons use `--ui-palette-tint` and cards `--ui-primary` at `--ui-state-active-alpha-accent`. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
@@ -352,9 +352,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-radius-large":
     "Corner radius for large surfaces, such as cards and dialogs that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. Not read by a component yet.",
   "--ui-radius-round":
-    "The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.",
+    "The pill radius for round buttons, avatars, badges, the chip dot, radios, switches, the range track and the carousel buttons and markers.",
   "--ui-radius-small":
-    "Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-radius`, capped at 5px.",
+    "Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a `rounded` `Avatar`. `--ui-radius`, capped at 5px.",
   "--ui-radius-x-small":
     "Corner radius of the `Checkbox` box. `--ui-radius`, capped at 2px.",
   "--ui-red":
@@ -362,7 +362,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-selected":
-    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.",
+    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
     "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
   "--ui-shadow-color":
@@ -390,15 +390,15 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-space-7": "Spacing step 7: `2rem` times `--ui-space-scale`.",
   "--ui-space-8": "Spacing step 8: `3rem` times `--ui-space-scale`.",
   "--ui-space-scale":
-    "Multiplier for the `--ui-space-*` scale, the gaps, padding and margins of containers such as cards, dialogs, forms, tables and rich text. Controls follow `--ui-density` instead. See [Spacing](/guide/theming#spacing).",
+    "Multiplier for the `--ui-space-*` scale, the gaps, padding and margins of containers such as cards, dialogs, forms and tables, and the padding and gaps of rich text. Controls follow `--ui-density` instead. See [Spacing](/guide/theming#spacing).",
   "--ui-state-active-alpha-accent":
-    "Alpha of the pressed state layer on primary and critical buttons.",
+    "Alpha of the pressed state layer on primary and critical buttons (on every filled and tonal button with `--ui-button-hover: layer`) and the ring of the current `Timeline` marker.",
   "--ui-state-active-alpha-dark":
     "Alpha of the pressed state layer on neutral buttons in dark mode. `30%`, and `20%` with more contrast so the text keeps 7:1.",
   "--ui-state-active-alpha-light":
     "Alpha of the pressed state layer on neutral buttons in light mode.",
   "--ui-state-hover-alpha-accent":
-    "Alpha of the hover state layer on primary and critical buttons.",
+    "Alpha of the hover state layer on primary and critical buttons (on every filled and tonal button with `--ui-button-hover: layer`), hovered `List` rows and critical `Menu` items.",
   "--ui-state-hover-alpha-dark":
     "Alpha of the hover state layer on neutral buttons in dark mode.",
   "--ui-state-hover-alpha-light":
@@ -412,7 +412,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-surface-elevated":
     "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
   "--ui-surface-filled":
-    "Background of filled areas such as progress tracks and table stripes.",
+    "Background of filled areas: lists, `.ui-filled` progress and range tracks, table headers and footers, and hovered table rows.",
   "--ui-surface-inverse":
     "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
@@ -469,9 +469,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-track-bg-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.",
   "--ui-underline-offset":
-    "Gap between text and its underline: `Link` and rich text links, and in Firefox `abbr`, `dfn`, `ins` and `u`.",
+    "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
   "--ui-underline-offset-small":
-    "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes. Firefox uses `--ui-underline-offset`.",
+    "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes.",
   "--ui-underline-thickness-hover":
     "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
   "--ui-warning":

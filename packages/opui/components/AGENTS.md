@@ -319,7 +319,7 @@ const LabelTag = label || labelSlot ? "span" : Fragment
 </div>
 ```
 
-Check that a named slot exists before rendering its wrapper. `tests/unit/component-whitespace.test.ts` checks the whitespace around every slot in the `api.ts` files.
+Check that a named slot exists before rendering its wrapper. `tests/unit/component-whitespace.test.ts` checks the whitespace around every slot in the `api.ts` files, and `tests/unit/component-formatting.test.ts` that a component renders the same from its source formatted at printWidth 40 and 200.
 
 ---
 

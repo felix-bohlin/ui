@@ -81,6 +81,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - `tests/unit/instructions.test.ts` fails when a guide (`AGENTS.md` files, `.claude/agents`, `.claude/skills`) names a file, link or heading that doesn't exist, or cites a line past the end of a file.
 - `tests/unit/naming.test.ts` checks prop names, values and defaults against the naming model in `packages/opui/components/AGENTS.md`.
 - `tests/unit/astro-attributes.test.ts` fails on a quoted attribute in an `.astro` file that Prettier's Astro plugin rewrites.
+- `tests/unit/component-formatting.test.ts` renders every Astro, Svelte and Vue component from its source formatted at printWidth 40 and 200 and fails when the output differs, so a Prettier update can't change what a component renders.
 - `tests/unit/tooling-bugs.test.ts` reproduces every bug in `@astrojs/compiler`, Astro, parse5 and Prettier's Astro plugin that a script or component works around, and fails when a dependency update fixes one: remove the workaround it names, then the entry.
 - `pnpm sort-css:check` fails on CSS declarations out of order in `.css` files and `<style>` blocks, and `pnpm sort-css` sorts them.
 - `pnpm test` and the docs build fail on `[component-api]` problems: every prop and slot a component exposes must be described in its `api.ts`, and every documented prop, part prop and slot must exist.

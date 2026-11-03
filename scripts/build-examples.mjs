@@ -1716,16 +1716,21 @@ export const createRenderer = async () => {
   const { experimental_AstroContainer } =
     await server.ssrLoadModule("astro/container")
   const container = await experimental_AstroContainer.create()
-  const renderModule = async (id) =>
+  const renderModule = async (id, options = {}) =>
     container.renderToString((await server.ssrLoadModule(id)).default, {
       locals: { $id: createExampleIdPlaceholders() },
+      ...options,
     })
+  const addSource = (file, source) => {
+    sources.set(join(root, file), source)
+    return `/${file}`
+  }
   return {
     close: () => server.close().catch(() => {}),
-    renderSource: (file, source) => {
-      sources.set(join(root, file), source)
-      return renderModule(`/${file}`)
-    },
+    loadModule: (id) => server.ssrLoadModule(id),
+    loadSource: (file, source) => server.ssrLoadModule(addSource(file, source)),
+    renderSource: (file, source, options) =>
+      renderModule(addSource(file, source), options),
     render: async (key, source) => {
       if (source.includes(ID_PLACEHOLDER)) {
         throw new Error(

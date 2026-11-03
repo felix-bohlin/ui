@@ -19,7 +19,7 @@ Toggle buttons and toggle groups switch options on and off, alone or as a set.
 - `name`: `string`. The name shared by the inputs. Generated when omitted.
 - `onValueChange` (React): `(value: string | string[]) => void`. Called with the new selection when a button is toggled.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
-- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size when the row scrolls and shrink with the rest when it shrinks.
+- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons.
 - `value` (React): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`.
 
@@ -77,6 +77,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_bg-color`: Background of the group. Defaults to `--ui-surface`.
 - `--_border-color`: Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.
 - `--_radius`: Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it, capped at half a button height so a round radius doesn't clip the end items.
+
+Outputs: `--_divider-offset`.
 
 ### toggle-button.css
 

@@ -19,14 +19,19 @@
 
     /* Toggle button */
     & > .ui-toggle-button {
+      --_divider-offset: calc(-1 * var(--ui-border-width));
       border: 0;
       border-radius: 0;
       box-shadow:
-        calc(-1 * var(--ui-border-width)) 0 0 0 var(--_border-color),
+        var(--_divider-offset) 0 0 0 var(--_border-color),
         0 calc(-1 * var(--ui-border-width)) 0 0 var(--_border-color);
       flex: auto;
       margin: 0;
       scale: none;
+
+      &:dir(rtl) {
+        --_divider-offset: var(--ui-border-width);
+      }
     }
 
     &.ui-vertical {
@@ -68,6 +73,11 @@
         & > span {
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+
+        &:has(> svg):not(:has(> span)) {
+          flex: none;
+          min-inline-size: var(--_size);
         }
       }
     }

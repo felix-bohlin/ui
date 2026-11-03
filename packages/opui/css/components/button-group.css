@@ -54,9 +54,10 @@
     /* Button */
     & > .ui-button {
       --_border-color: transparent;
+      --_divider-offset: calc(-1 * var(--ui-border-width));
       border-radius: 0;
       box-shadow:
-        calc(-1 * var(--ui-border-width)) 0 0 0 var(--_divider-border-color),
+        var(--_divider-offset) 0 0 0 var(--_divider-border-color),
         0 calc(-1 * var(--ui-border-width)) 0 0 var(--_divider-border-color);
       flex: auto;
       scale: none;
@@ -77,7 +78,7 @@
       /* Siblings */
       &:is([disabled], [aria-disabled="true"]) {
         box-shadow:
-          calc(-1 * var(--ui-border-width)) 0 0 0
+          var(--_divider-offset) 0 0 0
             color-mix(in oklch, var(--_divider-border-color) 40%, transparent),
           0 calc(-1 * var(--ui-border-width)) 0 0
             color-mix(in oklch, var(--_divider-border-color) 40%, transparent);
@@ -85,6 +86,10 @@
 
       &:focus-visible {
         outline-offset: var(--ui-focus-ring-inset);
+      }
+
+      &:dir(rtl) {
+        --_divider-offset: var(--ui-border-width);
       }
 
       :where(.ui-button-group.ui-outlined) & {
@@ -148,6 +153,7 @@
 
         &:has(> svg:only-child) {
           flex: none;
+          min-inline-size: var(--_size);
         }
 
         &:not(:has(> svg:only-child)) {

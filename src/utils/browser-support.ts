@@ -1,7 +1,8 @@
-import { features } from "web-features"
+import type { features } from "web-features"
+import { featureOf as webFeature } from "../../packages/opui/scripts/features.mjs"
 
 const featureOf = (featureId: string) => {
-  const feature = features[featureId]
+  const feature: (typeof features)[string] | undefined = webFeature(featureId)
   return feature && "status" in feature ? feature : undefined
 }
 

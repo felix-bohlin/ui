@@ -115,6 +115,7 @@ describe("check-browser-support", () => {
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",
     "light-dark": ".a { color: light-dark(white, black); }",
+    "logical-properties": ".a { overflow-inline: auto; }",
     marker: "li::marker { color: red; }",
     "nth-child-of": ".a:nth-child(2 of .b) { gap: 0; }",
     "open-pseudo": "select:open { gap: 0; }",

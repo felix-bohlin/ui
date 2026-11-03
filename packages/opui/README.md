@@ -100,7 +100,7 @@ import { Button, Card } from "opui-css/vue"
 
 `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.tsx`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@vitejs/plugin-react`, `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`. In Next.js, add `transpilePackages: ["opui-css"]` to `next.config`.
 
-Vite's server build loads dependencies from `node_modules` without compiling them, and Node can't load `.svelte`, `.vue` or `.tsx`, so the package has to go through the bundler on the server too. Astro does this on its own, and SvelteKit through the package's `svelte` field. In Vite SSR, add `ssr: { noExternal: ["opui-css"] }` to `vite.config`, and in Nuxt, add `build: { transpile: ["opui-css"] }` to `nuxt.config`.
+Vite's server build loads dependencies from `node_modules` without compiling them, and Node can't load `.svelte`, `.vue` or `.tsx`, so the package has to go through the bundler on the server too. Astro does this on its own, and `@sveltejs/vite-plugin-svelte`, in SvelteKit and in Vite alike, through the package's `svelte` export condition. For React or Vue in Vite SSR, add `ssr: { noExternal: ["opui-css"] }` to `vite.config`, and in Nuxt, add `build: { transpile: ["opui-css"] }` to `nuxt.config`.
 
 #### TypeScript
 

@@ -26,25 +26,10 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     </p>
     <InstallCommand />
     <p>
-      SvelteKit compiles the package for server rendering through its <code
-        >svelte</code
-      > field. In a Vite SSR setup of your own, add it to <code
-        >ssr.noExternal</code
-      >, since Node can't load <code>.svelte</code> files from <code
-        >node_modules</code
-      >:
+      <code>@sveltejs/vite-plugin-svelte</code> compiles the components for server
+      rendering too, in SvelteKit and in a Vite setup of your own alike: it picks
+      up the package through its <code>svelte</code> export condition.
     </p>
-    <Code
-      code={`// vite.config.ts
-import { svelte } from "@sveltejs/vite-plugin-svelte"
-import { defineConfig } from "vite"
-
-export default defineConfig({
-  plugins: [svelte()],
-  ssr: { noExternal: ["opui-css"] },
-})`}
-      lang="ts"
-    />
   </section>
 
   <section id="css">

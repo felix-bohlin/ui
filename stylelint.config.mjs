@@ -1,3 +1,15 @@
+const PHYSICAL = [
+  /^(-webkit-)?(min-|max-)?(width|height)$/,
+  /^(top|right|bottom|left)$/,
+  /^(margin|padding|scroll-margin|scroll-padding)-(top|right|bottom|left)$/,
+  /^border-(top|right|bottom|left)(-(color|style|width))?$/,
+  /^border-(top|bottom)-(left|right)-radius$/,
+  /^contain-intrinsic-(width|height)$/,
+  /^overscroll-behavior-[xy]$/,
+]
+
+const PHYSICAL_OVERFLOW = /^overflow-[xy]$/
+
 export default {
   ignoreFiles: ["**/dist/**", "**/node_modules/**"],
   overrides: [
@@ -28,16 +40,7 @@ export default {
         "opui/motion-duration": true,
         "opui/state-classes": true,
         "opui/vendor-prefix": true,
-        "property-disallowed-list": [
-          /^(-webkit-)?(min-|max-)?(width|height)$/,
-          /^(top|right|bottom|left)$/,
-          /^(margin|padding|scroll-margin|scroll-padding)-(top|right|bottom|left)$/,
-          /^border-(top|right|bottom|left)(-(color|style|width))?$/,
-          /^border-(top|bottom)-(left|right)-radius$/,
-          /^contain-intrinsic-(width|height)$/,
-          /^overflow-[xy]$/,
-          /^overscroll-behavior-[xy]$/,
-        ],
+        "property-disallowed-list": [...PHYSICAL, PHYSICAL_OVERFLOW],
         "selector-no-vendor-prefix": [
           true,
           {
@@ -55,6 +58,10 @@ export default {
         "packages/opui/css/components/*.css",
       ],
       rules: { "opui/unused-classes": true },
+    },
+    {
+      files: ["packages/opui/css/compat/*.css"],
+      rules: { "property-disallowed-list": PHYSICAL },
     },
     {
       files: ["packages/opui/core/normalize.css"],

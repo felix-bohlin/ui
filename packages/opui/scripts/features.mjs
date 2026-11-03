@@ -5,7 +5,7 @@ const COMPAT_LAYER = "components.compat"
 const yearOf = (date) => Number(date.match(/\d{4}/)[0])
 
 const lowYear = (id) => {
-  const date = features[id]?.status?.baseline_low_date
+  const date = featureOf(id)?.status?.baseline_low_date
   return date ? yearOf(date) : Infinity
 }
 
@@ -35,6 +35,17 @@ export const baselineYears = () => {
     ),
   )
   return Array.from({ length: last - 2022 }, (_, index) => 2023 + index)
+}
+
+export const featureOf = (id) => {
+  const feature = features[id]
+  const entry = patterns.find((pattern) => pattern.id === id && pattern.key)
+  if (feature?.kind !== "feature" || !entry) return feature
+  return {
+    ...feature,
+    name: entry.name ?? feature.name,
+    status: feature.status.by_compat_key[entry.key],
+  }
 }
 
 export const featureIds = (text) =>
@@ -84,6 +95,12 @@ export const patterns = [
   { id: "interpolate-size", pattern: /\binterpolate-size:/ },
   { id: "lh", pattern: /(?<![\w.])-?\d*\.?\d+lh\b/ },
   { id: "light-dark", pattern: /light-dark\(/ },
+  {
+    id: "logical-properties",
+    key: "css.properties.overflow-inline",
+    name: "overflow-block and overflow-inline",
+    pattern: /\boverflow-(?:block|inline):/,
+  },
   { id: "marker", pattern: /::marker\b/ },
   { id: "nth-child-of", pattern: /:nth-(?:last-)?child\([^)]*\sof\s/ },
   { id: "open-pseudo", pattern: /(?<!:):open\b/ },

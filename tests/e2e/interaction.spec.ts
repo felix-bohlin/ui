@@ -164,6 +164,29 @@ interaction(
 
 interaction(
   "checkbox",
+  "Indeterminate",
+  "select all leaves out a checkbox in a disabled fieldset",
+  async ({ root }) => {
+    const all = root.getByRole("checkbox", { name: "Select all" })
+    const cherries = root.getByRole("checkbox", { name: "Cherries" })
+
+    await root.locator(".ui-field-group").evaluate((group) => {
+      const fieldset = document.createElement("fieldset")
+      fieldset.disabled = true
+      fieldset.append(group.lastElementChild!)
+      group.append(fieldset)
+    })
+    await expect(cherries).toBeDisabled()
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect(all).toBeChecked()
+    await expect(all).toHaveJSProperty("indeterminate", false)
+    await expect(cherries).not.toBeChecked()
+  },
+)
+
+interaction(
+  "checkbox",
   "Validation",
   "a required checkbox only looks invalid once the user unchecks it",
   async ({ page, root }) => {

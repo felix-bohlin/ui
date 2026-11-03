@@ -4014,7 +4014,7 @@
     "id": "api-button-group-vue",
     "title": "Button Group API",
     "description": "Reference for Button Group Vue component.",
-    "terms": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size when the row scrolls; when it shrinks they keep their height but get narrower. size The size of the buttons. variant The variant of the buttons.",
+    "terms": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
     "category": "API",
     "url": "/vue/api#button-group"
   },
@@ -4086,7 +4086,7 @@
     "id": "api-copy-vue",
     "title": "Copy API",
     "description": "Reference for Copy Vue component.",
-    "terms": "Copy The `<opui-copy>` custom element, with `display: contents`. A button with `command=\"--copy\"` copies the value of its first `input` or `textarea`, or else its text without buttons and popovers. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead. The live region that announces the copy, visually hidden with `.ui-sr-only`. The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy. copiedLabel failedLabel copiedLabel The text shown and announced after a copy. failedLabel The text shown and announced when the clipboard is blocked. id The id the copy button points at with `commandfor`. Required.",
+    "terms": "Copy The `<opui-copy>` custom element, with `display: contents`. A button with `command=\"--copy\"` copies the value of its first `input` or `textarea`, or else its text without buttons, popovers and elements with `data-copy-ignore`. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead. The live region that announces the copy, visually hidden with `.ui-sr-only`. The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy. copiedLabel failedLabel copiedLabel The text shown and announced after a copy. failedLabel The text shown and announced when the clipboard is blocked. id The id the copy button points at with `commandfor`. Required.",
     "category": "API",
     "url": "/vue/api#copy"
   },
@@ -4302,7 +4302,7 @@
     "id": "api-select-all-vue",
     "title": "Select All API",
     "description": "Reference for Select All Vue component.",
-    "terms": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other checkboxes inside without a `disabled` attribute (one in a disabled fieldset still counts). It's checked when they all are, and `indeterminate` when some are.",
+    "terms": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.",
     "category": "API",
     "url": "/vue/api#select-all"
   },
@@ -4494,7 +4494,7 @@
     "id": "api-toggle-group-vue",
     "title": "Toggle Group API",
     "description": "Reference for Toggle Group Vue component.",
-    "terms": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size when the row scrolls and shrink with the rest when it shrinks. size The size of the buttons.",
+    "terms": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons.",
     "category": "API",
     "url": "/vue/api#toggle-group"
   },

@@ -14,7 +14,7 @@ export class Copy extends Base {
     const clone = this.ownerDocument.createElement("div")
     clone.append(...[...this.childNodes].map((node) => node.cloneNode(true)))
     for (const node of clone.querySelectorAll(
-      'button, [popover], [role="status"]',
+      'button, [data-copy-ignore], [popover], [role="status"]',
     )) {
       node.remove()
     }

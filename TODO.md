@@ -120,11 +120,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): raise the `svelte` peer range to `^5.57.0`, with a `Changed` entry in the CHANGELOG.
     - B: keep the range and say in the Select docs that Chromium needs Svelte 5.57 or later.
   - Fixed: option A. The `svelte` peer range is `^5.57`, and the `opui-css/svelte` entry under Added in the CHANGELOG, the README, the Svelte getting started guide, its skill reference and the components guide say 5.57, as does the `package.json` peer range entry under Fixed. The Svelte components are new in 6.0.0, so the unreleased Added entry changed instead of a new Changed one.
-- [ ] (2) Checkbox: Select all counts a checkbox inside a disabled fieldset as enabled, because it filters on the `disabled` property, so it can never become checked. The docs now describe this (`packages/opui/elements/select-all.js:16`)
+- [x] (2) Checkbox: Select all counts a checkbox inside a disabled fieldset as enabled, because it filters on the `disabled` property, so it can never become checked. The docs now describe this (`packages/opui/elements/select-all.js:16`)
   - Summary: Select all gets stuck when some of its checkboxes sit in a disabled fieldset.
   - Recommended: Fix. Filtering on `:disabled` is a one-line change.
   - Fix: filter with `!input.matches(":disabled")` instead of `!input.disabled`, and revert the docs to "the other enabled checkboxes"
-- [ ] (3) ButtonGroup: with `.ui-overflow-shrink`, icon-only buttons in a button group or toggle group shrink to 26px and 23px wide and stop being square, because the groups set `min-inline-size: 0` on every item. The docs now say they get narrower (`packages/opui/css/components/button-group.css:147`, `packages/opui/css/components/toggle-group.css:57`)
+  > Fix
+  - Fixed: `select-all.js` filters with `:disabled`, so a checkbox in a disabled fieldset is left out, and the Checkbox page and the SelectAll `api.ts` say "the other enabled checkboxes" again, as the CHANGELOG entry already did. A new test in `interaction.spec.ts` moves a checkbox into a disabled fieldset and checks that Select all ends up checked.
+- [x] (3) ButtonGroup: with `.ui-overflow-shrink`, icon-only buttons in a button group or toggle group shrink to 26px and 23px wide and stop being square, because the groups set `min-inline-size: 0` on every item. The docs now say they get narrower (`packages/opui/css/components/button-group.css:147`, `packages/opui/css/components/toggle-group.css:57`)
   - Summary: Icon-only buttons turn into narrow slivers when a group shrinks.
   - Recommended: Fix with option A. A squeezed icon button is unusable, and the fix is local to the two group stylesheets.
   - Fix: give icon-only items `flex: none` and `min-inline-size: var(--_size)` in both groups (in the toggle group not through `:has(> svg:only-child)`, since the svg sits next to the input), then restore "Icon-only items keep their size" in the docs and api.ts
@@ -133,11 +135,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): give icon-only items `flex: none` and `min-inline-size: var(--_size)` in both groups (in the toggle group not through `:has(> svg:only-child)`, since the svg sits next to the input), then restore "Icon-only items keep their size" in the docs and api.ts
     - B: keep the CSS and the current docs, which say icon-only items get narrower
-- [ ] (3) Carousel: the Carousel and `.ui-overflow-scroll` on a toggle group scroll only through `overflow-inline`, which Chrome before 135 and Safari before 26 lack: there the carousel's items spill into the page and the toggle row doesn't scroll. The docs now say so; no compat fallback exists (`packages/opui/css/components/carousel.css:64`, `packages/opui/css/components/toggle-group.css:44`)
+  > Fix with option A
+  - Fixed: option A. In a shrinking row, an icon-only button (`:has(> svg:only-child)`) in `button-group.css` and an icon-only toggle button (`:has(> svg):not(:has(> span))`, since the input sits next to the svg) in `toggle-group.css` get `flex: none` and `min-inline-size: var(--_size)`, so they stay square while the labels truncate. A toggle button with an svg and a bare text label counts as icon-only there and doesn't shrink; the docs wrap such labels in a `span`. The Button Group and Toggle pages, both `api.ts` files and the Unreleased `overflow` entry say "Icon-only items keep their size" again.
+- [x] (3) Carousel: the Carousel and `.ui-overflow-scroll` on a toggle group scroll only through `overflow-inline`, which Chrome before 135 and Safari before 26 lack: there the carousel's items spill into the page and the toggle row doesn't scroll. The docs now say so; no compat fallback exists (`packages/opui/css/components/carousel.css:64`, `packages/opui/css/components/toggle-group.css:44`)
   - Summary: In older Chrome and Safari the Carousel overflows the page and scrolling toggle rows don't scroll.
   - Recommended: Fix. A compat file keeps the component CSS clean, as `AGENTS.md` requires.
   - Fix: add `packages/opui/css/compat/overflow-inline.css` with `@supports not (overflow-inline: auto)` setting `overflow-x` (and `overflow-y` for the vertical carousel), then drop the version notes from the Carousel and Toggle pages
-- [ ] (4) ButtonGroup: in right-to-left, filled and tonal groups lose the dividers between their buttons: each divider is a left-edge `box-shadow`, and in RTL the next button in DOM order paints over it. The Under the hood step now says so (`packages/opui/css/components/button-group.css:58`, `src/components/UnderTheHood/ButtonGroupBuild.astro:48`)
+  > Fix
+  - Fixed: every component that scrolls through `overflow-inline` or `overflow-block` has a fallback in `css/compat/<component>.css` now, not only these two: in `@supports not (overflow-inline: auto)` (or `overflow-block`), ButtonGroup, Table, Tabs and ToggleGroup with `.ui-overflow-scroll`, the Carousel (`overflow-y` when vertical), the Dialog and Drawer content, the Menu and rich text code blocks and plain tables scroll through `overflow-x` or `overflow-y`. The Browser support guide lists each file, the Unreleased compat layer entry names them, and the version notes on the Carousel and Toggle pages are gone. web-features files these properties under `logical-properties`, which is Baseline widely available as a whole, so a pattern in `features.mjs` can now name a compat key and a name: `logical-properties` tracks `css.properties.overflow-inline` (Baseline 2025). The compat test, the Baseline builds, the browser support check and the support chips read that key's status through the new `featureOf()`, ten pages list `logical-properties`, and Stylelint lets compat files use `overflow-x` and `overflow-y`. The Accordion's `overflow-block: clip` keeps no fallback: its condition would match `overflow-clip` too.
+- [x] (4) ButtonGroup: in right-to-left, filled and tonal groups lose the dividers between their buttons: each divider is a left-edge `box-shadow`, and in RTL the next button in DOM order paints over it. The Under the hood step now says so (`packages/opui/css/components/button-group.css:58`, `src/components/UnderTheHood/ButtonGroupBuild.astro:48`)
   - Summary: Filled and tonal button groups show no dividers in right-to-left pages.
   - Recommended: Fix with option A. Right-to-left pages are supported elsewhere, and the fix is a few lines in one file.
   - Fix: use an inline-start divider that follows the writing direction (for example `:dir(rtl)` flips the shadow's offset), and confirm outlined and text groups are unchanged
@@ -146,6 +152,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): draw the divider on the logical inline-start edge, so the shadow's offset flips under `:dir(rtl)`, and drop the right-to-left sentence from the Under the hood step
     - B: keep the CSS and leave the Under the hood sentence as the documented limitation
+  > Fix with option A
+  - Fixed: option A. Each button in `button-group.css` draws its divider at `--_divider-offset`, which `:dir(rtl)` flips to the right edge, so in right-to-left the line sits over the previous button, which paints first, as it does in left-to-right. `toggle-group.css` drew its dividers the same way and gets the same fix. The Dividers step of Under the hood shows the `:dir(rtl)` rule in place of the right-to-left sentence, and the Button Group and Toggle pages list `dir-pseudo` in their browser support. No CHANGELOG entry: 5.4.3 drew the dividers with `border-inline-start`, which already followed the direction.
 
 ## Docs
 
@@ -156,7 +164,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): a post-build `scripts/check-links.mjs` that reads `dist/` with parse5 and fails on an internal `href` whose page or `#id` doesn't exist, run at the end of `pnpm build`.
     - B: an e2e spec that crawls the built site.
   - Fixed with option A: `scripts/check-dist.mjs` (`pnpm check-dist`) runs at the end of `pnpm build`. It parses every page in `dist` with parse5, follows redirect pages, and fails on an internal link to a missing page or `#id`, a duplicate id, a missing `.md` alternate, a search index URL that doesn't exist and a dead link in `llms.txt` or a `.md` page. It found the Tabs note's `#variants`, the Migrating guide's relative `MIGRATING-legacy.md`, the release checks' `RELEASING.md`, 54 `css-variables` ids on each API index, the Menu Custom `#menu` and the framework variants and `.md` files that `/checks` and `/todo` advertised; all fixed. Placeholder fragments on the block previews, stress and fixture pages are skipped, and same-page fragments inside an example preview are only checked on component pages, since examples link their own page's sections.
-- [ ] (1) Docs: Theme tokens says the intent fill is the only fill without a token of its own, but the dark checked and invalid fills have none either (`src/docs/guide/theme-tokens.astro:135`)
+- [x] (1) Docs: Theme tokens says the intent fill is the only fill without a token of its own, but the dark checked and invalid fills have none either (`src/docs/guide/theme-tokens.astro:135`)
   - Summary: The guide says one fill lacks a token when several do.
   - Recommended: Fix with option A. It matches the token description.
   - Fix: confirm which fills are deliberately tokenless and list them
@@ -165,13 +173,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): "The fills without a token of their own are intent colors with their lightness capped: at `--ui-accent-fill-max-lightness` for critical buttons and badges, and at `--ui-choice-fill-max-lightness` for the checked choice mark in dark mode and the invalid one. `--ui-on-fill` is the text on all of them."
     - B: keep the sentence and link to the `--ui-on-fill` row, which has the full list
+  > Fix with option A
+  - Fixed: option A. Theme tokens says the fills without a token of their own are intent colors with their lightness capped, at `--ui-accent-fill-max-lightness` for critical buttons and badges and at `--ui-choice-fill-max-lightness` for the checked choice mark in dark mode and the invalid one, and that `--ui-on-fill` is the text on all of them.
 - [x] (1) Docs: the Accessibility guide says there are no ARIA widgets that need JavaScript, but SortableTable sets `aria-sort` from script (`src/docs/guide/accessibility.astro:23`)
   - Summary: The accessibility guide's no-JavaScript claim has an exception.
   - Recommended: Fix. Name the exception.
   - Fix: say "no ARIA widgets that need JavaScript, apart from the sortable table's `aria-sort`"
   > Fix
   - Fixed: The intro on Accessibility now says almost no ARIA needs JavaScript and names the exception: a sortable Table, whose script sets `aria-sort` on the header you press.
-- [ ] (1) Docs: the Svelte Getting started page tells readers to add `opui-css` to `ssr.noExternal`, which vite-plugin-svelte already does for packages with Svelte exports (`src/docs/guide/getting-started/Svelte.astro:32-44`)
+- [x] (1) Docs: the Svelte Getting started page tells readers to add `opui-css` to `ssr.noExternal`, which vite-plugin-svelte already does for packages with Svelte exports (`src/docs/guide/getting-started/Svelte.astro:32-44`)
   - Summary: The Svelte setup includes a config step that may not be needed.
   - Recommended: Fix with option A. The plugin already does it for every setup that can render Svelte.
   - Fix: build a fresh SvelteKit app without the option; drop the step if it works
@@ -180,6 +190,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): drop the `ssr.noExternal` step and its code block, and say vite-plugin-svelte compiles the components for server rendering in SvelteKit and in Vite setups alike
     - B: keep the step as a harmless safeguard and correct the reason
+  > Fix with option A
+  - Fixed: option A. The Svelte Getting started page drops the `ssr.noExternal` step and its code block and says `@sveltejs/vite-plugin-svelte` compiles the components for server rendering, in SvelteKit and in a Vite setup alike, through the package's `svelte` export condition. The README's server rendering paragraph says the same and keeps `ssr.noExternal` for React and Vue in Vite, and the skill's getting-started reference follows with the build.
 - [x] (1) Docs: the Svelte and Vue Getting started pages list the components that support `bind:` and `v-model` but leave out NumberStepper and Tabs (`src/docs/guide/getting-started/Svelte.astro:102-105`, `src/docs/guide/getting-started/Vue.astro:133`)
   - Summary: The two-way binding lists miss some components that support it.
   - Recommended: Fix. Complete the lists from the components' api.ts.
@@ -200,7 +212,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: reword the sentence to say the new names are outputs that freeze in every state
   > Fix with option A
   - Fixed: The twelve rows that renamed to an output now name the input: Accordion, Drawer and Switch motion point to `--_motion` (or the theme duration), ButtonGroup dividers to the buttons' `--_accent`, Callout and Chip text to the classes that set it, Card to `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`, `--_outlined-border-color` and `--_elevated-shadow`, Range to `--_accent`, and ToggleButton to `--_selected-bg-color`. Kinds checked against `src/component-api/custom-properties/`.
-- [ ] (2) Docs: the Browser support guide says the anchor positioning polyfill covers Anchor, Menu and Tooltip, while Carousel, Dialog and Drawer also list `anchor-positioning` (`src/docs/guide/browser-support.astro:126-127`)
+- [x] (2) Docs: the Browser support guide says the anchor positioning polyfill covers Anchor, Menu and Tooltip, while Carousel, Dialog and Drawer also list `anchor-positioning` (`src/docs/guide/browser-support.astro:126-127`)
   - Summary: The polyfill list leaves out three components that use anchor positioning.
   - Recommended: Remove issue. The bullet is correct as written.
   - Fix: try the polyfill on Carousel, Dialog and Drawer in Firefox and an older Safari, and add the ones it fixes to the bullet
@@ -209,6 +221,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): leave the bullet as it is
     - B: add a sentence that Carousel, Dialog and Drawer use anchor positioning only for extras that also need scroll buttons or scroll-state queries, so the polyfill doesn't apply
+  > Remove issue
+  - Removed: the bullet is right as written: Carousel, Dialog and Drawer use anchor positioning only for extras that need scroll buttons or scroll-state queries first, which the polyfill can't bring.
 - [x] (2) List: the List page's browser support says the compat layer has fallbacks for its features in `compat/menu.css`, only because ListItem's `api.ts` lists the `menu` stylesheet; that file holds one iOS fix for Menu submenus (`src/components/BrowserSupport.astro:39`, `src/component-api/list-item/api.ts:5`)
   - Summary: The List page points to a Menu compat fix that has nothing to do with lists.
   - Recommended: Fix. Filtering by the page's features keeps the sentence right on every page.
@@ -351,12 +365,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - C: like A, but keep `XActions` as an alias that renders `.ui-footer.ui-actions` with `align`.
   > Fix with option A
   - Fixed: option A. Dialog and Drawer share four parts: `DialogHeader` and `DrawerHeader` (`div.ui-header`, a row that wraps, where a heading takes the free space, buttons line up at the end and a `p` gets its own row; Dialog's `hgroup` is gone, and `DrawerHeader` keeps its close button), `DialogTitle` (new) and `DrawerTitle` (an `h2` that names the overlay, both sized by `--_title-font-size`, default `--ui-font-size-h4`, so the examples drop `.ui-h4` and m3 titles match at 28px), `DialogContent` and `DrawerContent` (`.ui-content`, now a stack with `--ui-space-3` between children on both, the rule `card.css` already gave Dialog, so a layout class like `.ui-form` keeps its own gap), and `DialogFooter` and `DrawerFooter` (`.ui-footer`, a row with `align`, replacing `DialogActions` and `DrawerActions`), with `.ui-actions` as a button group inside the footer that moves to the end when other content comes first. `--_header-font-size` is `--_title-font-size`, and the drawer's footer properties are `--_footer-gap` and `--_footer-padding` again, the names 5.4.3 shipped. `ActionsAlignment` is `FooterAlignment`, a new `FooterContent` example puts a status text next to the buttons, and every block, stress page, guide and site use is updated. Breaking entries in the CHANGELOG, MIGRATING and What's new notes say so; the dialog and drawer parity snapshots are updated (intended), the orphaned `dialog-ActionsAlignment` baselines are deleted, and the new and changed screenshots need an `update-snapshots` run.
-- [ ] (1) Menu: the Menu and Anchor examples put `div` and `p` inside `button` and a `div` card inside `span.ui-floating`, which HTML validators flag. Browsers render it fine, and it mirrors the components' own output (`src/component-examples/menu/Basics.html:12-18`)
+- [x] (1) Menu: the Menu and Anchor examples put `div` and `p` inside `button` and a `div` card inside `span.ui-floating`, which HTML validators flag. Browsers render it fine, and it mirrors the components' own output (`src/component-examples/menu/Basics.html:12-18`)
   - Summary: Validators flag the Menu and Anchor markup, though browsers render it fine.
   - Recommended: Remove issue. It mirrors the components' output and renders correctly, so treat it as the convention.
   - Options:
     - A (recommended): keep the markup as the convention
     - B: switch to `span`s inside the clickable row and `div` for `.ui-anchor` and `.ui-floating` library-wide, in four frameworks, `list.css` and the parity snapshots
+  > Remove issue
+  - Removed: the markup mirrors the components' own output and renders correctly, so it stays the convention.
 - [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:34,237`)
   - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
   - Recommended: Fix with option A. It keeps the page from shifting and the strip matches the backdrop, which C was meant to do.
@@ -574,7 +590,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Replaces: the first half of `packages/opui/components/AGENTS.md:229`, which then names the test.
   > Fix
   - Fixed: `problemsOf` in `tests/unit/naming.test.ts` now reports every prop without `values` whose kebab-case name is a value of a `vocabulary` concept that the same `api.ts` has as a prop (`has both vertical and orientation, never a boolean and an enum for one concept`), with a new `vertical` next to `orientation` sample beside the `dense` one. No component trips it. The first half of `packages/opui/components/AGENTS.md:229` now names the test.
-- [ ] (1) Tests: `parity.test.ts` drops `script` and `style` before it compares the markup, so nothing checks the docs guide's rule that HTML examples are as functional as the Astro ones; only the `framework-parity` agent reads the scripts (`tests/unit/normalize.ts:7`, `src/docs/components/AGENTS.md:309`)
+- [x] (1) Tests: `parity.test.ts` drops `script` and `style` before it compares the markup, so nothing checks the docs guide's rule that HTML examples are as functional as the Astro ones; only the `framework-parity` agent reads the scripts (`tests/unit/normalize.ts:7`, `src/docs/components/AGENTS.md:309`)
   - Summary: Nothing checks that an HTML example ships the script its behavior needs.
   - Recommended: Fix with option A. Every HTML script today follows from a hook in the markup, so a small table covers them.
   - Replaces: `src/docs/components/AGENTS.md:309` (Functional Parity) and the scripts clause of `.claude/agents/framework-parity.md:33`.
@@ -583,13 +599,17 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): `tests/unit/example-scripts.test.ts` with the hook-to-module table and the inline-script presence check, each with a sample it flags; `src/docs/components/AGENTS.md:309` and the scripts clause of `.claude/agents/framework-parity.md:33` then name the test, and the agent only compares what the inline scripts do.
     - B: Keep it with the `framework-parity` agent and remove the item.
-- [ ] (1) Docs site: the code blocks keep their own copy button, with a green "Copied!" label and no message when the copy fails, instead of the library `Copy`, because they leave the removed lines of a diff out of the copied text, which `Copy` can't do (`src/components/Code.astro:69`, `src/components/Code.astro:251-264`, `src/components/Code.astro:292-304`)
+  > Fix with option A
+  - Fixed: option A. `tests/unit/example-scripts.test.ts` reads the raw HTML examples: an `<opui-*>` element needs `opui-css/elements/<name>.js`, an `input[data-indeterminate]` needs `css/js/checkbox.js` and an `output.ui-value[data-live]` in a `.ui-range` needs `css/js/range.js`. An import without its element fails, and so does an HTML example without a script of its own when its Astro example has one. It feeds the rule a sample of each problem. The Functional Parity line in `src/docs/components/AGENTS.md` and the HTML completeness line in `.claude/agents/framework-parity.md` name the test, and the agent reads what the inline scripts do.
+- [x] (1) Docs site: the code blocks keep their own copy button, with a green "Copied!" label and no message when the copy fails, instead of the library `Copy`, because they leave the removed lines of a diff out of the copied text, which `Copy` can't do (`src/components/Code.astro:69`, `src/components/Code.astro:251-264`, `src/components/Code.astro:292-304`)
   - Summary: Code blocks confirm a copy differently from the Copy component and say nothing when it fails.
   - Recommended: Fix with option A. It keeps the diff behavior and drops the site's own copy script.
   - Fix: switch `Code.astro` to `Copy` with a `Button` once `Copy` can leave elements out of the copied text, and keep `docs.spec.ts` checking that a diff copies without its removed lines.
   - Options:
     - A (recommended): `copy.js` also leaves out elements marked `data-copy-ignore`, and `Code.astro` marks its removed diff lines with it.
     - B: `Copy` takes the text to copy from a `copy-text` attribute when it has one, and `Code.astro` sets it to the code without the removed lines.
+  > Fix with option A
+  - Fixed: option A. `copy.js` also leaves out elements with `data-copy-ignore`, which the Copy page (Snippet), its `api.ts` and the Unreleased `Copy` entry mention. `Code.astro` wraps the code in `Copy` with a small tonal `Button`, so code blocks show and announce the library's Copied and Copy failed label, and the site's own click handler and green label are gone. Each diff line carries its newline and a removed line has `data-copy-ignore`, so it drops out with its newline. A new test in `docs.spec.ts` copies a diff on the Migrating page and checks the text and the label.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.

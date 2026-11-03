@@ -1,5 +1,13 @@
 @import "./layers.css";
 @import "./compat/avatar.css";
+@import "./compat/button-group.css";
+@import "./compat/carousel.css";
+@import "./compat/dialog.css";
+@import "./compat/drawer.css";
 @import "./compat/menu.css";
 @import "./compat/one-time-code.css";
+@import "./compat/table.css";
+@import "./compat/tabs.css";
+@import "./compat/toggle-group.css";
 @import "./compat/tooltip.css";
+@import "./compat/typography.css";

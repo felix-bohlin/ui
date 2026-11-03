@@ -132,10 +132,12 @@ const slug = (title: string) =>
           >--ui-on-primary</code
         > on <code>--ui-primary</code>, <code>--ui-on-inverse</code> on <code
           >--ui-surface-inverse</code
-        >. The one fill without a token of its own is the intent fill, an intent
-        color kept within <code>--ui-accent-fill-max-lightness</code>, and <code
+        >. The fills without a token of their own are intent colors with their
+        lightness capped: at <code>--ui-accent-fill-max-lightness</code> for critical
+        buttons and badges, and at <code>--ui-choice-fill-max-lightness</code> for
+        the checked choice mark in dark mode and the invalid one. <code
           >--ui-on-fill</code
-        > is the text on every one of them.
+        > is the text on all of them.
       </li>
       <li>
         <code>-text</code> after a color is that color tuned for reading, such as

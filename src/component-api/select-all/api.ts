@@ -16,7 +16,7 @@ export default {
     {
       code: '<input type="checkbox" data-select-all>',
       description:
-        "The checkbox that checks and unchecks the other checkboxes inside without a `disabled` attribute (one in a disabled fieldset still counts). It's checked when they all are, and `indeterminate` when some are.",
+        "The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.",
       selector: "input[data-select-all]",
     },
   ],

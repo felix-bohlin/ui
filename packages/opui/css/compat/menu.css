@@ -1,4 +1,10 @@
 @layer components.compat {
+  @supports not (overflow-block: auto) {
+    :where(.ui-menu) {
+      overflow-y: auto;
+    }
+  }
+
   /* iOS Safari doesn't place a submenu at its trigger item, so there it
      anchors to the parent menu. Remove once iOS Safari does. */
   @supports (-webkit-touch-callout: none) {

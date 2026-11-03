@@ -280,6 +280,28 @@ for (const framework of FRAMEWORK_IDS) {
   })
 }
 
+test("a diff code block copies without its removed lines", async ({ page }) => {
+  await page.addInitScript(() => {
+    navigator.clipboard.writeText = async (text) => {
+      document.documentElement.dataset.copied = text
+    }
+  })
+  await page.goto("/html/guide/migrating/")
+  const block = page.locator(".code-block:has([data-diff='del'])").first()
+  const kept = (
+    await block.locator(".diff-line:not([data-diff='del'])").allTextContents()
+  )
+    .map((line) => line.replace(/\n$/, ""))
+    .join("\n")
+    .trim()
+
+  await block.locator(".code-copy").click()
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.dataset.copied))
+    .toBe(kept)
+  await expect(block.locator(".ui-floating[popover]")).toHaveText("Copied")
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })

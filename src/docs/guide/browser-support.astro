@@ -72,9 +72,35 @@ const years = Object.keys(categorized)
         scales like the squircle does.
       </li>
       <li>
-        Menu (<code>css/compat/menu.css</code>): on iOS Safari, submenus anchor
-        to their parent menu, because iOS Safari doesn't place them at their
-        trigger item.
+        ButtonGroup (<code>css/compat/button-group.css</code>): without <code
+          >overflow-inline</code
+        >, a group with <code>.ui-overflow-scroll</code> scrolls through <code
+          >overflow-x</code
+        >.
+      </li>
+      <li>
+        Carousel (<code>css/compat/carousel.css</code>): without <code
+          >overflow-inline</code
+        >, the carousel scrolls through <code>overflow-x</code>, or <code
+          >overflow-y</code
+        > when it's vertical, instead of spilling its items into the page.
+      </li>
+      <li>
+        Dialog (<code>css/compat/dialog.css</code>): without <code
+          >overflow-block</code
+        >, the content scrolls through <code>overflow-y</code>.
+      </li>
+      <li>
+        Drawer (<code>css/compat/drawer.css</code>): without <code
+          >overflow-block</code
+        >, the content scrolls through <code>overflow-y</code>.
+      </li>
+      <li>
+        Menu (<code>css/compat/menu.css</code>): without <code
+          >overflow-block</code
+        >, a long menu scrolls through <code>overflow-y</code>. On iOS Safari,
+        submenus anchor to their parent menu, because iOS Safari doesn't place
+        them at their trigger item.
       </li>
       <li>
         OneTimeCode (<code>css/compat/one-time-code.css</code>): on iOS Safari,
@@ -85,11 +111,39 @@ const years = Object.keys(categorized)
         box, where the field's <code>overflow: clip</code> doesn't reach it.
       </li>
       <li>
+        Table (<code>css/compat/table.css</code>): without <code
+          >overflow-inline</code
+        >, a table with <code>.ui-overflow-scroll</code> scrolls through <code
+          >overflow-x</code
+        >.
+      </li>
+      <li>
+        Tabs (<code>css/compat/tabs.css</code>): without <code
+          >overflow-inline</code
+        >, tabs with <code>.ui-overflow-scroll</code> scroll through <code
+          >overflow-x</code
+        >.
+      </li>
+      <li>
+        ToggleGroup (<code>css/compat/toggle-group.css</code>): without <code
+          >overflow-inline</code
+        >, a group with <code>.ui-overflow-scroll</code> scrolls through <code
+          >overflow-x</code
+        >.
+      </li>
+      <li>
         Tooltip (<code>css/compat/tooltip.css</code>): without interest
         invokers, the tooltip shows while its trigger is hovered or has keyboard
         focus. It isn't in the top layer there, so an ancestor that clips its
         overflow and has a transform, filter or containment can hide it, and
         later content can cover it.
+      </li>
+      <li>
+        Typography (<code>css/compat/typography.css</code>): without <code
+          >overflow-inline</code
+        >, code blocks and plain tables in rich text scroll through <code
+          >overflow-x</code
+        >.
       </li>
     </ul>
     <h3 id="support-level">Support level</h3>

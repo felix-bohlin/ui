@@ -61,7 +61,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Parts
 
 - `opui-select-all.ui-select-all` (root): The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`.
-- `<input type="checkbox" data-select-all>`: The checkbox that checks and unchecks the other checkboxes inside without a `disabled` attribute (one in a disabled fieldset still counts). It's checked when they all are, and `indeterminate` when some are.
+- `<input type="checkbox" data-select-all>`: The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.
 
 ### Slots
 

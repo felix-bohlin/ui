@@ -13,7 +13,8 @@ export class SelectAll extends Base {
 
   get items() {
     return [...this.querySelectorAll(CHECKBOX)].filter(
-      (input) => !input.hasAttribute("data-select-all") && !input.disabled,
+      (input) =>
+        !input.hasAttribute("data-select-all") && !input.matches(":disabled"),
     )
   }
 

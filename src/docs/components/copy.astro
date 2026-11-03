@@ -128,7 +128,9 @@ export const keywords = ["clipboard", "copy to clipboard"]
       out of the copied text, so an icon button with a <DocLink
         href="/components/tooltip">Tooltip</DocLink
       > next to the code is fine. The label takes the tooltip's place, and the tooltip
-      stays closed while the label shows.
+      stays closed while the label shows. Add <code>data-copy-ignore</code> to any
+      other element inside to leave it out too, like line numbers or the removed lines
+      of a diff.
     </p>
     <AutoExample name="Snippet" row />
   </section>

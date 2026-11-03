@@ -925,7 +925,7 @@ describe("toTypes", () => {
       },
     )
     expect(svelte).toContain(
-      'export type Props = Base.Props & SvelteHTMLElements["div"] & { checked?: boolean; group?: (string | number)[] }',
+      'export type Props = Base.Props & Omit<SvelteHTMLElements["div"], "checked" | "group"> & { checked?: boolean; group?: (string | number)[] }',
     )
     expect(react).toContain(
       'export type Props = Base.Props & ComponentProps<"div">\n',

@@ -88,6 +88,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - `tests/unit/naming.test.ts` checks prop names, values and defaults against the naming model in `packages/opui/components/AGENTS.md`.
 - `tests/unit/astro-attributes.test.ts` fails on a quoted attribute in an `.astro` file that Prettier's Astro plugin rewrites.
 - `tests/unit/component-contract.test.ts` renders every component in Astro, React, Svelte and Vue with each prop value its types allow and every slot filled, and fails when a framework's markup differs from Astro's.
+- `tests/unit/component-types.test.ts` asserts the prop and slot types of the compiled React, Svelte and Vue type files with `expectTypeOf`, one case per rule in `scripts/component-types.mjs`. `pnpm typecheck` checks them, so a type the compiler widens or drops fails the type check, not only the build.
 - `tests/unit/component-formatting.test.ts` renders every Astro, Svelte and Vue component from its source formatted at printWidth 40 and 200 and fails when the output differs, so a Prettier update can't change what a component renders.
 - `tests/unit/tooling-bugs.test.ts` reproduces every bug in `@astrojs/compiler`, Astro, parse5 and Prettier's Astro plugin that a script or component works around, and fails when a dependency update fixes one: remove the workaround it names, then the entry.
 - `pnpm sort-css:check` fails on CSS declarations out of order in `.css` files and `<style>` blocks, and `pnpm sort-css` sorts them.

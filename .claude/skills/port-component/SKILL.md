@@ -1,12 +1,12 @@
 ---
 name: port-component
-description: Writes or updates the React, Svelte and Vue versions of a component from its Astro file and loops on the component tests until all four frameworks render the same markup. Use when a component is added, when its .astro file or types change, or when the user asks to port, sync or mirror a component.
+description: Writes or updates by hand the React, Svelte and Vue files of a component that scripts/build-components.mjs refuses, listed in scripts/hand-written-components.json, and loops on the component tests until all four frameworks render the same markup. Use when the compiler refuses a component and the construct is not worth supporting, when a ledgered component's .astro file or types change, or when the user asks to port, sync or mirror such a component. Every other component is compiled by pnpm build-components.
 argument-hint: "<Component>…"
 ---
 
 # Port a component
 
-Astro is the source of truth for a component's markup; the React, Svelte and Vue files are hand-written ports, and the tests decide whether they match. The loop is: write the port, run the component tests, fix what they name, repeat until green.
+Astro is the source of truth for a component's markup. `pnpm build-components` compiles the React, Svelte and Vue files from it, so a port is written by hand only for a file in `scripts/hand-written-components.json`: one the compiler refuses with a reason the ledger records, or one that carries behavior the Astro file doesn't express. Before porting, try the compiler: when it refuses a construct that other components would use too, support it in `scripts/build-components.mjs` instead. Otherwise list the file in the ledger with the reason and commit with the `Ledger-Change: intended` trailer. The loop is then: write the port, run the component tests, fix what they name, repeat until green.
 
 ## Read first
 

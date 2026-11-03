@@ -3,7 +3,9 @@ import {
   boxesOf,
   cssRules,
   matches,
+  parseSelectorList,
   renderedText,
+  specificityOf,
 } from "../../scripts/example-display.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 
@@ -76,8 +78,29 @@ describe("cssRules", () => {
     expect(rules.map(({ text }) => text)).toEqual([
       ":is(:where(.a)) > .b",
       ":is(:where(.a)) .c",
-      ":is(.r) p",
+      ":where(.r) p",
     ])
+  })
+
+  test("a scope limit excludes the limit elements and their descendants without adding specificity", () => {
+    const rules = cssRules(
+      "@scope (.r) to (.stop) { p { display: flex } :scope > q { display: grid } }",
+    )
+    expect(rules.map(({ text }) => text)).toEqual([
+      ":where(.r) p:where(:not(:is(.stop), :is(.stop) *))",
+      ":where(.r) > q:where(:not(:is(.stop), :is(.stop) *))",
+    ])
+    expect(
+      boxOf('<div class="r"><div class="stop"><p>a</p></div></div>', "p", [
+        "@scope (.r) to (.stop) { p { display: flex } }",
+      ]),
+    ).toMatchObject({ inner: "flow" })
+    expect(
+      boxOf('<div class="r"><p>a</p></div>', "p", [
+        "@scope (.r) to (.stop) { p { display: flex } }",
+      ]),
+    ).toMatchObject({ inner: "flex" })
+    expect(specificityOf(rules[0].selector[0])).toBe(1)
   })
 
   test("skips pseudo-elements other than ::before and ::after", () => {
@@ -102,8 +125,30 @@ describe("cssRules", () => {
   test.each([
     ["@media (width > 1px) { .a { display: flex } }", "@media"],
     ["@layer nope { .a { display: flex } }", "the layer nope"],
+    ["@supports (display: grid) { .a { display: grid } }", "@supports"],
   ])("rejects %s", (css, reason) => {
     expect(() => cssRules(css)).toThrow(reason)
+  })
+
+  test("follows content inside @supports, which reads the same either way", () => {
+    expect(
+      cssRules(
+        '.a::after { content: "*" } @supports (content: "*" / "") { .a::after { content: "*" / "" } }',
+      ).map(({ generated }) => generated?.content),
+    ).toEqual(['"*"', '"*" / ""'])
+  })
+
+  test.each([
+    [".a.b", 2000],
+    ["#x .a", 1_001_000],
+    [":where(.a) p", 1],
+    [":is(.a, #b) p", 1_000_001],
+    [".a:not(.b.c)", 3000],
+    ["ul > li:nth-child(2)", 1002],
+    [".x:has(> .a .b)", 3000],
+  ])("%s has specificity %i", (selector, expected) => {
+    const [steps] = parseSelectorList(selector)
+    expect(specificityOf(steps)).toBe(expected)
   })
 })
 
@@ -121,7 +166,10 @@ describe("boxesOf", () => {
     expect(
       boxOf('<p class="ui-button" style="display: block">a</p>', "p"),
     ).toMatchObject({ outer: "block" })
-    expect(boxOf("<img alt=''>", "img")).toMatchObject({ outer: "atomic" })
+    expect(boxOf("<img alt=''>", "img")).toMatchObject({ outer: "block" })
+    expect(boxOf("<img alt='' style='display: inline'>", "img")).toMatchObject({
+      outer: "atomic",
+    })
   })
 
   test("a later layer wins over an earlier one, and an unlayered rule over both", () => {
@@ -135,6 +183,33 @@ describe("boxesOf", () => {
         ".ui-button { display: block }",
       ]),
     ).toMatchObject({ inner: "flow", outer: "block" })
+  })
+
+  test("a more specific rule wins within a layer, and a later one between equals", () => {
+    expect(
+      boxOf('<p id="x" class="a b">a</p>', "p", [
+        "#x { display: flex } .a.b { display: grid }",
+      ]),
+    ).toMatchObject({ inner: "flex" })
+    expect(
+      boxOf('<p class="a b">a</p>', "p", [
+        ".a.b { display: flex } :where(.a.b) { display: grid }",
+      ]),
+    ).toMatchObject({ inner: "flex" })
+    expect(
+      boxOf('<p class="a b">a</p>', "p", [
+        ".a { display: flex } .b { display: grid }",
+      ]),
+    ).toMatchObject({ inner: "grid" })
+  })
+
+  test("the core normalize makes replaced elements and fieldsets blocks", () => {
+    expect(boxOf("<p>a <svg></svg> b</p>", "svg")).toMatchObject({
+      outer: "block",
+    })
+    expect(boxOf("<fieldset><p>a</p></fieldset>", "fieldset")).toMatchObject({
+      inner: "grid",
+    })
   })
 
   test("an author display beats the UA hidden rule, and hidden keeps the display it would show with", () => {

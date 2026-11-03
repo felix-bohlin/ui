@@ -5,7 +5,10 @@ import postcss from "postcss"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentCssDir = join(root, "packages/opui/css/components")
+const coreCssDir = join(root, "packages/opui/core")
 const layersFile = join(root, "packages/opui/css/layers.css")
+
+export const CORE_CSS = ["normalize.css", "utils.css"]
 
 export const EXAMPLE_LAYOUT_CSS = join(root, "src/styles/example-layout.css")
 
@@ -29,9 +32,11 @@ slot { display: contents }
 [hidden]:not([hidden="until-found" i]), dialog:not([open]), [popover]:not(:popover-open):not(dialog[open]) { display: none }
 listing, plaintext, pre, xmp { white-space: pre }
 textarea { white-space: pre-wrap }
+q::before { content: open-quote }
+q::after { content: close-quote }
 `
 
-const REPLACED = new Map([
+export const REPLACED = new Map([
   ["audio", "flow"],
   ["canvas", "flow"],
   ["embed", "flow"],
@@ -47,11 +52,11 @@ const REPLACED = new Map([
 
 const SVG_TEXT_ROOTS = new Set(["desc", "foreignObject", "text", "title"])
 const SVG_TEXT_INLINES = new Set(["a", "textPath", "tspan"])
-const SVG_NAMESPACE = "http://www.w3.org/2000/svg"
+export const SVG_NAMESPACE = "http://www.w3.org/2000/svg"
 
 const OUTER = { block: "block", inline: "inline" }
 
-const parseDisplay = (value) => {
+export const parseDisplay = (value) => {
   const keywords = value.trim().toLowerCase().split(/\s+/).join(" ")
   const table = {
     block: ["block", "flow"],
@@ -97,7 +102,7 @@ const parseDisplay = (value) => {
   return { inner, outer }
 }
 
-const preserves = (whiteSpace) =>
+export const preserves = (whiteSpace) =>
   /^(pre|pre-wrap|pre-line|break-spaces|preserve)/.test(whiteSpace)
 
 const balanced = (text, open) => {
@@ -269,6 +274,39 @@ const parseComplex = (text, relative = false) => {
 
 export const parseSelectorList = (text) =>
   splitTopLevel(text, ",").map((part) => parseComplex(part))
+
+const ID = 1_000_000
+const CLASS = 1_000
+const TYPE = 1
+
+const compoundSpecificity = (compound) =>
+  compound.reduce((total, simple) => {
+    if (simple.type === "id") return total + ID
+    if (simple.type === "class" || simple.type === "attribute") {
+      return total + CLASS
+    }
+    if (simple.type === "type") return total + TYPE
+    if (simple.type !== "pseudo") return total
+    if (simple.name === "where") return total
+    if (["has", "is", "not"].includes(simple.name)) {
+      return total + Math.max(0, ...simple.argument.map(specificityOf))
+    }
+    return total + CLASS
+  }, 0)
+
+export const specificityOf = (steps) =>
+  steps.reduce(
+    (total, { compound }) => total + compoundSpecificity(compound),
+    0,
+  )
+
+const matchingSpecificity = (list, element, tree) =>
+  Math.max(
+    -1,
+    ...list
+      .filter((steps) => matchesComplex(steps, element, tree))
+      .map(specificityOf),
+  )
 
 const nth = (formula, position) => {
   const text = formula.replace(/\s+/g, "").toLowerCase()
@@ -489,19 +527,33 @@ export const cssRules = (css, { layered = true, rank } = {}) => {
           const name = layer ? `${layer}.${node.params}` : node.params
           visit(node, parents, name)
         } else if (node.name === "supports") {
+          node.walkDecls((decl) => {
+            if (decl.prop === "display" || decl.prop === "white-space") {
+              throw new Error(
+                `@supports ${node.params} sets ${decl.prop}, which the display model in scripts/example-display.mjs can't evaluate; it only follows content, which reads the same with or without the alternative text`,
+              )
+            }
+          })
           visit(node, parents, layer)
         } else if (node.name === "scope") {
           const start = node.params.indexOf("(")
           const scope = balanced(node.params, start)
+          const rest = node.params.slice(start + scope.length + 2)
+          const to = /^\s*to\s*\(/.exec(rest)
+          const limit = to ? balanced(rest, to[0].length - 1) : undefined
+          const outside = limit
+            ? `:where(:not(:is(${limit}), :is(${limit}) *))`
+            : ""
           visit(
             {
               nodes: node.nodes.map((child) =>
                 child.type === "rule"
                   ? child.clone({
-                      selectors: child.selectors.map((selector) =>
-                        selector.includes(":scope")
-                          ? selector.replaceAll(":scope", `:is(${scope})`)
-                          : `:is(${scope}) ${selector}`,
+                      selectors: child.selectors.map(
+                        (selector) =>
+                          (selector.includes(":scope")
+                            ? selector.replaceAll(":scope", `:where(${scope})`)
+                            : `:where(${scope}) ${selector}`) + outside,
                       ),
                     })
                   : child,
@@ -599,6 +651,9 @@ export const baseCssRules = () => {
       .map((file) => readFileSync(join(componentCssDir, file), "utf8"))
     baseRules = [
       ...cssRules(UA_CSS, { rank: 0 }),
+      ...CORE_CSS.flatMap((file) =>
+        cssRules(readFileSync(join(coreCssDir, file), "utf8")),
+      ),
       ...files.flatMap((css) => cssRules(css)),
       ...cssRules(readFileSync(EXAMPLE_LAYOUT_CSS, "utf8")),
     ]
@@ -618,7 +673,7 @@ const inlineStyle = (element, property) => {
 
 const NO_BOX = /^(none|normal)$/
 
-const generatedAtom = (pseudo) => {
+export const generatedAtom = (pseudo) => {
   if (!pseudo?.content || NO_BOX.test(pseudo.content.trim())) return undefined
   if (/^(absolute|fixed)$/.test(pseudo.position?.trim() ?? "")) return undefined
   const { outer } = parseDisplay(pseudo.display ?? "inline")
@@ -633,45 +688,56 @@ export const boxesOf = (nodes, css = []) => {
   const rules = [
     ...baseCssRules(),
     ...css.flatMap((text) => cssRules(text, { layered: false })),
-  ]
-    .map((rule, order) => ({ ...rule, order }))
-    .toSorted((a, b) => a.rank - b.rank || a.order - b.order)
+  ].map((rule, order) => ({ ...rule, order }))
   const tree = treeOf(nodes)
   const declared = new Map()
   const generated = new Map()
+  const beats = (key, other) => {
+    const index = key.findIndex((part, at) => part !== other[at])
+    return index !== -1 && key[index] > other[index]
+  }
+  const declare = (entry, property, value, key) => {
+    if (value && (!entry[property] || beats(key, entry[property].key))) {
+      entry[property] = { key, value }
+    }
+  }
   for (const rule of rules) {
     for (const element of tree.elements) {
-      if (!matchesList(rule.selector, element, tree)) continue
+      const specificity = matchingSpecificity(rule.selector, element, tree)
+      if (specificity < 0) continue
+      const key = [rule.rank, specificity, rule.order]
       if (rule.pseudo) {
         const pseudos = generated.get(element) ?? {}
-        pseudos[rule.pseudo] = {
-          ...pseudos[rule.pseudo],
-          ...Object.fromEntries(
-            Object.entries(rule.generated).filter(([, value]) => value),
-          ),
+        pseudos[rule.pseudo] ??= {}
+        for (const [property, value] of Object.entries(rule.generated)) {
+          declare(pseudos[rule.pseudo], property, value, key)
         }
         generated.set(element, pseudos)
         continue
       }
       const entry = declared.get(element) ?? {}
-      if (rule.display) {
-        entry.display = rule.display
-        if (rule.display.trim() !== "none") entry.shown = rule.display
+      declare(entry, "display", rule.display, key)
+      if (rule.display?.trim() !== "none") {
+        declare(entry, "shown", rule.display, key)
       }
-      if (rule.whiteSpace) entry.whiteSpace = rule.whiteSpace
+      declare(entry, "whiteSpace", rule.whiteSpace, key)
       declared.set(element, entry)
     }
   }
+  const valueOf = (entry) => entry?.value
   const boxes = new Map()
   const visit = (children, whiteSpace) => {
     for (const element of children) {
       if (element.type !== "element") continue
       const entry = declared.get(element) ?? {}
       const style = inlineStyle(element, "display")
-      const display = style ?? entry.display ?? "inline"
-      const shown = style && style.trim() !== "none" ? style : entry.shown
+      const display = style ?? valueOf(entry.display) ?? "inline"
+      const shown =
+        style && style.trim() !== "none" ? style : valueOf(entry.shown)
       const own =
-        inlineStyle(element, "white-space") ?? entry.whiteSpace ?? whiteSpace
+        inlineStyle(element, "white-space") ??
+        valueOf(entry.whiteSpace) ??
+        whiteSpace
       let box = parseDisplay(display)
       let shownBox = parseDisplay(shown ?? "block")
       if (element.namespace === SVG_NAMESPACE && element.tag !== "svg") {
@@ -692,10 +758,18 @@ export const boxesOf = (nodes, css = []) => {
         shownBox = replaced(shownBox)
       }
       const pseudos = generated.get(element) ?? {}
+      const pseudo = (name) =>
+        pseudos[name] &&
+        Object.fromEntries(
+          Object.entries(pseudos[name]).map(([property, entry]) => [
+            property,
+            entry.value,
+          ]),
+        )
       boxes.set(element, {
         ...box,
-        after: generatedAtom(pseudos.after),
-        before: generatedAtom(pseudos.before),
+        after: generatedAtom(pseudo("after")),
+        before: generatedAtom(pseudo("before")),
         shown: shownBox,
         whiteSpace: own,
       })

@@ -94,19 +94,23 @@ export const jsxText = (source) =>
 
 const jsxAttributes = new Map()
 
-const jsxAttributeIsStable = (value) => {
-  if (!jsxAttributes.has(value)) {
-    const { outputText } = ts.transpileModule(`<p a="${value}" />`, {
-      compilerOptions: { jsx: ts.JsxEmit.React, jsxFactory: "h" },
-      fileName: "attribute.tsx",
-    })
+const jsxAttributeIsStable = (value, quote) => {
+  const key = quote + value
+  if (!jsxAttributes.has(key)) {
+    const { outputText } = ts.transpileModule(
+      `<p a=${quote}${value}${quote} />`,
+      {
+        compilerOptions: { jsx: ts.JsxEmit.React, jsxFactory: "h" },
+        fileName: "attribute.tsx",
+      },
+    )
     const props = new Function(
       "h",
       `return ${outputText.replace(/^"use strict";\s*/, "")}`,
     )((_, properties) => properties)
-    jsxAttributes.set(value, props.a === value)
+    jsxAttributes.set(key, props.a === value)
   }
-  return jsxAttributes.get(value)
+  return jsxAttributes.get(key)
 }
 
 export const jsxAttribute = (name, value) => {
@@ -115,7 +119,7 @@ export const jsxAttribute = (name, value) => {
     return `${name}={${JSON.stringify(value)}}`
   }
   const quote = value.includes('"') ? "'" : '"'
-  return !value.includes("&") || jsxAttributeIsStable(value)
+  return !value.includes("&") || jsxAttributeIsStable(value, quote)
     ? literal(quote)
     : `${name}={${JSON.stringify(value)}}`
 }

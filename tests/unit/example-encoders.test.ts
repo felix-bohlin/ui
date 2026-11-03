@@ -44,7 +44,64 @@ const VALUES = [
   "`tick`",
   "${x}",
   "url?w=1&h=2&fit=crop",
+  '"&amp;',
+  "'&copy;",
 ]
+
+const TOKENS = [
+  " ",
+  "\n",
+  " ",
+  "!",
+  '"',
+  "#",
+  "$",
+  "${",
+  "%",
+  "&",
+  "&#65;",
+  "&#x26;",
+  "&amp;",
+  "&copy",
+  "&copy;",
+  "&lt;",
+  "&nbsp;",
+  "&notit;",
+  "'",
+  "(",
+  ")",
+  "/",
+  ";",
+  "<",
+  "=",
+  ">",
+  "\\",
+  "`",
+  "a",
+  "{",
+  "}",
+  "é",
+  "🎉",
+]
+
+const seeded = (seed: number) => () => {
+  seed = (seed + 0x6d2b79f5) | 0
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+}
+
+const fuzzed = (seed: number, count: number) => {
+  const random = seeded(seed)
+  return Array.from({ length: count }, () =>
+    Array.from(
+      { length: Math.floor(random() * 8) },
+      () => TOKENS[Math.floor(random() * TOKENS.length)],
+    ).join(""),
+  )
+}
+
+const FUZZED = fuzzed(2024, 300)
 
 const sampleFile = "src/component-examples/sample/Example.astro"
 
@@ -214,6 +271,45 @@ describe("jsxAttribute", () => {
 describe("templateLiteral", () => {
   test.each(VALUES)("keeps %j inside a template literal", (value) => {
     expect(new Function(`return \`${templateLiteral(value)}\``)()).toBe(value)
+  })
+})
+
+describe("fuzzed values round-trip through the target parsers", () => {
+  test("the generator is seeded, so a failing value reproduces", () => {
+    expect(fuzzed(2024, 3)).toEqual(fuzzed(2024, 3))
+    expect(new Set(FUZZED).size).toBeGreaterThan(200)
+  })
+
+  test("markupText and attributeText through the HTML parser", () => {
+    for (const value of FUZZED) {
+      expect(decodeText(markupText(value)), JSON.stringify(value)).toBe(value)
+      expect(decodeAttribute(attributeText(value), '"'), value).toBe(value)
+      expect(decodeAttribute(attributeText(value, "'"), "'"), value).toBe(value)
+    }
+  })
+
+  test("jsxText and jsxAttribute through the JSX compiler", () => {
+    for (const value of FUZZED) {
+      const attribute = `export default function Example() { return <p ${jsxAttribute("title", value)}>x</p> }`
+      expect(evaluateReact(attribute).props.title, value).toBe(value)
+      if (/^\s*$|\n/.test(value)) continue
+      const text = `export default function Example() { return <p>x${jsxText(markupText(value))}x</p> }`
+      expect(evaluateReact(text).children.join(""), value).toBe(`x${value}x`)
+    }
+  })
+
+  test("templateLiteral through the JavaScript parser", () => {
+    for (const value of FUZZED) {
+      expect(
+        new Function(`return \`${templateLiteral(value)}\``)(),
+        value,
+      ).toBe(value)
+    }
+  })
+
+  test("a sample the fuzzer must flag: an encoder that returns its input", () => {
+    const broken = FUZZED.filter((value) => decodeText(value) !== value)
+    expect(broken.length).toBeGreaterThan(20)
   })
 })
 

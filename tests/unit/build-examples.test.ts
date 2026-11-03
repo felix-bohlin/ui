@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { stripTypeScriptTypes } from "node:module"
 import { format, resolveConfig } from "prettier"
+import { compile as compileSvelte } from "svelte/compiler"
 import { beforeAll, describe, expect, test } from "vitest"
 import {
   convertExample,
@@ -13,6 +14,7 @@ import {
   scriptImports,
   REACT_DEFAULT_VALUE,
 } from "../../scripts/build-examples.mjs"
+import { typeDiagnostics } from "../../scripts/example-react-props.mjs"
 import {
   astroSourceOf,
   generatedTargets,
@@ -142,6 +144,12 @@ describe("React", () => {
     ).toContain(
       'style={{ background: "url(data:image/png;base64,AAA)", color: "red" }}',
     )
+  })
+
+  test("rejects a style declaration without a colon", async () => {
+    await expect(
+      convert(astro('<div style="color red"></div>'), "react"),
+    ).rejects.toThrow('the style declaration "color red" has no colon')
   })
 
   test("a set:html inside a comment keeps the const", async () => {
@@ -797,6 +805,48 @@ describe("generated examples", () => {
 
   test("every generated file is up to date", () => {
     expect(staleProblems(all.outputs, committed)).toEqual([])
+  })
+
+  test("every generated React file type-checks", () => {
+    const react = new Map(
+      [...all.outputs]
+        .filter(([file]) => file.endsWith(".react.tsx"))
+        .map(([file, code]) => [
+          file.replace(/^src\/component-examples\//, "").replace("/", "-"),
+          code,
+        ]),
+    )
+    expect(react.size).toBeGreaterThan(100)
+    expect(
+      [...typeDiagnostics(react)].filter(
+        ([, diagnostics]) => diagnostics.length > 0,
+      ),
+    ).toEqual([])
+  }, 300_000)
+
+  test("every generated Svelte file compiles", () => {
+    const problems: string[] = []
+    let count = 0
+    for (const [file, code] of all.outputs) {
+      if (!file.endsWith(".svelte")) continue
+      count++
+      try {
+        const { warnings } = compileSvelte(code, { filename: file })
+        problems.push(
+          ...warnings
+            .filter(({ code: warning }) => !warning.startsWith("a11y_"))
+            .map(({ message }) => `${file}: ${message}`),
+        )
+      } catch (error) {
+        problems.push(`${file}: ${(error as Error).message}`)
+      }
+    }
+    expect(count).toBeGreaterThan(100)
+    expect(problems).toEqual([])
+  })
+
+  test("a sample the Svelte check must flag: an unclosed element", () => {
+    expect(() => compileSvelte("<p>x", { filename: "Bad.svelte" })).toThrow()
   })
 
   test("every example has its generated files", () => {

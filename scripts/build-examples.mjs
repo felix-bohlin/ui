@@ -1053,10 +1053,17 @@ const toVue = (example) => {
   return `${script ? `<script setup lang="ts">\n${script}\n</script>\n\n` : ""}<template>\n${emit(example.tree, example.markup)}\n</template>${styles}\n`
 }
 
-const styleObject = (css) =>
+const styleObject = (css, file) =>
   `{{ ${splitTopLevel(css, ";")
     .map((declaration) => {
       const colon = declaration.indexOf(":")
+      if (colon === -1) {
+        throw unsupported(
+          file,
+          `the style declaration ${JSON.stringify(declaration)} has no colon`,
+          "React",
+        )
+      }
       const property = declaration.slice(0, colon).trim()
       const key = property.startsWith("--")
         ? JSON.stringify(property)
@@ -1201,7 +1208,9 @@ const reactPropCode = (name, item, kinds, where, context) => {
     throw fail("an attribute without a value")
   }
   if (item.kind === "string") {
-    if (name === "style") return `${name}=${styleObject(item.value)}`
+    if (name === "style") {
+      return `${name}=${styleObject(item.value, context.file)}`
+    }
     if (has("string", "any", "other")) return jsxAttribute(name, item.value)
     if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
       return `${name}={${item.value}}`

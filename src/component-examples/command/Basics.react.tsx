@@ -1,0 +1,30 @@
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandList,
+  ListItem,
+} from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Command variant="outlined">
+      <CommandInput
+        aria-label="Search commands"
+        placeholder="Search commands"
+      />
+      <CommandList>
+        <CommandGroup label="Actions">
+          <ListItem as="button" label="New file" />
+          <ListItem as="button" label="New folder" />
+          <ListItem as="button" label="Invite people" />
+        </CommandGroup>
+        <CommandGroup label="Pages">
+          <ListItem href="#basics" label="Dashboard" />
+          <ListItem href="#basics" label="Billing" />
+          <ListItem href="#basics" label="Settings" />
+        </CommandGroup>
+      </CommandList>
+    </Command>
+  )
+}

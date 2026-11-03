@@ -1,114 +1,99 @@
 ---
-import { Button, Chip, List } from "opui-css/astro"
-import Command from "./Command.astro"
+import {
+  Button,
+  Chip,
+  Command,
+  CommandInput,
+  CommandList,
+} from "opui-css/astro"
 import { SEARCH_CATEGORIES } from "../utils/search-categories"
 ---
 
-<Command id="search-dialog" class="search-modal" aria-label="Search docs">
-  <input
-    slot="input"
-    type="text"
-    id="search-input"
-    placeholder="Search docs..."
-    autocomplete="off"
-    aria-label="Search docs"
-    role="combobox"
-    aria-autocomplete="list"
-    aria-controls="recent-list"
-    aria-expanded="false"
-  />
-
-  <Button
-    round
-    size="small"
-    slot="input-end"
-    class="search-mobile-close"
-    id="search-close"
-    title="Close"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-      ></path>
-    </svg>
-  </Button>
-
-  <div
-    slot="header"
-    class="search-filters"
-    id="search-filters"
-    role="group"
-    aria-label="Filter by category"
-  >
-    <Chip
-      aria-pressed="true"
-      as="button"
-      size="small"
-      type="button"
-      variant="outlined"
-      class="filter-chip"
-      data-filter="all"
-      label="All"
+<dialog
+  aria-label="Search docs"
+  class="ui-dialog search-modal"
+  closedby="any"
+  id="search-dialog"
+>
+  <Command emptyLabel="No results found." filter="none" id="search-command">
+    <CommandInput
+      aria-label="Search docs"
+      id="search-input"
+      placeholder="Search docs..."
     />
-    {
-      SEARCH_CATEGORIES.map((category) => (
-        <Chip
-          aria-pressed="false"
-          as="button"
-          size="small"
-          type="button"
-          variant="outlined"
-          class="filter-chip"
-          data-filter={category.id}
-          label={category.label}
-        />
-      ))
-    }
-  </div>
 
-  <div id="search-results">
-    <div class="command-empty" id="search-empty" style="display: none;">
-      No results found.
-    </div>
-    <div id="recent-searches" class="command-group">
-      <div class="command-group-heading" id="recent-heading">Recent</div>
-      <List
-        variant="transparent"
-        id="recent-list"
-        role="listbox"
-        aria-labelledby="recent-heading"
+    <div
+      class="search-filters"
+      id="search-filters"
+      role="group"
+      aria-label="Filter by category"
+    >
+      <Chip
+        aria-pressed="true"
+        as="button"
+        size="small"
+        type="button"
+        variant="outlined"
+        class="filter-chip"
+        data-filter="all"
+        label="All"
       />
-      <div
-        class="command-empty"
-        id="recent-empty"
-        style="display: none; padding-block: var(--size-4);"
+      {
+        SEARCH_CATEGORIES.map((category) => (
+          <Chip
+            aria-pressed="false"
+            as="button"
+            size="small"
+            type="button"
+            variant="outlined"
+            class="filter-chip"
+            data-filter={category.id}
+            label={category.label}
+          />
+        ))
+      }
+      <Button
+        round
+        size="small"
+        class="search-mobile-close"
+        id="search-close"
+        title="Close"
       >
-        No recent searches in this category.
-      </div>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          ></path>
+        </svg>
+      </Button>
     </div>
-    <div id="results-list" role="listbox" aria-label="Results"></div>
-  </div>
-  <div id="search-status" class="ui-sr-only" role="status"></div>
 
-  <Fragment slot="footer">
-    <div class="helper">
-      <span class="keys"><kbd>↑</kbd><kbd>↓</kbd></span>
-      <span>Navigate</span>
+    <CommandList aria-label="Results" id="results-list" />
+    <p class="search-empty" id="recent-empty" hidden>
+      No recent searches in this category.
+    </p>
+
+    <div class="search-footer">
+      <div class="helper">
+        <span class="keys"><kbd>↑</kbd><kbd>↓</kbd></span>
+        <span>Navigate</span>
+      </div>
+      <div class="helper">
+        <span class="keys"><kbd>←</kbd><kbd>→</kbd></span>
+        <span>Category</span>
+      </div>
+      <div class="helper"><kbd>↵</kbd> <span>Select</span></div>
+      <div class="helper"><kbd>esc</kbd> <span>Close</span></div>
     </div>
-    <div class="helper">
-      <span class="keys"><kbd>←</kbd><kbd>→</kbd></span>
-      <span>Category</span>
-    </div>
-    <div class="helper"><kbd>↵</kbd> <span>Select</span></div>
-    <div class="helper"><kbd>esc</kbd> <span>Close</span></div>
-  </Fragment>
-</Command>
+  </Command>
+  <div id="search-status" class="ui-sr-only" role="status"></div>
+</dialog>
 
 <script>
   import MiniSearch, { type SearchResult } from "minisearch"
@@ -123,15 +108,14 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     SEARCH_CATEGORIES,
     type SearchItem,
   } from "../utils/search-categories"
+  import type { Command } from "opui-css/elements/command.js"
   import { readStored, writeStored } from "../utils/storage"
 
   const dialog = document.getElementById("search-dialog") as HTMLDialogElement
+  const command = document.getElementById("search-command") as Command
   const input = document.getElementById("search-input") as HTMLInputElement
   const resultsList = document.getElementById("results-list")
-  const recentList = document.getElementById("recent-list")
   const recentEmpty = document.getElementById("recent-empty")
-  const recentGroup = document.getElementById("recent-searches")
-  const emptyState = document.getElementById("search-empty")
   const filterGroup = document.getElementById("search-filters")
   const closeBtn = document.getElementById("search-close")
   const status = document.getElementById("search-status")
@@ -154,11 +138,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     Component: 1.2,
   }
   const indexes = new Map<FrameworkId, Promise<MiniSearch<SearchItem>>>()
-  let selectedIndex = -1
   let activeFilter = "all"
   let statusTimer: ReturnType<typeof setTimeout> | undefined
   let renderRun = 0
-  const optionItems = new WeakMap<Element, RecentItem>()
 
   function getActiveFrameworkId(): FrameworkId {
     const framework = document.documentElement.dataset.framework
@@ -287,16 +269,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       .join("")
   }
 
-  function renderItem(
-    item: RecentItem & Partial<Result>,
-    id: string,
-    isSelected: boolean,
-  ) {
+  function renderItem(item: RecentItem & Partial<Result>) {
     const terms = item.terms ?? []
     const li = document.createElement("li")
-    li.id = id
-    li.setAttribute("aria-selected", String(isSelected))
-    li.setAttribute("role", "option")
 
     const displayTitle = highlight(item.title, terms)
     const displayDesc = highlight(item.page ?? item.description ?? "", terms)
@@ -306,18 +281,16 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
     const link = document.createElement("a")
     link.href = item.url
-    link.tabIndex = -1
     link.innerHTML = `
       <div class="ui-text">
         <p class="ui-title">${displayTitle}</p>
         <p class="ui-description">${displayDesc}</p>
       </div>
       <div class="ui-end">
-        ${end ? `<span class="command-item-shortcut">${end}</span>` : ""}
+        ${end ? `<span class="search-item-category">${end}</span>` : ""}
       </div>
     `
     li.append(link)
-    optionItems.set(li, item)
 
     link.addEventListener("click", (e) => {
       saveRecentSearch(item)
@@ -327,14 +300,11 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     return li
   }
 
-  function renderMore(category: string, count: number, id: string) {
+  function renderMore(category: string, count: number) {
     const li = document.createElement("li")
-    li.id = id
     li.className = "search-more"
-    li.setAttribute("aria-selected", "false")
-    li.setAttribute("role", "option")
-    li.innerHTML = `<button type="button" tabindex="-1"><span class="ui-text"><span class="ui-title">Show all ${count}</span></span></button>`
-    li.addEventListener("click", () => {
+    li.innerHTML = `<button type="button"><span class="ui-text"><span class="ui-title">Show all ${count}</span></span></button>`
+    li.querySelector("button")?.addEventListener("click", () => {
       selectFilter(category)
       input.focus()
     })
@@ -349,51 +319,39 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   }
 
   function renderGroups(
-    items: Result[],
+    items: (RecentItem & Partial<Result>)[],
     { heading, limit }: { heading?: string; limit: boolean },
   ) {
     // Group and sort by category
-    const grouped = new Map<string, Result[]>()
+    const grouped = new Map<string, (RecentItem & Partial<Result>)[]>()
     for (const item of items) {
       const group = heading ?? item.category
       grouped.set(group, [...(grouped.get(group) ?? []), item])
     }
 
-    let globalIndex = resultsList!.querySelectorAll("[role=option]").length
-    for (const [category, groupItems] of grouped) {
+    const groups = [...grouped].map(([category, groupItems]) => {
       const headingId = `search-group-${category.toLowerCase().replace(/\W+/g, "-")}`
       const groupDiv = document.createElement("div")
-      groupDiv.className = "command-group"
-      groupDiv.innerHTML = `<div class="command-group-heading" id="${headingId}">${category}</div>`
+      groupDiv.className = "ui-command-group"
+      groupDiv.innerHTML = `<p class="ui-label" id="${headingId}">${category}</p>`
 
       const ul = document.createElement("ul")
       ul.className = "ui-list ui-transparent"
       ul.setAttribute("aria-labelledby", headingId)
-      ul.setAttribute("role", "group")
 
       const shown =
         limit && groupItems.length > GROUP_LIMIT + 1
           ? groupItems.slice(0, GROUP_LIMIT)
           : groupItems
-      shown.forEach((item) => {
-        ul.appendChild(
-          renderItem(item, `search-result-${globalIndex++}`, false),
-        )
-      })
+      ul.append(...shown.map((item) => renderItem(item)))
       if (shown.length < groupItems.length) {
-        ul.appendChild(
-          renderMore(
-            category,
-            groupItems.length,
-            `search-result-${globalIndex++}`,
-          ),
-        )
+        ul.append(renderMore(category, groupItems.length))
       }
 
-      groupDiv.appendChild(ul)
-      resultsList!.appendChild(groupDiv)
-    }
-    return globalIndex
+      groupDiv.append(ul)
+      return groupDiv
+    })
+    resultsList!.replaceChildren(...groups)
   }
 
   async function searchOtherFrameworks(query: string) {
@@ -418,21 +376,13 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   async function updateResults() {
     const run = ++renderRun
     const query = input.value.trim()
-    resultsList!.innerHTML = ""
-    selectedIndex = -1
-    input.removeAttribute("aria-activedescendant")
-    input.setAttribute("aria-controls", query ? "results-list" : "recent-list")
-    input.setAttribute("aria-expanded", "false")
+    recentEmpty!.hidden = true
 
     if (!query) {
-      recentGroup!.style.display = "block"
-      emptyState!.style.display = "none"
       announce("")
       renderRecent()
       return
     }
-
-    recentGroup!.style.display = "none"
 
     const miniSearch = await loadIndex().catch(() => undefined)
     if (!miniSearch || run !== renderRun) return
@@ -447,38 +397,26 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       finalResults = finalResults.filter((r) => r.category === activeFilter)
     }
 
-    resultsList!.innerHTML = ""
-
     if (finalResults.length === 0) {
       const framework = FRAMEWORKS.find(
         ({ id }) => id === getActiveFrameworkId(),
       )?.label
-      emptyState!.textContent = `No results in ${framework}.`
-      emptyState!.style.display = "block"
       const others = await searchOtherFrameworks(query)
       if (run !== renderRun) return
+      command.setAttribute("empty-label", `No results in ${framework}.`)
+      renderGroups(others, { heading: "Other frameworks", limit: false })
       announce(
         others.length > 0
           ? `No results in ${framework}, ${others.length} in other frameworks`
-          : `No results in ${framework}`,
+          : "",
       )
-      if (others.length > 0) {
-        renderGroups(others, { heading: "Other frameworks", limit: false })
-        selectedIndex = 0
-        updateSelection()
-      }
       return
     }
 
-    emptyState!.style.display = "none"
     announce(
       `${finalResults.length} ${finalResults.length === 1 ? "result" : "results"}`,
     )
-
-    if (renderGroups(finalResults, { limit: activeFilter === "all" }) > 0) {
-      selectedIndex = 0
-      updateSelection()
-    }
+    renderGroups(finalResults, { limit: activeFilter === "all" })
   }
 
   function countByCategory(items: Pick<SearchItem, "category">[]) {
@@ -519,50 +457,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       recent = recent.filter((r) => r.category === activeFilter)
     }
 
-    recentList!.innerHTML = ""
-    recentEmpty!.style.display = "none"
-    recentList!.style.display = "block"
-
-    if (recent.length === 0) {
-      recentGroup!.style.display = activeFilter !== "all" ? "block" : "none"
-      recentList!.style.display = "none"
-      if (activeFilter !== "all") {
-        recentEmpty!.style.display = "block"
-      }
-      return
-    }
-
-    recentGroup!.style.display = "block"
-    recent.forEach((item, index) => {
-      recentList!.appendChild(renderItem(item, `search-recent-${index}`, false))
-    })
-
-    if (recent.length > 0) {
-      selectedIndex = 0
-      updateSelection()
-    }
-  }
-
-  function updateSelection() {
-    const items = getActiveItems()
-    input.setAttribute("aria-expanded", String(items.length > 0))
-    items.forEach((item, i) => {
-      if (i === selectedIndex) {
-        item.setAttribute("aria-selected", "true")
-        input.setAttribute("aria-activedescendant", item.id)
-        item.scrollIntoView({ block: "nearest" })
-      } else {
-        item.setAttribute("aria-selected", "false")
-      }
-    })
-  }
-
-  function getActiveItems() {
-    if (input.value.trim()) {
-      return resultsList!.querySelectorAll<HTMLElement>("[role=option]")
-    } else {
-      return recentList!.querySelectorAll<HTMLElement>("[role=option]")
-    }
+    renderGroups(recent, { heading: "Recent", limit: false })
+    recentEmpty!.hidden = recent.length > 0 || activeFilter === "all"
   }
 
   input.addEventListener("input", updateResults)
@@ -598,29 +494,6 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       // Update UI (same logic as click handler)
       selectFilter(targetChip.dataset.filter || "all")
       return
-    }
-
-    const items = getActiveItems()
-    if (items.length === 0) return
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault()
-      selectedIndex = (selectedIndex + 1) % items.length
-      updateSelection()
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault()
-      selectedIndex = (selectedIndex - 1 + items.length) % items.length
-      updateSelection()
-    } else if (e.key === "Enter") {
-      const selected = items[selectedIndex]
-      const item = selected && optionItems.get(selected)
-      e.preventDefault()
-      if (item && (e.ctrlKey || e.metaKey)) {
-        saveRecentSearch(item)
-        window.open(item.url, "_blank")
-        return
-      }
-      selected?.querySelector<HTMLElement>("a, button")?.click()
     }
   })
 
@@ -675,7 +548,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 </script>
 
 <style is:global>
-  :where(.command[open]) {
+  :where(.search-modal[open]) {
     background-color: var(--ui-surface);
     block-size: 100dvb;
     color: var(--ui-text-strong);
@@ -705,46 +578,24 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       background-color: oklch(0 0 0 / 0.4);
     }
 
-    .command-input-wrapper,
-    .search-filters,
-    .command-footer {
-      flex-shrink: 0;
+    .ui-command {
+      --_max-block-size: none;
+
+      flex: 1;
+      min-block-size: 0;
+
+      & > .ui-header input {
+        font-size: var(--font-size-2);
+      }
+
+      & > .ui-content {
+        padding: var(--size-2);
+      }
     }
 
-    .command-input-wrapper {
-      align-items: center;
-      border-bottom: var(--border-size-1) solid var(--ui-surface-tonal);
-      display: flex;
-      gap: var(--size-2);
-      padding-inline: var(--size-3);
-
-      svg {
-        color: var(--ui-text);
-        flex-shrink: 0;
-      }
-
-      input {
-        background: transparent;
-        border: none;
-        color: var(--ui-text-strong);
-        flex: 1;
-        font-family: inherit;
-        font-size: var(--font-size-2);
-        outline: none;
-        padding-block: var(--size-3);
-
-        &::placeholder {
-          color: var(--ui-text);
-        }
-      }
-
-      .search-mobile-close {
-        display: none;
-
-        @media (max-width: 640px) {
-          display: flex;
-        }
-      }
+    .search-filters,
+    .search-footer {
+      flex-shrink: 0;
     }
 
     .search-filters {
@@ -770,41 +621,21 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
         flex-shrink: 0;
         user-select: none;
       }
-    }
 
-    .command-list {
-      flex: 1;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding: var(--size-2);
+      .search-mobile-close {
+        display: none;
+        flex-shrink: 0;
+        inset-inline-end: 0;
+        margin-inline-start: auto;
+        position: sticky;
 
-      &::-webkit-scrollbar {
-        inline-size: 8px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: var(--ui-surface-tonal);
-        border-radius: var(--radius-round);
+        @media (max-width: 640px) {
+          display: flex;
+        }
       }
     }
 
-    .command-group {
-      &:not(:first-child) {
-        margin-block-start: var(--size-2);
-      }
-    }
-
-    .command-group-heading {
-      color: var(--ui-text);
-      font-size: var(--font-size-1);
-      font-weight: var(--font-weight-6);
-      letter-spacing: var(--font-letterspacing-1);
-      padding-block: var(--size-1);
-      padding-inline: var(--size-2);
-      text-transform: uppercase;
-    }
-
-    .command-footer {
+    .search-footer {
       align-items: center;
       background-color: var(--ui-surface-tonal);
       border-top: var(--border-size-1) solid var(--ui-surface-tonal);
@@ -864,10 +695,11 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       }
     }
 
-    .command-empty {
+    .search-empty {
       color: var(--ui-text);
       font-size: var(--font-size-1);
-      padding-block: var(--size-8);
+      margin: 0;
+      padding-block: var(--size-4);
       text-align: center;
     }
 

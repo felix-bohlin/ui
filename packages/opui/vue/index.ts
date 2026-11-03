@@ -20,6 +20,10 @@ export { default as Carousel } from "../components/Carousel/Carousel.vue"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
+export { default as Command } from "../components/Command/Command.vue"
+export { default as CommandGroup } from "../components/Command/CommandGroup.vue"
+export { default as CommandInput } from "../components/Command/CommandInput.vue"
+export { default as CommandList } from "../components/Command/CommandList.vue"
 export { default as Copy } from "../components/Copy/Copy.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.vue"
@@ -120,6 +124,12 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.vue-props"
 export type { Props as ChipProps } from "../components/Chip/types.vue-props"
+export type {
+  CommandGroupProps,
+  CommandInputProps,
+  CommandListProps,
+  Props as CommandProps,
+} from "../components/Command/types.vue-props"
 export type { Props as CopyProps } from "../components/Copy/types.vue-props"
 export type {
   DescriptionListDescriptionProps,

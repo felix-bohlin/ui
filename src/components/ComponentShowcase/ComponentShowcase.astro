@@ -19,6 +19,10 @@ import {
   Carousel,
   Checkbox,
   Chip,
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandList,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListItem,
@@ -222,6 +226,20 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       <div aria-hidden="true" class="showcase-chips">
         <Chip variant="outlined" label="HTML" />
         <Chip variant="outlined" label="CSS" />
+      </div>
+    </Fragment>
+
+    <Fragment slot="command">
+      <div aria-hidden="true" inert style="inline-size: 14rem">
+        <Command style="--_max-block-size: 6rem" variant="outlined">
+          <CommandInput aria-label="Search commands" placeholder="Search" />
+          <CommandList>
+            <CommandGroup>
+              <ListItem as="button" label="New file" />
+              <ListItem as="button" label="Settings" />
+            </CommandGroup>
+          </CommandList>
+        </Command>
       </div>
     </Fragment>
 

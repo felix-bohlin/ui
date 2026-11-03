@@ -1,0 +1,9 @@
+---
+import type { CommandListProps as Props } from "./types.astro"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<div class:list={["ui-content", className]} {...rest}>
+  <slot />
+</div>

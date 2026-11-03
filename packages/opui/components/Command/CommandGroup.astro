@@ -1,0 +1,24 @@
+---
+import type { CommandGroupProps as Props } from "./types.astro"
+import { createId } from "../id"
+
+const $id = createId(Astro.locals)
+const { class: className, label, ...rest } = Astro.props
+
+const hasLabel = !!label || Astro.slots.has("label")
+const labelId = hasLabel ? $id("command-group-label") : undefined
+---
+
+<div class:list={["ui-command-group", className]} {...rest}>
+  {
+    hasLabel && (
+      <p class="ui-label" id={labelId}>
+        {label}
+        <slot name="label" />
+      </p>
+    )
+  }
+  <ul aria-labelledby={labelId} class="ui-list ui-transparent">
+    <slot />
+  </ul>
+</div>

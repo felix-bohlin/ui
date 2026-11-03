@@ -1,0 +1,38 @@
+<script lang="ts">
+  import {
+    Command,
+    CommandGroup,
+    CommandInput,
+    CommandList,
+    ListItem,
+  } from "opui-css/svelte"
+</script>
+
+<Command variant="outlined">
+  <CommandInput
+    aria-label="Search settings"
+    placeholder="Try dark or password"
+  />
+  <CommandList>
+    <CommandGroup label="Settings">
+      <ListItem
+        as="button"
+        data-keywords="dark density light theme"
+        description="Color scheme and density"
+        label="Appearance"
+      />
+      <ListItem
+        as="button"
+        data-keywords="email push sound"
+        description="Email and push messages"
+        label="Notifications"
+      />
+      <ListItem
+        as="button"
+        data-keywords="2fa password two-factor"
+        description="Password and sign-in"
+        label="Security"
+      />
+    </CommandGroup>
+  </CommandList>
+</Command>

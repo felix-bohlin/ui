@@ -1295,6 +1295,103 @@ test("the data-table block selects and sorts its rows together", async ({
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
+const activeOption = (input: Locator) =>
+  input.evaluate((element) => {
+    const id = element.getAttribute("aria-activedescendant")
+    const option = id ? document.getElementById(id) : null
+    return option?.getAttribute("aria-selected") === "true"
+      ? option.textContent?.trim()
+      : undefined
+  })
+
+interaction(
+  "command",
+  "Basics",
+  "command filters the options, hides empty groups and moves the selection with the arrow keys",
+  async ({ root }) => {
+    const input = root.getByRole("combobox", { name: "Search commands" })
+    const options = root.getByRole("option")
+
+    await expect(input).toBeVisible()
+    await expect(root.getByRole("listbox")).toHaveAttribute(
+      "aria-label",
+      "Search commands",
+    )
+    await expect(root.getByRole("group")).toHaveCount(2)
+    await expect(options).toHaveCount(6)
+    await expect.poll(() => activeOption(input)).toBe("New file")
+
+    await input.press("ArrowDown")
+    await expect.poll(() => activeOption(input)).toBe("New folder")
+    await input.press("ArrowUp")
+    await input.press("ArrowUp")
+    await expect.poll(() => activeOption(input)).toBe("Settings")
+
+    await input.fill("set")
+    await expect(options).toHaveText(["Settings"])
+    await expect(root.getByRole("group")).toHaveCount(1)
+    await expect(input).toHaveAttribute("aria-expanded", "true")
+    await expect.poll(() => activeOption(input)).toBe("Settings")
+    await input.press("Enter")
+    await expect(input).toBeFocused()
+
+    await input.fill("")
+    await expect(options).toHaveCount(6)
+    await expect.poll(() => activeOption(input)).toBe("New file")
+  },
+)
+
+interaction(
+  "command",
+  "Keywords",
+  "command matches the words in data-keywords",
+  async ({ root }) => {
+    const input = root.getByRole("combobox", { name: "Search settings" })
+    await input.fill("dark")
+    await expect(root.getByRole("option")).toHaveCount(1)
+    await expect(root.getByRole("option")).toContainText("Appearance")
+    await input.fill("2fa")
+    await expect(root.getByRole("option")).toHaveCount(1)
+    await expect(root.getByRole("option")).toContainText("Security")
+    await input.fill("zebra")
+    await expect(root.getByRole("option")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "command",
+  "EmptyLabel",
+  "command shows and announces the empty label when nothing matches",
+  async ({ root }) => {
+    const input = root.getByRole("combobox", { name: "Search fruit" })
+    await expect(root.getByRole("status")).toHaveText("No fruit matches")
+    await expect(input).toHaveAttribute("aria-expanded", "false")
+    await expect(input).not.toHaveAttribute("aria-activedescendant")
+    await input.fill("")
+    await expect(root.locator('[role="status"]')).toHaveText("")
+    await expect(root.getByRole("option")).toHaveCount(4)
+  },
+)
+
+interaction(
+  "command",
+  "Palette",
+  "command palette closes the dialog from Enter on an action",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Open command palette" }).click()
+    const dialog = page.getByRole("dialog", { name: "Command palette" })
+    const input = dialog.getByRole("combobox", { name: "Search commands" })
+    await expect(dialog).toBeVisible()
+    await expect(input).toBeFocused()
+    await input.press("i")
+    await input.press("n")
+    await input.press("v")
+    await expect(dialog.getByRole("option")).toHaveText(["Invite people"])
+    await input.press("Enter")
+    await expect(dialog).toBeHidden()
+  },
+)
+
 const stubClipboard = (page: Page) =>
   page.evaluate(() => {
     const copied: string[] = []

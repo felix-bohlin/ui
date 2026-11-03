@@ -739,6 +739,63 @@
     "url": "/html/components/chip#keyboard-support"
   },
   {
+    "id": "component-command-html",
+    "title": "Command",
+    "description": "A search input above a list of links and actions that it filters as you type.",
+    "keywords": "autocomplete combobox command palette filter quick open search",
+    "category": "Component",
+    "url": "/html/components/command"
+  },
+  {
+    "id": "component-command-html-basics",
+    "title": "Basics",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#basics"
+  },
+  {
+    "id": "component-command-html-keywords",
+    "title": "Keywords",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#keywords"
+  },
+  {
+    "id": "component-command-html-empty-label",
+    "title": "Empty label",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#empty-label"
+  },
+  {
+    "id": "component-command-html-palette",
+    "title": "Palette",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#palette"
+  },
+  {
+    "id": "component-command-html-custom-filtering",
+    "title": "Custom filtering",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#custom-filtering"
+  },
+  {
+    "id": "component-command-html-without-javascript",
+    "title": "Without JavaScript",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#without-javascript"
+  },
+  {
+    "id": "component-command-html-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Command",
+    "category": "Component",
+    "url": "/html/components/command#keyboard-support"
+  },
+  {
     "id": "component-copy-html",
     "title": "Copy",
     "description": "A button that copies text or a field's value to the clipboard.",
@@ -4095,6 +4152,22 @@
     "terms": ".ui-chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. .ui-chip > svg:first-child The label, text or rich content. .ui-chip > .ui-text Optional content at the end, such as an icon. .ui-chip > svg:last-child .ui-dot Dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. .ui-multiline Layout Lets the label wrap to multiple lines. [aria-pressed=\"true\"] Pressed Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice. .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity of a status chip. It tints the chip, and colors and shapes its dot. .ui-large .ui-small .ui-x-small Sizes The size of the element. button[disabled] a[aria-disabled=\"true\"] .ui-disabled State Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state. .ui-outlined Variants The variant to use.",
     "category": "API",
     "url": "/html/api#chip"
+  },
+  {
+    "id": "api-command-group-html",
+    "title": "Command Group API",
+    "description": "Reference for Command Group HTML component.",
+    "terms": ".ui-command-group A labeled group of options in the `CommandList`. The label, shown above the options. .ui-command-group > .ui-label The options, a transparent `List` of list items with a link or a button each. .ui-command-group > .ui-list",
+    "category": "API",
+    "url": "/html/api#command-group"
+  },
+  {
+    "id": "api-command-html",
+    "title": "Command API",
+    "description": "Reference for Command HTML component.",
+    "terms": "opui-command.ui-command The `<opui-command>` custom element, a column with the input above the options. The search icon and the input, which the element makes a combobox. Attributes go to the `input`, which needs an `aria-label` or `aria-labelledby`. .ui-header The scrollable listbox of options, named after the input unless it has a name of its own. .ui-content A group of options with an optional label. A group with no matching option is hidden. .ui-command-group An option: a link or a button in a list item, like a clickable `ListItem`. `data-keywords` adds words it matches. .ui-list > li > :is(a, button) The live region that shows and announces `emptyLabel` when nothing matches. p[role=\"status\"] [empty-label] Label The text shown and announced when the typed text matches no option. [filter] [filter=\"none\"] Behavior How the options are filtered. `\"none\"` leaves it to your code, which renders the options that match. .ui-outlined Variants The variant to use.",
+    "category": "API",
+    "url": "/html/api#command"
   },
   {
     "id": "api-copy-html",

@@ -20,6 +20,10 @@ export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
+export { default as Command } from "../components/Command/Command.astro"
+export { default as CommandGroup } from "../components/Command/CommandGroup.astro"
+export { default as CommandInput } from "../components/Command/CommandInput.astro"
+export { default as CommandList } from "../components/Command/CommandList.astro"
 export { default as Copy } from "../components/Copy/Copy.astro"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.astro"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.astro"
@@ -119,6 +123,12 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.astro"
 export type { Props as ChipProps } from "../components/Chip/types.astro"
+export type {
+  CommandGroupProps,
+  CommandInputProps,
+  CommandListProps,
+  Props as CommandProps,
+} from "../components/Command/types.astro"
 export type { Props as CopyProps } from "../components/Copy/types.astro"
 export type {
   DescriptionListDescriptionProps,

@@ -739,6 +739,63 @@
     "url": "/react/components/chip#keyboard-support"
   },
   {
+    "id": "component-command-react",
+    "title": "Command",
+    "description": "A search input above a list of links and actions that it filters as you type.",
+    "keywords": "autocomplete combobox command palette filter quick open search",
+    "category": "Component",
+    "url": "/react/components/command"
+  },
+  {
+    "id": "component-command-react-basics",
+    "title": "Basics",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#basics"
+  },
+  {
+    "id": "component-command-react-keywords",
+    "title": "Keywords",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#keywords"
+  },
+  {
+    "id": "component-command-react-empty-label",
+    "title": "Empty label",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#empty-label"
+  },
+  {
+    "id": "component-command-react-palette",
+    "title": "Palette",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#palette"
+  },
+  {
+    "id": "component-command-react-custom-filtering",
+    "title": "Custom filtering",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#custom-filtering"
+  },
+  {
+    "id": "component-command-react-without-javascript",
+    "title": "Without JavaScript",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#without-javascript"
+  },
+  {
+    "id": "component-command-react-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Command",
+    "category": "Component",
+    "url": "/react/components/command#keyboard-support"
+  },
+  {
     "id": "component-copy-react",
     "title": "Copy",
     "description": "A button that copies text or a field's value to the clipboard.",
@@ -4088,6 +4145,22 @@
     "terms": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/react/api#chip"
+  },
+  {
+    "id": "api-command-group-react",
+    "title": "Command Group API",
+    "description": "Reference for Command Group React component.",
+    "terms": "CommandGroup A labeled group of options in the `CommandList`. The label, shown above the options. label label The options, a transparent `List` of list items with a link or a button each. label The group's label, which names the group.",
+    "category": "API",
+    "url": "/react/api#command-group"
+  },
+  {
+    "id": "api-command-react",
+    "title": "Command API",
+    "description": "Reference for Command React component.",
+    "terms": "Command The `<opui-command>` custom element, a column with the input above the options. The search icon and the input, which the element makes a combobox. Attributes go to the `input`, which needs an `aria-label` or `aria-labelledby`. The scrollable listbox of options, named after the input unless it has a name of its own. A group of options with an optional label. A group with no matching option is hidden. An option: a link or a button in a list item, like a clickable `ListItem`. `data-keywords` adds words it matches. The live region that shows and announces `emptyLabel` when nothing matches. emptyLabel emptyLabel The text shown and announced when the typed text matches no option. filter How the options are filtered. `\"none\"` leaves it to your code, which renders the options that match. variant The variant to use.",
+    "category": "API",
+    "url": "/react/api#command"
   },
   {
     "id": "api-copy-react",

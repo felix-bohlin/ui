@@ -6,6 +6,7 @@ import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
 
 export default function Textarea({
+  "aria-invalid": ariaInvalid,
   autoFit,
   characterCount,
   characterCountLabel,
@@ -29,10 +30,9 @@ export default function Textarea({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-
   useEffect(() => {
-    if (characterCount) void import("../../elements/character-count.js")
-  }, [characterCount])
+    void import("../../elements/character-count.js")
+  }, [])
 
   return (
     <label
@@ -49,13 +49,15 @@ export default function Textarea({
       style={style}
     >
       {label && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>{label}</span>
+        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
+          {label}
+        </span>
       )}
       {startText && <span className="ui-start-text">{startText}</span>}
       <span className="ui-field">
         <textarea
           {...rest}
-          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-invalid={error ? "true" : ariaInvalid}
           id={id}
           name={name ?? field?.name}
         />

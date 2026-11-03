@@ -1,24 +1,13 @@
 <script setup lang="ts">
-import { TrimmedSlot } from "../whitespace.vue"
 import "../../elements/number-stepper.js"
-import {
-  computed,
-  inject,
-  type InputHTMLAttributes,
-  useAttrs,
-  useId,
-  useSlots,
-} from "vue"
+import { computed, inject, useId } from "vue"
+import { useInputAttrs } from "../vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
-import { useInputAttrs } from "../vue"
+import { createIds, idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const {
   decreaseLabel = "Decrease",
@@ -28,16 +17,21 @@ const {
   id,
   increaseLabel = "Increase",
   label,
+  name,
   size,
   spread,
   startText,
   value,
   variant,
 } = defineProps<Props>()
-defineSlots<Slots>()
-const slots = useSlots()
-const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = useInputAttrs()
+const slots = defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<number | string>()
 
 const model = computed({
@@ -47,15 +41,21 @@ const model = computed({
   },
 })
 
-const generatedId = useId()
-const inputId = computed(() => id ?? `number-stepper-${generatedId}`)
-const startTextId = computed(() =>
-  startText || slots["start-text"] ? `${inputId.value}-start-text` : undefined,
-)
-const endTextId = computed(() =>
-  endText || slots["end-text"] ? `${inputId.value}-end-text` : undefined,
-)
 const field = inject(FieldGroupKey, undefined)
+
+const uid = useId()
+
+const ids = computed(() => createIds(uid, "number-stepper", id))
+
+const inputId = computed(() => ids.value())
+
+const startTextId = computed(() =>
+  startText || slots["start-text"] ? ids.value("start-text") : undefined,
+)
+
+const endTextId = computed(() =>
+  endText || slots["end-text"] ? ids.value("end-text") : undefined,
+)
 </script>
 
 <template>
@@ -63,10 +63,7 @@ const field = inject(FieldGroupKey, undefined)
     is="opui-number-stepper"
     :class="[
       'ui-number-stepper',
-      {
-        'ui-filled': variant === 'filled',
-        'ui-spread': spread,
-      },
+      { 'ui-filled': variant === 'filled', 'ui-spread': spread },
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
@@ -76,18 +73,14 @@ const field = inject(FieldGroupKey, undefined)
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="inputId"
-    >
-      {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
-    </label>
-
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></label>
     <span
       v-if="startText || $slots['start-text']"
-      :id="startTextId"
       class="ui-start-text"
-    >
-      {{ startText }}<slot name="start-text"></slot>
-    </span>
-
+      :id="startTextId"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
     <span class="ui-field">
       <span class="ui-start">
         <Button
@@ -103,20 +96,20 @@ const field = inject(FieldGroupKey, undefined)
             height="24"
             viewBox="0 0 24 24"
           >
-            <path fill="currentColor" :d="minusPath"></path>
+            <path fill="currentColor" :d="minusPath" />
           </svg>
         </Button>
       </span>
       <input
-        v-bind="inputAttrs"
-        v-model="model"
+        v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId, endTextId, attrs['aria-describedby'] as string)
+          idRefs(startTextId, endTextId, attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="inputId"
-        :name="attrs.name ?? field?.name"
+        :name="name ?? field?.name"
         type="number"
+        v-model="model"
       />
       <span class="ui-end">
         <Button
@@ -132,18 +125,16 @@ const field = inject(FieldGroupKey, undefined)
             height="24"
             viewBox="0 0 24 24"
           >
-            <path fill="currentColor" :d="plusPath"></path>
+            <path fill="currentColor" :d="plusPath" />
           </svg>
         </Button>
       </span>
     </span>
-
     <span
       v-if="endText || $slots['end-text']"
-      :id="endTextId"
       class="ui-end-text"
-    >
-      {{ endText }}<slot name="end-text"></slot>
-    </span>
+      :id="endTextId"
+      >{{ endText }}<slot name="end-text"></slot
+    ></span>
   </component>
 </template>

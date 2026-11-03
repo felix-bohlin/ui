@@ -1,14 +1,16 @@
 "use client"
 
 import { useEffect, useId } from "react"
-import Button from "../Button/Button.react"
 import { cx } from "../cx"
-import { idRefs } from "../id"
+import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
+import { createIds, idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function NumberStepper({
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   className,
   decreaseLabel = "Decrease",
   error,
@@ -26,11 +28,11 @@ export default function NumberStepper({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-  const generatedId = useId()
-  const inputId = id ?? `number-stepper-${generatedId}`
-  const startTextId = startText ? `${inputId}-start-text` : undefined
-  const endTextId = endText ? `${inputId}-end-text` : undefined
-
+  const uid = useId()
+  const ids = createIds(uid, "number-stepper", id)
+  const inputId = ids()
+  const startTextId = startText ? ids("start-text") : undefined
+  const endTextId = endText ? ids("end-text") : undefined
   useEffect(() => {
     void import("../../elements/number-stepper.js")
   }, [])
@@ -39,10 +41,7 @@ export default function NumberStepper({
     <opui-number-stepper
       className={cx([
         "ui-number-stepper",
-        {
-          "ui-filled": variant === "filled",
-          "ui-spread": spread,
-        },
+        { "ui-filled": variant === "filled", "ui-spread": spread },
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}
@@ -50,7 +49,7 @@ export default function NumberStepper({
     >
       {label && (
         <label
-          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
           htmlFor={inputId}
         >
           {label}
@@ -76,18 +75,14 @@ export default function NumberStepper({
               height="24"
               viewBox="0 0 24 24"
             >
-              <path fill="currentColor" d={minusPath}></path>
+              <path fill="currentColor" d={minusPath} />
             </svg>
           </Button>
         </span>
         <input
           {...rest}
-          aria-describedby={idRefs(
-            startTextId,
-            endTextId,
-            rest["aria-describedby"],
-          )}
-          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+          aria-invalid={error ? "true" : ariaInvalid}
           id={inputId}
           name={name ?? field?.name}
           type="number"
@@ -106,7 +101,7 @@ export default function NumberStepper({
               height="24"
               viewBox="0 0 24 24"
             >
-              <path fill="currentColor" d={plusPath}></path>
+              <path fill="currentColor" d={plusPath} />
             </svg>
           </Button>
         </span>

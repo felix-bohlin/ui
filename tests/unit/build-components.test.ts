@@ -262,7 +262,7 @@ describe("the three ports of a sample", () => {
     )
   })
 
-  test("a tag that is sometimes Fragment compiles as two branches, with a function const and a cast", async () => {
+  test("a tag that is sometimes Fragment compiles as a condition when its content is the condition's", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { trimEdges } from "../whitespace"\n\nconst hint = (text: string) => text.toUpperCase()\n\nconst { class: className, label, ...rest } = Astro.props as Props\n\nconst labelSlot = Astro.slots.has("label")\n  ? trimEdges(await Astro.slots.render("label"))\n  : ""\nconst LabelTag = label || labelSlot ? "span" : Fragment\n---\n\n<label class:list={["ui-sample", className]} data-hint={hint(label ?? "")} {...rest}>\n  <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>\n</label>\n',
     )
@@ -270,19 +270,31 @@ describe("the three ports of a sample", () => {
       "  const hint = (text: string) => text.toUpperCase()\n",
     )
     expect(ports["react.tsx"]).toContain(
-      '      {label ? <span className="ui-label">{label}</span> : label}\n',
+      '      {label && <span className="ui-label">{label}</span>}\n',
     )
     expect(ports.svelte).toContain(
       "  const hint = (text: string) => text.toUpperCase()\n",
     )
     expect(ports.svelte).toContain(
-      '  {#if label}<span class="ui-label">{@render content(label)}</span\n    >{:else}{@render content(label)}{/if}\n',
+      '  {#if label}<span class="ui-label">{@render content(label)}</span>{/if}\n',
     )
     expect(ports.vue).toContain(
       "const hint = (text: string) => text.toUpperCase()\n",
     )
     expect(ports.vue).toContain(
-      '    <span v-if="label || $slots.label" class="ui-label"\n      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span\n    ><template v-else\n      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"\n    /></template>\n',
+      '    <span v-if="label || $slots.label" class="ui-label"\n      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"\n    /></span>\n',
+    )
+  })
+
+  test("a tag that is sometimes Fragment compiles as two branches around other content", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { trimEdges } from "../whitespace"\n\nconst { class: className, label, ...rest } = Astro.props\n\nconst labelSlot = Astro.slots.has("label")\n  ? trimEdges(await Astro.slots.render("label"))\n  : ""\nconst LabelTag = label || labelSlot ? "span" : Fragment\n---\n\n<label class:list={["ui-sample", className]} {...rest}>\n  <LabelTag class="ui-label">{label}<b>!</b></LabelTag>\n</label>\n',
+    )
+    expect(ports.svelte).toContain(
+      '  {#if label}<span class="ui-label">{@render content(label)}<b>!</b></span\n    >{:else}{@render content(label)}<b>!</b>{/if}\n',
+    )
+    expect(ports.vue).toContain(
+      '    <span v-if="label || $slots.label" class="ui-label"\n      >{{ label }}<b>!</b></span\n    ><template v-else>{{ label }}<b>!</b></template>\n',
     )
   })
 
@@ -313,6 +325,113 @@ describe("the three ports of a sample", () => {
     ).resolves.toMatchObject({
       imports: ['import { isSelected } from "../ToggleGroup/selection"'],
     })
+  })
+
+  const modelApi = (prop: string, selector: string) => ({
+    component: "Sample",
+    model: { description: "", prop, type: "number | string" },
+    options: [],
+    parts: [{ description: "", model: true, selector }],
+  })
+
+  test("a value model from api.ts binds the control in Svelte and Vue and stays in rest in React", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]}>\n  <textarea {...rest}>{value}</textarea>\n</label>\n',
+      sampleFile(),
+      { api: modelApi("value", "textarea") },
+    )
+    const port = (extension: string) =>
+      outputs.get(sampleFile().replace(".astro", extension))
+    expect(port(".react.tsx")).toBe(
+      'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, ...rest }: Props) {\n  return (\n    <label className={cx(["ui-sample", className])}>\n      <textarea {...rest} />\n    </label>\n  )\n}\n',
+    )
+    expect(port(".svelte")).toBe(
+      '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let { class: className, value = $bindable(), ...rest }: Props = $props()\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value></textarea>\n</label>\n',
+    )
+    expect(port(".vue")).toBe(
+      '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-model="model"></textarea>\n  </label>\n</template>\n',
+    )
+  })
+
+  test("a value model that only passes through rest declares the prop in Svelte and Vue", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} type="number" />\n</span>\n',
+      sampleFile(),
+      { api: modelApi("value", "input") },
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      "let { class: className, value = $bindable(), ...rest }: Props = $props()",
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
+      '<input v-bind="attrs" type="number" v-model="model" />',
+    )
+  })
+
+  test.each([
+    [
+      '<input type="checkbox" {...rest} />',
+      modelApi("checked", "input"),
+      "the checked model of Sample, which isn't a value bound to a text control",
+      ["Sample.svelte", "Sample.vue"],
+    ],
+    [
+      '<span {...rest}><input type="text" /><input type="text" /></span>',
+      modelApi("value", "input"),
+      "the value model of Sample, whose part input matches 2 elements",
+      ["Sample.svelte", "Sample.vue"],
+    ],
+  ])(
+    "refuses the model for Svelte and Vue only: %s",
+    async (body, api, reason, refused) => {
+      const result = await compileComponent(
+        `---\nimport type { Props } from "./types.astro"\n\nconst { ...rest } = Astro.props\n---\n\n${body}\n`,
+        sampleFile(),
+        { api },
+      )
+      expect(
+        [...result.refused.keys()].map((target) => target.split("/").at(-1)),
+      ).toEqual(refused)
+      for (const error of result.refused.values()) {
+        expect(error.message).toContain(reason)
+      }
+      expect(
+        result.outputs.has(sampleFile().replace(".astro", ".react.tsx")),
+      ).toBe(true)
+    },
+  )
+
+  test("a model that a context shares is refused in every framework", async () => {
+    await expect(
+      compileComponent(
+        '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+        sampleFile(),
+        { api: modelApi("value", "div") },
+      ),
+    ).rejects.toThrow("the value model of Sample, which its context shares")
+  })
+
+  test("Vue reads a hyphenated prop from the attrs instead of declaring it", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { "aria-invalid": ariaInvalid, class: className, error, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />\n</span>\n',
+    )
+    expect(ports.vue).toContain("const { error } = defineProps<Props>()")
+    expect(ports.vue).toContain(
+      "<input\n      v-bind=\"attrs\"\n      :aria-invalid=\"error ? 'true' : attrs['aria-invalid']\"\n    />",
+    )
+    expect(ports["react.tsx"]).toContain('"aria-invalid": ariaInvalid,')
+  })
+
+  test("a slot typed string or S renders through content in Svelte", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <slot name="end" />\n</div>\n',
+      sampleFile(),
+      {
+        base: "export type Props = {}\n\nexport type Slots<S> = {\n  end?: string | S\n}\n",
+      },
+    )
+    const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
+    expect(svelte).toContain('import { content } from "../content.svelte"')
+    expect(svelte).toContain("{@render content(end)}")
   })
 
   test.each([

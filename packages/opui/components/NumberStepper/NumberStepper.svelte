@@ -1,15 +1,15 @@
 <script lang="ts">
   import "../../elements/number-stepper.js"
-  import Button from "../Button/Button.svelte"
   import { content } from "../content.svelte"
+  import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
+  import { createIds, idRefs } from "../id"
   import { minusPath, plusPath } from "./icons"
   import type { Props } from "./types.svelte"
 
-  const generatedId = $props.id()
-
   let {
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
     class: className,
     decreaseLabel = "Decrease",
     error,
@@ -31,33 +31,29 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const inputId = $derived(id ?? `number-stepper-${generatedId}`)
-  const startTextId = $derived(startText ? `${inputId}-start-text` : undefined)
-  const endTextId = $derived(endText ? `${inputId}-end-text` : undefined)
+  const uid = $props.id()
+  const ids = $derived(createIds(uid, "number-stepper", id))
+  const inputId = $derived(ids())
+  const startTextId = $derived(startText ? ids("start-text") : undefined)
+  const endTextId = $derived(endText ? ids("end-text") : undefined)
 </script>
 
 <opui-number-stepper
   class={[
     "ui-number-stepper",
-    {
-      "ui-filled": variant === "filled",
-      "ui-spread": spread,
-    },
+    { "ui-filled": variant === "filled", "ui-spread": spread },
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
   {style}
 >
-  {#if label}
-    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}
-      >{@render content(label)}</label
-    >
-  {/if}
-  {#if startText}
-    <span class="ui-start-text" id={startTextId}
+  {#if label}<label
+      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+      for={inputId}>{@render content(label)}</label
+    >{/if}
+  {#if startText}<span class="ui-start-text" id={startTextId}
       >{@render content(startText)}</span
-    >
-  {/if}
+    >{/if}
   <span class="ui-field">
     <span class="ui-start">
       <Button
@@ -73,22 +69,18 @@
           height="24"
           viewBox="0 0 24 24"
         >
-          <path fill="currentColor" d={minusPath}></path>
+          <path fill="currentColor" d={minusPath} />
         </svg>
       </Button>
     </span>
     <input
       {...rest}
-      aria-describedby={idRefs(
-        startTextId,
-        endTextId,
-        rest["aria-describedby"],
-      )}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
-      bind:value
+      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+      aria-invalid={error ? "true" : ariaInvalid}
       id={inputId}
       name={name ?? field?.name}
       type="number"
+      bind:value
     />
     <span class="ui-end">
       <Button
@@ -104,12 +96,12 @@
           height="24"
           viewBox="0 0 24 24"
         >
-          <path fill="currentColor" d={plusPath}></path>
+          <path fill="currentColor" d={plusPath} />
         </svg>
       </Button>
     </span>
   </span>
-  {#if endText}
-    <span class="ui-end-text" id={endTextId}>{@render content(endText)}</span>
-  {/if}
+  {#if endText}<span class="ui-end-text" id={endTextId}
+      >{@render content(endText)}</span
+    >{/if}
 </opui-number-stepper>

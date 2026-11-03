@@ -1,15 +1,14 @@
 "use client"
 
-import { useId, useState } from "react"
+import { useId } from "react"
 import { cx } from "../cx"
 import { TabsContext } from "./context.react"
+import { createId } from "../id"
 import type { Props } from "./types.react"
 
 export default function Tabs({
   className,
-  defaultValue,
   name,
-  onValueChange,
   overflow,
   value,
   variant,
@@ -17,16 +16,11 @@ export default function Tabs({
   ...rest
 }: Props) {
   const uid = useId()
-  const groupName = name || `tabs-${uid}`
-  const [inner, setInner] = useState(defaultValue)
-
-  const change = (input: HTMLInputElement) => {
-    if (inner !== undefined) setInner(input.value)
-    onValueChange?.(input.value)
-  }
+  const $id = createId(uid)
+  const groupName = name || $id("tabs")
 
   return (
-    <TabsContext value={{ change, groupName, value: value ?? inner }}>
+    <TabsContext value={{ groupName, value }}>
       <div
         className={cx([
           "ui-tabs",

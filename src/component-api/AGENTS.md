@@ -81,7 +81,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
   - `cssVar` is the CSS property an option sets, such as `--ui-anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
-- `model`: the bound value.
+- `model`: the bound value. `scripts/build-components.mjs` reads it and the part marked `model: true`: a `value` bound to an input, textarea or select compiles to `bind:value` in Svelte and `defineModel` with `v-model` in Vue, and any other model keeps the files hand-written with that as the reason.
 - `notes`: per-framework notes. `default` applies to every framework without its own note, HTML included. For a note that every component framework shares but HTML doesn't, spread `components(note)` from [frameworks.ts](frameworks.ts), imported as `../frameworks.ts` because the search index and skill scripts load `api.ts` in Node. A component that passes unknown attributes to an inner element writes that note with `passThrough(element, root, examples, more)` from the same file: it names the element the attributes go to, the root that gets `class` (`className` in React) and `style`, a few example attributes, and an optional sentence per framework (or `default`) after it.
 
 ## Keyboard support (`keyboard`)

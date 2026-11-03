@@ -1,15 +1,15 @@
 <script lang="ts">
   import "../../elements/color-field.js"
-  import Button from "../Button/Button.svelte"
   import { content } from "../content.svelte"
+  import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { createIds } from "../id"
   import { channelsFor } from "./channels"
   import type { Props } from "./types.svelte"
 
-  const generatedId = $props.id()
-
   let {
     alpha,
+    "aria-invalid": ariaInvalid,
     class: className,
     error,
     hideLabel,
@@ -30,30 +30,26 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const inputId = $derived(id ?? `color-field-${generatedId}`)
+  const uid = $props.id()
+  const inputId = $derived(createIds(uid, "color-field", id)())
 </script>
 
 <opui-color-field class={["ui-color-field", className]} {style}>
   <div
     class={[
       "ui-text-field",
-      {
-        "ui-filled": variant === "filled",
-        "ui-spread": spread,
-      },
+      { "ui-filled": variant === "filled", "ui-spread": spread },
       size && size !== "medium" && `ui-${size}`,
     ]}
   >
-    {#if label}
-      <label
+    {#if label}<label
         class={[hideLabel ? "ui-sr-only" : "ui-label"]}
         for={inputId}
         id={`${inputId}-label`}>{@render content(label)}</label
-      >
-    {/if}
-    {#if startText}
-      <span class="ui-start-text">{@render content(startText)}</span>
-    {/if}
+      >{/if}
+    {#if startText}<span class="ui-start-text"
+        >{@render content(startText)}</span
+      >{/if}
     <span class="ui-field">
       <span class="ui-start">
         <Button
@@ -69,16 +65,15 @@
         autocomplete="off"
         spellcheck="false"
         {...rest}
-        aria-invalid={error ? "true" : rest["aria-invalid"]}
-        bind:value
+        aria-invalid={error ? "true" : ariaInvalid}
         id={inputId}
         name={name ?? field?.name}
         type="text"
+        bind:value
       />
     </span>
-    {#if endText}
-      <span class="ui-end-text">{@render content(endText)}</span>
-    {/if}
+    {#if endText}<span class="ui-end-text">{@render content(endText)}</span
+      >{/if}
   </div>
   <div
     aria-labelledby={`${inputId}-label`}
@@ -87,17 +82,16 @@
     popover="auto"
     role="dialog"
   >
-    {#each channelsFor(alpha) as slider (slider.name)}
-      <label class="ui-range" for={`${inputId}-${slider.name}`}>
-        <span class="ui-label" id={`${inputId}-${slider.name}-label`}
+    {#each channelsFor(alpha) as slider, index (index)}<label
+        class="ui-range"
+        for={`${inputId}-${slider.name}`}
+        ><span class="ui-label" id={`${inputId}-${slider.name}-label`}
           >{slider.label}</span
-        >
-        <output
+        ><output
           aria-live="off"
           class="ui-value"
           for={`${inputId}-${slider.name}`}
-        ></output>
-        <input
+        ></output><input
           aria-describedby={slider.channel === "C"
             ? `${inputId}-gamut`
             : undefined}
@@ -108,9 +102,8 @@
           min="0"
           step={slider.step}
           type="range"
-        />
-      </label>
-    {/each}
+        /></label
+      >{/each}
     <p class="ui-description" id={`${inputId}-gamut`}></p>
   </div>
 </opui-color-field>

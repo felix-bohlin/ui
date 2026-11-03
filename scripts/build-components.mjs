@@ -12,6 +12,29 @@ import { reactPropsOf, resolveReactProp } from "./example-react-props.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
+const apiDir = join(root, "src/component-api")
+
+let apiIndex
+
+export const loadApis = async () => {
+  if (apiIndex) return apiIndex
+  const folders = (await readdir(apiDir, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .toSorted()
+  const entries = []
+  for (const folder of folders) {
+    const file = join(apiDir, folder, "api.ts")
+    if (!existsSync(file)) continue
+    const { default: api } = await import(file)
+    if (api.source) entries.push([`${api.source}/${api.component}`, api])
+  }
+  apiIndex = new Map(entries)
+  return apiIndex
+}
+
+const apiOf = async (folder, name) =>
+  (await loadApis()).get(`${folder}/${name}`)
 
 export const PORTS = {
   react: ".react.tsx",
@@ -768,9 +791,21 @@ const toTree = (nodes, context) =>
       const optionalTag = context.optionalTags?.get(node.name)
       if (optionalTag) {
         const children = toTree(node.children, context)
+        const tested = identifiersIn(optionalTag.test)
+        const emptyWithout = children
+          .filter((child) => !isBlank(child))
+          .every(
+            (child) =>
+              (child.type === "expression" && tested.has(child.code.trim())) ||
+              (child.type === "slot" &&
+                child.trimmed &&
+                [...context.trimmedSlots].some(
+                  ([local, slot]) => slot === child.name && tested.has(local),
+                )),
+          )
         return [
           {
-            alternate: children,
+            alternate: emptyWithout ? undefined : children,
             consequent: [
               {
                 attributes: node.attributes.map((item) =>
@@ -852,7 +887,7 @@ const elementsIn = (nodes) =>
 const spreads = (node, code) =>
   node.attributes.some((item) => item.kind === "spread" && item.code === code)
 
-export const readComponent = async (source, file) => {
+export const readComponent = async (source, file, api) => {
   const { ast } = await parse(source, { position: true })
   const frontmatterNode = ast.children.find(
     (node) => node.type === "frontmatter",
@@ -952,11 +987,12 @@ export const readComponent = async (source, file) => {
     ),
   ]
   const stringSlots = frontmatter.props
-    .filter(({ prop }) => slots.includes(prop))
+    .filter(({ prop }) => slots.some((slot) => slotProp(slot) === prop))
     .map(({ local }) => local)
   const component = {
     ...frontmatter,
     file,
+    model: modelOf(frontmatter, roots, api, file),
     restOnRoot: rootElements.some((node) => spreads(node, frontmatter.rest)),
     scripts,
     stringSlots,
@@ -968,6 +1004,128 @@ export const readComponent = async (source, file) => {
   return {
     ...component,
     uid: allCodes(component).some((code) => /\bAstro\.locals\b/.test(code)),
+  }
+}
+
+const CONTROLS = new Set(["input", "select", "textarea"])
+
+const staticAttribute = (node, name) =>
+  node.attributes.find((item) => item.kind === "static" && item.name === name)
+    ?.value
+
+const matchesCompound = (node, compound) => {
+  const [, tag, classes] = /^([a-z-]*)((?:\.[\w-]+)*)$/.exec(compound) ?? []
+  if (tag === undefined) return false
+  if (tag && node.tag !== tag) return false
+  return classes
+    .split(".")
+    .filter(Boolean)
+    .every((name) => {
+      const list = node.attributes.find((item) => item.kind === "class")
+      return (
+        (staticAttribute(node, "class") ?? "").split(/\s+/).includes(name) ||
+        (list !== undefined && list.code.includes(`"${name}"`))
+      )
+    })
+}
+
+const elementsWithParents = (nodes, parent = undefined) =>
+  nodes.flatMap((node) => {
+    if (node.type === "element") {
+      return [{ node, parent }, ...elementsWithParents(node.children, node)]
+    }
+    if (node.type === "if") {
+      return [
+        ...elementsWithParents(node.consequent, parent),
+        ...elementsWithParents(node.alternate ?? [], parent),
+      ]
+    }
+    if (node.type === "each") return elementsWithParents(node.children, parent)
+    if (node.type === "slot") return elementsWithParents(node.fallback, parent)
+    return []
+  })
+
+const matchesSelector = (entry, compounds) => {
+  const [last, ...ancestors] = compounds
+  if (!matchesCompound(entry.node, last)) return false
+  return ancestors.length === 0
+    ? true
+    : !!entry.parent && matchesCompound(entry.parent, ancestors[0])
+}
+
+const modelOf = (frontmatter, tree, api, file) => {
+  const declared = api?.model
+  if (!declared) return undefined
+  const describe = (what) => ({
+    refusal: unsupported(
+      file,
+      `the ${declared.prop} model of ${api.component}, ${what}`,
+      "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
+    ),
+  })
+  if (frontmatter.provide) {
+    return { ...describe("which its context shares"), everywhere: true }
+  }
+  const part = api.parts.find((entry) => entry.model)
+  if (!part) return describe("which no part in api.ts is marked as")
+  const compounds = part.selector
+    .split(">")
+    .map((compound) => compound.trim())
+    .toReversed()
+  const matches = elementsWithParents(tree).filter((entry) =>
+    matchesSelector(entry, compounds),
+  )
+  if (matches.length !== 1) {
+    return describe(
+      `whose part ${part.selector} matches ${matches.length} elements`,
+    )
+  }
+  const element = matches[0].node
+  const type = staticAttribute(element, "type")
+  if (
+    declared.prop !== "value" ||
+    !CONTROLS.has(element.tag) ||
+    type === "checkbox" ||
+    type === "radio"
+  ) {
+    return describe("which isn't a value bound to a text control")
+  }
+  if (!spreads(element, frontmatter.rest)) {
+    return describe(`whose element doesn't spread ${frontmatter.rest}`)
+  }
+  const prop = frontmatter.props.find((entry) => entry.prop === declared.prop)
+  if (prop) {
+    const attribute = element.attributes.find(
+      (item) =>
+        item.kind === "expression" &&
+        item.name === declared.prop &&
+        item.code.trim() === prop.local,
+    )
+    const child = element.children.find(
+      (node) => node.type === "expression" && node.code.trim() === prop.local,
+    )
+    if (attribute) {
+      element.attributes = element.attributes.filter(
+        (item) => item !== attribute,
+      )
+    }
+    if (child)
+      element.children = element.children.filter((node) => node !== child)
+    const elsewhere = [
+      ...codesIn(tree),
+      ...frontmatter.derived.map(({ code }) => code),
+      ...frontmatter.warnings,
+    ].some((code) => identifiersIn(code).has(prop.local))
+    if (elsewhere) {
+      return describe(`whose prop ${prop.local} is read outside its element`)
+    }
+  }
+  element.model = true
+  return {
+    element,
+    local: prop?.local,
+    prop: declared.prop,
+    type: declared.type,
   }
 }
 
@@ -1224,8 +1382,11 @@ const toReact = (component) => {
     variableTags,
     warnings,
   } = component
+  if (component.model?.everywhere) throw component.model.refusal
   const props = component.props.filter(
-    ({ local }) => !stringSlots.includes(local),
+    ({ local }) =>
+      !stringSlots.includes(local) &&
+      (component.model?.refusal || local !== component.model?.local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
@@ -1325,7 +1486,7 @@ const toReact = (component) => {
     const significant = nodes.filter(
       (node) =>
         !isBlank(node) &&
-        !(node.type === "slot" && stringSlots.includes(node.name)),
+        !(node.type === "slot" && stringSlots.includes(slotProp(node.name))),
     )
     const [only] = significant
     if (significant.length !== 1) return `<>${code}</>`
@@ -1355,7 +1516,14 @@ const toReact = (component) => {
         }
         if (node.type === "slot") {
           const name = slotProp(node.name)
-          if (stringSlots.includes(node.name)) return ""
+          if (stringSlots.includes(name)) {
+            return nodes.some(
+              (sibling) =>
+                sibling.type === "expression" && sibling.code.trim() === name,
+            )
+              ? ""
+              : `{${name}}`
+          }
           if (node.fallback.length === 0) return `{${name}}`
           return `{${name} === undefined ? (${wrapFragment(emit(node.fallback), node.fallback)}) : (${name})}`
         }
@@ -1439,14 +1607,21 @@ const toSvelte = (component) => {
   const props = component.props.filter(
     ({ local }) => !stringSlots.includes(local),
   )
-  const entries = props
+  if (component.model?.refusal) throw component.model.refusal
+  const { model } = component
+  const bound = model?.local
+    ? props
+    : [...props, ...(model ? [{ local: model.prop, prop: model.prop }] : [])]
+  const entries = bound
     .toSorted((a, b) => byName(a.prop, b.prop))
-    .map(
-      ({ default: fallback, local, prop }) =>
-        `${prop === local ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
+    .map(({ default: fallback, local, prop }) =>
+      model && prop === model.prop
+        ? `${prop} = $bindable(${fallback ?? ""})`
+        : `${prop === local ? prop : `${propKey(prop)}: ${local}`}${fallback ? ` = ${fallback}` : ""}`,
     )
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   let usesElements = false
+  let usesContent = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
       return `class={${rewriteExpression(item.code, options)}}`
@@ -1478,12 +1653,24 @@ const toSvelte = (component) => {
           return node.value === " " ? '{" "}' : node.value
         }
         if (node.type === "expression") {
-          if (stringSlots.includes(node.code.trim())) return ""
+          const code = node.code.trim()
+          if (stringSlots.includes(code)) {
+            return nodes.some(
+              (sibling) =>
+                sibling.type === "slot" && slotProp(sibling.name) === code,
+            )
+              ? ""
+              : ((usesContent = true), `{@render content(${code})}`)
+          }
           return `{${rewriteExpression(node.code, options)}}`
         }
         if (node.type === "slot") {
           const name = slotProp(node.name)
-          if (stringSlots.includes(node.name)) {
+          if (
+            stringSlots.includes(name) ||
+            component.stringTypedSlots.includes(name)
+          ) {
+            usesContent = true
             return `{@render content(${name})}`
           }
           if (node.fallback.length === 0) return `{@render ${name}?.()}`
@@ -1504,9 +1691,10 @@ const toSvelte = (component) => {
             .join("")
           return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, index (index)}${consts}${emit(node.children)}{/each}`
         }
-        const attributes = node.attributes
-          .map((item) => attribute(node, item))
-          .join(" ")
+        const attributes = [
+          ...node.attributes.map((item) => attribute(node, item)),
+          ...(node.model ? [`bind:${model.prop}`] : []),
+        ].join(" ")
         const tag = node.variable ? "svelte:element" : node.tag
         const open = `<${tag}${node.variable ? ` this={${node.tag}}` : ""}${attributes ? ` ${attributes}` : ""}`
         if (
@@ -1525,9 +1713,7 @@ const toSvelte = (component) => {
   const importLines = [
     ...scriptImports(component),
     ...(warnings.length ? [`import { untrack } from "svelte"`] : []),
-    ...(stringSlots.length
-      ? [`import { content } from "../content.svelte"`]
-      : []),
+    ...(usesContent ? [`import { content } from "../content.svelte"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".svelte"))
       .toSorted(byName),
@@ -1608,9 +1794,13 @@ const toVue = (component) => {
     scriptCodes(component).flatMap((code) => [...identifiersIn(code)]),
   )
   const attrsOnInner = !restOnRoot
+  const attributeProps = props.filter(
+    ({ local, prop }) => prop.includes("-") && used.has(local),
+  )
   const restUsed =
-    !!rest &&
-    codes.some((code) => code !== rest && identifiersIn(code).has(rest))
+    (!!rest &&
+      codes.some((code) => code !== rest && identifiersIn(code).has(rest))) ||
+    attributeProps.length > 0
   if (attrsOnInner && codes.some((code) => /\bmergeStyle\(/.test(code))) {
     throw unsupported(
       component.file,
@@ -1625,7 +1815,9 @@ const toVue = (component) => {
         ? [[local, "$props.class"]]
         : prop === "style"
           ? [[local, "$attrs.style"]]
-          : [],
+          : prop.includes("-")
+            ? [[local, `attrs['${prop}']`]]
+            : [],
     ),
     ...(restUsed ? [[rest, "attrs"]] : []),
     ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
@@ -1635,6 +1827,12 @@ const toVue = (component) => {
   const scriptRename = new Map([
     ...rename,
     ...(classInScript ? [[classProp.local, classProp.local]] : []),
+    ...(attrsOnInner
+      ? attributeProps.map(({ local, prop }) => [
+          local,
+          `attrs.value['${prop}']`,
+        ])
+      : []),
     ...computedConsts.map(({ name }) => [name, `${name}.value`]),
     ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
   ])
@@ -1649,14 +1847,20 @@ const toVue = (component) => {
     slotHas: (name) => `slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
   }
+  if (component.model?.refusal) throw component.model.refusal
+  const { model } = component
   const declared = [
     ...(classInScript
       ? [{ prop: "class", text: `class: ${classProp.local}` }]
       : []),
+    ...(model && !model.local ? [{ prop: model.prop, text: model.prop }] : []),
     ...props
       .filter(
         ({ local, prop }) =>
-          prop !== "class" && prop !== "style" && used.has(local),
+          prop !== "class" &&
+          prop !== "style" &&
+          !prop.includes("-") &&
+          (used.has(local) || prop === model?.prop),
       )
       .map(({ default: fallback, local, prop }) => ({
         prop,
@@ -1784,6 +1988,7 @@ const toVue = (component) => {
           item.kind === "bound" ? item.text : attribute(node, item, scope),
         )
         .filter(Boolean),
+      ...(node.model ? ['v-model="model"'] : []),
       ...(rootElements.includes(node) &&
       !node.attributes.some((item) => item.kind === "class")
         ? [':class="$props.class"']
@@ -1823,6 +2028,7 @@ const toVue = (component) => {
   )
   const vueImports = [
     ...(computedConsts.length ||
+    model ||
     provided?.some((entry) => entry.includes("computed("))
       ? ["computed"]
       : []),
@@ -1865,6 +2071,12 @@ const toVue = (component) => {
       : restUsed
         ? ["const attrs = useAttrs() as HTMLAttributes"]
         : []),
+    ...(model
+      ? [
+          `const modelValue = defineModel<${model.type}>()`,
+          `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+        ]
+      : []),
     ...reads.map(
       ({ context, name }) =>
         `const ${name} = inject(${context.name}Key, undefined)`,
@@ -1960,6 +2172,7 @@ export const toTypes = (
   slotsByComponent,
   propsByComponent = {},
   rootsByComponent = {},
+  modelsByComponent = {},
 ) => {
   const file = `packages/opui/components/${folder}/types.astro.ts`
   if (!astro.includes('import type * as Base from "./types"')) {
@@ -2188,15 +2401,21 @@ export const toTypes = (
     const elements = [...text.matchAll(HTML_ATTRIBUTES)].map(([, element]) =>
       JSON.parse(element),
     )
-    if (extras.length > 0 && elements.length !== 1) {
+    const modelled = modelsByComponent[component]
+    if (
+      extras.some((prop) => prop !== modelled?.prop) &&
+      elements.length !== 1
+    ) {
       throw unsupported(
         file,
         `the prop ${extras[0]} of ${component}, which the Vue types can't take from ${elements.length} elements`,
       )
     }
-    return extras.map(
-      (prop) =>
-        `${propKey(prop)}?: IntrinsicElementAttributes[${JSON.stringify(elements[0])}][${JSON.stringify(prop)}]`,
+    const model = modelsByComponent[component]
+    return extras.map((prop) =>
+      model?.prop === prop
+        ? `${propKey(prop)}?: ${model.type}`
+        : `${propKey(prop)}?: IntrinsicElementAttributes[${JSON.stringify(elements[0])}][${JSON.stringify(prop)}]`,
     )
   }
   const extrasByAlias = new Map(
@@ -2265,6 +2484,26 @@ const astroTypesOf = (file) => {
   return existsSync(path) ? readFileSync(path, "utf8") : undefined
 }
 
+const baseTypesOf = (file) => {
+  const path = join(root, dirname(file), "types.ts")
+  return existsSync(path) ? readFileSync(path, "utf8") : undefined
+}
+
+const stringTypedSlots = (base, name, folder, slots) => {
+  if (!base) return []
+  const alias = sourceFileOf(base, "types.ts")
+    .statements.filter(ts.isTypeAliasDeclaration)
+    .find(
+      (statement) =>
+        statement.name.text === (name === folder ? "Slots" : `${name}Slots`),
+    )
+  if (!alias) return []
+  return slotMembers(alias.type, alias.typeParameters?.[0]?.name.text ?? "S")
+    .filter((member) => /\bstring\b/.test(member.text))
+    .map((member) => member.name)
+    .filter((key) => slots.some((slot) => slotProp(slot) === key))
+}
+
 const propsElement = (types, propsType) => {
   if (!types) return undefined
   const alias = typeAliases(types).find(({ name }) => name === propsType)
@@ -2274,32 +2513,40 @@ const propsElement = (types, propsType) => {
   return elements.length === 1 ? elements[0] : undefined
 }
 
-export const compileComponent = async (
-  source,
-  file,
-  { types = astroTypesOf(file) } = {},
-) => {
-  const component = await readComponent(source, file)
+export const compileComponent = async (source, file, options = {}) => {
+  const { api, base = baseTypesOf(file), types = astroTypesOf(file) } = options
   const name = file
     .split("/")
     .at(-1)
     .replace(/\.astro$/, "")
   const folder = file.split("/").at(-2)
+  const component = await readComponent(
+    source,
+    file,
+    api === undefined && folder !== "Sample" ? await apiOf(folder, name) : api,
+  )
   const named = {
     ...component,
     element: propsElement(types, component.propsType),
     folder,
     name,
+    stringTypedSlots: stringTypedSlots(base, name, folder, component.slots),
   }
   const outputs = new Map()
+  const refused = new Map()
   for (const [framework, extension] of Object.entries(PORTS)) {
     const target = `packages/opui/components/${folder}/${name}${extension}`
-    const code = { react: toReact, svelte: toSvelte, vue: toVue }[framework](
-      named,
-    )
-    outputs.set(target, await prettierFormat(code, target))
+    try {
+      const code = { react: toReact, svelte: toSvelte, vue: toVue }[framework](
+        named,
+      )
+      outputs.set(target, await prettierFormat(code, target))
+    } catch (error) {
+      refused.set(target, error)
+    }
   }
-  return { component: named, outputs }
+  if (refused.size === Object.keys(PORTS).length) throw [...refused.values()][0]
+  return { component: named, outputs, refused }
 }
 
 const handWrittenFile = join(root, "scripts/hand-written-components.json")
@@ -2369,6 +2616,7 @@ export const generate = async ({
     if (only.length > 0 && !only.includes(folder)) continue
     const files = (await readdir(join(componentsDir, folder))).toSorted()
     const slotsByComponent = {}
+    const modelsByComponent = {}
     const propsByComponent = {}
     const rootsByComponent = {}
     let allCompiled = true
@@ -2376,21 +2624,47 @@ export const generate = async ({
       const key = `${folder}/${file}`
       const relative = `packages/opui/components/${key}`
       try {
-        const { component, outputs: compiled } = await compileComponent(
+        const {
+          component,
+          outputs: compiled,
+          refused,
+        } = await compileComponent(
           await readFile(join(componentsDir, key), "utf8"),
           relative,
         )
+        for (const [target, error] of refused) {
+          allCompiled = false
+          const ledgerKey = target.replace("packages/opui/components/", "")
+          const message = `${relative}: ${error.message}`
+          if (ledgerKey in handWritten) skipped.push(message)
+          else problems.push(message)
+        }
         slotsByComponent[component.name] = component.slots
-        propsByComponent[component.name] = component.props
-          .filter(({ prop }) => prop !== "class" && prop !== "style")
-          .map(({ prop }) => prop)
-        rootsByComponent[component.name] = [
-          ...new Set(
-            component.rootElements
-              .filter((node) => node.custom)
-              .map((node) => node.tag),
-          ),
+        modelsByComponent[component.name] = component.model?.refusal
+          ? undefined
+          : component.model
+        propsByComponent[component.name] = [
+          ...component.props
+            .filter(
+              ({ prop }) =>
+                prop !== "class" && prop !== "style" && !prop.includes("-"),
+            )
+            .map(({ prop }) => prop),
+          ...(component.model &&
+          !component.model.refusal &&
+          !component.model.local
+            ? [component.model.prop]
+            : []),
         ]
+        rootsByComponent[component.name] = component.restOnRoot
+          ? [
+              ...new Set(
+                component.rootElements
+                  .filter((node) => node.custom)
+                  .map((node) => node.tag),
+              ),
+            ]
+          : []
         for (const [target, code] of compiled) {
           const ledgerKey = target.replace("packages/opui/components/", "")
           if (ledgerKey in handWritten) continue
@@ -2430,6 +2704,7 @@ export const generate = async ({
         slotsByComponent,
         propsByComponent,
         rootsByComponent,
+        modelsByComponent,
       )
       for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
         const target = `packages/opui/components/${folder}/${typeFile}`

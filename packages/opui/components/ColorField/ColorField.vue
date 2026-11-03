@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import { TrimmedSlot } from "../whitespace.vue"
 import "../../elements/color-field.js"
-import {
-  computed,
-  inject,
-  type InputHTMLAttributes,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, inject, useId } from "vue"
+import { useInputAttrs } from "../vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { useInputAttrs } from "../vue"
+import { createIds } from "../id"
 import { channelsFor } from "./channels"
 import type { Props, Slots } from "./types.vue-props"
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const {
   alpha,
@@ -25,6 +16,7 @@ const {
   hideLabel,
   id,
   label,
+  name,
   pickerLabel = "Pick a color",
   size,
   spread,
@@ -33,8 +25,13 @@ const {
   variant,
 } = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = useInputAttrs()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<string>()
 
 const model = computed({
@@ -44,10 +41,11 @@ const model = computed({
   },
 })
 
-const generatedId = useId()
-const inputId = computed(() => id ?? `color-field-${generatedId}`)
-const sliders = computed(() => channelsFor(alpha))
 const field = inject(FieldGroupKey, undefined)
+
+const uid = useId()
+
+const inputId = computed(() => createIds(uid, "color-field", id)())
 </script>
 
 <template>
@@ -59,10 +57,7 @@ const field = inject(FieldGroupKey, undefined)
     <div
       :class="[
         'ui-text-field',
-        {
-          'ui-filled': variant === 'filled',
-          'ui-spread': spread,
-        },
+        { 'ui-filled': variant === 'filled', 'ui-spread': spread },
         size && size !== 'medium' && `ui-${size}`,
       ]"
     >
@@ -71,14 +66,11 @@ const field = inject(FieldGroupKey, undefined)
         :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
         :for="inputId"
         :id="`${inputId}-label`"
-      >
-        {{ label }}<TrimmedSlot :nodes="$slots.label?.()" />
-      </label>
-
-      <span v-if="startText || $slots['start-text']" class="ui-start-text">
-        {{ startText }}<slot name="start-text"></slot>
-      </span>
-
+        >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+      /></label>
+      <span v-if="startText || $slots['start-text']" class="ui-start-text"
+        >{{ startText }}<slot name="start-text"></slot
+      ></span>
       <span class="ui-field">
         <span class="ui-start">
           <Button
@@ -93,18 +85,17 @@ const field = inject(FieldGroupKey, undefined)
         <input
           autocomplete="off"
           spellcheck="false"
-          v-bind="inputAttrs"
-          v-model="model"
+          v-bind="attrs"
           :aria-invalid="error ? 'true' : attrs['aria-invalid']"
           :id="inputId"
-          :name="attrs.name ?? field?.name"
+          :name="name ?? field?.name"
           type="text"
+          v-model="model"
         />
       </span>
-
-      <span v-if="endText || $slots['end-text']" class="ui-end-text">
-        {{ endText }}<slot name="end-text"></slot>
-      </span>
+      <span v-if="endText || $slots['end-text']" class="ui-end-text"
+        >{{ endText }}<slot name="end-text"></slot
+      ></span>
     </div>
     <div
       :aria-labelledby="`${inputId}-label`"
@@ -114,20 +105,19 @@ const field = inject(FieldGroupKey, undefined)
       role="dialog"
     >
       <label
-        v-for="slider in sliders"
-        :key="slider.name"
+        v-for="(slider, index) in channelsFor(alpha)"
+        :key="index"
         class="ui-range"
         :for="`${inputId}-${slider.name}`"
-      >
-        <span class="ui-label" :id="`${inputId}-${slider.name}-label`">{{
+        ><span class="ui-label" :id="`${inputId}-${slider.name}-label`">{{
           slider.label
-        }}</span>
-        <output
+        }}</span
+        ><output
           aria-live="off"
           class="ui-value"
           :for="`${inputId}-${slider.name}`"
-        ></output>
-        <input
+        ></output
+        ><input
           :aria-describedby="
             slider.channel === 'C' ? `${inputId}-gamut` : undefined
           "
@@ -138,8 +128,7 @@ const field = inject(FieldGroupKey, undefined)
           min="0"
           :step="slider.step"
           type="range"
-        />
-      </label>
+      /></label>
       <p class="ui-description" :id="`${inputId}-gamut`"></p>
     </div>
   </component>

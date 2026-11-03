@@ -10,7 +10,7 @@ Read the guide for the files you're editing:
 ## Workflows
 
 - An example: write the `.astro` file in `src/component-examples/<slug>/`, run `pnpm build-examples`, commit the HTML, React, Svelte and Vue files it writes.
-- A component: write the `.astro` file, `types.ts` and `types.astro.ts`, then run `pnpm build-components`, which compiles the React, Svelte and Vue files and the three framework type files from them (`scripts/build-components.mjs`). When it refuses a construct it names it: support the construct, or list the files in `scripts/hand-written-components.json` with the reason and write them by hand with `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`), which loops on the component tests until the four frameworks render the same markup.
+- A component: write the `.astro` file, `types.ts` and `types.astro.ts`, declare a bound value as the `model` in its `api.ts`, then run `pnpm build-components`, which compiles the React, Svelte and Vue files and the three framework type files from them (`scripts/build-components.mjs`). When it refuses a construct it names it: support the construct, or list the files in `scripts/hand-written-components.json` with the reason and write them by hand with `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`), which loops on the component tests until the four frameworks render the same markup.
 
 ## Characters
 

@@ -1,14 +1,16 @@
 "use client"
 
 import { useEffect, useId } from "react"
-import Button from "../Button/Button.react"
 import { cx } from "../cx"
+import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
+import { createIds } from "../id"
 import { channelsFor } from "./channels"
 import type { Props } from "./types.react"
 
 export default function ColorField({
   alpha,
+  "aria-invalid": ariaInvalid,
   className,
   error,
   hideLabel,
@@ -25,9 +27,8 @@ export default function ColorField({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-  const generatedId = useId()
-  const inputId = id ?? `color-field-${generatedId}`
-
+  const uid = useId()
+  const inputId = createIds(uid, "color-field", id)()
   useEffect(() => {
     void import("../../elements/color-field.js")
   }, [])
@@ -40,16 +41,13 @@ export default function ColorField({
       <div
         className={cx([
           "ui-text-field",
-          {
-            "ui-filled": variant === "filled",
-            "ui-spread": spread,
-          },
+          { "ui-filled": variant === "filled", "ui-spread": spread },
           size && size !== "medium" && `ui-${size}`,
         ])}
       >
         {label && (
           <label
-            className={hideLabel ? "ui-sr-only" : "ui-label"}
+            className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
             htmlFor={inputId}
             id={`${inputId}-label`}
           >
@@ -65,14 +63,14 @@ export default function ColorField({
               commandfor={`${inputId}-picker`}
               round
             >
-              <span className="ui-indicator"></span>
+              <span className="ui-indicator" />
             </Button>
           </span>
           <input
             autoComplete="off"
             spellCheck="false"
             {...rest}
-            aria-invalid={error ? "true" : rest["aria-invalid"]}
+            aria-invalid={error ? "true" : ariaInvalid}
             id={inputId}
             name={name ?? field?.name}
             type="text"
@@ -87,11 +85,11 @@ export default function ColorField({
         popover="auto"
         role="dialog"
       >
-        {channelsFor(alpha).map((slider) => (
+        {channelsFor(alpha).map((slider, index) => (
           <label
+            key={index}
             className="ui-range"
             htmlFor={`${inputId}-${slider.name}`}
-            key={slider.name}
           >
             <span className="ui-label" id={`${inputId}-${slider.name}-label`}>
               {slider.label}
@@ -115,7 +113,7 @@ export default function ColorField({
             />
           </label>
         ))}
-        <p className="ui-description" id={`${inputId}-gamut`}></p>
+        <p className="ui-description" id={`${inputId}-gamut`} />
       </div>
     </opui-color-field>
   )

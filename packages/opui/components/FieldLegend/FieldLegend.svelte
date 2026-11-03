@@ -16,5 +16,7 @@
 <svelte:element
   this={Tag}
   class={[{ "ui-legend": !isLegend }, className]}
-  {...rest}>{@render children?.()}</svelte:element
+  {...rest}
 >
+  {@render children?.()}
+</svelte:element>

@@ -16,7 +16,6 @@ warnMissingId("Copy", id)
     :copied-label="copiedLabel"
     :id="id"
   >
-    <slot></slot>
-    <span class="ui-sr-only" role="status"></span>
+    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>
   </component>
 </template>

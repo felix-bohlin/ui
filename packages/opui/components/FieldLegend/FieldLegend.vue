@@ -9,7 +9,7 @@ const isLegend = computed(() => Tag === "legend")
 </script>
 
 <template>
-  <component :is="Tag" :class="[{ 'ui-legend': !isLegend }, $props.class]"
-    ><slot></slot
-  ></component>
+  <component :is="Tag" :class="[{ 'ui-legend': !isLegend }, $props.class]">
+    <slot></slot>
+  </component>
 </template>

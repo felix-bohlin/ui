@@ -4,6 +4,7 @@ import { join } from "node:path"
 import { parse } from "@astrojs/compiler"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { shapeWhitespace } from "./component-layout.mjs"
 import {
   allCodes,
   capitalize,
@@ -608,61 +609,6 @@ const expressionNode = (node, context) => {
   return nodesOf(expression, context)
 }
 
-const isBox = (node) => ["each", "element", "if", "slot"].includes(node.type)
-
-const INLINE_ELEMENTS = new Set([
-  "a",
-  "abbr",
-  "audio",
-  "b",
-  "bdi",
-  "bdo",
-  "br",
-  "button",
-  "cite",
-  "code",
-  "data",
-  "dfn",
-  "em",
-  "i",
-  "img",
-  "input",
-  "kbd",
-  "label",
-  "mark",
-  "meter",
-  "output",
-  "progress",
-  "q",
-  "ruby",
-  "s",
-  "samp",
-  "select",
-  "small",
-  "span",
-  "strong",
-  "sub",
-  "sup",
-  "svg",
-  "textarea",
-  "time",
-  "u",
-  "var",
-  "video",
-])
-
-const boxesOnLines = (children) => {
-  const boxes = children.filter(isBox)
-  if (
-    boxes.length === 0 ||
-    !children.every((node) => isBox(node) || isBlank(node))
-  ) {
-    return children
-  }
-  const line = { type: "text", value: "\n" }
-  return [line, ...boxes.flatMap((box) => [box, line])]
-}
-
 const slotOfHtml = (value, context) => {
   const code = value.trim()
   if (code === context.provide?.html) {
@@ -701,35 +647,6 @@ const slotOfHtml = (value, context) => {
     }
   }
   return undefined
-}
-
-const blockChildren = (children) =>
-  children.every(isBlank) ? [] : boxesOnLines(children)
-
-const line = { type: "text", value: "\n" }
-
-const inlineChildren = (children) => {
-  const split = children.flatMap((child, index) => {
-    if (child.type !== "text" || isBlank(child)) return [child]
-    const leading = index > 0 && /^\s*\n/.test(child.value)
-    const trailing = index < children.length - 1 && /\n\s*$/.test(child.value)
-    if (!leading && !trailing) return [child]
-    return [
-      ...(leading ? [line] : []),
-      { type: "text", value: child.value.trim() },
-      ...(trailing ? [line] : []),
-    ]
-  })
-  return split.map((child, index) =>
-    isBlank(child) &&
-    child.value === "\n" &&
-    index > 0 &&
-    index < split.length - 1 &&
-    !isBlank(split[index - 1]) &&
-    !isBlank(split[index + 1])
-      ? { ...child, inline: true }
-      : child,
-  )
 }
 
 const toTree = (nodes, context) =>
@@ -809,9 +726,7 @@ const toTree = (nodes, context) =>
                 attributes: node.attributes.map((item) =>
                   attributeNode(item, context),
                 ),
-                children: INLINE_ELEMENTS.has(optionalTag.tag)
-                  ? inlineChildren(children)
-                  : blockChildren(children),
+                children,
                 component: undefined,
                 custom: false,
                 foreign: context.foreign === true,
@@ -845,11 +760,7 @@ const toTree = (nodes, context) =>
       if (html && !htmlSlot) {
         throw unsupported(context.file, `set:html={${html.value}}`)
       }
-      const children = htmlSlot
-        ? [htmlSlot]
-        : node.type !== "component" && !INLINE_ELEMENTS.has(node.name)
-          ? blockChildren(toTree(node.children, inner))
-          : inlineChildren(toTree(node.children, inner))
+      const children = htmlSlot ? [htmlSlot] : toTree(node.children, inner)
       return [
         {
           attributes: node.attributes
@@ -909,9 +820,12 @@ export const readComponent = async (source, file, api) => {
       frontmatter.trimmedSlots.map(({ local, slot }) => [local, slot]),
     ),
   }
-  const tree = toTree(
-    body.filter((node) => !isScript(node)),
-    context,
+  const tree = shapeWhitespace(
+    toTree(
+      body.filter((node) => !isScript(node)),
+      context,
+    ),
+    frontmatter,
   )
   const slots = []
   const visit = (nodes) => {

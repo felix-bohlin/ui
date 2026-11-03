@@ -54,13 +54,14 @@
         command={closes ? "hide-popover" : undefined}
         commandfor={closes ? rootId : undefined}
         {...itemRest}
-        ><div class="ui-text">
+      >
+        <div class="ui-text">
           <p>{label}</p>
         </div>
         {#if shortcut}<div class="ui-end">
             <kbd>{shortcut}</kbd>
-          </div>{/if}</svelte:element
-      >
+          </div>{/if}
+      </svelte:element>
     </li>{/each}
   {@render children?.()}
 </menu>

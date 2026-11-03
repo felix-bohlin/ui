@@ -53,8 +53,8 @@ export default function ColorField({
           >
             {label}
           </label>
-        )}
-        {startText && <span className="ui-start-text">{startText}</span>}
+        )}{" "}
+        {startText && <span className="ui-start-text">{startText}</span>}{" "}
         <span className="ui-field">
           <span className="ui-start">
             <Button
@@ -75,7 +75,7 @@ export default function ColorField({
             name={name ?? field?.name}
             type="text"
           />
-        </span>
+        </span>{" "}
         {endText && <span className="ui-end-text">{endText}</span>}
       </div>
       <div

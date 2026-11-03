@@ -66,12 +66,12 @@ const inputId = computed(() => createIds(uid, "color-field", id)())
         :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
         :for="inputId"
         :id="`${inputId}-label`"
-        >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-      /></label>
-      <span v-if="startText || $slots['start-text']" class="ui-start-text"
-        >{{ startText }}<slot name="start-text"></slot
-      ></span>
-      <span class="ui-field">
+        >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></label
+      >{{ " "
+      }}<span v-if="startText || $slots['start-text']" class="ui-start-text"
+        >{{ startText }}<slot name="start-text"></slot></span
+      >{{ " "
+      }}<span class="ui-field">
         <span class="ui-start">
           <Button
             :aria-label="pickerLabel"
@@ -91,9 +91,9 @@ const inputId = computed(() => createIds(uid, "color-field", id)())
           :name="name ?? field?.name"
           type="text"
           v-model="model"
-        />
-      </span>
-      <span v-if="endText || $slots['end-text']" class="ui-end-text"
+        /> </span
+      >{{ " "
+      }}<span v-if="endText || $slots['end-text']" class="ui-end-text"
         >{{ endText }}<slot name="end-text"></slot
       ></span>
     </div>

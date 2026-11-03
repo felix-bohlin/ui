@@ -24,8 +24,7 @@ export default function Copy({
       id={id}
       {...rest}
     >
-      {children}
-      <span className="ui-sr-only" role="status" />
+      {children} <span className="ui-sr-only" role="status" />
     </opui-copy>
   )
 }

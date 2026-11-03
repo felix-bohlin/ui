@@ -19,6 +19,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"
-    ><img v-if="src" :src="src" :alt="alt ?? ''" /><slot v-else></slot
-  ></component>
+  >
+    <img v-if="src" :src="src" :alt="alt ?? ''" /><slot v-else></slot>
+  </component>
 </template>

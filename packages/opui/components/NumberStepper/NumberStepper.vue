@@ -73,15 +73,15 @@ const endTextId = computed(() =>
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="inputId"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
-    /></label>
-    <span
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></label
+    >{{ " "
+    }}<span
       v-if="startText || $slots['start-text']"
       class="ui-start-text"
       :id="startTextId"
-      >{{ startText }}<slot name="start-text"></slot
-    ></span>
-    <span class="ui-field">
+      >{{ startText }}<slot name="start-text"></slot></span
+    >{{ " "
+    }}<span class="ui-field">
       <span class="ui-start">
         <Button
           :aria-label="decreaseLabel"
@@ -128,9 +128,9 @@ const endTextId = computed(() =>
             <path fill="currentColor" :d="plusPath" />
           </svg>
         </Button>
-      </span>
-    </span>
-    <span
+      </span> </span
+    >{{ " "
+    }}<span
       v-if="endText || $slots['end-text']"
       class="ui-end-text"
       :id="endTextId"

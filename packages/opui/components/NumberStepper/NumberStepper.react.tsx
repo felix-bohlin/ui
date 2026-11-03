@@ -54,12 +54,12 @@ export default function NumberStepper({
         >
           {label}
         </label>
-      )}
+      )}{" "}
       {startText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}
+      )}{" "}
       <span className="ui-field">
         <span className="ui-start">
           <Button
@@ -105,7 +105,7 @@ export default function NumberStepper({
             </svg>
           </Button>
         </span>
-      </span>
+      </span>{" "}
       {endText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}

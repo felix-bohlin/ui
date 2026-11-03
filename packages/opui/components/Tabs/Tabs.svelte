@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setTabsContext } from "./context.svelte"
+  import { createId } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -15,8 +16,8 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const groupName = $derived(name || `tabs-${uid}`)
-
+  const idOf = $derived(createId(uid))
+  const groupName = $derived(name || idOf("tabs"))
   setTabsContext({
     change(input) {
       if (value !== undefined) value = input.value

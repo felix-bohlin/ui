@@ -1,25 +1,25 @@
-import type { InputHTMLAttributes, LabelHTMLAttributes } from "vue"
+import type { IntrinsicElementAttributes } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   Props as BaseProps,
   TabsItemProps as BaseTabsItemProps,
-  TabsPanelProps as BaseTabsPanelProps,
   TabsLabelProps as BaseTabsLabelProps,
+  TabsPanelProps as BaseTabsPanelProps,
 } from "./types"
 
-export type Props = BaseProps & Class
+export type Props = BaseProps & {
+  value?: string
+} & Class & { value?: string }
 
 export type TabsItemProps = BaseTabsItemProps &
   Class & {
-    id?: InputHTMLAttributes["id"]
-    value?: InputHTMLAttributes["value"]
+    id?: IntrinsicElementAttributes["input"]["id"]
+    value?: IntrinsicElementAttributes["input"]["value"]
   }
-
-export type TabsPanelProps = BaseTabsPanelProps & Class
 
 export type TabsLabelProps = BaseTabsLabelProps &
-  Class & {
-    for?: LabelHTMLAttributes["for"]
-  }
+  Class & { for?: IntrinsicElementAttributes["label"]["for"] }
+
+export type TabsPanelProps = BaseTabsPanelProps & Class
 
 export type Slots = DefaultSlots

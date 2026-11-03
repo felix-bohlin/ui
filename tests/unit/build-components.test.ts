@@ -401,14 +401,16 @@ describe("the three ports of a sample", () => {
     },
   )
 
-  test("a model that a context shares is refused in every framework", async () => {
+  test("a model whose context shares something else is refused in every framework", async () => {
     await expect(
       compileComponent(
-        '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+        '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ selected: value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
         sampleFile(),
         { api: modelApi("value", "div") },
       ),
-    ).rejects.toThrow("the value model of Sample, which its context shares")
+    ).rejects.toThrow(
+      "the value model of Sample, which its context doesn't share",
+    )
   })
 
   test("Vue reads a hyphenated prop from the attrs instead of declaring it", async () => {
@@ -527,9 +529,66 @@ describe("the three ports of a sample", () => {
     expect(vue).toContain('<RadioInput v-bind="attrs" v-model="modelValue" />')
   })
 
+  test("a model the context shares compiles to a group with a change callback", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, name, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ name, value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',
+      sampleFile(),
+      {
+        api: {
+          component: "Sample",
+          model: { description: "", prop: "value", type: "string" },
+          options: [],
+          parts: [],
+        },
+      },
+    )
+    const react = outputs.get(sampleFile().replace(".astro", ".react.tsx"))
+    expect(react).toContain(
+      "export default function Sample({\n  className,\n  defaultValue,\n  name,\n  onValueChange,\n  value,\n  children,\n  ...rest\n}: Props) {\n  const [inner, setInner] = useState(defaultValue)\n  const change = (input: HTMLInputElement) => {\n    const next = input.value\n    if (inner !== undefined) setInner(next)\n    onValueChange?.(next)\n  }\n",
+    )
+    expect(react).toContain(
+      "<SampleContext value={{ change, name, value: value ?? inner }}>",
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      "  setSampleContext({\n    change(input) {\n      if (value !== undefined) value = input.value\n    },\n    get name() {\n      return name\n    },\n    get value() {\n      return value\n    },\n  })\n",
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain(
+      "const model = defineModel<string>()\n\nconst change = (input: HTMLInputElement) => {\n  if (model.value !== undefined) model.value = input.value\n}\n\nprovide(\n  SampleKey,\n  reactive({ change, name: computed(() => name), value: model }),\n)",
+    )
+  })
+
+  test("an item of a group wires its input's change to the group", async () => {
+    await loadApis()
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport { isSelected } from "../ToggleGroup/selection"\nimport { tabsContext } from "../Tabs/context.astro"\n\nconst { checked, class: className, value, ...rest } = Astro.props\n\nconst parent = tabsContext.get()\nconst grouped = isSelected(parent?.value, value)\n---\n\n<input checked={grouped ?? checked} class:list={["ui-sample", className]} type="radio" value={value} {...rest} />\n<slot />\n',
+      sampleFile(),
+    )
+    const react = outputs.get(sampleFile().replace(".astro", ".react.tsx"))
+    expect(react).toContain(
+      '  warnGroupedChecked("Sample", grouped, checked ?? defaultChecked, "Tabs")\n',
+    )
+    expect(react).toContain(
+      '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...rest}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      "  {...rest}\n  onchange={(event) => {\n    parent?.change?.(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain(
+      "const { checked = undefined, value } = defineProps<Props>()",
+    )
+    expect(vue).toContain(
+      "const change = (event: Event) =>\n  parent?.change?.(event.currentTarget as HTMLInputElement)",
+    )
+    expect(vue).toContain(
+      '    v-bind="attrs"\n    @change="change"\n  /><slot></slot>',
+    )
+  })
+
   test.each([
     [
-      "<div {...rest}>\n  <slot />\n</div>\n<p>Two</p>",
+      "<div>\n  <slot />\n</div>\n<p>Two</p>",
       "a template that isn't one element",
     ],
     [
@@ -561,6 +620,19 @@ describe("the three ports of a sample", () => {
     await expect(compileComponent(astro(body), sampleFile())).rejects.toThrow(
       reason,
     )
+  })
+
+  test("refuses a const with the `$` prefix for Svelte only", async () => {
+    const result = await compileComponent(
+      `---\nimport type { Props } from "./types.astro"\n\nconst { id, ...rest } = Astro.props\nconst $id = (part: string) => \`\${part}-\${id}\`\n---\n\n<div id={$id("root")} {...rest} />\n`,
+      sampleFile(),
+    )
+    expect([...result.refused.keys()]).toEqual([
+      sampleFile().replace(".astro", ".svelte"),
+    ])
+    expect(
+      result.refused.get(sampleFile().replace(".astro", ".svelte"))?.message,
+    ).toContain("the const `$id`, whose `$` prefix Svelte reserves")
   })
 
   test.each([
@@ -693,6 +765,34 @@ describe("toTypes", () => {
     expect(types.vue).toContain("export type Slots = DefaultSlots")
     expect(types.vue).toContain(
       "export type SampleTagSlots = { end?: Slot; label?: Slot }",
+    )
+  })
+
+  test("the React types of a group add defaultValue and onValueChange", () => {
+    const { react, svelte } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & { value?: string } & HTMLAttributes<"div">\n',
+        base,
+      },
+      { Sample: ["default"] },
+      {},
+      {},
+      {
+        Sample: {
+          bindables: [{ prop: "value", type: "string" }],
+          kind: "group",
+          prop: "value",
+          type: "string",
+        },
+      },
+    )
+    expect(react).toContain(
+      'export type Props = Base.Props & { defaultValue?: string; onValueChange?: (value: string) => void } & { value?: string } & Omit<ComponentProps<"div">, "defaultValue">',
+    )
+    expect(svelte).toContain(
+      'export type Props = Base.Props & { value?: string } & SvelteHTMLElements["div"]\n',
     )
   })
 

@@ -15,8 +15,8 @@ const {
   ...rest
 } = Astro.props
 
-const $id = createId(Astro.locals)
-const groupName = name || $id("toggle-group")
+const idOf = createId(Astro.locals)
+const groupName = name || idOf("toggle-group")
 const inputType = multiple ? "checkbox" : "radio"
 const html = await toggleGroupContext.provide({ groupName, inputType }, () =>
   Astro.slots.render("default"),

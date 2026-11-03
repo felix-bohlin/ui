@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import { computed, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
+import { createId } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
 const { name, overflow, variant } = defineProps<Props>()
 defineSlots<Slots>()
+
 const model = defineModel<string>()
 
-const uid = useId()
-const groupName = computed(() => name || `tabs-${uid}`)
 const change = (input: HTMLInputElement) => {
   if (model.value !== undefined) model.value = input.value
 }
+
+const uid = useId()
+
+const idOf = computed(() => createId(uid))
+
+const groupName = computed(() => name || idOf.value("tabs"))
 
 provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>

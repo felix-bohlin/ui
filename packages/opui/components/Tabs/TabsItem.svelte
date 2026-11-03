@@ -1,8 +1,9 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { warnGroupedChecked } from "../dev"
-  import { isSelected } from "../ToggleGroup/selection"
   import { getTabsContext, setTabsContext } from "./context.svelte"
+  import { createId } from "../id"
+  import { isSelected } from "../ToggleGroup/selection"
+  import { warnGroupedChecked } from "../dev"
   import type { TabsItemProps as Props } from "./types.svelte"
 
   let {
@@ -18,14 +19,13 @@
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
   const parent = getTabsContext()
-  const groupName = $derived(name || parent?.groupName || `tabs-${uid}`)
-  const tabId = $derived(id || `tab-${uid}`)
+  const uid = $props.id()
+  const idOf = $derived(createId(uid))
+  const groupName = $derived(name || parent?.groupName || idOf("tabs"))
+  const tabId = $derived(id || idOf("tab"))
   const grouped = $derived(isSelected(parent?.value, value))
-
   untrack(() => warnGroupedChecked("TabsItem", grouped, checked, "Tabs"))
-
   setTabsContext({
     get groupName() {
       return groupName
@@ -48,5 +48,4 @@
     parent?.change?.(event.currentTarget)
     onchange?.(event)
   }}
-/>
-{@render children?.()}
+/>{@render children?.()}

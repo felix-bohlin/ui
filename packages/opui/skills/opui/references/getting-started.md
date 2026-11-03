@@ -38,6 +38,8 @@ pnpm add opui-css
 npm install opui-css
 ```
 
+6.0.0 isn't on npm yet, so these commands install 5.4.3, and the imports on this page don't resolve with it. `opui-css@next` has the release candidate, 6.0.0-rc.1, which has everything here except the `opui-css/elements/` scripts. Until 6.0.0 is published, build the package from [the repository](https://github.com/felix-bohlin/ui) (`pnpm install`, then `pnpm --filter opui-css build`) and install `packages/opui` from its path.
+
 #### Import the CSS
 
 Either import everything in your main CSS file:
@@ -181,7 +183,7 @@ The components pass settings to their parts with `AsyncLocalStorage` from `node:
 
 #### Ids
 
-Components that link elements with ids (form fields, Tabs, Drawer, Menu) read `Astro.locals.$id` when it exists and otherwise generate a random id per render. For stable, per-request ids, useful for snapshot tests, define it in a middleware:
+Form fields, Tabs, ToggleGroup and the Dialog title read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids, useful for snapshot tests, define it in a middleware:
 
 ```ts
 import { defineMiddleware } from "astro:middleware"
@@ -310,7 +312,7 @@ Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the m
 <Button variant="filled">Click me</Button>
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextField`, `Textarea`, `Select` and `Range` support `bind:value`. `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextField`, `Textarea`, `Select`, `Range`, `NumberField`, `OneTimeCode`, `Rating`, `Tabs` and `ToggleGroup` support `bind:value`. `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`.
 
 [Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/svelte/components.md). [Theming](https://open-props-ui.netlify.app/svelte/guide/theming.md) covers colors, density, motion and contrast.
 
@@ -396,6 +398,6 @@ Without hydration (Nuxt, or Astro with `@astrojs/vue` and no `client:*` directiv
 
 - [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
 - [Range](https://open-props-ui.netlify.app/vue/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
-- `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md) and [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md): the ref stays put. The native value still changes and submits.
+- `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Number field](https://open-props-ui.netlify.app/vue/components/number-field.md), [One-time code](https://open-props-ui.netlify.app/vue/components/one-time-code.md), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Rating](https://open-props-ui.netlify.app/vue/components/rating.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Tabs](https://open-props-ui.netlify.app/vue/components/tabs.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md), [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md) and [Toggle](https://open-props-ui.netlify.app/vue/components/toggle.md): the ref stays put. The native value still changes and submits.
 
 Hydrate those (`client:load` in Astro) or use them in a client-rendered Vue app. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.

@@ -174,9 +174,13 @@ export const keywords = ["columns", "container", "grid", "stack"]
     <h2>Media</h2>
     <p>
       <code>.ui-layout-media</code> puts a fixed-size start, such as an avatar or
-      an icon, next to text. The last child fills the rest of the row, truncates instead
-      of pushing the row wider, and its paragraphs lose their margins. The size classes
-      set the gap.
+      an icon, next to text. The last child fills the rest of the row and can shrink
+      below its content, so long text wraps instead of pushing the row wider (truncating
+      it needs <code>overflow: hidden</code>, <code
+        >text-overflow: ellipsis</code
+      > and
+      <code>white-space: nowrap</code> on the text), and its paragraphs lose their
+      margins. The size classes set the gap.
     </p>
     <AutoExample name="Media" />
   </section>
@@ -186,9 +190,11 @@ export const keywords = ["columns", "container", "grid", "stack"]
     <p>
       The size classes set the gap of <code>.ui-layout-column</code>, <code
         >.ui-layout-row</code
-      >, <code>.ui-layout-grid</code> and <code>.ui-layout-columns</code>: <code
-        >.ui-x-small</code
-      > is <code>--ui-space-1</code>, <code>.ui-small</code>
+      >, <code>.ui-layout-grid</code>, <code>.ui-layout-columns</code> and <code
+        >.ui-layout-media</code
+      >: <code>.ui-x-small</code> is <code>--ui-space-1</code>, <code
+        >.ui-small</code
+      >
       <code>--ui-space-2</code>, the default <code>--ui-space-3</code> and <code
         >.ui-large</code
       >

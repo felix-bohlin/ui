@@ -64,7 +64,7 @@ export default {
     {
       class: ".ui-layout-media",
       description:
-        "A media object: a fixed-size start, such as an avatar, next to text that fills the rest and truncates.",
+        "A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row.",
       group: "Media",
       prop: "media",
     },
@@ -78,7 +78,7 @@ export default {
     {
       default: '"medium"',
       description:
-        "The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-media`.",
+        "The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`.",
       group: "Sizes",
       prop: "size",
       values: {

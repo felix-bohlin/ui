@@ -88,7 +88,8 @@ const years = Object.keys(categorized)
         Tooltip (<code>css/compat/tooltip.css</code>): without interest
         invokers, the tooltip shows while its trigger is hovered or has keyboard
         focus. It isn't in the top layer there, so an ancestor that clips its
-        overflow can hide it.
+        overflow and has a transform, filter or containment can hide it, and
+        later content can cover it.
       </li>
     </ul>
     <h3 id="support-level">Support level</h3>
@@ -141,7 +142,8 @@ const years = Object.keys(categorized)
         <a href="https://github.com/keithamus/invokers-polyfill"
           ><code>invokers-polyfill</code></a
         >: Invoker Commands (<code>commandfor</code> and <code>command</code>),
-        for Dialog, Drawer, Menu and Tooltip.
+        for Button Group (its Menu), Copy, Dialog, Drawer, Menu, Text Field
+        (password toggle), Toast and Tooltip.
       </li>
     </ul>
   </section>

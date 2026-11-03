@@ -287,7 +287,8 @@ export const keywords = ["pressed", "toggle button"]
         > to keep them on one row and scroll them sideways, or <code
           >overflow="shrink"</code
         > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
+        their size when the row scrolls and shrink with the rest when it shrinks.
+        Chrome before 135 and Safari before 26 don't scroll the row.
       </Fragment>
       <Fragment slot="html">
         Toggle buttons in a group wrap onto more rows when they don't fit. Add <code
@@ -295,7 +296,8 @@ export const keywords = ["pressed", "toggle button"]
         > to keep them on one row and scroll them sideways, or <code
           >.ui-overflow-shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
+        their size when the row scrolls and shrink with the rest when it shrinks.
+        Chrome before 135 and Safari before 26 don't scroll the row.
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" />

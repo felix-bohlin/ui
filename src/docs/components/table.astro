@@ -263,9 +263,10 @@ export const keywords = ["data table", "grid", "rows", "sort"]
 
     <p>
       The scroll box has <code>role="region"</code>, an <code>aria-label</code> and
-      {" "}<code>tabindex="0"</code>. A table has nothing focusable, so without
-      <code>tabindex</code> keyboard users can't reach the box to scroll it, and the
-      name tells screen reader users what the region holds.
+      {" "}<code>tabindex="0"</code>. Safari doesn't make a scroll box without
+      focusable content a tab stop, so <code>tabindex</code> is what lets keyboard
+      users reach it there to scroll it, and the name tells screen reader users what
+      the region holds.
     </p>
 
     <AutoExample name="StickyHeader" />

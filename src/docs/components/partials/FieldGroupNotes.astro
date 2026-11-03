@@ -63,15 +63,16 @@ const values = single ? "selected value" : "checked values"
   <Fragment slot="components">
     Set <code>disabled</code> on the <code>Fieldset</code> to disable every {
       control
-    } in it, or on a single <code>{Component}</code>.
+    } in it except those in its first <code>&lt;legend&gt;</code>, or on a
+    single <code>{Component}</code>.
   </Fragment>
   <Fragment slot="html">
     Attach the <code>disabled</code> attribute to the <code
       >&lt;fieldset&gt;</code
     >
-    element to disable every {control} in it, or to a single <code
-      >&lt;input&gt;</code
-    >.
+    element to disable every {control} in it except those in its first <code
+      >&lt;legend&gt;</code
+    >, or to a single <code>&lt;input&gt;</code>.
   </Fragment>
 </Conditional>
 <p>

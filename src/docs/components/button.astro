@@ -16,7 +16,7 @@ import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
 import buttonApi from "../../component-api/button/api"
 
 export const description =
-  "Buttons allow users to take actions, and make choices, with a single tap."
+  "Buttons allow users to take actions with a single tap."
 
 export const keywords = ["btn", "cta", "icon button", "submit"]
 ---
@@ -217,13 +217,14 @@ export const keywords = ["btn", "cta", "icon button", "submit"]
         Disable the button with the <code>disabled</code> prop. Links can't be disabled,
         so with <code>href</code> it drops the <code>href</code> and sets <code
           >aria-disabled="true"</code
-        > instead. The link can't be clicked or focused.
+        > instead. The link can't be focused or followed, but a click handler on it
+        still runs.
       </Fragment>
       <Fragment slot="html">
         Disable the button with the <code>disabled</code> attribute. Links can't be
         disabled, so remove the <code>href</code> of an <code>&lt;a&gt;</code> and
-        add <code>aria-disabled="true"</code>. The link can't be clicked or
-        focused.
+        add <code>aria-disabled="true"</code>. The link can't be focused or
+        followed, but a click handler on it still runs.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column />

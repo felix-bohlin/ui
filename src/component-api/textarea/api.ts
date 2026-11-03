@@ -21,7 +21,7 @@ export default {
     prop: "value",
     type: "string",
   },
-  notes: passThrough("textarea", "label", ["placeholder", "rows"], {
+  notes: passThrough("textarea", "label", ["maxlength", "placeholder"], {
     react: "Use `value` with `onChange`, or `defaultValue`.",
   }),
   options: [
@@ -36,7 +36,7 @@ export default {
     {
       default: "false",
       description:
-        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`.",
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
       group: "Character count",
       htmlDescription:
         'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',

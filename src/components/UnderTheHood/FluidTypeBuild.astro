@@ -39,7 +39,7 @@ const steps = [
 .h4 { font-size: calc(1.125rem + (1.25rem - 1.125rem) * var(--progress)); }`,
     features: ["progress-function"],
     notes: [
-      "<code>progress(value, start, end)</code> is 0 at the start, 1 at the end, clamped in between",
+      "<code>progress(value, start, end)</code> is 0 at the start, 1 at the end, linear in between and clamped outside",
       "Every heading reads the same ramp, so they grow together",
       "Drag <strong>Window start</strong> and <strong>Window end</strong>: the breakpoints move, the sizes stay",
     ],

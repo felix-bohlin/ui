@@ -38,34 +38,34 @@ import Basics from "../../component-examples/tabs/Basics.astro"
         the focus ring on the label's pill
       </li>
       <li>
-        <code>:nth-child(1 of .tab-label)</code> finds the first label among the radios
+        <code>:nth-child(1 of .ui-label)</code> finds the first label among the radios
         and panels, to round the outer corners of the track
       </li>
     </ul>
     <Code
       lang="css"
-      code={`.tabs {
+      code={`.ui-tabs {
   display: flex;
   flex-wrap: wrap;
 }
 
-.tab-label {
+.ui-tabs > .ui-label {
   order: 1;
 }
 
-.tab-panel {
+.ui-tabs > .ui-panel {
   display: none;
   inline-size: 100%;
   order: 2;
 }
 
-.tab-input:checked + .tab-label + .tab-panel {
+.ui-input:checked + .ui-label + .ui-panel {
   display: block;
 }
 
-.tab-label:nth-child(1 of .tab-label) {
-  border-end-start-radius: var(--radius);
-  border-start-start-radius: var(--radius);
+.ui-label:nth-child(1 of .ui-label) {
+  border-end-start-radius: var(--ui-radius);
+  border-start-start-radius: var(--ui-radius);
 }`}
     />
   </section>

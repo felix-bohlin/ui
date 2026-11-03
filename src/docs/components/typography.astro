@@ -269,8 +269,11 @@ export const keywords = ["font", "heading", "prose", "text"]
       printing text from a CMS.
     </p>
     <p>
-      Headings, lists and tables with a class keep their own styles, and
-      components look the same inside rich text as outside it. Wrap a part in
+      Headings, lists and tables with a class keep their own styles, and so do
+      component roots. Headings without a class, <code>p</code>, <code>kbd</code
+      > and the first <code>p</code> of an <code>hgroup</code> inside a component
+      still follow rich text; <code>.ui-not-rich-text</code> on the component stops
+      that. Wrap a part in
       {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
     </p>
     <Code

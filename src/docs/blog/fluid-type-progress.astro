@@ -49,7 +49,7 @@ import Variants from "../../component-examples/typography/Variants.astro"
         one ramp, computed on <code>html</code> and on every palette scope
       </li>
       <li>
-        Each heading mixes its two steps with the ramp: <code
+        Each fluid heading (h1 to h4) mixes its two steps with the ramp: <code
           >min + (max - min) * progress</code
         >
       </li>
@@ -118,8 +118,8 @@ import Variants from "../../component-examples/typography/Variants.astro"
       </li>
     </ul>
     <p>
-      The headings below use the real theme. Resize the window and they move
-      along the same ramp.
+      The headings below use the real theme. Resize the window and h1 to h4 move
+      along the same ramp; h5 and h6 stay fixed.
     </p>
     <Example column showCode={false}>
       <Variants />

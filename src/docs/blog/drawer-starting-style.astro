@@ -50,6 +50,7 @@ import Basics from "../../component-examples/drawer/Basics.astro"
     <Code
       lang="css"
       code={`.drawer {
+  --dir: 1;
   inset-inline-end: auto;
   inset-inline-start: 0;
   transition:
@@ -65,6 +66,10 @@ import Basics from "../../component-examples/drawer/Basics.astro"
   @starting-style {
     translate: calc(-100% * var(--dir)) 0;
   }
+}
+
+.drawer:dir(rtl) {
+  --dir: -1;
 }`}
     />
   </section>
@@ -107,7 +112,8 @@ import Basics from "../../component-examples/drawer/Basics.astro"
       <li>
         <code>overlay</code> is Chromium only. Elsewhere the drawer leaves the top
         layer as soon as it closes, so the backdrop goes at once while the drawer
-        slides out
+        slides out, and Firefox, which can't transition <code>display</code>,
+        drops the slide out too
       </li>
       <li>
         Without <code>closedby</code> it still closes on <kbd>Esc</kbd>, but not

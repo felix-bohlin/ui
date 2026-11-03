@@ -16,8 +16,9 @@ import Basics from "../../component-examples/switch/Basics.astro"
       in JavaScript, or a hidden checkbox plus extra spans for the track and the dot.
     </p>
     <p>
-      Both throw away what the checkbox already does: toggling, Space to press,
-      {" "}<code>:checked</code>, a form value and validation.
+      The button throws away what the checkbox already does: toggling, Space to
+      press, <code>:checked</code>, a form value and validation. The hidden
+      checkbox keeps all that, but needs the extra spans to draw anything.
     </p>
   </section>
 
@@ -89,9 +90,12 @@ import Basics from "../../component-examples/switch/Basics.astro"
         keeps only the size, so it is a checkbox, whatever the role says
       </li>
       <li>
-        With <code>none</code> the track and the dot follow <code
+        With <code>none</code> the track follows <code
           >--ui-switch-track-block-size</code
-        >, and the input keeps its checked state and keyboard handling
+        > and <code>--ui-switch-track-inline-size</code>, the dot follows <code
+          >--ui-switch-thumb-size</code
+        > (the demo sets all three from its slider), and the input keeps its checked
+        state and keyboard handling
       </li>
     </ul>
     <p>Each switch is a checkbox with <code>role=&quot;switch&quot;</code>.</p>

@@ -108,7 +108,7 @@ The components ship their TypeScript sources instead of `.d.ts` files, so your `
 
 #### Ids in Astro
 
-Components that link elements with ids (form fields, Tabs, Drawer, Menu, …) read `Astro.locals.$id` when it exists and otherwise generate a random id per render. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
+Form fields, Tabs, ToggleGroup and the Dialog title read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
 
 ```ts
 // src/middleware.ts

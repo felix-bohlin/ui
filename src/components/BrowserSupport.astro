@@ -15,7 +15,9 @@ const sortedIds = [...ids].sort()
 const name = components.find(
   (component) => component.slug === Astro.locals.componentSlug,
 )?.name
-const compat = pageStylesheets(Astro.locals.componentSlug ?? "")
+const slug = Astro.locals.componentSlug ?? ""
+const compat = pageStylesheets(slug)
+  .filter((stylesheet) => stylesheet === slug)
   .map((stylesheet) => `${stylesheet}.css`)
   .filter((file) => compatCss[file])
 const guideHref = name

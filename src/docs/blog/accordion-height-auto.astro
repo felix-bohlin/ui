@@ -48,14 +48,17 @@ import Basics from "../../component-examples/accordion/Basics.astro"
 
 details::details-content {
   block-size: 0;
+  opacity: 0;
   overflow-block: clip;
   transition:
     block-size 0.2s,
-    content-visibility 0.2s allow-discrete;
+    content-visibility 0.2s allow-discrete,
+    opacity 0.2s;
 }
 
 details[open]::details-content {
   block-size: auto;
+  opacity: 1;
 }`}
     />
   </section>
@@ -95,7 +98,8 @@ details[open]::details-content {
     <ul>
       <li>
         Browsers without <code>::details-content</code> ignore the rules and open
-        instantly
+        instantly, and browsers without <code>interpolate-size</code> (only Chromium
+        has it) apply them but still snap
       </li>
       <li>Nothing breaks, it just doesn't animate</li>
     </ul>

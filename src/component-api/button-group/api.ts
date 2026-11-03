@@ -43,7 +43,7 @@ export default {
     {
       default: '"wrap"',
       description:
-        'What the items do when they don\'t fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.',
+        'What the items do when they don\'t fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size when the row scrolls; when it shrinks they keep their height but get narrower.',
       group: "Overflow",
       prop: "overflow",
       values: {

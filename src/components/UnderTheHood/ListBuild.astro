@@ -94,7 +94,7 @@ const steps = [
 }
 
 .bordered > li + li::before {
-  border-block-start: 1px solid var(--ui-border-color);
+  border-block-start: 1px solid var(--ui-border-color-on-filled);
   content: "";
   inset: -0.5rem 0 auto 0;
   position: absolute;
@@ -102,6 +102,7 @@ const steps = [
     notes: [
       "<code>&gt; li + li</code>: a line between items, never above the first",
       "The line sits in the margin, outside the hover area",
+      "<code>--ui-border-color-on-filled</code>, since <code>--ui-border-color</code> matches the filled surface",
     ],
     title: "Bordered",
   },

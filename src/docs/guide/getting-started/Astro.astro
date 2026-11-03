@@ -81,10 +81,12 @@ import { Button } from "opui-css/astro"
 
     <h3 id="ids">Ids</h3>
     <p>
-      Components that link elements with ids (form fields, Tabs, Drawer, Menu)
-      read <code>Astro.locals.$id</code> when it exists and otherwise generate a random
-      id per render. For stable, per-request ids, useful for snapshot tests, define
-      it in a middleware:
+      Form fields, Tabs, ToggleGroup and the Dialog title read <code
+        >Astro.locals.$id</code
+      > when it exists and otherwise generate a random id per render. Components a
+      trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip)
+      need an <code>id</code> prop. For stable, per-request ids, useful for snapshot
+      tests, define it in a middleware:
     </p>
     <Code
       code={`// src/middleware.ts

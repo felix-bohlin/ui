@@ -29,7 +29,7 @@ export const blocks: Block[] = [
   {
     category: "dashboards",
     description:
-      "Key metrics, a bar chart, top pages and traffic sources for a selectable date range.",
+      "Key metrics, a bar chart, top pages and traffic sources, with a date range toggle.",
     name: "Analytics dashboard",
     slug: "analytics-dashboard",
   },
@@ -78,7 +78,7 @@ export const blocks: Block[] = [
   {
     category: "data",
     description:
-      "A searchable, filterable table with row selection, statuses, row actions and pagination.",
+      "A table with a search field, filters, row selection, sorting, statuses, row actions and pagination links.",
     name: "Data table",
     slug: "data-table",
   },
@@ -113,7 +113,7 @@ export const blocks: Block[] = [
   {
     category: "application",
     description:
-      "Storage usage, folders and a file table with sorting and row actions.",
+      "Storage usage, folders and a file table with sort headers and row actions.",
     name: "File manager",
     slug: "file-manager",
   },
@@ -266,7 +266,7 @@ export const blocks: Block[] = [
   {
     category: "data",
     description:
-      "A filterable grid of people cards with avatars, roles and contact actions.",
+      "A grid of people cards with a search field, team filters, avatars, roles and contact actions.",
     name: "User directory",
     slug: "user-directory",
   },

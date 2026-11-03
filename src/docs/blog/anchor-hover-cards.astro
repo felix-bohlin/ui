@@ -32,8 +32,7 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
         > or <code>&lt;area&gt;</code> opens the popover on hover and keyboard focus
       </li>
       <li>
-        <code>popover="hint"</code> opens without closing menus and dialogs that are
-        already open
+        <code>popover="hint"</code> opens without closing menus that are already open
       </li>
       <li>
         <code>commandfor</code> with <code>command="toggle-popover"</code> lets a
@@ -48,7 +47,8 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
       <li>
         <code>position-try-fallbacks</code> flips it when there isn't room, <code
           >position-visibility</code
-        > hides it when the trigger scrolls away
+        > hides it when the trigger is scrolled out of view inside a scrolling container
+        (page scroll doesn't hide it)
       </li>
     </ul>
     <Code
@@ -97,8 +97,10 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     <ul>
       <li>
         This card is the always-visible variant, positioned inside the box. The
-        real one is a <code>popover</code> in the top layer, so it flips at the window's
-        edges instead
+        playground gives it the same <code>position-try-fallbacks</code> as the popover
+        so you can see the flip; the always-visible variant doesn't flip on its own.
+        The real one is a <code>popover</code> in the top layer, so it flips at the
+        window's edges instead
       </li>
       <li>
         <code>position-try-fallbacks</code> tries <code>flip-block</code>, then

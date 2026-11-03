@@ -120,6 +120,32 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): raise the `svelte` peer range to `^5.57.0`, with a `Changed` entry in the CHANGELOG.
     - B: keep the range and say in the Select docs that Chromium needs Svelte 5.57 or later.
   - Fixed: option A. The `svelte` peer range is `^5.57`, and the `opui-css/svelte` entry under Added in the CHANGELOG, the README, the Svelte getting started guide, its skill reference and the components guide say 5.57, as does the `package.json` peer range entry under Fixed. The Svelte components are new in 6.0.0, so the unreleased Added entry changed instead of a new Changed one.
+- [ ] (2) Checkbox: Select all counts a checkbox inside a disabled fieldset as enabled, because it filters on the `disabled` property, so it can never become checked. The docs now describe this (`packages/opui/elements/select-all.js:16`)
+  - Summary: Select all gets stuck when some of its checkboxes sit in a disabled fieldset.
+  - Recommended: Fix. Filtering on `:disabled` is a one-line change.
+  - Fix: filter with `!input.matches(":disabled")` instead of `!input.disabled`, and revert the docs to "the other enabled checkboxes"
+- [ ] (3) ButtonGroup: with `.ui-overflow-shrink`, icon-only buttons in a button group or toggle group shrink to 26px and 23px wide and stop being square, because the groups set `min-inline-size: 0` on every item. The docs now say they get narrower (`packages/opui/css/components/button-group.css:147`, `packages/opui/css/components/toggle-group.css:57`)
+  - Summary: Icon-only buttons turn into narrow slivers when a group shrinks.
+  - Recommended: Fix with option A. A squeezed icon button is unusable, and the fix is local to the two group stylesheets.
+  - Fix: give icon-only items `flex: none` and `min-inline-size: var(--_size)` in both groups (in the toggle group not through `:has(> svg:only-child)`, since the svg sits next to the input), then restore "Icon-only items keep their size" in the docs and api.ts
+  > Explain further and provide an example
+  - Explained: In a shrinking row the group gives every button `min-inline-size: 0` so labels can truncate. That rule comes later in the cascade than the icon-only button's own `min-inline-size: var(--_size)`, so an icon-only button has no minimum width left and gives its width to the labels while keeping its 40px height. How narrow it gets depends on the labels: in the example (a 14rem row, three icons and two labels) Chromium draws them 2px wide in the button group and about 30px in the toggle group. A scrolling row keeps them 40px squares. Example: icon-only-shrink
+  - Options:
+    - A (recommended): give icon-only items `flex: none` and `min-inline-size: var(--_size)` in both groups (in the toggle group not through `:has(> svg:only-child)`, since the svg sits next to the input), then restore "Icon-only items keep their size" in the docs and api.ts
+    - B: keep the CSS and the current docs, which say icon-only items get narrower
+- [ ] (3) Carousel: the Carousel and `.ui-overflow-scroll` on a toggle group scroll only through `overflow-inline`, which Chrome before 135 and Safari before 26 lack: there the carousel's items spill into the page and the toggle row doesn't scroll. The docs now say so; no compat fallback exists (`packages/opui/css/components/carousel.css:64`, `packages/opui/css/components/toggle-group.css:44`)
+  - Summary: In older Chrome and Safari the Carousel overflows the page and scrolling toggle rows don't scroll.
+  - Recommended: Fix. A compat file keeps the component CSS clean, as `AGENTS.md` requires.
+  - Fix: add `packages/opui/css/compat/overflow-inline.css` with `@supports not (overflow-inline: auto)` setting `overflow-x` (and `overflow-y` for the vertical carousel), then drop the version notes from the Carousel and Toggle pages
+- [ ] (4) ButtonGroup: in right-to-left, filled and tonal groups lose the dividers between their buttons: each divider is a left-edge `box-shadow`, and in RTL the next button in DOM order paints over it. The Under the hood step now says so (`packages/opui/css/components/button-group.css:58`, `src/components/UnderTheHood/ButtonGroupBuild.astro:48`)
+  - Summary: Filled and tonal button groups show no dividers in right-to-left pages.
+  - Recommended: Fix with option A. Right-to-left pages are supported elsewhere, and the fix is a few lines in one file.
+  - Fix: use an inline-start divider that follows the writing direction (for example `:dir(rtl)` flips the shadow's offset), and confirm outlined and text groups are unchanged
+  > Explain further and provide an example
+  - Explained: Each button in a group draws the line between it and its neighbour as a `box-shadow` on its own left edge (`button-group.css:58`). In left-to-right the neighbour on the left is the previous button, which paints before it, so the line shows on top. In right-to-left the neighbour on the left is the next button in the source, which paints after it, so its background covers the line. Filled and tonal buttons have a background and hide every divider; outlined and transparent groups have none and keep theirs. Checked in Chromium with the example. Example: button-group-rtl-dividers
+  - Options:
+    - A (recommended): draw the divider on the logical inline-start edge, so the shadow's offset flips under `:dir(rtl)`, and drop the right-to-left sentence from the Under the hood step
+    - B: keep the CSS and leave the Under the hood sentence as the documented limitation
 
 ## Docs
 
@@ -130,6 +156,94 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): a post-build `scripts/check-links.mjs` that reads `dist/` with parse5 and fails on an internal `href` whose page or `#id` doesn't exist, run at the end of `pnpm build`.
     - B: an e2e spec that crawls the built site.
   - Fixed with option A: `scripts/check-dist.mjs` (`pnpm check-dist`) runs at the end of `pnpm build`. It parses every page in `dist` with parse5, follows redirect pages, and fails on an internal link to a missing page or `#id`, a duplicate id, a missing `.md` alternate, a search index URL that doesn't exist and a dead link in `llms.txt` or a `.md` page. It found the Tabs note's `#variants`, the Migrating guide's relative `MIGRATING-legacy.md`, the release checks' `RELEASING.md`, 54 `css-variables` ids on each API index, the Menu Custom `#menu` and the framework variants and `.md` files that `/checks` and `/todo` advertised; all fixed. Placeholder fragments on the block previews, stress and fixture pages are skipped, and same-page fragments inside an example preview are only checked on component pages, since examples link their own page's sections.
+- [ ] (1) Docs: Theme tokens says the intent fill is the only fill without a token of its own, but the dark checked and invalid fills have none either (`src/docs/guide/theme-tokens.astro:135`)
+  - Summary: The guide says one fill lacks a token when several do.
+  - Recommended: Fix with option A. It matches the token description.
+  - Fix: confirm which fills are deliberately tokenless and list them
+  > Explain further
+  - Explained: Two clamps make fills without a token, not one. The intent fill caps an intent color at `--ui-accent-fill-max-lightness` (critical buttons, the critical, info, neutral and success badges). The choice fill caps it at `--ui-choice-fill-max-lightness`: the checked Checkbox, Radio and Switch mark in dark mode, and the invalid one in both modes (`choice.css:4-16`, `choice.css:138-145`). `--ui-on-fill` is the text on both, and its own description in `theme-token-descriptions.ts` already says so. Only the sentence on Theme tokens names one.
+  - Options:
+    - A (recommended): "The fills without a token of their own are intent colors with their lightness capped: at `--ui-accent-fill-max-lightness` for critical buttons and badges, and at `--ui-choice-fill-max-lightness` for the checked choice mark in dark mode and the invalid one. `--ui-on-fill` is the text on all of them."
+    - B: keep the sentence and link to the `--ui-on-fill` row, which has the full list
+- [x] (1) Docs: the Accessibility guide says there are no ARIA widgets that need JavaScript, but SortableTable sets `aria-sort` from script (`src/docs/guide/accessibility.astro:23`)
+  - Summary: The accessibility guide's no-JavaScript claim has an exception.
+  - Recommended: Fix. Name the exception.
+  - Fix: say "no ARIA widgets that need JavaScript, apart from the sortable table's `aria-sort`"
+  > Fix
+  - Fixed: The intro on Accessibility now says almost no ARIA needs JavaScript and names the exception: a sortable Table, whose script sets `aria-sort` on the header you press.
+- [ ] (1) Docs: the Svelte Getting started page tells readers to add `opui-css` to `ssr.noExternal`, which vite-plugin-svelte already does for packages with Svelte exports (`src/docs/guide/getting-started/Svelte.astro:32-44`)
+  - Summary: The Svelte setup includes a config step that may not be needed.
+  - Recommended: Fix with option A. The plugin already does it for every setup that can render Svelte.
+  - Fix: build a fresh SvelteKit app without the option; drop the step if it works
+  > Explain further
+  - Explained: vite-plugin-svelte (7.3 here) crawls the project's dependencies with vitefu and adds every package with a `svelte` export condition or `svelte` field to `ssr.noExternal` (`isFrameworkPkgByJson` in its `options.js`). `opui-css` has both (`"./svelte": { "svelte": ... }` and `"svelte": "./svelte/index.ts"`), and any Vite setup that renders Svelte needs that plugin anyway, so the step is redundant when `opui-css` is a direct dependency. It only matters when the plugin's dependency crawl is turned off or `opui-css` comes in through another package. Not tried in a fresh app here, since that needs installing a new project.
+  - Options:
+    - A (recommended): drop the `ssr.noExternal` step and its code block, and say vite-plugin-svelte compiles the components for server rendering in SvelteKit and in Vite setups alike
+    - B: keep the step as a harmless safeguard and correct the reason
+- [x] (1) Docs: the Svelte and Vue Getting started pages list the components that support `bind:` and `v-model` but leave out NumberStepper and Tabs (`src/docs/guide/getting-started/Svelte.astro:102-105`, `src/docs/guide/getting-started/Vue.astro:133`)
+  - Summary: The two-way binding lists miss some components that support it.
+  - Recommended: Fix. Complete the lists from the components' api.ts.
+  - Fix: list every component whose api.ts documents a bindable prop
+  > Fix
+  - Fixed: Svelte now lists `bind:value` on TextField, Textarea, Select, Range, NumberField, OneTimeCode, Rating, Tabs and ToggleGroup, `bind:checked` on ToggleButton, and the existing Checkbox, Switch and Radio bindings. The Vue hydration note lists `v-model` on Number field, One-time code, Rating, Tabs and Toggle too. Checked against `$bindable` in the Svelte components and the Vue components with a model.
+- [x] (1) Docs: the Migrating page renders the note about the legacy guide twice in a row, once from MIGRATING.md and once from the page (`packages/opui/MIGRATING.md:1371`, `src/docs/guide/migrating.astro:59`)
+  - Summary: The Migrating page shows the same legacy-guide note twice.
+  - Recommended: Fix. Keep the MIGRATING.md line, since GitHub readers need it too.
+  - Fix: remove the page's own note
+  > Fix
+  - Fixed: Removed the page's own Older versions section from `migrating.astro`; the note from MIGRATING.md stays, so GitHub readers keep it.
+- [x] (2) Docs: MIGRATING says a property the component sets isn't an override and the rows name the input to set, but about a dozen rename rows point to properties the Component properties table marks `output` (Accordion `--_duration`, ButtonGroup `--_divider-border-color`, Card `--_bg-color`, Drawer `--_duration`, Range `--_thumb-bg-color`, Switch, Chip, Callout) (`packages/opui/MIGRATING.md:1194`)
+  - Summary: Some migration rows tell readers to set a property the component overwrites, so the override does nothing.
+  - Recommended: Fix with option A. It is what the guide's own rule promises.
+  - Options:
+    - A (recommended): for each of those rows name the input to set (`--_motion` or `--ui-duration`, `--_surface-bg-color`, `--_accent`, ...), like the Range `--_thumb-highlight-color` row
+    - B: reword the sentence to say the new names are outputs that freeze in every state
+  > Fix with option A
+  - Fixed: The twelve rows that renamed to an output now name the input: Accordion, Drawer and Switch motion point to `--_motion` (or the theme duration), ButtonGroup dividers to the buttons' `--_accent`, Callout and Chip text to the classes that set it, Card to `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`, `--_outlined-border-color` and `--_elevated-shadow`, Range to `--_accent`, and ToggleButton to `--_selected-bg-color`. Kinds checked against `src/component-api/custom-properties/`.
+- [ ] (2) Docs: the Browser support guide says the anchor positioning polyfill covers Anchor, Menu and Tooltip, while Carousel, Dialog and Drawer also list `anchor-positioning` (`src/docs/guide/browser-support.astro:126-127`)
+  - Summary: The polyfill list leaves out three components that use anchor positioning.
+  - Recommended: Remove issue. The bullet is correct as written.
+  - Fix: try the polyfill on Carousel, Dialog and Drawer in Firefox and an older Safari, and add the ones it fixes to the bullet
+  > Explain further
+  - Explained: Carousel, Dialog and Drawer use anchor positioning for extras that need a newer feature first, so the polyfill wouldn't change anything there. Dialog and Drawer anchor their scroll shadows (`::before` and `::after` on `.ui-content`) to the content, but the shadows only appear inside `@container scroll-state(...)`, which the browsers without anchor positioning don't support either. The Carousel anchors its `::scroll-button()` pseudo-elements with `position-anchor: auto`; those pseudo-elements exist only in Chromium, which has anchor positioning, and the polyfill can't reach pseudo-elements or `position-anchor: auto`. So the bullet is right to name only Anchor, Menu and Tooltip.
+  - Options:
+    - A (recommended): leave the bullet as it is
+    - B: add a sentence that Carousel, Dialog and Drawer use anchor positioning only for extras that also need scroll buttons or scroll-state queries, so the polyfill doesn't apply
+- [x] (2) List: the List page's browser support says the compat layer has fallbacks for its features in `compat/menu.css`, only because ListItem's `api.ts` lists the `menu` stylesheet; that file holds one iOS fix for Menu submenus (`src/components/BrowserSupport.astro:39`, `src/component-api/list-item/api.ts:5`)
+  - Summary: The List page points to a Menu compat fix that has nothing to do with lists.
+  - Recommended: Fix. Filtering by the page's features keeps the sentence right on every page.
+  - Fix: name only the compat files whose features the page lists in its `browserSupport`
+  > Fix
+  - Fixed: `BrowserSupport.astro` now names only the compat file for the page's own stylesheet, so the List page no longer points to `compat/menu.css`, while Avatar, Menu, One-time code and Tooltip keep their sentence.
+- [x] (2) Tokens: the `--ui-palette-source` description says its default is Unset, but `palette.css` declares hue 222.8 (`src/utils/theme-token-descriptions.ts:106`)
+  - Summary: The palette source token claims to have no default, but it has one.
+  - Recommended: Fix. Document the 222.8 default.
+  - Fix: give the default as the hue 222.8 color, unless Unset is meant as the value a theme sees
+  > Fix
+  - Fixed: The description in `theme-token-descriptions.ts` (and so `tokens.json`) says a theme leaves it unset and `palette.css` builds it from `--ui-palette-hue` and `--ui-palette-chroma`, `oklch(58% 0.105 222.8)` by default. The table keeps "Unset", which is what a theme sees.
+- [x] (2) Docs: MIGRATING's v5 to v6 Before snippets use v6-only names such as `--ui-primary-tonal`, the Theme and tokens section treats 5.4.3 as having a contrast mode and elevated shadow tokens it didn't have, and MIGRATING-legacy points to a CHANGELOG entry that lists classes, not tokens (`packages/opui/MIGRATING.md:328`, `packages/opui/MIGRATING.md:1259`, `packages/opui/MIGRATING-legacy.md:34`)
+  - Summary: Some migration snippets show names readers won't find in their 5.x code.
+  - Recommended: Fix. Use the 5.4.3 names from the published package.
+  - Fix: replace the Before names with the 5.4.3 ones, and point the legacy guide to the entry that lists the tokens
+  > Fix
+  - Fixed: The Chip and Progress Before lines use the 5.x `--surface-tonal` (After: `--ui-surface-tonal`), the Tabs Before line uses `--critical`, and the Open Props theme snippet uses `--border-radius` and `--palette-hue`. The shadow paragraph now says 5.x cards picked `--_shadow-light` and `--_shadow-dark`, instead of naming theme tokens that never existed; the contrast-mode wording was already gone. MIGRATING-legacy now says the 5.0.0 entry lists renamed classes. Names checked against the 5.4.3 package.
+- [x] (3) Changelog: MIGRATING says every change is in the changelog, but Callout dropping `role="note"` and Accordion dropping `role="region"`, `aria-labelledby` and `aria-controls` are in no CHANGELOG entry, MIGRATING step or What's new note (`packages/opui/MIGRATING.md:3`)
+  - Summary: Two accessibility changes to Callout and Accordion ship without a changelog or migration note.
+  - Recommended: Fix with option A. The removals look intended, so they need Breaking entries.
+  - Options:
+    - A (recommended): add Breaking entries and MIGRATING lines for both removals
+    - B: restore the ARIA in both components
+    - C: drop "Every change" from the MIGRATING intro
+  > Fix with option A
+  - Fixed: Breaking entries in `CHANGELOG.md` for both removals, `Breaking:` What's new notes on the Accordion and Callout pages, and a paragraph in each MIGRATING section: Accordion no longer renders `role="region"`, `aria-labelledby` or `aria-controls`, and Callout no longer renders `role="note"`, so it is announced as the `<article>` it is. Checked against the 5.4.3 package, which rendered both.
+- [ ] (7) Release: the Getting started pages install with `npm install opui-css` and `pnpm add opui-css`, which install 5.4.3 while `latest` points there; its exports map turns every `.css` import on those pages into `*.css.css`, and it has no `./react` or `./svelte` export. 6.0.0-rc.1 on `next` lacks `./elements/*` (`src/docs/guide/getting-started/partials/InstallCommand.astro:9-14`)
+  - Summary: Following the install steps today gets 5.4.3, and the imports on the page fail to resolve.
+  - Recommended: Fix with option A. The pages stay correct whether or not 6.0.0 ships first.
+  - Options:
+    - A (recommended): release 6.0.0 with `./elements/*` in its exports before the docs go live; until then show the unreleased note in Install via NPM on all five pages
+    - B: change the commands to `opui-css@next` until 6.0.0 is `latest`
+  > Fix with option A
+  - Still open: The note part is done: `InstallCommand.astro` shows a warning under the install commands on all five Getting started pages while the next major is unreleased. It says the commands install the published version, that `opui-css@next` has the release candidate without the `elements/` scripts, and how to build the package from the repository. It disappears on its own once the release is dated. Left: publishing 6.0.0 with `./elements/*` in its exports, which is yours to do.
 
 ## Future plans
 
@@ -237,6 +351,12 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - C: like A, but keep `XActions` as an alias that renders `.ui-footer.ui-actions` with `align`.
   > Fix with option A
   - Fixed: option A. Dialog and Drawer share four parts: `DialogHeader` and `DrawerHeader` (`div.ui-header`, a row that wraps, where a heading takes the free space, buttons line up at the end and a `p` gets its own row; Dialog's `hgroup` is gone, and `DrawerHeader` keeps its close button), `DialogTitle` (new) and `DrawerTitle` (an `h2` that names the overlay, both sized by `--_title-font-size`, default `--ui-font-size-h4`, so the examples drop `.ui-h4` and m3 titles match at 28px), `DialogContent` and `DrawerContent` (`.ui-content`, now a stack with `--ui-space-3` between children on both, the rule `card.css` already gave Dialog, so a layout class like `.ui-form` keeps its own gap), and `DialogFooter` and `DrawerFooter` (`.ui-footer`, a row with `align`, replacing `DialogActions` and `DrawerActions`), with `.ui-actions` as a button group inside the footer that moves to the end when other content comes first. `--_header-font-size` is `--_title-font-size`, and the drawer's footer properties are `--_footer-gap` and `--_footer-padding` again, the names 5.4.3 shipped. `ActionsAlignment` is `FooterAlignment`, a new `FooterContent` example puts a status text next to the buttons, and every block, stress page, guide and site use is updated. Breaking entries in the CHANGELOG, MIGRATING and What's new notes say so; the dialog and drawer parity snapshots are updated (intended), the orphaned `dialog-ActionsAlignment` baselines are deleted, and the new and changed screenshots need an `update-snapshots` run.
+- [ ] (1) Menu: the Menu and Anchor examples put `div` and `p` inside `button` and a `div` card inside `span.ui-floating`, which HTML validators flag. Browsers render it fine, and it mirrors the components' own output (`src/component-examples/menu/Basics.html:12-18`)
+  - Summary: Validators flag the Menu and Anchor markup, though browsers render it fine.
+  - Recommended: Remove issue. It mirrors the components' output and renders correctly, so treat it as the convention.
+  - Options:
+    - A (recommended): keep the markup as the convention
+    - B: switch to `span`s inside the clickable row and `div` for `.ui-anchor` and `.ui-floating` library-wide, in four frameworks, `list.css` and the parity snapshots
 - [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:34,237`)
   - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
   - Recommended: Fix with option A. It keeps the page from shifting and the strip matches the backdrop, which C was meant to do.
@@ -812,6 +932,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A (recommended): add the check to the iOS line of the release checks, so it runs with every release, and remove this item.
     - B: keep the item open until someone runs it.
+- [ ] (2) Range: under `forced-colors: active` the range source sets its fill to `SelectedItem`, but in Chromium the filled part of the track rendered black. The theming guide now names only the thumb (`packages/opui/css/components/range.css:417`)
+  - Summary: The filled part of a range may not use the selected color in forced colors mode.
+  - Recommended: Explain further. It needs a check in a browser with forced colors on.
+  - Fix: open `/html/components/range/` with forced colors emulated in Chromium and in Windows High Contrast, and see which color the fill uses
 - [ ] (3) Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog, a Drawer or another Menu lands above its trigger by about the page's scroll offset once the page is scrolled: a split button menu in a dialog footer far down the overlays stress page opens around 1850px too high, and second level submenus can't be clicked because the first submenu has left the viewport. The same overlays near the top of the page are placed right, and anchors in the normal page flow are fine after scrolling. The e2e scenarios carry it as a known WebKit failure (`failingIn.webkit` in `tests/e2e/stress-overlays.ts`), and `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover anchored in a modal dialog, which is expected to fail in WebKit only on a scrolled page. If that test starts passing, WebKit fixed it, or the cause is ours. Check in Safari on macOS on `/tests/overlays/` after scrolling down, and report it to WebKit if Safari does the same (`tests/e2e/stress-overlays.ts`)
   - Summary: In WebKit, menus and tooltips inside a dialog, drawer or menu open far above their trigger once the page is scrolled.
   - Recommended: Fix with option A. The bug is on file, and the expected failure says when it's fixed.

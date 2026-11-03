@@ -10,7 +10,7 @@ export const posts = [
     category: "under-the-hood",
     date: "2026-10-02",
     description:
-      "Every component, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
+      "Most components, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
     includesAllBuilds: true,
     navLabel: "All build-ups",
     slug: "under-the-hood",
@@ -162,7 +162,12 @@ export const posts = [
     date: "2026-10-02",
     description:
       "A dialog that slides in from any edge, and out again with allow-discrete.",
-    features: ["overlay", "starting-style", "transition-behavior"],
+    features: [
+      "display-animation",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
     now: "A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`.",
     slug: "drawer-starting-style",
     technique: "@starting-style",
@@ -309,7 +314,7 @@ export const posts = [
     description:
       ":user-invalid shows errors after the user interacts, not on page load.",
     features: ["user-pseudos"],
-    now: "`:user-invalid` only matches after the user has changed the field.",
+    now: "`:user-invalid` only matches after the user has changed the field and left it, or tried to submit.",
     slug: "text-field-user-invalid",
     technique: ":user-invalid",
     title: "Validation that waits with :user-invalid",
@@ -357,10 +362,10 @@ export const posts = [
     component: "typography",
     date: "2026-10-23",
     description:
-      "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
+      "progress() turns the viewport width into one 0 to 1 ramp that the four fluid heading sizes share.",
     features: ["progress-function"],
     navLabel: "Typography: fluid type",
-    now: "`progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it.",
+    now: "`progress(100vi, start, end)` is one shared ramp, and each fluid heading mixes its two steps with it.",
     slug: "fluid-type-progress",
     technique: "progress()",
     title: "Fluid type with progress()",

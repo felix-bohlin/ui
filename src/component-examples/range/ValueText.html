@@ -5,6 +5,7 @@
   >
   <input
     aria-labelledby="range-value-text-1-label"
+    aria-valuetext="21°"
     type="range"
     id="range-value-text-1"
     min="10"
@@ -19,6 +20,7 @@
     const value = document.querySelector('output[for="range-value-text-1"] b')
     input.addEventListener("input", () => {
       value.textContent = `${input.value}°`
+      input.setAttribute("aria-valuetext", `${input.value}°`)
     })
   }
 </script>

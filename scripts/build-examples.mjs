@@ -6,11 +6,9 @@ import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
 import { parse, transform } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
-import postcss from "postcss"
 import { format, resolveConfig } from "prettier"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { clean } from "../src/utils/clean-html.ts"
 import {
   reactKinds,
   reactPropsOf,
@@ -18,7 +16,6 @@ import {
 } from "./example-react-props.mjs"
 import {
   attributeText,
-  decodeAttribute,
   decodeText,
   decodeTextarea,
   jsxAttribute,
@@ -33,6 +30,12 @@ import {
   ID_PLACEHOLDER,
 } from "./example-ids.mjs"
 import {
+  BLANK_LINE_MARKER,
+  cleanRender,
+  meaningChange,
+  meaningOf,
+} from "./example-html.mjs"
+import {
   byAttributeName,
   generatedTargets,
   handWrittenProblems,
@@ -40,12 +43,11 @@ import {
   staleProblems,
   TARGETS,
 } from "./example-targets.mjs"
-import { BOOLEAN_ATTRIBUTES, VOID_ELEMENTS } from "./html-tokens.mjs"
+import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const examplesDir = join(root, "src/component-examples")
 const componentsDir = join(root, "packages/opui/components")
-const cssDir = join(root, "packages/opui/css/components")
 
 export const REACT_FIXED_VALUE_TYPES = [
   "button",
@@ -642,6 +644,44 @@ export const readExample = async (source, file = "Example.astro") => {
     gap = ""
   }
   return { blankLines, body, frontmatter, scripts, styles }
+}
+
+const BLANK_LINE = /\n[^\S\n]*\n/
+
+export const markTopLevelBlankLines = async (source) => {
+  const { ast } = await parse(source, { position: true })
+  const nodes = ast.children.filter((node) => node.type !== "frontmatter")
+  const isBody = (node) =>
+    node &&
+    node.type !== "text" &&
+    !(node.type === "element" && /^(script|style)$/.test(node.name))
+  const neighbor = (index, step) => {
+    let at = index + step
+    while (nodes[at]?.type === "text") at += step
+    return nodes[at]
+  }
+  let bytes = Buffer.from(source)
+  for (const [index, node] of [...nodes.entries()].toReversed()) {
+    if (
+      node.type === "text" &&
+      BLANK_LINE.test(node.value) &&
+      isBody(neighbor(index, -1)) &&
+      isBody(neighbor(index, 1))
+    ) {
+      const { end, start } = node.position
+      bytes = Buffer.concat([
+        bytes.subarray(0, start.offset),
+        Buffer.from(
+          node.value.replace(
+            /[^\S\n]*\n[^\S\n]*\n\s*/g,
+            `\n<!--${BLANK_LINE_MARKER}-->\n`,
+          ),
+        ),
+        bytes.subarray(end.offset),
+      ])
+    }
+  }
+  return bytes.toString()
 }
 
 export const parseExample = async (source, file = "Example.astro") => {
@@ -1398,181 +1438,11 @@ const stripTypes = (code) => {
   }
 }
 
-const INLINE_PADDING = new RegExp(
-  `(<(?!(?:${[...VOID_ELEMENTS].join("|")})\\b)[a-z][\\w-]*\\b[^<>]*>)\\s+(?=[^\\s<])|(?<=[^\\s>])\\s+(</[a-z][\\w-]*>)`,
-  "g",
-)
-
-const topLevelBreaks = (html, blankLines) => {
-  const nodes = parseFragment(html, {
-    sourceCodeLocationInfo: true,
-  }).childNodes.filter((node) => node.sourceCodeLocation)
-  const elements = nodes.filter((node) => node.tagName)
-  if (
-    elements.length !== blankLines.length + 1 ||
-    nodes.some((node) => !node.tagName && node.value?.trim())
-  ) {
-    return html
-  }
-  return elements
-    .map((node, index) => {
-      const { endOffset, startOffset } = node.sourceCodeLocation
-      return `${index > 0 && blankLines[index - 1] ? "\n" : ""}${html.slice(startOffset, endOffset)}`
-    })
-    .join("\n")
-}
-
-const BLOCK_ELEMENTS =
-  "address|article|aside|blockquote|caption|dd|details|dialog|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hgroup|hr|legend|li|main|nav|ol|p|pre|section|summary|table|tbody|td|tfoot|th|thead|tr|ul"
-
-const tidyTag = (tag) =>
-  tag.replace(
-    /(\s+)([^\s=<>/"']+)(?:=("[^"]*"|'[^']*'|[^\s>]+))?/g,
-    (match, space, name, value) => {
-      if (name === "slot") return ""
-      if (value !== undefined) {
-        const quote = value[0] === '"' || value[0] === "'" ? value[0] : ""
-        if (!quote) return `${space}${name}=${value}`
-        const decoded = decodeAttribute(value.slice(1, -1), quote)
-        return `${space}${name}=${quote}${attributeText(decoded, quote)}${quote}`
-      }
-      return BOOLEAN_ATTRIBUTES.has(name) || /^(aria|data)-/.test(name)
-        ? match
-        : `${space}${name}=""`
-    },
-  )
-
-const tidyText = (text) => text.replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-
-const layoutClasses = async () => {
-  const classes = new Map()
-  for (const file of await readdir(cssDir)) {
-    if (!file.endsWith(".css")) continue
-    postcss
-      .parse(await readFile(join(cssDir, file), "utf8"))
-      .walkRules((rule) => {
-        if (rule.parent?.type !== "atrule" || rule.parent.name !== "layer") {
-          return
-        }
-        const display = rule.nodes.find(
-          (node) => node.type === "decl" && node.prop === "display",
-        )?.value
-        if (!/^(inline-)?(flex|grid)$/.test(display ?? "")) return
-        const selectors = rule.selector
-          .replace(/^:where\(([\s\S]*)\)$/, "$1")
-          .split(",")
-          .map((selector) => selector.trim())
-        if (selectors.every((selector) => /^\.ui-[\w-]+$/.test(selector))) {
-          for (const selector of selectors) {
-            classes.set(selector.slice(1), display)
-          }
-        }
-      })
-  }
-  return classes
-}
-
-const BLOCK_TAGS = new RegExp(`^(?:${BLOCK_ELEMENTS})$`)
-
-const spreadLayoutChildren = (html, classes) => {
-  const edits = []
-  const displays = (node) =>
-    (node.attrs?.find(({ name }) => name === "class")?.value ?? "")
-      .split(/\s+/)
-      .map((name) => classes.get(name))
-      .filter(Boolean)
-  const isBlock = (node) =>
-    !!node?.tagName &&
-    (BLOCK_TAGS.test(node.tagName) ||
-      displays(node).some((display) => !display.startsWith("inline")))
-  const visit = (children, layout, endTag) => {
-    children.forEach((child, index) => {
-      const previous = children[index - 1]
-      const location = child.sourceCodeLocation
-      if (!location) return
-      if (child.tagName) {
-        if (
-          (!previous && endTag !== undefined && (layout || isBlock(child))) ||
-          (previous?.tagName && (layout || isBlock(child) || isBlock(previous)))
-        ) {
-          edits.push({ end: location.startOffset, start: location.startOffset })
-        }
-        visit(
-          child.content?.childNodes ?? child.childNodes,
-          displays(child).length > 0,
-          child.sourceCodeLocation.endTag?.startOffset,
-        )
-      } else if (layout && child.value !== undefined && !child.value.trim()) {
-        if (!child.value.includes("\n")) {
-          edits.push({ end: location.endOffset, start: location.startOffset })
-        }
-      }
-    })
-    const last = children.at(-1)
-    if (endTag !== undefined && last?.tagName && (layout || isBlock(last))) {
-      edits.push({ end: endTag, start: endTag })
-    }
-  }
-  visit(parseFragment(html, { sourceCodeLocationInfo: true }).childNodes, false)
-  return edits
-    .toSorted((a, b) => b.start - a.start)
-    .reduce(
-      (result, { end, start }) =>
-        `${result.slice(0, start)}\n${result.slice(end)}`,
-      html,
-    )
-}
-
-const collapseWhitespace = (html) => {
-  const kept = []
-  return html
-    .replace(
-      /(<(pre|textarea)\b[^>]*>)([\s\S]*?)(<\/\2>)/g,
-      (_, open, _tag, content, close) => {
-        kept.push(content)
-        return `${open}\uE000${kept.length - 1}\uE000${close}`
-      },
-    )
-    .replace(/>\s*(<!--[\s\S]*?-->)\s*</g, ">$1<")
-    .replace(/>\s+/g, ">\n")
-    .replace(/\s+</g, "\n<")
-    .replace(/[ \t]*\n\s*/g, "\n")
-    .replace(INLINE_PADDING, (_, open, close) => open ?? close)
-    .replace(/\uE000(\d+)\uE000/g, (_, index) => kept[index])
-}
-
-export const cleanRender = (html, blankLines = [], classes = new Map()) =>
-  spreadLayoutChildren(
-    topLevelBreaks(
-      collapseWhitespace(
-        clean(html)
-          .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/g, "")
-          .replace(/<link\b[^>]*>/g, "")
-          .replace(
-            /<selectedcontent>(?!<\/selectedcontent>)/g,
-            "$&</selectedcontent>",
-          )
-          .split(/(<!--[\s\S]*?-->|<[^<>]*>)/)
-          .map((part, index) =>
-            index % 2 === 0
-              ? tidyText(part)
-              : part.startsWith("<!--")
-                ? part
-                : tidyTag(part),
-          )
-          .join(""),
-      ).trim(),
-      blankLines,
-    ),
-    classes,
-  )
-
-export const htmlFromRender = async (rendered, source, file, classes) => {
+export const htmlFromRender = async (rendered, source, file) => {
   const example = await readExample(source, file)
-  const markup = cleanRender(
+  const { markup, nodes } = cleanRender(
     assignExampleIds(rendered, exampleKeyOf(file)),
-    example.blankLines,
-    classes,
+    { css: example.styles, file },
   )
   const imports = scriptImports(markup, await elementTags())
   const modules = [
@@ -1584,24 +1454,47 @@ export const htmlFromRender = async (rendered, source, file, classes) => {
     ...example.styles.map((css) => `<style>\n${indent(css, 2)}\n</style>`),
     ...modules.map((code) => `<script type="module">\n${code}\n</script>`),
   ]
-  return prettierFormat(
+  const html = await prettierFormat(
     `${parts.join("\n\n")}\n`,
     file.replace(/\.astro$/, ".html"),
   )
+  const change = meaningChange(
+    meaningOf(nodes, example.styles),
+    meaningOf(parseHtml(html), example.styles),
+  )
+  if (change) {
+    throw new Error(
+      `${file}: formatting the HTML changed what it renders: ${change}`,
+    )
+  }
+  return html
 }
+
+export const EXAMPLE_ASTRO_CONFIG = { compressHTML: false, logLevel: "error" }
 
 const createRenderer = async () => {
   const { getViteConfig } = await import("astro/config")
   const { createViteServer } = await import("vitest/node")
   const config = await getViteConfig(
     { logLevel: "error" },
-    { logLevel: "error" },
+    EXAMPLE_ASTRO_CONFIG,
   )({
     command: "serve",
     mode: "development",
   })
   const server = await createViteServer({
     ...config,
+    plugins: [
+      {
+        enforce: "pre",
+        name: "opui-example-blank-lines",
+        transform: (code, id) =>
+          id.startsWith(examplesDir) && id.endsWith(".astro")
+            ? markTopLevelBlankLines(code)
+            : undefined,
+      },
+      ...config.plugins,
+    ],
     appType: "custom",
     configFile: false,
     logLevel: "error",
@@ -1665,7 +1558,6 @@ export const generate = async ({
 } = {}) => {
   await checkScriptRules()
   const keys = await exampleKeys(only)
-  const classes = await layoutClasses()
   const renderer = await createRenderer()
   const outputs = new Map()
   const problems = handWrittenProblems(handWritten, (file) =>
@@ -1685,7 +1577,6 @@ export const generate = async ({
                 await renderer.render(key, source),
                 source,
                 astroFile,
-                classes,
               ),
             )
           } else {

@@ -748,7 +748,11 @@ export const renderedText = (nodes, { css = [], root = "grid" } = {}) => {
             atom.text = atom.text.slice(0, -1)
         }
         if (atom.text !== "") end = false
-        rendered.set(atom.node, { text: atom.text, verbatim: atom.verbatim })
+        rendered.set(atom.node, {
+          items: atom.items ?? false,
+          text: atom.text,
+          verbatim: atom.verbatim,
+        })
       } else {
         end = atom.kind === "break"
       }
@@ -813,8 +817,9 @@ export const renderedText = (nodes, { css = [], root = "grid" } = {}) => {
       if (run.some((atom) => atom.verbatim || !isBlank(atom.node.value))) {
         settle([BREAK, ...run, BREAK])
       } else {
-        for (const atom of run)
-          rendered.set(atom.node, { text: "", verbatim: false })
+        for (const atom of run) {
+          rendered.set(atom.node, { items: true, text: "", verbatim: false })
+        }
       }
       run = []
     }
@@ -822,7 +827,12 @@ export const renderedText = (nodes, { css = [], root = "grid" } = {}) => {
       for (const node of nodes) {
         if (node.type === "comment") continue
         if (node.type === "text") {
-          run.push({ kind: "text", node, verbatim: preserves(inherited) })
+          run.push({
+            items: true,
+            kind: "text",
+            node,
+            verbatim: preserves(inherited),
+          })
           continue
         }
         const box = boxes.get(node)

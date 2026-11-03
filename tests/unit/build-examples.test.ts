@@ -3,7 +3,6 @@ import { stripTypeScriptTypes } from "node:module"
 import { format, resolveConfig } from "prettier"
 import { beforeAll, describe, expect, test } from "vitest"
 import {
-  cleanRender,
   convertExample,
   generate,
   elementTags,
@@ -701,38 +700,6 @@ describe("the source layout", () => {
 })
 
 describe("HTML", () => {
-  test("cleans the rendered markup", () => {
-    expect(
-      cleanRender(
-        '<img alt src="/a.png?w=1&amp;h=2" data-astro-cid-x><input disabled data-select-all slot="end"><p>Say &quot;hi&quot;</p><select><button><selectedcontent></button></select>',
-      ),
-    ).toBe(
-      '<img alt="" src="/a.png?w=1&h=2"><input disabled data-select-all>\n<p>Say "hi"</p>\n<select><button><selectedcontent></selectedcontent></button></select>',
-    )
-  })
-
-  test("trims the padding components add around text, not inside pre", () => {
-    expect(cleanRender("<a class='x'> Link </a> <pre>  a\n  b  </pre>")).toBe(
-      "<a class='x'>Link</a>\n<pre>  a\n  b  </pre>",
-    )
-  })
-
-  test("breaks lines between the items of flex and grid containers", () => {
-    expect(
-      cleanRender(
-        '<label class="ui-row"><span>A</span><span>B</span></label>',
-        [],
-        new Map([["ui-row", "inline-flex"]]),
-      ),
-    ).toBe('<label class="ui-row">\n<span>A</span>\n<span>B</span>\n</label>')
-  })
-
-  test("keeps the blank lines between the source's top-level elements", () => {
-    expect(cleanRender("<p>A</p> <p>B</p> <p>C</p>", [true, false])).toBe(
-      "<p>A</p>\n\n<p>B</p>\n<p>C</p>",
-    )
-  })
-
   test("imports the scripts the rendered components need", () => {
     const imports = (html: string) => scriptImports(html, tags)
     expect(imports("<opui-toaster></opui-toaster><opui-copy>")).toEqual([
@@ -780,7 +747,6 @@ describe("HTML", () => {
           '<p>Hi</p>\n\n<script>\n  const p = document.querySelector<HTMLElement>("p")\n</script>',
         ),
         "src/component-examples/sample/Example.astro",
-        new Map(),
       ),
     ).toBe(
       '<p>Hi</p>\n\n<script type="module">\n  const p = document.querySelector("p")\n</script>\n',
@@ -939,7 +905,7 @@ describe("an example's structure", () => {
       ).rejects.toThrow(reason)
     }
     await expect(
-      htmlFromRender("<p>Hi</p>", source, sampleFile(), new Map()),
+      htmlFromRender("<p>Hi</p>", source, sampleFile()),
     ).rejects.toThrow(reason)
   })
 
@@ -960,7 +926,7 @@ describe("an example's structure", () => {
       ).rejects.toThrow(reason)
     }
     await expect(
-      htmlFromRender("<p>Hi</p>", source, sampleFile(), new Map()),
+      htmlFromRender("<p>Hi</p>", source, sampleFile()),
     ).rejects.toThrow(reason)
   })
 
@@ -1012,7 +978,6 @@ describe("an example's structure", () => {
         "<opui-copy></opui-copy>\n<script>\n  const a = 1\n</script>\n<script>\n  const a = 2\n</script>",
       ),
       sampleFile(),
-      new Map(),
     )
     expect(html.match(/<script type="module">/g)).toHaveLength(3)
     expect(html.indexOf('import "opui-css/elements/copy.js"')).toBeLessThan(

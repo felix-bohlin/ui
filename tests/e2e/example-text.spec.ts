@@ -2,9 +2,6 @@ import { expect, test, type Page } from "@playwright/test"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
 const KNOWN_DIFFERENCES: Record<string, string> = {
-  "html/checkbox/Spread": "Step 7",
-  "html/form/KitchenSink": "Step 7",
-  "html/switch/Spread": "Step 7",
   "react/checkbox/Spread": "Step 8",
   "react/form/KitchenSink": "Step 8",
   "react/switch/Spread": "Step 8",

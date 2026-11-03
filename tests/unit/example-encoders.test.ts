@@ -3,11 +3,7 @@ import { parse as parseSvelte } from "svelte/compiler"
 import ts from "typescript"
 import { compileTemplate, parse as parseVue } from "vue/compiler-sfc"
 import { describe, expect, test } from "vitest"
-import {
-  cleanRender,
-  convertExample,
-  parseExample,
-} from "../../scripts/build-examples.mjs"
+import { convertExample, parseExample } from "../../scripts/build-examples.mjs"
 import {
   attributeText,
   decodeAttribute,
@@ -18,6 +14,7 @@ import {
   markupText,
   templateLiteral,
 } from "../../scripts/example-encoders.mjs"
+import { cleanRender } from "../../scripts/example-html.mjs"
 
 const VALUES = [
   "",
@@ -335,7 +332,7 @@ describe("HTML attributes", () => {
   test("re-encodes a rendered attribute without creating a character reference", () => {
     const html = cleanRender(
       '<a href="/x?a=1&amp;copy=2" title="&amp;copy 2024" data-x="&amp;h=1">x</a>',
-    )
+    ).markup
     const [anchor] = parseFragment(html).childNodes as unknown as {
       attrs: { name: string; value: string }[]
     }[]

@@ -52,13 +52,10 @@ const EXAMPLE_CLASSES = new Set(
 )
 
 const KNOWN_DIFFERENCES: Record<string, string> = {
-  "checkbox/Spread: html": "Step 7",
   "checkbox/Spread: react": "Step 8",
   "checkbox/Spread: svelte": "Step 8",
-  "form/KitchenSink: html": "Step 7",
   "form/KitchenSink: react": "Step 8",
   "form/KitchenSink: svelte": "Step 8",
-  "switch/Spread: html": "Step 7",
   "switch/Spread: react": "Step 8",
   "switch/Spread: svelte": "Step 8",
 }

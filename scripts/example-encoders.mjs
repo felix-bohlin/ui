@@ -16,6 +16,13 @@ export const decodeTextarea = (source) =>
 export const decodeAttribute = (raw, quote = '"') =>
   parseFragment(`<a b=${quote}${raw}${quote}>`).childNodes[0].attrs[0].value
 
+export const htmlText = (value) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replaceAll(NBSP, "&nbsp;")
+
 export const markupText = (value) =>
   value
     .replace(/&/g, "&amp;")

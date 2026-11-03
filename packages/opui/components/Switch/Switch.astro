@@ -23,7 +23,7 @@ const {
   ...rest
 } = Astro.props
 
-warnUnnamed("Switch", hasName(Astro.props, Astro.slots.has("default")))
+warnUnnamed("Switch", hasName({ ...rest, label }, Astro.slots.has("default")))
 const labelSlot = Astro.slots.has("default")
   ? trimEdges(await Astro.slots.render("default"))
   : ""

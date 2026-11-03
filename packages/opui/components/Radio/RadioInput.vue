@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
-import type { RadioInputProps } from "./types.vue-props"
+import {
+  computed,
+  inject,
+  type IntrinsicElementAttributes,
+  useAttrs,
+} from "vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import type { RadioInputProps as Props } from "./types.vue-props"
+
+const { name } = defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-defineProps<RadioInputProps>()
-const attrs = useAttrs() as InputHTMLAttributes
+const attrs = useAttrs() as IntrinsicElementAttributes["input"]
+
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
-const field = inject(FieldGroupKey, undefined)
 
 const unchecked = Symbol()
+
 const model = computed({
   get: () =>
     modelValue.value ??
@@ -25,15 +32,17 @@ const model = computed({
     modelValue.value = value
   },
 })
+
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <input
     type="radio"
-    :class="$props.class"
-    v-bind="$attrs"
-    :name="attrs.name ?? field?.name"
+    :name="name ?? field?.name"
+    v-bind="attrs"
     :value="attrs.value"
     v-model="model"
+    :class="$props.class"
   />
 </template>

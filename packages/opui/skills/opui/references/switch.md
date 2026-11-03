@@ -47,6 +47,10 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 - `<input type="checkbox" role="switch">` (root): The switch input, without a label.
 
+### Props and modifiers
+
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+
 Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro and React `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes

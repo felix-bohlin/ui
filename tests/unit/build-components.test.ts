@@ -6,6 +6,7 @@ import {
   compileComponent,
   generate,
   handWrittenProblems,
+  loadApis,
   PORTS,
   readComponent,
   readHandWritten,
@@ -369,9 +370,9 @@ describe("the three ports of a sample", () => {
 
   test.each([
     [
-      '<input type="checkbox" {...rest} />',
+      '<input type="text" {...rest} />',
       modelApi("checked", "input"),
-      "the checked model of Sample, which isn't a value bound to a text control",
+      "the checked model of Sample, which isn't a value, checked or radio model of a control",
       ["Sample.svelte", "Sample.vue"],
     ],
     [
@@ -432,6 +433,98 @@ describe("the three ports of a sample", () => {
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain('import { content } from "../content.svelte"')
     expect(svelte).toContain("{@render content(end)}")
+  })
+
+  const inputApi = (
+    prop: string,
+    selector: string,
+    svelte: { description: string; prop: string; type: string }[],
+  ) => ({
+    component: "Sample",
+    model: {
+      description: "",
+      frameworks: { svelte },
+      prop,
+      type:
+        prop === "checked"
+          ? "boolean | (string | number)[]"
+          : "string | number | boolean",
+    },
+    options: [],
+    parts: [],
+    root: { description: "", selector },
+  })
+
+  test("a checked model binds the group or the checked state", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { name, ...rest } = Astro.props\n---\n\n<input type="checkbox" name={name} {...rest} />\n',
+      sampleFile(),
+      {
+        api: inputApi("checked", 'input[type="checkbox"]', [
+          { description: "", prop: "checked", type: "boolean" },
+          { description: "", prop: "group", type: "(string | number)[]" },
+        ]),
+      },
+    )
+    const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
+    expect(svelte).toContain('import { toggleInGroup } from "../group"')
+    expect(svelte).toContain(
+      "  let {\n    checked = $bindable(),\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () => (group ? group.includes(value) : !!checked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
+    )
+    expect(svelte).toContain(
+      '<input\n  type="checkbox"\n  {name}\n  {...rest}\n  bind:checked={getChecked, setChecked}\n  {value}\n/>',
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain(
+      'const attrs = useAttrs() as IntrinsicElementAttributes["input"]',
+    )
+    expect(vue).toContain(
+      "const modelValue = defineModel<boolean | (string | number)[] | undefined>({\n  default: undefined,\n})\n\nconst model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
+    )
+    expect(vue).toContain(
+      '<input\n    type="checkbox"\n    :name="name"\n    v-bind="attrs"\n    v-model="model"\n    :class="$props.class"\n  />',
+    )
+  })
+
+  test("a radio model binds the group", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { ...rest } = Astro.props\n---\n\n<input type="radio" {...rest} />\n',
+      sampleFile(),
+      {
+        api: inputApi("value", 'input[type="radio"]', [
+          { description: "", prop: "group", type: "string | number | boolean" },
+        ]),
+      },
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      '<input\n  type="radio"\n  {...rest}\n  checked={(checked ?? group === (value ?? true)) || undefined}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain("const unchecked = Symbol()")
+    expect(vue).toContain(
+      '<input\n    type="radio"\n    v-bind="attrs"\n    :value="attrs.value"\n    v-model="model"\n    :class="$props.class"\n  />',
+    )
+  })
+
+  test("a wrapper forwards its model to the component that holds it", async () => {
+    await loadApis()
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport RadioInput from "../Radio/RadioInput.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]}>\n  <RadioInput {...rest} />\n  <slot />\n</label>\n',
+      sampleFile(),
+      {
+        api: inputApi("value", "input", [
+          { description: "", prop: "group", type: "string | number | boolean" },
+        ]),
+      },
+    )
+    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+      "<RadioInput {...rest} bind:group />",
+    )
+    const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
+    expect(vue).toContain(
+      "const modelValue = defineModel<string | number | boolean | undefined>({\n  default: undefined,\n})",
+    )
+    expect(vue).toContain('<RadioInput v-bind="attrs" v-model="modelValue" />')
   })
 
   test.each([
@@ -603,6 +696,33 @@ describe("toTypes", () => {
     )
   })
 
+  test("the Svelte types declare a model's bindables", () => {
+    const { react, svelte } = toTypes(
+      "Sample",
+      { astro: simple, base },
+      { Sample: ["default"] },
+      {},
+      {},
+      {
+        Sample: {
+          bindables: [
+            { prop: "group", type: "(string | number)[]" },
+            { prop: "checked", type: "boolean" },
+          ],
+          kind: "checked",
+          prop: "checked",
+          type: "boolean | (string | number)[]",
+        },
+      },
+    )
+    expect(svelte).toContain(
+      'export type Props = Base.Props & SvelteHTMLElements["div"] & { checked?: boolean; group?: (string | number)[] }',
+    )
+    expect(react).toContain(
+      'export type Props = Base.Props & ComponentProps<"div">\n',
+    )
+  })
+
   test("a Props alias keeps its Omit and literal parts in Vue", () => {
     const { vue } = toTypes(
       "Sample",
@@ -686,7 +806,7 @@ describe("toTypes", () => {
         astro: simple,
         base: `${base}\nexport type Slots<S> = { endText?: S }\n`,
       },
-      { Sample: ["default", "endText"] },
+      { Sample: ["default"] },
       "the slot endText, whose Vue name is kebab-case",
     ],
   ])("rejects %j", (files, slots, reason) => {

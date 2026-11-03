@@ -44,6 +44,10 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 - `<input type="radio">` (root): The radio input, without a label.
 
+### Props and modifiers
+
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+
 Model: `value` (`string | number | boolean`), the selected value of the group. Astro and React `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes

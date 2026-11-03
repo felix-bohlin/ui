@@ -16,12 +16,12 @@
 
 <input
   type="radio"
-  checked={(checked ?? group === (value ?? true)) || undefined}
   name={name ?? field?.name}
+  {...rest}
+  checked={(checked ?? group === (value ?? true)) || undefined}
   onchange={(event) => {
     group = value ?? true
     onchange?.(event)
   }}
   {value}
-  {...rest}
 />

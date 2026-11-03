@@ -2,15 +2,17 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type Snippets = Base.Slots<Snippet>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
-type Group = { group?: (string | number)[] }
-
-export type Props = Omit<Base.Props, keyof Snippets> &
-  Snippets &
-  Group &
-  Omit<SvelteHTMLElements["input"], "size" | "type">
+export type Props = Without<Base.Props, "endText"> &
+  Base.Slots<Snippet> &
+  Omit<SvelteHTMLElements["input"], "size" | "type"> & {
+    checked?: boolean
+    group?: (string | number)[]
+  }
 
 export type SwitchInputProps = Base.SwitchInputProps &
-  Group &
-  Omit<SvelteHTMLElements["input"], "type">
+  Omit<SvelteHTMLElements["input"], "children" | "type"> & {
+    checked?: boolean
+    group?: (string | number)[]
+  }

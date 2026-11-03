@@ -1,9 +1,10 @@
 import { cx } from "../cx"
-import { hasName, warnUnnamed } from "../dev"
 import CheckboxInput from "./CheckboxInput.react"
+import { hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Checkbox({
+  "aria-invalid": ariaInvalid,
   card,
   className,
   error,
@@ -24,10 +25,7 @@ export default function Checkbox({
     <label
       className={cx([
         "ui-checkbox",
-        {
-          "ui-card": card,
-          "ui-spread": spread,
-        },
+        { "ui-card": card, "ui-spread": spread },
         card && variant && variant !== "outlined" && `ui-${variant}`,
         orientation && orientation !== "horizontal" && `ui-${orientation}`,
         size && size !== "medium" && `ui-${size}`,
@@ -35,12 +33,9 @@ export default function Checkbox({
       ])}
       style={style}
     >
-      <CheckboxInput
-        {...rest}
-        aria-invalid={error ? "true" : rest["aria-invalid"]}
-      />
+      <CheckboxInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
       {(label || children) && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
           {label}
           {children}
         </span>

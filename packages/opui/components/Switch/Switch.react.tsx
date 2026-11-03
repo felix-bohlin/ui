@@ -1,9 +1,10 @@
 import { cx } from "../cx"
-import { hasName, warnUnnamed } from "../dev"
 import SwitchInput from "./SwitchInput.react"
+import { hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Switch({
+  "aria-invalid": ariaInvalid,
   card,
   className,
   error,
@@ -26,10 +27,7 @@ export default function Switch({
     <label
       className={cx([
         "ui-switch",
-        {
-          "ui-card": card,
-          "ui-spread": spread,
-        },
+        { "ui-card": card, "ui-spread": spread },
         card && variant && variant !== "outlined" && `ui-${variant}`,
         orientation && orientation !== "horizontal" && `ui-${orientation}`,
         size && size !== "medium" && `ui-${size}`,
@@ -47,12 +45,9 @@ export default function Switch({
           {iconChecked}
         </span>
       )}
-      <SwitchInput
-        {...rest}
-        aria-invalid={error ? "true" : rest["aria-invalid"]}
-      />
+      <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
       {(label || children) && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
           {label}
           {children}
         </span>

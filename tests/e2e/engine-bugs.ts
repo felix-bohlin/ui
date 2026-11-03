@@ -1,8 +1,5 @@
 import { test } from "@playwright/test"
 
-export const FIREFOX_FALLBACK_FADE =
-  "Firefox keeps restarting the @starting-style fade-in of a popover that a position-try fallback places, so it never reaches full opacity"
-
 export const FIREFOX_SELF_RTL =
   "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
 
@@ -16,7 +13,7 @@ export const WEBKIT_TOP_LAYER_ANCHOR =
   "WebKit moves a popover up by the page scroll when its anchor is in the top layer too, inside a modal dialog or another popover"
 
 export const ENGINE_BUGS = {
-  firefox: [FIREFOX_FALLBACK_FADE, FIREFOX_SELF_RTL],
+  firefox: [FIREFOX_SELF_RTL],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,
     WEBKIT_RADIO_NO_WRAP,

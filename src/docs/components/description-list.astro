@@ -16,17 +16,23 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
+import descriptionListItemApi from "../../component-api/description-list-item/api"
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
   "Description lists are used to display a list of terms and their descriptions."
+
+export const keywords = ["dl", "key value", "properties"]
 ---
 
 <Component
   description={description}
   slug="description-list"
   heroAnatomy
-  apis={[{ title: "Description list API", api: descriptionListApi }]}
+  apis={[
+    { title: "Description list API", api: descriptionListApi },
+    { title: "Description list item API", api: descriptionListItemApi },
+  ]}
   browserSupport={["container-queries"]}
   changelogPaths={[
     {
@@ -69,13 +75,13 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="bordered">Bordered</h2>
+  <section id="bordered">
+    <h2>Bordered</h2>
     <Conditional as="div">
       <Fragment slot="components">
         <p>
@@ -101,8 +107,8 @@ export const description =
     <AutoExample name="Bordered" column spacious />
   </section>
 
-  <section>
-    <h2 id="orientation">Orientation</h2>
+  <section id="orientation">
+    <h2>Orientation</h2>
     <p>
       By default the term and the description stack when the list is
       <code>45ch</code> or narrower, and sit side by side when it's wider. Set
@@ -111,6 +117,16 @@ export const description =
       or summary card.
     </p>
     <AutoExample name="Orientation" />
+  </section>
+
+  <section id="total">
+    <h2>Total</h2>
+    <p>
+      <PropOrClass prop="total" class=".ui-total" /> on the last item draws a
+      line above it and makes it larger and bold, for the total of an order
+      summary or an invoice.
+    </p>
+    <AutoExample name="Total" />
   </section>
 
   <DescriptionListBuild slot="under-the-hood" />

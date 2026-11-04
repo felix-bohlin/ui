@@ -6,50 +6,6 @@
       flex: 1 1 24rem;
     }
 
-    .changelog-timeline {
-      --_gap: 0;
-    }
-
-    .changelog-release {
-      border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
-      display: grid;
-      gap: var(--ui-space-2) var(--ui-space-6);
-      padding-block-end: var(--ui-space-8);
-      padding-inline-start: var(--ui-space-5);
-      position: relative;
-
-      &::before {
-        background-color: var(--ui-surface);
-        block-size: var(--ui-space-3);
-        border: var(--ui-border-width-thick) solid var(--ui-text);
-        border-radius: var(--ui-radius-round);
-        content: "";
-        inline-size: var(--ui-space-3);
-        inset-block-start: var(--ui-space-1);
-        inset-inline-start: calc(
-          var(--ui-space-3) / -2 - var(--ui-border-width) / 2
-        );
-        position: absolute;
-      }
-
-      &:first-child::before {
-        background-color: var(--ui-primary);
-        border-color: var(--ui-primary);
-      }
-
-      &:last-child {
-        padding-block-end: 0;
-      }
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: 10rem minmax(0, 1fr);
-      }
-    }
-
-    .changelog-meta {
-      align-items: start;
-    }
-
     .changelog-cover {
       aspect-ratio: 3 / 1;
       background-image: linear-gradient(
@@ -104,16 +60,18 @@
     </div>
   </div>
 
-  <ol class="ui-layout-column changelog-timeline">
-    <li class="changelog-release">
-      <div class="ui-layout-column ui-small changelog-meta">
-        <time datetime="2026-10-01">Oct 1, 2026</time>
-        <span class="ui-chip ui-small">
-          <span class="ui-text">v6.0.0 (latest)</span>
-        </span>
-      </div>
+  <ol class="ui-timeline" style="--_item-gap: var(--ui-space-8)">
+    <li aria-current="true">
+      <time datetime="2026-10-01">Oct 1, 2026</time>
       <div class="ui-layout-column">
-        <h2 class="ui-h4" id="changelog-6-0">AI planning and a faster board</h2>
+        <div class="ui-layout-row ui-small">
+          <h2 class="ui-h4" id="changelog-6-0">
+            AI planning and a faster board
+          </h2>
+          <span class="ui-chip ui-small">
+            <span class="ui-text">v6.0.0 (latest)</span>
+          </span>
+        </div>
         <div
           class="changelog-cover"
           role="img"
@@ -171,15 +129,15 @@
       </div>
     </li>
 
-    <li class="changelog-release">
-      <div class="ui-layout-column ui-small changelog-meta">
-        <time datetime="2026-09-12">Sep 12, 2026</time>
-        <span class="ui-chip ui-outlined ui-small">
-          <span class="ui-text">v5.8.0</span>
-        </span>
-      </div>
+    <li>
+      <time datetime="2026-09-12">Sep 12, 2026</time>
       <div class="ui-layout-column">
-        <h2 class="ui-h4" id="changelog-5-8">Guest access and saved views</h2>
+        <div class="ui-layout-row ui-small">
+          <h2 class="ui-h4" id="changelog-5-8">Guest access and saved views</h2>
+          <span class="ui-chip ui-outlined ui-small">
+            <span class="ui-text">v5.8.0</span>
+          </span>
+        </div>
         <p>
           Invite clients and contractors to single projects, and save any filter
           combination as a shared view.
@@ -205,15 +163,15 @@
       </div>
     </li>
 
-    <li class="changelog-release">
-      <div class="ui-layout-column ui-small changelog-meta">
-        <time datetime="2026-08-28">Aug 28, 2026</time>
-        <span class="ui-chip ui-outlined ui-small">
-          <span class="ui-text">v5.7.2</span>
-        </span>
-      </div>
+    <li>
+      <time datetime="2026-08-28">Aug 28, 2026</time>
       <div class="ui-layout-column">
-        <h2 class="ui-h4" id="changelog-5-7-2">Bug fixes</h2>
+        <div class="ui-layout-row ui-small">
+          <h2 class="ui-h4" id="changelog-5-7-2">Bug fixes</h2>
+          <span class="ui-chip ui-outlined ui-small">
+            <span class="ui-text">v5.7.2</span>
+          </span>
+        </div>
         <div class="ui-layout-column ui-small changelog-group">
           <h3 class="ui-h6 ui-layout-row ui-small">
             <span class="ui-swatch ui-warning"></span>Fixed

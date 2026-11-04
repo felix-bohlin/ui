@@ -1,3 +1,8 @@
+import {
+  reactKinds,
+  reactPropsOf,
+  resolveReactProp,
+} from "./example-react-props.mjs"
 import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
   componentImport,
@@ -127,6 +132,14 @@ export const toVue = (component) => {
         !props.some((entry) => entry.prop === key),
     )
     .toSorted(byName)
+  const castsToFalse = (prop) => {
+    if (!component.element || component.baseProps?.includes(prop)) return false
+    const attributes = reactPropsOf(component.element, false) ?? new Map()
+    return reactKinds(
+      attributes,
+      resolveReactProp(attributes, prop) ?? prop,
+    ).has("boolean")
+  }
   const declared = [
     ...(classInScript
       ? [{ prop: "class", text: `class: ${classProp.local}` }]
@@ -149,7 +162,7 @@ export const toVue = (component) => {
         text: `${local === prop ? prop : `${propKey(prop)}: ${local}`}${
           fallback
             ? ` = ${fallback}`
-            : item && local === item.checked
+            : (item && local === item.checked) || castsToFalse(prop)
               ? " = undefined"
               : ""
         }`,

@@ -37,6 +37,8 @@ import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
   "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
+
+export const keywords = ["lightbox", "modal", "overlay", "popup"]
 ---
 
 <Component
@@ -52,12 +54,16 @@ export const description =
     "backdrop-filter",
     "container-scroll-state-queries",
     "dialog-closedby",
+    "display-animation",
     "has",
     "invoker-commands",
+    "logical-properties",
     "overflow-clip",
+    "overlay",
     "round-mod-rem",
     "scrollbar-gutter",
     "starting-style",
+    "transition-behavior",
   ]}
   changelogPaths={[
     {
@@ -120,8 +126,8 @@ export const description =
     </UICallout>
   </div>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
 
     <h3 id="modal">Modal</h3>
     <div class="ui-not-rich-text">
@@ -179,8 +185,8 @@ export const description =
     <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="footer">Footer</h2>
+  <section id="footer">
+    <h2>Footer</h2>
     <Conditional as="p">
       <Fragment slot="components">
         The <code>DialogFooter</code> is a row at the end, for buttons, text or
@@ -204,8 +210,8 @@ export const description =
     <AutoExample name="FooterContent" row />
   </section>
 
-  <section>
-    <h2 id="alert-dialog">Alert dialog</h2>
+  <section id="alert-dialog">
+    <h2>Alert dialog</h2>
     <p>
       Use <code>role="alertdialog"</code> when the dialog interrupts with
       something that needs a response, like confirming a destructive action.
@@ -216,8 +222,8 @@ export const description =
     <AutoExample name="AlertDialog" row />
   </section>
 
-  <section>
-    <h2 id="width">Width</h2>
+  <section id="width">
+    <h2>Width</h2>
     <p>
       The dialog is up to <code>60ch</code> wide. Set
       <code>--_max-inline-size</code> on it for a wider or narrower dialog, for
@@ -229,22 +235,26 @@ export const description =
     <AutoExample name="Width" row />
   </section>
 
-  <section>
-    <h2 id="long-content">Long content</h2>
+  <section id="long-content">
+    <h2>Long content</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The dialog grows up to 85% of the viewport height. The header and footer
-        stay put while the <code>DialogContent</code> scrolls, with a shadow on
-        the scrolled edge. A modal dialog also locks page scroll. The content is
-        a stack with <code>--ui-space-3</code> between its children, like a
-        Card's, unless it has inline children such as links.
+        The dialog grows up to 85% of the viewport height, minus
+        <code>--ui-space-4</code>. The header and footer stay put while the
+        <code>DialogContent</code> scrolls, with a shadow on the scrolled edge.
+        A modal dialog also locks page scroll, with a rule in
+        <code>core/utils.css</code>. The content is a stack with
+        <code>--ui-space-3</code> between its children, like a Card's, unless it
+        has inline children such as links.
       </Fragment>
       <Fragment slot="html">
-        The dialog grows up to 85% of the viewport height. The header and footer
-        stay put while <code>.ui-content</code> scrolls, with a shadow on the
-        scrolled edge. A modal dialog also locks page scroll. The content is a
-        stack with <code>--ui-space-3</code> between its children, like a
-        Card's, unless it has inline children such as links.
+        The dialog grows up to 85% of the viewport height, minus
+        <code>--ui-space-4</code>. The header and footer stay put while
+        <code>.ui-content</code> scrolls, with a shadow on the scrolled edge. A
+        modal dialog also locks page scroll, with a rule in
+        <code>core/utils.css</code>. The content is a stack with
+        <code>--ui-space-3</code> between its children, like a Card's, unless it
+        has inline children such as links.
       </Fragment>
     </Conditional>
     <Conditional as="p">
@@ -281,8 +291,8 @@ export const description =
     <AutoExample name="LongContent" row />
   </section>
 
-  <section>
-    <h2 id="how-to-close">How to close a dialog</h2>
+  <section id="how-to-close">
+    <h2>How to close a dialog</h2>
     <ClosedbyTable name="dialog" />
 
     <AutoExample name="CloseBehaviors" row />

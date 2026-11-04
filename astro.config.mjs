@@ -20,7 +20,7 @@ const slugsIn = (relDir) =>
     .filter((f) => f.endsWith(".astro"))
     .map((f) => f.replace(/\.astro$/, ""))
 
-const learnSlugs = slugsIn("./src/docs/learn").filter((s) => s !== "index")
+const blogSlugs = slugsIn("./src/docs/blog").filter((s) => s !== "index")
 const componentSlugs = slugsIn("./src/docs/components")
 const guideSlugs = ["getting-started", ...slugsIn("./src/docs/guide")]
 
@@ -49,9 +49,9 @@ const legacyRedirects = {
     ]),
   ),
   ...Object.fromEntries(
-    ["/blog", ...FRAMEWORK_IDS.map((f) => `/${f}/blog`)].flatMap((prefix) => [
-      [prefix, "/learn"],
-      ...learnSlugs.map((s) => [`${prefix}/${s}`, `/learn/${s}`]),
+    ["/learn", ...FRAMEWORK_IDS.map((f) => `/${f}/blog`)].flatMap((prefix) => [
+      [prefix, "/blog"],
+      ...blogSlugs.map((s) => [`${prefix}/${s}`, `/blog/${s}`]),
     ]),
   ),
 }
@@ -111,7 +111,28 @@ export default defineConfig({
           }
         },
       },
+      {
+        name: "opui-raw-without-module-edge",
+        apply: "serve",
+        enforce: "pre",
+        load(id) {
+          const [file, query] = id.split("?")
+          if (!query?.split("&").includes("raw") || !existsSync(file)) return
+          return `export default ${JSON.stringify(readFileSync(file, "utf-8"))}`
+        },
+      },
     ],
+    server: {
+      preTransformRequests: true,
+      watch: {
+        ignored: [
+          "**/.claude/worktrees/**",
+          "**/dist-test/**",
+          "**/playwright-report/**",
+          "**/tests/e2e/__screenshots__/**",
+        ],
+      },
+    },
   },
   devToolbar: { enabled: false },
   fonts: [

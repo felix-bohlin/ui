@@ -17,12 +17,8 @@ declare module "react" {
         HTMLAttributes<HTMLElement>,
         HTMLElement
       > & { label?: string | undefined }
-      "opui-color-field": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >
       "opui-copy": DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
-      "opui-number-stepper": DetailedHTMLProps<
+      "opui-number-field": DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
       >

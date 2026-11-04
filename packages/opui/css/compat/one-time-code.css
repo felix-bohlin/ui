@@ -1,0 +1,26 @@
+@layer components.compat {
+  @supports (-webkit-touch-callout: none) {
+    :where(.ui-one-time-code) {
+      .ui-field input {
+        field-sizing: fixed;
+        inline-size: calc((var(--_length) + 1) * var(--_cell-size));
+        margin-inline-end: calc(-1 * var(--_cell-size));
+        padding-inline-end: 0;
+      }
+
+      .ui-field input:required:valid {
+        caret-color: transparent;
+      }
+
+      &:focus-within .ui-field {
+        &::before {
+          mask-image: var(--_box-focus-image);
+        }
+
+        &::after {
+          content: none;
+        }
+      }
+    }
+  }
+}

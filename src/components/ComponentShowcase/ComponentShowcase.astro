@@ -19,7 +19,6 @@ import {
   Carousel,
   Checkbox,
   Chip,
-  ColorField,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListItem,
@@ -32,10 +31,16 @@ import {
   Form,
   List,
   ListItem,
-  NumberStepper,
+  Message,
+  Messages,
+  NumberField,
+  OneTimeCode,
   Progress,
   Radio,
   Range,
+  Rating,
+  Stat,
+  Stepper,
   Switch,
   Table,
   TableBody,
@@ -47,8 +52,10 @@ import {
   TabsItem,
   TabsLabel,
   TabsPanel,
-  TextField,
   Textarea,
+  TextField,
+  Timeline,
+  TimelineItem,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -207,17 +214,6 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       </div>
     </Fragment>
 
-    <Fragment slot="color-field">
-      <div aria-hidden="true" inert>
-        <ColorField
-          hideLabel
-          id="index-color-field-showcase"
-          label="Brand color"
-          value="oklch(0.62 0.17 250)"
-        />
-      </div>
-    </Fragment>
-
     <Fragment slot="copy">
       <div aria-hidden="true" class="ui-layout-row ui-small" inert>
         <TextField
@@ -286,13 +282,20 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </Fragment>
 
     <Fragment slot="layout">
-      <div class="ui-layout-grid ui-small showcase-layout" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="ui-layout-column ui-small showcase-layout" aria-hidden="true">
+        <div class="ui-layout-column ui-x-small">
+          <span class="showcase-layout-heading"></span>
+          <span class="showcase-layout-text"></span>
+        </div>
+        <div class="ui-layout-grid ui-x-small">
+          <span class="showcase-layout-tile"></span>
+          <span class="showcase-layout-tile"></span>
+          <span class="showcase-layout-tile"></span>
+        </div>
+        <div class="ui-layout-row ui-x-small showcase-layout-actions">
+          <span class="showcase-layout-button"></span>
+          <span class="showcase-layout-button showcase-layout-primary"></span>
+        </div>
       </div>
     </Fragment>
 
@@ -334,16 +337,31 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       </menu>
     </Fragment>
 
-    <Fragment slot="number-stepper">
+    <Fragment slot="message">
+      <Messages aria-hidden="true" style="inline-size: 14rem">
+        <Message author="Saga">
+          <p>Deck is out!</p>
+        </Message>
+        <Message author="You" outgoing>
+          <p>Great work.</p>
+        </Message>
+      </Messages>
+    </Fragment>
+
+    <Fragment slot="number-field">
       <div aria-hidden="true" inert>
-        <NumberStepper
+        <NumberField
           hideLabel
-          id="index-number-stepper-showcase"
+          id="index-number-field-showcase"
           label="Quantity"
           min={1}
           value={2}
         />
       </div>
+    </Fragment>
+
+    <Fragment slot="one-time-code">
+      <OneTimeCode aria-hidden="true" inert grouped label="Code" value="4821" />
     </Fragment>
 
     <Fragment slot="progress">
@@ -366,6 +384,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         min={0}
         max={100}
       />
+    </Fragment>
+
+    <Fragment slot="rating">
+      <Rating aria-hidden="true" label="Rated 4.5 out of 5" value={4.5} />
     </Fragment>
 
     <Fragment slot="select">
@@ -407,6 +429,20 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       </Table>
     </Fragment>
 
+    <Fragment slot="stat">
+      <Stat aria-hidden="true" label="Visitors">48 210</Stat>
+    </Fragment>
+
+    <Fragment slot="stepper">
+      <Stepper
+        aria-hidden="true"
+        current={1}
+        items={[{ label: "Cart" }, { label: "Details" }, { label: "Done" }]}
+        orientation="horizontal"
+        size="small"
+      />
+    </Fragment>
+
     <Fragment slot="tabs">
       <Tabs aria-hidden="true" inert name="index-tabs-showcase">
         <TabsItem checked>
@@ -430,6 +466,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
     <Fragment slot="textarea">
       <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
+    </Fragment>
+
+    <Fragment slot="timeline">
+      <Timeline aria-hidden="true" size="small" style="inline-size: 14rem">
+        <TimelineItem color="success" label="Shipped" time="Oct 1" />
+        <TimelineItem current label="Beta" time="Oct 14" />
+        <TimelineItem label="Launch" time="Oct 31" />
+      </Timeline>
     </Fragment>
 
     <Fragment slot="toast">
@@ -586,15 +630,52 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .showcase-layout {
-      --_min-inline-size: 4rem;
-
       inline-size: 100%;
+      max-inline-size: 16rem;
 
-      & > span {
-        background-color: var(--ui-surface-tonal);
-        block-size: var(--size-8);
+      .ui-layout-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      span {
         border-radius: var(--radius-2);
       }
+    }
+
+    .showcase-layout-heading,
+    .showcase-layout-text {
+      background-color: oklch(from var(--ui-text) l c h / 25%);
+      block-size: var(--size-2);
+    }
+
+    .showcase-layout-heading {
+      background-color: oklch(from var(--ui-text-strong) l c h / 45%);
+      inline-size: 40%;
+    }
+
+    .showcase-layout-text {
+      inline-size: 75%;
+    }
+
+    .showcase-layout-tile {
+      aspect-ratio: 4 / 3;
+      background-color: oklch(from var(--ui-primary) l c h / 8%);
+      border: 1px dashed oklch(from var(--ui-primary) l c h / 45%);
+    }
+
+    .showcase-layout-actions {
+      --_justify-content: flex-end;
+    }
+
+    .showcase-layout-button {
+      block-size: var(--size-4);
+      border: 1px solid oklch(from var(--ui-text) l c h / 35%);
+      inline-size: var(--size-8);
+    }
+
+    .showcase-layout-primary {
+      background-color: var(--ui-primary);
+      border-color: var(--ui-primary);
     }
 
     .showcase-menu {

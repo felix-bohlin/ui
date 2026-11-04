@@ -236,6 +236,7 @@ describe("theme tokens", () => {
       "--ui-button-hover-translate",
       "--ui-color-scheme",
       "--ui-contrast",
+      "--ui-ease-move",
     ])
   })
 

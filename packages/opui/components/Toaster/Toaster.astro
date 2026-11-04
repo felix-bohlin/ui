@@ -4,13 +4,26 @@ import { warnMissingId } from "../dev"
 
 export const title = "Toaster"
 
-const { class: className, closeLabel, duration, id, ...rest } = Astro.props
+const {
+  align,
+  class: className,
+  closeLabel,
+  duration,
+  id,
+  side,
+  ...rest
+} = Astro.props
 
 warnMissingId("Toaster", id)
 ---
 
 <opui-toaster
-  class:list={["ui-toaster", className]}
+  class:list={[
+    "ui-toaster",
+    side && side !== "block-end" && `ui-${side}`,
+    align && align !== "end" && `ui-align-${align}`,
+    className,
+  ]}
   close-label={closeLabel}
   duration={duration}
   id={id}

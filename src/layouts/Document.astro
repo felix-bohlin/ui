@@ -1,5 +1,6 @@
 ---
 import Default from "./Default.astro"
+import ReadingProgress from "../components/ReadingProgress.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
 import SidebarNav, { type SidebarGroup } from "../components/SidebarNav.astro"
@@ -12,7 +13,6 @@ type Props = {
   overline?: string
   showToc?: boolean
   sidebarGroups?: SidebarGroup[]
-  transitionName?: string
   wide?: boolean
 }
 
@@ -23,7 +23,6 @@ const {
   overline,
   showToc = true,
   sidebarGroups = [],
-  transitionName,
   wide,
 } = Astro.props
 const hasSidebarNav = sidebarGroups.length > 0
@@ -87,34 +86,15 @@ const descText =
     <main id="main-content">
       <article class="ui-rich-text">
         <hgroup id="main-heading">
-          {overline && <p
-            class:list={{ "doc-transition": transitionName }}
-            style={
-              transitionName && `view-transition-name: ${transitionName}-date`
-            }
-          >
-            {overline}
-          </p>}
-          <h1
-            class:list={{ "doc-transition": transitionName }}
-            style={
-              transitionName && `view-transition-name: ${transitionName}-title`
-            }
-          >
+          {overline && <p>{overline}</p>}
+          <h1>
             <slot name="title" />
           </h1>
           {preamble &&
             (preambleHasBlockMarkup ? (
               <Fragment set:html={preamble} />
             ) : (
-              <p
-                class:list={{ "doc-transition": transitionName }}
-                set:html={preamble}
-                style={
-                  transitionName &&
-                  `view-transition-name: ${transitionName}-description`
-                }
-              />
+              <p set:html={preamble} />
             ))}
         </hgroup>
 
@@ -123,13 +103,14 @@ const descText =
     </main>
 
     {showToc && <aside class="page-contents">
+      <ReadingProgress />
       <TableOfContents slot="table-of-contents" />
     </aside>}
   </div>
 </Default>
 
 <script>
-  import { isContentHeading } from "../utils/headings"
+  import { headingId, isContentHeading } from "../utils/headings"
 
   const headings = document.querySelectorAll(
     "#main-content :is(h2, h3, h4, h5, h6)",
@@ -147,14 +128,15 @@ const descText =
       heading.appendChild(span)
     }
 
+    const id = headingId(heading)
     if (
       !heading.querySelector(".header-anchor") &&
-      heading.id &&
+      id &&
       !heading.matches(".ui-sr-only")
     ) {
       const anchor = document.createElement("a")
       anchor.className = "header-anchor"
-      anchor.href = `#${heading.id}`
+      anchor.href = `#${id}`
       anchor.ariaLabel = `Permalink to "${heading.textContent?.trim()}"`
       anchor.textContent = "\u200B"
       heading.appendChild(anchor)
@@ -163,15 +145,6 @@ const descText =
 </script>
 
 <style is:global>
-  .doc-transition {
-    inline-size: fit-content;
-    view-transition-class: doc-heading;
-  }
-
-  h1 + .doc-transition {
-    view-transition-class: doc-heading doc-reflow;
-  }
-
   @property --content-inline-size {
     inherits: true;
     initial-value: 100%;
@@ -179,7 +152,11 @@ const descText =
   }
 
   :where(#main-content > .ui-rich-text) > :where(:not(section)),
-  :where(#main-content > .ui-rich-text) > section > :where(:not(.is-wide)) {
+  :where(#main-content > .ui-rich-text) > section > :where(:not(.is-wide)),
+  :where(#main-content > .ui-rich-text)
+    > section
+    > :where(.conditional)
+    > :where(:not(.is-wide)) {
     max-inline-size: var(--content-inline-size);
   }
 

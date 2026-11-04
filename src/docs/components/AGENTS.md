@@ -76,8 +76,8 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
     <DocLink href="/components/related" class="ui-link">Related</DocLink>.
   </Fragment>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <AutoExample name="Basics" row />
   </section>
 </Component>
@@ -120,9 +120,9 @@ The `Component` layout renders a page in this order. Only the default slot is or
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up.
+4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
-   1. Basics: the plain component, usually under `<h2 id="basics">Basics</h2>`.
+   1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.
    3. Sizes and density.
    4. Parts and content: labels, icons, slots, affixes.
@@ -224,7 +224,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 Place logic in a `<script>` tag.
 
 - Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate. In the HTML examples, `pnpm build-examples` numbers the ids components generate in document order after the numbers the example writes itself, and `tests/unit/example-ids.test.ts` checks that every id in them is unique, resolves and belongs to one component instance.
-- The HTML example gets each `<script>` without its types in its own `<script type="module">`, after one module that imports the custom elements and helpers its components render. Write the React, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
+- The HTML example gets each `<script>` without its types in its own `<script type="module">`, after one module that imports the custom elements and helpers its components render, less a module the `<script>` imports from `opui-css` itself. Write the React, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
 - The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)
@@ -261,7 +261,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 
 ### 5.7 Usage
 
-Every component page fills the `usage` slot with the `Usage` partial ([partials/Usage.astro](partials/Usage.astro)). The layout renders it as "Usage" after the preamble and the hero anatomy, and the partial adds the "When to use" and "When not to use" headings. Each `<li slot="when">` and `<li slot="when-not">` is one item:
+Every component page fills the `usage` slot with the `Usage` partial ([partials/Usage.astro](partials/Usage.astro)). The layout renders it as a collapsed "Usage" accordion after the preamble and the hero anatomy (a link to `#when-to-use` or `#when-not-to-use` opens it), and the partial adds the "When to use" and "When not to use" headings. Each `<li slot="when">` and `<li slot="when-not">` is one item:
 
 ```astro
 <Usage slot="usage">
@@ -300,7 +300,7 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
   - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout" or "Resize any button with the `.ui-small` and `.ui-large` classes").
   - **Omit** when the heading is self-explanatory and the configuration is static or default (e.g., "Image", "Letter", or "Icon" sections for an Avatar). If the section merely showcases a built-in capability without requiring specific prop-based modification logic to understand, skip the description to avoid "stating the obvious."
   - **Framework-Specific Counterparts**: Descriptions should always have framework-specific counterparts when referring to implementation details (like props vs. classes). Use the `<Conditional>` component (or `<PropOrClass>` for a single prop or class) to ensure the technical guidance matches the active framework's URL.
-- **Functional Parity**: The hand-written React, Svelte and Vue versions of a script example do what its `<script>` does, so every format results in the same visual and functional output in its preview.
+- **Functional Parity**: The hand-written React, Svelte and Vue versions of a script example do what its `<script>` does, so every format results in the same visual and functional output in its preview. `tests/unit/example-scripts.test.ts` checks that an HTML example imports the modules its markup needs.
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.
 - **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content". The "When not to use" list in Usage is the exception, and each of its items says what to use instead.

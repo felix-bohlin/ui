@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
+      "Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
   "--_affix-button-size": {

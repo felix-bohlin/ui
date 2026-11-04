@@ -50,8 +50,11 @@ const count = sections.reduce(
     <Checkbox id="checks-hide-done" size="small">Hide checked</Checkbox>
   </section>
 
-  {sections.map((section) => <section data-check-section={section.title}>
-    <h2 id={slugify(section.title)}>{section.title}</h2>
+  {sections.map((section) => <section
+    data-check-section={section.title}
+    id={slugify(section.title)}
+  >
+    <h2>{section.title}</h2>
     <p class="checks-section-progress" data-section-progress />
     <ol class="checks-list ui-not-rich-text">
       {section.items.map((item) => <li

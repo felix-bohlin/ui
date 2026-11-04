@@ -9,6 +9,8 @@ import DividerCSS from "@opui/css/components/divider.css?raw"
 import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 
 import dividerApi from "../../component-api/divider/api"
+
+export const keywords = ["hr", "rule", "separator"]
 ---
 
 <Component
@@ -54,13 +56,13 @@ import dividerApi from "../../component-api/divider/api"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="div">
       <p slot="components">
         Use the <code>variant</code> prop to change the line color, and
@@ -75,8 +77,8 @@ import dividerApi from "../../component-api/divider/api"
     <AutoExample name="Variants" />
   </section>
 
-  <section>
-    <h2 id="content">Content</h2>
+  <section id="content">
+    <h2>Content</h2>
     <Conditional as="div">
       <p slot="components">
         Put text or any element inside the divider (children in React and
@@ -99,14 +101,15 @@ import dividerApi from "../../component-api/divider/api"
     <AutoExample name="Content" column />
   </section>
 
-  <section>
-    <h2 id="spacing">Spacing</h2>
+  <section id="spacing">
+    <h2>Spacing</h2>
     <p>
       The space above and below a divider is <code>--ui-divider-gap</code>.
-      Cards, callouts, dialogs and drawers set a tighter value, and a divider
-      that is a direct child of a card has no margin, since the card's gap
-      already spaces it. Set <code>--ui-divider-gap</code> on any wrapper to
-      change it for every divider inside.
+      Accordions, cards, callouts, dialogs and drawers set a tighter value, and
+      a divider that is a direct child of a card has no margin, since the card's
+      gap already spaces it. Set <code>--ui-divider-gap</code> on any wrapper to
+      change it for every divider inside that isn't in one of those components,
+      and on the component itself for the dividers in it.
     </p>
     <AutoExample name="Spacing" column />
   </section>

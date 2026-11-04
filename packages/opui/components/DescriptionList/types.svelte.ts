@@ -5,6 +5,7 @@ export type Props = Base.Props & SvelteHTMLElements["dl"]
 
 export type DescriptionListDescriptionProps = SvelteHTMLElements["dd"]
 
-export type DescriptionListItemProps = SvelteHTMLElements["div"]
+export type DescriptionListItemProps = Base.DescriptionListItemProps &
+  SvelteHTMLElements["div"]
 
 export type DescriptionListTermProps = SvelteHTMLElements["dt"]

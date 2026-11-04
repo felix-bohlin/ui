@@ -28,8 +28,8 @@ const stylesheets = pageStylesheets(slug)
   .filter(({ rows }) => rows.length > 0)
 ---
 
-{stylesheets.length > 0 && <section>
-  <h2 id="component-properties">Component properties</h2>
+{stylesheets.length > 0 && <section id="component-properties">
+  <h2>Component properties</h2>
   <p>
     Set these on the component itself, inline or in your own CSS. Inputs are the
     knobs. Outputs are derived from the inputs and the current state, so

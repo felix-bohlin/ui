@@ -164,6 +164,29 @@ interaction(
 
 interaction(
   "checkbox",
+  "Indeterminate",
+  "select all leaves out a checkbox in a disabled fieldset",
+  async ({ root }) => {
+    const all = root.getByRole("checkbox", { name: "Select all" })
+    const cherries = root.getByRole("checkbox", { name: "Cherries" })
+
+    await root.locator(".ui-field-group").evaluate((group) => {
+      const fieldset = document.createElement("fieldset")
+      fieldset.disabled = true
+      fieldset.append(group.lastElementChild!)
+      group.append(fieldset)
+    })
+    await expect(cherries).toBeDisabled()
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect(all).toBeChecked()
+    await expect(all).toHaveJSProperty("indeterminate", false)
+    await expect(cherries).not.toBeChecked()
+  },
+)
+
+interaction(
+  "checkbox",
   "Validation",
   "a required checkbox only looks invalid once the user unchecks it",
   async ({ page, root }) => {
@@ -1110,6 +1133,42 @@ interaction(
 )
 
 interaction(
+  "message",
+  "Attachments",
+  "a card in an outgoing message keeps the text color of an incoming one",
+  async ({ root }) => {
+    const [incoming, outgoing] = await root
+      .locator(".ui-card .ui-icon")
+      .evaluateAll((icons) => icons.map((icon) => getComputedStyle(icon).color))
+
+    expect(outgoing).toBe(incoming)
+  },
+)
+
+interaction(
+  "message",
+  "Reactions",
+  "reactions sit on the bubble's bottom edge and a checked one keeps the focus ring color",
+  async ({ page, root }) => {
+    const message = root.locator(".ui-message").first()
+    const bubble = await message.locator(".ui-content").boundingBox()
+    const pill = message.locator(".ui-toggle-button").first()
+    const box = await pill.boundingBox()
+
+    expect(box!.y).toBeLessThan(bubble!.y + bubble!.height)
+    expect(box!.y + box!.height).toBeGreaterThan(bubble!.y + bubble!.height)
+
+    await expect(pill.getByRole("checkbox")).toBeChecked()
+    await pill.getByRole("checkbox").focus()
+    await page.keyboard.press("Shift+Tab")
+    await page.keyboard.press("Tab")
+    expect(await computed(pill, "outline-color")).toBe(
+      await resolveColor(root, "var(--ui-focus-ring-color)"),
+    )
+  },
+)
+
+interaction(
   "table",
   "StickyHeader",
   "the sticky header stays while the body scrolls",
@@ -1150,9 +1209,9 @@ interaction(
 )
 
 interaction(
-  "number-stepper",
+  "number-field",
   "Basics",
-  "number stepper steps with its buttons and stops at the limits",
+  "number field steps with its buttons and stops at the limits",
   async ({ root }) => {
     const input = root.getByRole("spinbutton", { name: "Quantity" })
     const decrease = root.getByRole("button", { name: "Decrease" })
@@ -1175,9 +1234,9 @@ interaction(
 )
 
 interaction(
-  "number-stepper",
+  "number-field",
   "EndText",
-  "number stepper end text describes the input",
+  "number field end text describes the input",
   async ({ root }) => {
     await expect(
       root.getByRole("spinbutton", { name: "Guests" }),
@@ -1186,9 +1245,9 @@ interaction(
 )
 
 interaction(
-  "number-stepper",
+  "number-field",
   "Basics",
-  "number stepper repeats while a button is held",
+  "number field repeats while a button is held",
   async ({ page, root }) => {
     const input = root.getByRole("spinbutton", { name: "Quantity" })
     const increase = root.getByRole("button", { name: "Increase" })
@@ -1268,15 +1327,29 @@ const stubClipboard = (page: Page) =>
     }
   })
 
+const stubCopyCommand = (page: Page, works: boolean) =>
+  page.evaluate((works) => {
+    const copied: string[] = []
+    Object.assign(window, { copied })
+    document.execCommand = (command: string) => {
+      const field = document.activeElement as HTMLTextAreaElement
+      if (works && command === "copy") {
+        copied.push(field.value.slice(field.selectionStart, field.selectionEnd))
+      }
+      return works
+    }
+  }, works)
+
 const copiedTexts = (page: Page) =>
   page.evaluate(() => (window as unknown as { copied: string[] }).copied)
 
 interaction(
   "copy",
   "Basics",
-  "copy copies the field value and announces it",
+  "copy copies the field value and shows and announces it next to the button",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
 
     await expect(button).toBeVisible()
     await stubClipboard(page)
@@ -1284,23 +1357,127 @@ interaction(
     await expect
       .poll(() => copiedTexts(page))
       .toEqual(["https://example.com/invite/8f3k2"])
-    await expect(button).toHaveAttribute("data-copied", "")
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText("Copied")
     await expect(root.getByRole("status")).toHaveText("Copied")
-    await expect(button).not.toHaveAttribute("data-copied", { timeout: 4000 })
+    const [labelBox, buttonBox] = await Promise.all([
+      label.boundingBox(),
+      button.boundingBox(),
+    ])
+    expect(labelBox!.height).toBeCloseTo(buttonBox!.height, 0)
+    expect(labelBox!.y).toBeCloseTo(buttonBox!.y, 0)
+    await expect(button).not.toHaveAttribute("data-copied")
+    await expect(label).toBeHidden({ timeout: 4000 })
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy shows a failure until Esc and selects the field when the clipboard is blocked",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const field = root.getByRole("textbox", { name: "Invite link" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, false)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () =>
+        Promise.reject(new DOMException("Blocked", "NotAllowedError"))
+    })
+    await button.click()
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText("Copy failed")
+    await expect(root.getByRole("status")).toHaveText("Copy failed")
+    await expect(field).toBeFocused()
+    await expect
+      .poll(() =>
+        field.evaluate((input: HTMLInputElement) =>
+          input.value.slice(input.selectionStart!, input.selectionEnd!),
+        ),
+      )
+      .toBe("https://example.com/invite/8f3k2")
+    await page.keyboard.press("Escape")
+    await expect(label).toBeHidden()
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies with a selection where the page has no Clipboard API",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, true)
+    await page.evaluate(() =>
+      Object.defineProperty(navigator, "clipboard", { value: undefined }),
+    )
+    await button.click()
+    await expect(label).toHaveText("Copied")
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies with a selection when the clipboard never answers",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, true)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () => new Promise(() => {})
+    })
+    await button.click()
+    await expect(label).toHaveText("Copied", { timeout: 5000 })
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
   },
 )
 
 interaction(
   "copy",
   "Snippet",
-  "copy leaves the button out of the copied text",
+  "copy leaves the button and its tooltip out of the copied text",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
 
     await expect(button).toBeVisible()
     await stubClipboard(page)
     await button.click()
     await expect.poll(() => copiedTexts(page)).toEqual(["npm install opui-css"])
+    await expect(label).toHaveText("Copied")
+  },
+)
+
+interaction(
+  "copy",
+  "Snippet",
+  "copy keeps the tooltip closed while the label shows",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+    const tooltip = root.locator(".ui-tooltip > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect(label).toBeVisible()
+    await expect(tooltip).toBeHidden()
+    await page.waitForTimeout(1000)
+    await expect(label).toBeVisible()
+    await expect(tooltip).toBeHidden()
   },
 )
 
@@ -1326,6 +1503,116 @@ interaction(
     await toasts.first().getByRole("button", { name: "Close" }).focus()
     await page.keyboard.press("Escape")
     await expect(toasts).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Script",
+  "toast() shows a toast with its severity icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Save changes" }).click()
+    const toast = page.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Changes saved")
+    await expect(toast).toHaveClass(/ui-success/)
+    await expect(toast.locator(':scope > svg[aria-hidden="true"]')).toHaveCount(
+      1,
+    )
+    await expect(toast.getByRole("img")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Action",
+  "an action runs, dismisses its toast, and preventDefault keeps it",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const toasts = page.locator("opui-toaster li:not([inert])")
+    await root.getByRole("button", { name: "Archive" }).click()
+    const archived = toasts.filter({ hasText: "Conversation archived" })
+    await expect(archived).toHaveCount(1)
+    await expect(archived.getByRole("button")).toHaveText(["Undo", ""])
+    await expect(archived.getByRole("button").last()).toHaveAccessibleName(
+      "Close",
+    )
+    await archived.getByRole("button", { name: "Undo" }).click()
+    await expect(archived).toHaveCount(0)
+    await expect(
+      toasts.filter({ hasText: "Conversation restored" }),
+    ).toHaveCount(1)
+
+    const kept = await page.evaluate(async () => {
+      const toaster = document.querySelector<
+        HTMLElement & {
+          show: (
+            message: string,
+            options: {
+              action: { label: string; onClick: (event: MouseEvent) => void }
+            },
+          ) => HTMLLIElement | null
+        }
+      >("opui-toaster")!
+      let ran = 0
+      const item = toaster.show("Kept", {
+        action: {
+          label: "Stay",
+          onClick: (event) => {
+            ran++
+            event.preventDefault()
+          },
+        },
+      })
+      item?.querySelector<HTMLButtonElement>("button")?.click()
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      return { open: !!item?.isConnected && !item.inert, ran }
+    })
+    expect(kept).toEqual({ open: true, ran: 1 })
+  },
+)
+
+interaction(
+  "toast",
+  "Position",
+  "side and align move the toasts",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const { height, width } = page.viewportSize()!
+    const names = [
+      "Top start",
+      "Top center",
+      "Top end",
+      "Bottom start",
+      "Bottom center",
+      "Bottom end",
+    ]
+    for (const [index, name] of names.entries()) {
+      await root.getByRole("button", { name }).click()
+      const list = root.locator(`#toast-position-${index + 1} ol`)
+      await expect(list).toBeVisible()
+      const box = (await list.boundingBox())!
+      const [side, align] = name.split(" ")
+      if (side === "Top") expect(box.y).toBeLessThan(height / 2)
+      else expect(box.y).toBeGreaterThan(height / 2)
+      const center = box.x + box.width / 2
+      if (align === "start") expect(center).toBeLessThan(width / 3)
+      else if (align === "end") expect(center).toBeGreaterThan((width * 2) / 3)
+      else expect(Math.abs(center - width / 2)).toBeLessThan(2)
+    }
+  },
+)
+
+interaction(
+  "toast",
+  "Severities",
+  "a toast without a severity has no icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Default" }).click()
+    const toast = root.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Draft saved")
+    await expect(toast.locator(":scope > svg")).toHaveCount(0)
   },
 )
 
@@ -1424,79 +1711,5 @@ interaction(
     await expect(page.locator("[data-opui-announcer]")).toHaveText(
       "10 characters to go",
     )
-  },
-)
-
-interaction(
-  "color-field",
-  "Basics",
-  "color field sliders write an oklch() value",
-  async ({ page, root }) => {
-    const input = root.getByRole("textbox", { name: "Brand color" })
-    const picker = root.getByRole("button", { name: "Pick a color" })
-
-    await expect(input).toHaveValue("oklch(0.6 0.15 250)")
-    await picker.click()
-    const hue = root.getByRole("slider", { name: "Hue" })
-    await expect(hue).toBeVisible()
-    await expect(hue).toHaveAttribute("aria-valuetext", "250 degrees")
-    await hue.focus()
-    await page.keyboard.press("End")
-    await expect(input).toHaveValue("oklch(0.6 0.15 0)")
-    await page.keyboard.press("Escape")
-    await expect(hue).toBeHidden()
-    await expect(picker).toBeFocused()
-  },
-)
-
-interaction(
-  "color-field",
-  "Basics",
-  "color field turns a typed color into oklch() and flags text that isn't one",
-  async ({ root }) => {
-    const input = root.getByRole("textbox", { name: "Brand color" })
-
-    await expect(
-      root.getByRole("button", { name: "Pick a color" }),
-    ).toBeVisible()
-    await input.fill("red")
-    await input.press("Tab")
-    await expect(input).toHaveValue(/^oklch\(0\.6\d* 0\.2\d* 29(\.\d+)?\)$/)
-    expect(
-      await input.evaluate((el: HTMLInputElement) => el.validity.valid),
-    ).toBe(true)
-
-    await input.fill("nope")
-    await input.press("Tab")
-    await expect(input).toHaveValue("nope")
-    expect(
-      await input.evaluate((el: HTMLInputElement) => el.validity.valid),
-    ).toBe(false)
-  },
-)
-
-interaction(
-  "color-field",
-  "FormValue",
-  "color field submits and resets its oklch() value",
-  async ({ page, root }) => {
-    const input = root.getByRole("textbox", { name: "Brand color" })
-    const form = root.locator("form")
-    const value = () =>
-      form.evaluate((el: HTMLFormElement) => new FormData(el).get("brand"))
-
-    expect(await value()).toBe("oklch(0.6 0.15 250)")
-    await root.getByRole("button", { name: "Pick a color" }).click()
-    const lightness = root.getByRole("slider", { name: "Lightness" })
-    await lightness.focus()
-    await page.keyboard.press("Home")
-    await expect(input).toHaveValue("oklch(0 0.15 250)")
-    expect(await value()).toBe("oklch(0 0.15 250)")
-    await page.keyboard.press("Escape")
-
-    await root.getByRole("button", { name: "Reset" }).click()
-    await expect(input).toHaveValue("oklch(0.6 0.15 250)")
-    await root.getByRole("button", { name: "Pick a color" }).click()
-    await expect(lightness).toHaveAttribute("aria-valuetext", "60%")
   },
 )

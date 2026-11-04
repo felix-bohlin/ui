@@ -14,8 +14,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     you need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
       The components ship as uncompiled Svelte components (<code>.svelte</code>
       and <code>.ts</code>), so your build has to compile them. They need Svelte
@@ -26,26 +26,14 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     </p>
     <InstallCommand />
     <p>
-      SvelteKit compiles the package for server rendering through its
-      <code>svelte</code> field. In a Vite SSR setup of your own, add it to
-      <code>ssr.noExternal</code>, since Node can't load <code>.svelte</code>
-      files from <code>node_modules</code>:
+      <code>@sveltejs/vite-plugin-svelte</code> compiles the components for
+      server rendering too, in SvelteKit and in a Vite setup of your own alike:
+      it picks up the package through its <code>svelte</code> export condition.
     </p>
-    <Code
-      code={`// vite.config.ts
-import { svelte } from "@sveltejs/vite-plugin-svelte"
-import { defineConfig } from "vite"
-
-export default defineConfig({
-  plugins: [svelte()],
-  ssr: { noExternal: ["opui-css"] },
-})`}
-      lang="ts"
-    />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
       Svelte components ship markup only - the CSS still has to be imported
       once, in your root layout or the entry file that mounts your app. Import
@@ -80,8 +68,8 @@ export default defineConfig({
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`<script lang="ts">
   import { Button } from "opui-css/svelte"
@@ -95,16 +83,19 @@ export default defineConfig({
       <code>DialogFooter</code>. Other slots are snippets: the default slot is
       <code>children</code> and named slots are camelCased, such as
       <code>endText</code>. <code>TextField</code>, <code>Textarea</code>,
-      <code>Select</code> and <code>Range</code> support <code>bind:value</code
-      >. <code>Checkbox</code> and <code>Switch</code> support
-      <code>bind:checked</code> and <code>bind:group</code>, and
+      <code>Select</code>, <code>Range</code>, <code>NumberField</code>,
+      <code>OneTimeCode</code>, <code>Rating</code>, <code>Tabs</code> and
+      <code>ToggleGroup</code> support <code>bind:value</code>.
+      <code>Checkbox</code> and <code>Switch</code> support
+      <code>bind:checked</code> and <code>bind:group</code>,
+      <code>ToggleButton</code> supports <code>bind:checked</code>, and
       <code>Radio</code> supports <code>bind:group</code>.
     </p>
     <NextSteps />
   </section>
 
-  <section>
-    <h2 id="ssr">Server rendering</h2>
+  <section id="ssr">
+    <h2>Server rendering</h2>
     <p>
       Without hydration (SvelteKit with <code>csr = false</code>, or Astro with
       <code>@astrojs/svelte</code> and no <code>client:*</code> directive),

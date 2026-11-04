@@ -3,23 +3,28 @@ import type { CustomProperties } from "../types"
 export default {
   "--_duration": {
     description:
-      "Duration of the header shadow transition, `--ui-duration` times `--_motion`.",
+      "Duration of the header shadow transition in `.ui-sticky-header`, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the header shadow transition. Defaults to `--ui-ease`.",
+      "Easing of the row and header shadow transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_motion": {
     description:
-      "Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.",
+      "Motion multiplier for the row and header shadow transitions. `0` turns them off.",
     kind: "input",
   },
   "--_radius": {
     description:
       "Corner radius of the table and its corner cells. Defaults to `--ui-radius`.",
     kind: "input",
+  },
+  "--_row-duration": {
+    description:
+      "Duration of the row hover transition, `--ui-duration-fast` times `--_motion`. A hovered row changes at once and fades back over this duration.",
+    kind: "output",
   },
   "--_scroll-shadow": {
     description:

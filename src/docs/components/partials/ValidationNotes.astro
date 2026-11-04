@@ -46,7 +46,8 @@ const { element, named, subject } = Astro.props
   </li>
   <li>
     {subject} also get the invalid styles from the browser's own validation
-    (<code>:user-invalid</code>), after the user has edited them. Use
+    (<code>:user-invalid</code>), after the user has changed them or tried to
+    submit the form. Use
     <PropOrClass prop="error" class='aria-invalid="true"' /> for server-side
     errors.
   </li>

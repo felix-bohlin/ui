@@ -226,9 +226,9 @@ One concept has one prop name and one set of values in every component. `tests/u
   - A boolean is off when it's left out, so its class is never the framework default. Its name says what turning it on does, never what it turns off: no `no`, `non`, `not` or `un` prefix, no `less` suffix, and no `hide` prefix except `hideLabel` (a Tooltip shows its arrow with `arrow`, not `hideArrow`). `.ui-not-rich-text` is the one exception, since it ends a `.ui-rich-text` scope from inside instead of turning off a feature of its own element.
   - When the usual case is the one people turn off, the modifier is an enum with the usual case as its named default (Carousel `buttons`: `inside`, `none`, `outside`).
   - A modifier with several values is an enum named after the concept.
-  - A component never has both for one concept, and never two booleans for one axis (`overflow`, not `scrollable` and `shrink`).
+  - `tests/unit/naming.test.ts` fails on a boolean and an enum for one concept. A component never has two booleans for one axis either (`overflow`, not `scrollable` and `shrink`).
 - **One or many is the native `multiple`,** layout along an axis is `orientation` and overflow along it is `overflow`.
-- **`align` has one default per part,** wherever the part appears. `.ui-actions` and `.ui-footer` line up at the end in every container that has them.
+- **`align` has one default per part,** wherever the part appears: `tests/unit/align.test.ts` renders every part with an `align` option in every framework.
 - **Text:**
   - The primary text of anything is `label`, a string prop with a slot of the same name for rich content. Secondary text is `description`. Never `headline`, `text` or `title`.
   - Item objects (`MenuItem`, `RangeItem`, `SelectItem`) use `label`, `value` and `description`, and a list of them is `items`.
@@ -357,7 +357,7 @@ const {
   id,
   ...rest
 } = Astro.props
-const ids = createIds(Astro.locals, "number-stepper", id)
+const ids = createIds(Astro.locals, "number-field", id)
 const endTextId = endText ? ids("end-text") : undefined
 ---
 
@@ -529,16 +529,20 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
-- `ColorField`: the swatch is the picked color itself, so it keeps it with `forced-color-adjust: none`.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
+- `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
+- `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
+- `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.
 - `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
+- `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
 - `TextField`: the field border is real, but the focus outline gets `Highlight` and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers between buttons are shadows, so they become `CanvasText` borders.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
@@ -551,7 +555,8 @@ The components without a block, and why:
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Toaster`: every toast is a `Callout`, whose boundary is a real border.
-- `NumberStepper`: `number-stepper.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
+- `Stat`: text only, no boundary or state.
+- `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
@@ -571,3 +576,9 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 
 A new stylesheet goes in the group of the layer it declares, and a file that needs a layer its group doesn't allow moves group instead of opening the layer.
+
+---
+
+## 11. Motion
+
+A hover, pressed, checked or selected change that recolors or moves a control transitions, over a `--_*duration` the component scales by `--_motion` (Stylelint's `opui/motion-duration`) and with its `--_ease`, so it matches `Button` next to it. A control a click or tap turns on and off (`Checkbox`, `Radio`, `Switch`) is the exception: it changes at once both ways, so a click never looks unheard, and only its hover halo and focus ring animate. Rows you sweep the pointer across (`List`, `Menu` and `Table` rows, `Select` options) change at once on hover, with `transition-duration: 0s` in the `:hover` rule, and fade back over `--ui-duration-fast`, so a menu never lags behind the pointer. A change of the line itself (`text-decoration-line`, a `text-decoration-thickness` from `auto`) can't interpolate and stays a jump. Movement a theme may make springy (an indicator, a press, an overlay opening) reads `var(--ui-ease-move, var(--_ease))`, and nothing closing does: an overlay sets a private `--_ease-move` to it only in its open state. A press reads `scale: var(--ui-press-scale, none)`, except in a group.

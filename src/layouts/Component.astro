@@ -12,6 +12,9 @@ import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import Pagination from "../components/Pagination.astro"
 import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
   Button,
   Callout,
   CalloutContent,
@@ -33,7 +36,7 @@ import {
   type ChangelogPathEntry,
 } from "../utils/changelog"
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
-import { posts } from "../utils/learn-posts"
+import { posts } from "../utils/blog-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 import { blockHref, blocksUsing } from "../utils/blocks"
 import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
@@ -159,7 +162,7 @@ const imports =
       }
     : undefined
 
-const learnPosts = currentSlug
+const blogPosts = currentSlug
   ? posts.filter((post) => post.component === currentSlug)
   : []
 
@@ -210,25 +213,33 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     )}
   </BrowserSupportChips>}
 
-  {heroAnatomy && Astro.slots.has("anatomy") && <section class="component-hero">
-    <h2 id="anatomy" class="ui-sr-only">Anatomy</h2>
+  {heroAnatomy && Astro.slots.has("anatomy") && <section
+    class="component-hero"
+    id="anatomy"
+  >
+    <h2 class="ui-sr-only">Anatomy</h2>
     <slot name="anatomy" />
   </section>}
 
-  {Astro.slots.has("usage") && <section>
-    <h2 id="usage">Usage</h2>
-    <slot name="usage" />
+  {Astro.slots.has("usage") && <section id="usage">
+    <h2 class="ui-sr-only">Usage</h2>
+    <Accordion class="component-usage">
+      <AccordionSummary>Usage</AccordionSummary>
+      <AccordionContent>
+        <slot name="usage" />
+      </AccordionContent>
+    </Accordion>
   </section>}
 
   <slot />
 
-  {Astro.slots.has("accessibility") && <section>
-    <h2 id="accessibility">Accessibility</h2>
+  {Astro.slots.has("accessibility") && <section id="accessibility">
+    <h2>Accessibility</h2>
     <slot name="accessibility" />
   </section>}
 
-  {!heroAnatomy && Astro.slots.has("anatomy") && <section>
-    <h2 id="anatomy">Anatomy</h2>
+  {!heroAnatomy && Astro.slots.has("anatomy") && <section id="anatomy">
+    <h2>Anatomy</h2>
     <slot name="anatomy" />
   </section>}
 
@@ -236,12 +247,17 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 
   {currentSlug && <ComponentProperties slug={currentSlug} />}
 
-  {Astro.slots.has("under-the-hood") && <section>
-    <h2 id="under-the-hood">Under the hood</h2>
-    {learnPosts.map((learnPost) => <p>
+  {Astro.slots.has("under-the-hood") && <section id="under-the-hood">
+    <h2>Under the hood</h2>
+    {blogPosts.map((blogPost) => <p>
       Read the post:
-      <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
+      <a href={link(`/blog/${blogPost.slug}`)}>{blogPost.title}</a>
     </p>)}
+    <p>
+      The build-up below is simplified: it uses short class names and fixed
+      values where the component reads its tokens and private properties. The
+      component's CSS is the reference.
+    </p>
     <slot name="under-the-hood" />
   </section>}
 
@@ -255,8 +271,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     <slot name="installation" />
   )}
 
-  {usedInBlocks.length > 0 && <section>
-    <h2 id="used-in-blocks">Used in blocks</h2>
+  {usedInBlocks.length > 0 && <section id="used-in-blocks">
+    <h2>Used in blocks</h2>
     <ul class="used-in-blocks ui-not-rich-text">
       {usedInBlocks.map((block) => <li>
         <a class="ui-link" href={link(blockHref(block.slug))}>
@@ -266,8 +282,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     </ul>
   </section>}
 
-  {!!seeAlsoLinks?.length && <section>
-    <h2 id="see-also">See also</h2>
+  {!!seeAlsoLinks?.length && <section id="see-also">
+    <h2>See also</h2>
     <ul>
       {seeAlsoLinks.map((entry) => <li>
         <a href={entry.href.startsWith("/") ? link(entry.href) : entry.href}>
@@ -277,8 +293,8 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     </ul>
   </section>}
 
-  {(notes.length > 0 || changelog.length > 0) && <section>
-    <h2 id="changelog">Changelog</h2>
+  {(notes.length > 0 || changelog.length > 0) && <section id="changelog">
+    <h2>Changelog</h2>
     {whatsNew.length > 0 && <Callout
       severity="info"
       variant="tonal"
@@ -398,6 +414,10 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     .component-hero > h2 {
       margin: 0;
       position: absolute;
+    }
+
+    :global(.component-usage) {
+      margin-block-end: var(--size-4);
     }
 
     .component-footer {

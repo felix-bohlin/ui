@@ -388,33 +388,60 @@ describe("the three ports of a sample", () => {
       '<input type="text" {...rest} />',
       modelApi("checked", "input"),
       "the checked model of Sample, which isn't a value, checked or radio model of a control",
-      ["Sample.svelte", "Sample.vue"],
     ],
     [
       '<span {...rest}><input type="text" /><input type="text" /></span>',
       modelApi("value", "input"),
       "the value model of Sample, whose part input matches 2 elements",
-      ["Sample.svelte", "Sample.vue"],
+    ],
+    [
+      "<span {...rest}></span>",
+      modelApi("value", "input"),
+      "the value model of Sample, whose part input matches no element",
     ],
   ])(
-    "refuses the model for Svelte and Vue only: %s",
-    async (body, api, reason, refused) => {
-      const result = await compileComponent(
-        `---\nimport type { Props } from "./types.astro"\n\nconst { ...rest } = Astro.props\n---\n\n${body}\n`,
-        sampleFile(),
-        { api },
-      )
-      expect(
-        [...result.refused.keys()].map((target) => target.split("/").at(-1)),
-      ).toEqual(refused)
-      for (const error of result.refused.values()) {
-        expect(error.message).toContain(reason)
-      }
-      expect(
-        result.outputs.has(sampleFile().replace(".astro", ".react.tsx")),
-      ).toBe(true)
+    "refuses a model it can't bind in every framework: %s",
+    async (body, api, reason) => {
+      await expect(
+        compileComponent(
+          `---\nimport type { Props } from "./types.astro"\n\nconst { ...rest } = Astro.props\n---\n\n${body}\n`,
+          sampleFile(),
+          { api },
+        ),
+      ).rejects.toThrow(reason)
     },
   )
+
+  test("React takes an element attribute by its React name, and Vue keeps a boolean one undefined until it is set", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { autocomplete = "off", class: className, spellcheck, ...rest } = Astro.props\n---\n\n<span class:list={["ui-sample", className]}>\n  <input {...rest} autocomplete={autocomplete} spellcheck={spellcheck ?? "false"} />\n  <span popover></span>\n  <input disabled />\n</span>\n',
+      sampleFile(),
+      {
+        types:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Omit<HTMLAttributes<"input">, "maxlength">\n',
+      },
+    )
+    const port = (extension: string) =>
+      outputs.get(sampleFile().replace(".astro", extension))
+    expect(port(".react.tsx")).toContain('autoComplete: autocomplete = "off",')
+    expect(port(".react.tsx")).toContain("spellCheck: spellcheck,")
+    expect(port(".react.tsx")).toContain('<span popover="" />')
+    expect(port(".react.tsx")).toContain("<input disabled />")
+    expect(port(".vue")).toContain(
+      'const { autocomplete = "off", spellcheck = undefined } = defineProps<Props>()',
+    )
+    expect(
+      toTypes(
+        "Sample",
+        {
+          astro:
+            'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & Omit<HTMLAttributes<"input">, "maxlength">\n',
+          base: "export type Props = {}\n",
+        },
+        { Sample: ["default"] },
+      ).react,
+    ).toContain('Omit<ComponentProps<"input">, "maxLength">')
+  })
 
   test("a model whose context shares something else is refused in every framework", async () => {
     await expect(

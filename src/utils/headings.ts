@@ -22,3 +22,13 @@ export function getHeadings(
     container.querySelectorAll<HTMLHeadingElement>(selector),
   ).filter(isContentHeading)
 }
+
+export function headingId(heading: Element) {
+  const parent = heading.parentElement
+  return (
+    heading.id ||
+    (parent?.localName === "section" && parent.firstElementChild === heading
+      ? parent.id
+      : "")
+  )
+}

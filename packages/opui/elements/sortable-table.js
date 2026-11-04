@@ -8,6 +8,8 @@ const keyOf = (cell) =>
 export class SortableTable extends Base {
   #controller
   #status
+  #text = ""
+  #ready = false
 
   get table() {
     return this.querySelector("table")
@@ -54,9 +56,9 @@ export class SortableTable extends Base {
 
   #announce(header, direction) {
     const name = header.querySelector(":scope > button")?.textContent.trim()
-    const text = `${name}, ${this.dataset[direction] ?? direction}`
+    this.#text = `${name}, ${this.dataset[direction] ?? direction}`
     if (this.#status?.isConnected) {
-      this.#status.textContent = text
+      if (this.#ready) this.#status.textContent = this.#text
       return
     }
     const status = this.ownerDocument.createElement("span")
@@ -64,8 +66,10 @@ export class SortableTable extends Base {
     status.setAttribute("role", "status")
     this.append(status)
     this.#status = status
+    this.#ready = false
     setTimeout(() => {
-      status.textContent = text
+      this.#ready = true
+      status.textContent = this.#text
     }, 100)
   }
 

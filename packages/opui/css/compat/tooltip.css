@@ -4,6 +4,7 @@
       display: block;
       opacity: 1;
       position-anchor: --anchor;
+      scale: none;
 
       @starting-style {
         opacity: 0;
@@ -15,6 +16,7 @@
         display: block;
         opacity: 1;
         position-anchor: --anchor;
+        scale: none;
 
         @starting-style {
           opacity: 0;

@@ -14,6 +14,8 @@ import avatarGroupApi from "../../component-api/avatar-group/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
 export const description =
   "Avatars show a person or entity as an image, initials or icon."
+
+export const keywords = ["initials", "photo", "profile picture", "user"]
 ---
 
 <Component
@@ -63,26 +65,45 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="image">Image</h2>
+  <section id="image">
+    <h2>Image</h2>
 
     <AutoExample name="Image" row />
   </section>
 
-  <section>
-    <h2 id="letter">Letter</h2>
+  <section id="letter">
+    <h2>Letter</h2>
 
     <AutoExample name="Letter" row />
   </section>
 
-  <section>
-    <h2 id="icon">Icon</h2>
+  <section id="icon">
+    <h2>Icon</h2>
 
     <AutoExample name="Icon" row />
   </section>
 
-  <section>
-    <h2 id="shapes">Shapes</h2>
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>variant</code> to <code>tonal</code> for the primary tint or
+        <code>outlined</code> for the border color with no fill. The default,
+        <code>filled</code>, is the primary color. An image avatar has no fill
+        in any variant.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-tonal</code> for the primary tint or
+        <code>.ui-outlined</code> for the border color with no fill. Without one
+        the avatar is filled with the primary color. An image avatar has no fill
+        in any variant.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section id="shapes">
+    <h2>Shapes</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
@@ -99,15 +120,15 @@ export const description =
     <AutoExample name="Shapes" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
 
     <p>
       Use <PropOrClass prop='size="x-small"' class=".ui-x-small" />,
       <PropOrClass prop='size="small"' class=".ui-small" /> or
       <PropOrClass prop='size="large"' class=".ui-large" /> to match the control
-      sizes, for example in dense lists, table rows and bylines. Letters and
-      icons scale with the avatar.
+      sizes, for example in dense lists, table rows and bylines. Letters scale
+      with the avatar, and icons up to the default size.
     </p>
     <Conditional as="p">
       <Fragment slot="components">
@@ -118,8 +139,8 @@ export const description =
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="disabled">
+    <h2>Disabled</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
@@ -137,8 +158,8 @@ export const description =
     <AutoExample name="Disabled" row />
   </section>
 
-  <section>
-    <h2 id="grouped">Grouped</h2>
+  <section id="grouped">
+    <h2>Grouped</h2>
 
     <Conditional as="p">
       <Fragment slot="components">

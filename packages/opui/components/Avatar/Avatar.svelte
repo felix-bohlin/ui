@@ -11,6 +11,7 @@
     shape,
     size,
     src,
+    variant,
 
     // Snippets
     children,
@@ -26,6 +27,7 @@
     "ui-avatar",
     shape && shape !== "circle" && `ui-${shape}`,
     size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}

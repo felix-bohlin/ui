@@ -24,6 +24,14 @@ import accordionActionsApi from "../../component-api/accordion-actions/api"
 import accordionSummaryApi from "../../component-api/accordion-summary/api"
 export const description =
   "Lets you show and hide content, on its own or as a group."
+
+export const keywords = [
+  "collapse",
+  "details",
+  "disclosure",
+  "expand",
+  "summary",
+]
 ---
 
 <Component
@@ -42,6 +50,7 @@ export const description =
     "display-animation",
     "has",
     "interpolate-size",
+    "logical-properties",
     "overflow-clip",
     "transition-behavior",
   ]}
@@ -91,8 +100,8 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
@@ -108,14 +117,15 @@ export const description =
     <AutoExample name="Basics" column />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>variant</code> prop to change how it looks. The default is
         <code>plain</code>, the page surface with no border, like a Card.
-        <code>transparent</code> drops the surface and the padding.
+        <code>transparent</code> drops the surface, the border and the inline
+        padding.
       </Fragment>
       <Fragment slot="html">
         Add one of the variant classes (<code>.ui-elevated</code>,
@@ -129,8 +139,8 @@ export const description =
     <AutoExample name="Variants" column />
   </section>
 
-  <section>
-    <h2 id="accordion-group">Accordion group</h2>
+  <section id="accordion-group">
+    <h2>Accordion group</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
@@ -164,8 +174,8 @@ export const description =
     <AutoExample name="GroupSingle" column />
   </section>
 
-  <section>
-    <h2 id="actions">Actions</h2>
+  <section id="actions">
+    <h2>Actions</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
@@ -185,8 +195,8 @@ export const description =
     <AutoExample name="Actions" />
   </section>
 
-  <section>
-    <h2 id="custom-marker">Custom marker</h2>
+  <section id="custom-marker">
+    <h2>Custom marker</h2>
 
     <Conditional as="p">
       <Fragment slot="astro">
@@ -234,8 +244,8 @@ export const description =
     <AutoExample name="CustomMarker" column />
   </section>
 
-  <section>
-    <h2 id="marker-animation">Marker animation</h2>
+  <section id="marker-animation">
+    <h2>Marker animation</h2>
 
     <Conditional as="p">
       <Fragment slot="components">

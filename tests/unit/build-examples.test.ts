@@ -712,6 +712,11 @@ describe("the source layout", () => {
   test("every example reads the same at print widths 40 and 120", async () => {
     const problems: string[] = []
     for (const key of keys) {
+      if (
+        generatedTargets(key, handWritten).every((target) => target === "html")
+      ) {
+        continue
+      }
       const source = sources[`${EXAMPLES}${key}.astro`]
       const name = key.split("/")[1]
       const expected = shape(
@@ -1011,10 +1016,33 @@ describe("an example's structure", () => {
     ["a named import", 'import { x } from "./x.js"'],
     ["a re-export", 'export * from "./x.js"'],
     ["a dynamic import", 'import("./x.js")'],
+    [
+      "a dynamic import of the package",
+      'import("opui-css/elements/toaster.js")',
+    ],
+    [
+      "a re-export of the package",
+      'export * from "opui-css/elements/toaster.js"',
+    ],
   ])("rejects %s in a script", async (_, code) => {
     await expect(
       read(`<p>Hi</p>\n<script>\n  ${code}\n</script>`),
-    ).rejects.toThrow("an import in a <script>")
+    ).rejects.toThrow("an import from outside opui-css in a <script>")
+  })
+
+  test("a script imports from opui-css instead of the rule's side-effect import", async () => {
+    const html = await htmlFromRender(
+      "<opui-toaster></opui-toaster>",
+      astro(
+        '<opui-toaster></opui-toaster>\n<script>\n  import { toast } from "opui-css/elements/toaster.js"\n\n  toast("Saved")\n</script>',
+      ),
+      sampleFile(),
+    )
+    expect(html.match(/<script type="module">/g)).toHaveLength(1)
+    expect(html).toContain(
+      'import { toast } from "opui-css/elements/toaster.js"',
+    )
+    expect(html).not.toContain('import "opui-css/elements/toaster.js"')
   })
 
   test.each([

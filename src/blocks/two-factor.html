@@ -1,30 +1,11 @@
 <style>
   .two-factor {
-    .ui-card {
-      padding-block: var(--ui-space-3);
-    }
-
-    .two-factor-head {
-      align-items: center;
-      text-align: center;
-    }
-
-    .two-factor-code input {
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.5em;
-      text-align: center;
-    }
-
     .two-factor-phone {
       white-space: nowrap;
     }
 
     .two-factor-submit {
       inline-size: 100%;
-    }
-
-    .two-factor-resend {
-      --_justify-content: center;
     }
 
     .two-factor-footer {
@@ -34,9 +15,9 @@
 </style>
 
 <div class="two-factor ui-layout-container" style="--_max-inline-size: 28rem">
-  <div class="ui-card ui-outlined">
+  <div class="ui-card ui-outlined ui-spacious">
     <div class="ui-content">
-      <div class="ui-layout-column two-factor-head">
+      <div class="ui-layout-column ui-align-center">
         <div class="ui-avatar ui-squircle">
           <svg
             aria-hidden="true"
@@ -62,7 +43,7 @@
 
       <form class="ui-form" action="#">
         <div class="ui-field-group">
-          <label class="ui-text-field ui-large two-factor-code">
+          <label class="ui-text-field ui-one-time-code ui-large">
             <span class="ui-label">Verification code</span>
             <span class="ui-field">
               <input
@@ -72,7 +53,6 @@
                 maxlength="6"
                 name="code"
                 pattern="[0-9]{6}"
-                placeholder="000000"
                 required
                 type="text"
               />
@@ -91,7 +71,7 @@
         </div>
       </form>
 
-      <p class="ui-layout-row ui-x-small two-factor-resend">
+      <p class="ui-layout-row ui-x-small ui-align-center">
         Didn't get a code?
         <button class="ui-button ui-small" type="button">
           <svg

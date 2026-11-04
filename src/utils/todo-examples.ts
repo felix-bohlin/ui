@@ -7,8 +7,15 @@ const sources = import.meta.glob<string>("../todo-examples/*.html", {
 const sourceOf = (name: string) => sources[`../todo-examples/${name}.html`]
 
 export const todoExamples = {
+  "button-group-rtl-dividers": {
+    match:
+      "ButtonGroup: in right-to-left, filled and tonal groups lose the dividers",
+  },
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
+  },
+  "icon-only-shrink": {
+    match: "ButtonGroup: with `.ui-overflow-shrink`, icon-only buttons",
   },
   "tabs-rtl": {
     match: "Tabs: the Keyboard support list says Right and Left Arrow",

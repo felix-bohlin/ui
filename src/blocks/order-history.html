@@ -1,15 +1,5 @@
 <style>
   .order-history {
-    container-type: inline-size;
-
-    .orders-filters {
-      align-items: end;
-
-      .ui-text-field {
-        flex: 1 1 14rem;
-      }
-    }
-
     .orders-top {
       align-items: start;
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
@@ -23,13 +13,8 @@
       grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
 
       dd {
-        font-variant-numeric: tabular-nums;
         font-weight: var(--ui-font-weight-semibold);
       }
-    }
-
-    .orders-items {
-      padding-block: 0;
     }
 
     .orders-thumb {
@@ -41,10 +26,6 @@
       );
       border-radius: var(--ui-radius);
       inline-size: 3rem;
-    }
-
-    .orders-price {
-      font-variant-numeric: tabular-nums;
     }
 
     .orders-actions {
@@ -68,7 +49,7 @@
     </hgroup>
   </div>
 
-  <div class="ui-layout-row orders-filters">
+  <div class="ui-field-group ui-horizontal">
     <div class="ui-text-field">
       <span class="ui-field">
         <input
@@ -114,7 +95,7 @@
       <article aria-labelledby="order-history-4821" class="ui-card ui-outlined">
         <div class="ui-layout-row ui-spread orders-top">
           <h2 class="ui-h5" id="order-history-4821">Order NW-4821</h2>
-          <dl class="orders-meta">
+          <dl class="ui-tabular-nums orders-meta">
             <div>
               <dt class="ui-caption">Placed</dt>
               <dd><time datetime="2026-10-05">5 Oct 2026</time></dd>
@@ -151,7 +132,7 @@
               <span>Ordered</span><span>Shipped</span><span>Delivered</span>
             </div>
           </div>
-          <ul class="ui-list ui-transparent ui-flush orders-items">
+          <ul class="ui-list ui-transparent ui-flush">
             <li>
               <div class="ui-start">
                 <div
@@ -165,7 +146,7 @@
                 <p>Merino base layer</p>
                 <p>Pine, M, Qty 1</p>
               </div>
-              <div class="ui-end orders-price">€89.00</div>
+              <div class="ui-end ui-tabular-nums">€89.00</div>
             </li>
             <li>
               <div class="ui-start">
@@ -180,7 +161,7 @@
                 <p>Wool hiking socks</p>
                 <p>Fjord, 39–42, Qty 2</p>
               </div>
-              <div class="ui-end orders-price">€48.00</div>
+              <div class="ui-end ui-tabular-nums">€48.00</div>
             </li>
           </ul>
         </div>
@@ -252,7 +233,7 @@
       <article aria-labelledby="order-history-4610" class="ui-card ui-outlined">
         <div class="ui-layout-row ui-spread orders-top">
           <h2 class="ui-h5" id="order-history-4610">Order NW-4610</h2>
-          <dl class="orders-meta">
+          <dl class="ui-tabular-nums orders-meta">
             <div>
               <dt class="ui-caption">Placed</dt>
               <dd><time datetime="2026-09-14">14 Sep 2026</time></dd>
@@ -273,7 +254,7 @@
           </div>
         </div>
         <div class="ui-content">
-          <ul class="ui-list ui-transparent ui-flush orders-items">
+          <ul class="ui-list ui-transparent ui-flush">
             <li>
               <div class="ui-start">
                 <div
@@ -287,7 +268,7 @@
                 <p>Lightweight down vest</p>
                 <p>Moss, L, Qty 1</p>
               </div>
-              <div class="ui-end orders-price">€159.00</div>
+              <div class="ui-end ui-tabular-nums">€159.00</div>
             </li>
             <li>
               <div class="ui-start">
@@ -302,7 +283,7 @@
                 <p>Insulated bottle 750 ml</p>
                 <p>Slate, Qty 2</p>
               </div>
-              <div class="ui-end orders-price">€80.00</div>
+              <div class="ui-end ui-tabular-nums">€80.00</div>
             </li>
           </ul>
         </div>
@@ -385,7 +366,7 @@
       <article aria-labelledby="order-history-4377" class="ui-card ui-outlined">
         <div class="ui-layout-row ui-spread orders-top">
           <h2 class="ui-h5" id="order-history-4377">Order NW-4377</h2>
-          <dl class="orders-meta">
+          <dl class="ui-tabular-nums orders-meta">
             <div>
               <dt class="ui-caption">Placed</dt>
               <dd><time datetime="2026-08-22">22 Aug 2026</time></dd>
@@ -406,7 +387,7 @@
           </div>
         </div>
         <div class="ui-content">
-          <ul class="ui-list ui-transparent ui-flush orders-items">
+          <ul class="ui-list ui-transparent ui-flush">
             <li>
               <div class="ui-start">
                 <div
@@ -420,7 +401,7 @@
                 <p>Trail running cap</p>
                 <p>Sand, One size, Qty 1</p>
               </div>
-              <div class="ui-end orders-price">€29.00</div>
+              <div class="ui-end ui-tabular-nums">€29.00</div>
             </li>
           </ul>
           <article class="ui-callout ui-success">

@@ -3,7 +3,7 @@
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
 */
-  :where(.ui-text-field, .ui-textarea, .ui-select, .ui-number-stepper) {
+  :where(.ui-text-field, .ui-textarea, .ui-select, .ui-number-field) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
     --_affix-button-size: calc(
@@ -50,7 +50,9 @@
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_size);
 
-      transition: border-color var(--_duration) var(--_ease);
+      transition:
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
     }
 
     :where(.ui-field) ::placeholder {

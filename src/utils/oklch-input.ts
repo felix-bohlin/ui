@@ -1,5 +1,10 @@
-import { readColor } from "../../packages/opui/elements/color-field.js"
-import { formatOklch, oklchGamut, type Oklch } from "./color-utils"
+import {
+  colorToOklch,
+  formatOklch,
+  oklchGamut,
+  parseOklch,
+  type Oklch,
+} from "./color-utils"
 
 type Color = Oklch & { alpha: number }
 
@@ -60,6 +65,20 @@ const GAMUT_TEXT = {
 }
 
 const INVALID_TEXT = "Not a color. Try oklch(0.6 0.2 250) or any CSS color."
+
+const readColor = (text: string): Color | null => {
+  if (/\b(?:attr|env|var)\(|currentcolor/i.test(text)) return null
+  const direct = parseOklch(text) ?? colorToOklch(text)
+  if (direct) return { alpha: 1, ...direct }
+  const probe = document.createElement("div")
+  probe.hidden = true
+  probe.style.color = `oklch(from ${text} l c h / alpha)`
+  if (!probe.style.color) return null
+  document.body.append(probe)
+  const parsed = parseOklch(getComputedStyle(probe).color)
+  probe.remove()
+  return parsed
+}
 
 export class OklchInput extends HTMLElement {
   #value = ""

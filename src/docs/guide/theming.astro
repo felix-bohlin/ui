@@ -46,8 +46,8 @@ const surfaceRoles = [
     </p>
   </section>
 
-  <section>
-    <h2 id="palette">Palette</h2>
+  <section id="palette">
+    <h2>Palette</h2>
     <p>
       One hue and chroma in <code>theme.css</code> become a source color,
       <code>--ui-palette-source</code>, and <code>core/palette.css</code>
@@ -58,7 +58,7 @@ const surfaceRoles = [
     <Code
       code={`:where(html) {
   --ui-palette-chroma: 0.5;
-  --ui-palette-hue: 145;
+  --ui-palette-hue: 222.8;
   --ui-palette-hue-rotate-by: 0;
 }`}
       lang="css"
@@ -71,28 +71,33 @@ const surfaceRoles = [
       </li>
       <li>
         <code>--ui-palette-hue</code> is a hue angle in degrees,
-        <code>145</code> (green) by default.
+        <code>222.8</code> (blue) by default.
       </li>
       <li>
         <code>--ui-palette-hue-rotate-by</code> turns the hue by this many
-        degrees per step, so <code>1</code> spreads 15° across the palette. The
-        severity scopes use <code>1</code> for livelier tints.
+        degrees per step, so <code>1</code> spreads 15° across the palette.
+        <code>.ui-critical</code>, <code>.ui-info</code>,
+        <code>.ui-success</code> and <code>.ui-warning</code> use <code>1</code>
+        for livelier tints; <code>.ui-neutral</code> keeps <code>0</code>.
       </li>
     </ul>
 
     <p>
       Or set <code>--ui-palette-source</code> to any color: the palette keeps
       its oklch hue, scales its chroma and sets the lightness per step. The
-      palette is computed on <code>:root</code>, <code>.ui-palette</code>,
-      <code>.ui-contrast-more</code>, the severity classes and the inline
-      <code>del</code>, <code>ins</code>, <code>abbr</code> and <code>dfn</code>
-      elements and their classes, so the knobs do nothing anywhere else. Each
-      severity class takes its hue from its intent token, so setting
+      palette is computed on <code>:root</code>, <code>.ui-palette</code> and
+      the severity classes, so the knobs do nothing anywhere else.
+      <code>.ui-contrast-more</code> only re-derives the roles. Each severity
+      class takes its hue from its intent token, so setting
       <code>--ui-critical</code>, <code>--ui-info</code>,
       <code>--ui-neutral</code>, <code>--ui-success</code> or
       <code>--ui-warning</code> recolors the scope. <code>.ui-neutral</code>
       also keeps the chroma of <code>--ui-neutral</code>, which follows
-      <code>--ui-gray-hue</code> and <code>--ui-gray-chroma</code> by default:
+      <code>--ui-gray-hue</code> and <code>--ui-gray-chroma</code> by default.
+      This is the library's own rule for <code>.ui-warning</code>. It sits in
+      the <code>theme.severity</code> layer, after <code>theme.custom</code>, so
+      a copy of it in a theme is overridden; recolor a scope through its intent
+      token instead:
     </p>
 
     <Code
@@ -104,8 +109,8 @@ const surfaceRoles = [
     />
   </section>
 
-  <section>
-    <h2 id="scopes">Scopes</h2>
+  <section id="scopes">
+    <h2>Scopes</h2>
     <p>
       A scope class re-themes an element and everything inside it, so one page
       can carry several brands, a dark panel or one red for every critical
@@ -154,8 +159,10 @@ const surfaceRoles = [
         <code>.ui-palette</code> re-derives the palette and every derived token
         (colors, control sizes, spacing, type roles and radii) from the knobs
         the element sets or inherits, <code>--ui-primary</code> and the intent
-        colors included. <code>.ui-contrast-more</code> does the same with the
-        contrast knobs tightened.
+        colors included. <code>.ui-contrast-more</code> re-derives every derived
+        token and palette role with the contrast knobs tightened; the palette
+        steps stay those of the nearest <code>.ui-palette</code> or
+        <code>:root</code>.
       </li>
       <li>
         <code>.ui-critical</code>, <code>.ui-info</code>,
@@ -168,14 +175,14 @@ const surfaceRoles = [
       <li>
         <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme.
         On an element they only pick the other side of <code>light-dark()</code
-        >: the surface and text colors and <code>--ui-shadow-elevated</code>
-        switch, while the shadow color and strength still come from the page.
+        >: the surface and text colors, <code>--ui-shadow-color</code> and
+        <code>--ui-shadow-elevated</code> switch, so shadows darken too.
       </li>
     </ul>
   </section>
 
-  <section>
-    <h2 id="surfaces">Surfaces</h2>
+  <section id="surfaces">
+    <h2>Surfaces</h2>
     <p>
       Five surfaces, two text colors and two border colors paint everything that
       isn't an accent:
@@ -204,8 +211,8 @@ const surfaceRoles = [
     </p>
   </section>
 
-  <section>
-    <h2 id="density">Density</h2>
+  <section id="density">
+    <h2>Density</h2>
     <p>
       <code>--ui-density</code> scales the <code>--ui-control-size*</code>
       roles, so fields, buttons and list items grow or shrink together, and
@@ -221,8 +228,8 @@ const surfaceRoles = [
     />
   </section>
 
-  <section>
-    <h2 id="spacing">Spacing</h2>
+  <section id="spacing">
+    <h2>Spacing</h2>
     <p>
       <code>--ui-space-1</code> to <code>--ui-space-8</code> pad and space
       containers, forms and rich text. Each is a fixed step (<code>0.25rem</code
@@ -247,17 +254,18 @@ const surfaceRoles = [
     />
   </section>
 
-  <section>
-    <h2 id="corners">Corners</h2>
+  <section id="corners">
+    <h2>Corners</h2>
     <p>
       <code>--ui-radius</code> rounds every component, and buttons and fields
       follow it until you set <code>--ui-button-radius</code> or
       <code>--ui-field-radius</code>. Small parts like <code>kbd</code>,
       tooltips and checkboxes never get rounder than it, so <code>0</code>
-      squares everything. <code>--ui-radius-x-small</code>,
-      <code>--ui-radius-small</code> and <code>--ui-radius-large</code> derive
-      from it (capped at 2px and 5px, and times 1.5), and
-      <code>--ui-radius-round</code> is the pill.
+      squares every corner that follows it; pill and circle shapes stay round
+      until <code>--ui-radius-round</code> is set.
+      <code>--ui-radius-x-small</code>, <code>--ui-radius-small</code> and
+      <code>--ui-radius-large</code> derive from it (capped at 2px and 5px, and
+      times 1.5), and <code>--ui-radius-round</code> is the pill.
     </p>
     <Code
       code={`:where(html) {
@@ -267,8 +275,8 @@ const surfaceRoles = [
     />
   </section>
 
-  <section>
-    <h2 id="fonts">Fonts</h2>
+  <section id="fonts">
+    <h2>Fonts</h2>
     <p>
       <code>--ui-font-body</code> sets the text and controls,
       <code>--ui-font-code</code> code, <code>kbd</code> and <code>samp</code>,
@@ -292,10 +300,12 @@ const surfaceRoles = [
       scale:
     </p>
     <Code
-      code={`:where(html) {
+      code={`:where(html, .ui-palette, .ui-contrast-more) {
   /* Pin one role */
   --ui-font-size-caption: 0.8125rem;
+}
 
+:where(html) {
   /* Or a modular scale: 1rem base, minor third */
   --ui-font-size-100: calc(1rem * pow(1.2, -2));
   --ui-font-size-200: calc(1rem * pow(1.2, -1));
@@ -312,9 +322,9 @@ const surfaceRoles = [
     <h3 id="fluid-headings">Fluid headings</h3>
     <p>
       <code>--ui-font-size-h1</code> to <code>--ui-font-size-h4</code> grow from
-      one step to the next as the viewport widens, together, over one window:
-      <code>--ui-fluid-min-inline-size</code> (20rem) to
-      <code>--ui-fluid-max-inline-size</code> (48rem).
+      one step to a larger one (h1 and h2 skip a step) as the viewport widens,
+      together, over one window: <code>--ui-fluid-min-inline-size</code> (20rem)
+      to <code>--ui-fluid-max-inline-size</code> (48rem).
       <code>--ui-fluid-progress</code> is the position in that window, 0 to 1,
       from <code>progress()</code>, so a theme can ramp other values on the same
       window. Move the window, reuse the ramp, or pin a heading to a step:
@@ -327,7 +337,9 @@ const surfaceRoles = [
 
   /* Tighter spacing on narrow screens, on the same ramp */
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+}
 
+:where(html, .ui-palette, .ui-contrast-more) {
   /* Or pin a heading */
   --ui-font-size-h1: var(--ui-font-size-800);
 }`}
@@ -340,8 +352,8 @@ const surfaceRoles = [
     </p>
   </section>
 
-  <section>
-    <h2 id="elevation">Elevation</h2>
+  <section id="elevation">
+    <h2>Elevation</h2>
     <ul>
       <li>
         <code>--ui-shadow-control</code>: buttons with a variant, chips, toggle
@@ -351,7 +363,7 @@ const surfaceRoles = [
       <li><code>--ui-shadow-elevated</code>: elevated cards and accordions.</li>
       <li>
         <code>--ui-shadow-overlay</code>: dialogs, drawers, menus,
-        <code>select</code> pickers and the carousel buttons.
+        <code>select</code> pickers, toasts and the carousel buttons.
       </li>
       <li>
         <code>--ui-shadow-scroll</code>: the edges of scrolled dialogs, drawers
@@ -359,7 +371,8 @@ const surfaceRoles = [
       </li>
       <li>
         <code>--ui-shadow-surface</code>: tonal and outlined cards and
-        accordions, and callouts. <code>none</code> by default.
+        accordions, callouts, and Checkbox, Radio and Switch cards.
+        <code>none</code> by default.
       </li>
       <li><code>--ui-shadow-selected</code>: the selected tab.</li>
       <li>
@@ -370,7 +383,7 @@ const surfaceRoles = [
       </li>
     </ul>
     <Code
-      code={`:where(html) {
+      code={`:where(html, .ui-palette, .ui-contrast-more) {
   --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }`}
@@ -378,8 +391,8 @@ const surfaceRoles = [
     />
   </section>
 
-  <section>
-    <h2 id="motion">Motion</h2>
+  <section id="motion">
+    <h2>Motion</h2>
     <p>
       <code>--ui-motion</code> multiplies every duration. It is <code>1</code>,
       or <code>0</code> under <code>prefers-reduced-motion: reduce</code>.
@@ -388,9 +401,10 @@ const surfaceRoles = [
     <h3 id="motion-global">Global classes</h3>
     <p>
       On <code>html</code>, these override the OS preference for every
-      transition and animation. Smooth scrolling follows the system setting
-      only, since <code>normalize.css</code> keys it on
-      <code>prefers-reduced-motion</code>.
+      transition and animation. The page's smooth scrolling follows the system
+      setting only, since <code>normalize.css</code> keys it on
+      <code>prefers-reduced-motion</code>; the Carousel's follows
+      <code>--ui-motion</code>.
     </p>
     <ul>
       <li><code>.ui-motion-off</code>: sets <code>--ui-motion: 0</code>.</li>
@@ -414,6 +428,25 @@ const surfaceRoles = [
       lang="html"
     />
 
+    <h3 id="motion-personality">Springy movement</h3>
+    <p>
+      Two optional tokens give the controls some personality.
+      <code>--ui-ease-move</code> is the easing of things that move: the tabs
+      indicator, the press scale, and menus, selects, tooltips and toasts as
+      they open. Nothing closing reads it. <code>--ui-press-scale</code> shrinks
+      buttons, toggle buttons and chips while they're pressed. Both are unset,
+      so nothing bounces or shrinks until a theme sets them, and both follow
+      <code>--ui-motion</code>.
+    </p>
+    <Code
+      code={`:root {
+  --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
+    1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
+  --ui-press-scale: 0.97;
+}`}
+      lang="css"
+    />
+
     <p>To follow it in your own CSS:</p>
     <Code
       code={`transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);`}
@@ -421,8 +454,8 @@ const surfaceRoles = [
     />
   </section>
 
-  <section>
-    <h2 id="contrast">Contrast</h2>
+  <section id="contrast">
+    <h2>Contrast</h2>
     <p>
       <code>--ui-contrast</code> is <code>normal</code>, or <code>more</code>
       under <code>prefers-contrast: more</code>. More contrast changes no color
@@ -433,10 +466,12 @@ const surfaceRoles = [
       <code>--ui-border-strength-light</code>,
       <code>--ui-border-strength-dark</code> and
       <code>--ui-field-border-strength</code> for the borders,
-      <code>--ui-text-max-lightness</code>, <code>--ui-text-min-lightness</code>
-      and <code>--ui-text-max-chroma</code> for the <code>-text</code> roles,
-      <code>--ui-accent-fill-max-lightness</code> for intent fills,
-      <code>--ui-primary-max-lightness</code> and
+      <code>--ui-text-max-lightness</code> and
+      <code>--ui-text-min-lightness</code> for the <code>-text</code> roles,
+      <code>--ui-accent-max-chroma</code> and
+      <code>--ui-accent-max-lightness</code> for the primary, invalid and
+      palette accents, <code>--ui-accent-fill-max-lightness</code> for intent
+      fills, <code>--ui-primary-max-lightness</code> and
       <code>--ui-primary-min-lightness</code> for the primary, the
       <code>--ui-palette-*-lightness</code> limits for the palette roles, and
       <code>--ui-focus-ring-width</code>. Their values in both modes are on
@@ -448,8 +483,9 @@ const surfaceRoles = [
       A theme that sets a knob or <code>--ui-primary-source</code> keeps working
       with more contrast. The example themes set their brand color that way and
       let <code>--ui-on-primary</code> and <code>--ui-primary-text</code> derive
-      from it, so Bootstrap's blue darkens under more contrast and its text
-      follows. A theme that pins a role directly, such as
+      from it (brutalist pins <code>--ui-primary-text</code> to its text color),
+      so Bootstrap's blue darkens under more contrast and its text follows. A
+      theme that pins a role directly, such as
       <code>--ui-border-color: oklch(0.95 0 0)</code>, owns that role in every
       contrast mode. Set the knob instead, or hand the role back to the library
       under more contrast with <code>revert-layer</code>, which drops the
@@ -529,8 +565,9 @@ const surfaceRoles = [
       </li>
       <li>
         <code>.ui-contrast-normal</code>: sets <code>--ui-contrast: normal</code
-        >, on <code>html</code> to ignore the OS preference. It can't lower the
-        contrast inside a <code>.ui-contrast-more</code> ancestor.
+        >, on <code>html</code> to ignore the OS preference. Inside a
+        <code>.ui-contrast-more</code> ancestor it keeps the tightened colors
+        but resets what components read from <code>--ui-contrast</code>.
       </li>
     </ul>
     <Code code={`<html lang="en" class="ui-contrast-more">`} lang="html" />
@@ -561,8 +598,9 @@ const surfaceRoles = [
     <h3 id="forced-colors">Forced colors</h3>
     <p>
       Under <code>forced-colors: active</code>, selected tabs, toggles and list
-      items use <code>SelectedItem</code>, switches, ranges, progress bars and
-      dividers <code>CanvasText</code>, and focused fields a
+      items, checked switches, progress bars and range thumbs use
+      <code>SelectedItem</code>; unchecked switches, range tracks, progress
+      outlines and dividers <code>CanvasText</code>; and focused fields a
       <code>Highlight</code> outline. Nothing to configure.
     </p>
   </section>

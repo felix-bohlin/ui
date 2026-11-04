@@ -34,7 +34,7 @@ The project is managed as a monorepo with two main parts:
   - `src/component-api/`: API table data for each component (`api.ts`).
   - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.react.tsx`, `.svelte`, `.vue`), shown on the docs pages and used by the parity tests.
   - `src/components/`, `src/layouts/`: Docs site components and page layouts.
-  - `src/docs/`: Page content for the components, guide and learn sections.
+  - `src/docs/`: Page content for the blog, components and guide sections.
   - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
   - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
   - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.

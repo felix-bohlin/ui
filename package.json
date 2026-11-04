@@ -35,6 +35,7 @@
     "test:e2e:record-a11y": "A11Y_RECORD=1 playwright test a11y --project=light --project=dark --workers=1",
     "test:e2e:serve": "pnpm test:e2e:build && pnpm test:e2e:preview",
     "test:e2e:update": "playwright test --update-snapshots=all",
+    "test:failed": "vitest run --lastFailed --passWithNoTests",
     "test:package": "vitest run --config vitest.package.config.ts",
     "test:record-drift": "PARITY_RECORD=1 vitest run -u -t 'matches (astro|html)$'",
     "test:record-released": "RELEASED_RECORD=1 vitest run tests/unit/released-tokens.test.ts",
@@ -87,7 +88,7 @@
     "svelte": "catalog:",
     "svelte-check": "^4.7.6",
     "unified": "^11.0.5",
-    "vitest": "^5.0.2",
+    "vitest": "^5.1.0",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
   },

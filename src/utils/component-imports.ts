@@ -66,7 +66,11 @@ export const componentImports = (
     for (const [, imported] of source.matchAll(importPattern)) {
       for (const name of imported.split(",")) {
         const trimmed = name.trim()
-        if (trimmed && ownFolders.has(folders.get(trimmed) ?? "")) {
+        if (
+          trimmed &&
+          (ownFolders.has(folders.get(trimmed) ?? "") ||
+            trimmed.startsWith(pascalCase(slug)))
+        ) {
           names.add(trimmed)
         }
       }

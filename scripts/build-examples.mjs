@@ -64,9 +64,10 @@ export const REACT_FIXED_VALUE_TYPES = [
 ]
 
 export const REACT_DEFAULT_VALUE = [
-  "ColorField",
-  "NumberStepper",
+  "NumberField",
+  "OneTimeCode",
   "Range",
+  "Rating",
   "Select",
   "Tabs",
   "TextField",
@@ -579,20 +580,33 @@ const expressionNode = (node, context) => {
   }
 }
 
-const hasImport = (code) => {
+const importsOf = (code) => {
   const sourceFile = ts.createSourceFile(
     "script.ts",
     code,
     ts.ScriptTarget.Latest,
     true,
   )
-  const visit = (node) =>
-    ts.isImportDeclaration(node) ||
-    (ts.isExportDeclaration(node) && !!node.moduleSpecifier) ||
-    (ts.isCallExpression(node) &&
-      node.expression.kind === ts.SyntaxKind.ImportKeyword) ||
-    ts.forEachChild(node, visit) === true
-  return visit(sourceFile)
+  const modules = []
+  let foreign = false
+  const visit = (node) => {
+    if (
+      ts.isImportDeclaration(node) &&
+      node.moduleSpecifier.text.startsWith("opui-css/")
+    ) {
+      modules.push(node.moduleSpecifier.text)
+    } else if (
+      ts.isImportDeclaration(node) ||
+      (ts.isExportDeclaration(node) && node.moduleSpecifier) ||
+      (ts.isCallExpression(node) &&
+        node.expression.kind === ts.SyntaxKind.ImportKeyword)
+    ) {
+      foreign = true
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+  return { foreign, modules }
 }
 
 const checkNesting = (node, file) => {
@@ -636,7 +650,9 @@ export const readExample = async (source, file = "Example.astro") => {
         )
       }
       const text = textOf(node)
-      if (hasImport(text)) throw unsupported(file, "an import in a <script>")
+      if (importsOf(text).foreign) {
+        throw unsupported(file, "an import from outside opui-css in a <script>")
+      }
       scripts.push(text)
       continue
     }
@@ -1645,7 +1661,12 @@ export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
     assignExampleIds(rendered, exampleKeyOf(file)),
     { css: example.styles, file },
   )
-  const imports = scriptImports(markup, await elementTags())
+  const imported = new Set(
+    example.scripts.flatMap((script) => importsOf(script).modules),
+  )
+  const imports = scriptImports(markup, await elementTags()).filter(
+    (line) => !imported.has(/"([^"]+)"/.exec(line)?.[1]),
+  )
   const modules = [
     imports.join("\n"),
     ...example.scripts.map((script) => stripTypes(script).trim()),

@@ -15,8 +15,8 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
     one instance, and your own layer holds the rest.
   </Fragment>
 
-  <section>
-    <h2 id="your-theme">Your theme</h2>
+  <section id="your-theme">
+    <h2>Your theme</h2>
     <p>
       A theme is the
       <DocLink href="/guide/concepts#token-tiers"
@@ -55,16 +55,17 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
     <h3 id="example-themes">Example themes</h3>
     <p>
       The themes below ship with the package to show how far tokens go. Each is
-      only tokens in <code>theme.custom</code>, on <code>html</code> and, for
-      the colors of severity scopes such as <code>.ui-info</code>, on those
-      classes. No component CSS. Every stress test page runs with each of them
-      in light and dark mode. They copy their originals faithfully, also where
-      those fall short of WCAG contrast (the translucent focus rings of
-      Bootstrap and shadcn, the light field borders of Bootstrap and shadcn, the
-      bright blue of brutalist). They name their fonts (Geist, Roboto, DM Sans)
-      but don't load them. The
-      <DocLink href="/theme-builder">Theme builder</DocLink> starts from any of
-      them.
+      only tokens in <code>theme.custom</code>, on
+      <code>:where(html, .ui-palette, .ui-contrast-more)</code> and, for the
+      colors of severity scopes such as <code>.ui-info</code>, on those classes.
+      No component CSS. Every stress test page runs with each of them in light
+      and dark mode. They copy their originals faithfully, also where those fall
+      short of WCAG contrast (the translucent focus rings of Bootstrap and
+      shadcn, the light field borders of Bootstrap and shadcn, Bootstrap's check
+      borders, the bright blue of brutalist and its black borders on dark
+      surfaces). They name their fonts (Geist, Roboto, DM Sans) but don't load
+      them. The <DocLink href="/theme-builder">Theme builder</DocLink> starts
+      from any of them.
     </p>
     <ul>
       {EXAMPLE_THEMES.map(({ name }) => {
@@ -82,8 +83,8 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
     />
   </section>
 
-  <section>
-    <h2 id="component-properties">Component properties</h2>
+  <section id="component-properties">
+    <h2>Component properties</h2>
     <p>
       The <code>--_*</code> private properties are each component's wiring, the
       last <DocLink href="/guide/concepts#token-tiers">tier</DocLink> before its
@@ -165,8 +166,8 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
     </p>
   </section>
 
-  <section>
-    <h2 id="unlayered-or-your-own-layer">Unlayered or your own layer</h2>
+  <section id="unlayered-or-your-own-layer">
+    <h2>Unlayered or your own layer</h2>
     <p>
       Unlayered CSS beats every
       <DocLink href="/guide/concepts#cascade-layers">layer</DocLink>, which is

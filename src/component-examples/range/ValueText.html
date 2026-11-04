@@ -5,6 +5,7 @@
   </output>
   <input
     aria-labelledby="range-value-text-1-label"
+    aria-valuetext="21°"
     id="range-value-text-1"
     max="30"
     min="10"
@@ -19,6 +20,7 @@
   if (input && value) {
     input.addEventListener("input", () => {
       value.textContent = `${input.value}°`
+      input.setAttribute("aria-valuetext", `${input.value}°`)
     })
   }
 </script>

@@ -4,7 +4,7 @@ import { fileURLToPath, pathToFileURL } from "url"
 import { globby } from "globby"
 
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
-import { posts } from "../src/utils/learn-posts.ts"
+import { posts } from "../src/utils/blog-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 import { componentName } from "../src/utils/names.js"
 import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
@@ -13,30 +13,72 @@ import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
 
 const CATEGORY_IDS = new Set(SEARCH_CATEGORIES.map((category) => category.id))
 
-const OUTPUT_FILE = fileURLToPath(
-  new URL("../public/search-index.json", import.meta.url),
+const OUTPUT_DIR = fileURLToPath(
+  new URL("../public/search-index/", import.meta.url),
 )
 
 function frameworkUrl(framework, sharedPath) {
   return `/${framework}${sharedPath}`
 }
 
-function readHeadings(content) {
+export function readSections(content) {
   const headingMatches = content
     .replace(/^---\n[\s\S]*?\n---\n/, "")
-    .matchAll(/<h[23][^>]*\bid=["'][^"']*["'][^>]*>(.*?)<\/h[23]>/gis)
+    .matchAll(
+      /<section\b[^>]*\bid=["']([^"']*)["'][^>]*>\s*<h2\b[^>]*>(.*?)<\/h2>|<h[23][^>]*\bid=["']([^"']*)["'][^>]*>(.*?)<\/h[23]>/gis,
+    )
   // Dedupe: a docs page may declare the same heading inside both an
   // astro and html `<Conditional>` slot, but at runtime only one is rendered.
-  return Array.from(
-    new Set(
-      Array.from(headingMatches, (m) =>
-        m[1]
-          .replace(/<[^>]*>/g, "")
-          .replace(/\s+/g, " ")
-          .trim(),
-      ),
-    ),
-  )
+  const sections = new Map()
+  for (const m of headingMatches) {
+    const id = m[1] ?? m[3]
+    if (sections.has(id)) continue
+    sections.set(id, {
+      id,
+      title: (m[2] ?? m[4])
+        .replace(/<[^>]*>/g, "")
+        .replace(/\s+/g, " ")
+        .trim(),
+    })
+  }
+  return [...sections.values()]
+}
+
+export function readHeadings(content) {
+  return Array.from(new Set(readSections(content).map(({ title }) => title)))
+}
+
+/** @param {string} content */
+export function readKeywords(content) {
+  const list = content.match(/export const keywords\s*=\s*\[(.*?)\]/s)?.[1]
+  return list ? Array.from(list.matchAll(/"([^"]+)"/g), (m) => m[1]) : []
+}
+
+function pageEntries({ category, frameworkId, id, meta, url }) {
+  return [
+    {
+      id,
+      title: meta.title,
+      description: meta.preamble,
+      ...(meta.keywords.length > 0
+        ? { keywords: meta.keywords.join(" ") }
+        : {}),
+      ...(meta.headings.length > 0
+        ? { headings: meta.headings.join(" ") }
+        : {}),
+      category,
+      frameworkId,
+      url,
+    },
+    ...meta.sections.map((section) => ({
+      id: `${id}-${section.id}`,
+      title: section.title,
+      page: meta.title,
+      category,
+      frameworkId,
+      url: `${url}#${section.id}`,
+    })),
+  ]
 }
 
 export const slotText = (html) =>
@@ -77,13 +119,20 @@ function readMeta(file) {
       ? slotText(preambleMatch[1])
       : ""
 
-  const headings = [
-    ...readHeadings(content),
-    ...(content.includes("<KeyboardSupport") ? ["Keyboard support"] : []),
-    ...readMarkdownHeadings(file, content),
+  const sections = [
+    ...readSections(content),
+    ...(content.includes("<KeyboardSupport")
+      ? [{ id: "keyboard-support", title: "Keyboard support" }]
+      : []),
   ]
 
-  return { title, preamble, headings }
+  return {
+    title,
+    preamble,
+    headings: readMarkdownHeadings(file, content),
+    keywords: readKeywords(content),
+    sections,
+  }
 }
 
 function importedMarkdown(file, content) {
@@ -102,7 +151,7 @@ function readMarkdownHeadings(file, content) {
   )
 }
 
-/** @param {{ category: string, description: string, id: string, title: string }[]} index */
+/** @param {{ category: string, description?: string, id: string, page?: string, title: string }[]} index */
 export function indexProblems(index) {
   const unknown = [
     ...new Set(
@@ -115,7 +164,7 @@ export function indexProblems(index) {
     (id) => !index.some((item) => item.category === id),
   )
   const empty = index
-    .filter((item) => !item.title || !item.description)
+    .filter((item) => !item.title || !(item.description || item.page))
     .map((item) => item.id)
   return [
     ...(unknown.length > 0
@@ -125,9 +174,25 @@ export function indexProblems(index) {
       ? [`Search categories without entries: ${missing.join(", ")}`]
       : []),
     ...(empty.length > 0
-      ? [`Search entries without a title or description: ${empty.join(", ")}`]
+      ? [
+          `Search entries without a title, or without a description or page: ${empty.join(", ")}`,
+        ]
       : []),
   ]
+}
+
+/**
+ * @param {SearchItem[]} index
+ * @param {string} frameworkId
+ */
+export function frameworkIndex(index, frameworkId) {
+  return index
+    .filter((item) => !item.frameworkId || item.frameworkId === frameworkId)
+    .map((item) => {
+      const shared = { ...item }
+      delete shared.frameworkId
+      return shared
+    })
 }
 
 async function generateIndex() {
@@ -153,17 +218,15 @@ async function generateIndex() {
 
     for (const framework of FRAMEWORKS) {
       if (!componentHasFramework(framework.id, slug)) continue
-      const url = frameworkUrl(framework.id, sharedPath)
-      index.push({
-        id: `component-${slug}-${framework.id}`,
-        title: meta.title,
-        description: meta.preamble,
-        headings: meta.headings.join(" "),
-        category: "Component",
-        frameworkId: framework.id,
-        type: framework.label,
-        url,
-      })
+      index.push(
+        ...pageEntries({
+          category: "Component",
+          frameworkId: framework.id,
+          id: `component-${slug}-${framework.id}`,
+          meta,
+          url: frameworkUrl(framework.id, sharedPath),
+        }),
+      )
     }
   }
 
@@ -175,16 +238,15 @@ async function generateIndex() {
     const sharedPath = `/guide/${slug}`
 
     for (const framework of FRAMEWORKS) {
-      const url = frameworkUrl(framework.id, sharedPath)
-      index.push({
-        id: `guide-${slug}-${framework.id}`,
-        title: meta.title,
-        description: meta.preamble,
-        headings: meta.headings.join(" "),
-        category: "Guide",
-        frameworkId: framework.id,
-        url,
-      })
+      index.push(
+        ...pageEntries({
+          category: "Guide",
+          frameworkId: framework.id,
+          id: `guide-${slug}-${framework.id}`,
+          meta,
+          url: frameworkUrl(framework.id, sharedPath),
+        }),
+      )
     }
   }
 
@@ -197,27 +259,23 @@ async function generateIndex() {
     const framework = FRAMEWORKS.find((f) => f.label === label)
     if (!framework) throw new Error(`${file} names no framework`)
 
-    const url = frameworkUrl(framework.id, "/guide/getting-started")
-    index.push({
-      id: `guide-getting-started-${framework.id}`,
-      title: meta.title,
-      description: meta.preamble,
-      headings: meta.headings.join(" "),
-      category: "Guide",
-      frameworkId: framework.id,
-      url,
-    })
+    index.push(
+      ...pageEntries({
+        category: "Guide",
+        frameworkId: framework.id,
+        id: `guide-getting-started-${framework.id}`,
+        meta,
+        url: frameworkUrl(framework.id, "/guide/getting-started"),
+      }),
+    )
   }
 
-  // Learn posts are framework-agnostic and live at /learn/<slug>.
+  // Blog posts are framework-agnostic and live at /blog/<slug>.
   for (const post of posts.toSorted((a, b) => a.slug.localeCompare(b.slug))) {
-    const content = fs.readFileSync(
-      `src/docs/learn/${post.slug}.astro`,
-      "utf-8",
-    )
+    const content = fs.readFileSync(`src/docs/blog/${post.slug}.astro`, "utf-8")
 
     index.push({
-      id: `learn-${post.slug}`,
+      id: `blog-${post.slug}`,
       title: post.title,
       description: post.description,
       headings: [
@@ -229,8 +287,8 @@ async function generateIndex() {
       ]
         .filter(Boolean)
         .join(" "),
-      category: "Learn",
-      url: `/learn/${post.slug}`,
+      category: "Blog",
+      url: `/blog/${post.slug}`,
     })
   }
 
@@ -344,10 +402,9 @@ async function generateIndex() {
           id: `api-${folder}-${framework.id}`,
           title: `${name} API`,
           description: `Reference for ${name} ${framework.label} component.`,
-          headings: terms.join(" "),
+          terms: terms.join(" "),
           category: "API",
           frameworkId: framework.id,
-          type: framework.label,
           url: frameworkUrl(framework.id, "/api") + `#${folder}`,
         },
       ])
@@ -360,8 +417,18 @@ async function generateIndex() {
   const problems = indexProblems(index)
   if (problems.length > 0) throw new Error(problems.join("\n"))
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2))
-  console.log(`Generated index with ${index.length} items at ${OUTPUT_FILE}`)
+  fs.rmSync(OUTPUT_DIR, { force: true, recursive: true })
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true })
+  for (const framework of FRAMEWORKS) {
+    const items = frameworkIndex(index, framework.id)
+    fs.writeFileSync(
+      path.join(OUTPUT_DIR, `${framework.id}.json`),
+      JSON.stringify(items, null, 2),
+    )
+    console.log(
+      `Generated the ${framework.label} index with ${items.length} items`,
+    )
+  }
 }
 
 if (

@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { reactPropsOf, resolveReactProp } from "./example-react-props.mjs"
 import {
   byName,
   containsKind,
@@ -110,9 +111,19 @@ const replacing = (node, text) => ({
 
 const appending = (node, text) => ({ end: node.end, start: node.end, text })
 
+const frameworkKey = (framework, element, key) =>
+  framework === "react"
+    ? (resolveReactProp(
+        reactPropsOf(JSON.parse(element), false) ?? new Map(),
+        key,
+      ) ?? key)
+    : key
+
 const omitted = (framework, element, keys) =>
   keys.length
-    ? `Omit<${ELEMENT_TYPES[framework](element)}, ${[...new Set(keys)]
+    ? `Omit<${ELEMENT_TYPES[framework](element)}, ${[
+        ...new Set(keys.map((key) => frameworkKey(framework, element, key))),
+      ]
         .map((key) => JSON.stringify(key))
         .toSorted()
         .join(" | ")}>`

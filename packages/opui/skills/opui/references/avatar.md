@@ -22,6 +22,7 @@ Avatars show a person or entity as an image, initials or icon.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `src`: `string`. The image source. Replaces the content.
 - State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`). Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.
+- `variant`: `"filled"` (default), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`). The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.
 
 ### Slots
 
@@ -53,12 +54,15 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_margin`: How much avatars in a `.ui-avatar-group` overlap. Set on the group.
 - `--_outline-color`: The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface`. Set on the group.
 - `--_outline-width`: Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.
+- `--_outlined-border-color`: The border of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_size`: The width and height. Defaults to `--ui-control-size`, set by the size classes.
 - `--_text-color`: The text and icon color. Defaults to `--ui-on-primary`.
+- `--_tonal-bg-color`: The background of `.ui-tonal`. Defaults to `--ui-primary-tonal`, or the palette tint.
+- `--_tonal-text-color`: The text and icon color of `.ui-tonal`. Defaults to `--ui-on-primary-tonal`, or the palette text on the tint.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-on-primary`, `--ui-primary`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-2` and `--ui-surface`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-control-size`, `--ui-control-size-large`, `--ui-control-size-small`, `--ui-control-size-x-small`, `--ui-disabled-opacity`, `--ui-font-size-caption`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-tint`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius-round`, `--ui-radius-small`, `--ui-space-2`, `--ui-surface` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -30,7 +30,7 @@ export default {
     },
     {
       description:
-        "Tone of `.ui-swatch`. Without it, the swatch takes the palette accent of the scope it sits in.",
+        "Tone of `.ui-swatch`, and the text color of `.ui-p`, `.ui-caption` and `.ui-overline`. Without it, the swatch takes the palette accent of the scope it sits in.",
       group: "Colors",
       prop: "color",
       values: {
@@ -120,6 +120,13 @@ export default {
       group: "Sizes",
       prop: "size",
       values: { large: ".ui-large", medium: null, small: ".ui-small" },
+    },
+    {
+      class: ".ui-tabular-nums",
+      description:
+        "Digits of one width, so numbers line up in a column of prices or stats.",
+      group: "Tabular nums",
+      prop: "tabularNums",
     },
     {
       class: ".ui-swatch",

@@ -14,12 +14,26 @@ import copyApi from "../../component-api/copy/api"
 
 export const description =
   "A button that copies text or a field's value to the clipboard."
+
+export const keywords = ["clipboard", "copy to clipboard"]
 ---
 
 <Component
   description={description}
   slug="copy"
-  browserSupport={["invoker-commands"]}
+  browserSupport={[
+    "container-style-queries",
+    "display-animation",
+    "interest-invokers",
+    "invoker-commands",
+    "light-dark",
+    "overlay",
+    "popover",
+    "popover-hint",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+  ]}
   apis={[{ title: "Copy API", api: copyApi }]}
   changelogPaths={[
     { path: "packages/opui/components/Copy/Copy.astro", type: "component" },
@@ -64,42 +78,79 @@ export const description =
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="div">
       <p slot="components">
         Wrap the field or the text in <code>Copy</code> with an <code>id</code>,
         and give a <code>Button</code> <code>commandfor</code> with that id and
         <code>command="--copy"</code>. A field's value is copied, otherwise the
-        text. The button turns green and a screen reader hears "Copied" for two
-        seconds; <code>copiedLabel</code> changes the words.
+        text. A label in the look of an outlined button says "Copied" next to
+        the button for two seconds, and a screen reader hears it;
+        <code>copiedLabel</code> changes the words.
       </p>
       <p slot="html">
         Wrap the field or the text in
         <code>&lt;opui-copy class="ui-copy"&gt;</code> with an id, end it with
-        <code>&lt;span class="ui-sr-only" role="status"&gt;</code>, give a
-        button <code>commandfor</code> with that id and
+        <code>&lt;span class="ui-sr-only" role="status"&gt;</code> and
+        <code>&lt;span class="ui-floating" popover aria-hidden="true"&gt;</code
+        >, give a button <code>commandfor</code> with that id and
         <code>command="--copy"</code>, and import
         <code>opui-css/elements/copy.js</code>. A field's value is copied,
-        otherwise the text. The button gets <code>data-copied</code>, which
-        turns it green, and a screen reader hears "Copied" for two seconds;
-        <code>copied-label</code> changes the words.
+        otherwise the text. The label in the look of an outlined button says
+        "Copied" next to the button for two seconds, and a screen reader hears
+        it; <code>copied-label</code> changes the words.
       </p>
     </Conditional>
+    <p>
+      The label sits before the button at the button's height, with its font and
+      corners, or after it when there's no room. The button itself doesn't
+      change. Set <code>--ui-anchor-position-area</code> on the element to move
+      the label.
+    </p>
     <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="snippet">Snippet</h2>
+  <section id="snippet">
+    <h2>Snippet</h2>
     <p>
-      The button can sit inside the element too. Buttons are left out of the
-      copied text, so an icon button next to the code is fine.
+      The button can sit inside the element too. Buttons and popovers are left
+      out of the copied text, so an icon button with a
+      <DocLink href="/components/tooltip">Tooltip</DocLink> next to the code is
+      fine. The label takes the tooltip's place, and the tooltip stays closed
+      while the label shows. Add <code>data-copy-ignore</code> to any other
+      element inside to leave it out too, like line numbers or the removed lines
+      of a diff.
     </p>
     <AutoExample name="Snippet" row />
   </section>
 
-  <section>
-    <h2 id="without-javascript">Without JavaScript</h2>
+  <section id="failed">
+    <h2>Failed copy</h2>
+    <Conditional as="div">
+      <p slot="components">
+        Where the page has no Clipboard API, like without HTTPS, or the
+        clipboard refuses or doesn't answer within a second, the element copies
+        through a selection instead. Where that is blocked too, the label says
+        "Copy failed" until Esc, a click elsewhere or the next press, and the
+        text is selected so people can copy it themselves. A field also gets
+        focus, so the keyboard shortcut copies it. <code>failedLabel</code>
+        changes the words.
+      </p>
+      <p slot="html">
+        Where the page has no Clipboard API, like without HTTPS, or the
+        clipboard refuses or doesn't answer within a second, the element copies
+        through a selection instead. Where that is blocked too, the label says
+        "Copy failed" until Esc, a click elsewhere or the next press, and the
+        text is selected so people can copy it themselves. A field also gets
+        focus, so the keyboard shortcut copies it. <code>failed-label</code>
+        changes the words.
+      </p>
+    </Conditional>
+  </section>
+
+  <section id="without-javascript">
+    <h2>Without JavaScript</h2>
     <p>
       Until <code>copy.js</code> loads, a copy button inside the element or
       right after it is hidden, and the text can still be selected. Put the
@@ -116,12 +167,12 @@ export const description =
         so it doesn't interrupt. The button keeps its name.
       </li>
       <li>
-        Where the clipboard is blocked, the element selects the text instead, so
-        people can copy it themselves.
+        The label has <code>aria-hidden="true"</code>, since the live region
+        already announces its words.
       </li>
       <li>
-        The green <code>data-copied</code> state is a second cue next to the
-        announcement, not the only one.
+        Where the clipboard is blocked, the element announces the failure and
+        selects the text instead, so people can copy it themselves.
       </li>
     </ul>
     <KeyboardSupport />

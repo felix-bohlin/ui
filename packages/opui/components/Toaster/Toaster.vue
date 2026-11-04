@@ -3,7 +3,7 @@ import "../../elements/toaster.js"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.vue-props"
 
-const { closeLabel, duration, id } = defineProps<Props>()
+const { align, closeLabel, duration, id, side } = defineProps<Props>()
 
 warnMissingId("Toaster", id)
 </script>
@@ -11,7 +11,12 @@ warnMissingId("Toaster", id)
 <template>
   <component
     is="opui-toaster"
-    :class="['ui-toaster', $props.class]"
+    :class="[
+      'ui-toaster',
+      side && side !== 'block-end' && `ui-${side}`,
+      align && align !== 'end' && `ui-align-${align}`,
+      $props.class,
+    ]"
     :close-label="closeLabel"
     :duration="duration"
     :id="id"

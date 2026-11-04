@@ -30,7 +30,7 @@ const REMOVE_SELECTORS = [
   "button",
   "input",
   "script",
-  "section:has(> #changelog):not(:has(.whats-new, .migrating))",
+  "section#changelog:not(:has(.whats-new, .migrating))",
   "style",
   "svg",
   "template",
@@ -121,7 +121,16 @@ function unwrapTemplates(node, test) {
 /** @param {Element} node */
 const codeBlock = (node) => {
   const lang = node.properties?.dataLanguage
-  const code = textContent(select("code", node) ?? node)
+  const lines = selectAll(".diff-line", node)
+  const code = lines.length
+    ? lines
+        .map((line) => {
+          const type = line.properties?.dataDiff
+          const marker = type === "ins" ? "+" : type === "del" ? "-" : " "
+          return marker + textContent(line)
+        })
+        .join("\n")
+    : textContent(select("code", node) ?? node)
   return element("pre", {}, [
     element("code", { className: lang ? [`language-${lang}`] : [] }, [
       text(code),
@@ -266,7 +275,7 @@ export async function articleToMarkdown(
   unwrapTemplates(article, isClass("example-code"))
 
   if (omitInstallationCode) {
-    const installation = select("section:has(> #installation)", article)
+    const installation = select("section#installation", article)
     if (installation) {
       prune(installation, new Set(selectAll(".code-block", installation)))
       replace(installation, isClass("code-group"), installationGroup)

@@ -12,6 +12,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
 
 import chipApi from "../../component-api/chip/api"
 import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
+
+export const keywords = ["filter", "pill", "tag", "token"]
 ---
 
 <Component
@@ -74,8 +76,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
         The Chip has two variants: <code>tonal</code> (default) and
@@ -89,8 +91,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="severities">Severities</h2>
+  <section id="severities">
+    <h2>Severities</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Set <code>severity</code> to <code>critical</code>, <code>info</code>,
@@ -108,8 +110,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Severities" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop:
@@ -127,14 +129,14 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="icon">Icon</h2>
+  <section id="icon">
+    <h2>Icon</h2>
     <Conditional as="div">
       <p slot="components">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> slots. When you use the default
-        slot instead of <code>label</code>, wrap the text in
-        <code>&lt;span class="ui-text"&gt;</code> so it can truncate.
+        <code>start</code> and <code>end</code> slots. Pass rich content in the
+        <code>label</code> slot (the <code>label</code> prop for plain text);
+        the component wraps it in <code>.ui-text</code> so it can truncate.
       </p>
       <p slot="html">
         The icon can be placed before or after the text. <br /> Make sure the
@@ -142,22 +144,22 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       </p>
       <p slot="react">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> props. When you use
-        <code>children</code> instead of <code>label</code>, wrap the text in
-        <code>&lt;span className="ui-text"&gt;</code> so it can truncate.
+        <code>start</code> and <code>end</code> props. <code>label</code> takes
+        a node, and the component wraps it in <code>.ui-text</code> so it can
+        truncate.
       </p>
       <p slot="svelte">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> snippets. When you use
-        <code>children</code> instead of <code>label</code>, wrap the text in
-        <code>&lt;span class="ui-text"&gt;</code> so it can truncate.
+        <code>start</code> and <code>end</code> snippets. <code>label</code>
+        takes a string or a snippet, and the component wraps it in
+        <code>.ui-text</code> so it can truncate.
       </p>
     </Conditional>
     <AutoExample name="Icon" row />
   </section>
 
-  <section>
-    <h2 id="dot">Dot</h2>
+  <section id="dot">
+    <h2>Dot</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Set <code>dot</code> to add a leading dot in the chip's color.
@@ -179,8 +181,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Dot" column />
   </section>
 
-  <section>
-    <h2 id="button">Button</h2>
+  <section id="button">
+    <h2>Button</h2>
     <p>
       Use <PropOrClass prop='as="button"' class='<button class="ui-chip">' />
       for a chip that runs an action.
@@ -188,8 +190,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Button" column centered />
   </section>
 
-  <section>
-    <h2 id="link">Link</h2>
+  <section id="link">
+    <h2>Link</h2>
     <p>
       Use <PropOrClass prop="href" class='<a class="ui-chip">' /> for a chip
       that goes to another page.
@@ -197,8 +199,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Link" row />
   </section>
 
-  <section>
-    <h2 id="pressed">Pressed</h2>
+  <section id="pressed">
+    <h2>Pressed</h2>
     <p>
       Set <code>aria-pressed="true"</code> on a button chip to mark it as
       pressed, for a filter or a choice. The chip fills with
@@ -211,8 +213,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <AutoExample name="Pressed" column centered />
   </section>
 
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="disabled">
+    <h2>Disabled</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Disable a button or link chip with the <code>disabled</code> prop. A
@@ -232,8 +234,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         Disable a button or link chip with the <code>disabled</code> prop. A
         link chip drops its <code>href</code> and gets
         <code>aria-disabled="true"</code> instead. A static chip can't be
-        disabled. Give it <code>class="ui-disabled"</code> for an inactive look,
-        which announces nothing.
+        disabled. Give it <code>className="ui-disabled"</code> for an inactive
+        look, which announces nothing.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" row />

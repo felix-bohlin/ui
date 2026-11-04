@@ -231,18 +231,21 @@ rules.sections = (node, ancestors, file) => {
       )
     }).length
   const [first] = content(node)
-  return first &&
-    "name" in first &&
-    first.name === `h${level}` &&
-    quoted(first, "id")
-    ? undefined
-    : `<section> without a leading <h${level} id="...">`
+  if (!first || !("name" in first) || first.name !== `h${level}`) {
+    return `<section> without a leading <h${level}>`
+  }
+  if (level === 2) {
+    return quoted(node, "id") && !attribute(first, "id")
+      ? undefined
+      : '<section> without an id, or an <h2 id="..."> in it: write <section id="..."><h2>'
+  }
+  return quoted(first, "id") ? undefined : `<h${level}> without an id`
 }
 
-test("sections start with a heading that has an id", () => {
+test("sections start with a heading and have an anchor", () => {
   expect(
     find(rules.sections),
-    "the heading names the section in the table of contents and gives it an anchor",
+    "the heading names the section in the table of contents. An h2 section carries the id itself: the h2 is sticky, and a sticky target pulls the table of contents highlight back to it from the h3s under it. A deeper section puts the id on its heading",
   ).toEqual([])
 })
 
@@ -265,7 +268,7 @@ rules.examples = (node, ancestors, file) =>
 test("examples sit in a section", () => {
   expect(
     find(rules.examples),
-    'put the example in a <section> that starts with its heading, usually <h2 id="basics">Basics</h2> for the first, or in a slot of the layout',
+    'put the example in a <section> that starts with its heading, usually <section id="basics"><h2>Basics</h2> for the first, or in a slot of the layout',
   ).toEqual([])
 })
 
@@ -412,7 +415,7 @@ const SAMPLES = [
   [
     "examples",
     '<Component><div><AutoExample name="Basics" /></div></Component>',
-    '<Component><section><h2 id="basics">Basics</h2><AutoExample name="Basics" /></section></Component>',
+    '<Component><section id="basics"><h2>Basics</h2><AutoExample name="Basics" /></section></Component>',
   ],
   [
     "framework",
@@ -426,8 +429,8 @@ const SAMPLES = [
   ],
   [
     "sections",
-    "<Component><section><p>Text</p></section></Component>",
     '<Component><section><h2 id="sizes">Sizes</h2></section></Component>',
+    '<Component><section id="sizes"><h2>Sizes</h2></section></Component>',
   ],
 ]
 

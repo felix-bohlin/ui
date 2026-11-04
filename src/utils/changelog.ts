@@ -118,3 +118,10 @@ export const changelogSections = (text: string, version: string) => {
     }))
     .toSorted((a, b) => a.title.localeCompare(b.title, "en"))
 }
+
+export const addedComponents = (text: string, version: string) =>
+  (
+    changelogSections(text, version).find(
+      (section) => section.title === "Added",
+    )?.entries ?? []
+  ).flatMap((entry) => entry.match(/^- `(\w+)` component\b/)?.[1] ?? [])

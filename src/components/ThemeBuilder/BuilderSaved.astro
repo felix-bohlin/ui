@@ -30,7 +30,7 @@ const gallery = GALLERY.map((entry) => ({
   side="inline-end"
 >
   <DrawerHeader>
-    <DrawerTitle>Saved themes</DrawerTitle>
+    <DrawerTitle>My themes</DrawerTitle>
   </DrawerHeader>
   <DrawerContent class="builder-saved">
     <form class="builder-save-form" data-save-form>
@@ -50,9 +50,10 @@ const gallery = GALLERY.map((entry) => ({
     <p class="builder-saved-status" data-saved-status role="status"></p>
 
     <section aria-labelledby="builder-snapshots-title" class="builder-section">
-      <h3 id="builder-snapshots-title">Yours</h3>
+      <h3 id="builder-snapshots-title">Saved in this browser</h3>
       <p class="builder-saved-empty" data-snapshots-empty>
-        Nothing saved yet. Saved themes stay in this browser.
+        Nothing saved yet. Save the theme you're building to come back to it or
+        compare it with another.
       </p>
       <ul class="builder-theme-list" data-snapshots></ul>
     </section>

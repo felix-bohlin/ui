@@ -1017,6 +1017,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
       "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
     ),
   })
+  const unbound = (what) => ({ ...describe(what), everywhere: true })
   const bindables = declared.frameworks?.svelte ?? [
     { prop: declared.prop, type: declared.type },
   ]
@@ -1057,7 +1058,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     }
   }
   const part = api.parts.find((entry) => entry.model) ?? api.root
-  if (!part) return describe("which no part in api.ts is marked as")
+  if (!part) return unbound("which no part in api.ts is marked as")
   const compounds = part.selector
     .split(">")
     .map((compound) => compound.trim())
@@ -1074,11 +1075,11 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
         )?.model,
     )
     if (children.length !== 1) {
-      return describe(`whose part ${part.selector} matches no element`)
+      return unbound(`whose part ${part.selector} matches no element`)
     }
     const [element] = children
     if (!spreads(element, frontmatter.rest)) {
-      return describe(`whose component doesn't spread ${frontmatter.rest}`)
+      return unbound(`whose component doesn't spread ${frontmatter.rest}`)
     }
     element.model = true
     return {
@@ -1090,7 +1091,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     }
   }
   if (matches.length !== 1) {
-    return describe(
+    return unbound(
       `whose part ${part.selector} matches ${matches.length} elements`,
     )
   }
@@ -1121,9 +1122,9 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
           ? "radio"
           : undefined
   if (!kind)
-    return describe("which isn't a value, checked or radio model of a control")
+    return unbound("which isn't a value, checked or radio model of a control")
   if (!spreads(element, frontmatter.rest)) {
-    return describe(`whose element doesn't spread ${frontmatter.rest}`)
+    return unbound(`whose element doesn't spread ${frontmatter.rest}`)
   }
   const prop = frontmatter.props.find((entry) => entry.prop === declared.prop)
   if (prop && kind !== "value") {

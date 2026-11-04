@@ -20,6 +20,15 @@ export default {
     description: "Background of hovered items, from `--ui-primary`.",
     kind: "input",
   },
+  "--_item-duration": {
+    description:
+      "Duration of the row transitions, `--ui-duration-fast` times `--_motion`. A hovered row changes at once and fades back over this duration.",
+    kind: "output",
+  },
+  "--_item-ease": {
+    description: "Easing of the row transitions. Defaults to `--ui-ease`.",
+    kind: "input",
+  },
   "--_item-gap": {
     description: "Gap between the content of an item. Smaller in `.ui-dense`.",
     kind: "input",
@@ -29,6 +38,11 @@ export default {
       "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.",
     kind: "input",
   },
+  "--_motion": {
+    description:
+      "Motion multiplier for the row transitions of a `.ui-list`. `0` turns them off. A `Menu` and a `Select` read their own.",
+    kind: "input",
+  },
   "--_radius": {
     description:
       "The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.",
@@ -36,7 +50,7 @@ export default {
   },
   "--_selected-bg-color": {
     description:
-      "Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.",
+      "Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.",
     kind: "input",
   },
   "--_selected-indicator-bg-color": {

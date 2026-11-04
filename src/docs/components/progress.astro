@@ -9,6 +9,8 @@ import Conditional from "../../components/Conditional.astro"
 import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
 
 import progressApi from "../../component-api/progress/api"
+
+export const keywords = ["loading", "meter", "progress bar"]
 ---
 
 <Component
@@ -55,18 +57,18 @@ import progressApi from "../../component-api/progress/api"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="indeterminate">Indeterminate</h2>
+  <section id="indeterminate">
+    <h2>Indeterminate</h2>
     <AutoExample name="Indeterminate" />
   </section>
 
-  <section>
-    <h2 id="determinate">Determinate</h2>
+  <section id="determinate">
+    <h2>Determinate</h2>
     <AutoExample name="Determinate" column />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="div">
       <p slot="components">
         Use the <code>variant</code> prop to swap the progress bar track surface
@@ -83,8 +85,8 @@ import progressApi from "../../component-api/progress/api"
     <AutoExample name="Surfaces" column />
   </section>
 
-  <section>
-    <h2 id="inline">Inline</h2>
+  <section id="inline">
+    <h2>Inline</h2>
     <p>
       The bar is an <code>inline-block</code> aligned to the middle of the line,
       so it sits in a line of text or a table cell. Set an

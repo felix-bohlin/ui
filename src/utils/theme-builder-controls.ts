@@ -264,7 +264,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Tonal buttons and chips",
+        hint: "Primary tonal buttons, tonal avatars and checked choice cards",
         id: "tonal",
         kind: "choice",
         label: "Tonal fill",
@@ -414,7 +414,7 @@ export const GROUPS: ControlGroup[] = [
         { hint: "Cards, menus and dialogs" },
       ),
       color("surface-filled", "Filled surface", "--ui-surface-filled", "fine", {
-        hint: "Filled cards and fields",
+        hint: "Lists, table headers and footers, and filled dividers, progress bars and range tracks",
       }),
       color("surface-tonal", "Tonal surface", "--ui-surface-tonal", "fine", {
         hint: "Tonal buttons, chips and hover fills",
@@ -918,7 +918,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Text in buttons, fields and menus",
+        hint: "Text in buttons, fields, tabs and toggle buttons",
         id: "control-text",
         kind: "choice",
         label: "Control text size",
@@ -1208,18 +1208,18 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Snappy",
             tokens: {
-              "--ui-duration": "0.15s",
-              "--ui-duration-fast": "0.1s",
-              "--ui-duration-slow": "0.2s",
+              "--ui-duration": "0.1s",
+              "--ui-duration-fast": "0.075s",
+              "--ui-duration-slow": "0.15s",
             },
             value: "snappy",
           },
           {
             label: "Default",
             tokens: {
-              "--ui-duration": "0.2s",
+              "--ui-duration": "0.15s",
               "--ui-duration-fast": "0.1s",
-              "--ui-duration-slow": "0.3s",
+              "--ui-duration-slow": "0.25s",
             },
             value: "default",
           },
@@ -1254,6 +1254,30 @@ export const GROUPS: ControlGroup[] = [
               "--ui-ease-exit": "cubic-bezier(0.3, 0, 0.8, 0.15)",
             },
             value: "emphasized",
+          },
+        ],
+        tier: "fine",
+      },
+      {
+        display: "toggle",
+        hint: "Springy tabs, menus and tooltips, and buttons that give a little when pressed",
+        id: "motion-personality",
+        kind: "choice",
+        label: "Motion personality",
+        options: [
+          {
+            label: "Calm",
+            tokens: revert("--ui-ease-move", "--ui-press-scale"),
+            value: "calm",
+          },
+          {
+            label: "Lively",
+            tokens: {
+              "--ui-ease-move":
+                "linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1)",
+              "--ui-press-scale": "0.97",
+            },
+            value: "lively",
           },
         ],
         tier: "fine",

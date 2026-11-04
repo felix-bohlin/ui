@@ -20,6 +20,8 @@ import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
 
 import typographyApi from "../../component-api/typography/api"
+
+export const keywords = ["font", "heading", "prose", "text"]
 ---
 
 <Component
@@ -31,6 +33,7 @@ import typographyApi from "../../component-api/typography/api"
     "exp-functions",
     "has",
     "light-dark",
+    "logical-properties",
     "marker",
     "progress-function",
     "registered-custom-properties",
@@ -80,8 +83,8 @@ import typographyApi from "../../component-api/typography/api"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="class-based">Class-based</h2>
+  <section id="class-based">
+    <h2>Class-based</h2>
     <p>Utils that you can plop down wherever.</p>
 
     <h3 id="variants">Variants</h3>
@@ -124,10 +127,26 @@ import typographyApi from "../../component-api/typography/api"
       name is a <code>Chip</code> with a dot instead.
     </p>
     <AutoExample name="Swatch" />
+
+    <h3 id="severity">Severity</h3>
+    <p>
+      The same severity class on <code>.ui-p</code>, <code>.ui-caption</code> or
+      <code>.ui-overline</code> colors the text in that tone, for a change next
+      to a stat or a "Verified" next to an email. The tone alone carries no
+      meaning, so say it in words too.
+    </p>
+    <AutoExample name="Severity" />
+
+    <h3 id="tabular-numbers">Tabular numbers</h3>
+    <p>
+      <code>.ui-tabular-nums</code> gives every digit the same width, so prices
+      and stats line up in a column and a counter doesn't shift as it ticks.
+    </p>
+    <AutoExample name="TabularNumbers" />
   </section>
 
-  <section>
-    <h2 id="inline-text-elements">Inline text elements</h2>
+  <section id="inline-text-elements">
+    <h2>Inline text elements</h2>
     <div class="ui-not-rich-text">
       <Table>
         <TableHead>
@@ -238,16 +257,19 @@ import typographyApi from "../../component-api/typography/api"
     </div>
   </section>
 
-  <section>
-    <h2 id="classless">Classless</h2>
+  <section id="classless">
+    <h2>Classless</h2>
     <p>
       Wrap your code in <code>.ui-rich-text</code> to add typographic styles to
       its children. It's extra handy when you can't control the contents
       yourself, like printing text from a CMS.
     </p>
     <p>
-      Headings, lists and tables with a class keep their own styles, and
-      components look the same inside rich text as outside it. Wrap a part in
+      Headings, lists and tables with a class keep their own styles, and so do
+      component roots. Headings without a class, <code>p</code>,
+      <code>kbd</code> and the first <code>p</code> of an <code>hgroup</code>
+      inside a component still follow rich text; <code>.ui-not-rich-text</code>
+      on the component stops that. Wrap a part in
       {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
     </p>
     <Code

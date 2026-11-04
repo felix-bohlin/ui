@@ -18,6 +18,13 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import anchorApi from "../../component-api/anchor/api"
 import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
+
+export const keywords = [
+  "anchor positioning",
+  "floating",
+  "popover",
+  "position-anchor",
+]
 ---
 
 <Component
@@ -75,8 +82,8 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="always-visible">Always visible</h2>
+  <section id="always-visible">
+    <h2>Always visible</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Floating content that is always shown, like a coach mark beside a
@@ -95,8 +102,8 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
     <AutoExample name="AlwaysVisible" />
   </section>
 
-  <section>
-    <h2 id="hover-trigger">Hover trigger</h2>
+  <section id="hover-trigger">
+    <h2>Hover trigger</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add
@@ -125,8 +132,8 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
     <AutoExample name="RepoCard" />
   </section>
 
-  <section>
-    <h2 id="link-preview">Link preview</h2>
+  <section id="link-preview">
+    <h2>Link preview</h2>
     <p>Preview where a link goes before following it.</p>
 
     <AutoExample name="LinkPreview" />

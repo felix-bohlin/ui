@@ -15,6 +15,8 @@ import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import selectApi from "../../component-api/select/api"
 import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
+
+export const keywords = ["combobox", "dropdown", "option", "picker"]
 ---
 
 <Component
@@ -99,8 +101,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <p>
       The select is outlined by default. Use
       <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
@@ -109,8 +111,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Variants" row spacious />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop:
@@ -130,8 +132,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Sizes" row spacious />
   </section>
 
-  <section>
-    <h2 id="dense">Dense</h2>
+  <section id="dense">
+    <h2>Dense</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>dense</code> prop to pack the options tighter.
@@ -144,8 +146,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Dense" row spacious />
   </section>
 
-  <section>
-    <h2 id="end-text">End text</h2>
+  <section id="end-text">
+    <h2>End text</h2>
     <p>
       Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting
       text below the select.
@@ -153,8 +155,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="EndText" row spacious />
   </section>
 
-  <section>
-    <h2 id="affix">Affix</h2>
+  <section id="affix">
+    <h2>Affix</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>start</code> and <code>end</code> slots to affix icons or
@@ -177,8 +179,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Affix" row spacious />
   </section>
 
-  <section>
-    <h2 id="top-and-bottom">Top and bottom</h2>
+  <section id="top-and-bottom">
+    <h2>Top and bottom</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>top</code> and <code>bottom</code> slots for short text or
@@ -220,8 +222,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="TopAndBottom" row spacious />
   </section>
 
-  <section>
-    <h2 id="preselected">Preselected</h2>
+  <section id="preselected">
+    <h2>Preselected</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Set <code>value</code> to preselect an option, or
@@ -247,8 +249,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Preselected" row spacious />
   </section>
 
-  <section>
-    <h2 id="binding">Binding</h2>
+  <section id="binding">
+    <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Astro renders the field on the server, so it has no bound value. The
@@ -280,8 +282,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Binding" column />
   </section>
 
-  <section>
-    <h2 id="option-groups">Option groups</h2>
+  <section id="option-groups">
+    <h2>Option groups</h2>
     <p>
       Wrap options in a <code>&lt;div role="group"&gt;</code> and start it with
       a {" "}<code>&lt;label class="ui-text"&gt;</code> to group them under a
@@ -300,15 +302,15 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="GroupedOptgroup" row spacious />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
+  <section id="validation">
+    <h2>Validation</h2>
     <ValidationNotes element="select" subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
 
-  <section>
-    <h2 id="spread">Spread</h2>
+  <section id="spread">
+    <h2>Spread</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>spread</code> boolean prop to display the label and start
@@ -325,8 +327,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Spread" column spacious />
   </section>
 
-  <section>
-    <h2 id="auto-fit">Auto-fit</h2>
+  <section id="auto-fit">
+    <h2>Auto-fit</h2>
     <p>
       Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's
       width follow the selected option, from <code>25ch</code>.

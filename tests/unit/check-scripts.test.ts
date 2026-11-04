@@ -47,7 +47,11 @@ import {
   intended,
 } from "../../scripts/check-ratchets.mjs"
 import {
+  frameworkIndex,
   indexProblems,
+  readHeadings,
+  readKeywords,
+  readSections,
   slotText,
 } from "../../scripts/generate-search-index.mjs"
 import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
@@ -113,6 +117,7 @@ describe("check-browser-support", () => {
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",
     "light-dark": ".a { color: light-dark(white, black); }",
+    "logical-properties": ".a { overflow-inline: auto; }",
     marker: "li::marker { color: red; }",
     "nth-child-of": ".a:nth-child(2 of .b) { gap: 0; }",
     "open-pseudo": "select:open { gap: 0; }",
@@ -134,6 +139,7 @@ describe("check-browser-support", () => {
     "scrollbar-width": ".a { scrollbar-width: thin; }",
     "sibling-count": ".a { --n: sibling-count(); }",
     "starting-style": "@starting-style { .a { opacity: 0; } }",
+    subgrid: ".a { grid-template-columns: subgrid; }",
     "text-box": ".a { text-box: trim-both cap alphabetic; }",
     "text-wrap-pretty": ".a { text-wrap: pretty; }",
     "transition-behavior": ".a { transition-behavior: allow-discrete; }",
@@ -1145,8 +1151,8 @@ describe("generate-search-index", () => {
       ]),
     ).toEqual([
       "Unknown search categories: Notes",
-      "Search categories without entries: Learn",
-      "Search entries without a title or description: guide-empty",
+      "Search categories without entries: Blog",
+      "Search entries without a title, or without a description or page: guide-empty",
     ])
   })
 
@@ -1163,9 +1169,72 @@ describe("generate-search-index", () => {
   test("accepts an index with every category", () => {
     expect(
       indexProblems(
-        ["API", "Blocks", "Component", "Guide", "Learn"].map((id) => entry(id)),
+        ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
+  })
+
+  test("accepts a section entry with a page instead of a description", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "guide-sizes"), description: "", page: "Button" },
+      ]),
+    ).toEqual([])
+  })
+
+  test("reads the id and title of each section and h3 with an id, once per id", () => {
+    expect(
+      readSections(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n</section>\n<section id="sizes">\n  <h2>Sizes again</h2>\n</section>\n<h2>Notes</h2>',
+      ),
+    ).toEqual([
+      { id: "sizes", title: "Sizes" },
+      { id: "small", title: "Small sm" },
+    ])
+  })
+
+  test("reads the keywords a page exports", () => {
+    expect(
+      readKeywords(
+        'export const description = "A page."\nexport const keywords = [\n  "modal",\n  "popup",\n]\n',
+      ),
+    ).toEqual(["modal", "popup"])
+    expect(readKeywords('export const description = "A page."')).toEqual([])
+  })
+
+  test("keeps the shared entries and one framework's entries, without the framework id", () => {
+    expect(
+      frameworkIndex(
+        [
+          { ...entry("Blog", "blog-post"), url: "/blog/post" },
+          {
+            ...entry("Component", "component-button-html"),
+            frameworkId: "html",
+            url: "/html/components/button",
+          },
+          {
+            ...entry("Component", "component-button-react"),
+            frameworkId: "react",
+            url: "/react/components/button",
+          },
+        ] as Parameters<typeof frameworkIndex>[0],
+        "react",
+      ).map(({ id, ...item }) => [id, "frameworkId" in item]),
+    ).toEqual([
+      ["blog-post", false],
+      ["component-button-react", false],
+    ])
+  })
+
+  test("reads the h2 of a section with an id and the h3s with an id, in order", () => {
+    expect(
+      readHeadings(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n  <h3>Draft</h3>\n</section>\n<section>\n  <h2>Notes</h2>\n</section>',
+      ),
+    ).toEqual(["Sizes", "Small sm"])
   })
 })
 

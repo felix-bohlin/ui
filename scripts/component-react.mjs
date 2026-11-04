@@ -1,5 +1,9 @@
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { reactPropsOf, resolveReactProp } from "./example-react-props.mjs"
+import {
+  reactKinds,
+  reactPropsOf,
+  resolveReactProp,
+} from "./example-react-props.mjs"
 import {
   componentImport,
   contextImports,
@@ -66,22 +70,24 @@ export const toReact = (component) => {
   const entries = props.map((entry) => {
     if (entry.prop === "class") return { key: "className", text: "className" }
     if (tagProps.includes(entry)) return { key: entry.prop, text: entry.prop }
-    const reactProp = REACT_ATTRIBUTE_NAMES[entry.prop] ?? entry.prop
+    const reactProp =
+      REACT_ATTRIBUTE_NAMES[entry.prop] ??
+      (component.element && !component.baseProps?.includes(entry.prop)
+        ? resolveReactProp(
+            reactPropsOf(component.element, false) ?? new Map(),
+            entry.prop,
+          )
+        : undefined) ??
+      entry.prop
     if (reactProp === entry.local) {
       return {
         key: entry.local,
         text: entry.default ? `${entry.local} = ${entry.default}` : entry.local,
       }
     }
-    if (entry.local !== entry.prop) {
-      return {
-        key: entry.local,
-        text: `${JSON.stringify(reactProp)}: ${entry.local}${entry.default ? ` = ${entry.default}` : ""}`,
-      }
-    }
     return {
-      key: entry.prop,
-      text: entry.default ? `${entry.prop} = ${entry.default}` : entry.prop,
+      key: entry.local,
+      text: `${JSON.stringify(reactProp)}: ${entry.local}${entry.default ? ` = ${entry.default}` : ""}`,
     }
   })
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
@@ -153,7 +159,16 @@ export const toReact = (component) => {
               item.name,
             ) ?? item.name)))
     if (item.kind === "static") return `${name}=${JSON.stringify(item.value)}`
-    if (item.kind === "boolean") return name
+    if (item.kind === "boolean") {
+      const kinds =
+        node.component || node.variable || node.custom
+          ? new Set()
+          : reactKinds(reactPropsOf(node.tag, false) ?? new Map(), name)
+      return kinds.has("string") &&
+        !["any", "boolean", "other"].some((kind) => kinds.has(kind))
+        ? `${name}=""`
+        : name
+    }
     return `${name}={${rewriteExpression(item.code, options)}}`
   }
   const wrapFragment = (code, nodes) => {

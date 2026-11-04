@@ -6,7 +6,7 @@ export default {
   keyboard: [
     {
       description:
-        "In the field, submits the form it's in, when the form has a submit button. On the password toggle, shows or hides the password.",
+        "In the field, submits the form it's in, when the form has a submit button or only one field that blocks implicit submission. On a file input, opens the file picker. On the password toggle, shows or hides the password.",
       keys: ["Enter"],
     },
     {
@@ -41,7 +41,7 @@ export default {
     {
       default: "false",
       description:
-        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The count needs `opui-css/elements/character-count.js`.",
+        "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
       group: "Character count",
       htmlDescription:
         'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
@@ -99,7 +99,7 @@ export default {
     {
       default: "false",
       description:
-        'Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field\'s name, and the start and end text describe the input. The button needs `opui-css/elements/text-field.js`.',
+        'Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field\'s name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button.',
       group: "Password toggle",
       htmlDescription:
         'Use `<opui-text-field class="ui-text-field">` with a `<label class="ui-label" for>`, put a `.ui-button` with `aria-pressed="false"`, `commandfor` naming the input and `command="--toggle-password"` in `.ui-end`, and import `opui-css/elements/text-field.js`.',

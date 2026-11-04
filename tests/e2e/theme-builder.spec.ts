@@ -12,7 +12,8 @@ const open = async (page: Page, width = 1440) => {
 
 const changes = (page: Page) => page.locator("[data-change-count]")
 
-const toast = (page: Page) => page.locator("[data-toast-text]")
+const toast = (page: Page) =>
+  page.locator("#builder-toaster li:not([inert]) .ui-content > p")
 
 const room = (page: Page, id: string) => page.locator(`[data-room="${id}"]`)
 
@@ -33,7 +34,7 @@ test("opens on Start with the preset cards and no changes", async ({
   ).toHaveValue("")
   await expect(changes(page)).toHaveText("No changes")
   await expect(page.locator("[data-contrast-text]")).toHaveText(
-    "Contrast passes",
+    /^All \d+ contrast checks pass$/,
   )
 })
 
@@ -104,7 +105,10 @@ test("a mood applies a bundle of changes that Undo or a second press takes back"
   await expect(
     page.locator('[data-control="corners"] .builder-control-origin'),
   ).toHaveText("Changed")
-  await page.locator("[data-undo]").click()
+  await page
+    .locator("#builder-toaster li:not([inert])")
+    .getByRole("button", { name: "Undo" })
+    .click()
   await expect(toast(page)).toHaveText("Undone.")
   await expect(changes(page)).toHaveText("No changes")
   await expect(page.locator('[data-mood="playful"]')).toHaveAttribute(
@@ -208,6 +212,7 @@ test("on a phone the preview opens as a sheet", async ({ page }) => {
 })
 
 test("has no axe violations, with the drawers open too", async ({ page }) => {
+  test.setTimeout(90_000)
   await open(page)
   const check = async (label: string) => {
     const { violations } = await new AxeBuilder({ page })

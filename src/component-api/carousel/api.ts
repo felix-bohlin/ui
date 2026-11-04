@@ -10,7 +10,7 @@ export default {
     },
     {
       description:
-        "On the previous or next button, scrolls by one view. The button that reaches the start or end gets disabled, and focus moves to the page.",
+        "On the previous or next button, scrolls about one view, to an item boundary (one item less than the view when several are visible). The button that reaches the start or end gets disabled, and focus moves to the page.",
       keys: ["Enter", "Space"],
     },
     {

@@ -32,6 +32,8 @@ import AutoExample from "../../components/AutoExample.astro"
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+
+export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
 <Component
@@ -46,6 +48,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
     "display-animation",
     "has",
     "invoker-commands",
+    "logical-properties",
     "overflow-clip",
     "overlay",
     "round-mod-rem",
@@ -98,8 +101,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="div">
       <Fragment slot="components">
         <p>
@@ -165,11 +168,11 @@ import PropOrClass from "../../components/PropOrClass.astro"
           fully visible.
         </p>
         <p>
-          Add the <code>.ui-scroll-lock</code> utility class to the drawer to
-          lock page scrolling while it's open. With
-          <code>.ui-backdrop-transparent</code> the page stays scrollable,
-          except on screens narrower than 500px. Omit the class to allow
-          background scrolling.
+          Add the <code>.ui-scroll-lock</code> utility class from
+          <code>core/utils.css</code> to the drawer to lock page scrolling while
+          it's open. With <code>.ui-backdrop-transparent</code> the page stays
+          scrollable, except on screens narrower than 500px. Omit the class to
+          allow background scrolling.
         </p>
       </Fragment>
     </Conditional>
@@ -187,8 +190,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
     </AutoExample>
   </section>
 
-  <section>
-    <h2 id="how-to-close">How to close a drawer</h2>
+  <section id="how-to-close">
+    <h2>How to close a drawer</h2>
     <ClosedbyTable componentDefault="any" name="drawer" />
 
     <AutoExample name="CloseBehaviors" row />

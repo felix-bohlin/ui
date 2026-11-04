@@ -30,6 +30,11 @@ export default {
       "Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.",
     kind: "input",
   },
+  "--_outlined-border-color": {
+    description:
+      "The border of `.ui-outlined`. Defaults to `--ui-border-color`.",
+    kind: "input",
+  },
   "--_size": {
     description:
       "The width and height. Defaults to `--ui-control-size`, set by the size classes.",
@@ -37,6 +42,16 @@ export default {
   },
   "--_text-color": {
     description: "The text and icon color. Defaults to `--ui-on-primary`.",
+    kind: "input",
+  },
+  "--_tonal-bg-color": {
+    description:
+      "The background of `.ui-tonal`. Defaults to `--ui-primary-tonal`, or the palette tint.",
+    kind: "input",
+  },
+  "--_tonal-text-color": {
+    description:
+      "The text and icon color of `.ui-tonal`. Defaults to `--ui-on-primary-tonal`, or the palette text on the tint.",
     kind: "input",
   },
 } satisfies CustomProperties

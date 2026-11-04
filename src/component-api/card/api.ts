@@ -8,6 +8,18 @@ export default {
   },
   options: [
     {
+      default: '"normal"',
+      description:
+        "How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat.",
+      group: "Density",
+      prop: "density",
+      values: {
+        dense: ".ui-dense",
+        normal: null,
+        spacious: ".ui-spacious",
+      },
+    },
+    {
       default: '"plain"',
       description:
         "The variant to use. The default `plain` card has the page surface color and no border.",

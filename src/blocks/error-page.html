@@ -2,25 +2,11 @@
   .error-page {
     padding-block: var(--ui-space-6);
 
-    .error-page-intro {
-      align-items: center;
-      text-align: center;
-    }
-
     .error-page-code {
       color: var(--ui-primary);
       font-size: var(--ui-font-size-900);
-      font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-bold);
       line-height: 0.95;
-    }
-
-    .error-page-search .ui-text-field {
-      flex: 1;
-    }
-
-    .error-page-actions {
-      --_justify-content: center;
     }
   }
 </style>
@@ -29,8 +15,8 @@
   class="error-page ui-layout-container ui-layout-column ui-large"
   style="--_max-inline-size: 36rem"
 >
-  <div class="ui-layout-column error-page-intro">
-    <p class="error-page-code" aria-hidden="true">404</p>
+  <div class="ui-layout-column ui-align-center">
+    <p class="ui-tabular-nums error-page-code" aria-hidden="true">404</p>
     <hgroup>
       <h1 class="ui-h3">We can't find that page</h1>
       <p>
@@ -41,7 +27,7 @@
   </div>
 
   <search>
-    <form class="ui-layout-row ui-small error-page-search" action="#">
+    <form class="ui-field-group ui-horizontal" action="#">
       <label class="ui-text-field">
         <span class="ui-sr-only">Search Northwind</span>
         <span class="ui-field">
@@ -218,7 +204,7 @@
     </ul>
   </nav>
 
-  <div class="ui-layout-row ui-small error-page-actions">
+  <div class="ui-layout-row ui-small ui-align-center">
     <a class="ui-button ui-outlined" href="#error-page-back"
       ><svg
         aria-hidden="true"

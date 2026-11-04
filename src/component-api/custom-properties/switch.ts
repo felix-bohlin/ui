@@ -6,23 +6,10 @@ export default {
       "Fill and border of the checked track. In forced colors `SelectedItem`, `GrayText` when disabled.",
     kind: "input",
   },
-  "--_duration": {
-    description:
-      "Duration of the transitions, `--ui-duration` times `--_motion`.",
-    kind: "output",
-  },
-  "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ui-ease`.",
-    kind: "input",
-  },
   "--_icon-size": {
     description:
       "Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the thumb.",
     kind: "output",
-  },
-  "--_motion": {
-    description: "Motion multiplier for the transitions. `0` turns them off.",
-    kind: "input",
   },
   "--_on-accent": {
     description:

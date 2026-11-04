@@ -16,8 +16,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     naming, rich text, and where JavaScript is still needed.
   </Fragment>
 
-  <section>
-    <h2 id="cascade-layers">Cascade layers</h2>
+  <section id="cascade-layers">
+    <h2>Cascade layers</h2>
     <p>Every rule lives in a layer, ordered once in <code>layers.css</code>:</p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
@@ -42,21 +42,22 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="token-tiers">Token tiers</h2>
+  <section id="token-tiers">
+    <h2>Token tiers</h2>
     <p>
       Each tier reads from the ones before it. A theme sets knobs, roles and
-      component tokens, and component CSS starts reading at the roles.
-      <DocLink href="/guide/theme-tokens">Theme tokens</DocLink> and
+      component tokens, and component CSS reads the roles, a few knobs such as
+      <code>--ui-motion</code> and <code>--ui-contrast</code>, and never the
+      primitives. <DocLink href="/guide/theme-tokens">Theme tokens</DocLink> and
       <code>tokens.json</code> name the tier of every token:
     </p>
     <TokenTiers />
     <p>
       <strong>Knobs</strong> like <code>--ui-palette-hue</code> and
-      <code>--ui-density</code> are the inputs. <strong>Primitives</strong>, the
-      palette steps <code>--ui-color-1</code> to <code>--ui-color-16</code> and
-      the type scale <code>--ui-font-size-100</code> to
-      <code>--ui-font-size-900</code>, derive from them, and component CSS never
+      <code>--ui-density</code> are the inputs. <strong>Primitives</strong> are
+      the palette steps <code>--ui-color-1</code> to <code>--ui-color-16</code>,
+      derived from the knobs, and the type scale <code>--ui-font-size-100</code>
+      to <code>--ui-font-size-900</code>, plain values. Component CSS never
       reads them. <strong>Roles</strong> such as <code>--ui-primary</code> and
       <code>--ui-space-3</code> are the contract every component reads, each
       listed on <DocLink href="/guide/theme-tokens">Theme tokens</DocLink> with
@@ -67,26 +68,30 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       <DocLink href="/guide/customizing#example-themes">example themes</DocLink
       >, and a theme that has to reach into component CSS points at a missing
       role. <strong>Component tokens</strong> like <code>--ui-button-size</code>
-      cover a job only one component has. <strong>Private properties</strong>
-      like <code>--_accent</code> are one component's wiring for one element,
-      see
+      cover a job a few related components share (Button, ToggleButton and
+      ToggleGroup read that one). <strong>Private properties</strong> like
+      <code>--_accent</code> are one component's wiring for one element, see
       <DocLink href="/guide/customizing#component-properties"
         >Component properties</DocLink
       >. The documented inputs among them are per instance: the component
-      declares them on itself in <code>components.root</code>, so a theme in
-      <code>theme.custom</code> can't set them site-wide.
-      <DocLink href="/guide/theming">Theming</DocLink> walks through the knobs.
+      declares them on itself, in <code>components.root</code> or
+      <code>components.extended</code>, so a theme in <code>theme.custom</code>
+      can't set them site-wide. <DocLink href="/guide/theming">Theming</DocLink>
+      walks through the knobs.
     </p>
   </section>
 
-  <section>
-    <h2 id="light-and-dark">Light and dark</h2>
+  <section id="light-and-dark">
+    <h2>Light and dark</h2>
     <p>
-      Every color token holds both schemes in one <code>light-dark()</code>
-      under <code>color-scheme: light dark</code>, so the OS setting drives them
-      and there is no class to toggle. <code>.ui-light</code> and
-      <code>.ui-dark</code> pick a side for <code>html</code> or one element,
-      see <DocLink href="/guide/theming#scopes">Scopes</DocLink>.
+      Most color roles hold both schemes in one <code>light-dark()</code>.
+      <code>html</code> sets <code>color-scheme</code> from
+      <code>--ui-color-scheme</code>, <code>light</code> by default and
+      <code>dark</code> under <code>prefers-color-scheme: dark</code>, so the OS
+      setting drives them and there is no class to toggle.
+      <code>.ui-light</code> and <code>.ui-dark</code> pick a side for
+      <code>html</code> or one element, see
+      <DocLink href="/guide/theming#scopes">Scopes</DocLink>.
     </p>
     <Example>
       <div class="concepts-schemes">
@@ -104,8 +109,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </Example>
   </section>
 
-  <section>
-    <h2 id="palette-scopes">Palette scopes</h2>
+  <section id="palette-scopes">
+    <h2>Palette scopes</h2>
     <p>
       Every color comes from one 16-step palette. A severity class re-derives it
       from the intent color for an element and everything inside, so one class
@@ -138,8 +143,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </figure>
   </section>
 
-  <section>
-    <h2 id="props-and-classes">Props and classes</h2>
+  <section id="props-and-classes">
+    <h2>Props and classes</h2>
     <p>
       A component is one <code>ui-</code> class on a native element, with
       modifier classes for its options. The Astro, React, Svelte and Vue
@@ -181,12 +186,13 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     <p>
       Boolean props become a class of the same name (<code>round</code> is
       <code>.ui-round</code>), and native states stay native attributes, like
-      <code>disabled</code>. The API tables list prop and class side by side.
+      <code>disabled</code>. The HTML API tables list the classes, and the
+      framework tables the props.
     </p>
   </section>
 
-  <section>
-    <h2 id="naming">Naming</h2>
+  <section id="naming">
+    <h2>Naming</h2>
     <p>
       One idea has one prop name and one set of values in every component, so
       what you learn on one page carries over to the next.
@@ -293,8 +299,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       only changes the paint. <code>severity</code> says what something means
       and adds what that meaning needs, like the icon of a
       <DocLink href="/components/callout#severities">Callout</DocLink> or the
-      shaped dot of a <DocLink href="/components/chip#severities">Chip</DocLink
-      >, because a color alone doesn't tell everyone.
+      shaped dot of a <DocLink href="/components/chip#severities">Chip</DocLink>
+      with <code>dot</code>, because a color alone doesn't tell everyone.
     </p>
 
     <h3 id="variants">Variants</h3>
@@ -302,10 +308,11 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       A variant describes the resting look. A hover or a selected tint never
       counts against it. <code>filled</code> is a solid fill in the component's
       own color: the accent on a Button, a surface on a field or a track.
-      <code>tonal</code> is the tonal surface, <code>outlined</code> a border
-      with no fill, <code>elevated</code> a raised surface with a shadow,
-      <code>transparent</code> no surface and no border at rest, and
-      <code>line</code> an indicator with no track, on
+      <code>tonal</code> is the tonal surface, <code>outlined</code> a border,
+      around the page surface on a Card, Accordion, Callout, Chip or field and
+      around no fill on a Button, Avatar or Tabs, <code>elevated</code> a raised
+      surface with a shadow, <code>transparent</code> no surface and no border
+      at rest, and <code>line</code> an indicator with no track, on
       <DocLink href="/components/tabs#line">Tabs</DocLink>. <code>plain</code>
       is the page surface with no border, and only differs from
       <code>transparent</code> on a tinted background:
@@ -331,7 +338,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       </div>
     </Example>
     <p>
-      Every enum names its default, which adds no class:
+      Most enums name their default, which adds no class:
       <code>size="medium"</code>, <code>variant="transparent"</code> on a
       Button, <code>variant="plain"</code> on a Card. Leaving the prop out and
       writing the default give the same result. <code>color</code> and
@@ -358,13 +365,17 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="rich-text">Rich text</h2>
+  <section id="rich-text">
+    <h2>Rich text</h2>
     <p>
       <code>.ui-rich-text</code> styles the classless elements inside it, for
-      Markdown or CMS output. Elements with a class are left alone, so
-      components keep their styles, and <code>.ui-not-rich-text</code> opts a
-      subtree out.
+      Markdown or CMS output. Headings, lists, tables, definition lists, details
+      and rules with a class, and links with a <code>ui-</code> class, are left
+      alone; <code>p</code>, <code>address</code>, <code>blockquote</code>,
+      <code>pre</code> and <code>figure</code> are styled whatever their class.
+      Components keep their own styles because rich text sits in
+      <code>components.prose</code>, the lowest component layer, and
+      <code>.ui-not-rich-text</code> opts a subtree out.
     </p>
     <Example>
       <article class="ui-rich-text">
@@ -388,8 +399,8 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="javascript">JavaScript</h2>
+  <section id="javascript">
+    <h2>JavaScript</h2>
     <p>These work without JavaScript:</p>
     <ul>
       <li>
@@ -463,18 +474,13 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     </p>
     <ul>
       <li>
-        <DocLink href="/components/color-field">Color field</DocLink>:
-        <code>&lt;opui-color-field&gt;</code>, from
-        <code>elements/color-field.js</code>.
-      </li>
-      <li>
         <DocLink href="/components/copy">Copy</DocLink>:
         <code>&lt;opui-copy&gt;</code>, from <code>elements/copy.js</code>.
       </li>
       <li>
-        <DocLink href="/components/number-stepper">Number stepper</DocLink>:
-        <code>&lt;opui-number-stepper&gt;</code>, from
-        <code>elements/number-stepper.js</code>.
+        <DocLink href="/components/number-field">Number field</DocLink>:
+        <code>&lt;opui-number-field&gt;</code>, from
+        <code>elements/number-field.js</code>.
       </li>
       <li>
         <DocLink href="/components/checkbox#select-all">Select all</DocLink>:
@@ -519,14 +525,14 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
         {
           title: "CDN",
           code: `<script type="module">
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/number-stepper.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/number-field.js"
 </script>`,
           lang: "html",
         },
         {
           title: "Bundler",
           code: `<script type="module">
-  import "opui-css/elements/number-stepper.js"
+  import "opui-css/elements/number-field.js"
 </script>`,
           lang: "html",
         },

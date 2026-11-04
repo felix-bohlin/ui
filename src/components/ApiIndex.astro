@@ -108,8 +108,8 @@ const apiList = Object.values(groups)
     }
   </style>
 
-  {apiList.map(({ title, slug, apis, href }) => <section>
-    <h2 id={slug}>{href ? <a href={href}>{title}</a> : title}</h2>
+  {apiList.map(({ title, slug, apis, href }) => <section id={slug}>
+    <h2>{href ? <a href={href}>{title}</a> : title}</h2>
     <ComponentAPI
       apis={apis}
       cssVariablesId={`${slug}-css-variables`}

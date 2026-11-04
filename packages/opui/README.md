@@ -58,7 +58,7 @@ export default function App() {
 }
 ```
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, ColorField, Copy, Dialog, Drawer, FieldGroup, Menu, NumberStepper, Range, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Copy, Dialog, Drawer, FieldGroup, Menu, NumberField, OneTimeCode, Range, Rating, Select, SelectAll, SortableTable, Tabs, TextField, Textarea, Toaster, ToggleButton and ToggleGroup, and the CheckboxInput, RadioInput and SwitchInput parts) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Svelte components
 
@@ -100,7 +100,7 @@ import { Button, Card } from "opui-css/vue"
 
 `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.tsx`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@vitejs/plugin-react`, `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`. In Next.js, add `transpilePackages: ["opui-css"]` to `next.config`.
 
-Vite's server build loads dependencies from `node_modules` without compiling them, and Node can't load `.svelte`, `.vue` or `.tsx`, so the package has to go through the bundler on the server too. Astro does this on its own, and SvelteKit through the package's `svelte` field. In Vite SSR, add `ssr: { noExternal: ["opui-css"] }` to `vite.config`, and in Nuxt, add `build: { transpile: ["opui-css"] }` to `nuxt.config`.
+Vite's server build loads dependencies from `node_modules` without compiling them, and Node can't load `.svelte`, `.vue` or `.tsx`, so the package has to go through the bundler on the server too. Astro does this on its own, and `@sveltejs/vite-plugin-svelte`, in SvelteKit and in Vite alike, through the package's `svelte` export condition. For React or Vue in Vite SSR, add `ssr: { noExternal: ["opui-css"] }` to `vite.config`, and in Nuxt, add `build: { transpile: ["opui-css"] }` to `nuxt.config`.
 
 #### TypeScript
 
@@ -108,7 +108,7 @@ The components ship their TypeScript sources instead of `.d.ts` files, so your `
 
 #### Ids in Astro
 
-Components that link elements with ids (form fields, Tabs, Drawer, Menu, …) read `Astro.locals.$id` when it exists and otherwise generate a random id per render. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
+Form fields, Tabs, ToggleGroup and the Dialog title read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
 
 ```ts
 // src/middleware.ts
@@ -196,7 +196,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/core/utils.css`                | Utility classes                                                                                                                                                                                                                                                        |
 | `opui-css/css/js/checkbox.js`            | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework                                                                                                                                                 |
 | `opui-css/css/js/range.js`               | Keeps every `.ui-range` `<output data-live>` in sync with its slider without a framework, once imported                                                                                                                                                                |
-| `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-stepper.js`                                                                                                                                                                                     |
+| `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-field.js`                                                                                                                                                                                       |
 | `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `m3`, `shadcn`), with or without `.css`                                                                                                                                                                                      |
 | `opui-css/tokens.json`                   | Every theme token in the W3C design tokens format                                                                                                                                                                                                                      |
 | `opui-css/astro`                         | All Astro components                                                                                                                                                                                                                                                   |

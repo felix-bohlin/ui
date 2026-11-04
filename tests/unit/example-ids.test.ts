@@ -81,10 +81,9 @@ const ID_REFERENCES = [
 ]
 
 const OWNERS = [
-  "ui-color-field",
   "ui-dialog",
   "ui-drawer",
-  "ui-number-stepper",
+  "ui-number-field",
   "ui-range",
   "ui-select",
   "ui-text-field",

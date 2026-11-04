@@ -13,7 +13,7 @@
     "playwright-report",
     "pnpm-lock.yaml",
     "pnpm-workspace.yaml",
-    "public/search-index.json",
+    "public/search-index",
     "test-results",
     "tests/e2e/a11y-known-violations.json",
     "tests/unit/__snapshots__"

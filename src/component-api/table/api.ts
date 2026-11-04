@@ -6,7 +6,7 @@ export default {
   keyboard: [
     {
       description:
-        'Moves focus to a scrolling table, or to its scroll box, when it has `tabindex="0"`. A table without one isn\'t a tab stop.',
+        'Moves focus to a scrolling table, or to its scroll box. Safari only stops on it when it has `tabindex="0"`.',
       keys: ["Tab"],
     },
     {

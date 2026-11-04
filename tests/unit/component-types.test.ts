@@ -5,8 +5,8 @@ import { expectTypeOf, test } from "vitest"
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
-import type * as NumberStepperReact from "../../packages/opui/components/NumberStepper/types.react"
-import type * as NumberStepperVue from "../../packages/opui/components/NumberStepper/types.vue-props"
+import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
+import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
 import type * as SwitchSvelte from "../../packages/opui/components/Switch/types.svelte"
 import type * as SwitchVue from "../../packages/opui/components/Switch/types.vue-props"
@@ -51,18 +51,18 @@ test("a value model keeps the element's value in React and Svelte and declares i
   >()
   expectTypeOf<TextareaSvelte.Props>().toHaveProperty("value")
   expectTypeOf<TextareaVue.Props["value"]>().toEqualTypeOf<string | undefined>()
-  expectTypeOf<NumberStepperVue.Props["value"]>().toEqualTypeOf<
+  expectTypeOf<NumberFieldVue.Props["value"]>().toEqualTypeOf<
     number | string | undefined
   >()
 })
 
 test("a component without a default slot has no children, and a custom element root keeps the input's attributes", () => {
-  expectTypeOf<NumberStepperReact.Props>().not.toHaveProperty("children")
-  expectTypeOf<NumberStepperReact.Props>().not.toHaveProperty("type")
-  expectTypeOf<NumberStepperReact.Props["step"]>().toEqualTypeOf<
+  expectTypeOf<NumberFieldReact.Props>().not.toHaveProperty("children")
+  expectTypeOf<NumberFieldReact.Props>().not.toHaveProperty("type")
+  expectTypeOf<NumberFieldReact.Props["step"]>().toEqualTypeOf<
     ComponentProps<"input">["step"]
   >()
-  expectTypeOf<NumberStepperVue.Props["name"]>().toEqualTypeOf<
+  expectTypeOf<NumberFieldVue.Props["name"]>().toEqualTypeOf<
     IntrinsicElementAttributes["input"]["name"]
   >()
 })

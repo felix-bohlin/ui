@@ -6,18 +6,14 @@ import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
 import { describe, expect, test } from "vitest"
-import ColorFieldAstro from "../../packages/opui/components/ColorField/ColorField.astro"
-import ColorFieldReact from "../../packages/opui/components/ColorField/ColorField.react"
-import ColorFieldSvelte from "../../packages/opui/components/ColorField/ColorField.svelte"
-import ColorFieldVue from "../../packages/opui/components/ColorField/ColorField.vue"
 import DialogAstro from "../../packages/opui/components/Dialog/Dialog.astro"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
-import NumberStepperAstro from "../../packages/opui/components/NumberStepper/NumberStepper.astro"
-import NumberStepperReact from "../../packages/opui/components/NumberStepper/NumberStepper.react"
-import NumberStepperSvelte from "../../packages/opui/components/NumberStepper/NumberStepper.svelte"
-import NumberStepperVue from "../../packages/opui/components/NumberStepper/NumberStepper.vue"
+import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberField.astro"
+import NumberFieldReact from "../../packages/opui/components/NumberField/NumberField.react"
+import NumberFieldSvelte from "../../packages/opui/components/NumberField/NumberField.svelte"
+import NumberFieldVue from "../../packages/opui/components/NumberField/NumberField.vue"
 import RangeAstro from "../../packages/opui/components/Range/Range.astro"
 import RangeReact from "../../packages/opui/components/Range/Range.react"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
@@ -82,18 +78,6 @@ const CASES: {
   props: Record<string, unknown>
 }[] = [
   {
-    base: inputId,
-    components: {
-      astro: ColorFieldAstro,
-      react: ColorFieldReact,
-      svelte: ColorFieldSvelte,
-      vue: ColorFieldVue,
-    },
-    name: "ColorField",
-    prefix: "color-field",
-    props: { endText: "E", label: "L", startText: "S" },
-  },
-  {
     base: (html) =>
       /aria-labelledby="([^"]+)-title"/.exec(html)?.[1] ?? undefined,
     components: {
@@ -109,13 +93,13 @@ const CASES: {
   {
     base: inputId,
     components: {
-      astro: NumberStepperAstro,
-      react: NumberStepperReact,
-      svelte: NumberStepperSvelte,
-      vue: NumberStepperVue,
+      astro: NumberFieldAstro,
+      react: NumberFieldReact,
+      svelte: NumberFieldSvelte,
+      vue: NumberFieldVue,
     },
-    name: "NumberStepper",
-    prefix: "number-stepper",
+    name: "NumberField",
+    prefix: "number-field",
     props: { endText: "E", label: "L", startText: "S" },
   },
   {

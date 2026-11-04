@@ -36,8 +36,8 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     </Callout>
   </div>
 
-  <section>
-    <h2 id="cdn">Install via CDN</h2>
+  <section id="cdn">
+    <h2>Install via CDN</h2>
     <p>
       The quickest way to get going. One file with the theme, the reset, every
       component and the utility classes, in the right cascade layers, plus Open
@@ -62,8 +62,8 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     <UnreleasedNote file="dist/opui.css" />
   </section>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
       For when you have a bundler that resolves CSS <code>@import</code>s from
       <code>node_modules</code>, like Vite or webpack. No bundler? Use the CDN
@@ -79,8 +79,8 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     <PickAndChoose />
   </section>
 
-  <section>
-    <h2 id="manual-setup">Install manually</h2>
+  <section id="manual-setup">
+    <h2>Install manually</h2>
     <p>
       The most flexible way to use OPUI, and it works without a build step.
       Download the package (<code>npm pack opui-css</code>, or browse it on
@@ -121,7 +121,7 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
 │  ├─ opui.css
 │  └─ opui.no-compat.css
 ├─ elements
-│  ├─ number-stepper.js
+│  ├─ number-field.js
 │  └─ ...
 ├─ themes
 │  ├─ bootstrap.css
@@ -163,8 +163,8 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     </p>
   </section>
 
-  <section>
-    <h2 id="usage">Your first component</h2>
+  <section id="usage">
+    <h2>Your first component</h2>
     <p>
       With the CSS on the page, a component is a class on the right element. The
       modifiers are classes too.
@@ -182,7 +182,7 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
       (<code>css/js/range.js</code>). Import them in a
       <code>&lt;script type="module"&gt;</code>, from
       <code>https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code> without a
-      bundler. Components with a custom element, like the Number stepper, import
+      bundler. Components with a custom element, like the Number field, import
       theirs from <code>elements/</code> the same way.
     </p>
     <NextSteps />

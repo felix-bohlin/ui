@@ -1,0 +1,138 @@
+<style>
+  html:has(.todo-gutter-root:modal) {
+    background-color: color-mix(
+      in srgb,
+      oklch(from var(--ui-backdrop-bg-color) l c h / 1) 50%,
+      var(--ui-surface)
+    );
+    background-image: linear-gradient(var(--ui-surface), var(--ui-surface));
+  }
+
+  .todo-tall {
+    block-size: 160dvb;
+    border: var(--ui-border-width) dashed var(--ui-border-color);
+    display: grid;
+    padding: var(--size-3);
+  }
+</style>
+<p class="todo-note">
+  Option A from the item, for classic scrollbars (Windows, or Chrome with
+  "Always show scrollbars" in macOS). The first two buttons open today's dialog
+  and bottom drawer: the strip at the right edge stays the page color. The last
+  two open copies that also set the <code>html</code> background while they are
+  open: its <code>background-color</code> is the backdrop over the surface, the
+  one paint that reaches the scrollbar gutter, and a
+  <code>background-image</code> paints the surface back over the page. The strip
+  then matches the dimmed page, exactly for the default 50% backdrop. The bottom
+  drawer still stops short of the edge, since nothing in the top layer paints
+  over the gutter.
+</p>
+<div class="todo-row">
+  <button
+    type="button"
+    class="ui-button ui-outlined"
+    commandfor="todo-gutter-today-dialog"
+    command="show-modal"
+  >
+    Today: dialog
+  </button>
+  <button
+    type="button"
+    class="ui-button ui-outlined"
+    commandfor="todo-gutter-today-drawer"
+    command="show-modal"
+  >
+    Today: bottom drawer
+  </button>
+  <button
+    type="button"
+    class="ui-button ui-filled"
+    commandfor="todo-gutter-root-dialog"
+    command="show-modal"
+  >
+    Option A: dialog
+  </button>
+  <button
+    type="button"
+    class="ui-button ui-filled"
+    commandfor="todo-gutter-root-drawer"
+    command="show-modal"
+  >
+    Option A: bottom drawer
+  </button>
+</div>
+<dialog
+  class="ui-dialog"
+  closedby="any"
+  id="todo-gutter-today-dialog"
+  aria-labelledby="todo-gutter-today-dialog-title"
+>
+  <div class="ui-header">
+    <h2 id="todo-gutter-today-dialog-title">Today</h2>
+  </div>
+  <div class="ui-content">
+    <p>The strip at the right edge stays the page color.</p>
+  </div>
+  <div class="ui-footer">
+    <button
+      type="button"
+      class="ui-button"
+      commandfor="todo-gutter-today-dialog"
+      command="close"
+    >
+      Close
+    </button>
+  </div>
+</dialog>
+<dialog
+  class="ui-drawer ui-block-end ui-scroll-lock"
+  closedby="any"
+  id="todo-gutter-today-drawer"
+  aria-labelledby="todo-gutter-today-drawer-title"
+>
+  <div class="ui-header">
+    <h2 class="ui-h4" id="todo-gutter-today-drawer-title">Today</h2>
+  </div>
+  <div class="ui-content">
+    <p>The strip stays the page color, and the drawer stops short of it.</p>
+  </div>
+</dialog>
+<dialog
+  class="ui-dialog todo-gutter-root"
+  closedby="any"
+  id="todo-gutter-root-dialog"
+  aria-labelledby="todo-gutter-root-dialog-title"
+>
+  <div class="ui-header">
+    <h2 id="todo-gutter-root-dialog-title">Option A</h2>
+  </div>
+  <div class="ui-content">
+    <p>The strip at the right edge matches the dimmed page.</p>
+  </div>
+  <div class="ui-footer">
+    <button
+      type="button"
+      class="ui-button"
+      commandfor="todo-gutter-root-dialog"
+      command="close"
+    >
+      Close
+    </button>
+  </div>
+</dialog>
+<dialog
+  class="ui-drawer ui-block-end ui-scroll-lock todo-gutter-root"
+  closedby="any"
+  id="todo-gutter-root-drawer"
+  aria-labelledby="todo-gutter-root-drawer-title"
+>
+  <div class="ui-header">
+    <h2 class="ui-h4" id="todo-gutter-root-drawer-title">Option A</h2>
+  </div>
+  <div class="ui-content">
+    <p>The strip matches the dimmed page, but the drawer still stops short.</p>
+  </div>
+</dialog>
+<div class="todo-tall">
+  <p class="ui-caption">Scroll space, so the page has a scrollbar.</p>
+</div>

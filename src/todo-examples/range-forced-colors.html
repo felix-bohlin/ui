@@ -1,0 +1,38 @@
+<style>
+  .todo-compare .ui-range {
+    inline-size: 100%;
+  }
+
+  .todo-range-fill-kept input[type="range"]::-webkit-slider-runnable-track {
+    forced-color-adjust: none;
+  }
+</style>
+<p class="todo-note">
+  Turn on forced colors: a contrast theme in Windows, or in Chrome DevTools,
+  Rendering, then "Emulate CSS media feature forced-colors: active". The first
+  range is as it ships: forced colors mode drops every background image that
+  isn't a <code>url()</code>, and the fill is a gradient, so the whole track
+  shows in <code>CanvasText</code>. The second adds
+  <code>forced-color-adjust: none</code> to the track, which keeps the gradient,
+  so the filled part shows in <code>SelectedItem</code>. Its colors are system
+  colors already, so the theme's colors still apply. Without forced colors the
+  two look the same.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <label class="ui-range">
+      <span class="ui-label">Volume</span>
+      <input type="range" name="todo-range-forced-today" value="60" />
+    </label>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">
+      With <code>forced-color-adjust: none</code> on the track
+    </p>
+    <label class="ui-range todo-range-fill-kept">
+      <span class="ui-label">Volume</span>
+      <input type="range" name="todo-range-forced-kept" value="60" />
+    </label>
+  </section>
+</div>

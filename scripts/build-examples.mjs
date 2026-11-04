@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
 import { parse, transform } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
-import { format, resolveConfig } from "prettier"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
 import { splitTopLevel } from "./example-display.mjs"
@@ -47,6 +46,7 @@ import {
   TARGETS,
 } from "./example-targets.mjs"
 import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
+import { formatStably } from "./format.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const examplesDir = join(root, "src/component-examples")
@@ -1424,17 +1424,6 @@ const toReact = (example, name, file = `${name}.astro`) => {
   return `${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
 }
 
-const prettierFormat = async (code, file) => {
-  const options = await resolveConfig(file)
-  const formatted = await format(code, { ...options, filepath: file })
-  if ((await format(formatted, { ...options, filepath: file })) !== formatted) {
-    throw new Error(
-      `${file}: Prettier doesn't format the generated code stably`,
-    )
-  }
-  return formatted
-}
-
 const reactStyleIndent = (code) =>
   code.replace(
     /^( *)<style>\{`\n([\s\S]*?)\n *`\}<\/style>/gm,
@@ -1465,7 +1454,7 @@ export const convertExample = async (
   const target = file.replace(/\.astro$/, TARGETS[framework])
   if (framework === "react") {
     return reactStyleIndent(
-      await prettierFormat(toReact(example, name, file), target),
+      await formatStably(toReact(example, name, file), target),
     )
   }
   if (framework !== "react" && mixedSvgText(example.tree)) {
@@ -1477,9 +1466,9 @@ export const convertExample = async (
     )
   }
   if (framework === "svelte") {
-    return prettierFormat(toSvelte(example), target)
+    return formatStably(toSvelte(example), target)
   }
-  return prettierFormat(toVue(example), target)
+  return formatStably(toVue(example), target)
 }
 
 export const runtimeImports = (code, file) => {
@@ -1658,7 +1647,7 @@ export const htmlFromRender = async (rendered, source, file, { read } = {}) => {
     ...example.styles.map((css) => `<style>\n${indent(css, 2)}\n</style>`),
     ...modules.map((code) => `<script type="module">\n${code}\n</script>`),
   ]
-  const html = await prettierFormat(
+  const html = await formatStably(
     `${parts.join("\n\n")}\n`,
     file.replace(/\.astro$/, ".html"),
   )

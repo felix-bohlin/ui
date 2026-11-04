@@ -3,7 +3,6 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parseArgs } from "node:util"
-import { format, resolveConfig } from "prettier"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import { root, unsupported } from "./component-shared.mjs"
@@ -17,6 +16,7 @@ import {
   toTypes,
 } from "./component-types.mjs"
 import { toVue } from "./component-vue.mjs"
+import { formatStably } from "./format.mjs"
 
 export { loadApis, readComponent, toTypes }
 
@@ -32,17 +32,6 @@ export const TYPE_FILES = {
   react: "types.react.ts",
   svelte: "types.svelte.ts",
   vue: "types.vue-props.ts",
-}
-
-const prettierFormat = async (code, file) => {
-  const options = await resolveConfig(file)
-  const formatted = await format(code, { ...options, filepath: file })
-  if ((await format(formatted, { ...options, filepath: file })) !== formatted) {
-    throw new Error(
-      `${file}: Prettier doesn't format the generated code stably`,
-    )
-  }
-  return formatted
 }
 
 export const compileComponent = async (source, file, options = {}) => {
@@ -73,7 +62,7 @@ export const compileComponent = async (source, file, options = {}) => {
       const code = { react: toReact, svelte: toSvelte, vue: toVue }[framework](
         named,
       )
-      outputs.set(target, await prettierFormat(code, target))
+      outputs.set(target, await formatStably(code, target))
     } catch (error) {
       refused.set(target, error)
     }
@@ -239,7 +228,7 @@ export const generate = async ({
       for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
         const target = `packages/opui/components/${folder}/${typeFile}`
         if (`${folder}/${typeFile}` in handWritten) continue
-        outputs.set(target, await prettierFormat(types[framework], target))
+        outputs.set(target, await formatStably(types[framework], target))
       }
     } catch (error) {
       const types = `packages/opui/components/${folder}/types.astro.ts`

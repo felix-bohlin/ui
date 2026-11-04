@@ -4,8 +4,8 @@ import { basename, dirname, extname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { parse } from "parse5"
 import postcss from "postcss"
-import { format } from "prettier"
 import { declaredProperties } from "../src/utils/package-source.js"
+import { formatCode } from "./format.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const opuiDir = join(root, "packages/opui")
@@ -386,7 +386,7 @@ const main = async () => {
     )
     await writeFile(
       allowlistFile,
-      await format(JSON.stringify(next), { filepath: allowlistFile }),
+      await formatCode(JSON.stringify(next), allowlistFile),
     )
   }
 

@@ -1,10 +1,10 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import { format, resolveConfig } from "prettier"
 import {
   EXAMPLE_THEME_NOTES,
   exampleThemeNotes,
 } from "../src/utils/example-theme-notes.ts"
+import { formatCode } from "./format.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const README = `${root}packages/opui/README.md`
@@ -48,11 +48,5 @@ for (const [pattern, text] of SECTIONS) {
   }
   readme = readme.replace(pattern, () => text)
 }
-writeFileSync(
-  README,
-  await format(readme, {
-    ...(await resolveConfig(README)),
-    filepath: README,
-  }),
-)
+writeFileSync(README, await formatCode(readme, README))
 console.log(`Wrote the ${themes.length} example themes to ${README}`)

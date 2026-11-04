@@ -1,10 +1,10 @@
-import { format, resolveConfig } from "prettier"
 import type { Component as SvelteComponent } from "svelte"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import { createRenderer } from "../../scripts/build-examples.mjs"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
+import { formatCode } from "../../scripts/format.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
 import { normalize } from "./normalize"
@@ -149,11 +149,7 @@ const render = {
 }
 
 const formatted = async (file: string, printWidth: number) =>
-  format(sources[`${PREFIX}${file}`], {
-    ...(await resolveConfig(file)),
-    filepath: file,
-    printWidth,
-  })
+  formatCode(sources[`${PREFIX}${file}`], file, { printWidth })
 
 const variant = (file: string, width: number) =>
   file.replace(/\.(astro|svelte|vue)$/, `.w${width}.$1`)

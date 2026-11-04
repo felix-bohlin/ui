@@ -1,5 +1,4 @@
 import { existsSync, readFileSync } from "node:fs"
-import { format, resolveConfig } from "prettier"
 import { beforeAll, describe, expect, test } from "vitest"
 import {
   astroSourceOf,
@@ -14,6 +13,7 @@ import {
   TYPE_FILES,
 } from "../../scripts/build-components.mjs"
 import { isArrayType, unionMembers } from "../../scripts/component-shared.mjs"
+import { formatCode } from "../../scripts/format.mjs"
 
 const sampleFile = (name = "Sample") =>
   `packages/opui/components/Sample/${name}.astro`
@@ -1191,10 +1191,9 @@ describe("the compiled components", () => {
     expect(sources.length).toBeGreaterThan(30)
     for (const file of sources) {
       const source = readFileSync(file, "utf8")
-      const options = { ...(await resolveConfig(file)), filepath: file }
       for (const printWidth of [40, 200]) {
         const { outputs } = await compileComponent(
-          await format(source, { ...options, printWidth }),
+          await formatCode(source, file, { printWidth }),
           file,
         )
         for (const [target, code] of outputs) {

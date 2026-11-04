@@ -1,6 +1,5 @@
 import { readFileSync } from "node:fs"
 import { stripTypeScriptTypes } from "node:module"
-import { format, resolveConfig } from "prettier"
 import { compile as compileSvelte } from "svelte/compiler"
 import { beforeAll, describe, expect, test } from "vitest"
 import {
@@ -15,6 +14,7 @@ import {
   REACT_DEFAULT_VALUE,
 } from "../../scripts/build-examples.mjs"
 import { typeDiagnostics } from "../../scripts/example-react-props.mjs"
+import { formatCode } from "../../scripts/format.mjs"
 import {
   astroSourceOf,
   generatedTargets,
@@ -58,10 +58,10 @@ const collapse = (text: string) =>
   text.replace(/\s+/g, "").replace(/,([)\]}])/g, "$1")
 
 const scriptIn = async (html: string, script: string) => {
-  const code = await format(stripTypeScriptTypes(script).trim(), {
-    ...(await resolveConfig(sampleFile())),
-    parser: "babel",
-  })
+  const code = await formatCode(
+    stripTypeScriptTypes(script).trim(),
+    sampleFile().replace(/\.astro$/, ".js"),
+  )
   return collapse(html).includes(collapse(code))
 }
 
@@ -69,11 +69,7 @@ const sampleFile = (name = "Example") =>
   `src/component-examples/sample/${name}.astro`
 
 const formatted = async (source: string, name?: string, printWidth?: number) =>
-  format(source, {
-    ...(await resolveConfig(sampleFile(name))),
-    filepath: sampleFile(name),
-    ...(printWidth ? { printWidth } : {}),
-  })
+  formatCode(source, sampleFile(name), { printWidth })
 
 const convert = async (source: string, framework: string, name?: string) =>
   convertExample(await formatted(source, name), framework, sampleFile(name))

@@ -1,8 +1,8 @@
 import { parse } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
-import { format, resolveConfig } from "prettier"
 import { describe, expect, test } from "vitest"
+import { formatCode } from "../../scripts/format.mjs"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
 
 const fixed = (workaround: string) =>
@@ -51,10 +51,10 @@ describe("tooling bugs the generator and the components work around", () => {
   test("Prettier's Astro plugin writes a quoted attribute value decoded", async () => {
     const file = "src/component-examples/sample/Sample.astro"
     expect(
-      await format('<a title="&amp;copy" href="?a=1&amp;b=2">t</a>\n', {
-        ...(await resolveConfig(file)),
-        filepath: file,
-      }),
+      await formatCode(
+        '<a title="&amp;copy" href="?a=1&amp;b=2">t</a>\n',
+        file,
+      ),
       fixed(
         "scripts/astro-attributes.mjs and tests/unit/astro-attributes.test.ts, which reject quoted attribute values with character references",
       ),

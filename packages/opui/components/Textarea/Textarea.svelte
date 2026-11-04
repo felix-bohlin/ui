@@ -59,8 +59,7 @@
       aria-invalid={error ? "true" : ariaInvalid}
       {id}
       name={name ?? field?.name}
-      bind:value
-    ></textarea>
+      bind:value></textarea>
     {#if start}<span class="ui-start">{@render content(start)}</span>{/if}
     {#if end}<span class="ui-end">{@render content(end)}</span>{/if}
     {#if top}<span class="ui-top">{@render content(top)}</span>{/if}

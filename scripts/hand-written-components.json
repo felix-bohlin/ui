@@ -24,7 +24,7 @@
   "Select/types.react.ts": "the folder has a hand-written component (Select)",
   "Select/types.svelte.ts": "the folder has a hand-written component (Select)",
   "Select/types.vue-props.ts": "the folder has a hand-written component (Select)",
-  "SortableTable/SortableTable.react.tsx": "the onSort prop, which listens to the element's sort event and which the Astro file doesn't express",
+  "SortableTable/SortableTable.react.tsx": "the onSort prop, which listens to the element's sort event with a ref and an effect: React 19 attaches a custom element's onsort on a client render but not on hydration",
   "SortableTable/types.react.ts": "the onSort prop and the opui-sortable-table element's attribute types",
   "SortableTable/types.svelte.ts": "the onsort handler prop, which the Astro file doesn't express"
 }

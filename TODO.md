@@ -455,6 +455,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
       box-shadow: 0 0 0 1e5px var(--_bg-color) inset;
     }
     ```
+- [ ] (2) Docs site: in WebKit, the search test that opens `/html/components/dialog/` and searches "dialog close" sees the result, then finds the result list empty when it clicks it, on both attempts in the runs on c2b2f67 and 06ff156; it passed in WebKit on c37864b, passes in Chromium and Firefox, and the same search from another page passes in WebKit (`tests/e2e/docs.spec.ts:186-198`, `src/components/Search.astro:432-500`)
+  - Summary: In WebKit, a search opened on the Dialog page loses its results before they can be clicked.
+  - Recommended: Fix. The test fails every WebKit run since c2b2f67, so something in that range broke it.
+  - Fix: reproduce it with `pnpm exec playwright test tests/e2e/docs.spec.ts --project=webkit -g "jumps to a section"` where WebKit is installed (the trace of a failing CI run shows the same), and find what calls `updateResults()` again or closes the search dialog after the results show. The commits between c37864b and c2b2f67 that touch the docs are the search index rewrite (fd570f3), the replaceable icons (f6b0ddf) and the translatable labels (e26fbd0).
 - [ ] (3) Tooltip: in Firefox, a tooltip that a position-try fallback moves (flipped below its trigger at the top edge, shifted in a drawer header or over a sticky table header) never finishes fading in: five stress overlay scenarios still sit between 0.28 and 0.91 opacity after 5 seconds while `getAnimations()` reports nothing, so their axe tests fail on the opacity wait. A plain popover that `flip-block` places fades in fine there (`packages/opui/css/components/tooltip.css:29-37`, `packages/opui/css/compat/tooltip.css:2-25`, `tests/e2e/stress-overlays-a11y.spec.ts:31-35`)
   - Summary: In Firefox, tooltips near an edge stay half transparent or keep fading, so they look faint and fail the contrast check.
   - Recommended: Fix. Only a run in Firefox shows which part restarts the fade, and the repo rules need a plain-HTML repro before the tests can expect the failure.

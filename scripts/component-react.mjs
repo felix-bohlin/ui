@@ -226,10 +226,10 @@ export const toReact = (component) => {
           const returned = consts.length
             ? `{\n${consts.join("\n")}\nreturn (\n${body}\n)\n}`
             : `(\n${body}\n)`
-          return `{${node.list}${node.optional ? "?" : ""}.map((${node.item}, index) => ${returned})}`
+          return `{${node.list}${node.optional ? "?" : ""}.map((${node.item}, ${node.index}) => ${returned})}`
         }
         const attributes = [
-          ...(node.keyed ? ["key={index}"] : []),
+          ...(node.keyed ? [`key={${node.keyed}}`] : []),
           ...node.attributes.flatMap((entry) => [
             attribute(node, entry),
             ...(node.item &&

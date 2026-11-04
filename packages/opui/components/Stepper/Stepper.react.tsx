@@ -26,9 +26,9 @@ export default function Stepper({
     >
       {items?.map((item, index) => (
         <StepperItem
+          key={index}
           completedLabel={completedLabel}
           errorLabel={errorLabel}
-          key={index}
           {...item}
           complete={
             item.complete ||
@@ -37,7 +37,7 @@ export default function Stepper({
           }
           current={item.current || index === current}
         />
-      ))}
+      ))}{" "}
       {children}
     </ol>
   )

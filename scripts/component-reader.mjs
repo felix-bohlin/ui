@@ -533,10 +533,14 @@ const expressionNode = (node, context) => {
   if (callback && ts.isArrowFunction(callback) && hasPlaceholder(callback)) {
     const describe = (what) =>
       unsupported(context.file, `the expression {${code}}, whose ${what}`)
-    if (callback.parameters.length !== 1) {
-      throw describe("map callback doesn't take one parameter")
+    if (
+      callback.parameters.length > 2 ||
+      (callback.parameters[1] && !ts.isIdentifier(callback.parameters[1].name))
+    ) {
+      throw describe("map callback takes more than the item and its index")
     }
-    const [parameter] = callback.parameters
+    const [parameter, indexParameter] = callback.parameters
+    const index = indexParameter?.name.text ?? "index"
     const statements = ts.isBlock(callback.body) ? callback.body.statements : []
     const consts = []
     let returned = ts.isBlock(callback.body) ? undefined : callback.body
@@ -575,6 +579,7 @@ const expressionNode = (node, context) => {
       locals: new Set([
         ...context.locals,
         ...bindingNames(parameter.name),
+        ...(indexParameter ? [index] : []),
         ...consts.map(({ name }) => name),
       ]),
     }
@@ -600,11 +605,12 @@ const expressionNode = (node, context) => {
         "map callback doesn't return one element or a condition between two",
       )
     }
-    for (const element of keyed) element.keyed = true
+    for (const element of keyed) element.keyed = index
     return [
       {
         children,
         consts,
+        index,
         item: parameter.getText(sourceFile),
         list: expression.expression.expression.getText(sourceFile),
         optional: !!expression.expression.questionDotToken,

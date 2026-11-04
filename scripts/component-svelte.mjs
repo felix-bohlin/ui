@@ -137,7 +137,7 @@ export const toSvelte = (component) => {
                 `{@const ${name} = ${rewriteExpression(code, options)}}`,
             )
             .join("")
-          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, index (index)}${consts}${emit(node.children)}{/each}`
+          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, ${node.index} (${node.index})}${consts}${emit(node.children)}{/each}`
         }
         const attributes = [
           ...node.attributes.map((item) => attribute(node, item)),

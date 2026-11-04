@@ -1,13 +1,13 @@
 import type * as Base from "./types"
 import type { ComponentProps, ReactNode } from "react"
 
-type StepperItemSlots = Base.StepperItemSlots<ReactNode>
+type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
 export type Props = Base.Props & ComponentProps<"ol">
 
-export type StepperItemProps = Omit<
+export type StepperItemProps = Without<
   Base.StepperItemProps,
-  keyof StepperItemSlots
+  "description" | "label"
 > &
-  StepperItemSlots &
-  ComponentProps<"li">
+  Base.StepperItemSlots<ReactNode> &
+  Omit<ComponentProps<"li">, "children">

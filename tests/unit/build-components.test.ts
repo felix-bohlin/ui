@@ -314,6 +314,23 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a map callback that takes the index keys and reads it by its name", async () => {
+    const ports = await compile(
+      astro(
+        '<ol class:list={["ui-sample", className]} {...rest}>\n  {items.map((item, step) => <li value={step + 1}>{item}</li>)}\n</ol>',
+      ),
+    )
+    expect(ports["react.tsx"]).toContain(
+      "{items.map((item, step) => (\n        <li key={step} value={step + 1}>",
+    )
+    expect(ports.svelte).toContain(
+      "{#each items as item, step (step)}<li value={step + 1}>",
+    )
+    expect(ports.vue).toContain(
+      '<li v-for="(item, step) in items" :key="step" :value="step + 1">',
+    )
+  })
+
   test("a map callback returning a condition keys both branches", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n---\n\n<datalist class:list={[className]} {...rest}>\n  {items?.map((option) =>\n    typeof option === "object" ? (\n      <option value={option.value} label={option.label} />\n    ) : (\n      <option value={option} />\n    ),\n  )}\n</datalist>\n',
@@ -765,8 +782,8 @@ describe("the three ports of a sample", () => {
       "map callback doesn't return one element or a condition between two",
     ],
     [
-      "<div {...rest}>{items.map((item, index) => <b>{index}</b>)}</div>",
-      "map callback doesn't take one parameter",
+      "<div {...rest}>{items.map((item, index, all) => <b>{all.length}</b>)}</div>",
+      "map callback takes more than the item and its index",
     ],
     ["<div {...rest} set:html={html} />", "set:html={html}"],
     [

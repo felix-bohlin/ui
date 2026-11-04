@@ -33,7 +33,8 @@ defineSlots<Slots>()
         item.complete || complete || (current !== undefined && index < current)
       "
       :current="item.current || index === current"
-    />
-    <slot></slot>
+    />{{
+      " "
+    }}<slot></slot>
   </ol>
 </template>

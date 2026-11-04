@@ -411,8 +411,14 @@ const attributeNode = (item, context) => {
   }
   if (item.kind === "empty") return { kind: "boolean", name: item.name }
   if (item.kind === "spread") {
-    const cast = /^(\w+) as [\s\S]+$/.exec(item.name.trim())
-    return { code: cast ? cast[1] : item.name.trim(), kind: "spread" }
+    const sourceFile = sourceFileOf(`(${item.name})`, "spread.ts")
+    const expression = unwrap(sourceFile.statements[0].expression)
+    const cast =
+      ts.isAsExpression(expression) &&
+      ts.isIdentifier(unwrap(expression.expression))
+        ? unwrap(expression.expression)
+        : expression
+    return { code: cast.getText(sourceFile), kind: "spread" }
   }
   if (item.kind === "expression") {
     if (item.name === "class:list") return { kind: "class", code: item.value }

@@ -75,6 +75,20 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a cast on a spread reads the same with or without parentheses", async () => {
+    const compile = (spread: string) =>
+      compileComponent(
+        astro(`<button class:list={["ui-sample", className]} ${spread} />`),
+        sampleFile(),
+      )
+    const bare = await compile('{...rest as HTMLAttributes<"button">}')
+    const wrapped = await compile('{...(rest as HTMLAttributes<"button">)}')
+    expect([...wrapped.outputs]).toEqual([...bare.outputs])
+    expect(
+      wrapped.outputs.get(sampleFile().replace(".astro", ".react.tsx")),
+    ).toContain('<button className={cx(["ui-sample", className])} {...rest} />')
+  })
+
   test("a variable tag with a default and a rest cast", async () => {
     const ports = await compile(
       `---\nimport type { Props } from "./types.astro"\nimport { cx } from "../cx"\n\nconst { as: Tag = "fieldset", class: className, ...rest } = Astro.props\n---\n\n<Tag class={cx(["ui-sample", className])} role={Tag === "fieldset" ? undefined : "group"} {...rest}>\n  <slot />\n</Tag>\n`,

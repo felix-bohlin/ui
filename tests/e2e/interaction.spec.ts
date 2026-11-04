@@ -188,6 +188,35 @@ interaction(
 
 interaction(
   "checkbox",
+  "Indeterminate",
+  "select all follows its checkboxes back after a form reset",
+  async ({ page, root }) => {
+    const all = root.getByRole("checkbox", { name: "Select all" })
+    await root.getByRole("checkbox").evaluateAll((inputs) => {
+      const form = document.createElement("form")
+      form.id = "select-all-reset"
+      document.body.append(form)
+      for (const input of inputs) input.setAttribute("form", form.id)
+    })
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect(all).toBeChecked()
+    await expect(all).toHaveJSProperty("indeterminate", false)
+
+    await page.evaluate(() =>
+      document.querySelector<HTMLFormElement>("#select-all-reset")!.reset(),
+    )
+    await expect(root.getByRole("checkbox", { name: "Apples" })).toBeChecked()
+    await expect(
+      root.getByRole("checkbox", { name: "Bananas" }),
+    ).not.toBeChecked()
+    await expect(all).toHaveJSProperty("indeterminate", true)
+    await expect(all).not.toBeChecked()
+  },
+)
+
+interaction(
+  "checkbox",
   "Validation",
   "a required checkbox only looks invalid once the user unchecks it",
   async ({ page, root }) => {

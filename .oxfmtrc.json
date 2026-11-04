@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "astro": { "compressHTML": "html" },
+  "ignorePatterns": [
+    ".astro",
+    ".cursor",
+    ".vscode",
+    "dist",
+    "dist-test",
+    "node_modules",
+    "packages/opui/skills/opui/references",
+    "packages/opui/tokens.json",
+    "playwright-report",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "public/search-index.json",
+    "test-results",
+    "tests/e2e/a11y-known-violations.json",
+    "tests/unit/__snapshots__"
+  ],
+  "printWidth": 80,
+  "semi": false,
+  "sortPackageJson": false,
+  "svelte": {}
+}

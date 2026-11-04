@@ -96,6 +96,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: { exclude: ["microlighter"] },
+    resolve: { external: ["oxfmt"] },
     plugins: [
       {
         name: "opui-no-react-refresh",

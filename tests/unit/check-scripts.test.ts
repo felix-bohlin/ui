@@ -397,14 +397,6 @@ describe("check-file", () => {
     ])
   })
 
-  test("reports quoted Astro attributes that Prettier rewrites", async () => {
-    expect(
-      await fileProblems("src/a.astro", '<a href="?a=1&amp;copy=2">a</a>\n'),
-    ).toEqual([
-      'src/a.astro:1: href="?a=1&amp;copy=2" has character references, and Prettier\'s Astro plugin writes them decoded ("?a=1&copy=2"), which can change what it means. Write the value as an expression: href={"?a=1&copy=2"}',
-    ])
-  })
-
   test("only checks the declaration order inside the sort-css globs", async () => {
     expect(
       await fileProblems(

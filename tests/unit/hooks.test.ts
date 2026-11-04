@@ -225,7 +225,7 @@ describe("stop", () => {
       clone,
     )
     expect(result.status).toBe(2)
-    expect(result.stderr).toMatch(/Prettier:\n(.*\n)*.*loose\.md/)
+    expect(result.stderr).toMatch(/oxfmt:\n(.*\n)*.*loose\.md/)
     expect(result.stderr).toMatch(/oxlint:\n(.*\n)*.*no-debugger/)
     expect(result.stderr).toMatch(
       /Ratchets:\n(.*\n)*.*todo-allowlist\.json gained "prefixes: Nope:"/,
@@ -337,7 +337,7 @@ describe("pre-commit", () => {
     const groups = await checkFiles(["notes.md", "styles.css"], dir)
     expect(groups.map(([name]) => name)).toEqual([
       "Characters, colors and declaration order",
-      "Prettier",
+      "oxfmt",
     ])
     expect(report(groups, "Intro")).toMatch(/^Intro\n\nCharacters/)
   })

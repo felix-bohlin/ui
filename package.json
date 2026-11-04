@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@astrojs/compiler": "^2.13.1",
-    "@astrojs/compiler-rs": "0.5.1",
+    "@astrojs/compiler-rs": "^0.5.2",
     "@astrojs/react": "^7.0.1",
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/svelte": "^9.0.1",
@@ -74,7 +74,7 @@
     "css-declaration-sorter": "^7.4.0",
     "diff": "^9.0.0",
     "hast-util-select": "^6.0.4",
-    "oxfmt": "^0.75.0",
+    "oxfmt": "^0.76.0",
     "oxlint": "^1.85.0",
     "parse5": "^8.0.1",
     "postcss": "^8.5.28",

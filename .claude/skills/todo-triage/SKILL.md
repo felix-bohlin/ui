@@ -33,7 +33,7 @@ For each item:
    - The user can only decide after seeing it: `Explain further and provide an example`.
 4. Write the notes as JSON, `[{ "line", "summary", "recommended" }]`, and run `node scripts/todo.mjs triage <file>`. It puts them first under the headline, and rejects a note the item has and a recommendation the `/todo` page can't offer.
 
-Then run `pnpm exec prettier --write TODO.md`, `pnpm exec vitest run tests/unit/todo.test.ts` (it checks the format) and `pnpm check-characters`, and commit with `chore: add summaries and recommendations to open todos`.
+Then run `pnpm exec oxfmt TODO.md`, `pnpm exec vitest run tests/unit/todo.test.ts` (it checks the format) and `pnpm check-characters`, and commit with `chore: add summaries and recommendations to open todos`.
 
 ## Report
 

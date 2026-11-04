@@ -154,7 +154,7 @@ const formatted = async (file: string, printWidth: number) =>
 const variant = (file: string, width: number) =>
   file.replace(/\.(astro|svelte|vue)$/, `.w${width}.$1`)
 
-describe("a component renders the same however Prettier wraps its source", () => {
+describe("a component renders the same however oxfmt wraps its source", () => {
   test("covers the components", () => {
     expect(CASES.length).toBeGreaterThan(200)
     expect(new Set(CASES.map(({ extension }) => extension))).toEqual(

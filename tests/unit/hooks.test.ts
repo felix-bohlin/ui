@@ -193,7 +193,7 @@ describe("stop", () => {
     expect(stop().status).toBe(0)
   })
 
-  test("reports Prettier, oxlint and ratchet problems in their groups", () => {
+  test("reports oxfmt, oxlint and ratchet problems in their groups", () => {
     const remote = mkdtempSync(join(tmpdir(), "opui-remote-"))
     const clone = mkdtempSync(join(tmpdir(), "opui-clone-"))
     const git = (...args: string[]) =>

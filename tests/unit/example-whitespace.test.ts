@@ -68,7 +68,7 @@ const SAMPLES: [string, string, string][] = [
   ],
   ['{" "} before a newline', '<p>a{" "}\n  <b>b</b></p>', ""],
   [
-    "a long run Prettier reflows",
+    "a long run the formatter reflows",
     "<p><b>one</b> <b>two</b> <b>three</b> <b>four</b> <b>five</b> <b>six</b> <b>seven</b> <b>eight</b></p>",
     "",
   ],

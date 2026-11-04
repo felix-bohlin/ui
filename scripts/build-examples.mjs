@@ -1470,7 +1470,7 @@ export const convertExample = async (
       file,
       "text next to an element inside an SVG <text>",
       framework,
-      "Prettier for Svelte and Vue puts them on separate lines, which renders a space: write the file by hand and list it in scripts/hand-written-examples.json",
+      "oxfmt puts them on separate lines in Svelte and Vue, which renders a space: write the file by hand and list it in scripts/hand-written-examples.json",
     )
   }
   if (framework === "svelte") {

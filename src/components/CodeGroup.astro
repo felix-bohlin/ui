@@ -17,16 +17,12 @@ const { tabs } = Astro.props
 
 <div class="code-group ui-card ui-outlined ui-not-rich-text">
   <Tabs variant="line" class="code-tabs">
-    {
-      tabs.map((tab, index) => (
-        <TabsItem checked={index === 0}>
-          <TabsLabel>{tab.title}</TabsLabel>
-          <TabsPanel>
-            {tab.code && <Code code={tab.code} lang={tab.lang} />}
-          </TabsPanel>
-        </TabsItem>
-      ))
-    }
+    {tabs.map((tab, index) => <TabsItem checked={index === 0}>
+      <TabsLabel>{tab.title}</TabsLabel>
+      <TabsPanel>
+        {tab.code && <Code code={tab.code} lang={tab.lang} />}
+      </TabsPanel>
+    </TabsItem>)}
   </Tabs>
 </div>
 

@@ -48,9 +48,10 @@ import cardActionsApi from "../../component-api/card-actions/api"
   <Fragment slot="title">Card</Fragment>
   <Fragment slot="preamble">
     The card is extremely versatile and can be used on its own, or as a building
-    block for <DocLink class="ui-link" href="/components/accordion"
-      >accordions</DocLink
-    >, <DocLink class="ui-link" href="/components/dialog">dialogs</DocLink> and more.
+    block for
+    <DocLink class="ui-link" href="/components/accordion">accordions</DocLink>,
+    <DocLink class="ui-link" href="/components/dialog">dialogs</DocLink> and
+    more.
   </Fragment>
 
   <Usage slot="usage">
@@ -63,24 +64,21 @@ import cardActionsApi from "../../component-api/card-actions/api"
       one feature.
     </li>
     <li slot="when">
-      A whole box that links somewhere, with a <a href="#clickable"
-        >clickable card</a
-      >.
+      A whole box that links somewhere, with a
+      <a href="#clickable">clickable card</a>.
     </li>
     <li slot="when-not">
-      Every section of a page. Space sections with headings and the <DocLink
-        href="/components/layout">Layout</DocLink
-      > classes.
+      Every section of a page. Space sections with headings and the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
     <li slot="when-not">
-      Rows of similar items. Use a <DocLink href="/components/list"
-        >List</DocLink
-      > or a <DocLink href="/components/table">Table</DocLink>.
+      Rows of similar items. Use a
+      <DocLink href="/components/list">List</DocLink> or a
+      <DocLink href="/components/table">Table</DocLink>.
     </li>
     <li slot="when-not">
-      A message about the page. Use a <DocLink href="/components/callout"
-        >Callout</DocLink
-      >.
+      A message about the page. Use a
+      <DocLink href="/components/callout">Callout</DocLink>.
     </li>
   </Usage>
 
@@ -94,11 +92,11 @@ import cardActionsApi from "../../component-api/card-actions/api"
         body in <code>CardContent</code>.
       </Fragment>
       <Fragment slot="html">
-        Change the card variant with the <code>.ui-transparent</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes. Without
-        a variant class the card has the page surface color and no border. Put the
-        body in <code>.ui-content</code>.
+        Change the card variant with the <code>.ui-transparent</code>,
+        <code>.ui-outlined</code>, <code>.ui-tonal</code>, and
+        <code>.ui-elevated</code> classes. Without a variant class the card has
+        the page surface color and no border. Put the body in
+        <code>.ui-content</code>.
       </Fragment>
     </Conditional>
 
@@ -132,9 +130,7 @@ import cardActionsApi from "../../component-api/card-actions/api"
   <section>
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
-      <Fragment slot="components">
-        Using <code>CardActions</code>.
-      </Fragment>
+      <Fragment slot="components"> Using <code>CardActions</code>. </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
       </Fragment>
@@ -149,14 +145,12 @@ import cardActionsApi from "../../component-api/card-actions/api"
     <h3 id="actions-alignment">Alignment</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >CardActions</code
-        > to line them up with the content instead.
+        Actions sit at the end. Set <code>align="start"</code> on
+        <code>CardActions</code> to line them up with the content instead.
       </Fragment>
       <Fragment slot="html">
-        Actions sit at the end. Add <code>.ui-align-start</code> to <code
-          >.ui-actions</code
-        > to line them up with the content instead.
+        Actions sit at the end. Add <code>.ui-align-start</code> to
+        <code>.ui-actions</code> to line them up with the content instead.
       </Fragment>
     </Conditional>
 
@@ -166,10 +160,11 @@ import cardActionsApi from "../../component-api/card-actions/api"
   <section>
     <h2 id="clickable">Clickable card</h2>
     <p>
-      Add <code>.ui-card-link</code> to a link in the card, usually the one in the
-      heading, and the whole card becomes clickable. The link stretches over the card,
-      so Ctrl/Cmd+click and "Open in new tab" work from anywhere, and screen readers
-      only hear the link text. Other links and buttons in the card stay clickable.
+      Add <code>.ui-card-link</code> to a link in the card, usually the one in
+      the heading, and the whole card becomes clickable. The link stretches over
+      the card, so Ctrl/Cmd+click and "Open in new tab" work from anywhere, and
+      screen readers only hear the link text. Other links and buttons in the
+      card stay clickable.
     </p>
 
     <AutoExample name="Clickable" column />
@@ -178,8 +173,8 @@ import cardActionsApi from "../../component-api/card-actions/api"
       <UICallout>
         <UICalloutContent>
           <div class="ui-rich-text">
-            Only one <code>.ui-card-link</code> per card. The link covers the text,
-            so selecting text in the card won't work. Fair trade.
+            Only one <code>.ui-card-link</code> per card. The link covers the
+            text, so selecting text in the card won't work. Fair trade.
           </div>
         </UICalloutContent>
       </UICallout>

@@ -70,16 +70,12 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
   <Label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
     for={passwordToggle ? inputId : undefined}
-    >{label}<Fragment set:html={labelSlot} /></Label
-  >
-  {
-    hasStartText && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+    >{label}<Fragment set:html={labelSlot}
+  /></Label>
+  {hasStartText && <span class="ui-start-text" id={startTextId}>
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
     <input
       {...rest}
@@ -91,80 +87,58 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
       pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
     />
-    {
-      Astro.slots.has("start") && (
-        <span class="ui-start">
-          <slot name="start" />
-        </span>
-      )
-    }
-    {
-      (Astro.slots.has("end") || passwordToggle) && (
-        <span class="ui-end">
-          <slot name="end" />
-          {passwordToggle && (
-            <Button
-              aria-label={passwordToggleLabel}
-              aria-pressed="false"
-              command="--toggle-password"
-              commandfor={inputId}
-              round
-            >
-              <svg
-                aria-hidden="true"
-                class="ui-icon-unchecked"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={showPath} />
-              </svg>
-              <svg
-                aria-hidden="true"
-                class="ui-icon-checked"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path fill="currentColor" d={hidePath} />
-              </svg>
-            </Button>
-          )}
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("top") && (
-        <span class="ui-top">
-          <slot name="top" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("bottom") && (
-        <span class="ui-bottom">
-          <slot name="bottom" />
-        </span>
-      )
-    }
+    {Astro.slots.has("start") && <span class="ui-start">
+      <slot name="start" />
+    </span>}
+    {(Astro.slots.has("end") || passwordToggle) && <span class="ui-end">
+      <slot name="end" />
+      {passwordToggle && <Button
+        aria-label={passwordToggleLabel}
+        aria-pressed="false"
+        command="--toggle-password"
+        commandfor={inputId}
+        round
+      >
+        <svg
+          aria-hidden="true"
+          class="ui-icon-unchecked"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d={showPath} />
+        </svg>
+        <svg
+          aria-hidden="true"
+          class="ui-icon-checked"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d={hidePath} />
+        </svg>
+      </Button>}
+    </span>}
+    {Astro.slots.has("top") && <span class="ui-top">
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("bottom") && <span class="ui-bottom">
+      <slot name="bottom" />
+    </span>}
   </span>
-  {
-    hasEndText && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
-        <slot name="end-text" />
-        {characterCount && (
-          <opui-character-count
-            aria-hidden="true"
-            class="ui-value"
-            label={characterCountLabel}
-          />
-        )}
-      </span>
-    )
-  }
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
+    {endText}
+    <slot name="end-text" />
+    {characterCount && (
+      <opui-character-count
+        aria-hidden="true"
+        class="ui-value"
+        label={characterCountLabel}
+      />
+    )}
+  </span>}
   <slot />
 </Root>
 

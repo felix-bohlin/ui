@@ -25,24 +25,22 @@ import Basics from "../../component-examples/carousel/Basics.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        A grid with <code>grid-auto-flow: column</code> and <code
-          >scroll-snap-type</code
-        > is the track
+        A grid with <code>grid-auto-flow: column</code> and
+        <code>scroll-snap-type</code> is the track
       </li>
       <li>
-        <code>::scroll-button()</code> generates real, focusable buttons that scroll
-        the track and disable themselves at the ends
+        <code>::scroll-button()</code> generates real, focusable buttons that
+        scroll the track and disable themselves at the ends
       </li>
       <li>
-        The dots are opt-in. With <code>.markers</code>, <code
-          >::scroll-marker</code
-        > gives every item a dot inside a <code>::scroll-marker-group</code>,
-        and
+        The dots are opt-in. With <code>.markers</code>,
+        <code>::scroll-marker</code> gives every item a dot inside a
+        <code>::scroll-marker-group</code>, and
         {" "}<code>:target-current</code> styles the active one
       </li>
       <li>
-        The alt text in <code>content: "" / "Next"</code> names the buttons, a CSS
-        counter numbers the dots
+        The alt text in <code>content: "" / "Next"</code> names the buttons, a
+        CSS counter numbers the dots
       </li>
       <li>Anchor positioning places the buttons over the scroller</li>
     </ul>
@@ -93,9 +91,9 @@ import Basics from "../../component-examples/carousel/Basics.astro"
         snapping row you swipe or scroll
       </li>
       <li>
-        The scrollbar is only hidden inside <code
-          >@supports selector(::scroll-button(*))</code
-        >, so it stays as the control elsewhere
+        The scrollbar is only hidden inside
+        <code>@supports selector(::scroll-button(*))</code>, so it stays as the
+        control elsewhere
       </li>
       <li>
         Space for buttons outside the items is only reserved under the same

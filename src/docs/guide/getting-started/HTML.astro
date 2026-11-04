@@ -21,17 +21,16 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     <Callout severity="neutral">
       <CalloutContent>
         <p>
-          Open Props UI is <u>just CSS</u>. You can copy any <DocLink
-            class="ui-link"
-            href="/components">component</DocLink
-          > CSS straight from the docs - no install required. Each component page
-          has its CSS under Installation, with the files it depends on and a button
-          that copies them all. It reads tokens from <code>palette.css</code> and
-          <code>theme.css</code>, so those need to be on the page too, after <code
-            >layers.css</code
-          > sets the layer order. <code>normalize.css</code> adds the focus ring and
-          <code>utils.css</code> adds <code>.ui-sr-only</code> and the motion classes.
-          The CDN link below has all of it in one file.
+          Open Props UI is <u>just CSS</u>. You can copy any
+          <DocLink class="ui-link" href="/components">component</DocLink> CSS
+          straight from the docs - no install required. Each component page has
+          its CSS under Installation, with the files it depends on and a button
+          that copies them all. It reads tokens from <code>palette.css</code>
+          and <code>theme.css</code>, so those need to be on the page too, after
+          <code>layers.css</code> sets the layer order.
+          <code>normalize.css</code> adds the focus ring and
+          <code>utils.css</code> adds <code>.ui-sr-only</code> and the motion
+          classes. The CDN link below has all of it in one file.
         </p>
       </CalloutContent>
     </Callout>
@@ -49,16 +48,16 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
       lang="html"
     />
     <p>
-      It includes the <DocLink href="/guide/browser-support#compat"
-        >browser fallbacks</DocLink
-      >. <code>dist/opui.no-compat.css</code> leaves them out, and <code
-        >dist/opui.baseline-&lt;year&gt;.css</code
-      > keeps only the ones that browsers of that Baseline year need.
+      It includes the
+      <DocLink href="/guide/browser-support#compat">browser fallbacks</DocLink>.
+      <code>dist/opui.no-compat.css</code> leaves them out, and
+      <code>dist/opui.baseline-&lt;year&gt;.css</code> keeps only the ones that
+      browsers of that Baseline year need.
     </p>
     <p>
-      <code>@6</code> loads the newest 6.x release, so a new major version never changes
-      your site. Pin an exact version, such as <code>@6.0.0</code>, for full
-      control.
+      <code>@6</code> loads the newest 6.x release, so a new major version never
+      changes your site. Pin an exact version, such as <code>@6.0.0</code>, for
+      full control.
     </p>
     <UnreleasedNote file="dist/opui.css" />
   </section>
@@ -84,10 +83,12 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     <h2 id="manual-setup">Install manually</h2>
     <p>
       The most flexible way to use OPUI, and it works without a build step.
-      Download the package (<code>npm pack opui-css</code>, or browse it on <a
+      Download the package (<code>npm pack opui-css</code>, or browse it on
+      <a
         class="ui-link"
         target="_blank"
-        href="https://cdn.jsdelivr.net/npm/opui-css@6/">jsDelivr</a
+        href="https://cdn.jsdelivr.net/npm/opui-css@6/"
+        >jsDelivr</a
       >) and drop these files into your project:
     </p>
 
@@ -133,18 +134,14 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     />
 
     <p>
-      <code>dist/op.css</code> is Open Props, pre-bundled in the <code
-        >openprops</code
-      > layer, and <code>open-props.css</code> imports it from <code
-        >node_modules</code
-      > for bundlers. The components don't read it, so both are optional and only
-      there for your own CSS. <code>dist/opui.css</code> is the CDN file. <code
-        >themes/</code
-      > holds the <DocLink href="/guide/customizing#example-themes"
-        >example themes</DocLink
-      > and <code>tokens.json</code> the <DocLink
-        href="/guide/theme-tokens#tokens-json">design tokens</DocLink
-      >.
+      <code>dist/op.css</code> is Open Props, pre-bundled in the
+      <code>openprops</code> layer, and <code>open-props.css</code> imports it
+      from <code>node_modules</code> for bundlers. The components don't read it,
+      so both are optional and only there for your own CSS.
+      <code>dist/opui.css</code> is the CDN file. <code>themes/</code> holds the
+      <DocLink href="/guide/customizing#example-themes">example themes</DocLink>
+      and <code>tokens.json</code> the
+      <DocLink href="/guide/theme-tokens#tokens-json">design tokens</DocLink>.
     </p>
 
     <p>Then import the files in your main CSS, in this order:</p>
@@ -160,9 +157,9 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
       lang="css"
     />
     <p>
-      If your own CSS reads Open Props, import <code>./opui/dist/op.css</code> right
-      after <code>layers.css</code>. Leave out <code>compat.css</code> if you don't
-      need the browser fallbacks.
+      If your own CSS reads Open Props, import <code>./opui/dist/op.css</code>
+      right after <code>layers.css</code>. Leave out <code>compat.css</code> if
+      you don't need the browser fallbacks.
     </p>
   </section>
 
@@ -181,12 +178,12 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
 
     <p>
       Two things need a bit of JavaScript in plain HTML: indeterminate
-      checkboxes (<code>css/js/checkbox.js</code>) and the Range value (<code
-        >css/js/range.js</code
-      >). Import them in a <code>&lt;script type="module"&gt;</code>, from <code
-        >https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code
-      > without a bundler. Components with a custom element, like the Number stepper,
-      import theirs from <code>elements/</code> the same way.
+      checkboxes (<code>css/js/checkbox.js</code>) and the Range value
+      (<code>css/js/range.js</code>). Import them in a
+      <code>&lt;script type="module"&gt;</code>, from
+      <code>https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code> without a
+      bundler. Components with a custom element, like the Number stepper, import
+      theirs from <code>elements/</code> the same way.
     </p>
     <NextSteps />
   </section>

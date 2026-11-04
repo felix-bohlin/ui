@@ -31,7 +31,7 @@ const Tag = as || (href ? "a" : "button")
     className,
   ])}
   {...tagAttrs(Tag, disabled, href)}
-  {...rest as HTMLAttributes<"button">}
+  {...(rest as HTMLAttributes<"button">)}
 >
   <slot />
 </Tag>

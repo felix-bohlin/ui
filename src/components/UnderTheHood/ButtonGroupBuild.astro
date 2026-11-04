@@ -93,15 +93,14 @@ const knobs = [
 
 <BuildUp id="build-button-group" knobs={knobs} steps={steps}>
   <div class="frame">
-    {
-      ["group", "group outlined"].map((className) => (
-        <div class={className} role="group">
-          {["Day", "Week", "Month", "Year"].map((label) => (
-            <button type="button">{label}</button>
-          ))}
-        </div>
-      ))
-    }
+    {["group", "group outlined"].map((className) => <div
+      class={className}
+      role="group"
+    >
+      {["Day", "Week", "Month", "Year"].map((label) => <button type="button">
+        {label}
+      </button>)}
+    </div>)}
   </div>
 </BuildUp>
 

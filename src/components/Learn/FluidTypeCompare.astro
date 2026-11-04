@@ -57,83 +57,72 @@ const charts = [
   style={`--viewport: ${viewport}px; --fluid-min: ${fluidWindow.start}px; --fluid-max: ${fluidWindow.end}px; --_domain-min: ${domain.min}px; --_domain-max: ${domain.max}px; --_x: ${fraction(viewport)}; --_window-start: ${fraction(fluidWindow.start)}; --_window-end: ${fraction(fluidWindow.end)}`}
 >
   <div class="fluid-compare-charts">
-    {
-      charts.map((chart) => (
-        <figure
-          aria-hidden="true"
-          class="fluid-compare-chart"
-          data-mode={chart.mode}
-        >
-          <figcaption>
-            <code>{chart.title}</code>
-            <span>{chart.caption}</span>
-          </figcaption>
-          <div class="fluid-compare-plot">
-            <span class="fluid-compare-y" data-end="max">
-              100%
-            </span>
-            <span class="fluid-compare-y" data-end="min">
-              0%
-            </span>
-            {chart.mode === "progress" && <span class="fluid-compare-window" />}
-            <svg preserveAspectRatio="none" viewBox="0 0 1000 100">
-              {chart.paths.map((d, index) => (
-                <path
-                  d={d}
-                  data-step={steps[index].name}
-                  vector-effect="non-scaling-stroke"
-                />
-              ))}
-            </svg>
-            <span class="fluid-compare-cursor" />
-            {steps.map((step) => (
-              <span
-                class="fluid-compare-dot"
-                data-step={step.name}
-                style={
-                  chart.mode === "clamp"
-                    ? `--_growth: ${growth(step, viewport)}`
-                    : undefined
-                }
-              />
-            ))}
-          </div>
-          <div class="fluid-compare-ticks">
-            {ticks.map((tick) => (
-              <span style={`--_x: ${fraction(tick)}`}>{tick}</span>
-            ))}
-          </div>
-        </figure>
-      ))
-    }
+    {charts.map((chart) => <figure
+      aria-hidden="true"
+      class="fluid-compare-chart"
+      data-mode={chart.mode}
+    >
+      <figcaption>
+        <code>{chart.title}</code>
+        <span>{chart.caption}</span>
+      </figcaption>
+      <div class="fluid-compare-plot">
+        <span class="fluid-compare-y" data-end="max"> 100% </span>
+        <span class="fluid-compare-y" data-end="min"> 0% </span>
+        {chart.mode === "progress" && <span class="fluid-compare-window" />}
+        <svg preserveAspectRatio="none" viewBox="0 0 1000 100">
+          {chart.paths.map((d, index) => (
+            <path
+              d={d}
+              data-step={steps[index].name}
+              vector-effect="non-scaling-stroke"
+            />
+          ))}
+        </svg>
+        <span class="fluid-compare-cursor" />
+        {steps.map((step) => (
+          <span
+            class="fluid-compare-dot"
+            data-step={step.name}
+            style={
+              chart.mode === "clamp"
+                ? `--_growth: ${growth(step, viewport)}`
+                : undefined
+            }
+          />
+        ))}
+      </div>
+      <div class="fluid-compare-ticks">
+        {ticks.map((tick) => <span style={`--_x: ${fraction(tick)}`}
+          >{tick}</span
+        >)}
+      </div>
+    </figure>)}
   </div>
 
   <div class="fluid-compare-stage">
     <div class="fluid-compare-frame">
       <div class="fluid-compare-viewport">
-        {
-          charts.map((chart) => (
-            <div class="fluid-compare-column" data-mode={chart.mode}>
-              <p class="fluid-compare-column-title">
-                <code>{chart.title}</code>
-              </p>
-              {steps.map((step) => (
-                <p
-                  class="fluid-compare-row"
-                  style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
-                >
-                  <span class="fluid-compare-sample">Aa</span>
-                  <span class="fluid-compare-readout">
-                    <span class="fluid-compare-key" data-step={step.name}>
-                      {step.name}
-                    </span>
-                    <span data-size />
-                  </span>
-                </p>
-              ))}
-            </div>
-          ))
-        }
+        {charts.map((chart) => <div
+          class="fluid-compare-column"
+          data-mode={chart.mode}
+        >
+          <p class="fluid-compare-column-title">
+            <code>{chart.title}</code>
+          </p>
+          {steps.map((step) => <p
+            class="fluid-compare-row"
+            style={`--_min: ${step.min}rem; --_max: ${step.max}rem; --_slope: ${step.slope / 100}`}
+          >
+            <span class="fluid-compare-sample">Aa</span>
+            <span class="fluid-compare-readout">
+              <span class="fluid-compare-key" data-step={step.name}>
+                {step.name}
+              </span>
+              <span data-size />
+            </span>
+          </p>)}
+        </div>)}
       </div>
       <span aria-hidden="true" class="fluid-compare-width">{viewport}px</span>
       <DragHandle />

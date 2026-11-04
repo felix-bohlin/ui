@@ -51,16 +51,15 @@ const LabelTag = label || labelSlot ? "label" : Fragment
     <LabelTag
       class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
       for={inputId}
-      id={`${inputId}-label`}>{label}<Fragment set:html={labelSlot} /></LabelTag
+      id={`${inputId}-label`}
+      >{label}<Fragment set:html={labelSlot}
+    /></LabelTag>
+    {(startText || Astro.slots.has("start-text")) && <span
+      class="ui-start-text"
     >
-    {
-      (startText || Astro.slots.has("start-text")) && (
-        <span class="ui-start-text">
-          {startText}
-          <slot name="start-text" />
-        </span>
-      )
-    }
+      {startText}
+      <slot name="start-text" />
+    </span>}
     <span class="ui-field">
       <span class="ui-start">
         <Button
@@ -82,14 +81,10 @@ const LabelTag = label || labelSlot ? "label" : Fragment
         type="text"
       />
     </span>
-    {
-      (endText || Astro.slots.has("end-text")) && (
-        <span class="ui-end-text">
-          {endText}
-          <slot name="end-text" />
-        </span>
-      )
-    }
+    {(endText || Astro.slots.has("end-text")) && <span class="ui-end-text">
+      {endText}
+      <slot name="end-text" />
+    </span>}
   </div>
   <div
     aria-labelledby={`${inputId}-label`}
@@ -98,32 +93,31 @@ const LabelTag = label || labelSlot ? "label" : Fragment
     popover="auto"
     role="dialog"
   >
-    {
-      channelsFor(alpha).map((slider) => (
-        <label class="ui-range" for={`${inputId}-${slider.name}`}>
-          <span class="ui-label" id={`${inputId}-${slider.name}-label`}>
-            {slider.label}
-          </span>
-          <output
-            aria-live="off"
-            class="ui-value"
-            for={`${inputId}-${slider.name}`}
-          />
-          <input
-            aria-describedby={
-              slider.channel === "C" ? `${inputId}-gamut` : undefined
-            }
-            aria-labelledby={`${inputId}-${slider.name}-label`}
-            data-channel={slider.channel}
-            id={`${inputId}-${slider.name}`}
-            max={slider.max}
-            min="0"
-            step={slider.step}
-            type="range"
-          />
-        </label>
-      ))
-    }
+    {channelsFor(alpha).map((slider) => <label
+      class="ui-range"
+      for={`${inputId}-${slider.name}`}
+    >
+      <span class="ui-label" id={`${inputId}-${slider.name}-label`}>
+        {slider.label}
+      </span>
+      <output
+        aria-live="off"
+        class="ui-value"
+        for={`${inputId}-${slider.name}`}
+      />
+      <input
+        aria-describedby={
+          slider.channel === "C" ? `${inputId}-gamut` : undefined
+        }
+        aria-labelledby={`${inputId}-${slider.name}-label`}
+        data-channel={slider.channel}
+        id={`${inputId}-${slider.name}`}
+        max={slider.max}
+        min="0"
+        step={slider.step}
+        type="range"
+      />
+    </label>)}
     <p class="ui-description" id={`${inputId}-gamut`}></p>
   </div>
 </opui-color-field>

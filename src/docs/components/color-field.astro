@@ -63,33 +63,29 @@ export const description =
   <Fragment slot="title">Color field</Fragment>
   <Fragment slot="preamble">
     <p>
-      A <DocLink href="/components/text-field">Text field</DocLink> for an <code
-        >oklch()</code
-      > color, with a swatch that opens <DocLink href="/components/range"
-        >Range</DocLink
-      > sliders for lightness, chroma, hue and opacity. The <code
-        >&lt;opui-color-field&gt;</code
-      > custom element keeps them in step.
+      A <DocLink href="/components/text-field">Text field</DocLink> for an
+      <code>oklch()</code> color, with a swatch that opens
+      <DocLink href="/components/range">Range</DocLink> sliders for lightness,
+      chroma, hue and opacity. The <code>&lt;opui-color-field&gt;</code> custom
+      element keeps them in step.
     </p>
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      A color people pick or paste, like a <a href="#basics">brand color</a> in a
-      settings form.
+      A color people pick or paste, like a <a href="#basics">brand color</a> in
+      a settings form.
     </li>
     <li slot="when">
       A color with transparency, like an <a href="#opacity">overlay</a>.
     </li>
     <li slot="when-not">
-      A choice from a few set colors, like a label color. Use a <DocLink
-        href="/components/radio">Radio</DocLink
-      > group of swatches.
+      A choice from a few set colors, like a label color. Use a
+      <DocLink href="/components/radio">Radio</DocLink> group of swatches.
     </li>
     <li slot="when-not">
-      A single number on a scale, like a hue on its own. Use a <DocLink
-        href="/components/range">Range</DocLink
-      >.
+      A single number on a scale, like a hue on its own. Use a
+      <DocLink href="/components/range">Range</DocLink>.
     </li>
   </Usage>
 
@@ -97,26 +93,22 @@ export const description =
     <h2 id="basics">Basics</h2>
     <Conditional as="div">
       <p slot="components">
-        The value is the field's text. Type or paste any CSS color, like <code
-          >#3b82f6</code
-        > or <code>red</code>, and it becomes <code>oklch()</code> when the field
-        loses focus. The swatch opens the sliders, and they write the value back.
+        The value is the field's text. Type or paste any CSS color, like
+        <code>#3b82f6</code> or <code>red</code>, and it becomes
+        <code>oklch()</code> when the field loses focus. The swatch opens the
+        sliders, and they write the value back.
       </p>
       <p slot="html">
-        Give the root <code>.ui-color-field</code>, a <code>.ui-text-field</code
-        >
-        part with a <code>&lt;label for&gt;</code>, and a <code
-          >.ui-floating</code
-        >
-        popover with a <code>.ui-range</code> per channel, each <code
-          >input[type=range]</code
-        > with <code>data-channel</code> set to <code>L</code>, <code>C</code>,
-        <code>H</code> or <code>alpha</code>. The swatch button opens it with <code
-          >commandfor</code
-        > and <code>command="toggle-popover"</code>. Then import <code
-          >opui-css/elements/color-field.js</code
-        >. Type or paste any CSS color and it becomes <code>oklch()</code> when the
-        field loses focus.
+        Give the root <code>.ui-color-field</code>, a
+        <code>.ui-text-field</code> part with a <code>&lt;label for&gt;</code>,
+        and a <code>.ui-floating</code> popover with a <code>.ui-range</code>
+        per channel, each <code>input[type=range]</code> with
+        <code>data-channel</code> set to <code>L</code>, <code>C</code>,
+        <code>H</code> or <code>alpha</code>. The swatch button opens it with
+        <code>commandfor</code> and <code>command="toggle-popover"</code>. Then
+        import <code>opui-css/elements/color-field.js</code>. Type or paste any
+        CSS color and it becomes <code>oklch()</code> when the field loses
+        focus.
       </p>
     </Conditional>
     <AutoExample name="Basics" />
@@ -125,10 +117,9 @@ export const description =
   <section>
     <h2 id="opacity">Opacity</h2>
     <p>
-      <PropOrClass prop="alpha" class='input[data-channel="alpha"]' /> adds an opacity
-      slider, and the value keeps its alpha, like <code
-        >oklch(0.3 0.05 260 / 0.6)</code
-      >. Without it, the value is opaque.
+      <PropOrClass prop="alpha" class='input[data-channel="alpha"]' /> adds an
+      opacity slider, and the value keeps its alpha, like
+      <code>oklch(0.3 0.05 260 / 0.6)</code>. Without it, the value is opaque.
     </p>
     <AutoExample name="Opacity" />
   </section>
@@ -136,10 +127,9 @@ export const description =
   <section>
     <h2 id="variants">Variants</h2>
     <p>
-      Color fields are outlined by default. Use <PropOrClass
-        prop='variant="filled"'
-        class=".ui-filled"
-      /> for a filled field.
+      Color fields are outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      field.
     </p>
     <AutoExample name="Variants" row />
   </section>
@@ -148,16 +138,14 @@ export const description =
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, <code>medium</code> (the default) and <code
-          >large</code
-        >.
+        Choose between four sizes with the <code>size</code> prop:
+        <code>x-small</code>, <code>small</code>, <code>medium</code> (the
+        default) and <code>large</code>.
       </Fragment>
       <Fragment slot="html">
-        Choose between four sizes on the <code>.ui-text-field</code>: <code
-          >.ui-x-small</code
-        >, <code>.ui-small</code>, default and <code>.ui-large</code>.
+        Choose between four sizes on the <code>.ui-text-field</code>:
+        <code>.ui-x-small</code>, <code>.ui-small</code>, default and
+        <code>.ui-large</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Sizes" row />
@@ -166,8 +154,8 @@ export const description =
   <section>
     <h2 id="end-text">End text</h2>
     <p>
-      Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
-      below the field.
+      Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting
+      text below the field.
     </p>
     <AutoExample name="EndText" />
   </section>
@@ -175,10 +163,10 @@ export const description =
   <section>
     <h2 id="form-value">Form value</h2>
     <p>
-      The input carries the <code>name</code>, so the form submits the <code
-        >oklch()</code
-      > text, a form reset brings back the starting color, and the sliders follow.
-      Text that isn't a color makes the field invalid, so the form won't submit it.
+      The input carries the <code>name</code>, so the form submits the
+      <code>oklch()</code> text, a form reset brings back the starting color,
+      and the sliders follow. Text that isn't a color makes the field invalid,
+      so the form won't submit it.
     </p>
     <AutoExample name="FormValue" />
   </section>
@@ -191,7 +179,8 @@ export const description =
         would join the input's name.
       </li>
       <li>
-        The swatch button is named by <Conditional
+        The swatch button is named by
+        <Conditional
           ><Fragment slot="components"><code>pickerLabel</code></Fragment
           ><Fragment slot="html"><code>aria-label</code></Fragment></Conditional
         >, and opens a dialog named after the field. Each slider reads its value

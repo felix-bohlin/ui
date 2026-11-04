@@ -5,20 +5,16 @@ const currentFramework = Astro.locals.framework
 ---
 
 <ul class="card-grid">
-  {
-    componentsFor(currentFramework).map((component) => (
-      <li>
-        <a
-          class="ui-card ui-outlined"
-          href={componentHrefFor(currentFramework, component.slug)}
-        >
-          <div class="ui-content">
-            <p>{component.name}</p>
-          </div>
-        </a>
-      </li>
-    ))
-  }
+  {componentsFor(currentFramework).map((component) => <li>
+    <a
+      class="ui-card ui-outlined"
+      href={componentHrefFor(currentFramework, component.slug)}
+    >
+      <div class="ui-content">
+        <p>{component.name}</p>
+      </div>
+    </a>
+  </li>)}
 </ul>
 
 <style>

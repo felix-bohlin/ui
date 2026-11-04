@@ -43,75 +43,59 @@ const tagProps = hasControl
     color && `ui-${color}`,
     className,
   ]}
-  {...liProps as HTMLAttributes<"li">}
+  {...(liProps as HTMLAttributes<"li">)}
 >
   {
     // Label + checkbox/radio/switch
     // With custom tag
     Tag ? (
       <Tag {...tagProps}>
-        {Astro.slots.start && (
-          <div class="ui-start">
-            <slot name="start" />
-          </div>
-        )}
+        {Astro.slots.start && <div class="ui-start">
+          <slot name="start" />
+        </div>}
         {hasLabel || hasDescription ? (
           <div class="ui-text">
-            {hasLabel && (
-              <p>
-                {label}
-                <slot name="label" />
-              </p>
-            )}
-            {hasDescription && (
-              <p>
-                {description}
-                <slot name="description" />
-              </p>
-            )}
+            {hasLabel && <p>
+              {label}
+              <slot name="label" />
+            </p>}
+            {hasDescription && <p>
+              {description}
+              <slot name="description" />
+            </p>}
             <slot />
           </div>
         ) : (
           <slot />
         )}
-        {Astro.slots.end && (
-          <div class="ui-end">
-            <slot name="end" />
-          </div>
-        )}
+        {Astro.slots.end && <div class="ui-end">
+          <slot name="end" />
+        </div>}
       </Tag>
     ) : (
       // Without custom tag
       <>
-        {Astro.slots.start && (
-          <div class="ui-start">
-            <slot name="start" />
-          </div>
-        )}
+        {Astro.slots.start && <div class="ui-start">
+          <slot name="start" />
+        </div>}
         {hasLabel || hasDescription ? (
           <div class="ui-text">
-            {hasLabel && (
-              <p>
-                {label}
-                <slot name="label" />
-              </p>
-            )}
-            {hasDescription && (
-              <p>
-                {description}
-                <slot name="description" />
-              </p>
-            )}
+            {hasLabel && <p>
+              {label}
+              <slot name="label" />
+            </p>}
+            {hasDescription && <p>
+              {description}
+              <slot name="description" />
+            </p>}
             <slot />
           </div>
         ) : (
           <slot />
         )}
-        {Astro.slots.end && (
-          <div class="ui-end">
-            <slot name="end" />
-          </div>
-        )}
+        {Astro.slots.end && <div class="ui-end">
+          <slot name="end" />
+        </div>}
       </>
     )
   }<Fragment set:html={submenu} />

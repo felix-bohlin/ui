@@ -166,14 +166,10 @@ const total = rows.reduce((sum, row) => sum + row.size, 0)
         </tr>
       </thead>
       <tbody>
-        {
-          rows.map((row) => (
-            <tr>
-              <td>{row.name}</td>
-              <td>{row.size} kB</td>
-            </tr>
-          ))
-        }
+        {rows.map((row) => <tr>
+          <td>{row.name}</td>
+          <td>{row.size} kB</td>
+        </tr>)}
       </tbody>
       <tfoot>
         <tr>

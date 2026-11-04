@@ -11,17 +11,13 @@ const photos = [
 ---
 
 <Carousel aria-label="Gallery" aspectRatio="1" itemsPerView={3}>
-  {
-    photos.map(({ alt, id }) => (
-      <li>
-        <img
-          alt={alt}
-          height="400"
-          loading="lazy"
-          src={`https://picsum.photos/id/${id}/400/400`}
-          width="400"
-        />
-      </li>
-    ))
-  }
+  {photos.map(({ alt, id }) => <li>
+    <img
+      alt={alt}
+      height="400"
+      loading="lazy"
+      src={`https://picsum.photos/id/${id}/400/400`}
+      width="400"
+    />
+  </li>)}
 </Carousel>

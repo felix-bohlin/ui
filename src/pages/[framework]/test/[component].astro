@@ -61,45 +61,35 @@ const examples = examplesFor(framework, component)
   </head>
   <body>
     <main>
-      {
-        examples.map((example) => (
-          <section class="fixture">
-            <h2>{example.name}</h2>
-            <div class="fixture-preview" data-example={example.name}>
-              {example.framework === "astro" && example.Component && (
-                <example.Component />
-              )}
-              {example.framework === "html" && (
-                <Fragment set:html={example.source} />
-              )}
-              {example.framework === "react" && example.Component && (
-                <div
-                  class="preview-render"
-                  data-react-example={`${component}/${example.name}`}
-                >
-                  <example.Component />
-                </div>
-              )}
-              {example.framework === "svelte" && example.Component && (
-                <div
-                  class="preview-render"
-                  data-svelte-example={`${component}/${example.name}`}
-                >
-                  <example.Component />
-                </div>
-              )}
-              {example.framework === "vue" && example.Component && (
-                <div
-                  class="preview-render"
-                  data-vue-example={`${component}/${example.name}`}
-                >
-                  <example.Component />
-                </div>
-              )}
-            </div>
-          </section>
-        ))
-      }
+      {examples.map((example) => <section class="fixture">
+        <h2>{example.name}</h2>
+        <div class="fixture-preview" data-example={example.name}>
+          {example.framework === "astro" && example.Component && (
+            <example.Component />
+          )}
+          {example.framework === "html" && (
+            <Fragment set:html={example.source} />
+          )}
+          {example.framework === "react" && example.Component && <div
+            class="preview-render"
+            data-react-example={`${component}/${example.name}`}
+          >
+            <example.Component />
+          </div>}
+          {example.framework === "svelte" && example.Component && <div
+            class="preview-render"
+            data-svelte-example={`${component}/${example.name}`}
+          >
+            <example.Component />
+          </div>}
+          {example.framework === "vue" && example.Component && <div
+            class="preview-render"
+            data-vue-example={`${component}/${example.name}`}
+          >
+            <example.Component />
+          </div>}
+        </div>
+      </section>)}
     </main>
     <script>
       import "../../../components/Example/mount-react-examples"

@@ -11,18 +11,14 @@ import { CONTRAST_MODES } from "../../utils/contrast"
   </p>
 
   <div role="status">
-    {
-      (["success", "warning"] as const).map((severity) => (
-        <Callout
-          data-summary={severity}
-          hidden={severity === "warning"}
-          severity={severity}
-        >
-          <CalloutIcon />
-          <CalloutContent data-summary-text>Checking contrast</CalloutContent>
-        </Callout>
-      ))
-    }
+    {(["success", "warning"] as const).map((severity) => <Callout
+      data-summary={severity}
+      hidden={severity === "warning"}
+      severity={severity}
+    >
+      <CalloutIcon />
+      <CalloutContent data-summary-text>Checking contrast</CalloutContent>
+    </Callout>)}
   </div>
 
   <p class="preview-contrast-note" data-note="more" hidden>
@@ -52,11 +48,9 @@ import { CONTRAST_MODES } from "../../utils/contrast"
           <th colspan="2" scope="colgroup">More contrast</th>
         </tr>
         <tr>
-          {
-            CONTRAST_MODES.map(({ scheme }) => (
-              <th scope="col">{scheme === "dark" ? "Dark" : "Light"}</th>
-            ))
-          }
+          {CONTRAST_MODES.map(({ scheme }) => <th scope="col">
+            {scheme === "dark" ? "Dark" : "Light"}
+          </th>)}
         </tr>
       </thead>
     </table>

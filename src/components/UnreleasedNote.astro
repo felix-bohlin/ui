@@ -30,15 +30,11 @@ const note = majorPublished
       .join(" ")
 ---
 
-{
-  unreleased && (
-    <div class="ui-not-rich-text">
-      <Callout severity="warning">
-        <CalloutIcon />
-        <CalloutContent>
-          <p set:html={note} />
-        </CalloutContent>
-      </Callout>
-    </div>
-  )
-}
+{unreleased && <div class="ui-not-rich-text">
+  <Callout severity="warning">
+    <CalloutIcon />
+    <CalloutContent>
+      <p set:html={note} />
+    </CalloutContent>
+  </Callout>
+</div>}

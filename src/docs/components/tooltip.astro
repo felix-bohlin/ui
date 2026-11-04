@@ -51,45 +51,38 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 >
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">
-    <p>
-      Built on top of <DocLink href="/components/anchor">Anchor</DocLink>.
-    </p>
+    <p>Built on top of <DocLink href="/components/anchor">Anchor</DocLink>.</p>
     <Conditional as="p">
       <Fragment slot="components">
         Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
-        <code>id</code>. Set <code>interestfor</code> with that id on the trigger
-        element itself (it only works on real invokers like{" "}
+        <code>id</code>. Set <code>interestfor</code> with that id on the
+        trigger element itself (it only works on real invokers like{" "}
         <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
-        in
-        <code>TooltipContent</code> after the trigger.
+        in <code>TooltipContent</code> after the trigger.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-tooltip</code> class to the wrapper. Give the <code
-          >.ui-floating</code
-        > element <code>popover="hint"</code> and an id, and add <code
-          >interestfor</code
-        > with that id to the trigger.
+        Add the <code>.ui-tooltip</code> class to the wrapper. Give the
+        <code>.ui-floating</code> element <code>popover="hint"</code> and an id,
+        and add <code>interestfor</code> with that id to the trigger.
       </Fragment>
     </Conditional>
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      A visible label for an icon-only button that already has an <code
-        >aria-label</code
-      >, like Save.
+      A visible label for an icon-only button that already has an
+      <code>aria-label</code>, like Save.
     </li>
     <li slot="when">A hint or a keyboard shortcut for a control.</li>
     <li slot="when-not">
       Information people need to finish their task. The tooltip only shows on
-      hover, focus or a long press, so put it on the page, or in a <a
-        href="#toggletip">toggletip</a
-      >.
+      hover, focus or a long press, so put it on the page, or in a
+      <a href="#toggletip">toggletip</a>.
     </li>
     <li slot="when-not">
-      Links, buttons or other interactive content. Use an <DocLink
-        href="/components/anchor#hover-trigger">Anchor</DocLink
-      > hover card or a <DocLink href="/components/menu">Menu</DocLink>.
+      Links, buttons or other interactive content. Use an
+      <DocLink href="/components/anchor#hover-trigger">Anchor</DocLink> hover
+      card or a <DocLink href="/components/menu">Menu</DocLink>.
     </li>
   </Usage>
 
@@ -113,9 +106,8 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         <code>TooltipContent</code> takes any markup, not only text.
       </Fragment>
       <Fragment slot="html">
-        You can place any markup you want (famous last words) inside <code
-          >.ui-floating[popover="hint"]</code
-        >, not only text.
+        You can place any markup you want (famous last words) inside
+        <code>.ui-floating[popover="hint"]</code>, not only text.
       </Fragment>
     </Conditional>
 
@@ -129,8 +121,8 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         Set <code>positionArea</code> to any <code>position-area</code> value.
       </Fragment>
       <Fragment slot="html">
-        Set <code>--ui-anchor-position-area</code> on the parent with your preferred
-        {" "}<code>position-area</code> value.
+        Set <code>--ui-anchor-position-area</code> on the parent with your
+        preferred {" "}<code>position-area</code> value.
       </Fragment>
     </Conditional>
 
@@ -141,10 +133,8 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
     <h2 id="arrow">Arrow</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set the <code>arrow</code> prop. This would be cool to solve with <code
-          >corner-shape</code
-        >
-        {" "}one day.
+        Set the <code>arrow</code> prop. This would be cool to solve with
+        <code>corner-shape</code> {" "}one day.
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-arrow</code> class on the <code>.ui-tooltip</code>.
@@ -159,12 +149,12 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
     <h2 id="toggletip">Toggletip</h2>
     <p>
       A button whose only job is to show the text, like an info button, can
-      toggle the tooltip on a press. Add <code>commandfor</code> and <code
-        >command="toggle-popover"</code
-      > with the tooltip's id next to <code>interestfor</code>, so a tap or a
-      click opens it in every browser with Invoker Commands, touch screens
-      without interest invokers included. Keep them off buttons that act, like
-      Save: a press would run the action and toggle the tooltip at once.
+      toggle the tooltip on a press. Add <code>commandfor</code> and
+      <code>command="toggle-popover"</code> with the tooltip's id next to
+      <code>interestfor</code>, so a tap or a click opens it in every browser
+      with Invoker Commands, touch screens without interest invokers included.
+      Keep them off buttons that act, like Save: a press would run the action
+      and toggle the tooltip at once.
     </p>
 
     <AutoExample name="Toggletip" centered />
@@ -178,8 +168,9 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         own name, like an <code>aria-label</code> on an icon-only button.
       </li>
       <li>
-        On a <a href="#toggletip">toggletip</a>, <code>commandfor</code> ties the
-        button to the tooltip, so Chromium also reports it as collapsed or expanded.
+        On a <a href="#toggletip">toggletip</a>, <code>commandfor</code> ties
+        the button to the tooltip, so Chromium also reports it as collapsed or
+        expanded.
       </li>
       <li>
         In browsers without interest invokers, the compat layer shows the

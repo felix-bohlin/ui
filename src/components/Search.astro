@@ -56,24 +56,22 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       data-filter="all"
       label="All"
     />
-    {
-      SEARCH_CATEGORIES.map((category) => (
-        <Chip
-          aria-pressed="false"
-          as="button"
-          size="small"
-          type="button"
-          variant="outlined"
-          class="filter-chip"
-          data-filter={category.id}
-          label={category.label}
-        />
-      ))
-    }
+    {SEARCH_CATEGORIES.map((category) => (
+      <Chip
+        aria-pressed="false"
+        as="button"
+        size="small"
+        type="button"
+        variant="outlined"
+        class="filter-chip"
+        data-filter={category.id}
+        label={category.label}
+      />
+    ))}
   </div>
 
   <div id="search-results">
-    <div class="command-empty" id="search-empty" style="display: none;">
+    <div class="command-empty" id="search-empty" style="display: none">
       No results found.
     </div>
     <div id="recent-searches" class="command-group">
@@ -87,7 +85,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       <div
         class="command-empty"
         id="recent-empty"
-        style="display: none; padding-block: var(--size-4);"
+        style="display: none; padding-block: var(--size-4)"
       >
         No recent searches in this category.
       </div>

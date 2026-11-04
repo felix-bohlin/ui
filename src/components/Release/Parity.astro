@@ -122,13 +122,12 @@ const activeSourceCss = FRAMEWORKS.map(
       </details>
     </div>
     <div class="parity-others" hidden inert>
-      {
-        others.map(({ Component, framework, html }) => (
-          <div class="parity-render example-preview" data-framework={framework}>
-            {html ? <Fragment set:html={html} /> : Component && <Component />}
-          </div>
-        ))
-      }
+      {others.map(({ Component, framework, html }) => <div
+        class="parity-render example-preview"
+        data-framework={framework}
+      >
+        {html ? <Fragment set:html={html} /> : Component && <Component />}
+      </div>)}
     </div>
   </div>
   <div class="parity-morph">
@@ -138,27 +137,24 @@ const activeSourceCss = FRAMEWORKS.map(
       name={groupName}
       size="small"
     >
-      {
-        renders.map(({ Logo, framework, label }) => (
-          <ToggleButton checked={framework === reference} value={framework}>
-            <span aria-hidden="true" class="parity-logo">
-              <Logo />
-            </span>
-            {label}
-          </ToggleButton>
-        ))
-      }
+      {renders.map(({ Logo, framework, label }) => <ToggleButton
+        checked={framework === reference}
+        value={framework}
+      >
+        <span aria-hidden="true" class="parity-logo">
+          <Logo />
+        </span>
+        {label}
+      </ToggleButton>)}
     </ToggleGroup>
     <div class="parity-code">
-      {
-        renders.map(({ framework, marked }) => (
-          <pre
-            class="parity-source"
-            data-framework={framework}
-            set:html={`<code>${marked}</code>`}
-          />
-        ))
-      }
+      {renders.map(({ framework, marked }) => (
+        <pre
+          class="parity-source"
+          data-framework={framework}
+          set:html={`<code>${marked}</code>`}
+        />
+      ))}
     </div>
   </div>
 </div>

@@ -16,116 +16,107 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   data-defaults={defaults}
 >
   <h2 class="ui-sr-only" id="builder-settings-title">Settings</h2>
-  <p class="builder-search-summary" data-search-summary hidden role="status">
-  </p>
-  {
-    GROUPS.map((group, index) => {
-      const basic = group.controls.filter((control) => control.tier === "basic")
-      const fine = group.controls.filter((control) => control.tier === "fine")
-      return (
-        <section
-          aria-labelledby={`builder-group-${group.id}`}
-          class="builder-group"
-          data-group={group.id}
-          hidden={index > 0}
+  <p
+    class="builder-search-summary"
+    data-search-summary
+    hidden
+    role="status"
+  ></p>
+  {GROUPS.map((group, index) => {
+    const basic = group.controls.filter((control) => control.tier === "basic")
+    const fine = group.controls.filter((control) => control.tier === "fine")
+    return <section
+      aria-labelledby={`builder-group-${group.id}`}
+      class="builder-group"
+      data-group={group.id}
+      hidden={index > 0}
+    >
+      <header class="builder-group-head">
+        <h3 id={`builder-group-${group.id}`} tabindex="-1">
+          {group.label}
+          <span class="builder-count" data-count hidden />
+        </h3>
+        <p>{group.description}</p>
+      </header>
+      {group.id === "brand" && <div class="builder-start" data-start>
+        <BuilderPresets />
+        <div
+          aria-labelledby="builder-moods-title"
+          class="builder-moods"
+          role="group"
         >
-          <header class="builder-group-head">
-            <h3 id={`builder-group-${group.id}`} tabindex="-1">
-              {group.label}
-              <span class="builder-count" data-count hidden />
-            </h3>
-            <p>{group.description}</p>
-          </header>
-          {group.id === "brand" && (
-            <div class="builder-start" data-start>
-              <BuilderPresets />
-              <div
-                aria-labelledby="builder-moods-title"
-                class="builder-moods"
-                role="group"
-              >
-                <p class="builder-moods-title" id="builder-moods-title">
-                  Mood
-                </p>
-                <div class="builder-moods-list">
-                  {MOODS.map((mood) => (
-                    <Chip
-                      as="button"
-                      aria-pressed="false"
-                      data-mood={mood.id}
-                      label={mood.label}
-                      size="small"
-                      title={mood.hint}
-                      type="button"
-                      variant="outlined"
-                    />
-                  ))}
-                </div>
-                <p class="builder-moods-hint">
-                  A mood sets a handful of settings on top of your starting
-                  point and stays marked while they all hold. Press it again to
-                  take them back.
-                </p>
-              </div>
-              <div class="builder-paste" data-paste>
-                <p class="builder-paste-title" id="builder-paste-title">
-                  Paste anything
-                </p>
-                <div class="builder-paste-row">
-                  <TextField
-                    aria-describedby="builder-paste-hint"
-                    autocomplete="off"
-                    class="builder-paste-field"
-                    hideLabel
-                    label="Paste a color, a theme.css or an image"
-                    name="builder-paste"
-                    placeholder="A color, a theme.css or an image"
-                    size="small"
-                    spellcheck="false"
-                  />
-                  <Button data-paste-image size="small" variant="outlined">
-                    Choose image
-                  </Button>
-                  <input
-                    accept="image/*"
-                    aria-label="Image for the brand color"
-                    class="ui-sr-only"
-                    data-paste-file
-                    type="file"
-                  />
-                </div>
-                <p class="builder-paste-hint" id="builder-paste-hint">
-                  A hex, rgb or oklch color becomes the brand color. A theme.css
-                  from this builder replaces the theme. An image gives its main
-                  color. You can also drop them here.
-                </p>
-              </div>
-            </div>
-          )}
-          <div class="builder-tier" data-tier="basic">
-            {basic.map((control) => (
-              <BuilderControl control={control} />
+          <p class="builder-moods-title" id="builder-moods-title">Mood</p>
+          <div class="builder-moods-list">
+            {MOODS.map((mood) => (
+              <Chip
+                as="button"
+                aria-pressed="false"
+                data-mood={mood.id}
+                label={mood.label}
+                size="small"
+                title={mood.hint}
+                type="button"
+                variant="outlined"
+              />
             ))}
           </div>
-          {fine.length > 0 && (
-            <h4 class="builder-fine-title" data-fine-title>
-              Fine-tune
-              <span class="builder-fine-meta" data-fine-meta>
-                {fine.length} {fine.length === 1 ? "setting" : "settings"}
-              </span>
-            </h4>
-          )}
-          {fine.length > 0 && (
-            <div class="builder-tier" data-tier="fine">
-              {fine.map((control) => (
-                <BuilderControl control={control} />
-              ))}
-            </div>
-          )}
-        </section>
-      )
-    })
-  }
+          <p class="builder-moods-hint">
+            A mood sets a handful of settings on top of your starting point and
+            stays marked while they all hold. Press it again to take them back.
+          </p>
+        </div>
+        <div class="builder-paste" data-paste>
+          <p class="builder-paste-title" id="builder-paste-title">
+            Paste anything
+          </p>
+          <div class="builder-paste-row">
+            <TextField
+              aria-describedby="builder-paste-hint"
+              autocomplete="off"
+              class="builder-paste-field"
+              hideLabel
+              label="Paste a color, a theme.css or an image"
+              name="builder-paste"
+              placeholder="A color, a theme.css or an image"
+              size="small"
+              spellcheck="false"
+            />
+            <Button data-paste-image size="small" variant="outlined">
+              Choose image
+            </Button>
+            <input
+              accept="image/*"
+              aria-label="Image for the brand color"
+              class="ui-sr-only"
+              data-paste-file
+              type="file"
+            />
+          </div>
+          <p class="builder-paste-hint" id="builder-paste-hint">
+            A hex, rgb or oklch color becomes the brand color. A theme.css from
+            this builder replaces the theme. An image gives its main color. You
+            can also drop them here.
+          </p>
+        </div>
+      </div>}
+      <div class="builder-tier" data-tier="basic">
+        {basic.map((control) => (
+          <BuilderControl control={control} />
+        ))}
+      </div>
+      {fine.length > 0 && <h4 class="builder-fine-title" data-fine-title>
+        Fine-tune
+        <span class="builder-fine-meta" data-fine-meta>
+          {fine.length} {fine.length === 1 ? "setting" : "settings"}
+        </span>
+      </h4>}
+      {fine.length > 0 && <div class="builder-tier" data-tier="fine">
+        {fine.map((control) => (
+          <BuilderControl control={control} />
+        ))}
+      </div>}
+    </section>
+  })}
   <BuilderTokens />
 </section>
 

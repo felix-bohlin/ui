@@ -11,15 +11,14 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      <code>&lt;progress&gt;</code> comes with the right role, a value screen readers
-      announce and an indeterminate state when there is no <code>value</code>.
-      But every engine draws it differently, and the indeterminate animation is
-      whatever the browser ships.
+      <code>&lt;progress&gt;</code> comes with the right role, a value screen
+      readers announce and an indeterminate state when there is no
+      <code>value</code>. But every engine draws it differently, and the
+      indeterminate animation is whatever the browser ships.
     </p>
     <p>
       So most libraries swap it for a <code>&lt;div role="progressbar"&gt;</code
-      >{" "}
-      and keep the ARIA attributes in sync by hand.
+      >{" "} and keep the ARIA attributes in sync by hand.
     </p>
   </section>
 
@@ -27,27 +26,28 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>appearance: none</code> drops the native look, a wrapper draws the track
-        and clips the bar to its radius
+        <code>appearance: none</code> drops the native look, a wrapper draws the
+        track and clips the bar to its radius
       </li>
       <li>
-        An <code>outline</code> in the field border color gives the track 3:1. It
-        sits outside the box, so <code>overflow: hidden</code> doesn't clip it
+        An <code>outline</code> in the field border color gives the track 3:1.
+        It sits outside the box, so <code>overflow: hidden</code> doesn't clip
+        it
       </li>
       <li>
-        The value is a vendor pseudo-element: <code
-          >::-webkit-progress-value</code
-        > in Chromium and Safari, <code>::-moz-progress-bar</code> in Firefox
+        The value is a vendor pseudo-element:
+        <code>::-webkit-progress-value</code> in Chromium and Safari,
+        <code>::-moz-progress-bar</code> in Firefox
       </li>
       <li>
-        <code>:indeterminate</code> matches a <code>&lt;progress&gt;</code> without
-        a <code>value</code>, and <code>:has()</code> lets the wrapper react to it
+        <code>:indeterminate</code> matches a <code>&lt;progress&gt;</code>
+        without a <code>value</code>, and <code>:has()</code> lets the wrapper
+        react to it
       </li>
       <li>
-        The wrapper's <code>::after</code> slides across by animating <code
-          >inset-inline-start</code
-        > and <code>inset-inline-end</code>, so it runs the other way in
-        right-to-left
+        The wrapper's <code>::after</code> slides across by animating
+        <code>inset-inline-start</code> and <code>inset-inline-end</code>, so it
+        runs the other way in right-to-left
       </li>
     </ul>
     <Code
@@ -79,9 +79,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      Drag the value, then switch to indeterminate. That removes the <code
-        >value</code
-      > attribute, and <code>:indeterminate</code> takes over.
+      Drag the value, then switch to indeterminate. That removes the
+      <code>value</code> attribute, and <code>:indeterminate</code> takes over.
     </p>
     <Example showCode={false}>
       <ProgressState />
@@ -101,8 +100,8 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
         one it doesn't know instead of the whole selector list
       </li>
       <li>
-        Without <code>:has()</code> the indeterminate rules drop out and the wrapper
-        never draws its sliding bar
+        Without <code>:has()</code> the indeterminate rules drop out and the
+        wrapper never draws its sliding bar
       </li>
       <li>
         Under reduced motion the bar pulses in place instead of sliding.

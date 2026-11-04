@@ -56,16 +56,15 @@ const LabelTag = label || labelSlot ? "label" : Fragment
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} for={inputId}
-    >{label}<Fragment set:html={labelSlot} /></LabelTag
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(startText || Astro.slots.has("start-text")) && <span
+    class="ui-start-text"
+    id={startTextId}
   >
-  {
-    (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
     <span class="ui-start">
       <Button
@@ -112,14 +111,13 @@ const LabelTag = label || labelSlot ? "label" : Fragment
       </Button>
     </span>
   </span>
-  {
-    (endText || Astro.slots.has("end-text")) && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  {(endText || Astro.slots.has("end-text")) && <span
+    class="ui-end-text"
+    id={endTextId}
+  >
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </opui-number-stepper>
 
 <script>

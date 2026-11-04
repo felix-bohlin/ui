@@ -27,13 +27,9 @@ const pages = Object.keys(stressPages).map(stressSlug).toSorted()
     <main class="ui-rich-text">
       <h1>Stress tests</h1>
       <ul>
-        {
-          pages.map((name) => (
-            <li>
-              <a href={`/tests/${name}/`}>{name}</a>
-            </li>
-          ))
-        }
+        {pages.map((name) => <li>
+          <a href={`/tests/${name}/`}>{name}</a>
+        </li>)}
       </ul>
     </main>
   </body>

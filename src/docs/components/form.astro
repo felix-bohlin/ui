@@ -90,19 +90,16 @@ const anatomyApi = {
   <Usage slot="usage">
     <li slot="when">Spacing the fields, groups and buttons of a form.</li>
     <li slot="when">
-      Related fields under one heading, like an address, in a <a
-        href="#fieldset">fieldset</a
-      > with a legend.
+      Related fields under one heading, like an address, in a
+      <a href="#fieldset">fieldset</a> with a legend.
     </li>
     <li slot="when">
-      A set of checkboxes, radios or switches, in a <a href="#field-group"
-        >field group</a
-      >.
+      A set of checkboxes, radios or switches, in a
+      <a href="#field-group">field group</a>.
     </li>
     <li slot="when-not">
-      Laying out content that isn't a form. Use the <DocLink
-        href="/components/layout">Layout</DocLink
-      > classes.
+      Laying out content that isn't a form. Use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
     <li slot="when-not">
       Grouping fields only for the look. A fieldset is also a group for screen
@@ -119,12 +116,12 @@ const anatomyApi = {
     <h2 id="fieldset">Fieldset</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
-        <code>FieldDescription</code>.
+        Groups related fields. Label it with <code>FieldLegend</code> and add an
+        optional <code>FieldDescription</code>.
       </Fragment>
       <Fragment slot="html">
-        Groups related fields. Label it with <code>&lt;legend&gt;</code> and add an
-        optional <code>.ui-description</code>.
+        Groups related fields. Label it with <code>&lt;legend&gt;</code> and add
+        an optional <code>.ui-description</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetStacked" />
@@ -134,8 +131,9 @@ const anatomyApi = {
     <h2 id="field-group">Field group</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Lays out related fields and passes a shared <code>name</code> to the OPUI
-        fields inside. Wrap it in a fieldset to group them for screen readers.
+        Lays out related fields and passes a shared <code>name</code> to the
+        OPUI fields inside. Wrap it in a fieldset to group them for screen
+        readers.
       </Fragment>
       <Fragment slot="html">
         Lays out related fields. Wrap it in a fieldset to group them for screen
@@ -148,7 +146,8 @@ const anatomyApi = {
     <h3 id="field-group-horizontal">Horizontal</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>orientation="horizontal"</code> to lay out fields horizontally.
+        Set <code>orientation="horizontal"</code> to lay out fields
+        horizontally.
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-horizontal</code> to lay out fields horizontally.
@@ -164,12 +163,12 @@ const anatomyApi = {
     <h3 id="fieldset-disabled">Disabled</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>disabled</code> on <code>Fieldset</code> to disable every field
-        inside.
+        Set <code>disabled</code> on <code>Fieldset</code> to disable every
+        field inside.
       </Fragment>
       <Fragment slot="html">
-        Add <code>disabled</code> to the <code>&lt;fieldset&gt;</code> to disable
-        every field inside.
+        Add <code>disabled</code> to the <code>&lt;fieldset&gt;</code> to
+        disable every field inside.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetDisabled" />
@@ -178,21 +177,20 @@ const anatomyApi = {
     <Conditional as="p">
       <Fragment slot="components">
         Set <code>error</code> on each field in the <code>Fieldset</code>, and
-        explain the error in a <code>.ui-end-text</code> directly inside it. The end
-        text turns red when a field has <code>error</code> set.
+        explain the error in a <code>.ui-end-text</code> directly inside it. The
+        end text turns red when a field has <code>error</code> set.
       </Fragment>
       <Fragment slot="html">
         Add <code>aria-invalid="true"</code> to each control in the
         <code>&lt;fieldset&gt;</code>, and explain the error in a
-        <code>.ui-end-text</code> directly inside it. The end text turns red when
-        a control has <code>aria-invalid="true"</code>.
+        <code>.ui-end-text</code> directly inside it. The end text turns red
+        when a control has <code>aria-invalid="true"</code>.
       </Fragment>
     </Conditional>
     <p>
-      Give the end text an <code>id</code> and point <code
-        >aria-describedby</code
-      >
-      on the fieldset at it, so screen readers read the error with the group.
+      Give the end text an <code>id</code> and point
+      <code>aria-describedby</code> on the fieldset at it, so screen readers
+      read the error with the group.
     </p>
     <AutoExample name="FieldsetInvalid" />
 
@@ -205,18 +203,14 @@ const anatomyApi = {
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        A field group with only buttons lines up in a row. Set <code
-          >orientation="vertical"</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >Divider</code
-        >.
+        A field group with only buttons lines up in a row. Set
+        <code>orientation="vertical"</code> to stack the buttons instead.
+        Separate the group from the fields with <code>Divider</code>.
       </Fragment>
       <Fragment slot="html">
-        A field group with only buttons lines up in a row. Add <code
-          >.ui-vertical</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >&lt;hr class="ui-divider"&gt;</code
-        >.
+        A field group with only buttons lines up in a row. Add
+        <code>.ui-vertical</code> to stack the buttons instead. Separate the
+        group from the fields with <code>&lt;hr class="ui-divider"&gt;</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Divider" />
@@ -227,22 +221,20 @@ const anatomyApi = {
     <h2 id="without-fieldset">Without fieldset</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Set <code>as</code> on <code>Form</code>, <code>Fieldset</code> and <code
-          >FieldLegend</code
-        >. A <code>div</code> doesn't pick up its name from the legend, so give the
-        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
-        set at it.
+        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or
+        <code>&lt;legend&gt;</code>? Set <code>as</code> on <code>Form</code>,
+        <code>Fieldset</code> and <code>FieldLegend</code>. A <code>div</code>
+        doesn't pick up its name from the legend, so give the legend an
+        <code>id</code> and point <code>aria-labelledby</code> on the field set
+        at it.
       </Fragment>
       <Fragment slot="html">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Use <code>.ui-form</code>, <code>.ui-fieldset</code> with <code
-          >role="group"</code
-        > and <code>.ui-legend</code> on other elements. A <code>div</code> doesn't
-        pick up its name from the legend, so give the legend an <code>id</code> and
-        point <code>aria-labelledby</code> on the fieldset at it.
+        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or
+        <code>&lt;legend&gt;</code>? Use <code>.ui-form</code>,
+        <code>.ui-fieldset</code> with <code>role="group"</code> and
+        <code>.ui-legend</code> on other elements. A <code>div</code> doesn't
+        pick up its name from the legend, so give the legend an <code>id</code>
+        and point <code>aria-labelledby</code> on the fieldset at it.
       </Fragment>
     </Conditional>
     <AutoExample name="AdaptiveOutput" />
@@ -256,13 +248,13 @@ const anatomyApi = {
         <UISwitch
           data-toggle-class="ui-small"
           data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range"
-          ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
-        >
+          ><PropOrClass prop='size="small"' class=".ui-small"
+        /></UISwitch>
         <UISwitch
           data-toggle-class="ui-spread; ui-horizontal"
           data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-checkbox, .ui-switch, .ui-range; .ui-field-group:has(> .ui-radio)"
-          ><PropOrClass prop="spread" class=".ui-spread" /></UISwitch
-        >
+          ><PropOrClass prop="spread" class=".ui-spread"
+        /></UISwitch>
         <UISwitch
           data-toggle-class="kitchen-sink-dividers"
           data-toggle-target="#form-kitchen-sink-1"
@@ -285,12 +277,11 @@ const anatomyApi = {
         the legend with the fields in it.
       </li>
       <li>
-        The asterisk on the legend of a <a href="#fieldset-required">required</a
-        >
-        group is hidden from screen readers in browsers that support alternative text
-        in <code>content</code>. They announce each field as required from its <code
-          >required</code
-        > attribute.
+        The asterisk on the legend of a
+        <a href="#fieldset-required">required</a> group is hidden from screen
+        readers in browsers that support alternative text in <code>content</code
+        >. They announce each field as required from its <code>required</code>
+        attribute.
       </li>
     </ul>
   </Fragment>

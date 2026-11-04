@@ -11,9 +11,9 @@ import Variants from "../../component-examples/typography/Variants.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      Fluid type used to be a <code>clamp()</code> per heading: a minimum, a slope
-      in <code>vi</code>, a maximum. The slope decides where the heading starts
-      and stops growing, and each heading ends up with its own range.
+      Fluid type used to be a <code>clamp()</code> per heading: a minimum, a
+      slope in <code>vi</code>, a maximum. The slope decides where the heading
+      starts and stops growing, and each heading ends up with its own range.
     </p>
     <ul>
       <li>
@@ -23,10 +23,9 @@ import Variants from "../../component-examples/typography/Variants.astro"
         <code>clamp(1.125rem, 3vi, 1.25rem)</code> grows between 600px and 667px
       </li>
       <li>
-        At 600px the <code>h1</code> is almost full size while the <code
-          >h4</code
-        >
-        hasn't started, so the steps sit further apart than at either end
+        At 600px the <code>h1</code> is almost full size while the
+        <code>h4</code> hasn't started, so the steps sit further apart than at
+        either end
       </li>
       <li>
         Move a step of the type scale and the range moves with it, without
@@ -39,19 +38,18 @@ import Variants from "../../component-examples/typography/Variants.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>progress(value, start, end)</code> returns where <code>value</code
-        >
-        sits between <code>start</code> and <code>end</code>: 0 at the start, 1
-        at the end, clamped in between
+        <code>progress(value, start, end)</code> returns where
+        <code>value</code> sits between <code>start</code> and <code>end</code>:
+        0 at the start, 1 at the end, clamped in between
       </li>
       <li>
-        With <code>100vi</code> as the value, one window of viewport widths becomes
-        one ramp, computed on <code>html</code> and on every palette scope
+        With <code>100vi</code> as the value, one window of viewport widths
+        becomes one ramp, computed on <code>html</code> and on every palette
+        scope
       </li>
       <li>
-        Each heading mixes its two steps with the ramp: <code
-          >min + (max - min) * progress</code
-        >
+        Each heading mixes its two steps with the ramp:
+        <code>min + (max - min) * progress</code>
       </li>
       <li>
         The window is two tokens, so a theme moves the breakpoints without
@@ -103,18 +101,18 @@ import Variants from "../../component-examples/typography/Variants.astro"
     </Example>
     <ul>
       <li>
-        With <code>clamp()</code> each heading has its own ramp. At 600px the <code
-          >h1</code
-        > is near the top while the <code>h4</code> hasn't left the bottom
+        With <code>clamp()</code> each heading has its own ramp. At 600px the
+        <code>h1</code> is near the top while the <code>h4</code> hasn't left
+        the bottom
       </li>
       <li>
-        With <code>progress()</code> the four ramps are one line and the four dots
-        one spot, so every heading has grown the same share of its range
+        With <code>progress()</code> the four ramps are one line and the four
+        dots one spot, so every heading has grown the same share of its range
       </li>
       <li>
-        Move <strong>Window start</strong> and <strong>Window end</strong>: the <code
-          >progress()</code
-        > ramp follows, the <code>clamp()</code> slopes don't know the window exists
+        Move <strong>Window start</strong> and <strong>Window end</strong>: the
+        <code>progress()</code> ramp follows, the <code>clamp()</code> slopes
+        don't know the window exists
       </li>
     </ul>
     <p>
@@ -131,8 +129,8 @@ import Variants from "../../component-examples/typography/Variants.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        <code>progress()</code> is Baseline newly available since September 2026:
-        Chrome 138, Safari 26 and Firefox 155
+        <code>progress()</code> is Baseline newly available since September
+        2026: Chrome 138, Safari 26 and Firefox 155
       </li>
       <li>
         The arguments are separated by commas, like <code>clamp()</code>. An
@@ -140,15 +138,15 @@ import Variants from "../../component-examples/typography/Variants.astro"
         shipped syntax is the comma one
       </li>
       <li>
-        The theme keeps the <code>clamp()</code> sizes in <code
-          >@supports not (font-size: calc(1rem * progress(1, 0, 1)))</code
-        >, so an older browser gets the old slopes instead of headings that fall
+        The theme keeps the <code>clamp()</code> sizes in
+        <code>@supports not (font-size: calc(1rem * progress(1, 0, 1)))</code>,
+        so an older browser gets the old slopes instead of headings that fall
         back to the body size
       </li>
       <li>
-        <code>--ui-fluid-progress</code> has no fallback of its own. In an older browser
-        a declaration that reads it is invalid at computed-value time, and the property
-        takes its inherited or initial value
+        <code>--ui-fluid-progress</code> has no fallback of its own. In an older
+        browser a declaration that reads it is invalid at computed-value time,
+        and the property takes its inherited or initial value
       </li>
     </ul>
   </section>

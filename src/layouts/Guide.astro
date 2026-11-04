@@ -51,19 +51,15 @@ const currentIndex = links.findIndex(
   <slot slot="preamble" name="preamble" />
   <slot />
 
-  {
-    currentIndex !== -1 && (
-      <footer class="guide-footer ui-not-rich-text">
-        <hr class="ui-divider" />
+  {currentIndex !== -1 && <footer class="guide-footer ui-not-rich-text">
+    <hr class="ui-divider" />
 
-        <Pagination
-          label="Guide pages"
-          next={links[currentIndex + 1]}
-          prev={links[currentIndex - 1]}
-        />
-      </footer>
-    )
-  }
+    <Pagination
+      label="Guide pages"
+      next={links[currentIndex + 1]}
+      prev={links[currentIndex - 1]}
+    />
+  </footer>}
 </Document>
 
 <style>

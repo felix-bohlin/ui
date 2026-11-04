@@ -25,21 +25,21 @@ import Basics from "../../component-examples/tabs/Basics.astro"
         natively
       </li>
       <li>
-        The markup interleaves radio, label, panel for each tab, so <code
-          >:checked + label + panel</code
-        > shows the right panel without a selector per tab
+        The markup interleaves radio, label, panel for each tab, so
+        <code>:checked + label + panel</code> shows the right panel without a
+        selector per tab
       </li>
       <li>
-        A wrapping flex row with <code>order</code> pulls every label into one row
-        and drops the panels below
+        A wrapping flex row with <code>order</code> pulls every label into one
+        row and drops the panels below
       </li>
       <li>
-        The radios are visually hidden, <code>:focus-visible + label</code> draws
-        the focus ring on the label's pill
+        The radios are visually hidden, <code>:focus-visible + label</code>
+        draws the focus ring on the label's pill
       </li>
       <li>
-        <code>:nth-child(1 of .tab-label)</code> finds the first label among the radios
-        and panels, to round the outer corners of the track
+        <code>:nth-child(1 of .tab-label)</code> finds the first label among the
+        radios and panels, to round the outer corners of the track
       </li>
     </ul>
     <Code
@@ -83,18 +83,17 @@ import Basics from "../../component-examples/tabs/Basics.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Browsers without <code>:nth-child(of S)</code> drop those rules: the first
-        and last tabs lose their outer rounding, switching still works
+        Browsers without <code>:nth-child(of S)</code> drop those rules: the
+        first and last tabs lose their outer rounding, switching still works
       </li>
       <li>
-        <code>order</code> only moves the tabs visually. Focus follows the DOM, which
-        already has the right order: the checked radio, then the content of its open
-        panel. No <code>reading-flow</code> needed
+        <code>order</code> only moves the tabs visually. Focus follows the DOM,
+        which already has the right order: the checked radio, then the content
+        of its open panel. No <code>reading-flow</code> needed
       </li>
       <li>
-        The rest is <code>:checked</code>, the next-sibling combinator and <code
-          >order</code
-        >, supported everywhere
+        The rest is <code>:checked</code>, the next-sibling combinator and
+        <code>order</code>, supported everywhere
       </li>
     </ul>
   </section>

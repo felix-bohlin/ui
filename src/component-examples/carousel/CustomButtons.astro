@@ -16,19 +16,15 @@ const places = [
   class="carousel-custom-buttons"
   itemsPerView={2}
 >
-  {
-    places.map(({ description, title }) => (
-      <li>
-        <Card variant="tonal">
-          <CardHeader>
-            <p>Destination</p>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </CardHeader>
-        </Card>
-      </li>
-    ))
-  }
+  {places.map(({ description, title }) => <li>
+    <Card variant="tonal">
+      <CardHeader>
+        <p>Destination</p>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </CardHeader>
+    </Card>
+  </li>)}
 </Carousel>
 
 <style is:global>

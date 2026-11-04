@@ -59,26 +59,20 @@ const tiles = [
 
 <div class="numbers ui-not-rich-text" id={id}>
   <ul class="numbers-tiles">
-    {
-      tiles.map((tile) => (
-        <li class="numbers-tile">
-          <p class="numbers-value">
-            <span
-              aria-hidden="true"
-              class="numbers-count"
-              style={`--n: ${tile.value}`}
-            />
-            <span class="ui-sr-only">{tile.value}</span>
-          </p>
-          <p class="numbers-label">
-            {tile.label}
-            {tile.caption && (
-              <span class="numbers-caption">{tile.caption}</span>
-            )}
-          </p>
-        </li>
-      ))
-    }
+    {tiles.map((tile) => <li class="numbers-tile">
+      <p class="numbers-value">
+        <span
+          aria-hidden="true"
+          class="numbers-count"
+          style={`--n: ${tile.value}`}
+        />
+        <span class="ui-sr-only">{tile.value}</span>
+      </p>
+      <p class="numbers-label">
+        {tile.label}
+        {tile.caption && <span class="numbers-caption">{tile.caption}</span>}
+      </p>
+    </li>)}
   </ul>
 </div>
 

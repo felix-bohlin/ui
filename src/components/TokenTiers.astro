@@ -64,31 +64,23 @@ const link = (row: number, column: number) => {
         </tr>
       </thead>
       <tbody>
-        {
-          tiers.map((tier, row) => (
-            <tr data-tier={tier.name.toLowerCase().replace(/\s+/g, "-")}>
-              <th scope="row">
-                <span class="tier">
-                  <span class="name">{tier.name}</span>
-                  {tier.note && <span class="note">{tier.note}</span>}
-                </span>
-              </th>
-              {tier.tokens.map((token, column) => (
-                <td data-link={link(row, column)}>
-                  {token && (
-                    <code
-                      data-optional={
-                        tier.optional?.includes(token) ? "" : undefined
-                      }
-                    >
-                      {token}
-                    </code>
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))
-        }
+        {tiers.map((tier, row) => <tr
+          data-tier={tier.name.toLowerCase().replace(/\s+/g, "-")}
+        >
+          <th scope="row">
+            <span class="tier">
+              <span class="name">{tier.name}</span>
+              {tier.note && <span class="note">{tier.note}</span>}
+            </span>
+          </th>
+          {tier.tokens.map((token, column) => <td data-link={link(row, column)}>
+            {token && <code
+              data-optional={tier.optional?.includes(token) ? "" : undefined}
+            >
+              {token}
+            </code>}
+          </td>)}
+        </tr>)}
       </tbody>
     </table>
   </div>

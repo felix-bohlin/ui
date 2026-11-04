@@ -58,31 +58,26 @@ export const description =
       Actions, like saving a form, sending a message or opening a dialog.
     </li>
     <li slot="when">
-      The main action of a view or a dialog, with <PropOrClass
-        prop='variant="filled"'
-        class=".ui-filled"
-      />, and quieter variants for the others.
+      The main action of a view or a dialog, with
+      <PropOrClass prop='variant="filled"' class=".ui-filled" />, and quieter
+      variants for the others.
     </li>
     <li slot="when">
-      A link that should look like an action, like Get started, with <PropOrClass
-        prop="href"
-        class='<a class="ui-button">'
-      />.
+      A link that should look like an action, like Get started, with
+      <PropOrClass prop="href" class='<a class="ui-button">' />.
     </li>
     <li slot="when-not">
-      Filters, tags and choices. Use a <DocLink href="/components/chip"
-        >Chip</DocLink
-      >.
+      Filters, tags and choices. Use a
+      <DocLink href="/components/chip">Chip</DocLink>.
     </li>
     <li slot="when-not">
-      An option that stays on or off. Use a <DocLink href="/components/toggle"
-        >Toggle button</DocLink
-      > or a <DocLink href="/components/switch">Switch</DocLink>.
+      An option that stays on or off. Use a
+      <DocLink href="/components/toggle">Toggle button</DocLink> or a
+      <DocLink href="/components/switch">Switch</DocLink>.
     </li>
     <li slot="when-not">
-      A link in running text. Use a <DocLink href="/components/typography#link"
-        >text link</DocLink
-      >.
+      A link in running text. Use a
+      <DocLink href="/components/typography#link">text link</DocLink>.
     </li>
   </Usage>
 
@@ -90,20 +85,19 @@ export const description =
     <h2 id="variants">Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Change the button variant with the <code>variant</code> prop. The default
-        is <code>transparent</code>, a text button.
+        Change the button variant with the <code>variant</code> prop. The
+        default is <code>transparent</code>, a text button.
       </Fragment>
       <Fragment slot="html">
-        Change the button variant with the <code>.ui-outlined</code>, <code
-          >.ui-tonal</code
-        >, and <code>.ui-filled</code> classes.
+        Change the button variant with the <code>.ui-outlined</code>,
+        <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column spacious />
     <p>
-      A transparent (text) button link with <code>aria-current="page"</code> keeps
-      the pressed background, to mark the current page in navigation. Outlined, tonal
-      and filled buttons don't change.
+      A transparent (text) button link with <code>aria-current="page"</code>
+      keeps the pressed background, to mark the current page in navigation.
+      Outlined, tonal and filled buttons don't change.
     </p>
   </section>
 
@@ -111,13 +105,13 @@ export const description =
     <h2 id="colors">Colors</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Pass <code>color</code> to apply a destructive or brand color: <code
-          >critical</code
-        > or <code>primary</code>. The default is a neutral gray.
+        Pass <code>color</code> to apply a destructive or brand color:
+        <code>critical</code> or <code>primary</code>. The default is a neutral
+        gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-critical</code> or <code>.ui-primary</code> class to apply
-        a destructive or brand color. The default is a neutral gray.
+        Add a <code>.ui-critical</code> or <code>.ui-primary</code> class to
+        apply a destructive or brand color. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" column spacious />
@@ -128,15 +122,12 @@ export const description =
     <Conditional as="p">
       <Fragment slot="components">
         Resize any button using the <code>size</code> prop: <code>x-small</code
-        >,
-        <code>small</code>, <code>medium</code> (the default) and <code
-          >large</code
-        >.
+        >, <code>small</code>, <code>medium</code> (the default) and
+        <code>large</code>.
       </Fragment>
       <Fragment slot="html">
-        Resize any button with the <code>.ui-x-small</code>, <code
-          >.ui-small</code
-        > and <code>.ui-large</code> classes.
+        Resize any button with the <code>.ui-x-small</code>,
+        <code>.ui-small</code> and <code>.ui-large</code> classes.
       </Fragment>
     </Conditional>
     <AutoExample name="Sizes" column />
@@ -150,24 +141,24 @@ export const description =
         the label in a <code>&lt;span class="ui-text"&gt;</code>. The CSS looks
         for the wrapper element, the class is a hook for your own styles. The
         wrapper tightens the padding on the icon side, and a button whose only
-        element is an <code>svg</code> is styled as icon-only, even with text next
-        to it.
+        element is an <code>svg</code> is styled as icon-only, even with text
+        next to it.
       </Fragment>
       <Fragment slot="html">
         Include an icon alongside text by nesting an SVG element within the
         button. Wrap the label in a <code>&lt;span class="ui-text"&gt;</code>.
         The CSS looks for the wrapper element, the class is a hook for your own
         styles. The wrapper tightens the padding on the icon side, and a button
-        whose only element is an <code>svg</code> is styled as icon-only, even with
-        text next to it.
+        whose only element is an <code>svg</code> is styled as icon-only, even
+        with text next to it.
       </Fragment>
       <Fragment slot="react">
         Include an icon alongside text by nesting it within the component. Wrap
         the label in a <code>&lt;span className="ui-text"&gt;</code>. The CSS
         looks for the wrapper element, the class is a hook for your own styles.
         The wrapper tightens the padding on the icon side, and a button whose
-        only element is an <code>svg</code> is styled as icon-only, even with text
-        next to it.
+        only element is an <code>svg</code> is styled as icon-only, even with
+        text next to it.
       </Fragment>
     </Conditional>
     <AutoExample name="IconAndLabel" column />
@@ -176,8 +167,8 @@ export const description =
   <section>
     <h2 id="keyboard">Keyboard</h2>
     <p>
-      Use the <code>&lt;kbd&gt;</code> element to provide keyboard hints within a
-      button.
+      Use the <code>&lt;kbd&gt;</code> element to provide keyboard hints within
+      a button.
     </p>
     <AutoExample name="Keyboard" row />
   </section>
@@ -186,17 +177,14 @@ export const description =
     <h2 id="icon-only">Icon-only</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Name a button whose only child is an <code>svg</code> with <code
-          >aria-label</code
-        >. React and Svelte require <code>aria-label</code> or <code
-          >aria-labelledby</code
-        > when there are no
-        <code>children</code>. Add <code>round</code> for a circle.
+        Name a button whose only child is an <code>svg</code> with
+        <code>aria-label</code>. React and Svelte require
+        <code>aria-label</code> or <code>aria-labelledby</code> when there are
+        no <code>children</code>. Add <code>round</code> for a circle.
       </Fragment>
       <Fragment slot="html">
-        Name a button whose only child is an <code>svg</code> with <code
-          >aria-label</code
-        >. Add <code>.ui-round</code> for a circle.
+        Name a button whose only child is an <code>svg</code> with
+        <code>aria-label</code>. Add <code>.ui-round</code> for a circle.
       </Fragment>
     </Conditional>
     <AutoExample name="IconOnly" column spacious />
@@ -206,16 +194,16 @@ export const description =
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
-        so with <code>href</code> it drops the <code>href</code> and sets <code
-          >aria-disabled="true"</code
-        > instead. The link can't be clicked or focused.
+        Disable the button with the <code>disabled</code> prop. Links can't be
+        disabled, so with <code>href</code> it drops the <code>href</code> and
+        sets <code>aria-disabled="true"</code> instead. The link can't be
+        clicked or focused.
       </Fragment>
       <Fragment slot="html">
-        Disable the button with the <code>disabled</code> attribute. Links can't be
-        disabled, so remove the <code>href</code> of an <code>&lt;a&gt;</code> and
-        add <code>aria-disabled="true"</code>. The link can't be clicked or
-        focused.
+        Disable the button with the <code>disabled</code> attribute. Links can't
+        be disabled, so remove the <code>href</code> of an
+        <code>&lt;a&gt;</code> and add <code>aria-disabled="true"</code>. The
+        link can't be clicked or focused.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column />
@@ -224,18 +212,19 @@ export const description =
   <section>
     <h2 id="file-upload">File upload</h2>
     <p>
-      Is it a button? Is it an input? You can find the <DocLink
-        href="/components/text-field#file">docs for it here</DocLink
-      > at least.
+      Is it a button? Is it an input? You can find the
+      <DocLink href="/components/text-field#file">docs for it here</DocLink> at
+      least.
     </p>
   </section>
 
   <Fragment slot="accessibility">
     <ul>
       <li>
-        A <code>&lt;kbd&gt;</code> hint is part of the button's name, so screen readers
-        read the <a href="#keyboard">keyboard example</a> as "Terminal Ctrl+Alt+T".
-        The button doesn't listen for the shortcut: handle the keys in your own script.
+        A <code>&lt;kbd&gt;</code> hint is part of the button's name, so screen
+        readers read the <a href="#keyboard">keyboard example</a> as "Terminal
+        Ctrl+Alt+T". The button doesn't listen for the shortcut: handle the keys
+        in your own script.
       </li>
     </ul>
     <KeyboardSupport />
@@ -250,11 +239,12 @@ export const description =
           width="32"
           height="32"
           viewBox="0 0 32 32"
-          ><path
+        >
+          <path
             fill="currentColor"
             d="M13.5 6.5V7h5v-.5a2.5 2.5 0 0 0-5 0m-2 .5v-.5a4.5 4.5 0 1 1 9 0V7H28a1 1 0 1 1 0 2h-1.508L24.6 25.568A5 5 0 0 1 19.63 30h-7.26a5 5 0 0 1-4.97-4.432L5.508 9H4a1 1 0 0 1 0-2zm2.5 6.5a1 1 0 1 0-2 0v10a1 1 0 1 0 2 0zm5-1a1 1 0 0 0-1 1v10a1 1 0 1 0 2 0v-10a1 1 0 0 0-1-1"
-          ></path></svg
-        >
+          ></path>
+        </svg>
         <span class="ui-text">Delete</span>
         <kbd>Del</kbd>
       </UIButton>

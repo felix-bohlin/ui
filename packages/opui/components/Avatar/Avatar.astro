@@ -29,6 +29,6 @@ const Tag = as || (href ? "a" : "div")
     className,
   ])}
   {...tagAttrs(Tag, disabled, href)}
-  {...rest as HTMLAttributes<"button">}
+  {...(rest as HTMLAttributes<"button">)}
   >{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag
 >

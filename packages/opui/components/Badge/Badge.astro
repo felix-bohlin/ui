@@ -40,18 +40,15 @@ const indicatorSlot = Astro.slots.has("indicator")
   <slot />
   <AnchorContent>
     <span class="ui-indicator"
-      >{
-        hidden && (
-          <>
-            {!dot && indicatorSlot && (
-              <span aria-hidden="true" set:html={indicatorSlot} />
-            )}
-            {label && <span class="ui-sr-only">{label}</span>}
-          </>
-        )
-      }{hidden ? undefined : label}<Fragment
+      >{hidden && (
+        <>
+          {!dot && indicatorSlot && (
+            <span aria-hidden="true" set:html={indicatorSlot} />
+          )}
+          {label && <span class="ui-sr-only">{label}</span>}
+        </>
+      )}{hidden ? undefined : label}<Fragment
         set:html={hidden ? "" : indicatorSlot}
-      /></span
-    >
+    /></span>
   </AnchorContent>
 </Anchor>

@@ -42,11 +42,9 @@ const markdownUrl = hasMarkdown
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    {
-      markdownUrl && (
-        <link rel="alternate" type="text/markdown" href={markdownUrl} />
-      )
-    }
+    {markdownUrl && (
+      <link rel="alternate" type="text/markdown" href={markdownUrl} />
+    )}
     <title>{siteTitle}</title>
     {description && <meta name="description" content={description} />}
 
@@ -64,13 +62,11 @@ const markdownUrl = hasMarkdown
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={imageUrl} />
 
-    {
-      variants
-        .filter((v) => normalize(v.url) !== currentNormalized)
-        .map((v) => (
-          <link rel="alternate" href={v.url} data-framework={v.framework} />
-        ))
-    }
+    {variants
+      .filter((v) => normalize(v.url) !== currentNormalized)
+      .map((v) => (
+        <link rel="alternate" href={v.url} data-framework={v.framework} />
+      ))}
     <meta name="generator" content={Astro.generator} />
     <script is:inline type="importmap" set:html={importMap} />
   </head>

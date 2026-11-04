@@ -28,39 +28,35 @@ const token =
 
 <div class="appearance-compare" data-kind={kind} style={`--_size: ${size}px`}>
   <div class="appearance-compare-columns">
-    {
-      columns.map((column) => (
-        <fieldset
-          class="appearance-compare-column"
-          data-appearance={column.appearance}
-        >
-          <legend class="appearance-compare-title">
-            <code>appearance: {column.appearance}</code>
-            <span>{column.caption}</span>
-          </legend>
-          <div class="appearance-compare-states">
-            {states.map((state, index) =>
-              kind === "checkbox" ? (
-                <Checkbox
-                  checked={state.checked}
-                  data-state={index}
-                  indeterminate={state.indeterminate}
-                  label={state.label}
-                  name={`appearance-${column.appearance}-${index}`}
-                />
-              ) : (
-                <Switch
-                  checked={state.checked}
-                  data-state={index}
-                  label={state.label}
-                  name={`appearance-${column.appearance}-${index}`}
-                />
-              ),
-            )}
-          </div>
-        </fieldset>
-      ))
-    }
+    {columns.map((column) => <fieldset
+      class="appearance-compare-column"
+      data-appearance={column.appearance}
+    >
+      <legend class="appearance-compare-title">
+        <code>appearance: {column.appearance}</code>
+        <span>{column.caption}</span>
+      </legend>
+      <div class="appearance-compare-states">
+        {states.map((state, index) =>
+          kind === "checkbox" ? (
+            <Checkbox
+              checked={state.checked}
+              data-state={index}
+              indeterminate={state.indeterminate}
+              label={state.label}
+              name={`appearance-${column.appearance}-${index}`}
+            />
+          ) : (
+            <Switch
+              checked={state.checked}
+              data-state={index}
+              label={state.label}
+              name={`appearance-${column.appearance}-${index}`}
+            />
+          ),
+        )}
+      </div>
+    </fieldset>)}
   </div>
   <Range label="Size" max={40} min={12} step={2} value={size} valueSuffix="px">
     <code slot="start-text">{token}</code>

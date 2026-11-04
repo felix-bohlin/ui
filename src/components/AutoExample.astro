@@ -104,37 +104,25 @@ if (
   svelteExampleId={svelteComponent ? `${slug}/${name}` : undefined}
   vueExampleId={vueComponent ? `${slug}/${name}` : undefined}
 >
-  {
-    Astro.slots.has("controls") && (
-      <Fragment slot="controls">
-        <slot name="controls" />
-      </Fragment>
-    )
-  }
-  {
-    astroComponent && (
-      <Example.Preview slot="preview-astro" code={astroComponent} />
-    )
-  }
-  {
-    reactComponent && (
-      <Example.Preview slot="preview-react" code={reactComponent} />
-    )
-  }
-  {
-    svelteComponent && (
-      <Example.Preview slot="preview-svelte" code={svelteComponent} />
-    )
-  }
+  {Astro.slots.has("controls") && <Fragment slot="controls">
+    <slot name="controls" />
+  </Fragment>}
+  {astroComponent && (
+    <Example.Preview slot="preview-astro" code={astroComponent} />
+  )}
+  {reactComponent && (
+    <Example.Preview slot="preview-react" code={reactComponent} />
+  )}
+  {svelteComponent && (
+    <Example.Preview slot="preview-svelte" code={svelteComponent} />
+  )}
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
   {astroSource && <Example.Code slot="code-astro" code={codeSource("astro")} />}
   {htmlSource && <Example.Code slot="code-html" code={codeSource("html")} />}
   {reactSource && <Example.Code slot="code-react" code={codeSource("react")} />}
-  {
-    svelteSource && (
-      <Example.Code slot="code-svelte" code={codeSource("svelte")} />
-    )
-  }
+  {svelteSource && (
+    <Example.Code slot="code-svelte" code={codeSource("svelte")} />
+  )}
   {vueSource && <Example.Code slot="code-vue" code={codeSource("vue")} />}
 </Example>

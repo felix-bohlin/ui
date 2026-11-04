@@ -59,90 +59,72 @@ const descText =
     />
   </Fragment>
   <div data-wide={wide ? "" : undefined} id="document-page">
-    {
-      hasSidebar && (
-        <aside class="sidebar">
-          <div class="ui-content">
-            <slot name="sidebar" />
-            {hasSidebarNav && <SidebarNav groups={sidebarGroups} />}
-          </div>
-        </aside>
-      )
-    }
+    {hasSidebar && <aside class="sidebar">
+      <div class="ui-content">
+        <slot name="sidebar" />
+        {hasSidebarNav && <SidebarNav groups={sidebarGroups} />}
+      </div>
+    </aside>}
 
-    {
-      hasSidebarNav && (
-        <Drawer
-          aria-label="Sidebar"
-          id="sidebar-drawer"
-          backdrop="transparent"
-          scrollLock
-          side="inline-start"
-          closedby="any"
-        >
-          <DrawerContent>
-            <SidebarNav groups={sidebarGroups} />
-          </DrawerContent>
-          <DrawerFooter>
-            <Button size="small" commandfor="sidebar-drawer" command="close">
-              Close
-            </Button>
-          </DrawerFooter>
-        </Drawer>
-      )
-    }
+    {hasSidebarNav && <Drawer
+      aria-label="Sidebar"
+      id="sidebar-drawer"
+      backdrop="transparent"
+      scrollLock
+      side="inline-start"
+      closedby="any"
+    >
+      <DrawerContent>
+        <SidebarNav groups={sidebarGroups} />
+      </DrawerContent>
+      <DrawerFooter>
+        <Button size="small" commandfor="sidebar-drawer" command="close">
+          Close
+        </Button>
+      </DrawerFooter>
+    </Drawer>}
 
     <main id="main-content">
       <article class="ui-rich-text">
         <hgroup id="main-heading">
-          {
-            overline && (
-              <p
-                class:list={{ "doc-transition": transitionName }}
-                style={
-                  transitionName &&
-                  `view-transition-name: ${transitionName}-date`
-                }
-              >
-                {overline}
-              </p>
-            )
-          }
+          {overline && <p
+            class:list={{ "doc-transition": transitionName }}
+            style={
+              transitionName && `view-transition-name: ${transitionName}-date`
+            }
+          >
+            {overline}
+          </p>}
           <h1
             class:list={{ "doc-transition": transitionName }}
-            style={transitionName &&
-              `view-transition-name: ${transitionName}-title`}
+            style={
+              transitionName && `view-transition-name: ${transitionName}-title`
+            }
           >
             <slot name="title" />
           </h1>
-          {
-            preamble &&
-              (preambleHasBlockMarkup ? (
-                <Fragment set:html={preamble} />
-              ) : (
-                <p
-                  class:list={{ "doc-transition": transitionName }}
-                  set:html={preamble}
-                  style={
-                    transitionName &&
-                    `view-transition-name: ${transitionName}-description`
-                  }
-                />
-              ))
-          }
+          {preamble &&
+            (preambleHasBlockMarkup ? (
+              <Fragment set:html={preamble} />
+            ) : (
+              <p
+                class:list={{ "doc-transition": transitionName }}
+                set:html={preamble}
+                style={
+                  transitionName &&
+                  `view-transition-name: ${transitionName}-description`
+                }
+              />
+            ))}
         </hgroup>
 
         <slot />
       </article>
     </main>
 
-    {
-      showToc && (
-        <aside class="page-contents">
-          <TableOfContents slot="table-of-contents" />
-        </aside>
-      )
-    }
+    {showToc && <aside class="page-contents">
+      <TableOfContents slot="table-of-contents" />
+    </aside>}
   </div>
 </Default>
 

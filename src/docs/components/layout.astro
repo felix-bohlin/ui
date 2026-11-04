@@ -23,14 +23,13 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <Fragment slot="title">Layout</Fragment>
   <Fragment slot="preamble">
     Five classes for the space between components: <code>.ui-layout-column</code
-    >,
-    <code>.ui-layout-row</code>, <code>.ui-layout-grid</code>, <code
-      >.ui-layout-media</code
-    > and <code>.ui-layout-container</code>. Put them on wrapper elements, such
-    as <code>div</code>, <code>section</code> or
-    <code>ul</code>. They sit in the <code>utils</code> layer, so on a component they
-    replace its own layout. Their gaps come from the <DocLink
-      href="/guide/theming#spacing"><code>--ui-space-*</code> scale</DocLink
+    >, <code>.ui-layout-row</code>, <code>.ui-layout-grid</code>,
+    <code>.ui-layout-media</code> and <code>.ui-layout-container</code>. Put
+    them on wrapper elements, such as <code>div</code>, <code>section</code> or
+    <code>ul</code>. They sit in the <code>utils</code> layer, so on a component
+    they replace its own layout. Their gaps come from the
+    <DocLink href="/guide/theming#spacing"
+      ><code>--ui-space-*</code> scale</DocLink
     >, so they follow <code>--ui-space-scale</code>.
   </Fragment>
 
@@ -43,9 +42,8 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       with <a href="#grid"><code>.ui-layout-grid</code></a>.
     </li>
     <li slot="when">
-      An avatar or an icon next to text, with <a href="#media"
-        ><code>.ui-layout-media</code></a
-      >.
+      An avatar or an icon next to text, with
+      <a href="#media"><code>.ui-layout-media</code></a>.
     </li>
     <li slot="when-not">
       Space inside a component. Components set their own, and a layout class on
@@ -60,8 +58,8 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="column">Column</h2>
     <p>
-      <code>.ui-layout-column</code> stacks its children in a column with even space
-      between them.
+      <code>.ui-layout-column</code> stacks its children in a column with even
+      space between them.
     </p>
     <AutoExample name="Column" />
   </section>
@@ -69,17 +67,16 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="row">Row</h2>
     <p>
-      <code>.ui-layout-row</code> puts its children in a row, centered on one line,
-      and wraps them when they run out of room. Set <code
-        >--_justify-content</code
-      > to push them to the end.
+      <code>.ui-layout-row</code> puts its children in a row, centered on one
+      line, and wraps them when they run out of room. Set
+      <code>--_justify-content</code> to push them to the end.
     </p>
     <AutoExample name="Row" />
 
     <h3 id="spread">Spread</h3>
     <p>
-      <code>.ui-spread</code> pushes the children to the two ends of the row. A page
-      header is a spread row around a heading group and a row of actions.
+      <code>.ui-spread</code> pushes the children to the two ends of the row. A
+      page header is a spread row around a heading group and a row of actions.
     </p>
     <AutoExample name="Spread" />
   </section>
@@ -87,19 +84,18 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="grid">Grid</h2>
     <p>
-      <code>.ui-layout-grid</code> fills the width with as many columns as fit at
-      <code>--_min-inline-size</code> (<code>16rem</code> by default), and wraps the
-      rest. No breakpoints: it follows the space it has.
+      <code>.ui-layout-grid</code> fills the width with as many columns as fit
+      at <code>--_min-inline-size</code> (<code>16rem</code> by default), and
+      wraps the rest. No breakpoints: it follows the space it has.
     </p>
     <AutoExample name="Grid" />
 
     <h3 id="lists">Lists</h3>
     <p>
-      On a <code>ul</code> or <code>ol</code>, <code>.ui-layout-row</code> and <code
-        >.ui-layout-grid</code
-      > drop the bullets and the list margins, and a <code>.ui-card</code> alone in
-      an <code>li</code> of a grid fills its cell, so the cards in a row share one
-      height.
+      On a <code>ul</code> or <code>ol</code>, <code>.ui-layout-row</code> and
+      <code>.ui-layout-grid</code> drop the bullets and the list margins, and a
+      <code>.ui-card</code> alone in an <code>li</code> of a grid fills its
+      cell, so the cards in a row share one height.
     </p>
     <AutoExample name="List" />
   </section>
@@ -107,10 +103,10 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="media">Media</h2>
     <p>
-      <code>.ui-layout-media</code> puts a fixed-size start, such as an avatar or
-      an icon, next to text. The last child fills the rest of the row, truncates instead
-      of pushing the row wider, and its paragraphs lose their margins. The size classes
-      set the gap.
+      <code>.ui-layout-media</code> puts a fixed-size start, such as an avatar
+      or an icon, next to text. The last child fills the rest of the row,
+      truncates instead of pushing the row wider, and its paragraphs lose their
+      margins. The size classes set the gap.
     </p>
     <AutoExample name="Media" />
   </section>
@@ -118,18 +114,14 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="gap">Gap</h2>
     <p>
-      The size classes set the gap of <code>.ui-layout-column</code>, <code
-        >.ui-layout-row</code
-      > and <code>.ui-layout-grid</code>: <code>.ui-x-small</code> is <code
-        >--ui-space-1</code
-      >, <code>.ui-small</code>
-      <code>--ui-space-2</code>, the default <code>--ui-space-3</code> and <code
-        >.ui-large</code
-      >
+      The size classes set the gap of <code>.ui-layout-column</code>,
+      <code>.ui-layout-row</code> and <code>.ui-layout-grid</code>:
+      <code>.ui-x-small</code> is <code>--ui-space-1</code>,
+      <code>.ui-small</code> <code>--ui-space-2</code>, the default
+      <code>--ui-space-3</code> and <code>.ui-large</code>
       <code>--ui-space-5</code>. For anything else, set <code>--_gap</code>. On
-      a
-      <code>p</code> or a <code>span</code>, <code>.ui-small</code> also makes the
-      text smaller, so put a small layout on a <code>div</code>.
+      a <code>p</code> or a <code>span</code>, <code>.ui-small</code> also makes
+      the text smaller, so put a small layout on a <code>div</code>.
     </p>
     <AutoExample name="Gap" />
   </section>
@@ -137,10 +129,10 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="container">Container</h2>
     <p>
-      <code>.ui-layout-container</code> centers its content, caps its width at <code
-        >--_max-inline-size</code
-      > (<code>72rem</code> by default) and keeps <code>--_padding-inline</code> from
-      the edges. Combine the classes to lay out a whole section:
+      <code>.ui-layout-container</code> centers its content, caps its width at
+      <code>--_max-inline-size</code> (<code>72rem</code> by default) and keeps
+      <code>--_padding-inline</code> from the edges. Combine the classes to lay
+      out a whole section:
     </p>
     <AutoExample name="Composition" />
   </section>
@@ -150,9 +142,8 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
     <p>
       The layout classes need none, but a page that changes shape uses the same
       three container widths everywhere, so similar layouts reflow at the same
-      point. Measure the container, not the viewport, with <code
-        >container-type: inline-size</code
-      > on the wrapper:
+      point. Measure the container, not the viewport, with
+      <code>container-type: inline-size</code> on the wrapper:
     </p>
     <ul>
       <li>

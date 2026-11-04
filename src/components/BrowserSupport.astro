@@ -28,23 +28,18 @@ const guideHref = name
   <BrowserSupportChips ids={sortedIds} />
   <Baseline ids={sortedIds} />
   <p>
-    Explore these features in the <DocLink href={guideHref}
-      >browser support guide</DocLink
-    >.
+    Explore these features in the
+    <DocLink href={guideHref}>browser support guide</DocLink>.
   </p>
-  {
-    compat.length > 0 && (
-      <p>
-        The <DocLink href="/guide/browser-support#compat">compat layer</DocLink>{" "}
-        has fallbacks for it in{" "}
-        {compat.map((file, index) => (
-          <>
-            {index > 0 && ", "}
-            <code>css/compat/{file}</code>
-          </>
-        ))}
-        .
-      </p>
-    )
-  }
+  {compat.length > 0 && <p>
+    The <DocLink href="/guide/browser-support#compat">compat layer</DocLink
+    >{" "} has fallbacks for it in{" "}
+    {compat.map((file, index) => (
+      <>
+        {index > 0 && ", "}
+        <code>css/compat/{file}</code>
+      </>
+    ))}
+    .
+  </p>}
 </section>

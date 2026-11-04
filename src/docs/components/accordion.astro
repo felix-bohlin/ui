@@ -78,18 +78,16 @@ export const description =
       Long pages that readers scan by heading, opening only the parts they need.
     </li>
     <li slot="when">
-      Sections where only one should be open at a time, with a shared <a
-        href="#mutually-exclusive"><code>name</code></a
-      >.
+      Sections where only one should be open at a time, with a shared
+      <a href="#mutually-exclusive"><code>name</code></a>.
     </li>
     <li slot="when-not">
       Content that everyone needs, or that readers compare side by side. Show it
       on the page.
     </li>
     <li slot="when-not">
-      Switching between views of the same content. Use <DocLink
-        href="/components/tabs">Tabs</DocLink
-      >.
+      Switching between views of the same content. Use
+      <DocLink href="/components/tabs">Tabs</DocLink>.
     </li>
   </Usage>
 
@@ -98,14 +96,12 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="components">
-        Put the header in <code>AccordionSummary</code> and the body in <code
-          >AccordionContent</code
-        >.
+        Put the header in <code>AccordionSummary</code> and the body in
+        <code>AccordionContent</code>.
       </Fragment>
       <Fragment slot="html">
-        Put the header in the <code>&lt;summary&gt;</code> and the body in a <code
-          >.ui-content</code
-        > element.
+        Put the header in the <code>&lt;summary&gt;</code> and the body in a
+        <code>.ui-content</code> element.
       </Fragment>
     </Conditional>
 
@@ -117,18 +113,16 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="components">
-        Use the <code>variant</code> prop to change how it looks. The default is <code
-          >plain</code
-        >, the page surface with no border, like a Card. <code>transparent</code
-        > drops the surface and the padding.
+        Use the <code>variant</code> prop to change how it looks. The default is
+        <code>plain</code>, the page surface with no border, like a Card.
+        <code>transparent</code> drops the surface and the padding.
       </Fragment>
       <Fragment slot="html">
-        Add one of the variant classes (<code>.ui-elevated</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-tonal</code>, <code>.ui-transparent</code>) to the <code
-          >&lt;details&gt;</code
-        > element to change how it looks. Without one the accordion has the page surface
-        and no border, like a card.
+        Add one of the variant classes (<code>.ui-elevated</code>,
+        <code>.ui-outlined</code>, <code>.ui-tonal</code>,
+        <code>.ui-transparent</code>) to the <code>&lt;details&gt;</code>
+        element to change how it looks. Without one the accordion has the page
+        surface and no border, like a card.
       </Fragment>
     </Conditional>
 
@@ -145,9 +139,9 @@ export const description =
         apply the <code>variant</code> prop to the parent container.
       </Fragment>
       <Fragment slot="html">
-        Group multiple accordions by wrapping them in a <code>.ui-card</code> element
-        with <code>role="group"</code>. To theme the entire group, apply the
-        variant class to the parent container.
+        Group multiple accordions by wrapping them in a <code>.ui-card</code>
+        element with <code>role="group"</code>. To theme the entire group, apply
+        the variant class to the parent container.
       </Fragment>
     </Conditional>
 
@@ -157,13 +151,13 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="components">
-        Set the same <code>name</code> prop on each accordion to allow only one of
-        them to be open at a time.
+        Set the same <code>name</code> prop on each accordion to allow only one
+        of them to be open at a time.
       </Fragment>
       <Fragment slot="html">
-        Set the same <code>name</code> attribute on each <code
-          >&lt;details&gt;</code
-        > element to allow only one of them to be open at a time.
+        Set the same <code>name</code> attribute on each
+        <code>&lt;details&gt;</code> element to allow only one of them to be
+        open at a time.
       </Fragment>
     </Conditional>
 
@@ -175,18 +169,16 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="components">
-        Add buttons or other interactive elements below the content with <code
-          >AccordionActions</code
-        >, after <code>AccordionContent</code>. They sit at the end, and <code
-          >align="start"</code
-        > lines them up with the content.
+        Add buttons or other interactive elements below the content with
+        <code>AccordionActions</code>, after <code>AccordionContent</code>. They
+        sit at the end, and <code>align="start"</code> lines them up with the
+        content.
       </Fragment>
       <Fragment slot="html">
-        Add buttons or other interactive elements below the content in a <code
-          >.ui-actions</code
-        > element, after <code>.ui-content</code>. They sit at the end, and <code
-          >.ui-align-start</code
-        > lines them up with the content.
+        Add buttons or other interactive elements below the content in a
+        <code>.ui-actions</code> element, after <code>.ui-content</code>. They
+        sit at the end, and <code>.ui-align-start</code> lines them up with the
+        content.
       </Fragment>
     </Conditional>
 
@@ -198,49 +190,44 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Replace the default marker with the <code>marker</code> slot on <code
-          >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
-        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
-        <code>AccordionSummary</code>, such as a leading status icon, stay put.
-        An empty <code>marker</code> slot, <code
-          >&lt;Fragment slot="marker" /&gt;</code
-        >, falls back to the native arrow.
+        Replace the default marker with the <code>marker</code> slot on
+        <code>AccordionSummary</code>, and give it <code>.ui-marker</code> so it
+        sits at the end and animates, and <code>aria-hidden="true"</code> since
+        it's decorative. Other icons in <code>AccordionSummary</code>, such as a
+        leading status icon, stay put. An empty <code>marker</code> slot,
+        <code>&lt;Fragment slot="marker" /&gt;</code>, falls back to the native
+        arrow.
       </Fragment>
       <Fragment slot="html">
-        Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
-        change the marker, and keep <code>aria-hidden="true"</code> on it since it's
-        decorative. Leave it out to fall back to the native arrow. Only <code
-          >.ui-marker</code
-        > animates, so other icons in the <code>summary</code>, such as a
-        leading status icon, stay put.
+        Replace the <code>svg.ui-marker</code> inside the <code>summary</code>
+        to change the marker, and keep <code>aria-hidden="true"</code> on it
+        since it's decorative. Leave it out to fall back to the native arrow.
+        Only <code>.ui-marker</code> animates, so other icons in the
+        <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="react">
-        Replace the default marker with the <code>marker</code> prop on <code
-          >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
-        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
-        <code>AccordionSummary</code>, such as a leading status icon, stay put.
-        An empty <code>marker</code>, such as <code>{"marker={null}"}</code>,
-        falls back to the native arrow.
+        Replace the default marker with the <code>marker</code> prop on
+        <code>AccordionSummary</code>, and give it <code>.ui-marker</code> so it
+        sits at the end and animates, and <code>aria-hidden="true"</code> since
+        it's decorative. Other icons in <code>AccordionSummary</code>, such as a
+        leading status icon, stay put. An empty <code>marker</code>, such as
+        <code>{"marker={null}"}</code>, falls back to the native arrow.
       </Fragment>
       <Fragment slot="svelte">
-        Replace the default marker with the <code>marker</code> snippet on <code
-          >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
-        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
-        <code>AccordionSummary</code>, such as a leading status icon, stay put.
-        An empty <code>marker</code> snippet falls back to the native arrow.
+        Replace the default marker with the <code>marker</code> snippet on
+        <code>AccordionSummary</code>, and give it <code>.ui-marker</code> so it
+        sits at the end and animates, and <code>aria-hidden="true"</code> since
+        it's decorative. Other icons in <code>AccordionSummary</code>, such as a
+        leading status icon, stay put. An empty <code>marker</code> snippet
+        falls back to the native arrow.
       </Fragment>
       <Fragment slot="vue">
-        Replace the default marker with the <code>marker</code> slot on <code
-          >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
-        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
-        <code>AccordionSummary</code>, such as a leading status icon, stay put.
-        An empty <code>marker</code> slot, <code
-          >&lt;template #marker /&gt;</code
-        >, falls back to the native arrow.
+        Replace the default marker with the <code>marker</code> slot on
+        <code>AccordionSummary</code>, and give it <code>.ui-marker</code> so it
+        sits at the end and animates, and <code>aria-hidden="true"</code> since
+        it's decorative. Other icons in <code>AccordionSummary</code>, such as a
+        leading status icon, stay put. An empty <code>marker</code> slot,
+        <code>&lt;template #marker /&gt;</code>, falls back to the native arrow.
       </Fragment>
     </Conditional>
 
@@ -252,29 +239,28 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="components">
-        Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens. A custom marker in the <code>marker</code>
-        slot on <code>AccordionSummary</code> animates too, as long as it has
-        <code>.ui-marker</code>.
+        Set the <code>markerAnimation</code> prop to change how the marker
+        animates when the accordion opens. A custom marker in the
+        <code>marker</code> slot on <code>AccordionSummary</code> animates too,
+        as long as it has <code>.ui-marker</code>.
       </Fragment>
       <Fragment slot="html">
-        The <code>.ui-marker</code> rotates when the accordion opens. Add <code
-          >.ui-marker-animation-flip</code
-        > or <code>.ui-marker-animation-turn</code> to the <code
-          >&lt;details&gt;</code
-        > element to flip or turn it instead.
+        The <code>.ui-marker</code> rotates when the accordion opens. Add
+        <code>.ui-marker-animation-flip</code> or
+        <code>.ui-marker-animation-turn</code> to the
+        <code>&lt;details&gt;</code> element to flip or turn it instead.
       </Fragment>
       <Fragment slot="react">
-        Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens. A custom marker in the <code>marker</code>
-        prop on <code>AccordionSummary</code> animates too, as long as it has
-        <code>.ui-marker</code>.
+        Set the <code>markerAnimation</code> prop to change how the marker
+        animates when the accordion opens. A custom marker in the
+        <code>marker</code> prop on <code>AccordionSummary</code> animates too,
+        as long as it has <code>.ui-marker</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens. A custom marker in the <code>marker</code>
-        snippet on <code>AccordionSummary</code> animates too, as long as it has
-        <code>.ui-marker</code>.
+        Set the <code>markerAnimation</code> prop to change how the marker
+        animates when the accordion opens. A custom marker in the
+        <code>marker</code> snippet on <code>AccordionSummary</code> animates
+        too, as long as it has <code>.ui-marker</code>.
       </Fragment>
     </Conditional>
 

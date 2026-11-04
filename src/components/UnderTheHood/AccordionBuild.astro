@@ -115,38 +115,35 @@ const markers = [
 
 <BuildUp id="build-accordion" steps={steps}>
   <div class="stack">
-    {
-      markers.map((marker) => (
-        <details class:list={["accordion", marker.className]} dir={marker.dir}>
-          <summary>
-            {marker.label}
-            {marker.icon && (
-              <svg
-                aria-hidden="true"
-                class="marker"
-                height="20"
-                viewBox="0 0 24 24"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d={marker.icon}
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            )}
-          </summary>
-          <p>
-            Panel content with enough text to show the height transition as it
-            opens and closes.
-          </p>
-        </details>
-      ))
-    }
+    {markers.map((marker) => <details
+      class:list={["accordion", marker.className]}
+      dir={marker.dir}
+    >
+      <summary>
+        {marker.label}
+        {marker.icon && <svg
+          aria-hidden="true"
+          class="marker"
+          height="20"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d={marker.icon}
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          />
+        </svg>}
+      </summary>
+      <p>
+        Panel content with enough text to show the height transition as it opens
+        and closes.
+      </p>
+    </details>)}
   </div>
 </BuildUp>
 

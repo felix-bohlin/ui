@@ -62,26 +62,22 @@ const builds = Object.entries(modules)
     </ul>
   </section>
 
-  {
-    builds.map(({ Build, docsHref, heading, id, name, post: buildPost }) => (
-      <section>
-        <h2 id={id}>{heading}</h2>
-        <ul class="build-links">
-          <li>
-            <a href={docsHref}>{name} docs</a>
-          </li>
-          {buildPost && (
-            <li>
-              <DocLink href={`/learn/${buildPost.slug}`}>
-                {buildPost.title}
-              </DocLink>
-            </li>
-          )}
-        </ul>
-        <Build />
-      </section>
-    ))
-  }
+  {builds.map(
+    ({ Build, docsHref, heading, id, name, post: buildPost }) => <section>
+      <h2 id={id}>{heading}</h2>
+      <ul class="build-links">
+        <li>
+          <a href={docsHref}>{name} docs</a>
+        </li>
+        {buildPost && <li>
+          <DocLink href={`/learn/${buildPost.slug}`}>
+            {buildPost.title}
+          </DocLink>
+        </li>}
+      </ul>
+      <Build />
+    </section>,
+  )}
 </Learn>
 
 <style>

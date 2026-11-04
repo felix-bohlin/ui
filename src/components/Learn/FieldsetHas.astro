@@ -27,16 +27,14 @@ const rules = [
 
 <div class="fieldset-has">
   <div class="fieldset-has-controls">
-    {
-      rules.map((rule) => (
-        <Switch
-          checked
-          data-rule={rule.id}
-          label={rule.label}
-          name={`fieldset-${rule.id}`}
-        />
-      ))
-    }
+    {rules.map((rule) => (
+      <Switch
+        checked
+        data-rule={rule.id}
+        label={rule.label}
+        name={`fieldset-${rule.id}`}
+      />
+    ))}
   </div>
   <Fieldset>
     <FieldLegend>Pet info</FieldLegend>
@@ -47,19 +45,19 @@ const rules = [
     </FieldGroup>
   </Fieldset>
   <ul class="fieldset-has-rules">
-    {
-      rules.map((rule) => (
-        <li aria-atomic="true" aria-live="polite" data-rule={rule.id}>
-          <code>{rule.selector}</code>
-          <span class="fieldset-has-status" data-match="true">
-            matches, {rule.what}
-          </span>
-          <span class="fieldset-has-status" data-match="false">
-            doesn't match
-          </span>
-        </li>
-      ))
-    }
+    {rules.map((rule) => <li
+      aria-atomic="true"
+      aria-live="polite"
+      data-rule={rule.id}
+    >
+      <code>{rule.selector}</code>
+      <span class="fieldset-has-status" data-match="true">
+        matches, {rule.what}
+      </span>
+      <span class="fieldset-has-status" data-match="false">
+        doesn't match
+      </span>
+    </li>)}
   </ul>
 </div>
 

@@ -27,28 +27,26 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>interestfor</code> on a <code>&lt;button&gt;</code>, <code
-          >&lt;a href&gt;</code
-        > or <code>&lt;area&gt;</code> opens the popover on hover and keyboard focus
+        <code>interestfor</code> on a <code>&lt;button&gt;</code>,
+        <code>&lt;a href&gt;</code> or <code>&lt;area&gt;</code> opens the
+        popover on hover and keyboard focus
       </li>
       <li>
-        <code>popover="hint"</code> opens without closing menus and dialogs that are
-        already open
+        <code>popover="hint"</code> opens without closing menus and dialogs that
+        are already open
       </li>
       <li>
-        <code>commandfor</code> with <code>command="toggle-popover"</code> lets a
-        tap open it on touch screens
+        <code>commandfor</code> with <code>command="toggle-popover"</code> lets
+        a tap open it on touch screens
       </li>
       <li>
-        The invoker becomes the popover's implicit anchor, so <code
-          >position-area</code
-        > places the card next to the trigger without an <code>anchor-name</code
-        >
+        The invoker becomes the popover's implicit anchor, so
+        <code>position-area</code> places the card next to the trigger without
+        an <code>anchor-name</code>
       </li>
       <li>
-        <code>position-try-fallbacks</code> flips it when there isn't room, <code
-          >position-visibility</code
-        > hides it when the trigger scrolls away
+        <code>position-try-fallbacks</code> flips it when there isn't room,
+        <code>position-visibility</code> hides it when the trigger scrolls away
       </li>
     </ul>
     <Code
@@ -97,8 +95,8 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     <ul>
       <li>
         This card is the always-visible variant, positioned inside the box. The
-        real one is a <code>popover</code> in the top layer, so it flips at the window's
-        edges instead
+        real one is a <code>popover</code> in the top layer, so it flips at the
+        window's edges instead
       </li>
       <li>
         <code>position-try-fallbacks</code> tries <code>flip-block</code>, then
@@ -119,11 +117,9 @@ import RepoCard from "../../component-examples/anchor/RepoCard.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without interest invokers, hover and focus do nothing. A trigger with <code
-          >commandfor</code
-        > still toggles the card on click, a link just follows its <code
-          >href</code
-        >
+        Without interest invokers, hover and focus do nothing. A trigger with
+        <code>commandfor</code> still toggles the card on click, a link just
+        follows its <code>href</code>
       </li>
       <li>
         Without <code>popover="hint"</code>, the unknown value falls back to a

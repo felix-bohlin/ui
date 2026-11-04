@@ -12,8 +12,9 @@ import Basics from "../../component-examples/switch/Basics.astro"
     <h2 id="the-problem">The problem</h2>
     <p>
       A switch is a checkbox that reads as on and off. Libraries tend to build
-      it from a <code>&lt;button&gt;</code> with <code>aria-checked</code> toggled
-      in JavaScript, or a hidden checkbox plus extra spans for the track and the dot.
+      it from a <code>&lt;button&gt;</code> with <code>aria-checked</code>
+      toggled in JavaScript, or a hidden checkbox plus extra spans for the track
+      and the dot.
     </p>
     <p>
       Both throw away what the checkbox already does: toggling, Space to press,
@@ -25,20 +26,21 @@ import Basics from "../../component-examples/switch/Basics.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>&lt;input type="checkbox" role="switch"&gt;</code> keeps the native
-        behavior, the role makes assistive technology announce on and off
+        <code>&lt;input type="checkbox" role="switch"&gt;</code> keeps the
+        native behavior, the role makes assistive technology announce on and off
       </li>
       <li>
-        <code>appearance: none</code> frees the input to draw its own pseudo-elements:
-        {" "}<code>::before</code> is the track, <code>::after</code> is the dot
+        <code>appearance: none</code> frees the input to draw its own
+        pseudo-elements: {" "}<code>::before</code> is the track,
+        <code>::after</code> is the dot
       </li>
       <li>
         <code>:checked</code> moves the dot with <code>inset-inline-start</code
         >: track width minus dot minus gap, mirrored in right-to-left
       </li>
       <li>
-        An <code>outline</code> in the dot's own color grows it without touching its
-        box. <code>:active</code> grows it a little more
+        An <code>outline</code> in the dot's own color grows it without touching
+        its box. <code>:active</code> grows it a little more
       </li>
       <li><code>light-dark()</code> picks the colors per color scheme</li>
     </ul>
@@ -85,13 +87,13 @@ import Basics from "../../component-examples/switch/Basics.astro"
     </Example>
     <ul>
       <li>
-        The <code>auto</code> column resets the library's rules to the browser's and
-        keeps only the size, so it is a checkbox, whatever the role says
+        The <code>auto</code> column resets the library's rules to the browser's
+        and keeps only the size, so it is a checkbox, whatever the role says
       </li>
       <li>
-        With <code>none</code> the track and the dot follow <code
-          >--ui-switch-track-block-size</code
-        >, and the input keeps its checked state and keyboard handling
+        With <code>none</code> the track and the dot follow
+        <code>--ui-switch-track-block-size</code>, and the input keeps its
+        checked state and keyboard handling
       </li>
     </ul>
     <p>Each switch is a checkbox with <code>role=&quot;switch&quot;</code>.</p>
@@ -115,8 +117,8 @@ import Basics from "../../component-examples/switch/Basics.astro"
         colors
       </li>
       <li>
-        Under reduced motion <code>--ui-motion</code> is <code>0</code> and the dot
-        jumps instead of sliding
+        Under reduced motion <code>--ui-motion</code> is <code>0</code> and the
+        dot jumps instead of sliding
       </li>
     </ul>
   </section>

@@ -9,23 +9,22 @@ const schemes = [
 
 <div class="preview-strip">
   <div aria-hidden="true" class="preview-strip-panes" inert>
-    {
-      schemes.map(({ label, scheme }) => (
-        <div class={`preview-strip-pane ui-palette ui-${scheme}`}>
-          <span class="preview-strip-heading">{label}</span>
-          <span class="ui-button ui-primary ui-filled ui-x-small">Save</span>
-          <span class="ui-button ui-outlined ui-x-small">Cancel</span>
-          <span class="ui-chip ui-x-small">Live</span>
-        </div>
-      ))
-    }
+    {schemes.map(({ label, scheme }) => <div
+      class={`preview-strip-pane ui-palette ui-${scheme}`}
+    >
+      <span class="preview-strip-heading">{label}</span>
+      <span class="ui-button ui-primary ui-filled ui-x-small">Save</span>
+      <span class="ui-button ui-outlined ui-x-small">Cancel</span>
+      <span class="ui-chip ui-x-small">Live</span>
+    </div>)}
   </div>
   <Button
     command="show-modal"
     commandfor="builder-preview-drawer"
     data-open-preview
     size="small"
-    variant="tonal">Preview</Button
+    variant="tonal"
+    >Preview</Button
   >
 </div>
 

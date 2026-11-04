@@ -19,10 +19,11 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      <code>position: sticky</code> keeps a table header in view, but the header looks
-      the same whether it's resting at the top of the table or floating over the rows.
-      A shadow shows that it's stuck, and so far that took a scroll listener or an
-      <code>IntersectionObserver</code> with a sentinel element.
+      <code>position: sticky</code> keeps a table header in view, but the header
+      looks the same whether it's resting at the top of the table or floating
+      over the rows. A shadow shows that it's stuck, and so far that took a
+      scroll listener or an <code>IntersectionObserver</code> with a sentinel
+      element.
     </p>
     <p>
       A scrolling area inside a dialog has the same problem: nothing says that
@@ -35,17 +36,17 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
     <ul>
       <li>
         <code>container-type: scroll-state</code> on the sticky
-        {" "}<code>&lt;thead&gt;</code> makes it a container that knows its scroll
-        state
+        {" "}<code>&lt;thead&gt;</code> makes it a container that knows its
+        scroll state
       </li>
       <li>
-        <code>@container scroll-state(stuck: block-start)</code> matches while the
-        header is stuck to the top edge. An element can't query itself, so the shadow
-        goes on the <code>&lt;th&gt;</code> cells inside it
+        <code>@container scroll-state(stuck: block-start)</code> matches while
+        the header is stuck to the top edge. An element can't query itself, so
+        the shadow goes on the <code>&lt;th&gt;</code> cells inside it
       </li>
       <li>
-        <code>clip-path</code> cuts the shadow off at the top and the sides, so it
-        only falls on the rows below
+        <code>clip-path</code> cuts the shadow off at the top and the sides, so
+        it only falls on the rows below
       </li>
     </ul>
     <Code
@@ -72,32 +73,31 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
   <section>
     <h2 id="scroll-shadows">Scroll shadows</h2>
     <p>
-      <DocLink href="/components/dialog">Dialog</DocLink> and <DocLink
-        href="/components/drawer">Drawer</DocLink
-      > use the other half of the feature. <code
-        >scroll-state(scrollable: block-start)</code
-      > matches when a scroll container can scroll up, so there's content above, and
+      <DocLink href="/components/dialog">Dialog</DocLink> and
+      <DocLink href="/components/drawer">Drawer</DocLink> use the other half of
+      the feature. <code>scroll-state(scrollable: block-start)</code> matches
+      when a scroll container can scroll up, so there's content above, and
       {" "}<code>scrollable: block-end</code> when there's more below.
     </p>
     <ul>
       <li>
-        The <code>.content</code> area is the scroll container. Its <code
-          >::before</code
-        > and <code>::after</code> are its children, so they can query it
+        The <code>.content</code> area is the scroll container. Its
+        <code>::before</code> and <code>::after</code> are its children, so they
+        can query it
       </li>
       <li>
-        Children of a scroller scroll along with it. <code
-          >position: absolute</code
-        > takes them out of the flow, and <code>anchor()</code> pins them to the edges
-        of the content area
+        Children of a scroller scroll along with it.
+        <code>position: absolute</code> takes them out of the flow, and
+        <code>anchor()</code> pins them to the edges of the content area
       </li>
       <li>
-        <code>anchor-scope</code> keeps the anchor name to one dialog, so two open
-        dialogs don't share it
+        <code>anchor-scope</code> keeps the anchor name to one dialog, so two
+        open dialogs don't share it
       </li>
       <li>
         Both shadows start at <code>opacity: 0</code>, and each query fades one
-        in. <code>scale: 1 -1</code> flips the bottom one so its shadow falls upward
+        in. <code>scale: 1 -1</code> flips the bottom one so its shadow falls
+        upward
       </li>
     </ul>
     <Code
@@ -170,14 +170,10 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
         </DialogHeader>
         <DialogContent>
           <div class="ui-rich-text">
-            {
-              Array.from({ length: 8 }, (_, index) => (
-                <p>
-                  Section {index + 1}. The shadow at the top shows once you
-                  scroll down, and the one at the bottom goes away at the end.
-                </p>
-              ))
-            }
+            {Array.from({ length: 8 }, (_, index) => <p>
+              Section {index + 1}. The shadow at the top shows once you scroll
+              down, and the one at the bottom goes away at the end.
+            </p>)}
           </div>
         </DialogContent>
         <DialogFooter>

@@ -11,14 +11,14 @@ import Validation from "../../component-examples/text-field/Validation.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      <code>:invalid</code> matches as soon as the page loads. A required field that
-      is still empty turns red before anyone has typed a thing, and the form opens
-      looking like it already failed.
+      <code>:invalid</code> matches as soon as the page loads. A required field
+      that is still empty turns red before anyone has typed a thing, and the
+      form opens looking like it already failed.
     </p>
     <p>
-      The usual fix is JavaScript that adds a <code>touched</code> or <code
-        >dirty</code
-      > class on blur and styles errors off that class. Not anymore.
+      The usual fix is JavaScript that adds a <code>touched</code> or
+      <code>dirty</code> class on blur and styles errors off that class. Not
+      anymore.
     </p>
   </section>
 
@@ -26,16 +26,16 @@ import Validation from "../../component-examples/text-field/Validation.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>:user-invalid</code> only matches after the user has changed the field
-        and left it, or tried to submit the form
+        <code>:user-invalid</code> only matches after the user has changed the
+        field and left it, or tried to submit the form
       </li>
       <li>
-        <code>:has(:user-invalid)</code> lifts that state to the wrapper, so the border,
-        affixes and helper text all react
+        <code>:has(:user-invalid)</code> lifts that state to the wrapper, so the
+        border, affixes and helper text all react
       </li>
       <li>
-        <code>aria-invalid="true"</code> on the input covers errors the browser can't
-        know about, like ones from the server
+        <code>aria-invalid="true"</code> on the input covers errors the browser
+        can't know about, like ones from the server
       </li>
       <li>
         Only private custom properties change, every rule that reads them
@@ -76,12 +76,12 @@ import Validation from "../../component-examples/text-field/Validation.astro"
     </Example>
     <ul>
       <li>
-        <code>:invalid</code> is red before anyone has touched the form, and turns
-        red again after a reset
+        <code>:invalid</code> is red before anyone has touched the form, and
+        turns red again after a reset
       </li>
       <li>
-        <code>:user-invalid</code> waits until you leave a changed field or submit,
-        and a reset clears it
+        <code>:user-invalid</code> waits until you leave a changed field or
+        submit, and a reset clears it
       </li>
     </ul>
     <p>
@@ -98,14 +98,14 @@ import Validation from "../../component-examples/text-field/Validation.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        <code>:user-invalid</code> is Baseline since 2023, so this works in every
-        current browser
+        <code>:user-invalid</code> is Baseline since 2023, so this works in
+        every current browser
       </li>
       <li>
-        <code>[aria-invalid="true"]</code> and <code>:user-invalid</code> share one
-        <code>:has()</code> list, so a browser that can't parse <code
-          >:user-invalid</code
-        > drops the whole rule and the field stays neutral
+        <code>[aria-invalid="true"]</code> and <code>:user-invalid</code> share
+        one <code>:has()</code> list, so a browser that can't parse
+        <code>:user-invalid</code> drops the whole rule and the field stays
+        neutral
       </li>
       <li>
         Native validation still runs: the form won't submit and the browser

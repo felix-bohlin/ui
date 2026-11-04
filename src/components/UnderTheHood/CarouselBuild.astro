@@ -164,14 +164,10 @@ const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
       class="carousel with-buttons with-markers"
       tabindex="0"
     >
-      {
-        slides.map((slide, index) => (
-          <li>
-            <span class="slide-index">{index + 1}</span>
-            {slide}
-          </li>
-        ))
-      }
+      {slides.map((slide, index) => <li>
+        <span class="slide-index">{index + 1}</span>
+        {slide}
+      </li>)}
     </ul>
   </div>
 </BuildUp>

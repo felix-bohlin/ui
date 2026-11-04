@@ -14,8 +14,9 @@ import Basics from "../../component-examples/menu/Basics.astro"
     <p>
       A dropdown menu used to be all JavaScript: toggle it, close it on
       {" "}<kbd>Esc</kbd> and on a click outside, fight <code>z-index</code> and
-      {" "}<code>overflow: hidden</code> ancestors, and run a positioning library
-      that measures the trigger and flips the menu near the viewport edge.
+      {" "}<code>overflow: hidden</code> ancestors, and run a positioning
+      library that measures the trigger and flips the menu near the viewport
+      edge.
     </p>
   </section>
 
@@ -23,12 +24,13 @@ import Basics from "../../component-examples/menu/Basics.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>popover</code> puts the menu in the top layer, with light dismiss and
-        {" "}<kbd>Esc</kbd>
+        <code>popover</code> puts the menu in the top layer, with light dismiss
+        and {" "}<kbd>Esc</kbd>
       </li>
       <li>
         <code>commandfor</code> and
-        {" "}<code>command=&quot;toggle-popover&quot;</code> open it from a button
+        {" "}<code>command=&quot;toggle-popover&quot;</code> open it from a
+        button
       </li>
       <li>
         The invoker is the implicit anchor, so there is no
@@ -36,22 +38,20 @@ import Basics from "../../component-examples/menu/Basics.astro"
       </li>
       <li>
         <code>position-area</code> places it below the trigger, and
-        {" "}<code>anchor-size(inline)</code> keeps it at least as wide. The <code
-          >self-</code
-        > keywords read the menu's own writing mode and direction, not the containing
-        block's
+        {" "}<code>anchor-size(inline)</code> keeps it at least as wide. The
+        <code>self-</code> keywords read the menu's own writing mode and
+        direction, not the containing block's
       </li>
       <li>
-        <code>max-block-size</code> with <code>100%</code> caps it to the space on
-        its side, where it scrolls. <code>calc-size()</code> keeps at least <code
-          >12rem</code
-        > of it, or 40% of a short viewport, so it only flips when that side has less
-        room
+        <code>max-block-size</code> with <code>100%</code> caps it to the space
+        on its side, where it scrolls. <code>calc-size()</code> keeps at least
+        <code>12rem</code> of it, or 40% of a short viewport, so it only flips
+        when that side has less room
       </li>
       <li>
         <code>position-try-fallbacks</code> flips it when it would overflow. Two
-        {" "}<code>@position-try</code> rules move it below or above, spanning both
-        sides, when neither side fits
+        {" "}<code>@position-try</code> rules move it below or above, spanning
+        both sides, when neither side fits
       </li>
     </ul>
     <Code
@@ -130,16 +130,16 @@ import Basics from "../../component-examples/menu/Basics.astro"
       </li>
       <li>
         Without Invoker Commands the button does nothing.
-        {" "}<code>popovertarget</code> or <code>showPopover()</code> are the older
-        ways in
+        {" "}<code>popovertarget</code> or <code>showPopover()</code> are the
+        older ways in
       </li>
       <li>
         On iOS, submenus anchor to their parent menu instead of their trigger
-        item: an <code>@supports (-webkit-touch-callout: none)</code> block in the
-        compat layer (<code>css/compat/menu.css</code>) sets <code
-          >anchor-name</code
-        > on every menu that has a submenu, and <code>anchor-scope</code> only on
-        the root menu, so a submenu three levels deep still finds its own parent
+        item: an <code>@supports (-webkit-touch-callout: none)</code> block in
+        the compat layer (<code>css/compat/menu.css</code>) sets
+        <code>anchor-name</code> on every menu that has a submenu, and
+        <code>anchor-scope</code> only on the root menu, so a submenu three
+        levels deep still finds its own parent
       </li>
     </ul>
   </section>

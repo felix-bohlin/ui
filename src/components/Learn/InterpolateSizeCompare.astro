@@ -15,24 +15,23 @@ const columns = [
 
 <div class="interpolate-compare" style="--ui-duration: 0.4s">
   <div class="interpolate-compare-columns">
-    {
-      columns.map((column) => (
-        <div class="interpolate-compare-column" data-mode={column.mode}>
-          <p class="interpolate-compare-title">
-            <code>interpolate-size: {column.value}</code>
+    {columns.map((column) => <div
+      class="interpolate-compare-column"
+      data-mode={column.mode}
+    >
+      <p class="interpolate-compare-title">
+        <code>interpolate-size: {column.value}</code>
+      </p>
+      <Accordion variant="outlined">
+        <AccordionSummary>Shipping and returns</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Orders ship within two working days. Returns are free for 30 days,
+            and the label is in the box.
           </p>
-          <Accordion variant="outlined">
-            <AccordionSummary>Shipping and returns</AccordionSummary>
-            <AccordionContent>
-              <p>
-                Orders ship within two working days. Returns are free for 30
-                days, and the label is in the box.
-              </p>
-            </AccordionContent>
-          </Accordion>
-        </div>
-      ))
-    }
+        </AccordionContent>
+      </Accordion>
+    </div>)}
   </div>
   <div class="interpolate-compare-controls">
     <Button aria-expanded="false" type="button" variant="outlined">

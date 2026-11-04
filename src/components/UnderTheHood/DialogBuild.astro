@@ -214,16 +214,12 @@ const shortcuts = [
     <h3 id="build-dialog-title">Keyboard shortcuts</h3>
     <div class="content">
       <dl>
-        {
-          shortcuts.map((shortcut) => (
-            <div>
-              <dt>{shortcut.label}</dt>
-              <dd>
-                <kbd>{shortcut.keys}</kbd>
-              </dd>
-            </div>
-          ))
-        }
+        {shortcuts.map((shortcut) => <div>
+          <dt>{shortcut.label}</dt>
+          <dd>
+            <kbd>{shortcut.keys}</kbd>
+          </dd>
+        </div>)}
       </dl>
     </div>
     <div class="footer">

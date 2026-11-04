@@ -27,13 +27,12 @@ const ticks = (by: number) =>
       <code>step</code>
     </span>
     <ToggleGroup aria-labelledby={labelId} size="small">
-      {
-        steps.map((option) => (
-          <ToggleButton checked={option === step} value={option}>
-            {option}
-          </ToggleButton>
-        ))
-      }
+      {steps.map((option) => <ToggleButton
+        checked={option === step}
+        value={option}
+      >
+        {option}
+      </ToggleButton>)}
     </ToggleGroup>
     <span class="range-ticks-count">
       <span data-count>{ticks(step).length}</span> options in the datalist

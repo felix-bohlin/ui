@@ -21,23 +21,19 @@ const presets = [
 
 <fieldset class="preset-cards" data-presets>
   <legend class="preset-cards-legend">Start from</legend>
-  {
-    presets.map((preset) => (
-      <label class="preset-card">
-        <input
-          class="preset-card-input"
-          name="builder-preset"
-          type="radio"
-          value={preset.value}
-        />
-        <ThemeArt style={preset.style} />
-        <span class="preset-card-name">
-          {preset.label}
-          <span class="preset-card-changes" data-preset-changes hidden />
-        </span>
-      </label>
-    ))
-  }
+  {presets.map((preset) => <label class="preset-card">
+    <input
+      class="preset-card-input"
+      name="builder-preset"
+      type="radio"
+      value={preset.value}
+    />
+    <ThemeArt style={preset.style} />
+    <span class="preset-card-name">
+      {preset.label}
+      <span class="preset-card-changes" data-preset-changes hidden />
+    </span>
+  </label>)}
 </fieldset>
 
 <style>

@@ -65,23 +65,20 @@ export const description =
 
   <Usage slot="usage">
     <li slot="when">
-      Confirming an action that just happened, like <a href="#basics"
-        >saved changes</a
-      >.
+      Confirming an action that just happened, like
+      <a href="#basics">saved changes</a>.
     </li>
     <li slot="when">
       A notice that needs no answer, like a <a href="#severities">new version</a
       >.
     </li>
     <li slot="when-not">
-      A message people must read or act on, like errors in a form. Use a <DocLink
-        href="/components/callout">Callout</DocLink
-      > on the page.
+      A message people must read or act on, like errors in a form. Use a
+      <DocLink href="/components/callout">Callout</DocLink> on the page.
     </li>
     <li slot="when-not">
-      Confirming a copy to the clipboard. <DocLink href="/components/copy"
-        >Copy</DocLink
-      > announces its own.
+      Confirming a copy to the clipboard.
+      <DocLink href="/components/copy">Copy</DocLink> announces its own.
     </li>
   </Usage>
 
@@ -89,20 +86,19 @@ export const description =
     <h2 id="basics">Basics</h2>
     <Conditional as="div">
       <p slot="components">
-        Put one <code>Toaster</code> with an <code>id</code> on the page. A <code
-          >Button</code
-        > with <code>commandfor</code> set to that id and <code
-          >command="--toast"</code
-        > shows the text in its <code>data-toast</code> attribute.
+        Put one <code>Toaster</code> with an <code>id</code> on the page. A
+        <code>Button</code> with <code>commandfor</code> set to that id and
+        <code>command="--toast"</code> shows the text in its
+        <code>data-toast</code> attribute.
       </p>
       <p slot="html">
-        Put one <code>&lt;opui-toaster class="ui-toaster"&gt;</code> with an id, an
-        <code>&lt;ol popover="manual"&gt;</code> and a <code
-          >&lt;div class="ui-sr-only" role="status"&gt;</code
-        > on the page, and import <code>opui-css/elements/toaster.js</code>. A
-        button with <code>commandfor</code> set to that id and <code
-          >command="--toast"</code
-        > shows the text in its <code>data-toast</code> attribute.
+        Put one <code>&lt;opui-toaster class="ui-toaster"&gt;</code> with an id,
+        an <code>&lt;ol popover="manual"&gt;</code> and a
+        <code>&lt;div class="ui-sr-only" role="status"&gt;</code> on the page,
+        and import <code>opui-css/elements/toaster.js</code>. A button with
+        <code>commandfor</code> set to that id and
+        <code>command="--toast"</code> shows the text in its
+        <code>data-toast</code> attribute.
       </p>
     </Conditional>
     <AutoExample name="Basics" row />
@@ -111,11 +107,11 @@ export const description =
   <section>
     <h2 id="severities">Severities</h2>
     <p>
-      <code>data-toast-severity</code> takes <code>info</code>, <code
-        >success</code
-      >, <code>warning</code>, <code>critical</code> or <code>neutral</code>,
-      and colors the toast like a Callout of that severity. The words carry the
-      meaning, so write them so they work without the color.
+      <code>data-toast-severity</code> takes <code>info</code>,
+      <code>success</code>, <code>warning</code>, <code>critical</code> or
+      <code>neutral</code>, and colors the toast like a Callout of that
+      severity. The words carry the meaning, so write them so they work without
+      the color.
     </p>
     <AutoExample name="Severities" row />
   </section>
@@ -123,8 +119,8 @@ export const description =
   <section>
     <h2 id="from-a-script">From a script</h2>
     <p>
-      <code>show(message, options)</code> shows a toast from your own code, like after
-      a request finishes. <code>severity</code> and <code>duration</code>
+      <code>show(message, options)</code> shows a toast from your own code, like
+      after a request finishes. <code>severity</code> and <code>duration</code>
       are optional.
     </p>
     <Code
@@ -139,14 +135,14 @@ export const description =
     <h2 id="duration">Duration</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        A toast stays for 5 seconds, or <code>duration</code> milliseconds. The timer
-        pauses while the pointer is over the toasts or focus is in them, and every
-        toast has a close button.
+        A toast stays for 5 seconds, or <code>duration</code> milliseconds. The
+        timer pauses while the pointer is over the toasts or focus is in them,
+        and every toast has a close button.
       </Fragment>
       <Fragment slot="html">
-        A toast stays for 5 seconds, or the <code>duration</code> attribute in milliseconds.
-        The timer pauses while the pointer is over the toasts or focus is in them,
-        and every toast has a close button.
+        A toast stays for 5 seconds, or the <code>duration</code> attribute in
+        milliseconds. The timer pauses while the pointer is over the toasts or
+        focus is in them, and every toast has a close button.
       </Fragment>
     </Conditional>
   </section>

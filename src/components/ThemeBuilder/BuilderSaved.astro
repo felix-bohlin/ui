@@ -64,35 +64,34 @@ const gallery = GALLERY.map((entry) => ({
         yours with a pull request to <code>src/utils/theme-gallery.ts</code>.
       </p>
       <ul class="builder-theme-list">
-        {
-          gallery.map((entry) => (
-            <li class="builder-theme" data-gallery={entry.id}>
-              <ThemeArt style={entry.style} />
-              <div class="builder-theme-text">
-                <p class="builder-theme-name">{entry.name}</p>
-                <p class="builder-theme-meta">
-                  {entry.preset}, {entry.changes}{" "}
-                  {entry.changes === 1 ? "change" : "changes"}, by{" "}
-                  {entry.author}
-                </p>
-                <p class="builder-theme-meta">{entry.description}</p>
-              </div>
-              <div class="builder-theme-actions">
-                <Button
-                  color="primary"
-                  data-gallery-use
-                  size="x-small"
-                  variant="tonal"
-                >
-                  Use
-                </Button>
-                <Button data-gallery-compare size="x-small" variant="outlined">
-                  Compare
-                </Button>
-              </div>
-            </li>
-          ))
-        }
+        {gallery.map((entry) => <li
+          class="builder-theme"
+          data-gallery={entry.id}
+        >
+          <ThemeArt style={entry.style} />
+          <div class="builder-theme-text">
+            <p class="builder-theme-name">{entry.name}</p>
+            <p class="builder-theme-meta">
+              {entry.preset}, {entry.changes}{" "}
+              {entry.changes === 1 ? "change" : "changes"}, by{" "}
+              {entry.author}
+            </p>
+            <p class="builder-theme-meta">{entry.description}</p>
+          </div>
+          <div class="builder-theme-actions">
+            <Button
+              color="primary"
+              data-gallery-use
+              size="x-small"
+              variant="tonal"
+            >
+              Use
+            </Button>
+            <Button data-gallery-compare size="x-small" variant="outlined">
+              Compare
+            </Button>
+          </div>
+        </li>)}
       </ul>
     </section>
   </DrawerContent>

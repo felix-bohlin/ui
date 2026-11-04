@@ -239,61 +239,54 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
 
 <BuildUp id="build-drawer" steps={steps}>
   <div class="row">
-    {
-      drawers.map((drawer) => (
-        <Button command="show-modal" commandfor={drawer.id} variant="outlined">
-          {drawer.title}
-        </Button>
-      ))
-    }
+    {drawers.map((drawer) => <Button
+      command="show-modal"
+      commandfor={drawer.id}
+      variant="outlined"
+    >
+      {drawer.title}
+    </Button>)}
   </div>
-  {
-    drawers.map((drawer) => (
-      <dialog
-        aria-labelledby={`${drawer.id}-title`}
-        class:list={["drawer", drawer.side]}
-        closedby="any"
-        id={drawer.id}
+  {drawers.map((drawer) => <dialog
+    aria-labelledby={`${drawer.id}-title`}
+    class:list={["drawer", drawer.side]}
+    closedby="any"
+    id={drawer.id}
+  >
+    <div class="header">
+      <h3 id={`${drawer.id}-title`}>Filters</h3>
+      <Button
+        aria-label="Close"
+        command="close"
+        commandfor={drawer.id}
+        round
+        size="small"
       >
-        <div class="header">
-          <h3 id={`${drawer.id}-title`}>Filters</h3>
-          <Button
-            aria-label="Close"
-            command="close"
-            commandfor={drawer.id}
-            round
-            size="small"
-          >
-            <Fragment set:html={close} />
-          </Button>
-        </div>
-        <div class="content">
-          <p>
-            Narrow the results down by status, owner and date. Changes apply
-            when you press Apply.
-          </p>
-          {filters.map((filter) => (
-            <fieldset>
-              <legend>{filter.legend}</legend>
-              {filter.options.map((option) => (
-                <Checkbox name={`${drawer.id}-${filter.legend}`} value={option}>
-                  {option}
-                </Checkbox>
-              ))}
-            </fieldset>
-          ))}
-        </div>
-        <div class="footer">
-          <Button command="close" commandfor={drawer.id}>
-            Reset
-          </Button>
-          <Button command="close" commandfor={drawer.id} variant="filled">
-            Apply
-          </Button>
-        </div>
-      </dialog>
-    ))
-  }
+        <Fragment set:html={close} />
+      </Button>
+    </div>
+    <div class="content">
+      <p>
+        Narrow the results down by status, owner and date. Changes apply when
+        you press Apply.
+      </p>
+      {filters.map((filter) => <fieldset>
+        <legend>{filter.legend}</legend>
+        {filter.options.map((option) => <Checkbox
+          name={`${drawer.id}-${filter.legend}`}
+          value={option}
+        >
+          {option}
+        </Checkbox>)}
+      </fieldset>)}
+    </div>
+    <div class="footer">
+      <Button command="close" commandfor={drawer.id}> Reset </Button>
+      <Button command="close" commandfor={drawer.id} variant="filled">
+        Apply
+      </Button>
+    </div>
+  </dialog>)}
 </BuildUp>
 
 <style>

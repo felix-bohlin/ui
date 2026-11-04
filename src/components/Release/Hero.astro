@@ -31,22 +31,16 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
   <div class="hero-stage hero-play">
     <div class="hero-slam">
       <div aria-hidden="true" class="hero-ring"></div>
-      {
-        dust.map((index) => (
-          <i aria-hidden="true" class="hero-dust" style={`--i: ${index}`} />
-        ))
-      }
+      {dust.map((index) => (
+        <i aria-hidden="true" class="hero-dust" style={`--i: ${index}`} />
+      ))}
       <p class="hero-numeral">{numeral}</p>
     </div>
     <p class="hero-tagline">Four frameworks. Four themes. One naming model.</p>
     <ul class="hero-facts">
-      {
-        facts.map((fact, index) => (
-          <li style={`--i: ${index}`}>
-            <Chip label={fact} size="small" variant="outlined" />
-          </li>
-        ))
-      }
+      {facts.map((fact, index) => <li style={`--i: ${index}`}>
+        <Chip label={fact} size="small" variant="outlined" />
+      </li>)}
     </ul>
   </div>
   <Button class="hero-replay" size="small" variant="outlined">Replay</Button>

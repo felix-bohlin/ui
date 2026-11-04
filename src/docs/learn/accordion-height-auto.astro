@@ -11,11 +11,10 @@ import Basics from "../../component-examples/accordion/Basics.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      A <code>&lt;details&gt;</code> element gives you an accordion for free: keyboard
-      support, focus, open state and find-in-page. What it never gave you is an animation.
-      It snaps open, because the content's height is <code>auto</code> and <code
-        >auto</code
-      > can't be interpolated.
+      A <code>&lt;details&gt;</code> element gives you an accordion for free:
+      keyboard support, focus, open state and find-in-page. What it never gave
+      you is an animation. It snaps open, because the content's height is
+      <code>auto</code> and <code>auto</code> can't be interpolated.
     </p>
     <p>
       The usual fix is JavaScript that measures the content and animates a pixel
@@ -27,17 +26,16 @@ import Basics from "../../component-examples/accordion/Basics.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>interpolate-size: allow-keywords</code> lets <code
-          >block-size</code
-        > transition to and from <code>auto</code>
+        <code>interpolate-size: allow-keywords</code> lets
+        <code>block-size</code> transition to and from <code>auto</code>
       </li>
       <li>
-        <code>::details-content</code> selects the part of the element that hides
-        and shows
+        <code>::details-content</code> selects the part of the element that
+        hides and shows
       </li>
       <li>
-        <code>content-visibility</code> with <code>allow-discrete</code> keeps the
-        content rendered until the closing transition ends
+        <code>content-visibility</code> with <code>allow-discrete</code> keeps
+        the content rendered until the closing transition ends
       </li>
     </ul>
     <Code
@@ -63,9 +61,9 @@ details[open]::details-content {
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      The same <code>&lt;details&gt;</code> twice, with and without <code
-        >interpolate-size: allow-keywords</code
-      >. Open both, then slow the duration down.
+      The same <code>&lt;details&gt;</code> twice, with and without
+      <code>interpolate-size: allow-keywords</code>. Open both, then slow the
+      duration down.
     </p>
     <Example wide showCode={false}>
       <InterpolateSizeCompare />
@@ -94,8 +92,8 @@ details[open]::details-content {
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Browsers without <code>::details-content</code> ignore the rules and open
-        instantly
+        Browsers without <code>::details-content</code> ignore the rules and
+        open instantly
       </li>
       <li>Nothing breaks, it just doesn't animate</li>
     </ul>

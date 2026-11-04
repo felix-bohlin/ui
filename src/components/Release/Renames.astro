@@ -126,18 +126,43 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        ><path
+      >
+        <path
           fill="currentColor"
           d="M9.5 3a6.5 6.5 0 0 1 5.2 10.4l5.45 5.45-1.4 1.4-5.45-5.44A6.5 6.5 0 1 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9"
-        ></path></svg
-      >
+        ></path>
+      </svg>
     </TextField>
     <p class="renames-count" role="status">{renames.length} renames</p>
     <p class="renames-empty" hidden>No rename matches that name.</p>
     <ul class="renames-list">
-      {
-        first.map((rename) => (
-          <li
+      {first.map((rename) => <li
+        class="renames-item"
+        data-names={`${rename.from} ${rename.to}`.toLowerCase()}
+      >
+        <span class="renames-names">
+          <code class="renames-from">{rename.from}</code>
+          <span aria-hidden="true">→</span>
+          <code class="renames-to">{rename.to}</code>
+        </span>
+        <span class="renames-meta">
+          <Chip label={rename.kind} size="x-small" />
+          {rename.scope && <span class="renames-scope">{rename.scope}</span>}
+          {rename.sections.map((section) => <a
+            href={sectionHref(section.anchor)}
+            >{section.title}</a
+          >)}
+        </span>
+      </li>)}
+    </ul>
+    <Accordion class="renames-more" variant="transparent">
+      <AccordionSummary>
+        <span class="renames-show">Show all {renames.length}</span>
+        <span class="renames-hide">Show the first {SHOWN}</span>
+      </AccordionSummary>
+      <AccordionContent>
+        <ul class="renames-list">
+          {rest.map((rename) => <li
             class="renames-item"
             data-names={`${rename.from} ${rename.to}`.toLowerCase()}
           >
@@ -148,47 +173,15 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
             </span>
             <span class="renames-meta">
               <Chip label={rename.kind} size="x-small" />
-              {rename.scope && (
-                <span class="renames-scope">{rename.scope}</span>
-              )}
-              {rename.sections.map((section) => (
-                <a href={sectionHref(section.anchor)}>{section.title}</a>
-              ))}
+              {rename.scope && <span class="renames-scope"
+                >{rename.scope}</span
+              >}
+              {rename.sections.map((section) => <a
+                href={sectionHref(section.anchor)}
+                >{section.title}</a
+              >)}
             </span>
-          </li>
-        ))
-      }
-    </ul>
-    <Accordion class="renames-more" variant="transparent">
-      <AccordionSummary>
-        <span class="renames-show">Show all {renames.length}</span>
-        <span class="renames-hide">Show the first {SHOWN}</span>
-      </AccordionSummary>
-      <AccordionContent>
-        <ul class="renames-list">
-          {
-            rest.map((rename) => (
-              <li
-                class="renames-item"
-                data-names={`${rename.from} ${rename.to}`.toLowerCase()}
-              >
-                <span class="renames-names">
-                  <code class="renames-from">{rename.from}</code>
-                  <span aria-hidden="true">→</span>
-                  <code class="renames-to">{rename.to}</code>
-                </span>
-                <span class="renames-meta">
-                  <Chip label={rename.kind} size="x-small" />
-                  {rename.scope && (
-                    <span class="renames-scope">{rename.scope}</span>
-                  )}
-                  {rename.sections.map((section) => (
-                    <a href={sectionHref(section.anchor)}>{section.title}</a>
-                  ))}
-                </span>
-              </li>
-            ))
-          }
+          </li>)}
         </ul>
       </AccordionContent>
     </Accordion>

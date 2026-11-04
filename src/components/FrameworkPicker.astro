@@ -12,13 +12,12 @@ const currentFramework = Astro.locals.framework
 ---
 
 <Select aria-label="Framework" class="framework-picker" size={size}>
-  {
-    FRAMEWORKS.map((framework) => (
-      <option value={framework.id} selected={framework.id === currentFramework}>
-        {framework.label}
-      </option>
-    ))
-  }
+  {FRAMEWORKS.map((framework) => <option
+    value={framework.id}
+    selected={framework.id === currentFramework}
+  >
+    {framework.label}
+  </option>)}
 </Select>
 
 <script>

@@ -56,25 +56,22 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
       new button.
     </li>
     <li slot="when">
-      Hover cards that preview a link, a repository or a profile, with a <a
-        href="#hover-trigger">hover trigger</a
-      >.
+      Hover cards that preview a link, a repository or a profile, with a
+      <a href="#hover-trigger">hover trigger</a>.
     </li>
     <li slot="when">
       A base for your own floating component, when Tooltip and Menu don't fit.
     </li>
     <li slot="when-not">
-      A short label or hint for a control. Use a <DocLink
-        href="/components/tooltip">Tooltip</DocLink
-      >.
+      A short label or hint for a control. Use a
+      <DocLink href="/components/tooltip">Tooltip</DocLink>.
     </li>
     <li slot="when-not">
       A list of actions. Use a <DocLink href="/components/menu">Menu</DocLink>.
     </li>
     <li slot="when-not">
-      Content that needs an answer before the user goes on. Use a <DocLink
-        href="/components/dialog">Dialog</DocLink
-      >.
+      Content that needs an answer before the user goes on. Use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
     </li>
   </Usage>
 
@@ -83,15 +80,15 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
     <Conditional as="p">
       <Fragment slot="components">
         Floating content that is always shown, like a coach mark beside a
-        button. Put it in <code>AnchorContent</code>, and set <code
-          >positionArea</code
-        > to any <code>position-area</code> value to place it.
+        button. Put it in <code>AnchorContent</code>, and set
+        <code>positionArea</code> to any <code>position-area</code> value to
+        place it.
       </Fragment>
       <Fragment slot="html">
         Floating content that is always shown, like a coach mark beside a
         button. Set <code>--ui-anchor-position-area</code> on
-        {" "}<code>.ui-anchor</code> to any <code>position-area</code> value to place
-        it.
+        {" "}<code>.ui-anchor</code> to any <code>position-area</code> value to
+        place it.
       </Fragment>
     </Conditional>
 
@@ -102,28 +99,27 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
     <h2 id="hover-trigger">Hover trigger</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. <code>AnchorContent</code> gets the id and
-        <code>popover="hint"</code>.
+        Set <code>trigger="hover"</code> and an <code>id</code>, and add
+        <code>interestfor</code> with that id to the trigger.
+        <code>AnchorContent</code> gets the id and <code>popover="hint"</code>.
       </Fragment>
       <Fragment slot="html">
         Add <code>popover="hint"</code> and an id to
-        {" "}<code>.ui-floating</code>, and <code>interestfor</code> with that id
-        on the trigger.
+        {" "}<code>.ui-floating</code>, and <code>interestfor</code> with that
+        id on the trigger.
       </Fragment>
     </Conditional>
     <p>
-      <a href="#under-the-hood">Under the hood</a> shows how hover, focus and tap
-      open the card.
+      <a href="#under-the-hood">Under the hood</a> shows how hover, focus and
+      tap open the card.
     </p>
     <p>
-      Put a <DocLink href="/components/card">Card</DocLink> in the floating content
-      for hover cards like GitHub's repository previews. Align the card below the
-      trigger with <code>block-end span-inline-end</code>. It flips to the other
-      side when there isn't room. The card keeps its interactive content
-      reachable, so the pointer can move from the link into the card without
-      closing it.
+      Put a <DocLink href="/components/card">Card</DocLink> in the floating
+      content for hover cards like GitHub's repository previews. Align the card
+      below the trigger with <code>block-end span-inline-end</code>. It flips to
+      the other side when there isn't room. The card keeps its interactive
+      content reachable, so the pointer can move from the link into the card
+      without closing it.
     </p>
 
     <AutoExample name="RepoCard" />

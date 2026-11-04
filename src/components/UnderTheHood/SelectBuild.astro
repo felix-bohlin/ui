@@ -179,11 +179,9 @@ const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
         <selectedcontent></selectedcontent>
       </button>
       <div class="list">
-        {
-          fruits.map((fruit) => (
-            <option value={fruit.toLowerCase()}>{fruit}</option>
-          ))
-        }
+        {fruits.map((fruit) => <option value={fruit.toLowerCase()}>
+          {fruit}
+        </option>)}
       </div>
     </select>
   </label>

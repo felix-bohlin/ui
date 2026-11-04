@@ -118,11 +118,9 @@ const filterCss = [
         <FieldLegend>Level</FieldLegend>
         <ToggleGroup name="learn-level" size="small">
           <ToggleButton checked value="">All</ToggleButton>
-          {
-            levels.map((level) => (
-              <ToggleButton value={level.id}>{level.label}</ToggleButton>
-            ))
-          }
+          {levels.map((level) => <ToggleButton value={level.id}
+            >{level.label}</ToggleButton
+          >)}
         </ToggleGroup>
       </Fieldset>
       <Select
@@ -141,111 +139,87 @@ const filterCss = [
     <p class="learn-empty">No post matches this level and topic.</p>
 
     <ul class="learn-posts">
-      {
-        entries.map((post) => (
-          <li
-            class:list={[
-              "learn-post",
-              { "learn-post-featured": !post.component },
-            ]}
-            data-level={post.level}
-            data-topics={post.topics?.join(" ")}
-          >
-            <article
-              class:list={[
-                "ui-card",
-                post.component ? "ui-outlined" : "ui-tonal",
-              ]}
-            >
-              <hgroup>
-                <h2 style={`view-transition-name: learn-${post.slug}-title`}>
-                  <DocLink href={`/learn/${post.slug}`}>{post.title}</DocLink>
-                </h2>
-                <p>{post.description}</p>
-              </hgroup>
-              <div class="ui-content">
-                <ul aria-label="Tags" class="learn-chips">
-                  {post.technique && (
-                    <li>
-                      <Chip size="small">
-                        <code slot="label">{post.technique}</code>
-                      </Chip>
-                    </li>
-                  )}
-                  {post.component && (
-                    <li>
-                      <Chip
-                        size="small"
-                        variant="outlined"
-                        label={componentName(post.component)}
-                      />
-                    </li>
-                  )}
-                  {post.series && (
-                    <li>
-                      <Chip size="small" variant="outlined">
-                        <Fragment slot="label">
-                          {post.series.label}
-                          <span class="learn-chip-part">
-                            {post.series.part}/{post.series.total}
-                          </span>
-                        </Fragment>
-                      </Chip>
-                    </li>
-                  )}
-                  {post.features.map((feature) => (
-                    <li>
-                      <Chip
-                        size="small"
-                        variant="outlined"
-                        label={feature.name}
-                      />
-                    </li>
-                  ))}
-                </ul>
-                <dl class="learn-meta">
-                  {[
-                    {
-                      icon: icons.readingTime,
-                      label: "Reading time",
-                      value: `${post.minutes} min`,
-                    },
-                    post.level && {
-                      icon: icons.level,
-                      label: "Level",
-                      value: labelOf(levels, post.level),
-                    },
-                    post.topics && {
-                      icon: icons.topics,
-                      label: "Topics",
-                      value: post.topics
-                        .map((topic) => labelOf(topics, topic))
-                        .join(", "),
-                    },
-                    post.slug === "under-the-hood" && {
-                      icon: icons.buildUps,
-                      label: "Build-ups",
-                      value: `${buildCount} build-ups`,
-                    },
-                  ]
-                    .filter((item) => !!item)
-                    .map((item) => (
-                      <div>
-                        <dt>
-                          <svg aria-hidden="true" viewBox="0 0 16 16">
-                            <path d={item.icon} />
-                          </svg>
-                          <span class="ui-sr-only">{item.label}</span>
-                        </dt>
-                        <dd>{item.value}</dd>
-                      </div>
-                    ))}
-                </dl>
-              </div>
-            </article>
-          </li>
-        ))
-      }
+      {entries.map((post) => <li
+        class:list={["learn-post", { "learn-post-featured": !post.component }]}
+        data-level={post.level}
+        data-topics={post.topics?.join(" ")}
+      >
+        <article
+          class:list={["ui-card", post.component ? "ui-outlined" : "ui-tonal"]}
+        >
+          <hgroup>
+            <h2 style={`view-transition-name: learn-${post.slug}-title`}>
+              <DocLink href={`/learn/${post.slug}`}>{post.title}</DocLink>
+            </h2>
+            <p>{post.description}</p>
+          </hgroup>
+          <div class="ui-content">
+            <ul aria-label="Tags" class="learn-chips">
+              {post.technique && <li>
+                <Chip size="small">
+                  <code slot="label">{post.technique}</code>
+                </Chip>
+              </li>}
+              {post.component && <li>
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  label={componentName(post.component)}
+                />
+              </li>}
+              {post.series && <li>
+                <Chip size="small" variant="outlined">
+                  <Fragment slot="label">
+                    {post.series.label}
+                    <span class="learn-chip-part">
+                      {post.series.part}/{post.series.total}
+                    </span>
+                  </Fragment>
+                </Chip>
+              </li>}
+              {post.features.map((feature) => <li>
+                <Chip size="small" variant="outlined" label={feature.name} />
+              </li>)}
+            </ul>
+            <dl class="learn-meta">
+              {[
+                {
+                  icon: icons.readingTime,
+                  label: "Reading time",
+                  value: `${post.minutes} min`,
+                },
+                post.level && {
+                  icon: icons.level,
+                  label: "Level",
+                  value: labelOf(levels, post.level),
+                },
+                post.topics && {
+                  icon: icons.topics,
+                  label: "Topics",
+                  value: post.topics
+                    .map((topic) => labelOf(topics, topic))
+                    .join(", "),
+                },
+                post.slug === "under-the-hood" && {
+                  icon: icons.buildUps,
+                  label: "Build-ups",
+                  value: `${buildCount} build-ups`,
+                },
+              ]
+                .filter((item) => !!item)
+                .map((item) => <div>
+                  <dt>
+                    <svg aria-hidden="true" viewBox="0 0 16 16">
+                      <path d={item.icon} />
+                    </svg>
+                    <span class="ui-sr-only">{item.label}</span>
+                  </dt>
+                  <dd>{item.value}</dd>
+                </div>)}
+            </dl>
+          </div>
+        </article>
+      </li>)}
     </ul>
   </div>
 
@@ -253,22 +227,16 @@ const filterCss = [
     <h2 id="series">Series</h2>
     <p>Posts that build on each other, in reading order.</p>
     <div class="learn-series-grid ui-not-rich-text">
-      {
-        series.map((entry) => (
-          <section>
-            <h3 id={entry.id}>{entry.label}</h3>
-            <ol>
-              {entry.posts.map((slug) => (
-                <li>
-                  <DocLink href={`/learn/${slug}`}>
-                    {posts.find((post) => post.slug === slug)!.title}
-                  </DocLink>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))
-      }
+      {series.map((entry) => <section>
+        <h3 id={entry.id}>{entry.label}</h3>
+        <ol>
+          {entry.posts.map((slug) => <li>
+            <DocLink href={`/learn/${slug}`}>
+              {posts.find((post) => post.slug === slug)!.title}
+            </DocLink>
+          </li>)}
+        </ol>
+      </section>)}
     </div>
   </section>
 
@@ -276,21 +244,17 @@ const filterCss = [
     <h2 id="walkthrough-only">Walkthrough only</h2>
     <p>
       These components have a step-by-step build-up on the
-      <DocLink href="/learn/under-the-hood">Under the hood</DocLink> page, but no
-      post yet.
+      <DocLink href="/learn/under-the-hood">Under the hood</DocLink> page, but
+      no post yet.
     </p>
     <ul aria-label="Walkthroughs" class="learn-chips ui-not-rich-text">
-      {
-        walkthroughs.map((slug) => (
-          <li>
-            <Chip
-              href={link(`/learn/under-the-hood#${slug}`)}
-              label={componentName(slug)}
-              variant="outlined"
-            />
-          </li>
-        ))
-      }
+      {walkthroughs.map((slug) => <li>
+        <Chip
+          href={link(`/learn/under-the-hood#${slug}`)}
+          label={componentName(slug)}
+          variant="outlined"
+        />
+      </li>)}
     </ul>
   </section>
 </Learn>

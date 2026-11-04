@@ -11,13 +11,14 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      A <code>&lt;textarea&gt;</code> is as tall as its <code>rows</code> attribute
-      says, no matter what's in it. Short notes leave empty space, long ones scroll
-      inside a tiny box.
+      A <code>&lt;textarea&gt;</code> is as tall as its <code>rows</code>
+      attribute says, no matter what's in it. Short notes leave empty space,
+      long ones scroll inside a tiny box.
     </p>
     <p>
       The usual fix is JavaScript that listens to <code>input</code>, resets the
-      height and sets it to <code>scrollHeight</code> on every keystroke. Not anymore.
+      height and sets it to <code>scrollHeight</code> on every keystroke. Not
+      anymore.
     </p>
   </section>
 
@@ -25,17 +26,16 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>field-sizing: content</code> sizes the textarea to its text: it grows
-        as you type and shrinks as you delete
+        <code>field-sizing: content</code> sizes the textarea to its text: it
+        grows as you type and shrinks as you delete
       </li>
       <li>
-        <code>lh</code> is one line of the textarea's own text, so limits read as
-        line counts
+        <code>lh</code> is one line of the textarea's own text, so limits read
+        as line counts
       </li>
       <li>
-        <code>min-block-size</code> keeps at least three lines, <code
-          >max-block-size</code
-        > caps it at 20, then it scrolls
+        <code>min-block-size</code> keeps at least three lines,
+        <code>max-block-size</code> caps it at 20, then it scrolls
       </li>
       <li><code>resize: block</code> still lets the user drag it taller</li>
     </ul>
@@ -61,12 +61,12 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
     </Example>
     <ul>
       <li>
-        <code>content</code> grows a line at a time until the max, then scrolls. Delete
-        text and it shrinks back to the min
+        <code>content</code> grows a line at a time until the max, then scrolls.
+        Delete text and it shrinks back to the min
       </li>
       <li>
-        <code>fixed</code> is the default: the box stays at its <code>rows</code
-        > and scrolls inside
+        <code>fixed</code> is the default: the box stays at its
+        <code>rows</code> and scrolls inside
       </li>
       <li>
         The limits are in <code>lh</code>, so they read as line counts whatever
@@ -84,8 +84,8 @@ import AutoFit from "../../component-examples/textarea/AutoFit.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Browsers without <code>field-sizing</code> ignore it, and the textarea keeps
-        its <code>rows</code> height, never less than three lines
+        Browsers without <code>field-sizing</code> ignore it, and the textarea
+        keeps its <code>rows</code> height, never less than three lines
       </li>
       <li>Long text scrolls and the resize handle still works</li>
       <li>Nothing breaks, it just doesn't grow</li>

@@ -58,13 +58,9 @@ const preClass = isDiff ? "is-diff" : undefined
   class:list={["code-block", { "is-terminal": isTerminal }]}
   data-language={lang || undefined}
 >
-  {
-    (title || isTerminal) && (
-      <div class="code-header">
-        {title && <span class="code-title">{title}</span>}
-      </div>
-    )
-  }
+  {(title || isTerminal) && <div class="code-header">
+    {title && <span class="code-title">{title}</span>}
+  </div>}
   <pre class={preClass}><code class={codeClass} set:html={html} /></pre>
   <button type="button" class="code-copy" aria-label="Copy to clipboard">
     <svg

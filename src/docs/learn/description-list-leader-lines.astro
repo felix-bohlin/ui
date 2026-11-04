@@ -26,29 +26,29 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        Each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is wrapped in
-        a <code>&lt;div&gt;</code>, which is valid in a
+        Each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is wrapped
+        in a <code>&lt;div&gt;</code>, which is valid in a
         {" "}<code>&lt;dl&gt;</code>, so every pair is its own grid
       </li>
       <li>
-        The plain list is two columns with <code
-          >justify-content: space-between</code
-        >: term at the start, description at the end, nothing in between
+        The plain list is two columns with
+        <code>justify-content: space-between</code>: term at the start,
+        description at the end, nothing in between
       </li>
       <li>
         The bordered variants add a third column. The pair's
-        {" "}<code>::after</code> is a grid item too. <code>order: 1</code> puts it
-        between the term and the description, and the <code>1fr</code> column stretches
-        it
+        {" "}<code>::after</code> is a grid item too. <code>order: 1</code> puts
+        it between the term and the description, and the <code>1fr</code> column
+        stretches it
       </li>
       <li>
-        Its bottom border is the line. <code>dotted</code> only swaps the border style
-        and width
+        Its bottom border is the line. <code>dotted</code> only swaps the border
+        style and width
       </li>
       <li>
         <code>container-type: inline-size</code> on the list: at
-        {" "}<code>45ch</code> or narrower, the term stacks above the description
-        and the line goes
+        {" "}<code>45ch</code> or narrower, the term stacks above the
+        description and the line goes
       </li>
     </ul>
     <Code
@@ -101,8 +101,8 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
     <h2 id="try-it">Try it</h2>
     <p>
       The solid and the dotted variant. Drag the edge of the dashed box, or use
-      the <strong>List width</strong> slider. At <code>45ch</code> or narrower the
-      pairs stack, whatever the size of the window.
+      the <strong>List width</strong> slider. At <code>45ch</code> or narrower
+      the pairs stack, whatever the size of the window.
     </p>
     <Example wide showCode={false}>
       <Resizable label="List width">
@@ -116,8 +116,9 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without container queries the <code>@container</code> block is skipped: every
-        pair keeps its row, and the bordered variants their line, at any width
+        Without container queries the <code>@container</code> block is skipped:
+        every pair keeps its row, and the bordered variants their line, at any
+        width
       </li>
       <li>
         The line is an empty pseudo-element, so assistive tech still reads term,

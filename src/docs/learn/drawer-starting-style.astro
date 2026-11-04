@@ -11,13 +11,13 @@ import Basics from "../../component-examples/drawer/Basics.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      A slide-in panel used to be a fixed <code>&lt;div&gt;</code> with a transform,
-      plus JavaScript for the focus trap, <kbd>Esc</kbd>, backdrop clicks and an
-      inert page.
+      A slide-in panel used to be a fixed <code>&lt;div&gt;</code> with a
+      transform, plus JavaScript for the focus trap, <kbd>Esc</kbd>, backdrop
+      clicks and an inert page.
     </p>
     <p>
-      Animating it out was the hard part: <code>display: none</code> can't transition,
-      so a class had to be removed only after
+      Animating it out was the hard part: <code>display: none</code> can't
+      transition, so a class had to be removed only after
       {" "}<code>transitionend</code>.
     </p>
   </section>
@@ -34,13 +34,13 @@ import Basics from "../../component-examples/drawer/Basics.astro"
         it sits at <code>translate: 0 0</code>
       </li>
       <li>
-        <code>@starting-style</code> repeats the closed position, so opening slides
-        in from there
+        <code>@starting-style</code> repeats the closed position, so opening
+        slides in from there
       </li>
       <li>
         <code>allow-discrete</code> on <code>display</code> and
-        {" "}<code>overlay</code> keeps it rendered and in the top layer until it
-        has slid out
+        {" "}<code>overlay</code> keeps it rendered and in the top layer until
+        it has slid out
       </li>
       <li>
         <code>--dir</code> flips to <code>-1</code> under
@@ -72,22 +72,21 @@ import Basics from "../../component-examples/drawer/Basics.astro"
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      Two panels with the drawer's transition. Only one has <code
-        >@starting-style</code
-      >. Open and close them together.
+      Two panels with the drawer's transition. Only one has
+      <code>@starting-style</code>. Open and close them together.
     </p>
     <Example wide showCode={false}>
       <StartingStyleCompare />
     </Example>
     <ul>
       <li>
-        Both leave the same way: <code>allow-discrete</code> keeps the panel displayed
-        until the slide ends
+        Both leave the same way: <code>allow-discrete</code> keeps the panel
+        displayed until the slide ends
       </li>
       <li>
-        Only the one with <code>@starting-style</code> slides in. The other goes from
-        <code>display: none</code> to its open position with nothing to transition
-        from, so it appears in place
+        Only the one with <code>@starting-style</code> slides in. The other goes
+        from <code>display: none</code> to its open position with nothing to
+        transition from, so it appears in place
       </li>
     </ul>
     <p>Open a drawer from each edge and watch it slide out again.</p>
@@ -101,13 +100,13 @@ import Basics from "../../component-examples/drawer/Basics.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without <code>@starting-style</code> and <code>allow-discrete</code> the drawer
-        opens and closes instantly, and still works as a modal
+        Without <code>@starting-style</code> and <code>allow-discrete</code> the
+        drawer opens and closes instantly, and still works as a modal
       </li>
       <li>
-        <code>overlay</code> is Chromium only. Elsewhere the drawer leaves the top
-        layer as soon as it closes, so the backdrop goes at once while the drawer
-        slides out
+        <code>overlay</code> is Chromium only. Elsewhere the drawer leaves the
+        top layer as soon as it closes, so the backdrop goes at once while the
+        drawer slides out
       </li>
       <li>
         Without <code>closedby</code> it still closes on <kbd>Esc</kbd>, but not

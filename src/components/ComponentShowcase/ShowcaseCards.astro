@@ -20,10 +20,10 @@ const cards = await Promise.all(
 )
 ---
 
-{
-  cards.map(({ html, name, slug }) => (
-    <ComponentCard name={name} href={`/components/${slug}`} size={sizes[slug]}>
-      <Fragment set:html={html} />
-    </ComponentCard>
-  ))
-}
+{cards.map(({ html, name, slug }) => <ComponentCard
+  name={name}
+  href={`/components/${slug}`}
+  size={sizes[slug]}
+>
+  <Fragment set:html={html} />
+</ComponentCard>)}

@@ -160,20 +160,16 @@ const items = [
 
 <BuildUp id="build-checkbox" knobs={knobs} steps={steps}>
   <div class="stack">
-    {
-      items.map((item) => (
-        <label class="label">
-          <input
-            checked={item.checked}
-            class="checkbox"
-            data-indeterminate={item.indeterminate ? "" : undefined}
-            disabled={item.disabled}
-            type="checkbox"
-          />
-          <span>{item.label}</span>
-        </label>
-      ))
-    }
+    {items.map((item) => <label class="label">
+      <input
+        checked={item.checked}
+        class="checkbox"
+        data-indeterminate={item.indeterminate ? "" : undefined}
+        disabled={item.disabled}
+        type="checkbox"
+      />
+      <span>{item.label}</span>
+    </label>)}
   </div>
 </BuildUp>
 

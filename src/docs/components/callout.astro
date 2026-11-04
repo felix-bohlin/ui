@@ -70,9 +70,8 @@ const ThemeCSS = `/* ... */
 >
   <Fragment slot="title">Callout</Fragment>
   <Fragment slot="preamble">
-    Callouts call out for user attention. Should be part of the flow and used <strong
-      >without</strong
-    > interrupting the user's task.
+    Callouts call out for user attention. Should be part of the flow and used
+    <strong>without</strong> interrupting the user's task.
   </Fragment>
 
   <Usage slot="usage">
@@ -85,19 +84,17 @@ const ThemeCSS = `/* ... */
       message after saving.
     </li>
     <li slot="when-not">
-      Something the user has to answer before going on. Use a <DocLink
-        href="/components/dialog">Dialog</DocLink
-      >, which takes over completely.
+      Something the user has to answer before going on. Use a
+      <DocLink href="/components/dialog">Dialog</DocLink>, which takes over
+      completely.
     </li>
     <li slot="when-not">
-      A short status on an item, like Paid. Use a <DocLink
-        href="/components/chip">Chip</DocLink
-      >.
+      A short status on an item, like Paid. Use a
+      <DocLink href="/components/chip">Chip</DocLink>.
     </li>
     <li slot="when-not">
-      A confirmation that can go away by itself, like a saved setting. Use a <DocLink
-        href="/components/toast">Toast</DocLink
-      >.
+      A confirmation that can go away by itself, like a saved setting. Use a
+      <DocLink href="/components/toast">Toast</DocLink>.
     </li>
   </Usage>
 
@@ -105,17 +102,16 @@ const ThemeCSS = `/* ... */
     <h2 id="variants">Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop. Put the text in <code>CalloutContent</code>, with an optional
-        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
-        the same title style.
+        Tonal (default) and outlined variants are available via the
+        <code>variant</code> prop. Put the text in <code>CalloutContent</code>,
+        with an optional heading such as an <code>&lt;h3&gt;</code> first. Every
+        heading level gets the same title style.
       </Fragment>
       <Fragment slot="html">
-        Tonal (default) and <code>.ui-outlined</code> variants. Put the text in <code
-          >.ui-content</code
-        >, with an optional heading such as an <code>&lt;h3&gt;</code> first. Every
-        heading level gets the same title style.
+        Tonal (default) and <code>.ui-outlined</code> variants. Put the text in
+        <code>.ui-content</code>, with an optional heading such as an
+        <code>&lt;h3&gt;</code> first. Every heading level gets the same title
+        style.
       </Fragment>
     </Conditional>
 
@@ -126,18 +122,17 @@ const ThemeCSS = `/* ... */
     <h2 id="severities">Severities</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The <code>severity</code> prop accepts <code>critical</code>, <code
-          >info</code
-        >, <code>neutral</code>, <code>success</code> and <code>warning</code>.
-        {" "}<code>neutral</code> is a non-severity tone for brand-tinted attention.
-        The default is a plain surface.
+        The <code>severity</code> prop accepts <code>critical</code>,
+        <code>info</code>, <code>neutral</code>, <code>success</code> and
+        <code>warning</code>. {" "}<code>neutral</code> is a non-severity tone
+        for brand-tinted attention. The default is a plain surface.
       </Fragment>
       <Fragment slot="html">
-        Severity modifiers: <code>.ui-critical</code>, <code>.ui-info</code>, <code
-          >.ui-neutral</code
-        >, <code>.ui-success</code> and <code>.ui-warning</code>.
-        {" "}<code>.ui-neutral</code> is a non-severity tone for brand-tinted attention.
-        The default is a plain surface.
+        Severity modifiers: <code>.ui-critical</code>, <code>.ui-info</code>,
+        <code>.ui-neutral</code>, <code>.ui-success</code> and
+        <code>.ui-warning</code>. {" "}<code>.ui-neutral</code> is a
+        non-severity tone for brand-tinted attention. The default is a plain
+        surface.
       </Fragment>
     </Conditional>
 
@@ -165,15 +160,14 @@ const ThemeCSS = `/* ... */
       <Fragment slot="components">
         <code>CalloutIcon</code> renders the default icon for <code>info</code>,
         <code>success</code>, <code>warning</code> and <code>critical</code>.
-        For a custom icon, put your own <code
-          >&lt;svg aria-hidden="true"&gt;</code
-        > in the <code>Callout</code> instead, before <code>CalloutContent</code
-        >.
+        For a custom icon, put your own
+        <code>&lt;svg aria-hidden="true"&gt;</code> in the <code>Callout</code>
+        instead, before <code>CalloutContent</code>.
       </Fragment>
       <Fragment slot="html">
-        There are no default icons in HTML: put an <code
-          >&lt;svg aria-hidden="true"&gt;</code
-        > before <code>.ui-content</code>.
+        There are no default icons in HTML: put an
+        <code>&lt;svg aria-hidden="true"&gt;</code> before
+        <code>.ui-content</code>.
       </Fragment>
     </Conditional>
 
@@ -189,10 +183,10 @@ const ThemeCSS = `/* ... */
         announce it as self-contained content.
       </li>
       <li>
-        Use both color and icon to help distinguish between Callout <a
-          href="#severities">severities</a
-        >. The icon is hidden from screen readers, so say the severity in the
-        text, for example with a title like Warning.
+        Use both color and icon to help distinguish between Callout
+        <a href="#severities">severities</a>. The icon is hidden from screen
+        readers, so say the severity in the text, for example with a title like
+        Warning.
       </li>
     </ul>
   </Fragment>

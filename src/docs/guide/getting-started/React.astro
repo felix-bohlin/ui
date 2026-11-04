@@ -25,15 +25,13 @@ const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(
   <section>
     <h2 id="installation">Install via NPM</h2>
     <p>
-      The components ship as uncompiled TypeScript (<code>.tsx</code> and <code
-        >.ts</code
-      >), so your build has to compile them. They need React 19 or later, so add
-      <code>react</code> and <code>react-dom</code> if they aren't installed yet.
-      Vite with <code>@vitejs/plugin-react</code> and Astro with <code
-        >@astrojs/react</code
-      > compile them as they are. In Next.js, add <code
-        >transpilePackages: ["opui-css"]</code
-      > to <code>next.config</code>.
+      The components ship as uncompiled TypeScript (<code>.tsx</code> and
+      <code>.ts</code>), so your build has to compile them. They need React 19
+      or later, so add <code>react</code> and <code>react-dom</code> if they
+      aren't installed yet. Vite with <code>@vitejs/plugin-react</code> and
+      Astro with <code>@astrojs/react</code> compile them as they are. In
+      Next.js, add <code>transpilePackages: ["opui-css"]</code> to
+      <code>next.config</code>.
     </p>
     <InstallCommand />
   </section>
@@ -73,14 +71,12 @@ export default function App() {
       lang="tsx"
     />
     <p>
-      Containers take parts, such as <code>CardHeader</code> and <code
-        >DialogFooter</code
-      >. Other slots are props: the default slot is <code>children</code> and named
-      slots are camelCased, such as <code>endText</code>. Form controls take the
-      native
-      <code>value</code> or <code>defaultValue</code>, <code>checked</code> or <code
-        >defaultChecked</code
-      >, and <code>onChange</code> props.
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other slots are props: the default slot is
+      <code>children</code> and named slots are camelCased, such as
+      <code>endText</code>. Form controls take the native <code>value</code> or
+      <code>defaultValue</code>, <code>checked</code> or
+      <code>defaultChecked</code>, and <code>onChange</code> props.
     </p>
     <NextSteps />
   </section>
@@ -88,36 +84,35 @@ export default function App() {
   <section>
     <h2 id="ssr">Server rendering</h2>
     <p>
-      Components that need context, state or effects are marked <code
-        >"use client"</code
-      >: <Fragment set:html={clientList} />. The rest also render as React
-      Server Components. This list is read from the component sources.
+      Components that need context, state or effects are marked
+      <code>"use client"</code>: <Fragment set:html={clientList} />. The rest
+      also render as React Server Components. This list is read from the
+      component sources.
     </p>
     <p>
-      Without hydration (Astro with <code>@astrojs/react</code> and no <code
-        >client:*</code
-      > directive, or <code>renderToString</code> on its own), every component renders
-      complete HTML. The native controls work and submit with their form. A few things
-      only update on the client:
+      Without hydration (Astro with <code>@astrojs/react</code> and no
+      <code>client:*</code> directive, or <code>renderToString</code> on its
+      own), every component renders complete HTML. The native controls work and
+      submit with their form. A few things only update on the client:
     </p>
     <ul>
       <li>
         <DocLink href="/components/checkbox#indeterminate">Checkbox</DocLink>
         <code>indeterminate</code>: it's a DOM property, so the box looks
-        unchecked. Or call <code>activateIndeterminate()</code> from <code
-          >opui-css/css/js/checkbox.js</code
-        >.
+        unchecked. Or call <code>activateIndeterminate()</code> from
+        <code>opui-css/css/js/checkbox.js</code>.
       </li>
       <li>
-        <DocLink href="/components/range#value">Range</DocLink> value: the <code
-          >&lt;output&gt;</code
-        > doesn't follow the thumb. The track fill is CSS, so it's fine.
+        <DocLink href="/components/range#value">Range</DocLink> value: the
+        <code>&lt;output&gt;</code> doesn't follow the thumb. The track fill is
+        CSS, so it's fine.
       </li>
     </ul>
     <p>
-      Hydrate those (<code>client:load</code> in Astro) or render them on the client.
-      Component pages say what needs hydration next to the browser support chips,
-      and the API tables mark each prop with a crossed-out server icon.
+      Hydrate those (<code>client:load</code> in Astro) or render them on the
+      client. Component pages say what needs hydration next to the browser
+      support chips, and the API tables mark each prop with a crossed-out server
+      icon.
     </p>
   </section>
 </Guide>

@@ -48,68 +48,46 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    >{label}<Fragment set:html={labelSlot} /></LabelTag
-  >
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
 
-  {
-    (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text">
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+  {(startText || Astro.slots.has("start-text")) && <span class="ui-start-text">
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
     <textarea
       {...rest}
       aria-invalid={error ? "true" : ariaInvalid}
       id={id}
-      name={name ?? field?.name}>{value}</textarea
-    >
-    {
-      Astro.slots.has("start") && (
-        <span class="ui-start">
-          <slot name="start" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("end") && (
-        <span class="ui-end">
-          <slot name="end" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("top") && (
-        <span class="ui-top">
-          <slot name="top" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("bottom") && (
-        <span class="ui-bottom">
-          <slot name="bottom" />
-        </span>
-      )
-    }
+      name={name ?? field?.name}
+    >{value}</textarea>
+    {Astro.slots.has("start") && <span class="ui-start">
+      <slot name="start" />
+    </span>}
+    {Astro.slots.has("end") && <span class="ui-end">
+      <slot name="end" />
+    </span>}
+    {Astro.slots.has("top") && <span class="ui-top">
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("bottom") && <span class="ui-bottom">
+      <slot name="bottom" />
+    </span>}
   </span>
-  {
-    (endText || Astro.slots.has("end-text") || characterCount) && (
-      <span class="ui-end-text">
-        {endText}
-        <slot name="end-text" />
-        {characterCount && (
-          <opui-character-count
-            aria-hidden="true"
-            class="ui-value"
-            label={characterCountLabel}
-          />
-        )}
-      </span>
-    )
-  }
+  {(endText || Astro.slots.has("end-text") || characterCount) && <span
+    class="ui-end-text"
+  >
+    {endText}
+    <slot name="end-text" />
+    {characterCount && (
+      <opui-character-count
+        aria-hidden="true"
+        class="ui-value"
+        label={characterCountLabel}
+      />
+    )}
+  </span>}
   <slot />
 </label>
 

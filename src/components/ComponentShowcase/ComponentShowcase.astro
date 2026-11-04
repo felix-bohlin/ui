@@ -60,13 +60,9 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   aria-label="Components"
   class="component-showcase component-showcase--hero showcase-grid"
 >
-  {
-    Astro.slots.has("default") && (
-      <li class="component-showcase__intro">
-        <slot />
-      </li>
-    )
-  }
+  {Astro.slots.has("default") && <li class="component-showcase__intro">
+    <slot />
+  </li>}
 
   <ShowcaseCards
     sizes={{
@@ -92,34 +88,30 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     <Fragment slot="anchor">
       <div class="ui-anchor" aria-hidden="true">
         <Chip variant="outlined" label="Anchored" />
-        {
-          (
-            [
-              { bottom: "anchor(top)", right: "anchor(left)" },
-              { bottom: "anchor(top)", left: "anchor(right)" },
-              { top: "anchor(bottom)", right: "anchor(left)" },
-              { top: "anchor(bottom)", left: "anchor(right)" },
-            ] as const
-          ).map((position) => (
-            <svg
-              style={`position: absolute; position-anchor: --anchor; ${Object.entries(
-                position,
-              )
-                .map(([prop, value]) => `${prop}: ${value};`)
-                .join(" ")}`}
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                fill="currentColor"
-                d="M12 22q-1.525 0-3.125-.55t-2.9-1.5t-2.137-2.225T3 15v-3l4 3l-1.55 1.55q.725 1.275 2.3 2.2T11 19.925V11H8V9h3V7.825q-.875-.325-1.437-1.088T9 5q0-1.25.875-2.125T12 2t2.125.875T15 5q0 .975-.562 1.738T13 7.825V9h3v2h-3v8.925q1.675-.25 3.25-1.175t2.3-2.2L17 15l4-3v3q0 1.45-.837 2.725t-2.138 2.225t-2.9 1.5T12 22m0-16q.425 0 .713-.287T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"
-              />
-            </svg>
-          ))
-        }
+        {(
+          [
+            { bottom: "anchor(top)", right: "anchor(left)" },
+            { bottom: "anchor(top)", left: "anchor(right)" },
+            { top: "anchor(bottom)", right: "anchor(left)" },
+            { top: "anchor(bottom)", left: "anchor(right)" },
+          ] as const
+        ).map((position) => <svg
+          style={`position: absolute; position-anchor: --anchor; ${Object.entries(
+            position,
+          )
+            .map(([prop, value]) => `${prop}: ${value};`)
+            .join(" ")}`}
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M12 22q-1.525 0-3.125-.55t-2.9-1.5t-2.137-2.225T3 15v-3l4 3l-1.55 1.55q.725 1.275 2.3 2.2T11 19.925V11H8V9h3V7.825q-.875-.325-1.437-1.088T9 5q0-1.25.875-2.125T12 2t2.125.875T15 5q0 .975-.562 1.738T13 7.825V9h3v2h-3v8.925q1.675-.25 3.25-1.175t2.3-2.2L17 15l4-3v3q0 1.45-.837 2.725t-2.138 2.225t-2.9 1.5T12 22m0-16q.425 0 .713-.287T13 5t-.288-.712T12 4t-.712.288T11 5t.288.713T12 6"
+          />
+        </svg>)}
       </div>
     </Fragment>
 
@@ -136,11 +128,12 @@ import FrameworkPicker from "../FrameworkPicker.astro"
             width="32"
             height="32"
             viewBox="0 0 32 32"
-            ><path
+          >
+            <path
               fill="currentColor"
               d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2m0 22.5c-3.866 0-7-2.429-7-6.071A2.43 2.43 0 0 1 11.429 16h9.142A2.43 2.43 0 0 1 23 18.429c0 3.642-3.134 6.071-7 6.071m0-10A3.75 3.75 0 1 1 16 7a3.75 3.75 0 0 1 0 7.5"
-            ></path></svg
-          >
+            ></path>
+          </svg>
         </Avatar>
       </AvatarGroup>
     </Fragment>
@@ -192,18 +185,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         class="showcase-carousel"
         aria-label="Destinations"
       >
-        {
-          ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
-            <li>
-              <Card variant="tonal">
-                <CardHeader>
-                  <p>Destination</p>
-                  <h3>{title}</h3>
-                </CardHeader>
-              </Card>
-            </li>
-          ))
-        }
+        {["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => <li>
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+            </CardHeader>
+          </Card>
+        </li>)}
       </Carousel>
     </Fragment>
 

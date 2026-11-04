@@ -92,18 +92,14 @@ export const description =
         itemsPerView={2}
         persistentButtons
       >
-        {
-          ["Kyoto", "Lima", "Lisbon"].map((title) => (
-            <li>
-              <UICard variant="tonal">
-                <UICardHeader>
-                  <p>Destination</p>
-                  <h3>{title}</h3>
-                </UICardHeader>
-              </UICard>
-            </li>
-          ))
-        }
+        {["Kyoto", "Lima", "Lisbon"].map((title) => <li>
+          <UICard variant="tonal">
+            <UICardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+            </UICardHeader>
+          </UICard>
+        </li>)}
       </UICarousel>
     </Anatomy>
   </Fragment>
@@ -122,9 +118,8 @@ export const description =
       of view are easy to miss, so show it on the page.
     </li>
     <li slot="when-not">
-      Items that people compare side by side. Show them all in a <DocLink
-        href="/components/layout#grid">layout grid</DocLink
-      >.
+      Items that people compare side by side. Show them all in a
+      <DocLink href="/components/layout#grid">layout grid</DocLink>.
     </li>
   </Usage>
 
@@ -132,20 +127,20 @@ export const description =
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
       <Fragment slot="components"
-        >The carousel has previous and next buttons by default, and <code
-          >buttons="none"</code
-        > leaves them out. Set <code>markers</code> to add a marker per item.</Fragment
+        >The carousel has previous and next buttons by default, and
+        <code>buttons="none"</code> leaves them out. Set <code>markers</code> to
+        add a marker per item.</Fragment
       >
       <Fragment slot="html"
-        >The carousel has previous and next buttons without a class, and <code
-          >.ui-buttons-none</code
-        > leaves them out. Add <code>.ui-markers</code> for a marker per item.</Fragment
+        >The carousel has previous and next buttons without a class, and
+        <code>.ui-buttons-none</code> leaves them out. Add
+        <code>.ui-markers</code> for a marker per item.</Fragment
       >
     </Conditional>
     <p>
-      Browsers without <code>::scroll-button()</code> and <code
-        >::scroll-marker</code
-      > get a plain scroll-snap list with a scrollbar.
+      Browsers without <code>::scroll-button()</code> and
+      <code>::scroll-marker</code> get a plain scroll-snap list with a
+      scrollbar.
     </p>
 
     <AutoExample name="Basics" />
@@ -154,8 +149,8 @@ export const description =
   <section>
     <h2 id="items-per-view">Items per view</h2>
     <p>
-      Set <PropOrClass prop="itemsPerView" class="--_items-per-view" /> to show more
-      than one item at a time.
+      Set <PropOrClass prop="itemsPerView" class="--_items-per-view" /> to show
+      more than one item at a time.
     </p>
 
     <AutoExample name="ItemsPerView" />
@@ -168,8 +163,8 @@ export const description =
       own height.
     </p>
     <p>
-      <PropOrClass prop="stretch" class=".ui-stretch" /> stretches the content of
-      each item, such as a card, to the item's height.
+      <PropOrClass prop="stretch" class=".ui-stretch" /> stretches the content
+      of each item, such as a card, to the item's height.
     </p>
 
     <AutoExample name="Stretch" />
@@ -178,9 +173,10 @@ export const description =
   <section>
     <h2 id="peek">Peek</h2>
     <p>
-      Use <PropOrClass prop="peek" class=".ui-peek" /> to show part of the neighboring
-      items, and <PropOrClass prop='align="center"' class=".ui-align-center" /> to
-      snap items to the center.
+      Use <PropOrClass prop="peek" class=".ui-peek" /> to show part of the
+      neighboring items, and
+      <PropOrClass prop='align="center"' class=".ui-align-center" /> to snap
+      items to the center.
     </p>
 
     <AutoExample name="Peek" />
@@ -189,8 +185,8 @@ export const description =
   <section>
     <h2 id="vertical">Vertical</h2>
     <p>
-      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> scrolls on
-      the block axis. Set its height with <code>--_block-size</code>.
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> scrolls
+      on the block axis. Set its height with <code>--_block-size</code>.
     </p>
 
     <AutoExample name="Vertical" />
@@ -199,8 +195,8 @@ export const description =
   <section>
     <h2 id="images">Images</h2>
     <p>
-      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> crops images
-      to the same shape, <code>16 / 9</code> by default.
+      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> crops
+      images to the same shape, <code>16 / 9</code> by default.
     </p>
 
     <AutoExample name="Images" />
@@ -226,8 +222,8 @@ export const description =
   <section>
     <h2 id="buttons-outside">Buttons outside</h2>
     <p>
-      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" /> to
-      keep the buttons off the content.
+      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />
+      to keep the buttons off the content.
     </p>
 
     <AutoExample name="ButtonsOutside" />
@@ -236,10 +232,10 @@ export const description =
   <section>
     <h2 id="persistent-buttons">Persistent buttons</h2>
     <p>
-      Use <PropOrClass
-        prop="persistentButtons"
-        class=".ui-persistent-buttons"
-      /> to keep both buttons visible at the ends. A disabled button has a muted border.
+      Use
+      <PropOrClass prop="persistentButtons" class=".ui-persistent-buttons" /> to
+      keep both buttons visible at the ends. A disabled button has a muted
+      border.
     </p>
 
     <AutoExample name="PersistentButtons" />
@@ -248,10 +244,10 @@ export const description =
   <section>
     <h2 id="custom-buttons">Custom buttons</h2>
     <p>
-      <code>--_button-image</code> takes any SVG, for example from your icon library.
-      Draw a white glyph that points right. The previous button mirrors it, and a
-      vertical carousel rotates it. Set <code>--_button-image-size</code> to scale
-      it.
+      <code>--_button-image</code> takes any SVG, for example from your icon
+      library. Draw a white glyph that points right. The previous button mirrors
+      it, and a vertical carousel rotates it. Set
+      <code>--_button-image-size</code> to scale it.
     </p>
 
     <AutoExample name="CustomButtons" />
@@ -299,20 +295,19 @@ export const description =
           label="Aspect ratio"
           size="small"
         />
-        {
-          [
-            ["persistent", "Persistent buttons"],
-            ["markers", "Markers"],
-            ["peek", "Peek"],
-            ["stretch", "Stretch"],
-            ["vertical", "Vertical"],
-            ["center", "Center"],
-          ].map(([control, label]) => (
-            <UISwitch data-control={control} size="small">
-              {label}
-            </UISwitch>
-          ))
-        }
+        {[
+          ["persistent", "Persistent buttons"],
+          ["markers", "Markers"],
+          ["peek", "Peek"],
+          ["stretch", "Stretch"],
+          ["vertical", "Vertical"],
+          ["center", "Center"],
+        ].map(([control, label]) => <UISwitch
+          data-control={control}
+          size="small"
+        >
+          {label}
+        </UISwitch>)}
       </div>
       <div class="carousel-playground" data-carousel-playground>
         <ul
@@ -321,19 +316,15 @@ export const description =
           data-content="images"
           style="--_block-size: 20rem"
         >
-          {
-            photos.map((photo) => (
-              <li>
-                <img
-                  alt={photo.alt}
-                  height="450"
-                  loading="lazy"
-                  src={`https://picsum.photos/id/${photo.id}/800/450`}
-                  width="800"
-                />
-              </li>
-            ))
-          }
+          {photos.map((photo) => <li>
+            <img
+              alt={photo.alt}
+              height="450"
+              loading="lazy"
+              src={`https://picsum.photos/id/${photo.id}/800/450`}
+              width="800"
+            />
+          </li>)}
         </ul>
         <ul
           aria-label="Destinations"
@@ -342,22 +333,19 @@ export const description =
           hidden
           style="--_block-size: 20rem"
         >
-          {
-            destinations.map((destination) => (
-              <li>
-                <div class="ui-card ui-tonal">
-                  <hgroup>
-                    <p>Destination</p>
-                    <h3>{destination.title}</h3>
-                    <p>{destination.text}</p>
-                  </hgroup>
-                </div>
-              </li>
-            ))
-          }
+          {destinations.map((destination) => <li>
+            <div class="ui-card ui-tonal">
+              <hgroup>
+                <p>Destination</p>
+                <h3>{destination.title}</h3>
+                <p>{destination.text}</p>
+              </hgroup>
+            </div>
+          </li>)}
         </ul>
         <pre
-          class="carousel-playground-code"><code data-playground-code /></pre>
+          class="carousel-playground-code"
+        ><code data-playground-code /></pre>
       </div>
     </Example>
   </section>
@@ -393,22 +381,20 @@ export const description =
     <p>
       Screen readers announce the position of each item. The buttons and markers
       have accessible names: "Previous", "Next" and "Slide" followed by the
-      number. Translate them with <code>--_button-prev-label</code>, <code
-        >--_button-next-label</code
-      > and <code>--_marker-label</code>. The number always follows the marker
-      word. Chromium exposes the markers as tabs in a tab list.
+      number. Translate them with <code>--_button-prev-label</code>,
+      <code>--_button-next-label</code> and <code>--_marker-label</code>. The
+      number always follows the marker word. Chromium exposes the markers as
+      tabs in a tab list.
     </p>
     <p>
       The buttons and markers get the library's focus ring. In forced colors
-      mode the markers get an outline, and the current marker is filled with <code
-        >SelectedItem</code
-      >.
+      mode the markers get an outline, and the current marker is filled with
+      <code>SelectedItem</code>.
     </p>
     <p>
       The buttons and markers scroll smoothly unless motion is off: with reduced
-      motion, <code>.ui-motion-off</code> on the carousel or a parent, or <code
-        >--ui-motion: 0</code
-      > on a parent.
+      motion, <code>.ui-motion-off</code> on the carousel or a parent, or
+      <code>--ui-motion: 0</code> on a parent.
     </p>
     <KeyboardSupport>
       <p>

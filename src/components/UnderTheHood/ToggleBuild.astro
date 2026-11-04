@@ -142,21 +142,19 @@ const groups = [
 ---
 
 <BuildUp id="build-toggle" steps={steps}>
-  {
-    groups.map((group) => (
-      <div aria-label={group.label} class="toggle-group" role={group.role}>
-        {group.items.map((item) => (
-          <label class="toggle">
-            <input
-              checked={item.checked}
-              name={`build-toggle-${group.type}`}
-              type={group.type}
-              value={item.label}
-            />
-            {item.label}
-          </label>
-        ))}
-      </div>
-    ))
-  }
+  {groups.map((group) => <div
+    aria-label={group.label}
+    class="toggle-group"
+    role={group.role}
+  >
+    {group.items.map((item) => <label class="toggle">
+      <input
+        checked={item.checked}
+        name={`build-toggle-${group.type}`}
+        type={group.type}
+        value={item.label}
+      />
+      {item.label}
+    </label>)}
+  </div>)}
 </BuildUp>

@@ -57,25 +57,21 @@ const siteHref = link("/")
           contrast, so the preview always shows it.
         </p>
         <div class="preview-panes" data-view="both">
-          {
-            schemes.map(({ label, scheme }) => (
-              <div
-                aria-labelledby={`preview-components-${scheme}`}
-                class={`preview-pane ui-palette ui-${scheme}`}
-                data-scheme={scheme}
-                role="group"
-              >
-                <p
-                  class="preview-pane-label"
-                  data-label={label}
-                  id={`preview-components-${scheme}`}
-                >
-                  {label}
-                </p>
-                <PreviewSpecimen scheme={scheme} />
-              </div>
-            ))
-          }
+          {schemes.map(({ label, scheme }) => <div
+            aria-labelledby={`preview-components-${scheme}`}
+            class={`preview-pane ui-palette ui-${scheme}`}
+            data-scheme={scheme}
+            role="group"
+          >
+            <p
+              class="preview-pane-label"
+              data-label={label}
+              id={`preview-components-${scheme}`}
+            >
+              {label}
+            </p>
+            <PreviewSpecimen scheme={scheme} />
+          </div>)}
         </div>
       </TabsPanel>
     </TabsItem>
@@ -90,17 +86,13 @@ const siteHref = link("/")
             name="preview-block"
             size="small"
           >
-            {
-              blocks.map((block) => (
-                <option
-                  data-href={block.href}
-                  data-width={block.width}
-                  value={block.slug}
-                >
-                  {block.name}
-                </option>
-              ))
-            }
+            {blocks.map((block) => <option
+              data-href={block.href}
+              data-width={block.width}
+              value={block.slug}
+            >
+              {block.name}
+            </option>)}
           </Select>
           <PreviewView name="preview-blocks" />
           <a
@@ -109,9 +101,8 @@ const siteHref = link("/")
             href={firstBlock.href}
             rel="noopener"
             target="_blank"
-            >Open full size<span class="ui-sr-only">
-              (opens in a new tab)</span
-            ></a
+            >Open full
+            size<span class="ui-sr-only"> (opens in a new tab)</span></a
           >
         </div>
         <p class="preview-note" data-more-note hidden>
@@ -119,35 +110,31 @@ const siteHref = link("/")
           contrast, so the preview always shows it.
         </p>
         <div class="preview-panes" data-view="both">
-          {
-            schemes.map(({ label, scheme }) => (
-              <div
-                aria-labelledby={`preview-blocks-${scheme}`}
-                class={`preview-pane preview-frame ui-palette ui-${scheme}`}
+          {schemes.map(({ label, scheme }) => <div
+            aria-labelledby={`preview-blocks-${scheme}`}
+            class={`preview-pane preview-frame ui-palette ui-${scheme}`}
+            data-scheme={scheme}
+            role="group"
+          >
+            <p
+              class="preview-pane-label"
+              data-label={label}
+              id={`preview-blocks-${scheme}`}
+            >
+              {label}
+            </p>
+            <div
+              aria-label={`${firstBlock.name} block in ${label.toLowerCase()} mode`}
+              class="preview-frame-box"
+              role="img"
+            >
+              <iframe
                 data-scheme={scheme}
-                role="group"
-              >
-                <p
-                  class="preview-pane-label"
-                  data-label={label}
-                  id={`preview-blocks-${scheme}`}
-                >
-                  {label}
-                </p>
-                <div
-                  aria-label={`${firstBlock.name} block in ${label.toLowerCase()} mode`}
-                  class="preview-frame-box"
-                  role="img"
-                >
-                  <iframe
-                    data-scheme={scheme}
-                    inert
-                    title={`${firstBlock.name} block`}
-                  />
-                </div>
-              </div>
-            ))
-          }
+                inert
+                title={`${firstBlock.name} block`}
+              />
+            </div>
+          </div>)}
         </div>
       </TabsPanel>
     </TabsItem>
@@ -162,25 +149,21 @@ const siteHref = link("/")
           contrast, so the preview always shows it.
         </p>
         <div class="preview-panes" data-view="both">
-          {
-            schemes.map(({ label, scheme }) => (
-              <div
-                aria-labelledby={`preview-states-${scheme}`}
-                class={`preview-pane ui-palette ui-${scheme}`}
-                data-scheme={scheme}
-                role="group"
-              >
-                <p
-                  class="preview-pane-label"
-                  data-label={label}
-                  id={`preview-states-${scheme}`}
-                >
-                  {label}
-                </p>
-                <PreviewStates scheme={scheme} />
-              </div>
-            ))
-          }
+          {schemes.map(({ label, scheme }) => <div
+            aria-labelledby={`preview-states-${scheme}`}
+            class={`preview-pane ui-palette ui-${scheme}`}
+            data-scheme={scheme}
+            role="group"
+          >
+            <p
+              class="preview-pane-label"
+              data-label={label}
+              id={`preview-states-${scheme}`}
+            >
+              {label}
+            </p>
+            <PreviewStates scheme={scheme} />
+          </div>)}
         </div>
       </TabsPanel>
     </TabsItem>
@@ -237,7 +220,8 @@ const siteHref = link("/")
             class="preview-site"
             data-site
             data-src={siteHref}
-            title="This site with your theme"></iframe>
+            title="This site with your theme"
+          ></iframe>
         </div>
       </TabsPanel>
     </TabsItem>

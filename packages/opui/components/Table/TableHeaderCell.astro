@@ -9,13 +9,11 @@ const { class: className, numeric, sortable, ...rest } = Astro.props
   data-sort={sortable ? "" : undefined}
   {...rest}
 >
-  {
-    sortable ? (
-      <button type="button">
-        <slot />
-      </button>
-    ) : (
+  {sortable ? (
+    <button type="button">
       <slot />
-    )
-  }
+    </button>
+  ) : (
+    <slot />
+  )}
 </th>

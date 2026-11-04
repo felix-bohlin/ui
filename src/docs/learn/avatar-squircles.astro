@@ -11,11 +11,11 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      <code>border-radius</code> only draws round arcs. A squircle, the smooth superellipse
-      you know from app icons, used to need an SVG mask or a <code
-        >clip-path</code
-      > path. Both are fixed shapes: they don't follow the element's size, and they
-      clip borders and shadows along with everything else.
+      <code>border-radius</code> only draws round arcs. A squircle, the smooth
+      superellipse you know from app icons, used to need an SVG mask or a
+      <code>clip-path</code> path. Both are fixed shapes: they don't follow the
+      element's size, and they clip borders and shadows along with everything
+      else.
     </p>
     <p>
       An avatar also has to hold a photo, initials or an icon, and stay square
@@ -26,20 +26,16 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
   <section>
     <h2 id="the-trick">The trick</h2>
     <ul>
-      <li>
-        <code>aspect-ratio: 1</code>: set the width, the height follows
-      </li>
+      <li><code>aspect-ratio: 1</code>: set the width, the height follows</li>
       <li>
         The photo is absolutely positioned with <code>object-fit: cover</code>,
         so it never sizes the avatar
       </li>
+      <li><code>:has(img)</code> drops the fallback color behind the photo</li>
       <li>
-        <code>:has(img)</code> drops the fallback color behind the photo
-      </li>
-      <li>
-        <code>corner-shape: squircle</code> changes how the corner is drawn, <code
-          >border-radius</code
-        > still sets how big it is. A full radius gives a full squircle
+        <code>corner-shape: squircle</code> changes how the corner is drawn,
+        <code>border-radius</code> still sets how big it is. A full radius gives
+        a full squircle
       </li>
     </ul>
     <Code
@@ -65,18 +61,17 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
     <h2 id="try-it">Try it</h2>
     <p>
       Drag the exponent. The radius stays where you set it, only
-      {" "}<code>corner-shape</code> changes, and the keywords are points on the same
-      scale.
+      {" "}<code>corner-shape</code> changes, and the keywords are points on the
+      same scale.
     </p>
     <Example showCode={false}>
       <CornerShape />
     </Example>
     <ul>
       <li>
-        <code>superellipse(1)</code> is <code>round</code>, <code
-          >superellipse(2)</code
-        > is <code>squircle</code>, <code>0</code> is <code>bevel</code> and
-        {" "}<code>-1</code> is <code>scoop</code>
+        <code>superellipse(1)</code> is <code>round</code>,
+        <code>superellipse(2)</code> is <code>squircle</code>, <code>0</code> is
+        <code>bevel</code> and {" "}<code>-1</code> is <code>scoop</code>
       </li>
       <li>
         At a 50% radius the shape runs edge to edge. Lower the radius and the

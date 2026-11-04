@@ -12,8 +12,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <h2 id="the-problem">The problem</h2>
     <p>
       A loading state is usually two things to keep in sync: a spinner element
-      or class for sighted users, and <code>aria-busy</code> for assistive technology.
-      Forget one and the two disagree.
+      or class for sighted users, and <code>aria-busy</code> for assistive
+      technology. Forget one and the two disagree.
     </p>
     <p>If the attribute is already there, it can be the only switch.</p>
   </section>
@@ -22,28 +22,28 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>[aria-busy="true"]</code> is the selector, no class and no extra element
+        <code>[aria-busy="true"]</code> is the selector, no class and no extra
+        element
       </li>
       <li>
-        A <code>::before</code> circle with one transparent border side is the ring,
-        {" "}<code>rotate(1turn)</code> in a <code>linear</code>, <code
-          >infinite</code
-        > loop spins it
+        A <code>::before</code> circle with one transparent border side is the
+        ring, {" "}<code>rotate(1turn)</code> in a <code>linear</code>,
+        <code>infinite</code> loop spins it
       </li>
       <li>
-        <code>1em</code> sizes it from the font and <code>currentColor</code> colors
-        it from the text. The ring is at least the thick border width and grows with
-        the font
+        <code>1em</code> sizes it from the font and <code>currentColor</code>
+        colors it from the text. The ring is at least the thick border width and
+        grows with the font
       </li>
       <li>
         <code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code>,
-        the root and anything but a button or link with <code
-          >aria-describedby</code
-        >, such as a section pointing to its progress bar
+        the root and anything but a button or link with
+        <code>aria-describedby</code>, such as a section pointing to its
+        progress bar
       </li>
       <li>
-        <code>:not(:empty)</code> adds a gap only next to text, and skips the library's
-        button, which has its own gap
+        <code>:not(:empty)</code> adds a gap only next to text, and skips the
+        library's button, which has its own gap
       </li>
     </ul>
     <Code
@@ -80,8 +80,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      Flip the switch. It sets <code>aria-busy</code> on a button, a paragraph and
-      a text field, and nothing else changes.
+      Flip the switch. It sets <code>aria-busy</code> on a button, a paragraph
+      and a text field, and nothing else changes.
     </p>
     <Example showCode={false}>
       <BusyToggle />
@@ -89,8 +89,8 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <ul>
       <li>The button and the paragraph get a ring, the field doesn't</li>
       <li>
-        <code>:not(input, …)</code> skips it, because a spinning ring inside a field
-        would sit on the text
+        <code>:not(input, …)</code> skips it, because a spinning ring inside a
+        field would sit on the text
       </li>
     </ul>
     <p>
@@ -107,8 +107,9 @@ import Buttons from "../../component-examples/spinner/Buttons.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        <code>:not()</code> with a selector list is Selectors Level 4. A browser without
-        it drops the rule: no spinner, but <code>aria-busy</code> is still announced
+        <code>:not()</code> with a selector list is Selectors Level 4. A browser
+        without it drops the rule: no spinner, but <code>aria-busy</code> is
+        still announced
       </li>
       <li>
         Under reduced motion it spins at half speed instead of stopping, so it

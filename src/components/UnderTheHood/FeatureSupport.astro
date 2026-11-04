@@ -29,37 +29,31 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
 ---
 
 <ul class="feature-support">
-  {
-    entries.map((entry) => {
-      const status = entry.baseline || "limited"
-      return (
-        <li data-status={status}>
-          <a
-            href={`https://webstatus.dev/features/${entry.id}`}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {isCode(entry.name) ? <code>{entry.name}</code> : entry.name}
-          </a>
-          <span class="feature-support-status">{STATUS[status]}</span>
-          <dl>
-            {entry.browsers.map((browser) => {
-              const Icon = ICONS[browser.browser]
-              return (
-                <div data-supported={browser.version ? "" : undefined}>
-                  <dt>
-                    <Icon />
-                    <span class="ui-sr-only">{browser.label}</span>
-                  </dt>
-                  <dd>{browser.version ?? "No"}</dd>
-                </div>
-              )
-            })}
-          </dl>
-        </li>
-      )
-    })
-  }
+  {entries.map((entry) => {
+    const status = entry.baseline || "limited"
+    return <li data-status={status}>
+      <a
+        href={`https://webstatus.dev/features/${entry.id}`}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {isCode(entry.name) ? <code>{entry.name}</code> : entry.name}
+      </a>
+      <span class="feature-support-status">{STATUS[status]}</span>
+      <dl>
+        {entry.browsers.map((browser) => {
+          const Icon = ICONS[browser.browser]
+          return <div data-supported={browser.version ? "" : undefined}>
+            <dt>
+              <Icon />
+              <span class="ui-sr-only">{browser.label}</span>
+            </dt>
+            <dd>{browser.version ?? "No"}</dd>
+          </div>
+        })}
+      </dl>
+    </li>
+  })}
 </ul>
 
 <style>

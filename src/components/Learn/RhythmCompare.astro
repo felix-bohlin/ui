@@ -15,29 +15,28 @@ const columns = [
   style={`--font-size: ${fontSize}px; --step: ${step}px`}
 >
   <div class="rhythm-compare-columns">
-    {
-      columns.map((column) => (
-        <div class="rhythm-compare-column" data-mode={column.mode}>
-          <p class="rhythm-compare-code">
-            <code>{column.code}</code>
-          </p>
-          <div class="rhythm-compare-grid">
-            <p class="rhythm-compare-heading">
-              {["One", "Two", "Three"].map((line) => (
-                <span class="rhythm-compare-line">
-                  {line}
-                  <span aria-hidden="true" class="rhythm-compare-edge" />
-                </span>
-              ))}
-            </p>
-          </div>
-          <p class="rhythm-compare-readout">
-            <span data-line-height />
-            <span data-steps />
-          </p>
-        </div>
-      ))
-    }
+    {columns.map((column) => <div
+      class="rhythm-compare-column"
+      data-mode={column.mode}
+    >
+      <p class="rhythm-compare-code">
+        <code>{column.code}</code>
+      </p>
+      <div class="rhythm-compare-grid">
+        <p class="rhythm-compare-heading">
+          {["One", "Two", "Three"].map((line) => <span
+            class="rhythm-compare-line"
+          >
+            {line}
+            <span aria-hidden="true" class="rhythm-compare-edge" />
+          </span>)}
+        </p>
+      </div>
+      <p class="rhythm-compare-readout">
+        <span data-line-height />
+        <span data-steps />
+      </p>
+    </div>)}
   </div>
 
   <fieldset class="rhythm-compare-knobs">

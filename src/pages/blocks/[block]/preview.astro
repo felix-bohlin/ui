@@ -83,17 +83,15 @@ const themes = testPagesEnabled()
     </script>
   </head>
   <body>
-    {
-      fullPage ? (
-        <div class="block-preview" data-block={block.slug}>
-          <Fragment set:html={block.source} />
-        </div>
-      ) : (
-        <main class="block-preview" data-block={block.slug}>
-          <Fragment set:html={block.source} />
-        </main>
-      )
-    }
+    {fullPage ? (
+      <div class="block-preview" data-block={block.slug}>
+        <Fragment set:html={block.source} />
+      </div>
+    ) : (
+      <main class="block-preview" data-block={block.slug}>
+        <Fragment set:html={block.source} />
+      </main>
+    )}
     <script is:inline define:vars={{ themes }}>
       const theme = new URLSearchParams(location.search).get("theme")
       if (theme && Object.hasOwn(themes, theme)) {

@@ -25,49 +25,46 @@ const count = sections.reduce((sum, section) => sum + section.tokens.length, 0)
       <span class="builder-count" data-count hidden></span>
     </h3>
     <p>
-      Every one of the {count} theme tokens with its value in light and dark mode.
-      Type a value to set it, clear it to go back.
+      Every one of the {count} theme tokens with its value in light and dark
+      mode. Type a value to set it, clear it to go back.
     </p>
   </header>
-  {
-    sections.map((section) => (
-      <div class="builder-token-section" data-token-section>
-        <h4 class="builder-token-title">{section.title}</h4>
-        <ul class="builder-token-list">
-          {section.tokens.map((token) => (
-            <li
-              class="builder-token"
-              data-search={`${token.name} ${descriptions[token.name] ?? ""}`}
-              data-token={token.name}
-              title={descriptions[token.name]}
-            >
-              <code class="builder-token-name">{token.name}</code>
-              <span class="builder-token-values">
-                <span class="builder-token-value" data-light>
-                  <span class="builder-token-swatch" data-swatch hidden />
-                  <span data-text />
-                </span>
-                <span class="builder-token-value" data-dark>
-                  <span class="builder-token-swatch" data-swatch hidden />
-                  <span data-text />
-                </span>
-              </span>
-              <TextField
-                autocomplete="off"
-                class="builder-token-field"
-                hideLabel
-                label={`${token.name} value`}
-                name={`token-${token.name.slice(2)}`}
-                placeholder="Set a value"
-                size="small"
-                spellcheck="false"
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))
-  }
+  {sections.map((section) => <div
+    class="builder-token-section"
+    data-token-section
+  >
+    <h4 class="builder-token-title">{section.title}</h4>
+    <ul class="builder-token-list">
+      {section.tokens.map((token) => <li
+        class="builder-token"
+        data-search={`${token.name} ${descriptions[token.name] ?? ""}`}
+        data-token={token.name}
+        title={descriptions[token.name]}
+      >
+        <code class="builder-token-name">{token.name}</code>
+        <span class="builder-token-values">
+          <span class="builder-token-value" data-light>
+            <span class="builder-token-swatch" data-swatch hidden />
+            <span data-text />
+          </span>
+          <span class="builder-token-value" data-dark>
+            <span class="builder-token-swatch" data-swatch hidden />
+            <span data-text />
+          </span>
+        </span>
+        <TextField
+          autocomplete="off"
+          class="builder-token-field"
+          hideLabel
+          label={`${token.name} value`}
+          name={`token-${token.name.slice(2)}`}
+          placeholder="Set a value"
+          size="small"
+          spellcheck="false"
+        />
+      </li>)}
+    </ul>
+  </div>)}
 </section>
 
 <style>

@@ -87,15 +87,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           <hgroup class="ui-hgroup">
             <p class="hero-version">
               {packageVersion}
-              {
-                unreleased && (
-                  <span class="ui-chip ui-dot ui-warning ui-x-small">
-                    <span class="ui-text">
-                      {prerelease ? "Release candidate" : "Not on npm yet"}
-                    </span>
-                  </span>
-                )
-              }
+              {unreleased && <span class="ui-chip ui-dot ui-warning ui-x-small">
+                <span class="ui-text">
+                  {prerelease ? "Release candidate" : "Not on npm yet"}
+                </span>
+              </span>}
             </p>
 
             <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
@@ -113,24 +109,20 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           </div>
 
           <nav class="framework-support" aria-label="Framework">
-            {
-              FRAMEWORKS.map((framework) => {
-                const branding = FRAMEWORK_BRANDING[framework.id]
-                const Logo = branding.Logo
-                const isCurrent = framework.id === currentFramework
-                return (
-                  <Chip
-                    href={hrefFor(framework.id, "/")}
-                    aria-current={isCurrent ? "page" : undefined}
-                    variant={isCurrent ? "tonal" : "outlined"}
-                    data-framework={framework.id}
-                  >
-                    <Logo slot="start" />
-                    <Fragment slot="label">{framework.label}</Fragment>
-                  </Chip>
-                )
-              })
-            }
+            {FRAMEWORKS.map((framework) => {
+              const branding = FRAMEWORK_BRANDING[framework.id]
+              const Logo = branding.Logo
+              const isCurrent = framework.id === currentFramework
+              return <Chip
+                href={hrefFor(framework.id, "/")}
+                aria-current={isCurrent ? "page" : undefined}
+                variant={isCurrent ? "tonal" : "outlined"}
+                data-framework={framework.id}
+              >
+                <Logo slot="start" />
+                <Fragment slot="label">{framework.label}</Fragment>
+              </Chip>
+            })}
           </nav>
         </div>
 
@@ -154,23 +146,21 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             <span class="leader leader-text" aria-hidden="true"></span>
             <span class="leader leader-weight" aria-hidden="true"></span>
             <dl class="dimensions">
-              {
-                dimensions.map((dimension) => (
-                  <div class={`dimension-label label-${dimension.prop}`}>
-                    <dt>
-                      <code>{dimension.token}</code>
-                    </dt>
-                    <dd>
-                      {dimension.prop === "background-color" && (
-                        <span class="swatch" aria-hidden="true" />
-                      )}
-                      <output data-prop={dimension.prop}>
-                        {dimension.value}
-                      </output>
-                    </dd>
-                  </div>
-                ))
-              }
+              {dimensions.map((dimension) => <div
+                class={`dimension-label label-${dimension.prop}`}
+              >
+                <dt>
+                  <code>{dimension.token}</code>
+                </dt>
+                <dd>
+                  {dimension.prop === "background-color" && (
+                    <span class="swatch" aria-hidden="true" />
+                  )}
+                  <output data-prop={dimension.prop}>
+                    {dimension.value}
+                  </output>
+                </dd>
+              </div>)}
             </dl>
           </div>
         </figure>
@@ -184,8 +174,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <header class="sheet-header">
           <h2 class="ui-h2" id="components-heading">Components</h2>
           <p>
-            {components.length} components in plain CSS. Read them, override them,
-            make them yours.
+            {components.length} components in plain CSS. Read them, override
+            them, make them yours.
           </p>
         </header>
 
@@ -196,8 +186,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <header class="sheet-header">
           <h2 class="ui-h2" id="blocks-heading">Blocks</h2>
           <p>
-            {allBlocks.length} pages and sections built from the components, from
-            sign-in forms to dashboards.
+            {allBlocks.length} pages and sections built from the components,
+            from sign-in forms to dashboards.
           </p>
         </header>
 
@@ -206,25 +196,21 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           class="block-showcase showcase-grid"
           markers
         >
-          {
-            featuredBlocks.map((block, index) => (
-              <ComponentCard
-                name={block.name}
-                href={`/blocks/${block.slug}`}
-                size={index === 0 ? "xl" : undefined}
-              >
-                <div class="block-thumbnail">
-                  <iframe
-                    inert
-                    loading="lazy"
-                    src={blockPreviewHref(block.slug)}
-                    tabindex="-1"
-                    title={`${block.name} preview`}
-                  />
-                </div>
-              </ComponentCard>
-            ))
-          }
+          {featuredBlocks.map((block, index) => <ComponentCard
+            name={block.name}
+            href={`/blocks/${block.slug}`}
+            size={index === 0 ? "xl" : undefined}
+          >
+            <div class="block-thumbnail">
+              <iframe
+                inert
+                loading="lazy"
+                src={blockPreviewHref(block.slug)}
+                tabindex="-1"
+                title={`${block.name} preview`}
+              />
+            </div>
+          </ComponentCard>)}
         </Carousel>
 
         <div class="hero-ctas">
@@ -252,11 +238,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
           <div class="specimen ui-not-rich-text">
             <div class="palette-strip" aria-hidden="true">
-              {
-                steps.map((step) => (
-                  <span style={`background-color: var(--ui-color-${step})`} />
-                ))
-              }
+              {steps.map((step) => (
+                <span style={`background-color: var(--ui-color-${step})`} />
+              ))}
             </div>
 
             <div class="specimen-row">
@@ -293,47 +277,41 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </header>
 
         <ul class="learn-showcase">
-          {
-            featuredPosts.map((post) => (
-              <li>
-                <article class="ui-card ui-outlined learn-card">
-                  <hgroup>
-                    <h3>
-                      <a href={link(`/learn/${post.slug}`)}>{post.title}</a>
-                    </h3>
-                    <p>{post.description}</p>
-                  </hgroup>
-                  <div class="ui-content">
-                    <dl class="then-now">
-                      <div>
-                        <dt>Then</dt>
-                        <dd>
-                          <s set:html={formatInline(post.before ?? "", link)} />
-                        </dd>
-                      </div>
-                      <div>
-                        <dt>Now</dt>
-                        <dd>
-                          <code>{post.technique}</code>
-                        </dd>
-                      </div>
-                    </dl>
-                    <ul aria-label="Tags" class="learn-chips">
-                      {post.component && (
-                        <li>
-                          <Chip
-                            size="small"
-                            variant="outlined"
-                            label={componentName(post.component)}
-                          />
-                        </li>
-                      )}
-                    </ul>
+          {featuredPosts.map((post) => <li>
+            <article class="ui-card ui-outlined learn-card">
+              <hgroup>
+                <h3>
+                  <a href={link(`/learn/${post.slug}`)}>{post.title}</a>
+                </h3>
+                <p>{post.description}</p>
+              </hgroup>
+              <div class="ui-content">
+                <dl class="then-now">
+                  <div>
+                    <dt>Then</dt>
+                    <dd>
+                      <s set:html={formatInline(post.before ?? "", link)} />
+                    </dd>
                   </div>
-                </article>
-              </li>
-            ))
-          }
+                  <div>
+                    <dt>Now</dt>
+                    <dd>
+                      <code>{post.technique}</code>
+                    </dd>
+                  </div>
+                </dl>
+                <ul aria-label="Tags" class="learn-chips">
+                  {post.component && <li>
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      label={componentName(post.component)}
+                    />
+                  </li>}
+                </ul>
+              </div>
+            </article>
+          </li>)}
         </ul>
 
         <div class="hero-ctas">

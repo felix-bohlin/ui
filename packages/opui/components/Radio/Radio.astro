@@ -46,14 +46,10 @@ const LabelTag = label || labelSlot ? "span" : Fragment
 >
   <RadioInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    >{label}<Fragment set:html={labelSlot} /></LabelTag
-  >
-  {
-    (endText || Astro.slots.has("end-text")) && (
-      <span class="ui-end-text">
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(endText || Astro.slots.has("end-text")) && <span class="ui-end-text">
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </label>

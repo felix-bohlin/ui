@@ -44,30 +44,24 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   ]}
   style={style}
 >
-  {
-    Astro.slots.has("icon-unchecked") && (
-      <span class="ui-icon-unchecked" aria-hidden="true">
-        <slot name="icon-unchecked" />
-      </span>
-    )
-  }
-  {
-    Astro.slots.has("icon-checked") && (
-      <span class="ui-icon-checked" aria-hidden="true">
-        <slot name="icon-checked" />
-      </span>
-    )
-  }
+  {Astro.slots.has("icon-unchecked") && <span
+    class="ui-icon-unchecked"
+    aria-hidden="true"
+  >
+    <slot name="icon-unchecked" />
+  </span>}
+  {Astro.slots.has("icon-checked") && <span
+    class="ui-icon-checked"
+    aria-hidden="true"
+  >
+    <slot name="icon-checked" />
+  </span>}
   <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-    >{label}<Fragment set:html={labelSlot} /></LabelTag
-  >
-  {
-    (endText || Astro.slots.has("end-text")) && (
-      <span class="ui-end-text">
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(endText || Astro.slots.has("end-text")) && <span class="ui-end-text">
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </label>

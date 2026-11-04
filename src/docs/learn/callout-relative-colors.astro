@@ -26,10 +26,9 @@ import Severities from "../../component-examples/callout/Severities.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        Each severity class sets a single <code>--ui-palette-source</code> color.
-        It takes its hue from the severity role, so a theme that changes <code
-          >--ui-info</code
-        > recolors every info shade
+        Each severity class sets a single <code>--ui-palette-source</code>
+        color. It takes its hue from the severity role, so a theme that changes
+        <code>--ui-info</code> recolors every info shade
       </li>
       <li>
         The palette derives 16 shades from it with <code>oklch(from …)</code>: a
@@ -41,8 +40,8 @@ import Severities from "../../component-examples/callout/Severities.astro"
         so dark mode needs no media query. The callout only reads the roles
       </li>
       <li>
-        The tint sits on a translucent <code>::before</code> layer over the opaque
-        surface
+        The tint sits on a translucent <code>::before</code> layer over the
+        opaque surface
       </li>
     </ul>
     <Code
@@ -91,8 +90,8 @@ import Severities from "../../component-examples/callout/Severities.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        There's no <code>@supports</code> fallback. The whole palette, grays included,
-        is built from relative colors
+        There's no <code>@supports</code> fallback. The whole palette, grays
+        included, is built from relative colors
       </li>
       <li>
         Without relative colors or <code>light-dark()</code>, the declarations

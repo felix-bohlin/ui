@@ -10,25 +10,19 @@ const options = ["Citroën", "Peugeot", "Renault", "Saab", "Volvo"]
 ---
 
 <div class="base-select-compare">
-  {
-    columns.map((column) => (
-      <fieldset
-        class="base-select-compare-column"
-        data-appearance={column.appearance}
-      >
-        <legend class="base-select-compare-title">
-          <code>appearance: {column.appearance}</code>
-          <span>{column.caption}</span>
-        </legend>
-        <Select label="Car" name={`base-select-${column.appearance}`}>
-          <option value="">Pick one</option>
-          {options.map((option) => (
-            <option>{option}</option>
-          ))}
-        </Select>
-      </fieldset>
-    ))
-  }
+  {columns.map((column) => <fieldset
+    class="base-select-compare-column"
+    data-appearance={column.appearance}
+  >
+    <legend class="base-select-compare-title">
+      <code>appearance: {column.appearance}</code>
+      <span>{column.caption}</span>
+    </legend>
+    <Select label="Car" name={`base-select-${column.appearance}`}>
+      <option value="">Pick one</option>
+      {options.map((option) => <option>{option}</option>)}
+    </Select>
+  </fieldset>)}
 </div>
 
 <style>

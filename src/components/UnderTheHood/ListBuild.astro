@@ -151,32 +151,26 @@ const items = [
 
 <BuildUp id="build-list" knobs={knobs} steps={steps}>
   <ul class="list bordered">
-    {
-      items.map((item) => (
-        <li class:list={{ inset: !item.icon }}>
-          <button type="button">
-            {item.icon && (
-              <span class="start">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d={item.icon} fill="currentColor" />
-                </svg>
-              </span>
-            )}
-            <span class="text">
-              <span>{item.label}</span>
-              <span>{item.description}</span>
-            </span>
-            <span class="end">
-              <kbd>{item.end}</kbd>
-            </span>
-          </button>
-        </li>
-      ))
-    }
+    {items.map((item) => <li class:list={{ inset: !item.icon }}>
+      <button type="button">
+        {item.icon && <span class="start">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d={item.icon} fill="currentColor" />
+          </svg>
+        </span>}
+        <span class="text">
+          <span>{item.label}</span>
+          <span>{item.description}</span>
+        </span>
+        <span class="end">
+          <kbd>{item.end}</kbd>
+        </span>
+      </button>
+    </li>)}
   </ul>
 </BuildUp>
 

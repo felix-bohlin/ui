@@ -65,43 +65,33 @@ const captions = [
   <div class="severity-layers-body">
     <figure class="severity-layers-stack">
       <ol>
-        {
-          layers.map((layer) => (
-            <li
-              data-version={layer.version}
-              data-yours={layer.yours ? "" : undefined}
-            >
-              <code class="severity-layers-name">{layer.name}</code>
-              <span class="severity-layers-note">{layer.note}</span>
-              {layer.yours && (
-                <code class="severity-layers-value">--ui-palette-hue: 300</code>
-              )}
-            </li>
-          ))
-        }
+        {layers.map((layer) => <li
+          data-version={layer.version}
+          data-yours={layer.yours ? "" : undefined}
+        >
+          <code class="severity-layers-name">{layer.name}</code>
+          <span class="severity-layers-note">{layer.note}</span>
+          {layer.yours && <code class="severity-layers-value"
+            >--ui-palette-hue: 300</code
+          >}
+        </li>)}
       </ol>
       <figcaption>
         Each layer beats the ones above it.
-        {
-          captions.map((caption) => (
-            <span data-state={caption.state}>{caption.text}</span>
-          ))
-        }
+        {captions.map((caption) => <span data-state={caption.state}
+          >{caption.text}</span
+        >)}
       </figcaption>
     </figure>
 
     <div class="severity-layers-stage ui-palette">
-      {
-        callouts.map((callout) => (
-          <Callout severity={callout.severity}>
-            <CalloutIcon />
-            <CalloutContent>
-              <h4>{callout.title}</h4>
-              <p>{callout.text}</p>
-            </CalloutContent>
-          </Callout>
-        ))
-      }
+      {callouts.map((callout) => <Callout severity={callout.severity}>
+        <CalloutIcon />
+        <CalloutContent>
+          <h4>{callout.title}</h4>
+          <p>{callout.text}</p>
+        </CalloutContent>
+      </Callout>)}
       <Button color="primary" variant="filled">Save changes</Button>
     </div>
   </div>

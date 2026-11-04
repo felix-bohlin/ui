@@ -185,9 +185,9 @@ const pairs = [
           </CardHeader>
           <CardContent>
             <p class="contrast-lab-body">
-              The knobs are listed in the <a
-                class="ui-link contrast-lab-link"
-                href="#contrast-guarantee">theme guide</a
+              The knobs are listed in the
+              <a class="ui-link contrast-lab-link" href="#contrast-guarantee"
+                >theme guide</a
               >.
             </p>
             <div class="contrast-lab-meta">
@@ -199,11 +199,12 @@ const pairs = [
                   width="24"
                   height="24"
                   viewBox="0 0 32 32"
-                  ><path
+                >
+                  <path
                     fill="currentColor"
                     d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-                  ></path></svg
-                >
+                  ></path>
+                </svg>
                 <Fragment slot="indicator">3</Fragment>
               </Badge>
             </div>
@@ -236,7 +237,9 @@ const pairs = [
     </div>
 
     <table class="ui-table contrast-lab-table">
-      <caption class="ui-sr-only">Contrast of each pair in the card</caption>
+      <caption class="ui-sr-only">
+        Contrast of each pair in the card
+      </caption>
       <thead>
         <tr>
           <th scope="col">Pair</th>
@@ -246,30 +249,26 @@ const pairs = [
         </tr>
       </thead>
       <tbody>
-        {
-          pairs.map((pair) => (
-            <tr
-              data-outline={pair.outline ? "" : undefined}
-              data-pair={pair.key}
-              data-ratio={pair.ratio}
-              data-selector={pair.selector}
-              data-status="pending"
-            >
-              <th scope="row">
-                {pair.label}
-                <code>{pair.token}</code>
-              </th>
-              <td class="contrast-lab-ratio">
-                <span class="contrast-lab-ratio-text">0.00</span>
-                <span class="contrast-lab-ratio-count" aria-hidden="true" />
-              </td>
-              <td>{pair.ratio}:1</td>
-              <td class="contrast-lab-status">
-                <span class="contrast-lab-mark">Pending</span>
-              </td>
-            </tr>
-          ))
-        }
+        {pairs.map((pair) => <tr
+          data-outline={pair.outline ? "" : undefined}
+          data-pair={pair.key}
+          data-ratio={pair.ratio}
+          data-selector={pair.selector}
+          data-status="pending"
+        >
+          <th scope="row">
+            {pair.label}
+            <code>{pair.token}</code>
+          </th>
+          <td class="contrast-lab-ratio">
+            <span class="contrast-lab-ratio-text">0.00</span>
+            <span class="contrast-lab-ratio-count" aria-hidden="true" />
+          </td>
+          <td>{pair.ratio}:1</td>
+          <td class="contrast-lab-status">
+            <span class="contrast-lab-mark">Pending</span>
+          </td>
+        </tr>)}
       </tbody>
     </table>
   </div>

@@ -51,72 +51,56 @@ const topic =
   <Fragment slot="title">{post.title}</Fragment>
   <Fragment slot="preamble">{post.description}</Fragment>
 
-  {
-    series && (
-      <nav aria-label="Series" class="learn-series ui-not-rich-text">
-        <p>
-          Part {series.part} of {series.total} in{" "}
-          <a href={link(`/learn#${series.id}`)}>{series.label}</a>
-        </p>
-        <ul>
-          {series.previous && (
-            <li>
-              <a href={link(`/learn/${series.previous.slug}`)} rel="prev">
-                <span class="ui-caption">Previous</span>
-                {series.previous.title}
-              </a>
-            </li>
-          )}
-          {series.next && (
-            <li>
-              <a href={link(`/learn/${series.next.slug}`)} rel="next">
-                <span class="ui-caption">Next</span>
-                {series.next.title}
-              </a>
-            </li>
-          )}
-        </ul>
-      </nav>
-    )
-  }
+  {series && <nav aria-label="Series" class="learn-series ui-not-rich-text">
+    <p>
+      Part {series.part} of {series.total} in{" "}
+      <a href={link(`/learn#${series.id}`)}>{series.label}</a>
+    </p>
+    <ul>
+      {series.previous && <li>
+        <a href={link(`/learn/${series.previous.slug}`)} rel="prev">
+          <span class="ui-caption">Previous</span>
+          {series.previous.title}
+        </a>
+      </li>}
+      {series.next && <li>
+        <a href={link(`/learn/${series.next.slug}`)} rel="next">
+          <span class="ui-caption">Next</span>
+          {series.next.title}
+        </a>
+      </li>}
+    </ul>
+  </nav>}
 
   <slot />
 
-  {
-    post.before && post.now && (
-      <section>
-        <h2 id="then-and-now">Then and now</h2>
-        <dl>
-          <dt>Then</dt>
-          <dd set:html={formatInline(post.before, link)} />
-          <dt>Now</dt>
-          <dd set:html={formatInline(post.now, link)} />
-        </dl>
-      </section>
-    )
-  }
+  {post.before && post.now && <section>
+    <h2 id="then-and-now">Then and now</h2>
+    <dl>
+      <dt>Then</dt>
+      <dd set:html={formatInline(post.before, link)} />
+      <dt>Now</dt>
+      <dd set:html={formatInline(post.now, link)} />
+    </dl>
+  </section>}
 
-  {
-    component && (
-      <section>
-        <h2 id="read-more">Read more</h2>
-        <ul>
-          <li>
-            <a href={docsHref}>{name} docs</a>
-          </li>
-          <li>
-            <a href={`${docsHref}#under-the-hood`}>{name}, under the hood</a>
-          </li>
-          <li>
-            <a href={hrefFor(currentFramework, "/learn/under-the-hood")}>
-              Every component, under the hood
-            </a>
-          </li>
-        </ul>
-        {topic && <ReadMore topic={topic} />}
-      </section>
-    )
-  }
+  {component && <section>
+    <h2 id="read-more">Read more</h2>
+    <ul>
+      <li>
+        <a href={docsHref}>{name} docs</a>
+      </li>
+      <li>
+        <a href={`${docsHref}#under-the-hood`}>{name}, under the hood</a>
+      </li>
+      <li>
+        <a href={hrefFor(currentFramework, "/learn/under-the-hood")}>
+          Every component, under the hood
+        </a>
+      </li>
+    </ul>
+    {topic && <ReadMore topic={topic} />}
+  </section>}
 </Learn>
 
 <style>

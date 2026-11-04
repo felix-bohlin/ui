@@ -18,19 +18,15 @@ const plans = [
 ---
 
 <Carousel aria-label="Plans" buttons="outside" itemsPerView={2}>
-  {
-    plans.map(({ action, description, title }) => (
-      <li>
-        <Card variant="outlined">
-          <CardHeader>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </CardHeader>
-          <CardActions>
-            <Button variant="filled">{action}</Button>
-          </CardActions>
-        </Card>
-      </li>
-    ))
-  }
+  {plans.map(({ action, description, title }) => <li>
+    <Card variant="outlined">
+      <CardHeader>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </CardHeader>
+      <CardActions>
+        <Button variant="filled">{action}</Button>
+      </CardActions>
+    </Card>
+  </li>)}
 </Carousel>

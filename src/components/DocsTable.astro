@@ -37,19 +37,15 @@ const collapsible = count > LIMIT + 2
   <div class="scroll">
     <Table>
       <TableColumnGroup>
-        {
-          columns.map((column) => (
-            <TableColumn style={column.width && `width: ${column.width}`} />
-          ))
-        }
+        {columns.map((column) => (
+          <TableColumn style={column.width && `width: ${column.width}`} />
+        ))}
       </TableColumnGroup>
       <TableHead>
         <TableRow>
-          {
-            columns.map((column) => (
-              <TableHeaderCell>{column.label}</TableHeaderCell>
-            ))
-          }
+          {columns.map((column) => <TableHeaderCell
+            >{column.label}</TableHeaderCell
+          >)}
         </TableRow>
       </TableHead>
       <TableBody>
@@ -57,18 +53,14 @@ const collapsible = count > LIMIT + 2
       </TableBody>
     </Table>
   </div>
-  {
-    collapsible && (
-      <button
-        aria-expanded="false"
-        class="ui-button ui-outlined ui-small"
-        data-table-toggle
-        type="button"
-      >
-        Show all {count} rows
-      </button>
-    )
-  }
+  {collapsible && <button
+    aria-expanded="false"
+    class="ui-button ui-outlined ui-small"
+    data-table-toggle
+    type="button"
+  >
+    Show all {count} rows
+  </button>}
 </div>
 
 <script>

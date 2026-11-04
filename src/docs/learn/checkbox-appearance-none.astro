@@ -26,24 +26,22 @@ import Basics from "../../component-examples/checkbox/Basics.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        <code>appearance: none</code> drops the native box. The input stays a real
-        input: focus, keyboard, form value and <code>:checked</code>
+        <code>appearance: none</code> drops the native box. The input stays a
+        real input: focus, keyboard, form value and <code>:checked</code>
       </li>
+      <li>Without native appearance the input takes an <code>::after</code></li>
       <li>
-        Without native appearance the input takes an <code>::after</code>
-      </li>
-      <li>
-        The check is a <code>clip-path: polygon()</code> over a solid fill, in percentages,
-        so it scales with the box
+        The check is a <code>clip-path: polygon()</code> over a solid fill, in
+        percentages, so it scales with the box
       </li>
       <li><code>:indeterminate</code> swaps the polygon for a dash</li>
       <li>
-        In dark mode <code>--accent</code> caps the primary's lightness, so the light
-        check keeps 3:1 contrast
+        In dark mode <code>--accent</code> caps the primary's lightness, so the
+        light check keeps 3:1 contrast
       </li>
       <li>
-        <code>margin-block-start: calc((var(--size) - 1lh) / 2)</code> centers the
-        label's first line on the box
+        <code>margin-block-start: calc((var(--size) - 1lh) / 2)</code> centers
+        the label's first line on the box
       </li>
     </ul>
     <Code
@@ -92,13 +90,12 @@ input:checked::after {
     </Example>
     <ul>
       <li>
-        The <code>auto</code> column resets the library's rules to the browser's and
-        keeps only the size, so the browser draws the control
+        The <code>auto</code> column resets the library's rules to the browser's
+        and keeps only the size, so the browser draws the control
       </li>
       <li>
-        With <code>none</code> the box, the check and the dash scale with <code
-          >--ui-choice-size</code
-        >, and the input stays a real checkbox
+        With <code>none</code> the box, the check and the dash scale with
+        <code>--ui-choice-size</code>, and the input stays a real checkbox
       </li>
     </ul>
     <p>The real input draws the box, the check and the dash.</p>
@@ -112,8 +109,8 @@ input:checked::after {
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        <code>appearance</code> and <code>clip-path</code> are widely available, so
-        the box and the check render everywhere
+        <code>appearance</code> and <code>clip-path</code> are widely available,
+        so the box and the check render everywhere
       </li>
       <li>
         The label offset is a <code>calc()</code> with <code>lh</code>, so the

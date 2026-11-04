@@ -32,31 +32,26 @@ import progressApi from "../../component-api/progress/api"
 >
   <Fragment slot="title">Progress</Fragment>
   <Fragment slot="preamble">
-    See also: <DocLink href="/components/spinner" class="ui-link"
-      >Spinner</DocLink
-    >.
+    See also:
+    <DocLink href="/components/spinner" class="ui-link">Spinner</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      A task with a known length, like an upload, with a <a href="#determinate"
-        >value</a
-      >.
+      A task with a known length, like an upload, with a
+      <a href="#determinate">value</a>.
     </li>
     <li slot="when">
-      A wait of unknown length, like loading a section, with an <a
-        href="#indeterminate">indeterminate</a
-      > bar.
+      A wait of unknown length, like loading a section, with an
+      <a href="#indeterminate">indeterminate</a> bar.
     </li>
     <li slot="when-not">
-      A short wait in a button or a small space. Use a <DocLink
-        href="/components/spinner">Spinner</DocLink
-      >.
+      A short wait in a button or a small space. Use a
+      <DocLink href="/components/spinner">Spinner</DocLink>.
     </li>
     <li slot="when-not">
-      A measurement that isn't progress, like disk usage or a score. That's a <code
-        >&lt;meter&gt;</code
-      >.
+      A measurement that isn't progress, like disk usage or a score. That's a
+      <code>&lt;meter&gt;</code>.
     </li>
   </Usage>
 
@@ -74,15 +69,15 @@ import progressApi from "../../component-api/progress/api"
     <h2 id="variants">Variants</h2>
     <Conditional as="div">
       <p slot="components">
-        Use the <code>variant</code> prop to swap the progress bar track surface for
-        better contrast on different backgrounds. The default, <code>tonal</code
-        >, is a tonal track.
+        Use the <code>variant</code> prop to swap the progress bar track surface
+        for better contrast on different backgrounds. The default,
+        <code>tonal</code>, is a tonal track.
       </p>
       <p slot="html">
-        Use the modifier class <code>.ui-filled</code> on the wrapper <code
-          >&lt;div&gt;</code
-        > to swap the progress bar track surface for better contrast on different
-        backgrounds. Without a class, the track is tonal.
+        Use the modifier class <code>.ui-filled</code> on the wrapper
+        <code>&lt;div&gt;</code> to swap the progress bar track surface for
+        better contrast on different backgrounds. Without a class, the track is
+        tonal.
       </p>
     </Conditional>
     <AutoExample name="Surfaces" column />
@@ -91,9 +86,9 @@ import progressApi from "../../component-api/progress/api"
   <section>
     <h2 id="inline">Inline</h2>
     <p>
-      The bar is an <code>inline-block</code> aligned to the middle of the line, so
-      it sits in a line of text or a table cell. Set an <code>inline-size</code> to
-      keep it short.
+      The bar is an <code>inline-block</code> aligned to the middle of the line,
+      so it sits in a line of text or a table cell. Set an
+      <code>inline-size</code> to keep it short.
     </p>
     <AutoExample name="Inline" />
   </section>
@@ -106,20 +101,22 @@ import progressApi from "../../component-api/progress/api"
       pointing at visible text.
     </p>
     <p>
-      If the <code>&lt;progress&gt;</code> element is describing the loading progress
-      of a section of a page:
+      If the <code>&lt;progress&gt;</code> element is describing the loading
+      progress of a section of a page:
     </p>
     <ul>
       <li>use <code>aria-describedby</code> to point to the status</li>
       <li>
-        set <code>aria-busy="true"</code> on the section that is being updated, removing
-        it when loading is finished.
+        set <code>aria-busy="true"</code> on the section that is being updated,
+        removing it when loading is finished.
       </li>
     </ul>
     <p>
-      Source: <a
+      Source:
+      <a
         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#accessibility"
-        class="ui-link">MDN</a
+        class="ui-link"
+        >MDN</a
       >
     </p>
     <AutoExample name="AriaBusy" />

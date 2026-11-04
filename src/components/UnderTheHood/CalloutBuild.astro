@@ -148,27 +148,23 @@ const callouts = [
 
 <BuildUp id="build-callout" steps={steps}>
   <div class="stack">
-    {
-      callouts.map((callout) => (
-        <article class:list={["callout", callout.severity]}>
-          {callout.icon && (
-            <svg
-              aria-hidden="true"
-              height="32"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d={callout.icon} fill="currentColor" />
-            </svg>
-          )}
-          <div class="content">
-            <h3>{callout.title}</h3>
-            <p>{callout.text}</p>
-          </div>
-        </article>
-      ))
-    }
+    {callouts.map((callout) => <article
+      class:list={["callout", callout.severity]}
+    >
+      {callout.icon && <svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d={callout.icon} fill="currentColor" />
+      </svg>}
+      <div class="content">
+        <h3>{callout.title}</h3>
+        <p>{callout.text}</p>
+      </div>
+    </article>)}
   </div>
 </BuildUp>
 

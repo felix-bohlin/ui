@@ -74,24 +74,23 @@ const LabelTag = label || labelSlot ? "span" : Fragment
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])} id={labelId}
-    >{label}<Fragment set:html={labelSlot} /></LabelTag
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(startText || Astro.slots.has("start-text")) && <span
+    class="ui-start-text"
+    id={startTextId}
   >
-  {
-    (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
     <select
       {...rest}
       aria-describedby={describedBy}
       aria-invalid={error ? "true" : ariaInvalid}
-      aria-labelledby={label || Astro.slots.has("label")
-        ? labelId
-        : ariaLabelledBy}
+      aria-labelledby={
+        label || Astro.slots.has("label") ? labelId : ariaLabelledBy
+      }
       id={id}
       name={name ?? field?.name}
     >
@@ -99,51 +98,33 @@ const LabelTag = label || labelSlot ? "span" : Fragment
         <SelectedContent />
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>
-        {
-          items.map((item) => (
-            <option selected={isSelected(item) || undefined} value={item.value}>
-              {item.label}
-            </option>
-          ))
-        }
+        {items.map((item) => <option
+          selected={isSelected(item) || undefined}
+          value={item.value}
+        >
+          {item.label}
+        </option>)}
         <slot />
       </div>
     </select>
-    {
-      Astro.slots.has("start") && (
-        <span class="ui-start">
-          <slot name="start" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("end") && (
-        <span class="ui-end">
-          <slot name="end" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("top") && (
-        <span class="ui-top" id={topId}>
-          <slot name="top" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("bottom") && (
-        <span class="ui-bottom" id={bottomId}>
-          <slot name="bottom" />
-        </span>
-      )
-    }
+    {Astro.slots.has("start") && <span class="ui-start">
+      <slot name="start" />
+    </span>}
+    {Astro.slots.has("end") && <span class="ui-end">
+      <slot name="end" />
+    </span>}
+    {Astro.slots.has("top") && <span class="ui-top" id={topId}>
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("bottom") && <span class="ui-bottom" id={bottomId}>
+      <slot name="bottom" />
+    </span>}
   </span>
-  {
-    (endText || Astro.slots.has("end-text")) && (
-      <span id={endTextId} class="ui-end-text">
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  {(endText || Astro.slots.has("end-text")) && <span
+    id={endTextId}
+    class="ui-end-text"
+  >
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </label>

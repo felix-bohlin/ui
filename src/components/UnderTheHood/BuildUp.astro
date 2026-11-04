@@ -66,73 +66,58 @@ const stepId = (index: number, part: string) =>
     <slot />
   </div>
 
-  {
-    knobs.length > 0 && (
-      <fieldset class="build-up-knobs">
-        <legend class="ui-sr-only">Custom properties</legend>
-        {knobs.map((knob) => (
-          <Range
-            data-property={knob.property}
-            data-unit={knob.unit ?? ""}
-            label={knob.label}
-            max={knob.max}
-            min={knob.min}
-            step={knob.step ?? 1}
-            value={knob.value}
-            valueSuffix={knob.unit ?? ""}
-          >
-            <code slot="start-text">{knob.property}</code>
-          </Range>
-        ))}
-      </fieldset>
-    )
-  }
+  {knobs.length > 0 && <fieldset class="build-up-knobs">
+    <legend class="ui-sr-only">Custom properties</legend>
+    {knobs.map((knob) => <Range
+      data-property={knob.property}
+      data-unit={knob.unit ?? ""}
+      label={knob.label}
+      max={knob.max}
+      min={knob.min}
+      step={knob.step ?? 1}
+      value={knob.value}
+      valueSuffix={knob.unit ?? ""}
+    >
+      <code slot="start-text">{knob.property}</code>
+    </Range>)}
+  </fieldset>}
 
   <fieldset class="build-up-steps">
     <legend class="ui-sr-only">Steps</legend>
     <ol class="ui-list ui-dense ui-transparent">
-      {
-        steps.map((step, index) => (
-          <ListItem>
-            <label>
-              <RadioInput
-                aria-describedby={
-                  step.notes ? stepId(index, "notes") : undefined
-                }
-                checked={index === 0}
-                class="ui-sr-only"
-                name={`${id}-step`}
-                value={index + 1}
-              />
-              <span aria-hidden="true" class="build-up-marker" />
-              <span class="build-up-step-name">{step.title}</span>
-            </label>
-            {step.notes && (
-              <ul class="build-up-notes" id={stepId(index, "notes")}>
-                {step.notes.map((note) => (
-                  <li set:html={note} />
-                ))}
-              </ul>
-            )}
-          </ListItem>
-        ))
-      }
+      {steps.map((step, index) => <ListItem>
+        <label>
+          <RadioInput
+            aria-describedby={step.notes ? stepId(index, "notes") : undefined}
+            checked={index === 0}
+            class="ui-sr-only"
+            name={`${id}-step`}
+            value={index + 1}
+          />
+          <span aria-hidden="true" class="build-up-marker" />
+          <span class="build-up-step-name">{step.title}</span>
+        </label>
+        {step.notes && <ul class="build-up-notes" id={stepId(index, "notes")}>
+          {step.notes.map((note) => (
+            <li set:html={note} />
+          ))}
+        </ul>}
+      </ListItem>)}
     </ol>
   </fieldset>
 
   <div class="build-up-detail">
-    {
-      steps.map((step, index) => (
-        <div class="build-up-step" data-step={index + 1}>
-          <p class="build-up-step-title">
-            Step {index + 1} of {steps.length}: {step.title}
-          </p>
-          {step.features && <FeatureSupport ids={step.features} />}
-          {step.html && <Code code={step.html.trim()} lang="html" />}
-          {step.css && <Code code={step.css.trim()} lang="css" />}
-        </div>
-      ))
-    }
+    {steps.map((step, index) => <div
+      class="build-up-step"
+      data-step={index + 1}
+    >
+      <p class="build-up-step-title">
+        Step {index + 1} of {steps.length}: {step.title}
+      </p>
+      {step.features && <FeatureSupport ids={step.features} />}
+      {step.html && <Code code={step.html.trim()} lang="html" />}
+      {step.css && <Code code={step.css.trim()} lang="css" />}
+    </div>)}
 
     <ButtonGroup
       aria-label="Step navigation"

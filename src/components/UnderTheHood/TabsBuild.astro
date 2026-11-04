@@ -167,23 +167,21 @@ const tabs = [
 
 <BuildUp id="build-tabs" knobs={knobs} steps={steps}>
   <div aria-label="Account" class="tabs" role="radiogroup">
-    {
-      tabs.map((tab, index) => (
-        <>
-          <input
-            checked={index === 0}
-            class="tab-input"
-            id={`build-tab-${index}`}
-            name="build-tabs"
-            type="radio"
-          />
-          <label class="tab-label" for={`build-tab-${index}`}>
-            {tab.label}
-          </label>
-          <div class="tab-panel">{tab.panel}</div>
-        </>
-      ))
-    }
+    {tabs.map((tab, index) => (
+      <>
+        <input
+          checked={index === 0}
+          class="tab-input"
+          id={`build-tab-${index}`}
+          name="build-tabs"
+          type="radio"
+        />
+        <label class="tab-label" for={`build-tab-${index}`}>
+          {tab.label}
+        </label>
+        <div class="tab-panel">{tab.panel}</div>
+      </>
+    ))}
   </div>
 </BuildUp>
 

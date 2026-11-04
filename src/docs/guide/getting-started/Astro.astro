@@ -16,8 +16,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
   <section>
     <h2 id="installation">Install via NPM</h2>
     <p>
-      The components ship as uncompiled <code>.astro</code> files, which Astro compiles
-      as they are. They need Astro 7 or later.
+      The components ship as uncompiled <code>.astro</code> files, which Astro
+      compiles as they are. They need Astro 7 or later.
     </p>
     <InstallCommand />
   </section>
@@ -61,11 +61,9 @@ import { Button } from "opui-css/astro"
       lang="astro"
     />
     <p>
-      Containers take parts, such as <code>CardHeader</code> and <code
-        >DialogFooter</code
-      >. Other components take named slots for rich content, such as <code
-        >end-text</code
-      > on a <code>TextField</code>.
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other components take named slots for rich
+      content, such as <code>end-text</code> on a <code>TextField</code>.
     </p>
     <NextSteps />
   </section>
@@ -73,18 +71,18 @@ import { Button } from "opui-css/astro"
   <section>
     <h2 id="server-runtime">Server runtime</h2>
     <p>
-      The components pass settings to their parts with <code
-        >AsyncLocalStorage</code
-      > from <code>node:async_hooks</code>, so they run on Node, Deno and Bun.
-      On Cloudflare, enable the <code>nodejs_compat</code> compatibility flag.
+      The components pass settings to their parts with
+      <code>AsyncLocalStorage</code> from <code>node:async_hooks</code>, so they
+      run on Node, Deno and Bun. On Cloudflare, enable the
+      <code>nodejs_compat</code> compatibility flag.
     </p>
 
     <h3 id="ids">Ids</h3>
     <p>
       Components that link elements with ids (form fields, Tabs, Drawer, Menu)
-      read <code>Astro.locals.$id</code> when it exists and otherwise generate a random
-      id per render. For stable, per-request ids, useful for snapshot tests, define
-      it in a middleware:
+      read <code>Astro.locals.$id</code> when it exists and otherwise generate a
+      random id per render. For stable, per-request ids, useful for snapshot
+      tests, define it in a middleware:
     </p>
     <Code
       code={`// src/middleware.ts
@@ -103,10 +101,9 @@ export const onRequest = defineMiddleware((context, next) => {
     />
     <p>
       Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to your
-      <code>env.d.ts</code> to type <code>$id</code> and the <code
-        >interestfor</code
-      >
-      attribute on <code>a</code> and <code>button</code>.
+      <code>env.d.ts</code> to type <code>$id</code> and the
+      <code>interestfor</code> attribute on <code>a</code> and
+      <code>button</code>.
     </p>
   </section>
 </Guide>

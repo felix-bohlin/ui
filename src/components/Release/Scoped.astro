@@ -47,90 +47,80 @@ const regions = [
 
 <div class="scoped ui-not-rich-text" id={id}>
   <div class="scoped-regions">
-    {
-      regions.map((region) => (
-        <section
-          aria-labelledby={`${id}-${region.slug}-heading`}
-          class="scoped-region"
-          data-scope={region.scope ? "" : undefined}
-        >
-          <div class="scoped-head">
-            <h3 class="scoped-heading" id={`${id}-${region.slug}-heading`}>
-              {region.heading}
-            </h3>
-            <p class="scoped-note">{region.note}</p>
-            {region.scope ? (
-              <fieldset class="scoped-knobs">
-                <legend class="ui-sr-only">Knobs on the scope</legend>
-                {knobs.map((knob) => (
-                  <Range
-                    max={knob.max}
-                    min={knob.min}
-                    name={knob.name}
-                    size="small"
-                    step={knob.step}
-                    value={knob.value}
-                    valueSuffix=""
-                  >
-                    <code slot="label">{knob.name}</code>
-                  </Range>
-                ))}
-              </fieldset>
-            ) : (
-              <p class="scoped-knobs scoped-no-knobs">
-                No knobs here: the theme's defaults
-              </p>
-            )}
-          </div>
-          <div
-            class:list={["scoped-stage", region.scope && "ui-palette"]}
-            id={region.scope ? `${id}-stage` : undefined}
-          >
-            <Card class="scoped-card" variant="elevated">
-              <CardHeader>
-                <div class="scoped-card-title">
-                  <h4>Weekly report</h4>
-                  <Chip label="Draft" size="small" variant="tonal" />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <TextField
-                  label="Send to"
-                  name={`${id}-${region.slug}-email`}
-                  placeholder="name@example.com"
-                  type="email"
-                />
-                <Callout severity="info">
-                  <CalloutIcon />
-                  <CalloutContent>
-                    <p>Recipients get a link that works for seven days.</p>
-                  </CalloutContent>
-                </Callout>
-              </CardContent>
-              <CardActions>
-                <Button color="primary" variant="filled">
-                  Send
-                </Button>
-                <Button variant="tonal">Save draft</Button>
-              </CardActions>
-            </Card>
-            <ul class="scoped-roles">
-              {roles.map((role) => (
-                <li>
-                  <span
-                    aria-hidden="true"
-                    class="scoped-swatch"
-                    data-size={role.property === "inline-size" ? "" : undefined}
-                    style={`${role.property}: var(${role.name})`}
-                  />
-                  <code>{role.name}</code>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ))
-    }
+    {regions.map((region) => <section
+      aria-labelledby={`${id}-${region.slug}-heading`}
+      class="scoped-region"
+      data-scope={region.scope ? "" : undefined}
+    >
+      <div class="scoped-head">
+        <h3 class="scoped-heading" id={`${id}-${region.slug}-heading`}>
+          {region.heading}
+        </h3>
+        <p class="scoped-note">{region.note}</p>
+        {region.scope ? (
+          <fieldset class="scoped-knobs">
+            <legend class="ui-sr-only">Knobs on the scope</legend>
+            {knobs.map((knob) => <Range
+              max={knob.max}
+              min={knob.min}
+              name={knob.name}
+              size="small"
+              step={knob.step}
+              value={knob.value}
+              valueSuffix=""
+            >
+              <code slot="label">{knob.name}</code>
+            </Range>)}
+          </fieldset>
+        ) : (
+          <p class="scoped-knobs scoped-no-knobs">
+            No knobs here: the theme's defaults
+          </p>
+        )}
+      </div>
+      <div
+        class:list={["scoped-stage", region.scope && "ui-palette"]}
+        id={region.scope ? `${id}-stage` : undefined}
+      >
+        <Card class="scoped-card" variant="elevated">
+          <CardHeader>
+            <div class="scoped-card-title">
+              <h4>Weekly report</h4>
+              <Chip label="Draft" size="small" variant="tonal" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <TextField
+              label="Send to"
+              name={`${id}-${region.slug}-email`}
+              placeholder="name@example.com"
+              type="email"
+            />
+            <Callout severity="info">
+              <CalloutIcon />
+              <CalloutContent>
+                <p>Recipients get a link that works for seven days.</p>
+              </CalloutContent>
+            </Callout>
+          </CardContent>
+          <CardActions>
+            <Button color="primary" variant="filled"> Send </Button>
+            <Button variant="tonal">Save draft</Button>
+          </CardActions>
+        </Card>
+        <ul class="scoped-roles">
+          {roles.map((role) => <li>
+            <span
+              aria-hidden="true"
+              class="scoped-swatch"
+              data-size={role.property === "inline-size" ? "" : undefined}
+              style={`${role.property}: var(${role.name})`}
+            />
+            <code>{role.name}</code>
+          </li>)}
+        </ul>
+      </div>
+    </section>)}
   </div>
 </div>
 

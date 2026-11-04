@@ -11,14 +11,14 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
   <section>
     <h2 id="the-problem">The problem</h2>
     <p>
-      <code>&lt;input type="range"&gt;</code> handles dragging, keyboard steps and
-      the form value. Styling it means vendor pseudo-elements for the track and the
-      thumb, and only Firefox has one for the filled part.
+      <code>&lt;input type="range"&gt;</code> handles dragging, keyboard steps
+      and the form value. Styling it means vendor pseudo-elements for the track
+      and the thumb, and only Firefox has one for the filled part.
     </p>
     <p>
-      Tick marks have a native answer too: point <code>list</code> at a <code
-        >&lt;datalist&gt;</code
-      >. The datalist itself stays hidden, so the labels never show.
+      Tick marks have a native answer too: point <code>list</code> at a
+      <code>&lt;datalist&gt;</code>. The datalist itself stays hidden, so the
+      labels never show.
     </p>
   </section>
 
@@ -27,22 +27,19 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
     <ul>
       <li>
         <code>appearance: none</code> on the input and on the thumb, then style
-        {" "}<code>::-webkit-slider-runnable-track</code> and <code
-          >::-moz-range-track</code
-        >
+        {" "}<code>::-webkit-slider-runnable-track</code> and
+        <code>::-moz-range-track</code>
       </li>
       <li>
         Firefox paints the fill with <code>::-moz-range-progress</code>.
-        Elsewhere a one-color <code>linear-gradient</code> sized to <code
-          >--track-fill</code
-        > does it
+        Elsewhere a one-color <code>linear-gradient</code> sized to
+        <code>--track-fill</code> does it
       </li>
       <li>
-        The thumb's position sets the fill, no JavaScript. With <code
-          >overflow: hidden</code
-        > the input is a scroller, so the thumb can be a <code
-          >view-timeline</code
-        >. <code>timeline-scope</code> lets the input animate on it
+        The thumb's position sets the fill, no JavaScript. With
+        <code>overflow: hidden</code> the input is a scroller, so the thumb can
+        be a <code>view-timeline</code>. <code>timeline-scope</code> lets the
+        input animate on it
       </li>
       <li>
         <code>--track-fill</code> is registered with <code>@property</code>, so
@@ -52,14 +49,13 @@ import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astr
       <li>
         Padding and an equal negative margin leave room for the thumb and its
         halo without moving anything. The inset is how far the thumb sticks out
-        past the input's height, plus a <code>0.5rem</code> halo, and at least the
-        halo. <code>view-timeline-inset</code> takes it back out of the timeline,
-        {" "}<code>outline-offset</code> out of the focus ring
+        past the input's height, plus a <code>0.5rem</code> halo, and at least
+        the halo. <code>view-timeline-inset</code> takes it back out of the
+        timeline, {" "}<code>outline-offset</code> out of the focus ring
       </li>
       <li>
-        <code>display: flex</code> brings the datalist back, and <code
-          >justify-content: space-between</code
-        > spreads its options
+        <code>display: flex</code> brings the datalist back, and
+        <code>justify-content: space-between</code> spreads its options
       </li>
       <li>
         Zero-width options with centered labels sit on each step. Half a thumb
@@ -137,17 +133,16 @@ datalist > option {
   <section>
     <h2 id="try-it">Try it</h2>
     <p>
-      Pick a step. The <code>&lt;datalist&gt;</code> is rebuilt with one option per
-      step, and the labels place themselves.
+      Pick a step. The <code>&lt;datalist&gt;</code> is rebuilt with one option
+      per step, and the labels place themselves.
     </p>
     <Example showCode={false}>
       <RangeTicks />
     </Example>
     <ul>
       <li>
-        The labels are the <code>&lt;option&gt;</code> elements, laid out with <code
-          >justify-content: space-between</code
-        >. No positions are computed
+        The labels are the <code>&lt;option&gt;</code> elements, laid out with
+        <code>justify-content: space-between</code>. No positions are computed
       </li>
       <li>
         The thumb snaps to the same <code>step</code>, and the fill follows it
@@ -165,18 +160,16 @@ datalist > option {
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without scroll-driven animations <code>--track-fill</code> stays at <code
-          >0%</code
-        >: no fill, the slider still works. Firefox fills natively
+        Without scroll-driven animations <code>--track-fill</code> stays at
+        <code>0%</code>: no fill, the slider still works. Firefox fills natively
       </li>
       <li>
-        The labels are plain flex content and render wherever <code
-          >&lt;datalist&gt;</code
-        > is parsed
+        The labels are plain flex content and render wherever
+        <code>&lt;datalist&gt;</code> is parsed
       </li>
       <li>
-        In right-to-left, <code>:dir(rtl)</code> moves the gradient to the right edge
-        and reverses the animation
+        In right-to-left, <code>:dir(rtl)</code> moves the gradient to the right
+        edge and reverses the animation
       </li>
     </ul>
   </section>

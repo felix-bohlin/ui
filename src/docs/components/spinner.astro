@@ -27,40 +27,35 @@ import spinnerApi from "../../component-api/spinner/api"
   <Fragment slot="title">Spinner</Fragment>
   <Fragment slot="preamble">
     Add it to an element with <code>aria-busy="true"</code>. Spinners are always
-    indeterminate. See also: <DocLink
-      href="/components/progress"
-      class="ui-link">Progress bar</DocLink
-    >.
+    indeterminate. See also:
+    <DocLink href="/components/progress" class="ui-link">Progress bar</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      A short wait in a button, like while a form saves, with <a href="#buttons"
-        ><code>aria-busy="true"</code></a
-      > on it.
+      A short wait in a button, like while a form saves, with
+      <a href="#buttons"><code>aria-busy="true"</code></a> on it.
     </li>
     <li slot="when">
       Loading content of unknown length in a small area, like a card.
     </li>
     <li slot="when-not">
-      A task with a known length. Use a <DocLink href="/components/progress"
-        >Progress</DocLink
-      > bar with a value.
+      A task with a known length. Use a
+      <DocLink href="/components/progress">Progress</DocLink> bar with a value.
     </li>
     <li slot="when-not">
-      A busy section that shows a progress bar. Point its <code
-        >aria-describedby</code
-      > at the bar, and it gets no spinner (see <a href="#no-spinner"
-        >the exceptions</a
-      >).
+      A busy section that shows a progress bar. Point its
+      <code>aria-describedby</code> at the bar, and it gets no spinner (see
+      <a href="#no-spinner">the exceptions</a>).
     </li>
   </Usage>
 
   <section>
     <h2 id="basics">Basics</h2>
     <p>
-      <code>aria-busy</code> doesn't announce anything. Say what's happening in text,
-      like "Loading…" in the busy element or in a <code>role="status"</code> element.
+      <code>aria-busy</code> doesn't announce anything. Say what's happening in
+      text, like "Loading…" in the busy element or in a
+      <code>role="status"</code> element.
     </p>
     <AutoExample name="Basics" />
   </section>
@@ -85,27 +80,28 @@ import spinnerApi from "../../component-api/spinner/api"
   <section>
     <h2 id="no-spinner">When <code>aria-busy="true"</code> shows no spinner</h2>
     <p>
-      There are a few exceptions where <code>aria-busy="true"</code> won't render
-      a spinner. Either because it doesn't make sense or because there are other reasons
-      you would like to use that aria attribute.
+      There are a few exceptions where <code>aria-busy="true"</code> won't
+      render a spinner. Either because it doesn't make sense or because there
+      are other reasons you would like to use that aria attribute.
     </p>
 
     <h3 id="blocked-by-another-use-case">
       1. Because it's blocked by another use case
     </h3>
     <p>
-      A section that's being updated points at its progress bar with <code
-        >aria-describedby</code
-      > while <code>aria-busy="true"</code> marks it as busy. Busy elements with <code
-        >aria-describedby</code
-      > get no spinner, so you don't see a spinner <em>and</em> a progress bar. Buttons
-      and links always get one.
+      A section that's being updated points at its progress bar with
+      <code>aria-describedby</code> while <code>aria-busy="true"</code> marks it
+      as busy. Busy elements with <code>aria-describedby</code> get no spinner,
+      so you don't see a spinner <em>and</em> a progress bar. Buttons and links
+      always get one.
     </p>
 
     <p>
-      See <DocLink href="/components/progress#accessibility"
+      See
+      <DocLink href="/components/progress#accessibility"
         >progress accessibility</DocLink
-      > section for more.
+      >
+      section for more.
     </p>
 
     <h3 id="doesnt-make-sense">2. Because it doesn't make sense</h3>

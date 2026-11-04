@@ -527,6 +527,13 @@
     "url": "/html/components/carousel/#custom-buttons"
   },
   {
+    "id": "component-carousel-html-labels",
+    "title": "Labels",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/html/components/carousel/#labels"
+  },
+  {
     "id": "component-carousel-html-playground",
     "title": "Playground",
     "page": "Carousel",
@@ -4082,7 +4089,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "api": "ul.ui-carousel The scroller. An item. .ui-carousel > :first-child The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label Accessible name of the carousel. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. --_items-per-view Items per view Number of visible items. .ui-markers Markers One marker per item, after the list. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "ul.ui-carousel The scroller. An item. .ui-carousel > :first-child The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label Accessible name of the carousel. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{count}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-prev-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/html/api/#carousel"
   },
@@ -4346,7 +4353,7 @@
     "id": "api-sortable-table-html",
     "title": "Sortable Table API",
     "description": "Reference for Sortable Table HTML component.",
-    "api": "opui-sortable-table.ui-sortable-table The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. th[data-sort] > button",
+    "api": "opui-sortable-table.ui-sortable-table The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. th[data-sort] > button [ascending-label] Ascending label What a sort in ascending order announces, with `{column}` where the header's label goes. [descending-label] Descending label What a sort in descending order announces, with `{column}` where the header's label goes.",
     "category": "API",
     "url": "/html/api/#sortable-table"
   },

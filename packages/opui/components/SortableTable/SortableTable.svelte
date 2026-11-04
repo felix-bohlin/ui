@@ -3,7 +3,9 @@
   import type { Props } from "./types.svelte"
 
   let {
+    ascendingLabel,
     class: className,
+    descendingLabel,
 
     // Snippets
     children,
@@ -11,6 +13,11 @@
   }: Props = $props()
 </script>
 
-<opui-sortable-table class={["ui-sortable-table", className]} {...rest}>
+<opui-sortable-table
+  ascending-label={ascendingLabel}
+  class={["ui-sortable-table", className]}
+  descending-label={descendingLabel}
+  {...rest}
+>
   {@render children?.()}
 </opui-sortable-table>

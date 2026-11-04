@@ -4,7 +4,13 @@ import { useEffect, useRef } from "react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
-export default function SortableTable({ className, onSort, ...rest }: Props) {
+export default function SortableTable({
+  ascendingLabel,
+  className,
+  descendingLabel,
+  onSort,
+  ...rest
+}: Props) {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -21,7 +27,9 @@ export default function SortableTable({ className, onSort, ...rest }: Props) {
 
   return (
     <opui-sortable-table
+      ascending-label={ascendingLabel}
       className={cx(["ui-sortable-table", className])}
+      descending-label={descendingLabel}
       ref={ref}
       {...rest}
     />

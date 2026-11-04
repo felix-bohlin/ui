@@ -11,9 +11,9 @@ A scrolling list with snap points, buttons and markers.
 
 - `ul.ui-carousel` (root): The scroller.
 - `<li>` (slot `default`): An item.
-- `::scroll-button(inline-start)` (prop `buttons`): The previous button. `::scroll-button(block-start)` when vertical.
-- `::scroll-button(inline-end)` (prop `buttons`): The next button. `::scroll-button(block-end)` when vertical.
-- `li::scroll-marker` (prop `markers`): A marker, one per item.
+- `::scroll-button(inline-start)` (prop `buttons`, prop `previousLabel`): The previous button. `::scroll-button(block-start)` when vertical.
+- `::scroll-button(inline-end)` (prop `buttons`, prop `nextLabel`): The next button. `::scroll-button(block-end)` when vertical.
+- `li::scroll-marker` (prop `markerLabel`, prop `markers`): A marker, one per item.
 
 ### Props and modifiers
 
@@ -22,10 +22,13 @@ A scrolling list with snap points, buttons and markers.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
 - `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `"outside"` places them beside the items, and `"none"` leaves them out.
 - `itemsPerView`: `number`, `--_items-per-view`, default `1`. Number of visible items.
+- `markerLabel`: `string`, `--_marker-label`, default `"Slide {count}"`. Accessible name of each marker, with `{count}` where the item number goes.
 - `markers`: `boolean`, `.ui-markers`. One marker per item, after the list.
+- `nextLabel`: `string`, `--_button-next-label`, default `"Next"`. Accessible name of the next button.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.
 - `peek`: `boolean`, `.ui-peek`. Shows part of the neighboring items.
 - `persistentButtons`: `boolean`, `.ui-persistent-buttons`. Keeps the buttons visible at the ends. A disabled button has a muted border.
+- `previousLabel`: `string`, `--_button-prev-label`, default `"Previous"`. Accessible name of the previous button.
 - `stretch`: `boolean`, `.ui-stretch`. Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.
 
 ### Notes
@@ -45,8 +48,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_button-image`: Icon of the scroll buttons, pointing forward. The previous button mirrors it.
 - `--_button-image-size`: The icon size in the scroll buttons.
 - `--_button-inset`: Space between the scroll buttons and the carousel edge.
-- `--_button-next-label`: Accessible label of the next button.
-- `--_button-prev-label`: Accessible label of the previous button.
+- `--_button-next-label`: Accessible name of the next button, a CSS string. `nextLabel` sets it.
+- `--_button-prev-label`: Accessible name of the previous button, a CSS string. `previousLabel` sets it.
 - `--_button-shadow`: Shadow of the scroll buttons. Defaults to `--ui-shadow-overlay`.
 - `--_button-size`: Size of the scroll buttons. Defaults to `--ui-button-size-small`.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
@@ -55,7 +58,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_marker-bg-color`: Fill of the other markers. Defaults to `transparent`.
 - `--_marker-border-color`: Ring of the other markers. Defaults to `--ui-text`, which keeps its contrast against the page in every theme.
 - `--_marker-gap`: Space between markers.
-- `--_marker-label`: Accessible label of each marker, followed by the item number.
+- `--_marker-label`: Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.
 - `--_marker-selected-bg-color`: Fill and ring of the current marker. Defaults to `--ui-selected-strong`.
 - `--_marker-selected-padding`: Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.
 - `--_marker-size`: Size of the markers. The dot sits inside, inset by `--ui-space-2`.

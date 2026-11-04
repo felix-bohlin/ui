@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeStyle } from "../style"
+import { counterLabel, cssString, mergeStyle } from "../style"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -7,10 +7,13 @@ const {
   aspectRatio,
   buttons,
   itemsPerView,
+  markerLabel,
   markers,
+  nextLabel,
   orientation,
   peek,
   persistentButtons,
+  previousLabel,
   stretch,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -34,7 +37,11 @@ defineSlots<Slots>()
     :style="
       mergeStyle(
         {
+          '--_button-next-label': nextLabel && cssString(nextLabel),
+          '--_button-prev-label': previousLabel && cssString(previousLabel),
           '--_items-per-view': itemsPerView,
+          '--_marker-label':
+            markerLabel && counterLabel(markerLabel, 'ui-carousel-item'),
           '--_media-aspect-ratio': aspectRatio,
         },
         {},

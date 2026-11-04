@@ -54,11 +54,13 @@ export default {
     kind: "input",
   },
   "--_button-next-label": {
-    description: "Accessible label of the next button.",
+    description:
+      "Accessible name of the next button, a CSS string. `nextLabel` sets it.",
     kind: "input",
   },
   "--_button-prev-label": {
-    description: "Accessible label of the previous button.",
+    description:
+      "Accessible name of the previous button, a CSS string. `previousLabel` sets it.",
     kind: "input",
   },
   "--_button-scale": {
@@ -122,7 +124,7 @@ export default {
   },
   "--_marker-label": {
     description:
-      "Accessible label of each marker, followed by the item number.",
+      "Accessible name of each marker, CSS strings with `counter(ui-carousel-item)` where the item number goes. `markerLabel` sets it.",
     kind: "input",
   },
   "--_marker-selected-bg-color": {

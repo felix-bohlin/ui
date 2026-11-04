@@ -1443,7 +1443,9 @@ interaction(
     await root.getByRole("button", { name: "Diameter" }).press("Enter")
     await expect(header("Diameter")).toHaveAttribute("aria-sort", "ascending")
     await expect(first).toHaveText("Mercury")
-    await expect(root.getByRole("status")).toHaveText("Diameter, ascending")
+    await expect(root.getByRole("status")).toHaveText(
+      "Diameter, sorted ascending",
+    )
   },
 )
 
@@ -1467,7 +1469,7 @@ interaction(
     await expect(
       root.getByRole("columnheader", { name: "Planet", exact: true }),
     ).not.toHaveAttribute("aria-sort")
-    await expect(root.getByRole("status")).toHaveText("Moons, ascending")
+    await expect(root.getByRole("status")).toHaveText("Moons, sorted ascending")
     await expect(planets).toHaveText(order)
   },
 )
@@ -1475,17 +1477,21 @@ interaction(
 interaction(
   "table",
   "Sortable",
-  "a sortable table announces the words of data-ascending and data-descending",
+  "a sortable table announces ascending-label and descending-label with the column in place of {column}",
   async ({ root }) => {
     await root.locator("opui-sortable-table").evaluate((table) => {
-      table.dataset.ascending = "stigande"
-      table.dataset.descending = "fallande"
+      table.setAttribute("ascending-label", "Sorterat stigande efter {column}")
+      table.setAttribute("descending-label", "Sorterat fallande efter {column}")
     })
 
     await root.getByRole("button", { name: "Moons" }).click()
-    await expect(root.getByRole("status")).toHaveText("Moons, stigande")
+    await expect(root.getByRole("status")).toHaveText(
+      "Sorterat stigande efter Moons",
+    )
     await root.getByRole("button", { name: "Moons" }).click()
-    await expect(root.getByRole("status")).toHaveText("Moons, fallande")
+    await expect(root.getByRole("status")).toHaveText(
+      "Sorterat fallande efter Moons",
+    )
   },
 )
 

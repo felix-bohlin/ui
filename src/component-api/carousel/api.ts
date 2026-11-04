@@ -68,11 +68,30 @@ export default {
       prop: "itemsPerView",
     },
     {
+      cssVar: "--_marker-label",
+      default: '"Slide {count}"',
+      description:
+        "Accessible name of each marker, with `{count}` where the item number goes.",
+      group: "Marker label",
+      htmlDescription:
+        'Accessible name of each marker, a CSS string with `counter(ui-carousel-item)` where the item number goes: `"Slide " counter(ui-carousel-item)` by default.',
+      prop: "markerLabel",
+    },
+    {
       class: ".ui-markers",
       default: "false",
       description: "One marker per item, after the list.",
       group: "Markers",
       prop: "markers",
+    },
+    {
+      cssVar: "--_button-next-label",
+      default: '"Next"',
+      description: "Accessible name of the next button.",
+      group: "Next label",
+      htmlDescription:
+        'Accessible name of the next button, a CSS string: `"Next"` by default.',
+      prop: "nextLabel",
     },
     {
       default: '"horizontal"',
@@ -98,6 +117,15 @@ export default {
       prop: "persistentButtons",
     },
     {
+      cssVar: "--_button-prev-label",
+      default: '"Previous"',
+      description: "Accessible name of the previous button.",
+      group: "Previous label",
+      htmlDescription:
+        'Accessible name of the previous button, a CSS string: `"Previous"` by default.',
+      prop: "previousLabel",
+    },
+    {
       class: ".ui-stretch",
       default: "false",
       description:
@@ -117,20 +145,20 @@ export default {
       code: "::scroll-button(inline-start)",
       description:
         "The previous button. `::scroll-button(block-start)` when vertical.",
-      props: ["buttons"],
+      props: ["buttons", "previousLabel"],
       selector: ".ui-carousel::scroll-button(inline-start)",
     },
     {
       code: "::scroll-button(inline-end)",
       description:
         "The next button. `::scroll-button(block-end)` when vertical.",
-      props: ["buttons"],
+      props: ["buttons", "nextLabel"],
       selector: ".ui-carousel::scroll-button(inline-end)",
     },
     {
       code: "li::scroll-marker",
       description: "A marker, one per item.",
-      props: ["markers"],
+      props: ["markerLabel", "markers"],
       selector: ".ui-carousel > :first-child::scroll-marker",
     },
   ],

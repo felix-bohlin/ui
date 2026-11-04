@@ -3,10 +3,20 @@ import type { Props } from "./types.astro"
 
 export const title = "Sortable Table"
 
-const { class: className, ...rest } = Astro.props
+const {
+  ascendingLabel,
+  class: className,
+  descendingLabel,
+  ...rest
+} = Astro.props
 ---
 
-<opui-sortable-table class:list={["ui-sortable-table", className]} {...rest}>
+<opui-sortable-table
+  ascending-label={ascendingLabel}
+  class:list={["ui-sortable-table", className]}
+  descending-label={descendingLabel}
+  {...rest}
+>
   <slot />
 </opui-sortable-table>
 

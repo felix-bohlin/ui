@@ -527,6 +527,13 @@
     "url": "/astro/components/carousel/#custom-buttons"
   },
   {
+    "id": "component-carousel-astro-labels",
+    "title": "Labels",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/astro/components/carousel/#labels"
+  },
+  {
     "id": "component-carousel-astro-playground",
     "title": "Playground",
     "page": "Carousel",
@@ -4082,7 +4089,7 @@
     "id": "api-carousel-astro",
     "title": "Carousel API",
     "description": "Reference for Carousel Astro component.",
-    "api": "Carousel The scroller. An item. default The previous button. `::scroll-button(block-start)` when vertical. buttons The next button. `::scroll-button(block-end)` when vertical. buttons A marker, one per item. markers align Where items snap. aria-label Accessible name of the carousel. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. itemsPerView Number of visible items. markers One marker per item, after the list. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "Carousel The scroller. An item. default The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label Accessible name of the carousel. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{count}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/astro/api/#carousel"
   },
@@ -4346,7 +4353,7 @@
     "id": "api-sortable-table-astro",
     "title": "Sortable Table API",
     "description": "Reference for Sortable Table Astro component.",
-    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header.",
+    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes.",
     "category": "API",
     "url": "/astro/api/#sortable-table"
   },

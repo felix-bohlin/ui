@@ -91,6 +91,8 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 ### Props and modifiers
 
+- `ascendingLabel`: `string`, `[ascending-label]`, default `"{column}, sorted ascending"`. What a sort in ascending order announces, with `{column}` where the header's label goes.
+- `descendingLabel`: `string`, `[descending-label]`, default `"{column}, sorted descending"`. What a sort in descending order announces, with `{column}` where the header's label goes.
 - `onsort` (Svelte): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 - `onSort` (React): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 
@@ -100,8 +102,8 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 ### Notes
 
-- HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text. `data-ascending` and `data-descending` on the root translate the words it announces.
-- Astro, React, Svelte and Vue: The component loads `opui-css/elements/sortable-table.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. `data-ascending` and `data-descending` on the root translate the words it announces.
+- HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.
+- Astro, React, Svelte and Vue: The component loads `opui-css/elements/sortable-table.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 
 ## Component properties
 

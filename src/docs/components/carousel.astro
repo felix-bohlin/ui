@@ -5,6 +5,7 @@ import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
 import Conditional from "../../components/Conditional.astro"
 import Example from "../../components/Example"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -52,6 +53,12 @@ export const description =
   "A scrolling list with snap points, buttons and markers."
 
 export const keywords = ["gallery", "scroll snap", "slider", "slideshow"]
+
+const translation = `.ui-carousel:lang(sv) {
+  --_button-next-label: "Nästa";
+  --_button-prev-label: "Föregående";
+  --_marker-label: "Bild " counter(ui-carousel-item);
+}`
 ---
 
 <Component
@@ -256,6 +263,41 @@ export const keywords = ["gallery", "scroll snap", "slider", "slideshow"]
     <AutoExample name="CustomButtons" />
   </section>
 
+  <section id="labels">
+    <h2>Labels</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The buttons are named "Previous" and "Next", and each marker "Slide" and
+        its number. Translate them with <code>previousLabel</code>,
+        <code>nextLabel</code> and <code>markerLabel</code>, where
+        <code>{"{count}"}</code> stands for the number, so it can go anywhere:
+        <code>markerLabel="{"{count}"}. dia"</code>.
+      </Fragment>
+      <Fragment slot="html">
+        The buttons are named "Previous" and "Next", and each marker "Slide" and
+        its number. The names are CSS strings in
+        <code>--_button-prev-label</code>, <code>--_button-next-label</code> and
+        <code>--_marker-label</code>, where
+        <code>counter(ui-carousel-item)</code> stands for the number, so it can
+        go anywhere and take any counter style, such as
+        <code>counter(ui-carousel-item, arabic-indic)</code>.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The props set <code>--_button-prev-label</code>,
+        <code>--_button-next-label</code> and <code>--_marker-label</code>, CSS
+        strings with <code>counter(ui-carousel-item)</code> for the number. Set
+        those in a stylesheet to translate every carousel in a language at once:
+      </Fragment>
+      <Fragment slot="html">
+        Set them with <code>:lang()</code> to translate every carousel in a
+        language at once:
+      </Fragment>
+    </Conditional>
+    <Code lang="css" code={translation} />
+  </section>
+
   <section id="playground">
     <h2>Playground</h2>
     <p>
@@ -384,10 +426,8 @@ export const keywords = ["gallery", "scroll snap", "slider", "slideshow"]
     <p>
       Screen readers announce the position of each item. The buttons and markers
       have accessible names: "Previous", "Next" and "Slide" followed by the
-      number. Translate them with <code>--_button-prev-label</code>,
-      <code>--_button-next-label</code> and <code>--_marker-label</code>. The
-      number always follows the marker word. Chromium exposes the markers as
-      tabs in a tab list.
+      number, which you can <a href="#labels">translate</a>. Chromium exposes
+      the markers as tabs in a tab list.
     </p>
     <p>
       The buttons and markers get the library's focus ring. In forced colors

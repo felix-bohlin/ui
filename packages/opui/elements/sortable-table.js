@@ -1,6 +1,10 @@
 const Base = globalThis.HTMLElement ?? class {}
 
 const BUTTON = "th[data-sort] > button"
+const LABELS = {
+  ascending: "{column}, sorted ascending",
+  descending: "{column}, sorted descending",
+}
 
 const keyOf = (cell) =>
   cell?.dataset.sortValue ?? cell?.textContent.trim().replace(/\s+/g, " ") ?? ""
@@ -55,8 +59,10 @@ export class SortableTable extends Base {
   }
 
   #announce(header, direction) {
-    const name = header.querySelector(":scope > button")?.textContent.trim()
-    this.#text = `${name}, ${this.dataset[direction] ?? direction}`
+    const name =
+      header.querySelector(":scope > button")?.textContent.trim() ?? ""
+    const label = this.getAttribute(`${direction}-label`) ?? LABELS[direction]
+    this.#text = label.replace("{column}", name)
     if (this.#status?.isConnected) {
       if (this.#ready) this.#status.textContent = this.#text
       return

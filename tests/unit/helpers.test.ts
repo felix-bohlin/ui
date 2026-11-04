@@ -7,7 +7,12 @@ import {
   createIds,
   idRefs,
 } from "../../packages/opui/components/id"
-import { mergeStyle, styleVars } from "../../packages/opui/components/style"
+import {
+  counterLabel,
+  cssString,
+  mergeStyle,
+  styleVars,
+} from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
 import { exampleIdBase } from "../../src/utils/id"
 
@@ -51,6 +56,22 @@ describe("styleVars and mergeStyle", () => {
   test("mergeStyle returns undefined when there is nothing to set", () => {
     expect(mergeStyle({ "--_a": undefined })).toBe(undefined)
     expect(mergeStyle({}, null)).toBe(undefined)
+  })
+})
+
+describe("cssString and counterLabel", () => {
+  test("cssString quotes text and escapes quotes, backslashes and line breaks", () => {
+    expect(cssString("Nästa")).toBe('"Nästa"')
+    expect(cssString('Say "hi"\\\n')).toBe('"Say \\"hi\\"\\\\\\a "')
+  })
+
+  test("counterLabel puts the counter where {count} is", () => {
+    expect(counterLabel("Slide {count}", "x")).toBe('"Slide " counter(x)')
+    expect(counterLabel("{count}. dia", "x")).toBe('counter(x) ". dia"')
+    expect(counterLabel("Page {count} of the tour", "x")).toBe(
+      '"Page " counter(x) " of the tour"',
+    )
+    expect(counterLabel("Slide", "x")).toBe('"Slide"')
   })
 })
 

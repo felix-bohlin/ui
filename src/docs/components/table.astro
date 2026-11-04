@@ -293,6 +293,23 @@ export const keywords = ["data table", "grid", "rows", "sort"]
         </p>
       </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        It announces "Moons, sorted ascending". Translate that with
+        <code>ascendingLabel</code> and <code>descendingLabel</code>, where
+        <code>{"{column}"}</code> stands for the header's label, so it can go
+        anywhere:
+        <code>ascendingLabel="Sorterat stigande efter {"{column}"}"</code>.
+      </Fragment>
+      <Fragment slot="html">
+        It announces "Moons, sorted ascending". Translate that with the
+        <code>ascending-label</code> and <code>descending-label</code>
+        attributes on <code>&lt;opui-sortable-table&gt;</code>, where
+        <code>{"{column}"}</code> stands for the header's label, so it can go
+        anywhere:
+        <code>ascending-label="Sorterat stigande efter {"{column}"}"</code>.
+      </Fragment>
+    </Conditional>
     <p>
       A cell sorts by its <code>data-sort-value</code>, or else its text,
       compared with <code>Intl.Collator</code> and <code>numeric: true</code>,

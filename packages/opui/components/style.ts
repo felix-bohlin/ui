@@ -31,3 +31,16 @@ export function mergeStyle(vars: Vars, style?: object | string | null) {
   }
   return [styleVars(vars), style].filter(Boolean).join(" ") || undefined
 }
+
+export const cssString = (text: string) =>
+  `"${text.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\a ")}"`
+
+export const counterLabel = (template: string, counter: string) =>
+  template
+    .split("{count}")
+    .flatMap((text, index) => [
+      index > 0 ? `counter(${counter})` : "",
+      text ? cssString(text) : "",
+    ])
+    .filter(Boolean)
+    .join(" ")

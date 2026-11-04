@@ -13,7 +13,10 @@ declare module "svelte/elements" {
     }
     "opui-number-field": HTMLAttributes<HTMLElement>
     "opui-select-all": HTMLAttributes<HTMLElement>
-    "opui-sortable-table": HTMLAttributes<HTMLElement>
+    "opui-sortable-table": HTMLAttributes<HTMLElement> & {
+      "ascending-label"?: string | undefined | null
+      "descending-label"?: string | undefined | null
+    }
     "opui-text-field": HTMLAttributes<HTMLElement>
     "opui-toaster": HTMLAttributes<HTMLElement> & {
       "close-label"?: string | undefined | null

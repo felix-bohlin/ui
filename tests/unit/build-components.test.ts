@@ -31,6 +31,16 @@ const compile = async (source: string, name = "Sample") => {
   ) as Record<"react.tsx" | "svelte" | "vue", string>
 }
 
+beforeAll(async () => {
+  await loadApis()
+  await compileComponent(
+    astro(
+      '<button class:list={["ui-sample", className]} type="button" {...rest} />',
+    ),
+    sampleFile(),
+  )
+}, 120_000)
+
 describe("the three ports of a sample", () => {
   test("a wrapper: class list, rest and the default slot", async () => {
     const ports = await compile(

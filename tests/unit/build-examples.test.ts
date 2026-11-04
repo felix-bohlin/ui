@@ -530,6 +530,32 @@ describe("reading the frontmatter", () => {
     }
   })
 
+  test("keeps a function const in every target, and React then runs on the client", async () => {
+    const source = astro(
+      "<Rating starLabel={starLabel} />",
+      "Rating",
+      "const starLabel = (value: number) => `${value} stars`\n",
+    )
+    for (const framework of ["react", "svelte", "vue"]) {
+      expect(await convert(source, framework), framework).toContain(
+        "const starLabel = (value: number) => `${value} stars`",
+      )
+    }
+    expect(await convert(source, "react")).toMatch(/^"use client"\n/)
+    expect(
+      await convert(
+        astro("<Rating starLabel={(value) => `${value} stars`} />", "Rating"),
+        "react",
+      ),
+    ).toMatch(/^"use client"\n/)
+    expect(
+      await convert(
+        astro("<Rating label={label} />", "Rating", 'const label = "Hi"\n'),
+        "react",
+      ),
+    ).not.toMatch(/use client/)
+  })
+
   test("carries a type import that a declaration uses and drops one that none does", async () => {
     const source = astro(
       "<p>{title}</p>",

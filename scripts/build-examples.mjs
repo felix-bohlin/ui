@@ -109,6 +109,26 @@ const unwrap = (node) => {
   return node
 }
 
+const isFunction = (node) =>
+  ts.isArrowFunction(node) || ts.isFunctionExpression(node)
+
+const passesFunction = (value, seen = new WeakSet()) => {
+  if (!value || typeof value !== "object" || seen.has(value)) return false
+  seen.add(value)
+  if (value.kind === "expression" && typeof value.value === "string") {
+    const sourceFile = ts.createSourceFile(
+      "expression.ts",
+      `(${value.value})`,
+      ts.ScriptTarget.Latest,
+      true,
+    )
+    const visit = (node) =>
+      isFunction(node) || ts.forEachChild(node, visit) === true
+    if (visit(sourceFile)) return true
+  }
+  return Object.values(value).some((child) => passesFunction(child, seen))
+}
+
 const literalValue = (node) => {
   node = unwrap(node)
   if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
@@ -203,9 +223,14 @@ const readFrontmatter = (code, file) => {
       const { declarations } = statement.declarationList
       const comments = commentsAround(code, statement)
       declarations.forEach((declaration, index) => {
-        const items = declaration.initializer
-          ? literalValue(declaration.initializer)
-          : NOT_LITERAL
+        const fn =
+          !!declaration.initializer &&
+          isFunction(unwrap(declaration.initializer))
+        const items = fn
+          ? undefined
+          : declaration.initializer
+            ? literalValue(declaration.initializer)
+            : NOT_LITERAL
         if (
           !ts.isIdentifier(declaration.name) ||
           items === NOT_LITERAL ||
@@ -214,6 +239,7 @@ const readFrontmatter = (code, file) => {
           throw unsupported(file, `\`${declaration.getText(sourceFile)}\``)
         }
         consts.push({
+          fn,
           items,
           leading: index === 0 ? comments.leading : [],
           name: declaration.name.text,
@@ -1433,7 +1459,12 @@ const toReact = (example, name, file = `${name}.astro`) => {
     .map(
       (item) => `const ${item.name} = (${reactExpression(item.tree, context)})`,
     )
+  const client =
+    example.consts.some(({ fn }) => fn) ||
+    passesFunction(example.tree) ||
+    passesFunction([...example.markup.values()].map(({ tree }) => tree))
   const header = [
+    ...(client ? ['"use client"'] : []),
     importLine(example, "react"),
     ...declarations(example),
     ...shared,

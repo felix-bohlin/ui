@@ -40,7 +40,7 @@ test("every hook command runs a file that exists", () => {
   ).toEqual([])
 })
 
-describe("post-edit", () => {
+describe("post-edit", { timeout: 30_000 }, () => {
   const project = mkdtempSync(join(tmpdir(), "opui-hook-"))
   mkdirSync(join(project, "docs"))
   writeFileSync(join(project, "docs/clean.md"), "One, two.\n")

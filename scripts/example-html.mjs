@@ -1,4 +1,4 @@
-import { boxesOf, renderedText } from "./example-display.mjs"
+import { boxesOf, renderedText, splitTopLevel } from "./example-display.mjs"
 import { attributeText, htmlText } from "./example-encoders.mjs"
 import { BOOLEAN_ATTRIBUTES, parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
 
@@ -224,10 +224,19 @@ export const cleanRender = (
   }
 }
 
+const outsideStrings = (text, change) =>
+  text
+    .split(/("[^"]*"|'[^']*')/)
+    .map((part, index) => (index % 2 ? part : change(part)))
+    .join("")
+
 export const declarations = (style) =>
-  style
-    .split(";")
-    .map((declaration) => declaration.trim().replace(/\s+/g, " "))
+  splitTopLevel(style, ";")
+    .map((declaration) =>
+      outsideStrings(declaration.trim(), (part) =>
+        part.replace(/\s+/g, " ").replace(/\(\s+/g, "(").replace(/\s+\)/g, ")"),
+      ),
+    )
     .filter(Boolean)
     .map((declaration) => declaration.replace(/\s*:\s*/, ": "))
     .join("; ")

@@ -191,7 +191,11 @@ export const toSvelte = (component) => {
     ...(rest ? [`...${rest}`] : []),
   ]
   const lines = destructured.map((line) =>
-    line === "" ? "" : line.startsWith("//") ? `    ${line}` : `    ${line},`,
+    line === ""
+      ? ""
+      : line.startsWith("//") || line.startsWith("...")
+        ? `    ${line}`
+        : `    ${line},`,
   )
   const script = [
     ...reads.map(

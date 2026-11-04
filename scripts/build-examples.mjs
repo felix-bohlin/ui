@@ -21,6 +21,7 @@ import {
 import {
   BLANK_LINE_MARKER,
   cleanRender,
+  declarations as styleDeclarations,
   meaningChange,
   meaningOf,
   WHITESPACE_MARK,
@@ -334,7 +335,14 @@ const toTree = (nodes, context) =>
           throw unsupported(context.file, `the directive ${item.name}`)
         }
         if (item.kind === "quoted") {
-          return { kind: "string", name: item.name, value: item.value }
+          return {
+            kind: "string",
+            name: item.name,
+            value:
+              item.name === "style"
+                ? styleDeclarations(item.value)
+                : item.value,
+          }
         }
         if (item.kind === "empty") return { kind: "boolean", name: item.name }
         if (item.kind === "expression" || item.kind === "template-literal") {

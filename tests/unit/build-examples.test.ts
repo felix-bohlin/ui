@@ -695,6 +695,20 @@ describe("the source layout", () => {
     expect(shape(a.tree)).toEqual(shape(c.tree))
   })
 
+  test("reads a style attribute as its declarations, however it is laid out", async () => {
+    const declarations =
+      "display: grid; gap: var(--ui-space-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
+    const oneLine = astro(`<div style="${declarations}"></div>`)
+    const lines = astro(
+      `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,
+    )
+    for (const framework of ["react", "svelte", "vue"]) {
+      expect(await convert(lines, framework)).toBe(
+        await convert(oneLine, framework),
+      )
+    }
+  })
+
   test("every example reads the same at print widths 40 and 120", async () => {
     const problems: string[] = []
     for (const key of keys) {

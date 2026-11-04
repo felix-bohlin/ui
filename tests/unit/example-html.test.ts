@@ -165,6 +165,18 @@ describe("meaningOf", () => {
         '<p style="\n  color: red;\n  gap: 1px\n">a</p>',
       ),
     ).toBe(undefined)
+    expect(
+      same(
+        '<p style="background: url(a;b); color: var(--x)">a</p>',
+        '<p style="background: url(a;b);\n  color: var(\n    --x\n  );">a</p>',
+      ),
+    ).toBe(undefined)
+    expect(
+      same(
+        '<p style="color: var(--x)">a</p>',
+        '<p style="color: var(--y)">a</p>',
+      ),
+    ).not.toBe(undefined)
   })
 
   test("htmlFromRender throws when formatting changes what the HTML renders", async () => {

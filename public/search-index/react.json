@@ -4142,7 +4142,7 @@
     "id": "api-drawer-header-react",
     "title": "Drawer Header API",
     "description": "Reference for Drawer Header React component.",
-    "terms": "DrawerHeader Container element. Closes the drawer. closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.",
+    "terms": "DrawerHeader Container element. Closes the drawer. closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
     "category": "API",
     "url": "/react/api#drawer-header"
   },

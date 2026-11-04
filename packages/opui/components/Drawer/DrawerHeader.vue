@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import { TrimmedSlot } from "../whitespace.vue"
 import { computed, inject } from "vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DrawerKey } from "./context.vue"
+import { warnMissingTarget } from "../dev"
 import { closePath } from "./icons"
-import type { DrawerHeaderProps, Slots } from "./types.vue-props"
+import type { DrawerHeaderProps as Props, Slots } from "./types.vue-props"
 
-const { closeLabel = "Close", commandfor } = defineProps<DrawerHeaderProps>()
+const { closeLabel = "Close", commandfor } = defineProps<Props>()
 defineSlots<Slots>()
 
 const drawer = inject(DrawerKey, undefined)
 
-const closeAttrs = computed(() =>
-  commandfor || drawer
-    ? { command: "close", commandfor: commandfor ?? drawer?.id }
-    : { onclick: "this.closest('dialog')?.close()" },
-)
+const target = computed(() => commandfor ?? drawer?.id)
+
+warnMissingTarget("DrawerHeader", target.value, "Drawer")
 </script>
 
 <template>
   <div :class="['ui-header', $props.class]">
-    <TrimmedSlot :nodes="$slots.default?.()" />
-    <Button :aria-label="closeLabel" round size="small" v-bind="closeAttrs">
+    <TrimmedSlot :nodes="$slots.default?.()" /><Button
+      :aria-label="closeLabel"
+      command="close"
+      :commandfor="target"
+      round
+      size="small"
+    >
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +33,7 @@ const closeAttrs = computed(() =>
         height="32"
         viewBox="0 0 32 32"
       >
-        <path fill="currentColor" :d="closePath"></path>
+        <path fill="currentColor" :d="closePath" />
       </svg>
     </Button>
   </div>

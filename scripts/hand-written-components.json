@@ -1,10 +1,4 @@
 {
-  "Drawer/DrawerHeader.react.tsx": "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
-  "Drawer/DrawerHeader.svelte": "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
-  "Drawer/DrawerHeader.vue": "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
-  "Drawer/types.react.ts": "the folder has a hand-written component (DrawerHeader)",
-  "Drawer/types.svelte.ts": "the folder has a hand-written component (DrawerHeader)",
-  "Drawer/types.vue-props.ts": "the folder has a hand-written component (DrawerHeader)",
   "Progress/Progress.svelte": "Svelte re-creates the progress element with {#key value == null} when the value switches between determinate and indeterminate, which the Astro file doesn't express",
   "Range/Range.react.tsx": "the form reset handling and the live value output, which the Astro file doesn't express",
   "Range/Range.svelte": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",

@@ -42,7 +42,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 ### Props and modifiers
 
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
-- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.
+- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots
 
@@ -434,7 +434,6 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/react"`
 
 - Client components (`"use client"`): `Drawer` and `DrawerHeader`.
-- Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
 
 ### Example: Basics
 
@@ -564,8 +563,6 @@ export default function Basics() {
 ## Svelte
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/svelte"`
-
-- Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
 
 ### Example: Basics
 

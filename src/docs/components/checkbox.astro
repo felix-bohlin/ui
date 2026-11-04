@@ -260,12 +260,11 @@ export const keywords = ["check", "tick"]
       <div slot="html" class="ui-not-rich-text">
         <p>
           Add <code>data-indeterminate</code> to the
-          <code>&lt;input type="checkbox"&gt;</code> and call
-          <code>activateIndeterminate()</code> from
-          <code>opui-css/css/js/checkbox.js</code> once the element is in the
-          DOM. The attribute alone has no effect. When you add or remove
-          <code>data-indeterminate</code> later, call
-          <code>syncIndeterminate(input)</code>.
+          <code>&lt;input type="checkbox"&gt;</code> and import
+          <code>opui-css/css/js/checkbox.js</code>. The attribute alone has no
+          effect. The module follows every checkbox on the page, so adding or
+          removing <code>data-indeterminate</code> later, or adding a checkbox
+          that has it, updates the box too.
         </p>
 
         <UICallout>
@@ -274,9 +273,8 @@ export const keywords = ["check", "tick"]
             <div class="ui-rich-text">
               The <code>indeterminate</code> state cannot be set with HTML or
               CSS alone. The browser only exposes it as a property on
-              <code>HTMLInputElement</code>, so
-              <code>activateIndeterminate()</code> sets
-              <code>el.indeterminate = true</code> on every input with
+              <code>HTMLInputElement</code>, so <code>checkbox.js</code> sets
+              <code>el.indeterminate</code> on every input from its
               <code>data-indeterminate</code>. The <code>:indeterminate</code>
               CSS pseudo-class then matches and the dash glyph appears.
             </div>

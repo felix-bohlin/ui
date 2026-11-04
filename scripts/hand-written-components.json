@@ -1,10 +1,4 @@
 {
-  "Checkbox/CheckboxInput.react.tsx": "the <script> that calls initCheckbox() to set the indeterminate property, which the ports write as an effect or attachment",
-  "Checkbox/CheckboxInput.svelte": "the <script> that calls initCheckbox() to set the indeterminate property, which the ports write as an effect or attachment",
-  "Checkbox/CheckboxInput.vue": "the <script> that calls initCheckbox() to set the indeterminate property, which the ports write as an effect or attachment",
-  "Checkbox/types.react.ts": "the folder has a hand-written component (CheckboxInput)",
-  "Checkbox/types.svelte.ts": "the folder has a hand-written component (CheckboxInput)",
-  "Checkbox/types.vue-props.ts": "the folder has a hand-written component (CheckboxInput)",
   "Drawer/DrawerHeader.react.tsx": "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
   "Drawer/DrawerHeader.svelte": "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",
   "Drawer/DrawerHeader.vue": "React can't attach a string to an event; give the element the attribute, or write the behavior in a helper",

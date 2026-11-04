@@ -359,7 +359,7 @@ export const whatsNew = {
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
     {
-      html: `Call <code>syncIndeterminate(input)</code> from <code>checkbox.js</code> after you change <code>data-indeterminate</code> (<a href="#indeterminate">Indeterminate</a>).`,
+      html: `<code>checkbox.js</code> keeps <code>indeterminate</code> in step when <code>data-indeterminate</code> changes or a checkbox is added, without a call (<a href="#indeterminate">Indeterminate</a>).`,
     },
     `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
     `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,

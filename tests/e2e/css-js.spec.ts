@@ -41,6 +41,48 @@ test("checkbox.js applies indeterminate to marked checkboxes", async ({
   await expect(page.locator("#mixed")).toHaveJSProperty("indeterminate", false)
 })
 
+test("checkbox.js keeps indeterminate in sync with data-indeterminate once imported", async ({
+  page,
+}) => {
+  await page.setContent(`
+    <input type="checkbox" id="mixed" data-indeterminate />
+    <input type="checkbox" id="plain" />
+    <div id="list"></div>
+  `)
+  await page.addScriptTag(helper("checkbox.js", ""))
+
+  await expect(page.locator("#mixed")).toHaveJSProperty("indeterminate", true)
+
+  await page.evaluate(() => {
+    document.querySelector("#mixed")!.removeAttribute("data-indeterminate")
+    document.querySelector("#plain")!.setAttribute("data-indeterminate", "")
+  })
+  await expect(page.locator("#mixed")).toHaveJSProperty("indeterminate", false)
+  await expect(page.locator("#plain")).toHaveJSProperty("indeterminate", true)
+
+  await page.evaluate(() => {
+    document.querySelector("#list")!.innerHTML =
+      '<label><input type="checkbox" id="added" data-indeterminate /></label>'
+    const input = document.createElement("input")
+    input.type = "checkbox"
+    input.id = "appended"
+    input.dataset.indeterminate = ""
+    document.body.append(input)
+  })
+  await expect(page.locator("#added")).toHaveJSProperty("indeterminate", true)
+  await expect(page.locator("#appended")).toHaveJSProperty(
+    "indeterminate",
+    true,
+  )
+
+  await page.locator("#appended").click()
+  await expect(page.locator("#appended")).toHaveJSProperty(
+    "indeterminate",
+    false,
+  )
+  await expect(page.locator("#appended")).toBeChecked()
+})
+
 test("range.js mirrors the value into the output and follows a reset", async ({
   page,
 }) => {

@@ -429,9 +429,9 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       <li>
         <strong>Indeterminate checkboxes</strong>: <code>indeterminate</code> is
         a property, not an attribute. Mark the input with
-        <code>data-indeterminate</code> and call
-        <code>activateIndeterminate()</code> from <code>css/js/checkbox.js</code
-        >.
+        <code>data-indeterminate</code> and import
+        <code>css/js/checkbox.js</code>, which follows every checkbox on the
+        page, also ones added later and ones whose attribute changes.
       </li>
       <li>
         <strong>Range value</strong>: the <code>output</code> has to be updated
@@ -446,20 +446,16 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
         {
           title: "CDN",
           code: `<script type="module">
-  import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+  import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
   import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/range.js"
-
-  activateIndeterminate()
 </script>`,
           lang: "html",
         },
         {
           title: "Bundler",
           code: `<script type="module">
-  import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+  import "opui-css/css/js/checkbox.js"
   import "opui-css/css/js/range.js"
-
-  activateIndeterminate()
 </script>`,
           lang: "html",
         },

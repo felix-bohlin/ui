@@ -35,7 +35,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 ### Notes
 
-- HTML: `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.
+- HTML: `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property, and keeps it in step when the attribute changes or a checkbox is added.
 - Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
@@ -175,7 +175,7 @@ import { Checkbox } from "opui-css/astro"
 
 - `Checkbox` slot props (`ReactNode`): `children` and `endText`.
 - Client components (`"use client"`): `CheckboxInput` and `SelectAll`.
-- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Without hydration: Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
+- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Without hydration: Import `opui-css/css/js/checkbox.js` in the page.
 
 ### Example: Basics
 
@@ -211,7 +211,7 @@ export default function Basics() {
 
 - `Checkbox` slot snippets: `children` and `endText`.
 - Hydration: `bind:checked` and `bind:group` on `Checkbox` and `CheckboxInput`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Without hydration: Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
+- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Without hydration: Import `opui-css/css/js/checkbox.js` in the page.
 
 ### Example: Basics
 
@@ -235,7 +235,7 @@ export default function Basics() {
 `import { Checkbox, CheckboxInput, SelectAll } from "opui-css/vue"`
 
 - `Checkbox` named slots: `end-text`. Fill one with `<template #end-text>`.
-- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Without hydration: Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
+- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Without hydration: Import `opui-css/css/js/checkbox.js` in the page.
 - Hydration: `v-model` on `Checkbox` and `CheckboxInput`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Basics

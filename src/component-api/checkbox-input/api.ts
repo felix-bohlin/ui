@@ -8,27 +8,24 @@ export default {
     react: [
       {
         description:
-          "A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
         prop: "indeterminate",
       },
     ],
     svelte: [
       {
         description:
-          "A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
         prop: "indeterminate",
       },
     ],
     vue: [
       {
         description:
-          "A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+          "A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs.",
+        fallback: "Import `opui-css/css/js/checkbox.js` in the page.",
         prop: "indeterminate",
       },
     ],

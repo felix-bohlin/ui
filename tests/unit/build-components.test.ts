@@ -623,6 +623,24 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a block tag that a component class lays out inline-level keeps the space around it", async () => {
+    const compile = (className: string) =>
+      compileComponent(
+        astro(
+          `<label class:list={["ui-sample", className]} {...rest}>\n  <div class="${className}">a</div>\n  <span>b</span>\n</label>`,
+        ),
+        sampleFile(),
+      )
+    const inline = await compile("ui-toggle-group")
+    expect(
+      inline.outputs.get(sampleFile().replace(".astro", ".react.tsx")),
+    ).toContain('<div className="ui-toggle-group">a</div> <span>b</span>')
+    const block = await compile("ui-card")
+    expect(
+      block.outputs.get(sampleFile().replace(".astro", ".react.tsx")),
+    ).toContain('<div className="ui-card">a</div>\n      <span>b</span>')
+  })
+
   test("a group with an array value ties it to multiple in the Vue generic", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\nimport { sampleContext } from "./context.astro"\n\nconst { class: className, multiple, value, ...rest } = Astro.props\n\nconst html = await sampleContext.provide({ value }, () =>\n  Astro.slots.render("default"),\n)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <Fragment set:html={html} />\n</div>\n',

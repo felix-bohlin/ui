@@ -1,6 +1,6 @@
 import ts from "typescript"
 import { isBlank, sourceFileOf, unwrap } from "./component-shared.mjs"
-import { parseDisplay, UA_CSS } from "./example-display.mjs"
+import { baseCssRules, parseDisplay, UA_CSS } from "./example-display.mjs"
 
 const BLOCK_TAGS = new Set(
   [...UA_CSS.matchAll(/^([^{@]+)\{\s*display:\s*([^;}]+)\}/gm)].flatMap(
@@ -13,6 +13,64 @@ const BLOCK_TAGS = new Set(
         : [],
   ),
 )
+
+const staticClasses = (node) => {
+  const list = node.attributes.find((item) => item.kind === "class")
+  if (list) {
+    const expression = unwrap(
+      sourceFileOf(`(${list.code})`, "class.ts").statements[0].expression,
+    )
+    const items = ts.isArrayLiteralExpression(expression)
+      ? expression.elements
+      : [expression]
+    return items.flatMap((item) =>
+      ts.isStringLiteral(item) ? item.text.split(/\s+/).filter(Boolean) : [],
+    )
+  }
+  const fixed = node.attributes.find(
+    (item) => item.kind === "static" && item.name === "class",
+  )
+  return fixed ? fixed.value.split(/\s+/).filter(Boolean) : []
+}
+
+let inlineRules
+
+const inlineLevelRules = () => {
+  inlineRules ??= baseCssRules().filter((rule) => {
+    const { outer } = parseDisplay(rule.display ?? "inline")
+    return rule.display && outer !== "block" && outer !== "none"
+  })
+  return inlineRules
+}
+
+const couldMatch = (compound, tag, classes) => {
+  const type = compound.find((simple) => simple.type === "type")
+  if (type && type.name !== tag) return false
+  const named = compound.filter((simple) => simple.type === "class")
+  if (named.length > 0) {
+    return named.some((simple) => classes.includes(simple.name))
+  }
+  const nested = compound.filter(
+    (simple) =>
+      simple.type === "pseudo" &&
+      (simple.name === "is" || simple.name === "where"),
+  )
+  if (nested.length > 0) {
+    return nested.every((simple) =>
+      simple.argument.some((complex) =>
+        couldMatch(complex.at(-1).compound, tag, classes),
+      ),
+    )
+  }
+  return type !== undefined
+}
+
+const inlineLevelByCss = (tag, classes) =>
+  inlineLevelRules().some((rule) =>
+    rule.selector.some((complex) =>
+      couldMatch(complex.at(-1).compound, tag, classes),
+    ),
+  )
 
 const tagOf = (node, component) => {
   if (node.component) return undefined
@@ -27,9 +85,16 @@ const tagOf = (node, component) => {
 }
 
 export const layoutOf = (component) => {
+  const uaOuter = (node) =>
+    BLOCK_TAGS.has(tagOf(node, component)) ? "block" : "inline"
   const outer = (node) => {
     if (node.type === "element") {
-      return BLOCK_TAGS.has(tagOf(node, component)) ? "block" : "inline"
+      const tag = tagOf(node, component)
+      return tag &&
+        BLOCK_TAGS.has(tag) &&
+        !inlineLevelByCss(tag, staticClasses(node))
+        ? "block"
+        : "inline"
     }
     const branches =
       node.type === "if"
@@ -43,7 +108,7 @@ export const layoutOf = (component) => {
       ? "block"
       : "inline"
   }
-  return { outer }
+  return { outer, uaOuter }
 }
 
 const LINE = { type: "text", value: "\n" }
@@ -133,7 +198,7 @@ export const shapeWhitespace = (tree, component) => {
           continue
         }
         node.children =
-          layout.outer(node) === "block"
+          layout.uaOuter(node) === "block"
             ? flowChildren(children, layout.outer)
             : inlineChildren(children, layout.outer)
         continue

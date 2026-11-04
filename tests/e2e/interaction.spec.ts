@@ -4,6 +4,7 @@ import {
   failsIn,
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_RADIO_NO_WRAP,
+  WEBKIT_RADIO_RTL_ARROWS,
 } from "./engine-bugs"
 import {
   computed,
@@ -624,6 +625,31 @@ interaction(
       root.getByRole("radio", { name: "Notifications" }),
     ).toBeChecked()
     await expect(panels.nth(2)).toBeVisible()
+  },
+)
+
+interaction(
+  "tabs",
+  "Basics",
+  "tabs in right-to-left text move to the next tab with Left Arrow",
+  async ({ page, root }) => {
+    failsIn(page.context().browser()!.browserType().name(), {
+      webkit: WEBKIT_RADIO_RTL_ARROWS,
+    })
+    const tabs = root.locator(".ui-tabs > .ui-label")
+    const panels = root.locator(".ui-tabs > .ui-panel")
+    await root
+      .locator(".ui-tabs")
+      .evaluate((element) => element.setAttribute("dir", "rtl"))
+
+    await tabs.first().click()
+    await expect(root.getByRole("radio", { name: "Profile" })).toBeChecked()
+    await page.keyboard.press("ArrowLeft")
+    await expect(root.getByRole("radio", { name: "Settings" })).toBeChecked()
+    await expect(panels.nth(1)).toBeVisible()
+    await page.keyboard.press("ArrowRight")
+    await expect(root.getByRole("radio", { name: "Profile" })).toBeChecked()
+    await expect(panels.nth(0)).toBeVisible()
   },
 )
 

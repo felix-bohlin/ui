@@ -12,6 +12,9 @@ export const WEBKIT_INNER_TEXT_HIDDEN_NODES =
 export const WEBKIT_RADIO_NO_WRAP =
   "WebKit stops at the last radio of a group instead of wrapping to the first with the arrow keys"
 
+export const WEBKIT_RADIO_RTL_ARROWS =
+  "WebKit takes Left Arrow as the previous radio of a group in right-to-left text too, instead of following the reading direction"
+
 export const WEBKIT_TOP_LAYER_ANCHOR =
   "WebKit moves a popover up by the page scroll when its anchor is in the top layer too, inside a modal dialog or another popover"
 
@@ -21,6 +24,7 @@ export const ENGINE_BUGS = {
     WEBKIT_ARROW_FOCUS_SCROLL,
     WEBKIT_INNER_TEXT_HIDDEN_NODES,
     WEBKIT_RADIO_NO_WRAP,
+    WEBKIT_RADIO_RTL_ARROWS,
     WEBKIT_TOP_LAYER_ANCHOR,
   ],
 } as const

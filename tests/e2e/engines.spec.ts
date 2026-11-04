@@ -6,6 +6,7 @@ import {
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_INNER_TEXT_HIDDEN_NODES,
   WEBKIT_RADIO_NO_WRAP,
+  WEBKIT_RADIO_RTL_ARROWS,
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
   type EngineBug,
@@ -234,6 +235,20 @@ repro(WEBKIT_RADIO_NO_WRAP, () => {
     await expect(tab.locator("#radio-3")).toBeChecked()
     await tab.keyboard.press("ArrowRight")
     await expect(tab.locator("#radio-1")).toBeChecked()
+  })
+})
+
+repro(WEBKIT_RADIO_RTL_ARROWS, () => {
+  test("Left Arrow moves to the next radio of a right-to-left group", async ({
+    browserName,
+    page: tab,
+  }) => {
+    failsIn(browserName, { webkit: WEBKIT_RADIO_RTL_ARROWS })
+    await tab.setContent(`<!doctype html><div dir="rtl">${radios(3)}</div>`)
+    await tab.locator("label").first().click()
+    await expect(tab.locator("#radio-1")).toBeChecked()
+    await tab.keyboard.press("ArrowLeft")
+    await expect(tab.locator("#radio-2")).toBeChecked()
   })
 })
 

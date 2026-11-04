@@ -42,6 +42,10 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - ALWAYS prefer inference over explicit types.
 - `pnpm lint` fails on `interface` and on annotations a literal already implies. Files that need declaration merging are listed in the `overrides` of `.oxlintrc.json`.
 
+## Dependencies
+
+- Never pin a dependency to an exact version: `tests/unit/dependencies.test.ts` fails on one in a `package.json` or the pnpm catalog.
+
 ## Commit messages
 
 - ONLY explain what, NOT why.

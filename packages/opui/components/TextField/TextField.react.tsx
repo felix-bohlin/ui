@@ -1,14 +1,16 @@
 "use client"
 
-import { useEffect, useId } from "react"
-import Button from "../Button/Button.react"
+import { type ElementType, useEffect, useId } from "react"
 import { cx } from "../cx"
+import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { createIds, idRefs } from "../id"
 import { hidePath, showPath } from "./icons"
 import type { Props } from "./types.react"
 
 export default function TextField({
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   autoFit,
   characterCount,
   characterCountLabel,
@@ -16,9 +18,11 @@ export default function TextField({
   error,
   hideLabel,
   id,
+  inputMode: inputmode,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
+  pattern,
   size,
   spread,
   style,
@@ -35,21 +39,24 @@ export default function TextField({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-  const generatedId = useId()
-  const Root = passwordToggle ? "opui-text-field" : "label"
-  const Label = passwordToggle ? "label" : "span"
+  const uid = useId()
+  const ids = createIds(uid, "text-field", id)
+  const root = passwordToggle ? "opui-text-field" : "label"
+  const Root: ElementType = root
+  const labelTag = passwordToggle ? "label" : "span"
+  const Label: ElementType = labelTag
+  const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const base = id ?? `text-field-${generatedId}`
-  const inputId = passwordToggle ? base : id
+  const inputId = passwordToggle ? ids() : id
   const startTextId =
-    passwordToggle && startText ? `${base}-start-text` : undefined
-  const endTextId =
-    passwordToggle && hasEndText ? `${base}-end-text` : undefined
-
+    passwordToggle && hasStartText ? ids("start-text") : undefined
+  const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
   useEffect(() => {
-    if (characterCount) void import("../../elements/character-count.js")
-    if (passwordToggle) void import("../../elements/text-field.js")
-  }, [characterCount, passwordToggle])
+    void import("../../elements/character-count.js")
+  }, [])
+  useEffect(() => {
+    void import("../../elements/text-field.js")
+  }, [])
 
   return (
     <Root
@@ -67,35 +74,29 @@ export default function TextField({
     >
       {label && (
         <Label
-          className={hideLabel ? "ui-sr-only" : "ui-label"}
+          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
           htmlFor={passwordToggle ? inputId : undefined}
         >
           {label}
         </Label>
-      )}
-      {startText && (
+      )}{" "}
+      {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}
+      )}{" "}
       <span className="ui-field">
         <input
           {...rest}
-          aria-describedby={idRefs(
-            startTextId,
-            endTextId,
-            rest["aria-describedby"],
-          )}
-          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
+          aria-invalid={error ? "true" : ariaInvalid}
           id={inputId}
-          inputMode={
-            rest.inputMode ?? (type === "numeric" ? "numeric" : undefined)
-          }
+          inputMode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
           name={name ?? field?.name}
-          pattern={rest.pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
+          pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
           type={type === "numeric" ? "text" : type}
-        />
-        {start && <span className="ui-start">{start}</span>}
+        />{" "}
+        {start && <span className="ui-start">{start}</span>}{" "}
         {(end || passwordToggle) && (
           <span className="ui-end">
             {end}
@@ -130,10 +131,10 @@ export default function TextField({
               </Button>
             )}
           </span>
-        )}
-        {top && <span className="ui-top">{top}</span>}
+        )}{" "}
+        {top && <span className="ui-top">{top}</span>}{" "}
         {bottom && <span className="ui-bottom">{bottom}</span>}
-      </span>
+      </span>{" "}
       {hasEndText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}
@@ -145,7 +146,7 @@ export default function TextField({
             />
           )}
         </span>
-      )}
+      )}{" "}
       {children}
     </Root>
   )

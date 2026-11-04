@@ -91,6 +91,13 @@ export default {
     },
     {
       description:
+        'The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.',
+      inherited: true,
+      prop: "inputmode",
+      type: "string",
+    },
+    {
+      description:
         "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
       inherited: true,
       prop: "name",
@@ -109,6 +116,13 @@ export default {
       default: '"Show password"',
       description: "The accessible name of the password toggle.",
       prop: "passwordToggleLabel",
+    },
+    {
+      description:
+        'The `pattern` of the `<input>`. With `type="numeric"` it is `[0-9]*`.',
+      inherited: true,
+      prop: "pattern",
+      type: "string",
     },
     {
       attribute: "[required]",

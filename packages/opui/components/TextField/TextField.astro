@@ -42,8 +42,7 @@ const Root = passwordToggle ? "opui-text-field" : "label"
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
-const Label =
-  label || labelSlot ? (passwordToggle ? "label" : "span") : Fragment
+const Label = passwordToggle ? "label" : "span"
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(
   endText || Astro.slots.has("end-text") || characterCount,
@@ -67,11 +66,11 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
   ])}
   style={style}
 >
-  <Label
+  {(label || labelSlot) && <Label
     class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
     for={passwordToggle ? inputId : undefined}
     >{label}<Fragment set:html={labelSlot}
-  /></Label>
+  /></Label>}
   {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
     <slot name="start-text" />

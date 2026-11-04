@@ -60,7 +60,9 @@ const elementRefs = (node) => {
         element: ref.typeArguments[0].literal.getText(),
         keys: [],
         node: ref,
-        omittable: !ts.isTypeReferenceNode(ref.parent),
+        omittable:
+          !ts.isTypeReferenceNode(ref.parent) &&
+          !ts.isIndexedAccessTypeNode(ref.parent),
       })
       return
     }
@@ -70,8 +72,9 @@ const elementRefs = (node) => {
   return refs
 }
 
-const elementsOf = (node) =>
-  elementRefs(node).map(({ element }) => JSON.parse(element))
+const elementsOf = (node) => [
+  ...new Set(elementRefs(node).map(({ element }) => JSON.parse(element))),
+]
 
 const hasElement = (node) => elementRefs(node).length > 0
 
@@ -527,6 +530,10 @@ export const toTypes = (
     const kept = []
     let hasClass = false
     for (const part of members(alias.node.type)) {
+      if (ts.isTypeLiteralNode(part) && hasElement(part)) {
+        kept.push(vueText(part))
+        continue
+      }
       if (hasElement(part)) {
         hasClass = true
         continue
@@ -593,6 +600,7 @@ export const toTypes = (
         (prop) =>
           prop !== "as" &&
           !known.includes(prop) &&
+          !declaresProperty(node.type, prop) &&
           !(modelled?.kind === "group" && prop === modelled.prop),
       )
       .toSorted(byName)

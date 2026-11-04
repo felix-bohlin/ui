@@ -31,9 +31,11 @@ An input for single-line text data. Basic text fields with labels, field descrip
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-text-field > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.
+- `inputmode`: `string`. The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
 - `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button.
 - `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle.
+- `pattern`: `string`. The `pattern` of the `<input>`. With `type="numeric"` it is `[0-9]*`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.

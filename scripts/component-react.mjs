@@ -54,7 +54,16 @@ export const toReact = (component) => {
       tagConsts.some(({ name }) => name === test.trim()),
     ),
   )
-  const lowered = (name) => `${name[0].toLowerCase()}${name.slice(1)}`
+  const declared = new Set([
+    ...component.props.map(({ local }) => local),
+    ...slots.map((slot) => slotProp(slot)),
+    ...derived.map(({ name }) => name),
+    ...reads.map(({ name }) => name),
+  ])
+  const lowered = (name) => {
+    const camel = `${name[0].toLowerCase()}${name.slice(1)}`
+    return declared.has(camel) ? `${camel}Tag` : camel
+  }
   const rename = new Map([
     ...(kind?.rename?.(component.model) ?? []),
     ...props

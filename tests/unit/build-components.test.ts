@@ -119,6 +119,15 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a variable tag takes another name in React when a prop has its lowered name", async () => {
+    const ports = await compile(
+      `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, wide, ...rest } = Astro.props\nconst Label = wide ? "div" : "span"\n---\n\n<Label class:list={["ui-sample", className]} {...rest}>{label}</Label>\n`,
+    )
+    expect(ports["react.tsx"]).toContain(
+      'const labelTag = wide ? "div" : "span"\n  const Label: ElementType = labelTag',
+    )
+  })
+
   test("a root without a class list keeps the class in Vue", async () => {
     const ports = await compile(
       `---\nimport type { Props } from "./types.astro"\n\nconst { ...rest } = Astro.props\n---\n\n<tbody {...rest}>\n  <slot />\n</tbody>\n`,
@@ -1024,6 +1033,25 @@ describe("toTypes", () => {
     )
     expect(vue).toContain(
       'import type { IntrinsicElementAttributes } from "vue"',
+    )
+  })
+
+  test("a literal that reads an element attribute keeps its declaration in Vue, and an element read twice is one element", () => {
+    const { react, vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & {\n  type?: HTMLAttributes<"input">["type"] | "numeric"\n} & Omit<HTMLAttributes<"input">, "type">\n',
+        base: 'export type Props = {\n  size?: "small"\n}\n',
+      },
+      { Sample: [] },
+      { Sample: ["id", "size", "type"] },
+    )
+    expect(react).toContain(
+      'type?: ComponentProps<"input">["type"] | "numeric"',
+    )
+    expect(vue).toContain(
+      'export type Props = BaseProps & {\n  type?: IntrinsicElementAttributes["input"]["type"] | "numeric"\n} & Class & { id?: IntrinsicElementAttributes["input"]["id"] }',
     )
   })
 

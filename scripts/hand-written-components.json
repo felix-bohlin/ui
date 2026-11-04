@@ -32,11 +32,5 @@
   "Select/types.vue-props.ts": "the folder has a hand-written component (Select)",
   "SortableTable/SortableTable.react.tsx": "the onSort prop, which listens to the element's sort event and which the Astro file doesn't express",
   "SortableTable/types.react.ts": "the onSort prop and the opui-sortable-table element's attribute types",
-  "SortableTable/types.svelte.ts": "the onsort handler prop, which the Astro file doesn't express",
-  "TextField/TextField.react.tsx": "write it as a condition between one tag and Fragment",
-  "TextField/TextField.svelte": "write it as a condition between one tag and Fragment",
-  "TextField/TextField.vue": "write it as a condition between one tag and Fragment",
-  "TextField/types.react.ts": "the folder has a hand-written component (TextField)",
-  "TextField/types.svelte.ts": "the folder has a hand-written component (TextField)",
-  "TextField/types.vue-props.ts": "the folder has a hand-written component (TextField)"
+  "SortableTable/types.svelte.ts": "the onsort handler prop, which the Astro file doesn't express"
 }

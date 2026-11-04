@@ -1147,6 +1147,91 @@ interaction(
 )
 
 interaction(
+  "rating",
+  "Input",
+  "a rating input fills the stars up to the checked or hovered one",
+  async ({ page, root }) => {
+    const rating = root.locator(".ui-rating")
+    const stars = rating.locator('input:not([value="0"])')
+    const accent = await resolveColor(rating, "var(--_accent)")
+    const filled = () =>
+      stars.evaluateAll(
+        (inputs, color) =>
+          inputs.map(
+            (input) =>
+              getComputedStyle(input, "::before").backgroundColor === color,
+          ),
+        accent,
+      )
+
+    await page.mouse.move(0, 0)
+    await expect.poll(filled).toEqual([true, true, true, false, false])
+
+    await root.getByRole("radio", { name: "5 stars" }).hover()
+    await expect.poll(filled).toEqual([true, true, true, true, true])
+    await root.getByRole("radio", { name: "1 star" }).hover()
+    await expect.poll(filled).toEqual([true, false, false, false, false])
+    await root.getByRole("radio", { name: "No rating" }).hover()
+    await expect.poll(filled).toEqual([false, false, false, false, false])
+    await page.mouse.move(0, 0)
+    await expect.poll(filled).toEqual([true, true, true, false, false])
+
+    await root.getByRole("radio", { name: "3 stars" }).focus()
+    await page.keyboard.press("ArrowRight")
+    await expect(root.getByRole("radio", { name: "4 stars" })).toBeChecked()
+    await expect.poll(filled).toEqual([true, true, true, true, false])
+    await page.keyboard.press("ArrowLeft")
+    await page.keyboard.press("ArrowLeft")
+    await expect(root.getByRole("radio", { name: "2 stars" })).toBeChecked()
+    await expect.poll(filled).toEqual([true, true, false, false, false])
+
+    await root.getByRole("radio", { name: "No rating" }).check()
+    await page.mouse.move(0, 0)
+    await expect.poll(filled).toEqual([false, false, false, false, false])
+  },
+)
+
+interaction(
+  "one-time-code",
+  "Basics",
+  "a one-time code takes no more characters than its length",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Verification code" })
+
+    await expect(input).toHaveAttribute("maxlength", "6")
+    await input.pressSequentially("12345678")
+    await expect(input).toHaveValue("123456")
+  },
+)
+
+interaction(
+  "one-time-code",
+  "Basics",
+  "a required one-time code only looks invalid once the user leaves it incomplete",
+  async ({ page, root }) => {
+    const input = root.getByRole("textbox", { name: "Verification code" })
+    const field = root.locator(".ui-field")
+    const cells = () => computed(field, "background-color", "::before")
+    const invalid = await resolveColor(field, "var(--ui-invalid)")
+
+    await page.mouse.move(0, 0)
+    const initial = await cells()
+    expect(initial).not.toBe(invalid)
+
+    await input.focus()
+    await page.keyboard.type("12")
+    await page.keyboard.press("Tab")
+    await expect.poll(cells).toBe(invalid)
+
+    await input.focus()
+    await page.keyboard.type("3456")
+    await page.keyboard.press("Tab")
+    await expect(input).toHaveValue("123456")
+    await expect.poll(cells).toBe(initial)
+  },
+)
+
+interaction(
   "message",
   "Attachments",
   "a card in an outgoing message keeps the text color of an incoming one",
@@ -1304,6 +1389,71 @@ interaction(
     await expect(header("Diameter")).toHaveAttribute("aria-sort", "ascending")
     await expect(first).toHaveText("Mercury")
     await expect(root.getByRole("status")).toHaveText("Diameter, ascending")
+  },
+)
+
+interaction(
+  "table",
+  "Sortable",
+  "a sort listener that calls preventDefault keeps the rows and still moves aria-sort",
+  async ({ root }) => {
+    const planets = root.locator("tbody tr td:first-child")
+    const order = await planets.allTextContents()
+    await root
+      .locator("opui-sortable-table")
+      .evaluate((table) =>
+        table.addEventListener("sort", (event) => event.preventDefault()),
+      )
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(
+      root.getByRole("columnheader", { name: "Moons", exact: true }),
+    ).toHaveAttribute("aria-sort", "ascending")
+    await expect(
+      root.getByRole("columnheader", { name: "Planet", exact: true }),
+    ).not.toHaveAttribute("aria-sort")
+    await expect(root.getByRole("status")).toHaveText("Moons, ascending")
+    await expect(planets).toHaveText(order)
+  },
+)
+
+interaction(
+  "table",
+  "Sortable",
+  "a sortable table announces the words of data-ascending and data-descending",
+  async ({ root }) => {
+    await root.locator("opui-sortable-table").evaluate((table) => {
+      table.dataset.ascending = "stigande"
+      table.dataset.descending = "fallande"
+    })
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(root.getByRole("status")).toHaveText("Moons, stigande")
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(root.getByRole("status")).toHaveText("Moons, fallande")
+  },
+)
+
+interaction(
+  "table",
+  "Sortable",
+  "a sortable table sorts text by the language of its nearest lang",
+  async ({ root }) => {
+    const table = root.locator("opui-sortable-table")
+    const planets = root.locator("tbody tr td:first-child")
+    await planets
+      .filter({ hasText: "Earth" })
+      .evaluate((cell) => (cell.textContent = "Östra"))
+
+    await table.evaluate((element) => element.setAttribute("lang", "en"))
+    await root.getByRole("button", { name: "Planet" }).click()
+    await root.getByRole("button", { name: "Planet" }).click()
+    await expect(planets.nth(4)).toHaveText("Östra")
+
+    await table.evaluate((element) => element.setAttribute("lang", "sv"))
+    await root.getByRole("button", { name: "Planet" }).click()
+    await root.getByRole("button", { name: "Planet" }).click()
+    await expect(planets.last()).toHaveText("Östra")
   },
 )
 

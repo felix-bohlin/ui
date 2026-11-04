@@ -6,4 +6,3 @@ export const clean = (html: string) =>
       /[ \t]*data-astro-cid-[a-zA-Z0-9-]+(?:=(?:"[^"]*"|'[^']*'|[^ >]*))?/g,
       "",
     )
-    .replace(/[ \t]*<!-- prettier-ignore -->[ \t]*\r?\n?/g, "")

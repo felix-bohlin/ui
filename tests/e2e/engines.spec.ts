@@ -4,6 +4,7 @@ import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
   WEBKIT_ARROW_FOCUS_SCROLL,
+  WEBKIT_INNER_TEXT_HIDDEN_NODES,
   WEBKIT_RADIO_NO_WRAP,
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
@@ -269,4 +270,48 @@ ${Array.from({ length: 8 }, (_, index) => `  #radio-${index + 1} { grid-column: 
       )
       .toBe(true)
   })
+})
+
+const readers = (spaced: string, tight: string) => `<!doctype html>
+<style>
+  input { display: grid; position: relative }
+  label { display: flex }
+  li { display: grid; grid-template-areas: "start content" ". bottom"; grid-template-columns: 40px 1fr }
+  ol { display: flex; flex-direction: column; gap: 4px; list-style: none; margin: 0; padding: 0 }
+  p { margin: 0 }
+  table { position: relative }
+  time { display: block }
+  .avatar { display: flex; grid-area: start; margin-inline-end: 8px }
+  .content { display: grid; gap: 4px; grid-area: content; padding: 8px 16px }
+  .footer { display: flex; gap: 4px }
+  .hidden { block-size: 1px; clip-path: inset(50%); inline-size: 1px; overflow: hidden; position: absolute; white-space: nowrap }
+</style>
+<div id="spaced">${spaced}</div>
+<div id="tight">${tight}</div>`
+
+const READERS = {
+  "a list of grid items": [
+    `<ol>  <li> <div class="avatar" aria-label="Saga" role="img">SN</div> <div class="content"> <p>Saga</p>   <p>Did you get a chance to look?</p>  <p class="footer"> <time>14:02</time>  </p> </div>  </li> <li> <div class="avatar" aria-label="Saga" role="img">SN</div> <div class="content"> <p>Saga</p>   <p>No rush.</p>  <p class="footer"> <time>14:03</time>  </p> </div>  </li>  </ol>`,
+    `<ol><!--[--><li><!--[--><div class="avatar" aria-label="Saga" role="img"><!--[-->SN<!--]--></div><!--]--><div class="content"><p>Saga</p><!--[--><p>Did you get a chance to look?</p><!--]--><p class="footer"><time>14:02</time><!----></p></div><!----></li><li><!--[--><div class="avatar" aria-label="Saga" role="img"><!--[-->SN<!--]--></div><!--]--><div class="content"><p>Saga</p><!--[--><p>No rush.</p><!--]--><p class="footer"><time>14:03</time><!----></p></div><!----></li><!--]--></ol>`,
+  ],
+  "a table with visually hidden labels": [
+    `<table><thead>  <tr>  <th>  <label> <input type="checkbox"> <span class="hidden">Select all</span>  </label>  </th> <th> File </th> <th> Size </th>  </tr>  </thead> <tbody>  <tr>  <td>  <label> <input type="checkbox"> <span class="hidden">Select Invoice.pdf</span>  </label>  </td> <td> Invoice.pdf </td> <td> 120 kB </td>  </tr>  </tbody></table>`,
+    `<table><thead><tr><th><label><input type="checkbox"> <span class="hidden">Select all</span> </label></th><th>File</th><th>Size</th></tr></thead><tbody><tr><td><label><input type="checkbox"> <span class="hidden">Select Invoice.pdf</span> </label></td><td>Invoice.pdf</td><td>120 kB</td></tr></tbody></table>`,
+  ],
+}
+
+repro(WEBKIT_INNER_TEXT_HIDDEN_NODES, () => {
+  for (const [name, [spacedMarkup, tightMarkup]] of Object.entries(READERS)) {
+    test(`${name} reads the same with and without the whitespace and comments between its elements`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(browserName, { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES })
+      await tab.setContent(readers(spacedMarkup, tightMarkup))
+      const [spaced, tight] = await tab.evaluate(() =>
+        ["spaced", "tight"].map((id) => document.getElementById(id)!.innerText),
+      )
+      expect(tight).toBe(spaced)
+    })
+  }
 })

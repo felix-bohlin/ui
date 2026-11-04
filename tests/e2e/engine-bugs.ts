@@ -6,6 +6,9 @@ export const FIREFOX_SELF_RTL =
 export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"
 
+export const WEBKIT_INNER_TEXT_HIDDEN_NODES =
+  "WebKit's innerText reads the same rendered elements differently depending on the whitespace and comments between them, which don't render"
+
 export const WEBKIT_RADIO_NO_WRAP =
   "WebKit stops at the last radio of a group instead of wrapping to the first with the arrow keys"
 
@@ -16,6 +19,7 @@ export const ENGINE_BUGS = {
   firefox: [FIREFOX_SELF_RTL],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,
+    WEBKIT_INNER_TEXT_HIDDEN_NODES,
     WEBKIT_RADIO_NO_WRAP,
     WEBKIT_TOP_LAYER_ANCHOR,
   ],

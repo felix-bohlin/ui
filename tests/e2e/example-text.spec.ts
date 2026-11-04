@@ -1,5 +1,15 @@
 import { expect, test, type Page } from "@playwright/test"
+import {
+  WEBKIT_INNER_TEXT_HIDDEN_NODES,
+  failsIn,
+  type EngineBugs,
+} from "./engine-bugs"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
+
+const ENGINE_FAILURES: Record<string, EngineBugs> = {
+  checkbox: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
+  message: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
+}
 
 const KNOWN_DIFFERENCES: Record<string, string> = {}
 
@@ -39,8 +49,10 @@ const texts = async (page: Page, framework: Framework, component: string) => {
 
 for (const component of COMPONENTS) {
   test(`${component} examples read the same in every framework`, async ({
+    browserName,
     page,
   }) => {
+    failsIn(browserName, ENGINE_FAILURES[component])
     test.setTimeout(120_000)
     const astro = await texts(page, "astro", component)
     expect(astro.size).toBeGreaterThan(0)

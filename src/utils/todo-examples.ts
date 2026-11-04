@@ -14,6 +14,10 @@ export const todoExamples = {
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
   },
+  "drawer-sidebar": {
+    match:
+      "Drawer: the app-shell, inbox and chat blocks each hide their sidebar",
+  },
   "icon-only-shrink": {
     match: "ButtonGroup: with `.ui-overflow-shrink`, icon-only buttons",
   },

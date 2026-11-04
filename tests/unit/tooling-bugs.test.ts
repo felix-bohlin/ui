@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
@@ -15,6 +16,25 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/components/Select/Select.astro, which renders <selectedcontent> through the variable tag SelectedContent",
       ),
     ).not.toContain("</selectedcontent>")
+  })
+
+  test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {
+    const source = readFileSync(
+      new URL(
+        "../../node_modules/astro/dist/vite-plugin-css/index.js",
+        import.meta.url,
+      ),
+      "utf-8",
+    )
+    const walk = source.slice(
+      source.indexOf("async function ensureModulesLoaded"),
+      source.indexOf("function* collectCSSWithOrder"),
+    )
+    expect(walk).toContain("importedModules")
+    expect(
+      walk,
+      fixed("astro.config.mjs, the opui-raw-without-module-edge plugin"),
+    ).not.toMatch(/raw/i)
   })
 
   test("parse5 drops the button and div inside a select", () => {

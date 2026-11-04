@@ -131,8 +131,34 @@ export const styleOption = (component, code) => {
   return style ? { code, local: style.local } : undefined
 }
 
-export const objectCode = (entries) =>
-  `{ ${entries.map(({ code, key }) => (code === key ? key : `${key}: ${code}`)).join(", ")} }`
+const printed = (node) =>
+  printer.printNode(
+    ts.EmitHint.Expression,
+    node,
+    sourceFileOf("", "printed.ts"),
+  )
+
+const propertyName = (key, quote) =>
+  /^[A-Za-z_$][\w$]*$/.test(key)
+    ? ts.factory.createIdentifier(key)
+    : ts.factory.createStringLiteral(key, quote === "'")
+
+export const objectCode = (entries, { quote = '"', shorthand = true } = {}) =>
+  printed(
+    ts.factory.createObjectLiteralExpression(
+      entries.map((entry) =>
+        entry.spread !== undefined
+          ? ts.factory.createSpreadAssignment(expressionOf(entry.spread, quote))
+          : shorthand && entry.code === entry.key
+            ? ts.factory.createShorthandPropertyAssignment(entry.key)
+            : ts.factory.createPropertyAssignment(
+                propertyName(entry.key, quote),
+                expressionOf(entry.code, quote),
+              ),
+      ),
+      false,
+    ),
+  )
 
 export const contextImports = (component, file, namesOf) =>
   component.contexts.flatMap((context) => {
@@ -152,26 +178,48 @@ export const contextImports = (component, file, namesOf) =>
     ]
   })
 
+const namedImport = (line) => {
+  const [statement] = sourceFileOf(line, "import.ts").statements
+  return statement &&
+    ts.isImportDeclaration(statement) &&
+    !statement.importClause?.isTypeOnly &&
+    statement.importClause?.namedBindings &&
+    ts.isNamedImports(statement.importClause.namedBindings)
+    ? {
+        module: statement.moduleSpecifier.text,
+        names: statement.importClause.namedBindings.elements.map((element) =>
+          element.getText(),
+        ),
+      }
+    : undefined
+}
+
 export const withImport = (lines, module, name) => {
-  const index = lines.findIndex((line) =>
-    new RegExp(
-      `^import \\{[^}]*\\} from "${module.replace(/\./g, "\\.")}"$`,
-    ).test(line),
-  )
+  const imports = lines.map(namedImport)
+  const index = imports.findIndex((entry) => entry?.module === module)
   if (index === -1) return [...lines, `import { ${name} } from "${module}"`]
-  const names = [
-    ...new Set([
-      ...lines[index]
-        .replace(/^import \{\s*|\s*\} from .*$/g, "")
-        .split(/,\s*/),
-      name,
-    ]),
-  ].toSorted(byName)
+  const names = [...new Set([...imports[index].names, name])].toSorted(byName)
   return lines.with(index, `import { ${names.join(", ")} } from "${module}"`)
 }
 
-export const groupWarning = (component, item, checked) =>
-  `warnGroupedChecked(${JSON.stringify(component.name)}, ${item.grouped}, ${checked}, ${JSON.stringify(item.group)})`
+export const groupWarning = (
+  component,
+  item,
+  checked,
+  grouped = item.grouped,
+) =>
+  printed(
+    ts.factory.createCallExpression(
+      ts.factory.createIdentifier("warnGroupedChecked"),
+      undefined,
+      [
+        ts.factory.createStringLiteral(component.name),
+        expressionOf(grouped),
+        expressionOf(checked),
+        ts.factory.createStringLiteral(item.group),
+      ],
+    ),
+  )
 
 const helperImport = (component, folder, module) =>
   `${component.file.split("/").at(-2) === folder ? "." : `../${folder}`}/${module}`

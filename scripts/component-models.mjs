@@ -49,7 +49,9 @@ export const MODEL_KINDS = {
         `const change = (event: Event) => {\n  const input = event.currentTarget as HTMLInputElement\n  if (${item.grouped}.value === undefined) model.value = input.checked\n  ${item.parent}?.change?.(input)\n}`,
       checkedRename: (item) =>
         item.checked ? [item.checked, `model ?? ${item.checked}`] : undefined,
-      setup: (model) => [optionalModel(model).replace("modelValue", "model")],
+      setup: (model) => [
+        `const model = defineModel<${model.type} | undefined>({\n  default: undefined,\n})`,
+      ],
       warningChecked: (item) =>
         item.checked ? `${item.checked} ?? model.value` : undefined,
     },

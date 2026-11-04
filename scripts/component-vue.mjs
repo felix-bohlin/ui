@@ -4,6 +4,7 @@ import {
   contextImports,
   groupWarning,
   indent,
+  objectCode,
   propsImport,
   rewriteExpression,
   rewriteStatement,
@@ -244,18 +245,21 @@ export const toVue = (component) => {
     const first = node.attributes.indexOf(spreads[0])
     const last = node.attributes.indexOf(spreads.at(-1))
     const merged = (item) => {
-      const key = /^[A-Za-z_$][\w$]*$/.test(item.name ?? "")
-        ? item.name
-        : `'${item.name}'`
       if (item.kind === "spread") {
-        return `...${item.code === rest ? "attrs" : rewriteExpression(item.code, scope)}`
+        return {
+          spread:
+            item.code === rest ? "attrs" : rewriteExpression(item.code, scope),
+        }
       }
       if (item.kind === "static") {
-        return `${key}: ${rewriteExpression(JSON.stringify(item.value), scope)}`
+        return {
+          code: rewriteExpression(JSON.stringify(item.value), scope),
+          key: item.name,
+        }
       }
-      if (item.kind === "boolean") return `${key}: true`
+      if (item.kind === "boolean") return { code: "true", key: item.name }
       if (item.kind === "expression") {
-        return `${key}: ${rewriteExpression(item.code, scope)}`
+        return { code: rewriteExpression(item.code, scope), key: item.name }
       }
       throw unsupported(
         component.file,
@@ -268,10 +272,10 @@ export const toVue = (component) => {
             ...node.attributes.slice(0, first),
             {
               kind: "bound",
-              text: `v-bind="{ ${node.attributes
-                .slice(first, last + 1)
-                .map(merged)
-                .join(", ")} }"`,
+              text: `v-bind="${objectCode(
+                node.attributes.slice(first, last + 1).map(merged),
+                { quote: "'", shorthand: false },
+              )}"`,
             },
             ...node.attributes.slice(last + 1),
           ]
@@ -422,7 +426,7 @@ export const toVue = (component) => {
     ...warnings.map((code) => rewriteStatement(code, script)),
     ...(item
       ? [
-          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined").replace(`, ${item.grouped},`, `, ${item.grouped}.value,`)},\n)`,
+          `watchEffect(() =>\n  ${groupWarning(component, item, kind?.warningChecked?.(item) ?? item.checked ?? "undefined", `${item.grouped}.value`)},\n)`,
           kind?.change?.(item) ??
             `const change = (event: Event) =>\n  ${item.parent}?.change?.(event.currentTarget as HTMLInputElement)`,
         ]

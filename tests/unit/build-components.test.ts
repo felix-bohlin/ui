@@ -634,7 +634,7 @@ describe("the three ports of a sample", () => {
       "  let {\n    checked = $bindable(),\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () => (group ? group.includes(value) : !!checked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
     )
     expect(svelte).toContain(
-      '<input\n  type="checkbox"\n  {name}\n  {...rest}\n  bind:checked={getChecked, setChecked}\n  {value}\n/>',
+      '<input\n  type="checkbox"\n  {name}\n  {...rest}\n  bind:checked={getChecked, setChecked}\n  defaultChecked={initialChecked}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
@@ -659,7 +659,7 @@ describe("the three ports of a sample", () => {
       },
     )
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      '<input\n  type="radio"\n  {...rest}\n  checked={(checked ?? group === (value ?? true)) || undefined}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
+      '<input\n  type="radio"\n  {...rest}\n  checked={(checked ?? group === (value ?? true)) || undefined}\n  defaultChecked={initialChecked}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain("const unchecked = Symbol()")

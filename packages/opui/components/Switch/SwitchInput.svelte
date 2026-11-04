@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import { toggleInGroup } from "../group"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { SwitchInputProps as Props } from "./types.svelte"
@@ -17,6 +18,7 @@
     if (group) group = toggleInGroup(group, value, isChecked)
     else checked = isChecked
   }
+  const initialChecked = untrack(getChecked)
 </script>
 
 <input
@@ -25,5 +27,6 @@
   name={name ?? field?.name}
   {...rest}
   bind:checked={getChecked, setChecked}
+  defaultChecked={initialChecked}
   {value}
 />

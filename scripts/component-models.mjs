@@ -33,14 +33,20 @@ const numeric = (model) =>
 export const MODEL_KINDS = {
   checked: {
     svelte: {
-      attributes: () => ["bind:checked={getChecked, setChecked}", "{value}"],
+      attributes: () => [
+        "bind:checked={getChecked, setChecked}",
+        "defaultChecked={initialChecked}",
+        "{value}",
+      ],
       bindables: bindableProps,
       imports: () => [`import { toggleInGroup } from "../group"`],
       plainProps: () => ["value"],
       script: () => [
         "const getChecked = () => (group ? group.includes(value) : !!checked)",
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
+        "const initialChecked = untrack(getChecked)",
       ],
+      untrack: () => true,
     },
     vue: {
       attributes: () => ['v-model="model"'],
@@ -154,11 +160,16 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: () => [
         "checked={(checked ?? group === (value ?? true)) || undefined}",
+        "defaultChecked={initialChecked}",
         "onchange={(event) => {\n  group = value ?? true\n  onchange?.(event)\n}}",
         "{value}",
       ],
       bindables: bindableProps,
       plainProps: () => ["checked", "onchange", "value"],
+      script: () => [
+        "const initialChecked = untrack(() =>\n  Boolean(checked ?? group === (value ?? true)),\n)",
+      ],
+      untrack: () => true,
     },
     vue: {
       attributes: () => [':value="attrs.value"', 'v-model="model"'],

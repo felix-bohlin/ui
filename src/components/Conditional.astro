@@ -1,9 +1,7 @@
 ---
 import { conditionalSlot } from "../utils/framework"
 
-type Props = {
-  as?: "p" | "div" | "span" | "section"
-}
+type Props = Partial<Record<"as", "p" | "div" | "span" | "section">>
 
 const { as: Tag = "span" } = Astro.props
 

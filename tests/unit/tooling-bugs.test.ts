@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs"
+import { convertToTSX } from "@astrojs/compiler"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
@@ -35,6 +36,20 @@ describe("tooling bugs the generator and the components work around", () => {
       walk,
       fixed("astro.config.mjs, the opui-raw-without-module-edge plugin"),
     ).not.toMatch(/raw/i)
+  })
+
+  test("@astrojs/compiler types Astro.props as any when Props has an `as` key", async () => {
+    const { code } = await convertToTSX(
+      '---\ntype Props = { as?: "p" | "div" }\n\nconst { as: Tag = "p" } = Astro.props\n---\n\n<Tag />\n',
+      { filename: "Polymorphic.astro" },
+    )
+    expect(code).toContain("type Props")
+    expect(
+      code,
+      fixed(
+        'src/components/Conditional.astro, which writes its Props as Partial<Record<"as", ...>>',
+      ),
+    ).toContain("_props: Record<string, any>")
   })
 
   test("parse5 drops the button and div inside a select", () => {

@@ -352,7 +352,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "html",
@@ -362,7 +362,7 @@
   {
     "id": "component-card-astro",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "astro",
@@ -372,7 +372,7 @@
   {
     "id": "component-card-react",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "react",
@@ -382,7 +382,7 @@
   {
     "id": "component-card-svelte",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "svelte",
@@ -392,7 +392,7 @@
   {
     "id": "component-card-vue",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "vue",
@@ -452,7 +452,7 @@
   {
     "id": "component-checkbox-html",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
     "headings": "Basics Sizes Visible label Hidden label Label position End text Validation Indeterminate Select all Spread Cards Label alignment Field group Labels Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -462,7 +462,7 @@
   {
     "id": "component-checkbox-astro",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
     "headings": "Basics Sizes Visible label Hidden label Label position End text Validation Indeterminate Select all Spread Cards Label alignment Field group Labels Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -472,7 +472,7 @@
   {
     "id": "component-checkbox-react",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
     "headings": "Basics Sizes Visible label Hidden label Label position End text Validation Indeterminate Select all Spread Cards Label alignment Field group Labels Keyboard support",
     "category": "Component",
     "frameworkId": "react",
@@ -482,7 +482,7 @@
   {
     "id": "component-checkbox-svelte",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
     "headings": "Basics Sizes Visible label Hidden label Label position End text Validation Indeterminate Select all Spread Cards Label alignment Field group Labels Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
@@ -492,7 +492,7 @@
   {
     "id": "component-checkbox-vue",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
     "headings": "Basics Sizes Visible label Hidden label Label position End text Validation Indeterminate Select all Spread Cards Label alignment Field group Labels Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
@@ -502,7 +502,7 @@
   {
     "id": "component-chip-html",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
     "headings": "Variants Severities Sizes Icon Dot Button Link Pressed Disabled Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -512,7 +512,7 @@
   {
     "id": "component-chip-astro",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
     "headings": "Variants Severities Sizes Icon Dot Button Link Pressed Disabled Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -522,7 +522,7 @@
   {
     "id": "component-chip-react",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
     "headings": "Variants Severities Sizes Icon Dot Button Link Pressed Disabled Keyboard support",
     "category": "Component",
     "frameworkId": "react",
@@ -532,7 +532,7 @@
   {
     "id": "component-chip-svelte",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
     "headings": "Variants Severities Sizes Icon Dot Button Link Pressed Disabled Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
@@ -542,7 +542,7 @@
   {
     "id": "component-chip-vue",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
     "headings": "Variants Severities Sizes Icon Dot Button Link Pressed Disabled Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
@@ -802,7 +802,7 @@
   {
     "id": "component-drawer-html",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
     "headings": "Basics How to close a drawer Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -812,7 +812,7 @@
   {
     "id": "component-drawer-astro",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
     "headings": "Basics How to close a drawer Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -822,7 +822,7 @@
   {
     "id": "component-drawer-react",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
     "headings": "Basics How to close a drawer Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "react",
@@ -832,7 +832,7 @@
   {
     "id": "component-drawer-svelte",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
     "headings": "Basics How to close a drawer Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
@@ -842,7 +842,7 @@
   {
     "id": "component-drawer-vue",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
     "headings": "Basics How to close a drawer Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
@@ -902,7 +902,7 @@
   {
     "id": "component-layout-html",
     "title": "Layout",
-    "description": "Five classes for the space between components: .ui-layout-column,\n    .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such\n    as div, section or\n    ul. They sit in the utils layer, so on a component they\n    replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
     "headings": "Column Row Spread Grid Lists Media Gap Container Breakpoints",
     "category": "Component",
     "frameworkId": "html",
@@ -912,7 +912,7 @@
   {
     "id": "component-layout-astro",
     "title": "Layout",
-    "description": "Five classes for the space between components: .ui-layout-column,\n    .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such\n    as div, section or\n    ul. They sit in the utils layer, so on a component they\n    replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
     "headings": "Column Row Spread Grid Lists Media Gap Container Breakpoints",
     "category": "Component",
     "frameworkId": "astro",
@@ -922,7 +922,7 @@
   {
     "id": "component-layout-react",
     "title": "Layout",
-    "description": "Five classes for the space between components: .ui-layout-column,\n    .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such\n    as div, section or\n    ul. They sit in the utils layer, so on a component they\n    replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
     "headings": "Column Row Spread Grid Lists Media Gap Container Breakpoints",
     "category": "Component",
     "frameworkId": "react",
@@ -932,7 +932,7 @@
   {
     "id": "component-layout-svelte",
     "title": "Layout",
-    "description": "Five classes for the space between components: .ui-layout-column,\n    .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such\n    as div, section or\n    ul. They sit in the utils layer, so on a component they\n    replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
     "headings": "Column Row Spread Grid Lists Media Gap Container Breakpoints",
     "category": "Component",
     "frameworkId": "svelte",
@@ -942,7 +942,7 @@
   {
     "id": "component-layout-vue",
     "title": "Layout",
-    "description": "Five classes for the space between components: .ui-layout-column,\n    .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such\n    as div, section or\n    ul. They sit in the utils layer, so on a component they\n    replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Five classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
     "headings": "Column Row Spread Grid Lists Media Gap Container Breakpoints",
     "category": "Component",
     "frameworkId": "vue",
@@ -1252,7 +1252,7 @@
   {
     "id": "component-select-html",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
     "headings": "Variants Sizes Dense End text Affix Top and bottom Preselected Binding Option groups Optgroup Validation Spread Auto-fit Fallback Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -1262,7 +1262,7 @@
   {
     "id": "component-select-astro",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
     "headings": "Variants Sizes Dense End text Affix Top and bottom Preselected Binding Option groups Optgroup Validation Spread Auto-fit Fallback Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -1272,7 +1272,7 @@
   {
     "id": "component-select-react",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
     "headings": "Variants Sizes Dense End text Affix Top and bottom Preselected Binding Option groups Optgroup Validation Spread Auto-fit Fallback Keyboard support",
     "category": "Component",
     "frameworkId": "react",
@@ -1282,7 +1282,7 @@
   {
     "id": "component-select-svelte",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
     "headings": "Variants Sizes Dense End text Affix Top and bottom Preselected Binding Option groups Optgroup Validation Spread Auto-fit Fallback Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
@@ -1292,7 +1292,7 @@
   {
     "id": "component-select-vue",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
     "headings": "Variants Sizes Dense End text Affix Top and bottom Preselected Binding Option groups Optgroup Validation Spread Auto-fit Fallback Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
@@ -1302,7 +1302,7 @@
   {
     "id": "component-spinner-html",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
     "headings": "Basics Sizes Buttons When aria-busy=\"true\" shows no spinner 1. Because it's blocked by another use case 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "html",
@@ -1312,7 +1312,7 @@
   {
     "id": "component-spinner-astro",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
     "headings": "Basics Sizes Buttons When aria-busy=\"true\" shows no spinner 1. Because it's blocked by another use case 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "astro",
@@ -1322,7 +1322,7 @@
   {
     "id": "component-spinner-react",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
     "headings": "Basics Sizes Buttons When aria-busy=\"true\" shows no spinner 1. Because it's blocked by another use case 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "react",
@@ -1332,7 +1332,7 @@
   {
     "id": "component-spinner-svelte",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
     "headings": "Basics Sizes Buttons When aria-busy=\"true\" shows no spinner 1. Because it's blocked by another use case 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "svelte",
@@ -1342,7 +1342,7 @@
   {
     "id": "component-spinner-vue",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
     "headings": "Basics Sizes Buttons When aria-busy=\"true\" shows no spinner 1. Because it's blocked by another use case 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "vue",
@@ -1452,7 +1452,7 @@
   {
     "id": "component-tabs-html",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
     "headings": "Basics Filled Line Outlined Overflow Binding Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -1462,7 +1462,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
     "headings": "Basics Filled Line Outlined Overflow Binding Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -1472,7 +1472,7 @@
   {
     "id": "component-tabs-react",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
     "headings": "Basics Filled Line Outlined Overflow Binding Keyboard support",
     "category": "Component",
     "frameworkId": "react",
@@ -1482,7 +1482,7 @@
   {
     "id": "component-tabs-svelte",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
     "headings": "Basics Filled Line Outlined Overflow Binding Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
@@ -1492,7 +1492,7 @@
   {
     "id": "component-tabs-vue",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
     "headings": "Basics Filled Line Outlined Overflow Binding Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
@@ -1702,7 +1702,7 @@
   {
     "id": "component-tooltip-html",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"}\n        id. Set interestfor with that id on the trigger\n        element itself (it only works on real invokers like{\" \"}\n        &lt;button&gt; or &lt;a&gt;). Put the tooltip\n        in\n        TooltipContent after the trigger.",
+    "description": "Built on top of Anchor. Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"} id. Set interestfor with that id on the trigger element itself (it only works on real invokers like{\" \"} &lt;button&gt; or &lt;a&gt;). Put the tooltip in TooltipContent after the trigger.",
     "headings": "Basics Text only... ... or any markup you want Position Arrow Toggletip Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -1712,7 +1712,7 @@
   {
     "id": "component-tooltip-astro",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"}\n        id. Set interestfor with that id on the trigger\n        element itself (it only works on real invokers like{\" \"}\n        &lt;button&gt; or &lt;a&gt;). Put the tooltip\n        in\n        TooltipContent after the trigger.",
+    "description": "Built on top of Anchor. Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"} id. Set interestfor with that id on the trigger element itself (it only works on real invokers like{\" \"} &lt;button&gt; or &lt;a&gt;). Put the tooltip in TooltipContent after the trigger.",
     "headings": "Basics Text only... ... or any markup you want Position Arrow Toggletip Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -1722,7 +1722,7 @@
   {
     "id": "component-tooltip-react",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"}\n        id. Set interestfor with that id on the trigger\n        element itself (it only works on real invokers like{\" \"}\n        &lt;button&gt; or &lt;a&gt;). Put the tooltip\n        in\n        TooltipContent after the trigger.",
+    "description": "Built on top of Anchor. Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"} id. Set interestfor with that id on the trigger element itself (it only works on real invokers like{\" \"} &lt;button&gt; or &lt;a&gt;). Put the tooltip in TooltipContent after the trigger.",
     "headings": "Basics Text only... ... or any markup you want Position Arrow Toggletip Keyboard support",
     "category": "Component",
     "frameworkId": "react",
@@ -1732,7 +1732,7 @@
   {
     "id": "component-tooltip-svelte",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"}\n        id. Set interestfor with that id on the trigger\n        element itself (it only works on real invokers like{\" \"}\n        &lt;button&gt; or &lt;a&gt;). Put the tooltip\n        in\n        TooltipContent after the trigger.",
+    "description": "Built on top of Anchor. Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"} id. Set interestfor with that id on the trigger element itself (it only works on real invokers like{\" \"} &lt;button&gt; or &lt;a&gt;). Put the tooltip in TooltipContent after the trigger.",
     "headings": "Basics Text only... ... or any markup you want Position Arrow Toggletip Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
@@ -1742,7 +1742,7 @@
   {
     "id": "component-tooltip-vue",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"}\n        id. Set interestfor with that id on the trigger\n        element itself (it only works on real invokers like{\" \"}\n        &lt;button&gt; or &lt;a&gt;). Put the tooltip\n        in\n        TooltipContent after the trigger.",
+    "description": "Built on top of Anchor. Wrap the trigger in &lt;Tooltip&gt; and pass a stable{\" \"} id. Set interestfor with that id on the trigger element itself (it only works on real invokers like{\" \"} &lt;button&gt; or &lt;a&gt;). Put the tooltip in TooltipContent after the trigger.",
     "headings": "Basics Text only... ... or any markup you want Position Arrow Toggletip Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
@@ -1752,7 +1752,7 @@
   {
     "id": "component-typography-html",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Link Code block Icon Swatch Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "html",
@@ -1762,7 +1762,7 @@
   {
     "id": "component-typography-astro",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Link Code block Icon Swatch Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "astro",
@@ -1772,7 +1772,7 @@
   {
     "id": "component-typography-react",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Link Code block Icon Swatch Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "react",
@@ -1782,7 +1782,7 @@
   {
     "id": "component-typography-svelte",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Link Code block Icon Swatch Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "svelte",
@@ -1792,7 +1792,7 @@
   {
     "id": "component-typography-vue",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Link Code block Icon Swatch Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "vue",
@@ -1802,7 +1802,7 @@
   {
     "id": "guide-accessibility-html",
     "title": "Accessibility",
-    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
     "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
     "category": "Guide",
     "frameworkId": "html",
@@ -1811,7 +1811,7 @@
   {
     "id": "guide-accessibility-astro",
     "title": "Accessibility",
-    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
     "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1820,7 +1820,7 @@
   {
     "id": "guide-accessibility-react",
     "title": "Accessibility",
-    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
     "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
     "category": "Guide",
     "frameworkId": "react",
@@ -1829,7 +1829,7 @@
   {
     "id": "guide-accessibility-svelte",
     "title": "Accessibility",
-    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
     "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1838,7 +1838,7 @@
   {
     "id": "guide-accessibility-vue",
     "title": "Accessibility",
-    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes for free, but you still decide the names, the order and the content. Test with a keyboard and a screen reader, it always depends.",
     "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1847,7 +1847,7 @@
   {
     "id": "guide-acknowledgments-html",
     "title": "Acknowledgments",
-    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects and resources that made it possible.",
     "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
     "category": "Guide",
     "frameworkId": "html",
@@ -1856,7 +1856,7 @@
   {
     "id": "guide-acknowledgments-astro",
     "title": "Acknowledgments",
-    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects and resources that made it possible.",
     "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1865,7 +1865,7 @@
   {
     "id": "guide-acknowledgments-react",
     "title": "Acknowledgments",
-    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects and resources that made it possible.",
     "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
     "category": "Guide",
     "frameworkId": "react",
@@ -1874,7 +1874,7 @@
   {
     "id": "guide-acknowledgments-svelte",
     "title": "Acknowledgments",
-    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects and resources that made it possible.",
     "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1883,7 +1883,7 @@
   {
     "id": "guide-acknowledgments-vue",
     "title": "Acknowledgments",
-    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects and resources that made it possible.",
     "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1892,7 +1892,7 @@
   {
     "id": "guide-browser-support-html",
     "title": "Browser support",
-    "description": "The web platform features the components rely on, and the browsers that ship\n    each one.",
+    "description": "The web platform features the components rely on, and the browsers that ship each one.",
     "headings": "Policy Compat layer Support level Polyfills",
     "category": "Guide",
     "frameworkId": "html",
@@ -1901,7 +1901,7 @@
   {
     "id": "guide-browser-support-astro",
     "title": "Browser support",
-    "description": "The web platform features the components rely on, and the browsers that ship\n    each one.",
+    "description": "The web platform features the components rely on, and the browsers that ship each one.",
     "headings": "Policy Compat layer Support level Polyfills",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1910,7 +1910,7 @@
   {
     "id": "guide-browser-support-react",
     "title": "Browser support",
-    "description": "The web platform features the components rely on, and the browsers that ship\n    each one.",
+    "description": "The web platform features the components rely on, and the browsers that ship each one.",
     "headings": "Policy Compat layer Support level Polyfills",
     "category": "Guide",
     "frameworkId": "react",
@@ -1919,7 +1919,7 @@
   {
     "id": "guide-browser-support-svelte",
     "title": "Browser support",
-    "description": "The web platform features the components rely on, and the browsers that ship\n    each one.",
+    "description": "The web platform features the components rely on, and the browsers that ship each one.",
     "headings": "Policy Compat layer Support level Polyfills",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1928,7 +1928,7 @@
   {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
-    "description": "The web platform features the components rely on, and the browsers that ship\n    each one.",
+    "description": "The web platform features the components rely on, and the browsers that ship each one.",
     "headings": "Policy Compat layer Support level Polyfills",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1937,7 +1937,7 @@
   {
     "id": "guide-concepts-html",
     "title": "Concepts",
-    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",
     "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "html",
@@ -1946,7 +1946,7 @@
   {
     "id": "guide-concepts-astro",
     "title": "Concepts",
-    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",
     "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1955,7 +1955,7 @@
   {
     "id": "guide-concepts-react",
     "title": "Concepts",
-    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",
     "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "react",
@@ -1964,7 +1964,7 @@
   {
     "id": "guide-concepts-svelte",
     "title": "Concepts",
-    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",
     "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1973,7 +1973,7 @@
   {
     "id": "guide-concepts-vue",
     "title": "Concepts",
-    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    naming, rich text, and where JavaScript is still needed.",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",
     "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Naming Variants Start and end Checked Rich text JavaScript Custom elements",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1982,7 +1982,7 @@
   {
     "id": "guide-customizing-html",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library,\n    a component's --_* properties change one component or one instance,\n    and your own layer holds the rest.",
+    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
     "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "html",
@@ -1991,7 +1991,7 @@
   {
     "id": "guide-customizing-astro",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library,\n    a component's --_* properties change one component or one instance,\n    and your own layer holds the rest.",
+    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
     "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "astro",
@@ -2000,7 +2000,7 @@
   {
     "id": "guide-customizing-react",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library,\n    a component's --_* properties change one component or one instance,\n    and your own layer holds the rest.",
+    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
     "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "react",
@@ -2009,7 +2009,7 @@
   {
     "id": "guide-customizing-svelte",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library,\n    a component's --_* properties change one component or one instance,\n    and your own layer holds the rest.",
+    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
     "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -2018,7 +2018,7 @@
   {
     "id": "guide-customizing-vue",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library,\n    a component's --_* properties change one component or one instance,\n    and your own layer holds the rest.",
+    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
     "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "vue",
@@ -2027,7 +2027,7 @@
   {
     "id": "guide-migrating-html",
     "title": "Migrating from v5 to v6",
-    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "description": "The breaking changes in v6 and how to update your code, component by component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "html",
@@ -2036,7 +2036,7 @@
   {
     "id": "guide-migrating-astro",
     "title": "Migrating from v5 to v6",
-    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "description": "The breaking changes in v6 and how to update your code, component by component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "astro",
@@ -2045,7 +2045,7 @@
   {
     "id": "guide-migrating-react",
     "title": "Migrating from v5 to v6",
-    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "description": "The breaking changes in v6 and how to update your code, component by component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "react",
@@ -2054,7 +2054,7 @@
   {
     "id": "guide-migrating-svelte",
     "title": "Migrating from v5 to v6",
-    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "description": "The breaking changes in v6 and how to update your code, component by component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -2063,7 +2063,7 @@
   {
     "id": "guide-migrating-vue",
     "title": "Migrating from v5 to v6",
-    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "description": "The breaking changes in v6 and how to update your code, component by component.",
     "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "vue",
@@ -2072,7 +2072,7 @@
   {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare, with its default and its tier, and the instance inputs components read. Most are roles; the others are marked knob, primitive, hook, component or input. The tests check every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "html",
@@ -2081,7 +2081,7 @@
   {
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare, with its default and its tier, and the instance inputs components read. Most are roles; the others are marked knob, primitive, hook, component or input. The tests check every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "astro",
@@ -2090,7 +2090,7 @@
   {
     "id": "guide-theme-tokens-react",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare, with its default and its tier, and the instance inputs components read. Most are roles; the others are marked knob, primitive, hook, component or input. The tests check every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "react",
@@ -2099,7 +2099,7 @@
   {
     "id": "guide-theme-tokens-svelte",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare, with its default and its tier, and the instance inputs components read. Most are roles; the others are marked knob, primitive, hook, component or input. The tests check every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -2108,7 +2108,7 @@
   {
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare,\n    with its default and its tier, and the instance inputs components read. Most are roles; the others are\n    marked knob, primitive, hook, component\n    or input. The tests check every promised contrast ratio in light\n    and dark mode, with and without more contrast.",
+    "description": "Every token theme.css and core/palette.css declare, with its default and its tier, and the instance inputs components read. Most are roles; the others are marked knob, primitive, hook, component or input. The tests check every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens tokens.json How tokens are named",
     "category": "Guide",
     "frameworkId": "vue",
@@ -2117,7 +2117,7 @@
   {
     "id": "guide-theming-html",
     "title": "Theming",
-    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "html",
@@ -2126,7 +2126,7 @@
   {
     "id": "guide-theming-astro",
     "title": "Theming",
-    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "astro",
@@ -2135,7 +2135,7 @@
   {
     "id": "guide-theming-react",
     "title": "Theming",
-    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "react",
@@ -2144,7 +2144,7 @@
   {
     "id": "guide-theming-svelte",
     "title": "Theming",
-    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -2153,7 +2153,7 @@
   {
     "id": "guide-theming-vue",
     "title": "Theming",
-    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "vue",
@@ -2162,7 +2162,7 @@
   {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
-    "description": "Components built from the HTML and CSS the platform ships today, as files\n    you can read, copy and own.",
+    "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",
     "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "html",
@@ -2171,7 +2171,7 @@
   {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
-    "description": "Components built from the HTML and CSS the platform ships today, as files\n    you can read, copy and own.",
+    "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",
     "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "astro",
@@ -2180,7 +2180,7 @@
   {
     "id": "guide-why-opui-react",
     "title": "Why Open Props UI?",
-    "description": "Components built from the HTML and CSS the platform ships today, as files\n    you can read, copy and own.",
+    "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",
     "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "react",
@@ -2189,7 +2189,7 @@
   {
     "id": "guide-why-opui-svelte",
     "title": "Why Open Props UI?",
-    "description": "Components built from the HTML and CSS the platform ships today, as files\n    you can read, copy and own.",
+    "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",
     "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -2198,7 +2198,7 @@
   {
     "id": "guide-why-opui-vue",
     "title": "Why Open Props UI?",
-    "description": "Components built from the HTML and CSS the platform ships today, as files\n    you can read, copy and own.",
+    "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",
     "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "vue",
@@ -2207,7 +2207,7 @@
   {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
-    "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
+    "description": "OPUI ships first-class Astro components. Install the package, import what you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use Server runtime Ids",
     "category": "Guide",
     "frameworkId": "astro",
@@ -2216,7 +2216,7 @@
   {
     "id": "guide-getting-started-html",
     "title": "Getting started",
-    "description": "Add the CSS from the CDN, from npm or by copying the files, then write the\n    class names.",
+    "description": "Add the CSS from the CDN, from npm or by copying the files, then write the class names.",
     "headings": "Install via CDN Install via NPM Import the CSS Install manually Your first component",
     "category": "Guide",
     "frameworkId": "html",
@@ -2225,7 +2225,7 @@
   {
     "id": "guide-getting-started-react",
     "title": "Getting started",
-    "description": "OPUI ships first-class React 19 components. Install the package, import what\n    you need, and you're set.",
+    "description": "OPUI ships first-class React 19 components. Install the package, import what you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use Server rendering",
     "category": "Guide",
     "frameworkId": "react",
@@ -2234,7 +2234,7 @@
   {
     "id": "guide-getting-started-svelte",
     "title": "Getting started",
-    "description": "OPUI ships first-class Svelte 5 components. Install the package, import what\n    you need, and you're set.",
+    "description": "OPUI ships first-class Svelte 5 components. Install the package, import what you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use Server rendering",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -2243,7 +2243,7 @@
   {
     "id": "guide-getting-started-vue",
     "title": "Getting started",
-    "description": "OPUI ships first-class Vue components. Install the package, import what you\n    need, and you're set.",
+    "description": "OPUI ships first-class Vue components. Install the package, import what you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use Server rendering",
     "category": "Guide",
     "frameworkId": "vue",

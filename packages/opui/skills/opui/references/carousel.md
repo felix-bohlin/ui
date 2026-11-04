@@ -148,19 +148,15 @@ const places = [
 ---
 
 <Carousel aria-label="Destinations" markers>
-  {
-    places.map(({ description, title }) => (
-      <li>
-        <Card variant="tonal">
-          <CardHeader>
-            <p>Destination</p>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </CardHeader>
-        </Card>
-      </li>
-    ))
-  }
+  {places.map(({ description, title }) => <li>
+    <Card variant="tonal">
+      <CardHeader>
+        <p>Destination</p>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </CardHeader>
+    </Card>
+  </li>)}
 </Carousel>
 ```
 

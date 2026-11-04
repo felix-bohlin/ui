@@ -46,7 +46,10 @@ import {
   entries,
   intended,
 } from "../../scripts/check-ratchets.mjs"
-import { indexProblems } from "../../scripts/generate-search-index.mjs"
+import {
+  indexProblems,
+  slotText,
+} from "../../scripts/generate-search-index.mjs"
 import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
@@ -1145,6 +1148,16 @@ describe("generate-search-index", () => {
       "Search categories without entries: Learn",
       "Search entries without a title or description: guide-empty",
     ])
+  })
+
+  test("reads a slot as the text it renders, however its source is wrapped", () => {
+    expect(
+      slotText(
+        "\n    Callouts call out for attention and are used\n    <strong>without</strong> interrupting the task.\n  ",
+      ),
+    ).toBe(
+      "Callouts call out for attention and are used without interrupting the task.",
+    )
   })
 
   test("accepts an index with every category", () => {

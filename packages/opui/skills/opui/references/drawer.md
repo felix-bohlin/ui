@@ -332,7 +332,8 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 
 <div class="example-compass">
   <Button command="show-modal" commandfor="drawer-basics-3">Block Start</Button>
-  <Button command="show-modal" commandfor="drawer-basics-1">Inline Start</Button
+  <Button command="show-modal" commandfor="drawer-basics-1"
+    >Inline Start</Button
   >
   <Button command="show-modal" commandfor="drawer-basics-2">Inline End</Button>
   <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>

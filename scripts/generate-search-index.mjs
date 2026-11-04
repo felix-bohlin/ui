@@ -39,6 +39,12 @@ function readHeadings(content) {
   )
 }
 
+export const slotText = (html) =>
+  html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+
 function readMeta(file) {
   const content = fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n")
   const titleMatch = content.match(
@@ -53,7 +59,7 @@ function readMeta(file) {
 
   if (!titleMatch) throw new Error(`${file} has no title slot`)
 
-  const slotTitle = titleMatch[1].replace(/<[^>]*>/g, "").trim()
+  const slotTitle = slotText(titleMatch[1])
   const title = /^\{.*\}$/s.test(slotTitle)
     ? (importedMarkdown(file, content)
         .match(/^# (.+)$/m)?.[1]
@@ -68,7 +74,7 @@ function readMeta(file) {
   const preamble = descriptionExportMatch
     ? descriptionExportMatch[1].slice(1, -1)
     : preambleMatch
-      ? preambleMatch[1].replace(/<[^>]*>/g, "").trim()
+      ? slotText(preambleMatch[1])
       : ""
 
   const headings = [

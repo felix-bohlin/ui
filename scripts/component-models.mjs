@@ -1,4 +1,5 @@
 import { selectionImport } from "./component-emit.mjs"
+import { capitalize } from "./component-shared.mjs"
 
 const arrayRead = (model) => model.read.startsWith("selectionOf")
 
@@ -11,6 +12,23 @@ const selectionImports = (component, model) =>
   arrayRead(model)
     ? [`import { selectionOf } from "${selectionImport(component)}"`]
     : []
+
+const ELEMENT_INTERFACES = {
+  input: "HTMLInputElement",
+  textarea: "HTMLTextAreaElement",
+}
+
+const resettable = (model) =>
+  model.prop === "value" && model.element.tag in ELEMENT_INTERFACES
+
+const numeric = (model) =>
+  model.element.tag === "input" &&
+  model.element.attributes.some(
+    (item) =>
+      item.kind === "static" &&
+      item.name === "type" &&
+      ["number", "range"].includes(item.value),
+  )
 
 export const MODEL_KINDS = {
   checked: {
@@ -154,19 +172,58 @@ export const MODEL_KINDS = {
     },
   },
   value: {
-    react: { inRest: true },
+    react: {
+      inRest: true,
+      rename: (model) =>
+        model.local
+          ? [
+              [
+                model.local,
+                `${model.rest}.${model.prop} ?? ${model.rest}.default${capitalize(model.prop)}`,
+              ],
+            ]
+          : [],
+    },
     svelte: {
-      attributes: (model) => [`bind:${model.prop}`],
+      attributes: (model) => [
+        `bind:${model.prop}`,
+        ...(resettable(model) ? ["defaultValue={initialValue}"] : []),
+      ],
       bindables: (model) => [model.prop],
+      script: (model) =>
+        resettable(model)
+          ? [`const initialValue = untrack(() => ${model.local ?? model.prop})`]
+          : [],
+      untrack: resettable,
     },
     vue: {
-      attributes: () => ['v-model="model"'],
+      attributes: (model) => [
+        `v-model${numeric(model) ? ".number" : ""}="model"`,
+        ...(resettable(model) ? ['ref="modelElement"'] : []),
+      ],
       computed: true,
       declared: (model) => (model.local ? [] : [model.prop]),
+      rename: (model) => ({
+        script: model.local ? [[model.local, "model.value"]] : [],
+        template: model.local ? [[model.local, "model"]] : [],
+      }),
       setup: (model) => [
         `const modelValue = defineModel<${model.type}>()`,
         `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+        ...(resettable(model)
+          ? [
+              `const modelElement = useTemplateRef<${ELEMENT_INTERFACES[model.element.tag]}>("modelElement")`,
+              "let modelForm: HTMLFormElement | null = null",
+              `const resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = ${numeric(model) ? "Number.isNaN(element.valueAsNumber)\n      ? element.value\n      : element.valueAsNumber" : "element.value"}\n  })`,
+              'onMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && model.value != null) {\n    element.defaultValue = String(model.value)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})',
+              'onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))',
+            ]
+          : []),
       ],
+      vueImports: (model) =>
+        resettable(model)
+          ? ["onBeforeUnmount", "onMounted", "useTemplateRef"]
+          : [],
     },
   },
 }

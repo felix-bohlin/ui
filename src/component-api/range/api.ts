@@ -7,41 +7,38 @@ export default {
     default: [
       {
         description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback:
-          "Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.",
+          "The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works.",
+        fallback: "Import `opui-css/css/js/range.js` in the page.",
         prop: "valueSuffix",
       },
     ],
     react: [
       {
         description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback:
-          "Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.",
+          "The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works.",
+        fallback: "Import `opui-css/css/js/range.js` in the page.",
         prop: "valueSuffix",
       },
       {
         description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+          "The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration.",
         fallback:
-          "Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.",
+          "Update the content on `input` yourself, or use `valueSuffix`.",
         prop: "valueText",
       },
     ],
     svelte: [
       {
         description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback:
-          "Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.",
+          "The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works.",
+        fallback: "Import `opui-css/css/js/range.js` in the page.",
         prop: "valueSuffix",
       },
       {
         description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+          "The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration.",
         fallback:
-          "Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.",
+          "Update the content on `input` yourself, or use `valueSuffix`.",
         prop: "valueText",
       },
     ],
@@ -125,6 +122,20 @@ export default {
       prop: "list",
     },
     {
+      default: "100",
+      description: "The largest value of the `<input>`.",
+      inherited: true,
+      prop: "max",
+      type: "number | string",
+    },
+    {
+      default: "0",
+      description: "The smallest value of the `<input>`.",
+      inherited: true,
+      prop: "min",
+      type: "number | string",
+    },
+    {
       description:
         "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
       inherited: true,
@@ -150,6 +161,14 @@ export default {
         "Pushes the label and start text to one side and the input to the other.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      default: "1",
+      description:
+        "The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle.",
+      inherited: true,
+      prop: "step",
+      type: "number | string",
     },
     {
       description: "The current value.",
@@ -183,7 +202,8 @@ export default {
     },
     {
       code: "<output>",
-      description: "Shows the current value, with an optional `valueSuffix`.",
+      description:
+        "Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.",
       props: ["valueSuffix"],
       selector: "output.ui-value",
       slots: ["value-text"],

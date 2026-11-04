@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../../elements/character-count.js"
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { Props } from "./types.svelte"
@@ -33,6 +34,7 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
+  const initialValue = untrack(() => value)
 </script>
 
 <label
@@ -59,7 +61,8 @@
       aria-invalid={error ? "true" : ariaInvalid}
       {id}
       name={name ?? field?.name}
-      bind:value></textarea>
+      bind:value
+      defaultValue={initialValue}></textarea>
     {#if start}<span class="ui-start">{@render content(start)}</span>{/if}
     {#if end}<span class="ui-end">{@render content(end)}</span>{/if}
     {#if top}<span class="ui-top">{@render content(top)}</span>{/if}

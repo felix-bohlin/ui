@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { Props } from "./types.svelte"
@@ -22,6 +23,7 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
+  const initialValue = untrack(() => value)
 </script>
 
 <label
@@ -48,6 +50,7 @@
       name={name ?? field?.name}
       type="text"
       bind:value
+      defaultValue={initialValue}
     />
   </span>
   {#if endText}<span class="ui-end-text">{@render content(endText)}</span>{/if}

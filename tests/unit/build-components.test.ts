@@ -461,10 +461,29 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, ...rest }: Props) {\n  return (\n    <label className={cx(["ui-sample", className])}>\n      <textarea {...rest} />\n    </label>\n  )\n}\n',
     )
     expect(port(".svelte")).toBe(
-      '<script lang="ts">\n  import type { Props } from "./types.svelte"\n\n  let { class: className, value = $bindable(), ...rest }: Props = $props()\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value></textarea>\n</label>\n',
+      '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let { class: className, value = $bindable(), ...rest }: Props = $props()\n\n  const initialValue = untrack(() => value)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value defaultValue={initialValue}></textarea>\n</label>\n',
     )
     expect(port(".vue")).toBe(
-      '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-model="model"></textarea>\n  </label>\n</template>\n',
+      '<script setup lang="ts">\nimport { computed, onBeforeUnmount, onMounted, useTemplateRef } from "vue"\nimport { useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n\nconst modelElement = useTemplateRef<HTMLTextAreaElement>("modelElement")\n\nlet modelForm: HTMLFormElement | null = null\n\nconst resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = element.value\n  })\n\nonMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && model.value != null) {\n    element.defaultValue = String(model.value)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})\n\nonBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-model="model" ref="modelElement"></textarea>\n  </label>\n</template>\n',
+    )
+  })
+
+  test("a value model read outside its control reads the current value in each framework", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\nconst shown = `${value ?? 0}%`\n---\n\n<label class:list={["ui-sample", className]}>\n  <output>{shown}</output>\n  <input {...rest} type="range" value={value} />\n</label>\n',
+      sampleFile(),
+      { api: modelApi("value", "input") },
+    )
+    const port = (extension: string) =>
+      outputs.get(sampleFile().replace(".astro", extension))
+    expect(port(".react.tsx")).toContain(
+      "const shown = `${rest.value ?? rest.defaultValue ?? 0}%`",
+    )
+    expect(port(".svelte")).toContain(
+      "const shown = $derived(`${value ?? 0}%`)",
+    )
+    expect(port(".vue")).toContain(
+      "const shown = computed(() => `${model.value ?? 0}%`)",
     )
   })
 
@@ -478,7 +497,7 @@ describe("the three ports of a sample", () => {
       "let { class: className, value = $bindable(), ...rest }: Props = $props()",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
-      '<input v-bind="attrs" type="number" v-model="model" />',
+      '<input\n      v-bind="attrs"\n      type="number"\n      v-model.number="model"\n      ref="modelElement"\n    />',
     )
   })
 

@@ -905,9 +905,9 @@ export const whatsNew = {
       `<a href="#tick-marks"><code>items</code></a> renders a linked <code>&lt;datalist&gt;</code> without a <code>list</code> id.`,
     ),
     {
-      react: `<a href="#value"><code>valueText</code></a> takes a function that gets the current value and follows the thumb.`,
-      svelte: `The <a href="#value"><code>valueText</code></a> snippet gets the current value and follows the thumb.`,
-      vue: `The <a href="#value"><code>value-text</code></a> slot is scoped with the current value and follows the thumb.`,
+      react: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
+      svelte: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>valueText</code> snippet renders from the value you bind.`,
+      vue: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>value-text</code> slot renders from the value you bind.`,
     },
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;input&gt;</code> (<a href="#api">API</a>).`,

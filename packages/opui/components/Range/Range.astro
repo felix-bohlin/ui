@@ -42,7 +42,7 @@ const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValueText = Astro.slots.has("value-text")
 const hasValue = valueSuffix !== undefined || hasValueText
 const hasDatalist = !!items || Astro.slots.has("datalist")
-const valueText = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
+const readout = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
 
 const inputId = id || (hasValue ? ids() : undefined)
 const labelId = hasLabel ? ids("label") : undefined
@@ -78,7 +78,7 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     for={inputId}
     data-suffix={valueSuffix}
   >
-    <slot name="value-text">{valueText}</slot>
+    <slot name="value-text">{readout}</slot>
   </output>}
   {hasStartText && <span class="ui-start-text" id={startTextId}>
     {startText}
@@ -90,7 +90,7 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     aria-invalid={error ? "true" : ariaInvalid}
     aria-labelledby={labelId ?? ariaLabelledBy}
     aria-valuetext={
-      ariaValueText ?? (valueSuffix && !hasValueText ? valueText : undefined)
+      ariaValueText ?? (valueSuffix && !hasValueText ? readout : undefined)
     }
     id={inputId}
     list={listId}

@@ -1,11 +1,5 @@
 {
   "Progress/Progress.svelte": "Svelte re-creates the progress element with {#key value == null} when the value switches between determinate and indeterminate, which the Astro file doesn't express",
-  "Range/Range.react.tsx": "the form reset handling and the live value output, which the Astro file doesn't express",
-  "Range/Range.svelte": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "Range/Range.vue": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
-  "Range/types.react.ts": "the folder has a hand-written component (Range)",
-  "Range/types.svelte.ts": "the folder has a hand-written component (Range)",
-  "Range/types.vue-props.ts": "the folder has a hand-written component (Range)",
   "Select/Select.react.tsx": "the initial value taken from the selected items, which the Astro file doesn't express",
   "Select/Select.svelte": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",
   "Select/Select.vue": "write the behavior by hand, or extend the model kinds in scripts/build-components.mjs",

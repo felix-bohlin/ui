@@ -1,10 +1,14 @@
-import type { HTMLAttributes, Slot } from "vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
 import type { Class } from "../vue"
 import type { Props as BaseProps } from "./types"
 
 export type Props = BaseProps &
   Class & {
-    id?: HTMLAttributes["id"]
+    id?: IntrinsicElementAttributes["input"]["id"]
+    max?: IntrinsicElementAttributes["input"]["max"]
+    min?: IntrinsicElementAttributes["input"]["min"]
+    name?: IntrinsicElementAttributes["input"]["name"]
+    step?: IntrinsicElementAttributes["input"]["step"]
   }
 
 export type Slots = {
@@ -12,5 +16,5 @@ export type Slots = {
   "end-text"?: Slot
   label?: Slot
   "start-text"?: Slot
-  "value-text"?: Slot<{ value: number }>
+  "value-text"?: Slot
 }

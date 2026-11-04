@@ -8,7 +8,6 @@ import { shapeWhitespace } from "./component-layout.mjs"
 import {
   allCodes,
   capitalize,
-  codesIn,
   containsKind,
   elementsIn,
   identifiersIn,
@@ -1273,14 +1272,6 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     if (child) {
       element.children = element.children.filter((node) => node !== child)
     }
-    const elsewhere = [
-      ...codesIn(tree),
-      ...frontmatter.derived.map(({ code }) => code),
-      ...frontmatter.warnings,
-    ].some((code) => identifiersIn(code).has(prop.local))
-    if (elsewhere) {
-      return describe(`whose prop ${prop.local} is read outside its element`)
-    }
   }
   element.model = true
   return {
@@ -1289,6 +1280,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     kind,
     local: prop?.local,
     prop: declared.prop,
+    rest: frontmatter.rest,
     type: declared.type,
   }
 }

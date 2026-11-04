@@ -12,5 +12,5 @@
   max="30"
   min="10"
 >
-  {#snippet valueText(value)}<b>{value}°</b>{/snippet}
+  {#snippet valueText()}<b>{value}°</b>{/snippet}
 </Range>

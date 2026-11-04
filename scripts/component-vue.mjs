@@ -402,6 +402,7 @@ export const toVue = (component) => {
         : []),
     ...(item ? ["watchEffect"] : []),
     ...(uid ? ["useId"] : []),
+    ...(kind?.vueImports?.(model) ?? []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
   const importLines = [
     ...scriptImports(component),

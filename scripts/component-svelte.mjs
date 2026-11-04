@@ -187,7 +187,7 @@ export const toSvelte = (component) => {
   const markup = emit(tree)
   const importLines = [
     ...scriptImports(component),
-    ...(warnings.length || component.item
+    ...(warnings.length || component.item || kind?.untrack?.(model)
       ? [`import { untrack } from "svelte"`]
       : []),
     ...(usesContent ? [`import { content } from "../content.svelte"`] : []),

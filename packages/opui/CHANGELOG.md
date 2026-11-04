@@ -369,7 +369,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` with more contrast draws its empty track in the page color with an inset `--ui-field-border-color` edge, so the fill stands out from it.
 - `Range`, `Switch` and `TextField` invalid states use `--ui-invalid`.
 - `Range` generates the `<datalist>` id when `items` or the `datalist` slot is used, so `list` is optional.
-- `Range` in Vue scopes the `value-text` slot with the current `value`, so custom readout content follows the thumb.
+- `Range` in React, Svelte and Vue keeps its readout in step with the thumb through `opui-css/css/js/range.js`, like Astro, with `data-live` on the `<output>`. Custom readout content in `valueText` (`value-text` in Vue) renders from the value you keep or bind.
 - `Range` with a value readout announces each step once, with its unit: the input gets `aria-valuetext` (the value and `valueSuffix`) and the `.ui-value` output `aria-live="off"`, so screen readers no longer read the value twice. In HTML, `range.js` keeps `aria-valuetext` in sync when the output has a `data-suffix`.
 - `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`.
 - `Select` group labels take a shade of the picker's surface and `--ui-text` for their text, instead of fixed gray steps.
@@ -545,6 +545,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.
 - `ListItem` with `type` renders the default slot inside `.ui-text` (or before `.ui-end` when there's no text), like it does without `type`.
 - `ListItem` with `as="button" disabled` (or `aria-disabled="true"` on a link) looks disabled in a plain `List` too: dimmed, `not-allowed` cursor, no hover tint.
+- `NumberField`, `OneTimeCode`, `Range`, `Textarea` and `TextField` in Svelte and Vue reset to the value they started with when their form is reset, also when rendered on the client, and the bound value follows the reset, like in Astro, HTML and React.
 - `Progress` pulses in place under reduced motion (`--ui-motion: 0`, or `--_motion: 0` on the bar) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Progress` in Astro types `max` and `value` like React and Svelte, instead of intersecting them with the native `progress` attributes.
 - `Radio` large (`.ui-large`) uses `--ui-choice-size-large`. It was the same size as the default.
@@ -562,7 +563,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
 - `Range` tick labels line up with the thumb at both ends.
-- `Range` updates its value `<output>` after its form is reset, in every browser and with custom readout content, and leaves it when a `reset` listener cancels the reset. In Vue and Svelte, a range rendered on the client resets to the value it started with, instead of the middle of its range.
+- `Range` updates its value `<output>` after its form is reset, in every browser, and leaves it when a `reset` listener cancels the reset. In Svelte and Vue the bound value follows the reset, so custom readout content does too.
 - `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value-text` slot content and ranges it didn't render alone, and wires each output once.
 - `Range` thumb stays centered on the track when `--_thumb-size` or `--_track-block-size` changes, also on touch screens.
 - `Range` in a disabled `fieldset` gets the disabled thumb and no hover ring, like a disabled range.

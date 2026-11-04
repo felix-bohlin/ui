@@ -14,7 +14,7 @@ export default function ValueText() {
       max="30"
       min="10"
       onChange={(event) => setValue(event.target.valueAsNumber)}
-      valueText={(value) => <b>{value}°</b>}
+      valueText={<b>{value}°</b>}
     />
   )
 }

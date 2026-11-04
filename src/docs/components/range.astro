@@ -151,26 +151,31 @@ export const keywords = ["slider"]
       <p slot="react">
         Pass the <code>valueSuffix</code> prop to render a live readout of the
         slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element and keeps its text in sync with the
-        input. For custom content, pass a function to <code>valueText</code>:
-        <code>{"valueText={(value) => …}"}</code> gets the current value as a
-        number on every change.
+        <code>&lt;output&gt;</code> element, and
+        <code>opui-css/css/js/range.js</code>, which it loads, keeps the text in
+        sync with the input. For custom content, pass it to
+        <code>valueText</code> and render it from your own state: keep the value
+        with <code>value</code> and <code>onChange</code>, as in the example
+        below.
       </p>
       <p slot="svelte">
         Pass the <code>valueSuffix</code> prop to render a live readout of the
         slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element and keeps its text in sync with the
-        input. For custom content, use the <code>valueText</code> snippet:
-        <code>{"{#snippet valueText(value)}…{/snippet}"}</code> gets the current
-        value as a number on every change.
+        <code>&lt;output&gt;</code> element, and
+        <code>opui-css/css/js/range.js</code>, which it imports, keeps the text
+        in sync with the input. For custom content, use the
+        <code>valueText</code> snippet and render it from the value you bind:
+        <code>{"{#snippet valueText()}{value}°{/snippet}"}</code>.
       </p>
       <p slot="vue">
         Pass the <code>valueSuffix</code> prop to render a live readout of the
         slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element and keeps its text in sync with the
-        input. For custom content, use the scoped <code>value-text</code> slot:
-        <code>{'<template #value-text="{ value }">…</template>'}</code> gets the
-        current value as a number on every change.
+        <code>&lt;output&gt;</code> element, and
+        <code>opui-css/css/js/range.js</code>, which it imports, keeps the text
+        in sync with the input. For custom content, use the
+        <code>value-text</code> slot and render it from the value you bind with
+        <code>v-model</code>:
+        <code>{"<template #value-text>{{ value }}°</template>"}</code>.
       </p>
     </Conditional>
     <Conditional as="div">

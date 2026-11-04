@@ -14,7 +14,7 @@ const value = ref("21")
     max="30"
     min="10"
   >
-    <template #value-text="{ value }"
+    <template #value-text
       ><b>{{ value }}°</b></template
     >
   </Range>

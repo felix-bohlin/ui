@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../../elements/number-field.js"
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
@@ -33,6 +34,7 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
+  const initialValue = untrack(() => value)
   const ids = $derived(createIds(uid, "number-field", id))
   const inputId = $derived(ids())
   const startTextId = $derived(startText ? ids("start-text") : undefined)
@@ -86,6 +88,7 @@
       name={name ?? field?.name}
       type="number"
       bind:value
+      defaultValue={initialValue}
     />
     <span class="ui-end">
       <Button

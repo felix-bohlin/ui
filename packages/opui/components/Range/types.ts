@@ -23,4 +23,5 @@ export type Slots<S> = {
   endText?: string | S
   label?: string | S
   startText?: string | S
+  valueText?: S
 }

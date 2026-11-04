@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import "../../elements/number-field.js"
-import { computed, inject, useId } from "vue"
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  useId,
+  useTemplateRef,
+} from "vue"
 import { useInputAttrs } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
@@ -41,6 +48,31 @@ const model = computed({
     modelValue.value = value
   },
 })
+
+const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
+
+let modelForm: HTMLFormElement | null = null
+
+const resetModel = (event: Event) =>
+  setTimeout(() => {
+    const element = modelElement.value
+    if (event.defaultPrevented || !element) return
+    model.value = Number.isNaN(element.valueAsNumber)
+      ? element.value
+      : element.valueAsNumber
+  })
+
+onMounted(() => {
+  const element = modelElement.value
+  if (!element) return
+  if (!element.hasAttribute("value") && model.value != null) {
+    element.defaultValue = String(model.value)
+  }
+  modelForm = element.form
+  modelForm?.addEventListener("reset", resetModel)
+})
+
+onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
 
 const field = inject(FieldGroupKey, undefined)
 
@@ -114,7 +146,8 @@ const endTextId = computed(() =>
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
-        v-model="model"
+        v-model.number="model"
+        ref="modelElement"
       />{{ " "
       }}<span class="ui-end">
         <Button

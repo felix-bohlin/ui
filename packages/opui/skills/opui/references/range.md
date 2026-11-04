@@ -11,7 +11,7 @@ Range lets users pick a number by sliding a thumb along a track.
 
 - `label.ui-range` (root): Container element.
 - `.ui-label` (prop `label`, slot `label`): The label for the range.
-- `<output>` (prop `valueSuffix`, slot `value-text`): Shows the current value, with an optional `valueSuffix`.
+- `<output>` (prop `valueSuffix`, slot `value-text`): Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Description text displayed above the input.
 - `<input>` (model): The range input.
 - `<datalist>` (prop `items`, prop `list`, slot `datalist`): Tick marks and their labels, under the input.
@@ -25,9 +25,12 @@ Range lets users pick a number by sliding a thumb along a track.
 - `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.
 - `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick.
 - `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
+- `max`: `number | string`, default `100`. The largest value of the `<input>`.
+- `min`: `number | string`, default `0`. The smallest value of the `<input>`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
+- `step`: `number | string`, default `1`. The step between values of the `<input>`. Without a `value`, the slider starts at the step nearest the middle.
 - `value`: `number | string`. The current value.
 - `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.
@@ -99,7 +102,8 @@ import { Range } from "opui-css/astro"
 
 - `Range` slot props (`ReactNode`): `datalist`, `endText`, `label`, `startText` and `valueText`.
 - Client components (`"use client"`): `Range`.
-- Hydration: `valueSuffix` and `valueText` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.
+- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
+- Hydration: `valueText` on `Range`. The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Without hydration: Update the content on `input` yourself, or use `valueSuffix`.
 
 ### Example: Basics
 
@@ -117,7 +121,8 @@ export default function Basics() {
 
 - `Range` slot snippets: `datalist`, `endText`, `label`, `startText` and `valueText`.
 - Hydration: `bind:value` on `Range`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `valueSuffix` and `valueText` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.
+- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
+- Hydration: `valueText` on `Range`. The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Without hydration: Update the content on `input` yourself, or use `valueSuffix`.
 
 ### Example: Basics
 
@@ -135,7 +140,7 @@ export default function Basics() {
 
 - `Range` named slots: `datalist`, `end-text`, `label`, `start-text` and `value-text`. Fill one with `<template #datalist>`.
 - Hydration: `v-model` on `Range`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
-- Hydration: `valueSuffix` on `Range`. The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Without hydration: Update the `<output>` text on `input` yourself, or add `data-live` to it and import `opui-css/css/js/range.js`.
+- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
 
 ### Example: Basics
 

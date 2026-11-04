@@ -1,16 +1,18 @@
 "use client"
 
-import { useCallback, useEffect, useId, useRef, useState } from "react"
+import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { idRefs } from "../id"
+import { createIds, idRefs } from "../id"
+import { defaultValue } from "./value"
 import type { Props } from "./types.react"
-import { defaultValue, resetValue } from "./value"
 
 export default function Range({
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
+  "aria-valuetext": ariaValueText,
   className,
-  defaultValue: defaultValueProp,
-  endText,
   error,
   hideLabel,
   id,
@@ -19,62 +21,38 @@ export default function Range({
   max,
   min,
   name,
-  onChange,
-  ref,
   size,
   spread,
-  startText,
   step,
   style,
-  value,
   valueSuffix,
   variant,
   datalist,
+  endText,
   label,
+  startText,
   valueText,
   ...rest
 }: Props) {
-  const uid = useId()
   const field = useFieldGroupContext()
-  const [current, setCurrent] = useState(defaultValueProp)
-  const [resets, setResets] = useState(0)
-  const inputRef = useRef<HTMLInputElement>(null)
-
+  const uid = useId()
+  const ids = createIds(uid, "range", id || undefined)
+  const hasLabel = !!label || label
+  const hasStartText = !!startText || startText
+  const hasEndText = !!endText || endText
+  const hasValueText = valueText
+  const hasValue = valueSuffix !== undefined || hasValueText
+  const hasDatalist = !!items || datalist
+  const readout = `${rest.value ?? rest.defaultValue ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
+  const inputId = id || (hasValue ? ids() : undefined)
+  const labelId = hasLabel ? ids("label") : undefined
+  const startTextId = hasStartText ? ids("start-text") : undefined
+  const endTextId = hasEndText ? ids("end-text") : undefined
+  const listId = list ?? (hasDatalist ? ids("list") : undefined)
+  const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
   useEffect(() => {
-    const form = inputRef.current?.form
-    if (!form) return
-    const sync = (event: Event) =>
-      setTimeout(() => {
-        if (!inputRef.current || event.defaultPrevented) return
-        setCurrent(resetValue(inputRef.current))
-        setResets((count) => count + 1)
-      })
-    form.addEventListener("reset", sync)
-    return () => form.removeEventListener("reset", sync)
+    void import("../../css/js/range.js")
   }, [])
-
-  const setRef = useCallback(
-    (input: HTMLInputElement | null) => {
-      inputRef.current = input
-      if (typeof ref === "function") return ref(input)
-      if (ref) ref.current = input
-    },
-    [ref],
-  )
-
-  const hasLabel = !!label
-  const hasValue = valueSuffix !== undefined || !!valueText
-  const hasDatalist = !!items || !!datalist
-  const middle = () => defaultValue({ max, min, step })
-  const shown = value ?? current ?? middle()
-
-  const base = id || `range-${uid}`
-  const inputId = id || (hasValue ? base : undefined)
-  const labelId = hasLabel ? `${base}-label` : undefined
-  const startTextId = startText ? `${base}-start-text` : undefined
-  const endTextId = endText ? `${base}-end-text` : undefined
-  const listId = list ?? (hasDatalist ? `${base}-list` : undefined)
-  const describedBy = idRefs(startTextId, endTextId, rest["aria-describedby"])
 
   return (
     <label
@@ -89,69 +67,58 @@ export default function Range({
       style={style}
     >
       {hasLabel && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
+        <span
+          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+          id={labelId}
+        >
           {label}
         </span>
-      )}
+      )}{" "}
       {hasValue && (
         <output
           aria-live="off"
           className="ui-value"
-          data-suffix={valueSuffix}
+          data-live={hasValueText ? undefined : ""}
           htmlFor={inputId}
-          key={resets}
+          data-suffix={valueSuffix}
         >
-          {valueText
-            ? valueText(Number(shown))
-            : `${shown}${valueSuffix ?? ""}`}
+          {valueText === undefined ? readout : valueText}
         </output>
-      )}
-      {startText && (
+      )}{" "}
+      {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}
+      )}{" "}
       <input
         {...rest}
         aria-describedby={describedBy}
-        aria-invalid={error ? "true" : rest["aria-invalid"]}
-        aria-labelledby={labelId ?? rest["aria-labelledby"]}
+        aria-invalid={error ? "true" : ariaInvalid}
+        aria-labelledby={labelId ?? ariaLabelledBy}
         aria-valuetext={
-          rest["aria-valuetext"] ??
-          (valueSuffix && !valueText ? `${shown}${valueSuffix}` : undefined)
+          ariaValueText ?? (valueSuffix && !hasValueText ? readout : undefined)
         }
-        defaultValue={defaultValueProp}
         id={inputId}
         list={listId}
         max={max}
         min={min}
         name={name ?? field?.name}
-        onChange={(event) => {
-          setCurrent(event.target.valueAsNumber)
-          onChange?.(event)
-        }}
-        ref={setRef}
         step={step}
         type="range"
-        value={value}
-      />
+      />{" "}
       {hasDatalist && (
         <datalist aria-hidden="true" id={listId}>
-          {items?.map((option) =>
+          {items?.map((option, index) =>
             typeof option === "object" ? (
-              <option
-                key={option.value}
-                label={option.label}
-                value={option.value}
-              />
+              <option key={index} value={option.value} label={option.label} />
             ) : (
-              <option key={option} value={option} />
+              <option key={index} value={option} />
             ),
           )}
           {datalist}
         </datalist>
-      )}
-      {endText && (
+      )}{" "}
+      {hasEndText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}
         </span>

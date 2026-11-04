@@ -173,14 +173,44 @@ test.describe("search", () => {
       "How to close a dialog",
     )
     await expect(option.locator(".ui-description")).toHaveText("Dialog")
-    await expect(option.locator("a")).toHaveAttribute(
+    await expect(option).toHaveAttribute(
       "href",
-      "/html/components/dialog#how-to-close",
+      "/html/components/dialog/#how-to-close",
     )
     await expect(option.locator("mark").first()).toHaveText("close")
     await option.click()
-    await page.waitForURL(/\/html\/components\/dialog\/?#how-to-close$/)
+    await page.waitForURL(/\/html\/components\/dialog\/#how-to-close$/)
     await expect(page.locator("#search-dialog")).toBeHidden()
+  })
+
+  test("jumps to a section on the page it's on without loading it again", async ({
+    page,
+  }) => {
+    await page.goto("/html/components/dialog/")
+    await page.evaluate(() => {
+      document.documentElement.dataset.loaded = "once"
+    })
+    await openSearch(page, "dialog close")
+    await page.locator("#results-list [role=option]").first().click()
+    await page.waitForURL(/\/html\/components\/dialog\/#how-to-close$/)
+    await expect(page.locator("#search-dialog")).toBeHidden()
+    await expect(page.locator("html")).toHaveAttribute("data-loaded", "once")
+  })
+
+  test("matches any word in the selected category when none of its results has every word", async ({
+    page,
+  }) => {
+    await openSearch(page, "switch form")
+    await page.locator('.filter-chip[data-filter="Blocks"]').click()
+    await expect(page.locator("#search-empty")).toBeHidden()
+    await expect(
+      page.locator("#results-list .command-group-heading"),
+    ).toHaveText(["Blocks"])
+    await expect(
+      page.locator('.filter-chip[data-filter="Blocks"]'),
+    ).toContainText(
+      `(${await page.locator("#results-list [role=option]").count()})`,
+    )
   })
 
   test("finds a component by a keyword its page lists", async ({ page }) => {
@@ -216,15 +246,15 @@ test.describe("search", () => {
     const input = await openSearch(page, "keyboard")
     const more = page.locator("#results-list .search-more").first()
     await expect(more).toContainText(/Show all \d+/)
-    const options = page.locator("#results-list [role=option]")
-    const before = await options.count()
+    const total = Number((await more.textContent())?.match(/\d+/)?.[0])
+    expect(total).toBeGreaterThan(6)
     await more.click()
     await expect(input).toBeFocused()
     await expect(
       page.locator(".filter-chip[aria-pressed=true]"),
     ).not.toHaveAttribute("data-filter", "all")
     await expect(page.locator("#results-list .search-more")).toHaveCount(0)
-    expect(await options.count()).toBeGreaterThan(before - 1)
+    await expect(page.locator("#results-list [role=option]")).toHaveCount(total)
   })
 
   test("shows results from other frameworks when the current one has none", async ({
@@ -237,12 +267,72 @@ test.describe("search", () => {
     await expect(
       page.locator("#results-list .command-group-heading"),
     ).toHaveText(["Other frameworks"])
-    await expect(
-      page.locator("#results-list [role=option] a").first(),
-    ).toHaveAttribute("href", /^\/(astro|react|svelte|vue)\/api#carousel$/)
+    const options = page.locator("#results-list [role=option]")
+    await expect(options.first()).toHaveAttribute(
+      "href",
+      /^\/(astro|react|svelte|vue)\/api\/#carousel$/,
+    )
+    await expect(page.locator("#search-status")).toHaveText(
+      `No results in HTML, ${await options.count()} in other frameworks`,
+    )
+  })
+
+  test("shows the results of the other frameworks that load", async ({
+    page,
+  }) => {
+    await page.route("**/search-index/react.json", (route) => route.abort())
+    await openSearch(page, "itemsPerView")
     await expect(page.locator("#search-status")).toHaveText(
       /^No results in HTML, \d+ in other frameworks$/,
     )
+    await expect(page.locator("#results-list [role=option]")).not.toHaveCount(0)
+    await expect(
+      page.locator('#results-list [role=option][href^="/react/"]'),
+    ).toHaveCount(0)
+  })
+
+  test("doesn't look in other frameworks for a category they share", async ({
+    page,
+  }) => {
+    const indexes: string[] = []
+    page.on("request", (request) => {
+      const { pathname } = new URL(request.url())
+      if (pathname.startsWith("/search-index/")) indexes.push(pathname)
+    })
+    await page.locator("[data-open-search]").filter({ visible: true }).click()
+    await page.locator('.filter-chip[data-filter="Blog"]').click()
+    await page.locator("#search-input").fill("itemsPerView")
+    await expect(page.locator("#search-empty")).toHaveText("No results.")
+    await expect(page.locator("#search-status")).toHaveText("No results")
+    expect(indexes).toEqual(["/search-index/html.json"])
+  })
+
+  test("loads the index when the shortcut opens search", async ({ page }) => {
+    const request = page.waitForRequest(/\/search-index\/html\.json$/)
+    await page.keyboard.press("ControlOrMeta+k")
+    await expect(page.locator("#search-dialog")).toBeVisible()
+    await request
+  })
+
+  test("shows recent searches without highlights", async ({ page }) => {
+    await page.evaluate(() =>
+      localStorage.setItem(
+        "opui-recent-searches",
+        JSON.stringify([
+          {
+            category: "Component",
+            description: "A dialog.",
+            id: "component-dialog-html",
+            terms: ["dialog"],
+            title: "Dialog",
+            url: "/html/components/dialog",
+          },
+        ]),
+      ),
+    )
+    await page.locator("[data-open-search]").filter({ visible: true }).click()
+    await expect(page.locator("#recent-list .ui-title")).toHaveText(["Dialog"])
+    await expect(page.locator("#recent-list mark")).toHaveCount(0)
   })
 
   test("closes with Esc", async ({ page }) => {

@@ -51,6 +51,7 @@ import {
   indexProblems,
   readHeadings,
   readKeywords,
+  readPreamble,
   readSections,
   slotText,
 } from "../../scripts/generate-search-index.mjs"
@@ -1137,6 +1138,7 @@ describe("generate-search-index", () => {
     description: "A page.",
     id,
     title: "Page",
+    url: `/${id}/`,
   })
 
   test("reports a category without entries, an unknown category and an entry without a description", () => {
@@ -1183,6 +1185,46 @@ describe("generate-search-index", () => {
         { ...entry("Guide", "guide-sizes"), description: "", page: "Button" },
       ]),
     ).toEqual([])
+  })
+
+  test("reports entries that share an id and paths without a trailing slash", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "Guide"), url: "/html/guide/theming/#tokens" },
+        { ...entry("Guide", "guide-sizes"), url: "/html/guide/sizes#small" },
+      ]),
+    ).toEqual([
+      "Search entries that share an id: Guide",
+      "Search entries whose path doesn't end in a slash: guide-sizes",
+    ])
+  })
+
+  test("reads text without tags, entities, string expressions or extra spaces", () => {
+    expect(
+      slotText(
+        'Do I use <code>&lt;label&gt;</code>{" "}\n  or <DocLink href="/x">a <code>for</code></DocLink>?',
+      ),
+    ).toBe("Do I use <label> or a for?")
+  })
+
+  test("reads the preamble a framework renders, or the description a page exports", () => {
+    const page =
+      '<Fragment slot="preamble">\n  <p>Built on <DocLink href="/a">Anchor</DocLink>.</p>\n  <Conditional as="p">\n    <Fragment slot="components">Wrap it in <code>&lt;Tip&gt;</code>.</Fragment>\n    <Fragment slot="html">Add <code>.ui-tip</code>.</Fragment>\n    <Fragment slot="vue">Use <code>v-tip</code>.</Fragment>\n  </Conditional>\n</Fragment>'
+    expect(
+      (["html", "react", "vue"] as const).map((framework) =>
+        readPreamble(page, framework),
+      ),
+    ).toEqual([
+      "Built on Anchor. Add .ui-tip.",
+      "Built on Anchor. Wrap it in <Tip>.",
+      "Built on Anchor. Use v-tip.",
+    ])
+    expect(
+      readPreamble(`export const description = "A tip."\n${page}`, "html"),
+    ).toBe("A tip.")
   })
 
   test("reads the id and title of each section and h3 with an id, once per id", () => {

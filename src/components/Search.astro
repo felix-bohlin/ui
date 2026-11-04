@@ -109,7 +109,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 </Command>
 
 <script>
-  import MiniSearch, { type SearchResult } from "minisearch"
+  import MiniSearch from "minisearch"
   import {
     DEFAULT_FRAMEWORK,
     FRAMEWORKS,
@@ -152,6 +152,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     Component: 1.2,
   }
   const indexes = new Map<FrameworkId, Promise<MiniSearch<SearchItem>>>()
+  const frameworkCategories = new Set<string>()
   let selectedIndex = -1
   let activeFilter = "all"
   let statusTimer: ReturnType<typeof setTimeout> | undefined
@@ -197,23 +198,28 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       index = fetch(`/search-index/${framework}.json`)
         .then((response) => response.json())
         .then((items: SearchItem[]) => {
+          for (const { category, url } of items) {
+            if (frameworkPrefixPattern().test(url)) {
+              frameworkCategories.add(category)
+            }
+          }
           const miniSearch = new MiniSearch<SearchItem>({
             fields: [
-              "title",
+              "api",
+              "description",
+              "headings",
               "keywords",
               "page",
-              "headings",
-              "description",
-              "terms",
+              "title",
             ], // fields to index for full-text search
             storeFields: ["category", "description", "page", "title", "url"],
             searchOptions: {
               boost: {
+                api: 0.5,
                 description: 1,
                 headings: 1,
                 keywords: 3,
                 page: 2,
-                terms: 0.5,
                 title: 4,
               },
               boostDocument: (_id, _term, item) =>
@@ -237,30 +243,38 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   }
 
   function search(miniSearch: MiniSearch<SearchItem>, query: string) {
-    const results = miniSearch.search(query)
-    return (
-      results.length > 0
-        ? results
-        : miniSearch.search(query, { combineWith: "OR" })
-    ).map((result: SearchResult) => result as unknown as Result)
+    const every = miniSearch.search(query) as unknown as Result[]
+    let some: Result[] | undefined
+    return (filter: string) => {
+      const inFilter = (results: Result[]) =>
+        results.filter((r) => filter === "all" || r.category === filter)
+      const matches = inFilter(every)
+      if (matches.length > 0) return matches
+      some ??= miniSearch.search(query, {
+        combineWith: "OR",
+      }) as unknown as Result[]
+      return inFilter(some)
+    }
   }
 
-  const getRecentSearches = () =>
-    readStored<RecentItem[]>("opui-recent-searches", [])
-
-  function saveRecentSearch({
+  const toRecent = ({
     category,
     description,
     id,
     page,
     title,
     url,
-  }: RecentItem) {
+  }: RecentItem) => ({ category, description, id, page, title, url })
+
+  const getRecentSearches = () =>
+    readStored<RecentItem[]>("opui-recent-searches", []).map(toRecent)
+
+  function saveRecentSearch(item: RecentItem) {
     let recent = getRecentSearches()
     // Remove if exists
-    recent = recent.filter((r) => r.url !== url)
+    recent = recent.filter((r) => r.id !== item.id)
     // Add to front
-    recent.unshift({ category, description, id, page, title, url })
+    recent.unshift(toRecent(item))
     // Limit to 5
     recent = recent.slice(0, 5)
     writeStored("opui-recent-searches", recent)
@@ -292,9 +306,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   ) {
     const terms = item.terms ?? []
     const li = document.createElement("li")
-    li.id = id
-    li.setAttribute("aria-selected", String(isSelected))
-    li.setAttribute("role", "option")
+    li.setAttribute("role", "none")
 
     const displayTitle = highlight(item.title, terms)
     const displayDesc = highlight(item.page ?? item.description ?? "", terms)
@@ -303,8 +315,11 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       : item.category
 
     const link = document.createElement("a")
+    link.id = id
     link.href = item.url
     link.tabIndex = -1
+    link.setAttribute("aria-selected", String(isSelected))
+    link.setAttribute("role", "option")
     link.innerHTML = `
       <div class="ui-text">
         <p class="ui-title">${displayTitle}</p>
@@ -315,7 +330,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       </div>
     `
     li.append(link)
-    optionItems.set(li, item)
+    optionItems.set(link, item)
 
     link.addEventListener("click", (e) => {
       saveRecentSearch(item)
@@ -327,11 +342,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
   function renderMore(category: string, count: number, id: string) {
     const li = document.createElement("li")
-    li.id = id
     li.className = "search-more"
-    li.setAttribute("aria-selected", "false")
-    li.setAttribute("role", "option")
-    li.innerHTML = `<button type="button" tabindex="-1"><span class="ui-text"><span class="ui-title">Show all ${count}</span></span></button>`
+    li.setAttribute("role", "none")
+    li.innerHTML = `<button type="button" id="${id}" role="option" aria-selected="false" tabindex="-1"><span class="ui-text"><span class="ui-title">Show all ${count}</span></span></button>`
     li.addEventListener("click", () => {
       selectFilter(category)
       input.focus()
@@ -351,11 +364,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     { heading, limit }: { heading?: string; limit: boolean },
   ) {
     // Group and sort by category
-    const grouped = new Map<string, Result[]>()
-    for (const item of items) {
-      const group = heading ?? item.category
-      grouped.set(group, [...(grouped.get(group) ?? []), item])
-    }
+    const grouped = Map.groupBy(items, (item) => heading ?? item.category)
 
     let globalIndex = resultsList!.querySelectorAll("[role=option]").length
     for (const [category, groupItems] of grouped) {
@@ -397,10 +406,18 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   async function searchOtherFrameworks(query: string) {
     const current = getActiveFrameworkId()
     const others = await Promise.all(
-      FRAMEWORKS.filter(({ id }) => id !== current).map(async ({ id }) =>
-        search(await loadIndex(id), query)
-          .filter((r) => activeFilter === "all" || r.category === activeFilter)
-          .map((r) => ({ ...r, framework: id })),
+      FRAMEWORKS.filter(({ id }) => id !== current).map(({ id }) =>
+        loadIndex(id)
+          .then((miniSearch) =>
+            search(
+              miniSearch,
+              query,
+            )(activeFilter).map((r) => ({
+              ...r,
+              framework: id,
+            })),
+          )
+          .catch(() => []),
       ),
     )
     return others
@@ -410,7 +427,6 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
           all.findIndex((other) => other.url === result.url) === index,
       )
       .toSorted((a, b) => b.score - a.score)
-      .slice(0, GROUP_LIMIT)
   }
 
   async function updateResults() {
@@ -438,12 +454,14 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     const results = search(miniSearch, query)
 
     // Update Category Chips with counts
-    updateChipCounts(results.length, countByCategory(results))
+    updateChipCounts(
+      results("all").length,
+      Object.fromEntries(
+        SEARCH_CATEGORIES.map(({ id }) => [id, results(id).length]),
+      ),
+    )
 
-    let finalResults = results
-    if (activeFilter !== "all") {
-      finalResults = finalResults.filter((r) => r.category === activeFilter)
-    }
+    const finalResults = results(activeFilter)
 
     resultsList!.innerHTML = ""
 
@@ -451,14 +469,17 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       const framework = FRAMEWORKS.find(
         ({ id }) => id === getActiveFrameworkId(),
       )?.label
-      emptyState!.textContent = `No results in ${framework}.`
+      const searchOthers =
+        activeFilter === "all" || frameworkCategories.has(activeFilter)
+      const none = searchOthers ? `No results in ${framework}` : "No results"
+      emptyState!.textContent = `${none}.`
       emptyState!.style.display = "block"
-      const others = await searchOtherFrameworks(query)
+      const others = searchOthers ? await searchOtherFrameworks(query) : []
       if (run !== renderRun) return
       announce(
         others.length > 0
-          ? `No results in ${framework}, ${others.length} in other frameworks`
-          : `No results in ${framework}`,
+          ? `${none}, ${others.length} in other frameworks`
+          : none,
       )
       if (others.length > 0) {
         renderGroups(others, { heading: "Other frameworks", limit: false })
@@ -618,7 +639,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
         window.open(item.url, "_blank")
         return
       }
-      selected?.querySelector<HTMLElement>("a, button")?.click()
+      selected?.click()
     }
   })
 
@@ -650,6 +671,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     } else {
       dialog.showModal()
       input.focus()
+      loadIndex().catch(() => {})
       updateResults()
     }
   }
@@ -867,6 +889,19 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       font-size: var(--font-size-1);
       padding-block: var(--size-8);
       text-align: center;
+    }
+
+    .ui-list > li > [role="option"][aria-selected="true"] {
+      --_description-text-color: var(--ui-on-selected, var(--ui-text-subtle));
+      background-color: var(--_selected-bg-color);
+      box-shadow: var(--_selected-shadow);
+      color: var(--ui-on-selected, currentColor);
+
+      @media (forced-colors: active) {
+        background-color: SelectedItem;
+        color: SelectedItemText;
+        forced-color-adjust: none;
+      }
     }
 
     .search-more .ui-title {

@@ -55,6 +55,18 @@ export function isFrameworkId(value) {
 }
 
 /**
+ * @param {FrameworkId} framework
+ * @param {(name: string) => boolean} has
+ */
+export function conditionalSlot(framework, has) {
+  return (
+    framework === "html"
+      ? [framework, DEFAULT_FRAMEWORK]
+      : [framework, "components", DEFAULT_FRAMEWORK]
+  ).find(has)
+}
+
+/**
  * `getStaticPaths` payload for files under `src/pages/[framework]/`. Emits one
  * route per framework; every framework gets a URL prefix.
  */

@@ -2,10 +2,16 @@ import fs, { realpathSync } from "fs"
 import path from "path"
 import { fileURLToPath, pathToFileURL } from "url"
 import { globby } from "globby"
+import { parseFragment } from "parse5"
 
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
 import { posts } from "../src/utils/blog-posts.ts"
-import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
+import {
+  componentHasFramework,
+  conditionalSlot,
+  FRAMEWORKS,
+  hrefFor,
+} from "../src/utils/framework.js"
 import { componentName } from "../src/utils/names.js"
 import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
 
@@ -17,8 +23,41 @@ const OUTPUT_DIR = fileURLToPath(
   new URL("../public/search-index/", import.meta.url),
 )
 
-function frameworkUrl(framework, sharedPath) {
-  return `/${framework}${sharedPath}`
+const textOf = (node) =>
+  node.nodeName === "#text"
+    ? node.value
+    : (node.childNodes ?? []).map(textOf).join("")
+
+/** @param {string} html */
+export function slotText(html) {
+  return textOf(parseFragment(html.replace(/\{\s*(["'`])(.*?)\1\s*\}/gs, "$2")))
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
+/**
+ * @param {string} content
+ * @param {import("../src/utils/framework.js").FrameworkId} framework
+ */
+export function readPreamble(content, framework) {
+  const description = content.match(
+    /export const description\s*=\s*("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/s,
+  )
+  if (description) return description[1].slice(1, -1)
+  const preamble = content
+    .replace(/<Conditional\b[^>]*>(.*?)<\/Conditional\s*>/gs, (_, body) => {
+      const slots = new Map(
+        Array.from(
+          body.matchAll(/<Fragment\s+slot="([^"]+)"\s*>(.*?)<\/Fragment\s*>/gs),
+          (m) => [m[1], m[2]],
+        ),
+      )
+      return (
+        slots.get(conditionalSlot(framework, (name) => slots.has(name))) ?? ""
+      )
+    })
+    .match(/<Fragment\s+slot="preamble"\s*>(.*?)<\/Fragment\s*>/s)?.[1]
+  return preamble ? slotText(preamble) : ""
 }
 
 export function readSections(content) {
@@ -33,13 +72,7 @@ export function readSections(content) {
   for (const m of headingMatches) {
     const id = m[1] ?? m[3]
     if (sections.has(id)) continue
-    sections.set(id, {
-      id,
-      title: (m[2] ?? m[4])
-        .replace(/<[^>]*>/g, "")
-        .replace(/\s+/g, " ")
-        .trim(),
-    })
+    sections.set(id, { id, title: slotText(m[2] ?? m[4]) })
   }
   return [...sections.values()]
 }
@@ -59,7 +92,7 @@ function pageEntries({ category, frameworkId, id, meta, url }) {
     {
       id,
       title: meta.title,
-      description: meta.preamble,
+      description: meta.preambles.get(frameworkId),
       ...(meta.keywords.length > 0
         ? { keywords: meta.keywords.join(" ") }
         : {}),
@@ -81,22 +114,10 @@ function pageEntries({ category, frameworkId, id, meta, url }) {
   ]
 }
 
-export const slotText = (html) =>
-  html
-    .replace(/<[^>]*>/g, "")
-    .replace(/\s+/g, " ")
-    .trim()
-
 function readMeta(file) {
   const content = fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n")
   const titleMatch = content.match(
     /<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s,
-  )
-  const descriptionExportMatch = content.match(
-    /export const description\s*=\s*("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/s,
-  )
-  const preambleMatch = content.match(
-    /<Fragment\s+slot="preamble"\s*>(.*?)<\/Fragment\s*>/s,
   )
 
   if (!titleMatch) throw new Error(`${file} has no title slot`)
@@ -113,22 +134,31 @@ function readMeta(file) {
       `${file} has a title slot the search index can't read: write the title as text, or set it from the first heading of the Markdown file the page imports`,
     )
   }
-  const preamble = descriptionExportMatch
-    ? descriptionExportMatch[1].slice(1, -1)
-    : preambleMatch
-      ? slotText(preambleMatch[1])
-      : ""
+  const preambles = new Map(
+    FRAMEWORKS.map(({ id }) => [id, readPreamble(content, id)]),
+  )
 
-  const sections = [
-    ...readSections(content),
-    ...(content.includes("<KeyboardSupport")
-      ? [{ id: "keyboard-support", title: "Keyboard support" }]
-      : []),
-  ]
+  const sections = readSections(content)
+  if (
+    content.includes("<KeyboardSupport") &&
+    !sections.some(({ id }) => id === "keyboard-support")
+  ) {
+    sections.push({ id: "keyboard-support", title: "Keyboard support" })
+  }
+
+  const unreadable = [
+    ...preambles.values(),
+    ...sections.map((section) => section.title),
+  ].filter((text) => /[{}]/.test(text))
+  if (unreadable.length > 0) {
+    throw new Error(
+      `${file} has a preamble or heading the search index can't read: write it as text, or export a description: ${unreadable.join(", ")}`,
+    )
+  }
 
   return {
     title,
-    preamble,
+    preambles,
     headings: readMarkdownHeadings(file, content),
     keywords: readKeywords(content),
     sections,
@@ -151,7 +181,7 @@ function readMarkdownHeadings(file, content) {
   )
 }
 
-/** @param {{ category: string, description?: string, id: string, page?: string, title: string }[]} index */
+/** @param {{ category: string, description?: string, id: string, page?: string, title: string, url: string }[]} index */
 export function indexProblems(index) {
   const unknown = [
     ...new Set(
@@ -166,6 +196,14 @@ export function indexProblems(index) {
   const empty = index
     .filter((item) => !item.title || !(item.description || item.page))
     .map((item) => item.id)
+  const duplicates = [...Map.groupBy(index, (item) => item.id)]
+    .filter(([, items]) => items.length > 1)
+    .map(([id]) => id)
+  const unslashed = index
+    .filter(
+      (item) => !new URL(item.url, "https://x.test").pathname.endsWith("/"),
+    )
+    .map((item) => item.id)
   return [
     ...(unknown.length > 0
       ? [`Unknown search categories: ${unknown.join(", ")}`]
@@ -176,6 +214,14 @@ export function indexProblems(index) {
     ...(empty.length > 0
       ? [
           `Search entries without a title, or without a description or page: ${empty.join(", ")}`,
+        ]
+      : []),
+    ...(duplicates.length > 0
+      ? [`Search entries that share an id: ${duplicates.join(", ")}`]
+      : []),
+    ...(unslashed.length > 0
+      ? [
+          `Search entries whose path doesn't end in a slash: ${unslashed.join(", ")}`,
         ]
       : []),
   ]
@@ -224,7 +270,7 @@ async function generateIndex() {
           frameworkId: framework.id,
           id: `component-${slug}-${framework.id}`,
           meta,
-          url: frameworkUrl(framework.id, sharedPath),
+          url: hrefFor(framework.id, sharedPath),
         }),
       )
     }
@@ -244,7 +290,7 @@ async function generateIndex() {
           frameworkId: framework.id,
           id: `guide-${slug}-${framework.id}`,
           meta,
-          url: frameworkUrl(framework.id, sharedPath),
+          url: hrefFor(framework.id, sharedPath),
         }),
       )
     }
@@ -265,7 +311,7 @@ async function generateIndex() {
         frameworkId: framework.id,
         id: `guide-getting-started-${framework.id}`,
         meta,
-        url: frameworkUrl(framework.id, "/guide/getting-started"),
+        url: hrefFor(framework.id, "/guide/getting-started"),
       }),
     )
   }
@@ -288,7 +334,7 @@ async function generateIndex() {
         .filter(Boolean)
         .join(" "),
       category: "Blog",
-      url: `/blog/${post.slug}`,
+      url: `/blog/${post.slug}/`,
     })
   }
 
@@ -301,7 +347,7 @@ async function generateIndex() {
       headings: blockCategories.find((entry) => entry.id === block.category)
         ?.label,
       category: "Blocks",
-      url: `/blocks/${block.slug}`,
+      url: `/blocks/${block.slug}/`,
     })
   }
 
@@ -343,7 +389,7 @@ async function generateIndex() {
       .toSorted((a, b) => a.localeCompare(b))
       .join(" "),
     category: "Guide",
-    url: "/theme-builder",
+    url: "/theme-builder/",
   })
 
   const apiEntries = []
@@ -402,10 +448,10 @@ async function generateIndex() {
           id: `api-${folder}-${framework.id}`,
           title: `${name} API`,
           description: `Reference for ${name} ${framework.label} component.`,
-          terms: terms.join(" "),
+          api: terms.join(" "),
           category: "API",
           frameworkId: framework.id,
-          url: frameworkUrl(framework.id, "/api") + `#${folder}`,
+          url: hrefFor(framework.id, `/api#${folder}`),
         },
       ])
     }

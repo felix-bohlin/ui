@@ -6,6 +6,7 @@ import { navItems } from "./nav.js"
 
 /**
  * @typedef {object} SearchItem
+ * @property {string} [api]
  * @property {SearchCategoryId} category
  * @property {string} [description]
  * @property {FrameworkId} [frameworkId]
@@ -13,7 +14,6 @@ import { navItems } from "./nav.js"
  * @property {string} id
  * @property {string} [keywords]
  * @property {string} [page]
- * @property {string} [terms]
  * @property {string} title
  * @property {string} url
  */

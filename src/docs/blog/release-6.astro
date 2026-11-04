@@ -14,7 +14,6 @@ import Ratchets from "../../components/Release/Ratchets.astro"
 import Renames from "../../components/Release/Renames.astro"
 import Shells from "../../components/Release/Shells.astro"
 import SupportMatrix from "../../components/Release/SupportMatrix.astro"
-import Takeover from "../../components/Release/Takeover.astro"
 import ThemeDice from "../../components/Release/ThemeDice.astro"
 import TitleCard from "../../components/Release/TitleCard.astro"
 import TokenTiers from "../../components/TokenTiers.astro"
@@ -121,8 +120,6 @@ const newComponents = addedComponents(
       re-architecture also exposed a lot of weak points in the previous design,
       so I was kind of forced to go through all components and update them.
     </p>
-    <p>Don't take my word for it. Pick a theme and this whole post wears it.</p>
-    <Takeover />
 
     <h3 id="example-themes">Four example themes</h3>
     <ul>
@@ -658,7 +655,7 @@ const newComponents = addedComponents(
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       section > h2,
-      section > :global(:not(h2, #takeover)) {
+      section > :global(:not(h2)) {
         animation: release-reveal linear backwards;
         animation-range: entry 0% entry 30%;
         animation-timeline: view();

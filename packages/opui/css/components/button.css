@@ -192,23 +192,32 @@
     }
 
     /* Icons / Keyboard */
-    &:where(:has(> svg)) {
+    &:where(:has(> :is(svg, .ui-icon-checked, .ui-icon-unchecked))) {
       gap: 1ex;
 
-      & > svg {
+      & > svg,
+      & > :is(.ui-icon-checked, .ui-icon-unchecked) > svg {
         block-size: auto;
         color: currentColor;
         flex-shrink: 0;
         inline-size: auto;
         max-block-size: var(--_icon-size);
       }
+
+      & > :is(.ui-icon-checked, .ui-icon-unchecked):not(svg) {
+        display: contents;
+      }
     }
 
-    &:where(:has(> svg:first-child + *)) {
+    &:where(
+      :has(> :is(svg, .ui-icon-checked, .ui-icon-unchecked):first-child + *)
+    ) {
       padding-inline-start: calc(var(--_padding-inline) * 0.75);
     }
 
-    &:where(:has(> * + svg:last-child)) {
+    &:where(
+      :has(> * + :is(svg, .ui-icon-checked, .ui-icon-unchecked):last-child)
+    ) {
       padding-inline-end: calc(var(--_padding-inline) * 0.75);
     }
 

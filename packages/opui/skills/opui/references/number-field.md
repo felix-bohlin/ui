@@ -13,9 +13,9 @@ A number field with buttons that step the value down and up, for amounts like a 
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed input area.
-- `.ui-field > .ui-start` (prop `decreaseLabel`): The decrease button, with `command="--step-down"`. Hidden until the element is defined.
+- `.ui-field > .ui-start` (prop `decreaseLabel`, slot `decrease-icon`): The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.
 - `<input type="number">` (model): The input element.
-- `.ui-field > .ui-end` (prop `increaseLabel`): The increase button, with `command="--step-up"`. Hidden until the element is defined.
+- `.ui-field > .ui-end` (prop `increaseLabel`, slot `increase-icon`): The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 
 ### Props and modifiers
@@ -145,7 +145,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 
 `import { NumberField } from "opui-css/astro"`
 
-- `NumberField` named slots: `end-text`, `label` and `start-text`. Fill one with `slot="end-text"` on a child.
+- `NumberField` named slots: `decrease-icon`, `end-text`, `increase-icon`, `label` and `start-text`. Fill one with `slot="decrease-icon"` on a child.
 
 ### Example: Basics
 
@@ -167,7 +167,7 @@ import { NumberField } from "opui-css/astro"
 
 `import { NumberField } from "opui-css/react"`
 
-- `NumberField` slot props (`ReactNode`): `endText`, `label` and `startText`.
+- `NumberField` slot props (`ReactNode`): `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
 - Client components (`"use client"`): `NumberField`.
 
 ### Example: Basics
@@ -192,7 +192,7 @@ export default function Basics() {
 
 `import { NumberField } from "opui-css/svelte"`
 
-- `NumberField` slot snippets: `endText`, `label` and `startText`.
+- `NumberField` slot snippets: `decreaseIcon`, `endText`, `increaseIcon`, `label` and `startText`.
 - Hydration: `bind:value` on `NumberField`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Basics
@@ -215,7 +215,7 @@ export default function Basics() {
 
 `import { NumberField } from "opui-css/vue"`
 
-- `NumberField` named slots: `end-text`, `label` and `start-text`. Fill one with `<template #end-text>`.
+- `NumberField` named slots: `decrease-icon`, `end-text`, `increase-icon`, `label` and `start-text`. Fill one with `<template #decrease-icon>`.
 - Hydration: `v-model` on `NumberField`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Basics

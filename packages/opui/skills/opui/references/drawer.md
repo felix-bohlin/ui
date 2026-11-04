@@ -37,7 +37,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 ### Parts
 
 - `.ui-header` (root): Container element.
-- `<button>`: Closes the drawer.
+- `<button>` (prop `closeLabel`, slot `close-icon`): Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`.
 
 ### Props and modifiers
 
@@ -314,6 +314,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/astro"`
 
+- `DrawerHeader` named slots: `close-icon`. Fill one with `slot="close-icon"` on a child.
+
 ### Example: Basics
 
 ```astro
@@ -433,6 +435,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/react"`
 
+- `DrawerHeader` slot props (`ReactNode`): `children` and `closeIcon`.
 - Client components (`"use client"`): `Drawer` and `DrawerHeader`.
 
 ### Example: Basics
@@ -564,6 +567,8 @@ export default function Basics() {
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/svelte"`
 
+- `DrawerHeader` slot snippets: `children` and `closeIcon`.
+
 ### Example: Basics
 
 ```svelte
@@ -679,6 +684,8 @@ export default function Basics() {
 ## Vue
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/vue"`
+
+- `DrawerHeader` named slots: `close-icon`. Fill one with `<template #close-icon>`.
 
 ### Example: Basics
 

@@ -18,8 +18,11 @@ export default {
   parts: [
     {
       code: "<button>",
-      description: "Closes the drawer.",
+      description:
+        "Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`.",
+      props: ["closeLabel"],
       selector: ".ui-header > .ui-button",
+      slots: ["close-icon"],
     },
   ],
   root: {

@@ -17,6 +17,10 @@ export type DrawerHeaderProps = {
   commandfor?: string
 }
 
+export type DrawerHeaderSlots<S> = {
+  closeIcon?: S
+}
+
 export type DrawerTitleProps = {}
 
 export type Context = {

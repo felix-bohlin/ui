@@ -9,4 +9,10 @@ export type Props = BaseProps &
     value?: number | string
   }
 
-export type Slots = { "end-text"?: Slot; label?: Slot; "start-text"?: Slot }
+export type Slots = {
+  "decrease-icon"?: Slot
+  "end-text"?: Slot
+  "increase-icon"?: Slot
+  label?: Slot
+  "start-text"?: Slot
+}

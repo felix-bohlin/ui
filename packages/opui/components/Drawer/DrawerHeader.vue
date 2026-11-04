@@ -5,10 +5,13 @@ import Button from "../Button/Button.vue"
 import { DrawerKey } from "./context.vue"
 import { warnMissingTarget } from "../dev"
 import { closePath } from "./icons"
-import type { DrawerHeaderProps as Props, Slots } from "./types.vue-props"
+import type {
+  DrawerHeaderProps as Props,
+  DrawerHeaderSlots,
+} from "./types.vue-props"
 
 const { closeLabel = "Close", commandfor } = defineProps<Props>()
-defineSlots<Slots>()
+defineSlots<DrawerHeaderSlots>()
 
 const drawer = inject(DrawerKey, undefined)
 
@@ -26,7 +29,9 @@ warnMissingTarget("DrawerHeader", target.value, "Drawer")
       round
       size="small"
     >
-      <svg
+      <slot v-if="$slots['close-icon']" name="close-icon"></slot
+      ><svg
+        v-else
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

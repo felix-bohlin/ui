@@ -190,6 +190,36 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     </AutoExample>
   </section>
 
+  <section id="close-button">
+    <h2>Close button</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The close button in <code>DrawerHeader</code> is named "Close".
+        Translate it with <code>closeLabel</code>. Put your own icon in the
+        <code>close-icon</code> slot, with <code>aria-hidden="true"</code> since
+        the label names the button.
+      </Fragment>
+      <Fragment slot="html">
+        The close button is named by its <code>aria-label</code>, so translate
+        that. Its icon is the <code>svg</code> inside it: put your own in its
+        place, with <code>aria-hidden="true"</code> since the label names the
+        button.
+      </Fragment>
+      <Fragment slot="react">
+        The close button in <code>DrawerHeader</code> is named "Close".
+        Translate it with <code>closeLabel</code>. Put your own icon in the
+        <code>closeIcon</code> prop, with <code>aria-hidden="true"</code> since
+        the label names the button.
+      </Fragment>
+      <Fragment slot="svelte">
+        The close button in <code>DrawerHeader</code> is named "Close".
+        Translate it with <code>closeLabel</code>. Put your own icon in the
+        <code>closeIcon</code> snippet, with <code>aria-hidden="true"</code>
+        since the label names the button.
+      </Fragment>
+    </Conditional>
+  </section>
+
   <section id="how-to-close">
     <h2>How to close a drawer</h2>
     <ClosedbyTable componentDefault="any" name="drawer" />

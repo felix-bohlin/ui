@@ -47,6 +47,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_accent`: Color of the filled stars. Defaults to `--ui-warning`.
 - `--_clear-bg-color`: Color of the clear icon before the input stars. Defaults to `--ui-text-subtle`.
 - `--_clear-hover-bg-color`: Color of the hovered clear icon. Defaults to `--ui-text`.
+- `--_clear-image`: The icon of the clear radio before the input stars, as an image used as a mask.
 - `--_ease`: Easing of the fill transition. Defaults to `--ui-ease`.
 - `--_empty-bg-color`: Color of the empty stars. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-border-color`. An invalid input tints it with `--ui-invalid`.
 - `--_max`: Number of stars a meter is wide, for browsers without typed `attr()`. The components set it when `max` isn't `5`. Defaults to `5`.

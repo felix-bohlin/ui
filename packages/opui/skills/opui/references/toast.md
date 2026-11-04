@@ -11,7 +11,7 @@ Short messages that confirm an action and dismiss themselves.
 
 - `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone.
 - `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.
-- `<li>`: A toast, a `Callout` with the severity class, its icon, the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.
+- `<li>`: A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.
 - `<div role="status">`: The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
 
 ### Props and modifiers
@@ -36,13 +36,18 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### toaster.css
 
+- `--_close-image`: The icon of the close button, as an image used as a mask. Defaults to the Drawer's close icon.
+- `--_critical-image`: The icon of a critical toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_ease`: Easing of a toast fading and sliding in.
 - `--_gap`: Space between stacked toasts.
+- `--_info-image`: The icon of an info toast, as an image used as a mask. Defaults to the `Callout` icon.
 - `--_inset`: Distance of the stack from the edges of the viewport.
 - `--_max-inline-size`: Maximum width of a toast.
 - `--_motion`: Motion multiplier, `0` with reduced motion.
+- `--_success-image`: The icon of a success toast, as an image used as a mask. Defaults to the `Callout` icon.
+- `--_warning-image`: The icon of a warning toast, as an image used as a mask. Defaults to the `Callout` icon.
 
-Outputs: `--_duration` and `--_shadow`.
+Outputs: `--_duration`, `--_icon-image` and `--_shadow`.
 
 ### callout.css
 

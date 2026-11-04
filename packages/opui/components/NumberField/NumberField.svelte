@@ -26,7 +26,9 @@
     variant,
 
     // Snippets
+    decreaseIcon,
     endText,
+    increaseIcon,
     label,
     startText,
     ...rest
@@ -69,15 +71,17 @@
         commandfor={inputId}
         round
       >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={minusPath} />
-        </svg>
+        {#if decreaseIcon}{@render decreaseIcon()}{:else}
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={minusPath} />
+          </svg>
+        {/if}
       </Button>
     </span>
     <input
@@ -97,15 +101,17 @@
         commandfor={inputId}
         round
       >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={plusPath} />
-        </svg>
+        {#if increaseIcon}{@render increaseIcon()}{:else}
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={plusPath} />
+          </svg>
+        {/if}
       </Button>
     </span>
   </span>

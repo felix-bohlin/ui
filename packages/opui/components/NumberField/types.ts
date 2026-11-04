@@ -13,7 +13,9 @@ export type Props = {
 }
 
 export type Slots<S> = {
+  decreaseIcon?: S
   endText?: string | S
+  increaseIcon?: S
   label?: string | S
   startText?: string | S
 }

@@ -17,7 +17,7 @@ An input for single-line text data. Basic text fields with labels, field descrip
 - `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
 - `<input>` (model): The input element.
 - `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, and the password toggle.
-- `.ui-field > .ui-end > .ui-button` (prop `passwordToggle`, prop `passwordToggleLabel`): The password toggle, with `aria-pressed` and `command="--toggle-password"`. Hidden until `<opui-text-field>` is defined.
+- `.ui-field > .ui-end > .ui-button` (prop `passwordToggle`, prop `passwordToggleLabel`, slot `icon-checked`, slot `icon-unchecked`): The password toggle, with `aria-pressed` and `command="--toggle-password"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the input, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
 - `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.
@@ -100,7 +100,7 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 
 `import { TextField } from "opui-css/astro"`
 
-- `TextField` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `slot="bottom"` on a child.
+- `TextField` named slots: `bottom`, `end`, `end-text`, `icon-checked`, `icon-unchecked`, `label`, `start`, `start-text` and `top`. Fill one with `slot="bottom"` on a child.
 
 ### Example: Variants
 
@@ -117,7 +117,7 @@ import { TextField } from "opui-css/astro"
 
 `import { TextField } from "opui-css/react"`
 
-- `TextField` slot props (`ReactNode`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+- `TextField` slot props (`ReactNode`): `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
 - Client components (`"use client"`): `TextField`.
 
 ### Example: Variants
@@ -139,7 +139,7 @@ export default function Variants() {
 
 `import { TextField } from "opui-css/svelte"`
 
-- `TextField` slot snippets: `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+- `TextField` slot snippets: `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
 - Hydration: `bind:value` on `TextField`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Variants
@@ -157,7 +157,7 @@ export default function Variants() {
 
 `import { TextField } from "opui-css/vue"`
 
-- `TextField` named slots: `bottom`, `end`, `end-text`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
+- `TextField` named slots: `bottom`, `end`, `end-text`, `icon-checked`, `icon-unchecked`, `label`, `start`, `start-text` and `top`. Fill one with `<template #bottom>`.
 - Hydration: `v-model` on `TextField`. The bound value only updates on the client. The native control still changes and submits with its form. Without hydration: Read the value from the form instead.
 
 ### Example: Variants

@@ -211,6 +211,29 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         password hides again when the form is submitted or reset.
       </p>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The button shows an eye while the password is hidden and a crossed-out
+        eye while it shows. Put your own icons in the
+        <code>icon-unchecked</code> and <code>icon-checked</code> slots.
+      </Fragment>
+      <Fragment slot="html">
+        The button holds an eye <code>svg</code> with
+        <code>.ui-icon-unchecked</code>, shown while the password is hidden, and
+        a crossed-out eye with <code>.ui-icon-checked</code>, shown while it
+        shows. Put your own icons in their place, with the same classes.
+      </Fragment>
+      <Fragment slot="react">
+        The button shows an eye while the password is hidden and a crossed-out
+        eye while it shows. Put your own icons in the <code>iconUnchecked</code>
+        and <code>iconChecked</code> props.
+      </Fragment>
+      <Fragment slot="svelte">
+        The button shows an eye while the password is hidden and a crossed-out
+        eye while it shows. Put your own icons in the <code>iconUnchecked</code>
+        and <code>iconChecked</code> snippets.
+      </Fragment>
+    </Conditional>
     <p>
       A button inside a <code>&lt;label&gt;</code> would join the field's name,
       like "Password Show password". So the root is the

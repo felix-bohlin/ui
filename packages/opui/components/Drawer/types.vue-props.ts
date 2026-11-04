@@ -1,4 +1,4 @@
-import type { IntrinsicElementAttributes } from "vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   DrawerContentProps as BaseDrawerContentProps,
@@ -20,3 +20,5 @@ export type DrawerTitleProps = BaseDrawerTitleProps &
 export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots
+
+export type DrawerHeaderSlots = { "close-icon"?: Slot } & DefaultSlots

@@ -237,6 +237,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - When the visible label can be hidden, the prop is `hideLabel`, which renders `.ui-sr-only` on the label.
   - A component with no visible text takes `aria-label` from the caller, and its types require it. No other prop supplies or hides a name.
   - The name of a control the component generates inside one of its parts is `<part>Label`, such as `closeLabel` on `DrawerHeader`.
+  - The icon of that control is the `<part>-icon` slot, such as `close-icon` on `DrawerHeader`, and replaces the default `svg`. `tests/unit/naming.test.ts` checks that it sits next to its `<part>Label`.
   - A component never joins a number and words into one name, since their order depends on the language. The caller passes the whole translated string (`<Badge hideLabel label="5 unread messages">`).
 - **Native names:**
   - A prop that passes straight to the element keeps its lowercase native name (`closedby`, `commandfor`, `popover`, `for`). React maps `for` to `htmlFor`, like the element. An inherited native attribute such as `title` keeps its name, so the `label` rule only applies to props the component defines.
@@ -543,6 +544,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
 - `TextField`: the field border is real, but the focus outline gets `Highlight` and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
+- `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers between buttons are shadows, so they become `CanvasText` borders.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
@@ -554,7 +556,6 @@ The components without a block, and why:
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
-- `Toaster`: every toast is a `Callout`, whose boundary is a real border.
 - `Stat`: text only, no boundary or state.
 - `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.

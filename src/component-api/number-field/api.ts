@@ -160,9 +160,10 @@ export default {
     },
     {
       description:
-        'The decrease button, with `command="--step-down"`. Hidden until the element is defined.',
+        'The decrease button, with `command="--step-down"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined.',
       props: ["decreaseLabel"],
       selector: ".ui-field > .ui-start",
+      slots: ["decrease-icon"],
     },
     {
       code: '<input type="number">',
@@ -172,9 +173,10 @@ export default {
     },
     {
       description:
-        'The increase button, with `command="--step-up"`. Hidden until the element is defined.',
+        'The increase button, with `command="--step-up"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined.',
       props: ["increaseLabel"],
       selector: ".ui-field > .ui-end",
+      slots: ["increase-icon"],
     },
     {
       description: "Supporting text displayed below the field.",

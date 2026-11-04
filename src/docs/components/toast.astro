@@ -118,6 +118,28 @@ export const keywords = ["notification", "snackbar"]
     <AutoExample name="Severities" row />
   </section>
 
+  <section id="icons">
+    <h2>Icons</h2>
+    <p>
+      A script makes the toasts, so their severity icons and close icon are CSS
+      masks. Set <code>--_critical-image</code>, <code>--_info-image</code>,
+      <code>--_success-image</code>, <code>--_warning-image</code> and
+      <code>--_close-image</code> on the toaster to an SVG <code>url()</code> to
+      use the icons of your own icon set. They take the toast's colors, like the
+      default ones.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The close button is named "Close". Translate it with
+        <code>closeLabel</code>.
+      </Fragment>
+      <Fragment slot="html">
+        The close button is named "Close". Translate it with the
+        <code>close-label</code> attribute on the toaster.
+      </Fragment>
+    </Conditional>
+  </section>
+
   <section id="from-a-script">
     <h2>From a script</h2>
     <Conditional as="p">

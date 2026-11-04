@@ -157,7 +157,13 @@ const endTextId = computed(() =>
           command="--toggle-password"
           :commandfor="inputId"
           round
+          ><span
+            v-if="$slots['icon-unchecked']"
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            ><slot name="icon-unchecked"></slot></span
           ><svg
+            v-else
             aria-hidden="true"
             class="ui-icon-unchecked"
             xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +172,13 @@ const endTextId = computed(() =>
             viewBox="0 0 24 24"
           >
             <path fill="currentColor" :d="showPath" /></svg
+          ><span
+            v-if="$slots['icon-checked']"
+            aria-hidden="true"
+            class="ui-icon-checked"
+            ><slot name="icon-checked"></slot></span
           ><svg
+            v-else
             aria-hidden="true"
             class="ui-icon-checked"
             xmlns="http://www.w3.org/2000/svg"

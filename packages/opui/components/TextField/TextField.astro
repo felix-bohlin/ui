@@ -98,26 +98,38 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
         commandfor={inputId}
         round
       >
-        <svg
-          aria-hidden="true"
-          class="ui-icon-unchecked"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={showPath} />
-        </svg>
-        <svg
-          aria-hidden="true"
-          class="ui-icon-checked"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path fill="currentColor" d={hidePath} />
-        </svg>
+        {Astro.slots.has("icon-unchecked") ? (
+          <span aria-hidden="true" class="ui-icon-unchecked">
+            <slot name="icon-unchecked" />
+          </span>
+        ) : (
+          <svg
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={showPath} />
+          </svg>
+        )}
+        {Astro.slots.has("icon-checked") ? (
+          <span aria-hidden="true" class="ui-icon-checked">
+            <slot name="icon-checked" />
+          </span>
+        ) : (
+          <svg
+            aria-hidden="true"
+            class="ui-icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d={hidePath} />
+          </svg>
+        )}
       </Button>}
     </span>}
     {Astro.slots.has("top") && <span class="ui-top">

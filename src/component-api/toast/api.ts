@@ -82,7 +82,7 @@ export default {
     {
       code: "<li>",
       description:
-        "A toast, a `Callout` with the severity class, its icon, the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.",
+        "A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.",
       selector: "ol > .ui-callout",
     },
     {

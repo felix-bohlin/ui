@@ -17,6 +17,8 @@ export type Slots = {
   bottom?: Slot
   end?: Slot
   "end-text"?: Slot
+  "icon-checked"?: Slot
+  "icon-unchecked"?: Slot
   label?: Slot
   start?: Slot
   "start-text"?: Slot

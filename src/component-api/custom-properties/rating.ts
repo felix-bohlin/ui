@@ -14,6 +14,11 @@ export default {
     description: "Color of the hovered clear icon. Defaults to `--ui-text`.",
     kind: "input",
   },
+  "--_clear-image": {
+    description:
+      "The icon of the clear radio before the input stars, as an image used as a mask.",
+    kind: "input",
+  },
   "--_duration": {
     description:
       "Duration of the fill transition on an input star, `--ui-duration` times `--_motion`.",

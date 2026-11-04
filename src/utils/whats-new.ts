@@ -578,6 +578,13 @@ export const whatsNew = {
   ],
   drawer: [
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
+    {
+      ...slots(
+        `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>close-icon</code> slot.`,
+      ),
+      react: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> prop.`,
+      svelte: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> snippet.`,
+    },
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     slots(
@@ -765,8 +772,8 @@ export const whatsNew = {
       `The start and end text ids start with the <a href="#api"><code>id</code></a>: <code>x-start-text</code> and <code>x-end-text</code> for <code>id="x"</code>.`,
     ),
     {
-      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-field&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width.`,
-      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-field.js</code> for the <code>&lt;opui-number-field&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width.`,
+      default: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held, run by the <code>&lt;opui-number-field&gt;</code> custom element, which the component loads. It fits its value unless <a href="#stretch"><code>stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
+      html: `New component. A <a href="#basics">number field</a> with buttons that step the value down and up and repeat while held. Import <code>opui-css/elements/number-field.js</code> for the <code>&lt;opui-number-field&gt;</code> custom element that runs them. It fits its value unless <a href="#stretch"><code>.ui-stretch</code></a> fills the width. The <a href="#buttons">buttons</a> take translated labels and your own icons.`,
     },
   ],
   "one-time-code": [
@@ -935,7 +942,7 @@ export const whatsNew = {
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
   ],
   rating: [
-    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover.`,
+    `New: a <a href="#basics">Rating</a> draws a score as stars in a <code>&lt;meter&gt;</code>, down to a fraction, and with a <a href="#input">name</a> collects one with radios that preview on hover. The stars and the clear icon are masks that <a href="#input"><code>--_star-image</code> and <code>--_clear-image</code></a> replace.`,
   ],
   select: [
     components(
@@ -1253,9 +1260,11 @@ export const whatsNew = {
     `<a href="#variants">Filled fields</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
     {
-      ...components(
-        `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads.`,
+      ...slots(
+        `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>icon-unchecked</code> and <code>icon-checked</code> slots.`,
       ),
+      react: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
+      svelte: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> snippets.`,
       html: `<a href="#password-toggle">Password toggle</a>: <code>&lt;opui-text-field&gt;</code> with a <code>&lt;label for&gt;</code> and a <code>command="--toggle-password"</code> button shows and hides the password. Import <code>opui-css/elements/text-field.js</code>.`,
     },
     {
@@ -1335,6 +1344,7 @@ export const whatsNew = {
       html: `New component. <a href="#basics">Toasts</a> that confirm an action and dismiss themselves, shown by a button with <code>command="--toast"</code> or <a href="#from-a-script"><code>toast()</code></a>. Import <code>opui-css/elements/toaster.js</code> for the <code>&lt;opui-toaster&gt;</code> custom element that runs them. <a href="#action"><code>action</code></a> adds a button like Undo. A dismissed toast fades out and the stack closes the gap.`,
     },
     `Themes can make toasts spring in with <a href="#api"><code>--ui-ease-move</code></a>.`,
+    `The severity and close <a href="#icons">icons</a> are masks, so <code>--_critical-image</code>, <code>--_info-image</code>, <code>--_success-image</code>, <code>--_warning-image</code> and <code>--_close-image</code> swap them for your own.`,
   ],
   toggle: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> on <code>ToggleGroup</code> (<a href="#under-the-hood">Under the hood</a>).`,

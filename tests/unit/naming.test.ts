@@ -157,13 +157,16 @@ const parts = new Set([
 const partExceptions = new Set([".ui-card-link"])
 const slots = new Set([
   "bottom",
+  "close-icon",
   "datalist",
+  "decrease-icon",
   "default",
   "description",
   "end",
   "end-text",
   "icon-checked",
   "icon-unchecked",
+  "increase-icon",
   "indicator",
   "label",
   "marker",
@@ -313,6 +316,15 @@ const problemsOf = (api: ComponentApi) => {
     if (!slots.has(slot)) {
       found.push(`${api.component} ${slot}: not in the slot list`)
     }
+    const control = slot.match(/^([a-z]+)-icon$/)?.[1]
+    if (
+      control &&
+      !api.options.some(({ prop }) => prop === `${control}Label`)
+    ) {
+      found.push(
+        `${api.component} ${slot}: the icon of a generated control sits next to its ${control}Label`,
+      )
+    }
   }
 
   const names = new Set(props.map((option) => option.prop))
@@ -425,6 +437,11 @@ test.each([
     "a slot outside the list",
     "gadget: not in the slot list",
     { options: [], slots: [{ description: "", name: "gadget" }] },
+  ],
+  [
+    "a control icon without its label",
+    "close-icon: the icon of a generated control sits next to its closeLabel",
+    { options: [], slots: [{ description: "", name: "close-icon" }] },
   ],
 ])("the naming model flags %s", (_, message, fields) => {
   expect(

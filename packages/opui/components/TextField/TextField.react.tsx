@@ -32,6 +32,8 @@ export default function TextField({
   bottom,
   end,
   endText,
+  iconChecked,
+  iconUnchecked,
   label,
   start,
   startText,
@@ -108,26 +110,38 @@ export default function TextField({
                 commandfor={inputId}
                 round
               >
-                <svg
-                  aria-hidden="true"
-                  className="ui-icon-unchecked"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d={showPath} />
-                </svg>
-                <svg
-                  aria-hidden="true"
-                  className="ui-icon-checked"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill="currentColor" d={hidePath} />
-                </svg>
+                {iconUnchecked ? (
+                  <span aria-hidden="true" className="ui-icon-unchecked">
+                    {iconUnchecked}
+                  </span>
+                ) : (
+                  <svg
+                    aria-hidden="true"
+                    className="ui-icon-unchecked"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path fill="currentColor" d={showPath} />
+                  </svg>
+                )}
+                {iconChecked ? (
+                  <span aria-hidden="true" className="ui-icon-checked">
+                    {iconChecked}
+                  </span>
+                ) : (
+                  <svg
+                    aria-hidden="true"
+                    className="ui-icon-checked"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path fill="currentColor" d={hidePath} />
+                  </svg>
+                )}
               </Button>
             )}
           </span>

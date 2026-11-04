@@ -200,6 +200,39 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
     <AutoExample name="HiddenLabel" />
   </section>
 
+  <section id="buttons">
+    <h2>Buttons</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The step buttons are named "Decrease" and "Increase". Translate them
+        with <code>decreaseLabel</code> and <code>increaseLabel</code>. Put your
+        own icons in the <code>decrease-icon</code> and
+        <code>increase-icon</code> slots, with <code>aria-hidden="true"</code>
+        since the labels name the buttons.
+      </Fragment>
+      <Fragment slot="html">
+        The step buttons are named by their <code>aria-label</code>, so
+        translate those. Their icons are the <code>svg</code> inside them: put
+        your own in their place, with <code>aria-hidden="true"</code> since the
+        labels name the buttons.
+      </Fragment>
+      <Fragment slot="react">
+        The step buttons are named "Decrease" and "Increase". Translate them
+        with <code>decreaseLabel</code> and <code>increaseLabel</code>. Put your
+        own icons in the <code>decreaseIcon</code> and <code>increaseIcon</code>
+        props, with <code>aria-hidden="true"</code> since the labels name the
+        buttons.
+      </Fragment>
+      <Fragment slot="svelte">
+        The step buttons are named "Decrease" and "Increase". Translate them
+        with <code>decreaseLabel</code> and <code>increaseLabel</code>. Put your
+        own icons in the <code>decreaseIcon</code> and <code>increaseIcon</code>
+        snippets, with <code>aria-hidden="true"</code> since the labels name the
+        buttons.
+      </Fragment>
+    </Conditional>
+  </section>
+
   <section id="disabled">
     <h2>Disabled</h2>
     <p>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { MessagesProps as Props, Slots } from "./types.vue-props"
+import type { MessagesProps as Props, MessagesSlots } from "./types.vue-props"
 
 defineProps<Props>()
-defineSlots<Slots>()
+defineSlots<MessagesSlots>()
 </script>
 
 <template>

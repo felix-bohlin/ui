@@ -9,4 +9,6 @@ export type MessagesProps = BaseMessagesProps & Class
 
 export type Props = BaseProps & Class
 
+export type MessagesSlots = DefaultSlots
+
 export type Slots = { bottom?: Slot; end?: Slot; start?: Slot } & DefaultSlots

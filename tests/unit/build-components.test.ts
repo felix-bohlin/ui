@@ -905,6 +905,29 @@ describe("toTypes", () => {
     )
   })
 
+  test("a part with only the default slot gets its own Vue slot type when the folder's Slots names others", async () => {
+    const { vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n\nexport type SamplePartProps = HTMLAttributes<"dd">\n',
+        base: `${base}\nexport type Slots<S> = {\n  end?: S\n}\n`,
+      },
+      { Sample: ["default", "end"], SamplePart: ["default"] },
+    )
+    expect(vue).toContain(
+      "export type SamplePartSlots = DefaultSlots\n\nexport type Slots = { end?: Slot } & DefaultSlots\n",
+    )
+    const { outputs } = await compileComponent(
+      astro("<dd {...rest}>\n  <slot />\n</dd>", "", "SamplePart"),
+      sampleFile("SamplePart"),
+      { base: `${base}\nexport type Slots<S> = {\n  end?: S\n}\n` },
+    )
+    expect(
+      outputs.get(sampleFile("SamplePart").replace(".astro", ".vue")),
+    ).toContain("defineSlots<SamplePartSlots>()")
+  })
+
   test("an HTML attribute a component reads becomes a Vue prop", () => {
     const { vue } = toTypes(
       "Sample",

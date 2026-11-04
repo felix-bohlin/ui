@@ -10,6 +10,7 @@ import { toSvelte } from "./component-svelte.mjs"
 import {
   astroTypesOf,
   basePropsOf,
+  hasSlotsType,
   baseTypesOf,
   propsElement,
   stringTypedSlots,
@@ -52,6 +53,7 @@ export const compileComponent = async (source, file, options = {}) => {
     folder,
     name,
     baseProps: basePropsOf(base, name, folder),
+    folderSlots: hasSlotsType(base),
     stringTypedSlots: stringTypedSlots(base, name, folder, component.slots),
   }
   const outputs = new Map()

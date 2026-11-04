@@ -339,7 +339,8 @@ export const toVue = (component) => {
     nodes.map((node) => emitOne(node, undefined, scope)).join("")
   const markup = emit(tree, template)
   const slotsType =
-    propsType !== "Props" && slots.some((slot) => slot !== "default")
+    propsType !== "Props" &&
+    (component.folderSlots || slots.some((slot) => slot !== "default"))
       ? `${component.name}Slots`
       : "Slots"
   const provided = provide

@@ -629,10 +629,20 @@ export const toTypes = (
       : []),
     ...(usesSlot ? ["Slot"] : []),
   ]
+  const defaultOnlySlotTypes = slotTypes.has("Slots")
+    ? propsAliases
+        .filter(
+          ({ name }) =>
+            name !== "Props" &&
+            !slotTypes.has(slotsTypeOf(name)) &&
+            (slotsByComponent[componentOf(name)] ?? []).includes("default"),
+        )
+        .map(({ name }) => `export type ${slotsTypeOf(name)} = DefaultSlots`)
+    : []
   const vueBody = [
     ...vueAliases,
     ...(slotTypes.has("Slots") ? [] : ["export type Slots = DefaultSlots"]),
-    ...vueSlotTypes,
+    ...[...vueSlotTypes, ...defaultOnlySlotTypes].toSorted(byName),
   ]
   const vue = [
     [
@@ -668,6 +678,13 @@ export const basePropsOf = (base, name, folder) => {
   )
   return alias ? typeKeys(alias.type, aliases) : []
 }
+
+export const hasSlotsType = (base) =>
+  !!base &&
+  sourceFileOf(base, "types.ts").statements.some(
+    (statement) =>
+      ts.isTypeAliasDeclaration(statement) && statement.name.text === "Slots",
+  )
 
 export const stringTypedSlots = (base, name, folder, slots) => {
   if (!base) return []

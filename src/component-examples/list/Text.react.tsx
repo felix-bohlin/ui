@@ -5,8 +5,8 @@ export default function Text() {
     <List>
       <ListItem label="Headline" />
       <ListItem
-        label="Headline"
         description="Supporting text that truly is quite long enough to fill up multiple lines."
+        label="Headline"
       />
       <ListItem label="Headline">
         <p>Supporting text</p>

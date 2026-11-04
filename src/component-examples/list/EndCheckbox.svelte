@@ -5,10 +5,14 @@
 <List>
   <ListItem type="checkbox">
     {#snippet label()}Checkbox 1{/snippet}
-    {#snippet end()}<CheckboxInput />{/snippet}
+    {#snippet end()}
+      <CheckboxInput />
+    {/snippet}
   </ListItem>
   <ListItem type="checkbox">
     {#snippet label()}Checkbox 2{/snippet}
-    {#snippet end()}<CheckboxInput />{/snippet}
+    {#snippet end()}
+      <CheckboxInput />
+    {/snippet}
   </ListItem>
 </List>

@@ -4,7 +4,9 @@
 
 <Select label="Car">
   {#snippet top()}Company cars only{/snippet}
-  {#snippet bottom()}<a class="ui-link" href="#">Manage cars…</a>{/snippet}
+  {#snippet bottom()}
+    <a class="ui-link" href="#">Manage cars…</a>
+  {/snippet}
   <option value="">-</option>
   <option>Kia EV6</option>
   <option>Volkswagen ID.4</option>

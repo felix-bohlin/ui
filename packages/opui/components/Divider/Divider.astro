@@ -6,29 +6,27 @@ export const title = "Divider"
 const { align, class: className, color, variant, ...rest } = Astro.props
 ---
 
-{
-  Astro.slots.has("default") ? (
-    <div
-      class:list={[
-        "ui-divider",
-        align && align !== "center" && `ui-align-${align}`,
-        color && `ui-${color}`,
-        variant && variant !== "outlined" && `ui-${variant}`,
-        className,
-      ]}
-      {...rest}
-    >
-      <slot />
-    </div>
-  ) : (
-    <hr
-      class:list={[
-        "ui-divider",
-        color && `ui-${color}`,
-        variant && variant !== "outlined" && `ui-${variant}`,
-        className,
-      ]}
-      {...rest}
-    />
-  )
-}
+{Astro.slots.has("default") ? (
+  <div
+    class:list={[
+      "ui-divider",
+      align && align !== "center" && `ui-align-${align}`,
+      color && `ui-${color}`,
+      variant && variant !== "outlined" && `ui-${variant}`,
+      className,
+    ]}
+    {...rest}
+  >
+    <slot />
+  </div>
+) : (
+  <hr
+    class:list={[
+      "ui-divider",
+      color && `ui-${color}`,
+      variant && variant !== "outlined" && `ui-${variant}`,
+      className,
+    ]}
+    {...rest}
+  />
+)}

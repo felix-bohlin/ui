@@ -12,10 +12,12 @@ export default function Avatar({
   shape,
   size,
   src,
+  variant,
   children,
   ...rest
 }: Props) {
-  const Tag: ElementType = as || (href ? "a" : "div")
+  const tag = as || (href ? "a" : "div")
+  const Tag: ElementType = tag
 
   return (
     <Tag
@@ -23,9 +25,10 @@ export default function Avatar({
         "ui-avatar",
         shape && shape !== "circle" && `ui-${shape}`,
         size && size !== "medium" && `ui-${size}`,
+        variant && variant !== "filled" && `ui-${variant}`,
         className,
       ])}
-      {...tagAttrs(Tag as string, disabled, href)}
+      {...tagAttrs(tag, disabled, href)}
       {...(rest as object)}
     >
       {src ? <img src={src} alt={alt ?? ""} /> : children}

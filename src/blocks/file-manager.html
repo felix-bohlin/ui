@@ -12,26 +12,11 @@
       }
     }
 
-    .files-overview {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-      }
-    }
-
     .files-breakdown li > span:last-child {
-      font-variant-numeric: tabular-nums;
       margin-inline-start: auto;
     }
 
     .files-folders {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      @container (40rem <= inline-size < 56rem) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
       hgroup > svg {
         color: var(--folder);
         margin-block-end: var(--ui-space-1);
@@ -108,7 +93,7 @@
     </div>
   </div>
 
-  <div class="ui-layout-grid ui-large files-overview">
+  <div class="ui-layout-columns ui-large" style="--_columns: 1fr 2fr">
     <section
       aria-labelledby="file-manager-storage-heading"
       class="ui-card ui-outlined"
@@ -129,7 +114,7 @@
             value="18.4"
           ></progress>
         </div>
-        <ul class="ui-layout-column ui-small files-breakdown">
+        <ul class="ui-layout-column ui-small ui-tabular-nums files-breakdown">
           <li class="ui-layout-row ui-small">
             <span class="ui-swatch ui-info"></span>
             <span>Documents</span><span>7.2 GB</span>
@@ -157,7 +142,10 @@
 
     <section aria-labelledby="file-manager-folders-heading">
       <h2 class="ui-sr-only" id="file-manager-folders-heading">Folders</h2>
-      <ul class="ui-layout-grid files-folders">
+      <ul
+        class="ui-layout-grid files-folders"
+        style="--_max-columns: 4; --_min-inline-size: 8rem"
+      >
         <li>
           <div class="ui-card ui-outlined">
             <hgroup>

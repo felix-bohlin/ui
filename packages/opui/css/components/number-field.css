@@ -1,0 +1,47 @@
+@layer components.extended {
+  :where(.ui-number-field) {
+    --_min-inline-size: 4ch;
+
+    inline-size: fit-content;
+    max-inline-size: 100%;
+
+    & > .ui-field {
+      inline-size: auto;
+
+      & input {
+        field-sizing: content;
+        inline-size: auto;
+        min-inline-size: var(--_min-inline-size);
+        text-align: center;
+      }
+    }
+
+    &.ui-stretch {
+      inline-size: auto;
+
+      & > .ui-field input {
+        inline-size: 100%;
+      }
+    }
+
+    &:defined > .ui-field input {
+      appearance: textfield;
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+    }
+
+    &:not(:defined) > .ui-field {
+      & > :is(.ui-start, .ui-end) {
+        display: none;
+      }
+
+      & input {
+        padding-inline: var(--_field-padding-inline);
+      }
+    }
+  }
+}

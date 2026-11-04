@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
-  import { warnReplacedId } from "../dev"
   import { getDialogContext } from "./context.svelte"
+  import { warnReplacedId } from "../dev"
   import type { DialogTitleProps as Props } from "./types.svelte"
 
   let {
@@ -14,7 +14,6 @@
   }: Props = $props()
 
   const dialog = getDialogContext()
-
   untrack(() => warnReplacedId("DialogTitle", "Dialog", id, dialog?.titleId))
 </script>
 

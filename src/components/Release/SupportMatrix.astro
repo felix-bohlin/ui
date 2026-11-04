@@ -189,13 +189,12 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     <Fieldset class="support-matrix-filter">
       <FieldLegend>Baseline</FieldLegend>
       <ToggleGroup aria-label="Baseline" name={`${id}-filter`} size="small">
-        {
-          FILTERS.map((filter) => (
-            <ToggleButton checked={filter.value === "all"} value={filter.value}>
-              {filter.label}
-            </ToggleButton>
-          ))
-        }
+        {FILTERS.map((filter) => <ToggleButton
+          checked={filter.value === "all"}
+          value={filter.value}
+        >
+          {filter.label}
+        </ToggleButton>)}
       </ToggleGroup>
     </Fieldset>
   </div>
@@ -207,74 +206,66 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
           <TableHead>
             <TableRow>
               <TableHeaderCell scope="col">Feature</TableHeaderCell>
-              {
-                (["chromium", "gecko", "webkit"] as const).map((engine) => (
-                  <TableHeaderCell scope="col">
-                    <span class="support-matrix-engine">
-                      <span class="support-matrix-icons" aria-hidden="true">
-                        {ICONS[engine].map((Icon) => (
-                          <Icon />
-                        ))}
-                      </span>
-                      {ENGINE_LABELS[engine]}
+              {(["chromium", "gecko", "webkit"] as const).map(
+                (engine) => <TableHeaderCell scope="col">
+                  <span class="support-matrix-engine">
+                    <span class="support-matrix-icons" aria-hidden="true">
+                      {ICONS[engine].map((Icon) => (
+                        <Icon />
+                      ))}
                     </span>
-                  </TableHeaderCell>
-                ))
-              }
+                    {ENGINE_LABELS[engine]}
+                  </span>
+                </TableHeaderCell>,
+              )}
               <TableHeaderCell scope="col">Baseline</TableHeaderCell>
               <TableHeaderCell scope="col">Used by</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {
-              featureRows.map((row) => (
-                <TableRow data-baseline={row.baseline}>
-                  <TableHeaderCell scope="row">
-                    {row.name}
-                    <code>{row.id}</code>
-                  </TableHeaderCell>
-                  {row.engines.map((entry) => (
-                    <TableCell>
-                      <span class:list={["support-matrix-level", entry.level]}>
-                        <svg
-                          aria-hidden="true"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d={PATHS[entry.level]} fill="currentColor" />
-                        </svg>
-                        {entry.level === "full" && entry.sinceVersion
-                          ? `${entry.sinceVersion}+`
-                          : LEVELS[entry.level]}
-                      </span>
-                    </TableCell>
+            {featureRows.map((row) => <TableRow data-baseline={row.baseline}>
+              <TableHeaderCell scope="row">
+                {row.name}
+                <code>{row.id}</code>
+              </TableHeaderCell>
+              {row.engines.map((entry) => <TableCell>
+                <span class:list={["support-matrix-level", entry.level]}>
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d={PATHS[entry.level]} fill="currentColor" />
+                  </svg>
+                  {entry.level === "full" && entry.sinceVersion
+                    ? `${entry.sinceVersion}+`
+                    : LEVELS[entry.level]}
+                </span>
+              </TableCell>)}
+              <TableCell>
+                <span class="support-matrix-baseline">
+                  <Chip
+                    dot
+                    label={baselineOf(row.baseline).label}
+                    severity={baselineOf(row.baseline).severity}
+                    size="small"
+                  />
+                  {row.year && <span>{row.year}</span>}
+                </span>
+              </TableCell>
+              <TableCell>
+                <span class="support-matrix-chips">
+                  {row.components.map((component) => (
+                    <Chip
+                      href={link(`/components/${component.slug}`)}
+                      label={component.name}
+                      size="small"
+                      variant="outlined"
+                    />
                   ))}
-                  <TableCell>
-                    <span class="support-matrix-baseline">
-                      <Chip
-                        dot
-                        label={baselineOf(row.baseline).label}
-                        severity={baselineOf(row.baseline).severity}
-                        size="small"
-                      />
-                      {row.year && <span>{row.year}</span>}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span class="support-matrix-chips">
-                      {row.components.map((component) => (
-                        <Chip
-                          href={link(`/components/${component.slug}`)}
-                          label={component.name}
-                          size="small"
-                          variant="outlined"
-                        />
-                      ))}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))
-            }
+                </span>
+              </TableCell>
+            </TableRow>)}
           </TableBody>
         </Table>
       </div>
@@ -289,89 +280,76 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
               <TableHeaderCell scope="col">Fallback</TableHeaderCell>
               <TableHeaderCell scope="col">Stands in for</TableHeaderCell>
               <TableHeaderCell scope="col">Needed today by</TableHeaderCell>
-              {
-                builds.map((build) => (
-                  <TableHeaderCell scope="col">
-                    <code>{build}</code>
-                  </TableHeaderCell>
-                ))
-              }
+              {builds.map((build) => <TableHeaderCell scope="col">
+                <code>{build}</code>
+              </TableHeaderCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
-            {
-              compatRows.map((row) => (
-                <TableRow>
-                  <TableHeaderCell scope="row">
-                    {row.component}
-                    <code>css/compat/{row.file}</code>
-                  </TableHeaderCell>
-                  <TableCell>
-                    <span class="support-matrix-baseline">
+            {compatRows.map((row) => <TableRow>
+              <TableHeaderCell scope="row">
+                {row.component}
+                <code>css/compat/{row.file}</code>
+              </TableHeaderCell>
+              <TableCell>
+                <span class="support-matrix-baseline">
+                  <Chip
+                    label={row.gate ? "Engine gate" : "Feature test"}
+                    severity={row.gate ? "warning" : "info"}
+                    size="small"
+                  />
+                  <code>@supports {row.condition}</code>
+                </span>
+              </TableCell>
+              <TableCell>
+                {row.gate ? (
+                  "A browser bug"
+                ) : (
+                  <span class="support-matrix-chips">
+                    {row.features.map((feature) => (
                       <Chip
-                        label={row.gate ? "Engine gate" : "Feature test"}
-                        severity={row.gate ? "warning" : "info"}
+                        label={feature.name}
                         size="small"
+                        variant="outlined"
                       />
-                      <code>@supports {row.condition}</code>
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {row.gate ? (
-                      "A browser bug"
-                    ) : (
-                      <span class="support-matrix-chips">
-                        {row.features.map((feature) => (
-                          <Chip
-                            label={feature.name}
-                            size="small"
-                            variant="outlined"
-                          />
-                        ))}
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <span class="support-matrix-chips">
-                      {row.needs.length === 0 && "No engine"}
-                      {row.needs.map((engine) => (
-                        <span class="support-matrix-engine">
-                          <span class="support-matrix-icons" aria-hidden="true">
-                            {ICONS[engine].map((Icon) => (
-                              <Icon />
-                            ))}
-                          </span>
-                          {ENGINE_LABELS[engine]}
-                          {row.gate && " on iOS"}
-                        </span>
+                    ))}
+                  </span>
+                )}
+              </TableCell>
+              <TableCell>
+                <span class="support-matrix-chips">
+                  {row.needs.length === 0 && "No engine"}
+                  {row.needs.map((engine) => <span
+                    class="support-matrix-engine"
+                  >
+                    <span class="support-matrix-icons" aria-hidden="true">
+                      {ICONS[engine].map((Icon) => (
+                        <Icon />
                       ))}
                     </span>
-                  </TableCell>
-                  {row.included.map((included) => (
-                    <TableCell>
-                      <span
-                        class:list={[
-                          "support-matrix-level",
-                          included ? "full" : "none",
-                        ]}
-                      >
-                        <svg
-                          aria-hidden="true"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d={included ? check : cross}
-                            fill="currentColor"
-                          />
-                        </svg>
-                        {included ? "Included" : "Left out"}
-                      </span>
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            }
+                    {ENGINE_LABELS[engine]}
+                    {row.gate && " on iOS"}
+                  </span>)}
+                </span>
+              </TableCell>
+              {row.included.map((included) => <TableCell>
+                <span
+                  class:list={[
+                    "support-matrix-level",
+                    included ? "full" : "none",
+                  ]}
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d={included ? check : cross} fill="currentColor" />
+                  </svg>
+                  {included ? "Included" : "Left out"}
+                </span>
+              </TableCell>)}
+            </TableRow>)}
           </TableBody>
         </Table>
       </div>
@@ -379,20 +357,16 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
   </div>
 
   <p class="support-matrix-sizes">
-    {
-      sizes.length > 0 ? (
-        sizes.map((size) => (
-          <span>
-            <code>{size.file}</code> {size.raw} ({size.gzip} gzipped)
-          </span>
-        ))
-      ) : (
-        <span>
-          The file sizes are read from <code>packages/opui/dist</code>, which
-          this build did not have.
-        </span>
-      )
-    }
+    {sizes.length > 0 ? (
+      sizes.map((size) => <span>
+        <code>{size.file}</code> {size.raw} ({size.gzip} gzipped)
+      </span>)
+    ) : (
+      <span>
+        The file sizes are read from <code>packages/opui/dist</code>, which this
+        build did not have.
+      </span>
+    )}
   </p>
 </div>
 
@@ -520,16 +494,10 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     }
 
     @supports (animation-timeline: view()) {
-      & tbody td {
+      @media (prefers-reduced-motion: no-preference) {
         animation: support-matrix-rise linear both;
-        animation-range: entry 0% cover 20%;
+        animation-range: entry 0% entry 40%;
         animation-timeline: view();
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      & tbody td {
-        animation: none;
       }
     }
   }

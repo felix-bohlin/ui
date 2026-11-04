@@ -1,6 +1,6 @@
 ---
 import type { Props } from "./types.astro"
-import { createId, idRefs } from "../id"
+import { createIds, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { defaultValue } from "./value"
 
@@ -34,7 +34,7 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const $id = createId(Astro.locals)
+const ids = createIds(Astro.locals, "range", id || undefined)
 
 const hasLabel = !!label || Astro.slots.has("label")
 const hasStartText = !!startText || Astro.slots.has("start-text")
@@ -42,13 +42,13 @@ const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValueText = Astro.slots.has("value-text")
 const hasValue = valueSuffix !== undefined || hasValueText
 const hasDatalist = !!items || Astro.slots.has("datalist")
-const valueText = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
+const readout = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
 
-const inputId = id || (hasValue ? $id("range") : undefined)
-const labelId = hasLabel ? $id("range-label") : undefined
-const startTextId = hasStartText ? $id("range-start") : undefined
-const endTextId = hasEndText ? $id("range-end") : undefined
-const listId = list ?? (hasDatalist ? $id("range-list") : undefined)
+const inputId = id || (hasValue ? ids() : undefined)
+const labelId = hasLabel ? ids("label") : undefined
+const startTextId = hasStartText ? ids("start-text") : undefined
+const endTextId = hasEndText ? ids("end-text") : undefined
+const listId = list ?? (hasDatalist ? ids("list") : undefined)
 
 const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
 ---
@@ -64,42 +64,34 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
   for={hasValue ? inputId : undefined}
   style={style}
 >
-  {
-    hasLabel && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
-  {
-    hasValue && (
-      <output
-        aria-live="off"
-        class="ui-value"
-        data-live={hasValueText ? undefined : ""}
-        for={inputId}
-        data-suffix={valueSuffix}
-      >
-        <slot name="value-text">{valueText}</slot>
-      </output>
-    )
-  }
-  {
-    hasStartText && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+  {hasLabel && <span
+    class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}
+    id={labelId}
+  >
+    {label}
+    <slot name="label" />
+  </span>}
+  {hasValue && <output
+    aria-live="off"
+    class="ui-value"
+    data-live={hasValueText ? undefined : ""}
+    for={inputId}
+    data-suffix={valueSuffix}
+  >
+    <slot name="value-text">{readout}</slot>
+  </output>}
+  {hasStartText && <span class="ui-start-text" id={startTextId}>
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <input
     {...rest}
     aria-describedby={describedBy}
     aria-invalid={error ? "true" : ariaInvalid}
     aria-labelledby={labelId ?? ariaLabelledBy}
-    aria-valuetext={ariaValueText ??
-      (valueSuffix && !hasValueText ? valueText : undefined)}
+    aria-valuetext={
+      ariaValueText ?? (valueSuffix && !hasValueText ? readout : undefined)
+    }
     id={inputId}
     list={listId}
     max={max}
@@ -109,31 +101,22 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     type="range"
     value={value}
   />
-  {
-    hasDatalist && (
-      <datalist aria-hidden="true" id={listId}>
-        {items?.map((option) =>
-          typeof option === "object" ? (
-            <option value={option.value} label={option.label} />
-          ) : (
-            <option value={option} />
-          ),
-        )}
-        <slot name="datalist" />
-      </datalist>
-    )
-  }
-  {
-    hasEndText && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  {hasDatalist && <datalist aria-hidden="true" id={listId}>
+    {items?.map((option) =>
+      typeof option === "object" ? (
+        <option value={option.value} label={option.label} />
+      ) : (
+        <option value={option} />
+      ),
+    )}
+    <slot name="datalist" />
+  </datalist>}
+  {hasEndText && <span class="ui-end-text" id={endTextId}>
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </label>
 
 <script>
-  import { initRange } from "../../css/js/range.js"
-  initRange()
+  import "../../css/js/range.js"
 </script>

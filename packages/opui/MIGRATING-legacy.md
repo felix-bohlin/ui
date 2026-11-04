@@ -31,9 +31,9 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 + .ui-button.ui-filled { /* override */ }
 ```
 
-The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
+The full list of renamed classes is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
-CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged in v5. They are renamed in v6, see [Theme and tokens](./MIGRATING.md#theme-and-tokens).
+CSS custom properties (`--primary`, `--surface-default`, …) are unchanged in v5. The theme tokens get a `--ui-` prefix in v6 (Open Props tokens such as `--size-3` keep their names), see [Theme and tokens](./MIGRATING.md#theme-and-tokens).
 
 These changes in 5.0.0 and 5.0.1 need a code change too:
 
@@ -135,7 +135,7 @@ Astro components emit prefixed `ui-` classes (see [Migrating from v4 to v5](#mig
 v4 declares the layer order in `css/imports.css` / `dist/opui.css` (v6 adds `components.prose` before `components.root`, see [Typography and rich text](./MIGRATING.md#typography-and-rich-text)):
 
 ```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@layer openprops, normalize, theme, components.root, components.extended, utils;
 ```
 
 Put your overrides in a later layer or unlayered. If your app already declared `@layer` with a different order, reconcile or import `dist/opui.components.css` and own the layer order yourself.

@@ -16,11 +16,9 @@ import BrandPicker from "./BrandPicker.astro"
     <FieldLegend>Start from</FieldLegend>
     <ToggleGroup aria-label="Start from" name="theme-preset" size="small">
       <ToggleButton checked value="">Default</ToggleButton>
-      {
-        EXAMPLE_THEMES.map((theme) => (
-          <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
-        ))
-      }
+      {EXAMPLE_THEMES.map((theme) => <ToggleButton value={theme.name}
+        >{theme.label}</ToggleButton
+      >)}
     </ToggleGroup>
   </Fieldset>
 
@@ -35,11 +33,9 @@ import BrandPicker from "./BrandPicker.astro"
       <ToggleButton checked class="theme-quick-start" value="">
         Default
       </ToggleButton>
-      {
-        CORNERS.map((option) => (
-          <ToggleButton value={option.value}>{option.label}</ToggleButton>
-        ))
-      }
+      {CORNERS.map((option) => <ToggleButton value={option.value}
+        >{option.label}</ToggleButton
+      >)}
       <ToggleButton class="theme-quick-custom" value="custom"
         >Custom</ToggleButton
       >

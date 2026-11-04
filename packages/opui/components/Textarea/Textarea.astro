@@ -1,12 +1,16 @@
 ---
 import type { Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { cx } from "../cx"
 
 export const title = "Textarea"
 
 const {
   "aria-invalid": ariaInvalid,
   autoFit,
+  characterCount,
+  characterCountLabel,
   class: className,
   endText,
   error,
@@ -24,6 +28,10 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
 ---
 
 <label
@@ -39,66 +47,50 @@ const field = fieldGroupContext.get()
   ]}
   style={style}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
 
-  {
-    (startText || Astro.slots.has("start-text")) && (
-      <span class="ui-start-text">
-        {startText}
-        <slot name="start-text" />
-      </span>
-    )
-  }
+  {(startText || Astro.slots.has("start-text")) && <span class="ui-start-text">
+    {startText}
+    <slot name="start-text" />
+  </span>}
   <span class="ui-field">
     <textarea
       {...rest}
       aria-invalid={error ? "true" : ariaInvalid}
       id={id}
-      name={name ?? field?.name}>{value}</textarea
-    >
-    {
-      Astro.slots.has("start") && (
-        <span class="ui-start">
-          <slot name="start" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("end") && (
-        <span class="ui-end">
-          <slot name="end" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("top") && (
-        <span class="ui-top">
-          <slot name="top" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("bottom") && (
-        <span class="ui-bottom">
-          <slot name="bottom" />
-        </span>
-      )
-    }
+      name={name ?? field?.name}
+    >{value}</textarea>
+    {Astro.slots.has("start") && <span class="ui-start">
+      <slot name="start" />
+    </span>}
+    {Astro.slots.has("end") && <span class="ui-end">
+      <slot name="end" />
+    </span>}
+    {Astro.slots.has("top") && <span class="ui-top">
+      <slot name="top" />
+    </span>}
+    {Astro.slots.has("bottom") && <span class="ui-bottom">
+      <slot name="bottom" />
+    </span>}
   </span>
-  {
-    (endText || Astro.slots.has("end-text")) && (
-      <span class="ui-end-text">
-        {endText}
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  {(endText || Astro.slots.has("end-text") || characterCount) && <span
+    class="ui-end-text"
+  >
+    {endText}
+    <slot name="end-text" />
+    {characterCount && (
+      <opui-character-count
+        aria-hidden="true"
+        class="ui-value"
+        label={characterCountLabel}
+      />
+    )}
+  </span>}
   <slot />
 </label>
+
+<script>
+  import "../../elements/character-count.js"
+</script>

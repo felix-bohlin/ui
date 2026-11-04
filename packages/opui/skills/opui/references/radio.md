@@ -44,6 +44,10 @@ Model: `value` (`string | number | boolean`), the selected value of the group. A
 
 - `<input type="radio">` (root): The radio input, without a label.
 
+### Props and modifiers
+
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+
 Model: `value` (`string | number | boolean`), the selected value of the group. Astro and React `value`, Svelte `bind:group`, Vue `v-model`.
 
 ### Notes
@@ -63,24 +67,28 @@ Outputs: `--_dot-radius`.
 
 ### choice.css
 
-- `--_accent`: Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid` when invalid.
-- `--_checked-bg-color`: Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`.
+- `--_accent`: Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, else `--ui-control-accent`, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid`, capped the same way, when invalid.
+- `--_checked-bg-color`: Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
 - `--_hover-bg-color`: Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
+- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, else `--ui-on-control-accent`, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
 - `--_padding`: Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.
 - `--_ripple-size`: Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`.
 - `--_size`: Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_shadow` and `--_thumb-scale`.
 
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
+
 ### card.css
 
-- `--_ease`: Easing of the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
-- `--_motion`: Motion multiplier for the focus ring animation. `0` turns it off.
+- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
@@ -102,15 +110,15 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
     <legend>Legend</legend>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input name="radio-group" type="radio" value="1" checked />
+        <input type="radio" name="radio-group" checked value="1" />
         <span class="ui-label">Radio 1</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group" type="radio" value="2" />
+        <input type="radio" name="radio-group" value="2" />
         <span class="ui-label">Radio 2</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group" type="radio" value="3" />
+        <input type="radio" name="radio-group" value="3" />
         <span class="ui-label">Radio 3</span>
       </label>
     </div>
@@ -135,7 +143,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
   <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio value="1" checked>Radio 1</Radio>
+      <Radio checked value="1">Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
@@ -161,7 +169,7 @@ export default function Basics() {
       <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="radio-group">
-          <Radio value="1" defaultChecked>
+          <Radio defaultChecked value="1">
             Radio 1
           </Radio>
           <Radio value="2">Radio 2</Radio>
@@ -197,7 +205,7 @@ export default function Basics() {
   <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio value="1" checked>Radio 1</Radio>
+      <Radio checked value="1">Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
@@ -224,7 +232,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup name="radio-group">
-        <Radio value="1" checked>Radio 1</Radio>
+        <Radio checked value="1">Radio 1</Radio>
         <Radio value="2">Radio 2</Radio>
         <Radio value="3">Radio 3</Radio>
       </FieldGroup>

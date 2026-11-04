@@ -2,10 +2,10 @@
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea label="Label" placeholder="Default" endText="Supporting text" />
+<Textarea endText="Supporting text" label="Label" placeholder="Default" />
 <Textarea
+  endText="Supporting text"
   label="Label"
   placeholder="Filled"
-  endText="Supporting text"
   variant="filled"
 />

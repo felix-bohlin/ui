@@ -2,11 +2,11 @@
 import { markerPath } from "./icons"
 import type {
   AccordionSummaryProps as Props,
-  AccordionSummarySlots as Slots,
+  AccordionSummarySlots,
 } from "./types.vue-props"
 
 defineProps<Props>()
-defineSlots<Slots>()
+defineSlots<AccordionSummarySlots>()
 </script>
 
 <template>
@@ -21,7 +21,7 @@ defineSlots<Slots>()
       height="24"
       viewBox="0 0 24 24"
     >
-      <path fill="currentColor" :d="markerPath"></path>
+      <path fill="currentColor" :d="markerPath" />
     </svg>
   </summary>
 </template>

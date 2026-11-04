@@ -2,17 +2,22 @@
   <span class="ui-label" id="id-1">Car</span>
   <span class="ui-field">
     <select aria-labelledby="id-1">
-      <option value>Select car</option>
-      <optgroup label="French cars">
-        French cars
-        <option>Citroën</option>
-        <option>Renault</option>
-      </optgroup>
-      <optgroup label="Swedish cars">
-        Swedish cars
-        <option>Saab</option>
-        <option>Volvo</option>
-      </optgroup>
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value>Select car</option>
+        <optgroup label="French cars">
+          <legend>French cars</legend>
+          <option>Citroën</option>
+          <option>Renault</option>
+        </optgroup>
+        <optgroup label="Swedish cars">
+          <legend>Swedish cars</legend>
+          <option>Saab</option>
+          <option>Volvo</option>
+        </optgroup>
+      </div>
     </select>
   </span>
 </label>

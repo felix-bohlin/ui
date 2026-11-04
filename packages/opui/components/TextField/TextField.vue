@@ -1,20 +1,36 @@
 <script setup lang="ts">
-import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
+import "../../elements/character-count.js"
+import "../../elements/text-field.js"
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  useId,
+  useTemplateRef,
+} from "vue"
 import { useInputAttrs } from "../vue"
-import type { Props, Slots } from "./types.vue-props"
+import { TrimmedSlot } from "../whitespace.vue"
+import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-
-defineOptions({
-  inheritAttrs: false,
-})
+import { createIds, idRefs } from "../id"
+import { hidePath, showPath } from "./icons"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   autoFit,
+  characterCount,
+  characterCountLabel,
   endText,
   error,
   hideLabel,
   id,
+  inputmode,
   label,
+  name,
+  passwordToggle,
+  passwordToggleLabel = "Show password",
+  pattern,
   size,
   spread,
   startText,
@@ -22,9 +38,14 @@ const {
   value,
   variant,
 } = defineProps<Props>()
-defineSlots<Slots>()
-const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = useInputAttrs()
+const slots = defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<string | number>()
 
 const model = computed({
@@ -34,11 +55,59 @@ const model = computed({
   },
 })
 
+const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
+
+let modelForm: HTMLFormElement | null = null
+
+const resetModel = (event: Event) =>
+  setTimeout(() => {
+    const element = modelElement.value
+    if (event.defaultPrevented || !element) return
+    model.value = element.value
+  })
+
+onMounted(() => {
+  const element = modelElement.value
+  if (!element) return
+  if (!element.hasAttribute("value") && model.value != null) {
+    element.defaultValue = String(model.value)
+  }
+  modelForm = element.form
+  modelForm?.addEventListener("reset", resetModel)
+})
+
+onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
+
 const field = inject(FieldGroupKey, undefined)
+
+const uid = useId()
+
+const ids = computed(() => createIds(uid, "text-field", id))
+
+const Root = computed(() => (passwordToggle ? "opui-text-field" : "label"))
+
+const Label = computed(() => (passwordToggle ? "label" : "span"))
+
+const hasStartText = computed(() => Boolean(startText || slots["start-text"]))
+
+const hasEndText = computed(() =>
+  Boolean(endText || slots["end-text"] || characterCount),
+)
+
+const inputId = computed(() => (passwordToggle ? ids.value() : id))
+
+const startTextId = computed(() =>
+  passwordToggle && hasStartText.value ? ids.value("start-text") : undefined,
+)
+
+const endTextId = computed(() =>
+  passwordToggle && hasEndText.value ? ids.value("end-text") : undefined,
+)
 </script>
 
 <template>
-  <label
+  <component
+    :is="Root"
     :class="[
       'ui-text-field',
       {
@@ -51,44 +120,77 @@ const field = inject(FieldGroupKey, undefined)
     ]"
     :style="$attrs.style"
   >
-    <span
+    <component
+      :is="Label"
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-    >
-      {{ label }}<slot name="label"></slot>
-    </span>
-
-    <span v-if="startText || $slots['start-text']" class="ui-start-text">
-      {{ startText }}<slot name="start-text"></slot>
-    </span>
-
-    <span class="ui-field">
+      :for="passwordToggle ? inputId : undefined"
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></component
+    >{{ " "
+    }}<span v-if="hasStartText" class="ui-start-text" :id="startTextId"
+      >{{ startText }}<slot name="start-text"></slot></span
+    >{{ " "
+    }}<span class="ui-field">
       <input
-        v-bind="inputAttrs"
-        v-model="model"
-        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-        :id="id"
-        :inputmode="
-          attrs.inputmode ?? (type === 'numeric' ? 'numeric' : undefined)
+        v-bind="attrs"
+        :aria-describedby="
+          idRefs(startTextId, endTextId, attrs['aria-describedby'])
         "
-        :name="attrs.name ?? field?.name"
-        :pattern="attrs.pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :id="inputId"
+        :inputmode="inputmode ?? (type === 'numeric' ? 'numeric' : undefined)"
+        :name="name ?? field?.name"
+        :pattern="pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
         :type="type === 'numeric' ? 'text' : type"
-      />
-      <span class="ui-start" v-if="$slots.start"
-        ><slot name="start"></slot
-      ></span>
-      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
-      <span class="ui-top" v-if="$slots.top"><slot name="top"></slot></span>
-      <span class="ui-bottom" v-if="$slots.bottom"
+        v-model="model"
+        ref="modelElement"
+      />{{ " "
+      }}<span v-if="$slots.start" class="ui-start"
+        ><slot name="start"></slot></span
+      >{{ " "
+      }}<span v-if="$slots.end || passwordToggle" class="ui-end"
+        ><slot name="end"></slot
+        ><Button
+          v-if="passwordToggle"
+          :aria-label="passwordToggleLabel"
+          aria-pressed="false"
+          command="--toggle-password"
+          :commandfor="inputId"
+          round
+          ><svg
+            aria-hidden="true"
+            class="ui-icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" :d="showPath" /></svg
+          ><svg
+            aria-hidden="true"
+            class="ui-icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" :d="hidePath" /></svg></Button></span
+      >{{ " "
+      }}<span v-if="$slots.top" class="ui-top"><slot name="top"></slot></span
+      >{{ " "
+      }}<span v-if="$slots.bottom" class="ui-bottom"
         ><slot name="bottom"></slot
-      ></span>
-    </span>
-
-    <span v-if="endText || $slots['end-text']" class="ui-end-text">
-      {{ endText }}<slot name="end-text"></slot>
-    </span>
-
-    <slot></slot>
-  </label>
+      ></span> </span
+    >{{ " "
+    }}<span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+      >{{ endText }}<slot name="end-text"></slot
+      ><component
+        is="opui-character-count"
+        v-if="characterCount"
+        aria-hidden="true"
+        class="ui-value"
+        :label="characterCountLabel"
+      ></component></span
+    >{{ " " }}<slot></slot>
+  </component>
 </template>

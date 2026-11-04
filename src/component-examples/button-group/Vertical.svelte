@@ -2,7 +2,8 @@
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-{#snippet plusIcon()}<svg
+{#snippet plusIcon()}
+  <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -16,9 +17,11 @@
   >
     <line x1="12" y1="5" x2="12" y2="19"></line>
     <line x1="5" y1="12" x2="19" y2="12"></line>
-  </svg>{/snippet}
+  </svg>
+{/snippet}
 
-{#snippet minusIcon()}<svg
+{#snippet minusIcon()}
+  <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -31,7 +34,8 @@
     stroke-linejoin="round"
   >
     <line x1="5" y1="12" x2="19" y2="12"></line>
-  </svg>{/snippet}
+  </svg>
+{/snippet}
 
 <div class="example-row">
   <ButtonGroup orientation="vertical">
@@ -42,7 +46,6 @@
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="outlined">
     <Button aria-label="Increase">
       {@render plusIcon()}
@@ -51,7 +54,6 @@
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="tonal">
     <Button aria-label="Increase">
       {@render plusIcon()}
@@ -60,7 +62,6 @@
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="filled">
     <Button aria-label="Increase">
       {@render plusIcon()}
@@ -76,17 +77,14 @@
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="outlined">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="tonal">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
   <ButtonGroup orientation="vertical" variant="filled">
     <Button>Up</Button>
     <Button>Down</Button>

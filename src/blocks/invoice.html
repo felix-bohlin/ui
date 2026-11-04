@@ -38,8 +38,6 @@
     }
 
     .invoice-parties {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-
       address {
         font-style: normal;
         line-height: 1.5;
@@ -63,26 +61,6 @@
     .invoice-totals {
       justify-self: end;
       max-inline-size: 22rem;
-    }
-
-    .invoice-total {
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      font-size: var(--ui-font-size-large);
-      font-weight: var(--ui-font-weight-bold);
-      padding-block-start: var(--ui-space-3);
-
-      dd,
-      dt {
-        color: var(--ui-text-strong);
-      }
-    }
-
-    .invoice-payment {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 40rem) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      }
     }
 
     .invoice-footer {
@@ -188,7 +166,10 @@
         </div>
       </div>
 
-      <div class="ui-layout-grid ui-large invoice-parties">
+      <div
+        class="ui-layout-grid ui-large ui-stretch invoice-parties"
+        style="--_min-inline-size: 12rem"
+      >
         <section aria-labelledby="invoice-from">
           <h2 class="ui-overline invoice-label" id="invoice-from">From</h2>
           <address>
@@ -285,7 +266,7 @@
           <dt>VAT 25 %</dt>
           <dd>22 372,50 kr</dd>
         </div>
-        <div class="invoice-total">
+        <div class="ui-total">
           <dt>Total due</dt>
           <dd>111 862,50 kr</dd>
         </div>
@@ -295,7 +276,8 @@
 
       <section
         aria-labelledby="invoice-payment-heading"
-        class="ui-layout-grid ui-large invoice-payment"
+        class="ui-layout-columns ui-large ui-breakpoint-small"
+        style="--_columns: 3fr 2fr"
       >
         <div>
           <h2 class="ui-overline invoice-label" id="invoice-payment-heading">

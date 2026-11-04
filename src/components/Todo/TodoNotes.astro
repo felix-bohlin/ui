@@ -10,28 +10,24 @@ type Props = {
 const { class: className, notes } = Astro.props
 ---
 
-{
-  notes.length > 0 && (
-    <div class:list={["todo-notes", className]}>
-      {notes.map((note) =>
-        note.kind === "code" ? (
-          <pre
-            class="todo-note ui-code-block"
-            set:text={note.code}
-            style={`--level: ${note.level}`}
-          />
-        ) : (
-          <p
-            class:list={["todo-note", `todo-note-${note.kind}`]}
-            style={`--level: ${note.level}`}
-          >
-            <InlineText links text={note.text} />
-          </p>
-        ),
-      )}
-    </div>
-  )
-}
+{notes.length > 0 && <div class:list={["todo-notes", className]}>
+  {notes.map((note) =>
+    note.kind === "code" ? (
+      <pre
+        class="todo-note ui-code-block"
+        set:text={note.code}
+        style={`--level: ${note.level}`}
+      />
+    ) : (
+      <p
+        class:list={["todo-note", `todo-note-${note.kind}`]}
+        style={`--level: ${note.level}`}
+      >
+        <InlineText links text={note.text} />
+      </p>
+    ),
+  )}
+</div>}
 
 <style>
   .todo-notes {

@@ -4,36 +4,36 @@ export default function Spread() {
   return (
     <>
       <Checkbox
+        endText="I have read and agree to the privacy policy."
         name="checkbox-spread"
         spread
-        endText="I have read and agree to the privacy policy."
       >
         Accept Terms & Conditions
       </Checkbox>
 
       <Checkbox
-        name="checkbox-spread"
-        spread
-        required
         endText="You must accept this to continue."
+        name="checkbox-spread"
+        required
+        spread
       >
         Required
       </Checkbox>
 
       <Checkbox
-        name="checkbox-spread"
-        spread
         disabled
         endText="This checkbox is disabled."
+        name="checkbox-spread"
+        spread
       >
         Disabled
       </Checkbox>
 
       <Checkbox
+        endText="Check this box to continue."
+        error
         name="checkbox-spread"
         spread
-        error
-        endText="Check this box to continue."
       >
         Invalid Checkbox
       </Checkbox>

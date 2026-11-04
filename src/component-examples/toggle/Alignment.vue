@@ -4,7 +4,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 <template>
   <ToggleGroup name="alignment">
-    <ToggleButton value="left" aria-label="Align left">
+    <ToggleButton aria-label="Align left" value="left">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
         ></path>
       </svg>
     </ToggleButton>
-    <ToggleButton value="center" checked aria-label="Align center">
+    <ToggleButton aria-label="Align center" checked value="center">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
         ></path>
       </svg>
     </ToggleButton>
-    <ToggleButton value="right" aria-label="Align right">
+    <ToggleButton aria-label="Align right" value="right">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

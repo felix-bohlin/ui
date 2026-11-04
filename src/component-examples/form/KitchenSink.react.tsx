@@ -39,16 +39,14 @@ export default function KitchenSink() {
           <TextField
             autoComplete="email"
             label="Email Address"
-            type="email"
             placeholder="jane@example.com"
             required
+            type="email"
           />
-          <Select label="Role" items={roleItems} />
+          <Select items={roleItems} label="Role" />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
         <FieldDescription>
@@ -61,23 +59,19 @@ export default function KitchenSink() {
           <Switch name="sms_notifs">SMS Notifications</Switch>
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
-          <Radio value="light" defaultChecked>
+          <Radio defaultChecked value="light">
             Light Theme
           </Radio>
           <Radio value="dark">Dark Theme</Radio>
           <Radio value="system">System Default</Radio>
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Experience Level</FieldLegend>
         <FieldDescription>
@@ -85,18 +79,16 @@ export default function KitchenSink() {
         </FieldDescription>
         <FieldGroup>
           <Range
-            label="Professional Experience"
-            min="0"
-            max="20"
-            step="1"
             defaultValue="5"
+            label="Professional Experience"
+            max="20"
+            min="0"
             startText="Drag the slider to match your total tenure."
+            step="1"
           />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Additional Info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
@@ -109,22 +101,18 @@ export default function KitchenSink() {
           />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <Fieldset>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
-          <Checkbox name="terms" required endText="Support this text">
+          <Checkbox endText="Support this text" name="terms" required>
             I agree to the terms and conditions
           </Checkbox>
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <FieldGroup>
-        <Button variant="filled" type="submit">
+        <Button type="submit" variant="filled">
           Send
         </Button>
         <Button>Cancel</Button>

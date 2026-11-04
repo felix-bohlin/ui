@@ -17,9 +17,7 @@ export default function DividerExample() {
           <TextField label="Title" placeholder="My new post" />
         </FieldGroup>
       </Fieldset>
-
       <Divider />
-
       <FieldGroup>
         <Button>Save draft</Button>
         <Button variant="filled">Publish</Button>

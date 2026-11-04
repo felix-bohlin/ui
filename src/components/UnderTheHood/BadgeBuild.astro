@@ -125,17 +125,16 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width=
 
 <BuildUp id="build-badge" knobs={knobs} steps={steps}>
   <div class="row">
-    {
-      badges.map((badge) => (
-        <span class:list={["badge", badge.className]} dir={badge.dir}>
-          <Fragment set:html={icon} />
-          <span class="indicator">
-            {badge.text && <span aria-hidden="true">{badge.text}</span>}
-            <span class="ui-sr-only">{badge.label}</span>
-          </span>
-        </span>
-      ))
-    }
+    {badges.map((badge) => <span
+      class:list={["badge", badge.className]}
+      dir={badge.dir}
+    >
+      <Fragment set:html={icon} />
+      <span class="indicator">
+        {badge.text && <span aria-hidden="true">{badge.text}</span>}
+        <span class="ui-sr-only">{badge.label}</span>
+      </span>
+    </span>)}
   </div>
 </BuildUp>
 

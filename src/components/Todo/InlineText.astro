@@ -15,19 +15,17 @@ const parts = splitInlineCode(text).flatMap((part) =>
 )
 ---
 
-{
-  parts.map((part) =>
-    part.code ? (
-      <code>{part.value}</code>
-    ) : part.href ? (
-      <a class="ui-link" href={part.href}>
-        {part.value}
-      </a>
-    ) : (
-      part.value
-    ),
-  )
-}
+{parts.map((part) =>
+  part.code ? (
+    <code>{part.value}</code>
+  ) : part.href ? (
+    <a class="ui-link" href={part.href}>
+      {part.value}
+    </a>
+  ) : (
+    part.value
+  ),
+)}
 
 <style>
   code {

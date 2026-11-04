@@ -6,9 +6,9 @@ export default function LinkPreview() {
       <div>
         Learn more about{" "}
         <Anchor
+          id="anchor-link-preview-1"
           positionArea="block-end span-inline-end"
           trigger="hover"
-          id="anchor-link-preview-1"
         >
           <a
             className="ui-link"
@@ -18,7 +18,7 @@ export default function LinkPreview() {
             CSS anchor positioning
           </a>
           <AnchorContent>
-            <Card variant="elevated" className="link-preview">
+            <Card className="link-preview" variant="elevated">
               <img src="https://picsum.photos/id/1018/800/450" alt="" />
               <CardHeader>
                 <p className="ui-caption">developer.mozilla.org</p>

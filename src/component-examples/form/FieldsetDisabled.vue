@@ -13,8 +13,8 @@ import {
     <FieldLegend>Pet dating</FieldLegend>
     <FieldDescription>You can't change these settings</FieldDescription>
     <FieldGroup name="notifications">
-      <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
-      <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
+      <Checkbox checked value="horse-tinder">Horse Tinder</Checkbox>
+      <Checkbox checked value="onlyhorsefans">OnlyHorseFans</Checkbox>
     </FieldGroup>
   </Fieldset>
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, provide, reactive, useAttrs } from "vue"
-import { warnMissingId } from "../dev"
-import { autoLabelledBy } from "../id"
+import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
 import { DrawerKey } from "./context.vue"
+import { autoLabelledBy } from "../id"
+import { warnMissingId } from "../dev"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -14,17 +14,18 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-warnMissingId("Drawer", id)
-const attrs = useAttrs()
+const attrs = useAttrs() as HTMLAttributes
+
 const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-heading`))
+
+warnMissingId("Drawer", id)
 
 provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
 </script>
 
 <template>
   <dialog
-    :id="id"
-    :aria-labelledby="labelledBy"
+    :closedby="closedby"
     :class="[
       'ui-drawer',
       {
@@ -34,7 +35,8 @@ provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
       side && side !== 'inline-start' && `ui-${side}`,
       $props.class,
     ]"
-    :closedby="closedby"
+    :aria-labelledby="labelledBy"
+    :id="id"
   >
     <slot></slot>
   </dialog>

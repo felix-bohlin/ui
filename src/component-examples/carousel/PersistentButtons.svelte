@@ -10,8 +10,8 @@
 </script>
 
 <Carousel
-  buttons="outside"
   aria-label="Destinations"
+  buttons="outside"
   itemsPerView={2}
   persistentButtons
 >

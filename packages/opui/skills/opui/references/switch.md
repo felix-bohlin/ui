@@ -12,8 +12,8 @@ Use a Switch for a setting that applies right away. Use a Checkbox for choices t
 
 - `label.ui-switch` (root): Container element.
 - `<input>` (model): The switch input.
-- `.ui-icon-unchecked` (slot `icon-unchecked`): An optional icon in the thumb when unchecked.
-- `.ui-icon-checked` (slot `icon-checked`): An optional icon in the thumb when checked.
+- `.ui-icon-unchecked` (slot `icon-unchecked`): An optional icon on the track, shown while unchecked.
+- `.ui-icon-checked` (slot `icon-checked`): An optional icon on the track, shown while checked.
 - `.ui-label` (prop `label`, slot `default`): The label.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the label.
 
@@ -47,6 +47,10 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 
 - `<input type="checkbox" role="switch">` (root): The switch input, without a label.
 
+### Props and modifiers
+
+- `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
+
 Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro and React `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
@@ -60,8 +64,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 ### switch.css
 
 - `--_accent`: Fill and border of the checked track. In forced colors `SelectedItem`, `GrayText` when disabled.
-- `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
-- `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_on-accent`: Color of the checked thumb on `--_accent`. `SelectedItemText` in forced colors.
 - `--_thumb-bg-color`: Color of the unchecked thumb. Defaults to `--ui-switch-thumb-bg-color`. The checked thumb uses `--_on-accent`.
 - `--_thumb-size`: Width and height of the thumb. Defaults to `--ui-switch-thumb-size`, set by the size classes.
@@ -70,28 +72,32 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_track-border-color`: Border of the unchecked track. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, like the checkbox and radio borders. The checked track uses `--_accent`.
 - `--_track-inline-size`: Width of the track. Defaults to `--ui-switch-track-inline-size`, set by the size classes.
 
-Outputs: `--_duration`, `--_icon-size`, `--_size`, `--_thumb-inset` and `--_thumb-outline-size`.
+Outputs: `--_icon-size`, `--_size`, `--_thumb-inset` and `--_thumb-outline-size`.
 
 ### choice.css
 
-- `--_accent`: Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid` when invalid.
-- `--_checked-bg-color`: Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`.
+- `--_accent`: Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, else `--ui-control-accent`, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid`, capped the same way, when invalid.
+- `--_checked-bg-color`: Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
 - `--_hover-bg-color`: Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
+- `--_on-accent`: Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, else `--ui-on-control-accent`, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.
 - `--_padding`: Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.
 - `--_ripple-size`: Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`.
 - `--_size`: Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.
 
 Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--_shadow` and `--_thumb-scale`.
 
+### form.css
+
+- `--_field-min-inline-size`: Width a field in a horizontal `.ui-field-group` wraps at. Fields grow from it to share the row.
+
 ### card.css
 
-- `--_ease`: Easing of the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
-- `--_motion`: Motion multiplier for the focus ring animation. `0` turns it off.
+- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
@@ -109,22 +115,19 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 
 ```html
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" checked />
+  <input type="checkbox" role="switch" name="switch-basics" checked />
   <span class="ui-sr-only">Label</span>
 </label>
-
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" />
+  <input type="checkbox" role="switch" name="switch-basics" />
   <span class="ui-sr-only">Label</span>
 </label>
-
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" checked disabled />
+  <input type="checkbox" role="switch" name="switch-basics" checked disabled />
   <span class="ui-sr-only">Label</span>
 </label>
-
 <label class="ui-switch">
-  <input name="switch-basics" type="checkbox" role="switch" disabled />
+  <input type="checkbox" role="switch" name="switch-basics" disabled />
   <span class="ui-sr-only">Label</span>
 </label>
 ```
@@ -142,10 +145,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch name="switch-basics" checked hideLabel>Label</Switch>
-<Switch name="switch-basics" hideLabel>Label</Switch>
-<Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
-<Switch name="switch-basics" disabled hideLabel>Label</Switch>
+<Switch checked hideLabel name="switch-basics">Label</Switch>
+<Switch hideLabel name="switch-basics">Label</Switch>
+<Switch checked disabled hideLabel name="switch-basics">Label</Switch>
+<Switch disabled hideLabel name="switch-basics">Label</Switch>
 ```
 
 ## React
@@ -163,16 +166,16 @@ import { Switch } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      <Switch name="switch-basics" defaultChecked hideLabel>
+      <Switch defaultChecked hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" hideLabel>
+      <Switch hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" defaultChecked disabled hideLabel>
+      <Switch defaultChecked disabled hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" disabled hideLabel>
+      <Switch disabled hideLabel name="switch-basics">
         Label
       </Switch>
     </>
@@ -194,10 +197,10 @@ export default function Basics() {
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch name="switch-basics" checked hideLabel>Label</Switch>
-<Switch name="switch-basics" hideLabel>Label</Switch>
-<Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
-<Switch name="switch-basics" disabled hideLabel>Label</Switch>
+<Switch checked hideLabel name="switch-basics">Label</Switch>
+<Switch hideLabel name="switch-basics">Label</Switch>
+<Switch checked disabled hideLabel name="switch-basics">Label</Switch>
+<Switch disabled hideLabel name="switch-basics">Label</Switch>
 ```
 
 ## Vue
@@ -215,9 +218,9 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch name="switch-basics" checked hideLabel>Label</Switch>
-  <Switch name="switch-basics" hideLabel>Label</Switch>
-  <Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
-  <Switch name="switch-basics" disabled hideLabel>Label</Switch>
+  <Switch checked hideLabel name="switch-basics">Label</Switch>
+  <Switch hideLabel name="switch-basics">Label</Switch>
+  <Switch checked disabled hideLabel name="switch-basics">Label</Switch>
+  <Switch disabled hideLabel name="switch-basics">Label</Switch>
 </template>
 ```

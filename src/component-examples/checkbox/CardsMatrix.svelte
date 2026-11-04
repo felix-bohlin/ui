@@ -12,15 +12,15 @@
   <Fieldset>
     <FieldLegend>Input at the end</FieldLegend>
     <FieldGroup name="checkbox-cards-end" orientation="horizontal">
-      <Checkbox value="outlined" checked card spread>
+      <Checkbox card checked spread value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Checkbox>
-      <Checkbox value="tonal" card variant="tonal" spread>
+      <Checkbox card spread value="tonal" variant="tonal">
         Tonal
         {#snippet endText()}A tinted surface.{/snippet}
       </Checkbox>
-      <Checkbox value="elevated" card variant="elevated" spread>
+      <Checkbox card spread value="elevated" variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Checkbox>
@@ -29,15 +29,15 @@
   <Fieldset>
     <FieldLegend>Input at the start</FieldLegend>
     <FieldGroup name="checkbox-cards-start" orientation="horizontal">
-      <Checkbox value="outlined" checked card>
+      <Checkbox card checked value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Checkbox>
-      <Checkbox value="tonal" card variant="tonal">
+      <Checkbox card value="tonal" variant="tonal">
         Tonal
         {#snippet endText()}A tinted surface.{/snippet}
       </Checkbox>
-      <Checkbox value="elevated" card variant="elevated">
+      <Checkbox card value="elevated" variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Checkbox>

@@ -12,6 +12,9 @@ import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import Pagination from "../components/Pagination.astro"
 import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
   Button,
   Callout,
   CalloutContent,
@@ -33,7 +36,7 @@ import {
   type ChangelogPathEntry,
 } from "../utils/changelog"
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
-import { posts } from "../utils/learn-posts"
+import { posts } from "../utils/blog-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 import { blockHref, blocksUsing } from "../utils/blocks"
 import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
@@ -159,7 +162,7 @@ const imports =
       }
     : undefined
 
-const learnPosts = currentSlug
+const blogPosts = currentSlug
   ? posts.filter((post) => post.component === currentSlug)
   : []
 
@@ -202,251 +205,204 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
-  {
-    (browserSupport || hydrationApis.length > 0) && (
-      <BrowserSupportChips ids={browserSupport ?? []}>
-        {hydrationApis.length > 0 && (
-          <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
-        )}
-      </BrowserSupportChips>
-    )
-  }
+  {(browserSupport || hydrationApis.length > 0) && <BrowserSupportChips
+    ids={browserSupport ?? []}
+  >
+    {hydrationApis.length > 0 && (
+      <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
+    )}
+  </BrowserSupportChips>}
 
-  {
-    heroAnatomy && Astro.slots.has("anatomy") && (
-      <section class="component-hero">
-        <h2 id="anatomy" class="ui-sr-only">
-          Anatomy
-        </h2>
-        <slot name="anatomy" />
-      </section>
-    )
-  }
+  {heroAnatomy && Astro.slots.has("anatomy") && <section
+    class="component-hero"
+    id="anatomy"
+  >
+    <h2 class="ui-sr-only">Anatomy</h2>
+    <slot name="anatomy" />
+  </section>}
 
-  {
-    Astro.slots.has("usage") && (
-      <section>
-        <h2 id="usage">Usage</h2>
+  {Astro.slots.has("usage") && <section id="usage">
+    <h2 class="ui-sr-only">Usage</h2>
+    <Accordion class="component-usage">
+      <AccordionSummary>Usage</AccordionSummary>
+      <AccordionContent>
         <slot name="usage" />
-      </section>
-    )
-  }
+      </AccordionContent>
+    </Accordion>
+  </section>}
 
   <slot />
 
-  {
-    Astro.slots.has("accessibility") && (
-      <section>
-        <h2 id="accessibility">Accessibility</h2>
-        <slot name="accessibility" />
-      </section>
-    )
-  }
+  {Astro.slots.has("accessibility") && <section id="accessibility">
+    <h2>Accessibility</h2>
+    <slot name="accessibility" />
+  </section>}
 
-  {
-    !heroAnatomy && Astro.slots.has("anatomy") && (
-      <section>
-        <h2 id="anatomy">Anatomy</h2>
-        <slot name="anatomy" />
-      </section>
-    )
-  }
+  {!heroAnatomy && Astro.slots.has("anatomy") && <section id="anatomy">
+    <h2>Anatomy</h2>
+    <slot name="anatomy" />
+  </section>}
 
   {apis && <ComponentAPI apis={apis} />}
 
   {currentSlug && <ComponentProperties slug={currentSlug} />}
 
-  {
-    Astro.slots.has("under-the-hood") && (
-      <section>
-        <h2 id="under-the-hood">Under the hood</h2>
-        {learnPosts.map((learnPost) => (
-          <p>
-            Read the post:
-            <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
-          </p>
-        ))}
-        <slot name="under-the-hood" />
-      </section>
-    )
-  }
+  {Astro.slots.has("under-the-hood") && <section id="under-the-hood">
+    <h2>Under the hood</h2>
+    {blogPosts.map((blogPost) => <p>
+      Read the post:
+      <a href={link(`/blog/${blogPost.slug}`)}>{blogPost.title}</a>
+    </p>)}
+    <p>
+      The build-up below is simplified: it uses short class names and fixed
+      values where the component reads its tokens and private properties. The
+      component's CSS is the reference.
+    </p>
+    <slot name="under-the-hood" />
+  </section>}
 
   {browserSupport && <BrowserSupport ids={browserSupport} />}
 
-  {
-    installationTabs ? (
-      <Installation
-        imports={imports}
-        slug={currentSlug}
-        tabs={installationTabs}
-      >
-        <slot name="installation" />
-      </Installation>
-    ) : (
+  {installationTabs ? (
+    <Installation imports={imports} slug={currentSlug} tabs={installationTabs}>
       <slot name="installation" />
-    )
-  }
+    </Installation>
+  ) : (
+    <slot name="installation" />
+  )}
 
-  {
-    usedInBlocks.length > 0 && (
-      <section>
-        <h2 id="used-in-blocks">Used in blocks</h2>
-        <ul class="used-in-blocks ui-not-rich-text">
-          {usedInBlocks.map((block) => (
-            <li>
-              <a class="ui-link" href={link(blockHref(block.slug))}>
-                {block.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
+  {usedInBlocks.length > 0 && <section id="used-in-blocks">
+    <h2>Used in blocks</h2>
+    <ul class="used-in-blocks ui-not-rich-text">
+      {usedInBlocks.map((block) => <li>
+        <a class="ui-link" href={link(blockHref(block.slug))}>
+          {block.name}
+        </a>
+      </li>)}
+    </ul>
+  </section>}
 
-  {
-    !!seeAlsoLinks?.length && (
-      <section>
-        <h2 id="see-also">See also</h2>
+  {!!seeAlsoLinks?.length && <section id="see-also">
+    <h2>See also</h2>
+    <ul>
+      {seeAlsoLinks.map((entry) => <li>
+        <a href={entry.href.startsWith("/") ? link(entry.href) : entry.href}>
+          {entry.name}
+        </a>
+      </li>)}
+    </ul>
+  </section>}
+
+  {(notes.length > 0 || changelog.length > 0) && <section id="changelog">
+    <h2>Changelog</h2>
+    {whatsNew.length > 0 && <Callout
+      severity="info"
+      variant="tonal"
+      class="whats-new"
+    >
+      <CalloutIcon />
+      <CalloutContent>
+        <h3>What's new</h3>
         <ul>
-          {seeAlsoLinks.map((entry) => (
-            <li>
-              <a
-                href={
-                  entry.href.startsWith("/") ? link(entry.href) : entry.href
-                }
-              >
-                {entry.name}
-              </a>
-            </li>
+          {whatsNew.map((note) => (
+            <li set:html={note} />
           ))}
         </ul>
-      </section>
-    )
-  }
-
-  {
-    (notes.length > 0 || changelog.length > 0) && (
-      <section>
-        <h2 id="changelog">Changelog</h2>
-        {whatsNew.length > 0 && (
-          <Callout severity="info" variant="tonal" class="whats-new">
-            <CalloutIcon />
-            <CalloutContent>
-              <h3>What's new</h3>
-              <ul>
-                {whatsNew.map((note) => (
-                  <li set:html={note} />
-                ))}
-              </ul>
-            </CalloutContent>
-          </Callout>
-        )}
-        {migrating.length > 0 && (
-          <Callout severity="warning" variant="tonal" class="migrating">
-            <CalloutIcon />
-            <CalloutContent>
-              <h3>Migrating from 5.x</h3>
-              <ul id="migrating-list">
-                {migrating.map((note, index) => (
-                  <li
-                    class={index >= COLLAPSED ? "changelog-extra" : undefined}
-                    set:html={note}
-                  />
-                ))}
-              </ul>
-              <p>
-                <a href={migratingHref}>The migration guide</a> has the steps.
-              </p>
-              {migrating.length > COLLAPSED && (
-                <div class="ui-not-rich-text">
-                  <Button
-                    class="changelog-toggle"
-                    data-more-count={migrating.length - COLLAPSED}
-                    data-target="migrating-list"
-                    size="small"
-                    variant="outlined"
-                  >
-                    Show {migrating.length - COLLAPSED} more
-                  </Button>
-                </div>
-              )}
-            </CalloutContent>
-          </Callout>
-        )}
-        {changelog.length > 0 && (
-          <div class="ui-not-rich-text">
-            <List id="changelog-list" bordered flush variant="transparent">
-              {changelog.map((entry, index) => (
-                <ListItem
-                  as="a"
-                  class={index >= COLLAPSED ? "changelog-extra" : undefined}
-                  href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  label={entry.message}
-                >
-                  <time slot="end" datetime={entry.date}>
-                    {entry.relativeDate}
-                  </time>
-                  {entry.types.length > 0 && (
-                    <span class="changelog-types">
-                      {entry.types.map((type) => (
-                        <Chip label={type} variant="outlined" size="small" />
-                      ))}
-                    </span>
-                  )}
-                </ListItem>
-              ))}
-            </List>
-            {changelog.length > COLLAPSED && (
-              <Button
-                class="changelog-toggle"
-                data-more-count={changelog.length - COLLAPSED}
-                data-target="changelog-list"
-                variant="outlined"
-              >
-                Show {changelog.length - COLLAPSED} more
-              </Button>
-            )}
-          </div>
-        )}
-      </section>
-    )
-  }
+      </CalloutContent>
+    </Callout>}
+    {migrating.length > 0 && <Callout
+      severity="warning"
+      variant="tonal"
+      class="migrating"
+    >
+      <CalloutIcon />
+      <CalloutContent>
+        <h3>Migrating from 5.x</h3>
+        <ul id="migrating-list">
+          {migrating.map((note, index) => (
+            <li
+              class={index >= COLLAPSED ? "changelog-extra" : undefined}
+              set:html={note}
+            />
+          ))}
+        </ul>
+        <p><a href={migratingHref}>The migration guide</a> has the steps.</p>
+        {migrating.length > COLLAPSED && <div class="ui-not-rich-text">
+          <Button
+            class="changelog-toggle"
+            data-more-count={migrating.length - COLLAPSED}
+            data-target="migrating-list"
+            size="small"
+            variant="outlined"
+          >
+            Show {migrating.length - COLLAPSED} more
+          </Button>
+        </div>}
+      </CalloutContent>
+    </Callout>}
+    {changelog.length > 0 && <div class="ui-not-rich-text">
+      <List id="changelog-list" bordered flush variant="transparent">
+        {changelog.map((entry, index) => <ListItem
+          as="a"
+          class={index >= COLLAPSED ? "changelog-extra" : undefined}
+          href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          label={entry.message}
+        >
+          <time slot="end" datetime={entry.date}>
+            {entry.relativeDate}
+          </time>
+          {entry.types.length > 0 && <span class="changelog-types">
+            {entry.types.map((type) => (
+              <Chip label={type} variant="outlined" size="small" />
+            ))}
+          </span>}
+        </ListItem>)}
+      </List>
+      {changelog.length > COLLAPSED && <Button
+        class="changelog-toggle"
+        data-more-count={changelog.length - COLLAPSED}
+        data-target="changelog-list"
+        variant="outlined"
+      >
+        Show {changelog.length - COLLAPSED} more
+      </Button>}
+    </div>}
+  </section>}
 
   <footer class="component-footer ui-not-rich-text">
     <hr class="ui-divider" />
 
-    {
-      isComponentPage && (
-        <Button href={editUrl} target="_blank" size="small">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 32 32"
-            width="1.2em"
-            height="1.2em"
-          >
-            <path
-              fill="currentColor"
-              d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
-            />
-          </svg>
-          <span>Edit page</span>
-        </Button>
-      )
-    }
+    {isComponentPage && <Button href={editUrl} target="_blank" size="small">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        width="1.2em"
+        height="1.2em"
+      >
+        <path
+          fill="currentColor"
+          d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
+        />
+      </svg>
+      <span>Edit page</span>
+    </Button>}
 
     <Pagination
       label="Component pages"
-      next={nextComponent && {
-        href: componentHrefFor(currentFramework, nextComponent.slug),
-        label: nextComponent.name,
-      }}
-      prev={prevComponent && {
-        href: componentHrefFor(currentFramework, prevComponent.slug),
-        label: prevComponent.name,
-      }}
+      next={
+        nextComponent && {
+          href: componentHrefFor(currentFramework, nextComponent.slug),
+          label: nextComponent.name,
+        }
+      }
+      prev={
+        prevComponent && {
+          href: componentHrefFor(currentFramework, prevComponent.slug),
+          label: prevComponent.name,
+        }
+      }
     />
   </footer>
 
@@ -458,6 +414,10 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     .component-hero > h2 {
       margin: 0;
       position: absolute;
+    }
+
+    :global(.component-usage) {
+      margin-block-end: var(--size-4);
     }
 
     .component-footer {

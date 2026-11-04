@@ -4,7 +4,6 @@ export default function Flush() {
   return (
     <List flush>
       <ListItem
-        label="Gutterless list item"
         end={
           <Button aria-label="Delete" round size="small">
             <svg
@@ -21,10 +20,12 @@ export default function Flush() {
             </svg>
           </Button>
         }
+        label="Gutterless list item"
       />
       <ListItem
-        label="Headline"
         description="Supporting text"
+        end="100+"
+        label="Headline"
         start={
           <svg
             aria-hidden="true"
@@ -39,7 +40,6 @@ export default function Flush() {
             ></path>
           </svg>
         }
-        end="100+"
       />
     </List>
   )

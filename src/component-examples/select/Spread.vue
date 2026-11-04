@@ -26,7 +26,7 @@ import { Select } from "opui-css/vue"
     <option>Swedish</option>
   </Select>
 
-  <Select spread required>
+  <Select required spread>
     <template #label>Required</template>
     <template #start-text>You must select an option</template>
     <option value="">Select an option</option>
@@ -34,13 +34,13 @@ import { Select } from "opui-css/vue"
     <option>Option 2</option>
   </Select>
 
-  <Select spread disabled>
+  <Select disabled spread>
     <template #label>Disabled</template>
     <template #start-text>This select is disabled</template>
     <option>Option 1</option>
   </Select>
 
-  <Select spread error>
+  <Select error spread>
     <template #label>Invalid Select</template>
     <template #start-text>This select has an error</template>
     <template #end-text>Please select a valid option.</template>

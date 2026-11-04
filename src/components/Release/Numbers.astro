@@ -5,7 +5,7 @@ import { changelogSections } from "../../utils/changelog"
 import { components } from "../../utils/components"
 import { EXAMPLE_THEMES } from "../../utils/example-themes"
 import { FRAMEWORKS } from "../../utils/framework"
-import { posts } from "../../utils/learn-posts"
+import { posts } from "../../utils/blog-posts"
 import { releaseVersion } from "../../utils/release"
 import { themeTokens } from "../../utils/theme-tokens"
 
@@ -52,33 +52,27 @@ const tiles = [
   { caption: "", label: "Components", value: components.length },
   { caption: "", label: "Example themes", value: EXAMPLE_THEMES.length },
   { caption: "", label: "Frameworks", value: FRAMEWORKS.length },
-  { caption: "", label: "Learn posts", value: posts.length },
+  { caption: "", label: "Blog posts", value: posts.length },
   { caption: "", label: "Theme tokens", value: themeTokens().length },
 ].toSorted((a, b) => a.label.localeCompare(b.label, "en"))
 ---
 
 <div class="numbers ui-not-rich-text" id={id}>
   <ul class="numbers-tiles">
-    {
-      tiles.map((tile) => (
-        <li class="numbers-tile">
-          <p class="numbers-value">
-            <span
-              aria-hidden="true"
-              class="numbers-count"
-              style={`--n: ${tile.value}`}
-            />
-            <span class="ui-sr-only">{tile.value}</span>
-          </p>
-          <p class="numbers-label">
-            {tile.label}
-            {tile.caption && (
-              <span class="numbers-caption">{tile.caption}</span>
-            )}
-          </p>
-        </li>
-      ))
-    }
+    {tiles.map((tile) => <li class="numbers-tile">
+      <p class="numbers-value">
+        <span
+          aria-hidden="true"
+          class="numbers-count"
+          style={`--n: ${tile.value}`}
+        />
+        <span class="ui-sr-only">{tile.value}</span>
+      </p>
+      <p class="numbers-label">
+        {tile.label}
+        {tile.caption && <span class="numbers-caption">{tile.caption}</span>}
+      </p>
+    </li>)}
   </ul>
 </div>
 

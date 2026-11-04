@@ -2,12 +2,18 @@
 
 import { useId } from "react"
 import { cx } from "../cx"
-import { autoLabelledBy } from "../id"
 import { DialogContext } from "./context.react"
+import { autoLabelledBy, createIds } from "../id"
 import type { Props } from "./types.react"
 
-export default function Dialog({ className, closedby, ...rest }: Props) {
-  const titleId = `dialog-title-${useId()}`
+export default function Dialog({
+  className,
+  closedby,
+  children,
+  ...rest
+}: Props) {
+  const uid = useId()
+  const titleId = createIds(uid, "dialog", rest.id)("title")
   const labelledBy = autoLabelledBy(rest, titleId)
 
   return (
@@ -17,7 +23,9 @@ export default function Dialog({ className, closedby, ...rest }: Props) {
         className={cx(["ui-dialog", "ui-elevated", className])}
         closedby={closedby}
         {...rest}
-      />
+      >
+        {children}
+      </dialog>
     </DialogContext>
   )
 }

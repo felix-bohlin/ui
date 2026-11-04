@@ -59,108 +59,85 @@ if (!api.source && framework !== "html") {
 }
 ---
 
-{
-  html.length > 0 && (
+{html.length > 0 && <DocsTable
+  columns={[
+    { label: "Type", width: "20%" },
+    { label: "Modifiers", width: "20%" },
+    { label: "Default", width: "20%" },
+    { label: "Description" },
+  ]}
+>
+  {html.map((row) => <TableRow>
+    <TableCell>{row.name}</TableCell>
+    <TableCell>
+      {row.modifiers.map((modifier, i) => <Fragment>
+        {i > 0 && ", "}
+        {modifier ? <code>{modifier}</code> : "default"}
+      </Fragment>)}
+    </TableCell>
+    <TableCell>
+      {row.default === undefined ? (
+        "-"
+      ) : row.default ? (
+        <code>{row.default}</code>
+      ) : (
+        "default"
+      )}
+    </TableCell>
+    <TableCell set:html={formatInline(row.description, link)} />
+  </TableRow>)}
+</DocsTable>}
+
+{rows.length > 0 && <DocsTable
+  columns={[
+    { label: "Prop", width: "20%" },
+    { label: "Type", width: "20%" },
+    { label: "Default", width: "20%" },
+    { label: "Description" },
+  ]}
+>
+  {rows.map((row) => {
+    const needs = hydration.find((entry) => entry.prop === row.name)
+    return <TableRow>
+      <TableCell>
+        <code>{row.name}</code>
+        {needs && <HydrationMarker hydration={needs} />}
+      </TableCell>
+      <TableCell>
+        {row.type
+          ? splitUnion(row.type).map((type, i) => <Fragment>
+              {i > 0 && ", "}
+              <code>{type}</code>
+            </Fragment>)
+          : "-"}
+      </TableCell>
+      <TableCell>
+        {row.default ? <code>{row.default}</code> : "-"}
+      </TableCell>
+      <TableCell set:html={formatInline(row.description, link)} />
+    </TableRow>
+  })}
+</DocsTable>}
+
+{[
+  { heading: "Parts", label: "Part", rows: parts },
+  { heading: "Slots", label: "Slot", rows: slots },
+]
+  .filter((table) => table.rows.length > 0)
+  .map((table) => <Fragment>
+    <SlotsHeading>{table.heading}</SlotsHeading>
     <DocsTable
-      columns={[
-        { label: "Type", width: "20%" },
-        { label: "Modifiers", width: "20%" },
-        { label: "Default", width: "20%" },
-        { label: "Description" },
-      ]}
+      columns={[{ label: table.label, width: "30%" }, { label: "Description" }]}
     >
-      {html.map((row) => (
-        <TableRow>
-          <TableCell>{row.name}</TableCell>
-          <TableCell>
-            {row.modifiers.map((modifier, i) => (
-              <Fragment>
-                {i > 0 && ", "}
-                {modifier ? <code>{modifier}</code> : "default"}
-              </Fragment>
-            ))}
-          </TableCell>
-          <TableCell>
-            {row.default === undefined ? (
-              "-"
-            ) : row.default ? (
-              <code>{row.default}</code>
-            ) : (
-              "default"
-            )}
-          </TableCell>
-          <TableCell set:html={formatInline(row.description, link)} />
-        </TableRow>
-      ))}
+      {table.rows.map((row) => <TableRow>
+        <TableCell>
+          <code>{row.name}</code>
+        </TableCell>
+        <TableCell set:html={formatInline(row.description, link)} />
+      </TableRow>)}
     </DocsTable>
-  )
-}
+  </Fragment>)}
 
-{
-  rows.length > 0 && (
-    <DocsTable
-      columns={[
-        { label: "Prop", width: "20%" },
-        { label: "Type", width: "20%" },
-        { label: "Default", width: "20%" },
-        { label: "Description" },
-      ]}
-    >
-      {rows.map((row) => {
-        const needs = hydration.find((entry) => entry.prop === row.name)
-        return (
-          <TableRow>
-            <TableCell>
-              <code>{row.name}</code>
-              {needs && <HydrationMarker hydration={needs} />}
-            </TableCell>
-            <TableCell>
-              {row.type
-                ? splitUnion(row.type).map((type, i) => (
-                    <Fragment>
-                      {i > 0 && ", "}
-                      <code>{type}</code>
-                    </Fragment>
-                  ))
-                : "-"}
-            </TableCell>
-            <TableCell>
-              {row.default ? <code>{row.default}</code> : "-"}
-            </TableCell>
-            <TableCell set:html={formatInline(row.description, link)} />
-          </TableRow>
-        )
-      })}
-    </DocsTable>
-  )
-}
-
-{
-  [
-    { heading: "Parts", label: "Part", rows: parts },
-    { heading: "Slots", label: "Slot", rows: slots },
-  ]
-    .filter((table) => table.rows.length > 0)
-    .map((table) => (
-      <Fragment>
-        <SlotsHeading>{table.heading}</SlotsHeading>
-        <DocsTable
-          columns={[
-            { label: table.label, width: "30%" },
-            { label: "Description" },
-          ]}
-        >
-          {table.rows.map((row) => (
-            <TableRow>
-              <TableCell>
-                <code>{row.name}</code>
-              </TableCell>
-              <TableCell set:html={formatInline(row.description, link)} />
-            </TableRow>
-          ))}
-        </DocsTable>
-      </Fragment>
-    ))
-}
-
-{notes.map((note) => <p set:html={formatInline(note, link)} />)}
+{notes.map((note) => (
+  <p set:html={formatInline(note, link)} />
+))}

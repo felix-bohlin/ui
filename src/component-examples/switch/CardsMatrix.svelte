@@ -12,15 +12,15 @@
   <Fieldset>
     <FieldLegend>Input at the end</FieldLegend>
     <FieldGroup name="switch-cards-end" orientation="horizontal">
-      <Switch value="outlined" checked card spread>
+      <Switch card checked spread value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Switch>
-      <Switch value="tonal" card variant="tonal" spread>
+      <Switch card spread value="tonal" variant="tonal">
         Tonal
         {#snippet endText()}A tinted surface.{/snippet}
       </Switch>
-      <Switch value="elevated" card variant="elevated" spread>
+      <Switch card spread value="elevated" variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Switch>
@@ -29,15 +29,15 @@
   <Fieldset>
     <FieldLegend>Input at the start</FieldLegend>
     <FieldGroup name="switch-cards-start" orientation="horizontal">
-      <Switch value="outlined" checked card>
+      <Switch card checked value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Switch>
-      <Switch value="tonal" card variant="tonal">
+      <Switch card value="tonal" variant="tonal">
         Tonal
         {#snippet endText()}A tinted surface.{/snippet}
       </Switch>
-      <Switch value="elevated" card variant="elevated">
+      <Switch card value="elevated" variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Switch>

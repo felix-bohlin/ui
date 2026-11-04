@@ -237,7 +237,9 @@ const ticks = [0, 25, 50, 75, 100]
       value="40"
     />
     <datalist class="ticks" id="build-range-ticks">
-      {ticks.map((tick) => <option label={String(tick)} value={tick} />)}
+      {ticks.map((tick) => (
+        <option label={String(tick)} value={tick} />
+      ))}
     </datalist>
   </label>
 </BuildUp>

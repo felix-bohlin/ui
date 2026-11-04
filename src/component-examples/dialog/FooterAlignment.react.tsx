@@ -11,12 +11,13 @@ export default function FooterAlignment() {
   return (
     <>
       <Button
-        commandfor="dialog-footer-alignment-1"
         command="show-modal"
+        commandfor="dialog-footer-alignment-1"
         variant="outlined"
       >
         Show shortcuts
       </Button>
+
       <Dialog id="dialog-footer-alignment-1">
         <DialogHeader>
           <DialogTitle>Keyboard shortcuts</DialogTitle>
@@ -28,8 +29,8 @@ export default function FooterAlignment() {
         </DialogContent>
         <DialogFooter align="start">
           <Button
-            commandfor="dialog-footer-alignment-1"
             command="close"
+            commandfor="dialog-footer-alignment-1"
             variant="filled"
           >
             Got it

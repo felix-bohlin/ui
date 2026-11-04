@@ -10,18 +10,18 @@ import { Textarea } from "opui-css/vue"
 
   <div class="example-row">
     <Textarea
+      endText="Only double-negatives are allowed."
+      error
       label="Label"
       placeholder="Default"
       value="This isn't right"
-      endText="Only double-negatives are allowed."
-      error
     />
     <Textarea
+      endText="Only letters from the first half of the alphabet are allowed."
+      error
       label="Label"
       placeholder="Filled"
       value="Uh-oh"
-      endText="Only letters from the first half of the alphabet are allowed."
-      error
       variant="filled"
     />
   </div>

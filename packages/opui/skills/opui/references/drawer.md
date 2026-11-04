@@ -42,7 +42,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 ### Props and modifiers
 
 - `closeLabel`: `string`, default `"Close"`. The accessible name of the close button.
-- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.
+- `commandfor`: `string`. The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.
 
 ### Slots
 
@@ -100,48 +100,48 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 ```html
 <div class="example-compass">
   <button
-    type="button"
     class="ui-button"
-    commandfor="drawer-basics-3"
+    type="button"
     command="show-modal"
+    commandfor="drawer-basics-3"
   >
     Block Start
   </button>
   <button
-    type="button"
     class="ui-button"
-    commandfor="drawer-basics-1"
+    type="button"
     command="show-modal"
+    commandfor="drawer-basics-1"
   >
     Inline Start
   </button>
   <button
-    type="button"
     class="ui-button"
-    commandfor="drawer-basics-2"
+    type="button"
     command="show-modal"
+    commandfor="drawer-basics-2"
   >
     Inline End
   </button>
   <button
-    type="button"
     class="ui-button"
-    commandfor="drawer-basics-4"
+    type="button"
     command="show-modal"
+    commandfor="drawer-basics-4"
   >
     Block End
   </button>
 </div>
 
 <dialog
-  class="ui-drawer ui-scroll-lock"
-  id="drawer-basics-1"
-  aria-labelledby="drawer-basics-1-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock"
+  aria-labelledby="drawer-basics-1-heading"
+  id="drawer-basics-1"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-1-heading">Inline Start</h2>
-    <button type="button" class="ui-button ui-round ui-small" aria-label="Edit">
+    <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -152,15 +152,15 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         <path
           fill="currentColor"
           d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        />
+        ></path>
       </svg>
     </button>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-1"
       command="close"
+      commandfor="drawer-basics-1"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -175,10 +175,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
-      type="button"
       class="ui-button ui-small"
-      commandfor="drawer-basics-1"
+      type="button"
       command="close"
+      commandfor="drawer-basics-1"
     >
       Close
     </button>
@@ -186,19 +186,19 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-inline-end"
-  id="drawer-basics-2"
-  aria-labelledby="drawer-basics-2-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock ui-inline-end"
+  aria-labelledby="drawer-basics-2-heading"
+  id="drawer-basics-2"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-2-heading">Inline End</h2>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-2"
       command="close"
+      commandfor="drawer-basics-2"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -213,10 +213,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
-      type="button"
       class="ui-button ui-small"
-      commandfor="drawer-basics-2"
+      type="button"
       command="close"
+      commandfor="drawer-basics-2"
     >
       Close
     </button>
@@ -224,19 +224,19 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-block-start"
-  id="drawer-basics-3"
-  aria-labelledby="drawer-basics-3-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock ui-block-start"
+  aria-labelledby="drawer-basics-3-heading"
+  id="drawer-basics-3"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-3-heading">Block Start</h2>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-3"
       command="close"
+      commandfor="drawer-basics-3"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -256,10 +256,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
-      type="button"
       class="ui-button ui-small"
-      commandfor="drawer-basics-3"
+      type="button"
       command="close"
+      commandfor="drawer-basics-3"
     >
       Close
     </button>
@@ -267,19 +267,19 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 </dialog>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-block-end"
-  id="drawer-basics-4"
-  aria-labelledby="drawer-basics-4-heading"
   closedby="any"
+  class="ui-drawer ui-scroll-lock ui-block-end"
+  aria-labelledby="drawer-basics-4-heading"
+  id="drawer-basics-4"
 >
   <div class="ui-header">
     <h2 id="drawer-basics-4-heading">Block End</h2>
     <button
-      type="button"
       class="ui-button ui-round ui-small"
+      type="button"
       aria-label="Close"
-      commandfor="drawer-basics-4"
       command="close"
+      commandfor="drawer-basics-4"
     >
       <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
@@ -299,10 +299,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
-      type="button"
       class="ui-button ui-small"
-      commandfor="drawer-basics-4"
+      type="button"
       command="close"
+      commandfor="drawer-basics-4"
     >
       Close
     </button>
@@ -331,11 +331,12 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 ---
 
 <div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
+  <Button command="show-modal" commandfor="drawer-basics-3">Block Start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1"
+    >Inline Start</Button
   >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
 </div>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -354,7 +355,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
+    <Button command="close" commandfor="drawer-basics-1" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -373,7 +374,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
+    <Button command="close" commandfor="drawer-basics-2" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -397,7 +398,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
+    <Button command="close" commandfor="drawer-basics-3" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -421,7 +422,7 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
+    <Button command="close" commandfor="drawer-basics-4" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -433,7 +434,6 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/react"`
 
 - Client components (`"use client"`): `Drawer` and `DrawerHeader`.
-- Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
 
 ### Example: Basics
 
@@ -451,16 +451,16 @@ export default function Basics() {
   return (
     <>
       <div className="example-compass">
-        <Button commandfor="drawer-basics-3" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-3">
           Block Start
         </Button>
-        <Button commandfor="drawer-basics-1" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-1">
           Inline Start
         </Button>
-        <Button commandfor="drawer-basics-2" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-2">
           Inline End
         </Button>
-        <Button commandfor="drawer-basics-4" command="show-modal">
+        <Button command="show-modal" commandfor="drawer-basics-4">
           Block End
         </Button>
       </div>
@@ -481,7 +481,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-1" command="close">
+          <Button command="close" commandfor="drawer-basics-1" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -500,7 +500,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-2" command="close">
+          <Button command="close" commandfor="drawer-basics-2" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -525,7 +525,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-3" command="close">
+          <Button command="close" commandfor="drawer-basics-3" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -550,7 +550,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-basics-4" command="close">
+          <Button command="close" commandfor="drawer-basics-4" size="small">
             Close
           </Button>
         </DrawerFooter>
@@ -563,8 +563,6 @@ export default function Basics() {
 ## Svelte
 
 `import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/svelte"`
-
-- Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
 
 ### Example: Basics
 
@@ -581,11 +579,11 @@ export default function Basics() {
 </script>
 
 <div class="example-compass">
-  <Button commandfor="drawer-basics-3" command="show-modal">Block Start</Button>
-  <Button commandfor="drawer-basics-1" command="show-modal">Inline Start</Button
+  <Button command="show-modal" commandfor="drawer-basics-3">Block Start</Button>
+  <Button command="show-modal" commandfor="drawer-basics-1">Inline Start</Button
   >
-  <Button commandfor="drawer-basics-2" command="show-modal">Inline End</Button>
-  <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-2">Inline End</Button>
+  <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
 </div>
 
 <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -604,7 +602,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-1" command="close"
+    <Button command="close" commandfor="drawer-basics-1" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -623,7 +621,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-2" command="close"
+    <Button command="close" commandfor="drawer-basics-2" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -647,7 +645,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-3" command="close"
+    <Button command="close" commandfor="drawer-basics-3" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -671,7 +669,7 @@ export default function Basics() {
     </p>
   </DrawerContent>
   <DrawerFooter>
-    <Button size="small" commandfor="drawer-basics-4" command="close"
+    <Button command="close" commandfor="drawer-basics-4" size="small"
       >Close</Button
     >
   </DrawerFooter>
@@ -698,16 +696,16 @@ import {
 
 <template>
   <div class="example-compass">
-    <Button commandfor="drawer-basics-3" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-3"
       >Block Start</Button
     >
-    <Button commandfor="drawer-basics-1" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-1"
       >Inline Start</Button
     >
-    <Button commandfor="drawer-basics-2" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-2"
       >Inline End</Button
     >
-    <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+    <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
   </div>
 
   <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -726,7 +724,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-1" command="close"
+      <Button command="close" commandfor="drawer-basics-1" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -745,7 +743,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-2" command="close"
+      <Button command="close" commandfor="drawer-basics-2" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -769,7 +767,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-3" command="close"
+      <Button command="close" commandfor="drawer-basics-3" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -793,7 +791,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-4" command="close"
+      <Button command="close" commandfor="drawer-basics-4" size="small"
         >Close</Button
       >
     </DrawerFooter>

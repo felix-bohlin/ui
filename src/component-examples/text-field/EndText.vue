@@ -3,5 +3,5 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
+  <TextField endText="Supporting text" label="Label" placeholder="Outlined" />
 </template>

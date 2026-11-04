@@ -2,9 +2,10 @@
 
 import { useId } from "react"
 import { cx } from "../cx"
-import { warnGroupedChecked } from "../dev"
-import { isSelected } from "../ToggleGroup/selection"
 import { TabsContext, useTabsContext } from "./context.react"
+import { createId } from "../id"
+import { isSelected } from "../ToggleGroup/selection"
+import { warnGroupedChecked } from "../dev"
 import type { TabsItemProps as Props } from "./types.react"
 
 export default function TabsItem({
@@ -18,10 +19,11 @@ export default function TabsItem({
   children,
   ...rest
 }: Props) {
-  const uid = useId()
   const parent = useTabsContext()
-  const groupName = name || parent?.groupName || `tabs-${uid}`
-  const tabId = id || `tab-${uid}`
+  const uid = useId()
+  const idOf = createId(uid)
+  const groupName = name || parent?.groupName || idOf("tabs")
+  const tabId = id || idOf("tab")
   const grouped = isSelected(parent?.value, value)
   warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
 
@@ -29,8 +31,8 @@ export default function TabsItem({
     <TabsContext value={{ groupName, tabId }}>
       <input
         checked={grouped ?? checked}
-        className={cx(["ui-input", className])}
         defaultChecked={grouped === undefined ? defaultChecked : undefined}
+        className={cx(["ui-input", className])}
         id={tabId}
         name={groupName}
         type="radio"

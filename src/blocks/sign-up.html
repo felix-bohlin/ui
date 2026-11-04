@@ -1,25 +1,7 @@
 <style>
   .sign-up {
-    container-type: inline-size;
-
     .sign-up-layout {
-      align-items: start;
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        align-items: center;
-        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      }
-    }
-
-    .ui-card {
-      padding-block: var(--ui-space-3);
-    }
-
-    .sign-up-names {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+      align-items: center;
     }
 
     .sign-up-strength-label {
@@ -27,7 +9,6 @@
     }
 
     .sign-up-strong {
-      color: var(--ui-success-text);
       font-weight: var(--ui-font-weight-semibold);
     }
 
@@ -36,7 +17,6 @@
     }
 
     .sign-up-price {
-      font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
 
@@ -55,8 +35,11 @@
 </style>
 
 <div class="sign-up ui-layout-container" style="--_max-inline-size: 66rem">
-  <div class="sign-up-layout">
-    <div class="ui-card ui-outlined">
+  <div
+    class="ui-layout-columns sign-up-layout"
+    style="--_columns: 7fr 5fr; --_gap: var(--ui-space-6)"
+  >
+    <div class="ui-card ui-outlined ui-spacious">
       <hgroup>
         <h1 class="ui-h4">Create your Northwind account</h1>
         <p>Free for 14 days. No credit card needed.</p>
@@ -64,7 +47,7 @@
       <div class="ui-content">
         <form class="ui-form" action="#">
           <div class="ui-field-group">
-            <div class="ui-layout-grid sign-up-names">
+            <div class="ui-field-group ui-horizontal">
               <label class="ui-text-field">
                 <span class="ui-label">First name</span>
                 <span class="ui-field">
@@ -102,29 +85,69 @@
                 />
               </span>
             </label>
-            <label class="ui-text-field">
-              <span class="ui-label">Password</span>
+            <opui-text-field class="ui-text-field">
+              <label class="ui-label" for="sign-up-password">Password</label>
               <span class="ui-field">
                 <input
                   aria-describedby="sign-up-password-hint"
                   autocomplete="new-password"
+                  id="sign-up-password"
                   minlength="12"
                   name="password"
                   required
                   type="password"
                   value="correct-horse-42"
                 />
+                <span class="ui-end">
+                  <button
+                    aria-label="Show password"
+                    aria-pressed="false"
+                    class="ui-button ui-round"
+                    command="--toggle-password"
+                    commandfor="sign-up-password"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon-unchecked"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3"
+                      ></path>
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      class="ui-icon-checked"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 7c2.76 0 5 2.24 5 5c0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7M2 4.27l2.28 2.28l.46.46A11.8 11.8 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22L21 20.73L3.27 3zm5.53 5.53l1.55 1.55c-.05.21-.08.43-.08.65c0 1.66 1.34 3 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53c-2.76 0-5-2.24-5-5c0-.79.2-1.53.53-2.2m4.31-.78l3.15 3.15l.02-.16c0-1.66-1.34-3-3-3z"
+                      ></path>
+                    </svg>
+                  </button>
+                </span>
               </span>
               <span class="ui-end-text" id="sign-up-password-hint"
                 >At least 12 characters, with a number or a symbol.</span
               >
-            </label>
+            </opui-text-field>
             <div class="ui-layout-column ui-x-small">
               <span
                 class="ui-layout-row ui-spread sign-up-strength-label"
                 id="sign-up-strength"
                 ><span>Password strength</span
-                ><span class="sign-up-strong">Strong</span></span
+                ><span class="ui-p ui-success sign-up-strong"
+                  >Strong</span
+                ></span
               >
               <div class="ui-progress">
                 <progress
@@ -147,7 +170,7 @@
                     <p>Up to 3 projects for one person.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€0</span>
+                    <span class="ui-tabular-nums sign-up-price">€0</span>
                     <input
                       id="sign-up-plan-starter"
                       name="sign-up-plan"
@@ -164,7 +187,9 @@
                     <p>Unlimited projects and shared workspaces.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€12 / user</span>
+                    <span class="ui-tabular-nums sign-up-price"
+                      >€12 / user</span
+                    >
                     <input
                       checked
                       id="sign-up-plan-team"
@@ -182,7 +207,9 @@
                     <p>SSO, audit logs and priority support.</p>
                   </div>
                   <div class="ui-end">
-                    <span class="sign-up-price">€29 / user</span>
+                    <span class="ui-tabular-nums sign-up-price"
+                      >€29 / user</span
+                    >
                     <input
                       id="sign-up-plan-business"
                       name="sign-up-plan"
@@ -304,3 +331,7 @@
     </aside>
   </div>
 </div>
+
+<script type="module">
+  import "opui-css/elements/text-field.js"
+</script>

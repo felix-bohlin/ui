@@ -1,5 +1,7 @@
 export type Props = {
   autoFit?: boolean
+  characterCount?: boolean
+  characterCountLabel?: string
   endText?: string
   error?: boolean
   hideLabel?: boolean

@@ -4,14 +4,14 @@ export default function EndRadio() {
   return (
     <List>
       <ListItem
-        type="radio"
-        label="Radio 1"
         end={<RadioInput name="radio-example-group" value="1" />}
+        label="Radio 1"
+        type="radio"
       />
       <ListItem
-        type="radio"
-        label="Radio 2"
         end={<RadioInput name="radio-example-group" value="2" />}
+        label="Radio 2"
+        type="radio"
       />
     </List>
   )

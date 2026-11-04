@@ -1,14 +1,18 @@
 <script lang="ts">
+  import "../../css/js/range.js"
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { idRefs } from "../id"
+  import { createIds, idRefs } from "../id"
+  import { defaultValue } from "./value"
   import type { Props } from "./types.svelte"
-  import { defaultValue, resetValue } from "./value"
 
   let {
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid,
+    "aria-labelledby": ariaLabelledBy,
+    "aria-valuetext": ariaValueText,
     class: className,
-    endText,
     error,
     hideLabel,
     id,
@@ -19,7 +23,6 @@
     name,
     size,
     spread,
-    startText,
     step,
     style,
     value = $bindable(),
@@ -28,31 +31,32 @@
 
     // Snippets
     datalist,
+    endText,
     label,
+    startText,
     valueText,
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
   const field = getFieldGroupContext()
+  const uid = $props.id()
   const initialValue = untrack(() => value)
-  let resets = $state(0)
-
-  const hasLabel = $derived(!!label)
-  const hasValue = $derived(valueSuffix !== undefined || !!valueText)
-  const hasDatalist = $derived(!!items || !!datalist)
-  const middle = $derived(defaultValue({ max, min, step }))
-
-  const inputId = $derived(id || (hasValue ? `range-${uid}` : undefined))
-  const labelId = $derived(hasLabel ? `range-label-${uid}` : undefined)
-  const startTextId = $derived(startText ? `range-start-${uid}` : undefined)
-  const endTextId = $derived(endText ? `range-end-${uid}` : undefined)
-  const listId = $derived(
-    list ?? (hasDatalist ? `range-list-${uid}` : undefined),
+  const ids = $derived(createIds(uid, "range", id || undefined))
+  const hasLabel = $derived(!!label || label)
+  const hasStartText = $derived(!!startText || startText)
+  const hasEndText = $derived(!!endText || endText)
+  const hasValueText = $derived(valueText)
+  const hasValue = $derived(valueSuffix !== undefined || hasValueText)
+  const hasDatalist = $derived(!!items || datalist)
+  const readout = $derived(
+    `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`,
   )
-  const describedBy = $derived(
-    idRefs(startTextId, endTextId, rest["aria-describedby"]),
-  )
+  const inputId = $derived(id || (hasValue ? ids() : undefined))
+  const labelId = $derived(hasLabel ? ids("label") : undefined)
+  const startTextId = $derived(hasStartText ? ids("start-text") : undefined)
+  const endTextId = $derived(hasEndText ? ids("end-text") : undefined)
+  const listId = $derived(list ?? (hasDatalist ? ids("list") : undefined))
+  const describedBy = $derived(idRefs(startTextId, endTextId, ariaDescribedBy))
 </script>
 
 <label
@@ -66,39 +70,28 @@
   for={hasValue ? inputId : undefined}
   {style}
 >
-  {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
-      {@render content(label)}
-    </span>
-  {/if}
-  {#if hasValue}
-    {#key resets}
-      <output
-        aria-live="off"
-        class="ui-value"
-        for={inputId}
-        data-suffix={valueSuffix}
-      >
-        {#if valueText}{@render valueText(
-            Number(value ?? middle),
-          )}{:else}{value ?? middle}{valueSuffix ?? ""}{/if}
-      </output>
-    {/key}
-  {/if}
-  {#if startText}
-    <span class="ui-start-text" id={startTextId}>
-      {@render content(startText)}
-    </span>
-  {/if}
+  {#if hasLabel}<span
+      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+      id={labelId}>{@render content(label)}</span
+    >{/if}
+  {#if hasValue}<output
+      aria-live="off"
+      class="ui-value"
+      data-live={hasValueText ? undefined : ""}
+      for={inputId}
+      data-suffix={valueSuffix}
+      >{#if valueText}{@render valueText()}{:else}{readout}{/if}</output
+    >{/if}
+  {#if hasStartText}<span class="ui-start-text" id={startTextId}
+      >{@render content(startText)}</span
+    >{/if}
   <input
     {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : rest["aria-invalid"]}
-    aria-labelledby={labelId ?? rest["aria-labelledby"]}
-    aria-valuetext={rest["aria-valuetext"] ??
-      (valueSuffix && !valueText
-        ? `${value ?? middle}${valueSuffix}`
-        : undefined)}
+    aria-invalid={error ? "true" : ariaInvalid}
+    aria-labelledby={labelId ?? ariaLabelledBy}
+    aria-valuetext={ariaValueText ??
+      (valueSuffix && !hasValueText ? readout : undefined)}
     id={inputId}
     list={listId}
     {max}
@@ -107,35 +100,16 @@
     {step}
     type="range"
     bind:value
-    {@attach (input) => {
-      if (!input.hasAttribute("value") && initialValue != null)
-        input.defaultValue = String(initialValue)
-      const form = input.form
-      const sync = (event: Event) =>
-        setTimeout(() => {
-          if (event.defaultPrevented) return
-          value = resetValue(input)
-          resets++
-        })
-      form?.addEventListener("reset", sync)
-      return () => form?.removeEventListener("reset", sync)
-    }}
+    defaultValue={initialValue}
   />
-  {#if hasDatalist}
-    <datalist aria-hidden="true" id={listId}>
-      {#each items ?? [] as option (typeof option === "object" ? option.value : option)}
-        {#if typeof option === "object"}
-          <option value={option.value} label={option.label}></option>
-        {:else}
-          <option value={option}></option>
-        {/if}
-      {/each}
-      {@render datalist?.()}
-    </datalist>
-  {/if}
-  {#if endText}
-    <span class="ui-end-text" id={endTextId}>
-      {@render content(endText)}
-    </span>
-  {/if}
+  {#if hasDatalist}<datalist aria-hidden="true" id={listId}
+      >{#each items ?? [] as option, index (index)}{#if typeof option === "object"}<option
+            value={option.value}
+            label={option.label}
+          ></option>{:else}<option value={option}
+          ></option>{/if}{/each}{@render datalist?.()}</datalist
+    >{/if}
+  {#if hasEndText}<span class="ui-end-text" id={endTextId}
+      >{@render content(endText)}</span
+    >{/if}
 </label>

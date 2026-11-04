@@ -7,15 +7,15 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Delivery</FieldLegend>
       <FieldGroup name="radio-spread">
-        <Radio value="standard" checked spread>
+        <Radio checked spread value="standard">
           Standard
           <template #end-text>Arrives in 3 to 5 days.</template>
         </Radio>
-        <Radio value="express" spread>
+        <Radio spread value="express">
           Express
           <template #end-text>Arrives tomorrow.</template>
         </Radio>
-        <Radio value="pickup" spread disabled>
+        <Radio disabled spread value="pickup">
           Pickup
           <template #end-text>Not available in your area.</template>
         </Radio>

@@ -6,7 +6,10 @@ export type Props = Base.Props & {
   onValueChange?: (value: string) => void
   value?: string
 } & Omit<ComponentProps<"div">, "defaultValue">
+
 export type TabsItemProps = Base.TabsItemProps &
   Omit<ComponentProps<"input">, "type">
+
 export type TabsPanelProps = Base.TabsPanelProps & ComponentProps<"div">
+
 export type TabsLabelProps = Base.TabsLabelProps & ComponentProps<"label">

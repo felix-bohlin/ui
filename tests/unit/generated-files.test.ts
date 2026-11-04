@@ -10,14 +10,12 @@ test.each(Object.entries(generated))(
   },
 )
 
-test(".prettierignore ignores every generated file", () => {
+test("oxfmt ignores every generated file", () => {
   const ignored = new Set(
-    readFileSync(".prettierignore", "utf8")
-      .split("\n")
-      .map((line) => line.trim()),
+    JSON.parse(readFileSync(".oxfmtrc.json", "utf8")).ignorePatterns,
   )
   expect(
     generated.files.filter((path) => !ignored.has(path)),
-    "add the path to .prettierignore, or list it under sections when the build only writes a part of it and formats it",
+    "add the path to ignorePatterns in .oxfmtrc.json, or list it under sections when the build only writes a part of it and formats it",
   ).toEqual([])
 })

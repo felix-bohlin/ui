@@ -15,30 +15,24 @@ const current = canonicalPath(Astro.url.pathname)
 ---
 
 <nav aria-label={groups[0].label}>
-  {
-    groups.map((group) => (
-      <>
-        <h3>{group.label}</h3>
-        <menu>
-          {group.links.map((link) => (
-            <li>
-              <a
-                aria-current={
-                  canonicalPath(link.href) === current ? "page" : undefined
-                }
-                href={link.href}
-              >
-                {link.label}
-                {link.isNew && (
-                  <span class="new-dot">
-                    <span class="ui-sr-only">New</span>
-                  </span>
-                )}
-              </a>
-            </li>
-          ))}
-        </menu>
-      </>
-    ))
-  }
+  {groups.map((group) => (
+    <>
+      <h3>{group.label}</h3>
+      <menu>
+        {group.links.map((link) => <li>
+          <a
+            aria-current={
+              canonicalPath(link.href) === current ? "page" : undefined
+            }
+            href={link.href}
+          >
+            {link.label}
+            {link.isNew && <span class="new-dot">
+              <span class="ui-sr-only">New</span>
+            </span>}
+          </a>
+        </li>)}
+      </menu>
+    </>
+  ))}
 </nav>

@@ -6,12 +6,12 @@
   <ListItem label="Headline">
     {#snippet end()}30kB{/snippet}
   </ListItem>
-  <ListItem label="Headline" description="Supporting text">
+  <ListItem description="Supporting text" label="Headline">
     {#snippet end()}99%{/snippet}
   </ListItem>
   <ListItem
-    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
+    label="Headline"
   >
     {#snippet end()}100+{/snippet}
   </ListItem>

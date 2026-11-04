@@ -8,19 +8,15 @@ const { roles } = Astro.props
 
 <figure class="role-swatches ui-not-rich-text">
   <ul>
-    {
-      roles.map((role) => (
-        <li>
-          <span
-            class="swatch"
-            style={`background-color: var(${role.name})`}
-            aria-hidden="true"
-          />
-          <code>{role.name}</code>
-          <span class="note">{role.note}</span>
-        </li>
-      ))
-    }
+    {roles.map((role) => <li>
+      <span
+        class="swatch"
+        style={`background-color: var(${role.name})`}
+        aria-hidden="true"
+      />
+      <code>{role.name}</code>
+      <span class="note">{role.note}</span>
+    </li>)}
   </ul>
   <figcaption>
     Each role with its current value, live with the theme.

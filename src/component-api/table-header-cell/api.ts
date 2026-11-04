@@ -11,6 +11,16 @@ export default {
       group: "Numeric",
       prop: "numeric",
     },
+    {
+      attribute: "[data-sort]",
+      default: "false",
+      description:
+        "Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
+      group: "Sortable",
+      htmlDescription:
+        'Marks the header as sortable, with its label in a `<button type="button">`, inside `<opui-sortable-table>`.',
+      prop: "sortable",
+    },
   ],
   page: "table",
   parts: [],

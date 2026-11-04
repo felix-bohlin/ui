@@ -12,10 +12,10 @@ export default function FieldsetDisabled() {
       <FieldLegend>Pet dating</FieldLegend>
       <FieldDescription>You can't change these settings</FieldDescription>
       <FieldGroup name="notifications">
-        <Checkbox value="horse-tinder" defaultChecked>
+        <Checkbox defaultChecked value="horse-tinder">
           Horse Tinder
         </Checkbox>
-        <Checkbox value="onlyhorsefans" defaultChecked>
+        <Checkbox defaultChecked value="onlyhorsefans">
           OnlyHorseFans
         </Checkbox>
       </FieldGroup>

@@ -4,79 +4,78 @@ export default function Spread() {
   return (
     <>
       <TextField
-        spread
-        placeholder="Evil Rabbit"
         label="Name"
+        placeholder="Evil Rabbit"
+        spread
         startText="Provide your full name for identification"
       />
 
       <TextField
-        spread
+        endText="Please use a valid email address"
+        label="Email"
         placeholder="you@example.com"
+        spread
+        startText="We'll use this to contact you"
         type="email"
         variant="filled"
-        label="Email"
-        startText="We'll use this to contact you"
-        endText="Please use a valid email address"
       />
 
       <TextField
-        spread
-        required
         label="Required"
+        required
+        spread
         startText="You must fill this in"
       />
 
       <TextField
-        spread
         disabled
         label="Disabled"
+        spread
         startText="This field is disabled"
       />
 
       <TextField
-        spread
+        endText="Enter at least two characters."
         error
         label="Invalid Name"
+        spread
         startText="This field has an error"
-        endText="Enter at least two characters."
       />
 
       <TextField
-        spread
+        end="EUR"
         label="Amount"
         placeholder="0.00"
-        startText="Daily spending limit"
+        spread
         start="€"
-        end="EUR"
+        startText="Daily spending limit"
       />
 
       <TextField
-        spread
+        endText="Must include a valid domain"
         label="Website"
         placeholder="example.com"
-        variant="filled"
-        startText="Your public profile URL"
+        spread
         start="https://"
-        endText="Must include a valid domain"
+        startText="Your public profile URL"
+        variant="filled"
       />
 
       <TextField
-        spread
+        bottom="Lowercase letters and dashes only"
         label="Project name"
         placeholder="my-project"
+        spread
         startText="Used to generate the project URL"
         top="acme.dev/"
-        bottom="Lowercase letters and dashes only"
       />
 
       <TextField
-        spread
-        variant="filled"
+        bottom="Rotates every 90 days"
+        endText="Treat like a password"
         label="API key"
         placeholder="Paste your key"
-        type="password"
-        startText="Stored encrypted at rest"
+        spread
         start={
           <svg
             aria-hidden="true"
@@ -93,9 +92,10 @@ export default function Spread() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
         }
+        startText="Stored encrypted at rest"
         top="Secret"
-        bottom="Rotates every 90 days"
-        endText="Treat like a password"
+        type="password"
+        variant="filled"
       />
     </>
   )

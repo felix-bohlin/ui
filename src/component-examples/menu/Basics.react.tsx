@@ -4,8 +4,8 @@ export default function Basics() {
   return (
     <>
       <Button
-        commandfor="menu-basics-1"
         command="toggle-popover"
+        commandfor="menu-basics-1"
         variant="outlined"
       >
         Options

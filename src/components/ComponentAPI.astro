@@ -19,7 +19,8 @@ export type FrameworkApis = Partial<
 >
 
 export type ApiEntry =
-  FrameworkApis | { api: ComponentApi; id?: string; title?: string }
+  | FrameworkApis
+  | { api: ComponentApi; id?: string; title?: string }
 
 export type Apis = ApiEntry | ApiEntry[]
 
@@ -63,85 +64,69 @@ const cssVars = cssVarRows(
 const { link } = Astro.locals
 ---
 
-{
-  hasFrameworkSpecificApi
-    ? (() => {
-        const ApiComponent = pickFrameworkVariant(apis as FrameworkApis)
-        return (
-          ApiComponent && (
-            <section>
-              {!hideTitle && <h2 id="api">{titleProp || "API"}</h2>}
-              <div class="api-table-container">
-                <ApiComponent />
-              </div>
-            </section>
-          )
-        )
-      })()
-    : apiList.length > 0 && (
-        <section>
-          {!hideTitle && <h2 id="api">{titleProp || "API"}</h2>}
-          {apiList.map((api) => {
-            if (isFrameworkKeyedApi(api)) {
-              const ApiComponent = pickFrameworkVariant(api)
-              return (
-                ApiComponent && (
-                  <div class="api-table-container">
-                    <ApiComponent />
-                  </div>
-                )
-              )
-            }
-            const title = api.title
-            const id =
-              api.id ||
-              (title ? title.toLowerCase().replace(/\s+/g, "-") : undefined)
-
-            return (
-              <Fragment>
-                {title && <h3 id={id}>{title}</h3>}
-                <ApiTables api={api.api} headingLevel={title ? 4 : 3} />
-              </Fragment>
-            )
-          })}
-          {cssVars.length > 0 && (
-            <Fragment>
-              <h3 id={cssVariablesId}>CSS variables</h3>
-              <DocsTable
-                columns={[
-                  { label: "Variable", width: "30%" },
-                  { label: "Default", width: "30%" },
-                  { label: "Description" },
-                ]}
-              >
-                {cssVars.map((row) => (
-                  <TableRow>
-                    <TableCell>
-                      <code>{row.name}</code>
-                    </TableCell>
-                    <TableCell>
-                      {row.default ? <code>{row.default}</code> : "Unset"}
-                      {row.dark && (
-                        <Fragment>
-                          <br />
-                          <code>{row.dark}</code> in dark mode
-                        </Fragment>
-                      )}
-                    </TableCell>
-                    <TableCell set:html={formatInline(row.description, link)} />
-                  </TableRow>
-                ))}
-              </DocsTable>
-              <p>
-                The stylesheets on this page read these theme tokens. Override
-                them on <code>html</code> or on a wrapper. See all{" "}
-                <DocLink href="/guide/theme-tokens">theme tokens</DocLink>.
-              </p>
-            </Fragment>
-          )}
+{hasFrameworkSpecificApi
+  ? (() => {
+      const ApiComponent = pickFrameworkVariant(apis as FrameworkApis)
+      return (
+        ApiComponent && <section id={hideTitle ? undefined : "api"}>
+          {!hideTitle && <h2>{titleProp || "API"}</h2>}
+          <div class="api-table-container">
+            <ApiComponent />
+          </div>
         </section>
       )
-}
+    })()
+  : apiList.length > 0 && <section id={hideTitle ? undefined : "api"}>
+      {!hideTitle && <h2>{titleProp || "API"}</h2>}
+      {apiList.map((api) => {
+        if (isFrameworkKeyedApi(api)) {
+          const ApiComponent = pickFrameworkVariant(api)
+          return (
+            ApiComponent && <div class="api-table-container">
+              <ApiComponent />
+            </div>
+          )
+        }
+        const title = api.title
+        const id =
+          api.id ||
+          (title ? title.toLowerCase().replace(/\s+/g, "-") : undefined)
+
+        return <Fragment>
+          {title && <h3 id={id}>{title}</h3>}
+          <ApiTables api={api.api} headingLevel={title ? 4 : 3} />
+        </Fragment>
+      })}
+      {cssVars.length > 0 && <Fragment>
+        <h3 id={cssVariablesId}>CSS variables</h3>
+        <DocsTable
+          columns={[
+            { label: "Variable", width: "30%" },
+            { label: "Default", width: "30%" },
+            { label: "Description" },
+          ]}
+        >
+          {cssVars.map((row) => <TableRow>
+            <TableCell>
+              <code>{row.name}</code>
+            </TableCell>
+            <TableCell>
+              {row.default ? <code>{row.default}</code> : "Unset"}
+              {row.dark && <Fragment>
+                <br />
+                <code>{row.dark}</code> in dark mode
+              </Fragment>}
+            </TableCell>
+            <TableCell set:html={formatInline(row.description, link)} />
+          </TableRow>)}
+        </DocsTable>
+        <p>
+          The stylesheets on this page read these theme tokens. Override them on
+          <code>html</code> or on a wrapper. See all{" "}
+          <DocLink href="/guide/theme-tokens">theme tokens</DocLink>.
+        </p>
+      </Fragment>}
+    </section>}
 
 <style>
   .api-table-container {

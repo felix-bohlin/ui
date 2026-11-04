@@ -27,28 +27,22 @@ const layers = [
 
 <figure class="layer-stack ui-not-rich-text">
   <ol>
-    {
-      layers.map((layer) => (
-        <li data-yours={layer.yours ? "" : undefined}>
-          {layer.name === "Unlayered" ? (
-            <span class="name">{layer.name}</span>
-          ) : (
-            <code class="name">{layer.name}</code>
-          )}
-          {layer.note && <span class="note">{layer.note}</span>}
-          {layer.sublayers && (
-            <ol>
-              {layer.sublayers.map((sublayer) => (
-                <li data-yours={sublayer.yours ? "" : undefined}>
-                  <code class="name">{sublayer.name}</code>
-                  <span class="note">{sublayer.note}</span>
-                </li>
-              ))}
-            </ol>
-          )}
-        </li>
-      ))
-    }
+    {layers.map((layer) => <li data-yours={layer.yours ? "" : undefined}>
+      {layer.name === "Unlayered" ? (
+        <span class="name">{layer.name}</span>
+      ) : (
+        <code class="name">{layer.name}</code>
+      )}
+      {layer.note && <span class="note">{layer.note}</span>}
+      {layer.sublayers && <ol>
+        {layer.sublayers.map((sublayer) => <li
+          data-yours={sublayer.yours ? "" : undefined}
+        >
+          <code class="name">{sublayer.name}</code>
+          <span class="note">{sublayer.note}</span>
+        </li>)}
+      </ol>}
+    </li>)}
   </ol>
   <figcaption>Each layer beats the ones above it.</figcaption>
 </figure>

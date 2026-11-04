@@ -28,6 +28,7 @@ import {
   checkSortedKeys,
   checkTypeNames,
   checkTypesImport,
+  checkVariableTagClassList,
   checkVueAttrs,
 } from "../../scripts/check-components.mjs"
 import { colorProblems } from "../../scripts/check-colors.mjs"
@@ -45,7 +46,16 @@ import {
   entries,
   intended,
 } from "../../scripts/check-ratchets.mjs"
-import { indexProblems } from "../../scripts/generate-search-index.mjs"
+import {
+  frameworkIndex,
+  indexProblems,
+  readHeadings,
+  readKeywords,
+  readPage,
+  readPreamble,
+  readSections,
+  slotText,
+} from "../../scripts/generate-search-index.mjs"
 import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
 import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
@@ -109,6 +119,7 @@ describe("check-browser-support", () => {
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",
     "light-dark": ".a { color: light-dark(white, black); }",
+    "logical-properties": ".a { overflow-inline: auto; }",
     marker: "li::marker { color: red; }",
     "nth-child-of": ".a:nth-child(2 of .b) { gap: 0; }",
     "open-pseudo": "select:open { gap: 0; }",
@@ -130,6 +141,7 @@ describe("check-browser-support", () => {
     "scrollbar-width": ".a { scrollbar-width: thin; }",
     "sibling-count": ".a { --n: sibling-count(); }",
     "starting-style": "@starting-style { .a { opacity: 0; } }",
+    subgrid: ".a { grid-template-columns: subgrid; }",
     "text-box": ".a { text-box: trim-both cap alphabetic; }",
     "text-wrap-pretty": ".a { text-wrap: pretty; }",
     "transition-behavior": ".a { transition-behavior: allow-discrete; }",
@@ -532,6 +544,67 @@ describe("check-ratchets", () => {
     ).toEqual(["dark/html/b: list", "light/html/a: color-contrast"])
   })
 
+  test("the hand-written examples list grows only with the intended trailer", () => {
+    const dir = mkdtempSync(join(tmpdir(), "opui-ratchets-"))
+    const git = (...args: string[]) =>
+      execFileSync(
+        "git",
+        ["-c", "user.email=a@example.com", "-c", "user.name=A", ...args],
+        { cwd: dir, encoding: "utf8", stdio: "pipe" },
+      )
+    const list = join(dir, "scripts/hand-written-examples.json")
+    mkdirSync(join(dir, "scripts"))
+    git("init", "-q", "-b", "main")
+    writeFileSync(list, JSON.stringify({ "a/B.vue": "reason" }))
+    git("add", ".")
+    git("commit", "-q", "-m", "chore: add the list")
+    git("checkout", "-q", "-b", "work")
+    const run = () =>
+      spawnSync(
+        "node",
+        [join(process.cwd(), "scripts/check-ratchets.mjs"), "main"],
+        { cwd: dir, encoding: "utf8" },
+      )
+
+    writeFileSync(list, JSON.stringify({ "a/B.vue": "reason" }))
+    expect(run().status).toBe(0)
+
+    writeFileSync(
+      list,
+      JSON.stringify({ "a/B.vue": "reason", "a/C.vue": "reason" }),
+    )
+    git("commit", "-q", "-am", "chore: write C by hand")
+    const refused = run()
+    expect(refused.status).toBe(1)
+    expect(refused.stderr).toContain(
+      'scripts/hand-written-examples.json gained "a/C.vue"',
+    )
+
+    git(
+      "commit",
+      "-q",
+      "--amend",
+      "--no-edit",
+      "--trailer",
+      "Ledger-Change: intended",
+    )
+    expect(run().status).toBe(0)
+
+    writeFileSync(list, JSON.stringify({}))
+    git(
+      "commit",
+      "-q",
+      "-am",
+      "chore: generate B",
+      "--trailer",
+      "Ledger-Change: intended",
+    )
+    git("checkout", "-q", "-b", "shrink", "main")
+    writeFileSync(list, JSON.stringify({}))
+    git("commit", "-q", "-am", "chore: generate B")
+    expect(run().status).toBe(0)
+  })
+
   test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
     const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
     expect(
@@ -567,6 +640,61 @@ describe("check-ratchets", () => {
   test("accepts the trailer on any commit, in any case", () => {
     expect(intended("\n\nIntended\n")).toBe(true)
     expect(intended("\nnot intended\n")).toBe(false)
+  })
+})
+
+describe("checkVariableTagClassList", () => {
+  const source = (body: string, imports = "") =>
+    `---\n${imports}\nconst Tag = "div"\n---\n${body}\n`
+
+  test("flags class:list on a variable tag, also inside another element", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source('<Tag class:list={["ui-a", className]}><slot /></Tag>'),
+      ),
+    ).toEqual([
+      '<Tag> is a variable tag with class:list, which Astro renders after the other attributes; use class={cx([...])} and import cx from "../cx"',
+    ])
+    expect(
+      await checkVariableTagClassList(
+        source('<section><Tag class:list={["a"]} /></section>'),
+      ),
+    ).toHaveLength(1)
+  })
+
+  test("flags every variable tag", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source('<Root class:list={["a"]}><Label class:list={["b"]} /></Root>'),
+      ),
+    ).toHaveLength(2)
+  })
+
+  test("allows class:list on an element and on an imported component", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source(
+          '<div class:list={["a"]} /><Anchor class:list={["b"]} /><Ns.Part class:list={["c"]} />',
+          'import Anchor from "../Anchor/Anchor.astro"\nimport * as Ns from "./ns"',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      await checkVariableTagClassList(
+        source('<Part class:list={["c"]} />', 'import { Part } from "./part"'),
+      ),
+    ).toEqual([])
+  })
+
+  test("allows cx on a variable tag", async () => {
+    expect(
+      await checkVariableTagClassList(
+        source(
+          '<Tag class={cx(["ui-a", className])} />',
+          'import { cx } from "../cx"',
+        ),
+      ),
+    ).toEqual([])
   })
 })
 
@@ -1011,6 +1139,7 @@ describe("generate-search-index", () => {
     description: "A page.",
     id,
     title: "Page",
+    url: `/${id}/`,
   })
 
   test("reports a category without entries, an unknown category and an entry without a description", () => {
@@ -1025,17 +1154,192 @@ describe("generate-search-index", () => {
       ]),
     ).toEqual([
       "Unknown search categories: Notes",
-      "Search categories without entries: Learn",
-      "Search entries without a title or description: guide-empty",
+      "Search categories without entries: Blog",
+      "Search entries without a title, or without a description or page: guide-empty",
     ])
+  })
+
+  test("reads a slot as the text it renders, however its source is wrapped", () => {
+    expect(
+      slotText(
+        "\n    Callouts call out for attention and are used\n    <strong>without</strong> interrupting the task.\n  ",
+      ),
+    ).toBe(
+      "Callouts call out for attention and are used without interrupting the task.",
+    )
   })
 
   test("accepts an index with every category", () => {
     expect(
       indexProblems(
-        ["API", "Blocks", "Component", "Guide", "Learn"].map((id) => entry(id)),
+        ["API", "Blocks", "Blog", "Component", "Guide"].map((id) => entry(id)),
       ),
     ).toEqual([])
+  })
+
+  test("accepts a section entry with a page instead of a description", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "guide-sizes"), description: "", page: "Button" },
+      ]),
+    ).toEqual([])
+  })
+
+  test("reports entries that share an id and paths without a trailing slash", () => {
+    expect(
+      indexProblems([
+        ...["API", "Blocks", "Blog", "Component", "Guide"].map((id) =>
+          entry(id),
+        ),
+        { ...entry("Guide", "Guide"), url: "/html/guide/theming/#tokens" },
+        { ...entry("Guide", "guide-sizes"), url: "/html/guide/sizes#small" },
+      ]),
+    ).toEqual([
+      "Search entries that share an id: Guide",
+      "Search entries whose path doesn't end in a slash: guide-sizes",
+    ])
+  })
+
+  test("reads text without tags, entities, string expressions or extra spaces", () => {
+    expect(
+      slotText(
+        'Do I use <code>&lt;label&gt;</code>{" "}\n  or <DocLink href="/x">a <code>for</code></DocLink>?',
+      ),
+    ).toBe("Do I use <label> or a for?")
+  })
+
+  test("reads a string expression as the text it renders, markup and escapes included", () => {
+    expect(
+      slotText(
+        String.raw`Use <code>{"<label>"}</code>, {'it\'s'}, {"&lt;"} and {"a\\nb"}.`,
+      ),
+    ).toBe(String.raw`Use <label>, it's, &lt; and a\nb.`)
+    expect(slotText("Save {`$5`} now")).toBe("Save $5 now")
+    expect(slotText("Hi {`${name}`}")).toBe("Hi {`${name}`}")
+  })
+
+  test("reads the preamble a framework renders, or the description a page exports", () => {
+    const page =
+      '<Fragment slot="preamble">\n  <p>Built on <DocLink href="/a">Anchor</DocLink>.</p>\n  <Conditional as="p">\n    <Fragment slot="components">Wrap it in <code>&lt;Tip&gt;</code>.</Fragment>\n    <Fragment slot="html">Add <code>.ui-tip</code>.</Fragment>\n    <Fragment slot="vue">Use <code>v-tip</code>.</Fragment>\n  </Conditional>\n</Fragment>'
+    expect(
+      (["html", "react", "vue"] as const).map((framework) =>
+        readPreamble(page, framework),
+      ),
+    ).toEqual([
+      "Built on Anchor. Add .ui-tip.",
+      "Built on Anchor. Wrap it in <Tip>.",
+      "Built on Anchor. Use v-tip.",
+    ])
+    expect(
+      readPreamble(`export const description = "A tip."\n${page}`, "html"),
+    ).toBe("A tip.")
+  })
+
+  test("refuses a title, preamble or heading it can't read as text", () => {
+    const page = (body: string) =>
+      readPage("page.astro", `<Fragment slot="title">Page</Fragment>\n${body}`)
+    expect(() =>
+      page(
+        '<Fragment slot="preamble"><p>Use {name} to open it.</p></Fragment>',
+      ),
+    ).toThrow(
+      "page.astro has a preamble or heading the search index can't read: write it as text, or export a description: Use {name} to open it.",
+    )
+    expect(() => page('<h2 id="title">{title}</h2>')).toThrow(
+      "page.astro has a preamble or heading the search index can't read: write it as text, or export a description: {title}",
+    )
+    expect(() =>
+      readPage("page.astro", '<Fragment slot="title">{"A"} {b}</Fragment>'),
+    ).toThrow("page.astro has a title slot the search index can't read")
+    expect(
+      page(
+        '<Fragment slot="preamble"><p>Use <code>{" "}name</code>.</p></Fragment>\n<h2 id="name">The name</h2>',
+      ),
+    ).toMatchObject({
+      sections: [{ id: "name", title: "The name" }],
+      title: "Page",
+    })
+  })
+
+  test("reads a preamble whose Conditional slots are elements or hold Fragments", () => {
+    const page = [
+      '<Fragment slot="preamble">',
+      "  <Fragment>Built on Anchor.</Fragment>",
+      '  <Conditional as="div">',
+      '    <p slot="components">Wrap it in <Fragment>the <code>Tip</code></Fragment> component.</p>',
+      '    <p slot="html">Add <code>.ui-tip</code>.<br>Then style it.</p>',
+      '    <p data-slot="react">Not a slot.</p>',
+      "  </Conditional>",
+      "  <Conditional>",
+      '    <Fragment slot="react">See <Fragment><code>onOpen</code></Fragment>.</Fragment>',
+      "  </Conditional>",
+      "</Fragment>",
+      "<p>After the preamble.</p>",
+    ].join("\n")
+    expect(
+      (["html", "react", "vue"] as const).map((framework) =>
+        readPreamble(page, framework),
+      ),
+    ).toEqual([
+      "Built on Anchor. Add .ui-tip.Then style it.",
+      "Built on Anchor. Wrap it in the Tip component. See onOpen.",
+      "Built on Anchor. Wrap it in the Tip component.",
+    ])
+  })
+
+  test("reads the id and title of each section and h3 with an id, once per id", () => {
+    expect(
+      readSections(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n</section>\n<section id="sizes">\n  <h2>Sizes again</h2>\n</section>\n<h2>Notes</h2>',
+      ),
+    ).toEqual([
+      { id: "sizes", title: "Sizes" },
+      { id: "small", title: "Small sm" },
+    ])
+  })
+
+  test("reads the keywords a page exports", () => {
+    expect(
+      readKeywords(
+        'export const description = "A page."\nexport const keywords = [\n  "modal",\n  "popup",\n]\n',
+      ),
+    ).toEqual(["modal", "popup"])
+    expect(readKeywords('export const description = "A page."')).toEqual([])
+  })
+
+  test("keeps the shared entries and one framework's entries, without the framework id", () => {
+    expect(
+      frameworkIndex(
+        [
+          { ...entry("Blog", "blog-post"), url: "/blog/post" },
+          {
+            ...entry("Component", "component-button-html"),
+            frameworkId: "html",
+            url: "/html/components/button",
+          },
+          {
+            ...entry("Component", "component-button-react"),
+            frameworkId: "react",
+            url: "/react/components/button",
+          },
+        ] as Parameters<typeof frameworkIndex>[0],
+        "react",
+      ).map(({ id, ...item }) => [id, "frameworkId" in item]),
+    ).toEqual([
+      ["blog-post", false],
+      ["component-button-react", false],
+    ])
+  })
+
+  test("reads the h2 of a section with an id and the h3s with an id, in order", () => {
+    expect(
+      readHeadings(
+        '<section id="sizes">\n  <h2>Sizes</h2>\n  <h3 id="small">Small <code>sm</code></h3>\n  <h3>Draft</h3>\n</section>\n<section>\n  <h2>Notes</h2>\n</section>',
+      ),
+    ).toEqual(["Sizes", "Small sm"])
   })
 })
 

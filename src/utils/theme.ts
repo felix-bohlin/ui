@@ -1,5 +1,6 @@
 import { EXAMPLE_THEMES } from "./example-themes"
 import { readStored, removeStored, writeStored } from "./storage"
+import { BUNDLED_FONTS, fontImports, webFontIds } from "./theme-fonts"
 
 export type ThemeTokens = Record<string, string>
 
@@ -165,12 +166,24 @@ export const customCss = (tokens: ThemeTokens) => {
   ].join("\n")
 }
 
-export const exportCss = ({ preset, tokens }: Theme) => {
+export const FONT_FAMILY_TOKENS = [...FONT_TOKENS, "--ui-font-code"]
+
+export const themeFontIds = ({ preset, tokens }: Theme) => {
+  const base = EXAMPLE_THEMES.find((theme) => theme.name === preset)?.tokens
+  return webFontIds(
+    FONT_FAMILY_TOKENS.map((name) => tokens[name] ?? base?.[name]),
+  ).filter((id) => !BUNDLED_FONTS.includes(id))
+}
+
+export const exportCss = (theme: Theme) => {
+  const { preset, tokens } = theme
   const base = presetCss(preset)
   const custom = customCss(tokens)
+  const imports = fontImports(themeFontIds(theme))
+  const fonts = imports ? `${imports}\n\n` : ""
   if (!base && !custom) return PLACEHOLDER_CSS
-  if (!base) return `${LAYERS}\n${custom}`
-  return custom ? `${base.trimEnd()}\n\n${custom}` : base
+  if (!base) return `${fonts}${LAYERS}\n${custom}`
+  return `${fonts}${custom ? `${base.trimEnd()}\n\n${custom}` : base}`
 }
 
 export const normalizeTheme = (value: unknown): Theme => {

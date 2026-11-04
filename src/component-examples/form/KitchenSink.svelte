@@ -39,60 +39,52 @@
       <TextField
         autocomplete="email"
         label="Email Address"
-        type="email"
         placeholder="jane@example.com"
         required
+        type="email"
       />
-      <Select label="Role" items={roleItems} />
+      <Select items={roleItems} label="Role" />
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
     <FieldDescription>
       Configure how you want to receive updates.
     </FieldDescription>
     <FieldGroup>
-      <Switch name="email_notifs" checked>Email Notifications</Switch>
+      <Switch checked name="email_notifs">Email Notifications</Switch>
       <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
-      <Radio value="light" checked>Light Theme</Radio>
+      <Radio checked value="light">Light Theme</Radio>
       <Radio value="dark">Dark Theme</Radio>
       <Radio value="system">System Default</Radio>
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Experience Level</FieldLegend>
-    <FieldDescription>
-      How many years of experience do you have?
-    </FieldDescription>
+    <FieldDescription
+      >How many years of experience do you have?</FieldDescription
+    >
     <FieldGroup>
       <Range
         label="Professional Experience"
-        min="0"
         max="20"
+        min="0"
+        startText="Drag the slider to match your total tenure."
         step="1"
         value="5"
-        startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
@@ -105,9 +97,7 @@
       />
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <Fieldset>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup>
@@ -117,11 +107,9 @@
       </Checkbox>
     </FieldGroup>
   </Fieldset>
-
   <Divider />
-
   <FieldGroup>
-    <Button variant="filled" type="submit">Send</Button>
+    <Button type="submit" variant="filled">Send</Button>
     <Button>Cancel</Button>
   </FieldGroup>
 </Form>

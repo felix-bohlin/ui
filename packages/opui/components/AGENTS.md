@@ -1,6 +1,6 @@
 # UI Component Implementation Guide
 
-This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a React, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.react.tsx`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All should render the same markup as the HTML examples. A framework can add some markup of its own because of how it works (recorded as `.diff` drift next to the parity snapshots), but in general the output is the same. Use it as a reference for maintaining consistency and accessibility across the library.
+This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a React, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.react.tsx`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All should render the same markup as the HTML examples, which `pnpm build-examples` renders from the Astro ones and the parity snapshots in `tests/unit/__snapshots__/` record, and `tests/unit/component-contract.test.ts` compares the four frameworks over every prop value and slot. A framework can add some markup of its own because of how it works (recorded as `.diff` drift next to the parity snapshots), but in general the output is the same. Use it as a reference for maintaining consistency and accessibility across the library.
 
 **CRITICAL INSTRUCTION**: Always use components from this package (imported via `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`) and their corresponding CSS from `packages/opui/css/components/` whenever possible. Avoid writing custom CSS if an existing component or utility can achieve the desired result.
 
@@ -77,7 +77,6 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
     label,
     size,
     variant = "outlined",
-
     // Snippets
     children,
     ...rest
@@ -142,6 +141,7 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 - **Inference**: Default to `"a"` if `href` is present.
 - **Override**: Allow manual override via the `as` prop.
 - **Button type**: A rendered `<button>` gets `type="button"` unless the user passes `type`, so it never submits a form by accident.
+- **Empty unknown elements**: Astro drops the end tag of an empty element it doesn't know, which the browser reads as an unclosed start tag, so `Select` renders `<selectedcontent>` through a variable tag (`const SelectedContent = "selectedcontent"`), which keeps its end tag. `tests/unit/component-whitespace.test.ts` checks the rendered Select for it, and `tests/unit/tooling-bugs.test.ts` says when Astro no longer needs it.
 
 ### Styling Inheritance
 
@@ -164,7 +164,7 @@ Components often share another component's styles (`Accordion` and `Dialog` look
 
 ## 3. Class Management
 
-Use `class:list` exclusively in Astro, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
+Use `class:list` in Astro, or `class={cx([...])}` with `cx` from `../cx` on a variable tag such as `Tag`, which `pnpm check-components` checks, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
 
 Follow this order for readability:
 
@@ -226,9 +226,9 @@ One concept has one prop name and one set of values in every component. `tests/u
   - A boolean is off when it's left out, so its class is never the framework default. Its name says what turning it on does, never what it turns off: no `no`, `non`, `not` or `un` prefix, no `less` suffix, and no `hide` prefix except `hideLabel` (a Tooltip shows its arrow with `arrow`, not `hideArrow`). `.ui-not-rich-text` is the one exception, since it ends a `.ui-rich-text` scope from inside instead of turning off a feature of its own element.
   - When the usual case is the one people turn off, the modifier is an enum with the usual case as its named default (Carousel `buttons`: `inside`, `none`, `outside`).
   - A modifier with several values is an enum named after the concept.
-  - A component never has both for one concept, and never two booleans for one axis (`overflow`, not `scrollable` and `shrink`).
+  - `tests/unit/naming.test.ts` fails on a boolean and an enum for one concept. A component never has two booleans for one axis either (`overflow`, not `scrollable` and `shrink`).
 - **One or many is the native `multiple`,** layout along an axis is `orientation` and overflow along it is `overflow`.
-- **`align` has one default per part,** wherever the part appears. `.ui-actions` and `.ui-footer` line up at the end in every container that has them.
+- **`align` has one default per part,** wherever the part appears: `tests/unit/align.test.ts` renders every part with an `align` option in every framework.
 - **Text:**
   - The primary text of anything is `label`, a string prop with a slot of the same name for rich content. Secondary text is `description`. Never `headline`, `text` or `title`.
   - Item objects (`MenuItem`, `RangeItem`, `SelectItem`) use `label`, `value` and `description`, and a list of them is `items`.
@@ -304,19 +304,21 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 Form controls (TextField, Textarea, Select, Range, Checkbox, Radio, Switch), ListItem, Chip, Badge and the like keep a prop and slot API. A text region takes a string prop as a shorthand and a named slot (Astro, Vue), snippet (Svelte) or `ReactNode` prop (React) for rich content.
 
 ```astro
+---
+import { trimEdges } from "../whitespace"
+
+const labelSlot = Astro.slots.has("label")
+  ? trimEdges(await Astro.slots.render("label"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
+---
+
 <div class="ui-component">
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
+  <LabelTag class="ui-label">{label}<Fragment set:html={labelSlot} /></LabelTag>
 </div>
 ```
 
-Check that a named slot exists before rendering its wrapper.
+Check that a named slot exists before rendering its wrapper. `tests/unit/component-whitespace.test.ts` checks the whitespace around every slot in the `api.ts` files, and `tests/unit/component-formatting.test.ts` that a component renders the same from its source formatted at printWidth 40 and 200.
 
 ---
 
@@ -345,13 +347,18 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 
 ### End Text & ARIA
 
-When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
+When providing `endText`, give it a part id (see [Unique IDs](#unique-ids)) and link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
 
 ```astro
 ---
-const { "aria-describedby": ariaDescribedBy, endText, ...rest } = Astro.props
-const $id = createId(Astro.locals)
-const endTextId = endText ? $id("end-text") : undefined
+const {
+  "aria-describedby": ariaDescribedBy,
+  endText,
+  id,
+  ...rest
+} = Astro.props
+const ids = createIds(Astro.locals, "number-field", id)
+const endTextId = endText ? ids("end-text") : undefined
 ---
 
 <input {...rest} aria-describedby={idRefs(endTextId, ariaDescribedBy)} />
@@ -412,6 +419,8 @@ When building forms, follow this nesting order inside a `Fieldset`:
 
 Always use `createId(Astro.locals)` from `../id` for IDs in Astro. It falls back to random IDs when no middleware sets `Astro.locals.$id`. In React and Vue, use `useId()`, and in Svelte, `$props.id()`. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page. Only generate an id for elements the component links itself; don't generate an input `id` the user didn't pass.
 
+A component with several linked parts takes one base per instance, the `id` the user passed or one generated id, and names each part after it: `${base}-label`, `${base}-start-text`, `${base}-end-text`. In Astro, `createIds(Astro.locals, prefix, id)` from `../id` returns that function and asks `$id` for the base at most once; in React, Svelte and Vue the base is `` id ?? `${prefix}-${uid}` ``. `tests/unit/component-ids.test.ts` checks it in every framework.
+
 ```astro
 ---
 const $id = createId(Astro.locals)
@@ -454,10 +463,10 @@ type Props = { items?: Item[] }
 
 ## 8. Development Workflow
 
-1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.react.tsx`, `.svelte` and `.vue` per example). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
+1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.react.tsx`, `.svelte` and `.vue` per example, written from the `.astro` one by `pnpm build-examples`). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
 2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). `[component-api]` problems in `pnpm test` and the build list what it's missing.
-3.  **Implement**: Follow the checklist in Section 0, for Astro, React, Svelte and Vue.
-4.  **Verify**: Run `pnpm exec vitest run tests/unit/parity.test.ts`, then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+3.  **Implement**: Write the Astro file, `types.ts` and `types.astro.ts` first, following the checklist in Section 0, then run `pnpm build-components`: it compiles the React, Svelte and Vue files and the framework type files, or names the construct it can't compile. For a component in `scripts/hand-written-components.json`, `/port-component <Name>` (`.claude/skills/port-component/SKILL.md`) writes or updates the three files and loops on the component tests.
+4.  **Verify**: Run `pnpm exec vitest run tests/unit/component-contract.test.ts tests/unit/parity.test.ts -t <Name>`, then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 ---
 
@@ -522,12 +531,18 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
+- `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
+- `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
 - `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
+- `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.
+- `SortableTable`: the sort arrow is a mask, so it gets `ButtonText`.
 - `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
+- `Stepper`: complete and error markers and the line after a complete step are fills, so they get `CanvasText`, the current marker `Highlight` and the line to a later step `GrayText`.
 - `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
 - `TextField`: the field border is real, but the focus outline gets `Highlight` and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers between buttons are shadows, so they become `CanvasText` borders.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
@@ -535,10 +550,13 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Anchor`, `Form`, `Layout`, `DescriptionList`: layout only, no boundary or state of their own.
+- `Anchor`, `Copy`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own. The green copied state of a `Copy` button is a second cue next to its announcement.
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
+- `Toaster`: every toast is a `Callout`, whose boundary is a real border.
+- `Stat`: text only, no boundary or state.
+- `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
@@ -558,3 +576,9 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 
 A new stylesheet goes in the group of the layer it declares, and a file that needs a layer its group doesn't allow moves group instead of opening the layer.
+
+---
+
+## 11. Motion
+
+A hover, pressed, checked or selected change that recolors or moves a control transitions, over a `--_*duration` the component scales by `--_motion` (Stylelint's `opui/motion-duration`) and with its `--_ease`, so it matches `Button` next to it. A control a click or tap turns on and off (`Checkbox`, `Radio`, `Switch`) is the exception: it changes at once both ways, so a click never looks unheard, and only its hover halo and focus ring animate. Rows you sweep the pointer across (`List`, `Menu` and `Table` rows, `Select` options) change at once on hover, with `transition-duration: 0s` in the `:hover` rule, and fade back over `--ui-duration-fast`, so a menu never lags behind the pointer. A change of the line itself (`text-decoration-line`, a `text-decoration-thickness` from `auto`) can't interpolate and stays a jump. Movement a theme may make springy (an indicator, a press, an overlay opening) reads `var(--ui-ease-move, var(--_ease))`, and nothing closing does: an overlay sets a private `--_ease-move` to it only in its open state. A press reads `scale: var(--ui-press-scale, none)`, except in a group.

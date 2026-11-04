@@ -14,22 +14,22 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     need, and you're set.
   </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
-      The components ship as uncompiled single-file components (<code>.vue</code
-      > and <code>.ts</code>), so your build has to compile them. They need Vue
-      3.5 or later, so add <code>vue</code> if it isn't installed yet. Any setup with
-      Vue SFC support works, for example Vite with <code
-        >@vitejs/plugin-vue</code
-      >, Nuxt, or Astro with <code>@astrojs/vue</code>.
+      The components ship as uncompiled single-file components
+      (<code>.vue</code> and <code>.ts</code>), so your build has to compile
+      them. They need Vue 3.5 or later, so add <code>vue</code> if it isn't
+      installed yet. Any setup with Vue SFC support works, for example Vite with
+      <code>@vitejs/plugin-vue</code>, Nuxt, or Astro with
+      <code>@astrojs/vue</code>.
     </p>
     <InstallCommand />
     <p>
       For server rendering, the server build has to compile the package too,
-      since Node can't load <code>.vue</code> files from <code
-        >node_modules</code
-      >. In Nuxt, add it to <code>build.transpile</code>:
+      since Node can't load <code>.vue</code> files from
+      <code>node_modules</code>. In Nuxt, add it to <code>build.transpile</code
+      >:
     </p>
     <Code
       code={`// nuxt.config.ts
@@ -54,8 +54,8 @@ export default defineConfig({
     />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
       Vue components ship markup only - the CSS still has to be imported once,
       in the entry file that creates your app. Import everything:
@@ -70,13 +70,13 @@ createApp(App).mount("#app")`}
       lang="ts"
     />
     <p>
-      Or pick and choose in a CSS file, and import that file in <code
-        >main.ts</code
-      > instead:
+      Or pick and choose in a CSS file, and import that file in
+      <code>main.ts</code> instead:
     </p>
     <PickAndChoose file="src/styles/main.css">
       <p>
-        In Nuxt, add the file to <code>css</code> in <code>nuxt.config.ts</code> instead.
+        In Nuxt, add the file to <code>css</code> in <code>nuxt.config.ts</code>
+        instead.
       </p>
     </PickAndChoose>
     <Code
@@ -86,8 +86,8 @@ import "./styles/main.css"`}
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`<script setup lang="ts">
 import { Button } from "opui-css/vue"
@@ -99,52 +99,55 @@ import { Button } from "opui-css/vue"
       lang="vue"
     />
     <p>
-      Containers take parts, such as <code>CardHeader</code> and <code
-        >DialogFooter</code
-      >. Other components take named slots for rich content, such as <code
-        >end-text</code
-      > on a <code>TextField</code>.
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other components take named slots for rich
+      content, such as <code>end-text</code> on a <code>TextField</code>.
     </p>
     <NextSteps />
   </section>
 
-  <section>
-    <h2 id="ssr">Server rendering</h2>
+  <section id="ssr">
+    <h2>Server rendering</h2>
     <p>
-      Without hydration (Nuxt, or Astro with <code>@astrojs/vue</code> and no <code
-        >client:*</code
-      > directive), every component renders complete HTML. The native controls work
-      and submit with their form. A few things only update on the client:
+      Without hydration (Nuxt, or Astro with <code>@astrojs/vue</code> and no
+      <code>client:*</code> directive), every component renders complete HTML.
+      The native controls work and submit with their form. A few things only
+      update on the client:
     </p>
     <ul>
       <li>
         <DocLink href="/components/checkbox#indeterminate">Checkbox</DocLink>
         <code>indeterminate</code>: it's a DOM property, so the box looks
-        unchecked. Or call <code>activateIndeterminate()</code> from <code
-          >opui-css/css/js/checkbox.js</code
-        >.
+        unchecked. Or import <code>opui-css/css/js/checkbox.js</code> in the
+        page.
       </li>
       <li>
-        <DocLink href="/components/range#value">Range</DocLink> value: the <code
-          >&lt;output&gt;</code
-        > doesn't follow the thumb. The track fill is CSS, so it's fine.
+        <DocLink href="/components/range#value">Range</DocLink> value: the
+        <code>&lt;output&gt;</code> doesn't follow the thumb. The track fill is
+        CSS, so it's fine.
       </li>
       <li>
-        <code>v-model</code> on <DocLink href="/components/checkbox"
-          >Checkbox</DocLink
-        >, <DocLink href="/components/radio">Radio</DocLink>, <DocLink
-          href="/components/range">Range</DocLink
-        >, <DocLink href="/components/select">Select</DocLink>, <DocLink
-          href="/components/switch">Switch</DocLink
-        >, <DocLink href="/components/text-field">Text field</DocLink> and <DocLink
-          href="/components/textarea">Textarea</DocLink
-        >: the ref stays put. The native value still changes and submits.
+        <code>v-model</code> on
+        <DocLink href="/components/checkbox">Checkbox</DocLink>,
+        <DocLink href="/components/number-field">Number field</DocLink>,
+        <DocLink href="/components/one-time-code">One-time code</DocLink>,
+        <DocLink href="/components/radio">Radio</DocLink>,
+        <DocLink href="/components/range">Range</DocLink>,
+        <DocLink href="/components/rating">Rating</DocLink>,
+        <DocLink href="/components/select">Select</DocLink>,
+        <DocLink href="/components/switch">Switch</DocLink>,
+        <DocLink href="/components/tabs">Tabs</DocLink>,
+        <DocLink href="/components/text-field">Text field</DocLink>,
+        <DocLink href="/components/textarea">Textarea</DocLink> and
+        <DocLink href="/components/toggle">Toggle</DocLink>: the ref stays put.
+        The native value still changes and submits.
       </li>
     </ul>
     <p>
-      Hydrate those (<code>client:load</code> in Astro) or use them in a client-rendered
-      Vue app. Component pages say what needs hydration next to the browser support
-      chips, and the API tables mark each prop with a crossed-out server icon.
+      Hydrate those (<code>client:load</code> in Astro) or use them in a
+      client-rendered Vue app. Component pages say what needs hydration next to
+      the browser support chips, and the API tables mark each prop with a
+      crossed-out server icon.
     </p>
   </section>
 </Guide>

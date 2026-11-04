@@ -11,45 +11,40 @@ import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
 >
   <Fragment slot="title">Blocks</Fragment>
   <Fragment slot="preamble">
-    Very generic SaaS'y-looking blocks, but they are fully functional and if
-    nothing else shows you how the components play together in different
-    scenarios. Every block is plain HTML and CSS, the same on every framework;
-    the <DocLink href="/components">component</DocLink> links follow the framework
-    you picked.
+    Very generic SaaS'y-looking blocks: static markup that shows you how the
+    components play together in different scenarios. The search fields, filters,
+    date ranges and the file manager's sort and select all aren't wired up, and
+    four blocks import the library's custom elements. Every block is the same on
+    every framework; the <DocLink href="/components">component</DocLink> links
+    follow the framework you picked.
   </Fragment>
 
-  {
-    blockGroups.map((group) => (
-      <section class="ui-not-rich-text">
-        <h2 id={group.id}>{group.label}</h2>
-        <ul class="block-grid">
-          {group.blocks.map((block) => (
-            <li>
-              <article class="ui-card ui-outlined">
-                <div class="block-thumbnail">
-                  <iframe
-                    inert
-                    loading="lazy"
-                    src={blockPreviewHref(block.slug)}
-                    tabindex="-1"
-                    title={`${block.name} preview`}
-                  />
-                </div>
-                <hgroup>
-                  <h3>
-                    <a class="ui-card-link" href={blockHref(block.slug)}>
-                      {block.name}
-                    </a>
-                  </h3>
-                  <p>{block.description}</p>
-                </hgroup>
-              </article>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
-  }
+  {blockGroups.map((group) => <section class="ui-not-rich-text" id={group.id}>
+    <h2>{group.label}</h2>
+    <ul class="block-grid">
+      {group.blocks.map((block) => <li>
+        <article class="ui-card ui-outlined">
+          <div class="block-thumbnail">
+            <iframe
+              inert
+              loading="lazy"
+              src={blockPreviewHref(block.slug)}
+              tabindex="-1"
+              title={`${block.name} preview`}
+            />
+          </div>
+          <hgroup>
+            <h3>
+              <a class="ui-card-link" href={blockHref(block.slug)}>
+                {block.name}
+              </a>
+            </h3>
+            <p>{block.description}</p>
+          </hgroup>
+        </article>
+      </li>)}
+    </ul>
+  </section>)}
 </Blocks>
 
 <style>

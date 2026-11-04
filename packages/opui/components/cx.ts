@@ -1,5 +1,10 @@
 type ClassValue =
-  ClassValue[] | Record<string, unknown> | string | false | null | undefined
+  | ClassValue[]
+  | Record<string, unknown>
+  | string
+  | false
+  | null
+  | undefined
 
 const flatten = (value: ClassValue): string[] => {
   if (!value) return []

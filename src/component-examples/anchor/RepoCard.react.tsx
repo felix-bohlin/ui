@@ -14,9 +14,9 @@ export default function RepoCard() {
       <div>
         The source lives in{" "}
         <Anchor
+          id="anchor-repo-card-1"
           positionArea="block-end span-inline-end"
           trigger="hover"
-          id="anchor-repo-card-1"
         >
           <a
             className="ui-link"
@@ -26,13 +26,13 @@ export default function RepoCard() {
             felix-bohlin/ui
           </a>
           <AnchorContent>
-            <Card variant="elevated" className="repo-card">
+            <Card className="repo-card" variant="elevated">
               <CardContent>
                 <div className="repo-card-identity">
                   <Avatar
-                    src="https://github.com/felix-bohlin.png"
                     alt=""
                     shape="rounded"
+                    src="https://github.com/felix-bohlin.png"
                   />
                   <div>
                     <strong>felix-bohlin/ui</strong>
@@ -46,7 +46,7 @@ export default function RepoCard() {
                 <p className="ui-caption">CSS, MIT license</p>
               </CardContent>
               <CardActions>
-                <Button variant="outlined" size="small">
+                <Button size="small" variant="outlined">
                   Star
                 </Button>
               </CardActions>

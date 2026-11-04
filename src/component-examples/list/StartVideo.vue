@@ -4,24 +4,26 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Headline" description="Supporting text">
-      <template #start
-        ><video controls muted>
+    <ListItem description="Supporting text" label="Headline">
+      <template #start>
+        <video controls muted>
           <source
             src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
             type="video/mp4"
-          /></video
-      ></template>
+          />
+        </video>
+      </template>
       <template #end>13:37</template>
     </ListItem>
-    <ListItem label="Headline" description="Supporting text">
-      <template #start
-        ><video controls muted>
+    <ListItem description="Supporting text" label="Headline">
+      <template #start>
+        <video controls muted>
           <source
             src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
             type="video/mp4"
-          /></video
-      ></template>
+          />
+        </video>
+      </template>
       <template #end>90s</template>
     </ListItem>
   </List>

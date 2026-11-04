@@ -2,21 +2,22 @@ import { existsSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
-import { parseFragment, type DefaultTreeAdapterMap } from "parse5"
 import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
 import type { Component as SvelteComponent } from "svelte"
 import { render } from "svelte/server"
 import { createSSRApp, type Component as VueComponent } from "vue"
 import { renderToString } from "vue/server-renderer"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test, vi } from "vitest"
+import { readExample } from "../../scripts/build-examples.mjs"
+import { parseHtml, serialize } from "../../scripts/html-tokens.mjs"
 import {
   DEFAULT_FRAMEWORK,
   exampleExtension,
   FRAMEWORK_IDS as FRAMEWORKS,
   type FrameworkId as Framework,
 } from "../../src/utils/framework"
-import { createIdGenerator } from "../../src/utils/id"
+import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
 
 const RECORD = !!process.env.PARITY_RECORD
@@ -49,6 +50,8 @@ const EXAMPLE_CLASSES = new Set(
     ),
   ),
 )
+
+const KNOWN_DIFFERENCES: Record<string, string> = {}
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
@@ -112,14 +115,36 @@ const renderers: {
       },
     }),
   html: async (loaded) => loaded,
-  react: async (loaded) =>
-    renderReact(createElement(loaded.default)).replace(
-      /<link rel="preload" as="image"[^>]*\/>/g,
-      "",
-    ),
+  react: async (loaded, key) => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {})
+    try {
+      const html = renderReact(createElement(loaded.default))
+      if (spy.mock.calls.length > 0) {
+        throw new Error(
+          `${key} logged a React error: ${String(spy.mock.calls[0][0]).slice(0, 200)}`,
+        )
+      }
+      return html.replace(/<link rel="preload" as="image"[^>]*\/>/g, "")
+    } finally {
+      spy.mockRestore()
+    }
+  },
   svelte: async (loaded) => render(loaded.default).body,
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }
+
+test("the React renderer fails on a console.error", async () => {
+  const Controlled = () => createElement("input", { value: "x" })
+  await expect(
+    renderers.react({ default: Controlled }, "sample/Controlled"),
+  ).rejects.toThrow("sample/Controlled logged a React error")
+  expect(
+    await renderers.react(
+      { default: () => createElement("input", { defaultValue: "x" }) },
+      "sample/Uncontrolled",
+    ),
+  ).toBe('<input value="x"/>')
+})
 
 const renderExample = <F extends Framework>(example: Example, framework: F) =>
   example.loaders[framework]!().then((loaded) =>
@@ -135,23 +160,45 @@ const rendered = (example: Example, framework: Framework) => {
   return renders.get(cacheKey)!
 }
 
+const styles = new Map<string, Promise<string[]>>()
+const exampleCss = (example: Example) => {
+  if (!styles.has(example.key)) {
+    const source =
+      exampleSources[`../../src/component-examples/${example.key}.astro`]
+    styles.set(
+      example.key,
+      source
+        ? readExample(source, `${example.key}.astro`).then(
+            ({ styles }) => styles,
+          )
+        : Promise.resolve([]),
+    )
+  }
+  return styles.get(example.key)!
+}
+
+const COMMENTED: Framework[] = ["astro", "html"]
+
 const cache = new Map<string, Promise<string>>()
-const markup = (example: Example, framework: Framework) => {
-  const cacheKey = `${example.key}.${framework}`
+const markup = (
+  example: Example,
+  framework: Framework,
+  comments = COMMENTED.includes(framework),
+) => {
+  const cacheKey = `${example.key}.${framework}.${comments}`
   if (!cache.has(cacheKey)) {
-    cache.set(cacheKey, rendered(example, framework).then(normalize))
+    cache.set(
+      cacheKey,
+      Promise.all([rendered(example, framework), exampleCss(example)]).then(
+        ([html, css]) => normalize(html, { comments, css }),
+      ),
+    )
   }
   return cache.get(cacheKey)!
 }
 
-const idPattern = (key: string) => {
-  const [slug, name] = key.split("/")
-  const example = name
-    .replace(/Code$/, "")
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .toLowerCase()
-  return new RegExp(`^${slug}-${example}-\\d+(-[a-z]+)*$`)
-}
+const idPattern = (key: string) =>
+  new RegExp(`^${exampleIdBase(key)}-\\d+(-[a-z]+)*$`)
 
 const authoredIds = async (example: Example, framework: Framework) => {
   const source =
@@ -164,29 +211,27 @@ const authoredIds = async (example: Example, framework: Framework) => {
 }
 
 const exposedSvgs = (
-  nodes: DefaultTreeAdapterMap["childNode"][],
+  nodes: ReturnType<typeof parseHtml>,
   hidden = false,
 ): string[] =>
   nodes.flatMap((node) => {
-    if (!("tagName" in node)) return []
+    if (node.type !== "element") return []
     const attribute = (name: string) =>
-      node.attrs.find((attr) => attr.name === name)?.value
+      node.attrs.find((attr: { name: string }) => attr.name === name)?.value
     const inner = hidden || attribute("aria-hidden") === "true"
     const named =
       attribute("aria-label") ||
       attribute("aria-labelledby") ||
-      node.childNodes.some(
-        (child) => "tagName" in child && child.tagName === "title",
+      node.children.some(
+        (child: { type: string; tag?: string }) =>
+          child.type === "element" && child.tag === "title",
       )
-    if (node.tagName === "svg" && !inner && !named) {
+    if (node.tag === "svg" && !inner && !named) {
       return [
-        `<svg ${node.attrs.map(({ name, value }) => `${name}="${value}"`).join(" ")}>`,
+        `<svg ${node.attrs.map(({ name, value }: { name: string; value: string }) => `${name}="${value}"`).join(" ")}>`,
       ]
     }
-    return exposedSvgs(
-      "content" in node ? node.content.childNodes : node.childNodes,
-      inner,
-    )
+    return exposedSvgs(node.children, inner)
   })
 
 describe.each(cases)("$key", (example) => {
@@ -213,9 +258,17 @@ describe.each(cases)("$key", (example) => {
     },
   )
 
+  test.each(frameworks)(
+    "%s parses back to its own markup",
+    async (framework) => {
+      const html = await rendered(example, framework)
+      expect(serialize(parseHtml(html))).toBe(html)
+    },
+  )
+
   test.each(frameworks)("%s hides decorative svgs", async (framework) => {
     expect(
-      exposedSvgs(parseFragment(await rendered(example, framework)).childNodes),
+      exposedSvgs(parseHtml(await rendered(example, framework))),
       'decorative svgs need aria-hidden="true"; name the others with aria-label or a <title>',
     ).toEqual([])
   })
@@ -246,10 +299,23 @@ describe.each(cases)("$key", (example) => {
       return reference ? [[framework, reference]] : []
     }),
   )("%s matches %s", async (framework, reference) => {
+    const comments = [framework, reference].every((name) =>
+      COMMENTED.includes(name),
+    )
     const [expected, actual] = await Promise.all([
-      markup(example, reference),
-      markup(example, framework),
+      markup(example, reference, comments),
+      markup(example, framework, comments),
     ])
+    const known = [framework, reference]
+      .map((name) => `${example.key}: ${name}`)
+      .find((name) => name in KNOWN_DIFFERENCES)
+    if (known) {
+      expect(
+        actual,
+        `${known} is in KNOWN_DIFFERENCES (${KNOWN_DIFFERENCES[known]}) but no longer differs; delete it`,
+      ).not.toBe(expected)
+      return
+    }
     const driftFile = `__snapshots__/${example.key}.${framework}.diff`
     const recorded = existsSync(new URL(driftFile, import.meta.url))
 

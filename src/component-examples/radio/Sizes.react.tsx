@@ -5,37 +5,37 @@ export default function Sizes() {
     <>
       <div className="example-row">
         <Radio
+          defaultChecked
+          hideLabel
           name="radio-sizes-x-small"
           size="x-small"
           value="selected"
-          defaultChecked
-          hideLabel
         >
           Selected
         </Radio>
         <Radio
+          defaultChecked
+          hideLabel
           name="radio-sizes-small"
           size="small"
           value="selected"
-          defaultChecked
-          hideLabel
         >
           Selected
         </Radio>
         <Radio
+          defaultChecked
+          hideLabel
           name="radio-sizes-medium"
           value="selected"
-          defaultChecked
-          hideLabel
         >
           Selected
         </Radio>
         <Radio
+          defaultChecked
+          hideLabel
           name="radio-sizes-large"
           size="large"
           value="selected"
-          defaultChecked
-          hideLabel
         >
           Selected
         </Radio>

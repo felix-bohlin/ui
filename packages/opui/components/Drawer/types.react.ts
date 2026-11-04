@@ -1,8 +1,7 @@
 import type * as Base from "./types"
 import type { ComponentProps } from "react"
 
-export type Props = Base.Props &
-  Omit<ComponentProps<"dialog">, "closedby" | "id">
+export type Props = Base.Props & ComponentProps<"dialog">
 
 export type DrawerContentProps = Base.DrawerContentProps & ComponentProps<"div">
 

@@ -1,20 +1,15 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import type { Props, Slots } from "./types.vue-props"
 
-const { as = "legend" } = defineProps<Props>()
+const { as: Tag = "legend" } = defineProps<Props>()
 defineSlots<Slots>()
 
-defineOptions({
-  inheritAttrs: false,
-})
+const isLegend = computed(() => Tag === "legend")
 </script>
 
 <template>
-  <component
-    :is="as"
-    :class="[{ 'ui-legend': as !== 'legend' }, $props.class]"
-    v-bind="$attrs"
-  >
+  <component :is="Tag" :class="[{ 'ui-legend': !isLegend }, $props.class]">
     <slot></slot>
   </component>
 </template>

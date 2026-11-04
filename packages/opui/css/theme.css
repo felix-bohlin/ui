@@ -22,7 +22,7 @@
 
     /* Palette - the knobs core/palette.css derives --ui-color-1 to --ui-color-16 from */
     --ui-palette-chroma: 0.5;
-    --ui-palette-hue: 145;
+    --ui-palette-hue: 222.8;
     --ui-palette-hue-rotate-by: 0;
     /* --ui-palette-source: oklch(0.58 calc(0.21 * 0.5) 240); */
 
@@ -121,12 +121,14 @@
 
     /* Motion */
     --ui-duration-fast: 0.1s;
-    --ui-duration: 0.2s;
-    --ui-duration-slow: 0.3s;
+    --ui-duration: 0.15s;
+    --ui-duration-slow: 0.25s;
     --ui-ease: ease;
     --ui-ease-enter: cubic-bezier(0, 0, 0.3, 1);
-    --ui-ease-exit: cubic-bezier(0.7, 0, 1, 1);
+    --ui-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+    /* --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1); */
     --ui-motion: 1;
+    /* --ui-press-scale: 0.97; */
 
     /* Contrast */
     --ui-contrast: normal;
@@ -466,7 +468,13 @@
     );
 
     /* Primary */
-    --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
+    --ui-primary-source: light-dark(
+      oklch(
+        from var(--ui-palette-source) 0.499 min(0.191, calc(0.382 * (c / 0.21)))
+          h
+      ),
+      var(--ui-color-6)
+    );
     --ui-primary: light-dark(
       oklch(
         from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c

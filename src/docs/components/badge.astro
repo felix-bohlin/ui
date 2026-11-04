@@ -16,6 +16,8 @@ import badgeApi from "../../component-api/badge/api"
 import BadgeBuild from "../../components/UnderTheHood/BadgeBuild.astro"
 export const description =
   "Badges attach a small count or status dot to another element."
+
+export const keywords = ["counter", "dot", "indicator", "notification count"]
 ---
 
 <Component
@@ -47,83 +49,76 @@ export const description =
   <Usage slot="usage">
     <li slot="when">A count on an icon or a button, like unread messages.</li>
     <li slot="when">
-      A status dot on an avatar or an item, like online, with <PropOrClass
-        prop="dot"
-        class=".ui-dot"
-      />.
+      A status dot on an avatar or an item, like online, with
+      <PropOrClass prop="dot" class=".ui-dot" />.
     </li>
     <li slot="when-not">
-      A status or a tag in words, like Paid. Use a <DocLink
-        href="/components/chip">Chip</DocLink
-      >.
+      A status or a tag in words, like Paid. Use a
+      <DocLink href="/components/chip">Chip</DocLink>.
     </li>
     <li slot="when-not">
-      A message that takes a sentence or two. Use a <DocLink
-        href="/components/callout">Callout</DocLink
-      >.
+      A message that takes a sentence or two. Use a
+      <DocLink href="/components/callout">Callout</DocLink>.
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <p>
-      Use <PropOrClass prop="dot" class=".ui-dot" /> to show a dot instead of the
-      label.
+      Use <PropOrClass prop="dot" class=".ui-dot" /> to show a dot instead of
+      the label.
     </p>
 
     <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="colors">Colors</h2>
+  <section id="colors">
+    <h2>Colors</h2>
     <p>
-      Color the indicator with <PropOrClass
-        prop='color="critical"'
-        class=".ui-critical"
-      />, <PropOrClass prop='color="info"' class=".ui-info" />, <PropOrClass
-        prop='color="neutral"'
-        class=".ui-neutral"
-      />, <PropOrClass prop='color="success"' class=".ui-success" /> or <PropOrClass
-        prop='color="warning"'
-        class=".ui-warning"
-      />.
+      Color the indicator with
+      <PropOrClass prop='color="critical"' class=".ui-critical" />,
+      <PropOrClass prop='color="info"' class=".ui-info" />,
+      <PropOrClass prop='color="neutral"' class=".ui-neutral" />,
+      <PropOrClass prop='color="success"' class=".ui-success" /> or
+      <PropOrClass prop='color="warning"' class=".ui-warning" />.
     </p>
 
     <AutoExample name="Colors" row />
   </section>
 
-  <section>
-    <h2 id="indicator">Indicator</h2>
+  <section id="indicator">
+    <h2>Indicator</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Set the indicator text with <code>label</code>. When the visible text is
-        short, like a count, set <code>hideLabel</code> and pass the whole sentence
-        as <code>label</code>, such as "5 unread messages", and the short form
-        in the <code>indicator</code> slot. Screen readers read the label and skip
-        the slot. The default slot holds the anchored element.
+        short, like a count, set <code>hideLabel</code> and pass the whole
+        sentence as <code>label</code>, such as "5 unread messages", and the
+        short form in the <code>indicator</code> slot. Screen readers read the
+        label and skip the slot. The default slot holds the anchored element.
       </Fragment>
       <Fragment slot="html">
         Put the indicator text inside <code>.ui-indicator</code>. When the
-        visible text is short, like a count, give it <code
-          >aria-hidden="true"</code
-        > and put the whole sentence, such as "5 unread messages", in a <code
-          >.ui-sr-only</code
-        > element next to it. The anchored element is the badge's direct child before
+        visible text is short, like a count, give it
+        <code>aria-hidden="true"</code> and put the whole sentence, such as "5
+        unread messages", in a <code>.ui-sr-only</code> element next to it. The
+        anchored element is the badge's direct child before
         <code>.ui-floating</code>.
       </Fragment>
       <Fragment slot="react">
         Set the indicator text with <code>label</code>. When the visible text is
-        short, like a count, set <code>hideLabel</code> and pass the whole sentence
-        as <code>label</code>, such as "5 unread messages", and the short form
-        in the <code>indicator</code> prop. Screen readers read the label and skip
-        the indicator. <code>children</code> is the anchored element.
+        short, like a count, set <code>hideLabel</code> and pass the whole
+        sentence as <code>label</code>, such as "5 unread messages", and the
+        short form in the <code>indicator</code> prop. Screen readers read the
+        label and skip the indicator. <code>children</code> is the anchored
+        element.
       </Fragment>
       <Fragment slot="svelte">
         Set the indicator text with <code>label</code>. When the visible text is
-        short, like a count, set <code>hideLabel</code> and pass the whole sentence
-        as <code>label</code>, such as "5 unread messages", and the short form
-        in the <code>indicator</code> snippet. Screen readers read the label and skip
-        the snippet. The <code>children</code> snippet holds the anchored element.
+        short, like a count, set <code>hideLabel</code> and pass the whole
+        sentence as <code>label</code>, such as "5 unread messages", and the
+        short form in the <code>indicator</code> snippet. Screen readers read
+        the label and skip the snippet. The <code>children</code> snippet holds
+        the anchored element.
       </Fragment>
     </Conditional>
     <p>
@@ -135,8 +130,8 @@ export const description =
     <AutoExample name="Indicator" row />
   </section>
 
-  <section>
-    <h2 id="visibility">Visibility</h2>
+  <section id="visibility">
+    <h2>Visibility</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Change the badge's visibility using the <code>invisible</code>{" "}
@@ -160,20 +155,18 @@ export const description =
     </AutoExample>
   </section>
 
-  <section>
-    <h2 id="corners">Corners</h2>
+  <section id="corners">
+    <h2>Corners</h2>
     <p>The corner of the child the badge sits on.</p>
     <Conditional as="div">
       <p slot="components">
-        Set <code>corner</code> to <code>start-start</code>, <code
-          >start-end</code
-        >
-        (the default), <code>end-start</code> or <code>end-end</code>.
+        Set <code>corner</code> to <code>start-start</code>,
+        <code>start-end</code> (the default), <code>end-start</code> or
+        <code>end-end</code>.
       </p>
       <p slot="html">
         <code>.ui-start-start</code>, default (<code>start-end</code>, no
-        class),
-        <code>.ui-end-start</code>, <code>.ui-end-end</code>.
+        class), <code>.ui-end-start</code>, <code>.ui-end-end</code>.
       </p>
     </Conditional>
 
@@ -195,15 +188,16 @@ export const description =
           >
           <Fragment slot="html"
             >a <code>.ui-sr-only</code> element inside <code>.ui-indicator</code
-            >, with <code>aria-hidden="true"</code> on the visible text.</Fragment
+            >, with <code>aria-hidden="true"</code> on the visible
+            text.</Fragment
           >
         </Conditional>
       </li>
       <li>
         The indicator sits next to the anchored element, not inside it. On a
-        button or a link, put the sentence in its name too, such as <code
-          >aria-label="Inbox, 5 unread messages"</code
-        >, since the name is what's read when it's focused.
+        button or a link, put the sentence in its name too, such as
+        <code>aria-label="Inbox, 5 unread messages"</code>, since the name is
+        what's read when it's focused.
       </li>
     </ul>
   </Fragment>
@@ -217,11 +211,12 @@ export const description =
           width="32"
           height="32"
           viewBox="0 0 32 32"
-          ><path
+        >
+          <path
             fill="currentColor"
             d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-          ></path></svg
-        >
+          ></path>
+        </svg>
       </UIBadge>
     </Anatomy>
   </Fragment>

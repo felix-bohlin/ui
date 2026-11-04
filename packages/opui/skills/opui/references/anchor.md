@@ -42,7 +42,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ```html
 <span class="ui-anchor" style="--ui-anchor-position-area: inline-end">
-  <button type="button" class="ui-button ui-outlined">Export</button>
+  <button class="ui-button ui-outlined" type="button">Export</button>
   <span class="ui-floating">
     <div class="ui-card ui-tonal coach-mark">
       <div class="ui-content">
@@ -81,7 +81,7 @@ import {
 <Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
-    <Card variant="tonal" class="coach-mark">
+    <Card class="coach-mark" variant="tonal">
       <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
       </CardContent>
@@ -89,7 +89,7 @@ import {
   </AnchorContent>
 </Anchor>
 
-<style>
+<style is:global>
   .coach-mark {
     font-size: var(--ui-font-size-body);
     margin-inline-start: var(--ui-space-2);
@@ -121,7 +121,7 @@ export default function AlwaysVisible() {
       <Anchor positionArea="inline-end">
         <Button variant="outlined">Export</Button>
         <AnchorContent>
-          <Card variant="tonal" className="coach-mark">
+          <Card className="coach-mark" variant="tonal">
             <CardContent>
               <strong>New</strong> Export to PDF and CSV from the same menu.
             </CardContent>
@@ -160,7 +160,7 @@ export default function AlwaysVisible() {
 <Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
-    <Card variant="tonal" class="coach-mark">
+    <Card class="coach-mark" variant="tonal">
       <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
       </CardContent>
@@ -194,7 +194,7 @@ import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/vue"
   <Anchor positionArea="inline-end">
     <Button variant="outlined">Export</Button>
     <AnchorContent>
-      <Card variant="tonal" class="coach-mark">
+      <Card class="coach-mark" variant="tonal">
         <CardContent>
           <strong>New</strong> Export to PDF and CSV from the same menu.
         </CardContent>

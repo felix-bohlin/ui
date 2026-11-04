@@ -9,25 +9,33 @@ An input for single-line text data. Basic text fields with labels, field descrip
 
 ### Parts
 
-- `label.ui-text-field` (root): Container element.
+- `.ui-text-field` (root): Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`.
 - `.ui-label` (prop `label`, slot `label`): The label for the field.
 - `.ui-start-text` (prop `startText`, slot `start-text`): Start text displayed above the field.
 - `.ui-field`: The boxed input area.
 - `.ui-field > .ui-top` (slot `top`): Content above the input, inside the border, with a divider.
 - `.ui-field > .ui-start` (slot `start`): Content at the inline-start of the field, inside the border.
 - `<input>` (model): The input element.
-- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border.
+- `.ui-field > .ui-end` (slot `end`): Content at the inline-end of the field, inside the border, and the password toggle.
+- `.ui-field > .ui-end > .ui-button` (prop `passwordToggle`, prop `passwordToggleLabel`): The password toggle, with `aria-pressed` and `command="--toggle-password"`. Hidden until `<opui-text-field>` is defined.
 - `.ui-field > .ui-bottom` (slot `bottom`): Content below the input, inside the border, with a divider.
 - `.ui-end-text` (prop `endText`, slot `end-text`): Supporting text displayed below the field.
+- `<opui-character-count>` (prop `characterCount`, prop `characterCountLabel`): The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left.
 
 ### Props and modifiers
 
 - `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content, from `25ch`.
+- `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
+- `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-text-field > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
-- `id`: `string`. The id of the `<input>`.
+- `id`: `string`. The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.
+- `inputmode`: `string`. The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.
+- `passwordToggle`: `boolean`. Adds a button to the end of a `type="password"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button.
+- `passwordToggleLabel`: `string`, default `"Show password"`. The accessible name of the password toggle.
+- `pattern`: `string`. The `pattern` of the `<input>`. With `type="numeric"` it is `[0-9]*`.
 - `required`: `boolean`, `input[required]`. Adds a required mark after the label. The form won't submit while the field is empty.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `spread`: `boolean`, `.ui-spread`. Pushes the label and start text to one side and the input to the other.
@@ -52,7 +60,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### text-field.css
 
-- `--_accent`: Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
+- `--_accent`: Border color of `.ui-field` when its control has focus without `:focus-visible`, such as a clicked file or color input or a Select picked with the pointer. Text-entry fields show the focus ring on click too. Defaults to `--ui-primary`, `--ui-invalid` when invalid.
 - `--_arrow-inset`: Distance of the select arrow from the inline end.
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
@@ -63,7 +71,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
 
-Outputs: `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit` and `--_helper-text-color`.
+Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit` and `--_helper-text-color`.
 
 ## Theme tokens
 
@@ -77,14 +85,13 @@ The stylesheets read `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--u
 <label class="ui-text-field">
   <span class="ui-label">Outlined</span>
   <span class="ui-field">
-    <input type="text" placeholder="Placeholder" />
+    <input placeholder="Placeholder" type="text" />
   </span>
 </label>
-
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Filled</span>
   <span class="ui-field">
-    <input type="text" placeholder="Placeholder" />
+    <input placeholder="Placeholder" type="text" />
   </span>
 </label>
 ```

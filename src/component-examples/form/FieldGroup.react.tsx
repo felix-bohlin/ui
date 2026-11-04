@@ -21,32 +21,31 @@ export default function FieldGroupExample() {
           <Radio value="king-of-limbs">The King of Limbs</Radio>
         </FieldGroup>
       </Fieldset>
-
       <Fieldset>
         <FieldLegend>Which side projects do you follow?</FieldLegend>
         <FieldDescription>Some are better than others.</FieldDescription>
         <FieldGroup name="projects">
           <Checkbox
-            value="atoms-for-peace"
             endText="Thom Yorke, Flea, Nigel Godrich"
+            value="atoms-for-peace"
           >
             Atoms for Peace
           </Checkbox>
-          <Checkbox value="eob" endText="Ed O'Brien solo">
+          <Checkbox endText="Ed O'Brien solo" value="eob">
             EOB
           </Checkbox>
           <Checkbox
-            value="jonny-scores"
             endText="Film compositions by Jonny Greenwood"
+            value="jonny-scores"
           >
             Film Scores
           </Checkbox>
-          <Checkbox value="selway-solo" endText="Philip Selway solo albums">
+          <Checkbox endText="Philip Selway solo albums" value="selway-solo">
             Philip Selway
           </Checkbox>
           <Checkbox
-            value="the-smile"
             endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
+            value="the-smile"
           >
             The Smile
           </Checkbox>

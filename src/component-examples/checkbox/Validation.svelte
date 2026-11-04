@@ -3,17 +3,17 @@
 </script>
 
 <div class="example-row">
-  <Checkbox required name="checkbox-validation">Default</Checkbox>
-  <Checkbox orientation="vertical" required name="checkbox-validation"
+  <Checkbox name="checkbox-validation" required>Default</Checkbox>
+  <Checkbox name="checkbox-validation" orientation="vertical" required
     >Stack</Checkbox
   >
 </div>
 <div class="example-row">
-  <Checkbox error checked name="checkbox-validation">
+  <Checkbox checked error name="checkbox-validation">
     Default
     {#snippet endText()}Check yourself{/snippet}
   </Checkbox>
-  <Checkbox orientation="vertical" error name="checkbox-validation">
+  <Checkbox error name="checkbox-validation" orientation="vertical">
     Stack
     {#snippet endText()}Before you wreck yourself{/snippet}
   </Checkbox>

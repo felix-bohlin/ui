@@ -3,8 +3,8 @@ import { Chip } from "opui-css/vue"
 </script>
 
 <template>
-  <Chip as="button" variant="tonal" label="Tonal" disabled />
-  <Chip as="button" variant="outlined" label="Outlined" disabled />
+  <Chip as="button" disabled label="Tonal" variant="tonal" />
+  <Chip as="button" disabled label="Outlined" variant="outlined" />
   <Chip disabled href="#" label="Tonal link" />
   <Chip class="ui-disabled" label="Archived" />
 </template>

@@ -20,7 +20,7 @@ export default function AccordionSummary({
           height="24"
           viewBox="0 0 24 24"
         >
-          <path fill="currentColor" d={markerPath}></path>
+          <path fill="currentColor" d={markerPath} />
         </svg>
       ) : (
         marker

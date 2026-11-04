@@ -4,10 +4,12 @@ import { toggleInGroup } from "../../packages/opui/components/group"
 import {
   autoLabelledBy,
   createId,
+  createIds,
   idRefs,
 } from "../../packages/opui/components/id"
 import { mergeStyle, styleVars } from "../../packages/opui/components/style"
 import { tagAttrs } from "../../packages/opui/components/tag"
+import { exampleIdBase } from "../../src/utils/id"
 
 describe("cx", () => {
   test("joins strings, arrays and truthy object keys", () => {
@@ -99,13 +101,43 @@ describe("ids", () => {
     expect(idRefs(undefined, "")).toBe(undefined)
   })
 
-  test("createId uses the page's generator and falls back to a random suffix", () => {
+  test("createIds asks for one base per instance, only when a part needs it", () => {
+    const calls: string[] = []
+    const locals = {
+      $id: (prefix: string) => {
+        calls.push(prefix)
+        return `${prefix}-${calls.length}`
+      },
+    }
+    const ids = createIds(locals, "select")
+    expect(calls).toEqual([])
+    expect([ids("label"), ids("end-text"), ids()]).toEqual([
+      "select-1-label",
+      "select-1-end-text",
+      "select-1",
+    ])
+    expect(createIds(locals, "select", "x")("label")).toBe("x-label")
+    expect(calls).toEqual(["select"])
+  })
+
+  test("createId uses the page's generator, a framework's id or a random suffix", () => {
     expect(createId({ $id: (prefix) => `${prefix}-1` })("field")).toBe(
       "field-1",
     )
+    expect(createId("r1")("field")).toBe("field-r1")
+    expect(createIds("r1", "dialog")("title")).toBe("dialog-r1-title")
     const id = createId({})
     expect(id("field")).toMatch(/^field-[0-9a-f]{8}$/)
     expect(id("field")).not.toBe(id("field"))
+  })
+})
+
+describe("example ids", () => {
+  test("exampleIdBase is the slug and the kebab-case name without Code", () => {
+    expect(exampleIdBase("select/Spread")).toBe("select-spread")
+    expect(exampleIdBase("button/IconAndLabelCode")).toBe(
+      "button-icon-and-label",
+    )
   })
 })
 

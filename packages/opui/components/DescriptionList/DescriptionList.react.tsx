@@ -6,20 +6,20 @@ export default function DescriptionList({
   className,
   dotted,
   orientation,
+  children,
   ...rest
 }: Props) {
   return (
     <dl
       className={cx([
         "ui-description-list",
-        {
-          "ui-bordered": bordered,
-          "ui-dotted": dotted,
-        },
+        { "ui-bordered": bordered, "ui-dotted": dotted },
         orientation && orientation !== "auto" && `ui-${orientation}`,
         className,
       ])}
       {...rest}
-    />
+    >
+      {children}
+    </dl>
   )
 }

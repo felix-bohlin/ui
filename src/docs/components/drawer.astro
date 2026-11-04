@@ -32,6 +32,8 @@ import AutoExample from "../../components/AutoExample.astro"
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+
+export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
 
 <Component
@@ -46,6 +48,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
     "display-animation",
     "has",
     "invoker-commands",
+    "logical-properties",
     "overflow-clip",
     "overlay",
     "round-mod-rem",
@@ -77,9 +80,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
   <Fragment slot="preamble">
     Slides in from the sides, top or bottom of the screen. Good for navigation,
     filters and side content. For a question or a short task that needs the
-    user's full attention, use a <DocLink href="/components/dialog"
-      >Dialog</DocLink
-    >.
+    user's full attention, use a
+    <DocLink href="/components/dialog">Dialog</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -89,9 +91,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
       The details of an item, like a preview, without leaving the list.
     </li>
     <li slot="when-not">
-      A question or a short task that needs the user's full attention. Use a <DocLink
-        href="/components/dialog">Dialog</DocLink
-      >.
+      A question or a short task that needs the user's full attention. Use a
+      <DocLink href="/components/dialog">Dialog</DocLink>.
     </li>
     <li slot="when-not">
       Content that people use together with the page. The drawer opens as a
@@ -100,84 +101,78 @@ import PropOrClass from "../../components/PropOrClass.astro"
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="div">
       <Fragment slot="components">
         <p>
-          Change the opening side with the <code>side</code> prop. The default is
-          <code>inline-start</code>.
+          Change the opening side with the <code>side</code> prop. The default
+          is <code>inline-start</code>.
         </p>
         <p>
-          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
-          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer,
-          and more buttons before the close button, which line up at the end. The
-          title is <code>--ui-font-size-h4</code>, like the Dialog title; set <code
-            >--_title-font-size</code
-          > on the drawer to change it. Give the drawer an <code>id</code>,
-          which the trigger's <code>commandfor</code> points at.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code>
+          and <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a
+          close button. Put a <code>DrawerTitle</code> in it for the heading,
+          which names the drawer, and more buttons before the close button,
+          which line up at the end. The title is <code>--ui-font-size-h4</code>,
+          like the Dialog title; set <code>--_title-font-size</code> on the
+          drawer to change it. Give the drawer an <code>id</code>, which the
+          trigger's <code>commandfor</code> points at.
         </p>
         <p>
           The header and the footer stay put while the content scrolls, with a
-          shadow on the scrolled edge. The content is a stack with <code
-            >--ui-space-3</code
-          > between its children, like a Dialog's, unless it has inline children such
-          as links. The footer is a row for buttons, text or anything else. Its content
-          lines up at the end, and <code>align="start"</code> on <code
-            >DrawerFooter</code
-          > moves it to the start. Wrap the buttons in <code>.ui-actions</code> to
-          keep them together at the end when other content comes first.
+          shadow on the scrolled edge. The content is a stack with
+          <code>--ui-space-3</code> between its children, like a Dialog's,
+          unless it has inline children such as links. The footer is a row for
+          buttons, text or anything else. Its content lines up at the end, and
+          <code>align="start"</code> on <code>DrawerFooter</code> moves it to
+          the start. Wrap the buttons in <code>.ui-actions</code> to keep them
+          together at the end when other content comes first.
         </p>
         <p>
-          The backdrop dims and blurs the page by default. Use <code
-            >backdrop="transparent"</code
-          > to keep the page behind it fully visible.
+          The backdrop dims and blurs the page by default. Use
+          <code>backdrop="transparent"</code> to keep the page behind it fully
+          visible.
         </p>
         <p>
-          Set <code>scrollLock</code> to lock page scrolling while the drawer is open.
-          With a transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px.
+          Set <code>scrollLock</code> to lock page scrolling while the drawer is
+          open. With a transparent backdrop the page stays scrollable, except on
+          screens narrower than 500px.
         </p>
       </Fragment>
       <Fragment slot="html">
         <p>
           A drawer opens from the inline start by default. Change the side with
-          the <code>.ui-inline-end</code>, <code>.ui-block-start</code> and <code
-            >.ui-block-end</code
-          > classes.
+          the <code>.ui-inline-end</code>, <code>.ui-block-start</code> and
+          <code>.ui-block-end</code> classes.
         </p>
         <p>
-          Put the heading and more buttons before the close button in <code
-            >.ui-header</code
-          >; the buttons line up at the end. The heading is <code
-            >--ui-font-size-h4</code
-          >, like the Dialog title; set <code>--_title-font-size</code> on the drawer
-          to change it.
+          Put the heading and more buttons before the close button in
+          <code>.ui-header</code>; the buttons line up at the end. The heading
+          is <code>--ui-font-size-h4</code>, like the Dialog title; set
+          <code>--_title-font-size</code> on the drawer to change it.
         </p>
         <p>
-          <code>.ui-header</code> and <code>.ui-footer</code> stay put while <code
-            >.ui-content</code
-          > scrolls, with a shadow on the scrolled edge. The content is a stack with
-          <code>--ui-space-3</code> between its children, like a Dialog's, unless
-          it has inline children such as links. The footer is a row for buttons, text
-          or anything else. Its content lines up at the end, and <code
-            >.ui-align-start</code
-          > moves it to the start. Wrap the buttons in <code>.ui-actions</code> to
-          keep them together at the end when other content comes first.
+          <code>.ui-header</code> and <code>.ui-footer</code> stay put while
+          <code>.ui-content</code> scrolls, with a shadow on the scrolled edge.
+          The content is a stack with <code>--ui-space-3</code> between its
+          children, like a Dialog's, unless it has inline children such as
+          links. The footer is a row for buttons, text or anything else. Its
+          content lines up at the end, and <code>.ui-align-start</code> moves it
+          to the start. Wrap the buttons in <code>.ui-actions</code> to keep
+          them together at the end when other content comes first.
         </p>
         <p>
-          The backdrop dims and blurs the page by default. Use the <code
-            >.ui-backdrop-transparent</code
-          > class to keep the page behind it fully visible.
+          The backdrop dims and blurs the page by default. Use the
+          <code>.ui-backdrop-transparent</code> class to keep the page behind it
+          fully visible.
         </p>
         <p>
-          Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock
-          page scrolling while it's open. With <code
-            >.ui-backdrop-transparent</code
-          >
-          the page stays scrollable, except on screens narrower than 500px. Omit the
-          class to allow background scrolling.
+          Add the <code>.ui-scroll-lock</code> utility class from
+          <code>core/utils.css</code> to the drawer to lock page scrolling while
+          it's open. With <code>.ui-backdrop-transparent</code> the page stays
+          scrollable, except on screens narrower than 500px. Omit the class to
+          allow background scrolling.
         </p>
       </Fragment>
     </Conditional>
@@ -195,8 +190,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
     </AutoExample>
   </section>
 
-  <section>
-    <h2 id="how-to-close">How to close a drawer</h2>
+  <section id="how-to-close">
+    <h2>How to close a drawer</h2>
     <ClosedbyTable componentDefault="any" name="drawer" />
 
     <AutoExample name="CloseBehaviors" row />
@@ -231,30 +226,31 @@ import PropOrClass from "../../components/PropOrClass.astro"
       <li>
         <Conditional>
           <Fragment slot="components"
-            >The <code>DrawerTitle</code> names the drawer through <code
-              >aria-labelledby</code
-            >. A drawer without one needs an <code>aria-label</code>. Pass <code
-              >aria-labelledby</code
-            > to name it after another element.</Fragment
+            >The <code>DrawerTitle</code> names the drawer through
+            <code>aria-labelledby</code>. A drawer without one needs an
+            <code>aria-label</code>. Pass <code>aria-labelledby</code> to name
+            it after another element.</Fragment
           >
           <Fragment slot="html"
-            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
-            <code>id</code>, not at <code>.ui-header</code>, which also holds
-            the close button.</Fragment
+            >Name the drawer with <code>aria-labelledby</code> pointing at the
+            heading's <code>id</code>, not at <code>.ui-header</code>, which
+            also holds the close button.</Fragment
           >
         </Conditional>
       </li>
       <li>
-        The <code>autofocus</code> attribute should be added to the element the user
-        is expected to interact with immediately upon opening a modal dialog. If no
-        other element involves more immediate interaction, it is recommended to add
-        autofocus to the close button inside the dialog, or the dialog itself if the
-        user is expected to click/activate it to dismiss.
+        The <code>autofocus</code> attribute should be added to the element the
+        user is expected to interact with immediately upon opening a modal
+        dialog. If no other element involves more immediate interaction, it is
+        recommended to add autofocus to the close button inside the dialog, or
+        the dialog itself if the user is expected to click/activate it to
+        dismiss.
       </li>
     </ul>
 
     <p>
-      Source: <a
+      Source:
+      <a
         class="ui-link"
         target="_blank"
         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog"
@@ -264,9 +260,9 @@ import PropOrClass from "../../components/PropOrClass.astro"
 
     <h3 id="role-attributes">Role & attributes</h3>
     <p>
-      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
-      with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
-      it modal and the page behind it inert.
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening
+      it with <code>command="show-modal"</code> (or <code>showModal()</code>)
+      makes it modal and the page behind it inert.
     </p>
     <Table style="table-layout: fixed">
       <TableColumnGroup>

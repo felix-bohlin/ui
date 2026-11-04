@@ -1,10 +1,15 @@
 <script lang="ts">
+  import "../../elements/character-count.js"
+  import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { Props } from "./types.svelte"
 
   let {
+    "aria-invalid": ariaInvalid,
     autoFit,
+    characterCount,
+    characterCountLabel,
     class: className,
     error,
     hideLabel,
@@ -29,6 +34,7 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
+  const initialValue = untrack(() => value)
 </script>
 
 <label
@@ -44,37 +50,30 @@
   ]}
   {style}
 >
-  {#if label}
-    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+  {#if label}<span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
       >{@render content(label)}</span
-    >
-  {/if}
-  {#if startText}
-    <span class="ui-start-text">{@render content(startText)}</span>
-  {/if}
+    >{/if}
+  {#if startText}<span class="ui-start-text">{@render content(startText)}</span
+    >{/if}
   <span class="ui-field">
     <textarea
       {...rest}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
-      bind:value
+      aria-invalid={error ? "true" : ariaInvalid}
       {id}
       name={name ?? field?.name}
-    ></textarea>
-    {#if start}
-      <span class="ui-start">{@render content(start)}</span>
-    {/if}
-    {#if end}
-      <span class="ui-end">{@render content(end)}</span>
-    {/if}
-    {#if top}
-      <span class="ui-top">{@render content(top)}</span>
-    {/if}
-    {#if bottom}
-      <span class="ui-bottom">{@render content(bottom)}</span>
-    {/if}
+      bind:value
+      defaultValue={initialValue}></textarea>
+    {#if start}<span class="ui-start">{@render content(start)}</span>{/if}
+    {#if end}<span class="ui-end">{@render content(end)}</span>{/if}
+    {#if top}<span class="ui-top">{@render content(top)}</span>{/if}
+    {#if bottom}<span class="ui-bottom">{@render content(bottom)}</span>{/if}
   </span>
-  {#if endText}
-    <span class="ui-end-text">{@render content(endText)}</span>
-  {/if}
+  {#if endText || characterCount}<span class="ui-end-text"
+      >{@render content(endText)}{#if characterCount}<opui-character-count
+          aria-hidden="true"
+          class="ui-value"
+          label={characterCountLabel}
+        ></opui-character-count>{/if}</span
+    >{/if}
   {@render children?.()}
 </label>

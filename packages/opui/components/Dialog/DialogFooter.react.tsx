@@ -1,7 +1,12 @@
 import { cx } from "../cx"
 import type { DialogFooterProps as Props } from "./types.react"
 
-export default function DialogFooter({ align, className, ...rest }: Props) {
+export default function DialogFooter({
+  align,
+  className,
+  children,
+  ...rest
+}: Props) {
   return (
     <div
       className={cx([
@@ -10,6 +15,8 @@ export default function DialogFooter({ align, className, ...rest }: Props) {
         className,
       ])}
       {...rest}
-    />
+    >
+      {children}
+    </div>
   )
 }

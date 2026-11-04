@@ -159,12 +159,12 @@ export default {
       selector: "input",
     },
     {
-      description: "An optional icon in the thumb when unchecked.",
+      description: "An optional icon on the track, shown while unchecked.",
       selector: ".ui-icon-unchecked",
       slots: ["icon-unchecked"],
     },
     {
-      description: "An optional icon in the thumb when checked.",
+      description: "An optional icon on the track, shown while checked.",
       selector: ".ui-icon-checked",
       slots: ["icon-checked"],
     },

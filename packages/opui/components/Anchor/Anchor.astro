@@ -22,7 +22,7 @@ if (isHover && !extendsAnchor(className)) {
   warnMissingId("Anchor", id, "interestfor")
 }
 const html = await anchorContext.provide(
-  { floatingId: id, popover: isHover ? "hint" : undefined },
+  { floatingId: id, popover: isHover ? ("hint" as const) : undefined },
   () => Astro.slots.render("default"),
 )
 ---

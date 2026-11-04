@@ -1,11 +1,15 @@
 "use client"
 
+import { useEffect } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
 
 export default function Textarea({
+  "aria-invalid": ariaInvalid,
   autoFit,
+  characterCount,
+  characterCountLabel,
   className,
   error,
   hideLabel,
@@ -26,6 +30,9 @@ export default function Textarea({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
+  useEffect(() => {
+    void import("../../elements/character-count.js")
+  }, [])
 
   return (
     <label
@@ -42,22 +49,35 @@ export default function Textarea({
       style={style}
     >
       {label && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>{label}</span>
-      )}
-      {startText && <span className="ui-start-text">{startText}</span>}
+        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
+          {label}
+        </span>
+      )}{" "}
+      {startText && <span className="ui-start-text">{startText}</span>}{" "}
       <span className="ui-field">
         <textarea
           {...rest}
-          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-invalid={error ? "true" : ariaInvalid}
           id={id}
           name={name ?? field?.name}
-        />
-        {start && <span className="ui-start">{start}</span>}
-        {end && <span className="ui-end">{end}</span>}
-        {top && <span className="ui-top">{top}</span>}
+        />{" "}
+        {start && <span className="ui-start">{start}</span>}{" "}
+        {end && <span className="ui-end">{end}</span>}{" "}
+        {top && <span className="ui-top">{top}</span>}{" "}
         {bottom && <span className="ui-bottom">{bottom}</span>}
-      </span>
-      {endText && <span className="ui-end-text">{endText}</span>}
+      </span>{" "}
+      {(endText || characterCount) && (
+        <span className="ui-end-text">
+          {endText}
+          {characterCount && (
+            <opui-character-count
+              aria-hidden="true"
+              className="ui-value"
+              label={characterCountLabel}
+            />
+          )}
+        </span>
+      )}{" "}
       {children}
     </label>
   )

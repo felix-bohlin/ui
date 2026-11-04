@@ -21,6 +21,16 @@ export default {
       "The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class.",
     kind: "output",
   },
+  "--_duration": {
+    description:
+      "Duration of the hover and pressed transitions, `--ui-duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description:
+      "Easing of the hover and pressed transitions. Defaults to `--ui-ease`.",
+    kind: "input",
+  },
   "--_font-size": {
     description: "The font size. `.ui-large` sets it.",
     kind: "input",
@@ -32,6 +42,11 @@ export default {
   },
   "--_icon-size": {
     description: "Width of an `svg`. `.ui-large` sets it.",
+    kind: "input",
+  },
+  "--_motion": {
+    description:
+      "Motion multiplier for the hover and pressed transitions. `0` turns them off.",
     kind: "input",
   },
   "--_padding-inline": {

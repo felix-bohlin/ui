@@ -25,8 +25,12 @@ export const checkFiles = async (files, cwd) => {
       ).flat(),
     ],
     [
-      "Prettier",
-      run("prettier", ["--check", "--ignore-unknown", ...files], cwd),
+      "oxfmt",
+      run(
+        "oxfmt",
+        ["--check", "--no-error-on-unmatched-pattern", ...files],
+        cwd,
+      ),
     ],
     [
       "oxlint",

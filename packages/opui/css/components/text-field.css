@@ -3,9 +3,12 @@
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
 */
-  :where(.ui-text-field, .ui-textarea, .ui-select) {
+  :where(.ui-text-field, .ui-textarea, .ui-select, .ui-number-field) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
+    --_affix-button-size: calc(
+      var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
+    );
     --_affix-text-color: var(--ui-text);
     --_arrow-inset: var(--ui-space-3);
     --_arrow-padding: calc(
@@ -47,7 +50,9 @@
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_size);
 
-      transition: border-color var(--_duration) var(--_ease);
+      transition:
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
     }
 
     :where(.ui-field) ::placeholder {
@@ -100,6 +105,23 @@
         inline-size: auto;
         max-block-size: var(--ui-icon-size);
       }
+    }
+
+    .ui-field > :is(.ui-start, .ui-end):has(> .ui-button) {
+      padding-inline: var(--ui-space-1);
+
+      & > .ui-button {
+        --_size: var(--_affix-button-size);
+      }
+    }
+
+    .ui-field .ui-button[aria-pressed="false"] > .ui-icon-checked,
+    .ui-field .ui-button[aria-pressed="true"] > .ui-icon-unchecked {
+      display: none;
+    }
+
+    &:not(:defined) .ui-field .ui-button[command="--toggle-password"] {
+      display: none;
     }
 
     .ui-field > .ui-start {
@@ -333,6 +355,17 @@
       grid-row: 3;
       line-height: var(--ui-field-helper-line-height);
       margin-block-start: var(--ui-space-1);
+    }
+
+    :where(.ui-end-text):has(> .ui-value) {
+      display: flex;
+      gap: var(--ui-space-2);
+
+      & > .ui-value {
+        flex-shrink: 0;
+        font-variant-numeric: tabular-nums;
+        margin-inline-start: auto;
+      }
     }
 
     :where(.ui-table) :where(td, th) > & {

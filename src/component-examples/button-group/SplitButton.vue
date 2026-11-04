@@ -7,8 +7,8 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
     <Button>Save</Button>
     <Button
       aria-label="More save options"
-      commandfor="button-group-split-button-1"
       command="toggle-popover"
+      commandfor="button-group-split-button-1"
     >
       <svg
         aria-hidden="true"
@@ -24,8 +24,8 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
       </svg>
     </Button>
     <Menu
-      id="button-group-split-button-1"
       align="end"
+      id="button-group-split-button-1"
       :items="[{ label: 'Save as draft' }, { label: 'Save and publish' }]"
     />
   </ButtonGroup>

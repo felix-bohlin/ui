@@ -11,7 +11,7 @@ export default {
     },
     {
       description:
-        'Toggles the tooltip, because the trigger also has `commandfor` and `command="toggle-popover"` for touch. The trigger\'s own action runs too.',
+        'Runs the trigger\'s own action. On a toggletip, a trigger with `commandfor` and `command="toggle-popover"`, toggles the tooltip.',
       keys: ["Enter", "Space"],
     },
     {
@@ -20,7 +20,7 @@ export default {
     },
   ],
   notes: {
-    html: 'Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.',
+    html: 'Give `.ui-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger. A toggletip trigger also takes `commandfor` and `command="toggle-popover"`.',
   },
   options: [
     {
@@ -32,7 +32,7 @@ export default {
     },
     {
       description:
-        'The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. Required.',
+        'The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command="toggle-popover"` too. Required.',
       prop: "id",
     },
     {

@@ -4,13 +4,16 @@ export default function Keyboard() {
   return (
     <>
       <Button>
-        Terminal <kbd>Ctrl+Alt+T</kbd>
+        Terminal
+        <kbd>Ctrl+Alt+T</kbd>
       </Button>
       <Button variant="outlined">
-        Spotlight <kbd>⌘Space</kbd>
+        Spotlight
+        <kbd>⌘Space</kbd>
       </Button>
       <Button variant="tonal">
-        Lock <kbd>Win+L</kbd>
+        Lock
+        <kbd>Win+L</kbd>
       </Button>
     </>
   )

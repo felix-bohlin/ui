@@ -2,7 +2,7 @@ import type { ElementType } from "react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
-export default function Fieldset({ as, className, ...rest }: Props) {
+export default function Fieldset({ as, className, children, ...rest }: Props) {
   const Tag: ElementType = as || "fieldset"
 
   return (
@@ -10,6 +10,8 @@ export default function Fieldset({ as, className, ...rest }: Props) {
       className={cx(["ui-fieldset", className])}
       role={Tag === "fieldset" ? undefined : "group"}
       {...(rest as object)}
-    />
+    >
+      {children}
+    </Tag>
   )
 }

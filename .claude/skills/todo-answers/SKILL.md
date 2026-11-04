@@ -28,7 +28,7 @@ The text starts with `TODO.md with my comments`. It comes in the arguments or in
    - Anything you can't finish: the outcome is `still-open`, with what is left. When a choice is left, also give its `options` (`[{ "id", "text", "recommended" }]`) and the `recommended` action that picks one.
 3. Record the outcomes: write them as JSON, `[{ "line", "outcome", "note", "options", "recommended" }]`, and run `node scripts/todo.mjs resolve <file>`. It marks `fixed` and `removed` items done, adds each note and options list under the answer, and replaces the item's `Recommended:` note.
 4. Log package changes in `packages/opui/CHANGELOG.md` and `src/utils/whats-new.ts` as `AGENTS.md` says.
-5. Run `pnpm exec prettier --write TODO.md` and `pnpm check`, then commit the code and `TODO.md` together, one commit per batch.
+5. Run `pnpm exec oxfmt TODO.md` and `pnpm check`, then commit the code and `TODO.md` together, one commit per batch.
 
 ## Report
 

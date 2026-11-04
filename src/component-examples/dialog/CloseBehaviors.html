@@ -1,17 +1,17 @@
 <button
-  type="button"
-  commandfor="dialog-close-behaviors-1"
-  command="show-modal"
   class="ui-button ui-outlined"
+  type="button"
+  command="show-modal"
+  commandfor="dialog-close-behaviors-1"
 >
   Open dialog
 </button>
 
 <dialog
   aria-labelledby="dialog-close-behaviors-1-title"
-  id="dialog-close-behaviors-1"
   class="ui-dialog ui-elevated"
   closedby="any"
+  id="dialog-close-behaviors-1"
 >
   <div class="ui-header">
     <h2 id="dialog-close-behaviors-1-title">How to close</h2>
@@ -21,7 +21,7 @@
       <legend>Choose a closing behavior:</legend>
       <div class="ui-field-group">
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo" value="any" checked />
+          <input type="radio" name="closedby-demo" checked value="any" />
           <span class="ui-label">any</span>
         </label>
         <label class="ui-radio">
@@ -37,25 +37,21 @@
   </div>
   <div class="ui-footer">
     <button
-      type="button"
-      commandfor="dialog-close-behaviors-1"
-      command="close"
       class="ui-button"
+      type="button"
+      command="close"
+      commandfor="dialog-close-behaviors-1"
     >
       Close manually
     </button>
   </div>
 </dialog>
 
-<script>
-  {
-    const dialog = document.getElementById("dialog-close-behaviors-1")
-    document
-      .querySelectorAll('input[name="closedby-demo"]')
-      .forEach((radio) => {
-        radio.addEventListener("change", () =>
-          dialog?.setAttribute("closedby", radio.value),
-        )
-      })
-  }
+<script type="module">
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document.querySelectorAll('input[name="closedby-demo"]').forEach((radio) => {
+    radio.addEventListener("change", () =>
+      dialog?.setAttribute("closedby", radio.value),
+    )
+  })
 </script>

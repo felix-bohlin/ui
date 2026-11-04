@@ -12,13 +12,13 @@ import { TextField } from "opui-css/vue"
     <template #start>https://</template>
   </TextField>
 
-  <TextField label="Weight" type="numeric" placeholder="0">
+  <TextField label="Weight" placeholder="0" type="numeric">
     <template #end>kg</template>
   </TextField>
 
   <TextField label="Search" placeholder="Search...">
-    <template #start
-      ><svg
+    <template #start>
+      <svg
         aria-hidden="true"
         width="16"
         height="16"
@@ -30,7 +30,8 @@ import { TextField } from "opui-css/vue"
         stroke-linejoin="round"
       >
         <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.3-4.3"></path></svg
-    ></template>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+    </template>
   </TextField>
 </template>

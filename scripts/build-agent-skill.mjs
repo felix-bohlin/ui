@@ -532,7 +532,7 @@ async function stylesheetSection(stylesheets) {
   ]
 }
 
-const SVG = /<svg\b([^>]*)>[\s\S]*?<\/svg>/g
+const SVG = /<svg\b([^>]*)>[\s\S]*?<\/svg\s*>/g
 const CODE_BLOCK = /(^[ \t]*```[^\n]*\n[\s\S]*?\n[ \t]*```$)/m
 const DROPPED_ATTRIBUTES = /\s(?:height|width|xmlns)="[^"]*"/g
 const OMITTED_SECTIONS = ["Browser support", "Changelog", "Under the hood"]

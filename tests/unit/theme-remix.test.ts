@@ -8,12 +8,16 @@ import {
   type ChoiceControl,
 } from "../../src/utils/theme-builder-controls"
 import {
+  HARMONIES,
   LOCKED_BY_DEFAULT,
   MOODS,
+  STATUS_HUES,
+  grayFromBrand,
   moodRemix,
   optionTokens,
   randomBrand,
   shuffleRemix,
+  statusFromBrand,
 } from "../../src/utils/theme-remix"
 
 const control = (id: string) => CONTROLS.find((entry) => entry.id === id)!
@@ -124,27 +128,57 @@ describe("shuffleRemix", () => {
       (entry) => entry.tier === "basic",
     )
 
-  test("locks the status colors by default", () => {
-    expect(LOCKED_BY_DEFAULT).toEqual(["status"])
+  test("locks nothing by default", () => {
+    expect(LOCKED_BY_DEFAULT).toEqual([])
   })
 
-  test("touches only basic controls in unlocked rooms, never colors", () => {
+  test("touches only basic controls in unlocked rooms, status from the brand", () => {
     const remix = shuffleRemix(LOCKED_BY_DEFAULT, {}, sequence([0.5]))
     const ids = remix.parts.map((part) => part.control)
     expect(remix.brand).toMatch(/^oklch\(/)
-    expect(ids).not.toContain("critical")
     expect(ids).not.toContain("border-color")
     expect(ids).not.toContain("focus-ring-color")
     for (const id of ids) {
       expect(control(id).tier, id).toBe("basic")
     }
     expect(ids).toEqual(
-      GROUPS.filter((group) => group.id !== "status").flatMap((group) =>
+      GROUPS.flatMap((group) =>
         basic(group.id)
-          .filter((entry) => !["brand", "color"].includes(entry.kind))
+          .filter(
+            (entry) =>
+              entry.kind !== "brand" &&
+              (entry.kind !== "color" || group.id === "status"),
+          )
           .map((entry) => entry.id),
       ),
     )
+    const status = applied(
+      remix.parts.filter((part) => part.control === "critical"),
+    )
+    expect(status["--ui-critical"]).toEqual(
+      statusFromBrand(remix.brand!)["--ui-critical"],
+    )
+  })
+
+  test("keeps the current brand for the status colors when Start is locked", () => {
+    const remix = shuffleRemix(
+      ["brand"],
+      { "--ui-palette-source": "oklch(0.6 0.15 200)" },
+      sequence([0.5]),
+    )
+    expect(remix.brand).toBeNull()
+    expect(
+      remix.parts.find((part) => part.control === "info")!.tokens["--ui-info"],
+    ).toBe(statusFromBrand("oklch(0.6 0.15 200)")["--ui-info"])
+  })
+
+  test("sets the gray tint from a harmony with the brand", () => {
+    const remix = shuffleRemix([], {}, sequence([0.5]))
+    const gray = remix.parts.find((part) => part.control === "gray-tint")!
+    expect(Object.keys(gray.tokens).toSorted()).toEqual([
+      "--ui-gray-chroma",
+      "--ui-gray-hue",
+    ])
   })
 
   test("respects every lock", () => {
@@ -195,5 +229,41 @@ describe("shuffleRemix", () => {
       expect(value).toBeGreaterThanOrEqual(0.9)
       expect(value).toBeLessThanOrEqual(1.15)
     }
+  })
+})
+
+describe("statusFromBrand", () => {
+  test("keeps each status on its own hue, nudged toward the brand", () => {
+    const status = statusFromBrand("oklch(0.6 0.18 40)")
+    expect(Object.keys(status).toSorted()).toEqual(Object.keys(STATUS_HUES))
+    expect(status["--ui-critical"]).toBe("oklch(0.53 0.18 37)")
+    expect(status["--ui-success"]).toBe("oklch(0.53 0.18 133)")
+    expect(status["--ui-info"]).toMatch(/ 252\)$/)
+    expect(status["--ui-warning"]).toMatch(/^oklch\(0\.66 0\.17 /)
+  })
+
+  test("is empty for a color it cannot read", () => {
+    expect(statusFromBrand("#ff0000")).toEqual({})
+  })
+})
+
+describe("grayFromBrand", () => {
+  test("follows the harmony", () => {
+    expect(HARMONIES).toEqual([...HARMONIES].toSorted())
+    expect(grayFromBrand("oklch(0.6 0.15 350)", "analogous")).toEqual({
+      "--ui-gray-chroma": "0.012",
+      "--ui-gray-hue": "20",
+    })
+    expect(grayFromBrand("oklch(0.6 0.15 10)", "complementary")).toEqual({
+      "--ui-gray-chroma": "0.008",
+      "--ui-gray-hue": "190",
+    })
+    expect(grayFromBrand("oklch(0.6 0.15 10)", "brand")["--ui-gray-hue"]).toBe(
+      "10",
+    )
+    expect(grayFromBrand("oklch(0.6 0.15 10)", "pure")).toEqual({
+      "--ui-gray-chroma": "0",
+      "--ui-gray-hue": "0",
+    })
   })
 })

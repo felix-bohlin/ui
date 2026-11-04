@@ -15,18 +15,18 @@ import { TextField } from "opui-css/vue"
 
   <div class="example-row">
     <TextField
+      endText="Only double-negatives are allowed."
+      error
       label="Label"
       placeholder="Placeholder"
       value="This isn't right"
-      endText="Only double-negatives are allowed."
-      error
     />
     <TextField
+      endText="Only letters from the first half of the alphabet are allowed."
+      error
       label="Label"
       placeholder="Placeholder"
       value="Uh-oh"
-      endText="Only letters from the first half of the alphabet are allowed."
-      error
       variant="filled"
     />
   </div>

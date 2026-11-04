@@ -99,6 +99,22 @@
     line-height: var(--ui-line-height);
   }
 
+  /* Severity text */
+  :where(.ui-caption, .ui-overline, .ui-p):where(
+    .ui-critical,
+    .ui-info,
+    .ui-neutral,
+    .ui-success,
+    .ui-warning
+  ) {
+    color: var(--ui-palette-text);
+  }
+
+  /* Tabular numbers */
+  :where(.ui-tabular-nums) {
+    font-variant-numeric: tabular-nums;
+  }
+
   /* Icon */
   :where(.ui-icon) {
     block-size: var(--ui-icon-size);

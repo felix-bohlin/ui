@@ -8,8 +8,14 @@ import {
   type ThemeTokens,
 } from "./theme"
 import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
+import { WEB_FONTS, fontStack } from "./theme-fonts"
 
-export type ChoiceOption = { label: string; tokens: ThemeTokens; value: string }
+export type ChoiceOption = {
+  group?: string
+  label: string
+  tokens: ThemeTokens
+  value: string
+}
 
 type Base = { hint?: string; id: string; label: string; tier: "basic" | "fine" }
 
@@ -45,7 +51,11 @@ export type RangeControl = Base & {
 }
 
 export type Control =
-  BrandControl | ChoiceControl | ColorControl | CornersControl | RangeControl
+  | BrandControl
+  | ChoiceControl
+  | ColorControl
+  | CornersControl
+  | RangeControl
 
 export type ControlGroup = {
   controls: Control[]
@@ -61,39 +71,52 @@ const revert = (...tokens: string[]) =>
 
 export { BALANCED_PRIMARY, COMPONENT_RADII, FOLLOW_RADIUS, MONOCHROME_PRIMARY }
 
-export const FONTS = [
+const SYSTEM_FONTS = [
   {
-    label: "DM Sans",
-    load: "DM Sans",
-    value:
-      '"DM Sans", Avenir, Montserrat, Corbel, URW Gothic, source-sans-pro, sans-serif',
-  },
-  {
-    label: "Geist",
-    load: "Geist",
-    value:
-      "Geist, Inter, Roboto, Helvetica Neue, Arial Nova, Nimbus Sans, Arial, sans-serif",
-  },
-  {
+    group: "System",
     label: "Native (Bootstrap)",
     value:
       'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif',
   },
   {
-    label: "Roboto",
-    load: "Roboto",
-    value:
-      "Roboto, Inter, Helvetica Neue, Arial Nova, Nimbus Sans, Arial, sans-serif",
-  },
-  {
+    group: "System",
     label: "Serif",
     value: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
   },
-  { label: "System", value: "system-ui, sans-serif" },
+  { group: "System", label: "System", value: "system-ui, sans-serif" },
 ]
 
-const fontOptions = (token: string) =>
-  FONTS.map((font) => ({
+const GROUP_LABELS = { mono: "Mono", sans: "Sans serif", serif: "Serif" }
+
+export const FONTS = [
+  ...SYSTEM_FONTS,
+  ...WEB_FONTS.filter((font) => font.category !== "mono").map((font) => ({
+    group: GROUP_LABELS[font.category],
+    label: font.family,
+    load: font.family,
+    value: fontStack(font),
+  })),
+].toSorted(
+  (a, b) => a.group.localeCompare(b.group) || a.label.localeCompare(b.label),
+)
+
+export const CODE_FONTS = [
+  {
+    group: "System",
+    label: "System mono",
+    value: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+  },
+  ...WEB_FONTS.filter((font) => font.category === "mono").map((font) => ({
+    group: "Mono",
+    label: font.family,
+    load: font.family,
+    value: fontStack(font),
+  })),
+]
+
+const fontOptions = (token: string, fonts = FONTS) =>
+  fonts.map((font) => ({
+    group: font.group,
     label: font.label,
     tokens: { [token]: font.value },
     value: font.label,
@@ -241,7 +264,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Tonal buttons and chips",
+        hint: "Primary tonal buttons, tonal avatars and checked choice cards",
         id: "tonal",
         kind: "choice",
         label: "Tonal fill",
@@ -391,7 +414,7 @@ export const GROUPS: ControlGroup[] = [
         { hint: "Cards, menus and dialogs" },
       ),
       color("surface-filled", "Filled surface", "--ui-surface-filled", "fine", {
-        hint: "Filled cards and fields",
+        hint: "Lists, table headers and footers, and filled dividers, progress bars and range tracks",
       }),
       color("surface-tonal", "Tonal surface", "--ui-surface-tonal", "fine", {
         hint: "Tonal buttons, chips and hover fills",
@@ -753,6 +776,7 @@ export const GROUPS: ControlGroup[] = [
         label: "Heading font",
         options: [
           {
+            group: "System",
             label: "Same as body",
             tokens: revert("--ui-font-heading"),
             value: "body",
@@ -762,24 +786,19 @@ export const GROUPS: ControlGroup[] = [
         tier: "fine",
       },
       {
-        display: "toggle",
+        display: "select",
+        font: true,
         id: "font-code",
         kind: "choice",
         label: "Code font",
         options: [
           {
+            group: "System",
             label: "Default",
             tokens: revert("--ui-font-code"),
             value: "default",
           },
-          {
-            label: "System mono",
-            tokens: {
-              "--ui-font-code":
-                "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-            },
-            value: "system",
-          },
+          ...fontOptions("--ui-font-code", CODE_FONTS),
         ],
         tier: "fine",
       },
@@ -899,7 +918,7 @@ export const GROUPS: ControlGroup[] = [
       },
       {
         display: "toggle",
-        hint: "Text in buttons, fields and menus",
+        hint: "Text in buttons, fields, tabs and toggle buttons",
         id: "control-text",
         kind: "choice",
         label: "Control text size",
@@ -1189,18 +1208,18 @@ export const GROUPS: ControlGroup[] = [
           {
             label: "Snappy",
             tokens: {
-              "--ui-duration": "0.15s",
-              "--ui-duration-fast": "0.1s",
-              "--ui-duration-slow": "0.2s",
+              "--ui-duration": "0.1s",
+              "--ui-duration-fast": "0.075s",
+              "--ui-duration-slow": "0.15s",
             },
             value: "snappy",
           },
           {
             label: "Default",
             tokens: {
-              "--ui-duration": "0.2s",
+              "--ui-duration": "0.15s",
               "--ui-duration-fast": "0.1s",
-              "--ui-duration-slow": "0.3s",
+              "--ui-duration-slow": "0.25s",
             },
             value: "default",
           },
@@ -1235,6 +1254,30 @@ export const GROUPS: ControlGroup[] = [
               "--ui-ease-exit": "cubic-bezier(0.3, 0, 0.8, 0.15)",
             },
             value: "emphasized",
+          },
+        ],
+        tier: "fine",
+      },
+      {
+        display: "toggle",
+        hint: "Springy tabs, menus and tooltips, and buttons that give a little when pressed",
+        id: "motion-personality",
+        kind: "choice",
+        label: "Motion personality",
+        options: [
+          {
+            label: "Calm",
+            tokens: revert("--ui-ease-move", "--ui-press-scale"),
+            value: "calm",
+          },
+          {
+            label: "Lively",
+            tokens: {
+              "--ui-ease-move":
+                "linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998, 1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1)",
+              "--ui-press-scale": "0.97",
+            },
+            value: "lively",
           },
         ],
         tier: "fine",

@@ -7,29 +7,29 @@ export default function CardsMatrix() {
         <FieldLegend>Input at the end</FieldLegend>
         <FieldGroup name="switch-cards-end" orientation="horizontal">
           <Switch
-            value="outlined"
-            defaultChecked
             card
-            spread
+            defaultChecked
             endText="The default surface."
+            spread
+            value="outlined"
           >
             Outlined
           </Switch>
           <Switch
-            value="tonal"
             card
-            variant="tonal"
-            spread
             endText="A tinted surface."
+            spread
+            value="tonal"
+            variant="tonal"
           >
             Tonal
           </Switch>
           <Switch
-            value="elevated"
             card
-            variant="elevated"
-            spread
             endText="A raised surface."
+            spread
+            value="elevated"
+            variant="elevated"
           >
             Elevated
           </Switch>
@@ -39,26 +39,26 @@ export default function CardsMatrix() {
         <FieldLegend>Input at the start</FieldLegend>
         <FieldGroup name="switch-cards-start" orientation="horizontal">
           <Switch
-            value="outlined"
-            defaultChecked
             card
+            defaultChecked
             endText="The default surface."
+            value="outlined"
           >
             Outlined
           </Switch>
           <Switch
-            value="tonal"
             card
-            variant="tonal"
             endText="A tinted surface."
+            value="tonal"
+            variant="tonal"
           >
             Tonal
           </Switch>
           <Switch
-            value="elevated"
             card
-            variant="elevated"
             endText="A raised surface."
+            value="elevated"
+            variant="elevated"
           >
             Elevated
           </Switch>

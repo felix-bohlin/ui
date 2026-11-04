@@ -153,6 +153,35 @@ interaction(
     await root.getByText("Bananas", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect(all).not.toBeChecked()
+    for (const child of await children.all()) {
+      await expect(child).not.toBeChecked()
+    }
+  },
+)
+
+interaction(
+  "checkbox",
+  "Indeterminate",
+  "select all leaves out a checkbox in a disabled fieldset",
+  async ({ root }) => {
+    const all = root.getByRole("checkbox", { name: "Select all" })
+    const cherries = root.getByRole("checkbox", { name: "Cherries" })
+
+    await root.locator(".ui-field-group").evaluate((group) => {
+      const fieldset = document.createElement("fieldset")
+      fieldset.disabled = true
+      fieldset.append(group.lastElementChild!)
+      group.append(fieldset)
+    })
+    await expect(cherries).toBeDisabled()
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect(all).toBeChecked()
+    await expect(all).toHaveJSProperty("indeterminate", false)
+    await expect(cherries).not.toBeChecked()
   },
 )
 
@@ -801,12 +830,6 @@ interaction(
     const trigger = root.getByRole("button", { name: "Save" })
     const tooltip = root.getByText("Save your changes")
 
-    await needs(
-      page,
-      "interest invokers",
-      () => "interestForElement" in HTMLButtonElement.prototype,
-    )
-
     await expect(tooltip).toBeHidden()
     await trigger.hover()
     await expect(tooltip).toBeVisible()
@@ -817,11 +840,13 @@ interaction(
 
 interaction(
   "tooltip",
-  "Basics",
-  "tooltip toggles on click without hover",
+  "Toggletip",
+  "toggletip toggles on click without hover",
   async ({ root }) => {
-    const trigger = root.getByRole("button", { name: "Save" })
-    const tooltip = root.getByText("Save your changes")
+    const trigger = root.getByRole("button", { name: "About billing" })
+    const tooltip = root.getByText(
+      "You're billed on the first day of each month.",
+    )
 
     await expect(tooltip).toBeHidden()
     await trigger.dispatchEvent("click")
@@ -1108,6 +1133,56 @@ interaction(
 )
 
 interaction(
+  "rating",
+  "Input",
+  "a rating input moves its checked star to the one chosen",
+  async ({ root }) => {
+    const three = root.getByRole("radio", { name: "3 stars" })
+    const five = root.getByRole("radio", { name: "5 stars" })
+    await expect(three).toBeChecked()
+    await five.check()
+    await expect(five).toBeChecked()
+    await expect(three).not.toBeChecked()
+  },
+)
+
+interaction(
+  "message",
+  "Attachments",
+  "a card in an outgoing message keeps the text color of an incoming one",
+  async ({ root }) => {
+    const [incoming, outgoing] = await root
+      .locator(".ui-card .ui-icon")
+      .evaluateAll((icons) => icons.map((icon) => getComputedStyle(icon).color))
+
+    expect(outgoing).toBe(incoming)
+  },
+)
+
+interaction(
+  "message",
+  "Reactions",
+  "reactions sit on the bubble's bottom edge and a checked one keeps the focus ring color",
+  async ({ page, root }) => {
+    const message = root.locator(".ui-message").first()
+    const bubble = await message.locator(".ui-content").boundingBox()
+    const pill = message.locator(".ui-toggle-button").first()
+    const box = await pill.boundingBox()
+
+    expect(box!.y).toBeLessThan(bubble!.y + bubble!.height)
+    expect(box!.y + box!.height).toBeGreaterThan(bubble!.y + bubble!.height)
+
+    await expect(pill.getByRole("checkbox")).toBeChecked()
+    await pill.getByRole("checkbox").focus()
+    await page.keyboard.press("Shift+Tab")
+    await page.keyboard.press("Tab")
+    expect(await computed(pill, "outline-color")).toBe(
+      await resolveColor(root, "var(--ui-focus-ring-color)"),
+    )
+  },
+)
+
+interaction(
   "table",
   "StickyHeader",
   "the sticky header stays while the body scrolls",
@@ -1144,5 +1219,511 @@ interaction(
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
     ).toEqual(["Jonny Greenwood", "Marika Hackman", "Ray Manzarek"])
+  },
+)
+
+interaction(
+  "number-field",
+  "Basics",
+  "number field steps with its buttons and stops at the limits",
+  async ({ root }) => {
+    const input = root.getByRole("spinbutton", { name: "Quantity" })
+    const decrease = root.getByRole("button", { name: "Decrease" })
+    const increase = root.getByRole("button", { name: "Increase" })
+
+    await expect(input).toHaveValue("1")
+    await expect(decrease).toHaveAttribute("aria-disabled", "true")
+    await increase.click()
+    await increase.click()
+    await expect(input).toHaveValue("3")
+    await expect(decrease).not.toHaveAttribute("aria-disabled")
+    await decrease.click()
+    await expect(input).toHaveValue("2")
+
+    await input.fill("10")
+    await expect(increase).toHaveAttribute("aria-disabled", "true")
+    await increase.click({ force: true })
+    await expect(input).toHaveValue("10")
+  },
+)
+
+interaction(
+  "number-field",
+  "EndText",
+  "number field end text describes the input",
+  async ({ root }) => {
+    await expect(
+      root.getByRole("spinbutton", { name: "Guests" }),
+    ).toHaveAccessibleDescription("Up to 8 per table.")
+  },
+)
+
+interaction(
+  "number-field",
+  "Basics",
+  "number field repeats while a button is held",
+  async ({ page, root }) => {
+    const input = root.getByRole("spinbutton", { name: "Quantity" })
+    const increase = root.getByRole("button", { name: "Increase" })
+
+    await expect(increase).toBeVisible()
+    await increase.hover()
+    await page.mouse.down()
+    await expect
+      .poll(() => input.inputValue().then(Number))
+      .toBeGreaterThanOrEqual(4)
+    await page.mouse.up()
+    const held = Number(await input.inputValue())
+    await page.waitForTimeout(300)
+    await expect(input).toHaveValue(String(held))
+  },
+)
+
+interaction(
+  "table",
+  "Sortable",
+  "sortable headers sort the rows and move aria-sort",
+  async ({ root }) => {
+    const header = (name: string) =>
+      root.getByRole("columnheader", { name, exact: true })
+    const first = root.locator("tbody tr").first().locator("td").first()
+
+    await expect(header("Planet")).toHaveAttribute("aria-sort", "ascending")
+    await expect(first).toHaveText("Earth")
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(header("Moons")).toHaveAttribute("aria-sort", "ascending")
+    await expect(header("Planet")).not.toHaveAttribute("aria-sort")
+    await expect(first).toHaveText("Mercury")
+
+    await root.getByRole("button", { name: "Moons" }).click()
+    await expect(header("Moons")).toHaveAttribute("aria-sort", "descending")
+    await expect(first).toHaveText("Saturn")
+
+    await root.getByRole("button", { name: "Diameter" }).press("Enter")
+    await expect(header("Diameter")).toHaveAttribute("aria-sort", "ascending")
+    await expect(first).toHaveText("Mercury")
+    await expect(root.getByRole("status")).toHaveText("Diameter, ascending")
+  },
+)
+
+test("the data-table block selects and sorts its rows together", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "blocks/data-table")
+  const all = page.getByRole("checkbox", { name: "Select all customers" })
+  const rows = page.getByRole("checkbox", { name: /^Select (?!all)/ })
+  const firstCustomer = page.locator("tbody tr").first().locator("td").nth(1)
+
+  await expect(all).toHaveJSProperty("indeterminate", true)
+  await all.click()
+  await expect(rows).toHaveCount(5)
+  for (const row of await rows.all()) await expect(row).toBeChecked()
+
+  await page.getByRole("button", { name: "MRR" }).click()
+  await expect(firstCustomer).toContainText("Kwame Mensah")
+  await page.getByRole("button", { name: "MRR" }).click()
+  await expect(firstCustomer).toContainText("Astrid Nyström")
+  await page.getByRole("button", { name: "Signed up" }).click()
+  await expect(firstCustomer).toContainText("Sofia Lund")
+  for (const row of await rows.all()) await expect(row).toBeChecked()
+
+  await page.getByRole("checkbox", { name: "Select Mats Berg" }).click()
+  await expect(all).not.toBeChecked()
+  await expect(all).toHaveJSProperty("indeterminate", true)
+})
+const stubClipboard = (page: Page) =>
+  page.evaluate(() => {
+    const copied: string[] = []
+    Object.assign(window, { copied })
+    navigator.clipboard.writeText = async (text: string) => {
+      copied.push(text)
+    }
+  })
+
+const stubCopyCommand = (page: Page, works: boolean) =>
+  page.evaluate((works) => {
+    const copied: string[] = []
+    Object.assign(window, { copied })
+    document.execCommand = (command: string) => {
+      const field = document.activeElement as HTMLTextAreaElement
+      if (works && command === "copy") {
+        copied.push(field.value.slice(field.selectionStart, field.selectionEnd))
+      }
+      return works
+    }
+  }, works)
+
+const copiedTexts = (page: Page) =>
+  page.evaluate(() => (window as unknown as { copied: string[] }).copied)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies the field value and shows and announces it next to the button",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText("Copied")
+    await expect(root.getByRole("status")).toHaveText("Copied")
+    const [labelBox, buttonBox] = await Promise.all([
+      label.boundingBox(),
+      button.boundingBox(),
+    ])
+    expect(labelBox!.height).toBeCloseTo(buttonBox!.height, 0)
+    expect(labelBox!.y).toBeCloseTo(buttonBox!.y, 0)
+    await expect(button).not.toHaveAttribute("data-copied")
+    await expect(label).toBeHidden({ timeout: 4000 })
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy shows a failure until Esc and selects the field when the clipboard is blocked",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const field = root.getByRole("textbox", { name: "Invite link" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, false)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () =>
+        Promise.reject(new DOMException("Blocked", "NotAllowedError"))
+    })
+    await button.click()
+    await expect(label).toBeVisible()
+    await expect(label).toHaveText("Copy failed")
+    await expect(root.getByRole("status")).toHaveText("Copy failed")
+    await expect(field).toBeFocused()
+    await expect
+      .poll(() =>
+        field.evaluate((input: HTMLInputElement) =>
+          input.value.slice(input.selectionStart!, input.selectionEnd!),
+        ),
+      )
+      .toBe("https://example.com/invite/8f3k2")
+    await page.keyboard.press("Escape")
+    await expect(label).toBeHidden()
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies with a selection where the page has no Clipboard API",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, true)
+    await page.evaluate(() =>
+      Object.defineProperty(navigator, "clipboard", { value: undefined }),
+    )
+    await button.click()
+    await expect(label).toHaveText("Copied")
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
+  },
+)
+
+interaction(
+  "copy",
+  "Basics",
+  "copy copies with a selection when the clipboard never answers",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, true)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () => new Promise(() => {})
+    })
+    await button.click()
+    await expect(label).toHaveText("Copied", { timeout: 5000 })
+    await expect
+      .poll(() => copiedTexts(page))
+      .toEqual(["https://example.com/invite/8f3k2"])
+  },
+)
+
+interaction(
+  "copy",
+  "Snippet",
+  "copy leaves the button and its tooltip out of the copied text",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect.poll(() => copiedTexts(page)).toEqual(["npm install opui-css"])
+    await expect(label).toHaveText("Copied")
+  },
+)
+
+interaction(
+  "copy",
+  "Snippet",
+  "copy keeps the tooltip closed while the label shows",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+    const label = root.locator(".ui-copy > .ui-floating")
+    const tooltip = root.locator(".ui-tooltip > .ui-floating")
+
+    await expect(button).toBeVisible()
+    await stubClipboard(page)
+    await button.click()
+    await expect(label).toBeVisible()
+    await expect(tooltip).toBeHidden()
+    await page.waitForTimeout(1000)
+    await expect(label).toBeVisible()
+    await expect(tooltip).toBeHidden()
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
+  "toast shows from its button and closes with its close button and Esc",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Save changes" }).click()
+    await expect(toasts).toHaveCount(1)
+    await expect(toasts.first()).toHaveText("Changes saved")
+    await expect(toasts.first()).toHaveClass(/ui-success/)
+    await expect(toaster.getByRole("status")).toHaveText("Changes saved")
+    await toasts.first().getByRole("button", { name: "Close" }).click()
+    await expect(toasts).toHaveCount(0)
+    await expect(toaster.locator("ol")).toBeHidden()
+
+    await root.getByRole("button", { name: "Save changes" }).click()
+    await toasts.first().getByRole("button", { name: "Close" }).focus()
+    await page.keyboard.press("Escape")
+    await expect(toasts).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Script",
+  "toast() shows a toast with its severity icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Save changes" }).click()
+    const toast = page.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Changes saved")
+    await expect(toast).toHaveClass(/ui-success/)
+    await expect(toast.locator(':scope > svg[aria-hidden="true"]')).toHaveCount(
+      1,
+    )
+    await expect(toast.getByRole("img")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Action",
+  "an action runs, dismisses its toast, and preventDefault keeps it",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const toasts = page.locator("opui-toaster li:not([inert])")
+    await root.getByRole("button", { name: "Archive" }).click()
+    const archived = toasts.filter({ hasText: "Conversation archived" })
+    await expect(archived).toHaveCount(1)
+    await expect(archived.getByRole("button")).toHaveText(["Undo", ""])
+    await expect(archived.getByRole("button").last()).toHaveAccessibleName(
+      "Close",
+    )
+    await archived.getByRole("button", { name: "Undo" }).click()
+    await expect(archived).toHaveCount(0)
+    await expect(
+      toasts.filter({ hasText: "Conversation restored" }),
+    ).toHaveCount(1)
+
+    const kept = await page.evaluate(async () => {
+      const toaster = document.querySelector<
+        HTMLElement & {
+          show: (
+            message: string,
+            options: {
+              action: { label: string; onClick: (event: MouseEvent) => void }
+            },
+          ) => HTMLLIElement | null
+        }
+      >("opui-toaster")!
+      let ran = 0
+      const item = toaster.show("Kept", {
+        action: {
+          label: "Stay",
+          onClick: (event) => {
+            ran++
+            event.preventDefault()
+          },
+        },
+      })
+      item?.querySelector<HTMLButtonElement>("button")?.click()
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      return { open: !!item?.isConnected && !item.inert, ran }
+    })
+    expect(kept).toEqual({ open: true, ran: 1 })
+  },
+)
+
+interaction(
+  "toast",
+  "Position",
+  "side and align move the toasts",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    const { height, width } = page.viewportSize()!
+    const names = [
+      "Top start",
+      "Top center",
+      "Top end",
+      "Bottom start",
+      "Bottom center",
+      "Bottom end",
+    ]
+    for (const [index, name] of names.entries()) {
+      await root.getByRole("button", { name }).click()
+      const list = root.locator(`#toast-position-${index + 1} ol`)
+      await expect(list).toBeVisible()
+      const box = (await list.boundingBox())!
+      const [side, align] = name.split(" ")
+      if (side === "Top") expect(box.y).toBeLessThan(height / 2)
+      else expect(box.y).toBeGreaterThan(height / 2)
+      const center = box.x + box.width / 2
+      if (align === "start") expect(center).toBeLessThan(width / 3)
+      else if (align === "end") expect(center).toBeGreaterThan((width * 2) / 3)
+      else expect(Math.abs(center - width / 2)).toBeLessThan(2)
+    }
+  },
+)
+
+interaction(
+  "toast",
+  "Severities",
+  "a toast without a severity has no icon",
+  async ({ page, root }) => {
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Default" }).click()
+    const toast = root.locator("opui-toaster li").first()
+    await expect(toast).toHaveText("Draft saved")
+    await expect(toast.locator(":scope > svg")).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
+  "toast dismisses itself and waits while hovered",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+    const toasts = toaster.locator("li")
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await toaster.evaluate(
+      (
+        element: HTMLElement & {
+          show: (message: string, options?: object) => void
+        },
+      ) => element.show("Gone soon", { duration: 300 }),
+    )
+    await expect(toasts).toHaveCount(1)
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+
+    await toaster.evaluate(
+      (
+        element: HTMLElement & {
+          show: (message: string, options?: object) => void
+        },
+      ) => element.show("Stays while hovered", { duration: 600 }),
+    )
+    await toasts.first().hover()
+    await page.waitForTimeout(1000)
+    await expect(toasts).toHaveCount(1)
+    await page.mouse.move(0, 0)
+    await expect(toasts).toHaveCount(0, { timeout: 2000 })
+  },
+)
+
+interaction(
+  "text-field",
+  "PasswordToggle",
+  "password toggle shows and hides the password",
+  async ({ root }) => {
+    const input = root.getByLabel("Password", { exact: true })
+    const toggle = root.getByRole("button", { name: "Show password" }).first()
+
+    await expect(input).toHaveAttribute("type", "password")
+    await expect(input).toHaveAccessibleName("Password")
+    await toggle.click()
+    await expect(input).toHaveAttribute("type", "text")
+    await expect(toggle).toHaveAttribute("aria-pressed", "true")
+    await expect(toggle).toBeFocused()
+    await toggle.click()
+    await expect(input).toHaveAttribute("type", "password")
+    await expect(toggle).toHaveAttribute("aria-pressed", "false")
+    await expect(root.getByLabel("New password")).toHaveAccessibleDescription(
+      "At least 12 characters.",
+    )
+  },
+)
+
+interaction(
+  "text-field",
+  "CharacterCount",
+  "text field character count follows the text and announces near the limit",
+  async ({ page, root }) => {
+    const input = root.locator("input")
+    const count = root.locator("opui-character-count")
+
+    await expect(count).toHaveText("0/20")
+    await input.fill("opui-fan-2026")
+    await expect(count).toHaveText("13/20")
+    await expect(input).toHaveAccessibleName(
+      "Username Letters, numbers and dashes.",
+    )
+    await expect(page.locator("[data-opui-announcer]")).toHaveText(
+      "Characters left: 7",
+    )
+  },
+)
+
+interaction(
+  "textarea",
+  "CharacterCount",
+  "textarea character count follows the text and announces near the limit",
+  async ({ page, root }) => {
+    const textarea = root.locator("textarea")
+    const count = root.locator("opui-character-count")
+
+    await expect(count).toHaveText("0/160")
+    await textarea.fill("a".repeat(100))
+    await expect(count).toHaveText("100/160")
+    await page.waitForTimeout(1000)
+    await expect(page.locator("[data-opui-announcer]")).toHaveText("")
+    await textarea.fill("a".repeat(150))
+    await expect(count).toHaveText("150/160")
+    await expect(page.locator("[data-opui-announcer]")).toHaveText(
+      "10 characters to go",
+    )
   },
 )

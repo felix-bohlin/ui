@@ -3,9 +3,9 @@
 </script>
 
 <div class="example-row">
-  <Chip aria-pressed="true" as="button" variant="outlined" label="All" />
-  <Chip aria-pressed="false" as="button" variant="outlined" label="Open" />
-  <Chip aria-pressed="false" as="button" variant="outlined" label="Closed" />
+  <Chip aria-pressed="true" as="button" label="All" variant="outlined" />
+  <Chip aria-pressed="false" as="button" label="Open" variant="outlined" />
+  <Chip aria-pressed="false" as="button" label="Closed" variant="outlined" />
 </div>
 <div class="example-row">
   <Chip aria-pressed="true" as="button" label="Paid" />

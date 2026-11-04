@@ -1,7 +1,5 @@
 <style>
   .kanban-board {
-    container-type: inline-size;
-
     .kanban-columns {
       display: grid;
       gap: var(--ui-space-3);
@@ -29,19 +27,11 @@
       }
     }
 
-    .kanban-count {
-      font-variant-numeric: tabular-nums;
-    }
-
     .kanban-meta {
       .ui-avatar-group,
       & > .ui-avatar {
         margin-inline-start: auto;
       }
-    }
-
-    .kanban-overdue {
-      color: var(--ui-critical-text);
     }
 
     .kanban-done h3 {
@@ -109,7 +99,7 @@
       <div class="ui-layout-row ui-small kanban-column-header">
         <span class="ui-swatch ui-neutral"></span>
         <h2 class="ui-h6" id="kanban-todo-heading">To do</h2>
-        <span class="kanban-count ui-caption">3</span>
+        <span class="ui-caption ui-tabular-nums">3</span>
         <button
           aria-label="Add task to To do"
           class="ui-button ui-round ui-x-small"
@@ -272,7 +262,7 @@
       <div class="ui-layout-row ui-small kanban-column-header">
         <span class="ui-swatch ui-info"></span>
         <h2 class="ui-h6" id="kanban-progress-heading">In progress</h2>
-        <span class="kanban-count ui-caption">2</span>
+        <span class="ui-caption ui-tabular-nums">2</span>
         <button
           aria-label="Add task to In progress"
           class="ui-button ui-round ui-x-small"
@@ -315,7 +305,7 @@
                 >
               </h3>
               <div class="ui-layout-row ui-caption kanban-meta">
-                <span class="ui-layout-row ui-x-small kanban-overdue">
+                <span class="ui-layout-row ui-x-small ui-p ui-critical">
                   <svg
                     aria-hidden="true"
                     class="ui-icon ui-small"
@@ -413,7 +403,7 @@
       <div class="ui-layout-row ui-small kanban-column-header">
         <span class="ui-swatch ui-warning"></span>
         <h2 class="ui-h6" id="kanban-review-heading">In review</h2>
-        <span class="kanban-count ui-caption">1</span>
+        <span class="ui-caption ui-tabular-nums">1</span>
         <button
           aria-label="Add task to In review"
           class="ui-button ui-round ui-x-small"
@@ -499,7 +489,7 @@
       <div class="ui-layout-row ui-small kanban-column-header">
         <span class="ui-swatch ui-success"></span>
         <h2 class="ui-h6" id="kanban-done-heading">Done</h2>
-        <span class="kanban-count ui-caption">2</span>
+        <span class="ui-caption ui-tabular-nums">2</span>
       </div>
       <ol class="ui-layout-column ui-small">
         <li>

@@ -3,16 +3,16 @@ import { Switch } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      <Switch name="switch-basics" defaultChecked hideLabel>
+      <Switch defaultChecked hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" hideLabel>
+      <Switch hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" defaultChecked disabled hideLabel>
+      <Switch defaultChecked disabled hideLabel name="switch-basics">
         Label
       </Switch>
-      <Switch name="switch-basics" disabled hideLabel>
+      <Switch disabled hideLabel name="switch-basics">
         Label
       </Switch>
     </>

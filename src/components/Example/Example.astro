@@ -4,31 +4,22 @@ import {
   DEFAULT_FRAMEWORK,
   type FrameworkId,
 } from "../../utils/framework"
+import { clean } from "../../utils/clean-html"
+import "../../styles/example-layout.css"
 import Code from "../Code.astro"
 import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
-import { format } from "prettier"
+import { formatCode } from "../../../scripts/format.mjs"
 import MountReactExamples from "./MountReactExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
 import MountVueExamples from "./MountVueExamples.astro"
 
 const { $id } = Astro.locals
 
-const clean = (html: string) =>
-  html
-    .replace(/[ \t]*data-astro-source-file=(?:"[^"]*"|'[^']*'|[^ >]*)/g, "")
-    .replace(/[ \t]*data-astro-source-loc=(?:"[^"]*"|'[^']*'|[^ >]*)/g, "")
-    .replace(
-      /[ \t]*data-astro-cid-[a-zA-Z0-9-]+(?:=(?:"[^"]*"|'[^']*'|[^ >]*))?/g,
-      "",
-    )
-    .replace(/[ \t]*<!-- prettier-ignore -->[ \t]*\r?\n?/g, "")
-
 const prettify = async (html: string) => {
   const cleanHtml = clean(html)
 
   try {
-    return await format(cleanHtml, {
-      parser: "html",
+    return await formatCode(cleanHtml, "example.html", {
       useTabs: true,
       tabWidth: 2,
       printWidth: 80,
@@ -168,108 +159,94 @@ const outputId = `${groupName}-output`
   {isLiveSveltePreview && <MountSvelteExamples />}
   {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
-  {
-    hasPreview && (
+  {hasPreview && <div
+    class:list={[
+      "example-preview",
+      className,
+      {
+        "example-column": column,
+        "example-row": row,
+        "ui-spacious": spacious,
+        "has-show-code": hasCode,
+      },
+    ]}
+  >
+    <slot />
+    {isLivePreview ? (
       <div
-        class:list={[
-          "example-preview",
-          className,
-          {
-            "example-column": column,
-            "example-row": row,
-            "ui-spacious": spacious,
-            "has-show-code": hasCode,
-          },
-        ]}
+        class="preview-render"
+        data-vue-example={vueExampleId}
+        set:html={previewHtml}
+      />
+    ) : isLiveReactPreview ? (
+      <div
+        class="preview-render"
+        data-react-example={reactExampleId}
+        set:html={previewHtml}
+      />
+    ) : isLiveSveltePreview ? (
+      <div
+        class="preview-render"
+        data-svelte-example={svelteExampleId}
+        set:html={previewHtml}
+      />
+    ) : (
+      previewHtml && <div class="preview-render" set:html={previewHtml} />
+    )}
+
+    {showCode && hasCode && <Chip
+      as="button"
+      class="show-code-button"
+      size="small"
+      aria-expanded="false"
+      aria-label={`Show ${codeLangLabel}`}
+    >
+      <span class="code-label" slot="label">
+        {codeLangLabel}
+      </span>
+      <svg
+        slot="end"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
       >
-        <slot />
-        {isLivePreview ? (
-          <div
-            class="preview-render"
-            data-vue-example={vueExampleId}
-            set:html={previewHtml}
-          />
-        ) : isLiveReactPreview ? (
-          <div
-            class="preview-render"
-            data-react-example={reactExampleId}
-            set:html={previewHtml}
-          />
-        ) : isLiveSveltePreview ? (
-          <div
-            class="preview-render"
-            data-svelte-example={svelteExampleId}
-            set:html={previewHtml}
-          />
-        ) : (
-          previewHtml && <div class="preview-render" set:html={previewHtml} />
-        )}
+        <path
+          fill="currentColor"
+          d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+        />
+      </svg>
+    </Chip>}
+  </div>}
 
-        {showCode && hasCode && (
-          <Chip
-            as="button"
-            class="show-code-button"
-            size="small"
-            aria-expanded="false"
-            aria-label={`Show ${codeLangLabel}`}
-          >
-            <span class="code-label" slot="label">
-              {codeLangLabel}
-            </span>
-            <svg
-              slot="end"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+  {hasCode && <div class="example-code-area">
+    <template class="example-code">
+      <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
+        <TabsItem id={sourceId} name={groupName} checked>
+          <TabsLabel for={sourceId} data-tab="source">
+            {codeLangLabel}
+          </TabsLabel>
+          <TabsPanel data-panel="source">
+            <div class="ui-panel">
+              <Code
+                code={codeContent}
+                lang={codeLangId === "react" ? "tsx" : codeLangId}
               />
-            </svg>
-          </Chip>
-        )}
-      </div>
-    )
-  }
+            </div>
+          </TabsPanel>
+        </TabsItem>
 
-  {
-    hasCode && (
-      <div class="example-code-area">
-        <template class="example-code">
-          <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-            <TabsItem id={sourceId} name={groupName} checked>
-              <TabsLabel for={sourceId} data-tab="source">
-                {codeLangLabel}
-              </TabsLabel>
-              <TabsPanel data-panel="source">
-                <div class="ui-panel">
-                  <Code
-                    code={codeContent}
-                    lang={codeLangId === "react" ? "tsx" : codeLangId}
-                  />
-                </div>
-              </TabsPanel>
-            </TabsItem>
-
-            {showOutput && (
-              <TabsItem id={outputId} name={groupName}>
-                <TabsLabel for={outputId} data-tab="output">
-                  Output
-                </TabsLabel>
-                <TabsPanel data-panel="output">
-                  <div class="ui-panel">
-                    <Code code={outputContent} lang="html" />
-                  </div>
-                </TabsPanel>
-              </TabsItem>
-            )}
-          </Tabs>
-        </template>
-      </div>
-    )
-  }
+        {showOutput && <TabsItem id={outputId} name={groupName}>
+          <TabsLabel for={outputId} data-tab="output"> Output </TabsLabel>
+          <TabsPanel data-panel="output">
+            <div class="ui-panel">
+              <Code code={outputContent} lang="html" />
+            </div>
+          </TabsPanel>
+        </TabsItem>}
+      </Tabs>
+    </template>
+  </div>}
 </div>
 
 <style>
@@ -394,47 +371,6 @@ const outputId = `${groupName}-output`
 <style is:global>
   .ui-panel .code-block pre {
     border-radius: 0;
-  }
-
-  .example-column {
-    display: grid;
-    gap: var(--size-3);
-  }
-
-  .example-row {
-    align-items: start;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-3);
-    justify-content: center;
-  }
-
-  .example-compass {
-    align-items: center;
-    display: grid;
-    gap: var(--size-3);
-    grid-template-areas:
-      ". block-start ."
-      "inline-start . inline-end"
-      ". block-end .";
-    justify-content: center;
-    justify-items: center;
-
-    & > :nth-child(1) {
-      grid-area: block-start;
-    }
-
-    & > :nth-child(2) {
-      grid-area: inline-start;
-    }
-
-    & > :nth-child(3) {
-      grid-area: inline-end;
-    }
-
-    & > :nth-child(4) {
-      grid-area: block-end;
-    }
   }
 </style>
 

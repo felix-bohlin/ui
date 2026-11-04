@@ -63,18 +63,18 @@ const label = needs.length
     <strong class="tooltip-heading"
       >{needs.length ? "Needs hydration" : "No hydration needed"}</strong
     >
-    {
-      needs.length ? (
-        <span class="tooltip-line">
-          Renders complete HTML on the server. Without hydration:
-        </span>
-      ) : (
-        <span class="tooltip-line">
-          Renders complete HTML on the server and works without hydration.
-        </span>
-      )
-    }
-    {lines.map((line) => <span class="tooltip-line" set:html={line} />)}
+    {needs.length ? (
+      <span class="tooltip-line">
+        Renders complete HTML on the server. Without hydration:
+      </span>
+    ) : (
+      <span class="tooltip-line">
+        Renders complete HTML on the server and works without hydration.
+      </span>
+    )}
+    {lines.map((line) => (
+      <span class="tooltip-line" set:html={line} />
+    ))}
   </TooltipContent>
 </Tooltip>
 

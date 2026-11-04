@@ -144,6 +144,27 @@ test("no reference is orphaned", () => {
   expect(referenceFiles.filter((file) => !expected.has(file))).toEqual([])
 })
 
+const fullIcons = (markdown: string) =>
+  [...markdown.matchAll(/```[\s\S]*?```/g)].flatMap(([block]) =>
+    [...block.matchAll(/<svg\b[^>]*>([\s\S]*?)<\/svg\s*>/g)].filter(
+      ([, inner]) => inner.trim() !== "",
+    ),
+  ).length
+
+test("a reference writes only its first icon in full", () => {
+  expect(
+    fullIcons(
+      '```astro\n<svg viewBox="0 0 1 1"><path d="M0 0" /></svg>\n<svg viewBox="0 0 1 1"\n  ><path d="M0 0" /></svg\n>\n```',
+    ),
+  ).toBe(2)
+  expect(
+    referenceFiles.filter(
+      (file) =>
+        fullIcons(readFileSync(path.join(REFERENCES, file), "utf8")) > 1,
+    ),
+  ).toEqual([])
+})
+
 test("the index lists every component reference", () => {
   const index = readFileSync(path.join(REFERENCES, "index.md"), "utf8")
   expect(pages.filter((page) => !index.includes(`\`${page}.md\``))).toEqual([])

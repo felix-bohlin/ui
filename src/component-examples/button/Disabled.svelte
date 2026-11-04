@@ -4,9 +4,9 @@
 
 <div class="example-row">
   <Button disabled>Text</Button>
-  <Button variant="outlined" disabled>Outlined</Button>
-  <Button variant="tonal" disabled>Tonal</Button>
-  <Button variant="filled" disabled>Filled</Button>
+  <Button disabled variant="outlined">Outlined</Button>
+  <Button disabled variant="tonal">Tonal</Button>
+  <Button disabled variant="filled">Filled</Button>
 </div>
 <div class="example-row">
   <Button disabled>
@@ -24,7 +24,7 @@
       ></path>
     </svg>
   </Button>
-  <Button variant="outlined" disabled>
+  <Button disabled variant="outlined">
     <span class="ui-text">Outlined</span>
     <svg
       aria-hidden="true"
@@ -39,7 +39,7 @@
       ></path>
     </svg>
   </Button>
-  <Button variant="tonal" disabled>
+  <Button disabled variant="tonal">
     <span class="ui-text">Tonal</span>
     <svg
       aria-hidden="true"
@@ -54,7 +54,7 @@
       ></path>
     </svg>
   </Button>
-  <Button variant="filled" disabled>
+  <Button disabled variant="filled">
     <span class="ui-text">Filled</span>
     <svg
       aria-hidden="true"
@@ -72,7 +72,7 @@
 </div>
 <div class="example-row">
   <Button disabled href="#">Text link</Button>
-  <Button variant="outlined" disabled href="#">Outlined link</Button>
-  <Button variant="tonal" disabled href="#">Tonal link</Button>
-  <Button variant="filled" disabled href="#">Filled link</Button>
+  <Button disabled href="#" variant="outlined">Outlined link</Button>
+  <Button disabled href="#" variant="tonal">Tonal link</Button>
+  <Button disabled href="#" variant="filled">Filled link</Button>
 </div>

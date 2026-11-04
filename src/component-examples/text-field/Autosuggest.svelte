@@ -15,11 +15,11 @@
 </TextField>
 
 <TextField
-  variant="filled"
   label="Emails"
   list="text-field-autosuggest-2-list"
   placeholder="Placeholder"
   type="email"
+  variant="filled"
 >
   <datalist id="text-field-autosuggest-2-list">
     <option value="jonny.greenwood@radio.head"></option>

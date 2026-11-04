@@ -3,11 +3,11 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch name="switch-end-text" endText="Supporting text"> Default </Switch>
+  <Switch endText="Supporting text" name="switch-end-text"> Default </Switch>
   <Switch
+    endText="Supporting text"
     name="switch-end-text"
     orientation="vertical"
-    endText="Supporting text"
   >
     Stack
   </Switch>

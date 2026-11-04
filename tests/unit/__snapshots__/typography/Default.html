@@ -2,7 +2,11 @@
   <hgroup>
     <p>Typography showcase</p>
     <h1>Fixie beard tumeric: What the kombucha tells us about every element</h1>
-    <p>Ugh, raw denim four loko bitters cold-pressed whatever retro tousled tilde pabst. Not a single class name below, just plain HTML.</p>
+    <p>
+      Ugh, raw denim four loko bitters cold-pressed whatever retro tousled tilde pabst. Plain HTML below, apart from the␣
+      <code>.ui-not-rich-text</code>
+      ␣opt-out at the end.
+    </p>
     <p>A second subtitle paragraph, because some CMSes will do that.</p>
   </hgroup>
   <p>
@@ -54,7 +58,7 @@
     <small>small print</small>
     , H
     <sub>2</sub>
-    O, E = mc
+    O, E&nbsp;=&nbsp;mc
     <sup>2</sup>
     , x
     <sub>i</sub>
@@ -161,7 +165,7 @@
     <a href="#id-1">this link also runs long enough that it needs to wrap across a line break without losing its underline</a>
     . Same goes for␣
     <code>a.very.long.inline.code.span.that.has.no.natural.break.points.whatsoever</code>
-    ␣and a bare URL like https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&utm_medium=stress-test.
+    ␣and a bare URL like https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
   </p>
   <p>
     Superscripts and subscripts must not blow out the line height of a paragraph. Here is a footnote reference
@@ -237,7 +241,7 @@
   </ul>
   <h4>A heading directly followed by a code block</h4>
   <pre>
-    <code>npm install @opui/css</code>
+    <code>"npm install opui-css"</code>
   </pre>
   <h4>A heading directly followed by a blockquote</h4>
   <blockquote>Humblebrag cloud bread kogi raw denim pabst affogato.</blockquote>
@@ -314,7 +318,7 @@
     <li>
       <strong>Pickled tumeric raw denim squid.</strong>
       <pre>
-        <code>const brew = await steep({ hours: 18 })</code>
+        <code>"const brew = await steep({ hours: 18 })"</code>
       </pre>
     </li>
     <li>
@@ -410,17 +414,15 @@
     ␣to taste:
   </p>
   <pre>
-    <code>module.exports = { grind: "coarse", origin: "single-origin", roast: { level: "light", }, steepHours: 18, plugins: ["oat-milk", "pour-over"], }</code>
+    <code>"module.exports = {\n  grind: \"coarse\",\n  origin: \"single-origin\",\n  roast: {\n    level: \"light\",\n  },\n\n  steepHours: 18,\n  plugins: [\"oat-milk\", \"pour-over\"],\n}"</code>
   </pre>
   <p>A line that is far too long for the container has to scroll, not wrap:</p>
   <pre>
-    <code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "drinking vinegar", "turmeric latte", "flat white"]</code>
+    <code>"const menu = [\"cold brew\", \"pour-over\", \"oat milk latte\", \"matcha\", \"kombucha\", \"drinking vinegar\", \"turmeric latte\", \"flat white\"]"</code>
   </pre>
   <p>Markup inside a code block has to be escaped:</p>
   <pre>
-    <code>
-      <article class="ui-rich-text"> <h1>Hello &amp; welcome</h1> </article>
-    </code>
+    <code>"<article class=\"ui-rich-text\">\n  <h1>Hello &amp; welcome</h1>\n</article>"</code>
   </pre>
   <p>
     Terminal output in a␣
@@ -432,13 +434,13 @@
     :
   </p>
   <pre>
-    <samp>$ brew --version cold-brew 1.0.0</samp>
+    <samp>"$ brew --version\ncold-brew 1.0.0"</samp>
   </pre>
   <p>Preformatted text without any code at all:</p>
-  <pre>Roses are red, violets are blue, whitespace is kept, and so is this, too.</pre>
+  <pre>"  Roses are red,\n      violets are blue,\n          whitespace is kept,\n              and so is this, too."</pre>
   <figure>
     <pre>
-      <code>brew --steep 18h --grind coarse</code>
+      <code>"brew --steep 18h --grind coarse"</code>
     </pre>
     <figcaption>A code block with a caption.</figcaption>
   </figure>

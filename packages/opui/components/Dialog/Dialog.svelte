@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { autoLabelledBy } from "../id"
   import { setDialogContext } from "./context.svelte"
+  import { autoLabelledBy, createIds } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -13,9 +13,8 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const titleId = `dialog-title-${uid}`
+  const titleId = $derived(createIds(uid, "dialog", rest.id)("title"))
   const labelledBy = $derived(autoLabelledBy(rest, titleId))
-
   setDialogContext({
     get titleId() {
       return labelledBy

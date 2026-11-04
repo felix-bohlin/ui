@@ -4,18 +4,18 @@
     <output
       aria-live="off"
       class="ui-value"
-      for="range-value-1"
       data-live
+      for="range-value-1"
       data-suffix="°"
       >250°</output
     >
     <input
       aria-labelledby="range-value-1-label"
       aria-valuetext="250°"
-      type="range"
       id="range-value-1"
-      min="0"
       max="360"
+      min="0"
+      type="range"
       value="250"
     />
   </label>
@@ -25,7 +25,5 @@
 </form>
 
 <script type="module">
-  import { initRange } from "opui-css/css/js/range.js"
-
-  initRange()
+  import "opui-css/css/js/range.js"
 </script>

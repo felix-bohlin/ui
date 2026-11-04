@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useAttrs } from "vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { TrimmedSlot } from "../whitespace.vue"
 import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -16,78 +17,73 @@ const {
   type,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
-const attrs = useAttrs()
 
 defineOptions({
   inheritAttrs: false,
 })
 
+const attrs = useAttrs() as HTMLAttributes
+
 const hasControl = computed(
   () => type === "checkbox" || type === "radio" || type === "switch",
 )
+
 const Tag = computed(() =>
   hasControl.value ? "label" : (as ?? (href ? "a" : undefined)),
 )
 
-const liAttrs = computed(() => (hasControl.value || !Tag.value ? attrs : {}))
-const tagProps = computed(() =>
-  hasControl.value
-    ? { class: `ui-${type}`, for: htmlFor }
-    : { ...tagAttrs(Tag.value ?? "", disabled, href), ...attrs },
-)
+const restOnItem = computed(() => hasControl.value || !Tag.value)
+
+const hasLabel = computed(() => !!label || slots.label)
+
+const hasDescription = computed(() => !!description || slots.description)
 </script>
 
 <template>
   <li
     :class="[
-      {
-        'ui-border-top': borderTop,
-        'ui-inset': inset,
-      },
+      { 'ui-border-top': borderTop, 'ui-inset': inset },
       color && `ui-${color}`,
       $props.class,
     ]"
-    v-bind="liAttrs"
+    v-bind="restOnItem ? attrs : {}"
   >
-    <component :is="Tag" v-if="Tag" v-bind="tagProps">
-      <div v-if="slots.start" class="ui-start">
+    <component
+      :is="Tag"
+      v-if="Tag"
+      :class="[hasControl && `ui-${type}`]"
+      :for="hasControl ? htmlFor : undefined"
+      v-bind="{
+        ...(hasControl ? {} : tagAttrs(Tag, disabled, href)),
+        ...(restOnItem ? {} : attrs),
+      }"
+      ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div
-        v-if="label || description || slots.label || slots.description"
-        class="ui-text"
-      >
-        <p v-if="label || slots.label">{{ label }}<slot name="label"></slot></p>
-        <p v-if="description || slots.description">
+      <div v-if="hasLabel || hasDescription" class="ui-text">
+        <p v-if="hasLabel">{{ label }}<slot name="label"></slot></p>
+        <p v-if="hasDescription">
           {{ description }}<slot name="description"></slot>
         </p>
         <slot></slot>
       </div>
       <slot v-else></slot>
-      <div v-if="slots.end" class="ui-end">
-        <slot name="end"></slot>
-      </div>
-    </component>
-
-    <template v-else>
-      <div v-if="slots.start" class="ui-start">
+      <div v-if="$slots.end" class="ui-end">
+        <slot name="end"></slot></div></component
+    ><template v-else
+      ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div
-        v-if="label || description || slots.label || slots.description"
-        class="ui-text"
-      >
-        <p v-if="label || slots.label">{{ label }}<slot name="label"></slot></p>
-        <p v-if="description || slots.description">
+      <div v-if="hasLabel || hasDescription" class="ui-text">
+        <p v-if="hasLabel">{{ label }}<slot name="label"></slot></p>
+        <p v-if="hasDescription">
           {{ description }}<slot name="description"></slot>
         </p>
         <slot></slot>
       </div>
       <slot v-else></slot>
-      <div v-if="slots.end" class="ui-end">
-        <slot name="end"></slot>
-      </div>
-    </template>
-    <slot name="submenu"></slot>
+      <div v-if="$slots.end" class="ui-end">
+        <slot name="end"></slot></div></template
+    ><TrimmedSlot :nodes="$slots.submenu?.()" />
   </li>
 </template>

@@ -2,14 +2,14 @@
   import { Radio } from "opui-css/svelte"
 </script>
 
-<Radio name="radio-end-text" value="default" checked endText="Supporting text">
+<Radio checked endText="Supporting text" name="radio-end-text" value="default">
   Default
 </Radio>
 <Radio
-  name="radio-end-text"
-  value="stack"
-  orientation="vertical"
   endText="Supporting text"
+  name="radio-end-text"
+  orientation="vertical"
+  value="stack"
 >
   Stack
 </Radio>

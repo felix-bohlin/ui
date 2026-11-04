@@ -25,7 +25,8 @@ const main = () => {
     process.exit(1)
   }
 
-  const git = (...args) => execFileSync("git", args, { encoding: "utf-8" })
+  const git = (...args) =>
+    execFileSync("git", args, { encoding: "utf-8", maxBuffer: Infinity })
 
   let mergeBase
   try {

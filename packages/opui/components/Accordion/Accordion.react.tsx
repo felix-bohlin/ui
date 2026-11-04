@@ -5,6 +5,7 @@ export default function Accordion({
   className,
   markerAnimation,
   variant,
+  children,
   ...rest
 }: Props) {
   return (
@@ -18,6 +19,8 @@ export default function Accordion({
         className,
       ])}
       {...rest}
-    />
+    >
+      {children}
+    </details>
   )
 }

@@ -4,8 +4,8 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type Props = BaseProps & Class
-
 export type AvatarGroupProps = BaseAvatarGroupProps & Class
+
+export type Props = BaseProps & Class & { as?: "a" | "button" | "div" }
 
 export type Slots = DefaultSlots

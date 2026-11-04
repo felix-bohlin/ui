@@ -5,8 +5,8 @@
 </script>
 
 <Button
-  commandfor="menu-placement-1"
   command="toggle-popover"
+  commandfor="menu-placement-1"
   variant="outlined"
 >
   Block start
@@ -14,8 +14,8 @@
 <Menu id="menu-placement-1" {items} side="block-start" />
 
 <Button
-  commandfor="menu-placement-2"
   command="toggle-popover"
+  commandfor="menu-placement-2"
   variant="outlined"
 >
   Block end
@@ -23,8 +23,8 @@
 <Menu id="menu-placement-2" {items} />
 
 <Button
-  commandfor="menu-placement-3"
   command="toggle-popover"
+  commandfor="menu-placement-3"
   variant="outlined"
 >
   Inline start
@@ -32,8 +32,8 @@
 <Menu id="menu-placement-3" {items} side="inline-start" />
 
 <Button
-  commandfor="menu-placement-4"
   command="toggle-popover"
+  commandfor="menu-placement-4"
   variant="outlined"
 >
   Inline end
@@ -41,8 +41,8 @@
 <Menu id="menu-placement-4" {items} side="inline-end" />
 
 <Button
-  commandfor="menu-placement-5"
   command="toggle-popover"
+  commandfor="menu-placement-5"
   variant="outlined"
 >
   Align end

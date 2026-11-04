@@ -8,17 +8,13 @@ const videos = [
 ---
 
 <Carousel aria-label="Videos" markers>
-  {
-    videos.map(({ label, name }) => (
-      <li>
-        <video
-          aria-label={label}
-          controls
-          playsinline
-          preload="metadata"
-          src={`https://interactive-examples.mdn.mozilla.net/media/cc0-videos/${name}.mp4`}
-        />
-      </li>
-    ))
-  }
+  {videos.map(({ label, name }) => <li>
+    <video
+      aria-label={label}
+      controls
+      playsinline
+      preload="metadata"
+      src={`https://interactive-examples.mdn.mozilla.net/media/cc0-videos/${name}.mp4`}
+    />
+  </li>)}
 </Carousel>

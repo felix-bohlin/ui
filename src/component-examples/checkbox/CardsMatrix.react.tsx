@@ -13,29 +13,29 @@ export default function CardsMatrix() {
         <FieldLegend>Input at the end</FieldLegend>
         <FieldGroup name="checkbox-cards-end" orientation="horizontal">
           <Checkbox
-            value="outlined"
-            defaultChecked
             card
-            spread
+            defaultChecked
             endText="The default surface."
+            spread
+            value="outlined"
           >
             Outlined
           </Checkbox>
           <Checkbox
-            value="tonal"
             card
-            variant="tonal"
-            spread
             endText="A tinted surface."
+            spread
+            value="tonal"
+            variant="tonal"
           >
             Tonal
           </Checkbox>
           <Checkbox
-            value="elevated"
             card
-            variant="elevated"
-            spread
             endText="A raised surface."
+            spread
+            value="elevated"
+            variant="elevated"
           >
             Elevated
           </Checkbox>
@@ -45,26 +45,26 @@ export default function CardsMatrix() {
         <FieldLegend>Input at the start</FieldLegend>
         <FieldGroup name="checkbox-cards-start" orientation="horizontal">
           <Checkbox
-            value="outlined"
-            defaultChecked
             card
+            defaultChecked
             endText="The default surface."
+            value="outlined"
           >
             Outlined
           </Checkbox>
           <Checkbox
-            value="tonal"
             card
-            variant="tonal"
             endText="A tinted surface."
+            value="tonal"
+            variant="tonal"
           >
             Tonal
           </Checkbox>
           <Checkbox
-            value="elevated"
             card
-            variant="elevated"
             endText="A raised surface."
+            value="elevated"
+            variant="elevated"
           >
             Elevated
           </Checkbox>

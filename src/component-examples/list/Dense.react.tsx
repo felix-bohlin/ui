@@ -5,10 +5,10 @@ export default function Dense() {
     <List dense>
       <ListItem label="Headline" />
       <ListItem
-        label="Headline"
         description="Supporting text that truly is quite long enough to fill up multiple lines."
+        label="Headline"
       />
-      <ListItem label="Trailing supporting text" end="100+" />
+      <ListItem end="100+" label="Trailing supporting text" />
     </List>
   )
 }

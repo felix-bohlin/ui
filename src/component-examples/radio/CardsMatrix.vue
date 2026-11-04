@@ -7,15 +7,15 @@ import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Input at the end</FieldLegend>
       <FieldGroup name="radio-cards-end" orientation="horizontal">
-        <Radio value="outlined" checked card spread>
+        <Radio card checked spread value="outlined">
           Outlined
           <template #end-text>The default surface.</template>
         </Radio>
-        <Radio value="tonal" card variant="tonal" spread>
+        <Radio card spread value="tonal" variant="tonal">
           Tonal
           <template #end-text>A tinted surface.</template>
         </Radio>
-        <Radio value="elevated" card variant="elevated" spread>
+        <Radio card spread value="elevated" variant="elevated">
           Elevated
           <template #end-text>A raised surface.</template>
         </Radio>
@@ -24,15 +24,15 @@ import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
     <Fieldset>
       <FieldLegend>Input at the start</FieldLegend>
       <FieldGroup name="radio-cards-start" orientation="horizontal">
-        <Radio value="outlined" checked card>
+        <Radio card checked value="outlined">
           Outlined
           <template #end-text>The default surface.</template>
         </Radio>
-        <Radio value="tonal" card variant="tonal">
+        <Radio card value="tonal" variant="tonal">
           Tonal
           <template #end-text>A tinted surface.</template>
         </Radio>
-        <Radio value="elevated" card variant="elevated">
+        <Radio card value="elevated" variant="elevated">
           Elevated
           <template #end-text>A raised surface.</template>
         </Radio>

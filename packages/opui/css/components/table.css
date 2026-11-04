@@ -1,6 +1,10 @@
 @layer components.root {
   :where(.ui-table) {
+    --_motion: var(--ui-motion);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_radius: var(--ui-radius);
+    --_row-duration: calc(var(--ui-duration-fast) * var(--_motion));
 
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-collapse: separate;
@@ -19,6 +23,7 @@
     @media (hover: hover) {
       tbody > tr:hover > :is(td, th) {
         background-color: oklch(from var(--ui-surface-filled) l c h / 75%);
+        transition-duration: 0s;
       }
     }
 
@@ -31,6 +36,7 @@
       font-size: var(--ui-font-size-small);
       padding-block: var(--ui-space-1);
       padding-inline: var(--ui-space-2);
+      transition: background-color var(--_row-duration) var(--_ease);
 
       &:last-child {
         border-inline-end: none;
@@ -159,9 +165,6 @@
     }
 
     &.ui-sticky-header {
-      --_motion: var(--ui-motion);
-      --_duration: calc(var(--ui-duration) * var(--_motion));
-      --_ease: var(--ui-ease);
       --_scroll-shadow: var(--ui-shadow-scroll);
       --_sticky-offset: 0;
 

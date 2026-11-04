@@ -114,20 +114,16 @@ const items = [
   <fieldset class="ui-fieldset">
     <legend>Plan</legend>
     <div class="stack">
-      {
-        items.map((item) => (
-          <label class="label">
-            <input
-              checked={item.checked}
-              class="radio"
-              disabled={item.disabled}
-              name="build-radio-plan"
-              type="radio"
-            />
-            <span>{item.label}</span>
-          </label>
-        ))
-      }
+      {items.map((item) => <label class="label">
+        <input
+          checked={item.checked}
+          class="radio"
+          disabled={item.disabled}
+          name="build-radio-plan"
+          type="radio"
+        />
+        <span>{item.label}</span>
+      </label>)}
     </div>
   </fieldset>
 </BuildUp>

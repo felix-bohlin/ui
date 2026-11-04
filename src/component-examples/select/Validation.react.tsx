@@ -10,8 +10,7 @@ export default function Validation() {
           <option>No me!!</option>
           <option>Come on!</option>
         </Select>
-
-        <Select label="Label" variant="filled" required>
+        <Select label="Label" required variant="filled">
           <option value="">-</option>
           <option>Pick me!</option>
           <option>No me!!</option>
@@ -21,23 +20,22 @@ export default function Validation() {
 
       <div className="example-row">
         <Select
-          label="Label"
-          error
-          endText="Pick another option."
           defaultValue="Wrong option"
+          endText="Pick another option."
+          error
+          label="Label"
         >
           <option value="">-</option>
           <option>Wrong option</option>
           <option>Also wrong!</option>
           <option>Nothing's right!</option>
         </Select>
-
         <Select
+          defaultValue="Wrong option"
+          endText="Pick another option."
+          error
           label="Label"
           variant="filled"
-          error
-          endText="Pick another option."
-          defaultValue="Wrong option"
         >
           <option value="">-</option>
           <option>Wrong option</option>

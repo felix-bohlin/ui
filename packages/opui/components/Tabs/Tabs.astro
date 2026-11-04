@@ -5,7 +5,7 @@ import { tabsContext } from "./context.astro"
 
 export const title = "Tabs"
 
-const $id = createId(Astro.locals)
+const idOf = createId(Astro.locals)
 const {
   class: className,
   name,
@@ -15,7 +15,7 @@ const {
   ...rest
 } = Astro.props
 
-const groupName = name || $id("tabs")
+const groupName = name || idOf("tabs")
 const html = await tabsContext.provide({ groupName, value }, () =>
   Astro.slots.render("default"),
 )

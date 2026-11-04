@@ -11,16 +11,16 @@ import {
 
 <template>
   <div class="example-compass">
-    <Button commandfor="drawer-basics-3" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-3"
       >Block Start</Button
     >
-    <Button commandfor="drawer-basics-1" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-1"
       >Inline Start</Button
     >
-    <Button commandfor="drawer-basics-2" command="show-modal"
+    <Button command="show-modal" commandfor="drawer-basics-2"
       >Inline End</Button
     >
-    <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
+    <Button command="show-modal" commandfor="drawer-basics-4">Block End</Button>
   </div>
 
   <Drawer id="drawer-basics-1" scrollLock side="inline-start">
@@ -37,7 +37,7 @@ import {
           <path
             fill="currentColor"
             d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-          />
+          ></path>
         </svg>
       </Button>
     </DrawerHeader>
@@ -90,7 +90,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-1" command="close"
+      <Button command="close" commandfor="drawer-basics-1" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -120,7 +120,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-2" command="close"
+      <Button command="close" commandfor="drawer-basics-2" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -144,7 +144,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-3" command="close"
+      <Button command="close" commandfor="drawer-basics-3" size="small"
         >Close</Button
       >
     </DrawerFooter>
@@ -168,7 +168,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-basics-4" command="close"
+      <Button command="close" commandfor="drawer-basics-4" size="small"
         >Close</Button
       >
     </DrawerFooter>

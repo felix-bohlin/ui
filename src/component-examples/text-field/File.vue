@@ -3,6 +3,6 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField type="file" label="Label" />
-  <TextField type="file" label="Label" variant="filled" />
+  <TextField label="Label" type="file" />
+  <TextField label="Label" type="file" variant="filled" />
 </template>

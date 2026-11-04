@@ -6,13 +6,13 @@ A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/conc
 
 1. Knobs
 
-   `--ui-palette-hue` 145 `--ui-palette-chroma` 0.5
+   `--ui-palette-hue` 223 `--ui-palette-chroma` 0.5
 
 2. Palette `--ui-color-1` to `--ui-color-16`
 
 3. Roles
 
-   - `--ui-primary` Filled buttons, links, focus ring
+   - `--ui-primary` Filled buttons, links, checked controls
    - `--ui-palette-tint` Tonal fills
    - `--ui-palette-text` Tinted text
    - `--ui-palette-border` Tinted borders
@@ -32,16 +32,16 @@ One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, 
 ```css
 :where(html) {
   --ui-palette-chroma: 0.5;
-  --ui-palette-hue: 145;
+  --ui-palette-hue: 222.8;
   --ui-palette-hue-rotate-by: 0;
 }
 ```
 
 - `--ui-palette-chroma` scales the saturation, from `0` (gray) to `1`.
-- `--ui-palette-hue` is a hue angle in degrees, `145` (green) by default.
-- `--ui-palette-hue-rotate-by` turns the hue by this many degrees per step, so `1` spreads 15° across the palette. The severity scopes use `1` for livelier tints.
+- `--ui-palette-hue` is a hue angle in degrees, `222.8` (blue) by default.
+- `--ui-palette-hue-rotate-by` turns the hue by this many degrees per step, so `1` spreads 15° across the palette. `.ui-critical`, `.ui-info`, `.ui-success` and `.ui-warning` use `1` for livelier tints; `.ui-neutral` keeps `0`.
 
-Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette`, `.ui-contrast-more`, the severity classes and the inline `del`, `ins`, `abbr` and `dfn` elements and their classes, so the knobs do nothing anywhere else. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-neutral`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` also keeps the chroma of `--ui-neutral`, which follows `--ui-gray-hue` and `--ui-gray-chroma` by default:
+Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette` and the severity classes, so the knobs do nothing anywhere else. `.ui-contrast-more` only re-derives the roles. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-neutral`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` also keeps the chroma of `--ui-neutral`, which follows `--ui-gray-hue` and `--ui-gray-chroma` by default. This is the library's own rule for `.ui-warning`. It sits in the `theme.severity` layer, after `theme.custom`, so a copy of it in a theme is overridden; recolor a scope through its intent token instead:
 
 ```css
 :where(.ui-warning) {
@@ -54,9 +54,9 @@ Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scal
 
 A scope class re-themes an element and everything inside it, so one page can carry several brands, a dark panel or one red for every critical component:
 
-- `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits, `--ui-primary` and the intent colors included. `.ui-contrast-more` does the same with the contrast knobs tightened.
+- `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits, `--ui-primary` and the intent colors included. `.ui-contrast-more` re-derives every derived token and palette role with the contrast knobs tightened; the palette steps stay those of the nearest `.ui-palette` or `:root`.
 - `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning` swap the palette steps for the intent color and leave `--ui-primary` and the text colors alone. [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#palette-scopes) shows the steps of each one.
-- `.ui-light` and `.ui-dark` force a color scheme. On an element they only pick the other side of `light-dark()`: the surface and text colors and `--ui-shadow-elevated` switch, while the shadow color and strength still come from the page. A build that rewrites `light-dark()` for older browsers, like the defaults of Vite 8 and Next 16, only follows them on `html`; the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark) has the settings that keep `light-dark()`.
+- `.ui-light` and `.ui-dark` force a color scheme. On an element they only pick the other side of `light-dark()`: the surface and text colors, `--ui-shadow-color` and `--ui-shadow-elevated` switch, so shadows darken too. A build that rewrites `light-dark()` for older browsers, like the defaults of Vite 8 and Next 16, only follows them on `html`; the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark) has the settings that keep `light-dark()`.
 
 ## Surfaces
 
@@ -106,7 +106,7 @@ The edge of the raised surface itself is `--ui-border-color-raised`, one word sh
 
 ## Corners
 
-`--ui-radius` rounds every component, and buttons and fields follow it until you set `--ui-button-radius` or `--ui-field-radius`. Small parts like `kbd`, tooltips and checkboxes never get rounder than it, so `0` squares everything. `--ui-radius-x-small`, `--ui-radius-small` and `--ui-radius-large` derive from it (capped at 2px and 5px, and times 1.5), and `--ui-radius-round` is the pill.
+`--ui-radius` rounds every component, and buttons and fields follow it until you set `--ui-button-radius` or `--ui-field-radius`. Small parts like `kbd`, tooltips and checkboxes never get rounder than it, so `0` squares every corner that follows it; pill and circle shapes stay round until `--ui-radius-round` is set. `--ui-radius-x-small`, `--ui-radius-small` and `--ui-radius-large` derive from it (capped at 2px and 5px, and times 1.5), and `--ui-radius-round` is the pill.
 
 ```css
 :where(html) {
@@ -129,10 +129,12 @@ The edge of the raised surface itself is `--ui-border-color-raised`, one word sh
 The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is a primitive. Components read the roles on top of it, like `--ui-font-size-caption`, `--ui-font-size-control` and `--ui-font-size-h1`. Pin a role, move a step and every role on it follows, or replace the scale:
 
 ```css
-:where(html) {
+:where(html, .ui-palette, .ui-contrast-more) {
   /* Pin one role */
   --ui-font-size-caption: 0.8125rem;
+}
 
+:where(html) {
   /* Or a modular scale: 1rem base, minor third */
   --ui-font-size-100: calc(1rem * pow(1.2, -2));
   --ui-font-size-200: calc(1rem * pow(1.2, -1));
@@ -148,7 +150,7 @@ The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is 
 
 ### Fluid headings
 
-`--ui-font-size-h1` to `--ui-font-size-h4` grow from one step to the next as the viewport widens, together, over one window: `--ui-fluid-min-inline-size` (20rem) to `--ui-fluid-max-inline-size` (48rem). `--ui-fluid-progress` is the position in that window, 0 to 1, from `progress()`, so a theme can ramp other values on the same window. Move the window, reuse the ramp, or pin a heading to a step:
+`--ui-font-size-h1` to `--ui-font-size-h4` grow from one step to a larger one (h1 and h2 skip a step) as the viewport widens, together, over one window: `--ui-fluid-min-inline-size` (20rem) to `--ui-fluid-max-inline-size` (48rem). `--ui-fluid-progress` is the position in that window, 0 to 1, from `progress()`, so a theme can ramp other values on the same window. Move the window, reuse the ramp, or pin a heading to a step:
 
 ```css
 :where(html) {
@@ -158,7 +160,9 @@ The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is 
 
   /* Tighter spacing on narrow screens, on the same ramp */
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+}
 
+:where(html, .ui-palette, .ui-contrast-more) {
   /* Or pin a heading */
   --ui-font-size-h1: var(--ui-font-size-800);
 }
@@ -170,14 +174,14 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 
 - `--ui-shadow-control`: buttons with a variant, chips, toggle buttons and fields. `none` until a theme sets it, and the optional `--ui-shadow-field` splits off the fields.
 - `--ui-shadow-elevated`: elevated cards and accordions.
-- `--ui-shadow-overlay`: dialogs, drawers, menus, `select` pickers and the carousel buttons.
+- `--ui-shadow-overlay`: dialogs, drawers, menus, `select` pickers, toasts and the carousel buttons.
 - `--ui-shadow-scroll`: the edges of scrolled dialogs, drawers and sticky table headers.
-- `--ui-shadow-surface`: tonal and outlined cards and accordions, and callouts. `none` by default.
+- `--ui-shadow-surface`: tonal and outlined cards and accordions, callouts, and Checkbox, Radio and Switch cards. `none` by default.
 - `--ui-shadow-selected`: the selected tab.
 - `--ui-shadow-color`: the color and base opacity every default shadow is built from, a `light-dark()` pair, so shadows darken in dark mode, also in `.ui-dark` parts of the page. Each layer adds its own opacity on top.
 
 ```css
-:where(html) {
+:where(html, .ui-palette, .ui-contrast-more) {
   --ui-shadow-color: light-dark(oklch(0.28 0.055 290 / 2%), oklch(0 0 0 / 30%));
   --ui-shadow-elevated: none;
 }
@@ -189,7 +193,7 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 
 ### Global classes
 
-On `html`, these override the OS preference for every transition and animation. Smooth scrolling follows the system setting only, since `normalize.css` keys it on `prefers-reduced-motion`.
+On `html`, these override the OS preference for every transition and animation. The page's smooth scrolling follows the system setting only, since `normalize.css` keys it on `prefers-reduced-motion`; the Carousel's follows `--ui-motion`.
 
 - `.ui-motion-off`: sets `--ui-motion: 0`.
 - `.ui-motion-on`: sets `--ui-motion: 1`.
@@ -209,6 +213,18 @@ Each component reads it through its own `--_motion`, so you can turn one off:
 </button>
 ```
 
+### Springy movement
+
+Two optional tokens give the controls some personality. `--ui-ease-move` is the easing of things that move: the tabs indicator, the press scale, and menus, selects, tooltips and toasts as they open. Nothing closing reads it. `--ui-press-scale` shrinks buttons, toggle buttons and chips while they're pressed. Both are unset, so nothing bounces or shrinks until a theme sets them, and both follow `--ui-motion`.
+
+```css
+:root {
+  --ui-ease-move: linear(0, 0.066, 0.218, 0.4, 0.578, 0.731, 0.852, 0.94, 0.998,
+    1.031, 1.047, 1.05, 1.046, 1.038, 1.029, 1.02, 1.012, 1.007, 1.002, 1, 1);
+  --ui-press-scale: 0.97;
+}
+```
+
 To follow it in your own CSS:
 
 ```css
@@ -217,9 +233,9 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 ## Contrast
 
-`--ui-contrast` is `normal`, or `more` under `prefers-contrast: more`. More contrast changes no color directly. It tightens the knobs the roles are derived from, and every role follows: `--ui-text-strength-light` and `--ui-text-strength-dark` (how much of `--ui-text-strong` goes into `--ui-text`), `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength` for the borders, `--ui-text-max-lightness`, `--ui-text-min-lightness` and `--ui-text-max-chroma` for the `-text` roles, `--ui-accent-fill-max-lightness` for intent fills, `--ui-primary-max-lightness` and `--ui-primary-min-lightness` for the primary, the `--ui-palette-*-lightness` limits for the palette roles, and `--ui-focus-ring-width`. Their values in both modes are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast). Components with translucent fills or text have style queries of their own for the shape changes.
+`--ui-contrast` is `normal`, or `more` under `prefers-contrast: more`. More contrast changes no color directly. It tightens the knobs the roles are derived from, and every role follows: `--ui-text-strength-light` and `--ui-text-strength-dark` (how much of `--ui-text-strong` goes into `--ui-text`), `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength` for the borders, `--ui-text-max-lightness` and `--ui-text-min-lightness` for the `-text` roles, `--ui-accent-max-chroma` and `--ui-accent-max-lightness` for the primary, invalid and palette accents, `--ui-accent-fill-max-lightness` for intent fills, `--ui-primary-max-lightness` and `--ui-primary-min-lightness` for the primary, the `--ui-palette-*-lightness` limits for the palette roles, and `--ui-focus-ring-width`. Their values in both modes are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast). Components with translucent fills or text have style queries of their own for the shape changes.
 
-A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it, so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-border-color: oklch(0.95 0 0)`, owns that role in every contrast mode. Set the knob instead, or hand the role back to the library under more contrast with `revert-layer`, which drops the theme's value and keeps the library's formula, computed from the theme's own `--ui-text-strong` and `--ui-surface`:
+A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it (brutalist pins `--ui-primary-text` to its text color), so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-border-color: oklch(0.95 0 0)`, owns that role in every contrast mode. Set the knob instead, or hand the role back to the library under more contrast with `revert-layer`, which drops the theme's value and keeps the library's formula, computed from the theme's own `--ui-text-strong` and `--ui-surface`:
 
 ```css
 @layer theme.custom {
@@ -247,7 +263,7 @@ The example themes do this for their borders, field borders, focus ring and subt
 ### Classes
 
 - `.ui-contrast-more`: sets `--ui-contrast: more` and the tightened knobs, on `html` or any element. On an element it is a scope like `.ui-palette`, so every role inside is derived again.
-- `.ui-contrast-normal`: sets `--ui-contrast: normal`, on `html` to ignore the OS preference. It can't lower the contrast inside a `.ui-contrast-more` ancestor.
+- `.ui-contrast-normal`: sets `--ui-contrast: normal`, on `html` to ignore the OS preference. Inside a `.ui-contrast-more` ancestor it keeps the tightened colors but resets what components read from `--ui-contrast`.
 
 ```html
 <html lang="en" class="ui-contrast-more">
@@ -275,4 +291,4 @@ To tune more contrast, set the knobs where the library sets them: on `html` unde
 
 ### Forced colors
 
-Under `forced-colors: active`, selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers `CanvasText`, and focused fields a `Highlight` outline. Nothing to configure.
+Under `forced-colors: active`, selected tabs, toggles and list items, checked switches, progress bars and range thumbs use `SelectedItem`; unchecked switches, range tracks, progress outlines and dividers `CanvasText`; and focused fields a `Highlight` outline. Nothing to configure.

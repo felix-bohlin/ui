@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.vue-props"
+import "../../css/js/range.js"
 import {
   computed,
   inject,
-  type InputHTMLAttributes,
   onBeforeUnmount,
   onMounted,
-  ref,
-  useAttrs,
   useId,
   useTemplateRef,
 } from "vue"
 import { useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { idRefs } from "../id"
-import { defaultValue, resetValue } from "./value"
-
-defineOptions({
-  inheritAttrs: false,
-})
+import { createIds, idRefs } from "../id"
+import { defaultValue } from "./value"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   endText,
@@ -28,14 +22,25 @@ const {
   items,
   label,
   list,
+  max,
+  min,
+  name,
   size,
   spread,
   startText,
+  step,
   value,
   valueSuffix,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<number | string>()
 
 const model = computed({
@@ -45,42 +50,75 @@ const model = computed({
   },
 })
 
-const input = useTemplateRef<HTMLInputElement>("input")
-const resets = ref(0)
-let form: HTMLFormElement | null | undefined
-const syncAfterReset = (event: Event) =>
-  setTimeout(() => {
-    if (!input.value || event.defaultPrevented) return
-    model.value = resetValue(input.value)
-    resets.value++
-  })
-onMounted(() => {
-  if (input.value && !input.value.hasAttribute("value") && model.value != null)
-    input.value.defaultValue = String(model.value)
-  form = input.value?.form
-  form?.addEventListener("reset", syncAfterReset)
-})
-onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
+const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
 
-const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = useInputAttrs()
-const middle = computed(() => defaultValue(attrs))
+let modelForm: HTMLFormElement | null = null
+
+const resetModel = (event: Event) =>
+  setTimeout(() => {
+    const element = modelElement.value
+    if (event.defaultPrevented || !element) return
+    model.value = Number.isNaN(element.valueAsNumber)
+      ? element.value
+      : element.valueAsNumber
+  })
+
+onMounted(() => {
+  const element = modelElement.value
+  if (!element) return
+  if (!element.hasAttribute("value") && model.value != null) {
+    element.defaultValue = String(model.value)
+  }
+  modelForm = element.form
+  modelForm?.addEventListener("reset", resetModel)
+})
+
+onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
+
+const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
-const field = inject(FieldGroupKey, undefined)
-const hasValue = computed(
-  () => valueSuffix !== undefined || !!slots["value-text"],
-)
-const inputId = computed(
-  () => id || (hasValue.value ? `range-${uid}` : undefined),
-)
-const listId = computed(
-  () => list ?? (items || slots.datalist ? `range-list-${uid}` : undefined),
+
+const ids = computed(() => createIds(uid, "range", id || undefined))
+
+const hasLabel = computed(() => !!label || slots.label)
+
+const hasStartText = computed(() => !!startText || slots["start-text"])
+
+const hasEndText = computed(() => !!endText || slots["end-text"])
+
+const hasValueText = computed(() => slots["value-text"])
+
+const hasValue = computed(() => valueSuffix !== undefined || hasValueText.value)
+
+const hasDatalist = computed(() => !!items || slots.datalist)
+
+const readout = computed(
+  () =>
+    `${model.value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`,
 )
 
-const labelId = `range-label-${uid}`
-const startTextId = `range-start-${uid}`
-const endTextId = `range-end-${uid}`
+const inputId = computed(() => id || (hasValue.value ? ids.value() : undefined))
+
+const labelId = computed(() =>
+  hasLabel.value ? ids.value("label") : undefined,
+)
+
+const startTextId = computed(() =>
+  hasStartText.value ? ids.value("start-text") : undefined,
+)
+
+const endTextId = computed(() =>
+  hasEndText.value ? ids.value("end-text") : undefined,
+)
+
+const listId = computed(
+  () => list ?? (hasDatalist.value ? ids.value("list") : undefined),
+)
+
+const describedBy = computed(() =>
+  idRefs(startTextId.value, endTextId.value, attrs.value["aria-describedby"]),
+)
 </script>
 
 <template>
@@ -96,78 +134,56 @@ const endTextId = `range-end-${uid}`
     :style="$attrs.style"
   >
     <span
-      v-if="label || $slots.label"
+      v-if="hasLabel"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :id="labelId"
-    >
-      {{ label }}<slot name="label"></slot>
-    </span>
-    <output
-      v-if="valueSuffix !== undefined || $slots['value-text']"
+      >{{ label }}<slot name="label"></slot></span
+    >{{ " "
+    }}<output
+      v-if="hasValue"
       aria-live="off"
       class="ui-value"
+      :data-live="hasValueText ? undefined : ''"
       :for="inputId"
       :data-suffix="valueSuffix"
-      :key="resets"
-    >
-      <slot name="value-text" :value="Number(model ?? middle)"
-        >{{ model ?? middle }}{{ valueSuffix }}</slot
-      >
-    </output>
-    <span
-      v-if="startText || $slots['start-text']"
-      class="ui-start-text"
-      :id="startTextId"
-    >
-      {{ startText }}<slot name="start-text"></slot>
-    </span>
-
-    <input
-      v-bind="inputAttrs"
-      v-model.number="model"
-      :aria-describedby="
-        idRefs(
-          (startText || $slots['start-text']) && startTextId,
-          (endText || $slots['end-text']) && endTextId,
-          attrs['aria-describedby'],
-        )
-      "
+      ><slot v-if="$slots['value-text']" name="value-text"></slot
+      ><template v-else>{{ readout }}</template></output
+    >{{ " "
+    }}<span v-if="hasStartText" class="ui-start-text" :id="startTextId"
+      >{{ startText }}<slot name="start-text"></slot></span
+    >{{ " "
+    }}<input
+      v-bind="attrs"
+      :aria-describedby="describedBy"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      :aria-labelledby="
-        label || $slots.label ? labelId : attrs['aria-labelledby']
-      "
+      :aria-labelledby="labelId ?? attrs['aria-labelledby']"
       :aria-valuetext="
         attrs['aria-valuetext'] ??
-        (valueSuffix && !$slots['value-text']
-          ? `${model ?? middle}${valueSuffix}`
-          : undefined)
+        (valueSuffix && !hasValueText ? readout : undefined)
       "
       :id="inputId"
       :list="listId"
-      :name="attrs.name ?? field?.name"
-      ref="input"
+      :max="max"
+      :min="min"
+      :name="name ?? field?.name"
+      :step="step"
       type="range"
-    />
-
-    <datalist v-if="items || $slots.datalist" aria-hidden="true" :id="listId">
-      <template
-        v-for="option in items"
-        :key="typeof option === 'object' ? option.value : option"
-      >
-        <option
-          :value="typeof option === 'object' ? option.value : option"
-          :label="typeof option === 'object' ? option.label : undefined"
-        />
-      </template>
-      <slot name="datalist"></slot>
-    </datalist>
-
-    <span
-      v-if="endText || $slots['end-text']"
-      class="ui-end-text"
-      :id="endTextId"
-    >
-      {{ endText }}<slot name="end-text"></slot>
-    </span>
+      v-model.number="model"
+      ref="modelElement"
+    />{{ " "
+    }}<datalist v-if="hasDatalist" aria-hidden="true" :id="listId">
+      <template v-for="(option, index) in items" :key="index"
+        ><option
+          v-if="typeof option === 'object'"
+          :value="option.value"
+          :label="option.label"
+        ></option>
+        <option v-else :value="option"></option
+      ></template>
+      <slot name="datalist"></slot></datalist
+    >{{ " "
+    }}<span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+      >{{ endText }}<slot name="end-text"></slot
+    ></span>
   </label>
 </template>

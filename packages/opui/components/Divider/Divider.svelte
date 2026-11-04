@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
-  import type { HTMLAttributes } from "svelte/elements"
+  import type { SvelteHTMLElements } from "svelte/elements"
 
   let {
     align,
@@ -14,8 +14,7 @@
   }: Props = $props()
 </script>
 
-{#if children}
-  <div
+{#if children}<div
     class={[
       "ui-divider",
       align && align !== "center" && `ui-align-${align}`,
@@ -23,12 +22,10 @@
       variant && variant !== "outlined" && `ui-${variant}`,
       className,
     ]}
-    {...rest as HTMLAttributes<HTMLDivElement>}
+    {...rest as SvelteHTMLElements["div"]}
   >
-    {@render children()}
-  </div>
-{:else}
-  <hr
+    {@render children?.()}
+  </div>{:else}<hr
     class={[
       "ui-divider",
       color && `ui-${color}`,
@@ -36,5 +33,4 @@
       className,
     ]}
     {...rest}
-  />
-{/if}
+  />{/if}

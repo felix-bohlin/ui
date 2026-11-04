@@ -2,6 +2,7 @@
 import "../styles/theme-fonts.css"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
 import { FONT_TOKENS, LAYERS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
+import { BUNDLED_FONTS, WEB_FONTS, fontCssUrls } from "../utils/theme-fonts"
 
 type Props = {
   overrides?: boolean
@@ -12,17 +13,35 @@ const { overrides = false } = Astro.props
 const exampleThemes = Object.fromEntries(
   EXAMPLE_THEMES.map((theme) => [theme.name, theme.css]),
 )
+const exampleFonts = Object.fromEntries(
+  EXAMPLE_THEMES.map((theme) => [
+    theme.name,
+    Object.fromEntries(
+      [...FONT_TOKENS, "--ui-font-code"]
+        .filter((name) => name in theme.tokens)
+        .map((name) => [name, theme.tokens[name]]),
+    ),
+  ]),
+)
+const webFonts = Object.fromEntries(
+  WEB_FONTS.filter((font) => !BUNDLED_FONTS.includes(font.id)).map((font) => [
+    font.family.toLowerCase(),
+    fontCssUrls(font.id),
+  ]),
+)
 ---
 
 <script
   is:inline
   define:vars={{
+    exampleFonts,
     exampleThemes,
     FONT_TOKENS,
     LAYERS,
     overrides,
     THEME_KEY,
     VIEW_KEYS,
+    webFonts,
   }}
 >
   const params = overrides
@@ -114,6 +133,22 @@ const exampleThemes = Object.fromEntries(
         "data-theme-font",
         FONT_TOKENS.some((name) => Object.hasOwn(tokens ?? {}, name)),
       )
+      const stacks = { ...exampleFonts[preset], ...tokens }
+      for (const name of [...FONT_TOKENS, "--ui-font-code"]) {
+        const family = String(stacks[name] ?? "")
+          .split(",")[0]
+          .trim()
+          .replace(/^["']|["']$/g, "")
+          .toLowerCase()
+        for (const url of webFonts[family] ?? []) {
+          if (!document.querySelector(`link[href="${url}"]`)) {
+            const link = document.createElement("link")
+            link.rel = "stylesheet"
+            link.href = url
+            document.head.append(link)
+          }
+        }
+      }
     },
     applyStoredTheme() {
       const theme = window.themeUtils.readTheme()

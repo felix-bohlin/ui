@@ -1,12 +1,12 @@
 import stylelint from "stylelint"
 import { expect, test } from "vitest"
 
-const lint = async (code: string, file = "button.css") => {
+const lint = async (code: string, file = "components/button.css") => {
   const {
     results: [result],
   } = await stylelint.lint({
     code,
-    codeFilename: `packages/opui/css/components/${file}`,
+    codeFilename: `packages/opui/css/${file}`,
     configFile: "stylelint.config.mjs",
   })
   return result.warnings.map((warning) => warning.rule).toSorted()
@@ -32,6 +32,7 @@ test.each([
     "@scope (.ui-no-such-part) {\n  :scope { color: CanvasText; }\n}\n",
   ],
   ["opui/vendor-prefix", block("-webkit-user-select: none;")],
+  ["property-disallowed-list", block("overflow-x: auto;")],
   ["selector-no-vendor-prefix", block("&::-moz-selection { color: Canvas; }")],
 ])("%s rejects %j", async (rule, code) => {
   expect(await lint(code)).toContain(rule)
@@ -52,8 +53,20 @@ test.each([
   expect(await lint(code)).toEqual([])
 })
 
-test("an exception that no longer matches fails", async () => {
-  expect(await lint(block("color: CanvasText;"), "text-field.css")).toEqual([
-    "opui/focus-visible",
+test("a compat file can fall back to overflow-x and overflow-y, and nothing else physical", async () => {
+  expect(
+    await lint(
+      block("overflow-x: auto;\noverflow-y: auto;"),
+      "compat/button.css",
+    ),
+  ).toEqual([])
+  expect(await lint(block("margin-left: 0;"), "compat/button.css")).toEqual([
+    "property-disallowed-list",
   ])
+})
+
+test("an exception that no longer matches fails", async () => {
+  expect(
+    await lint(block("color: CanvasText;"), "components/text-field.css"),
+  ).toEqual(["opui/focus-visible"])
 })

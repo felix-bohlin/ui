@@ -37,15 +37,19 @@ const steps = [
     oklch(from var(--ui-surface-tonal) calc(l - 0.1) c h),
     oklch(from var(--ui-surface-tonal) calc(l + 0.1) c h)
   );
+  --offset: -1px;
   box-shadow:
-    -1px 0 0 0 var(--divider),
+    var(--offset) 0 0 0 var(--divider),
     0 -1px 0 0 var(--divider);
+}
+
+[role="group"].group > button:dir(rtl) {
+  --offset: 1px;
 }`,
-    features: ["light-dark", "relative-color"],
+    features: ["dir-pseudo", "light-dark", "relative-color"],
     notes: [
-      "Each button draws a line along its left and top edge",
+      "Each button draws a line along its top edge and the edge it shares with the button before it: the left one, or the right one in right-to-left",
       "The group clips the lines on the outer edges, so only the gaps between buttons show one",
-      "Physical is fine here: in right-to-left the clipped outer edge just switches sides",
       "Drag <strong>Width</strong>: wrapped rows get a divider on top for free",
       "Relative color: one shade darker in light mode, lighter in dark",
     ],
@@ -93,15 +97,14 @@ const knobs = [
 
 <BuildUp id="build-button-group" knobs={knobs} steps={steps}>
   <div class="frame">
-    {
-      ["group", "group outlined"].map((className) => (
-        <div class={className} role="group">
-          {["Day", "Week", "Month", "Year"].map((label) => (
-            <button type="button">{label}</button>
-          ))}
-        </div>
-      ))
-    }
+    {["group", "group outlined"].map((className) => <div
+      class={className}
+      role="group"
+    >
+      {["Day", "Week", "Month", "Year"].map((label) => <button type="button">
+        {label}
+      </button>)}
+    </div>)}
   </div>
 </BuildUp>
 

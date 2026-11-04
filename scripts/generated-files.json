@@ -2,7 +2,7 @@
   "files": [
     "packages/opui/skills/opui/references",
     "packages/opui/tokens.json",
-    "public/search-index.json"
+    "public/search-index"
   ],
   "sections": ["packages/opui/README.md"]
 }

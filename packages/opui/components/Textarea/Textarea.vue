@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { computed, inject, type TextareaHTMLAttributes, useAttrs } from "vue"
+import "../../elements/character-count.js"
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  useTemplateRef,
+} from "vue"
 import { useInputAttrs } from "../vue"
-import type { Props, Slots } from "./types.vue-props"
+import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-
-defineOptions({
-  inheritAttrs: false,
-})
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   autoFit,
+  characterCount,
+  characterCountLabel,
   endText,
   error,
   hideLabel,
   id,
   label,
+  name,
   size,
   spread,
   startText,
@@ -22,8 +29,13 @@ const {
   variant,
 } = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs() as TextareaHTMLAttributes
-const inputAttrs = useInputAttrs()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useInputAttrs()
+
 const modelValue = defineModel<string>()
 
 const model = computed({
@@ -32,6 +44,29 @@ const model = computed({
     modelValue.value = value
   },
 })
+
+const modelElement = useTemplateRef<HTMLTextAreaElement>("modelElement")
+
+let modelForm: HTMLFormElement | null = null
+
+const resetModel = (event: Event) =>
+  setTimeout(() => {
+    const element = modelElement.value
+    if (event.defaultPrevented || !element) return
+    model.value = element.value
+  })
+
+onMounted(() => {
+  const element = modelElement.value
+  if (!element) return
+  if (!element.hasAttribute("value") && model.value != null) {
+    element.defaultValue = String(model.value)
+  }
+  modelForm = element.form
+  modelForm?.addEventListener("reset", resetModel)
+})
+
+onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
 
 const field = inject(FieldGroupKey, undefined)
 </script>
@@ -53,36 +88,43 @@ const field = inject(FieldGroupKey, undefined)
     <span
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-    >
-      {{ label }}<slot name="label"></slot>
-    </span>
-
-    <span v-if="startText || $slots['start-text']" class="ui-start-text">
-      {{ startText }}<slot name="start-text"></slot>
-    </span>
-
-    <span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span
+    >{{ " "
+    }}<span v-if="startText || $slots['start-text']" class="ui-start-text"
+      >{{ startText }}<slot name="start-text"></slot></span
+    >{{ " "
+    }}<span class="ui-field">
       <textarea
-        v-bind="inputAttrs"
-        v-model="model"
+        v-bind="attrs"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="id"
-        :name="attrs.name ?? field?.name"
-      ></textarea>
-      <span class="ui-start" v-if="$slots.start"
-        ><slot name="start"></slot
-      ></span>
-      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
-      <span class="ui-top" v-if="$slots.top"><slot name="top"></slot></span>
-      <span class="ui-bottom" v-if="$slots.bottom"
+        :name="name ?? field?.name"
+        v-model="model"
+        ref="modelElement"
+      ></textarea
+      >{{ " "
+      }}<span v-if="$slots.start" class="ui-start"
+        ><slot name="start"></slot></span
+      >{{ " "
+      }}<span v-if="$slots.end" class="ui-end"><slot name="end"></slot></span
+      >{{ " "
+      }}<span v-if="$slots.top" class="ui-top"><slot name="top"></slot></span
+      >{{ " "
+      }}<span v-if="$slots.bottom" class="ui-bottom"
         ><slot name="bottom"></slot
-      ></span>
-    </span>
-
-    <span v-if="endText || $slots['end-text']" class="ui-end-text">
-      {{ endText }}<slot name="end-text"></slot>
-    </span>
-
-    <slot></slot>
+      ></span> </span
+    >{{ " "
+    }}<span
+      v-if="endText || $slots['end-text'] || characterCount"
+      class="ui-end-text"
+      >{{ endText }}<slot name="end-text"></slot
+      ><component
+        is="opui-character-count"
+        v-if="characterCount"
+        aria-hidden="true"
+        class="ui-value"
+        :label="characterCountLabel"
+      ></component></span
+    >{{ " " }}<slot></slot>
   </label>
 </template>

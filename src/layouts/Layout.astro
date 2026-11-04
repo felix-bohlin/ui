@@ -5,9 +5,8 @@ import "/src/styles/base.css"
 import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
 import { frameworkVariantsOf } from "../utils/framework"
+import { importMap } from "../utils/import-map"
 import { markdownPath } from "../utils/markdown.js"
-import checkboxJs from "@opui/css/js/checkbox.js?url"
-import rangeJs from "@opui/css/js/range.js?url"
 
 type Props = {
   title?: string
@@ -43,11 +42,9 @@ const markdownUrl = hasMarkdown
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    {
-      markdownUrl && (
-        <link rel="alternate" type="text/markdown" href={markdownUrl} />
-      )
-    }
+    {markdownUrl && (
+      <link rel="alternate" type="text/markdown" href={markdownUrl} />
+    )}
     <title>{siteTitle}</title>
     {description && <meta name="description" content={description} />}
 
@@ -65,24 +62,13 @@ const markdownUrl = hasMarkdown
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={imageUrl} />
 
-    {
-      variants
-        .filter((v) => normalize(v.url) !== currentNormalized)
-        .map((v) => (
-          <link rel="alternate" href={v.url} data-framework={v.framework} />
-        ))
-    }
+    {variants
+      .filter((v) => normalize(v.url) !== currentNormalized)
+      .map((v) => (
+        <link rel="alternate" href={v.url} data-framework={v.framework} />
+      ))}
     <meta name="generator" content={Astro.generator} />
-    <script
-      is:inline
-      type="importmap"
-      set:html={JSON.stringify({
-        imports: {
-          "opui-css/css/js/checkbox.js": checkboxJs,
-          "opui-css/css/js/range.js": rangeJs,
-        },
-      })}
-    />
+    <script is:inline type="importmap" set:html={importMap} />
   </head>
   <body>
     <slot />

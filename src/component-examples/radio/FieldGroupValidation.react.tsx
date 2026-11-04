@@ -5,7 +5,7 @@ export default function FieldGroupValidation() {
     <Form>
       <Fieldset aria-describedby="radio-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="radio-group-validation">
+        <FieldGroup name="radio-group-validation" orientation="horizontal">
           <Radio defaultChecked error value="1">
             Radio 1
           </Radio>

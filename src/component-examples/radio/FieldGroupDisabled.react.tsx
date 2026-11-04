@@ -5,8 +5,8 @@ export default function FieldGroupDisabled() {
     <Form>
       <Fieldset disabled>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="radio-group-disabled">
-          <Radio value="1" defaultChecked>
+        <FieldGroup name="radio-group-disabled" orientation="horizontal">
+          <Radio defaultChecked value="1">
             Radio 1
           </Radio>
           <Radio value="2">Radio 2</Radio>
@@ -15,14 +15,14 @@ export default function FieldGroupDisabled() {
       </Fieldset>
       <Fieldset>
         <FieldLegend>One by one</FieldLegend>
-        <FieldGroup orientation="horizontal" name="radio-group-disabled-single">
-          <Radio value="1" defaultChecked>
+        <FieldGroup name="radio-group-disabled-single" orientation="horizontal">
+          <Radio defaultChecked value="1">
             Enabled
           </Radio>
-          <Radio value="2" disabled>
+          <Radio disabled value="2">
             Disabled
           </Radio>
-          <Radio value="3" aria-disabled="true">
+          <Radio aria-disabled="true" value="3">
             Aria-disabled
           </Radio>
         </FieldGroup>

@@ -33,7 +33,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_radius`: Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it.
 
-Outputs: `--_border-color`, `--_divider-border-color`, `--_edge-accent`, `--_edge-outline-color` and `--_edge-text`.
+Outputs: `--_border-color`, `--_divider-border-color`, `--_divider-offset`, `--_edge-accent`, `--_edge-outline-color` and `--_edge-text`.
 
 ### button.css
 
@@ -56,34 +56,34 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface-tonal`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface-tonal`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
 ### Example: Variants
 
 ```html
-<div role="group" class="ui-button-group">
-  <button type="button" class="ui-button">Transparent</button>
-  <button type="button" class="ui-button">Transparent</button>
+<div class="ui-button-group" role="group">
+  <button class="ui-button" type="button">Transparent</button>
+  <button class="ui-button" type="button">Transparent</button>
   <a class="ui-button" href="#">Transparent</a>
 </div>
 
-<div role="group" class="ui-button-group ui-outlined">
-  <button type="button" class="ui-button">Outlined</button>
-  <button type="button" class="ui-button">Outlined</button>
+<div class="ui-button-group ui-outlined" role="group">
+  <button class="ui-button" type="button">Outlined</button>
+  <button class="ui-button" type="button">Outlined</button>
   <a class="ui-button" href="#">Outlined</a>
 </div>
 
-<div role="group" class="ui-button-group ui-tonal">
-  <button type="button" class="ui-button">Tonal</button>
-  <button type="button" class="ui-button">Tonal</button>
+<div class="ui-button-group ui-tonal" role="group">
+  <button class="ui-button" type="button">Tonal</button>
+  <button class="ui-button" type="button">Tonal</button>
   <a class="ui-button" href="#">Tonal</a>
 </div>
 
-<div role="group" class="ui-button-group ui-filled">
-  <button type="button" class="ui-button">Filled</button>
-  <button type="button" class="ui-button">Filled</button>
+<div class="ui-button-group ui-filled" role="group">
+  <button class="ui-button" type="button">Filled</button>
+  <button class="ui-button" type="button">Filled</button>
   <a class="ui-button" href="#">Filled</a>
 </div>
 ```

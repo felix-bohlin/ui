@@ -25,7 +25,7 @@
   <option>Swedish</option>
 </Select>
 
-<Select spread required>
+<Select required spread>
   {#snippet label()}Required{/snippet}
   {#snippet startText()}You must select an option{/snippet}
   <option value="">Select an option</option>
@@ -33,13 +33,13 @@
   <option>Option 2</option>
 </Select>
 
-<Select spread disabled>
+<Select disabled spread>
   {#snippet label()}Disabled{/snippet}
   {#snippet startText()}This select is disabled{/snippet}
   <option>Option 1</option>
 </Select>
 
-<Select spread error>
+<Select error spread>
   {#snippet label()}Invalid Select{/snippet}
   {#snippet startText()}This select has an error{/snippet}
   {#snippet endText()}Please select a valid option.{/snippet}

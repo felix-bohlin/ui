@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { variant } = defineProps<Props>()
+const { density, variant } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -9,6 +9,7 @@ defineSlots<Slots>()
   <div
     :class="[
       'ui-card',
+      density && density !== 'normal' && `ui-${density}`,
       variant && variant !== 'plain' && `ui-${variant}`,
       $props.class,
     ]"

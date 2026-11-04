@@ -6,30 +6,6 @@
       align-items: end;
     }
 
-    .sales-stats {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-
-      hgroup > p:last-child {
-        font-size: var(--ui-font-size-caption);
-      }
-    }
-
-    .sales-up {
-      color: var(--ui-success-text);
-    }
-
-    .sales-down {
-      color: var(--ui-critical-text);
-    }
-
-    .sales-grid {
-      grid-template-columns: minmax(0, 1fr);
-
-      @container (inline-size >= 56rem) {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      }
-    }
-
     .sales-revenue {
       --_swatch-bg-color: var(--ui-primary);
     }
@@ -91,7 +67,6 @@
     }
 
     .sales-target span:last-child {
-      font-variant-numeric: tabular-nums;
       margin-inline-start: auto;
     }
   }
@@ -142,46 +117,62 @@
     </div>
   </div>
 
-  <ul class="ui-layout-grid sales-stats">
+  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 13rem">
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Revenue</p>
-          <h2 class="ui-h4">8 808 300 kr</h2>
-          <p><span class="sales-up">+14.2%</span> from last year</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Revenue</dt>
+            <dd class="ui-value">8 808 300 kr</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+14.2%</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Orders</p>
-          <h2 class="ui-h4">24 816</h2>
-          <p><span class="sales-up">+6.8%</span> from last year</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Orders</dt>
+            <dd class="ui-value">24 816</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+6.8%</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Average order value</p>
-          <h2 class="ui-h4">355 kr</h2>
-          <p><span class="sales-down">−1.9%</span> from last year</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Average order value</dt>
+            <dd class="ui-value">355 kr</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-critical">−1.9%</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
     <li>
       <div class="ui-card ui-outlined">
-        <hgroup>
-          <p>Conversion rate</p>
-          <h2 class="ui-h4">3.4%</h2>
-          <p><span class="sales-up">+0.3 pp</span> from last year</p>
-        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-stat">
+            <dt class="ui-label">Conversion rate</dt>
+            <dd class="ui-value">3.4%</dd>
+            <dd class="ui-description">
+              <span class="ui-caption ui-success">+0.3 pp</span> from last year
+            </dd>
+          </dl>
+        </div>
       </div>
     </li>
   </ul>
 
-  <div class="ui-layout-grid ui-large sales-grid">
+  <div class="ui-layout-columns ui-large" style="--_columns: 2fr 1fr">
     <section
       aria-labelledby="sales-dashboard-revenue-heading"
       class="ui-card ui-outlined sales-chart-card"
@@ -290,7 +281,7 @@
         <ul class="ui-layout-column">
           <li class="ui-layout-column ui-x-small">
             <div
-              class="ui-layout-row ui-small sales-target"
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-online"
             >
               <span>Online store</span
@@ -306,7 +297,7 @@
           </li>
           <li class="ui-layout-column ui-x-small">
             <div
-              class="ui-layout-row ui-small sales-target"
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-retail"
             >
               <span>Retail stores</span
@@ -322,7 +313,7 @@
           </li>
           <li class="ui-layout-column ui-x-small">
             <div
-              class="ui-layout-row ui-small sales-target"
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-b2b"
             >
               <span>Business sales</span
@@ -338,7 +329,7 @@
           </li>
           <li class="ui-layout-column ui-x-small">
             <div
-              class="ui-layout-row ui-small sales-target"
+              class="ui-layout-row ui-small ui-tabular-nums sales-target"
               id="sales-dashboard-target-wholesale"
             >
               <span>Wholesale</span

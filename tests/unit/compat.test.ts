@@ -7,6 +7,7 @@ import {
   baselineYear,
   baselineYears,
   featureIds,
+  featureOf,
   keepsFallback,
   withoutCompat,
 } from "../../packages/opui/scripts/features.mjs"
@@ -100,7 +101,7 @@ test("each fallback tests one web feature that isn't widely available, or is an 
     if (ids.length !== 1) {
       return [`${condition} matches ${ids.length} web features (${ids})`]
     }
-    const feature = features[ids[0]]
+    const feature = featureOf(ids[0])
     if (!feature) return [`${condition}: ${ids[0]} is not in web-features`]
     if (feature.kind !== "feature") {
       return [`${condition}: ${ids[0]} is a ${feature.kind} entry`]
@@ -133,6 +134,8 @@ test("keepsFallback keeps a fallback until its feature is Baseline", () => {
   expect(keepsFallback("not (corner-shape: squircle)", 2026)).toBe(true)
   expect(keepsFallback("not (field-sizing: content)", 2025)).toBe(true)
   expect(keepsFallback("not (field-sizing: content)", 2026)).toBe(false)
+  expect(keepsFallback("not (overflow-inline: auto)", 2024)).toBe(true)
+  expect(keepsFallback("not (overflow-inline: auto)", 2025)).toBe(false)
   expect(keepsFallback("not (display: grid)", 2026)).toBe(true)
 })
 
@@ -192,7 +195,7 @@ test("the -text and on-fill formulas wait for @function in Firefox and Safari", 
   const { support } = feature.status
   expect(
     !!support.firefox && !!support.safari,
-    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css and button-group.css once each",
+    "Firefox and Safari ship CSS @function: write the -text and on-fill formulas in theme.css, button.css, button-group.css and copy.css once each",
   ).toBe(false)
 })
 

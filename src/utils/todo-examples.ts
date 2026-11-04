@@ -7,8 +7,46 @@ const sources = import.meta.glob<string>("../todo-examples/*.html", {
 const sourceOf = (name: string) => sources[`../todo-examples/${name}.html`]
 
 export const todoExamples = {
+  "button-group-rtl-dividers": {
+    match:
+      "ButtonGroup: in right-to-left, filled and tonal groups lose the dividers",
+  },
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
+  },
+  "dialog-scrollbar-gutter-root": {
+    match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
+  },
+  "drawer-sidebar": {
+    match:
+      "Drawer: the app-shell, inbox and chat blocks each hide their sidebar",
+  },
+  "firefox-rtl-menu": {
+    match:
+      'Menu: in Firefox, a menu in a `dir="rtl"` part of a left-to-right page',
+  },
+  "firefox-tooltip-fade": {
+    match: "Tooltip: in Firefox, a tooltip that a position-try fallback moves",
+  },
+  "icon-only-shrink": {
+    match: "ButtonGroup: with `.ui-overflow-shrink`, icon-only buttons",
+  },
+  "ios-one-time-code": {
+    match: "OneTimeCode: the iOS fixed width in the compat layer",
+  },
+  "ios-submenu-anchor": {
+    match: "Menu: the iOS submenu anchor in the compat layer",
+  },
+  "range-forced-colors": {
+    match:
+      "Range: under `forced-colors: active` the range source sets its fill",
+  },
+  "resolved-tokens": {
+    match: "Tokens: there is no Figma kit",
+  },
+  "rich-text-table": {
+    match:
+      "Typography: rich text tables are `display: block` so they can scroll",
   },
   "tabs-rtl": {
     match: "Tabs: the Keyboard support list says Right and Left Arrow",

@@ -45,7 +45,8 @@ export default {
       prop: "label",
     },
     {
-      description: "The name of the input. Set by the group.",
+      description:
+        "The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.",
       inherited: true,
       prop: "name",
       type: "string",
@@ -91,6 +92,7 @@ export default {
     {
       code: "<input>",
       description: "A visually hidden checkbox or radio input.",
+      model: true,
       selector: ".ui-toggle-button > input",
     },
   ],

@@ -193,7 +193,7 @@ describe("parseTodo", () => {
         "- [ ] (2) Checkbox: the label wraps (`packages/opui/css/components/choice.css:30-36`, `src/docs/components/checkbox.astro`)",
         "- [ ] (2) Tabs: the pill is off (`layout` Surfaces)",
         "- [ ] (2) Layout: the gap collapses (`layout` Surfaces, `packages/opui/css/components/layout.css:12`)",
-        "- [ ] (2) Layout: the gap grows (`src/components/{A,B}Build.astro`, `src/utils/learn-posts.ts`)",
+        "- [ ] (2) Layout: the gap grows (`src/components/{A,B}Build.astro`, `src/utils/blog-posts.ts`)",
       ].join("\n"),
     ).sections
 
@@ -735,7 +735,7 @@ describe("TODO.md", () => {
     "Docs",
     "Docs site",
     "Examples",
-    "Learn",
+    "Blog",
     "Package",
     "Release",
     "Repo",
@@ -1005,7 +1005,7 @@ describe("TODO.md", () => {
   test("the citation check reads every form of citation", () => {
     expect(
       citationProblems(
-        "A: see `AGENTS.md:1`, `src/nope.ts:3`, `nope.css:1` and `carousel.css:99999` (`/etc/hosts`, `../AGENTS.md`, `TODO.md:0`, `src`, `src:2`)",
+        "A: see `AGENTS.md:1`, `src/nope.ts:3`, `nope.css:1` and `spinner.css:99999` (`/etc/hosts`, `../AGENTS.md`, `TODO.md:0`, `src`, `src:2`)",
       ),
     ).toEqual([
       "/etc/hosts cite it from the repo root",
@@ -1015,7 +1015,7 @@ describe("TODO.md", () => {
       "src:2 is a folder, cite no lines",
       "src/nope.ts:3 doesn't exist from the repo root",
       "nope.css:1 matches no file",
-      "carousel.css:99999 cites lines outside packages/opui/css/components/carousel.css",
+      "spinner.css:99999 cites lines outside packages/opui/css/components/spinner.css",
     ])
     expect(
       citationProblems("A: b (`AGENTS.md:1`; `TODO.md:2`, `layout` Surfaces)"),

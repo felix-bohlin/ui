@@ -26,14 +26,12 @@ const tooltipId = Astro.locals.$id("hydration-prop")
   <TooltipContent>
     <strong class="tooltip-heading">Needs hydration</strong>
     <span set:html={formatInline(hydration.description, Astro.locals.link)} />
-    {
-      hydration.fallback && (
-        <span
-          class="tooltip-line"
-          set:html={formatInline(hydration.fallback, Astro.locals.link)}
-        />
-      )
-    }
+    {hydration.fallback && (
+      <span
+        class="tooltip-line"
+        set:html={formatInline(hydration.fallback, Astro.locals.link)}
+      />
+    )}
   </TooltipContent>
 </Tooltip>
 

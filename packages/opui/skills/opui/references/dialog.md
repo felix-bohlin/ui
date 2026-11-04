@@ -26,7 +26,7 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 ### Notes
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
+- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
 
 ## DialogFooter
 
@@ -51,21 +51,20 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 - `--_backdrop-bg-color`: The backdrop color. Defaults to `--ui-backdrop-bg-color`.
 - `--_backdrop-blur`: The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.
-- `--_ease`: Easing of the open transition. Defaults to `--ui-ease-enter`.
 - `--_elevated-shadow`: Shadow of the dialog. `card.css` declares it for `.ui-elevated` surfaces, and the dialog sets it to `--ui-shadow-overlay`, like `Drawer` and `Menu`.
 - `--_max-inline-size`: Maximum width, capped to fit the viewport.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_scroll-shadow`: Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_title-font-size`: Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 
-Outputs: `--_duration`.
+Outputs: `--_duration` and `--_ease`.
 
 ### card.css
 
-- `--_ease`: Easing of the focus ring animation. Defaults to `--ui-ease`.
+- `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
-- `--_motion`: Motion multiplier for the focus ring animation. `0` turns it off.
+- `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
@@ -75,7 +74,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and 
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -83,18 +82,18 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 ```html
 <button
-  type="button"
-  commandfor="dialog-basics-1"
-  command="show-modal"
   class="ui-button ui-outlined"
+  type="button"
+  command="show-modal"
+  commandfor="dialog-basics-1"
 >
   Open dialog
 </button>
 
 <dialog
-  id="dialog-basics-1"
-  class="ui-dialog ui-elevated"
   aria-labelledby="dialog-basics-1-title"
+  class="ui-dialog ui-elevated"
+  id="dialog-basics-1"
 >
   <div class="ui-header">
     <h2 id="dialog-basics-1-title">Newsletter</h2>
@@ -106,18 +105,18 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   </div>
   <div class="ui-footer">
     <button
-      commandfor="dialog-basics-1"
-      command="close"
       class="ui-button"
       type="button"
+      command="close"
+      commandfor="dialog-basics-1"
     >
       Not now
     </button>
     <button
-      commandfor="dialog-basics-1"
-      command="close"
       class="ui-button ui-filled"
       type="button"
+      command="close"
+      commandfor="dialog-basics-1"
     >
       Subscribe
     </button>
@@ -143,7 +142,7 @@ import {
 } from "opui-css/astro"
 ---
 
-<Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+<Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
   Open dialog
 </Button>
 
@@ -157,8 +156,8 @@ import {
     </p>
   </DialogContent>
   <DialogFooter>
-    <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
-    <Button commandfor="dialog-basics-1" command="close" variant="filled">
+    <Button command="close" commandfor="dialog-basics-1"> Not now </Button>
+    <Button command="close" commandfor="dialog-basics-1" variant="filled">
       Subscribe
     </Button>
   </DialogFooter>
@@ -187,8 +186,8 @@ export default function Basics() {
   return (
     <>
       <Button
-        commandfor="dialog-basics-1"
         command="show-modal"
+        commandfor="dialog-basics-1"
         variant="outlined"
       >
         Open dialog
@@ -205,10 +204,10 @@ export default function Basics() {
           </p>
         </DialogContent>
         <DialogFooter>
-          <Button commandfor="dialog-basics-1" command="close">
+          <Button command="close" commandfor="dialog-basics-1">
             Not now
           </Button>
-          <Button commandfor="dialog-basics-1" command="close" variant="filled">
+          <Button command="close" commandfor="dialog-basics-1" variant="filled">
             Subscribe
           </Button>
         </DialogFooter>
@@ -236,7 +235,7 @@ export default function Basics() {
   } from "opui-css/svelte"
 </script>
 
-<Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+<Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
   Open dialog
 </Button>
 
@@ -250,8 +249,8 @@ export default function Basics() {
     </p>
   </DialogContent>
   <DialogFooter>
-    <Button commandfor="dialog-basics-1" command="close">Not now</Button>
-    <Button commandfor="dialog-basics-1" command="close" variant="filled">
+    <Button command="close" commandfor="dialog-basics-1">Not now</Button>
+    <Button command="close" commandfor="dialog-basics-1" variant="filled">
       Subscribe
     </Button>
   </DialogFooter>
@@ -277,7 +276,7 @@ import {
 </script>
 
 <template>
-  <Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+  <Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
     Open dialog
   </Button>
 
@@ -291,8 +290,8 @@ import {
       </p>
     </DialogContent>
     <DialogFooter>
-      <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
-      <Button commandfor="dialog-basics-1" command="close" variant="filled">
+      <Button command="close" commandfor="dialog-basics-1"> Not now </Button>
+      <Button command="close" commandfor="dialog-basics-1" variant="filled">
         Subscribe
       </Button>
     </DialogFooter>

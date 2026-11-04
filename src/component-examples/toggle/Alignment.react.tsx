@@ -3,7 +3,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/react"
 export default function Alignment() {
   return (
     <ToggleGroup name="alignment">
-      <ToggleButton value="left" aria-label="Align left">
+      <ToggleButton aria-label="Align left" value="left">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ export default function Alignment() {
           ></path>
         </svg>
       </ToggleButton>
-      <ToggleButton value="center" defaultChecked aria-label="Align center">
+      <ToggleButton aria-label="Align center" defaultChecked value="center">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ export default function Alignment() {
           ></path>
         </svg>
       </ToggleButton>
-      <ToggleButton value="right" aria-label="Align right">
+      <ToggleButton aria-label="Align right" value="right">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

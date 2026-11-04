@@ -5,5 +5,5 @@
 </script>
 
 {#snippet content(
-  part: string | Snippet,
-)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
+  part?: string | Snippet,
+)}{#if typeof part === "string"}{part}{:else if part}{@render part()}{/if}{/snippet}

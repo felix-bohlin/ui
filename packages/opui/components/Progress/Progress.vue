@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useAttrs } from "vue"
 import { useInputAttrs } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -10,8 +9,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const attrs = useAttrs()
-const progressAttrs = useInputAttrs()
+const attrs = useInputAttrs()
 </script>
 
 <template>
@@ -23,7 +21,7 @@ const progressAttrs = useInputAttrs()
     ]"
     :style="$attrs.style"
   >
-    <progress v-bind="progressAttrs" :max="max" :value="value">
+    <progress :max="max" :value="value" v-bind="attrs">
       <slot></slot>
     </progress>
   </div>

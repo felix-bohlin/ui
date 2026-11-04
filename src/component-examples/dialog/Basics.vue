@@ -10,7 +10,7 @@ import {
 </script>
 
 <template>
-  <Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
+  <Button command="show-modal" commandfor="dialog-basics-1" variant="outlined">
     Open dialog
   </Button>
 
@@ -24,8 +24,8 @@ import {
       </p>
     </DialogContent>
     <DialogFooter>
-      <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
-      <Button commandfor="dialog-basics-1" command="close" variant="filled">
+      <Button command="close" commandfor="dialog-basics-1"> Not now </Button>
+      <Button command="close" commandfor="dialog-basics-1" variant="filled">
         Subscribe
       </Button>
     </DialogFooter>

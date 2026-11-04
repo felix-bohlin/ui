@@ -118,20 +118,20 @@ const count = itemCount(sections)
 ---
 
 <Document
-  description={showDone
-    ? "Check the fixed todos in TODO.md against their examples."
-    : "Comment on the todos in TODO.md and copy them with your comments."}
+  description={
+    showDone
+      ? "Check the fixed todos in TODO.md against their examples."
+      : "Comment on the todos in TODO.md and copy them with your comments."
+  }
   showToc
 >
   <Fragment slot="title">{showDone ? "Done" : "TODO"}</Fragment>
   <p slot="preamble">
-    {
-      showDone ? (
-        <a class="ui-link" href="/todo/">{`Open (${itemCount(open)})`}</a>
-      ) : (
-        <a class="ui-link" href="/todo/done/">{`Done (${itemCount(done)})`}</a>
-      )
-    }
+    {showDone ? (
+      <a class="ui-link" href="/todo/">{`Open (${itemCount(open)})`}</a>
+    ) : (
+      <a class="ui-link" href="/todo/done/">{`Done (${itemCount(done)})`}</a>
+    )}
   </p>
 
   <form class="todo-filters ui-not-rich-text" id="todo-filters">
@@ -177,221 +177,197 @@ const count = itemCount(sections)
   </form>
   <p class="todo-shortcuts">
     <kbd>j</kbd>
-    <kbd>k</kbd> next and previous todo, <kbd>n</kbd> next unanswered, <kbd
-      >a</kbd
-    > accept, <kbd>1</kbd> to <kbd>5</kbd> actions, <kbd>c</kbd> comment, <kbd
-      >e</kbd
-    > details.
+    <kbd>k</kbd> next and previous todo, <kbd>n</kbd> next unanswered,
+    <kbd>a</kbd> accept, <kbd>1</kbd> to <kbd>5</kbd> actions, <kbd>c</kbd>
+    comment, <kbd>e</kbd> details.
   </p>
 
-  {
-    todoSections.map((section) => (
-      <section
-        data-todo-section={section.title}
-        data-todo-section-slug={slugify(section.title)}
+  {todoSections.map((section) => <section
+    data-todo-section={section.title}
+    data-todo-section-slug={slugify(section.title)}
+    id={slugify(section.title)}
+  >
+    <h2>{section.title}</h2>
+    <ol class="todo-list ui-not-rich-text">
+      {section.items.map((item, index) => <li
+        class="todo-item"
+        data-todo-component={slugify(item.component ?? "Other")}
+        data-todo-key={item.key}
+        data-todo-line={item.line}
+        data-todo-recommended={item.recommended?.action}
+        data-todo-reply={JSON.stringify(item.reply)}
+        data-todo-severity={item.severity}
+        data-todo-state={item.state}
+        data-todo-version={item.version}
       >
-        <h2 id={slugify(section.title)}>{section.title}</h2>
-        <ol class="todo-list ui-not-rich-text">
-          {section.items.map((item, index) => (
-            <li
-              class="todo-item"
-              data-todo-component={slugify(item.component ?? "Other")}
-              data-todo-key={item.key}
-              data-todo-line={item.line}
-              data-todo-recommended={item.recommended?.action}
-              data-todo-reply={JSON.stringify(item.reply)}
-              data-todo-severity={item.severity}
-              data-todo-state={item.state}
-              data-todo-version={item.version}
-            >
-              <button class="todo-summary" type="button">
-                <span class="todo-summary-text">
-                  <InlineText text={item.summary ?? item.text} />
-                </span>
-                <span class="todo-summary-answer" />
-              </button>
-              <div class="todo-head" tabindex="-1">
-                {item.severity && (
-                  <Chip
-                    class="todo-severity"
-                    dot
-                    label={`Severity ${item.severity}`}
-                    severity={chipSeverity(item.severity)}
-                    size="small"
-                    variant="tonal"
-                  />
-                )}
-                {!showDone && item.state === "follow-up" && (
-                  <Chip
-                    class="todo-follow-up"
-                    label="Follow-up"
-                    severity="info"
-                    size="small"
-                    variant="outlined"
-                  />
-                )}
-                {item.component && (
-                  <strong class="todo-component">{item.component}</strong>
-                )}
-                <span class="todo-headline">
-                  <InlineText text={item.summary ?? item.headline} />
-                </span>
-              </div>
-              {item.summary ? (
-                <Accordion
-                  class="todo-details"
-                  open={!showDone && item.state === "follow-up"}
-                  variant="outlined"
+        <button class="todo-summary" type="button">
+          <span class="todo-summary-text">
+            <InlineText text={item.summary ?? item.text} />
+          </span>
+          <span class="todo-summary-answer" />
+        </button>
+        <div class="todo-head" tabindex="-1">
+          {item.severity && (
+            <Chip
+              class="todo-severity"
+              dot
+              label={`Severity ${item.severity}`}
+              severity={chipSeverity(item.severity)}
+              size="small"
+              variant="tonal"
+            />
+          )}
+          {!showDone && item.state === "follow-up" && (
+            <Chip
+              class="todo-follow-up"
+              label="Follow-up"
+              severity="info"
+              size="small"
+              variant="outlined"
+            />
+          )}
+          {item.component && <strong class="todo-component"
+            >{item.component}</strong
+          >}
+          <span class="todo-headline">
+            <InlineText text={item.summary ?? item.headline} />
+          </span>
+        </div>
+        {item.summary ? (
+          <Accordion
+            class="todo-details"
+            open={!showDone && item.state === "follow-up"}
+            variant="outlined"
+          >
+            <AccordionSummary>Details</AccordionSummary>
+            <AccordionContent>
+              <p class="todo-text">
+                <InlineText text={item.headline} />
+              </p>
+              <TodoNotes notes={item.notes} />
+              {item.files.length > 0 && <ul class="todo-files">
+                {item.files.map((file) => <li>
+                  <code>{file}</code>
+                </li>)}
+              </ul>}
+            </AccordionContent>
+          </Accordion>
+        ) : (
+          <TodoNotes notes={item.notes} />
+        )}
+        {item.examples.length > 0 && <Accordion
+          class="todo-examples"
+          variant="outlined"
+        >
+          <AccordionSummary>
+            {item.examples.length === 1
+              ? "Example"
+              : `Examples (${item.examples.length})`}
+          </AccordionSummary>
+          <AccordionContent>
+            {item.examples.map((example) => <figure class="todo-example">
+              <figcaption>
+                <code>{example.label}</code>
+                <a
+                  class="ui-link"
+                  href={example.src}
+                  rel="noopener"
+                  target="_blank"
                 >
-                  <AccordionSummary>Details</AccordionSummary>
-                  <AccordionContent>
-                    <p class="todo-text">
-                      <InlineText text={item.headline} />
-                    </p>
-                    <TodoNotes notes={item.notes} />
-                    {item.files.length > 0 && (
-                      <ul class="todo-files">
-                        {item.files.map((file) => (
-                          <li>
-                            <code>{file}</code>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </AccordionContent>
-                </Accordion>
-              ) : (
-                <TodoNotes notes={item.notes} />
-              )}
-              {item.examples.length > 0 && (
-                <Accordion class="todo-examples" variant="outlined">
-                  <AccordionSummary>
-                    {item.examples.length === 1
-                      ? "Example"
-                      : `Examples (${item.examples.length})`}
-                  </AccordionSummary>
-                  <AccordionContent>
-                    {item.examples.map((example) => (
-                      <figure class="todo-example">
-                        <figcaption>
-                          <code>{example.label}</code>
-                          <a
-                            class="ui-link"
-                            href={example.src}
-                            rel="noopener"
-                            target="_blank"
-                          >
-                            Open in a new tab
-                          </a>
-                        </figcaption>
-                        <iframe
-                          data-scheme={example.scheme}
-                          data-src={example.src}
-                          title={`${example.label} example`}
-                        />
-                      </figure>
-                    ))}
-                  </AccordionContent>
-                </Accordion>
-              )}
-              {item.recommended && (
-                <p class="todo-recommended">
-                  <span>
-                    Recommended:{" "}
-                    <strong>
-                      {`${item.recommended.action}${item.recommended.reason ? "." : ""}`}
-                    </strong>
-                    {item.recommended.reason && (
-                      <InlineText text={item.recommended.reason} />
-                    )}
-                  </span>
-                  <Button
-                    class="todo-accept"
-                    data-accept
-                    size="small"
-                    variant="outlined"
-                  >
-                    Accept
-                  </Button>
-                </p>
-              )}
-              <CommentField text={item.text} />
-              <Fieldset class="todo-actions-field">
-                <FieldLegend class="ui-sr-only">
-                  {`Actions for: ${plainText(item.text)}`}
-                </FieldLegend>
-                <FieldGroup
-                  class="todo-action-row"
-                  orientation="horizontal"
-                  name={`todo-action-${slugify(section.title)}-${index}`}
+                  Open in a new tab
+                </a>
+              </figcaption>
+              <iframe
+                data-scheme={example.scheme}
+                data-src={example.src}
+                title={`${example.label} example`}
+              />
+            </figure>)}
+          </AccordionContent>
+        </Accordion>}
+        {item.recommended && <p class="todo-recommended">
+          <span>
+            Recommended:{" "}
+            <strong>
+              {`${item.recommended.action}${item.recommended.reason ? "." : ""}`}
+            </strong>
+            {item.recommended.reason && (
+              <InlineText text={item.recommended.reason} />
+            )}
+          </span>
+          <Button
+            class="todo-accept"
+            data-accept
+            size="small"
+            variant="outlined"
+          >
+            Accept
+          </Button>
+        </p>}
+        <CommentField text={item.text} />
+        <Fieldset class="todo-actions-field">
+          <FieldLegend class="ui-sr-only">
+            {`Actions for: ${plainText(item.text)}`}
+          </FieldLegend>
+          <FieldGroup
+            class="todo-action-row"
+            orientation="horizontal"
+            name={`todo-action-${slugify(section.title)}-${index}`}
+          >
+            {actions
+              .filter((action) => !item.options.length || action !== "Fix")
+              .map((action) => <ToggleButton
+                class="todo-action"
+                checked={action === "None"}
+                size="small"
+                type="radio"
+                value={action}
+              >
+                {action}
+                {item.recommended?.action === action && <span class="todo-mark"
+                  >Recommended</span
+                >}
+              </ToggleButton>)}
+          </FieldGroup>
+          {item.options.length > 0 && <Fieldset class="todo-fix-options">
+            <FieldLegend>{item.legend}</FieldLegend>
+            <FieldGroup name={`todo-action-${slugify(section.title)}-${index}`}>
+              {item.options.map((option) => <div
+                class:list={[
+                  "todo-fix-option",
+                  {
+                    "is-recommended":
+                      item.recommended?.action ===
+                      `Fix with option ${option.id}`,
+                  },
+                ]}
+              >
+                <Radio
+                  card
+                  class="todo-action"
+                  size="small"
+                  spread
+                  value={`Fix with option ${option.id}`}
                 >
-                  {actions
-                    .filter(
-                      (action) => !item.options.length || action !== "Fix",
-                    )
-                    .map((action) => (
-                      <ToggleButton
-                        class="todo-action"
-                        checked={action === "None"}
-                        size="small"
-                        type="radio"
-                        value={action}
-                      >
-                        {action}
-                        {item.recommended?.action === action && (
-                          <span class="todo-mark">Recommended</span>
-                        )}
-                      </ToggleButton>
-                    ))}
-                </FieldGroup>
-                {item.options.length > 0 && (
-                  <Fieldset class="todo-fix-options">
-                    <FieldLegend>{item.legend}</FieldLegend>
-                    <FieldGroup
-                      name={`todo-action-${slugify(section.title)}-${index}`}
-                    >
-                      {item.options.map((option) => (
-                        <div
-                          class:list={[
-                            "todo-fix-option",
-                            {
-                              "is-recommended":
-                                item.recommended?.action ===
-                                `Fix with option ${option.id}`,
-                            },
-                          ]}
-                        >
-                          <Radio
-                            card
-                            class="todo-action"
-                            size="small"
-                            spread
-                            value={`Fix with option ${option.id}`}
-                          >
-                            {option.note
-                              ? `Option ${option.id} (${option.note})`
-                              : `Option ${option.id}`}
-                            {item.recommended?.action ===
-                              `Fix with option ${option.id}` && (
-                              <span class="todo-mark">Recommended</span>
-                            )}
-                            <Fragment slot="end-text">
-                              <InlineText text={option.text} />
-                            </Fragment>
-                          </Radio>
-                          <TodoNotes notes={option.notes} />
-                        </div>
-                      ))}
-                    </FieldGroup>
-                  </Fieldset>
-                )}
-              </Fieldset>
-            </li>
-          ))}
-        </ol>
-      </section>
-    ))
-  }
+                  {option.note
+                    ? `Option ${option.id} (${option.note})`
+                    : `Option ${option.id}`}
+                  {item.recommended?.action ===
+                    `Fix with option ${option.id}` && <span class="todo-mark"
+                    >Recommended</span
+                  >}
+                  <Fragment slot="end-text">
+                    <InlineText text={option.text} />
+                  </Fragment>
+                </Radio>
+                <TodoNotes notes={option.notes} />
+              </div>)}
+            </FieldGroup>
+          </Fieldset>}
+        </Fieldset>
+      </li>)}
+    </ol>
+  </section>)}
 
   <h2 id="copy">Copy</h2>
 
@@ -421,8 +397,7 @@ const count = itemCount(sections)
         section.items.map((item) => item.key),
       ),
     )}
-  />
-</Document>
+  /></Document>
 
 <script>
   import { copyOrSelect, trackComments } from "../../components/Todo/comments"

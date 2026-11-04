@@ -23,6 +23,8 @@ import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
 export const description =
   "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
+
+export const keywords = ["listbox", "menu list", "ul"]
 ---
 
 <Component
@@ -68,39 +70,36 @@ export const description =
       like contacts, files or settings.
     </li>
     <li slot="when">
-      Navigation, with links and <code>aria-current="page"</code> on the <a
-        href="#selected">current one</a
-      >.
+      Navigation, with links and <code>aria-current="page"</code> on the
+      <a href="#selected">current one</a>.
     </li>
     <li slot="when">
-      Settings with a <a href="#checkbox">checkbox</a>, a <a href="#radio"
-        >radio</a
-      > or a <a href="#switch">switch</a> at the end of each row.
+      Settings with a <a href="#checkbox">checkbox</a>, a
+      <a href="#radio">radio</a> or a <a href="#switch">switch</a> at the end of
+      each row.
     </li>
     <li slot="when-not">
-      Data in columns that people compare. Use a <DocLink
-        href="/components/table">Table</DocLink
-      >.
+      Data in columns that people compare. Use a
+      <DocLink href="/components/table">Table</DocLink>.
     </li>
     <li slot="when-not">
-      Actions that open from a button. Use a <DocLink href="/components/menu"
-        >Menu</DocLink
-      >, which is a List in a popover.
+      Actions that open from a button. Use a
+      <DocLink href="/components/menu">Menu</DocLink>, which is a List in a
+      popover.
     </li>
     <li slot="when-not">
-      Picking a value in a form. Use a <DocLink href="/components/select"
-        >Select</DocLink
-      >.
+      Picking a value in a form. Use a
+      <DocLink href="/components/select">Select</DocLink>.
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="configurations">Configurations</h2>
+  <section id="configurations">
+    <h2>Configurations</h2>
     <p>A List item is split up in three parts:</p>
     <Conditional as="div">
       <ul slot="components">
@@ -110,12 +109,12 @@ export const description =
           >, props or slots of the same name: the main text
         </li>
         <li>
-          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
-          items before the main content
+          <a href="#start-items" class="ui-link"><code>start</code> slot</a>
+          (optional): items before the main content
         </li>
         <li>
-          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
-          items after the main content
+          <a href="#end-items" class="ui-link"><code>end</code> slot</a>
+          (optional): items after the main content
         </li>
       </ul>
       <ul slot="html">
@@ -124,27 +123,28 @@ export const description =
           content
         </li>
         <li>
-          <a href="#start-items" class="ui-link"><code>.ui-start</code></a> (optional):
-          items before the main content
+          <a href="#start-items" class="ui-link"><code>.ui-start</code></a>
+          (optional): items before the main content
         </li>
         <li>
-          <a href="#end-items" class="ui-link"><code>.ui-end</code></a> (optional):
-          items after the main content
+          <a href="#end-items" class="ui-link"><code>.ui-end</code></a>
+          (optional): items after the main content
         </li>
       </ul>
       <ul slot="react">
         <li>
           <a href="#text" class="ui-link"
             ><code>label</code> and <code>description</code></a
-          > props: the main text
+          >
+          props: the main text
         </li>
         <li>
-          <a href="#start-items" class="ui-link"><code>start</code> prop</a> (optional):
-          items before the main content
+          <a href="#start-items" class="ui-link"><code>start</code> prop</a>
+          (optional): items before the main content
         </li>
         <li>
-          <a href="#end-items" class="ui-link"><code>end</code> prop</a> (optional):
-          items after the main content
+          <a href="#end-items" class="ui-link"><code>end</code> prop</a>
+          (optional): items after the main content
         </li>
       </ul>
       <ul slot="svelte">
@@ -154,12 +154,12 @@ export const description =
           >, props or snippets of the same name: the main text
         </li>
         <li>
-          <a href="#start-items" class="ui-link"><code>start</code> snippet</a> (optional):
-          items before the main content
+          <a href="#start-items" class="ui-link"><code>start</code> snippet</a>
+          (optional): items before the main content
         </li>
         <li>
-          <a href="#end-items" class="ui-link"><code>end</code> snippet</a> (optional):
-          items after the main content
+          <a href="#end-items" class="ui-link"><code>end</code> snippet</a>
+          (optional): items after the main content
         </li>
       </ul>
     </Conditional>
@@ -169,24 +169,24 @@ export const description =
         <CalloutContent>
           <h3>With great power...</h3>
           <p>
-            The List component is <em>extremely</em> flexible and versatile. Be careful
-            if you start creating new configurations on your own. Maybe an existing
-            one can solve your problem, but in another way?
+            The List component is <em>extremely</em> flexible and versatile. Be
+            careful if you start creating new configurations on your own. Maybe
+            an existing one can solve your problem, but in another way?
           </p>
         </CalloutContent>
       </Callout>
     </div>
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="div">
       <p slot="components">
         Change background color with the <code>variant</code> prop.
       </p>
       <p slot="html">
-        Use <code>.ui-tonal</code> or <code>.ui-transparent</code> to change the background
-        color.
+        Use <code>.ui-tonal</code> or <code>.ui-transparent</code> to change the
+        background color.
       </p>
     </Conditional>
 
@@ -196,8 +196,8 @@ export const description =
         <p>
           Without a variant the list uses the filled surface, because lists
           usually sit in popovers and selects that need to contrast against the
-          page. Pick <code>tonal</code>, or <code>transparent</code> to show the surface
-          behind the list.
+          page. Pick <code>tonal</code>, or <code>transparent</code> to show the
+          surface behind the list.
         </p>
       </CalloutContent>
     </Callout>
@@ -205,27 +205,22 @@ export const description =
     <AutoExample name="Variants" column />
   </section>
 
-  <section>
-    <h2 id="clickable-list-item">Clickable list item</h2>
+  <section id="clickable-list-item">
+    <h2>Clickable list item</h2>
     <p>
-      Wrap the elements of your List item with an <code>a</code>, <code
-        >button</code
-      >
-      {" "}or <code>label</code> depending on use-case.
+      Wrap the elements of your List item with an <code>a</code>,
+      <code>button</code> {" "}or <code>label</code> depending on use-case.
     </p>
     <Conditional as="p">
       <Fragment slot="components">
-        <code>as="button"</code> renders a <code
-          >&lt;button type="button"&gt;</code
-        >, so the item never submits a surrounding form. Set <code
-          >disabled</code
-        > to disable it.
+        <code>as="button"</code> renders a
+        <code>&lt;button type="button"&gt;</code>, so the item never submits a
+        surrounding form. Set <code>disabled</code> to disable it.
       </Fragment>
       <Fragment slot="html">
-        Give a <code>&lt;button&gt;</code>
-        <code>type="button"</code> so the item doesn't submit a surrounding form,
-        and
-        <code>disabled</code> to disable it.
+        Give a <code>&lt;button&gt;</code> <code>type="button"</code> so the
+        item doesn't submit a surrounding form, and <code>disabled</code> to
+        disable it.
       </Fragment>
     </Conditional>
 
@@ -234,59 +229,54 @@ export const description =
     <h3 id="selected">Selected item</h3>
     <Conditional as="div">
       <p slot="components">
-        Add <code>aria-current="page"</code> to the link inside the <code
-          >ListItem</code
-        >.
+        Add <code>aria-current="page"</code> to the link inside the
+        <code>ListItem</code>.
       </p>
       <p slot="html">
-        Add <code>aria-current="page"</code> to the link inside the <code
-          >li</code
-        >.
+        Add <code>aria-current="page"</code> to the link inside the
+        <code>li</code>.
       </p>
     </Conditional>
     <AutoExample name="Selected" />
   </section>
 
-  <section>
-    <h2 id="text">Text</h2>
+  <section id="text">
+    <h2>Text</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Pass <code>label</code> and <code>description</code> on <code
-          >ListItem</code
-        >, as props or as slots of the same name for rich content. The default
-        slot adds more content after them.
+        Pass <code>label</code> and <code>description</code> on
+        <code>ListItem</code>, as props or as slots of the same name for rich
+        content. The default slot adds more content after them.
       </Fragment>
       <Fragment slot="html">
-        Main text lives in <code>div.ui-text</code>: the label is the first <code
-          >&lt;p&gt;</code
-        > and the description the second.
+        Main text lives in <code>div.ui-text</code>: the label is the first
+        <code>&lt;p&gt;</code> and the description the second.
       </Fragment>
       <Fragment slot="react">
-        Pass <code>label</code> and <code>description</code> on <code
-          >ListItem</code
-        >, as text or as rich content. <code>children</code> adds more content after
-        them.
+        Pass <code>label</code> and <code>description</code> on
+        <code>ListItem</code>, as text or as rich content. <code>children</code>
+        adds more content after them.
       </Fragment>
       <Fragment slot="svelte">
-        Pass <code>label</code> and <code>description</code> on <code
-          >ListItem</code
-        >, as text or as snippets for rich content. <code>children</code> adds more
-        content after them.
+        Pass <code>label</code> and <code>description</code> on
+        <code>ListItem</code>, as text or as snippets for rich content.
+        <code>children</code> adds more content after them.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Text" />
   </section>
 
-  <section>
-    <h2 id="start-items">Start items</h2>
+  <section id="start-items">
+    <h2>Start items</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Authored via the <code>start</code> slot on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="html">
-        Found in <code>div.ui-start</code>, a direct child of the <code>li</code
-        > or of its <code>a</code>, <code>button</code> or <code>label</code>.
+        Found in <code>div.ui-start</code>, a direct child of the
+        <code>li</code> or of its <code>a</code>, <code>button</code> or
+        <code>label</code>.
       </Fragment>
       <Fragment slot="react">
         Authored via the <code>start</code> prop on <code>ListItem</code>.
@@ -301,9 +291,8 @@ export const description =
 
     <h3 id="avatar">Avatar</h3>
     <p>
-      Read more: <DocLink href="/components/avatar" class="ui-link"
-        >Avatar</DocLink
-      >
+      Read more:
+      <DocLink href="/components/avatar" class="ui-link">Avatar</DocLink>
     </p>
     <AutoExample name="StartAvatar" />
 
@@ -314,15 +303,13 @@ export const description =
     <AutoExample name="StartVideo" />
   </section>
 
-  <section>
-    <h2 id="end-items">End items</h2>
+  <section id="end-items">
+    <h2>End items</h2>
     <Conditional as="p">
       <Fragment slot="components">
         Authored via the <code>end</code> slot on <code>ListItem</code>.
       </Fragment>
-      <Fragment slot="html">
-        Found in <code>div.ui-end</code>.
-      </Fragment>
+      <Fragment slot="html"> Found in <code>div.ui-end</code>. </Fragment>
       <Fragment slot="react">
         Authored via the <code>end</code> prop on <code>ListItem</code>.
       </Fragment>
@@ -340,113 +327,110 @@ export const description =
     <h3 id="checkbox">Checkbox</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>type="checkbox"</code> on the <code>ListItem</code> and put a <code
-          >CheckboxInput</code
-        > in the <code>end</code> slot to make the whole row clickable.
+        Set <code>type="checkbox"</code> on the <code>ListItem</code> and put a
+        <code>CheckboxInput</code> in the <code>end</code> slot to make the
+        whole row clickable.
       </Fragment>
       <Fragment slot="html">
-        Wrap the List item content with a <code
-          >&lt;label class="ui-checkbox"&gt;</code
-        >
-        {" "}to make the entire surface clickable.
+        Wrap the List item content with a
+        <code>&lt;label class="ui-checkbox"&gt;</code> {" "}to make the entire
+        surface clickable.
       </Fragment>
       <Fragment slot="react">
-        Set <code>type="checkbox"</code> on the <code>ListItem</code> and put a <code
-          >CheckboxInput</code
-        > in the <code>end</code> prop to make the whole row clickable.
+        Set <code>type="checkbox"</code> on the <code>ListItem</code> and put a
+        <code>CheckboxInput</code> in the <code>end</code> prop to make the
+        whole row clickable.
       </Fragment>
       <Fragment slot="svelte">
-        Set <code>type="checkbox"</code> on the <code>ListItem</code> and put a <code
-          >CheckboxInput</code
-        > in the <code>end</code> snippet to make the whole row clickable.
+        Set <code>type="checkbox"</code> on the <code>ListItem</code> and put a
+        <code>CheckboxInput</code> in the <code>end</code> snippet to make the
+        whole row clickable.
       </Fragment>
     </Conditional>
     <p>
-      Read more: <DocLink href="/components/checkbox" class="ui-link"
-        >Checkbox</DocLink
-      >
+      Read more:
+      <DocLink href="/components/checkbox" class="ui-link">Checkbox</DocLink>
     </p>
     <AutoExample name="EndCheckbox" />
 
     <h3 id="radio">Radio</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>type="radio"</code> on the <code>ListItem</code> and put a <code
-          >RadioInput</code
-        > in the <code>end</code> slot to make the whole row clickable.
+        Set <code>type="radio"</code> on the <code>ListItem</code> and put a
+        <code>RadioInput</code> in the <code>end</code> slot to make the whole
+        row clickable.
       </Fragment>
       <Fragment slot="html">
-        Wrap the List item content with a <code
-          >&lt;label class="ui-radio"&gt;</code
-        >
-        {" "}to make the entire surface clickable.
+        Wrap the List item content with a
+        <code>&lt;label class="ui-radio"&gt;</code> {" "}to make the entire
+        surface clickable.
       </Fragment>
       <Fragment slot="react">
-        Set <code>type="radio"</code> on the <code>ListItem</code> and put a <code
-          >RadioInput</code
-        > in the <code>end</code> prop to make the whole row clickable.
+        Set <code>type="radio"</code> on the <code>ListItem</code> and put a
+        <code>RadioInput</code> in the <code>end</code> prop to make the whole
+        row clickable.
       </Fragment>
       <Fragment slot="svelte">
-        Set <code>type="radio"</code> on the <code>ListItem</code> and put a <code
-          >RadioInput</code
-        > in the <code>end</code> snippet to make the whole row clickable.
+        Set <code>type="radio"</code> on the <code>ListItem</code> and put a
+        <code>RadioInput</code> in the <code>end</code> snippet to make the
+        whole row clickable.
       </Fragment>
     </Conditional>
     <p>
-      Radio group: Add a common name to each <code>&lt;input&gt;</code> for radio
-      group behavior.
+      Radio group: Add a common name to each <code>&lt;input&gt;</code> for
+      radio group behavior.
     </p>
     <p>
-      Read more: <DocLink href="/components/radio" class="ui-link"
-        >Radio</DocLink
-      >
+      Read more:
+      <DocLink href="/components/radio" class="ui-link">Radio</DocLink>
     </p>
     <AutoExample name="EndRadio" />
 
     <h3 id="switch">Switch</h3>
     <p>
-      Read more: <DocLink href="/components/switch" class="ui-link"
-        >Switch</DocLink
-      >
+      Read more:
+      <DocLink href="/components/switch" class="ui-link">Switch</DocLink>
     </p>
     <AutoExample name="EndSwitch" />
   </section>
 
-  <section>
-    <h2 id="inset">Inset</h2>
+  <section id="inset">
+    <h2>Inset</h2>
     <p>
-      Set <PropOrClass prop="inset" class=".ui-inset" /> on an item without start
-      content to align its text with items that have it.
+      Set <PropOrClass prop="inset" class=".ui-inset" /> on an item without
+      start content to align its text with items that have it.
     </p>
     <AutoExample name="Inset" />
   </section>
 
-  <section>
-    <h2 id="flush">Flush</h2>
+  <section id="flush">
+    <h2>Flush</h2>
     <Conditional as="div">
       <p slot="components">
-        Add the <code>flush</code> prop to the <code>List</code> to remove the inline
-        padding on the list items.
+        Add the <code>flush</code> prop to the <code>List</code> to remove the
+        inline padding on the list items and the block padding of the list, for
+        a list in a card.
       </p>
       <p slot="html">
-        Apply the <code>.ui-flush</code> class on the <code>ul.ui-list</code> element
-        to remove the inline padding on the list items.
+        Apply the <code>.ui-flush</code> class on the <code>ul.ui-list</code>
+        element to remove the inline padding on the list items and the block
+        padding of the list, for a list in a card.
       </p>
     </Conditional>
     <AutoExample name="Flush" />
   </section>
 
-  <section>
-    <h2 id="borders">Borders</h2>
-    <h3 id="on-every-item">On every item</h3>
+  <section id="borders">
+    <h2>Borders</h2>
+    <h3 id="on-every-item">Between items</h3>
     <Conditional as="div">
       <p slot="components">
-        Add the <code>bordered</code> prop to the <code>List</code> to give all list
-        items a border.
+        Add the <code>bordered</code> prop to the <code>List</code> to draw a
+        line between the list items.
       </p>
       <p slot="html">
-        Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
-        to give all list items a border.
+        Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code>
+        element to draw a line between the list items.
       </p>
     </Conditional>
     <AutoExample name="Bordered" />
@@ -454,19 +438,19 @@ export const description =
     <h3 id="on-one-item">On one item</h3>
     <Conditional as="div">
       <p slot="components">
-        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
-        an upper border.
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give
+        it an upper border.
       </p>
       <p slot="html">
-        Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
-        it an upper border.
+        Apply the <code>.ui-border-top</code> class on a <code>li</code> item to
+        give it an upper border.
       </p>
     </Conditional>
     <AutoExample name="SingleBorder" />
   </section>
 
-  <section>
-    <h2 id="dense">Dense</h2>
+  <section id="dense">
+    <h2>Dense</h2>
     <Conditional as="div">
       <p slot="components">
         Just add the <code>dense</code> prop to the <code>List</code>!
@@ -494,13 +478,12 @@ export const description =
   <Fragment slot="accessibility">
     <ul>
       <li>
-        A row with a checkbox, a radio or a switch is one <code
-          >&lt;label&gt;</code
-        >, so all of its text names the control.
+        A row with a checkbox, a radio or a switch is one
+        <code>&lt;label&gt;</code>, so all of its text names the control.
       </li>
       <li>
-        Screen readers announce the link with <code>aria-current="page"</code> as
-        the current page.
+        Screen readers announce the link with <code>aria-current="page"</code>
+        as the current page.
       </li>
     </ul>
     <KeyboardSupport />

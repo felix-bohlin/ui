@@ -1,9 +1,10 @@
 import { cx } from "../cx"
-import { hasName, warnUnnamed } from "../dev"
 import RadioInput from "./RadioInput.react"
+import { hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Radio({
+  "aria-invalid": ariaInvalid,
   card,
   className,
   error,
@@ -24,10 +25,7 @@ export default function Radio({
     <label
       className={cx([
         "ui-radio",
-        {
-          "ui-card": card,
-          "ui-spread": spread,
-        },
+        { "ui-card": card, "ui-spread": spread },
         card && variant && variant !== "outlined" && `ui-${variant}`,
         orientation && orientation !== "horizontal" && `ui-${orientation}`,
         size && size !== "medium" && `ui-${size}`,
@@ -35,16 +33,13 @@ export default function Radio({
       ])}
       style={style}
     >
-      <RadioInput
-        {...rest}
-        aria-invalid={error ? "true" : rest["aria-invalid"]}
-      />
+      <RadioInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />{" "}
       {(label || children) && (
-        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
           {label}
           {children}
         </span>
-      )}
+      )}{" "}
       {endText && <span className="ui-end-text">{endText}</span>}
     </label>
   )

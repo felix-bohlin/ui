@@ -29,6 +29,8 @@ import tabsItemApi from "../../component-api/tabs-item/api"
 import tabsLabelApi from "../../component-api/tabs-label/api"
 import tabsPanelApi from "../../component-api/tabs-panel/api"
 import tabsApi from "../../component-api/tabs/api"
+
+export const keywords = ["tab panel", "tablist"]
 ---
 
 <Component
@@ -41,9 +43,11 @@ import tabsApi from "../../component-api/tabs/api"
     { title: "Tabs panel API", api: tabsPanelApi },
   ]}
   browserSupport={[
+    "anchor-positioning",
     "container-queries",
     "lh",
     "light-dark",
+    "logical-properties",
     "nth-child-of",
     "scrollbar-width",
     "sibling-count",
@@ -81,10 +85,9 @@ import tabsApi from "../../component-api/tabs/api"
   </Fragment>
   <Fragment slot="preamble">
     The Tabs are radio inputs and the Panels are just divs that show and hide
-    based on the radio inputs' <code>:checked</code> state. Use Tabs to switch between
-    panels of content. To pick an option, like a list or grid view, use a <DocLink
-      href="/components/toggle#toggle-group">Toggle group</DocLink
-    >.
+    based on the radio inputs' <code>:checked</code> state. Use Tabs to switch
+    between panels of content. To pick an option, like a list or grid view, use
+    a <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
@@ -96,121 +99,123 @@ import tabsApi from "../../component-api/tabs/api"
       Versions of the same content, like a code sample for each framework.
     </li>
     <li slot="when-not">
-      Picking an option, like a list or grid view. Use a <DocLink
-        href="/components/toggle#toggle-group">Toggle group</DocLink
-      >.
+      Picking an option, like a list or grid view. Use a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
     </li>
     <li slot="when-not">
-      Content that people compare or read in order. Show it on the page, or in <DocLink
-        href="/components/accordion">Accordions</DocLink
-      > that can be open at the same time.
+      Content that people compare or read in order. Show it on the page, or in
+      <DocLink href="/components/accordion">Accordions</DocLink> that can be
+      open at the same time.
     </li>
     <li slot="when-not">
       Navigation between pages. The tabs are radio inputs, not links, so use
-      links, like a <DocLink href="/components/list#selected">List</DocLink> with
-      <code>aria-current="page"</code>.
+      links, like a <DocLink href="/components/list#selected">List</DocLink>
+      with <code>aria-current="page"</code>.
     </li>
   </Usage>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <section id="basics">
+    <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="components">
         The default <code>variant</code> is <code>tonal</code>: the tabs sit on
         a tonal track and the selected tab is a raised pill.
       </Fragment>
     </Conditional>
+    <p>
+      The pill slides to the tab you select, like the line of
+      <a href="#line">line tabs</a>, in browsers with anchor positioning.
+      Elsewhere it fades from tab to tab, and in forced colors it stays on each
+      tab.
+    </p>
     <AutoExample name="Basics" />
   </section>
 
-  <section>
-    <h2 id="filled">Filled</h2>
+  <section id="filled">
+    <h2>Filled</h2>
     <p>
-      Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the selected
-      tab with the primary color.
+      Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the
+      selected tab with the primary color.
     </p>
     <AutoExample name="Filled" />
   </section>
 
-  <section>
-    <h2 id="line">Line</h2>
+  <section id="line">
+    <h2>Line</h2>
     <p>
-      Use <PropOrClass prop='variant="line"' class=".ui-line" /> for tabs without
-      a background, marking the selected tab with a line.
+      Use <PropOrClass prop='variant="line"' class=".ui-line" /> for tabs
+      without a background, marking the selected tab with a line.
     </p>
     <AutoExample name="Line" />
   </section>
 
-  <section>
-    <h2 id="outlined">Outlined</h2>
+  <section id="outlined">
+    <h2>Outlined</h2>
     <p>
-      Use <PropOrClass prop='variant="outlined"' class=".ui-outlined" /> for a bordered
-      track without a background.
+      Use <PropOrClass prop='variant="outlined"' class=".ui-outlined" /> for a
+      bordered track without a background.
     </p>
     <AutoExample name="Outlined" />
   </section>
 
-  <section>
-    <h2 id="overflow">Overflow</h2>
+  <section id="overflow">
+    <h2>Overflow</h2>
     <p>
-      Tabs wrap onto more rows when they don't fit. Use <PropOrClass
-        prop='overflow="scroll"'
-        class=".ui-overflow-scroll"
-      /> to keep them on one row and scroll them sideways instead. The open panel
-      stays in view. The tabs size to their container, so give them a width inside
-      flex and grid layouts that size to their content.
+      Tabs wrap onto more rows when they don't fit. Use
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
+      keep them on one row and scroll them sideways instead. The open panel
+      stays in view. The tabs size to their container, so give them a width
+      inside flex and grid layouts that size to their content.
     </p>
     <AutoExample name="Overflow" />
   </section>
 
-  <section>
-    <h2 id="binding">Binding</h2>
+  <section id="binding">
+    <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Astro renders the tabs on the server, so they have no bound value. Give
-        each <code>TabsItem</code> a <code>value</code> and set <code
-          >value</code
-        >
-        on <code>Tabs</code> to select the matching tab. After that the selection
-        lives in the radio inputs, which share the <code>name</code>: submit
-        them with a form, where <code>FormData.get()</code> reads the selected tab,
-        or read the checked input in a script on <code>change</code>. Set <code
-          >input.checked = input.defaultChecked</code
-        > to go back to the starting tab.
+        each <code>TabsItem</code> a <code>value</code> and set
+        <code>value</code> on <code>Tabs</code> to select the matching tab.
+        After that the selection lives in the radio inputs, which share the
+        <code>name</code>: submit them with a form, where
+        <code>FormData.get()</code> reads the selected tab, or read the checked
+        input in a script on <code>change</code>. Set
+        <code>input.checked = input.defaultChecked</code> to go back to the
+        starting tab.
       </Fragment>
       <Fragment slot="html">
         The selection lives in the radio inputs, which share a <code>name</code
-        >. Give each one a <code>value</code> and submit them with a form, where <code
-          >FormData.get()</code
-        > reads the selected tab, or read the checked input in a script on <code
-          >change</code
-        >. Set <code>input.checked = input.defaultChecked</code> to go back to the
+        >. Give each one a <code>value</code> and submit them with a form, where
+        <code>FormData.get()</code> reads the selected tab, or read the checked
+        input in a script on <code>change</code>. Set
+        <code>input.checked = input.defaultChecked</code> to go back to the
         <code>checked</code> input in the markup.
       </Fragment>
       <Fragment slot="react">
-        Give each <code>TabsItem</code> a <code>value</code> and control the selection
-        with <code>value</code> and <code>onValueChange</code> on <code
-          >Tabs</code
-        >, or set the starting tab with <code>defaultValue</code>. A tab is
-        checked when its <code>value</code> matches, so the items don't need <code
-          >defaultChecked</code
-        >. A tab that loses its check to another one fires no <code
-          >onChange</code
-        > of its own, which is why the value lives on <code>Tabs</code>.
+        Give each <code>TabsItem</code> a <code>value</code> and control the
+        selection with <code>value</code> and <code>onValueChange</code> on
+        <code>Tabs</code>, or set the starting tab with <code>defaultValue</code
+        >. A tab is checked when its <code>value</code> matches, so the items
+        don't need <code>defaultChecked</code>. A tab that loses its check to
+        another one fires no <code>onChange</code> of its own, which is why the
+        value lives on <code>Tabs</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Give each <code>TabsItem</code> a <code>value</code> and bind the selection
-        with <code>bind:value</code> on <code>Tabs</code>. A tab is checked when
-        its <code>value</code> matches, and setting the variable switches tabs. A
-        tab that loses its check to another one fires no <code>change</code> of its
-        own, which is why the value lives on <code>Tabs</code>.
+        Give each <code>TabsItem</code> a <code>value</code> and bind the
+        selection with <code>bind:value</code> on <code>Tabs</code>. A tab is
+        checked when its <code>value</code> matches, and setting the variable
+        switches tabs. A tab that loses its check to another one fires no
+        <code>change</code> of its own, which is why the value lives on
+        <code>Tabs</code>.
       </Fragment>
       <Fragment slot="vue">
-        Give each <code>TabsItem</code> a <code>value</code> and bind the selection
-        with <code>v-model</code> on <code>Tabs</code>. A tab is checked when
-        its <code>value</code> matches, and setting the ref switches tabs. A tab that
-        loses its check to another one fires no <code>change</code> of its own, which
-        is why the value lives on <code>Tabs</code>.
+        Give each <code>TabsItem</code> a <code>value</code> and bind the
+        selection with <code>v-model</code> on <code>Tabs</code>. A tab is
+        checked when its <code>value</code> matches, and setting the ref
+        switches tabs. A tab that loses its check to another one fires no
+        <code>change</code> of its own, which is why the value lives on
+        <code>Tabs</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
@@ -225,9 +230,10 @@ import tabsApi from "../../component-api/tabs/api"
     </p>
     <p>
       There are no <code>tablist</code>, <code>tab</code> or
-      {" "}<code>tabpanel</code> roles. ARIA tabs promise focusable tabs with a selected
-      state, and radio inputs can't keep that promise without JavaScript. Native radios
-      get group management and keyboard support for free.
+      {" "}<code>tabpanel</code> roles. ARIA tabs promise focusable tabs with a
+      selected state, and radio inputs can't keep that promise without
+      JavaScript. Native radios get group management and keyboard support for
+      free.
     </p>
     <p>
       To name the group, add <code>role="radiogroup"</code> and
@@ -253,7 +259,8 @@ import tabsApi from "../../component-api/tabs/api"
           <TableCell><code>input</code></TableCell>
           <TableCell><code>name</code></TableCell>
           <TableCell
-            >Groups the radio buttons together for exclusive selection.</TableCell
+            >Groups the radio buttons together for exclusive
+            selection.</TableCell
           >
         </TableRow>
         <TableRow>

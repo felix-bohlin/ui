@@ -1,19 +1,10 @@
 <style>
   .faq {
-    container-type: inline-size;
-
     .faq-inner {
-      display: grid;
-      gap: var(--ui-space-6);
-      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
 
       @container (inline-size >= 56rem) {
-        align-content: start;
-        column-gap: var(--ui-space-8);
-        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-
         .ui-tabs {
-          align-self: start;
           grid-column: 2;
           grid-row: 1 / span 2;
         }
@@ -23,7 +14,10 @@
 </style>
 
 <div class="faq ui-layout-container">
-  <div class="faq-inner">
+  <div
+    class="ui-layout-columns faq-inner"
+    style="--_columns: 2fr 3fr; --_gap: var(--ui-space-6) var(--ui-space-8)"
+  >
     <hgroup class="ui-hgroup">
       <p>Help center</p>
       <h1 class="ui-h2">Frequently asked questions</h1>

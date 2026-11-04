@@ -29,6 +29,7 @@ const source = splitSource(block.source)
 const codeTabs = [
   { code: source.html, label: "HTML", lang: "html", name: "html" },
   { code: source.css, label: "CSS", lang: "css", name: "css" },
+  { code: source.js, label: "JS", lang: "js", name: "js" },
 ].filter((tab) => tab.code)
 
 const widths = [
@@ -59,20 +60,16 @@ const widths = [
             class="ui-toggle-group ui-small"
             role="radiogroup"
           >
-            {
-              widths.map((width, index) => (
-                <label class="ui-toggle-button">
-                  <input
-                    checked={index === 0}
-                    data-width={width.value}
-                    name={id("width")}
-                    type="radio"
-                    value={width.value}
-                  />
-                  {width.label}
-                </label>
-              ))
-            }
+            {widths.map((width, index) => <label class="ui-toggle-button">
+              <input
+                checked={index === 0}
+                data-width={width.value}
+                name={id("width")}
+                type="radio"
+                value={width.value}
+              />
+              {width.label}
+            </label>)}
           </div>
           <a
             class="ui-button ui-outlined ui-small"
@@ -86,51 +83,45 @@ const widths = [
           <iframe
             data-block-frame
             src={blockPreviewHref(block.slug)}
-            title={`${block.name} preview`}></iframe>
+            title={`${block.name} preview`}
+          ></iframe>
         </div>
       </div>
-      {
-        codeTabs.map((tab) => (
-          <>
-            <input
-              class="ui-input"
-              id={id(`${tab.name}-tab`)}
-              name={id("view")}
-              type="radio"
-            />
-            <label class="ui-label" for={id(`${tab.name}-tab`)}>
-              {tab.label}
-            </label>
-            <div class="ui-panel">
-              <Code code={tab.code} lang={tab.lang} />
-            </div>
-          </>
-        ))
-      }
+      {codeTabs.map((tab) => (
+        <>
+          <input
+            class="ui-input"
+            id={id(`${tab.name}-tab`)}
+            name={id("view")}
+            type="radio"
+          />
+          <label class="ui-label" for={id(`${tab.name}-tab`)}>
+            {tab.label}
+          </label>
+          <div class="ui-panel">
+            <Code code={tab.code} lang={tab.lang} />
+          </div>
+        </>
+      ))}
     </div>
   </div>
 
   <nav aria-label="More blocks" class="block-pagination ui-not-rich-text">
-    {
-      previous && (
-        <a class="ui-card ui-outlined" href={blockHref(previous.slug)}>
-          <hgroup>
-            <p>Previous</p>
-            <h2>{previous.name}</h2>
-          </hgroup>
-        </a>
-      )
-    }
-    {
-      next && (
-        <a class="ui-card ui-outlined block-next" href={blockHref(next.slug)}>
-          <hgroup>
-            <p>Next</p>
-            <h2>{next.name}</h2>
-          </hgroup>
-        </a>
-      )
-    }
+    {previous && <a class="ui-card ui-outlined" href={blockHref(previous.slug)}>
+      <hgroup>
+        <p>Previous</p>
+        <h2>{previous.name}</h2>
+      </hgroup>
+    </a>}
+    {next && <a
+      class="ui-card ui-outlined block-next"
+      href={blockHref(next.slug)}
+    >
+      <hgroup>
+        <p>Next</p>
+        <h2>{next.name}</h2>
+      </hgroup>
+    </a>}
   </nav>
 </Blocks>
 

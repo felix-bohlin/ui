@@ -11,12 +11,13 @@
   {#snippet start()}https://{/snippet}
 </TextField>
 
-<TextField label="Weight" type="numeric" placeholder="0">
+<TextField label="Weight" placeholder="0" type="numeric">
   {#snippet end()}kg{/snippet}
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
-  {#snippet start()}<svg
+  {#snippet start()}
+    <svg
       aria-hidden="true"
       width="16"
       height="16"
@@ -28,6 +29,7 @@
       stroke-linejoin="round"
     >
       <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.3-4.3"></path></svg
-    >{/snippet}
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+  {/snippet}
 </TextField>

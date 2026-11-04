@@ -41,6 +41,18 @@ export const warnMissingId = (
   }
 }
 
+export const warnMissingTarget = (
+  component: string,
+  target: unknown,
+  container: string,
+) => {
+  if (DEV && !target) {
+    console.warn(
+      `[OPUI ${component}] Missing \`commandfor\`. Outside a ${container}, set it to the id of the dialog to close.`,
+    )
+  }
+}
+
 export const warnReplacedId = (
   component: string,
   root: string,

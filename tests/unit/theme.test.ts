@@ -67,6 +67,28 @@ describe("exportCss", () => {
     expect(css.startsWith(exampleTheme("m3")!.css.trimEnd())).toBe(true)
     expect(css.trimEnd().endsWith("--ui-radius: 0;\n  }\n}")).toBe(true)
   })
+
+  test("imports a web font from Fontsource before the layers", () => {
+    const css = exportCss({
+      preset: null,
+      tokens: { "--ui-font-heading": '"Playfair Display", Georgia, serif' },
+    })
+    expect(css.startsWith("@import url(")).toBe(true)
+    expect(css).toContain("fontsource/css/playfair-display@latest/700.css")
+    expect(css.indexOf("@layer")).toBeGreaterThan(css.lastIndexOf("@import"))
+  })
+
+  test("names no import for a bundled or system font", () => {
+    expect(
+      exportCss({
+        preset: null,
+        tokens: { "--ui-font-body": '"DM Sans", Avenir, sans-serif' },
+      }),
+    ).not.toContain("@import")
+    expect(
+      exportCss({ preset: null, tokens: { "--ui-font-body": "system-ui" } }),
+    ).not.toContain("@import")
+  })
 })
 
 describe("normalizeTheme", () => {

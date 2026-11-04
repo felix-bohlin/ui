@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process"
 import { readFileSync } from "node:fs"
-import { matchesGlob } from "node:path"
+import { join, matchesGlob } from "node:path"
 import { fileURLToPath } from "node:url"
 
 export const code = fileURLToPath(new URL("../..", import.meta.url))
@@ -33,9 +33,17 @@ export const suites = (files) =>
       : []),
   ].toSorted()
 
+export const binOf = (name) => {
+  const folder = join(code, "node_modules", name)
+  const { bin } = JSON.parse(
+    readFileSync(join(folder, "package.json"), "utf-8"),
+  )
+  return join(folder, typeof bin === "string" ? bin : bin[name])
+}
+
 export const run = (name, args, cwd = code) => {
   try {
-    execFileSync(`${code}node_modules/.bin/${name}`, args, {
+    execFileSync(process.execPath, [binOf(name), ...args], {
       cwd,
       encoding: "utf-8",
       env: { ...process.env, FORCE_COLOR: "0", NO_COLOR: "1" },

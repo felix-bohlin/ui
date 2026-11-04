@@ -11,8 +11,8 @@ import {
 
 <template>
   <Button
-    commandfor="dialog-footer-alignment-1"
     command="show-modal"
+    commandfor="dialog-footer-alignment-1"
     variant="outlined"
   >
     Show shortcuts
@@ -27,8 +27,8 @@ import {
     </DialogContent>
     <DialogFooter align="start">
       <Button
-        commandfor="dialog-footer-alignment-1"
         command="close"
+        commandfor="dialog-footer-alignment-1"
         variant="filled"
       >
         Got it

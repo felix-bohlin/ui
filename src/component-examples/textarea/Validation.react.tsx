@@ -15,18 +15,18 @@ export default function Validation() {
 
       <div className="example-row">
         <Textarea
-          label="Label"
-          placeholder="Default"
           defaultValue="This isn't right"
           endText="Only double-negatives are allowed."
           error
+          label="Label"
+          placeholder="Default"
         />
         <Textarea
-          label="Label"
-          placeholder="Filled"
           defaultValue="Uh-oh"
           endText="Only letters from the first half of the alphabet are allowed."
           error
+          label="Label"
+          placeholder="Filled"
           variant="filled"
         />
       </div>

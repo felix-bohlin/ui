@@ -25,7 +25,7 @@ import { Select } from "opui-css/astro"
   <option>Swedish</option>
 </Select>
 
-<Select spread required>
+<Select required spread>
   <Fragment slot="label">Required</Fragment>
   <Fragment slot="start-text">You must select an option</Fragment>
   <option value="">Select an option</option>
@@ -33,13 +33,13 @@ import { Select } from "opui-css/astro"
   <option>Option 2</option>
 </Select>
 
-<Select spread disabled>
+<Select disabled spread>
   <Fragment slot="label">Disabled</Fragment>
   <Fragment slot="start-text">This select is disabled</Fragment>
   <option>Option 1</option>
 </Select>
 
-<Select spread error>
+<Select error spread>
   <Fragment slot="label">Invalid Select</Fragment>
   <Fragment slot="start-text">This select has an error</Fragment>
   <Fragment slot="end-text">Please select a valid option.</Fragment>

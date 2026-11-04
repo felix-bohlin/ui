@@ -66,74 +66,58 @@ const usedBy = slug
   : []
 ---
 
-<section>
-  <h2 id="installation">Installation</h2>
+<section id="installation">
+  <h2>Installation</h2>
   <slot />
 
-  {
-    imports && imports.names.length > 0 && (
-      <>
-        <p>
-          Import{" "}
-          {imports.names.length === 1 ? "the component" : "the components"} from{" "}
-          <code>{imports.package}</code>:
-        </p>
-        <Code code={importCode} lang="ts" />
-      </>
-    )
-  }
+  {imports && imports.names.length > 0 && (
+    <>
+      <p>
+        Import{" "}
+        {imports.names.length === 1 ? "the component" : "the components"}
+        from{" "} <code>{imports.package}</code>:
+      </p>
+      <Code code={importCode} lang="ts" />
+    </>
+  )}
 
-  {
-    dependencies.length > 0 && (
-      <>
-        <h3 id="dependencies">Dependencies</h3>
-        <ul>
-          {dependencies.map((dep) => (
-            <li>
-              <a href={link(dep.href)}>{dep.name}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
+  {dependencies.length > 0 && (
+    <>
+      <h3 id="dependencies">Dependencies</h3>
+      <ul>
+        {dependencies.map((dep) => <li>
+          <a href={link(dep.href)}>{dep.name}</a>
+        </li>)}
+      </ul>
+    </>
+  )}
 
-  {
-    usedBy.length > 0 && (
-      <>
-        <h3 id="used-by">Used by</h3>
-        <ul>
-          {usedBy.map((item) => (
-            <li>
-              <a href={link(item.href)}>{item.name}</a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
+  {usedBy.length > 0 && (
+    <>
+      <h3 id="used-by">Used by</h3>
+      <ul>
+        {usedBy.map((item) => <li>
+          <a href={link(item.href)}>{item.name}</a>
+        </li>)}
+      </ul>
+    </>
+  )}
 
-  {
-    cssTabs.length > 0 && (
-      <div class="copy-all-css">
-        <p>
-          Copy the CSS into your project to own it. It reads tokens from Open
-          Props, <code>palette.css</code> and <code>theme.css</code>, so those
-          go on the page too, after <code>layers.css</code>. See
-          <a href={link("/guide/getting-started")}>Getting started</a>.
-        </p>
-        {cssTabs.length > 1 && (
-          <button
-            type="button"
-            class="ui-button ui-outlined ui-small"
-            data-css={allCss}
-          >
-            Copy all CSS
-          </button>
-        )}
-      </div>
-    )
-  }
+  {cssTabs.length > 0 && <div class="copy-all-css">
+    <p>
+      Copy the CSS into your project to own it. It reads tokens from
+      <code>palette.css</code> and <code>theme.css</code>, so those go on the
+      page too, after <code>layers.css</code>. See
+      <a href={link("/guide/getting-started")}>Getting started</a>.
+    </p>
+    {cssTabs.length > 1 && <button
+      type="button"
+      class="ui-button ui-outlined ui-small"
+      data-css={allCss}
+    >
+      Copy all CSS
+    </button>}
+  </div>}
 
   <CodeGroup tabs={allTabs} />
 </section>

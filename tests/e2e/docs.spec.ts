@@ -2,7 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
-import { instantScrolling } from "./fixtures"
+import { computed, instantScrolling, resolveColor } from "./fixtures"
 
 const pages = (directory: string, prefix = "/html") =>
   readdirSync(new URL(`../../src/docs/${directory}/`, import.meta.url))
@@ -12,14 +12,14 @@ const pages = (directory: string, prefix = "/html") =>
 const DOCS_PAGES = [
   "/",
   "/blocks/",
+  "/blog/",
   "/html/api/",
   "/html/components/",
   "/html/guide/getting-started/",
-  "/learn/",
   "/theme-builder/",
+  ...pages("blog", ""),
   ...pages("components"),
   ...pages("guide"),
-  ...pages("learn", ""),
 ].toSorted()
 
 test.beforeEach(({ page }) => instantScrolling(page))
@@ -151,20 +151,219 @@ test.describe("search", () => {
     const titles = await page
       .locator("#results-list .ui-title")
       .allTextContents()
-    const target = titles.indexOf("Dialog")
-    expect(target).toBeGreaterThan(0)
+    expect(titles[0]).toBe("Dialog")
 
     expect(await selectedTitle(input)).toBe(titles[0])
-    for (let index = 1; index <= target; index++) {
-      await input.press("ArrowDown")
-      expect(await selectedTitle(input)).toBe(titles[index])
-    }
-    await input.press("ArrowUp")
-    expect(await selectedTitle(input)).toBe(titles[target - 1])
     await input.press("ArrowDown")
+    expect(await selectedTitle(input)).toBe(titles[1])
+    await input.press("ArrowDown")
+    expect(await selectedTitle(input)).toBe(titles[2])
+    await input.press("ArrowUp")
+    await input.press("ArrowUp")
+    expect(await selectedTitle(input)).toBe(titles[0])
     await input.press("Enter")
     await page.waitForURL(/\/html\/components\/dialog\/?$/)
     await expect(page.locator("h1")).toHaveText("Dialog")
+  })
+
+  test("links a section result to its heading", async ({ page }) => {
+    await openSearch(page, "dialog close")
+    const option = page.locator("#results-list [role=option]").first()
+    await expect(option.locator(".ui-title")).toHaveText(
+      "How to close a dialog",
+    )
+    await expect(option.locator(".ui-description")).toHaveText("Dialog")
+    await expect(option).toHaveAttribute(
+      "href",
+      "/html/components/dialog/#how-to-close",
+    )
+    await expect(option.locator("mark").first()).toHaveText("close")
+    await option.click()
+    await page.waitForURL(/\/html\/components\/dialog\/#how-to-close$/)
+    await expect(page.locator("#search-dialog")).toBeHidden()
+  })
+
+  test("jumps to a section on the page it's on without loading it again", async ({
+    page,
+  }) => {
+    await page.goto("/html/components/dialog/")
+    await page.evaluate(() => {
+      document.documentElement.dataset.loaded = "once"
+    })
+    await openSearch(page, "dialog close")
+    await page.locator("#results-list [role=option]").first().click()
+    await page.waitForURL(/\/html\/components\/dialog\/#how-to-close$/)
+    await expect(page.locator("#search-dialog")).toBeHidden()
+    await expect(page.locator("html")).toHaveAttribute("data-loaded", "once")
+  })
+
+  test("matches any word in the selected category when none of its results has every word", async ({
+    page,
+  }) => {
+    await openSearch(page, "switch form")
+    await page.locator('.filter-chip[data-filter="Blocks"]').click()
+    await expect(page.locator("#search-empty")).toBeHidden()
+    await expect(
+      page.locator("#results-list .command-group-heading"),
+    ).toHaveText(["Blocks"])
+    await expect(
+      page.locator('.filter-chip[data-filter="Blocks"]'),
+    ).toContainText(
+      `(${await page.locator("#results-list [role=option]").count()})`,
+    )
+  })
+
+  test("finds a component by a keyword its page lists", async ({ page }) => {
+    await openSearch(page, "snackbar")
+    await expect(
+      page.locator("#results-list [role=option] .ui-title").first(),
+    ).toHaveText("Toast")
+  })
+
+  test("moves the caret with the arrow keys and changes the category at either end", async ({
+    page,
+  }) => {
+    const input = await openSearch(page, "Dialog")
+    const pressed = page.locator(".filter-chip[aria-pressed=true]")
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+    await input.press("ArrowLeft")
+    expect(
+      await input.evaluate((el: HTMLInputElement) => el.selectionStart),
+    ).toBe(5)
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+    await input.press("ArrowRight")
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+    await input.press("ArrowRight")
+    await expect(pressed).not.toHaveAttribute("data-filter", "all")
+    await input.press("Home")
+    await input.press("ArrowLeft")
+    await expect(pressed).toHaveAttribute("data-filter", "all")
+  })
+
+  test("shows the first results of a group and the rest of it on Show all", async ({
+    page,
+  }) => {
+    const input = await openSearch(page, "keyboard")
+    const more = page.locator("#results-list .search-more").first()
+    await expect(more).toContainText(/Show all \d+/)
+    const total = Number((await more.textContent())?.match(/\d+/)?.[0])
+    expect(total).toBeGreaterThan(6)
+    await more.click()
+    await expect(input).toBeFocused()
+    await expect(
+      page.locator(".filter-chip[aria-pressed=true]"),
+    ).not.toHaveAttribute("data-filter", "all")
+    await expect(page.locator("#results-list .search-more")).toHaveCount(0)
+    await expect(page.locator("#results-list [role=option]")).toHaveCount(total)
+  })
+
+  test("shows results from other frameworks when the current one has none", async ({
+    page,
+  }) => {
+    await openSearch(page, "itemsPerView")
+    await expect(page.locator("#search-empty")).toHaveText(
+      "No results in HTML.",
+    )
+    await expect(
+      page.locator("#results-list .command-group-heading"),
+    ).toHaveText(["Other frameworks"])
+    const options = page.locator("#results-list [role=option]")
+    await expect(options.first()).toHaveAttribute(
+      "href",
+      /^\/(astro|react|svelte|vue)\/api\/#carousel$/,
+    )
+    await expect(page.locator("#search-status")).toHaveText(
+      `No results in HTML, ${await options.count()} in other frameworks`,
+    )
+  })
+
+  test("shows and counts every result from the other frameworks", async ({
+    page,
+  }) => {
+    await openSearch(page, "startText")
+    const status = page.locator("#search-status")
+    await expect(status).toHaveText(
+      /^No results in HTML, \d+ in other frameworks$/,
+    )
+    const count = Number((await status.textContent())?.match(/\d+/)?.[0])
+    expect(count).toBeGreaterThan(5)
+    await expect(page.locator("#results-list [role=option]")).toHaveCount(count)
+  })
+
+  test("shows the results of the other frameworks that load", async ({
+    page,
+  }) => {
+    await page.route("**/search-index/react.json", (route) => route.abort())
+    await openSearch(page, "itemsPerView")
+    await expect(page.locator("#search-status")).toHaveText(
+      /^No results in HTML, \d+ in other frameworks$/,
+    )
+    await expect(page.locator("#results-list [role=option]")).not.toHaveCount(0)
+    await expect(
+      page.locator('#results-list [role=option][href^="/react/"]'),
+    ).toHaveCount(0)
+  })
+
+  test("doesn't look in other frameworks for a category they share", async ({
+    page,
+  }) => {
+    const indexes: string[] = []
+    page.on("request", (request) => {
+      const { pathname } = new URL(request.url())
+      if (pathname.startsWith("/search-index/")) indexes.push(pathname)
+    })
+    await page.locator("[data-open-search]").filter({ visible: true }).click()
+    await page.locator('.filter-chip[data-filter="Blog"]').click()
+    await page.locator("#search-input").fill("itemsPerView")
+    await expect(page.locator("#search-empty")).toHaveText("No results.")
+    await expect(page.locator("#search-status")).toHaveText("No results")
+    expect(indexes).toEqual(["/search-index/html.json"])
+  })
+
+  test("loads the index when a shortcut opens search", async ({ page }) => {
+    const request = page.waitForRequest(/\/search-index\/html\.json$/)
+    await page.keyboard.press("/")
+    await expect(page.locator("#search-dialog")).toBeVisible()
+    await request
+  })
+
+  test("shows recent searches without highlights", async ({ page }) => {
+    await page.evaluate(() =>
+      localStorage.setItem(
+        "opui-recent-searches",
+        JSON.stringify([
+          {
+            category: "Component",
+            description: "A dialog.",
+            id: "component-dialog-html",
+            terms: ["dialog"],
+            title: "Dialog",
+            url: "/html/components/dialog",
+          },
+        ]),
+      ),
+    )
+    await page.locator("[data-open-search]").filter({ visible: true }).click()
+    await expect(page.locator("#recent-list .ui-title")).toHaveText(["Dialog"])
+    await expect(page.locator("#recent-list mark")).toHaveCount(0)
+  })
+
+  test("keeps the selected result readable in forced colors mode", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors: "active" })
+    await openSearch(page, "dialog")
+    const selected = page.locator(
+      '#results-list [role=option][aria-selected="true"]',
+    )
+    for (const part of [
+      selected.locator("mark").first(),
+      selected.locator(".ui-description"),
+    ]) {
+      expect(await computed(part, "color")).toBe(
+        await resolveColor(part, "SelectedItemText"),
+      )
+    }
   })
 
   test("closes with Esc", async ({ page }) => {
@@ -184,10 +383,7 @@ for (const framework of FRAMEWORK_IDS) {
       }
     })
     await page.goto(`/${framework}/components/button/`)
-    const example = page
-      .locator("section", { has: page.locator("h2#variants") })
-      .locator(".example-container")
-      .first()
+    const example = page.locator("section#variants .example-container").first()
     await example.locator(".show-code-button").focus()
     await page.keyboard.press("Enter")
     const block = example.locator(".code-block").first()
@@ -205,6 +401,28 @@ for (const framework of FRAMEWORK_IDS) {
   })
 }
 
+test("a diff code block copies without its removed lines", async ({ page }) => {
+  await page.addInitScript(() => {
+    navigator.clipboard.writeText = async (text) => {
+      document.documentElement.dataset.copied = text
+    }
+  })
+  await page.goto("/html/guide/migrating/")
+  const block = page.locator(".code-block:has([data-diff='del'])").first()
+  const kept = (
+    await block.locator(".diff-line:not([data-diff='del'])").allTextContents()
+  )
+    .map((line) => line.replace(/\n$/, ""))
+    .join("\n")
+    .trim()
+
+  await block.locator(".code-copy").click()
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.dataset.copied))
+    .toBe(kept)
+  await expect(block.locator(".ui-floating[popover]")).toHaveText("Copied")
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })
@@ -217,6 +435,51 @@ for (const path of DOCS_PAGES) {
           document.documentElement.clientWidth,
       ),
     ).toBeLessThanOrEqual(0)
+  })
+}
+
+const uncappedBlocks = (page: Page) =>
+  page.evaluate(() => {
+    const main = document.querySelector("#main-content > .ui-rich-text")
+    const blocks = (parent: Element): Element[] =>
+      [...parent.children].flatMap((child) =>
+        getComputedStyle(child).display === "contents" ||
+        (parent === main && child.localName === "section")
+          ? blocks(child)
+          : [child],
+      )
+    return blocks(main!)
+      .filter(
+        (block) =>
+          !block.matches(".is-wide") &&
+          getComputedStyle(block).maxInlineSize === "none",
+      )
+      .map(
+        (block) =>
+          `${block.localName}: ${block.textContent?.trim().slice(0, 40)}`,
+      )
+  })
+
+for (const path of DOCS_PAGES.filter(
+  (path) => !["/", "/theme-builder/"].includes(path),
+)) {
+  test(`${path} keeps its blocks within the content width`, async ({
+    page,
+  }) => {
+    await page.goto(path)
+    await page
+      .locator("#main-content > .ui-rich-text > section")
+      .first()
+      .evaluate((section) =>
+        section.insertAdjacentHTML(
+          "beforeend",
+          '<div style="display: contents"><p>Sample</p></div>',
+        ),
+      )
+    expect(
+      await uncappedBlocks(page),
+      "Every block in the page content, also inside a display: contents wrapper, keeps the content width unless it has .is-wide",
+    ).toEqual(["p: Sample"])
   })
 }
 

@@ -25,10 +25,7 @@ export default function Chip({
     <Tag
       className={cx([
         "ui-chip",
-        {
-          "ui-dot": dot,
-          "ui-multiline": multiline,
-        },
+        { "ui-dot": dot, "ui-multiline": multiline },
         severity && `ui-${severity}`,
         size && size !== "medium" && `ui-${size}`,
         variant !== "tonal" && `ui-${variant}`,

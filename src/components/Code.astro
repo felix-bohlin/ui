@@ -1,4 +1,5 @@
 ---
+import { Button, Copy } from "opui-css/astro"
 import "../styles/syntax.css"
 
 type Props = {
@@ -46,39 +47,46 @@ const html = isDiff
       .map((line, index) => {
         const type = DIFF_MARKERS[line[0]]
         const text = escape(diffCode[index].slice(diffIndent))
-        return `<span class="diff-line"${type ? ` data-diff="${type}"` : ""}>${text}</span>`
+        const end = index < lines.length - 1 ? "\n" : ""
+        return `<span class="diff-line"${type ? ` data-diff="${type}"` : ""}${type === "del" ? " data-copy-ignore" : ""}>${text}${end}</span>`
       })
-      .join("\n")
+      .join("")
   : escape(source)
 const codeClass = language && `language-${language}`
 const preClass = isDiff ? "is-diff" : undefined
+const id = Astro.locals.$id("code")
 ---
 
 <div
   class:list={["code-block", { "is-terminal": isTerminal }]}
   data-language={lang || undefined}
 >
-  {
-    (title || isTerminal) && (
-      <div class="code-header">
-        {title && <span class="code-title">{title}</span>}
-      </div>
-    )
-  }
-  <pre class={preClass}><code class={codeClass} set:html={html} /></pre>
-  <button type="button" class="code-copy" aria-label="Copy to clipboard">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.75"
-      aria-hidden="true"
+  {(title || isTerminal) && <div class="code-header">
+    {title && <span class="code-title">{title}</span>}
+  </div>}
+  <Copy id={id}>
+    <pre class={preClass}><code class={codeClass} set:html={html} /></pre>
+    <Button
+      aria-label="Copy to clipboard"
+      class="code-copy"
+      command="--copy"
+      commandfor={id}
+      size="small"
+      variant="tonal"
     >
-      <path d="M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1"></path>
-      <rect x="6" y="5" width="16" height="18" rx="1.5" ry="1.5"></rect>
-    </svg>
-  </button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        aria-hidden="true"
+      >
+        <path d="M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1"></path>
+        <rect x="6" y="5" width="16" height="18" rx="1.5" ry="1.5"></rect>
+      </svg>
+    </Button>
+  </Copy>
 </div>
 
 <style>
@@ -218,54 +226,19 @@ const preClass = isDiff ? "is-diff" : undefined
   }
 
   .code-copy {
-    align-items: center;
     align-self: start;
-    background: var(--syntax-background);
-    block-size: 2.5rem;
-    border: 1.5px solid
-      color-mix(in srgb, var(--syntax-foreground) 40%, transparent);
-    border-radius: 0.2rem;
-    color: var(--syntax-foreground);
-    cursor: pointer;
-    display: flex;
     grid-area: code;
-    inline-size: 2.5rem;
-    justify-content: center;
     justify-self: end;
     margin: calc(1.5px + 0.4rem) calc(1.5px + 0.5rem);
     opacity: 0.75;
-    padding: 0.475rem;
-    position: relative;
     transition: opacity 0.2s;
-
-    svg {
-      block-size: 100%;
-      inline-size: 100%;
-    }
 
     &:hover,
     &:focus-visible {
       opacity: 1;
     }
 
-    &[data-copied]::before {
-      background: light-dark(
-        oklch(0.546 0.1857 142.5),
-        oklch(0.548 0.1233 159.2)
-      );
-      border-radius: 0.2rem;
-      color: oklch(1 0 0);
-      content: "Copied!";
-      font-size: 0.9rem;
-      inset-inline-end: calc(100% + 0.5rem);
-      padding: 0.125rem 0.75rem;
-      position: absolute;
-      white-space: nowrap;
-    }
-
     @media (hover: hover) {
-      block-size: 2rem;
-      inline-size: 2rem;
       opacity: 0;
 
       .code-block:hover &,
@@ -278,30 +251,11 @@ const preClass = isDiff ? "is-diff" : undefined
         opacity: 1;
       }
     }
-
-    @media (scripting: none) {
-      display: none;
-    }
   }
 </style>
 
 <script>
   import { highlightAll } from "microlighter"
-  import { copyText } from "../utils/storage"
-
-  document.addEventListener("click", async (event) => {
-    const button = (event.target as Element).closest(".code-copy")
-    const code = button?.parentElement?.querySelector("code")
-    if (!button || !code) return
-
-    const lines = code.querySelectorAll(".diff-line:not([data-diff='del'])")
-    const text = lines.length
-      ? [...lines].map((line) => line.textContent).join("\n")
-      : code.textContent
-    if (!(await copyText(text ?? ""))) return
-    button.setAttribute("data-copied", "")
-    setTimeout(() => button.removeAttribute("data-copied"), 1500)
-  })
 
   document.addEventListener("syntax-highlight", () => highlightAll())
   highlightAll()

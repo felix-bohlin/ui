@@ -4,7 +4,7 @@ export default function VisibleLabel() {
   return (
     <>
       <Switch name="switch-visible-label">Label</Switch>
-      <Switch name="switch-visible-label" disabled>
+      <Switch disabled name="switch-visible-label">
         Disabled
       </Switch>
       <Switch name="switch-visible-label">

@@ -4,7 +4,7 @@
     --_backdrop-bg-color: var(--ui-backdrop-bg-color);
     --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
-    --_ease: var(--ui-ease-enter);
+    --_ease: var(--ui-ease-exit);
     --_elevated-shadow: var(--ui-shadow-overlay);
     --_max-inline-size: 60ch;
     --_scroll-shadow: var(--ui-shadow-scroll);
@@ -18,16 +18,26 @@
     max-inline-size: min(var(--_max-inline-size), 100% - var(--ui-space-4));
 
     /* Animation */
-    /* There's no close animation, intentionally */
     opacity: 0;
     overflow: auto;
     padding-block: 0;
     pointer-events: none;
     position: fixed;
+    scale: 0.96;
+    transition:
+      display var(--_duration) allow-discrete,
+      opacity var(--_duration) var(--_ease),
+      overlay var(--_duration) allow-discrete,
+      scale var(--_duration) var(--_ease);
 
     &::backdrop {
       backdrop-filter: var(--_backdrop-blur);
       background-color: var(--_backdrop-bg-color);
+      opacity: 0;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete;
     }
 
     &:not([open]) {
@@ -134,16 +144,19 @@
     }
 
     &[open] {
+      --_ease: var(--ui-ease-enter);
+
       opacity: 1;
       pointer-events: all;
-      transition: opacity var(--_duration) var(--_ease);
+      scale: none;
 
       &::backdrop {
-        transition: opacity var(--_duration) var(--_ease);
+        opacity: 1;
       }
 
       @starting-style {
         opacity: 0;
+        scale: 0.96;
 
         &::backdrop {
           opacity: 0;

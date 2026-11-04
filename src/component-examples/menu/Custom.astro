@@ -3,11 +3,11 @@ import { Button, ListItem, Menu } from "opui-css/astro"
 ---
 
 <Button
+  aria-label="More actions"
+  command="toggle-popover"
+  commandfor="menu-custom-1"
   round
   size="small"
-  aria-label="More actions"
-  commandfor="menu-custom-1"
-  command="toggle-popover"
 >
   <svg
     aria-hidden="true"
@@ -24,9 +24,9 @@ import { Button, ListItem, Menu } from "opui-css/astro"
   <li class="ui-heading">Document</li>
   <ListItem
     as="button"
-    label="Rename"
-    commandfor="menu-custom-1"
     command="hide-popover"
+    commandfor="menu-custom-1"
+    label="Rename"
   >
     <svg
       slot="start"
@@ -43,9 +43,9 @@ import { Button, ListItem, Menu } from "opui-css/astro"
   </ListItem>
   <ListItem
     as="button"
-    label="Copy"
-    commandfor="menu-custom-1"
     command="hide-popover"
+    commandfor="menu-custom-1"
+    label="Copy"
   >
     <svg
       slot="start"
@@ -61,8 +61,8 @@ import { Button, ListItem, Menu } from "opui-css/astro"
     <kbd slot="end">Ctrl+C</kbd>
   </ListItem>
   <ListItem
-    label="Open in new tab"
     href="/guide/getting-started/"
+    label="Open in new tab"
     target="_blank"
   >
     <svg
@@ -79,11 +79,11 @@ import { Button, ListItem, Menu } from "opui-css/astro"
   </ListItem>
   <ListItem
     as="button"
-    label="Delete"
     borderTop
     color="critical"
-    commandfor="menu-custom-1"
     command="hide-popover"
+    commandfor="menu-custom-1"
+    label="Delete"
   >
     <svg
       slot="start"

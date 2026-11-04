@@ -4,11 +4,11 @@ export default function Custom() {
   return (
     <>
       <Button
+        aria-label="More actions"
+        command="toggle-popover"
+        commandfor="menu-custom-1"
         round
         size="small"
-        aria-label="More actions"
-        commandfor="menu-custom-1"
-        command="toggle-popover"
       >
         <svg
           aria-hidden="true"
@@ -25,9 +25,10 @@ export default function Custom() {
         <li className="ui-heading">Document</li>
         <ListItem
           as="button"
-          label="Rename"
-          commandfor="menu-custom-1"
           command="hide-popover"
+          commandfor="menu-custom-1"
+          end={<kbd>F2</kbd>}
+          label="Rename"
           start={
             <svg
               aria-hidden="true"
@@ -40,13 +41,13 @@ export default function Custom() {
               ></path>
             </svg>
           }
-          end={<kbd>F2</kbd>}
         />
         <ListItem
           as="button"
-          label="Copy"
-          commandfor="menu-custom-1"
           command="hide-popover"
+          commandfor="menu-custom-1"
+          end={<kbd>Ctrl+C</kbd>}
+          label="Copy"
           start={
             <svg
               aria-hidden="true"
@@ -59,12 +60,10 @@ export default function Custom() {
               ></path>
             </svg>
           }
-          end={<kbd>Ctrl+C</kbd>}
         />
         <ListItem
-          label="Open in new tab"
           href="/guide/getting-started/"
-          target="_blank"
+          label="Open in new tab"
           start={
             <svg
               aria-hidden="true"
@@ -77,14 +76,15 @@ export default function Custom() {
               ></path>
             </svg>
           }
+          target="_blank"
         />
         <ListItem
           as="button"
-          label="Delete"
           borderTop
           color="critical"
-          commandfor="menu-custom-1"
           command="hide-popover"
+          commandfor="menu-custom-1"
+          label="Delete"
           start={
             <svg
               aria-hidden="true"

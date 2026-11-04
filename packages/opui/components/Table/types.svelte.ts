@@ -11,11 +11,12 @@ export type TableCellProps = Base.TableCellProps & SvelteHTMLElements["td"]
 
 export type TableColumnGroupProps = SvelteHTMLElements["colgroup"]
 
-export type TableColumnProps = Base.TableColumnProps & SvelteHTMLElements["col"]
+export type TableColumnProps = Base.TableColumnProps &
+  Omit<SvelteHTMLElements["col"], "children">
 
 export type TableFootProps = SvelteHTMLElements["tfoot"]
 
-export type TableHeaderCellProps = Base.TableCellProps &
+export type TableHeaderCellProps = Base.TableHeaderCellProps &
   SvelteHTMLElements["th"]
 
 export type TableHeadProps = SvelteHTMLElements["thead"]

@@ -3,8 +3,7 @@
 </script>
 
 <div>
-  Uploading 3 of 8 files
-  <Progress
+  Uploading 3 of 8 files <Progress
     aria-label="Uploading"
     max="8"
     style="inline-size: 12rem"

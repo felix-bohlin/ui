@@ -19,48 +19,53 @@ const footerItems = [
   <div class="ui-content">
     <nav aria-label="Footer">
       <ul>
-        {
-          footerItems.map((item) => (
-            <li>
-              <a class="ui-link" href={item.href} title={item.label}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
+        {footerItems.map((item) => <li>
+          <a class="ui-link" href={item.href} title={item.label}>
+            {item.label}
+          </a>
+        </li>)}
       </ul>
     </nav>
 
     <hr class="ui-divider" />
 
     <p>
-      Made with Open Props UI, <a
+      Made with Open Props UI,
+      <a
         class="ui-link"
         href="https://astro.build"
         target="_blank"
         rel="noopener noreferrer"
-        title="Astro">Astro</a
-      > and <a
+        title="Astro"
+        >Astro</a
+      >
+      and
+      <a
         class="ui-link"
         href="https://icones.js.org/collection/fluent"
         target="_blank"
         rel="noopener noreferrer"
-        title="Fluent UI System Icons">Fluent UI System Icons</a
+        title="Fluent UI System Icons"
+        >Fluent UI System Icons</a
       >.
     </p>
     <p>
-      Hosted on <a
+      Hosted on
+      <a
         class="ui-link"
         href="https://www.netlify.com/"
         target="_blank"
         rel="noopener noreferrer"
-        title="Netlify">Netlify</a
-      >, source code on <a
+        title="Netlify"
+        >Netlify</a
+      >, source code on
+      <a
         class="ui-link"
         href="https://github.com/felix-bohlin/ui"
         target="_blank"
         rel="noopener noreferrer"
-        title="GitHub">GitHub</a
+        title="GitHub"
+        >GitHub</a
       >.
     </p>
   </div>

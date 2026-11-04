@@ -15,48 +15,55 @@ import { GROUPS } from "../../utils/theme-builder-controls"
     type="search"
   />
   <ul class="builder-rooms">
-    {
-      GROUPS.map((group) => (
-        <li class="builder-room">
-          <button
-            aria-current="false"
-            class="builder-room-button"
-            data-room={group.id}
-            type="button"
-          >
-            <span class="builder-room-label">{group.label}</span>
-            <span class="builder-count" data-room-count={group.id} hidden />
-          </button>
-          <button
-            aria-label={`Keep ${group.label} when shuffling`}
-            aria-pressed="false"
-            class="builder-lock"
-            data-lock={group.id}
-            title={`Keep ${group.label} when shuffling`}
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <>
-                <path
-                  class="builder-lock-open"
-                  d="M12 2a5 5 0 0 1 5 5v1h-2V7a3 3 0 1 0-6 0v3h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5m0 12a1.5 1.5 0 0 0-1 2.6V18h2v-1.4A1.5 1.5 0 0 0 12 14"
-                  fill="currentColor"
-                />
-                <path
-                  class="builder-lock-closed"
-                  d="M12 2a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3v3h6V7a3 3 0 0 0-3-3m0 10a1.5 1.5 0 0 0-1 2.6V18h2v-1.4A1.5 1.5 0 0 0 12 14"
-                  fill="currentColor"
-                />
-              </>
-            </svg>
-          </button>
-        </li>
-      ))
-    }
+    {GROUPS.map((group) => <li class="builder-room">
+      <button
+        aria-current="false"
+        class="builder-room-button"
+        data-room={group.id}
+        type="button"
+      >
+        <span class="builder-room-label">{group.label}</span>
+        <span class="builder-count" data-room-count={group.id} hidden />
+      </button>
+      <button
+        aria-label={`Keep ${group.label} when shuffling`}
+        aria-pressed="false"
+        class="builder-lock"
+        data-lock={group.id}
+        title={`Keep ${group.label} when shuffling`}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <>
+            <path
+              class="builder-lock-open"
+              d="M12 2a5 5 0 0 1 5 5v1h-2V7a3 3 0 1 0-6 0v3h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5m0 12a1.5 1.5 0 0 0-1 2.6V18h2v-1.4A1.5 1.5 0 0 0 12 14"
+              fill="currentColor"
+            />
+            <path
+              class="builder-lock-closed"
+              d="M12 2a5 5 0 0 1 5 5v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3v3h6V7a3 3 0 0 0-3-3m0 10a1.5 1.5 0 0 0-1 2.6V18h2v-1.4A1.5 1.5 0 0 0 12 14"
+              fill="currentColor"
+            />
+          </>
+        </svg>
+      </button>
+    </li>)}
+    <li class="builder-room">
+      <button
+        aria-current="false"
+        class="builder-room-button"
+        data-room="tokens"
+        type="button"
+      >
+        <span class="builder-room-label">All tokens</span>
+        <span class="builder-count" data-room-count="tokens" hidden></span>
+      </button>
+    </li>
   </ul>
 </nav>
 

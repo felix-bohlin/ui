@@ -1,0 +1,92 @@
+<div class="example-row">
+  <button
+    class="ui-button ui-outlined"
+    type="button"
+    command="--toast"
+    commandfor="toast-position-1"
+    data-toast="Top start"
+  >
+    Top start
+  </button>
+  <button
+    class="ui-button ui-outlined"
+    type="button"
+    command="--toast"
+    commandfor="toast-position-2"
+    data-toast="Top center"
+  >
+    Top center
+  </button>
+  <button
+    class="ui-button ui-outlined"
+    type="button"
+    command="--toast"
+    commandfor="toast-position-3"
+    data-toast="Top end"
+  >
+    Top end
+  </button>
+</div>
+<div class="example-row">
+  <button
+    class="ui-button ui-outlined"
+    type="button"
+    command="--toast"
+    commandfor="toast-position-4"
+    data-toast="Bottom start"
+  >
+    Bottom start
+  </button>
+  <button
+    class="ui-button ui-outlined"
+    type="button"
+    command="--toast"
+    commandfor="toast-position-5"
+    data-toast="Bottom center"
+  >
+    Bottom center
+  </button>
+  <button
+    class="ui-button ui-outlined"
+    type="button"
+    command="--toast"
+    commandfor="toast-position-6"
+    data-toast="Bottom end"
+  >
+    Bottom end
+  </button>
+</div>
+<opui-toaster
+  id="toast-position-1"
+  class="ui-toaster ui-block-start ui-align-start"
+>
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+<opui-toaster
+  id="toast-position-2"
+  class="ui-toaster ui-block-start ui-align-center"
+>
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+<opui-toaster id="toast-position-3" class="ui-toaster ui-block-start">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+<opui-toaster id="toast-position-4" class="ui-toaster ui-align-start">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+<opui-toaster id="toast-position-5" class="ui-toaster ui-align-center">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+<opui-toaster id="toast-position-6" class="ui-toaster">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+</opui-toaster>
+
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

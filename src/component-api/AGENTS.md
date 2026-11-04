@@ -58,7 +58,8 @@ import buttonGroupApi from "../../component-api/button-group/api"
   apis={[
     { title: "Button group API", api: buttonGroupApi },
     { title: "Button API", api: buttonApi },
-  ]}>...</Component
+  ]}
+  >...</Component
 >
 ```
 
@@ -81,7 +82,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
   - `cssVar` is the CSS property an option sets, such as `--ui-anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
-- `model`: the bound value.
+- `model`: the bound value. `scripts/build-components.mjs` reads it and the part marked `model: true` (or `root`): a `value` bound to an input, textarea or select compiles to `bind:value` in Svelte and `defineModel` with `v-model` in Vue, a `checked` model on a checkbox and a `value` model on a radio compile to the Svelte bindables the model lists under `frameworks` and to `defineModel` in Vue, a wrapper whose model part is a child component forwards the model to it, a model the component provides through its context compiles to a group with a `change` callback and `defaultValue` and `onValueChange` in React (an array value is tied to `multiple`, also in the Vue generic), a component that reads that context and renders the group's input wires its change to it and binds its own `checked` model when the group has no value, a `value` the component reads to check its own radios (`checked={current === star}` beside `value={star}`) compiles to a radio group with `defaultValue` and `onChange` in React and a change on each radio that sets the model in Svelte and Vue, and any other model keeps the files hand-written with that as the reason.
 - `notes`: per-framework notes. `default` applies to every framework without its own note, HTML included. For a note that every component framework shares but HTML doesn't, spread `components(note)` from [frameworks.ts](frameworks.ts), imported as `../frameworks.ts` because the search index and skill scripts load `api.ts` in Node. A component that passes unknown attributes to an inner element writes that note with `passThrough(element, root, examples, more)` from the same file: it names the element the attributes go to, the root that gets `class` (`className` in React) and `style`, a few example attributes, and an optional sentence per framework (or `default`) after it.
 
 ## Keyboard support (`keyboard`)

@@ -3,6 +3,7 @@
 import { useId, useState } from "react"
 import { cx } from "../cx"
 import { TabsContext } from "./context.react"
+import { createId } from "../id"
 import type { Props } from "./types.react"
 
 export default function Tabs({
@@ -17,13 +18,14 @@ export default function Tabs({
   ...rest
 }: Props) {
   const uid = useId()
-  const groupName = name || `tabs-${uid}`
   const [inner, setInner] = useState(defaultValue)
-
   const change = (input: HTMLInputElement) => {
-    if (inner !== undefined) setInner(input.value)
-    onValueChange?.(input.value)
+    const next = input.value
+    if (inner !== undefined) setInner(next)
+    onValueChange?.(next)
   }
+  const idOf = createId(uid)
+  const groupName = name || idOf("tabs")
 
   return (
     <TabsContext value={{ change, groupName, value: value ?? inner }}>

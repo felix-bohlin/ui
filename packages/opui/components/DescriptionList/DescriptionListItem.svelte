@@ -3,6 +3,7 @@
 
   let {
     class: className,
+    total,
 
     // Snippets
     children,
@@ -10,6 +11,6 @@
   }: Props = $props()
 </script>
 
-<div class={[className]} {...rest}>
+<div class={[total && "ui-total", className]} {...rest}>
   {@render children?.()}
 </div>

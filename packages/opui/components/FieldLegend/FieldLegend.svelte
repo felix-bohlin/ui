@@ -9,11 +9,13 @@
     children,
     ...rest
   }: Props = $props()
+
+  const isLegend = $derived(Tag === "legend")
 </script>
 
 <svelte:element
   this={Tag}
-  class={[{ "ui-legend": Tag !== "legend" }, className]}
+  class={[{ "ui-legend": !isLegend }, className]}
   {...rest}
 >
   {@render children?.()}

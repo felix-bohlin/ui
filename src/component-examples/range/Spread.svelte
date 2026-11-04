@@ -7,18 +7,16 @@
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range label="Disabled" spread disabled>
+<Range disabled label="Disabled" spread>
   {#snippet startText()}Start text{/snippet}
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range label="Invalid Range" spread error endText="Pick a value below 50.">
+<Range endText="Pick a value below 50." error label="Invalid Range" spread>
   {#snippet startText()}Start text{/snippet}
 </Range>
 
 <Range
-  label="Tick marks with labels"
-  spread
   items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
@@ -26,4 +24,6 @@
     { value: 75, label: "75%" },
     { value: 100, label: "100%" },
   ]}
+  label="Tick marks with labels"
+  spread
 />

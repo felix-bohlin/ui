@@ -13,6 +13,7 @@ export default function MarkerAnimation() {
           </p>
         </AccordionContent>
       </Accordion>
+
       <Accordion markerAnimation="rotate" variant="outlined">
         <AccordionSummary>Rotate</AccordionSummary>
         <AccordionContent>
@@ -23,6 +24,7 @@ export default function MarkerAnimation() {
           </p>
         </AccordionContent>
       </Accordion>
+
       <Accordion markerAnimation="turn" variant="outlined">
         <AccordionSummary
           marker={

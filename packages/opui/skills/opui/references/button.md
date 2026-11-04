@@ -1,6 +1,6 @@
 # Button
 
-Buttons allow users to take actions, and make choices, with a single tap.
+Buttons allow users to take actions with a single tap.
 
 - CSS: `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button.md), [Astro](https://open-props-ui.netlify.app/astro/components/button.md), [React](https://open-props-ui.netlify.app/react/components/button.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button.md), [Vue](https://open-props-ui.netlify.app/vue/components/button.md).
@@ -55,7 +55,7 @@ Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`,
 
 ## Theme tokens
 
-The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface-tonal`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--ui-button-accent`, `--ui-button-accent-filled`, `--ui-button-font-weight`, `--ui-button-hover`, `--ui-button-hover-shadow`, `--ui-button-hover-translate`, `--ui-button-on-accent`, `--ui-button-on-accent-filled`, `--ui-button-padding-inline`, `--ui-button-padding-inline-large`, `--ui-button-padding-inline-small`, `--ui-button-padding-inline-x-small`, `--ui-button-radius`, `--ui-button-size`, `--ui-button-size-large`, `--ui-button-size-small`, `--ui-button-size-x-small`, `--ui-card-padding`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-control-border-color-filled`, `--ui-critical`, `--ui-critical-text`, `--ui-disabled-opacity`, `--ui-duration-fast`, `--ui-ease`, `--ui-ease-move`, `--ui-field-border-color`, `--ui-field-border-width`, `--ui-focus-ring-offset`, `--ui-focus-ring-width`, `--ui-font-code`, `--ui-font-size-caption`, `--ui-font-size-control`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-normal`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-on-primary-tonal`, `--ui-palette-on-strong`, `--ui-palette-on-tint`, `--ui-palette-strong`, `--ui-palette-tint`, `--ui-press-scale`, `--ui-primary`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-shadow-control`, `--ui-shadow-field`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-state-active-alpha-accent`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-hover-alpha-accent`, `--ui-state-hover-alpha-dark`, `--ui-state-hover-alpha-light`, `--ui-surface-tonal`, `--ui-text`, `--ui-text-disabled`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -63,24 +63,24 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 
 ```html
 <div class="example-row">
-  <button type="button" class="ui-button">Transparent</button>
-  <button type="button" class="ui-button" disabled>Disabled</button>
+  <button class="ui-button" type="button">Transparent</button>
+  <button class="ui-button" disabled type="button">Disabled</button>
   <a class="ui-button" href="#">Link</a>
   <a class="ui-button" href="#" aria-current="page">Current</a>
 </div>
 <div class="example-row">
-  <button type="button" class="ui-button ui-outlined">Outlined</button>
-  <button type="button" class="ui-button ui-outlined" disabled>Disabled</button>
+  <button class="ui-button ui-outlined" type="button">Outlined</button>
+  <button class="ui-button ui-outlined" disabled type="button">Disabled</button>
   <a class="ui-button ui-outlined" href="#">Link</a>
 </div>
 <div class="example-row">
-  <button type="button" class="ui-button ui-tonal">Tonal</button>
-  <button type="button" class="ui-button ui-tonal" disabled>Disabled</button>
+  <button class="ui-button ui-tonal" type="button">Tonal</button>
+  <button class="ui-button ui-tonal" disabled type="button">Disabled</button>
   <a class="ui-button ui-tonal" href="#">Link</a>
 </div>
 <div class="example-row">
-  <button type="button" class="ui-button ui-filled">Filled</button>
-  <button type="button" class="ui-button ui-filled" disabled>Disabled</button>
+  <button class="ui-button ui-filled" type="button">Filled</button>
+  <button class="ui-button ui-filled" disabled type="button">Disabled</button>
   <a class="ui-button ui-filled" href="#">Link</a>
 </div>
 ```
@@ -100,22 +100,22 @@ import { Button } from "opui-css/astro"
   <Button>Transparent</Button>
   <Button disabled>Disabled</Button>
   <Button href="#">Link</Button>
-  <Button href="#" aria-current="page">Current</Button>
+  <Button aria-current="page" href="#">Current</Button>
 </div>
 <div class="example-row">
   <Button variant="outlined">Outlined</Button>
-  <Button variant="outlined" disabled>Disabled</Button>
-  <Button variant="outlined" href="#">Link</Button>
+  <Button disabled variant="outlined">Disabled</Button>
+  <Button href="#" variant="outlined">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="tonal">Tonal</Button>
-  <Button variant="tonal" disabled>Disabled</Button>
-  <Button variant="tonal" href="#">Link</Button>
+  <Button disabled variant="tonal">Disabled</Button>
+  <Button href="#" variant="tonal">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="filled">Filled</Button>
-  <Button variant="filled" disabled>Disabled</Button>
-  <Button variant="filled" href="#">Link</Button>
+  <Button disabled variant="filled">Disabled</Button>
+  <Button href="#" variant="filled">Link</Button>
 </div>
 ```
 
@@ -135,34 +135,34 @@ export default function Variants() {
         <Button>Transparent</Button>
         <Button disabled>Disabled</Button>
         <Button href="#">Link</Button>
-        <Button href="#" aria-current="page">
+        <Button aria-current="page" href="#">
           Current
         </Button>
       </div>
       <div className="example-row">
         <Button variant="outlined">Outlined</Button>
-        <Button variant="outlined" disabled>
+        <Button disabled variant="outlined">
           Disabled
         </Button>
-        <Button variant="outlined" href="#">
+        <Button href="#" variant="outlined">
           Link
         </Button>
       </div>
       <div className="example-row">
         <Button variant="tonal">Tonal</Button>
-        <Button variant="tonal" disabled>
+        <Button disabled variant="tonal">
           Disabled
         </Button>
-        <Button variant="tonal" href="#">
+        <Button href="#" variant="tonal">
           Link
         </Button>
       </div>
       <div className="example-row">
         <Button variant="filled">Filled</Button>
-        <Button variant="filled" disabled>
+        <Button disabled variant="filled">
           Disabled
         </Button>
-        <Button variant="filled" href="#">
+        <Button href="#" variant="filled">
           Link
         </Button>
       </div>
@@ -186,22 +186,22 @@ export default function Variants() {
   <Button>Transparent</Button>
   <Button disabled>Disabled</Button>
   <Button href="#">Link</Button>
-  <Button href="#" aria-current="page">Current</Button>
+  <Button aria-current="page" href="#">Current</Button>
 </div>
 <div class="example-row">
   <Button variant="outlined">Outlined</Button>
-  <Button variant="outlined" disabled>Disabled</Button>
-  <Button variant="outlined" href="#">Link</Button>
+  <Button disabled variant="outlined">Disabled</Button>
+  <Button href="#" variant="outlined">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="tonal">Tonal</Button>
-  <Button variant="tonal" disabled>Disabled</Button>
-  <Button variant="tonal" href="#">Link</Button>
+  <Button disabled variant="tonal">Disabled</Button>
+  <Button href="#" variant="tonal">Link</Button>
 </div>
 <div class="example-row">
   <Button variant="filled">Filled</Button>
-  <Button variant="filled" disabled>Disabled</Button>
-  <Button variant="filled" href="#">Link</Button>
+  <Button disabled variant="filled">Disabled</Button>
+  <Button href="#" variant="filled">Link</Button>
 </div>
 ```
 
@@ -221,22 +221,22 @@ import { Button } from "opui-css/vue"
     <Button>Transparent</Button>
     <Button disabled>Disabled</Button>
     <Button href="#">Link</Button>
-    <Button href="#" aria-current="page">Current</Button>
+    <Button aria-current="page" href="#">Current</Button>
   </div>
   <div class="example-row">
     <Button variant="outlined">Outlined</Button>
-    <Button variant="outlined" disabled>Disabled</Button>
-    <Button variant="outlined" href="#">Link</Button>
+    <Button disabled variant="outlined">Disabled</Button>
+    <Button href="#" variant="outlined">Link</Button>
   </div>
   <div class="example-row">
     <Button variant="tonal">Tonal</Button>
-    <Button variant="tonal" disabled>Disabled</Button>
-    <Button variant="tonal" href="#">Link</Button>
+    <Button disabled variant="tonal">Disabled</Button>
+    <Button href="#" variant="tonal">Link</Button>
   </div>
   <div class="example-row">
     <Button variant="filled">Filled</Button>
-    <Button variant="filled" disabled>Disabled</Button>
-    <Button variant="filled" href="#">Link</Button>
+    <Button disabled variant="filled">Disabled</Button>
+    <Button href="#" variant="filled">Link</Button>
   </div>
 </template>
 ```

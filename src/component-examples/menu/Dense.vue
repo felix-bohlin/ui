@@ -3,7 +3,7 @@ import { Button, Menu } from "opui-css/vue"
 </script>
 
 <template>
-  <Button commandfor="menu-dense-1" command="toggle-popover" variant="outlined">
+  <Button command="toggle-popover" commandfor="menu-dense-1" variant="outlined">
     Options
   </Button>
   <Menu

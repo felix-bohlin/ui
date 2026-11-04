@@ -14,20 +14,19 @@ export default function FieldGroupFieldDescription() {
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
-          orientation="horizontal"
           name="switch-group-field-description-1"
+          orientation="horizontal"
         >
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
         </FieldGroup>
       </Fieldset>
-
       <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
-          orientation="horizontal"
           name="switch-group-field-description-2"
+          orientation="horizontal"
         >
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>

@@ -17,17 +17,13 @@ const places = [
   orientation="vertical"
   style="--_block-size: 16rem"
 >
-  {
-    places.map(({ description, title }) => (
-      <li>
-        <Card variant="tonal">
-          <CardHeader>
-            <p>Destination</p>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </CardHeader>
-        </Card>
-      </li>
-    ))
-  }
+  {places.map(({ description, title }) => <li>
+    <Card variant="tonal">
+      <CardHeader>
+        <p>Destination</p>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </CardHeader>
+    </Card>
+  </li>)}
 </Carousel>

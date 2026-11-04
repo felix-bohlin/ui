@@ -18,9 +18,7 @@
 <div
   class={[
     "ui-button-group",
-    {
-      "ui-vertical": orientation === "vertical",
-    },
+    { "ui-vertical": orientation === "vertical" },
     color && `ui-${color}`,
     overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     size && size !== "medium" && `ui-${size}`,

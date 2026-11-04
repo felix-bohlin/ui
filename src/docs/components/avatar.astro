@@ -14,6 +14,8 @@ import avatarGroupApi from "../../component-api/avatar-group/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
 export const description =
   "Avatars show a person or entity as an image, initials or icon."
+
+export const keywords = ["initials", "photo", "profile picture", "user"]
 ---
 
 <Component
@@ -53,64 +55,80 @@ export const description =
       A few people at once, overlapping in a <a href="#grouped">group</a>.
     </li>
     <li slot="when-not">
-      Icons for things or actions. Use an <code>svg</code>, or an <DocLink
-        href="/components/button#icon-only">icon-only Button</DocLink
-      > for an action.
+      Icons for things or actions. Use an <code>svg</code>, or an
+      <DocLink href="/components/button#icon-only">icon-only Button</DocLink>
+      for an action.
     </li>
     <li slot="when-not">
-      An unread count or an online status on its own. Put a <DocLink
-        href="/components/badge">Badge</DocLink
-      > on the avatar.
+      An unread count or an online status on its own. Put a
+      <DocLink href="/components/badge">Badge</DocLink> on the avatar.
     </li>
   </Usage>
 
-  <section>
-    <h2 id="image">Image</h2>
+  <section id="image">
+    <h2>Image</h2>
 
     <AutoExample name="Image" row />
   </section>
 
-  <section>
-    <h2 id="letter">Letter</h2>
+  <section id="letter">
+    <h2>Letter</h2>
 
     <AutoExample name="Letter" row />
   </section>
 
-  <section>
-    <h2 id="icon">Icon</h2>
+  <section id="icon">
+    <h2>Icon</h2>
 
     <AutoExample name="Icon" row />
   </section>
 
-  <section>
-    <h2 id="shapes">Shapes</h2>
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>variant</code> to <code>tonal</code> for the primary tint or
+        <code>outlined</code> for the border color with no fill. The default,
+        <code>filled</code>, is the primary color. An image avatar has no fill
+        in any variant.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-tonal</code> for the primary tint or
+        <code>.ui-outlined</code> for the border color with no fill. Without one
+        the avatar is filled with the primary color. An image avatar has no fill
+        in any variant.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section id="shapes">
+    <h2>Shapes</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>shape</code> to <code>rounded</code>, <code>squared</code> or <code
-          >squircle</code
-        >. The default is <code>circle</code>.
+        Set <code>shape</code> to <code>rounded</code>, <code>squared</code> or
+        <code>squircle</code>. The default is <code>circle</code>.
       </Fragment>
       <Fragment slot="html">
-        Change the shape of the avatar with the <code>.ui-rounded</code>, <code
-          >.ui-squared</code
-        > and <code>.ui-squircle</code> classes. Without one the avatar is a circle.
+        Change the shape of the avatar with the <code>.ui-rounded</code>,
+        <code>.ui-squared</code> and <code>.ui-squircle</code> classes. Without
+        one the avatar is a circle.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Shapes" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
 
     <p>
-      Use <PropOrClass prop='size="x-small"' class=".ui-x-small" />, <PropOrClass
-        prop='size="small"'
-        class=".ui-small"
-      /> or <PropOrClass prop='size="large"' class=".ui-large" /> to match the control
-      sizes, for example in dense lists, table rows and bylines. Letters and icons
-      scale with the avatar.
+      Use <PropOrClass prop='size="x-small"' class=".ui-x-small" />,
+      <PropOrClass prop='size="small"' class=".ui-small" /> or
+      <PropOrClass prop='size="large"' class=".ui-large" /> to match the control
+      sizes, for example in dense lists, table rows and bylines. Letters scale
+      with the avatar, and icons up to the default size.
     </p>
     <Conditional as="p">
       <Fragment slot="components">
@@ -121,33 +139,32 @@ export const description =
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="disabled">
+    <h2>Disabled</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
         Disable a button avatar with <code>disabled</code>. A link avatar drops
-        its <code>href</code> and gets <code>aria-disabled="true"</code> instead.
+        its <code>href</code> and gets <code>aria-disabled="true"</code>
+        instead.
       </Fragment>
       <Fragment slot="html">
-        Disable a button avatar with the <code>disabled</code> attribute. On a link
-        avatar, remove the <code>href</code> and add <code
-          >aria-disabled="true"</code
-        >.
+        Disable a button avatar with the <code>disabled</code> attribute. On a
+        link avatar, remove the <code>href</code> and add
+        <code>aria-disabled="true"</code>.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Disabled" row />
   </section>
 
-  <section>
-    <h2 id="grouped">Grouped</h2>
+  <section id="grouped">
+    <h2>Grouped</h2>
 
     <Conditional as="p">
       <Fragment slot="components">
-        Group multiple avatars in an <code>AvatarGroup</code> with an <code
-          >aria-label</code
-        >.
+        Group multiple avatars in an <code>AvatarGroup</code> with an
+        <code>aria-label</code>.
       </Fragment>
       <Fragment slot="html">
         Group multiple avatars in a <code>.ui-avatar-group</code> element with
@@ -158,8 +175,9 @@ export const description =
     <AutoExample name="Grouped" row />
 
     <p>
-      A <DocLink href="/components/badge">Badge</DocLink> on an avatar in a group
-      sits on the avatar's start side, the part the next avatar doesn't cover.
+      A <DocLink href="/components/badge">Badge</DocLink> on an avatar in a
+      group sits on the avatar's start side, the part the next avatar doesn't
+      cover.
     </p>
   </section>
 
@@ -167,19 +185,18 @@ export const description =
     <ul>
       <li>
         Give an image avatar the person's name as its <code>alt</code>, not
-        "Avatar". When the name is already shown next to it, use <code
-          >alt=""</code
-        > so it isn't read twice.
+        "Avatar". When the name is already shown next to it, use
+        <code>alt=""</code> so it isn't read twice.
       </li>
       <li>
-        Initials and icons have no name on their own. Add <code>role="img"</code
-        > and an <code>aria-label</code> with the full name, or <code
-          >aria-hidden="true"</code
-        > when the name is next to it.
+        Initials and icons have no name on their own. Add
+        <code>role="img"</code> and an <code>aria-label</code> with the full
+        name, or <code>aria-hidden="true"</code> when the name is next to it.
       </li>
       <li>
-        A link or button avatar needs an <code>aria-label</code> that names the person,
-        and a group of avatars an <code>aria-label</code> that names the group.
+        A link or button avatar needs an <code>aria-label</code> that names the
+        person, and a group of avatars an <code>aria-label</code> that names the
+        group.
       </li>
     </ul>
   </Fragment>

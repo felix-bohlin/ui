@@ -111,7 +111,7 @@ const steps = [
     notes: [
       "Radios with a shared <code>name</code>: single select, no JavaScript",
       "Checkboxes for multi-select, with <code>role=&quot;group&quot;</code>",
-      "Each toggle draws a divider on its start and top edge, the group clips the outer ones",
+      "Each toggle draws a divider on its left and top edge, the group clips the outer ones",
     ],
     title: "Group",
   },
@@ -142,21 +142,19 @@ const groups = [
 ---
 
 <BuildUp id="build-toggle" steps={steps}>
-  {
-    groups.map((group) => (
-      <div aria-label={group.label} class="toggle-group" role={group.role}>
-        {group.items.map((item) => (
-          <label class="toggle">
-            <input
-              checked={item.checked}
-              name={`build-toggle-${group.type}`}
-              type={group.type}
-              value={item.label}
-            />
-            {item.label}
-          </label>
-        ))}
-      </div>
-    ))
-  }
+  {groups.map((group) => <div
+    aria-label={group.label}
+    class="toggle-group"
+    role={group.role}
+  >
+    {group.items.map((item) => <label class="toggle">
+      <input
+        checked={item.checked}
+        name={`build-toggle-${group.type}`}
+        type={group.type}
+        value={item.label}
+      />
+      {item.label}
+    </label>)}
+  </div>)}
 </BuildUp>

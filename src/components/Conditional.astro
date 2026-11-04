@@ -1,5 +1,5 @@
 ---
-import { DEFAULT_FRAMEWORK } from "../utils/framework"
+import { conditionalSlot } from "../utils/framework"
 
 type Props = {
   as?: "p" | "div" | "span" | "section"
@@ -13,11 +13,9 @@ const currentFramework = Astro.locals.framework
 // every framework except HTML. Fall back to the default framework (currently
 // HTML) if the page didn't author either, so pages don't go blank during
 // incremental migration.
-const slotName = [
-  currentFramework,
-  currentFramework !== "html" && "components",
-  DEFAULT_FRAMEWORK,
-].find((name) => name && Astro.slots.has(name))
+const slotName = conditionalSlot(currentFramework, (name) =>
+  Astro.slots.has(name),
+)
 
 const content = slotName ? await Astro.slots.render(slotName) : ""
 ---

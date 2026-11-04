@@ -6,7 +6,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
   <Form>
     <Fieldset aria-describedby="radio-field-group-validation-1-error">
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="radio-group-validation">
+      <FieldGroup name="radio-group-validation" orientation="horizontal">
         <Radio checked error value="1">Radio 1</Radio>
         <Radio error value="2">Radio 2</Radio>
         <Radio error value="3">Radio 3</Radio>

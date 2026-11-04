@@ -4,11 +4,11 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 <template>
   <ToggleGroup multiple name="text-style">
-    <ToggleButton value="bold" aria-label="Bold"
+    <ToggleButton aria-label="Bold" value="bold"
       ><strong>B</strong></ToggleButton
     >
-    <ToggleButton value="italic" aria-label="Italic"><i>I</i></ToggleButton>
-    <ToggleButton value="underline" aria-label="Underline"
+    <ToggleButton aria-label="Italic" value="italic"><i>I</i></ToggleButton>
+    <ToggleButton aria-label="Underline" value="underline"
       ><u>U</u></ToggleButton
     >
   </ToggleGroup>

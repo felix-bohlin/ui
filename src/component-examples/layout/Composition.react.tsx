@@ -25,10 +25,7 @@ export default function Composition() {
             <CardContent>Support</CardContent>
           </Card>
         </div>
-        <div
-          className="ui-layout-row"
-          style={{ "--_justify-content": "flex-end" }}
-        >
+        <div className="ui-layout-row ui-align-end">
           <Button>Cancel</Button>
           <Button color="primary" variant="filled">
             Invite

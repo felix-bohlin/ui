@@ -7,7 +7,7 @@
   } from "opui-css/svelte"
 </script>
 
-<Card variant="outlined" role="group">
+<Card role="group" variant="outlined">
   <Accordion>
     <AccordionSummary>Accordion title</AccordionSummary>
     <AccordionContent>

@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid` when invalid.",
+      "Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, else `--ui-control-accent`, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid`, capped the same way, when invalid.",
     kind: "input",
   },
   "--_bg-color": {
@@ -23,7 +23,7 @@ export default {
   },
   "--_checked-bg-color": {
     description:
-      "Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`.",
+      "Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`.",
     kind: "input",
   },
   "--_duration": {
@@ -46,7 +46,7 @@ export default {
   },
   "--_on-accent": {
     description:
-      "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.",
+      "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, else `--ui-on-control-accent`, otherwise `--ui-on-primary`, or `--ui-on-fill` in dark mode. `--ui-on-fill` when invalid.",
     kind: "input",
   },
   "--_padding": {

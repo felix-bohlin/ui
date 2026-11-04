@@ -1,0 +1,15 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Sortable Table"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<opui-sortable-table class:list={["ui-sortable-table", className]} {...rest}>
+  <slot />
+</opui-sortable-table>
+
+<script>
+  import "../../elements/sortable-table.js"
+</script>

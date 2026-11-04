@@ -3,7 +3,7 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea spread placeholder="Hello, world!">
+  <Textarea placeholder="Hello, world!" spread>
     <template #label>Message</template>
     <template #start-text
       >You can write your message here. Keep it short, preferably under 100
@@ -11,26 +11,26 @@ import { Textarea } from "opui-css/vue"
     >
   </Textarea>
 
-  <Textarea spread placeholder="Additional notes..." variant="filled">
+  <Textarea placeholder="Additional notes..." spread variant="filled">
     <template #label>Notes</template>
     <template #start-text>Add any additional notes or comments</template>
     <template #end-text>Maximum 500 characters</template>
   </Textarea>
 
-  <Textarea spread required label="Required">
+  <Textarea label="Required" required spread>
     <template #start-text>You must provide a response</template>
   </Textarea>
 
-  <Textarea spread disabled label="Disabled">
+  <Textarea disabled label="Disabled" spread>
     <template #start-text>This textarea is disabled</template>
   </Textarea>
 
-  <Textarea spread error label="Invalid Message">
+  <Textarea error label="Invalid Message" spread>
     <template #start-text>This textarea has an error</template>
     <template #end-text>This value is too short.</template>
   </Textarea>
 
-  <Textarea spread label="Bio" placeholder="Tell us about yourself...">
+  <Textarea label="Bio" placeholder="Tell us about yourself..." spread>
     <template #start-text>Shown on your public profile</template>
     <template #start>
       <svg
@@ -56,10 +56,10 @@ import { Textarea } from "opui-css/vue"
   </Textarea>
 
   <Textarea
-    spread
-    variant="filled"
     label="Release notes"
     placeholder="Markdown supported..."
+    spread
+    variant="filled"
   >
     <template #start-text>Shown on the changelog page</template>
     <template #top>v1.4.0</template>

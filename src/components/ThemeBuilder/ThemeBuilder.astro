@@ -9,6 +9,7 @@ import BuilderControls from "./BuilderControls.astro"
 import BuilderExport from "./BuilderExport.astro"
 import BuilderPreview from "./BuilderPreview.astro"
 import BuilderRail from "./BuilderRail.astro"
+import BuilderSaved from "./BuilderSaved.astro"
 import BuilderToolbar from "./BuilderToolbar.astro"
 import PreviewContrast from "./PreviewContrast.astro"
 import PreviewStrip from "./PreviewStrip.astro"
@@ -55,6 +56,7 @@ import PreviewStrip from "./PreviewStrip.astro"
 </Drawer>
 
 <BuilderExport />
+<BuilderSaved />
 
 <script>
   const builder = document.querySelector<HTMLElement>(".theme-builder")
@@ -126,7 +128,8 @@ import PreviewStrip from "./PreviewStrip.astro"
       }
 
       > :global(.builder-controls) {
-        padding-inline-end: var(--size-3);
+        margin-inline-start: calc(-1 * var(--size-2));
+        padding-inline: var(--size-2) var(--size-3);
       }
     }
   }

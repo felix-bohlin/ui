@@ -1,4 +1,3 @@
-import { features } from "web-features"
 import { existsSync, realpathSync } from "node:fs"
 import { readdir, readFile } from "node:fs/promises"
 import { join, basename } from "node:path"
@@ -6,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url"
 import { parseFragment } from "parse5"
 import postcss from "postcss"
 
-import { patterns } from "../packages/opui/scripts/features.mjs"
+import { featureOf, patterns } from "../packages/opui/scripts/features.mjs"
 import { computeBrowserSupport } from "../src/utils/browser-support.ts"
 
 const componentsDir = fileURLToPath(
@@ -74,7 +73,7 @@ export const htmlFeatureIds = (sources) => {
   )
 }
 
-const widelyAvailable = (id) => features[id]?.status?.baseline === "high"
+const widelyAvailable = (id) => featureOf(id)?.status?.baseline === "high"
 
 /** @param {{ available: Set<string>, ids: string[], ignored?: string[], used: Set<string> }} page */
 export const pageProblems = ({ available, ids, ignored = [], used }) => {
@@ -407,7 +406,7 @@ const main = async () => {
     .map(([comp, ids]) => `${comp}: ${ids.toSorted().join(", ")}`)
 
   const unknown = Object.entries(components).flatMap(([comp, ids]) =>
-    ids.filter((id) => !features[id]).map((id) => `${comp}: "${id}"`),
+    ids.filter((id) => !featureOf(id)).map((id) => `${comp}: "${id}"`),
   )
 
   report(

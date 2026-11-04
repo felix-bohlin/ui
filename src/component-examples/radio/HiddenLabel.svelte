@@ -49,13 +49,12 @@
 </Table>
 
 <p>
-  Ship to
-  <Radio checked hideLabel name="radio-hidden-label-shipping" value="home"
-    >Home</Radio
-  >
-  home or
-  <Radio hideLabel name="radio-hidden-label-shipping" value="office"
+  Ship to <Radio
+    checked
+    hideLabel
+    name="radio-hidden-label-shipping"
+    value="home">Home</Radio
+  > home or <Radio hideLabel name="radio-hidden-label-shipping" value="office"
     >Office</Radio
-  >
-  the office.
+  > the office.
 </p>

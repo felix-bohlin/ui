@@ -16,7 +16,7 @@ const TYPES: [RegExp, string][] = [
   [/^--ui-font-(body|code|heading)$/, "fontFamily"],
   [/font-weight/, "fontWeight"],
   [/^--ui-duration/, "duration"],
-  [/^--ui-ease/, "cubicBezier"],
+  [/^--ui-ease(?!-move$)/, "cubicBezier"],
   [/shadow(?!-color$)/, "shadow"],
   [/-style$/, "strokeStyle"],
   [

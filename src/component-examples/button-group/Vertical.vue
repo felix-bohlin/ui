@@ -39,7 +39,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="outlined">
       <Button aria-label="Increase">
         <svg
@@ -75,7 +74,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="tonal">
       <Button aria-label="Increase">
         <svg
@@ -111,7 +109,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="filled">
       <Button aria-label="Increase">
         <svg
@@ -154,17 +151,14 @@ import { Button, ButtonGroup } from "opui-css/vue"
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="outlined">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="tonal">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="filled">
       <Button>Up</Button>
       <Button>Down</Button>

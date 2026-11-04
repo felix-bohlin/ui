@@ -3,6 +3,7 @@ import type { Props } from "./types.astro"
 
 import Anchor from "../Anchor/Anchor.astro"
 import AnchorContent from "../Anchor/AnchorContent.astro"
+import { trimEdges } from "../whitespace"
 
 export const title = "Badge"
 
@@ -16,6 +17,11 @@ const {
   label,
   ...rest
 } = Astro.props
+
+const hidden = dot || hideLabel
+const indicatorSlot = Astro.slots.has("indicator")
+  ? trimEdges(await Astro.slots.render("indicator"))
+  : ""
 ---
 
 <Anchor
@@ -33,24 +39,16 @@ const {
 >
   <slot />
   <AnchorContent>
-    <span class="ui-indicator">
-      {
-        dot || hideLabel ? (
-          <>
-            {!dot && Astro.slots.has("indicator") && (
-              <span aria-hidden="true">
-                <slot name="indicator" />
-              </span>
-            )}
-            {label && <span class="ui-sr-only">{label}</span>}
-          </>
-        ) : (
-          <>
-            {label}
-            <slot name="indicator" />
-          </>
-        )
-      }
-    </span>
+    <span class="ui-indicator"
+      >{hidden && (
+        <>
+          {!dot && indicatorSlot && (
+            <span aria-hidden="true" set:html={indicatorSlot} />
+          )}
+          {label && <span class="ui-sr-only">{label}</span>}
+        </>
+      )}{hidden ? undefined : label}<Fragment
+        set:html={hidden ? "" : indicatorSlot}
+    /></span>
   </AnchorContent>
 </Anchor>

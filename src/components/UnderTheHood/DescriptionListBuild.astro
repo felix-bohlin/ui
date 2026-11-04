@@ -141,14 +141,10 @@ const items = [
 
 <BuildUp id="build-description-list" knobs={knobs} steps={steps}>
   <dl class="dl bordered dotted">
-    {
-      items.map((item) => (
-        <div class="item">
-          <dt>{item.term}</dt>
-          <dd>{item.description}</dd>
-        </div>
-      ))
-    }
+    {items.map((item) => <div class="item">
+      <dt>{item.term}</dt>
+      <dd>{item.description}</dd>
+    </div>)}
   </dl>
 </BuildUp>
 

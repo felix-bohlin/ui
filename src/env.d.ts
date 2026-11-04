@@ -19,7 +19,7 @@ declare namespace App {
   interface Locals {
     /**
      * Framework of the current request, from the URL prefix. Framework-free
-     * pages (`/blocks`, `/learn`, `/tests`, `/theme-builder`, …) get the
+     * pages (`/blocks`, `/blog`, `/tests`, `/theme-builder`, …) get the
      * default framework.
      */
     framework: import("./utils/framework").FrameworkId

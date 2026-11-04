@@ -1,7 +1,8 @@
-import { features } from "web-features"
+import type { features } from "web-features"
+import { featureOf as webFeature } from "../../packages/opui/scripts/features.mjs"
 
 const featureOf = (featureId: string) => {
-  const feature = features[featureId]
+  const feature: (typeof features)[string] | undefined = webFeature(featureId)
   return feature && "status" in feature ? feature : undefined
 }
 
@@ -62,34 +63,40 @@ function getSupportForFeature(
   if (directSupport !== undefined) return directSupport
 
   const byCompat = feature.status?.by_compat_key as
-    Record<string, { support?: Record<string, SupportValue> }> | undefined
+    | Record<string, { support?: Record<string, SupportValue> }>
+    | undefined
 
   if (!byCompat) return undefined
 
   let worst: SupportValue = undefined
-  let sawAny = false
-  for (const entry of Object.values(byCompat)) {
+  for (const [key, entry] of Object.entries(byCompat)) {
     const value = entry.support?.[browser]
-    if (value === undefined) continue
-    sawAny = true
-    if (value === false) return false
+    if (value === undefined || value === false) {
+      if (UNUSED_COMPAT_KEYS.has(key)) continue
+      return false
+    }
     if (worst === undefined || compareVersions(value, worst as string) > 0) {
       worst = value
     }
   }
-  return sawAny ? worst : undefined
+  return worst
 }
 
-function parseMajor(version: string): number {
-  const match = /^(\d+)/.exec(version)
-  return match ? Number(match[1]) : NaN
+const UNUSED_COMPAT_KEYS = new Set([
+  "css.properties.position-visibility.anchor-valid",
+  "css.properties.position-visibility.anchor-visible",
+])
+
+function parseVersion(version: string): [number, number] | undefined {
+  const match = /^\u2264?(\d+)(?:\.(\d+))?/.exec(version)
+  return match ? [Number(match[1]), Number(match[2] ?? 0)] : undefined
 }
 
 function compareVersions(a: string, b: string): number {
-  const aMajor = parseMajor(a)
-  const bMajor = parseMajor(b)
-  if (Number.isNaN(aMajor) || Number.isNaN(bMajor)) return 0
-  return aMajor - bMajor
+  const aVersion = parseVersion(a)
+  const bVersion = parseVersion(b)
+  if (!aVersion || !bVersion) return 0
+  return aVersion[0] - bVersion[0] || aVersion[1] - bVersion[1]
 }
 
 export function computeBrowserSupport(ids: string[]): BrowserSupportEntry[] {
@@ -100,7 +107,8 @@ export function computeBrowserSupport(ids: string[]): BrowserSupportEntry[] {
 
     for (const featureId of ids) {
       const value = getSupportForFeature(featureId, id)
-      const isSupported = typeof value === "string" && !!parseMajor(value)
+      const isSupported =
+        typeof value === "string" && !!parseVersion(value)?.[0]
 
       if (isSupported) {
         supportedFeatures.push(featureId)

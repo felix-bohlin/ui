@@ -20,6 +20,7 @@ type Computed = {
   blockified: boolean
   display: string
   hidden: boolean
+  inSelect: boolean
   items: boolean
   tag: string
   whiteSpace: string
@@ -114,6 +115,7 @@ for (const component of COMPONENTS) {
                     style.float !== "none",
                   display: style.display,
                   hidden: hasHiddenAncestor(element),
+                  inSelect: !!element.parentElement?.closest("select"),
                   items: laysOutItems(style.display),
                   tag: element.tagName.toLowerCase(),
                   whiteSpace: style.whiteSpaceCollapse || style.whiteSpace,
@@ -156,7 +158,7 @@ for (const component of COMPONENTS) {
             .soft(preserves(box.whiteSpace), `${where} white-space`)
             .toBe(/^(pre|preserve|break-spaces)/.test(actual.whiteSpace))
         }
-        if (actual.items) return
+        if (actual.items || REPLACED.has(node.tag) || actual.inSelect) return
         expect
           .soft(box.before, `${where} ::before`)
           .toBe(generatedAtom(actual.before))

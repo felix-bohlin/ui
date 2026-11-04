@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { STRESS_TESTS, axeNodes, openFixture } from "./fixtures"
+import { STRESS_TESTS, axeNodes, openFixture, settle } from "./fixtures"
 import { THEMED_BLOCKS } from "./screenshot-targets"
 import { expectSizedRows } from "./stress-sizes"
 
@@ -33,6 +33,7 @@ for (const theme of THEMES) {
       ).toBe(theme)
 
       const isBlock = component.startsWith("blocks/")
+      await settle(page.locator(isBlock ? "body" : "main"))
       const { violations } = await new AxeBuilder({ page })
         .include(isBlock ? "body" : "main")
         .exclude('iframe[src*="youtube"]')

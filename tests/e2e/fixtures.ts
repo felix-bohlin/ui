@@ -185,6 +185,7 @@ export const settle = (locator: Locator) =>
         .getAnimations({ subtree: true })
         .filter(
           (animation) =>
+            animation.timeline instanceof DocumentTimeline &&
             animation.effect?.getComputedTiming().endTime !== Infinity,
         )
         .map((animation) => animation.finished.catch(() => undefined)),

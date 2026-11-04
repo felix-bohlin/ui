@@ -14,6 +14,7 @@ import {
 } from "../src/utils/framework.js"
 import { componentName } from "../src/utils/names.js"
 import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
+import { VOID_ELEMENTS } from "./html-tokens.mjs"
 
 /** @typedef {import("../src/utils/search-categories.js").SearchItem} SearchItem */
 
@@ -28,12 +29,112 @@ const textOf = (node) =>
     ? node.value
     : (node.childNodes ?? []).map(textOf).join("")
 
+const stringExpression =
+  /\{\s*(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|`((?:\\.|\$(?!\{)|[^`\\$])*)`)\s*\}/gs
+
 /** @param {string} html */
 export function slotText(html) {
-  return textOf(parseFragment(html.replace(/\{\s*(["'`])(.*?)\1\s*\}/gs, "$2")))
+  return textOf(
+    parseFragment(
+      html.replace(stringExpression, (_, double, single, template) =>
+        (double ?? single ?? template)
+          .replace(/\\(.)/gs, (_escape, char) =>
+            "nrt".includes(char) ? " " : char,
+          )
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;"),
+      ),
+    ),
+  )
     .replace(/\s+/g, " ")
     .trim()
 }
+
+/** @param {string} source */
+function elementTree(source) {
+  const root = {
+    attributes: "",
+    children: [],
+    end: source.length,
+    innerEnd: source.length,
+    innerStart: 0,
+    name: "",
+    start: 0,
+  }
+  const stack = [root]
+  for (const m of source.matchAll(
+    /<(\/?)([A-Za-z][\w.:-]*)((?:"[^"]*"|'[^']*'|\{[^{}]*\}|[^>"'{}])*)>/g,
+  )) {
+    const [tag, closing, name, attributes] = m
+    const end = m.index + tag.length
+    if (closing) {
+      const index = stack.findLastIndex((open) => open.name === name)
+      if (index < 1) continue
+      for (const open of stack.splice(index)) {
+        open.innerEnd = m.index
+        open.end = open.name === name ? end : m.index
+      }
+      continue
+    }
+    const element = {
+      attributes,
+      children: [],
+      end,
+      innerEnd: end,
+      innerStart: end,
+      name,
+      start: m.index,
+    }
+    stack.at(-1).children.push(element)
+    if (!tag.endsWith("/>") && !VOID_ELEMENTS.has(name)) stack.push(element)
+  }
+  return root
+}
+
+const slotOf = (element) =>
+  element.attributes
+    .match(/(?:^|\s)slot=(?:"([^"]*)"|'([^']*)')/)
+    ?.slice(1)
+    .find(Boolean)
+
+function renderedInner(source, element, framework) {
+  let text = ""
+  let at = element.innerStart
+  for (const child of element.children) {
+    text += source.slice(at, child.start) + rendered(source, child, framework)
+    at = child.end
+  }
+  return text + source.slice(at, element.innerEnd)
+}
+
+function rendered(source, element, framework) {
+  if (element.name !== "Conditional") {
+    return (
+      source.slice(element.start, element.innerStart) +
+      renderedInner(source, element, framework) +
+      source.slice(element.innerEnd, element.end)
+    )
+  }
+  const slots = new Map(
+    element.children.flatMap((child) => {
+      const name = slotOf(child)
+      return name ? [[name, child]] : []
+    }),
+  )
+  const slot = slots.get(conditionalSlot(framework, (name) => slots.has(name)))
+  if (!slot) return ""
+  return slot.name === "Fragment"
+    ? renderedInner(source, slot, framework)
+    : rendered(source, slot, framework)
+}
+
+const findElement = (element, matches) =>
+  matches(element)
+    ? element
+    : element.children.reduce(
+        (found, child) => found ?? findElement(child, matches),
+        undefined,
+      )
 
 /**
  * @param {string} content
@@ -44,20 +145,12 @@ export function readPreamble(content, framework) {
     /export const description\s*=\s*("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/s,
   )
   if (description) return description[1].slice(1, -1)
-  const preamble = content
-    .replace(/<Conditional\b[^>]*>(.*?)<\/Conditional\s*>/gs, (_, body) => {
-      const slots = new Map(
-        Array.from(
-          body.matchAll(/<Fragment\s+slot="([^"]+)"\s*>(.*?)<\/Fragment\s*>/gs),
-          (m) => [m[1], m[2]],
-        ),
-      )
-      return (
-        slots.get(conditionalSlot(framework, (name) => slots.has(name))) ?? ""
-      )
-    })
-    .match(/<Fragment\s+slot="preamble"\s*>(.*?)<\/Fragment\s*>/s)?.[1]
-  return preamble ? slotText(preamble) : ""
+  const source = content.replace(/^---\n[\s\S]*?\n---\n/, "")
+  const preamble = findElement(
+    elementTree(source),
+    (element) => element.name === "Fragment" && slotOf(element) === "preamble",
+  )
+  return preamble ? slotText(renderedInner(source, preamble, framework)) : ""
 }
 
 export function readSections(content) {

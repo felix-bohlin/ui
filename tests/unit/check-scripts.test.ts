@@ -1211,6 +1211,16 @@ describe("generate-search-index", () => {
     ).toBe("Do I use <label> or a for?")
   })
 
+  test("reads a string expression as the text it renders, markup and escapes included", () => {
+    expect(
+      slotText(
+        String.raw`Use <code>{"<label>"}</code>, {'it\'s'}, {"&lt;"} and {"a\\nb"}.`,
+      ),
+    ).toBe(String.raw`Use <label>, it's, &lt; and a\nb.`)
+    expect(slotText("Save {`$5`} now")).toBe("Save $5 now")
+    expect(slotText("Hi {`${name}`}")).toBe("Hi {`${name}`}")
+  })
+
   test("reads the preamble a framework renders, or the description a page exports", () => {
     const page =
       '<Fragment slot="preamble">\n  <p>Built on <DocLink href="/a">Anchor</DocLink>.</p>\n  <Conditional as="p">\n    <Fragment slot="components">Wrap it in <code>&lt;Tip&gt;</code>.</Fragment>\n    <Fragment slot="html">Add <code>.ui-tip</code>.</Fragment>\n    <Fragment slot="vue">Use <code>v-tip</code>.</Fragment>\n  </Conditional>\n</Fragment>'
@@ -1252,6 +1262,32 @@ describe("generate-search-index", () => {
       sections: [{ id: "name", title: "The name" }],
       title: "Page",
     })
+  })
+
+  test("reads a preamble whose Conditional slots are elements or hold Fragments", () => {
+    const page = [
+      '<Fragment slot="preamble">',
+      "  <Fragment>Built on Anchor.</Fragment>",
+      '  <Conditional as="div">',
+      '    <p slot="components">Wrap it in <Fragment>the <code>Tip</code></Fragment> component.</p>',
+      '    <p slot="html">Add <code>.ui-tip</code>.<br>Then style it.</p>',
+      '    <p data-slot="react">Not a slot.</p>',
+      "  </Conditional>",
+      "  <Conditional>",
+      '    <Fragment slot="react">See <Fragment><code>onOpen</code></Fragment>.</Fragment>',
+      "  </Conditional>",
+      "</Fragment>",
+      "<p>After the preamble.</p>",
+    ].join("\n")
+    expect(
+      (["html", "react", "vue"] as const).map((framework) =>
+        readPreamble(page, framework),
+      ),
+    ).toEqual([
+      "Built on Anchor. Add .ui-tip.Then style it.",
+      "Built on Anchor. Wrap it in the Tip component. See onOpen.",
+      "Built on Anchor. Wrap it in the Tip component.",
+    ])
   })
 
   test("reads the id and title of each section and h3 with an id, once per id", () => {

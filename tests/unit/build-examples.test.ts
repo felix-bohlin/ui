@@ -74,6 +74,15 @@ const formatted = async (source: string, name?: string, printWidth?: number) =>
 const convert = async (source: string, framework: string, name?: string) =>
   convertExample(await formatted(source, name), framework, sampleFile(name))
 
+beforeAll(async () => {
+  for (const framework of ["react", "svelte", "vue"]) {
+    await convert(
+      astro('<Button type="button">Hi</Button>', "Button"),
+      framework,
+    )
+  }
+}, 120_000)
+
 describe("React", () => {
   test("renames attributes and turns static state into defaults", async () => {
     const code = await convert(

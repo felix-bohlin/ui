@@ -1133,6 +1133,20 @@ interaction(
 )
 
 interaction(
+  "rating",
+  "Input",
+  "a rating input moves its checked star to the one chosen",
+  async ({ root }) => {
+    const three = root.getByRole("radio", { name: "3 stars" })
+    const five = root.getByRole("radio", { name: "5 stars" })
+    await expect(three).toBeChecked()
+    await five.check()
+    await expect(five).toBeChecked()
+    await expect(three).not.toBeChecked()
+  },
+)
+
+interaction(
   "message",
   "Attachments",
   "a card in an outgoing message keeps the text color of an incoming one",

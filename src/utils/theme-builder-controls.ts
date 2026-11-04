@@ -51,7 +51,11 @@ export type RangeControl = Base & {
 }
 
 export type Control =
-  BrandControl | ChoiceControl | ColorControl | CornersControl | RangeControl
+  | BrandControl
+  | ChoiceControl
+  | ColorControl
+  | CornersControl
+  | RangeControl
 
 export type ControlGroup = {
   controls: Control[]

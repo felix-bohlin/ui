@@ -94,7 +94,8 @@ const GROUPS = ["ui-tabs", "ui-toggle-group"]
 
 const attribute = (node: Node, name: string) =>
   node.attrs.find((attr: { name: string }) => attr.name === name)?.value as
-    string | undefined
+    | string
+    | undefined
 
 const hasClass = (node: Node, names: string[]) =>
   (attribute(node, "class") ?? "")

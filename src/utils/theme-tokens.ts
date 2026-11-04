@@ -228,7 +228,12 @@ export const INSTANCE_INPUTS: ThemeToken[] = [
 ]
 
 export type TokenTier =
-  "component" | "hook" | "input" | "knob" | "primitive" | "role"
+  | "component"
+  | "hook"
+  | "input"
+  | "knob"
+  | "primitive"
+  | "role"
 
 export const tokenTier = (name: string): TokenTier =>
   (OVERRIDE_HOOKS as readonly string[]).includes(name)

@@ -97,7 +97,7 @@
   --site-header-end-inline-size: 675px;
   --site-page-gutters: var(--site-gap);
 
-  @media (width >=600px) {
+  @media (width >= 600px) {
     --site-page-gutters: calc(var(--site-gap) * 2);
   }
 

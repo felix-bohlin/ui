@@ -77,7 +77,6 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
     label,
     size,
     variant = "outlined",
-
     // Snippets
     children,
     ...rest

@@ -37,7 +37,8 @@ const GENERATED_REFERENCE = /(^|-)(\d+|_R_\w+_|s\d+|v-\d+)(-|$)/
 
 const attribute = (node: Node, name: string) =>
   node.attrs.find((attr: { name: string }) => attr.name === name)?.value as
-    string | undefined
+    | string
+    | undefined
 
 const collectIds = (nodes: Node[], ids: Map<string, string>) => {
   for (const node of nodes) {

@@ -72,10 +72,8 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 >
   <Fragment slot="title">Component Name</Fragment>
   <Fragment slot="preamble">
-    Brief description. See also: <DocLink
-      href="/components/related"
-      class="ui-link">Related</DocLink
-    >.
+    Brief description. See also:
+    <DocLink href="/components/related" class="ui-link">Related</DocLink>.
   </Fragment>
 
   <section>
@@ -241,11 +239,9 @@ Use `<Conditional>` to display different text or HTML content for different fram
 ```astro
 <Conditional as="p">
   <Fragment slot="components">
-    Choose between four sizes with the <code>size</code> prop: <code
-      >x-small</code
-    >, <code>small</code>, <code>medium</code> (the default) and <code
-      >large</code
-    >.
+    Choose between four sizes with the <code>size</code> prop:
+    <code>x-small</code>, <code>small</code>, <code>medium</code> (the default)
+    and <code>large</code>.
   </Fragment>
   <Fragment slot="html">
     Choose between four sizes: <code>.ui-x-small</code>, <code>.ui-small</code>,
@@ -258,8 +254,8 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 
 ```astro
 <p>
-  Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the selected
-  tab with the primary color.
+  Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the
+  selected tab with the primary color.
 </p>
 ```
 
@@ -274,14 +270,12 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
     renaming a file.
   </li>
   <li slot="when">
-    Confirming a destructive action, in an <a href="#alert-dialog"
-      >alert dialog</a
-    >.
+    Confirming a destructive action, in an
+    <a href="#alert-dialog">alert dialog</a>.
   </li>
   <li slot="when-not">
-    Navigation, filters or side content. Use a <DocLink
-      href="/components/drawer">Drawer</DocLink
-    >.
+    Navigation, filters or side content. Use a
+    <DocLink href="/components/drawer">Drawer</DocLink>.
   </li>
   <li slot="when-not">Long or complex tasks. Give them a page of their own.</li>
 </Usage>

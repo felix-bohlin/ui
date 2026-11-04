@@ -58,7 +58,8 @@ import buttonGroupApi from "../../component-api/button-group/api"
   apis={[
     { title: "Button group API", api: buttonGroupApi },
     { title: "Button API", api: buttonApi },
-  ]}>...</Component
+  ]}
+  >...</Component
 >
 ```
 

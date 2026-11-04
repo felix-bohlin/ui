@@ -10,9 +10,9 @@ const pages = (directory: string, prefix = "/html") =>
     .map((file) => `${prefix}/${directory}/${file.replace(/\.astro$/, "")}/`)
 
 const DOCS_PAGES = [
-  "/",
   "/blocks/",
   "/blog/",
+  "/html/",
   "/html/api/",
   "/html/components/",
   "/html/guide/getting-started/",
@@ -461,7 +461,7 @@ const uncappedBlocks = (page: Page) =>
   })
 
 for (const path of DOCS_PAGES.filter(
-  (path) => !["/", "/theme-builder/"].includes(path),
+  (path) => !["/html/", "/theme-builder/"].includes(path),
 )) {
   test(`${path} keeps its blocks within the content width`, async ({
     page,
@@ -585,7 +585,7 @@ const tabStop = (page: Page) =>
   })
 
 for (const path of [
-  "/",
+  "/html/",
   "/html/components/button/",
   "/html/guide/getting-started/",
 ]) {

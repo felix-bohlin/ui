@@ -1,0 +1,608 @@
+---
+import { readdirSync, readFileSync } from "node:fs"
+import ReactLogo from "../ReactLogo.astro"
+import SvelteLogo from "../SvelteLogo.astro"
+import VueLogo from "../VueLogo.astro"
+
+const id = "compiler"
+const folder = "Card"
+const name = "CardActions"
+const componentsDir = "packages/opui/components"
+
+const sources = {
+  astro: readFileSync(`${componentsDir}/${folder}/${name}.astro`, "utf8"),
+  react: readFileSync(`${componentsDir}/${folder}/${name}.react.tsx`, "utf8"),
+  svelte: readFileSync(`${componentsDir}/${folder}/${name}.svelte`, "utf8"),
+  vue: readFileSync(`${componentsDir}/${folder}/${name}.vue`, "utf8"),
+}
+
+type Framework = keyof typeof sources
+
+const find = (framework: Framework, pattern: RegExp) => {
+  const found = pattern.exec(sources[framework])
+  if (!found) {
+    throw new Error(
+      `Compiler.astro: ${name} in ${framework} no longer matches ${pattern}`,
+    )
+  }
+  return found
+}
+
+const has = (framework: Framework, code: string) => {
+  if (!sources[framework].includes(code)) {
+    throw new Error(`Compiler.astro: ${name} in ${framework} lacks ${code}`)
+  }
+  return { code }
+}
+
+const list = (text: string) =>
+  text
+    .replace(/\/\/.*$/gm, "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .join(", ")
+
+const reactProps = find("react", /function (\w+)\(\{([^}]*)\}: Props\)/)
+const svelteProps = find("svelte", /let \{([^}]*)\}: Props = \$props\(\)/)
+
+if (/v-bind/.test(sources.vue)) {
+  throw new Error(`Compiler.astro: ${name} in vue binds its attributes`)
+}
+
+const rows: {
+  cells: Record<Framework, { code?: string; text?: string }>
+  label: string
+}[] = [
+  {
+    cells: {
+      astro: { code: find("astro", /const \{[^}]*\} = Astro\.props/)[0] },
+      react: { code: `function ${reactProps[1]}({ ${list(reactProps[2])} })` },
+      svelte: { code: `let { ${list(svelteProps[1])} } = $props()` },
+      vue: { code: find("vue", /const \{[^}]*\} = defineProps<Props>\(\)/)[0] },
+    },
+    label: "Props",
+  },
+  {
+    cells: {
+      astro: { ...has("astro", "class:list={["), code: "class:list={[…]}" },
+      react: {
+        ...has("react", "className={cx(["),
+        code: "className={cx([…])}",
+      },
+      svelte: { ...has("svelte", "class={["), code: "class={[…]}" },
+      vue: { ...has("vue", ':class="['), code: ':class="[…]"' },
+    },
+    label: "Classes",
+  },
+  {
+    cells: {
+      astro: has("astro", "{...rest}"),
+      react: has("react", "{...rest}"),
+      svelte: has("svelte", "{...rest}"),
+      vue: { text: "Fall through to the root" },
+    },
+    label: "Other attributes",
+  },
+  {
+    cells: {
+      astro: has("astro", "<slot />"),
+      react: has("react", "{children}"),
+      svelte: has("svelte", "{@render children?.()}"),
+      vue: has("vue", "<slot></slot>"),
+    },
+    label: "Children",
+  },
+]
+
+const frameworks = [
+  { Logo: undefined, id: "astro", label: "Astro" },
+  { Logo: ReactLogo, id: "react", label: "React" },
+  { Logo: SvelteLogo, id: "svelte", label: "Svelte" },
+  { Logo: VueLogo, id: "vue", label: "Vue" },
+] as const
+
+const stages = [
+  {
+    detail:
+      "the template, its TypeScript frontmatter, the types and the bound value in api.ts",
+    title: "Read",
+  },
+  {
+    detail:
+      "one tree of elements, slots, conditions and loops; anything else is refused by name",
+    title: "Model",
+  },
+  {
+    detail: "React, Svelte and Vue, and a type file for each",
+    title: "Emit",
+  },
+  {
+    detail: "oxfmt, so the layout of the source can't change the output",
+    title: "Format",
+  },
+]
+
+const astroComponents = readdirSync(componentsDir, {
+  recursive: true,
+}).filter(
+  (file) => typeof file === "string" && /^[^/]+\/[^/]+\.astro$/.test(file),
+).length
+const examples = readdirSync("src/component-examples", {
+  recursive: true,
+}).filter((file) => typeof file === "string" && file.endsWith(".astro")).length
+
+const PORTS = { ".react.tsx": "React", ".svelte": "Svelte", ".vue": "Vue" }
+
+const handWritten = Object.keys(
+  JSON.parse(readFileSync("scripts/hand-written-components.json", "utf8")),
+).flatMap((file) => {
+  const [extension, framework] =
+    Object.entries(PORTS).find(([ending]) => file.endsWith(ending)) ?? []
+  return extension ? [{ component: file.split("/")[0], framework }] : []
+})
+
+const totalPorts = astroComponents * Object.keys(PORTS).length
+const compiledPorts = totalPorts - handWritten.length
+
+const joined = (items: string[]) =>
+  items.length > 1
+    ? `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`
+    : items.join("")
+
+const handWrittenComponents = joined(
+  [...new Set(handWritten.map(({ component }) => component))]
+    .toSorted()
+    .map((component) => {
+      const ports = handWritten
+        .filter((entry) => entry.component === component)
+        .map((entry) => entry.framework!)
+      return ports.length === Object.keys(PORTS).length
+        ? component
+        : `${component} (${joined(ports)})`
+    }),
+)
+
+const format = (value: number) => value.toLocaleString("en")
+
+const checks = [
+  `Contract: all ${format(astroComponents)} components with every prop value their types allow, in four frameworks`,
+  `Parity: ${format(examples)} examples, markup compared with Astro`,
+  "Types: every rule of the type compiler pinned with expectTypeOf",
+  "Formatting: each source compiled at 40 and 200 columns, same files",
+  "Browser: text, accessibility tree and control state, also after a form reset",
+]
+---
+
+<figure class="compiler ui-not-rich-text" id={id}>
+  <figcaption class="compiler-title">
+    How one Astro file becomes React, Svelte and Vue. The code and the numbers
+    come from the repo at build time.
+  </figcaption>
+  <div class="compiler-source">
+    <p class="compiler-file">
+      <code>{name}.astro</code>
+      <span class="compiler-note">written by hand</span>
+    </p>
+    <pre class="compiler-code"><code>{sources.astro.trimEnd()}</code></pre>
+  </div>
+  <ol class="compiler-stages">
+    {stages.map(({ detail, title }, index) => <li
+      class="compiler-stage"
+      style={`--compiler-i: ${index}`}
+    >
+      <strong>{title}</strong>
+      <span>{detail}</span>
+    </li>)}
+  </ol>
+  <ul class="compiler-rows">
+    {rows.map(({ cells, label }) => <li class="compiler-row">
+      <p class="compiler-row-label">{label}</p>
+      <ul class="compiler-cells">
+        {frameworks.map(
+          ({ Logo, id: framework, label: frameworkLabel }, column) => <li
+            class="compiler-cell"
+            data-framework={framework}
+            style={`--compiler-j: ${column}`}
+          >
+            <span class="compiler-cell-name">
+              {Logo && <span aria-hidden="true" class="compiler-logo"
+                ><Logo
+              /></span>}
+              {frameworkLabel}
+            </span>
+            {cells[framework].code ? (
+              <code class="compiler-cell-code">{cells[framework].code}</code>
+            ) : (
+              <span class="compiler-cell-text">{cells[framework].text}</span>
+            )}
+          </li>,
+        )}
+      </ul>
+    </li>)}
+  </ul>
+  <ul class="compiler-checks">
+    {checks.map((check, index) => <li
+      class="compiler-check"
+      style={`--compiler-i: ${index}`}
+    >
+      <svg
+        aria-hidden="true"
+        class="compiler-tick"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3 8.5 6.5 12 13 4.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        ></path>
+      </svg>
+      <span>{check}</span>
+    </li>)}
+  </ul>
+  <p class="compiler-ledger">
+    <strong>{format(compiledPorts)} of {format(totalPorts)}</strong> React,
+    Svelte and Vue component files come out of the compiler. The other
+    {format(handWritten.length)} are written by hand, each with its reason in
+    <code>scripts/hand-written-components.json</code>: {handWrittenComponents}.
+  </p>
+</figure>
+
+<style is:global>
+  .compiler {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-4);
+    justify-items: stretch;
+    margin: var(--ui-space-5) 0;
+  }
+
+  .compiler-title {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .compiler-source {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    display: grid;
+    min-inline-size: 0;
+    overflow: hidden;
+  }
+
+  .compiler-file {
+    align-items: center;
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: flex;
+    flex-wrap: wrap;
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin: 0;
+    padding: var(--ui-space-2) var(--ui-space-3);
+
+    & code {
+      background: none;
+      color: var(--ui-text-strong);
+      font-family: var(--ui-font-code);
+      padding: 0;
+    }
+  }
+
+  .compiler-note {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    margin-inline-start: auto;
+  }
+
+  .compiler-logo {
+    display: inline-flex;
+
+    & svg {
+      block-size: 1.1em;
+      inline-size: 1.1em;
+    }
+  }
+
+  .compiler-code {
+    color: var(--ui-text);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    line-height: 1.45;
+    margin: 0;
+    min-inline-size: 0;
+    overflow-x: auto;
+    padding: var(--ui-space-3);
+    tab-size: 2;
+
+    & code {
+      background: none;
+      color: inherit;
+      display: block;
+      font: inherit;
+      padding: 0;
+      white-space: pre;
+    }
+  }
+
+  .compiler-stages {
+    counter-reset: compiler-stage;
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    view-timeline: --compiler-stages block;
+
+    @container (inline-size >= 40rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    &::before {
+      background-color: var(--ui-primary);
+      block-size: 0.25rem;
+      border-radius: var(--ui-radius-small);
+      content: "";
+      inset-block-start: -0.75rem;
+      inset-inline: 0;
+      position: absolute;
+      transform-origin: 0 50%;
+    }
+  }
+
+  .compiler-stage {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-primary);
+    border-radius: var(--ui-radius-large);
+    color: var(--ui-text);
+    counter-increment: compiler-stage;
+    display: grid;
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1);
+    padding: var(--ui-space-3);
+
+    & strong {
+      color: var(--ui-primary-text);
+      font-size: var(--ui-font-size-small);
+      font-weight: var(--ui-font-weight-semibold);
+
+      &::before {
+        content: counter(compiler-stage) ". ";
+      }
+    }
+  }
+
+  .compiler-rows {
+    display: grid;
+    gap: var(--ui-space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .compiler-row {
+    display: grid;
+    gap: var(--ui-space-2);
+    view-timeline: --compiler-row block;
+  }
+
+  .compiler-row-label {
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+    margin: 0;
+  }
+
+  .compiler-cells {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @container (inline-size >= 40rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .compiler-cell {
+    background-color: var(--ui-surface);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-large);
+    display: grid;
+    gap: var(--ui-space-1);
+    min-inline-size: 0;
+    padding: var(--ui-space-2) var(--ui-space-3);
+    position: relative;
+
+    &[data-framework="astro"] {
+      background-color: var(--ui-surface-tonal);
+      grid-column: 1 / -1;
+    }
+
+    &:not([data-framework="astro"])::before {
+      background-color: var(--ui-primary);
+      block-size: var(--ui-space-2);
+      content: "";
+      inline-size: var(--ui-border-width);
+      inset-block-end: 100%;
+      inset-inline-start: 50%;
+      position: absolute;
+      transform-origin: 50% 0;
+    }
+  }
+
+  .compiler-cell-name {
+    align-items: center;
+    color: var(--ui-text-subtle);
+    display: flex;
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1);
+  }
+
+  .compiler-cell-code {
+    background: none;
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    overflow-wrap: anywhere;
+    padding: 0;
+  }
+
+  .compiler-cell-text {
+    color: var(--ui-text);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-caption);
+    font-style: italic;
+  }
+
+  .compiler-checks {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    view-timeline: --compiler-checks block;
+  }
+
+  .compiler-check {
+    align-items: start;
+    color: var(--ui-text);
+    display: grid;
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+  }
+
+  .compiler-tick {
+    background-color: oklch(from var(--ui-success) l c h / 15%);
+    block-size: 1.25rem;
+    border-radius: 50%;
+    color: var(--ui-success-text);
+    inline-size: 1.25rem;
+    padding: 0.15rem;
+  }
+
+  .compiler-ledger {
+    color: var(--ui-text);
+    font-family: var(--ui-font-body);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    & code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .compiler-source {
+        animation: compiler-rise linear both;
+        animation-range: entry 0% entry 60%;
+        animation-timeline: view();
+      }
+
+      .compiler-stages::before {
+        animation: compiler-fill linear both;
+        animation-range: cover 20% cover 50%;
+        animation-timeline: --compiler-stages;
+      }
+
+      .compiler-stage {
+        animation: compiler-light linear both;
+        animation-range: cover calc(20% + var(--compiler-i) * 8%) cover
+          calc(26% + var(--compiler-i) * 8%);
+        animation-timeline: --compiler-stages;
+      }
+
+      .compiler-cell {
+        animation: compiler-rise linear both;
+        animation-range: entry calc(var(--compiler-j) * 25%) cover
+          calc(20% + var(--compiler-j) * 6%);
+        animation-timeline: --compiler-row;
+
+        &::before {
+          animation: compiler-drop linear both;
+          animation-range: cover calc(14% + var(--compiler-j) * 6%) cover
+            calc(20% + var(--compiler-j) * 6%);
+          animation-timeline: --compiler-row;
+        }
+      }
+
+      .compiler-tick {
+        animation: compiler-tick linear both;
+        animation-range: cover calc(15% + var(--compiler-i) * 5%) cover
+          calc(19% + var(--compiler-i) * 5%);
+        animation-timeline: --compiler-checks;
+      }
+    }
+  }
+
+  @keyframes compiler-rise {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+
+    to {
+      opacity: 1;
+      translate: none;
+    }
+  }
+
+  @keyframes compiler-fill {
+    from {
+      scale: 0 1;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+
+  @keyframes compiler-light {
+    from {
+      border-color: var(--ui-border-color);
+      opacity: 0.5;
+    }
+
+    to {
+      border-color: var(--ui-primary);
+      opacity: 1;
+    }
+  }
+
+  @keyframes compiler-drop {
+    from {
+      scale: 1 0;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+
+  @keyframes compiler-tick {
+    from {
+      opacity: 0;
+      scale: 0;
+    }
+
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+</style>

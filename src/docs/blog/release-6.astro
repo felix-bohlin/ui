@@ -5,6 +5,7 @@ import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import BlockShuffle from "../../components/Release/BlockShuffle.astro"
 import Blueprint from "../../components/Release/Blueprint.astro"
+import Compiler from "../../components/Release/Compiler.astro"
 import ContrastLab from "../../components/Release/ContrastLab.astro"
 import Hero from "../../components/Release/Hero.astro"
 import NewComponents from "../../components/Release/NewComponents.astro"
@@ -421,6 +422,57 @@ const newComponents = addedComponents(
       <li>
         What the idea costs: a new feature needs one engine to ship it, so the
         browser support section is the other half of this one.
+      </li>
+    </ul>
+  </section>
+
+  <section id="one-source">
+    <h2>One Astro file, four frameworks</h2>
+    <p>
+      Four frameworks means four copies of every component, and keeping four
+      copies in sync by hand is exactly the kind of busywork I'd rather leave to
+      a machine. So in 6.0 every component is written once, as an Astro file,
+      and a compiler writes the React, Svelte and Vue versions and their types.
+      The examples in the docs work the same way.
+    </p>
+    <Compiler />
+    <ul>
+      <li>
+        <code>pnpm build-components</code> reads the Astro template and its
+        TypeScript frontmatter, the types and the value a component binds,
+        declared as its model in <code>api.ts</code>. It builds one tree of
+        elements, slots, conditions and loops, and writes the React, Svelte and
+        Vue files and a type file for each.
+      </li>
+      <li>
+        Two-way binding comes from that model: <code>bind:value</code> and
+        <code>bind:checked</code> in Svelte, <code>v-model</code> in Vue,
+        <code>value</code>, <code>defaultValue</code> and <code>onChange</code>
+        in React, and all of them go back to where they started when their form
+        is reset.
+      </li>
+      <li>
+        It refuses rather than guesses. Anything outside its grammar fails with
+        the file and the construct named, and the fix is to teach it the
+        construct or to write that file by hand, listed in a ledger with the
+        reason. The ledger only grows on purpose, and the tests fail on an entry
+        the compiler could write itself.
+      </li>
+      <li>
+        The compiler isn't what you trust, the checks are. The contract test
+        renders every component with every prop value its types allow in all
+        four frameworks and compares the markup with Astro, the parity test does
+        the same for every example, and in the browser each example has to read
+        the same and hold the same control state, also after a form reset.
+      </li>
+      <li>
+        Examples go the same way: write the Astro example, and
+        <code>pnpm build-examples</code> writes its HTML, React, Svelte and Vue
+        versions.
+      </li>
+      <li>
+        What it changed: a fix in the Astro file reaches every framework in one
+        commit, and a new component starts out in all four.
       </li>
     </ul>
   </section>

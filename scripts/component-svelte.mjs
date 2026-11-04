@@ -12,7 +12,12 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
-import { byName, propKey, unsupported } from "./component-shared.mjs"
+import {
+  byName,
+  chosenSpreadCode,
+  propKey,
+  unsupported,
+} from "./component-shared.mjs"
 
 export const toSvelte = (component) => {
   const {
@@ -75,18 +80,29 @@ export const toSvelte = (component) => {
       return `class={${rewriteExpression(item.code, options)}}`
     }
     if (item.kind === "spread") {
-      if (
+      const cast =
         item.code === rest &&
         !node.variable &&
         !node.component &&
         !node.custom &&
         element &&
         node.tag !== element
-      ) {
-        usesElements = true
-        return `{...${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}]}`
+      if (cast) usesElements = true
+      const spread = cast
+        ? `${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`
+        : rewriteExpression(item.code, options)
+      if (item.condition !== undefined) {
+        const plain = !node.variable && !node.component && !node.custom
+        if (plain) usesElements = true
+        return `{...(${chosenSpreadCode(
+          item,
+          plain
+            ? `(${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}])`
+            : `(${rest} as object)`,
+          rewriteExpression(item.condition, options),
+        )})}`
       }
-      return `{...${rewriteExpression(item.code, options)}}`
+      return `{...${spread}}`
     }
     if (item.kind === "static") {
       return `${item.name}=${JSON.stringify(item.value)}`

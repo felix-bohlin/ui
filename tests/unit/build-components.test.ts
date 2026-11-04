@@ -128,6 +128,27 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("rest goes to the one element a condition picks, and a guarded tag renders through its guard", async () => {
+    const ports = await compile(
+      `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, href, ...rest } = Astro.props\nconst Tag = href ? "a" : undefined\nconst onItem = !Tag\n---\n\n<li class:list={["ui-sample", className]} {...(onItem ? rest : {})}>\n  {Tag ? (\n    <Tag href={href} {...(onItem ? {} : rest)}><slot /></Tag>\n  ) : (\n    <slot />\n  )}\n</li>\n`,
+    )
+    expect(ports["react.tsx"]).toContain("const Tag = tag as ElementType")
+    expect(ports["react.tsx"]).toContain(
+      "{...(onItem ? (rest as object) : {})}",
+    )
+    expect(ports["react.tsx"]).toContain(
+      "{...(onItem ? {} : (rest as object))}",
+    )
+    expect(ports.svelte).toContain(
+      '{...onItem ? (rest as SvelteHTMLElements["li"]) : {}}',
+    )
+    expect(ports.svelte).toContain("{...onItem ? {} : (rest as object)}")
+    expect(ports.vue).toContain("inheritAttrs: false")
+    expect(ports.vue).toContain("const attrs = useAttrs() as HTMLAttributes")
+    expect(ports.vue).toContain('v-bind="onItem ? attrs : {}"')
+    expect(ports.vue).toContain('v-bind="onItem ? {} : attrs"')
+  })
+
   test("a root without a class list keeps the class in Vue", async () => {
     const ports = await compile(
       `---\nimport type { Props } from "./types.astro"\n\nconst { ...rest } = Astro.props\n---\n\n<tbody {...rest}>\n  <slot />\n</tbody>\n`,
@@ -855,6 +876,14 @@ describe("the three ports of a sample", () => {
       '<div {...rest}>\n  <slot />\n</div>\n\n<script>\n  import { init } from "../../elements/sample.js"\n  init()\n</script>',
       "a <script> with more than side-effect imports",
     ],
+    [
+      "<div {...(open ? rest : {})}>\n  <b {...(open ? rest : {})} />\n</div>",
+      "a rest spread behind a condition that doesn't pick one element",
+    ],
+    [
+      "<div {...rest}>{Astro.slots.start && <b>start</b>}</div>",
+      "an Astro reference the ports have no form for in `Astro.slots.start`",
+    ],
   ])("rejects %s", async (body, reason) => {
     await expect(compileComponent(astro(body), sampleFile())).rejects.toThrow(
       reason,
@@ -1053,6 +1082,22 @@ describe("toTypes", () => {
     expect(vue).toContain(
       'export type Props = BaseProps & {\n  type?: IntrinsicElementAttributes["input"]["type"] | "numeric"\n} & Class & { id?: IntrinsicElementAttributes["input"]["id"] }',
     )
+  })
+
+  test("React takes a base prop like for by its React name", () => {
+    const { react, svelte } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"li">\n',
+        base: "export type Props = {\n  for?: string\n  inset?: boolean\n}\n",
+      },
+      { Sample: ["default"] },
+    )
+    expect(react).toContain(
+      'Without<Base.Props, "for"> & { htmlFor?: Base.Props["for"] }',
+    )
+    expect(svelte).toContain("Base.Props & SvelteHTMLElements")
   })
 
   test("slots on a union, a string-or-slot prop, a custom element root and a plain alias", () => {

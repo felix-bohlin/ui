@@ -21,6 +21,7 @@ import { MODEL_KINDS } from "./component-models.mjs"
 import {
   allCodes,
   byName,
+  chosenSpreadCode,
   identifiersIn,
   isArrayType,
   isBlank,
@@ -61,8 +62,9 @@ export const toVue = (component) => {
     scriptCodes(component).flatMap((code) => [...identifiersIn(code)]),
   )
   const attrsOnInner = !restOnRoot
-  const { multiRoot } = component
-  const computedAttrs = attrsOnInner && !multiRoot
+  const { chosenRest, multiRoot } = component
+  const allAttrs = multiRoot || chosenRest
+  const computedAttrs = attrsOnInner && !allAttrs
   const attributeProps = props.filter(
     ({ local, prop }) => prop.includes("-") && used.has(local),
   )
@@ -188,6 +190,9 @@ export const toVue = (component) => {
       return `:class="${rewriteExpression(item.code, scope)}"`
     }
     if (item.kind === "spread") {
+      if (item.code === rest && item.condition !== undefined) {
+        return `v-bind="${chosenSpreadCode(item, "attrs", rewriteExpression(item.condition, scope))}"`
+      }
       if (item.code === rest) {
         const bound = forwarded.map((key) => `:${key}="${key}"`)
         return [
@@ -262,7 +267,11 @@ export const toVue = (component) => {
     const spreads = node.attributes.filter(
       (item) =>
         item.kind === "spread" &&
-        !(item.code === rest && rootElements.includes(node)),
+        !(
+          item.code === rest &&
+          item.condition === undefined &&
+          rootElements.includes(node)
+        ),
     )
     const first = node.attributes.indexOf(spreads[0])
     const last = node.attributes.indexOf(spreads.at(-1))
@@ -270,7 +279,15 @@ export const toVue = (component) => {
       if (item.kind === "spread") {
         return {
           spread:
-            item.code === rest ? "attrs" : rewriteExpression(item.code, scope),
+            item.code === rest
+              ? item.condition === undefined
+                ? "attrs"
+                : chosenSpreadCode(
+                    item,
+                    "attrs",
+                    rewriteExpression(item.condition, scope),
+                  )
+              : rewriteExpression(item.code, scope),
         }
       }
       if (item.kind === "static") {
@@ -380,7 +397,7 @@ export const toVue = (component) => {
     ...(provide ? ["provide", "reactive"] : []),
     ...(explicitAttrs
       ? ["type IntrinsicElementAttributes", "useAttrs"]
-      : multiRoot || (restUsed && !attrsOnInner)
+      : allAttrs || (restUsed && !attrsOnInner)
         ? ["type HTMLAttributes", "useAttrs"]
         : []),
     ...(item ? ["watchEffect"] : []),
@@ -430,7 +447,7 @@ export const toVue = (component) => {
       : []),
     ...(computedAttrs
       ? ["const attrs = useInputAttrs()"]
-      : multiRoot
+      : allAttrs
         ? ["const attrs = useAttrs() as HTMLAttributes"]
         : explicitAttrs
           ? [

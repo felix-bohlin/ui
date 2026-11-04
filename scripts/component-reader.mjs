@@ -405,6 +405,32 @@ const readFrontmatter = (code, file) => {
   return result
 }
 
+const uncast = (node) => {
+  const inner = unwrap(node)
+  return ts.isAsExpression(inner) ? unwrap(inner.expression) : inner
+}
+
+const chosenSpread = (node) => {
+  const choice = uncast(node)
+  if (!ts.isConditionalExpression(choice)) return undefined
+  const whenTrue = uncast(choice.whenTrue)
+  const whenFalse = uncast(choice.whenFalse)
+  const empty = (branch) =>
+    ts.isObjectLiteralExpression(branch) && branch.properties.length === 0
+  const spread =
+    ts.isIdentifier(whenTrue) && empty(whenFalse)
+      ? whenTrue
+      : ts.isIdentifier(whenFalse) && empty(whenTrue)
+        ? whenFalse
+        : undefined
+  if (!spread) return undefined
+  return {
+    condition: choice.condition,
+    negated: spread === whenFalse,
+    spread,
+  }
+}
+
 const attributeNode = (item, context) => {
   if (item.kind === "quoted") {
     return { kind: "static", name: item.name, value: item.value }
@@ -418,6 +444,15 @@ const attributeNode = (item, context) => {
       ts.isIdentifier(unwrap(expression.expression))
         ? unwrap(expression.expression)
         : expression
+    const chosen = chosenSpread(expression)
+    if (chosen) {
+      return {
+        code: chosen.spread.text,
+        condition: chosen.condition.getText(sourceFile),
+        kind: "spread",
+        negated: chosen.negated,
+      }
+    }
     return { code: cast.getText(sourceFile), kind: "spread" }
   }
   if (item.kind === "expression") {
@@ -884,6 +919,24 @@ export const readComponent = async (source, file, api) => {
           )
         ? branches.map((branch) => branch.find((node) => !isBlank(node)))
         : undefined
+  const restSpreads = elementsIn(roots).flatMap((node) =>
+    node.attributes.filter(
+      (item) => item.kind === "spread" && item.code === frontmatter.rest,
+    ),
+  )
+  const chosenRest = restSpreads.filter((item) => item.condition !== undefined)
+  if (
+    chosenRest.length > 0 &&
+    (chosenRest.length !== restSpreads.length ||
+      new Set(chosenRest.map((item) => item.condition)).size !== 1 ||
+      new Set(chosenRest.map((item) => item.negated)).size !== 2)
+  ) {
+    throw unsupported(
+      file,
+      `a ${frontmatter.rest} spread behind a condition that doesn't pick one element`,
+      `spread ${frontmatter.rest} as \`cond ? ${frontmatter.rest} : {}\` on one element and \`cond ? {} : ${frontmatter.rest}\` on the other, with the same condition`,
+    )
+  }
   const restElements = elementsIn(roots).filter((node) =>
     spreads(node, frontmatter.rest),
   )
@@ -892,7 +945,11 @@ export const readComponent = async (source, file, api) => {
   if (!rootElements && !multiRoot) {
     throw unsupported(file, "a template that isn't one element")
   }
-  if (!multiRoot && restElements.length !== rootElements.length) {
+  if (
+    chosenRest.length === 0 &&
+    !multiRoot &&
+    restElements.length !== rootElements.length
+  ) {
     throw unsupported(
       file,
       `a template that doesn't spread ${frontmatter.rest} on each root or on one inner element`,
@@ -916,6 +973,7 @@ export const readComponent = async (source, file, api) => {
     warnings: item
       ? frontmatter.warnings.filter((code) => !callsGroupWarning(code))
       : frontmatter.warnings,
+    chosenRest: chosenRest.length > 0,
     model: modelOf(frontmatter, roots, api, file, file.split("/").at(-2)),
     multiRoot,
     restOnRoot: (rootElements ?? []).some((node) =>
@@ -927,6 +985,16 @@ export const readComponent = async (source, file, api) => {
     slots: slots.toSorted(),
     tree: roots,
     variableTags,
+  }
+  const untranslated = allCodes(component).find((code) =>
+    /\bAstro\.(?!slots\.has\(|locals\b)/.test(code),
+  )
+  if (untranslated) {
+    throw unsupported(
+      file,
+      `an Astro reference the ports have no form for in \`${untranslated.trim()}\``,
+      "read a slot with Astro.slots.has(name), and props from the Astro.props destructuring",
+    )
   }
   return {
     ...component,

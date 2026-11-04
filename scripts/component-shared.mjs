@@ -40,8 +40,20 @@ export const elementsIn = (nodes) =>
     return []
   })
 
+export const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
+
 export const spreads = (node, code) =>
-  node.attributes.some((item) => item.kind === "spread" && item.code === code)
+  node.attributes.some(
+    (item) =>
+      item.kind === "spread" &&
+      item.code === code &&
+      item.condition === undefined,
+  )
+
+export const chosenSpreadCode = (item, spread, condition) =>
+  item.negated
+    ? `${condition} ? {} : ${spread}`
+    : `${condition} ? ${spread} : {}`
 
 const identifierCache = new Map()
 

@@ -18,9 +18,13 @@ import {
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
-import { byName, isBlank, testsIn } from "./component-shared.mjs"
-
-const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
+import {
+  byName,
+  chosenSpreadCode,
+  isBlank,
+  REACT_ATTRIBUTE_NAMES,
+  testsIn,
+} from "./component-shared.mjs"
 
 export const toReact = (component) => {
   const {
@@ -129,7 +133,9 @@ export const toReact = (component) => {
       variableTags.includes(name)
         ? [
             `const ${lowered(name)} = ${rewriteExpression(code, options)}`,
-            `const ${name}: ElementType${guardedTags.has(name) ? " | undefined" : ""} = ${lowered(name)}`,
+            guardedTags.has(name)
+              ? `const ${name} = ${lowered(name)} as ElementType`
+              : `const ${name}: ElementType = ${lowered(name)}`,
           ]
         : [`const ${name} = ${rewriteExpression(code, options)}`],
     ),
@@ -155,6 +161,13 @@ export const toReact = (component) => {
       return `className={cx(${rewriteExpression(item.code, options)})}`
     }
     if (item.kind === "spread") {
+      if (item.condition !== undefined) {
+        return `{...(${chosenSpreadCode(
+          item,
+          `(${item.code} as object)`,
+          rewriteExpression(item.condition, options),
+        )})}`
+      }
       return node.variable && item.code === rest
         ? `{...(${item.code} as object)}`
         : `{...${rewriteExpression(item.code, options)}}`

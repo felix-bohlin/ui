@@ -1,13 +1,14 @@
 ---
 import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
+import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import { trimEdges } from "../whitespace"
 
 export const title = "List Item"
 
 const {
-  as = Astro.props.href ? "a" : undefined,
+  as,
   borderTop,
   class: className,
   color,
@@ -22,16 +23,13 @@ const {
 } = Astro.props
 
 const hasControl = type === "checkbox" || type === "radio" || type === "switch"
-const Tag = hasControl ? "label" : as
-const liProps = Tag && !hasControl ? {} : rest
+const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
+const restOnItem = hasControl || !Tag
 const hasLabel = !!label || Astro.slots.has("label")
 const submenu = Astro.slots.has("submenu")
   ? trimEdges(await Astro.slots.render("submenu"))
   : ""
 const hasDescription = !!description || Astro.slots.has("description")
-const tagProps = hasControl
-  ? { class: `ui-${type}`, for: htmlFor }
-  : { ...tagAttrs(Tag ?? "", disabled, href), ...rest }
 ---
 
 <li
@@ -43,14 +41,19 @@ const tagProps = hasControl
     color && `ui-${color}`,
     className,
   ]}
-  {...(liProps as HTMLAttributes<"li">)}
+  {...((restOnItem ? rest : {}) as HTMLAttributes<"li">)}
 >
   {
     // Label + checkbox/radio/switch
     // With custom tag
     Tag ? (
-      <Tag {...tagProps}>
-        {Astro.slots.start && <div class="ui-start">
+      <Tag
+        class={cx([hasControl && `ui-${type}`])}
+        for={hasControl ? htmlFor : undefined}
+        {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
+        {...(restOnItem ? {} : rest)}
+      >
+        {Astro.slots.has("start") && <div class="ui-start">
           <slot name="start" />
         </div>}
         {hasLabel || hasDescription ? (
@@ -68,14 +71,14 @@ const tagProps = hasControl
         ) : (
           <slot />
         )}
-        {Astro.slots.end && <div class="ui-end">
+        {Astro.slots.has("end") && <div class="ui-end">
           <slot name="end" />
         </div>}
       </Tag>
     ) : (
       // Without custom tag
       <>
-        {Astro.slots.start && <div class="ui-start">
+        {Astro.slots.has("start") && <div class="ui-start">
           <slot name="start" />
         </div>}
         {hasLabel || hasDescription ? (
@@ -93,7 +96,7 @@ const tagProps = hasControl
         ) : (
           <slot />
         )}
-        {Astro.slots.end && <div class="ui-end">
+        {Astro.slots.has("end") && <div class="ui-end">
           <slot name="end" />
         </div>}
       </>

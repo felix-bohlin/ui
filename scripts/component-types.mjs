@@ -7,6 +7,7 @@ import {
   byName,
   containsKind,
   propKey,
+  REACT_ATTRIBUTE_NAMES,
   root,
   sourceFileOf,
   unsupported,
@@ -303,12 +304,20 @@ export const toTypes = (
           .map((member) => member.name)
           .toSorted(byName)
       : []
-  const usesWithout = propsAliases.some(
-    ({ name }) => stringSlotKeys(name).length > 0,
-  )
-  const withoutHelper = usesWithout
-    ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
-    : ""
+  const reactRenamed = (name) => {
+    const baseAlias = baseAliases.find((entry) => entry.name.text === name)
+    return (baseAlias ? typeKeys(baseAlias.type, baseAliases) : [])
+      .filter((key) => key !== "class" && REACT_ATTRIBUTE_NAMES[key])
+      .toSorted(byName)
+  }
+  const withoutHelper = (framework) =>
+    propsAliases.some(
+      ({ name }) =>
+        stringSlotKeys(name).length > 0 ||
+        (framework === "react" && reactRenamed(name).length > 0),
+    )
+      ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
+      : ""
   const slotsMember = { react: "ReactNode", svelte: "Snippet" }
   const radioGrouped = Object.values(modelsByComponent).some(
     (model) => model?.kind === "radioGroup",
@@ -318,8 +327,8 @@ export const toTypes = (
       replacing(
         elementImport,
         framework === "react"
-          ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper}`
-          : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper}`,
+          ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
+          : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
       ),
     ]
     for (const alias of aliases) {
@@ -417,14 +426,22 @@ export const toTypes = (
           group && tied.length === 0
             ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
-        const wrapped = strings.length
-          ? `Without<Base.${name}, ${strings.map((key) => JSON.stringify(key)).join(" | ")}>`
+        const renamed = framework === "react" ? reactRenamed(name) : []
+        const dropped = [...strings, ...renamed].toSorted(byName)
+        const wrapped = dropped.length
+          ? `Without<Base.${name}, ${dropped.map((key) => JSON.stringify(key)).join(" | ")}>`
           : `Base.${name}`
+        const reactNames = renamed.length
+          ? ` & { ${renamed.map((key) => `${REACT_ATTRIBUTE_NAMES[key]}?: Base.${name}[${JSON.stringify(key)}]`).join("; ")} }`
+          : ""
         const radioChange = radioGroup
           ? " & { onChange?: ChangeEventHandler<HTMLInputElement> }"
           : ""
         edits.push(
-          replacing(part, `${wrapped}${withSlots}${untied}${radioChange}`),
+          replacing(
+            part,
+            `${wrapped}${reactNames}${withSlots}${untied}${radioChange}`,
+          ),
         )
       })
       if (extras.length > 0) {

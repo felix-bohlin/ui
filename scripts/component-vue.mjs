@@ -78,6 +78,9 @@ export const toVue = (component) => {
   }
   const classProp = props.find(({ prop }) => prop === "class")
   const classInScript = classProp && usedInScript.has(classProp.local)
+  const modelRename = MODEL_KINDS[component.model?.kind]?.vue?.rename?.(
+    component.model,
+  )
   const rename = new Map([
     ...props.flatMap(({ local, prop }) =>
       prop === "class"
@@ -90,6 +93,7 @@ export const toVue = (component) => {
     ),
     ...(restUsed ? [[rest, "attrs"]] : []),
     ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
+    ...(modelRename?.template ?? []),
   ])
   const computedConsts = derived.filter(({ fn }) => !fn)
   const derivedNames = new Set(computedConsts.map(({ name }) => name))
@@ -105,6 +109,7 @@ export const toVue = (component) => {
       : []),
     ...computedConsts.map(({ name }) => [name, `${name}.value`]),
     ...trimmedSlots.map(({ local, slot }) => [local, `slots${vueSlot(slot)}`]),
+    ...(modelRename?.script ?? []),
   ])
   const template = {
     quote: "'",
@@ -121,6 +126,8 @@ export const toVue = (component) => {
   const { model } = component
   const kind = MODEL_KINDS[model?.kind]?.vue
   const explicitAttrs = kind?.explicitAttrs === true
+  const filteredAttrs =
+    restOnRoot && attributeProps.length > 0 && !explicitAttrs
   const generic = kind?.generic?.(model) === true
   const { item } = component
   const forwarded = (component.baseProps ?? [])
@@ -185,7 +192,9 @@ export const toVue = (component) => {
         const bound = forwarded.map((key) => `:${key}="${key}"`)
         return [
           ...(rootElements.includes(node) && !explicitAttrs
-            ? []
+            ? filteredAttrs
+              ? [`v-bind="restAttrs"`]
+              : []
             : [`v-bind="attrs"`]),
           ...bound,
         ].join(" ")
@@ -308,6 +317,9 @@ export const toVue = (component) => {
         .filter(Boolean),
       ...(node.model ? kind.attributes(model) : []),
       ...(node.item ? ['@change="change"'] : []),
+      ...(node.groupRadio !== undefined
+        ? kind.radioAttributes(model, rewriteExpression(node.groupRadio, scope))
+        : []),
       ...((rootElements.includes(node) ||
         (multiRoot &&
           node.attributes.some(
@@ -359,6 +371,7 @@ export const toVue = (component) => {
     : undefined
   const vueImports = [
     ...(computedConsts.length ||
+    filteredAttrs ||
     kind?.computed === true ||
     provided?.some((entry) => entry.includes("computed("))
       ? ["computed"]
@@ -412,7 +425,7 @@ export const toVue = (component) => {
   const setup = [
     importLines.join("\n"),
     slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
-    ...(attrsOnInner || explicitAttrs
+    ...(attrsOnInner || explicitAttrs || filteredAttrs
       ? ["defineOptions({\n  inheritAttrs: false,\n})"]
       : []),
     ...(computedAttrs
@@ -426,6 +439,11 @@ export const toVue = (component) => {
           : restUsed
             ? ["const attrs = useAttrs() as HTMLAttributes"]
             : []),
+    ...(filteredAttrs
+      ? [
+          `const restAttrs = computed(() =>\n  Object.fromEntries(\n    Object.entries(attrs).filter(\n      ([key]) => ${attributeProps.map(({ prop }) => `key !== ${JSON.stringify(prop)}`).join(" && ")},\n    ),\n  ),\n)`,
+        ]
+      : []),
     ...(kind?.setup?.(model, generic) ?? []),
     ...reads.map(
       ({ context, name }) =>

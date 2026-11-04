@@ -25,8 +25,7 @@ export default function Rating({
 }: Props) {
   const count = Number(max)
   const stars = Array.from({ length: count }, (_, index) => index + 1)
-  const controlled = value !== undefined
-  const current = Number(controlled ? value : defaultValue)
+  const current = Number(value ?? defaultValue)
   const invalid = error ? "true" : ariaInvalid
 
   return name ? (
@@ -46,24 +45,24 @@ export default function Rating({
           aria-describedby={ariaDescribedBy}
           aria-invalid={invalid}
           aria-label={clearLabel}
-          checked={controlled ? current === 0 : undefined}
-          defaultChecked={controlled ? undefined : current === 0}
-          name={name}
+          checked={value !== undefined ? current === 0 : undefined}
+          defaultChecked={value !== undefined ? undefined : current === 0}
           onChange={onChange}
+          name={name}
           type="radio"
           value="0"
         />
       )}
-      {stars.map((star) => (
+      {stars.map((star, index) => (
         <input
+          key={index}
           aria-describedby={ariaDescribedBy}
           aria-invalid={invalid}
           aria-label={starLabel(star)}
-          checked={controlled ? current === star : undefined}
-          defaultChecked={controlled ? undefined : current === star}
-          key={star}
-          name={name}
+          checked={value !== undefined ? current === star : undefined}
+          defaultChecked={value !== undefined ? undefined : current === star}
           onChange={onChange}
+          name={name}
           required={required}
           type="radio"
           value={star}

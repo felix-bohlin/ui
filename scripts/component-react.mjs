@@ -56,6 +56,7 @@ export const toReact = (component) => {
   )
   const lowered = (name) => `${name[0].toLowerCase()}${name.slice(1)}`
   const rename = new Map([
+    ...(kind?.rename?.(component.model) ?? []),
     ...props
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
@@ -231,7 +232,14 @@ export const toReact = (component) => {
         const attributes = [
           ...(node.keyed ? [`key={${node.keyed}}`] : []),
           ...node.attributes.flatMap((entry) => [
-            attribute(node, entry),
+            ...(node.groupRadio !== undefined &&
+            entry.kind === "expression" &&
+            entry.name === "checked"
+              ? kind.radioAttributes(
+                  model,
+                  rewriteExpression(entry.code, options),
+                )
+              : [attribute(node, entry)]),
             ...(node.item &&
             entry.kind === "expression" &&
             entry.name === "checked"
@@ -286,6 +294,7 @@ export const toReact = (component) => {
     ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
     propsImport(propsType, "types.react"),
   ]
-  const client = reads.length > 0 || provide || scripts.length > 0
+  const client =
+    reads.length > 0 || provide || scripts.length > 0 || kind?.client === true
   return `${client ? '"use client"\n\n' : ""}${importLines.join("\n")}\n\nexport default function ${component.name}({ ${destructured.join(", ")} }: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
 }

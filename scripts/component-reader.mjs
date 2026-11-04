@@ -964,6 +964,47 @@ const itemOf = (frontmatter, tree, folder) => {
   }
 }
 
+const radioGroupOf = (tree, frontmatter, declared) => {
+  const prop = frontmatter.props.find((entry) => entry.prop === declared.prop)
+  const radios = elementsIn(tree).filter(
+    (node) => node.tag === "input" && staticAttribute(node, "type") === "radio",
+  )
+  if (declared.prop !== "value" || !prop || radios.length === 0) {
+    return undefined
+  }
+  const values = radios.map((radio) => {
+    const value = radio.attributes.find((item) => item.name === "value")
+    const checked = radio.attributes.find(
+      (item) => item.kind === "expression" && item.name === "checked",
+    )
+    if (!value || !checked || !["expression", "static"].includes(value.kind)) {
+      return undefined
+    }
+    const test = unwrap(
+      sourceFileOf(`(${checked.code})`, "checked.ts").statements[0].expression,
+    )
+    if (
+      !ts.isBinaryExpression(test) ||
+      test.operatorToken.kind !== ts.SyntaxKind.EqualsEqualsEqualsToken
+    ) {
+      return undefined
+    }
+    const compared = test.right.getText()
+    return value.kind === "static"
+      ? compared === value.value || compared === JSON.stringify(value.value)
+        ? JSON.stringify(value.value)
+        : undefined
+      : compared === value.code.trim()
+        ? value.code.trim()
+        : undefined
+  })
+  if (values.includes(undefined)) return undefined
+  radios.forEach((radio, index) => {
+    radio.groupRadio = values[index]
+  })
+  return { local: prop.local }
+}
+
 const staticAttribute = (node, name) =>
   node.attributes.find((item) => item.kind === "static" && item.name === name)
     ?.value
@@ -1073,6 +1114,16 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     matchesSelector(entry, compounds),
   )
   if (matches.length === 0) {
+    const group = radioGroupOf(tree, frontmatter, declared)
+    if (group) {
+      return {
+        bindables,
+        kind: "radioGroup",
+        local: group.local,
+        prop: declared.prop,
+        type: declared.type,
+      }
+    }
     const children = elementsIn(tree).filter(
       (node) =>
         node.component &&

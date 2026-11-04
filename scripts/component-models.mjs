@@ -102,6 +102,36 @@ export const MODEL_KINDS = {
       undeclared: (model, prop) => prop === model.prop,
     },
   },
+  radioGroup: {
+    react: {
+      client: true,
+      entries: () => ["defaultValue", "onChange"],
+      radioAttributes: (model, checked) => [
+        `checked={${model.local} !== undefined ? ${checked} : undefined}`,
+        `defaultChecked={${model.local} !== undefined ? undefined : ${checked}}`,
+        "onChange={onChange}",
+      ],
+      rename: (model) => [[model.local, `${model.local} ?? defaultValue`]],
+    },
+    svelte: {
+      bindables: (model) => [model.prop],
+      radioAttributes: (model, value) => [
+        `onchange={() => {\n  ${model.local} = ${value}\n}}`,
+      ],
+    },
+    vue: {
+      computed: true,
+      radioAttributes: (model, value) => [`@change="model = ${value}"`],
+      rename: (model) => ({
+        script: [[model.local, "model.value"]],
+        template: [[model.local, "model"]],
+      }),
+      setup: (model) => [
+        `const modelValue = defineModel<${model.type}>()`,
+        `const model = computed({\n  get: () => modelValue.value ?? ${model.local},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
+      ],
+    },
+  },
   radio: {
     svelte: {
       attributes: () => [

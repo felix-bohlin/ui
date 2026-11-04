@@ -307,12 +307,15 @@ export const toTypes = (
     ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
     : ""
   const slotsMember = { react: "ReactNode", svelte: "Snippet" }
+  const radioGrouped = Object.values(modelsByComponent).some(
+    (model) => model?.kind === "radioGroup",
+  )
   const typed = (framework) => {
     const edits = [
       replacing(
         elementImport,
         framework === "react"
-          ? `import type { ComponentProps${slotted.length ? ", ReactNode" : ""} } from "react"${withoutHelper}`
+          ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper}`
           : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper}`,
       ),
     ]
@@ -337,10 +340,12 @@ export const toTypes = (
               .toSorted((a, b) => byName(a.prop, b.prop))
           : []
       const group = framework === "react" && model?.kind === "group"
+      const radioGroup = framework === "react" && model?.kind === "radioGroup"
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
         ...(group ? ["defaultValue"] : []),
+        ...(radioGroup ? ["onChange"] : []),
       ]
       for (const ref of elementRefs(type)) {
         edits.push(
@@ -412,7 +417,12 @@ export const toTypes = (
         const wrapped = strings.length
           ? `Without<Base.${name}, ${strings.map((key) => JSON.stringify(key)).join(" | ")}>`
           : `Base.${name}`
-        edits.push(replacing(part, `${wrapped}${withSlots}${untied}`))
+        const radioChange = radioGroup
+          ? " & { onChange?: ChangeEventHandler<HTMLInputElement> }"
+          : ""
+        edits.push(
+          replacing(part, `${wrapped}${withSlots}${untied}${radioChange}`),
+        )
       })
       if (extras.length > 0) {
         edits.push(

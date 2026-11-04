@@ -142,6 +142,12 @@ export const toSvelte = (component) => {
         const attributes = [
           ...node.attributes.map((item) => attribute(node, item)),
           ...(node.model ? modelAttributes : []),
+          ...(node.groupRadio !== undefined
+            ? kind.radioAttributes(
+                model,
+                rewriteExpression(node.groupRadio, options),
+              )
+            : []),
           ...(node.item
             ? [
                 `onchange={(event) => {\n${(kind?.onchange?.(model, component.item) ?? []).map((line) => `  ${line}\n`).join("")}  ${component.item.parent}?.change?.(event.currentTarget)\n  onchange?.(event)\n}}`,

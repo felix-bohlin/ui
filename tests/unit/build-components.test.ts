@@ -367,6 +367,48 @@ describe("the three ports of a sample", () => {
     parts: [{ description: "", model: true, selector }],
   })
 
+  test("a value read by radios that check themselves against it is a radio group in every framework", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, name, value, ...rest } = Astro.props\n\nconst stars = [1, 2]\nconst current = Number(value)\n---\n\n<fieldset class:list={["ui-sample", className]} {...rest}>\n  <input checked={current === 0} name={name} type="radio" value="0" />\n  {stars.map((star) => (\n    <input checked={current === star} name={name} type="radio" value={star} />\n  ))}\n</fieldset>\n',
+      sampleFile(),
+      { api: modelApi("value", 'input[value="1"]') },
+    )
+    const port = (extension: string) =>
+      outputs.get(sampleFile().replace(".astro", extension)) ?? ""
+    const react = port(".react.tsx")
+    expect(react).toMatch(/^"use client"\n/)
+    expect(react).toContain("defaultValue,")
+    expect(react).toContain("onChange,")
+    expect(react).toContain("const current = Number(value ?? defaultValue)")
+    expect(react).toContain(
+      "checked={value !== undefined ? current === star : undefined}",
+    )
+    expect(react).toContain(
+      "defaultChecked={value !== undefined ? undefined : current === star}",
+    )
+    expect(react).toContain("onChange={onChange}")
+    const svelte = port(".svelte")
+    expect(svelte).toContain("value = $bindable(),")
+    expect(svelte).toContain('value = "0"')
+    expect(svelte).toContain("value = star")
+    const vue = port(".vue")
+    expect(vue).toContain("const modelValue = defineModel<number | string>()")
+    expect(vue).toContain("const current = computed(() => Number(model.value))")
+    expect(vue).toContain(`@change="model = '0'"`)
+    expect(vue).toContain('@change="model = star"')
+  })
+
+  test("Vue keeps the hyphenated props a component reads out of the attrs its root spreads", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, ...rest } = Astro.props\n---\n\n<fieldset class:list={["ui-sample", className]} {...rest}>\n  <input aria-describedby={ariaDescribedBy} />\n</fieldset>\n',
+    )
+    expect(ports.vue).toContain("inheritAttrs: false")
+    expect(ports.vue).toContain(
+      'Object.entries(attrs).filter(([key]) => key !== "aria-describedby")',
+    )
+    expect(ports.vue).toContain('v-bind="restAttrs"')
+  })
+
   test("a value model from api.ts binds the control in Svelte and Vue and stays in rest in React", async () => {
     const { outputs } = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, value, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]}>\n  <textarea {...rest}>{value}</textarea>\n</label>\n',
@@ -926,6 +968,34 @@ describe("toTypes", () => {
     expect(
       outputs.get(sampleFile("SamplePart").replace(".astro", ".vue")),
     ).toContain("defineSlots<SamplePartSlots>()")
+  })
+
+  test("React types a radio group's onChange for its inputs", () => {
+    const { react } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"fieldset">\n',
+        base: "export type Props = {\n  value?: number | string\n}\n",
+      },
+      { Sample: [] },
+      {},
+      {},
+      {
+        Sample: {
+          bindables: [{ prop: "value", type: "number | string" }],
+          kind: "radioGroup",
+          prop: "value",
+          type: "number | string",
+        },
+      },
+    )
+    expect(react).toContain(
+      'import type { ChangeEventHandler, ComponentProps } from "react"',
+    )
+    expect(react).toContain(
+      'Base.Props & { onChange?: ChangeEventHandler<HTMLInputElement> } & Omit<ComponentProps<"fieldset">, "children" | "onChange">',
+    )
   })
 
   test("an HTML attribute a component reads becomes a Vue prop", () => {

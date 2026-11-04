@@ -302,6 +302,27 @@ describe("addFindings", () => {
     expect(fixOptions(notes).options.map(({ id }) => id)).toEqual(["A", "B"])
   })
 
+  test("starts a code block that follows a note's label on its own line", () => {
+    const { source } = addFindings(todo, [
+      {
+        ...finding,
+        fix: "```css\n.ui-tabs {}\n```",
+        options: [
+          { id: "A", recommended: true, text: "```css\n.ui-tabs {}\n```" },
+          { id: "B", text: "keep the literal." },
+        ],
+      },
+    ])
+    expect(source).toContain(
+      "  - Fix:\n    ```css\n    .ui-tabs {}\n    ```\n  - Options:\n    - A (recommended):\n      ```css\n      .ui-tabs {}\n      ```",
+    )
+    expect(
+      parseTodo(source).sections[0].items[1].notes.filter(
+        ({ kind }) => kind === "code",
+      ),
+    ).toHaveLength(2)
+  })
+
   test("rejects a finding the page can't show", () => {
     expect(() =>
       addFindings(todo, [

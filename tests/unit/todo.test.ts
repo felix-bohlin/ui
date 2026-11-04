@@ -667,6 +667,9 @@ describe("TODO.md", () => {
         ),
     )
 
+  const inlineFences = (text: string) =>
+    text.split("\n").filter((line) => /^\s*[^\s`].*```/.test(line))
+
   const unresolved = (text: string) =>
     parsed(text)
       .done.filter(
@@ -718,6 +721,13 @@ describe("TODO.md", () => {
 
   test("writes no options inline", () => {
     expect(inlineOptions(source)).toEqual([])
+  })
+
+  test("opens every code block on its own line", () => {
+    expect(
+      inlineFences(source),
+      "a fence after text on its line isn't a code block in Markdown: start the block on the next line, indented under its note",
+    ).toEqual([])
   })
 
   test("says how every done item ended", () => {
@@ -800,6 +810,7 @@ describe("TODO.md", () => {
 
   const rules = {
     badOptions,
+    inlineFences,
     inlineOptions,
     longSummaries,
     sharedKeys,
@@ -825,6 +836,15 @@ describe("TODO.md", () => {
           "Summary: The tab line is thin.",
           "Recommended: Fix. It is small.",
           "Options:\n    - A: make it thicker.\n    - B: keep it.",
+        ),
+      ),
+    ],
+    [
+      "inlineFences",
+      todo(
+        triaged(
+          "- [ ] (1) Card: the shadow is off",
+          "Fix: ```css\n    .ui-card {}\n    ```",
         ),
       ),
     ],

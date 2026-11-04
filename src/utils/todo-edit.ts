@@ -327,6 +327,7 @@ export type Finding = {
 const note = (bullet: string, text: string) =>
   text
     .trim()
+    .replace(/^([^\n`]*\S)[ \t]*(?=```)/gm, "$1\n")
     .split("\n")
     .map((line, index) =>
       index === 0

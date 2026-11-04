@@ -167,13 +167,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) TextField: buttons in a small or x-small field's `.ui-start` or `.ui-end` are under 24 by 24 CSS pixels: `--_affix-button-size` is the field size minus borders and `2 * --ui-space-1`, which is 22px in `.ui-small` and 18px in `.ui-x-small`, and the circle around them overlaps the input, so the spacing exception of WCAG 2.5.8 doesn't apply (`packages/opui/css/components/text-field.css:9-11`, `packages/opui/css/components/text-field.css:110-116`, `packages/opui/components/TextField/TextField.astro:89-134`)
   - Summary: The show-password and other affix buttons are too small to hit in small and x-small fields.
   - Recommended: Fix. A 24px button still fits inside both smaller fields, so only the floor changes.
-  - Fix: ```css
+  - Fix:
+    ```css
     --_affix-button-size: max(
-    var(--ui-space-5),
-    var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
+      var(--ui-space-5),
+      var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
     );
-    ```
-
     ```
 - [ ] (2) Drawer: the Basics drawers scroll nine paragraphs in `.ui-content` with nothing focusable inside, and neither the examples nor the page carry the `tabindex="0"`, `role="region"` and `aria-label` the Dialog's Long content got for Safari, which doesn't make a scroll container focusable (`src/component-examples/drawer/Basics.html:79-125`, `src/component-examples/drawer/Basics.astro:30-76`, `src/docs/components/drawer.astro:122-131`, `packages/opui/css/components/drawer.css:92-99`)
   - Summary: In Safari, keyboard users can't scroll the long text in the drawer example because the scrolling area isn't focusable.
@@ -674,26 +673,24 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (1) Progress: the `passThrough` note names `aria-busy` as an example attribute that goes to the `<progress>`, but `spinner.css` excludes `progress` from the `aria-busy` spinner and the page's accessibility section says to set `aria-busy` on the section being updated, not on the bar (`src/component-api/progress/api.ts:6`, `src/docs/components/progress.astro:111-114`, `packages/opui/css/components/spinner.css:2-11`)
   - Summary: The Progress API note suggests putting `aria-busy` on the progress bar, which does nothing and contradicts the page.
   - Recommended: Fix. Swapping one example attribute keeps the note accurate.
-  - Fix: ```ts
+  - Fix:
+    ```ts
     notes: passThrough("progress", "div", ["aria-describedby", "aria-label", "id"]),
-    ```
-
     ```
 - [ ] (1) Progress: the `<progress>` part lists its props as `["value", "max"]`, out of ascending order, while every other part sorts its `props`; the only other unsorted one is in the Avatar API (`src/component-api/progress/api.ts:35`, `src/component-api/avatar/api.ts:79`)
   - Summary: The anatomy label for the bar reads `value / max` while every other part lists its props alphabetically.
   - Recommended: Fix. It's a two-word swap that follows the project's sorting rule.
-  - Fix: ```ts
+  - Fix:
+    ```ts
     props: ["max", "value"],
     ```
     and sort the Avatar part's `props` the same way.
-    ```
 - [ ] (1) Rating: the `size` description is "The size of the stars." where the guide's standard phrase for Sizes is "The size of the element."; the meter and the fieldset scale as a whole with the size, so the standard phrase applies (`src/component-api/rating/api.ts:91`, `src/component-api/AGENTS.md:16-18`, `packages/opui/css/components/rating.css:20-31`)
   - Summary: The Rating size row is worded differently from every other component's size row.
   - Recommended: Fix. It's a one-line wording change to the standard phrase.
-  - Fix: ```ts
+  - Fix:
+    ```ts
     description: "The size of the element.",
-    ```
-
     ```
 - [ ] (1) Rating: the Accessibility text says every radio is at least as wide as `--ui-control-size-x-small` (1.75rem), but `.ui-small` sets the radios to `--ui-icon-size-large` (1.5rem) (`src/docs/components/rating.astro:223-224`, `packages/opui/css/components/rating.css:61`, `packages/opui/css/components/rating.css:74-76`, `packages/opui/css/theme.css:176`, `packages/opui/css/theme.css:309`)
   - Summary: The page promises a 28px star in every size, while the small input's stars are 24px.
@@ -1229,10 +1226,9 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (1) Progress: the track outline reads `--ui-field-border-color`, the role for a control that holds a value the user edits, although a progress bar is neither a field nor a control; `--ui-border-color` is the role for a border on anything else, and the two diverge under more contrast (`packages/opui/css/components/progress.css:15`)
   - Summary: Progress bars get the heavier field border in high contrast instead of the border other non-control boxes get.
   - Recommended: Fix. One token swap, and it matches the naming model in the components guide.
-  - Fix: ```css
+  - Fix:
+    ```css
     outline: var(--ui-border-width) solid var(--ui-border-color);
-    ```
-
     ```
 - [ ] (1) Switch: an invalid switch draws a `--ui-focus-ring-width` halo in `--ui-invalid` around the track and pushes the focus ring out by that width, while Checkbox and Radio color their border and TextField its field border; the track already has `--_track-border-color`, which the validation block leaves at the field border color (`packages/opui/css/components/switch.css:155-166`, `packages/opui/css/components/checkbox.css:57-62`)
   - Summary: An invalid switch gets a red halo instead of a red track border like the other choice controls.
@@ -1511,10 +1507,9 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (1) Callout: the `variant` union is the only variant enum whose values aren't in ascending order, `"tonal" | "outlined"`, while Avatar, Button, Card and Checkbox sort theirs (`packages/opui/components/Callout/types.ts:3`, `packages/opui/components/Avatar/types.ts:4`, `packages/opui/components/Card/types.ts:3`)
   - Summary: The Callout `variant` type lists `tonal` before `outlined`, unlike every other variant union.
   - Recommended: Fix. Swapping two members follows the repo's ascending-order rule.
-  - Fix: ```ts
+  - Fix:
+    ```ts
     variant?: "outlined" | "tonal"
-    ```
-
     ```
 - [ ] (1) TextField: the NoLabel HTML example puts `.ui-text-field` on a `div` because there is no label text, while the component always renders a `label` root unless `passwordToggle` is set, so Astro, React, Svelte and Vue render an empty `<label>` around an `aria-label` input, recorded as parity drift (`tests/unit/__snapshots__/text-field/NoLabel.astro.diff:1-9`, `src/component-examples/text-field/NoLabel.html:1-5`, `packages/opui/components/TextField/TextField.astro:41`, `packages/opui/components/TextField/TextField.react.tsx:46-47`, `packages/opui/components/TextField/TextField.svelte:52`, `packages/opui/components/TextField/TextField.vue:87`)
   - Summary: A text field without a label renders a div in HTML but an empty label element in every framework.
@@ -1526,18 +1521,17 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (1) Select: `types.ts` declares `children?: S` in `Slots`, which the guide reserves for named slots; `children` already comes from `ComponentProps<"select">` and `SvelteHTMLElements["select"]`, and Vue's `Slots` names its own `default` (`packages/opui/components/Select/types.ts:21-30`, `packages/opui/components/Select/types.react.ts:4-6`, `packages/opui/components/Select/types.svelte.ts:5-7`, `packages/opui/components/AGENTS.md:13`)
   - Summary: Select is the only component whose shared `Slots` type names the default slot.
   - Recommended: Fix. Delete the line; the React and Svelte props keep `children` from their element types.
-  - Fix: ```ts
+  - Fix:
+    ```ts
     export type Slots<S> = {
-    bottom?: string | S
-    end?: string | S
-    endText?: string | S
-    label?: string | S
-    start?: string | S
-    startText?: string | S
-    top?: string | S
+      bottom?: string | S
+      end?: string | S
+      endText?: string | S
+      label?: string | S
+      start?: string | S
+      startText?: string | S
+      top?: string | S
     }
-    ```
-
     ```
 - [ ] (1) Toaster: every toast, a critical one included, is announced through the one polite `role="status"` region, so "Couldn't save your changes" waits behind other speech like "Changes saved" does (`packages/opui/elements/toaster.js:162-169`, `packages/opui/components/Toaster/Toaster.astro:33`, `src/docs/components/toast.astro:96-104`)
   - Summary: An error toast is announced no more urgently than a success toast, or dropped if the screen reader is busy.
@@ -1562,12 +1556,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (1) Range: the disabled thumb color is a hand-written copy of the `--ui-text-disabled` formula with a literal `50%`, so it doesn't follow `--ui-text-disabled-strength` (60% under more contrast) like every other disabled label does (`packages/opui/css/components/range.css:398-402`, `packages/opui/css/theme.css:522-526`)
   - Summary: A disabled slider thumb stays at the same gray in high contrast while disabled text gets stronger.
   - Recommended: Fix. The role exists and the root already applies `--ui-disabled-opacity`.
-  - Fix: ```css
+  - Fix:
+    ```css
     &:disabled {
-    --_thumb-bg-color: var(--ui-text-disabled);
+      --_thumb-bg-color: var(--ui-text-disabled);
     }
-    ```
-
     ```
 - [ ] (1) List: `kbd` in `.ui-end` dims with `opacity: 0.7` and a contrast block puts it back to 1, where `--_description-text-color` (the role the item's second line reads, swapped to `--ui-on-selected` in a selected item) names the job (`packages/opui/css/components/list.css:400-411`, `packages/opui/css/components/list.css:350-353`)
   - Summary: A shortcut hint is a faded copy of the text instead of the list's secondary text color.
@@ -1576,16 +1569,15 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (1) ToggleButton: the hovered selected fill always darkens (`calc(l * 0.9)`), in dark mode too and for a `--ui-selected` darker than L 0.3, where the change is invisible; `button.css` lightens dark accents and darkens the rest with `light-dark()` (`packages/opui/css/components/toggle-button.css:103-107`, `packages/opui/css/components/button.css:46-53`)
   - Summary: Hovering a selected toggle button barely changes it on a dark selected color.
   - Recommended: Fix. Reusing the button's formula keeps the two controls hovering alike.
-  - Fix: ```css
+  - Fix:
+    ```css
     --_bg-color: light-dark(
-    oklch(
-    from var(--_selected-bg-color)
-    calc(l + 0.05 + 0.15 * clamp(-1, (0.3 - l) * 1000, 1)) c h
-    ),
-    oklch(from var(--_selected-bg-color) calc(l - 0.1) c h)
+      oklch(
+        from var(--_selected-bg-color)
+          calc(l + 0.05 + 0.15 * clamp(-1, (0.3 - l) * 1000, 1)) c h
+      ),
+      oklch(from var(--_selected-bg-color) calc(l - 0.1) c h)
     );
-    ```
-
     ```
 - [ ] (1) Tokens: the palette scope selector list is in no order (`:root, .ui-warning, .ui-critical, .ui-info, .ui-success, .ui-neutral, .ui-palette`), while `theme.css` sorts the same list ascending and uses `html` (`packages/opui/core/palette.css:2-10`, `packages/opui/css/theme.css:684-693`)
   - Summary: Two files list the same scope classes in different orders and with different root selectors.
@@ -1910,27 +1902,25 @@ Custom elements (web components) the library could add, for behavior that HTML a
 - [ ] (2) Message: the checked reaction pill paints `--ui-primary` directly (a `color-mix` fill and `border-color: var(--ui-primary)`) over ToggleButton's `--_selected-bg-color`, which reads the `--ui-selected` hook, so a theme that sets `--ui-selected` recolors every toggle button except the reactions (`packages/opui/css/components/message.css:122-132`, `packages/opui/css/components/toggle-button.css:9`, `packages/opui/css/components/toggle-button.css:93-101`)
   - Summary: In a theme with its own selected color, chat reactions stay brand-colored while every other toggle follows the theme.
   - Recommended: Fix. The property is already declared on the pill by `toggle-button.css`, so the fix is two reads.
-  - Fix: ```css
+  - Fix:
+    ```css
     &:has(input:checked) {
-    --ui-focus-ring-color: inherit;
+      --ui-focus-ring-color: inherit;
 
-    background-color: oklch(
-    from var(--_selected-bg-color) l c h / var(--ui-state-selected-alpha-accent)
-    );
-    border-color: var(--_selected-bg-color);
-    color: var(--ui-text-strong);
+      background-color: oklch(
+        from var(--_selected-bg-color) l c h /
+          var(--ui-state-selected-alpha-accent)
+      );
+      border-color: var(--_selected-bg-color);
+      color: var(--ui-text-strong);
     }
-
-    ```
-
     ```
 - [ ] (2) Progress: the bar reads `--ui-primary` directly, so neither `--ui-selected-strong` (the role the guide names for "a bar", and what Stepper, Tabs, Carousel and List markers read) nor `--ui-control-accent` recolors it; a theme that sets those hooks gets a progress bar in a different color from its steppers and markers (`packages/opui/css/components/progress.css:4`, `packages/opui/css/components/stepper.css:4`, `packages/opui/components/AGENTS.md:478`)
   - Summary: Theming the selected or control accent recolors steppers and markers but not progress bars.
   - Recommended: Fix. One read, and the `custom-properties/progress.ts` description of `--_accent` changes with it.
-  - Fix: ```css
+  - Fix:
+    ```css
     --_accent: var(--ui-selected-strong);
-    ```
-
     ```
 - [ ] (2) Timeline: the current marker, its halo and the tracked line read `--ui-primary` and `--ui-on-primary` directly, while the guide names `--ui-selected-strong` and `--ui-on-selected-strong` for a current marker, which Stepper and Carousel read, so a theme that sets `--ui-selected-strong` recolors the Stepper but not the Timeline; the halo also uses `--ui-state-active-alpha-accent`, the pressed-state alpha, for a resting ring (`packages/opui/css/components/timeline.css:125-135`, `packages/opui/css/components/timeline.css:147-152`, `packages/opui/css/components/stepper.css:4`, `packages/opui/css/components/stepper.css:16`, `src/component-api/custom-properties/timeline.ts:27-30`)
   - Summary: A theme that changes the selected mark color recolors the Stepper's current step but not the Timeline's current item.

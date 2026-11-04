@@ -22,44 +22,42 @@
 
   const count = $derived(Number(max))
   const stars = $derived(Array.from({ length: count }, (_, index) => index + 1))
-  const radioAttrs = $derived({
-    "aria-describedby": ariaDescribedBy,
-    "aria-invalid": error ? "true" : ariaInvalid,
-  })
+  const current = $derived(Number(value))
+  const invalid = $derived(error ? "true" : ariaInvalid)
 </script>
 
-{#if name}
-  <fieldset
+{#if name}<fieldset
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {disabled}
     {style}
     {...rest}
   >
     <legend>{label}</legend>
-    {#if !required}
-      <input
-        {...radioAttrs}
+    {#if !required}<input
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={invalid}
         aria-label={clearLabel}
-        bind:group={value}
+        checked={current === 0}
         {name}
         type="radio"
-        value={0}
-      />
-    {/if}
-    {#each stars as star (star)}
-      <input
-        {...radioAttrs}
+        value="0"
+        onchange={() => {
+          value = "0"
+        }}
+      />{/if}{#each stars as star, index (index)}<input
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={invalid}
         aria-label={starLabel(star)}
-        bind:group={value}
+        checked={current === star}
         {name}
         {required}
         type="radio"
         value={star}
-      />
-    {/each}
-  </fieldset>
-{:else}
-  <meter
+        onchange={() => {
+          value = star
+        }}
+      />{/each}
+  </fieldset>{:else}<meter
     aria-describedby={ariaDescribedBy}
     aria-label={label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
@@ -67,5 +65,4 @@
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}
     {...rest}
-  ></meter>
-{/if}
+  ></meter>{/if}

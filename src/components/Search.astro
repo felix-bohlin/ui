@@ -898,9 +898,15 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       color: var(--ui-on-selected, currentColor);
 
       @media (forced-colors: active) {
+        --_description-text-color: SelectedItemText;
         background-color: SelectedItem;
         color: SelectedItemText;
         forced-color-adjust: none;
+
+        mark,
+        .ui-title {
+          color: inherit;
+        }
       }
     }
 

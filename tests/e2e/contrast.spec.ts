@@ -222,6 +222,18 @@ test.describe("forced-colors", () => {
     )
   })
 
+  test("the current list item's description uses SelectedItemText", async ({
+    page,
+  }) => {
+    await openFixture(page, "html", "list")
+    const description = page
+      .locator('.ui-list [aria-current="page"] .ui-text p + p')
+      .first()
+    expect(await computed(description, "color")).toBe(
+      await resolveColor(description, "SelectedItemText"),
+    )
+  })
+
   test("an unchecked switch keeps its dot", async ({ page }) => {
     await openFixture(page, "html", "switch")
     const input = page.locator("[role=switch]:not(:checked)").first()

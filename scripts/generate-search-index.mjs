@@ -115,7 +115,14 @@ function pageEntries({ category, frameworkId, id, meta, url }) {
 }
 
 function readMeta(file) {
-  const content = fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n")
+  return readPage(file, fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n"))
+}
+
+/**
+ * @param {string} file
+ * @param {string} content
+ */
+export function readPage(file, content) {
   const titleMatch = content.match(
     /<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s,
   )

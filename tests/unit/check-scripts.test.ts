@@ -51,6 +51,7 @@ import {
   indexProblems,
   readHeadings,
   readKeywords,
+  readPage,
   readPreamble,
   readSections,
   slotText,
@@ -1225,6 +1226,32 @@ describe("generate-search-index", () => {
     expect(
       readPreamble(`export const description = "A tip."\n${page}`, "html"),
     ).toBe("A tip.")
+  })
+
+  test("refuses a title, preamble or heading it can't read as text", () => {
+    const page = (body: string) =>
+      readPage("page.astro", `<Fragment slot="title">Page</Fragment>\n${body}`)
+    expect(() =>
+      page(
+        '<Fragment slot="preamble"><p>Use {name} to open it.</p></Fragment>',
+      ),
+    ).toThrow(
+      "page.astro has a preamble or heading the search index can't read: write it as text, or export a description: Use {name} to open it.",
+    )
+    expect(() => page('<h2 id="title">{title}</h2>')).toThrow(
+      "page.astro has a preamble or heading the search index can't read: write it as text, or export a description: {title}",
+    )
+    expect(() =>
+      readPage("page.astro", '<Fragment slot="title">{"A"} {b}</Fragment>'),
+    ).toThrow("page.astro has a title slot the search index can't read")
+    expect(
+      page(
+        '<Fragment slot="preamble"><p>Use <code>{" "}name</code>.</p></Fragment>\n<h2 id="name">The name</h2>',
+      ),
+    ).toMatchObject({
+      sections: [{ id: "name", title: "The name" }],
+      title: "Page",
+    })
   })
 
   test("reads the id and title of each section and h3 with an id, once per id", () => {

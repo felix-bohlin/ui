@@ -435,6 +435,7 @@ Lists meant to be used stand-alone or as part of Select elements
         &:where([role="option"])[aria-selected="true"] > :is(a, button, label),
         &:checked,
         & > :is(a, button, label)[aria-current="page"] {
+          --_description-text-color: SelectedItemText;
           background-color: SelectedItem;
           color: SelectedItemText;
           forced-color-adjust: none;

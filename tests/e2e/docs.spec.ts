@@ -2,7 +2,7 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
-import { instantScrolling } from "./fixtures"
+import { computed, instantScrolling, resolveColor } from "./fixtures"
 
 const pages = (directory: string, prefix = "/html") =>
   readdirSync(new URL(`../../src/docs/${directory}/`, import.meta.url))
@@ -277,6 +277,19 @@ test.describe("search", () => {
     )
   })
 
+  test("shows and counts every result from the other frameworks", async ({
+    page,
+  }) => {
+    await openSearch(page, "startText")
+    const status = page.locator("#search-status")
+    await expect(status).toHaveText(
+      /^No results in HTML, \d+ in other frameworks$/,
+    )
+    const count = Number((await status.textContent())?.match(/\d+/)?.[0])
+    expect(count).toBeGreaterThan(5)
+    await expect(page.locator("#results-list [role=option]")).toHaveCount(count)
+  })
+
   test("shows the results of the other frameworks that load", async ({
     page,
   }) => {
@@ -307,9 +320,9 @@ test.describe("search", () => {
     expect(indexes).toEqual(["/search-index/html.json"])
   })
 
-  test("loads the index when the shortcut opens search", async ({ page }) => {
+  test("loads the index when a shortcut opens search", async ({ page }) => {
     const request = page.waitForRequest(/\/search-index\/html\.json$/)
-    await page.keyboard.press("ControlOrMeta+k")
+    await page.keyboard.press("/")
     await expect(page.locator("#search-dialog")).toBeVisible()
     await request
   })
@@ -333,6 +346,24 @@ test.describe("search", () => {
     await page.locator("[data-open-search]").filter({ visible: true }).click()
     await expect(page.locator("#recent-list .ui-title")).toHaveText(["Dialog"])
     await expect(page.locator("#recent-list mark")).toHaveCount(0)
+  })
+
+  test("keeps the selected result readable in forced colors mode", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors: "active" })
+    await openSearch(page, "dialog")
+    const selected = page.locator(
+      '#results-list [role=option][aria-selected="true"]',
+    )
+    for (const part of [
+      selected.locator("mark").first(),
+      selected.locator(".ui-description"),
+    ]) {
+      expect(await computed(part, "color")).toBe(
+        await resolveColor(part, "SelectedItemText"),
+      )
+    }
   })
 
   test("closes with Esc", async ({ page }) => {

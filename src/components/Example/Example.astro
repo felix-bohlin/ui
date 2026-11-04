@@ -8,7 +8,7 @@ import { clean } from "../../utils/clean-html"
 import "../../styles/example-layout.css"
 import Code from "../Code.astro"
 import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
-import { format } from "oxfmt"
+import { formatCode } from "../../../scripts/format.mjs"
 import MountReactExamples from "./MountReactExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
 import MountVueExamples from "./MountVueExamples.astro"
@@ -19,13 +19,12 @@ const prettify = async (html: string) => {
   const cleanHtml = clean(html)
 
   try {
-    const { code, errors } = await format("example.html", cleanHtml, {
+    return await formatCode(cleanHtml, "example.html", {
       useTabs: true,
       tabWidth: 2,
       printWidth: 80,
       singleAttributePerLine: false,
     })
-    return errors.length > 0 ? null : code
   } catch (error) {
     return null
   }

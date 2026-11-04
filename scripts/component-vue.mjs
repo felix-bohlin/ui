@@ -12,7 +12,7 @@ import {
   styleOption,
   withImport,
 } from "./component-emit.mjs"
-import { kindOf, MODEL_KINDS } from "./component-models.mjs"
+import { MODEL_KINDS } from "./component-models.mjs"
 import {
   allCodes,
   byName,
@@ -114,7 +114,7 @@ export const toVue = (component) => {
   }
   if (component.model?.refusal) throw component.model.refusal
   const { model } = component
-  const kind = MODEL_KINDS[kindOf(model)]?.vue
+  const kind = MODEL_KINDS[model?.kind]?.vue
   const explicitAttrs = kind?.explicitAttrs === true
   const generic = kind?.generic?.(model) === true
   const { item } = component

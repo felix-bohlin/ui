@@ -11,7 +11,7 @@ import {
   slotOrder,
   withImport,
 } from "./component-emit.mjs"
-import { kindOf, MODEL_KINDS } from "./component-models.mjs"
+import { MODEL_KINDS } from "./component-models.mjs"
 import { byName, propKey, unsupported } from "./component-shared.mjs"
 
 export const toSvelte = (component) => {
@@ -50,7 +50,7 @@ export const toSvelte = (component) => {
     )
   }
   const { model } = component
-  const kind = MODEL_KINDS[kindOf(model)]?.svelte
+  const kind = MODEL_KINDS[model?.kind]?.svelte
   const bindableProps = kind ? kind.bindables(model) : []
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),

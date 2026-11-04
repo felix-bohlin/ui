@@ -62,7 +62,7 @@ const couldMatch = (compound, tag, classes) => {
       ),
     )
   }
-  return type !== undefined
+  return true
 }
 
 const inlineLevelByCss = (tag, classes) =>
@@ -72,27 +72,33 @@ const inlineLevelByCss = (tag, classes) =>
     ),
   )
 
-const tagOf = (node, component) => {
-  if (node.component) return undefined
-  if (!node.variable) return node.tag
-  const fallback = component.props.find(
-    ({ local }) => local === node.tag,
-  )?.default
-  const literal = fallback
-    ? unwrap(sourceFileOf(`(${fallback})`, "tag.ts").statements[0].expression)
-    : undefined
-  return literal && ts.isStringLiteral(literal) ? literal.text : "div"
+const tagsOf = (node, component) => {
+  if (node.component) return []
+  if (!node.variable) return [node.tag]
+  const code =
+    component.props.find(({ local }) => local === node.tag)?.default ??
+    component.derived.find(({ name }) => name === node.tag)?.code
+  if (!code) return []
+  const tags = []
+  const visit = (child) => {
+    if (ts.isStringLiteral(child)) tags.push(child.text)
+    ts.forEachChild(child, visit)
+  }
+  visit(sourceFileOf(`(${code})`, "tag.ts"))
+  return tags
 }
+
+const isBlock = (tags) =>
+  tags.length > 0 && tags.every((tag) => BLOCK_TAGS.has(tag))
 
 export const layoutOf = (component) => {
   const uaOuter = (node) =>
-    BLOCK_TAGS.has(tagOf(node, component)) ? "block" : "inline"
+    isBlock(tagsOf(node, component)) ? "block" : "inline"
   const outer = (node) => {
     if (node.type === "element") {
-      const tag = tagOf(node, component)
-      return tag &&
-        BLOCK_TAGS.has(tag) &&
-        !inlineLevelByCss(tag, staticClasses(node))
+      const tags = tagsOf(node, component)
+      return isBlock(tags) &&
+        !tags.some((tag) => inlineLevelByCss(tag, staticClasses(node)))
         ? "block"
         : "inline"
     }

@@ -151,5 +151,7 @@ export const scriptCodes = (component) => [
 
 export const byName = (a, b) => a.localeCompare(b, "en")
 
+export const isIdentifierName = (name) => /^[A-Za-z_$][\w$]*$/.test(name)
+
 export const propKey = (prop) =>
-  /^[A-Za-z_$][\w$]*$/.test(prop) ? prop : JSON.stringify(prop)
+  isIdentifierName(prop) ? prop : JSON.stringify(prop)

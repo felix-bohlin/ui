@@ -12,9 +12,6 @@ const selectionImports = (component, model) =>
     ? [`import { selectionOf } from "${selectionImport(component)}"`]
     : []
 
-export const kindOf = (model) =>
-  model && (model.item ? "checkedItem" : model.kind)
-
 export const MODEL_KINDS = {
   checked: {
     svelte: {

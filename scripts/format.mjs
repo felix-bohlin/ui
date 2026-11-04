@@ -1,18 +1,18 @@
-import { readFileSync } from "node:fs"
 import { format } from "oxfmt"
+import rc from "../.oxfmtrc.json" with { type: "json" }
 
 const config = Object.fromEntries(
-  Object.entries(
-    JSON.parse(
-      readFileSync(new URL("../.oxfmtrc.json", import.meta.url), "utf8"),
-    ),
-  ).filter(([key]) => key !== "$schema" && key !== "ignorePatterns"),
+  Object.entries(rc).filter(
+    ([key]) => key !== "$schema" && key !== "ignorePatterns",
+  ),
 )
 
-export const formatCode = async (code, file, { printWidth } = {}) => {
+export const formatCode = async (code, file, options = {}) => {
   const result = await format(file, code, {
     ...config,
-    ...(printWidth ? { printWidth } : {}),
+    ...Object.fromEntries(
+      Object.entries(options).filter(([, value]) => value !== undefined),
+    ),
   })
   if (result.errors.length > 0) {
     throw new Error(

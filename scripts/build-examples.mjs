@@ -46,8 +46,8 @@ import {
   staleProblems,
   TARGETS,
 } from "./example-targets.mjs"
-import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
 import { formatStably } from "./format.mjs"
+import { parseHtml, VOID_ELEMENTS } from "./html-tokens.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const examplesDir = join(root, "src/component-examples")

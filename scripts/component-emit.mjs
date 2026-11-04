@@ -1,5 +1,11 @@
 import ts from "typescript"
-import { byName, printer, sourceFileOf, unwrap } from "./component-shared.mjs"
+import {
+  byName,
+  isIdentifierName,
+  printer,
+  sourceFileOf,
+  unwrap,
+} from "./component-shared.mjs"
 
 const synthesize = (node) => {
   ts.setTextRange(node, { end: -1, pos: -1 })
@@ -11,7 +17,9 @@ const synthesized = (node) => {
   return node
 }
 
-const expressionOf = (text, quote) => {
+const expressions = new Map()
+
+const parseExpression = (text, quote) => {
   const sourceFile = sourceFileOf(`(${text})`, "replacement.ts")
   const parsed = synthesized(unwrap(sourceFile.statements[0].expression))
   const requote = (node) =>
@@ -22,6 +30,12 @@ const expressionOf = (text, quote) => {
   return ts.isBinaryExpression(node) || ts.isConditionalExpression(node)
     ? ts.factory.createParenthesizedExpression(node)
     : node
+}
+
+const expressionOf = (text, quote) => {
+  const key = `${quote}\n${text}`
+  if (!expressions.has(key)) expressions.set(key, parseExpression(text, quote))
+  return expressions.get(key)
 }
 
 const transformer =
@@ -131,15 +145,13 @@ export const styleOption = (component, code) => {
   return style ? { code, local: style.local } : undefined
 }
 
+const PRINTED = sourceFileOf("", "printed.ts")
+
 const printed = (node) =>
-  printer.printNode(
-    ts.EmitHint.Expression,
-    node,
-    sourceFileOf("", "printed.ts"),
-  )
+  printer.printNode(ts.EmitHint.Expression, node, PRINTED)
 
 const propertyName = (key, quote) =>
-  /^[A-Za-z_$][\w$]*$/.test(key)
+  isIdentifierName(key)
     ? ts.factory.createIdentifier(key)
     : ts.factory.createStringLiteral(key, quote === "'")
 
@@ -183,6 +195,7 @@ const namedImport = (line) => {
   return statement &&
     ts.isImportDeclaration(statement) &&
     !statement.importClause?.isTypeOnly &&
+    !statement.importClause?.name &&
     statement.importClause?.namedBindings &&
     ts.isNamedImports(statement.importClause.namedBindings)
     ? {

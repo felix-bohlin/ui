@@ -785,6 +785,15 @@ const toTree = (nodes, context) =>
     throw unsupported(context.file, `a ${node.type} node`)
   })
 
+const callsGroupWarning = (code) =>
+  containsKind(
+    sourceFileOf(code, "warning.ts"),
+    (node) =>
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      node.expression.text === "warnGroupedChecked",
+  )
+
 export const readComponent = async (source, file, api) => {
   await loadApis()
   const { ast } = await parse(source, { position: true })
@@ -899,9 +908,7 @@ export const readComponent = async (source, file, api) => {
     file,
     item,
     warnings: item
-      ? frontmatter.warnings.filter(
-          (code) => !code.startsWith("warnGroupedChecked("),
-        )
+      ? frontmatter.warnings.filter((code) => !callsGroupWarning(code))
       : frontmatter.warnings,
     model: modelOf(frontmatter, roots, api, file, file.split("/").at(-2)),
     multiRoot,
@@ -1092,8 +1099,7 @@ const modelOf = (frontmatter, tree, api, file, folder) => {
     return {
       bindables,
       element,
-      item: true,
-      kind: "checked",
+      kind: "checkedItem",
       prop: declared.prop,
       type: declared.type,
     }

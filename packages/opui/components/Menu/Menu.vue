@@ -65,14 +65,13 @@ provide(MenuKey, reactive({ rootId }))
           commandfor: !href && !keepOpen && !disabled ? rootId : undefined,
           ...itemRest,
         }"
-      >
-        <div class="ui-text">
+        ><div class="ui-text">
           <p>{{ label }}</p>
         </div>
         <div v-if="shortcut" class="ui-end">
           <kbd>{{ shortcut }}</kbd>
-        </div>
-      </component>
+        </div></component
+      >
     </li>
     <slot></slot>
   </menu>

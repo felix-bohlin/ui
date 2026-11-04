@@ -13,7 +13,7 @@ import {
   styleOption,
   withImport,
 } from "./component-emit.mjs"
-import { kindOf, MODEL_KINDS } from "./component-models.mjs"
+import { MODEL_KINDS } from "./component-models.mjs"
 import { byName, isBlank, testsIn } from "./component-shared.mjs"
 
 const REACT_ATTRIBUTE_NAMES = { class: "className", for: "htmlFor" }
@@ -37,7 +37,7 @@ export const toReact = (component) => {
     warnings,
   } = component
   if (component.model?.everywhere) throw component.model.refusal
-  const kind = MODEL_KINDS[kindOf(component.model)]?.react
+  const kind = MODEL_KINDS[component.model?.kind]?.react
   const props = component.props.filter(
     ({ local }) =>
       !stringSlots.includes(local) &&

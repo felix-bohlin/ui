@@ -11,6 +11,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  apps:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/apps.yml
+
   check:
     runs-on: ubuntu-latest
     env:
@@ -99,7 +104,7 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: [check, e2e]
+    needs: [apps, check, e2e]
     runs-on: ubuntu-latest
     env:
       GIT_LFS_SKIP_SMUDGE: "1"

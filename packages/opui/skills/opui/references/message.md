@@ -80,7 +80,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-button-size
 ### Example: Basics
 
 ```html
-<ol class="ui-messages" aria-label="Messages with Saga">
+<ol class="ui-messages" role="list" aria-label="Messages with Saga">
   <li class="ui-message">
     <div class="ui-avatar" aria-label="Saga Nyström" role="img">SN</div>
     <div class="ui-content">

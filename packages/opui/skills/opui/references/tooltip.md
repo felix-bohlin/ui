@@ -60,7 +60,12 @@ The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `-
 
 ```html
 <span class="ui-tooltip">
-  <button class="ui-button" type="button" interestfor="tooltip-basics-1">
+  <button
+    class="ui-button"
+    type="button"
+    aria-describedby="tooltip-basics-1"
+    interestfor="tooltip-basics-1"
+  >
     Save
   </button>
   <span class="ui-floating" id="tooltip-basics-1" popover="hint"
@@ -81,7 +86,9 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
 <Tooltip id="tooltip-basics-1">
-  <Button interestfor="tooltip-basics-1">Save</Button>
+  <Button aria-describedby="tooltip-basics-1" interestfor="tooltip-basics-1"
+    >Save</Button
+  >
   <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
 ```
@@ -98,7 +105,12 @@ import { Button, Tooltip, TooltipContent } from "opui-css/react"
 export default function Basics() {
   return (
     <Tooltip id="tooltip-basics-1">
-      <Button interestfor="tooltip-basics-1">Save</Button>
+      <Button
+        aria-describedby="tooltip-basics-1"
+        interestfor="tooltip-basics-1"
+      >
+        Save
+      </Button>
       <TooltipContent>Save your changes</TooltipContent>
     </Tooltip>
   )
@@ -117,7 +129,9 @@ export default function Basics() {
 </script>
 
 <Tooltip id="tooltip-basics-1">
-  <Button interestfor="tooltip-basics-1">Save</Button>
+  <Button aria-describedby="tooltip-basics-1" interestfor="tooltip-basics-1"
+    >Save</Button
+  >
   <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
 ```
@@ -135,7 +149,9 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 
 <template>
   <Tooltip id="tooltip-basics-1">
-    <Button interestfor="tooltip-basics-1">Save</Button>
+    <Button aria-describedby="tooltip-basics-1" interestfor="tooltip-basics-1"
+      >Save</Button
+    >
     <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 </template>

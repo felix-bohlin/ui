@@ -291,4 +291,4 @@ To tune more contrast, set the knobs where the library sets them: on `html` unde
 
 ### Forced colors
 
-Under `forced-colors: active`, selected tabs, toggles and list items, checked switches, progress bars and range thumbs use `SelectedItem`; unchecked switches, range tracks, progress outlines and dividers `CanvasText`; and focused fields a `Highlight` outline. Nothing to configure.
+Under `forced-colors: active`, selected tabs, toggles and list items, checked switches, progress bars and range fills and thumbs use `SelectedItem`; unchecked switches, the rest of range tracks, progress outlines and dividers `CanvasText`; invalid fields and choices a dashed border; and focused fields a `Highlight` outline. Nothing to configure.

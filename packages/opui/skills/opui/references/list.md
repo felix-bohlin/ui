@@ -91,7 +91,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ### Example: Basics
 
 ```html
-<ul class="ui-list">
+<ul class="ui-list" role="list">
   <li>
     <div class="ui-text">
       <p>Headline</p>

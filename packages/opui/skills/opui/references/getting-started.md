@@ -131,6 +131,14 @@ With the CSS on the page, a component is a class on the right element. The modif
 
 Two things need a bit of JavaScript in plain HTML: indeterminate checkboxes (`css/js/checkbox.js`) and the Range value (`css/js/range.js`). Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler. Components with a custom element, like the Number field, import theirs from `elements/` the same way.
 
+The HTML examples on the component pages import these by package name, `opui-css/css/js/range.js` or `opui-css/elements/character-count.js`, which a bundler resolves. Without one, an import map in the `head`, before the first module script, points the package name at the CDN, so the examples run as you copy them:
+
+```html
+<script type="importmap">
+  { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@6/" } }
+</script>
+```
+
 [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.
 
 ## Astro

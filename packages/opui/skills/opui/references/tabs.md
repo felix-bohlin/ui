@@ -107,7 +107,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_track-border-color`: Border color of the track. `.ui-outlined` sets it to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.
 - `--_track-border-width`: Border width of the track. `0px` in `.ui-line`.
 
-Outputs: `--_duration`, `--_focus-ring-duration` and `--_indicator-duration`.
+Outputs: `--_duration`, `--_focus-ring-duration`, `--_indicator-duration` and `--_panel-padding`.
 
 ## Theme tokens
 

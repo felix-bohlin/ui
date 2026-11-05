@@ -178,7 +178,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
     </button>
   </div>
   <div class="ui-content">
-    <ul class="ui-list ui-transparent">
+    <ul class="ui-list ui-transparent" role="list">
       <li>
         <a href="#basics" aria-current="page">
           <div class="ui-text">

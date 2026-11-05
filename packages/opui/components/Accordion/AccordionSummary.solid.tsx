@@ -1,6 +1,7 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
 import { markerPath } from "./icons"
+import { cx } from "../cx"
 import type { AccordionSummaryProps as Props } from "./types.solid"
 
 export default function AccordionSummary(props: Props) {
@@ -8,7 +9,7 @@ export default function AccordionSummary(props: Props) {
   const resolvedMarker = children(() => props.marker)
 
   return (
-    <summary class={[props.class]} {...rest}>
+    <summary class={cx([props.class])} {...rest}>
       {props.children}{" "}
       {resolvedMarker() === undefined ? (
         <svg

@@ -18,8 +18,10 @@ import {
   byName,
   capitalize,
   chosenSpreadCode,
+  classMayBeEmpty,
   codesIn,
   elementsIn,
+  identifierCounts,
   identifiersIn,
   isIdentifierName,
   sourceFileOf,
@@ -83,7 +85,6 @@ export const toSolid = (component) => {
     throw unsupported(
       component.file,
       `the ${model.kind} model in Solid`,
-      "solid",
       "add a solid entry to MODEL_KINDS in scripts/component-models.mjs",
     )
   }
@@ -136,6 +137,29 @@ export const toSolid = (component) => {
     slotHas: (name) => propAccess(slotProp(name)),
   }
   const rewrite = (code, scope = options) => rewriteExpression(code, scope)
+  const taken = new Set([
+    ...component.props.map(({ local }) => local),
+    ...derived.map(({ name }) => name),
+    ...reads.map(({ name }) => name),
+  ])
+  const accessorCode = (name, code) => {
+    const once = [...identifierCounts(code)]
+      .filter(([read, count]) => count > 1 && rename.get(read)?.endsWith("()"))
+      .map(([read]) => [read, `${read}Value`])
+    if (once.length === 0) return `const ${name} = () => ${rewrite(code)}`
+    const clash = once.find(
+      ([, local]) => taken.has(local) || identifiersIn(code).has(local),
+    )
+    if (clash) {
+      throw unsupported(
+        component.file,
+        `the name ${clash[1]}`,
+        `rename it: the Solid port reads ${clash[0]}() once into ${clash[1]} where ${name} reads it twice`,
+      )
+    }
+    const scope = { ...options, rename: new Map([...rename, ...once]) }
+    return `const ${name} = () => {\n${once.map(([read, local]) => `const ${local} = ${rename.get(read)}`).join("\n")}\nreturn ${rewrite(code, scope)}\n}`
+  }
   const codesOf = (nodes) => [
     ...codesIn(nodes),
     ...elementsIn(nodes).flatMap((element) =>
@@ -145,6 +169,7 @@ export const toSolid = (component) => {
   const uses = (nodes, name) =>
     codesOf(nodes).some((code) => identifiersIn(code).has(name))
   let usesShow = false
+  let usesCx = false
   let usesLoopDynamic = false
   const omitted = [
     ...[
@@ -182,7 +207,7 @@ export const toSolid = (component) => {
             `const ${name} = dynamic(${lowered(name)})`,
           ]
         : accessors.has(name)
-          ? [`const ${name} = () => ${rewrite(code)}`]
+          ? [accessorCode(name, code)]
           : [`const ${name} = ${rewrite(code)}`],
     ),
     ...warnings.map(
@@ -200,7 +225,12 @@ export const toSolid = (component) => {
       : []),
   ]
   const attribute = (node, entry, scope) => {
-    if (entry.kind === "class") return `class={${rewrite(entry.code, scope)}}`
+    if (entry.kind === "class") {
+      const code = rewrite(entry.code, scope)
+      if (!classMayBeEmpty(entry.code)) return `class={${code}}`
+      usesCx = true
+      return `class={cx(${code})}`
+    }
     if (entry.kind === "spread") {
       const cast =
         entry.code === rest &&
@@ -361,7 +391,13 @@ export const toSolid = (component) => {
       read: (name) => `use${name}Context`,
     }),
     ...(kind?.imports?.(component, model) ?? []),
-    ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
+    ...[
+      ...(item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(usesCx ? [["../cx", "cx"]] : []),
+    ].reduce(
+      (lines, [module, name]) => withImport(lines, module, name),
+      imports,
+    ),
     ...(item ? [`import { callHandler } from "../solid"`] : []),
     propsImport(propsType, "types.solid"),
   ]

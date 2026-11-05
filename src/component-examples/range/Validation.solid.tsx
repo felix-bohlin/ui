@@ -2,5 +2,12 @@
 import { Range } from "opui-css/solid"
 
 export default function Validation() {
-  return <Range endText="Pick a value below 50." error label="Invalid Range" />
+  return (
+    <Range
+      endText="Set it to 20 or more to hear alarms."
+      error
+      label="Alarm volume"
+      value="10"
+    />
+  )
 }

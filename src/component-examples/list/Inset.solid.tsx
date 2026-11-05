@@ -5,7 +5,7 @@ export default function Inset() {
   return (
     <List>
       <ListItem
-        label="No inset"
+        label="Lena Ek"
         start={
           <svg
             aria-hidden="true"
@@ -21,14 +21,8 @@ export default function Inset() {
           </svg>
         }
       />
-      <ListItem inset label="Inset class">
-        <p>Makes the text line up nicely</p>
-      </ListItem>
-      <ListItem inset label="Inset class" start="Hidden">
-        <p>
-          Any <code>div.ui-start</code> will be hidden when inset
-        </p>
-      </ListItem>
+      <ListItem description="Mobile" inset label="+46 70 123 45 67" />
+      <ListItem description="Work" inset label="lena.ek@example.com" />
     </List>
   )
 }

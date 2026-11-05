@@ -3,7 +3,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/solid"
 
 export default function Vertical() {
   return (
-    <ToggleGroup name="view" orientation="vertical">
+    <ToggleGroup aria-label="View" name="view" orientation="vertical">
       <ToggleButton value="day">Day</ToggleButton>
       <ToggleButton checked value="week">
         Week

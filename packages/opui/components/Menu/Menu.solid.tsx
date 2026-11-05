@@ -4,6 +4,7 @@ import { omit, untrack } from "solid-js"
 import { MenuContext, useMenuContext } from "./context.solid"
 import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
+import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
 export default function Menu(props: Props) {
@@ -65,7 +66,10 @@ export default function Menu(props: Props) {
             const closes = !href && !keepOpen && !disabled
             return (
               <li
-                class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}
+                class={cx([
+                  { "ui-border-top": borderTop },
+                  color && `ui-${color}`,
+                ])}
               >
                 <Tag
                   {...tagAttrs(tag, disabled, href)}

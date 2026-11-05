@@ -5,37 +5,35 @@ export default function Spread() {
   return (
     <>
       <Range
-        endText="End text"
-        label="Spread Layout"
+        endText="Headphones stay below 85 dB."
+        label="Volume"
         spread
-        startText="Start text"
+        startText="Media, calls and alerts."
       />
 
       <Range
         disabled
-        endText="End text"
-        label="Disabled"
+        label="Microphone"
         spread
-        startText="Start text"
+        startText="Set by your organization."
       />
 
       <Range
-        endText="Pick a value below 50."
+        endText="Set it to 20 or more to hear alarms."
         error
-        label="Invalid Range"
+        label="Alarm volume"
         spread
-        startText="Start text"
+        startText="Rings for alarms and timers."
+        value="10"
       />
 
       <Range
         items={[
-          { value: 0, label: "0%" },
-          { value: 25, label: "25%" },
-          { value: 50, label: "50%" },
-          { value: 75, label: "75%" },
-          { value: 100, label: "100%" },
+          { value: 0, label: "Left" },
+          { value: 50, label: "Center" },
+          { value: 100, label: "Right" },
         ]}
-        label="Tick marks with labels"
+        label="Balance"
         spread
       />
     </>

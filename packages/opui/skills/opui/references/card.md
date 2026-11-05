@@ -195,8 +195,8 @@ export default function Variants() {
         <CardContent>Plain</CardContent>
       </Card>
 
-      <Card variant="transparent">
-        <CardContent>Transparent</CardContent>
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
       </Card>
 
       <Card variant="outlined">
@@ -207,8 +207,8 @@ export default function Variants() {
         <CardContent>Tonal</CardContent>
       </Card>
 
-      <Card variant="elevated">
-        <CardContent>Elevated</CardContent>
+      <Card variant="transparent">
+        <CardContent>Transparent</CardContent>
       </Card>
     </>
   )

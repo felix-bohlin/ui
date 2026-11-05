@@ -2,6 +2,7 @@
 import { omit, untrack } from "solid-js"
 import { useDrawerContext } from "./context.solid"
 import { warnReplacedId } from "../dev"
+import { cx } from "../cx"
 import type { DrawerTitleProps as Props } from "./types.solid"
 
 export default function DrawerTitle(props: Props) {
@@ -12,7 +13,7 @@ export default function DrawerTitle(props: Props) {
   })
 
   return (
-    <h2 class={[props.class]} id={drawer?.titleId ?? props.id} {...rest}>
+    <h2 class={cx([props.class])} id={drawer?.titleId ?? props.id} {...rest}>
       {props.children}
     </h2>
   )

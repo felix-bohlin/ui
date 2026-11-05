@@ -1,4 +1,5 @@
 import { createElement } from "react"
+import { createComponent } from "solid-js"
 import { h } from "vue"
 import { afterAll, beforeEach, describe, expect, test, vi } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
@@ -8,16 +9,21 @@ import CheckboxSolid from "../../packages/opui/components/Checkbox/Checkbox.soli
 import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.svelte"
 import CheckboxVue from "../../packages/opui/components/Checkbox/Checkbox.vue"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
+import DialogSolid from "../../packages/opui/components/Dialog/Dialog.solid"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
 import DialogHeaderAstro from "../../packages/opui/components/Dialog/DialogHeader.astro"
 import DialogHeaderReact from "../../packages/opui/components/Dialog/DialogHeader.react"
+import DialogHeaderSolid from "../../packages/opui/components/Dialog/DialogHeader.solid"
 import DialogHeaderSvelte from "../../packages/opui/components/Dialog/DialogHeader.svelte"
 import DialogHeaderVue from "../../packages/opui/components/Dialog/DialogHeader.vue"
 import DialogTitleReact from "../../packages/opui/components/Dialog/DialogTitle.react"
+import DialogTitleSolid from "../../packages/opui/components/Dialog/DialogTitle.solid"
 import DialogTitleVue from "../../packages/opui/components/Dialog/DialogTitle.vue"
 import DrawerReact from "../../packages/opui/components/Drawer/Drawer.react"
+import DrawerSolid from "../../packages/opui/components/Drawer/Drawer.solid"
 import DrawerVue from "../../packages/opui/components/Drawer/Drawer.vue"
 import DrawerTitleReact from "../../packages/opui/components/Drawer/DrawerTitle.react"
+import DrawerTitleSolid from "../../packages/opui/components/Drawer/DrawerTitle.solid"
 import DrawerTitleVue from "../../packages/opui/components/Drawer/DrawerTitle.vue"
 import RadioAstro from "../../packages/opui/components/Radio/Radio.astro"
 import RadioReact from "../../packages/opui/components/Radio/Radio.react"
@@ -31,6 +37,7 @@ import SwitchSvelte from "../../packages/opui/components/Switch/Switch.svelte"
 import SwitchVue from "../../packages/opui/components/Switch/Switch.vue"
 import ToggleGroupAstro from "../../packages/opui/components/ToggleGroup/ToggleGroup.astro"
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
+import ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/ToggleGroup.solid"
 import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
@@ -106,6 +113,7 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
 const TOGGLE_GROUP: Record<ComponentFramework, unknown> = {
   astro: ToggleGroupAstro,
   react: ToggleGroupReact,
+  solid: ToggleGroupSolid,
   svelte: ToggleGroupSvelte,
   vue: ToggleGroupVue,
 }
@@ -157,6 +165,28 @@ const replacedIds: Record<
         ),
       ),
     ),
+  solid: (labelledby) =>
+    render.solid(() => [
+      createComponent(DialogSolid, {
+        "aria-labelledby": labelledby,
+        get children() {
+          return createComponent(DialogTitleSolid, {
+            children: "Title",
+            id: "own-dialog-title",
+          })
+        },
+      }),
+      createComponent(DrawerSolid, {
+        "aria-labelledby": labelledby,
+        get children() {
+          return createComponent(DrawerTitleSolid, {
+            children: "Title",
+            id: "own-title",
+          })
+        },
+        id: "drawer",
+      }),
+    ]),
   svelte: (labelledby) => render.svelte(ReplacedIdsSvelte, { labelledby }),
   vue: (labelledby) =>
     render.vue({
@@ -199,6 +229,7 @@ describe("DialogTitle and DrawerTitle ids", () => {
 const DIALOG_HEADER: Record<ComponentFramework, unknown> = {
   astro: DialogHeaderAstro,
   react: DialogHeaderReact,
+  solid: DialogHeaderSolid,
   svelte: DialogHeaderSvelte,
   vue: DialogHeaderVue,
 }

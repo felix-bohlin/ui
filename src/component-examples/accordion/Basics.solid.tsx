@@ -4,15 +4,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/solid"
 export default function Basics() {
   return (
     <Accordion>
-      <AccordionSummary>Accordion</AccordionSummary>
+      <AccordionSummary>What is included in the free plan?</AccordionSummary>
       <AccordionContent>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-          Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-          Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-          dolor.
+          Three projects, 2 GB of storage and email support. Upgrade at any time
+          to add more projects and invite your team.
         </p>
       </AccordionContent>
     </Accordion>

@@ -59,10 +59,10 @@ export const chosenSpreadCode = (item, spread, condition) =>
 
 const identifierCache = new Map()
 
-export const identifiersIn = (code) => {
+export const identifierCounts = (code) => {
   const cached = identifierCache.get(code)
   if (cached) return cached
-  const names = new Set()
+  const counts = new Map()
   const visit = (node) => {
     if (
       ts.isIdentifier(node) &&
@@ -71,14 +71,16 @@ export const identifiersIn = (code) => {
       ) &&
       !(ts.isPropertyAssignment(node.parent) && node.parent.name === node)
     ) {
-      names.add(node.text)
+      counts.set(node.text, (counts.get(node.text) ?? 0) + 1)
     }
     ts.forEachChild(node, visit)
   }
   visit(sourceFileOf(`(${code})`, "expression.ts"))
-  identifierCache.set(code, names)
-  return names
+  identifierCache.set(code, counts)
+  return counts
 }
+
+export const identifiersIn = (code) => new Set(identifierCounts(code).keys())
 
 const typeNodeOf = (type) =>
   sourceFileOf(`type T = ${type}`, "type.ts").statements[0].type

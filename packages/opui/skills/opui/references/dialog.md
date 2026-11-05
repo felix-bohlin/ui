@@ -265,6 +265,8 @@ export default function Basics() {
 
 `import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/solid"`
 
+- `DialogHeader` slot props (`JSX.Element`): `children` and `closeIcon`.
+
 ### Example: Basics
 
 ```tsx
@@ -290,8 +292,9 @@ export default function Basics() {
       </Button>
 
       <Dialog id="dialog-basics-1">
-        <DialogHeader>
+        <DialogHeader closeLabel="Close">
           <DialogTitle>Newsletter</DialogTitle>
+          <p>Sent by the product team.</p>
         </DialogHeader>
         <DialogContent>
           <p>

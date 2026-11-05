@@ -3,7 +3,7 @@ import { Card, CardContent } from "opui-css/solid"
 
 export default function List() {
   return (
-    <ul class="ui-layout-grid" style="--_min-inline-size: 10rem">
+    <ul role="list" class="ui-layout-grid" style="--_min-inline-size: 10rem">
       <li>
         <Card variant="outlined">
           <CardContent>Design</CardContent>

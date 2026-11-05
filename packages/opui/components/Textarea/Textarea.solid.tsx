@@ -1,4 +1,5 @@
 /** @jsxImportSource @solidjs/web */
+import { dynamic } from "@solidjs/web"
 import { children, omit } from "solid-js"
 import "../../elements/character-count.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
@@ -38,9 +39,11 @@ export default function Textarea(props: Props) {
   const resolvedStartText = children(() => props.startText)
   const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
+  const root = () => (resolvedLabel() ? "label" : "div")
+  const Root = dynamic(root)
 
   return (
-    <label
+    <Root
       class={[
         "ui-textarea",
         {
@@ -87,6 +90,6 @@ export default function Textarea(props: Props) {
         </span>
       )}{" "}
       {props.children}
-    </label>
+    </Root>
   )
 }

@@ -25,6 +25,7 @@ export default function List(props: Props) {
         props.variant && props.variant !== "filled" && `ui-${props.variant}`,
         props.class,
       ]}
+      role="list"
       {...rest}
     >
       {props.children}

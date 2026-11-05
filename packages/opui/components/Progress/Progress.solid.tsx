@@ -7,6 +7,7 @@ export default function Progress(props: Props) {
     props,
     "class",
     "max",
+    "round",
     "style",
     "value",
     "variant",
@@ -17,6 +18,7 @@ export default function Progress(props: Props) {
     <div
       class={[
         "ui-progress",
+        { "ui-round": props.round },
         props.variant && props.variant !== "tonal" && `ui-${props.variant}`,
         props.class,
       ]}

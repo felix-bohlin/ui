@@ -24,7 +24,7 @@ const labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))
 
 provide(
   DialogKey,
-  reactive({ id: computed(() => attrs.id ?? undefined), titleId: labelledBy }),
+  reactive({ id: computed(() => attrs.id || undefined), titleId: labelledBy }),
 )
 </script>
 

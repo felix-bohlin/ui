@@ -68,7 +68,7 @@ export const checkClassPrefix = (lists, label) =>
 const CLASS_LISTS = [
   [".astro", /class:list=\{\[|\bclass=\{cx\(\[/g, "class:list"],
   [".react.tsx", /\bcx\(\[|\bclassName=\{(?!cx\()/g, "cx"],
-  [".solid.tsx", /\bclass=\{\[/g, "class"],
+  [".solid.tsx", /\bclass=\{\[|\bclass=\{cx\(\[/g, "class"],
   [".svelte", /\bclass=\{\[|\{\.\.\.classAttrs\(\[/g, "class"],
   [".vue", /:class="\[|\bclassAttrs\(\[/g, ":class"],
 ]

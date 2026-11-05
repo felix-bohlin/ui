@@ -3,7 +3,7 @@
 See also: Spinner.
 
 - CSS: `opui-css/css/components/progress.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/progress.md), [Astro](https://open-props-ui.netlify.app/astro/components/progress.md), [React](https://open-props-ui.netlify.app/react/components/progress.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/progress.md), [Vue](https://open-props-ui.netlify.app/vue/components/progress.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/progress.md), [Astro](https://open-props-ui.netlify.app/astro/components/progress.md), [React](https://open-props-ui.netlify.app/react/components/progress.md), [Solid](https://open-props-ui.netlify.app/solid/components/progress.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/progress.md), [Vue](https://open-props-ui.netlify.app/vue/components/progress.md).
 
 ## Progress
 
@@ -25,7 +25,7 @@ See also: Spinner.
 
 ### Notes
 
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
+- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 - React: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.
 
 ## Component properties
@@ -80,6 +80,21 @@ import { Progress } from "opui-css/astro"
 
 ```tsx
 import { Progress } from "opui-css/react"
+
+export default function Indeterminate() {
+  return <Progress aria-label="Loading" />
+}
+```
+
+## Solid
+
+`import { Progress } from "opui-css/solid"`
+
+### Example: Indeterminate
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Progress } from "opui-css/solid"
 
 export default function Indeterminate() {
   return <Progress aria-label="Loading" />

@@ -33,6 +33,7 @@ export default function Toaster(props: Props) {
     >
       <ol popover="manual" />
       <div class="ui-sr-only" role="status" />
+      <div class="ui-sr-only" role="alert" />
     </opui-toaster>
   )
 }

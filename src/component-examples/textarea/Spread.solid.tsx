@@ -6,7 +6,7 @@ export default function Spread() {
     <>
       <Textarea
         label="Message"
-        placeholder="Hello, world!"
+        placeholder="Hi, I have a question about my order."
         spread
         startText="You can write your message here. Keep it short, preferably under 100 characters."
       />
@@ -21,30 +21,32 @@ export default function Spread() {
       />
 
       <Textarea
-        label="Required"
+        label="Reason for return"
         required
         spread
-        startText="You must provide a response"
+        startText="Helps us improve our products"
       />
 
       <Textarea
         disabled
-        label="Disabled"
+        label="Order notes"
         spread
-        startText="This textarea is disabled"
+        startText="Orders can't change once they ship"
       />
 
       <Textarea
-        endText="This value is too short."
+        endText="Write at least 20 characters."
         error
-        label="Invalid Message"
+        label="Review"
         spread
-        startText="This textarea has an error"
+        startText="Shown with your rating"
+        value="Great"
       />
 
       <Textarea
-        bottom="280 characters left"
+        characterCount
         label="Bio"
+        maxlength={280}
         placeholder="Tell us about yourself..."
         spread
         start={

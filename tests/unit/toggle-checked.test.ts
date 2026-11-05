@@ -63,7 +63,7 @@ describe("ToggleButton checked", () => {
     ).toEqual(["left"])
     expect(
       checkedInputs(
-        await renderSolid(ToggleGroupSolid as SolidComponent, {
+        renderSolid(ToggleGroupSolid as SolidComponent, {
           get children() {
             return [
               createComponent(ToggleButtonSolid, {

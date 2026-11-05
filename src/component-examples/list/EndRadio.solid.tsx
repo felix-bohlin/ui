@@ -5,13 +5,13 @@ export default function EndRadio() {
   return (
     <List>
       <ListItem
-        end={<RadioInput name="radio-example-group" value="1" />}
-        label="Radio 1"
+        end={<RadioInput name="theme" value="dark" />}
+        label="Dark mode"
         type="radio"
       />
       <ListItem
-        end={<RadioInput name="radio-example-group" value="2" />}
-        label="Radio 2"
+        end={<RadioInput name="theme" value="light" />}
+        label="Light mode"
         type="radio"
       />
     </List>

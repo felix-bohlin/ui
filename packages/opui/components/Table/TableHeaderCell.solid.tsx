@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit } from "solid-js"
+import { cx } from "../cx"
 import type { TableHeaderCellProps as Props } from "./types.solid"
 
 export default function TableHeaderCell(props: Props) {
@@ -8,7 +9,7 @@ export default function TableHeaderCell(props: Props) {
 
   return (
     <th
-      class={[{ "ui-numeric": props.numeric }, props.class]}
+      class={cx([{ "ui-numeric": props.numeric }, props.class])}
       data-sort={props.sortable ? "" : undefined}
       {...rest}
     >

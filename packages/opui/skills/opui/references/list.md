@@ -3,7 +3,7 @@
 Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.
 
 - CSS: `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/list.md), [Astro](https://open-props-ui.netlify.app/astro/components/list.md), [React](https://open-props-ui.netlify.app/react/components/list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/list.md), [Vue](https://open-props-ui.netlify.app/vue/components/list.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/list.md), [Astro](https://open-props-ui.netlify.app/astro/components/list.md), [React](https://open-props-ui.netlify.app/react/components/list.md), [Solid](https://open-props-ui.netlify.app/solid/components/list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/list.md), [Vue](https://open-props-ui.netlify.app/vue/components/list.md).
 
 ## List
 
@@ -41,7 +41,7 @@ Lists are continuous, vertical indexes of text and images and video. Use lists t
 - `borderTop`: `boolean`, `.ui-border-top`. Adds a border above the item.
 - `color`: `"critical"` (`.ui-critical`). Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).
 - `disabled`: `boolean`. Disables a button item. A link item drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
-- `for` (Astro, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `type` is set.
+- `for` (Astro, Solid, Svelte and Vue): `string`. The `for` attribute of the `<label>` when `type` is set.
 - `href`: `string`. The link to use. Renders an `<a>` inside the `<li>`.
 - `htmlFor` (React): `string`. The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.
 - `inset`: `boolean`, `.ui-inset`. Aligns the text with items that have start content.
@@ -150,6 +150,32 @@ import { List, ListItem } from "opui-css/astro"
 
 ```tsx
 import { List, ListItem } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <List>
+      <ListItem label="Headline" />
+      <ListItem
+        description="Supporting text that truly is quite long enough to fill up multiple lines."
+        label="Headline"
+      />
+      <ListItem end="100+" label="Trailing supporting text" />
+    </List>
+  )
+}
+```
+
+## Solid
+
+`import { List, ListItem } from "opui-css/solid"`
+
+- `ListItem` slot props (`JSX.Element`): `children`, `description`, `end`, `label`, `start` and `submenu`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { List, ListItem } from "opui-css/solid"
 
 export default function Basics() {
   return (

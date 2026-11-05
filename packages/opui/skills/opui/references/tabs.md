@@ -209,7 +209,7 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"
 
 export default function Basics() {
   return (
-    <Tabs name="basic-tabs">
+    <Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
       <TabsItem checked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>

@@ -5,10 +5,10 @@ export default function Validation() {
   return (
     <>
       <div class="example-row">
-        <Textarea label="Label" placeholder="Default" required />
+        <Textarea label="Message" placeholder="How can we help?" required />
         <Textarea
-          label="Label"
-          placeholder="Filled"
+          label="Delivery instructions"
+          placeholder="Gate code, floor, where to leave it"
           required
           variant="filled"
         />
@@ -16,18 +16,16 @@ export default function Validation() {
 
       <div class="example-row">
         <Textarea
-          endText="Only double-negatives are allowed."
+          endText="Write at least 20 characters."
           error
-          label="Label"
-          placeholder="Default"
-          value="This isn't right"
+          label="Review"
+          value="Great"
         />
         <Textarea
-          endText="Only letters from the first half of the alphabet are allowed."
+          endText="Remove the link. Bios are plain text."
           error
-          label="Label"
-          placeholder="Filled"
-          value="Uh-oh"
+          label="Bio"
+          value="Designer at https://example.com"
           variant="filled"
         />
       </div>

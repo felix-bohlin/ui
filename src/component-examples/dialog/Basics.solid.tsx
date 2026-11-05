@@ -20,8 +20,9 @@ export default function Basics() {
       </Button>
 
       <Dialog id="dialog-basics-1">
-        <DialogHeader>
+        <DialogHeader closeLabel="Close">
           <DialogTitle>Newsletter</DialogTitle>
+          <p>Sent by the product team.</p>
         </DialogHeader>
         <DialogContent>
           <p>

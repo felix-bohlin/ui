@@ -3,7 +3,7 @@
 Lets you show and hide content, on its own or as a group.
 
 - CSS: `opui-css/css/components/accordion.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/accordion.md), [Astro](https://open-props-ui.netlify.app/astro/components/accordion.md), [React](https://open-props-ui.netlify.app/react/components/accordion.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/accordion.md), [Vue](https://open-props-ui.netlify.app/vue/components/accordion.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/accordion.md), [Astro](https://open-props-ui.netlify.app/astro/components/accordion.md), [React](https://open-props-ui.netlify.app/react/components/accordion.md), [Solid](https://open-props-ui.netlify.app/solid/components/accordion.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/accordion.md), [Vue](https://open-props-ui.netlify.app/vue/components/accordion.md).
 
 ## Accordion
 
@@ -29,7 +29,7 @@ Lets you show and hide content, on its own or as a group.
 ### Notes
 
 - HTML: To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.
-- Astro, React, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
+- Astro, React, Solid, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
 
 ## AccordionSummary
 
@@ -171,6 +171,33 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 ```tsx
 import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Accordion>
+      <AccordionSummary>What is included in the free plan?</AccordionSummary>
+      <AccordionContent>
+        <p>
+          Three projects, 2 GB of storage and email support. Upgrade at any time
+          to add more projects and invite your team.
+        </p>
+      </AccordionContent>
+    </Accordion>
+  )
+}
+```
+
+## Solid
+
+`import { Accordion, AccordionActions, AccordionContent, AccordionSummary } from "opui-css/solid"`
+
+- `AccordionSummary` slot props (`JSX.Element`): `children` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/solid"
 
 export default function Basics() {
   return (

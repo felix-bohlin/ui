@@ -2,6 +2,7 @@
 import { dynamic } from "@solidjs/web"
 import { children, omit, Show } from "solid-js"
 import { tagAttrs } from "../tag"
+import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
 export default function ListItem(props: Props) {
@@ -41,11 +42,11 @@ export default function ListItem(props: Props) {
 
   return (
     <li
-      class={[
+      class={cx([
         { "ui-border-top": props.borderTop, "ui-inset": props.inset },
         props.color && `ui-${props.color}`,
         props.class,
-      ]}
+      ])}
       {...(restOnItem() ? (rest as object) : {})}
     >
       <Show
@@ -68,7 +69,7 @@ export default function ListItem(props: Props) {
       >
         {(tag) => (
           <Tag
-            class={[hasControl() && `ui-${props.type}`]}
+            class={cx([hasControl() && `ui-${props.type}`])}
             for={hasControl() ? props.for : undefined}
             {...(hasControl()
               ? {}

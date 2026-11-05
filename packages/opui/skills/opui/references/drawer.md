@@ -3,7 +3,7 @@
 Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/drawer.md), [Astro](https://open-props-ui.netlify.app/astro/components/drawer.md), [React](https://open-props-ui.netlify.app/react/components/drawer.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/drawer.md), [Vue](https://open-props-ui.netlify.app/vue/components/drawer.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/drawer.md), [Astro](https://open-props-ui.netlify.app/astro/components/drawer.md), [React](https://open-props-ui.netlify.app/react/components/drawer.md), [Solid](https://open-props-ui.netlify.app/solid/components/drawer.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/drawer.md), [Vue](https://open-props-ui.netlify.app/vue/components/drawer.md).
 
 ## Drawer
 
@@ -30,7 +30,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 ### Notes
 
 - HTML: Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ## DrawerHeader
 
@@ -603,6 +603,150 @@ export default function Basics() {
         <DrawerFooter>
           <p>24 tasks</p>
           <div className="ui-actions">
+            <Button size="small">Reset</Button>
+            <Button
+              command="close"
+              commandfor="drawer-basics-4"
+              size="small"
+              variant="filled"
+            >
+              Apply
+            </Button>
+          </div>
+        </DrawerFooter>
+      </Drawer>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/solid"`
+
+- `DrawerHeader` slot props (`JSX.Element`): `children` and `closeIcon`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  Checkbox,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+} from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <>
+      <div class="example-compass">
+        <Button command="show-modal" commandfor="drawer-basics-3">
+          Block start
+        </Button>
+        <Button command="show-modal" commandfor="drawer-basics-1">
+          Inline start
+        </Button>
+        <Button command="show-modal" commandfor="drawer-basics-2">
+          Inline end
+        </Button>
+        <Button command="show-modal" commandfor="drawer-basics-4">
+          Block end
+        </Button>
+      </div>
+
+      <Drawer id="drawer-basics-1" scrollLock side="inline-start">
+        <DrawerHeader>
+          <DrawerTitle>Menu</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <List variant="transparent">
+            <ListItem aria-current="page" href="#basics" label="Dashboard" />
+            <ListItem href="#basics" label="Projects" />
+            <ListItem href="#basics" label="Reports" />
+            <ListItem href="#basics" label="Settings" />
+          </List>
+        </DrawerContent>
+        <DrawerFooter align="start">
+          <Button command="close" commandfor="drawer-basics-1" size="small">
+            Sign out
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer
+        backdrop="transparent"
+        id="drawer-basics-2"
+        scrollLock
+        side="inline-end"
+      >
+        <DrawerHeader>
+          <DrawerTitle>Onboarding emails</DrawerTitle>
+          <Button aria-label="Edit" round size="small">
+            <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+          </Button>
+        </DrawerHeader>
+        <DrawerContent aria-label="Task details" role="region" tabindex="0">
+          <p>
+            Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and
+            the design team sends the new header images by Wednesday.
+          </p>
+        </DrawerContent>
+        <DrawerFooter>
+          <Button
+            command="close"
+            commandfor="drawer-basics-2"
+            size="small"
+            variant="filled"
+          >
+            Mark as done
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer id="drawer-basics-3" scrollLock side="block-start">
+        <DrawerHeader>
+          <DrawerTitle>Notifications</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <p>Marco Rossi commented on Onboarding emails.</p>
+        </DrawerContent>
+        <DrawerFooter>
+          <Button command="close" commandfor="drawer-basics-3" size="small">
+            Mark all as read
+          </Button>
+        </DrawerFooter>
+      </Drawer>
+
+      <Drawer id="drawer-basics-4" scrollLock side="block-end">
+        <DrawerHeader>
+          <DrawerTitle>Filters</DrawerTitle>
+        </DrawerHeader>
+        <DrawerContent>
+          <Fieldset>
+            <FieldLegend>Status</FieldLegend>
+            <FieldGroup name="status" orientation="horizontal">
+              <Checkbox checked value="done">
+                Done
+              </Checkbox>
+              <Checkbox checked value="in-progress">
+                In progress
+              </Checkbox>
+              <Checkbox value="open">Open</Checkbox>
+            </FieldGroup>
+          </Fieldset>
+        </DrawerContent>
+        <DrawerFooter>
+          <p>24 tasks</p>
+          <div class="ui-actions">
             <Button size="small">Reset</Button>
             <Button
               command="close"

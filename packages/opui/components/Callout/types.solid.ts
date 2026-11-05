@@ -3,6 +3,9 @@ import type { ComponentProps } from "@solidjs/web"
 
 export type Props = Base.Props & ComponentProps<"article">
 
+export type CalloutActionsProps = Base.CalloutActionsProps &
+  ComponentProps<"div">
+
 export type CalloutContentProps = Base.CalloutContentProps &
   ComponentProps<"div">
 

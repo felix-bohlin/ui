@@ -1,5 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { children, omit, Show } from "solid-js"
+import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.solid"
 
 export default function StepperItem(props: Props) {
@@ -31,10 +32,10 @@ export default function StepperItem(props: Props) {
   return (
     <li
       aria-current={props.current ? "step" : undefined}
-      class={[
+      class={cx([
         { "ui-complete": props.complete, "ui-error": props.error },
         props.class,
-      ]}
+      ])}
       {...rest}
     >
       {resolvedIconChecked() && (

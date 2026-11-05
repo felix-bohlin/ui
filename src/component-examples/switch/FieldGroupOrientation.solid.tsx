@@ -5,11 +5,11 @@ export default function FieldGroupOrientation() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Show in toolbar</FieldLegend>
         <FieldGroup name="switch-group-orientation" orientation="horizontal">
-          <Switch>Switch 1</Switch>
-          <Switch>Switch 2</Switch>
-          <Switch>Switch 3</Switch>
+          <Switch value="bold">Bold</Switch>
+          <Switch value="italic">Italic</Switch>
+          <Switch value="underline">Underline</Switch>
         </FieldGroup>
       </Fieldset>
     </Form>

@@ -17,7 +17,7 @@ export default function Dialog({
   const labelledBy = autoLabelledBy(rest, titleId)
 
   return (
-    <DialogContext value={{ id: rest.id ?? undefined, titleId: labelledBy }}>
+    <DialogContext value={{ id: rest.id || undefined, titleId: labelledBy }}>
       <dialog
         aria-labelledby={labelledBy}
         className={cx(["ui-dialog", "ui-elevated", className])}

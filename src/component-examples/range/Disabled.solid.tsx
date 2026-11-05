@@ -2,5 +2,5 @@
 import { Range } from "opui-css/solid"
 
 export default function Disabled() {
-  return <Range disabled label="Disabled" />
+  return <Range disabled label="Microphone" />
 }

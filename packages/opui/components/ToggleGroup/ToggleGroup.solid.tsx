@@ -1,7 +1,8 @@
 /** @jsxImportSource @solidjs/web */
-import { createSignal, createUniqueId, omit } from "solid-js"
+import { createSignal, createUniqueId, omit, untrack } from "solid-js"
 import { ToggleGroupContext } from "./context.solid"
 import { selectionOf } from "./selection"
+import { warnUnnamedGroup } from "../dev"
 import { createId } from "../id"
 import type { Props } from "./types.solid"
 
@@ -28,6 +29,9 @@ export default function ToggleGroup(props: Props) {
   const idOf = createId(uid)
   const groupName = () => props.name || idOf("toggle-group")
   const inputType = () => (props.multiple ? "checkbox" : "radio")
+  untrack(() => {
+    warnUnnamedGroup("ToggleGroup", rest)
+  })
 
   return (
     <ToggleGroupContext

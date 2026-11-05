@@ -4,6 +4,7 @@ import { AnchorContext } from "./context.solid"
 import { warnMissingId } from "../dev"
 import { mergeStyle } from "../style"
 import { extendsAnchor } from "./root"
+import { cx } from "../cx"
 import type { Props } from "./types.solid"
 
 export default function Anchor(props: Props) {
@@ -36,7 +37,7 @@ export default function Anchor(props: Props) {
       }}
     >
       <span
-        class={[!extendsAnchor(props.class) && "ui-anchor", props.class]}
+        class={cx([!extendsAnchor(props.class) && "ui-anchor", props.class])}
         id={isHover() ? undefined : props.id}
         style={mergeStyle(
           { "--ui-anchor-position-area": props.positionArea },

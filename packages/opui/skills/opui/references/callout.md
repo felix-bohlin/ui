@@ -152,7 +152,7 @@ export default function Variants() {
 
 ## Solid
 
-`import { Callout, CalloutContent, CalloutIcon } from "opui-css/solid"`
+`import { Callout, CalloutActions, CalloutContent, CalloutIcon } from "opui-css/solid"`
 
 ### Example: Variants
 
@@ -165,23 +165,19 @@ export default function Variants() {
     <>
       <Callout>
         <CalloutContent>
-          <h3>Note</h3>
+          <h3>Scheduled maintenance</h3>
           <p>
-            This is a tonal Callout. Notice the lack of icons - it's not really
-            needed here.
+            The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while
+            we upgrade the database.
           </p>
         </CalloutContent>
       </Callout>
       <Callout variant="outlined">
         <CalloutContent>
-          <h3>Another Callout</h3>
+          <h3>Billing has moved</h3>
           <p>
-            This is an outlined Callout. Why not use a{" "}
-            <a class="ui-link" href="#">
-              Card
-            </a>{" "}
-            since they look very similar? For one, the Callout is a more focused
-            component with different properties.
+            Invoices and payment methods are now in the Billing tab of your
+            workspace settings.
           </p>
         </CalloutContent>
       </Callout>

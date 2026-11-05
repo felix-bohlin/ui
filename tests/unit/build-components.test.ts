@@ -189,6 +189,9 @@ describe("the ports of a sample", () => {
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label, numeric, sortable } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <th\n    v-bind="classAttrs([{ \'ui-numeric\': numeric }, $props.class])"\n    :data-sort="sortable ? \'\' : undefined"\n  >\n    <button v-if="sortable" type="button"><slot></slot></button\n    ><slot v-else></slot>{{ " "\n    }}<span v-if="label" class="ui-label"\n      >{{ label }}<slot name="end-text"></slot\n    ></span>\n  </th>\n</template>\n',
     )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport { cx } from "../cx"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(\n    props,\n    "class",\n    "label",\n    "numeric",\n    "sortable",\n    "children",\n    "endText",\n  )\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <th\n      class={cx([{ "ui-numeric": props.numeric }, props.class])}\n      data-sort={props.sortable ? "" : undefined}\n      {...rest}\n    >\n      {props.sortable ? (\n        <button type="button">{resolvedChildren()}</button>\n      ) : (\n        resolvedChildren()\n      )}{" "}\n      {props.label && (\n        <span class="ui-label">\n          {props.label}\n          {props.endText}\n        </span>\n      )}\n    </th>\n  )\n}\n',
+    )
   })
 
   test("a slot with fallback content, an icon import and a nested component", async () => {
@@ -203,6 +206,9 @@ describe("the ports of a sample", () => {
     )
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport Button from "../Button/Button.vue"\nimport { markerPath } from "./icons"\nimport { classAttrs } from "../cx"\nimport type { Props, Slots } from "./types.vue-props"\n\ndefineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <summary v-bind="classAttrs([$props.class])">\n    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot\n    ><svg v-else aria-hidden="true"><path :d="markerPath" /></svg>{{ " "\n    }}<Button round size="small">Close</Button>\n  </summary>\n</template>\n',
+    )
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport Button from "../Button/Button.solid"\nimport { markerPath } from "./icons"\nimport { cx } from "../cx"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children", "marker")\n  const resolvedMarker = children(() => props.marker)\n\n  return (\n    <summary class={cx([props.class])} {...rest}>\n      {props.children}{" "}\n      {resolvedMarker() === undefined ? (\n        <svg aria-hidden="true">\n          <path d={markerPath} />\n        </svg>\n      ) : (\n        resolvedMarker()\n      )}{" "}\n      <Button round size="small">\n        Close\n      </Button>\n    </summary>\n  )\n}\n',
     )
   })
 
@@ -433,6 +439,28 @@ describe("the ports of a sample", () => {
     expect(ports["solid.tsx"]).toBe(
       '/** @jsxImportSource @solidjs/web */\nimport { children, omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {resolvedChildren() && <span class="ui-label">{resolvedChildren()}</span>}\n    </div>\n  )\n}\n',
     )
+  })
+
+  test("Solid reads an accessor once into a local where a derived value reads it twice, so TypeScript narrows it", async () => {
+    const source =
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, items, ...rest } = Astro.props\n\nconst first = items?.[0]\nconst caption = typeof first === "object" ? first.label : first\n---\n\n<div class:list={["ui-sample", className]} {...rest}>{caption}</div>\n'
+    const ports = await compile(source)
+    expect(ports["solid.tsx"]).toBe(
+      '/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\nimport type { Props } from "./types.solid"\n\nexport default function Sample(props: Props) {\n  const rest = omit(props, "class", "items")\n  const first = () => props.items?.[0]\n  const caption = () => {\n    const firstValue = first()\n    return typeof firstValue === "object" ? firstValue.label : firstValue\n  }\n\n  return (\n    <div class={["ui-sample", props.class]} {...rest}>\n      {caption()}\n    </div>\n  )\n}\n',
+    )
+    const clash = await compileComponent(
+      source.replace(
+        "const first = items?.[0]\n",
+        "const first = items?.[0]\nconst firstValue = 1\n",
+      ),
+      sampleFile(),
+    )
+    expect([...clash.refused.keys()]).toEqual([
+      sampleFile().replace(".astro", ".solid.tsx"),
+    ])
+    expect(
+      clash.refused.get(sampleFile().replace(".astro", ".solid.tsx"))?.message,
+    ).toContain("uses the name firstValue")
   })
 
   test("accepts a helper import from another component folder", async () => {

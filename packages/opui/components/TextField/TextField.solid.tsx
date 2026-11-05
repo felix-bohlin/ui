@@ -19,6 +19,7 @@ export default function TextField(props: Props) {
     "characterCount",
     "characterCountLabel",
     "class",
+    "dropZone",
     "error",
     "hideLabel",
     "id",
@@ -60,7 +61,8 @@ export default function TextField(props: Props) {
       : props.passwordToggleLabel
   const type = () => (props.type === undefined ? "text" : props.type)
   const ids = () => createIds(uid, "text-field", props.id)
-  const root = () => (props.passwordToggle ? "opui-text-field" : "label")
+  const root = () =>
+    props.passwordToggle ? "opui-text-field" : resolvedLabel() ? "label" : "div"
   const Root = dynamic(root)
   const labelTag = () => (props.passwordToggle ? "label" : "span")
   const Label = dynamic(labelTag)
@@ -78,6 +80,7 @@ export default function TextField(props: Props) {
         "ui-text-field",
         {
           "ui-auto-fit": props.autoFit,
+          "ui-drop-zone": props.dropZone,
           "ui-filled": props.variant === "filled",
           "ui-spread": props.spread,
         },

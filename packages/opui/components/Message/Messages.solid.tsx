@@ -6,7 +6,7 @@ export default function Messages(props: Props) {
   const rest = omit(props, "class", "children")
 
   return (
-    <ol class={["ui-messages", props.class]} {...rest}>
+    <ol class={["ui-messages", props.class]} role="list" {...rest}>
       {props.children}
     </ol>
   )

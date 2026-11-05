@@ -10,11 +10,20 @@ const items = [
 
 export default function Narrow() {
   return (
-    <Stepper
-      aria-label="Checkout steps"
-      current={2}
-      items={items}
-      style="max-inline-size: 20rem"
-    />
+    <>
+      <Stepper
+        aria-label="Checkout steps"
+        current={2}
+        items={items}
+        style="max-inline-size: 28rem"
+      />
+      <Stepper
+        aria-label="Checkout steps"
+        current={2}
+        items={items}
+        orientation="horizontal"
+        style="max-inline-size: 28rem"
+      />
+    </>
   )
 }

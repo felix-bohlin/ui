@@ -1,18 +1,18 @@
 /** @jsxImportSource @solidjs/web */
-import { Stepper } from "opui-css/solid"
-
-const items = [
-  { href: "#", label: "Cart" },
-  {
-    description: "Check the postcode",
-    error: true,
-    href: "#",
-    label: "Shipping",
-  },
-  { href: "#", label: "Payment" },
-  { href: "#", label: "Review" },
-]
+import { Stepper, StepperItem } from "opui-css/solid"
 
 export default function Errors() {
-  return <Stepper aria-label="Checkout steps" current={2} items={items} />
+  return (
+    <Stepper aria-label="Checkout steps">
+      <StepperItem complete href="#" label="Cart" />
+      <StepperItem
+        description="Check the postcode"
+        error
+        href="#"
+        label="Shipping"
+      />
+      <StepperItem current label="Payment" />
+      <StepperItem label="Review" />
+    </Stepper>
+  )
 }

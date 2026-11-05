@@ -49,8 +49,22 @@ export default function Range(props: Props) {
   const hasValueText = () => resolvedValueText()
   const hasValue = () => props.valueSuffix !== undefined || hasValueText()
   const hasDatalist = () => !!props.items || resolvedDatalist()
-  const readout = () =>
-    `${props.value ?? defaultValue({ max: props.max, min: props.min, step: props.step })}${props.valueSuffix ?? ""}`
+  const current = () =>
+    props.value ??
+    defaultValue({ max: props.max, min: props.min, step: props.step })
+  const readout = () => `${current()}${props.valueSuffix ?? ""}`
+  const tick = () =>
+    props.items?.find(
+      (option) =>
+        typeof option === "object" &&
+        Number(option.value) === Number(current()),
+    )
+  const tickLabel = () => {
+    const tickValue = tick()
+    return props.valueSuffix || typeof tickValue !== "object"
+      ? undefined
+      : tickValue.label
+  }
   const inputId = () => props.id || (hasValue() ? ids()() : undefined)
   const labelId = () => (hasLabel() ? ids()("label") : undefined)
   const startTextId = () => (hasStartText() ? ids()("start-text") : undefined)
@@ -102,7 +116,7 @@ export default function Range(props: Props) {
         aria-labelledby={labelId() ?? props["aria-labelledby"]}
         aria-valuetext={
           props["aria-valuetext"] ??
-          (props.valueSuffix && !hasValueText() ? readout() : undefined)
+          (props.valueSuffix && !hasValueText() ? readout() : tickLabel())
         }
         id={inputId()}
         list={listId()}

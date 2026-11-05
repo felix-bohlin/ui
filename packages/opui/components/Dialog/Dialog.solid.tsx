@@ -13,6 +13,9 @@ export default function Dialog(props: Props) {
   return (
     <DialogContext
       value={{
+        get id() {
+          return rest.id || undefined
+        },
         get titleId() {
           return labelledBy()
         },

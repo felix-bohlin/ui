@@ -3,7 +3,7 @@
 Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.
 
 - CSS: `opui-css/css/components/text-field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/select.md), [Astro](https://open-props-ui.netlify.app/astro/components/select.md), [React](https://open-props-ui.netlify.app/react/components/select.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/select.md), [Vue](https://open-props-ui.netlify.app/vue/components/select.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/select.md), [Astro](https://open-props-ui.netlify.app/astro/components/select.md), [React](https://open-props-ui.netlify.app/react/components/select.md), [Solid](https://open-props-ui.netlify.app/solid/components/select.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/select.md), [Vue](https://open-props-ui.netlify.app/vue/components/select.md).
 
 ## Select
 
@@ -39,12 +39,12 @@ Leverages the List component to provide markup for the Select popover. Use a Sel
 
 - `default`: Extra `<option>` and `<optgroup>` elements.
 
-Model: `value` (`string | number | (string | number)[]`), the selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string | number | (string | number)[]`), the selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the root `<label>`.
+- Astro, Solid, Svelte and Vue: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<select>`, like `autocomplete` and `multiple`, and `className` and `style` go to the root `<label>`.
 
 ## Component properties
@@ -176,6 +176,39 @@ import { Select } from "opui-css/astro"
 
 ```tsx
 import { Select } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Select label="Role">
+        <option value="">-</option>
+        <option>Designer</option>
+        <option>Developer</option>
+        <option>Manager</option>
+      </Select>
+
+      <Select label="Team" variant="filled">
+        <option value="">-</option>
+        <option>Design</option>
+        <option>Engineering</option>
+        <option>Sales</option>
+      </Select>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Select } from "opui-css/solid"`
+
+- `Select` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Select } from "opui-css/solid"
 
 export default function Variants() {
   return (

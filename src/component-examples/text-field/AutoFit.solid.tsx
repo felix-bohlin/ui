@@ -2,5 +2,5 @@
 import { TextField } from "opui-css/solid"
 
 export default function AutoFit() {
-  return <TextField autoFit label="Label" placeholder="Auto-fit" />
+  return <TextField autoFit label="Project name" placeholder="my-project" />
 }

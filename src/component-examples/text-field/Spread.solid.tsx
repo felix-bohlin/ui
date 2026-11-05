@@ -6,7 +6,7 @@ export default function Spread() {
     <>
       <TextField
         label="Name"
-        placeholder="Evil Rabbit"
+        placeholder="Ada Lovelace"
         spread
         startText="Provide your full name for identification"
       />
@@ -22,25 +22,27 @@ export default function Spread() {
       />
 
       <TextField
-        label="Required"
+        label="Company"
         required
         spread
-        startText="You must fill this in"
+        startText="Shown on your invoices"
       />
 
       <TextField
         disabled
-        label="Disabled"
+        label="Account ID"
         spread
-        startText="This field is disabled"
+        startText="Assigned when you signed up"
+        value="ACC-20931"
       />
 
       <TextField
         endText="Enter at least two characters."
         error
-        label="Invalid Name"
+        label="Display name"
         spread
-        startText="This field has an error"
+        startText="Shown next to your comments"
+        value="A"
       />
 
       <TextField

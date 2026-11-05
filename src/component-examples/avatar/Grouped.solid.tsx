@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { Avatar, AvatarGroup } from "opui-css/solid"
+import { Avatar, AvatarGroup, Badge } from "opui-css/solid"
 
 export default function Grouped() {
   return (
@@ -22,6 +22,11 @@ export default function Grouped() {
       <Avatar aria-label="Karl Lund" href="#">
         KL
       </Avatar>
+      <Badge dot label="Online">
+        <Avatar aria-label="Maja Nilsson" href="#">
+          MN
+        </Avatar>
+      </Badge>
     </AvatarGroup>
   )
 }

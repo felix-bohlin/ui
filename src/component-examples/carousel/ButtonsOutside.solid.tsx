@@ -1,0 +1,37 @@
+/** @jsxImportSource @solidjs/web */
+import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/solid"
+
+const plans = [
+  {
+    action: "Choose Basic",
+    description: "For personal projects.",
+    title: "Basic",
+  },
+  { action: "Choose Pro", description: "For growing teams.", title: "Pro" },
+  { action: "Choose Team", description: "For small teams.", title: "Team" },
+  {
+    action: "Contact sales",
+    description: "For large organisations.",
+    title: "Enterprise",
+  },
+]
+
+export default function ButtonsOutside() {
+  return (
+    <Carousel aria-label="Plans" buttons="outside" itemsPerView={2}>
+      {plans.map(({ action, description, title }) => (
+        <li>
+          <Card variant="outlined">
+            <CardHeader>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+            <CardActions>
+              <Button variant="filled">{action}</Button>
+            </CardActions>
+          </Card>
+        </li>
+      ))}
+    </Carousel>
+  )
+}

@@ -3,7 +3,7 @@
 A list of dated events with markers and a connecting line.
 
 - CSS: `opui-css/css/components/timeline.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/timeline.md), [Astro](https://open-props-ui.netlify.app/astro/components/timeline.md), [React](https://open-props-ui.netlify.app/react/components/timeline.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/timeline.md), [Vue](https://open-props-ui.netlify.app/vue/components/timeline.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/timeline.md), [Astro](https://open-props-ui.netlify.app/astro/components/timeline.md), [React](https://open-props-ui.netlify.app/react/components/timeline.md), [Solid](https://open-props-ui.netlify.app/solid/components/timeline.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/timeline.md), [Vue](https://open-props-ui.netlify.app/vue/components/timeline.md).
 
 ## Timeline
 
@@ -131,6 +131,47 @@ import { Timeline, TimelineItem } from "opui-css/astro"
 
 ```tsx
 import { Timeline, TimelineItem } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Timeline>
+      <TimelineItem datetime="2026-08-04" label="Bug fixes" time="Aug 4, 2026">
+        <p>Faster search and fewer duplicate notifications.</p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-09-12"
+        label="Saved views"
+        time="Sep 12, 2026"
+      >
+        <p>
+          Save filters and sorting as named views and share them with a link.
+        </p>
+      </TimelineItem>
+      <TimelineItem
+        datetime="2026-10-01"
+        label="Planning and a faster board"
+        time="Oct 1, 2026"
+      >
+        <p>
+          Estimates from past work, and a board that renders three times faster.
+        </p>
+      </TimelineItem>
+    </Timeline>
+  )
+}
+```
+
+## Solid
+
+`import { Timeline, TimelineItem } from "opui-css/solid"`
+
+- `TimelineItem` slot props (`JSX.Element`): `children`, `label` and `marker`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Timeline, TimelineItem } from "opui-css/solid"
 
 export default function Basics() {
   return (

@@ -1,0 +1,44 @@
+/** @jsxImportSource @solidjs/web */
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+} from "opui-css/solid"
+
+export default function Group() {
+  return (
+    <Card role="group" variant="outlined">
+      <Accordion>
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
+      </Accordion>
+    </Card>
+  )
+}

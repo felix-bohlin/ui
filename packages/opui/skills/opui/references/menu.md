@@ -3,7 +3,7 @@
 A popover list of actions or links.
 
 - CSS: `opui-css/css/components/list.css` and `opui-css/css/components/menu.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/menu.md), [Astro](https://open-props-ui.netlify.app/astro/components/menu.md), [React](https://open-props-ui.netlify.app/react/components/menu.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/menu.md), [Vue](https://open-props-ui.netlify.app/vue/components/menu.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/menu.md), [Astro](https://open-props-ui.netlify.app/astro/components/menu.md), [React](https://open-props-ui.netlify.app/react/components/menu.md), [Solid](https://open-props-ui.netlify.app/solid/components/menu.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/menu.md), [Vue](https://open-props-ui.netlify.app/vue/components/menu.md).
 
 ## Menu
 
@@ -37,7 +37,7 @@ A popover list of actions or links.
 
 - HTML: Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.
 - Astro and Vue: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.
-- React: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.
+- React and Solid: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.
 - Svelte: Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`.
 
 ## Component properties
@@ -179,6 +179,41 @@ import { Button, Menu } from "opui-css/astro"
 
 ```tsx
 import { Button, Menu } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Button
+        command="toggle-popover"
+        commandfor="menu-basics-1"
+        variant="outlined"
+      >
+        Options
+      </Button>
+      <Menu
+        id="menu-basics-1"
+        items={[
+          { label: "Edit", shortcut: "Ctrl+E" },
+          { label: "Duplicate", shortcut: "Ctrl+D" },
+          { disabled: true, label: "Archive" },
+          { href: "/guide/getting-started/", label: "Help" },
+          { borderTop: true, color: "critical", label: "Delete" },
+        ]}
+      />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Menu } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Menu } from "opui-css/solid"
 
 export default function Basics() {
   return (

@@ -82,30 +82,6 @@ export function frameworkPaths() {
 /** @type {Record<string, FrameworkId[]>} */
 export const COMPONENT_FRAMEWORKS = {}
 
-export const SOLID_FOLDERS = [
-  "Button",
-  "Card",
-  "Dialog",
-  "FieldGroup",
-  "FieldLegend",
-  "Fieldset",
-  "Form",
-  "Radio",
-  "Range",
-  "TextField",
-  "ToggleButton",
-  "ToggleGroup",
-]
-
-export const SOLID_PAGES = [
-  "button",
-  "card",
-  "dialog",
-  "range",
-  "text-field",
-  "toggle",
-]
-
 export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
 
 /**
@@ -113,16 +89,7 @@ export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
  * @param {string} slug
  */
 export function componentHasFramework(framework, slug) {
-  if (framework === "solid") return SOLID_PAGES.includes(slug)
   return COMPONENT_FRAMEWORKS[slug]?.includes(framework) ?? true
-}
-
-/**
- * @param {FrameworkId} framework
- * @param {string} folder
- */
-export function folderHasFramework(framework, folder) {
-  return framework !== "solid" || SOLID_FOLDERS.includes(folder)
 }
 
 /**

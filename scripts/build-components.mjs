@@ -19,7 +19,6 @@ import {
 } from "./component-types.mjs"
 import { toVue } from "./component-vue.mjs"
 import { formatStably } from "./format.mjs"
-import { folderHasFramework } from "../src/utils/framework.js"
 
 export { loadApis, readComponent, toTypes }
 
@@ -46,16 +45,6 @@ const EMITTERS = {
   vue: toVue,
 }
 
-export const portsOf = (folder) =>
-  Object.entries(PORTS).filter(([framework]) =>
-    folderHasFramework(framework, folder),
-  )
-
-const typeFilesOf = (folder) =>
-  Object.entries(TYPE_FILES).filter(([framework]) =>
-    folderHasFramework(framework, folder),
-  )
-
 export const compileComponent = async (source, file, options = {}) => {
   const { api, base = baseTypesOf(file), types = astroTypesOf(file) } = options
   const name = file
@@ -79,7 +68,7 @@ export const compileComponent = async (source, file, options = {}) => {
   }
   const outputs = new Map()
   const refused = new Map()
-  const ports = portsOf(folder)
+  const ports = Object.entries(PORTS)
   for (const [framework, extension] of ports) {
     const target = `packages/opui/components/${folder}/${name}${extension}`
     try {
@@ -213,7 +202,7 @@ export const generate = async ({
         }
       } catch (error) {
         allCompiled = false
-        const ledgerKeys = portsOf(folder).map(
+        const ledgerKeys = Object.values(PORTS).map(
           ([, extension]) => `${folder}/${file.replace(/\.astro$/, extension)}`,
         )
         const message = error.message.startsWith(relative)
@@ -247,7 +236,7 @@ export const generate = async ({
         rootsByComponent,
         modelsByComponent,
       )
-      for (const [framework, typeFile] of typeFilesOf(folder)) {
+      for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
         const target = `packages/opui/components/${folder}/${typeFile}`
         if (`${folder}/${typeFile}` in handWritten) continue
         outputs.set(target, await formatStably(types[framework], target))
@@ -258,7 +247,7 @@ export const generate = async ({
         ? error.message
         : `${types}: ${error.message}`
       if (
-        typeFilesOf(folder).every(
+        Object.values(TYPE_FILES).every(
           ([, typeFile]) => `${folder}/${typeFile}` in handWritten,
         )
       ) {

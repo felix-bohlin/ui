@@ -22,7 +22,7 @@ export default function ToggleGroup(props: Props) {
   const [selected, setSelected] = createSignal(() => props.value)
   const change = (input: HTMLInputElement) => {
     const next = selectionOf(input, props.multiple)
-    setSelected(next)
+    if (selected() !== undefined) setSelected(next)
     props.onValueChange?.(next as never)
   }
   const idOf = createId(uid)

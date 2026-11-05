@@ -3,7 +3,7 @@
 Spacing and grouping for form fields.
 
 - CSS: `opui-css/css/components/form.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/form.md), [Astro](https://open-props-ui.netlify.app/astro/components/form.md), [React](https://open-props-ui.netlify.app/react/components/form.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/form.md), [Vue](https://open-props-ui.netlify.app/vue/components/form.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/form.md), [Astro](https://open-props-ui.netlify.app/astro/components/form.md), [React](https://open-props-ui.netlify.app/react/components/form.md), [Solid](https://open-props-ui.netlify.app/solid/components/form.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/form.md), [Vue](https://open-props-ui.netlify.app/vue/components/form.md).
 
 ## Form
 
@@ -185,6 +185,45 @@ export default function Basics() {
         <FieldGroup>
           <TextField autoComplete="name" label="Name" />
           <TextField autoComplete="email" label="Email" type="email" />
+        </FieldGroup>
+      </Fieldset>
+      <FieldGroup>
+        <Button type="submit" variant="filled">
+          Send
+        </Button>
+      </FieldGroup>
+    </Form>
+  )
+}
+```
+
+## Solid
+
+`import { FieldDescription, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  TextField,
+} from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Contact</FieldLegend>
+        <FieldDescription>How can we reach you?</FieldDescription>
+        <FieldGroup>
+          <TextField autocomplete="name" label="Name" />
+          <TextField autocomplete="email" label="Email" type="email" />
         </FieldGroup>
       </Fieldset>
       <FieldGroup>

@@ -20,7 +20,7 @@
   }: Props = $props()
 
   const isHover = $derived(trigger === "hover")
-  const id = $derived(isHover ? (idProp ?? undefined) : undefined)
+  const id = $derived(isHover ? idProp || undefined : undefined)
   untrack(() => {
     if (isHover && !extendsAnchor(className)) {
       warnMissingId("Anchor", id, "interestfor")

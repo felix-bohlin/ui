@@ -1,4 +1,5 @@
 import type {} from "@solidjs/web/jsx-runtime"
+import type { SortDetail } from "../components/SortableTable/types"
 
 declare module "@solidjs/web/jsx-runtime" {
   namespace JSX {
@@ -19,6 +20,7 @@ declare module "@solidjs/web/jsx-runtime" {
       "opui-sortable-table": HTMLAttributes<HTMLElement> & {
         "ascending-label"?: string | RemoveAttribute
         "descending-label"?: string | RemoveAttribute
+        onSort?: EventHandlerUnion<HTMLElement, CustomEvent<SortDetail>>
       }
       "opui-text-field": HTMLAttributes<HTMLElement>
       "opui-toaster": HTMLAttributes<HTMLElement> & {

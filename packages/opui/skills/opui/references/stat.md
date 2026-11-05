@@ -3,7 +3,7 @@
 A stat shows one number with its label and the change behind it.
 
 - CSS: `opui-css/css/components/stat.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/stat.md), [Astro](https://open-props-ui.netlify.app/astro/components/stat.md), [React](https://open-props-ui.netlify.app/react/components/stat.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/stat.md), [Vue](https://open-props-ui.netlify.app/vue/components/stat.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/stat.md), [Astro](https://open-props-ui.netlify.app/astro/components/stat.md), [React](https://open-props-ui.netlify.app/react/components/stat.md), [Solid](https://open-props-ui.netlify.app/solid/components/stat.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/stat.md), [Vue](https://open-props-ui.netlify.app/vue/components/stat.md).
 
 ## Stat
 
@@ -88,6 +88,34 @@ export default function Basics() {
       description={
         <>
           <span className="ui-caption ui-success">+12.4%</span> from last week
+        </>
+      }
+      label="Visitors"
+    >
+      48 210
+    </Stat>
+  )
+}
+```
+
+## Solid
+
+`import { Stat } from "opui-css/solid"`
+
+- `Stat` slot props (`JSX.Element`): `children`, `description` and `label`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Stat } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Stat
+      description={
+        <>
+          <span class="ui-caption ui-success">+12.4%</span> from last week
         </>
       }
       label="Visitors"

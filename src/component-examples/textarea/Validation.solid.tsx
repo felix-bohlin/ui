@@ -1,0 +1,36 @@
+/** @jsxImportSource @solidjs/web */
+import { Textarea } from "opui-css/solid"
+
+export default function Validation() {
+  return (
+    <>
+      <div class="example-row">
+        <Textarea label="Label" placeholder="Default" required />
+        <Textarea
+          label="Label"
+          placeholder="Filled"
+          required
+          variant="filled"
+        />
+      </div>
+
+      <div class="example-row">
+        <Textarea
+          endText="Only double-negatives are allowed."
+          error
+          label="Label"
+          placeholder="Default"
+          value="This isn't right"
+        />
+        <Textarea
+          endText="Only letters from the first half of the alphabet are allowed."
+          error
+          label="Label"
+          placeholder="Filled"
+          value="Uh-oh"
+          variant="filled"
+        />
+      </div>
+    </>
+  )
+}

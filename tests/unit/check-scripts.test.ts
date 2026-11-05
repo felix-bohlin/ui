@@ -922,6 +922,22 @@ describe("check-components", () => {
       checkSolidProps(
         "Badge.solid.tsx",
         solid(
+          '  const rest = omit(props, "class")\n  return <span {...(rest as object)} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class")\n  return <span {...(props.size ? (rest as object) : {})} />',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
           '  const all = mergeProps({ size: "medium" }, props)\n  return <span />',
         ),
       ),

@@ -18,7 +18,7 @@ Astro is the source of truth for a component's markup. `pnpm build-components` c
 ## Steps
 
 1. **Types.** Shared props in `types.ts`; `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` as section 1 lays them out. A slot becomes a `ReactNode` prop in React, a `Snippet` in Svelte and a `Slots` entry in Vue, named by `slotProp()` in `src/component-api/frameworks.ts` (`end-text` is `endText`).
-2. **Ports.** Write `<Component>.react.tsx`, `<Component>.solid.tsx` (in a folder `SOLID_FOLDERS` lists), `<Component>.svelte` and `<Component>.vue`, mirroring the Astro file element for element: same tag, same class list in the same order, same attributes, slots in the same places. Where Astro trims a slot with `trimEdges()`, Vue uses `<TrimmedSlot>` and React and Svelte need nothing. Where Astro uses `createIds()`, the base is `` id ?? `${prefix}-${uid}` `` with `useId()` or `$props.id()`. Export the component and its props type from the four barrels in `packages/opui/{astro,react,svelte,vue}/index.ts`, sorted.
+2. **Ports.** Write `<Component>.react.tsx`, `<Component>.solid.tsx`, `<Component>.svelte` and `<Component>.vue`, mirroring the Astro file element for element: same tag, same class list in the same order, same attributes, slots in the same places. Where Astro trims a slot with `trimEdges()`, Vue uses `<TrimmedSlot>` and React and Svelte need nothing. Where Astro uses `createIds()`, the base is `` id ?? `${prefix}-${uid}` `` with `useId()` or `$props.id()`. Export the component and its props type from the four barrels in `packages/opui/{astro,react,svelte,vue}/index.ts`, sorted.
 3. **Loop until green.** Run
 
    ```sh

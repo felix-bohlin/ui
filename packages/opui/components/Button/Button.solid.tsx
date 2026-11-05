@@ -33,7 +33,7 @@ export default function Button(props: Props) {
         props.class,
       ]}
       {...tagAttrs(tag(), props.disabled, props.href)}
-      {...rest}
+      {...(rest as object)}
     >
       {props.children}
     </Tag>

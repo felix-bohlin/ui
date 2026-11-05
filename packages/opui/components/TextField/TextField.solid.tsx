@@ -105,7 +105,7 @@ export default function TextField(props: Props) {
             props.pattern ?? (type() === "numeric" ? "[0-9]*" : undefined)
           }
           type={type() === "numeric" ? "text" : type()}
-          {...defaultValueProp(props.value)}
+          {...defaultValueProp(() => props.value)}
         />{" "}
         {props.start && <span class="ui-start">{props.start}</span>}{" "}
         {(props.end || props.passwordToggle) && (

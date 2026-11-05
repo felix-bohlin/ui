@@ -1,0 +1,15 @@
+/** @jsxImportSource @solidjs/web */
+import { NumberField } from "opui-css/solid"
+
+export default function Step() {
+  return (
+    <NumberField
+      id="number-field-step-1"
+      label="Opacity"
+      max={1}
+      min={0}
+      step={0.1}
+      value={0.5}
+    />
+  )
+}

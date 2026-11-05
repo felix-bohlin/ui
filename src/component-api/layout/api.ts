@@ -6,6 +6,7 @@ export default {
   notes: {
     astro: "Add the classes to elements in your templates.",
     react: "Add the classes to elements in your markup.",
+    solid: "Add the classes to elements in your markup.",
     svelte: "Add the classes to elements in your markup.",
     vue: "Add the classes to elements in your templates.",
   },

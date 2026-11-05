@@ -23,6 +23,8 @@ export default {
   },
   notes: passThrough("textarea", "label", ["maxlength", "placeholder"], {
     react: "Use `value` with `onChange`, or `defaultValue`.",
+    solid:
+      "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
   }),
   options: [
     {

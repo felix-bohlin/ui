@@ -3,7 +3,7 @@
 It's just a line.
 
 - CSS: `opui-css/css/components/divider.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/divider.md), [Astro](https://open-props-ui.netlify.app/astro/components/divider.md), [React](https://open-props-ui.netlify.app/react/components/divider.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/divider.md), [Vue](https://open-props-ui.netlify.app/vue/components/divider.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/divider.md), [Astro](https://open-props-ui.netlify.app/astro/components/divider.md), [React](https://open-props-ui.netlify.app/react/components/divider.md), [Solid](https://open-props-ui.netlify.app/solid/components/divider.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/divider.md), [Vue](https://open-props-ui.netlify.app/vue/components/divider.md).
 
 ## Divider
 
@@ -67,6 +67,27 @@ This text is placed under
 
 ```tsx
 import { Divider } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      This text is placed over
+      <Divider />
+      This text is placed under
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Divider } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Divider } from "opui-css/solid"
 
 export default function Basics() {
   return (

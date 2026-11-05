@@ -9,7 +9,7 @@ export default function Form(props: Props) {
   const Tag = dynamic(tag)
 
   return (
-    <Tag class={["ui-form", props.class]} {...rest}>
+    <Tag class={["ui-form", props.class]} {...(rest as object)}>
       {props.children}
     </Tag>
   )

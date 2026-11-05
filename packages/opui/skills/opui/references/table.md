@@ -3,7 +3,7 @@
 Displays tabular data. Basic tables with row and column headers, and optional captions and footers.
 
 - CSS: `opui-css/css/components/table.css` and `opui-css/css/components/sortable-table.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/table.md), [Astro](https://open-props-ui.netlify.app/astro/components/table.md), [React](https://open-props-ui.netlify.app/react/components/table.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/table.md), [Vue](https://open-props-ui.netlify.app/vue/components/table.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/table.md), [Astro](https://open-props-ui.netlify.app/astro/components/table.md), [React](https://open-props-ui.netlify.app/react/components/table.md), [Solid](https://open-props-ui.netlify.app/solid/components/table.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/table.md), [Vue](https://open-props-ui.netlify.app/vue/components/table.md).
 
 ## Table
 
@@ -31,7 +31,7 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 ### Notes
 
-- Astro, React, Svelte and Vue: Set column widths with `TableColumnGroup` and `TableColumn`.
+- Astro, React, Solid, Svelte and Vue: Set column widths with `TableColumnGroup` and `TableColumn`.
 
 ## TableHeaderCell
 
@@ -103,7 +103,8 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 ### Notes
 
 - HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.
-- Astro, React, Svelte and Vue: The component loads `opui-css/elements/sortable-table.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
+- Astro, React, Svelte and Vue: The component loads `opui-css/elements/sortable-table.js`. In React, Solid, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
+- Solid: The component loads `opui-css/elements/sortable-table.js`. In React, Solid, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. Listen with `onSort`, which gets the column index, the direction and the header in `event.detail`.
 
 ## Component properties
 
@@ -248,6 +249,84 @@ export default function Normal() {
           <TableCell>Guitar/Vocals</TableCell>
         </TableRow>
       </TableBody>
+    </Table>
+  )
+}
+```
+
+## Solid
+
+`import { SortableTable, Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableFoot, TableHead, TableHeaderCell, TableRow } from "opui-css/solid"`
+
+### Example: Normal
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Checkbox,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/solid"
+
+export default function Normal() {
+  return (
+    <Table>
+      <TableCaption>Band Members</TableCaption>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>
+            <Checkbox hideLabel>Select all</Checkbox>
+          </TableHeaderCell>
+          <TableHeaderCell>Band</TableHeaderCell>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Instrument</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>
+            <Checkbox hideLabel>Select James Mercer</Checkbox>
+          </TableCell>
+          <TableCell>Broken Bells</TableCell>
+          <TableCell>James Mercer</TableCell>
+          <TableCell>Vocals/Guitar</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
+          </TableCell>
+          <TableCell>Korn</TableCell>
+          <TableCell>Jonathan Davis</TableCell>
+          <TableCell>Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Checkbox hideLabel>Select David Gilmour</Checkbox>
+          </TableCell>
+          <TableCell>Pink Floyd</TableCell>
+          <TableCell>David Gilmour</TableCell>
+          <TableCell>Guitar/Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
+          </TableCell>
+          <TableCell>Radiohead</TableCell>
+          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Guitar/Vocals</TableCell>
+        </TableRow>
+      </TableBody>
+      <TableFoot>
+        <TableRow>
+          <TableCell colspan={4}>4 members</TableCell>
+        </TableRow>
+      </TableFoot>
     </Table>
   )
 }

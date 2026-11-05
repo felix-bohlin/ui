@@ -1,0 +1,20 @@
+/** @jsxImportSource @solidjs/web */
+import { Button, ButtonGroup } from "opui-css/solid"
+
+export default function Disabled() {
+  return (
+    <>
+      <ButtonGroup variant="filled">
+        <Button>Enabled</Button>
+        <Button disabled>Disabled</Button>
+        <Button>Enabled</Button>
+      </ButtonGroup>
+
+      <ButtonGroup color="primary" variant="filled">
+        <Button>Enabled</Button>
+        <Button disabled>Disabled</Button>
+        <Button>Enabled</Button>
+      </ButtonGroup>
+    </>
+  )
+}

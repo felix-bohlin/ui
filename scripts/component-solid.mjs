@@ -27,7 +27,7 @@ import {
 
 const PRAGMA = "/** @jsxImportSource @solidjs/web */"
 
-const NATIVE_KINDS = new Set(["checkedItem", "forward", "radio"])
+const NATIVE_KINDS = new Set(["checkedItem", "forward", "radioGroup"])
 
 const propAccess = (prop) =>
   isIdentifierName(prop) ? `props.${prop}` : `props[${JSON.stringify(prop)}]`
@@ -61,6 +61,7 @@ export const toSolid = (component) => {
   const {
     components,
     derived,
+    element,
     imports,
     item,
     model,
@@ -145,6 +146,16 @@ export const toSolid = (component) => {
     slotHas: (name) => propAccess(slotProp(name)),
   }
   const rewrite = (code, scope = options) => rewriteExpression(code, scope)
+  const codesOf = (nodes) => [
+    ...codesIn(nodes),
+    ...elementsIn(nodes).flatMap((element) =>
+      element.attributes.map((entry) => entry.code ?? ""),
+    ),
+  ]
+  const uses = (nodes, name) =>
+    codesOf(nodes).some((code) => identifiersIn(code).has(name))
+  let usesShow = false
+  let usesLoopDynamic = false
   const omitted = [
     ...[
       ...props.filter(({ local }) => local !== inRest).map(({ prop }) => prop),
@@ -168,7 +179,7 @@ export const toSolid = (component) => {
     ...(kind?.body?.(model, rewrite) ?? []),
     ...defaulted.map(
       ({ default: fallback, local, prop }) =>
-        `const ${local} = () => ${propAccess(prop)} ?? ${fallback}`,
+        `const ${local} = () => ${propAccess(prop)} ?? (${fallback})`,
     ),
     ...tagProps.flatMap(({ default: fallback, local, prop }) => [
       `const ${lowered(local)} = () => ${fallback ? `${propAccess(prop)} || ${fallback}` : propAccess(prop)}`,
@@ -198,17 +209,28 @@ export const toSolid = (component) => {
         ]
       : []),
   ]
-  const attribute = (entry, scope) => {
+  const attribute = (node, entry, scope) => {
     if (entry.kind === "class") return `class={${rewrite(entry.code, scope)}}`
     if (entry.kind === "spread") {
+      const cast =
+        entry.code === rest &&
+        (node.variable ||
+          entry.condition !== undefined ||
+          (!node.component &&
+            !node.custom &&
+            !!element &&
+            node.tag !== element))
+      const spread = cast
+        ? `(${entry.code} as object)`
+        : rewrite(entry.code, scope)
       if (entry.condition !== undefined) {
         return `{...(${chosenSpreadCode(
           entry,
-          rewrite(entry.code, scope),
+          spread,
           rewrite(entry.condition, scope),
         )})}`
       }
-      return `{...${rewrite(entry.code, scope)}}`
+      return `{...${spread}}`
     }
     if (entry.kind === "static") {
       return `${entry.name}=${JSON.stringify(entry.value)}`
@@ -235,6 +257,22 @@ export const toSolid = (component) => {
   }
   const conditional = (node, scope) => {
     const test = rewrite(node.test, scope)
+    const name = node.test.trim()
+    const accessor = /^([A-Za-z_$][\w$]*)\(\)$/.exec(
+      scope.rename.get(name) ?? "",
+    )?.[1]
+    if (accessor && uses(node.consequent, name)) {
+      usesShow = true
+      const consequent = wrapFragment(
+        emit(node.consequent, scope),
+        node.consequent,
+        scope,
+      )
+      const fallback = node.alternate
+        ? ` fallback={${wrapFragment(emit(node.alternate, scope), node.alternate, scope)}}`
+        : ""
+      return `<Show when={${test}}${fallback}>{(${accessor}) => (${consequent})}</Show>`
+    }
     const consequent = wrapFragment(
       emit(node.consequent, scope),
       node.consequent,
@@ -277,10 +315,30 @@ export const toSolid = (component) => {
           ]
           const inner = new Map(scope.rename)
           shadowed.forEach((name) => inner.delete(name))
-          const eachScope = { ...scope, rename: inner }
-          const consts = node.consts.map(
-            ({ code, name }) => `const ${name} = ${rewrite(code, eachScope)}`,
+          const loopTags = new Set(
+            elementsIn(node.children)
+              .filter((element) => element.variable)
+              .map((element) => element.tag),
           )
+          const taken = new Set([...declared, ...shadowed])
+          const loopTag = (name) => {
+            const camel = `${name[0].toLowerCase()}${name.slice(1)}`
+            return taken.has(camel) ? `${camel}Tag` : camel
+          }
+          node.consts
+            .filter(({ name }) => loopTags.has(name))
+            .forEach(({ name }) => inner.set(name, loopTag(name)))
+          const eachScope = { ...scope, rename: inner }
+          const consts = node.consts.flatMap(({ code, name }) => {
+            if (!loopTags.has(name)) {
+              return [`const ${name} = ${rewrite(code, eachScope)}`]
+            }
+            usesLoopDynamic = true
+            return [
+              `const ${loopTag(name)} = ${rewrite(code, eachScope)}`,
+              `const ${name} = dynamic(() => ${loopTag(name)})`,
+            ]
+          })
           const body = wrapFragment(
             emit(node.children, eachScope),
             node.children,
@@ -298,16 +356,8 @@ export const toSolid = (component) => {
           ].some((code) => identifiersIn(code).has(node.index))
           return `{${rewrite(node.list, scope)}${node.optional ? "?" : ""}.map((${node.item}${usesIndex ? `, ${node.index}` : ""}) => ${returned})}`
         }
-        if (node.groupRadio !== undefined) {
-          throw unsupported(
-            component.file,
-            "a radio checked against its group in Solid",
-            "solid",
-            "add radioAttributes to the solid entry of the model kind",
-          )
-        }
         const attributes = [
-          ...node.attributes.map((entry) => attribute(entry, scope)),
+          ...node.attributes.map((entry) => attribute(node, entry, scope)),
           ...(node.model ? (kind?.attributes?.(model) ?? []) : []),
           ...(node.item
             ? [
@@ -339,14 +389,18 @@ export const toSolid = (component) => {
     ? `<${provide.context.name}Context value={${getters(providedValue)}}>${rootNode.type === "if" ? `{${rendered}}` : rendered}</${provide.context.name}Context>`
     : multiRoot
       ? `<>${rendered}</>`
-      : rendered
+      : rootNode.type === "if"
+        ? `<>{${rendered}}</>`
+        : rendered
   const solidValues = [
+    ...(usesShow ? ["Show"] : []),
     ...(kind?.solidValues?.() ?? []),
     ...(rest ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
     ...(warnings.length > 0 || item ? ["untrack"] : []),
   ].toSorted(byName)
-  const usesDynamic = tagProps.length > 0 || tagConsts.length > 0
+  const usesDynamic =
+    tagProps.length > 0 || tagConsts.length > 0 || usesLoopDynamic
   const importLines = [
     ...(usesDynamic ? [`import { dynamic } from "@solidjs/web"`] : []),
     ...(solidValues.length

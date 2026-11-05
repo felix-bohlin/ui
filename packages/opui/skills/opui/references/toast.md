@@ -3,7 +3,7 @@
 Short messages that confirm an action and dismiss themselves.
 
 - CSS: `opui-css/css/components/toaster.css`, `opui-css/css/components/callout.css` and `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/toast.md), [Astro](https://open-props-ui.netlify.app/astro/components/toast.md), [React](https://open-props-ui.netlify.app/react/components/toast.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/toast.md), [Vue](https://open-props-ui.netlify.app/vue/components/toast.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/toast.md), [Astro](https://open-props-ui.netlify.app/astro/components/toast.md), [React](https://open-props-ui.netlify.app/react/components/toast.md), [Solid](https://open-props-ui.netlify.app/solid/components/toast.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/toast.md), [Vue](https://open-props-ui.netlify.app/vue/components/toast.md).
 
 ## Toaster
 
@@ -28,6 +28,7 @@ Short messages that confirm an action and dismiss themselves.
 - HTML: Put an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.
 - Astro: Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.
 - React: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/react` exports `toast()` next to `Toaster`.
+- Solid: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/solid` exports `toast()` next to `Toaster`.
 - Svelte: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.
 - Vue: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/vue` exports `toast()` next to `Toaster`.
 
@@ -152,6 +153,34 @@ import { Button, Toaster } from "opui-css/astro"
 
 ```tsx
 import { Button, Toaster } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Button
+        command="--toast"
+        commandfor="toast-basics-1"
+        data-toast="Changes saved"
+        data-toast-severity="success"
+        variant="filled"
+      >
+        Save changes
+      </Button>
+      <Toaster id="toast-basics-1" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Toaster } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Toaster } from "opui-css/solid"
 
 export default function Basics() {
   return (

@@ -1,5 +1,290 @@
 [
   {
+    "id": "component-accordion-solid",
+    "title": "Accordion",
+    "description": "Lets you show and hide content, on its own or as a group.",
+    "keywords": "collapse details disclosure expand summary",
+    "category": "Component",
+    "url": "/solid/components/accordion/"
+  },
+  {
+    "id": "component-accordion-solid-basics",
+    "title": "Basics",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#basics"
+  },
+  {
+    "id": "component-accordion-solid-variants",
+    "title": "Variants",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#variants"
+  },
+  {
+    "id": "component-accordion-solid-accordion-group",
+    "title": "Accordion group",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#accordion-group"
+  },
+  {
+    "id": "component-accordion-solid-mutually-exclusive",
+    "title": "Mutually exclusive",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#mutually-exclusive"
+  },
+  {
+    "id": "component-accordion-solid-actions",
+    "title": "Actions",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#actions"
+  },
+  {
+    "id": "component-accordion-solid-custom-marker",
+    "title": "Custom marker",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#custom-marker"
+  },
+  {
+    "id": "component-accordion-solid-marker-animation",
+    "title": "Marker animation",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#marker-animation"
+  },
+  {
+    "id": "component-accordion-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Accordion",
+    "category": "Component",
+    "url": "/solid/components/accordion/#keyboard-support"
+  },
+  {
+    "id": "component-anchor-solid",
+    "title": "Anchor",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
+    "keywords": "anchor positioning floating popover position-anchor",
+    "category": "Component",
+    "url": "/solid/components/anchor/"
+  },
+  {
+    "id": "component-anchor-solid-always-visible",
+    "title": "Always visible",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/solid/components/anchor/#always-visible"
+  },
+  {
+    "id": "component-anchor-solid-hover-trigger",
+    "title": "Hover trigger",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/solid/components/anchor/#hover-trigger"
+  },
+  {
+    "id": "component-anchor-solid-link-preview",
+    "title": "Link preview",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/solid/components/anchor/#link-preview"
+  },
+  {
+    "id": "component-anchor-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Anchor",
+    "category": "Component",
+    "url": "/solid/components/anchor/#keyboard-support"
+  },
+  {
+    "id": "component-avatar-solid",
+    "title": "Avatar",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
+    "keywords": "initials photo profile picture user",
+    "category": "Component",
+    "url": "/solid/components/avatar/"
+  },
+  {
+    "id": "component-avatar-solid-image",
+    "title": "Image",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#image"
+  },
+  {
+    "id": "component-avatar-solid-letter",
+    "title": "Letter",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#letter"
+  },
+  {
+    "id": "component-avatar-solid-icon",
+    "title": "Icon",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#icon"
+  },
+  {
+    "id": "component-avatar-solid-variants",
+    "title": "Variants",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#variants"
+  },
+  {
+    "id": "component-avatar-solid-shapes",
+    "title": "Shapes",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#shapes"
+  },
+  {
+    "id": "component-avatar-solid-sizes",
+    "title": "Sizes",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#sizes"
+  },
+  {
+    "id": "component-avatar-solid-disabled",
+    "title": "Disabled",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#disabled"
+  },
+  {
+    "id": "component-avatar-solid-grouped",
+    "title": "Grouped",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/solid/components/avatar/#grouped"
+  },
+  {
+    "id": "component-badge-solid",
+    "title": "Badge",
+    "description": "Badges attach a small count or status dot to another element.",
+    "keywords": "counter dot indicator notification count",
+    "category": "Component",
+    "url": "/solid/components/badge/"
+  },
+  {
+    "id": "component-badge-solid-basics",
+    "title": "Basics",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/solid/components/badge/#basics"
+  },
+  {
+    "id": "component-badge-solid-colors",
+    "title": "Colors",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/solid/components/badge/#colors"
+  },
+  {
+    "id": "component-badge-solid-indicator",
+    "title": "Indicator",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/solid/components/badge/#indicator"
+  },
+  {
+    "id": "component-badge-solid-visibility",
+    "title": "Visibility",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/solid/components/badge/#visibility"
+  },
+  {
+    "id": "component-badge-solid-corners",
+    "title": "Corners",
+    "page": "Badge",
+    "category": "Component",
+    "url": "/solid/components/badge/#corners"
+  },
+  {
+    "id": "component-button-group-solid",
+    "title": "Button group",
+    "description": "Groups related buttons.",
+    "keywords": "segmented control split button toolbar",
+    "category": "Component",
+    "url": "/solid/components/button-group/"
+  },
+  {
+    "id": "component-button-group-solid-variants",
+    "title": "Variants",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#variants"
+  },
+  {
+    "id": "component-button-group-solid-colors",
+    "title": "Colors",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#colors"
+  },
+  {
+    "id": "component-button-group-solid-sizes",
+    "title": "Sizes",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#sizes"
+  },
+  {
+    "id": "component-button-group-solid-icons",
+    "title": "Icons",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#icons"
+  },
+  {
+    "id": "component-button-group-solid-split-button",
+    "title": "Split button",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#split-button"
+  },
+  {
+    "id": "component-button-group-solid-pagination",
+    "title": "Pagination",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#pagination"
+  },
+  {
+    "id": "component-button-group-solid-disabled",
+    "title": "Disabled",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#disabled"
+  },
+  {
+    "id": "component-button-group-solid-vertical-orientation",
+    "title": "Vertical orientation",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#vertical-orientation"
+  },
+  {
+    "id": "component-button-group-solid-overflow",
+    "title": "Overflow",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#overflow"
+  },
+  {
+    "id": "component-button-group-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Button group",
+    "category": "Component",
+    "url": "/solid/components/button-group/#keyboard-support"
+  },
+  {
     "id": "component-button-solid",
     "title": "Button",
     "description": "Buttons allow users to take actions with a single tap.",
@@ -71,6 +356,35 @@
     "url": "/solid/components/button/#keyboard-support"
   },
   {
+    "id": "component-callout-solid",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "keywords": "alert banner message box notice warning",
+    "category": "Component",
+    "url": "/solid/components/callout/"
+  },
+  {
+    "id": "component-callout-solid-variants",
+    "title": "Variants",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/solid/components/callout/#variants"
+  },
+  {
+    "id": "component-callout-solid-severities",
+    "title": "Severities",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/solid/components/callout/#severities"
+  },
+  {
+    "id": "component-callout-solid-icon",
+    "title": "Icon",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/solid/components/callout/#icon"
+  },
+  {
     "id": "component-card-solid",
     "title": "Card",
     "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
@@ -119,6 +433,396 @@
     "page": "Card",
     "category": "Component",
     "url": "/solid/components/card/#clickable"
+  },
+  {
+    "id": "component-carousel-solid",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "keywords": "gallery scroll snap slider slideshow",
+    "category": "Component",
+    "url": "/solid/components/carousel/"
+  },
+  {
+    "id": "component-carousel-solid-basics",
+    "title": "Basics",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#basics"
+  },
+  {
+    "id": "component-carousel-solid-items-per-view",
+    "title": "Items per view",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#items-per-view"
+  },
+  {
+    "id": "component-carousel-solid-stretch",
+    "title": "Stretch",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#stretch"
+  },
+  {
+    "id": "component-carousel-solid-peek",
+    "title": "Peek",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#peek"
+  },
+  {
+    "id": "component-carousel-solid-vertical",
+    "title": "Vertical",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#vertical"
+  },
+  {
+    "id": "component-carousel-solid-images",
+    "title": "Images",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#images"
+  },
+  {
+    "id": "component-carousel-solid-gallery",
+    "title": "Gallery",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#gallery"
+  },
+  {
+    "id": "component-carousel-solid-video",
+    "title": "Video",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#video"
+  },
+  {
+    "id": "component-carousel-solid-embeds",
+    "title": "Embeds",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#embeds"
+  },
+  {
+    "id": "component-carousel-solid-buttons-outside",
+    "title": "Buttons outside",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#buttons-outside"
+  },
+  {
+    "id": "component-carousel-solid-persistent-buttons",
+    "title": "Persistent buttons",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#persistent-buttons"
+  },
+  {
+    "id": "component-carousel-solid-custom-buttons",
+    "title": "Custom buttons",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#custom-buttons"
+  },
+  {
+    "id": "component-carousel-solid-labels",
+    "title": "Labels",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#labels"
+  },
+  {
+    "id": "component-carousel-solid-playground",
+    "title": "Playground",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#playground"
+  },
+  {
+    "id": "component-carousel-solid-grid-and-flex-layouts",
+    "title": "Grid and flex layouts",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#grid-and-flex-layouts"
+  },
+  {
+    "id": "component-carousel-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Carousel",
+    "category": "Component",
+    "url": "/solid/components/carousel/#keyboard-support"
+  },
+  {
+    "id": "component-checkbox-solid",
+    "title": "Checkbox",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "keywords": "check tick",
+    "category": "Component",
+    "url": "/solid/components/checkbox/"
+  },
+  {
+    "id": "component-checkbox-solid-basics",
+    "title": "Basics",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#basics"
+  },
+  {
+    "id": "component-checkbox-solid-sizes",
+    "title": "Sizes",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#sizes"
+  },
+  {
+    "id": "component-checkbox-solid-visible-label",
+    "title": "Visible label",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#visible-label"
+  },
+  {
+    "id": "component-checkbox-solid-hidden-label",
+    "title": "Hidden label",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#hidden-label"
+  },
+  {
+    "id": "component-checkbox-solid-label-position",
+    "title": "Label position",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#label-position"
+  },
+  {
+    "id": "component-checkbox-solid-end-text",
+    "title": "End text",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#end-text"
+  },
+  {
+    "id": "component-checkbox-solid-validation",
+    "title": "Validation",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#validation"
+  },
+  {
+    "id": "component-checkbox-solid-indeterminate",
+    "title": "Indeterminate",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#indeterminate"
+  },
+  {
+    "id": "component-checkbox-solid-select-all",
+    "title": "Select all",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#select-all"
+  },
+  {
+    "id": "component-checkbox-solid-spread",
+    "title": "Spread",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#spread"
+  },
+  {
+    "id": "component-checkbox-solid-cards",
+    "title": "Cards",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#cards"
+  },
+  {
+    "id": "component-checkbox-solid-label-alignment",
+    "title": "Label alignment",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#label-alignment"
+  },
+  {
+    "id": "component-checkbox-solid-field-group",
+    "title": "Field group",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#field-group"
+  },
+  {
+    "id": "component-checkbox-solid-labels",
+    "title": "Labels",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#labels"
+  },
+  {
+    "id": "component-checkbox-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Checkbox",
+    "category": "Component",
+    "url": "/solid/components/checkbox/#keyboard-support"
+  },
+  {
+    "id": "component-chip-solid",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
+    "keywords": "filter pill tag token",
+    "category": "Component",
+    "url": "/solid/components/chip/"
+  },
+  {
+    "id": "component-chip-solid-variants",
+    "title": "Variants",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#variants"
+  },
+  {
+    "id": "component-chip-solid-severities",
+    "title": "Severities",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#severities"
+  },
+  {
+    "id": "component-chip-solid-sizes",
+    "title": "Sizes",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#sizes"
+  },
+  {
+    "id": "component-chip-solid-icon",
+    "title": "Icon",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#icon"
+  },
+  {
+    "id": "component-chip-solid-dot",
+    "title": "Dot",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#dot"
+  },
+  {
+    "id": "component-chip-solid-button",
+    "title": "Button",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#button"
+  },
+  {
+    "id": "component-chip-solid-link",
+    "title": "Link",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#link"
+  },
+  {
+    "id": "component-chip-solid-pressed",
+    "title": "Pressed",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#pressed"
+  },
+  {
+    "id": "component-chip-solid-disabled",
+    "title": "Disabled",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#disabled"
+  },
+  {
+    "id": "component-chip-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Chip",
+    "category": "Component",
+    "url": "/solid/components/chip/#keyboard-support"
+  },
+  {
+    "id": "component-copy-solid",
+    "title": "Copy",
+    "description": "A button that copies text or a field's value to the clipboard.",
+    "keywords": "clipboard copy to clipboard",
+    "category": "Component",
+    "url": "/solid/components/copy/"
+  },
+  {
+    "id": "component-copy-solid-basics",
+    "title": "Basics",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/solid/components/copy/#basics"
+  },
+  {
+    "id": "component-copy-solid-snippet",
+    "title": "Snippet",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/solid/components/copy/#snippet"
+  },
+  {
+    "id": "component-copy-solid-failed",
+    "title": "Failed copy",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/solid/components/copy/#failed"
+  },
+  {
+    "id": "component-copy-solid-without-javascript",
+    "title": "Without JavaScript",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/solid/components/copy/#without-javascript"
+  },
+  {
+    "id": "component-copy-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Copy",
+    "category": "Component",
+    "url": "/solid/components/copy/#keyboard-support"
+  },
+  {
+    "id": "component-description-list-solid",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "keywords": "dl key value properties",
+    "category": "Component",
+    "url": "/solid/components/description-list/"
+  },
+  {
+    "id": "component-description-list-solid-basics",
+    "title": "Basics",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/solid/components/description-list/#basics"
+  },
+  {
+    "id": "component-description-list-solid-bordered",
+    "title": "Bordered",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/solid/components/description-list/#bordered"
+  },
+  {
+    "id": "component-description-list-solid-orientation",
+    "title": "Orientation",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/solid/components/description-list/#orientation"
+  },
+  {
+    "id": "component-description-list-solid-total",
+    "title": "Total",
+    "page": "Description list",
+    "category": "Component",
+    "url": "/solid/components/description-list/#total"
   },
   {
     "id": "component-dialog-solid",
@@ -190,6 +894,843 @@
     "page": "Dialog",
     "category": "Component",
     "url": "/solid/components/dialog/#keyboard-support"
+  },
+  {
+    "id": "component-divider-solid",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "keywords": "hr rule separator",
+    "category": "Component",
+    "url": "/solid/components/divider/"
+  },
+  {
+    "id": "component-divider-solid-basics",
+    "title": "Basics",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/solid/components/divider/#basics"
+  },
+  {
+    "id": "component-divider-solid-variants",
+    "title": "Variants",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/solid/components/divider/#variants"
+  },
+  {
+    "id": "component-divider-solid-content",
+    "title": "Content",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/solid/components/divider/#content"
+  },
+  {
+    "id": "component-divider-solid-spacing",
+    "title": "Spacing",
+    "page": "Divider",
+    "category": "Component",
+    "url": "/solid/components/divider/#spacing"
+  },
+  {
+    "id": "component-drawer-solid",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
+    "keywords": "off-canvas sheet side panel sidebar",
+    "category": "Component",
+    "url": "/solid/components/drawer/"
+  },
+  {
+    "id": "component-drawer-solid-basics",
+    "title": "Basics",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/solid/components/drawer/#basics"
+  },
+  {
+    "id": "component-drawer-solid-close-button",
+    "title": "Close button",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/solid/components/drawer/#close-button"
+  },
+  {
+    "id": "component-drawer-solid-how-to-close",
+    "title": "How to close a drawer",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/solid/components/drawer/#how-to-close"
+  },
+  {
+    "id": "component-drawer-solid-role-attributes",
+    "title": "Role & attributes",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/solid/components/drawer/#role-attributes"
+  },
+  {
+    "id": "component-drawer-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Drawer",
+    "category": "Component",
+    "url": "/solid/components/drawer/#keyboard-support"
+  },
+  {
+    "id": "component-form-solid",
+    "title": "Form",
+    "description": "Spacing and grouping for form fields.",
+    "keywords": "fieldset input group label validation",
+    "category": "Component",
+    "url": "/solid/components/form/"
+  },
+  {
+    "id": "component-form-solid-basics",
+    "title": "Basics",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#basics"
+  },
+  {
+    "id": "component-form-solid-fieldset",
+    "title": "Fieldset",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#fieldset"
+  },
+  {
+    "id": "component-form-solid-field-group",
+    "title": "Field group",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#field-group"
+  },
+  {
+    "id": "component-form-solid-field-group-horizontal",
+    "title": "Horizontal",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#field-group-horizontal"
+  },
+  {
+    "id": "component-form-solid-states",
+    "title": "States",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#states"
+  },
+  {
+    "id": "component-form-solid-fieldset-disabled",
+    "title": "Disabled",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#fieldset-disabled"
+  },
+  {
+    "id": "component-form-solid-fieldset-invalid",
+    "title": "Invalid",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#fieldset-invalid"
+  },
+  {
+    "id": "component-form-solid-fieldset-required",
+    "title": "Required",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#fieldset-required"
+  },
+  {
+    "id": "component-form-solid-actions",
+    "title": "Actions",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#actions"
+  },
+  {
+    "id": "component-form-solid-without-fieldset",
+    "title": "Without fieldset",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#without-fieldset"
+  },
+  {
+    "id": "component-form-solid-kitchen-sink",
+    "title": "Kitchen sink",
+    "page": "Form",
+    "category": "Component",
+    "url": "/solid/components/form/#kitchen-sink"
+  },
+  {
+    "id": "component-layout-solid",
+    "title": "Layout",
+    "description": "Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "keywords": "columns container grid stack",
+    "category": "Component",
+    "url": "/solid/components/layout/"
+  },
+  {
+    "id": "component-layout-solid-column",
+    "title": "Column",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#column"
+  },
+  {
+    "id": "component-layout-solid-column-align",
+    "title": "Align",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#column-align"
+  },
+  {
+    "id": "component-layout-solid-row",
+    "title": "Row",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#row"
+  },
+  {
+    "id": "component-layout-solid-spread",
+    "title": "Spread",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#spread"
+  },
+  {
+    "id": "component-layout-solid-grid",
+    "title": "Grid",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#grid"
+  },
+  {
+    "id": "component-layout-solid-stretch",
+    "title": "Stretch",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#stretch"
+  },
+  {
+    "id": "component-layout-solid-max-columns",
+    "title": "Most columns",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#max-columns"
+  },
+  {
+    "id": "component-layout-solid-lists",
+    "title": "Lists",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#lists"
+  },
+  {
+    "id": "component-layout-solid-columns",
+    "title": "Columns",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#columns"
+  },
+  {
+    "id": "component-layout-solid-sticky",
+    "title": "Sticky",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#sticky"
+  },
+  {
+    "id": "component-layout-solid-media",
+    "title": "Media",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#media"
+  },
+  {
+    "id": "component-layout-solid-gap",
+    "title": "Gap",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#gap"
+  },
+  {
+    "id": "component-layout-solid-container",
+    "title": "Container",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#container"
+  },
+  {
+    "id": "component-layout-solid-breakpoints",
+    "title": "Breakpoints",
+    "page": "Layout",
+    "category": "Component",
+    "url": "/solid/components/layout/#breakpoints"
+  },
+  {
+    "id": "component-list-solid",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "keywords": "listbox menu list ul",
+    "category": "Component",
+    "url": "/solid/components/list/"
+  },
+  {
+    "id": "component-list-solid-basics",
+    "title": "Basics",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#basics"
+  },
+  {
+    "id": "component-list-solid-configurations",
+    "title": "Configurations",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#configurations"
+  },
+  {
+    "id": "component-list-solid-variants",
+    "title": "Variants",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#variants"
+  },
+  {
+    "id": "component-list-solid-clickable-list-item",
+    "title": "Clickable list item",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#clickable-list-item"
+  },
+  {
+    "id": "component-list-solid-selected",
+    "title": "Selected item",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#selected"
+  },
+  {
+    "id": "component-list-solid-text",
+    "title": "Text",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#text"
+  },
+  {
+    "id": "component-list-solid-start-items",
+    "title": "Start items",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#start-items"
+  },
+  {
+    "id": "component-list-solid-icon",
+    "title": "Icon",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#icon"
+  },
+  {
+    "id": "component-list-solid-avatar",
+    "title": "Avatar",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#avatar"
+  },
+  {
+    "id": "component-list-solid-image",
+    "title": "Image",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#image"
+  },
+  {
+    "id": "component-list-solid-video",
+    "title": "Video",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#video"
+  },
+  {
+    "id": "component-list-solid-end-items",
+    "title": "End items",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#end-items"
+  },
+  {
+    "id": "component-list-solid-end-text",
+    "title": "Text",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#end-text"
+  },
+  {
+    "id": "component-list-solid-keyboard-command",
+    "title": "Keyboard command",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#keyboard-command"
+  },
+  {
+    "id": "component-list-solid-checkbox",
+    "title": "Checkbox",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#checkbox"
+  },
+  {
+    "id": "component-list-solid-radio",
+    "title": "Radio",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#radio"
+  },
+  {
+    "id": "component-list-solid-switch",
+    "title": "Switch",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#switch"
+  },
+  {
+    "id": "component-list-solid-inset",
+    "title": "Inset",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#inset"
+  },
+  {
+    "id": "component-list-solid-flush",
+    "title": "Flush",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#flush"
+  },
+  {
+    "id": "component-list-solid-borders",
+    "title": "Borders",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#borders"
+  },
+  {
+    "id": "component-list-solid-on-every-item",
+    "title": "Between items",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#on-every-item"
+  },
+  {
+    "id": "component-list-solid-on-one-item",
+    "title": "On one item",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#on-one-item"
+  },
+  {
+    "id": "component-list-solid-dense",
+    "title": "Dense",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#dense"
+  },
+  {
+    "id": "component-list-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "List",
+    "category": "Component",
+    "url": "/solid/components/list/#keyboard-support"
+  },
+  {
+    "id": "component-menu-solid",
+    "title": "Menu",
+    "description": "A popover list of actions or links.",
+    "keywords": "actions context menu dropdown popover",
+    "category": "Component",
+    "url": "/solid/components/menu/"
+  },
+  {
+    "id": "component-menu-solid-basics",
+    "title": "Basics",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#basics"
+  },
+  {
+    "id": "component-menu-solid-bordered",
+    "title": "Bordered",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#bordered"
+  },
+  {
+    "id": "component-menu-solid-dense",
+    "title": "Dense",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#dense"
+  },
+  {
+    "id": "component-menu-solid-custom",
+    "title": "Custom items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#custom"
+  },
+  {
+    "id": "component-menu-solid-placement",
+    "title": "Placement",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#placement"
+  },
+  {
+    "id": "component-menu-solid-submenu",
+    "title": "Submenu",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#submenu"
+  },
+  {
+    "id": "component-menu-solid-manual",
+    "title": "Manual",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#manual"
+  },
+  {
+    "id": "component-menu-solid-role-attributes",
+    "title": "Role & attributes",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#role-attributes"
+  },
+  {
+    "id": "component-menu-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/solid/components/menu/#keyboard-support"
+  },
+  {
+    "id": "component-message-solid",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "keywords": "chat chat bubble conversation",
+    "category": "Component",
+    "url": "/solid/components/message/"
+  },
+  {
+    "id": "component-message-solid-basics",
+    "title": "Basics",
+    "page": "Message",
+    "category": "Component",
+    "url": "/solid/components/message/#basics"
+  },
+  {
+    "id": "component-message-solid-group-chat",
+    "title": "Group chat",
+    "page": "Message",
+    "category": "Component",
+    "url": "/solid/components/message/#group-chat"
+  },
+  {
+    "id": "component-message-solid-attachments",
+    "title": "Attachments",
+    "page": "Message",
+    "category": "Component",
+    "url": "/solid/components/message/#attachments"
+  },
+  {
+    "id": "component-message-solid-reactions",
+    "title": "Reactions",
+    "page": "Message",
+    "category": "Component",
+    "url": "/solid/components/message/#reactions"
+  },
+  {
+    "id": "component-message-solid-typing",
+    "title": "Typing indicator",
+    "page": "Message",
+    "category": "Component",
+    "url": "/solid/components/message/#typing"
+  },
+  {
+    "id": "component-number-field-solid",
+    "title": "Number field",
+    "description": "A number field with buttons that step the value down and up, for amounts like a quantity.",
+    "keywords": "counter quantity spin button stepper",
+    "category": "Component",
+    "url": "/solid/components/number-field/"
+  },
+  {
+    "id": "component-number-field-solid-basics",
+    "title": "Basics",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#basics"
+  },
+  {
+    "id": "component-number-field-solid-variants",
+    "title": "Variants",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#variants"
+  },
+  {
+    "id": "component-number-field-solid-sizes",
+    "title": "Sizes",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#sizes"
+  },
+  {
+    "id": "component-number-field-solid-stretch",
+    "title": "Stretch",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#stretch"
+  },
+  {
+    "id": "component-number-field-solid-step",
+    "title": "Step",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#step"
+  },
+  {
+    "id": "component-number-field-solid-end-text",
+    "title": "End text",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#end-text"
+  },
+  {
+    "id": "component-number-field-solid-hidden-label",
+    "title": "Hidden label",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#hidden-label"
+  },
+  {
+    "id": "component-number-field-solid-buttons",
+    "title": "Buttons",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#buttons"
+  },
+  {
+    "id": "component-number-field-solid-disabled",
+    "title": "Disabled",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#disabled"
+  },
+  {
+    "id": "component-number-field-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/solid/components/number-field/#keyboard-support"
+  },
+  {
+    "id": "component-one-time-code-solid",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "keywords": "2fa otp pin verification code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/"
+  },
+  {
+    "id": "component-one-time-code-solid-basics",
+    "title": "Basics",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#basics"
+  },
+  {
+    "id": "component-one-time-code-solid-grouped",
+    "title": "Grouped",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#grouped"
+  },
+  {
+    "id": "component-one-time-code-solid-sizes",
+    "title": "Sizes",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#sizes"
+  },
+  {
+    "id": "component-one-time-code-solid-length",
+    "title": "Length",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#length"
+  },
+  {
+    "id": "component-one-time-code-solid-alphanumeric",
+    "title": "Alphanumeric",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#alphanumeric"
+  },
+  {
+    "id": "component-one-time-code-solid-validation",
+    "title": "Validation",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#validation"
+  },
+  {
+    "id": "component-one-time-code-solid-disabled",
+    "title": "Disabled",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#disabled"
+  },
+  {
+    "id": "component-one-time-code-solid-right-to-left",
+    "title": "Right-to-left",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#right-to-left"
+  },
+  {
+    "id": "component-one-time-code-solid-paste-and-auto-submit",
+    "title": "Paste and auto-submit",
+    "page": "One-time code",
+    "category": "Component",
+    "url": "/solid/components/one-time-code/#paste-and-auto-submit"
+  },
+  {
+    "id": "component-progress-solid",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "keywords": "loading meter progress bar",
+    "category": "Component",
+    "url": "/solid/components/progress/"
+  },
+  {
+    "id": "component-progress-solid-indeterminate",
+    "title": "Indeterminate",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/solid/components/progress/#indeterminate"
+  },
+  {
+    "id": "component-progress-solid-determinate",
+    "title": "Determinate",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/solid/components/progress/#determinate"
+  },
+  {
+    "id": "component-progress-solid-variants",
+    "title": "Variants",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/solid/components/progress/#variants"
+  },
+  {
+    "id": "component-progress-solid-inline",
+    "title": "Inline",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/solid/components/progress/#inline"
+  },
+  {
+    "id": "component-radio-solid",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "keywords": "option radio button radio group",
+    "category": "Component",
+    "url": "/solid/components/radio/"
+  },
+  {
+    "id": "component-radio-solid-basics",
+    "title": "Basics",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#basics"
+  },
+  {
+    "id": "component-radio-solid-sizes",
+    "title": "Sizes",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#sizes"
+  },
+  {
+    "id": "component-radio-solid-visible-label",
+    "title": "Visible label",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#visible-label"
+  },
+  {
+    "id": "component-radio-solid-hidden-label",
+    "title": "Hidden label",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#hidden-label"
+  },
+  {
+    "id": "component-radio-solid-label-position",
+    "title": "Label position",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#label-position"
+  },
+  {
+    "id": "component-radio-solid-end-text",
+    "title": "End text",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#end-text"
+  },
+  {
+    "id": "component-radio-solid-spread",
+    "title": "Spread",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#spread"
+  },
+  {
+    "id": "component-radio-solid-cards",
+    "title": "Cards",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#cards"
+  },
+  {
+    "id": "component-radio-solid-label-alignment",
+    "title": "Label alignment",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#label-alignment"
+  },
+  {
+    "id": "component-radio-solid-radio-input",
+    "title": "Radio input",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#radio-input"
+  },
+  {
+    "id": "component-radio-solid-field-group",
+    "title": "Field group",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#field-group"
+  },
+  {
+    "id": "component-radio-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Radio",
+    "category": "Component",
+    "url": "/solid/components/radio/#keyboard-support"
   },
   {
     "id": "component-range-solid",
@@ -268,6 +1809,602 @@
     "page": "Range",
     "category": "Component",
     "url": "/solid/components/range/#keyboard-support"
+  },
+  {
+    "id": "component-rating-solid",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "keywords": "review score stars",
+    "category": "Component",
+    "url": "/solid/components/rating/"
+  },
+  {
+    "id": "component-rating-solid-basics",
+    "title": "Basics",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#basics"
+  },
+  {
+    "id": "component-rating-solid-input",
+    "title": "Input",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#input"
+  },
+  {
+    "id": "component-rating-solid-sizes",
+    "title": "Sizes",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#sizes"
+  },
+  {
+    "id": "component-rating-solid-fractions",
+    "title": "Fractions",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#fractions"
+  },
+  {
+    "id": "component-rating-solid-max",
+    "title": "Max",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#max"
+  },
+  {
+    "id": "component-rating-solid-disabled",
+    "title": "Disabled",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#disabled"
+  },
+  {
+    "id": "component-rating-solid-validation",
+    "title": "Validation",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#validation"
+  },
+  {
+    "id": "component-rating-solid-localization",
+    "title": "Localization",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#localization"
+  },
+  {
+    "id": "component-rating-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Rating",
+    "category": "Component",
+    "url": "/solid/components/rating/#keyboard-support"
+  },
+  {
+    "id": "component-select-solid",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
+    "keywords": "combobox dropdown option picker",
+    "category": "Component",
+    "url": "/solid/components/select/"
+  },
+  {
+    "id": "component-select-solid-variants",
+    "title": "Variants",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#variants"
+  },
+  {
+    "id": "component-select-solid-sizes",
+    "title": "Sizes",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#sizes"
+  },
+  {
+    "id": "component-select-solid-dense",
+    "title": "Dense",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#dense"
+  },
+  {
+    "id": "component-select-solid-end-text",
+    "title": "End text",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#end-text"
+  },
+  {
+    "id": "component-select-solid-affix",
+    "title": "Affix",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#affix"
+  },
+  {
+    "id": "component-select-solid-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#top-and-bottom"
+  },
+  {
+    "id": "component-select-solid-preselected",
+    "title": "Preselected",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#preselected"
+  },
+  {
+    "id": "component-select-solid-binding",
+    "title": "Binding",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#binding"
+  },
+  {
+    "id": "component-select-solid-option-groups",
+    "title": "Option groups",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#option-groups"
+  },
+  {
+    "id": "component-select-solid-optgroup",
+    "title": "Optgroup",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#optgroup"
+  },
+  {
+    "id": "component-select-solid-validation",
+    "title": "Validation",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#validation"
+  },
+  {
+    "id": "component-select-solid-spread",
+    "title": "Spread",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#spread"
+  },
+  {
+    "id": "component-select-solid-auto-fit",
+    "title": "Auto-fit",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#auto-fit"
+  },
+  {
+    "id": "component-select-solid-fallback",
+    "title": "Fallback",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#fallback"
+  },
+  {
+    "id": "component-select-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Select",
+    "category": "Component",
+    "url": "/solid/components/select/#keyboard-support"
+  },
+  {
+    "id": "component-spinner-solid",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
+    "keywords": "busy loader loading",
+    "category": "Component",
+    "url": "/solid/components/spinner/"
+  },
+  {
+    "id": "component-spinner-solid-basics",
+    "title": "Basics",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/solid/components/spinner/#basics"
+  },
+  {
+    "id": "component-spinner-solid-sizes",
+    "title": "Sizes",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/solid/components/spinner/#sizes"
+  },
+  {
+    "id": "component-spinner-solid-buttons",
+    "title": "Buttons",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/solid/components/spinner/#buttons"
+  },
+  {
+    "id": "component-spinner-solid-no-spinner",
+    "title": "When aria-busy=\"true\" shows no spinner",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/solid/components/spinner/#no-spinner"
+  },
+  {
+    "id": "component-spinner-solid-blocked-by-another-use-case",
+    "title": "1. Because it's blocked by another use case",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/solid/components/spinner/#blocked-by-another-use-case"
+  },
+  {
+    "id": "component-spinner-solid-doesnt-make-sense",
+    "title": "2. Because it doesn't make sense",
+    "page": "Spinner",
+    "category": "Component",
+    "url": "/solid/components/spinner/#doesnt-make-sense"
+  },
+  {
+    "id": "component-stat-solid",
+    "title": "Stat",
+    "description": "A stat shows one number with its label and the change behind it.",
+    "keywords": "kpi metric number",
+    "category": "Component",
+    "url": "/solid/components/stat/"
+  },
+  {
+    "id": "component-stat-solid-basics",
+    "title": "Basics",
+    "page": "Stat",
+    "category": "Component",
+    "url": "/solid/components/stat/#basics"
+  },
+  {
+    "id": "component-stat-solid-sizes",
+    "title": "Sizes",
+    "page": "Stat",
+    "category": "Component",
+    "url": "/solid/components/stat/#sizes"
+  },
+  {
+    "id": "component-stat-solid-cards",
+    "title": "Cards",
+    "page": "Stat",
+    "category": "Component",
+    "url": "/solid/components/stat/#cards"
+  },
+  {
+    "id": "component-stepper-solid",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "keywords": "progress steps wizard",
+    "category": "Component",
+    "url": "/solid/components/stepper/"
+  },
+  {
+    "id": "component-stepper-solid-basics",
+    "title": "Basics",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#basics"
+  },
+  {
+    "id": "component-stepper-solid-sizes",
+    "title": "Sizes",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#sizes"
+  },
+  {
+    "id": "component-stepper-solid-descriptions",
+    "title": "Descriptions",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#descriptions"
+  },
+  {
+    "id": "component-stepper-solid-custom-check",
+    "title": "Custom check",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#custom-check"
+  },
+  {
+    "id": "component-stepper-solid-complete",
+    "title": "Complete",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#complete"
+  },
+  {
+    "id": "component-stepper-solid-errors",
+    "title": "Errors",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#errors"
+  },
+  {
+    "id": "component-stepper-solid-labels",
+    "title": "Screen reader labels",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#labels"
+  },
+  {
+    "id": "component-stepper-solid-vertical",
+    "title": "Vertical",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#vertical"
+  },
+  {
+    "id": "component-stepper-solid-narrow",
+    "title": "Narrow containers",
+    "page": "Stepper",
+    "category": "Component",
+    "url": "/solid/components/stepper/#narrow"
+  },
+  {
+    "id": "component-switch-solid",
+    "title": "Switch",
+    "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
+    "keywords": "on off toggle",
+    "category": "Component",
+    "url": "/solid/components/switch/"
+  },
+  {
+    "id": "component-switch-solid-basics",
+    "title": "Basics",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#basics"
+  },
+  {
+    "id": "component-switch-solid-sizes",
+    "title": "Sizes",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#sizes"
+  },
+  {
+    "id": "component-switch-solid-visible-label",
+    "title": "Visible label",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#visible-label"
+  },
+  {
+    "id": "component-switch-solid-hidden-label",
+    "title": "Hidden label",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#hidden-label"
+  },
+  {
+    "id": "component-switch-solid-label-position",
+    "title": "Label position",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#label-position"
+  },
+  {
+    "id": "component-switch-solid-end-text",
+    "title": "End text",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#end-text"
+  },
+  {
+    "id": "component-switch-solid-icons",
+    "title": "Icons",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#icons"
+  },
+  {
+    "id": "component-switch-solid-validation",
+    "title": "Validation",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#validation"
+  },
+  {
+    "id": "component-switch-solid-spread",
+    "title": "Spread",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#spread"
+  },
+  {
+    "id": "component-switch-solid-cards",
+    "title": "Cards",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#cards"
+  },
+  {
+    "id": "component-switch-solid-label-alignment",
+    "title": "Label alignment",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#label-alignment"
+  },
+  {
+    "id": "component-switch-solid-switch-input",
+    "title": "Switch input",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#switch-input"
+  },
+  {
+    "id": "component-switch-solid-field-group",
+    "title": "Field group",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#field-group"
+  },
+  {
+    "id": "component-switch-solid-role-attributes",
+    "title": "Role & attributes",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#role-attributes"
+  },
+  {
+    "id": "component-switch-solid-labels",
+    "title": "Labels",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#labels"
+  },
+  {
+    "id": "component-switch-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Switch",
+    "category": "Component",
+    "url": "/solid/components/switch/#keyboard-support"
+  },
+  {
+    "id": "component-table-solid",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "keywords": "data table grid rows sort",
+    "category": "Component",
+    "url": "/solid/components/table/"
+  },
+  {
+    "id": "component-table-solid-density",
+    "title": "Density",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#density"
+  },
+  {
+    "id": "component-table-solid-normal",
+    "title": "Normal",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#normal"
+  },
+  {
+    "id": "component-table-solid-dense",
+    "title": "Dense",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#dense"
+  },
+  {
+    "id": "component-table-solid-spacious",
+    "title": "Spacious",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#spacious"
+  },
+  {
+    "id": "component-table-solid-numbers",
+    "title": "Numbers",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#numbers"
+  },
+  {
+    "id": "component-table-solid-in-a-card",
+    "title": "In a card",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#in-a-card"
+  },
+  {
+    "id": "component-table-solid-controls-in-cells",
+    "title": "Controls in cells",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#controls-in-cells"
+  },
+  {
+    "id": "component-table-solid-sticky-header",
+    "title": "Sticky header",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#sticky-header"
+  },
+  {
+    "id": "component-table-solid-sorting",
+    "title": "Sorting",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#sorting"
+  },
+  {
+    "id": "component-table-solid-advanced",
+    "title": "Advanced",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#advanced"
+  },
+  {
+    "id": "component-table-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Table",
+    "category": "Component",
+    "url": "/solid/components/table/#keyboard-support"
+  },
+  {
+    "id": "component-tabs-solid",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "keywords": "tab panel tablist",
+    "category": "Component",
+    "url": "/solid/components/tabs/"
+  },
+  {
+    "id": "component-tabs-solid-basics",
+    "title": "Basics",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#basics"
+  },
+  {
+    "id": "component-tabs-solid-filled",
+    "title": "Filled",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#filled"
+  },
+  {
+    "id": "component-tabs-solid-line",
+    "title": "Line",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#line"
+  },
+  {
+    "id": "component-tabs-solid-outlined",
+    "title": "Outlined",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#outlined"
+  },
+  {
+    "id": "component-tabs-solid-overflow",
+    "title": "Overflow",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#overflow"
+  },
+  {
+    "id": "component-tabs-solid-binding",
+    "title": "Binding",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#binding"
+  },
+  {
+    "id": "component-tabs-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/solid/components/tabs/#keyboard-support"
   },
   {
     "id": "component-text-field-solid",
@@ -404,6 +2541,226 @@
     "url": "/solid/components/text-field/#keyboard-support"
   },
   {
+    "id": "component-textarea-solid",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "keywords": "multiline text area",
+    "category": "Component",
+    "url": "/solid/components/textarea/"
+  },
+  {
+    "id": "component-textarea-solid-variants",
+    "title": "Variants",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#variants"
+  },
+  {
+    "id": "component-textarea-solid-sizes",
+    "title": "Sizes",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#sizes"
+  },
+  {
+    "id": "component-textarea-solid-start-text",
+    "title": "Start text",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#start-text"
+  },
+  {
+    "id": "component-textarea-solid-end-text",
+    "title": "End text",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#end-text"
+  },
+  {
+    "id": "component-textarea-solid-character-count",
+    "title": "Character count",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#character-count"
+  },
+  {
+    "id": "component-textarea-solid-affix",
+    "title": "Affix",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#affix"
+  },
+  {
+    "id": "component-textarea-solid-top-and-bottom",
+    "title": "Top and bottom",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#top-and-bottom"
+  },
+  {
+    "id": "component-textarea-solid-binding",
+    "title": "Binding",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#binding"
+  },
+  {
+    "id": "component-textarea-solid-validation",
+    "title": "Validation",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#validation"
+  },
+  {
+    "id": "component-textarea-solid-spread",
+    "title": "Spread",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#spread"
+  },
+  {
+    "id": "component-textarea-solid-auto-fit",
+    "title": "Auto-fit",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#auto-fit"
+  },
+  {
+    "id": "component-textarea-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/solid/components/textarea/#keyboard-support"
+  },
+  {
+    "id": "component-timeline-solid",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "keywords": "activity feed history",
+    "category": "Component",
+    "url": "/solid/components/timeline/"
+  },
+  {
+    "id": "component-timeline-solid-basics",
+    "title": "Basics",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#basics"
+  },
+  {
+    "id": "component-timeline-solid-colors",
+    "title": "Colors",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#colors"
+  },
+  {
+    "id": "component-timeline-solid-sizes",
+    "title": "Sizes",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#sizes"
+  },
+  {
+    "id": "component-timeline-solid-custom-marker",
+    "title": "Custom marker",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#custom-marker"
+  },
+  {
+    "id": "component-timeline-solid-current",
+    "title": "Current item",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#current"
+  },
+  {
+    "id": "component-timeline-solid-tracked",
+    "title": "Tracked",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#tracked"
+  },
+  {
+    "id": "component-timeline-solid-narrow",
+    "title": "Narrow containers",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#narrow"
+  },
+  {
+    "id": "component-timeline-solid-items",
+    "title": "Items",
+    "page": "Timeline",
+    "category": "Component",
+    "url": "/solid/components/timeline/#items"
+  },
+  {
+    "id": "component-toast-solid",
+    "title": "Toast",
+    "description": "Short messages that confirm an action and dismiss themselves.",
+    "keywords": "notification snackbar",
+    "category": "Component",
+    "url": "/solid/components/toast/"
+  },
+  {
+    "id": "component-toast-solid-basics",
+    "title": "Basics",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#basics"
+  },
+  {
+    "id": "component-toast-solid-severities",
+    "title": "Severities",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#severities"
+  },
+  {
+    "id": "component-toast-solid-icons",
+    "title": "Icons",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#icons"
+  },
+  {
+    "id": "component-toast-solid-from-a-script",
+    "title": "From a script",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#from-a-script"
+  },
+  {
+    "id": "component-toast-solid-action",
+    "title": "Action",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#action"
+  },
+  {
+    "id": "component-toast-solid-position",
+    "title": "Position",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#position"
+  },
+  {
+    "id": "component-toast-solid-duration",
+    "title": "Duration",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#duration"
+  },
+  {
+    "id": "component-toast-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Toast",
+    "category": "Component",
+    "url": "/solid/components/toast/#keyboard-support"
+  },
+  {
     "id": "component-toggle-solid",
     "title": "Toggle",
     "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
@@ -487,6 +2844,162 @@
     "page": "Toggle",
     "category": "Component",
     "url": "/solid/components/toggle/#keyboard-support"
+  },
+  {
+    "id": "component-tooltip-solid",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor. Wrap the trigger in <Tooltip> and pass a stable id. Set interestfor with that id on the trigger element itself (it only works on real invokers like <button> or <a>). Put the tooltip in TooltipContent after the trigger.",
+    "keywords": "hint hover title toggletip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/"
+  },
+  {
+    "id": "component-tooltip-solid-basics",
+    "title": "Basics",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#basics"
+  },
+  {
+    "id": "component-tooltip-solid-text-only",
+    "title": "Text only...",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#text-only"
+  },
+  {
+    "id": "component-tooltip-solid-anything",
+    "title": "... or any markup you want",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#anything"
+  },
+  {
+    "id": "component-tooltip-solid-position",
+    "title": "Position",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#position"
+  },
+  {
+    "id": "component-tooltip-solid-arrow",
+    "title": "Arrow",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#arrow"
+  },
+  {
+    "id": "component-tooltip-solid-toggletip",
+    "title": "Toggletip",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#toggletip"
+  },
+  {
+    "id": "component-tooltip-solid-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Tooltip",
+    "category": "Component",
+    "url": "/solid/components/tooltip/#keyboard-support"
+  },
+  {
+    "id": "component-typography-solid",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
+    "keywords": "font heading prose text",
+    "category": "Component",
+    "url": "/solid/components/typography/"
+  },
+  {
+    "id": "component-typography-solid-class-based",
+    "title": "Class-based",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#class-based"
+  },
+  {
+    "id": "component-typography-solid-variants",
+    "title": "Variants",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#variants"
+  },
+  {
+    "id": "component-typography-solid-heading-group",
+    "title": "Heading group",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#heading-group"
+  },
+  {
+    "id": "component-typography-solid-blockquote",
+    "title": "Blockquote",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#blockquote"
+  },
+  {
+    "id": "component-typography-solid-link",
+    "title": "Link",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#link"
+  },
+  {
+    "id": "component-typography-solid-code-block",
+    "title": "Code block",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#code-block"
+  },
+  {
+    "id": "component-typography-solid-icon",
+    "title": "Icon",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#icon"
+  },
+  {
+    "id": "component-typography-solid-swatch",
+    "title": "Swatch",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#swatch"
+  },
+  {
+    "id": "component-typography-solid-severity",
+    "title": "Severity",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#severity"
+  },
+  {
+    "id": "component-typography-solid-tabular-numbers",
+    "title": "Tabular numbers",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#tabular-numbers"
+  },
+  {
+    "id": "component-typography-solid-inline-text-elements",
+    "title": "Inline text elements",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#inline-text-elements"
+  },
+  {
+    "id": "component-typography-solid-classless",
+    "title": "Classless",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#classless"
+  },
+  {
+    "id": "component-typography-solid-rich-text-showcase",
+    "title": "Classless showcase",
+    "page": "Typography",
+    "category": "Component",
+    "url": "/solid/components/typography/#rich-text-showcase"
   },
   {
     "id": "guide-accessibility-solid",
@@ -1470,12 +3983,84 @@
     "url": "/theme-builder/"
   },
   {
+    "id": "api-accordion-actions-solid",
+    "title": "Accordion Actions API",
+    "description": "Reference for Accordion Actions Solid component.",
+    "api": "AccordionActions A group of actions, such as buttons. align Alignment for the actions.",
+    "category": "API",
+    "url": "/solid/api/#accordion-actions"
+  },
+  {
+    "id": "api-accordion-summary-solid",
+    "title": "Accordion Summary API",
+    "description": "Reference for Accordion Summary Solid component.",
+    "api": "AccordionSummary The always visible header. The marker. Renders a chevron by default. Only `.ui-marker` animates. marker",
+    "category": "API",
+    "url": "/solid/api/#accordion-summary"
+  },
+  {
+    "id": "api-accordion-solid",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Solid component.",
+    "api": "Accordion Container element. The always visible header. The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "category": "API",
+    "url": "/solid/api/#accordion"
+  },
+  {
+    "id": "api-anchor-solid",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Solid component.",
+    "api": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger=\"hover\"`. positionArea Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. trigger Shows the floating content on hover and focus with `popover=\"hint\"`. Without it, the content always shows.",
+    "category": "API",
+    "url": "/solid/api/#anchor"
+  },
+  {
+    "id": "api-avatar-group-solid",
+    "title": "Avatar Group API",
+    "description": "Reference for Avatar Group Solid component.",
+    "api": "AvatarGroup A group of overlapping avatars.",
+    "category": "API",
+    "url": "/solid/api/#avatar-group"
+  },
+  {
+    "id": "api-avatar-solid",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Solid component.",
+    "api": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. variant The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+    "category": "API",
+    "url": "/solid/api/#avatar"
+  },
+  {
+    "id": "api-badge-solid",
+    "title": "Badge API",
+    "description": "Reference for Badge Solid component.",
+    "api": "Badge Container element. The element the badge is anchored to. default The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. label indicator color Optional colors. corner The corner the indicator sits on. dot Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown. hideLabel Hides `label` visually, for the whole sentence screen readers read, such as \"5 unread messages\". The `indicator` slot then holds the visible text and is hidden from screen readers. invisible Hides the indicator.",
+    "category": "API",
+    "url": "/solid/api/#badge"
+  },
+  {
+    "id": "api-button-group-solid",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Solid component.",
+    "api": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "category": "API",
+    "url": "/solid/api/#button-group"
+  },
+  {
     "id": "api-button-solid",
     "title": "Button API",
     "description": "Reference for Button Solid component.",
     "api": "Button Container element. An optional icon. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#button"
+  },
+  {
+    "id": "api-callout-solid",
+    "title": "Callout API",
+    "description": "Reference for Callout Solid component.",
+    "api": "Callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical. The content, with an optional heading first. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#callout"
   },
   {
     "id": "api-card-actions-solid",
@@ -1494,6 +4079,62 @@
     "url": "/solid/api/#card"
   },
   {
+    "id": "api-carousel-solid",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Solid component.",
+    "api": "Carousel The scroller. An item. default The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label Accessible name of the carousel. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{count}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "category": "API",
+    "url": "/solid/api/#carousel"
+  },
+  {
+    "id": "api-checkbox-input-solid",
+    "title": "Checkbox Input API",
+    "description": "Reference for Checkbox Input Solid component.",
+    "api": "CheckboxInput The checkbox input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
+    "category": "API",
+    "url": "/solid/api/#checkbox-input"
+  },
+  {
+    "id": "api-checkbox-solid",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Solid component.",
+    "api": "Checkbox Container element. The checkbox input. The label. label default Supporting text displayed below the label. endText end-text card Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the checkbox and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until it's checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "category": "API",
+    "url": "/solid/api/#checkbox"
+  },
+  {
+    "id": "api-chip-solid",
+    "title": "Chip API",
+    "description": "Reference for Chip Solid component.",
+    "api": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#chip"
+  },
+  {
+    "id": "api-copy-solid",
+    "title": "Copy API",
+    "description": "Reference for Copy Solid component.",
+    "api": "Copy The `<opui-copy>` custom element, with `display: contents`. A button with `command=\"--copy\"` copies the value of its first `input` or `textarea`, or else its text without buttons, popovers and elements with `data-copy-ignore`. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead. The live region that announces the copy, visually hidden with `.ui-sr-only`. The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy. copiedLabel failedLabel copiedLabel The text shown and announced after a copy. failedLabel The text shown and announced when the clipboard is blocked. id The id the copy button points at with `commandfor`. Required.",
+    "category": "API",
+    "url": "/solid/api/#copy"
+  },
+  {
+    "id": "api-description-list-item-solid",
+    "title": "Description List Item API",
+    "description": "Reference for Description List Item Solid component.",
+    "api": "DescriptionListItem Groups a term with its description. total Marks the item as the total of the list: a line above it, larger bold text and the strong text color, for the last row of an order summary.",
+    "category": "API",
+    "url": "/solid/api/#description-list-item"
+  },
+  {
+    "id": "api-description-list-solid",
+    "title": "Description List API",
+    "description": "Reference for Description List Solid component.",
+    "api": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a line between the term and the description. dotted Makes the `bordered` line dotted. orientation The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+    "category": "API",
+    "url": "/solid/api/#description-list"
+  },
+  {
     "id": "api-dialog-footer-solid",
     "title": "Dialog Footer API",
     "description": "Reference for Dialog Footer Solid component.",
@@ -1510,6 +4151,166 @@
     "url": "/solid/api/#dialog"
   },
   {
+    "id": "api-divider-solid",
+    "title": "Divider API",
+    "description": "Reference for Divider Solid component.",
+    "api": "Divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. align Where the content sits on the line. color Optional colors. variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#divider"
+  },
+  {
+    "id": "api-drawer-footer-solid",
+    "title": "Drawer Footer API",
+    "description": "Reference for Drawer Footer Solid component.",
+    "api": "DrawerFooter A row at the end, for buttons, text or anything else. Groups buttons. Moves to the end when other content comes first. align Alignment for the footer content.",
+    "category": "API",
+    "url": "/solid/api/#drawer-footer"
+  },
+  {
+    "id": "api-drawer-header-solid",
+    "title": "Drawer Header API",
+    "description": "Reference for Drawer Header Solid component.",
+    "api": "DrawerHeader Container element. Closes the drawer. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel close-icon closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`. Outside a `Drawer`, set it to the id of the `<dialog>` to close, or a dev warning says it is missing.",
+    "category": "API",
+    "url": "/solid/api/#drawer-header"
+  },
+  {
+    "id": "api-drawer-solid",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Solid component.",
+    "api": "Drawer Container element. The header, a row for the title and anything next to it, with a close button. The title. Names the drawer through `aria-labelledby`. The scrollable content. The footer, a row at the end. backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`, which the trigger's `commandfor` points at. Required. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
+    "category": "API",
+    "url": "/solid/api/#drawer"
+  },
+  {
+    "id": "api-field-description-solid",
+    "title": "Field Description API",
+    "description": "Reference for Field Description Solid component.",
+    "api": "FieldDescription Supporting text for a fieldset.",
+    "category": "API",
+    "url": "/solid/api/#field-description"
+  },
+  {
+    "id": "api-field-group-solid",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Solid component.",
+    "api": "FieldGroup Container element. name Sets `name` on the OPUI fields inside that don't set their own. orientation The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
+    "category": "API",
+    "url": "/solid/api/#field-group"
+  },
+  {
+    "id": "api-field-legend-solid",
+    "title": "Field Legend API",
+    "description": "Reference for Field Legend Solid component.",
+    "api": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`.",
+    "category": "API",
+    "url": "/solid/api/#field-legend"
+  },
+  {
+    "id": "api-fieldset-solid",
+    "title": "Fieldset API",
+    "description": "Reference for Fieldset Solid component.",
+    "api": "Fieldset Container element. The label of the fieldset. Supporting text displayed below the legend. Supporting or error text for the whole group, after the fields. as The element to render. Elements other than `fieldset` get `role=\"group\"`. Point their `aria-labelledby` at the legend. disabled Disables every field inside. Only on a `<fieldset>`.",
+    "category": "API",
+    "url": "/solid/api/#fieldset"
+  },
+  {
+    "id": "api-form-solid",
+    "title": "Form API",
+    "description": "Reference for Form Solid component.",
+    "api": "Form Container element. Spaces its fieldsets and fields. as The element to render.",
+    "category": "API",
+    "url": "/solid/api/#form"
+  },
+  {
+    "id": "api-layout-solid",
+    "title": "Layout API",
+    "description": "Reference for Layout Solid component.",
+    "api": "Layout Any element. The classes only set its layout. align Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. column A column with even space between its children. breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. container Centers its content, caps its width and is the container `.ui-layout-columns` measures. grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. size The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty. sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
+    "category": "API",
+    "url": "/solid/api/#layout"
+  },
+  {
+    "id": "api-list-item-solid",
+    "title": "List Item API",
+    "description": "Reference for List Item Solid component.",
+    "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `type`. as href type Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"` or `\"button\"`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
+    "category": "API",
+    "url": "/solid/api/#list-item"
+  },
+  {
+    "id": "api-list-solid",
+    "title": "List API",
+    "description": "Reference for List Solid component.",
+    "api": "List Container element. A list item. bordered Adds a border between list items. dense Packs the items tighter. flush Removes the inline padding of the items and the block padding of the list. variant The variant to use. The default `filled` list uses the filled surface.",
+    "category": "API",
+    "url": "/solid/api/#list"
+  },
+  {
+    "id": "api-menu-solid",
+    "title": "Menu API",
+    "description": "Reference for Menu Solid component.",
+    "api": "Menu The menu surface, a popover anchored to its trigger. A group heading. HTML and CSS only. An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. Optional content at the start, such as an icon. The label (`label` on an item). Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). align Which edge of the trigger the menu lines up with. bordered Adds a border between the items. dense Packs the items tighter. id The id of the menu, which the trigger's `commandfor` points at. Required. items The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: \"critical\"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`. popover The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. side The side of the trigger the menu opens on.",
+    "category": "API",
+    "url": "/solid/api/#menu"
+  },
+  {
+    "id": "api-message-solid",
+    "title": "Message API",
+    "description": "Reference for Message Solid component.",
+    "api": "Message A message. The sender's `Avatar`, from the `start` slot, shown on the last message of a run. start The bubble. default The sender's name. author The time, and content such as a read receipt. datetime time Content after the time, such as a read receipt. end Reactions in a `ToggleGroup`, drawn as separate pills over the bottom edge of the bubble. bottom author The sender, shown on the first message of a run and read by screen readers on every message. datetime The machine-readable date and time of `time`. newAuthor Starts a new run when the author changes, for a group chat. outgoing A message you sent. It aligns to the end in the primary color, and its author is visually hidden. time The time as shown, at the end of the bubble. typing Shows animated dots instead of the content. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "url": "/solid/api/#message"
+  },
+  {
+    "id": "api-messages-solid",
+    "title": "Messages API",
+    "description": "Reference for Messages Solid component.",
+    "api": "Messages The conversation, an ordered list. A message. Consecutive messages on the same side group into a run.",
+    "category": "API",
+    "url": "/solid/api/#messages"
+  },
+  {
+    "id": "api-number-field-solid",
+    "title": "Number Field API",
+    "description": "Reference for Number Field Solid component.",
+    "api": "NumberField The `<opui-number-field>` custom element. It steps the value and marks a button `aria-disabled` at `min` or `max`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. The decrease button, with `command=\"--step-down\"`. Renders a minus icon by default, or the `svg` in `decrease-icon`. Hidden until the element is defined. decreaseLabel decrease-icon The input element. The increase button, with `command=\"--step-up\"`. Renders a plus icon by default, or the `svg` in `increase-icon`. Hidden until the element is defined. increaseLabel increase-icon Supporting text displayed below the field. endText end-text decreaseLabel The accessible name of the decrease button. disabled Dims the field and blocks input and the step buttons. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. The label and the step buttons point at it, so the component generates one when it's left out. The start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. increaseLabel The accessible name of the increase button. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the field to the other. stretch Fills the available width. Without it, the field fits its value, from `--_min-inline-size` (`4ch`). variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#number-field"
+  },
+  {
+    "id": "api-one-time-code-solid",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Solid component.",
+    "api": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. autocapitalize The `autocapitalize` of the `<input>`. With `alphanumeric` it is `characters`. autocomplete The `autocomplete` of the `<input>`. `one-time-code` lets the browser fill in a code it received. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. inputmode The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`. length The number of characters and boxes, from 4 to 8. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. pattern The `pattern` of the `<input>`. It is `[0-9]{length}`, or `[A-Za-z0-9]{length}` with `alphanumeric`. required Adds a required mark after the label. The form won't submit while the code is incomplete. size The size of the element. spellcheck The `spellcheck` of the `<input>`. With `alphanumeric` it is `false`.",
+    "category": "API",
+    "url": "/solid/api/#one-time-code"
+  },
+  {
+    "id": "api-progress-solid",
+    "title": "Progress API",
+    "description": "Reference for Progress Solid component.",
+    "api": "Progress Container element. The progress bar. value max max The maximum value. value The current value. Omit it for an indeterminate state. variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#progress"
+  },
+  {
+    "id": "api-radio-input-solid",
+    "title": "Radio Input API",
+    "description": "Reference for Radio Input Solid component.",
+    "api": "RadioInput The radio input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+    "category": "API",
+    "url": "/solid/api/#radio-input"
+  },
+  {
+    "id": "api-radio-solid",
+    "title": "Radio API",
+    "description": "Reference for Radio Solid component.",
+    "api": "Radio Container element. The radio input. The label. label default Supporting text displayed below the label. endText end-text card Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the radio and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the input. required Adds a required mark after the label. The form won't submit until one radio in the group is checked. size The size of the element. spread Pushes the label and the input to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "category": "API",
+    "url": "/solid/api/#radio"
+  },
+  {
     "id": "api-range-solid",
     "title": "Range API",
     "description": "Reference for Range Solid component.",
@@ -1518,12 +4319,196 @@
     "url": "/solid/api/#range"
   },
   {
+    "id": "api-rating-solid",
+    "title": "Rating API",
+    "description": "Reference for Rating Solid component.",
+    "api": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel The accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the clear radio. size The size of the stars. starLabel Returns the accessible name of each star radio. Use it to translate.",
+    "category": "API",
+    "url": "/solid/api/#rating"
+  },
+  {
+    "id": "api-select-all-solid",
+    "title": "Select All API",
+    "description": "Reference for Select All Solid component.",
+    "api": "SelectAll The `<opui-select-all>` custom element, `display: contents`, around the group, such as a `Fieldset` or a `Table`. The checkbox that checks and unchecks the other enabled checkboxes inside. It's checked when they all are, and `indeterminate` when some are.",
+    "category": "API",
+    "url": "/solid/api/#select-all"
+  },
+  {
+    "id": "api-select-solid",
+    "title": "Select API",
+    "description": "Reference for Select Solid component.",
+    "api": "Select Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed select area. Content above the select, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. end Content below the select, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text autoFit Lets the width follow the selected option, from `25ch`. dense Packs the items tighter. disabled Dims the select and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<select>`. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text`, `x-top` and `x-bottom` for `id=\"x\"`. items The options, as `{ label, selected, value }` objects. name The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit until an option with a value is selected. size The size of the element. spread Pushes the label and start text to one side and the select to the other. variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#select"
+  },
+  {
+    "id": "api-sortable-table-solid",
+    "title": "Sortable Table API",
+    "description": "Reference for Sortable Table Solid component.",
+    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes.",
+    "category": "API",
+    "url": "/solid/api/#sortable-table"
+  },
+  {
+    "id": "api-spinner-solid",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Solid component.",
+    "api": "Spinner Renders a spinner pseudo-element on the element. Always indeterminate. size Spinner size follows the element's computed font size.",
+    "category": "API",
+    "url": "/solid/api/#spinner"
+  },
+  {
+    "id": "api-stat-solid",
+    "title": "Stat API",
+    "description": "Reference for Stat Solid component.",
+    "api": "Stat A `dl` with the label, the value and the description, so a screen reader reads them as one term with its details. The label. label label The value, in tabular numbers. default The description. description description description Text under the value, such as the change since last week. Rich content, such as a severity colored change, goes in the `description` slot. label What the value counts, such as Visitors. Rich content goes in the `label` slot. size The size of the value.",
+    "category": "API",
+    "url": "/solid/api/#stat"
+  },
+  {
+    "id": "api-stepper-item-solid",
+    "title": "Stepper Item API",
+    "description": "Reference for Stepper Item Solid component.",
+    "api": "StepperItem A step. Replaces the check in the marker of a complete step. Hidden from screen readers. icon-checked The label, as a link back to the step. href label label A short line under the label. description description complete Marks the step complete: a check in the marker and the line to the next step in the accent color. completedLabel Screen reader text after the label of a complete step. current Marks the current step. Without `.ui-complete` on any step, the steps before it show as complete. description A short line under the label. error Marks a step with an error: an exclamation mark in the marker and the label in the invalid color. Wins over `complete`. errorLabel Screen reader text after the label of a step with an error. href Renders the label as a link on a complete step or a step with an error, but not on the current one. label The name of the step.",
+    "category": "API",
+    "url": "/solid/api/#stepper-item"
+  },
+  {
+    "id": "api-stepper-solid",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Solid component.",
+    "api": "Stepper The list of steps. A step, with its marker and the line to the next one. current items aria-label Accessible name of the stepper. complete Marks every step in `items` complete. completedLabel Screen reader text after the label of a complete step in `items`. current The index of the current step in `items`, from 0. The steps before it are complete. errorLabel Screen reader text after the label of a step with an error in `items`. items The steps, as `{ complete, completedLabel, current, description, error, errorLabel, href, label }` objects. orientation The orientation of the element. `auto` stacks the steps below `32rem`. size The size of the element.",
+    "category": "API",
+    "url": "/solid/api/#stepper"
+  },
+  {
+    "id": "api-switch-input-solid",
+    "title": "Switch Input API",
+    "description": "Reference for Switch Input Solid component.",
+    "api": "SwitchInput The switch input, without a label. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.",
+    "category": "API",
+    "url": "/solid/api/#switch-input"
+  },
+  {
+    "id": "api-switch-solid",
+    "title": "Switch API",
+    "description": "Reference for Switch Solid component.",
+    "api": "Switch Container element. The switch input. An optional icon on the track, shown while unchecked. icon-unchecked An optional icon on the track, shown while checked. icon-checked The label. label default Supporting text displayed below the label. endText end-text card Renders the switch as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. disabled Dims the switch and shows a not-allowed cursor. `aria-disabled=\"true\"` looks the same, but keeps the switch focusable and its value in the form, and doesn't stop the change, so block it with a script. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. id The id of the `<input>`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. orientation The orientation of the element. `vertical` stacks the label under the switch. required Adds a required mark after the label. The form won't submit until it's on. size The size of the element. spread Pushes the label and the switch to opposite ends. value The value of the `<input>`, submitted with the form when it's checked. variant The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+    "category": "API",
+    "url": "/solid/api/#switch"
+  },
+  {
+    "id": "api-table-cell-solid",
+    "title": "Table Cell API",
+    "description": "Reference for Table Cell Solid component.",
+    "api": "TableCell A data cell, inside `TableRow`. numeric Aligns the cell to the end and uses tabular figures, so the digits of a column line up.",
+    "category": "API",
+    "url": "/solid/api/#table-cell"
+  },
+  {
+    "id": "api-table-column-group-solid",
+    "title": "Table Column Group API",
+    "description": "Reference for Table Column Group Solid component.",
+    "api": "TableColumnGroup A group of columns, before the table head.",
+    "category": "API",
+    "url": "/solid/api/#table-column-group"
+  },
+  {
+    "id": "api-table-column-solid",
+    "title": "Table Column API",
+    "description": "Reference for Table Column Solid component.",
+    "api": "TableColumn A column, inside `TableColumnGroup`. width The column width, merged into `style`.",
+    "category": "API",
+    "url": "/solid/api/#table-column"
+  },
+  {
+    "id": "api-table-header-cell-solid",
+    "title": "Table Header Cell API",
+    "description": "Reference for Table Header Cell Solid component.",
+    "api": "TableHeaderCell A header cell, inside `TableRow`. numeric Aligns the header to the end, over a column of `numeric` cells. sortable Wraps the label in a `<button>` that sorts the table by this column, inside a `SortableTable`.",
+    "category": "API",
+    "url": "/solid/api/#table-header-cell"
+  },
+  {
+    "id": "api-table-solid",
+    "title": "Table API",
+    "description": "Reference for Table Solid component.",
+    "api": "Table Container element. The header rows. A header cell. The body rows. A row. A data cell. Optional footer rows, such as totals. An optional title for the table. density The cell padding. flush Drops the block margin, for a table that sits in a card or another padded box. overflow What the table does when its columns don't fit. `\"wrap\"` lets the cells wrap their text, and `\"scroll\"` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex=\"0\"`, so keyboard users can scroll it. stickyHeader Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.",
+    "category": "API",
+    "url": "/solid/api/#table"
+  },
+  {
+    "id": "api-tabs-item-solid",
+    "title": "Tabs Item API",
+    "description": "Reference for Tabs Item Solid component.",
+    "api": "TabsItem The radio input for a tab, followed by the tab and the panel. checked Selects the tab. id The id of the input. Generated when omitted. name Overrides the name shared by the tab inputs. value The value of the input. The tab is selected while it matches the `value` of `Tabs`.",
+    "category": "API",
+    "url": "/solid/api/#tabs-item"
+  },
+  {
+    "id": "api-tabs-label-solid",
+    "title": "Tabs Label API",
+    "description": "Reference for Tabs Label Solid component.",
+    "api": "TabsLabel The tab. for The id of the input it labels. Set by the item.",
+    "category": "API",
+    "url": "/solid/api/#tabs-label"
+  },
+  {
+    "id": "api-tabs-panel-solid",
+    "title": "Tabs Panel API",
+    "description": "Reference for Tabs Panel Solid component.",
+    "api": "TabsPanel The panel.",
+    "category": "API",
+    "url": "/solid/api/#tabs-panel"
+  },
+  {
+    "id": "api-tabs-solid",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Solid component.",
+    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. onValueChange Called with the `value` of the tab when one is selected. overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. value The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
+    "category": "API",
+    "url": "/solid/api/#tabs"
+  },
+  {
     "id": "api-text-field-solid",
     "title": "Text Field API",
     "description": "Reference for Text Field Solid component.",
     "api": "TextField Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. inputmode The `inputmode` of the `<input>`. With `type=\"numeric\"` it is `numeric`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. pattern The `pattern` of the `<input>`. With `type=\"numeric\"` it is `[0-9]*`. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#text-field"
+  },
+  {
+    "id": "api-textarea-solid",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Solid component.",
+    "api": "Textarea Container element. The label for the field. label label Start text displayed above the field. startText start-text The boxed textarea area. Content above the textarea, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The textarea element. Content at the inline-end of the field, inside the border. end Content below the textarea, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content and allows resizing in both directions. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<textarea>`. name The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the textarea to the other. variant The variant to use.",
+    "category": "API",
+    "url": "/solid/api/#textarea"
+  },
+  {
+    "id": "api-timeline-item-solid",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Solid component.",
+    "api": "TimelineItem An event. Replaces the dot with an icon. It follows the item's color and the current state. marker The date, in its own column. datetime time The title of the event. headingLevel label label color Optional colors. current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. datetime The machine-readable date of `time`. headingLevel The heading level of `label`, so the item fits the page outline. label The title of the event, rendered as a heading. Rich content goes in the `label` slot. time The date as shown, in the date column.",
+    "category": "API",
+    "url": "/solid/api/#timeline-item"
+  },
+  {
+    "id": "api-timeline-solid",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Solid component.",
+    "api": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, label, time }` objects. `description` renders a paragraph. size The size of the element. tracked Colors the line and the plain markers before the current item with the primary color, like a progress tracker.",
+    "category": "API",
+    "url": "/solid/api/#timeline"
+  },
+  {
+    "id": "api-toast-solid",
+    "title": "Toast API",
+    "description": "Reference for Toast Solid component.",
+    "api": "Toaster The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command=\"--toast\"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone. The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last. A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it. The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page. align Where the toasts sit along their side of the viewport. closeLabel The accessible name of the close button of each toast. duration How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. id The id the buttons point at with `commandfor`. Required. side The side of the viewport the toasts sit on.",
+    "category": "API",
+    "url": "/solid/api/#toast"
   },
   {
     "id": "api-toggle-button-solid",
@@ -1540,5 +4525,21 @@
     "api": "ToggleGroup Container element. A toggle button. multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. name The name shared by the inputs. Generated when omitted. onValueChange Called with the new selection when a button is toggled. orientation The orientation of the element. overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. value The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
     "category": "API",
     "url": "/solid/api/#toggle-group"
+  },
+  {
+    "id": "api-tooltip-solid",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Solid component.",
+    "api": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command=\"toggle-popover\"` too. Required. positionArea Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+    "category": "API",
+    "url": "/solid/api/#tooltip"
+  },
+  {
+    "id": "api-typography-solid",
+    "title": "Typography API",
+    "description": "Reference for Typography Solid component.",
+    "api": "Typography Classless typography for uncontrolled child markup. blockquote Quoted block with a start border. caption Muted supporting text. codeBlock Monospace preformatted block. color Tone of `.ui-swatch`, and the text color of `.ui-p`, `.ui-caption` and `.ui-overline`. Without it, the swatch takes the palette accent of the scope it sits in. heading Heading styles for any element. headingGroup Groups an overline, heading, and optional body copy. icon Sizes an inline `svg` to `--ui-icon-size` and keeps it from shrinking in a flex row. inline Inline text element utilities. link Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. notRichText Ends the `.ui-rich-text` styles inside it. overline Small uppercase label text. paragraph Body paragraph styling. size Size modifiers on `.ui-p` and `.ui-icon`. An icon reads `--ui-icon-size-small` and `--ui-icon-size-large`. tabularNums Digits of one width, so numbers line up in a column of prices or stats. swatch A small colored dot for a legend, in `--_swatch-bg-color`, the palette accent of its tone or scope.",
+    "category": "API",
+    "url": "/solid/api/#typography"
   }
 ]

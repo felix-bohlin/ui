@@ -3,7 +3,7 @@
 Avatars show a person or entity as an image, initials or icon.
 
 - CSS: `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/avatar.md), [Astro](https://open-props-ui.netlify.app/astro/components/avatar.md), [React](https://open-props-ui.netlify.app/react/components/avatar.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/avatar.md), [Vue](https://open-props-ui.netlify.app/vue/components/avatar.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/avatar.md), [Astro](https://open-props-ui.netlify.app/astro/components/avatar.md), [React](https://open-props-ui.netlify.app/react/components/avatar.md), [Solid](https://open-props-ui.netlify.app/solid/components/avatar.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/avatar.md), [Vue](https://open-props-ui.netlify.app/vue/components/avatar.md).
 
 ## Avatar
 
@@ -131,6 +131,38 @@ import { Avatar } from "opui-css/astro"
 
 ```tsx
 import { Avatar } from "opui-css/react"
+
+export default function Image() {
+  return (
+    <>
+      <Avatar
+        alt="Maya Lind"
+        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
+      />
+
+      <Avatar
+        alt="Omar Haddad"
+        src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
+      />
+
+      <Avatar
+        alt="Priya Nair"
+        src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
+      />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Avatar, AvatarGroup } from "opui-css/solid"`
+
+### Example: Image
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Avatar } from "opui-css/solid"
 
 export default function Image() {
   return (

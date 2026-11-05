@@ -3,7 +3,7 @@
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.
 
 - CSS: `opui-css/css/components/tabs.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/tabs.md), [Astro](https://open-props-ui.netlify.app/astro/components/tabs.md), [React](https://open-props-ui.netlify.app/react/components/tabs.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/tabs.md), [Vue](https://open-props-ui.netlify.app/vue/components/tabs.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/tabs.md), [Astro](https://open-props-ui.netlify.app/astro/components/tabs.md), [React](https://open-props-ui.netlify.app/react/components/tabs.md), [Solid](https://open-props-ui.netlify.app/solid/components/tabs.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/tabs.md), [Vue](https://open-props-ui.netlify.app/vue/components/tabs.md).
 
 ## Tabs
 
@@ -18,22 +18,23 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
 
 - `defaultValue` (React): `string`. The `value` of the tab selected at the start, when `value` is omitted.
 - `name`: `string`, `.ui-input[name]`. The name shared by the tab inputs. Generated when omitted.
-- `onValueChange` (React): `(value: string) => void`. Called with the `value` of the tab when one is selected.
+- `onValueChange` (React and Solid): `(value: string) => void`. Called with the `value` of the tab when one is selected.
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"wrap"` (default). What the tabs do when they don't fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways.
-- `value` (Astro and React): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
+- `value` (Astro, React and Solid): `string`. The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.
 - `variant`: `"filled"` (`.ui-filled`), `"line"` (`.ui-line`), `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.
 
 ### Slots
 
 - `default`: The tab items.
 
-Model: `value` (`string`), the `value` of the selected tab. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the `value` of the selected tab. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.
 - Astro: `value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
 - React: Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.
+- Solid: `value` sets the selected item and follows it when it changes, and `onValueChange` reports the new one. Without `value` the items keep their own state.
 - Svelte: Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.
 
@@ -57,6 +58,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 ### Notes
 
 - React: `defaultChecked` selects the starting tab. A tab that loses its check to another one fires no `onChange` of its own, so to control the tabs, give each item a `value` and set `value` with `onValueChange` on `Tabs`. The `Tabs` value then wins and an item's own `checked` and `defaultChecked` are ignored.
+- Solid: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and set `value` with `onValueChange` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 - Svelte: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and bind `value` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 - Vue: `checked` selects the starting tab. A tab that loses its check to another one fires no `change` of its own, so to control the tabs, give each item a `value` and bind `v-model` on `Tabs`. The `Tabs` value then wins and an item's own `checked` is ignored.
 
@@ -68,7 +70,7 @@ Model: `value` (`string`), the `value` of the selected tab. Astro and React `val
 
 ### Props and modifiers
 
-- `for` (Astro, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
+- `for` (Astro, Solid, Svelte and Vue): `string`, `[for]`. The id of the input it labels. Set by the item.
 - `htmlFor` (React): `string`. The id of the input it labels, as `htmlFor` like on the element. Set by the item.
 
 ### Slots
@@ -179,6 +181,36 @@ export default function Basics() {
   return (
     <Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
       <TabsItem defaultChecked>
+        <TabsLabel>Profile</TabsLabel>
+        <TabsPanel>Profile settings and information.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Settings</TabsLabel>
+        <TabsPanel>General account settings.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Notifications</TabsLabel>
+        <TabsPanel>Manage your notifications.</TabsPanel>
+      </TabsItem>
+    </Tabs>
+  )
+}
+```
+
+## Solid
+
+`import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <Tabs name="basic-tabs">
+      <TabsItem checked>
         <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>

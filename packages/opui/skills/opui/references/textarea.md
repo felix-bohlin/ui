@@ -3,7 +3,7 @@
 An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.
 
 - CSS: `opui-css/css/components/text-field.css` and `opui-css/css/components/textarea.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/textarea.md), [Astro](https://open-props-ui.netlify.app/astro/components/textarea.md), [React](https://open-props-ui.netlify.app/react/components/textarea.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/textarea.md), [Vue](https://open-props-ui.netlify.app/vue/components/textarea.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/textarea.md), [Astro](https://open-props-ui.netlify.app/astro/components/textarea.md), [React](https://open-props-ui.netlify.app/react/components/textarea.md), [Solid](https://open-props-ui.netlify.app/solid/components/textarea.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/textarea.md), [Vue](https://open-props-ui.netlify.app/vue/components/textarea.md).
 
 ## Textarea
 
@@ -40,12 +40,13 @@ An input for multi-line text data. Basic textareas with labels, supporting text,
 
 - `default`: Extra content inside the root.
 
-Model: `value` (`string`), the textarea value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string`), the textarea value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- Solid: Attributes that aren't props go to the `<textarea>`, like `maxlength` and `placeholder`, and `class` and `style` go to the root `<label>`. `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -121,6 +122,28 @@ import { Textarea } from "opui-css/astro"
 
 ```tsx
 import { Textarea } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Textarea label="Outlined" placeholder="Placeholder" />
+      <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Textarea } from "opui-css/solid"`
+
+- `Textarea` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Textarea } from "opui-css/solid"
 
 export default function Variants() {
   return (

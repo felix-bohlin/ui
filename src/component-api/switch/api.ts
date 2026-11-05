@@ -40,6 +40,8 @@ export default {
         "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
       react:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`.",
+      solid:
+        "To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes.",
       svelte:
         "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
     }),

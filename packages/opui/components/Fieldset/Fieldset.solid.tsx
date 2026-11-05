@@ -12,7 +12,7 @@ export default function Fieldset(props: Props) {
     <Tag
       class={["ui-fieldset", props.class]}
       role={tag() === "fieldset" ? undefined : "group"}
-      {...rest}
+      {...(rest as object)}
     >
       {props.children}
     </Tag>

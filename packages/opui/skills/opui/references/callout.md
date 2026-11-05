@@ -3,7 +3,7 @@
 Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.
 
 - CSS: `opui-css/css/components/callout.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/callout.md), [Astro](https://open-props-ui.netlify.app/astro/components/callout.md), [React](https://open-props-ui.netlify.app/react/components/callout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/callout.md), [Vue](https://open-props-ui.netlify.app/vue/components/callout.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/callout.md), [Astro](https://open-props-ui.netlify.app/astro/components/callout.md), [React](https://open-props-ui.netlify.app/react/components/callout.md), [Solid](https://open-props-ui.netlify.app/solid/components/callout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/callout.md), [Vue](https://open-props-ui.netlify.app/vue/components/callout.md).
 
 ## Callout
 
@@ -26,7 +26,7 @@ Callouts call out for user attention. Should be part of the flow and used withou
 
 ### Notes
 
-- Astro, React, Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
+- Astro, React, Solid, Svelte and Vue: For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
 
 ## Component properties
 
@@ -142,6 +142,46 @@ export default function Variants() {
           <p>
             Invoices and payment methods are now in the Billing tab of your
             workspace settings.
+          </p>
+        </CalloutContent>
+      </Callout>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Callout, CalloutContent, CalloutIcon } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Callout, CalloutContent } from "opui-css/solid"
+
+export default function Variants() {
+  return (
+    <>
+      <Callout>
+        <CalloutContent>
+          <h3>Note</h3>
+          <p>
+            This is a tonal Callout. Notice the lack of icons - it's not really
+            needed here.
+          </p>
+        </CalloutContent>
+      </Callout>
+      <Callout variant="outlined">
+        <CalloutContent>
+          <h3>Another Callout</h3>
+          <p>
+            This is an outlined Callout. Why not use a{" "}
+            <a class="ui-link" href="#">
+              Card
+            </a>{" "}
+            since they look very similar? For one, the Callout is a more focused
+            component with different properties.
           </p>
         </CalloutContent>
       </Callout>

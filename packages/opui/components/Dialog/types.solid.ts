@@ -1,7 +1,7 @@
 import type * as Base from "./types"
 import type { ComponentProps } from "@solidjs/web"
 
-export type Props = Base.Props & ComponentProps<"dialog">
+export type Props = Base.Props & Omit<ComponentProps<"dialog">, "closedby">
 
 export type DialogContentProps = Base.DialogContentProps & ComponentProps<"div">
 

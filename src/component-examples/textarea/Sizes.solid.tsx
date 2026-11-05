@@ -1,0 +1,13 @@
+/** @jsxImportSource @solidjs/web */
+import { Textarea } from "opui-css/solid"
+
+export default function Sizes() {
+  return (
+    <>
+      <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
+      <Textarea label="Small" placeholder="Placeholder" size="small" />
+      <Textarea label="Medium" placeholder="Placeholder" />
+      <Textarea label="Large" placeholder="Placeholder" size="large" />
+    </>
+  )
+}

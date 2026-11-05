@@ -3,7 +3,7 @@
 Shows where someone is in a flow of steps, such as a checkout.
 
 - CSS: `opui-css/css/components/stepper.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/stepper.md), [Astro](https://open-props-ui.netlify.app/astro/components/stepper.md), [React](https://open-props-ui.netlify.app/react/components/stepper.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/stepper.md), [Vue](https://open-props-ui.netlify.app/vue/components/stepper.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/stepper.md), [Astro](https://open-props-ui.netlify.app/astro/components/stepper.md), [React](https://open-props-ui.netlify.app/react/components/stepper.md), [Solid](https://open-props-ui.netlify.app/solid/components/stepper.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/stepper.md), [Vue](https://open-props-ui.netlify.app/vue/components/stepper.md).
 
 ## Stepper
 
@@ -130,6 +130,30 @@ const items = [
 
 ```tsx
 import { Stepper } from "opui-css/react"
+
+const items = [
+  { href: "#", label: "Cart" },
+  { href: "#", label: "Shipping" },
+  { href: "#", label: "Payment" },
+  { href: "#", label: "Review" },
+]
+
+export default function Basics() {
+  return <Stepper aria-label="Checkout steps" current={2} items={items} />
+}
+```
+
+## Solid
+
+`import { Stepper, StepperItem } from "opui-css/solid"`
+
+- `StepperItem` slot props (`JSX.Element`): `description`, `iconChecked` and `label`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Stepper } from "opui-css/solid"
 
 const items = [
   { href: "#", label: "Cart" },

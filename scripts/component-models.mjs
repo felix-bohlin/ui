@@ -32,6 +32,10 @@ const numeric = (model) =>
 
 export const MODEL_KINDS = {
   checked: {
+    solid: {
+      attributes: () => ["{...defaultCheckedProp(() => props.checked)}"],
+      imports: () => [`import { defaultCheckedProp } from "../solid"`],
+    },
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
@@ -108,7 +112,7 @@ export const MODEL_KINDS = {
     solid: {
       body: (model, rewrite) => [
         `const [selected, setSelected] = createSignal(() => props.${model.prop})`,
-        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  setSelected(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  if (selected() !== undefined) setSelected(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
       ],
       entries: () => ["onValueChange"],
       imports: selectionImports,
@@ -171,6 +175,10 @@ export const MODEL_KINDS = {
     },
   },
   radio: {
+    solid: {
+      attributes: () => ["{...defaultCheckedProp(() => props.checked)}"],
+      imports: () => [`import { defaultCheckedProp } from "../solid"`],
+    },
     svelte: {
       attributes: () => [
         "checked={isChecked() || undefined}",
@@ -213,7 +221,9 @@ export const MODEL_KINDS = {
     },
     solid: {
       attributes: (model) =>
-        resettable(model) ? [`{...defaultValueProp(props.${model.prop})}`] : [],
+        resettable(model)
+          ? [`{...defaultValueProp(() => props.${model.prop})}`]
+          : [],
       imports: (_, model) =>
         resettable(model)
           ? [`import { defaultValueProp } from "../solid"`]

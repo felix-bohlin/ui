@@ -3,7 +3,7 @@
 Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.
 
 - CSS: `opui-css/css/components/chip.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/chip.md), [Astro](https://open-props-ui.netlify.app/astro/components/chip.md), [React](https://open-props-ui.netlify.app/react/components/chip.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/chip.md), [Vue](https://open-props-ui.netlify.app/vue/components/chip.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/chip.md), [Astro](https://open-props-ui.netlify.app/astro/components/chip.md), [React](https://open-props-ui.netlify.app/react/components/chip.md), [Solid](https://open-props-ui.netlify.app/solid/components/chip.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/chip.md), [Vue](https://open-props-ui.netlify.app/vue/components/chip.md).
 
 ## Chip
 
@@ -88,6 +88,28 @@ import { Chip } from "opui-css/astro"
 
 ```tsx
 import { Chip } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <Chip label="Tonal" variant="tonal" />
+      <Chip label="Outlined" variant="outlined" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Chip } from "opui-css/solid"`
+
+- `Chip` slot props (`JSX.Element`): `end`, `label` and `start`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Chip } from "opui-css/solid"
 
 export default function Variants() {
   return (

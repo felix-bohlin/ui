@@ -10,7 +10,10 @@ export default function FieldLegend(props: Props) {
   const isLegend = () => tag() === "legend"
 
   return (
-    <Tag class={[{ "ui-legend": !isLegend() }, props.class]} {...rest}>
+    <Tag
+      class={[{ "ui-legend": !isLegend() }, props.class]}
+      {...(rest as object)}
+    >
       {props.children}
     </Tag>
   )

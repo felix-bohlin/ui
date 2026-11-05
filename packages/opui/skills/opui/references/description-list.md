@@ -3,7 +3,7 @@
 Description lists are used to display a list of terms and their descriptions.
 
 - CSS: `opui-css/css/components/description-list.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/description-list.md), [Astro](https://open-props-ui.netlify.app/astro/components/description-list.md), [React](https://open-props-ui.netlify.app/react/components/description-list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/description-list.md), [Vue](https://open-props-ui.netlify.app/vue/components/description-list.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/description-list.md), [Astro](https://open-props-ui.netlify.app/astro/components/description-list.md), [React](https://open-props-ui.netlify.app/react/components/description-list.md), [Solid](https://open-props-ui.netlify.app/solid/components/description-list.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/description-list.md), [Vue](https://open-props-ui.netlify.app/vue/components/description-list.md).
 
 ## DescriptionList
 
@@ -117,6 +117,41 @@ import {
   DescriptionListItem,
   DescriptionListTerm,
 } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <DescriptionList>
+      <DescriptionListItem>
+        <DescriptionListTerm>Price</DescriptionListTerm>
+        <DescriptionListDescription>6 950 000</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Size</DescriptionListTerm>
+        <DescriptionListDescription>64 m²</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Rooms</DescriptionListTerm>
+        <DescriptionListDescription>3</DescriptionListDescription>
+      </DescriptionListItem>
+    </DescriptionList>
+  )
+}
+```
+
+## Solid
+
+`import { DescriptionList, DescriptionListDescription, DescriptionListItem, DescriptionListTerm } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/solid"
 
 export default function Basics() {
   return (

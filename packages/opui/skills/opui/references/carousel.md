@@ -3,7 +3,7 @@
 A scrolling list with snap points, buttons and markers.
 
 - CSS: `opui-css/css/components/carousel.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/carousel.md), [Astro](https://open-props-ui.netlify.app/astro/components/carousel.md), [React](https://open-props-ui.netlify.app/react/components/carousel.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/carousel.md), [Vue](https://open-props-ui.netlify.app/vue/components/carousel.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/carousel.md), [Astro](https://open-props-ui.netlify.app/astro/components/carousel.md), [React](https://open-props-ui.netlify.app/react/components/carousel.md), [Solid](https://open-props-ui.netlify.app/solid/components/carousel.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/carousel.md), [Vue](https://open-props-ui.netlify.app/vue/components/carousel.md).
 
 ## Carousel
 
@@ -35,7 +35,7 @@ A scrolling list with snap points, buttons and markers.
 ### Notes
 
 - HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
-- Astro, React, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
+- Astro, React, Solid, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
 
 ## Component properties
 
@@ -186,6 +186,43 @@ export default function Basics() {
     <Carousel aria-label="Destinations" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
+        </li>
+      ))}
+    </Carousel>
+  )
+}
+```
+
+## Solid
+
+`import { Carousel } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardHeader, Carousel } from "opui-css/solid"
+
+const places = [
+  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  { description: "Ceviche by the Pacific.", title: "Lima" },
+  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  { description: "Medina markets and Mediterranean light.", title: "Tunis" },
+]
+
+export default function Basics() {
+  return (
+    <Carousel aria-label="Destinations" markers>
+      {places.map(({ description, title }) => (
+        <li>
           <Card variant="tonal">
             <CardHeader>
               <p>Destination</p>

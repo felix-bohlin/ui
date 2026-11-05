@@ -12,6 +12,8 @@ export default {
   notes: {
     ...passThrough("input", "label", ["autocomplete", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
+      solid:
+        "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
     }),
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
   },

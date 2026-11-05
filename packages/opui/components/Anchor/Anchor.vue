@@ -17,7 +17,7 @@ defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")
 
-const id = computed(() => (isHover.value ? (idProp ?? undefined) : undefined))
+const id = computed(() => (isHover.value ? idProp || undefined : undefined))
 
 if (isHover.value && !extendsAnchor(className)) {
   warnMissingId("Anchor", id.value, "interestfor")

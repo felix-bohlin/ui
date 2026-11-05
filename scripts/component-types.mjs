@@ -2,7 +2,11 @@ import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
-import { reactPropsOf, resolveReactProp } from "./example-react-props.mjs"
+import {
+  propsOf,
+  reactPropsOf,
+  resolveReactProp,
+} from "./example-react-props.mjs"
 import {
   byName,
   containsKind,
@@ -133,6 +137,11 @@ const frameworkKey = (framework, element, key) =>
         key,
       ) ?? key)
     : key
+
+const declaredAttributes = (element, keys) => {
+  const attributes = propsOf("solid", JSON.parse(element), false)
+  return attributes ? keys.filter((key) => attributes.has(key)) : []
+}
 
 const omitted = (framework, element, keys, others = []) =>
   keys.length || others.length
@@ -409,7 +418,18 @@ export const toTypes = (
             omitted(
               framework,
               tag ? JSON.stringify(tag) : ref.element,
-              ref.omittable ? [...ref.keys, ...omit] : ref.keys,
+              ref.omittable
+                ? [
+                    ...ref.keys,
+                    ...omit,
+                    ...(framework === "solid"
+                      ? declaredAttributes(
+                          tag ? JSON.stringify(tag) : ref.element,
+                          known,
+                        )
+                      : []),
+                  ]
+                : ref.keys,
               ref.others,
             ),
           ),

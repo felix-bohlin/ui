@@ -32,7 +32,7 @@ Every component uses layered type files:
 - `types.solid.ts` - Solid props = base + named slot props (`Base.Slots<JSX.Element>`, when there are any) + `ComponentProps<element>` from `@solidjs/web`, which brings `children`
 - `types.svelte.ts` - Svelte props = base + named snippets (`Base.Slots<Snippet>`, when there are any) + `SvelteHTMLElements[element]`, which brings `children`
 
-Every component folder has all six files (`types.solid.ts` only in the folders `SOLID_FOLDERS` in `src/utils/framework.js` lists while the Solid ports are in progress); `pnpm check-components` fails when one is missing.
+Every component folder has all six files; `pnpm check-components` fails when one is missing.
 
 A custom element's attributes and events are typed on the element itself, in `react/elements.ts` and `svelte/elements.ts` (`onsort` on `opui-sortable-table` in Svelte), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. The API docs read the `on*` events from there. React is the exception: React 19 listens to the event named after `on` with its case kept, so `onSort` belongs to the React component's own types.
 

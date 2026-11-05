@@ -3,7 +3,7 @@
 Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar.
 
 - CSS: `opui-css/css/components/spinner.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/spinner.md), [Astro](https://open-props-ui.netlify.app/astro/components/spinner.md), [React](https://open-props-ui.netlify.app/react/components/spinner.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/spinner.md), [Vue](https://open-props-ui.netlify.app/vue/components/spinner.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/spinner.md), [Astro](https://open-props-ui.netlify.app/astro/components/spinner.md), [React](https://open-props-ui.netlify.app/react/components/spinner.md), [Solid](https://open-props-ui.netlify.app/solid/components/spinner.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/spinner.md), [Vue](https://open-props-ui.netlify.app/vue/components/spinner.md).
 
 ## Spinner (CSS only)
 
@@ -18,7 +18,7 @@ Add it to an element with aria-busy="true". Spinners are always indeterminate. S
 ### Notes
 
 - HTML: These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
-- Astro, React, Svelte and Vue: Set `aria-busy="true"` on any element to show a spinner.
+- Astro, React, Solid, Svelte and Vue: Set `aria-busy="true"` on any element to show a spinner.
 
 ## Component properties
 
@@ -57,6 +57,19 @@ There is no React component. Use the classes in your markup.
 ### Example: Basics
 
 ```tsx
+export default function Basics() {
+  return <div aria-busy="true">Loading…</div>
+}
+```
+
+## Solid
+
+There is no Solid component. Use the classes in your markup.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
 export default function Basics() {
   return <div aria-busy="true">Loading…</div>
 }

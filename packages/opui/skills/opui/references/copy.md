@@ -3,7 +3,7 @@
 A button that copies text or a field's value to the clipboard.
 
 - CSS: `opui-css/css/components/copy.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/copy.md), [Astro](https://open-props-ui.netlify.app/astro/components/copy.md), [React](https://open-props-ui.netlify.app/react/components/copy.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/copy.md), [Vue](https://open-props-ui.netlify.app/vue/components/copy.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/copy.md), [Astro](https://open-props-ui.netlify.app/astro/components/copy.md), [React](https://open-props-ui.netlify.app/react/components/copy.md), [Solid](https://open-props-ui.netlify.app/solid/components/copy.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/copy.md), [Vue](https://open-props-ui.netlify.app/vue/components/copy.md).
 
 ## Copy
 
@@ -26,7 +26,7 @@ A button that copies text or a field's value to the clipboard.
 ### Notes
 
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the root `<opui-copy>`. The button works once the component hydrates, or once the page imports `opui-css/elements/copy.js`; the Astro component loads it.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the root `<opui-copy>`. The button works once the component hydrates, or once the page imports `opui-css/elements/copy.js`; the Astro component loads it.
 
 ## Component properties
 
@@ -117,6 +117,35 @@ export default function Basics() {
           hideLabel
           label="Invite link"
           readOnly
+          value="https://example.com/invite/8f3k2"
+        />
+      </Copy>
+      <Button command="--copy" commandfor="copy-basics-1" variant="outlined">
+        Copy
+      </Button>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Copy } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button, Copy, TextField } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <>
+      <Copy id="copy-basics-1">
+        <TextField
+          hideLabel
+          label="Invite link"
+          readonly
           value="https://example.com/invite/8f3k2"
         />
       </Copy>

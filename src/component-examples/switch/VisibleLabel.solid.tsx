@@ -1,0 +1,18 @@
+/** @jsxImportSource @solidjs/web */
+import { Switch } from "opui-css/solid"
+
+export default function VisibleLabel() {
+  return (
+    <>
+      <Switch name="switch-visible-label">Label</Switch>
+      <Switch disabled name="switch-visible-label">
+        Disabled
+      </Switch>
+      <Switch name="switch-visible-label">
+        Long text bacon ipsum dolor amet prosciutto tenderloin biltong leberkas
+        ribeye short ribs shankle tri-tip doner buffalo chislic meatloaf
+        meatball.
+      </Switch>
+    </>
+  )
+}

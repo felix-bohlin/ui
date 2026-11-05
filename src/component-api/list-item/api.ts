@@ -34,7 +34,7 @@ export default {
     },
     {
       description: "The `for` attribute of the `<label>` when `type` is set.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "solid", "svelte", "vue"],
       prop: "for",
     },
     {

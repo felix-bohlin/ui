@@ -3,7 +3,7 @@
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.
 
 - CSS: `opui-css/css/components/typography.css` and `opui-css/css/components/link.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/typography.md), [Astro](https://open-props-ui.netlify.app/astro/components/typography.md), [React](https://open-props-ui.netlify.app/react/components/typography.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/typography.md), [Vue](https://open-props-ui.netlify.app/vue/components/typography.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/typography.md), [Astro](https://open-props-ui.netlify.app/astro/components/typography.md), [React](https://open-props-ui.netlify.app/react/components/typography.md), [Solid](https://open-props-ui.netlify.app/solid/components/typography.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/typography.md), [Vue](https://open-props-ui.netlify.app/vue/components/typography.md).
 
 ## Typography (CSS only)
 
@@ -32,7 +32,7 @@ Styles for headings, body text, and other text content. Use util classes anywher
 ### Notes
 
 - Astro and Vue: Add the classes to elements in your templates.
-- React and Svelte: Add the classes to elements in your markup.
+- React, Solid and Svelte: Add the classes to elements in your markup.
 
 ## Component properties
 
@@ -116,6 +116,33 @@ export default function Variants() {
       <p className="ui-p ui-small">Body Small</p>
       <p className="ui-overline">Overline</p>
       <p className="ui-caption">Caption</p>
+    </>
+  )
+}
+```
+
+## Solid
+
+There is no Solid component. Use the classes in your markup.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+export default function Variants() {
+  return (
+    <>
+      <h1 class="ui-h1">Heading 1</h1>
+      <h2 class="ui-h2">Heading 2</h2>
+      <h3 class="ui-h3">Heading 3</h3>
+      <h4 class="ui-h4">Heading 4</h4>
+      <h5 class="ui-h5">Heading 5</h5>
+      <h6 class="ui-h6">Heading 6</h6>
+      <p class="ui-p ui-large">Body Large</p>
+      <p class="ui-p">Body</p>
+      <p class="ui-p ui-small">Body Small</p>
+      <p class="ui-overline">Overline</p>
+      <p class="ui-caption">Caption</p>
     </>
   )
 }

@@ -3,7 +3,7 @@
 A star rating: a meter that shows a score, or radios that collect one.
 
 - CSS: `opui-css/css/components/rating.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/rating.md), [Astro](https://open-props-ui.netlify.app/astro/components/rating.md), [React](https://open-props-ui.netlify.app/react/components/rating.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/rating.md), [Vue](https://open-props-ui.netlify.app/vue/components/rating.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/rating.md), [Astro](https://open-props-ui.netlify.app/astro/components/rating.md), [React](https://open-props-ui.netlify.app/react/components/rating.md), [Solid](https://open-props-ui.netlify.app/solid/components/rating.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/rating.md), [Vue](https://open-props-ui.netlify.app/vue/components/rating.md).
 
 ## Rating
 
@@ -28,13 +28,14 @@ A star rating: a meter that shows a score, or radios that collect one.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 - `starLabel`: `(value: number) => string`, default `(value) => "1 star", "2 stars"`. Returns the accessible name of each star radio. Use it to translate.
 
-Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.
 - Astro: Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.
 - React: Use `value` with `onChange`, or `defaultValue`.
+- Solid: `value` checks a star and follows it when it changes, and `onChange` reports the star that is picked.
 - Svelte: Bind the input with `bind:value`.
 - Vue: Bind the input with `v-model`.
 
@@ -101,6 +102,21 @@ import { Rating } from "opui-css/react"
 
 export default function Basics() {
   return <Rating defaultValue={4.5} label="Rated 4.5 out of 5" />
+}
+```
+
+## Solid
+
+`import { Rating } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Rating } from "opui-css/solid"
+
+export default function Basics() {
+  return <Rating label="Rated 4.5 out of 5" value={4.5} />
 }
 ```
 

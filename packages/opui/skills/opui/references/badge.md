@@ -3,7 +3,7 @@
 Badges attach a small count or status dot to another element.
 
 - CSS: `opui-css/css/components/badge.css` and `opui-css/css/components/anchor.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/badge.md), [Astro](https://open-props-ui.netlify.app/astro/components/badge.md), [React](https://open-props-ui.netlify.app/react/components/badge.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/badge.md), [Vue](https://open-props-ui.netlify.app/vue/components/badge.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/badge.md), [Astro](https://open-props-ui.netlify.app/astro/components/badge.md), [React](https://open-props-ui.netlify.app/react/components/badge.md), [Solid](https://open-props-ui.netlify.app/solid/components/badge.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/badge.md), [Vue](https://open-props-ui.netlify.app/vue/components/badge.md).
 
 ## Badge
 
@@ -114,6 +114,33 @@ import { Badge } from "opui-css/astro"
 
 ```tsx
 import { Badge } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <>
+      <Badge hideLabel indicator="5" label="5 unread messages">
+        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      </Badge>
+
+      <Badge dot label="New messages">
+        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      </Badge>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Badge } from "opui-css/solid"`
+
+- `Badge` slot props (`JSX.Element`): `children` and `indicator`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Badge } from "opui-css/solid"
 
 export default function Basics() {
   return (

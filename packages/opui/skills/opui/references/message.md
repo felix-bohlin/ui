@@ -3,7 +3,7 @@
 Chat bubbles that group by sender, with attachments, reactions and a typing indicator.
 
 - CSS: `opui-css/css/components/message.css` and `opui-css/css/components/avatar.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/message.md), [Astro](https://open-props-ui.netlify.app/astro/components/message.md), [React](https://open-props-ui.netlify.app/react/components/message.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/message.md), [Vue](https://open-props-ui.netlify.app/vue/components/message.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/message.md), [Astro](https://open-props-ui.netlify.app/astro/components/message.md), [React](https://open-props-ui.netlify.app/react/components/message.md), [Solid](https://open-props-ui.netlify.app/solid/components/message.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/message.md), [Vue](https://open-props-ui.netlify.app/vue/components/message.md).
 
 ## Messages
 
@@ -165,6 +165,62 @@ import { Avatar, Message, Messages } from "opui-css/astro"
 
 ```tsx
 import { Avatar, Message, Messages } from "opui-css/react"
+
+export default function Basics() {
+  return (
+    <Messages aria-label="Messages with Saga">
+      <Message
+        author="Saga"
+        datetime="2026-10-08T14:02"
+        start={
+          <Avatar aria-label="Saga Nyström" role="img">
+            SN
+          </Avatar>
+        }
+        time="14:02"
+      >
+        <p>Did you get a chance to look at the pricing proposal?</p>
+      </Message>
+      <Message
+        author="Saga"
+        datetime="2026-10-08T14:03"
+        start={
+          <Avatar aria-label="Saga Nyström" role="img">
+            SN
+          </Avatar>
+        }
+        time="14:03"
+      >
+        <p>No rush, Friday is fine.</p>
+      </Message>
+      <Message author="You" datetime="2026-10-08T14:18" outgoing time="14:18">
+        <p>Yes, looks good. I'd lead with the annual plan.</p>
+      </Message>
+      <Message
+        author="You"
+        datetime="2026-10-08T14:19"
+        end="Read"
+        outgoing
+        time="14:19"
+      >
+        <p>Can you add the Bergen Bikes case study too?</p>
+      </Message>
+    </Messages>
+  )
+}
+```
+
+## Solid
+
+`import { Message, Messages } from "opui-css/solid"`
+
+- `Message` slot props (`JSX.Element`): `bottom`, `children`, `end` and `start`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Avatar, Message, Messages } from "opui-css/solid"
 
 export default function Basics() {
   return (

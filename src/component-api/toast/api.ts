@@ -28,6 +28,8 @@ export default {
       "Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.",
     react:
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/react` exports `toast()` next to `Toaster`.",
+    solid:
+      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/solid` exports `toast()` next to `Toaster`.",
     svelte:
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.",
     vue: "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/vue` exports `toast()` next to `Toaster`.",

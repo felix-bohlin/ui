@@ -3,7 +3,7 @@
 Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.
 
 - CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/checkbox.md), [Astro](https://open-props-ui.netlify.app/astro/components/checkbox.md), [React](https://open-props-ui.netlify.app/react/components/checkbox.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/checkbox.md), [Vue](https://open-props-ui.netlify.app/vue/components/checkbox.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/checkbox.md), [Astro](https://open-props-ui.netlify.app/astro/components/checkbox.md), [React](https://open-props-ui.netlify.app/react/components/checkbox.md), [Solid](https://open-props-ui.netlify.app/solid/components/checkbox.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/checkbox.md), [Vue](https://open-props-ui.netlify.app/vue/components/checkbox.md).
 - The docs page also documents `FieldGroup`, see `form.md`.
 
 ## Checkbox
@@ -31,13 +31,14 @@ Use a Checkbox for choices that are submitted with a form. For a setting that ap
 - `value`: `string`. The value of the `<input>`, submitted with the form when it's checked.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.
 
-Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro and React `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
+Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
 - HTML: `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property, and keeps it in step when the attribute changes or a checkbox is added.
 - Astro and Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
+- Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. `checked` sets the state and follows it when it changes, and `onChange` reports changes. For a group, keep the checked values in your own state.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
 
 ## CheckboxInput
@@ -51,11 +52,11 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 - `indeterminate`: `boolean`, `[data-indeterminate]`. Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` when omitted.
 
-Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro and React `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
+Model: `checked` (`boolean | (string | number)[]`), the checked state, or the checked values of a group. Astro, React and Solid `checked`, Svelte `bind:checked`, `bind:group`, Vue `v-model`.
 
 ### Notes
 
-- Astro, React, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `type="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+- Astro, React, Solid, Svelte and Vue: The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `type="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ## SelectAll
 
@@ -71,7 +72,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Notes
 
 - HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.
-- Astro, React, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Astro, React, Solid, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
 ## Component properties
 
@@ -203,6 +204,41 @@ export default function Basics() {
         Disabled
       </Checkbox>
       <Checkbox defaultChecked disabled hideLabel name="checkbox-basics">
+        Checked and disabled
+      </Checkbox>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Checkbox, CheckboxInput, SelectAll } from "opui-css/solid"`
+
+- `Checkbox` slot props (`JSX.Element`): `children` and `endText`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Checkbox } from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <>
+      <Checkbox checked hideLabel name="checkbox-basics">
+        Checked
+      </Checkbox>
+      <Checkbox hideLabel name="checkbox-basics">
+        Unchecked
+      </Checkbox>
+      <Checkbox hideLabel indeterminate name="checkbox-basics">
+        Indeterminate
+      </Checkbox>
+      <Checkbox disabled hideLabel name="checkbox-basics">
+        Disabled
+      </Checkbox>
+      <Checkbox checked disabled hideLabel name="checkbox-basics">
         Checked and disabled
       </Checkbox>
     </>

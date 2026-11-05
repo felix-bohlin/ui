@@ -106,7 +106,7 @@ export default function Range(props: Props) {
         name={props.name ?? field?.name}
         step={props.step}
         type="range"
-        {...defaultValueProp(props.value)}
+        {...defaultValueProp(() => props.value)}
       />{" "}
       {hasDatalist() && (
         <datalist aria-hidden="true" id={listId()}>

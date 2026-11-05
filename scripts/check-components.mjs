@@ -8,7 +8,6 @@ import {
   componentHasFramework,
   exampleExtension,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
-  folderHasFramework,
   FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
@@ -633,7 +632,7 @@ export const checkSolidProps = (file, source, snippets = []) => {
         `lists the omit() keys out of order: expected ${expected.join(", ")}`,
       )
     }
-    if (!/\{\s*\.\.\.rest\s*\}/.test(source)) {
+    if (!spreadsRest(source, ["rest"])) {
       problems.push(
         "takes the rest with omit() but never spreads it: spread it onto the root element, or the input of a form control",
       )
@@ -1005,8 +1004,7 @@ const main = async () => {
 
     const astro = names(".astro")
     const ported = Object.entries(COMPONENT_FILES).filter(
-      ([framework]) =>
-        framework !== "astro" && folderHasFramework(framework, folder),
+      ([framework]) => framework !== "astro",
     )
     for (const [, extension] of ported) {
       const ports = files
@@ -1025,18 +1023,10 @@ const main = async () => {
         )
       }
     }
-    for (const name of TYPE_FILES.filter(
-      (name) =>
-        !files.includes(name) &&
-        folderHasFramework(
-          name === "types.solid.ts" ? "solid" : "astro",
-          folder,
-        ),
-    )) {
+    for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
       report(join(dir, name), "is missing")
     }
     for (const [framework, extension] of Object.entries(BARRELS)) {
-      if (!folderHasFramework(framework, folder)) continue
       for (const name of astro) {
         if (!barrels[framework].includes(`/${folder}/${name}${extension}"`)) {
           report(
@@ -1057,12 +1047,7 @@ const main = async () => {
     const context = CONTEXT_FILES.filter((name) => files.includes(name))
     if (context.length > 0) {
       for (const name of CONTEXT_FILES.filter(
-        (name) =>
-          !files.includes(name) &&
-          folderHasFramework(
-            name === "context.solid.ts" ? "solid" : "astro",
-            folder,
-          ),
+        (name) => !files.includes(name),
       )) {
         report(join(dir, name), "is missing")
       }
@@ -1285,18 +1270,8 @@ const main = async () => {
     }
   }
 
-  const folderOf = (from) =>
-    from.match(/^\.\.\/components\/([^/]+)\//)?.[1] ?? ""
-  const astroNamesFor = (framework) =>
-    barrelExports(barrels.astro)
-      .filter(({ folder }) => folderHasFramework(framework, folder))
-      .map(({ name }) => name)
-      .toSorted()
-  const astroTypesFor = (framework) =>
-    typeExports(barrels.astro)
-      .filter(({ from }) => folderHasFramework(framework, folderOf(from)))
-      .flatMap(({ names }) => names)
-      .toSorted()
+  const astroNames = exportedNames(barrels.astro)
+  const astroTypes = exportedTypes(barrels.astro)
   const firstUnsorted = (list) =>
     list.findIndex(
       (item, index) =>
@@ -1331,8 +1306,6 @@ const main = async () => {
       }
     }
     const names = exportedNames(source)
-    const astroNames = astroNamesFor(framework)
-    const astroTypes = astroTypesFor(framework)
     const missing = astroNames.filter((name) => !names.includes(name))
     const extra = names.filter((name) => !astroNames.includes(name))
     if (missing.length || extra.length) {

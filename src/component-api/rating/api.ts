@@ -26,6 +26,8 @@ export default {
       "Extra attributes go to the `<fieldset>` or the `<meter>`, except `aria-describedby` and `aria-invalid`, which go to every radio.",
     html: "Add `.ui-rating` to a `<meter>` with `max` and `value`, or to a `<fieldset>` with a `<legend>` and one radio per star.",
     react: "Use `value` with `onChange`, or `defaultValue`.",
+    solid:
+      "`value` checks a star and follows it when it changes, and `onChange` reports the star that is picked.",
     svelte: "Bind the input with `bind:value`.",
     vue: "Bind the input with `v-model`.",
   },

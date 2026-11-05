@@ -3,7 +3,7 @@
 Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.
 
 - CSS: `opui-css/css/components/layout.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/layout.md), [Astro](https://open-props-ui.netlify.app/astro/components/layout.md), [React](https://open-props-ui.netlify.app/react/components/layout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/layout.md), [Vue](https://open-props-ui.netlify.app/vue/components/layout.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/layout.md), [Astro](https://open-props-ui.netlify.app/astro/components/layout.md), [React](https://open-props-ui.netlify.app/react/components/layout.md), [Solid](https://open-props-ui.netlify.app/solid/components/layout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/layout.md), [Vue](https://open-props-ui.netlify.app/vue/components/layout.md).
 
 ## Layout (CSS only)
 
@@ -29,7 +29,7 @@ Six classes for the space between components: .ui-layout-column, .ui-layout-row,
 ### Notes
 
 - Astro and Vue: Add the classes to elements in your templates.
-- React and Svelte: Add the classes to elements in your markup.
+- React, Solid and Svelte: Add the classes to elements in your markup.
 
 ## Component properties
 
@@ -114,6 +114,33 @@ export default function Column() {
       </Card>
       <Card variant="outlined">
         <CardContent>Write the release notes</CardContent>
+      </Card>
+    </div>
+  )
+}
+```
+
+## Solid
+
+There is no Solid component. Use the classes in your markup.
+
+### Example: Column
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardContent } from "opui-css/solid"
+
+export default function Column() {
+  return (
+    <div class="ui-layout-column">
+      <Card variant="outlined">
+        <CardContent>First</CardContent>
+      </Card>
+      <Card variant="outlined">
+        <CardContent>Second</CardContent>
+      </Card>
+      <Card variant="outlined">
+        <CardContent>Third</CardContent>
       </Card>
     </div>
   )

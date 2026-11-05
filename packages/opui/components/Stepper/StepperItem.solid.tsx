@@ -45,20 +45,16 @@ export default function StepperItem(props: Props) {
       {link() ? (
         <a href={props.href}>
           {resolvedLabel()}
-          {
-            <Show when={state()}>
-              {(state) => <span class="ui-sr-only">{state()}</span>}
-            </Show>
-          }
+          <Show when={state()}>
+            {(state) => <span class="ui-sr-only">{state()}</span>}
+          </Show>
         </a>
       ) : (
         <>
           {resolvedLabel()}
-          {
-            <Show when={state()}>
-              {(state) => <span class="ui-sr-only">{state()}</span>}
-            </Show>
-          }
+          <Show when={state()}>
+            {(state) => <span class="ui-sr-only">{state()}</span>}
+          </Show>
         </>
       )}{" "}
       {resolvedDescription() && (

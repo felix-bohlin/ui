@@ -1124,7 +1124,7 @@ const styleObject = (css, file) =>
     })
     .join(", ")} }}`
 
-const reactExpression = (nodes, context, extra = "") => {
+const jsxExpression = (nodes, context, extra = "") => {
   const inlined = nodes.flatMap((node) =>
     node.type === "html" && !context.markup.get(node.name).shared
       ? context.markup.get(node.name).tree
@@ -1134,8 +1134,8 @@ const reactExpression = (nodes, context, extra = "") => {
     (node) => !(node.type === "text" && !node.value.trim()),
   )
   return significant.length === 1 && significant[0].type === "element" && !extra
-    ? reactNodes(significant, context)
-    : `<>${reactNodes(inlined, context)}${extra}</>`
+    ? jsxNodes(significant, context)
+    : `<>${jsxNodes(inlined, context)}${extra}</>`
 }
 
 const ASCII_WHITESPACE = /[\t\n\f\r ]+/g
@@ -1246,13 +1246,14 @@ const reactFormState = (node, table, context) => {
   return state
 }
 
-const reactPropCode = (name, item, kinds, where, context) => {
+const jsxPropCode = (name, item, kinds, where, context) => {
+  const { framework, styleObjects, stringCode } = context.dialect
   const has = (...names) => names.some((kind) => kinds.has(kind))
   const fail = (what) =>
     unsupported(
       context.file,
-      `${what} for the prop ${name} of ${where}, which React types as ${[...kinds].join(" or ") || "nothing"}`,
-      "React",
+      `${what} for the prop ${name} of ${where}, which ${framework} types as ${[...kinds].join(" or ") || "nothing"}`,
+      framework,
     )
   if (item.kind === "boolean") {
     if (has("boolean", "any", "other")) return name
@@ -1260,10 +1261,10 @@ const reactPropCode = (name, item, kinds, where, context) => {
     throw fail("an attribute without a value")
   }
   if (item.kind === "string") {
-    if (name === "style") {
+    if (name === "style" && styleObjects) {
       return `${name}=${styleObject(item.value, context.file)}`
     }
-    if (has("string", "any", "other")) return jsxAttribute(name, item.value)
+    if (has("string", "any", "other")) return stringCode(name, item.value)
     if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
       return `${name}={${item.value}}`
     }
@@ -1272,33 +1273,30 @@ const reactPropCode = (name, item, kinds, where, context) => {
   return `${name}={${item.value}}`
 }
 
-const reactProps = (node, context) => {
+const jsxProps = (node, context) => {
+  const { dialect } = context
+  const { framework } = dialect
   const where = `<${node.name}>`
-  const table = reactPropsOf(node.name, node.component)
+  const table = dialect.propsOf(node.name, node.component)
   if (!table) {
     throw unsupported(
       context.file,
-      `${where}, which React's types don't have`,
-      "React",
+      `${where}, which ${framework}'s types don't have`,
+      framework,
     )
   }
-  const state = reactFormState(node, table, context)
+  const state = dialect.formState(node, table, context)
   const props = node.attributes.map((item) => {
-    const name =
-      item.name === "checked" && table.has("defaultChecked")
-        ? "defaultChecked"
-        : item.name === "value" && state.valueIsState
-          ? "defaultValue"
-          : resolveReactProp(table, item.name)
+    const name = dialect.propName(item, table, state)
     if (!name) {
       throw unsupported(
         context.file,
-        `the attribute ${item.name} on ${where}, which React's types for it don't have`,
-        "React",
+        `the attribute ${item.name} on ${where}, which ${framework}'s types for it don't have`,
+        framework,
       )
     }
     return {
-      code: reactPropCode(name, item, reactKinds(table, name), where, context),
+      code: jsxPropCode(name, item, reactKinds(table, name), where, context),
       name,
     }
   })
@@ -1309,8 +1307,8 @@ const reactProps = (node, context) => {
       if (!table.has(name)) {
         throw unsupported(
           context.file,
-          `the slot ${child.slot} of ${where}, which has no ${name} prop in React`,
-          "React",
+          `the slot ${child.slot} of ${where}, which has no ${name} prop in ${framework}`,
+          framework,
         )
       }
       const content =
@@ -1325,7 +1323,7 @@ const reactProps = (node, context) => {
           .trim()
         return { code: jsxAttribute(name, decodeText(text)), name }
       }
-      return { code: `${name}={${reactExpression(content, context)}}`, name }
+      return { code: `${name}={${jsxExpression(content, context)}}`, name }
     })
   const all = [...props, ...state.extra, ...slots]
   return {
@@ -1376,7 +1374,7 @@ const joinRuns = (parts) =>
     return joined
   }, [])
 
-const reactChildren = (nodes) => {
+const jsxChildren = (nodes) => {
   const merged = []
   for (const node of nodes) {
     const previous = merged.at(-1)
@@ -1393,8 +1391,9 @@ const reactChildren = (nodes) => {
   return merged
 }
 
-const reactNodes = (nodes, context) => {
-  const children = reactChildren(
+const jsxNodes = (nodes, context) => {
+  const { dialect } = context
+  const children = jsxChildren(
     nodes
       .filter((node) => !node.slot)
       .map((node) =>
@@ -1422,239 +1421,111 @@ const reactNodes = (nodes, context) => {
       }
       if (node.type === "comment") {
         if (node.value.includes("*/")) {
-          throw unsupported(context.file, "a comment that contains */", "React")
+          throw unsupported(
+            context.file,
+            "a comment that contains */",
+            dialect.framework,
+          )
         }
         return `{/*${node.value}*/}`
       }
       if (node.type === "expression") return `{${node.code}}`
       if (node.type === "html") {
         const item = context.markup.get(node.name)
-        return item.shared ? `{${node.name}}` : reactNodes(item.tree, context)
+        return item.shared
+          ? `{${dialect.sharedRead(node.name)}}`
+          : jsxNodes(item.tree, context)
       }
       if (node.type === "map") {
-        return `{${node.array}.map((${node.params}) => (${reactElement(node.child, context, node.key)}))}`
+        return `{${node.array}.map((${node.params}) => (${jsxElement(node.child, context, dialect.keyed ? node.key : undefined)}))}`
       }
       if (node.type === "fragment") {
-        throw unsupported(context.file, "a slot outside a component", "React")
-      }
-      return reactElement(node, context)
-    })
-    .join("")
-}
-
-const reactElement = (node, context, key) => {
-  const { children, code } = reactProps(node, context)
-  const attributes = key ? `key={${key}}${code ? ` ${code}` : ""}` : code
-  const content = reactNodes(children, context)
-  if (VOID_ELEMENTS.has(node.name) || (!content.trim() && node.component)) {
-    return `${openTag(node.name, attributes)} />`
-  }
-  return `${openTag(node.name, attributes)}>${content}</${node.name}>`
-}
-
-const toReact = (example, name, file = `${name}.astro`) => {
-  const context = { file, markup: example.markup, roles: example.roles }
-  const components = usedComponents(example)
-  const functionName = components.includes(name) ? `${name}Example` : name
-  const shared = [...example.markup.values()]
-    .filter((item) => item.shared)
-    .map(
-      (item) => `const ${item.name} = (${reactExpression(item.tree, context)})`,
-    )
-  const client =
-    example.consts.some(({ fn }) => fn) ||
-    passesFunction(example.tree) ||
-    passesFunction([...example.markup.values()].map(({ tree }) => tree))
-  const header = [
-    ...(client ? ['"use client"'] : []),
-    importLine(example, "react"),
-    ...declarations(example),
-    ...shared,
-  ]
-    .filter(Boolean)
-    .join("\n\n")
-  const styles = example.styles.map(
-    (css) =>
-      `\n<style>{\`\n${indent(templateLiteral(css), 8)}\n      \`}</style>`,
-  )
-  const body = reactExpression(example.tree, context, styles.join(""))
-  return `${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
-}
-
-const reactStyleIndent = (code) =>
-  code.replace(
-    /^( *)<style>\{`\n([\s\S]*?)\n *`\}<\/style>/gm,
-    (_, spaces, css) =>
-      `${spaces}<style>{\`\n${indent(dedent(css), spaces.length + 2)}\n${spaces}\`}</style>`,
-  )
-
-const solidPropCode = (name, item, kinds, where, context) => {
-  const has = (...names) => names.some((kind) => kinds.has(kind))
-  const fail = (what) =>
-    unsupported(
-      context.file,
-      `${what} for the prop ${name} of ${where}, which Solid types as ${[...kinds].join(" or ") || "nothing"}`,
-      "Solid",
-    )
-  if (item.kind === "boolean") {
-    if (has("boolean", "any", "other")) return name
-    if (has("string")) return `${name}=""`
-    throw fail("an attribute without a value")
-  }
-  if (item.kind === "string") {
-    if (has("string", "any", "other")) return stringProp(name, item.value)
-    if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
-      return `${name}={${item.value}}`
-    }
-    throw fail(`the string ${JSON.stringify(item.value)}`)
-  }
-  return `${name}={${item.value}}`
-}
-
-const solidProps = (node, context) => {
-  const where = `<${node.name}>`
-  const table = propsOf("solid", node.name, node.component)
-  if (!table) {
-    throw unsupported(
-      context.file,
-      `${where}, which Solid's types don't have`,
-      "Solid",
-    )
-  }
-  const props = node.attributes.map((item) => {
-    const name =
-      table.has(item.name) || item.name.startsWith("data-")
-        ? item.name
-        : undefined
-    if (!name) {
-      throw unsupported(
-        context.file,
-        `the attribute ${item.name} on ${where}, which Solid's types for it don't have`,
-        "Solid",
-      )
-    }
-    return {
-      code: solidPropCode(name, item, reactKinds(table, name), where, context),
-      name,
-    }
-  })
-  const slots = node.children
-    .filter((child) => child.slot)
-    .map((child) => {
-      const name = slotProp(child.slot)
-      if (!table.has(name)) {
         throw unsupported(
           context.file,
-          `the slot ${child.slot} of ${where}, which has no ${name} prop in Solid`,
-          "Solid",
+          "a slot outside a component",
+          dialect.framework,
         )
       }
-      const content =
-        child.type === "fragment"
-          ? trimTree(child.children)
-          : [{ ...child, slot: undefined }]
-      if (content.every((item) => item.type === "text")) {
-        const text = content
-          .map((item) => item.value)
-          .join("")
-          .replace(/\s+/g, " ")
-          .trim()
-        return { code: jsxAttribute(name, decodeText(text)), name }
-      }
-      return { code: `${name}={${solidExpression(content, context)}}`, name }
-    })
-  const all = [...props, ...slots]
-  return (
-    node.component
-      ? all.toSorted((a, b) => byAttributeName(a.name, b.name))
-      : all
-  )
-    .map(({ code }) => code)
-    .join(" ")
-}
-
-const solidExpression = (nodes, context, extra = "") => {
-  const inlined = nodes.flatMap((node) =>
-    node.type === "html" && !context.markup.get(node.name).shared
-      ? context.markup.get(node.name).tree
-      : [node],
-  )
-  const significant = inlined.filter(
-    (node) => !(node.type === "text" && !node.value.trim()),
-  )
-  return significant.length === 1 && significant[0].type === "element" && !extra
-    ? solidNodes(significant, context)
-    : `<>${solidNodes(inlined, context)}${extra}</>`
-}
-
-const solidNodes = (nodes, context) =>
-  reactChildren(
-    nodes
-      .filter((node) => !node.slot)
-      .map((node) =>
-        node.type === "text"
-          ? { ...node, parts: textParts(node, context.roles) }
-          : node,
-      ),
-  )
-    .map((node) => {
-      if (node.type === "text") {
-        return jsxText(
-          joinRuns(node.parts)
-            .map(
-              (part) =>
-                part.text ??
-                (part.role === "space"
-                  ? " "
-                  : part.run === "\n\n"
-                    ? "\n\n"
-                    : "\n"),
-            )
-            .join(""),
-        )
-      }
-      if (node.type === "comment") {
-        if (node.value.includes("*/")) {
-          throw unsupported(context.file, "a comment that contains */", "Solid")
-        }
-        return `{/*${node.value}*/}`
-      }
-      if (node.type === "expression") return `{${node.code}}`
-      if (node.type === "html") {
-        const item = context.markup.get(node.name)
-        return item.shared ? `{${node.name}()}` : solidNodes(item.tree, context)
-      }
-      if (node.type === "map") {
-        return `{${node.array}.map((${node.params}) => (${solidElement(node.child, context)}))}`
-      }
-      if (node.type === "fragment") {
-        throw unsupported(context.file, "a slot outside a component", "Solid")
-      }
-      return solidElement(node, context)
+      return jsxElement(node, context)
     })
     .join("")
+}
 
-const solidElement = (node, context) => {
-  const attributes = solidProps(node, context)
-  const content = solidNodes(node.children, context)
+const jsxElement = (node, context, key) => {
+  const { children, code } = jsxProps(node, context)
+  const attributes = key ? `key={${key}}${code ? ` ${code}` : ""}` : code
+  const content = jsxNodes(children, context)
   if (VOID_ELEMENTS.has(node.name) || (!content.trim() && node.component)) {
     return `${openTag(node.name, attributes)} />`
   }
   return `${openTag(node.name, attributes)}>${content}</${node.name}>`
 }
 
-const toSolidExample = (example, name, file = `${name}.astro`) => {
-  const context = { file, markup: example.markup, roles: example.roles }
+const JSX_DIALECTS = {
+  react: {
+    formState: reactFormState,
+    framework: "React",
+    keyed: true,
+    pragma: "",
+    preamble: (example) =>
+      example.consts.some(({ fn }) => fn) ||
+      passesFunction(example.tree) ||
+      passesFunction([...example.markup.values()].map(({ tree }) => tree))
+        ? ['"use client"']
+        : [],
+    propName: (item, table, state) =>
+      item.name === "checked" && table.has("defaultChecked")
+        ? "defaultChecked"
+        : item.name === "value" && state.valueIsState
+          ? "defaultValue"
+          : resolveReactProp(table, item.name),
+    propsOf: reactPropsOf,
+    sharedMarkup: (code) => `(${code})`,
+    sharedRead: (name) => name,
+    stringCode: jsxAttribute,
+    styleObjects: true,
+  },
+  solid: {
+    formState: (node) => ({
+      children: node.children,
+      extra: [],
+      valueIsState: false,
+    }),
+    framework: "Solid",
+    keyed: false,
+    pragma: `${SOLID_PRAGMA}\n`,
+    preamble: () => [],
+    propName: (item, table) =>
+      table.has(item.name) || item.name.startsWith("data-")
+        ? item.name
+        : undefined,
+    propsOf: (tag, component) => propsOf("solid", tag, component),
+    sharedMarkup: (code) => `() => (${code})`,
+    sharedRead: (name) => `${name}()`,
+    stringCode: stringProp,
+    styleObjects: false,
+  },
+}
+
+const toJsx = (framework, example, name, file = `${name}.astro`) => {
+  const dialect = JSX_DIALECTS[framework]
+  const context = {
+    dialect,
+    file,
+    markup: example.markup,
+    roles: example.roles,
+  }
   const components = usedComponents(example)
   const functionName = components.includes(name) ? `${name}Example` : name
   const shared = [...example.markup.values()]
     .filter((item) => item.shared)
     .map(
       (item) =>
-        `const ${item.name} = () => (${solidExpression(item.tree, context)})`,
+        `const ${item.name} = ${dialect.sharedMarkup(jsxExpression(item.tree, context))}`,
     )
   const header = [
-    importLine(example, "solid"),
+    ...dialect.preamble(example),
+    importLine(example, framework),
     ...declarations(example),
     ...shared,
   ]
@@ -1664,9 +1535,16 @@ const toSolidExample = (example, name, file = `${name}.astro`) => {
     (css) =>
       `\n<style>{\`\n${indent(templateLiteral(css), 8)}\n      \`}</style>`,
   )
-  const body = solidExpression(example.tree, context, styles.join(""))
-  return `${SOLID_PRAGMA}\n${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
+  const body = jsxExpression(example.tree, context, styles.join(""))
+  return `${dialect.pragma}${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
 }
+
+const jsxStyleIndent = (code) =>
+  code.replace(
+    /^( *)<style>\{`\n([\s\S]*?)\n *`\}<\/style>/gm,
+    (_, spaces, css) =>
+      `${spaces}<style>{\`\n${indent(dedent(css), spaces.length + 2)}\n${spaces}\`}</style>`,
+  )
 
 /** @param {string} source @param {string} framework @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>>, roles?: Map<number, string> }} [options] */
 export const convertExample = async (
@@ -1689,10 +1567,9 @@ export const convertExample = async (
     )
   }
   const target = file.replace(/\.astro$/, TARGETS[framework])
-  if (framework === "react" || framework === "solid") {
-    const convert = framework === "react" ? toReact : toSolidExample
-    return reactStyleIndent(
-      await formatStably(convert(example, name, file), target),
+  if (framework in JSX_DIALECTS) {
+    return jsxStyleIndent(
+      await formatStably(toJsx(framework, example, name, file), target),
     )
   }
   if (mixedSvgText(example.tree)) {

@@ -4,7 +4,6 @@ import {
   componentImport,
   contextImports,
   groupWarning,
-  indent,
   propsImport,
   rewriteExpression,
   rewriteStatement,
@@ -12,6 +11,7 @@ import {
   slotOrder,
   withImport,
 } from "./component-emit.mjs"
+import { componentFunction, jsxEmitter, tagNamer } from "./component-jsx.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
 import {
   SOLID_PRAGMA,
@@ -21,7 +21,6 @@ import {
   codesIn,
   elementsIn,
   identifiersIn,
-  isBlank,
   isIdentifierName,
   sourceFileOf,
   unsupported,
@@ -94,16 +93,7 @@ export const toSolid = (component) => {
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
   const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
-  const declared = new Set([
-    ...component.props.map(({ local }) => local),
-    ...slots.map((slot) => slotProp(slot)),
-    ...derived.map(({ name }) => name),
-    ...reads.map(({ name }) => name),
-  ])
-  const lowered = (name) => {
-    const camel = `${name[0].toLowerCase()}${name.slice(1)}`
-    return declared.has(camel) ? `${camel}Tag` : camel
-  }
+  const lowered = tagNamer(component)
   const defaulted = props.filter(
     (entry) => entry.default !== undefined && !tagProps.includes(entry),
   )
@@ -238,142 +228,75 @@ export const toSolid = (component) => {
     if (entry.kind === "boolean") return entry.name
     return `${entry.name}={${rewrite(entry.code, scope)}}`
   }
-  const slotCode = (name) => propAccess(name)
-  const wrapFragment = (code, nodes, scope) => {
-    const significant = nodes.filter(
-      (node) =>
-        !isBlank(node) &&
-        !(node.type === "slot" && stringSlots.includes(slotProp(node.name))),
-    )
-    const [only] = significant
-    if (significant.length !== 1) return `<>${code}</>`
-    if (only.type === "element") return code
-    if (only.type === "if") return conditional(only, scope)
-    if (only.type === "slot" && only.fallback.length === 0) {
-      return slotCode(slotProp(only.name))
-    }
-    if (only.type === "expression") return rewrite(only.code, scope)
-    return `<>${code}</>`
-  }
-  const conditional = (node, scope) => {
-    const test = rewrite(node.test, scope)
+  const narrow = (node, scope, branch) => {
     const name = node.test.trim()
     const accessor = /^([A-Za-z_$][\w$]*)\(\)$/.exec(
       scope.rename.get(name) ?? "",
     )?.[1]
-    if (accessor && uses(node.consequent, name)) {
-      usesShow = true
-      const consequent = wrapFragment(
-        emit(node.consequent, scope),
-        node.consequent,
-        scope,
-      )
-      const fallback = node.alternate
-        ? ` fallback={${wrapFragment(emit(node.alternate, scope), node.alternate, scope)}}`
-        : ""
-      return `<Show when={${test}}${fallback}>{(${accessor}) => (${consequent})}</Show>`
-    }
-    const consequent = wrapFragment(
-      emit(node.consequent, scope),
-      node.consequent,
-      scope,
-    )
-    if (!node.alternate) return `(${test}) && (${consequent})`
-    const alternate = wrapFragment(
-      emit(node.alternate, scope),
-      node.alternate,
-      scope,
-    )
-    return `${test} ? (${consequent}) : (${alternate})`
+    if (!accessor || !uses(node.consequent, name)) return undefined
+    usesShow = true
+    const fallback = node.alternate
+      ? ` fallback={${branch(node.alternate, scope)}}`
+      : ""
+    return `<Show when={${rewrite(node.test, scope)}}${fallback}>{(${accessor}) => (${branch(node.consequent, scope)})}</Show>`
   }
-  const emit = (nodes, scope = options) =>
-    nodes
-      .map((node) => {
-        if (node.type === "text") {
-          return node.value === " " || node.inline ? '{" "}' : node.value
-        }
-        if (node.type === "expression") return `{${rewrite(node.code, scope)}}`
-        if (node.type === "slot") {
-          const name = slotProp(node.name)
-          if (stringSlots.includes(name)) {
-            return nodes.some(
-              (sibling) =>
-                sibling.type === "expression" && sibling.code.trim() === name,
-            )
-              ? ""
-              : `{${slotCode(name)}}`
-          }
-          if (node.fallback.length === 0) return `{${slotCode(name)}}`
-          return `{${slotCode(name)} === undefined ? (${wrapFragment(emit(node.fallback, scope), node.fallback, scope)}) : (${slotCode(name)})}`
-        }
-        if (node.type === "if") return `{${conditional(node, scope)}}`
-        if (node.type === "each") {
-          const shadowed = [
-            ...parameterNames(node.item),
-            ...parameterNames(node.index),
-            ...node.consts.map(({ name }) => name),
+  const each = (node, scope) => {
+    const shadowed = [
+      ...parameterNames(node.item),
+      ...parameterNames(node.index),
+      ...node.consts.map(({ name }) => name),
+    ]
+    const inner = new Map(scope.rename)
+    shadowed.forEach((name) => inner.delete(name))
+    const loopTags = new Set(
+      elementsIn(node.children)
+        .filter((element) => element.variable)
+        .map((element) => element.tag),
+    )
+    const loopTag = tagNamer(component, shadowed)
+    node.consts
+      .filter(({ name }) => loopTags.has(name))
+      .forEach(({ name }) => inner.set(name, loopTag(name)))
+    const eachScope = { ...scope, rename: inner }
+    const consts = node.consts.flatMap(({ code, name }) => {
+      if (!loopTags.has(name)) {
+        return [`const ${name} = ${rewrite(code, eachScope)}`]
+      }
+      usesLoopDynamic = true
+      return [
+        `const ${loopTag(name)} = ${rewrite(code, eachScope)}`,
+        `const ${name} = dynamic(() => ${loopTag(name)})`,
+      ]
+    })
+    const usesIndex = [
+      ...node.consts.map(({ code }) => code),
+      ...codesOf(node.children),
+    ].some((code) => identifiersIn(code).has(node.index))
+    return {
+      consts,
+      list: rewrite(node.list, scope),
+      parameters: `${node.item}${usesIndex ? `, ${node.index}` : ""}`,
+      scope: eachScope,
+    }
+  }
+  const { render } = jsxEmitter({
+    attributes: (node, scope) => [
+      ...node.attributes.map((entry) => attribute(node, entry, scope)),
+      ...(node.model ? (kind?.attributes?.(model) ?? []) : []),
+      ...(node.item
+        ? [
+            `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  callHandler(props.onChange, event)\n}}`,
           ]
-          const inner = new Map(scope.rename)
-          shadowed.forEach((name) => inner.delete(name))
-          const loopTags = new Set(
-            elementsIn(node.children)
-              .filter((element) => element.variable)
-              .map((element) => element.tag),
-          )
-          const taken = new Set([...declared, ...shadowed])
-          const loopTag = (name) => {
-            const camel = `${name[0].toLowerCase()}${name.slice(1)}`
-            return taken.has(camel) ? `${camel}Tag` : camel
-          }
-          node.consts
-            .filter(({ name }) => loopTags.has(name))
-            .forEach(({ name }) => inner.set(name, loopTag(name)))
-          const eachScope = { ...scope, rename: inner }
-          const consts = node.consts.flatMap(({ code, name }) => {
-            if (!loopTags.has(name)) {
-              return [`const ${name} = ${rewrite(code, eachScope)}`]
-            }
-            usesLoopDynamic = true
-            return [
-              `const ${loopTag(name)} = ${rewrite(code, eachScope)}`,
-              `const ${name} = dynamic(() => ${loopTag(name)})`,
-            ]
-          })
-          const body = wrapFragment(
-            emit(node.children, eachScope),
-            node.children,
-            eachScope,
-          )
-          const returned = consts.length
-            ? `{\n${consts.join("\n")}\nreturn (\n${body}\n)\n}`
-            : `(\n${body}\n)`
-          const usesIndex = [
-            ...node.consts.map(({ code }) => code),
-            ...codesIn(node.children),
-            ...elementsIn(node.children).flatMap((element) =>
-              element.attributes.map((entry) => entry.code ?? ""),
-            ),
-          ].some((code) => identifiersIn(code).has(node.index))
-          return `{${rewrite(node.list, scope)}${node.optional ? "?" : ""}.map((${node.item}${usesIndex ? `, ${node.index}` : ""}) => ${returned})}`
-        }
-        const attributes = [
-          ...node.attributes.map((entry) => attribute(node, entry, scope)),
-          ...(node.model ? (kind?.attributes?.(model) ?? []) : []),
-          ...(node.item
-            ? [
-                `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  callHandler(props.onChange, event)\n}}`,
-              ]
-            : []),
-        ].join(" ")
-        const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
-        return node.children.length === 0
-          ? `${open} />`
-          : `${open}>${emit(node.children, scope)}</${node.tag}>`
-      })
-      .join("")
+        : []),
+    ],
+    each,
+    narrow,
+    rewrite,
+    slotCode: propAccess,
+    stringSlots,
+  })
   const [rootNode] = tree
-  const rendered =
-    rootNode.type === "if" ? conditional(rootNode, options) : emit(tree)
+  const rendered = render(tree, options)
   const providedValue =
     kind?.provided && provide ? kind.provided(model, provide) : provide?.value
   const getters = (entries) =>
@@ -442,5 +365,5 @@ export const toSolid = (component) => {
     ...(item ? [`import { callHandler } from "../solid"`] : []),
     propsImport(propsType, "types.solid"),
   ]
-  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\nexport default function ${component.name}(props: Props) {\n${resolvedBody.map((line) => `  ${line}\n`).join("")}${resolvedBody.length ? "\n" : ""}  return (\n${indent(resolveSlots(returned), 4)}\n  )\n}\n`
+  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\n${componentFunction(component.name, "props: Props", resolvedBody, resolveSlots(returned))}`
 }

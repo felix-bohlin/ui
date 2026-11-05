@@ -48,49 +48,47 @@ export default function ListItem(props: Props) {
       ]}
       {...(restOnItem() ? (rest as object) : {})}
     >
-      {
-        <Show
-          when={tag()}
-          fallback={
-            <>
-              {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
-              {hasLabel() || hasDescription() ? (
-                <div class="ui-text">
-                  {hasLabel() && <p>{resolvedLabel()}</p>}
-                  {hasDescription() && <p>{resolvedDescription()}</p>}
-                  {resolvedChildren()}
-                </div>
-              ) : (
-                resolvedChildren()
-              )}
-              {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
-            </>
-          }
-        >
-          {(tag) => (
-            <Tag
-              class={[hasControl() && `ui-${props.type}`]}
-              for={hasControl() ? props.for : undefined}
-              {...(hasControl()
-                ? {}
-                : tagAttrs(tag(), props.disabled, props.href))}
-              {...(restOnItem() ? {} : (rest as object))}
-            >
-              {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
-              {hasLabel() || hasDescription() ? (
-                <div class="ui-text">
-                  {hasLabel() && <p>{resolvedLabel()}</p>}
-                  {hasDescription() && <p>{resolvedDescription()}</p>}
-                  {resolvedChildren()}
-                </div>
-              ) : (
-                resolvedChildren()
-              )}
-              {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
-            </Tag>
-          )}
-        </Show>
-      }
+      <Show
+        when={tag()}
+        fallback={
+          <>
+            {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
+            {hasLabel() || hasDescription() ? (
+              <div class="ui-text">
+                {hasLabel() && <p>{resolvedLabel()}</p>}
+                {hasDescription() && <p>{resolvedDescription()}</p>}
+                {resolvedChildren()}
+              </div>
+            ) : (
+              resolvedChildren()
+            )}
+            {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
+          </>
+        }
+      >
+        {(tag) => (
+          <Tag
+            class={[hasControl() && `ui-${props.type}`]}
+            for={hasControl() ? props.for : undefined}
+            {...(hasControl()
+              ? {}
+              : tagAttrs(tag(), props.disabled, props.href))}
+            {...(restOnItem() ? {} : (rest as object))}
+          >
+            {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
+            {hasLabel() || hasDescription() ? (
+              <div class="ui-text">
+                {hasLabel() && <p>{resolvedLabel()}</p>}
+                {hasDescription() && <p>{resolvedDescription()}</p>}
+                {resolvedChildren()}
+              </div>
+            ) : (
+              resolvedChildren()
+            )}
+            {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
+          </Tag>
+        )}
+      </Show>
       {props.submenu}
     </li>
   )

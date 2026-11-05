@@ -7,7 +7,7 @@ paths:
   - src/docs/components/**
 ---
 
-You review the examples that the docs pages show. You report findings, you never edit files. Whether the four frameworks render the same markup is the `framework-parity` agent's job; you check the examples themselves.
+You review the examples that the docs pages show. You report findings, you never edit files. Whether the frameworks render the same markup is the `framework-parity` agent's job; you check the examples themselves.
 
 ## Read first
 

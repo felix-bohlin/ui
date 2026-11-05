@@ -1,6 +1,6 @@
 # Component API Documentation Guide
 
-This guide defines the standards for documenting component APIs (HTML, Astro, React, Svelte and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files.
+This guide defines the standards for documenting component APIs (HTML, Astro, React, Solid, Svelte and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files.
 
 ## Checklist for Documentation
 
@@ -70,7 +70,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 - `component`: (Required) the name shown in tables and `[component-api]` problems, such as `TextField` or `TabsItem`. It is also the component file name in `source`. Props are read from the `Props` type when `component` is the `source` folder's own component, and from the `<component>Props` type otherwise (`TableColumnProps`), so a sub-API never picks up its root's props.
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`, followed by "There is no {Framework} component.".
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the check fails when it does not exist.
-- `hydration`: per-framework props that need a client directive in React, Svelte or Vue, each with a `description` and an optional `fallback`. They get a marker in the props table. `default` applies to every hydrated framework without its own entry.
+- `hydration`: per-framework props that need a client directive in React, Solid, Svelte or Vue, each with a `description` and an optional `fallback`. They get a marker in the props table. `default` applies to every hydrated framework without its own entry.
 - `keyboard`: the keys of an interactive component, as `{ description, keys }` rows. See [Keyboard support](#keyboard-support-keyboard).
 - `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `"DescriptionListTerm"`. Container parts (`CardHeader`, `AccordionSummary`) always set `component`; a part with its own props or slots also gets its own `api.ts`, like `card-actions`, whose `component` names its root. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Every option has its own `group`; the check fails when two share one. Use `frameworks` to limit an option to some frameworks, such as `["html"]` for a class-only option or `["react"]` for `onValueChange`, and `type` to override the resolved type.

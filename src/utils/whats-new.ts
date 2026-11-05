@@ -325,8 +325,8 @@ export const whatsNew = {
     `The border of a <a href="#clickable">clickable card</a> fades in on hover.`,
     `<a href="#media">Images and videos</a> run to the edges of the card, at the top, between parts or at the bottom.`,
     {
-      default: `<a href="#orientation"><code>orientation="horizontal"</code></a> puts the image at the start, next to the text.`,
-      html: `<a href="#orientation"><code>.ui-horizontal</code></a> puts the image at the start, next to the text.`,
+      default: `A card with an image first <a href="#orientation">puts the image at the start</a> once it is <code>40rem</code> wide. <code>orientation</code> pins it on top or at the start.`,
+      html: `A card with an image first <a href="#orientation">puts the image at the start</a> once it is <code>40rem</code> wide. <code>.ui-vertical</code> and <code>.ui-horizontal</code> pin it on top or at the start.`,
     },
     {
       default: `<a href="#colors"><code>color="primary"</code></a> outlines the one card in a row that stands out, like a recommended plan.`,

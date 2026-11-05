@@ -10,6 +10,7 @@
     --_elevated-shadow: var(--ui-shadow-elevated);
     --_gap: var(--ui-space-3);
     --_media-inline-size: 40%;
+    --_orientation: auto;
     --_outlined-border-color: var(--ui-border-color);
     --_padding: var(--ui-card-padding, var(--ui-space-3));
     --_shadow: none;
@@ -149,24 +150,18 @@
     }
 
     /* Orientation */
-    &:where(.ui-card).ui-horizontal:has(
+    &:where(.ui-card):not(.ui-vertical):has(
         > :where(img, picture, video):first-child
       ) {
-      & > :not(:first-child) {
-        margin-inline-start: var(--_media-inline-size);
-      }
+      container: ui-card / inline-size;
+    }
 
-      & > :first-child {
-        block-size: 100%;
-        inline-size: var(--_media-inline-size);
-        inset-block: 0;
-        inset-inline-start: 0;
-        position: absolute;
-      }
+    &.ui-horizontal {
+      --_orientation: horizontal;
+    }
 
-      & > :first-child + :where(hgroup, .ui-content, .ui-header) {
-        padding-block-start: var(--_padding);
-      }
+    &.ui-vertical {
+      --_orientation: vertical;
     }
 
     /* Content */
@@ -219,6 +214,28 @@
       outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
         var(--ui-focus-ring-color);
       outline-offset: var(--ui-focus-ring-offset);
+    }
+  }
+
+  @container ui-card ((inline-size >= 40rem) and style(--_orientation: auto)) or style(--_orientation: horizontal) {
+    :where(.ui-card):not(.ui-vertical):has(
+        > :where(img, picture, video):first-child
+      ) {
+      & > :not(:first-child) {
+        margin-inline-start: var(--_media-inline-size);
+      }
+
+      & > :first-child {
+        block-size: 100%;
+        inline-size: var(--_media-inline-size);
+        inset-block: 0;
+        inset-inline-start: 0;
+        position: absolute;
+      }
+
+      & > :first-child + :where(hgroup, .ui-content, .ui-header) {
+        padding-block-start: var(--_padding);
+      }
     }
   }
 

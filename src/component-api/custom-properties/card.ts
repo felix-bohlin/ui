@@ -51,13 +51,18 @@ export default {
   },
   "--_media-inline-size": {
     description:
-      "Width of the image in a `.ui-horizontal` card, and the start margin of the parts next to it. Defaults to `40%` of the card.",
+      "Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.",
     kind: "input",
   },
   "--_motion": {
     description:
       "Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.",
     kind: "input",
+  },
+  "--_orientation": {
+    description:
+      "The orientation the image layout follows, `auto` by default. `.ui-horizontal` sets `horizontal` and `.ui-vertical` sets `vertical`.",
+    kind: "output",
   },
   "--_outlined-border-color": {
     description:

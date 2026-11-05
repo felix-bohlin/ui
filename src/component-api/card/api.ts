@@ -29,14 +29,15 @@ export default {
       },
     },
     {
-      default: '"vertical"',
+      default: '"auto"',
       description:
-        "The orientation of the element. `horizontal` puts an image that is the first child at the start, over the full height, and the other parts next to it. Its width is `--_media-inline-size`, `40%` of the card.",
+        "The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card.",
       group: "Orientation",
       prop: "orientation",
       values: {
+        auto: null,
         horizontal: ".ui-horizontal",
-        vertical: null,
+        vertical: ".ui-vertical",
       },
     },
     {

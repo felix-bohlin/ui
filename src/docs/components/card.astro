@@ -34,7 +34,7 @@ export const keywords = ["panel", "surface", "tile"]
     { title: "Card header API", api: cardHeaderApi },
     { title: "Card actions API", api: cardActionsApi },
   ]}
-  browserSupport={["has"]}
+  browserSupport={["container-queries", "container-style-queries", "has"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Card/Card.astro",
@@ -183,7 +183,9 @@ export const keywords = ["panel", "surface", "tile"]
       at the bottom. It fills the width at its own aspect ratio; give it an
       <code>aspect-ratio</code> or a <code>block-size</code> to crop it, and
       <code>object-fit: cover</code> keeps it from stretching. The part after
-      the image gets the card's padding above it.
+      the image gets the card's padding above it. On a card at least
+      <code>40rem</code> wide, an image that comes first moves to the start (see
+      <a href="#orientation">Orientation</a>).
     </p>
     <AutoExample name="Media" column />
   </section>
@@ -220,15 +222,32 @@ export const keywords = ["panel", "surface", "tile"]
 
   <section id="orientation">
     <h2>Orientation</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A card whose first child is an image, picture or video puts it at the
+        start, over the full height, with the other parts next to it, once the
+        card is <code>40rem</code> wide, and on top below that. Set
+        <code>orientation="vertical"</code> to keep the image on top at any
+        width, like a banner, or <code>orientation="horizontal"</code> to keep
+        it at the start, like a compact result with a thumbnail.
+      </Fragment>
+      <Fragment slot="html">
+        A card whose first child is an image, picture or video puts it at the
+        start, over the full height, with the other parts next to it, once the
+        card is <code>40rem</code> wide, and on top below that. Add
+        <code>.ui-vertical</code> to keep the image on top at any width, like a
+        banner, or <code>.ui-horizontal</code> to keep it at the start, like a
+        compact result with a thumbnail.
+      </Fragment>
+    </Conditional>
     <p>
-      <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />
-      puts an image that is the first child of the card at the start, over the
-      full height of the card, and the other parts next to it. The image takes
-      <code>--_media-inline-size</code>, <code>40%</code> of the card by
-      default. Switch back to the default orientation on narrow screens, where
-      the text needs the room.
+      The image takes <code>--_media-inline-size</code>, <code>40%</code> of the
+      card. To follow its own width, the card is a size container
+      (<code>container: ui-card / inline-size</code>), so it takes its width
+      from where it sits and not from its content. In a place that sizes to its
+      content, like a popover, give the card a width or a vertical orientation.
     </p>
-    <AutoExample name="Horizontal" column />
+    <AutoExample name="Orientation" column />
   </section>
 
   <section id="clickable">

@@ -1,7 +1,7 @@
 export type Props = {
   color?: "primary"
   density?: "dense" | "normal" | "spacious"
-  orientation?: "horizontal" | "vertical"
+  orientation?: "auto" | "horizontal" | "vertical"
   variant?: "elevated" | "outlined" | "plain" | "tonal" | "transparent"
 }
 

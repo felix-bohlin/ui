@@ -16,7 +16,7 @@ export default function Card({
         "ui-card",
         color && `ui-${color}`,
         density && density !== "normal" && `ui-${density}`,
-        orientation && orientation !== "vertical" && `ui-${orientation}`,
+        orientation && orientation !== "auto" && `ui-${orientation}`,
         variant && variant !== "plain" && `ui-${variant}`,
         className,
       ])}

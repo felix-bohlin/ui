@@ -659,7 +659,7 @@ describe("the three ports of a sample", () => {
       },
     )
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      '<input\n  type="radio"\n  {...rest}\n  checked={(group === undefined ? checked : group === (value ?? true)) ||\n    undefined}\n  defaultChecked={initialChecked}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
+      '<input\n  type="radio"\n  {...rest}\n  checked={isChecked() || undefined}\n  defaultChecked={initialChecked}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain("const unchecked = Symbol()")

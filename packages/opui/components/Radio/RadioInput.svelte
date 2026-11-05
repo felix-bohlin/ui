@@ -13,17 +13,19 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const initialChecked = untrack(() =>
-    Boolean(group === undefined ? checked : group === (value ?? true)),
-  )
+  const hasGroup = untrack(() => group !== undefined)
+  const isChecked = () =>
+    hasGroup
+      ? group === (value ?? true)
+      : (checked ?? group === (value ?? true))
+  const initialChecked = untrack(isChecked)
 </script>
 
 <input
   type="radio"
   name={name ?? field?.name}
   {...rest}
-  checked={(group === undefined ? checked : group === (value ?? true)) ||
-    undefined}
+  checked={isChecked() || undefined}
   defaultChecked={initialChecked}
   onchange={(event) => {
     group = value ?? true

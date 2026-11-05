@@ -36,12 +36,10 @@ function update(input, value = input.value) {
   else input.removeAttribute("aria-valuetext")
 }
 
-function sync() {
-  for (const input of document.querySelectorAll(
-    '.ui-range input[type="range"]',
-  )) {
-    update(input)
-  }
+const RANGES = '.ui-range input[type="range"]'
+
+function sync(root = document) {
+  for (const input of root.querySelectorAll(RANGES)) update(input)
 }
 
 if (typeof document !== "undefined") {
@@ -72,10 +70,19 @@ if (typeof document !== "undefined") {
     }
   }).observe(document, { childList: true, subtree: true })
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", sync, { once: true })
+    document.addEventListener("DOMContentLoaded", () => sync(), { once: true })
   } else {
     sync()
   }
+  new MutationObserver((records) => {
+    for (const { addedNodes } of records) {
+      for (const node of addedNodes) {
+        if (!(node instanceof Element)) continue
+        if (node.matches(RANGES)) update(node)
+        else sync(node)
+      }
+    }
+  }).observe(document, { childList: true, subtree: true })
 }
 
 export function initRange() {

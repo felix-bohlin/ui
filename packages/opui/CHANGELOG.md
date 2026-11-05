@@ -618,6 +618,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` filled, tonal and themed tracks keep their own color while the thumb is held and when disabled, instead of turning the field border gray.
 - `Range` grays a disabled thumb with `--ui-text-disabled`, which more contrast strengthens, instead of a fixed mix.
 - `Range` shows its filled track in `SelectedItem` in forced colors in Chromium, which dropped the gradient the fill is drawn with.
+- `Range`: `css/js/range.js` also brings a range added after it loaded up to date, such as one a client-rendered app mounts, instead of only the ranges on the page when it ran and the ones the user moves.
 - `Select` with `spread` centers its arrow on the field.
 - `Select` keeps its arrow and its space at the inline end in RTL. The arrow covered the text.
 - `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there.

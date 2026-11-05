@@ -19,7 +19,7 @@ A surface for related content and actions, on its own or as the base of accordio
 
 - `color`: `"primary"` (`.ui-primary`). Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan.
 - `density`: `"dense"` (`.ui-dense`), `"normal"` (default), `"spacious"` (`.ui-spacious`). How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat.
-- `orientation`: `"horizontal"` (`.ui-horizontal`), `"vertical"` (default). The orientation of the element. `horizontal` puts an image that is the first child at the start, over the full height, and the other parts next to it. Its width is `--_media-inline-size`, `40%` of the card.
+- `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` card has the page surface color and no border.
 
 ### Slots
@@ -69,7 +69,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
-- `--_media-inline-size`: Width of the image in a `.ui-horizontal` card, and the start margin of the parts next to it. Defaults to `40%` of the card.
+- `--_media-inline-size`: Width of the image when it sits at the start of the card, and the start margin of the parts next to it. Defaults to `40%` of the card.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
@@ -78,7 +78,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration`, `--_orientation` and `--_shadow`.
 
 ## Theme tokens
 

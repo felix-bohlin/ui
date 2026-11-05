@@ -43,7 +43,7 @@ Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidd
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-font-weight`, `--ui-button-padding-inline`, `--ui-button-radius`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-duration`, `--ui-ease-enter`, `--ui-font-size-control`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-palette-strong`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-4`, `--ui-surface-elevated`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-button-accent`, `--ui-button-font-weight`, `--ui-button-padding-inline`, `--ui-button-radius`, `--ui-contrast`, `--ui-control-accent`, `--ui-control-border-color`, `--ui-duration`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-font-size-control`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-palette-strong`, `--ui-radius`, `--ui-shadow-control`, `--ui-space-1`, `--ui-space-4`, `--ui-surface-elevated`, `--ui-text-max-chroma` and `--ui-text-min-lightness`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

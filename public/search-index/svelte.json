@@ -4026,7 +4026,7 @@
     "id": "api-avatar-svelte",
     "title": "Avatar API",
     "description": "Reference for Avatar Svelte component.",
-    "api": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. variant The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+    "api": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button avatar. A link avatar drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. href The link to use. Renders an `<a>`. shape The shape of the avatar. size The size of the element. src The image source. Replaces the content. variant The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
     "category": "API",
     "url": "/svelte/api/#avatar"
   },
@@ -4050,7 +4050,7 @@
     "id": "api-button-svelte",
     "title": "Button API",
     "description": "Reference for Button Svelte component.",
-    "api": "Button Container element. An optional icon. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "api": "Button Container element. An optional icon. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#button"
   },
@@ -4106,7 +4106,7 @@
     "id": "api-chip-svelte",
     "title": "Chip API",
     "description": "Reference for Chip Svelte component.",
-    "api": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
+    "api": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#chip"
   },
@@ -4234,7 +4234,7 @@
     "id": "api-list-item-svelte",
     "title": "List Item API",
     "description": "Reference for List Item Svelte component.",
-    "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `type`. as href type Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"` or `\"button\"`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
+    "api": "ListItem The list item. The clickable row, rendered by `as`, `href` or `type`. as href type Optional content at the start, such as an icon or avatar. start The text content. The label, the first paragraph. label label Supporting text, the second paragraph. description description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"` or `\"button\"`. Defaults to `\"a\"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. color Optional colors. `critical` marks a destructive item in a [Menu](/components/menu). disabled Disables a button item. A link item drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
     "category": "API",
     "url": "/svelte/api/#list-item"
   },

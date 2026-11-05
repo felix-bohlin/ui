@@ -17,7 +17,7 @@ Chips are compact elements that represent an input, attribute, or action. Use th
 ### Props and modifiers
 
 - `as`: `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
-- `disabled`: `boolean`. Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead.
+- `disabled`: `boolean`. Disables a button chip. A link chip drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `dot`: `boolean`, `.ui-dot`. Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.
 - `href`: `string`. The link to use. Renders an `<a>`.
 - `multiline`: `boolean`, `.ui-multiline`. Lets the label wrap to multiple lines.

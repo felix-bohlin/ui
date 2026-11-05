@@ -16,12 +16,12 @@ Avatars show a person or entity as an image, initials or icon.
 
 - `alt`: `string`. Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it.
 - `as`: `"a" | "button" | "div"`, default `"div"`. The element to render. Defaults to `"a"` with `href`.
-- `disabled`: `boolean`. Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled="true"` instead.
+- `disabled`: `boolean`. Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.
 - `href`: `string`. The link to use. Renders an `<a>`.
 - `shape`: `"circle"` (default), `"rounded"` (`.ui-rounded`), `"squared"` (`.ui-squared`), `"squircle"` (`.ui-squircle`). The shape of the avatar.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `src`: `string`. The image source. Replaces the content.
-- State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`). Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.
+- State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`). Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.
 - `variant`: `"filled"` (default), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`). The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.
 
 ### Slots

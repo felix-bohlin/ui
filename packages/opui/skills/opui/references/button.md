@@ -19,11 +19,11 @@ Buttons allow users to take actions with a single tap.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
 - `as`: `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors.
-- `disabled`: `boolean`. Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.
+- `disabled`: `boolean`. Disables the button. A link button drops its `href` and gets `role="link"` and `aria-disabled="true"`.
 - `href`: `string`. The link to use. Renders an `<a>`.
 - `round`: `boolean`, `.ui-round`. Fully rounded corners, a circle when icon-only.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
-- State (HTML): `current` (`[aria-current="page"]`), `disabled` (`[disabled]`), `disabledLink` (`a[aria-disabled="true"]`). Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.
+- State (HTML): `current` (`[aria-current="page"]`), `disabled` (`[disabled]`), `disabledLink` (`a[aria-disabled="true"]`). Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`), `"transparent"` (default). The variant to use.
 
 ### Slots

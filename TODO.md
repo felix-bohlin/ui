@@ -670,7 +670,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     description:
       "Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.",
     ```
-- [ ] (1) Carousel: the parts aren't in visual order: the item comes first, then the previous button, the next button and the markers, while the previous button sits before the items on the page (`src/component-api/carousel/api.ts:109-136`)
+- [ ] (1) Carousel: the parts aren't in visual order: the item comes first, then the previous button, the next button and the markers, while the previous button sits before the items on the page (`src/component-api/carousel/api.ts:137-164`)
   - Summary: The anatomy and parts table list the item before the previous button that is drawn to its left.
   - Recommended: Fix. Moving one entry puts the parts in the order the guide asks for.
   - Fix: move the `::scroll-button(inline-start)` part (`api.ts:116-122`) above the `<li>` item part (`api.ts:110-115`), so the order is previous button, item, next button, markers.
@@ -790,7 +790,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): in `src/components/Example/Example.astro`, rewrite `a[href^="/guide/"]` and `a[href^="/components/"]` inside a preview with `Astro.locals.link()` at render time.
     - B: link to an external page such as `https://developer.mozilla.org/` instead.
-- [ ] (1) Carousel: the Playground cards use a bare `<hgroup>` while every carousel example, the Card page and the Card API use `<hgroup class="ui-header">`, and the two playground lists always carry `--_block-size: 20rem` while the generated snippet only shows it when Vertical is on (`src/docs/components/carousel.astro:341-345`, `src/docs/components/carousel.astro:320`, `src/docs/components/carousel.astro:337`, `src/docs/components/carousel.astro:441`)
+- [ ] (1) Carousel: the Playground cards use a bare `<hgroup>` while every carousel example, the Card page and the Card API use `<hgroup class="ui-header">`, and the two playground lists always carry `--_block-size: 20rem` while the generated snippet only shows it when Vertical is on (`src/docs/components/carousel.astro:383-387`, `src/docs/components/carousel.astro:362`, `src/docs/components/carousel.astro:379`, `src/docs/components/carousel.astro:481`)
   - Summary: The playground markup differs from the markup the examples teach and from the code it prints.
   - Recommended: Fix. Three attributes in one page.
   - Fix: add `class="ui-header"` to the `hgroup` at line 351 (or render `<UICard>`/`<UICardHeader>` from `opui-css/astro`), and move `--_block-size: 20rem` from the two `style` attributes into the `update()` loop, set only when `state.orientation` is on, so the live markup matches `htmlSnippet`.

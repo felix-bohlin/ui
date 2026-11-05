@@ -7,6 +7,7 @@ import {
   exampleSources,
   parseExamplePath,
 } from "../../../utils/examples"
+import { withoutCodeVariants } from "../../../utils/example-variants"
 import { FRAMEWORK_IDS, type FrameworkId } from "../../../utils/framework"
 import { importMap } from "../../../utils/import-map"
 import { fixturePagesEnabled } from "../../../utils/test-pages"
@@ -17,17 +18,12 @@ const allExamples = Object.entries(exampleSources).map(([path, source]) => ({
   source,
 }))
 
-const examplesFor = (framework: FrameworkId, slug: string) => {
-  const examples = allExamples.filter(
-    (example) => example.framework === framework && example.slug === slug,
-  )
-  const names = new Set(examples.map((example) => example.name))
-  return examples
-    .filter(
-      ({ name }) => !(name.endsWith("Code") && names.has(name.slice(0, -4))),
-    )
-    .toSorted((a, b) => a.name.localeCompare(b.name))
-}
+const examplesFor = (framework: FrameworkId, slug: string) =>
+  withoutCodeVariants(
+    allExamples.filter(
+      (example) => example.framework === framework && example.slug === slug,
+    ),
+  ).toSorted((a, b) => a.name.localeCompare(b.name))
 
 export function getStaticPaths() {
   if (!fixturePagesEnabled()) return []

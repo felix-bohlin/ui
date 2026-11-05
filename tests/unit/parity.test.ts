@@ -15,7 +15,7 @@ import {
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
-import { render } from "./renderers"
+import { render, type SolidComponent } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 

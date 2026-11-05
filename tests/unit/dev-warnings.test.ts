@@ -4,6 +4,7 @@ import { afterAll, beforeEach, describe, expect, test, vi } from "vitest"
 import type { ComponentFramework } from "../../src/component-api/frameworks"
 import CheckboxAstro from "../../packages/opui/components/Checkbox/Checkbox.astro"
 import CheckboxReact from "../../packages/opui/components/Checkbox/Checkbox.react"
+import CheckboxSolid from "../../packages/opui/components/Checkbox/Checkbox.solid"
 import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.svelte"
 import CheckboxVue from "../../packages/opui/components/Checkbox/Checkbox.vue"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
@@ -20,10 +21,12 @@ import DrawerTitleReact from "../../packages/opui/components/Drawer/DrawerTitle.
 import DrawerTitleVue from "../../packages/opui/components/Drawer/DrawerTitle.vue"
 import RadioAstro from "../../packages/opui/components/Radio/Radio.astro"
 import RadioReact from "../../packages/opui/components/Radio/Radio.react"
+import RadioSolid from "../../packages/opui/components/Radio/Radio.solid"
 import RadioSvelte from "../../packages/opui/components/Radio/Radio.svelte"
 import RadioVue from "../../packages/opui/components/Radio/Radio.vue"
 import SwitchAstro from "../../packages/opui/components/Switch/Switch.astro"
 import SwitchReact from "../../packages/opui/components/Switch/Switch.react"
+import SwitchSolid from "../../packages/opui/components/Switch/Switch.solid"
 import SwitchSvelte from "../../packages/opui/components/Switch/Switch.svelte"
 import SwitchVue from "../../packages/opui/components/Switch/Switch.vue"
 import ToggleGroupAstro from "../../packages/opui/components/ToggleGroup/ToggleGroup.astro"
@@ -38,24 +41,29 @@ const CONTROLS: Record<string, Record<ComponentFramework, unknown>> = {
   Checkbox: {
     astro: CheckboxAstro,
     react: CheckboxReact,
+    solid: CheckboxSolid,
     svelte: CheckboxSvelte,
     vue: CheckboxVue,
   },
   Radio: {
     astro: RadioAstro,
     react: RadioReact,
+    solid: RadioSolid,
     svelte: RadioSvelte,
     vue: RadioVue,
   },
   Switch: {
     astro: SwitchAstro,
     react: SwitchReact,
+    solid: SwitchSolid,
     svelte: SwitchSvelte,
     vue: SwitchVue,
   },
 }
 
 const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
+
+const CONTROL_FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
 const warnings = () => warn.mock.calls.map(([message]) => String(message))
@@ -69,7 +77,7 @@ afterAll(() => {
 })
 
 describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
-  test.each(FRAMEWORKS)(
+  test.each(CONTROL_FRAMEWORKS)(
     "%s warns when it has no accessible name",
     async (framework) => {
       await render[framework](components[framework], { value: "a" })
@@ -79,7 +87,7 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
     },
   )
 
-  test.each(FRAMEWORKS)(
+  test.each(CONTROL_FRAMEWORKS)(
     "%s doesn't warn when a label or aria-label names it",
     async (framework) => {
       await render[framework](components[framework], {

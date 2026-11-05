@@ -12,8 +12,14 @@ import type { ComponentApi } from "../../src/component-api/types"
 import { frameworkProps, splitUnion } from "../../src/utils/component-source"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
-import { contentOf, reactNodes, TEXT, vueNodes } from "./renderers"
-import { renderSolid, type SolidComponent } from "./solid"
+import {
+  contentOf,
+  reactNodes,
+  renderSolid,
+  type SolidComponent,
+  TEXT,
+  vueNodes,
+} from "./renderers"
 
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",

@@ -8,6 +8,7 @@ import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
 import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberField.astro"
 import NumberFieldReact from "../../packages/opui/components/NumberField/NumberField.react"
+import NumberFieldSolid from "../../packages/opui/components/NumberField/NumberField.solid"
 import NumberFieldSvelte from "../../packages/opui/components/NumberField/NumberField.svelte"
 import NumberFieldVue from "../../packages/opui/components/NumberField/NumberField.vue"
 import RangeAstro from "../../packages/opui/components/Range/Range.astro"
@@ -17,6 +18,7 @@ import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
 import RangeVue from "../../packages/opui/components/Range/Range.vue"
 import SelectAstro from "../../packages/opui/components/Select/Select.astro"
 import SelectReact from "../../packages/opui/components/Select/Select.react"
+import SelectSolid from "../../packages/opui/components/Select/Select.solid"
 import SelectSvelte from "../../packages/opui/components/Select/Select.svelte"
 import SelectVue from "../../packages/opui/components/Select/Select.vue"
 import TextFieldAstro from "../../packages/opui/components/TextField/TextField.astro"
@@ -78,6 +80,7 @@ const CASES: {
     components: {
       astro: NumberFieldAstro,
       react: NumberFieldReact,
+      solid: NumberFieldSolid,
       svelte: NumberFieldSvelte,
       vue: NumberFieldVue,
     },
@@ -109,6 +112,7 @@ const CASES: {
     components: {
       astro: SelectAstro,
       react: SelectReact,
+      solid: SelectSolid,
       svelte: SelectSvelte,
       vue: SelectVue,
     },
@@ -139,7 +143,7 @@ const CASES: {
 const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
-  test.each(FRAMEWORKS.filter((framework) => components[framework]))(
+  test.each(FRAMEWORKS)(
     "%s: every id is the passed id or a part of it",
     async (framework) => {
       const calls: string[] = []
@@ -160,7 +164,7 @@ describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
     },
   )
 
-  test.each(FRAMEWORKS.filter((framework) => components[framework]))(
+  test.each(FRAMEWORKS)(
     "%s: without an id, every id is a part of one generated base",
     async (framework) => {
       const calls: string[] = []

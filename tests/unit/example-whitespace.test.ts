@@ -25,6 +25,7 @@ afterAll(async () => {
 
 const EXTENSIONS = {
   react: "react.tsx",
+  solid: "solid.tsx",
   svelte: "svelte",
   vue: "vue",
 }
@@ -84,7 +85,7 @@ const SAMPLES: [string, string, string][] = [
   ],
 ]
 
-describe("the whitespace of the generated React, Svelte and Vue", () => {
+describe("the whitespace of the generated React, Solid, Svelte and Vue", () => {
   test.each(SAMPLES)(
     "%s renders like Astro",
     async (_, body, imports) => {
@@ -96,7 +97,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
     60_000,
   )
 
-  test("H<tspan>2</tspan>O renders like Astro in React, and Svelte and Vue reject it", async () => {
+  test("H<tspan>2</tspan>O renders like Astro in React and Solid, and Svelte and Vue reject it", async () => {
     const source =
       '---\n---\n\n<svg aria-hidden="true"><text>H<tspan>2</tspan>O</text></svg>\n'
     const file = "src/component-examples/sample/Tspan.astro"
@@ -107,7 +108,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
         convertExample(source, framework, file, { roles }),
       ).rejects.toThrow("text next to an element inside an SVG <text>")
     }
-    for (const framework of ["react"] as const) {
+    for (const framework of ["react", "solid"] as const) {
       const path = new URL(`Tspan.${EXTENSIONS[framework]}`, samples)
       writeFileSync(
         path,
@@ -143,6 +144,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
     async (_, body, imports) => {
       const { astro, outputs, renders } = await convert(body, imports)
       expect(outputs.react).not.toContain('{" "}')
+      expect(outputs.solid).not.toContain('{" "}')
       expect(outputs.svelte).not.toContain('{" "}')
       expect(outputs.vue).not.toContain('{{ " " }}')
       for (const framework of TARGETS) {

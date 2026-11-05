@@ -374,7 +374,7 @@ const size = knob("--ui-tpyo")
 })
 
 describe("check-colors", () => {
-  test("reports colors outside comments, and skips tests and generated files", () => {
+  test("reports colors outside comments, and skips tests, TODO.md and generated files", () => {
     expect(
       colorProblems("a.css", "/* #fff */\n.a {\n  color: rgb(0 0 0);\n}\n"),
     ).toEqual(["a.css:3: rgb(...)"])
@@ -382,6 +382,13 @@ describe("check-colors", () => {
       [],
     )
     expect(colorProblems("notes.txt", "#fff")).toEqual([])
+    expect(colorProblems("docs/notes.md", "PR `#418`")).toEqual([
+      "docs/notes.md:1: #418",
+    ])
+    expect(colorProblems("TODO.md", "PR `#418`")).toEqual([])
+    expect(colorProblems("testsuite.css", ".a { color: #fff }")).toEqual([
+      "testsuite.css:1: #fff",
+    ])
   })
 })
 

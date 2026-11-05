@@ -18,7 +18,7 @@ Read the guide for the files you're editing:
 
 ## Colors
 
-- Write every color as `oklch()`, relative colors too (`oklch(from var(--x) l c h / 50%)`): `pnpm check-colors` fails on any other syntax in every tracked or new file, except in comments, tests, generated files, released CHANGELOG entries and the `value` of `<input type="color">`.
+- Write every color as `oklch()`, relative colors too (`oklch(from var(--x) l c h / 50%)`): `pnpm check-colors` fails on any other syntax in every tracked or new file, except in comments, tests, `TODO.md`, generated files, released CHANGELOG entries and the `value` of `<input type="color">`.
 
 ## Sorting
 

@@ -10,7 +10,7 @@ const GENERATED = JSON.parse(
   readFileSync(join(root, "scripts/generated-files.json"), "utf-8"),
 ).files
 
-const SKIPPED = ["tests/"]
+const SKIPPED = ["TODO.md", "tests"]
 
 const CODE = /\.(?:cjs|css|js|json|mjs|svg|ts|tsx)$/
 const MARKUP = /\.(?:astro|html|svelte|vue)$/
@@ -70,8 +70,9 @@ export const FIX = "Write every color as oklch()."
 
 export const colorProblems = (file, text) => {
   if (
-    GENERATED.some((path) => file === path || file.startsWith(`${path}/`)) ||
-    SKIPPED.some((path) => file.startsWith(path))
+    [...GENERATED, ...SKIPPED].some(
+      (path) => file === path || file.startsWith(`${path}/`),
+    )
   ) {
     return []
   }

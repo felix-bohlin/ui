@@ -1,22 +1,22 @@
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
-import { createSSRApp, h, type Component as VueComponent } from "vue"
-import { renderToString as renderVue } from "vue/server-renderer"
+import type { Component as VueComponent } from "vue"
 import { describe, expect, test } from "vitest"
 import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
+import { render } from "./renderers"
 
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
   { eager: true, import: "default" },
 )
-const astroComponents = import.meta.glob<
-  Parameters<AstroContainer["renderToString"]>[0]
->("../../packages/opui/components/*/*.astro", { import: "default" })
+const astroComponents = import.meta.glob<unknown>(
+  "../../packages/opui/components/*/*.astro",
+  { import: "default" },
+)
 const reactComponents = import.meta.glob<{
   default: ComponentType<Record<string, unknown>>
 }>("../../packages/opui/components/*/*.react.tsx")
@@ -24,8 +24,6 @@ const vueComponents = import.meta.glob<VueComponent>(
   "../../packages/opui/components/*/*.vue",
   { import: "default" },
 )
-
-const container = await AstroContainer.create()
 
 const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
   Object.entries(modules).find(([path]) =>
@@ -58,26 +56,22 @@ const props = { required: true }
 const astro = async (name: string, slot: string, content: string) => {
   const load = loaderOf(astroComponents, name)
   if (!load) return undefined
-  return container.renderToString(await load(), {
-    locals: {
+  return render.astro(
+    await load(),
+    props,
+    { [slot]: content },
+    {
       $id: createIdGenerator(),
       framework: "astro",
       link: (path: string) => path,
     },
-    props,
-    slots: { [slot]: content },
-  })
+  )
 }
 
 const vue = async (name: string, slot: string, content: string) => {
   const load = loaderOf(vueComponents, name)
   if (!load) return undefined
-  const component = await load()
-  return renderVue(
-    createSSRApp({
-      render: () => h(component, props, { [slot]: () => content }),
-    }),
-  )
+  return render.vue(await load(), props, { [slot]: content })
 }
 
 const spacesOf = (html: string) =>

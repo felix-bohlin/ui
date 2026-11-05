@@ -1,10 +1,4 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs"
-import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
-import type { Component as SvelteComponent } from "svelte"
-import { render as renderSvelte } from "svelte/server"
-import { createSSRApp, type Component as VueComponent } from "vue"
-import { renderToString as renderVue } from "vue/server-renderer"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import {
   convertExample,
@@ -12,6 +6,7 @@ import {
 } from "../../scripts/build-examples.mjs"
 import { whitespaceRoles } from "../../scripts/example-html.mjs"
 import { normalize } from "./normalize"
+import { render } from "./renderers"
 
 const samples = new URL("./.samples/", import.meta.url)
 
@@ -28,16 +23,21 @@ afterAll(async () => {
   rmSync(samples, { force: true, recursive: true })
 })
 
-const EXTENSIONS = { react: "react.tsx", svelte: "svelte", vue: "vue" }
-
-const ssr = {
-  react: (loaded: { default: ComponentType }) =>
-    renderReact(createElement(loaded.default)),
-  svelte: (loaded: { default: SvelteComponent }) =>
-    renderSvelte(loaded.default).body,
-  vue: (loaded: { default: VueComponent }) =>
-    renderVue(createSSRApp(loaded.default)),
+const EXTENSIONS = {
+  react: "react.tsx",
+  svelte: "svelte",
+  vue: "vue",
 }
+
+type Target = keyof typeof EXTENSIONS
+
+const TARGETS = Object.keys(EXTENSIONS) as Target[]
+
+const renderSample = async (framework: Target, path: URL) =>
+  render[framework](
+    ((await import(/* @vite-ignore */ path.href)) as { default: unknown })
+      .default,
+  )
 
 const convert = async (body: string, imports = "") => {
   const name = `Sample${++count}`
@@ -45,17 +45,15 @@ const convert = async (body: string, imports = "") => {
   const source = `---\n${imports ? `import { ${imports} } from "opui-css/astro"\n` : ""}---\n\n${body}\n`
   const astro = await renderer.renderSource(file, source)
   const roles = whitespaceRoles(astro)
-  const outputs = {} as Record<keyof typeof EXTENSIONS, string>
-  const renders = {} as Record<keyof typeof EXTENSIONS, string>
-  for (const framework of ["react", "svelte", "vue"] as const) {
+  const outputs = {} as Record<Target, string>
+  const renders = {} as Record<Target, string>
+  for (const framework of TARGETS) {
     outputs[framework] = await convertExample(source, framework, file, {
       roles,
     })
     const path = new URL(`${name}.${EXTENSIONS[framework]}`, samples)
     writeFileSync(path, outputs[framework])
-    renders[framework] = await ssr[framework](
-      await import(/* @vite-ignore */ path.href),
-    )
+    renders[framework] = await renderSample(framework, path)
   }
   return { astro, outputs, renders }
 }
@@ -91,7 +89,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
     "%s renders like Astro",
     async (_, body, imports) => {
       const { astro, renders } = await convert(body, imports)
-      for (const framework of ["react", "svelte", "vue"] as const) {
+      for (const framework of TARGETS) {
         expect(normalize(renders[framework]), framework).toBe(normalize(astro))
       }
     },
@@ -115,12 +113,9 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
         path,
         await convertExample(source, framework, file, { roles }),
       )
-      expect(
-        normalize(
-          await ssr[framework](await import(/* @vite-ignore */ path.href)),
-        ),
-        framework,
-      ).toBe(normalize(astro))
+      expect(normalize(await renderSample(framework, path)), framework).toBe(
+        normalize(astro),
+      )
     }
   }, 60_000)
 
@@ -150,7 +145,7 @@ describe("the whitespace of the generated React, Svelte and Vue", () => {
       expect(outputs.react).not.toContain('{" "}')
       expect(outputs.svelte).not.toContain('{" "}')
       expect(outputs.vue).not.toContain('{{ " " }}')
-      for (const framework of ["react", "svelte", "vue"] as const) {
+      for (const framework of TARGETS) {
         expect(normalize(renders[framework]), framework).toBe(normalize(astro))
       }
     },

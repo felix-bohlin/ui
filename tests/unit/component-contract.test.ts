@@ -1,4 +1,4 @@
-import { createElement, type ComponentType, type ReactNode } from "react"
+import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
 import { createRawSnippet, type Component as SvelteComponent } from "svelte"
 import { render as renderSvelte } from "svelte/server"
@@ -6,12 +6,12 @@ import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import { createRenderer } from "../../scripts/build-examples.mjs"
-import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
 import { frameworkProps, splitUnion } from "../../src/utils/component-source"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
+import { contentOf, reactNodes, TEXT, vueNodes } from "./renderers"
 
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
@@ -34,19 +34,6 @@ const vueComponents = import.meta.glob<VueComponent>(
 const FRAMEWORKS = ["astro", "react", "svelte", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
-
-type Node = ReturnType<typeof parseHtml>[number]
-
-const TEXT = "Text"
-
-const SLOT_CONTENT: Record<string, string> = {
-  Table: "<tbody><tr><td>Text</td></tr></tbody>",
-  TableBody: "<tr><td>Text</td></tr>",
-  TableColumnGroup: "<col>",
-  TableFoot: "<tr><td>Text</td></tr>",
-  TableHead: "<tr><td>Text</td></tr>",
-  TableRow: "<td>Text</td>",
-}
 
 const SAMPLES: Record<string, unknown> = {
   "MenuItem[]": [{ label: "A", value: "a" }],
@@ -77,40 +64,6 @@ const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
       .replace(/\.react\.tsx$/, ".tsx")
       .endsWith(`/${name}.${path.split(".").at(-1)}`),
   )?.[1]
-
-const contentOf = (component: string) => SLOT_CONTENT[component] ?? TEXT
-
-const attributesOf = (node: Node & { type: "element" }) =>
-  Object.fromEntries(
-    node.attrs.map(({ name, value }: { name: string; value: string }) => [
-      name,
-      value,
-    ]),
-  )
-
-const reactNodes = (nodes: Node[]): ReactNode[] =>
-  nodes.flatMap((node, index) =>
-    node.type === "text"
-      ? [node.value]
-      : node.type === "element"
-        ? [
-            createElement(
-              node.tag,
-              { ...attributesOf(node), key: index },
-              ...reactNodes(node.children),
-            ),
-          ]
-        : [],
-  )
-
-const vueNodes = (nodes: Node[]): unknown[] =>
-  nodes.flatMap((node) =>
-    node.type === "text"
-      ? [node.value]
-      : node.type === "element"
-        ? [h(node.tag, attributesOf(node), vueNodes(node.children))]
-        : [],
-  )
 
 const valuesOf = (type: string) =>
   [
@@ -258,7 +211,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
       const load = loaderOf(reactComponents, component)
       if (!load) return undefined
       const { default: Component } = await load()
-      const nodes = () => reactNodes(parseHtml(contentOf(component)))
+      const nodes = () => reactNodes(contentOf(component))
       return renderReact(
         createElement(Component, {
           ...Object.fromEntries(
@@ -314,7 +267,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
               Object.fromEntries(
                 slots.map((slot) => [
                   slot,
-                  () => vueNodes(parseHtml(contentOf(component))),
+                  () => vueNodes(contentOf(component)),
                 ]),
               ),
             ),

@@ -1,13 +1,9 @@
 import { existsSync } from "node:fs"
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
 import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
 import type { Component as SvelteComponent } from "svelte"
-import { render } from "svelte/server"
-import { createSSRApp, type Component as VueComponent } from "vue"
-import { renderToString } from "vue/server-renderer"
+import type { Component as VueComponent } from "vue"
 import { describe, expect, test, vi } from "vitest"
 import { readExample } from "../../scripts/build-examples.mjs"
 import { parseHtml, serialize } from "../../scripts/html-tokens.mjs"
@@ -19,6 +15,7 @@ import {
 } from "../../src/utils/framework"
 import { createIdGenerator, exampleIdBase } from "../../src/utils/id"
 import { idsOf, normalize } from "./normalize"
+import { render } from "./renderers"
 
 const RECORD = !!process.env.PARITY_RECORD
 
@@ -100,25 +97,26 @@ const cases = [...examples.values()].toSorted((a, b) =>
   a.key.localeCompare(b.key),
 )
 
-const container = await AstroContainer.create()
-
 const renderers: {
   [F in Framework]: (loaded: Loaded[F], key: string) => Promise<string>
 } = {
   astro: (loaded, key) =>
-    container.renderToString(loaded.default, {
-      locals: {
+    render.astro(
+      loaded.default,
+      {},
+      {},
+      {
         $id: createIdGenerator(),
         componentSlug: key.split("/")[0],
         framework: DEFAULT_FRAMEWORK,
         link: (path: string) => path,
       },
-    }),
+    ),
   html: async (loaded) => loaded,
   react: async (loaded, key) => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {})
     try {
-      const html = renderReact(createElement(loaded.default))
+      const html = await render.react(loaded.default)
       if (spy.mock.calls.length > 0) {
         throw new Error(
           `${key} logged a React error: ${String(spy.mock.calls[0][0]).slice(0, 200)}`,
@@ -129,8 +127,8 @@ const renderers: {
       spy.mockRestore()
     }
   },
-  svelte: async (loaded) => render(loaded.default).body,
-  vue: (loaded) => renderToString(createSSRApp(loaded.default)),
+  svelte: (loaded) => render.svelte(loaded.default),
+  vue: (loaded) => render.vue(loaded.default),
 }
 
 test("the React renderer fails on a console.error", async () => {

@@ -1,14 +1,11 @@
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import type { AstroInstance } from "astro"
 import { parseFragment, type DefaultTreeAdapterMap } from "parse5"
-import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
-import { createRawSnippet, type Component as SvelteComponent } from "svelte"
-import { render as renderSvelte } from "svelte/server"
-import { createSSRApp, h, type Component as VueComponent } from "vue"
-import { renderToString as renderVue } from "vue/server-renderer"
 import { describe, expect, test } from "vitest"
+import {
+  type ComponentFramework,
+  frameworks,
+} from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
+import { render } from "./renderers"
 
 type Element = DefaultTreeAdapterMap["element"]
 type Node = DefaultTreeAdapterMap["childNode"] | Element
@@ -45,55 +42,6 @@ const cases = [
 ]
 
 const icon = '<svg data-icon="custom"></svg>'
-const camel = (name: string) =>
-  name.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase())
-
-const container = await AstroContainer.create()
-const renderers = {
-  astro: (component: unknown, props: Record<string, unknown>, slot?: string) =>
-    container.renderToString(component as AstroInstance["default"], {
-      props,
-      slots: slot ? { [slot]: icon } : {},
-    }),
-  "react.tsx": async (
-    component: unknown,
-    props: Record<string, unknown>,
-    slot?: string,
-  ) =>
-    renderReact(
-      createElement(component as ComponentType, {
-        ...props,
-        ...(slot && {
-          [camel(slot)]: createElement("svg", { "data-icon": "custom" }),
-        }),
-      }),
-    ),
-  svelte: async (
-    component: unknown,
-    props: Record<string, unknown>,
-    slot?: string,
-  ) =>
-    renderSvelte(component as SvelteComponent, {
-      props: {
-        ...props,
-        ...(slot && {
-          [camel(slot)]: createRawSnippet(() => ({ render: () => icon })),
-        }),
-      },
-    }).body,
-  vue: (component: unknown, props: Record<string, unknown>, slot?: string) =>
-    renderVue(
-      createSSRApp({
-        render: () =>
-          h(
-            component as VueComponent,
-            props,
-            slot ? { [slot]: () => h("svg", { "data-icon": "custom" }) } : {},
-          ),
-      }),
-    ),
-}
-
 const elements = (node: Node): Element[] =>
   "childNodes" in node
     ? [
@@ -166,17 +114,20 @@ test("the check flags an icon added next to the default", () => {
 })
 
 describe.each(cases)("$file", ({ file, props, slots, wrapped }) => {
-  test.each(Object.entries(renderers))(
+  test.each(Object.keys(render) as ComponentFramework[])(
     "%s replaces the default icon with the slot",
-    async (extension, render) => {
+    async (framework) => {
+      const [folder, name] = file.split("/")
       const component =
         await components[
-          `../../packages/opui/components/${file}.${extension}`
+          `../../packages/opui/components/${folder}/${frameworks[framework].component(name)}`
         ]()
-      const defaults = await render(component, props)
+      const defaults = await render[framework](component, props)
       const found: string[] = []
       for (const slot of slots) {
-        const html = await render(component, props, slot)
+        const html = await render[framework](component, props, {
+          [slot]: icon,
+        })
         found.push(
           ...problemsOf(html, defaults, slot, wrapped).map(
             (problem) => `${slot}: ${problem}`,

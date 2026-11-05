@@ -1,13 +1,10 @@
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import type { AstroInstance } from "astro"
-import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
-import { createRawSnippet, type Component as SvelteComponent } from "svelte"
-import { render as renderSvelte } from "svelte/server"
-import { createSSRApp, h, type Component as VueComponent } from "vue"
-import { renderToString as renderVue } from "vue/server-renderer"
 import { expect, test } from "vitest"
+import {
+  type ComponentFramework,
+  frameworks,
+} from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
+import { render } from "./renderers"
 
 const apis = Object.values(
   import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {
@@ -20,39 +17,7 @@ const components = import.meta.glob<unknown>(
   { import: "default" },
 )
 
-const content = "<span>Content</span>"
-const container = await AstroContainer.create()
-const renderers = {
-  astro: (component: unknown, props: Record<string, unknown>) =>
-    container.renderToString(component as AstroInstance["default"], {
-      props,
-      slots: { default: content },
-    }),
-  "react.tsx": async (component: unknown, props: Record<string, unknown>) =>
-    renderReact(
-      createElement(
-        component as ComponentType,
-        props,
-        createElement("span", null, "Content"),
-      ),
-    ),
-  svelte: async (component: unknown, props: Record<string, unknown>) =>
-    renderSvelte(component as SvelteComponent, {
-      props: {
-        ...props,
-        children: createRawSnippet(() => ({ render: () => content })),
-      },
-    }).body,
-  vue: (component: unknown, props: Record<string, unknown>) =>
-    renderVue(
-      createSSRApp({
-        render: () =>
-          h(component as VueComponent, props, {
-            default: () => h("span", "Content"),
-          }),
-      }),
-    ),
-}
+const slots = { default: "<span>Content</span>" }
 
 const aligned = apis.flatMap((api) => {
   const option = api.options.find(({ prop }) => prop === "align")
@@ -126,11 +91,15 @@ const renderPart = async (part: string, entries: Entry[]) => {
   for (const value of [undefined, ...Object.keys(values)]) {
     const rendered = await Promise.all(
       entries.flatMap(({ api }) =>
-        Object.entries(renderers).map(async ([extension, render]) => {
-          const file = `${api.source}/${api.component}.${extension}`
+        (Object.keys(render) as ComponentFramework[]).map(async (framework) => {
+          const file = `${api.source}/${frameworks[framework].component(api.component)}`
           const component =
             await components[`../../packages/opui/components/${file}`]()
-          const html = await render(component, { align: value, id: "x" })
+          const html = await render[framework](
+            component,
+            { align: value, id: "x" },
+            slots,
+          )
           return [file, classesOf(html, part)] as [string, string | undefined]
         }),
       ),

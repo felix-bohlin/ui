@@ -3,11 +3,11 @@ import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
 import { createRenderer } from "../../scripts/build-examples.mjs"
-import { parseHtml } from "../../scripts/html-tokens.mjs"
 import { formatCode } from "../../scripts/format.mjs"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
 import { normalize } from "./normalize"
+import { contentOf, TEXT, vueNodes } from "./renderers"
 
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
@@ -22,43 +22,6 @@ const sources = import.meta.glob<string>(
 const PREFIX = "../../"
 
 const WIDTHS = [40, 200]
-
-const TEXT = "Text"
-
-const SLOT_CONTENT: Record<string, string> = {
-  Table: "<tbody><tr><td>Text</td></tr></tbody>",
-  TableBody: "<tr><td>Text</td></tr>",
-  TableColumnGroup: "<col>",
-  TableFoot: "<tr><td>Text</td></tr>",
-  TableHead: "<tr><td>Text</td></tr>",
-  TableRow: "<td>Text</td>",
-}
-
-const contentOf = (name: string) => SLOT_CONTENT[name] ?? TEXT
-
-type Node = ReturnType<typeof parseHtml>[number]
-
-const vnodes = (nodes: Node[]): unknown[] =>
-  nodes.flatMap((node) =>
-    node.type === "text"
-      ? [node.value]
-      : node.type === "element"
-        ? [
-            h(
-              node.tag,
-              Object.fromEntries(
-                node.attrs.map(
-                  ({ name, value }: { name: string; value: string }) => [
-                    name,
-                    value,
-                  ],
-                ),
-              ),
-              vnodes(node.children),
-            ),
-          ]
-        : [],
-  )
 
 const props = { required: true }
 
@@ -137,10 +100,7 @@ const render = {
             component,
             props,
             Object.fromEntries(
-              slots.map((slot) => [
-                slot,
-                () => vnodes(parseHtml(contentOf(name))),
-              ]),
+              slots.map((slot) => [slot, () => vueNodes(contentOf(name))]),
             ),
           ),
       }),

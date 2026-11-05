@@ -1,11 +1,7 @@
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
-import type { Component as SvelteComponent } from "svelte"
-import { render as renderSvelte } from "svelte/server"
-import { createSSRApp, h, type Component as VueComponent } from "vue"
-import { renderToString as renderVue } from "vue/server-renderer"
+import { createElement } from "react"
+import { h } from "vue"
 import { afterAll, beforeEach, describe, expect, test, vi } from "vitest"
+import type { ComponentFramework } from "../../src/component-api/frameworks"
 import CheckboxAstro from "../../packages/opui/components/Checkbox/Checkbox.astro"
 import CheckboxReact from "../../packages/opui/components/Checkbox/Checkbox.react"
 import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.svelte"
@@ -36,53 +32,30 @@ import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/Toggle
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
 import ReplacedIdsSvelte from "./fixtures/ReplacedIds.svelte"
+import { render } from "./renderers"
 
-const container = await AstroContainer.create()
-
-type Renderers = {
-  astro: Parameters<typeof container.renderToString>[0]
-  react: ComponentType<Record<string, unknown>>
-  svelte: SvelteComponent<Record<string, unknown>>
-  vue: VueComponent
-}
-
-const render = {
-  astro: (component: Renderers["astro"], props: Record<string, unknown>) =>
-    container.renderToString(component, { props }),
-  react: async (
-    component: Renderers["react"],
-    props: Record<string, unknown>,
-  ) => renderReact(createElement(component, props)),
-  svelte: async (
-    component: Renderers["svelte"],
-    props: Record<string, unknown>,
-  ) => renderSvelte(component, { props }).body,
-  vue: (component: Renderers["vue"], props: Record<string, unknown>) =>
-    renderVue(createSSRApp({ render: () => h(component, props) })),
-}
-
-const CONTROLS: Record<string, Renderers> = {
+const CONTROLS: Record<string, Record<ComponentFramework, unknown>> = {
   Checkbox: {
     astro: CheckboxAstro,
-    react: CheckboxReact as Renderers["react"],
-    svelte: CheckboxSvelte as Renderers["svelte"],
+    react: CheckboxReact,
+    svelte: CheckboxSvelte,
     vue: CheckboxVue,
   },
   Radio: {
     astro: RadioAstro,
-    react: RadioReact as Renderers["react"],
-    svelte: RadioSvelte as Renderers["svelte"],
+    react: RadioReact,
+    svelte: RadioSvelte,
     vue: RadioVue,
   },
   Switch: {
     astro: SwitchAstro,
-    react: SwitchReact as Renderers["react"],
-    svelte: SwitchSvelte as Renderers["svelte"],
+    react: SwitchReact,
+    svelte: SwitchSvelte,
     vue: SwitchVue,
   },
 }
 
-const FRAMEWORKS = ["astro", "react", "svelte", "vue"] as const
+const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
 const warnings = () => warn.mock.calls.map(([message]) => String(message))
@@ -99,7 +72,7 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
   test.each(FRAMEWORKS)(
     "%s warns when it has no accessible name",
     async (framework) => {
-      await render[framework](components[framework] as never, { value: "a" })
+      await render[framework](components[framework], { value: "a" })
       expect(warnings()).toEqual([
         `[OPUI ${name}] Missing accessible name. Provide a default slot, and set \`hideLabel\` to hide it visually.`,
       ])
@@ -109,11 +82,11 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
   test.each(FRAMEWORKS)(
     "%s doesn't warn when a label or aria-label names it",
     async (framework) => {
-      await render[framework](components[framework] as never, {
+      await render[framework](components[framework], {
         label: "Named",
         value: "a",
       })
-      await render[framework](components[framework] as never, {
+      await render[framework](components[framework], {
         "aria-label": "Named",
         value: "a",
       })
@@ -122,10 +95,10 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
   )
 })
 
-const TOGGLE_GROUP: Renderers = {
+const TOGGLE_GROUP: Record<ComponentFramework, unknown> = {
   astro: ToggleGroupAstro,
-  react: ToggleGroupReact as Renderers["react"],
-  svelte: ToggleGroupSvelte as Renderers["svelte"],
+  react: ToggleGroupReact,
+  svelte: ToggleGroupSvelte,
   vue: ToggleGroupVue,
 }
 
@@ -133,7 +106,7 @@ describe("ToggleGroup", () => {
   test.each(FRAMEWORKS)(
     "%s warns when it has no accessible name",
     async (framework) => {
-      await render[framework](TOGGLE_GROUP[framework] as never, {})
+      await render[framework](TOGGLE_GROUP[framework], {})
       expect(warnings()).toEqual([
         "[OPUI ToggleGroup] Missing accessible name. Name the group with `aria-label`, or with `aria-labelledby` pointing at a visible heading.",
       ])
@@ -143,10 +116,10 @@ describe("ToggleGroup", () => {
   test.each(FRAMEWORKS)(
     "%s doesn't warn when aria-label or aria-labelledby names it",
     async (framework) => {
-      await render[framework](TOGGLE_GROUP[framework] as never, {
+      await render[framework](TOGGLE_GROUP[framework], {
         "aria-label": "Text alignment",
       })
-      await render[framework](TOGGLE_GROUP[framework] as never, {
+      await render[framework](TOGGLE_GROUP[framework], {
         "aria-labelledby": "heading",
       })
       expect(warnings()).toEqual([])
@@ -154,11 +127,13 @@ describe("ToggleGroup", () => {
   )
 })
 
-const replacedIds = {
-  astro: (labelledby?: string) =>
-    container.renderToString(ReplacedIdsAstro, { props: { labelledby } }),
-  react: async (labelledby?: string) =>
-    renderReact(
+const replacedIds: Record<
+  ComponentFramework,
+  (labelledby?: string) => Promise<string>
+> = {
+  astro: (labelledby) => render.astro(ReplacedIdsAstro, { labelledby }),
+  react: (labelledby) =>
+    render.react(() =>
       createElement(
         "div",
         null,
@@ -174,21 +149,18 @@ const replacedIds = {
         ),
       ),
     ),
-  svelte: async (labelledby?: string) =>
-    renderSvelte(ReplacedIdsSvelte, { props: { labelledby } }).body,
-  vue: (labelledby?: string) =>
-    renderVue(
-      createSSRApp({
-        render: () => [
-          h(DialogVue, { "aria-labelledby": labelledby }, () =>
-            h(DialogTitleVue, { id: "own-dialog-title" }, () => "Title"),
-          ),
-          h(DrawerVue, { "aria-labelledby": labelledby, id: "drawer" }, () =>
-            h(DrawerTitleVue, { id: "own-title" }, () => "Title"),
-          ),
-        ],
-      }),
-    ),
+  svelte: (labelledby) => render.svelte(ReplacedIdsSvelte, { labelledby }),
+  vue: (labelledby) =>
+    render.vue({
+      render: () => [
+        h(DialogVue, { "aria-labelledby": labelledby }, () =>
+          h(DialogTitleVue, { id: "own-dialog-title" }, () => "Title"),
+        ),
+        h(DrawerVue, { "aria-labelledby": labelledby, id: "drawer" }, () =>
+          h(DrawerTitleVue, { id: "own-title" }, () => "Title"),
+        ),
+      ],
+    }),
 }
 
 describe("DialogTitle and DrawerTitle ids", () => {
@@ -216,10 +188,10 @@ describe("DialogTitle and DrawerTitle ids", () => {
   )
 })
 
-const DIALOG_HEADER: Renderers = {
+const DIALOG_HEADER: Record<ComponentFramework, unknown> = {
   astro: DialogHeaderAstro,
-  react: DialogHeaderReact as Renderers["react"],
-  svelte: DialogHeaderSvelte as Renderers["svelte"],
+  react: DialogHeaderReact,
+  svelte: DialogHeaderSvelte,
   vue: DialogHeaderVue,
 }
 
@@ -227,7 +199,7 @@ describe("DialogHeader", () => {
   test.each(FRAMEWORKS)(
     "%s warns when its close button has no dialog id to close",
     async (framework) => {
-      await render[framework](DIALOG_HEADER[framework] as never, {
+      await render[framework](DIALOG_HEADER[framework], {
         closeLabel: "Close",
       })
       expect(warnings()).toEqual([
@@ -239,7 +211,7 @@ describe("DialogHeader", () => {
   test.each(FRAMEWORKS)(
     "%s doesn't warn without a close button",
     async (framework) => {
-      await render[framework](DIALOG_HEADER[framework] as never, {})
+      await render[framework](DIALOG_HEADER[framework], {})
       expect(warnings()).toEqual([])
     },
   )

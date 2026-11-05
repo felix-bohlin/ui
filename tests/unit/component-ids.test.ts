@@ -1,11 +1,6 @@
-import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import { createElement, type ComponentType } from "react"
-import { renderToString as renderReact } from "react-dom/server"
-import type { Component as SvelteComponent } from "svelte"
-import { render as renderSvelte } from "svelte/server"
-import { createSSRApp, h, type Component as VueComponent } from "vue"
-import { renderToString as renderVue } from "vue/server-renderer"
 import { describe, expect, test } from "vitest"
+import type { ComponentFramework } from "../../src/component-api/frameworks"
+import { render } from "./renderers"
 import DialogAstro from "../../packages/opui/components/Dialog/Dialog.astro"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
@@ -27,38 +22,22 @@ import TextFieldReact from "../../packages/opui/components/TextField/TextField.r
 import TextFieldSvelte from "../../packages/opui/components/TextField/TextField.svelte"
 import TextFieldVue from "../../packages/opui/components/TextField/TextField.vue"
 
-const container = await AstroContainer.create()
+type Components = Record<ComponentFramework, unknown>
 
-type Components = {
-  astro: Parameters<typeof container.renderToString>[0]
-  react: unknown
-  svelte: unknown
-  vue: unknown
-}
-
-const render = {
-  astro: (
-    component: Components["astro"],
-    props: Record<string, unknown>,
-    $id: (prefix: string) => string,
-  ) =>
-    container.renderToString(component, {
-      locals: { $id, framework: "astro", link: (path: string) => path },
-      props,
-    }),
-  react: async (component: unknown, props: Record<string, unknown>) =>
-    renderReact(
-      createElement(component as ComponentType<Record<string, unknown>>, props),
-    ),
-  svelte: async (component: unknown, props: Record<string, unknown>) =>
-    renderSvelte(component as SvelteComponent<Record<string, unknown>>, {
-      props,
-    }).body,
-  vue: (component: unknown, props: Record<string, unknown>) =>
-    renderVue(
-      createSSRApp({ render: () => h(component as VueComponent, props) }),
-    ),
-}
+const renderWithIds = (
+  framework: ComponentFramework,
+  component: unknown,
+  props: Record<string, unknown>,
+  $id: (prefix: string) => string,
+) =>
+  framework === "astro"
+    ? render.astro(
+        component,
+        props,
+        {},
+        { $id, framework: "astro", link: (path: string) => path },
+      )
+    : render[framework](component, props)
 
 const ID_ATTRIBUTES =
   /\s(?:id|for|list|aria-labelledby|aria-describedby|aria-controls)="([^"]*)"/g
@@ -151,15 +130,16 @@ const CASES: {
   },
 ]
 
-const FRAMEWORKS = ["astro", "react", "svelte", "vue"] as const
+const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
   test.each(FRAMEWORKS)(
     "%s: every id is the passed id or a part of it",
     async (framework) => {
       const calls: string[] = []
-      const html = await render[framework](
-        components[framework] as never,
+      const html = await renderWithIds(
+        framework,
+        components[framework],
         { ...props, id: "x" },
         (name: string) => {
           calls.push(name)
@@ -178,8 +158,9 @@ describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
     "%s: without an id, every id is a part of one generated base",
     async (framework) => {
       const calls: string[] = []
-      const html = await render[framework](
-        components[framework] as never,
+      const html = await renderWithIds(
+        framework,
+        components[framework],
         props,
         (name: string) => {
           calls.push(name)

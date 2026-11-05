@@ -38,6 +38,20 @@ const expressionOf = (text, quote) => {
   return expressions.get(key)
 }
 
+const bindingNames = (name) =>
+  ts.isIdentifier(name)
+    ? [name.text]
+    : ts.isObjectBindingPattern(name) || ts.isArrayBindingPattern(name)
+      ? name.elements.flatMap((element) =>
+          ts.isBindingElement(element) ? bindingNames(element.name) : [],
+        )
+      : []
+
+const shadowedBy = (node) =>
+  ts.isArrowFunction(node) || ts.isFunctionExpression(node)
+    ? node.parameters.flatMap((parameter) => bindingNames(parameter.name))
+    : []
+
 const transformer =
   (
     sourceFile,
@@ -45,7 +59,27 @@ const transformer =
   ) =>
   (context) =>
   (node) => {
+    const scoped = (names) => {
+      const inner = new Map(rename)
+      names.forEach((name) => inner.delete(name))
+      return transformer(sourceFile, { quote, rename: inner, slotHas, style })(
+        context,
+      )
+    }
     const visit = (child) => {
+      const shadowed = shadowedBy(child).filter((name) => rename.has(name))
+      if (shadowed.length > 0) {
+        return ts.visitEachChild(child, scoped(shadowed), context)
+      }
+      if (
+        ts.isShorthandPropertyAssignment(child) &&
+        rename.has(child.name.text)
+      ) {
+        return ts.factory.createPropertyAssignment(
+          child.name.text,
+          expressionOf(rename.get(child.name.text), quote),
+        )
+      }
       if (
         ts.isCallExpression(child) &&
         child.expression.getText(sourceFile) === "Astro.slots.has" &&
@@ -81,7 +115,13 @@ const transformer =
           ts.isPropertyAccessExpression(child.parent) &&
           child.parent.name === child
         ) &&
-        !(ts.isPropertyAssignment(child.parent) && child.parent.name === child)
+        !(
+          ts.isPropertyAssignment(child.parent) && child.parent.name === child
+        ) &&
+        !(
+          ts.isBindingElement(child.parent) &&
+          child.parent.propertyName === child
+        )
       ) {
         return expressionOf(rename.get(child.text), quote)
       }

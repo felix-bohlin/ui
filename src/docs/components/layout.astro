@@ -129,7 +129,9 @@ export const keywords = ["columns", "container", "grid", "stack"]
       On a <code>ul</code> or <code>ol</code>, <code>.ui-layout-row</code> and
       <code>.ui-layout-grid</code> drop the bullets and the list margins, and a
       <code>.ui-card</code> alone in an <code>li</code> of a grid fills its
-      cell, so the cards in a row share one height.
+      cell, so the cards in a row share one height. Give the list
+      <code>role="list"</code>: Safari stops announcing a list without bullets
+      as a list, with its item count, outside a <code>nav</code>.
     </p>
     <AutoExample name="List" />
   </section>

@@ -121,6 +121,7 @@ const endTextId = computed(() =>
     }}<span class="ui-field">
       <span class="ui-start">
         <Button
+          :aria-controls="inputId"
           :aria-label="decreaseLabel"
           command="--step-down"
           :commandfor="inputId"
@@ -153,6 +154,7 @@ const endTextId = computed(() =>
       />{{ " "
       }}<span class="ui-end">
         <Button
+          :aria-controls="inputId"
           :aria-label="increaseLabel"
           command="--step-up"
           :commandfor="inputId"

@@ -2,6 +2,7 @@
   import { untrack } from "svelte"
   import { getDrawerContext } from "./context.svelte"
   import { warnReplacedId } from "../dev"
+  import { classAttrs } from "../cx"
   import type { DrawerTitleProps as Props } from "./types.svelte"
 
   let {
@@ -17,6 +18,6 @@
   untrack(() => warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId))
 </script>
 
-<h2 class={[className]} id={drawer?.titleId ?? id} {...rest}>
+<h2 {...classAttrs([className])} id={drawer?.titleId ?? id} {...rest}>
   {@render children?.()}
 </h2>

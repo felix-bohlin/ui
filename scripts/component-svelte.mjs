@@ -15,6 +15,7 @@ import { MODEL_KINDS } from "./component-models.mjs"
 import {
   byName,
   chosenSpreadCode,
+  classMayBeEmpty,
   propKey,
   unsupported,
 } from "./component-shared.mjs"
@@ -75,9 +76,13 @@ export const toSvelte = (component) => {
   const slotEntries = slotOrder(slots).map((slot) => slotProp(slot))
   let usesElements = false
   let usesContent = false
+  let usesClassAttrs = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
-      return `class={${rewriteExpression(item.code, options)}}`
+      const code = rewriteExpression(item.code, options)
+      if (!classMayBeEmpty(item.code)) return `class={${code}}`
+      usesClassAttrs = true
+      return `{...classAttrs(${code})}`
     }
     if (item.kind === "spread") {
       const cast =
@@ -199,9 +204,13 @@ export const toSvelte = (component) => {
       provide: (name) => `set${name}Context`,
       read: (name) => `get${name}Context`,
     }),
-    ...(component.item
-      ? withImport(imports, "../dev", "warnGroupedChecked")
-      : imports),
+    ...[
+      ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
+    ].reduce(
+      (lines, [module, name]) => withImport(lines, module, name),
+      imports,
+    ),
     propsImport(propsType, "types.svelte"),
     ...(usesElements
       ? [`import type { SvelteHTMLElements } from "svelte/elements"`]

@@ -2,6 +2,7 @@
 import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { tagAttrs } from "../tag"
+import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -41,21 +42,23 @@ const hasDescription = computed(() => !!description || slots.description)
 
 <template>
   <li
-    :class="[
-      { 'ui-border-top': borderTop, 'ui-inset': inset },
-      color && `ui-${color}`,
-      $props.class,
-    ]"
-    v-bind="restOnItem ? attrs : {}"
+    v-bind="{
+      ...(restOnItem ? attrs : {}),
+      ...classAttrs([
+        { 'ui-border-top': borderTop, 'ui-inset': inset },
+        color && `ui-${color}`,
+        $props.class,
+      ]),
+    }"
   >
     <component
       :is="Tag"
       v-if="Tag"
-      :class="[hasControl && `ui-${type}`]"
       :for="hasControl ? htmlFor : undefined"
       v-bind="{
         ...(hasControl ? {} : tagAttrs(Tag, disabled, href)),
         ...(restOnItem ? {} : attrs),
+        ...classAttrs([hasControl && `ui-${type}`]),
       }"
       ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>

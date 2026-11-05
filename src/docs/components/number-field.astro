@@ -279,6 +279,12 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
         it keeps focus.
       </li>
       <li>
+        The buttons point at the input with <code>aria-controls</code>. They are
+        for pointer users: a press changes the value without moving focus, so a
+        screen reader doesn't hear the new value until it reads the input, while
+        the arrow keys on the input announce every step.
+      </li>
+      <li>
         Before the element loads, the buttons are hidden and the input keeps the
         browser's own spin buttons.
       </li>

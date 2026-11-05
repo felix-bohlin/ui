@@ -6,6 +6,7 @@ import {
   useAttrs,
 } from "vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { classAttrs } from "../cx"
 import type { RadioInputProps as Props } from "./types.vue-props"
 
 const { name } = defineProps<Props>()
@@ -40,9 +41,8 @@ const field = inject(FieldGroupKey, undefined)
   <input
     type="radio"
     :name="name ?? field?.name"
-    v-bind="attrs"
+    v-bind="{ ...attrs, ...classAttrs($props.class) }"
     :value="attrs.value"
     v-model="model"
-    :class="$props.class"
   />
 </template>

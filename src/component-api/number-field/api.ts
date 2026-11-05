@@ -41,7 +41,7 @@ export default {
         vue: hydrated,
       },
     ),
-    html: 'Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser\'s own spin buttons.',
+    html: 'Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser\'s own spin buttons.',
   },
   options: [
     {

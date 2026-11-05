@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { classAttrs } from "../cx"
 import type {
   DescriptionListItemProps as Props,
   Slots,
@@ -9,7 +10,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="[total && 'ui-total', $props.class]">
+  <div v-bind="classAttrs([total && 'ui-total', $props.class])">
     <slot></slot>
   </div>
 </template>

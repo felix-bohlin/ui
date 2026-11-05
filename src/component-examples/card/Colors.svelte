@@ -9,7 +9,11 @@
   } from "opui-css/svelte"
 </script>
 
-<ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 12rem">
+<ul
+  role="list"
+  class="ui-layout-grid ui-stretch"
+  style="--_min-inline-size: 12rem"
+>
   <li>
     <Card variant="outlined">
       <CardHeader>

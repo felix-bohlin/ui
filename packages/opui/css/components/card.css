@@ -165,7 +165,7 @@
     }
 
     /* Content */
-    & > .ui-content:where(:only-child, :first-child) {
+    & > .ui-content:where(:first-child) {
       padding-block: var(--_padding) calc(var(--_padding) + var(--ui-space-1));
     }
 

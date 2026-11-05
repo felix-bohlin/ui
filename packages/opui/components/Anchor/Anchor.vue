@@ -4,6 +4,7 @@ import { AnchorKey } from "./context.vue"
 import { warnMissingId } from "../dev"
 import { mergeStyle } from "../style"
 import { extendsAnchor } from "./root"
+import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -33,7 +34,9 @@ provide(
 
 <template>
   <span
-    :class="[!extendsAnchor($props.class) && 'ui-anchor', $props.class]"
+    v-bind="
+      classAttrs([!extendsAnchor($props.class) && 'ui-anchor', $props.class])
+    "
     :id="isHover ? undefined : idProp"
     :style="mergeStyle({ '--ui-anchor-position-area': positionArea }, {})"
   >

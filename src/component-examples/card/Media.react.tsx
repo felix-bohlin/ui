@@ -9,6 +9,7 @@ import {
 export default function Media() {
   return (
     <ul
+      role="list"
       className="ui-layout-grid ui-stretch"
       style={{ "--_min-inline-size": "16rem" }}
     >

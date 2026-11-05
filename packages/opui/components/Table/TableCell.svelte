@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { classAttrs } from "../cx"
   import type { TableCellProps as Props } from "./types.svelte"
 
   let {
@@ -11,6 +12,6 @@
   }: Props = $props()
 </script>
 
-<td class={[{ "ui-numeric": numeric }, className]} {...rest}>
+<td {...classAttrs([{ "ui-numeric": numeric }, className])} {...rest}>
   {@render children?.()}
 </td>

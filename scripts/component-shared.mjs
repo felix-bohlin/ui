@@ -167,3 +167,25 @@ export const isIdentifierName = (name) => /^[A-Za-z_$][\w$]*$/.test(name)
 
 export const propKey = (prop) =>
   isIdentifierName(prop) ? prop : JSON.stringify(prop)
+
+const givesClass = (node) =>
+  ts.isParenthesizedExpression(node)
+    ? givesClass(node.expression)
+    : ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)
+      ? !!node.text.trim()
+      : ts.isTemplateExpression(node)
+        ? [node.head, ...node.templateSpans.map((span) => span.literal)].some(
+            (part) => part.text.trim(),
+          )
+        : ts.isConditionalExpression(node)
+          ? givesClass(node.whenTrue) && givesClass(node.whenFalse)
+          : ts.isArrayLiteralExpression(node) && node.elements.some(givesClass)
+
+export const classMayBeEmpty = (code) => {
+  const node = ts.createSourceFile(
+    "class.ts",
+    `(${code})`,
+    ts.ScriptTarget.Latest,
+  ).statements[0]?.expression
+  return !node || !givesClass(node)
+}

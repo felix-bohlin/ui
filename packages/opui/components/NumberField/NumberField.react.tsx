@@ -70,6 +70,7 @@ export default function NumberField({
       <span className="ui-field">
         <span className="ui-start">
           <Button
+            aria-controls={inputId}
             aria-label={decreaseLabel}
             command="--step-down"
             commandfor={inputId}
@@ -100,6 +101,7 @@ export default function NumberField({
         />{" "}
         <span className="ui-end">
           <Button
+            aria-controls={inputId}
             aria-label={increaseLabel}
             command="--step-up"
             commandfor={inputId}

@@ -314,6 +314,7 @@
         flex-wrap: wrap;
         gap: var(--_marker-gap);
         justify-content: center;
+        justify-self: stretch;
         margin-block-start: var(--_markers-gap);
       }
 

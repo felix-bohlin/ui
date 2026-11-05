@@ -9,7 +9,11 @@ import {
 </script>
 
 <template>
-  <ul class="ui-layout-grid ui-stretch" style="--_min-inline-size: 16rem">
+  <ul
+    role="list"
+    class="ui-layout-grid ui-stretch"
+    style="--_min-inline-size: 16rem"
+  >
     <li>
       <Card variant="outlined">
         <img

@@ -13,6 +13,7 @@ defineSlots<Slots>()
       variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,
     ]"
+    role="list"
   >
     <slot></slot>
   </ul>

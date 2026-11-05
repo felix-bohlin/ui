@@ -487,6 +487,11 @@ export const keywords = ["listbox", "menu list", "ul"]
         Screen readers announce the link with <code>aria-current="page"</code>
         as the current page.
       </li>
+      <li>
+        The list has <code>role="list"</code>, since Safari stops announcing a
+        list without bullets as a list, with its item count, outside a
+        <code>nav</code>.
+      </li>
     </ul>
     <KeyboardSupport />
   </Fragment>

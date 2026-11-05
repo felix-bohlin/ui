@@ -57,7 +57,7 @@
     }
 
     /* Required dot */
-    &:has(:required) {
+    &:not(.ui-radio):has(:required) {
       .ui-label::after {
         color: var(--ui-field-required-text-color);
         content: "*";

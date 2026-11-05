@@ -198,7 +198,7 @@
         margin-block-start: calc((var(--_size) - var(--_chevron-size)) / 2);
       }
 
-      @container (inline-size < 400px) {
+      @container (inline-size < 25rem) {
         &.ui-spread::after {
           align-self: center;
           grid-row: 2;

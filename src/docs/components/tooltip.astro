@@ -172,8 +172,12 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     <ul>
       <li>
         Chromium exposes the tooltip text as the trigger's description, but only
-        while the tooltip is shown. Put what the user must know in the trigger's
-        own name, like an <code>aria-label</code> on an icon-only button.
+        while the tooltip is shown, and other browsers not at all. The examples
+        also point the trigger at the tooltip with <code>aria-describedby</code
+        >, which gives the description in every browser, before the tooltip
+        shows too, and Chromium still reads it once. Put what the user must know
+        in the trigger's own name, like an <code>aria-label</code> on an
+        icon-only button.
       </li>
       <li>
         On a <a href="#toggletip">toggletip</a>, <code>commandfor</code> ties

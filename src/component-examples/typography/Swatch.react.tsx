@@ -1,6 +1,6 @@
 export default function Swatch() {
   return (
-    <ul className="ui-layout-row">
+    <ul role="list" className="ui-layout-row">
       <li className="ui-layout-row ui-x-small">
         <span className="ui-swatch ui-success"></span>
         Online

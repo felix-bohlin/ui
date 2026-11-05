@@ -18,6 +18,7 @@ export default function List({
         variant && variant !== "filled" && `ui-${variant}`,
         className,
       ])}
+      role="list"
       {...rest}
     >
       {children}

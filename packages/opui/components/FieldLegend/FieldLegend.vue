@@ -2,6 +2,7 @@
 import { computed, type HTMLAttributes, inject, useAttrs } from "vue"
 import { FieldsetKey } from "../Fieldset/context.vue"
 import { warnReplacedId } from "../dev"
+import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const { as: Tag = "legend" } = defineProps<Props>()
@@ -19,7 +20,7 @@ warnReplacedId("FieldLegend", "Fieldset", attrs.id, fieldset?.legendId)
 <template>
   <component
     :is="Tag"
-    :class="[{ 'ui-legend': !isLegend }, $props.class]"
+    v-bind="classAttrs([{ 'ui-legend': !isLegend }, $props.class])"
     :id="fieldset?.legendId ?? attrs.id"
   >
     <slot></slot>

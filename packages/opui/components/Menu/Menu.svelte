@@ -3,6 +3,7 @@
   import { getMenuContext, setMenuContext } from "./context.svelte"
   import { warnMissingId } from "../dev"
   import { tagAttrs } from "../tag"
+  import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
 
   let {
@@ -47,7 +48,9 @@
 >
   {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}{@const Tag =
       href ? "a" : "button"}{@const closes = !href && !keepOpen && !disabled}
-    <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
+    <li
+      {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}
+    >
       <svelte:element
         this={Tag}
         {...tagAttrs(Tag, disabled, href)}

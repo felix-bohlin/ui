@@ -1,5 +1,6 @@
 <script lang="ts">
   import { markerPath } from "./icons"
+  import { classAttrs } from "../cx"
   import type { AccordionSummaryProps as Props } from "./types.svelte"
 
   let {
@@ -12,7 +13,7 @@
   }: Props = $props()
 </script>
 
-<summary class={[className]} {...rest}
+<summary {...classAttrs([className])} {...rest}
   >{@render children?.()}{" "}{#if marker}{@render marker()}{:else}<svg
       aria-hidden="true"
       class="ui-marker"

@@ -6,7 +6,8 @@
   :where(.ui-text-field, .ui-textarea, .ui-select, .ui-number-field) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
-    --_affix-button-size: calc(
+    --_affix-button-size: max(
+      var(--ui-space-5),
       var(--_size) - var(--ui-field-border-width) * 2 - var(--ui-space-1) * 2
     );
     --_affix-text-color: var(--ui-text);
@@ -557,7 +558,7 @@
       }
 
       /* Collapse to column on narrow containers */
-      @container (inline-size < 400px) {
+      @container (inline-size < 25rem) {
         .ui-label,
         .ui-start-text,
         .ui-field,

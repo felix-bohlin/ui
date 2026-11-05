@@ -233,11 +233,13 @@ export const keywords = ["chat", "chat bubble", "conversation"]
 
   <Fragment slot="accessibility">
     <p>
-      The conversation is an <code>ol</code>, named with <code>aria-label</code
-      >, so a screen reader announces the number of messages and reads them in
-      order. The author is in every bubble, hidden visually where the run makes
-      it clear, so each message is read with its sender. Put the time in a
-      <code>time</code> element with <code>datetime</code>.
+      The conversation is an <code>ol</code> with <code>role="list"</code>,
+      which Safari needs to keep a list without numbers a list, named with
+      <code>aria-label</code>, so a screen reader announces the number of
+      messages and reads them in order. The author is in every bubble, hidden
+      visually where the run makes it clear, so each message is read with its
+      sender. Put the time in a <code>time</code> element with
+      <code>datetime</code>.
     </p>
     <p>
       Color alone never carries meaning: an outgoing message is also at the end

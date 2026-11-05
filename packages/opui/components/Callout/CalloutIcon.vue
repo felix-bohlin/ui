@@ -2,6 +2,7 @@
 import { computed, inject } from "vue"
 import { CalloutKey } from "./context.vue"
 import { iconFor } from "./icons"
+import { classAttrs } from "../cx"
 import type { CalloutIconProps as Props } from "./types.vue-props"
 
 defineProps<Props>()
@@ -15,7 +16,7 @@ const icon = computed(() => iconFor(callout?.severity))
   <svg
     v-if="icon"
     aria-hidden="true"
-    :class="[$props.class]"
+    v-bind="classAttrs([$props.class])"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"

@@ -11,10 +11,6 @@
   ) {
     --_motion: var(--ui-motion);
 
-    &:not(dialog, [popover]) {
-      position: relative;
-    }
-
     &::before {
       animation: ui-spin
         max(0.7s * var(--_motion), 1.5s - 0.8s * var(--_motion)) linear infinite;

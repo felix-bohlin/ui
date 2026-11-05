@@ -7,6 +7,7 @@ import {
   useAttrs,
 } from "vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { classAttrs } from "../cx"
 import type { CheckboxInputProps as Props } from "./types.vue-props"
 
 const { indeterminate, name } = defineProps<Props>()
@@ -38,8 +39,7 @@ const field = inject(FieldGroupKey, undefined)
     type="checkbox"
     :data-indeterminate="indeterminate ? '' : undefined"
     :name="name ?? field?.name"
-    v-bind="attrs"
+    v-bind="{ ...attrs, ...classAttrs($props.class) }"
     v-model="model"
-    :class="$props.class"
   />
 </template>

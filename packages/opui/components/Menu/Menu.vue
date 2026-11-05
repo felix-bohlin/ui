@@ -3,6 +3,7 @@ import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
+import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -55,7 +56,9 @@ provide(MenuKey, reactive({ rootId }))
         index
       ) in items"
       :key="index"
-      :class="[{ 'ui-border-top': borderTop }, color && `ui-${color}`]"
+      v-bind="
+        classAttrs([{ 'ui-border-top': borderTop }, color && `ui-${color}`])
+      "
     >
       <component
         :is="href ? 'a' : 'button'"

@@ -10,6 +10,7 @@ import {
 export default function Colors() {
   return (
     <ul
+      role="list"
       className="ui-layout-grid ui-stretch"
       style={{ "--_min-inline-size": "12rem" }}
     >

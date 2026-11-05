@@ -1,6 +1,6 @@
 export default function TabularNumbers() {
   return (
-    <ul className="ui-layout-column ui-x-small ui-tabular-nums">
+    <ul role="list" className="ui-layout-column ui-x-small ui-tabular-nums">
       <li className="ui-layout-row ui-spread">
         <span>Visitors</span>
         <span>48 210</span>

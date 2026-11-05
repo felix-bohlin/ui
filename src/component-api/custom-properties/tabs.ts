@@ -44,6 +44,11 @@ export default {
       "Space between the tab list and the panel. Defaults to `--ui-space-2`.",
     kind: "input",
   },
+  "--_panel-padding": {
+    description:
+      "Inline and block-end padding of a `.ui-overflow-scroll` panel, `--ui-focus-ring-offset` plus `--ui-focus-ring-width`, so a focus ring on a control at the panel's edge isn't clipped by the scroll container.",
+    kind: "output",
+  },
   "--_radius": {
     description:
       "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { tagAttrs } from "../tag"
+  import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
   import type { SvelteHTMLElements } from "svelte/elements"
 
@@ -35,16 +36,16 @@
 </script>
 
 <li
-  class={[
+  {...classAttrs([
     { "ui-border-top": borderTop, "ui-inset": inset },
     color && `ui-${color}`,
     className,
-  ]}
+  ])}
   {...restOnItem ? (rest as SvelteHTMLElements["li"]) : {}}
 >
   {#if Tag}<svelte:element
       this={Tag}
-      class={[hasControl && `ui-${type}`]}
+      {...classAttrs([hasControl && `ui-${type}`])}
       for={hasControl ? htmlFor : undefined}
       {...hasControl ? {} : tagAttrs(Tag, disabled, href)}
       {...restOnItem ? {} : (rest as object)}

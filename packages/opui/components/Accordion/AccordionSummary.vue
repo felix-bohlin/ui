@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { markerPath } from "./icons"
+import { classAttrs } from "../cx"
 import type {
   AccordionSummaryProps as Props,
   AccordionSummarySlots,
@@ -10,7 +11,7 @@ defineSlots<AccordionSummarySlots>()
 </script>
 
 <template>
-  <summary :class="[$props.class]">
+  <summary v-bind="classAttrs([$props.class])">
     <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot
     ><svg
       v-else

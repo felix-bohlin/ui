@@ -21,6 +21,7 @@
     variant && variant !== "filled" && `ui-${variant}`,
     className,
   ]}
+  role="list"
   {...rest}
 >
   {@render children?.()}

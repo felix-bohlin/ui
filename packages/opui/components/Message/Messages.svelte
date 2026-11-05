@@ -10,6 +10,6 @@
   }: Props = $props()
 </script>
 
-<ol class={["ui-messages", className]} {...rest}>
+<ol class={["ui-messages", className]} role="list" {...rest}>
   {@render children?.()}
 </ol>

@@ -1137,6 +1137,7 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     `The <a href="#basics">switch</a> turns on and off at once, so a click or tap shows right away.`,
+    `An invalid switch colors its <a href="#validation">track border</a>, like an invalid checkbox, instead of drawing a ring around the track.`,
   ],
   table: [
     `The caption reads <a href="#api"><code>--ui-text-subtle</code></a>.`,

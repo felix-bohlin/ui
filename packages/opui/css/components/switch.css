@@ -154,15 +154,7 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      input {
-        box-shadow: 0 0 0 var(--ui-focus-ring-width) var(--ui-invalid);
-      }
-
-      input:focus-visible {
-        outline-offset: calc(
-          var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
-        );
-      }
+      --_track-border-color: var(--ui-invalid);
     }
 
     @media (forced-colors: active) {

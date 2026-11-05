@@ -22,6 +22,7 @@ import {
   allCodes,
   byName,
   chosenSpreadCode,
+  classMayBeEmpty,
   identifiersIn,
   isArrayType,
   isBlank,
@@ -33,6 +34,38 @@ import {
 } from "./component-shared.mjs"
 
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
+
+const ATTRIBUTE = /[^\s="]+(?:="[^"]*")?/g
+const CLASS_BINDING = /^:class="(.*)"$/s
+const OBJECT_BINDING = /^v-bind="(.*)"$/s
+
+export const omitEmptyClass = (attributes) => {
+  const at = attributes.findIndex((entry) => CLASS_BINDING.test(entry))
+  if (at === -1) return { attributes, omitted: false }
+  const code = CLASS_BINDING.exec(attributes[at])[1]
+  if (!classMayBeEmpty(code)) return { attributes, omitted: false }
+  const classAttrs = `classAttrs(${code})`
+  const bound = attributes.filter((entry) => OBJECT_BINDING.test(entry))
+  if (bound.length > 1) {
+    throw new Error(
+      `a class list that can be empty next to ${bound.length} v-bind objects`,
+    )
+  }
+  const spread = bound.length ? OBJECT_BINDING.exec(bound[0])[1].trim() : ""
+  const entries = /^\{[\s\S]*\}$/.test(spread)
+    ? spread.slice(1, -1).trim().replace(/,$/, "")
+    : `...${spread}`
+  const object = bound.length
+    ? `v-bind="{ ${entries}, ...${classAttrs} }"`
+    : `v-bind="${classAttrs}"`
+  const place = bound.length ? attributes.indexOf(bound[0]) : at
+  return {
+    attributes: attributes
+      .map((entry, index) => (index === place ? object : entry))
+      .filter((_, index) => index === place || index !== at),
+    omitted: true,
+  }
+}
 
 export const toVue = (component) => {
   const {
@@ -185,6 +218,7 @@ export const toVue = (component) => {
       trimmedSlots.some(({ local }) => identifiersIn(code).has(local)),
   )
   let usesTrimmedSlot = false
+  let usesClassAttrs = false
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
       return `:class="${rewriteExpression(item.code, scope)}"`
@@ -325,7 +359,7 @@ export const toVue = (component) => {
     const bindScope = checkedRename
       ? { ...scope, rename: new Map([...scope.rename, checkedRename]) }
       : scope
-    const attributes = [
+    const listed = [
       ...(clause ? [clause] : []),
       ...bound
         .map((item) =>
@@ -345,7 +379,10 @@ export const toVue = (component) => {
       !node.attributes.some((entry) => entry.kind === "class")
         ? [':class="$props.class"']
         : []),
-    ].join(" ")
+    ].flatMap((entry) => entry.match(ATTRIBUTE) ?? [])
+    const classed = omitEmptyClass(listed)
+    if (classed.omitted) usesClassAttrs = true
+    const attributes = classed.attributes.join(" ")
     const tag = node.variable || node.custom ? "component" : node.tag
     const is = node.variable
       ? ` :is="${scope.rename.get(node.tag) ?? node.tag}"`
@@ -421,7 +458,13 @@ export const toVue = (component) => {
       provide: (name) => `${name}Key`,
       read: (name) => `${name}Key`,
     }),
-    ...(item ? withImport(imports, "../dev", "warnGroupedChecked") : imports),
+    ...[
+      ...(item ? [["../dev", "warnGroupedChecked"]] : []),
+      ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
+    ].reduce(
+      (lines, [module, name]) => withImport(lines, module, name),
+      imports,
+    ),
     propsImport(propsType, "types.vue-props", slots.length ? [slotsType] : []),
   ]
   const vueProps = generic ? "Props & { multiple?: Multiple }" : "Props"

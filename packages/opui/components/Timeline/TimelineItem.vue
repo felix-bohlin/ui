@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { classAttrs } from "../cx"
 import type {
   TimelineItemProps as Props,
   TimelineItemSlots,
@@ -23,7 +24,7 @@ const Heading = computed(
 <template>
   <li
     :aria-current="current === true ? 'true' : current || undefined"
-    :class="[color && `ui-${color}`, $props.class]"
+    v-bind="classAttrs([color && `ui-${color}`, $props.class])"
   >
     <span v-if="$slots.marker" class="ui-marker"
       ><slot name="marker"></slot></span

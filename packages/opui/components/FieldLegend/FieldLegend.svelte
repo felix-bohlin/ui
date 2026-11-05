@@ -2,6 +2,7 @@
   import { untrack } from "svelte"
   import { getFieldsetContext } from "../Fieldset/context.svelte"
   import { warnReplacedId } from "../dev"
+  import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
 
   let {
@@ -22,7 +23,7 @@
 
 <svelte:element
   this={Tag}
-  class={[{ "ui-legend": !isLegend }, className]}
+  {...classAttrs([{ "ui-legend": !isLegend }, className])}
   {...rest}
   id={fieldset?.legendId ?? rest.id}
 >

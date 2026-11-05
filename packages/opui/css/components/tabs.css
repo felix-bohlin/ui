@@ -232,11 +232,17 @@
       }
 
       & > .ui-panel {
+        --_panel-padding: calc(
+          var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
+        );
+
         grid-column: 1 / span calc(sibling-count() / 3);
         grid-row: 2;
         inline-size: 100cqi;
         inset-inline-start: 0;
         margin-inline-end: -100cqi;
+        padding-block-end: var(--_panel-padding);
+        padding-inline: var(--_panel-padding);
         position: sticky;
       }
 

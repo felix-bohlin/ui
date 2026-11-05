@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { classAttrs } from "../cx"
   import type { DescriptionListDescriptionProps as Props } from "./types.svelte"
 
   let {
@@ -10,6 +11,6 @@
   }: Props = $props()
 </script>
 
-<dd class={[className]} {...rest}>
+<dd {...classAttrs([className])} {...rest}>
   {@render children?.()}
 </dd>

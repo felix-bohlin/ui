@@ -323,6 +323,8 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
     },
   }
 
+const emptyClass = (markup: string) => /\sclass=""/.test(markup)
+
 describe("every component renders the same in Astro, React, Svelte and Vue", () => {
   test("covers the components with a matrix of props and slots", () => {
     expect(
@@ -335,9 +337,21 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
     const expected = await render.astro(entry)
     if (expected === undefined) return
     const reference = normalize(expected)
+    expect
+      .soft(
+        emptyClass(expected),
+        `${entry.component} with ${entry.name}: astro renders class=""`,
+      )
+      .toBe(false)
     for (const framework of FRAMEWORKS.filter((id) => id !== "astro")) {
       const actual = await render[framework](entry)
       if (actual === undefined) continue
+      expect
+        .soft(
+          emptyClass(actual),
+          `${entry.component} with ${entry.name}: ${framework} renders class="", which the parity check drops; bind the class only when it isn't empty (classAttrs() in Vue)`,
+        )
+        .toBe(false)
       const key = `${entry.component} ${entry.name} ${framework}`
       if (key in KNOWN_DIFFERENCES) {
         expect
@@ -355,6 +369,11 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
         )
         .toBe(reference)
     }
+  })
+
+  test("a sample the check must flag: an empty class attribute", () => {
+    expect(emptyClass('<h2 class="">Title</h2>')).toBe(true)
+    expect(emptyClass('<h2 class="ui-title">Title</h2>')).toBe(false)
   })
 
   test("a sample the check must flag: a class one framework forgets", () => {

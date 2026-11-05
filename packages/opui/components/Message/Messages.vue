@@ -6,7 +6,7 @@ defineSlots<MessagesSlots>()
 </script>
 
 <template>
-  <ol :class="['ui-messages', $props.class]">
+  <ol :class="['ui-messages', $props.class]" role="list">
     <slot></slot>
   </ol>
 </template>

@@ -2,7 +2,11 @@ import { Card, CardContent } from "opui-css/react"
 
 export default function List() {
   return (
-    <ul className="ui-layout-grid" style={{ "--_min-inline-size": "10rem" }}>
+    <ul
+      role="list"
+      className="ui-layout-grid"
+      style={{ "--_min-inline-size": "10rem" }}
+    >
       <li>
         <Card variant="outlined">
           <CardContent>Design</CardContent>

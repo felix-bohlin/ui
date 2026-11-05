@@ -4,6 +4,7 @@
   import { warnMissingId } from "../dev"
   import { mergeStyle } from "../style"
   import { extendsAnchor } from "./root"
+  import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
 
   let {
@@ -36,7 +37,7 @@
 </script>
 
 <span
-  class={[!extendsAnchor(className) && "ui-anchor", className]}
+  {...classAttrs([!extendsAnchor(className) && "ui-anchor", className])}
   id={isHover ? undefined : idProp}
   style={mergeStyle({ "--ui-anchor-position-area": positionArea }, style)}
   {...rest}

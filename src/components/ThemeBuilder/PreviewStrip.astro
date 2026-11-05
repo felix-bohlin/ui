@@ -7,7 +7,7 @@ const schemes = [
 ] as const
 ---
 
-<div class="preview-strip">
+<div class="preview-strip" data-builder-header>
   <div aria-hidden="true" class="preview-strip-panes" inert>
     {schemes.map(({ label, scheme }) => <div
       class={`preview-strip-pane ui-palette ui-${scheme}`}

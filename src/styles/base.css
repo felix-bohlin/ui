@@ -93,9 +93,14 @@ aside.sidebar {
 }
 
 /* Setup */
+@property --site-header-end-inline-size {
+  inherits: false;
+  initial-value: 675px;
+  syntax: "<length>";
+}
+
 :root {
   --site-gap: var(--size-4, 20px);
-  --site-header-end-inline-size: 675px;
   --site-page-gutters: var(--site-gap);
 
   @media (width >= 600px) {

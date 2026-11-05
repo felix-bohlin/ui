@@ -137,18 +137,22 @@ const { link } = Astro.locals
       const nav = document.querySelector(".site-header nav ul")
       const actions = document.querySelector(".site-header .ui-actions")
       if (nav && actions) {
-        const observer = new ResizeObserver(() => {
+        const measure = () => {
           if (!nav.offsetWidth) return
           const size =
             actions.getBoundingClientRect().right -
             nav.getBoundingClientRect().left
-          document.documentElement.style.setProperty(
-            "--site-header-end-inline-size",
-            `${size}px`,
-          )
-        })
+          for (const heading of document.querySelectorAll("#main-content h2")) {
+            heading.style.setProperty(
+              "--site-header-end-inline-size",
+              `${size}px`,
+            )
+          }
+        }
+        const observer = new ResizeObserver(measure)
         observer.observe(nav)
         observer.observe(actions)
+        document.addEventListener("DOMContentLoaded", measure)
       }
     }
   </script>

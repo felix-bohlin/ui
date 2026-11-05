@@ -125,10 +125,13 @@ const name = (part: string) => `states-${scheme}-${part}`
 
   .states-block {
     break-inside: avoid;
+    contain-intrinsic-block-size: auto 300px;
+    content-visibility: auto;
     display: grid;
     gap: var(--ui-space-3);
-    margin-block-end: var(--ui-space-6);
+    margin-inline: calc(-1 * var(--size-5));
     min-inline-size: 0;
+    padding: 0 var(--size-5) var(--ui-space-6);
 
     & :global(.ui-text-field),
     & :global(.ui-select),

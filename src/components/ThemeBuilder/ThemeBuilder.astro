@@ -15,7 +15,7 @@ import PreviewContrast from "./PreviewContrast.astro"
 import PreviewStrip from "./PreviewStrip.astro"
 ---
 
-<div class="theme-builder">
+<div class="theme-builder" data-builder-header>
   <BuilderToolbar />
   <PreviewStrip />
   <div class="builder-body">
@@ -62,11 +62,17 @@ import PreviewStrip from "./PreviewStrip.astro"
   const builder = document.querySelector<HTMLElement>(".theme-builder")
   const header = document.querySelector<HTMLElement>(".site-header")
   if (builder && header) {
-    const measure = () =>
-      document.documentElement.style.setProperty(
-        "--builder-header",
-        `${header.offsetHeight}px`,
-      )
+    const consumers = document.querySelectorAll<HTMLElement>(
+      "[data-builder-header]",
+    )
+    const measure = () => {
+      for (const consumer of consumers) {
+        consumer.style.setProperty(
+          "--builder-header",
+          `${header.offsetHeight}px`,
+        )
+      }
+    }
     new ResizeObserver(measure).observe(header)
     measure()
   }
@@ -90,8 +96,10 @@ import PreviewStrip from "./PreviewStrip.astro"
 </script>
 
 <style>
-  :root {
-    --builder-header: 5.25rem;
+  @property --builder-header {
+    inherits: false;
+    initial-value: 84px;
+    syntax: "<length>";
   }
 
   .theme-builder {

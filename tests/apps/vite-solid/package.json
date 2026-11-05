@@ -1,0 +1,14 @@
+{
+  "name": "opui-app-vite-solid",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@solidjs/web": "^2.0.0-rc.21",
+    "solid-js": "^2.0.0-rc.21"
+  },
+  "devDependencies": {
+    "@solidjs/vite-plugin": "^3.0.0-next.55",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.6"
+  }
+}

@@ -37,7 +37,7 @@
       }
     },
     {
-      "files": ["**/*.solid.tsx"],
+      "files": ["**/*.solid.tsx", "tests/apps/vite-solid/**/*.tsx"],
       "rules": {
         "react/error-boundaries": "off",
         "react/exhaustive-deps": "off",

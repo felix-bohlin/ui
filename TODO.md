@@ -1435,6 +1435,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: A page with several Solid roots hydrates only the first and renders the others again on the client.
   - Recommended: Fix. Solid may lift the limit before 2.0, and the test should cover every example per page once it does.
   - Fix: check each Solid RC: when a second `hydrate()` on a page claims its server markup, hydrate every example on `?hydrate` and check them all in one page load in `tests/e2e/hydration.spec.ts`.
+- [ ] (3) Package: the app tests check Solid only in the Vite starter, which renders on the client: every SolidStart release up to 2.2.1, the release candidates too, requires solid-js 1.9, so no Solid app renders the examples on the server and hydrates them as one page (`tests/apps/apps.ts:74-83`, `tests/apps/vite-solid/src/main.tsx:1-5`)
+  - Summary: The Solid app test renders the examples only in the browser, since SolidStart doesn't support Solid 2 yet.
+  - Recommended: Fix. Add it next to Next.js, Nuxt and SvelteKit once a SolidStart release supports Solid 2.
+  - Fix: when a SolidStart release takes solid-js 2 as a peer, add a solid-start app to tests/apps (a route per component that renders its examples, like tests/apps/sveltekit) with ssr: true in tests/apps/apps.ts, and name it in the app test lines of AGENTS.md and README.md.
 
 ## Questions
 

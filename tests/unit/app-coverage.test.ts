@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import { examplesOf, exampleSource } from "../apps/apps.ts"
 
-const FRAMEWORKS = ["react", "svelte", "vue"] as const
+const FRAMEWORKS = ["react", "solid", "svelte", "vue"] as const
 
 const exported = (barrel: string) =>
   [...barrel.matchAll(/export \{ default as (\w+) \}/g)].map(([, name]) => name)

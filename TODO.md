@@ -1373,13 +1373,14 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: leave it undocumented.
   > Fix with option A
   - Fixed: with option A: the Sticky header section says `overflow="scroll"` (`.ui-overflow-scroll`) makes the table its own scroll container, so for a wide table with a sticky header leave it off and put the table in a scroll box like the StickyHeader example, which scrolls both ways.
-- [ ] (1) Tooling: vitest's module cache in `node_modules/.vitest-cache` keeps a compiled `.vue` component while its own text is unchanged, so a change to the `types.vue-props.ts` it imports, which decides the props Vue declares, leaves the old props in local runs: after dff0dda9 the Vue Carousel and AvatarGroup parity tests still failed locally until the cache was deleted (`vitest.config.ts:1-9`, `packages/opui/components/Carousel/types.vue-props.ts:4`)
+- [x] (1) Tooling: vitest's module cache in `node_modules/.vitest-cache` keeps a compiled `.vue` component while its own text is unchanged, so a change to the `types.vue-props.ts` it imports, which decides the props Vue declares, leaves the old props in local runs: after dff0dda9 the Vue Carousel and AvatarGroup parity tests still failed locally until the cache was deleted (`vitest.config.ts:1-9`, `packages/opui/components/Carousel/types.vue-props.ts:4`)
   - Summary: Local unit tests can keep failing on a Vue component after its props type is fixed, until the test cache is cleared.
   - Recommended: Fix with option A. A local run that tests stale code costs more time than the cache saves.
   - Fix: until it's fixed, `rm -rf node_modules/.vitest-cache` clears it.
   - Options:
     - A (recommended): turn the module cache off in `vitest.config.ts`.
     - B: keep it and key it on the files a `.vue` file's `defineProps` type reads.
+  - Fixed: with option A: `vitest.config.ts` sets `fsModuleCache: false`, so every run compiles the components from their current files. With it, removing `name` from `Select/types.vue-props.ts` fails the Vue `select/Binding` parity test on the next run without deleting a cache. It also covers a change to a Vite plugin option in `astro.config.mjs`, which `vitest.config.ts` loads through `getViteConfig` and which the cache key didn't include either.
 - [ ] (2) Tooling: on the first request after `astro dev` starts, Astro's CSS collector (`ensureModulesLoaded` in `astro/dist/vite-plugin-css/index.js`) compiles every module the page's graph reaches, dynamic imports included, and follows the edge Vite adds from a `?raw` import to its file. `opui-raw-without-module-edge` drops that edge, but the component and Learn routes still reach every docs page and every example in every framework, so their first request compiles about 3,000 modules (`astro.config.mjs:113-134`, `src/utils/examples.ts:8-17`)
   - Summary: The first component or Learn page after the dev server starts takes about 9 seconds, while later pages load almost at once.
   - Recommended: Fix with option A. The draft is ready, and posting it is the last step.

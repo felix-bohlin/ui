@@ -1,7 +1,8 @@
 ---
 import Blocks from "../../layouts/Blocks.astro"
+import BlockCard from "../../components/BlockCard.astro"
 import DocLink from "../../components/DocLink.astro"
-import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
+import { blockGroups } from "../../utils/blocks"
 ---
 
 <Blocks
@@ -23,25 +24,7 @@ import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
     <h2>{group.label}</h2>
     <ul class="block-grid">
       {group.blocks.map((block) => <li>
-        <article class="ui-card ui-outlined">
-          <div class="block-thumbnail">
-            <iframe
-              inert
-              loading="lazy"
-              src={blockPreviewHref(block.slug)}
-              tabindex="-1"
-              title={`${block.name} preview`}
-            />
-          </div>
-          <hgroup>
-            <h3>
-              <a class="ui-card-link" href={blockHref(block.slug)}>
-                {block.name}
-              </a>
-            </h3>
-            <p>{block.description}</p>
-          </hgroup>
-        </article>
+        <BlockCard block={block} />
       </li>)}
     </ul>
   </section>)}
@@ -64,43 +47,5 @@ import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
     list-style-type: none;
     margin: 0;
     padding: 0;
-
-    .ui-card {
-      block-size: 100%;
-      gap: 0;
-      padding-block-end: var(--size-3);
-    }
-
-    hgroup {
-      h3 {
-        font-size: var(--font-size-2);
-      }
-
-      p {
-        color: var(--ui-text);
-        font-size: var(--ui-font-size-small);
-        line-height: var(--font-lineheight-3);
-        margin-block-start: var(--size-1);
-      }
-    }
-  }
-
-  .block-thumbnail {
-    aspect-ratio: 16 / 10;
-    background-color: var(--ui-surface);
-    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-    container-type: inline-size;
-    overflow: hidden;
-    pointer-events: none;
-
-    iframe {
-      block-size: 800px;
-      border: 0;
-      color-scheme: normal;
-      display: block;
-      inline-size: 1280px;
-      transform: scale(tan(atan2(100cqi, 1280px)));
-      transform-origin: 0 0;
-    }
   }
 </style>

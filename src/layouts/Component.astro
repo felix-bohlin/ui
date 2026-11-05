@@ -11,6 +11,7 @@ import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import Pagination from "../components/Pagination.astro"
+import BlockCard from "../components/BlockCard.astro"
 import {
   Accordion,
   AccordionContent,
@@ -168,19 +169,28 @@ const blogPosts = currentSlug
 
 const kebab = (name: string) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-const rootClasses = Object.entries(apiData)
+const rootClassLists = Object.entries(apiData)
   .filter(([file, api]) => (api.page ?? file.split("/").at(-2)) === currentSlug)
   .flatMap(([, api]) =>
-    [...api.root.selector.matchAll(/\.(ui-[a-z0-9-]+)/g)]
-      .map(([, name]) => name)
-      .filter(
-        (name) =>
-          !api.page ||
-          name === `ui-${kebab(api.component)}` ||
-          name.startsWith(`ui-${kebab(api.component)}-`),
+    api.root.selector
+      .split(",")
+      .map((selector) =>
+        [...selector.matchAll(/\.(ui-[a-z0-9-]+)/g)]
+          .map(([, name]) => name)
+          .filter(
+            (name) =>
+              !api.page ||
+              name === `ui-${kebab(api.component)}` ||
+              name.startsWith(`ui-${kebab(api.component)}-`),
+          ),
       ),
   )
-const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
+  .filter((classes) => classes.length > 0)
+const usedInBlocks =
+  rootClassLists.length > 0 ? blocksUsing(rootClassLists) : []
+const BLOCK_THUMBNAILS = 6
+const blockThumbnails = usedInBlocks.slice(0, BLOCK_THUMBNAILS)
+const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 ---
 
 <Document
@@ -274,12 +284,18 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
   {usedInBlocks.length > 0 && <section id="used-in-blocks">
     <h2>Used in blocks</h2>
     <ul class="used-in-blocks ui-not-rich-text">
-      {usedInBlocks.map((block) => <li>
+      {blockThumbnails.map((block) => <li>
+        <BlockCard block={block} />
+      </li>)}
+    </ul>
+    {moreBlocks.length > 0 && <p class="used-in-more-blocks">
+      Also in
+      {moreBlocks.map((block) => <span>
         <a class="ui-link" href={link(blockHref(block.slug))}>
           {block.name}
         </a>
-      </li>)}
-    </ul>
+      </span>)}
+    </p>}
   </section>}
 
   {!!seeAlsoLinks?.length && <section id="see-also">
@@ -460,19 +476,30 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     }
 
     .used-in-blocks {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-1) var(--size-2);
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
       list-style-type: none;
       margin: 0;
       padding: 0;
+    }
 
-      li {
+    .used-in-more-blocks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1) var(--size-2);
+      margin-block-start: var(--size-4);
+
+      span {
         display: flex;
       }
 
-      li:not(:last-child)::after {
+      span:not(:last-child)::after {
         content: ",";
+      }
+
+      span:last-child::after {
+        content: ".";
       }
     }
   </style>

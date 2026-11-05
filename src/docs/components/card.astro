@@ -274,6 +274,32 @@ export const keywords = ["panel", "surface", "tile"]
     </div>
   </section>
 
+  <section id="semantics">
+    <h2>Semantics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A card renders a <code>div</code>, which says nothing about its content.
+        Set <code>as="article"</code> on a card that stands on its own, like a
+        blog post, a product or a comment, and <code>as="section"</code> on a
+        titled part of the page, like the settings of one feature. In an article
+        card, <code>CardHeader as="header"</code> is the header row.
+      </Fragment>
+      <Fragment slot="html">
+        The card classes work on any element. Use an
+        <code>&lt;article class="ui-card"&gt;</code> for a card that stands on
+        its own, like a blog post, a product or a comment, and a
+        <code>&lt;section&gt;</code> for a titled part of the page, like the
+        settings of one feature. In an article card, a
+        <code>&lt;header class="ui-header"&gt;</code> is the header row.
+      </Fragment>
+    </Conditional>
+    <p>
+      Buttons go in the actions, not in a <code>footer</code>, which holds
+      information about the card, like its author or date.
+    </p>
+    <AutoExample name="Semantics" column />
+  </section>
+
   <CardBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">

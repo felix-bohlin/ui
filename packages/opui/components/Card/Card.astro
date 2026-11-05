@@ -1,9 +1,11 @@
 ---
 import type { Props } from "./types.astro"
+import { cx } from "../cx"
 
 export const title = "Card"
 
 const {
+  as: Tag = "div",
   class: className,
   color,
   density,
@@ -13,16 +15,16 @@ const {
 } = Astro.props
 ---
 
-<div
-  class:list={[
+<Tag
+  class={cx([
     "ui-card",
     color && `ui-${color}`,
     density && density !== "normal" && `ui-${density}`,
     orientation && orientation !== "auto" && `ui-${orientation}`,
     variant && variant !== "plain" && `ui-${variant}`,
     className,
-  ]}
+  ])}
   {...rest}
 >
   <slot />
-</div>
+</Tag>

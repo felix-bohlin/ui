@@ -484,6 +484,13 @@
     "url": "/react/components/card/#clickable"
   },
   {
+    "id": "component-card-react-semantics",
+    "title": "Semantics",
+    "page": "Card",
+    "category": "Component",
+    "url": "/react/components/card/#semantics"
+  },
+  {
     "id": "component-carousel-react",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers.",
@@ -4235,7 +4242,7 @@
     "id": "api-card-header-react",
     "title": "Card Header API",
     "description": "Reference for Card Header React component.",
-    "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it.",
+    "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it. Use `header` for the same row in an `article` card.",
     "category": "API",
     "url": "/react/api/#card-header"
   },
@@ -4243,7 +4250,7 @@
     "id": "api-card-react",
     "title": "Card API",
     "description": "Reference for Card React component.",
-    "api": "Card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. The card header. The card content. A group of actions, such as buttons. color Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. orientation The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card. variant The variant to use. The default `plain` card has the page surface color and no border.",
+    "api": "Card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. The card header. The card content. A group of actions, such as buttons. as The element to render. Use `article` for a self-contained piece, like a blog post, a product or a comment, and `section` for a titled part of the page, like the settings of one feature. color Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. orientation The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card. variant The variant to use. The default `plain` card has the page surface color and no border.",
     "category": "API",
     "url": "/react/api/#card"
   },

@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { color, density, orientation, variant } = defineProps<Props>()
+const {
+  as: Tag = "div",
+  color,
+  density,
+  orientation,
+  variant,
+} = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
-  <div
+  <component
+    :is="Tag"
     :class="[
       'ui-card',
       color && `ui-${color}`,
@@ -17,5 +24,5 @@ defineSlots<Slots>()
     ]"
   >
     <slot></slot>
-  </div>
+  </component>
 </template>

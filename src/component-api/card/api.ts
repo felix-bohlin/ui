@@ -8,6 +8,14 @@ export default {
   },
   options: [
     {
+      default: '"div"',
+      description:
+        "The element to render. Use `article` for a self-contained piece, like a blog post, a product or a comment, and `section` for a titled part of the page, like the settings of one feature.",
+      htmlDescription:
+        "The card classes work on any element: use an `article` for a self-contained piece, like a blog post, a product or a comment, and a `section` for a titled part of the page, like the settings of one feature.",
+      prop: "as",
+    },
+    {
       description:
         "Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan.",
       group: "Colors",

@@ -17,6 +17,7 @@ A surface for related content and actions, on its own or as the base of accordio
 
 ### Props and modifiers
 
+- `as`: `"article" | "div" | "section"`, default `"div"`. The element to render. Use `article` for a self-contained piece, like a blog post, a product or a comment, and `section` for a titled part of the page, like the settings of one feature.
 - `color`: `"primary"` (`.ui-primary`). Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan.
 - `density`: `"dense"` (`.ui-dense`), `"normal"` (default), `"spacious"` (`.ui-spacious`). How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat.
 - `orientation`: `"auto"` (default), `"horizontal"` (`.ui-horizontal`), `"vertical"` (`.ui-vertical`). The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card.
@@ -38,7 +39,7 @@ A surface for related content and actions, on its own or as the base of accordio
 
 ### Props and modifiers
 
-- `as`: `"div" | "hgroup"`, default `"hgroup"`. The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it.
+- `as`: `"div" | "header" | "hgroup"`, default `"hgroup"`. The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it. Use `header` for the same row in an `article` card.
 
 ### Slots
 

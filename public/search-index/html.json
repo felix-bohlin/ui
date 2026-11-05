@@ -484,6 +484,13 @@
     "url": "/html/components/card/#clickable"
   },
   {
+    "id": "component-card-html-semantics",
+    "title": "Semantics",
+    "page": "Card",
+    "category": "Component",
+    "url": "/html/components/card/#semantics"
+  },
+  {
     "id": "component-carousel-html",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers.",

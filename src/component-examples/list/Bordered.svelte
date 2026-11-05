@@ -3,7 +3,7 @@
 </script>
 
 <List bordered>
-  <ListItem label="So" />
-  <ListItem label="Many" />
-  <ListItem label="Borders" />
+  <ListItem label="Billing" />
+  <ListItem label="Notifications" />
+  <ListItem label="Security" />
 </List>

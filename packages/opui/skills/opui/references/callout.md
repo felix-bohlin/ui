@@ -10,7 +10,7 @@ Callouts call out for user attention. Should be part of the flow and used withou
 ### Parts
 
 - `.ui-callout` (root): Container element.
-- `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.
+- `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
 
 ### Props and modifiers
@@ -62,20 +62,19 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 ```html
 <article class="ui-callout">
   <div class="ui-content">
-    <h3>Note</h3>
+    <h3>Scheduled maintenance</h3>
     <p>
-      This is a tonal Callout. Notice the lack of icons - it's not really needed
-      here.
+      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
+      upgrade the database.
     </p>
   </div>
 </article>
 <article class="ui-callout ui-outlined">
   <div class="ui-content">
-    <h3>Another Callout</h3>
+    <h3>Billing has moved</h3>
     <p>
-      This is an outlined Callout. Why not use a
-      <a class="ui-link" href="#">Card</a> since they look very similar? For
-      one, the Callout is a more focused component with different properties.
+      Invoices and payment methods are now in the Billing tab of your workspace
+      settings.
     </p>
   </div>
 </article>
@@ -94,20 +93,19 @@ import { Callout, CalloutContent } from "opui-css/astro"
 
 <Callout>
   <CalloutContent>
-    <h3>Note</h3>
+    <h3>Scheduled maintenance</h3>
     <p>
-      This is a tonal Callout. Notice the lack of icons - it's not really needed
-      here.
+      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
+      upgrade the database.
     </p>
   </CalloutContent>
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <h3>Another Callout</h3>
+    <h3>Billing has moved</h3>
     <p>
-      This is an outlined Callout. Why not use a
-      <a class="ui-link" href="#">Card</a> since they look very similar? For
-      one, the Callout is a more focused component with different properties.
+      Invoices and payment methods are now in the Billing tab of your workspace
+      settings.
     </p>
   </CalloutContent>
 </Callout>
@@ -129,23 +127,19 @@ export default function Variants() {
     <>
       <Callout>
         <CalloutContent>
-          <h3>Note</h3>
+          <h3>Scheduled maintenance</h3>
           <p>
-            This is a tonal Callout. Notice the lack of icons - it's not really
-            needed here.
+            The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while
+            we upgrade the database.
           </p>
         </CalloutContent>
       </Callout>
       <Callout variant="outlined">
         <CalloutContent>
-          <h3>Another Callout</h3>
+          <h3>Billing has moved</h3>
           <p>
-            This is an outlined Callout. Why not use a{" "}
-            <a className="ui-link" href="#">
-              Card
-            </a>{" "}
-            since they look very similar? For one, the Callout is a more focused
-            component with different properties.
+            Invoices and payment methods are now in the Billing tab of your
+            workspace settings.
           </p>
         </CalloutContent>
       </Callout>
@@ -167,21 +161,19 @@ export default function Variants() {
 
 <Callout>
   <CalloutContent>
-    <h3>Note</h3>
+    <h3>Scheduled maintenance</h3>
     <p>
-      This is a tonal Callout. Notice the lack of icons - it's not really needed
-      here.
+      The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
+      upgrade the database.
     </p>
   </CalloutContent>
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <h3>Another Callout</h3>
+    <h3>Billing has moved</h3>
     <p>
-      This is an outlined Callout. Why not use a <a class="ui-link" href="#"
-        >Card</a
-      > since they look very similar? For one, the Callout is a more focused component
-      with different properties.
+      Invoices and payment methods are now in the Billing tab of your workspace
+      settings.
     </p>
   </CalloutContent>
 </Callout>
@@ -201,20 +193,19 @@ import { Callout, CalloutContent } from "opui-css/vue"
 <template>
   <Callout>
     <CalloutContent>
-      <h3>Note</h3>
+      <h3>Scheduled maintenance</h3>
       <p>
-        This is a tonal Callout. Notice the lack of icons - it's not really
-        needed here.
+        The dashboard is read-only on Sunday from 02:00 to 04:00 UTC while we
+        upgrade the database.
       </p>
     </CalloutContent>
   </Callout>
   <Callout variant="outlined">
     <CalloutContent>
-      <h3>Another Callout</h3>
+      <h3>Billing has moved</h3>
       <p>
-        This is an outlined Callout. Why not use a
-        <a class="ui-link" href="#">Card</a> since they look very similar? For
-        one, the Callout is a more focused component with different properties.
+        Invoices and payment methods are now in the Billing tab of your
+        workspace settings.
       </p>
     </CalloutContent>
   </Callout>

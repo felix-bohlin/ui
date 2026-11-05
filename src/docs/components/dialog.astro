@@ -183,6 +183,18 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
     </Conditional>
 
     <AutoExample name="Basics" row />
+
+    <h3 id="non-modal">Non-modal</h3>
+    <p>
+      <code>show()</code> opens the dialog without making it modal: there is no
+      backdrop and the page behind it stays usable, for a panel people keep open
+      while they work, like upload progress. The <code>command</code> attribute
+      only opens a modal dialog, so call <code>show()</code> from a script.
+      Without <code>closedby</code>, a non-modal dialog stays open on Esc and on
+      a click outside; <code>closedby="any"</code> closes it on both.
+    </p>
+
+    <AutoExample name="NonModal" row />
   </section>
 
   <section id="footer">

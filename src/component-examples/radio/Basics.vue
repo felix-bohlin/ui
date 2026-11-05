@@ -5,11 +5,11 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
+      <FieldLegend>Payment method</FieldLegend>
       <FieldGroup name="radio-group">
-        <Radio checked value="1">Radio 1</Radio>
-        <Radio value="2">Radio 2</Radio>
-        <Radio value="3">Radio 3</Radio>
+        <Radio checked value="card">Card</Radio>
+        <Radio value="paypal">PayPal</Radio>
+        <Radio value="bank-transfer">Bank transfer</Radio>
       </FieldGroup>
     </Fieldset>
   </Form>

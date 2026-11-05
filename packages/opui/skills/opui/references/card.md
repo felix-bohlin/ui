@@ -1,6 +1,6 @@
 # Card
 
-The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.
+A surface for related content and actions, on its own or as the base of accordions, dialogs and more.
 
 - CSS: `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/card.md), [Astro](https://open-props-ui.netlify.app/astro/components/card.md), [React](https://open-props-ui.netlify.app/react/components/card.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/card.md), [Vue](https://open-props-ui.netlify.app/vue/components/card.md).
@@ -50,17 +50,20 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-shadow-elevated`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -71,8 +74,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
   <div class="ui-content">Plain</div>
 </div>
 
-<div class="ui-card ui-transparent">
-  <div class="ui-content">Transparent</div>
+<div class="ui-card ui-elevated">
+  <div class="ui-content">Elevated</div>
 </div>
 
 <div class="ui-card ui-outlined">
@@ -83,8 +86,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
   <div class="ui-content">Tonal</div>
 </div>
 
-<div class="ui-card ui-elevated">
-  <div class="ui-content">Elevated</div>
+<div class="ui-card ui-transparent">
+  <div class="ui-content">Transparent</div>
 </div>
 ```
 
@@ -103,8 +106,8 @@ import { Card, CardContent } from "opui-css/astro"
   <CardContent>Plain</CardContent>
 </Card>
 
-<Card variant="transparent">
-  <CardContent>Transparent</CardContent>
+<Card variant="elevated">
+  <CardContent>Elevated</CardContent>
 </Card>
 
 <Card variant="outlined">
@@ -115,8 +118,8 @@ import { Card, CardContent } from "opui-css/astro"
   <CardContent>Tonal</CardContent>
 </Card>
 
-<Card variant="elevated">
-  <CardContent>Elevated</CardContent>
+<Card variant="transparent">
+  <CardContent>Transparent</CardContent>
 </Card>
 ```
 
@@ -136,8 +139,8 @@ export default function Variants() {
         <CardContent>Plain</CardContent>
       </Card>
 
-      <Card variant="transparent">
-        <CardContent>Transparent</CardContent>
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
       </Card>
 
       <Card variant="outlined">
@@ -148,8 +151,8 @@ export default function Variants() {
         <CardContent>Tonal</CardContent>
       </Card>
 
-      <Card variant="elevated">
-        <CardContent>Elevated</CardContent>
+      <Card variant="transparent">
+        <CardContent>Transparent</CardContent>
       </Card>
     </>
   )
@@ -171,8 +174,8 @@ export default function Variants() {
   <CardContent>Plain</CardContent>
 </Card>
 
-<Card variant="transparent">
-  <CardContent>Transparent</CardContent>
+<Card variant="elevated">
+  <CardContent>Elevated</CardContent>
 </Card>
 
 <Card variant="outlined">
@@ -183,8 +186,8 @@ export default function Variants() {
   <CardContent>Tonal</CardContent>
 </Card>
 
-<Card variant="elevated">
-  <CardContent>Elevated</CardContent>
+<Card variant="transparent">
+  <CardContent>Transparent</CardContent>
 </Card>
 ```
 
@@ -204,8 +207,8 @@ import { Card, CardContent } from "opui-css/vue"
     <CardContent>Plain</CardContent>
   </Card>
 
-  <Card variant="transparent">
-    <CardContent>Transparent</CardContent>
+  <Card variant="elevated">
+    <CardContent>Elevated</CardContent>
   </Card>
 
   <Card variant="outlined">
@@ -216,8 +219,8 @@ import { Card, CardContent } from "opui-css/vue"
     <CardContent>Tonal</CardContent>
   </Card>
 
-  <Card variant="elevated">
-    <CardContent>Elevated</CardContent>
+  <Card variant="transparent">
+    <CardContent>Transparent</CardContent>
   </Card>
 </template>
 ```

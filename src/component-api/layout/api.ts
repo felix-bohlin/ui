@@ -23,12 +23,6 @@ export default {
       },
     },
     {
-      class: ".ui-layout-column",
-      description: "A column with even space between its children.",
-      group: "Column",
-      prop: "column",
-    },
-    {
       default: '"medium"',
       description:
         "The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`.",
@@ -39,6 +33,12 @@ export default {
         medium: null,
         small: ".ui-breakpoint-small",
       },
+    },
+    {
+      class: ".ui-layout-column",
+      description: "A column with even space between its children.",
+      group: "Column",
+      prop: "column",
     },
     {
       class: ".ui-layout-columns",
@@ -89,12 +89,12 @@ export default {
       },
     },
     {
-      class: ".ui-stretch",
+      class: ".ui-spread",
       default: "false",
       description:
-        "Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
-      group: "Stretch",
-      prop: "stretch",
+        "Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
+      group: "Spread",
+      prop: "spread",
     },
     {
       class: ".ui-sticky",
@@ -105,12 +105,12 @@ export default {
       prop: "sticky",
     },
     {
-      class: ".ui-spread",
+      class: ".ui-stretch",
       default: "false",
       description:
-        "Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
-      group: "Spread",
-      prop: "spread",
+        "Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
+      group: "Stretch",
+      prop: "stretch",
     },
   ],
   parts: [],

@@ -19,7 +19,7 @@ Toggle buttons and toggle groups switch options on and off, alone or as a set.
 - `name`: `string`. The name shared by the inputs. Generated when omitted.
 - `onValueChange` (React): `(value: string | string[]) => void`. Called with the new selection when a button is toggled.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
-- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
+- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons.
 - `value` (Astro and React): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
 
@@ -46,7 +46,7 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 ### Props and modifiers
 
 - `checked`: `boolean`, `input[checked]`. Selects the button.
-- `disabled`: `boolean`, `input[disabled]`. Disables the button.
+- `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the button and skips it with Tab and the arrow keys. `aria-disabled="true"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script.
 - `id`: `string`. The id of the `<input>`.
 - `label`: `string`. The button text when there is no child content.
 - `name`: `string`. The name of the input. Falls back to the `ToggleGroup`'s name, then to a `FieldGroup`'s.

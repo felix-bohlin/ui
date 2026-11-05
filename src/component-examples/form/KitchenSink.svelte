@@ -25,20 +25,20 @@
 
 <Form id="form-kitchen-sink-1">
   <Fieldset>
-    <FieldLegend>User Profile</FieldLegend>
+    <FieldLegend>User profile</FieldLegend>
     <FieldDescription>
       Please provide your basic contact details.
     </FieldDescription>
     <FieldGroup>
       <TextField
         autocomplete="name"
-        label="Full Name"
+        label="Full name"
         placeholder="Jane Doe"
         required
       />
       <TextField
         autocomplete="email"
-        label="Email Address"
+        label="Email address"
         placeholder="jane@example.com"
         required
         type="email"
@@ -53,29 +53,29 @@
       Configure how you want to receive updates.
     </FieldDescription>
     <FieldGroup>
-      <Switch checked name="email_notifs">Email Notifications</Switch>
-      <Switch name="sms_notifs">SMS Notifications</Switch>
+      <Switch checked name="email_notifs">Email notifications</Switch>
+      <Switch name="sms_notifs">SMS notifications</Switch>
     </FieldGroup>
   </Fieldset>
   <Divider />
   <Fieldset>
-    <FieldLegend>Theme Preference</FieldLegend>
+    <FieldLegend>Theme preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
-      <Radio checked value="light">Light Theme</Radio>
-      <Radio value="dark">Dark Theme</Radio>
-      <Radio value="system">System Default</Radio>
+      <Radio checked value="light">Light theme</Radio>
+      <Radio value="dark">Dark theme</Radio>
+      <Radio value="system">System default</Radio>
     </FieldGroup>
   </Fieldset>
   <Divider />
   <Fieldset>
-    <FieldLegend>Experience Level</FieldLegend>
+    <FieldLegend>Experience level</FieldLegend>
     <FieldDescription
       >How many years of experience do you have?</FieldDescription
     >
     <FieldGroup>
       <Range
-        label="Professional Experience"
+        label="Professional experience"
         max="20"
         min="0"
         startText="Drag the slider to match your total tenure."
@@ -86,7 +86,7 @@
   </Fieldset>
   <Divider />
   <Fieldset>
-    <FieldLegend>Additional Info</FieldLegend>
+    <FieldLegend>Additional info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
     <FieldGroup>
       <Textarea
@@ -103,7 +103,7 @@
     <FieldGroup>
       <Checkbox name="terms" required>
         I agree to the terms and conditions
-        {#snippet endText()}Support this text{/snippet}
+        {#snippet endText()}You can withdraw your consent at any time.{/snippet}
       </Checkbox>
     </FieldGroup>
   </Fieldset>

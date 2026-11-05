@@ -2,7 +2,7 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField placeholder="Evil Rabbit" spread>
+<TextField placeholder="Ada Lovelace" spread>
   {#snippet label()}Name{/snippet}
   {#snippet startText()}Provide your full name for identification{/snippet}
 </TextField>
@@ -13,16 +13,16 @@
   {#snippet endText()}Please use a valid email address{/snippet}
 </TextField>
 
-<TextField label="Required" required spread>
-  {#snippet startText()}You must fill this in{/snippet}
+<TextField label="Company" required spread>
+  {#snippet startText()}Shown on your invoices{/snippet}
 </TextField>
 
-<TextField disabled label="Disabled" spread>
-  {#snippet startText()}This field is disabled{/snippet}
+<TextField disabled label="Account ID" spread value="ACC-20931">
+  {#snippet startText()}Assigned when you signed up{/snippet}
 </TextField>
 
-<TextField error label="Invalid Name" spread>
-  {#snippet startText()}This field has an error{/snippet}
+<TextField error label="Display name" spread value="A">
+  {#snippet startText()}Shown next to your comments{/snippet}
   {#snippet endText()}Enter at least two characters.{/snippet}
 </TextField>
 

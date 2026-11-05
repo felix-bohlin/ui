@@ -70,13 +70,8 @@ The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`,
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-basics-1-label">Label</span>
-  <span class="ui-start-text" id="range-basics-1-start-text">Min</span>
-  <input
-    aria-describedby="range-basics-1-start-text"
-    aria-labelledby="range-basics-1-label"
-    type="range"
-  />
+  <span class="ui-label" id="range-basics-1-label">Volume</span>
+  <input aria-labelledby="range-basics-1-label" type="range" />
 </label>
 ```
 
@@ -93,7 +88,7 @@ The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`,
 import { Range } from "opui-css/astro"
 ---
 
-<Range label="Label" startText="Min" />
+<Range label="Volume" />
 ```
 
 ## React
@@ -111,7 +106,7 @@ import { Range } from "opui-css/astro"
 import { Range } from "opui-css/react"
 
 export default function Basics() {
-  return <Range label="Label" startText="Min" />
+  return <Range label="Volume" />
 }
 ```
 
@@ -131,7 +126,7 @@ export default function Basics() {
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range label="Label" startText="Min" />
+<Range label="Volume" />
 ```
 
 ## Vue
@@ -150,6 +145,6 @@ import { Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="Label" startText="Min" />
+  <Range label="Volume" />
 </template>
 ```

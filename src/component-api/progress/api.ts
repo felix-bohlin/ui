@@ -3,7 +3,11 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Progress",
-  notes: passThrough("progress", "div", ["aria-busy", "aria-label", "id"]),
+  notes: passThrough("progress", "div", [
+    "aria-describedby",
+    "aria-label",
+    "id",
+  ]),
   options: [
     {
       description: "The maximum value.",
@@ -32,7 +36,7 @@ export default {
     {
       code: "<progress>",
       description: "The progress bar.",
-      props: ["value", "max"],
+      props: ["max", "value"],
       selector: ".ui-progress > progress",
     },
   ],

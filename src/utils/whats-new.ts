@@ -1112,7 +1112,7 @@ export const whatsNew = {
     slots(
       `Breaking: the part files are <code>TableBody.*</code>, <code>TableCell.*</code>, <code>TableColumn.*</code>, <code>TableColumnGroup.*</code>, <code>TableHead.*</code>, <code>TableHeaderCell.*</code> and <code>TableRow.*</code>. Update deep <code>opui-css/components/*</code> imports (<a href="#api">API</a>).`,
     ),
-    `A checkbox alone in a cell is centered (<a href="#normal">Normal</a>).`,
+    `A checkbox alone in a cell is centered (<a href="#controls-in-cells">Controls in cells</a>).`,
     {
       default: `<a href="#density">Dense</a> tables have less block padding.`,
       html: `<a href="#density">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
@@ -1135,7 +1135,7 @@ export const whatsNew = {
       `Breaking: <a href="#api"><code>TableColumn</code> <code>width</code></a> takes a CSS length; a declaration string such as <code>"min-width: 10rem"</code> is no longer parsed, pass <code>style</code> instead.`,
     ),
     components(
-      `<a href="#normal"><code>TableCaption</code> and <code>TableFoot</code></a> render the caption and the footer rows.`,
+      `<a href="#advanced"><code>TableCaption</code> and <code>TableFoot</code></a> render the caption and the footer rows.`,
     ),
     components(
       `<a href="#api">Every part</a> has its own props type, such as <code>TableBodyProps</code> and <code>TableCellProps</code>, exported from every framework.`,

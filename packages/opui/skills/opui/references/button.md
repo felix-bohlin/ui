@@ -11,6 +11,7 @@ Buttons allow users to take actions with a single tap.
 
 - `.ui-button` (root): Container element.
 - `<svg>`: An optional icon.
+- `<span class="ui-text">`: The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles.
 - `<kbd>`: An optional keyboard hint.
 
 ### Props and modifiers

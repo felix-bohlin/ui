@@ -74,18 +74,15 @@ export const keywords = ["busy", "loader", "loading"]
   <section id="buttons">
     <h2>Buttons</h2>
     <p>
-      Simply add <code>aria-busy="true"</code> to a <code>&lt;button&gt;</code>.
+      Add <code>aria-busy="true"</code> to a <code>&lt;button&gt;</code> to show
+      a spinner in it.
     </p>
     <AutoExample name="Buttons" column />
   </section>
 
   <section id="no-spinner">
     <h2>When <code>aria-busy="true"</code> shows no spinner</h2>
-    <p>
-      There are a few exceptions where <code>aria-busy="true"</code> won't
-      render a spinner. Either because it doesn't make sense or because there
-      are other reasons you would like to use that aria attribute.
-    </p>
+    <p><code>aria-busy="true"</code> renders no spinner in two cases.</p>
 
     <h3 id="blocked-by-another-use-case">
       1. Because it's blocked by another use case

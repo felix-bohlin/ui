@@ -9,7 +9,7 @@
 </script>
 
 <Fieldset>
-  <FieldLegend>Favorite Pet</FieldLegend>
+  <FieldLegend>Favorite pet</FieldLegend>
   <FieldDescription>Please select your favorite type of pet.</FieldDescription>
   <FieldGroup name="pet">
     <Radio value="cat">Cat</Radio>

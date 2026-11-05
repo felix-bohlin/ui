@@ -36,4 +36,11 @@
   data-toast-severity="critical"
   variant="outlined">Critical</Button
 >
+<Button
+  command="--toast"
+  commandfor="toast-severities-1"
+  data-toast="Export queued"
+  data-toast-severity="neutral"
+  variant="outlined">Neutral</Button
+>
 <Toaster id="toast-severities-1" />

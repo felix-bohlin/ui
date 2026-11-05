@@ -103,7 +103,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 
 ```html
 <label class="ui-select">
-  <span class="ui-label" id="select-variants-1-label">Label</span>
+  <span class="ui-label" id="select-variants-1-label">Role</span>
   <span class="ui-field">
     <select aria-labelledby="select-variants-1-label">
       <button>
@@ -111,16 +111,16 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Outlined (default)</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Designer</option>
+        <option>Developer</option>
+        <option>Manager</option>
       </div>
     </select>
   </span>
 </label>
 
 <label class="ui-select ui-filled">
-  <span class="ui-label" id="select-variants-2-label">Label</span>
+  <span class="ui-label" id="select-variants-2-label">Team</span>
   <span class="ui-field">
     <select aria-labelledby="select-variants-2-label">
       <button>
@@ -128,9 +128,9 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Filled</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Design</option>
+        <option>Engineering</option>
+        <option>Sales</option>
       </div>
     </select>
   </span>
@@ -150,18 +150,18 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 import { Select } from "opui-css/astro"
 ---
 
-<Select label="Label">
+<Select label="Role">
   <option value="">-</option>
-  <option>Outlined (default)</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
+  <option>Designer</option>
+  <option>Developer</option>
+  <option>Manager</option>
 </Select>
 
-<Select label="Label" variant="filled">
+<Select label="Team" variant="filled">
   <option value="">-</option>
-  <option>Filled</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
+  <option>Design</option>
+  <option>Engineering</option>
+  <option>Sales</option>
 </Select>
 ```
 
@@ -180,18 +180,18 @@ import { Select } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Select label="Label">
+      <Select label="Role">
         <option value="">-</option>
-        <option>Outlined (default)</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Designer</option>
+        <option>Developer</option>
+        <option>Manager</option>
       </Select>
 
-      <Select label="Label" variant="filled">
+      <Select label="Team" variant="filled">
         <option value="">-</option>
-        <option>Filled</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Design</option>
+        <option>Engineering</option>
+        <option>Sales</option>
       </Select>
     </>
   )
@@ -212,18 +212,18 @@ export default function Variants() {
   import { Select } from "opui-css/svelte"
 </script>
 
-<Select label="Label">
+<Select label="Role">
   <option value="">-</option>
-  <option>Outlined (default)</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
+  <option>Designer</option>
+  <option>Developer</option>
+  <option>Manager</option>
 </Select>
 
-<Select label="Label" variant="filled">
+<Select label="Team" variant="filled">
   <option value="">-</option>
-  <option>Filled</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
+  <option>Design</option>
+  <option>Engineering</option>
+  <option>Sales</option>
 </Select>
 ```
 
@@ -242,18 +242,18 @@ import { Select } from "opui-css/vue"
 </script>
 
 <template>
-  <Select label="Label">
+  <Select label="Role">
     <option value="">-</option>
-    <option>Outlined (default)</option>
-    <option>Option Two</option>
-    <option>Option Three</option>
+    <option>Designer</option>
+    <option>Developer</option>
+    <option>Manager</option>
   </Select>
 
-  <Select label="Label" variant="filled">
+  <Select label="Team" variant="filled">
     <option value="">-</option>
-    <option>Filled</option>
-    <option>Option Two</option>
-    <option>Option Three</option>
+    <option>Design</option>
+    <option>Engineering</option>
+    <option>Sales</option>
   </Select>
 </template>
 ```

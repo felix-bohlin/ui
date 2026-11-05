@@ -10,7 +10,7 @@ See also: Spinner.
 ### Parts
 
 - `.ui-progress` (root): Container element.
-- `<progress>` (prop `value`, prop `max`): The progress bar.
+- `<progress>` (prop `max`, prop `value`): The progress bar.
 
 ### Props and modifiers
 
@@ -24,8 +24,8 @@ See also: Spinner.
 
 ### Notes
 
-- Astro, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
-- React: Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.
+- Astro, Svelte and Vue: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
+- React: Attributes that aren't props go to the `<progress>`, like `aria-describedby`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.
 
 ## Component properties
 

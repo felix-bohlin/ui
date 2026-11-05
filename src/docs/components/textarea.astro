@@ -118,6 +118,16 @@ export const keywords = ["multiline", "text area"]
     <AutoExample name="Sizes" row />
   </section>
 
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      Where the context names the field, like a reply box under a comment,
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label and
+      keeps it as the field's accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" />
+  </section>
+
   <section id="start-text">
     <h2>Start text</h2>
     <Conditional as="p">
@@ -189,8 +199,7 @@ export const keywords = ["multiline", "text area"]
       <Fragment slot="components">
         Use the <code>start</code>, <code>end</code>, <code>top</code>, and
         <code>bottom</code> slots to affix content inside the textarea's border.
-        Top and bottom are particularly useful for filenames and character
-        counters.
+        Top and bottom fit filenames and hints.
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>,
@@ -200,20 +209,22 @@ export const keywords = ["multiline", "text area"]
       <Fragment slot="react">
         Use the <code>start</code>, <code>end</code>, <code>top</code>, and
         <code>bottom</code> props to affix content inside the textarea's border.
-        Top and bottom are particularly useful for filenames and character
-        counters.
+        Top and bottom fit filenames and hints.
       </Fragment>
       <Fragment slot="svelte">
         Use the <code>start</code>, <code>end</code>, <code>top</code>, and
         <code>bottom</code> snippets to affix content inside the textarea's
-        border. Top and bottom are particularly useful for filenames and
-        character counters.
+        border. Top and bottom fit filenames and hints.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" row />
 
     <h3 id="top-and-bottom">Top and bottom</h3>
+    <p>
+      For a live count, use the <a href="#character-count">character count</a>,
+      which sits in the end text.
+    </p>
 
     <AutoExample name="TopAndBottom" column />
   </section>

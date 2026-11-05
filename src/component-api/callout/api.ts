@@ -33,7 +33,7 @@ export default {
       code: "<svg>",
       component: "CalloutIcon",
       description:
-        "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.",
+        "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.",
       selector: ".ui-callout > svg",
     },
     {

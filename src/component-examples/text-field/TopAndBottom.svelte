@@ -6,6 +6,11 @@
   {#snippet top()}Shown on your profile{/snippet}
 </TextField>
 
-<TextField label="Tagline" placeholder="A short description">
-  {#snippet bottom()}0 / 80{/snippet}
+<TextField
+  characterCount
+  label="Tagline"
+  maxlength={80}
+  placeholder="A short description"
+>
+  {#snippet bottom()}Plain text, no links{/snippet}
 </TextField>

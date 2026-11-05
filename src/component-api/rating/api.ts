@@ -88,7 +88,7 @@ export default {
     },
     {
       default: '"medium"',
-      description: "The size of the stars.",
+      description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {

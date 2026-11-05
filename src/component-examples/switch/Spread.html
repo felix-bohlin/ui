@@ -1,19 +1,12 @@
 <label class="ui-switch ui-spread">
-  <input type="checkbox" role="switch" name="switch-spread" />
+  <input
+    type="checkbox"
+    role="switch"
+    name="switch-spread"
+    value="notifications"
+  />
   <span class="ui-label">Notifications</span>
   <span class="ui-end-text">Receive alerts when someone mentions you.</span>
-</label>
-
-<label class="ui-switch ui-spread">
-  <input type="checkbox" role="switch" name="switch-spread" required />
-  <span class="ui-label">Required</span>
-  <span class="ui-end-text">You must accept this to proceed.</span>
-</label>
-
-<label class="ui-switch ui-spread">
-  <input type="checkbox" role="switch" name="switch-spread" disabled />
-  <span class="ui-label">Disabled</span>
-  <span class="ui-end-text">This switch is disabled.</span>
 </label>
 
 <label class="ui-switch ui-spread">
@@ -21,8 +14,35 @@
     type="checkbox"
     role="switch"
     name="switch-spread"
+    required
+    value="two-step-login"
+  />
+  <span class="ui-label">Two-step login</span>
+  <span class="ui-end-text">Your organization requires it for admins.</span>
+</label>
+
+<label class="ui-switch ui-spread">
+  <input
+    type="checkbox"
+    role="switch"
+    name="switch-spread"
+    disabled
+    value="location"
+  />
+  <span class="ui-label">Location access</span>
+  <span class="ui-end-text">Turned off by your administrator.</span>
+</label>
+
+<label class="ui-switch ui-spread">
+  <input
+    type="checkbox"
+    role="switch"
+    name="switch-spread"
+    value="backup"
     aria-invalid="true"
   />
-  <span class="ui-label">Invalid Switch</span>
-  <span class="ui-end-text">Turn this on to continue.</span>
+  <span class="ui-label">Cloud backup</span>
+  <span class="ui-end-text"
+    >Sync needs cloud backup. Turn it on to continue.</span
+  >
 </label>

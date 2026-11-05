@@ -57,7 +57,7 @@ export default {
     {
       default: '"inside"',
       description:
-        'Previous and next buttons. `"outside"` places them beside the items, and `"none"` leaves them out.',
+        "Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.",
       group: "Buttons",
       prop: "buttons",
       values: {
@@ -142,17 +142,17 @@ export default {
   ],
   parts: [
     {
-      code: "<li>",
-      description: "An item.",
-      selector: ".ui-carousel > :first-child",
-      slots: ["default"],
-    },
-    {
       code: "::scroll-button(inline-start)",
       description:
         "The previous button. `::scroll-button(block-start)` when vertical.",
       props: ["buttons", "previousLabel"],
       selector: ".ui-carousel::scroll-button(inline-start)",
+    },
+    {
+      code: "<li>",
+      description: "An item.",
+      selector: ".ui-carousel > :first-child",
+      slots: ["default"],
     },
     {
       code: "::scroll-button(inline-end)",

@@ -2,5 +2,5 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Label" type="file" />
-<TextField label="Label" type="file" variant="filled" />
+<TextField accept="image/*" label="Avatar" type="file" />
+<TextField label="Attachments" type="file" variant="filled" />

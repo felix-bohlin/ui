@@ -7,7 +7,12 @@ import { Textarea } from "opui-css/vue"
     <template #top>script.js</template>
   </Textarea>
 
-  <Textarea label="Comment" placeholder="Write a comment...">
-    <template #bottom>0 / 280</template>
+  <Textarea
+    characterCount
+    label="Comment"
+    :maxlength="280"
+    placeholder="Write a comment..."
+  >
+    <template #bottom>Markdown supported</template>
   </Textarea>
 </template>

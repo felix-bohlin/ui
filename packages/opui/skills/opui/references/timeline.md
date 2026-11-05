@@ -27,8 +27,8 @@ A list of dated events with markers and a connecting line.
 ### Parts
 
 - `li` (root): An event.
-- `.ui-marker` (slot `marker`): Replaces the dot with an icon. It follows the item's color and the current state.
 - `<time>` (prop `datetime`, prop `time`): The date, in its own column.
+- `.ui-marker` (slot `marker`): Replaces the dot with an icon. It follows the item's color and the current state.
 - `<h3>` (prop `headingLevel`, prop `label`, slot `label`): The title of the event.
 
 ### Props and modifiers

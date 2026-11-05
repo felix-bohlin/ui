@@ -10,17 +10,18 @@ A scrolling list with snap points, buttons and markers.
 ### Parts
 
 - `ul.ui-carousel` (root): The scroller.
-- `<li>` (slot `default`): An item.
 - `::scroll-button(inline-start)` (prop `buttons`, prop `previousLabel`): The previous button. `::scroll-button(block-start)` when vertical.
+- `<li>` (slot `default`): An item.
 - `::scroll-button(inline-end)` (prop `buttons`, prop `nextLabel`): The next button. `::scroll-button(block-end)` when vertical.
 - `li::scroll-marker` (prop `markerLabel`, prop `markers`): A marker, one per item.
 
 ### Props and modifiers
 
 - `align`: `"center"` (`.ui-align-center`), `"start"` (default). Where items snap.
-- `aria-label`: `string`, `[aria-label]`. Accessible name of the carousel.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The types require it, or `aria-labelledby`.
+- `aria-labelledby`: `string`. The id of the element that names the carousel, instead of `aria-label`.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
-- `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `"outside"` places them beside the items, and `"none"` leaves them out.
+- `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.
 - `itemsPerView`: `number`, `--_items-per-view`, default `1`. Number of visible items.
 - `markerLabel`: `string`, `--_marker-label`, default `"Slide {count}"`. Accessible name of each marker, with `{count}` where the item number goes.
 - `markers`: `boolean`, `.ui-markers`. One marker per item, after the list.

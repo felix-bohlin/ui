@@ -3,18 +3,18 @@ import { Select } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Select label="Label">
+      <Select label="Role">
         <option value="">-</option>
-        <option>Outlined (default)</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Designer</option>
+        <option>Developer</option>
+        <option>Manager</option>
       </Select>
 
-      <Select label="Label" variant="filled">
+      <Select label="Team" variant="filled">
         <option value="">-</option>
-        <option>Filled</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
+        <option>Design</option>
+        <option>Engineering</option>
+        <option>Sales</option>
       </Select>
     </>
   )

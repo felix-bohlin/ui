@@ -54,8 +54,6 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_elevated-shadow`: Shadow of the dialog. `card.css` declares it for `.ui-elevated` surfaces, and the dialog sets it to `--ui-shadow-overlay`, like `Drawer` and `Menu`.
 - `--_max-inline-size`: Maximum width, capped to fit the viewport.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
-- `--_scroll-shadow`: Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
-- `--_title-font-size`: Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 
 Outputs: `--_duration` and `--_ease`.
 
@@ -64,13 +62,16 @@ Outputs: `--_duration` and `--_ease`.
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration` and `--_shadow`.
 
 ## Theme tokens
 
@@ -97,6 +98,27 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 >
   <div class="ui-header">
     <h2 id="dialog-basics-1-title">Newsletter</h2>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="dialog-basics-1"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        ></path>
+      </svg>
+    </button>
+    <p>Sent by the product team.</p>
   </div>
   <div class="ui-content">
     <p>
@@ -149,6 +171,16 @@ import {
 <Dialog id="dialog-basics-1">
   <DialogHeader>
     <DialogTitle>Newsletter</DialogTitle>
+    <Button
+      aria-label="Close"
+      command="close"
+      commandfor="dialog-basics-1"
+      round
+      size="small"
+    >
+      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+    </Button>
+    <p>Sent by the product team.</p>
   </DialogHeader>
   <DialogContent>
     <p>
@@ -196,6 +228,16 @@ export default function Basics() {
       <Dialog id="dialog-basics-1">
         <DialogHeader>
           <DialogTitle>Newsletter</DialogTitle>
+          <Button
+            aria-label="Close"
+            command="close"
+            commandfor="dialog-basics-1"
+            round
+            size="small"
+          >
+            <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+          </Button>
+          <p>Sent by the product team.</p>
         </DialogHeader>
         <DialogContent>
           <p>
@@ -242,6 +284,16 @@ export default function Basics() {
 <Dialog id="dialog-basics-1">
   <DialogHeader>
     <DialogTitle>Newsletter</DialogTitle>
+    <Button
+      aria-label="Close"
+      command="close"
+      commandfor="dialog-basics-1"
+      round
+      size="small"
+    >
+      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+    </Button>
+    <p>Sent by the product team.</p>
   </DialogHeader>
   <DialogContent>
     <p>
@@ -283,6 +335,16 @@ import {
   <Dialog id="dialog-basics-1">
     <DialogHeader>
       <DialogTitle>Newsletter</DialogTitle>
+      <Button
+        aria-label="Close"
+        command="close"
+        commandfor="dialog-basics-1"
+        round
+        size="small"
+      >
+        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
+      </Button>
+      <p>Sent by the product team.</p>
     </DialogHeader>
     <DialogContent>
       <p>

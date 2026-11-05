@@ -11,7 +11,6 @@ import {
   DrawerFooter as UIDrawerFooter,
   DrawerHeader as UIDrawerHeader,
   DrawerTitle as UIDrawerTitle,
-  Switch,
   Table,
   TableBody,
   TableCell,
@@ -32,7 +31,6 @@ import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
-import PropOrClass from "../../components/PropOrClass.astro"
 
 export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 ---
@@ -130,13 +128,14 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           unless it has inline children such as links. The footer is a row for
           buttons, text or anything else. Its content lines up at the end, and
           <code>align="start"</code> on <code>DrawerFooter</code> moves it to
-          the start. Wrap the buttons in <code>.ui-actions</code> to keep them
-          together at the end when other content comes first.
+          the start, as in the inline start drawer. Wrap the buttons in
+          <code>.ui-actions</code> to keep them together at the end when other
+          content comes first, as in the block end drawer.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use
           <code>backdrop="transparent"</code> to keep the page behind it fully
-          visible.
+          visible, as in the inline end drawer.
         </p>
         <p>
           Set <code>scrollLock</code> to lock page scrolling while the drawer is
@@ -163,13 +162,14 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           children, like a Dialog's, unless it has inline children such as
           links. The footer is a row for buttons, text or anything else. Its
           content lines up at the end, and <code>.ui-align-start</code> moves it
-          to the start. Wrap the buttons in <code>.ui-actions</code> to keep
-          them together at the end when other content comes first.
+          to the start, as in the inline start drawer. Wrap the buttons in
+          <code>.ui-actions</code> to keep them together at the end when other
+          content comes first, as in the block end drawer.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use the
           <code>.ui-backdrop-transparent</code> class to keep the page behind it
-          fully visible.
+          fully visible, as in the inline end drawer.
         </p>
         <p>
           Add the <code>.ui-scroll-lock</code> utility class from
@@ -180,18 +180,37 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         </p>
       </Fragment>
     </Conditional>
-    <AutoExample name="Basics" column>
-      <Switch
-        slot="controls"
-        data-toggle-class="ui-backdrop-transparent"
-        data-toggle-target="dialog.ui-drawer"
-      >
-        <PropOrClass
-          prop='backdrop="transparent"'
-          class=".ui-backdrop-transparent"
-        />
-      </Switch>
-    </AutoExample>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give the
+        <code>DrawerContent</code> <code>tabindex="0"</code>,
+        <code>role="region"</code> and an <code>aria-label</code> that names
+        what scrolls, as in the inline end drawer.
+      </Fragment>
+      <Fragment slot="react">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give the
+        <code>DrawerContent</code> <code>{"tabIndex={0}"}</code>,
+        <code>role="region"</code> and an <code>aria-label</code> that names
+        what scrolls, as in the inline end drawer.
+      </Fragment>
+      <Fragment slot="svelte">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give the
+        <code>DrawerContent</code> <code>{"tabindex={0}"}</code>,
+        <code>role="region"</code> and an <code>aria-label</code> that names
+        what scrolls, as in the inline end drawer.
+      </Fragment>
+      <Fragment slot="html">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give
+        <code>.ui-content</code> <code>tabindex="0"</code>,
+        <code>role="region"</code> and an <code>aria-label</code> that names
+        what scrolls, as in the inline end drawer.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" column />
   </section>
 
   <section id="close-button">

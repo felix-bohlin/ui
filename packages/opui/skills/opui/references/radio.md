@@ -88,17 +88,20 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-shadow-elevated`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -107,19 +110,19 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend>Legend</legend>
+    <legend>Payment method</legend>
     <div class="ui-field-group">
       <label class="ui-radio">
-        <input type="radio" name="radio-group" checked value="1" />
-        <span class="ui-label">Radio 1</span>
+        <input type="radio" name="radio-group" checked value="card" />
+        <span class="ui-label">Card</span>
       </label>
       <label class="ui-radio">
-        <input type="radio" name="radio-group" value="2" />
-        <span class="ui-label">Radio 2</span>
+        <input type="radio" name="radio-group" value="paypal" />
+        <span class="ui-label">PayPal</span>
       </label>
       <label class="ui-radio">
-        <input type="radio" name="radio-group" value="3" />
-        <span class="ui-label">Radio 3</span>
+        <input type="radio" name="radio-group" value="bank-transfer" />
+        <span class="ui-label">Bank transfer</span>
       </label>
     </div>
   </fieldset>
@@ -141,11 +144,11 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 
 <Form>
   <Fieldset>
-    <FieldLegend>Legend</FieldLegend>
+    <FieldLegend>Payment method</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio checked value="1">Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
+      <Radio checked value="card">Card</Radio>
+      <Radio value="paypal">PayPal</Radio>
+      <Radio value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>
@@ -167,13 +170,13 @@ export default function Basics() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Payment method</FieldLegend>
         <FieldGroup name="radio-group">
-          <Radio defaultChecked value="1">
-            Radio 1
+          <Radio defaultChecked value="card">
+            Card
           </Radio>
-          <Radio value="2">Radio 2</Radio>
-          <Radio value="3">Radio 3</Radio>
+          <Radio value="paypal">PayPal</Radio>
+          <Radio value="bank-transfer">Bank transfer</Radio>
         </FieldGroup>
       </Fieldset>
     </Form>
@@ -203,11 +206,11 @@ export default function Basics() {
 
 <Form>
   <Fieldset>
-    <FieldLegend>Legend</FieldLegend>
+    <FieldLegend>Payment method</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio checked value="1">Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
+      <Radio checked value="card">Card</Radio>
+      <Radio value="paypal">PayPal</Radio>
+      <Radio value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>
   </Fieldset>
 </Form>
@@ -230,11 +233,11 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
+      <FieldLegend>Payment method</FieldLegend>
       <FieldGroup name="radio-group">
-        <Radio checked value="1">Radio 1</Radio>
-        <Radio value="2">Radio 2</Radio>
-        <Radio value="3">Radio 3</Radio>
+        <Radio checked value="card">Card</Radio>
+        <Radio value="paypal">PayPal</Radio>
+        <Radio value="bank-transfer">Bank transfer</Radio>
       </FieldGroup>
     </Fieldset>
   </Form>

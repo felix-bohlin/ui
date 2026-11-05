@@ -54,7 +54,7 @@ export default {
     {
       default: '"filled"',
       description:
-        "The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.",
+        "The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.",
       group: "Variants",
       prop: "variant",
       values: {
@@ -76,7 +76,7 @@ export default {
     {
       code: "<img>",
       description: "The avatar image.",
-      props: ["src", "alt"],
+      props: ["alt", "src"],
       selector: "img",
     },
   ],

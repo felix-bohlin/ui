@@ -10,11 +10,13 @@ import {
 
 <template>
   <Fieldset disabled>
-    <FieldLegend>Pet dating</FieldLegend>
-    <FieldDescription>You can't change these settings</FieldDescription>
-    <FieldGroup name="notifications">
-      <Checkbox checked value="horse-tinder">Horse Tinder</Checkbox>
-      <Checkbox checked value="onlyhorsefans">OnlyHorseFans</Checkbox>
+    <FieldLegend>Security alerts</FieldLegend>
+    <FieldDescription
+      >Your administrator manages these settings.</FieldDescription
+    >
+    <FieldGroup name="alerts">
+      <Checkbox checked value="email">Email</Checkbox>
+      <Checkbox checked value="sms">SMS</Checkbox>
     </FieldGroup>
   </Fieldset>
 </template>

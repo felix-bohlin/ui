@@ -25,7 +25,7 @@ A star rating: a meter that shows a score, or radios that collect one.
 - `name`: `string`. Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.
 - `onChange` (React): `ChangeEventHandler<HTMLInputElement>`. Called when a star or the clear radio is picked.
 - `required`: `boolean`, `input[required]`. Requires a star and drops the clear radio.
-- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the stars.
+- `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`). The size of the element.
 - `starLabel`: `(value: number) => string`, default `(value) => "1 star", "2 stars"`. Returns the accessible name of each star radio. Use it to translate.
 
 Model: `value` (`number | string`), the score of the meter, fractions included, or the checked star of the input. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.

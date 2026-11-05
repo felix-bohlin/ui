@@ -7,7 +7,12 @@ import { TextField } from "opui-css/vue"
     <template #top>Shown on your profile</template>
   </TextField>
 
-  <TextField label="Tagline" placeholder="A short description">
-    <template #bottom>0 / 80</template>
+  <TextField
+    characterCount
+    label="Tagline"
+    :maxlength="80"
+    placeholder="A short description"
+  >
+    <template #bottom>Plain text, no links</template>
   </TextField>
 </template>

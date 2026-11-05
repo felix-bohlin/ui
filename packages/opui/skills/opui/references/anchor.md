@@ -1,6 +1,6 @@
 # Anchor
 
-A structural primitive to enable CSS Anchor Positioning on stuff.
+Places floating content next to an element with CSS anchor positioning.
 
 - CSS: `opui-css/css/components/anchor.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/anchor.md), [Astro](https://open-props-ui.netlify.app/astro/components/anchor.md), [React](https://open-props-ui.netlify.app/react/components/anchor.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/anchor.md), [Vue](https://open-props-ui.netlify.app/vue/components/anchor.md).

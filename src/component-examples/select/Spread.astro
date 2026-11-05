@@ -26,24 +26,25 @@ import { Select } from "opui-css/astro"
 </Select>
 
 <Select required spread>
-  <Fragment slot="label">Required</Fragment>
-  <Fragment slot="start-text">You must select an option</Fragment>
-  <option value="">Select an option</option>
-  <option>Option 1</option>
-  <option>Option 2</option>
+  <Fragment slot="label">Department</Fragment>
+  <Fragment slot="start-text">Routes your request to the right team</Fragment>
+  <option value="">Select a department</option>
+  <option>Billing</option>
+  <option>Support</option>
 </Select>
 
 <Select disabled spread>
-  <Fragment slot="label">Disabled</Fragment>
-  <Fragment slot="start-text">This select is disabled</Fragment>
-  <option>Option 1</option>
+  <Fragment slot="label">Plan</Fragment>
+  <Fragment slot="start-text">Managed by your organization</Fragment>
+  <option>Business</option>
 </Select>
 
 <Select error spread>
-  <Fragment slot="label">Invalid Select</Fragment>
-  <Fragment slot="start-text">This select has an error</Fragment>
-  <Fragment slot="end-text">Please select a valid option.</Fragment>
-  <option>Option 1</option>
+  <Fragment slot="label">Payment method</Fragment>
+  <Fragment slot="start-text">Charged on the first of each month</Fragment>
+  <Fragment slot="end-text">This card has expired. Pick another one.</Fragment>
+  <option>Visa ending in 4242</option>
+  <option>Mastercard ending in 5100</option>
 </Select>
 
 <Select spread>

@@ -3,5 +3,5 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField autoFit label="Label" placeholder="Auto-fit" />
+  <TextField autoFit label="Project name" placeholder="my-project" />
 </template>

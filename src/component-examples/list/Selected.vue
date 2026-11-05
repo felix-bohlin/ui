@@ -6,10 +6,10 @@ import { List, ListItem } from "opui-css/vue"
   <List>
     <ListItem
       aria-current="page"
-      description='This item has aria-current="page" on its link'
-      href="#"
-      label="Selected item"
+      description="12 unread"
+      href="#selected"
+      label="Inbox"
     />
-    <ListItem href="#" label="Normal item" />
+    <ListItem href="#selected" label="Sent" />
   </List>
 </template>

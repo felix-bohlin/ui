@@ -181,25 +181,14 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="sizes">
     <h2>Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Choose between three sizes with the <code>size</code> prop:
-        <code>small</code>, default and <code>large</code>.
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop:
+        <code>x-small</code>, <code>small</code>, <code>medium</code> (the
+        default) and <code>large</code>.
       </Fragment>
       <Fragment slot="html">
-        Choose between three sizes: <code>.ui-small</code>, default and
-        <code>.ui-large</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Choose between three sizes with the <code>size</code> prop:
-        <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between three sizes with the <code>size</code> prop:
-        <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between three sizes with the <code>size</code> prop:
-        <code>small</code>, default and <code>large</code>.
+        Choose between four sizes: <code>.ui-x-small</code>,
+        <code>.ui-small</code>, default and <code>.ui-large</code>.
       </Fragment>
     </Conditional>
 
@@ -209,25 +198,13 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="length">
     <h2>Length</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets
         <code>maxlength</code> and the <code>pattern</code>.
       </Fragment>
       <Fragment slot="html">
         The number of boxes follows <code>maxlength</code>, from 4 to 8. Match
         the <code>pattern</code> to it, such as <code>[0-9]{"{4}"}</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets
-        <code>maxlength</code> and the <code>pattern</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets
-        <code>maxlength</code> and the <code>pattern</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets
-        <code>maxlength</code> and the <code>pattern</code>.
       </Fragment>
     </Conditional>
 
@@ -237,7 +214,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="alphanumeric">
     <h2>Alphanumeric</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>alphanumeric</code> for codes with letters. The pattern
         accepts letters and digits, the keyboard is a regular one, and letters
         show uppercase (<code>autocapitalize="characters"</code>). The value
@@ -251,27 +228,6 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
         uppercase. The value keeps the case they were typed in. Leave
         <code>autocapitalize</code> out for case-sensitive codes.
       </Fragment>
-      <Fragment slot="react">
-        Set <code>alphanumeric</code> for codes with letters. The pattern
-        accepts letters and digits, the keyboard is a regular one, and letters
-        show uppercase (<code>autocapitalize="characters"</code>). The value
-        keeps the case they were typed in. Pass
-        <code>autocapitalize="off"</code> for case-sensitive codes.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>alphanumeric</code> for codes with letters. The pattern
-        accepts letters and digits, the keyboard is a regular one, and letters
-        show uppercase (<code>autocapitalize="characters"</code>). The value
-        keeps the case they were typed in. Pass
-        <code>autocapitalize="off"</code> for case-sensitive codes.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>alphanumeric</code> for codes with letters. The pattern
-        accepts letters and digits, the keyboard is a regular one, and letters
-        show uppercase (<code>autocapitalize="characters"</code>). The value
-        keeps the case they were typed in. Pass
-        <code>autocapitalize="off"</code> for case-sensitive codes.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Alphanumeric" />
@@ -280,7 +236,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="validation">
     <h2>Validation</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>error</code> prop for server-side errors. It sets
         <code>aria-invalid="true"</code> on the input, and every box turns red.
         Explain the error in the end text.
@@ -288,21 +244,6 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
       <Fragment slot="html">
         Add <code>aria-invalid="true"</code> to the input for server-side
         errors, and every box turns red. Explain the error in the end text.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>error</code> prop for server-side errors. It sets
-        <code>aria-invalid="true"</code> on the input, and every box turns red.
-        Explain the error in the end text.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>error</code> prop for server-side errors. It sets
-        <code>aria-invalid="true"</code> on the input, and every box turns red.
-        Explain the error in the end text.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>error</code> prop for server-side errors. It sets
-        <code>aria-invalid="true"</code> on the input, and every box turns red.
-        Explain the error in the end text.
       </Fragment>
     </Conditional>
     <p>

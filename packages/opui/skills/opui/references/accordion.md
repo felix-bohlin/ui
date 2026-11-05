@@ -17,7 +17,7 @@ Lets you show and hide content, on its own or as a group.
 
 ### Props and modifiers
 
-- `markerAnimation`: `"flip"` (`.ui-marker-animation-flip`), `"rotate"` (default), `"turn"` (`.ui-marker-animation-turn`). How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open.
+- `markerAnimation`: `"flip"` (`.ui-marker-animation-flip`), `"rotate"` (default), `"turn"` (`.ui-marker-animation-turn`). How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker.
 - `name`: `string`, `[name]`. Groups accordions so only one of them can be open at a time.
 - `open`: `boolean`, `[open]`. Whether the accordion is open.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.
@@ -28,8 +28,8 @@ Lets you show and hide content, on its own or as a group.
 
 ### Notes
 
-- HTML: To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.
-- Astro, React, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.
+- HTML: To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.
+- Astro, React, Svelte and Vue: Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.
 
 ## AccordionSummary
 
@@ -89,17 +89,20 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-weight-bold`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-shadow-elevated`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-font-weight-bold`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -108,7 +111,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 ```html
 <details class="ui-accordion">
   <summary>
-    Accordion
+    What is included in the free plan?
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -125,11 +128,8 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
   </summary>
   <div class="ui-content">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three projects, 2 GB of storage and email support. Upgrade at any time to
+      add more projects and invite your team.
     </p>
   </div>
 </details>
@@ -149,14 +149,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <AccordionSummary>Accordion</AccordionSummary>
+  <AccordionSummary>What is included in the free plan?</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three projects, 2 GB of storage and email support. Upgrade at any time to
+      add more projects and invite your team.
     </p>
   </AccordionContent>
 </Accordion>
@@ -176,15 +173,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 export default function Basics() {
   return (
     <Accordion>
-      <AccordionSummary>Accordion</AccordionSummary>
+      <AccordionSummary>What is included in the free plan?</AccordionSummary>
       <AccordionContent>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-          Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-          Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-          dolor.
+          Three projects, 2 GB of storage and email support. Upgrade at any time
+          to add more projects and invite your team.
         </p>
       </AccordionContent>
     </Accordion>
@@ -210,14 +203,11 @@ export default function Basics() {
 </script>
 
 <Accordion>
-  <AccordionSummary>Accordion</AccordionSummary>
+  <AccordionSummary>What is included in the free plan?</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
+      Three projects, 2 GB of storage and email support. Upgrade at any time to
+      add more projects and invite your team.
     </p>
   </AccordionContent>
 </Accordion>
@@ -238,15 +228,11 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 
 <template>
   <Accordion>
-    <AccordionSummary>Accordion</AccordionSummary>
+    <AccordionSummary>What is included in the free plan?</AccordionSummary>
     <AccordionContent>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-        Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-        Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-        dolor.
+        Three projects, 2 GB of storage and email support. Upgrade at any time
+        to add more projects and invite your team.
       </p>
     </AccordionContent>
   </Accordion>

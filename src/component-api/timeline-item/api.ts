@@ -53,16 +53,16 @@ export default {
   page: "timeline",
   parts: [
     {
-      description:
-        "Replaces the dot with an icon. It follows the item's color and the current state.",
-      selector: ".ui-marker",
-      slots: ["marker"],
-    },
-    {
       code: "<time>",
       description: "The date, in its own column.",
       props: ["datetime", "time"],
       selector: "time",
+    },
+    {
+      description:
+        "Replaces the dot with an icon. It follows the item's color and the current state.",
+      selector: ".ui-marker",
+      slots: ["marker"],
     },
     {
       code: "<h3>",

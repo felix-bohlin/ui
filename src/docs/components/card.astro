@@ -50,8 +50,7 @@ export const keywords = ["panel", "surface", "tile"]
 >
   <Fragment slot="title">Card</Fragment>
   <Fragment slot="preamble">
-    The card is extremely versatile and can be used on its own, or as a building
-    block for
+    A surface for related content and actions, on its own or as the base of
     <DocLink class="ui-link" href="/components/accordion">accordions</DocLink>,
     <DocLink class="ui-link" href="/components/dialog">dialogs</DocLink> and
     more.
@@ -95,10 +94,10 @@ export const keywords = ["panel", "surface", "tile"]
         body in <code>CardContent</code>.
       </Fragment>
       <Fragment slot="html">
-        Change the card variant with the <code>.ui-transparent</code>,
-        <code>.ui-outlined</code>, <code>.ui-tonal</code>, and
-        <code>.ui-elevated</code> classes. Without a variant class the card has
-        the page surface color and no border. Put the body in
+        Change the card variant with the <code>.ui-elevated</code>,
+        <code>.ui-outlined</code>, <code>.ui-tonal</code> and
+        <code>.ui-transparent</code> classes. Without a variant class the card
+        has the page surface color and no border. Put the body in
         <code>.ui-content</code>.
       </Fragment>
     </Conditional>
@@ -152,8 +151,8 @@ export const keywords = ["panel", "surface", "tile"]
       </Fragment>
     </Conditional>
     <p>
-      There are some basic styles here to get you going, but for more advanced
-      use-cases (which always happen), you might want to add your own styles.
+      The actions wrap onto more rows when they don't fit, and sit at the bottom
+      of a card that is taller than its content.
     </p>
 
     <AutoExample name="Actions" column />
@@ -190,7 +189,7 @@ export const keywords = ["panel", "surface", "tile"]
         <UICalloutContent>
           <div class="ui-rich-text">
             Only one <code>.ui-card-link</code> per card. The link covers the
-            text, so selecting text in the card won't work. Fair trade.
+            text, so text in the card can't be selected.
           </div>
         </UICalloutContent>
       </UICallout>

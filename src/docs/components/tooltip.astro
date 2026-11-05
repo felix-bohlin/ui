@@ -12,11 +12,14 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
 import tooltipApi from "../../component-api/tooltip/api"
 import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 
+export const description =
+  "A short label or hint for a control, shown on hover, focus or a long press."
+
 export const keywords = ["hint", "hover", "title", "toggletip"]
 ---
 
 <Component
-  description="Built on top of Anchor."
+  description={description}
   slug="tooltip"
   apis={[{ title: "Tooltip API", api: tooltipApi }]}
   browserSupport={[
@@ -53,7 +56,11 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
 >
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">
-    <p>Built on top of <DocLink href="/components/anchor">Anchor</DocLink>.</p>
+    <p>
+      A short label or hint for a control, shown on hover, focus or a long
+      press, and positioned with
+      <DocLink href="/components/anchor">Anchor</DocLink>.
+    </p>
     <Conditional as="p">
       <Fragment slot="components">
         Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
@@ -90,7 +97,7 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
 
   <section id="basics">
     <h2>Basics</h2>
-    <h3 id="text-only">Text only...</h3>
+    <h3 id="text-only">Text</h3>
     <Conditional as="p">
       <Fragment slot="components">
         Put plain text in <code>TooltipContent</code>.
@@ -102,14 +109,14 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
 
     <AutoExample name="Basics" centered />
 
-    <h3 id="anything">... or any markup you want</h3>
+    <h3 id="rich-content">Rich content</h3>
     <Conditional as="p">
       <Fragment slot="components">
         <code>TooltipContent</code> takes any markup, not only text.
       </Fragment>
       <Fragment slot="html">
-        You can place any markup you want (famous last words) inside
-        <code>.ui-floating[popover="hint"]</code>, not only text.
+        <code>.ui-floating[popover="hint"]</code> takes any markup, not only
+        text.
       </Fragment>
     </Conditional>
 
@@ -135,12 +142,11 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     <h2>Arrow</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set the <code>arrow</code> prop. This would be cool to solve with
-        <code>corner-shape</code> {" "}one day.
+        Set <code>arrow</code> for an arrow that points to the trigger.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-arrow</code> class on the <code>.ui-tooltip</code>.
-        This would be cool to solve with <code>corner-shape</code> one day.
+        Add <code>.ui-arrow</code> to the <code>.ui-tooltip</code> for an arrow
+        that points to the trigger.
       </Fragment>
     </Conditional>
 

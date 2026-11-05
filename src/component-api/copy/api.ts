@@ -49,14 +49,14 @@ export default {
     {
       code: "<span popover>",
       description:
-        "The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy.",
+        "The label next to the button that shows `copiedLabel` or `failedLabel`.",
       props: ["copiedLabel", "failedLabel"],
       selector: ".ui-floating",
     },
   ],
   root: {
     description:
-      'The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons, popovers and elements with `data-copy-ignore`. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead.',
+      "The `<opui-copy>` custom element around the text or field to copy, with `display: contents`.",
     selector: "opui-copy.ui-copy",
   },
   slots: [

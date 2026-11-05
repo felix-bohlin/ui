@@ -156,7 +156,9 @@ export const keywords = ["columns", "container", "grid", "stack"]
       <code>.ui-sticky</code> on a column keeps it in view,
       <code>--_sticky-inset</code> (<code>--ui-space-4</code>) from the top,
       while the other column scrolls, such as an order summary next to a long
-      form. It only sticks once the columns sit side by side.
+      form. It only sticks once the columns sit side by side. It sticks in the
+      nearest scroll container, so in the example a box with
+      <code>overflow: auto</code> stands in for the page.
     </p>
     <AutoExample name="Sticky" />
   </section>

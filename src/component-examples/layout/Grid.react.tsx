@@ -4,22 +4,22 @@ export default function Grid() {
   return (
     <div className="ui-layout-grid" style={{ "--_min-inline-size": "10rem" }}>
       <Card variant="outlined">
-        <CardContent>One</CardContent>
+        <CardContent>Design</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Two</CardContent>
+        <CardContent>Engineering</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Three</CardContent>
+        <CardContent>Finance</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Four</CardContent>
+        <CardContent>Marketing</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Five</CardContent>
+        <CardContent>Sales</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Six</CardContent>
+        <CardContent>Support</CardContent>
       </Card>
     </div>
   )

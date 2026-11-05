@@ -3,11 +3,15 @@ import { Radio } from "opui-css/vue"
 </script>
 
 <template>
-  <Radio checked name="radio-visible-label" value="a">Choice A</Radio>
-  <Radio disabled name="radio-visible-label" value="b">Disabled</Radio>
-  <Radio name="radio-visible-label" value="c">
-    Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-    semiotics artisan synth stumptown gastropub cornhole
-    <a class="ui-link" href="#visible-label">privacy policy ipsum</a>
+  <Radio checked name="radio-visible-label" value="monthly"
+    >Monthly newsletter</Radio
+  >
+  <Radio disabled name="radio-visible-label" value="weekly"
+    >Weekly digest</Radio
+  >
+  <Radio name="radio-visible-label" value="updates">
+    Product updates only, a few times a year when we release new features. You
+    can unsubscribe at any time, as described in our
+    <a class="ui-link" href="#visible-label">privacy policy</a>.
   </Radio>
 </template>

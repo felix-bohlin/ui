@@ -27,24 +27,25 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select required spread>
-    <template #label>Required</template>
-    <template #start-text>You must select an option</template>
-    <option value="">Select an option</option>
-    <option>Option 1</option>
-    <option>Option 2</option>
+    <template #label>Department</template>
+    <template #start-text>Routes your request to the right team</template>
+    <option value="">Select a department</option>
+    <option>Billing</option>
+    <option>Support</option>
   </Select>
 
   <Select disabled spread>
-    <template #label>Disabled</template>
-    <template #start-text>This select is disabled</template>
-    <option>Option 1</option>
+    <template #label>Plan</template>
+    <template #start-text>Managed by your organization</template>
+    <option>Business</option>
   </Select>
 
   <Select error spread>
-    <template #label>Invalid Select</template>
-    <template #start-text>This select has an error</template>
-    <template #end-text>Please select a valid option.</template>
-    <option>Option 1</option>
+    <template #label>Payment method</template>
+    <template #start-text>Charged on the first of each month</template>
+    <template #end-text>This card has expired. Pick another one.</template>
+    <option>Visa ending in 4242</option>
+    <option>Mastercard ending in 5100</option>
   </Select>
 
   <Select spread>

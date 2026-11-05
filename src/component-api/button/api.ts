@@ -106,6 +106,12 @@ export default {
       selector: ".ui-button > svg",
     },
     {
+      code: '<span class="ui-text">',
+      description:
+        "The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles.",
+      selector: ".ui-button > span",
+    },
+    {
       code: "<kbd>",
       description: "An optional keyboard hint.",
       selector: ".ui-button kbd",

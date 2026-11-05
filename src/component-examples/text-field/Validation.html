@@ -1,43 +1,31 @@
 <div class="example-row">
   <label class="ui-text-field">
-    <span class="ui-label">I'm required</span>
+    <span class="ui-label">Full name</span>
     <span class="ui-field">
-      <input placeholder="Placeholder" required type="text" />
+      <input placeholder="Ada Lovelace" required type="text" />
     </span>
   </label>
   <label class="ui-text-field ui-filled">
-    <span class="ui-label">So am I!</span>
+    <span class="ui-label">Email</span>
     <span class="ui-field">
-      <input placeholder="Placeholder" required type="text" />
+      <input placeholder="name@example.com" required type="email" />
     </span>
   </label>
 </div>
 
 <div class="example-row">
   <label class="ui-text-field">
-    <span class="ui-label">Label</span>
+    <span class="ui-label">Username</span>
     <span class="ui-field">
-      <input
-        placeholder="Placeholder"
-        value="This isn't right"
-        aria-invalid="true"
-        type="text"
-      />
+      <input value="ada" aria-invalid="true" type="text" />
     </span>
-    <span class="ui-end-text">Only double-negatives are allowed.</span>
+    <span class="ui-end-text">This username is taken. Try another one.</span>
   </label>
   <label class="ui-text-field ui-filled">
-    <span class="ui-label">Label</span>
+    <span class="ui-label">Discount code</span>
     <span class="ui-field">
-      <input
-        placeholder="Placeholder"
-        value="Uh-oh"
-        aria-invalid="true"
-        type="text"
-      />
+      <input value="SPRING23" aria-invalid="true" type="text" />
     </span>
-    <span class="ui-end-text"
-      >Only letters from the first half of the alphabet are allowed.</span
-    >
+    <span class="ui-end-text">This code has expired.</span>
   </label>
 </div>

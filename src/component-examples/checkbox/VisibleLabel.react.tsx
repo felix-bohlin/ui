@@ -4,19 +4,19 @@ export default function VisibleLabel() {
   return (
     <>
       <Checkbox defaultChecked name="checkbox-visible-label">
-        Choice A
+        Remember me
       </Checkbox>
       <Checkbox disabled name="checkbox-visible-label">
-        Disabled
+        Sync over mobile data
       </Checkbox>
       <Checkbox defaultChecked disabled name="checkbox-visible-label">
-        Checked and disabled
+        Sync over Wi-Fi
       </Checkbox>
       <Checkbox name="checkbox-visible-label">
-        Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-        semiotics artisan synth stumptown gastropub cornhole{" "}
+        Send me occasional emails about new features, tips and offers. I can
+        unsubscribe at any time and have read the{" "}
         <a className="ui-link" href="#visible-label">
-          privacy policy ipsum
+          privacy policy
         </a>
       </Checkbox>
     </>

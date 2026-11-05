@@ -13,7 +13,7 @@ import {
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Post Content</FieldLegend>
+      <FieldLegend>Post content</FieldLegend>
       <FieldGroup>
         <TextField label="Title" placeholder="My new post" />
       </FieldGroup>

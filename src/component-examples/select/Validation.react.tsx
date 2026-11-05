@@ -4,43 +4,43 @@ export default function Validation() {
   return (
     <>
       <div className="example-row">
-        <Select label="Label" required>
+        <Select label="Country" required>
           <option value="">-</option>
-          <option>Pick me!</option>
-          <option>No me!!</option>
-          <option>Come on!</option>
+          <option>Denmark</option>
+          <option>Norway</option>
+          <option>Sweden</option>
         </Select>
-        <Select label="Label" required variant="filled">
+        <Select label="Country" required variant="filled">
           <option value="">-</option>
-          <option>Pick me!</option>
-          <option>No me!!</option>
-          <option>Come on!</option>
+          <option>Denmark</option>
+          <option>Norway</option>
+          <option>Sweden</option>
         </Select>
       </div>
 
       <div className="example-row">
         <Select
-          defaultValue="Wrong option"
-          endText="Pick another option."
+          defaultValue="Norway"
+          endText="We don't ship to Norway yet. Pick another country."
           error
-          label="Label"
+          label="Shipping country"
         >
           <option value="">-</option>
-          <option>Wrong option</option>
-          <option>Also wrong!</option>
-          <option>Nothing's right!</option>
+          <option>Denmark</option>
+          <option>Norway</option>
+          <option>Sweden</option>
         </Select>
         <Select
-          defaultValue="Wrong option"
-          endText="Pick another option."
+          defaultValue="Norway"
+          endText="We don't ship to Norway yet. Pick another country."
           error
-          label="Label"
+          label="Shipping country"
           variant="filled"
         >
           <option value="">-</option>
-          <option>Wrong option</option>
-          <option>Also wrong!</option>
-          <option>Nothing's right!</option>
+          <option>Denmark</option>
+          <option>Norway</option>
+          <option>Sweden</option>
         </Select>
       </div>
     </>

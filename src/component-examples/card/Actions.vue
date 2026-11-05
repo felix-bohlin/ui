@@ -4,25 +4,23 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 
 <template>
   <Card variant="outlined">
-    <CardContent>
-      Notice how the buttons are made to align with the text above.
-    </CardContent>
+    <CardContent>You have unsaved changes to your profile.</CardContent>
     <CardActions>
-      <Button>Cancel</Button>
+      <Button>Discard</Button>
       <Button>Save</Button>
     </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Trying other button types too. Look at that!</CardContent>
+    <CardContent>Publish this draft to share it with your team.</CardContent>
     <CardActions>
       <Button variant="outlined">Cancel</Button>
-      <Button variant="filled">Save</Button>
+      <Button variant="filled">Publish</Button>
     </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <CardContent>Icon buttons work too!</CardContent>
+    <CardContent>Quarterly sales report, updated today.</CardContent>
     <CardActions>
       <Button aria-label="Favorite" round size="small">
         <svg

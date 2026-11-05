@@ -8,7 +8,10 @@
 <label class="ui-textarea">
   <span class="ui-label">Comment</span>
   <span class="ui-field">
-    <textarea placeholder="Write a comment..."></textarea>
-    <span class="ui-bottom">0 / 280</span>
+    <textarea maxlength="280" placeholder="Write a comment..."></textarea>
+    <span class="ui-bottom">Markdown supported</span>
+  </span>
+  <span class="ui-end-text">
+    <opui-character-count aria-hidden="true" class="ui-value"></opui-character-count>
   </span>
 </label>

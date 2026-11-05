@@ -9,7 +9,17 @@
 <label class="ui-text-field">
   <span class="ui-label">Tagline</span>
   <span class="ui-field">
-    <input placeholder="A short description" type="text" />
-    <span class="ui-bottom">0 / 80</span>
+    <input maxlength="80" placeholder="A short description" type="text" />
+    <span class="ui-bottom">Plain text, no links</span>
+  </span>
+  <span class="ui-end-text">
+    <opui-character-count
+      aria-hidden="true"
+      class="ui-value"
+    ></opui-character-count>
   </span>
 </label>
+
+<script type="module">
+  import "opui-css/elements/character-count.js"
+</script>

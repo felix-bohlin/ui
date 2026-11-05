@@ -10,7 +10,7 @@ import {
 
 <template>
   <Fieldset>
-    <FieldLegend>Favorite Pet</FieldLegend>
+    <FieldLegend>Favorite pet</FieldLegend>
     <FieldDescription
       >Please select your favorite type of pet.</FieldDescription
     >

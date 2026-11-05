@@ -27,9 +27,9 @@ An input for single-line text data. Basic text fields with labels, field descrip
 - `autoFit`: `boolean`, `.ui-auto-fit`. Lets the width follow the content, from `25ch`.
 - `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
-- `disabled`: `boolean`, `input[disabled]`. Dims the field and blocks input.
+- `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
-- `hideLabel`: `boolean`, `.ui-text-field > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
+- `hideLabel`: `boolean`, `.ui-text-field > :is(span, label).ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.
 - `inputmode`: `string`. The `inputmode` of the `<input>`. With `type="numeric"` it is `numeric`.
 - `name`: `string`. The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.

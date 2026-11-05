@@ -51,14 +51,18 @@ export default {
       prop: "characterCountLabel",
     },
     {
-      attribute: "[disabled]",
       default: "false",
-      description: "Dims the field and blocks input.",
+      description:
+        'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',
       group: "Disabled",
       inherited: true,
       part: "textarea",
       prop: "disabled",
       type: "boolean",
+      values: {
+        "aria-disabled": '[aria-disabled="true"]',
+        disabled: "[disabled]",
+      },
     },
     {
       attribute: '[aria-invalid="true"]',

@@ -4,13 +4,13 @@ export default function Basics() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Payment method</FieldLegend>
         <FieldGroup name="radio-group">
-          <Radio defaultChecked value="1">
-            Radio 1
+          <Radio defaultChecked value="card">
+            Card
           </Radio>
-          <Radio value="2">Radio 2</Radio>
-          <Radio value="3">Radio 3</Radio>
+          <Radio value="paypal">PayPal</Radio>
+          <Radio value="bank-transfer">Bank transfer</Radio>
         </FieldGroup>
       </Fieldset>
     </Form>

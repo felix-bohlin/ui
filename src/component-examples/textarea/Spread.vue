@@ -3,7 +3,7 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea placeholder="Hello, world!" spread>
+  <Textarea placeholder="Hi, I have a question about my order." spread>
     <template #label>Message</template>
     <template #start-text
       >You can write your message here. Keep it short, preferably under 100
@@ -17,20 +17,26 @@ import { Textarea } from "opui-css/vue"
     <template #end-text>Maximum 500 characters</template>
   </Textarea>
 
-  <Textarea label="Required" required spread>
-    <template #start-text>You must provide a response</template>
+  <Textarea label="Reason for return" required spread>
+    <template #start-text>Helps us improve our products</template>
   </Textarea>
 
-  <Textarea disabled label="Disabled" spread>
-    <template #start-text>This textarea is disabled</template>
+  <Textarea disabled label="Order notes" spread>
+    <template #start-text>Orders can't change once they ship</template>
   </Textarea>
 
-  <Textarea error label="Invalid Message" spread>
-    <template #start-text>This textarea has an error</template>
-    <template #end-text>This value is too short.</template>
+  <Textarea error label="Review" spread value="Great">
+    <template #start-text>Shown with your rating</template>
+    <template #end-text>Write at least 20 characters.</template>
   </Textarea>
 
-  <Textarea label="Bio" placeholder="Tell us about yourself..." spread>
+  <Textarea
+    characterCount
+    label="Bio"
+    :maxlength="280"
+    placeholder="Tell us about yourself..."
+    spread
+  >
     <template #start-text>Shown on your public profile</template>
     <template #start>
       <svg
@@ -52,7 +58,6 @@ import { Textarea } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #bottom>280 characters left</template>
   </Textarea>
 
   <Textarea

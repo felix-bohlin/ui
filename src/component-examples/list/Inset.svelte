@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem label="No inset">
+  <ListItem label="Lena Ek">
     {#snippet start()}
       <svg
         aria-hidden="true"
@@ -19,11 +19,6 @@
       </svg>
     {/snippet}
   </ListItem>
-  <ListItem inset label="Inset class">
-    <p>Makes the text line up nicely</p>
-  </ListItem>
-  <ListItem inset label="Inset class">
-    {#snippet start()}Hidden{/snippet}
-    <p>Any <code>div.ui-start</code> will be hidden when inset</p>
-  </ListItem>
+  <ListItem description="Mobile" inset label="+46 70 123 45 67" />
+  <ListItem description="Work" inset label="lena.ek@example.com" />
 </List>

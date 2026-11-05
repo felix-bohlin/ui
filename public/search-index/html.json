@@ -66,7 +66,7 @@
   {
     "id": "component-anchor-html",
     "title": "Anchor",
-    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
+    "description": "Places floating content next to an element with CSS anchor positioning.",
     "keywords": "anchor positioning floating popover position-anchor",
     "category": "Component",
     "url": "/html/components/anchor/"
@@ -387,7 +387,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more.",
+    "description": "A surface for related content and actions, on its own or as the base of accordions, dialogs and more.",
     "keywords": "panel surface tile",
     "category": "Component",
     "url": "/html/components/card/"
@@ -845,6 +845,13 @@
     "page": "Dialog",
     "category": "Component",
     "url": "/html/components/dialog/#modal"
+  },
+  {
+    "id": "component-dialog-html-non-modal",
+    "title": "Non-modal",
+    "page": "Dialog",
+    "category": "Component",
+    "url": "/html/components/dialog/#non-modal"
   },
   {
     "id": "component-dialog-html-footer",
@@ -1527,6 +1534,20 @@
     "url": "/html/components/number-field/#disabled"
   },
   {
+    "id": "component-number-field-html-validation",
+    "title": "Validation",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/html/components/number-field/#validation"
+  },
+  {
+    "id": "component-number-field-html-spread",
+    "title": "Spread",
+    "page": "Number field",
+    "category": "Component",
+    "url": "/html/components/number-field/#spread"
+  },
+  {
     "id": "component-number-field-html-keyboard-support",
     "title": "Keyboard support",
     "page": "Number field",
@@ -1769,6 +1790,13 @@
     "url": "/html/components/range/#start-end-text"
   },
   {
+    "id": "component-range-html-hidden-label",
+    "title": "Hidden label",
+    "page": "Range",
+    "category": "Component",
+    "url": "/html/components/range/#hidden-label"
+  },
+  {
     "id": "component-range-html-value",
     "title": "Value",
     "page": "Range",
@@ -1918,6 +1946,13 @@
     "url": "/html/components/select/#end-text"
   },
   {
+    "id": "component-select-html-hidden-label",
+    "title": "Hidden label",
+    "page": "Select",
+    "category": "Component",
+    "url": "/html/components/select/#hidden-label"
+  },
+  {
     "id": "component-select-html-affix",
     "title": "Affix",
     "page": "Select",
@@ -1958,6 +1993,13 @@
     "page": "Select",
     "category": "Component",
     "url": "/html/components/select/#optgroup"
+  },
+  {
+    "id": "component-select-html-disabled",
+    "title": "Disabled",
+    "page": "Select",
+    "category": "Component",
+    "url": "/html/components/select/#disabled"
   },
   {
     "id": "component-select-html-validation",
@@ -2429,6 +2471,13 @@
     "url": "/html/components/text-field/#sizes"
   },
   {
+    "id": "component-text-field-html-hidden-label",
+    "title": "Hidden label",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/html/components/text-field/#hidden-label"
+  },
+  {
     "id": "component-text-field-html-start-text",
     "title": "Start text",
     "page": "Text field",
@@ -2527,13 +2576,6 @@
     "url": "/html/components/text-field/#autosuggest"
   },
   {
-    "id": "component-text-field-html-do-i-have-to-use-label",
-    "title": "Do I have to use <label>?",
-    "page": "Text field",
-    "category": "Component",
-    "url": "/html/components/text-field/#do-i-have-to-use-label"
-  },
-  {
     "id": "component-text-field-html-keyboard-support",
     "title": "Keyboard support",
     "page": "Text field",
@@ -2561,6 +2603,13 @@
     "page": "Textarea",
     "category": "Component",
     "url": "/html/components/textarea/#sizes"
+  },
+  {
+    "id": "component-textarea-html-hidden-label",
+    "title": "Hidden label",
+    "page": "Textarea",
+    "category": "Component",
+    "url": "/html/components/textarea/#hidden-label"
   },
   {
     "id": "component-textarea-html-start-text",
@@ -2848,7 +2897,7 @@
   {
     "id": "component-tooltip-html",
     "title": "Tooltip",
-    "description": "Built on top of Anchor. Add the .ui-tooltip class to the wrapper. Give the .ui-floating element popover=\"hint\" and an id, and add interestfor with that id to the trigger.",
+    "description": "A short label or hint for a control, shown on hover, focus or a long press.",
     "keywords": "hint hover title toggletip",
     "category": "Component",
     "url": "/html/components/tooltip/"
@@ -2862,17 +2911,17 @@
   },
   {
     "id": "component-tooltip-html-text-only",
-    "title": "Text only...",
+    "title": "Text",
     "page": "Tooltip",
     "category": "Component",
     "url": "/html/components/tooltip/#text-only"
   },
   {
-    "id": "component-tooltip-html-anything",
-    "title": "... or any markup you want",
+    "id": "component-tooltip-html-rich-content",
+    "title": "Rich content",
     "page": "Tooltip",
     "category": "Component",
-    "url": "/html/components/tooltip/#anything"
+    "url": "/html/components/tooltip/#rich-content"
   },
   {
     "id": "component-tooltip-html-position",
@@ -4009,7 +4058,7 @@
     "id": "api-accordion-html",
     "title": "Accordion API",
     "description": "Reference for Accordion HTML component.",
-    "api": "details.ui-accordion Container element. The always visible header. summary The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Group Groups accordions so only one of them can be open at a time. .ui-marker-animation-flip .ui-marker-animation-turn Marker animation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "api": "details.ui-accordion Container element. The always visible header. summary The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Group Groups accordions so only one of them can be open at a time. .ui-marker-animation-flip .ui-marker-animation-turn Marker animation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/html/api/#accordion"
   },
@@ -4025,7 +4074,7 @@
     "id": "api-avatar-group-html",
     "title": "Avatar Group API",
     "description": "Reference for Avatar Group HTML component.",
-    "api": ".ui-avatar-group A group of overlapping avatars.",
+    "api": ".ui-avatar-group A group of overlapping avatars. [aria-label] Label The accessible name of the group. The types require it, or `aria-labelledby`.",
     "category": "API",
     "url": "/html/api/#avatar-group"
   },
@@ -4033,7 +4082,7 @@
     "id": "api-avatar-html",
     "title": "Avatar API",
     "description": "Reference for Avatar HTML component.",
-    "api": ".ui-avatar Container element. The avatar image. img .ui-rounded .ui-squared .ui-squircle Shape The shape of the avatar. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill. button[disabled] a[aria-disabled=\"true\"] State Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead.",
+    "api": ".ui-avatar Container element. The avatar image. img .ui-rounded .ui-squared .ui-squircle Shape The shape of the avatar. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint. button[disabled] a[aria-disabled=\"true\"] State Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead.",
     "category": "API",
     "url": "/html/api/#avatar"
   },
@@ -4049,7 +4098,7 @@
     "id": "api-button-group-html",
     "title": "Button Group API",
     "description": "Reference for Button Group HTML component.",
-    "api": ".ui-button-group Container element. The buttons and button links. .ui-button-group > :first-child .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
+    "api": "[role=\"group\"].ui-button-group Container element. The buttons and button links. .ui-button-group > :first-child .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
     "category": "API",
     "url": "/html/api/#button-group"
   },
@@ -4057,7 +4106,7 @@
     "id": "api-button-html",
     "title": "Button API",
     "description": "Reference for Button HTML component.",
-    "api": ".ui-button Container element. An optional icon. .ui-button > svg An optional keyboard hint. .ui-button kbd .ui-critical .ui-primary Colors Optional colors. [aria-current=\"page\"] [disabled] a[aria-disabled=\"true\"] State Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead. .ui-round Shape Fully rounded corners, a circle when icon-only. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-filled .ui-outlined .ui-tonal Variants The variant to use.",
+    "api": ".ui-button Container element. An optional icon. .ui-button > svg The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. .ui-button > span An optional keyboard hint. .ui-button kbd .ui-critical .ui-primary Colors Optional colors. [aria-current=\"page\"] [disabled] a[aria-disabled=\"true\"] State Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can't take `disabled`, drops its `href` and takes `role=\"link\"` and `aria-disabled=\"true\"` instead. .ui-round Shape Fully rounded corners, a circle when icon-only. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-filled .ui-outlined .ui-tonal Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#button"
   },
@@ -4065,7 +4114,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical. .ui-callout > svg The content, with an optional heading first. .ui-content .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use.",
+    "api": ".ui-callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4089,7 +4138,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "api": "ul.ui-carousel The scroller. An item. .ui-carousel > :first-child The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label Accessible name of the carousel. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `\"outside\"` places them beside the items, and `\"none\"` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{count}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-prev-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "ul.ui-carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. .ui-carousel::scroll-button(inline-start) An item. .ui-carousel > :first-child The next button. `::scroll-button(block-end)` when vertical. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. [aria-label] Label The accessible name of the carousel. The types require it, or `aria-labelledby`. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-buttons-none .ui-buttons-outside Buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. --_items-per-view Items per view Number of visible items. --_marker-label Marker label Accessible name of each marker, with `{count}` where the item number goes. .ui-markers Markers One marker per item, after the list. --_button-next-label Next label Accessible name of the next button. .ui-vertical Orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. .ui-peek Peek Shows part of the neighboring items. .ui-persistent-buttons Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_button-prev-label Previous label Accessible name of the previous button. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/html/api/#carousel"
   },
@@ -4121,7 +4170,7 @@
     "id": "api-copy-html",
     "title": "Copy API",
     "description": "Reference for Copy HTML component.",
-    "api": "opui-copy.ui-copy The `<opui-copy>` custom element, with `display: contents`. A button with `command=\"--copy\"` copies the value of its first `input` or `textarea`, or else its text without buttons, popovers and elements with `data-copy-ignore`. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead. The live region that announces the copy, visually hidden with `.ui-sr-only`. [role=\"status\"] The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy. .ui-floating [copied-label] Label The text shown and announced after a copy. [failed-label] Failed label The text shown and announced when the clipboard is blocked.",
+    "api": "opui-copy.ui-copy The `<opui-copy>` custom element around the text or field to copy, with `display: contents`. The live region that announces the copy, visually hidden with `.ui-sr-only`. [role=\"status\"] The label next to the button that shows `copiedLabel` or `failedLabel`. .ui-floating [copied-label] Label The text shown and announced after a copy. [failed-label] Failed label The text shown and announced when the clipboard is blocked.",
     "category": "API",
     "url": "/html/api/#copy"
   },
@@ -4233,7 +4282,7 @@
     "id": "api-layout-html",
     "title": "Layout API",
     "description": "Reference for Layout HTML component.",
-    "api": ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media, .ui-layout-container Any element. The classes only set its layout. .ui-align-center .ui-align-end Alignment Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. .ui-layout-column Column A column with even space between its children. .ui-breakpoint-large .ui-breakpoint-small Breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. .ui-layout-columns Columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. .ui-layout-container Container Centers its content, caps its width and is the container `.ui-layout-columns` measures. .ui-layout-grid Grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. .ui-layout-media Media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. .ui-layout-row Row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. .ui-large .ui-small .ui-x-small Sizes The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. .ui-stretch Stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty. .ui-sticky Sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. .ui-spread Spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
+    "api": ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media, .ui-layout-container Any element. The classes only set its layout. .ui-align-center .ui-align-end Alignment Where `.ui-layout-row` puts its children along the row, and where `.ui-layout-column` lines up its children and their text. .ui-breakpoint-large .ui-breakpoint-small Breakpoint The container width at which `.ui-layout-columns` goes from one column to `--_columns`: `40rem`, `56rem` or `72rem`. .ui-layout-column Column A column with even space between its children. .ui-layout-columns Columns One column that becomes the `--_columns` tracks at the breakpoint, measured on the nearest container, such as `.ui-layout-container`. .ui-layout-container Container Centers its content, caps its width and is the container `.ui-layout-columns` measures. .ui-layout-grid Grid Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell. .ui-layout-media Media A media object: a fixed-size start, such as an avatar, next to text that fills the rest and wraps instead of widening the row. .ui-layout-row Row A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins. .ui-large .ui-small .ui-x-small Sizes The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid`, `.ui-layout-columns` and `.ui-layout-media`. .ui-spread Spread Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions. .ui-sticky Sticky On a child of `.ui-layout-columns`, keeps it in view at `--_sticky-inset` from the top while the other column scrolls, once the columns sit side by side. .ui-stretch Stretch Stretches the columns of `.ui-layout-grid` over the row when there are fewer children than fit, instead of leaving the rest empty.",
     "category": "API",
     "url": "/html/api/#layout"
   },
@@ -4329,7 +4378,7 @@
     "id": "api-rating-html",
     "title": "Rating API",
     "description": "Reference for Rating HTML component.",
-    "api": ".ui-rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. legend Clears the rating. Drawn as a muted icon, left out with `required`. input[value=\"0\"] A star, one per value from `1` to `max`. input[value=\"1\"] The checked and total count, such as `3/5`. Hidden from screen readers. fieldset.ui-rating::after [disabled] Disabled Disables the input. [aria-invalid=\"true\"] Validation Marks the radios invalid and tints the empty stars. [max] --_max Max Number of stars. [required] Required Requires a star and drops the clear radio. .ui-large .ui-small Sizes The size of the stars.",
+    "api": ".ui-rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. legend Clears the rating. Drawn as a muted icon, left out with `required`. input[value=\"0\"] A star, one per value from `1` to `max`. input[value=\"1\"] The checked and total count, such as `3/5`. Hidden from screen readers. fieldset.ui-rating::after [disabled] Disabled Disables the input. [aria-invalid=\"true\"] Validation Marks the radios invalid and tints the empty stars. [max] --_max Max Number of stars. [required] Required Requires a star and drops the clear radio. .ui-large .ui-small Sizes The size of the element.",
     "category": "API",
     "url": "/html/api/#rating"
   },
@@ -4481,7 +4530,7 @@
     "id": "api-text-field-html",
     "title": "Text Field API",
     "description": "Reference for Text Field HTML component.",
-    "api": ".ui-text-field Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The input element. input Content at the inline-end of the field, inside the border, and the password toggle. .ui-field > .ui-end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. .ui-field > .ui-end > .ui-button Content below the input, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the input to the other. .ui-filled Variants The variant to use.",
+    "api": ".ui-text-field Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The input element. input Content at the inline-end of the field, inside the border, and the password toggle. .ui-field > .ui-end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. .ui-field > .ui-end > .ui-button Content below the input, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. [aria-disabled=\"true\"] [disabled] Disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the input to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#text-field"
   },
@@ -4489,7 +4538,7 @@
     "id": "api-textarea-html",
     "title": "Textarea API",
     "description": "Reference for Textarea HTML component.",
-    "api": "label.ui-textarea Container element. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed textarea area. .ui-field Content above the textarea, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The textarea element. textarea Content at the inline-end of the field, inside the border. .ui-field > .ui-end Content below the textarea, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content and allows resizing in both directions. [disabled] Disabled Dims the field and blocks input. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the textarea to the other. .ui-filled Variants The variant to use.",
+    "api": "label.ui-textarea Container element. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed textarea area. .ui-field Content above the textarea, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The textarea element. textarea Content at the inline-end of the field, inside the border. .ui-field > .ui-end Content below the textarea, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content and allows resizing in both directions. [aria-disabled=\"true\"] [disabled] Disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the textarea to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#textarea"
   },
@@ -4497,7 +4546,7 @@
     "id": "api-timeline-item-html",
     "title": "Timeline Item API",
     "description": "Reference for Timeline Item HTML component.",
-    "api": "li An event. Replaces the dot with an icon. It follows the item's color and the current state. .ui-marker The date, in its own column. time The title of the event. h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. [aria-current] Current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. [datetime] Datetime The machine-readable date of `time`.",
+    "api": "li An event. The date, in its own column. time Replaces the dot with an icon. It follows the item's color and the current state. .ui-marker The title of the event. h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. [aria-current] Current Marks the current item, which fills its marker with the primary color and a halo. `true` renders `aria-current=\"true\"`, and `\"step\"`, `\"date\"` or `\"time\"` that value. [datetime] Datetime The machine-readable date of `time`.",
     "category": "API",
     "url": "/html/api/#timeline-item"
   },
@@ -4521,7 +4570,7 @@
     "id": "api-toggle-button-html",
     "title": "Toggle Button API",
     "description": "Reference for Toggle Button HTML component.",
-    "api": "label.ui-toggle-button Container element. A visually hidden checkbox or radio input. .ui-toggle-button > input [checked] Checked Selects the button. [disabled] Disabled Disables the button. .ui-large .ui-small .ui-x-small Sizes The size of the element. [type=\"checkbox\"] [type=\"radio\"] Type The input type. `\"radio\"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.",
+    "api": "label.ui-toggle-button Container element. A visually hidden checkbox or radio input. .ui-toggle-button > input [checked] Checked Selects the button. [aria-disabled=\"true\"] [disabled] Disabled Dims the button and skips it with Tab and the arrow keys. `aria-disabled=\"true\"` looks the same, but keeps the button focusable and its value in the form, and doesn't stop the change, so block it with a script. .ui-large .ui-small .ui-x-small Sizes The size of the element. [type=\"checkbox\"] [type=\"radio\"] Type The input type. `\"radio\"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.",
     "category": "API",
     "url": "/html/api/#toggle-button"
   },
@@ -4529,7 +4578,7 @@
     "id": "api-toggle-group-html",
     "title": "Toggle Group API",
     "description": "Reference for Toggle Group HTML component.",
-    "api": ".ui-toggle-group Container element. A toggle button. .ui-toggle-group > .ui-toggle-button:first-child [role=\"group\"] Multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the items do when they don't fit. `\"wrap\"` wraps them onto more rows, `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"shrink\"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons.",
+    "api": ".ui-toggle-group Container element. A toggle button. .ui-toggle-group > .ui-toggle-button:first-child [role=\"group\"] Multiple Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role=\"radiogroup\"]`. .ui-vertical Orientation The orientation of the element. .ui-overflow-scroll .ui-overflow-shrink Overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons.",
     "category": "API",
     "url": "/html/api/#toggle-group"
   },

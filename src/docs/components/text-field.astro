@@ -126,6 +126,29 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <AutoExample name="Sizes" row />
   </section>
 
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      Where the context names the field, like a search box in a toolbar or a
+      field in a table cell,
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label and
+      keeps it as the field's accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" />
+    <Conditional as="p">
+      <Fragment slot="components">
+        Without a <code>label</code>, name the input with <code>aria-label</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Without a label, put <code>.ui-text-field</code> on a
+        <code>&lt;div&gt;</code> and name the input with <code>aria-label</code
+        >.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="NoLabel" />
+  </section>
+
   <section id="start-text">
     <h2>Start text</h2>
     <Conditional as="p">
@@ -277,8 +300,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
     <h3 id="top-and-bottom">Top and bottom</h3>
     <p>
-      Use the top for inside-field captions (filenames, categories) and the
-      bottom for counters and hints.
+      Use the top for captions inside the field, like a filename or a category,
+      and the bottom for hints. For a live count, use the
+      <a href="#character-count">character count</a>, which sits in the end
+      text.
     </p>
 
     <AutoExample name="TopAndBottom" column />
@@ -376,10 +401,9 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         <UICalloutContent>
           <h3>Date inputs</h3>
           <div class="ui-rich-text">
-            Date-related inputs never show as empty, so the label is always
-            visible. There are only hacks with compromises and no neat ways of
-            dealing with that issue. You're free to implement a solution of your
-            own here that works with your project.
+            Date and time inputs never look empty: the browser fills them with
+            the format, such as mm/dd/yyyy, and ignores <code>placeholder</code
+            >.
           </div>
         </UICalloutContent>
       </UICallout>
@@ -388,6 +412,16 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h3 id="numeric-vs-input-type-number">
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>type="numeric"</code> renders a text input with
+        <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Give a text input <code>inputmode="numeric"</code> and
+        <code>pattern="[0-9]*"</code>.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Numeric" />
 
@@ -395,29 +429,23 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       <UICallout severity="critical">
         <UICalloutIcon />
         <UICalloutContent>
-          <h3>
-            You most likely don't need <code>&lt;input type="number"&gt;</code>
-          </h3>
+          <h3>Use <code>&lt;input type="number"&gt;</code> only for amounts</h3>
           <div class="ui-rich-text">
             <p>
-              While <code>&lt;input type="number"&gt;</code> may seem logical
-              for numeric data it should only be used when mathematical
-              operations are needed on the input (which is... never). Data like
-              credit card numbers, IDs or social security numbers - are actually
-              text that happen to be numeric rather than mathematical values.
-              Therefore, consider using{" "}
+              <code>&lt;input type="number"&gt;</code> fits an amount you count
+              or step, like a quantity, which the
+              <DocLink href="/components/number-field">Number field</DocLink>
+              covers. Card numbers, IDs and codes are text made of digits: use
               <code
                 >&lt;input type="text" inputmode="numeric"
                 pattern="[0-9]*"&gt;</code
               >
-              instead.
+              for them.
             </p>
 
-            <p><strong>You will have a bad time.</strong></p>
-
             <p>
-              This triggers the numeric keyboard on mobile devices while
-              avoiding the jank of number inputs, such as:
+              It brings up the numeric keyboard on touch screens without the
+              problems of number inputs:
             </p>
 
             <ul>
@@ -425,23 +453,17 @@ export const keywords = ["email", "input", "password", "search", "text box"]
               <li>Browser-specific validation differences</li>
               <li>Accessibility problems</li>
               <li>Removal of leading zeros</li>
-              <li>Allows for some non-numeric mathematical characters</li>
+              <li>Acceptance of non-numeric characters, like <code>e</code></li>
             </ul>
 
             <p>
-              It should probably be called
-              <code>&lt;input type="math"&gt;</code> instead.
-            </p>
-
-            <p>
-              The British Government has a
+              GOV.UK explains these problems in
               <a
                 href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
                 class="ui-link"
-                >great article</a
-              >
-              about how bad input number is and goes in-depth. It's a very
-              interesting read.
+                >Why the GOV.UK Design System team changed the input type for
+                numbers</a
+              >.
             </p>
           </div>
         </UICalloutContent>
@@ -450,8 +472,9 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
     <h3 id="file">File</h3>
     <p>
-      File is a weird one. Should it really be an <code>&lt;input&gt;</code>
-      element? Well, it's what we've got.
+      A <code>type="file"</code> field shows the browser's file button in the
+      field. Use <code>accept</code> to limit the file types and
+      <code>multiple</code> to allow more than one file.
     </p>
 
     <AutoExample name="File" row />
@@ -498,26 +521,6 @@ export const keywords = ["email", "input", "password", "search", "text box"]
         </UICalloutContent>
       </UICallout>
     </div>
-  </section>
-
-  <section id="do-i-have-to-use-label">
-    <h2>Do I have to use <code>&lt;label&gt;</code>?</h2>
-    <p>
-      No. But you get some accessibility wins for free with
-      <code>&lt;label&gt;</code>. It's recommended to label your inputs somehow.
-    </p>
-    <Conditional as="p">
-      <Fragment slot="components">
-        The component renders a <code>&lt;label&gt;</code>, so name the input
-        with <code>aria-label</code> when it has no visible label.
-      </Fragment>
-      <Fragment slot="html">
-        Put <code>.ui-text-field</code> on a <code>&lt;div&gt;</code> and name
-        the input with <code>aria-label</code>.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="NoLabel" />
   </section>
 
   <TextFieldBuild slot="under-the-hood" />

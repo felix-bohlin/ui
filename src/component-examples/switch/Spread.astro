@@ -2,22 +2,24 @@
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch name="switch-spread" spread>
+<Switch name="switch-spread" spread value="notifications">
   Notifications
   <Fragment slot="end-text">Receive alerts when someone mentions you.</Fragment>
 </Switch>
 
-<Switch name="switch-spread" required spread>
-  Required
-  <Fragment slot="end-text">You must accept this to proceed.</Fragment>
+<Switch name="switch-spread" required spread value="two-step-login">
+  Two-step login
+  <Fragment slot="end-text">Your organization requires it for admins.</Fragment>
 </Switch>
 
-<Switch disabled name="switch-spread" spread>
-  Disabled
-  <Fragment slot="end-text">This switch is disabled.</Fragment>
+<Switch disabled name="switch-spread" spread value="location">
+  Location access
+  <Fragment slot="end-text">Turned off by your administrator.</Fragment>
 </Switch>
 
-<Switch error name="switch-spread" spread>
-  Invalid Switch
-  <Fragment slot="end-text">Turn this on to continue.</Fragment>
+<Switch error name="switch-spread" spread value="backup">
+  Cloud backup
+  <Fragment slot="end-text"
+    >Sync needs cloud backup. Turn it on to continue.</Fragment
+  >
 </Switch>

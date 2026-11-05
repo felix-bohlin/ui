@@ -3,5 +3,10 @@ import { Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Range endText="Pick a value below 50." error label="Invalid Range" />
+  <Range
+    endText="Set it to 20 or more to hear alarms."
+    error
+    label="Alarm volume"
+    value="10"
+  />
 </template>

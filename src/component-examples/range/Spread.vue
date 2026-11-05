@@ -3,29 +3,32 @@ import { Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="Spread Layout" spread>
-    <template #start-text>Start text</template>
-    <template #end-text>End text</template>
+  <Range label="Volume" spread>
+    <template #start-text>Media, calls and alerts.</template>
+    <template #end-text>Headphones stay below 85 dB.</template>
   </Range>
 
-  <Range disabled label="Disabled" spread>
-    <template #start-text>Start text</template>
-    <template #end-text>End text</template>
+  <Range disabled label="Microphone" spread>
+    <template #start-text>Set by your organization.</template>
   </Range>
 
-  <Range endText="Pick a value below 50." error label="Invalid Range" spread>
-    <template #start-text>Start text</template>
+  <Range
+    endText="Set it to 20 or more to hear alarms."
+    error
+    label="Alarm volume"
+    spread
+    value="10"
+  >
+    <template #start-text>Rings for alarms and timers.</template>
   </Range>
 
   <Range
     :items="[
-      { value: 0, label: '0%' },
-      { value: 25, label: '25%' },
-      { value: 50, label: '50%' },
-      { value: 75, label: '75%' },
-      { value: 100, label: '100%' },
+      { value: 0, label: 'Left' },
+      { value: 50, label: 'Center' },
+      { value: 100, label: 'Right' },
     ]"
-    label="Tick marks with labels"
+    label="Balance"
     spread
   />
 </template>

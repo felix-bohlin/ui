@@ -87,16 +87,16 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
     <h2>Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>variant</code> to <code>tonal</code> for the primary tint or
-        <code>outlined</code> for the border color with no fill. The default,
+        Set <code>variant</code> to <code>outlined</code> for the border color
+        with no fill or <code>tonal</code> for the primary tint. The default,
         <code>filled</code>, is the primary color. An image avatar has no fill
         in any variant.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-tonal</code> for the primary tint or
-        <code>.ui-outlined</code> for the border color with no fill. Without one
-        the avatar is filled with the primary color. An image avatar has no fill
-        in any variant.
+        Add <code>.ui-outlined</code> for the border color with no fill or
+        <code>.ui-tonal</code> for the primary tint. Without one the avatar is
+        filled with the primary color. An image avatar has no fill in any
+        variant.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" row />
@@ -178,8 +178,8 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 
     <p>
       A <DocLink href="/components/badge">Badge</DocLink> on an avatar in a
-      group sits on the avatar's start side, the part the next avatar doesn't
-      cover.
+      group, like the dot on the last one, sits on the avatar's start side, the
+      part the next avatar doesn't cover.
     </p>
   </section>
 

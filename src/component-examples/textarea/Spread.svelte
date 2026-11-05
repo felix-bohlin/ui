@@ -2,7 +2,7 @@
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea placeholder="Hello, world!" spread>
+<Textarea placeholder="Hi, I have a question about my order." spread>
   {#snippet label()}Message{/snippet}
   {#snippet startText()}You can write your message here. Keep it short,
     preferably under 100 characters.{/snippet}
@@ -14,20 +14,26 @@
   {#snippet endText()}Maximum 500 characters{/snippet}
 </Textarea>
 
-<Textarea label="Required" required spread>
-  {#snippet startText()}You must provide a response{/snippet}
+<Textarea label="Reason for return" required spread>
+  {#snippet startText()}Helps us improve our products{/snippet}
 </Textarea>
 
-<Textarea disabled label="Disabled" spread>
-  {#snippet startText()}This textarea is disabled{/snippet}
+<Textarea disabled label="Order notes" spread>
+  {#snippet startText()}Orders can't change once they ship{/snippet}
 </Textarea>
 
-<Textarea error label="Invalid Message" spread>
-  {#snippet startText()}This textarea has an error{/snippet}
-  {#snippet endText()}This value is too short.{/snippet}
+<Textarea error label="Review" spread value="Great">
+  {#snippet startText()}Shown with your rating{/snippet}
+  {#snippet endText()}Write at least 20 characters.{/snippet}
 </Textarea>
 
-<Textarea label="Bio" placeholder="Tell us about yourself..." spread>
+<Textarea
+  characterCount
+  label="Bio"
+  maxlength={280}
+  placeholder="Tell us about yourself..."
+  spread
+>
   {#snippet startText()}Shown on your public profile{/snippet}
   {#snippet start()}
     <svg
@@ -46,7 +52,6 @@
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
     </svg>
   {/snippet}
-  {#snippet bottom()}280 characters left{/snippet}
 </Textarea>
 
 <Textarea

@@ -33,7 +33,7 @@ export default {
     {
       default: '"rotate"',
       description:
-        "How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open.",
+        "How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker.",
       group: "Marker animation",
       prop: "markerAnimation",
       values: {

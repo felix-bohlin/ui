@@ -32,33 +32,34 @@ export default function Spread() {
       </Select>
 
       <Select
-        label="Required"
+        label="Department"
         required
         spread
-        startText="You must select an option"
+        startText="Routes your request to the right team"
       >
-        <option value="">Select an option</option>
-        <option>Option 1</option>
-        <option>Option 2</option>
+        <option value="">Select a department</option>
+        <option>Billing</option>
+        <option>Support</option>
       </Select>
 
       <Select
         disabled
-        label="Disabled"
+        label="Plan"
         spread
-        startText="This select is disabled"
+        startText="Managed by your organization"
       >
-        <option>Option 1</option>
+        <option>Business</option>
       </Select>
 
       <Select
-        endText="Please select a valid option."
+        endText="This card has expired. Pick another one."
         error
-        label="Invalid Select"
+        label="Payment method"
         spread
-        startText="This select has an error"
+        startText="Charged on the first of each month"
       >
-        <option>Option 1</option>
+        <option>Visa ending in 4242</option>
+        <option>Mastercard ending in 5100</option>
       </Select>
 
       <Select

@@ -97,17 +97,20 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration`, `--
 - `--_ease`: Easing of the card link border transition and the focus ring animation. Defaults to `--ui-ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
+- `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
+- `--_scroll-shadow`: Shadow at the edges of a dialog's or drawer's `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_surface-bg-color`: Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`.
+- `--_title-font-size`: Font size of a dialog's or drawer's title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 - `--_tonal-bg-color`: Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.
 
-Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and `--_shadow`.
+Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor`, `--_duration` and `--_shadow`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-invalid`, `--ui-invalid-text`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-shadow-elevated`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-bg-color`, `--ui-switch-thumb-size`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-bg-color`, `--ui-switch-track-block-size`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-text`, `--ui-text-strong` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-choice-accent`, `--ui-choice-border-color`, `--ui-choice-fill-max-lightness`, `--ui-choice-label-offset`, `--ui-choice-on-accent`, `--ui-choice-ripple-bg-color`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-choice-size-small`, `--ui-choice-size-x-small`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-border-color-on-raised`, `--ui-field-border-width`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-field-required-text-color`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-invalid`, `--ui-invalid-text`, `--ui-letter-spacing-heading`, `--ui-line-height-control`, `--ui-line-height-tight`, `--ui-motion`, `--ui-on-control-accent`, `--ui-on-fill`, `--ui-on-primary`, `--ui-primary`, `--ui-primary-tonal`, `--ui-radius`, `--ui-radius-round`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-state-selected-alpha-accent`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-surface-tonal-hover`, `--ui-switch-thumb-bg-color`, `--ui-switch-thumb-size`, `--ui-switch-thumb-size-large`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size-x-small`, `--ui-switch-track-bg-color`, `--ui-switch-track-block-size`, `--ui-switch-track-block-size-large`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-inline-size`, `--ui-switch-track-inline-size-large`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size-x-small`, `--ui-text`, `--ui-text-strong` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -115,20 +118,39 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 
 ```html
 <label class="ui-switch">
-  <input type="checkbox" role="switch" name="switch-basics" checked />
-  <span class="ui-sr-only">Label</span>
+  <input
+    type="checkbox"
+    role="switch"
+    name="switch-basics"
+    checked
+    value="wifi"
+  />
+  <span class="ui-sr-only">Wi-Fi</span>
 </label>
 <label class="ui-switch">
-  <input type="checkbox" role="switch" name="switch-basics" />
-  <span class="ui-sr-only">Label</span>
+  <input type="checkbox" role="switch" name="switch-basics" value="bluetooth" />
+  <span class="ui-sr-only">Bluetooth</span>
 </label>
 <label class="ui-switch">
-  <input type="checkbox" role="switch" name="switch-basics" checked disabled />
-  <span class="ui-sr-only">Label</span>
+  <input
+    type="checkbox"
+    role="switch"
+    name="switch-basics"
+    checked
+    disabled
+    value="location"
+  />
+  <span class="ui-sr-only">Location</span>
 </label>
 <label class="ui-switch">
-  <input type="checkbox" role="switch" name="switch-basics" disabled />
-  <span class="ui-sr-only">Label</span>
+  <input
+    type="checkbox"
+    role="switch"
+    name="switch-basics"
+    disabled
+    value="airplane-mode"
+  />
+  <span class="ui-sr-only">Airplane mode</span>
 </label>
 ```
 
@@ -145,10 +167,14 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch checked hideLabel name="switch-basics">Label</Switch>
-<Switch hideLabel name="switch-basics">Label</Switch>
-<Switch checked disabled hideLabel name="switch-basics">Label</Switch>
-<Switch disabled hideLabel name="switch-basics">Label</Switch>
+<Switch checked hideLabel name="switch-basics" value="wifi">Wi-Fi</Switch>
+<Switch hideLabel name="switch-basics" value="bluetooth">Bluetooth</Switch>
+<Switch checked disabled hideLabel name="switch-basics" value="location"
+  >Location</Switch
+>
+<Switch disabled hideLabel name="switch-basics" value="airplane-mode"
+  >Airplane mode</Switch
+>
 ```
 
 ## React
@@ -166,17 +192,23 @@ import { Switch } from "opui-css/react"
 export default function Basics() {
   return (
     <>
-      <Switch defaultChecked hideLabel name="switch-basics">
-        Label
+      <Switch defaultChecked hideLabel name="switch-basics" value="wifi">
+        Wi-Fi
       </Switch>
-      <Switch hideLabel name="switch-basics">
-        Label
+      <Switch hideLabel name="switch-basics" value="bluetooth">
+        Bluetooth
       </Switch>
-      <Switch defaultChecked disabled hideLabel name="switch-basics">
-        Label
+      <Switch
+        defaultChecked
+        disabled
+        hideLabel
+        name="switch-basics"
+        value="location"
+      >
+        Location
       </Switch>
-      <Switch disabled hideLabel name="switch-basics">
-        Label
+      <Switch disabled hideLabel name="switch-basics" value="airplane-mode">
+        Airplane mode
       </Switch>
     </>
   )
@@ -197,10 +229,14 @@ export default function Basics() {
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch checked hideLabel name="switch-basics">Label</Switch>
-<Switch hideLabel name="switch-basics">Label</Switch>
-<Switch checked disabled hideLabel name="switch-basics">Label</Switch>
-<Switch disabled hideLabel name="switch-basics">Label</Switch>
+<Switch checked hideLabel name="switch-basics" value="wifi">Wi-Fi</Switch>
+<Switch hideLabel name="switch-basics" value="bluetooth">Bluetooth</Switch>
+<Switch checked disabled hideLabel name="switch-basics" value="location"
+  >Location</Switch
+>
+<Switch disabled hideLabel name="switch-basics" value="airplane-mode"
+  >Airplane mode</Switch
+>
 ```
 
 ## Vue
@@ -218,9 +254,13 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch checked hideLabel name="switch-basics">Label</Switch>
-  <Switch hideLabel name="switch-basics">Label</Switch>
-  <Switch checked disabled hideLabel name="switch-basics">Label</Switch>
-  <Switch disabled hideLabel name="switch-basics">Label</Switch>
+  <Switch checked hideLabel name="switch-basics" value="wifi">Wi-Fi</Switch>
+  <Switch hideLabel name="switch-basics" value="bluetooth">Bluetooth</Switch>
+  <Switch checked disabled hideLabel name="switch-basics" value="location"
+    >Location</Switch
+  >
+  <Switch disabled hideLabel name="switch-basics" value="airplane-mode"
+    >Airplane mode</Switch
+  >
 </template>
 ```

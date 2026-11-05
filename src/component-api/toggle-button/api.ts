@@ -25,14 +25,18 @@ export default {
       prop: "checked",
     },
     {
-      attribute: "[disabled]",
       default: "false",
-      description: "Disables the button.",
+      description:
+        'Dims the button and skips it with Tab and the arrow keys. `aria-disabled="true"` looks the same, but keeps the button focusable and its value in the form, and doesn\'t stop the change, so block it with a script.',
       group: "Disabled",
       inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
+      values: {
+        "aria-disabled": '[aria-disabled="true"]',
+        disabled: "[disabled]",
+      },
     },
     {
       description: "The id of the `<input>`.",

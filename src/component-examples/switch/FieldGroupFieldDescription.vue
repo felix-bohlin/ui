@@ -12,28 +12,28 @@ import {
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldDescription>Field description above fields</FieldDescription>
+      <FieldLegend>Email me about</FieldLegend>
+      <FieldDescription>We send at most one email a week.</FieldDescription>
       <FieldGroup
         name="switch-group-field-description-1"
         orientation="horizontal"
       >
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+        <Switch value="news">Product news</Switch>
+        <Switch value="tips">Tips</Switch>
+        <Switch value="offers">Offers</Switch>
       </FieldGroup>
     </Fieldset>
     <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
+      <FieldLegend>Accessibility</FieldLegend>
       <FieldGroup
         name="switch-group-field-description-2"
         orientation="horizontal"
       >
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+        <Switch value="reduce-motion">Reduce motion</Switch>
+        <Switch value="high-contrast">High contrast</Switch>
+        <Switch value="captions">Captions</Switch>
       </FieldGroup>
-      <FieldDescription>Field description below fields</FieldDescription>
+      <FieldDescription>These apply on this device only.</FieldDescription>
     </Fieldset>
   </Form>
 </template>

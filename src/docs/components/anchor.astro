@@ -19,6 +19,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import anchorApi from "../../component-api/anchor/api"
 import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 
+export const description =
+  "Places floating content next to an element with CSS anchor positioning."
+
 export const keywords = [
   "anchor positioning",
   "floating",
@@ -28,6 +31,7 @@ export const keywords = [
 ---
 
 <Component
+  description={description}
   slug="anchor"
   heroAnatomy
   apis={[{ title: "Anchor API", api: anchorApi }]}
@@ -53,9 +57,10 @@ export const keywords = [
   installationTabs={[{ title: "anchor.css", code: AnchorCSS, lang: "css" }]}
 >
   <Fragment slot="title">Anchor</Fragment>
-  <Fragment slot="preamble"
-    >A structural primitive to enable CSS Anchor Positioning on stuff.</Fragment
-  >
+  <Fragment slot="preamble">
+    Places floating content next to an element with CSS anchor positioning. It
+    is the base of <DocLink href="/components/tooltip">Tooltip</DocLink>.
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">

@@ -5,14 +5,14 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset aria-describedby="radio-field-group-validation-1-error">
-      <FieldLegend>Legend</FieldLegend>
+      <FieldLegend>Color</FieldLegend>
       <FieldGroup name="radio-group-validation" orientation="horizontal">
-        <Radio checked error value="1">Radio 1</Radio>
-        <Radio error value="2">Radio 2</Radio>
-        <Radio error value="3">Radio 3</Radio>
+        <Radio checked error value="black">Black</Radio>
+        <Radio error value="white">White</Radio>
+        <Radio error value="red">Red</Radio>
       </FieldGroup>
       <span class="ui-end-text" id="radio-field-group-validation-1-error"
-        >Radio 1 is sold out, pick another.</span
+        >Black is sold out. Pick another color.</span
       >
     </Fieldset>
   </Form>

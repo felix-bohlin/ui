@@ -143,12 +143,6 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </caption>
   <thead>
     <tr>
-      <th>
-        <label class="ui-checkbox">
-          <input type="checkbox" />
-          <span class="ui-sr-only">Select all</span>
-        </label>
-      </th>
       <th>Band</th>
       <th>Name</th>
       <th>Instrument</th>
@@ -156,55 +150,16 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
   </thead>
   <tbody>
     <tr>
-      <td>
-        <label class="ui-checkbox">
-          <input type="checkbox" />
-          <span class="ui-sr-only">Select James Mercer</span>
-        </label>
-      </td>
-      <td>Broken Bells</td>
-      <td>James Mercer</td>
-      <td>Vocals/Guitar</td>
-    </tr>
-    <tr>
-      <td>
-        <label class="ui-checkbox">
-          <input type="checkbox" />
-          <span class="ui-sr-only">Select Jonathan Davis</span>
-        </label>
-      </td>
       <td>Korn</td>
       <td>Jonathan Davis</td>
       <td>Vocals</td>
     </tr>
     <tr>
-      <td>
-        <label class="ui-checkbox">
-          <input type="checkbox" />
-          <span class="ui-sr-only">Select David Gilmour</span>
-        </label>
-      </td>
-      <td>Pink Floyd</td>
-      <td>David Gilmour</td>
-      <td>Guitar/Vocals</td>
-    </tr>
-    <tr>
-      <td>
-        <label class="ui-checkbox">
-          <input type="checkbox" />
-          <span class="ui-sr-only">Select Ed O'Brien</span>
-        </label>
-      </td>
       <td>Radiohead</td>
       <td>Ed O'Brien</td>
       <td>Guitar/Vocals</td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="4">4 members</td>
-    </tr>
-  </tfoot>
 </table>
 ```
 
@@ -217,12 +172,10 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
 ```astro
 ---
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -233,9 +186,6 @@ import {
   <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
-      <TableHeaderCell>
-        <Checkbox hideLabel>Select all</Checkbox>
-      </TableHeaderCell>
       <TableHeaderCell>Band</TableHeaderCell>
       <TableHeaderCell>Name</TableHeaderCell>
       <TableHeaderCell>Instrument</TableHeaderCell>
@@ -243,43 +193,16 @@ import {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select James Mercer</Checkbox>
-      </TableCell>
-      <TableCell>Broken Bells</TableCell>
-      <TableCell>James Mercer</TableCell>
-      <TableCell>Vocals/Guitar</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
-      </TableCell>
       <TableCell>Korn</TableCell>
       <TableCell>Jonathan Davis</TableCell>
       <TableCell>Vocals</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select David Gilmour</Checkbox>
-      </TableCell>
-      <TableCell>Pink Floyd</TableCell>
-      <TableCell>David Gilmour</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
-      </TableCell>
       <TableCell>Radiohead</TableCell>
       <TableCell>Ed O'Brien</TableCell>
       <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
-  <TableFoot>
-    <TableRow>
-      <TableCell colspan={4}>4 members</TableCell>
-    </TableRow>
-  </TableFoot>
 </Table>
 ```
 
@@ -293,12 +216,10 @@ import {
 
 ```tsx
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -310,9 +231,6 @@ export default function Normal() {
       <TableCaption>Band Members</TableCaption>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>
-            <Checkbox hideLabel>Select all</Checkbox>
-          </TableHeaderCell>
           <TableHeaderCell>Band</TableHeaderCell>
           <TableHeaderCell>Name</TableHeaderCell>
           <TableHeaderCell>Instrument</TableHeaderCell>
@@ -320,43 +238,16 @@ export default function Normal() {
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell>
-            <Checkbox hideLabel>Select James Mercer</Checkbox>
-          </TableCell>
-          <TableCell>Broken Bells</TableCell>
-          <TableCell>James Mercer</TableCell>
-          <TableCell>Vocals/Guitar</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
-          </TableCell>
           <TableCell>Korn</TableCell>
           <TableCell>Jonathan Davis</TableCell>
           <TableCell>Vocals</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>
-            <Checkbox hideLabel>Select David Gilmour</Checkbox>
-          </TableCell>
-          <TableCell>Pink Floyd</TableCell>
-          <TableCell>David Gilmour</TableCell>
-          <TableCell>Guitar/Vocals</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
-          </TableCell>
           <TableCell>Radiohead</TableCell>
           <TableCell>Ed O'Brien</TableCell>
           <TableCell>Guitar/Vocals</TableCell>
         </TableRow>
       </TableBody>
-      <TableFoot>
-        <TableRow>
-          <TableCell colSpan={4}>4 members</TableCell>
-        </TableRow>
-      </TableFoot>
     </Table>
   )
 }
@@ -371,12 +262,10 @@ export default function Normal() {
 ```svelte
 <script lang="ts">
   import {
-    Checkbox,
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFoot,
     TableHead,
     TableHeaderCell,
     TableRow,
@@ -387,9 +276,6 @@ export default function Normal() {
   <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
-      <TableHeaderCell>
-        <Checkbox hideLabel>Select all</Checkbox>
-      </TableHeaderCell>
       <TableHeaderCell>Band</TableHeaderCell>
       <TableHeaderCell>Name</TableHeaderCell>
       <TableHeaderCell>Instrument</TableHeaderCell>
@@ -397,43 +283,16 @@ export default function Normal() {
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select James Mercer</Checkbox>
-      </TableCell>
-      <TableCell>Broken Bells</TableCell>
-      <TableCell>James Mercer</TableCell>
-      <TableCell>Vocals/Guitar</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
-      </TableCell>
       <TableCell>Korn</TableCell>
       <TableCell>Jonathan Davis</TableCell>
       <TableCell>Vocals</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select David Gilmour</Checkbox>
-      </TableCell>
-      <TableCell>Pink Floyd</TableCell>
-      <TableCell>David Gilmour</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
-      </TableCell>
       <TableCell>Radiohead</TableCell>
       <TableCell>Ed O'Brien</TableCell>
       <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
-  <TableFoot>
-    <TableRow>
-      <TableCell colspan={4}>4 members</TableCell>
-    </TableRow>
-  </TableFoot>
 </Table>
 ```
 
@@ -446,12 +305,10 @@ export default function Normal() {
 ```vue
 <script setup lang="ts">
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -463,9 +320,6 @@ import {
     <TableCaption>Band Members</TableCaption>
     <TableHead>
       <TableRow>
-        <TableHeaderCell>
-          <Checkbox hideLabel>Select all</Checkbox>
-        </TableHeaderCell>
         <TableHeaderCell>Band</TableHeaderCell>
         <TableHeaderCell>Name</TableHeaderCell>
         <TableHeaderCell>Instrument</TableHeaderCell>
@@ -473,43 +327,16 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select James Mercer</Checkbox>
-        </TableCell>
-        <TableCell>Broken Bells</TableCell>
-        <TableCell>James Mercer</TableCell>
-        <TableCell>Vocals/Guitar</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
-        </TableCell>
         <TableCell>Korn</TableCell>
         <TableCell>Jonathan Davis</TableCell>
         <TableCell>Vocals</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select David Gilmour</Checkbox>
-        </TableCell>
-        <TableCell>Pink Floyd</TableCell>
-        <TableCell>David Gilmour</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
-        </TableCell>
         <TableCell>Radiohead</TableCell>
         <TableCell>Ed O'Brien</TableCell>
         <TableCell>Guitar/Vocals</TableCell>
       </TableRow>
     </TableBody>
-    <TableFoot>
-      <TableRow>
-        <TableCell :colspan="4">4 members</TableCell>
-      </TableRow>
-    </TableFoot>
   </Table>
 </template>
 ```

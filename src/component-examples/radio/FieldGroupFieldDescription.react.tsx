@@ -11,32 +11,34 @@ export default function FieldGroupFieldDescription() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
-        <FieldDescription>Field description above fields</FieldDescription>
+        <FieldLegend>Contact method</FieldLegend>
+        <FieldDescription>
+          We only contact you about your order.
+        </FieldDescription>
         <FieldGroup
           name="radio-group-field-description-1"
           orientation="horizontal"
         >
-          <Radio defaultChecked value="1">
-            Radio 1
+          <Radio defaultChecked value="email">
+            Email
           </Radio>
-          <Radio value="2">Radio 2</Radio>
-          <Radio value="3">Radio 3</Radio>
+          <Radio value="phone">Phone</Radio>
+          <Radio value="sms">SMS</Radio>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Theme</FieldLegend>
         <FieldGroup
           name="radio-group-field-description-2"
           orientation="horizontal"
         >
-          <Radio defaultChecked value="1">
-            Radio 1
+          <Radio defaultChecked value="system">
+            System
           </Radio>
-          <Radio value="2">Radio 2</Radio>
-          <Radio value="3">Radio 3</Radio>
+          <Radio value="light">Light</Radio>
+          <Radio value="dark">Dark</Radio>
         </FieldGroup>
-        <FieldDescription>Field description below fields</FieldDescription>
+        <FieldDescription>System follows your device setting.</FieldDescription>
       </Fieldset>
     </Form>
   )

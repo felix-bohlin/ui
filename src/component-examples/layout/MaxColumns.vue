@@ -8,13 +8,13 @@ import { Card, CardContent } from "opui-css/vue"
     style="--_max-columns: 2; --_min-inline-size: 10rem"
   >
     <Card variant="outlined">
-      <CardContent>One</CardContent>
+      <CardContent>Backups</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Two</CardContent>
+      <CardContent>Encryption</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Three</CardContent>
+      <CardContent>Single sign-on</CardContent>
     </Card>
   </div>
 </template>

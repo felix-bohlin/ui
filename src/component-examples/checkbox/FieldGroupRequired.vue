@@ -5,11 +5,11 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>These are required!</FieldLegend>
+      <FieldLegend>Agreements</FieldLegend>
       <FieldGroup name="checkbox-group-required" orientation="horizontal">
-        <Checkbox required>Checkbox 1</Checkbox>
-        <Checkbox required>Checkbox 2</Checkbox>
-        <Checkbox required>Checkbox 3</Checkbox>
+        <Checkbox required>Terms of service</Checkbox>
+        <Checkbox required>Privacy policy</Checkbox>
+        <Checkbox required>Data processing</Checkbox>
       </FieldGroup>
     </Fieldset>
   </Form>

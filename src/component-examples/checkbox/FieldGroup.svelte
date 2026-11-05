@@ -10,11 +10,11 @@
 
 <Form>
   <Fieldset>
-    <FieldLegend>Legend</FieldLegend>
+    <FieldLegend>Notifications</FieldLegend>
     <FieldGroup name="checkbox-group">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox checked>Email</Checkbox>
+      <Checkbox>Push</Checkbox>
+      <Checkbox>SMS</Checkbox>
     </FieldGroup>
   </Fieldset>
 </Form>

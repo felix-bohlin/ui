@@ -257,6 +257,16 @@ export const keywords = ["activity", "feed", "history"]
       above the titles and the date column closes. It responds to its own width,
       so it works in sidebars and cards too.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Under a heading of its own, like a card title, set
+        <code>headingLevel</code> to the next level.</Fragment
+      >
+      <Fragment slot="html"
+        >Under a heading of its own, like a card title, give the items the next
+        heading level.</Fragment
+      >
+    </Conditional>
 
     <AutoExample name="Narrow" />
   </section>

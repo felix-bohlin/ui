@@ -8,9 +8,9 @@ export default function InputTypes() {
         <TextField label="Email" placeholder="name@email.com" type="email" />
         <TextField label="Password" placeholder="Password" type="password" />
         <TextField label="Search" placeholder="Search" type="search" />
-        <TextField label="Phone" placeholder="(666) 666-1337" type="tel" />
+        <TextField label="Phone" placeholder="(555) 010-0100" type="tel" />
         <TextField label="Text" placeholder="Text" type="text" />
-        <TextField label="URL" placeholder="https://yoursite.com" type="url" />
+        <TextField label="URL" placeholder="https://example.com" type="url" />
       </div>
 
       <div className="example-column">

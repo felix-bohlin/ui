@@ -4,19 +4,19 @@ import { Checkbox } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Checkbox name="checkbox-validation" required>Default</Checkbox>
+    <Checkbox name="checkbox-validation" required>I accept the terms</Checkbox>
     <Checkbox name="checkbox-validation" orientation="vertical" required
-      >Stack</Checkbox
+      >I am 18 or older</Checkbox
     >
   </div>
   <div class="example-row">
     <Checkbox checked error name="checkbox-validation">
-      Default
-      <template #end-text>Check yourself</template>
+      Daily backups
+      <template #end-text>Not available on the free plan.</template>
     </Checkbox>
     <Checkbox error name="checkbox-validation" orientation="vertical">
-      Stack
-      <template #end-text>Before you wreck yourself</template>
+      I accept the terms
+      <template #end-text>Accept the terms to continue.</template>
     </Checkbox>
   </div>
 </template>

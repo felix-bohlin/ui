@@ -5,7 +5,7 @@ export default function Spread() {
     <div className="ui-layout-row ui-spread">
       <hgroup className="ui-hgroup">
         <p>Projects</p>
-        <h2 className="ui-h4">Website relaunch</h2>
+        <h3 className="ui-h4">Website relaunch</h3>
       </hgroup>
       <div className="ui-layout-row ui-small">
         <Button variant="outlined">Share</Button>

@@ -5,15 +5,15 @@ import { List, ListItem, RadioInput } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="radio">
-      <template #label>Radio 1</template>
+      <template #label>Dark mode</template>
       <template #end>
-        <RadioInput name="radio-example-group" value="1" />
+        <RadioInput name="theme" value="dark" />
       </template>
     </ListItem>
     <ListItem type="radio">
-      <template #label>Radio 2</template>
+      <template #label>Light mode</template>
       <template #end>
-        <RadioInput name="radio-example-group" value="2" />
+        <RadioInput name="theme" value="light" />
       </template>
     </ListItem>
   </List>

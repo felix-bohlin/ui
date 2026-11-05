@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem label="I need borders" />
-  <ListItem label="Help" />
-  <ListItem borderTop label="Thanks" />
+  <ListItem label="Account" />
+  <ListItem label="Settings" />
+  <ListItem borderTop label="Sign out" />
 </List>

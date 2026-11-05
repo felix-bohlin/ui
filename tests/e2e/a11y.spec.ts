@@ -31,7 +31,7 @@ const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
 
 const OPENED: Record<string, string[]> = {
   dialog: ["dialog-alert-dialog-1", "dialog-long-content-1"],
-  drawer: ["drawer-close-behaviors-1"],
+  drawer: ["drawer-basics-2", "drawer-close-behaviors-1"],
 }
 
 for (const component of TARGETS) {

@@ -7,10 +7,10 @@ export default function Stretch() {
       style={{ "--_min-inline-size": "10rem" }}
     >
       <Card variant="outlined">
-        <CardContent>One</CardContent>
+        <CardContent>Orders: 128</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Two</CardContent>
+        <CardContent>Returns: 12</CardContent>
       </Card>
     </div>
   )

@@ -10,8 +10,10 @@ export default function TopAndBottom() {
       />
 
       <TextField
-        bottom="0 / 80"
+        bottom="Plain text, no links"
+        characterCount
         label="Tagline"
+        maxLength={80}
         placeholder="A short description"
       />
     </>

@@ -7,6 +7,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import { NumberField as UINumberField } from "opui-css/astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
@@ -240,6 +241,22 @@ export const keywords = ["counter", "quantity", "spin button", "stepper"]
       <code>aria-disabled="true"</code>.
     </p>
     <AutoExample name="Disabled" />
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <ValidationNotes element="input" subject="Fields" />
+    <AutoExample name="Validation" row />
+  </section>
+
+  <section id="spread">
+    <h2>Spread</h2>
+    <p>
+      Use <PropOrClass prop="spread" class=".ui-spread" /> to put the label and
+      start text on one side and the field on the other. The layout collapses to
+      a column on narrow containers.
+    </p>
+    <AutoExample name="Spread" column />
   </section>
 
   <Fragment slot="accessibility">

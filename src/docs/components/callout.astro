@@ -161,9 +161,9 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <h2>Icon</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
-        <code>success</code>, <code>warning</code> and <code>critical</code>.
-        For a custom icon, put your own
+        <code>CalloutIcon</code> renders the default icon for
+        <code>critical</code>, <code>info</code>, <code>success</code> and
+        <code>warning</code>. For a custom icon, put your own
         <code>&lt;svg aria-hidden="true"&gt;</code> in the <code>Callout</code>
         instead, before <code>CalloutContent</code>.
       </Fragment>
@@ -190,6 +190,14 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
         <a href="#severities">severities</a>. The icon is hidden from screen
         readers, so say the severity in the text, for example with a title like
         Warning.
+      </li>
+      <li>
+        A callout that appears after an action isn't announced on its own. Put a
+        message after saving in an element with <code>role="status"</code> that
+        is on the page before the message, as the
+        <DocLink href="/components/toast">Toaster</DocLink> does. Give an error
+        summary <code>tabindex="-1"</code> and move focus to it, so it's read
+        right away.
       </li>
     </ul>
   </Fragment>

@@ -143,24 +143,15 @@ export const keywords = ["check", "tick"]
   <section id="visible-label">
     <h2>Visible label</h2>
     <Conditional as="p">
-      <Fragment slot="components"
-        >The default slot is the label. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
-      >
-      <Fragment slot="html"
-        >Render the label text inside an element with a <code>.ui-label</code>
-        class. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
-      >
-      <Fragment slot="react"
-        ><code>children</code> is the label. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
-      >
-      <Fragment slot="svelte"
-        >The <code>children</code> snippet is the label. Also, don't miss the
-        info on label <a href="#accessibility" class="ui-link">accessibility</a
-        >.</Fragment
-      >
+      <Fragment slot="components">The default slot is the label.</Fragment>
+      <Fragment slot="html">
+        Render the label text inside an element with a <code>.ui-label</code>
+        class.
+      </Fragment>
+      <Fragment slot="react"><code>children</code> is the label.</Fragment>
+      <Fragment slot="svelte">
+        The <code>children</code> snippet is the label.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
@@ -179,6 +170,10 @@ export const keywords = ["check", "tick"]
       </Fragment>
     </Conditional>
     <AutoExample name="HiddenLabel" column centered />
+    <p>
+      In a line of text, make the words next to the checkbox its label, so
+      clicking them checks it, like email and SMS above.
+    </p>
 
     <h3 id="label-position">Label position</h3>
     <p>
@@ -283,6 +278,8 @@ export const keywords = ["check", "tick"]
       </div>
     </Conditional>
 
+    <AutoExample name="IndeterminateBasics" row />
+
     <h3 id="select-all">Select all</h3>
     <Conditional as="p">
       <Fragment slot="components">
@@ -291,8 +288,9 @@ export const keywords = ["check", "tick"]
         Checking it checks the other enabled checkboxes inside, and it's checked
         when they all are and indeterminate when some are, also after a form
         reset. It works around a <code>Fieldset</code> or a
-        <DocLink href="/components/table">Table</DocLink>, and it fires each
-        checkbox's own change, so your handlers and bindings follow.
+        <DocLink href="/components/table">Table</DocLink>, like the one in
+        <a href="#hidden-label">Hidden label</a>, and it fires each checkbox's
+        own change, so your handlers and bindings follow.
       </Fragment>
       <Fragment slot="html">
         Wrap the group in
@@ -301,8 +299,9 @@ export const keywords = ["check", "tick"]
         <code>opui-css/elements/select-all.js</code>. Checking it checks the
         other enabled checkboxes inside, and it's checked when they all are and
         indeterminate when some are, also after a form reset. It works around a
-        fieldset or a <DocLink href="/components/table">table</DocLink>, and it
-        fires each checkbox's own <code>change</code> event.
+        fieldset or a <DocLink href="/components/table">table</DocLink>, like
+        the one in <a href="#hidden-label">Hidden label</a>, and it fires each
+        checkbox's own <code>change</code> event.
       </Fragment>
     </Conditional>
     <AutoExample name="Indeterminate" column centered spacious />

@@ -26,24 +26,25 @@
 </Select>
 
 <Select required spread>
-  {#snippet label()}Required{/snippet}
-  {#snippet startText()}You must select an option{/snippet}
-  <option value="">Select an option</option>
-  <option>Option 1</option>
-  <option>Option 2</option>
+  {#snippet label()}Department{/snippet}
+  {#snippet startText()}Routes your request to the right team{/snippet}
+  <option value="">Select a department</option>
+  <option>Billing</option>
+  <option>Support</option>
 </Select>
 
 <Select disabled spread>
-  {#snippet label()}Disabled{/snippet}
-  {#snippet startText()}This select is disabled{/snippet}
-  <option>Option 1</option>
+  {#snippet label()}Plan{/snippet}
+  {#snippet startText()}Managed by your organization{/snippet}
+  <option>Business</option>
 </Select>
 
 <Select error spread>
-  {#snippet label()}Invalid Select{/snippet}
-  {#snippet startText()}This select has an error{/snippet}
-  {#snippet endText()}Please select a valid option.{/snippet}
-  <option>Option 1</option>
+  {#snippet label()}Payment method{/snippet}
+  {#snippet startText()}Charged on the first of each month{/snippet}
+  {#snippet endText()}This card has expired. Pick another one.{/snippet}
+  <option>Visa ending in 4242</option>
+  <option>Mastercard ending in 5100</option>
 </Select>
 
 <Select spread>

@@ -25,20 +25,20 @@ export default function KitchenSink() {
   return (
     <Form id="form-kitchen-sink-1">
       <Fieldset>
-        <FieldLegend>User Profile</FieldLegend>
+        <FieldLegend>User profile</FieldLegend>
         <FieldDescription>
           Please provide your basic contact details.
         </FieldDescription>
         <FieldGroup>
           <TextField
             autoComplete="name"
-            label="Full Name"
+            label="Full name"
             placeholder="Jane Doe"
             required
           />
           <TextField
             autoComplete="email"
-            label="Email Address"
+            label="Email address"
             placeholder="jane@example.com"
             required
             type="email"
@@ -54,33 +54,33 @@ export default function KitchenSink() {
         </FieldDescription>
         <FieldGroup>
           <Switch defaultChecked name="email_notifs">
-            Email Notifications
+            Email notifications
           </Switch>
-          <Switch name="sms_notifs">SMS Notifications</Switch>
+          <Switch name="sms_notifs">SMS notifications</Switch>
         </FieldGroup>
       </Fieldset>
       <Divider />
       <Fieldset>
-        <FieldLegend>Theme Preference</FieldLegend>
+        <FieldLegend>Theme preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
           <Radio defaultChecked value="light">
-            Light Theme
+            Light theme
           </Radio>
-          <Radio value="dark">Dark Theme</Radio>
-          <Radio value="system">System Default</Radio>
+          <Radio value="dark">Dark theme</Radio>
+          <Radio value="system">System default</Radio>
         </FieldGroup>
       </Fieldset>
       <Divider />
       <Fieldset>
-        <FieldLegend>Experience Level</FieldLegend>
+        <FieldLegend>Experience level</FieldLegend>
         <FieldDescription>
           How many years of experience do you have?
         </FieldDescription>
         <FieldGroup>
           <Range
             defaultValue="5"
-            label="Professional Experience"
+            label="Professional experience"
             max="20"
             min="0"
             startText="Drag the slider to match your total tenure."
@@ -90,7 +90,7 @@ export default function KitchenSink() {
       </Fieldset>
       <Divider />
       <Fieldset>
-        <FieldLegend>Additional Info</FieldLegend>
+        <FieldLegend>Additional info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
         <FieldGroup>
           <Textarea
@@ -105,7 +105,11 @@ export default function KitchenSink() {
       <Fieldset>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
-          <Checkbox endText="Support this text" name="terms" required>
+          <Checkbox
+            endText="You can withdraw your consent at any time."
+            name="terms"
+            required
+          >
             I agree to the terms and conditions
           </Checkbox>
         </FieldGroup>

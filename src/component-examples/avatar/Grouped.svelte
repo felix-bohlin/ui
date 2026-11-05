@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Avatar, AvatarGroup } from "opui-css/svelte"
+  import { Avatar, AvatarGroup, Badge } from "opui-css/svelte"
 </script>
 
 <AvatarGroup aria-label="Team">
@@ -9,4 +9,7 @@
   <Avatar aria-label="Gustav Holm" as="button">GH</Avatar>
   <Avatar aria-label="Ida Jansson" href="#">IJ</Avatar>
   <Avatar aria-label="Karl Lund" href="#">KL</Avatar>
+  <Badge dot label="Online">
+    <Avatar aria-label="Maja Nilsson" href="#">MN</Avatar>
+  </Badge>
 </AvatarGroup>

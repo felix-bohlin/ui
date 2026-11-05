@@ -36,7 +36,7 @@ export default function Corners() {
           ></path>
         </svg>
       </Badge>
-      <Badge corner="end-start" hideLabel indicator="OK!" label="Inbox synced">
+      <Badge corner="end-start" hideLabel indicator="New" label="New messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

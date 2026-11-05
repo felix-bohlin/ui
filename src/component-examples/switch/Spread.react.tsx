@@ -7,35 +7,39 @@ export default function Spread() {
         endText="Receive alerts when someone mentions you."
         name="switch-spread"
         spread
+        value="notifications"
       >
         Notifications
       </Switch>
 
       <Switch
-        endText="You must accept this to proceed."
+        endText="Your organization requires it for admins."
         name="switch-spread"
         required
         spread
+        value="two-step-login"
       >
-        Required
+        Two-step login
       </Switch>
 
       <Switch
         disabled
-        endText="This switch is disabled."
+        endText="Turned off by your administrator."
         name="switch-spread"
         spread
+        value="location"
       >
-        Disabled
+        Location access
       </Switch>
 
       <Switch
-        endText="Turn this on to continue."
+        endText="Sync needs cloud backup. Turn it on to continue."
         error
         name="switch-spread"
         spread
+        value="backup"
       >
-        Invalid Switch
+        Cloud backup
       </Switch>
     </>
   )

@@ -10,7 +10,7 @@ Avatars show a person or entity as an image, initials or icon.
 ### Parts
 
 - `.ui-avatar` (root): Container element.
-- `<img>` (prop `src`, prop `alt`): The avatar image.
+- `<img>` (prop `alt`, prop `src`): The avatar image.
 
 ### Props and modifiers
 
@@ -22,7 +22,7 @@ Avatars show a person or entity as an image, initials or icon.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the element.
 - `src`: `string`. The image source. Replaces the content.
 - State (HTML): `button` (`button[disabled]`), `link` (`a[aria-disabled="true"]`). Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.
-- `variant`: `"filled"` (default), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`). The variant to use. `filled` is the primary color, `tonal` its tint and `outlined` the border color with no fill.
+- `variant`: `"filled"` (default), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`). The variant to use. `filled` is the primary color, `outlined` the border color with no fill and `tonal` the primary tint.
 
 ### Slots
 
@@ -33,6 +33,11 @@ Avatars show a person or entity as an image, initials or icon.
 ### Parts
 
 - `.ui-avatar-group` (root): A group of overlapping avatars.
+
+### Props and modifiers
+
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The types require it, or `aria-labelledby`.
+- `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
 
 ### Slots
 

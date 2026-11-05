@@ -3,7 +3,7 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField placeholder="Evil Rabbit" spread>
+  <TextField placeholder="Ada Lovelace" spread>
     <template #label>Name</template>
     <template #start-text>Provide your full name for identification</template>
   </TextField>
@@ -14,16 +14,16 @@ import { TextField } from "opui-css/vue"
     <template #end-text>Please use a valid email address</template>
   </TextField>
 
-  <TextField label="Required" required spread>
-    <template #start-text>You must fill this in</template>
+  <TextField label="Company" required spread>
+    <template #start-text>Shown on your invoices</template>
   </TextField>
 
-  <TextField disabled label="Disabled" spread>
-    <template #start-text>This field is disabled</template>
+  <TextField disabled label="Account ID" spread value="ACC-20931">
+    <template #start-text>Assigned when you signed up</template>
   </TextField>
 
-  <TextField error label="Invalid Name" spread>
-    <template #start-text>This field has an error</template>
+  <TextField error label="Display name" spread value="A">
+    <template #start-text>Shown next to your comments</template>
     <template #end-text>Enter at least two characters.</template>
   </TextField>
 

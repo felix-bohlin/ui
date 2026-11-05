@@ -7,13 +7,13 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Component | File | Description |
 | --- | --- | --- |
 | Accordion | `accordion.md` | Lets you show and hide content, on its own or as a group. |
-| Anchor | `anchor.md` | A structural primitive to enable CSS Anchor Positioning on stuff. |
+| Anchor | `anchor.md` | Places floating content next to an element with CSS anchor positioning. |
 | Avatar | `avatar.md` | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
 | Button | `button.md` | Buttons allow users to take actions with a single tap. |
 | Button group | `button-group.md` | Groups related buttons by wrapping them with class="ui-button-group" and role="group". |
 | Callout | `callout.md` | Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task. |
-| Card | `card.md` | The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more. |
+| Card | `card.md` | A surface for related content and actions, on its own or as the base of accordions, dialogs and more. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group. |
 | Chip | `chip.md` | Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button. |
@@ -45,7 +45,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Timeline | `timeline.md` | A list of dated events with markers and a connecting line. |
 | Toast | `toast.md` | Short messages that confirm an action and dismiss themselves. |
 | Toggle | `toggle.md` | Toggle buttons and toggle groups switch options on and off, alone or as a set. |
-| Tooltip | `tooltip.md` | Built on top of Anchor. |
+| Tooltip | `tooltip.md` | A short label or hint for a control, shown on hover, focus or a long press. |
 | Typography | `typography.md` | Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text. |
 
 Components documented on another component's page:

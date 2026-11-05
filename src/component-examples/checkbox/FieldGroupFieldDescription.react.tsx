@@ -11,28 +11,30 @@ export default function FieldGroupFieldDescription() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
-        <FieldDescription>Field description above fields</FieldDescription>
+        <FieldLegend>Notifications</FieldLegend>
+        <FieldDescription>How we reach you about your orders.</FieldDescription>
         <FieldGroup
           name="checkbox-group-field-description-1"
           orientation="horizontal"
         >
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox defaultChecked>Email</Checkbox>
+          <Checkbox>Push</Checkbox>
+          <Checkbox>SMS</Checkbox>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Newsletter topics</FieldLegend>
         <FieldGroup
           name="checkbox-group-field-description-2"
           orientation="horizontal"
         >
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox defaultChecked>Product updates</Checkbox>
+          <Checkbox>Events</Checkbox>
+          <Checkbox>Offers</Checkbox>
         </FieldGroup>
-        <FieldDescription>Field description below fields</FieldDescription>
+        <FieldDescription>
+          Change these at any time in your account.
+        </FieldDescription>
       </Fieldset>
     </Form>
   )

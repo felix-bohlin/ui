@@ -3,29 +3,28 @@ import { TextField } from "opui-css/astro"
 ---
 
 <div class="example-row">
-  <TextField label="I'm required" placeholder="Placeholder" required />
+  <TextField label="Full name" placeholder="Ada Lovelace" required />
   <TextField
-    label="So am I!"
-    placeholder="Placeholder"
+    label="Email"
+    placeholder="name@example.com"
     required
+    type="email"
     variant="filled"
   />
 </div>
 
 <div class="example-row">
   <TextField
-    endText="Only double-negatives are allowed."
+    endText="This username is taken. Try another one."
     error
-    label="Label"
-    placeholder="Placeholder"
-    value="This isn't right"
+    label="Username"
+    value="ada"
   />
   <TextField
-    endText="Only letters from the first half of the alphabet are allowed."
+    endText="This code has expired."
     error
-    label="Label"
-    placeholder="Placeholder"
-    value="Uh-oh"
+    label="Discount code"
+    value="SPRING23"
     variant="filled"
   />
 </div>

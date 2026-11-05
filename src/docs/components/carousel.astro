@@ -355,12 +355,7 @@ const translation = `.ui-carousel:lang(sv) {
         </UISwitch>)}
       </div>
       <div class="carousel-playground" data-carousel-playground>
-        <ul
-          aria-label="Photos"
-          class="ui-carousel"
-          data-content="images"
-          style="--_block-size: 20rem"
-        >
+        <ul aria-label="Photos" class="ui-carousel" data-content="images">
           {photos.map((photo) => <li>
             <img
               alt={photo.alt}
@@ -376,11 +371,10 @@ const translation = `.ui-carousel:lang(sv) {
           class="ui-carousel"
           data-content="cards"
           hidden
-          style="--_block-size: 20rem"
         >
           {destinations.map((destination) => <li>
             <div class="ui-card ui-tonal">
-              <hgroup>
+              <hgroup class="ui-header">
                 <p>Destination</p>
                 <h3>{destination.title}</h3>
                 <p>{destination.text}</p>
@@ -577,6 +571,10 @@ const translation = `.ui-carousel:lang(sv) {
           String(state.itemsPerView),
         )
         carousel.style.setProperty("--_media-aspect-ratio", state.aspectRatio)
+        carousel.style.setProperty(
+          "--_block-size",
+          state.orientation ? "20rem" : "",
+        )
       }
 
       const label = state.content === "images" ? "Photos" : "Destinations"

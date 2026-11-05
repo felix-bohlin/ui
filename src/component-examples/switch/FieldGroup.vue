@@ -5,11 +5,11 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
 <template>
   <Form>
     <Fieldset>
-      <FieldLegend>Legend</FieldLegend>
+      <FieldLegend>Notifications</FieldLegend>
       <FieldGroup name="switch-group">
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+        <Switch value="email">Email</Switch>
+        <Switch value="push">Push</Switch>
+        <Switch value="sms">SMS</Switch>
       </FieldGroup>
     </Fieldset>
   </Form>

@@ -9,9 +9,9 @@ A button that copies text or a field's value to the clipboard.
 
 ### Parts
 
-- `opui-copy.ui-copy` (root): The `<opui-copy>` custom element, with `display: contents`. A button with `command="--copy"` copies the value of its first `input` or `textarea`, or else its text without buttons, popovers and elements with `data-copy-ignore`. Without the Clipboard API, or when it refuses or takes longer than a second, it copies through a selection, and where that is blocked too it selects the text instead.
+- `opui-copy.ui-copy` (root): The `<opui-copy>` custom element around the text or field to copy, with `display: contents`.
 - `<span role="status">`: The live region that announces the copy, visually hidden with `.ui-sr-only`.
-- `<span popover>` (prop `copiedLabel`, prop `failedLabel`): The label next to the button, in the look of an outlined button at the button's height. It shows `copiedLabel` for two seconds, or `failedLabel` until Esc, a click elsewhere or the next copy.
+- `<span popover>` (prop `copiedLabel`, prop `failedLabel`): The label next to the button that shows `copiedLabel` or `failedLabel`.
 
 ### Props and modifiers
 

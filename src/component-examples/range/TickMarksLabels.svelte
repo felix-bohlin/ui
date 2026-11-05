@@ -10,7 +10,7 @@
     { value: 75, label: "75%" },
     { value: 100, label: "100%" },
   ]}
-  label="Tick marks with labels"
+  label="Opacity"
 />
 <Range label="Quality" max="2">
   {#snippet datalist()}

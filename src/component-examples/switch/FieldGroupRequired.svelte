@@ -10,11 +10,11 @@
 
 <Form>
   <Fieldset>
-    <FieldLegend>These are required!</FieldLegend>
+    <FieldLegend>Admin security</FieldLegend>
     <FieldGroup name="switch-group-required" orientation="horizontal">
-      <Switch required>Switch 1</Switch>
-      <Switch required>Switch 2</Switch>
-      <Switch required>Switch 3</Switch>
+      <Switch required value="two-step-login">Two-step login</Switch>
+      <Switch required value="login-alerts">Login alerts</Switch>
+      <Switch required value="auto-lock">Auto-lock</Switch>
     </FieldGroup>
   </Fieldset>
 </Form>

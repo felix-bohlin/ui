@@ -21,16 +21,12 @@ export default function CustomMarker() {
           </svg>
         }
       >
-        Custom marker
+        How do I get started?
       </AccordionSummary>
       <AccordionContent>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-          Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-          Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-          dolor.
+          Create a project, invite your team and connect your first data source.
+          Each step takes about a minute.
         </p>
       </AccordionContent>
     </Accordion>

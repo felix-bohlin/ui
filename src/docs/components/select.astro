@@ -155,6 +155,16 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <AutoExample name="EndText" row spacious />
   </section>
 
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      Where the context names the field, like a sort order above a list,
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label and
+      keeps it as the field's accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" row spacious />
+  </section>
+
   <section id="affix">
     <h2>Affix</h2>
     <Conditional as="p">
@@ -300,6 +310,21 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
       <code>label</code> {" "}in their own picker.
     </p>
     <AutoExample name="GroupedOptgroup" row spacious />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>disabled</code> to dim the select and block it. A disabled
+        select isn't submitted with its form.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>disabled</code> to the <code>&lt;select&gt;</code> to dim it
+        and block it. A disabled select isn't submitted with its form.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" row spacious />
   </section>
 
   <section id="validation">

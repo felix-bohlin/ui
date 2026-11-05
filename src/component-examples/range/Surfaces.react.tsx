@@ -3,30 +3,9 @@ import { Range } from "opui-css/react"
 export default function Surfaces() {
   return (
     <>
-      <Range
-        label={
-          <>
-            <code>outlined</code> (default) ={" "}
-            <code>var(--ui-field-border-color)</code>
-          </>
-        }
-      />
-      <Range
-        label={
-          <>
-            <code>filled</code> = <code>var(--ui-surface-filled)</code>
-          </>
-        }
-        variant="filled"
-      />
-      <Range
-        label={
-          <>
-            <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
-          </>
-        }
-        variant="tonal"
-      />
+      <Range defaultValue="30" label="Volume" />
+      <Range defaultValue="70" label="Brightness" variant="filled" />
+      <Range defaultValue="50" label="Contrast" variant="tonal" />
     </>
   )
 }

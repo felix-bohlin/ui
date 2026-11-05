@@ -9,22 +9,14 @@
 <Accordion markerAnimation="flip" variant="outlined">
   <AccordionSummary>Flip</AccordionSummary>
   <AccordionContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <p>Return any item within 30 days for a full refund.</p>
   </AccordionContent>
 </Accordion>
 
 <Accordion markerAnimation="rotate" variant="outlined">
   <AccordionSummary>Rotate</AccordionSummary>
   <AccordionContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <p>Orders over 50 EUR ship free within the EU.</p>
   </AccordionContent>
 </Accordion>
 
@@ -48,10 +40,6 @@
     {/snippet}
   </AccordionSummary>
   <AccordionContent>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo.
-    </p>
+    <p>Pay by card, bank transfer or invoice.</p>
   </AccordionContent>
 </Accordion>

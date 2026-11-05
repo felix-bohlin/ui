@@ -57,13 +57,13 @@ The stylesheets read `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space
 ```html
 <div class="ui-layout-column">
   <div class="ui-card ui-outlined">
-    <div class="ui-content">First</div>
+    <div class="ui-content">Review the pricing page</div>
   </div>
   <div class="ui-card ui-outlined">
-    <div class="ui-content">Second</div>
+    <div class="ui-content">Update the onboarding emails</div>
   </div>
   <div class="ui-card ui-outlined">
-    <div class="ui-content">Third</div>
+    <div class="ui-content">Write the release notes</div>
   </div>
 </div>
 ```
@@ -81,13 +81,13 @@ import { Card, CardContent } from "opui-css/astro"
 
 <div class="ui-layout-column">
   <Card variant="outlined">
-    <CardContent>First</CardContent>
+    <CardContent>Review the pricing page</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Second</CardContent>
+    <CardContent>Update the onboarding emails</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Third</CardContent>
+    <CardContent>Write the release notes</CardContent>
   </Card>
 </div>
 ```
@@ -105,13 +105,13 @@ export default function Column() {
   return (
     <div className="ui-layout-column">
       <Card variant="outlined">
-        <CardContent>First</CardContent>
+        <CardContent>Review the pricing page</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Second</CardContent>
+        <CardContent>Update the onboarding emails</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Third</CardContent>
+        <CardContent>Write the release notes</CardContent>
       </Card>
     </div>
   )
@@ -131,13 +131,13 @@ There is no Svelte component. Use the classes in your markup.
 
 <div class="ui-layout-column">
   <Card variant="outlined">
-    <CardContent>First</CardContent>
+    <CardContent>Review the pricing page</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Second</CardContent>
+    <CardContent>Update the onboarding emails</CardContent>
   </Card>
   <Card variant="outlined">
-    <CardContent>Third</CardContent>
+    <CardContent>Write the release notes</CardContent>
   </Card>
 </div>
 ```
@@ -156,13 +156,13 @@ import { Card, CardContent } from "opui-css/vue"
 <template>
   <div class="ui-layout-column">
     <Card variant="outlined">
-      <CardContent>First</CardContent>
+      <CardContent>Review the pricing page</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Second</CardContent>
+      <CardContent>Update the onboarding emails</CardContent>
     </Card>
     <Card variant="outlined">
-      <CardContent>Third</CardContent>
+      <CardContent>Write the release notes</CardContent>
     </Card>
   </div>
 </template>

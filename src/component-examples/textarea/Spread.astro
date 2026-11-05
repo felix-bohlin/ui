@@ -2,7 +2,7 @@
 import { Textarea } from "opui-css/astro"
 ---
 
-<Textarea placeholder="Hello, world!" spread>
+<Textarea placeholder="Hi, I have a question about my order." spread>
   <Fragment slot="label">Message</Fragment>
   <Fragment slot="start-text"
     >You can write your message here. Keep it short, preferably under 100
@@ -16,20 +16,26 @@ import { Textarea } from "opui-css/astro"
   <Fragment slot="end-text">Maximum 500 characters</Fragment>
 </Textarea>
 
-<Textarea label="Required" required spread>
-  <Fragment slot="start-text">You must provide a response</Fragment>
+<Textarea label="Reason for return" required spread>
+  <Fragment slot="start-text">Helps us improve our products</Fragment>
 </Textarea>
 
-<Textarea disabled label="Disabled" spread>
-  <Fragment slot="start-text">This textarea is disabled</Fragment>
+<Textarea disabled label="Order notes" spread>
+  <Fragment slot="start-text">Orders can't change once they ship</Fragment>
 </Textarea>
 
-<Textarea error label="Invalid Message" spread>
-  <Fragment slot="start-text">This textarea has an error</Fragment>
-  <Fragment slot="end-text">This value is too short.</Fragment>
+<Textarea error label="Review" spread value="Great">
+  <Fragment slot="start-text">Shown with your rating</Fragment>
+  <Fragment slot="end-text">Write at least 20 characters.</Fragment>
 </Textarea>
 
-<Textarea label="Bio" placeholder="Tell us about yourself..." spread>
+<Textarea
+  characterCount
+  label="Bio"
+  maxlength={280}
+  placeholder="Tell us about yourself..."
+  spread
+>
   <Fragment slot="start-text">Shown on your public profile</Fragment>
   <Fragment slot="start">
     <svg
@@ -49,7 +55,6 @@ import { Textarea } from "opui-css/astro"
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
     </svg>
   </Fragment>
-  <Fragment slot="bottom">280 characters left</Fragment>
 </Textarea>
 
 <Textarea

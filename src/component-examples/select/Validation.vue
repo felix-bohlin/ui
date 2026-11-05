@@ -4,32 +4,41 @@ import { Select } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Select label="Label" required>
+    <Select label="Country" required>
       <option value="">-</option>
-      <option>Pick me!</option>
-      <option>No me!!</option>
-      <option>Come on!</option>
+      <option>Denmark</option>
+      <option>Norway</option>
+      <option>Sweden</option>
     </Select>
-    <Select label="Label" required variant="filled">
+    <Select label="Country" required variant="filled">
       <option value="">-</option>
-      <option>Pick me!</option>
-      <option>No me!!</option>
-      <option>Come on!</option>
+      <option>Denmark</option>
+      <option>Norway</option>
+      <option>Sweden</option>
     </Select>
   </div>
 
   <div class="example-row">
-    <Select endText="Pick another option." error label="Label">
+    <Select
+      endText="We don't ship to Norway yet. Pick another country."
+      error
+      label="Shipping country"
+    >
       <option value="">-</option>
-      <option selected>Wrong option</option>
-      <option>Also wrong!</option>
-      <option>Nothing's right!</option>
+      <option>Denmark</option>
+      <option selected>Norway</option>
+      <option>Sweden</option>
     </Select>
-    <Select endText="Pick another option." error label="Label" variant="filled">
+    <Select
+      endText="We don't ship to Norway yet. Pick another country."
+      error
+      label="Shipping country"
+      variant="filled"
+    >
       <option value="">-</option>
-      <option selected>Wrong option</option>
-      <option>Also wrong!</option>
-      <option>Nothing's right!</option>
+      <option>Denmark</option>
+      <option selected>Norway</option>
+      <option>Sweden</option>
     </Select>
   </div>
 </template>

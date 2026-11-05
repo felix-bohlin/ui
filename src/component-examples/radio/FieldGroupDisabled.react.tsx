@@ -4,23 +4,23 @@ export default function FieldGroupDisabled() {
   return (
     <Form>
       <Fieldset disabled>
-        <FieldLegend>Legend</FieldLegend>
+        <FieldLegend>Billing cycle</FieldLegend>
         <FieldGroup name="radio-group-disabled" orientation="horizontal">
-          <Radio defaultChecked value="1">
-            Radio 1
+          <Radio defaultChecked value="monthly">
+            Monthly
           </Radio>
-          <Radio value="2">Radio 2</Radio>
-          <Radio value="3">Radio 3</Radio>
+          <Radio value="quarterly">Quarterly</Radio>
+          <Radio value="yearly">Yearly</Radio>
         </FieldGroup>
       </Fieldset>
       <Fieldset>
-        <FieldLegend>One by one</FieldLegend>
+        <FieldLegend>Delivery</FieldLegend>
         <FieldGroup name="radio-group-disabled-single" orientation="horizontal">
-          <Radio defaultChecked value="1">
-            Enabled
+          <Radio defaultChecked value="standard">
+            Standard
           </Radio>
-          <Radio disabled value="2">
-            Disabled
+          <Radio disabled value="same-day">
+            Same day
           </Radio>
         </FieldGroup>
       </Fieldset>

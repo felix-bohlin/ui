@@ -85,7 +85,7 @@ export const keywords = ["font", "heading", "prose", "text"]
 
   <section id="class-based">
     <h2>Class-based</h2>
-    <p>Utils that you can plop down wherever.</p>
+    <p>Classes for single elements in your own markup.</p>
 
     <h3 id="variants">Variants</h3>
     <AutoExample name="Variants" column />
@@ -279,12 +279,25 @@ export const keywords = ["font", "heading", "prose", "text"]
 
     <h3 id="rich-text-showcase">Classless showcase</h3>
     <p>
-      Let's put everything together and see how all elements look in a
-      classless, rich-text context. It's plain HTML on every framework page, the
-      way rich text arrives from a CMS.
+      Every element in a <code>.ui-rich-text</code> article, as plain HTML on
+      every framework page, the way rich text arrives from a CMS.
     </p>
     <AutoExample name="Default" />
   </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      Give a decorative <a href="#icon"><code>svg.ui-icon</code></a>
+      <code>aria-hidden="true"</code>, so screen readers skip it and read the
+      text next to it.
+    </p>
+    <p>
+      A <a href="#swatch"><code>.ui-swatch</code></a> is an empty element that
+      screen readers skip, and its color carries no meaning on its own, so the
+      text next to it names what the color stands for.
+    </p>
+  </Fragment>
+
   <Fragment slot="under-the-hood">
     <RhythmBuild />
     <FluidTypeBuild />

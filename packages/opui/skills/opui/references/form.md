@@ -30,7 +30,7 @@ Spacing and grouping for form fields.
 
 ### Props and modifiers
 
-- `as`: `"div" | "fieldset"`, default `"fieldset"`. The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend.
+- `as`: `"div" | "fieldset"`, default `"fieldset"`. The element to render. Elements other than `fieldset` get `role="group"` and `aria-labelledby` pointing at the `FieldLegend`, unless `aria-label` or `aria-labelledby` is passed.
 - `disabled`: `boolean`. Disables every field inside. Only on a `<fieldset>`.
 - State (HTML): `disabled` (`[disabled]`), `invalid` (`:has([aria-invalid="true"], :user-invalid)`), `required` (`:has(:required)`). `disabled` disables every field inside, only on a `<fieldset>`. A field inside with `aria-invalid="true"`, or that is `:user-invalid`, colors the end text, and a required field adds a required mark after the legend.
 
@@ -161,7 +161,7 @@ import {
 
 `import { FieldDescription, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"`
 
-- Client components (`"use client"`): `FieldGroup`.
+- Client components (`"use client"`): `Fieldset`, `FieldLegend` and `FieldGroup`.
 
 ### Example: Basics
 

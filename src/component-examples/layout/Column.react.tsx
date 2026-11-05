@@ -4,13 +4,13 @@ export default function Column() {
   return (
     <div className="ui-layout-column">
       <Card variant="outlined">
-        <CardContent>First</CardContent>
+        <CardContent>Review the pricing page</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Second</CardContent>
+        <CardContent>Update the onboarding emails</CardContent>
       </Card>
       <Card variant="outlined">
-        <CardContent>Third</CardContent>
+        <CardContent>Write the release notes</CardContent>
       </Card>
     </div>
   )

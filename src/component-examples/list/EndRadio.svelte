@@ -4,15 +4,15 @@
 
 <List>
   <ListItem type="radio">
-    {#snippet label()}Radio 1{/snippet}
+    {#snippet label()}Dark mode{/snippet}
     {#snippet end()}
-      <RadioInput name="radio-example-group" value="1" />
+      <RadioInput name="theme" value="dark" />
     {/snippet}
   </ListItem>
   <ListItem type="radio">
-    {#snippet label()}Radio 2{/snippet}
+    {#snippet label()}Light mode{/snippet}
     {#snippet end()}
-      <RadioInput name="radio-example-group" value="2" />
+      <RadioInput name="theme" value="light" />
     {/snippet}
   </ListItem>
 </List>

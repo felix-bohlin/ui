@@ -9,16 +9,28 @@
 </script>
 
 <Accordion open variant="elevated">
-  <AccordionSummary>Accordion with actions</AccordionSummary>
+  <AccordionSummary>Terms of service</AccordionSummary>
   <AccordionContent>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare.
+      We updated our terms on 1 March. The changes cover how long we keep your
+      files and how annual plans renew.
     </p>
   </AccordionContent>
   <AccordionActions>
-    <Button>Cancel</Button>
-    <Button>Agree</Button>
+    <Button>Decline</Button>
+    <Button>Accept</Button>
+  </AccordionActions>
+</Accordion>
+
+<Accordion open variant="elevated">
+  <AccordionSummary>Invite your team</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Teammates you invite can view and edit every project in this workspace.
+    </p>
+  </AccordionContent>
+  <AccordionActions align="start">
+    <Button>Copy link</Button>
+    <Button>Send invites</Button>
   </AccordionActions>
 </Accordion>

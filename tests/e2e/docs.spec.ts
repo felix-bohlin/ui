@@ -423,6 +423,39 @@ test("a diff code block copies without its removed lines", async ({ page }) => {
   await expect(block.locator(".ui-floating[popover]")).toHaveText("Copied")
 })
 
+test("highlights code with static ranges, also when it highlights again", async ({
+  page,
+}) => {
+  await page.goto("/html/components/dialog/")
+  const rangeTypes = () =>
+    page.evaluate(() => [
+      ...new Set(
+        [...CSS.highlights.values()].flatMap((highlight) =>
+          [...highlight].map((range) => range.constructor.name),
+        ),
+      ),
+    ])
+  const message =
+    "highlight code with highlightCode() from src/utils/syntax-highlight.ts: WebKit recomputes every live Range in a highlight after any DOM change, which stalls pages with many code blocks"
+  await expect.poll(rangeTypes, { message }).toEqual(["StaticRange"])
+  const first = await page.evaluateHandle(
+    () => [...CSS.highlights.values()][0].values().next().value,
+  )
+  await page.evaluate(() =>
+    document.dispatchEvent(new Event("syntax-highlight")),
+  )
+  await expect
+    .poll(() =>
+      first.evaluate((range) =>
+        [...CSS.highlights.values()].some(
+          (highlight) => range && highlight.has(range),
+        ),
+      ),
+    )
+    .toBe(false)
+  await expect.poll(rangeTypes, { message }).toEqual(["StaticRange"])
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })

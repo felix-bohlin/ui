@@ -75,15 +75,16 @@ const setup = `@import "opui-css/css/imports.css";
 </Drawer>
 
 <script>
-  import { highlightAll } from "microlighter"
   import { exampleTheme } from "../../utils/example-themes"
   import { copyText } from "../../utils/storage"
+  import { highlightCode } from "../../utils/syntax-highlight"
   import { exportCss, themeFontIds, themeStore } from "../../utils/theme"
   import { WEB_FONTS, firstFamily } from "../../utils/theme-fonts"
   import { resolveTokens, tokensExport } from "../../utils/tokens-export"
 
   const section = document.querySelector<HTMLElement>(".builder-export")
-  if (section) {
+  const drawer = section?.closest("dialog")
+  if (section && drawer) {
     const code = section.querySelector<HTMLElement>("[data-css]")!
     const meta = section.querySelector<HTMLElement>("[data-css-meta]")!
     const status = section.querySelector<HTMLElement>("[data-css-status]")!
@@ -149,7 +150,7 @@ const setup = `@import "opui-css/css/imports.css";
       const theme = themeStore.get()
       css = exportCss(theme)
       code.textContent = css
-      highlightAll()
+      highlightCode()
       const lines = css.trimEnd().split("\n").length
       meta.textContent = `${lines} lines`
       const fonts = fontsOf(theme)
@@ -169,7 +170,7 @@ const setup = `@import "opui-css/css/imports.css";
     }
 
     const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(render)
+      if (drawer.open && !frame) frame = requestAnimationFrame(render)
     }
 
     const say = (message: string) => {
@@ -205,7 +206,9 @@ const setup = `@import "opui-css/css/imports.css";
         say("Downloaded tokens.json with every token resolved per mode.")
       })
 
-    render()
+    new MutationObserver(() => {
+      if (drawer.open) render()
+    }).observe(drawer, { attributeFilter: ["open"] })
     themeStore.subscribe(schedule)
   }
 </script>

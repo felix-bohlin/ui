@@ -255,8 +255,8 @@ const id = Astro.locals.$id("code")
 </style>
 
 <script>
-  import { highlightAll } from "microlighter"
+  import { highlightCode } from "../utils/syntax-highlight"
 
-  document.addEventListener("syntax-highlight", () => highlightAll())
-  highlightAll()
+  document.addEventListener("syntax-highlight", () => highlightCode())
+  highlightCode()
 </script>

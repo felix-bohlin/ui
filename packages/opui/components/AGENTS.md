@@ -553,7 +553,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 The components without a block, and why:
 
-- `Anchor`, `Copy`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own. The green copied state of a `Copy` button is a second cue next to its announcement.
+- `Anchor`, `Copy`, `Form`, `Layout`, `DescriptionList`, `SelectAll`: layout only, no boundary or state of their own. The `Copy` label is a bordered surface, which the browser forces to `CanvasText`, next to its announcement.
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`: text and underlines, forced to `LinkText` and `CanvasText`.

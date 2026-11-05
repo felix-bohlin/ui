@@ -154,6 +154,7 @@ const outputId = `${groupName}-output`
     { "example-centered": centered, "is-wide": wide },
   ]}
   data-expanded="false"
+  data-framework={activeFramework}
 >
   {isLiveReactPreview && <MountReactExamples />}
   {isLiveSveltePreview && <MountSvelteExamples />}
@@ -375,6 +376,8 @@ const outputId = `${groupName}-output`
 </style>
 
 <script>
+  import { hrefFor, isFrameworkId } from "../../utils/framework.js"
+
   // Tab interactivity for the source/output toggle and the show-code button.
   // Framework switching is now handled by routing - no client-side language
   // toggle is needed here.
@@ -436,6 +439,27 @@ const outputId = `${groupName}-output`
       .forEach(toggle)
     container.addEventListener("change", (event) => {
       if (event.target instanceof HTMLInputElement) toggle(event.target)
+    })
+
+    const localize = (event: Event) => {
+      const link = (event.target as Element | null)?.closest?.("a[href]")
+      const href = link?.getAttribute("href") ?? ""
+      const { framework } = container.dataset
+      if (
+        isFrameworkId(framework) &&
+        link?.closest(".example-preview") &&
+        /^\/(components|guide)\//.test(href)
+      ) {
+        link.setAttribute("href", hrefFor(framework, href))
+      }
+    }
+    container.addEventListener("pointerover", localize)
+    container.addEventListener("focusin", localize)
+
+    container.addEventListener("submit", (event) => {
+      if ((event.target as Element).closest(".example-preview")) {
+        event.preventDefault()
+      }
     })
   }
 

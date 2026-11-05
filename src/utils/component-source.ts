@@ -131,12 +131,18 @@ const sharedClasses = () =>
     ].flatMap((file) => classNames(readCss(file))),
   )
 
-export const anchorNames = (css: string) =>
-  new Set(
-    [...css.matchAll(/\banchor-name:\s*([^;}]+)/g)].flatMap(([, value]) =>
-      value.split(",").map((name) => name.trim()),
-    ),
+export const anchorNames = (css: string) => {
+  const values = (property: string) =>
+    [...css.matchAll(new RegExp(`(?<![\\w-])${property}:\\s*([^;}]+)`, "g"))]
+      .flatMap(([, value]) => value.split(","))
+      .map((name) => name.trim())
+  return new Set(
+    values("anchor-name").flatMap((name) => {
+      const variable = name.match(/^var\((--_[\w-]+)\)$/)?.[1]
+      return variable ? values(variable) : [name]
+    }),
   )
+}
 
 export const documentedClasses = (api: ComponentApi) => [
   ...new Set(

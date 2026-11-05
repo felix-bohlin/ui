@@ -3,6 +3,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Drawer",
+  css: ["card", "drawer"],
   keyboard: modalKeyboard("drawer"),
   notes: {
     default:

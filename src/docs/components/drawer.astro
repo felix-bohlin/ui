@@ -23,6 +23,7 @@ import {
 } from "opui-css/astro"
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import drawerApi from "../../component-api/drawer/api"
 import drawerFooterApi from "../../component-api/drawer-footer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
@@ -74,7 +75,10 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     },
     { path: "src/component-api/drawer", type: "api" },
   ]}
-  installationTabs={[{ title: "drawer.css", code: DrawerCSS, lang: "css" }]}
+  installationTabs={[
+    { title: "drawer.css", code: DrawerCSS, lang: "css" },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
+  ]}
 >
   <Fragment slot="title">Drawer</Fragment>
   <Fragment slot="preamble">

@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest"
 import type { ComponentApi } from "../../src/component-api/types"
 import {
+  anchorNames,
   checkApi,
   checkClasses,
   checkExports,
@@ -29,6 +30,14 @@ describe("component api", () => {
 })
 
 describe("component api checks", () => {
+  test("anchorNames reads anchor-name, and the private property it reads", () => {
+    expect([
+      ...anchorNames(
+        ":where(.a) { --_content-anchor: --ui-a; &:where(.b) { --_content-anchor: --ui-b; } & > .c { anchor-name: var(--_content-anchor); } } .d { anchor-name: --ui-d, --ui-e; }",
+      ),
+    ]).toEqual(["--ui-a", "--ui-b", "--ui-d", "--ui-e"])
+  })
+
   test("report classes, cssVars and anchor names the stylesheets don't have", () => {
     expect(
       checkApi({

@@ -33,14 +33,4 @@ export default {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
   },
-  "--_scroll-shadow": {
-    description:
-      "Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
-    kind: "input",
-  },
-  "--_title-font-size": {
-    description:
-      "Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.",
-    kind: "input",
-  },
 } satisfies CustomProperties

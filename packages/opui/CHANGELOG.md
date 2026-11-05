@@ -55,6 +55,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Drawer` in Astro and Vue no longer locks page scroll by default. Set `scrollLock` (`.ui-scroll-lock`) on drawers that should lock it.
 - `Drawer` requires `id` (types) and no longer generates one, since its trigger points at it with `commandfor`.
 - `Drawer` title is `--ui-font-size-h4`, like the `Dialog` title, instead of `--font-size-3`, and `--_header-font-size` is `--_title-font-size`. It sizes a heading that is a direct child of `.ui-header`.
+- `Drawer` header, content and footer rules live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too, or the drawer's parts lose their layout and scroll shadows.
 - `DrawerFooter` takes `align`, like `DialogFooter`. Its content sits at the end on every side, and `align="start"` (`.ui-align-start`) moves it to the start, instead of starting in an `inline-end` drawer.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `Fieldset` (a `<fieldset>`, already a group) to group and name the fields. `Fieldset` with another element in `as` gets `role="group"`.
 - `FieldGroup` `direction` (`"row"`, `"column"`) is `orientation` (`"auto"`, `"horizontal"`, `"vertical"`), like `ButtonGroup`, `ToggleGroup` and `Carousel`, and `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`. `auto`, the default, stacks fields and lines up a group of only buttons in a row.
@@ -352,6 +353,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
 - `Drawer` sits on `--ui-surface-elevated`, like `Dialog` and `Menu`, and borders and field borders inside it read `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised`.
+- `Drawer` footer spaces its items and the buttons in its `.ui-actions` by `--ui-space-2`, like `Dialog`, instead of `--ui-space-3`. `card.css` declares `--_footer-gap` for both, so setting it changes either.
 - `FieldGroup` and `ToggleGroup` in Astro pass the group `name` and selection to their inputs through context instead of `Astro.locals`.
 - `FieldGroup` `orientation="horizontal"` (`.ui-horizontal`) lines the fields up at their end and lets a `TextField`, `Textarea`, `Select` or `NumberField` grow from `--_field-min-inline-size` (`11rem`) to share the row, so a field and its button sit on one line, with a `--ui-space-3` gap. A group of choice controls keeps its `--ui-space-4` gap.
 - `Fieldset` rendered as another element with `as` names itself from its `FieldLegend`: it gets `aria-labelledby` pointing at the legend, which takes a generated id, unless you pass `aria-label` or `aria-labelledby`.

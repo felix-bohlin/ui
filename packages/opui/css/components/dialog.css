@@ -7,8 +7,6 @@
     --_ease: var(--ui-ease-exit);
     --_elevated-shadow: var(--ui-shadow-overlay);
     --_max-inline-size: 60ch;
-    --_scroll-shadow: var(--ui-shadow-scroll);
-    --_title-font-size: var(--ui-font-size-h4);
     border-radius: var(--ui-dialog-radius, var(--ui-radius));
     inline-size: 100%;
     inset: 0;
@@ -48,99 +46,10 @@
       flex-shrink: 0;
     }
 
-    & > .ui-header {
-      align-items: center;
-      column-gap: var(--ui-space-1);
-      display: flex;
-      flex-wrap: wrap;
-
-      & > :where(h1, h2, h3, h4, h5, h6) {
-        color: var(--ui-text-strong);
-        flex: 1;
-        font-size: var(--_title-font-size);
-        letter-spacing: var(--ui-letter-spacing-heading);
-        line-height: round(
-          up,
-          1em + 2 * var(--ui-rhythm-step),
-          var(--ui-rhythm-step)
-        );
-      }
-
-      & > :where(p) {
-        flex-basis: 100%;
-      }
-    }
-
-    & > .ui-content {
-      anchor-name: --ui-dialog-content;
-      anchor-scope: --ui-dialog-content;
-      container-type: scroll-state;
-      overflow-block: auto;
-      overscroll-behavior: contain;
-
-      &:focus-visible {
-        outline-offset: var(--ui-focus-ring-inset);
-      }
-
-      &::before,
-      &::after {
-        block-size: var(--ui-space-2);
-        box-shadow: var(--_scroll-shadow);
-        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
-        content: "";
-        inset-inline: anchor(--ui-dialog-content inside);
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        transition: opacity var(--_duration);
-        z-index: 1;
-      }
-
-      &::before {
-        inset-block-end: anchor(--ui-dialog-content outside);
-      }
-
-      &::after {
-        inset-block-start: anchor(--ui-dialog-content outside);
-        scale: 1 -1;
-      }
-    }
-
-    @container scroll-state(scrollable: block-start) {
-      & > .ui-content::before {
-        opacity: 1;
-      }
-    }
-
-    @container scroll-state(scrollable: block-end) {
-      & > .ui-content::after {
-        opacity: 1;
-      }
-    }
-
     & > .ui-footer {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--ui-space-2);
-      justify-content: end;
       margin-block-start: auto;
       padding-block: var(--ui-space-2);
       padding-inline: var(--_padding);
-
-      &.ui-align-start {
-        justify-content: start;
-      }
-
-      & > .ui-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--ui-space-2);
-      }
-
-      & > * + .ui-actions {
-        margin-inline-start: auto;
-      }
     }
 
     &[open] {

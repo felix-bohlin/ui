@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DrawerHeader",
+  css: ["card", "drawer"],
   options: [
     {
       default: '"Close"',

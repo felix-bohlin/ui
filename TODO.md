@@ -1285,7 +1285,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A: keep the chip and accept the overstatement.
     - B: add `typography: ["marker"]` to `ignore` in `scripts/check-browser-support.mjs:354` and drop the id from the page, as Accordion does for its hidden marker.
-- [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:34,238`)
+- [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:47-54`, `packages/opui/css/components/drawer.css:31`, `packages/opui/css/components/drawer.css:103`)
   - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
   - Recommended: Fix with option A. It keeps the page from shifting and the strip matches the backdrop, which C was meant to do.
   - Options:
@@ -1661,11 +1661,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: The dropdown arrow is defined three times, so its size or color can drift between a select, a customizable select and an autosuggest field.
   - Recommended: Fix. One shared rule in `text-field.css` for the paint, with only the positioning left per case.
   - Fix: one rule in `text-field.css` for the three pseudo-elements (`:where(.ui-select select)::picker-icon, :where(.ui-select:has(select):not(:has(button)))::after, :where(.ui-text-field:has(input[list])) .ui-field::after`) with the paint declarations and the forced-colors block; `select.css` keeps the grid placement, `inset`, `scale` and `transition`.
-- [ ] (1) Divider: the `margin-block: 0` reset for a divider inside a stack is written in four files (`packages/opui/css/components/divider.css:70-72`, `packages/opui/css/components/form.css:7-9`, `packages/opui/css/components/card.css:159-161`, `packages/opui/css/components/drawer.css:173-175`)
+- [ ] (1) Divider: the `margin-block: 0` reset for a divider inside a stack is written in four files (`packages/opui/css/components/divider.css:70-72`, `packages/opui/css/components/form.css:7-9`, `packages/opui/css/components/card.css:243-245`)
   - Summary: Nothing visible; four rules do one job.
   - Recommended: Fix. One selector list in `divider.css` covers the containers, since every rule only sets the margin to 0.
   - Fix: extend `divider.css:70` to `:where(.ui-accordion, .ui-card, .ui-dialog, .ui-form, .ui-content) > :where(hr, .ui-divider)` and drop the three copies (`.ui-content` is the grid stack in card and drawer).
-- [ ] (1) Drawer: the closed `translate` of each placement is written twice, once in the placement rule and once under `@starting-style` (`packages/opui/css/components/drawer.css:221-255`, `packages/opui/css/components/drawer.css:270-290`)
+- [ ] (1) Drawer: the closed `translate` of each placement is written twice, once in the placement rule and once under `@starting-style` (`packages/opui/css/components/drawer.css:86-120`, `packages/opui/css/components/drawer.css:135-155`)
   - Summary: Nothing visible; four translate values are maintained in two places.
   - Recommended: Fix. A private property halves the block.
   - Fix: set `--_closed-translate` per placement, read it in one closed rule and once in `@starting-style`.
@@ -1690,7 +1690,7 @@ Custom elements (web components) the library could add, for behavior that HTML a
       }
     }
     ```
-- [ ] (1) Drawer: the transparent-backdrop scroll lock is gated by `@media (width < 500px)`, the only pixel media query in the package, while the layout breakpoints are `rem` container queries, and the number isn't a token or documented (`packages/opui/css/components/drawer.css:294-300`, `packages/opui/css/components/layout.css:96-127`)
+- [ ] (1) Drawer: the transparent-backdrop scroll lock is gated by `@media (width < 500px)`, the only pixel media query in the package, while the layout breakpoints are `rem` container queries, and the number isn't a token or documented (`packages/opui/css/components/drawer.css:160-165`, `packages/opui/css/components/layout.css:96-127`)
   - Summary: A drawer with a transparent backdrop locks the page below an undocumented 500px, whatever the font size.
   - Recommended: Fix. Match the layout breakpoints' unit and name the value.
   - Fix: `@media (width < 31.25rem)` or a documented `--_lock-max-inline-size`, and say in the Drawer page when the page locks.
@@ -2002,10 +2002,11 @@ Custom elements (web components) the library could add, for behavior that HTML a
       ```
     - B: a new theme token: an optional `--ui-scroll-behavior` read as `scroll-behavior: var(--ui-scroll-behavior, smooth)` on `html`, set to `auto` next to every `--ui-motion: 0` (the reduced-motion rule in `theme.css` and `.ui-motion-off` in `utils.css`). It would fill the role of the page's scroll behavior for a theme that turns motion off with the token alone; none of the example themes sets `--ui-motion: 0` today, so section 9 of `packages/opui/components/AGENTS.md` doesn't warrant it yet.
     - C: keep it, as documented.
-- [ ] (2) Dialog, Drawer: the header heading, the `.ui-content` scroll shadows with their two `scroll-state` queries, the footer with `.ui-actions`, and the inline-children stack rule are the same blocks in both files (the stack rule a third time in `card.css`), differing only in the anchor name, the footer gap (`--ui-space-2` against `--ui-space-3`) and `color` on the title (`packages/opui/css/components/dialog.css:51-144`, `packages/opui/css/components/drawer.css:62-212`, `packages/opui/css/components/card.css:115-162`)
+- [x] (2) Dialog, Drawer: the header heading, the `.ui-content` scroll shadows with their two `scroll-state` queries, the footer with `.ui-actions`, and the inline-children stack rule are the same blocks in both files (the stack rule a third time in `card.css`), differing only in the anchor name, the footer gap (`--ui-space-2` against `--ui-space-3`) and `color` on the title (`packages/opui/css/components/dialog.css:51-144`, `packages/opui/css/components/drawer.css:62-212`, `packages/opui/css/components/card.css:115-162`)
   - Summary: Dialog and Drawer footers space their buttons differently, and about 120 lines are kept in step by hand.
   - Recommended: Fix. The parts were unified on purpose and the CSS can follow.
   - Fix: one `:where(.ui-dialog, .ui-drawer)` block in `components.root` for `> .ui-header`, `> .ui-content` (with `--_content-anchor` for the anchor name) and `> .ui-footer`, with a shared `--_footer-gap`, and the inline-children `:not(:has(> :is(...)))` list written once for `.ui-content` in card, dialog and drawer. Decide the footer gap first: `--ui-space-2` matches `card.css:172`.
+  - Fixed: `card.css` holds the header, content (with the scroll shadows, through a `--_content-anchor` that keeps each anchor name) and footer rules of `:where(.ui-dialog, .ui-drawer)`, and the content stack rule for all four roots. The footer gap is `--ui-space-2` for both. Screenshots of the ten opened dialogs and drawers in both color schemes show no pixel change in Chromium. Drawer now lists `card.css` as a dependency, with a Breaking entry.
 - [ ] (2) OneTimeCode: `&.ui-one-time-code .ui-field` and `&.ui-one-time-code .ui-field:has(...)` repeat the root class to lift specificity over `text-field.css`, which is imported two lines later in the same `components.extended` layer and styles the same `.ui-field` (the root carries both `ui-text-field` and `ui-one-time-code`) (`packages/opui/css/components/one-time-code.css:24`, `packages/opui/css/components/one-time-code.css:101`, `packages/opui/css/components.css:50-52`, `packages/opui/components/OneTimeCode/OneTimeCode.astro:31-37`)
   - Summary: The one-time code field wins over the text field rules with a doubled class, which is the pattern the guide asks to avoid.
   - Recommended: Fix with option A. Token remaps remove the paint overrides, and the remaining layout overrides can then rely on source order within the file's own root.

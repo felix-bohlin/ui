@@ -510,6 +510,13 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 + .ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end) { --_inline-size: 20rem; }
 ```
 
+The header, content and footer rules live in `card.css`, shared with `Dialog`. If you import single files, import `card.css` too. The footer spaces its items by `--ui-space-2`, like `Dialog`, instead of `--ui-space-3`.
+
+```diff
+- .ui-drawer { }
++ .ui-drawer { --_footer-gap: var(--ui-space-3); }
+```
+
 ## Field group and fieldset
 
 `FieldGroup` no longer sets `role="group"`. Inside a fieldset nothing changes. A `FieldGroup` without a fieldset can take `role` and `aria-label` itself. In HTML, drop `role="group"` from `.ui-field-group`.

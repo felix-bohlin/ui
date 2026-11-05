@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DialogFooter",
-  css: ["dialog"],
+  css: ["card", "dialog"],
   options: [
     {
       default: '"end"',

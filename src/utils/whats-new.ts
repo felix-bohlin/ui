@@ -589,6 +589,8 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
   ],
   drawer: [
+    `Breaking: the header, content and footer rules live in <code>card.css</code>, shared with Dialog. Import it too when you <a href="#installation">install single files</a>.`,
+    `The <a href="#basics">footer</a> spaces its items and buttons by <code>--ui-space-2</code>, like Dialog.`,
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a> for the header, content and footer padding.`,
     {
       ...slots(

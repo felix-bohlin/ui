@@ -145,7 +145,7 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 
 ### Styling Inheritance
 
-Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Badge` and `Tooltip` position like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-badge, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles.
+Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Badge` and `Tooltip` position like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, and the header, content and footer of `:where(.ui-dialog, .ui-drawer)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-badge, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles.
 
 ```astro
 <details
@@ -573,7 +573,7 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 `css/components.css` imports every component stylesheet in one of three groups, named by the layer the files declare, and `tests/unit/layers.test.ts` checks each file against its group:
 
-- **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, `anchor.css` for `.ui-anchor`, `.ui-badge` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
+- **Root components** declare `components.root`: base rules shared by several roots (`card.css` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and the parts of `.ui-dialog` and `.ui-drawer`, `anchor.css` for `.ui-anchor`, `.ui-badge` and `.ui-tooltip`, `choice.css` for the checkbox, radio and switch) and per-component rules, none of which has to beat another component's rules on the same element. `typography.css` also declares `components.prose`, the classless rich text below every component.
 - **Extended components** declare `components.extended` for the rules that must beat another component's rules on the same element (a `Dialog` on top of `card.css`, a `Badge` on top of `anchor.css`, a `Menu` or `Select` over `list.css` and `text-field.css`), and `components.root` for rules that must not (the dense `List` sizes for a `Checkbox`, which an explicit size class on the checkbox has to beat).
 - **Utilities** declare `utils`: `layout.css`, whose classes beat every component, like `core/utils.css`.
 

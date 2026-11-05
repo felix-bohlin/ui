@@ -76,7 +76,7 @@
       );
 
       /* Siblings */
-      &:is([disabled], [aria-disabled="true"]) {
+      &:is(:disabled, [aria-disabled="true"]) {
         box-shadow:
           var(--_divider-offset) 0 0 0
             color-mix(in oklch, var(--_divider-border-color) 40%, transparent),

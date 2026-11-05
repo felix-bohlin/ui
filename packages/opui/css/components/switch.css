@@ -169,7 +169,7 @@
       --_thumb-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
-      &:has([disabled], input[aria-disabled="true"]) {
+      &:has(:disabled, input[aria-disabled="true"]) {
         --_thumb-bg-color: GrayText;
       }
 

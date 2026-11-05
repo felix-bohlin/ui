@@ -45,7 +45,7 @@
     }
 
     /* Disabled */
-    &:has([disabled], input[aria-disabled="true"]) {
+    &:has(:disabled, input[aria-disabled="true"]) {
       cursor: not-allowed;
       opacity: var(--ui-disabled-opacity);
       -webkit-user-select: none;
@@ -246,7 +246,7 @@
       }
 
       @media (hover: hover) {
-        &:hover:not(:has(:checked, [disabled], input[aria-disabled="true"])) {
+        &:hover:not(:has(:checked, :disabled, input[aria-disabled="true"])) {
           --_bg-color: var(--_hover-bg-color);
         }
       }

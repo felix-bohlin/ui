@@ -290,7 +290,7 @@ Lists meant to be used stand-alone or as part of Select elements
         }
       }
 
-      & > :where(a, button):is([disabled], [aria-disabled="true"]) {
+      & > :where(a, button):is(:disabled, [aria-disabled="true"]) {
         cursor: not-allowed;
         opacity: var(--ui-disabled-opacity);
 

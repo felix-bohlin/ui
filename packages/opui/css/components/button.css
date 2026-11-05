@@ -381,7 +381,7 @@
     }
 
     /* Disabled */
-    &:is([disabled], [aria-disabled="true"]) {
+    &:is(:disabled, [aria-disabled="true"]) {
       cursor: not-allowed;
 
       &:is(

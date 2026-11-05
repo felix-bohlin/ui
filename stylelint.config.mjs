@@ -34,6 +34,7 @@ export default {
           "/./": [/(^|[\s(,*/+-])[\d.]+[sdl]?v[wh]\b/],
         },
         "media-feature-name-no-vendor-prefix": true,
+        "opui/disabled-pseudo": true,
         "opui/focus-visible": true,
         "opui/hover-media": true,
         "opui/logical-shorthands": true,
@@ -117,6 +118,7 @@ export default {
     },
   ],
   plugins: [
+    "./scripts/stylelint-disabled-pseudo.mjs",
     "./scripts/stylelint-focus-visible.mjs",
     "./scripts/stylelint-hover-media.mjs",
     "./scripts/stylelint-logical-shorthands.mjs",

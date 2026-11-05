@@ -58,7 +58,11 @@ export const keepsFallback = (condition, year) => {
 }
 
 export const patterns = [
-  { id: "anchor-positioning", pattern: /\b(?:anchor-name|position-anchor):/ },
+  {
+    id: "anchor-positioning",
+    pattern:
+      /\b(?:anchor-name|anchor-scope|position-anchor|position-area|position-try(?:-fallbacks|-order)?|position-visibility):|\banchor(?:-size)?\(|@position-try\b/,
+  },
   { id: "attr", pattern: /\battr\(/ },
   { id: "backdrop-filter", pattern: /\bbackdrop-filter:/ },
   { id: "box-decoration-break", pattern: /\bbox-decoration-break:/ },
@@ -106,8 +110,7 @@ export const patterns = [
   { id: "open-pseudo", pattern: /(?<!:):open\b/ },
   {
     id: "overflow-clip",
-    pattern:
-      /\boverflow(?:-block|-inline|-x|-y)?:\s*(?:[\w-]+\s+)?clip\b|\boverflow-clip-margin:/,
+    pattern: /\boverflow(?:-block|-inline|-x|-y)?:\s*(?:[\w-]+\s+)?clip\b/,
   },
   {
     id: "overlay",

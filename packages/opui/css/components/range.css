@@ -96,7 +96,7 @@
     }
 
     /* Disabled */
-    &:has([disabled]) {
+    &:has(:disabled) {
       cursor: not-allowed;
       opacity: var(--ui-disabled-opacity);
       -webkit-user-select: none;

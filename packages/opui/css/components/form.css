@@ -48,10 +48,13 @@
     }
 
     /* Disabled */
-    &[disabled] {
-      opacity: var(--ui-disabled-opacity);
+    &:disabled {
       -webkit-user-select: none;
       user-select: none;
+
+      & > :where(legend, .ui-legend, .ui-description, .ui-end-text) {
+        opacity: var(--ui-disabled-opacity);
+      }
 
       button,
       input,

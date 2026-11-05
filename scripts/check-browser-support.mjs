@@ -1,5 +1,5 @@
 import { existsSync, realpathSync } from "node:fs"
-import { readdir, readFile } from "node:fs/promises"
+import { readdir, readFile, writeFile } from "node:fs/promises"
 import { join, basename } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import { parseFragment } from "parse5"
@@ -17,7 +17,6 @@ const cssDir = fileURLToPath(
 const examplesDir = fileURLToPath(
   new URL("../src/component-examples", import.meta.url),
 )
-const coreDir = fileURLToPath(new URL("../packages/opui/core", import.meta.url))
 const apiDir = fileURLToPath(new URL("../src/component-api", import.meta.url))
 
 const attribute = (element, name) =>
@@ -73,26 +72,17 @@ export const htmlFeatureIds = (sources) => {
   )
 }
 
-const widelyAvailable = (id) => featureOf(id)?.status?.baseline === "high"
-
 /** @param {{ available: Set<string>, ids: string[], ignored?: string[], used: Set<string> }} page */
-export const pageProblems = ({ available, ids, ignored = [], used }) => {
-  const listsWidelyAvailable = ids.some(widelyAvailable)
-  return {
-    missing: [...used]
-      .filter(
-        (id) =>
-          !ids.includes(id) &&
-          !ignored.includes(id) &&
-          (!widelyAvailable(id) || listsWidelyAvailable),
-      )
-      .toSorted(),
-    undetected: ids.filter((id) => !DETECTED.has(id)),
-    unused: ids.filter(
-      (id) => DETECTED.has(id) && !used.has(id) && !available.has(id),
-    ),
-  }
-}
+export const pageProblems = ({ available, ids, ignored = [], used }) => ({
+  missing: [...used, ...available]
+    .filter((id) => !ids.includes(id) && !ignored.includes(id))
+    .filter((id, index, all) => all.indexOf(id) === index)
+    .toSorted(),
+  undetected: ids.filter((id) => !DETECTED.has(id)),
+  unused: ids.filter(
+    (id) => DETECTED.has(id) && !used.has(id) && !available.has(id),
+  ),
+})
 
 const kebab = (name) =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
@@ -108,6 +98,19 @@ const readPages = async () => {
       : []
   }
   return components
+}
+
+export const withBrowserSupport = (content, ids) => {
+  const list = `browserSupport={[${ids.map((id) => `"${id}"`).join(", ")}]}`
+  if (/browserSupport=\{\[[\s\S]*?\]\}/.test(content)) {
+    return content.replace(/browserSupport=\{\[[\s\S]*?\]\}/, list)
+  }
+  return content.replace(/(<Component\b[^>]*?\bslug="[^"]+")/, `$1\n  ${list}`)
+}
+
+const writePage = async (comp, ids) => {
+  const file = join(componentsDir, `${comp}.astro`)
+  await writeFile(file, withBrowserSupport(await readFile(file, "utf-8"), ids))
 }
 
 const readApis = async () => {
@@ -316,7 +319,11 @@ const parseCss = async (file) => {
     root.walkRules((rule) => {
       rules.push(rule)
     })
-    parsed.set(file, { atRules, rules, source })
+    const tries = []
+    root.walkAtRules("position-try", (atRule) => {
+      tries.push([atRule.source.start.offset, atRule.source.end.offset])
+    })
+    parsed.set(file, { atRules, rules, source, tries })
   }
   return parsed.get(file)
 }
@@ -333,10 +340,13 @@ const atRuleApplies = (atRule, elements) => {
   return !parent || ruleApplies(parent, elements)
 }
 
-const usesFeature = ({ atRules, rules, source }, pattern, elements) => {
+const usesFeature = ({ atRules, rules, source, tries }, pattern, elements) => {
   if (!elements) return pattern.test(source)
   return [...source.matchAll(new RegExp(pattern.source, "g"))].some(
     ({ index }) => {
+      if (tries.some(([start, end]) => start <= index && index < end)) {
+        return false
+      }
       const header = atRules.findLast(
         ({ end, start }) => start <= index && index < end,
       )
@@ -351,6 +361,10 @@ const usesFeature = ({ atRules, rules, source }, pattern, elements) => {
 }
 
 const ignore = { accordion: ["marker"], badge: ["anchor-positioning"] }
+const viaCore = {
+  dialog: ["overflow-clip", "scrollbar-gutter"],
+  drawer: ["overflow-clip", "scrollbar-gutter"],
+}
 const viaTheme = { typography: ["progress-function"] }
 
 const report = (heading, entries) => {
@@ -362,16 +376,8 @@ const report = (heading, entries) => {
 const main = async () => {
   const components = await readPages()
   const apis = await readApis()
-  const shared = await readCss(
-    (await readdir(coreDir))
-      .filter((file) => file.endsWith(".css"))
-      .sort()
-      .map((file) => join(coreDir, file)),
-  )
-  const sharedIds = patterns
-    .filter(({ pattern }) => pattern.test(shared))
-    .map(({ id }) => id)
 
+  const fixes = {}
   const missing = []
   const undetected = []
   const unused = []
@@ -384,7 +390,7 @@ const main = async () => {
       [...stylesheets].toSorted().map((file) => parseCss(join(cssDir, file))),
     )
     const problems = pageProblems({
-      available: new Set([...sharedIds, ...(viaTheme[comp] ?? [])]),
+      available: new Set([...(viaCore[comp] ?? []), ...(viaTheme[comp] ?? [])]),
       ids,
       ignored: ignore[comp],
       used: new Set([
@@ -396,6 +402,12 @@ const main = async () => {
         ...htmlFeatureIds(sources),
       ]),
     })
+    if (problems.missing.length + problems.unused.length > 0) {
+      fixes[comp] = [
+        ...ids.filter((id) => !problems.unused.includes(id)),
+        ...problems.missing,
+      ].toSorted()
+    }
     missing.push(...problems.missing.map((id) => `${comp}: "${id}"`))
     undetected.push(...problems.undetected.map((id) => `${comp}: "${id}"`))
     unused.push(...problems.unused.map((id) => `${comp}: "${id}"`))
@@ -409,12 +421,20 @@ const main = async () => {
     ids.filter((id) => !featureOf(id)).map((id) => `${comp}: "${id}"`),
   )
 
+  if (process.argv.includes("--write")) {
+    for (const [comp, ids] of Object.entries(fixes)) {
+      await writePage(comp, ids)
+      console.log(`Wrote the browserSupport of ${comp}.`)
+    }
+    return
+  }
+
   report(
-    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples. A Baseline widely available feature only counts when the page lists one:",
+    "browserSupport is missing ids that the page uses, in the stylesheets of its api.ts files (in rules whose selectors can match the elements of its HTML examples and the classes of those examples and api.ts files; inside :has() only the elements count) or in the HTML examples, Baseline widely available ones included. Run node scripts/check-browser-support.mjs --write to fix the lists:",
     missing,
   )
   report(
-    "browserSupport lists ids that neither the page's stylesheets nor its HTML examples use:",
+    "browserSupport lists ids that neither the page's stylesheets nor its HTML examples use. Run node scripts/check-browser-support.mjs --write to fix the lists:",
     unused,
   )
   report(

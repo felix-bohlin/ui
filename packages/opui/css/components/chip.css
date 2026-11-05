@@ -178,10 +178,16 @@
     }
 
     /* Disabled */
-    &:is([disabled], [aria-disabled="true"]) {
-      --_text-color: var(--ui-text-disabled);
-
+    &:is(:disabled, [aria-disabled="true"]) {
       cursor: not-allowed;
+
+      &:not(.ui-outlined) {
+        opacity: var(--ui-disabled-opacity);
+      }
+
+      &.ui-outlined {
+        --_text-color: var(--ui-text-disabled);
+      }
     }
 
     &.ui-disabled:not(a, button) {
@@ -207,7 +213,7 @@
       --_dot-bg-color: currentColor;
       --_text-color: var(--ui-on-selected, var(--ui-on-primary));
 
-      &:where(:not(:disabled)) {
+      &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:hover {
             --_bg-color: oklch(from var(--_pressed-bg-color) calc(l * 0.9) c h);
@@ -215,7 +221,7 @@
         }
       }
 
-      &:disabled {
+      &:is(:disabled, [aria-disabled="true"]) {
         opacity: var(--ui-disabled-opacity);
       }
 

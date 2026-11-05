@@ -8,6 +8,7 @@ import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
 import {
   htmlFeatureIds,
   pageProblems,
+  withBrowserSupport,
 } from "../../scripts/check-browser-support.mjs"
 import { findProblems } from "../../scripts/check-characters.mjs"
 import { problems } from "../../scripts/check-commits.mjs"
@@ -164,6 +165,21 @@ describe("check-browser-support", () => {
         ".a[open] { --_overlay: 1rlh; block-size: 2rem; overflow: hidden; transition: opacity 1s; }",
       ),
     ).toEqual([])
+    expect(featureIds(".a { overflow-clip-margin: 4px; }")).toEqual([])
+  })
+
+  test("anchor positioning is found in every property, function and at-rule of its compat keys", () => {
+    expect(
+      [
+        ".a { position-area: block-end; }",
+        ".a { position-try-fallbacks: flip-block; }",
+        ".a { position-visibility: anchors-visible; }",
+        ".a { anchor-scope: --a; }",
+        ".a { inset-block-start: anchor(end); }",
+        ".a { min-inline-size: anchor-size(inline); }",
+        "@position-try --a { inset: auto; }",
+      ].filter((css) => !featureIds(css).includes("anchor-positioning")),
+    ).toEqual([])
   })
 
   test("reads the HTML features from the attributes and elements of the examples", () => {
@@ -188,15 +204,15 @@ describe("check-browser-support", () => {
     ).toEqual([])
   })
 
-  test("reports missing, unused and undetected ids, and widely available ones only next to another", () => {
+  test("reports missing, unused and undetected ids, widely available ones and the ones a page gets from the core sheets included", () => {
     expect(
       pageProblems({
-        available: new Set(["light-dark"]),
+        available: new Set(["light-dark", "scrollbar-gutter"]),
         ids: ["light-dark", "popover", "scroll-snap", "zoom"],
         used: new Set(["has", "scroll-snap", "starting-style"]),
       }),
     ).toEqual({
-      missing: ["has", "starting-style"],
+      missing: ["has", "scrollbar-gutter", "starting-style"],
       undetected: ["zoom"],
       unused: ["popover"],
     })
@@ -207,7 +223,19 @@ describe("check-browser-support", () => {
         ignored: ["starting-style"],
         used: new Set(["has", "popover", "starting-style"]),
       }),
-    ).toEqual({ missing: [], undetected: [], unused: [] })
+    ).toEqual({ missing: ["has"], undetected: [], unused: [] })
+  })
+
+  test("--write replaces a page's list, or adds one after its slug", () => {
+    expect(
+      withBrowserSupport(
+        '<Component\n  slug="a"\n  browserSupport={[\n    "has",\n  ]}\n>',
+        ["has", "scope"],
+      ),
+    ).toBe('<Component\n  slug="a"\n  browserSupport={["has", "scope"]}\n>')
+    expect(withBrowserSupport('<Component\n  slug="a"\n>', ["has"])).toBe(
+      '<Component\n  slug="a"\n  browserSupport={["has"]}\n>',
+    )
   })
 })
 

@@ -467,6 +467,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Button`, `Chip`, `Checkbox` and `Radio` show no hover or active state inside a disabled fieldset.
 - `Button` without a variant shows its pressed background while held with the keyboard, like outlined, tonal and filled buttons.
 - `Button` with `.ui-primary` or `.ui-critical` and an accent darker than L 0.3 lightens on hover and press like other buttons, instead of darkening further.
+- `Button`, `ButtonGroup`, `Checkbox`, `Chip`, `List`, `Radio`, `Range` and `Switch` match a disabled control with `:disabled` instead of the `[disabled]` attribute, so they also look disabled inside a disabled `fieldset`, where they already stopped reacting to hover.
 - `ButtonGroup` only styles its direct child buttons, so a `Menu` inside it (split button) keeps its own item styles.
 - `ButtonGroup` dividers are no longer double thick.
 - `ButtonGroup` vertical only squares icon-only buttons.
@@ -507,6 +508,8 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` disabled text color applies to tonal and outlined chips.
 - `Chip` in Astro only renders `href` when the chip is an `a`.
+- `Chip` button and link chips fade with `--ui-disabled-opacity` when disabled, like a tonal `Button`, and an outlined chip dims its text instead, so a disabled chip no longer keeps its full fill.
+- `Chip` pressed chips with `aria-disabled="true"` dim and stop darkening on hover, like pressed chips with `disabled`.
 - `Copy` label closes with `--ui-ease-exit` and opens with `--ui-ease-enter`, like `Dialog` and `Menu`, instead of using the enter curve both ways.
 - `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values. A nested list sizes to its content and follows the outer list's layout, and `.ui-bordered` leaders only apply to the list's own items.
 - `DescriptionList`, `List` row links, `Card` (and `Dialog`) heading groups, `FieldDescription`, and `Button` and `List` `kbd` no longer pick up rich text padding, margins, font weight or font.
@@ -528,6 +531,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `FieldGroup` in Vue passes a `name` that changes or comes from an outer group to its inputs.
 - `Fieldset` no longer overrides the error color of an invalid `Checkbox`, `Radio` or `Switch` end text inside it. Its helper styles only apply to its own end text.
 - `Fieldset`, `FieldLegend`, `FieldDescription`, `FieldGroup` and `Form` in Vue no longer apply attributes and listeners twice.
+- `Fieldset` with `disabled` dims its legend, description and end text instead of the whole fieldset, so the controls inside, which dim themselves, are no longer dimmed twice.
 - `Form` only resets the margin of dividers that are its direct children, text dividers included, so dividers nested deeper keep `--ui-divider-gap`.
 - `Form` button rows drop their top margin after a labeled `Divider` too, not only after an `hr`.
 - `List` separators (`.ui-bordered`, `.ui-border-top`) are visible on tonal lists in dark mode.

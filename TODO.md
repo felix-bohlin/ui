@@ -827,10 +827,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The Dialog's FooterAlignment and FooterContent examples show the same two things; one drawer can show both.
   - Fix: give one of the four Basics drawers a footer with a status `<p>` and a `.ui-actions` group, and another `align="start"`, in all five formats.
   - Fixed: the inline-start drawer's footer uses `align="start"`, and the block-end drawer's footer has status text and a `.ui-actions` group.
-- [ ] (1) Layout: `.ui-breakpoint-large` is documented in Columns and in the API, but both examples that use a breakpoint class use `.ui-breakpoint-small` (`src/docs/components/layout.astro:146-149`, `src/component-api/layout/api.ts:31-42`, `src/component-examples/layout/Columns.astro:7`, `src/component-examples/layout/Sticky.astro:7`)
+- [x] (1) Layout: `.ui-breakpoint-large` is documented in Columns and in the API, but both examples that use a breakpoint class use `.ui-breakpoint-small` (`src/docs/components/layout.astro:146-149`, `src/component-api/layout/api.ts:31-42`, `src/component-examples/layout/Columns.astro:7`, `src/component-examples/layout/Sticky.astro:7`)
   - Summary: The large breakpoint has no example on the page.
   - Recommended: Explain further. A third columns example would look the same in the narrow preview; a sentence saying so may be enough.
   - Fix: either add a `ui-breakpoint-large` variant to the Columns example or note in the prose that the preview is too narrow to show it.
+  - Fixed: the Columns section says the preview is narrower than `72rem`, so a large-breakpoint example would stay one column there, and links the Inbox block, whose folders move next to the messages once the block is `72rem` wide.
 - [x] (1) List: the ListItem API says a disabled link item drops its `href` and gets `aria-disabled="true"`, but the Clickable example only disables a button item (`src/docs/components/list.astro:214-225`, `src/component-api/list-item/api.ts:30-34`, `src/component-examples/list/Clickable.astro:6-8`)
   - Summary: The disabled link rendering has no example to compare with.
   - Recommended: Fix. One more row in the Clickable example.

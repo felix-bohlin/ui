@@ -49,32 +49,25 @@ export const keywords = ["activity", "feed", "history"]
 >
   <Fragment slot="title">Timeline</Fragment>
   <Fragment slot="preamble">
-    An ordered list of dated events with markers and a connecting line. The
-    dates line up in their own column, whatever their length. For the steps of a
-    flow, use a <DocLink href="/components/stepper">Stepper</DocLink>.
+    Dated events in order. For the steps of a flow, use a
+    <DocLink href="/components/stepper">Stepper</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">Dated events, like a changelog or incident updates.</li>
     <li slot="when">
-      Dated events in order, like a changelog or the updates on an incident, in
-      a <a href="#basics">timeline</a>.
-    </li>
-    <li slot="when">
-      Milestones with one in progress, like a project plan, with a
-      <a href="#current">current item</a> and a <a href="#tracked">tracked</a>
-      line.
+      Milestones with one in progress: <a href="#current">current item</a> and
+      <a href="#tracked">tracked</a> line.
     </li>
     <li slot="when-not">
-      Items with no date or order, like features. Use a
+      Items with no date or order: use a
       <DocLink href="/components/list">List</DocLink>.
     </li>
     <li slot="when-not">
-      The steps of a flow done in order, like a checkout. Use a
+      Steps of a flow: use a
       <DocLink href="/components/stepper">Stepper</DocLink>.
     </li>
-    <li slot="when-not">
-      A number over time, like visitors per day. Draw a chart.
-    </li>
+    <li slot="when-not">A number over time: draw a chart.</li>
   </Usage>
 
   <Fragment slot="anatomy">
@@ -111,40 +104,11 @@ export const keywords = ["activity", "feed", "history"]
   <section id="basics">
     <h2>Basics</h2>
     <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>headingLevel</code> to fit your page outline.</Fragment
+      >
       <Fragment slot="html"
-        >Each <code>li</code> holds a <code>&lt;time&gt;</code>, a heading and
-        its content. The dates share the first column through subgrid. Pick the
-        heading level that fits your page outline.</Fragment
-      >
-      <Fragment slot="astro"
-        >Each <code>TimelineItem</code> takes a <code>time</code>, a
-        <code>datetime</code> and a <code>label</code>, and its content in the
-        default slot. The heading is an <code>h3</code>. Set
-        <code>headingLevel</code> to fit your page outline, or leave out
-        <code>label</code> and put your own heading in the default
-        slot.</Fragment
-      >
-      <Fragment slot="react"
-        >Each <code>TimelineItem</code> takes a <code>time</code>, a
-        <code>datetime</code> and a <code>label</code>, and its content as
-        children. The heading is an <code>h3</code>. Set
-        <code>headingLevel</code> to fit your page outline, or leave out
-        <code>label</code> and put your own heading in the children.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Each <code>TimelineItem</code> takes a <code>time</code>, a
-        <code>datetime</code> and a <code>label</code>, and its content as
-        children. The heading is an <code>h3</code>. Set
-        <code>headingLevel</code> to fit your page outline, or leave out
-        <code>label</code> and put your own heading in the children.</Fragment
-      >
-      <Fragment slot="vue"
-        >Each <code>TimelineItem</code> takes a <code>time</code>, a
-        <code>datetime</code> and a <code>label</code>, and its content in the
-        default slot. The heading is an <code>h3</code>. Set
-        <code>headingLevel</code> to fit your page outline, or leave out
-        <code>label</code> and put your own heading in the default
-        slot.</Fragment
+        >Pick the heading level that fits your page outline.</Fragment
       >
     </Conditional>
 
@@ -154,9 +118,8 @@ export const keywords = ["activity", "feed", "history"]
   <section id="colors">
     <h2>Colors</h2>
     <p>
-      Set <PropOrClass prop="color" class=".ui-critical" /> and the other tones
-      on an item to fill its marker. Say the status in the text too, since the
-      color isn't announced.
+      Use <PropOrClass prop="color" class=".ui-critical" /> and the other tones.
+      Name the status in the text too.
     </p>
 
     <AutoExample name="Colors" />
@@ -165,8 +128,7 @@ export const keywords = ["activity", "feed", "history"]
   <section id="sizes">
     <h2>Sizes</h2>
     <p>
-      <PropOrClass prop='size="small"' class=".ui-small" /> makes the markers
-      and the spacing smaller, for logs and dense lists.
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for dense lists.
     </p>
 
     <AutoExample name="Sizes" />
@@ -176,25 +138,11 @@ export const keywords = ["activity", "feed", "history"]
     <h2>Custom marker</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Put an icon in a <code>span.ui-marker</code> at the start of the
-        <code>li</code> to replace the dot. It follows the item's color and the
-        current state.</Fragment
+        >Put an icon in <code>span.ui-marker</code> to replace the
+        dot.</Fragment
       >
-      <Fragment slot="astro"
-        >Put an icon in the <code>marker</code> slot to replace the dot. It
-        follows the item's color and the current state.</Fragment
-      >
-      <Fragment slot="react"
-        >Put an icon in the <code>marker</code> prop to replace the dot. It
-        follows the item's color and the current state.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Put an icon in the <code>marker</code> snippet to replace the dot. It
-        follows the item's color and the current state.</Fragment
-      >
-      <Fragment slot="vue"
-        >Put an icon in the <code>marker</code> slot to replace the dot. It
-        follows the item's color and the current state.</Fragment
+      <Fragment slot="components"
+        >Put an icon in <code>marker</code> to replace the dot.</Fragment
       >
     </Conditional>
 
@@ -203,38 +151,7 @@ export const keywords = ["activity", "feed", "history"]
 
   <section id="current">
     <h2>Current item</h2>
-    <Conditional as="p">
-      <Fragment slot="html"
-        >Add <code>aria-current</code> to the current item, such as
-        <code>aria-current="step"</code> for a milestone or
-        <code>aria-current="true"</code> for the latest update. Its marker gets
-        the primary color and a halo.</Fragment
-      >
-      <Fragment slot="astro"
-        >Set <code>current</code> on the current item.
-        <code>current="step"</code> fits a milestone, and <code>current</code>
-        alone renders <code>aria-current="true"</code>. Its marker gets the
-        primary color and a halo.</Fragment
-      >
-      <Fragment slot="react"
-        >Set <code>current</code> on the current item.
-        <code>current="step"</code> fits a milestone, and <code>current</code>
-        alone renders <code>aria-current="true"</code>. Its marker gets the
-        primary color and a halo.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Set <code>current</code> on the current item.
-        <code>current="step"</code> fits a milestone, and <code>current</code>
-        alone renders <code>aria-current="true"</code>. Its marker gets the
-        primary color and a halo.</Fragment
-      >
-      <Fragment slot="vue"
-        >Set <code>current</code> on the current item.
-        <code>current="step"</code> fits a milestone, and <code>current</code>
-        alone renders <code>aria-current="true"</code>. Its marker gets the
-        primary color and a halo.</Fragment
-      >
-    </Conditional>
+    <p>Mark it with <PropOrClass prop="current" class="aria-current" />.</p>
 
     <AutoExample name="Current" />
   </section>
@@ -243,8 +160,7 @@ export const keywords = ["activity", "feed", "history"]
     <h2>Tracked</h2>
     <p>
       <PropOrClass prop="tracked" class=".ui-tracked" /> colors the line up to
-      the current item, and the markers before it that have no color, like a
-      progress tracker.
+      the current item.
     </p>
 
     <AutoExample name="Progress" />
@@ -252,21 +168,7 @@ export const keywords = ["activity", "feed", "history"]
 
   <section id="narrow">
     <h2>Narrow containers</h2>
-    <p>
-      When the timeline is narrower than <code>24rem</code>, the dates move
-      above the titles and the date column closes. It responds to its own width,
-      so it works in sidebars and cards too.
-    </p>
-    <Conditional as="p">
-      <Fragment slot="components"
-        >Under a heading of its own, like a card title, set
-        <code>headingLevel</code> to the next level.</Fragment
-      >
-      <Fragment slot="html"
-        >Under a heading of its own, like a card title, give the items the next
-        heading level.</Fragment
-      >
-    </Conditional>
+    <p>Under <code>24rem</code>, the dates move above the titles.</p>
 
     <AutoExample name="Narrow" />
   </section>
@@ -275,33 +177,10 @@ export const keywords = ["activity", "feed", "history"]
     <h2>Items</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >The markup the <code>items</code> prop renders in Astro, Svelte and
-        Vue: one <code>li</code> per item, with the description in a
-        <code>p</code>.</Fragment
+        >The markup the <code>items</code> prop renders.</Fragment
       >
-      <Fragment slot="astro"
-        >Pass <code>items</code> to render the list from data. Each
-        <code>description</code> renders a paragraph. Use
-        <code>TimelineItem</code> for custom markers or richer
-        content.</Fragment
-      >
-      <Fragment slot="react"
-        >Pass <code>items</code> to render the list from data. Each
-        <code>description</code> renders a paragraph. Use
-        <code>TimelineItem</code> for custom markers or richer
-        content.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Pass <code>items</code> to render the list from data. Each
-        <code>description</code> renders a paragraph. Use
-        <code>TimelineItem</code> for custom markers or richer
-        content.</Fragment
-      >
-      <Fragment slot="vue"
-        >Pass <code>items</code> to render the list from data. Each
-        <code>description</code> renders a paragraph. Use
-        <code>TimelineItem</code> for custom markers or richer
-        content.</Fragment
+      <Fragment slot="components"
+        >Pass <code>items</code> to render the list from data.</Fragment
       >
     </Conditional>
 
@@ -309,26 +188,16 @@ export const keywords = ["activity", "feed", "history"]
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      The timeline is an <code>ol</code>, so screen readers announce the number
-      of events and the position of each. Put the items in the order you want
-      them read; the list has no visible numbers, so <code>reversed</code>
-      changes nothing.
-    </p>
-    <p>
-      Put dates in a <code>&lt;time&gt;</code> with a <code>datetime</code>
-      attribute. The dots and the line are drawn with pseudo-elements and aren't
-      announced. Give icons in a custom marker <code>aria-hidden="true"</code>.
-    </p>
-    <p>
-      <code>aria-current</code> tells screen readers which item is current.
-      Colors are only visual, so name the status in the text.
-    </p>
-    <p>
-      In forced colors mode the line and markers use system colors, colored
-      markers are filled with <code>CanvasText</code>, and the current marker
-      and the progress line use <code>Highlight</code>.
-    </p>
+    <ul>
+      <li>
+        Put the items in reading order: <code>reversed</code> changes nothing.
+      </li>
+      <li>
+        Put dates in a <code>&lt;time datetime&gt;</code>. Hide marker icons
+        with <code>aria-hidden="true"</code>.
+      </li>
+      <li>Colors aren't announced: name the status in the text.</li>
+    </ul>
   </Fragment>
 
   <Fragment slot="under-the-hood">

@@ -36,27 +36,22 @@ export const keywords = ["review", "score", "stars"]
 >
   <Fragment slot="title">Rating</Fragment>
   <Fragment slot="preamble">
-    A star rating. A <code>&lt;meter&gt;</code> shows a score, and a group of
-    radios collects one. For a plain choice between options, use a
-    <DocLink href="/components/radio">Radio</DocLink>, and for a value on a
-    scale, a <DocLink href="/components/range">Range</DocLink>.
+    A star rating. For a plain choice, use a
+    <DocLink href="/components/radio">Radio</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      A score next to a product or a review, like 4.7 out of 5, as a read-only
-      <a href="#basics">meter</a>.
+      A score, like 4.7 out of 5: a read-only <a href="#basics">meter</a>.
     </li>
-    <li slot="when">
-      A review form that asks for a score, with the <a href="#input">input</a>.
+    <li slot="when">A review form: the <a href="#input">input</a>.</li>
+    <li slot="when-not">
+      Progress toward a goal: use
+      <DocLink href="/components/progress">Progress</DocLink>.
     </li>
     <li slot="when-not">
-      Progress toward a goal, like a download. Use a
-      <DocLink href="/components/progress">Progress</DocLink> bar.
-    </li>
-    <li slot="when-not">
-      A number on a continuous scale, like a volume. Use a
-      <DocLink href="/components/range">Range</DocLink>.
+      A continuous scale: use a <DocLink href="/components/range">Range</DocLink
+      >.
     </li>
   </Usage>
 
@@ -70,14 +65,10 @@ export const keywords = ["review", "score", "stars"]
     <h2>Basics</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Add <code>.ui-rating</code> to a <code>&lt;meter&gt;</code> with
-        <code>max</code> and <code>value</code>. The <code>aria-label</code> is
-        its accessible name, so put the score in it.</Fragment
+        >Put the score in the <code>aria-label</code>.</Fragment
       >
       <Fragment slot="components"
-        >Without <code>name</code>, a rating is a read-only
-        <code>&lt;meter&gt;</code>. The <code>label</code> is its accessible
-        name, so put the score in it.</Fragment
+        >Put the score in the <code>label</code>.</Fragment
       >
     </Conditional>
     <AutoExample name="Basics" />
@@ -87,61 +78,27 @@ export const keywords = ["review", "score", "stars"]
     <h2>Input</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Add <code>.ui-rating</code> to a <code>&lt;fieldset&gt;</code> with a
-        <code>&lt;legend&gt;</code> and one radio per star, named with
-        <code>aria-label</code>. The radio with <code>value="0"</code> clears
-        the rating.</Fragment
-      >
-      <Fragment slot="react"
-        >Set <code>name</code> to collect a rating. It renders a
-        <code>&lt;fieldset&gt;</code> of radios, with the <code>label</code> as
-        its legend. Follow the rating with <code>value</code> and
-        <code>onChange</code>, or set <code>defaultValue</code>.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Set <code>name</code> to collect a rating. It renders a
-        <code>&lt;fieldset&gt;</code> of radios, with the <code>label</code> as
-        its legend. Bind the rating with <code>bind:value</code>.</Fragment
-      >
-      <Fragment slot="vue"
-        >Set <code>name</code> to collect a rating. It renders a
-        <code>&lt;fieldset&gt;</code> of radios, with the <code>label</code> as
-        its legend. Bind the rating with <code>v-model</code>.</Fragment
+        >A <code>&lt;fieldset&gt;</code> of radios. <code>value="0"</code>
+        clears it.</Fragment
       >
       <Fragment slot="components"
-        >Set <code>name</code> to collect a rating. It renders a
-        <code>&lt;fieldset&gt;</code> of radios, with the <code>label</code> as
-        its legend.</Fragment
+        >Set <code>name</code> to collect a rating.</Fragment
       >
     </Conditional>
     <p>
-      Hovering previews a rating, and a click or the arrow keys set it. The icon
-      before the stars clears the rating, and stays visible so touch users can
-      find it. The count after the stars is a CSS counter.
-    </p>
-    <p>
-      The stars and the clear icon are masks: set <code>--_star-image</code> and
-      <code>--_clear-image</code> on the rating to an SVG <code>url()</code> to
-      draw them with your own icons.
+      Use your own icons with <code>--_star-image</code> and
+      <code>--_clear-image</code>.
     </p>
     <AutoExample name="Input" />
   </section>
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <p>
-      Resize a rating with <PropOrClass prop='size="small"' class=".ui-small" />
-      or <PropOrClass prop='size="large"' class=".ui-large" />. Input stars are
-      bigger than meter stars, so every radio is a large enough target.
-    </p>
     <AutoExample name="Sizes" row />
   </section>
 
   <section id="fractions">
     <h2>Fractions</h2>
-    <p>
-      The meter fills the exact fraction, so 4.9 doesn't round up to five stars.
-    </p>
     <AutoExample name="Fractions" column />
   </section>
 
@@ -149,13 +106,11 @@ export const keywords = ["review", "score", "stars"]
     <h2>Max</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        ><code>max</code> sets the number of stars, read with typed
-        <code>attr()</code>. Browsers without it read <code>--_max</code>, so
-        set both to the same number, or they draw five stars.</Fragment
+        >Set <code>max</code> and <code>--_max</code> to the same
+        number.</Fragment
       >
       <Fragment slot="components"
-        ><code>max</code> sets the number of stars. Defaults to <code>5</code
-        >.</Fragment
+        >Five stars by default. Use <code>max</code> to change it.</Fragment
       >
     </Conditional>
     <AutoExample name="Max" column />
@@ -163,44 +118,27 @@ export const keywords = ["review", "score", "stars"]
 
   <section id="disabled">
     <h2>Disabled</h2>
-    <p>Set <code>disabled</code> to disable every radio.</p>
     <AutoExample name="Disabled" />
   </section>
 
   <section id="validation">
     <h2>Validation</h2>
-    <Conditional as="p">
-      <Fragment slot="html"
-        >Set <code>required</code> on the radios and leave out the clear radio,
-        so a star has to be picked. <code>aria-invalid="true"</code> on the
-        radios tints the empty stars. Point <code>aria-describedby</code> at the
-        error message.</Fragment
-      >
-      <Fragment slot="components"
-        ><code>required</code> drops the clear radio, so a star has to be
-        picked. <code>error</code> marks the radios invalid and tints the empty
-        stars. Point <code>aria-describedby</code> at the error
-        message.</Fragment
-      >
-    </Conditional>
+    <p>
+      <PropOrClass prop="required" class="[required]" /> drops the clear radio.
+      Use <PropOrClass prop="error" class='aria-invalid="true"' /> for errors.
+    </p>
     <AutoExample name="Validation" />
   </section>
 
   <section id="localization">
     <h2>Localization</h2>
-    <p>
-      In right-to-left text the meter fills from the right, and the radios and
-      arrow keys follow the reading direction.
-    </p>
     <Conditional as="p">
       <Fragment slot="html"
         >Translate the <code>aria-label</code> of each radio.</Fragment
       >
       <Fragment slot="components"
-        >The radios are named "No rating", "1 star", "2 stars" and so on.
-        Translate them with <code>clearLabel</code> and <code>starLabel</code>,
-        a function that gets the star's value. Use <code>Intl.PluralRules</code>
-        for languages with more plural forms.</Fragment
+        >Translate with <code>clearLabel</code> and <code>starLabel</code
+        >.</Fragment
       >
     </Conditional>
     <AutoExample name="Localization" />
@@ -208,24 +146,12 @@ export const keywords = ["review", "score", "stars"]
 
   <Fragment slot="accessibility">
     <KeyboardSupport />
-    <p>
-      The meter is announced with its label and value. Screen readers may read
-      the value as a percentage, so put the score in the label, such as "Rated
-      4.5 out of 5".
-    </p>
-    <p>
-      The input is a group of native radios named by the legend. Each radio has
-      its own name, such as "3 stars", and the arrow keys move between them. The
-      count after the stars is hidden from screen readers, since the checked
-      radio already says it.
-    </p>
-    <p>
-      Radios get the library's focus ring, and every one is at least as wide as
-      <code>--ui-icon-size-large</code> (1.5rem), the minimum target size of
-      WCAG 2.2. In forced colors mode filled stars use <code>SelectedItem</code>
-      on the input and <code>CanvasText</code> on the meter, and empty stars use
-      <code>GrayText</code>.
-    </p>
+    <ul>
+      <li>
+        Screen readers may read a meter as a percentage: put the score in the
+        label.
+      </li>
+    </ul>
   </Fragment>
 
   <Fragment slot="under-the-hood">

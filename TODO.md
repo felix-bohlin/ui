@@ -132,6 +132,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): give both buttons `aria-controls={inputId}` in all four frameworks and the HTML examples, and say in the Accessibility list that the buttons are for pointer users while the arrow keys on the input announce each step.
     - B: like A, and let `number-field.js` also write the value into a visually hidden `output` with `aria-live="polite"` inside the field, so a press is announced once.
   - Fixed: with option A: both step buttons get `aria-controls` with the input's id in all four frameworks, the ten HTML examples and the product-detail and shopping-cart blocks, the HTML note in the API says so, and the Accessibility list says the buttons are for pointer users while the arrow keys on the input announce each step. The number-field markup snapshots are re-recorded (intended).
+  > Fix with option A
+  - Fixed: already done in dc739bcd with option A, as the note above says: both step buttons point at the input with `aria-controls` in all four frameworks, the HTML examples and the two blocks, and the Accessibility list says the buttons are for pointer users while the arrow keys on the input announce each step.
 - [x] (2) Toggle: the group renders `role="radiogroup"` or `role="group"` but nothing names it: the types don't require `aria-label` or `aria-labelledby`, no `warnUnnamed` runs (Switch has one), and the Single-select, Multi-select, Text + icon, Vertical and Overflow examples have no name although the page says "Name it with `aria-label`"; only Binding and the small group in Sizes do (`packages/opui/components/ToggleGroup/ToggleGroup.astro:38`, `packages/opui/components/ToggleGroup/types.ts:1-7`, `src/component-examples/toggle/Alignment.html:1`, `src/component-examples/toggle/MultiSelect.html:1`, `src/component-examples/toggle/Interactive.html:1`, `src/component-examples/toggle/Vertical.html:1`, `src/component-examples/toggle/Overflow.html:4-38`, `src/docs/components/toggle.astro:306-319`)
   - Summary: Screen readers announce five of the seven toggle groups as an unnamed radio group or group, and users copy the examples that way.
   - Recommended: Fix with option A. The examples are what users copy, and the dev warning matches how Switch already catches an unnamed control.
@@ -271,6 +273,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The other frameworks render the name, and the failing parity tests show where.
   - Fix: have `scripts/component-vue.mjs` bind the declared `aria-label` and `aria-labelledby` on the root (or keep them out of `defineProps` so they fall through), rebuild, and rerun `pnpm exec vitest run tests/unit/parity.test.ts -t "carousel/|avatar/Grouped"`.
   - Fixed: in dff0dda9 by keeping the dashed keys out of the Vue props type (`Omit<BaseProps, "aria-label" | "aria-labelledby">` from `scripts/component-types.mjs`), so Vue no longer declares them as props and they fall through to the root. This session's emitter-side binding was dropped in favor of it.
+  > Explain further
+  > Is this a compiler error?
+  - Explained: Not a bug in a compiler, but our generator not following a Vue rule. Vue's `defineProps<Props>()` turns every key that any member of a union can have into a declared prop, since at run time it can't tell which member applies, and Vue takes declared props out of `$attrs`, so they stop falling through to the root element. 8d2513f made Carousel and AvatarGroup require a name with `& ({ "aria-label": string } | { "aria-labelledby": string })`, and `scripts/component-types.mjs`, which writes `types.vue-props.ts` for `pnpm build-components`, wrote `BaseProps & Class`, so Vue declared both keys and nothing rendered them. TypeScript and Vue did what they're specified to do. dff0dda9 fixed the generator: the Vue props leave out the dashed keys of the base props (`Omit<BaseProps, "aria-label" | "aria-labelledby">`), so the name falls through as an attribute, and `component-types.test.ts` covers it. The cost is that the Vue type no longer requires the name, which the API and CHANGELOG now say ("its Astro, React and Svelte types require it"). After that fix the Vue parity tests still failed here until `node_modules/.vitest-cache` was deleted, since vitest's module cache keeps a compiled `.vue` file while its own text is unchanged; that's a new Tooling item.
 
 ## Bugs
 
@@ -388,6 +393,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): in `scripts/component-vue.mjs`, bind a class list without an unconditional string through `v-bind` and a `classAttrs()` helper in `cx.ts` that returns `{ class }` only when it isn't empty (merged into the element's own `v-bind` object where it has one), do the same for the roots' `:class="$props.class"`, rebuild, and add a Vue server render test of a part without a class.
     - B: accept `class=""` in Vue's server markup, which styles nothing and which the parity test already ignores.
   - Fixed: with option A, for Svelte too: Svelte also prints `class=""` when the element has a spread, as every part does. `classMayBeEmpty` in `scripts/component-shared.mjs` finds a class list without a class it always gives (a non-empty string, a template with text, a ternary of two), and both emitters spread `classAttrs()` from `cx.ts` for it, which returns `{ class }` only when it isn't empty; Vue merges it into the element's own `v-bind` object in place. 25 Vue and 15 Svelte files change. `component-contract.test.ts` now fails on an empty class in any framework, with a sample, `build-components.test.ts` has samples for the check, and section 3 of the components guide names both.
+  > Fix with option A
+  - Fixed: already done in dc739bcd with option A, for Svelte too, as the note above says: a class list that can come out empty compiles to a `classAttrs()` spread in Svelte and Vue, and `component-contract.test.ts` fails on an empty `class` in any framework.
 - [x] (1) Chip: a pressed chip only checks `:disabled`, so an `aria-disabled="true"` pressed chip still darkens on hover and gets no disabled opacity, while the unpressed rules check both (`packages/opui/css/components/chip.css:210-220`, `packages/opui/css/components/chip.css:54`)
   - Summary: A pressed chip marked aria-disabled still reacts to hover and looks enabled.
   - Recommended: Fix. It matches the unpressed chip rule two blocks above.
@@ -447,6 +454,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): leave radios out of the label marker (`&:not(.ui-radio):has(:required)`), since `required` on a radio means the group, which the fieldset legend marks.
     - B: mark a radio's label only outside a fieldset or field group (`&.ui-radio:not(:is(fieldset, .ui-field-group) *)`), for a lone required radio.
   - Fixed: with option A: `choice.css` marks the label only `&:not(.ui-radio):has(:required)`, so a required radio group's asterisk is on its legend alone (checked in Chromium: the legend and a required checkbox keep theirs).
+  > Fix with option A
+  - Fixed: already done in dc739bcd with option A, as the note above says: `choice.css` marks the label only `&:not(.ui-radio):has(:required)`, so a required group's asterisk is on its legend alone.
 - [x] (2) Blog: in WebKit, `/blog/under-the-hood/` often doesn't finish loading at 320px: the scroll test times out after 30 seconds at `page.goto` (no `load` event) or at `document.fonts.ready`, on both attempts in every completed WebKit run since Oct 29 (`tests/e2e/docs.spec.ts:427-430`, `src/docs/blog/under-the-hood.astro:1-101`)
   - Summary: The Under the hood blog post loads so slowly in WebKit that its narrow-screen layout test times out.
   - Recommended: Fix. The page needs a look in WebKit to find what keeps it loading, and a longer timeout would hide it.
@@ -1364,6 +1373,13 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: leave it undocumented.
   > Fix with option A
   - Fixed: with option A: the Sticky header section says `overflow="scroll"` (`.ui-overflow-scroll`) makes the table its own scroll container, so for a wide table with a sticky header leave it off and put the table in a scroll box like the StickyHeader example, which scrolls both ways.
+- [ ] (1) Tooling: vitest's module cache in `node_modules/.vitest-cache` keeps a compiled `.vue` component while its own text is unchanged, so a change to the `types.vue-props.ts` it imports, which decides the props Vue declares, leaves the old props in local runs: after dff0dda9 the Vue Carousel and AvatarGroup parity tests still failed locally until the cache was deleted (`vitest.config.ts:1-9`, `packages/opui/components/Carousel/types.vue-props.ts:4`)
+  - Summary: Local unit tests can keep failing on a Vue component after its props type is fixed, until the test cache is cleared.
+  - Recommended: Fix with option A. A local run that tests stale code costs more time than the cache saves.
+  - Fix: until it's fixed, `rm -rf node_modules/.vitest-cache` clears it.
+  - Options:
+    - A (recommended): turn the module cache off in `vitest.config.ts`.
+    - B: keep it and key it on the files a `.vue` file's `defineProps` type reads.
 - [ ] (2) Tooling: on the first request after `astro dev` starts, Astro's CSS collector (`ensureModulesLoaded` in `astro/dist/vite-plugin-css/index.js`) compiles every module the page's graph reaches, dynamic imports included, and follows the edge Vite adds from a `?raw` import to its file. `opui-raw-without-module-edge` drops that edge, but the component and Learn routes still reach every docs page and every example in every framework, so their first request compiles about 3,000 modules (`astro.config.mjs:113-134`, `src/utils/examples.ts:8-17`)
   - Summary: The first component or Learn page after the dev server starts takes about 9 seconds, while later pages load almost at once.
   - Recommended: Fix with option A. The draft is ready, and posting it is the last step.

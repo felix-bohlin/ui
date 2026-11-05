@@ -9,6 +9,15 @@ const RATCHETS = [
     fix: "use a --ui-* role or a documented input instead of a new allowlist entry",
   },
   {
+    file: "tests/unit/example-copy-allowlist.json",
+    fix: "write realistic copy in the example instead of allowing the placeholder",
+  },
+  {
+    file: "tests/unit/example-coverage-allowlist.json",
+    fix: "add an example that shows the prop or value instead of allowing it",
+    keys: true,
+  },
+  {
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },

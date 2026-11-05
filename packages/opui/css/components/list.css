@@ -237,17 +237,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
         }
 
-        &[aria-selected="true"] {
-          background-color: var(--_selected-bg-color);
-          box-shadow: var(--_selected-shadow);
-          color: var(--ui-on-selected, var(--ui-primary-text));
-          --_description-text-color: var(
-            --ui-on-selected,
-            var(--ui-text-subtle)
-          );
-        }
-
-        &:checked {
+        &:is([aria-selected="true"], :checked) {
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);

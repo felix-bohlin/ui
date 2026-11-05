@@ -388,8 +388,8 @@
         &:active {
           --_thumb-highlight-size: var(--ui-space-2);
           --_track-bg-color: light-dark(
-            oklch(from var(--ui-field-border-color) calc(l * 0.9) c h),
-            oklch(from var(--ui-field-border-color) calc(l * 1.1) c h)
+            oklch(from var(--_track-base-bg-color) calc(l * 0.9) c h),
+            oklch(from var(--_track-base-bg-color) calc(l * 1.1) c h)
           );
         }
       }
@@ -400,7 +400,7 @@
           var(--ui-text-strong) 50%,
           var(--ui-surface)
         );
-        --_track-bg-color: var(--ui-field-border-color);
+        --_track-bg-color: var(--_track-base-bg-color);
 
         cursor: not-allowed;
 

@@ -347,7 +347,7 @@
     --ui-field-border-color-on-raised: color-mix(
       in oklch,
       var(--ui-text-strong) var(--ui-field-border-strength),
-      var(--ui-surface)
+      var(--ui-surface-elevated)
     );
 
     /* Divider */
@@ -559,12 +559,12 @@
       color-mix(
         in oklch,
         var(--ui-text-strong) var(--ui-border-strength-light),
-        var(--ui-surface)
+        var(--ui-surface-elevated)
       ),
       color-mix(
         in oklch,
         var(--ui-text-strong) var(--ui-border-strength-dark),
-        var(--ui-surface)
+        var(--ui-surface-elevated)
       )
     );
     /* --ui-border-color-raised: var(--ui-border-color); */

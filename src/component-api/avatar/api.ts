@@ -16,7 +16,7 @@ export default {
     {
       default: "false",
       description:
-        'Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled="true"` instead.',
+        'Disables a button avatar. A link avatar drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.',
       prop: "disabled",
     },
     {
@@ -65,7 +65,7 @@ export default {
     },
     {
       description:
-        'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+        'Disables a button avatar. A link avatar, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead.',
       frameworks: ["html"],
       group: "State",
       prop: "state",

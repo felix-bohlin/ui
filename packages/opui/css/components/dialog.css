@@ -147,7 +147,7 @@
       --_ease: var(--ui-ease-enter);
 
       opacity: 1;
-      pointer-events: all;
+      pointer-events: auto;
       scale: none;
 
       &::backdrop {

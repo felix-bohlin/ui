@@ -27,7 +27,7 @@ export default {
     {
       default: "false",
       description:
-        'Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead.',
+        'Disables a button chip. A link chip drops its `href` and gets `role="link"` and `aria-disabled="true"` instead.',
       prop: "disabled",
     },
     {

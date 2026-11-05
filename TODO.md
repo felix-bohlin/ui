@@ -197,7 +197,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: A field set rendered as a div is an unnamed group for screen readers unless the author wires aria-labelledby themselves.
   - Recommended: Fix. It follows the Dialog and Drawer pattern, and a passed `aria-label` or `aria-labelledby` still wins through `autoLabelledBy`.
   - Fix: a `fieldsetContext` like `dialogContext` in all four frameworks. When `as` isn't `fieldset`, `Fieldset` creates an id (`createId(Astro.locals)("legend")`, `useId()`, `$props.id()`), sets `aria-labelledby={autoLabelledBy(rest, id)}` and provides it; `FieldLegend` renders `id={context?.legendId ?? id}` with `warnReplacedId`, as `DialogTitle` does. The Without fieldset section then only documents the HTML way.
-- [ ] (3) Button, Avatar: a disabled link drops its `href` and keeps `aria-disabled="true"`, so the `a` has the generic role; `aria-label` is prohibited on generic, so the disabled link avatar is read as "KL" instead of "Karl Lund", and a disabled link button or pagination link is plain text with no role and no "unavailable" (`packages/opui/components/tag.ts:1-6`, `src/component-examples/avatar/Disabled.html:6`, `src/component-examples/button/Disabled.html:69-74`, `src/component-examples/button-group/Pagination.html:3`, `src/docs/components/button.astro:201-217`, `src/docs/components/avatar.astro:142-158`, `src/component-api/button/api.ts:50-52`, `src/component-api/button/api.ts:55-57`, `src/component-api/avatar/api.ts:18-20`, `src/component-api/avatar/api.ts:67-69`)
+- [x] (3) Button, Avatar: a disabled link drops its `href` and keeps `aria-disabled="true"`, so the `a` has the generic role; `aria-label` is prohibited on generic, so the disabled link avatar is read as "KL" instead of "Karl Lund", and a disabled link button or pagination link is plain text with no role and no "unavailable" (`packages/opui/components/tag.ts:1-6`, `src/component-examples/avatar/Disabled.html:6`, `src/component-examples/button/Disabled.html:69-74`, `src/component-examples/button-group/Pagination.html:3`, `src/docs/components/button.astro:201-217`, `src/docs/components/avatar.astro:142-158`, `src/component-api/button/api.ts:50-52`, `src/component-api/button/api.ts:55-57`, `src/component-api/avatar/api.ts:18-20`, `src/component-api/avatar/api.ts:67-69`)
   - Summary: A screen reader hears a disabled link avatar as two letters and a disabled link button as plain text, with no role and no state.
   - Recommended: Fix with option A. One line in `tag.ts` covers every component that renders a disabled link, and `role="link"` keeps `aria-label` and `aria-disabled` valid.
   - Fix: `tagAttrs` is shared by Avatar, Button, Chip, ListItem and Menu, so the change reaches all of them; the parity snapshots of the Disabled and Pagination examples change on purpose.
@@ -207,6 +207,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       role: tag === "a" && disabled ? ("link" as const) : undefined,
       ```
     - B: keep the markup and say on the Button and Avatar pages that a disabled link reads as plain text, so a link avatar should keep its initials visible and a disabled pagination link should be left out or rendered as a `button disabled`.
+  - Fixed: `tagAttrs` adds `role="link"` to a disabled link, which reaches Avatar, Button, Chip, ListItem and Menu, and the pages and `api.ts` descriptions name it. The parity snapshots of the five examples with a disabled link were re-recorded on purpose.
 - [ ] (3) OneTimeCode: with a complete code the focus ring disappears: `.ui-field::after` sits in the grid column after the input, the input's margin box is `n * cell` wide and `.ui-field` is `length * cell` wide with `overflow: clip`, so when `n` equals `length` the ring and the caret are clipped away, and the `@supports (field-sizing: content)` block swaps the thick `--_box-focus-image` back to the thin `--_box-image` (`packages/opui/css/components/one-time-code.css:24-39`, `packages/opui/css/components/one-time-code.css:51-64`, `packages/opui/css/components/one-time-code.css:96-132`, `src/docs/components/one-time-code.astro:156-161`, `src/docs/components/one-time-code.astro:364-367`, `src/docs/components/one-time-code.astro:407-412`)
   - Summary: Once all six digits are typed, tabbing back into the field shows no ring and no caret, only the boxes changing color.
   - Recommended: Fix with option A. It needs no detection of a full code and keeps the ring where there is a next box.
@@ -350,23 +351,27 @@ Findings with a page and section in brackets come from the stress pages in `src/
       opacity: var(--ui-disabled-opacity);
     }
     ```
-- [ ] (1) Copy: the copied popover sets `--_ease: var(--ui-ease-enter)` on the root and never switches, so it also closes with the enter curve, while Dialog and Menu start on `--ui-ease-exit` and switch to enter only in the open state (`packages/opui/css/components/copy.css:19`, `packages/opui/css/components/copy.css:73-81`, `packages/opui/css/components/dialog.css:5`, `packages/opui/css/components/dialog.css:147`, `packages/opui/css/components/menu.css:12`, `packages/opui/css/components/menu.css:76`)
+- [x] (1) Copy: the copied popover sets `--_ease: var(--ui-ease-enter)` on the root and never switches, so it also closes with the enter curve, while Dialog and Menu start on `--ui-ease-exit` and switch to enter only in the open state (`packages/opui/css/components/copy.css:19`, `packages/opui/css/components/copy.css:73-81`, `packages/opui/css/components/dialog.css:5`, `packages/opui/css/components/dialog.css:147`, `packages/opui/css/components/menu.css:12`, `packages/opui/css/components/menu.css:76`)
   - Summary: The Copied label slides out with the curve meant for entering, unlike every other overlay.
   - Recommended: Fix. Two lines bring it in line with the Motion section of the components guide.
   - Fix: `--_ease: var(--ui-ease-exit)` on line 19 and `--_ease: var(--ui-ease-enter)` inside `&:popover-open`.
-- [ ] (1) Dialog: the open state sets `pointer-events: all`, an SVG-only value; the value for HTML boxes is `auto`, and no other stylesheet uses `all` (`packages/opui/css/components/dialog.css:150`)
+  - Fixed: the label starts on `--ui-ease-exit` and `:popover-open` sets `--ui-ease-enter`, like Dialog and Menu.
+- [x] (1) Dialog: the open state sets `pointer-events: all`, an SVG-only value; the value for HTML boxes is `auto`, and no other stylesheet uses `all` (`packages/opui/css/components/dialog.css:150`)
   - Summary: Nothing visible today, since browsers accept the value, but it is the wrong keyword for an HTML element.
   - Recommended: Fix. One word.
   - Fix: `pointer-events: auto;`
-- [ ] (1) Form: the button-only field group drops its top margin after an `hr`, but `Divider` renders a `div.ui-divider` when it has text, which `.ui-form` already treats like `hr` three rules up (`packages/opui/css/components/form.css:105`, `packages/opui/css/components/form.css:7`, `packages/opui/components/Divider/Divider.astro:9-21`)
+  - Fixed: the open state sets `pointer-events: auto`.
+- [x] (1) Form: the button-only field group drops its top margin after an `hr`, but `Divider` renders a `div.ui-divider` when it has text, which `.ui-form` already treats like `hr` three rules up (`packages/opui/css/components/form.css:105`, `packages/opui/css/components/form.css:7`, `packages/opui/components/Divider/Divider.astro:9-21`)
   - Summary: A labeled divider before a form's button row leaves an extra gap that a plain divider doesn't.
   - Recommended: Fix. It reuses the selector the file already has on line 7.
   - Fix: `&:not(:where(hr, .ui-divider) + &)`.
-- [ ] (1) List: the four selected-item blocks are copies that differ in one value: an `option[aria-selected="true"]` gets `color: var(--ui-on-selected, var(--ui-primary-text))`, while `:checked`, `[role="option"][aria-selected="true"]` and `[aria-current="page"]` fall back to `currentColor`, and for an option that is both, `:checked` wins by order (`packages/opui/css/components/list.css:240-258`, `packages/opui/css/components/list.css:202-213`, `packages/opui/css/components/list.css:292-300`)
+  - Fixed: the rule reads `&:not(:where(hr, .ui-divider) + &)`, so a labeled divider counts too.
+- [x] (1) List: the four selected-item blocks are copies that differ in one value: an `option[aria-selected="true"]` gets `color: var(--ui-on-selected, var(--ui-primary-text))`, while `:checked`, `[role="option"][aria-selected="true"]` and `[aria-current="page"]` fall back to `currentColor`, and for an option that is both, `:checked` wins by order (`packages/opui/css/components/list.css:240-258`, `packages/opui/css/components/list.css:202-213`, `packages/opui/css/components/list.css:292-300`)
   - Summary: A selected listbox option turns primary-colored while a selected select option or current link keeps its text color.
   - Recommended: Fix. Merging the selectors removes the drift and about 20 lines.
   - Fix: pick one fallback and merge `&[aria-selected="true"], &:checked` into one block; `currentColor` is what three of the four use.
-- [ ] (1) Menu: in right-to-left text the submenu rule mirrors the whole `.ui-end` of a submenu item with `scale: -1 1`, not just its chevron, so a `kbd` shortcut or any text placed there reads backwards; the docs put the icon in `.ui-end`, which is also where `shortcut` renders (`packages/opui/css/components/menu.css:116-118`, `src/docs/components/menu.astro:158-188`)
+  - Fixed: the option's `[aria-selected="true"]` and `:checked` share one block with the `currentColor` fallback the other selected rules use.
+- [x] (1) Menu: in right-to-left text the submenu rule mirrors the whole `.ui-end` of a submenu item with `scale: -1 1`, not just its chevron, so a `kbd` shortcut or any text placed there reads backwards; the docs put the icon in `.ui-end`, which is also where `shortcut` renders (`packages/opui/css/components/menu.css:116-118`, `src/docs/components/menu.astro:158-188`)
   - Summary: In right-to-left text, a shortcut or any text next to a submenu item's chevron is mirrored.
   - Recommended: Fix. One selector change, same result for the chevron.
   - Fix: mirror the icon instead of its container.
@@ -375,6 +380,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       scale: -1 1;
     }
     ```
+  - Fixed: the rule mirrors `.ui-end > svg`, so a shortcut next to the chevron reads normally.
 - [x] (1) Range: the `Props` of all three frameworks intersect `Base.Props.value` with the native `value` attribute (which includes `string[]`), because the type files omit only `size` and `type` (and `children`) from the element attributes, so the type admits a nonsense `(number & string[])` member and the props table hides it with a `type` override (`packages/opui/components/Range/types.astro.ts:4`, `packages/opui/components/Range/types.react.ts:6-8`, `packages/opui/components/Range/types.svelte.ts:7-9`, `src/component-api/range/api.ts:173-177`)
   - Summary: The Range `value` type admits a nonsense member in every framework, hidden from the table by an override.
   - Recommended: Fix. Omitting `keyof Base.Props` is what the other components do, and it removes the need for the type override.
@@ -431,7 +437,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       undefined}
     ```
   - Fixed: the radio model kind in `scripts/component-models.mjs` gives the Svelte port a `hasGroup` flag, set when the parent passes `group`, and an `isChecked()` the `checked` attribute and its starting state both read: with a group the group wins, as in Vue, and without one `checked` wins, so radios driven by `checked` keep working after the radio writes its own `group` on a click (the FieldGroupControlled interaction test). `tests/unit/radio-checked.test.ts` renders RadioInput in Svelte and Vue with a bound group and `checked` on another value, with the group on its own value, and with only `checked`; the contract test compares against Astro, which has no binding.
-- [ ] (2) Range: the pressed and disabled track colors are derived from `--ui-field-border-color` instead of `--_track-base-bg-color`, so a `.ui-filled` or `.ui-tonal` track, or one a theme colors with `--ui-track-bg-color`, jumps to a darkened field-border gray while the thumb is held and when the input is disabled (`packages/opui/css/components/range.css:388-394`, `packages/opui/css/components/range.css:397-403`, `packages/opui/css/components/range.css:118-124`)
+- [x] (2) Range: the pressed and disabled track colors are derived from `--ui-field-border-color` instead of `--_track-base-bg-color`, so a `.ui-filled` or `.ui-tonal` track, or one a theme colors with `--ui-track-bg-color`, jumps to a darkened field-border gray while the thumb is held and when the input is disabled (`packages/opui/css/components/range.css:388-394`, `packages/opui/css/components/range.css:397-403`, `packages/opui/css/components/range.css:118-124`)
   - Summary: Pressing or disabling a filled, tonal or themed slider changes its track to a different gray.
   - Recommended: Fix. The active and disabled states only need to read the base track color the variants already set.
   - Fix: confirm first on `/html/components/range/` with a `.ui-filled` slider held down. Then derive both states from the base color.
@@ -448,7 +454,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
       --_track-bg-color: var(--_track-base-bg-color);
     }
     ```
-- [ ] (2) TextField: an autofilled input in a `.ui-filled` field paints a `--ui-surface` box inside the tonal field: `normalize.css` covers the browser's autofill color with an inset shadow in `--ui-field-bg-color` falling back to `--ui-surface`, while the filled variant's background is `--_bg-color: var(--ui-surface-tonal)` on `.ui-field` and the input itself is transparent (`packages/opui/core/normalize.css:91-103`, `packages/opui/css/components/text-field.css:17`, `packages/opui/css/components/text-field.css:406-407`)
+  - Fixed: `:active` derives the pressed track from `--_track-base-bg-color`, and `:disabled` keeps it.
+- [x] (2) TextField: an autofilled input in a `.ui-filled` field paints a `--ui-surface` box inside the tonal field: `normalize.css` covers the browser's autofill color with an inset shadow in `--ui-field-bg-color` falling back to `--ui-surface`, while the filled variant's background is `--_bg-color: var(--ui-surface-tonal)` on `.ui-field` and the input itself is transparent (`packages/opui/core/normalize.css:91-103`, `packages/opui/css/components/text-field.css:17`, `packages/opui/css/components/text-field.css:406-407`)
   - Summary: After the browser autofills a filled text field, the input shows a page-colored rectangle inside the gray field.
   - Recommended: Fix. One rule in `text-field.css` reads the field's own background, and `components.extended` beats `normalize` without a specificity change.
   - Fix: confirm on `/html/components/text-field/` (Filled) by autofilling an address or email in Chromium, then cover the autofill color with the field's private background.
@@ -457,6 +464,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       box-shadow: 0 0 0 1e5px var(--_bg-color) inset;
     }
     ```
+  - Fixed: `text-field.css` covers `:autofill` with an inset shadow in the field's own `--_bg-color`.
 - [ ] (2) Docs site: in WebKit, the search test that opens `/html/components/dialog/` and searches "dialog close" sees the result, then finds the result list empty when it clicks it, on both attempts in the runs on c2b2f67 and 06ff156; it passed in WebKit on c37864b, passes in Chromium and Firefox, and the same search from another page passes in WebKit (`tests/e2e/docs.spec.ts:186-198`, `src/components/Search.astro:432-500`)
   - Summary: In WebKit, a search opened on the Dialog page loses its results before they can be clicked.
   - Recommended: Fix. The test fails every WebKit run since c2b2f67, so something in that range broke it.
@@ -482,7 +490,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): say in the `value` and `items` notes of `src/component-api/select/api.ts` that `value` picks an `items` entry, and that a child `<option>` takes `selected` itself (the HTML way), in Astro and Vue.
     - B: make Astro and Vue mark child options. Vue can walk `useSlots().default?.()` and set `selected` on `option` vnodes (recursing into `div[role="group"]`); Astro has no vnode access and would need to post-process `await Astro.slots.render("default")`, which is fragile.
-- [ ] (3) Tokens: `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised` have the same formula as `--ui-border-color` and `--ui-field-border-color`: they mix `--ui-text-strong` into `--ui-surface`, not into `--ui-surface-elevated`, so in dark mode the border computes to L 0.348 on an elevated surface at L 0.35 and the lines every raised surface remaps to it have no contrast: Menu separators and its edge fallback, Drawer header and footer borders, dividers in elevated and tonal cards (`packages/opui/css/theme.css:558-569`, `packages/opui/css/theme.css:347-351`, `packages/opui/css/theme.css:531-535`, `packages/opui/css/components/menu.css:5-10`, `packages/opui/css/components/menu.css:24`, `packages/opui/css/components/drawer.css:23`, `packages/opui/css/components/card.css:57`, `packages/opui/css/components/card.css:66`)
+- [x] (3) Tokens: `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised` have the same formula as `--ui-border-color` and `--ui-field-border-color`: they mix `--ui-text-strong` into `--ui-surface`, not into `--ui-surface-elevated`, so in dark mode the border computes to L 0.348 on an elevated surface at L 0.35 and the lines every raised surface remaps to it have no contrast: Menu separators and its edge fallback, Drawer header and footer borders, dividers in elevated and tonal cards (`packages/opui/css/theme.css:558-569`, `packages/opui/css/theme.css:347-351`, `packages/opui/css/theme.css:531-535`, `packages/opui/css/components/menu.css:5-10`, `packages/opui/css/components/menu.css:24`, `packages/opui/css/components/drawer.css:23`, `packages/opui/css/components/card.css:57`, `packages/opui/css/components/card.css:66`)
   - Summary: In dark mode the separator lines inside menus, drawers and elevated cards disappear into their background.
   - Recommended: Fix. The role exists to differ from `--ui-border-color` on a raised surface, and today it doesn't.
   - Fix: confirm on `/tests/overlays/` in dark mode (a menu with a `.ui-border-top` item, a drawer header), then mix the two `-on-raised` roles toward the raised surface, which gives L 0.419 in dark and leaves light mode unchanged since both surfaces are gray-1 there.
@@ -505,6 +513,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       var(--ui-surface-elevated)
     );
     ```
+  - Fixed: both roles mix toward `--ui-surface-elevated`, like `--ui-field-border-color-on-filled` mixes toward `--ui-surface-filled`. Light mode is unchanged, since both surfaces are gray-1 there.
 - [ ] (5) Package: `vite dev` crashes on start in a fresh SvelteKit project with `opui-css@6.0.0-rc.1`: vite-plugin-svelte pre-bundles the package and compiles its eight TypeScript `context.svelte.ts` modules with `svelte.compileModule` before anything strips the types, which fails with `js_parse_error` on `import type`. `vite build` strips the types first and works, so the README's promise that SvelteKit needs no config only holds for builds (`packages/opui/components/Anchor/context.svelte.ts:2`, `packages/opui/components/Menu/context.svelte.ts:2`)
   - Summary: A new SvelteKit project crashes when it starts its dev server with the package installed.
   - Recommended: Fix with option A. The README promises SvelteKit works with no config.

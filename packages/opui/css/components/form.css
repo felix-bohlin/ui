@@ -102,7 +102,7 @@
       gap: var(--ui-space-2);
 
       /* If it's not preceded by an hr */
-      &:not(hr + &) {
+      &:not(:where(hr, .ui-divider) + &) {
         margin-block-start: var(--ui-space-4);
       }
     }

@@ -204,14 +204,16 @@ export const keywords = ["btn", "cta", "icon button", "submit"]
       <Fragment slot="components">
         Disable the button with the <code>disabled</code> prop. Links can't be
         disabled, so with <code>href</code> it drops the <code>href</code> and
-        sets <code>aria-disabled="true"</code> instead. The link can't be
-        focused or followed, but a click handler on it still runs.
+        sets <code>role="link"</code> and <code>aria-disabled="true"</code>
+        instead. The link can't be focused or followed, but a click handler on
+        it still runs.
       </Fragment>
       <Fragment slot="html">
         Disable the button with the <code>disabled</code> attribute. Links can't
         be disabled, so remove the <code>href</code> of an
-        <code>&lt;a&gt;</code> and add <code>aria-disabled="true"</code>. The
-        link can't be focused or followed, but a click handler on it still runs.
+        <code>&lt;a&gt;</code> and add <code>role="link"</code> and
+        <code>aria-disabled="true"</code>. The link can't be focused or
+        followed, but a click handler on it still runs.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column />

@@ -77,6 +77,10 @@
         outline: 0;
       }
 
+      &:autofill {
+        box-shadow: 0 0 0 1e5px var(--_bg-color) inset;
+      }
+
       &::-webkit-calendar-picker-indicator,
       &::-webkit-datetime-edit,
       &::-webkit-datetime-edit-fields-wrapper {

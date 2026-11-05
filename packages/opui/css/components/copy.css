@@ -16,7 +16,7 @@
       --_bg-color: var(--ui-surface-elevated);
       --_border-color: var(--ui-control-border-color, var(--_accent));
       --_duration: calc(var(--ui-duration) * var(--_motion));
-      --_ease: var(--ui-ease-enter);
+      --_ease: var(--ui-ease-exit);
       --_font-size: var(--ui-font-size-control);
       --_hidden: inset(-100vmax -100vmax -100vmax 100%);
       --_offset: var(--ui-space-1);
@@ -71,6 +71,8 @@
       }
 
       &:popover-open {
+        --_ease: var(--ui-ease-enter);
+
         clip-path: var(--_shown);
         opacity: 1;
 

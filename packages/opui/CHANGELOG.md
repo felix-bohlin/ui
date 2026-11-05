@@ -449,6 +449,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Avatar` in Vue accepts arrays and objects for `class`, and the image always has an `alt` attribute.
 - `Avatar`, `Button` and `Chip` share one helper for `disabled`, `aria-disabled`, `href` and `type`, so they render those attributes the same way in every framework.
 - `Avatar` button and link avatars dim and show the not-allowed cursor when disabled.
+- `Avatar`, `Button`, `Chip`, `ListItem` and `Menu` link items keep the link role when disabled: they drop `href` and render `role="link"` with `aria-disabled="true"`, so a screen reader still hears a disabled link and its `aria-label` instead of plain text.
 - `Badge` no longer shrinks in flex rows, so an icon with a badge in an `Accordion` summary keeps its size next to long text. A bare `img` or `svg` in the summary keeps its size too.
 - `Badge` severity colors use their own text color instead of `--ui-on-primary`, and warning badges use `--ui-on-warning`, dark text on the warning fill.
 - `Badge` and `Tabs` respect `--ui-motion` and `prefers-reduced-motion`.
@@ -506,6 +507,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` disabled text color applies to tonal and outlined chips.
 - `Chip` in Astro only renders `href` when the chip is an `a`.
+- `Copy` label closes with `--ui-ease-exit` and opens with `--ui-ease-enter`, like `Dialog` and `Menu`, instead of using the enter curve both ways.
 - `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values. A nested list sizes to its content and follows the outer list's layout, and `.ui-bordered` leaders only apply to the list's own items.
 - `DescriptionList`, `List` row links, `Card` (and `Dialog`) heading groups, `FieldDescription`, and `Button` and `List` `kbd` no longer pick up rich text padding, margins, font weight or font.
 - `DescriptionList` no longer clips the focus ring of a link or button in a term.
@@ -516,6 +518,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Dialog` actions only tighten the end padding when the last button is a text button, keeping room for its focus ring like `Card`, and start-aligned actions use Card's padding, so filled buttons line up with the content.
 - `Dialog` and `Drawer` only style their own direct parts, so a Callout, Card or TextField inside them keeps its own padding and alignment.
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
+- `Dialog` sets `pointer-events: auto` when open, instead of the SVG-only value `all`.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
 - `Drawer` clips its own overflow, so a drawer without a footer no longer scrolls by the height of the bottom scroll shadow and only `.ui-content` scrolls.
@@ -526,6 +529,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Fieldset` no longer overrides the error color of an invalid `Checkbox`, `Radio` or `Switch` end text inside it. Its helper styles only apply to its own end text.
 - `Fieldset`, `FieldLegend`, `FieldDescription`, `FieldGroup` and `Form` in Vue no longer apply attributes and listeners twice.
 - `Form` only resets the margin of dividers that are its direct children, text dividers included, so dividers nested deeper keep `--ui-divider-gap`.
+- `Form` button rows drop their top margin after a labeled `Divider` too, not only after an `hr`.
 - `List` separators (`.ui-bordered`, `.ui-border-top`) are visible on tonal lists in dark mode.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `List` and `Table` borders on filled lists and table headers are visible in light mode.
@@ -541,12 +545,14 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `List` `.ui-end` passes clicks to a `label`, `select`, `summary`, `textarea` or `[tabindex]` element inside it, not only to links, buttons and inputs.
 - `List` rows no longer force every element inside them to the row's font size, so a `Chip`, `Badge` or `Button` in `.ui-start` or `.ui-end` keeps its own size.
 - `List` on touch screens only stops text selection in clickable rows (`a`, `button` and `label`), so end text and `Select` options can be selected and copied.
+- `List` options with `aria-selected="true"` keep their text color like a checked option or the current link, instead of turning `--ui-primary-text`.
 - `ListItem` in Astro and Svelte renders the `submenu` slot without the whitespace before it, like React and Vue.
 - `ListItem` with `href` and no `as` renders a link in Astro and Vue.
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.
 - `ListItem` with `type` renders the default slot inside `.ui-text` (or before `.ui-end` when there's no text), like it does without `type`.
 - `ListItem` with `as="button" disabled` (or `aria-disabled="true"` on a link) looks disabled in a plain `List` too: dimmed, `not-allowed` cursor, no hover tint.
+- `Menu` submenu items in right-to-left text mirror only the chevron `svg` in `.ui-end`, so a shortcut next to it no longer reads backwards.
 - `NumberField`, `OneTimeCode`, `Range`, `Textarea` and `TextField` in Svelte and Vue reset to the value they started with when their form is reset, also when rendered on the client, and the bound value follows the reset, like in Astro, HTML and React.
 - `Progress` pulses in place under reduced motion (`--ui-motion: 0`, or `--_motion: 0` on the bar) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Progress` in Astro types `max` and `value` like React and Svelte, instead of intersecting them with the native `progress` attributes.
@@ -575,6 +581,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` declares `--_track-block-size` and `--_track-radius` on the root, so setting them on the component works.
 - `Range` with `variant="filled"` or `variant="tonal"` darkens its track on press and takes the disabled track color.
 - `Range` hides its tick mark `<datalist>` from assistive technology with `aria-hidden="true"`, so it isn't exposed as an unnamed listbox next to the slider.
+- `Range` filled, tonal and themed tracks keep their own color while the thumb is held and when disabled, instead of turning the field border gray.
 - `Select` with `spread` centers its arrow on the field.
 - `Select` keeps its arrow and its space at the inline end in RTL. The arrow covered the text.
 - `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there.
@@ -630,6 +637,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `TextField` and `Select` with `spread` keep the start text under the label when the field has a top or bottom slot.
 - `TextField`, `Select` and `Textarea` look disabled when a disabled `fieldset` disables the control or it has `aria-disabled="true"`, and a disabled `option` no longer makes a `Select` look disabled. Read-only and `aria-disabled` fields get no hover styles.
 - `TextField` and `Select` keep the control height of buttons in Firefox and Safari. Single-line inputs and selects get a definite height, `1lh` plus their padding, so the engine's own input height and padding rounding no longer make the field up to 2px taller.
+- `TextField`, `Select`, `Textarea` and `NumberField` cover the browser's autofill color with the field's own background, so an autofilled input in a `.ui-filled` field no longer shows a page-colored box.
 - `ToggleButton` draws the focus ring of a checked button in `--ui-on-selected` (or `--ui-on-primary`), so the inset ring shows on the fill in dark mode.
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
@@ -681,6 +689,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `package.json` peer dependency ranges are `astro` `^7`, `svelte` `^5.57` and `vue` `^3.5` instead of the versions used for development.
 - `theme.css` shadows take a darker `--ui-shadow-color` in dark mode (`.ui-dark`, also on a part of the page, and the OS preference), so they show on dark surfaces. They used the light values before, and a part forced to `.ui-light` keeps them.
 - `theme.css` keeps its colors in builds that rewrite `light-dark()` for older browsers, like the defaults of Vite 8 and Next 16. `html` sets a plain `color-scheme` (`light`, or `dark` under `prefers-color-scheme: dark`) before `var(--ui-color-scheme)`, so the rewritten colors follow the OS and `.ui-light` or `.ui-dark` on `html`. Every color was invalid in those builds before: filled buttons were transparent and the page had no background. The README says which settings keep `light-dark()` for the `--ui-color-scheme` knob and the classes on a part of the page.
+- `theme.css` `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised` mix toward `--ui-surface-elevated` instead of `--ui-surface`, so the dividers and borders inside menus, drawers and elevated cards stay visible in dark mode.
 
 ## 5.4.3 - 2026-09-18
 

@@ -113,7 +113,7 @@
       }
     }
 
-    &:dir(rtl) li:has(> .ui-menu) > :is(a, button) > .ui-end {
+    &:dir(rtl) li:has(> .ui-menu) > :is(a, button) > .ui-end > svg {
       scale: -1 1;
     }
 

@@ -85,17 +85,19 @@ describe("tagAttrs", () => {
     })
   })
 
-  test("a disabled link loses its href and gets aria-disabled", () => {
+  test("a disabled link loses its href and gets aria-disabled and the link role", () => {
     expect(tagAttrs("a", true, "/x")).toEqual({
       "aria-disabled": "true",
       disabled: undefined,
       href: undefined,
+      role: "link",
       type: undefined,
     })
     expect(tagAttrs("a", false, "/x")).toMatchObject({
       "aria-disabled": undefined,
       href: "/x",
     })
+    expect(tagAttrs("a", false, "/x")).not.toHaveProperty("role")
   })
 
   test("other tags get none of them", () => {

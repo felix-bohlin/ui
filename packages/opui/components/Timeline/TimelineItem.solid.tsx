@@ -16,7 +16,8 @@ export default function TimelineItem(props: Props) {
     "label",
     "marker",
   )
-  const headingLevel = () => props.headingLevel ?? 3
+  const headingLevel = () =>
+    props.headingLevel === undefined ? 3 : props.headingLevel
   const heading = () => `h${headingLevel()}` as "h2" | "h3" | "h4" | "h5" | "h6"
   const Heading = dynamic(heading)
 

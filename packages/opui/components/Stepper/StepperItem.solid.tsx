@@ -16,8 +16,10 @@ export default function StepperItem(props: Props) {
     "iconChecked",
     "label",
   )
-  const completedLabel = () => props.completedLabel ?? ", completed"
-  const errorLabel = () => props.errorLabel ?? ", error"
+  const completedLabel = () =>
+    props.completedLabel === undefined ? ", completed" : props.completedLabel
+  const errorLabel = () =>
+    props.errorLabel === undefined ? ", error" : props.errorLabel
   const state = () =>
     props.error ? errorLabel() : props.complete ? completedLabel() : undefined
   const link = () =>

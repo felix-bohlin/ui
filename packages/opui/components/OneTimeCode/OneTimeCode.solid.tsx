@@ -20,7 +20,7 @@ export default function OneTimeCode(props: Props) {
     "label",
   )
   const field = useFieldGroupContext()
-  const length = () => props.length ?? 6
+  const length = () => (props.length === undefined ? 6 : props.length)
 
   return (
     <label

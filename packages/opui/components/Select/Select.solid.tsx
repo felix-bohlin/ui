@@ -35,8 +35,9 @@ export default function Select(props: Props) {
   )
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const items = () => props.items ?? []
-  const variant = () => props.variant ?? "outlined"
+  const items = () => (props.items === undefined ? [] : props.items)
+  const variant = () =>
+    props.variant === undefined ? "outlined" : props.variant
   const selectedContent = () => "selectedcontent"
   const SelectedContent = dynamic(selectedContent)
   const ids = () => createIds(uid, "select", props.id)

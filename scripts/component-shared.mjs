@@ -3,6 +3,8 @@ import ts from "typescript"
 
 export const root = fileURLToPath(new URL("..", import.meta.url))
 
+export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
+
 export const unsupported = (file, what, hint) =>
   new Error(
     `${file} uses ${what}, which scripts/build-components.mjs can't compile: ${hint ?? "support the construct in scripts/build-components.mjs, or list the file in scripts/hand-written-components.json with the reason"}`,

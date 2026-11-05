@@ -77,12 +77,13 @@ export const typeDiagnostics = (samples) => {
   )
 }
 
+let shared
 const loaded = new Map()
 const load = (framework = "react") => {
   if (!loaded.has(framework)) {
-    const program = createProgram()
-    const checker = program.getTypeChecker()
-    const source = program.getSourceFile(
+    shared ??= createProgram()
+    const checker = shared.getTypeChecker()
+    const source = shared.getSourceFile(
       framework === "solid" ? solidFile : virtualFile,
     )
     const alias = (name) =>

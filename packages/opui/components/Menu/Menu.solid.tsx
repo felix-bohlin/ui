@@ -20,7 +20,7 @@ export default function Menu(props: Props) {
     "children",
   )
   const parent = useMenuContext()
-  const popover = () => props.popover ?? "auto"
+  const popover = () => (props.popover === undefined ? "auto" : props.popover)
   const rootId = () => parent?.rootId ?? props.id
   untrack(() => {
     warnMissingId("Menu", props.id)

@@ -1,6 +1,5 @@
 import { expect, test, type Page } from "@playwright/test"
 import { normalize } from "../unit/normalize"
-import { componentHasFramework } from "../../src/utils/framework"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
 const CLIENT_RENDERED: Framework[] = ["react", "solid", "svelte", "vue"]
@@ -92,9 +91,7 @@ const snapshot = (page: Page, framework: Framework, html?: string) =>
 
 for (const framework of FRAMEWORKS) {
   const client = CLIENT_RENDERED.includes(framework)
-  for (const component of COMPONENTS.filter((component) =>
-    componentHasFramework(framework, component),
-  )) {
+  for (const component of COMPONENTS) {
     test(`${framework}/${component} runs without errors${client ? " and renders its server markup on the client" : ""}`, async ({
       page,
     }) => {

@@ -14,6 +14,7 @@ import {
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
 import {
+  SOLID_PRAGMA,
   byName,
   chosenSpreadCode,
   codesIn,
@@ -24,8 +25,6 @@ import {
   sourceFileOf,
   unsupported,
 } from "./component-shared.mjs"
-
-const PRAGMA = "/** @jsxImportSource @solidjs/web */"
 
 const NATIVE_KINDS = new Set(["checkedItem", "forward", "radioGroup"])
 
@@ -179,7 +178,7 @@ export const toSolid = (component) => {
     ...(kind?.body?.(model, rewrite) ?? []),
     ...defaulted.map(
       ({ default: fallback, local, prop }) =>
-        `const ${local} = () => ${propAccess(prop)} ?? (${fallback})`,
+        `const ${local} = () =>\n  ${propAccess(prop)} === undefined ? (${fallback}) : ${propAccess(prop)}`,
     ),
     ...tagProps.flatMap(({ default: fallback, local, prop }) => [
       `const ${lowered(local)} = () => ${fallback ? `${propAccess(prop)} || ${fallback}` : propAccess(prop)}`,
@@ -419,5 +418,5 @@ export const toSolid = (component) => {
     ...(item ? [`import { callHandler } from "../solid"`] : []),
     propsImport(propsType, "types.solid"),
   ]
-  return `${PRAGMA}\n${importLines.join("\n")}\n\nexport default function ${component.name}(props: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
+  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\nexport default function ${component.name}(props: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
 }

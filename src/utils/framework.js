@@ -168,10 +168,7 @@ export function hrefFor(framework, pathname) {
   const sharedPath = stripFrameworkPrefix(path)
   if (isFrameworkFree(sharedPath)) return `${sharedPath}${suffix}`
   const trimmed = sharedPath.replace(/^\/|\/$/g, "")
-  const target = pathHasFramework(framework, sharedPath)
-    ? framework
-    : DEFAULT_FRAMEWORK
-  return `/${target}/${trimmed ? `${trimmed}/` : ""}${suffix}`
+  return `/${framework}/${trimmed ? `${trimmed}/` : ""}${suffix}`
 }
 
 /**

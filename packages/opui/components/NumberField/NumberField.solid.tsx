@@ -33,8 +33,10 @@ export default function NumberField(props: Props) {
   )
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const decreaseLabel = () => props.decreaseLabel ?? "Decrease"
-  const increaseLabel = () => props.increaseLabel ?? "Increase"
+  const decreaseLabel = () =>
+    props.decreaseLabel === undefined ? "Decrease" : props.decreaseLabel
+  const increaseLabel = () =>
+    props.increaseLabel === undefined ? "Increase" : props.increaseLabel
   const ids = () => createIds(uid, "number-field", props.id)
   const inputId = () => ids()()
   const startTextId = () => (props.startText ? ids()("start-text") : undefined)

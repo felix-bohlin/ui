@@ -16,9 +16,10 @@ export default function Drawer(props: Props) {
     "side",
     "children",
   )
-  const backdrop = () => props.backdrop ?? "blurred"
-  const closedby = () => props.closedby ?? "any"
-  const side = () => props.side ?? "inline-start"
+  const backdrop = () =>
+    props.backdrop === undefined ? "blurred" : props.backdrop
+  const closedby = () => (props.closedby === undefined ? "any" : props.closedby)
+  const side = () => (props.side === undefined ? "inline-start" : props.side)
   const labelledBy = () => autoLabelledBy(rest, `${props.id}-heading`)
   untrack(() => {
     warnMissingId("Drawer", props.id)

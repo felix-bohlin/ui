@@ -203,7 +203,7 @@ export const generate = async ({
       } catch (error) {
         allCompiled = false
         const ledgerKeys = Object.values(PORTS).map(
-          ([, extension]) => `${folder}/${file.replace(/\.astro$/, extension)}`,
+          (extension) => `${folder}/${file.replace(/\.astro$/, extension)}`,
         )
         const message = error.message.startsWith(relative)
           ? error.message
@@ -248,7 +248,7 @@ export const generate = async ({
         : `${types}: ${error.message}`
       if (
         Object.values(TYPE_FILES).every(
-          ([, typeFile]) => `${folder}/${typeFile}` in handWritten,
+          (typeFile) => `${folder}/${typeFile}` in handWritten,
         )
       ) {
         skipped.push(message)

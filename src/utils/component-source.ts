@@ -232,16 +232,26 @@ const propKeyOf = (node: ts.Expression) =>
       : undefined
 
 const accessorDefaults = (node: ts.Node): [string, string][] => {
-  if (
+  const body =
     ts.isVariableDeclaration(node) &&
     node.initializer &&
     ts.isArrowFunction(node.initializer) &&
-    ts.isBinaryExpression(node.initializer.body) &&
-    node.initializer.body.operatorToken.kind ===
-      ts.SyntaxKind.QuestionQuestionToken
+    ts.isExpression(node.initializer.body)
+      ? ts.isParenthesizedExpression(node.initializer.body)
+        ? node.initializer.body.expression
+        : node.initializer.body
+      : undefined
+  if (
+    body &&
+    ts.isConditionalExpression(body) &&
+    ts.isBinaryExpression(body.condition) &&
+    body.condition.operatorToken.kind ===
+      ts.SyntaxKind.EqualsEqualsEqualsToken &&
+    ts.isIdentifier(body.condition.right) &&
+    body.condition.right.text === "undefined"
   ) {
-    const key = propKeyOf(node.initializer.body.left)
-    const value = literal(node.initializer.body.right)
+    const key = propKeyOf(body.condition.left)
+    const value = literal(body.whenTrue)
     return key && value ? [[key, value]] : []
   }
   const found: [string, string][] = []

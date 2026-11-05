@@ -919,6 +919,12 @@ describe("check-components", () => {
       ),
     ).toEqual([expect.stringContaining("never spreads it")])
     expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], true),
+    ).toEqual([expect.stringContaining("does not take the rest with omit")])
+    expect(
+      checkSolidProps("Badge.solid.tsx", solid("  return <span />"), [], false),
+    ).toEqual([])
+    expect(
       checkSolidProps(
         "Badge.solid.tsx",
         solid(

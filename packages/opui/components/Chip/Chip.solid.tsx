@@ -20,7 +20,7 @@ export default function Chip(props: Props) {
     "label",
     "start",
   )
-  const variant = () => props.variant ?? "tonal"
+  const variant = () => (props.variant === undefined ? "tonal" : props.variant)
   const tag = () => props.as || (props.href ? "a" : "div")
   const Tag = dynamic(tag)
 

@@ -21,11 +21,13 @@ export default function Rating(props: Props) {
     "style",
     "value",
   )
-  const clearLabel = () => props.clearLabel ?? "No rating"
-  const max = () => props.max ?? 5
+  const clearLabel = () =>
+    props.clearLabel === undefined ? "No rating" : props.clearLabel
+  const max = () => (props.max === undefined ? 5 : props.max)
   const starLabel = () =>
-    props.starLabel ??
-    ((value: number) => (value === 1 ? "1 star" : `${value} stars`))
+    props.starLabel === undefined
+      ? (value: number) => (value === 1 ? "1 star" : `${value} stars`)
+      : props.starLabel
   const count = () => Number(max())
   const stars = () => Array.from({ length: count() }, (_, index) => index + 1)
   const current = () => Number(props.value)

@@ -110,7 +110,6 @@ const casesOf = (api: ComponentApi): Case[] => {
       ([name, type]) =>
         !SLOT_TYPE.test(type) &&
         FRAMEWORKS.every((framework) => {
-          if (types[framework].size === 0) return true
           const own = types[framework].get(propName(framework, name))
           return own !== undefined && !SLOT_TYPE.test(own)
         }),

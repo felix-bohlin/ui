@@ -16,7 +16,8 @@ export default function DrawerHeader(props: Props) {
     "closeIcon",
   )
   const drawer = useDrawerContext()
-  const closeLabel = () => props.closeLabel ?? "Close"
+  const closeLabel = () =>
+    props.closeLabel === undefined ? "Close" : props.closeLabel
   const target = () => props.commandfor ?? drawer?.id
   untrack(() => {
     warnMissingTarget("DrawerHeader", target(), "Drawer")

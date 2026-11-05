@@ -3,6 +3,7 @@ import Example from "./Example/index"
 import { examplePath, exampleModules, exampleSources } from "../utils/examples"
 import type { Component } from "solid-js"
 import { renderSolid } from "./Example/render-solid"
+import { SOLID_PRAGMA } from "../../scripts/component-shared.mjs"
 import {
   componentHasFramework,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
@@ -65,7 +66,7 @@ const codeSource = (framework: FrameworkId) =>
   (
     exampleSources[examplePath(slug, `${name}Code`, framework)] ??
     exampleSources[examplePath(slug, name, framework)]
-  )?.replace(/^\/\*\* @jsxImportSource @solidjs\/web \*\/\n/, "")
+  )?.replace(`${SOLID_PRAGMA}\n`, "")
 
 const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
   `${slug}/${name}`,

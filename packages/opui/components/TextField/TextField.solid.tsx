@@ -45,8 +45,11 @@ export default function TextField(props: Props) {
   )
   const field = useFieldGroupContext()
   const uid = createUniqueId()
-  const passwordToggleLabel = () => props.passwordToggleLabel ?? "Show password"
-  const type = () => props.type ?? "text"
+  const passwordToggleLabel = () =>
+    props.passwordToggleLabel === undefined
+      ? "Show password"
+      : props.passwordToggleLabel
+  const type = () => (props.type === undefined ? "text" : props.type)
   const ids = () => createIds(uid, "text-field", props.id)
   const root = () => (props.passwordToggle ? "opui-text-field" : "label")
   const Root = dynamic(root)

@@ -12,6 +12,7 @@ import {
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
 import { BARREL_TYPES, barrelExports } from "../src/utils/package-source.js"
+import { SOLID_PRAGMA } from "./component-shared.mjs"
 import { byAttributeName } from "./example-targets.mjs"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
@@ -590,9 +591,12 @@ export const checkRest = (file, source) => {
       ]
 }
 
-export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
-
-export const checkSolidProps = (file, source, snippets = []) => {
+export const checkSolidProps = (
+  file,
+  source,
+  snippets = [],
+  astroRest = false,
+) => {
   const problems = []
   if (!source.startsWith(`${SOLID_PRAGMA}\n`)) {
     problems.push(
@@ -614,6 +618,11 @@ export const checkSolidProps = (file, source, snippets = []) => {
     )
   }
   const [call] = callsTo(script, "omit")
+  if (!call && astroRest) {
+    problems.push(
+      "does not take the rest with omit(props, ...): the Astro component captures ...rest and spreads it onto the root element, or the input of a form control",
+    )
+  }
   if (call) {
     const keys = call.arguments
       .slice(1)
@@ -1100,7 +1109,16 @@ const main = async () => {
               await readFile(join(dir, svelte), "utf-8"),
             )?.slice(1) ?? [])
           : []
-        reportAll(path, checkSolidProps(path, source, snippets.flat()))
+        const astro = `${basename(file, ".solid.tsx")}.astro`
+        const astroRest =
+          files.includes(astro) &&
+          /\.\.\.rest\s*\}\s*=\s*Astro\.props/.test(
+            await readFile(join(dir, astro), "utf-8"),
+          )
+        reportAll(
+          path,
+          checkSolidProps(path, source, snippets.flat(), astroRest),
+        )
       } else if ([".astro", ".svelte", ".vue"].includes(extname(file))) {
         reportAll(path, checkDestructuring(path, source))
       }

@@ -8,6 +8,7 @@ import { parse, transform } from "@astrojs/compiler"
 import { parseFragment } from "parse5"
 import ts from "typescript"
 import { slotProp } from "../src/component-api/frameworks.ts"
+import { SOLID_PRAGMA } from "./component-shared.mjs"
 import { splitTopLevel } from "./example-display.mjs"
 import {
   attributeText,
@@ -1666,8 +1667,6 @@ const toSolidExample = (example, name, file = `${name}.astro`) => {
   const body = solidExpression(example.tree, context, styles.join(""))
   return `${SOLID_PRAGMA}\n${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
 }
-
-export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
 
 /** @param {string} source @param {string} framework @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>>, roles?: Map<number, string> }} [options] */
 export const convertExample = async (

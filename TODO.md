@@ -630,6 +630,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): have `scripts/build-components.mjs` bind the Vue input value only while the model or `value` is set, and listen for `input` otherwise, so an uncontrolled field never writes its value.
     - B: leave it. The color input sanitizes the empty string to `#000000` either way, and only the console notices.
+- [ ] (2) Docs site: the theme builder tests still time out in the WebKit engine job after the color probes stopped forcing extra restyles: on 36cf05ef (job 127341448648) "undo and redo walk the history" hit the 30 second timeout with the change count still at "5 changes" after Control+z, "saved themes load, compare and delete" timed out on the click on `[data-saved]` after "Using Paper from the gallery.", and "shuffle skips locked rooms" was flaky. Each theme change still takes about 3.3 s in WebKitGTK, nearly all of it the page's own style, layout and paint, and these tests make six to twelve changes (`tests/e2e/theme-builder.spec.ts:130-152`, `tests/e2e/theme-builder.spec.ts:278-343`, `src/components/ThemeBuilder/ThemeBuilder.astro:1-149`)
+  - Summary: Every change in the theme builder takes about three seconds in WebKit, so its longer tests run out of time there.
+  - Recommended: Fix with option A. Safari users wait on the same rendering, so a longer timeout would only hide it.
+  - Fix: measure first which part of the frame after a mood change is style, layout or paint in WebKit, with the trace in the engine job or WebKitGTK locally.
+  - Options:
+    - A (recommended): cut the page's own rendering per change, for example `content-visibility: auto` on the rooms and preview panes out of view, or theme only the preview instead of the whole page, and rerun the WebKit job.
+    - B: mark the theme builder spec slow in WebKit with `test.slow`, as `anatomy.spec.ts` does for its heavy pages.
 
 ## Docs
 

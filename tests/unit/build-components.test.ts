@@ -1037,6 +1037,24 @@ describe("toTypes", () => {
     ).toContain("defineSlots<SamplePartSlots>()")
   })
 
+  test("Vue leaves the attribute keys of the base props out, so they fall through to the element", () => {
+    const { react, vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
+        base: 'export type Props = {\n  variant?: "a" | "b"\n} & ({ "aria-label": string } | { "aria-labelledby": string })\n',
+      },
+      { Sample: ["default"] },
+    )
+    expect(react).toContain(
+      'export type Props = Base.Props & ComponentProps<"div">',
+    )
+    expect(vue).toContain(
+      'export type Props = Omit<BaseProps, "aria-label" | "aria-labelledby"> & Class',
+    )
+  })
+
   test("an Omit keeps the keyof members of its keys next to the literal ones", () => {
     const types = toTypes(
       "Sample",

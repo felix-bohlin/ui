@@ -2,6 +2,8 @@ import type { ComponentProps, ReactNode } from "react"
 import type { Snippet } from "svelte"
 import type { IntrinsicElementAttributes, Slot } from "vue"
 import { expectTypeOf, test } from "vitest"
+import type * as AvatarReact from "../../packages/opui/components/Avatar/types.react"
+import type * as AvatarVue from "../../packages/opui/components/Avatar/types.vue-props"
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
@@ -156,4 +158,15 @@ test("an item keeps the input's props and takes its Vue props from the input", (
   expectTypeOf<ToggleButtonVue.Props["value"]>().toEqualTypeOf<
     IntrinsicElementAttributes["input"]["value"]
   >()
+})
+
+test("an attribute the base props require stays in React and falls through to the element in Vue", () => {
+  expectTypeOf<{
+    "aria-label": string
+  }>().toExtend<AvatarReact.AvatarGroupProps>()
+  expectTypeOf<{}>().not.toExtend<AvatarReact.AvatarGroupProps>()
+  expectTypeOf<AvatarVue.AvatarGroupProps>().not.toHaveProperty("aria-label")
+  expectTypeOf<AvatarVue.AvatarGroupProps>().not.toHaveProperty(
+    "aria-labelledby",
+  )
 })

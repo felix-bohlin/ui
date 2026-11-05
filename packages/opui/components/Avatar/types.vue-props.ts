@@ -4,7 +4,11 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-export type AvatarGroupProps = BaseAvatarGroupProps & Class
+export type AvatarGroupProps = Omit<
+  BaseAvatarGroupProps,
+  "aria-label" | "aria-labelledby"
+> &
+  Class
 
 export type Props = BaseProps & Class & { as?: "a" | "button" | "div" }
 

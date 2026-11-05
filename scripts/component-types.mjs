@@ -186,6 +186,28 @@ const typeKeys = (node, aliases) =>
             )
           : objectKeys(node)
 
+const attributeKeys = (node, aliases) => {
+  const keys = new Set()
+  const visit = (child) => {
+    if (
+      ts.isPropertySignature(child) &&
+      ts.isStringLiteral(child.name) &&
+      child.name.text.includes("-")
+    ) {
+      keys.add(child.name.text)
+    }
+    if (ts.isTypeReferenceNode(child)) {
+      const alias = aliases.find(
+        (entry) => entry.name.text === child.typeName.getText(),
+      )
+      if (alias) visit(alias.type)
+    }
+    ts.forEachChild(child, visit)
+  }
+  visit(node)
+  return [...keys].toSorted()
+}
+
 const mentions = (node, parameter) =>
   containsKind(node, (child) => isReference(child, parameter))
 
@@ -668,7 +690,18 @@ export const toTypes = (
       const { kept } = isUnion(node.type)
         ? { kept: based.includes(name) ? [`Base${name}`] : [] }
         : vueMembers(alias)
-      return `export type ${name} = ${[...kept, "Class", ...(extras.length ? [`{ ${extras.join("; ")} }`] : [])].join(" & ")}`
+      const withoutAttributes = kept.map((entry) => {
+        const baseAlias = baseAliases.find(
+          (candidate) => `Base${candidate.name.text}` === entry,
+        )
+        const attributes = baseAlias
+          ? attributeKeys(baseAlias.type, baseAliases)
+          : []
+        return attributes.length
+          ? `Omit<${entry}, ${attributes.map((key) => JSON.stringify(key)).join(" | ")}>`
+          : entry
+      })
+      return `export type ${name} = ${[...withoutAttributes, "Class", ...(extras.length ? [`{ ${extras.join("; ")} }`] : [])].join(" & ")}`
     })
   const vueTypeImports = [
     ...([...extrasByAlias.values()].some((extras) => extras.length > 0) ||

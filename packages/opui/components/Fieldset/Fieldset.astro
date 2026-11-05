@@ -1,16 +1,27 @@
 ---
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
+import { autoLabelledBy, createIds } from "../id"
+import { fieldsetContext } from "./context.astro"
 
 export const title = "Fieldset"
 
 const { as: Tag = "fieldset", class: className, ...rest } = Astro.props
+
+const isFieldset = Tag === "fieldset"
+const legendId = isFieldset
+  ? undefined
+  : autoLabelledBy(rest, createIds(Astro.locals, "fieldset", rest.id)("legend"))
+const html = await fieldsetContext.provide({ legendId }, () =>
+  Astro.slots.render("default"),
+)
 ---
 
 <Tag
+  aria-labelledby={legendId}
   class={cx(["ui-fieldset", className])}
-  role={Tag === "fieldset" ? undefined : "group"}
+  role={isFieldset ? undefined : "group"}
   {...rest}
 >
-  <slot />
+  <Fragment set:html={html} />
 </Tag>

@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { warnUnnamedGroup } from "../dev"
 import { createId } from "../id"
 import { toggleGroupContext } from "./context.astro"
 
@@ -15,6 +16,8 @@ const {
   value,
   ...rest
 } = Astro.props
+
+warnUnnamedGroup("ToggleGroup", rest)
 
 const idOf = createId(Astro.locals)
 const groupName = name || idOf("toggle-group")

@@ -2,7 +2,7 @@
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-<ToggleGroup multiple name="text-style">
+<ToggleGroup aria-label="Text style" multiple name="text-style">
   <ToggleButton aria-label="Bold" value="bold"><strong>B</strong></ToggleButton>
   <ToggleButton aria-label="Italic" value="italic"><i>I</i></ToggleButton>
   <ToggleButton aria-label="Underline" value="underline"><u>U</u></ToggleButton>

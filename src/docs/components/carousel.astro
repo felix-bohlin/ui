@@ -423,6 +423,17 @@ const translation = `.ui-carousel:lang(sv) {
         </UICalloutContent>
       </UICallout>
     </div>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Name the carousel with <code>aria-label</code>, or with
+        <code>aria-labelledby</code> pointing at a visible heading. The types
+        require one.
+      </Fragment>
+      <Fragment slot="html">
+        Name the <code>ul</code> with <code>aria-label</code>, or with
+        <code>aria-labelledby</code> pointing at a visible heading.
+      </Fragment>
+    </Conditional>
     <p>
       Screen readers announce the position of each item. The buttons and markers
       have accessible names: "Previous", "Next" and "Slide" followed by the

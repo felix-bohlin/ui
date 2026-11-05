@@ -11,7 +11,7 @@ export default function Overflow() {
     >
       <div style={{ display: "grid", gap: "var(--ui-space-1)" }}>
         <p>Wrap</p>
-        <ToggleGroup multiple name="overflow-wrap">
+        <ToggleGroup aria-label="Notifications" multiple name="overflow-wrap">
           <ToggleButton value="all">Everything</ToggleButton>
           <ToggleButton value="mentions">Mentions</ToggleButton>
           <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -19,7 +19,12 @@ export default function Overflow() {
       </div>
       <div style={{ display: "grid", gap: "var(--ui-space-1)" }}>
         <p>Scroll</p>
-        <ToggleGroup multiple name="overflow-scroll" overflow="scroll">
+        <ToggleGroup
+          aria-label="Notifications"
+          multiple
+          name="overflow-scroll"
+          overflow="scroll"
+        >
           <ToggleButton value="all">Everything</ToggleButton>
           <ToggleButton value="mentions">Mentions</ToggleButton>
           <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -27,7 +32,12 @@ export default function Overflow() {
       </div>
       <div style={{ display: "grid", gap: "var(--ui-space-1)" }}>
         <p>Shrink</p>
-        <ToggleGroup multiple name="overflow-shrink" overflow="shrink">
+        <ToggleGroup
+          aria-label="Notifications"
+          multiple
+          name="overflow-shrink"
+          overflow="shrink"
+        >
           <ToggleButton value="all">Everything</ToggleButton>
           <ToggleButton value="mentions">Mentions</ToggleButton>
           <ToggleButton value="none">Nothing at all</ToggleButton>

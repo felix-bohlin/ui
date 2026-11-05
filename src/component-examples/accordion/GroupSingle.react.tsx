@@ -7,17 +7,17 @@ import {
 
 export default function GroupSingle() {
   return (
-    <Card role="group" variant="outlined">
+    <Card aria-label="Plan questions" role="group" variant="outlined">
       <Accordion name="example-group">
-        <AccordionSummary>First</AccordionSummary>
+        <AccordionSummary>Can I change my plan later?</AccordionSummary>
         <AccordionContent>
-          <p>Only one accordion in the group is open at a time.</p>
+          <p>Yes. Upgrades apply right away, downgrades at the next renewal.</p>
         </AccordionContent>
       </Accordion>
       <Accordion name="example-group">
-        <AccordionSummary>Second</AccordionSummary>
+        <AccordionSummary>Do you offer refunds?</AccordionSummary>
         <AccordionContent>
-          <p>Only one accordion in the group is open at a time.</p>
+          <p>Within 14 days of purchase, for any reason.</p>
         </AccordionContent>
       </Accordion>
     </Card>

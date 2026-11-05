@@ -22,7 +22,6 @@
     <FieldGroup name="switch-group-disabled-single" orientation="horizontal">
       <Switch checked>Enabled</Switch>
       <Switch disabled>Disabled</Switch>
-      <Switch aria-disabled="true">Aria-disabled</Switch>
     </FieldGroup>
   </Fieldset>
 </Form>

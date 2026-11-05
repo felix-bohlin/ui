@@ -2,7 +2,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/react"
 
 export default function MultiSelect() {
   return (
-    <ToggleGroup multiple name="text-style">
+    <ToggleGroup aria-label="Text style" multiple name="text-style">
       <ToggleButton aria-label="Bold" value="bold">
         <strong>B</strong>
       </ToggleButton>

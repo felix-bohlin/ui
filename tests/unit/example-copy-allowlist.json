@@ -8,13 +8,6 @@
   "accordion/CustomMarker.astro": [
     "placeholder Latin: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis dolor."
   ],
-  "accordion/Group.astro": [
-    "placeholder Latin: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis neque ante id justo."
-  ],
-  "accordion/GroupSingle.astro": [
-    "a placeholder label: First",
-    "a placeholder label: Second"
-  ],
   "accordion/MarkerAnimation.astro": [
     "placeholder Latin: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis neque ante id justo."
   ],

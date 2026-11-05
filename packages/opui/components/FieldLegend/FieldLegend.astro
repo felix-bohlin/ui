@@ -1,12 +1,19 @@
 ---
 import type { Props } from "./types.astro"
 import { cx } from "../cx"
+import { warnReplacedId } from "../dev"
+import { fieldsetContext } from "../Fieldset/context.astro"
 export const title = "Field Legend"
 
 const { as: Tag = "legend", class: className, ...rest } = Astro.props
 const isLegend = Tag === "legend"
+const fieldset = fieldsetContext.get()
+warnReplacedId("FieldLegend", "Fieldset", rest.id, fieldset?.legendId)
 ---
 
-<Tag class={cx([{ "ui-legend": !isLegend }, className])} {...rest}
+<Tag
+  class={cx([{ "ui-legend": !isLegend }, className])}
+  {...rest}
+  id={fieldset?.legendId ?? rest.id}
   ><slot
 /></Tag>

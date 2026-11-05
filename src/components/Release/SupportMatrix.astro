@@ -181,7 +181,7 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
   <div class="support-matrix-controls">
     <Fieldset>
       <FieldLegend>View</FieldLegend>
-      <ToggleGroup name={`${id}-view`} size="small">
+      <ToggleGroup aria-label="View" name={`${id}-view`} size="small">
         <ToggleButton checked value="features">Features by engine</ToggleButton>
         <ToggleButton value="compat">What the compat layer covers</ToggleButton>
       </ToggleGroup>

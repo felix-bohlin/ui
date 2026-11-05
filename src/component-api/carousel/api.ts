@@ -34,10 +34,16 @@ export default {
     },
     {
       attribute: "[aria-label]",
-      description: "Accessible name of the carousel.",
+      description:
+        "The accessible name of the carousel. The types require it, or `aria-labelledby`.",
       group: "Label",
-      inherited: true,
       prop: "aria-label",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the element that names the carousel, instead of `aria-label`.",
+      prop: "aria-labelledby",
       type: "string",
     },
     {

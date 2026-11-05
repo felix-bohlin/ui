@@ -71,7 +71,11 @@ export const keywords = ["tab panel", "tablist"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UITabs name="tabs-anatomy">
+      <UITabs
+        aria-label="Account settings"
+        name="tabs-anatomy"
+        role="radiogroup"
+      >
         <UITabsItem>
           <UITabsLabel>Profile</UITabsLabel>
           <UITabsPanel>Profile settings and information.</UITabsPanel>

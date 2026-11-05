@@ -1,7 +1,15 @@
 <script setup lang="ts" generic="Multiple extends boolean = false">
-import { computed, provide, reactive, useId } from "vue"
+import {
+  computed,
+  type HTMLAttributes,
+  provide,
+  reactive,
+  useAttrs,
+  useId,
+} from "vue"
 import { selectionOf } from "./selection"
 import { ToggleGroupKey } from "./context.vue"
+import { warnUnnamedGroup } from "../dev"
 import { createId } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -11,6 +19,8 @@ const { multiple, name, orientation, overflow, size } = defineProps<
   Props & { multiple?: Multiple }
 >()
 defineSlots<Slots>()
+
+const attrs = useAttrs() as HTMLAttributes
 
 const model = defineModel<Model>()
 
@@ -26,6 +36,8 @@ const idOf = computed(() => createId(uid))
 const groupName = computed(() => name || idOf.value("toggle-group"))
 
 const inputType = computed(() => (multiple ? "checkbox" : "radio"))
+
+warnUnnamedGroup("ToggleGroup", attrs)
 
 provide(
   ToggleGroupKey,

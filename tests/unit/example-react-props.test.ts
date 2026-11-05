@@ -91,7 +91,11 @@ describe("attribute names and value forms in React", () => {
     ["<input maxlength='20' />", "", "maxLength={20}"],
     ["<input readonly value='x' />", "", 'readOnly value="x"'],
     ["<Table tabindex='0'></Table>", "Table", "<Table tabIndex={0}"],
-    ["<Carousel itemsPerView='2'></Carousel>", "Carousel", "itemsPerView={2}"],
+    [
+      "<Carousel aria-label='Photos' itemsPerView='2'></Carousel>",
+      "Carousel",
+      "itemsPerView={2}",
+    ],
     ["<img alt='' src='/a.png' />", "", 'alt="" src="/a.png"'],
   ])("%s", async (body, imports, expected) => {
     expect(await sample(body, imports)).toContain(expected)

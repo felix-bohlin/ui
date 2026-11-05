@@ -235,7 +235,8 @@ One concept has one prop name and one set of values in every component. `tests/u
   - The default slot is the main content, never the label. On a choice control (Checkbox, Radio, Switch, ToggleButton) the label is the main content, so there the default slot is the label and `label` is its string shorthand.
 - **Accessible names:**
   - When the visible label can be hidden, the prop is `hideLabel`, which renders `.ui-sr-only` on the label.
-  - A component with no visible text takes `aria-label` from the caller, and its types require it. No other prop supplies or hides a name.
+  - A component with no visible text takes `aria-label` from the caller, and its types require it or `aria-labelledby` (`AvatarGroup`, `Carousel`). No other prop supplies or hides a name.
+  - A group whose role depends on a prop warns in development without a name (`warnUnnamedGroup` in `../dev`, `ToggleGroup`), and a container with a title part names itself from it through context (`Dialog`, `Drawer`, and a `Fieldset` rendered as another element).
   - The name of a control the component generates inside one of its parts is `<part>Label`, such as `closeLabel` on `DrawerHeader`.
   - The icon of that control is the `<part>-icon` slot, such as `close-icon` on `DrawerHeader`, and replaces the default `svg`. `tests/unit/naming.test.ts` checks that it sits next to its `<part>Label`.
   - A component never joins a number and words into one name, since their order depends on the language. The caller passes the whole translated string (`<Badge hideLabel label="5 unread messages">`).

@@ -323,7 +323,7 @@ export const keywords = ["pressed", "toggle button"]
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>
-      <UIToggleGroup name="toggle-anatomy">
+      <UIToggleGroup aria-label="Calendar view" name="toggle-anatomy">
         <UIToggleButton checked type="radio">Day</UIToggleButton>
         <UIToggleButton type="radio">Week</UIToggleButton>
         <UIToggleButton type="radio">Month</UIToggleButton>

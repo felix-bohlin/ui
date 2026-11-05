@@ -145,13 +145,15 @@ export const keywords = [
     <Conditional as="p">
       <Fragment slot="components">
         Group multiple accordions by wrapping them in a <code>Card</code>{" "}
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
+        component with <code>role="group"</code>, and name the group with
+        <code>aria-label</code>. To theme the entire group, apply the
+        <code>variant</code> prop to the parent container.
       </Fragment>
       <Fragment slot="html">
         Group multiple accordions by wrapping them in a <code>.ui-card</code>
-        element with <code>role="group"</code>. To theme the entire group, apply
-        the variant class to the parent container.
+        element with <code>role="group"</code>, and name the group with
+        <code>aria-label</code>. To theme the entire group, apply the variant
+        class to the parent container.
       </Fragment>
     </Conditional>
 

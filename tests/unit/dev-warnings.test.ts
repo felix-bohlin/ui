@@ -26,6 +26,10 @@ import SwitchAstro from "../../packages/opui/components/Switch/Switch.astro"
 import SwitchReact from "../../packages/opui/components/Switch/Switch.react"
 import SwitchSvelte from "../../packages/opui/components/Switch/Switch.svelte"
 import SwitchVue from "../../packages/opui/components/Switch/Switch.vue"
+import ToggleGroupAstro from "../../packages/opui/components/ToggleGroup/ToggleGroup.astro"
+import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
+import ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
+import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
 import ReplacedIdsAstro from "./fixtures/ReplacedIds.astro"
 import ReplacedIdsSvelte from "./fixtures/ReplacedIds.svelte"
 
@@ -108,6 +112,38 @@ describe.each(Object.entries(CONTROLS))("%s", (name, components) => {
       await render[framework](components[framework] as never, {
         "aria-label": "Named",
         value: "a",
+      })
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const TOGGLE_GROUP: Renderers = {
+  astro: ToggleGroupAstro,
+  react: ToggleGroupReact as Renderers["react"],
+  svelte: ToggleGroupSvelte as Renderers["svelte"],
+  vue: ToggleGroupVue,
+}
+
+describe("ToggleGroup", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when it has no accessible name",
+    async (framework) => {
+      await render[framework](TOGGLE_GROUP[framework] as never, {})
+      expect(warnings()).toEqual([
+        "[OPUI ToggleGroup] Missing accessible name. Name the group with `aria-label`, or with `aria-labelledby` pointing at a visible heading.",
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn when aria-label or aria-labelledby names it",
+    async (framework) => {
+      await render[framework](TOGGLE_GROUP[framework] as never, {
+        "aria-label": "Text alignment",
+      })
+      await render[framework](TOGGLE_GROUP[framework] as never, {
+        "aria-labelledby": "heading",
       })
       expect(warnings()).toEqual([])
     },

@@ -265,7 +265,7 @@ const filterCss = [
       <div class="blog-filters" id="blog-filters" popover>
         <Fieldset>
           <FieldLegend>Level</FieldLegend>
-          <ToggleGroup name="blog-level" size="small">
+          <ToggleGroup aria-label="Level" name="blog-level" size="small">
             <ToggleButton checked value="">All</ToggleButton>
             {levels.map((level) => <ToggleButton value={level.id}
               >{level.label}</ToggleButton

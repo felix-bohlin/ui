@@ -2,7 +2,7 @@
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-<ToggleGroup name="alignment">
+<ToggleGroup aria-label="Text alignment" name="alignment">
   <ToggleButton aria-label="Align left" value="left">
     <svg
       aria-hidden="true"

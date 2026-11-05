@@ -30,4 +30,6 @@ export type Props = {
       }
   )
 
-export type AvatarGroupProps = {}
+export type AvatarGroupProps =
+  | { "aria-label": string }
+  | { "aria-labelledby": string }

@@ -102,7 +102,7 @@ const sectionHref = (anchor: string) => link(`/guide/migrating#${anchor}`)
   <div class="renames-diff">
     <Fieldset class="renames-version">
       <FieldLegend>Version</FieldLegend>
-      <ToggleGroup name={`${id}-version`} size="small">
+      <ToggleGroup aria-label="Version" name={`${id}-version`} size="small">
         <ToggleButton value="5">5.x</ToggleButton>
         <ToggleButton checked value="6">6.0</ToggleButton>
       </ToggleGroup>

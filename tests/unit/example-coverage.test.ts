@@ -26,8 +26,12 @@ const tagsOf = (component: string, sources: string[]) =>
     ),
   )
 
+const NAME = ["aria-label", "aria-labelledby"]
+
 const hasAttribute = (attributes: string, name: string) =>
-  new RegExp(`(^|\\s)${name}(?=[\\s=/>]|$)`).test(attributes)
+  (NAME.includes(name) ? NAME : [name]).some((each) =>
+    new RegExp(`(^|\\s)${each}(?=[\\s=/>]|$)`).test(attributes),
+  )
 
 export const uncovered = (api: ComponentApi, sources: string[]) => {
   const tags = tagsOf(api.component, sources)
@@ -66,7 +70,7 @@ describe("example coverage", () => {
     expect(Object.keys(allowlist)).toEqual(Object.keys(allowlist).toSorted())
   })
 
-  test("flags a missing prop and a missing value, and skips inherited and other-framework options", () => {
+  test("flags a missing prop and a missing value, counts aria-label for aria-labelledby, and skips inherited and other-framework options", () => {
     expect(
       uncovered(
         {
@@ -79,6 +83,7 @@ describe("example coverage", () => {
               values: { large: ".ui-large", medium: null, small: ".ui-small" },
             },
             { description: "", group: "Variants", prop: "variant" },
+            { description: "", prop: "aria-labelledby" },
             {
               description: "",
               group: "State",
@@ -93,7 +98,7 @@ describe("example coverage", () => {
             },
           ],
         } as ComponentApi,
-        ['<Chip\n  size="large"\n  label="Bug"\n/>'],
+        ['<Chip\n  size="large"\n  aria-label="Bug"\n/>'],
       ),
     ).toEqual(['Chip.size="small"', "Chip.variant"])
   })

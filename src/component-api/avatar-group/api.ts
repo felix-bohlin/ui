@@ -5,7 +5,22 @@ export default {
   notes: {
     html: 'The root needs `role="group"` and an `aria-label`.',
   },
-  options: [],
+  options: [
+    {
+      attribute: "[aria-label]",
+      description:
+        "The accessible name of the group. The types require it, or `aria-labelledby`.",
+      group: "Label",
+      prop: "aria-label",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the element that names the group, instead of `aria-label`.",
+      prop: "aria-labelledby",
+      type: "string",
+    },
+  ],
   page: "avatar",
   parts: [],
   root: {

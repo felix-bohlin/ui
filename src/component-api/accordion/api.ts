@@ -17,8 +17,8 @@ export default {
   ],
   notes: {
     default:
-      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
-    html: 'To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.',
+      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">` with an `aria-label`. Its `variant` styles every accordion in it.',
+    html: 'To group accordions, wrap them in a `.ui-card[role="group"]` with an `aria-label`. A variant on the group styles every accordion in it.',
   },
   options: [
     {

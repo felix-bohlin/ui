@@ -8,9 +8,8 @@
 </script>
 
 <Form as="div">
-  <Fieldset aria-labelledby="form-adaptive-output-1-legend" as="div">
-    <FieldLegend as="p" id="form-adaptive-output-1-legend">Delivery</FieldLegend
-    >
-    <FieldDescription>Rendered as div and p elements.</FieldDescription>
+  <Fieldset as="div">
+    <FieldLegend as="p">Delivery</FieldLegend>
+    <FieldDescription>Choose how your order gets to you.</FieldDescription>
   </Fieldset>
 </Form>

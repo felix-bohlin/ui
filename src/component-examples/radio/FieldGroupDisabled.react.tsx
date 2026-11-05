@@ -22,9 +22,6 @@ export default function FieldGroupDisabled() {
           <Radio disabled value="2">
             Disabled
           </Radio>
-          <Radio aria-disabled="true" value="3">
-            Aria-disabled
-          </Radio>
         </FieldGroup>
       </Fieldset>
     </Form>

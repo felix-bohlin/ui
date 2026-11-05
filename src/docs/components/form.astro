@@ -232,10 +232,11 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
       <Fragment slot="components">
         Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or
         <code>&lt;legend&gt;</code>? Set <code>as</code> on <code>Form</code>,
-        <code>Fieldset</code> and <code>FieldLegend</code>. A <code>div</code>
-        doesn't pick up its name from the legend, so give the legend an
-        <code>id</code> and point <code>aria-labelledby</code> on the field set
-        at it.
+        <code>Fieldset</code> and <code>FieldLegend</code>. A
+        <code>Fieldset</code> rendered as another element gets
+        <code>role="group"</code> and names itself from its
+        <code>FieldLegend</code> with a generated id, unless you pass
+        <code>aria-label</code> or <code>aria-labelledby</code>.
       </Fragment>
       <Fragment slot="html">
         Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or

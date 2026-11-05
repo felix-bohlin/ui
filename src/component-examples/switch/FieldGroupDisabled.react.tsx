@@ -19,7 +19,6 @@ export default function FieldGroupDisabled() {
         >
           <Switch defaultChecked>Enabled</Switch>
           <Switch disabled>Disabled</Switch>
-          <Switch aria-disabled="true">Aria-disabled</Switch>
         </FieldGroup>
       </Fieldset>
     </Form>

@@ -11,4 +11,4 @@ export type Props = {
   persistentButtons?: boolean
   previousLabel?: string
   stretch?: boolean
-}
+} & ({ "aria-label": string } | { "aria-labelledby": string })

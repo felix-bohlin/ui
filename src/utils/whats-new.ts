@@ -89,10 +89,13 @@ export const whatsNew = {
   avatar: [
     `<a href="#variants"><code>variant</code></a> takes <code>tonal</code> for the primary tint and <code>outlined</code> for the border color with no fill.`,
     components(
-      `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
+      `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>role="link"</code> and <code>aria-disabled="true"</code>.`,
     ),
     `<a href="#letter">Initials</a> read the type roles: <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code> and <code>--ui-font-size-large</code> by <a href="#sizes">size</a>.`,
     `A badge on a <a href="#grouped">grouped</a> avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.`,
+    components(
+      `<a href="#grouped"><code>AvatarGroup</code></a> requires <code>aria-label</code> or <code>aria-labelledby</code> in its types.`,
+    ),
     slots(
       `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
     ),
@@ -316,6 +319,9 @@ export const whatsNew = {
     `The border of a <a href="#clickable">clickable card</a> fades in on hover.`,
   ],
   carousel: [
+    components(
+      `<code>Carousel</code> requires <a href="#accessibility"><code>aria-label</code></a> or <code>aria-labelledby</code> in its types.`,
+    ),
     `The scroll buttons take <a href="#api"><code>--ui-shadow-overlay</code></a>, so a theme's shadows reach them.`,
     `The scroll buttons read <a href="#api"><code>--ui-control-border-color-filled</code></a> for their border when a theme sets it.`,
     {
@@ -641,6 +647,9 @@ export const whatsNew = {
     ),
   ],
   form: [
+    components(
+      `A <a href="#without-fieldset"><code>Fieldset</code> rendered as another element</a> names itself from its <code>FieldLegend</code>.`,
+    ),
     {
       ...slots(
         `Breaking: <code>FieldSet</code> is <a href="#fieldset"><code>Fieldset</code></a>, and <code>FieldDescription</code> renders <code>.ui-description</code> instead of <code>.ui-field-description</code>.`,
@@ -1377,6 +1386,9 @@ export const whatsNew = {
       `Breaking: <a href="#sizes"><code>size="default"</code></a> is <code>size="medium"</code> on <code>ToggleGroup</code>, like every sized component.`,
     ),
     `A disabled <a href="#disabled">toggle</a> dims like a disabled button, and hover uses the button hover strength.`,
+    components(
+      `<code>ToggleGroup</code> warns in development when it has no <a href="#accessibility"><code>aria-label</code></a> or <code>aria-labelledby</code>.`,
+    ),
     {
       astro: `<code>value</code> on <code>ToggleGroup</code> checks the buttons whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,

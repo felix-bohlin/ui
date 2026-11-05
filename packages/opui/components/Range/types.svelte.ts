@@ -6,4 +6,4 @@ type Without<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
 
 export type Props = Without<Base.Props, "endText" | "label" | "startText"> &
   Base.Slots<Snippet> &
-  Omit<SvelteHTMLElements["input"], "children" | "size" | "type">
+  Omit<SvelteHTMLElements["input"], "children" | "type" | keyof Base.Props>

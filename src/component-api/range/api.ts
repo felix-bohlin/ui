@@ -173,7 +173,6 @@ export default {
     {
       description: "The current value.",
       prop: "value",
-      type: "number | string",
     },
     {
       description:

@@ -18,6 +18,9 @@ const ELEMENT_INTERFACES = {
   textarea: "HTMLTextAreaElement",
 }
 
+const RADIO_CHECKED =
+  "group === undefined ? checked : group === (value ?? true)"
+
 const resettable = (model) =>
   model.prop === "value" && model.element.tag in ELEMENT_INTERFACES
 
@@ -159,7 +162,7 @@ export const MODEL_KINDS = {
   radio: {
     svelte: {
       attributes: () => [
-        "checked={(checked ?? group === (value ?? true)) || undefined}",
+        `checked={(${RADIO_CHECKED}) || undefined}`,
         "defaultChecked={initialChecked}",
         "onchange={(event) => {\n  group = value ?? true\n  onchange?.(event)\n}}",
         "{value}",
@@ -167,7 +170,7 @@ export const MODEL_KINDS = {
       bindables: bindableProps,
       plainProps: () => ["checked", "onchange", "value"],
       script: () => [
-        "const initialChecked = untrack(() =>\n  Boolean(checked ?? group === (value ?? true)),\n)",
+        `const initialChecked = untrack(() => Boolean(${RADIO_CHECKED}))`,
       ],
       untrack: () => true,
     },

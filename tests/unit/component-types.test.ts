@@ -7,6 +7,8 @@ import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.sv
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
+import type * as RangeReact from "../../packages/opui/components/Range/types.react"
+import type * as RangeSvelte from "../../packages/opui/components/Range/types.svelte"
 import type * as SwitchReact from "../../packages/opui/components/Switch/types.react"
 import type * as SwitchSvelte from "../../packages/opui/components/Switch/types.svelte"
 import type * as SwitchVue from "../../packages/opui/components/Switch/types.vue-props"
@@ -126,6 +128,15 @@ test("a group's array value is tied to multiple in React and Svelte", () => {
     boolean | undefined
   >()
   expectTypeOf<ToggleGroupVue.Props>().not.toHaveProperty("value")
+})
+
+test("an Omit of keyof Base.Props leaves the component's own type for a prop the element also has", () => {
+  expectTypeOf<RangeReact.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
+  expectTypeOf<RangeSvelte.Props["value"]>().toEqualTypeOf<
+    number | string | undefined
+  >()
 })
 
 test("an item keeps the input's props and takes its Vue props from the input", () => {

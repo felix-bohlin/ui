@@ -659,7 +659,7 @@ describe("the three ports of a sample", () => {
       },
     )
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      '<input\n  type="radio"\n  {...rest}\n  checked={(checked ?? group === (value ?? true)) || undefined}\n  defaultChecked={initialChecked}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
+      '<input\n  type="radio"\n  {...rest}\n  checked={(group === undefined ? checked : group === (value ?? true)) ||\n    undefined}\n  defaultChecked={initialChecked}\n  onchange={(event) => {\n    group = value ?? true\n    onchange?.(event)\n  }}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain("const unchecked = Symbol()")
@@ -1035,6 +1035,24 @@ describe("toTypes", () => {
     expect(
       outputs.get(sampleFile("SamplePart").replace(".astro", ".vue")),
     ).toContain("defineSlots<SamplePartSlots>()")
+  })
+
+  test("an Omit keeps the keyof members of its keys next to the literal ones", () => {
+    const types = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props &\n  Omit<HTMLAttributes<"input">, keyof Base.Props | "type">\n',
+        base,
+      },
+      { Sample: [] },
+    )
+    expect(types.react).toContain(
+      'Omit<ComponentProps<"input">, "children" | "type" | keyof Base.Props>',
+    )
+    expect(types.svelte).toContain(
+      'Omit<SvelteHTMLElements["input"], "children" | "type" | keyof Base.Props>',
+    )
   })
 
   test("React types a radio group's onChange for its inputs", () => {

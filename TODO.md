@@ -375,7 +375,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       scale: -1 1;
     }
     ```
-- [ ] (1) Range: the `Props` of all three frameworks intersect `Base.Props.value` with the native `value` attribute (which includes `string[]`), because the type files omit only `size` and `type` (and `children`) from the element attributes, so the type admits a nonsense `(number & string[])` member and the props table hides it with a `type` override (`packages/opui/components/Range/types.astro.ts:4`, `packages/opui/components/Range/types.react.ts:6-8`, `packages/opui/components/Range/types.svelte.ts:7-9`, `src/component-api/range/api.ts:173-177`)
+- [x] (1) Range: the `Props` of all three frameworks intersect `Base.Props.value` with the native `value` attribute (which includes `string[]`), because the type files omit only `size` and `type` (and `children`) from the element attributes, so the type admits a nonsense `(number & string[])` member and the props table hides it with a `type` override (`packages/opui/components/Range/types.astro.ts:4`, `packages/opui/components/Range/types.react.ts:6-8`, `packages/opui/components/Range/types.svelte.ts:7-9`, `src/component-api/range/api.ts:173-177`)
   - Summary: The Range `value` type admits a nonsense member in every framework, hidden from the table by an override.
   - Recommended: Fix. Omitting `keyof Base.Props` is what the other components do, and it removes the need for the type override.
   - Fix: omit `keyof Base.Props` from the element attributes in the three type files, then drop the `type: "number | string"` override on the `value` option in `api.ts`.
@@ -383,6 +383,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     export type Props = Base.Props &
       Omit<HTMLAttributes<"input">, keyof Base.Props>
     ```
+  - Fixed: `types.astro.ts` omits `keyof Base.Props | "type"` from the input attributes, and the compiler (`scripts/component-types.mjs`) now keeps the `keyof` part of an `Omit` key union, which it dropped before, so the React and Svelte types omit `keyof Base.Props` too and `value` is `number | string` in every framework. The `type` override on `value` in `api.ts` is gone, a `toTypes` sample in `tests/unit/build-components.test.ts` covers the key union, and `tests/unit/component-types.test.ts` asserts the React and Svelte `value` type.
 - [ ] (2) Blog: in WebKit, `/blog/under-the-hood/` often doesn't finish loading at 320px: the scroll test times out after 30 seconds at `page.goto` (no `load` event) or at `document.fonts.ready`, on both attempts in every completed WebKit run since Oct 29 (`tests/e2e/docs.spec.ts:427-430`, `src/docs/blog/under-the-hood.astro:1-101`)
   - Summary: The Under the hood blog post loads so slowly in WebKit that its narrow-screen layout test times out.
   - Recommended: Fix. The page needs a look in WebKit to find what keeps it loading, and a longer timeout would hide it.
@@ -421,7 +422,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
     }
     ```
-- [ ] (2) Radio: when both `checked` and a group binding are passed, Svelte lets the explicit `checked` win (`checked ?? group === (value ?? true)`) while Vue lets the model win, so the same inputs render opposite radios checked (`packages/opui/components/Radio/RadioInput.svelte:25`, `packages/opui/components/Radio/RadioInput.vue:25-34`)
+- [x] (2) Radio: when both `checked` and a group binding are passed, Svelte lets the explicit `checked` win (`checked ?? group === (value ?? true)`) while Vue lets the model win, so the same inputs render opposite radios checked (`packages/opui/components/Radio/RadioInput.svelte:25`, `packages/opui/components/Radio/RadioInput.vue:25-34`)
   - Summary: With the binding set to `a` and `checked` on `b`, Svelte renders `b` checked and Vue renders `a` checked.
   - Recommended: Fix. The guide says the group that owns the value wins, which is what Vue does.
   - Fix: confirmed by SSR render: Svelte `<input type="radio" name="x" value="a"/>,<input type="radio" checked="" name="x" value="b"/>`, Vue `<input type="radio" checked name="x" value="a">,<input type="radio" name="x" value="b">`. Let `group` win when it is bound, and fall back to `checked` otherwise.
@@ -429,6 +430,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     checked={(group === undefined ? checked : group === (value ?? true)) ||
       undefined}
     ```
+  - Fixed: The radio model kind in `scripts/component-models.mjs` writes `group === undefined ? checked : group === (value ?? true)` for the Svelte `checked` attribute and its starting state, so a bound group wins and `checked` applies when nothing is bound, as in Vue. `tests/unit/radio-checked.test.ts` renders RadioInput in Svelte and Vue with a bound group and `checked` on another value, with the group on its own value, and with only `checked`. The contract test compares against Astro, which has no binding, so this test covers the case instead.
 - [ ] (2) Range: the pressed and disabled track colors are derived from `--ui-field-border-color` instead of `--_track-base-bg-color`, so a `.ui-filled` or `.ui-tonal` track, or one a theme colors with `--ui-track-bg-color`, jumps to a darkened field-border gray while the thumb is held and when the input is disabled (`packages/opui/css/components/range.css:388-394`, `packages/opui/css/components/range.css:397-403`, `packages/opui/css/components/range.css:118-124`)
   - Summary: Pressing or disabling a filled, tonal or themed slider changes its track to a different gray.
   - Recommended: Fix. The active and disabled states only need to read the base track color the variants already set.

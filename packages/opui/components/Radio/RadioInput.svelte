@@ -14,7 +14,7 @@
 
   const field = getFieldGroupContext()
   const initialChecked = untrack(() =>
-    Boolean(checked ?? group === (value ?? true)),
+    Boolean(group === undefined ? checked : group === (value ?? true)),
   )
 </script>
 
@@ -22,7 +22,8 @@
   type="radio"
   name={name ?? field?.name}
   {...rest}
-  checked={(checked ?? group === (value ?? true)) || undefined}
+  checked={(group === undefined ? checked : group === (value ?? true)) ||
+    undefined}
   defaultChecked={initialChecked}
   onchange={(event) => {
     group = value ?? true

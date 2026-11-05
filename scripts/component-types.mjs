@@ -39,6 +39,15 @@ const literalKeys = (node) =>
         ? [node.literal.text]
         : []
 
+const otherKeys = (node) =>
+  ts.isUnionTypeNode(node)
+    ? node.types.flatMap(otherKeys)
+    : ts.isParenthesizedTypeNode(node)
+      ? otherKeys(node.type)
+      : ts.isLiteralTypeNode(node) && ts.isStringLiteral(node.literal)
+        ? []
+        : [node.getText()]
+
 const elementRefs = (node) => {
   const refs = []
   const visit = (child) => {
@@ -52,6 +61,7 @@ const elementRefs = (node) => {
         keys: literalKeys(child.typeArguments[1]),
         node: child,
         omittable: true,
+        others: otherKeys(child.typeArguments[1]),
       })
       return
     }
@@ -123,14 +133,16 @@ const frameworkKey = (framework, element, key) =>
       ) ?? key)
     : key
 
-const omitted = (framework, element, keys) =>
-  keys.length
+const omitted = (framework, element, keys, others = []) =>
+  keys.length || others.length
     ? `Omit<${ELEMENT_TYPES[framework](element)}, ${[
-        ...new Set(keys.map((key) => frameworkKey(framework, element, key))),
-      ]
-        .map((key) => JSON.stringify(key))
-        .toSorted()
-        .join(" | ")}>`
+        ...[
+          ...new Set(keys.map((key) => frameworkKey(framework, element, key))),
+        ]
+          .map((key) => JSON.stringify(key))
+          .toSorted(),
+        ...others,
+      ].join(" | ")}>`
     : ELEMENT_TYPES[framework](element)
 
 const typeAliases = (source) =>
@@ -367,6 +379,7 @@ export const toTypes = (
               framework,
               tag ? JSON.stringify(tag) : ref.element,
               ref.omittable ? [...ref.keys, ...omit] : ref.keys,
+              ref.others,
             ),
           ),
         )

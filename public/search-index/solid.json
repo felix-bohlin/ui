@@ -4163,7 +4163,7 @@
     "id": "api-accordion-solid",
     "title": "Accordion API",
     "description": "Reference for Accordion Solid component.",
-    "api": "Accordion Container element. The always visible header. The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
+    "api": "Accordion Container element. The always visible header. The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. The collapsible content. A group of actions, such as buttons. name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` turns it a quarter turn, for a marker that points to the inline end and then points down when open. The default chevron points down, so `turn` needs a custom marker. open Whether the accordion is open. variant The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface or border, and no inline padding.",
     "category": "API",
     "url": "/solid/api/#accordion"
   },
@@ -4179,7 +4179,7 @@
     "id": "api-avatar-group-solid",
     "title": "Avatar Group API",
     "description": "Reference for Avatar Group Solid component.",
-    "api": "AvatarGroup A group of overlapping avatars. aria-label The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group, instead of `aria-label`.",
+    "api": "AvatarGroup A group of overlapping avatars. aria-label The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the group, instead of `aria-label`.",
     "category": "API",
     "url": "/solid/api/#avatar-group"
   },
@@ -4211,7 +4211,7 @@
     "id": "api-button-solid",
     "title": "Button API",
     "description": "Reference for Button Solid component.",
-    "api": "Button Container element. An optional icon. The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "api": "Button Container element. An optional icon. The label next to an icon. The CSS styles the `span`, and `.ui-text` is a hook for your own styles. An optional keyboard hint. aria-label The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`. aria-labelledby The id of the element that names a button without visible text, instead of `aria-label`. as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. disabled Disables the button. A link button drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"`. href The link to use. Renders an `<a>`. round Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#button"
   },
@@ -4219,7 +4219,7 @@
     "id": "api-callout-solid",
     "title": "Callout API",
     "description": "Reference for Callout Solid component.",
-    "api": "Callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A row of buttons under the content. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
+    "api": "Callout Container element. An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A row of buttons under the content. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. severity The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
     "category": "API",
     "url": "/solid/api/#callout"
   },
@@ -4251,7 +4251,7 @@
     "id": "api-carousel-solid",
     "title": "Carousel API",
     "description": "Reference for Carousel Solid component.",
-    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{count}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "api": "Carousel The scroller. The previous button. `::scroll-button(block-start)` when vertical. buttons previousLabel An item. default The next button. `::scroll-button(block-end)` when vertical. buttons nextLabel A marker, one per item. markerLabel markers align Where items snap. aria-label The accessible name of the carousel. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute. aria-labelledby The id of the element that names the carousel, instead of `aria-label`. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `outside` places them beside the items, and `none` leaves them out. itemsPerView Number of visible items. markerLabel Accessible name of each marker, with `{count}` where the item number goes. markers One marker per item, after the list. nextLabel Accessible name of the next button. orientation The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default. peek Shows part of the neighboring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. previousLabel Accessible name of the previous button. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "url": "/solid/api/#carousel"
   },

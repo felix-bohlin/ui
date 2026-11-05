@@ -5,6 +5,7 @@ type Note = string | Partial<Record<FrameworkId | "default", string>>
 const components = (note: string) => ({
   astro: note,
   react: note,
+  solid: note,
   svelte: note,
   vue: note,
 })
@@ -57,6 +58,8 @@ export const whatsNew = {
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-border-color-raised</code>.`,
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
+
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     },
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
@@ -194,6 +197,8 @@ export const whatsNew = {
     ),
     {
       react: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
+
+      solid: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
       svelte: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
     },
     components(
@@ -302,6 +307,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Add <code>.ui-align-start</code> to line them up with the content.`,
       react: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
+      solid: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
       svelte: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
     },
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -413,6 +419,7 @@ export const whatsNew = {
       astro: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch.`,
       react: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
+      solid: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
     },
@@ -544,6 +551,7 @@ export const whatsNew = {
     {
       html: `Breaking: the <a href="#basics">header</a> is a <code>div.ui-header</code> row instead of an <code>hgroup</code>, like the <code>Drawer</code> header, and <code>.ui-footer</code> replaces <code>.ui-actions</code>. Point <code>aria-labelledby</code> at the title heading.`,
       react: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
+      solid: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
       svelte: `<a href="#basics"><code>DialogHeader</code>, <code>DialogTitle</code>, <code>DialogContent</code> and <code>DialogFooter</code></a> build the dialog, like the <code>Drawer</code> parts, and <code>DialogTitle</code> names it.`,
     },
     {
@@ -624,6 +632,7 @@ export const whatsNew = {
         `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>close-icon</code> slot.`,
       ),
       react: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> prop.`,
+      solid: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> prop.`,
       svelte: `The <a href="#close-button">close button</a> in <code>DrawerHeader</code> takes your own icon in the <code>closeIcon</code> snippet.`,
     },
     `The edge reads <a href="#api"><code>--ui-border-color-raised</code></a> when a theme sets it, like menus and elevated cards, and <code>--_edge-border-color</code> sets it alone.`,
@@ -638,12 +647,14 @@ export const whatsNew = {
       ),
       html: `Breaking: the <a href="#basics"><code>.ui-footer</code></a> content sits at the end on every side, also in an <code>.ui-inline-end</code> drawer, and <code>.ui-align-start</code> moves it to the start.`,
       react: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
+      solid: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
       svelte: `<a href="#api"><code>DrawerFooter</code></a> takes <code>align</code>, and its content sits at the end on every side.`,
     },
     `<code>.ui-actions</code> groups the buttons in the <a href="#basics">footer</a>, and moves them to the end when other content comes first.`,
     {
       default: `Breaking: the <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, instead of <code>--font-size-3</code>, and <code>--_header-font-size</code> is <code>--_title-font-size</code>.`,
       react: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
+      solid: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
       svelte: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
     },
     `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow, and a focusable content draws its focus ring inside the drawer.`,
@@ -762,6 +773,8 @@ export const whatsNew = {
     `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone.`,
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
+
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
     },
     `Lists are <a href="#variants">rounded</a> with <code>--_radius</code> (<code>--ui-radius</code>) and clip their rows to the corners, except as a direct child of a card.`,
@@ -790,6 +803,7 @@ export const whatsNew = {
         `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
       ),
       react: `<a href="#submenu">Submenus</a> with the <code>submenu</code> prop on <code>ListItem</code>.`,
+      solid: `<a href="#submenu">Submenus</a> with the <code>submenu</code> prop on <code>ListItem</code>.`,
       svelte: `<a href="#submenu">Submenus</a> with the <code>submenu</code> snippet on <code>ListItem</code>.`,
     },
     `Menus shrink to the space on their side and flip when it's less than <code>12rem</code> (<a href="#placement">Placement</a>).`,
@@ -844,6 +858,7 @@ export const whatsNew = {
       ),
       html: `The default <a href="#variants">tonal</a> track needs no <code>.ui-tonal</code>.`,
       react: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
     },
     {
@@ -891,6 +906,7 @@ export const whatsNew = {
       astro: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch.`,
       react: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
+      solid: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
     },
@@ -962,6 +978,8 @@ export const whatsNew = {
     ),
     {
       react: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
+
+      solid: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and <code>valueText</code> content renders from the value you keep.`,
       svelte: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>valueText</code> snippet renders from the value you bind.`,
       vue: `The <a href="#value">value readout</a> follows the thumb through <code>range.js</code>, like in Astro, and the <code>value-text</code> slot renders from the value you bind.`,
     },
@@ -985,6 +1003,8 @@ export const whatsNew = {
     },
     {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
+
+      solid: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
     },
     `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
@@ -1114,6 +1134,7 @@ export const whatsNew = {
     {
       html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio.`,
       react: `A switch without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
+      solid: `A switch without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A switch without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A switch without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
     },
@@ -1244,6 +1265,7 @@ export const whatsNew = {
     {
       astro: `<code>value</code> on <code>Tabs</code> selects the item whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>Tabs</code> take <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
+      solid: `<code>Tabs</code> take <code>value</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selected tab with <code>bind:value</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selected tab with <code>v-model</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
     },
@@ -1316,6 +1338,7 @@ export const whatsNew = {
         `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>icon-unchecked</code> and <code>icon-checked</code> slots.`,
       ),
       react: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
+      solid: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> props.`,
       svelte: `<a href="#password-toggle"><code>passwordToggle</code></a> adds a button that shows and hides the password, run by the <code>&lt;opui-text-field&gt;</code> custom element, which the component loads. Its icons take the <code>iconUnchecked</code> and <code>iconChecked</code> snippets.`,
       html: `<a href="#password-toggle">Password toggle</a>: <code>&lt;opui-text-field&gt;</code> with a <code>&lt;label for&gt;</code> and a <code>command="--toggle-password"</code> button shows and hides the password. Import <code>opui-css/elements/text-field.js</code>.`,
     },
@@ -1440,6 +1463,7 @@ export const whatsNew = {
     {
       astro: `<code>value</code> on <code>ToggleGroup</code> checks the buttons whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
       react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
+      solid: `<code>ToggleGroup</code> takes <code>value</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selection with <code>v-model</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
     },

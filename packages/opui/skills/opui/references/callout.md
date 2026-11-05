@@ -10,14 +10,14 @@ Callouts call out for user attention. Should be part of the flow and used withou
 ### Parts
 
 - `.ui-callout` (root): Container element.
-- `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
+- `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Solid, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
 - `.ui-actions` (`CalloutActions`): A row of buttons under the content.
 - `<button>`: A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row.
 
 ### Props and modifiers
 
-- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.
+- `severity`: `"critical"` (`.ui-critical`), `"info"` (`.ui-info`), `"neutral"` (`.ui-neutral`), `"success"` (`.ui-success`), `"warning"` (`.ui-warning`). The severity. Sets the color, and in Astro, React, Solid, Svelte and Vue the icon `CalloutIcon` renders.
 - `variant`: `"outlined"` (`.ui-outlined`), `"tonal"` (default). The variant to use.
 
 ### Slots

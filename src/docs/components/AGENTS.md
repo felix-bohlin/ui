@@ -224,7 +224,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 Place logic in a `<script>` tag.
 
 - Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate. In the HTML examples, `pnpm build-examples` numbers the ids components generate in document order after the numbers the example writes itself, and `tests/unit/example-ids.test.ts` checks that every id in them is unique, resolves and belongs to one component instance.
-- The HTML example gets each `<script>` without its types in its own `<script type="module">`, after one module that imports the custom elements and helpers its components render, less a module the `<script>` imports from `opui-css` itself. Write the React, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
+- The HTML example gets each `<script>` without its types in its own `<script type="module">`, after one module that imports the custom elements and helpers its components render, less a module the `<script>` imports from `opui-css` itself. Write the React, Solid, Svelte and Vue versions of a script example by hand, with state where the `<script>` changes the DOM.
 - The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)
@@ -250,7 +250,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 </Conditional>
 ```
 
-For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Svelte and Vue pages and `class` on HTML pages:
+For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Solid, Svelte and Vue pages and `class` on HTML pages:
 
 ```astro
 <p>

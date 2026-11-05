@@ -17,7 +17,7 @@ When implementing or updating a component, ensure:
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
 - [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
 - [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
-- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file and a `<Name>Props` for every component.
+- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/solid/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file and a `<Name>Props` for every component.
 
 ---
 

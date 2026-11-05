@@ -36,7 +36,7 @@ Avatars show a person or entity as an image, initials or icon.
 
 ### Props and modifiers
 
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the group. The Astro, React, Solid and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the group, instead of `aria-label`.
 
 ### Slots

@@ -72,7 +72,7 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Notes
 
 - HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.
-- Astro, React, Solid, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Astro, React, Solid, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Solid, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
 ## Component properties
 
@@ -216,6 +216,7 @@ export default function Basics() {
 `import { Checkbox, CheckboxInput, SelectAll } from "opui-css/solid"`
 
 - `Checkbox` slot props (`JSX.Element`): `children` and `endText`.
+- Hydration: `indeterminate` on `Checkbox` and `CheckboxInput`. A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Without hydration: Import `opui-css/css/js/checkbox.js` in the page.
 
 ### Example: Basics
 

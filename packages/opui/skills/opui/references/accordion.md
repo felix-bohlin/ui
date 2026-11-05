@@ -11,7 +11,7 @@ Lets you show and hide content, on its own or as a group.
 
 - `details.ui-accordion` (root): Container element.
 - `<summary>` (`AccordionSummary`): The always visible header.
-- `<svg class="ui-marker">`: The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+- `<svg class="ui-marker">`: The marker. In Astro, React, Solid, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 - `.ui-content` (`AccordionContent`): The collapsible content.
 - `.ui-actions` (`AccordionActions`): A group of actions, such as buttons.
 

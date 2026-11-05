@@ -16,7 +16,7 @@ Buttons allow users to take actions with a single tap.
 
 ### Props and modifiers
 
-- `aria-label`: `string`. The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`.
+- `aria-label`: `string`. The accessible name, for a button without visible text. React, Solid and Svelte require it, or `aria-labelledby`, when there are no `children`.
 - `aria-labelledby`: `string`. The id of the element that names a button without visible text, instead of `aria-label`.
 - `as`: `"a" | "button"`, default `"button"`. The element to render. Defaults to `"a"` with `href`.
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors.

@@ -6,7 +6,7 @@ export default {
   css: ["select-all"],
   notes: {
     ...components(
-      "The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.",
+      "The component loads `opui-css/elements/select-all.js`. In React, Solid, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.",
     ),
     html: 'Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.',
   },

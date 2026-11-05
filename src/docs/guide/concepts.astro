@@ -147,7 +147,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
     <h2>Props and classes</h2>
     <p>
       A component is one <code>ui-</code> class on a native element, with
-      modifier classes for its options. The Astro, React, Svelte and Vue
+      modifier classes for its options. The Astro, React, Solid, Svelte and Vue
       components render those exact classes from props, one to one:
     </p>
     <CodeGroup
@@ -166,6 +166,13 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
         },
         {
           title: "React",
+          code: `<Button variant="outlined" size="small" color="primary">
+  Save
+</Button>`,
+          lang: "tsx",
+        },
+        {
+          title: "Solid",
           code: `<Button variant="outlined" size="small" color="primary">
   Save
 </Button>`,
@@ -360,8 +367,10 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       <code>checked</code>, the attribute it sets on its input, with each
       framework's own rules. In React <code>checked</code> with
       <code>onChange</code> controls it and <code>defaultChecked</code> sets
-      where it starts. In a group that owns the value, such as a ToggleGroup
-      with a <code>value</code>, the group wins.
+      where it starts. In Solid <code>checked</code> sets it and follows it when
+      it changes, and <code>onChange</code> reports the change. In a group that
+      owns the value, such as a ToggleGroup with a <code>value</code>, the group
+      wins.
     </p>
   </section>
 
@@ -438,7 +447,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
         on <code>input</code>. Mark it with <code>data-live</code> and import
         <code>css/js/range.js</code>, which follows every range on the page,
         also ones added later. The Astro component does that for you, and React,
-        Svelte and Vue update it reactively.
+        Solid, Svelte and Vue update it reactively.
       </li>
     </ul>
     <CodeGroup
@@ -514,7 +523,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       and its markup works, or hides what can't, until the module loads. Import
       the module once per page: it defines the element, which then also runs in
       markup added later. The Astro components load their element, and React,
-      Svelte and Vue load it on the client, so it runs once they hydrate.
+      Solid, Svelte and Vue load it on the client, so it runs once they hydrate.
     </p>
     <CodeGroup
       tabs={[

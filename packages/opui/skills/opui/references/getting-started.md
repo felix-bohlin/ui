@@ -294,6 +294,7 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 Every component renders complete HTML on the server. The native controls work and submit with their form. A few things only update on the client:
 
+- [Checkbox](https://open-props-ui.netlify.app/solid/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or import `opui-css/css/js/checkbox.js` in the page.
 - [Range](https://open-props-ui.netlify.app/solid/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
 
 Hydrate those or render them on the client. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.

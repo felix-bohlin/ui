@@ -2,12 +2,10 @@
 import { Chip, Tooltip, TooltipContent } from "opui-css/astro"
 import {
   computeEngineBrowserSupport,
+  type BrowserId,
   type EngineId,
 } from "../utils/browser-support"
-import Chrome from "./icons/browsers/Chrome.astro"
-import Edge from "./icons/browsers/Edge.astro"
-import Firefox from "./icons/browsers/Firefox.astro"
-import Safari from "./icons/browsers/Safari.astro"
+import BrowserLogo from "./BrowserLogo.astro"
 
 type Props = {
   ids: string[]
@@ -17,11 +15,11 @@ const { ids } = Astro.props
 const { $id } = Astro.locals
 const entries = ids.length > 0 ? computeEngineBrowserSupport(ids) : []
 
-const ICONS = {
-  chromium: [Chrome, Edge],
-  gecko: [Firefox],
-  webkit: [Safari],
-} satisfies Record<EngineId, unknown[]>
+const BROWSERS = {
+  chromium: ["chrome", "edge"],
+  gecko: ["firefox"],
+  webkit: ["safari"],
+} satisfies Record<EngineId, BrowserId[]>
 
 const HEADINGS = {
   full: "Full support",
@@ -35,7 +33,6 @@ const HEADINGS = {
   aria-label="Browser support summary"
 >
   {entries.map((entry) => {
-    const icons = ICONS[entry.engine]
     const tooltipId = $id(`browser-support-${entry.engine}`)
     const heading = HEADINGS[entry.level]
     return <Tooltip id={tooltipId}>
@@ -50,8 +47,8 @@ const HEADINGS = {
         command="toggle-popover"
       >
         <span slot="start" class="engine-icons">
-          {icons.map((Icon) => (
-            <Icon />
+          {BROWSERS[entry.engine].map((browser) => (
+            <BrowserLogo browser={browser} />
           ))}
         </span>
         <Fragment slot="label">
@@ -116,6 +113,12 @@ const HEADINGS = {
   .engine-icons {
     align-items: center;
     display: flex;
+
+    & img {
+      block-size: var(--ui-icon-size-small);
+      flex-shrink: 0;
+      inline-size: var(--ui-icon-size-small);
+    }
 
     > :global(*:not(:first-child)) {
       margin-inline-start: -0.25em;

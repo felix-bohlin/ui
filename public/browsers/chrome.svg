@@ -1,22 +1,11 @@
----
-import type { HTMLAttributes } from "astro/types"
-
-type Props = HTMLAttributes<"svg">
-
-const { ...rest } = Astro.props
-const uid = Astro.locals.$id("chrome")
----
-
 <svg
-  aria-hidden="true"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   viewBox="0 0 48 48"
-  {...rest}
 >
   <defs>
     <linearGradient
-      id={`${uid}-a`}
+      id="a"
       x1="3.2173"
       y1="15"
       x2="44.7812"
@@ -27,7 +16,7 @@ const uid = Astro.locals.$id("chrome")
       <stop offset="1" stop-color="oklch(0.626 0.206 29)"></stop>
     </linearGradient>
     <linearGradient
-      id={`${uid}-b`}
+      id="b"
       x1="20.7219"
       y1="47.6791"
       x2="41.5039"
@@ -38,7 +27,7 @@ const uid = Astro.locals.$id("chrome")
       <stop offset="1" stop-color="oklch(0.83 0.1699 84)"></stop>
     </linearGradient>
     <linearGradient
-      id={`${uid}-c`}
+      id="c"
       x1="26.5981"
       y1="46.5015"
       x2="5.8161"
@@ -56,7 +45,7 @@ const uid = Astro.locals.$id("chrome")
   ></path>
   <path
     d="M24,12H44.7812a23.9939,23.9939,0,0,0-41.5639.0029L13.6079,30l.0093-.0024A11.9852,11.9852,0,0,1,24,12Z"
-    style={`fill:url(#${uid}-a)`}
+    style="fill:url(#a)"
   ></path>
   <circle
     cx="24"
@@ -66,10 +55,10 @@ const uid = Astro.locals.$id("chrome")
   ></circle>
   <path
     d="M34.3913,30.0029,24.0007,48A23.994,23.994,0,0,0,44.78,12.0031H23.9989l-.0025.0093A11.985,11.985,0,0,1,34.3913,30.0029Z"
-    style={`fill:url(#${uid}-b)`}
+    style="fill:url(#b)"
   ></path>
   <path
     d="M13.6086,30.0031,3.218,12.006A23.994,23.994,0,0,0,24.0025,48L34.3931,30.0029l-.0067-.0068a11.9852,11.9852,0,0,1-20.7778.007Z"
-    style={`fill:url(#${uid}-c)`}
+    style="fill:url(#c)"
   ></path>
 </svg>

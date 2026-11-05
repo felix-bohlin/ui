@@ -14,6 +14,7 @@ import { select, selectAll } from "hast-util-select"
 
 const REMOVE_SELECTORS = [
   "#changelog-list",
+  ".browser-logo",
   ".build-up-knobs",
   ".build-up-stage",
   ".build-up-steps legend",

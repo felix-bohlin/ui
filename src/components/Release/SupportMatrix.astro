@@ -26,24 +26,22 @@ import { getBaselineMappings } from "../../utils/baseline"
 import {
   computeEngineBrowserSupport,
   computeFeatureSupport,
+  type BrowserId,
   type EngineId,
   type SupportLevel,
 } from "../../utils/browser-support"
 import { compatCss } from "../../utils/compat"
 import { componentName } from "../../utils/names"
-import Chrome from "../icons/browsers/Chrome.astro"
-import Edge from "../icons/browsers/Edge.astro"
-import Firefox from "../icons/browsers/Firefox.astro"
-import Safari from "../icons/browsers/Safari.astro"
+import BrowserLogo from "../BrowserLogo.astro"
 
 const id = "support-matrix"
 const { link } = Astro.locals
 
-const ICONS = {
-  chromium: [Chrome, Edge],
-  gecko: [Firefox],
-  webkit: [Safari],
-} satisfies Record<EngineId, unknown[]>
+const BROWSERS = {
+  chromium: ["chrome", "edge"],
+  gecko: ["firefox"],
+  webkit: ["safari"],
+} satisfies Record<EngineId, BrowserId[]>
 
 const ENGINE_LABELS = {
   chromium: "Chromium",
@@ -210,8 +208,8 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
                 (engine) => <TableHeaderCell scope="col">
                   <span class="support-matrix-engine">
                     <span class="support-matrix-icons" aria-hidden="true">
-                      {ICONS[engine].map((Icon) => (
-                        <Icon />
+                      {BROWSERS[engine].map((browser) => (
+                        <BrowserLogo browser={browser} />
                       ))}
                     </span>
                     {ENGINE_LABELS[engine]}
@@ -323,8 +321,8 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
                     class="support-matrix-engine"
                   >
                     <span class="support-matrix-icons" aria-hidden="true">
-                      {ICONS[engine].map((Icon) => (
-                        <Icon />
+                      {BROWSERS[engine].map((browser) => (
+                        <BrowserLogo browser={browser} />
                       ))}
                     </span>
                     {ENGINE_LABELS[engine]}
@@ -535,7 +533,7 @@ const PATHS = { full: check, none: cross, partial: warn } satisfies Record<
     align-items: center;
     display: inline-flex;
 
-    & svg {
+    & img {
       block-size: var(--ui-icon-size-small);
       inline-size: var(--ui-icon-size-small);
     }

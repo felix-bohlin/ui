@@ -1,22 +1,12 @@
 ---
 import { computeFeatureSupport } from "../../utils/browser-support"
-import Chrome from "../icons/browsers/Chrome.astro"
-import Edge from "../icons/browsers/Edge.astro"
-import Firefox from "../icons/browsers/Firefox.astro"
-import Safari from "../icons/browsers/Safari.astro"
+import BrowserLogo from "../BrowserLogo.astro"
 
 type Props = {
   ids: string[]
 }
 
 const { ids } = Astro.props
-
-const ICONS = {
-  chrome: Chrome,
-  edge: Edge,
-  firefox: Firefox,
-  safari: Safari,
-}
 
 const STATUS = {
   high: "Widely available",
@@ -41,16 +31,15 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
       </a>
       <span class="feature-support-status">{STATUS[status]}</span>
       <dl>
-        {entry.browsers.map((browser) => {
-          const Icon = ICONS[browser.browser]
-          return <div data-supported={browser.version ? "" : undefined}>
-            <dt>
-              <Icon />
-              <span class="ui-sr-only">{browser.label}</span>
-            </dt>
-            <dd>{browser.version ?? "No"}</dd>
-          </div>
-        })}
+        {entry.browsers.map((browser) => <div
+          data-supported={browser.version ? "" : undefined}
+        >
+          <dt>
+            <BrowserLogo browser={browser.browser} />
+            <span class="ui-sr-only">{browser.label}</span>
+          </dt>
+          <dd>{browser.version ?? "No"}</dd>
+        </div>)}
       </dl>
     </li>
   })}
@@ -125,7 +114,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     & dt {
       display: flex;
 
-      & svg {
+      & img {
         block-size: 1rem;
         inline-size: 1rem;
       }

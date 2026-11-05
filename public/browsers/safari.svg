@@ -1,21 +1,10 @@
----
-import type { HTMLAttributes } from "astro/types"
-
-type Props = HTMLAttributes<"svg">
-
-const { ...rest } = Astro.props
-const uid = Astro.locals.$id("safari")
----
-
 <svg
-  aria-hidden="true"
   xmlns="http://www.w3.org/2000/svg"
   preserveAspectRatio="xMidYMid"
   viewBox="0 0 256 256"
-  {...rest}
 >
   <defs>
-    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id={`${uid}-a`}>
+    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="a">
       <stop stop-color="oklch(0.89 0.001 105)" offset="25%"></stop>
       <stop stop-color="oklch(1 0 0)" offset="100%"></stop>
     </linearGradient>
@@ -24,7 +13,7 @@ const uid = Astro.locals.$id("safari")
       y1="35.703%"
       x2="25.713%"
       y2="77.572%"
-      id={`${uid}-d`}
+      id="d"
     >
       <stop stop-opacity="0" offset="0%"></stop>
       <stop offset="100%"></stop>
@@ -35,7 +24,7 @@ const uid = Astro.locals.$id("safari")
       width="200%"
       height="200%"
       filterUnits="objectBoundingBox"
-      id={`${uid}-b`}
+      id="b"
     >
       <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
       <feGaussianBlur
@@ -59,7 +48,7 @@ const uid = Astro.locals.$id("safari")
       width="200%"
       height="200%"
       filterUnits="objectBoundingBox"
-      id={`${uid}-e`}
+      id="e"
     >
       <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
       <feGaussianBlur
@@ -83,7 +72,7 @@ const uid = Astro.locals.$id("safari")
       fx="57.025%"
       fy="39.017%"
       r="61.032%"
-      id={`${uid}-c`}
+      id="c"
     >
       <stop stop-color="oklch(0.738 0.126 220)" offset="0%"></stop>
       <stop stop-color="oklch(0.736 0.1262 221)" offset="11.363%"></stop>
@@ -92,13 +81,13 @@ const uid = Astro.locals.$id("safari")
   </defs>
   <g transform="translate(4 2)">
     <circle
-      fill={`url(#${uid}-a)`}
-      filter={`url(#${uid}-b)`}
+      fill="url(#a)"
+      filter="url(#b)"
       cx="124"
       cy="124"
       r="124"
     ></circle>
-    <circle fill={`url(#${uid}-c)`} cx="124" cy="124" r="114.7"></circle>
+    <circle fill="url(#c)" cx="124" cy="124" r="114.7"></circle>
     <g transform="translate(9.688 8.719)">
       <path
         d="M114.506 28.481c-.775 0-1.453-.581-1.453-1.356V6.878c0-.775.678-1.356 1.453-1.356s1.453.581 1.453 1.356v20.247c-.097.775-.678 1.356-1.453 1.356z"
@@ -614,7 +603,7 @@ const uid = Astro.locals.$id("safari")
       ></path>
       <circle
         fill-opacity=".2"
-        fill={`url(#${uid}-d)`}
+        fill="url(#d)"
         cx="114.991"
         cy="115.184"
         r="114.7"
@@ -623,7 +612,7 @@ const uid = Astro.locals.$id("safari")
     <path
       d="M204.116 51.15L111.6 110.438h-.097v.096l-.097.097L53.67 205.86l84.862-68.297.097-.096v-.097l65.488-86.219z"
       fill-opacity=".05"
-      filter={`url(#${uid}-e)`}
+      filter="url(#e)"
     ></path>
     <path
       d="M202.372 45.628l-91.45 65.003 27.125 26.931 64.325-91.934"

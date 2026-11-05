@@ -8,6 +8,7 @@ import {
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import react from "@astrojs/react"
+import solid from "@solidjs/vite-plugin"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
@@ -98,6 +99,7 @@ export default defineConfig({
     optimizeDeps: { exclude: ["microlighter"] },
     resolve: { external: ["oxfmt"] },
     plugins: [
+      solid({ include: [/\.solid\.tsx$/], refresh: false }),
       {
         name: "opui-no-react-refresh",
         enforce: "post",

@@ -1444,6 +1444,12 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: add `typography: ["marker"]` to `ignore` in `scripts/check-browser-support.mjs:354` and drop the id from the page, as Accordion does for its hidden marker.
   > Explain further and provide an example
   - Explained: The chip comes from the compat data: web-features' `marker` follows BCD's `css.selectors.marker`, which marks Safari partial with the note "Safari support is limited to `color` and `font-size`", and a partial engine shows as unsupported. That note is out of date: WebKit's list of properties that apply to `::marker` (`Source/WebCore/style/PropertyAllowlist.cpp`) has every font property, `font-variant-numeric` among them, and on the main branch `content` too. Typography's one marker rule sets `font-variant-numeric: tabular-nums` on rich text `ol` markers, and it only lines up the digits, so an engine that ignored it would still number the list. Accordion already drops the same id through `ignore` in `scripts/check-browser-support.mjs`. The example shows two lists starting at 8, with and without the rule, readouts of the marker's computed values, and a `content` test; it needs a look in Safari, since no WebKit runs here. A BCD pull request that drops the stale note would correct the chip upstream. Example: typography-marker-safari
+- [ ] (1) TextField: the file button of a drop zone sits at the start of the dashed area, because Chromium sets `text-align: start !important` on file inputs (`packages/opui/css/components/text-field.css:230-249`)
+  - Summary: The file button in a drop zone sits at the start of the dashed area instead of in the middle.
+  - Recommended: Fix with option A. The native control keeps showing the chosen files without a script.
+  - Options:
+    - A (recommended): keep the native control at the start.
+    - B: lay the native input over the whole area with `opacity: 0`, show a centered icon and text in the field, and list the chosen files with a script.
 - [ ] (2) Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable` leaves an undimmed strip at the inline end under the modal backdrop (10px in headless Chromium, 15 to 17px with classic Windows scrollbars), and block and inline-end drawers stop short of it, because `inline-size: 100dvi` is capped by `max-inline-size: 100%` (`packages/opui/core/utils.css:43-50`, `packages/opui/css/components/drawer.css:32`, `packages/opui/css/components/drawer.css:100`)
   - Summary: An open modal leaves a bright strip at the right edge of the dimmed page, and full-width drawers stop short of it.
   - Recommended: Fix with option A. It keeps the page from shifting and the strip matches the backdrop, which C was meant to do.
@@ -1481,6 +1487,19 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Explained: tonal is the quiet fill. A tonal button, a chip and the Tabs track paint `--ui-surface-tonal`, one gray step off the page: `--ui-gray-3` on `--ui-gray-1` in light mode (1.16:1) and `--ui-gray-12` on `--ui-gray-13` in dark mode (1.33:1). That small step is all that draws their shape. A tonal Card, Accordion or Callout paints its own background with the same `--ui-surface-tonal`, so a tonal control inside it is the card's own color, 1.00:1, and only its text is left. In dark mode `--ui-surface-elevated` is `--ui-gray-12` too, so the same happens inside elevated cards, dialogs, drawers and menus. Outlined and filled controls keep their border or accent, so only the tonal ones vanish. Option A fixes it the way raised surfaces already fix borders: they set `--ui-border-color` to `--ui-border-color-on-raised` for their content, and they would also point the tonal role at a step that differs from their own background (the page surface inside a tonal card, and inside an elevated one in dark mode). The example measures a tonal button, a chip and the tab track in an outlined, a tonal and an elevated card, in both modes, today and with option A simulated by two overrides. With A, light mode shows the second problem the item names: the selected tab is the page surface, so it matches the remapped track and only its border sets it apart. Example: tonal-surfaces
   > Fix with option C
   - Fixed: option C. No change: a tonal control on a tonal surface stays the author's choice, and outlined and filled controls stay visible there. The `tonal-surfaces` example keeps the measurements.
+- [ ] (2) Callout: a close button in a callout only takes its place at the end of the first row: every app writes its own click handler to remove or hide the callout, as the Dismissible example does (`packages/opui/css/components/callout.css:138-163`, `src/component-examples/callout/Dismissible.astro:27-45`)
+  - Summary: A close button in a callout does nothing until the app adds a click handler that removes the callout.
+  - Recommended: Fix with option A. The handler is a few lines, and a helper would be the library's first script that removes markup.
+  - Options:
+    - A (recommended): keep the handler in the app, as the Dismissible example shows.
+    - B: ship a small helper, such as `opui-css/js/dismiss.js`, that handles `command="--dismiss"` on its `commandfor` target and removes or hides it, and let `Callout` render the button from a `closeLabel`.
+- [ ] (2) Tabs: there are no vertical tabs and no tabs made of links: the Tabs page sends page navigation and a settings page with its sections in a column to the App shell block's list of links (`src/docs/components/tabs.astro:139-147`, `packages/opui/css/components/tabs.css:1-30`)
+  - Summary: Tabs can't stand in a column at the side or link to other pages, so settings pages and page navigation use a List of links instead.
+  - Recommended: Fix with option A. A list of links with `aria-current` covers both cases without a new layout for every Tabs variant.
+  - Options:
+    - A (recommended): keep pointing to the App shell block and a `List` with `aria-current="page"`.
+    - B: add `orientation="vertical"` to `Tabs`: the labels in a column at the start and the panel beside them, for every variant, in right-to-left text and in forced colors.
+    - C: add a navigation form: links with `aria-current="page"` styled like tabs, without radio inputs or panels.
 
 ## Suggestions
 

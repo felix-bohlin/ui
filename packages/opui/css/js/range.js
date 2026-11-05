@@ -20,8 +20,10 @@ function update(input, value = input.value) {
   if (output) {
     const text = `${value}${suffix}`
     const node = output.firstChild
-    if (node instanceof Text && !node.nextSibling) node.data = text
-    else output.textContent = text
+    if (output.textContent !== text) {
+      if (node instanceof Text && !node.nextSibling) node.data = text
+      else output.textContent = text
+    }
     if (suffix) {
       input.setAttribute("aria-valuetext", text)
       return

@@ -92,7 +92,12 @@ export default function Select({
           name={name ?? field?.name}
           value={value}
         >
-          <button>{createElement("selectedcontent")}</button>
+          <button>
+            {createElement("selectedcontent", {
+              dangerouslySetInnerHTML: { __html: "" },
+              suppressHydrationWarning: true,
+            })}
+          </button>
           <div className={cx(["ui-list", { "ui-dense": dense }])}>
             {items.map((item) => (
               <option key={item.value} value={item.value}>

@@ -599,7 +599,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
-- `Range` `range.js` writes the live readout through the `<output>` text node instead of replacing it, so each input no longer re-styles the whole page through `:has()` rules.
+- `Range` `range.js` writes the live readout through the `<output>` text node instead of replacing it, so each input no longer re-styles the whole page through `:has()` rules, and leaves a readout that already shows the value alone, so server-rendered Svelte and Vue ranges hydrate in SvelteKit and Nuxt.
 - `Range` and `ToggleButton` in Vue take the `FieldGroup` name.
 - `Range` invalid state colors the thumb and its halo too, except on a disabled range.
 - `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.
@@ -630,6 +630,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Select` adds its top slot, start text (`.ui-start-text`), end text and bottom slot to `aria-describedby`, in that order.
 - `Select` `--_motion: 0` on the root also stops the picker animation.
 - `Select` and `Range` in Astro merge a passed `aria-labelledby` instead of rendering the attribute twice.
+- `Select` in React hydrates in Next.js and other server-rendered React apps. React no longer fails on the copy of the selected option that the browser writes into `<selectedcontent>` while it parses the page.
 - `Select` in Astro closes its `<selectedcontent>` element. The Astro compiler drops the end tag of a literal `<selectedcontent>`, so the whitespace after it ended up inside it.
 - `Select` draws the chevron of a plain select in `--ui-text-strong`, like the customizable select and the autosuggest field.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--ui-motion: 0`) instead of ignoring it.

@@ -1,0 +1,270 @@
+<style>
+  .todo-otc-row {
+    align-items: end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .todo-otc-row > .ui-text-field:not(.ui-one-time-code) {
+    inline-size: 8rem;
+  }
+
+  .todo-otc-m3 {
+    --ui-field-radius: 0.25rem;
+  }
+
+  .todo-otc-brutalist {
+    --ui-field-border-width: 2px;
+    --ui-radius: 5px;
+  }
+
+  .todo-otc-round {
+    --ui-field-radius: 1rem;
+  }
+
+  .todo-otc-gradient .ui-one-time-code {
+    --_box-border-width: var(--ui-field-border-width);
+    --_box-end: calc(var(--_cell-size) * 0.875);
+    --_box-radius: min(
+      var(--ui-field-radius, var(--ui-radius)),
+      var(--_cell-size) * 0.25
+    );
+    --_box-start: calc(var(--_cell-size) * 0.125);
+
+    &:focus-within {
+      --_box-border-width: calc(var(--ui-field-border-width) * 2);
+    }
+
+    .ui-field::before {
+      mask:
+        linear-gradient(
+            to right,
+            transparent calc(var(--_box-start) + var(--_box-radius)),
+            oklch(0 0 0) 0 calc(var(--_box-end) - var(--_box-radius)),
+            transparent 0
+          )
+          0 0 / var(--_cell-size) var(--_box-border-width) repeat-x add,
+        linear-gradient(
+            to right,
+            transparent calc(var(--_box-start) + var(--_box-radius)),
+            oklch(0 0 0) 0 calc(var(--_box-end) - var(--_box-radius)),
+            transparent 0
+          )
+          0 100% / var(--_cell-size) var(--_box-border-width) repeat-x add,
+        linear-gradient(
+            to right,
+            transparent var(--_box-start),
+            oklch(0 0 0) 0 calc(var(--_box-start) + var(--_box-border-width)),
+            transparent 0 calc(var(--_box-end) - var(--_box-border-width)),
+            oklch(0 0 0) 0 var(--_box-end),
+            transparent 0
+          )
+          0 var(--_box-radius) / var(--_cell-size)
+          calc(100% - 2 * var(--_box-radius)) repeat-x add,
+        linear-gradient(
+            oklch(0 0 0) var(--_box-radius),
+            transparent 0 calc(100% - var(--_box-radius)),
+            oklch(0 0 0) 0
+          )
+          0 0 / var(--_cell-size) 100% repeat-x intersect,
+        linear-gradient(
+            to right,
+            transparent var(--_box-start),
+            oklch(0 0 0) 0 calc(var(--_box-start) + var(--_box-radius)),
+            transparent 0 calc(var(--_box-end) - var(--_box-radius)),
+            oklch(0 0 0) 0 var(--_box-end),
+            transparent 0
+          )
+          0 0 / var(--_cell-size) 100% repeat-x intersect,
+        radial-gradient(
+            circle calc(var(--_box-radius) + 1px) at
+              calc(var(--_box-start) + var(--_box-radius)) var(--_box-radius),
+            transparent 0
+              calc(var(--_box-radius) - var(--_box-border-width) - 0.5px),
+            oklch(0 0 0)
+              calc(var(--_box-radius) - var(--_box-border-width) + 0.5px)
+              calc(var(--_box-radius) - 0.5px),
+            transparent calc(var(--_box-radius) + 0.5px)
+          )
+          0 0 / var(--_cell-size) 100% repeat-x add,
+        radial-gradient(
+            circle calc(var(--_box-radius) + 1px) at
+              calc(var(--_box-end) - var(--_box-radius)) var(--_box-radius),
+            transparent 0
+              calc(var(--_box-radius) - var(--_box-border-width) - 0.5px),
+            oklch(0 0 0)
+              calc(var(--_box-radius) - var(--_box-border-width) + 0.5px)
+              calc(var(--_box-radius) - 0.5px),
+            transparent calc(var(--_box-radius) + 0.5px)
+          )
+          0 0 / var(--_cell-size) 100% repeat-x add,
+        radial-gradient(
+            circle calc(var(--_box-radius) + 1px) at
+              calc(var(--_box-start) + var(--_box-radius))
+              calc(100% - var(--_box-radius)),
+            transparent 0
+              calc(var(--_box-radius) - var(--_box-border-width) - 0.5px),
+            oklch(0 0 0)
+              calc(var(--_box-radius) - var(--_box-border-width) + 0.5px)
+              calc(var(--_box-radius) - 0.5px),
+            transparent calc(var(--_box-radius) + 0.5px)
+          )
+          0 0 / var(--_cell-size) 100% repeat-x add,
+        radial-gradient(
+            circle calc(var(--_box-radius) + 1px) at
+              calc(var(--_box-end) - var(--_box-radius))
+              calc(100% - var(--_box-radius)),
+            transparent 0
+              calc(var(--_box-radius) - var(--_box-border-width) - 0.5px),
+            oklch(0 0 0)
+              calc(var(--_box-radius) - var(--_box-border-width) + 0.5px)
+              calc(var(--_box-radius) - 0.5px),
+            transparent calc(var(--_box-radius) + 0.5px)
+          )
+          0 0 / var(--_cell-size) 100% repeat-x;
+    }
+
+    &:focus-within .ui-field::after {
+      background-color: oklch(from var(--_accent) l c h / 12%);
+      border: calc(var(--ui-field-border-width) * 2) solid var(--_accent);
+      border-radius: var(--_box-radius);
+      inline-size: calc(var(--_cell-size) * 0.75);
+      margin-inline-end: calc(var(--_cell-size) * 0.125);
+      mask: none;
+    }
+  }
+</style>
+
+<p class="todo-note">
+  Each row sets a theme's field tokens on a wrapper and puts a text field next
+  to the code for comparison: m3's 4px field radius, brutalist's 5px radius with
+  2px borders, and a 16px field radius. Today the boxes come from SVG data URIs
+  with <code>rx='8'</code> and a stroke clipped to 1px (2px with focus), so they
+  keep the default look in every row. The right column draws the same boxes from
+  gradient mask layers instead, sized by <code>--ui-field-radius</code> (else
+  <code>--ui-radius</code>, capped at a third of the box, past which the corner
+  rings would reach into the next corner) and
+  <code>--ui-field-border-width</code>: per cell a top, a bottom and the two
+  side edges as linear gradients, and the four corner arcs as radial-gradient
+  rings cut to the corners by two more gradients with
+  <code>mask-composite: intersect</code>, nine layers repeated along the row
+  like the SVG is today. The slot box behind the next empty cell becomes a real
+  border with that radius. Tab into a code to see the focus state.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today, SVG masks</p>
+    <div class="todo-otc-row todo-otc-m3">
+      <label class="ui-text-field ui-one-time-code">
+        <span class="ui-label">m3 field radius</span>
+        <span class="ui-field">
+          <input
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            maxlength="6"
+            type="text"
+            value="482"
+          />
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Field</span>
+        <span class="ui-field"><input type="text" value="Ada" /></span>
+      </label>
+    </div>
+    <div class="todo-otc-row todo-otc-brutalist">
+      <label class="ui-text-field ui-one-time-code">
+        <span class="ui-label">Brutalist</span>
+        <span class="ui-field">
+          <input
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            maxlength="6"
+            type="text"
+            value="482"
+          />
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Field</span>
+        <span class="ui-field"><input type="text" value="Ada" /></span>
+      </label>
+    </div>
+    <div class="todo-otc-row todo-otc-round">
+      <label class="ui-text-field ui-one-time-code">
+        <span class="ui-label">16px field radius</span>
+        <span class="ui-field">
+          <input
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            maxlength="6"
+            type="text"
+            value="482"
+          />
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Field</span>
+        <span class="ui-field"><input type="text" value="Ada" /></span>
+      </label>
+    </div>
+  </section>
+  <section class="todo-fixed todo-otc-gradient">
+    <p class="todo-label">Gradient masks from the field tokens</p>
+    <div class="todo-otc-row todo-otc-m3">
+      <label class="ui-text-field ui-one-time-code">
+        <span class="ui-label">m3 field radius</span>
+        <span class="ui-field">
+          <input
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            maxlength="6"
+            type="text"
+            value="482"
+          />
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Field</span>
+        <span class="ui-field"><input type="text" value="Ada" /></span>
+      </label>
+    </div>
+    <div class="todo-otc-row todo-otc-brutalist">
+      <label class="ui-text-field ui-one-time-code">
+        <span class="ui-label">Brutalist</span>
+        <span class="ui-field">
+          <input
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            maxlength="6"
+            type="text"
+            value="482"
+          />
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Field</span>
+        <span class="ui-field"><input type="text" value="Ada" /></span>
+      </label>
+    </div>
+    <div class="todo-otc-row todo-otc-round">
+      <label class="ui-text-field ui-one-time-code">
+        <span class="ui-label">16px field radius</span>
+        <span class="ui-field">
+          <input
+            autocomplete="one-time-code"
+            inputmode="numeric"
+            maxlength="6"
+            type="text"
+            value="482"
+          />
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Field</span>
+        <span class="ui-field"><input type="text" value="Ada" /></span>
+      </label>
+    </div>
+  </section>
+</div>

@@ -1211,9 +1211,6 @@ describe("stale files", () => {
       astroSourceOf("src/component-examples/tabs/Binding.html", read),
     ).toBe("src/component-examples/tabs/Binding.astro")
     expect(
-      astroSourceOf("src/component-examples/text-field/NoLabel.html", read),
-    ).toBe(undefined)
-    expect(
       astroSourceOf("src/component-examples/button/Sizes.astro", read),
     ).toBe(undefined)
     expect(astroSourceOf("README.md", read)).toBe(undefined)

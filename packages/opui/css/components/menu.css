@@ -10,6 +10,10 @@
     --_divider-border-color: var(--ui-border-color-on-raised);
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
+    --_fit-max-block-size: min(
+      var(--_max-block-size),
+      calc(100% - 2 * var(--_offset))
+    );
     --_margin-block: var(--_offset);
     --_margin-inline: 0;
     --_max-block-size: 60dvb;
@@ -62,10 +66,7 @@
 
       /* Where calc-size() works: cap to the side's space, flip below --_min-block-size */
       @supports (min-block-size: calc-size(fit-content, size)) {
-        max-block-size: min(
-          var(--_max-block-size),
-          calc(100% - 2 * var(--_offset))
-        );
+        max-block-size: var(--_fit-max-block-size);
         min-block-size: calc-size(
           fit-content,
           min(size, var(--_min-block-size))
@@ -142,9 +143,9 @@
     :where(li.ui-critical),
     li > :is(a, button).ui-critical {
       --_hover-bg-color: oklch(
-        from var(--ui-critical) l c h / var(--ui-state-hover-alpha-accent)
+        from var(--ui-palette-accent) l c h / var(--ui-state-hover-alpha-accent)
       );
-      color: var(--ui-critical-text);
+      color: var(--ui-palette-text);
     }
 
     :where(li) > :where(a, button) > .ui-end {
@@ -165,13 +166,13 @@
 @position-try --ui-menu-block-end {
   margin-block: var(--_offset);
   margin-inline: 0;
-  max-block-size: min(var(--_max-block-size), calc(100% - 2 * var(--_offset)));
+  max-block-size: var(--_fit-max-block-size);
   position-area: self-block-end span-all;
 }
 
 @position-try --ui-menu-block-start {
   margin-block: var(--_offset);
   margin-inline: 0;
-  max-block-size: min(var(--_max-block-size), calc(100% - 2 * var(--_offset)));
+  max-block-size: var(--_fit-max-block-size);
   position-area: self-block-start span-all;
 }

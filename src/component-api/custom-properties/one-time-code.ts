@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_box-focus-image": {
     description:
-      "The thicker box mask every box gets while the field has focus in browsers without `field-sizing`.",
+      "The thicker box mask every box gets while the field has focus.",
     kind: "input",
   },
   "--_box-image": {

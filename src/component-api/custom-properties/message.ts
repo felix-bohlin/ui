@@ -45,6 +45,11 @@ export default {
       "Radius of the bubble corners. Defaults to `--ui-radius`, larger with `corner-shape: squircle`.",
     kind: "input",
   },
+  "--_selected-bg-color": {
+    description:
+      "Fill of a checked `.ui-toggle-button` reaction in the `bottom` slot. `--ui-selected` when the theme sets it, otherwise `--ui-primary` mixed into `--ui-surface` at `--ui-state-selected-alpha-accent`. Its border is `--ui-selected-strong` and its text `--ui-on-selected`, or `--ui-text-strong`.",
+    kind: "output",
+  },
   "--_size": {
     description:
       "Size of the `.ui-avatar` in the `start` slot, set to `--_avatar-size`, and of the `.ui-toggle-button` pills in the `bottom` slot, set to `--ui-button-size-x-small`.",

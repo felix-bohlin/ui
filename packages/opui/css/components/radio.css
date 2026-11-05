@@ -18,7 +18,6 @@
       border: var(--ui-field-border-width) solid
         var(--ui-choice-border-color, var(--ui-field-border-color));
       border-radius: var(--ui-radius-round);
-      box-sizing: border-box;
       cursor: pointer;
       inline-size: var(--_size);
       margin: 0;

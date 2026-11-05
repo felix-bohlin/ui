@@ -29,6 +29,11 @@ export default {
       "Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.",
     kind: "input",
   },
+  "--_closed-translate": {
+    description:
+      "Where the drawer slides from and back to: off the inline start by default, the inline end with `.ui-inline-end` (both mirrored by `--_direction`), and the top or bottom with `.ui-block-start` and `.ui-block-end`.",
+    kind: "output",
+  },
   "--_content-padding": {
     description:
       "Padding of `.ui-content`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",

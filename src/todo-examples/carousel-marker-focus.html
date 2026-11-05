@@ -1,0 +1,135 @@
+<style>
+  .todo-compare .ui-carousel,
+  .todo-compare .ui-carousel::scroll-marker-group {
+    justify-self: stretch;
+  }
+
+  .todo-compare > section {
+    padding-block-end: var(--size-8);
+  }
+
+  .todo-fixed .ui-carousel.ui-markers > *::scroll-marker:focus-visible {
+    box-shadow:
+      0 0 0 var(--ui-focus-ring-offset) var(--ui-surface),
+      0 0 0 calc(var(--ui-focus-ring-offset) + var(--ui-focus-ring-width))
+        var(--ui-focus-ring-color);
+    outline: var(--ui-border-width) solid var(--_marker-border-color);
+    outline-offset: calc(-1 * (var(--ui-space-2) + var(--ui-border-width)));
+  }
+
+  .todo-fixed
+    .ui-carousel.ui-markers
+    > *::scroll-marker:target-current:focus-visible {
+    outline-color: var(--_marker-selected-bg-color);
+    outline-offset: calc(
+      -1 * (var(--_marker-selected-padding) + var(--ui-border-width))
+    );
+  }
+
+  @media (forced-colors: active) {
+    .todo-fixed .ui-carousel.ui-markers > *::scroll-marker:focus-visible {
+      outline: var(--ui-focus-ring-width) solid Highlight;
+      outline-offset: calc(
+        -1 * (var(--ui-space-2) + var(--ui-focus-ring-width))
+      );
+    }
+  }
+</style>
+
+<p class="todo-note">
+  Tab to the markers under each carousel (they need
+  <code>::scroll-marker</code>, so Chromium), press Right Arrow a few times,
+  then scroll the carousel with the wheel or a swipe while a marker still has
+  focus. Today a focused marker trades its own 1px outline for the focus ring,
+  so a hollow marker would lose its circle under focus, but that state never
+  shows: Tab lands on the current marker, an arrow key makes the marker it moves
+  to current at once, and scrolling moves the focus along to the new current
+  marker, so the focused marker is always the filled one. The right column draws
+  the focus ring as two box shadows and keeps the marker's outline, the fix the
+  item proposed, with a 2px <code>Highlight</code> outline in forced colors,
+  which drop box shadows. Both columns look the same.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <ul
+      aria-label="Destinations today"
+      class="ui-carousel ui-markers"
+      style="--_items-per-view: 2"
+    >
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Kyoto</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Lima</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Lisbon</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Oslo</h3>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Focus ring as box shadows</p>
+    <ul
+      aria-label="Destinations fixed"
+      class="ui-carousel ui-markers"
+      style="--_items-per-view: 2"
+    >
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Kyoto</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Lima</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Lisbon</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup class="ui-header">
+            <p>Destination</p>
+            <h3>Oslo</h3>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>

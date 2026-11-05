@@ -214,7 +214,6 @@ export const OVERRIDE_HOOKS = [
   "--ui-control-border-color-filled",
   "--ui-on-control-accent",
   "--ui-on-selected",
-  "--ui-primary-tonal",
   "--ui-selected",
   "--ui-track-bg-color",
 ] as const

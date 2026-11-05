@@ -104,6 +104,14 @@
 
         & > .ui-toggle-button {
           --_font-size: var(--ui-font-size-caption);
+          --_selected-bg-color: var(
+            --ui-selected,
+            color-mix(
+              in oklch,
+              var(--ui-primary) var(--ui-state-selected-alpha-accent),
+              var(--ui-surface)
+            )
+          );
           --_size: var(--ui-button-size-x-small);
 
           background-color: var(--ui-surface);
@@ -122,13 +130,9 @@
           &:has(input:checked) {
             --ui-focus-ring-color: inherit;
 
-            background-color: color-mix(
-              in oklch,
-              var(--ui-primary) var(--ui-state-selected-alpha-accent),
-              var(--ui-surface)
-            );
-            border-color: var(--ui-primary);
-            color: var(--ui-text-strong);
+            background-color: var(--_selected-bg-color);
+            border-color: var(--ui-selected-strong);
+            color: var(--ui-on-selected, var(--ui-text-strong));
           }
         }
       }

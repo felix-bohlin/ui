@@ -1052,6 +1052,18 @@ describe("check-components", () => {
         "Tabs",
       ),
     ).toEqual([])
+    const svelte = (types: string) =>
+      `/** @import { Context } from "./types" */\nimport { getContext, setContext } from "svelte"\n\nconst key = Symbol()\n\n/** @type {${types}} */\nexport const getTabsContext = () => getContext(key)\nexport const setTabsContext = (context) => setContext(key, context)\n`
+    expect(
+      checkContext(
+        "context.svelte.js",
+        svelte("() => Context | undefined"),
+        "Tabs",
+      ),
+    ).toEqual([])
+    expect(
+      checkContext("context.svelte.js", svelte("() => unknown"), "Tabs"),
+    ).toEqual(["does not take its shape from the Context type in ./types"])
   })
 
   test('"use client" marks exactly the React examples with client hooks or function props', () => {

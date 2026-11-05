@@ -276,6 +276,20 @@ export const keywords = ["data table", "grid", "rows", "sort"]
       lets keyboard users reach it there to scroll it, and the name tells screen
       reader users what the region holds.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>overflow="scroll"</code> makes the table its own scroll container,
+        so a sticky header can't stick to the page or to a box around it. For a
+        wide table with a sticky header, leave <code>overflow</code> unset and
+        put the table in a scroll box like this one, which scrolls both ways.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-overflow-scroll</code> makes the table its own scroll
+        container, so a sticky header can't stick to the page or to a box around
+        it. For a wide table with a sticky header, leave the class off and put
+        the table in a scroll box like this one, which scrolls both ways.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="StickyHeader" />
   </section>

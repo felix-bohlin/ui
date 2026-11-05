@@ -23,7 +23,7 @@ export default {
   },
   "--_line-border-color": {
     description:
-      "Color of the line between the markers. Defaults to `--ui-border-color`, and `.ui-tracked` sets `--ui-primary` before the current item.",
+      "Color of the line between the markers. Defaults to `--ui-border-color`, and `.ui-tracked` sets `--ui-selected-strong` before the current item.",
     kind: "input",
   },
   "--_line-border-width": {

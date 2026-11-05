@@ -2,7 +2,8 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_accent": {
-    description: "Color of the bar. Defaults to `--ui-primary`.",
+    description:
+      "Color of the bar. Defaults to `--ui-selected-strong`, the role Stepper and Timeline read for the done part of their track, which is `--ui-primary` unless a theme sets it.",
     kind: "input",
   },
   "--_bg-color": {

@@ -31,7 +31,7 @@ export default {
       "Gap between the thumb and the track edge, computed from `--_track-block-size` and `--_thumb-size`.",
     kind: "output",
   },
-  "--_thumb-outline-size": {
+  "--_thumb-outline-width": {
     description:
       "Current outline width that grows the thumb. Set by the checked and active states.",
     kind: "output",

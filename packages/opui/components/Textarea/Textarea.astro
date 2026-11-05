@@ -32,10 +32,11 @@ const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
 const LabelTag = label || labelSlot ? "span" : Fragment
+const Root = label || labelSlot ? "label" : "div"
 ---
 
-<label
-  class:list={[
+<Root
+  class={cx([
     "ui-textarea",
     {
       "ui-auto-fit": autoFit,
@@ -44,7 +45,7 @@ const LabelTag = label || labelSlot ? "span" : Fragment
     },
     size && size !== "medium" && `ui-${size}`,
     className,
-  ]}
+  ])}
   style={style}
 >
   <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
@@ -89,7 +90,7 @@ const LabelTag = label || labelSlot ? "span" : Fragment
     )}
   </span>}
   <slot />
-</label>
+</Root>
 
 <script>
   import "../../elements/character-count.js"

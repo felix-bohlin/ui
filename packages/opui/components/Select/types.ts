@@ -20,7 +20,6 @@ export type SelectItem = {
 
 export type Slots<S> = {
   bottom?: string | S
-  children?: S
   end?: string | S
   endText?: string | S
   label?: string | S

@@ -292,7 +292,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-selected":
     "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and selected `Select` options.",
   "--ui-on-selected-strong":
-    "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs`. Defaults to `--ui-on-primary`.",
+    "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs` and the number or icon of the current `Stepper` and `Timeline` markers. Defaults to `--ui-on-primary`.",
   "--ui-on-warning":
     "Text color on a `--ui-warning` fill: the warning `Badge`. White on a warning below 0.182 relative luminance and near-black above it, like `--ui-on-primary`.",
   "--ui-orange":
@@ -346,7 +346,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-primary-text":
     "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
-    "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`, and of a checked `Checkbox`, `Radio` or `Switch` card. When unset, buttons use `--ui-palette-tint` and cards `--ui-primary` at `--ui-state-active-alpha-accent`. Material's `primary-container` and shadcn's `secondary` go here.",
+    "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`, and of a tonal `Avatar`. When unset, they use `--ui-palette-tint`. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-radius-large":
@@ -364,7 +364,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, a pressed `Chip`, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-selected-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
-    "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
+    "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
   "--ui-shadow-color":
     "Color of every shadow, with its base opacity. Each layer of `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll` and `--ui-shadow-selected` adds its own opacity on top, with relative color. `oklch(0.268 0.003 265 / 1%)` in light mode and `oklch(0.11 0.01 259 / 20%)` in dark mode, also in `.ui-light` and `.ui-dark` parts of the page.",
   "--ui-shadow-control":
@@ -404,7 +404,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-state-hover-alpha-light":
     "Alpha of the hover state layer on neutral buttons in light mode.",
   "--ui-state-selected-alpha-accent":
-    "Alpha of the primary tint behind selected `List` and `Menu` rows, `Select` options and checked `Checkbox`, `Radio` and `Switch` cards, when `--ui-selected` or `--ui-primary-tonal` is unset. `15%` with more contrast, so light text keeps 7:1 in dark mode.",
+    "Alpha of the tint behind selected `List` and `Menu` rows, `Select` options and checked `Message` reactions when `--ui-selected` is unset, and behind checked `Checkbox`, `Radio` and `Switch` cards, which tint their accent. `15%` with more contrast, so light text keeps 7:1 in dark mode.",
   "--ui-success": "Severity color for success messages.",
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",

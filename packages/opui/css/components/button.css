@@ -106,7 +106,6 @@
       --_tonal-hover-text-color: var(--_on-accent-tonal);
     }
 
-    -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     align-items: center;
     background-color: var(--_bg-color);
@@ -188,6 +187,16 @@
 
       &:where(:active) {
         scale: var(--ui-press-scale, none);
+      }
+    }
+
+    @media (forced-colors: active) {
+      &[aria-current="page"] {
+        background-color: SelectedItem;
+        border-color: SelectedItem;
+        box-shadow: none;
+        color: SelectedItemText;
+        forced-color-adjust: none;
       }
     }
 

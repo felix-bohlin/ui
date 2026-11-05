@@ -110,6 +110,32 @@ const lightDarkProblems = (css: string) =>
       ]
     : []
 
+const DEV_CHECK = String.raw`
+import { createServer } from "vite"
+
+const server = await createServer({ logLevel: "silent", server: { port: 0 } })
+await server.listen()
+const base = server.resolvedUrls.local[0]
+const get = async (path) => {
+  const response = await fetch(new URL(path, base))
+  if (!response.ok) {
+    throw new Error([path, response.status, await response.text()].join(" "))
+  }
+  return response.text()
+}
+const deps = new Set()
+for (const entry of ["src/main.ts", "src/App.svelte"]) {
+  for (const [, dep] of (await get(entry)).matchAll(
+    /from "(\/node_modules\/\.vite\/deps\/[^"]+)"/g,
+  )) {
+    deps.add(dep)
+  }
+}
+for (const dep of deps) await get(dep)
+await server.close()
+console.log([deps.size, "pre-bundled dependencies served"].join(" "))
+`
+
 let work: string
 let tarball: string
 let files: string[]
@@ -408,6 +434,16 @@ describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
     expect(css).toContain(".ui-button")
     expect(lightDarkProblems(css)).toEqual([])
   })
+
+  test.runIf(framework === "svelte")(
+    "the dev server pre-bundles the package and serves it",
+    () => {
+      writeFileSync(path.join(dir, "dev-check.mjs"), DEV_CHECK)
+      expect(run("node", ["dev-check.mjs"], dir)).toMatch(
+        /^[1-9]\d* pre-bundled dependencies served$/m,
+      )
+    },
+  )
 })
 
 test("a build that lowers light-dark() needs its variables on html", () => {

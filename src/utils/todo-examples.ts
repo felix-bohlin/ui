@@ -7,9 +7,19 @@ const sources = import.meta.glob<string>("../todo-examples/*.html", {
 const sourceOf = (name: string) => sources[`../todo-examples/${name}.html`]
 
 export const todoExamples = {
+  "accordion-marker": {
+    match: "Accordion: the summary hides its marker three ways",
+  },
   "button-group-rtl-dividers": {
     match:
       "ButtonGroup: in right-to-left, filled and tonal groups lose the dividers",
+  },
+  "card-content-padding": {
+    match:
+      "Card: the content padding rule matches `:where(:only-child, :first-child)`",
+  },
+  "carousel-marker-focus": {
+    match: "Carousel: the marker's own ring is drawn with `outline`",
   },
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
@@ -37,6 +47,9 @@ export const todoExamples = {
   "ios-submenu-anchor": {
     match: "Menu: the iOS submenu anchor in the compat layer",
   },
+  "one-time-code-radius": {
+    match: "OneTimeCode: the three box masks fix `rx='8'`",
+  },
   "range-forced-colors": {
     match:
       "Range: under `forced-colors: active` the range source sets its fill",
@@ -48,8 +61,23 @@ export const todoExamples = {
     match:
       "Typography: rich text tables are `display: block` so they can scroll",
   },
+  "spinner-position": {
+    match:
+      "Spinner: every busy element except a `dialog` or `[popover]` gets `position: relative`",
+  },
+  "spread-rem-breakpoint": {
+    match:
+      "TextField: the spread layout collapses at `@container (inline-size < 400px)`",
+  },
+  "switch-invalid": {
+    match: "Switch: an invalid switch draws a `--ui-focus-ring-width` halo",
+  },
   "tabs-rtl": {
     match: "Tabs: the Keyboard support list says Right and Left Arrow",
+  },
+  "text-field-affix-target": {
+    match:
+      "TextField: buttons in a small or x-small field's `.ui-start` or `.ui-end` are under 24 by 24 CSS pixels",
   },
   "tonal-surfaces": {
     match: "CSS: a tonal fill inside a tonal surface",
@@ -57,6 +85,9 @@ export const todoExamples = {
   "tooltip-trigger-command": {
     match:
       'Tooltip: the triggers set `commandfor` and `command="toggle-popover"`',
+  },
+  "typography-marker-safari": {
+    match: "Typography: the `marker` chip shows Safari as unsupported",
   },
 }
 

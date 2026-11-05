@@ -50,7 +50,9 @@
   const uid = $props.id()
   const initialValue = untrack(() => value)
   const ids = $derived(createIds(uid, "text-field", id))
-  const Root = $derived(passwordToggle ? "opui-text-field" : "label")
+  const Root = $derived(
+    passwordToggle ? "opui-text-field" : label ? "label" : "div",
+  )
   const Label = $derived(passwordToggle ? "label" : "span")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))

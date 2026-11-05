@@ -84,7 +84,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
 - `--_text-color`: The text color. Defaults to `--ui-text-strong`.
 
-Outputs: `--_direction`, `--_duration` and `--_ease`.
+Outputs: `--_closed-translate`, `--_direction`, `--_duration` and `--_ease`.
 
 ### card.css
 

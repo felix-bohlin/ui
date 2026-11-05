@@ -31,9 +31,9 @@
     --ui-gray-hue: 255;
 
     /* Borders */
-    --ui-radius: 0.5rem;
     --ui-border-width: 1px;
     --ui-border-width-thick: 2px;
+    --ui-radius: 0.5rem;
     --ui-radius-round: 1e5px;
     /* --ui-chip-radius: var(--ui-radius); */
     /* --ui-dialog-radius: var(--ui-radius); */
@@ -161,13 +161,13 @@
     --ui-disabled-opacity: 0.64;
     /* --ui-selected: var(--ui-primary); */
     /* --ui-on-selected: var(--ui-on-primary); */
-    --ui-state-active-alpha-light: 20%;
     --ui-state-active-alpha-accent: 25%;
-    --ui-state-selected-alpha-accent: 25%;
     --ui-state-active-alpha-dark: 30%;
-    --ui-state-hover-alpha-light: 10%;
+    --ui-state-active-alpha-light: 20%;
     --ui-state-hover-alpha-accent: 15%;
     --ui-state-hover-alpha-dark: 20%;
+    --ui-state-hover-alpha-light: 10%;
+    --ui-state-selected-alpha-accent: 25%;
 
     /* Icons */
     --ui-icon-size-x-small: 0.75rem;
@@ -580,16 +580,7 @@
         oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
       0 12px 15px -5px
         oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.07));
-    --ui-shadow-overlay:
-      0 -1px 3px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
-      0 1px 2px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
-      0 2px 5px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.04)),
-      0 4px 12px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.05)),
-      0 12px 15px -5px
-        oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.07));
+    --ui-shadow-overlay: var(--ui-shadow-elevated);
     --ui-shadow-scroll:
       0 -2px 5px 0 oklch(from var(--ui-shadow-color) l c h / calc(alpha + 0.02)),
       0 1px 1px -2px
@@ -683,11 +674,11 @@
 
   :where(
     html,
-    .ui-palette,
     .ui-contrast-more,
     .ui-critical,
     .ui-info,
     .ui-neutral,
+    .ui-palette,
     .ui-success,
     .ui-warning
   ) {

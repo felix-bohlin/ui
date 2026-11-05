@@ -46,6 +46,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_padding-inline`: Inline padding of `.ui-layout-container`. Defaults to `--ui-space-4`.
 - `--_sticky-inset`: Distance from the top at which a `.ui-sticky` column of `.ui-layout-columns` sticks. Defaults to `--ui-space-4`.
 
+Outputs: `--_auto-repeat`.
+
 ## Theme tokens
 
 The stylesheets read `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4` and `--ui-space-5`. `theming.md` and `tokens.json` describe them.

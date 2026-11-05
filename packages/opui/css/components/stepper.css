@@ -51,7 +51,6 @@
         block-size: var(--_marker-size);
         border: var(--_marker-border-width) solid var(--_marker-border-color);
         border-radius: var(--ui-radius-round);
-        box-sizing: border-box;
         color: var(--_marker-text-color);
         content: counter(ui-stepper);
         display: grid;
@@ -95,7 +94,6 @@
 
       & > .ui-icon-checked {
         block-size: var(--_marker-size);
-        box-sizing: border-box;
         color: var(--_on-accent);
         display: none;
         font-size: var(--_icon-size);

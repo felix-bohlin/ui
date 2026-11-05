@@ -166,6 +166,10 @@ Lists meant to be used stand-alone or as part of Select elements
         & > :where(a, button, label) {
           padding-inline: 0;
         }
+
+        & > :where(.ui-end, .ui-start) :focus-visible {
+          outline-offset: var(--ui-focus-ring-inset);
+        }
       }
     }
 
@@ -215,17 +219,10 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Select option */
       &:where(option) {
-        align-items: center;
-        background-color: var(--_bg-color);
         color: inherit;
         cursor: pointer;
-        display: flex;
-        gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: var(--ui-control-size);
-        padding-block: var(--ui-space-2);
-        padding-inline: var(--_item-padding-inline);
         text-align: start;
         text-decoration: none;
         z-index: 0;
@@ -400,14 +397,9 @@ Lists meant to be used stand-alone or as part of Select elements
         kbd {
           background-color: transparent;
           border: 0;
-          color: inherit;
+          color: var(--_description-text-color);
           font-family: var(--ui-font-code);
-          opacity: 0.7;
           padding: 0;
-
-          @container style(--ui-contrast: more) {
-            opacity: 1;
-          }
         }
 
         & > svg {

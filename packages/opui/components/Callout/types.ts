@@ -1,6 +1,6 @@
 export type Props = {
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
-  variant?: "tonal" | "outlined"
+  variant?: "outlined" | "tonal"
 }
 
 export type CalloutActionsProps = {}

@@ -1,0 +1,15 @@
+@layer components.compat {
+  @supports not selector(:interest-source) {
+    :where(.ui-anchor):has(:focus-visible) > .ui-floating[popover] {
+      display: block;
+      position-anchor: --anchor;
+    }
+
+    @media (hover: hover) {
+      :where(.ui-anchor):hover > .ui-floating[popover] {
+        display: block;
+        position-anchor: --anchor;
+      }
+    }
+  }
+}

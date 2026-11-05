@@ -56,3 +56,49 @@ test("each stylesheet declares only the layers its group allows", () => {
   )
   expect(problems).toEqual([])
 })
+
+const BUILDS_ON: Record<string, string> = {
+  "one-time-code.css": "text-field.css",
+}
+
+const orderProblems = (list: { files: string[]; group: string }[]) =>
+  list.flatMap(({ files, group }) => {
+    const rest = files.filter((file) => !(file in BUILDS_ON))
+    return [
+      ...(rest.join() === rest.toSorted().join()
+        ? []
+        : [`${group}: import ${rest.toSorted().join(", ")} in that order`]),
+      ...Object.entries(BUILDS_ON)
+        .filter(([file]) => files.includes(file))
+        .filter(
+          ([file, base]) => files.indexOf(file) !== files.indexOf(base) + 1,
+        )
+        .map(
+          ([file, base]) =>
+            `${group}: import ${file} right after ${base}, so its rules on the same elements win the ties with ${base} without repeating a class`,
+        ),
+    ]
+  })
+
+test("the import order check flags a sample out of order", () => {
+  expect(
+    orderProblems([
+      {
+        files: [
+          "one-time-code.css",
+          "select.css",
+          "list.css",
+          "text-field.css",
+        ],
+        group: "Extended components",
+      },
+    ]),
+  ).toEqual([
+    "Extended components: import list.css, select.css, text-field.css in that order",
+    "Extended components: import one-time-code.css right after text-field.css, so its rules on the same elements win the ties with text-field.css without repeating a class",
+  ])
+})
+
+test("each group imports its stylesheets in ascending order, and a stylesheet that builds on another right after it", () => {
+  expect(orderProblems(groups)).toEqual([])
+})

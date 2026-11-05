@@ -39,10 +39,14 @@ const {
 
 const field = fieldGroupContext.get()
 const ids = createIds(Astro.locals, "text-field", id)
-const Root = passwordToggle ? "opui-text-field" : "label"
 const labelSlot = Astro.slots.has("label")
   ? trimEdges(await Astro.slots.render("label"))
   : ""
+const Root = passwordToggle
+  ? "opui-text-field"
+  : label || labelSlot
+    ? "label"
+    : "div"
 const Label = passwordToggle ? "label" : "span"
 const hasStartText = Boolean(startText || Astro.slots.has("start-text"))
 const hasEndText = Boolean(

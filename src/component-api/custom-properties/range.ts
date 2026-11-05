@@ -30,15 +30,15 @@ export default {
     description: "Track color in forced colors mode. `GrayText` when disabled.",
     kind: "output",
   },
-  "--_inset": {
-    description:
-      "Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.",
-    kind: "output",
-  },
   "--_motion": {
     description:
       "Motion multiplier for the thumb highlight and focus ring. `0` turns them off.",
     kind: "input",
+  },
+  "--_padding": {
+    description:
+      "Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.",
+    kind: "output",
   },
   "--_thumb-bg-color": {
     description:

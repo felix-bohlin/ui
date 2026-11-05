@@ -27,7 +27,6 @@ export const keywords = ["slider"]
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
   browserSupport={[
-    "color-mix",
     "container-queries",
     "container-style-queries",
     "datalist",
@@ -247,6 +246,21 @@ export const keywords = ["slider"]
         element containing{" "} <code>&lt;option&gt;</code> elements with
         <code>value</code> and{" "} <code>label</code> attributes.
       </p>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The datalist is hidden from screen readers, so when its options have
+        labels and the range has no <code>valueSuffix</code>, the input gets the
+        label of the option at its value as <code>aria-valuetext</code>:
+        "Medium" rather than 1. Between labeled ticks it reads the number.
+      </Fragment>
+      <Fragment slot="html">
+        The datalist is hidden from screen readers, so give the input the label
+        of the option at its value as <code>aria-valuetext</code>: "Medium"
+        rather than 1. <code>range.js</code> keeps it in sync when the options
+        have labels and the output has no <code>data-suffix</code>, and removes
+        it between labeled ticks so the number is read.
+      </Fragment>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
   </section>

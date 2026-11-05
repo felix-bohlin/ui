@@ -8,7 +8,7 @@ export default {
   },
   "--_bg-color": {
     description:
-      "Background of `.ui-card`, read by `card.css`. The surface by default, `--_hover-bg-color` when hovered and `--_checked-bg-color` when checked.",
+      "Background of `.ui-card`, read by `card.css`. The surface by default, `--_hover-bg-color` when hovered and `--_selected-bg-color` when checked.",
     kind: "output",
   },
   "--_border-color": {
@@ -20,11 +20,6 @@ export default {
     description:
       "Border width of `.ui-card`, read by `card.css`. `--ui-border-width`.",
     kind: "output",
-  },
-  "--_checked-bg-color": {
-    description:
-      "Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-selected-alpha-accent`.",
-    kind: "input",
   },
   "--_duration": {
     description:
@@ -54,9 +49,19 @@ export default {
       "Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.",
     kind: "input",
   },
+  "--_ripple-scale": {
+    description:
+      "Current scale of the ripple. Set by the hover and active states.",
+    kind: "output",
+  },
   "--_ripple-size": {
     description:
       "Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`.",
+    kind: "input",
+  },
+  "--_selected-bg-color": {
+    description:
+      "Background of a checked `.ui-card`: `--_accent` at `--ui-state-selected-alpha-accent`, so the fill, the border and the checked input share one color, red when invalid.",
     kind: "input",
   },
   "--_shadow": {
@@ -68,10 +73,5 @@ export default {
     description:
       "Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.",
     kind: "input",
-  },
-  "--_thumb-scale": {
-    description:
-      "Current scale of the ripple. Set by the hover and active states.",
-    kind: "output",
   },
 } satisfies CustomProperties

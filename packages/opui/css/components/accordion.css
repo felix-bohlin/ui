@@ -54,10 +54,6 @@
     &:is(.ui-elevated, .ui-tonal) {
       --_border-color: var(--ui-border-color-raised, var(--ui-surface));
       --_border-width: var(--ui-border-width);
-
-      @media (forced-colors: active) {
-        --_border-color: CanvasText;
-      }
     }
 
     &.ui-elevated {

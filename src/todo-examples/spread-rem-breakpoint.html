@@ -1,0 +1,67 @@
+<style>
+  html {
+    font-size: 150%;
+  }
+
+  .todo-spread-box {
+    inline-size: 420px;
+    max-inline-size: 100%;
+    outline: 1px dashed var(--ui-border-color);
+  }
+
+  @container (inline-size < 25rem) {
+    .todo-spread-fixed .ui-text-field.ui-spread {
+      .ui-label,
+      .ui-start-text,
+      .ui-field {
+        grid-column: 1 / -1;
+      }
+
+      .ui-start-text {
+        grid-row: 2;
+      }
+
+      .ui-field {
+        grid-row: 3;
+      }
+    }
+  }
+</style>
+
+<p class="todo-note">
+  This page sets the root font size to 150%, as a reader who sets their
+  browser's default text size to 24px gets. Both fields sit in a box 420px wide
+  (the dashed line). Today the spread layout collapses to one column below a
+  400px container, so at 420px the label and description share a column about
+  200px wide with the input, and the input shows about ten characters of 24px
+  text. The right column collapses below <code>25rem</code> instead, which is
+  the same 400px at the default 16px and 600px here, so the field stacks the way
+  it would at 280px with the default text size. Range and Select carry the same
+  <code>400px</code> query for their spread layouts.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today, below 400px</p>
+    <div class="todo-spread-box">
+      <label class="ui-text-field ui-spread">
+        <span class="ui-label">Company</span>
+        <span class="ui-start-text">Shown on your invoices and receipts</span>
+        <span class="ui-field">
+          <input type="text" value="Fjord Labs" />
+        </span>
+      </label>
+    </div>
+  </section>
+  <section class="todo-fixed todo-spread-fixed">
+    <p class="todo-label">Below 25rem</p>
+    <div class="todo-spread-box">
+      <label class="ui-text-field ui-spread">
+        <span class="ui-label">Company</span>
+        <span class="ui-start-text">Shown on your invoices and receipts</span>
+        <span class="ui-field">
+          <input type="text" value="Fjord Labs" />
+        </span>
+      </label>
+    </div>
+  </section>
+</div>

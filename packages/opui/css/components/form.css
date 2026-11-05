@@ -3,10 +3,6 @@
   :where(.ui-form) {
     display: grid;
     gap: var(--ui-space-8);
-
-    & > :where(hr, .ui-divider) {
-      margin-block: 0;
-    }
   }
 
   /* Fieldset */

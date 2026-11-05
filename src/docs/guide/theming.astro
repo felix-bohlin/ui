@@ -409,9 +409,11 @@ const surfaceRoles = [
     <h3 id="motion-global">Global classes</h3>
     <p>
       On <code>html</code>, these override the OS preference for every
-      transition and animation. The page's smooth scrolling follows the system
-      setting only, since <code>normalize.css</code> keys it on
-      <code>prefers-reduced-motion</code>; the Carousel's follows
+      transition and animation, and for the page's smooth scrolling. A theme
+      that sets <code>--ui-motion: 0</code> on <code>html</code> stops the
+      transitions and the Carousel's smooth scrolling but not the page's, which
+      <code>normalize.css</code> keys on <code>prefers-reduced-motion</code> and
+      the classes, since <code>html</code> can't query its own
       <code>--ui-motion</code>.
     </p>
     <ul>

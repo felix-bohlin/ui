@@ -1,0 +1,86 @@
+<style>
+  .todo-card-row {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-card-fixed .ui-card > .ui-content:where(:first-child) {
+    outline: 1px dashed oklch(0.55 0.15 150);
+  }
+
+  .todo-card-today .ui-card > .ui-content:where(:only-child, :first-child) {
+    outline: 1px dashed oklch(0.55 0.2 25);
+  }
+</style>
+
+<p class="todo-note">
+  Three cards: content alone, content followed by actions, and a header followed
+  by content. The dashed outline marks the content the rule matches, today's
+  <code>:where(:only-child, :first-child)</code> on the left and
+  <code>:where(:first-child)</code> on the right. An only child is always a
+  first child, so the two match the same cards and give the same paddings. The
+  readouts list, per card, whether each selector matches and the content's block
+  padding. Written as the item proposes,
+  <code>.ui-content:first-child</code> without <code>:where()</code>, the rule
+  would weigh one class more, (0,2,0) instead of (0,1,0); nothing in the package
+  depends on that today, but <code>:where(:first-child)</code> keeps the weight
+  as it is.
+</p>
+<div class="todo-compare">
+  <section class="todo-current todo-card-today">
+    <p class="todo-label">Today</p>
+    <div class="todo-card-row">
+      <div class="ui-card ui-outlined">
+        <div class="ui-content"><p>Your trial ends in 3 days.</p></div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content"><p>Your trial ends in 3 days.</p></div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Upgrade</button>
+        </div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-header"><h3>Trial</h3></div>
+        <div class="ui-content"><p>Your trial ends in 3 days.</p></div>
+      </div>
+    </div>
+    <output class="todo-measure" data-card-readout></output>
+  </section>
+  <section class="todo-fixed todo-card-fixed">
+    <p class="todo-label"><code>:where(:first-child)</code></p>
+    <div class="todo-card-row">
+      <div class="ui-card ui-outlined">
+        <div class="ui-content"><p>Your trial ends in 3 days.</p></div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content"><p>Your trial ends in 3 days.</p></div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Upgrade</button>
+        </div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-header"><h3>Trial</h3></div>
+        <div class="ui-content"><p>Your trial ends in 3 days.</p></div>
+      </div>
+    </div>
+    <output class="todo-measure" data-card-readout></output>
+  </section>
+</div>
+
+<script>
+  {
+    const names = ["content alone", "content, actions", "header, content"]
+    for (const section of document.querySelectorAll(".todo-compare > *")) {
+      section.querySelector("[data-card-readout]").textContent = [
+        ...section.querySelectorAll(".ui-card > .ui-content"),
+      ]
+        .map((content, index) => {
+          const style = getComputedStyle(content)
+          return `${names[index]}: today ${content.matches(":where(:only-child, :first-child)")}, first-child ${content.matches(":first-child")}, padding ${style.paddingBlockStart} ${style.paddingBlockEnd}`
+        })
+        .join("\n")
+    }
+  }
+</script>

@@ -13,16 +13,27 @@ const isRange = (target) =>
 // Mirror the slider's current value into its associated <output> on every
 // input event. Ignores ranges without a value display.
 function update(input, value = input.value) {
-  const output = input
-    .closest(".ui-range")
-    ?.querySelector(":scope > output.ui-value[data-live]")
-  if (!output) return
-  const suffix = output.dataset.suffix ?? ""
-  const text = `${value}${suffix}`
-  const node = output.firstChild
-  if (node instanceof Text && !node.nextSibling) node.data = text
-  else output.textContent = text
-  if (suffix) input.setAttribute("aria-valuetext", text)
+  const range = input.closest(".ui-range")
+  if (!range) return
+  const output = range.querySelector(":scope > output.ui-value[data-live]")
+  const suffix = output?.dataset.suffix ?? ""
+  if (output) {
+    const text = `${value}${suffix}`
+    const node = output.firstChild
+    if (node instanceof Text && !node.nextSibling) node.data = text
+    else output.textContent = text
+    if (suffix) {
+      input.setAttribute("aria-valuetext", text)
+      return
+    }
+  }
+  const options = [...(input.list?.options ?? [])]
+  if (!options.some((option) => option.label)) return
+  const label = options.find(
+    (option) => Number(option.value) === Number(value),
+  )?.label
+  if (label) input.setAttribute("aria-valuetext", label)
+  else input.removeAttribute("aria-valuetext")
 }
 
 function sync() {

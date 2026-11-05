@@ -285,12 +285,12 @@ The text card is the transparent card, so `.ui-text` only names a text part.
 
 Internal variables are private. `--_ripple-size` and `--_size` are the inputs to override: set `--_size` through `style`, and `--_ripple-size` on the `<input>` with a class or CSS, since the input declares it:
 
-| v5                   | v6                                                                             |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `--isLTR`, `--isRTL` | removed, the halo centers itself                                               |
-| `--highlight-size`   | `--_ripple-size`                                                               |
-| `--thumb-scale`      | removed as an override, `--_thumb-scale` is set by the hover and active states |
-| `--_input-size`      | `--_size`                                                                      |
+| v5                   | v6                                                                              |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself                                                |
+| `--highlight-size`   | `--_ripple-size`                                                                |
+| `--thumb-scale`      | removed as an override, `--_ripple-scale` is set by the hover and active states |
+| `--_input-size`      | `--_size`                                                                       |
 
 The root selector is wrapped in `:where()`, like other components, so your own selectors win more easily. The input lines up with the first line of the label. In dark mode the marker stays light on a darkened fill.
 
@@ -672,12 +672,12 @@ In Astro and Vue, a tonal `Progress` no longer renders `.ui-tonal`. Target `.ui-
 
 Internal variables are private. `--_ripple-size` and `--_size` are the inputs to override: set `--_size` through `style`, and `--_ripple-size` on the `<input>` with a class or CSS, since the input declares it:
 
-| v5                   | v6                                                                             |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `--isLTR`, `--isRTL` | removed, the halo centers itself                                               |
-| `--highlight-size`   | `--_ripple-size`                                                               |
-| `--thumb-scale`      | removed as an override, `--_thumb-scale` is set by the hover and active states |
-| `--_input-size`      | `--_size`                                                                      |
+| v5                   | v6                                                                              |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself                                                |
+| `--highlight-size`   | `--_ripple-size`                                                                |
+| `--thumb-scale`      | removed as an override, `--_ripple-scale` is set by the hover and active states |
+| `--_input-size`      | `--_size`                                                                       |
 
 Radios are `--ui-choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
 
@@ -1260,7 +1260,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Switch                      | `--_accent-contrast`                              | `--_on-accent`                                                                                                                                                                              |
 | Switch                      | `--_dot-bg-color`                                 | `--_thumb-bg-color`                                                                                                                                                                         |
 | Switch                      | `--_dot-inset`                                    | `--_thumb-inset`, one length computed from `--_thumb-size` and `--_track-block-size`: set those instead, the old `inset` shorthand doesn't carry over                                       |
-| Switch                      | `--_dot-outline-size`                             | `--_thumb-outline-size`                                                                                                                                                                     |
+| Switch                      | `--_dot-outline-size`                             | `--_thumb-outline-width`                                                                                                                                                                    |
 | Switch                      | `--_dot-size`                                     | `--_thumb-size`                                                                                                                                                                             |
 | Table                       | `--_table-border-radius`                          | `--_radius`                                                                                                                                                                                 |
 | TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                                                                                                                 |

@@ -30,6 +30,14 @@
     @media (prefers-reduced-motion: no-preference) {
       scroll-behavior: smooth;
     }
+
+    &.ui-motion-off {
+      scroll-behavior: auto;
+    }
+
+    &.ui-motion-on {
+      scroll-behavior: smooth;
+    }
   }
 
   :where(.ui-light, .ui-dark):where(:not(html)) {

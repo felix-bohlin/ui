@@ -7,6 +7,7 @@
     --_block-size: min(80vb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
+    --_closed-translate: calc(-100% * var(--_direction)) 0;
     --_content-padding: var(--ui-card-padding, var(--ui-space-3));
     --_direction: 1;
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
@@ -36,6 +37,7 @@
       display var(--_duration) allow-discrete,
       overlay var(--_duration) allow-discrete,
       translate var(--_duration) var(--_ease);
+    translate: var(--_closed-translate);
 
     &:dir(rtl) {
       --_direction: -1;
@@ -82,14 +84,14 @@
       border-inline-end: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
-      translate: calc(-100% * var(--_direction)) 0;
     }
 
     &.ui-inline-end {
+      --_closed-translate: calc(100% * var(--_direction)) 0;
+
       border-inline-start: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: 0;
       inset-inline-start: auto;
-      translate: calc(100% * var(--_direction)) 0;
     }
 
     &.ui-block-start,
@@ -101,17 +103,19 @@
     }
 
     &.ui-block-start {
+      --_closed-translate: 0 -100%;
+
       border-block-end: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: auto;
       inset-block-start: 0;
-      translate: 0 -100%;
     }
 
     &.ui-block-end {
+      --_closed-translate: 0 100%;
+
       border-block-start: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: 0;
       inset-block-start: auto;
-      translate: 0 100%;
     }
 
     &:not([open]) {
@@ -128,31 +132,17 @@
       }
 
       @starting-style {
+        translate: var(--_closed-translate);
+
         &::backdrop {
           opacity: 0;
-        }
-
-        &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
-          translate: calc(-100% * var(--_direction)) 0;
-        }
-
-        &.ui-inline-end {
-          translate: calc(100% * var(--_direction)) 0;
-        }
-
-        &.ui-block-start {
-          translate: 0 -100%;
-        }
-
-        &.ui-block-end {
-          translate: 0 100%;
         }
       }
     }
   }
 
   /* Scroll-lock is provided by the shared `.ui-scroll-lock` utility in core/utils.css. */
-  @media (width < 500px) {
+  @media (width < 31.25rem) {
     html:has(dialog.ui-drawer.ui-scroll-lock[open].ui-backdrop-transparent) {
       overflow: clip;
       overscroll-behavior: contain;

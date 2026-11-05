@@ -28,7 +28,7 @@ const {
   value,
   variant,
 } = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
@@ -69,10 +69,13 @@ onMounted(() => {
 onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
 
 const field = inject(FieldGroupKey, undefined)
+
+const Root = computed(() => (label || slots.label ? "label" : "div"))
 </script>
 
 <template>
-  <label
+  <component
+    :is="Root"
     :class="[
       'ui-textarea',
       {
@@ -126,5 +129,5 @@ const field = inject(FieldGroupKey, undefined)
         :label="characterCountLabel"
       ></component></span
     >{{ " " }}<slot></slot>
-  </label>
+  </component>
 </template>

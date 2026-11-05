@@ -193,7 +193,7 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 
 ### Global classes
 
-On `html`, these override the OS preference for every transition and animation. The page's smooth scrolling follows the system setting only, since `normalize.css` keys it on `prefers-reduced-motion`; the Carousel's follows `--ui-motion`.
+On `html`, these override the OS preference for every transition and animation, and for the page's smooth scrolling. A theme that sets `--ui-motion: 0` on `html` stops the transitions and the Carousel's smooth scrolling but not the page's, which `normalize.css` keys on `prefers-reduced-motion` and the classes, since `html` can't query its own `--ui-motion`.
 
 - `.ui-motion-off`: sets `--ui-motion: 0`.
 - `.ui-motion-on`: sets `--ui-motion: 1`.

@@ -244,7 +244,7 @@
 
     /* Range input */
     :where(& > input[type="range"]) {
-      --_inset: max(
+      --_padding: max(
         var(--ui-space-2),
         var(--_thumb-size) / 2 + var(--ui-space-2) - var(--ui-space-4) / 2
       );
@@ -279,13 +279,13 @@
       grid-column: 1/-1;
       grid-row: 3;
       inline-size: 100%;
-      margin: calc(var(--_inset) * -1);
+      margin: calc(var(--_padding) * -1);
       outline-offset: calc(
         max(0px, (var(--_thumb-size) - var(--ui-space-4)) / 2) +
-          var(--ui-focus-ring-offset) - var(--_inset)
+          var(--ui-focus-ring-offset) - var(--_padding)
       );
       overflow: hidden;
-      padding: var(--_inset);
+      padding: var(--_padding);
       timeline-scope: --ui-range-thumb;
 
       @container style(--ui-contrast: more) {
@@ -359,7 +359,7 @@
 
         transition: box-shadow var(--_duration) var(--_ease);
         view-timeline: --ui-range-thumb inline;
-        view-timeline-inset: var(--_inset);
+        view-timeline-inset: var(--_padding);
       }
 
       &::-moz-range-thumb {
@@ -395,11 +395,7 @@
       }
 
       &:disabled {
-        --_thumb-bg-color: color-mix(
-          in oklch,
-          var(--ui-text-strong) 50%,
-          var(--ui-surface)
-        );
+        --_thumb-bg-color: var(--ui-text-disabled);
         --_track-bg-color: var(--_track-base-bg-color);
 
         cursor: not-allowed;

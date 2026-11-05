@@ -31,7 +31,7 @@ export default {
     svelte:
       "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.",
     vue: "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/vue` exports `toast()` next to `Toaster`.",
-    html: 'Put an `<ol popover="manual">` and a `<div class="ui-sr-only" role="status">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.',
+    html: 'Put an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.',
   },
   options: [
     {
@@ -88,8 +88,14 @@ export default {
     {
       code: '<div role="status">',
       description:
-        "The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.",
+        "The polite live region that announces each toast but a critical one, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.",
       selector: '[role="status"]',
+    },
+    {
+      code: '<div role="alert">',
+      description:
+        "The assertive live region that announces a critical toast at once, visually hidden like the status region. Without it, critical toasts go to the status region.",
+      selector: '[role="alert"]',
     },
   ],
   root: {

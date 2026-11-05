@@ -53,7 +53,6 @@
   "text-field/Binding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "text-field/Binding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "text-field/Binding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
-  "text-field/NoLabel.html": "The page tells HTML readers to put .ui-text-field on a <div>, while the component renders a <label>",
   "textarea/Binding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "textarea/Binding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "textarea/Binding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",

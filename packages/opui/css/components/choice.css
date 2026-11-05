@@ -108,23 +108,23 @@
         &:where(:not(:disabled, [aria-disabled="true"])) {
           @media (hover: hover) {
             &:hover::before {
-              --_thumb-scale: 1;
+              --_ripple-scale: 1;
             }
           }
 
           &:active::before {
-            --_thumb-scale: 1.1;
+            --_ripple-scale: 1.1;
           }
 
           &::before {
-            --_thumb-scale: 0.01;
+            --_ripple-scale: 0.01;
 
             background-color: var(--ui-choice-ripple-bg-color);
             clip-path: circle(50%);
             content: "";
             inset: calc((100% - var(--_ripple-size)) / 2);
             position: absolute;
-            transform: translateZ(-1px) scale(var(--_thumb-scale));
+            transform: translateZ(-1px) scale(var(--_ripple-scale));
             transform-origin: center center;
 
             transition: transform var(--_duration) var(--_ease);
@@ -146,6 +146,14 @@
 
       :where(.ui-end-text) {
         color: var(--ui-invalid-text);
+      }
+
+      @media (forced-colors: active) {
+        &.ui-card,
+        input:is([type="checkbox"], [type="radio"]):not([role="switch"]),
+        input[role="switch"]::before {
+          border-style: dashed;
+        }
       }
     }
 
@@ -217,14 +225,11 @@
 
     /* Card */
     &.ui-card {
-      --_checked-bg-color: var(
-        --ui-primary-tonal,
-        oklch(
-          from var(--ui-primary) l c h / var(--ui-state-selected-alpha-accent)
-        )
-      );
       --_hover-bg-color: var(--ui-surface-tonal-hover);
       --_padding: var(--ui-card-padding, var(--ui-space-3));
+      --_selected-bg-color: oklch(
+        from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
+      );
 
       inline-size: 100%;
       overflow: visible;
@@ -252,7 +257,7 @@
       }
 
       &:has(input:checked) {
-        --_bg-color: var(--_checked-bg-color);
+        --_bg-color: var(--_selected-bg-color);
         --_border-color: var(--_accent);
 
         @media (forced-colors: active) {

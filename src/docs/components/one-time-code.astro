@@ -153,12 +153,13 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
       </Fragment>
     </Conditional>
     <p>
-      A ring marks the next empty box. The input is exactly as wide as its value
-      (<code>field-sizing: content</code>), and the ring sits right after it.
-      Browsers without <code>field-sizing</code> (Firefox before 152, Safari
-      before 26.2) show no ring and outline every box in the accent color while
-      the field has focus. So does iOS Safari, which hides the last typed
-      character while the input sizes itself to its value
+      While the field has focus, every box gets a thicker outline in the accent
+      color, and a ring marks the next empty box. The input is exactly as wide
+      as its value (<code>field-sizing: content</code>), and the ring sits right
+      after it, so a complete code shows the outlines alone. Browsers without
+      <code>field-sizing</code> (Firefox before 152, Safari before 26.2) show no
+      ring. Neither does iOS Safari, which hides the last typed character while
+      the input sizes itself to its value
       (<DocLink href="/guide/browser-support#compat" class="ui-link"
         >compat layer</DocLink
       >). There, a required field hides its caret once the code is complete.
@@ -302,9 +303,10 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
         from an SMS or email, and password managers fill it.
       </li>
       <li>
-        Focus is shown on the boxes instead of an outline: a thicker accent ring
-        on the next empty box, or on every box without <code>field-sizing</code>
-        and on iOS Safari. Forced colors mode draws the boxes and ring in system
+        Focus is shown on the boxes instead of an outline: every box gets a
+        thicker accent outline, also once the code is complete, and a ring marks
+        the next empty box where the browser has <code>field-sizing</code>,
+        except iOS Safari. Forced colors mode draws the boxes and ring in system
         colors.
       </li>
       <li>
@@ -345,11 +347,12 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
       a background at the midpoint.
     </p>
     <p>
-      With <code>field-sizing: content</code> the input is as wide as its value,
-      so <code>.ui-field::after</code>, in the grid column right after it, is
-      the ring on the next empty box. Without it, <code>:focus-within</code>
-      swaps the mask for the thicker <code>--_box-focus-image</code> on every
-      box.
+      <code>:focus-within</code> swaps the mask for the thicker
+      <code>--_box-focus-image</code> on every box. With
+      <code>field-sizing: content</code> the input is as wide as its value, so
+      <code>.ui-field::after</code>, in the grid column right after it, is the
+      ring on the next empty box. A complete code leaves no column for it, and
+      the clipped field hides it, so the thicker boxes are what shows focus.
     </p>
   </Fragment>
 </Component>

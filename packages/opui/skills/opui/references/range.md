@@ -23,7 +23,7 @@ Range lets users pick a number by sliding a thumb along a track.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-range > span.ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<input>`. Generated when omitted and the value is shown. The ids the component generates start with it: `x-label`, `x-start-text`, `x-end-text` and `x-list` for `id="x"`.
-- `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick.
+- `items`: `RangeItem[]`. Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. Without `valueSuffix`, the label of the tick at the value is the input's `aria-valuetext`.
 - `list`: `string`. The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.
 - `max`: `number | string`, default `100`. The largest value of the `<input>`.
 - `min`: `number | string`, default `0`. The smallest value of the `<input>`.
@@ -58,11 +58,11 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_track-block-size`: Height of the track. Set by the sizes.
 - `--_track-radius`: Corner radius of the track.
 
-Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_inset`, `--_thumb-bg-color`, `--_thumb-highlight-bg-color`, `--_thumb-highlight-size`, `--_thumb-offset`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
+Outputs: `--_duration`, `--_focus-ring-duration`, `--_forced-fill-bg-color`, `--_forced-track-bg-color`, `--_padding`, `--_thumb-bg-color`, `--_thumb-highlight-bg-color`, `--_thumb-highlight-size`, `--_thumb-offset`, `--_track-bg-color`, `--_track-fill-bg-color` and `--_track-fill-fraction`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-focus-ring-offset`, `--ui-font-weight-semibold`, `--ui-invalid`, `--ui-invalid-text`, `--ui-motion`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-text-strong` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-choice-accent`, `--ui-contrast`, `--ui-control-accent`, `--ui-disabled-opacity`, `--ui-duration`, `--ui-duration-fast`, `--ui-ease`, `--ui-field-border-color`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height`, `--ui-field-helper-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-label-text-color`, `--ui-focus-ring-offset`, `--ui-font-weight-semibold`, `--ui-invalid`, `--ui-invalid-text`, `--ui-motion`, `--ui-primary`, `--ui-radius-round`, `--ui-space-1`, `--ui-space-2`, `--ui-space-4`, `--ui-state-active-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-text-disabled` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

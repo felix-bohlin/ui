@@ -137,8 +137,9 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <AutoExample name="HiddenLabel" />
     <Conditional as="p">
       <Fragment slot="components">
-        Without a <code>label</code>, name the input with <code>aria-label</code
-        >.
+        Without a <code>label</code>, the root is a <code>&lt;div&gt;</code>
+        instead of a <code>&lt;label&gt;</code>, so name the input with
+        <code>aria-label</code>.
       </Fragment>
       <Fragment slot="html">
         Without a label, put <code>.ui-text-field</code> on a

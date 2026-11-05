@@ -93,9 +93,20 @@ const hasValue = computed(() => valueSuffix !== undefined || hasValueText.value)
 
 const hasDatalist = computed(() => !!items || slots.datalist)
 
-const readout = computed(
-  () =>
-    `${model.value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`,
+const current = computed(() => model.value ?? defaultValue({ max, min, step }))
+
+const readout = computed(() => `${current.value}${valueSuffix ?? ""}`)
+
+const tick = computed(() =>
+  items?.find(
+    (option) =>
+      typeof option === "object" &&
+      Number(option.value) === Number(current.value),
+  ),
+)
+
+const tickLabel = computed(() =>
+  valueSuffix || typeof tick.value !== "object" ? undefined : tick.value.label,
 )
 
 const inputId = computed(() => id || (hasValue.value ? ids.value() : undefined))
@@ -159,7 +170,7 @@ const describedBy = computed(() =>
       :aria-labelledby="labelId ?? attrs['aria-labelledby']"
       :aria-valuetext="
         attrs['aria-valuetext'] ??
-        (valueSuffix && !hasValueText ? readout : undefined)
+        (valueSuffix && !hasValueText ? readout : tickLabel)
       "
       :id="inputId"
       :list="listId"

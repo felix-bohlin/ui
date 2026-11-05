@@ -339,6 +339,10 @@
       &:has(.ui-field > :is(input, select, textarea):focus-within) .ui-field {
         outline: var(--ui-focus-ring-width) solid Highlight;
       }
+
+      &:has([aria-invalid="true"], :user-invalid) .ui-field {
+        border-style: dashed;
+      }
     }
 
     /* Label */
@@ -604,20 +608,24 @@
     }
 
     .ui-field::after {
-      background-color: var(--ui-text-strong);
-      block-size: var(--_chevron-size);
-      content: "";
-      inline-size: var(--_chevron-size);
       inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
       margin-block: auto;
-      mask: var(--_chevron-image) center / contain no-repeat;
-      pointer-events: none;
       position: absolute;
+    }
+  }
 
-      @media (forced-colors: active) {
-        background-color: ButtonText;
-      }
+  :where(.ui-select:has(select):not(:has(button)))::after,
+  :where(.ui-text-field:has(input[list])) .ui-field::after {
+    background-color: var(--ui-text-strong);
+    block-size: var(--_chevron-size);
+    content: "";
+    inline-size: var(--_chevron-size);
+    mask: var(--_chevron-image) center / contain no-repeat;
+    pointer-events: none;
+
+    @media (forced-colors: active) {
+      background-color: ButtonText;
     }
   }
 }

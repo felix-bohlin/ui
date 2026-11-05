@@ -42,7 +42,14 @@ const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValueText = Astro.slots.has("value-text")
 const hasValue = valueSuffix !== undefined || hasValueText
 const hasDatalist = !!items || Astro.slots.has("datalist")
-const readout = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
+const current = value ?? defaultValue({ max, min, step })
+const readout = `${current}${valueSuffix ?? ""}`
+const tick = items?.find(
+  (option) =>
+    typeof option === "object" && Number(option.value) === Number(current),
+)
+const tickLabel =
+  valueSuffix || typeof tick !== "object" ? undefined : tick.label
 
 const inputId = id || (hasValue ? ids() : undefined)
 const labelId = hasLabel ? ids("label") : undefined
@@ -90,7 +97,7 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     aria-invalid={error ? "true" : ariaInvalid}
     aria-labelledby={labelId ?? ariaLabelledBy}
     aria-valuetext={
-      ariaValueText ?? (valueSuffix && !hasValueText ? readout : undefined)
+      ariaValueText ?? (valueSuffix && !hasValueText ? readout : tickLabel)
     }
     id={inputId}
     list={listId}

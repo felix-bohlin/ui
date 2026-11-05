@@ -31,4 +31,5 @@
 >
   <ol popover="manual"></ol>
   <div class="ui-sr-only" role="status"></div>
+  <div class="ui-sr-only" role="alert"></div>
 </opui-toaster>

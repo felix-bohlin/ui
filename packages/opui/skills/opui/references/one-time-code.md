@@ -61,7 +61,7 @@ Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_
 
 ### one-time-code.css
 
-- `--_box-focus-image`: The thicker box mask every box gets while the field has focus in browsers without `field-sizing`.
+- `--_box-focus-image`: The thicker box mask every box gets while the field has focus.
 - `--_box-image`: The box mask, repeated once per character.
 - `--_dash-bg-color`: Color of the dash between the two halves with `.ui-grouped`. Defaults to `--ui-text-subtle`.
 - `--_dash-block-size`: Thickness of the dash. Defaults to `--ui-border-width-thick`.

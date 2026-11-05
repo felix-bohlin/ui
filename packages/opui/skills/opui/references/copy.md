@@ -39,7 +39,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_motion`: Motion multiplier for the reveal and the fade. `0` turns them off.
 - `--_offset`: The gap between the label and the button.
 
-Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden`, `--_radius`, `--_shown` and `--_text-color`.
+Outputs: `--_accent`, `--_border-color`, `--_duration`, `--_font-size`, `--_hidden-clip-path`, `--_radius`, `--_shown-clip-path` and `--_text-color`.
 
 ## Theme tokens
 

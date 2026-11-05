@@ -36,7 +36,8 @@ export default {
     },
   ],
   model: {
-    description: "The selected value, or values with `multiple`.",
+    description:
+      "The selected value, or values with `multiple`. It picks among `items`; a child `<option>` takes `selected` itself, as in HTML, since Astro and Vue's server markup only mark the `items` options.",
     prop: "value",
     type: "string | number | (string | number)[]",
   },
@@ -96,7 +97,8 @@ export default {
     },
     {
       default: "[]",
-      description: "The options, as `{ label, selected, value }` objects.",
+      description:
+        "The options, as `{ label, selected, value }` objects. `value` selects among them; child `<option>` elements set `selected` themselves.",
       prop: "items",
     },
     {

@@ -12,14 +12,8 @@
         caret-color: transparent;
       }
 
-      &:focus-within .ui-field {
-        &::before {
-          mask-image: var(--_box-focus-image);
-        }
-
-        &::after {
-          content: none;
-        }
+      &:focus-within .ui-field::after {
+        content: none;
       }
     }
   }

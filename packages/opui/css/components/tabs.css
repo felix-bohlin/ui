@@ -200,7 +200,7 @@
       );
     }
 
-    :where(.ui-accordion, .ui-card, .ui-dialog) > & {
+    &:where(:is(.ui-accordion, .ui-card, .ui-dialog) > *, .ui-overflow-scroll) {
       & > .ui-input[type="radio"]:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
       }
@@ -225,16 +225,6 @@
         inset-block-start: 50%;
         inset-inline-start: 50%;
         margin: 0;
-
-        &:focus-visible {
-          & + .ui-label::before {
-            outline-offset: var(--ui-focus-ring-inset);
-          }
-        }
-      }
-
-      &.ui-filled > .ui-input:checked + .ui-label::before {
-        --ui-focus-ring-color: var(--ui-on-selected-strong);
       }
 
       & > .ui-label {

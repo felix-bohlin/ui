@@ -64,6 +64,9 @@ const problem = (name: string) => {
   ) {
     return "use -block-size or -inline-size"
   }
+  if (/(^--_|-)(border|outline)-size$/.test(name)) {
+    return "a border or outline thickness is -width"
+  }
   if (/(^--_|-)space(-|$)/.test(name)) return "use -gap or -padding"
   if (/(^--_|-)(tx|ty)$/.test(name)) return "use -shift-x or -shift-y"
   if (/(^--_|-)dir$/.test(name)) return "use -direction"
@@ -91,6 +94,7 @@ const SUFFIX =
 test.each([
   ["--_height", "use -block-size or -inline-size"],
   ["--_icon-width", "use -block-size or -inline-size"],
+  ["--_thumb-outline-size", "a border or outline thickness is -width"],
   ["--_space", "use -gap or -padding"],
   ["--_tx", "use -shift-x or -shift-y"],
   ["--_dir", "use -direction"],

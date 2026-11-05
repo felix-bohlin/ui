@@ -234,11 +234,11 @@
     padding-block: var(--ui-space-3);
     padding-inline: var(--ui-space-4);
 
-    :first-child {
+    & > :first-child {
       margin-block-start: 0;
     }
 
-    :last-child {
+    & > :last-child {
       margin-block-end: 0;
     }
 
@@ -341,11 +341,11 @@
       padding-block: var(--ui-space-3);
       padding-inline: var(--ui-space-4);
 
-      :first-child {
+      & > :first-child {
         margin-block-start: 0;
       }
 
-      :last-child {
+      & > :last-child {
         margin-block-end: 0;
       }
 

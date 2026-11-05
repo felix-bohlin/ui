@@ -34,6 +34,7 @@ export default function Toaster({
     >
       <ol popover="manual" />
       <div className="ui-sr-only" role="status" />
+      <div className="ui-sr-only" role="alert" />
     </opui-toaster>
   )
 }

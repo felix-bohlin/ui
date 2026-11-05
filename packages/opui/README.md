@@ -25,6 +25,8 @@ Peer dependencies:
 
 ### Astro components
 
+Import the CSS once, in the layout every page uses, and the components where you need them:
+
 ```astro
 ---
 import "opui-css/css/imports.css"
@@ -38,7 +40,7 @@ import { Button, Card } from "opui-css/astro"
 
 ### React components
 
-React components ship markup only, so import the CSS once in your app entry:
+React components ship markup only, so import the CSS once in your app entry: a CSS file that `main.tsx` imports in Vite, or `app/globals.css`, which the root layout imports, in Next.js:
 
 ```css
 @import "opui-css/css/imports.css";
@@ -62,7 +64,7 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Svelte components
 
-Svelte components ship markup only, so import the CSS once in your root layout or app entry:
+Svelte components ship markup only, so import the CSS once in your app entry: a CSS file that `src/routes/+layout.svelte` imports in SvelteKit, or that `main.ts` imports in Vite:
 
 ```css
 @import "opui-css/css/imports.css";
@@ -80,7 +82,7 @@ Svelte components ship markup only, so import the CSS once in your root layout o
 
 ### Vue components
 
-Vue components ship markup only, so import the CSS once in your app entry:
+Vue components ship markup only, so import the CSS once in your app entry: a CSS file that `main.ts` imports in Vite, or add `"opui-css/css/imports.css"` to the `css` array of `nuxt.config` in Nuxt:
 
 ```css
 @import "opui-css/css/imports.css";
@@ -125,7 +127,7 @@ export const onRequest = defineMiddleware((context, next) => {
 })
 ```
 
-Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `<a>` and `<button>`.
+Add `/// <reference types="opui-css/env.d.ts" />` to `src/env.d.ts` to type `$id` and the `interestfor` attribute on `<a>` and `<button>`. New Astro projects don't have that file, so create it; the `tsconfig.json` of a new project already includes it.
 
 #### Astro runtime
 
@@ -144,7 +146,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 <button class="ui-button ui-primary">Click me</button>
 ```
 
-`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + browser fallbacks + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order, the component styles, their browser fallbacks and the `Layout` classes. The components need `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it. Nothing in the package reads Open Props: `theme.css` holds its own values, and Open Props is in the bundle for your own CSS.
+`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + browser fallbacks + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order, the component styles, their browser fallbacks and the `Layout` classes. The components need `core/palette.css` and `css/theme.css` to look right and `core/normalize.css`, or a reset that makes every box `border-box`, to size right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it. Nothing in the package reads Open Props: `theme.css` holds its own values, and Open Props is in the bundle for your own CSS.
 
 The browser fallbacks are the `components.compat` layer. A feature test only applies in browsers without the feature, and an engine fix, like the iOS submenu anchor, applies in that engine until it's removed. `dist/opui.no-compat.css` is `dist/opui.css` without them, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need ([Compat layer](https://open-props-ui.netlify.app/html/guide/browser-support/#compat)).
 
@@ -187,6 +189,8 @@ experimental: {
   }
 }
 ```
+
+Vite 8's lightningcss also prints warnings such as `'scroll-button' is not recognized as a valid pseudo-element` for the Carousel's `::scroll-button()`, `::scroll-marker`, `::scroll-marker-group` and `:target-current`, once per CSS bundle and also when a page has no Carousel. It keeps the rules in the output, so the warnings are harmless, and they stop once lightningcss knows the selectors ([parcel-bundler/lightningcss#1321](https://github.com/parcel-bundler/lightningcss/pull/1321)).
 
 ## Upgrading
 

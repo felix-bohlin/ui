@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { type ElementType, useEffect } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
@@ -30,12 +30,14 @@ export default function Textarea({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
+  const root = label ? "label" : "div"
+  const Root: ElementType = root
   useEffect(() => {
     void import("../../elements/character-count.js")
   }, [])
 
   return (
-    <label
+    <Root
       className={cx([
         "ui-textarea",
         {
@@ -79,6 +81,6 @@ export default function Textarea({
         </span>
       )}{" "}
       {children}
-    </label>
+    </Root>
   )
 }

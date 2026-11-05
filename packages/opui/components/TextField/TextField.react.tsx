@@ -44,7 +44,7 @@ export default function TextField({
   const field = useFieldGroupContext()
   const uid = useId()
   const ids = createIds(uid, "text-field", id)
-  const root = passwordToggle ? "opui-text-field" : "label"
+  const root = passwordToggle ? "opui-text-field" : label ? "label" : "div"
   const Root: ElementType = root
   const labelTag = passwordToggle ? "label" : "span"
   const Label: ElementType = labelTag

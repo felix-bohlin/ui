@@ -12,7 +12,8 @@ Short messages that confirm an action and dismiss themselves.
 - `opui-toaster.ui-toaster` (root): The `<opui-toaster>` custom element, with `display: contents`. A button with `commandfor` and `command="--toast"` shows a toast with its `data-toast` text and `data-toast-severity`, and `toast(message, { action, duration, severity })` or `toast.success(message)` does it from a script, where `action` takes a `label` and an `onClick`. `dismiss(toast)` returns a promise that resolves once the toast is gone.
 - `<ol popover="manual">`: The stack of toasts, a manual popover at the block end and the inline end of the viewport unless `side` and `align` move it. It opens with the first toast and closes after the last.
 - `<li>`: A toast, a `Callout` with the severity class, its icon (an empty `svg` that `--_icon-image` masks), the message in `.ui-content`, an action `Button` when it has an `action`, and a close `Button`. The element adds it, and on dismiss makes it `inert`, fades it out and closes its gap before it removes it.
-- `<div role="status">`: The live region that announces each toast, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
+- `<div role="status">`: The polite live region that announces each toast but a critical one, visually hidden with `.ui-sr-only` and outside the popover, so it's always in the page.
+- `<div role="alert">`: The assertive live region that announces a critical toast at once, visually hidden like the status region. Without it, critical toasts go to the status region.
 
 ### Props and modifiers
 
@@ -24,7 +25,7 @@ Short messages that confirm an action and dismiss themselves.
 
 ### Notes
 
-- HTML: Put an `<ol popover="manual">` and a `<div class="ui-sr-only" role="status">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.
+- HTML: Put an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.
 - Astro: Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.
 - React: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/react` exports `toast()` next to `Toaster`.
 - Svelte: Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.
@@ -111,6 +112,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-color`, `--u
 <opui-toaster id="toast-basics-1" class="ui-toaster">
   <ol popover="manual"></ol>
   <div class="ui-sr-only" role="status"></div>
+  <div class="ui-sr-only" role="alert"></div>
 </opui-toaster>
 
 <script type="module">

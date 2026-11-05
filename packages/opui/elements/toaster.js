@@ -17,6 +17,10 @@ export class Toaster extends Base {
   #leaving = new Map()
   #timers = new Map()
 
+  get alert() {
+    return this.querySelector(':scope > [role="alert"]')
+  }
+
   get list() {
     return this.querySelector(":scope > ol")
   }
@@ -116,7 +120,7 @@ export class Toaster extends Base {
     item.append(this.#closeButton())
     list.append(item)
     if (!list.matches(":popover-open")) list.showPopover?.()
-    this.#announce(message)
+    this.#announce(message, severity)
     const base = Number(this.getAttribute("duration")) || DURATION
     const time = duration ?? (action?.label ? base * 2 : base)
     this.#timers.set(item, { id: undefined, remaining: time, start: 0 })
@@ -159,12 +163,12 @@ export class Toaster extends Base {
     return left
   }
 
-  #announce(message) {
-    const status = this.status
-    if (!status) return
+  #announce(message, severity) {
+    const region = (severity === "critical" && this.alert) || this.status
+    if (!region) return
     const line = this.ownerDocument.createElement("p")
     line.textContent = message
-    status.append(line)
+    region.append(line)
     setTimeout(() => line.remove(), DURATION)
   }
 

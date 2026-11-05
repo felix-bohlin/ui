@@ -34,9 +34,14 @@ export default {
       "Easing of the scale. `--ui-ease-move` while opening when a theme sets it, otherwise `--_ease`.",
     kind: "output",
   },
+  "--_fit-max-block-size": {
+    description:
+      "Maximum height of a popover menu in the space on its side: `--_max-block-size`, capped to that space minus `--_offset` at both ends. Needs `calc-size()`, and the `--ui-menu-block-end` and `--ui-menu-block-start` fallbacks read it too.",
+    kind: "output",
+  },
   "--_hover-bg-color": {
     description:
-      "Hover background of `.ui-critical` items, from `--ui-critical`.",
+      "Hover background of `.ui-critical` items, from `--ui-palette-accent` of the critical palette.",
     kind: "output",
   },
   "--_margin-block": {

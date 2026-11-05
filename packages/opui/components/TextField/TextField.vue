@@ -85,7 +85,9 @@ const uid = useId()
 
 const ids = computed(() => createIds(uid, "text-field", id))
 
-const Root = computed(() => (passwordToggle ? "opui-text-field" : "label"))
+const Root = computed(() =>
+  passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div",
+)
 
 const Label = computed(() => (passwordToggle ? "label" : "span"))
 

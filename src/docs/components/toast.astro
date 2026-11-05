@@ -99,8 +99,9 @@ export const keywords = ["notification", "snackbar"]
       </p>
       <p slot="html">
         Put one <code>&lt;opui-toaster class="ui-toaster"&gt;</code> with an id,
-        an <code>&lt;ol popover="manual"&gt;</code> and a
-        <code>&lt;div class="ui-sr-only" role="status"&gt;</code> on the page,
+        an <code>&lt;ol popover="manual"&gt;</code>, a
+        <code>&lt;div class="ui-sr-only" role="status"&gt;</code> and a
+        <code>&lt;div class="ui-sr-only" role="alert"&gt;</code> on the page,
         and import <code>opui-css/elements/toaster.js</code>. A button with
         <code>commandfor</code> set to that id and
         <code>command="--toast"</code> shows the text in its
@@ -240,8 +241,10 @@ export const keywords = ["notification", "snackbar"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Each toast is announced through a polite live region that sits outside
-        the popover, so it's in the page before the first toast shows.
+        Each toast is announced through a polite live region, and a critical one
+        through an assertive region, so it interrupts other speech. Both sit
+        outside the popover, so they're in the page before the first toast
+        shows.
       </li>
       <li>
         The toasts sit where the toaster is in the page, so Tab reaches their

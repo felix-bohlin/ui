@@ -35,9 +35,11 @@
 
   const field = getFieldGroupContext()
   const initialValue = untrack(() => value)
+  const Root = $derived(label ? "label" : "div")
 </script>
 
-<label
+<svelte:element
+  this={Root}
   class={[
     "ui-textarea",
     {
@@ -76,4 +78,4 @@
         ></opui-character-count>{/if}</span
     >{/if}
   {@render children?.()}
-</label>
+</svelte:element>

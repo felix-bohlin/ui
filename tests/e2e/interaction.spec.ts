@@ -54,16 +54,10 @@ const expectFocusWithin = (locator: Locator) =>
 interaction(
   "anchor",
   "RepoCard",
-  "hover card shows on hover",
+  "hover card shows on hover, through the compat layer without interest invokers",
   async ({ page, root }) => {
     const trigger = root.getByRole("link", { name: "felix-bohlin/ui" })
     const card = root.getByText("Public repository")
-
-    await needs(
-      page,
-      "interest invokers",
-      () => "interestForElement" in HTMLAnchorElement.prototype,
-    )
 
     await expect(card).toBeHidden()
     await trigger.hover()
@@ -445,6 +439,25 @@ interaction(
     await slider.focus()
     await page.keyboard.press("ArrowRight")
     await expect(output).toHaveText(`${Number(before) + 1}°`)
+  },
+)
+
+interaction(
+  "range",
+  "TickMarksLabels",
+  "range names its value with the label of the tick at it",
+  async ({ page, root }) => {
+    const quality = root.getByRole("slider", { name: "Quality" })
+    const opacity = root.getByRole("slider", { name: "Opacity" })
+
+    await expect(quality).toHaveAttribute("aria-valuetext", "Medium")
+    await quality.focus()
+    await page.keyboard.press("ArrowRight")
+    await expect(quality).toHaveAttribute("aria-valuetext", "High")
+    await expect(opacity).toHaveAttribute("aria-valuetext", "50%")
+    await opacity.focus()
+    await page.keyboard.press("ArrowRight")
+    await expect(opacity).not.toHaveAttribute("aria-valuetext")
   },
 )
 
@@ -1728,6 +1741,25 @@ interaction(
     await toasts.first().getByRole("button", { name: "Close" }).focus()
     await page.keyboard.press("Escape")
     await expect(toasts).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Severities",
+  "a critical toast is announced through the alert region, the others through the status region",
+  async ({ page, root }) => {
+    const toaster = root.locator("opui-toaster")
+
+    await page.waitForFunction(() => customElements.get("opui-toaster"))
+    await root.getByRole("button", { name: "Success" }).click()
+    await expect(toaster.getByRole("status")).toHaveText("Changes saved")
+    await expect(toaster.getByRole("alert")).toHaveText("")
+    await root.getByRole("button", { name: "Critical" }).click()
+    await expect(toaster.getByRole("alert")).toHaveText(
+      "Couldn't save your changes",
+    )
+    await expect(toaster.getByRole("status")).toHaveText("Changes saved")
   },
 )
 

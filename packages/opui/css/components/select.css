@@ -5,7 +5,7 @@
 
     /* Default arrow */
     &::picker-icon {
-      background-color: currentColor;
+      background-color: var(--ui-text-strong);
       block-size: var(--_chevron-size);
       content: "";
       inline-size: var(--_chevron-size);
@@ -179,23 +179,13 @@
       /* Arrow */
       &::after {
         align-self: center;
-        background-color: currentColor;
-        block-size: var(--_chevron-size);
-        content: "";
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
         grid-row: 2;
-        inline-size: var(--_chevron-size);
         inset-inline-end: var(--_arrow-inset);
         justify-self: end;
-        mask: var(--_chevron-image) center / contain no-repeat;
-        pointer-events: none;
         position: relative;
-
-        @media (forced-colors: active) {
-          background-color: ButtonText;
-        }
       }
 
       &:not(.ui-spread):has(> .ui-start-text)::after {

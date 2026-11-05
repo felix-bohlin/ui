@@ -46,7 +46,6 @@
         block-size: var(--_marker-size);
         border: var(--_line-border-width) solid var(--_marker-accent);
         border-radius: var(--ui-radius-round);
-        box-sizing: border-box;
         grid-column: marker;
         grid-row: 1;
         inline-size: var(--_marker-size);
@@ -123,16 +122,17 @@
     }
 
     & > li[aria-current] {
-      --_marker-accent: var(--ui-primary);
+      --_marker-accent: var(--ui-selected-strong);
 
       &::before,
       & > .ui-marker {
-        background-color: var(--ui-primary);
+        background-color: var(--_marker-accent);
         box-shadow: 0 0 0 var(--ui-space-1)
           oklch(
-            from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+            from var(--_marker-accent) l c h /
+              var(--ui-state-selected-alpha-accent)
           );
-        color: var(--ui-on-primary);
+        color: var(--ui-on-selected-strong);
 
         @media (forced-colors: active) {
           background-color: Highlight;
@@ -145,10 +145,10 @@
     }
 
     &.ui-tracked > li:has(~ li[aria-current]) {
-      --_line-border-color: var(--ui-primary);
+      --_line-border-color: var(--ui-selected-strong);
 
       &:not(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
-        --_marker-accent: var(--ui-primary);
+        --_marker-accent: var(--ui-selected-strong);
       }
 
       &::after {

@@ -141,7 +141,8 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         <p>
           Set <code>scrollLock</code> to lock page scrolling while the drawer is
           open. With a transparent backdrop the page stays scrollable, except on
-          screens narrower than 500px.
+          screens narrower than <code>31.25rem</code>, 500px at the default font
+          size, where the drawer covers most of the page.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -176,8 +177,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
           Add the <code>.ui-scroll-lock</code> utility class from
           <code>core/utils.css</code> to the drawer to lock page scrolling while
           it's open. With <code>.ui-backdrop-transparent</code> the page stays
-          scrollable, except on screens narrower than 500px. Omit the class to
-          allow background scrolling.
+          scrollable, except on screens narrower than <code>31.25rem</code>,
+          500px at the default font size, where the drawer covers most of the
+          page. Omit the class to allow background scrolling.
         </p>
       </Fragment>
     </Conditional>

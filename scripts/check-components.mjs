@@ -77,7 +77,7 @@ const CONTEXT_EXPORTS = {
     `${name[0].toLowerCase()}${name.slice(1)}Context`,
   ],
   "context.react.ts": (name) => [`${name}Context`, `use${name}Context`],
-  "context.svelte.ts": (name) => [`get${name}Context`, `set${name}Context`],
+  "context.svelte.js": (name) => [`get${name}Context`, `set${name}Context`],
   "context.vue.ts": (name) => [`${name}Key`],
 }
 
@@ -86,7 +86,7 @@ const CONTEXT_FILES = Object.keys(CONTEXT_EXPORTS)
 const CONTEXT_IMPORTS = {
   "context.astro.ts": ["../context.astro", ["createContext"]],
   "context.react.ts": ["react", ["createContext", "useContext"]],
-  "context.svelte.ts": ["svelte", ["getContext", "setContext"]],
+  "context.svelte.js": ["svelte", ["getContext", "setContext"]],
   "context.vue.ts": ["vue", ["InjectionKey"]],
 }
 
@@ -279,7 +279,11 @@ const parse = (file, source) =>
     source,
     ts.ScriptTarget.Latest,
     true,
-    file.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+    file.endsWith(".tsx")
+      ? ts.ScriptKind.TSX
+      : file.endsWith(".js")
+        ? ts.ScriptKind.JS
+        : ts.ScriptKind.TS,
   )
 
 const keyName = (name) =>
@@ -650,15 +654,17 @@ export const checkContext = (file, source, folder) => {
       `exports ${actual.join(", ") || "nothing"}: a ${name} exports ${expected.join(" and ")}`,
     )
   }
-  const typed =
-    importsFrom(script, "./types").some(
-      (element) => importedName(element) === "Context",
-    ) &&
-    nodesIn(
-      script,
-      (node) =>
-        ts.isTypeReferenceNode(node) && node.typeName.getText() === "Context",
-    ).length > 0
+  const typed = name.endsWith(".js")
+    ? /@import \{[^}]*\bContext\b[^}]*\} from "\.\/types"/.test(source) &&
+      /@type \{[^}]*\bContext\b/.test(source)
+    : importsFrom(script, "./types").some(
+        (element) => importedName(element) === "Context",
+      ) &&
+      nodesIn(
+        script,
+        (node) =>
+          ts.isTypeReferenceNode(node) && node.typeName.getText() === "Context",
+      ).length > 0
   if (!typed) {
     problems.push("does not take its shape from the Context type in ./types")
   }

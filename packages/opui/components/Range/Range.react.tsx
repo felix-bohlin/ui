@@ -43,7 +43,15 @@ export default function Range({
   const hasValueText = valueText
   const hasValue = valueSuffix !== undefined || hasValueText
   const hasDatalist = !!items || datalist
-  const readout = `${rest.value ?? rest.defaultValue ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
+  const current =
+    rest.value ?? rest.defaultValue ?? defaultValue({ max, min, step })
+  const readout = `${current}${valueSuffix ?? ""}`
+  const tick = items?.find(
+    (option) =>
+      typeof option === "object" && Number(option.value) === Number(current),
+  )
+  const tickLabel =
+    valueSuffix || typeof tick !== "object" ? undefined : tick.label
   const inputId = id || (hasValue ? ids() : undefined)
   const labelId = hasLabel ? ids("label") : undefined
   const startTextId = hasStartText ? ids("start-text") : undefined
@@ -96,7 +104,7 @@ export default function Range({
         aria-invalid={error ? "true" : ariaInvalid}
         aria-labelledby={labelId ?? ariaLabelledBy}
         aria-valuetext={
-          ariaValueText ?? (valueSuffix && !hasValueText ? readout : undefined)
+          ariaValueText ?? (valueSuffix && !hasValueText ? readout : tickLabel)
         }
         id={inputId}
         list={listId}

@@ -48,8 +48,16 @@
   const hasValueText = $derived(valueText)
   const hasValue = $derived(valueSuffix !== undefined || hasValueText)
   const hasDatalist = $derived(!!items || datalist)
-  const readout = $derived(
-    `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`,
+  const current = $derived(value ?? defaultValue({ max, min, step }))
+  const readout = $derived(`${current}${valueSuffix ?? ""}`)
+  const tick = $derived(
+    items?.find(
+      (option) =>
+        typeof option === "object" && Number(option.value) === Number(current),
+    ),
+  )
+  const tickLabel = $derived(
+    valueSuffix || typeof tick !== "object" ? undefined : tick.label,
   )
   const inputId = $derived(id || (hasValue ? ids() : undefined))
   const labelId = $derived(hasLabel ? ids("label") : undefined)
@@ -91,7 +99,7 @@
     aria-invalid={error ? "true" : ariaInvalid}
     aria-labelledby={labelId ?? ariaLabelledBy}
     aria-valuetext={ariaValueText ??
-      (valueSuffix && !hasValueText ? readout : undefined)}
+      (valueSuffix && !hasValueText ? readout : tickLabel)}
     id={inputId}
     list={listId}
     {max}

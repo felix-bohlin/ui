@@ -67,7 +67,8 @@
     }
   }
 
-  :where(.ui-accordion, .ui-card, .ui-dialog) > :where(.ui-divider) {
+  :where(.ui-accordion, .ui-card, .ui-dialog) > :where(.ui-divider),
+  :where(.ui-form) > :where(hr, .ui-divider) {
     margin-block: 0;
   }
 }

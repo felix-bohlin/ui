@@ -3,7 +3,7 @@ import { inject } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { DialogKey } from "./context.vue"
-import { warnMissingId } from "../dev"
+import { warnMissingCloseTarget } from "../dev"
 import { closePath } from "./icons"
 import type {
   DialogHeaderProps as Props,
@@ -15,7 +15,7 @@ defineSlots<DialogHeaderSlots>()
 
 const dialog = inject(DialogKey, undefined)
 
-if (closeLabel) warnMissingId("Dialog", dialog?.id)
+if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
 </script>
 
 <template>

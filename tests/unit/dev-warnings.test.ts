@@ -12,6 +12,10 @@ import CheckboxSvelte from "../../packages/opui/components/Checkbox/Checkbox.sve
 import CheckboxVue from "../../packages/opui/components/Checkbox/Checkbox.vue"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
+import DialogHeaderAstro from "../../packages/opui/components/Dialog/DialogHeader.astro"
+import DialogHeaderReact from "../../packages/opui/components/Dialog/DialogHeader.react"
+import DialogHeaderSvelte from "../../packages/opui/components/Dialog/DialogHeader.svelte"
+import DialogHeaderVue from "../../packages/opui/components/Dialog/DialogHeader.vue"
 import DialogTitleReact from "../../packages/opui/components/Dialog/DialogTitle.react"
 import DialogTitleVue from "../../packages/opui/components/Dialog/DialogTitle.vue"
 import DrawerReact from "../../packages/opui/components/Drawer/Drawer.react"
@@ -207,6 +211,35 @@ describe("DialogTitle and DrawerTitle ids", () => {
       const html = await replacedIds[framework]("own-dialog-title")
       expect(html).toContain('id="own-dialog-title"')
       expect(html).toContain('id="own-title"')
+      expect(warnings()).toEqual([])
+    },
+  )
+})
+
+const DIALOG_HEADER: Renderers = {
+  astro: DialogHeaderAstro,
+  react: DialogHeaderReact as Renderers["react"],
+  svelte: DialogHeaderSvelte as Renderers["svelte"],
+  vue: DialogHeaderVue,
+}
+
+describe("DialogHeader", () => {
+  test.each(FRAMEWORKS)(
+    "%s warns when its close button has no dialog id to close",
+    async (framework) => {
+      await render[framework](DIALOG_HEADER[framework] as never, {
+        closeLabel: "Close",
+      })
+      expect(warnings()).toEqual([
+        "[OPUI DialogHeader] `closeLabel` adds a close button that closes the Dialog through its `id`. Pass `id` on the Dialog.",
+      ])
+    },
+  )
+
+  test.each(FRAMEWORKS)(
+    "%s doesn't warn without a close button",
+    async (framework) => {
+      await render[framework](DIALOG_HEADER[framework] as never, {})
       expect(warnings()).toEqual([])
     },
   )

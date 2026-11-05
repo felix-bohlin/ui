@@ -29,6 +29,18 @@ export const warnGroupedChecked = (
   }
 }
 
+export const warnMissingCloseTarget = (
+  component: string,
+  id: unknown,
+  root: string,
+) => {
+  if (DEV && !id) {
+    console.warn(
+      `[OPUI ${component}] \`closeLabel\` adds a close button that closes the ${root} through its \`id\`. Pass \`id\` on the ${root}.`,
+    )
+  }
+}
+
 export const warnMissingId = (
   component: string,
   id: unknown,

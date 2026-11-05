@@ -2,7 +2,7 @@
   import { untrack } from "svelte"
   import Button from "../Button/Button.svelte"
   import { getDialogContext } from "./context.svelte"
-  import { warnMissingId } from "../dev"
+  import { warnMissingCloseTarget } from "../dev"
   import { closePath } from "./icons"
   import type { DialogHeaderProps as Props } from "./types.svelte"
 
@@ -18,7 +18,7 @@
 
   const dialog = getDialogContext()
   untrack(() => {
-    if (closeLabel) warnMissingId("Dialog", dialog?.id)
+    if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
   })
 </script>
 

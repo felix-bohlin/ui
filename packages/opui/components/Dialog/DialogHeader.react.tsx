@@ -3,7 +3,7 @@
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useDialogContext } from "./context.react"
-import { warnMissingId } from "../dev"
+import { warnMissingCloseTarget } from "../dev"
 import { closePath } from "./icons"
 import type { DialogHeaderProps as Props } from "./types.react"
 
@@ -15,7 +15,7 @@ export default function DialogHeader({
   ...rest
 }: Props) {
   const dialog = useDialogContext()
-  if (closeLabel) warnMissingId("Dialog", dialog?.id)
+  if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
 
   return (
     <div className={cx(["ui-header", className])} {...rest}>

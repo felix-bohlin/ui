@@ -2,7 +2,7 @@
 import Button from "../Button/Button.astro"
 
 import type { DialogHeaderProps as Props } from "./types.astro"
-import { warnMissingId } from "../dev"
+import { warnMissingCloseTarget } from "../dev"
 import { dialogContext } from "./context.astro"
 import { closePath } from "./icons"
 import { trimEdges } from "../whitespace"
@@ -10,7 +10,7 @@ import { trimEdges } from "../whitespace"
 const { class: className, closeLabel, ...rest } = Astro.props
 
 const dialog = dialogContext.get()
-if (closeLabel) warnMissingId("Dialog", dialog?.id)
+if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
 const content = Astro.slots.has("default")
   ? trimEdges(await Astro.slots.render("default"))
   : ""

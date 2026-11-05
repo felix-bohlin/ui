@@ -16,6 +16,7 @@ import { MODEL_KINDS } from "./component-models.mjs"
 import {
   SOLID_PRAGMA,
   byName,
+  capitalize,
   chosenSpreadCode,
   codesIn,
   elementsIn,
@@ -391,8 +392,31 @@ export const toSolid = (component) => {
       : rootNode.type === "if"
         ? `<>{${rendered}}</>`
         : rendered
+  const slotRead = (name) =>
+    new RegExp(`(?<![\\w$.])props\\.${name}(?![\\w$])`, "g")
+  const resolvedSlots = slots
+    .map((slot) => slotProp(slot))
+    .filter(
+      (name) =>
+        [...body, returned].join("\n").match(slotRead(name))?.length > 1,
+    )
+  const resolveSlots = (code) =>
+    resolvedSlots.reduce(
+      (text, name) =>
+        text.replace(slotRead(name), `resolved${capitalize(name)}()`),
+      code,
+    )
+  const resolvedBody = [
+    ...body.slice(0, rest ? 1 : 0),
+    ...resolvedSlots.map(
+      (name) =>
+        `const resolved${capitalize(name)} = children(() => props.${name})`,
+    ),
+    ...body.slice(rest ? 1 : 0).map(resolveSlots),
+  ]
   const solidValues = [
     ...(usesShow ? ["Show"] : []),
+    ...(resolvedSlots.length ? ["children"] : []),
     ...(kind?.solidValues?.() ?? []),
     ...(rest ? ["omit"] : []),
     ...(uid ? ["createUniqueId"] : []),
@@ -418,5 +442,5 @@ export const toSolid = (component) => {
     ...(item ? [`import { callHandler } from "../solid"`] : []),
     propsImport(propsType, "types.solid"),
   ]
-  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\nexport default function ${component.name}(props: Props) {\n${body.map((line) => `  ${line}\n`).join("")}${body.length ? "\n" : ""}  return (\n${indent(returned, 4)}\n  )\n}\n`
+  return `${SOLID_PRAGMA}\n${importLines.join("\n")}\n\nexport default function ${component.name}(props: Props) {\n${resolvedBody.map((line) => `  ${line}\n`).join("")}${resolvedBody.length ? "\n" : ""}  return (\n${indent(resolveSlots(returned), 4)}\n  )\n}\n`
 }

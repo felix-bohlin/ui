@@ -1,9 +1,10 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Stat(props: Props) {
   const rest = omit(props, "class", "size", "children", "description", "label")
+  const resolvedDescription = children(() => props.description)
 
   return (
     <dl
@@ -16,7 +17,9 @@ export default function Stat(props: Props) {
     >
       <dt class="ui-label">{props.label}</dt>
       <dd class="ui-value">{props.children}</dd>
-      {props.description && <dd class="ui-description">{props.description}</dd>}
+      {resolvedDescription() && (
+        <dd class="ui-description">{resolvedDescription()}</dd>
+      )}
     </dl>
   )
 }

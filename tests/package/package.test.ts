@@ -27,6 +27,7 @@ const FIXTURES: {
   build: Command
   check: Command
   framework: string
+  server?: string
 }[] = [
   {
     build: { args: ["build"], package: "astro" },
@@ -42,6 +43,7 @@ const FIXTURES: {
     build: { args: ["build"], package: "vite" },
     check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
     framework: "solid",
+    server: "src/entry-server.tsx",
   },
   {
     build: { args: ["build"], package: "vite" },
@@ -401,57 +403,79 @@ describe("the opui-css command", () => {
   })
 })
 
-describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
-  let dir: string
+describe.each(FIXTURES)(
+  "$framework fixture",
+  ({ build, check, framework, server }) => {
+    let dir: string
 
-  beforeAll(() => {
-    const fixture = path.join(fixturesDir, framework)
-    dir = path.join(work, framework)
-    cpSync(fixture, dir, {
-      filter: (source) =>
-        ![".astro", "dist", "node_modules"].includes(path.basename(source)),
-      recursive: true,
-    })
-    linkModules(
-      path.join(fixture, "node_modules"),
-      path.join(dir, "node_modules"),
-    )
-    const target = path.join(dir, "node_modules/opui-css")
-    mkdirSync(target)
-    run("tar", ["-xzf", tarball, "--strip-components=1", "-C", target], dir)
-  })
-
-  test("type checks against the installed package", () => {
-    run("node", [bin(dir, check), ...check.args], dir)
-  })
-
-  test("builds with the installed package", () => {
-    run("node", [bin(dir, build), ...build.args], dir)
-    const dist = path.join(dir, "dist")
-    const html = readFileSync(path.join(dist, "index.html"), "utf8")
-    expect(html).toMatch(
-      framework === "astro" ? /class="ui-button/ : /<script type="module"/,
-    )
-    const css = readdirSync(dist, { recursive: true })
-      .map(String)
-      .filter((file) => file.endsWith(".css"))
-      .map((file) => readFileSync(path.join(dist, file), "utf8"))
-      .join("\n")
-    expect(css).toContain("@layer openprops")
-    expect(css).toContain(".ui-button")
-    expect(lightDarkProblems(css)).toEqual([])
-  })
-
-  test.runIf(framework === "svelte")(
-    "the dev server pre-bundles the package and serves it",
-    () => {
-      writeFileSync(path.join(dir, "dev-check.mjs"), DEV_CHECK)
-      expect(run("node", ["dev-check.mjs"], dir)).toMatch(
-        /^[1-9]\d* pre-bundled dependencies served$/m,
+    beforeAll(() => {
+      const fixture = path.join(fixturesDir, framework)
+      dir = path.join(work, framework)
+      cpSync(fixture, dir, {
+        filter: (source) =>
+          ![".astro", "dist", "node_modules"].includes(path.basename(source)),
+        recursive: true,
+      })
+      linkModules(
+        path.join(fixture, "node_modules"),
+        path.join(dir, "node_modules"),
       )
-    },
-  )
-})
+      const target = path.join(dir, "node_modules/opui-css")
+      mkdirSync(target)
+      run("tar", ["-xzf", tarball, "--strip-components=1", "-C", target], dir)
+    })
+
+    test("type checks against the installed package", () => {
+      run("node", [bin(dir, check), ...check.args], dir)
+    })
+
+    test("builds with the installed package", () => {
+      run("node", [bin(dir, build), ...build.args], dir)
+      const dist = path.join(dir, "dist")
+      const html = readFileSync(path.join(dist, "index.html"), "utf8")
+      expect(html).toMatch(
+        framework === "astro" ? /class="ui-button/ : /<script type="module"/,
+      )
+      const css = readdirSync(dist, { recursive: true })
+        .map(String)
+        .filter((file) => file.endsWith(".css"))
+        .map((file) => readFileSync(path.join(dist, file), "utf8"))
+        .join("\n")
+      expect(css).toContain("@layer openprops")
+      expect(css).toContain(".ui-button")
+      expect(lightDarkProblems(css)).toEqual([])
+    })
+
+    test.runIf(server)("renders hydratable markup on the server", () => {
+      run(
+        "node",
+        [bin(dir, build), "build", "--ssr", server!, "--outDir", "dist-server"],
+        dir,
+      )
+      const html = run(
+        "node",
+        [
+          "--input-type=module",
+          "--eval",
+          'const { render } = await import("./dist-server/entry-server.js"); process.stdout.write(render())',
+        ],
+        dir,
+      )
+      expect(html).toContain('class="ui-button')
+      expect(html).toMatch(/<button _hk=\S+/)
+    })
+
+    test.runIf(framework === "svelte")(
+      "the dev server pre-bundles the package and serves it",
+      () => {
+        writeFileSync(path.join(dir, "dev-check.mjs"), DEV_CHECK)
+        expect(run("node", ["dev-check.mjs"], dir)).toMatch(
+          /^[1-9]\d* pre-bundled dependencies served$/m,
+        )
+      },
+    )
+  },
+)
 
 test("a build that lowers light-dark() needs its variables on html", () => {
   const token = "--x:var(--lightningcss-light,a)var(--lightningcss-dark,b)"

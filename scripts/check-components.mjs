@@ -646,6 +646,16 @@ export const checkSolidProps = (
         "takes the rest with omit() but never spreads it: spread it onto the root element, or the input of a form control",
       )
     }
+    for (const slot of slots) {
+      const reads =
+        source.match(new RegExp(`(?<![\\w$.])props\\.${slot}(?![\\w$])`, "g"))
+          ?.length ?? 0
+      if (reads > 1) {
+        problems.push(
+          `reads props.${slot} ${reads} times: each read builds the slot's DOM again, so resolve it once with children(() => props.${slot})`,
+        )
+      }
+    }
   }
   return problems
 }

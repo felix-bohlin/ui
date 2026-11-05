@@ -168,6 +168,115 @@ export const openFixture = async (
   })
 }
 
+export const pageErrors = (page: Page) => {
+  const errors: string[] = []
+  page.on("pageerror", (error) => errors.push(error.message))
+  page.on("console", (message) => {
+    if (
+      message.type() === "error" &&
+      new URL(message.location().url || "http://localhost").hostname ===
+        "localhost"
+    ) {
+      errors.push(message.text())
+    }
+  })
+  return errors
+}
+
+export const HYDRATED: readonly Framework[] = ["solid"]
+
+export const exampleSnapshots = (
+  page: Page,
+  framework: Framework,
+  html?: string,
+) =>
+  page.evaluate(
+    async ([name, source]) => {
+      const container = source ? document.createElement("form") : undefined
+      if (container) {
+        const parsed = new DOMParser().parseFromString(source, "text/html")
+        for (const script of parsed.querySelectorAll("script")) script.remove()
+        container.hidden = true
+        container.append(...document.adoptNode(parsed.body).childNodes)
+        document.body.append(container)
+      }
+      await new Promise((resolve) => setTimeout(resolve))
+      const root = container ?? document
+      const examples = [...root.querySelectorAll(`[data-${name}-example]`)].map(
+        (example) => {
+          const state = [
+            ...example.querySelectorAll<HTMLElement>(
+              "input, select, textarea, video",
+            ),
+          ].map((control) => {
+            if (control instanceof HTMLVideoElement) {
+              return `video muted ${control.muted}`
+            }
+            if (control instanceof HTMLSelectElement) {
+              return `select ${[...control.selectedOptions].map((option) => option.value).join(",")}`
+            }
+            if (control instanceof HTMLTextAreaElement) {
+              return `textarea ${control.value}`
+            }
+            const input = control as HTMLInputElement
+            return `input ${input.type} ${
+              ["checkbox", "radio"].includes(input.type)
+                ? input.checked
+                : input.value
+            }`
+          })
+
+          const clone = example.cloneNode(true) as HTMLElement
+          for (const element of clone.querySelectorAll('link[rel="preload"]')) {
+            element.remove()
+          }
+          for (const element of clone.querySelectorAll("img")) {
+            element.removeAttribute("loading")
+          }
+          for (const element of clone.querySelectorAll("svg")) {
+            element.removeAttribute("xmlns")
+          }
+          for (const element of clone.querySelectorAll("[_hk]")) {
+            element.removeAttribute("_hk")
+          }
+          for (const element of clone.querySelectorAll("video")) {
+            element.removeAttribute("muted")
+          }
+          for (const element of clone.querySelectorAll("input, option")) {
+            element.removeAttribute("checked")
+            element.removeAttribute("selected")
+            if (
+              element instanceof HTMLInputElement &&
+              !["checkbox", "radio"].includes(element.type)
+            ) {
+              element.removeAttribute("value")
+            }
+          }
+          for (const element of clone.querySelectorAll(
+            "selectedcontent, textarea",
+          )) {
+            element.replaceChildren()
+          }
+          const names = new Map<string, string>()
+          for (const element of clone.querySelectorAll("[name]")) {
+            const value = element.getAttribute("name")!
+            if (!names.has(value)) names.set(value, `name-${names.size + 1}`)
+            element.setAttribute("name", names.get(value)!)
+          }
+
+          return {
+            example: example.getAttribute(`data-${name}-example`)!,
+            markup: clone.innerHTML,
+            state,
+          }
+        },
+      )
+      container?.remove()
+      return examples
+    },
+    [framework, html ?? ""] as const,
+  )
+
 export const needs = async (
   page: Page,
   feature: string,

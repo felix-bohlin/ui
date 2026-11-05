@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit, Show } from "solid-js"
+import { children, omit, Show } from "solid-js"
 import type { StepperItemProps as Props } from "./types.solid"
 
 export default function StepperItem(props: Props) {
@@ -16,6 +16,9 @@ export default function StepperItem(props: Props) {
     "iconChecked",
     "label",
   )
+  const resolvedDescription = children(() => props.description)
+  const resolvedIconChecked = children(() => props.iconChecked)
+  const resolvedLabel = children(() => props.label)
   const completedLabel = () =>
     props.completedLabel === undefined ? ", completed" : props.completedLabel
   const errorLabel = () =>
@@ -34,14 +37,14 @@ export default function StepperItem(props: Props) {
       ]}
       {...rest}
     >
-      {props.iconChecked && (
+      {resolvedIconChecked() && (
         <span aria-hidden="true" class="ui-icon-checked">
-          {props.iconChecked}
+          {resolvedIconChecked()}
         </span>
       )}{" "}
       {link() ? (
         <a href={props.href}>
-          {props.label}
+          {resolvedLabel()}
           {
             <Show when={state()}>
               {(state) => <span class="ui-sr-only">{state()}</span>}
@@ -50,7 +53,7 @@ export default function StepperItem(props: Props) {
         </a>
       ) : (
         <>
-          {props.label}
+          {resolvedLabel()}
           {
             <Show when={state()}>
               {(state) => <span class="ui-sr-only">{state()}</span>}
@@ -58,8 +61,8 @@ export default function StepperItem(props: Props) {
           }
         </>
       )}{" "}
-      {props.description && (
-        <span class="ui-description">{props.description}</span>
+      {resolvedDescription() && (
+        <span class="ui-description">{resolvedDescription()}</span>
       )}
     </li>
   )

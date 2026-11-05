@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
@@ -20,6 +20,7 @@ export default function Chip(props: Props) {
     "label",
     "start",
   )
+  const resolvedLabel = children(() => props.label)
   const variant = () => (props.variant === undefined ? "tonal" : props.variant)
   const tag = () => props.as || (props.href ? "a" : "div")
   const Tag = dynamic(tag)
@@ -38,7 +39,7 @@ export default function Chip(props: Props) {
       {...(rest as object)}
     >
       {props.start}
-      {props.label && <span class="ui-text">{props.label}</span>}
+      {resolvedLabel() && <span class="ui-text">{resolvedLabel()}</span>}
       {props.end}
     </Tag>
   )

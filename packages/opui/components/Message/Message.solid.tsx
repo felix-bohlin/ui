@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Message(props: Props) {
@@ -17,6 +17,9 @@ export default function Message(props: Props) {
     "end",
     "start",
   )
+  const resolvedBottom = children(() => props.bottom)
+  const resolvedChildren = children(() => props.children)
+  const resolvedEnd = children(() => props.end)
 
   return (
     <li
@@ -34,23 +37,23 @@ export default function Message(props: Props) {
       {props.start}
       {props.typing ? (
         <div class="ui-content" role="status">
-          <span class="ui-sr-only">{props.children}</span>
+          <span class="ui-sr-only">{resolvedChildren()}</span>
         </div>
       ) : (
         <div class="ui-content">
           {props.author && <p class="ui-header">{props.author}</p>}
-          {props.children}
-          {(props.time || props.end) && (
+          {resolvedChildren()}
+          {(props.time || resolvedEnd()) && (
             <p class="ui-footer">
               {props.time && (
                 <time datetime={props.datetime}>{props.time}</time>
               )}
-              {props.end && <span class="ui-end">{props.end}</span>}
+              {resolvedEnd() && <span class="ui-end">{resolvedEnd()}</span>}
             </p>
           )}
         </div>
       )}
-      {props.bottom && <div class="ui-bottom">{props.bottom}</div>}
+      {resolvedBottom() && <div class="ui-bottom">{resolvedBottom()}</div>}
     </li>
   )
 }

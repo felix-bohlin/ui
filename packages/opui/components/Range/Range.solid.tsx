@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { createUniqueId, omit } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import "../../css/js/range.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { defaultValueProp } from "../solid"
@@ -35,15 +35,20 @@ export default function Range(props: Props) {
     "startText",
     "valueText",
   )
+  const resolvedDatalist = children(() => props.datalist)
+  const resolvedEndText = children(() => props.endText)
+  const resolvedLabel = children(() => props.label)
+  const resolvedStartText = children(() => props.startText)
+  const resolvedValueText = children(() => props.valueText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
   const ids = () => createIds(uid, "range", props.id || undefined)
-  const hasLabel = () => !!props.label || props.label
-  const hasStartText = () => !!props.startText || props.startText
-  const hasEndText = () => !!props.endText || props.endText
-  const hasValueText = () => props.valueText
+  const hasLabel = () => !!resolvedLabel() || resolvedLabel()
+  const hasStartText = () => !!resolvedStartText() || resolvedStartText()
+  const hasEndText = () => !!resolvedEndText() || resolvedEndText()
+  const hasValueText = () => resolvedValueText()
   const hasValue = () => props.valueSuffix !== undefined || hasValueText()
-  const hasDatalist = () => !!props.items || props.datalist
+  const hasDatalist = () => !!props.items || resolvedDatalist()
   const readout = () =>
     `${props.value ?? defaultValue({ max: props.max, min: props.min, step: props.step })}${props.valueSuffix ?? ""}`
   const inputId = () => props.id || (hasValue() ? ids()() : undefined)
@@ -71,7 +76,7 @@ export default function Range(props: Props) {
           class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
           id={labelId()}
         >
-          {props.label}
+          {resolvedLabel()}
         </span>
       )}{" "}
       {hasValue() && (
@@ -82,12 +87,12 @@ export default function Range(props: Props) {
           for={inputId()}
           data-suffix={props.valueSuffix}
         >
-          {props.valueText === undefined ? readout() : props.valueText}
+          {resolvedValueText() === undefined ? readout() : resolvedValueText()}
         </output>
       )}{" "}
       {hasStartText() && (
         <span class="ui-start-text" id={startTextId()}>
-          {props.startText}
+          {resolvedStartText()}
         </span>
       )}{" "}
       <input
@@ -117,12 +122,12 @@ export default function Range(props: Props) {
               <option value={option} />
             ),
           )}
-          {props.datalist}
+          {resolvedDatalist()}
         </datalist>
       )}{" "}
       {hasEndText() && (
         <span class="ui-end-text" id={endTextId()}>
-          {props.endText}
+          {resolvedEndText()}
         </span>
       )}
     </label>

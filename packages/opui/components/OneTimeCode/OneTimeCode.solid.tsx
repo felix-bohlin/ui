@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { defaultValueProp } from "../solid"
 import type { Props } from "./types.solid"
@@ -19,6 +19,8 @@ export default function OneTimeCode(props: Props) {
     "endText",
     "label",
   )
+  const resolvedEndText = children(() => props.endText)
+  const resolvedLabel = children(() => props.label)
   const field = useFieldGroupContext()
   const length = () => (props.length === undefined ? 6 : props.length)
 
@@ -33,7 +35,7 @@ export default function OneTimeCode(props: Props) {
       ]}
       style={props.style}
     >
-      {props.label && <span class="ui-label">{props.label}</span>}{" "}
+      {resolvedLabel() && <span class="ui-label">{resolvedLabel()}</span>}{" "}
       <span class="ui-field">
         <input
           autocapitalize={props.alphanumeric ? "characters" : undefined}
@@ -53,7 +55,9 @@ export default function OneTimeCode(props: Props) {
           {...defaultValueProp(() => props.value)}
         />
       </span>{" "}
-      {props.endText && <span class="ui-end-text">{props.endText}</span>}
+      {resolvedEndText() && (
+        <span class="ui-end-text">{resolvedEndText()}</span>
+      )}
     </label>
   )
 }

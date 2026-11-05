@@ -10,8 +10,9 @@ import {
 import { withoutCodeVariants } from "../../../utils/example-variants"
 import { FRAMEWORK_IDS, type FrameworkId } from "../../../utils/framework"
 import { importMap } from "../../../utils/import-map"
+import { generateHydrationScript } from "@solidjs/web"
 import type { Component } from "solid-js"
-import { renderSolid } from "../../../components/Example/render-solid"
+import { renderHydratableSolid } from "../../../components/Example/render-solid"
 import { fixturePagesEnabled } from "../../../utils/test-pages"
 
 const allExamples = Object.entries(exampleSources).map(([path, source]) => ({
@@ -45,7 +46,15 @@ const { component, framework } = Astro.params as {
   component: string
   framework: FrameworkId
 }
-const examples = examplesFor(framework, component)
+const examples = examplesFor(framework, component).map((example) => {
+  if (example.framework !== "solid" || !example.Component) return example
+  const renderId = `${Astro.locals.$id("solid")}-`
+  const html = renderHydratableSolid(
+    example.Component as unknown as Component,
+    renderId,
+  )
+  return { ...example, solid: { html, renderId } }
+})
 ---
 
 <!doctype html>
@@ -56,6 +65,7 @@ const examples = examplesFor(framework, component)
     <meta name="robots" content="noindex" />
     <title>{`${component} - ${framework}`}</title>
     <script is:inline type="importmap" set:html={importMap} />
+    {framework === "solid" && <Fragment set:html={generateHydrationScript()} />}
   </head>
   <body>
     <main>
@@ -74,14 +84,12 @@ const examples = examplesFor(framework, component)
           >
             <example.Component />
           </div>}
-          {example.framework === "solid" && example.Component && (
+          {"solid" in example && (
             <div
               class="preview-render"
               data-solid-example={`${component}/${example.name}`}
-              set:html={renderSolid(
-                example.Component as unknown as Component,
-                `${Astro.locals.$id("solid")}-`,
-              )}
+              data-solid-render-id={example.solid.renderId}
+              set:html={example.solid.html}
             />
           )}
           {example.framework === "svelte" && example.Component && <div

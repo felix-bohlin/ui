@@ -15,3 +15,6 @@ export const renderSolid = <P extends Record<string, unknown>>(
       }),
     { noScripts: true, renderId },
   )
+
+export const renderHydratableSolid = (Component: Component, renderId: string) =>
+  renderToString(() => createComponent(Component, {}), { renderId })

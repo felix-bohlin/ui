@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { createUniqueId, omit } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import "../../elements/number-field.js"
 import Button from "../Button/Button.solid"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
@@ -31,6 +31,11 @@ export default function NumberField(props: Props) {
     "label",
     "startText",
   )
+  const resolvedDecreaseIcon = children(() => props.decreaseIcon)
+  const resolvedEndText = children(() => props.endText)
+  const resolvedIncreaseIcon = children(() => props.increaseIcon)
+  const resolvedLabel = children(() => props.label)
+  const resolvedStartText = children(() => props.startText)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
   const decreaseLabel = () =>
@@ -39,8 +44,9 @@ export default function NumberField(props: Props) {
     props.increaseLabel === undefined ? "Increase" : props.increaseLabel
   const ids = () => createIds(uid, "number-field", props.id)
   const inputId = () => ids()()
-  const startTextId = () => (props.startText ? ids()("start-text") : undefined)
-  const endTextId = () => (props.endText ? ids()("end-text") : undefined)
+  const startTextId = () =>
+    resolvedStartText() ? ids()("start-text") : undefined
+  const endTextId = () => (resolvedEndText() ? ids()("end-text") : undefined)
 
   return (
     <opui-number-field
@@ -56,17 +62,17 @@ export default function NumberField(props: Props) {
       ]}
       style={props.style}
     >
-      {props.label && (
+      {resolvedLabel() && (
         <label
           class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
           for={inputId()}
         >
-          {props.label}
+          {resolvedLabel()}
         </label>
       )}{" "}
-      {props.startText && (
+      {resolvedStartText() && (
         <span class="ui-start-text" id={startTextId()}>
-          {props.startText}
+          {resolvedStartText()}
         </span>
       )}{" "}
       <span class="ui-field">
@@ -77,7 +83,7 @@ export default function NumberField(props: Props) {
             commandfor={inputId()}
             round
           >
-            {props.decreaseIcon === undefined ? (
+            {resolvedDecreaseIcon() === undefined ? (
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +94,7 @@ export default function NumberField(props: Props) {
                 <path fill="currentColor" d={minusPath} />
               </svg>
             ) : (
-              props.decreaseIcon
+              resolvedDecreaseIcon()
             )}
           </Button>
         </span>{" "}
@@ -112,7 +118,7 @@ export default function NumberField(props: Props) {
             commandfor={inputId()}
             round
           >
-            {props.increaseIcon === undefined ? (
+            {resolvedIncreaseIcon() === undefined ? (
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,14 +129,14 @@ export default function NumberField(props: Props) {
                 <path fill="currentColor" d={plusPath} />
               </svg>
             ) : (
-              props.increaseIcon
+              resolvedIncreaseIcon()
             )}
           </Button>
         </span>
       </span>{" "}
-      {props.endText && (
+      {resolvedEndText() && (
         <span class="ui-end-text" id={endTextId()}>
-          {props.endText}
+          {resolvedEndText()}
         </span>
       )}
     </opui-number-field>

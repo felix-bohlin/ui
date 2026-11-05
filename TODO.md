@@ -1431,6 +1431,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: Solid form controls reset to their starting state through a typed workaround until Solid renders the defaults on the server.
   - Recommended: Fix. Plain defaultValue and defaultChecked are what Solid's types ask for, once its server render stops printing them.
   - Fix: check each Solid RC: when `<input {...rest} defaultValue={value} />` renders only `value="..."` and `<input {...rest} defaultChecked />` only `checked` on the server, emit `defaultValue={untrack(() => props.value)}` and `defaultChecked={untrack(() => props.checked)}` from the solid value, checked and radio models and delete `defaultValueProp` and `defaultCheckedProp`.
+- [ ] (2) Package: Solid 2 hydrates one root per page: once the first `hydrate()` finishes it sets `_$HY.done`, and every later `hydrate()` renders from scratch over the server markup instead of claiming it. The fixture page therefore hydrates only the example `?hydrate=` names, and an app with several Solid islands on a page only hydrates the first (`src/components/Example/mount-solid-examples.ts:9-12`)
+  - Summary: A page with several Solid roots hydrates only the first and renders the others again on the client.
+  - Recommended: Fix. Solid may lift the limit before 2.0, and the test should cover every example per page once it does.
+  - Fix: check each Solid RC: when a second `hydrate()` on a page claims its server markup, hydrate every example on `?hydrate` and check them all in one page load in `tests/e2e/hydration.spec.ts`.
 
 ## Questions
 

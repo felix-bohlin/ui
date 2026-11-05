@@ -1,13 +1,14 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Divider(props: Props) {
   const rest = omit(props, "align", "class", "color", "variant", "children")
+  const resolvedChildren = children(() => props.children)
 
   return (
     <>
-      {props.children ? (
+      {resolvedChildren() ? (
         <div
           class={[
             "ui-divider",
@@ -22,7 +23,7 @@ export default function Divider(props: Props) {
           ]}
           {...(rest as object)}
         >
-          {props.children}
+          {resolvedChildren()}
         </div>
       ) : (
         <hr

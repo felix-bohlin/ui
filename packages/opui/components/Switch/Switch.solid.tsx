@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit, untrack } from "solid-js"
+import { children, omit, untrack } from "solid-js"
 import SwitchInput from "./SwitchInput.solid"
 import { hasName, warnUnnamed } from "../dev"
 import type { Props } from "./types.solid"
@@ -23,10 +23,14 @@ export default function Switch(props: Props) {
     "iconChecked",
     "iconUnchecked",
   )
+  const resolvedChildren = children(() => props.children)
+  const resolvedEndText = children(() => props.endText)
+  const resolvedIconChecked = children(() => props.iconChecked)
+  const resolvedIconUnchecked = children(() => props.iconUnchecked)
   untrack(() => {
     warnUnnamed(
       "Switch",
-      hasName({ ...rest, label: props.label }, props.children),
+      hasName({ ...rest, label: props.label }, resolvedChildren()),
     )
   })
 
@@ -47,27 +51,29 @@ export default function Switch(props: Props) {
       ]}
       style={props.style}
     >
-      {props.iconUnchecked && (
+      {resolvedIconUnchecked() && (
         <span class="ui-icon-unchecked" aria-hidden="true">
-          {props.iconUnchecked}
+          {resolvedIconUnchecked()}
         </span>
       )}{" "}
-      {props.iconChecked && (
+      {resolvedIconChecked() && (
         <span class="ui-icon-checked" aria-hidden="true">
-          {props.iconChecked}
+          {resolvedIconChecked()}
         </span>
       )}{" "}
       <SwitchInput
         {...rest}
         aria-invalid={props.error ? "true" : props["aria-invalid"]}
       />{" "}
-      {(props.label || props.children) && (
+      {(props.label || resolvedChildren()) && (
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
           {props.label}
-          {props.children}
+          {resolvedChildren()}
         </span>
       )}{" "}
-      {props.endText && <span class="ui-end-text">{props.endText}</span>}
+      {resolvedEndText() && (
+        <span class="ui-end-text">{resolvedEndText()}</span>
+      )}
     </label>
   )
 }

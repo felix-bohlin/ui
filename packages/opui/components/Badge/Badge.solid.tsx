@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import Anchor from "../Anchor/Anchor.solid"
 import AnchorContent from "../Anchor/AnchorContent.solid"
 import type { Props } from "./types.solid"
@@ -17,6 +17,7 @@ export default function Badge(props: Props) {
     "children",
     "indicator",
   )
+  const resolvedIndicator = children(() => props.indicator)
   const hidden = () => props.dot || props.hideLabel
 
   return (
@@ -35,14 +36,14 @@ export default function Badge(props: Props) {
         <span class="ui-indicator">
           {hidden() && (
             <>
-              {!props.dot && props.indicator && (
-                <span aria-hidden="true">{props.indicator}</span>
+              {!props.dot && resolvedIndicator() && (
+                <span aria-hidden="true">{resolvedIndicator()}</span>
               )}
               {props.label && <span class="ui-sr-only">{props.label}</span>}
             </>
           )}
           {hidden() ? undefined : props.label}
-          {!hidden() && props.indicator}
+          {!hidden() && resolvedIndicator()}
         </span>
       </AnchorContent>
     </Anchor>

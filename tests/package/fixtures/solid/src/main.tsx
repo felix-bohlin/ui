@@ -1,5 +1,5 @@
 import "opui-css/css/imports.css"
-import { render } from "@solidjs/web"
+import { hydrate } from "@solidjs/web"
 import App from "./App"
 
-render(() => <App />, document.getElementById("app")!)
+hydrate(() => <App />, document.getElementById("app")!)

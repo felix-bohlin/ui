@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { omit, Show } from "solid-js"
+import { children, omit, Show } from "solid-js"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.solid"
 
@@ -23,6 +23,11 @@ export default function ListItem(props: Props) {
     "start",
     "submenu",
   )
+  const resolvedChildren = children(() => props.children)
+  const resolvedDescription = children(() => props.description)
+  const resolvedEnd = children(() => props.end)
+  const resolvedLabel = children(() => props.label)
+  const resolvedStart = children(() => props.start)
   const hasControl = () =>
     props.type === "checkbox" ||
     props.type === "radio" ||
@@ -31,8 +36,8 @@ export default function ListItem(props: Props) {
     hasControl() ? "label" : (props.as ?? (props.href ? "a" : undefined))
   const Tag = dynamic(tag)
   const restOnItem = () => hasControl() || !tag()
-  const hasLabel = () => !!props.label || props.label
-  const hasDescription = () => !!props.description || props.description
+  const hasLabel = () => !!resolvedLabel() || resolvedLabel()
+  const hasDescription = () => !!resolvedDescription() || resolvedDescription()
 
   return (
     <li
@@ -48,17 +53,17 @@ export default function ListItem(props: Props) {
           when={tag()}
           fallback={
             <>
-              {props.start && <div class="ui-start">{props.start}</div>}
+              {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
               {hasLabel() || hasDescription() ? (
                 <div class="ui-text">
-                  {hasLabel() && <p>{props.label}</p>}
-                  {hasDescription() && <p>{props.description}</p>}
-                  {props.children}
+                  {hasLabel() && <p>{resolvedLabel()}</p>}
+                  {hasDescription() && <p>{resolvedDescription()}</p>}
+                  {resolvedChildren()}
                 </div>
               ) : (
-                props.children
+                resolvedChildren()
               )}
-              {props.end && <div class="ui-end">{props.end}</div>}
+              {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
             </>
           }
         >
@@ -71,17 +76,17 @@ export default function ListItem(props: Props) {
                 : tagAttrs(tag(), props.disabled, props.href))}
               {...(restOnItem() ? {} : (rest as object))}
             >
-              {props.start && <div class="ui-start">{props.start}</div>}
+              {resolvedStart() && <div class="ui-start">{resolvedStart()}</div>}
               {hasLabel() || hasDescription() ? (
                 <div class="ui-text">
-                  {hasLabel() && <p>{props.label}</p>}
-                  {hasDescription() && <p>{props.description}</p>}
-                  {props.children}
+                  {hasLabel() && <p>{resolvedLabel()}</p>}
+                  {hasDescription() && <p>{resolvedDescription()}</p>}
+                  {resolvedChildren()}
                 </div>
               ) : (
-                props.children
+                resolvedChildren()
               )}
-              {props.end && <div class="ui-end">{props.end}</div>}
+              {resolvedEnd() && <div class="ui-end">{resolvedEnd()}</div>}
             </Tag>
           )}
         </Show>

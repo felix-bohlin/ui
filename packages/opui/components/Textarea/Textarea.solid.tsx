@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import "../../elements/character-count.js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { defaultValueProp } from "../solid"
@@ -30,6 +30,13 @@ export default function Textarea(props: Props) {
     "startText",
     "top",
   )
+  const resolvedBottom = children(() => props.bottom)
+  const resolvedEnd = children(() => props.end)
+  const resolvedEndText = children(() => props.endText)
+  const resolvedLabel = children(() => props.label)
+  const resolvedStart = children(() => props.start)
+  const resolvedStartText = children(() => props.startText)
+  const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
 
   return (
@@ -46,12 +53,14 @@ export default function Textarea(props: Props) {
       ]}
       style={props.style}
     >
-      {props.label && (
+      {resolvedLabel() && (
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
-          {props.label}
+          {resolvedLabel()}
         </span>
       )}{" "}
-      {props.startText && <span class="ui-start-text">{props.startText}</span>}{" "}
+      {resolvedStartText() && (
+        <span class="ui-start-text">{resolvedStartText()}</span>
+      )}{" "}
       <span class="ui-field">
         <textarea
           {...rest}
@@ -60,14 +69,14 @@ export default function Textarea(props: Props) {
           name={props.name ?? field?.name}
           {...defaultValueProp(() => props.value)}
         />{" "}
-        {props.start && <span class="ui-start">{props.start}</span>}{" "}
-        {props.end && <span class="ui-end">{props.end}</span>}{" "}
-        {props.top && <span class="ui-top">{props.top}</span>}{" "}
-        {props.bottom && <span class="ui-bottom">{props.bottom}</span>}
+        {resolvedStart() && <span class="ui-start">{resolvedStart()}</span>}{" "}
+        {resolvedEnd() && <span class="ui-end">{resolvedEnd()}</span>}{" "}
+        {resolvedTop() && <span class="ui-top">{resolvedTop()}</span>}{" "}
+        {resolvedBottom() && <span class="ui-bottom">{resolvedBottom()}</span>}
       </span>{" "}
-      {(props.endText || props.characterCount) && (
+      {(resolvedEndText() || props.characterCount) && (
         <span class="ui-end-text">
-          {props.endText}
+          {resolvedEndText()}
           {props.characterCount && (
             <opui-character-count
               aria-hidden="true"

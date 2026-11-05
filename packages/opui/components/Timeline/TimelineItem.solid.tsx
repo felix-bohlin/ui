@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import type { TimelineItemProps as Props } from "./types.solid"
 
 export default function TimelineItem(props: Props) {
@@ -16,6 +16,8 @@ export default function TimelineItem(props: Props) {
     "label",
     "marker",
   )
+  const resolvedLabel = children(() => props.label)
+  const resolvedMarker = children(() => props.marker)
   const headingLevel = () =>
     props.headingLevel === undefined ? 3 : props.headingLevel
   const heading = () => `h${headingLevel()}` as "h2" | "h3" | "h4" | "h5" | "h6"
@@ -29,9 +31,9 @@ export default function TimelineItem(props: Props) {
       class={[props.color && `ui-${props.color}`, props.class]}
       {...rest}
     >
-      {props.marker && <span class="ui-marker">{props.marker}</span>}{" "}
+      {resolvedMarker() && <span class="ui-marker">{resolvedMarker()}</span>}{" "}
       {props.time && <time datetime={props.datetime}>{props.time}</time>}
-      {props.label && <Heading class="ui-h6">{props.label}</Heading>}
+      {resolvedLabel() && <Heading class="ui-h6">{resolvedLabel()}</Heading>}
       {props.children}
     </li>
   )

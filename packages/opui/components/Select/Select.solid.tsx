@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { createUniqueId, omit } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import type { SelectItem } from "./types"
 import { createIds, idRefs } from "../id"
@@ -33,6 +33,13 @@ export default function Select(props: Props) {
     "startText",
     "top",
   )
+  const resolvedBottom = children(() => props.bottom)
+  const resolvedEnd = children(() => props.end)
+  const resolvedEndText = children(() => props.endText)
+  const resolvedLabel = children(() => props.label)
+  const resolvedStart = children(() => props.start)
+  const resolvedStartText = children(() => props.startText)
+  const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
   const items = () => (props.items === undefined ? [] : props.items)
@@ -42,10 +49,11 @@ export default function Select(props: Props) {
   const SelectedContent = dynamic(selectedContent)
   const ids = () => createIds(uid, "select", props.id)
   const labelId = () => ids()("label")
-  const startTextId = () => (props.startText ? ids()("start-text") : undefined)
-  const endTextId = () => (props.endText ? ids()("end-text") : undefined)
-  const topId = () => (props.top ? ids()("top") : undefined)
-  const bottomId = () => (props.bottom ? ids()("bottom") : undefined)
+  const startTextId = () =>
+    resolvedStartText() ? ids()("start-text") : undefined
+  const endTextId = () => (resolvedEndText() ? ids()("end-text") : undefined)
+  const topId = () => (resolvedTop() ? ids()("top") : undefined)
+  const bottomId = () => (resolvedBottom() ? ids()("bottom") : undefined)
   const describedBy = () =>
     idRefs(
       topId(),
@@ -75,17 +83,17 @@ export default function Select(props: Props) {
       ]}
       style={props.style}
     >
-      {props.label && (
+      {resolvedLabel() && (
         <span
           class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
           id={labelId()}
         >
-          {props.label}
+          {resolvedLabel()}
         </span>
       )}{" "}
-      {props.startText && (
+      {resolvedStartText() && (
         <span class="ui-start-text" id={startTextId()}>
-          {props.startText}
+          {resolvedStartText()}
         </span>
       )}{" "}
       <span class="ui-field">
@@ -93,7 +101,9 @@ export default function Select(props: Props) {
           {...rest}
           aria-describedby={describedBy()}
           aria-invalid={props.error ? "true" : props["aria-invalid"]}
-          aria-labelledby={props.label ? labelId() : props["aria-labelledby"]}
+          aria-labelledby={
+            resolvedLabel() ? labelId() : props["aria-labelledby"]
+          }
           id={props.id}
           name={props.name ?? field?.name}
         >
@@ -112,22 +122,22 @@ export default function Select(props: Props) {
             {props.children}
           </div>
         </select>{" "}
-        {props.start && <span class="ui-start">{props.start}</span>}{" "}
-        {props.end && <span class="ui-end">{props.end}</span>}{" "}
-        {props.top && (
+        {resolvedStart() && <span class="ui-start">{resolvedStart()}</span>}{" "}
+        {resolvedEnd() && <span class="ui-end">{resolvedEnd()}</span>}{" "}
+        {resolvedTop() && (
           <span class="ui-top" id={topId()}>
-            {props.top}
+            {resolvedTop()}
           </span>
         )}{" "}
-        {props.bottom && (
+        {resolvedBottom() && (
           <span class="ui-bottom" id={bottomId()}>
-            {props.bottom}
+            {resolvedBottom()}
           </span>
         )}
       </span>{" "}
-      {props.endText && (
+      {resolvedEndText() && (
         <span id={endTextId()} class="ui-end-text">
-          {props.endText}
+          {resolvedEndText()}
         </span>
       )}
     </label>

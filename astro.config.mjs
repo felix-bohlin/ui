@@ -99,7 +99,11 @@ export default defineConfig({
     optimizeDeps: { exclude: ["microlighter"] },
     resolve: { external: ["oxfmt"] },
     plugins: [
-      solid({ include: [/\.solid\.tsx$/], refresh: false }),
+      solid({
+        include: [/\.solid\.tsx$/],
+        refresh: false,
+        solid: { hydratable: true },
+      }),
       {
         name: "opui-no-react-refresh",
         enforce: "post",

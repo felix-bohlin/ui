@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit, untrack } from "solid-js"
+import { children, omit, untrack } from "solid-js"
 import { useFieldGroupContext } from "../FieldGroup/context.solid"
 import { useToggleGroupContext } from "../ToggleGroup/context.solid"
 import { isSelected } from "../ToggleGroup/selection"
@@ -21,6 +21,7 @@ export default function ToggleButton(props: Props) {
     "value",
     "children",
   )
+  const resolvedChildren = children(() => props.children)
   const field = useFieldGroupContext()
   const group = useToggleGroupContext()
   const finalName = () => props.name || group?.groupName || field?.name
@@ -51,7 +52,7 @@ export default function ToggleButton(props: Props) {
           callHandler(props.onChange, event)
         }}
       />{" "}
-      {props.children === undefined ? props.label : props.children}
+      {resolvedChildren() === undefined ? props.label : resolvedChildren()}
     </label>
   )
 }

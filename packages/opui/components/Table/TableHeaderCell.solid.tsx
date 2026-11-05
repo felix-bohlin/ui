@@ -1,9 +1,10 @@
 /** @jsxImportSource @solidjs/web */
-import { omit } from "solid-js"
+import { children, omit } from "solid-js"
 import type { TableHeaderCellProps as Props } from "./types.solid"
 
 export default function TableHeaderCell(props: Props) {
   const rest = omit(props, "class", "numeric", "sortable", "children")
+  const resolvedChildren = children(() => props.children)
 
   return (
     <th
@@ -12,9 +13,9 @@ export default function TableHeaderCell(props: Props) {
       {...rest}
     >
       {props.sortable ? (
-        <button type="button">{props.children}</button>
+        <button type="button">{resolvedChildren()}</button>
       ) : (
-        props.children
+        resolvedChildren()
       )}
     </th>
   )

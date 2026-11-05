@@ -1,5 +1,5 @@
 /** @jsxImportSource @solidjs/web */
-import { omit, untrack } from "solid-js"
+import { children, omit, untrack } from "solid-js"
 import Button from "../Button/Button.solid"
 import { useDrawerContext } from "./context.solid"
 import { warnMissingTarget } from "../dev"
@@ -15,6 +15,7 @@ export default function DrawerHeader(props: Props) {
     "children",
     "closeIcon",
   )
+  const resolvedCloseIcon = children(() => props.closeIcon)
   const drawer = useDrawerContext()
   const closeLabel = () =>
     props.closeLabel === undefined ? "Close" : props.closeLabel
@@ -33,7 +34,7 @@ export default function DrawerHeader(props: Props) {
         round
         size="small"
       >
-        {props.closeIcon === undefined ? (
+        {resolvedCloseIcon() === undefined ? (
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +45,7 @@ export default function DrawerHeader(props: Props) {
             <path fill="currentColor" d={closePath} />
           </svg>
         ) : (
-          props.closeIcon
+          resolvedCloseIcon()
         )}
       </Button>
     </div>

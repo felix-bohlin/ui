@@ -1,6 +1,6 @@
 /** @jsxImportSource @solidjs/web */
 import { dynamic } from "@solidjs/web"
-import { createUniqueId, omit } from "solid-js"
+import { children, createUniqueId, omit } from "solid-js"
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
 import Button from "../Button/Button.solid"
@@ -43,6 +43,15 @@ export default function TextField(props: Props) {
     "startText",
     "top",
   )
+  const resolvedBottom = children(() => props.bottom)
+  const resolvedEnd = children(() => props.end)
+  const resolvedEndText = children(() => props.endText)
+  const resolvedIconChecked = children(() => props.iconChecked)
+  const resolvedIconUnchecked = children(() => props.iconUnchecked)
+  const resolvedLabel = children(() => props.label)
+  const resolvedStart = children(() => props.start)
+  const resolvedStartText = children(() => props.startText)
+  const resolvedTop = children(() => props.top)
   const field = useFieldGroupContext()
   const uid = createUniqueId()
   const passwordToggleLabel = () =>
@@ -55,8 +64,8 @@ export default function TextField(props: Props) {
   const Root = dynamic(root)
   const labelTag = () => (props.passwordToggle ? "label" : "span")
   const Label = dynamic(labelTag)
-  const hasStartText = () => Boolean(props.startText)
-  const hasEndText = () => Boolean(props.endText || props.characterCount)
+  const hasStartText = () => Boolean(resolvedStartText())
+  const hasEndText = () => Boolean(resolvedEndText() || props.characterCount)
   const inputId = () => (props.passwordToggle ? ids()() : props.id)
   const startTextId = () =>
     props.passwordToggle && hasStartText() ? ids()("start-text") : undefined
@@ -77,17 +86,17 @@ export default function TextField(props: Props) {
       ]}
       style={props.style}
     >
-      {props.label && (
+      {resolvedLabel() && (
         <Label
           class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}
           for={props.passwordToggle ? inputId() : undefined}
         >
-          {props.label}
+          {resolvedLabel()}
         </Label>
       )}{" "}
       {hasStartText() && (
         <span class="ui-start-text" id={startTextId()}>
-          {props.startText}
+          {resolvedStartText()}
         </span>
       )}{" "}
       <span class="ui-field">
@@ -110,10 +119,10 @@ export default function TextField(props: Props) {
           type={type() === "numeric" ? "text" : type()}
           {...defaultValueProp(() => props.value)}
         />{" "}
-        {props.start && <span class="ui-start">{props.start}</span>}{" "}
-        {(props.end || props.passwordToggle) && (
+        {resolvedStart() && <span class="ui-start">{resolvedStart()}</span>}{" "}
+        {(resolvedEnd() || props.passwordToggle) && (
           <span class="ui-end">
-            {props.end}
+            {resolvedEnd()}
             {props.passwordToggle && (
               <Button
                 aria-label={passwordToggleLabel()}
@@ -122,9 +131,9 @@ export default function TextField(props: Props) {
                 commandfor={inputId()}
                 round
               >
-                {props.iconUnchecked ? (
+                {resolvedIconUnchecked() ? (
                   <span aria-hidden="true" class="ui-icon-unchecked">
-                    {props.iconUnchecked}
+                    {resolvedIconUnchecked()}
                   </span>
                 ) : (
                   <svg
@@ -138,9 +147,9 @@ export default function TextField(props: Props) {
                     <path fill="currentColor" d={showPath} />
                   </svg>
                 )}
-                {props.iconChecked ? (
+                {resolvedIconChecked() ? (
                   <span aria-hidden="true" class="ui-icon-checked">
-                    {props.iconChecked}
+                    {resolvedIconChecked()}
                   </span>
                 ) : (
                   <svg
@@ -158,12 +167,12 @@ export default function TextField(props: Props) {
             )}
           </span>
         )}{" "}
-        {props.top && <span class="ui-top">{props.top}</span>}{" "}
-        {props.bottom && <span class="ui-bottom">{props.bottom}</span>}
+        {resolvedTop() && <span class="ui-top">{resolvedTop()}</span>}{" "}
+        {resolvedBottom() && <span class="ui-bottom">{resolvedBottom()}</span>}
       </span>{" "}
       {hasEndText() && (
         <span class="ui-end-text" id={endTextId()}>
-          {props.endText}
+          {resolvedEndText()}
           {props.characterCount && (
             <opui-character-count
               aria-hidden="true"

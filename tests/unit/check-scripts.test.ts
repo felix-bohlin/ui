@@ -928,6 +928,22 @@ describe("check-components", () => {
       checkSolidProps(
         "Badge.solid.tsx",
         solid(
+          '  const rest = omit(props, "class", "children")\n  return props.children && <span {...rest}>{props.children}</span>',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("reads props.children 2 times")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "children")\n  const resolvedChildren = children(() => props.children)\n  return resolvedChildren() && <span {...rest}>{resolvedChildren()}</span>',
+        ),
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
           '  const rest = omit(props, "class")\n  return <span {...(rest as object)} />',
         ),
       ),

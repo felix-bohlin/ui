@@ -11,6 +11,7 @@ import {
   computed,
   FRAMEWORKS,
   hasExample,
+  HYDRATED,
   needs,
   openFixture,
   resolveColor,
@@ -38,12 +39,19 @@ const interaction = (
     throw new Error(`no ${component}/${name} example in any framework`)
   }
   for (const framework of available) {
-    test(`${framework} ${title}`, async ({ page }) => {
-      await openFixture(page, framework, component)
-      const root = page.locator(`[data-example="${name}"]`)
-      await expect(root, `${framework} ${component}/${name}`).toHaveCount(1)
-      await run({ framework, page, root })
-    })
+    const modes = HYDRATED.includes(framework)
+      ? ["", `?hydrate=${component}/${name}`]
+      : [""]
+    for (const search of modes) {
+      test(`${framework}${search ? " hydrated" : ""} ${title}`, async ({
+        page,
+      }) => {
+        await openFixture(page, framework, component, search)
+        const root = page.locator(`[data-example="${name}"]`)
+        await expect(root, `${framework} ${component}/${name}`).toHaveCount(1)
+        await run({ framework, page, root })
+      })
+    }
   }
 }
 

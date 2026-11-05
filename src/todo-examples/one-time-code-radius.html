@@ -28,7 +28,7 @@
     --_box-end: calc(var(--_cell-size) * 0.875);
     --_box-radius: min(
       var(--ui-field-radius, var(--ui-radius)),
-      var(--_cell-size) * 0.25
+      var(--_cell-size) * 0.25 - 0.5px
     );
     --_box-start: calc(var(--_cell-size) * 0.125);
 
@@ -60,8 +60,8 @@
             oklch(0 0 0) 0 var(--_box-end),
             transparent 0
           )
-          0 var(--_box-radius) / var(--_cell-size)
-          calc(100% - 2 * var(--_box-radius)) repeat-x add,
+          0 calc(var(--_box-radius) - 1px) / var(--_cell-size)
+          calc(100% - 2 * var(--_box-radius) + 2px) repeat-x add,
         linear-gradient(
             oklch(0 0 0) var(--_box-radius),
             transparent 0 calc(100% - var(--_box-radius)),
@@ -143,14 +143,17 @@
   with <code>rx='8'</code> and a stroke clipped to 1px (2px with focus), so they
   keep the default look in every row. The right column draws the same boxes from
   gradient mask layers instead, sized by <code>--ui-field-radius</code> (else
-  <code>--ui-radius</code>, capped at a third of the box, past which the corner
-  rings would reach into the next corner) and
-  <code>--ui-field-border-width</code>: per cell a top, a bottom and the two
-  side edges as linear gradients, and the four corner arcs as radial-gradient
-  rings cut to the corners by two more gradients with
+  <code>--ui-radius</code>, capped half a pixel under a third of the box, past
+  which a corner's ring would reach into the next corner and show as a faint
+  tick there) and <code>--ui-field-border-width</code>: per cell a top, a bottom
+  and the two side edges as linear gradients, and the four corner arcs as
+  radial-gradient rings cut to the corners by two more gradients with
   <code>mask-composite: intersect</code>, nine layers repeated along the row
-  like the SVG is today. The slot box behind the next empty cell becomes a real
-  border with that radius. Tab into a code to see the focus state.
+  like the SVG is today. The side edges start 1px inside the corners, since
+  Chromium snaps a mask layer's position to whole pixels and a fractional radius
+  would otherwise leave a notch where a side meets its corner. The slot box
+  behind the next empty cell becomes a real border with that radius. Tab into a
+  code to see the focus state.
 </p>
 <div class="todo-compare">
   <section class="todo-current">

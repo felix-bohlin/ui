@@ -2,7 +2,12 @@ import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { FRAMEWORK_IDS } from "../../src/utils/framework"
-import { computed, instantScrolling, resolveColor } from "./fixtures"
+import {
+  computed,
+  instantScrolling,
+  resolveColor,
+  stubExternalHosts,
+} from "./fixtures"
 
 const pages = (directory: string, prefix = "/html") =>
   readdirSync(new URL(`../../src/docs/${directory}/`, import.meta.url))
@@ -22,7 +27,10 @@ const DOCS_PAGES = [
   ...pages("guide"),
 ].toSorted()
 
-test.beforeEach(({ page }) => instantScrolling(page))
+test.beforeEach(async ({ page }) => {
+  await instantScrolling(page)
+  await stubExternalHosts(page)
+})
 
 const visiblePicker = (page: Page) =>
   page.locator(".framework-picker select").filter({ visible: true }).first()

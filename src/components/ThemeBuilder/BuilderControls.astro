@@ -122,6 +122,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
 <script>
   import { syncBrandPicker } from "../../utils/brand-picker"
+  import { probeColors } from "../../utils/color-probe"
   import {
     colorToOklch,
     formatOklch,
@@ -223,15 +224,6 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     let frame = 0
     let room = ""
 
-    const hosts = (["light", "dark"] as const).map((scheme) => {
-      const host = document.createElement("div")
-      host.className = `ui-${scheme}`
-      host.hidden = true
-      host.style.color = "transparent"
-      host.style.forcedColorAdjust = "none"
-      root.append(host)
-      return host
-    })
     const lengthProbe = document.createElement("div")
     lengthProbe.hidden = true
     lengthProbe.style.forcedColorAdjust = "none"
@@ -250,20 +242,16 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     }
 
     const resolveColors = (expressions: string[]) => {
-      for (const host of hosts) {
-        host.replaceChildren(
-          ...expressions.map((expression) => {
-            const probe = document.createElement("div")
-            probe.style.color = `oklch(from ${expression} l c h / alpha)`
-            return probe
-          }),
-        )
-      }
-      const resolved = hosts.map((host) =>
-        [...host.children].map((probe) =>
-          toColor(getComputedStyle(probe).color),
-        ),
+      const colors = expressions.map(
+        (expression) => `oklch(from ${expression} l c h / alpha)`,
       )
+      const resolved = probeColors(
+        root,
+        (["light", "dark"] as const).map((scheme) => ({
+          className: `ui-${scheme}`,
+          colors,
+        })),
+      ).map((mode) => mode.map(toColor))
       return new Map(
         expressions.map((expression, index) => [
           expression,

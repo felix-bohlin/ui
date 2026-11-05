@@ -10,9 +10,17 @@ export const todoExamples = {
   "accordion-marker": {
     match: "Accordion: the summary hides its marker three ways",
   },
+  "astro-raw-issue": {
+    match:
+      "Tooling: on the first request after `astro dev` starts, Astro's CSS collector",
+  },
   "button-group-rtl-dividers": {
     match:
       "ButtonGroup: in right-to-left, filled and tonal groups lose the dividers",
+  },
+  "callout-dismiss": {
+    match:
+      "Callout: a close button in a callout only takes its place at the end of the first row",
   },
   "card-content-padding": {
     match:
@@ -75,6 +83,9 @@ export const todoExamples = {
   "tabs-rtl": {
     match: "Tabs: the Keyboard support list says Right and Left Arrow",
   },
+  "tabs-vertical-links": {
+    match: "Tabs: there are no vertical tabs and no tabs made of links",
+  },
   "text-field-affix-target": {
     match:
       "TextField: buttons in a small or x-small field's `.ui-start` or `.ui-end` are under 24 by 24 CSS pixels",
@@ -88,6 +99,9 @@ export const todoExamples = {
   },
   "typography-marker-safari": {
     match: "Typography: the `marker` chip shows Safari as unsupported",
+  },
+  "vue-select-comment": {
+    match: "Select: in `vite dev` and `nuxi dev`, the Vue compiler warns",
   },
 }
 

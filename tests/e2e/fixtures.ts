@@ -84,6 +84,15 @@ export const instantScrolling = (page: Page) =>
     })
   })
 
+export const stubExternalHosts = (page: Page) =>
+  page.route(
+    (url) => url.hostname !== "localhost",
+    (route) =>
+      route.request().resourceType() === "image"
+        ? route.fulfill({ body: PIXEL, contentType: "image/png" })
+        : route.abort(),
+  )
+
 export const openFixture = async (
   page: Page,
   framework: Framework,
@@ -95,13 +104,7 @@ export const openFixture = async (
   page.on("request", (request) => inflight.add(request))
   page.on("requestfailed", (request) => inflight.delete(request))
   page.on("requestfinished", (request) => inflight.delete(request))
-  await page.route(
-    (url) => url.hostname !== "localhost",
-    (route) =>
-      route.request().resourceType() === "image"
-        ? route.fulfill({ body: PIXEL, contentType: "image/png" })
-        : route.abort(),
-  )
+  await stubExternalHosts(page)
   await page.goto(
     (component.startsWith("blocks/")
       ? `/${component}/preview/`

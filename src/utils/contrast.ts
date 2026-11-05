@@ -1,3 +1,4 @@
+import { probeColors } from "./color-probe"
 import type { Theme } from "./theme"
 import { contrastRatio } from "./theme-brand"
 import {
@@ -211,40 +212,29 @@ export const resolveColors = (
   sets: { colors: string[]; unset?: string[] }[],
   modes: ContrastMode[],
 ) => {
-  const document = root.ownerDocument
-  const hosts = sets.map(({ colors, unset = [] }) =>
-    modes.map(({ contrast, scheme }) => {
-      const host = document.createElement("div")
-      host.className = `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`
-      host.hidden = true
-      host.style.color = "transparent"
-      host.style.setProperty("forced-color-adjust", "none")
-      for (const name of unset) host.style.setProperty(name, "initial")
-      host.append(
-        ...colors.map((color) => {
-          const probe = document.createElement("div")
-          probe.style.color = `color(from ${color} srgb r g b / alpha)`
-          return probe
-        }),
-      )
-      return host
-    }),
+  const values = probeColors(
+    root,
+    sets.flatMap(({ colors, unset = [] }) =>
+      modes.map(({ contrast, scheme }) => ({
+        className: `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`,
+        colors: colors.map(
+          (color) => `color(from ${color} srgb r g b / alpha)`,
+        ),
+        unset,
+      })),
+    ),
   )
-  root.append(...hosts.flat())
-  const view = document.defaultView!
-  const resolved = hosts.map((row, set) =>
-    row.map(
-      (host) =>
+  return sets.map(({ colors }, set) =>
+    modes.map(
+      (_, mode) =>
         new Map(
-          sets[set].colors.map((color, index) => [
+          colors.map((color, index) => [
             color,
-            parseSrgb(view.getComputedStyle(host.children[index]).color),
+            parseSrgb(values[set * modes.length + mode][index]),
           ]),
         ),
     ),
   )
-  for (const host of hosts.flat()) host.remove()
-  return resolved
 }
 
 export const checkPromises = (

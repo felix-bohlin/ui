@@ -1,0 +1,156 @@
+<p class="todo-note">
+  Both callouts close and come back the same way. A is today's Dismissible
+  example: the app's click handler hides the callout, shows a button in its
+  place and moves the focus there. B is a prototype of option B as the package
+  would build it, like <code>opui-copy</code> with <code>--copy</code>: a custom
+  element root that hides itself when a button inside sends
+  <code>command="--dismiss"</code> to it, after a cancelable
+  <code>dismiss</code> event. The close button needs no handler of its own, but
+  the page still listens for <code>dismiss</code> to move the focus, which would
+  otherwise fall to the body, and to remember the choice, here for as long as
+  the page stays open.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">A: the app's handler</p>
+    <article class="ui-callout ui-info" id="todo-callout-a">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path>
+      </svg>
+      <div class="ui-content">
+        The new editor is on for everyone. Your drafts from the old one are in
+        Settings.
+      </div>
+      <button
+        class="ui-button ui-round ui-small"
+        type="button"
+        aria-label="Dismiss"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          ></path>
+        </svg>
+      </button>
+    </article>
+    <button
+      class="ui-button ui-outlined"
+      hidden
+      id="todo-callout-a-show"
+      type="button"
+    >
+      Show the callout again
+    </button>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">B: a <code>--dismiss</code> command</p>
+    <todo-callout class="ui-callout ui-info" id="todo-callout-b">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path>
+      </svg>
+      <div class="ui-content">
+        The new editor is on for everyone. Your drafts from the old one are in
+        Settings.
+      </div>
+      <button
+        class="ui-button ui-round ui-small"
+        type="button"
+        aria-label="Dismiss"
+        command="--dismiss"
+        commandfor="todo-callout-b"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          ></path>
+        </svg>
+      </button>
+    </todo-callout>
+    <button
+      class="ui-button ui-outlined"
+      hidden
+      id="todo-callout-b-show"
+      type="button"
+    >
+      Show the callout again
+    </button>
+  </section>
+</div>
+<style>
+  .todo-compare [hidden] {
+    display: none;
+  }
+</style>
+<script>
+  const calloutA = document.getElementById("todo-callout-a")
+  const closeA = calloutA.querySelector(":scope > .ui-button")
+  const showA = document.getElementById("todo-callout-a-show")
+  closeA.addEventListener("click", () => {
+    calloutA.hidden = true
+    showA.hidden = false
+    showA.focus()
+  })
+  showA.addEventListener("click", () => {
+    showA.hidden = true
+    calloutA.hidden = false
+    closeA.focus()
+  })
+
+  customElements.define(
+    "todo-callout",
+    class extends HTMLElement {
+      connectedCallback() {
+        this.addEventListener("command", (event) => {
+          if (event.command !== "--dismiss") return
+          if (this.dispatchEvent(new Event("dismiss", { cancelable: true }))) {
+            this.hidden = true
+          }
+        })
+      }
+    },
+  )
+
+  const calloutB = document.getElementById("todo-callout-b")
+  const showB = document.getElementById("todo-callout-b-show")
+  calloutB.addEventListener("dismiss", () => {
+    showB.hidden = false
+    showB.focus()
+  })
+  showB.addEventListener("click", () => {
+    showB.hidden = true
+    calloutB.hidden = false
+    calloutB.querySelector("[command]").focus()
+  })
+</script>

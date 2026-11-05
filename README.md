@@ -22,17 +22,18 @@ The project is managed as a monorepo with two main parts:
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
   - `bin/`: The `opui-css` command, which copies the agent skill into a project.
-  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Solid, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.solid.tsx`, `Button.svelte`, `Button.vue`) and their types.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
   - `react/`: Public entry point and barrel exports for React-based projects.
   - `scripts/`: The build that writes the pre-bundled files to `dist/`.
+  - `solid/`: Public entry point and barrel exports for Solid-based projects.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
   - `svelte/`: Public entry point and barrel exports for Svelte-based projects.
   - `vue/`: Public entry point and barrel exports for Vue-based projects.
 - **The Documentation Site (`src/`)**: The Astro site.
   - `src/component-api/`: API table data for each component (`api.ts`).
-  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.react.tsx`, `.svelte`, `.vue`), shown on the docs pages and used by the parity tests.
+  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.react.tsx`, `.solid.tsx`, `.svelte`, `.vue`), shown on the docs pages and used by the parity tests.
   - `src/components/`, `src/layouts/`: Docs site components and page layouts.
   - `src/docs/`: Page content for the blog, components and guide sections.
   - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
@@ -60,7 +61,7 @@ Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=
 
 Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`. The `history` CI job fails on a pull request that adds to either unless one of its commits has the trailer `Ledger-Change: intended` (`scripts/check-ratchets.mjs`).
 
-`pnpm test:package` (part of `pnpm check`) runs `npm pack` in `packages/opui`, checks what the tarball ships, the layer order at the top of `dist/opui.css`, that `dist/op.css` has no palette and that every `opui-css/...` import in the package README resolves in the tarball, then copies each fixture in `tests/package/fixtures/` (Astro, React, Svelte, Vue) to a temporary folder, unpacks the tarball into its `node_modules/opui-css` and runs the framework's type checker (`astro check`, `tsc`, `svelte-check`, `vue-tsc`) and its build. The fixtures are workspace packages, so `pnpm install` installs their dependencies and the test runs without network access. To try a fixture by hand against the workspace package, run `pnpm --dir tests/package/fixtures/react exec vite build` (or `astro check`, `svelte-check`, `vue-tsc --noEmit`).
+`pnpm test:package` (part of `pnpm check`) runs `npm pack` in `packages/opui`, checks what the tarball ships, the layer order at the top of `dist/opui.css`, that `dist/op.css` has no palette and that every `opui-css/...` import in the package README resolves in the tarball, then copies each fixture in `tests/package/fixtures/` (Astro, React, Solid, Svelte, Vue) to a temporary folder, unpacks the tarball into its `node_modules/opui-css` and runs the framework's type checker (`astro check`, `tsc`, `svelte-check`, `vue-tsc`) and its build, and for Solid also a server render that checks the hydration keys. The fixtures are workspace packages, so `pnpm install` installs their dependencies and the test runs without network access. To try a fixture by hand against the workspace package, run `pnpm --dir tests/package/fixtures/react exec vite build` (or `astro check`, `svelte-check`, `vue-tsc --noEmit`).
 
 `pnpm test:apps` checks the package in real apps: Next.js, Nuxt and SvelteKit, and the Vite starters for React, Solid, Svelte and Vue. `tests/apps` is its own pnpm workspace with its own lockfile, so the root install never downloads the frameworks. `tests/apps/prepare.ts` packs `packages/opui` with `pnpm pack` (or fetches a published version with `OPUI_VERSION=<version>`), installs the apps, unpacks the tarball into each app's `node_modules/opui-css`, copies every React, Solid, Svelte or Vue example from `src/component-examples` into it with one route per component, then type-checks and builds each app. `tests/apps/apps.spec.ts` then opens every route in Chromium and fails when the server HTML misses an example, the page logs an error or warning (hydration mismatches included), an `opui-*` element stays undefined, the CSS doesn't load, a bound example stops answering input or a client-side navigation breaks. A message the apps can't avoid yet goes in `KNOWN_PROBLEMS` in `tests/apps/apps.ts` with its `TODO.md` item, and the test fails once it stops appearing. `OPUI_APPS=nuxt,next` limits a run to some apps. `tests/unit/app-coverage.test.ts` (in `pnpm check`) fails when no example imports a component, so the apps render every component. CI runs the app tests in the `apps` job on pull requests and pushes to `main` that change `packages/opui`, the examples or `tests/apps`, and the Publish workflow runs them before it publishes a version and again against the version on npm afterwards.
 
@@ -91,8 +92,8 @@ One topic per pull request, so it can be reviewed, reverted and logged on its ow
 
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `.react.tsx`, `.svelte`, `.vue` and the six `types*.ts` files (see `packages/opui/components/AGENTS.md`).
-2. Export the component and its `Props` type from the four barrels, `packages/opui/{astro,react,svelte,vue}/index.ts`, sorted.
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `.react.tsx`, `.solid.tsx`, `.svelte`, `.vue` and the six `types*.ts` files (see `packages/opui/components/AGENTS.md`).
+2. Export the component and its `Props` type from the five barrels, `packages/opui/{astro,react,solid,svelte,vue}/index.ts`, sorted.
 3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
 4. Add the docs page `src/docs/components/[component-name].astro`, one example per framework in `src/component-examples/[component-name]/`, the API data in `src/component-api/[component-name]/api.ts` and the `--_` custom properties in `src/component-api/custom-properties/[component-name].ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
 5. Run `pnpm check` (it writes the new parity snapshots) and `pnpm test:e2e`, and commit the snapshots.

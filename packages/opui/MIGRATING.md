@@ -1385,6 +1385,11 @@ The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since T
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
-The `types.solid.ts` files are gone. There are no Solid components; write your own prop types if you used them.
+The `types.solid.ts` files type the Solid 2 components in `opui-css/solid` instead of Solid 1 attributes, so they need `solid-js` and `@solidjs/web` 2. Import the props from the barrel:
+
+```diff
+- import type { Props } from "opui-css/components/Button/types.solid"
++ import type { ButtonProps } from "opui-css/solid"
+```
 
 Coming from v3, v4 or an earlier v5? The older guides are in [MIGRATING-legacy.md](./MIGRATING-legacy.md). They use the names of the versions they were written for, and the renames above apply on top of them.

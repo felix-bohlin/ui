@@ -1,11 +1,11 @@
 ---
 name: opui
-description: Build UI with Open Props UI (the opui-css package). Use when a project depends on opui-css, imports from opui-css/astro, opui-css/react, opui-css/svelte or opui-css/vue, or uses ui-* classes such as .ui-button or .ui-card, and you need correct markup, classes, props or CSS imports for its components.
+description: Build UI with Open Props UI (the opui-css package). Use when a project depends on opui-css, imports from opui-css/astro, opui-css/react, opui-css/solid, opui-css/svelte or opui-css/vue, or uses ui-* classes such as .ui-button or .ui-card, and you need correct markup, classes, props or CSS imports for its components.
 ---
 
 # Open Props UI
 
-A CSS UI library whose tokens started from [Open Props](https://open-props.style/); the components don't need it. It ships framework-agnostic CSS plus Astro, React, Svelte and Vue components that render matching markup; a parity test suite keeps them in step.
+A CSS UI library whose tokens started from [Open Props](https://open-props.style/); the components don't need it. It ships framework-agnostic CSS plus Astro, React, Solid (in preview), Svelte and Vue components that render matching markup; a parity test suite keeps them in step.
 
 ## Setup
 
@@ -13,14 +13,14 @@ Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` fo
 
 - With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` with `checkbox.css`, `radio.css` or `switch.css`), the browser fallbacks from `opui-css/css/compat.css`, and `opui-css/core/utils.css` last. `references/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`. It includes the browser fallbacks of the `components.compat` layer: `dist/opui.no-compat.css` leaves them out, and `dist/opui.baseline-<year>.css` keeps only the ones browsers of that Baseline year need.
-- Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
+- Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Solid: `import { Button } from "opui-css/solid"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
 - `npx opui-css skill` copies this skill, matching the installed version, into `.claude/skills/opui`. Pass `--dir <path>` for another agent's skills folder and `--force` to replace an older copy after an upgrade.
 
 ## Conventions
 
 - Every class is prefixed with `ui-`: a base class (`.ui-button`) plus modifiers (`.ui-filled`, `.ui-small`, `.ui-primary`).
-- Astro, React, Svelte and Vue props mirror the modifiers without the prefix: `<Button variant="filled" size="small" color="primary">`.
-- Slots: Astro fills a named slot with `slot="end-text"` on a child and Vue with `<template #end-text>`. React takes slots as props and Svelte as snippets, camelCased (`endText`), with the default slot as `children`. Containers take parts instead, such as `CardHeader`.
+- Astro, React, Solid, Svelte and Vue props mirror the modifiers without the prefix: `<Button variant="filled" size="small" color="primary">`.
+- Slots: Astro fills a named slot with `slot="end-text"` on a child and Vue with `<template #end-text>`. React and Solid take slots as props and Svelte as snippets, camelCased (`endText`), with the default slot as `children`. Containers take parts instead, such as `CardHeader`.
 - Common modifiers: sizes `.ui-x-small`, `.ui-small`, `.ui-large` (not every component has all three), variants `.ui-filled`, `.ui-outlined`, `.ui-tonal`, colors `.ui-primary`, `.ui-critical`, severities `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical`. The reference lists which apply.
 - Buttons: give `<button>` a `type`. When a button has an icon, wrap the label in `<span class="ui-text">` (also inside `<Button>`); a button whose only element is an `svg` is styled as icon-only.
 - Components lean on native HTML: `<dialog>`, `popover`, invoker commands (`commandfor` / `command`), `<details>`. Prefer these over custom JavaScript.

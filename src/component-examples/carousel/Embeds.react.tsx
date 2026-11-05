@@ -16,7 +16,6 @@ export default function Embeds() {
         <li key={id}>
           <iframe
             allow="encrypted-media; fullscreen; picture-in-picture"
-            allowFullScreen
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
             src={`https://www.youtube-nocookie.com/embed/${id}`}

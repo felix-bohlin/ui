@@ -4346,7 +4346,7 @@
     "id": "api-sortable-table-solid",
     "title": "Sortable Table API",
     "description": "Reference for Sortable Table Solid component.",
-    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes.",
+    "api": "SortableTable The `<opui-sortable-table>` custom element, `display: contents`, around the table. It fires a cancelable `sort` event, moves the body rows and announces the new order. The button around a sortable header's label. A press sorts by its column, ascending first, and sets `aria-sort` on the header. ascendingLabel What a sort in ascending order announces, with `{column}` where the header's label goes. descendingLabel What a sort in descending order announces, with `{column}` where the header's label goes. onSort Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.",
     "category": "API",
     "url": "/solid/api/#sortable-table"
   },

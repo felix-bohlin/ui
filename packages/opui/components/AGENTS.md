@@ -34,7 +34,7 @@ Every component uses layered type files:
 
 Every component folder has all six files; `pnpm check-components` fails when one is missing.
 
-A custom element's attributes and events are typed on the element itself, in `react/elements.ts` and `svelte/elements.ts` (`onsort` on `opui-sortable-table` in Svelte), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. The API docs read the `on*` events from there. React is the exception: React 19 listens to the event named after `on` with its case kept, so `onSort` belongs to the React component's own types.
+A custom element's attributes and events are typed on the element itself, in `react/elements.ts`, `solid/elements.ts` and `svelte/elements.ts` (`onsort` on `opui-sortable-table` in Svelte, `onSort` in Solid), so the component's framework types reach them through `ComponentProps<"opui-...">` or `SvelteHTMLElements["opui-..."]` and stay compiled. The API docs read the `on*` events from there. React is the exception: React 19 listens to the event named after `on` with its case kept, so `onSort` belongs to the React component's own types.
 
 Every Astro component must follow this exact frontmatter layout:
 

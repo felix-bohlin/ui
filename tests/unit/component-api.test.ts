@@ -133,6 +133,7 @@ describe("component api checks", () => {
       source: "SortableTable",
     }
     expect(frameworkProps(sortableTable, "svelte").has("onsort")).toBe(true)
+    expect(frameworkProps(sortableTable, "solid").has("onSort")).toBe(true)
     expect(frameworkProps(sortableTable, "svelte").has("ascending-label")).toBe(
       false,
     )

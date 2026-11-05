@@ -8,8 +8,6 @@ export default {
     ...components(
       "The component loads `opui-css/elements/sortable-table.js`. In React, Solid, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.",
     ),
-    solid:
-      "The component loads `opui-css/elements/sortable-table.js`. In React, Solid, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead. Listen with `onSort`, which gets the column index, the direction and the header in `event.detail`.",
     html: 'Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.',
   },
   options: [
@@ -32,7 +30,7 @@ export default {
     {
       description:
         "Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onSort",
     },
     {

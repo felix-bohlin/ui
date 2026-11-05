@@ -18,7 +18,7 @@ A scrolling list with snap points, buttons and markers.
 ### Props and modifiers
 
 - `align`: `"center"` (`.ui-align-center`), `"start"` (default). Where items snap.
-- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The types require it, or `aria-labelledby`.
+- `aria-label`: `string`, `[aria-label]`. The accessible name of the carousel. The Astro, React and Svelte types require it, or `aria-labelledby`. In Vue it passes through as an attribute.
 - `aria-labelledby`: `string`. The id of the element that names the carousel, instead of `aria-label`.
 - `aspectRatio`: `number | string`, `--_media-aspect-ratio`, default `"16 / 9"`. Aspect ratio that images, videos and iframes are cropped to.
 - `buttons`: `"inside"` (default), `"none"` (`.ui-buttons-none`), `"outside"` (`.ui-buttons-outside`). Previous and next buttons. `outside` places them beside the items, and `none` leaves them out.

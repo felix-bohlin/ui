@@ -21,12 +21,19 @@
       "files": [
         "packages/opui/env.d.ts",
         "packages/opui/react/elements.ts",
+        "packages/opui/solid/elements.ts",
         "packages/opui/svelte/elements.ts",
         "src/env.d.ts",
         "tests/e2e/css-js.spec.ts"
       ],
       "rules": {
         "typescript/consistent-type-definitions": "off"
+      }
+    },
+    {
+      "files": ["packages/opui/solid/elements.ts"],
+      "rules": {
+        "no-unused-vars": "off"
       }
     },
     {

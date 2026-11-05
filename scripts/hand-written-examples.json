@@ -9,6 +9,7 @@
   "chip/Pressed.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "chip/Pressed.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "dialog/CloseBehaviors.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "dialog/CloseBehaviors.solid.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model, useState or createSignal)",
   "dialog/CloseBehaviors.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "dialog/CloseBehaviors.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "dialog/NonModal.react.tsx": "Its script opens the dialog with show(), which no command does, so each framework calls show() from its own click handler",
@@ -30,6 +31,7 @@
   "radio/FieldGroupControlled.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "radio/FieldGroupControlled.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "range/ValueText.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "range/ValueText.solid.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model, useState or createSignal)",
   "range/ValueText.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "range/ValueText.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "rating/Input.react.tsx": "Its value is bound, so the state is written for each framework (bind, v-model or useState with onChange)",
@@ -51,6 +53,7 @@
   "tabs/Binding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "tabs/Binding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "text-field/Binding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "text-field/Binding.solid.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model, useState or createSignal)",
   "text-field/Binding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "text-field/Binding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "textarea/Binding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
@@ -63,6 +66,7 @@
   "toast/Script.svelte": "Its script imports toast() from opui-css/elements/toaster.js, which the generator doesn't convert, so each framework calls toast() from its own click handler",
   "toast/Script.vue": "Its script imports toast() from opui-css/elements/toaster.js, which the generator doesn't convert, so each framework calls toast() from its own click handler",
   "toggle/Binding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "toggle/Binding.solid.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model, useState or createSignal)",
   "toggle/Binding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "toggle/Binding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)"
 }

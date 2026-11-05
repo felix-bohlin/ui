@@ -3,7 +3,7 @@
 A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.
 
 - CSS: `opui-css/css/components/dialog.css` and `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/dialog.md), [Astro](https://open-props-ui.netlify.app/astro/components/dialog.md), [React](https://open-props-ui.netlify.app/react/components/dialog.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/dialog.md), [Vue](https://open-props-ui.netlify.app/vue/components/dialog.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/dialog.md), [Astro](https://open-props-ui.netlify.app/astro/components/dialog.md), [React](https://open-props-ui.netlify.app/react/components/dialog.md), [Solid](https://open-props-ui.netlify.app/solid/components/dialog.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/dialog.md), [Vue](https://open-props-ui.netlify.app/vue/components/dialog.md).
 
 ## Dialog
 
@@ -26,7 +26,7 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 ### Notes
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
+- Astro, React, Solid, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
 
 ## DialogHeader
 
@@ -240,6 +240,58 @@ export default function Basics() {
         <DialogHeader closeLabel="Close">
           <DialogTitle>Newsletter</DialogTitle>
           <p>Sent by the product team.</p>
+        </DialogHeader>
+        <DialogContent>
+          <p>
+            Get a short email when we ship something new. No more than once a
+            month.
+          </p>
+        </DialogContent>
+        <DialogFooter>
+          <Button command="close" commandfor="dialog-basics-1">
+            Not now
+          </Button>
+          <Button command="close" commandfor="dialog-basics-1" variant="filled">
+            Subscribe
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/solid"`
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "opui-css/solid"
+
+export default function Basics() {
+  return (
+    <>
+      <Button
+        command="show-modal"
+        commandfor="dialog-basics-1"
+        variant="outlined"
+      >
+        Open dialog
+      </Button>
+
+      <Dialog id="dialog-basics-1">
+        <DialogHeader>
+          <DialogTitle>Newsletter</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p>

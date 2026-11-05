@@ -6,6 +6,7 @@ import { parseArgs } from "node:util"
 import { toReact } from "./component-react.mjs"
 import { apiOf, loadApis, readComponent } from "./component-reader.mjs"
 import { root, unsupported } from "./component-shared.mjs"
+import { toSolid } from "./component-solid.mjs"
 import { toSvelte } from "./component-svelte.mjs"
 import {
   astroTypesOf,
@@ -18,6 +19,7 @@ import {
 } from "./component-types.mjs"
 import { toVue } from "./component-vue.mjs"
 import { formatStably } from "./format.mjs"
+import { folderHasFramework } from "../src/utils/framework.js"
 
 export { loadApis, readComponent, toTypes }
 
@@ -25,15 +27,34 @@ const componentsDir = join(root, "packages/opui/components")
 
 export const PORTS = {
   react: ".react.tsx",
+  solid: ".solid.tsx",
   svelte: ".svelte",
   vue: ".vue",
 }
 
 export const TYPE_FILES = {
   react: "types.react.ts",
+  solid: "types.solid.ts",
   svelte: "types.svelte.ts",
   vue: "types.vue-props.ts",
 }
+
+const EMITTERS = {
+  react: toReact,
+  solid: toSolid,
+  svelte: toSvelte,
+  vue: toVue,
+}
+
+export const portsOf = (folder) =>
+  Object.entries(PORTS).filter(([framework]) =>
+    folderHasFramework(framework, folder),
+  )
+
+const typeFilesOf = (folder) =>
+  Object.entries(TYPE_FILES).filter(([framework]) =>
+    folderHasFramework(framework, folder),
+  )
 
 export const compileComponent = async (source, file, options = {}) => {
   const { api, base = baseTypesOf(file), types = astroTypesOf(file) } = options
@@ -58,18 +79,17 @@ export const compileComponent = async (source, file, options = {}) => {
   }
   const outputs = new Map()
   const refused = new Map()
-  for (const [framework, extension] of Object.entries(PORTS)) {
+  const ports = portsOf(folder)
+  for (const [framework, extension] of ports) {
     const target = `packages/opui/components/${folder}/${name}${extension}`
     try {
-      const code = { react: toReact, svelte: toSvelte, vue: toVue }[framework](
-        named,
-      )
+      const code = EMITTERS[framework](named)
       outputs.set(target, await formatStably(code, target))
     } catch (error) {
       refused.set(target, error)
     }
   }
-  if (refused.size === Object.keys(PORTS).length) throw [...refused.values()][0]
+  if (refused.size === ports.length) throw [...refused.values()][0]
   return { component: named, outputs, refused }
 }
 
@@ -193,8 +213,8 @@ export const generate = async ({
         }
       } catch (error) {
         allCompiled = false
-        const ledgerKeys = Object.values(PORTS).map(
-          (extension) => `${folder}/${file.replace(/\.astro$/, extension)}`,
+        const ledgerKeys = portsOf(folder).map(
+          ([, extension]) => `${folder}/${file.replace(/\.astro$/, extension)}`,
         )
         const message = error.message.startsWith(relative)
           ? error.message
@@ -227,7 +247,7 @@ export const generate = async ({
         rootsByComponent,
         modelsByComponent,
       )
-      for (const [framework, typeFile] of Object.entries(TYPE_FILES)) {
+      for (const [framework, typeFile] of typeFilesOf(folder)) {
         const target = `packages/opui/components/${folder}/${typeFile}`
         if (`${folder}/${typeFile}` in handWritten) continue
         outputs.set(target, await formatStably(types[framework], target))
@@ -238,8 +258,8 @@ export const generate = async ({
         ? error.message
         : `${types}: ${error.message}`
       if (
-        Object.values(TYPE_FILES).every(
-          (typeFile) => `${folder}/${typeFile}` in handWritten,
+        typeFilesOf(folder).every(
+          ([, typeFile]) => `${folder}/${typeFile}` in handWritten,
         )
       ) {
         skipped.push(message)

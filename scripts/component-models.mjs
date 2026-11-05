@@ -105,6 +105,20 @@ export const MODEL_KINDS = {
       ],
       reactValues: () => ["useState"],
     },
+    solid: {
+      body: (model, rewrite) => [
+        `const [selected, setSelected] = createSignal(() => props.${model.prop})`,
+        `const change = (input: HTMLInputElement) => {\n  const next = ${rewrite(model.read)}\n  setSelected(next)\n  props.onValueChange?.(next${arrayRead(model) ? " as never" : ""})\n}`,
+      ],
+      entries: () => ["onValueChange"],
+      imports: selectionImports,
+      provided: (_, provide) => [
+        { code: "change", key: "change" },
+        ...provide.value,
+      ],
+      rename: (model) => [[model.local ?? model.prop, "selected()"]],
+      solidValues: () => ["createSignal"],
+    },
     svelte: {
       bindables: bindableProps,
       context: (model) => [
@@ -196,6 +210,15 @@ export const MODEL_KINDS = {
               ],
             ]
           : [],
+    },
+    solid: {
+      attributes: (model) =>
+        resettable(model) ? [`{...defaultValueProp(props.${model.prop})}`] : [],
+      imports: (_, model) =>
+        resettable(model)
+          ? [`import { defaultValueProp } from "../solid"`]
+          : [],
+      inRest: true,
     },
     svelte: {
       attributes: (model) => [

@@ -1,6 +1,6 @@
 ---
 import { readdirSync, readFileSync } from "node:fs"
-import { FRAMEWORKS } from "../../utils/framework"
+import { RELEASED_FRAMEWORKS } from "./frameworks"
 
 type Props = {
   state: "built" | "sketch"
@@ -157,7 +157,7 @@ const pathLength = built ? 1 : undefined
             ></line>
           </svg>
           <ul aria-labelledby={`${id}-delivery`} class="blueprint-surfaces">
-            {FRAMEWORKS.map((framework) => <li class="blueprint-node">
+            {RELEASED_FRAMEWORKS.map((framework) => <li class="blueprint-node">
               <span class="blueprint-label">{framework.label}</span>
             </li>)}
             <li class="blueprint-node blueprint-elements">

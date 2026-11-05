@@ -10,6 +10,8 @@ import {
 import { withoutCodeVariants } from "../../../utils/example-variants"
 import { FRAMEWORK_IDS, type FrameworkId } from "../../../utils/framework"
 import { importMap } from "../../../utils/import-map"
+import type { Component } from "solid-js"
+import { renderSolid } from "../../../components/Example/render-solid"
 import { fixturePagesEnabled } from "../../../utils/test-pages"
 
 const allExamples = Object.entries(exampleSources).map(([path, source]) => ({
@@ -72,6 +74,16 @@ const examples = examplesFor(framework, component)
           >
             <example.Component />
           </div>}
+          {example.framework === "solid" && example.Component && (
+            <div
+              class="preview-render"
+              data-solid-example={`${component}/${example.name}`}
+              set:html={renderSolid(
+                example.Component as unknown as Component,
+                `${Astro.locals.$id("solid")}-`,
+              )}
+            />
+          )}
           {example.framework === "svelte" && example.Component && <div
             class="preview-render"
             data-svelte-example={`${component}/${example.name}`}
@@ -89,6 +101,7 @@ const examples = examplesFor(framework, component)
     </main>
     <script>
       import "../../../components/Example/mount-react-examples"
+      import "../../../components/Example/mount-solid-examples"
       import "../../../components/Example/mount-svelte-examples"
       import "../../../components/Example/mount-vue-examples"
     </script>

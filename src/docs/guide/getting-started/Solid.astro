@@ -1,0 +1,97 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import Code from "../../../components/Code.astro"
+import DocLink from "../../../components/DocLink.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships Solid 2 components, in preview while Solid 2 is a release
+    candidate. Install the package, import what you need, and you're set.
+  </Fragment>
+
+  <section id="installation">
+    <h2>Install via NPM</h2>
+    <p>
+      The components ship as uncompiled TypeScript (<code>.tsx</code> and
+      <code>.ts</code>), so your build has to compile them. They need Solid 2,
+      so add <code>solid-js</code> and <code>@solidjs/web</code> if they aren't
+      installed yet. Vite with <code>@solidjs/vite-plugin</code> compiles them
+      as they are, for server rendering too: it picks up the package through its
+      <code>solid</code> export condition. Each component file starts with
+      <code>/** @jsxImportSource @solidjs/web */</code>, so TypeScript reads it
+      as Solid JSX whatever your own <code>jsxImportSource</code> is.
+    </p>
+    <InstallCommand />
+  </section>
+
+  <section id="css">
+    <h2>Import the CSS</h2>
+    <p>
+      Solid components ship markup only - the CSS still has to be imported once,
+      in the entry file that renders your app. Import everything:
+    </p>
+    <Code
+      code={`// src/index.tsx
+import "opui-css/css/imports.css"`}
+      lang="tsx"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in your entry
+      instead:
+    </p>
+    <PickAndChoose file="src/styles/main.css" />
+    <Code
+      code={`// src/index.tsx
+import "./styles/main.css"`}
+      lang="tsx"
+    />
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <Code
+      code={`import { Button } from "opui-css/solid"
+
+export default function App() {
+  return <Button variant="filled">Click me</Button>
+}`}
+      lang="tsx"
+    />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other slots are props: the default slot is
+      <code>children</code> and named slots are camelCased, such as
+      <code>endText</code>. Form controls take the native <code>value</code> or
+      <code>checked</code>, which set the state and follow it when it changes,
+      and report changes with <code>onInput</code> and <code>onChange</code>.
+      Groups such as <code>ToggleGroup</code> take <code>value</code> and
+      <code>onValueChange</code>.
+    </p>
+    <NextSteps />
+  </section>
+
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Every component renders complete HTML on the server. The native controls
+      work and submit with their form. A few things only update on the client:
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/range#value">Range</DocLink> value: the
+        <code>&lt;output&gt;</code> doesn't follow the thumb. The track fill is
+        CSS, so it's fine.
+      </li>
+    </ul>
+    <p>
+      Hydrate those or render them on the client. Component pages say what needs
+      hydration next to the browser support chips, and the API tables mark each
+      prop with a crossed-out server icon.
+    </p>
+  </section>
+</Guide>

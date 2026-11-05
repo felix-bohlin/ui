@@ -20,6 +20,7 @@ export const slotProp = (name: string) =>
 export const components = (note: string) => ({
   astro: note,
   react: note,
+  solid: note,
   svelte: note,
   vue: note,
 })
@@ -37,6 +38,13 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     slotType: "ReactNode",
     slotsAreProps: true,
     types: "types.react.ts",
+  },
+  solid: {
+    component: (source) => `${source}.solid.tsx`,
+    slot: slotProp,
+    slotType: "JSX.Element",
+    slotsAreProps: true,
+    types: "types.solid.ts",
   },
   svelte: {
     component: (source) => `${source}.svelte`,

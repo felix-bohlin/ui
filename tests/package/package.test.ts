@@ -40,6 +40,11 @@ const FIXTURES: {
   },
   {
     build: { args: ["build"], package: "vite" },
+    check: { args: ["--noEmit", "-p", "."], bin: "tsc", package: "typescript" },
+    framework: "solid",
+  },
+  {
+    build: { args: ["build"], package: "vite" },
     check: {
       args: ["--tsconfig", "./tsconfig.json", "--fail-on-warnings"],
       package: "svelte-check",
@@ -169,6 +174,7 @@ test("the tarball ships the package and nothing else", () => {
     "bin/opui-css.mjs",
     "components/Button/Button.astro",
     "components/Button/Button.react.tsx",
+    "components/Button/Button.solid.tsx",
     "components/Button/Button.svelte",
     "components/Button/Button.vue",
     "core/normalize.css",
@@ -196,6 +202,7 @@ test("the tarball ships the package and nothing else", () => {
     "react/index.ts",
     "skills/opui/SKILL.md",
     "skills/opui/references/index.md",
+    "solid/index.ts",
     "svelte/index.ts",
     "themes/m3.css",
     "tokens.json",

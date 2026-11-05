@@ -1,6 +1,6 @@
 # Getting started
 
-Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Svelte and Vue sections add their install, CSS import and component import steps.
+Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.
 
 ## HTML
 
@@ -259,6 +259,44 @@ Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `
 - [Range](https://open-props-ui.netlify.app/react/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
 
 Hydrate those (`client:load` in Astro) or render them on the client. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
+
+## Solid
+
+OPUI ships Solid 2 components, in preview while Solid 2 is a release candidate. Install the package, import what you need, and you're set.
+
+### Install via NPM
+
+The components ship as uncompiled TypeScript (`.tsx` and `.ts`), so your build has to compile them. They need Solid 2, so add `solid-js` and `@solidjs/web` if they aren't installed yet. Vite with `@solidjs/vite-plugin` compiles them as they are, for server rendering too: it picks up the package through its `solid` export condition. Each component file starts with `/** @jsxImportSource @solidjs/web */`, so TypeScript reads it as Solid JSX whatever your own `jsxImportSource` is.
+
+### Import the CSS
+
+Solid components ship markup only - the CSS still has to be imported once, in the entry file that renders your app. Import everything:
+
+Same code as in the HTML section.
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/solid/guide/browser-support.md#compat), and you can leave it out.
+
+### How to use
+
+```tsx
+import { Button } from "opui-css/solid"
+
+export default function App() {
+  return <Button variant="filled">Click me</Button>
+}
+```
+
+Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: the default slot is `children` and named slots are camelCased, such as `endText`. Form controls take the native `value` or `checked`, which set the state and follow it when it changes, and report changes with `onInput` and `onChange`. Groups such as `ToggleGroup` take `value` and `onValueChange`.
+
+[Concepts](https://open-props-ui.netlify.app/solid/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/solid/components.md). [Theming](https://open-props-ui.netlify.app/solid/guide/theming.md) covers colors, density, motion and contrast.
+
+### Server rendering
+
+Every component renders complete HTML on the server. The native controls work and submit with their form. A few things only update on the client:
+
+- [Range](https://open-props-ui.netlify.app/solid/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
+
+Hydrate those or render them on the client. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
 
 ## Svelte
 

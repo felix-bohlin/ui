@@ -15,6 +15,7 @@ import {
 
 const ELEMENT_TYPES = {
   react: (element) => `ComponentProps<${element}>`,
+  solid: (element) => `ComponentProps<${element}>`,
   svelte: (element) => `SvelteHTMLElements[${element}]`,
   vue: (element) => `IntrinsicElementAttributes[${element}]`,
 }
@@ -352,7 +353,11 @@ export const toTypes = (
     )
       ? "\n\ntype Without<T, K extends PropertyKey> = T extends unknown\n  ? Omit<T, K>\n  : never"
       : ""
-  const slotsMember = { react: "ReactNode", svelte: "Snippet" }
+  const slotsMember = {
+    react: "ReactNode",
+    solid: "JSX.Element",
+    svelte: "Snippet",
+  }
   const radioGrouped = Object.values(modelsByComponent).some(
     (model) => model?.kind === "radioGroup",
   )
@@ -362,7 +367,9 @@ export const toTypes = (
         elementImport,
         framework === "react"
           ? `import type { ${[...(radioGrouped ? ["ChangeEventHandler"] : []), "ComponentProps", ...(slotted.length ? ["ReactNode"] : [])].join(", ")} } from "react"${withoutHelper(framework)}`
-          : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
+          : framework === "solid"
+            ? `import type { ${["ComponentProps", ...(slotted.length ? ["JSX"] : [])].join(", ")} } from "@solidjs/web"${withoutHelper(framework)}`
+            : `import type { SvelteHTMLElements } from "svelte/elements"${slotted.length ? '\nimport type { Snippet } from "svelte"' : ""}${withoutHelper(framework)}`,
       ),
     ]
     for (const alias of aliases) {
@@ -385,12 +392,14 @@ export const toTypes = (
               )
               .toSorted((a, b) => byName(a.prop, b.prop))
           : []
-      const group = framework === "react" && model?.kind === "group"
+      const group =
+        (framework === "react" || framework === "solid") &&
+        model?.kind === "group"
       const radioGroup = framework === "react" && model?.kind === "radioGroup"
       const omit = [
         ...(slots && !slots.includes("default") ? ["children"] : []),
         ...extras.map(({ prop }) => prop),
-        ...(group ? ["defaultValue"] : []),
+        ...(group && framework === "react" ? ["defaultValue"] : []),
         ...(radioGroup ? ["onChange"] : []),
       ]
       for (const ref of elementRefs(type)) {
@@ -426,7 +435,9 @@ export const toTypes = (
                     ...node.members
                       .filter((entry) => entry !== member)
                       .map((entry) => entry.getText().replace(/[;,]$/, "")),
-                    `defaultValue?: ${valueType}`,
+                    ...(framework === "react"
+                      ? [`defaultValue?: ${valueType}`]
+                      : []),
                     `onValueChange?: (value: ${valueType}) => void`,
                     `${model.prop}?: ${valueType}`,
                   ]
@@ -459,7 +470,7 @@ export const toTypes = (
           : ""
         const untied =
           group && tied.length === 0
-            ? ` & { defaultValue?: ${model.type}; onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
+            ? ` & { ${framework === "react" ? `defaultValue?: ${model.type}; ` : ""}onValueChange?: (value: ${model.type}) => void${declaresProperty(type, model.prop) ? "" : `; ${model.prop}?: ${model.type}`} }`
             : ""
         const renamed = framework === "react" ? reactRenamed(name) : []
         const dropped = [...strings, ...renamed].toSorted(byName)
@@ -491,6 +502,7 @@ export const toTypes = (
     return spliced(astro, edits)
   }
   const react = typed("react")
+  const solid = typed("solid")
   const svelte = typed("svelte")
   const based = aliases
     .filter(({ name, node }) =>
@@ -735,7 +747,7 @@ export const toTypes = (
     ].join("\n"),
     ...vueBody,
   ].join("\n\n")
-  return { react, svelte, vue: `${vue}\n` }
+  return { react, solid, svelte, vue: `${vue}\n` }
 }
 
 export const astroTypesOf = (file) => {

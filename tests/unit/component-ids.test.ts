@@ -3,6 +3,7 @@ import type { ComponentFramework } from "../../src/component-api/frameworks"
 import { render } from "./renderers"
 import DialogAstro from "../../packages/opui/components/Dialog/Dialog.astro"
 import DialogReact from "../../packages/opui/components/Dialog/Dialog.react"
+import DialogSolid from "../../packages/opui/components/Dialog/Dialog.solid"
 import DialogSvelte from "../../packages/opui/components/Dialog/Dialog.svelte"
 import DialogVue from "../../packages/opui/components/Dialog/Dialog.vue"
 import NumberFieldAstro from "../../packages/opui/components/NumberField/NumberField.astro"
@@ -11,6 +12,7 @@ import NumberFieldSvelte from "../../packages/opui/components/NumberField/Number
 import NumberFieldVue from "../../packages/opui/components/NumberField/NumberField.vue"
 import RangeAstro from "../../packages/opui/components/Range/Range.astro"
 import RangeReact from "../../packages/opui/components/Range/Range.react"
+import RangeSolid from "../../packages/opui/components/Range/Range.solid"
 import RangeSvelte from "../../packages/opui/components/Range/Range.svelte"
 import RangeVue from "../../packages/opui/components/Range/Range.vue"
 import SelectAstro from "../../packages/opui/components/Select/Select.astro"
@@ -19,6 +21,7 @@ import SelectSvelte from "../../packages/opui/components/Select/Select.svelte"
 import SelectVue from "../../packages/opui/components/Select/Select.vue"
 import TextFieldAstro from "../../packages/opui/components/TextField/TextField.astro"
 import TextFieldReact from "../../packages/opui/components/TextField/TextField.react"
+import TextFieldSolid from "../../packages/opui/components/TextField/TextField.solid"
 import TextFieldSvelte from "../../packages/opui/components/TextField/TextField.svelte"
 import TextFieldVue from "../../packages/opui/components/TextField/TextField.vue"
 
@@ -62,6 +65,7 @@ const CASES: {
     components: {
       astro: DialogAstro,
       react: DialogReact,
+      solid: DialogSolid,
       svelte: DialogSvelte,
       vue: DialogVue,
     },
@@ -86,6 +90,7 @@ const CASES: {
     components: {
       astro: RangeAstro,
       react: RangeReact,
+      solid: RangeSolid,
       svelte: RangeSvelte,
       vue: RangeVue,
     },
@@ -121,6 +126,7 @@ const CASES: {
     components: {
       astro: TextFieldAstro,
       react: TextFieldReact,
+      solid: TextFieldSolid,
       svelte: TextFieldSvelte,
       vue: TextFieldVue,
     },
@@ -133,7 +139,7 @@ const CASES: {
 const FRAMEWORKS = Object.keys(render) as ComponentFramework[]
 
 describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
-  test.each(FRAMEWORKS)(
+  test.each(FRAMEWORKS.filter((framework) => components[framework]))(
     "%s: every id is the passed id or a part of it",
     async (framework) => {
       const calls: string[] = []
@@ -154,7 +160,7 @@ describe.each(CASES)("$name", ({ base, components, prefix, props }) => {
     },
   )
 
-  test.each(FRAMEWORKS)(
+  test.each(FRAMEWORKS.filter((framework) => components[framework]))(
     "%s: without an id, every id is a part of one generated base",
     async (framework) => {
       const calls: string[] = []

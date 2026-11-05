@@ -3,7 +3,7 @@
 A surface for related content and actions, on its own or as the base of accordions, dialogs and more.
 
 - CSS: `opui-css/css/components/card.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/card.md), [Astro](https://open-props-ui.netlify.app/astro/components/card.md), [React](https://open-props-ui.netlify.app/react/components/card.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/card.md), [Vue](https://open-props-ui.netlify.app/vue/components/card.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/card.md), [Astro](https://open-props-ui.netlify.app/astro/components/card.md), [React](https://open-props-ui.netlify.app/react/components/card.md), [Solid](https://open-props-ui.netlify.app/solid/components/card.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/card.md), [Vue](https://open-props-ui.netlify.app/vue/components/card.md).
 
 ## Card
 
@@ -172,6 +172,43 @@ export default function Variants() {
 
       <Card variant="transparent">
         <CardContent>Transparent</CardContent>
+      </Card>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Card, CardActions, CardContent, CardHeader } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Card, CardContent } from "opui-css/solid"
+
+export default function Variants() {
+  return (
+    <>
+      <Card>
+        <CardContent>Plain</CardContent>
+      </Card>
+
+      <Card variant="transparent">
+        <CardContent>Transparent</CardContent>
+      </Card>
+
+      <Card variant="outlined">
+        <CardContent>Outlined</CardContent>
+      </Card>
+
+      <Card variant="tonal">
+        <CardContent>Tonal</CardContent>
+      </Card>
+
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
       </Card>
     </>
   )

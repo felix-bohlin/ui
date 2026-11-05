@@ -70,6 +70,7 @@ const LANGUAGES = {
   astro: "astro",
   html: "html",
   react: "tsx",
+  solid: "tsx",
   svelte: "svelte",
   vue: "vue",
 }
@@ -389,7 +390,10 @@ function slotLine(api, framework) {
   if (named.length === 0) return []
   const prefix = code(api.component)
   if (frameworks[framework].slotsAreProps) {
-    const kind = framework === "react" ? "props (`ReactNode`)" : "snippets"
+    const kind =
+      framework === "svelte"
+        ? "snippets"
+        : `props (\`${frameworks[framework].slotType}\`)`
     const names = slotNamesOf(api).map(slotProp).toSorted()
     return [`- ${prefix} slot ${kind}: ${list(names.map(code))}.`]
   }
@@ -694,7 +698,7 @@ async function gettingStarted() {
   return `${compact(
     [
       "# Getting started",
-      "Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Svelte and Vue sections add their install, CSS import and component import steps.",
+      "Every framework needs the CSS. The HTML section covers the CDN file, the npm imports and the files to copy. The Astro, React, Solid, Svelte and Vue sections add their install, CSS import and component import steps.",
       ...sections,
     ].join("\n\n"),
   )}\n`
@@ -764,7 +768,7 @@ async function buildSkill() {
     "",
     "Guides: `getting-started.md` (setup, with a section per framework), `theming.md` (colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast) and `customizing.md` (the `theme.custom` layer and component properties).",
     "",
-    "Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.",
+    "Each component reference covers HTML, Astro, React, Solid, Svelte and Vue: the parts, props, classes, slots and notes they share, the component properties and theme tokens, then a section per framework with its import line, slots, hydration and an example.",
     "",
     "| Component | File | Description |",
     "| --- | --- | --- |",

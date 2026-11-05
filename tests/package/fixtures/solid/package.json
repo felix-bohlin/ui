@@ -1,0 +1,16 @@
+{
+  "name": "opui-fixture-solid",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@solidjs/web": "catalog:",
+    "open-props": "catalog:",
+    "opui-css": "workspace:*",
+    "solid-js": "catalog:"
+  },
+  "devDependencies": {
+    "@solidjs/vite-plugin": "^3.0.0-next.35",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.3"
+  }
+}

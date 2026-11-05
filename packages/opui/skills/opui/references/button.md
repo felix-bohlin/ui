@@ -3,7 +3,7 @@
 Buttons allow users to take actions with a single tap.
 
 - CSS: `opui-css/css/components/button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button.md), [Astro](https://open-props-ui.netlify.app/astro/components/button.md), [React](https://open-props-ui.netlify.app/react/components/button.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button.md), [Vue](https://open-props-ui.netlify.app/vue/components/button.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button.md), [Astro](https://open-props-ui.netlify.app/astro/components/button.md), [React](https://open-props-ui.netlify.app/react/components/button.md), [Solid](https://open-props-ui.netlify.app/solid/components/button.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button.md), [Vue](https://open-props-ui.netlify.app/vue/components/button.md).
 
 ## Button
 
@@ -159,6 +159,59 @@ export default function Variants() {
         </Button>
       </div>
       <div className="example-row">
+        <Button variant="filled">Filled</Button>
+        <Button disabled variant="filled">
+          Disabled
+        </Button>
+        <Button href="#" variant="filled">
+          Link
+        </Button>
+      </div>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { Button } from "opui-css/solid"`
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Button } from "opui-css/solid"
+
+export default function Variants() {
+  return (
+    <>
+      <div class="example-row">
+        <Button>Transparent</Button>
+        <Button disabled>Disabled</Button>
+        <Button href="#">Link</Button>
+        <Button aria-current="page" href="#">
+          Current
+        </Button>
+      </div>
+      <div class="example-row">
+        <Button variant="outlined">Outlined</Button>
+        <Button disabled variant="outlined">
+          Disabled
+        </Button>
+        <Button href="#" variant="outlined">
+          Link
+        </Button>
+      </div>
+      <div class="example-row">
+        <Button variant="tonal">Tonal</Button>
+        <Button disabled variant="tonal">
+          Disabled
+        </Button>
+        <Button href="#" variant="tonal">
+          Link
+        </Button>
+      </div>
+      <div class="example-row">
         <Button variant="filled">Filled</Button>
         <Button disabled variant="filled">
           Disabled

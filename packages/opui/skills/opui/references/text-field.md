@@ -3,7 +3,7 @@
 An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.
 
 - CSS: `opui-css/css/components/text-field.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/text-field.md), [Astro](https://open-props-ui.netlify.app/astro/components/text-field.md), [React](https://open-props-ui.netlify.app/react/components/text-field.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/text-field.md), [Vue](https://open-props-ui.netlify.app/vue/components/text-field.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/text-field.md), [Astro](https://open-props-ui.netlify.app/astro/components/text-field.md), [React](https://open-props-ui.netlify.app/react/components/text-field.md), [Solid](https://open-props-ui.netlify.app/solid/components/text-field.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/text-field.md), [Vue](https://open-props-ui.netlify.app/vue/components/text-field.md).
 
 ## TextField
 
@@ -47,13 +47,14 @@ An input for single-line text data. Basic text fields with labels, field descrip
 
 - `default`: Extra content inside the root, such as a `<datalist>`.
 
-Model: `value` (`string | number`), the input value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string | number`), the input value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+- Solid: Attributes that aren't props go to the `<input>`, like `autocomplete` and `placeholder`, and `class` and `style` go to the root `<label>`. `value` sets the value and follows it when it changes. Follow typing with `onInput`.
 
 ## Component properties
 
@@ -125,6 +126,28 @@ import { TextField } from "opui-css/astro"
 
 ```tsx
 import { TextField } from "opui-css/react"
+
+export default function Variants() {
+  return (
+    <>
+      <TextField label="Outlined" placeholder="Placeholder" />
+      <TextField label="Filled" placeholder="Placeholder" variant="filled" />
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { TextField } from "opui-css/solid"`
+
+- `TextField` slot props (`JSX.Element`): `bottom`, `children`, `end`, `endText`, `iconChecked`, `iconUnchecked`, `label`, `start`, `startText` and `top`.
+
+### Example: Variants
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { TextField } from "opui-css/solid"
 
 export default function Variants() {
   return (

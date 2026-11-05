@@ -27,6 +27,8 @@ export default {
   notes: {
     ...passThrough("input", "label", ["autocomplete", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
+      solid:
+        "`value` sets the value and follows it when it changes. Follow typing with `onInput`.",
     }),
     html: "Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.",
   },

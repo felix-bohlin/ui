@@ -1,8 +1,9 @@
 import { expect, test, type Page } from "@playwright/test"
 import { normalize } from "../unit/normalize"
+import { componentHasFramework } from "../../src/utils/framework"
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
-const CLIENT_RENDERED: Framework[] = ["react", "svelte", "vue"]
+const CLIENT_RENDERED: Framework[] = ["react", "solid", "svelte", "vue"]
 
 const snapshot = (page: Page, framework: Framework, html?: string) =>
   page.evaluate(
@@ -48,6 +49,9 @@ const snapshot = (page: Page, framework: Framework, html?: string) =>
           for (const element of clone.querySelectorAll("img")) {
             element.removeAttribute("loading")
           }
+          for (const element of clone.querySelectorAll("svg")) {
+            element.removeAttribute("xmlns")
+          }
           for (const element of clone.querySelectorAll("video")) {
             element.removeAttribute("muted")
           }
@@ -88,7 +92,9 @@ const snapshot = (page: Page, framework: Framework, html?: string) =>
 
 for (const framework of FRAMEWORKS) {
   const client = CLIENT_RENDERED.includes(framework)
-  for (const component of COMPONENTS) {
+  for (const component of COMPONENTS.filter((component) =>
+    componentHasFramework(framework, component),
+  )) {
     test(`${framework}/${component} runs without errors${client ? " and renders its server markup on the client" : ""}`, async ({
       page,
     }) => {

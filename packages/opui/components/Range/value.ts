@@ -7,18 +7,23 @@ export const resetValue = (input: HTMLInputElement) => {
   return probe.valueAsNumber
 }
 
+const numberOr = (
+  value: number | string | false | null | undefined,
+  fallback: number,
+) => (value === false || value == null ? fallback : Number(value))
+
 export const defaultValue = ({
   max,
   min,
   step,
 }: {
-  max?: number | string | null
-  min?: number | string | null
-  step?: number | string | null
+  max?: number | string | false | null
+  min?: number | string | false | null
+  step?: number | string | false | null
 }) => {
-  const minValue = Number(min ?? 0)
-  const maxValue = Math.max(minValue, Number(max ?? 100))
-  const stepValue = step === "any" ? 0 : Number(step ?? 1)
+  const minValue = numberOr(min, 0)
+  const maxValue = Math.max(minValue, numberOr(max, 100))
+  const stepValue = step === "any" ? 0 : numberOr(step, 1)
   const middle = minValue + (maxValue - minValue) / 2
   if (!stepValue) return middle
   const stepped =

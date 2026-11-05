@@ -3,7 +3,7 @@
 Range lets users pick a number by sliding a thumb along a track.
 
 - CSS: `opui-css/css/components/range.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/range.md), [Astro](https://open-props-ui.netlify.app/astro/components/range.md), [React](https://open-props-ui.netlify.app/react/components/range.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/range.md), [Vue](https://open-props-ui.netlify.app/vue/components/range.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/range.md), [Astro](https://open-props-ui.netlify.app/astro/components/range.md), [React](https://open-props-ui.netlify.app/react/components/range.md), [Solid](https://open-props-ui.netlify.app/solid/components/range.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/range.md), [Vue](https://open-props-ui.netlify.app/vue/components/range.md).
 
 ## Range
 
@@ -35,13 +35,14 @@ Range lets users pick a number by sliding a thumb along a track.
 - `valueSuffix`: `string`. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (default), `"tonal"` (`.ui-tonal`). The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it.
 
-Model: `value` (`number | string`), the current value. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`number | string`), the current value. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - HTML: Add a `<datalist aria-hidden="true">` after the input for tick marks.
 - Astro, Svelte and Vue: Attributes that aren't props go to the `<input>`, like `max`, `min` and `step`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<input>`, like `max`, `min` and `step`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
+- Solid: Attributes that aren't props go to the `<input>`, like `max`, `min` and `step`, and `class` and `style` go to the root `<label>`. `value` sets the value and follows it when it changes. Follow the thumb with `onInput`.
 
 ## Component properties
 
@@ -107,6 +108,25 @@ import { Range } from "opui-css/react"
 
 export default function Basics() {
   return <Range label="Volume" />
+}
+```
+
+## Solid
+
+`import { Range } from "opui-css/solid"`
+
+- `Range` slot props (`JSX.Element`): `datalist`, `endText`, `label`, `startText` and `valueText`.
+- Hydration: `valueSuffix` on `Range`. The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Without hydration: Import `opui-css/css/js/range.js` in the page.
+- Hydration: `valueText` on `Range`. The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Without hydration: Update the content on `input` yourself, or use `valueSuffix`.
+
+### Example: Basics
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { Range } from "opui-css/solid"
+
+export default function Basics() {
+  return <Range label="Label" startText="Min" />
 }
 ```
 

@@ -31,6 +31,8 @@ export default {
       "`value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     react:
       "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
+    solid:
+      "`value` sets the selection and follows it when it changes, and `onValueChange` reports the new one. Without `value` the buttons keep their own state.",
     svelte:
       'Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.',
     vue: 'Bind `v-model` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.',
@@ -55,7 +57,7 @@ export default {
     },
     {
       description: "Called with the new selection when a button is toggled.",
-      frameworks: ["react"],
+      frameworks: ["react", "solid"],
       prop: "onValueChange",
       type: "(value: string | string[]) => void",
     },
@@ -93,7 +95,7 @@ export default {
     {
       description:
         "The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.",
-      frameworks: ["astro", "react"],
+      frameworks: ["astro", "react", "solid"],
       prop: "value",
     },
   ],

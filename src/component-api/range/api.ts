@@ -27,6 +27,21 @@ export default {
         prop: "valueText",
       },
     ],
+    solid: [
+      {
+        description:
+          "The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works.",
+        fallback: "Import `opui-css/css/js/range.js` in the page.",
+        prop: "valueSuffix",
+      },
+      {
+        description:
+          "The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration.",
+        fallback:
+          "Update the content on `input` yourself, or use `valueSuffix`.",
+        prop: "valueText",
+      },
+    ],
     svelte: [
       {
         description:
@@ -73,6 +88,8 @@ export default {
     ...passThrough("input", "label", ["max", "min", "step"], {
       react:
         "Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
+      solid:
+        "`value` sets the value and follows it when it changes. Follow the thumb with `onInput`.",
     }),
     html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks.',
   },

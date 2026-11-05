@@ -25,6 +25,9 @@ const astroModules = import.meta.glob<AstroInstance>(
 const reactModules = import.meta.glob<{ default: ComponentType }>(
   "../../src/component-examples/**/*.react.tsx",
 )
+const solidModules = import.meta.glob<{ default: SolidComponent }>(
+  "../../src/component-examples/**/*.solid.tsx",
+)
 const svelteModules = import.meta.glob<{ default: SvelteComponent }>(
   "../../src/component-examples/**/*.svelte",
 )
@@ -32,7 +35,7 @@ const vueModules = import.meta.glob<{ default: VueComponent }>(
   "../../src/component-examples/**/*.vue",
 )
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
@@ -54,6 +57,7 @@ const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
   html: [],
   react: ["astro", "html"],
+  solid: ["astro", "html"],
   svelte: ["astro", "html"],
   vue: ["astro", "html"],
 }
@@ -62,6 +66,7 @@ type Loaded = {
   astro: AstroInstance
   html: string
   react: { default: ComponentType }
+  solid: { default: SolidComponent }
   svelte: { default: SvelteComponent }
   vue: { default: VueComponent }
 }
@@ -74,7 +79,7 @@ type Example = {
 const keyOf = (path: string) =>
   path
     .replace("../../src/component-examples/", "")
-    .replace(/(\.react)?\.[a-z]+$/, "")
+    .replace(/(\.react|\.solid)?\.[a-z]+$/, "")
 
 const examples = new Map<string, Example>()
 const register = <F extends Framework>(
@@ -90,6 +95,7 @@ const register = <F extends Framework>(
 register("astro", astroModules)
 register("html", htmlSources)
 register("react", reactModules)
+register("solid", solidModules)
 register("svelte", svelteModules)
 register("vue", vueModules)
 
@@ -127,6 +133,7 @@ const renderers: {
       spy.mockRestore()
     }
   },
+  solid: (loaded) => render.solid(loaded.default),
   svelte: (loaded) => render.svelte(loaded.default),
   vue: (loaded) => render.vue(loaded.default),
 }

@@ -369,6 +369,9 @@ importers:
 
   packages/opui:
     dependencies:
+      '@solidjs/web':
+        specifier: ^2.0.0-rc.21
+        version: 2.0.0-rc.21(solid-js@2.0.0-rc.21)
       astro:
         specifier: ^7
         version: 7.3.6(@types/node@24.13.2)(yaml@2.9.0)
@@ -378,6 +381,9 @@ importers:
       react-dom:
         specifier: ^19
         version: 19.3.0(react@19.3.0)
+      solid-js:
+        specifier: ^2.0.0-rc.21
+        version: 2.0.0-rc.21
       svelte:
         specifier: ^5.57
         version: 5.57.2
@@ -441,6 +447,31 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^6.1.2
         version: 6.1.2(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vite:
+        specifier: ^8.3.3
+        version: 8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
+
+  tests/package/fixtures/solid:
+    dependencies:
+      '@solidjs/web':
+        specifier: 'catalog:'
+        version: 2.0.0-rc.21(solid-js@2.0.0-rc.21)
+      open-props:
+        specifier: 'catalog:'
+        version: 1.7.23
+      opui-css:
+        specifier: workspace:*
+        version: link:../../../../packages/opui
+      solid-js:
+        specifier: 'catalog:'
+        version: 2.0.0-rc.21
+    devDependencies:
+      '@solidjs/vite-plugin':
+        specifier: ^3.0.0-next.35
+        version: 3.0.0-next.55(@solidjs/web@2.0.0-rc.21(solid-js@2.0.0-rc.21))(solid-js@2.0.0-rc.21)(supports-color@10.2.2)(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))
       typescript:
         specifier: ^6.0.3
         version: 6.0.3

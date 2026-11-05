@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs"
 import { changelogSections } from "../../utils/changelog"
 import { components } from "../../utils/components"
 import { EXAMPLE_THEMES } from "../../utils/example-themes"
-import { FRAMEWORKS } from "../../utils/framework"
+import { RELEASED_FRAMEWORKS } from "./frameworks"
 import { posts } from "../../utils/blog-posts"
 import { releaseVersion } from "../../utils/release"
 import { themeTokens } from "../../utils/theme-tokens"
@@ -51,7 +51,7 @@ const tiles = [
     : [{ caption: "", label: `Commits since ${previous}`, value: commits }]),
   { caption: "", label: "Components", value: components.length },
   { caption: "", label: "Example themes", value: EXAMPLE_THEMES.length },
-  { caption: "", label: "Frameworks", value: FRAMEWORKS.length },
+  { caption: "", label: "Frameworks", value: RELEASED_FRAMEWORKS.length },
   { caption: "", label: "Blog posts", value: posts.length },
   { caption: "", label: "Theme tokens", value: themeTokens().length },
 ].toSorted((a, b) => a.label.localeCompare(b.label, "en"))

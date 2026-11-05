@@ -278,7 +278,7 @@ test.describe("search", () => {
     const options = page.locator("#results-list [role=option]")
     await expect(options.first()).toHaveAttribute(
       "href",
-      /^\/(astro|react|svelte|vue)\/api\/#carousel$/,
+      /^\/(astro|react|solid|svelte|vue)\/api\/#carousel$/,
     )
     await expect(page.locator("#search-status")).toHaveText(
       `No results in HTML, ${await options.count()} in other frameworks`,

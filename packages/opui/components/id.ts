@@ -9,9 +9,9 @@ export const createId = (locals: Locals) =>
 export const createIds = (
   locals: Locals,
   prefix: string,
-  id?: string | null,
+  id?: string | false | null,
 ) => {
-  let base = id
+  let base = id === false ? undefined : id
   return (part?: string) => {
     base ??= createId(locals)(prefix)
     return part ? `${base}-${part}` : base

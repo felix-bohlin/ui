@@ -3,7 +3,7 @@
 Toggle buttons and toggle groups switch options on and off, alone or as a set.
 
 - CSS: `opui-css/css/components/toggle-group.css` and `opui-css/css/components/toggle-button.css`.
-- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/toggle.md), [Astro](https://open-props-ui.netlify.app/astro/components/toggle.md), [React](https://open-props-ui.netlify.app/react/components/toggle.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/toggle.md), [Vue](https://open-props-ui.netlify.app/vue/components/toggle.md).
+- Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/toggle.md), [Astro](https://open-props-ui.netlify.app/astro/components/toggle.md), [React](https://open-props-ui.netlify.app/react/components/toggle.md), [Solid](https://open-props-ui.netlify.app/solid/components/toggle.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/toggle.md), [Vue](https://open-props-ui.netlify.app/vue/components/toggle.md).
 
 ## ToggleGroup
 
@@ -17,22 +17,23 @@ Toggle buttons and toggle groups switch options on and off, alone or as a set.
 - `defaultValue` (React): `string | string[]`. The starting selection when `value` is omitted.
 - `multiple`: `boolean`, `[role="group"]`. Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role="radiogroup"]`.
 - `name`: `string`. The name shared by the inputs. Generated when omitted.
-- `onValueChange` (React): `(value: string | string[]) => void`. Called with the new selection when a button is toggled.
+- `onValueChange` (React and Solid): `(value: string | string[]) => void`. Called with the new selection when a button is toggled.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
 - `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons.
-- `value` (Astro and React): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
+- `value` (Astro, React and Solid): `string | string[]`. The value of the checked button, or the values of the checked buttons with `multiple`. The buttons whose `value` matches are checked, and their own `checked` is ignored.
 
 ### Slots
 
 - `default`: The toggle buttons.
 
-Model: `value` (`string | string[]`), the value of the checked button, or the values of the checked buttons with `multiple`. Astro and React `value`, Svelte `bind:value`, Vue `v-model`.
+Model: `value` (`string | string[]`), the value of the checked button, or the values of the checked buttons with `multiple`. Astro, React and Solid `value`, Svelte `bind:value`, Vue `v-model`.
 
 ### Notes
 
 - Astro: `value` checks the buttons whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.
 - React: Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.
+- Solid: `value` sets the selection and follows it when it changes, and `onValueChange` reports the new one. Without `value` the buttons keep their own state.
 - Svelte: Bind `value` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.
 - Vue: Bind `v-model` with a starting value to control the selection, `""` or `[]` for none. Without it, or bound to `undefined`, the buttons keep their own state.
 
@@ -59,12 +60,13 @@ Model: `value` (`string | string[]`), the value of the checked button, or the va
 
 - `default`: The label and an optional icon.
 
-Model: `checked` (`boolean`), the checked state of a standalone button. Astro and React `checked`, Svelte `bind:checked`, Vue `v-model`.
+Model: `checked` (`boolean`), the checked state of a standalone button. Astro, React and Solid `checked`, Svelte `bind:checked`, Vue `v-model`.
 
 ### Notes
 
 - Astro: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`.
 - React: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.
+- Solid: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. `checked` sets the state and follows it when it changes, and `onChange` reports changes. In a `ToggleGroup` with a `value`, the group's value wins and a button's own `checked` is ignored.
 - Svelte: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.
 - Vue: Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. `v-model` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `v-model`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.
 
@@ -161,6 +163,29 @@ export default function Standalone() {
       <ToggleButton label="Toggle me" name="standalone-demo-1" />
       <ToggleButton name="standalone-demo-2">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></svg>
+        Toggle with icon
+      </ToggleButton>
+    </>
+  )
+}
+```
+
+## Solid
+
+`import { ToggleButton, ToggleGroup } from "opui-css/solid"`
+
+### Example: Standalone
+
+```tsx
+/** @jsxImportSource @solidjs/web */
+import { ToggleButton } from "opui-css/solid"
+
+export default function Standalone() {
+  return (
+    <>
+      <ToggleButton label="Toggle me" name="standalone-demo-1" />
+      <ToggleButton name="standalone-demo-2">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
         Toggle with icon
       </ToggleButton>
     </>

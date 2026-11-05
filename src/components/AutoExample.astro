@@ -1,6 +1,8 @@
 ---
 import Example from "./Example/index"
 import { examplePath, exampleModules, exampleSources } from "../utils/examples"
+import type { Component } from "solid-js"
+import { renderSolid } from "./Example/render-solid"
 import {
   componentHasFramework,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
@@ -42,26 +44,39 @@ if (!slug) {
 const astroPath = examplePath(slug, name, "astro")
 const htmlPath = examplePath(slug, name, "html")
 const reactPath = examplePath(slug, name, "react")
+const solidPath = examplePath(slug, name, "solid")
 const vuePath = examplePath(slug, name, "vue")
 const sveltePath = examplePath(slug, name, "svelte")
 
 const astroComponent = exampleModules[astroPath]?.default
 const reactComponent = exampleModules[reactPath]?.default
+const solidComponent = exampleModules[solidPath]?.default as
+  | Component
+  | undefined
 const vueComponent = exampleModules[vuePath]?.default
 const svelteComponent = exampleModules[sveltePath]?.default
 const astroSource = exampleSources[astroPath]
 const htmlSource = exampleSources[htmlPath]
 const reactSource = exampleSources[reactPath]
+const solidSource = exampleSources[solidPath]
 const vueSource = exampleSources[vuePath]
 const svelteSource = exampleSources[sveltePath]
 const codeSource = (framework: FrameworkId) =>
-  exampleSources[examplePath(slug, `${name}Code`, framework)] ??
-  exampleSources[examplePath(slug, name, framework)]
+  (
+    exampleSources[examplePath(slug, `${name}Code`, framework)] ??
+    exampleSources[examplePath(slug, name, framework)]
+  )?.replace(/^\/\*\* @jsxImportSource @solidjs\/web \*\/\n/, "")
 
 const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
   `${slug}/${name}`,
 )
-const frameworkFiles = [astroSource, reactSource, svelteSource, vueSource]
+const frameworkFiles = [
+  astroSource,
+  reactSource,
+  solidSource,
+  svelteSource,
+  vueSource,
+]
 
 if (frameworkAgnostic && (!htmlSource || frameworkFiles.some(Boolean))) {
   throw new Error(
@@ -88,6 +103,7 @@ if (
   !astroComponent &&
   !htmlSource &&
   !reactComponent &&
+  !solidComponent &&
   !vueComponent &&
   !svelteComponent
 ) {
@@ -101,6 +117,7 @@ if (
 <Example
   {...rest}
   reactExampleId={reactComponent ? `${slug}/${name}` : undefined}
+  solidExampleId={solidComponent ? `${slug}/${name}` : undefined}
   svelteExampleId={svelteComponent ? `${slug}/${name}` : undefined}
   vueExampleId={vueComponent ? `${slug}/${name}` : undefined}
 >
@@ -113,6 +130,12 @@ if (
   {reactComponent && (
     <Example.Preview slot="preview-react" code={reactComponent} />
   )}
+  {solidComponent && Astro.locals.framework === "solid" && (
+    <Example.Preview
+      slot="preview-solid"
+      code={renderSolid(solidComponent, `${Astro.locals.$id("solid")}-`)}
+    />
+  )}
   {svelteComponent && (
     <Example.Preview slot="preview-svelte" code={svelteComponent} />
   )}
@@ -121,6 +144,7 @@ if (
   {astroSource && <Example.Code slot="code-astro" code={codeSource("astro")} />}
   {htmlSource && <Example.Code slot="code-html" code={codeSource("html")} />}
   {reactSource && <Example.Code slot="code-react" code={codeSource("react")} />}
+  {solidSource && <Example.Code slot="code-solid" code={codeSource("solid")} />}
   {svelteSource && (
     <Example.Code slot="code-svelte" code={codeSource("svelte")} />
   )}

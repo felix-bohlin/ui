@@ -26,6 +26,7 @@ import {
   checkProvide,
   checkReactExample,
   checkRest,
+  checkSolidProps,
   checkSortedKeys,
   checkTypeNames,
   checkTypesImport,
@@ -880,6 +881,59 @@ describe("check-components", () => {
       ),
     ).toEqual([
       'does not type its props with Props from "./types.react": annotate the props parameter with it',
+    ])
+  })
+
+  test("a Solid port reads props as props.x and omits them in order", () => {
+    const solid = (body: string) =>
+      `/** @jsxImportSource @solidjs/web */\nimport { omit } from "solid-js"\n\nexport default function Badge(props: Props) {\n${body}\n}\n`
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "class", "size", "children", "end")\n  return <span {...rest} />',
+        ),
+        ["end"],
+      ),
+    ).toEqual([])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "size", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, size")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const rest = omit(props, "children", "class")\n  return <span {...rest} />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("expected class, children")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid('  const rest = omit(props, "class")\n  return <span />'),
+      ),
+    ).toEqual([expect.stringContaining("never spreads it")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        solid(
+          '  const all = mergeProps({ size: "medium" }, props)\n  return <span />',
+        ),
+      ),
+    ).toEqual([expect.stringContaining("calls mergeProps()")])
+    expect(
+      checkSolidProps(
+        "Badge.solid.tsx",
+        "export default function Badge({ size }: Props) {\n  return <span />\n}\n",
+      ),
+    ).toEqual([
+      expect.stringContaining("does not start with"),
+      expect.stringContaining("destructures its props"),
     ])
   })
 

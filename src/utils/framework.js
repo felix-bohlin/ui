@@ -7,7 +7,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "react" | "svelte" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "react" | "solid" | "svelte" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -17,6 +17,7 @@ export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
   { id: "react", label: "React" },
+  { id: "solid", label: "Solid" },
   { id: "svelte", label: "Svelte" },
   { id: "vue", label: "Vue" },
 ]
@@ -43,7 +44,9 @@ export function isHydratedFramework(framework) {
 
 /** @param {FrameworkId} framework */
 export function exampleExtension(framework) {
-  return framework === "react" ? "react.tsx" : framework
+  return framework === "react" || framework === "solid"
+    ? `${framework}.tsx`
+    : framework
 }
 
 /**
@@ -79,6 +82,30 @@ export function frameworkPaths() {
 /** @type {Record<string, FrameworkId[]>} */
 export const COMPONENT_FRAMEWORKS = {}
 
+export const SOLID_FOLDERS = [
+  "Button",
+  "Card",
+  "Dialog",
+  "FieldGroup",
+  "FieldLegend",
+  "Fieldset",
+  "Form",
+  "Radio",
+  "Range",
+  "TextField",
+  "ToggleButton",
+  "ToggleGroup",
+]
+
+export const SOLID_PAGES = [
+  "button",
+  "card",
+  "dialog",
+  "range",
+  "text-field",
+  "toggle",
+]
+
 export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
 
 /**
@@ -86,7 +113,16 @@ export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
  * @param {string} slug
  */
 export function componentHasFramework(framework, slug) {
+  if (framework === "solid") return SOLID_PAGES.includes(slug)
   return COMPONENT_FRAMEWORKS[slug]?.includes(framework) ?? true
+}
+
+/**
+ * @param {FrameworkId} framework
+ * @param {string} folder
+ */
+export function folderHasFramework(framework, folder) {
+  return framework !== "solid" || SOLID_FOLDERS.includes(folder)
 }
 
 /**
@@ -165,7 +201,10 @@ export function hrefFor(framework, pathname) {
   const sharedPath = stripFrameworkPrefix(path)
   if (isFrameworkFree(sharedPath)) return `${sharedPath}${suffix}`
   const trimmed = sharedPath.replace(/^\/|\/$/g, "")
-  return `/${framework}/${trimmed ? `${trimmed}/` : ""}${suffix}`
+  const target = pathHasFramework(framework, sharedPath)
+    ? framework
+    : DEFAULT_FRAMEWORK
+  return `/${target}/${trimmed ? `${trimmed}/` : ""}${suffix}`
 }
 
 /**

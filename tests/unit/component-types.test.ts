@@ -1,3 +1,7 @@
+import type {
+  ComponentProps as SolidComponentProps,
+  JSX as SolidJSX,
+} from "@solidjs/web"
 import type { ComponentProps, ReactNode } from "react"
 import type { Snippet } from "svelte"
 import type { IntrinsicElementAttributes, Slot } from "vue"
@@ -20,8 +24,10 @@ import type * as TabsVue from "../../packages/opui/components/Tabs/types.vue-pro
 import type * as TextareaReact from "../../packages/opui/components/Textarea/types.react"
 import type * as TextareaSvelte from "../../packages/opui/components/Textarea/types.svelte"
 import type * as TextareaVue from "../../packages/opui/components/Textarea/types.vue-props"
+import type * as TextFieldSolid from "../../packages/opui/components/TextField/types.solid"
 import type * as ToggleButtonVue from "../../packages/opui/components/ToggleButton/types.vue-props"
 import type * as ToggleGroupReact from "../../packages/opui/components/ToggleGroup/types.react"
+import type * as ToggleGroupSolid from "../../packages/opui/components/ToggleGroup/types.solid"
 import type * as ToggleGroupSvelte from "../../packages/opui/components/ToggleGroup/types.svelte"
 import type * as ToggleGroupVue from "../../packages/opui/components/ToggleGroup/types.vue-props"
 
@@ -169,4 +175,20 @@ test("an attribute the base props require stays in React and falls through to th
   expectTypeOf<AvatarVue.AvatarGroupProps>().not.toHaveProperty(
     "aria-labelledby",
   )
+})
+
+test("Solid types a slot as JSX.Element, keeps the element's value, and gives a group onValueChange without defaultValue", () => {
+  expectTypeOf<TextFieldSolid.Props["endText"]>().toEqualTypeOf<
+    SolidJSX.Element | undefined
+  >()
+  expectTypeOf<TextFieldSolid.Props["value"]>().toEqualTypeOf<
+    SolidComponentProps<"input">["value"]
+  >()
+  expectTypeOf<Single<ToggleGroupSolid.Props>["onValueChange"]>().toEqualTypeOf<
+    ((value: string) => void) | undefined
+  >()
+  expectTypeOf<Multiple<ToggleGroupSolid.Props>["value"]>().toEqualTypeOf<
+    string[] | undefined
+  >()
+  expectTypeOf<ToggleGroupSolid.Props>().not.toHaveProperty("defaultValue")
 })

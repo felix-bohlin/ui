@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
   "version": "6.0.0-rc.1",
-  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
+  "description": "Design system. Components. Modern HTML & CSS. HTML, Astro, React, Solid, Svelte and Vue. The tokens started from Open Props, and the components don't need it.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -24,6 +24,9 @@
     "open-props",
     "react",
     "react-components",
+    "solid",
+    "solid-components",
+    "solidjs",
     "svelte",
     "svelte-components",
     "ui",
@@ -52,6 +55,7 @@
     "open-props.css",
     "react",
     "skills",
+    "solid",
     "svelte",
     "themes",
     "tokens.json",
@@ -70,6 +74,10 @@
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
     "./react": "./react/index.ts",
+    "./solid": {
+      "solid": "./solid/index.ts",
+      "default": "./solid/index.ts"
+    },
     "./svelte": {
       "svelte": "./svelte/index.ts",
       "default": "./svelte/index.ts"
@@ -104,14 +112,19 @@
     "web-features": "catalog:"
   },
   "peerDependencies": {
+    "@solidjs/web": "^2.0.0-rc.21",
     "astro": "^7",
     "open-props": "^1.7.23",
     "react": "^19",
     "react-dom": "^19",
+    "solid-js": "^2.0.0-rc.21",
     "svelte": "^5.57",
     "vue": "^3.5"
   },
   "peerDependenciesMeta": {
+    "@solidjs/web": {
+      "optional": true
+    },
     "astro": {
       "optional": true
     },
@@ -122,6 +135,9 @@
       "optional": true
     },
     "react-dom": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "svelte": {

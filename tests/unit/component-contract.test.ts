@@ -1,5 +1,6 @@
 import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
+import { ssr } from "@solidjs/web"
 import { createRawSnippet, type Component as SvelteComponent } from "svelte"
 import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
@@ -12,6 +13,7 @@ import { frameworkProps, splitUnion } from "../../src/utils/component-source"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
 import { contentOf, reactNodes, TEXT, vueNodes } from "./renderers"
+import { renderSolid, type SolidComponent } from "./solid"
 
 const apis = import.meta.glob<ComponentApi>(
   "../../src/component-api/*/api.ts",
@@ -23,6 +25,9 @@ const astroPaths = Object.keys(
 const reactComponents = import.meta.glob<{
   default: ComponentType<Record<string, unknown>>
 }>("../../packages/opui/components/*/*.react.tsx")
+const solidComponents = import.meta.glob<{ default: SolidComponent }>(
+  "../../packages/opui/components/*/*.solid.tsx",
+)
 const svelteComponents = import.meta.glob<{
   default: SvelteComponent<Record<string, unknown>>
 }>("../../packages/opui/components/*/*.svelte")
@@ -31,7 +36,7 @@ const vueComponents = import.meta.glob<VueComponent>(
   { import: "default" },
 )
 
-const FRAMEWORKS = ["astro", "react", "svelte", "vue"] as const
+const FRAMEWORKS = ["astro", "react", "solid", "svelte", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
 
@@ -52,7 +57,7 @@ const REACT_NAMES: Record<string, string> = {
   value: "defaultValue",
 }
 
-const SLOT_TYPE = /\b(ReactNode|Snippet)\b/
+const SLOT_TYPE = /\b(Element|ReactNode|Snippet)\b/
 
 const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
@@ -61,7 +66,7 @@ const KNOWN_DIFFERENCES: Record<string, string> = {}
 const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
   Object.entries(modules).find(([path]) =>
     path
-      .replace(/\.react\.tsx$/, ".tsx")
+      .replace(/\.(react|solid)\.tsx$/, ".tsx")
       .endsWith(`/${name}.${path.split(".").at(-1)}`),
   )?.[1]
 
@@ -105,6 +110,7 @@ const casesOf = (api: ComponentApi): Case[] => {
       ([name, type]) =>
         !SLOT_TYPE.test(type) &&
         FRAMEWORKS.every((framework) => {
+          if (types[framework].size === 0) return true
           const own = types[framework].get(propName(framework, name))
           return own !== undefined && !SLOT_TYPE.test(own)
         }),
@@ -233,6 +239,26 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         }),
       ).replace(PRELOAD, "")
     },
+    solid: async ({ component, props, slots, types }) => {
+      const load = loaderOf(solidComponents, component)
+      if (!load) return undefined
+      const { default: Component } = await load()
+      return renderSolid(Component, {
+        ...props,
+        ...Object.fromEntries(
+          slots
+            .filter(
+              (slot) => slot === "default" || types.solid.has(slotProp(slot)),
+            )
+            .map((slot) => [
+              slotProp(slot),
+              slotValue("solid", types.solid.get(slotProp(slot)), () =>
+                ssr(contentOf(component)),
+              ),
+            ]),
+        ),
+      })
+    },
     svelte: async ({ component, props, slots, types }) => {
       const load = loaderOf(svelteComponents, component)
       if (!load) return undefined
@@ -278,7 +304,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
 
 const emptyClass = (markup: string) => /\sclass=""/.test(markup)
 
-describe("every component renders the same in Astro, React, Svelte and Vue", () => {
+describe("every component renders the same in Astro, React, Solid, Svelte and Vue", () => {
   test("covers the components with a matrix of props and slots", () => {
     expect(
       new Set(CASES.map(({ component }) => component)).size,

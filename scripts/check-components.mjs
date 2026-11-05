@@ -8,6 +8,7 @@ import {
   componentHasFramework,
   exampleExtension,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
+  folderHasFramework,
   FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
@@ -22,6 +23,7 @@ const docsDir = join(root, "src/docs/components")
 const SCRIPTS = [
   [".astro", /^---\n([\s\S]*?)\n---/g],
   [".react.tsx", /^([\s\S]*)$/g],
+  [".solid.tsx", /^([\s\S]*)$/g],
   [".svelte", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
   [".vue", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
 ]
@@ -29,6 +31,7 @@ const SCRIPTS = [
 const TYPES_FILES = [
   [".astro", "./types.astro"],
   [".react.tsx", "./types.react"],
+  [".solid.tsx", "./types.solid"],
   [".svelte", "./types.svelte"],
   [".vue", "./types.vue-props"],
 ]
@@ -65,6 +68,7 @@ export const checkClassPrefix = (lists, label) =>
 const CLASS_LISTS = [
   [".astro", /class:list=\{\[|\bclass=\{cx\(\[/g, "class:list"],
   [".react.tsx", /\bcx\(\[|\bclassName=\{(?!cx\()/g, "cx"],
+  [".solid.tsx", /\bclass=\{\[/g, "class"],
   [".svelte", /\bclass=\{\[|\{\.\.\.classAttrs\(\[/g, "class"],
   [".vue", /:class="\[|\bclassAttrs\(\[/g, ":class"],
 ]
@@ -77,6 +81,7 @@ const CONTEXT_EXPORTS = {
     `${name[0].toLowerCase()}${name.slice(1)}Context`,
   ],
   "context.react.ts": (name) => [`${name}Context`, `use${name}Context`],
+  "context.solid.ts": (name) => [`${name}Context`, `use${name}Context`],
   "context.svelte.js": (name) => [`get${name}Context`, `set${name}Context`],
   "context.vue.ts": (name) => [`${name}Key`],
 }
@@ -86,6 +91,7 @@ const CONTEXT_FILES = Object.keys(CONTEXT_EXPORTS)
 const CONTEXT_IMPORTS = {
   "context.astro.ts": ["../context.astro", ["createContext"]],
   "context.react.ts": ["react", ["createContext", "useContext"]],
+  "context.solid.ts": ["solid-js", ["createContext", "useContext"]],
   "context.svelte.js": ["svelte", ["getContext", "setContext"]],
   "context.vue.ts": ["vue", ["InjectionKey"]],
 }
@@ -94,6 +100,7 @@ const TYPE_FILES = [
   "types.astro.ts",
   "types.vue-props.ts",
   "types.react.ts",
+  "types.solid.ts",
   "types.svelte.ts",
   "types.ts",
 ]
@@ -105,6 +112,7 @@ const BARRELS = Object.fromEntries(
 const COMPONENT_FILES = {
   astro: ".astro",
   react: ".react.tsx",
+  solid: ".solid.tsx",
   svelte: ".svelte",
   vue: ".vue",
 }
@@ -447,6 +455,7 @@ const exportedNamesIn = (script) =>
 
 const PROPS_TYPE_SITES = {
   react: "annotate the props parameter with it",
+  solid: "annotate the props parameter with it",
   svelte: "annotate the $props() destructuring with it",
   vue: "pass it to defineProps",
 }
@@ -580,6 +589,57 @@ export const checkRest = (file, source) => {
     : [
         "captures ...rest but never spreads it: spread it onto the root element, or the input of a form control",
       ]
+}
+
+export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
+
+export const checkSolidProps = (file, source, snippets = []) => {
+  const problems = []
+  if (!source.startsWith(`${SOLID_PRAGMA}\n`)) {
+    problems.push(
+      `does not start with ${SOLID_PRAGMA}: TypeScript reads a .tsx file without it as React JSX`,
+    )
+  }
+  for (const banned of ["merge", "mergeProps", "splitProps"]) {
+    if (new RegExp(`(?<![\\w$.])${banned}\\(`).test(source)) {
+      problems.push(
+        `calls ${banned}(): read each prop as props.x with its default where it is read, and take the rest with omit(props, ...)`,
+      )
+    }
+  }
+  const script = parseScript(file, source)
+  const node = propsNode(script)
+  if (node && !ts.isIdentifier(node.name)) {
+    problems.push(
+      "destructures its props: Solid reads them as props.x so they stay reactive",
+    )
+  }
+  const [call] = callsTo(script, "omit")
+  if (call) {
+    const keys = call.arguments
+      .slice(1)
+      .map((argument) =>
+        ts.isStringLiteral(argument) ? argument.text : argument.getText(),
+      )
+    const slots = keys.filter(
+      (key) => key === "children" || snippets.includes(key),
+    )
+    const expected = [
+      ...keys.filter((key) => !slots.includes(key)).toSorted(),
+      ...slots.toSorted(slotOrder),
+    ]
+    if (keys.join() !== expected.join()) {
+      problems.push(
+        `lists the omit() keys out of order: expected ${expected.join(", ")}`,
+      )
+    }
+    if (!/\{\s*\.\.\.rest\s*\}/.test(source)) {
+      problems.push(
+        "takes the rest with omit() but never spreads it: spread it onto the root element, or the input of a form control",
+      )
+    }
+  }
+  return problems
 }
 
 export const checkVueAttrs = (source) =>
@@ -865,7 +925,7 @@ const pageExamples = async (file, slug, seen = new Set()) => {
     },
   )
   for (const [, binding, folder, name] of frontmatter.matchAll(
-    /^import\s+([\w$]+)\s+from\s+["'][^"']*component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|svelte|vue)(?:\?raw)?["']/gm,
+    /^import\s+([\w$]+)\s+from\s+["'][^"']*component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|solid\.tsx|svelte|vue)(?:\?raw)?["']/gm,
   )) {
     if (new RegExp(`(?<![\\w$])${binding}(?![\\w$])`).test(source)) {
       examples.push({ auto: false, name, slug: folder })
@@ -944,33 +1004,39 @@ const main = async () => {
         .map((file) => basename(file, ext))
 
     const astro = names(".astro")
-    const react = files
-      .filter((file) => file.endsWith(".react.tsx"))
-      .map((file) => basename(file, ".react.tsx"))
-    const svelte = names(".svelte")
-    const vue = names(".vue")
-    for (const name of astro.filter((name) => !react.includes(name))) {
-      report(join(dir, `${name}.astro`), "has no matching .react.tsx component")
+    const ported = Object.entries(COMPONENT_FILES).filter(
+      ([framework]) =>
+        framework !== "astro" && folderHasFramework(framework, folder),
+    )
+    for (const [, extension] of ported) {
+      const ports = files
+        .filter((file) => file.endsWith(extension))
+        .map((file) => basename(file, extension))
+      for (const name of astro.filter((name) => !ports.includes(name))) {
+        report(
+          join(dir, `${name}.astro`),
+          `has no matching ${extension} component`,
+        )
+      }
+      for (const name of ports.filter((name) => !astro.includes(name))) {
+        report(
+          join(dir, `${name}${extension}`),
+          "has no matching .astro component",
+        )
+      }
     }
-    for (const name of astro.filter((name) => !svelte.includes(name))) {
-      report(join(dir, `${name}.astro`), "has no matching .svelte component")
-    }
-    for (const name of astro.filter((name) => !vue.includes(name))) {
-      report(join(dir, `${name}.astro`), "has no matching .vue component")
-    }
-    for (const name of react.filter((name) => !astro.includes(name))) {
-      report(join(dir, `${name}.react.tsx`), "has no matching .astro component")
-    }
-    for (const name of svelte.filter((name) => !astro.includes(name))) {
-      report(join(dir, `${name}.svelte`), "has no matching .astro component")
-    }
-    for (const name of vue.filter((name) => !astro.includes(name))) {
-      report(join(dir, `${name}.vue`), "has no matching .astro component")
-    }
-    for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
+    for (const name of TYPE_FILES.filter(
+      (name) =>
+        !files.includes(name) &&
+        folderHasFramework(
+          name === "types.solid.ts" ? "solid" : "astro",
+          folder,
+        ),
+    )) {
       report(join(dir, name), "is missing")
     }
     for (const [framework, extension] of Object.entries(BARRELS)) {
+      if (!folderHasFramework(framework, folder)) continue
       for (const name of astro) {
         if (!barrels[framework].includes(`/${folder}/${name}${extension}"`)) {
           report(
@@ -991,7 +1057,12 @@ const main = async () => {
     const context = CONTEXT_FILES.filter((name) => files.includes(name))
     if (context.length > 0) {
       for (const name of CONTEXT_FILES.filter(
-        (name) => !files.includes(name),
+        (name) =>
+          !files.includes(name) &&
+          folderHasFramework(
+            name === "context.solid.ts" ? "solid" : "astro",
+            folder,
+          ),
       )) {
         report(join(dir, name), "is missing")
       }
@@ -1036,6 +1107,15 @@ const main = async () => {
           path,
           checkDestructuring(path, source, ["children", ...snippets.flat()]),
         )
+      } else if (file.endsWith(".solid.tsx")) {
+        const svelte = `${basename(file, ".solid.tsx")}.svelte`
+        const snippets = files.includes(svelte)
+          ? (destructuredRuns(
+              svelte,
+              await readFile(join(dir, svelte), "utf-8"),
+            )?.slice(1) ?? [])
+          : []
+        reportAll(path, checkSolidProps(path, source, snippets.flat()))
       } else if ([".astro", ".svelte", ".vue"].includes(extname(file))) {
         reportAll(path, checkDestructuring(path, source))
       }
@@ -1046,7 +1126,7 @@ const main = async () => {
       for (const [extension, pattern, label] of CLASS_LISTS) {
         if (!file.endsWith(extension)) continue
         const lists = classLists(
-          extension === ".vue"
+          extension === ".vue" || extension === ".solid.tsx"
             ? source.replace(/\$?props\.class\b/g, "className")
             : source,
           pattern,
@@ -1092,7 +1172,9 @@ const main = async () => {
             name === folder ? "Props" : `${name}Props`,
           ),
         )
-        if (framework !== "vue") reportAll(path, checkRest(path, source))
+        if (!["solid", "vue"].includes(framework)) {
+          reportAll(path, checkRest(path, source))
+        }
         if (["svelte", "vue"].includes(framework)) {
           reportAll(
             path,
@@ -1203,8 +1285,18 @@ const main = async () => {
     }
   }
 
-  const astroNames = exportedNames(barrels.astro)
-  const astroTypes = exportedTypes(barrels.astro)
+  const folderOf = (from) =>
+    from.match(/^\.\.\/components\/([^/]+)\//)?.[1] ?? ""
+  const astroNamesFor = (framework) =>
+    barrelExports(barrels.astro)
+      .filter(({ folder }) => folderHasFramework(framework, folder))
+      .map(({ name }) => name)
+      .toSorted()
+  const astroTypesFor = (framework) =>
+    typeExports(barrels.astro)
+      .filter(({ from }) => folderHasFramework(framework, folderOf(from)))
+      .flatMap(({ names }) => names)
+      .toSorted()
   const firstUnsorted = (list) =>
     list.findIndex(
       (item, index) =>
@@ -1239,6 +1331,8 @@ const main = async () => {
       }
     }
     const names = exportedNames(source)
+    const astroNames = astroNamesFor(framework)
+    const astroTypes = astroTypesFor(framework)
     const missing = astroNames.filter((name) => !names.includes(name))
     const extra = names.filter((name) => !astroNames.includes(name))
     if (missing.length || extra.length) {

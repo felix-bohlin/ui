@@ -176,6 +176,7 @@ export const documentedClasses = (api: ComponentApi) => [
 const SCRIPTS: Record<ComponentFramework, RegExp> = {
   astro: /^---\n([\s\S]*?)\n---/g,
   react: /^([\s\S]*)$/g,
+  solid: /^([\s\S]*)$/g,
   svelte: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
   vue: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
 }
@@ -221,6 +222,35 @@ const literal = (node: ts.Expression | undefined): string | undefined => {
   return undefined
 }
 
+const propKeyOf = (node: ts.Expression) =>
+  ts.isPropertyAccessExpression(node) && node.expression.getText() === "props"
+    ? node.name.text
+    : ts.isElementAccessExpression(node) &&
+        node.expression.getText() === "props" &&
+        ts.isStringLiteral(node.argumentExpression)
+      ? node.argumentExpression.text
+      : undefined
+
+const accessorDefaults = (node: ts.Node): [string, string][] => {
+  if (
+    ts.isVariableDeclaration(node) &&
+    node.initializer &&
+    ts.isArrowFunction(node.initializer) &&
+    ts.isBinaryExpression(node.initializer.body) &&
+    node.initializer.body.operatorToken.kind ===
+      ts.SyntaxKind.QuestionQuestionToken
+  ) {
+    const key = propKeyOf(node.initializer.body.left)
+    const value = literal(node.initializer.body.right)
+    return key && value ? [[key, value]] : []
+  }
+  const found: [string, string][] = []
+  ts.forEachChild(node, (child) => {
+    found.push(...accessorDefaults(child))
+  })
+  return found
+}
+
 export const destructuredDefaults = (
   framework: ComponentFramework,
   source: string,
@@ -228,15 +258,16 @@ export const destructuredDefaults = (
   const script = [...source.matchAll(SCRIPTS[framework])]
     .map(([, code]) => code)
     .join("\n")
-  const binding = propsBinding(
-    ts.createSourceFile(
-      `component.${framework === "react" ? "tsx" : "ts"}`,
-      script,
-      ts.ScriptTarget.Latest,
-      true,
-      framework === "react" ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
-    ),
+  const jsx = framework === "react" || framework === "solid"
+  const sourceFile = ts.createSourceFile(
+    `component.${jsx ? "tsx" : "ts"}`,
+    script,
+    ts.ScriptTarget.Latest,
+    true,
+    jsx ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
   )
+  if (framework === "solid") return new Map(accessorDefaults(sourceFile))
+  const binding = propsBinding(sourceFile)
   return new Map(
     (binding?.elements ?? []).flatMap((element) => {
       const value = literal(element.initializer)

@@ -34,6 +34,7 @@ import {
   ID_PLACEHOLDER,
 } from "./example-ids.mjs"
 import {
+  propsOf,
   reactKinds,
   reactPropsOf,
   resolveReactProp,
@@ -1486,6 +1487,188 @@ const reactStyleIndent = (code) =>
       `${spaces}<style>{\`\n${indent(dedent(css), spaces.length + 2)}\n${spaces}\`}</style>`,
   )
 
+const solidPropCode = (name, item, kinds, where, context) => {
+  const has = (...names) => names.some((kind) => kinds.has(kind))
+  const fail = (what) =>
+    unsupported(
+      context.file,
+      `${what} for the prop ${name} of ${where}, which Solid types as ${[...kinds].join(" or ") || "nothing"}`,
+      "Solid",
+    )
+  if (item.kind === "boolean") {
+    if (has("boolean", "any", "other")) return name
+    if (has("string")) return `${name}=""`
+    throw fail("an attribute without a value")
+  }
+  if (item.kind === "string") {
+    if (has("string", "any", "other")) return stringProp(name, item.value)
+    if (has("number") && /^-?\d+(\.\d+)?$/.test(item.value)) {
+      return `${name}={${item.value}}`
+    }
+    throw fail(`the string ${JSON.stringify(item.value)}`)
+  }
+  return `${name}={${item.value}}`
+}
+
+const solidProps = (node, context) => {
+  const where = `<${node.name}>`
+  const table = propsOf("solid", node.name, node.component)
+  if (!table) {
+    throw unsupported(
+      context.file,
+      `${where}, which Solid's types don't have`,
+      "Solid",
+    )
+  }
+  const props = node.attributes.map((item) => {
+    const name =
+      table.has(item.name) || item.name.startsWith("data-")
+        ? item.name
+        : undefined
+    if (!name) {
+      throw unsupported(
+        context.file,
+        `the attribute ${item.name} on ${where}, which Solid's types for it don't have`,
+        "Solid",
+      )
+    }
+    return {
+      code: solidPropCode(name, item, reactKinds(table, name), where, context),
+      name,
+    }
+  })
+  const slots = node.children
+    .filter((child) => child.slot)
+    .map((child) => {
+      const name = slotProp(child.slot)
+      if (!table.has(name)) {
+        throw unsupported(
+          context.file,
+          `the slot ${child.slot} of ${where}, which has no ${name} prop in Solid`,
+          "Solid",
+        )
+      }
+      const content =
+        child.type === "fragment"
+          ? trimTree(child.children)
+          : [{ ...child, slot: undefined }]
+      if (content.every((item) => item.type === "text")) {
+        const text = content
+          .map((item) => item.value)
+          .join("")
+          .replace(/\s+/g, " ")
+          .trim()
+        return { code: jsxAttribute(name, decodeText(text)), name }
+      }
+      return { code: `${name}={${solidExpression(content, context)}}`, name }
+    })
+  const all = [...props, ...slots]
+  return (
+    node.component
+      ? all.toSorted((a, b) => byAttributeName(a.name, b.name))
+      : all
+  )
+    .map(({ code }) => code)
+    .join(" ")
+}
+
+const solidExpression = (nodes, context, extra = "") => {
+  const inlined = nodes.flatMap((node) =>
+    node.type === "html" && !context.markup.get(node.name).shared
+      ? context.markup.get(node.name).tree
+      : [node],
+  )
+  const significant = inlined.filter(
+    (node) => !(node.type === "text" && !node.value.trim()),
+  )
+  return significant.length === 1 && significant[0].type === "element" && !extra
+    ? solidNodes(significant, context)
+    : `<>${solidNodes(inlined, context)}${extra}</>`
+}
+
+const solidNodes = (nodes, context) =>
+  reactChildren(
+    nodes
+      .filter((node) => !node.slot)
+      .map((node) =>
+        node.type === "text"
+          ? { ...node, parts: textParts(node, context.roles) }
+          : node,
+      ),
+  )
+    .map((node) => {
+      if (node.type === "text") {
+        return jsxText(
+          joinRuns(node.parts)
+            .map(
+              (part) =>
+                part.text ??
+                (part.role === "space"
+                  ? " "
+                  : part.run === "\n\n"
+                    ? "\n\n"
+                    : "\n"),
+            )
+            .join(""),
+        )
+      }
+      if (node.type === "comment") {
+        if (node.value.includes("*/")) {
+          throw unsupported(context.file, "a comment that contains */", "Solid")
+        }
+        return `{/*${node.value}*/}`
+      }
+      if (node.type === "expression") return `{${node.code}}`
+      if (node.type === "html") {
+        const item = context.markup.get(node.name)
+        return item.shared ? `{${node.name}()}` : solidNodes(item.tree, context)
+      }
+      if (node.type === "map") {
+        return `{${node.array}.map((${node.params}) => (${solidElement(node.child, context)}))}`
+      }
+      if (node.type === "fragment") {
+        throw unsupported(context.file, "a slot outside a component", "Solid")
+      }
+      return solidElement(node, context)
+    })
+    .join("")
+
+const solidElement = (node, context) => {
+  const attributes = solidProps(node, context)
+  const content = solidNodes(node.children, context)
+  if (VOID_ELEMENTS.has(node.name) || (!content.trim() && node.component)) {
+    return `${openTag(node.name, attributes)} />`
+  }
+  return `${openTag(node.name, attributes)}>${content}</${node.name}>`
+}
+
+const toSolidExample = (example, name, file = `${name}.astro`) => {
+  const context = { file, markup: example.markup, roles: example.roles }
+  const components = usedComponents(example)
+  const functionName = components.includes(name) ? `${name}Example` : name
+  const shared = [...example.markup.values()]
+    .filter((item) => item.shared)
+    .map(
+      (item) =>
+        `const ${item.name} = () => (${solidExpression(item.tree, context)})`,
+    )
+  const header = [
+    importLine(example, "solid"),
+    ...declarations(example),
+    ...shared,
+  ]
+    .filter(Boolean)
+    .join("\n\n")
+  const styles = example.styles.map(
+    (css) =>
+      `\n<style>{\`\n${indent(templateLiteral(css), 8)}\n      \`}</style>`,
+  )
+  const body = solidExpression(example.tree, context, styles.join(""))
+  return `${SOLID_PRAGMA}\n${header ? `${header}\n\n` : ""}export default function ${functionName}() {\n  return (${body})\n}\n`
+}
+
+export const SOLID_PRAGMA = "/** @jsxImportSource @solidjs/web */"
+
 /** @param {string} source @param {string} framework @param {string} file @param {{ read?: Awaited<ReturnType<typeof readExample>>, roles?: Map<number, string> }} [options] */
 export const convertExample = async (
   source,
@@ -1503,16 +1686,17 @@ export const convertExample = async (
       file,
       "a client <script>",
       framework,
-      "write the React, Svelte and Vue files by hand and list them in scripts/hand-written-examples.json",
+      "write the React, Solid, Svelte and Vue files by hand and list them in scripts/hand-written-examples.json",
     )
   }
   const target = file.replace(/\.astro$/, TARGETS[framework])
-  if (framework === "react") {
+  if (framework === "react" || framework === "solid") {
+    const convert = framework === "react" ? toReact : toSolidExample
     return reactStyleIndent(
-      await formatStably(toReact(example, name, file), target),
+      await formatStably(convert(example, name, file), target),
     )
   }
-  if (framework !== "react" && mixedSvgText(example.tree)) {
+  if (mixedSvgText(example.tree)) {
     throw unsupported(
       file,
       "text next to an element inside an SVG <text>",
@@ -1523,7 +1707,8 @@ export const convertExample = async (
   if (framework === "svelte") {
     return formatStably(toSvelte(example), target)
   }
-  return formatStably(toVue(example), target)
+  if (framework === "vue") return formatStably(toVue(example), target)
+  throw unsupported(file, `the framework ${framework}`, framework)
 }
 
 export const runtimeImports = (code, file) => {

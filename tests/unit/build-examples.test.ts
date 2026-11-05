@@ -28,7 +28,7 @@ import type { ComponentApi } from "../../src/component-api/types"
 const EXAMPLES = "../../src/component-examples/"
 
 const sources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,react.tsx,solid.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const apis = import.meta.glob<ComponentApi>(
@@ -75,7 +75,7 @@ const convert = async (source: string, framework: string, name?: string) =>
   convertExample(await formatted(source, name), framework, sampleFile(name))
 
 beforeAll(async () => {
-  for (const framework of ["react", "svelte", "vue"]) {
+  for (const framework of ["react", "solid", "svelte", "vue"]) {
     await convert(
       astro('<Button type="button">Hi</Button>', "Button"),
       framework,
@@ -529,7 +529,7 @@ describe("reading the frontmatter", () => {
       "",
       '// The title\nconst title: string = "Hi" // trailing\nconst sizes = ["a", "b"] as const\n',
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       const code = await convert(source, framework)
       expect(code, framework).toContain("// The title")
       expect(code, framework).toContain(
@@ -737,7 +737,7 @@ describe("the source layout", () => {
     const lines = astro(
       `<div style="\n    ${declarations.replaceAll("; ", ";\n    ")};\n  "></div>`,
     )
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       expect(await convert(lines, framework)).toBe(
         await convert(oneLine, framework),
       )
@@ -1013,7 +1013,7 @@ describe("an example's structure", () => {
   ])("rejects a script with %s in every target", async (_, script, reason) => {
     const source = astro(`<p>Hi</p>\n${script}`)
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)
@@ -1034,7 +1034,7 @@ describe("an example's structure", () => {
     const source = astro(`<p>Hi</p>\n${style}`)
     const reason = "a <style> that isn't exactly <style is:global>"
     await expect(readExample(source, sampleFile())).rejects.toThrow(reason)
-    for (const framework of ["react", "svelte", "vue"]) {
+    for (const framework of ["react", "solid", "svelte", "vue"]) {
       await expect(
         convertExample(source, framework, sampleFile()),
       ).rejects.toThrow(reason)

@@ -788,7 +788,7 @@ interaction(
   async ({ page, root }) => {
     const textField = root
       .locator(".ui-text-field")
-      .filter({ hasText: "I'm required" })
+      .filter({ hasText: "Full name" })
     const input = textField.getByRole("textbox")
     const field = textField.locator(".ui-field")
     const border = () => computed(field, "border-block-end-color")
@@ -1107,7 +1107,7 @@ interaction(
   async ({ root }) => {
     const legend = root.locator("legend, .ui-legend").first()
 
-    await expect(legend).toHaveText("Pet info")
+    await expect(legend).toHaveText("Delivery")
     expect(await computed(legend, "content", "::after")).toContain('"*"')
   },
 )

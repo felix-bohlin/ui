@@ -360,6 +360,13 @@ export const keywords = ["data table", "grid", "rows", "sort"]
         >. The element then leaves the rows to React and still sets
         <code>aria-sort</code>.
       </Fragment>
+      <Fragment slot="solid">
+        When the rows come from your data, pass <code>onSort</code>, call
+        <code>event.preventDefault()</code> and sort the data with
+        <code>event.detail.column</code> and <code>event.detail.direction</code
+        >. The element then leaves the rows to Solid and still sets
+        <code>aria-sort</code>.
+      </Fragment>
       <Fragment slot="svelte">
         When the rows come from your data, pass <code>onsort</code>, call
         <code>event.preventDefault()</code> and sort the data with

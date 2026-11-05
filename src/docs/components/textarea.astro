@@ -250,6 +250,10 @@ export const keywords = ["multiline", "text area"]
         <code>onChange</code> that stores <code>event.currentTarget.value</code
         >, or <code>defaultValue</code> to leave the textarea in charge.
       </Fragment>
+      <Fragment slot="solid">
+        Keep the value in your own state. Pass <code>value</code> and an
+        <code>onInput</code> that stores <code>event.currentTarget.value</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Bind the value with <code>bind:value</code>. Changing the field updates
         the variable, and setting the variable updates the field.

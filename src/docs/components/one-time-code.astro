@@ -139,6 +139,12 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
         <code>pattern</code>, so phones show a number pad and the browser
         validates the code. Use <code>onChange</code> to read it.
       </Fragment>
+      <Fragment slot="solid">
+        The code has 6 digits by default. The input gets
+        <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching
+        <code>pattern</code>, so phones show a number pad and the browser
+        validates the code. Use <code>onInput</code> to read it as it's typed.
+      </Fragment>
       <Fragment slot="svelte">
         The code has 6 digits by default. The input gets
         <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching

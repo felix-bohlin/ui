@@ -131,6 +131,13 @@ export const keywords = ["activity", "feed", "history"]
         <code>headingLevel</code> to fit your page outline, or leave out
         <code>label</code> and put your own heading in the children.</Fragment
       >
+      <Fragment slot="solid"
+        >Each <code>TimelineItem</code> takes a <code>time</code>, a
+        <code>datetime</code> and a <code>label</code>, and its content as
+        children. The heading is an <code>h3</code>. Set
+        <code>headingLevel</code> to fit your page outline, or leave out
+        <code>label</code> and put your own heading in the children.</Fragment
+      >
       <Fragment slot="svelte"
         >Each <code>TimelineItem</code> takes a <code>time</code>, a
         <code>datetime</code> and a <code>label</code>, and its content as
@@ -188,6 +195,10 @@ export const keywords = ["activity", "feed", "history"]
         >Put an icon in the <code>marker</code> prop to replace the dot. It
         follows the item's color and the current state.</Fragment
       >
+      <Fragment slot="solid"
+        >Put an icon in the <code>marker</code> prop to replace the dot. It
+        follows the item's color and the current state.</Fragment
+      >
       <Fragment slot="svelte"
         >Put an icon in the <code>marker</code> snippet to replace the dot. It
         follows the item's color and the current state.</Fragment
@@ -217,6 +228,12 @@ export const keywords = ["activity", "feed", "history"]
         primary color and a halo.</Fragment
       >
       <Fragment slot="react"
+        >Set <code>current</code> on the current item.
+        <code>current="step"</code> fits a milestone, and <code>current</code>
+        alone renders <code>aria-current="true"</code>. Its marker gets the
+        primary color and a halo.</Fragment
+      >
+      <Fragment slot="solid"
         >Set <code>current</code> on the current item.
         <code>current="step"</code> fits a milestone, and <code>current</code>
         alone renders <code>aria-current="true"</code>. Its marker gets the
@@ -286,6 +303,12 @@ export const keywords = ["activity", "feed", "history"]
         content.</Fragment
       >
       <Fragment slot="react"
+        >Pass <code>items</code> to render the list from data. Each
+        <code>description</code> renders a paragraph. Use
+        <code>TimelineItem</code> for custom markers or richer
+        content.</Fragment
+      >
+      <Fragment slot="solid"
         >Pass <code>items</code> to render the list from data. Each
         <code>description</code> renders a paragraph. Use
         <code>TimelineItem</code> for custom markers or richer

@@ -238,6 +238,14 @@ export const keywords = ["tab panel", "tablist"]
         another one fires no <code>onChange</code> of its own, which is why the
         value lives on <code>Tabs</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Give each <code>TabsItem</code> a <code>value</code> and control the
+        selection with <code>value</code> and <code>onValueChange</code> on
+        <code>Tabs</code>. A tab is checked when its <code>value</code> matches,
+        so the items don't need <code>checked</code>. A tab that loses its check
+        to another one fires no <code>change</code> of its own, which is why the
+        value lives on <code>Tabs</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Give each <code>TabsItem</code> a <code>value</code> and bind the
         selection with <code>bind:value</code> on <code>Tabs</code>. A tab is

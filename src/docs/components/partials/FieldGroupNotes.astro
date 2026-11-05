@@ -141,6 +141,11 @@ const values = single ? "selected value" : "checked values"
     <code>checked</code> and an <code>onChange</code> that
     {single ? "stores" : "adds or removes"} its <code>value</code>.
   </Fragment>
+  <Fragment slot="solid">
+    Keep the {values} in your own state. Pass each <code>{Component}</code> a
+    <code>checked</code> and an <code>onChange</code> that
+    {single ? "stores" : "adds or removes"} its <code>value</code>.
+  </Fragment>
   <Fragment slot="svelte">
     Bind the {values} with <code>bind:group</code> on each
     <code>{Component}</code>. {single ? "It holds" : "The array holds"} the

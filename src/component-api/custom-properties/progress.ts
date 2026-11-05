@@ -30,4 +30,19 @@ export default {
       "Motion multiplier for the value transition and the indeterminate animation.",
     kind: "input",
   },
+  "--_ring-border-width": {
+    description:
+      "Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.",
+    kind: "input",
+  },
+  "--_ring-fraction": {
+    description:
+      "The share of the ring of `.ui-round` that is filled, `value` divided by `max` read with typed `attr()`, or `0.25` for the spinning arc of an indeterminate ring.",
+    kind: "output",
+  },
+  "--_ring-size": {
+    description:
+      "Width and height of `.ui-round`. Defaults to `--ui-icon-size-large`.",
+    kind: "input",
+  },
 } satisfies CustomProperties

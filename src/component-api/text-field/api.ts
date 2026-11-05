@@ -56,6 +56,14 @@ export default {
       prop: "characterCountLabel",
     },
     {
+      class: ".ui-drop-zone",
+      default: "false",
+      description:
+        'Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.',
+      group: "Drop zone",
+      prop: "dropZone",
+    },
+    {
       default: "false",
       description:
         'Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.',

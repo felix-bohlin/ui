@@ -846,6 +846,10 @@ export const whatsNew = {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
     },
+    {
+      default: `<a href="#round"><code>round</code></a> draws the progress as a ring for small spaces, in browsers with typed <code>attr()</code>.`,
+      html: `<a href="#round"><code>.ui-round</code></a> draws the progress as a ring for small spaces, in browsers with typed <code>attr()</code>.`,
+    },
   ],
   radio: [
     `<a href="#cards">Cards</a> take <code>--ui-card-padding</code>.`,
@@ -1319,6 +1323,10 @@ export const whatsNew = {
       html: `<a href="#character-count">Character count</a>: <code>&lt;opui-character-count&gt;</code> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit. Import <code>opui-css/elements/character-count.js</code>.`,
     },
     `<a href="#variants">Filled fields</a> fade their hover background, like the border.`,
+    {
+      default: `<a href="#drop-zone"><code>dropZone</code></a> makes a file field a tall area that takes dropped files.`,
+      html: `<a href="#drop-zone"><code>.ui-drop-zone</code></a> makes a file field a tall area that takes dropped files.`,
+    },
   ],
   textarea: [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,

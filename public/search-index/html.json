@@ -164,6 +164,13 @@
     "url": "/html/components/avatar/#grouped"
   },
   {
+    "id": "component-avatar-html-overflow",
+    "title": "Overflow",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/html/components/avatar/#overflow"
+  },
+  {
     "id": "component-badge-html",
     "title": "Badge",
     "description": "Badges attach a small count or status dot to another element.",
@@ -385,6 +392,20 @@
     "url": "/html/components/callout/#icon"
   },
   {
+    "id": "component-callout-html-actions",
+    "title": "Actions",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/html/components/callout/#actions"
+  },
+  {
+    "id": "component-callout-html-dismissible",
+    "title": "Dismissible",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/html/components/callout/#dismissible"
+  },
+  {
     "id": "component-card-html",
     "title": "Card",
     "description": "A surface for related content and actions, on its own or as the base of accordions, dialogs and more.",
@@ -398,6 +419,13 @@
     "page": "Card",
     "category": "Component",
     "url": "/html/components/card/#variants"
+  },
+  {
+    "id": "component-card-html-colors",
+    "title": "Colors",
+    "page": "Card",
+    "category": "Component",
+    "url": "/html/components/card/#colors"
   },
   {
     "id": "component-card-html-density",
@@ -414,6 +442,20 @@
     "url": "/html/components/card/#header"
   },
   {
+    "id": "component-card-html-header-row",
+    "title": "Header row",
+    "page": "Card",
+    "category": "Component",
+    "url": "/html/components/card/#header-row"
+  },
+  {
+    "id": "component-card-html-media",
+    "title": "Media",
+    "page": "Card",
+    "category": "Component",
+    "url": "/html/components/card/#media"
+  },
+  {
     "id": "component-card-html-actions",
     "title": "Actions",
     "page": "Card",
@@ -426,6 +468,13 @@
     "page": "Card",
     "category": "Component",
     "url": "/html/components/card/#actions-alignment"
+  },
+  {
+    "id": "component-card-html-orientation",
+    "title": "Orientation",
+    "page": "Card",
+    "category": "Component",
+    "url": "/html/components/card/#orientation"
   },
   {
     "id": "component-card-html-clickable",
@@ -1039,6 +1088,13 @@
     "url": "/html/components/form/#fieldset-invalid"
   },
   {
+    "id": "component-form-html-error-summary",
+    "title": "Error summary",
+    "page": "Form",
+    "category": "Component",
+    "url": "/html/components/form/#error-summary"
+  },
+  {
     "id": "component-form-html-fieldset-required",
     "title": "Required",
     "page": "Form",
@@ -1385,6 +1441,13 @@
     "url": "/html/components/menu/#custom"
   },
   {
+    "id": "component-menu-html-checkable-items",
+    "title": "Checkable items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#checkable-items"
+  },
+  {
     "id": "component-menu-html-placement",
     "title": "Placement",
     "page": "Menu",
@@ -1404,6 +1467,13 @@
     "page": "Menu",
     "category": "Component",
     "url": "/html/components/menu/#manual"
+  },
+  {
+    "id": "component-menu-html-context-menu",
+    "title": "Context menu",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/html/components/menu/#context-menu"
   },
   {
     "id": "component-menu-html-role-attributes",
@@ -1660,6 +1730,13 @@
     "page": "Progress",
     "category": "Component",
     "url": "/html/components/progress/#inline"
+  },
+  {
+    "id": "component-progress-html-round",
+    "title": "Round",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/html/components/progress/#round"
   },
   {
     "id": "component-radio-html",
@@ -1993,6 +2070,13 @@
     "page": "Select",
     "category": "Component",
     "url": "/html/components/select/#optgroup"
+  },
+  {
+    "id": "component-select-html-rich-options",
+    "title": "Rich options",
+    "page": "Select",
+    "category": "Component",
+    "url": "/html/components/select/#rich-options"
   },
   {
     "id": "component-select-html-disabled",
@@ -2378,6 +2462,20 @@
     "url": "/html/components/table/#sorting"
   },
   {
+    "id": "component-table-html-empty",
+    "title": "Empty",
+    "page": "Table",
+    "category": "Component",
+    "url": "/html/components/table/#empty"
+  },
+  {
+    "id": "component-table-html-expandable-rows",
+    "title": "Expandable rows",
+    "page": "Table",
+    "category": "Component",
+    "url": "/html/components/table/#expandable-rows"
+  },
+  {
     "id": "component-table-html-advanced",
     "title": "Advanced",
     "page": "Table",
@@ -2426,6 +2524,13 @@
     "page": "Tabs",
     "category": "Component",
     "url": "/html/components/tabs/#outlined"
+  },
+  {
+    "id": "component-tabs-html-icons-and-counts",
+    "title": "Icons and counts",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/html/components/tabs/#icons-and-counts"
   },
   {
     "id": "component-tabs-html-overflow",
@@ -2567,6 +2672,13 @@
     "page": "Text field",
     "category": "Component",
     "url": "/html/components/text-field/#file"
+  },
+  {
+    "id": "component-text-field-html-drop-zone",
+    "title": "Drop zone",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/html/components/text-field/#drop-zone"
   },
   {
     "id": "component-text-field-html-autosuggest",
@@ -4114,7 +4226,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "api": ".ui-callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use.",
+    "api": ".ui-callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. .ui-callout > svg The content, with an optional heading first. .ui-content A row of buttons under the content. .ui-actions A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. .ui-callout > .ui-button .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. .ui-outlined Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#callout"
   },
@@ -4127,10 +4239,18 @@
     "url": "/html/api/#card-actions"
   },
   {
+    "id": "api-card-header-html",
+    "title": "Card Header API",
+    "description": "Reference for Card Header HTML component.",
+    "api": ".ui-header The card header.",
+    "category": "API",
+    "url": "/html/api/#card-header"
+  },
+  {
     "id": "api-card-html",
     "title": "Card API",
     "description": "Reference for Card HTML component.",
-    "api": ".ui-card Container element. The card header. hgroup.ui-header The card content. .ui-content A group of actions, such as buttons. .ui-actions .ui-dense .ui-spacious Density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` card has the page surface color and no border.",
+    "api": ".ui-card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. .ui-card > img The card header. .ui-header The card content. .ui-content A group of actions, such as buttons. .ui-actions .ui-primary Colors Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. .ui-dense .ui-spacious Density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. .ui-horizontal Orientation The orientation of the element. `horizontal` puts an image that is the first child at the start, over the full height, and the other parts next to it. Its width is `--_media-inline-size`, `40%` of the card. .ui-elevated .ui-outlined .ui-tonal .ui-transparent Variants The variant to use. The default `plain` card has the page surface color and no border.",
     "category": "API",
     "url": "/html/api/#card"
   },
@@ -4199,10 +4319,18 @@
     "url": "/html/api/#dialog-footer"
   },
   {
+    "id": "api-dialog-header-html",
+    "title": "Dialog Header API",
+    "description": "Reference for Dialog Header HTML component.",
+    "api": ".ui-header Container element. Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`. .ui-header > .ui-button",
+    "category": "API",
+    "url": "/html/api/#dialog-header"
+  },
+  {
     "id": "api-dialog-html",
     "title": "Dialog API",
     "description": "Reference for Dialog HTML component.",
-    "api": "dialog.ui-dialog Container element. The header, a row for the title and anything next to it. .ui-header The title. Names the dialog through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer [closedby] Behavior How the dialog can be closed. `\"any\"` also closes it on a click outside.",
+    "api": "dialog.ui-dialog Container element. The header, a row for the title and anything next to it, with an optional close button. .ui-header The title. Names the dialog through `aria-labelledby`. .ui-header > h2 The scrollable content. .ui-content The footer, a row at the end. .ui-footer [closedby] Behavior How the dialog can be closed. `\"any\"` also closes it on a click outside.",
     "category": "API",
     "url": "/html/api/#dialog"
   },
@@ -4346,7 +4474,7 @@
     "id": "api-progress-html",
     "title": "Progress API",
     "description": "Reference for Progress HTML component.",
-    "api": ".ui-progress Container element. The progress bar. .ui-progress > progress [value] Value The current value. Omit it for an indeterminate state. .ui-filled Variants The variant to use.",
+    "api": ".ui-progress Container element. The progress bar. .ui-progress > progress .ui-round Shape Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar. [value] Value The current value. Omit it for an indeterminate state. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#progress"
   },
@@ -4530,7 +4658,7 @@
     "id": "api-text-field-html",
     "title": "Text Field API",
     "description": "Reference for Text Field HTML component.",
-    "api": ".ui-text-field Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The input element. input Content at the inline-end of the field, inside the border, and the password toggle. .ui-field > .ui-end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. .ui-field > .ui-end > .ui-button Content below the input, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. [aria-disabled=\"true\"] [disabled] Disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the input to the other. .ui-filled Variants The variant to use.",
+    "api": ".ui-text-field Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. .ui-label Start text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-field > .ui-top Content at the inline-start of the field, inside the border. .ui-field > .ui-start The input element. input Content at the inline-end of the field, inside the border, and the password toggle. .ui-field > .ui-end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. .ui-field > .ui-end > .ui-button Content below the input, inside the border, with a divider. .ui-field > .ui-bottom Supporting text displayed below the field. .ui-end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. .ui-end-text > .ui-value .ui-auto-fit Auto fit Lets the width follow the content, from `25ch`. .ui-drop-zone Drop zone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. [aria-disabled=\"true\"] [disabled] Disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-sr-only Label Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. [required] Required Adds a required mark after the label. The form won't submit while the field is empty. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Spread Pushes the label and start text to one side and the input to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "url": "/html/api/#text-field"
   },

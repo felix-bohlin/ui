@@ -2,7 +2,9 @@
 import Component from "../../layouts/Component.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
 import Conditional from "../../components/Conditional.astro"
@@ -15,7 +17,7 @@ export const keywords = ["loading", "meter", "progress bar"]
 
 <Component
   slug="progress"
-  browserSupport={["container-style-queries", "has"]}
+  browserSupport={["attr", "container-style-queries", "has"]}
   apis={[{ title: "Progress API", api: progressApi }]}
   changelogPaths={[
     {
@@ -65,6 +67,11 @@ export const keywords = ["loading", "meter", "progress bar"]
   <section id="determinate">
     <h2>Determinate</h2>
     <AutoExample name="Determinate" column />
+
+    <BlockLink slug="billing">
+      Usage against the plan's limits: a row with the label and the amount above
+      each bar, which names the progress through <code>aria-labelledby</code>.
+    </BlockLink>
   </section>
 
   <section id="variants">
@@ -93,6 +100,20 @@ export const keywords = ["loading", "meter", "progress bar"]
       <code>inline-size</code> to keep it short.
     </p>
     <AutoExample name="Inline" />
+  </section>
+
+  <section id="round">
+    <h2>Round</h2>
+    <p>
+      <PropOrClass prop="round" class=".ui-round" /> draws the progress as a
+      ring, <code>--ui-icon-size-large</code> wide, for a small space like a
+      list item or the end of a row. The filled part follows <code>value</code>
+      and <code>max</code>, read with typed <code>attr()</code>, and an
+      indeterminate ring spins a quarter arc. Browsers without typed
+      <code>attr()</code> show the bar. Set <code>--_ring-size</code> and
+      <code>--_ring-border-width</code> to resize it.
+    </p>
+    <AutoExample name="Round" row />
   </section>
 
   <ProgressBuild slot="under-the-hood" />

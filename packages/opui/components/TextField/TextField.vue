@@ -21,6 +21,7 @@ const {
   autoFit,
   characterCount,
   characterCountLabel,
+  dropZone,
   endText,
   error,
   hideLabel,
@@ -112,6 +113,7 @@ const endTextId = computed(() =>
       'ui-text-field',
       {
         'ui-auto-fit': autoFit,
+        'ui-drop-zone': dropZone,
         'ui-filled': variant === 'filled',
         'ui-spread': spread,
       },

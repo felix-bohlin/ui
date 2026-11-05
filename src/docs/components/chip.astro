@@ -5,6 +5,7 @@ import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Chip as UIChip } from "opui-css/astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ChipCSS from "@opui/css/components/chip.css?raw"
 import Conditional from "../../components/Conditional.astro"
@@ -188,6 +189,16 @@ export const keywords = ["filter", "pill", "tag", "token"]
       for a chip that runs an action.
     </p>
     <AutoExample name="Button" column centered />
+
+    <p>
+      A button chip with a close icon after the label removes what it names,
+      like an applied filter or code. Give it an <code>aria-label</code> that
+      says what it removes.
+    </p>
+    <BlockLink slug="shopping-cart">
+      The applied discount code under the order summary is an outlined button
+      chip with a close icon, labelled "Remove code HOSTEN10".
+    </BlockLink>
   </section>
 
   <section id="link">

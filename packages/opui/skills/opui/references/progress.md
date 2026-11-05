@@ -15,6 +15,7 @@ See also: Spinner.
 ### Props and modifiers
 
 - `max`: `number | string`. The maximum value.
+- `round`: `boolean`, `.ui-round`. Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar.
 - `value`: `number | string`, `progress[value]`. The current value. Omit it for an indeterminate state.
 - `variant`: `"filled"` (`.ui-filled`), `"tonal"` (default). The variant to use.
 
@@ -38,12 +39,14 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_ease`: Easing of the value transition. Defaults to `--ui-ease-enter`.
 - `--_loop-duration`: Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.
 - `--_motion`: Motion multiplier for the value transition and the indeterminate animation.
+- `--_ring-border-width`: Thickness of the ring of `.ui-round`. Defaults to `--ui-border-width-thick`.
+- `--_ring-size`: Width and height of `.ui-round`. Defaults to `--ui-icon-size-large`.
 
-Outputs: `--_duration`.
+Outputs: `--_duration` and `--_ring-fraction`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-width`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-width`, `--ui-border-width-thick`, `--ui-duration`, `--ui-ease-enter`, `--ui-field-border-color`, `--ui-icon-size-large`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-radius-round`, `--ui-space-1`, `--ui-surface-filled`, `--ui-surface-tonal` and `--ui-track-bg-color`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

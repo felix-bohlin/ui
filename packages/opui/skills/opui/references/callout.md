@@ -12,6 +12,8 @@ Callouts call out for user attention. Should be part of the flow and used withou
 - `.ui-callout` (root): Container element.
 - `<svg>` (`CalloutIcon`): An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning.
 - `.ui-content` (`CalloutContent`): The content, with an optional heading first.
+- `.ui-actions` (`CalloutActions`): A row of buttons under the content.
+- `<button>`: A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row.
 
 ### Props and modifiers
 
@@ -53,7 +55,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-durati
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-2`, `--ui-space-3`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-font-size-body`, `--ui-font-size-small`, `--ui-font-weight-semibold`, `--ui-icon-size`, `--ui-motion`, `--ui-palette-accent`, `--ui-palette-border`, `--ui-palette-strong`, `--ui-palette-tint-subtle`, `--ui-primary-text`, `--ui-radius`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-surface`, `--ui-surface-tonal` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -82,7 +84,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-b
 
 ## Astro
 
-`import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"`
+`import { Callout, CalloutActions, CalloutContent, CalloutIcon } from "opui-css/astro"`
 
 ### Example: Variants
 
@@ -113,7 +115,7 @@ import { Callout, CalloutContent } from "opui-css/astro"
 
 ## React
 
-`import { Callout, CalloutContent, CalloutIcon } from "opui-css/react"`
+`import { Callout, CalloutActions, CalloutContent, CalloutIcon } from "opui-css/react"`
 
 - Client components (`"use client"`): `Callout`.
 
@@ -150,7 +152,7 @@ export default function Variants() {
 
 ## Svelte
 
-`import { Callout, CalloutContent, CalloutIcon } from "opui-css/svelte"`
+`import { Callout, CalloutActions, CalloutContent, CalloutIcon } from "opui-css/svelte"`
 
 ### Example: Variants
 
@@ -181,7 +183,7 @@ export default function Variants() {
 
 ## Vue
 
-`import { Callout, CalloutContent, CalloutIcon } from "opui-css/vue"`
+`import { Callout, CalloutActions, CalloutContent, CalloutIcon } from "opui-css/vue"`
 
 ### Example: Variants
 

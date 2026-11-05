@@ -57,6 +57,7 @@ Components documented on another component's page:
 | AccordionSummary | `accordion.md` |
 | AnchorContent | `anchor.md` |
 | AvatarGroup | `avatar.md` |
+| CalloutActions | `callout.md` |
 | CalloutContent | `callout.md` |
 | CalloutIcon | `callout.md` |
 | CardActions | `card.md` |

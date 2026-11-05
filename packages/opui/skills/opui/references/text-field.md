@@ -28,6 +28,7 @@ An input for single-line text data. Basic text fields with labels, field descrip
 - `characterCount`: `boolean`. Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.
 - `characterCountLabel`: `string`, default `"Characters left: {count}"`. The announcement near the limit, with `{count}` for the characters left. Pass it translated.
 - `disabled`: `boolean`, `input[aria-disabled="true"]`, `input[disabled]`. Dims the field and blocks input. `aria-disabled="true"` looks the same, but keeps the field focusable, its text editable and its value in the form.
+- `dropZone`: `boolean`, `.ui-drop-zone`. Makes a `type="file"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker.
 - `error`: `boolean`, `input[aria-invalid="true"]`. Marks the control invalid and shows error styles.
 - `hideLabel`: `boolean`, `.ui-text-field > :is(span, label).ui-sr-only`. Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.
 - `id`: `string`. The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.

@@ -164,6 +164,13 @@
     "url": "/svelte/components/avatar/#grouped"
   },
   {
+    "id": "component-avatar-svelte-overflow",
+    "title": "Overflow",
+    "page": "Avatar",
+    "category": "Component",
+    "url": "/svelte/components/avatar/#overflow"
+  },
+  {
     "id": "component-badge-svelte",
     "title": "Badge",
     "description": "Badges attach a small count or status dot to another element.",
@@ -385,6 +392,20 @@
     "url": "/svelte/components/callout/#icon"
   },
   {
+    "id": "component-callout-svelte-actions",
+    "title": "Actions",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/svelte/components/callout/#actions"
+  },
+  {
+    "id": "component-callout-svelte-dismissible",
+    "title": "Dismissible",
+    "page": "Callout",
+    "category": "Component",
+    "url": "/svelte/components/callout/#dismissible"
+  },
+  {
     "id": "component-card-svelte",
     "title": "Card",
     "description": "A surface for related content and actions, on its own or as the base of accordions, dialogs and more.",
@@ -398,6 +419,13 @@
     "page": "Card",
     "category": "Component",
     "url": "/svelte/components/card/#variants"
+  },
+  {
+    "id": "component-card-svelte-colors",
+    "title": "Colors",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card/#colors"
   },
   {
     "id": "component-card-svelte-density",
@@ -414,6 +442,20 @@
     "url": "/svelte/components/card/#header"
   },
   {
+    "id": "component-card-svelte-header-row",
+    "title": "Header row",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card/#header-row"
+  },
+  {
+    "id": "component-card-svelte-media",
+    "title": "Media",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card/#media"
+  },
+  {
     "id": "component-card-svelte-actions",
     "title": "Actions",
     "page": "Card",
@@ -426,6 +468,13 @@
     "page": "Card",
     "category": "Component",
     "url": "/svelte/components/card/#actions-alignment"
+  },
+  {
+    "id": "component-card-svelte-orientation",
+    "title": "Orientation",
+    "page": "Card",
+    "category": "Component",
+    "url": "/svelte/components/card/#orientation"
   },
   {
     "id": "component-card-svelte-clickable",
@@ -1039,6 +1088,13 @@
     "url": "/svelte/components/form/#fieldset-invalid"
   },
   {
+    "id": "component-form-svelte-error-summary",
+    "title": "Error summary",
+    "page": "Form",
+    "category": "Component",
+    "url": "/svelte/components/form/#error-summary"
+  },
+  {
     "id": "component-form-svelte-fieldset-required",
     "title": "Required",
     "page": "Form",
@@ -1385,6 +1441,13 @@
     "url": "/svelte/components/menu/#custom"
   },
   {
+    "id": "component-menu-svelte-checkable-items",
+    "title": "Checkable items",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu/#checkable-items"
+  },
+  {
     "id": "component-menu-svelte-placement",
     "title": "Placement",
     "page": "Menu",
@@ -1404,6 +1467,13 @@
     "page": "Menu",
     "category": "Component",
     "url": "/svelte/components/menu/#manual"
+  },
+  {
+    "id": "component-menu-svelte-context-menu",
+    "title": "Context menu",
+    "page": "Menu",
+    "category": "Component",
+    "url": "/svelte/components/menu/#context-menu"
   },
   {
     "id": "component-menu-svelte-role-attributes",
@@ -1660,6 +1730,13 @@
     "page": "Progress",
     "category": "Component",
     "url": "/svelte/components/progress/#inline"
+  },
+  {
+    "id": "component-progress-svelte-round",
+    "title": "Round",
+    "page": "Progress",
+    "category": "Component",
+    "url": "/svelte/components/progress/#round"
   },
   {
     "id": "component-radio-svelte",
@@ -1993,6 +2070,13 @@
     "page": "Select",
     "category": "Component",
     "url": "/svelte/components/select/#optgroup"
+  },
+  {
+    "id": "component-select-svelte-rich-options",
+    "title": "Rich options",
+    "page": "Select",
+    "category": "Component",
+    "url": "/svelte/components/select/#rich-options"
   },
   {
     "id": "component-select-svelte-disabled",
@@ -2378,6 +2462,20 @@
     "url": "/svelte/components/table/#sorting"
   },
   {
+    "id": "component-table-svelte-empty",
+    "title": "Empty",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table/#empty"
+  },
+  {
+    "id": "component-table-svelte-expandable-rows",
+    "title": "Expandable rows",
+    "page": "Table",
+    "category": "Component",
+    "url": "/svelte/components/table/#expandable-rows"
+  },
+  {
     "id": "component-table-svelte-advanced",
     "title": "Advanced",
     "page": "Table",
@@ -2426,6 +2524,13 @@
     "page": "Tabs",
     "category": "Component",
     "url": "/svelte/components/tabs/#outlined"
+  },
+  {
+    "id": "component-tabs-svelte-icons-and-counts",
+    "title": "Icons and counts",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/svelte/components/tabs/#icons-and-counts"
   },
   {
     "id": "component-tabs-svelte-overflow",
@@ -2567,6 +2672,13 @@
     "page": "Text field",
     "category": "Component",
     "url": "/svelte/components/text-field/#file"
+  },
+  {
+    "id": "component-text-field-svelte-drop-zone",
+    "title": "Drop zone",
+    "page": "Text field",
+    "category": "Component",
+    "url": "/svelte/components/text-field/#drop-zone"
   },
   {
     "id": "component-text-field-svelte-autosuggest",
@@ -4107,7 +4219,7 @@
     "id": "api-callout-svelte",
     "title": "Callout API",
     "description": "Reference for Callout Svelte component.",
-    "api": "Callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
+    "api": "Callout Container element. An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for critical, info, success and warning. The content, with an optional heading first. A row of buttons under the content. A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row. severity The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#callout"
   },
@@ -4120,10 +4232,18 @@
     "url": "/svelte/api/#card-actions"
   },
   {
+    "id": "api-card-header-svelte",
+    "title": "Card Header API",
+    "description": "Reference for Card Header Svelte component.",
+    "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it.",
+    "category": "API",
+    "url": "/svelte/api/#card-header"
+  },
+  {
     "id": "api-card-svelte",
     "title": "Card API",
     "description": "Reference for Card Svelte component.",
-    "api": "Card Container element. The card header. The card content. A group of actions, such as buttons. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. variant The variant to use. The default `plain` card has the page surface color and no border.",
+    "api": "Card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. The card header. The card content. A group of actions, such as buttons. color Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. orientation The orientation of the element. `horizontal` puts an image that is the first child at the start, over the full height, and the other parts next to it. Its width is `--_media-inline-size`, `40%` of the card. variant The variant to use. The default `plain` card has the page surface color and no border.",
     "category": "API",
     "url": "/svelte/api/#card"
   },
@@ -4192,10 +4312,18 @@
     "url": "/svelte/api/#dialog-footer"
   },
   {
+    "id": "api-dialog-header-svelte",
+    "title": "Dialog Header API",
+    "description": "Reference for Dialog Header Svelte component.",
+    "api": "DialogHeader Container element. Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`. closeLabel close-icon closeLabel The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.",
+    "category": "API",
+    "url": "/svelte/api/#dialog-header"
+  },
+  {
     "id": "api-dialog-svelte",
     "title": "Dialog API",
     "description": "Reference for Dialog Svelte component.",
-    "api": "Dialog Container element. The header, a row for the title and anything next to it. The title. Names the dialog through `aria-labelledby`. The scrollable content. The footer, a row at the end. closedby How the dialog can be closed. `\"any\"` also closes it on a click outside.",
+    "api": "Dialog Container element. The header, a row for the title and anything next to it, with an optional close button. The title. Names the dialog through `aria-labelledby`. The scrollable content. The footer, a row at the end. closedby How the dialog can be closed. `\"any\"` also closes it on a click outside.",
     "category": "API",
     "url": "/svelte/api/#dialog"
   },
@@ -4339,7 +4467,7 @@
     "id": "api-progress-svelte",
     "title": "Progress API",
     "description": "Reference for Progress Svelte component.",
-    "api": "Progress Container element. The progress bar. max value max The maximum value. value The current value. Omit it for an indeterminate state. variant The variant to use.",
+    "api": "Progress Container element. The progress bar. max value max The maximum value. round Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar. value The current value. Omit it for an indeterminate state. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#progress"
   },
@@ -4523,7 +4651,7 @@
     "id": "api-text-field-svelte",
     "title": "Text Field API",
     "description": "Reference for Text Field Svelte component.",
-    "api": "TextField Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. inputmode The `inputmode` of the `<input>`. With `type=\"numeric\"` it is `numeric`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. pattern The `pattern` of the `<input>`. With `type=\"numeric\"` it is `[0-9]*`. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "api": "TextField Container element, a `<label>`, or the `<opui-text-field>` custom element with `passwordToggle`. The label for the field. label label Start text displayed above the field. startText start-text The boxed input area. Content above the input, inside the border, with a divider. top Content at the inline-start of the field, inside the border. start The input element. Content at the inline-end of the field, inside the border, and the password toggle. end The password toggle, with `aria-pressed` and `command=\"--toggle-password\"`. Renders an eye in `.ui-icon-unchecked` and a crossed-out eye in `.ui-icon-checked` by default, or the icons in `icon-unchecked` and `icon-checked`, and shows one of them. Hidden until `<opui-text-field>` is defined. passwordToggle passwordToggleLabel icon-checked icon-unchecked Content below the input, inside the border, with a divider. bottom Supporting text displayed below the field. endText end-text The character count, `aria-hidden` so it stays out of the field's name. Near the limit, a live region outside the label announces the characters left. characterCount characterCountLabel autoFit Lets the width follow the content, from `25ch`. characterCount Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count. characterCountLabel The announcement near the limit, with `{count}` for the characters left. Pass it translated. dropZone Makes a `type=\"file\"` field a tall drop zone with a dashed border. The whole input takes files dropped on it, and a click opens the file picker. disabled Dims the field and blocks input. `aria-disabled=\"true\"` looks the same, but keeps the field focusable, its text editable and its value in the form. error Marks the control invalid and shows error styles. hideLabel Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. id The id of the `<input>`. With `passwordToggle`, the label and the toggle point at it, so the component generates one when it's left out, and the start and end text ids start with it: `x-start-text` and `x-end-text` for `id=\"x\"`. inputmode The `inputmode` of the `<input>`. With `type=\"numeric\"` it is `numeric`. name The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. passwordToggle Adds a button to the end of a `type=\"password\"` field that shows and hides the password. The root becomes `<opui-text-field>` with a `<label for>`, since a button inside a `<label>` would join the field's name, and the start and end text describe the input. The component loads `opui-css/elements/text-field.js`, which runs the button. passwordToggleLabel The accessible name of the password toggle. pattern The `pattern` of the `<input>`. With `type=\"numeric\"` it is `[0-9]*`. required Adds a required mark after the label. The form won't submit while the field is empty. size The size of the element. spread Pushes the label and start text to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
     "category": "API",
     "url": "/svelte/api/#text-field"
   },

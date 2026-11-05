@@ -2,6 +2,7 @@
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import Usage from "./partials/Usage.astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 
 import Anatomy from "../../components/Anatomy.astro"
@@ -118,6 +119,12 @@ export const keywords = ["kpi", "metric", "number"]
       row fills the width whatever the count.
     </p>
     <AutoExample name="Cards" />
+
+    <BlockLink slug="analytics-dashboard">
+      Each metric card shows the change since last week under the value, as a
+      signed percentage in a severity color, so the sign carries the direction
+      and the color only adds to it.
+    </BlockLink>
   </section>
 
   <Fragment slot="accessibility">

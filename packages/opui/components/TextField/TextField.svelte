@@ -16,6 +16,7 @@
     characterCount,
     characterCountLabel,
     class: className,
+    dropZone,
     error,
     hideLabel,
     id,
@@ -68,6 +69,7 @@
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
+      "ui-drop-zone": dropZone,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },

@@ -535,7 +535,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `List`: selected and current items are tints, so they get `SelectedItem`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.
 - `OneTimeCode`: the boxes and the ring are masks, so they get `CanvasText`, `GrayText` when disabled and `Highlight` with focus.
-- `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
+- `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline, and the ring of `.ui-round` is a gradient, so it keeps `SelectedItem` and `GrayText` with `forced-color-adjust: none`.
 - `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
 - `Rating`: the stars are masks over backgrounds, so filled stars get `SelectedItem` on the input and `CanvasText` on the meter, empty stars `GrayText` and the clear icon `ButtonText`.
 - `Select`: the picker chevron is a mask, so it gets `ButtonText`.

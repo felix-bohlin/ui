@@ -4,6 +4,7 @@ import type { Props } from "./types.react"
 export default function Progress({
   className,
   max,
+  round,
   style,
   value,
   variant,
@@ -14,6 +15,7 @@ export default function Progress({
     <div
       className={cx([
         "ui-progress",
+        { "ui-round": round },
         variant && variant !== "tonal" && `ui-${variant}`,
         className,
       ])}

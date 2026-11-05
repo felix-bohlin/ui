@@ -5,6 +5,7 @@ import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import {
@@ -238,6 +239,15 @@ export const keywords = ["data table", "grid", "rows", "sort"]
     </p>
 
     <AutoExample name="Controls" />
+
+    <BlockLink slug="data-table">
+      A select all checkbox in the header, a checkbox in each row, and a bar
+      with actions for the selected rows that only shows while a row is checked.
+    </BlockLink>
+    <BlockLink slug="file-manager">
+      A round button at the end of each row opens a menu of actions for the
+      file, named "Actions for" and the file name.
+    </BlockLink>
   </section>
 
   <section id="sticky-header">
@@ -357,6 +367,28 @@ export const keywords = ["data table", "grid", "rows", "sort"]
       </Fragment>
     </Conditional>
     <AutoExample name="Sortable" />
+  </section>
+
+  <section id="empty">
+    <h2>Empty</h2>
+    <p>
+      When a table has no rows, like after a search, keep its header and put one
+      cell that spans every column in the body. Say why it's empty and offer the
+      way out, such as clearing the filter.
+    </p>
+    <AutoExample name="Empty" />
+  </section>
+
+  <section id="expandable-rows">
+    <h2>Expandable rows</h2>
+    <p>
+      For details that don't fit in the columns, put a row with one cell that
+      spans them all after each row, with <code>hidden</code>. A round button at
+      the start of the row toggles it: it points <code>aria-controls</code> at
+      the details row and keeps <code>aria-expanded</code> in step, so screen
+      readers hear whether the details are open.
+    </p>
+    <AutoExample name="Expandable" />
   </section>
 
   <section id="advanced">

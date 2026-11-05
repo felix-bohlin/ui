@@ -203,6 +203,17 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     </p>
     <AutoExample name="FieldsetInvalid" />
 
+    <h3 id="error-summary">Error summary</h3>
+    <p>
+      When a submit finds several errors, list them at the top of the form in a
+      critical <DocLink href="/components/callout">Callout</DocLink>, each as a
+      link to its field, and mark the fields with their own message. Give the
+      callout <code>tabindex="-1"</code> and move focus to it after the submit,
+      so screen readers hear what to fix and the links take people to each
+      field.
+    </p>
+    <AutoExample name="ErrorSummary" />
+
     <h3 id="fieldset-required">Required</h3>
     <p>The legend gets an asterisk when a field inside is required.</p>
     <AutoExample name="FieldsetRequired" />

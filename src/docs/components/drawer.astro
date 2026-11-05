@@ -28,6 +28,7 @@ import drawerFooterApi from "../../component-api/drawer-footer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -211,6 +212,11 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
       </Fragment>
     </Conditional>
     <AutoExample name="Basics" column />
+
+    <BlockLink slug="app-shell">
+      On narrow screens the sidebar navigation moves into a drawer that the menu
+      button in the header opens.
+    </BlockLink>
   </section>
 
   <section id="close-button">

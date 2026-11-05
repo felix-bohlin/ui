@@ -226,6 +226,26 @@
           margin-block-start: var(--ui-space-1);
         }
       }
+
+      /* Drop zone */
+      &.ui-drop-zone {
+        .ui-field {
+          border-style: dashed;
+        }
+
+        input {
+          align-self: stretch;
+          block-size: auto;
+          padding-block: var(--_size);
+          padding-inline: var(--ui-space-3);
+
+          &::file-selector-button {
+            block-size: var(--_size);
+            margin-block: 0;
+            padding-inline: var(--ui-space-3);
+          }
+        }
+      }
     }
 
     /* Customizable Select */

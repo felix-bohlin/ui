@@ -15,6 +15,7 @@ export default function TextField({
   characterCount,
   characterCountLabel,
   className,
+  dropZone,
   error,
   hideLabel,
   id,
@@ -66,6 +67,7 @@ export default function TextField({
         "ui-text-field",
         {
           "ui-auto-fit": autoFit,
+          "ui-drop-zone": dropZone,
           "ui-filled": variant === "filled",
           "ui-spread": spread,
         },

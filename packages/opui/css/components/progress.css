@@ -82,6 +82,72 @@
     }
   }
 
+  /* Round */
+  @supports (inline-size: calc(attr(value type(<number>), 0) * 1px)) {
+    :where(.ui-progress).ui-round {
+      --_ring-border-width: var(--ui-border-width-thick);
+      --_ring-size: var(--ui-icon-size-large);
+
+      background-color: transparent;
+      block-size: var(--_ring-size);
+      border-radius: var(--ui-radius-round);
+      flex-shrink: 0;
+      inline-size: var(--_ring-size);
+      outline: 0;
+
+      &::after {
+        content: none;
+      }
+
+      & > progress {
+        --_ring-fraction: calc(
+          attr(value type(<number>), 0) / attr(max type(<number>), 1)
+        );
+
+        background: conic-gradient(
+          var(--_accent) calc(var(--_ring-fraction) * 1turn),
+          var(--_bg-color) 0
+        );
+        border-radius: var(--ui-radius-round);
+        mask: radial-gradient(
+          farthest-side,
+          transparent calc(100% - var(--_ring-border-width)),
+          oklch(0% 0 0) calc(100% - var(--_ring-border-width))
+        );
+
+        &::-webkit-progress-bar,
+        &[value]::-webkit-progress-value {
+          background: none;
+        }
+
+        &::-moz-progress-bar {
+          background: none;
+        }
+
+        &:indeterminate {
+          --_ring-fraction: 0.25;
+
+          animation: ui-progress-spin
+            calc(var(--_loop-duration) / 2 * var(--_motion)) linear infinite;
+        }
+
+        @media (forced-colors: active) {
+          background: conic-gradient(
+            SelectedItem calc(var(--_ring-fraction) * 1turn),
+            GrayText 0
+          );
+          forced-color-adjust: none;
+        }
+      }
+    }
+  }
+
+  @keyframes ui-progress-spin {
+    to {
+      rotate: 1turn;
+    }
+  }
+
   @keyframes ui-indeterminate-pulse {
     50% {
       opacity: 0.4;

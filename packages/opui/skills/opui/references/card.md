@@ -10,13 +10,16 @@ A surface for related content and actions, on its own or as the base of accordio
 ### Parts
 
 - `.ui-card` (root): Container element.
+- `<img>`: An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them.
 - `hgroup.ui-header` (`CardHeader`): The card header.
 - `.ui-content` (`CardContent`): The card content.
 - `.ui-actions` (`CardActions`): A group of actions, such as buttons.
 
 ### Props and modifiers
 
+- `color`: `"primary"` (`.ui-primary`). Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan.
 - `density`: `"dense"` (`.ui-dense`), `"normal"` (default), `"spacious"` (`.ui-spacious`). How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat.
+- `orientation`: `"horizontal"` (`.ui-horizontal`), `"vertical"` (default). The orientation of the element. `horizontal` puts an image that is the first child at the start, over the full height, and the other parts next to it. Its width is `--_media-inline-size`, `40%` of the card.
 - `variant`: `"elevated"` (`.ui-elevated`), `"outlined"` (`.ui-outlined`), `"plain"` (default), `"tonal"` (`.ui-tonal`), `"transparent"` (`.ui-transparent`). The variant to use. The default `plain` card has the page surface color and no border.
 
 ### Slots
@@ -26,6 +29,20 @@ A surface for related content and actions, on its own or as the base of accordio
 ### Notes
 
 - To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.
+
+## CardHeader
+
+### Parts
+
+- `.ui-header` (root): The card header.
+
+### Props and modifiers
+
+- `as`: `"div" | "hgroup"`, default `"hgroup"`. The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it.
+
+### Slots
+
+- `default`: The heading and its paragraphs, or an `hgroup` with anything next to it.
 
 ## CardActions
 
@@ -51,6 +68,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
+- `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
+- `--_media-inline-size`: Width of the image in a `.ui-horizontal` card, and the start margin of the parts next to it. Defaults to `40%` of the card.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
@@ -63,7 +82,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-duration`, `--ui-ease`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

@@ -2,7 +2,7 @@
 import { useInputAttrs } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 
-const { max, value, variant } = defineProps<Props>()
+const { max, round, value, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -16,6 +16,7 @@ const attrs = useInputAttrs()
   <div
     :class="[
       'ui-progress',
+      { 'ui-round': round },
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"

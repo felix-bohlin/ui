@@ -4,6 +4,7 @@ import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -133,6 +134,17 @@ export const keywords = ["tab panel", "tablist"]
       tab.
     </p>
     <AutoExample name="Basics" />
+
+    <p>
+      Tabs switch panels on one page. For navigation between pages, or a
+      settings page with its sections in a column at the side, use links with
+      <code>aria-current="page"</code>, like a
+      <DocLink href="/components/list#selected">List</DocLink>.
+    </p>
+    <BlockLink slug="app-shell">
+      The sidebar is a list of links, and the current page's link has
+      <code>aria-current="page"</code>.
+    </BlockLink>
   </section>
 
   <section id="filled">
@@ -160,6 +172,27 @@ export const keywords = ["tab panel", "tablist"]
       bordered track without a background.
     </p>
     <AutoExample name="Outlined" />
+  </section>
+
+  <section id="icons-and-counts">
+    <h2>Icons and counts</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A <code>TabsLabel</code> is a row: put an <code>svg</code> with
+        <code>aria-hidden="true"</code> before the text and a small
+        <code>span.ui-chip</code> after it for a count, since a label only takes
+        inline content. The count is part of the tab's name, so screen readers
+        hear "Inbox 12".
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-label</code> is a row: put an <code>svg</code> with
+        <code>aria-hidden="true"</code> before the text and a small
+        <code>span.ui-chip</code> after it for a count, since a label only takes
+        inline content. The count is part of the tab's name, so screen readers
+        hear "Inbox 12".
+      </Fragment>
+    </Conditional>
+    <AutoExample name="IconsAndCounts" />
   </section>
 
   <section id="overflow">

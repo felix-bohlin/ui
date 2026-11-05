@@ -343,6 +343,16 @@ Lists meant to be used stand-alone or as part of Select elements
         }
       }
 
+      /* Option description */
+      &:where(option) > .ui-text > span {
+        display: block;
+
+        & + span {
+          color: var(--_description-text-color);
+          font-size: var(--ui-font-size-caption);
+        }
+      }
+
       /* Leading content */
       & > .ui-start,
       & > :where(a, button, label) > .ui-start {

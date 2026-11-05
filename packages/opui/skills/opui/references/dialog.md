@@ -10,7 +10,7 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 ### Parts
 
 - `dialog.ui-dialog` (root): Container element.
-- `.ui-header` (`DialogHeader`): The header, a row for the title and anything next to it.
+- `.ui-header` (`DialogHeader`): The header, a row for the title and anything next to it, with an optional close button.
 - `<h2>` (`DialogTitle`): The title. Names the dialog through `aria-labelledby`.
 - `.ui-content` (`DialogContent`): The scrollable content.
 - `.ui-footer` (`DialogFooter`): The footer, a row at the end.
@@ -27,6 +27,21 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
 - Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`, which also starts the generated title id: `x-title` for `id="x"`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
+
+## DialogHeader
+
+### Parts
+
+- `.ui-header` (root): Container element.
+- `<button>` (prop `closeLabel`, slot `close-icon`): Closes the dialog. Renders a close icon by default, or the `svg` in `close-icon`.
+
+### Props and modifiers
+
+- `closeLabel`: `string`. The accessible name of the close button. Set it to add a close button at the end of the title row, which closes its `Dialog` through the dialog's `id`.
+
+### Slots
+
+- `default`: The `DialogTitle`, and any other content before the close button.
 
 ## DialogFooter
 
@@ -63,6 +78,8 @@ Outputs: `--_duration` and `--_ease`.
 - `--_elevated-bg-color`: Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.
 - `--_elevated-shadow`: Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.
 - `--_footer-gap`: Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.
+- `--_gap`: Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.
+- `--_media-inline-size`: Width of the image in a `.ui-horizontal` card, and the start margin of the parts next to it. Defaults to `40%` of the card.
 - `--_motion`: Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.
 - `--_outlined-border-color`: Border color of `.ui-outlined`. Defaults to `--ui-border-color`.
 - `--_padding`: Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.
@@ -75,7 +92,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_content-anchor
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-primary`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-5`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -98,6 +115,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 >
   <div class="ui-header">
     <h2 id="dialog-basics-1-title">Newsletter</h2>
+    <p>Sent by the product team.</p>
     <button
       class="ui-button ui-round ui-small"
       type="button"
@@ -118,7 +136,6 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
         ></path>
       </svg>
     </button>
-    <p>Sent by the product team.</p>
   </div>
   <div class="ui-content">
     <p>
@@ -150,6 +167,8 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 `import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/astro"`
 
+- `DialogHeader` named slots: `close-icon`. Fill one with `slot="close-icon"` on a child.
+
 ### Example: Basics
 
 ```astro
@@ -169,17 +188,8 @@ import {
 </Button>
 
 <Dialog id="dialog-basics-1">
-  <DialogHeader>
+  <DialogHeader closeLabel="Close">
     <DialogTitle>Newsletter</DialogTitle>
-    <Button
-      aria-label="Close"
-      command="close"
-      commandfor="dialog-basics-1"
-      round
-      size="small"
-    >
-      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
-    </Button>
     <p>Sent by the product team.</p>
   </DialogHeader>
   <DialogContent>
@@ -200,7 +210,8 @@ import {
 
 `import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/react"`
 
-- Client components (`"use client"`): `Dialog`.
+- `DialogHeader` slot props (`ReactNode`): `children` and `closeIcon`.
+- Client components (`"use client"`): `Dialog` and `DialogHeader`.
 
 ### Example: Basics
 
@@ -226,17 +237,8 @@ export default function Basics() {
       </Button>
 
       <Dialog id="dialog-basics-1">
-        <DialogHeader>
+        <DialogHeader closeLabel="Close">
           <DialogTitle>Newsletter</DialogTitle>
-          <Button
-            aria-label="Close"
-            command="close"
-            commandfor="dialog-basics-1"
-            round
-            size="small"
-          >
-            <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
-          </Button>
           <p>Sent by the product team.</p>
         </DialogHeader>
         <DialogContent>
@@ -263,6 +265,8 @@ export default function Basics() {
 
 `import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/svelte"`
 
+- `DialogHeader` slot snippets: `children` and `closeIcon`.
+
 ### Example: Basics
 
 ```svelte
@@ -282,17 +286,8 @@ export default function Basics() {
 </Button>
 
 <Dialog id="dialog-basics-1">
-  <DialogHeader>
+  <DialogHeader closeLabel="Close">
     <DialogTitle>Newsletter</DialogTitle>
-    <Button
-      aria-label="Close"
-      command="close"
-      commandfor="dialog-basics-1"
-      round
-      size="small"
-    >
-      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
-    </Button>
     <p>Sent by the product team.</p>
   </DialogHeader>
   <DialogContent>
@@ -312,6 +307,8 @@ export default function Basics() {
 ## Vue
 
 `import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/vue"`
+
+- `DialogHeader` named slots: `close-icon`. Fill one with `<template #close-icon>`.
 
 ### Example: Basics
 
@@ -333,17 +330,8 @@ import {
   </Button>
 
   <Dialog id="dialog-basics-1">
-    <DialogHeader>
+    <DialogHeader closeLabel="Close">
       <DialogTitle>Newsletter</DialogTitle>
-      <Button
-        aria-label="Close"
-        command="close"
-        commandfor="dialog-basics-1"
-        round
-        size="small"
-      >
-        <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
-      </Button>
       <p>Sent by the product team.</p>
     </DialogHeader>
     <DialogContent>

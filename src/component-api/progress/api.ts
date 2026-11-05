@@ -14,6 +14,14 @@ export default {
       prop: "max",
     },
     {
+      class: ".ui-round",
+      default: "false",
+      description:
+        "Draws the progress as a ring, `--ui-icon-size-large` wide, for a small space such as a button or a list item. Needs typed `attr()`; other browsers show the bar.",
+      group: "Shape",
+      prop: "round",
+    },
+    {
       attribute: "[value]",
       description: "The current value. Omit it for an indeterminate state.",
       group: "Value",

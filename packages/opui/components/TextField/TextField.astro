@@ -17,6 +17,7 @@ const {
   characterCount,
   characterCountLabel,
   class: className,
+  dropZone,
   endText,
   error,
   hideLabel,
@@ -58,6 +59,7 @@ const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
+      "ui-drop-zone": dropZone,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },

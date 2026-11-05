@@ -1,4 +1,4 @@
-import { Avatar, Select } from "opui-css/react"
+import { Select } from "opui-css/react"
 
 export default function RichOptions() {
   return (
@@ -6,35 +6,32 @@ export default function RichOptions() {
       <Select label="Assignee">
         <option value="lena">
           <span className="ui-start">
-            <Avatar aria-hidden="true" size="x-small">
+            <span aria-hidden="true" className="ui-avatar ui-x-small">
               LE
-            </Avatar>
-          </span>
+            </span>
+          </span>{" "}
           <span className="ui-text">
-            <span>Lena Ek</span>
-            <span>Product designer</span>
+            <span>Lena Ek</span> <span>Product designer</span>
           </span>
         </option>
         <option value="tom">
           <span className="ui-start">
-            <Avatar aria-hidden="true" size="x-small">
+            <span aria-hidden="true" className="ui-avatar ui-x-small">
               TT
-            </Avatar>
-          </span>
+            </span>
+          </span>{" "}
           <span className="ui-text">
-            <span>Tom Tanaka</span>
-            <span>Frontend developer</span>
+            <span>Tom Tanaka</span> <span>Frontend developer</span>
           </span>
         </option>
         <option value="elif">
           <span className="ui-start">
-            <Avatar aria-hidden="true" size="x-small">
+            <span aria-hidden="true" className="ui-avatar ui-x-small">
               ER
-            </Avatar>
-          </span>
+            </span>
+          </span>{" "}
           <span className="ui-text">
-            <span>Elif Rahman</span>
-            <span>Support lead</span>
+            <span>Elif Rahman</span> <span>Support lead</span>
           </span>
         </option>
       </Select>
@@ -75,10 +72,9 @@ export default function RichOptions() {
                 d="M12 17a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2 2 2 0 0 0 2 2m6-9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1V6a5 5 0 0 1 5-5 5 5 0 0 1 5 5v2zm-6-5a3 3 0 0 0-3 3v2h6V6a3 3 0 0 0-3-3"
               ></path>
             </svg>
-          </span>
+          </span>{" "}
           <span className="ui-text">
-            <span>Private</span>
-            <span>Only you can see it</span>
+            <span>Private</span> <span>Only you can see it</span>
           </span>
         </option>
         <option value="team">
@@ -95,10 +91,9 @@ export default function RichOptions() {
                 d="M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4M15 4a3.4 3.4 0 0 0-1.93.59 5 5 0 0 1 0 5.82A3.4 3.4 0 0 0 15 11a3.5 3.5 0 0 0 0-7"
               ></path>
             </svg>
-          </span>
+          </span>{" "}
           <span className="ui-text">
-            <span>Team</span>
-            <span>Everyone in Northwind</span>
+            <span>Team</span> <span>Everyone in Northwind</span>
           </span>
         </option>
         <option value="public">
@@ -115,10 +110,9 @@ export default function RichOptions() {
                 d="M17.9 17.39c-.26-.8-1.01-1.39-1.9-1.39h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.41a7.984 7.984 0 0 1 2.9 12.8M11 19.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.22.21-1.79L9 15v1a2 2 0 0 0 2 2m1-16A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"
               ></path>
             </svg>
-          </span>
+          </span>{" "}
           <span className="ui-text">
-            <span>Public</span>
-            <span>Anyone with the link</span>
+            <span>Public</span> <span>Anyone with the link</span>
           </span>
         </option>
       </Select>

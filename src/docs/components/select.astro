@@ -322,7 +322,9 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
       label. The field shows the start part and the label of the selected
       option, without the description. Screen readers announce the text of the
       option, so hide decorative parts with <code>aria-hidden="true"</code>.
-      Browsers without customizable select show the text only.
+      Browsers without customizable select show the text only, so put a space
+      between the parts, like <code>&#123;" "&#125;</code> in JSX, for "Lena Ek
+      Product designer" instead of "Lena EkProduct designer".
     </p>
     <AutoExample name="RichOptions" row spacious />
   </section>

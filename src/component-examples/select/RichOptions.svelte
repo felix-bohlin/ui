@@ -1,34 +1,31 @@
 <script lang="ts">
-  import { Avatar, Select } from "opui-css/svelte"
+  import { Select } from "opui-css/svelte"
 </script>
 
 <Select label="Assignee">
   <option value="lena">
-    <span class="ui-start">
-      <Avatar aria-hidden="true" size="x-small">LE</Avatar>
-    </span>
-    <span class="ui-text">
-      <span>Lena Ek</span>
-      <span>Product designer</span>
-    </span>
+    <span class="ui-start"
+      ><span aria-hidden="true" class="ui-avatar ui-x-small">LE</span></span
+    >
+    <span class="ui-text"
+      ><span>Lena Ek</span> <span>Product designer</span></span
+    >
   </option>
   <option value="tom">
-    <span class="ui-start">
-      <Avatar aria-hidden="true" size="x-small">TT</Avatar>
-    </span>
-    <span class="ui-text">
-      <span>Tom Tanaka</span>
-      <span>Frontend developer</span>
-    </span>
+    <span class="ui-start"
+      ><span aria-hidden="true" class="ui-avatar ui-x-small">TT</span></span
+    >
+    <span class="ui-text"
+      ><span>Tom Tanaka</span> <span>Frontend developer</span></span
+    >
   </option>
   <option value="elif">
-    <span class="ui-start">
-      <Avatar aria-hidden="true" size="x-small">ER</Avatar>
-    </span>
-    <span class="ui-text">
-      <span>Elif Rahman</span>
-      <span>Support lead</span>
-    </span>
+    <span class="ui-start"
+      ><span aria-hidden="true" class="ui-avatar ui-x-small">ER</span></span
+    >
+    <span class="ui-text"
+      ><span>Elif Rahman</span> <span>Support lead</span></span
+    >
   </option>
 </Select>
 
@@ -36,20 +33,17 @@
   <option value="todo">
     <span class="ui-start">
       <span aria-hidden="true" class="ui-swatch ui-neutral"></span>
-    </span>
-    <span class="ui-text">To do</span>
+    </span><span class="ui-text">To do</span>
   </option>
   <option value="doing">
     <span class="ui-start">
       <span aria-hidden="true" class="ui-swatch ui-info"></span>
-    </span>
-    <span class="ui-text">In progress</span>
+    </span><span class="ui-text">In progress</span>
   </option>
   <option value="done">
     <span class="ui-start">
       <span aria-hidden="true" class="ui-swatch ui-success"></span>
-    </span>
-    <span class="ui-text">Done</span>
+    </span><span class="ui-text">Done</span>
   </option>
 </Select>
 
@@ -69,10 +63,9 @@
         ></path>
       </svg>
     </span>
-    <span class="ui-text">
-      <span>Private</span>
-      <span>Only you can see it</span>
-    </span>
+    <span class="ui-text"
+      ><span>Private</span> <span>Only you can see it</span></span
+    >
   </option>
   <option value="team">
     <span class="ui-start">
@@ -89,10 +82,9 @@
         ></path>
       </svg>
     </span>
-    <span class="ui-text">
-      <span>Team</span>
-      <span>Everyone in Northwind</span>
-    </span>
+    <span class="ui-text"
+      ><span>Team</span> <span>Everyone in Northwind</span></span
+    >
   </option>
   <option value="public">
     <span class="ui-start">
@@ -109,9 +101,8 @@
         ></path>
       </svg>
     </span>
-    <span class="ui-text">
-      <span>Public</span>
-      <span>Anyone with the link</span>
-    </span>
+    <span class="ui-text"
+      ><span>Public</span> <span>Anyone with the link</span></span
+    >
   </option>
 </Select>

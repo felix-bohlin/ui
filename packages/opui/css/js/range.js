@@ -58,6 +58,19 @@ if (typeof document !== "undefined") {
       }
     })
   })
+  new MutationObserver((records) => {
+    for (const record of records) {
+      for (const node of record.addedNodes) {
+        if (!(node instanceof Element)) continue
+        if (isRange(node)) update(node)
+        for (const input of node.querySelectorAll(
+          '.ui-range input[type="range"]',
+        )) {
+          update(input)
+        }
+      }
+    }
+  }).observe(document, { childList: true, subtree: true })
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", sync, { once: true })
   } else {

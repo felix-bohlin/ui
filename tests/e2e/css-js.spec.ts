@@ -139,6 +139,30 @@ test("range.js follows a range added after it loads", async ({ page }) => {
   await expect(slider).toHaveAttribute("aria-valuetext", "9%")
 })
 
+test("range.js names a range added after it loads by the label of its tick", async ({
+  page,
+}) => {
+  await page.setContent("<main></main>")
+  await page.addScriptTag(helper("range.js", ""))
+
+  await page.evaluate(() => {
+    document.querySelector("main")!.innerHTML = `
+      <label class="ui-range">
+        <input type="range" list="ticks" max="2" value="1" />
+        <datalist id="ticks">
+          <option value="0" label="Low"></option>
+          <option value="1" label="Medium"></option>
+          <option value="2" label="High"></option>
+        </datalist>
+      </label>`
+  })
+
+  await expect(page.locator('input[type="range"]')).toHaveAttribute(
+    "aria-valuetext",
+    "Medium",
+  )
+})
+
 declare global {
   interface Window {
     syncIndeterminate: (input: HTMLInputElement) => void

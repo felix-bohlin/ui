@@ -129,7 +129,6 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     parseOklch,
   } from "../../utils/color-utils"
   import { exampleTheme } from "../../utils/example-themes"
-  import { morph } from "../../utils/morph"
   import { OklchInput } from "../../utils/oklch-input"
   import { readStored, writeStored } from "../../utils/storage"
   import {
@@ -806,9 +805,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const before = themeStore.get()
       dual.delete("brand")
       picked.delete("brand")
-      morph(() => write(applyBrand(color))).then(() =>
-        say(message, pasteField, before),
-      )
+      write(applyBrand(color))
+      say(message, pasteField, before)
     }
 
     const usePaste = (paste: Paste) => {
@@ -819,12 +817,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (paste.kind === "css") {
         const before = themeStore.get()
         const count = Object.keys(paste.theme.tokens).length
-        morph(() => themeStore.set(paste.theme)).then(() =>
-          say(
-            `Loaded ${exampleTheme(paste.theme.preset)?.label ?? "Default"} with ${count} ${count === 1 ? "token" : "tokens"} from the CSS.`,
-            pasteField,
-            before,
-          ),
+        themeStore.set(paste.theme)
+        say(
+          `Loaded ${exampleTheme(paste.theme.preset)?.label ?? "Default"} with ${count} ${count === 1 ? "token" : "tokens"} from the CSS.`,
+          pasteField,
+          before,
         )
         return
       }
@@ -909,9 +906,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         if (event.type !== "change" || !target.checked) return
         const before = themeStore.get()
         const label = exampleTheme(target.value)?.label ?? "Default"
-        morph(() => switchPreset(target.value || null)).then(() =>
-          say(`Starting from ${label}. Your changes are kept.`, target, before),
-        )
+        switchPreset(target.value || null)
+        say(`Starting from ${label}. Your changes are kept.`, target, before)
         return
       }
       const element = target.closest<HTMLElement>("[data-control]")
@@ -1089,9 +1085,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const remix = shuffleRemix(lockedRooms(), theme.tokens)
       const focus =
         document.querySelector<HTMLElement>("[data-shuffle]") ?? root
-      morph(() => applyRemix(remix)).then(() =>
-        say("Shuffled the unlocked settings.", focus, before),
-      )
+      applyRemix(remix)
+      say("Shuffled the unlocked settings.", focus, before)
     }
 
     root.addEventListener("input", onChange)
@@ -1108,15 +1103,13 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           for (const id of ["corners", ...Object.keys(definition.choices)]) {
             Object.assign(update, resetTokens(controls.get(id)!))
           }
-          morph(() => write(update)).then(() =>
-            say(`${definition.label} removed.`, mood, before),
-          )
+          write(update)
+          say(`${definition.label} removed.`, mood, before)
           return
         }
         const remix = moodRemix(definition, theme.tokens)
-        morph(() => applyRemix(remix)).then(() =>
-          say(`${definition.label} applied.`, mood, before),
-        )
+        applyRemix(remix)
+        say(`${definition.label} applied.`, mood, before)
         return
       }
       if (target.closest("[data-paste-image]")) {
@@ -1221,9 +1214,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const before = themeStore.get()
       dual.clear()
       picked.clear()
-      morph(() => themeStore.set(loaded)).then(() =>
-        say(message, presets.querySelector("input:checked") ?? root, before),
-      )
+      themeStore.set(loaded)
+      say(message, presets.querySelector("input:checked") ?? root, before)
     })
 
     document.addEventListener("builder:shuffle", shuffle)

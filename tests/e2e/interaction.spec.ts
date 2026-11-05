@@ -5,6 +5,7 @@ import {
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_RADIO_NO_WRAP,
   WEBKIT_RADIO_RTL_ARROWS,
+  WEBKIT_TOP_LAYER_ANCHOR,
 } from "./engine-bugs"
 import {
   computed,
@@ -1185,7 +1186,10 @@ interaction(
   "menu",
   "Submenu",
   "submenu opens from its item and an item in it closes both",
-  async ({ root }) => {
+  async ({ page, root }) => {
+    failsIn(page.context().browser()!.browserType().name(), {
+      webkit: WEBKIT_TOP_LAYER_ANCHOR,
+    })
     const menu = root.locator("menu.ui-menu").first()
     const submenu = menu.locator("menu.ui-menu")
 

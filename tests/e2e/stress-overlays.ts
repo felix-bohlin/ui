@@ -2,6 +2,7 @@ import { expect } from "@playwright/test"
 import type { Page } from "@playwright/test"
 import {
   FIREFOX_SELF_RTL,
+  FIREFOX_STALE_FALLBACK_OPACITY,
   WEBKIT_TOP_LAYER_ANCHOR,
   type EngineBugs,
 } from "./engine-bugs"
@@ -15,6 +16,7 @@ type Step =
   | { select: string }
 
 export type Scenario = {
+  axeFailingIn?: EngineBugs
   failing?: string
   failingIn?: EngineBugs
   name: string
@@ -22,7 +24,6 @@ export type Scenario = {
   steps: Step[]
   stillOpen?: string[]
   top: string
-  unreachableIn?: EngineBugs
 }
 
 export const id = (name: string) => `#stress-overlays-${name}`
@@ -185,6 +186,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("edge-top-start"),
   },
   {
+    axeFailingIn: { firefox: FIREFOX_STALE_FALLBACK_OPACITY },
     name: "tooltip at top start",
     steps: [
       scroll("edge-top-start-tooltip", "start"),
@@ -238,11 +240,11 @@ export const SCENARIOS: Scenario[] = [
     top: id("sub-view-zoom"),
   },
   {
+    axeFailingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "second level submenu",
     steps: [open("sub-file"), open("sub-file-export"), open("sub-file-image")],
     top: id("sub-file-image"),
-    unreachableIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
   },
   {
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
@@ -251,6 +253,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("sub-edit-transform"),
   },
   {
+    axeFailingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "second level submenu at the end edge",
     steps: [
@@ -259,7 +262,6 @@ export const SCENARIOS: Scenario[] = [
       open("sub-edit-rotate"),
     ],
     top: id("sub-edit-rotate"),
-    unreachableIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
   },
   {
     name: "long form dialog",
@@ -347,6 +349,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("table-sticky-menu-4"),
   },
   {
+    axeFailingIn: { firefox: FIREFOX_STALE_FALLBACK_OPACITY },
     name: "row tooltip over a sticky header",
     steps: [
       scroll("table-sticky-menu-1", "center"),
@@ -402,18 +405,21 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-dialog-tip-clear"),
   },
   {
+    axeFailingIn: { firefox: FIREFOX_STALE_FALLBACK_OPACITY },
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "tooltip on a square button in a drawer header",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-edit")],
     top: id("toolbar-drawer-tip-edit"),
   },
   {
+    axeFailingIn: { firefox: FIREFOX_STALE_FALLBACK_OPACITY },
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "tooltip on an aria-disabled button in a drawer header",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-share")],
     top: id("toolbar-drawer-tip-share"),
   },
   {
+    axeFailingIn: { firefox: FIREFOX_STALE_FALLBACK_OPACITY },
     failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "tooltip on the close button at the drawer edge",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-close")],

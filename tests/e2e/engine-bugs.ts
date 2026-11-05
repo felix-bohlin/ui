@@ -3,6 +3,9 @@ import { test } from "@playwright/test"
 export const FIREFOX_SELF_RTL =
   "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
 
+export const FIREFOX_STALE_FALLBACK_OPACITY =
+  "Firefox's getComputedStyle keeps an opacity from partway through a fade, while it paints the end value, on a popover that a position-try fallback moved after a hover rule started the fade"
+
 export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"
 
@@ -19,7 +22,7 @@ export const WEBKIT_TOP_LAYER_ANCHOR =
   "WebKit moves a popover up by the page scroll when its anchor is in the top layer too, inside a modal dialog or another popover"
 
 export const ENGINE_BUGS = {
-  firefox: [FIREFOX_SELF_RTL],
+  firefox: [FIREFOX_SELF_RTL, FIREFOX_STALE_FALLBACK_OPACITY],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,
     WEBKIT_INNER_TEXT_HIDDEN_NODES,

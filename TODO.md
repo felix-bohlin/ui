@@ -2600,6 +2600,34 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options if the ring is cut:
     - A: mark it as an expected failure in `tests/e2e/engine-bugs.ts` with a plain-HTML repro, and wait for Safari.
     - B: draw the ring inside with `--ui-focus-ring-inset` for controls in edge cells.
+- [ ] (2) Tooltip: in Firefox, `getComputedStyle` keeps reporting a tooltip's opacity from partway through its fade, while the tooltip paints fully opaque, when a position-try fallback moves it after the compat hover rule started the fade. The top start, sticky header and three drawer header tooltips of `/tests/overlays/` read between 0.09 and 0.99 for good, so their axe tests, which wait for opacity 1 and whose contrast check reads it, are expected to fail in Firefox (`FIREFOX_STALE_FALLBACK_OPACITY`). Report it to Mozilla (`packages/opui/css/compat/tooltip.css:14-24`, `tests/e2e/engines.spec.ts:121-157`, `tests/e2e/stress-overlays.ts:189,352,408-422`)
+  - Summary: Firefox tells scripts some tooltips are still faint after their fade, so their contrast checks can't run there.
+  - Recommended: Fix with option A. The repro is confirmed in Firefox 155, so only the report is left.
+  - Fix: found in Playwright's Firefox 155: the opacity transition runs and finishes on time (`getAnimations()` empties after it), but the computed value stays at the one read first, and a screenshot of the same tooltip is fully opaque. Each of the three parts alone reads 1: the hover rule's fade, the popover opening (`showPopover()` or the command pair) and a `flip-block` fallback. The `engines.spec.ts` repro has all three without the library, and a report to paste under Core :: CSS Transitions and Animations:
+    ```text
+    Summary: getComputedStyle keeps a mid-transition opacity on a popover that a position-try fallback moved after a :hover rule started the transition
+
+    Steps:
+    1. Open the test case below and hover "Open".
+    2. In the console, run document.getElementById("popover").showPopover(), wait a second, then run getComputedStyle(document.getElementById("popover")).opacity.
+
+    Expected: "1", the opacity the popover paints, as in Chrome.
+    Actual: a value between 0 and 1 from partway through the transition, which never updates, though the popover paints fully opaque and getAnimations() is empty.
+
+    <!doctype html>
+    <style>
+      body { margin: 0 }
+      .center { display: flex; justify-content: center }
+      #wrap { anchor-name: --wrap; display: inline-block }
+      #popover { inset: auto; margin: 0; opacity: 0; position-anchor: --wrap; position-area: block-start; position-try-fallbacks: flip-block; transition: display 0.3s allow-discrete, opacity 0.3s, overlay 0.3s allow-discrete }
+      #popover:popover-open { opacity: 1; @starting-style { opacity: 0 } }
+      #wrap:has(> :hover) > #popover { display: block; opacity: 1; @starting-style { opacity: 0 } }
+    </style>
+    <div class="center"><span id="wrap"><button id="trigger">Open</button><span id="popover" popover="hint">Tip</span></span></div>
+    ```
+  - Options:
+    - A (recommended): file the report above, add its link to `FIREFOX_STALE_FALLBACK_OPACITY` in `engine-bugs.ts`, and remove this item.
+    - B: keep the item open until someone files it.
 - [ ] (3) Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog, a Drawer or another Menu lands above its trigger by about the page's scroll offset once the page is scrolled: a split button menu in a dialog footer far down the overlays stress page opens around 1850px too high, and second level submenus can't be clicked because the first submenu has left the viewport. The same overlays near the top of the page are placed right, and anchors in the normal page flow are fine after scrolling. The e2e scenarios carry it as a known WebKit failure (`failingIn.webkit` in `tests/e2e/stress-overlays.ts`), and `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover anchored in a modal dialog, which is expected to fail in WebKit only on a scrolled page. If that test starts passing, WebKit fixed it, or the cause is ours. Check in Safari on macOS on `/tests/overlays/` after scrolling down, and report it to WebKit if Safari does the same (`tests/e2e/stress-overlays.ts`)
   - Summary: In WebKit, menus and tooltips inside a dialog, drawer or menu open far above their trigger once the page is scrolled.
   - Recommended: Fix with option A. The bug is on file, and the expected failure says when it's fixed.

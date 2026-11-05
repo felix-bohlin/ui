@@ -3,6 +3,7 @@ import type { Page } from "@playwright/test"
 import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
+  FIREFOX_STALE_FALLBACK_OPACITY,
   WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_INNER_TEXT_HIDDEN_NODES,
   WEBKIT_RADIO_NO_WRAP,
@@ -115,6 +116,44 @@ repro(FIREFOX_SELF_RTL, () => {
       .poll(() => placement(tab))
       .toMatchObject({ below: 0, endEdge: 0 })
   })
+})
+
+repro(FIREFOX_STALE_FALLBACK_OPACITY, () => {
+  for (const flipped of [false, true]) {
+    test(`a popover a hover rule fades in reads the opacity it paints ${flipped ? "when a fallback flips it" : "in its first position"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        flipped ? { firefox: FIREFOX_STALE_FALLBACK_OPACITY } : {},
+      )
+      await tab.setContent(`<!doctype html>
+<style>
+  body { margin: 0 }
+  .center { display: flex; justify-content: center; padding-block-start: ${flipped ? 0 : 200}px }
+  #wrap { anchor-name: --wrap; display: inline-block }
+  #popover { inset: auto; margin: 0; opacity: 0; position-anchor: --wrap; position-area: block-start; position-try-fallbacks: flip-block; transition: display 0.3s allow-discrete, opacity 0.3s, overlay 0.3s allow-discrete }
+  #popover:popover-open { opacity: 1; @starting-style { opacity: 0 } }
+  #wrap:has(> :hover) > #popover { display: block; opacity: 1; @starting-style { opacity: 0 } }
+</style>
+<div class="center"><span id="wrap"><button id="trigger">Open</button><span id="popover" popover="hint">Tip</span></span></div>`)
+      await tab.hover("#trigger")
+      await tab.evaluate(() =>
+        document.getElementById("popover")!.showPopover(),
+      )
+      if (flipped) {
+        await expect.poll(() => placement(tab)).toMatchObject({ below: 0 })
+      }
+      await expect
+        .poll(() =>
+          tab
+            .locator("#popover")
+            .evaluate((popover) => getComputedStyle(popover).opacity),
+        )
+        .toBe("1")
+    })
+  }
 })
 
 const splitButton = (start: string) => `<!doctype html>

@@ -40,11 +40,14 @@ export const blockGroups = blockCategories
 
 export const blockHref = (slug: string) => `/blocks/${slug}`
 
-export const blocksUsing = (classes: string[]) =>
+export const blocksUsing = (classLists: string[][]) =>
   allBlocks.filter((block) =>
-    [...block.source.matchAll(/class="([^"]*)"/g)].some(([, list]) =>
-      list.split(/\s+/).some((token) => classes.includes(token)),
-    ),
+    [...block.source.matchAll(/class="([^"]*)"/g)].some(([, list]) => {
+      const tokens = list.split(/\s+/)
+      return classLists.some((classes) =>
+        classes.every((name) => tokens.includes(name)),
+      )
+    }),
   )
 
 export const blockPreviewHref = (slug: string) => `/blocks/${slug}/preview/`

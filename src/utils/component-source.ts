@@ -35,6 +35,14 @@ const typeFiles = () =>
     )
     .sort()
 
+const elementsFile = (framework: string) =>
+  path.join(root, "..", framework, "elements.ts")
+
+const elementsFiles = () =>
+  Object.keys(frameworks)
+    .map(elementsFile)
+    .filter((file) => fs.existsSync(file))
+
 const frameworkTypes = new Set(
   Object.values(frameworks).map((syntax) => syntax.types),
 )
@@ -42,13 +50,18 @@ const frameworkTypes = new Set(
 let cache: { key: string; program: ts.Program } | undefined
 
 const program = () => {
-  const files = typeFiles()
+  const files = [...typeFiles(), ...elementsFiles()]
   const key = files.map((file) => `${file}:${fs.statSync(file).mtimeMs}`).join()
   if (cache?.key !== key) {
     cache = {
       key,
       program: ts.createProgram(
-        files.filter((file) => frameworkTypes.has(path.basename(file))),
+        [
+          ...typeFiles().filter((file) =>
+            frameworkTypes.has(path.basename(file)),
+          ),
+          ...elementsFiles(),
+        ],
         {
           jsx: ts.JsxEmit.Preserve,
           module: ts.ModuleKind.ESNext,
@@ -258,6 +271,28 @@ const componentFile = (target: Target, framework: ComponentFramework) =>
 export const shipped = (target: Target, framework: ComponentFramework) =>
   read(target.source, componentFile(target, framework)) !== undefined
 
+const componentRoot = root.replaceAll("\\", "/")
+
+const inCustomElement = (node: ts.Node | undefined): boolean =>
+  !!node &&
+  (ts.isPropertySignature(node) && ts.isStringLiteral(node.name)
+    ? node.name.text.startsWith("opui-")
+    : inCustomElement(node.parent))
+
+const declaredByPackage = (
+  declaration: ts.Declaration,
+  framework: ComponentFramework,
+) => {
+  const file = declaration.getSourceFile().fileName.replaceAll("\\", "/")
+  return (
+    file.startsWith(componentRoot) ||
+    (file === elementsFile(framework).replaceAll("\\", "/") &&
+      ts.isPropertySignature(declaration) &&
+      /^on[A-Za-z]/.test(declaration.name.getText()) &&
+      inCustomElement(declaration.parent))
+  )
+}
+
 export const frameworkProps = (
   target: Target,
   framework: ComponentFramework,
@@ -274,16 +309,12 @@ export const frameworkProps = (
   if (!alias) return props
 
   const checker = program().getTypeChecker()
-  const componentRoot = root.replaceAll("\\", "/")
   const type = checker.getTypeAtLocation(alias)
   ;[type, ...(type.isUnion() ? type.types : [])]
     .flatMap((member) => checker.getPropertiesOfType(member))
     .filter((symbol) =>
       symbol.declarations?.some((declaration) =>
-        declaration
-          .getSourceFile()
-          .fileName.replaceAll("\\", "/")
-          .startsWith(componentRoot),
+        declaredByPackage(declaration, framework),
       ),
     )
     .filter((symbol) => symbol.name !== "class")

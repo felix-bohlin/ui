@@ -1,3 +1,5 @@
+import type { SortDetail } from "../components/SortableTable/types"
+
 declare module "svelte/elements" {
   interface HTMLAttributes<T extends EventTarget> {
     interestfor?: string | undefined | null
@@ -16,6 +18,10 @@ declare module "svelte/elements" {
     "opui-sortable-table": HTMLAttributes<HTMLElement> & {
       "ascending-label"?: string | undefined | null
       "descending-label"?: string | undefined | null
+      onsort?:
+        | EventHandler<CustomEvent<SortDetail>, HTMLElement>
+        | undefined
+        | null
     }
     "opui-text-field": HTMLAttributes<HTMLElement>
     "opui-toaster": HTMLAttributes<HTMLElement> & {
@@ -24,5 +30,3 @@ declare module "svelte/elements" {
     }
   }
 }
-
-export {}

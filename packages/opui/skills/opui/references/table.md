@@ -93,7 +93,7 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 
 - `ascendingLabel`: `string`, `[ascending-label]`, default `"{column}, sorted ascending"`. What a sort in ascending order announces, with `{column}` where the header's label goes.
 - `descendingLabel`: `string`, `[descending-label]`, default `"{column}, sorted descending"`. What a sort in descending order announces, with `{column}` where the header's label goes.
-- `onsort` (Svelte): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
+- `onsort` (Svelte): `EventHandler<CustomEvent<SortDetail>, HTMLElement>`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 - `onSort` (React): `(event: CustomEvent<SortDetail>) => void`. Called before the rows are sorted, with the column index, the direction and the header in `event.detail`. `preventDefault()` keeps the rows where they are.
 
 ### Slots

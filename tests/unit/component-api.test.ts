@@ -6,6 +6,7 @@ import {
   checkClasses,
   checkExports,
   destructuredDefaults,
+  frameworkProps,
 } from "../../src/utils/component-source"
 
 const apis = Object.values(
@@ -118,5 +119,21 @@ describe("component api checks", () => {
         "<script setup lang=\"ts\">\nconst { open = false, size = 'large', value = 1 } = defineProps<Props>()\n</script>",
       ),
     ).toEqual(expected)
+  })
+
+  test("read the events a framework types on the package's custom elements, not their attributes", () => {
+    const sortableTable = {
+      component: "SortableTable",
+      source: "SortableTable",
+    }
+    expect(frameworkProps(sortableTable, "svelte").has("onsort")).toBe(true)
+    expect(frameworkProps(sortableTable, "svelte").has("ascending-label")).toBe(
+      false,
+    )
+    expect(
+      frameworkProps({ component: "Button", source: "Button" }, "react").has(
+        "interestfor",
+      ),
+    ).toBe(false)
   })
 })

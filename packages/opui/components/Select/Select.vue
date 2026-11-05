@@ -26,6 +26,7 @@ const {
   id,
   items = [],
   label,
+  name,
   size,
   spread,
   startText,
@@ -119,7 +120,7 @@ const field = inject(FieldGroupKey, undefined)
           label || $slots.label ? labelId : attrs['aria-labelledby']
         "
         :id="id"
-        :name="attrs.name ?? field?.name"
+        :name="name ?? field?.name"
       >
         <button v-pre>
           <selectedcontent></selectedcontent>

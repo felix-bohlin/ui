@@ -134,6 +134,39 @@
         margin-block-start: 0.15em;
       }
     }
+
+    /* Actions and close button */
+    &:where(:not(.ui-toaster *)):has(> .ui-actions, > .ui-button) {
+      align-content: start;
+      column-gap: 0;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      row-gap: var(--_gap);
+
+      & > * {
+        grid-column: 2;
+      }
+
+      & > svg {
+        grid-column: 1;
+        inline-size: var(--_icon-size);
+        margin-inline-end: var(--_gap);
+      }
+
+      & > .ui-button {
+        align-self: start;
+        grid-column: 3;
+        grid-row: 1;
+        margin-block: calc(-1 * var(--ui-space-1));
+        margin-inline-start: var(--ui-space-2);
+      }
+    }
+
+    & > .ui-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-2);
+    }
   }
 
   @scope (.ui-rich-text) to (.ui-not-rich-text) {

@@ -1,4 +1,7 @@
 {
+  "callout/Dismissible.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "callout/Dismissible.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "callout/Dismissible.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "checkbox/FieldGroupBinding.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "checkbox/FieldGroupBinding.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "checkbox/FieldGroupBinding.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
@@ -14,6 +17,9 @@
   "drawer/CloseBehaviors.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "drawer/CloseBehaviors.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "drawer/CloseBehaviors.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
+  "menu/ContextMenu.react.tsx": "Its script opens the menu at the pointer with showPopover(), which no command does, so each framework calls it from its own contextmenu handler",
+  "menu/ContextMenu.svelte": "Its script opens the menu at the pointer with showPopover(), which no command does, so each framework calls it from its own contextmenu handler",
+  "menu/ContextMenu.vue": "Its script opens the menu at the pointer with showPopover(), which no command does, so each framework calls it from its own contextmenu handler",
   "progress/Determinate.react.tsx": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "progress/Determinate.svelte": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",
   "progress/Determinate.vue": "Its script changes the page, so the state is written for each framework (bind, v-model or useState)",

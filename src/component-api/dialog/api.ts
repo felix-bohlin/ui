@@ -22,7 +22,8 @@ export default {
   parts: [
     {
       component: "DialogHeader",
-      description: "The header, a row for the title and anything next to it.",
+      description:
+        "The header, a row for the title and anything next to it, with an optional close button.",
       selector: ".ui-header",
     },
     {

@@ -25,6 +25,11 @@ const components = import.meta.glob<unknown>(
 )
 
 const cases = [
+  {
+    file: "Dialog/DialogHeader",
+    props: { closeLabel: "Close" },
+    slots: ["close-icon"],
+  },
   { file: "Drawer/DrawerHeader", props: {}, slots: ["close-icon"] },
   {
     file: "NumberField/NumberField",

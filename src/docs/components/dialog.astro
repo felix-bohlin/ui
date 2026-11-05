@@ -33,6 +33,7 @@ import Conditional from "../../components/Conditional.astro"
 
 import dialogApi from "../../component-api/dialog/api"
 import dialogFooterApi from "../../component-api/dialog-footer/api"
+import dialogHeaderApi from "../../component-api/dialog-header/api"
 import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
@@ -47,6 +48,7 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
   slug="dialog"
   apis={[
     { title: "Dialog API", api: dialogApi },
+    { title: "Dialog header API", api: dialogHeaderApi },
     { title: "Dialog footer API", api: dialogFooterApi },
   ]}
   browserSupport={[
@@ -165,6 +167,13 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
           title is <code>--ui-font-size-h4</code>; set
           <code>--_title-font-size</code> on the dialog to change it.
         </p>
+        <p>
+          Set <code>closeLabel</code> on the <code>DialogHeader</code> to add a
+          close button at the end of the title row, named by the label. It
+          closes its <code>Dialog</code> with <code>command="close"</code>, so
+          give the dialog an <code>id</code>. Put your own <code>svg</code> in
+          the <code>close-icon</code> slot to change the icon.
+        </p>
       </Fragment>
       <Fragment slot="html">
         <p>
@@ -178,6 +187,12 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
           after it line up at the end, and a paragraph gets a row of its own.
           The heading is <code>--ui-font-size-h4</code>; set
           <code>--_title-font-size</code> on the dialog to change it.
+        </p>
+        <p>
+          For a close button, put a round <code>.ui-button</code> with
+          <code>command="close"</code>, the dialog's id in
+          <code>commandfor</code> and an <code>aria-label</code> after the
+          heading. It stays on the title row when a paragraph follows.
         </p>
       </Fragment>
     </Conditional>

@@ -10,6 +10,7 @@ export { default as Badge } from "../components/Badge/Badge.astro"
 export { default as Button } from "../components/Button/Button.astro"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.astro"
 export { default as Callout } from "../components/Callout/Callout.astro"
+export { default as CalloutActions } from "../components/Callout/CalloutActions.astro"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.astro"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.astro"
 export { default as Card } from "../components/Card/Card.astro"
@@ -103,6 +104,7 @@ export type { Props as BadgeProps } from "../components/Badge/types.astro"
 export type { Props as ButtonProps } from "../components/Button/types.astro"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.astro"
 export type {
+  CalloutActionsProps,
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,

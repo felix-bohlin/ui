@@ -312,6 +312,21 @@ export const keywords = ["combobox", "dropdown", "option", "picker"]
     <AutoExample name="GroupedOptgroup" row spacious />
   </section>
 
+  <section id="rich-options">
+    <h2>Rich options</h2>
+    <p>
+      Options take the same parts as a list item: an avatar, an icon or a
+      <code>.ui-swatch</code> in <code>&lt;span class="ui-start"&gt;</code>, and
+      the text in <code>&lt;span class="ui-text"&gt;</code>. A second
+      <code>span</code> in <code>.ui-text</code> is a description under the
+      label. The field shows the start part and the label of the selected
+      option, without the description. Screen readers announce the text of the
+      option, so hide decorative parts with <code>aria-hidden="true"</code>.
+      Browsers without customizable select show the text only.
+    </p>
+    <AutoExample name="RichOptions" row spacious />
+  </section>
+
   <section id="disabled">
     <h2>Disabled</h2>
     <Conditional as="p">

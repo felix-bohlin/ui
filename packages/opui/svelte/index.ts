@@ -12,6 +12,7 @@ export { default as Badge } from "../components/Badge/Badge.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"
 export { default as Callout } from "../components/Callout/Callout.svelte"
+export { default as CalloutActions } from "../components/Callout/CalloutActions.svelte"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.svelte"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.svelte"
 export { default as Card } from "../components/Card/Card.svelte"
@@ -106,6 +107,7 @@ export type { Props as BadgeProps } from "../components/Badge/types.svelte"
 export type { Props as ButtonProps } from "../components/Button/types.svelte"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.svelte"
 export type {
+  CalloutActionsProps,
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,

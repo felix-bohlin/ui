@@ -134,6 +134,30 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     <p>If you want to decide yourself what goes into your list.</p>
 
     <AutoExample name="Custom" centered />
+
+    <h3 id="checkable-items">Checkable items</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        For settings people turn on and off in place, like view options, use
+        <code>ListItem type="checkbox"</code> with a <code>CheckboxInput</code>,
+        or <code>type="radio"</code> with a <code>RadioInput</code> for one of
+        several, in the <code>end</code> slot. They are native inputs, so Tab
+        reaches them, Space toggles them, and the menu stays open while people
+        change several. Name the radios alike, and point their
+        <code>aria-describedby</code> at the heading above them.
+      </Fragment>
+      <Fragment slot="html">
+        For settings people turn on and off in place, like view options, put a
+        <code>&lt;label class="ui-checkbox"&gt;</code> with a checkbox in
+        <code>.ui-end</code> in the item, or <code>.ui-radio</code> with a radio
+        for one of several. They are native inputs, so Tab reaches them, Space
+        toggles them, and the menu stays open while people change several. Name
+        the radios alike, and point their <code>aria-describedby</code> at the
+        heading above them.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Checkable" centered />
   </section>
 
   <section id="placement">
@@ -207,6 +231,27 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     </Conditional>
 
     <AutoExample name="Manual" centered />
+  </section>
+
+  <section id="context-menu">
+    <h2>Context menu</h2>
+    <p>
+      To open a menu where people right-click, listen for
+      <code>contextmenu</code> on the area, call <code>preventDefault()</code>,
+      move an empty, absolutely positioned element to the pointer and pass it to
+      <code>showPopover(&#123; source &#125;)</code>. The element becomes the
+      menu's anchor, so the menu opens at the pointer and flips like any other
+      menu near the edges of the viewport. Shift+F10 and the context menu key
+      fire the same event on the focused element.
+    </p>
+    <p>
+      On macOS and Linux, <code>contextmenu</code> fires while the button is
+      still down, and the menu's light dismiss would close it again when the
+      button comes up. When <code>event.buttons</code> isn't <code>0</code>,
+      open the menu after the next <code>pointerup</code> instead.
+    </p>
+
+    <AutoExample name="ContextMenu" />
   </section>
 
   <Fragment slot="accessibility">

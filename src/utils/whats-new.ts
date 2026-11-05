@@ -268,6 +268,12 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<a href="#severities">Links</a> in a callout only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `Links in a <a href="#variants">callout</a> fade to their hover and focus color.`,
+    {
+      ...components(
+        `<a href="#actions"><code>CalloutActions</code></a> puts a row of buttons under the content, and a <a href="#dismissible">close button</a> sits at the end of the first row.`,
+      ),
+      html: `<a href="#actions"><code>.ui-actions</code></a> puts a row of buttons under the content, and a <a href="#dismissible">close button</a> sits at the end of the first row.`,
+    },
   ],
   card: [
     `<a href="#density"><code>density</code></a> takes <code>spacious</code> for a card that stands alone, such as a sign-in form, and <code>dense</code> for a small stat.`,
@@ -317,6 +323,21 @@ export const whatsNew = {
     `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
     `<a href="#clickable">Card links</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `The border of a <a href="#clickable">clickable card</a> fades in on hover.`,
+    `<a href="#media">Images and videos</a> run to the edges of the card, at the top, between parts or at the bottom.`,
+    {
+      default: `<a href="#orientation"><code>orientation="horizontal"</code></a> puts the image at the start, next to the text.`,
+      html: `<a href="#orientation"><code>.ui-horizontal</code></a> puts the image at the start, next to the text.`,
+    },
+    {
+      default: `<a href="#colors"><code>color="primary"</code></a> outlines the one card in a row that stands out, like a recommended plan.`,
+      html: `<a href="#colors"><code>.ui-primary</code></a> outlines the one card in a row that stands out, like a recommended plan.`,
+    },
+    {
+      ...components(
+        `<a href="#header-row"><code>CardHeader as="div"</code></a> with an <code>hgroup</code> inside is a row for an avatar, the heading and buttons.`,
+      ),
+      html: `A <a href="#header-row"><code>div.ui-header</code></a> with an <code>hgroup</code> inside is a row for an avatar, the heading and buttons.`,
+    },
   ],
   carousel: [
     components(
@@ -567,6 +588,12 @@ export const whatsNew = {
       `<code>DialogTitle</code> warns in development when the dialog's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Dialog</code> to keep it (<a href="#api">API</a>).`,
     ),
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    {
+      ...components(
+        `<a href="#basics"><code>closeLabel</code></a> on <code>DialogHeader</code> adds a close button at the end of the title row.`,
+      ),
+      html: `A <a href="#basics">close button</a> after the heading stays on the title row when a paragraph follows it.`,
+    },
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-gap</code>, which cards, callouts, dialogs and drawers make tighter.`,
@@ -1033,6 +1060,7 @@ export const whatsNew = {
     `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
     `<a href="#variants">Filled selects</a> fade their hover background, and options highlight at once on hover and fade back over <code>--ui-duration-fast</code>.`,
     `Themes can make the picker spring open with <a href="#api"><code>--ui-ease-move</code></a>.`,
+    `Options take <a href="#rich-options">avatars, icons, swatches and descriptions</a>, and the field shows the icon and label of the selected one.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,

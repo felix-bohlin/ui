@@ -1,9 +1,10 @@
 ---
 import type { CardHeaderProps as Props } from "./types.astro"
+import { cx } from "../cx"
 
-const { class: className, ...rest } = Astro.props
+const { as: Tag = "hgroup", class: className, ...rest } = Astro.props
 ---
 
-<hgroup class:list={["ui-header", className]} {...rest}>
+<Tag class={cx(["ui-header", className])} {...rest}>
   <slot />
-</hgroup>
+</Tag>

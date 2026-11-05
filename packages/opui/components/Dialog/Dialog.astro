@@ -9,8 +9,9 @@ const { class: className, closedby, ...rest } = Astro.props
 
 const titleId = createIds(Astro.locals, "dialog", rest.id)("title")
 const labelledBy = autoLabelledBy(rest, titleId)
-const html = await dialogContext.provide({ titleId: labelledBy }, () =>
-  Astro.slots.render("default"),
+const html = await dialogContext.provide(
+  { id: rest.id ?? undefined, titleId: labelledBy },
+  () => Astro.slots.render("default"),
 )
 ---
 

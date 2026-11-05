@@ -41,6 +41,17 @@ export default {
       description: "The content, with an optional heading first.",
       selector: ".ui-content",
     },
+    {
+      component: "CalloutActions",
+      description: "A row of buttons under the content.",
+      selector: ".ui-actions",
+    },
+    {
+      code: "<button>",
+      description:
+        "A close button, a `.ui-button` that is a direct child of the callout. It sits at the end of the first row.",
+      selector: ".ui-callout > .ui-button",
+    },
   ],
   root: {
     description: "Container element.",

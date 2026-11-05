@@ -16,6 +16,9 @@
   const titleId = $derived(createIds(uid, "dialog", rest.id)("title"))
   const labelledBy = $derived(autoLabelledBy(rest, titleId))
   setDialogContext({
+    get id() {
+      return rest.id ?? undefined
+    },
     get titleId() {
       return labelledBy
     },

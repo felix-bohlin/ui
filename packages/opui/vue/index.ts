@@ -10,6 +10,7 @@ export { default as Badge } from "../components/Badge/Badge.vue"
 export { default as Button } from "../components/Button/Button.vue"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.vue"
 export { default as Callout } from "../components/Callout/Callout.vue"
+export { default as CalloutActions } from "../components/Callout/CalloutActions.vue"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.vue"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.vue"
 export { default as Card } from "../components/Card/Card.vue"
@@ -104,6 +105,7 @@ export type { Props as BadgeProps } from "../components/Badge/types.vue-props"
 export type { Props as ButtonProps } from "../components/Button/types.vue-props"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.vue-props"
 export type {
+  CalloutActionsProps,
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,

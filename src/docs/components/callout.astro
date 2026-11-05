@@ -4,7 +4,9 @@ import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import {
+  Button as UIButton,
   Callout as UICallout,
+  CalloutActions as UICalloutActions,
   CalloutContent as UICalloutContent,
   CalloutIcon as UICalloutIcon,
 } from "opui-css/astro"
@@ -177,6 +179,32 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <AutoExample name="Icon" column />
   </section>
 
+  <section id="actions">
+    <h2>Actions</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put buttons in <code>CalloutActions</code>, after
+        <code>CalloutContent</code>, for a row under the text that lines up with
+        it.
+      </Fragment>
+      <Fragment slot="html">
+        Put buttons in <code>.ui-actions</code>, after <code>.ui-content</code>,
+        for a row under the text that lines up with it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Actions" column />
+
+    <h3 id="dismissible">Dismissible</h3>
+    <p>
+      A round <code>.ui-button</code> that is a direct child of the callout sits
+      at the end of the first row, for a close button. Give it an
+      <code>aria-label</code>, and remove or hide the callout from its click
+      handler. Move focus to a sensible place afterwards, since the button is
+      gone: here, the button that shows the callout again.
+    </p>
+    <AutoExample name="Dismissible" column />
+  </section>
+
   <CalloutBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
@@ -210,6 +238,23 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
           <h3>Title</h3>
           <p>Supporting text that explains the callout in more detail.</p>
         </UICalloutContent>
+        <UICalloutActions>
+          <UIButton size="small">Action</UIButton>
+        </UICalloutActions>
+        <UIButton aria-label="Dismiss" round size="small">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+            ></path>
+          </svg>
+        </UIButton>
       </UICallout>
     </Anatomy>
   </Fragment>

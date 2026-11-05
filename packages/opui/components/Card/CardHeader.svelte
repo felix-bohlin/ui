@@ -2,6 +2,7 @@
   import type { CardHeaderProps as Props } from "./types.svelte"
 
   let {
+    as: Tag = "hgroup",
     class: className,
 
     // Snippets
@@ -10,6 +11,6 @@
   }: Props = $props()
 </script>
 
-<hgroup class={["ui-header", className]} {...rest}>
+<svelte:element this={Tag} class={["ui-header", className]} {...rest}>
   {@render children?.()}
-</hgroup>
+</svelte:element>

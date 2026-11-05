@@ -8,6 +8,8 @@
     --_ease: var(--ui-ease);
     --_elevated-bg-color: var(--ui-surface-elevated);
     --_elevated-shadow: var(--ui-shadow-elevated);
+    --_gap: var(--ui-space-3);
+    --_media-inline-size: 40%;
     --_outlined-border-color: var(--ui-border-color);
     --_padding: var(--ui-card-padding, var(--ui-space-3));
     --_shadow: none;
@@ -23,7 +25,7 @@
     box-shadow: var(--_shadow);
     display: flex;
     flex-direction: column;
-    gap: var(--ui-space-3);
+    gap: var(--_gap);
     min-inline-size: 0;
     overflow: hidden;
     overflow-wrap: break-word;
@@ -32,9 +34,8 @@
 
     /* Density */
     &.ui-dense {
+      --_gap: var(--ui-space-2);
       --_padding: var(--ui-space-2);
-
-      gap: var(--ui-space-2);
     }
 
     &.ui-spacious {
@@ -74,6 +75,12 @@
       --_shadow: var(--ui-shadow-surface);
     }
 
+    /* Colors */
+    &:where(.ui-card).ui-primary {
+      outline: var(--ui-border-width-thick) solid var(--ui-primary);
+      outline-offset: calc(-1 * var(--ui-border-width-thick));
+    }
+
     & > :where(hgroup, .ui-content, .ui-header) {
       margin-block: 0;
       padding-inline: var(--_padding);
@@ -86,7 +93,10 @@
     /* Header */
     & > :where(hgroup, .ui-header) {
       padding-block: var(--_padding) 0;
+    }
 
+    & > :where(hgroup, .ui-header),
+    & > .ui-header > hgroup {
       & > :where(h1, h2, h3, h4, h5, h6, p) {
         margin-block: 0;
       }
@@ -104,6 +114,58 @@
       /* Bottom paragraph */
       & > p:last-of-type:last-child:not(:first-child) {
         font-size: var(--ui-font-size-body);
+      }
+    }
+
+    /* Header row */
+    & > .ui-header:has(> hgroup) {
+      align-items: center;
+      column-gap: var(--ui-space-2);
+      display: flex;
+
+      & > hgroup {
+        flex: 1;
+        min-inline-size: 0;
+      }
+    }
+
+    /* Media */
+    &:where(.ui-card) > :where(img, picture, video) {
+      block-size: auto;
+      inline-size: 100%;
+      object-fit: cover;
+    }
+
+    &:where(.ui-card) > picture > img {
+      block-size: 100%;
+      inline-size: 100%;
+      object-fit: cover;
+    }
+
+    &:where(.ui-card)
+      > :where(img, picture, video)
+      + :where(hgroup, .ui-content, .ui-header) {
+      padding-block-start: calc(var(--_padding) - var(--_gap));
+    }
+
+    /* Orientation */
+    &:where(.ui-card).ui-horizontal:has(
+        > :where(img, picture, video):first-child
+      ) {
+      & > :not(:first-child) {
+        margin-inline-start: var(--_media-inline-size);
+      }
+
+      & > :first-child {
+        block-size: 100%;
+        inline-size: var(--_media-inline-size);
+        inset-block: 0;
+        inset-inline-start: 0;
+        position: absolute;
+      }
+
+      & > :first-child + :where(hgroup, .ui-content, .ui-header) {
+        padding-block-start: var(--_padding);
       }
     }
 
@@ -278,6 +340,12 @@
 
       & > :where(p) {
         flex-basis: 100%;
+        order: 1;
+      }
+
+      &:not(:has(> :where(h1, h2, h3, h4, h5, h6)))
+        > :where(.ui-button:has(> svg:only-child)):first-of-type {
+        margin-inline-start: auto;
       }
     }
 

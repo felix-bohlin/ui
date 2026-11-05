@@ -1,4 +1,4 @@
-import type { IntrinsicElementAttributes } from "vue"
+import type { IntrinsicElementAttributes, Slot } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   DialogContentProps as BaseDialogContentProps,
@@ -20,3 +20,5 @@ export type DialogTitleProps = BaseDialogTitleProps &
 export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots
+
+export type DialogHeaderSlots = { "close-icon"?: Slot } & DefaultSlots

@@ -3,13 +3,22 @@ import type { Props } from "./types.astro"
 
 export const title = "Card"
 
-const { class: className, density, variant, ...rest } = Astro.props
+const {
+  class: className,
+  color,
+  density,
+  orientation,
+  variant,
+  ...rest
+} = Astro.props
 ---
 
 <div
   class:list={[
     "ui-card",
+    color && `ui-${color}`,
     density && density !== "normal" && `ui-${density}`,
+    orientation && orientation !== "vertical" && `ui-${orientation}`,
     variant && variant !== "plain" && `ui-${variant}`,
     className,
   ]}

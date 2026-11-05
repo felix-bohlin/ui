@@ -3,7 +3,9 @@
 
   let {
     class: className,
+    color,
     density,
+    orientation,
     variant,
 
     // Snippets
@@ -15,7 +17,9 @@
 <div
   class={[
     "ui-card",
+    color && `ui-${color}`,
     density && density !== "normal" && `ui-${density}`,
+    orientation && orientation !== "vertical" && `ui-${orientation}`,
     variant && variant !== "plain" && `ui-${variant}`,
     className,
   ]}

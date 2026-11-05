@@ -3,6 +3,9 @@ import type { SvelteHTMLElements } from "svelte/elements"
 
 export type Props = Base.Props & SvelteHTMLElements["article"]
 
+export type CalloutActionsProps = Base.CalloutActionsProps &
+  SvelteHTMLElements["div"]
+
 export type CalloutContentProps = Base.CalloutContentProps &
   SvelteHTMLElements["div"]
 

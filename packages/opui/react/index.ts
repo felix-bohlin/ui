@@ -11,6 +11,7 @@ export { default as Badge } from "../components/Badge/Badge.react"
 export { default as Button } from "../components/Button/Button.react"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.react"
 export { default as Callout } from "../components/Callout/Callout.react"
+export { default as CalloutActions } from "../components/Callout/CalloutActions.react"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.react"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.react"
 export { default as Card } from "../components/Card/Card.react"
@@ -105,6 +106,7 @@ export type { Props as BadgeProps } from "../components/Badge/types.react"
 export type { Props as ButtonProps } from "../components/Button/types.react"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.react"
 export type {
+  CalloutActionsProps,
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,

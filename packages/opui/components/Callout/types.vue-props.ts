@@ -1,9 +1,12 @@
 import type { Class, DefaultSlots } from "../vue"
 import type {
+  CalloutActionsProps as BaseCalloutActionsProps,
   CalloutContentProps as BaseCalloutContentProps,
   CalloutIconProps as BaseCalloutIconProps,
   Props as BaseProps,
 } from "./types"
+
+export type CalloutActionsProps = BaseCalloutActionsProps & Class
 
 export type CalloutContentProps = BaseCalloutContentProps & Class
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { CardHeaderProps as Props, Slots } from "./types.vue-props"
 
-defineProps<Props>()
+const { as: Tag = "hgroup" } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
 <template>
-  <hgroup :class="['ui-header', $props.class]">
+  <component :is="Tag" :class="['ui-header', $props.class]">
     <slot></slot>
-  </hgroup>
+  </component>
 </template>

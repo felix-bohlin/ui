@@ -21,6 +21,7 @@ import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
 
 import cardApi from "../../component-api/card/api"
 import cardActionsApi from "../../component-api/card-actions/api"
+import cardHeaderApi from "../../component-api/card-header/api"
 
 export const keywords = ["panel", "surface", "tile"]
 ---
@@ -30,6 +31,7 @@ export const keywords = ["panel", "surface", "tile"]
   heroAnatomy
   apis={[
     { title: "Card API", api: cardApi },
+    { title: "Card header API", api: cardHeaderApi },
     { title: "Card actions API", api: cardActionsApi },
   ]}
   browserSupport={["has"]}
@@ -118,6 +120,18 @@ export const keywords = ["panel", "surface", "tile"]
     </div>
   </section>
 
+  <section id="colors">
+    <h2>Colors</h2>
+    <p>
+      <PropOrClass prop='color="primary"' class=".ui-primary" /> draws a thick
+      <code>--ui-primary</code> outline around the card, for the one card in a
+      row that stands out, like a recommended plan. The outline sits inside the
+      card's edge, so the card keeps the size of its neighbors. Say why it
+      stands out in words too, like the Popular chip in the header here.
+    </p>
+    <AutoExample name="Colors" column />
+  </section>
+
   <section id="density">
     <h2>Density</h2>
     <p>
@@ -140,6 +154,38 @@ export const keywords = ["panel", "surface", "tile"]
       </Fragment>
     </Conditional>
     <AutoExample name="Header" column />
+
+    <h3 id="header-row">Header row</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        For an avatar, a chip or a button next to the heading, render
+        <code>CardHeader as="div"</code> and put the heading and its paragraphs
+        in an <code>hgroup</code> inside it. The <code>hgroup</code> takes the
+        free space, so the avatar sits at the start and buttons line up at the
+        end.
+      </Fragment>
+      <Fragment slot="html">
+        For an avatar, a chip or a button next to the heading, use a
+        <code>&lt;div class="ui-header"&gt;</code> and put the heading and its
+        paragraphs in an <code>hgroup</code> inside it. The <code>hgroup</code>
+        takes the free space, so the avatar sits at the start and buttons line
+        up at the end.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="HeaderActions" column />
+  </section>
+
+  <section id="media">
+    <h2>Media</h2>
+    <p>
+      An <code>img</code>, <code>picture</code> or <code>video</code> that is a
+      direct child of the card runs to its edges, at the top, between parts or
+      at the bottom. It fills the width at its own aspect ratio; give it an
+      <code>aspect-ratio</code> or a <code>block-size</code> to crop it, and
+      <code>object-fit: cover</code> keeps it from stretching. The part after
+      the image gets the card's padding above it.
+    </p>
+    <AutoExample name="Media" column />
   </section>
 
   <section id="actions">
@@ -172,6 +218,19 @@ export const keywords = ["panel", "surface", "tile"]
     <AutoExample name="Alignment" column />
   </section>
 
+  <section id="orientation">
+    <h2>Orientation</h2>
+    <p>
+      <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />
+      puts an image that is the first child of the card at the start, over the
+      full height of the card, and the other parts next to it. The image takes
+      <code>--_media-inline-size</code>, <code>40%</code> of the card by
+      default. Switch back to the default orientation on narrow screens, where
+      the text needs the room.
+    </p>
+    <AutoExample name="Horizontal" column />
+  </section>
+
   <section id="clickable">
     <h2>Clickable card</h2>
     <p>
@@ -200,7 +259,13 @@ export const keywords = ["panel", "surface", "tile"]
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UICard variant="elevated">
+      <UICard variant="elevated" style="inline-size: 20rem">
+        <img
+          alt="Green cliffs and a winding road under a cloudy sky"
+          height="450"
+          src="https://picsum.photos/id/1018/800/450"
+          width="800"
+        />
         <UICardHeader>
           <p>Overline</p>
           <h2 class="ui-h3">Headline</h2>

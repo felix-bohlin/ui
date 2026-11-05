@@ -3,6 +3,8 @@ export type Props = {
   variant?: "tonal" | "outlined"
 }
 
+export type CalloutActionsProps = {}
+
 export type CalloutContentProps = {}
 
 export type CalloutIconProps = {}

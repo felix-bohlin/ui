@@ -74,6 +74,43 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        /* Rich options */
+        &:has(> :where(.ui-start, .ui-text)) {
+          align-items: center;
+          display: flex;
+          gap: var(--ui-space-2);
+          min-inline-size: 0;
+        }
+
+        & > .ui-start {
+          display: grid;
+          flex-shrink: 0;
+
+          & > svg {
+            block-size: auto;
+            inline-size: var(--ui-icon-size);
+          }
+
+          & > .ui-avatar {
+            max-block-size: var(--ui-icon-size-large);
+            max-inline-size: var(--ui-icon-size-large);
+          }
+        }
+
+        & > .ui-text {
+          min-inline-size: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          & > * + * {
+            display: none;
+          }
+        }
+
+        & > .ui-end {
+          display: none;
+        }
       }
     }
 
@@ -108,6 +145,15 @@
       }
 
       /* Option */
+      option > .ui-text > span {
+        display: block;
+
+        & + span {
+          color: var(--_description-text-color);
+          font-size: var(--ui-font-size-caption);
+        }
+      }
+
       option {
         /* Checkmark */
         /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant pseudo stuff. */

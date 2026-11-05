@@ -44,6 +44,16 @@ export default {
       "Gap between the items in a dialog's or drawer's `.ui-footer` and between the buttons in its `.ui-actions`. Defaults to `--ui-space-2`.",
     kind: "input",
   },
+  "--_gap": {
+    description:
+      "Gap between the parts. `--ui-space-3`, or `--ui-space-2` in `.ui-dense`. The part after an image subtracts it from its padding.",
+    kind: "input",
+  },
+  "--_media-inline-size": {
+    description:
+      "Width of the image in a `.ui-horizontal` card, and the start margin of the parts next to it. Defaults to `40%` of the card.",
+    kind: "input",
+  },
   "--_motion": {
     description:
       "Motion multiplier for the card link border transition and the focus ring animation. `0` turns them off.",

@@ -101,6 +101,11 @@ const themes = Object.fromEntries(
       font-size: var(--font-size-1);
       margin: 0;
     }
+
+    @media (width < 48rem) {
+      grid-template-columns: minmax(0, 1fr);
+      overflow-x: auto;
+    }
   }
 
   .stress-row {

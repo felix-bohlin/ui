@@ -726,7 +726,7 @@
   {
     "id": "component-chip-astro",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
+    "description": "Filters, tags and choices. For the main action, use a Button.",
     "keywords": "filter pill tag token",
     "category": "Component",
     "url": "/astro/components/chip/"
@@ -1996,7 +1996,7 @@
   {
     "id": "component-select-astro",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
+    "description": "Pick a value in a form. For actions, use a Menu.",
     "keywords": "combobox dropdown option picker",
     "category": "Component",
     "url": "/astro/components/select/"
@@ -2280,7 +2280,7 @@
   {
     "id": "component-switch-astro",
     "title": "Switch",
-    "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
+    "description": "A setting that applies right away. For choices submitted with a form, use a Checkbox.",
     "keywords": "on off toggle",
     "category": "Component",
     "url": "/astro/components/switch/"

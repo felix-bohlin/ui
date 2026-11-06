@@ -16,7 +16,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Card | `card.md` | A surface for related content and actions, on its own or as the base of accordions, dialogs and more. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | Choices submitted with a form. For a setting that applies right away, use a Switch. |
-| Chip | `chip.md` | Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button. |
+| Chip | `chip.md` | Filters, tags and choices. For the main action, use a Button. |
 | Copy | `copy.md` | A button that copies text or a field's value to the clipboard. |
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
 | Dialog | `dialog.md` | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
@@ -33,11 +33,11 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Radio | `radio.md` | See also: Form documentation. |
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |
 | Rating | `rating.md` | A star rating: a meter that shows a score, or radios that collect one. |
-| Select | `select.md` | Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu. |
+| Select | `select.md` | Pick a value in a form. For actions, use a Menu. |
 | Spinner | `spinner.md` | Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar. |
 | Stat | `stat.md` | A stat shows one number with its label and the change behind it. |
 | Stepper | `stepper.md` | Shows where someone is in a flow of steps, such as a checkout. |
-| Switch | `switch.md` | Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group. |
+| Switch | `switch.md` | A setting that applies right away. For choices submitted with a form, use a Checkbox. |
 | Table | `table.md` | Displays tabular data. Basic tables with row and column headers, and optional captions and footers. |
 | Tabs | `tabs.md` | Radio inputs that switch panels. To pick an option, use a Toggle group. |
 | Text field | `text-field.md` | An input for single-line text data. Basic text fields with labels, field descriptions, and validation states. |

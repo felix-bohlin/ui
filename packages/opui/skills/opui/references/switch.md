@@ -1,6 +1,6 @@
 # Switch
 
-Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.
+A setting that applies right away. For choices submitted with a form, use a Checkbox.
 
 - CSS: `opui-css/css/components/switch.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/switch.md), [Astro](https://open-props-ui.netlify.app/astro/components/switch.md), [React](https://open-props-ui.netlify.app/react/components/switch.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/switch.md), [Vue](https://open-props-ui.netlify.app/vue/components/switch.md).

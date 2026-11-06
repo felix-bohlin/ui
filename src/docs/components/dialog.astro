@@ -12,13 +12,7 @@ import {
   DialogFooter as UIDialogFooter,
   DialogHeader as UIDialogHeader,
   DialogTitle as UIDialogTitle,
-  Table,
-  TableBody,
   TableCell,
-  TableColumn,
-  TableColumnGroup,
-  TableHead,
-  TableHeaderCell,
   TableRow,
 } from "opui-css/astro"
 
@@ -27,6 +21,7 @@ import CardCSS from "@opui/css/components/card.css?raw"
 
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
+import DocsTable from "../../components/DocsTable.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import dialogApi from "../../component-api/dialog/api"
@@ -213,43 +208,33 @@ export const keywords = ["lightbox", "modal", "overlay", "popup"]
       it with <code>command="show-modal"</code> (or <code>showModal()</code>)
       makes it modal and the page behind it inert.
     </p>
-    <Table style="table-layout: fixed">
-      <TableColumnGroup>
-        <TableColumn width="30%" />
-        <TableColumn />
-      </TableColumnGroup>
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Role/attribute</TableHeaderCell>
-          <TableHeaderCell>Usage</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        <TableRow>
-          <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
-          <TableCell>
-            Gives the dialog an accessible name by referring to the element that
-            provides the dialog title.
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell><code>aria-describedby="IDREF"</code></TableCell>
-          <TableCell>
-            Optional. Gives the dialog an accessible description by referring to
-            the dialog content that describes the primary message or purpose of
-            the dialog.
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell><code>role="alertdialog"</code></TableCell>
-          <TableCell>
-            Only if the dialog is a confirmation window communicating an
-            important message that requires a confirmation or other user
-            response. See <a href="#alert-dialog">alert dialog</a>.
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+    <DocsTable
+      columns={[{ label: "Role/attribute", width: "30%" }, { label: "Usage" }]}
+    >
+      <TableRow>
+        <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+        <TableCell>
+          Gives the dialog an accessible name by referring to the element that
+          provides the dialog title.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+        <TableCell>
+          Optional. Gives the dialog an accessible description by referring to
+          the dialog content that describes the primary message or purpose of
+          the dialog.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell><code>role="alertdialog"</code></TableCell>
+        <TableCell>
+          Only if the dialog is a confirmation window communicating an important
+          message that requires a confirmation or other user response. See
+          <a href="#alert-dialog">alert dialog</a>.
+        </TableCell>
+      </TableRow>
+    </DocsTable>
 
     <KeyboardSupport />
 

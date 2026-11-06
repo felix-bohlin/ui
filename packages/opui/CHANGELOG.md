@@ -700,7 +700,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Typography` `kbd`, `var`, `.ui-kbd` and `.ui-var` no longer draw a border in their own background color. The border width is folded into the padding, so the box keeps its size.
 - `Typography` rich text removes the top margin of the first child and the bottom margin of the last child in a component's `.ui-content`.
 - `Typography` rich text lists after a heading or `hr` no longer get a top margin, and nested lists get their smaller margins.
-- `Typography` rich text no longer overflows grid and flex parents with long words, URLs or code lines, and list items, figure content and table cells no longer push it wider than its container on narrow viewports.
+- `Typography` rich text no longer overflows grid and flex parents with long words, URLs or code lines, and list items, figure content and table cells no longer push it wider than its container on narrow viewports. Inline `code`, `kbd` and `var` in table cells only break inside a word when it doesn't fit the table, so a narrow table keeps its columns wide enough for whole tokens.
 - `Typography` rich text inline `code` styles no longer apply to `code` inside `pre`.
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.

@@ -784,6 +784,10 @@
       writing-mode: horizontal-tb;
     }
 
+    :where(td, th) :is(:not(pre) > code, kbd, var) {
+      overflow-wrap: break-word;
+    }
+
     :where(pre, :not(pre) > code):where(:not([dir])) {
       direction: ltr;
       unicode-bidi: isolate;

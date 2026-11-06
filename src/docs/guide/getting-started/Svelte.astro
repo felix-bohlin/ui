@@ -88,9 +88,10 @@ import ServerSupport from "./partials/ServerSupport.astro"
       <code>@astrojs/svelte</code> and no <code>client:*</code> directive),
       every component renders complete HTML, and the native controls work and
       submit with their form. The props in the last column only update on the
-      client: a <code>bind:</code> value stays put while the native value still
-      changes and submits. The table is read from the component sources and
-      their API docs.
+      client, and the server icon next to each says what you see until then and
+      how to work around it: a <code>bind:</code> value stays put while the
+      native value still changes and submits. The table is read from the
+      component sources and their API docs.
     </p>
     <ServerSupport framework="svelte" />
     <p>

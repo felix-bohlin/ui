@@ -259,9 +259,9 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Server rendering
 
-Components that need context, state or effects are marked `"use client"`. The rest also render as React Server Components. Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client. The table is read from the component sources and their API docs.
+Components that need context, state or effects are marked `"use client"`. The rest also render as React Server Components. Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client, and the server icon next to each says what you see until then and how to work around it. The table is read from the component sources and their API docs.
 
-| Component | Client | Server | Server Component | Needs hydration for |
+| Component | Client | Server | Server Component | Without hydration |
 | --- | --- | --- | --- | --- |
 | [`Accordion`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
 | [`AccordionActions`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
@@ -277,8 +277,8 @@ Components that need context, state or effects are marked `"use client"`. The re
 | [`CardActions`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
 | [`CardHeader`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
 | [`Carousel`](https://open-props-ui.netlify.app/react/components/carousel.md) | Yes | Yes | Yes | - |
-| [`Checkbox`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` |
-| [`CheckboxInput`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | No | `indeterminate` |
+| [`Checkbox`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | Yes | Hydrate for `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`CheckboxInput`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | No | Hydrate for `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://open-props-ui.netlify.app/react/components/chip.md) | Yes | Yes | Yes | - |
 | [`Copy`](https://open-props-ui.netlify.app/react/components/copy.md) | Yes | Yes | No | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
@@ -305,7 +305,7 @@ Components that need context, state or effects are marked `"use client"`. The re
 | [`Progress`](https://open-props-ui.netlify.app/react/components/progress.md) | Yes | Yes | Yes | - |
 | [`Radio`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | Yes | - |
 | [`RadioInput`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | No | - |
-| [`Range`](https://open-props-ui.netlify.app/react/components/range.md) | Yes | No | No | `valueSuffix`, `valueText` |
+| [`Range`](https://open-props-ui.netlify.app/react/components/range.md) | Yes | No | No | Hydrate for `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
 | [`Rating`](https://open-props-ui.netlify.app/react/components/rating.md) | Yes | Yes | No | - |
 | [`Select`](https://open-props-ui.netlify.app/react/components/select.md) | Yes | Yes | No | - |
 | [`SelectAll`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | Yes | No | - |
@@ -395,9 +395,9 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Server rendering
 
-Without hydration (SvelteKit with `csr = false`, or Astro with `@astrojs/svelte` and no `client:*` directive), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client: a `bind:` value stays put while the native value still changes and submits. The table is read from the component sources and their API docs.
+Without hydration (SvelteKit with `csr = false`, or Astro with `@astrojs/svelte` and no `client:*` directive), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client, and the server icon next to each says what you see until then and how to work around it: a `bind:` value stays put while the native value still changes and submits. The table is read from the component sources and their API docs.
 
-| Component | Client | Server | Needs hydration for |
+| Component | Client | Server | Without hydration |
 | --- | --- | --- | --- |
 | [`Accordion`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
 | [`AccordionActions`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
@@ -413,8 +413,8 @@ Without hydration (SvelteKit with `csr = false`, or Astro with `@astrojs/svelte`
 | [`CardActions`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://open-props-ui.netlify.app/svelte/components/carousel.md) | Yes | Yes | - |
-| [`Checkbox`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked`, `bind:group`, `indeterminate` |
-| [`CheckboxInput`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked`, `bind:group`, `indeterminate` |
+| [`Checkbox`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | Hydrate for `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
+| [`CheckboxInput`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | Hydrate for `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://open-props-ui.netlify.app/svelte/components/chip.md) | Yes | Yes | - |
 | [`Copy`](https://open-props-ui.netlify.app/svelte/components/copy.md) | Yes | Yes | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
@@ -436,37 +436,37 @@ Without hydration (SvelteKit with `csr = false`, or Astro with `@astrojs/svelte`
 | [`Menu`](https://open-props-ui.netlify.app/svelte/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
 | [`Messages`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
-| [`NumberField`](https://open-props-ui.netlify.app/svelte/components/number-field.md) | Yes | No | `bind:value` |
-| [`OneTimeCode`](https://open-props-ui.netlify.app/svelte/components/one-time-code.md) | Yes | No | `bind:value` |
+| [`NumberField`](https://open-props-ui.netlify.app/svelte/components/number-field.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`OneTimeCode`](https://open-props-ui.netlify.app/svelte/components/one-time-code.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://open-props-ui.netlify.app/svelte/components/progress.md) | Yes | Yes | - |
-| [`Radio`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` |
-| [`RadioInput`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` |
-| [`Range`](https://open-props-ui.netlify.app/svelte/components/range.md) | Yes | No | `bind:value`, `valueSuffix`, `valueText` |
-| [`Rating`](https://open-props-ui.netlify.app/svelte/components/rating.md) | Yes | No | `bind:value` |
-| [`Select`](https://open-props-ui.netlify.app/svelte/components/select.md) | Yes | No | `bind:value` |
+| [`Radio`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | Hydrate for `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`RadioInput`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | Hydrate for `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Range`](https://open-props-ui.netlify.app/svelte/components/range.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. , `valueText` **Needs hydration** The `valueText` content is yours, so it follows the thumb when your own state changes, which takes hydration. Update the content on `input` yourself, or use `valueSuffix`. |
+| [`Rating`](https://open-props-ui.netlify.app/svelte/components/rating.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Select`](https://open-props-ui.netlify.app/svelte/components/select.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`SelectAll`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | Yes | - |
 | [`SortableTable`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://open-props-ui.netlify.app/svelte/components/stat.md) | Yes | Yes | - |
 | [`Stepper`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
 | [`StepperItem`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
-| [`Switch`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | `bind:checked`, `bind:group` |
-| [`SwitchInput`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | `bind:checked`, `bind:group` |
+| [`Switch`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | Hydrate for `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`SwitchInput`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | Hydrate for `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Table`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
 | [`TableCell`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
 | [`TableColumn`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
 | [`TableColumnGroup`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
 | [`TableHeaderCell`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
-| [`Tabs`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | No | `bind:value` |
+| [`Tabs`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`TabsItem`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsLabel`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://open-props-ui.netlify.app/svelte/components/textarea.md) | Yes | No | `bind:value` |
-| [`TextField`](https://open-props-ui.netlify.app/svelte/components/text-field.md) | Yes | No | `bind:value` |
+| [`Textarea`](https://open-props-ui.netlify.app/svelte/components/textarea.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TextField`](https://open-props-ui.netlify.app/svelte/components/text-field.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Timeline`](https://open-props-ui.netlify.app/svelte/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://open-props-ui.netlify.app/svelte/components/timeline.md) | Yes | Yes | - |
 | [`Toaster`](https://open-props-ui.netlify.app/svelte/components/toast.md) | Yes | Yes | - |
-| [`ToggleButton`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:checked` |
-| [`ToggleGroup`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:value` |
+| [`ToggleButton`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | Hydrate for `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`ToggleGroup`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | Hydrate for `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Tooltip`](https://open-props-ui.netlify.app/svelte/components/tooltip.md) | Yes | Yes | - |
 
 Hydrate those (`client:load` in Astro) or keep client-side rendering on. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
@@ -525,9 +525,9 @@ import { Button } from "opui-css/vue"
 
 ### Server rendering
 
-Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client: a `v-model` ref stays put while the native value still changes and submits. The table is read from the component sources and their API docs.
+Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client, and the server icon next to each says what you see until then and how to work around it: a `v-model` ref stays put while the native value still changes and submits. The table is read from the component sources and their API docs.
 
-| Component | Client | Server | Needs hydration for |
+| Component | Client | Server | Without hydration |
 | --- | --- | --- | --- |
 | [`Accordion`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
 | [`AccordionActions`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
@@ -543,8 +543,8 @@ Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `re
 | [`CardActions`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
 | [`CardHeader`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
 | [`Carousel`](https://open-props-ui.netlify.app/vue/components/carousel.md) | Yes | Yes | - |
-| [`Checkbox`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate`, `v-model` |
-| [`CheckboxInput`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate`, `v-model` |
+| [`Checkbox`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | Hydrate for `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`CheckboxInput`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | Hydrate for `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Chip`](https://open-props-ui.netlify.app/vue/components/chip.md) | Yes | Yes | - |
 | [`Copy`](https://open-props-ui.netlify.app/vue/components/copy.md) | Yes | Yes | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |
@@ -566,37 +566,37 @@ Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `re
 | [`Menu`](https://open-props-ui.netlify.app/vue/components/menu.md) | Yes | Yes | - |
 | [`Message`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
 | [`Messages`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
-| [`NumberField`](https://open-props-ui.netlify.app/vue/components/number-field.md) | Yes | No | `v-model` |
-| [`OneTimeCode`](https://open-props-ui.netlify.app/vue/components/one-time-code.md) | Yes | No | `v-model` |
+| [`NumberField`](https://open-props-ui.netlify.app/vue/components/number-field.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`OneTimeCode`](https://open-props-ui.netlify.app/vue/components/one-time-code.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Progress`](https://open-props-ui.netlify.app/vue/components/progress.md) | Yes | Yes | - |
-| [`Radio`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` |
-| [`RadioInput`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` |
-| [`Range`](https://open-props-ui.netlify.app/vue/components/range.md) | Yes | No | `v-model`, `valueSuffix` |
-| [`Rating`](https://open-props-ui.netlify.app/vue/components/rating.md) | Yes | No | `v-model` |
-| [`Select`](https://open-props-ui.netlify.app/vue/components/select.md) | Yes | No | `v-model` |
+| [`Radio`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`RadioInput`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Range`](https://open-props-ui.netlify.app/vue/components/range.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `valueSuffix` **Needs hydration** The value `<output>` follows the thumb through `opui-css/css/js/range.js`, which runs once the component's script loads. The track fill is CSS, so it works. Import `opui-css/css/js/range.js` in the page. |
+| [`Rating`](https://open-props-ui.netlify.app/vue/components/rating.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`Select`](https://open-props-ui.netlify.app/vue/components/select.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`SelectAll`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | Yes | - |
 | [`SortableTable`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
 | [`Stat`](https://open-props-ui.netlify.app/vue/components/stat.md) | Yes | Yes | - |
 | [`Stepper`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
 | [`StepperItem`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
-| [`Switch`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | `v-model` |
-| [`SwitchInput`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | `v-model` |
+| [`Switch`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`SwitchInput`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Table`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
 | [`TableCell`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
 | [`TableColumn`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
 | [`TableColumnGroup`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
 | [`TableHeaderCell`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
-| [`Tabs`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | No | `v-model` |
+| [`Tabs`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`TabsItem`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsLabel`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
 | [`TabsPanel`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
-| [`Textarea`](https://open-props-ui.netlify.app/vue/components/textarea.md) | Yes | No | `v-model` |
-| [`TextField`](https://open-props-ui.netlify.app/vue/components/text-field.md) | Yes | No | `v-model` |
+| [`Textarea`](https://open-props-ui.netlify.app/vue/components/textarea.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`TextField`](https://open-props-ui.netlify.app/vue/components/text-field.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Timeline`](https://open-props-ui.netlify.app/vue/components/timeline.md) | Yes | Yes | - |
 | [`TimelineItem`](https://open-props-ui.netlify.app/vue/components/timeline.md) | Yes | Yes | - |
 | [`Toaster`](https://open-props-ui.netlify.app/vue/components/toast.md) | Yes | Yes | - |
-| [`ToggleButton`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` |
-| [`ToggleGroup`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` |
+| [`ToggleButton`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
+| [`ToggleGroup`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | Hydrate for `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Tooltip`](https://open-props-ui.netlify.app/vue/components/tooltip.md) | Yes | Yes | - |
 
 Hydrate those (`client:load` in Astro) or use them in a client-rendered Vue app. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.

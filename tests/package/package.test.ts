@@ -17,6 +17,7 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import ts from "typescript"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { lightDarkSettings } from "./readme.ts"
 
 const root = path.resolve(import.meta.dirname, "../..")
 const packageDir = path.join(root, "packages/opui")
@@ -199,6 +200,21 @@ for (const environment of ["client", "ssr"]) {
 }
 await server.close()
 `
+
+const VITE_BUILD = String.raw`
+import { build } from "vite"
+
+const [outDir, settings] = process.argv.slice(2)
+const config = JSON.parse(settings)
+await build({ ...config, build: { ...config.build, outDir }, logLevel: "silent" })
+`
+
+const cssIn = (dist: string) =>
+  readdirSync(dist, { recursive: true })
+    .map(String)
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => readFileSync(path.join(dist, file), "utf8"))
+    .join("\n")
 
 const DEEP_IMPORTS = {
   react: ["Dialog/Dialog.react", "Dialog/DialogTitle.react"],
@@ -571,15 +587,35 @@ describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
     expect(html).toMatch(
       framework === "astro" ? /class="ui-button/ : /<script type="module"/,
     )
-    const css = readdirSync(dist, { recursive: true })
-      .map(String)
-      .filter((file) => file.endsWith(".css"))
-      .map((file) => readFileSync(path.join(dist, file), "utf8"))
-      .join("\n")
+    const css = cssIn(dist)
     expect(css).toContain("@layer openprops")
     expect(css).toContain(".ui-button")
     expect(lightDarkProblems(css)).toEqual([])
   })
+
+  test.runIf(framework === "react")(
+    "the README's vite.config setting keeps light-dark(), which the default build rewrites",
+    () => {
+      const { vite } = lightDarkSettings(
+        readFileSync(path.join(unpacked, "README.md"), "utf8"),
+      )
+      writeFileSync(path.join(dir, "vite-build.mjs"), VITE_BUILD)
+      const built = (outDir: string, settings: object) => {
+        run("node", ["vite-build.mjs", outDir, JSON.stringify(settings)], dir)
+        return cssIn(path.join(dir, outDir))
+      }
+      expect(
+        built("dist-default", {}),
+        "Vite's default build keeps light-dark() now: remove the vite.config block from the README's Builds that rewrite light-dark() section",
+      ).not.toContain("light-dark(")
+      const css = built("dist-readme", vite)
+      expect(
+        css,
+        "the vite.config block in the README's Builds that rewrite light-dark() section no longer keeps light-dark()",
+      ).toContain("light-dark(")
+      expect(lightDarkProblems(css)).toEqual([])
+    },
+  )
 
   test.runIf(framework in SERVER_RENDER)(
     "renders on the server in Node, without a bundler",

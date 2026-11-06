@@ -178,7 +178,7 @@ Put your theme tokens in `@layer theme.custom`, which beats the defaults in `the
 
 ### Builds that rewrite `light-dark()`
 
-With their default browser targets, Vite 8 (also in SvelteKit and Nuxt) and Next 16 rewrite every `light-dark()` for browsers that lack it, and set the scheme from each plain `color-scheme` in the CSS. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` forces a scheme. The `--ui-color-scheme` knob and `.ui-light` or `.ui-dark` on an element inside the page only work with `light-dark()` itself, so for those, target browsers that have it:
+With their default browser targets, Vite 8 (also in SvelteKit and Nuxt) and Next 16 rewrite every `light-dark()` for browsers that lack it, and set the scheme from each plain `color-scheme` in the CSS. The colors still follow the OS, and `.ui-light` or `.ui-dark` on `html` forces a scheme. The `--ui-color-scheme` knob and `.ui-light` or `.ui-dark` on an element inside the page only work with `light-dark()` itself. Vite only rewrites it when it minifies a build, so a part of the page that switches in `vite dev` stops switching after `vite build`. For those, target browsers that have it:
 
 ```js
 // vite.config, or under `vite` in nuxt.config

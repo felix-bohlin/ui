@@ -4,6 +4,7 @@ import {
   cpSync,
   mkdirSync,
   readdirSync,
+  readFileSync,
   rmSync,
   writeFileSync,
 } from "node:fs"
@@ -17,6 +18,7 @@ import {
   examplesOf,
   root,
 } from "./apps.ts"
+import { lightDarkSettings } from "../package/readme.ts"
 
 const env = {
   ...process.env,
@@ -24,14 +26,19 @@ const env = {
   NUXT_TELEMETRY_DISABLED: "1",
 }
 
-const run = (label: string, command: string[], cwd: string) => {
+const run = (
+  label: string,
+  command: string[],
+  cwd: string,
+  extraEnv: Record<string, string> = {},
+) => {
   const [bin = "", ...args] = command
   const start = performance.now()
   try {
     execFileSync(bin, args, {
       cwd,
       encoding: "utf8",
-      env,
+      env: { ...env, ...extraEnv },
       maxBuffer: 256 * 1024 * 1024,
       stdio: ["ignore", "pipe", "pipe"],
     })
@@ -163,18 +170,37 @@ for (const app of APPS) {
     )
   }
 
+  const readme = app.readmeBuild && {
+    OPUI_README_BUILD: JSON.stringify(
+      lightDarkSettings(readFileSync(path.join(target, "README.md"), "utf8"))[
+        app.readmeBuild.settings
+      ],
+    ),
+  }
   const steps = [
     ...app.check.map((command) => ({ command, label: "type check" })),
+    ...(readme
+      ? [
+          {
+            command: app.build,
+            env: readme,
+            label: "build with the README's light-dark() settings",
+          },
+        ]
+      : []),
     ...(app.build.length ? [{ command: app.build, label: "build" }] : []),
   ]
   const times: string[] = []
-  for (const { command, label } of steps) {
+  for (const { command, env: stepEnv, label } of steps) {
     const result = run(
       `${app.name} ${label}`,
       ["pnpm", "exec", ...command],
       dir,
+      stepEnv,
     )
-    times.push(`${command.join(" ")} ${(result.ms / 1000).toFixed(1)}s`)
+    times.push(
+      `${command.join(" ")}${stepEnv ? " (README settings)" : ""} ${(result.ms / 1000).toFixed(1)}s`,
+    )
     if (result.error) {
       failures.push(result.error)
       break

@@ -22,6 +22,11 @@ type App = {
   name: string
   port: number
   prefixes?: string[]
+  readmeBuild?: {
+    css: string
+    readmeCss: string
+    settings: "next" | "vite"
+  }
   registry?: boolean
   scripts?: string
   ssr: boolean
@@ -37,6 +42,11 @@ const ALL_APPS: App[] = [
     name: "next",
     port: 4401,
     prefixes: ["", "/elements-first"],
+    readmeBuild: {
+      css: ".next/static",
+      readmeCss: ".next-readme/static",
+      settings: "next",
+    },
     registry: true,
     scripts: "/_next/",
     ssr: true,
@@ -49,6 +59,11 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "nuxt",
     port: 4402,
+    readmeBuild: {
+      css: ".output/public",
+      readmeCss: ".output-readme/public",
+      settings: "vite",
+    },
     scripts: "/_nuxt/",
     ssr: true,
     start: "node .output/server/index.mjs",

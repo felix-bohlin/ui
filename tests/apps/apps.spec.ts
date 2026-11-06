@@ -5,7 +5,9 @@ import {
   type Locator,
   type Page,
 } from "@playwright/test"
-import { APPS, examplesOf, KNOWN_PROBLEMS } from "./apps.ts"
+import { readdirSync, readFileSync } from "node:fs"
+import path from "node:path"
+import { APPS, appDir, examplesOf, KNOWN_PROBLEMS } from "./apps.ts"
 
 const PIXEL = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -189,6 +191,30 @@ test("the CSS loads", async ({ page }, testInfo) => {
     "inline-flex",
   )
   expect(unexpected(problems, app.name, "button")).toEqual([])
+})
+
+test("the README's build setting keeps light-dark(), which the default build rewrites", () => {
+  const app = appOf(test.info().project.name)
+  const { readmeBuild } = app
+  test.skip(!readmeBuild, `${app.name} has no setting in the README`)
+  if (!readmeBuild) return
+  const css = (folder: string) => {
+    const dir = path.join(appDir(app), folder)
+    return readdirSync(dir, { recursive: true })
+      .map(String)
+      .filter((file) => file.endsWith(".css"))
+      .map((file) => readFileSync(path.join(dir, file), "utf8"))
+      .join("\n")
+  }
+  const block = `${readmeBuild.settings}.config`
+  expect(
+    css(readmeBuild.css),
+    `${app.name}'s default build keeps light-dark() now: remove the ${block} block from the README's Builds that rewrite light-dark() section`,
+  ).not.toContain("light-dark(")
+  expect(
+    css(readmeBuild.readmeCss),
+    `the ${block} block in the README's Builds that rewrite light-dark() section no longer keeps light-dark() in ${app.name}`,
+  ).toContain("light-dark(")
 })
 
 test("the components answer input once hydrated", async ({

@@ -84,21 +84,11 @@ import ServerSupport from "./partials/ServerSupport.astro"
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Without hydration (SvelteKit with <code>csr = false</code>, or Astro with
-      <code>@astrojs/svelte</code> and no <code>client:*</code> directive),
-      every component renders complete HTML, and the native controls work and
-      submit with their form. The props in the last column only update on the
-      client, and the server icon next to each says what you see until then and
-      how to work around it: a <code>bind:</code> value stays put while the
-      native value still changes and submits. The table is read from the
-      component sources and their API docs.
+      Every component renders complete HTML on the server, and the native
+      controls work and submit with their form. The props in the last column
+      need hydration (<code>client:load</code> in Astro) or client-side
+      rendering.
     </p>
     <ServerSupport framework="svelte" />
-    <p>
-      Hydrate those (<code>client:load</code> in Astro) or keep client-side
-      rendering on. Component pages say what needs hydration next to the browser
-      support chips, and the API tables mark each prop with a crossed-out server
-      icon.
-    </p>
   </section>
 </Guide>

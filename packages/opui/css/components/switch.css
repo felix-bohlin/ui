@@ -62,11 +62,21 @@
         position: absolute;
       }
 
+      &:focus-visible::before {
+        @media (forced-colors: none) {
+          border-color: var(
+            --ui-focus-border-color,
+            var(--_track-border-color)
+          );
+        }
+      }
+
       /* Checked */
       &:checked {
+        --_track-border-color: var(--_accent);
+
         &::before {
           background-color: var(--_accent);
-          border-color: var(--_accent);
         }
 
         /* Dot */

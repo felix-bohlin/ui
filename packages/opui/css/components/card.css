@@ -214,6 +214,10 @@
       outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
         var(--ui-focus-ring-color);
       outline-offset: var(--ui-focus-ring-offset);
+
+      @media (forced-colors: none) {
+        border-color: var(--ui-focus-border-color, var(--_border-color));
+      }
     }
   }
 

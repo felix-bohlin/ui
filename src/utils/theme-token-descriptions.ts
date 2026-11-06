@@ -175,6 +175,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Viewport inline size where `--ui-fluid-progress` starts at 0 and the fluid heading sizes at their minimum, 20rem.",
   "--ui-fluid-progress":
     "Position of the viewport inline size in the `--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size` window, 0 to 1, from `progress()`. `--ui-font-size-h1` to `--ui-font-size-h4` grow with it, and a theme can ramp other values on the same window.",
+  "--ui-focus-border-color":
+    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. When unset, each keeps its own border. Forced colors ignore it.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
   "--ui-focus-ring-inset":

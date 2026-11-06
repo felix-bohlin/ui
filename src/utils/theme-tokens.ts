@@ -212,6 +212,7 @@ export const OVERRIDE_HOOKS = [
   "--ui-control-accent",
   "--ui-control-border-color",
   "--ui-control-border-color-filled",
+  "--ui-focus-border-color",
   "--ui-on-control-accent",
   "--ui-on-selected",
   "--ui-selected",

@@ -156,6 +156,26 @@ import { componentsWithSlot } from "../../utils/components"
       like list items and button groups. With more contrast, the ring grows to
       3px.
     </p>
+    <p>
+      A bright ring, like a yellow one, doesn't stand out against a light page
+      on its own. Give it a dark edge to sit on with
+      <code>--ui-focus-border-color</code>: buttons, chips, toggle buttons,
+      checkboxes, radios, switches, fields and focusable cards recolor their
+      border while focused. The ring then needs 3:1 against the edge, not the
+      page.
+    </p>
+    <Code
+      code={`:where(html, .ui-palette, .ui-contrast-more) {
+  --ui-focus-border-color: oklch(0.153 0 0);
+  --ui-focus-ring-color: oklch(0.899 0.186 97.9);
+}
+
+:where(html) {
+  --ui-focus-ring-offset: 0px;
+  --ui-focus-ring-width: 3px;
+}`}
+      lang="css"
+    />
   </section>
 
   <section id="contrast-and-motion">

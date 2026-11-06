@@ -42,6 +42,7 @@
     --ui-field-radius: 0.5rem;
     --ui-field-helper-font-size: var(--ui-font-size-small);
     --ui-field-label-font-weight: 500;
+    --ui-focus-border-color: light-dark(oklch(0.708 0 0), oklch(0.556 0 0));
     --ui-focus-ring-color: light-dark(
       oklch(0.708 0 0 / 0.5),
       oklch(0.556 0 0 / 0.5)
@@ -109,6 +110,7 @@
     ) {
       --ui-border-color: revert-layer;
       --ui-field-border-color: revert-layer;
+      --ui-focus-border-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
       --ui-text-subtle: revert-layer;
     }
@@ -117,6 +119,7 @@
   :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
     --ui-border-color: revert-layer;
     --ui-field-border-color: revert-layer;
+    --ui-focus-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
     --ui-text-subtle: revert-layer;
   }

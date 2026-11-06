@@ -389,6 +389,12 @@
       }
     }
 
+    &:focus-visible {
+      @media (forced-colors: none) {
+        border-color: var(--ui-focus-border-color, var(--_border-color));
+      }
+    }
+
     /* Disabled */
     &:is(:disabled, [aria-disabled="true"]) {
       cursor: not-allowed;

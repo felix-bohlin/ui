@@ -51,6 +51,7 @@ export const CONTRAST_LABELS: Record<string, string> = {
   "--ui-field-helper-text-color": "Field help text",
   "--ui-field-label-text-color": "Field label",
   "--ui-field-required-text-color": "Required field marker",
+  "--ui-focus-border-color": "Focus border, or the page",
   "--ui-focus-ring-color": "Focus ring",
   "--ui-info": "Info fill",
   "--ui-info-text": "Info text",

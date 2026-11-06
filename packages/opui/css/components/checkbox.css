@@ -2,12 +2,16 @@
   :where(label.ui-checkbox) {
     /* Input */
     input[type="checkbox"] {
+      --_border-color: var(
+        --ui-choice-border-color,
+        var(--ui-field-border-color)
+      );
+
       appearance: none;
       aspect-ratio: 1;
       background-color: var(--ui-surface);
       block-size: var(--_size);
-      border: var(--ui-field-border-width) solid
-        var(--ui-choice-border-color, var(--ui-field-border-color));
+      border: var(--ui-field-border-width) solid var(--_border-color);
       border-radius: var(--ui-radius-x-small);
       cursor: pointer;
       display: grid;
@@ -21,8 +25,15 @@
 
       &:checked,
       &:indeterminate {
+        --_border-color: var(--_accent);
+
         background-color: var(--_accent);
-        border-color: var(--_accent);
+      }
+
+      &:focus-visible {
+        @media (forced-colors: none) {
+          border-color: var(--ui-focus-border-color, var(--_border-color));
+        }
       }
 
       /* Checkmark */
@@ -56,7 +67,7 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="checkbox"]:not(:checked, :indeterminate) {
-        border-color: var(--ui-invalid);
+        --_border-color: var(--ui-invalid);
       }
     }
 

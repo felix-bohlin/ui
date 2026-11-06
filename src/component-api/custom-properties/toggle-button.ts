@@ -6,6 +6,11 @@ export default {
       "The current background. Set by the hover and selected states.",
     kind: "output",
   },
+  "--_border-color": {
+    description:
+      "The current border color. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme leaves it unset, `--ui-control-border-color-filled` when selected and `--ui-text-disabled` when disabled and not selected. A focused toggle button draws `--ui-focus-border-color` instead when the theme sets it.",
+    kind: "output",
+  },
   "--_duration": {
     description:
       "Duration of the hover and selected transitions and the focus ring animation, `--ui-duration` times `--_motion`.",

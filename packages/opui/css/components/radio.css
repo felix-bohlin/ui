@@ -2,6 +2,10 @@
   :where(label.ui-radio) {
     /* Input */
     input[type="radio"] {
+      --_border-color: var(
+        --ui-choice-border-color,
+        var(--ui-field-border-color)
+      );
       --_dot-radius: calc(
         var(--_size) / 2 - var(--ui-field-border-width) -
           round(
@@ -15,8 +19,7 @@
       aspect-ratio: 1;
       background-color: var(--ui-surface);
       block-size: var(--_size);
-      border: var(--ui-field-border-width) solid
-        var(--ui-choice-border-color, var(--ui-field-border-color));
+      border: var(--ui-field-border-width) solid var(--_border-color);
       border-radius: var(--ui-radius-round);
       cursor: pointer;
       inline-size: var(--_size);
@@ -27,26 +30,33 @@
 
       /* Dot */
       &:checked {
+        --_border-color: var(--_accent);
+
         background-color: var(--_accent);
         background-image: radial-gradient(
           circle,
           var(--_on-accent) calc(var(--_dot-radius) - 0.25px),
           var(--_accent) calc(var(--_dot-radius) + 0.25px)
         );
-        border-color: var(--_accent);
+      }
+
+      &:focus-visible {
+        @media (forced-colors: none) {
+          border-color: var(--ui-focus-border-color, var(--_border-color));
+        }
       }
     }
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="radio"]:not(:checked) {
-        border-color: var(--ui-invalid);
+        --_border-color: var(--ui-invalid);
       }
     }
 
     @media (forced-colors: active) {
       input[type="radio"] {
-        border-color: CanvasText;
+        --_border-color: CanvasText;
 
         &:checked {
           --_accent: SelectedItem;

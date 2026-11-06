@@ -48,12 +48,6 @@ export const THEME_EXCEPTIONS: Record<
         "neobrutalism marks the selected item with its light main color",
     },
   },
-  govuk: {
-    light: {
-      "--ui-focus-ring-color":
-        "GOV.UK pairs its yellow focus ring with a black border or bar that tokens can't draw around every control",
-    },
-  },
   shadcn: {
     dark: {
       "--ui-field-border-color":
@@ -85,7 +79,10 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
   "--ui-field-helper-text-color": { against: SURFACES, ratio: 4.5 },
   "--ui-field-label-text-color": { against: SURFACES, ratio: 4.5 },
   "--ui-field-required-text-color": { against: SURFACES, ratio: 4.5 },
-  "--ui-focus-ring-color": { against: ["--ui-surface"], ratio: 3 },
+  "--ui-focus-ring-color": {
+    against: ["var(--ui-focus-border-color, var(--ui-surface))"],
+    ratio: 3,
+  },
   "--ui-info-text": { against: SURFACES, ratio: 4.5 },
   "--ui-invalid-text": { against: SURFACES, ratio: 4.5 },
   "--ui-neutral-text": { against: SURFACES, ratio: 4.5 },

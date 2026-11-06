@@ -33,6 +33,7 @@ const HANDBACK = [
   "--ui-border-color",
   "--ui-field-border-color",
   "--ui-field-helper-text-color",
+  "--ui-focus-border-color",
   "--ui-focus-ring-color",
   "--ui-text-subtle",
 ]

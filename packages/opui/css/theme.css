@@ -211,6 +211,7 @@
     --ui-radius-x-small: min(2px, var(--ui-radius));
 
     /* Focus ring */
+    /* --ui-focus-border-color: var(--ui-text-strong); */
     --ui-focus-ring-color: oklch(
       from var(--ui-surface) clamp(0, (0.6 - l) * 1000, 1) 0 0
     );

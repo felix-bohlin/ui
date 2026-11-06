@@ -36,6 +36,7 @@
     --ui-field-label-font-size: 1.1875rem;
     --ui-field-label-font-weight: 400;
     --ui-field-padding-inline: 0.3125rem;
+    --ui-focus-border-color: oklch(0.153 0 0);
     --ui-focus-ring-color: oklch(0.899 0.186 97.9);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 3px;
@@ -103,6 +104,7 @@
     ) {
       --ui-accent-fill-max-lightness: revert-layer;
       --ui-border-color: revert-layer;
+      --ui-focus-border-color: revert-layer;
       --ui-focus-ring-color: revert-layer;
       --ui-primary-text: revert-layer;
       --ui-text-max-lightness: revert-layer;
@@ -112,6 +114,7 @@
   :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
     --ui-accent-fill-max-lightness: revert-layer;
     --ui-border-color: revert-layer;
+    --ui-focus-border-color: revert-layer;
     --ui-focus-ring-color: revert-layer;
     --ui-primary-text: revert-layer;
     --ui-text-max-lightness: revert-layer;

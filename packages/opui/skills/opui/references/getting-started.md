@@ -392,10 +392,12 @@ import { Button } from "opui-css/vue"
 
 ### Server rendering
 
-Without hydration (Nuxt, or Astro with `@astrojs/vue` and no `client:*` directive), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
+Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
 
 - [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or import `opui-css/css/js/checkbox.js` in the page.
 - [Range](https://open-props-ui.netlify.app/vue/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
 - `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Number field](https://open-props-ui.netlify.app/vue/components/number-field.md), [One-time code](https://open-props-ui.netlify.app/vue/components/one-time-code.md), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Rating](https://open-props-ui.netlify.app/vue/components/rating.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Tabs](https://open-props-ui.netlify.app/vue/components/tabs.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md), [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md) and [Toggle](https://open-props-ui.netlify.app/vue/components/toggle.md): the ref stays put. The native value still changes and submits.
 
 Hydrate those (`client:load` in Astro) or use them in a client-rendered Vue app. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
+
+When the page hydrates, as in Nuxt, a value or choice the user changed before it did (typed, picked, filled in by a password manager or restored by the browser) stays: the form controls take it from the element instead of resetting it, and a form reset still returns to what the server rendered.

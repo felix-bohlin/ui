@@ -19,6 +19,7 @@
 
     /* Toggle button */
     & > .ui-toggle-button {
+      --_border-color: inherit;
       --_divider-offset: calc(-1 * var(--ui-border-width));
       border: 0;
       border-radius: 0;

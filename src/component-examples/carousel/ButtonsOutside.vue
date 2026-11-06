@@ -1,34 +1,13 @@
 <script setup lang="ts">
-import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/vue"
+import { Card, Carousel } from "opui-css/vue"
 
-const plans = [
-  {
-    action: "Choose Basic",
-    description: "For personal projects.",
-    title: "Basic",
-  },
-  { action: "Choose Pro", description: "For growing teams.", title: "Pro" },
-  { action: "Choose Team", description: "For small teams.", title: "Team" },
-  {
-    action: "Contact sales",
-    description: "For large organisations.",
-    title: "Enterprise",
-  },
-]
+const slides = [1, 2, 3, 4]
 </script>
 
 <template>
   <Carousel aria-label="Plans" buttons="outside" :itemsPerView="2">
-    <li v-for="{ action, description, title } in plans" :key="title">
-      <Card variant="outlined">
-        <CardHeader>
-          <h3>{{ title }}</h3>
-          <p>{{ description }}</p>
-        </CardHeader>
-        <CardActions>
-          <Button variant="filled">{{ action }}</Button>
-        </CardActions>
-      </Card>
+    <li v-for="slide in slides" :key="slide">
+      <Card style="block-size: 8rem" variant="outlined" />
     </li>
   </Carousel>
 </template>

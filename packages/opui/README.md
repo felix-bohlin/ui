@@ -221,7 +221,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/css/js/checkbox.js`            | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework                                                                                                                                                 |
 | `opui-css/css/js/range.js`               | Keeps every `.ui-range` `<output data-live>` in sync with its slider without a framework, once imported                                                                                                                                                                |
 | `opui-css/elements/*.js`                 | Custom elements, one module per component that needs one, like `number-field.js`                                                                                                                                                                                       |
-| `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `m3`, `shadcn`), with or without `.css`                                                                                                                                                                                      |
+| `opui-css/themes/*`                      | Example themes (`bootstrap`, `brutalist`, `govuk`, `m3`, `shadcn`), with or without `.css`                                                                                                                                                                             |
 | `opui-css/tokens.json`                   | Every theme token in the W3C design tokens format                                                                                                                                                                                                                      |
 | `opui-css/astro`                         | All Astro components                                                                                                                                                                                                                                                   |
 | `opui-css/react`                         | All React components                                                                                                                                                                                                                                                   |
@@ -235,7 +235,7 @@ Importing a React component from `opui-css/components/*` skips the type augmenta
 
 ## Themes
 
-Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
 
 ```css
 @import "opui-css/css/imports.css";

@@ -4,6 +4,8 @@ const files = import.meta.glob<string>("../../packages/opui/themes/*.css", {
   query: "?raw",
 })
 
+const LABELS = new Map([["govuk", "GOV.UK"]])
+
 export const EXAMPLE_THEMES = Object.entries(files)
   .map(([path, css]) => {
     const name = path.match(/themes\/([^/]+)\.css$/)![1]
@@ -23,7 +25,7 @@ export const EXAMPLE_THEMES = Object.entries(files)
     )
     return {
       css,
-      label: `${name[0].toUpperCase()}${name.slice(1)}`,
+      label: LABELS.get(name) ?? `${name[0].toUpperCase()}${name.slice(1)}`,
       name,
       tokens,
     }

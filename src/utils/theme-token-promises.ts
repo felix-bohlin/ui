@@ -48,6 +48,12 @@ export const THEME_EXCEPTIONS: Record<
         "neobrutalism marks the selected item with its light main color",
     },
   },
+  govuk: {
+    light: {
+      "--ui-focus-ring-color":
+        "GOV.UK pairs its yellow focus ring with a black border or bar that tokens can't draw around every control",
+    },
+  },
   shadcn: {
     dark: {
       "--ui-field-border-color":

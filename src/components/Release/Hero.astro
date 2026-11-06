@@ -22,7 +22,7 @@ const numeral = releaseVersion.split(".").slice(0, 2).join(".")
 const facts = [
   `${counts.get("Added") ?? 0} added, ${counts.get("Breaking") ?? 0} breaking`,
   `${newComponents} new components`,
-  "Four example themes",
+  "Five example themes",
   "React and Svelte",
 ].toSorted((a, b) => a.localeCompare(b, "en"))
 
@@ -39,7 +39,7 @@ const dust = Array.from({ length: 12 }, (_, index) => index)
       <p class="hero-numeral">{numeral}</p>
     </div>
     <p class="hero-tagline">
-      HTML and four frameworks. Four themes. One naming model.
+      HTML and four frameworks. Five themes. One naming model.
     </p>
     <ul class="hero-facts">
       {facts.map((fact, index) => <li style={`--i: ${index}`}>

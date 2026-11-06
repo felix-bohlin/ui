@@ -63,9 +63,12 @@ import { EXAMPLE_THEMES } from "../../utils/example-themes"
       short of WCAG contrast (the translucent focus rings of Bootstrap and
       shadcn, the light field borders of Bootstrap and shadcn, Bootstrap's check
       borders, the bright blue of brutalist and its black borders on dark
-      surfaces). They name their fonts (Geist, Roboto, DM Sans) but don't load
-      them. The <DocLink href="/theme-builder">Theme builder</DocLink> starts
-      from any of them.
+      surfaces). GOV.UK pairs its yellow focus ring with a black border or bar,
+      and tokens can't add the bar, so govuk's ring only stands out next to its
+      black field borders and filled buttons in light mode. They name their
+      fonts (Geist, Roboto, DM Sans) but don't load them. The
+      <DocLink href="/theme-builder">Theme builder</DocLink> starts from any of
+      them.
     </p>
     <ul>
       {EXAMPLE_THEMES.map(({ name }) => {

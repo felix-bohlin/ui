@@ -9,6 +9,11 @@ export const EXAMPLE_THEME_NOTES = {
       "Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links and 500 weight body text.",
     original: "neobrutalism",
   },
+  govuk: {
+    description:
+      "Black text on white, the brand blue, the darker link blue, the error red and the success green as they are, 2px black field borders, square corners, green default buttons with a 2px bottom edge, gray secondary buttons, 40px checkboxes and radios with the gray hover ring, 19px body, label, hint and control text on 25px lines, the bold heading scale up to 48px, 5px spacing steps, the 3px yellow focus ring, no shadows, and Arial, its font off GOV.UK. GOV.UK has no dark mode, so the theme swaps its black and white.",
+    original: "GOV.UK Design System",
+  },
   m3: {
     description:
       "The baseline purple scheme and its tinted surfaces, the error red, pill buttons with 24px padding that show 8% state layers and lift on hover, outlined ones in the outline gray, 12px cards, 28px dialogs, 4px menus and outlined fields, 8px chips, 18px checkboxes, on-surface text with on-surface-variant secondary text, primary tab labels, 52 by 32px switches, Roboto, the type scale, the emphasized easing and the 3px secondary focus ring over a 32% scrim.",

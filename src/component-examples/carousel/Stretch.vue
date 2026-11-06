@@ -1,17 +1,5 @@
 <script setup lang="ts">
-import { Card, CardHeader, Carousel } from "opui-css/vue"
-
-const places = [
-  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
-  {
-    description:
-      "Ceviche by the Pacific, colonial plazas and clifftop parks above the ocean.",
-    title: "Lima",
-  },
-  { description: "Tiles and trams.", title: "Lisbon" },
-  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
-  { description: "Medina markets.", title: "Tunis" },
-]
+import { Card, Carousel } from "opui-css/vue"
 </script>
 
 <template>
@@ -21,14 +9,20 @@ const places = [
     :itemsPerView="3"
     stretch
   >
-    <li v-for="{ description, title } in places" :key="title">
-      <Card variant="tonal">
-        <CardHeader>
-          <p>Destination</p>
-          <h3>{{ title }}</h3>
-          <p>{{ description }}</p>
-        </CardHeader>
-      </Card>
+    <li>
+      <Card style="min-block-size: 6rem" variant="tonal" />
+    </li>
+    <li>
+      <Card style="min-block-size: 10rem" variant="tonal" />
+    </li>
+    <li>
+      <Card style="min-block-size: 4rem" variant="tonal" />
+    </li>
+    <li>
+      <Card style="min-block-size: 8rem" variant="tonal" />
+    </li>
+    <li>
+      <Card style="min-block-size: 5rem" variant="tonal" />
     </li>
   </Carousel>
 </template>

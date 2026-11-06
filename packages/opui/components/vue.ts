@@ -114,7 +114,10 @@ const seed = (
     return
   }
   const state = stateOf(field, model, vnode)
-  if (!edited && (state === "" || state === undefined)) return
+  const empty =
+    state === undefined ||
+    (state === "" && !(field instanceof HTMLSelectElement))
+  if (!edited && empty) return
   model.value = state
   assign(vnode, state)
 }

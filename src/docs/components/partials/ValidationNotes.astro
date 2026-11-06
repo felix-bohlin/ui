@@ -19,12 +19,11 @@ const { element, named, subject } = Astro.props
     </li>
   </slot>
   <li>
-    Use <PropOrClass prop="error" class='aria-invalid="true"' /> for errors, and
-    say what's wrong in the end
-    text.{named ? null : (
+    Use <PropOrClass prop="error" class='aria-invalid="true"' /> for
+    errors.{named ? null : (
       <Conditional>
         <Fragment slot="html">
-          Point <code>aria-describedby</code> at it.
+          Point <code>aria-describedby</code> at the end text.
         </Fragment>
       </Conditional>
     )}

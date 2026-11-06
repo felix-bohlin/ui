@@ -67,6 +67,11 @@ export default {
       "The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.",
     kind: "input",
   },
+  "--_file-button-inset": {
+    description:
+      "Gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`, shrunk so the button keeps one line of its text inside the field. Set on `input`.",
+    kind: "output",
+  },
   "--_font-size": {
     description: "The font size of the control and affixes.",
     kind: "input",

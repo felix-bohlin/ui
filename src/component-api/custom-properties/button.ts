@@ -134,7 +134,7 @@ export default {
   },
   "--_shadow": {
     description:
-      "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons.",
+      "The shadow. `--ui-button-shadow`, or `--ui-shadow-control` when the theme leaves it unset, on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons.",
     kind: "output",
   },
   "--_size": {

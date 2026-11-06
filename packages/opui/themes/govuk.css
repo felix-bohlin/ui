@@ -19,6 +19,7 @@
     --ui-button-padding-inline-large: 1rem;
     --ui-button-padding-inline-small: 0.625rem;
     --ui-button-padding-inline-x-small: 0.5rem;
+    --ui-button-shadow: 0 2px 0 light-dark(oklch(0.404 0 0), oklch(0 0 0));
     --ui-choice-accent: var(--ui-text-strong);
     --ui-choice-checked: mark;
     --ui-choice-on-accent: var(--ui-surface);
@@ -37,6 +38,7 @@
     --ui-field-label-font-size: 1.1875rem;
     --ui-field-label-font-weight: 400;
     --ui-field-padding-inline: 0.3125rem;
+    --ui-field-padding-inline-large: 0.3125rem;
     --ui-focus-border-color: oklch(0.153 0 0);
     --ui-focus-ring-color: oklch(0.899 0.186 97.9);
     --ui-focus-ring-offset: 0px;
@@ -75,9 +77,7 @@
       oklch(0.497 0.125 249.8),
       oklch(0.765 0.069 244.7)
     );
-    --ui-shadow-control: 0 2px 0 light-dark(oklch(0.404 0 0), oklch(0 0 0));
     --ui-shadow-elevated: none;
-    --ui-shadow-field: none;
     --ui-shadow-overlay: none;
     --ui-shadow-selected: none;
     --ui-space-scale: 1.25;

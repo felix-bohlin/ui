@@ -41,7 +41,7 @@
       block-size: anchor-size(block);
       border: var(--ui-border-width) solid var(--_border-color);
       border-radius: var(--_radius);
-      box-shadow: var(--ui-shadow-control);
+      box-shadow: var(--ui-button-shadow, var(--ui-shadow-control));
       clip-path: var(--_hidden-clip-path);
       color: var(--_text-color);
       font-size: var(--_font-size);

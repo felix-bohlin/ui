@@ -39,7 +39,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-hover":
     "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
   "--ui-button-hover-shadow":
-    "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-shadow-control`.",
+    "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-button-shadow`.",
   "--ui-button-hover-translate":
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
   "--ui-button-on-accent":
@@ -56,6 +56,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Horizontal padding of `Button` with `.ui-x-small`. When unset, `1ex`.",
   "--ui-button-radius":
     "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
+  "--ui-button-shadow":
+    "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, also in a `ButtonGroup`, and of the `Copy` confirmation. When unset, `--ui-shadow-control`, the shadow buttons share with toggle buttons, outlined chips and fields. Set it to give buttons alone a shadow, like a pressable edge.",
   "--ui-button-size": "Default `Button` height.",
   "--ui-button-size-large": "`Button` height with `.ui-large`.",
   "--ui-button-size-small": "`Button` height with `.ui-small`.",
@@ -376,7 +378,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-shadow-color":
     "Color of every shadow, with its base opacity. Each layer of `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll` and `--ui-shadow-selected` adds its own opacity on top, with relative color. `oklch(0.268 0.003 265 / 1%)` in light mode and `oklch(0.11 0.01 259 / 20%)` in dark mode, also in `.ui-light` and `.ui-dark` parts of the page.",
   "--ui-shadow-control":
-    "Shadow of buttons with a variant, standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.",
+    "Shadow of buttons with a variant (unless `--ui-button-shadow` is set), standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":
     "Shadow of elevated `Card` and `Accordion`. Five layers of `--ui-shadow-color`, which follows the color scheme, also in `.ui-light` and `.ui-dark` parts of the page.",
   "--ui-shadow-field":

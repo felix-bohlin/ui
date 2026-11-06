@@ -335,12 +335,15 @@
     }
 
     &:is(.ui-filled, .ui-outlined, .ui-tonal) {
-      --_shadow: var(--ui-shadow-control);
+      --_shadow: var(--ui-button-shadow, var(--ui-shadow-control));
 
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
-            --_shadow: var(--ui-button-hover-shadow, var(--ui-shadow-control));
+            --_shadow: var(
+              --ui-button-hover-shadow,
+              var(--ui-button-shadow, var(--ui-shadow-control))
+            );
             translate: var(--ui-button-hover-translate, none);
           }
         }

@@ -193,6 +193,14 @@
       cursor: pointer;
 
       input {
+        --_file-button-inset: max(
+          0px,
+          min(
+            var(--ui-space-2),
+            (var(--_size) - var(--ui-field-border-width) * 2 - 1lh) / 2
+          )
+        );
+
         align-self: flex-start;
         block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
         box-shadow: none;
@@ -204,11 +212,11 @@
 
         &::file-selector-button {
           background-color: var(--ui-surface-tonal);
-          block-size: calc(100% - var(--ui-space-2) * 2);
+          block-size: calc(100% - var(--_file-button-inset) * 2);
           border: none;
           border-radius: var(--ui-field-radius, var(--ui-radius));
           cursor: pointer;
-          margin-block-start: var(--ui-space-2);
+          margin-block-start: var(--_file-button-inset);
           margin-inline-end: 1ex;
           margin-inline-start: var(--ui-space-2);
         }
@@ -222,9 +230,14 @@
       /* Sizes */
       &.ui-small,
       &.ui-x-small {
-        input::file-selector-button {
-          block-size: calc(100% - var(--ui-space-2));
-          margin-block-start: var(--ui-space-1);
+        input {
+          --_file-button-inset: max(
+            0px,
+            min(
+              var(--ui-space-1),
+              (var(--_size) - var(--ui-field-border-width) * 2 - 1lh) / 2
+            )
+          );
         }
       }
 

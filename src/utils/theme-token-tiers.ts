@@ -78,6 +78,7 @@ const componentTokens = [
   "--ui-button-padding-inline-small",
   "--ui-button-padding-inline-x-small",
   "--ui-button-radius",
+  "--ui-button-shadow",
   "--ui-button-size",
   "--ui-button-size-large",
   "--ui-button-size-small",

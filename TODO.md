@@ -1316,7 +1316,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     },
     ```
   - Fixed: the pattern covers every property, function and at-rule of the feature's compat keys, with matches inside `@position-try` blocks left out since a rule that names them already counts, and the Copy page lists the id.
-- [ ] (7) Release: the Getting started pages install with `npm install opui-css` and `pnpm add opui-css`, which install 5.4.3 while `latest` points there; its exports map turns every `.css` import on those pages into `*.css.css`, and it has no `./react` or `./svelte` export. 6.0.0-rc.1 on `next` lacks `./elements/*` (`src/docs/guide/getting-started/partials/InstallCommand.astro:5-18`)
+- [x] (7) Release: the Getting started pages install with `npm install opui-css` and `pnpm add opui-css`, which install 5.4.3 while `latest` points there; its exports map turns every `.css` import on those pages into `*.css.css`, and it has no `./react` or `./svelte` export. 6.0.0-rc.1 on `next` lacks `./elements/*` (`src/docs/guide/getting-started/partials/InstallCommand.astro:5-18`)
   - Summary: Following the install steps today gets 5.4.3, and the imports on the page fail to resolve.
   - Recommended: Fix with option A. The pages stay correct whether or not 6.0.0 ships first.
   - Options:
@@ -1325,6 +1325,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix with option A
   - Still open: The note part is done: `InstallCommand.astro` shows a warning under the install commands on all five Getting started pages while the next major is unreleased. It says the commands install the published version, that `opui-css@next` has the release candidate without the `elements/` scripts, and how to build the package from the repository. It disappears on its own once the release is dated. Left: publishing 6.0.0 with `./elements/*` in its exports, which is yours to do.
   - Still open: Re-checked: nothing is left in the repository. `packages/opui/package.json` (6.0.0-rc.1) exports `./elements/*`, and the unreleased note shows under Install via NPM on the five Getting started pages. npm still has `latest` at 5.4.3 and `next` at 6.0.0-rc.1, which was published before `./elements/*` was added. Left: publishing 6.0.0 as `RELEASING.md` describes, which is yours to do.
+  - Removed: the docs treat 6.0.0 as released, so the unreleased note is gone and nothing is left in the repository. Publishing 6.0.0 is the release itself.
 
 ## Future plans
 

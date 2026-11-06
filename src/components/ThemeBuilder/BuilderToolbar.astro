@@ -220,6 +220,7 @@ import {
     }
 
     const say = (message: string, undoable = false) => {
+      stack.seal()
       if (current) toaster.dismiss(current)
       current = toast(message, {
         action: undoable ? undoAction : undefined,

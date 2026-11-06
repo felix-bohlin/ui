@@ -49,6 +49,16 @@ describe("createHistory", () => {
     expect(history.redo()).toEqual(theme("0.3rem"))
   })
 
+  test("a sealed step takes no change into it, however soon it follows", () => {
+    const history = createHistory()
+    history.push(theme("0"), 0)
+    history.push(theme("1rem"), 1000)
+    history.seal()
+    history.push(theme("2rem"), 1100)
+    expect(history.undo()).toEqual(theme("1rem"))
+    expect(history.undo()).toEqual(theme("0"))
+  })
+
   test("keeps at most the limit", () => {
     const history = createHistory(2)
     for (let index = 0; index < 5; index++) {

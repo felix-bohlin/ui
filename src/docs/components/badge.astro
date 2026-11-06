@@ -47,42 +47,30 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
   <Fragment slot="title">Badge</Fragment>
 
   <Usage slot="usage">
-    <li slot="when">A count on an icon or a button, like unread messages.</li>
+    <li slot="when">A count on an icon, like unread messages.</li>
     <li slot="when">
-      A status dot on an avatar or an item, like online, with
-      <PropOrClass prop="dot" class=".ui-dot" />.
+      A status dot, like online: <PropOrClass prop="dot" class=".ui-dot" />.
     </li>
     <li slot="when-not">
-      A status or a tag in words, like Paid. Use a
-      <DocLink href="/components/chip">Chip</DocLink>.
+      A status in words: use a <DocLink href="/components/chip">Chip</DocLink>.
     </li>
     <li slot="when-not">
-      A message that takes a sentence or two. Use a
+      A sentence or two: use a
       <DocLink href="/components/callout">Callout</DocLink>.
     </li>
   </Usage>
 
   <section id="basics">
     <h2>Basics</h2>
-    <p>
-      Use <PropOrClass prop="dot" class=".ui-dot" /> to show a dot instead of
-      the label.
-    </p>
-
+    <p>Use <PropOrClass prop="dot" class=".ui-dot" /> for a dot.</p>
     <AutoExample name="Basics" row />
   </section>
 
   <section id="colors">
     <h2>Colors</h2>
     <p>
-      Color the indicator with
-      <PropOrClass prop='color="critical"' class=".ui-critical" />,
-      <PropOrClass prop='color="info"' class=".ui-info" />,
-      <PropOrClass prop='color="neutral"' class=".ui-neutral" />,
-      <PropOrClass prop='color="success"' class=".ui-success" /> or
-      <PropOrClass prop='color="warning"' class=".ui-warning" />.
+      Use <PropOrClass prop="color" class=".ui-critical" /> and the other tones.
     </p>
-
     <AutoExample name="Colors" row />
   </section>
 
@@ -90,59 +78,19 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
     <h2>Indicator</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set the indicator text with <code>label</code>. When the visible text is
-        short, like a count, set <code>hideLabel</code> and pass the whole
-        sentence as <code>label</code>, such as "5 unread messages", and the
-        short form in the <code>indicator</code> slot. Screen readers read the
-        label and skip the slot. The default slot holds the anchored element.
+        Use <code>hideLabel</code> with the full sentence as <code>label</code>.
       </Fragment>
       <Fragment slot="html">
-        Put the indicator text inside <code>.ui-indicator</code>. When the
-        visible text is short, like a count, give it
-        <code>aria-hidden="true"</code> and put the whole sentence, such as "5
-        unread messages", in a <code>.ui-sr-only</code> element next to it. The
-        anchored element is the badge's direct child before
-        <code>.ui-floating</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Set the indicator text with <code>label</code>. When the visible text is
-        short, like a count, set <code>hideLabel</code> and pass the whole
-        sentence as <code>label</code>, such as "5 unread messages", and the
-        short form in the <code>indicator</code> prop. Screen readers read the
-        label and skip the indicator. <code>children</code> is the anchored
-        element.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set the indicator text with <code>label</code>. When the visible text is
-        short, like a count, set <code>hideLabel</code> and pass the whole
-        sentence as <code>label</code>, such as "5 unread messages", and the
-        short form in the <code>indicator</code> snippet. Screen readers read
-        the label and skip the snippet. The <code>children</code> snippet holds
-        the anchored element.
+        Put the full sentence in a <code>.ui-sr-only</code>, and hide the count
+        with <code>aria-hidden="true"</code>.
       </Fragment>
     </Conditional>
-    <p>
-      The badge never joins the number and the words, so a translation can put
-      the number wherever its language needs it, and the visible text can differ
-      from the sentence ("99+" and "More than 99 unread messages").
-    </p>
-
     <AutoExample name="Indicator" row />
   </section>
 
   <section id="visibility">
     <h2>Visibility</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Change the badge's visibility using the <code>invisible</code>{" "}
-        prop.
-      </Fragment>
-      <Fragment slot="html">
-        Change the badge's visibility using the <code>.ui-invisible</code>{" "}
-        class.
-      </Fragment>
-    </Conditional>
-
+    <p>Use <PropOrClass prop="invisible" class=".ui-invisible" />.</p>
     <AutoExample name="Visibility" row>
       <UISwitch
         slot="controls"
@@ -157,19 +105,15 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
 
   <section id="corners">
     <h2>Corners</h2>
-    <p>The corner of the child the badge sits on.</p>
-    <Conditional as="div">
-      <p slot="components">
-        Set <code>corner</code> to <code>start-start</code>,
-        <code>start-end</code> (the default), <code>end-start</code> or
-        <code>end-end</code>.
-      </p>
-      <p slot="html">
-        <code>.ui-start-start</code>, default (<code>start-end</code>, no
-        class), <code>.ui-end-start</code>, <code>.ui-end-end</code>.
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Top end by default. Use <code>corner</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Top end by default. Use <code>.ui-start-start</code>,
+        <code>.ui-end-start</code> or <code>.ui-end-end</code> to change it.
+      </Fragment>
     </Conditional>
-
     <AutoExample name="Corners" row spacious />
   </section>
 
@@ -178,26 +122,8 @@ export const keywords = ["counter", "dot", "indicator", "notification count"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        A count on its own is read without context, such as "5". Give the badge
-        the whole sentence for screen readers, so it's read as "5 unread
-        messages":
-        <Conditional>
-          <Fragment slot="components"
-            ><code>hideLabel</code> with the sentence as <code>label</code
-            >.</Fragment
-          >
-          <Fragment slot="html"
-            >a <code>.ui-sr-only</code> element inside <code>.ui-indicator</code
-            >, with <code>aria-hidden="true"</code> on the visible
-            text.</Fragment
-          >
-        </Conditional>
-      </li>
-      <li>
-        The indicator sits next to the anchored element, not inside it. On a
-        button or a link, put the sentence in its name too, such as
-        <code>aria-label="Inbox, 5 unread messages"</code>, since the name is
-        what's read when it's focused.
+        On a button or link, put the sentence in its name too, like
+        <code>aria-label="Inbox, 5 unread messages"</code>.
       </li>
     </ul>
   </Fragment>

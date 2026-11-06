@@ -52,82 +52,50 @@ export const keywords = ["panel", "surface", "tile"]
 >
   <Fragment slot="title">Card</Fragment>
   <Fragment slot="preamble">
-    A surface for related content and actions, on its own or as the base of
-    <DocLink class="ui-link" href="/components/accordion">accordions</DocLink>,
-    <DocLink class="ui-link" href="/components/dialog">dialogs</DocLink> and
-    more.
+    A surface for related content and actions.
   </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">Self-contained content, like a product or a plan.</li>
+    <li slot="when">Related content set apart, like one feature's settings.</li>
     <li slot="when">
-      A self-contained piece of content with a heading, like a product, a plan
-      or an article preview.
-    </li>
-    <li slot="when">
-      Related content and actions set apart from the page, like the settings of
-      one feature.
-    </li>
-    <li slot="when">
-      A whole box that links somewhere, with a
-      <a href="#clickable">clickable card</a>.
+      A box that links somewhere: a <a href="#clickable">clickable card</a>.
     </li>
     <li slot="when-not">
-      Every section of a page. Space sections with headings and the
+      Every section of a page: use headings and the
       <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
     <li slot="when-not">
-      Rows of similar items. Use a
+      Rows of similar items: use a
       <DocLink href="/components/list">List</DocLink> or a
       <DocLink href="/components/table">Table</DocLink>.
     </li>
     <li slot="when-not">
-      A message about the page. Use a
+      A message about the page: use a
       <DocLink href="/components/callout">Callout</DocLink>.
     </li>
   </Usage>
 
   <section id="variants">
     <h2>Variants</h2>
-
     <Conditional as="p">
       <Fragment slot="components">
-        Change the card variant with the <code>variant</code> prop. The default,
-        <code>plain</code>, has the page surface color and no border. Put the
-        body in <code>CardContent</code>.
+        Plain by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Change the card variant with the <code>.ui-elevated</code>,
-        <code>.ui-outlined</code>, <code>.ui-tonal</code> and
-        <code>.ui-transparent</code> classes. Without a variant class the card
-        has the page surface color and no border. Put the body in
-        <code>.ui-content</code>.
+        Plain by default. Use <code>.ui-elevated</code>,
+        <code>.ui-outlined</code>, <code>.ui-tonal</code> or
+        <code>.ui-transparent</code> to change it.
       </Fragment>
     </Conditional>
-
     <AutoExample name="Variants" column />
-
-    <div class="ui-not-rich-text">
-      <UICallout>
-        <UICalloutContent>
-          <h3>Why does a transparent variant exist?</h3>
-          <p>
-            On the page you won't see a difference. Put a card on a tonal
-            surface or in a dialog, though, and the default plain one turns into
-            a page-colored box. The transparent variant stays see-through.
-          </p>
-        </UICalloutContent>
-      </UICallout>
-    </div>
   </section>
 
   <section id="colors">
     <h2>Colors</h2>
     <p>
-      <PropOrClass prop='color="primary"' class=".ui-primary" /> draws a thick
-      <code>--ui-primary</code> outline around the card, for the one card in a
-      row that stands out, like a recommended plan. The outline sits inside the
-      card's edge, so the card keeps the size of its neighbors. Say why it
-      stands out in words too, like the Popular chip in the header here.
+      Use <PropOrClass prop='color="primary"' class=".ui-primary" /> for the
+      card that stands out. Say why in words too.
     </p>
     <AutoExample name="Colors" column />
   </section>
@@ -135,41 +103,23 @@ export const keywords = ["panel", "surface", "tile"]
   <section id="density">
     <h2>Density</h2>
     <p>
-      <PropOrClass prop='density="spacious"' class=".ui-spacious" /> pads the
-      parts with <code>--ui-space-5</code> instead of <code>--ui-space-3</code>,
-      for a card that stands alone on the page, such as a sign-in form.
-      <PropOrClass prop='density="dense"' class=".ui-dense" /> tightens them to
-      <code>--ui-space-2</code>, for a small stat. A theme sets the default for
-      every card with <code>--ui-card-padding</code>.
+      Use <PropOrClass prop="density" class=".ui-spacious" /> or
+      <code>--ui-card-padding</code> to change density.
     </p>
     <AutoExample name="Density" column />
   </section>
 
   <section id="header">
     <h2>Header</h2>
-    <Conditional as="p">
-      <Fragment slot="components"> Using <code>CardHeader</code>. </Fragment>
-      <Fragment slot="html">
-        Using an <code>&lt;hgroup class="ui-header"&gt;</code>.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Header" column />
 
     <h3 id="header-row">Header row</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        For an avatar, a chip or a button next to the heading, render
-        <code>CardHeader as="div"</code> and put the heading and its paragraphs
-        in an <code>hgroup</code> inside it. The <code>hgroup</code> takes the
-        free space, so the avatar sits at the start and buttons line up at the
-        end.
+        Use <code>CardHeader as="div"</code> with an <code>hgroup</code> inside.
       </Fragment>
       <Fragment slot="html">
-        For an avatar, a chip or a button next to the heading, use a
-        <code>&lt;div class="ui-header"&gt;</code> and put the heading and its
-        paragraphs in an <code>hgroup</code> inside it. The <code>hgroup</code>
-        takes the free space, so the avatar sits at the start and buttons line
-        up at the end.
+        Use a <code>div.ui-header</code> with an <code>hgroup</code> inside.
       </Fragment>
     </Conditional>
     <AutoExample name="HeaderActions" column />
@@ -178,90 +128,37 @@ export const keywords = ["panel", "surface", "tile"]
   <section id="media">
     <h2>Media</h2>
     <p>
-      An <code>img</code>, <code>picture</code> or <code>video</code> that is a
-      direct child of the card runs to its edges, at the top, between parts or
-      at the bottom. It fills the width at its own aspect ratio; give it an
-      <code>aspect-ratio</code> or a <code>block-size</code> to crop it, and
-      <code>object-fit: cover</code> keeps it from stretching. The part after
-      the image gets the card's padding above it. On a card at least
-      <code>40rem</code> wide, an image that comes first moves to the start (see
-      <a href="#orientation">Orientation</a>).
+      An image as a direct child runs to the edges. Crop it with
+      <code>aspect-ratio</code>.
     </p>
     <AutoExample name="Media" column />
   </section>
 
   <section id="actions">
     <h2>Actions</h2>
-    <Conditional as="p">
-      <Fragment slot="components"> Using <code>CardActions</code>. </Fragment>
-      <Fragment slot="html">
-        Using the <code>.ui-actions</code> class.
-      </Fragment>
-    </Conditional>
-    <p>
-      The actions wrap onto more rows when they don't fit, and sit at the bottom
-      of a card that is taller than its content.
-    </p>
-
     <AutoExample name="Actions" column />
 
     <h3 id="actions-alignment">Alignment</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Actions sit at the end. Set <code>align="start"</code> on
-        <code>CardActions</code> to line them up with the content instead.
-      </Fragment>
-      <Fragment slot="html">
-        Actions sit at the end. Add <code>.ui-align-start</code> to
-        <code>.ui-actions</code> to line them up with the content instead.
-      </Fragment>
-    </Conditional>
-
+    <p>
+      Actions sit at the end. Use
+      <PropOrClass prop='align="start"' class=".ui-align-start" /> to change it.
+    </p>
     <AutoExample name="Alignment" column />
   </section>
 
   <section id="orientation">
     <h2>Orientation</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A card whose first child is an image, picture or video puts it at the
-        start, over the full height, with the other parts next to it, once the
-        card is <code>40rem</code> wide, and on top below that. Set
-        <code>orientation="vertical"</code> to keep the image on top at any
-        width, like a banner, or <code>orientation="horizontal"</code> to keep
-        it at the start, like a compact result with a thumbnail.
-      </Fragment>
-      <Fragment slot="html">
-        A card whose first child is an image, picture or video puts it at the
-        start, over the full height, with the other parts next to it, once the
-        card is <code>40rem</code> wide, and on top below that. Add
-        <code>.ui-vertical</code> to keep the image on top at any width, like a
-        banner, or <code>.ui-horizontal</code> to keep it at the start, like a
-        compact result with a thumbnail.
-      </Fragment>
-    </Conditional>
     <p>
-      The image takes <code>--_media-inline-size</code>, <code>40%</code> of the
-      card. To follow its own width, the card is a size container
-      (<code>container: ui-card / inline-size</code>), so it takes its width
-      from where it sits and not from its content. In a place that sizes to its
-      content, like a popover, give the card a width or a vertical orientation.
+      An image first goes beside the content from <code>40rem</code>. Use
+      <PropOrClass prop="orientation" class=".ui-vertical" /> to fix it.
     </p>
     <AutoExample name="Orientation" column />
   </section>
 
   <section id="clickable">
     <h2>Clickable card</h2>
-    <p>
-      Add <code>.ui-card-link</code> to a link in the card, usually the one in
-      the heading, and the whole card becomes clickable. The link stretches over
-      the card, so Ctrl/Cmd+click and "Open in new tab" work from anywhere, and
-      screen readers only hear the link text. Other links and buttons in the
-      card stay clickable.
-    </p>
-
+    <p>Add <code>.ui-card-link</code> to the link in the heading.</p>
     <AutoExample name="Clickable" column />
-
     <div class="ui-not-rich-text">
       <UICallout>
         <UICalloutContent>
@@ -278,25 +175,12 @@ export const keywords = ["panel", "surface", "tile"]
     <h2>Semantics</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        A card renders a <code>div</code>, which says nothing about its content.
-        Set <code>as="article"</code> on a card that stands on its own, like a
-        blog post, a product or a comment, and <code>as="section"</code> on a
-        titled part of the page, like the settings of one feature. In an article
-        card, <code>CardHeader as="header"</code> is the header row.
+        Use <code>as="article"</code> or <code>as="section"</code>.
       </Fragment>
       <Fragment slot="html">
-        The card classes work on any element. Use an
-        <code>&lt;article class="ui-card"&gt;</code> for a card that stands on
-        its own, like a blog post, a product or a comment, and a
-        <code>&lt;section&gt;</code> for a titled part of the page, like the
-        settings of one feature. In an article card, a
-        <code>&lt;header class="ui-header"&gt;</code> is the header row.
+        Use an <code>article</code> or a <code>section</code>.
       </Fragment>
     </Conditional>
-    <p>
-      Buttons go in the actions, not in a <code>footer</code>, which holds
-      information about the card, like its author or date.
-    </p>
     <AutoExample name="Semantics" column />
   </section>
 

@@ -16,6 +16,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 
 export const keywords = ["segmented control", "split button", "toolbar"]
@@ -64,30 +65,27 @@ export const keywords = ["segmented control", "split button", "toolbar"]
     <Conditional>
       <Fragment slot="components">Groups related buttons.</Fragment>
       <Fragment slot="html">
-        Groups related buttons by wrapping them with
-        <code>class="ui-button-group"</code> and <code>role="group"</code>.
+        Groups related buttons with <code>.ui-button-group</code> and
+        <code>role="group"</code>.
       </Fragment>
     </Conditional>
   </Fragment>
+
   <Usage slot="usage">
+    <li slot="when">Related actions, like Undo and Redo.</li>
     <li slot="when">
-      Two to five related actions that belong together, like Undo and Redo, or
-      Previous and Next.
-    </li>
-    <li slot="when">
-      A main action with more options next to it, in a
-      <a href="#split-button">split button</a>.
+      A main action with more options: a <a href="#split-button">split button</a
+      >.
     </li>
     <li slot="when-not">
-      Options that stay selected, like a view or a text style. Use a
+      Options that stay selected: use a
       <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
     </li>
     <li slot="when-not">
-      Switching between panels of content. Use
-      <DocLink href="/components/tabs">Tabs</DocLink>.
+      Panels of content: use <DocLink href="/components/tabs">Tabs</DocLink>.
     </li>
     <li slot="when-not">
-      More than five actions. Put the rest in a
+      More than five actions: put the rest in a
       <DocLink href="/components/menu">Menu</DocLink>.
     </li>
   </Usage>
@@ -96,13 +94,11 @@ export const keywords = ["segmented control", "split button", "toolbar"]
     <h2>Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Change the appearance of the entire group with the <code>variant</code>
-        {" "}prop. The default is <code>transparent</code>.
+        Transparent by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Change the appearance of the entire group with the
-        <code>.ui-outlined</code>, <code>.ui-tonal</code>, and
-        <code>.ui-filled</code> classes.
+        Transparent by default. Use <code>.ui-outlined</code>,
+        <code>.ui-tonal</code> or <code>.ui-filled</code> to change it.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
@@ -110,125 +106,56 @@ export const keywords = ["segmented control", "split button", "toolbar"]
 
   <section id="colors">
     <h2>Colors</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set the <code>color</code> prop to <code>critical</code> or
-        <code>primary</code> to recolor the entire group. The default is a
-        neutral gray.
-      </Fragment>
-      <Fragment slot="html">
-        Add a <code>.ui-critical</code> or <code>.ui-primary</code> class to
-        recolor the entire group. The default is a neutral gray.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Colors" column centered />
   </section>
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop: <code>x-small</code>, <code>small</code>, <code>medium</code>
-        (the default) or <code>large</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Adjust the size of all buttons in the group using the
-        <code>.ui-x-small</code>, <code>.ui-small</code> and
-        <code>.ui-large</code> classes.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Sizes" column centered />
   </section>
 
   <section id="icons">
     <h2>Icons</h2>
     <p>
-      Buttons in a group take icons like any
+      Wrap the label in <code>.ui-text</code>, like in a
       <DocLink
         href="/components/button#buttons-with-icon-and-label"
         class="ui-link"
-        >button</DocLink
+        >Button</DocLink
       >.
-      <Conditional>
-        <Fragment slot="html">
-          Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> when the
-          button has an icon. The CSS looks for the wrapper element, the class
-          is a hook for your own styles.
-        </Fragment>
-        <Fragment slot="react">
-          Wrap the label in a <code>&lt;span className="ui-text"&gt;</code> when
-          the button has an icon. The CSS looks for the wrapper element, the
-          class is a hook for your own styles.
-        </Fragment>
-      </Conditional>
     </p>
     <AutoExample name="WithIcons" column centered />
   </section>
 
   <section id="split-button">
     <h2>Split button</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
-        the last button. <code>align="end"</code> lines it up with the group.
-      </Fragment>
-      <Fragment slot="html">
-        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
-        the last button. <code>.ui-align-end</code> lines it up with the group.
-      </Fragment>
-    </Conditional>
+    <p>
+      A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+      the last button, with
+      <PropOrClass prop='align="end"' class=".ui-align-end" />.
+    </p>
     <AutoExample name="SplitButton" centered />
   </section>
 
   <section id="pagination">
     <h2>Pagination</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A group of link buttons in a <code>nav</code> is a pagination.
-        <code>aria-current="page"</code> marks the current page, which the
-        button shows as pressed, and <code>disabled</code> on the first or last
-        link drops its <code>href</code>.
-      </Fragment>
-      <Fragment slot="html">
-        A group of link buttons in a <code>nav</code> is a pagination.
-        <code>aria-current="page"</code> marks the current page, which the
-        button shows as pressed, and a link without an <code>href</code> takes
-        <code>role="link"</code> and <code>aria-disabled="true"</code> at the
-        ends.
-      </Fragment>
-    </Conditional>
+    <p>
+      Link buttons in a <code>nav</code>, with <code>aria-current="page"</code>
+      on the current one.
+    </p>
     <AutoExample name="Pagination" row />
   </section>
 
   <section id="disabled">
     <h2>Disabled</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Disable individual buttons within a group by setting the
-        <code>disabled</code> {" "}prop on each <code>Button</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Disable individual buttons within a group by adding the
-        <code>disabled</code> {" "}attribute to each <code>&lt;button&gt;</code
-        >.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Disabled" column centered />
   </section>
 
   <section id="vertical-orientation">
     <h2>Vertical orientation</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Change the layout of the group with the
-        <code>orientation="vertical"</code> prop.
-      </Fragment>
-      <Fragment slot="html">
-        Change the layout of the group with the <code>.ui-vertical</code> class.
-      </Fragment>
-    </Conditional>
-
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
+    </p>
     <AutoExample name="Vertical" column centered />
   </section>
 
@@ -236,22 +163,11 @@ export const keywords = ["segmented control", "split button", "toolbar"]
     <h2>Overflow</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Buttons wrap onto more rows when they don't fit. Use
-        <code>overflow="scroll"</code> to keep them on one row and scroll them
-        sideways, or <code>overflow="shrink"</code> to keep them on one row and
-        truncate their labels. Icon-only items keep their size.
-        <code>overflow="shrink"</code> hides label text, so use it only when the
-        labels can be inferred or are icon-only, and prefer
-        <code>overflow="scroll"</code> when the text matters.
+        Wraps by default. Use <code>overflow</code> to scroll or shrink.
       </Fragment>
       <Fragment slot="html">
-        Buttons wrap onto more rows when they don't fit. Add
-        <code>.ui-overflow-scroll</code> to keep them on one row and scroll them
-        sideways, or <code>.ui-overflow-shrink</code> to keep them on one row
-        and truncate their labels. Icon-only items keep their size.
-        <code>.ui-overflow-shrink</code> hides label text, so use it only when
-        the labels can be inferred or are icon-only, and prefer
-        <code>.ui-overflow-scroll</code> when the text matters.
+        Wraps by default. Use <code>.ui-overflow-scroll</code> or
+        <code>.ui-overflow-shrink</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" column />
@@ -259,25 +175,8 @@ export const keywords = ["segmented control", "split button", "toolbar"]
 
   <Fragment slot="accessibility">
     <ul>
-      <li>
-        <Conditional>
-          <Fragment slot="components"
-            ><code>ButtonGroup</code> renders <code>role="group"</code
-            >.</Fragment
-          >
-          <Fragment slot="html"
-            >Add <code>role="group"</code> to the <code>.ui-button-group</code
-            >.</Fragment
-          >
-        </Conditional>
-        Name the group with <code>aria-label</code> when the buttons need
-        context, like "Text alignment", so screen readers read it when focus
-        moves into the group.
-      </li>
-      <li>
-        Name an icon-only button with <code>aria-label</code>, like any
-        <DocLink href="/components/button#icon-only">icon-only button</DocLink>.
-      </li>
+      <li>Name the group with <code>aria-label</code>.</li>
+      <li>Name icon-only buttons with <code>aria-label</code>.</li>
     </ul>
     <KeyboardSupport />
   </Fragment>

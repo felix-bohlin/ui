@@ -19,7 +19,7 @@ export default function TextField({
   error,
   hideLabel,
   id,
-  inputMode: inputmode,
+  inputMode,
   name,
   passwordToggle,
   passwordToggleLabel = "Show password",
@@ -75,7 +75,7 @@ export default function TextField({
     >
       {label && (
         <Label
-          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
           htmlFor={passwordToggle ? inputId : undefined}
         >
           {label}
@@ -92,7 +92,7 @@ export default function TextField({
           aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
           aria-invalid={error ? "true" : ariaInvalid}
           id={inputId}
-          inputMode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
+          inputMode={inputMode ?? (type === "numeric" ? "numeric" : undefined)}
           name={name ?? field?.name}
           pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
           type={type === "numeric" ? "text" : type}

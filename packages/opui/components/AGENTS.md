@@ -65,7 +65,7 @@ defineSlots<Slots>()
 </script>
 ```
 
-Derived values go in `computed()`, so they update when props change. The compiler puts `v-seed` (`vSeed` from `../vue`) before every `v-model` on a native control: a value or choice the user changed before the page hydrated wins over the model, and a model without a value takes the element's. On a client render it makes the rendered state the control's default, and after a form reset it sets the model to the control's state, cast like `v-model` casts it, so a component writes no reset code of its own. It also drops a derived value nothing reads. `pnpm test:apps` checks the hydration in Nuxt, and `tests/unit/vue-seed.test.ts` the reset.
+Derived values go in `computed()`, so they update when props change. A value that reads a slot, or reads such a value, is a getter called in the script and the template (`hasEndText()`), since Vue doesn't track slots and a `computed()` would keep its first answer; `tests/unit/vue-slot-getters.test.ts` adds a slot after mount, and the compiler refuses a provided value that reads one. The compiler puts `v-seed` (`vSeed` from `../vue`) before every `v-model` on a native control: a value or choice the user changed before the page hydrated wins over the model, and a model without a value takes the element's. On a client render it makes the rendered state the control's default, and after a form reset it sets the model to the control's state, cast like `v-model` casts it, so a component writes no reset code of its own. It also drops a derived value nothing reads. `pnpm test:apps` checks the hydration in Nuxt, and `tests/unit/vue-seed.test.ts` the reset.
 
 The Svelte component destructures props, snippets and `...rest` from `$props()`:
 

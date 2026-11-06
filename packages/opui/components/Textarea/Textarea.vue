@@ -41,12 +41,12 @@ const model = computed({
 
 const field = inject(FieldGroupKey, undefined)
 
-const Root = computed(() => (label || slots.label ? "label" : "div"))
+const Root = () => (label || slots.label ? "label" : "div")
 </script>
 
 <template>
   <component
-    :is="Root"
+    :is="Root()"
     :class="[
       'ui-textarea',
       {

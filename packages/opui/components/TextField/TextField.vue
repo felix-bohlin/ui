@@ -55,32 +55,27 @@ const uid = useId()
 
 const base = computed(() => id ?? `text-field-${uid}`)
 
-const Root = computed(() =>
-  passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div",
-)
+const Root = () =>
+  passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div"
 
 const Label = computed(() => (passwordToggle ? "label" : "span"))
 
-const hasStartText = computed(() => Boolean(startText || slots["start-text"]))
+const hasStartText = () => Boolean(startText || slots["start-text"])
 
-const hasEndText = computed(() =>
-  Boolean(endText || slots["end-text"] || characterCount),
-)
+const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
 const inputId = computed(() => (passwordToggle ? base.value : id))
 
-const startTextId = computed(() =>
-  passwordToggle && hasStartText.value ? `${base.value}-start-text` : undefined,
-)
+const startTextId = () =>
+  passwordToggle && hasStartText() ? `${base.value}-start-text` : undefined
 
-const endTextId = computed(() =>
-  passwordToggle && hasEndText.value ? `${base.value}-end-text` : undefined,
-)
+const endTextId = () =>
+  passwordToggle && hasEndText() ? `${base.value}-end-text` : undefined
 </script>
 
 <template>
   <component
-    :is="Root"
+    :is="Root()"
     :class="[
       'ui-text-field',
       {
@@ -101,14 +96,14 @@ const endTextId = computed(() =>
       :for="passwordToggle ? inputId : undefined"
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
     /></component>
-    <span v-if="hasStartText" class="ui-start-text" :id="startTextId"
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
     <span class="ui-field">
       <input
         v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId, endTextId, attrs['aria-describedby'])
+          idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="inputId"
@@ -172,7 +167,7 @@ const endTextId = computed(() =>
         <slot name="bottom"></slot>
       </span>
     </span>
-    <span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
       ><component
         is="opui-character-count"

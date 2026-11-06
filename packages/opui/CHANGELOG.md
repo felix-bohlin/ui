@@ -584,6 +584,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.
 - `ListItem` with `type` renders the default slot inside `.ui-text` (or before `.ui-end` when there's no text), like it does without `type`.
 - `ListItem` with `as="button" disabled` (or `aria-disabled="true"` on a link) looks disabled in a plain `List` too: dimmed, `not-allowed` cursor, no hover tint.
+- `ListItem`, `Range`, `Textarea` and `TextField` in Vue follow a slot the parent adds or removes after they mount: an end text behind `v-if` shows and is linked with `aria-describedby`, and a `label` slot added later makes the `TextField` root a `<label>`.
 - `Progress` pulses in place under reduced motion (`--ui-motion: 0`, or `--_motion: 0` on the bar) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Progress` in Astro types `max` and `value` like React and Svelte, instead of intersecting them with the native `progress` attributes.
 - `Radio` large (`.ui-large`) uses `--ui-choice-size-large`. It was the same size as the default.

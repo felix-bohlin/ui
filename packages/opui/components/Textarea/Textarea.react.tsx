@@ -50,9 +50,7 @@ export default function Textarea({
       style={style}
     >
       {label && (
-        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
-          {label}
-        </span>
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>{label}</span>
       )}
       {startText && <span className="ui-start-text">{startText}</span>}
       <span className="ui-field">

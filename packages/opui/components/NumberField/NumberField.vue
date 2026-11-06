@@ -50,13 +50,11 @@ const base = computed(() => id ?? `number-field-${uid}`)
 
 const inputId = computed(() => base.value)
 
-const startTextId = computed(() =>
-  startText || slots["start-text"] ? `${base.value}-start-text` : undefined,
-)
+const startTextId = () =>
+  startText || slots["start-text"] ? `${base.value}-start-text` : undefined
 
-const endTextId = computed(() =>
-  endText || slots["end-text"] ? `${base.value}-end-text` : undefined,
-)
+const endTextId = () =>
+  endText || slots["end-text"] ? `${base.value}-end-text` : undefined
 </script>
 
 <template>
@@ -83,7 +81,7 @@ const endTextId = computed(() =>
     <span
       v-if="startText || $slots['start-text']"
       class="ui-start-text"
-      :id="startTextId"
+      :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
     <span class="ui-field">
@@ -111,7 +109,7 @@ const endTextId = computed(() =>
       <input
         v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId, endTextId, attrs['aria-describedby'])
+          idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="inputId"
@@ -145,7 +143,7 @@ const endTextId = computed(() =>
     <span
       v-if="endText || $slots['end-text']"
       class="ui-end-text"
-      :id="endTextId"
+      :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </component>

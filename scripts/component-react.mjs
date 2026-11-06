@@ -21,7 +21,9 @@ import { MODEL_KINDS } from "./component-models.mjs"
 import {
   byName,
   chosenSpreadCode,
+  classText,
   isBlank,
+  isIdentifierName,
   REACT_ATTRIBUTE_NAMES,
 } from "./component-shared.mjs"
 
@@ -51,11 +53,37 @@ export const toReact = (component) => {
       !(kind?.inRest && local === component.model.local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
+  const reactPropOf = (entry) =>
+    REACT_ATTRIBUTE_NAMES[entry.prop] ??
+    (component.element && !component.baseProps?.includes(entry.prop)
+      ? resolveReactProp(
+          reactPropsOf(component.element, false) ?? new Map(),
+          entry.prop,
+        )
+      : undefined) ??
+    entry.prop
+  const taken = new Set([
+    ...component.props.map(({ local }) => local),
+    ...derived.map(({ name }) => name),
+  ])
+  const renamed = new Map(
+    props
+      .filter(
+        (entry) =>
+          entry.prop !== "class" &&
+          !tagProps.includes(entry) &&
+          entry.local === entry.prop &&
+          isIdentifierName(reactPropOf(entry)) &&
+          !taken.has(reactPropOf(entry)),
+      )
+      .map((entry) => [entry.local, reactPropOf(entry)]),
+  )
   const rename = new Map([
     ...(kind?.rename?.(component.model) ?? []),
     ...props
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
+    ...renamed,
     ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
   ])
   const options = {
@@ -67,19 +95,12 @@ export const toReact = (component) => {
   const entries = props.map((entry) => {
     if (entry.prop === "class") return { key: "className", text: "className" }
     if (tagProps.includes(entry)) return { key: entry.prop, text: entry.prop }
-    const reactProp =
-      REACT_ATTRIBUTE_NAMES[entry.prop] ??
-      (component.element && !component.baseProps?.includes(entry.prop)
-        ? resolveReactProp(
-            reactPropsOf(component.element, false) ?? new Map(),
-            entry.prop,
-          )
-        : undefined) ??
-      entry.prop
-    if (reactProp === entry.local) {
+    const reactProp = reactPropOf(entry)
+    const local = renamed.get(entry.local) ?? entry.local
+    if (reactProp === local) {
       return {
-        key: entry.local,
-        text: entry.default ? `${entry.local} = ${entry.default}` : entry.local,
+        key: local,
+        text: entry.default ? `${local} = ${entry.default}` : local,
       }
     }
     return {
@@ -134,6 +155,8 @@ export const toReact = (component) => {
   let usesCx = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
+      const text = classText(item.code)
+      if (text) return `className={${rewriteExpression(text, options)}}`
       usesCx = true
       return `className={cx(${rewriteExpression(item.code, options)})}`
     }

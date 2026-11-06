@@ -56,7 +56,7 @@ export default function NumberField({
     >
       {label && (
         <label
-          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
           htmlFor={inputId}
         >
           {label}

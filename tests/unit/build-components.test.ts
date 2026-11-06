@@ -378,6 +378,44 @@ describe("the three ports of a sample", () => {
     expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
   })
 
+  test("a native prop destructured under its HTML name takes its React name in React", async () => {
+    const { outputs } = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { "aria-describedby": ariaDescribedBy, class: className, inputmode, readonly, ...rest } = Astro.props\n---\n\n<input aria-describedby={ariaDescribedBy} class:list={["ui-sample", className]} inputmode={inputmode ?? "text"} readonly={readonly} {...rest} />\n',
+      sampleFile(),
+      {
+        types:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"input">\n',
+      },
+    )
+    const react = outputs.get(
+      "packages/opui/components/Sample/Sample.react.tsx",
+    )
+    expect(react).toMatch(
+      /\{\s*"aria-describedby": ariaDescribedBy,\s*className,\s*inputMode,\s*readOnly,\s*\.\.\.rest\s*\}/,
+    )
+    expect(react).toContain('inputMode={inputMode ?? "text"}')
+    expect(react).toContain("readOnly={readOnly}")
+    expect(react).not.toMatch(/inputmode|readonly/)
+  })
+
+  test("a class that is always one name skips cx in React", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { cx } from "../cx"\n\nconst { class: className, hideLabel, mark, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]} {...rest}>\n  <span class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>Name</span>\n  <span class={cx([`ui-${mark}`])}>Mark</span>\n  <span class={cx([hideLabel && "ui-sr-only"])}>Hint</span>\n  <span class={cx([hideLabel ? ["ui-sr-only"] : "ui-label"])}>Note</span>\n</label>\n',
+    )
+    const react = ports["react.tsx"]
+    expect(react).toContain(
+      '<span className={hideLabel ? "ui-sr-only" : "ui-label"}>',
+    )
+    expect(react).toContain("<span className={`ui-${mark}`}>")
+    expect(react).toContain(
+      '<span className={cx([hideLabel && "ui-sr-only"])}>',
+    )
+    expect(react).toContain(
+      '<span className={cx([hideLabel ? ["ui-sr-only"] : "ui-label"])}>',
+    )
+    expect(react).toContain('className={cx(["ui-sample", className])}')
+  })
+
   test('set:html="" keeps React from hydrating content the page writes', async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <span class="ui-sr-only" role="status" set:html="" />\n</opui-sample>\n',
@@ -685,8 +723,9 @@ describe("the three ports of a sample", () => {
     )
     const port = (extension: string) =>
       outputs.get(sampleFile().replace(".astro", extension))
-    expect(port(".react.tsx")).toContain('autoComplete: autocomplete = "off",')
-    expect(port(".react.tsx")).toContain("spellCheck: spellcheck,")
+    expect(port(".react.tsx")).toContain('autoComplete = "off",')
+    expect(port(".react.tsx")).toContain("autoComplete={autoComplete}")
+    expect(port(".react.tsx")).toContain("spellCheck,")
     expect(port(".react.tsx")).toContain('<span popover="" />')
     expect(port(".react.tsx")).toContain("<input disabled />")
     expect(port(".vue")).toContain(

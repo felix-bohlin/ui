@@ -99,8 +99,34 @@ export const isArrayType = (member) => {
   )
 }
 
-export const slotsUsedIn = (code) =>
-  [...code.matchAll(/Astro\.slots\.has\("([^"]+)"\)/g)].map((match) => match[1])
+const slotCache = new Map()
+
+export const slotsUsedIn = (code) => {
+  const cached = slotCache.get(code)
+  if (cached) return cached
+  const names = []
+  const visit = (node) => {
+    const callee = ts.isCallExpression(node) && node.expression
+    const owner =
+      callee && ts.isPropertyAccessExpression(callee) && callee.expression
+    if (
+      owner &&
+      callee.name.text === "has" &&
+      ts.isPropertyAccessExpression(owner) &&
+      owner.name.text === "slots" &&
+      ts.isIdentifier(owner.expression) &&
+      owner.expression.text === "Astro" &&
+      node.arguments[0] &&
+      ts.isStringLiteralLike(node.arguments[0])
+    ) {
+      names.push(node.arguments[0].text)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFileOf(`(${code})`, "expression.ts"))
+  slotCache.set(code, names)
+  return names
+}
 
 export const codesIn = (nodes) =>
   nodes.flatMap((node) => {
@@ -155,24 +181,42 @@ export const isIdentifierName = (name) => /^[A-Za-z_$][\w$]*$/.test(name)
 export const propKey = (prop) =>
   isIdentifierName(prop) ? prop : JSON.stringify(prop)
 
-const givesClass = (node) =>
+const isClassText = (node) =>
   ts.isParenthesizedExpression(node)
-    ? givesClass(node.expression)
+    ? isClassText(node.expression)
     : ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)
       ? !!node.text.trim()
       : ts.isTemplateExpression(node)
         ? [node.head, ...node.templateSpans.map((span) => span.literal)].some(
             (part) => part.text.trim(),
           )
-        : ts.isConditionalExpression(node)
-          ? givesClass(node.whenTrue) && givesClass(node.whenFalse)
-          : ts.isArrayLiteralExpression(node) && node.elements.some(givesClass)
+        : ts.isConditionalExpression(node) &&
+          isClassText(node.whenTrue) &&
+          isClassText(node.whenFalse)
+
+const givesClass = (node) =>
+  isClassText(node) ||
+  (ts.isParenthesizedExpression(node)
+    ? givesClass(node.expression)
+    : ts.isConditionalExpression(node)
+      ? givesClass(node.whenTrue) && givesClass(node.whenFalse)
+      : ts.isArrayLiteralExpression(node) && node.elements.some(givesClass))
+
+const classNode = (code) =>
+  ts.createSourceFile("class.ts", `(${code})`, ts.ScriptTarget.Latest, true)
+    .statements[0]?.expression
 
 export const classMayBeEmpty = (code) => {
-  const node = ts.createSourceFile(
-    "class.ts",
-    `(${code})`,
-    ts.ScriptTarget.Latest,
-  ).statements[0]?.expression
+  const node = classNode(code)
   return !node || !givesClass(node)
+}
+
+export const classText = (code) => {
+  const parsed = classNode(code)
+  const node = parsed && unwrap(parsed)
+  const only =
+    node && ts.isArrayLiteralExpression(node) && node.elements.length === 1
+      ? node.elements[0]
+      : node
+  return only && isClassText(only) ? unwrap(only).getText() : undefined
 }

@@ -35,7 +35,7 @@ export default function Radio({
     >
       <RadioInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
       {(label || children) && (
-        <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
           {label}
           {children}
         </span>

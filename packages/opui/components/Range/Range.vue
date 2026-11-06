@@ -49,17 +49,17 @@ const uid = useId()
 
 const base = computed(() => id || `range-${uid}`)
 
-const hasLabel = computed(() => !!label || slots.label)
+const hasLabel = () => !!label || slots.label
 
-const hasStartText = computed(() => !!startText || slots["start-text"])
+const hasStartText = () => !!startText || slots["start-text"]
 
-const hasEndText = computed(() => !!endText || slots["end-text"])
+const hasEndText = () => !!endText || slots["end-text"]
 
-const hasValueText = computed(() => slots["value-text"])
+const hasValueText = () => slots["value-text"]
 
-const hasValue = computed(() => valueSuffix !== undefined || hasValueText.value)
+const hasValue = () => valueSuffix !== undefined || hasValueText()
 
-const hasDatalist = computed(() => !!items || slots.datalist)
+const hasDatalist = () => !!items || slots.datalist
 
 const current = computed(() => model.value ?? middleValue({ max, min, step }))
 
@@ -77,27 +77,19 @@ const tickLabel = computed(() =>
   valueSuffix || typeof tick.value !== "object" ? undefined : tick.value.label,
 )
 
-const inputId = computed(() => id || (hasValue.value ? base.value : undefined))
+const inputId = () => id || (hasValue() ? base.value : undefined)
 
-const labelId = computed(() =>
-  hasLabel.value ? `${base.value}-label` : undefined,
-)
+const labelId = () => (hasLabel() ? `${base.value}-label` : undefined)
 
-const startTextId = computed(() =>
-  hasStartText.value ? `${base.value}-start-text` : undefined,
-)
+const startTextId = () =>
+  hasStartText() ? `${base.value}-start-text` : undefined
 
-const endTextId = computed(() =>
-  hasEndText.value ? `${base.value}-end-text` : undefined,
-)
+const endTextId = () => (hasEndText() ? `${base.value}-end-text` : undefined)
 
-const listId = computed(
-  () => list ?? (hasDatalist.value ? `${base.value}-list` : undefined),
-)
+const listId = () => list ?? (hasDatalist() ? `${base.value}-list` : undefined)
 
-const describedBy = computed(() =>
-  idRefs(startTextId.value, endTextId.value, attrs.value["aria-describedby"]),
-)
+const describedBy = () =>
+  idRefs(startTextId(), endTextId(), attrs.value["aria-describedby"])
 </script>
 
 <template>
@@ -109,40 +101,40 @@ const describedBy = computed(() =>
       variant && variant !== 'outlined' && `ui-${variant}`,
       $props.class,
     ]"
-    :for="hasValue ? inputId : undefined"
+    :for="hasValue() ? inputId() : undefined"
     :style="$attrs.style"
   >
     <span
-      v-if="hasLabel"
+      v-if="hasLabel()"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      :id="labelId"
+      :id="labelId()"
       >{{ label }}<slot name="label"></slot
     ></span>
     <output
-      v-if="hasValue"
+      v-if="hasValue()"
       aria-live="off"
       class="ui-value"
-      :data-live="hasValueText ? undefined : ''"
-      :for="inputId"
+      :data-live="hasValueText() ? undefined : ''"
+      :for="inputId()"
       :data-suffix="valueSuffix"
     >
       <slot v-if="$slots['value-text']" name="value-text"></slot>
       <template v-else>{{ readout }}</template>
     </output>
-    <span v-if="hasStartText" class="ui-start-text" :id="startTextId"
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
       >{{ startText }}<slot name="start-text"></slot
     ></span>
     <input
       v-bind="attrs"
-      :aria-describedby="describedBy"
+      :aria-describedby="describedBy()"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
-      :aria-labelledby="labelId ?? attrs['aria-labelledby']"
+      :aria-labelledby="labelId() ?? attrs['aria-labelledby']"
       :aria-valuetext="
         attrs['aria-valuetext'] ??
-        (valueSuffix && !hasValueText ? readout : tickLabel)
+        (valueSuffix && !hasValueText() ? readout : tickLabel)
       "
-      :id="inputId"
-      :list="listId"
+      :id="inputId()"
+      :list="listId()"
       :max="max"
       :min="min"
       :name="name ?? field?.name"
@@ -151,7 +143,7 @@ const describedBy = computed(() =>
       v-seed
       v-model.number="model"
     />
-    <datalist v-if="hasDatalist" aria-hidden="true" :id="listId">
+    <datalist v-if="hasDatalist()" aria-hidden="true" :id="listId()">
       <template v-for="(option, index) in items" :key="index"
         ><option
           v-if="typeof option === 'object'"
@@ -162,7 +154,7 @@ const describedBy = computed(() =>
       ></template>
       <slot name="datalist"></slot>
     </datalist>
-    <span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </label>

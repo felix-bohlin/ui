@@ -138,6 +138,31 @@ export const toVue = (component) => {
   const modelRename = MODEL_KINDS[component.model?.kind]?.vue?.rename?.(
     component.model,
   )
+  const slotReaders = derived.reduce((names, { code, name }) => {
+    const ids = identifiersIn(code)
+    return slotsUsedIn(code).length > 0 ||
+      trimmedSlots.some(({ local }) => ids.has(local)) ||
+      [...names].some((other) => ids.has(other))
+      ? new Set([...names, name])
+      : names
+  }, new Set())
+  const getters = new Set(
+    derived
+      .filter(({ fn, name }) => !fn && slotReaders.has(name))
+      .map(({ name }) => name),
+  )
+  const providedReader = provide?.value.find(
+    ({ code }) =>
+      slotsUsedIn(code).length > 0 ||
+      [...identifiersIn(code)].some((name) => slotReaders.has(name)),
+  )
+  if (providedReader) {
+    throw unsupported(
+      component.file,
+      `the provided \`${providedReader.key}\`, which reads a slot`,
+      "Vue doesn't track slots, so a provided value can't follow one: provide a prop instead",
+    )
+  }
   const rename = new Map([
     ...props.flatMap(({ local, prop }) =>
       prop === "class"
@@ -150,9 +175,12 @@ export const toVue = (component) => {
     ),
     ...(restUsed ? [[rest, "attrs"]] : []),
     ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
+    ...[...getters].map((name) => [name, `${name}()`]),
     ...(modelRename?.template ?? []),
   ])
-  const computedConsts = derived.filter(({ fn }) => !fn)
+  const computedConsts = derived.filter(
+    ({ fn, name }) => !fn && !getters.has(name),
+  )
   const derivedNames = new Set(computedConsts.map(({ name }) => name))
   const scriptRename = new Map([
     ...rename,
@@ -542,7 +570,9 @@ export const toVue = (component) => {
   const declarations = derived.map(({ code, fn, name }) => ({
     line: fn
       ? `const ${name} = ${rewriteExpression(code, script)}`
-      : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
+      : getters.has(name)
+        ? `const ${name} = () => ${rewriteExpression(code, script)}`
+        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
     name,
   }))
   const setup = [

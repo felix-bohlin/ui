@@ -75,10 +75,7 @@ export default function Range({
       style={style}
     >
       {hasLabel && (
-        <span
-          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
-          id={labelId}
-        >
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
           {label}
         </span>
       )}

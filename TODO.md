@@ -654,6 +654,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): reduce it to a plain-HTML repro, report it to WebKit, and add the reason to `tests/e2e/engine-bugs.ts` with the repro in `tests/e2e/engines.spec.ts`, marking the theme builder tests slow in WebKit for it.
     - B: pause the preview's Range animations while they are outside the viewport, from the theme builder's script.
+- [ ] (2) TextField: in Vue, the form reset handler assigns the input's string `value` to the model, because `numeric()` only sees a static `type="number"` and TextField's type is dynamic, so `<TextField type="number" v-model="n">` hands back a number while the user types (Vue's `vModelText` casts on `vnode.props.type`) and a string after a reset (`packages/opui/components/TextField/TextField.vue:65-70`, `scripts/component-models.mjs:24-31`)
+  - Summary: A Vue number TextField's bound value turns from a number into a string after a form reset.
+  - Recommended: Fix with option A. It fixes the cast and removes the reset code from five compiled Vue files.
+  - Fix: found by the `framework-idioms` agent's blind port of TextField. No test catches it: the app tests' reset scenario and `example-state.spec.ts` read the DOM, not the model's type.
+  - Options:
+    - A (recommended): move the reset into `vSeed` (`packages/opui/components/vue.ts`, whose `stateOf` already casts on `field.type`): its `mounted` sets `defaultValue` when there's no `value` attribute and listens for `reset` on `field.form`, and `beforeUnmount` removes the listener. The compiled ports then keep only `v-seed v-model`, without `modelElement`, `initialValue`, `modelForm`, `resetModel` or the lifecycle hooks (TextField, Textarea, NumberField, Range, OneTimeCode).
+    - B: emit a runtime check in the reset line: `element.type === "number" && !Number.isNaN(element.valueAsNumber) ? element.valueAsNumber : element.value`.
+- [ ] (3) TextField: in Svelte, `defaultValue={initialValue}` comes after `{...rest}`, so it replaces a `defaultValue` the caller passes: an SSR probe with `defaultValue: "kept"` renders `value="kept"` in React and no value in Svelte. The same emitter writes it into NumberField, OneTimeCode, Range and Textarea (`packages/opui/components/TextField/TextField.svelte:93-104`, `scripts/component-models.mjs:203-215`)
+  - Summary: A Svelte TextField drops the `defaultValue` it's given, so the field renders without it and a reset ignores it.
+  - Recommended: Fix. The component merges the value, so it destructures it like the other merged attributes.
+  - Fix: when the model can be reset, destructure `defaultValue` next to the bindable and emit `defaultValue={defaultValue ?? initialValue}`. Found by the `framework-idioms` agent.
 
 ## Docs
 
@@ -2115,6 +2126,18 @@ Custom elements (web components) the library could add, for behavior that HTML a
   > Explain further and provide an example
   - Explained: An only child is always a first child, so `:where(:only-child, :first-child)` matches the same `.ui-content` as `:where(:first-child)`: the content of a card with nothing else and of a card with actions after it, not the content after a header. The example shows the three cases with the matches and the paddings, identical. One correction to the fix: `.ui-content:first-child` without `:where()` weighs one class more, (0,2,0) instead of (0,1,0); nothing in the package depends on that today, but `& > .ui-content:where(:first-child)` keeps the weight as it is. Example: card-content-padding
   - Fixed: `& > .ui-content:where(:first-child)`.
+- [ ] (1) TextField: the React port loads its two element modules in two identical `useEffect`s, one per import (`packages/opui/components/TextField/TextField.react.tsx:57-62`, `scripts/component-react.mjs:152-155`)
+  - Summary: The React file repeats an effect for each script the Astro file imports.
+  - Recommended: Fix. One effect reads like hand-written code and behaves the same.
+  - Fix: emit one `useEffect` with a `void import(...)` line per specifier. Found by the `framework-idioms` agent.
+- [ ] (1) TextField: React writes each variable tag as a lowercase const plus a `const Root: ElementType = root` alias, and `ElementType` drops the prop checks that inference of the literal union keeps (`packages/opui/components/TextField/TextField.react.tsx:47-50`, `scripts/component-react.mjs:132-141`)
+  - Summary: The React file declares each dynamic tag twice and with a looser type than TypeScript would infer.
+  - Recommended: Fix. AGENTS.md prefers inference, and inference catches more here.
+  - Fix: when a derived tag yields only string literals, emit `const Root = <expr>`, and keep `ElementType` for a tag that comes from a prop (`as`). Found by the `framework-idioms` agent.
+- [ ] (1) TextField: the ports call Astro's `createIds(uid, "text-field", id)` with the `useId()` string in place of `Astro.locals`, and Vue keeps the resulting closure in a `computed` it calls as `ids.value("start-text")`, where the components guide writes the base as `` id ?? `text-field-${uid}` `` (`packages/opui/components/TextField/TextField.vue:86-110`, `scripts/component-emit.mjs:91-96`)
+  - Summary: The id code in the React, Svelte and Vue files doesn't look like what the components guide describes.
+  - Recommended: Fix. The guide already names the form a port should have.
+  - Fix: lower `createIds(Astro.locals, prefix, id)` to a `base` const, `computed` or `$derived` (`` id ?? `${prefix}-${uid}` ``), and `ids("x")` to `` `${base}-x` ``. Found by the `framework-idioms` agent.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.
@@ -2379,6 +2402,10 @@ Custom elements (web components) the library could add, for behavior that HTML a
     - B: keep the doubled class and accept the exception.
   > Fix with option A
   - Fixed: with option A by import order: `one-time-code.css` is imported right after `text-field.css`, so its `.ui-field` rules win the ties on the same element and the doubled `&.ui-one-time-code` is gone from both rules. `tests/unit/layers.test.ts` now checks that each group imports in ascending order except a stylesheet in `BUILDS_ON`, which must follow the one it extends, with a sample it must flag, and section 10 of the components guide names the check. The token remap was left out: `--ui-field-bg-color: transparent` would also clear the `:autofill` inset shadow that paints `--_bg-color` over the browser's autofill color, and `--ui-field-border-width: 0px` would hide the theme's border width from the boxes, which the radius question wants to read.
+- [ ] (2) TextField: React has 8 `{" "}` and Vue 8 `{{ " " }}` between the children of `.ui-text-field` and `.ui-field`, which are grid containers where whitespace never renders, and Svelte and Vue write content edge to edge, so tags hug each other across lines. The same noise is in Textarea, Range, NumberField and Switch (`packages/opui/components/TextField/TextField.vue:135-213`, `scripts/component-layout.mjs:94-118`)
+  - Summary: The compiled form controls are full of space placeholders that never render and tags that hug across lines.
+  - Recommended: Fix. The tests already treat these spaces as not rendered, so only the noise goes.
+  - Fix: in `component-layout.mjs`, drop whitespace between the children of an element that every matching library rule makes a flex or grid container (the inverse of `inlineLevelByCss`), and put an `{#if}` consequent and an element's children on their own lines when they start and end with a tag or block. Rerun the contract and parity tests. Found by the `framework-idioms` agent.
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Fix. Breadcrumb, empty state and pagination are left, and their blocks already show the markup each needs.

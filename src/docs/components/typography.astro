@@ -59,32 +59,30 @@ export const keywords = ["font", "heading", "prose", "text"]
 >
   <Fragment slot="title">Typography</Fragment>
   <Fragment slot="preamble">
-    Styles for headings, body text, and other text content. Use util classes
-    anywhere or wrap content in <code>.ui-rich-text</code>.
+    Text styles: classes on single elements, or <code>.ui-rich-text</code>
+    around content.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      Text that you can't add classes to, like rich text from a CMS, in
+      Text you can't add classes to, like CMS content:
       <a href="#classless"><code>.ui-rich-text</code></a>.
     </li>
     <li slot="when">
-      Text styles on elements in your own markup, with the
-      <a href="#class-based">classes</a>, like <code>.ui-link</code>.
+      Elements in your own markup: the <a href="#class-based">classes</a>.
     </li>
     <li slot="when-not">
-      Picking a heading level for its size. Use the level the outline needs, and
-      a class like <code>.ui-h4</code> for the size.
+      Heading size: pick the level the outline needs, and a class like
+      <code>.ui-h4</code> for the size.
     </li>
     <li slot="when-not">
-      Spacing components. Rich text spaces text elements, so lay out components
-      with the <DocLink href="/components/layout">Layout</DocLink> classes.
+      Spacing components: use the
+      <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
   </Usage>
 
   <section id="class-based">
     <h2>Class-based</h2>
-    <p>Classes for single elements in your own markup.</p>
 
     <h3 id="variants">Variants</h3>
     <AutoExample name="Variants" column />
@@ -96,51 +94,28 @@ export const keywords = ["font", "heading", "prose", "text"]
     <AutoExample name="Blockquote" />
 
     <h3 id="link">Link</h3>
-    <p>
-      Use <code>.ui-link</code> for links outside <code>.ui-rich-text</code>.
-      Inside rich text, links get the same style without a class. On hover and
-      focus the underline gets thicker, and the color darkens in light mode and
-      lightens in dark mode.
-    </p>
+    <p>Use <code>.ui-link</code> outside <code>.ui-rich-text</code>.</p>
     <AutoExample name="Link" />
 
     <h3 id="code-block">Code block</h3>
     <AutoExample name="CodeBlock" column />
 
     <h3 id="icon">Icon</h3>
-    <p>
-      <code>.ui-icon</code> sizes an <code>svg</code> to
-      <code>--ui-icon-size</code> and keeps it from shrinking next to text.
-      <code>.ui-small</code> and <code>.ui-large</code> read
-      <code>--ui-icon-size-small</code> and <code>--ui-icon-size-large</code>.
-      Components size the icons they own, so the class is for icons in your own
-      markup.
-    </p>
+    <p>Use <code>.ui-icon</code> on an <code>svg</code> in your own markup.</p>
     <AutoExample name="Icon" />
 
     <h3 id="swatch">Swatch</h3>
     <p>
-      <code>.ui-swatch</code> is a small dot for a color legend. A severity
-      class on it, such as <code>.ui-info</code>, paints it in that tone, and
-      <code>--_swatch-bg-color</code> takes any other color. A status with a
-      name is a <code>Chip</code> with a dot instead.
+      Use a severity class, or <code>--_swatch-bg-color</code> for any color.
     </p>
     <AutoExample name="Swatch" />
 
     <h3 id="severity">Severity</h3>
-    <p>
-      The same severity class on <code>.ui-p</code>, <code>.ui-caption</code> or
-      <code>.ui-overline</code> colors the text in that tone, for a change next
-      to a stat or a "Verified" next to an email. The tone alone carries no
-      meaning, so say it in words too.
-    </p>
+    <p>Add a severity class, like <code>.ui-success</code>, to text.</p>
     <AutoExample name="Severity" />
 
     <h3 id="tabular-numbers">Tabular numbers</h3>
-    <p>
-      <code>.ui-tabular-nums</code> gives every digit the same width, so prices
-      and stats line up in a column and a counter doesn't shift as it ticks.
-    </p>
+    <p>Use <code>.ui-tabular-nums</code> for numbers that line up.</p>
     <AutoExample name="TabularNumbers" />
   </section>
 
@@ -259,17 +234,8 @@ export const keywords = ["font", "heading", "prose", "text"]
   <section id="classless">
     <h2>Classless</h2>
     <p>
-      Wrap your code in <code>.ui-rich-text</code> to add typographic styles to
-      its children. It's extra handy when you can't control the contents
-      yourself, like printing text from a CMS.
-    </p>
-    <p>
-      Headings, lists and tables with a class keep their own styles, and so do
-      component roots. Headings without a class, <code>p</code>,
-      <code>kbd</code> and the first <code>p</code> of an <code>hgroup</code>
-      inside a component still follow rich text; <code>.ui-not-rich-text</code>
-      on the component stops that. Wrap a part in
-      {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
+      Wrap content in <code>.ui-rich-text</code>. Use
+      <code>.ui-not-rich-text</code> to opt a part out.
     </p>
     <Code
       lang="html"
@@ -277,24 +243,20 @@ export const keywords = ["font", "heading", "prose", "text"]
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>
-    <p>
-      Every element in a <code>.ui-rich-text</code> article, as plain HTML on
-      every framework page, the way rich text arrives from a CMS.
-    </p>
     <AutoExample name="Default" />
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      Give a decorative <a href="#icon"><code>svg.ui-icon</code></a>
-      <code>aria-hidden="true"</code>, so screen readers skip it and read the
-      text next to it.
-    </p>
-    <p>
-      A <a href="#swatch"><code>.ui-swatch</code></a> is an empty element that
-      screen readers skip, and its color carries no meaning on its own, so the
-      text next to it names what the color stands for.
-    </p>
+    <ul>
+      <li>
+        Hide a decorative <a href="#icon"><code>svg.ui-icon</code></a> with
+        <code>aria-hidden="true"</code>.
+      </li>
+      <li>
+        A <a href="#swatch"><code>.ui-swatch</code></a> isn't announced: name
+        the color in text.
+      </li>
+    </ul>
   </Fragment>
 
   <Fragment slot="under-the-hood">

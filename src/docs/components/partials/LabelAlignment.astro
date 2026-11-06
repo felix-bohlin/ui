@@ -9,10 +9,7 @@ const { control } = Astro.props
 ---
 
 <p>
-  The {control} lines up with the first line of its label and centers that line
-  on the control, so it looks centered in most fonts and at any size. If a
-  font's capitals sit off-center, nudge the label with
-  {" "}<code>--ui-choice-label-offset</code>, in <code>em</code> or
-  {" "}<code>cap</code> so it scales with the label.
+  The {control} centers on the first line of its label. Nudge it with
+  <code>--ui-choice-label-offset</code>.
 </p>
 <Code lang="css" code={`:root {\n  --ui-choice-label-offset: 0.05em;\n}`} />

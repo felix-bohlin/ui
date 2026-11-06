@@ -12,7 +12,6 @@ import {
 
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
-import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
@@ -58,19 +57,17 @@ export const keywords = ["dl", "key value", "properties"]
   <Fragment slot="title">Description list</Fragment>
 
   <Usage slot="usage">
+    <li slot="when">Labels with values, like order details.</li>
     <li slot="when">
-      Labels with values, like the details of an order or a profile.
-    </li>
-    <li slot="when">
-      Totals and summaries in a sidebar or a card, side by side with
+      Totals side by side:
       <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />.
     </li>
     <li slot="when-not">
-      Data in several columns that people compare. Use a
+      Data in several columns: use a
       <DocLink href="/components/table">Table</DocLink>.
     </li>
     <li slot="when-not">
-      Values that people edit. Use form fields, like a
+      Values people edit: use a
       <DocLink href="/components/text-field">Text field</DocLink>.
     </li>
   </Usage>
@@ -82,27 +79,9 @@ export const keywords = ["dl", "key value", "properties"]
 
   <section id="bordered">
     <h2>Bordered</h2>
-    <Conditional as="div">
-      <Fragment slot="components">
-        <p>
-          Set <code>bordered</code> on <code>DescriptionList</code> to add a
-          separator between the term and description on all items, and
-          <code>dotted</code> with it for a dotted one.
-        </p>
-      </Fragment>
-      <Fragment slot="html">
-        <p>
-          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element
-          to add a separator between the term and description on all items, and
-          <code>.ui-dotted</code> with it for a dotted one.
-        </p>
-      </Fragment>
-    </Conditional>
     <p>
-      Above <code>45ch</code> the term and description share a row and the
-      border fills the gap between them. Narrower lists stack and show no
-      border, unless they're horizontal
-      (<PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" />).
+      Use <PropOrClass prop="bordered" class=".ui-bordered" />, and
+      <PropOrClass prop="dotted" class=".ui-dotted" /> for dots.
     </p>
     <AutoExample name="Bordered" column spacious />
   </section>
@@ -110,22 +89,16 @@ export const keywords = ["dl", "key value", "properties"]
   <section id="orientation">
     <h2>Orientation</h2>
     <p>
-      By default the term and the description stack when the list is
-      <code>45ch</code> or narrower, and sit side by side when it's wider. Set
+      Stacks at <code>45ch</code> or narrower. Use
       <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" /> to
-      keep them side by side at any width, for example for totals in a sidebar
-      or summary card.
+      keep a row.
     </p>
     <AutoExample name="Orientation" />
   </section>
 
   <section id="total">
     <h2>Total</h2>
-    <p>
-      <PropOrClass prop="total" class=".ui-total" /> on the last item draws a
-      line above it and makes it larger and bold, for the total of an order
-      summary or an invoice.
-    </p>
+    <p>Use <PropOrClass prop="total" class=".ui-total" /> on the last item.</p>
     <AutoExample name="Total" />
   </section>
 

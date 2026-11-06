@@ -10,7 +10,7 @@ import {
 } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { defaultValue } from "./value"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -81,7 +81,7 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const ids = computed(() => createIds(uid, "range", id || undefined))
+const base = computed(() => id || `range-${uid}`)
 
 const hasLabel = computed(() => !!label || slots.label)
 
@@ -111,22 +111,22 @@ const tickLabel = computed(() =>
   valueSuffix || typeof tick.value !== "object" ? undefined : tick.value.label,
 )
 
-const inputId = computed(() => id || (hasValue.value ? ids.value() : undefined))
+const inputId = computed(() => id || (hasValue.value ? base.value : undefined))
 
 const labelId = computed(() =>
-  hasLabel.value ? ids.value("label") : undefined,
+  hasLabel.value ? `${base.value}-label` : undefined,
 )
 
 const startTextId = computed(() =>
-  hasStartText.value ? ids.value("start-text") : undefined,
+  hasStartText.value ? `${base.value}-start-text` : undefined,
 )
 
 const endTextId = computed(() =>
-  hasEndText.value ? ids.value("end-text") : undefined,
+  hasEndText.value ? `${base.value}-end-text` : undefined,
 )
 
 const listId = computed(
-  () => list ?? (hasDatalist.value ? ids.value("list") : undefined),
+  () => list ?? (hasDatalist.value ? `${base.value}-list` : undefined),
 )
 
 const describedBy = computed(() =>

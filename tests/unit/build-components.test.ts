@@ -108,7 +108,7 @@ describe("the three ports of a sample", () => {
       `---\nimport type { Props } from "./types.astro"\nimport { cx } from "../cx"\n\nconst { as: Tag = "fieldset", class: className, ...rest } = Astro.props\n---\n\n<Tag class={cx(["ui-sample", className])} role={Tag === "fieldset" ? undefined : "group"} {...rest}>\n  <slot />\n</Tag>\n`,
     )
     expect(ports["react.tsx"]).toContain(
-      'export default function Sample({ as, className, children, ...rest }: Props) {\n  const Tag: ElementType = as || "fieldset"',
+      'export default function Sample({ as, className, children, ...rest }: Props) {\n  const Tag = as || "fieldset"',
     )
     expect(ports["react.tsx"]).toContain("{...(rest as object)}")
     expect(ports.svelte).toContain('as: Tag = "fieldset",')
@@ -123,12 +123,12 @@ describe("the three ports of a sample", () => {
     )
   })
 
-  test("a variable tag takes another name in React when a prop has its lowered name", async () => {
+  test("a variable tag keeps its name and infers its type in React", async () => {
     const ports = await compile(
       `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, wide, ...rest } = Astro.props\nconst Label = wide ? "div" : "span"\n---\n\n<Label class:list={["ui-sample", className]} {...rest}>{label}</Label>\n`,
     )
     expect(ports["react.tsx"]).toContain(
-      'const labelTag = wide ? "div" : "span"\n  const Label: ElementType = labelTag',
+      'const Label = wide ? "div" : "span"\n\n  return (\n    <Label className={cx(["ui-sample", className])} {...(rest as object)}>',
     )
   })
 
@@ -136,7 +136,8 @@ describe("the three ports of a sample", () => {
     const ports = await compile(
       `---\nimport type { Props } from "./types.astro"\n\nconst { class: className, href, ...rest } = Astro.props\nconst Tag = href ? "a" : undefined\nconst onItem = !Tag\n---\n\n<li class:list={["ui-sample", className]} {...(onItem ? rest : {})}>\n  {Tag ? (\n    <Tag href={href} {...(onItem ? {} : rest)}><slot /></Tag>\n  ) : (\n    <slot />\n  )}\n</li>\n`,
     )
-    expect(ports["react.tsx"]).toContain("const Tag = tag as ElementType")
+    expect(ports["react.tsx"]).toContain('const Tag = href ? "a" : undefined')
+    expect(ports["react.tsx"]).not.toContain("ElementType")
     expect(ports["react.tsx"]).toContain(
       "{...(onItem ? (rest as object) : {})}",
     )
@@ -232,14 +233,63 @@ describe("the three ports of a sample", () => {
       '---\nimport type { Props } from "./types.astro"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\n\nconst { class: className, id: idProp, ...rest } = Astro.props\n\nconst titleId = createIds(Astro.locals, "sample", idProp)("title")\nconst labelledBy = autoLabelledBy(rest, titleId)\nif (!labelledBy) {\n  warnMissingId("Sample", idProp)\n}\n---\n\n<section\n  aria-labelledby={labelledBy}\n  class:list={["ui-sample", className]}\n  id={idProp}\n  {...rest}\n>\n  <slot />\n</section>\n',
     )
     expect(ports["react.tsx"]).toBe(
-      'import { useId } from "react"\nimport { cx } from "../cx"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  id: idProp,\n  children,\n  ...rest\n}: Props) {\n  const uid = useId()\n  const titleId = createIds(uid, "sample", idProp)("title")\n  const labelledBy = autoLabelledBy(rest, titleId)\n  if (!labelledBy) {\n    warnMissingId("Sample", idProp)\n  }\n\n  return (\n    <section\n      aria-labelledby={labelledBy}\n      className={cx(["ui-sample", className])}\n      id={idProp}\n      {...rest}\n    >\n      {children}\n    </section>\n  )\n}\n',
+      'import { useId } from "react"\nimport { cx } from "../cx"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props } from "./types.react"\n\nexport default function Sample({\n  className,\n  id: idProp,\n  children,\n  ...rest\n}: Props) {\n  const uid = useId()\n  const titleId = `${idProp ?? `sample-${uid}`}-title`\n  const labelledBy = autoLabelledBy(rest, titleId)\n  if (!labelledBy) {\n    warnMissingId("Sample", idProp)\n  }\n\n  return (\n    <section\n      aria-labelledby={labelledBy}\n      className={cx(["ui-sample", className])}\n      id={idProp}\n      {...rest}\n    >\n      {children}\n    </section>\n  )\n}\n',
     )
     expect(ports.svelte).toContain(
-      '  const uid = $props.id()\n  const titleId = $derived(createIds(uid, "sample", idProp)("title"))\n  const labelledBy = $derived(autoLabelledBy(rest, titleId))\n  untrack(() => {\n    if (!labelledBy) {\n      warnMissingId("Sample", idProp)\n    }\n  })\n',
+      '  const uid = $props.id()\n  const titleId = $derived(`${idProp ?? `sample-${uid}`}-title`)\n  const labelledBy = $derived(autoLabelledBy(rest, titleId))\n  untrack(() => {\n    if (!labelledBy) {\n      warnMissingId("Sample", idProp)\n    }\n  })\n',
     )
     expect(ports.vue).toBe(
-      '<script setup lang="ts">\nimport { computed, type HTMLAttributes, useAttrs, useId } from "vue"\nimport { autoLabelledBy, createIds } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { id: idProp } = defineProps<Props>()\ndefineSlots<Slots>()\n\nconst attrs = useAttrs() as HTMLAttributes\n\nconst uid = useId()\n\nconst titleId = computed(() => createIds(uid, "sample", idProp)("title"))\n\nconst labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))\n\nif (!labelledBy.value) {\n  warnMissingId("Sample", idProp)\n}\n</script>\n\n<template>\n  <section\n    :aria-labelledby="labelledBy"\n    :class="[\'ui-sample\', $props.class]"\n    :id="idProp"\n  >\n    <slot></slot>\n  </section>\n</template>\n',
+      '<script setup lang="ts">\nimport { computed, type HTMLAttributes, useAttrs, useId } from "vue"\nimport { autoLabelledBy } from "../id"\nimport { warnMissingId } from "../dev"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { id: idProp } = defineProps<Props>()\ndefineSlots<Slots>()\n\nconst attrs = useAttrs() as HTMLAttributes\n\nconst uid = useId()\n\nconst titleId = computed(() => `${idProp ?? `sample-${uid}`}-title`)\n\nconst labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))\n\nif (!labelledBy.value) {\n  warnMissingId("Sample", idProp)\n}\n</script>\n\n<template>\n  <section\n    :aria-labelledby="labelledBy"\n    :class="[\'ui-sample\', $props.class]"\n    :id="idProp"\n  >\n    <slot></slot>\n  </section>\n</template>\n',
     )
+  })
+
+  test("a base id names its parts, and createId a generated id", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { createId, createIds } from "../id"\n\nconst { class: className, id, label, ...rest } = Astro.props\n\nconst ids = createIds(Astro.locals, "sample", id)\nconst idOf = createId(Astro.locals)\n---\n\n<div class:list={["ui-sample", className]} {...rest}>\n  <input aria-describedby={ids("hint")} id={ids()} />\n  <span id={ids("hint")}>{label}</span>\n  <span id={idOf("status")} role="status" />\n</div>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      "  const uid = useId()\n  const base = id ?? `sample-${uid}`\n",
+    )
+    expect(ports.svelte).toContain(
+      "  const uid = $props.id()\n  const base = $derived(id ?? `sample-${uid}`)\n",
+    )
+    expect(ports.vue).toContain(
+      "const uid = useId()\n\nconst base = computed(() => id ?? `sample-${uid}`)\n",
+    )
+    for (const [port, attribute] of [
+      [
+        ports["react.tsx"],
+        (name: string, value: string) => `${name}={${value}}`,
+      ],
+      [ports.svelte, (name: string, value: string) => `${name}={${value}}`],
+      [ports.vue, (name: string, value: string) => `:${name}="${value}"`],
+    ] as const) {
+      expect(port).toContain(attribute("aria-describedby", "`${base}-hint`"))
+      expect(port).toContain(attribute("id", "base"))
+      expect(port).toContain(attribute("id", "`status-${uid}`"))
+    }
+    for (const port of Object.values(ports)) {
+      expect(port).not.toMatch(/createIds?\b/)
+    }
+  })
+
+  test("a falsy id falls back to the generated base with ||", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\nimport { createIds } from "../id"\n\nconst { class: className, id, ...rest } = Astro.props\n\nconst ids = createIds(Astro.locals, "sample", id || undefined)\n---\n\n<input class:list={["ui-sample", className]} id={ids()} {...rest} />\n',
+    )
+    expect(ports["react.tsx"]).toContain("const base = id || `sample-${uid}`")
+  })
+
+  test.each([
+    ["ids(part)", "an id factory used as `ids(part)`"],
+    ["[ids].map((id) => id())", "an id factory used as `[ids]"],
+  ])("rejects the id factory read as %s", async (read, reason) => {
+    await expect(
+      readComponent(
+        `---\nimport type { Props } from "./types.astro"\nimport { createIds } from "../id"\n\nconst { class: className, id, part, ...rest } = Astro.props\n\nconst ids = createIds(Astro.locals, "sample", id)\nconst described = ${read}\n---\n\n<div aria-describedby={described} {...rest} />\n`,
+        sampleFile(),
+      ),
+    ).rejects.toThrow(reason)
   })
 
   test("a side-effect script and a custom element", async () => {
@@ -255,6 +305,16 @@ describe("the three ports of a sample", () => {
     expect(ports.vue).toBe(
       '<script setup lang="ts">\nimport "../../elements/sample.js"\nimport type { Props, Slots } from "./types.vue-props"\n\nconst { label } = defineProps<Props>()\ndefineSlots<Slots>()\n</script>\n\n<template>\n  <component\n    is="opui-sample"\n    :class="[\'ui-sample\', $props.class]"\n    :data-label="label"\n  >\n    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>\n  </component>\n</template>\n',
     )
+  })
+
+  test("two element scripts load in one effect in React", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <slot />\n</opui-sample>\n\n<script>\n  import "../../elements/sample.js"\n  import "../../elements/other.js"\n</script>\n',
+    )
+    expect(ports["react.tsx"]).toContain(
+      '  useEffect(() => {\n    void import("../../elements/sample.js")\n    void import("../../elements/other.js")\n  }, [])\n',
+    )
+    expect(ports["react.tsx"].match(/useEffect\(/g)).toHaveLength(1)
   })
 
   test('set:html="" keeps React from hydrating content the page writes', async () => {

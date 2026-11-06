@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
-import { createId } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
 const { name, overflow, variant } = defineProps<Props>()
@@ -15,9 +14,7 @@ const change = (input: HTMLInputElement) => {
 
 const uid = useId()
 
-const idOf = computed(() => createId(uid))
-
-const groupName = computed(() => name || idOf.value("tabs"))
+const groupName = computed(() => name || `tabs-${uid}`)
 
 provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>

@@ -133,21 +133,6 @@ export const codesIn = (nodes) =>
     return []
   })
 
-export const testsIn = (nodes) =>
-  nodes.flatMap((node) =>
-    node.type === "if"
-      ? [
-          node.test,
-          ...testsIn(node.consequent),
-          ...testsIn(node.alternate ?? []),
-        ]
-      : node.type === "element" || node.type === "each"
-        ? testsIn(node.children)
-        : node.type === "slot"
-          ? testsIn(node.fallback)
-          : [],
-  )
-
 export const allCodes = (component) => [
   ...codesIn(component.tree),
   ...component.derived.map(({ code }) => code),

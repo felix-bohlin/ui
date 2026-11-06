@@ -168,11 +168,13 @@ export const toVue = (component) => {
   const template = {
     quote: "'",
     rename,
+    ids: component.ids,
     slotHas: (name) => `$slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
   }
   const script = {
     rename: scriptRename,
+    ids: component.ids,
     slotHas: (name) => `slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
   }

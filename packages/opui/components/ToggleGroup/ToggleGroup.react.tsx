@@ -5,7 +5,6 @@ import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
 import { selectionOf } from "./selection"
 import { warnUnnamedGroup } from "../dev"
-import { createId } from "../id"
 import type { Props } from "./types.react"
 
 export default function ToggleGroup({
@@ -28,8 +27,7 @@ export default function ToggleGroup({
     if (inner !== undefined) setInner(next)
     onValueChange?.(next as never)
   }
-  const idOf = createId(uid)
-  const groupName = name || idOf("toggle-group")
+  const groupName = name || `toggle-group-${uid}`
   const inputType = multiple ? "checkbox" : "radio"
   warnUnnamedGroup("ToggleGroup", rest)
 

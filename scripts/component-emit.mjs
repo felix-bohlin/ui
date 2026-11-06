@@ -52,24 +52,88 @@ const shadowedBy = (node) =>
     ? node.parameters.flatMap((parameter) => bindingNames(parameter.name))
     : []
 
+const templateOf = (head, spans) =>
+  ts.factory.createTemplateExpression(
+    ts.factory.createTemplateHead(head),
+    spans.map(([expression, text], index) =>
+      ts.factory.createTemplateSpan(
+        expression,
+        index === spans.length - 1
+          ? ts.factory.createTemplateTail(text)
+          : ts.factory.createTemplateMiddle(text),
+      ),
+    ),
+  )
+
+const generatedId = (prefix) =>
+  templateOf(`${prefix}-`, [[ts.factory.createIdentifier("uid"), ""]])
+
+const NO_IDS = { bases: new Map(), prefixes: new Set() }
+
+const grouped = (node) =>
+  ts.isBinaryExpression(node) || ts.isConditionalExpression(node)
+    ? ts.factory.createParenthesizedExpression(node)
+    : node
+
 const transformer =
   (
     sourceFile,
-    { quote = '"', rename = new Map(), slotHas = (name) => name, style } = {},
+    {
+      ids = NO_IDS,
+      quote = '"',
+      rename = new Map(),
+      slotHas = (name) => name,
+      style,
+    } = {},
   ) =>
   (context) =>
   (node) => {
     const scoped = (names) => {
       const inner = new Map(rename)
       names.forEach((name) => inner.delete(name))
-      return transformer(sourceFile, { quote, rename: inner, slotHas, style })(
-        context,
-      )
+      return transformer(sourceFile, {
+        ids,
+        quote,
+        rename: inner,
+        slotHas,
+        style,
+      })(context)
     }
     const visit = (child) => {
       const shadowed = shadowedBy(child).filter((name) => rename.has(name))
       if (shadowed.length > 0) {
         return ts.visitEachChild(child, scoped(shadowed), context)
+      }
+      const [part] = ts.isCallExpression(child) ? child.arguments : []
+      const named = part && ts.isStringLiteral(part) ? part.text : undefined
+      if (ts.isCallExpression(child) && ts.isIdentifier(child.expression)) {
+        const base = ids.bases.get(child.expression.text)
+        if (base && (!part || named !== undefined)) {
+          const value = expressionOf(rename.get(base) ?? base, quote)
+          return part ? templateOf("", [[value, `-${named}`]]) : value
+        }
+        if (ids.prefixes.has(child.expression.text) && named !== undefined) {
+          return generatedId(named)
+        }
+      }
+      if (
+        ts.isCallExpression(child) &&
+        ts.isCallExpression(child.expression) &&
+        ts.isIdentifier(child.expression.expression) &&
+        child.expression.expression.text === "createIds" &&
+        child.arguments.length === 1 &&
+        named !== undefined
+      ) {
+        const [, prefix, id] = child.expression.arguments
+        const fallback = generatedId(prefix.text)
+        const base = id
+          ? ts.factory.createBinaryExpression(
+              grouped(ts.visitNode(id, visit)),
+              ts.SyntaxKind.QuestionQuestionToken,
+              fallback,
+            )
+          : fallback
+        return templateOf("", [[base, `-${named}`]])
       }
       if (
         ts.isShorthandPropertyAssignment(child) &&

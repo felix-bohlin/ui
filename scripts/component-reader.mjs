@@ -53,6 +53,39 @@ const CONTEXT_MODULE = /^(?:\.\.\/([^/]+)|\.)\/context\.astro$/
 
 const SLOT_RENDER = /^Astro\.slots\.render\("([^"]+)"\)$/
 
+const ID_BASE = "base"
+const ID_FACTORIES = new Set(["createId", "createIds"])
+
+const idFactoryOf = (initializer, sourceFile) => {
+  if (
+    !ts.isCallExpression(initializer) ||
+    !ts.isIdentifier(initializer.expression) ||
+    !ID_FACTORIES.has(initializer.expression.text) ||
+    initializer.arguments[0]?.getText(sourceFile) !== "Astro.locals"
+  ) {
+    return undefined
+  }
+  const [, prefix, id] = initializer.arguments
+  if (initializer.expression.text === "createId") {
+    return initializer.arguments.length === 1 ? { kind: "prefix" } : undefined
+  }
+  return prefix &&
+    ts.isStringLiteral(prefix) &&
+    initializer.arguments.length <= 3
+    ? { id: id?.getText(sourceFile), kind: "base", prefix: prefix.text }
+    : undefined
+}
+
+const withoutIdFactories = (line) => {
+  const match = /^import \{([^}]*)\} from "\.\.\/id"$/.exec(line)
+  if (!match) return line
+  const names = match[1]
+    .split(",")
+    .map((name) => name.trim())
+    .filter((name) => name && !ID_FACTORIES.has(name))
+  return names.length ? `import { ${names.join(", ")} } from "../id"` : ""
+}
+
 const readFrontmatter = (code, file) => {
   const sourceFile = sourceFileOf(code)
   const result = {
@@ -60,6 +93,8 @@ const readFrontmatter = (code, file) => {
     contexts: [],
     derived: [],
     helpers: [],
+    idBases: [],
+    idPrefixes: [],
     imports: [],
     props: [],
     propsType: undefined,
@@ -269,6 +304,29 @@ const readFrontmatter = (code, file) => {
           "destructure what the statement needs and read the names",
         )
       }
+      const factory = simple ? idFactoryOf(initializer, sourceFile) : undefined
+      if (factory?.kind === "prefix") {
+        result.idPrefixes.push(declaration.name.text)
+        continue
+      }
+      if (factory?.kind === "base") {
+        if (result.idBases.length > 0) {
+          throw unsupported(file, `a second createIds in \`${text}\``)
+        }
+        result.idBases.push([declaration.name.text, ID_BASE])
+        const fallback = `\`${factory.prefix}-\${Astro.locals}\``
+        const truthy = /^(.+?)\s*\|\|\s*undefined$/.exec(factory.id ?? "")
+        result.derived.push({
+          code: truthy
+            ? `${truthy[1]} || ${fallback}`
+            : factory.id
+              ? `${/^[\w$.?]+$/.test(factory.id) ? factory.id : `(${factory.id})`} ?? ${fallback}`
+              : fallback,
+          fn: false,
+          name: ID_BASE,
+        })
+        continue
+      }
       if (
         simple &&
         contextCall(initializer, "get") &&
@@ -401,6 +459,18 @@ const readFrontmatter = (code, file) => {
   if (result.props.length === 0 && !result.rest) {
     throw unsupported(file, "no Astro.props destructuring")
   }
+  if (
+    result.idBases.length > 0 &&
+    [
+      ...result.props.map(({ local }) => local),
+      ...result.derived.map(({ name }) => name),
+    ].filter((name) => name === ID_BASE).length > 1
+  ) {
+    throw unsupported(file, `a \`${ID_BASE}\` next to createIds`)
+  }
+  result.imports = result.imports
+    .map((line) => withoutIdFactories(line))
+    .filter(Boolean)
   return result
 }
 
@@ -1000,10 +1070,59 @@ export const readComponent = async (source, file, api) => {
       "read a slot with Astro.slots.has(name), and props from the Astro.props destructuring",
     )
   }
+  const ids = {
+    bases: new Map(frontmatter.idBases),
+    prefixes: new Set(frontmatter.idPrefixes),
+  }
+  const idProblem = allCodes(component)
+    .map((code) => unloweredIdCall(code, ids))
+    .find(Boolean)
+  if (idProblem) {
+    throw unsupported(
+      file,
+      `an id factory used as \`${idProblem}\``,
+      'call createIds(Astro.locals, "prefix", id) once into a const and read it as ids() or ids("part"), or call it inline with one part',
+    )
+  }
   return {
     ...component,
-    uid: allCodes(component).some((code) => /\bAstro\.locals\b/.test(code)),
+    ids,
+    uid:
+      ids.prefixes.size > 0 ||
+      allCodes(component).some((code) => /\bAstro\.locals\b/.test(code)),
   }
+}
+
+const unloweredIdCall = (code, { bases, prefixes }) => {
+  const sourceFile = sourceFileOf(code)
+  const single = (call) =>
+    call.arguments.length === 1 && ts.isStringLiteral(call.arguments[0])
+  let problem
+  const visit = (node) => {
+    if (problem) return
+    if (ts.isIdentifier(node)) {
+      const parent = node.parent
+      const callee =
+        ts.isCallExpression(parent) && parent.expression === node
+          ? parent
+          : undefined
+      const allowed = bases.has(node.text)
+        ? callee && (callee.arguments.length === 0 || single(callee))
+        : prefixes.has(node.text)
+          ? callee && single(callee)
+          : ID_FACTORIES.has(node.text)
+            ? callee &&
+              ts.isCallExpression(callee.parent) &&
+              callee.parent.expression === callee &&
+              single(callee.parent) &&
+              idFactoryOf(callee, sourceFile)?.kind === "base"
+            : true
+      if (!allowed) problem = (callee?.parent ?? parent).getText(sourceFile)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+  return problem
 }
 
 const CONTROLS = new Set(["input", "select", "textarea"])

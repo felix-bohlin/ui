@@ -1,6 +1,6 @@
 "use client"
 
-import { type ElementType, useEffect } from "react"
+import { useEffect } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
@@ -30,8 +30,7 @@ export default function Textarea({
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
-  const root = label ? "label" : "div"
-  const Root: ElementType = root
+  const Root = label ? "label" : "div"
   useEffect(() => {
     void import("../../elements/character-count.js")
   }, [])

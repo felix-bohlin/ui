@@ -3,7 +3,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { createIds, idRefs } from "../id"
+  import { idRefs } from "../id"
   import { defaultValue } from "./value"
   import type { Props } from "./types.svelte"
 
@@ -41,7 +41,7 @@
   const field = getFieldGroupContext()
   const uid = $props.id()
   const initialValue = untrack(() => value)
-  const ids = $derived(createIds(uid, "range", id || undefined))
+  const base = $derived(id || `range-${uid}`)
   const hasLabel = $derived(!!label || label)
   const hasStartText = $derived(!!startText || startText)
   const hasEndText = $derived(!!endText || endText)
@@ -59,11 +59,11 @@
   const tickLabel = $derived(
     valueSuffix || typeof tick !== "object" ? undefined : tick.label,
   )
-  const inputId = $derived(id || (hasValue ? ids() : undefined))
-  const labelId = $derived(hasLabel ? ids("label") : undefined)
-  const startTextId = $derived(hasStartText ? ids("start-text") : undefined)
-  const endTextId = $derived(hasEndText ? ids("end-text") : undefined)
-  const listId = $derived(list ?? (hasDatalist ? ids("list") : undefined))
+  const inputId = $derived(id || (hasValue ? base : undefined))
+  const labelId = $derived(hasLabel ? `${base}-label` : undefined)
+  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
+  const listId = $derived(list ?? (hasDatalist ? `${base}-list` : undefined))
   const describedBy = $derived(idRefs(startTextId, endTextId, ariaDescribedBy))
 </script>
 

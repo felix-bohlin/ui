@@ -12,7 +12,7 @@ import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -80,16 +80,16 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const ids = computed(() => createIds(uid, "number-field", id))
+const base = computed(() => id ?? `number-field-${uid}`)
 
-const inputId = computed(() => ids.value())
+const inputId = computed(() => base.value)
 
 const startTextId = computed(() =>
-  startText || slots["start-text"] ? ids.value("start-text") : undefined,
+  startText || slots["start-text"] ? `${base.value}-start-text` : undefined,
 )
 
 const endTextId = computed(() =>
-  endText || slots["end-text"] ? ids.value("end-text") : undefined,
+  endText || slots["end-text"] ? `${base.value}-end-text` : undefined,
 )
 </script>
 

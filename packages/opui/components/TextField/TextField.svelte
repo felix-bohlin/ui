@@ -5,7 +5,7 @@
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { createIds, idRefs } from "../id"
+  import { idRefs } from "../id"
   import { hidePath, showPath } from "./icons"
   import type { Props } from "./types.svelte"
 
@@ -49,19 +49,19 @@
   const field = getFieldGroupContext()
   const uid = $props.id()
   const initialValue = untrack(() => value)
-  const ids = $derived(createIds(uid, "text-field", id))
+  const base = $derived(id ?? `text-field-${uid}`)
   const Root = $derived(
     passwordToggle ? "opui-text-field" : label ? "label" : "div",
   )
   const Label = $derived(passwordToggle ? "label" : "span")
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
-  const inputId = $derived(passwordToggle ? ids() : id)
+  const inputId = $derived(passwordToggle ? base : id)
   const startTextId = $derived(
-    passwordToggle && hasStartText ? ids("start-text") : undefined,
+    passwordToggle && hasStartText ? `${base}-start-text` : undefined,
   )
   const endTextId = $derived(
-    passwordToggle && hasEndText ? ids("end-text") : undefined,
+    passwordToggle && hasEndText ? `${base}-end-text` : undefined,
   )
 </script>
 

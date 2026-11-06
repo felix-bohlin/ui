@@ -23,7 +23,6 @@ import {
   chosenSpreadCode,
   isBlank,
   REACT_ATTRIBUTE_NAMES,
-  testsIn,
 } from "./component-shared.mjs"
 
 export const toReact = (component) => {
@@ -52,32 +51,16 @@ export const toReact = (component) => {
       !(kind?.inRest && local === component.model.local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
-  const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
-  const guardedTags = new Set(
-    testsIn(tree).filter((test) =>
-      tagConsts.some(({ name }) => name === test.trim()),
-    ),
-  )
-  const declared = new Set([
-    ...component.props.map(({ local }) => local),
-    ...slots.map((slot) => slotProp(slot)),
-    ...derived.map(({ name }) => name),
-    ...reads.map(({ name }) => name),
-  ])
-  const lowered = (name) => {
-    const camel = `${name[0].toLowerCase()}${name.slice(1)}`
-    return declared.has(camel) ? `${camel}Tag` : camel
-  }
   const rename = new Map([
     ...(kind?.rename?.(component.model) ?? []),
     ...props
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
-    ...tagConsts.map(({ name }) => [name, lowered(name)]),
     ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
   ])
   const options = {
     rename,
+    ids: component.ids,
     slotHas: (name) => slotProp(name),
     style: styleOption(component, "style ?? {}"),
   }
@@ -127,17 +110,10 @@ export const toReact = (component) => {
     ...(kind?.body?.(model) ?? []),
     ...tagProps.map(
       ({ local, prop, default: fallback }) =>
-        `const ${local}: ElementType = ${fallback ? `${prop} || ${fallback}` : prop}`,
+        `const ${local} = ${fallback ? `${prop} || ${fallback}` : prop}`,
     ),
-    ...derived.flatMap(({ code, name }) =>
-      variableTags.includes(name)
-        ? [
-            `const ${lowered(name)} = ${rewriteExpression(code, options)}`,
-            guardedTags.has(name)
-              ? `const ${name} = ${lowered(name)} as ElementType`
-              : `const ${name}: ElementType = ${lowered(name)}`,
-          ]
-        : [`const ${name} = ${rewriteExpression(code, options)}`],
+    ...derived.map(
+      ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
     ),
     ...warnings.map((code) => rewriteStatement(code, options)),
     ...(item
@@ -149,10 +125,11 @@ export const toReact = (component) => {
           ),
         ]
       : []),
-    ...scripts.map(
-      (specifier) =>
-        `useEffect(() => {\n  void import(${JSON.stringify(specifier)})\n}, [])`,
-    ),
+    ...(scripts.length
+      ? [
+          `useEffect(() => {\n${scripts.map((specifier) => `  void import(${JSON.stringify(specifier)})\n`).join("")}}, [])`,
+        ]
+      : []),
   ]
   let usesCx = false
   const attribute = (node, item) => {
@@ -302,12 +279,9 @@ export const toReact = (component) => {
     ...(uid ? ["useId"] : []),
     ...(kind?.reactValues?.() ?? []),
   ]
-  const usesElementType = tagProps.length > 0 || tagConsts.length > 0
   const reactImport = reactValues.length
-    ? `import { ${[...(usesElementType ? ["type ElementType"] : []), ...reactValues].join(", ")} } from "react"`
-    : usesElementType
-      ? `import type { ElementType } from "react"`
-      : undefined
+    ? `import { ${reactValues.join(", ")} } from "react"`
+    : undefined
   const importLines = [
     ...(reactImport ? [reactImport] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),

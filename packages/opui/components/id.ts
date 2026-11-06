@@ -1,10 +1,8 @@
-type Locals = string | { $id?: (prefix: string) => string }
+type Locals = { $id?: (prefix: string) => string }
 
 export const createId = (locals: Locals) =>
-  typeof locals === "string"
-    ? (prefix: string) => `${prefix}-${locals}`
-    : (locals.$id ??
-      ((prefix: string) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`))
+  locals.$id ??
+  ((prefix: string) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`)
 
 export const createIds = (
   locals: Locals,

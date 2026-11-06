@@ -1,4 +1,3 @@
-import type { ElementType } from "react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -12,7 +11,7 @@ export default function Card({
   children,
   ...rest
 }: Props) {
-  const Tag: ElementType = as || "div"
+  const Tag = as || "div"
 
   return (
     <Tag

@@ -13,7 +13,7 @@ import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { hidePath, showPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -85,7 +85,7 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const ids = computed(() => createIds(uid, "text-field", id))
+const base = computed(() => id ?? `text-field-${uid}`)
 
 const Root = computed(() =>
   passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div",
@@ -99,14 +99,14 @@ const hasEndText = computed(() =>
   Boolean(endText || slots["end-text"] || characterCount),
 )
 
-const inputId = computed(() => (passwordToggle ? ids.value() : id))
+const inputId = computed(() => (passwordToggle ? base.value : id))
 
 const startTextId = computed(() =>
-  passwordToggle && hasStartText.value ? ids.value("start-text") : undefined,
+  passwordToggle && hasStartText.value ? `${base.value}-start-text` : undefined,
 )
 
 const endTextId = computed(() =>
-  passwordToggle && hasEndText.value ? ids.value("end-text") : undefined,
+  passwordToggle && hasEndText.value ? `${base.value}-end-text` : undefined,
 )
 </script>
 

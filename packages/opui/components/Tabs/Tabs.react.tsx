@@ -3,7 +3,6 @@
 import { useId, useState } from "react"
 import { cx } from "../cx"
 import { TabsContext } from "./context.react"
-import { createId } from "../id"
 import type { Props } from "./types.react"
 
 export default function Tabs({
@@ -24,8 +23,7 @@ export default function Tabs({
     if (inner !== undefined) setInner(next)
     onValueChange?.(next)
   }
-  const idOf = createId(uid)
-  const groupName = name || idOf("tabs")
+  const groupName = name || `tabs-${uid}`
 
   return (
     <TabsContext value={{ change, groupName, value: value ?? inner }}>

@@ -3,7 +3,6 @@
 import { useId } from "react"
 import { cx } from "../cx"
 import { TabsContext, useTabsContext } from "./context.react"
-import { createId } from "../id"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
 import type { TabsItemProps as Props } from "./types.react"
@@ -21,9 +20,8 @@ export default function TabsItem({
 }: Props) {
   const parent = useTabsContext()
   const uid = useId()
-  const idOf = createId(uid)
-  const groupName = name || parent?.groupName || idOf("tabs")
-  const tabId = id || idOf("tab")
+  const groupName = name || parent?.groupName || `tabs-${uid}`
+  const tabId = id || `tab-${uid}`
   const grouped = isSelected(parent?.value, value)
   warnGroupedChecked("TabsItem", grouped, checked ?? defaultChecked, "Tabs")
 

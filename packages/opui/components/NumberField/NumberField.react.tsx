@@ -4,7 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import type { Props } from "./types.react"
 
@@ -32,10 +32,10 @@ export default function NumberField({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const ids = createIds(uid, "number-field", id)
-  const inputId = ids()
-  const startTextId = startText ? ids("start-text") : undefined
-  const endTextId = endText ? ids("end-text") : undefined
+  const base = id ?? `number-field-${uid}`
+  const inputId = base
+  const startTextId = startText ? `${base}-start-text` : undefined
+  const endTextId = endText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/number-field.js")
   }, [])

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setFieldsetContext } from "./context.svelte"
-  import { autoLabelledBy, createIds } from "../id"
+  import { autoLabelledBy } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -17,7 +17,7 @@
   const legendId = $derived(
     isFieldset
       ? undefined
-      : autoLabelledBy(rest, createIds(uid, "fieldset", rest.id)("legend")),
+      : autoLabelledBy(rest, `${rest.id ?? `fieldset-${uid}`}-legend`),
   )
   setFieldsetContext({
     get legendId() {

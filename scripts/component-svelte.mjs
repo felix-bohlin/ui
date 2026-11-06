@@ -41,6 +41,7 @@ export const toSvelte = (component) => {
     rename: new Map(
       trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
     ),
+    ids: component.ids,
     slotHas: (name) => slotProp(name),
   }
   const props = component.props.filter(

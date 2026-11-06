@@ -1,10 +1,10 @@
 "use client"
 
-import { type ElementType, useEffect, useId } from "react"
+import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { hidePath, showPath } from "./icons"
 import type { Props } from "./types.react"
 
@@ -43,21 +43,18 @@ export default function TextField({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const ids = createIds(uid, "text-field", id)
-  const root = passwordToggle ? "opui-text-field" : label ? "label" : "div"
-  const Root: ElementType = root
-  const labelTag = passwordToggle ? "label" : "span"
-  const Label: ElementType = labelTag
+  const base = id ?? `text-field-${uid}`
+  const Root = passwordToggle ? "opui-text-field" : label ? "label" : "div"
+  const Label = passwordToggle ? "label" : "span"
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
-  const inputId = passwordToggle ? ids() : id
+  const inputId = passwordToggle ? base : id
   const startTextId =
-    passwordToggle && hasStartText ? ids("start-text") : undefined
-  const endTextId = passwordToggle && hasEndText ? ids("end-text") : undefined
+    passwordToggle && hasStartText ? `${base}-start-text` : undefined
+  const endTextId =
+    passwordToggle && hasEndText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/character-count.js")
-  }, [])
-  useEffect(() => {
     void import("../../elements/text-field.js")
   }, [])
 

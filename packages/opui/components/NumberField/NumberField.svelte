@@ -4,7 +4,7 @@
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { createIds, idRefs } from "../id"
+  import { idRefs } from "../id"
   import { minusPath, plusPath } from "./icons"
   import type { Props } from "./types.svelte"
 
@@ -37,10 +37,10 @@
   const field = getFieldGroupContext()
   const uid = $props.id()
   const initialValue = untrack(() => value)
-  const ids = $derived(createIds(uid, "number-field", id))
-  const inputId = $derived(ids())
-  const startTextId = $derived(startText ? ids("start-text") : undefined)
-  const endTextId = $derived(endText ? ids("end-text") : undefined)
+  const base = $derived(id ?? `number-field-${uid}`)
+  const inputId = $derived(base)
+  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
 </script>
 
 <opui-number-field

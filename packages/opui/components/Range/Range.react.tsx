@@ -3,7 +3,7 @@
 import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { defaultValue } from "./value"
 import type { Props } from "./types.react"
 
@@ -36,7 +36,7 @@ export default function Range({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const ids = createIds(uid, "range", id || undefined)
+  const base = id || `range-${uid}`
   const hasLabel = !!label || label
   const hasStartText = !!startText || startText
   const hasEndText = !!endText || endText
@@ -52,11 +52,11 @@ export default function Range({
   )
   const tickLabel =
     valueSuffix || typeof tick !== "object" ? undefined : tick.label
-  const inputId = id || (hasValue ? ids() : undefined)
-  const labelId = hasLabel ? ids("label") : undefined
-  const startTextId = hasStartText ? ids("start-text") : undefined
-  const endTextId = hasEndText ? ids("end-text") : undefined
-  const listId = list ?? (hasDatalist ? ids("list") : undefined)
+  const inputId = id || (hasValue ? base : undefined)
+  const labelId = hasLabel ? `${base}-label` : undefined
+  const startTextId = hasStartText ? `${base}-start-text` : undefined
+  const endTextId = hasEndText ? `${base}-end-text` : undefined
+  const listId = list ?? (hasDatalist ? `${base}-list` : undefined)
   const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
   useEffect(() => {
     void import("../../css/js/range.js")

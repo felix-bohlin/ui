@@ -81,26 +81,20 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
 >
   <Fragment slot="title">Drawer</Fragment>
   <Fragment slot="preamble">
-    Slides in from the sides, top or bottom of the screen. Good for navigation,
-    filters and side content. For a question or a short task that needs the
-    user's full attention, use a
-    <DocLink href="/components/dialog">Dialog</DocLink>.
+    Slides in from an edge of the screen. For a task that needs full attention,
+    use a <DocLink href="/components/dialog">Dialog</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Navigation, especially on small screens.</li>
-    <li slot="when">Filters or settings for the content on the page.</li>
-    <li slot="when">
-      The details of an item, like a preview, without leaving the list.
-    </li>
+    <li slot="when">Filters or settings for the page.</li>
+    <li slot="when">Item details without leaving the list.</li>
     <li slot="when-not">
-      A question or a short task that needs the user's full attention. Use a
+      A task that needs full attention: use a
       <DocLink href="/components/dialog">Dialog</DocLink>.
     </li>
     <li slot="when-not">
-      Content that people use together with the page. The drawer opens as a
-      modal and makes the page behind it inert, so put that content in the page,
-      like a sidebar.
+      Content used together with the page: the drawer makes the page inert.
     </li>
   </Usage>
 
@@ -109,110 +103,31 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     <Conditional as="div">
       <Fragment slot="components">
         <p>
-          Change the opening side with the <code>side</code> prop. The default
-          is <code>inline-start</code>.
+          Opens from <code>inline-start</code> by default. Use <code>side</code>
+          to change it.
         </p>
         <p>
-          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code>
-          and <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a
-          close button. Put a <code>DrawerTitle</code> in it for the heading,
-          which names the drawer, and more buttons before the close button,
-          which line up at the end. The title is <code>--ui-font-size-h4</code>,
-          like the Dialog title; set <code>--_title-font-size</code> on the
-          drawer to change it. Give the drawer an <code>id</code>, which the
-          trigger's <code>commandfor</code> points at.
-        </p>
-        <p>
-          The header and the footer stay put while the content scrolls, with a
-          shadow on the scrolled edge. The content is a stack with
-          <code>--ui-space-3</code> between its children, like a Dialog's,
-          unless it has inline children such as links. The footer is a row for
-          buttons, text or anything else. Its content lines up at the end, and
-          <code>align="start"</code> on <code>DrawerFooter</code> moves it to
-          the start, as in the inline start drawer. Wrap the buttons in
-          <code>.ui-actions</code> to keep them together at the end when other
-          content comes first, as in the block end drawer.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use
-          <code>backdrop="transparent"</code> to keep the page behind it fully
-          visible, as in the inline end drawer.
-        </p>
-        <p>
-          Set <code>scrollLock</code> to lock page scrolling while the drawer is
-          open. With a transparent backdrop the page stays scrollable, except on
-          screens narrower than <code>31.25rem</code>, 500px at the default font
-          size, where the drawer covers most of the page.
+          Use <code>backdrop="transparent"</code> and <code>scrollLock</code>
+          for the page behind it.
         </p>
       </Fragment>
       <Fragment slot="html">
         <p>
-          A drawer opens from the inline start by default. Change the side with
-          the <code>.ui-inline-end</code>, <code>.ui-block-start</code> and
-          <code>.ui-block-end</code> classes.
+          Opens from the inline start by default. Use <code>.ui-inline-end</code
+          >, <code>.ui-block-start</code> or <code>.ui-block-end</code> to
+          change it.
         </p>
         <p>
-          Put the heading and more buttons before the close button in
-          <code>.ui-header</code>; the buttons line up at the end. The heading
-          is <code>--ui-font-size-h4</code>, like the Dialog title; set
-          <code>--_title-font-size</code> on the drawer to change it.
-        </p>
-        <p>
-          <code>.ui-header</code> and <code>.ui-footer</code> stay put while
-          <code>.ui-content</code> scrolls, with a shadow on the scrolled edge.
-          The content is a stack with <code>--ui-space-3</code> between its
-          children, like a Dialog's, unless it has inline children such as
-          links. The footer is a row for buttons, text or anything else. Its
-          content lines up at the end, and <code>.ui-align-start</code> moves it
-          to the start, as in the inline start drawer. Wrap the buttons in
-          <code>.ui-actions</code> to keep them together at the end when other
-          content comes first, as in the block end drawer.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use the
-          <code>.ui-backdrop-transparent</code> class to keep the page behind it
-          fully visible, as in the inline end drawer.
-        </p>
-        <p>
-          Add the <code>.ui-scroll-lock</code> utility class from
-          <code>core/utils.css</code> to the drawer to lock page scrolling while
-          it's open. With <code>.ui-backdrop-transparent</code> the page stays
-          scrollable, except on screens narrower than <code>31.25rem</code>,
-          500px at the default font size, where the drawer covers most of the
-          page. Omit the class to allow background scrolling.
+          Use <code>.ui-backdrop-transparent</code> and
+          <code>.ui-scroll-lock</code> for the page behind it.
         </p>
       </Fragment>
     </Conditional>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Safari doesn't make a scroll container focusable, so when the content
-        holds only text, a keyboard can't reach it to scroll. Give the
-        <code>DrawerContent</code> <code>tabindex="0"</code>,
-        <code>role="region"</code> and an <code>aria-label</code> that names
-        what scrolls, as in the inline end drawer.
-      </Fragment>
-      <Fragment slot="react">
-        Safari doesn't make a scroll container focusable, so when the content
-        holds only text, a keyboard can't reach it to scroll. Give the
-        <code>DrawerContent</code> <code>{"tabIndex={0}"}</code>,
-        <code>role="region"</code> and an <code>aria-label</code> that names
-        what scrolls, as in the inline end drawer.
-      </Fragment>
-      <Fragment slot="svelte">
-        Safari doesn't make a scroll container focusable, so when the content
-        holds only text, a keyboard can't reach it to scroll. Give the
-        <code>DrawerContent</code> <code>{"tabindex={0}"}</code>,
-        <code>role="region"</code> and an <code>aria-label</code> that names
-        what scrolls, as in the inline end drawer.
-      </Fragment>
-      <Fragment slot="html">
-        Safari doesn't make a scroll container focusable, so when the content
-        holds only text, a keyboard can't reach it to scroll. Give
-        <code>.ui-content</code> <code>tabindex="0"</code>,
-        <code>role="region"</code> and an <code>aria-label</code> that names
-        what scrolls, as in the inline end drawer.
-      </Fragment>
-    </Conditional>
+    <p>
+      Content with only text needs <code>tabindex="0"</code>,
+      <code>role="region"</code> and an <code>aria-label</code> to scroll by
+      keyboard in Safari.
+    </p>
     <AutoExample name="Basics" column />
 
     <BlockLink slug="app-shell">
@@ -225,29 +140,9 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
     <h2>Close button</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The close button in <code>DrawerHeader</code> is named "Close".
-        Translate it with <code>closeLabel</code>. Put your own icon in the
-        <code>close-icon</code> slot, with <code>aria-hidden="true"</code> since
-        the label names the button.
+        Translate it with <code>closeLabel</code>.
       </Fragment>
-      <Fragment slot="html">
-        The close button is named by its <code>aria-label</code>, so translate
-        that. Its icon is the <code>svg</code> inside it: put your own in its
-        place, with <code>aria-hidden="true"</code> since the label names the
-        button.
-      </Fragment>
-      <Fragment slot="react">
-        The close button in <code>DrawerHeader</code> is named "Close".
-        Translate it with <code>closeLabel</code>. Put your own icon in the
-        <code>closeIcon</code> prop, with <code>aria-hidden="true"</code> since
-        the label names the button.
-      </Fragment>
-      <Fragment slot="svelte">
-        The close button in <code>DrawerHeader</code> is named "Close".
-        Translate it with <code>closeLabel</code>. Put your own icon in the
-        <code>closeIcon</code> snippet, with <code>aria-hidden="true"</code>
-        since the label names the button.
-      </Fragment>
+      <Fragment slot="html"> Translate its <code>aria-label</code>. </Fragment>
     </Conditional>
   </section>
 
@@ -287,25 +182,18 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
       <li>
         <Conditional>
           <Fragment slot="components"
-            >The <code>DrawerTitle</code> names the drawer through
-            <code>aria-labelledby</code>. A drawer without one needs an
-            <code>aria-label</code>. Pass <code>aria-labelledby</code> to name
-            it after another element.</Fragment
+            >Without a <code>DrawerTitle</code>, add an <code>aria-label</code
+            >.</Fragment
           >
           <Fragment slot="html"
-            >Name the drawer with <code>aria-labelledby</code> pointing at the
-            heading's <code>id</code>, not at <code>.ui-header</code>, which
-            also holds the close button.</Fragment
+            >Point <code>aria-labelledby</code> at the heading, not
+            <code>.ui-header</code>.</Fragment
           >
         </Conditional>
       </li>
       <li>
-        The <code>autofocus</code> attribute should be added to the element the
-        user is expected to interact with immediately upon opening a modal
-        dialog. If no other element involves more immediate interaction, it is
-        recommended to add autofocus to the close button inside the dialog, or
-        the dialog itself if the user is expected to click/activate it to
-        dismiss.
+        Put <code>autofocus</code> on the first thing to interact with, or the
+        close button.
       </li>
     </ul>
 

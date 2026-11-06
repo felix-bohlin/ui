@@ -5,6 +5,7 @@ import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import TooltipCSS from "@opui/css/components/tooltip.css?raw"
@@ -57,39 +58,30 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">
     <p>
-      A short label or hint for a control, shown on hover, focus or a long
-      press, and positioned with
+      A short hint on hover, focus or long press, positioned with
       <DocLink href="/components/anchor">Anchor</DocLink>.
     </p>
     <Conditional as="p">
       <Fragment slot="components">
-        Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
-        <code>id</code>. Set <code>interestfor</code> with that id on the
-        trigger element itself (it only works on real invokers like{" "}
-        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
-        in <code>TooltipContent</code> after the trigger.
+        Set <code>interestfor</code> on the trigger to the tooltip's
+        <code>id</code>.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-tooltip</code> class to the wrapper. Give the
-        <code>.ui-floating</code> element <code>popover="hint"</code> and an id,
-        and add <code>interestfor</code> with that id to the trigger.
+        Set <code>interestfor</code> on the trigger to the
+        <code>popover="hint"</code>'s id.
       </Fragment>
     </Conditional>
   </Fragment>
 
   <Usage slot="usage">
-    <li slot="when">
-      A visible label for an icon-only button that already has an
-      <code>aria-label</code>, like Save.
-    </li>
-    <li slot="when">A hint or a keyboard shortcut for a control.</li>
+    <li slot="when">A visible label for an icon-only button.</li>
+    <li slot="when">A hint or a keyboard shortcut.</li>
     <li slot="when-not">
-      Information people need to finish their task. The tooltip only shows on
-      hover, focus or a long press, so put it on the page, or in a
+      Information needed to finish a task: put it on the page, or in a
       <a href="#toggletip">toggletip</a>.
     </li>
     <li slot="when-not">
-      Links, buttons or other interactive content. Use an
+      Interactive content: use an
       <DocLink href="/components/anchor#hover-trigger">Anchor</DocLink> hover
       card or a <DocLink href="/components/menu">Menu</DocLink>.
     </li>
@@ -98,57 +90,26 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <section id="basics">
     <h2>Basics</h2>
     <h3 id="text-only">Text</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Put plain text in <code>TooltipContent</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Set the tooltip text inside <code>.ui-floating[popover="hint"]</code>.
-      </Fragment>
-    </Conditional>
 
     <AutoExample name="Basics" centered />
 
     <h3 id="rich-content">Rich content</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        <code>TooltipContent</code> takes any markup, not only text.
-      </Fragment>
-      <Fragment slot="html">
-        <code>.ui-floating[popover="hint"]</code> takes any markup, not only
-        text.
-      </Fragment>
-    </Conditional>
 
     <AutoExample name="RichContent" centered />
   </section>
 
   <section id="position">
     <h2>Position</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>positionArea</code> to any <code>position-area</code> value.
-      </Fragment>
-      <Fragment slot="html">
-        Set <code>--ui-anchor-position-area</code> on the parent with your
-        preferred {" "}<code>position-area</code> value.
-      </Fragment>
-    </Conditional>
+    <p>
+      Use <PropOrClass prop="positionArea" class="--ui-anchor-position-area" />.
+    </p>
 
     <AutoExample name="Position" row spacious />
   </section>
 
   <section id="arrow">
     <h2>Arrow</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>arrow</code> for an arrow that points to the trigger.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>.ui-arrow</code> to the <code>.ui-tooltip</code> for an arrow
-        that points to the trigger.
-      </Fragment>
-    </Conditional>
+    <p>Use <PropOrClass prop="arrow" class=".ui-arrow" />.</p>
 
     <AutoExample name="Arrow" centered />
   </section>
@@ -156,13 +117,8 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <section id="toggletip">
     <h2>Toggletip</h2>
     <p>
-      A button whose only job is to show the text, like an info button, can
-      toggle the tooltip on a press. Add <code>commandfor</code> and
-      <code>command="toggle-popover"</code> with the tooltip's id next to
-      <code>interestfor</code>, so a tap or a click opens it in every browser
-      with Invoker Commands, touch screens without interest invokers included.
-      Keep them off buttons that act, like Save: a press would run the action
-      and toggle the tooltip at once.
+      Add <code>command="toggle-popover"</code> to open it on a press. Only on
+      buttons that do nothing else.
     </p>
 
     <AutoExample name="Toggletip" centered />
@@ -171,26 +127,9 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Chromium exposes the tooltip text as the trigger's description, but only
-        while the tooltip is shown, and other browsers not at all. The examples
-        also point the trigger at the tooltip with <code>aria-describedby</code
-        >, which gives the description in every browser, before the tooltip
-        shows too, and Chromium still reads it once. Put what the user must know
-        in the trigger's own name, like an <code>aria-label</code> on an
-        icon-only button.
+        Point the trigger at the tooltip with <code>aria-describedby</code>.
       </li>
-      <li>
-        On a <a href="#toggletip">toggletip</a>, <code>commandfor</code> ties
-        the button to the tooltip, so Chromium also reports it as collapsed or
-        expanded.
-      </li>
-      <li>
-        In browsers without interest invokers, the compat layer shows the
-        tooltip while its trigger is hovered or has keyboard focus. It isn't in
-        the top layer there, so an ancestor that clips its overflow and has a
-        transform, filter or containment can hide it, later content can cover
-        it, and <kbd>Esc</kbd> doesn't close it.
-      </li>
+      <li>Put what the user must know in the trigger's own name.</li>
     </ul>
     <KeyboardSupport />
   </Fragment>

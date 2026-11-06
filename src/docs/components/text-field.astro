@@ -61,115 +61,60 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   <Fragment slot="title">Text field</Fragment>
 
   <Usage slot="usage">
+    <li slot="when">Short free text, like a name or a search.</li>
     <li slot="when">
-      Short free text, like a name, an email address or a search.
-    </li>
-    <li slot="when">
-      Numbers that are really text, like a card number or a code, with
+      Numbers that are text, like a card number:
       <a href="#numeric-vs-input-type-number"
         ><code>inputmode="numeric"</code></a
-      >
-      instead of <code>type="number"</code>.
+      >.
     </li>
     <li slot="when">
-      Free text with suggestions, with a
+      Free text with suggestions:
       <a href="#autosuggest"><code>&lt;datalist&gt;</code></a>.
     </li>
     <li slot="when-not">
-      Text that runs over several lines, like a comment. Use a
+      Several lines: use a
       <DocLink href="/components/textarea">Textarea</DocLink>.
     </li>
     <li slot="when-not">
-      Picking from a fixed list. Use a
-      <DocLink href="/components/select">Select</DocLink>.
+      A fixed list: use a <DocLink href="/components/select">Select</DocLink>.
     </li>
     <li slot="when-not">
-      A value on a scale, like volume, or an amount you step, like a quantity.
-      Use a <DocLink href="/components/range">Range</DocLink> or a
+      A scale or a quantity: use a
+      <DocLink href="/components/range">Range</DocLink> or a
       <DocLink href="/components/number-field">Number field</DocLink>.
     </li>
   </Usage>
 
   <section id="variants">
     <h2>Variants</h2>
-    <Conditional as="div">
-      <p slot="components">
-        Text fields are outlined by default. Set <code>variant="filled"</code>
-        for a filled field.
-      </p>
-      <p slot="html">
-        Text fields are outlined by default. Add <code>.ui-filled</code> for a
-        filled field.
-      </p>
-    </Conditional>
+    <p>
+      Outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      field.
+    </p>
     <AutoExample name="Variants" row />
   </section>
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Choose between four sizes with the <code>size</code> prop:
-        <code>x-small</code>, <code>small</code>, <code>medium</code> (the
-        default) and <code>large</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Choose between four sizes: <code>.ui-x-small</code>,
-        <code>.ui-small</code>, default and <code>.ui-large</code>.
-      </Fragment>
-    </Conditional>
-    <p>
-      On touch screens, x-small and small fields keep the default text size
-      (<code>--ui-font-size-control</code>, 16px), so iOS Safari doesn't zoom in
-      when one is focused.
-    </p>
     <AutoExample name="Sizes" row />
   </section>
 
   <section id="hidden-label">
     <h2>Hidden label</h2>
     <p>
-      Where the context names the field, like a search box in a toolbar or a
-      field in a table cell,
-      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label and
-      keeps it as the field's accessible name.
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
+      keeps the accessible name.
     </p>
     <AutoExample name="HiddenLabel" />
-    <Conditional as="p">
-      <Fragment slot="components">
-        Without a <code>label</code>, the root is a <code>&lt;div&gt;</code>
-        instead of a <code>&lt;label&gt;</code>, so name the input with
-        <code>aria-label</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Without a label, put <code>.ui-text-field</code> on a
-        <code>&lt;div&gt;</code> and name the input with <code>aria-label</code
-        >.
-      </Fragment>
-    </Conditional>
+    <p>Without a label, add <code>aria-label</code>.</p>
     <AutoExample name="NoLabel" />
   </section>
 
   <section id="start-text">
     <h2>Start text</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use the <code>startText</code> prop or <code>start-text</code> slot for
-        text between the label and the input.
-      </Fragment>
-      <Fragment slot="html">
-        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
-        {" "}<code>.ui-field</code> for text between the label and the input.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>startText</code> prop for text between the label and the
-        input.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>startText</code> prop or snippet for text between the
-        label and the input.
-      </Fragment>
-    </Conditional>
+    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
     <AutoExample name="StartText" row />
   </section>
 
@@ -180,91 +125,26 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
   <section id="character-count">
     <h2>Character count</h2>
-    <Conditional as="div">
-      <p slot="components">
-        With <code>maxlength</code>, set <code>characterCount</code> to show the
-        characters typed out of the limit at the end of the end text. Once 10%
-        or 10 characters are left, whichever is more, a pause in typing
-        announces how many are left. Pass the words, translated, as
-        <code>characterCountLabel</code>, with <code>{"{count}"}</code> where
-        the number goes ("Characters left: {"{count}"}" by default). In Svelte,
-        pass it as an expression, like
-        <code>{'characterCountLabel={"{count} left"}'}</code>, since Svelte
-        reads braces in a string.
-      </p>
-      <p slot="html">
-        With <code>maxlength</code>, add
-        <code
-          >&lt;opui-character-count class="ui-value"
-          aria-hidden="true"&gt;</code
-        >
-        at the end of <code>.ui-end-text</code> and import
-        <code>opui-css/elements/character-count.js</code>. It shows the
-        characters typed out of the limit, and once 10% or 10 characters are
-        left, whichever is more, a pause in typing announces how many are left.
-        Set the words, translated, as its <code>label</code>, with
-        <code>{"{count}"}</code> where the number goes ("Characters left:
-        {"{count}"}" by default).
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        With <code>maxlength</code>, set <code>characterCount</code>.
+      </Fragment>
+      <Fragment slot="html">
+        With <code>maxlength</code>, import
+        <code>opui-css/elements/character-count.js</code>.
+      </Fragment>
     </Conditional>
-    <p>
-      The visible count is <code>aria-hidden</code>, so it doesn't join the
-      field's name on every keystroke. The announcement comes from one live
-      region the element adds to the page, outside the label.
-    </p>
     <AutoExample name="CharacterCount" centered />
   </section>
 
   <section id="password-toggle">
     <h2>Password toggle</h2>
-    <Conditional as="div">
-      <p slot="components">
-        On a <code>type="password"</code> field, <code>passwordToggle</code>
-        adds a button at the end that shows and hides the password. It's named
-        by <code>passwordToggleLabel</code> ("Show password" by default) and
-        pressed while the password shows. The password hides again when the form
-        is submitted or reset.
-      </p>
-      <p slot="html">
-        On a <code>type="password"</code> field, a <code>.ui-button</code> in
-        <code>.ui-end</code> with <code>aria-pressed="false"</code>,
-        <code>commandfor</code> naming the input and
-        <code>command="--toggle-password"</code> shows and hides the password,
-        once <code>opui-css/elements/text-field.js</code> is imported. The
-        password hides again when the form is submitted or reset.
-      </p>
-    </Conditional>
     <Conditional as="p">
-      <Fragment slot="components">
-        The button shows an eye while the password is hidden and a crossed-out
-        eye while it shows. Put your own icons in the
-        <code>icon-unchecked</code> and <code>icon-checked</code> slots.
-      </Fragment>
+      <Fragment slot="components"> Set <code>passwordToggle</code>. </Fragment>
       <Fragment slot="html">
-        The button holds an eye <code>svg</code> with
-        <code>.ui-icon-unchecked</code>, shown while the password is hidden, and
-        a crossed-out eye with <code>.ui-icon-checked</code>, shown while it
-        shows. Put your own icons in their place, with the same classes.
-      </Fragment>
-      <Fragment slot="react">
-        The button shows an eye while the password is hidden and a crossed-out
-        eye while it shows. Put your own icons in the <code>iconUnchecked</code>
-        and <code>iconChecked</code> props.
-      </Fragment>
-      <Fragment slot="svelte">
-        The button shows an eye while the password is hidden and a crossed-out
-        eye while it shows. Put your own icons in the <code>iconUnchecked</code>
-        and <code>iconChecked</code> snippets.
+        Import <code>opui-css/elements/text-field.js</code>.
       </Fragment>
     </Conditional>
-    <p>
-      A button inside a <code>&lt;label&gt;</code> would join the field's name,
-      like "Password Show password". So the root is the
-      <code>&lt;opui-text-field&gt;</code> custom element with a
-      <code>&lt;label for&gt;</code>, and the end text describes the input
-      through <code>aria-describedby</code>. Until the element loads, the button
-      is hidden.
-    </p>
     <AutoExample name="PasswordToggle" row />
   </section>
 
@@ -272,40 +152,18 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h2>Affix</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Use the <code>start</code>, <code>end</code>, <code>top</code>, and
-        <code>bottom</code> slots to affix content inside the field's border.
-        Start and end sit beside the input, while top and bottom span the
-        field's full width with a divider.
+        Use <code>start</code>, <code>end</code>, <code>top</code> and
+        <code>bottom</code>.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>,
-        or{" "} <code>.ui-bottom</code> elements inside <code>.ui-field</code>
-        to affix content inside the field's border. Start and end sit beside the
-        input, while top and bottom span the field's full width with a divider.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>start</code>, <code>end</code>, <code>top</code>, and
-        <code>bottom</code> props to affix content inside the field's border.
-        Start and end sit beside the input, while top and bottom span the
-        field's full width with a divider.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>start</code>, <code>end</code>, <code>top</code>, and
-        <code>bottom</code> snippets to affix content inside the field's border.
-        Start and end sit beside the input, while top and bottom span the
-        field's full width with a divider.
+        Use <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>
+        and <code>.ui-bottom</code>.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" column />
 
     <h3 id="top-and-bottom">Top and bottom</h3>
-    <p>
-      Use the top for captions inside the field, like a filename or a category,
-      and the bottom for hints. For a live count, use the
-      <a href="#character-count">character count</a>, which sits in the end
-      text.
-    </p>
 
     <AutoExample name="TopAndBottom" column />
   </section>
@@ -314,31 +172,16 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Astro renders the field on the server, so it has no bound value. The
-        value lives in the <code>input</code>: read it in a script on
-        <code>input</code>, or submit it with a form. Set
-        <code>input.value = input.defaultValue</code> to go back to the
-        <code>value</code> prop.
+        No bound value: read the <code>input</code> in a script.
       </Fragment>
       <Fragment slot="html">
-        The value lives in the <code>input</code>: read it in a script on
-        <code>input</code>, or submit it with a form. Set
-        <code>input.value = input.defaultValue</code> to go back to the value in
-        the markup.
+        Read the <code>input</code> in a script.
       </Fragment>
       <Fragment slot="react">
-        Keep the value in your own state. Pass <code>value</code> and an
-        <code>onChange</code> that stores <code>event.currentTarget.value</code
-        >, or <code>defaultValue</code> to leave the input in charge.
+        Use <code>value</code> and <code>onChange</code>.
       </Fragment>
-      <Fragment slot="svelte">
-        Bind the value with <code>bind:value</code>. Changing the field updates
-        the variable, and setting the variable updates the field.
-      </Fragment>
-      <Fragment slot="vue">
-        Bind the value with <code>v-model</code>. Changing the field updates the
-        ref, and setting the ref updates the field.
-      </Fragment>
+      <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
+      <Fragment slot="vue">Use <code>v-model</code>.</Fragment>
     </Conditional>
     <AutoExample name="Binding" column />
   </section>
@@ -352,18 +195,10 @@ export const keywords = ["email", "input", "password", "search", "text box"]
 
   <section id="spread">
     <h2>Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use the <code>spread</code> boolean prop to display the label and start
-        text on the left with the input on the right. The layout collapses to a
-        column on narrow containers.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and start
-        text on the left with the input on the right. The layout collapses to a
-        column on narrow containers.
-      </Fragment>
-    </Conditional>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
+      input.
+    </p>
 
     <AutoExample name="Spread" column spacious />
   </section>
@@ -371,8 +206,8 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   <section id="auto-fit">
     <h2>Auto-fit</h2>
     <p>
-      Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's
-      width follow its content, from <code>25ch</code>.
+      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> sizes the field to its
+      content.
     </p>
 
     <AutoExample name="AutoFit" class="flex" />
@@ -397,30 +232,13 @@ export const keywords = ["email", "input", "password", "search", "text box"]
       >
     </AutoExample>
 
-    <div class="ui-not-rich-text">
-      <UICallout>
-        <UICalloutContent>
-          <h3>Date inputs</h3>
-          <div class="ui-rich-text">
-            Date and time inputs never look empty: the browser fills them with
-            the format, such as mm/dd/yyyy, and ignores <code>placeholder</code
-            >.
-          </div>
-        </UICalloutContent>
-      </UICallout>
-    </div>
-
     <h3 id="numeric-vs-input-type-number">
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
     <Conditional as="p">
-      <Fragment slot="components">
-        <code>type="numeric"</code> renders a text input with
-        <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
-      </Fragment>
+      <Fragment slot="components"> Use <code>type="numeric"</code>. </Fragment>
       <Fragment slot="html">
-        Give a text input <code>inputmode="numeric"</code> and
-        <code>pattern="[0-9]*"</code>.
+        Use <code>inputmode="numeric"</code> and <code>pattern="[0-9]*"</code>.
       </Fragment>
     </Conditional>
 
@@ -433,37 +251,13 @@ export const keywords = ["email", "input", "password", "search", "text box"]
           <h3>Use <code>&lt;input type="number"&gt;</code> only for amounts</h3>
           <div class="ui-rich-text">
             <p>
-              <code>&lt;input type="number"&gt;</code> fits an amount you count
-              or step, like a quantity, which the
-              <DocLink href="/components/number-field">Number field</DocLink>
-              covers. Card numbers, IDs and codes are text made of digits: use
-              <code
-                >&lt;input type="text" inputmode="numeric"
-                pattern="[0-9]*"&gt;</code
-              >
-              for them.
-            </p>
-
-            <p>
-              It brings up the numeric keyboard on touch screens without the
-              problems of number inputs:
-            </p>
-
-            <ul>
-              <li>Unexpected value increments from scroll wheels</li>
-              <li>Browser-specific validation differences</li>
-              <li>Accessibility problems</li>
-              <li>Removal of leading zeros</li>
-              <li>Acceptance of non-numeric characters, like <code>e</code></li>
-            </ul>
-
-            <p>
-              GOV.UK explains these problems in
+              For a quantity, use a
+              <DocLink href="/components/number-field">Number field</DocLink>.
+              See
               <a
                 href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
                 class="ui-link"
-                >Why the GOV.UK Design System team changed the input type for
-                numbers</a
+                >GOV.UK on number inputs</a
               >.
             </p>
           </div>
@@ -472,67 +266,20 @@ export const keywords = ["email", "input", "password", "search", "text box"]
     </div>
 
     <h3 id="file">File</h3>
-    <p>
-      A <code>type="file"</code> field shows the browser's file button in the
-      field. Use <code>accept</code> to limit the file types and
-      <code>multiple</code> to allow more than one file.
-    </p>
 
     <AutoExample name="File" row />
 
     <h3 id="drop-zone">Drop zone</h3>
-    <p>
-      <PropOrClass prop="dropZone" class=".ui-drop-zone" /> makes a file field a
-      tall area with a dashed border. The input fills it, so files dropped
-      anywhere on it are taken, and a click opens the file picker. The browser's
-      own file button and the names of the chosen files stay at its start, so it
-      shows what was picked without a script. Say what it takes in the end text.
-    </p>
+    <p>Use <PropOrClass prop="dropZone" class=".ui-drop-zone" />.</p>
 
     <AutoExample name="DropZone" />
   </section>
 
   <section id="autosuggest">
     <h2>Autosuggest</h2>
-    <p>
-      Leverages the <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code>
-      element combo. An input with a <code>list</code> shows the Select chevron
-      in place of the browser's arrow.
-    </p>
-
-    <ul>
-      <li><code>&lt;input list="DATALISTID"&gt;</code></li>
-      <li><code>&lt;datalist id="DATALISTID"&gt;</code></li>
-    </ul>
+    <p>Link a <code>&lt;datalist&gt;</code> with <code>list</code>.</p>
 
     <AutoExample name="Autosuggest" row />
-
-    <div class="ui-not-rich-text">
-      <UICallout>
-        <UICalloutContent>
-          <div class="ui-rich-text">
-            <p>
-              Think of <code>&lt;datalist&gt;</code> as a list of
-              <em>suggested</em> values.
-            </p>
-
-            <ul>
-              <li>
-                <code>&lt;select&gt;</code> only allows you to choose between
-                its provided values.
-              </li>
-              <li>
-                <code>&lt;input&gt;</code> lets you input anything you want.
-              </li>
-              <li>
-                <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> is a
-                hybrid between the two.
-              </li>
-            </ul>
-          </div>
-        </UICalloutContent>
-      </UICallout>
-    </div>
   </section>
 
   <TextFieldBuild slot="under-the-hood" />
@@ -540,20 +287,8 @@ export const keywords = ["email", "input", "password", "search", "text box"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        <a href="#numeric-vs-input-type-number" class="ui-link"
-          >Don't use <code>&lt;input type="number"&gt;</code></a
-        >
-        unless your user research tells you to.
-      </li>
-      <li>
-        The <code>&lt;label&gt;</code> wraps the whole field, so the label, the
-        start and end text and the affixes are all part of the input's name,
-        like "Amount € EUR". Keep them short.
-      </li>
-      <li>
-        With a <a href="#password-toggle">password toggle</a>, the label is a
-        <code>&lt;label for&gt;</code> instead: the input is named by the label
-        alone, and the start and end text describe it.
+        Everything in the <code>&lt;label&gt;</code> is part of the name: keep
+        start text, end text and affixes short.
       </li>
     </ul>
     <KeyboardSupport />

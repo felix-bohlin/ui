@@ -45,7 +45,8 @@ const link = computed(() => href && !current && (complete || error))
         class="ui-sr-only"
         >{{ state }}</span
       ></a
-    ><template v-else
+    >
+    <template v-else
       >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /><span
         v-if="state"
         class="ui-sr-only"

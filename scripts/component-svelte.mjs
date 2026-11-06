@@ -3,12 +3,14 @@ import { slotProp } from "../src/component-api/frameworks.ts"
 import {
   componentImport,
   contextImports,
+  edgeTrimmed,
   groupWarning,
   propsImport,
   rewriteExpression,
   rewriteStatement,
   scriptImports,
   slotOrder,
+  truthyNames,
   withImport,
 } from "./component-emit.mjs"
 import { MODEL_KINDS } from "./component-models.mjs"
@@ -16,6 +18,7 @@ import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
+  PRESERVED_TAGS,
   propKey,
   unsupported,
 } from "./component-shared.mjs"
@@ -116,7 +119,17 @@ export const toSvelte = (component) => {
     if (item.kind === "boolean") return item.name
     return `${item.name}={${rewriteExpression(item.code, options)}}`
   }
-  const emit = (nodes) =>
+  const body = (nodes, scope, head = "") => {
+    const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
+    return inner
+      ? `\n${head && `${head}\n`}${emit(inner, scope)}\n`
+      : `${head}${emit(nodes, scope)}`
+  }
+  const guarded = (scope, test) => ({
+    ...scope,
+    guards: new Set([...scope.guards, ...truthyNames(test)]),
+  })
+  const emit = (nodes, scope) =>
     nodes
       .map((node) => {
         if (node.type === "text") {
@@ -143,14 +156,18 @@ export const toSvelte = (component) => {
             usesContent = true
             return `{@render content(${name})}`
           }
-          if (node.fallback.length === 0) return `{@render ${name}?.()}`
-          return `{#if ${name}}{@render ${name}()}{:else}${emit(node.fallback)}{/if}`
+          if (node.fallback.length === 0) {
+            return scope.guards.has(name)
+              ? `{@render ${name}()}`
+              : `{@render ${name}?.()}`
+          }
+          return `{#if ${name}}\n{@render ${name}()}\n{:else}${body(node.fallback, scope)}{/if}`
         }
         if (node.type === "if") {
           const test = rewriteExpression(node.test, options)
-          const consequent = emit(node.consequent)
+          const consequent = body(node.consequent, guarded(scope, test))
           if (!node.alternate) return `{#if ${test}}${consequent}{/if}`
-          return `{#if ${test}}${consequent}{:else}${emit(node.alternate)}{/if}`
+          return `{#if ${test}}${consequent}{:else}${body(node.alternate, scope)}{/if}`
         }
         if (node.type === "each") {
           const consts = node.consts
@@ -158,8 +175,8 @@ export const toSvelte = (component) => {
               ({ code, name }) =>
                 `{@const ${name} = ${rewriteExpression(code, options)}}`,
             )
-            .join("")
-          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, ${node.index} (${node.index})}${consts}${emit(node.children)}{/each}`
+            .join("\n")
+          return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, ${node.index} (${node.index})}${body(node.children, scope, consts)}{/each}`
         }
         const groupChecked =
           node.groupRadio !== undefined && kind?.modelsGroupRadio
@@ -194,10 +211,13 @@ export const toSvelte = (component) => {
         ) {
           return `${open} />`
         }
-        return `${open}>${emit(node.children)}</${tag}>`
+        return `${open}>${body(node.children, {
+          ...scope,
+          preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
+        })}</${tag}>`
       })
       .join("")
-  const markup = emit(tree)
+  const markup = emit(tree, { guards: new Set(), preserved: false })
   const importLines = [
     ...scriptImports(component),
     ...(warnings.length || component.item || kind?.untrack?.(model)

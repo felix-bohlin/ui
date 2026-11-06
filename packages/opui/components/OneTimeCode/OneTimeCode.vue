@@ -79,9 +79,9 @@ const field = inject(FieldGroupKey, undefined)
     :style="$attrs.style"
   >
     <span v-if="label || $slots.label" class="ui-label"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></span>
+    <span class="ui-field">
       <input
         :autocapitalize="alphanumeric ? 'characters' : undefined"
         autocomplete="one-time-code"
@@ -96,9 +96,9 @@ const field = inject(FieldGroupKey, undefined)
         v-seed
         v-model="model"
         ref="modelElement"
-      /> </span
-    >{{ " "
-    }}<span v-if="endText || $slots['end-text']" class="ui-end-text"
+      />
+    </span>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </label>

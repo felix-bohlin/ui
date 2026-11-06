@@ -112,15 +112,15 @@ const endTextId = computed(() =>
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="inputId"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></label
-    >{{ " "
-    }}<span
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></label>
+    <span
       v-if="startText || $slots['start-text']"
       class="ui-start-text"
       :id="startTextId"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field">
       <span class="ui-start">
         <Button
           :aria-controls="inputId"
@@ -129,8 +129,8 @@ const endTextId = computed(() =>
           :commandfor="inputId"
           round
         >
-          <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot
-          ><svg
+          <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot>
+          <svg
             v-else
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -140,9 +140,9 @@ const endTextId = computed(() =>
           >
             <path fill="currentColor" :d="minusPath" />
           </svg>
-        </Button> </span
-      >{{ " "
-      }}<input
+        </Button>
+      </span>
+      <input
         v-bind="attrs"
         :aria-describedby="
           idRefs(startTextId, endTextId, attrs['aria-describedby'])
@@ -154,8 +154,8 @@ const endTextId = computed(() =>
         v-seed
         v-model.number="model"
         ref="modelElement"
-      />{{ " "
-      }}<span class="ui-end">
+      />
+      <span class="ui-end">
         <Button
           :aria-controls="inputId"
           :aria-label="increaseLabel"
@@ -163,8 +163,8 @@ const endTextId = computed(() =>
           :commandfor="inputId"
           round
         >
-          <slot v-if="$slots['increase-icon']" name="increase-icon"></slot
-          ><svg
+          <slot v-if="$slots['increase-icon']" name="increase-icon"></slot>
+          <svg
             v-else
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -175,9 +175,9 @@ const endTextId = computed(() =>
             <path fill="currentColor" :d="plusPath" />
           </svg>
         </Button>
-      </span> </span
-    >{{ " "
-    }}<span
+      </span>
+    </span>
+    <span
       v-if="endText || $slots['end-text']"
       class="ui-end-text"
       :id="endTextId"

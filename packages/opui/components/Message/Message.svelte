@@ -32,18 +32,34 @@
   {...rest}
 >
   {@render start?.()}
-  {#if typing}<div class="ui-content" role="status">
-      <span class="ui-sr-only">{@render children?.()}</span>
-    </div>{:else}<div class="ui-content">
-      {#if author}<p class="ui-header">{author}</p>{/if}
+  {#if typing}
+    <div class="ui-content" role="status">
+      <span class="ui-sr-only">
+        {@render children?.()}
+      </span>
+    </div>
+  {:else}
+    <div class="ui-content">
+      {#if author}
+        <p class="ui-header">{author}</p>
+      {/if}
       {@render children?.()}
-      {#if time || end}<p class="ui-footer">
-          {#if time}<time {datetime}>{time}</time>{/if}{#if end}<span
-              class="ui-end">{@render end?.()}</span
-            >{/if}
-        </p>{/if}
-    </div>{/if}
-  {#if bottom}<div class="ui-bottom">
-      {@render bottom?.()}
-    </div>{/if}
+      {#if time || end}
+        <p class="ui-footer">
+          {#if time}
+            <time {datetime}>{time}</time>
+          {/if}{#if end}
+            <span class="ui-end">
+              {@render end()}
+            </span>
+          {/if}
+        </p>
+      {/if}
+    </div>
+  {/if}
+  {#if bottom}
+    <div class="ui-bottom">
+      {@render bottom()}
+    </div>
+  {/if}
 </li>

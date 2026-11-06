@@ -52,11 +52,16 @@
   ]}
   {style}
 >
-  {#if label}<span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      >{@render content(label)}</span
-    >{/if}
-  {#if startText}<span class="ui-start-text">{@render content(startText)}</span
-    >{/if}
+  {#if label}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+      {@render content(label)}
+    </span>
+  {/if}
+  {#if startText}
+    <span class="ui-start-text">
+      {@render content(startText)}
+    </span>
+  {/if}
   <span class="ui-field">
     <textarea
       {...rest}
@@ -65,17 +70,37 @@
       name={name ?? field?.name}
       bind:value
       defaultValue={initialValue}></textarea>
-    {#if start}<span class="ui-start">{@render content(start)}</span>{/if}
-    {#if end}<span class="ui-end">{@render content(end)}</span>{/if}
-    {#if top}<span class="ui-top">{@render content(top)}</span>{/if}
-    {#if bottom}<span class="ui-bottom">{@render content(bottom)}</span>{/if}
+    {#if start}
+      <span class="ui-start">
+        {@render content(start)}
+      </span>
+    {/if}
+    {#if end}
+      <span class="ui-end">
+        {@render content(end)}
+      </span>
+    {/if}
+    {#if top}
+      <span class="ui-top">
+        {@render content(top)}
+      </span>
+    {/if}
+    {#if bottom}
+      <span class="ui-bottom">
+        {@render content(bottom)}
+      </span>
+    {/if}
   </span>
-  {#if endText || characterCount}<span class="ui-end-text"
-      >{@render content(endText)}{#if characterCount}<opui-character-count
+  {#if endText || characterCount}
+    <span class="ui-end-text">
+      {@render content(endText)}{#if characterCount}
+        <opui-character-count
           aria-hidden="true"
           class="ui-value"
           label={characterCountLabel}
-        ></opui-character-count>{/if}</span
-    >{/if}
+        ></opui-character-count>
+      {/if}
+    </span>
+  {/if}
   {@render children?.()}
 </svelte:element>

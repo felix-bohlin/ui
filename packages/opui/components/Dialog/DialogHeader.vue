@@ -27,8 +27,8 @@ if (closeLabel) warnMissingCloseTarget("DialogHeader", dialog?.id, "Dialog")
       :commandfor="dialog?.id"
       round
       size="small"
-      ><slot v-if="$slots['close-icon']" name="close-icon"></slot
-      ><svg
+      ><slot v-if="$slots['close-icon']" name="close-icon"></slot>
+      <svg
         v-else
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

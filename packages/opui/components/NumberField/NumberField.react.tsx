@@ -61,12 +61,12 @@ export default function NumberField({
         >
           {label}
         </label>
-      )}{" "}
+      )}
       {startText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}{" "}
+      )}
       <span className="ui-field">
         <span className="ui-start">
           <Button
@@ -90,7 +90,7 @@ export default function NumberField({
               decreaseIcon
             )}
           </Button>
-        </span>{" "}
+        </span>
         <input
           {...rest}
           aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
@@ -98,7 +98,7 @@ export default function NumberField({
           id={inputId}
           name={name ?? field?.name}
           type="number"
-        />{" "}
+        />
         <span className="ui-end">
           <Button
             aria-controls={inputId}
@@ -122,7 +122,7 @@ export default function NumberField({
             )}
           </Button>
         </span>
-      </span>{" "}
+      </span>
       {endText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}

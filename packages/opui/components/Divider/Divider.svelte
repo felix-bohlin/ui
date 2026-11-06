@@ -14,7 +14,8 @@
   }: Props = $props()
 </script>
 
-{#if children}<div
+{#if children}
+  <div
     class={[
       "ui-divider",
       align && align !== "center" && `ui-align-${align}`,
@@ -24,8 +25,10 @@
     ]}
     {...rest as SvelteHTMLElements["div"]}
   >
-    {@render children?.()}
-  </div>{:else}<hr
+    {@render children()}
+  </div>
+{:else}
+  <hr
     class={[
       "ui-divider",
       color && `ui-${color}`,
@@ -33,4 +36,5 @@
       className,
     ]}
     {...rest}
-  />{/if}
+  />
+{/if}

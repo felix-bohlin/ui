@@ -36,7 +36,11 @@
   ]}
   {style}
 >
-  {#if label}<span class="ui-label">{@render content(label)}</span>{/if}
+  {#if label}
+    <span class="ui-label">
+      {@render content(label)}
+    </span>
+  {/if}
   <span class="ui-field">
     <input
       autocapitalize={alphanumeric ? "characters" : undefined}
@@ -53,5 +57,9 @@
       defaultValue={initialValue}
     />
   </span>
-  {#if endText}<span class="ui-end-text">{@render content(endText)}</span>{/if}
+  {#if endText}
+    <span class="ui-end-text">
+      {@render content(endText)}
+    </span>
+  {/if}
 </label>

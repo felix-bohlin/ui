@@ -28,14 +28,15 @@
   const invalid = $derived(error ? "true" : ariaInvalid)
 </script>
 
-{#if name}<fieldset
+{#if name}
+  <fieldset
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {disabled}
     {style}
     {...rest}
   >
-    <legend>{label}</legend>
-    {#if !required}<input
+    <legend>{label}</legend>{#if !required}
+      <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={clearLabel}
@@ -52,7 +53,9 @@
         onchange={() => {
           value = "0"
         }}
-      />{/if}{#each stars as star, index (index)}<input
+      />
+    {/if}{#each stars as star, index (index)}
+      <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={starLabel(star)}
@@ -70,8 +73,11 @@
         onchange={() => {
           value = star
         }}
-      />{/each}
-  </fieldset>{:else}<meter
+      />
+    {/each}
+  </fieldset>
+{:else}
+  <meter
     aria-describedby={ariaDescribedBy}
     aria-label={label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
@@ -79,4 +85,5 @@
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}
     {...rest}
-  ></meter>{/if}
+  ></meter>
+{/if}

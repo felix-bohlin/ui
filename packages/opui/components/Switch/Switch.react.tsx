@@ -45,13 +45,13 @@ export default function Switch({
           {iconChecked}
         </span>
       )}{" "}
-      <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />{" "}
+      <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
       {(label || children) && (
         <span className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}>
           {label}
           {children}
         </span>
-      )}{" "}
+      )}
       {endText && <span className="ui-end-text">{endText}</span>}
     </label>
   )

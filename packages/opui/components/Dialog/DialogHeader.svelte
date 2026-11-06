@@ -23,18 +23,27 @@
 </script>
 
 <div class={["ui-header", className]} {...rest}>
-  {@render children?.()}{#if closeLabel}<Button
+  {@render children?.()}{#if closeLabel}
+    <Button
       aria-label={closeLabel}
       command="close"
       commandfor={dialog?.id}
       round
       size="small"
-      >{#if closeIcon}{@render closeIcon()}{:else}<svg
+    >
+      {#if closeIcon}
+        {@render closeIcon()}
+      {:else}
+        <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
-          viewBox="0 0 32 32"><path fill="currentColor" d={closePath} /></svg
-        >{/if}</Button
-    >{/if}
+          viewBox="0 0 32 32"
+        >
+          <path fill="currentColor" d={closePath} />
+        </svg>
+      {/if}
+    </Button>
+  {/if}
 </div>

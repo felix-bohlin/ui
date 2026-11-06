@@ -7,8 +7,10 @@ import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
   componentImport,
   contextImports,
+  edgeTrimmed,
   groupWarning,
   indent,
+  isLoose,
   objectCode,
   propsImport,
   rewriteExpression,
@@ -26,6 +28,7 @@ import {
   identifiersIn,
   isArrayType,
   isBlank,
+  PRESERVED_TAGS,
   propKey,
   scriptCodes,
   slotsUsedIn,
@@ -273,7 +276,7 @@ export const toVue = (component) => {
     if (significant.length === 1 && significant[0].type !== "if") {
       return emitOne(significant[0], clause, scope)
     }
-    return `<template ${clause}>${emit(nodes, scope)}</template>`
+    return `<template ${clause}>${body(nodes, scope)}</template>`
   }
   const emitOne = (node, clause, scope) => {
     if (node.type === "text") {
@@ -293,14 +296,14 @@ export const toVue = (component) => {
       }
       const name = node.name === "default" ? "" : ` name="${node.name}"`
       if (node.fallback.length === 0) return `<slot${slotClause}${name}></slot>`
-      const pair = `<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>${directive(node.fallback, "v-else", undefined, scope)}`
+      const pair = `<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>\n${directive(node.fallback, "v-else", undefined, scope)}`
       return clause ? `<template ${clause}>${pair}</template>` : pair
     }
     if (node.type === "if") {
       const test = rewriteExpression(node.test, scope)
       const consequent = directive(node.consequent, "v-if", test, scope)
       if (!node.alternate) return consequent
-      return `${consequent}${directive(node.alternate, "v-else", undefined, scope)}`
+      return `${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
     }
     if (node.type === "each") {
       const inner = {
@@ -428,10 +431,29 @@ export const toVue = (component) => {
     ) {
       return `${open} />`
     }
-    return `${open}>${emit(node.children, scope)}</${tag}>`
+    return `${open}>${body(node.children, {
+      ...scope,
+      preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
+    })}</${tag}>`
   }
   const emit = (nodes, scope) =>
-    nodes.map((node) => emitOne(node, undefined, scope)).join("")
+    nodes
+      .map((node, index) =>
+        emitOne(node, undefined, {
+          ...scope,
+          hugged: [nodes[index - 1], nodes[index + 1]].some(
+            (sibling) => sibling && !isLoose(sibling),
+          ),
+        }),
+      )
+      .join("")
+  const body = (nodes, scope) => {
+    const inner =
+      scope.preserved || scope.hugged
+        ? undefined
+        : edgeTrimmed(nodes, { interpolated: false })
+    return inner ? `\n${emit(inner, scope)}\n` : emit(nodes, scope)
+  }
   const markup = emit(tree, template)
   const slotsType =
     propsType !== "Props" &&

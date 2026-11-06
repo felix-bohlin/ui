@@ -78,21 +78,29 @@
   for={hasValue ? inputId : undefined}
   {style}
 >
-  {#if hasLabel}<span
-      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      id={labelId}>{@render content(label)}</span
-    >{/if}
-  {#if hasValue}<output
+  {#if hasLabel}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+      {@render content(label)}
+    </span>
+  {/if}
+  {#if hasValue}
+    <output
       aria-live="off"
       class="ui-value"
       data-live={hasValueText ? undefined : ""}
       for={inputId}
       data-suffix={valueSuffix}
-      >{#if valueText}{@render valueText()}{:else}{readout}{/if}</output
-    >{/if}
-  {#if hasStartText}<span class="ui-start-text" id={startTextId}
-      >{@render content(startText)}</span
-    >{/if}
+    >
+      {#if valueText}
+        {@render valueText()}
+      {:else}{readout}{/if}
+    </output>
+  {/if}
+  {#if hasStartText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
+    </span>
+  {/if}
   <input
     {...rest}
     aria-describedby={describedBy}
@@ -110,14 +118,20 @@
     bind:value
     defaultValue={initialValue}
   />
-  {#if hasDatalist}<datalist aria-hidden="true" id={listId}
-      >{#each items ?? [] as option, index (index)}{#if typeof option === "object"}<option
-            value={option.value}
-            label={option.label}
-          ></option>{:else}<option value={option}
-          ></option>{/if}{/each}{@render datalist?.()}</datalist
-    >{/if}
-  {#if hasEndText}<span class="ui-end-text" id={endTextId}
-      >{@render content(endText)}</span
-    >{/if}
+  {#if hasDatalist}
+    <datalist aria-hidden="true" id={listId}>
+      {#each items ?? [] as option, index (index)}
+        {#if typeof option === "object"}
+          <option value={option.value} label={option.label}></option>
+        {:else}
+          <option value={option}></option>
+        {/if}
+      {/each}{@render datalist?.()}
+    </datalist>
+  {/if}
+  {#if hasEndText}
+    <span class="ui-end-text" id={endTextId}>
+      {@render content(endText)}
+    </span>
+  {/if}
 </label>

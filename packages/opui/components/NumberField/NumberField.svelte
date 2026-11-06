@@ -56,13 +56,16 @@
   ]}
   {style}
 >
-  {#if label}<label
-      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      for={inputId}>{@render content(label)}</label
-    >{/if}
-  {#if startText}<span class="ui-start-text" id={startTextId}
-      >{@render content(startText)}</span
-    >{/if}
+  {#if label}
+    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
+      {@render content(label)}
+    </label>
+  {/if}
+  {#if startText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
+    </span>
+  {/if}
   <span class="ui-field">
     <span class="ui-start">
       <Button
@@ -72,7 +75,9 @@
         commandfor={inputId}
         round
       >
-        {#if decreaseIcon}{@render decreaseIcon()}{:else}
+        {#if decreaseIcon}
+          {@render decreaseIcon()}
+        {:else}
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +108,9 @@
         commandfor={inputId}
         round
       >
-        {#if increaseIcon}{@render increaseIcon()}{:else}
+        {#if increaseIcon}
+          {@render increaseIcon()}
+        {:else}
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +124,9 @@
       </Button>
     </span>
   </span>
-  {#if endText}<span class="ui-end-text" id={endTextId}
-      >{@render content(endText)}</span
-    >{/if}
+  {#if endText}
+    <span class="ui-end-text" id={endTextId}>
+      {@render content(endText)}
+    </span>
+  {/if}
 </opui-number-field>

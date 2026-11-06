@@ -33,13 +33,18 @@
 >
   {@render children?.()}
   <AnchorContent>
-    <span class="ui-indicator"
-      >{#if hidden}{#if !dot && indicator}<span aria-hidden="true"
-            >{@render indicator?.()}</span
-          >{/if}{#if label}<span class="ui-sr-only">{label}</span
-          >{/if}{/if}{hidden
-        ? undefined
-        : label}{#if !hidden}{@render indicator?.()}{/if}</span
-    >
+    <span class="ui-indicator">
+      {#if hidden}
+        {#if !dot && indicator}
+          <span aria-hidden="true">
+            {@render indicator()}
+          </span>
+        {/if}{#if label}
+          <span class="ui-sr-only">{label}</span>
+        {/if}
+      {/if}{hidden ? undefined : label}{#if !hidden}
+        {@render indicator?.()}
+      {/if}
+    </span>
   </AnchorContent>
 </Anchor>

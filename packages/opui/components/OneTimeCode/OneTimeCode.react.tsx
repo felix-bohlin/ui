@@ -31,7 +31,7 @@ export default function OneTimeCode({
       ])}
       style={style}
     >
-      {label && <span className="ui-label">{label}</span>}{" "}
+      {label && <span className="ui-label">{label}</span>}
       <span className="ui-field">
         <input
           autoCapitalize={alphanumeric ? "characters" : undefined}
@@ -45,7 +45,7 @@ export default function OneTimeCode({
           name={name ?? field?.name}
           type="text"
         />
-      </span>{" "}
+      </span>
       {endText && <span className="ui-end-text">{endText}</span>}
     </label>
   )

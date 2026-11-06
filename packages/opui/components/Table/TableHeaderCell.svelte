@@ -18,6 +18,11 @@
   data-sort={sortable ? "" : undefined}
   {...rest}
 >
-  {#if sortable}<button type="button">{@render children?.()}</button
-    >{:else}{@render children?.()}{/if}
+  {#if sortable}
+    <button type="button">
+      {@render children?.()}
+    </button>
+  {:else}
+    {@render children?.()}
+  {/if}
 </th>

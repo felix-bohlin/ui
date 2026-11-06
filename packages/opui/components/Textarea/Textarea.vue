@@ -93,12 +93,12 @@ const Root = computed(() => (label || slots.label ? "label" : "div"))
     <span
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span
-    >{{ " "
-    }}<span v-if="startText || $slots['start-text']" class="ui-start-text"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></span>
+    <span v-if="startText || $slots['start-text']" class="ui-start-text"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field">
       <textarea
         v-bind="attrs"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
@@ -107,20 +107,21 @@ const Root = computed(() => (label || slots.label ? "label" : "div"))
         v-seed
         v-model="model"
         ref="modelElement"
-      ></textarea
-      >{{ " "
-      }}<span v-if="$slots.start" class="ui-start"
-        ><slot name="start"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.end" class="ui-end"><slot name="end"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.top" class="ui-top"><slot name="top"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.bottom" class="ui-bottom"
-        ><slot name="bottom"></slot
-      ></span> </span
-    >{{ " "
-    }}<span
+      ></textarea>
+      <span v-if="$slots.start" class="ui-start">
+        <slot name="start"></slot>
+      </span>
+      <span v-if="$slots.end" class="ui-end">
+        <slot name="end"></slot>
+      </span>
+      <span v-if="$slots.top" class="ui-top">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.bottom" class="ui-bottom">
+        <slot name="bottom"></slot>
+      </span>
+    </span>
+    <span
       v-if="endText || $slots['end-text'] || characterCount"
       class="ui-end-text"
       >{{ endText }}<slot name="end-text"></slot
@@ -130,7 +131,8 @@ const Root = computed(() => (label || slots.label ? "label" : "div"))
         aria-hidden="true"
         class="ui-value"
         :label="characterCountLabel"
-      ></component></span
-    >{{ " " }}<slot></slot>
+      ></component
+    ></span>
+    <slot></slot>
   </component>
 </template>

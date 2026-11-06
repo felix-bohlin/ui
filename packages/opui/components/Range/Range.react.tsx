@@ -81,7 +81,7 @@ export default function Range({
         >
           {label}
         </span>
-      )}{" "}
+      )}
       {hasValue && (
         <output
           aria-live="off"
@@ -92,12 +92,12 @@ export default function Range({
         >
           {valueText === undefined ? readout : valueText}
         </output>
-      )}{" "}
+      )}
       {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}{" "}
+      )}
       <input
         {...rest}
         aria-describedby={describedBy}
@@ -113,7 +113,7 @@ export default function Range({
         name={name ?? field?.name}
         step={step}
         type="range"
-      />{" "}
+      />
       {hasDatalist && (
         <datalist aria-hidden="true" id={listId}>
           {items?.map((option, index) =>
@@ -125,7 +125,7 @@ export default function Range({
           )}
           {datalist}
         </datalist>
-      )}{" "}
+      )}
       {hasEndText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}

@@ -150,22 +150,23 @@ const describedBy = computed(() =>
       v-if="hasLabel"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :id="labelId"
-      >{{ label }}<slot name="label"></slot></span
-    >{{ " "
-    }}<output
+      >{{ label }}<slot name="label"></slot
+    ></span>
+    <output
       v-if="hasValue"
       aria-live="off"
       class="ui-value"
       :data-live="hasValueText ? undefined : ''"
       :for="inputId"
       :data-suffix="valueSuffix"
-      ><slot v-if="$slots['value-text']" name="value-text"></slot
-      ><template v-else>{{ readout }}</template></output
-    >{{ " "
-    }}<span v-if="hasStartText" class="ui-start-text" :id="startTextId"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<input
+    >
+      <slot v-if="$slots['value-text']" name="value-text"></slot>
+      <template v-else>{{ readout }}</template>
+    </output>
+    <span v-if="hasStartText" class="ui-start-text" :id="startTextId"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <input
       v-bind="attrs"
       :aria-describedby="describedBy"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
@@ -184,8 +185,8 @@ const describedBy = computed(() =>
       v-seed
       v-model.number="model"
       ref="modelElement"
-    />{{ " "
-    }}<datalist v-if="hasDatalist" aria-hidden="true" :id="listId">
+    />
+    <datalist v-if="hasDatalist" aria-hidden="true" :id="listId">
       <template v-for="(option, index) in items" :key="index"
         ><option
           v-if="typeof option === 'object'"
@@ -194,9 +195,9 @@ const describedBy = computed(() =>
         ></option>
         <option v-else :value="option"></option
       ></template>
-      <slot name="datalist"></slot></datalist
-    >{{ " "
-    }}<span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+      <slot name="datalist"></slot>
+    </datalist>
+    <span v-if="hasEndText" class="ui-end-text" :id="endTextId"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </label>

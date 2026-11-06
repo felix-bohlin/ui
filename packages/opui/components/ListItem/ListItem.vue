@@ -72,8 +72,9 @@ const hasDescription = computed(() => !!description || slots.description)
       </div>
       <slot v-else></slot>
       <div v-if="$slots.end" class="ui-end">
-        <slot name="end"></slot></div></component
-    ><template v-else
+        <slot name="end"></slot></div
+    ></component>
+    <template v-else
       ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>

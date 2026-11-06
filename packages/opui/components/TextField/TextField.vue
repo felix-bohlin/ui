@@ -131,12 +131,12 @@ const endTextId = computed(() =>
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="passwordToggle ? inputId : undefined"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></component
-    >{{ " "
-    }}<span v-if="hasStartText" class="ui-start-text" :id="startTextId"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></component>
+    <span v-if="hasStartText" class="ui-start-text" :id="startTextId"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field">
       <input
         v-bind="attrs"
         :aria-describedby="
@@ -151,12 +151,12 @@ const endTextId = computed(() =>
         v-seed
         v-model="model"
         ref="modelElement"
-      />{{ " "
-      }}<span v-if="$slots.start" class="ui-start"
-        ><slot name="start"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.end || passwordToggle" class="ui-end"
-        ><slot name="end"></slot
+      />
+      <span v-if="$slots.start" class="ui-start">
+        <slot name="start"></slot>
+      </span>
+      <span v-if="$slots.end || passwordToggle" class="ui-end">
+        <slot name="end"></slot
         ><Button
           v-if="passwordToggle"
           :aria-label="passwordToggleLabel"
@@ -168,8 +168,9 @@ const endTextId = computed(() =>
             v-if="$slots['icon-unchecked']"
             aria-hidden="true"
             class="ui-icon-unchecked"
-            ><slot name="icon-unchecked"></slot></span
-          ><svg
+            ><slot name="icon-unchecked"></slot
+          ></span>
+          <svg
             v-else
             aria-hidden="true"
             class="ui-icon-unchecked"
@@ -183,8 +184,9 @@ const endTextId = computed(() =>
             v-if="$slots['icon-checked']"
             aria-hidden="true"
             class="ui-icon-checked"
-            ><slot name="icon-checked"></slot></span
-          ><svg
+            ><slot name="icon-checked"></slot
+          ></span>
+          <svg
             v-else
             aria-hidden="true"
             class="ui-icon-checked"
@@ -193,15 +195,17 @@ const endTextId = computed(() =>
             height="24"
             viewBox="0 0 24 24"
           >
-            <path fill="currentColor" :d="hidePath" /></svg></Button></span
-      >{{ " "
-      }}<span v-if="$slots.top" class="ui-top"><slot name="top"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.bottom" class="ui-bottom"
-        ><slot name="bottom"></slot
-      ></span> </span
-    >{{ " "
-    }}<span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+            <path fill="currentColor" :d="hidePath" /></svg
+        ></Button>
+      </span>
+      <span v-if="$slots.top" class="ui-top">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.bottom" class="ui-bottom">
+        <slot name="bottom"></slot>
+      </span>
+    </span>
+    <span v-if="hasEndText" class="ui-end-text" :id="endTextId"
       >{{ endText }}<slot name="end-text"></slot
       ><component
         is="opui-character-count"
@@ -209,7 +213,8 @@ const endTextId = computed(() =>
         aria-hidden="true"
         class="ui-value"
         :label="characterCountLabel"
-      ></component></span
-    >{{ " " }}<slot></slot>
+      ></component
+    ></span>
+    <slot></slot>
   </component>
 </template>

@@ -43,28 +43,65 @@
   ])}
   {...restOnItem ? (rest as SvelteHTMLElements["li"]) : {}}
 >
-  {#if Tag}<svelte:element
+  {#if Tag}
+    <svelte:element
       this={Tag}
       {...classAttrs([hasControl && `ui-${type}`])}
       for={hasControl ? htmlFor : undefined}
       {...hasControl ? {} : tagAttrs(Tag, disabled, href)}
       {...restOnItem ? {} : (rest as object)}
-      >{#if start}<div class="ui-start">
-          {@render start?.()}
-        </div>{/if}{#if hasLabel || hasDescription}<div class="ui-text">
-          {#if hasLabel}<p>{@render content(label)}</p>{/if}
-          {#if hasDescription}<p>{@render content(description)}</p>{/if}
+    >
+      {#if start}
+        <div class="ui-start">
+          {@render start()}
+        </div>
+      {/if}{#if hasLabel || hasDescription}
+        <div class="ui-text">
+          {#if hasLabel}
+            <p>
+              {@render content(label)}
+            </p>
+          {/if}
+          {#if hasDescription}
+            <p>
+              {@render content(description)}
+            </p>
+          {/if}
           {@render children?.()}
-        </div>{:else}{@render children?.()}{/if}{#if end}<div class="ui-end">
-          {@render end?.()}
-        </div>{/if}</svelte:element
-    >{:else}{#if start}<div class="ui-start">
-        {@render start?.()}
-      </div>{/if}{#if hasLabel || hasDescription}<div class="ui-text">
-        {#if hasLabel}<p>{@render content(label)}</p>{/if}
-        {#if hasDescription}<p>{@render content(description)}</p>{/if}
+        </div>
+      {:else}
         {@render children?.()}
-      </div>{:else}{@render children?.()}{/if}{#if end}<div class="ui-end">
-        {@render end?.()}
-      </div>{/if}{/if}{@render submenu?.()}
+      {/if}{#if end}
+        <div class="ui-end">
+          {@render end()}
+        </div>
+      {/if}
+    </svelte:element>
+  {:else}
+    {#if start}
+      <div class="ui-start">
+        {@render start()}
+      </div>
+    {/if}{#if hasLabel || hasDescription}
+      <div class="ui-text">
+        {#if hasLabel}
+          <p>
+            {@render content(label)}
+          </p>
+        {/if}
+        {#if hasDescription}
+          <p>
+            {@render content(description)}
+          </p>
+        {/if}
+        {@render children?.()}
+      </div>
+    {:else}
+      {@render children?.()}
+    {/if}{#if end}
+      <div class="ui-end">
+        {@render end()}
+      </div>
+    {/if}
+  {/if}{@render submenu?.()}
 </li>

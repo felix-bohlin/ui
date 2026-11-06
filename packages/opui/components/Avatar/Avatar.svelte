@@ -32,8 +32,10 @@
   ]}
   {...tagAttrs(Tag, disabled, href)}
   {...rest}
-  >{#if src}<img
-      {src}
-      alt={alt ?? ""}
-    />{:else}{@render children?.()}{/if}</svelte:element
 >
+  {#if src}
+    <img {src} alt={alt ?? ""} />
+  {:else}
+    {@render children?.()}
+  {/if}
+</svelte:element>

@@ -1,6 +1,7 @@
 import ts from "typescript"
 import {
   byName,
+  isBlank,
   isIdentifierName,
   printer,
   sourceFileOf,
@@ -363,3 +364,42 @@ export const componentImport = ({ folder, local, name }, extension) =>
 
 export const propsImport = (propsType, file, extra = []) =>
   `import type { ${[propsType === "Props" ? "Props" : `${propsType} as Props`, ...extra].join(", ")} } from "./${file}"`
+
+export const isLoose = (node) =>
+  isBlank(node) && node.value !== " " && !node.inline
+
+export const edgeTrimmed = (nodes, { interpolated = true } = {}) => {
+  let start = 0
+  let end = nodes.length
+  while (start < end && isLoose(nodes[start])) start++
+  while (end > start && isLoose(nodes[end - 1])) end--
+  const inner = nodes.slice(start, end)
+  const edges = [inner[0], inner.at(-1)]
+  const lone = inner.length === 1 && inner[0].type === "expression"
+  return inner.length > 0 &&
+    !lone &&
+    edges.every(
+      (edge) =>
+        edge.type !== "text" && (interpolated || edge.type !== "expression"),
+    )
+    ? inner
+    : undefined
+}
+
+export const truthyNames = (code) => {
+  const names = []
+  const visit = (node) => {
+    const inner = unwrap(node)
+    if (
+      ts.isBinaryExpression(inner) &&
+      inner.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken
+    ) {
+      visit(inner.left)
+      visit(inner.right)
+    } else if (ts.isIdentifier(inner)) {
+      names.push(inner.text)
+    }
+  }
+  visit(sourceFileOf(`(${code})`, "test.ts").statements[0].expression)
+  return names
+}

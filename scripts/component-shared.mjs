@@ -26,6 +26,8 @@ export const containsKind = (node, test) =>
 
 export const isBlank = (node) => node.type === "text" && !node.value.trim()
 
+export const PRESERVED_TAGS = new Set(["pre", "textarea"])
+
 export const elementsIn = (nodes) =>
   nodes.flatMap((node) => {
     if (node.type === "element") return [node, ...elementsIn(node.children)]

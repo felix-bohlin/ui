@@ -27,7 +27,8 @@
   ]}
   {...rest}
 >
-  {#each items ?? [] as item, index (index)}<StepperItem
+  {#each items ?? [] as item, index (index)}
+    <StepperItem
       {completedLabel}
       {errorLabel}
       {...item}
@@ -35,6 +36,7 @@
         complete ||
         (current !== undefined && index < current)}
       current={item.current || index === current}
-    />{/each}
+    />
+  {/each}
   {@render children?.()}
 </ol>

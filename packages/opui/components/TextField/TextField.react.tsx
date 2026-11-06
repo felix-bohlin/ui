@@ -80,12 +80,12 @@ export default function TextField({
         >
           {label}
         </Label>
-      )}{" "}
+      )}
       {hasStartText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}{" "}
+      )}
       <span className="ui-field">
         <input
           {...rest}
@@ -96,8 +96,8 @@ export default function TextField({
           name={name ?? field?.name}
           pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
           type={type === "numeric" ? "text" : type}
-        />{" "}
-        {start && <span className="ui-start">{start}</span>}{" "}
+        />
+        {start && <span className="ui-start">{start}</span>}
         {(end || passwordToggle) && (
           <span className="ui-end">
             {end}
@@ -144,10 +144,10 @@ export default function TextField({
               </Button>
             )}
           </span>
-        )}{" "}
-        {top && <span className="ui-top">{top}</span>}{" "}
+        )}
+        {top && <span className="ui-top">{top}</span>}
         {bottom && <span className="ui-bottom">{bottom}</span>}
-      </span>{" "}
+      </span>
       {hasEndText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}
@@ -161,7 +161,7 @@ export default function TextField({
             />
           )}
         </span>
-      )}{" "}
+      )}
       {children}
     </Root>
   )

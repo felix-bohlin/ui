@@ -513,8 +513,11 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       An element renders in the light DOM, so the component's classes style it,
       and its markup works, or hides what can't, until the module loads. Import
       the module once per page: it defines the element, which then also runs in
-      markup added later. The Astro components load their element, and React,
-      Svelte and Vue load it on the client, so it runs once they hydrate.
+      markup added later. The Astro components load their element in a script.
+      Svelte and Vue import it, so it runs as soon as their code loads, before
+      they hydrate, and React loads it once it hydrates. What an element writes,
+      like the character count, stays the element's: no framework resets it when
+      it hydrates.
     </p>
     <CodeGroup
       tabs={[

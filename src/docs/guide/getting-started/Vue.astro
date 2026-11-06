@@ -109,10 +109,10 @@ import { Button } from "opui-css/vue"
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Without hydration (Nuxt, or Astro with <code>@astrojs/vue</code> and no
-      <code>client:*</code> directive), every component renders complete HTML.
-      The native controls work and submit with their form. A few things only
-      update on the client:
+      Without hydration (Astro with <code>@astrojs/vue</code> and no
+      <code>client:*</code> directive, or <code>renderToString</code> on its
+      own), every component renders complete HTML. The native controls work and
+      submit with their form. A few things only update on the client:
     </p>
     <ul>
       <li>
@@ -148,6 +148,13 @@ import { Button } from "opui-css/vue"
       client-rendered Vue app. Component pages say what needs hydration next to
       the browser support chips, and the API tables mark each prop with a
       crossed-out server icon.
+    </p>
+    <p>
+      When the page hydrates, as in Nuxt, a value or choice the user changed
+      before it did (typed, picked, filled in by a password manager or restored
+      by the browser) stays: the form controls take it from the element instead
+      of resetting it, and a form reset still returns to what the server
+      rendered.
     </p>
   </section>
 </Guide>

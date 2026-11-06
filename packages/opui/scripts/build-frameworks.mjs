@@ -68,6 +68,15 @@ const compiles = (root, file) =>
 const outPath = (root, dist, file) =>
   join(dist, relative(root, file)).replace(/\.tsx?$/, ".js")
 
+export const sourceOf = (root, target) => {
+  const path = toPosix(relative(join(root, "dist"), join(root, target)))
+  if (!OUTPUTS.includes(path.split("/")[0])) return undefined
+  const base = join(root, path.replace(/\.(d\.ts|js)$/, ""))
+  return [base, `${base}.ts`, `${base}.tsx`, `${base}.js`].find(
+    (file) => isFile(file) && !file.endsWith(".d.ts"),
+  )
+}
+
 const write = (file, code) => {
   mkdirSync(dirname(file), { recursive: true })
   writeFileSync(file, code)

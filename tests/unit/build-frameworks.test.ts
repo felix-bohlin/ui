@@ -12,6 +12,7 @@ import {
   isAugmentation,
   reachable,
   rewriteSpecifiers,
+  sourceOf,
   specifiersOf,
 } from "../../packages/opui/scripts/build-frameworks.mjs"
 
@@ -55,6 +56,30 @@ test("isAugmentation tells the element type files from the components", () => {
   expect(isAugmentation(read("react/elements.ts"))).toBe(true)
   expect(isAugmentation(read("svelte/elements.ts"))).toBe(true)
   expect(isAugmentation(read("components/Button/Button.react.tsx"))).toBe(false)
+})
+
+test("sourceOf finds the file the build writes a dist target from", () => {
+  const source = (target: string) => {
+    const file = sourceOf(packageDir, target)
+    return file && path.relative(packageDir, file)
+  }
+  expect(source("./dist/react/index.js")).toBe("react/index.ts")
+  expect(source("./dist/vue/index.d.ts")).toBe("vue/index.ts")
+  expect(source("./dist/components/Button/Button.react.js")).toBe(
+    "components/Button/Button.react.tsx",
+  )
+  expect(source("./dist/components/Button/Button.svelte")).toBe(
+    "components/Button/Button.svelte",
+  )
+  expect(source("./dist/components/Button/Button.svelte.d.ts")).toBe(
+    "components/Button/Button.svelte",
+  )
+  expect(source("./dist/components/Button/Button.vue.js")).toBe(
+    "components/Button/Button.vue",
+  )
+  expect(source("./dist/react/missing.js")).toBeUndefined()
+  expect(source("./dist/opui.css")).toBeUndefined()
+  expect(source("./react/index.ts")).toBeUndefined()
 })
 
 describe("rewriteSpecifiers", () => {

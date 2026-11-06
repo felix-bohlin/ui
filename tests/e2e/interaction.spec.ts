@@ -966,6 +966,21 @@ interaction(
   },
 )
 
+const nextButtonPoint = (carousel: Locator) =>
+  carousel.evaluate((element) => {
+    const style = getComputedStyle(element, "::scroll-button(inline-end)")
+    let block = element.parentElement
+    while (block && getComputedStyle(block).position === "static") {
+      block = block.parentElement
+    }
+    const edge = (block ?? document.documentElement).getBoundingClientRect()
+    const box = element.getBoundingClientRect()
+    return {
+      x: edge.right - parseFloat(style.right) - parseFloat(style.width) / 2,
+      y: box.top + box.height / 2,
+    }
+  })
+
 interaction(
   "carousel",
   "Basics",
@@ -978,19 +993,33 @@ interaction(
     )
 
     await carousel.scrollIntoViewIfNeeded()
-    const point = await carousel.evaluate((element) => {
-      const style = getComputedStyle(element, "::scroll-button(inline-end)")
-      let block = element.parentElement
-      while (block && getComputedStyle(block).position === "static") {
-        block = block.parentElement
-      }
-      const edge = (block ?? document.documentElement).getBoundingClientRect()
-      const box = element.getBoundingClientRect()
-      return {
-        x: edge.right - parseFloat(style.right) - parseFloat(style.width) / 2,
-        y: box.top + box.height / 2,
+    const point = await nextButtonPoint(carousel)
+    await page.mouse.click(point.x, point.y)
+    await expect
+      .poll(() => carousel.evaluate((element) => element.scrollLeft))
+      .toBeGreaterThan(0)
+  },
+)
+
+interaction(
+  "carousel",
+  "Basics",
+  "the next button stays above items whose content sets a z-index",
+  async ({ page, root }) => {
+    const carousel = root.locator(".ui-carousel")
+
+    await needs(page, "::scroll-button()", () =>
+      CSS.supports("selector(::scroll-button(*))"),
+    )
+
+    await carousel.evaluate((element) => {
+      for (const card of element.querySelectorAll<HTMLElement>(".ui-card")) {
+        card.style.position = "relative"
+        card.style.zIndex = "10"
       }
     })
+    await carousel.scrollIntoViewIfNeeded()
+    const point = await nextButtonPoint(carousel)
     await page.mouse.click(point.x, point.y)
     await expect
       .poll(() => carousel.evaluate((element) => element.scrollLeft))

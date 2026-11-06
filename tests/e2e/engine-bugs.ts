@@ -10,7 +10,7 @@ export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"
 
 export const WEBKIT_HIGHLIGHT_HIDDEN_TEXT =
-  "WebKit doesn't paint a custom highlight on text that was inside a display: none element for a rendered frame after its ranges were added, once the element is shown"
+  "WebKit doesn't paint a custom highlight of static ranges on text that was inside a display: none element for a rendered frame after the ranges were added, once the element is shown"
 
 export const WEBKIT_INNER_TEXT_HIDDEN_NODES =
   "WebKit's innerText reads the same rendered elements differently depending on the whitespace and comments between them, which don't render"

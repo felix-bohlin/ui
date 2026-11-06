@@ -495,7 +495,7 @@ const expectRenewedRanges = async (
         ),
       {
         message:
-          "renew the ranges with renewHighlights() from src/utils/syntax-highlight.ts when hidden code is shown: WebKit doesn't paint a highlight on text that was inside a display: none element for a rendered frame after its ranges were added",
+          "renew the ranges with renewHighlights() from src/utils/syntax-highlight.ts when hidden code is shown: WebKit doesn't paint a highlight of static ranges on text that was inside a display: none element for a rendered frame after the ranges were added",
       },
     )
     .toBe(false)

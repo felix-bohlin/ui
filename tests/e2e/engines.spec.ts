@@ -404,7 +404,10 @@ repro(WEBKIT_HIGHLIGHT_HIDDEN_TEXT, () => {
       browserName,
       page: tab,
     }) => {
-      failsIn(browserName, { webkit: WEBKIT_HIGHLIGHT_HIDDEN_TEXT })
+      failsIn(
+        browserName,
+        kind === "StaticRange" ? { webkit: WEBKIT_HIGHLIGHT_HIDDEN_TEXT } : {},
+      )
       await tab.setContent(`<!doctype html>
 <style>
   pre { color: oklch(0 0 0); display: none; font-size: 40px }

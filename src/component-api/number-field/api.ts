@@ -1,8 +1,8 @@
 import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
-const hydrated =
-  "The step buttons work once the component hydrates, or once the page imports `opui-css/elements/number-field.js`."
+const imported =
+  "The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`."
 
 export default {
   component: "NumberField",
@@ -36,9 +36,10 @@ export default {
       {
         astro:
           "The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.",
-        react: `Use \`value\` with \`onChange\`, or \`defaultValue\`. ${hydrated}`,
-        svelte: hydrated,
-        vue: hydrated,
+        react:
+          "Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.",
+        svelte: imported,
+        vue: imported,
       },
     ),
     html: 'Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser\'s own spin buttons.',

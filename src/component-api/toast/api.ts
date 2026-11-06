@@ -1,4 +1,3 @@
-import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -21,16 +20,13 @@ export default {
     },
   ],
   notes: {
-    ...components(
-      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates, or once the page imports `opui-css/elements/toaster.js`; the Astro component loads it.",
-    ),
     astro:
       "Attributes that aren't props go to the root `<opui-toaster>`. The component loads `opui-css/elements/toaster.js`, which exports `toast()` for a client script.",
     react:
-      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/react` exports `toast()` next to `Toaster`.",
+      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once `opui-css/elements/toaster.js` runs, which the component loads once it mounts and `toast()` brings with your code. `opui-css/react` exports `toast()` next to `Toaster`.",
     svelte:
-      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/svelte` exports `toast()` next to `Toaster`.",
-    vue: "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show once the component hydrates. `opui-css/vue` exports `toast()` next to `Toaster`.",
+      "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/svelte` exports `toast()` next to `Toaster`.",
+    vue: "Attributes that aren't props go to the root `<opui-toaster>`. Toasts show as soon as the component's code loads, which imports `opui-css/elements/toaster.js`. `opui-css/vue` exports `toast()` next to `Toaster`.",
     html: 'Put an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">` in `<opui-toaster class="ui-toaster">` with an id, and import `opui-css/elements/toaster.js`.',
   },
   options: [

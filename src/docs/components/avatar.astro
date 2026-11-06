@@ -44,24 +44,16 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   <Fragment slot="title">Avatar</Fragment>
 
   <Usage slot="usage">
-    <li slot="when">
-      Showing who did something, like the author of a comment or the assignee of
-      a task.
-    </li>
-    <li slot="when">
-      People and accounts next to their name, in lists, table rows and headers.
-    </li>
-    <li slot="when">
-      A few people at once, overlapping in a <a href="#grouped">group</a>.
+    <li slot="when">Who did something, like a comment's author.</li>
+    <li slot="when">People next to their name, in lists and tables.</li>
+    <li slot="when">A few people at once: a <a href="#grouped">group</a>.</li>
+    <li slot="when-not">
+      Icons for things or actions: use an <code>svg</code>, or an
+      <DocLink href="/components/button#icon-only">icon-only Button</DocLink>.
     </li>
     <li slot="when-not">
-      Icons for things or actions. Use an <code>svg</code>, or an
-      <DocLink href="/components/button#icon-only">icon-only Button</DocLink>
-      for an action.
-    </li>
-    <li slot="when-not">
-      An unread count or an online status on its own. Put a
-      <DocLink href="/components/badge">Badge</DocLink> on the avatar.
+      A count or status: put a <DocLink href="/components/badge">Badge</DocLink>
+      on the avatar.
     </li>
   </Usage>
 
@@ -87,16 +79,11 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
     <h2>Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>variant</code> to <code>outlined</code> for the border color
-        with no fill or <code>tonal</code> for the primary tint. The default,
-        <code>filled</code>, is the primary color. An image avatar has no fill
-        in any variant.
+        Filled by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-outlined</code> for the border color with no fill or
-        <code>.ui-tonal</code> for the primary tint. Without one the avatar is
-        filled with the primary color. An image avatar has no fill in any
-        variant.
+        Filled by default. Use <code>.ui-outlined</code> or
+        <code>.ui-tonal</code> to change it.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" row />
@@ -107,13 +94,11 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>shape</code> to <code>rounded</code>, <code>squared</code> or
-        <code>squircle</code>. The default is <code>circle</code>.
+        A circle by default. Use <code>shape</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Change the shape of the avatar with the <code>.ui-rounded</code>,
-        <code>.ui-squared</code> and <code>.ui-squircle</code> classes. Without
-        one the avatar is a circle.
+        A circle by default. Use <code>.ui-rounded</code>,
+        <code>.ui-squared</code> or <code>.ui-squircle</code> to change it.
       </Fragment>
     </Conditional>
 
@@ -123,19 +108,6 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   <section id="sizes">
     <h2>Sizes</h2>
 
-    <p>
-      Use <PropOrClass prop='size="x-small"' class=".ui-x-small" />,
-      <PropOrClass prop='size="small"' class=".ui-small" /> or
-      <PropOrClass prop='size="large"' class=".ui-large" /> to match the control
-      sizes, for example in dense lists, table rows and bylines. Letters scale
-      with the avatar, and icons up to the default size.
-    </p>
-    <Conditional as="p">
-      <Fragment slot="components">
-        The default is <code>size="medium"</code>.
-      </Fragment>
-    </Conditional>
-
     <AutoExample name="Sizes" row />
   </section>
 
@@ -143,17 +115,9 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
     <h2>Disabled</h2>
 
     <Conditional as="p">
-      <Fragment slot="components">
-        Disable a button avatar with <code>disabled</code>. A link avatar drops
-        its <code>href</code> and gets <code>role="link"</code> and
-        <code>aria-disabled="true"</code> instead, so a screen reader still
-        hears a disabled link with its name.
-      </Fragment>
       <Fragment slot="html">
-        Disable a button avatar with the <code>disabled</code> attribute. On a
-        link avatar, remove the <code>href</code> and add
-        <code>role="link"</code> and <code>aria-disabled="true"</code>, so a
-        screen reader still hears a disabled link with its name.
+        Links: drop <code>href</code>, add <code>role="link"</code> and
+        <code>aria-disabled="true"</code>.
       </Fragment>
     </Conditional>
 
@@ -163,51 +127,29 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   <section id="grouped">
     <h2>Grouped</h2>
 
-    <Conditional as="p">
-      <Fragment slot="components">
-        Group multiple avatars in an <code>AvatarGroup</code> with an
-        <code>aria-label</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Group multiple avatars in a <code>.ui-avatar-group</code> element with
-        <code>role="group"</code> and an <code>aria-label</code>.
-      </Fragment>
-    </Conditional>
+    <p>
+      Use <PropOrClass prop="AvatarGroup" class=".ui-avatar-group" /> with an
+      <code>aria-label</code>.
+    </p>
 
     <AutoExample name="Grouped" row />
 
-    <p>
-      A <DocLink href="/components/badge">Badge</DocLink> on an avatar in a
-      group, like the dot on the last one, sits on the avatar's start side, the
-      part the next avatar doesn't cover.
-    </p>
-
     <h3 id="overflow">Overflow</h3>
-    <p>
-      When a group has more people than fit, show the first few and end with a
-      count, like "+4". Make it a button that opens the full list, and name it
-      in words, since screen readers would read "+4" as "plus four".
-    </p>
+    <p>Name the count button in words, not "+4".</p>
     <AutoExample name="GroupedOverflow" row />
   </section>
 
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Give an image avatar the person's name as its <code>alt</code>, not
-        "Avatar". When the name is already shown next to it, use
-        <code>alt=""</code> so it isn't read twice.
+        Give images the person's name as <code>alt</code>, or
+        <code>alt=""</code> next to the name.
       </li>
       <li>
-        Initials and icons have no name on their own. Add
-        <code>role="img"</code> and an <code>aria-label</code> with the full
-        name, or <code>aria-hidden="true"</code> when the name is next to it.
+        Give initials and icons <code>role="img"</code> and an
+        <code>aria-label</code>.
       </li>
-      <li>
-        A link or button avatar needs an <code>aria-label</code> that names the
-        person, and a group of avatars an <code>aria-label</code> that names the
-        group.
-      </li>
+      <li>Link and button avatars need an <code>aria-label</code>.</li>
     </ul>
   </Fragment>
 

@@ -89,58 +89,33 @@ export const keywords = ["tab panel", "tablist"]
     </Anatomy>
   </Fragment>
   <Fragment slot="preamble">
-    The Tabs are radio inputs and the Panels are just divs that show and hide
-    based on the radio inputs' <code>:checked</code> state. Use Tabs to switch
-    between panels of content. To pick an option, like a list or grid view, use
-    a <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    Radio inputs that switch panels. To pick an option, use a
+    <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      Switching between panels of related content in one place, like the parts
-      of a settings page.
+      Panels of related content, like parts of a settings page.
     </li>
-    <li slot="when">
-      Versions of the same content, like a code sample for each framework.
-    </li>
+    <li slot="when">Versions of the same content, like code per framework.</li>
     <li slot="when-not">
-      Picking an option, like a list or grid view. Use a
+      Picking an option: use a
       <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
     </li>
     <li slot="when-not">
-      Content that people compare or read in order. Show it on the page, or in
-      <DocLink href="/components/accordion">Accordions</DocLink> that can be
-      open at the same time.
+      Content read in order: show it on the page, or in
+      <DocLink href="/components/accordion">Accordions</DocLink>.
     </li>
     <li slot="when-not">
-      Navigation between pages. The tabs are radio inputs, not links, so use
-      links, like a <DocLink href="/components/list#selected">List</DocLink>
-      with <code>aria-current="page"</code>.
+      Navigation between pages: use links, like a
+      <DocLink href="/components/list#selected">List</DocLink>.
     </li>
   </Usage>
 
   <section id="basics">
     <h2>Basics</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        The default <code>variant</code> is <code>tonal</code>: the tabs sit on
-        a tonal track and the selected tab is a raised pill.
-      </Fragment>
-    </Conditional>
-    <p>
-      The pill slides to the tab you select, like the line of
-      <a href="#line">line tabs</a>, in browsers with anchor positioning.
-      Elsewhere it fades from tab to tab, and in forced colors it stays on each
-      tab.
-    </p>
     <AutoExample name="Basics" />
 
-    <p>
-      Tabs switch panels on one page. For navigation between pages, or a
-      settings page with its sections in a column at the side, use links with
-      <code>aria-current="page"</code>, like a
-      <DocLink href="/components/list#selected">List</DocLink>.
-    </p>
     <BlockLink slug="app-shell">
       The sidebar is a list of links, and the current page's link has
       <code>aria-current="page"</code>.
@@ -149,60 +124,33 @@ export const keywords = ["tab panel", "tablist"]
 
   <section id="filled">
     <h2>Filled</h2>
-    <p>
-      Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the
-      selected tab with the primary color.
-    </p>
+    <p>Use <PropOrClass prop='variant="filled"' class=".ui-filled" />.</p>
     <AutoExample name="Filled" />
   </section>
 
   <section id="line">
     <h2>Line</h2>
-    <p>
-      Use <PropOrClass prop='variant="line"' class=".ui-line" /> for tabs
-      without a background, marking the selected tab with a line.
-    </p>
+    <p>Use <PropOrClass prop='variant="line"' class=".ui-line" />.</p>
     <AutoExample name="Line" />
   </section>
 
   <section id="outlined">
     <h2>Outlined</h2>
-    <p>
-      Use <PropOrClass prop='variant="outlined"' class=".ui-outlined" /> for a
-      bordered track without a background.
-    </p>
+    <p>Use <PropOrClass prop='variant="outlined"' class=".ui-outlined" />.</p>
     <AutoExample name="Outlined" />
   </section>
 
   <section id="icons-and-counts">
     <h2>Icons and counts</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A <code>TabsLabel</code> is a row: put an <code>svg</code> with
-        <code>aria-hidden="true"</code> before the text and a small
-        <code>span.ui-chip</code> after it for a count, since a label only takes
-        inline content. The count is part of the tab's name, so screen readers
-        hear "Inbox 12".
-      </Fragment>
-      <Fragment slot="html">
-        A <code>.ui-label</code> is a row: put an <code>svg</code> with
-        <code>aria-hidden="true"</code> before the text and a small
-        <code>span.ui-chip</code> after it for a count, since a label only takes
-        inline content. The count is part of the tab's name, so screen readers
-        hear "Inbox 12".
-      </Fragment>
-    </Conditional>
     <AutoExample name="IconsAndCounts" />
   </section>
 
   <section id="overflow">
     <h2>Overflow</h2>
     <p>
-      Tabs wrap onto more rows when they don't fit. Use
+      Wraps by default. Use
       <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
-      keep them on one row and scroll them sideways instead. The open panel
-      stays in view. The tabs size to their container, so give them a width
-      inside flex and grid layouts that size to their content.
+      scroll.
     </p>
     <AutoExample name="Overflow" />
   </section>
@@ -211,71 +159,31 @@ export const keywords = ["tab panel", "tablist"]
     <h2>Binding</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Astro renders the tabs on the server, so they have no bound value. Give
-        each <code>TabsItem</code> a <code>value</code> and set
-        <code>value</code> on <code>Tabs</code> to select the matching tab.
-        After that the selection lives in the radio inputs, which share the
-        <code>name</code>: submit them with a form, where
-        <code>FormData.get()</code> reads the selected tab, or read the checked
-        input in a script on <code>change</code>. Set
-        <code>input.checked = input.defaultChecked</code> to go back to the
-        starting tab.
+        Set <code>value</code> on <code>Tabs</code>. After that, read the
+        inputs.
       </Fragment>
       <Fragment slot="html">
-        The selection lives in the radio inputs, which share a <code>name</code
-        >. Give each one a <code>value</code> and submit them with a form, where
-        <code>FormData.get()</code> reads the selected tab, or read the checked
-        input in a script on <code>change</code>. Set
-        <code>input.checked = input.defaultChecked</code> to go back to the
-        <code>checked</code> input in the markup.
+        Read the checked input, or submit it with a form.
       </Fragment>
       <Fragment slot="react">
-        Give each <code>TabsItem</code> a <code>value</code> and control the
-        selection with <code>value</code> and <code>onValueChange</code> on
-        <code>Tabs</code>, or set the starting tab with <code>defaultValue</code
-        >. A tab is checked when its <code>value</code> matches, so the items
-        don't need <code>defaultChecked</code>. A tab that loses its check to
-        another one fires no <code>onChange</code> of its own, which is why the
-        value lives on <code>Tabs</code>.
+        Use <code>value</code> and <code>onValueChange</code> on
+        <code>Tabs</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Give each <code>TabsItem</code> a <code>value</code> and bind the
-        selection with <code>bind:value</code> on <code>Tabs</code>. A tab is
-        checked when its <code>value</code> matches, and setting the variable
-        switches tabs. A tab that loses its check to another one fires no
-        <code>change</code> of its own, which is why the value lives on
-        <code>Tabs</code>.
+        Use <code>bind:value</code> on <code>Tabs</code>.
       </Fragment>
-      <Fragment slot="vue">
-        Give each <code>TabsItem</code> a <code>value</code> and bind the
-        selection with <code>v-model</code> on <code>Tabs</code>. A tab is
-        checked when its <code>value</code> matches, and setting the ref
-        switches tabs. A tab that loses its check to another one fires no
-        <code>change</code> of its own, which is why the value lives on
-        <code>Tabs</code>.
-      </Fragment>
+      <Fragment slot="vue"
+        >Use <code>v-model</code> on <code>Tabs</code>.</Fragment
+      >
     </Conditional>
     <AutoExample name="Binding" column />
   </section>
 
   <Fragment slot="accessibility">
     <p>
-      Tabs are radio buttons. Each tab is a radio input with a label, and the
-      panel after it shows while it's checked. Screen readers announce a radio
-      group ("Profile, radio button, checked, 1 of 3"), which matches how the
-      tabs behave.
-    </p>
-    <p>
-      There are no <code>tablist</code>, <code>tab</code> or
-      {" "}<code>tabpanel</code> roles. ARIA tabs promise focusable tabs with a
-      selected state, and radio inputs can't keep that promise without
-      JavaScript. Native radios get group management and keyboard support for
-      free.
-    </p>
-    <p>
-      To name the group, add <code>role="radiogroup"</code> and
-      {" "}<code>aria-label</code> (or <code>aria-labelledby</code>) to
-      {" "}<PropOrClass prop="Tabs" class=".ui-tabs" />.
+      Tabs are a radio group, not ARIA tabs. Name it with
+      <code>role="radiogroup"</code> and <code>aria-label</code> on
+      <PropOrClass prop="Tabs" class=".ui-tabs" />.
     </p>
 
     <Table>

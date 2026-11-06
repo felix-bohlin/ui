@@ -39,8 +39,8 @@ Model: `value` (`number | string`), the input value. Astro and React `value`, Sv
 
 - HTML: Put the decrease and increase buttons in `.ui-start` and `.ui-end`, with `commandfor` and `aria-controls` naming the input and `command="--step-down"` or `command="--step-up"`, give the `<label>` a `for`, and import `opui-css/elements/number-field.js`. Without it, the buttons are hidden and the input keeps the browser's own spin buttons.
 - Astro: Attributes that aren't props go to the `<input>`, like `min`, `max`, `step` and `placeholder`, and `class` and `style` go to the root `<opui-number-field>`. The component loads `opui-css/elements/number-field.js`, which steps the value when a button is pressed or held.
-- React: Attributes that aren't props go to the `<input>`, like `min`, `max`, `step` and `placeholder`, and `className` and `style` go to the root `<opui-number-field>`. Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component hydrates, or once the page imports `opui-css/elements/number-field.js`.
-- Svelte and Vue: Attributes that aren't props go to the `<input>`, like `min`, `max`, `step` and `placeholder`, and `class` and `style` go to the root `<opui-number-field>`. The step buttons work once the component hydrates, or once the page imports `opui-css/elements/number-field.js`.
+- React: Attributes that aren't props go to the `<input>`, like `min`, `max`, `step` and `placeholder`, and `className` and `style` go to the root `<opui-number-field>`. Use `value` with `onChange`, or `defaultValue`. The step buttons work once the component mounts and loads `opui-css/elements/number-field.js`, or as soon as the page imports it.
+- Svelte and Vue: Attributes that aren't props go to the `<input>`, like `min`, `max`, `step` and `placeholder`, and `class` and `style` go to the root `<opui-number-field>`. The step buttons work as soon as the component's code loads, which imports `opui-css/elements/number-field.js`.
 
 ## Component properties
 

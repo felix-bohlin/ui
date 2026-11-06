@@ -71,7 +71,9 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Notes
 
 - HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.
-- Astro, React, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Astro: The component loads `opui-css/elements/select-all.js`. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- React: The component loads `opui-css/elements/select-all.js` once it mounts, unless the page imports it first. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Svelte and Vue: The component imports `opui-css/elements/select-all.js`, so the element runs as soon as the component's code loads. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
 ## Component properties
 

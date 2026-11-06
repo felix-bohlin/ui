@@ -16,13 +16,7 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
 
   <section id="installation">
     <h2>Install via NPM</h2>
-    <p>
-      The components ship as compiled JavaScript with their types, so they work
-      in any Vue setup without extra configuration, on the server too, Vite,
-      Nuxt and Astro with <code>@astrojs/vue</code> included. They need Vue 3.5
-      or later, so add <code>vue</code> if it isn't installed yet.
-    </p>
-    <InstallCommand />
+    <InstallCommand packages="vue@3" />
   </section>
 
   <section id="css">

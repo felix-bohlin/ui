@@ -24,14 +24,7 @@ const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(
 
   <section id="installation">
     <h2>Install via NPM</h2>
-    <p>
-      The components ship as compiled JavaScript with their types, so they work
-      in any React setup without extra configuration, Vite, Next.js and Astro
-      with <code>@astrojs/react</code> included. They need React 19 or later, so
-      add <code>react</code> and <code>react-dom</code> if they aren't installed
-      yet.
-    </p>
-    <InstallCommand />
+    <InstallCommand packages="react@19 react-dom@19" />
   </section>
 
   <section id="css">

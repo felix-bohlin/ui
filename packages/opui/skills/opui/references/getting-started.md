@@ -143,7 +143,13 @@ OPUI ships first-class Astro components. Install the package, import what you ne
 
 ### Install via NPM
 
-The components ship as uncompiled `.astro` files, which Astro compiles as they are. They need Astro 7 or later.
+```sh
+pnpm add opui-css astro@7
+```
+
+```sh
+npm install opui-css astro@7
+```
 
 ### Import the CSS
 
@@ -211,7 +217,13 @@ OPUI ships first-class React 19 components. Install the package, import what you
 
 ### Install via NPM
 
-The components ship as compiled JavaScript with their types, so they work in any React setup without extra configuration, Vite, Next.js and Astro with `@astrojs/react` included. They need React 19 or later, so add `react` and `react-dom` if they aren't installed yet.
+```sh
+pnpm add opui-css react@19 react-dom@19
+```
+
+```sh
+npm install opui-css react@19 react-dom@19
+```
 
 ### Import the CSS
 
@@ -262,9 +274,13 @@ OPUI ships first-class Svelte 5 components. Install the package, import what you
 
 ### Install via NPM
 
-The components ship as Svelte components (`.svelte`) with their types, so your build has to compile them. They need Svelte 5.57 or later, so add `svelte` if it isn't installed yet. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
+```sh
+pnpm add opui-css svelte@5
+```
 
-`@sveltejs/vite-plugin-svelte` compiles the components for server rendering too, in SvelteKit and in a Vite setup of your own alike: it picks up the package through its `svelte` export condition.
+```sh
+npm install opui-css svelte@5
+```
 
 ### Import the CSS
 
@@ -326,7 +342,13 @@ OPUI ships first-class Vue components. Install the package, import what you need
 
 ### Install via NPM
 
-The components ship as compiled JavaScript with their types, so they work in any Vue setup without extra configuration, on the server too, Vite, Nuxt and Astro with `@astrojs/vue` included. They need Vue 3.5 or later, so add `vue` if it isn't installed yet.
+```sh
+pnpm add opui-css vue@3
+```
+
+```sh
+npm install opui-css vue@3
+```
 
 ### Import the CSS
 

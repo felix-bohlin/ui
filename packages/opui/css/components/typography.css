@@ -74,7 +74,11 @@
       }
 
       font-size: var(--ui-font-size-large);
-      line-height: round(up, 1.6em, var(--ui-rhythm-step));
+      line-height: round(
+        up,
+        calc(1em * var(--ui-line-height)),
+        var(--ui-rhythm-step)
+      );
     }
   }
 
@@ -436,7 +440,7 @@
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
       /* Firefox and Safari fallback */
       @supports (inline-size: calc(1px * 1em / 1rem)) {
-        --_font-scale: calc(1em / 1rem);
+        --_font-scale: calc(1em / var(--ui-font-size-body));
       }
 
       color: var(--ui-text-strong);

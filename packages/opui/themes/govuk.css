@@ -53,8 +53,9 @@
     --ui-font-size-700: 2rem;
     --ui-font-size-800: 2.25rem;
     --ui-font-size-900: 3rem;
-    --ui-font-size-h3: 1.5rem;
+    --ui-font-size-h3: clamp(1.3125rem, 1.1786rem + 0.67vi, 1.5rem);
     --ui-font-size-h4: 1.1875rem;
+    --ui-font-size-large: clamp(1.3125rem, 1.1786rem + 0.67vi, 1.5rem);
     --ui-font-weight-medium: 400;
     --ui-font-weight-semibold: 700;
     --ui-gray-chroma: 0;

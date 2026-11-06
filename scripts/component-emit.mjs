@@ -312,6 +312,21 @@ const namedImport = (line) => {
     : undefined
 }
 
+export const importedNames = (lines) =>
+  lines.flatMap((line) => {
+    const clause = sourceFileOf(line, "import.ts").statements[0]?.importClause
+    if (!clause) return []
+    const bindings = clause.namedBindings
+    return [
+      ...(clause.name ? [clause.name.text] : []),
+      ...(bindings && ts.isNamedImports(bindings)
+        ? bindings.elements.map((element) => element.name.text)
+        : bindings
+          ? [bindings.name.text]
+          : []),
+    ]
+  })
+
 export const withImport = (lines, module, name) => {
   const imports = lines.map(namedImport)
   const index = imports.findIndex((entry) => entry?.module === module)

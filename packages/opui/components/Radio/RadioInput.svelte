@@ -6,6 +6,7 @@
 
   let {
     checked,
+    defaultChecked,
     group = $bindable(),
     name,
     onchange,
@@ -30,7 +31,7 @@
   name={name ?? field?.name}
   {...rest}
   {@attach seedChecked(isChecked, check)}
-  defaultChecked={initialChecked}
+  defaultChecked={defaultChecked ?? initialChecked}
   onchange={(event) => {
     check()
     onchange?.(event)

@@ -605,7 +605,7 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, ...rest }: Props) {\n  return (\n    <label className={cx(["ui-sample", className])}>\n      <textarea {...rest} />\n    </label>\n  )\n}\n',
     )
     expect(port(".svelte")).toBe(
-      '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let { class: className, value = $bindable(), ...rest }: Props = $props()\n\n  const initialValue = untrack(() => value)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value defaultValue={initialValue}></textarea>\n</label>\n',
+      '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()\n\n  const initialValue = untrack(() => value)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value defaultValue={defaultValue ?? initialValue}\n  ></textarea>\n</label>\n',
     )
     expect(port(".vue")).toBe(
       '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs, vSeed } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-seed v-model="model"></textarea>\n  </label>\n</template>\n',
@@ -638,7 +638,7 @@ describe("the three ports of a sample", () => {
       { api: modelApi("value", "input") },
     )
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      "let { class: className, value = $bindable(), ...rest }: Props = $props()",
+      "  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
       '<input v-bind="attrs" type="number" v-seed v-model.number="model" />',
@@ -775,10 +775,10 @@ describe("the three ports of a sample", () => {
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain('import { toggleInGroup } from "../group"')
     expect(svelte).toContain(
-      "  let {\n    checked = $bindable(),\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () => (group ? group.includes(value) : !!checked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
+      "  let {\n    checked = $bindable(),\n    defaultChecked,\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () => (group ? group.includes(value) : !!checked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
     )
     expect(svelte).toContain(
-      '<input\n  type="checkbox"\n  {name}\n  {...rest}\n  bind:checked={getChecked, setChecked}\n  defaultChecked={initialChecked}\n  {value}\n/>',
+      '<input\n  type="checkbox"\n  {name}\n  {...rest}\n  bind:checked={getChecked, setChecked}\n  defaultChecked={defaultChecked ?? initialChecked}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain(
@@ -803,7 +803,7 @@ describe("the three ports of a sample", () => {
       },
     )
     expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
-      '<input\n  type="radio"\n  {...rest}\n  {@attach seedChecked(isChecked, check)}\n  defaultChecked={initialChecked}\n  onchange={(event) => {\n    check()\n    onchange?.(event)\n  }}\n  {value}\n/>',
+      '<input\n  type="radio"\n  {...rest}\n  {@attach seedChecked(isChecked, check)}\n  defaultChecked={defaultChecked ?? initialChecked}\n  onchange={(event) => {\n    check()\n    onchange?.(event)\n  }}\n  {value}\n/>',
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain("const unchecked = Symbol()")
@@ -1065,6 +1065,22 @@ describe("the three ports of a sample", () => {
     expect(
       result.refused.get(sampleFile().replace(".astro", ".svelte"))?.message,
     ).toContain("the const `$id`, whose `$` prefix Svelte reserves")
+  })
+
+  test("refuses an import named like a prop the Svelte model adds", async () => {
+    const result = await compileComponent(
+      '---\nimport type { Props } from "./types.astro"\nimport { defaultValue } from "./value"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]} data-middle={defaultValue}>\n  <textarea {...rest} />\n</label>\n',
+      sampleFile(),
+      { api: modelApi("value", "textarea") },
+    )
+    expect([...result.refused.keys()]).toEqual([
+      sampleFile().replace(".astro", ".svelte"),
+    ])
+    expect(
+      result.refused.get(sampleFile().replace(".astro", ".svelte"))?.message,
+    ).toContain(
+      "the name `defaultValue`, which the Svelte port also declares as a prop",
+    )
   })
 
   test.each([

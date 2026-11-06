@@ -5,6 +5,7 @@ import {
   contextImports,
   edgeTrimmed,
   groupWarning,
+  importedNames,
   propsImport,
   rewriteExpression,
   rewriteStatement,
@@ -69,6 +70,18 @@ export const toSvelte = (component) => {
   const added = [...bindableProps, ...plainProps]
     .filter((prop) => !props.some((entry) => entry.prop === prop))
     .map((prop) => ({ local: prop, prop }))
+  const taken = new Set([
+    ...derived.map(({ name }) => name),
+    ...importedNames(imports),
+  ])
+  const clash = added.find(({ local }) => taken.has(local))
+  if (clash) {
+    throw unsupported(
+      component.file,
+      `the name \`${clash.local}\`, which the Svelte port also declares as a prop`,
+      "rename the import or const in the Astro file",
+    )
+  }
   const entries = [...props, ...added]
     .toSorted((a, b) => byName(a.prop, b.prop))
     .map(({ default: fallback, local, prop }) =>

@@ -4,7 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import { defaultValue } from "./value"
+import { middleValue } from "./value"
 import type { Props } from "./types.react"
 
 export default function Range({
@@ -44,7 +44,7 @@ export default function Range({
   const hasValue = valueSuffix !== undefined || hasValueText
   const hasDatalist = !!items || datalist
   const current =
-    rest.value ?? rest.defaultValue ?? defaultValue({ max, min, step })
+    rest.value ?? rest.defaultValue ?? middleValue({ max, min, step })
   const readout = `${current}${valueSuffix ?? ""}`
   const tick = items?.find(
     (option) =>

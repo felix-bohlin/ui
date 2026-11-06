@@ -6,6 +6,7 @@
 
   let {
     checked = $bindable(),
+    defaultChecked,
     group = $bindable(),
     name,
     value,
@@ -27,6 +28,6 @@
   name={name ?? field?.name}
   {...rest}
   bind:checked={getChecked, setChecked}
-  defaultChecked={initialChecked}
+  defaultChecked={defaultChecked ?? initialChecked}
   {value}
 />

@@ -4,7 +4,7 @@ import { computed, inject, useId } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { defaultValue } from "./value"
+import { middleValue } from "./value"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -61,7 +61,7 @@ const hasValue = computed(() => valueSuffix !== undefined || hasValueText.value)
 
 const hasDatalist = computed(() => !!items || slots.datalist)
 
-const current = computed(() => model.value ?? defaultValue({ max, min, step }))
+const current = computed(() => model.value ?? middleValue({ max, min, step }))
 
 const readout = computed(() => `${current.value}${valueSuffix ?? ""}`)
 

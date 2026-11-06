@@ -4,7 +4,7 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import { defaultValue } from "./value"
+  import { middleValue } from "./value"
   import type { Props } from "./types.svelte"
 
   let {
@@ -13,6 +13,7 @@
     "aria-labelledby": ariaLabelledBy,
     "aria-valuetext": ariaValueText,
     class: className,
+    defaultValue,
     error,
     hideLabel,
     id,
@@ -48,7 +49,7 @@
   const hasValueText = $derived(valueText)
   const hasValue = $derived(valueSuffix !== undefined || hasValueText)
   const hasDatalist = $derived(!!items || datalist)
-  const current = $derived(value ?? defaultValue({ max, min, step }))
+  const current = $derived(value ?? middleValue({ max, min, step }))
   const readout = $derived(`${current}${valueSuffix ?? ""}`)
   const tick = $derived(
     items?.find(
@@ -116,7 +117,7 @@
     {step}
     type="range"
     bind:value
-    defaultValue={initialValue}
+    defaultValue={defaultValue ?? initialValue}
   />
   {#if hasDatalist}
     <datalist aria-hidden="true" id={listId}>

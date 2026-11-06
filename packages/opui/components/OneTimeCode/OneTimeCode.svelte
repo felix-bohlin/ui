@@ -8,6 +8,7 @@
     alphanumeric,
     "aria-invalid": ariaInvalid,
     class: className,
+    defaultValue,
     error,
     grouped,
     length = 6,
@@ -54,7 +55,7 @@
       name={name ?? field?.name}
       type="text"
       bind:value
-      defaultValue={initialValue}
+      defaultValue={defaultValue ?? initialValue}
     />
   </span>
   {#if endText}

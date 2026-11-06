@@ -7,7 +7,7 @@ export const resetValue = (input: HTMLInputElement) => {
   return probe.valueAsNumber
 }
 
-export const defaultValue = ({
+export const middleValue = ({
   max,
   min,
   step,

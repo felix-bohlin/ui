@@ -13,6 +13,7 @@
     "aria-invalid": ariaInvalid,
     class: className,
     decreaseLabel = "Decrease",
+    defaultValue,
     error,
     hideLabel,
     id,
@@ -98,7 +99,7 @@
       name={name ?? field?.name}
       type="number"
       bind:value
-      defaultValue={initialValue}
+      defaultValue={defaultValue ?? initialValue}
     />
     <span class="ui-end">
       <Button

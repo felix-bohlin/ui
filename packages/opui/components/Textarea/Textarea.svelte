@@ -11,6 +11,7 @@
     characterCount,
     characterCountLabel,
     class: className,
+    defaultValue,
     error,
     hideLabel,
     id,
@@ -69,7 +70,7 @@
       {id}
       name={name ?? field?.name}
       bind:value
-      defaultValue={initialValue}></textarea>
+      defaultValue={defaultValue ?? initialValue}></textarea>
     {#if start}
       <span class="ui-start">
         {@render content(start)}

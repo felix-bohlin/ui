@@ -30,12 +30,12 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
-        "defaultChecked={initialChecked}",
+        "defaultChecked={defaultChecked ?? initialChecked}",
         "{value}",
       ],
       bindables: bindableProps,
       imports: () => [`import { toggleInGroup } from "../group"`],
-      plainProps: () => ["value"],
+      plainProps: () => ["defaultChecked", "value"],
       script: () => [
         "const getChecked = () => (group ? group.includes(value) : !!checked)",
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
@@ -163,12 +163,12 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: () => [
         "{@attach seedChecked(isChecked, check)}",
-        "defaultChecked={initialChecked}",
+        "defaultChecked={defaultChecked ?? initialChecked}",
         "onchange={(event) => {\n  check()\n  onchange?.(event)\n}}",
         "{value}",
       ],
       bindables: bindableProps,
-      plainProps: () => ["checked", "onchange", "value"],
+      plainProps: () => ["checked", "defaultChecked", "onchange", "value"],
       script: () => [
         "const hasGroup = untrack(() => group !== undefined)",
         "const isChecked = () =>\n  hasGroup\n    ? group === (value ?? true)\n    : (checked ?? group === (value ?? true))",
@@ -206,9 +206,12 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: (model) => [
         `bind:${model.prop}`,
-        ...(resettable(model) ? ["defaultValue={initialValue}"] : []),
+        ...(resettable(model)
+          ? ["defaultValue={defaultValue ?? initialValue}"]
+          : []),
       ],
       bindables: (model) => [model.prop],
+      plainProps: (model) => (resettable(model) ? ["defaultValue"] : []),
       script: (model) =>
         resettable(model)
           ? [`const initialValue = untrack(() => ${model.local ?? model.prop})`]

@@ -16,6 +16,7 @@
     characterCount,
     characterCountLabel,
     class: className,
+    defaultValue,
     dropZone,
     error,
     hideLabel,
@@ -105,7 +106,7 @@
       pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
       bind:value
-      defaultValue={initialValue}
+      defaultValue={defaultValue ?? initialValue}
     />
     {#if start}
       <span class="ui-start">

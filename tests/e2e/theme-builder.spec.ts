@@ -1,6 +1,12 @@
+import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test, type Page } from "@playwright/test"
 import { axeNodes } from "./fixtures"
+
+const PRESETS =
+  readdirSync(new URL("../../packages/opui/themes/", import.meta.url)).filter(
+    (file) => file.endsWith(".css"),
+  ).length + 1
 
 const open = async (page: Page, width = 1440) => {
   await page.setViewportSize({ height: 900, width })
@@ -28,7 +34,7 @@ test("opens on Start with the preset cards and no changes", async ({
   await expect(group(page, "corners")).toBeHidden()
   await expect(
     page.locator('[data-presets] input[name="builder-preset"]'),
-  ).toHaveCount(5)
+  ).toHaveCount(PRESETS)
   await expect(
     page.locator('[data-presets] input[name="builder-preset"]:checked'),
   ).toHaveValue("")

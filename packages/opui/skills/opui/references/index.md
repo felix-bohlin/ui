@@ -23,7 +23,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Divider | `divider.md` | It's just a line. |
 | Drawer | `drawer.md` | Slides in from an edge of the screen. For a task that needs full attention, use a Dialog. |
 | Form | `form.md` | Spacing and grouping for form fields. |
-| Layout | `layout.md` | Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
+| Layout | `layout.md` | Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale. |
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | A popover list of actions or links. |
 | Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
@@ -39,7 +39,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Stepper | `stepper.md` | Shows where someone is in a flow of steps, such as a checkout. |
 | Switch | `switch.md` | Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group. |
 | Table | `table.md` | Displays tabular data. Basic tables with row and column headers, and optional captions and footers. |
-| Tabs | `tabs.md` | The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group. |
+| Tabs | `tabs.md` | Radio inputs that switch panels. To pick an option, use a Toggle group. |
 | Text field | `text-field.md` | An input for single-line text data. Basic text fields with labels, field descriptions, and validation states. |
 | Textarea | `textarea.md` | An input for multi-line text data. Basic textareas with labels, supporting text, and validation states. |
 | Timeline | `timeline.md` | A list of dated events with markers and a connecting line. |

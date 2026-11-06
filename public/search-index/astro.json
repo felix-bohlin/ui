@@ -1132,7 +1132,7 @@
   {
     "id": "component-layout-astro",
     "title": "Layout",
-    "description": "Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale.",
     "keywords": "columns container grid stack",
     "category": "Component",
     "url": "/astro/components/layout/"
@@ -2499,7 +2499,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "Radio inputs that switch panels. To pick an option, use a Toggle group.",
     "keywords": "tab panel tablist",
     "category": "Component",
     "url": "/astro/components/tabs/"

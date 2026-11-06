@@ -96,7 +96,15 @@ export default defineConfig({
       },
     },
     optimizeDeps: { exclude: ["microlighter"] },
-    resolve: { external: ["oxfmt"] },
+    resolve: {
+      alias: ["react", "svelte", "vue"].map((framework) => ({
+        find: new RegExp(`^opui-css/${framework}$`),
+        replacement: fileURLToPath(
+          new URL(`./packages/opui/${framework}/index.ts`, import.meta.url),
+        ),
+      })),
+      external: ["oxfmt"],
+    },
     plugins: [
       {
         name: "opui-no-react-refresh",

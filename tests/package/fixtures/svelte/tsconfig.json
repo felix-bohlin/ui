@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
     "isolatedModules": true,
     "lib": ["DOM", "DOM.Iterable", "ES2023"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noEmit": true,
+    "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2023",

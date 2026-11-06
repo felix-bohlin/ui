@@ -215,7 +215,7 @@ OPUI ships first-class React 19 components. Install the package, import what you
 
 ### Install via NPM
 
-The components ship as uncompiled TypeScript (`.tsx` and `.ts`), so your build has to compile them. They need React 19 or later, so add `react` and `react-dom` if they aren't installed yet. Vite with `@vitejs/plugin-react` and Astro with `@astrojs/react` compile them as they are. In Next.js, add `transpilePackages: ["opui-css"]` to `next.config`.
+The components ship as compiled JavaScript with their types, so they work in any React setup without extra configuration, Vite, Next.js and Astro with `@astrojs/react` included. They need React 19 or later, so add `react` and `react-dom` if they aren't installed yet.
 
 ### Import the CSS
 
@@ -266,7 +266,7 @@ OPUI ships first-class Svelte 5 components. Install the package, import what you
 
 ### Install via NPM
 
-The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. They need Svelte 5.57 or later, so add `svelte` if it isn't installed yet. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
+The components ship as Svelte components (`.svelte`) with their types, so your build has to compile them. They need Svelte 5.57 or later, so add `svelte` if it isn't installed yet. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
 
 `@sveltejs/vite-plugin-svelte` compiles the components for server rendering too, in SvelteKit and in a Vite setup of your own alike: it picks up the package through its `svelte` export condition.
 
@@ -330,27 +330,7 @@ OPUI ships first-class Vue components. Install the package, import what you need
 
 ### Install via NPM
 
-The components ship as uncompiled single-file components (`.vue` and `.ts`), so your build has to compile them. They need Vue 3.5 or later, so add `vue` if it isn't installed yet. Any setup with Vue SFC support works, for example Vite with `@vitejs/plugin-vue`, Nuxt, or Astro with `@astrojs/vue`.
-
-For server rendering, the server build has to compile the package too, since Node can't load `.vue` files from `node_modules`. In Nuxt, add it to `build.transpile`:
-
-```ts
-export default defineNuxtConfig({
-  build: { transpile: ["opui-css"] },
-})
-```
-
-In a Vite SSR setup of your own, add it to `ssr.noExternal`:
-
-```ts
-import vue from "@vitejs/plugin-vue"
-import { defineConfig } from "vite"
-
-export default defineConfig({
-  plugins: [vue()],
-  ssr: { noExternal: ["opui-css"] },
-})
-```
+The components ship as compiled JavaScript with their types, so they work in any Vue setup without extra configuration, on the server too, Vite, Nuxt and Astro with `@astrojs/vue` included. They need Vue 3.5 or later, so add `vue` if it isn't installed yet.
 
 ### Import the CSS
 

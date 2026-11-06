@@ -17,41 +17,12 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
   <section id="installation">
     <h2>Install via NPM</h2>
     <p>
-      The components ship as uncompiled single-file components
-      (<code>.vue</code> and <code>.ts</code>), so your build has to compile
-      them. They need Vue 3.5 or later, so add <code>vue</code> if it isn't
-      installed yet. Any setup with Vue SFC support works, for example Vite with
-      <code>@vitejs/plugin-vue</code>, Nuxt, or Astro with
-      <code>@astrojs/vue</code>.
+      The components ship as compiled JavaScript with their types, so they work
+      in any Vue setup without extra configuration, on the server too, Vite,
+      Nuxt and Astro with <code>@astrojs/vue</code> included. They need Vue 3.5
+      or later, so add <code>vue</code> if it isn't installed yet.
     </p>
     <InstallCommand />
-    <p>
-      For server rendering, the server build has to compile the package too,
-      since Node can't load <code>.vue</code> files from
-      <code>node_modules</code>. In Nuxt, add it to <code>build.transpile</code
-      >:
-    </p>
-    <Code
-      code={`// nuxt.config.ts
-export default defineNuxtConfig({
-  build: { transpile: ["opui-css"] },
-})`}
-      lang="ts"
-    />
-    <p>
-      In a Vite SSR setup of your own, add it to <code>ssr.noExternal</code>:
-    </p>
-    <Code
-      code={`// vite.config.ts
-import vue from "@vitejs/plugin-vue"
-import { defineConfig } from "vite"
-
-export default defineConfig({
-  plugins: [vue()],
-  ssr: { noExternal: ["opui-css"] },
-})`}
-      lang="ts"
-    />
   </section>
 
   <section id="css">

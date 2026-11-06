@@ -136,6 +136,44 @@ await server.close()
 console.log([deps.size, "pre-bundled dependencies served"].join(" "))
 `
 
+const SERVER_RENDER = {
+  react: String.raw`
+import { createElement } from "react"
+import { renderToString } from "react-dom/server"
+import * as opui from "opui-css/react"
+
+console.log(
+  renderToString(
+    createElement(
+      opui.Button,
+      { color: "primary", type: "submit", variant: "filled" },
+      "Save",
+    ),
+  ),
+)
+console.log(Object.keys(opui).length, "components")
+`,
+  vue: String.raw`
+import { createSSRApp, h } from "vue"
+import { renderToString } from "vue/server-renderer"
+import * as opui from "opui-css/vue"
+
+console.log(
+  await renderToString(
+    createSSRApp({
+      render: () =>
+        h(
+          opui.Button,
+          { color: "primary", type: "submit", variant: "filled" },
+          () => "Save",
+        ),
+    }),
+  ),
+)
+console.log(Object.keys(opui).length, "components")
+`,
+}
+
 let work: string
 let tarball: string
 let files: string[]
@@ -434,6 +472,24 @@ describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
     expect(css).toContain(".ui-button")
     expect(lightDarkProblems(css)).toEqual([])
   })
+
+  test.runIf(framework in SERVER_RENDER)(
+    "renders on the server in Node, without a bundler",
+    () => {
+      writeFileSync(
+        path.join(dir, "server-render.mjs"),
+        SERVER_RENDER[framework as keyof typeof SERVER_RENDER],
+      )
+      const output = run("node", ["server-render.mjs"], dir).replaceAll(
+        /<!--[[\]]-->/g,
+        "",
+      )
+      expect(output).toMatch(
+        /^<button class="ui-button ui-primary ui-filled" type="submit">Save<\/button>$/m,
+      )
+      expect(output).toMatch(/^[1-9]\d* components$/m)
+    },
+  )
 
   test.runIf(framework === "svelte")(
     "the dev server pre-bundles the package and serves it",

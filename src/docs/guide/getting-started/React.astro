@@ -25,13 +25,11 @@ const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(
   <section id="installation">
     <h2>Install via NPM</h2>
     <p>
-      The components ship as uncompiled TypeScript (<code>.tsx</code> and
-      <code>.ts</code>), so your build has to compile them. They need React 19
-      or later, so add <code>react</code> and <code>react-dom</code> if they
-      aren't installed yet. Vite with <code>@vitejs/plugin-react</code> and
-      Astro with <code>@astrojs/react</code> compile them as they are. In
-      Next.js, add <code>transpilePackages: ["opui-css"]</code> to
-      <code>next.config</code>.
+      The components ship as compiled JavaScript with their types, so they work
+      in any React setup without extra configuration, Vite, Next.js and Astro
+      with <code>@astrojs/react</code> included. They need React 19 or later, so
+      add <code>react</code> and <code>react-dom</code> if they aren't installed
+      yet.
     </p>
     <InstallCommand />
   </section>

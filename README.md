@@ -26,7 +26,7 @@ The project is managed as a monorepo with two main parts:
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
   - `react/`: Public entry point and barrel exports for React-based projects.
-  - `scripts/`: The build that writes the pre-bundled files to `dist/`.
+  - `scripts/`: The build that writes the pre-bundled CSS and the compiled React, Svelte and Vue entry points to `dist/`.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
   - `svelte/`: Public entry point and barrel exports for Svelte-based projects.
   - `vue/`: Public entry point and barrel exports for Vue-based projects.

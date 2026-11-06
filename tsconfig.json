@@ -14,7 +14,10 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "paths": {
-      "@opui/*": ["./packages/opui/*"]
+      "@opui/*": ["./packages/opui/*"],
+      "opui-css/react": ["./packages/opui/react/index.ts"],
+      "opui-css/svelte": ["./packages/opui/svelte/index.ts"],
+      "opui-css/vue": ["./packages/opui/vue/index.ts"]
     }
   }
 }

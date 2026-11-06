@@ -39,7 +39,14 @@ export const keywords = ["check", "tick"]
 <Component
   slug="checkbox"
   heroAnatomy
-  browserSupport={["has", "lh", "light-dark", "relative-color", "user-pseudos"]}
+  browserSupport={[
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "user-pseudos",
+  ]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
     { title: "Checkbox input API", api: checkboxInputApi },
@@ -111,6 +118,11 @@ export const keywords = ["check", "tick"]
 
   <section id="basics">
     <h2>Basics</h2>
+    <p>
+      A checked checkbox fills with the accent. A theme that sets
+      <code>--ui-choice-checked: mark</code> keeps the box and draws only the
+      check in the accent.
+    </p>
     <AutoExample name="Basics" row />
   </section>
 

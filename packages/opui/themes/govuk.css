@@ -20,6 +20,7 @@
     --ui-button-padding-inline-small: 0.625rem;
     --ui-button-padding-inline-x-small: 0.5rem;
     --ui-choice-accent: var(--ui-text-strong);
+    --ui-choice-checked: mark;
     --ui-choice-on-accent: var(--ui-surface);
     --ui-choice-ripple-bg-color: var(--ui-border-color);
     --ui-choice-size: 2.5rem;

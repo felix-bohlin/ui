@@ -234,6 +234,7 @@ describe("theme tokens", () => {
     ).toEqual([
       "--ui-button-hover",
       "--ui-button-hover-translate",
+      "--ui-choice-checked",
       "--ui-color-scheme",
       "--ui-contrast",
       "--ui-ease-move",

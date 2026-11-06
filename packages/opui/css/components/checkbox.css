@@ -6,6 +6,13 @@
         --ui-choice-border-color,
         var(--ui-field-border-color)
       );
+      --_mark-bg-color: light-dark(
+        var(--_accent),
+        oklch(
+          from var(--_accent) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
 
       appearance: none;
       aspect-ratio: 1;
@@ -28,6 +35,21 @@
         --_border-color: var(--_accent);
 
         background-color: var(--_accent);
+
+        @container style(--ui-choice-checked: mark) {
+          @media (forced-colors: none) {
+            --_border-color: var(
+              --ui-choice-border-color,
+              var(--ui-field-border-color)
+            );
+
+            background-color: var(--ui-surface);
+
+            &::after {
+              background-color: var(--_mark-bg-color);
+            }
+          }
+        }
       }
 
       &:focus-visible {

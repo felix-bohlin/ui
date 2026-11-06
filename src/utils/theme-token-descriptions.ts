@@ -73,6 +73,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-control-accent`, else `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it, or `--ui-control-accent`, to `--ui-primary` for the plain primary, like Material and shadcn.",
   "--ui-choice-border-color":
     "Border of the unchecked `Checkbox`, `Radio` and `Switch` track. When unset, `--ui-field-border-color`. Set it for themes whose field border is fainter than 3:1, like shadcn, which outlines its choices with `--ui-primary` like shadcn/ui does.",
+  "--ui-choice-checked":
+    "How a checked `Checkbox` and `Radio` look. `mark` keeps the surface and the border of the unchecked input and draws the check, dash or dot in the choice accent, lifted to text lightness in dark mode, like GOV.UK. When unset (`fill`), the input fills with the accent under a mark in its on-accent color. Forced colors always fill. `Switch` and checkbox and radio cards don't read it.",
   "--ui-choice-fill-max-lightness":
     "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`.",
   "--ui-choice-label-offset":

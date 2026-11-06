@@ -14,6 +14,13 @@
             1px
           )
       );
+      --_mark-bg-color: light-dark(
+        var(--_accent),
+        oklch(
+          from var(--_accent) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
 
       appearance: none;
       aspect-ratio: 1;
@@ -38,6 +45,22 @@
           var(--_on-accent) calc(var(--_dot-radius) - 0.25px),
           var(--_accent) calc(var(--_dot-radius) + 0.25px)
         );
+
+        @container style(--ui-choice-checked: mark) {
+          @media (forced-colors: none) {
+            --_border-color: var(
+              --ui-choice-border-color,
+              var(--ui-field-border-color)
+            );
+
+            background-color: var(--ui-surface);
+            background-image: radial-gradient(
+              circle,
+              var(--_mark-bg-color) calc(var(--_dot-radius) - 0.25px),
+              transparent calc(var(--_dot-radius) + 0.25px)
+            );
+          }
+        }
       }
 
       &:focus-visible {

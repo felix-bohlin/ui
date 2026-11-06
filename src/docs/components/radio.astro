@@ -27,6 +27,7 @@ export const keywords = ["option", "radio button", "radio group"]
 <Component
   slug="radio"
   browserSupport={[
+    "container-style-queries",
     "has",
     "lh",
     "light-dark",
@@ -94,7 +95,11 @@ export const keywords = ["option", "radio button", "radio group"]
 
   <section id="basics">
     <h2>Basics</h2>
-    <p>Give the radios in a group the same <code>name</code>.</p>
+    <p>
+      Give the radios in a group the same <code>name</code>. A checked radio
+      fills with the accent, or keeps its circle and draws only the dot when a
+      theme sets <code>--ui-choice-checked: mark</code>.
+    </p>
 
     <AutoExample name="Basics" centered column />
   </section>

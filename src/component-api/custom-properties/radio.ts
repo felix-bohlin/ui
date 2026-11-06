@@ -16,6 +16,11 @@ export default {
       "Radius of the checked dot, computed from `--_size` and `--ui-field-border-width`.",
     kind: "output",
   },
+  "--_mark-bg-color": {
+    description:
+      "Color of the dot when `--ui-choice-checked` is `mark`: `--_accent` in light mode, and in dark mode `--_accent` lifted to at least `--ui-text-min-lightness` with its chroma capped at `--ui-text-max-chroma`, so it reads on the surface. Set on `input`.",
+    kind: "output",
+  },
   "--_on-accent": {
     description:
       "Color of the dot on `--_accent`. `SelectedItemText` in forced colors.",

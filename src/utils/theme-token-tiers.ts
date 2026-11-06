@@ -89,6 +89,7 @@ const componentTokens = [
   "--ui-chip-size-small",
   "--ui-chip-size-x-small",
   "--ui-choice-border-color",
+  "--ui-choice-checked",
   "--ui-choice-label-offset",
   "--ui-choice-on-accent",
   "--ui-choice-ripple-bg-color",

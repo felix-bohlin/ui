@@ -41,15 +41,20 @@ const MODELS: unknown[] = [
   vModelText,
 ]
 
+const isInput = (field: Field): field is HTMLInputElement =>
+  field.localName === "input"
+
+const isSelect = (field: Field): field is HTMLSelectElement =>
+  field.localName === "select"
+
 const checkable = (field: Field): field is HTMLInputElement =>
-  field instanceof HTMLInputElement &&
-  (field.type === "checkbox" || field.type === "radio")
+  isInput(field) && (field.type === "checkbox" || field.type === "radio")
 
 const optionValue = (option: HTMLOptionElement | HTMLInputElement) =>
   "_value" in option ? option._value : option.value
 
 const serverValue = (field: HTMLInputElement | HTMLTextAreaElement) => {
-  if (field instanceof HTMLTextAreaElement) return field.defaultValue
+  if (!isInput(field)) return field.defaultValue
   const probe = document.createElement("input")
   for (const name of ["type", "min", "max", "step", "value"]) {
     const value = field.getAttribute(name)
@@ -60,7 +65,7 @@ const serverValue = (field: HTMLInputElement | HTMLTextAreaElement) => {
 
 const changed = (field: Field) => {
   if (checkable(field)) return field.checked !== field.defaultChecked
-  if (field instanceof HTMLSelectElement) {
+  if (isSelect(field)) {
     const options = [...field.options]
     if (field.multiple) {
       return options.some(
@@ -83,7 +88,7 @@ const stateOf = (
       ? field.checked
       : (vnode.props?.value ?? field.value)
   }
-  if (field instanceof HTMLSelectElement) {
+  if (isSelect(field)) {
     const selected = [...field.selectedOptions].map(optionValue)
     return field.multiple ? selected : selected[0]
   }
@@ -114,22 +119,76 @@ const seed = (
     return
   }
   const state = stateOf(field, model, vnode)
-  const empty =
-    state === undefined ||
-    (state === "" && !(field instanceof HTMLSelectElement))
+  const empty = state === undefined || (state === "" && !isSelect(field))
   if (!edited && empty) return
   model.value = state
   assign(vnode, state)
 }
 
+const keepDefaults = (field: Field) => {
+  if (checkable(field)) {
+    if (!field.hasAttribute("checked")) field.defaultChecked = field.checked
+    return
+  }
+  if (isSelect(field)) {
+    const options = [...field.options]
+    if (options.some((option) => option.hasAttribute("selected"))) return
+    for (const option of options) option.defaultSelected = option.selected
+    return
+  }
+  if (isInput(field) ? field.hasAttribute("value") : field.defaultValue) return
+  if (field.type !== "file") field.defaultValue = field.value
+}
+
+const same = (a: unknown, b: unknown) =>
+  Array.isArray(a) && Array.isArray(b)
+    ? a.length === b.length && a.every((item, index) => item === b[index])
+    : a === b
+
+const groupOf = (field: HTMLInputElement) =>
+  field.form && field.name
+    ? [...field.form.elements].filter(
+        (element): element is HTMLInputElement =>
+          element.localName === "input" &&
+          (element as HTMLInputElement).type === "radio" &&
+          (element as HTMLInputElement).name === field.name,
+      )
+    : [field]
+
+const latest = new WeakMap<Field, VNode>()
+
+const followReset = (field: Field) => {
+  const vnode = latest.get(field)
+  const model = vnode && modelOf(vnode)
+  if (!vnode || !model) return
+  const state = stateOf(field, model, vnode)
+  if (field.type === "radio" && !(field as HTMLInputElement).checked) {
+    const group = groupOf(field as HTMLInputElement)
+    if (group.some((radio) => radio.checked)) return
+    if (same(state, model.value)) assign(vnode, undefined)
+    return
+  }
+  if (
+    field.type === "checkbox" &&
+    typeof model.value === "object" &&
+    model.value !== null
+  ) {
+    return
+  }
+  if (!same(state, model.value)) assign(vnode, state)
+}
+
 const picked = new WeakMap<Field, HTMLOptionElement[]>()
+const hydrated = new WeakSet<Field>()
+const resets = new WeakMap<Field, () => void>()
 
 export const vSeed: ObjectDirective<Field> = {
   created: (field, _, vnode) => {
     const model = modelOf(vnode)
     if (!model || !field.parentNode) return
+    hydrated.add(field)
     const edited = changed(field)
-    if (!(field instanceof HTMLSelectElement)) {
+    if (!isSelect(field)) {
       seed(field, model, vnode, edited)
     } else if (edited || model.value == null) {
       picked.set(field, [...field.selectedOptions])
@@ -139,7 +198,7 @@ export const vSeed: ObjectDirective<Field> = {
     const options = picked.get(field)
     const model = modelOf(vnode)
     picked.delete(field)
-    if (!options || !model || !(field instanceof HTMLSelectElement)) return
+    if (!options || !model || !isSelect(field)) return
     const values = options.map(optionValue)
     const state = field.multiple ? values : values[0]
     if (state === undefined) return
@@ -148,6 +207,25 @@ export const vSeed: ObjectDirective<Field> = {
   },
   mounted: (field, _, vnode) => {
     const model = modelOf(vnode)
-    if (model) seed(field, model, vnode, false)
+    if (!model) return
+    seed(field, model, vnode, false)
+    latest.set(field, vnode)
+    if (!hydrated.has(field)) queueMicrotask(() => keepDefaults(field))
+    const { form } = field
+    if (!form) return
+    const listener = (event: Event) =>
+      setTimeout(() => {
+        if (!event.defaultPrevented) followReset(field)
+      })
+    form.addEventListener("reset", listener)
+    resets.set(field, () => form.removeEventListener("reset", listener))
+  },
+  beforeUpdate: (field, _, vnode) => {
+    latest.set(field, vnode)
+  },
+  beforeUnmount: (field) => {
+    resets.get(field)?.()
+    resets.delete(field)
+    latest.delete(field)
   },
 }

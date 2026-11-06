@@ -13,13 +13,8 @@ const selectionImports = (component, model) =>
     ? [`import { selectionOf } from "${selectionImport(component)}"`]
     : []
 
-const ELEMENT_INTERFACES = {
-  input: "HTMLInputElement",
-  textarea: "HTMLTextAreaElement",
-}
-
 const resettable = (model) =>
-  model.prop === "value" && model.element.tag in ELEMENT_INTERFACES
+  model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
 
 const numeric = (model) =>
   model.element.tag === "input" &&
@@ -224,7 +219,6 @@ export const MODEL_KINDS = {
       attributes: (model) => [
         "v-seed",
         `v-model${numeric(model) ? ".number" : ""}="model"`,
-        ...(resettable(model) ? ['ref="modelElement"'] : []),
       ],
       computed: true,
       declared: (model) => (model.local ? [] : [model.prop]),
@@ -235,22 +229,8 @@ export const MODEL_KINDS = {
       setup: (model) => [
         `const modelValue = defineModel<${model.type}>()`,
         `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
-        ...(resettable(model)
-          ? [
-              `const modelElement = useTemplateRef<${ELEMENT_INTERFACES[model.element.tag]}>("modelElement")`,
-              "const initialValue = model.value",
-              "let modelForm: HTMLFormElement | null = null",
-              `const resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = ${numeric(model) ? "Number.isNaN(element.valueAsNumber)\n      ? element.value\n      : element.valueAsNumber" : "element.value"}\n  })`,
-              'onMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && initialValue != null) {\n    element.defaultValue = String(initialValue)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})',
-              'onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))',
-            ]
-          : []),
       ],
       vueHelpers: () => ["vSeed"],
-      vueImports: (model) =>
-        resettable(model)
-          ? ["onBeforeUnmount", "onMounted", "useTemplateRef"]
-          : [],
     },
   },
 }

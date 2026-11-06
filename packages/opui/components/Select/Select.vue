@@ -48,10 +48,12 @@ const model = computed({
   },
 })
 
-const isSelected = (value: unknown) =>
-  Array.isArray(model.value)
-    ? model.value.includes(value as string | number)
-    : model.value === value
+const initialSelection = model.value
+
+const selectedAtFirst = (value: unknown) =>
+  Array.isArray(initialSelection)
+    ? initialSelection.includes(value as string | number)
+    : initialSelection === value
 
 const uid = useId()
 const base = computed(() => id ?? `select-${uid}`)
@@ -121,7 +123,7 @@ const field = inject(FieldGroupKey, undefined)
           <option
             v-for="item in items"
             :key="item.value"
-            :selected="isSelected(item.value) || undefined"
+            :selected="selectedAtFirst(item.value) || undefined"
             :value="item.value"
           >
             {{ item.label }}

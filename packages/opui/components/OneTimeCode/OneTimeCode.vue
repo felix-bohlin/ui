@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  useTemplateRef,
-} from "vue"
+import { computed, inject } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
@@ -39,31 +33,6 @@ const model = computed({
   },
 })
 
-const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
-
-const initialValue = model.value
-
-let modelForm: HTMLFormElement | null = null
-
-const resetModel = (event: Event) =>
-  setTimeout(() => {
-    const element = modelElement.value
-    if (event.defaultPrevented || !element) return
-    model.value = element.value
-  })
-
-onMounted(() => {
-  const element = modelElement.value
-  if (!element) return
-  if (!element.hasAttribute("value") && initialValue != null) {
-    element.defaultValue = String(initialValue)
-  }
-  modelForm = element.form
-  modelForm?.addEventListener("reset", resetModel)
-})
-
-onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
-
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -95,7 +64,6 @@ const field = inject(FieldGroupKey, undefined)
         type="text"
         v-seed
         v-model="model"
-        ref="modelElement"
       />
     </span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text"

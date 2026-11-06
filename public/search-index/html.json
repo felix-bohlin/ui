@@ -3770,7 +3770,7 @@
     "id": "blog-release-6",
     "title": "opui 6.0",
     "description": "What changed in 6.0 and why, with live demos.",
-    "headings": "It's a proper design system now Four example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
+    "headings": "It's a proper design system now Five example themes Token tiers Contrast as a guarantee Loads of new components So much cool stuff in the docs Blocks! Theme builder The CSS is the component One Astro file, four frameworks Slots become parts, props get one naming model The platform did the work Browser support, honestly The new \"by hand\" Where it landed Migrating",
     "category": "Blog",
     "url": "/blog/release-6/"
   },
@@ -4146,7 +4146,7 @@
     "id": "theme-builder",
     "title": "Theme builder",
     "description": "Start from a preset, pick a mood and your colors, shuffle, check the contrast, and copy one CSS file.",
-    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors",
+    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator govuk Light and dark mode m3 Motion OKLCH Presets shadcn Shadows Share link Spacing Status colors",
     "category": "Guide",
     "url": "/theme-builder/"
   },

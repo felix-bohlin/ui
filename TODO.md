@@ -1353,6 +1353,34 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Options:
     - A: the element above, documented next to the Role & attributes section.
     - B: keep the list of buttons and the current keyboard table.
+- [ ] (1) Package: there is no breadcrumb: the file manager block styles its own breadcrumb list and separators (`src/blocks/file-manager.html:5-13`, `src/blocks/file-manager.html:55-61`)
+  - Summary: Pages that show where the user is in a hierarchy have to style their own breadcrumbs.
+  - Recommended: Fix. It is CSS only, and the file manager block already has the markup.
+  - Fix: a `.ui-breadcrumb` class on a `nav` with an `ol` of links and `aria-current="page"` on the last item, with the separator drawn in `li + li::before` with `content: "/" / ""` so screen readers skip it, and a `--_separator` property for another character or an icon. A `Breadcrumb` component in all five formats.
+- [ ] (1) Package: there are no charts: the analytics dashboard draws its bar chart with its own grid and custom properties, and line, area and donut charts aren't covered (`src/blocks/analytics-dashboard.html:5-15`, `src/blocks/analytics-dashboard.html:160-165`)
+  - Summary: Dashboards have to draw their own charts.
+  - Recommended: Explain further. Charts are a large scope, and the library could ship only the CSS for simple ones.
+  - Fix: a `.ui-chart` with bar and column variants for a list or a table, each value in a `--value` custom property and its text in an `.ui-sr-only` label, as the analytics block does, colored from the palette. Line and area charts need SVG, so leave those to chart libraries and document how to theme them with the `--ui-*` tokens.
+- [ ] (1) Package: there is no skeleton: content that loads has only the Spinner, which marks an `aria-busy` container, and no placeholder in the shape of the text, image or card that will appear (`packages/opui/css/components/spinner.css:1-20`)
+  - Summary: Loading content shows a spinner but no placeholder in the shape of what is coming.
+  - Recommended: Fix. It is CSS only and builds on the `aria-busy` state the Spinner already reads.
+  - Fix: a `.ui-skeleton` class for a block of text lines, a circle or a rectangle, with a shimmer that `--ui-motion` turns off, `aria-hidden="true"` on the placeholder and `aria-busy="true"` on the container that loads. A `Skeleton` component in all five formats.
+- [ ] (1) Package: there is no sidebar: the app shell and chat blocks each style their own side navigation, hide it below a container size and offer no way to open it on narrow screens or to collapse it (`src/blocks/app-shell.html:36-45`, `src/blocks/chat.html:5-12`)
+  - Summary: Apps have to build their own side navigation, and it disappears on narrow screens.
+  - Recommended: Explain further and provide an example. The pieces exist (List, Drawer, Accordion), so the question is whether a layout component is worth adding.
+  - Fix: a `.ui-sidebar` layout with a sidebar and main area, groups that collapse through `<details>`, and below a container size the same `nav` shown in a `Drawer` that a menu button in the header opens. A `Sidebar` component in all five formats.
+- [ ] (1) Web components: there is no command palette: the app shell has a search field in its header but no dialog that searches commands and pages from anywhere with a keyboard shortcut (`src/blocks/app-shell.html:94-100`)
+  - Summary: Apps have no keyboard-first way to jump to a page or run a command.
+  - Recommended: Explain further. It builds on the combobox, so it waits for that.
+  - Fix: once the combobox exists, a `CommandPalette` that puts it in a `Dialog`, groups the options under headings and opens on a shortcut that the page chooses through `aria-keyshortcuts`.
+- [ ] (1) Web components: there are no resizable panels: the chat block gives its sidebar a fixed width, and changing it needs a script and a separator the keyboard can move (`src/blocks/chat.html:5-12`)
+  - Summary: Users can't make a sidebar or panel wider or narrower.
+  - Recommended: Explain further. Few blocks need it, and CSS `resize` covers simple cases.
+  - Fix: an `<opui-splitter>` between two panels with `role="separator"`, `aria-valuenow` and `aria-orientation`, moved by dragging or by the arrow keys, writing the size to a custom property on the container. Without the script the panels keep their default sizes.
+- [ ] (1) Web components: there is no tree view: nested items, like the folders in the file manager, can only be nested lists or `<details>`, with no arrow-key navigation or selection (`src/blocks/file-manager.html:55-61`)
+  - Summary: Nested folders or categories can't be shown as a tree that the keyboard can move through.
+  - Recommended: Explain further. Nested `<details>` lists already cover most uses without a script.
+  - Fix: document nested `.ui-list` items in `<details>` as the tree without a script. An `<opui-tree>` then adds `role="tree"`, `treeitem` and `group`, roving tabindex, the arrow keys to move, open and close, typeahead and `aria-selected`, only once it is defined.
 - [ ] (2) Web components: a color picker needs a script, and `<input type="color">` only gives hex, which the library's colors never use. The Theme builder has a light-DOM `<oklch-input>` for it, but it lives in the docs site and isn't form-associated (`src/utils/oklch-input.ts:83`, `src/utils/oklch-input.ts:297-299`)
   - Summary: There is no OKLCH color field, and the native color input only gives hex values.
   - Recommended: Fix. The element already exists on the docs site and mostly needs to move into the package.
@@ -1398,6 +1426,22 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Fix: an `<opui-number-stepper class="ui-number-stepper">` around a number `TextField` and two `.ui-button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element handles the `command` event: it calls `stepDown()` or `stepUp()`, fires `input` and `change`, disables a button at `min` or `max`, repeats while a button is held and follows form reset. The cart's input becomes `type="number"`. Without the script it is a plain number input with the browser's spin buttons, and `:not(:defined)` hides the two buttons. If browsers add built-in step commands for number inputs, the element is no longer needed.
   > Fix
   - Fixed: `NumberStepper` (`opui-number-stepper.ui-number-stepper`) in Astro, React, Svelte and Vue, styled by `text-field.css` (which lists the new root), `button.css` and `number-stepper.css`. Its buttons are `Button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element calls `stepDown()` or `stepUp()`, fires `input` and `change`, repeats after a 400ms hold, marks a button `aria-disabled="true"` at `min` or `max`, follows a form reset, and syncs again after a framework sets the value. Before it loads, `:not(:defined)` hides the buttons and the input keeps the browser's spin buttons. The page has a hero anatomy, Usage, Accessibility and keys, and seven examples in five formats with new parity snapshots. Interaction tests in every framework cover the buttons, the limits and the hold, and axe and the anatomy checks pass. The shopping cart and product page blocks use it now (the cart's inputs are `type="number"`), and the Text field Usage points amounts like a quantity here. The examples and the two blocks need new visual baselines (`update-snapshots` label).
+- [ ] (2) Package: there is no pagination: the data-table block builds its page links from a button group by hand, with its own disabled Previous link and no gap between the page numbers (`src/blocks/data-table.html:565-595`)
+  - Summary: Every page that lists many results has to build its own page links.
+  - Recommended: Fix. It needs no script, and the data-table block already shows the markup.
+  - Fix: a `.ui-pagination` class on a `nav` with a list of links, `aria-current="page"` on the current one, an ellipsis item between ranges and Previous and Next links that a missing `href` disables. A `Pagination` component in all five formats takes the current page, the page count and a function or template for the `href`.
+- [ ] (2) Table: a table with thousands of rows renders and lays out every row, and the library has no data grid that virtualizes them, so the data-table block shows five rows and pages the rest (`src/blocks/data-table.html:565-567`)
+  - Summary: Large tables get slow, since every row renders and lays out at once.
+  - Recommended: Fix. The CSS part costs nothing, and a full data grid stays out of scope.
+  - Fix: add `.ui-lazy-rows`, which sets `content-visibility: auto` and `contain-intrinsic-size: auto <row size>` on the `tbody` rows, so the browser skips the layout and paint of rows out of view while find in page and the accessibility tree keep them. Document on the Table page that windowing a data set of tens of thousands of rows belongs to a data grid library, styled with the `.ui-table` classes.
+- [ ] (3) Web components: there is no combobox: a search field can't suggest or filter options as the user types, so the app shell's search is a plain input and a long Select has no filter (`src/blocks/app-shell.html:94-100`)
+  - Summary: Users can't filter a long list of options by typing, and search fields offer no suggestions.
+  - Recommended: Fix. A combobox is the most requested control the library lacks, and `<datalist>` gives a fallback without the script.
+  - Fix: an `<opui-combobox>` in the light DOM around a `.ui-text-field` input and a `.ui-list` listbox popover anchored to the field. It filters the options as the user types, moves through them with the arrow keys through `aria-activedescendant`, selects with Enter and closes with Escape, and sets `role="combobox"`, `aria-expanded` and `aria-controls` only once it is defined. Without the script the input keeps a `list` pointing at a `<datalist>` with the same options. Add `Combobox` in all five formats.
+- [ ] (3) Web components: there is no date picker: the analytics dashboard offers only fixed ranges as toggle buttons, and a custom date or range needs a calendar that a script draws (`src/blocks/analytics-dashboard.html:59-75`)
+  - Summary: Users can only pick preset ranges, never a date or a custom range, outside the browser's own date input.
+  - Recommended: Fix. A styled native date input covers single dates, and the element adds the range calendar.
+  - Fix: style `input[type="date"]` in `.ui-text-field` first. Then an `<opui-calendar>` that renders a month grid with `Intl.DateTimeFormat` in the page's `lang` (week start from `Intl.Locale` `getWeekInfo()`), moves by day with the arrow keys and by month with Page Up and Page Down, and selects a single date or a range into named form inputs. A `DatePicker` puts it in a popover anchored to a text field. Without the script the native date inputs remain.
 
 ## Limitations
 

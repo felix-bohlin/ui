@@ -1,4 +1,10 @@
-import { expect, test, type Browser, type Page } from "@playwright/test"
+import {
+  expect,
+  test,
+  type Browser,
+  type Locator,
+  type Page,
+} from "@playwright/test"
 import { APPS, examplesOf, KNOWN_PROBLEMS } from "./apps.ts"
 
 const PIXEL = Buffer.from(
@@ -104,54 +110,66 @@ const serverRender = async (
   return { rendered, status: response?.status() }
 }
 
-for (const slug of slugs) {
-  test(`${slug} renders on the server, hydrates and defines its elements`, async ({
-    browser,
-    page,
-  }, testInfo) => {
-    const app = appOf(testInfo.project.name)
-    const expected = expectedExamples(app.name, slug)
-    test.skip(!expected.length, `${app.framework} has no ${slug} examples`)
+const PREFIXES = [
+  { name: "", path: "" },
+  { name: " with the elements loaded first", path: "/elements-first" },
+]
 
-    if (app.ssr) {
-      const { rendered, status } = await serverRender(
-        browser,
-        `http://localhost:${app.port}`,
-        `/${slug}`,
+for (const prefix of PREFIXES) {
+  for (const slug of slugs) {
+    test(`${slug}${prefix.name} renders on the server, hydrates and defines its elements`, async ({
+      browser,
+      page,
+    }, testInfo) => {
+      const app = appOf(testInfo.project.name)
+      const expected = expectedExamples(app.name, slug)
+      test.skip(!expected.length, `${app.framework} has no ${slug} examples`)
+      test.skip(
+        !(app.prefixes ?? [""]).includes(prefix.path),
+        `${app.name} has no ${prefix.path} routes`,
       )
-      expect(status, `${app.name} answers /${slug}`).toBe(200)
-      expect(
-        rendered.map(({ example }) => example),
-        `${app.name} renders every ${slug} example on the server`,
-      ).toEqual(expected)
-      expect(
-        rendered.filter(({ empty }) => empty).map(({ example }) => example),
-        `${app.name} renders these examples empty on the server`,
-      ).toEqual([])
-    }
+      const path = `${prefix.path}/${slug}`
 
-    const problems = await watch(page)
-    await open(page, `/${slug}`)
-    expect(
-      await renderedExamples(page),
-      `${app.name} renders every ${slug} example in the browser`,
-    ).toEqual(expected)
-    await expect
-      .poll(() => undefinedElements(page), {
-        message: `${app.name} /${slug} leaves custom elements undefined`,
-      })
-      .toEqual([])
-    expect(
-      unexpected(problems, app.name, slug),
-      `${app.name} /${slug} logs errors or warnings`,
-    ).toEqual([])
-    expect(
-      knownProblems(app.name, slug)
-        .filter(({ message }) => !problems.includes(message))
-        .map(({ reason }) => reason),
-      `${app.name} /${slug} no longer logs these known problems: remove them from KNOWN_PROBLEMS in tests/apps/apps.ts`,
-    ).toEqual([])
-  })
+      if (app.ssr) {
+        const { rendered, status } = await serverRender(
+          browser,
+          `http://localhost:${app.port}`,
+          path,
+        )
+        expect(status, `${app.name} answers ${path}`).toBe(200)
+        expect(
+          rendered.map(({ example }) => example),
+          `${app.name} renders every ${slug} example on the server`,
+        ).toEqual(expected)
+        expect(
+          rendered.filter(({ empty }) => empty).map(({ example }) => example),
+          `${app.name} renders these examples empty on the server`,
+        ).toEqual([])
+      }
+
+      const problems = await watch(page)
+      await open(page, path)
+      expect(
+        await renderedExamples(page),
+        `${app.name} renders every ${slug} example in the browser`,
+      ).toEqual(expected)
+      await expect
+        .poll(() => undefinedElements(page), {
+          message: `${app.name} ${path} leaves custom elements undefined`,
+        })
+        .toEqual([])
+      expect(
+        unexpected(problems, app.name, slug),
+        `${app.name} ${path} logs errors or warnings`,
+      ).toEqual([])
+      expect(
+        knownProblems(app.name, slug)
+          .filter(({ message }) => !problems.includes(message))
+          .map(({ reason }) => reason),
+        `${app.name} ${path} no longer logs these known problems: remove them from KNOWN_PROBLEMS in tests/apps/apps.ts`,
+      ).toEqual([])
+    })
+  }
 }
 
 test("the CSS loads", async ({ page }, testInfo) => {
@@ -221,4 +239,181 @@ test("navigating to another page renders its examples", async ({
   expect(
     unexpected(unexpected(problems, app.name, "button"), app.name, "dialog"),
   ).toEqual([])
+})
+
+const CHANGES = [
+  { example: "checkbox/Basics", label: "Unchecked", to: true },
+  { example: "number-field/Basics", label: "Quantity", to: "7" },
+  { example: "radio/Basics", label: "PayPal", to: true },
+  { example: "range/Basics", label: "Volume", to: "80" },
+  { example: "rating/Input", label: "1 star", to: true },
+  { example: "select/Variants", label: "Role", to: "Developer" },
+  { example: "switch/Basics", label: "Bluetooth", to: true },
+  { example: "text-field/InputTypes", label: "Color", to: "#ff0000" },
+  { example: "text-field/InputTypes", label: "Email", to: "ada@example.com" },
+  { example: "text-field/InputTypes", label: "Password", to: "secret" },
+  {
+    example: "text-field/InputTypes",
+    label: "URL",
+    to: "https://example.com/",
+  },
+  { example: "textarea/Variants", label: "Outlined", to: "Typed early" },
+]
+
+type Change = (typeof CHANGES)[number]
+
+const changedSlugs = [
+  ...new Set(CHANGES.map(({ example }) => example.split("/")[0] ?? "")),
+]
+
+const changesOn = (slug: string) =>
+  CHANGES.filter(({ example }) => example.startsWith(`${slug}/`))
+
+const CONTROLS = "input, select, textarea"
+
+const controlOf = async (page: Page, { example, label }: Change) => {
+  const labelled = page
+    .locator(`[data-example="${example}"]`)
+    .getByLabel(label, { exact: true })
+  await labelled.waitFor({ state: "attached" })
+  const position = await labelled.evaluate(
+    (element, controls) =>
+      [
+        ...(element.closest("[data-example]")?.querySelectorAll(controls) ??
+          []),
+      ].indexOf(element),
+    CONTROLS,
+  )
+  return page
+    .locator(`[data-example="${example}"]`)
+    .locator(CONTROLS)
+    .nth(position)
+}
+
+const change = async (control: Locator, item: Change) => {
+  if (typeof item.to === "boolean") {
+    await control.evaluate((element) => (element as HTMLInputElement).click())
+  } else if (
+    await control.evaluate((element) => element.localName === "select")
+  ) {
+    await control.selectOption(item.to)
+  } else await control.fill(item.to)
+}
+
+const formStateOf = (control: Locator) =>
+  control.evaluate((element) => {
+    if (element instanceof HTMLSelectElement) {
+      const options = [...element.options]
+      return {
+        current: element.value,
+        initial: (
+          options.find((option) => option.defaultSelected) ?? options[0]
+        )?.value,
+      }
+    }
+    if (
+      element instanceof HTMLInputElement &&
+      (element.type === "checkbox" || element.type === "radio")
+    ) {
+      return { current: element.checked, initial: element.defaultChecked }
+    }
+    const field = element as HTMLInputElement | HTMLTextAreaElement
+    return { current: field.value, initial: field.defaultValue }
+  })
+
+const holdScripts = async (page: Page, prefix: string) => {
+  const { promise, resolve } = Promise.withResolvers<void>()
+  await page.route(
+    (url) => url.hostname === "localhost" && url.pathname.startsWith(prefix),
+    async (route) => {
+      await promise
+      await route.continue()
+    },
+  )
+  return resolve
+}
+
+for (const slug of changedSlugs) {
+  test(`${slug} keeps what changed before it hydrated`, async ({
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    test.skip(!app.scripts, `${app.name} renders on the client only`)
+    const problems = await watch(page)
+    const release = await holdScripts(page, app.scripts ?? "")
+    await page.goto(`/${slug}`, { waitUntil: "commit" })
+    const changed = []
+    for (const item of changesOn(slug)) {
+      const control = await controlOf(page, item)
+      const { initial } = await formStateOf(control)
+      await change(control, item)
+      expect((await formStateOf(control)).current).toBe(item.to)
+      changed.push({ control, initial, item })
+    }
+    expect(
+      await page.evaluate(() => "hydrated" in document.documentElement.dataset),
+      `${app.name} hydrated before the changes`,
+    ).toBe(false)
+
+    release()
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+    await page.waitForLoadState("networkidle")
+    for (const { control, initial, item } of changed) {
+      expect(
+        await formStateOf(control),
+        `${app.name} keeps ${item.example} "${item.label}" and its server default when it hydrates`,
+      ).toEqual({ current: item.to, initial })
+    }
+    expect(unexpected(problems, app.name, slug)).toEqual([])
+  })
+}
+
+for (const slug of changedSlugs) {
+  test(`${slug} keeps what the browser restores when the user comes back`, async ({
+    page,
+  }, testInfo) => {
+    const app = appOf(testInfo.project.name)
+    test.skip(!app.ssr, `${app.name} renders on the client only`)
+    const problems = await watch(page)
+    await open(page, `/${slug}`)
+    const changed = []
+    for (const item of changesOn(slug)) {
+      const control = await controlOf(page, item)
+      const restored = await control.evaluate(
+        (element) => (element as HTMLInputElement).type !== "password",
+      )
+      await change(control, item)
+      if (restored) changed.push({ control, item })
+    }
+    await page.goto("/button")
+    await page.goBack()
+    await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+    await page.waitForLoadState("networkidle")
+    for (const { control, item } of changed) {
+      expect(
+        (await formStateOf(control)).current,
+        `${app.name} keeps ${item.example} "${item.label}" when the user comes back`,
+      ).toBe(item.to)
+    }
+    expect(unexpected(problems, app.name, slug)).toEqual([])
+  })
+}
+
+test("a form reset after hydration restores the values and the readout", async ({
+  page,
+}, testInfo) => {
+  const app = appOf(testInfo.project.name)
+  const problems = await watch(page)
+  await open(page, "/range")
+  const example = page.locator('[data-example="range/Value"]')
+  const slider = example.getByRole("slider", { name: "Hue" })
+  const readout = example.locator("output")
+  await slider.focus()
+  await page.keyboard.press("End")
+  await expect(readout, `${app.name} follows the slider`).toHaveText("360°")
+  await example.getByRole("button", { name: "Reset" }).click()
+  await expect(slider).toHaveValue("250")
+  await expect(readout, `${app.name} resets the readout`).toHaveText("250°")
+  await expect(slider).toHaveAttribute("aria-valuetext", "250°")
+  expect(unexpected(problems, app.name, "range")).toEqual([])
 })

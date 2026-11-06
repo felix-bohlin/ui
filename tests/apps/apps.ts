@@ -16,10 +16,12 @@ type Framework = keyof typeof EXTENSIONS
 type App = {
   build: string[]
   check: string[][]
+  dir?: string
   examples: string
   framework: Framework
   name: string
   port: number
+  prefixes?: string[]
   registry?: boolean
   scripts?: string
   ssr: boolean
@@ -34,6 +36,7 @@ const ALL_APPS: App[] = [
     framework: "react",
     name: "next",
     port: 4401,
+    prefixes: ["", "/elements-first"],
     registry: true,
     scripts: "/_next/",
     ssr: true,
@@ -75,6 +78,17 @@ const ALL_APPS: App[] = [
     start: "pnpm exec vite preview --port 4404 --strictPort",
   },
   {
+    build: [],
+    check: [],
+    dir: "vite-react",
+    examples: "src/examples",
+    framework: "react",
+    name: "vite-react-dev",
+    port: 4407,
+    ssr: false,
+    start: "pnpm exec vite --port 4407 --strictPort",
+  },
+  {
     build: ["vite", "build"],
     check: [["svelte-check", "--threshold", "error"]],
     examples: "src/examples",
@@ -110,7 +124,7 @@ export const APPS = selected
   ? ALL_APPS.filter((app) => selected.includes(app.name))
   : ALL_APPS
 
-export const appDir = (app: App) => path.join(appsDir, app.name)
+export const appDir = (app: App) => path.join(appsDir, app.dir ?? app.name)
 
 export const KNOWN_PROBLEMS: {
   app: string

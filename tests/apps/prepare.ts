@@ -145,11 +145,27 @@ for (const app of APPS) {
   )
   if (app.registry) {
     writeFileSync(path.join(examplesDir, "index.ts"), registry(examples))
+    writeFileSync(
+      path.join(examplesDir, "elements.tsx"),
+      [
+        '"use client"',
+        "",
+        ...readdirSync(path.join(target, "elements"))
+          .filter((file) => file.endsWith(".js"))
+          .toSorted()
+          .map((file) => `import "opui-css/elements/${file}"`),
+        "",
+        "export default function Elements() {",
+        "  return null",
+        "}",
+        "",
+      ].join("\n"),
+    )
   }
 
   const steps = [
     ...app.check.map((command) => ({ command, label: "type check" })),
-    { command: app.build, label: "build" },
+    ...(app.build.length ? [{ command: app.build, label: "build" }] : []),
   ]
   const times: string[] = []
   for (const { command, label } of steps) {

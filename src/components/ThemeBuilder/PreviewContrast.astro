@@ -161,9 +161,9 @@ import { CONTRAST_MODES } from "../../utils/contrast"
         "ui-button ui-x-small ui-transparent preview-contrast-go",
         "Go to setting",
       )
+      go.append(element("span", "ui-sr-only", ` for ${colorLabel(token)}`))
       go.type = "button"
       go.dataset.go = target
-      go.setAttribute("aria-label", `Go to the ${colorLabel(token)} setting`)
       th.append(go)
     }
     header.append(th)

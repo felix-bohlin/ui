@@ -6,9 +6,9 @@ export default {
     {
       default: '"hgroup"',
       description:
-        "The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it.",
+        "The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it. Use `header` for the same row in an `article` card.",
       htmlDescription:
-        "A `div.ui-header` with an `hgroup` inside is a row: the `hgroup` takes the free space, so an avatar before it and buttons after it line up on one row.",
+        "A `div.ui-header` or `header.ui-header` with an `hgroup` inside is a row: the `hgroup` takes the free space, so an avatar before it and buttons after it line up on one row. Use the `header` in an `article` card.",
       prop: "as",
     },
   ],

@@ -8,6 +8,7 @@
     alphanumeric,
     "aria-invalid": ariaInvalid,
     class: className,
+    defaultValue,
     error,
     grouped,
     length = 6,
@@ -36,7 +37,11 @@
   ]}
   {style}
 >
-  {#if label}<span class="ui-label">{@render content(label)}</span>{/if}
+  {#if label}
+    <span class="ui-label">
+      {@render content(label)}
+    </span>
+  {/if}
   <span class="ui-field">
     <input
       autocapitalize={alphanumeric ? "characters" : undefined}
@@ -50,8 +55,12 @@
       name={name ?? field?.name}
       type="text"
       bind:value
-      defaultValue={initialValue}
+      defaultValue={defaultValue ?? initialValue}
     />
   </span>
-  {#if endText}<span class="ui-end-text">{@render content(endText)}</span>{/if}
+  {#if endText}
+    <span class="ui-end-text">
+      {@render content(endText)}
+    </span>
+  {/if}
 </label>

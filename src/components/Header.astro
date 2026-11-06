@@ -348,6 +348,14 @@ const { link } = Astro.locals
       padding: 0.1em 0.3em;
       text-decoration: none;
 
+      @media (width < 900px) {
+        animation-fill-mode: both;
+        animation-name: shrink-logo;
+        animation-range: 0 150px;
+        animation-timeline: scroll();
+        animation-timing-function: linear;
+      }
+
       @supports (corner-shape: squircle) {
         border-radius: var(--radius-round);
         corner-shape: squircle;
@@ -485,6 +493,13 @@ const { link } = Astro.locals
   @keyframes compact-content {
     to {
       padding: var(--size-2) var(--size-3) var(--size-2) var(--size-2);
+    }
+  }
+
+  @keyframes shrink-logo {
+    to {
+      font-size: var(--font-size-1);
+      line-height: 1.4;
     }
   }
 

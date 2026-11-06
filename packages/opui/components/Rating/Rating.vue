@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { vSeed } from "../vue"
 import { mergeStyle } from "../style"
 import type { Props } from "./types.vue-props"
 
@@ -45,8 +46,6 @@ const stars = computed(() =>
   Array.from({ length: count.value }, (_, index) => index + 1),
 )
 
-const current = computed(() => Number(model.value))
-
 const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
 </script>
 
@@ -68,23 +67,23 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
       :aria-describedby="attrs['aria-describedby']"
       :aria-invalid="invalid"
       :aria-label="clearLabel"
-      :checked="current === 0"
       :name="name"
       type="radio"
       value="0"
-      @change="model = '0'"
+      v-seed
+      v-model="model"
     /><input
       v-for="(star, index) in stars"
       :key="index"
       :aria-describedby="attrs['aria-describedby']"
       :aria-invalid="invalid"
       :aria-label="starLabel(star)"
-      :checked="current === star"
       :name="name"
       :required="required"
       type="radio"
       :value="star"
-      @change="model = star"
+      v-seed
+      v-model="model"
     />
   </fieldset>
   <meter

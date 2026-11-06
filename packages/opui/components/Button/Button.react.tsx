@@ -1,4 +1,3 @@
-import type { ElementType } from "react"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -15,8 +14,7 @@ export default function Button({
   children,
   ...rest
 }: Props) {
-  const tag = as || (href ? "a" : "button")
-  const Tag: ElementType = tag
+  const Tag = as || (href ? "a" : "button")
 
   return (
     <Tag
@@ -28,7 +26,7 @@ export default function Button({
         variant && variant !== "transparent" && `ui-${variant}`,
         className,
       ])}
-      {...tagAttrs(tag, disabled, href)}
+      {...tagAttrs(Tag, disabled, href)}
       {...(rest as object)}
     >
       {children}

@@ -13,13 +13,8 @@ const selectionImports = (component, model) =>
     ? [`import { selectionOf } from "${selectionImport(component)}"`]
     : []
 
-const ELEMENT_INTERFACES = {
-  input: "HTMLInputElement",
-  textarea: "HTMLTextAreaElement",
-}
-
 const resettable = (model) =>
-  model.prop === "value" && model.element.tag in ELEMENT_INTERFACES
+  model.prop === "value" && ["input", "textarea"].includes(model.element.tag)
 
 const numeric = (model) =>
   model.element.tag === "input" &&
@@ -35,12 +30,12 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: () => [
         "bind:checked={getChecked, setChecked}",
-        "defaultChecked={initialChecked}",
+        "defaultChecked={defaultChecked ?? initialChecked}",
         "{value}",
       ],
       bindables: bindableProps,
       imports: () => [`import { toggleInGroup } from "../group"`],
-      plainProps: () => ["value"],
+      plainProps: () => ["defaultChecked", "value"],
       script: () => [
         "const getChecked = () => (group ? group.includes(value) : !!checked)",
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
@@ -49,13 +44,14 @@ export const MODEL_KINDS = {
       untrack: () => true,
     },
     vue: {
-      attributes: () => ['v-model="model"'],
+      attributes: () => ["v-seed", 'v-model="model"'],
       computed: true,
       explicitAttrs: true,
       setup: (model) => [
         optionalModel(model),
         "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
       ],
+      vueHelpers: () => ["vSeed"],
     },
   },
   checkedItem: {
@@ -139,13 +135,19 @@ export const MODEL_KINDS = {
     },
     svelte: {
       bindables: (model) => [model.prop],
-      radioAttributes: (model, value) => [
+      imports: () => [`import { seedChecked } from "../svelte"`],
+      modelsGroupRadio: true,
+      radioAttributes: (model, value, checked) => [
+        `defaultChecked={untrack(() => ${checked})}`,
+        `{@attach seedChecked(\n  () => ${checked},\n  () => {\n    ${model.local} = ${value}\n  },\n)}`,
         `onchange={() => {\n  ${model.local} = ${value}\n}}`,
       ],
+      untrack: () => true,
     },
     vue: {
       computed: true,
-      radioAttributes: (model, value) => [`@change="model = ${value}"`],
+      modelsGroupRadio: true,
+      radioAttributes: () => ["v-seed", 'v-model="model"'],
       rename: (model) => ({
         script: [[model.local, "model.value"]],
         template: [[model.local, "model"]],
@@ -154,27 +156,30 @@ export const MODEL_KINDS = {
         `const modelValue = defineModel<${model.type}>()`,
         `const model = computed({\n  get: () => modelValue.value ?? ${model.local},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
       ],
+      vueHelpers: () => ["vSeed"],
     },
   },
   radio: {
     svelte: {
       attributes: () => [
-        "checked={isChecked() || undefined}",
-        "defaultChecked={initialChecked}",
-        "onchange={(event) => {\n  group = value ?? true\n  onchange?.(event)\n}}",
+        "{@attach seedChecked(isChecked, check)}",
+        "defaultChecked={defaultChecked ?? initialChecked}",
+        "onchange={(event) => {\n  check()\n  onchange?.(event)\n}}",
         "{value}",
       ],
       bindables: bindableProps,
-      plainProps: () => ["checked", "onchange", "value"],
+      plainProps: () => ["checked", "defaultChecked", "onchange", "value"],
       script: () => [
         "const hasGroup = untrack(() => group !== undefined)",
         "const isChecked = () =>\n  hasGroup\n    ? group === (value ?? true)\n    : (checked ?? group === (value ?? true))",
         "const initialChecked = untrack(isChecked)",
+        "const check = () => {\n  group = value ?? true\n}",
       ],
+      imports: () => [`import { seedChecked } from "../svelte"`],
       untrack: () => true,
     },
     vue: {
-      attributes: () => [':value="attrs.value"', 'v-model="model"'],
+      attributes: () => [':value="attrs.value"', "v-seed", 'v-model="model"'],
       computed: true,
       explicitAttrs: true,
       setup: (model) => [
@@ -182,6 +187,7 @@ export const MODEL_KINDS = {
         "const unchecked = Symbol()",
         `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
       ],
+      vueHelpers: () => ["vSeed"],
     },
   },
   value: {
@@ -200,9 +206,12 @@ export const MODEL_KINDS = {
     svelte: {
       attributes: (model) => [
         `bind:${model.prop}`,
-        ...(resettable(model) ? ["defaultValue={initialValue}"] : []),
+        ...(resettable(model)
+          ? ["defaultValue={defaultValue ?? initialValue}"]
+          : []),
       ],
       bindables: (model) => [model.prop],
+      plainProps: (model) => (resettable(model) ? ["defaultValue"] : []),
       script: (model) =>
         resettable(model)
           ? [`const initialValue = untrack(() => ${model.local ?? model.prop})`]
@@ -211,8 +220,8 @@ export const MODEL_KINDS = {
     },
     vue: {
       attributes: (model) => [
+        "v-seed",
         `v-model${numeric(model) ? ".number" : ""}="model"`,
-        ...(resettable(model) ? ['ref="modelElement"'] : []),
       ],
       computed: true,
       declared: (model) => (model.local ? [] : [model.prop]),
@@ -223,20 +232,8 @@ export const MODEL_KINDS = {
       setup: (model) => [
         `const modelValue = defineModel<${model.type}>()`,
         `const model = computed({\n  get: () => modelValue.value ?? ${model.local ?? model.prop},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
-        ...(resettable(model)
-          ? [
-              `const modelElement = useTemplateRef<${ELEMENT_INTERFACES[model.element.tag]}>("modelElement")`,
-              "let modelForm: HTMLFormElement | null = null",
-              `const resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = ${numeric(model) ? "Number.isNaN(element.valueAsNumber)\n      ? element.value\n      : element.valueAsNumber" : "element.value"}\n  })`,
-              'onMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && model.value != null) {\n    element.defaultValue = String(model.value)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})',
-              'onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))',
-            ]
-          : []),
       ],
-      vueImports: (model) =>
-        resettable(model)
-          ? ["onBeforeUnmount", "onMounted", "useTemplateRef"]
-          : [],
+      vueHelpers: () => ["vSeed"],
     },
   },
 }

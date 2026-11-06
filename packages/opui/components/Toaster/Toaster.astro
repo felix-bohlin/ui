@@ -29,9 +29,9 @@ warnMissingId("Toaster", id)
   id={id}
   {...rest}
 >
-  <ol popover="manual"></ol>
-  <div class="ui-sr-only" role="status"></div>
-  <div class="ui-sr-only" role="alert"></div>
+  <ol popover="manual" set:html="" />
+  <div class="ui-sr-only" role="status" set:html="" />
+  <div class="ui-sr-only" role="alert" set:html="" />
 </opui-toaster>
 
 <script>

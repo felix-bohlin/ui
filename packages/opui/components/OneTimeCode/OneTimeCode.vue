@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import {
-  computed,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  useTemplateRef,
-} from "vue"
-import { useInputAttrs } from "../vue"
+import { computed, inject } from "vue"
+import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import type { Props, Slots } from "./types.vue-props"
@@ -39,29 +33,6 @@ const model = computed({
   },
 })
 
-const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
-
-let modelForm: HTMLFormElement | null = null
-
-const resetModel = (event: Event) =>
-  setTimeout(() => {
-    const element = modelElement.value
-    if (event.defaultPrevented || !element) return
-    model.value = element.value
-  })
-
-onMounted(() => {
-  const element = modelElement.value
-  if (!element) return
-  if (!element.hasAttribute("value") && model.value != null) {
-    element.defaultValue = String(model.value)
-  }
-  modelForm = element.form
-  modelForm?.addEventListener("reset", resetModel)
-})
-
-onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
-
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -77,9 +48,9 @@ const field = inject(FieldGroupKey, undefined)
     :style="$attrs.style"
   >
     <span v-if="label || $slots.label" class="ui-label"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></span>
+    <span class="ui-field">
       <input
         :autocapitalize="alphanumeric ? 'characters' : undefined"
         autocomplete="one-time-code"
@@ -91,11 +62,11 @@ const field = inject(FieldGroupKey, undefined)
         :maxlength="length"
         :name="name ?? field?.name"
         type="text"
+        v-seed
         v-model="model"
-        ref="modelElement"
-      /> </span
-    >{{ " "
-    }}<span v-if="endText || $slots['end-text']" class="ui-end-text"
+      />
+    </span>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </label>

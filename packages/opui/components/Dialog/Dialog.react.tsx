@@ -3,7 +3,7 @@
 import { useId } from "react"
 import { cx } from "../cx"
 import { DialogContext } from "./context.react"
-import { autoLabelledBy, createIds } from "../id"
+import { autoLabelledBy } from "../id"
 import type { Props } from "./types.react"
 
 export default function Dialog({
@@ -13,7 +13,7 @@ export default function Dialog({
   ...rest
 }: Props) {
   const uid = useId()
-  const titleId = createIds(uid, "dialog", rest.id)("title")
+  const titleId = `${rest.id ?? `dialog-${uid}`}-title`
   const labelledBy = autoLabelledBy(rest, titleId)
 
   return (

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import postcss from "postcss"
 import atImport from "postcss-import"
 
+import { buildFrameworks } from "./build-frameworks.mjs"
 import { baselineYear, baselineYears, withoutCompat } from "./features.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -60,3 +61,6 @@ for (const { inputs, out, plugins = [] } of targets) {
   await writeFile(`${to}.map`, JSON.stringify(map))
   console.log(`built dist/${out} (+ .map)`)
 }
+
+await buildFrameworks(root)
+console.log("built dist/react, dist/svelte and dist/vue")

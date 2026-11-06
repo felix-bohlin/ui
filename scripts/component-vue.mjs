@@ -7,8 +7,10 @@ import { VOID_ELEMENTS } from "./html-tokens.mjs"
 import {
   componentImport,
   contextImports,
+  edgeTrimmed,
   groupWarning,
   indent,
+  isLoose,
   objectCode,
   propsImport,
   rewriteExpression,
@@ -26,6 +28,7 @@ import {
   identifiersIn,
   isArrayType,
   isBlank,
+  PRESERVED_TAGS,
   propKey,
   scriptCodes,
   slotsUsedIn,
@@ -36,6 +39,25 @@ import {
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
 
 const ATTRIBUTE = /[^\s="]+(?:="[^"]*")?/g
+
+const withoutUnused = (lines, markup, declarations) => {
+  const unused = declarations.find(
+    ({ line, name }) =>
+      lines.includes(line) &&
+      ![markup, ...lines.filter((other) => other !== line)].some((text) =>
+        new RegExp(`(?<![\\w$.])${name.replaceAll("$", "\\$")}(?![\\w$])`).test(
+          text,
+        ),
+      ),
+  )
+  return unused
+    ? withoutUnused(
+        lines.filter((line) => line !== unused.line),
+        markup,
+        declarations,
+      )
+    : lines
+}
 const CLASS_BINDING = /^:class="(.*)"$/s
 const OBJECT_BINDING = /^v-bind="(.*)"$/s
 
@@ -116,6 +138,31 @@ export const toVue = (component) => {
   const modelRename = MODEL_KINDS[component.model?.kind]?.vue?.rename?.(
     component.model,
   )
+  const slotReaders = derived.reduce((names, { code, name }) => {
+    const ids = identifiersIn(code)
+    return slotsUsedIn(code).length > 0 ||
+      trimmedSlots.some(({ local }) => ids.has(local)) ||
+      [...names].some((other) => ids.has(other))
+      ? new Set([...names, name])
+      : names
+  }, new Set())
+  const getters = new Set(
+    derived
+      .filter(({ fn, name }) => !fn && slotReaders.has(name))
+      .map(({ name }) => name),
+  )
+  const providedReader = provide?.value.find(
+    ({ code }) =>
+      slotsUsedIn(code).length > 0 ||
+      [...identifiersIn(code)].some((name) => slotReaders.has(name)),
+  )
+  if (providedReader) {
+    throw unsupported(
+      component.file,
+      `the provided \`${providedReader.key}\`, which reads a slot`,
+      "Vue doesn't track slots, so a provided value can't follow one: provide a prop instead",
+    )
+  }
   const rename = new Map([
     ...props.flatMap(({ local, prop }) =>
       prop === "class"
@@ -128,9 +175,12 @@ export const toVue = (component) => {
     ),
     ...(restUsed ? [[rest, "attrs"]] : []),
     ...trimmedSlots.map(({ local, slot }) => [local, `$slots${vueSlot(slot)}`]),
+    ...[...getters].map((name) => [name, `${name}()`]),
     ...(modelRename?.template ?? []),
   ])
-  const computedConsts = derived.filter(({ fn }) => !fn)
+  const computedConsts = derived.filter(
+    ({ fn, name }) => !fn && !getters.has(name),
+  )
   const derivedNames = new Set(computedConsts.map(({ name }) => name))
   const scriptRename = new Map([
     ...rename,
@@ -149,11 +199,13 @@ export const toVue = (component) => {
   const template = {
     quote: "'",
     rename,
+    ids: component.ids,
     slotHas: (name) => `$slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
   }
   const script = {
     rename: scriptRename,
+    ids: component.ids,
     slotHas: (name) => `slots${vueSlot(name)}`,
     style: styleOption(component, "{}"),
   }
@@ -252,7 +304,7 @@ export const toVue = (component) => {
     if (significant.length === 1 && significant[0].type !== "if") {
       return emitOne(significant[0], clause, scope)
     }
-    return `<template ${clause}>${emit(nodes, scope)}</template>`
+    return `<template ${clause}>${body(nodes, scope)}</template>`
   }
   const emitOne = (node, clause, scope) => {
     if (node.type === "text") {
@@ -272,14 +324,14 @@ export const toVue = (component) => {
       }
       const name = node.name === "default" ? "" : ` name="${node.name}"`
       if (node.fallback.length === 0) return `<slot${slotClause}${name}></slot>`
-      const pair = `<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>${directive(node.fallback, "v-else", undefined, scope)}`
+      const pair = `<slot v-if="$slots${vueSlot(node.name)}"${name}></slot>\n${directive(node.fallback, "v-else", undefined, scope)}`
       return clause ? `<template ${clause}>${pair}</template>` : pair
     }
     if (node.type === "if") {
       const test = rewriteExpression(node.test, scope)
       const consequent = directive(node.consequent, "v-if", test, scope)
       if (!node.alternate) return consequent
-      return `${consequent}${directive(node.alternate, "v-else", undefined, scope)}`
+      return `${consequent}\n${directive(node.alternate, "v-else", undefined, scope)}`
     }
     if (node.type === "each") {
       const inner = {
@@ -362,6 +414,14 @@ export const toVue = (component) => {
     const listed = [
       ...(clause ? [clause] : []),
       ...bound
+        .filter(
+          (item) =>
+            !(
+              node.groupRadio !== undefined &&
+              kind?.modelsGroupRadio &&
+              item.name === "checked"
+            ),
+        )
         .map((item) =>
           item.kind === "bound" ? item.text : attribute(node, item, bindScope),
         )
@@ -399,10 +459,29 @@ export const toVue = (component) => {
     ) {
       return `${open} />`
     }
-    return `${open}>${emit(node.children, scope)}</${tag}>`
+    return `${open}>${body(node.children, {
+      ...scope,
+      preserved: scope.preserved || PRESERVED_TAGS.has(node.tag),
+    })}</${tag}>`
   }
   const emit = (nodes, scope) =>
-    nodes.map((node) => emitOne(node, undefined, scope)).join("")
+    nodes
+      .map((node, index) =>
+        emitOne(node, undefined, {
+          ...scope,
+          hugged: [nodes[index - 1], nodes[index + 1]].some(
+            (sibling) => sibling && !isLoose(sibling),
+          ),
+        }),
+      )
+      .join("")
+  const body = (nodes, scope) => {
+    const inner =
+      scope.preserved || scope.hugged
+        ? undefined
+        : edgeTrimmed(nodes, { interpolated: false })
+    return inner ? `\n${emit(inner, scope)}\n` : emit(nodes, scope)
+  }
   const markup = emit(tree, template)
   const slotsType =
     propsType !== "Props" &&
@@ -439,14 +518,19 @@ export const toVue = (component) => {
         : []),
     ...(item ? ["watchEffect"] : []),
     ...(uid ? ["useId"] : []),
-    ...(kind?.vueImports?.(model) ?? []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
+  const vueHelpers = [
+    ...(computedAttrs ? ["useInputAttrs"] : []),
+    ...(kind?.vueHelpers?.(model) ?? []),
+  ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),
     ...(vueImports.length
       ? [`import { ${vueImports.join(", ")} } from "vue"`]
       : []),
-    ...(computedAttrs ? [`import { useInputAttrs } from "../vue"`] : []),
+    ...(vueHelpers.length
+      ? [`import { ${vueHelpers.join(", ")} } from "../vue"`]
+      : []),
     ...(kind?.imports?.(component, model) ?? []),
     ...(usesTrimmedSlot
       ? [`import { TrimmedSlot } from "../whitespace.vue"`]
@@ -483,6 +567,14 @@ export const toVue = (component) => {
   const slotsLine = slotsInScript
     ? `const slots = defineSlots<${slotsType}>()`
     : `defineSlots<${slotsType}>()`
+  const declarations = derived.map(({ code, fn, name }) => ({
+    line: fn
+      ? `const ${name} = ${rewriteExpression(code, script)}`
+      : getters.has(name)
+        ? `const ${name} = () => ${rewriteExpression(code, script)}`
+        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
+    name,
+  }))
   const setup = [
     importLines.join("\n"),
     slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
@@ -511,11 +603,7 @@ export const toVue = (component) => {
         `const ${name} = inject(${context.name}Key, undefined)`,
     ),
     ...(uid ? ["const uid = useId()"] : []),
-    ...derived.map(({ code, fn, name }) =>
-      fn
-        ? `const ${name} = ${rewriteExpression(code, script)}`
-        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
-    ),
+    ...declarations.map(({ line }) => line),
     ...warnings.map((code) => rewriteStatement(code, script)),
     ...(item
       ? [
@@ -530,5 +618,6 @@ export const toVue = (component) => {
         ]
       : []),
   ]
-  return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
+  const kept = withoutUnused(setup, markup, declarations)
+  return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
 }

@@ -1,11 +1,6 @@
-import { Card, CardHeader, Carousel } from "opui-css/react"
+import { Card, Carousel } from "opui-css/react"
 
-const places = [
-  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
-  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
-  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
-  { description: "Medina markets and Mediterranean light.", title: "Tunis" },
-]
+const slides = [1, 2, 3, 4]
 
 export default function PersistentButtons() {
   return (
@@ -15,15 +10,9 @@ export default function PersistentButtons() {
       itemsPerView={2}
       persistentButtons
     >
-      {places.map(({ description, title }) => (
-        <li key={title}>
-          <Card variant="tonal">
-            <CardHeader>
-              <p>Destination</p>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </CardHeader>
-          </Card>
+      {slides.map((slide) => (
+        <li key={slide}>
+          <Card style={{ blockSize: "8rem" }} variant="tonal" />
         </li>
       ))}
     </Carousel>

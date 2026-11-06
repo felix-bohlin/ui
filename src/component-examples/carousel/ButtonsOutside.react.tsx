@@ -1,34 +1,13 @@
-import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/react"
+import { Card, Carousel } from "opui-css/react"
 
-const plans = [
-  {
-    action: "Choose Basic",
-    description: "For personal projects.",
-    title: "Basic",
-  },
-  { action: "Choose Pro", description: "For growing teams.", title: "Pro" },
-  { action: "Choose Team", description: "For small teams.", title: "Team" },
-  {
-    action: "Contact sales",
-    description: "For large organisations.",
-    title: "Enterprise",
-  },
-]
+const slides = [1, 2, 3, 4]
 
 export default function ButtonsOutside() {
   return (
     <Carousel aria-label="Plans" buttons="outside" itemsPerView={2}>
-      {plans.map(({ action, description, title }) => (
-        <li key={title}>
-          <Card variant="outlined">
-            <CardHeader>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </CardHeader>
-            <CardActions>
-              <Button variant="filled">{action}</Button>
-            </CardActions>
-          </Card>
+      {slides.map((slide) => (
+        <li key={slide}>
+          <Card style={{ blockSize: "8rem" }} variant="outlined" />
         </li>
       ))}
     </Carousel>

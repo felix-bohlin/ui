@@ -23,14 +23,14 @@ const hidden = computed(() => dot || hideLabel)
   >
     <slot></slot>{{ " "
     }}<AnchorContent>
-      <span class="ui-indicator"
-        ><template v-if="hidden"
+      <span class="ui-indicator">
+        <template v-if="hidden"
           ><span v-if="!dot && $slots.indicator" aria-hidden="true"
             ><TrimmedSlot :nodes="$slots.indicator?.()" /></span
           ><span v-if="label" class="ui-sr-only">{{ label }}</span></template
         >{{ hidden ? undefined : label
-        }}<TrimmedSlot v-if="!hidden" :nodes="$slots.indicator?.()"
-      /></span>
+        }}<TrimmedSlot v-if="!hidden" :nodes="$slots.indicator?.()" />
+      </span>
     </AnchorContent>
   </Anchor>
 </template>

@@ -178,7 +178,6 @@ import {
 
 <script>
   import { exampleTheme } from "../../utils/example-themes"
-  import { morph } from "../../utils/morph"
   import { copyText } from "../../utils/storage"
   import { themeStore, type Theme } from "../../utils/theme"
   import { changeCount } from "../../utils/theme-builder-controls"
@@ -243,21 +242,21 @@ import {
       }
     }
 
-    const restore = async (theme: Theme | null, message: string) => {
+    const restore = (theme: Theme | null, message: string) => {
       if (!theme) return
       restoring = true
-      await morph(() => themeStore.set(theme))
+      themeStore.set(theme)
       restoring = false
       syncHistory()
       say(message)
     }
 
-    const undoable = async (
+    const undoable = (
       message: string,
       focus: HTMLElement,
-      action: () => Promise<void>,
+      action: () => void,
     ) => {
-      await action()
+      action()
       focus.focus({ preventScroll: true })
       say(message, true)
     }
@@ -333,7 +332,7 @@ import {
 
     resetButton.addEventListener("click", () =>
       undoable("Theme reset to the default.", resetButton, () =>
-        morph(() => themeStore.reset()),
+        themeStore.reset(),
       ),
     )
 
@@ -377,7 +376,7 @@ import {
           .addEventListener("click", () => {
             close()
             undoable("Using the theme from the link.", presetInput(), () =>
-              morph(() => themeStore.set(shared)),
+              themeStore.set(shared),
             )
           })
         share

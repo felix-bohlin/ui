@@ -1,6 +1,6 @@
 # Typography
 
-Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.
+Text styles: classes on single elements, or .ui-rich-text around content.
 
 - CSS: `opui-css/css/components/typography.css` and `opui-css/css/components/link.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/typography.md), [Astro](https://open-props-ui.netlify.app/astro/components/typography.md), [React](https://open-props-ui.netlify.app/react/components/typography.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/typography.md), [Vue](https://open-props-ui.netlify.app/vue/components/typography.md).

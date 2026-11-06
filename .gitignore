@@ -37,8 +37,11 @@ tests/unit/.samples/
 tests/apps/.tarball/
 tests/apps/**/examples/
 tests/apps/*/.next/
+tests/apps/*/.next-readme/
 tests/apps/*/.nuxt/
+tests/apps/*/.nuxt-readme/
 tests/apps/*/.output/
+tests/apps/*/.output-readme/
 tests/apps/*/.svelte-kit/
 tests/apps/*/build/
 tests/apps/*/next-env.d.ts

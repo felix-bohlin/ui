@@ -4,7 +4,7 @@ import { useEffect, useId } from "react"
 import { cx } from "../cx"
 import Button from "../Button/Button.react"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import type { Props } from "./types.react"
 
@@ -32,10 +32,10 @@ export default function NumberField({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const ids = createIds(uid, "number-field", id)
-  const inputId = ids()
-  const startTextId = startText ? ids("start-text") : undefined
-  const endTextId = endText ? ids("end-text") : undefined
+  const base = id ?? `number-field-${uid}`
+  const inputId = base
+  const startTextId = startText ? `${base}-start-text` : undefined
+  const endTextId = endText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/number-field.js")
   }, [])
@@ -56,17 +56,17 @@ export default function NumberField({
     >
       {label && (
         <label
-          className={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+          className={hideLabel ? "ui-sr-only" : "ui-label"}
           htmlFor={inputId}
         >
           {label}
         </label>
-      )}{" "}
+      )}
       {startText && (
         <span className="ui-start-text" id={startTextId}>
           {startText}
         </span>
-      )}{" "}
+      )}
       <span className="ui-field">
         <span className="ui-start">
           <Button
@@ -90,7 +90,7 @@ export default function NumberField({
               decreaseIcon
             )}
           </Button>
-        </span>{" "}
+        </span>
         <input
           {...rest}
           aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
@@ -98,7 +98,7 @@ export default function NumberField({
           id={inputId}
           name={name ?? field?.name}
           type="number"
-        />{" "}
+        />
         <span className="ui-end">
           <Button
             aria-controls={inputId}
@@ -122,7 +122,7 @@ export default function NumberField({
             )}
           </Button>
         </span>
-      </span>{" "}
+      </span>
       {endText && (
         <span className="ui-end-text" id={endTextId}>
           {endText}

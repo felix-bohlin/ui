@@ -4,7 +4,7 @@
   import { content } from "../content.svelte"
   import Button from "../Button/Button.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { createIds, idRefs } from "../id"
+  import { idRefs } from "../id"
   import { minusPath, plusPath } from "./icons"
   import type { Props } from "./types.svelte"
 
@@ -13,6 +13,7 @@
     "aria-invalid": ariaInvalid,
     class: className,
     decreaseLabel = "Decrease",
+    defaultValue,
     error,
     hideLabel,
     id,
@@ -37,10 +38,10 @@
   const field = getFieldGroupContext()
   const uid = $props.id()
   const initialValue = untrack(() => value)
-  const ids = $derived(createIds(uid, "number-field", id))
-  const inputId = $derived(ids())
-  const startTextId = $derived(startText ? ids("start-text") : undefined)
-  const endTextId = $derived(endText ? ids("end-text") : undefined)
+  const base = $derived(id ?? `number-field-${uid}`)
+  const inputId = $derived(base)
+  const startTextId = $derived(startText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(endText ? `${base}-end-text` : undefined)
 </script>
 
 <opui-number-field
@@ -56,13 +57,16 @@
   ]}
   {style}
 >
-  {#if label}<label
-      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      for={inputId}>{@render content(label)}</label
-    >{/if}
-  {#if startText}<span class="ui-start-text" id={startTextId}
-      >{@render content(startText)}</span
-    >{/if}
+  {#if label}
+    <label class={[hideLabel ? "ui-sr-only" : "ui-label"]} for={inputId}>
+      {@render content(label)}
+    </label>
+  {/if}
+  {#if startText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
+    </span>
+  {/if}
   <span class="ui-field">
     <span class="ui-start">
       <Button
@@ -72,7 +76,9 @@
         commandfor={inputId}
         round
       >
-        {#if decreaseIcon}{@render decreaseIcon()}{:else}
+        {#if decreaseIcon}
+          {@render decreaseIcon()}
+        {:else}
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +99,7 @@
       name={name ?? field?.name}
       type="number"
       bind:value
-      defaultValue={initialValue}
+      defaultValue={defaultValue ?? initialValue}
     />
     <span class="ui-end">
       <Button
@@ -103,7 +109,9 @@
         commandfor={inputId}
         round
       >
-        {#if increaseIcon}{@render increaseIcon()}{:else}
+        {#if increaseIcon}
+          {@render increaseIcon()}
+        {:else}
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +125,9 @@
       </Button>
     </span>
   </span>
-  {#if endText}<span class="ui-end-text" id={endTextId}
-      >{@render content(endText)}</span
-    >{/if}
+  {#if endText}
+    <span class="ui-end-text" id={endTextId}>
+      {@render content(endText)}
+    </span>
+  {/if}
 </opui-number-field>

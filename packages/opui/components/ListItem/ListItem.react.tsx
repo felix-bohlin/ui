@@ -1,4 +1,3 @@
-import type { ElementType } from "react"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -23,9 +22,8 @@ export default function ListItem({
 }: Props) {
   const hasControl =
     type === "checkbox" || type === "radio" || type === "switch"
-  const tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
-  const Tag = tag as ElementType
-  const restOnItem = hasControl || !tag
+  const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
+  const restOnItem = hasControl || !Tag
   const hasLabel = !!label || label
   const hasDescription = !!description || description
 
@@ -38,11 +36,11 @@ export default function ListItem({
       ])}
       {...(restOnItem ? (rest as object) : {})}
     >
-      {tag ? (
+      {Tag ? (
         <Tag
           className={cx([hasControl && `ui-${type}`])}
           htmlFor={hasControl ? htmlFor : undefined}
-          {...(hasControl ? {} : tagAttrs(tag, disabled, href))}
+          {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
           {...(restOnItem ? {} : (rest as object))}
         >
           {start && <div className="ui-start">{start}</div>}

@@ -35,9 +35,9 @@ const Tag = computed(() =>
 
 const restOnItem = computed(() => hasControl.value || !Tag.value)
 
-const hasLabel = computed(() => !!label || slots.label)
+const hasLabel = () => !!label || slots.label
 
-const hasDescription = computed(() => !!description || slots.description)
+const hasDescription = () => !!description || slots.description
 </script>
 
 <template>
@@ -63,23 +63,24 @@ const hasDescription = computed(() => !!description || slots.description)
       ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div v-if="hasLabel || hasDescription" class="ui-text">
-        <p v-if="hasLabel">{{ label }}<slot name="label"></slot></p>
-        <p v-if="hasDescription">
+      <div v-if="hasLabel() || hasDescription()" class="ui-text">
+        <p v-if="hasLabel()">{{ label }}<slot name="label"></slot></p>
+        <p v-if="hasDescription()">
           {{ description }}<slot name="description"></slot>
         </p>
         <slot></slot>
       </div>
       <slot v-else></slot>
       <div v-if="$slots.end" class="ui-end">
-        <slot name="end"></slot></div></component
-    ><template v-else
+        <slot name="end"></slot></div
+    ></component>
+    <template v-else
       ><div v-if="$slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div v-if="hasLabel || hasDescription" class="ui-text">
-        <p v-if="hasLabel">{{ label }}<slot name="label"></slot></p>
-        <p v-if="hasDescription">
+      <div v-if="hasLabel() || hasDescription()" class="ui-text">
+        <p v-if="hasLabel()">{{ label }}<slot name="label"></slot></p>
+        <p v-if="hasDescription()">
           {{ description }}<slot name="description"></slot>
         </p>
         <slot></slot>

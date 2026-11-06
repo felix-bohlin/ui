@@ -1,6 +1,6 @@
 # Checkbox
 
-Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.
+Choices submitted with a form. For a setting that applies right away, use a Switch.
 
 - CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/checkbox.md), [Astro](https://open-props-ui.netlify.app/astro/components/checkbox.md), [React](https://open-props-ui.netlify.app/react/components/checkbox.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/checkbox.md), [Vue](https://open-props-ui.netlify.app/vue/components/checkbox.md).
@@ -71,7 +71,9 @@ Model: `checked` (`boolean | (string | number)[]`), the checked state, or the ch
 ### Notes
 
 - HTML: Wrap the group in `<opui-select-all class="ui-select-all">`, add `data-select-all` to the controlling checkbox and import `opui-css/elements/select-all.js`.
-- Astro, React, Svelte and Vue: The component loads `opui-css/elements/select-all.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Astro: The component loads `opui-css/elements/select-all.js`. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- React: The component loads `opui-css/elements/select-all.js` once it mounts, unless the page imports it first. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
+- Svelte and Vue: The component imports `opui-css/elements/select-all.js`, so the element runs as soon as the component's code loads. Leave the controlling checkbox uncontrolled: the element sets its `checked` and `indeterminate`.
 
 ## Component properties
 

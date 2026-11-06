@@ -121,6 +121,56 @@ test("range.js mirrors the value into the output and follows a reset", async ({
   )
 })
 
+test("range.js writes through the readout node a framework renders and keeps its anchors", async ({
+  page,
+}) => {
+  await page.setContent(`
+    <label class="ui-range">
+      <input type="range" min="0" max="10" value="3" />
+      <output class="ui-value" data-live data-suffix="°"><!--[-->3°<!--]--></output>
+    </label>
+    <label class="ui-range">
+      <input type="range" min="0" max="10" value="5" />
+      <output class="ui-value" data-live></output>
+    </label>
+  `)
+  await page.evaluate(() => {
+    const [server, client] = document.querySelectorAll("output")
+    client!.append("", "5", "")
+    Object.assign(window, {
+      readouts: [server!.childNodes[1], client!.childNodes[1]],
+    })
+  })
+  await page.addScriptTag(helper("range.js", ""))
+
+  const outputs = page.locator("output")
+  const sliders = page.locator('input[type="range"]')
+  await expect(outputs.first()).toHaveJSProperty(
+    "innerHTML",
+    "<!--[-->3°<!--]-->",
+  )
+
+  await sliders.first().fill("7")
+  await sliders.nth(1).fill("8")
+  await expect(outputs.first()).toHaveJSProperty(
+    "innerHTML",
+    "<!--[-->7°<!--]-->",
+  )
+  await expect(outputs.nth(1)).toHaveText("8")
+  expect(
+    await page.evaluate(() => {
+      const { readouts } = window as unknown as { readouts: Text[] }
+      const [server, client] = document.querySelectorAll("output")
+      return [
+        server!.childNodes[1] === readouts[0],
+        client!.childNodes.length,
+        client!.childNodes[1] === readouts[1],
+        readouts.map((node) => node.data),
+      ]
+    }),
+  ).toEqual([true, 3, true, ["7°", "8"]])
+})
+
 test("range.js follows a range added after it loads", async ({ page }) => {
   await page.setContent("<main></main>")
   await page.addScriptTag(helper("range.js", ""))

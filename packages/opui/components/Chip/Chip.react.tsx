@@ -1,4 +1,3 @@
-import type { ElementType } from "react"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -18,8 +17,7 @@ export default function Chip({
   start,
   ...rest
 }: Props) {
-  const tag = as || (href ? "a" : "div")
-  const Tag: ElementType = tag
+  const Tag = as || (href ? "a" : "div")
 
   return (
     <Tag
@@ -31,7 +29,7 @@ export default function Chip({
         variant !== "tonal" && `ui-${variant}`,
         className,
       ])}
-      {...tagAttrs(tag, disabled, href)}
+      {...tagAttrs(Tag, disabled, href)}
       {...(rest as object)}
     >
       {start}

@@ -8,8 +8,6 @@ import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import {
-  Callout as UICallout,
-  CalloutContent as UICalloutContent,
   Checkbox as UICheckbox,
   Table,
   TableBody,
@@ -84,37 +82,30 @@ export const keywords = ["check", "tick"]
 >
   <Fragment slot="title">Checkbox</Fragment>
   <Fragment slot="preamble">
-    Use a Checkbox for choices that are submitted with a form. For a setting
-    that applies right away, use a
-    <DocLink href="/components/switch">Switch</DocLink>, and for options in a
-    toolbar a <DocLink href="/components/toggle">Toggle</DocLink>. See also:
-    <a href="#field-group" class="ui-link">Checkbox field group</a>.
+    Choices submitted with a form. For a setting that applies right away, use a
+    <DocLink href="/components/switch">Switch</DocLink>.
   </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">A choice submitted with a form, like agreeing to terms.</li>
     <li slot="when">
-      A choice that is submitted with a form, like agreeing to the terms.
+      Several options from a short list: a <a href="#field-group">field group</a
+      >.
     </li>
     <li slot="when">
-      Any number of options from a short list, in a
-      <a href="#field-group">field group</a>.
-    </li>
-    <li slot="when">
-      Selecting all the items of a list at once, with a
-      <a href="#select-all">select all</a> checkbox that is indeterminate while
-      some are checked.
+      Selecting all items: <a href="#select-all">select all</a>.
     </li>
     <li slot="when-not">
-      A setting that applies right away. Use a
+      A setting that applies right away: use a
       <DocLink href="/components/switch">Switch</DocLink>.
     </li>
     <li slot="when-not">
-      One choice out of several. Use a
+      One choice out of several: use a
       <DocLink href="/components/radio">Radio</DocLink> group.
     </li>
     <li slot="when-not">
-      Options in a toolbar, like bold. Use a
-      <DocLink href="/components/toggle">Toggle</DocLink>.
+      Toolbar options: use a <DocLink href="/components/toggle">Toggle</DocLink
+      >.
     </li>
   </Usage>
 
@@ -125,55 +116,17 @@ export const keywords = ["check", "tick"]
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Choose between four sizes with the <code>size</code> prop:
-        <code>x-small</code>, <code>small</code>, <code>medium</code> (the
-        default) and <code>large</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Choose between four sizes: <code>.ui-x-small</code>,
-        <code>.ui-small</code>, default and <code>.ui-large</code>, on the
-        <code>&lt;label class="ui-checkbox"&gt;</code>.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Sizes" column centered spacious />
   </section>
 
   <section id="visible-label">
     <h2>Visible label</h2>
-    <Conditional as="p">
-      <Fragment slot="components">The default slot is the label.</Fragment>
-      <Fragment slot="html">
-        Render the label text inside an element with a <code>.ui-label</code>
-        class.
-      </Fragment>
-      <Fragment slot="react"><code>children</code> is the label.</Fragment>
-      <Fragment slot="svelte">
-        The <code>children</code> snippet is the label.
-      </Fragment>
-    </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
     <h3 id="hidden-label">Hidden label</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>hideLabel</code> to keep the label for screen readers only.
-        The checkbox then centers in a table cell or a line of text, and keeps a
-        24px click target.
-      </Fragment>
-      <Fragment slot="html">
-        Use <code>.ui-sr-only</code> instead of <code>.ui-label</code> to keep
-        the label for screen readers only. The checkbox then centers in a table
-        cell or a line of text, and keeps a 24px click target.
-      </Fragment>
-    </Conditional>
+    <p>Use <PropOrClass prop="hideLabel" class=".ui-sr-only" />.</p>
     <AutoExample name="HiddenLabel" column centered />
-    <p>
-      In a line of text, make the words next to the checkbox its label, so
-      clicking them checks it, like email and SMS above.
-    </p>
 
     <h3 id="label-position">Label position</h3>
     <p>
@@ -183,30 +136,7 @@ export const keywords = ["check", "tick"]
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
-    <Conditional as="p">
-      <Fragment slot="components"
-        >Use the <code>endText</code> prop or the <code>end-text</code> slot for
-        supporting text under the label. It sits inside the
-        <code>&lt;label&gt;</code>, so screen readers read it with the
-        label.</Fragment
-      >
-      <Fragment slot="html"
-        >Add a <code>&lt;span class="ui-end-text"&gt;</code> after the
-        <code>.ui-label</code> for supporting text under the label. It sits
-        inside the <code>&lt;label&gt;</code>, so screen readers read it with
-        the label.</Fragment
-      >
-      <Fragment slot="react"
-        >Use the <code>endText</code> prop for supporting text under the label.
-        It sits inside the <code>&lt;label&gt;</code>, so screen readers read it
-        with the label.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Use the <code>endText</code> prop for supporting text under the label.
-        It sits inside the <code>&lt;label&gt;</code>, so screen readers read it
-        with the label.</Fragment
-      >
-    </Conditional>
+    <p>Use <PropOrClass prop="endText" class=".ui-end-text" />.</p>
     <AutoExample name="EndText" row spacious />
 
     <h3 id="validation">Validation</h3>
@@ -217,65 +147,12 @@ export const keywords = ["check", "tick"]
 
   <section id="indeterminate">
     <h2>Indeterminate</h2>
-    <Conditional as="div">
-      <Fragment slot="astro">
-        <p>
-          Set the <code>indeterminate</code> prop to render a partially-selected
-          state. {" "}<code>indeterminate</code> is a JavaScript-only property
-          on <code>HTMLInputElement</code>, so the component renders
-          <code>data-indeterminate</code> and applies the property at runtime.
-        </p>
-
-        <div class="ui-not-rich-text">
-          <UICallout>
-            <UICalloutContent>
-              <h3>JavaScript required</h3>
-              <div class="ui-rich-text">
-                The <code>indeterminate</code> state cannot be set with HTML or
-                CSS alone. The browser only exposes it as a property on
-                <code>HTMLInputElement</code>, so the component ships a script
-                that sets <code>el.indeterminate = true</code> on load. The
-                <code>:indeterminate</code> CSS pseudo-class then matches and
-                the dash glyph appears. To change the state later, set
-                <code>el.indeterminate</code> yourself, or let
-                <a href="#select-all">SelectAll</a> set it.
-              </div>
-            </UICalloutContent>
-          </UICallout>
-        </div>
+    <Conditional as="p">
+      <Fragment slot="components"> Set <code>indeterminate</code>. </Fragment>
+      <Fragment slot="html">
+        Add <code>data-indeterminate</code> and import
+        <code>opui-css/css/js/checkbox.js</code>.
       </Fragment>
-      <Fragment slot="components">
-        <p>
-          Set the <code>indeterminate</code> prop to render a partially-selected
-          state. {" "}<code>indeterminate</code> is a JavaScript-only property
-          on <code>HTMLInputElement</code>, so the component renders
-          <code>data-indeterminate</code> and applies the property at runtime.
-        </p>
-      </Fragment>
-      <div slot="html" class="ui-not-rich-text">
-        <p>
-          Add <code>data-indeterminate</code> to the
-          <code>&lt;input type="checkbox"&gt;</code> and import
-          <code>opui-css/css/js/checkbox.js</code>. The attribute alone has no
-          effect. The module follows every checkbox on the page, so adding or
-          removing <code>data-indeterminate</code> later, or adding a checkbox
-          that has it, updates the box too.
-        </p>
-
-        <UICallout>
-          <UICalloutContent>
-            <h3>JavaScript required</h3>
-            <div class="ui-rich-text">
-              The <code>indeterminate</code> state cannot be set with HTML or
-              CSS alone. The browser only exposes it as a property on
-              <code>HTMLInputElement</code>, so <code>checkbox.js</code> sets
-              <code>el.indeterminate</code> on every input from its
-              <code>data-indeterminate</code>. The <code>:indeterminate</code>
-              CSS pseudo-class then matches and the dash glyph appears.
-            </div>
-          </UICalloutContent>
-        </UICallout>
-      </div>
     </Conditional>
 
     <AutoExample name="IndeterminateBasics" row />
@@ -284,24 +161,12 @@ export const keywords = ["check", "tick"]
     <Conditional as="p">
       <Fragment slot="components">
         Wrap the group in <code>SelectAll</code> and add
-        <code>data-select-all=""</code> to the checkbox that controls it.
-        Checking it checks the other enabled checkboxes inside, and it's checked
-        when they all are and indeterminate when some are, also after a form
-        reset. It works around a <code>Fieldset</code> or a
-        <DocLink href="/components/table">Table</DocLink>, like the one in
-        <a href="#hidden-label">Hidden label</a>, and it fires each checkbox's
-        own change, so your handlers and bindings follow.
+        <code>data-select-all</code> to the controlling checkbox.
       </Fragment>
       <Fragment slot="html">
-        Wrap the group in
-        <code>&lt;opui-select-all class="ui-select-all"&gt;</code>, add
-        <code>data-select-all</code> to the checkbox that controls it and import
-        <code>opui-css/elements/select-all.js</code>. Checking it checks the
-        other enabled checkboxes inside, and it's checked when they all are and
-        indeterminate when some are, also after a form reset. It works around a
-        fieldset or a <DocLink href="/components/table">table</DocLink>, like
-        the one in <a href="#hidden-label">Hidden label</a>, and it fires each
-        checkbox's own <code>change</code> event.
+        Wrap the group in <code>opui-select-all</code>, add
+        <code>data-select-all</code> and import
+        <code>opui-css/elements/select-all.js</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Indeterminate" column centered spacious />
@@ -309,43 +174,20 @@ export const keywords = ["check", "tick"]
 
   <section id="spread">
     <h2>Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use the <code>spread</code> prop to push the label to the left and the
-        checkbox to the right. Handy for full-width items like lists and menus,
-        and for <a class="ui-link" href="#cards">cards</a>.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to the
-        <code>&lt;label class="ui-checkbox"&gt;</code> {" "}to push the label to
-        the left and the checkbox to the right. Handy for full-width items like
-        lists and menus, and for <a class="ui-link" href="#cards">cards</a>.
-      </Fragment>
-    </Conditional>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the checkbox at the
+      end.
+    </p>
 
     <AutoExample name="Spread" column />
   </section>
 
   <section id="cards">
     <h2>Cards</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        <code>card</code> renders the checkbox as a card that tints when hovered
-        and when checked. Combine it with <code>spread</code> for the checkbox
-        at the end, and <code>variant="tonal"</code> or
-        <code>variant="elevated"</code> for the surface, like a
-        <DocLink href="/components/card" class="ui-link">Card</DocLink>. In a
-        horizontal <code>FieldGroup</code> the cards share the row.
-      </Fragment>
-      <Fragment slot="html">
-        <code>.ui-card</code> renders the checkbox as a card that tints when
-        hovered and when checked. Combine it with <code>.ui-spread</code> for
-        the checkbox at the end, and <code>.ui-tonal</code> or
-        <code>.ui-elevated</code> for the surface, like a
-        <DocLink href="/components/card" class="ui-link">Card</DocLink>. In a
-        <code>.ui-field-group.ui-horizontal</code> the cards share the row.
-      </Fragment>
-    </Conditional>
+    <p>
+      Use <PropOrClass prop="card" class=".ui-card" />, with
+      <PropOrClass prop="spread" class=".ui-spread" />.
+    </p>
 
     <AutoExample name="CardsMatrix" column />
   </section>

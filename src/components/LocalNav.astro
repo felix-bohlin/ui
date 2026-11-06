@@ -79,6 +79,11 @@ const { sidebarDrawerId, showToc = true } = Astro.props
     padding-inline: var(--size-1);
 
     @media (width < 900px) {
+      animation-fill-mode: both;
+      animation-name: compact-local-nav;
+      animation-range: 0 150px;
+      animation-timeline: scroll();
+      animation-timing-function: linear;
       grid-column: 1 / -1;
       margin-inline-start: 0;
     }
@@ -96,5 +101,11 @@ const { sidebarDrawerId, showToc = true } = Astro.props
 
   .toc-button {
     margin-inline-start: auto;
+  }
+
+  @keyframes compact-local-nav {
+    to {
+      padding-block: var(--size-1);
+    }
   }
 </style>

@@ -21,6 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".next-readme/types/**/*.ts",
+    ".next-readme/dev/types/**/*.ts"
   ]
 }

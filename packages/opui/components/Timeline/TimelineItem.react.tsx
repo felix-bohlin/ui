@@ -1,4 +1,3 @@
-import type { ElementType } from "react"
 import { cx } from "../cx"
 import type { TimelineItemProps as Props } from "./types.react"
 
@@ -14,8 +13,7 @@ export default function TimelineItem({
   marker,
   ...rest
 }: Props) {
-  const heading = `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6"
-  const Heading: ElementType = heading
+  const Heading = `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6"
 
   return (
     <li

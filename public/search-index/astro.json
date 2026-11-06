@@ -365,7 +365,7 @@
   {
     "id": "component-callout-astro",
     "title": "Callout",
-    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "description": "A message in the flow of the page, without interrupting the task.",
     "keywords": "alert banner message box notice warning",
     "category": "Component",
     "url": "/astro/components/callout/"
@@ -408,7 +408,7 @@
   {
     "id": "component-card-astro",
     "title": "Card",
-    "description": "A surface for related content and actions, on its own or as the base of accordions, dialogs and more.",
+    "description": "A surface for related content and actions.",
     "keywords": "panel surface tile",
     "category": "Component",
     "url": "/astro/components/card/"
@@ -482,6 +482,13 @@
     "page": "Card",
     "category": "Component",
     "url": "/astro/components/card/#clickable"
+  },
+  {
+    "id": "component-card-astro-semantics",
+    "title": "Semantics",
+    "page": "Card",
+    "category": "Component",
+    "url": "/astro/components/card/#semantics"
   },
   {
     "id": "component-carousel-astro",
@@ -606,7 +613,7 @@
   {
     "id": "component-checkbox-astro",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Choices submitted with a form. For a setting that applies right away, use a Switch.",
     "keywords": "check tick",
     "category": "Component",
     "url": "/astro/components/checkbox/"
@@ -719,7 +726,7 @@
   {
     "id": "component-chip-astro",
     "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.",
+    "description": "Filters, tags and choices. For the main action, use a Button.",
     "keywords": "filter pill tag token",
     "category": "Component",
     "url": "/astro/components/chip/"
@@ -990,7 +997,7 @@
   {
     "id": "component-drawer-astro",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
+    "description": "Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.",
     "keywords": "off-canvas sheet side panel sidebar",
     "category": "Component",
     "url": "/astro/components/drawer/"
@@ -1125,7 +1132,7 @@
   {
     "id": "component-layout-astro",
     "title": "Layout",
-    "description": "Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale.",
+    "description": "Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale.",
     "keywords": "columns container grid stack",
     "category": "Component",
     "url": "/astro/components/layout/"
@@ -1989,7 +1996,7 @@
   {
     "id": "component-select-astro",
     "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.",
+    "description": "Pick a value in a form. For actions, use a Menu.",
     "keywords": "combobox dropdown option picker",
     "category": "Component",
     "url": "/astro/components/select/"
@@ -2123,7 +2130,7 @@
   {
     "id": "component-spinner-astro",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
+    "description": "Add aria-busy=\"true\" to an element. See also: Progress bar.",
     "keywords": "busy loader loading",
     "category": "Component",
     "url": "/astro/components/spinner/"
@@ -2273,7 +2280,7 @@
   {
     "id": "component-switch-astro",
     "title": "Switch",
-    "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
+    "description": "A setting that applies right away. For choices submitted with a form, use a Checkbox.",
     "keywords": "on off toggle",
     "category": "Component",
     "url": "/astro/components/switch/"
@@ -2492,7 +2499,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "description": "Radio inputs that switch panels. To pick an option, use a Toggle group.",
     "keywords": "tab panel tablist",
     "category": "Component",
     "url": "/astro/components/tabs/"
@@ -3066,7 +3073,7 @@
   {
     "id": "component-typography-astro",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
+    "description": "Text styles: classes on single elements, or .ui-rich-text around content.",
     "keywords": "font heading prose text",
     "category": "Component",
     "url": "/astro/components/typography/"
@@ -3382,7 +3389,7 @@
   {
     "id": "guide-customizing-astro",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
+    "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
     "category": "Guide",
     "url": "/astro/guide/customizing/"
   },
@@ -4242,7 +4249,7 @@
     "id": "api-card-header-astro",
     "title": "Card Header API",
     "description": "Reference for Card Header Astro component.",
-    "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it.",
+    "api": "CardHeader The card header. as The element to render. Use `div` for a header row with an avatar or a button next to the heading, and put the heading in an `hgroup` inside it. Use `header` for the same row in an `article` card.",
     "category": "API",
     "url": "/astro/api/#card-header"
   },
@@ -4250,7 +4257,7 @@
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
-    "api": "Card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. The card header. The card content. A group of actions, such as buttons. color Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. orientation The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card. variant The variant to use. The default `plain` card has the page surface color and no border.",
+    "api": "Card Container element. An image or video that runs to the edges of the card. `img`, `picture` and `video` children fill the width and crop to the height you give them. The card header. The card content. A group of actions, such as buttons. as The element to render. Use `article` for a self-contained piece, like a blog post, a product or a comment, and `section` for a titled part of the page, like the settings of one feature. color Paints a thick `--ui-primary` outline around the card, for the one card in a row that stands out, like a recommended plan. density How much room the parts get. `spacious` pads them with `--ui-space-5` for a card that stands alone, such as a sign-in form, `dense` with `--ui-space-2` for a small stat. orientation The orientation of the element. With `auto`, a card whose first child is an image, picture or video puts it at the start, over the full height, with the other parts next to it, once the card is `40rem` wide, and on top below that. `horizontal` always puts it at the start and `vertical` always on top. The image takes `--_media-inline-size`, `40%` of the card. variant The variant to use. The default `plain` card has the page surface color and no border.",
     "category": "API",
     "url": "/astro/api/#card"
   },

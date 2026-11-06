@@ -14,12 +14,6 @@ import {
 } from "../utils/framework.js"
 import { guideIndex } from "../utils/guide.ts"
 import { markdownPath } from "../utils/markdown.js"
-import {
-  majorPublished,
-  publishedVersion,
-  releaseVersion,
-  unreleased,
-} from "../utils/release.ts"
 import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
 
 /** @typedef {(typeof FRAMEWORKS)[number]} Framework */
@@ -70,13 +64,6 @@ const header = (framework) =>
     "",
     "- Every class is prefixed with `ui-` (e.g. `.ui-button`, `.ui-filled`).",
     '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or the files you need one by one: `opui-css/css/layers.css`, `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, `opui-css/css/components/<name>.css` (plus `choice.css` for checkbox, radio and switch), optionally `opui-css/css/compat.css`, then `opui-css/core/utils.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.',
-    ...(unreleased
-      ? [
-          majorPublished
-            ? `- ${releaseVersion} isn't on npm yet, so \`npm install opui-css\` and the CDN link get ${publishedVersion} until it is published.`
-            : `- ${releaseVersion} isn't on npm yet, so the CDN link works once it is published, and \`npm install opui-css\` gets ${publishedVersion}, the previous major. Until then, build the package from https://github.com/felix-bohlin/ui with \`pnpm install\` and \`pnpm --filter opui-css build\`.`,
-        ]
-      : []),
     ...(framework.id === DEFAULT_FRAMEWORK
       ? []
       : [

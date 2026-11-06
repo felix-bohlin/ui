@@ -10,7 +10,6 @@ import {
 import { selectionOf } from "./selection"
 import { ToggleGroupKey } from "./context.vue"
 import { warnUnnamedGroup } from "../dev"
-import { createId } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
 type Model = Multiple extends true ? string[] : string
@@ -31,9 +30,7 @@ const change = (input: HTMLInputElement) => {
 
 const uid = useId()
 
-const idOf = computed(() => createId(uid))
-
-const groupName = computed(() => name || idOf.value("toggle-group"))
+const groupName = computed(() => name || `toggle-group-${uid}`)
 
 const inputType = computed(() => (multiple ? "checkbox" : "radio"))
 

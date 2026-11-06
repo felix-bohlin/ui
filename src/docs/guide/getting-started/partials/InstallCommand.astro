@@ -1,45 +1,25 @@
 ---
-import { Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
 import CodeGroup from "../../../../components/CodeGroup.astro"
-import {
-  majorPublished,
-  packageVersion,
-  prerelease,
-  publishedVersion,
-  releaseVersion,
-  unreleased,
-} from "../../../../utils/release"
 
-const note = [
-  `${releaseVersion} isn't on npm yet, so these commands install ${publishedVersion}, and the imports on this page don't resolve with it.`,
-  prerelease
-    ? `<code>opui-css@next</code> has the release candidate, ${packageVersion}, which has everything here except the <code>opui-css/elements/</code> scripts.`
-    : "",
-  `Until ${releaseVersion} is published, build the package from <a class="ui-link" href="https://github.com/felix-bohlin/ui">the repository</a> (<code>pnpm install</code>, then <code>pnpm --filter opui-css build</code>) and install <code>packages/opui</code> from its path.`,
-]
-  .filter(Boolean)
-  .join(" ")
+type Props = {
+  packages?: string
+}
+
+const { packages } = Astro.props
+const names = ["opui-css", packages].filter(Boolean).join(" ")
 ---
 
 <CodeGroup
   tabs={[
     {
       title: "pnpm",
-      code: "pnpm add opui-css",
+      code: `pnpm add ${names}`,
       lang: "sh",
     },
     {
       title: "npm",
-      code: "npm install opui-css",
+      code: `npm install ${names}`,
       lang: "sh",
     },
   ]}
 />
-{unreleased && !majorPublished && <div class="ui-not-rich-text">
-  <Callout severity="warning">
-    <CalloutIcon />
-    <CalloutContent>
-      <p set:html={note} />
-    </CalloutContent>
-  </Callout>
-</div>}

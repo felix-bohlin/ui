@@ -1,4 +1,4 @@
-import { components } from "../frameworks.ts"
+import { elementNotes } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -12,8 +12,9 @@ export default {
     },
   ],
   notes: {
-    ...components(
-      "Attributes that aren't props go to the root `<opui-copy>`. The button works once the component hydrates, or once the page imports `opui-css/elements/copy.js`; the Astro component loads it.",
+    ...elementNotes(
+      "copy.js",
+      "Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.",
     ),
     html: 'Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.',
   },

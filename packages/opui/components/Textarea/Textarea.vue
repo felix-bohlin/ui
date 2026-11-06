@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import "../../elements/character-count.js"
-import {
-  computed,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  useTemplateRef,
-} from "vue"
-import { useInputAttrs } from "../vue"
+import { computed, inject } from "vue"
+import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import type { Props, Slots } from "./types.vue-props"
@@ -45,37 +39,14 @@ const model = computed({
   },
 })
 
-const modelElement = useTemplateRef<HTMLTextAreaElement>("modelElement")
-
-let modelForm: HTMLFormElement | null = null
-
-const resetModel = (event: Event) =>
-  setTimeout(() => {
-    const element = modelElement.value
-    if (event.defaultPrevented || !element) return
-    model.value = element.value
-  })
-
-onMounted(() => {
-  const element = modelElement.value
-  if (!element) return
-  if (!element.hasAttribute("value") && model.value != null) {
-    element.defaultValue = String(model.value)
-  }
-  modelForm = element.form
-  modelForm?.addEventListener("reset", resetModel)
-})
-
-onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
-
 const field = inject(FieldGroupKey, undefined)
 
-const Root = computed(() => (label || slots.label ? "label" : "div"))
+const Root = () => (label || slots.label ? "label" : "div")
 </script>
 
 <template>
   <component
-    :is="Root"
+    :is="Root()"
     :class="[
       'ui-textarea',
       {
@@ -91,33 +62,34 @@ const Root = computed(() => (label || slots.label ? "label" : "div"))
     <span
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></span
-    >{{ " "
-    }}<span v-if="startText || $slots['start-text']" class="ui-start-text"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></span>
+    <span v-if="startText || $slots['start-text']" class="ui-start-text"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field">
       <textarea
         v-bind="attrs"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="id"
         :name="name ?? field?.name"
+        v-seed
         v-model="model"
-        ref="modelElement"
-      ></textarea
-      >{{ " "
-      }}<span v-if="$slots.start" class="ui-start"
-        ><slot name="start"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.end" class="ui-end"><slot name="end"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.top" class="ui-top"><slot name="top"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.bottom" class="ui-bottom"
-        ><slot name="bottom"></slot
-      ></span> </span
-    >{{ " "
-    }}<span
+      ></textarea>
+      <span v-if="$slots.start" class="ui-start">
+        <slot name="start"></slot>
+      </span>
+      <span v-if="$slots.end" class="ui-end">
+        <slot name="end"></slot>
+      </span>
+      <span v-if="$slots.top" class="ui-top">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.bottom" class="ui-bottom">
+        <slot name="bottom"></slot>
+      </span>
+    </span>
+    <span
       v-if="endText || $slots['end-text'] || characterCount"
       class="ui-end-text"
       >{{ endText }}<slot name="end-text"></slot
@@ -127,7 +99,8 @@ const Root = computed(() => (label || slots.label ? "label" : "div"))
         aria-hidden="true"
         class="ui-value"
         :label="characterCountLabel"
-      ></component></span
-    >{{ " " }}<slot></slot>
+      ></component
+    ></span>
+    <slot></slot>
   </component>
 </template>

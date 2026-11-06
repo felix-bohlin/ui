@@ -2,6 +2,7 @@
   import type { Props } from "./types.svelte"
 
   let {
+    as: Tag = "div",
     class: className,
     color,
     density,
@@ -14,7 +15,8 @@
   }: Props = $props()
 </script>
 
-<div
+<svelte:element
+  this={Tag}
   class={[
     "ui-card",
     color && `ui-${color}`,
@@ -26,4 +28,4 @@
   {...rest}
 >
   {@render children?.()}
-</div>
+</svelte:element>

@@ -18,11 +18,15 @@
   class={["ui-stat", size && size !== "medium" && `ui-${size}`, className]}
   {...rest}
 >
-  <dt class="ui-label">{@render content(label)}</dt>
+  <dt class="ui-label">
+    {@render content(label)}
+  </dt>
   <dd class="ui-value">
     {@render children?.()}
   </dd>
-  {#if description}<dd class="ui-description">
+  {#if description}
+    <dd class="ui-description">
       {@render content(description)}
-    </dd>{/if}
+    </dd>
+  {/if}
 </dl>

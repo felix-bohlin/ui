@@ -122,28 +122,22 @@ export const keywords = ["data table", "grid", "rows", "sort"]
   </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">Data people scan and compare, like invoices.</li>
     <li slot="when">
-      Data in rows and columns that people scan and compare, like invoices or a
-      price list.
-    </li>
-    <li slot="when">
-      Numbers that need to line up, with
+      Numbers that line up:
       <a href="#numbers"><PropOrClass prop="numeric" class=".ui-numeric" /></a>.
     </li>
-    <li slot="when">
-      Rows people reorder by a column, like customers by revenue, with
-      <a href="#sorting">sorting</a>.
+    <li slot="when">Rows people reorder: <a href="#sorting">sorting</a>.</li>
+    <li slot="when-not">
+      Layout: use the <DocLink href="/components/layout">Layout</DocLink>
+      classes.
     </li>
     <li slot="when-not">
-      Laying out content that isn't data. Use the
-      <DocLink href="/components/layout">Layout</DocLink> classes.
-    </li>
-    <li slot="when-not">
-      Labels with single values. Use a
+      Labels with single values: use a
       <DocLink href="/components/description-list">Description list</DocLink>.
     </li>
     <li slot="when-not">
-      Rows with one label each. Use a
+      Rows with one label each: use a
       <DocLink href="/components/list">List</DocLink>.
     </li>
   </Usage>
@@ -153,12 +147,11 @@ export const keywords = ["data table", "grid", "rows", "sort"]
 
     <Conditional as="p">
       <Fragment slot="components">
-        Change the cell padding with <code>density="dense"</code> or
-        <code>density="spacious"</code>. The default is <code>normal</code>.
+        Use <code>density</code> to change density.
       </Fragment>
       <Fragment slot="html">
-        Change the cell padding with the <code>.ui-dense</code> or
-        <code>.ui-spacious</code> class.
+        Use <code>.ui-dense</code> or <code>.ui-spacious</code> to change
+        density.
       </Fragment>
     </Conditional>
 
@@ -174,68 +167,28 @@ export const keywords = ["data table", "grid", "rows", "sort"]
 
   <section id="numbers">
     <h2>Numbers</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>numeric</code> on the cells of a number column, header
-        included. They align to the end and use tabular figures, so the digits
-        line up from row to row.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>.ui-numeric</code> to the cells of a number column, header
-        included. They align to the end and use tabular figures, so the digits
-        line up from row to row.
-      </Fragment>
-    </Conditional>
+    <p>
+      Use <PropOrClass prop="numeric" class=".ui-numeric" /> on every cell of
+      the column, header included.
+    </p>
     <AutoExample name="Numeric" />
   </section>
 
   <section id="in-a-card">
     <h2>In a card</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A table on the page keeps a block margin. <code>flush</code> drops it
-        for a table in a card or another padded box, and
-        <code>overflow="scroll"</code> keeps each cell on one line and scrolls
-        the table sideways when the columns don't fit, instead of wrapping the
-        cell text. The last column takes the space left over, so give it no
-        fixed width.
-      </Fragment>
-      <Fragment slot="html">
-        A table on the page keeps a block margin. <code>.ui-flush</code> drops
-        it for a table in a card or another padded box, and
-        <code>.ui-overflow-scroll</code> keeps each cell on one line and scrolls
-        the table sideways when the columns don't fit, instead of wrapping the
-        cell text. The last column takes the space left over, so give it no
-        fixed width.
-      </Fragment>
-    </Conditional>
     <p>
-      A scrolling table needs <code>tabindex="0"</code>, so keyboard users can
-      scroll it. The caption names it.
+      Use <PropOrClass prop="flush" class=".ui-flush" /> and
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" />. A
+      scrolling table needs <code>tabindex="0"</code>.
     </p>
     <AutoExample name="InCard" />
   </section>
 
   <section id="controls-in-cells">
     <h2>Controls in cells</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        A <code>TextField</code> or <code>Select</code> in a cell keeps a
-        <code>12ch</code> minimum width, in every density. Set
-        <code>hideLabel</code> and name the row in <code>label</code>, since the
-        column header isn't part of the control's name.
-      </Fragment>
-      <Fragment slot="html">
-        A <code>.ui-text-field</code> or <code>.ui-select</code> in a cell keeps
-        a <code>12ch</code> minimum width, in every density. Hide the label with
-        <code>.ui-sr-only</code> and name the row in it, since the column header
-        isn't part of the control's name.
-      </Fragment>
-    </Conditional>
     <p>
-      For rows people select, put a checkbox in each row and a
-      <DocLink href="/components/checkbox#select-all">select all</DocLink>
-      checkbox in the header.
+      Hide the label with <PropOrClass prop="hideLabel" class=".ui-sr-only" />
+      and name the row in it.
     </p>
 
     <AutoExample name="Controls" />
@@ -252,198 +205,58 @@ export const keywords = ["data table", "grid", "rows", "sort"]
 
   <section id="sticky-header">
     <h2>Sticky header</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        <code>stickyHeader</code> keeps the header rows at the top of the
-        nearest scroll container while the rows scroll under them, and adds a
-        shadow once the header is stuck. Put the table in a scroll box, or let
-        it stick to the page and set <code>--_sticky-offset</code> on the table
-        to clear a fixed top bar.
-      </Fragment>
-      <Fragment slot="html">
-        <code>.ui-sticky-header</code> keeps the header rows at the top of the
-        nearest scroll container while the rows scroll under them, and adds a
-        shadow once the header is stuck. Put the table in a scroll box, or let
-        it stick to the page and set <code>--_sticky-offset</code> on the table
-        to clear a fixed top bar.
-      </Fragment>
-    </Conditional>
-
     <p>
-      The scroll box has <code>role="region"</code>, an <code>aria-label</code>
-      and {" "}<code>tabindex="0"</code>. Safari doesn't make a scroll box
-      without focusable content a tab stop, so <code>tabindex</code> is what
-      lets keyboard users reach it there to scroll it, and the name tells screen
-      reader users what the region holds.
+      Use <PropOrClass prop="stickyHeader" class=".ui-sticky-header" />, without
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" />.
     </p>
-    <Conditional as="p">
-      <Fragment slot="components">
-        <code>overflow="scroll"</code> makes the table its own scroll container,
-        so a sticky header can't stick to the page or to a box around it. For a
-        wide table with a sticky header, leave <code>overflow</code> unset and
-        put the table in a scroll box like this one, which scrolls both ways.
-      </Fragment>
-      <Fragment slot="html">
-        <code>.ui-overflow-scroll</code> makes the table its own scroll
-        container, so a sticky header can't stick to the page or to a box around
-        it. For a wide table with a sticky header, leave the class off and put
-        the table in a scroll box like this one, which scrolls both ways.
-      </Fragment>
-    </Conditional>
 
     <AutoExample name="StickyHeader" />
   </section>
 
   <section id="sorting">
     <h2>Sorting</h2>
-    <Conditional as="div">
-      <Fragment slot="components">
-        <p>
-          Wrap the <code>Table</code> in <code>SortableTable</code> and set
-          <code>sortable</code> on the header cells to sort by. Their label
-          becomes a button: a press sorts the body rows by that column,
-          ascending first, sets <code>aria-sort</code> on the header and
-          announces the column and the direction. Set
-          <code>aria-sort="ascending"</code> on the header the rows start sorted
-          by.
-        </p>
-      </Fragment>
-      <Fragment slot="html">
-        <p>
-          Wrap the table in
-          <code>&lt;opui-sortable-table class="ui-sortable-table"&gt;</code>,
-          add <code>data-sort</code> to each header to sort by, with its label
-          in a <code>&lt;button type="button"&gt;</code>, and import
-          <code>opui-css/elements/sortable-table.js</code>. A press sorts the
-          body rows by that column, ascending first, sets <code>aria-sort</code>
-          on the header and announces the column and the direction. Set
-          <code>aria-sort="ascending"</code> on the header the rows start sorted
-          by.
-        </p>
-      </Fragment>
-    </Conditional>
     <Conditional as="p">
       <Fragment slot="components">
-        It announces "Moons, sorted ascending". Translate that with
-        <code>ascendingLabel</code> and <code>descendingLabel</code>, where
-        <code>{"{column}"}</code> stands for the header's label, so it can go
-        anywhere:
-        <code>ascendingLabel="Sorterat stigande efter {"{column}"}"</code>.
+        Wrap the table in <code>SortableTable</code> and set
+        <code>sortable</code> on the headers.
       </Fragment>
       <Fragment slot="html">
-        It announces "Moons, sorted ascending". Translate that with the
-        <code>ascending-label</code> and <code>descending-label</code>
-        attributes on <code>&lt;opui-sortable-table&gt;</code>, where
-        <code>{"{column}"}</code> stands for the header's label, so it can go
-        anywhere:
-        <code>ascending-label="Sorterat stigande efter {"{column}"}"</code>.
+        Wrap the table in <code>opui-sortable-table</code> and import
+        <code>opui-css/elements/sortable-table.js</code>.
       </Fragment>
     </Conditional>
-    <p>
-      A cell sorts by its <code>data-sort-value</code>, or else its text,
-      compared with <code>Intl.Collator</code> and <code>numeric: true</code>,
-      so 9 comes before 10. Give formatted numbers and dates a plain
-      <code>data-sort-value</code>, like the diameters below.
-    </p>
-    <Conditional as="p">
-      <Fragment slot="html">
-        The element fires a cancelable <code>sort</code> event with the column
-        index, the direction and the header in <code>event.detail</code> before
-        it moves the rows. Without the script the buttons do nothing, so a page
-        that must sort without JavaScript links its headers to a sorted page
-        instead.
-      </Fragment>
-      <Fragment slot="react">
-        When the rows come from your data, pass <code>onSort</code>, call
-        <code>event.preventDefault()</code> and sort the data with
-        <code>event.detail.column</code> and <code>event.detail.direction</code
-        >. The element then leaves the rows to React and still sets
-        <code>aria-sort</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        When the rows come from your data, pass <code>onsort</code>, call
-        <code>event.preventDefault()</code> and sort the data with
-        <code>event.detail.column</code> and <code>event.detail.direction</code
-        >. The element then leaves the rows to Svelte and still sets
-        <code>aria-sort</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        When the rows come from your data, listen with <code>@sort</code>, call
-        <code>event.preventDefault()</code> and sort the data with
-        <code>event.detail.column</code> and <code>event.detail.direction</code
-        >. The element then leaves the rows to Vue and still sets
-        <code>aria-sort</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        The element fires a cancelable <code>sort</code> event with the column
-        index, the direction and the header in <code>event.detail</code> before
-        it moves the rows.
-      </Fragment>
-    </Conditional>
+    <p>Give formatted numbers and dates a <code>data-sort-value</code>.</p>
     <AutoExample name="Sortable" />
   </section>
 
   <section id="empty">
     <h2>Empty</h2>
-    <p>
-      When a table has no rows, like after a search, keep its header and put one
-      cell that spans every column in the body. Say why it's empty and offer the
-      way out, such as clearing the filter.
-    </p>
     <AutoExample name="Empty" />
   </section>
 
   <section id="expandable-rows">
     <h2>Expandable rows</h2>
     <p>
-      For details that don't fit in the columns, put a row with one cell that
-      spans them all after each row, with <code>hidden</code>. A round button at
-      the start of the row toggles it: it points <code>aria-controls</code> at
-      the details row and keeps <code>aria-expanded</code> in step, so screen
-      readers hear whether the details are open.
+      Toggle a <code>hidden</code> row with a button that sets
+      <code>aria-expanded</code>.
     </p>
     <AutoExample name="Expandable" />
   </section>
 
   <section id="advanced">
     <h2>Advanced</h2>
-    <p>
-      An advanced table showcasing the use of <code>colgroup</code>,
-      <code>rowspan</code>, and <code>colspan</code>. The headers that span
-      columns have <code>scope="colgroup"</code> and the other column headers
-      <code>scope="col"</code>, so screen readers read "Capital" together with
-      "Major Cities".
-    </p>
-    <p>
-      The first cell of each row is a row header,
-      <code>&lt;th scope="row"&gt;</code>. Row headers keep the body background,
-      so only the column headers are filled.
-    </p>
 
     <AutoExample name="Advanced" />
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      A <code>&lt;caption&gt;</code> names the table, and screen readers
-      announce it when the user enters the table. <code>&lt;th&gt;</code> cells
-      in {" "}<code>&lt;thead&gt;</code> are column headers, read out with each
-      cell below them. Use <code>&lt;th scope="row"&gt;</code> for a row header
-      in the body. A <code>&lt;tfoot&gt;</code> keeps totals and summaries apart
-      from the data rows.
-    </p>
-    <p>
-      A table in a scroll box needs <code>tabindex="0"</code> on the box so
-      keyboard users can scroll it, and a name from <code>aria-label</code> with
-      {" "}<code>role="region"</code>, as in
-      <a class="ui-link" href="#sticky-header">Sticky header</a>.
-    </p>
-    <p>
-      A sortable header's label is a button inside the <code>&lt;th&gt;</code>,
-      so the header keeps its role and <code>aria-sort</code>, and screen
-      readers read the sort state with each cell. After a sort the element also
-      says the column and the direction in a polite status region.
-    </p>
+    <ul>
+      <li>Name the table with a <code>&lt;caption&gt;</code>.</li>
+      <li>
+        A scroll box needs <code>tabindex="0"</code>, <code>role="region"</code>
+        and an <code>aria-label</code>.
+      </li>
+    </ul>
     <KeyboardSupport />
   </Fragment>
 

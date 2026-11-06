@@ -20,6 +20,7 @@ import {
   Callout,
   CalloutContent,
   CalloutIcon,
+  Carousel,
   Chip,
   Divider,
   List,
@@ -283,11 +284,15 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 
   {usedInBlocks.length > 0 && <section id="used-in-blocks">
     <h2>Used in blocks</h2>
-    <ul class="used-in-blocks ui-not-rich-text">
+    <Carousel
+      aria-label="Used in blocks"
+      class="used-in-blocks ui-not-rich-text"
+      markers
+    >
       {blockThumbnails.map((block) => <li>
         <BlockCard block={block} />
       </li>)}
-    </ul>
+    </Carousel>
     {moreBlocks.length > 0 && <p class="used-in-more-blocks">
       Also in
       {moreBlocks.map((block) => <span>
@@ -476,12 +481,33 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     }
 
     .used-in-blocks {
-      display: grid;
-      gap: var(--size-3);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      @media (width < 900px) {
+        --_items-per-view: 2.15;
+
+        margin-inline: calc(-1 * var(--site-gap));
+        max-inline-size: calc(100% + 2 * var(--site-gap));
+        padding-inline: var(--site-gap);
+        scroll-padding-inline: var(--site-gap);
+      }
+
+      @media (width < 600px) {
+        --_items-per-view: 1.15;
+      }
+
+      @media (width >= 900px) {
+        grid-auto-columns: auto;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+        margin: 0;
+        overflow-inline: visible;
+        padding: 0;
+        scroll-marker-group: none;
+        scroll-snap-type: none;
+
+        &::scroll-button(*) {
+          content: none;
+        }
+      }
     }
 
     .used-in-more-blocks {

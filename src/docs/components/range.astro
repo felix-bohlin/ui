@@ -84,44 +84,20 @@ export const keywords = ["slider"]
 
   <section id="variants">
     <h2>Variants</h2>
-    <Conditional as="div">
-      <p slot="components">
-        Use the <code>variant</code> prop to swap the track surface for better
-        contrast on different backgrounds. The default <code>outlined</code>
-        track uses <code>--ui-track-bg-color</code>, or the field border color
-        when the theme doesn't set it. <code>filled</code> uses
-        <code>--ui-surface-filled</code>, and <code>tonal</code> uses
-        <code>--ui-track-bg-color</code> or <code>--ui-surface-tonal</code>
-        without it.
-      </p>
-      <p slot="html">
-        Use the <code>.ui-filled</code> or <code>.ui-tonal</code> {" "}class to
-        swap the track surface for better contrast on different backgrounds.
-        Without one, the track uses <code>--ui-track-bg-color</code>, or the
-        field border color when the theme doesn't set it.
-        <code>.ui-filled</code> uses <code>--ui-surface-filled</code>, and
-        <code>.ui-tonal</code> uses <code>--ui-track-bg-color</code> or
-        <code>--ui-surface-tonal</code> without it.
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The track is outlined by default. Use <code>variant</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        The track is outlined by default. Use <code>.ui-filled</code> or
+        <code>.ui-tonal</code> to change it.
+      </Fragment>
     </Conditional>
     <AutoExample name="Surfaces" column spacious />
   </section>
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Choose between four sizes with the <code>size</code> prop:
-        <code>x-small</code>, <code>small</code>, <code>medium</code> (the
-        default) and <code>large</code>. The thumb and the track scale with the
-        size, the label and the texts keep theirs.
-      </Fragment>
-      <Fragment slot="html">
-        Choose between four sizes: <code>.ui-x-small</code>,
-        <code>.ui-small</code>, default and <code>.ui-large</code>. The thumb
-        and the track scale with the size, the label and the texts keep theirs.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Sizes" column />
   </section>
 
@@ -133,83 +109,22 @@ export const keywords = ["slider"]
   <section id="hidden-label">
     <h2>Hidden label</h2>
     <p>
-      Where the context names the slider, like the volume in a media player,
-      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label and
-      keeps it as the slider's accessible name.
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
+      keeps the accessible name.
     </p>
     <AutoExample name="HiddenLabel" column />
   </section>
 
   <section id="value">
     <h2>Value</h2>
-    <Conditional as="div">
-      <p slot="astro">
-        Pass the <code>valueSuffix</code> prop to render a live readout of the
-        slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element and its script keeps the text in
-        sync with the input. Content in the <code>value-text</code> slot
-        replaces the readout. It renders once on the server, and the script
-        leaves it as it is.
-      </p>
-      <p slot="html">
-        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the{" "}
-        <code>.ui-label</code> with <code>for</code> pointing at the input's id,
-        and set the same <code>for</code> on the <code>.ui-range</code> label,
-        so it labels the input and not the output. Optionally set
-        <code>data-suffix</code> for a unit (e.g. <code>°</code>,{" "}
-        <code>px</code>). Add <code>data-live</code> and import
-        <code>opui-css/css/js/range.js</code>: it writes the value and the
-        suffix into every <code>.ui-value[data-live]</code> on
-        <code>input</code> and on form reset, also in markup added after it
-        loads. An output without <code>data-live</code> keeps the text you give
-        it, like the custom readout below.
-      </p>
-      <p slot="react">
-        Pass the <code>valueSuffix</code> prop to render a live readout of the
-        slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element, and
-        <code>opui-css/css/js/range.js</code>, which it loads, keeps the text in
-        sync with the input. For custom content, pass it to
-        <code>valueText</code> and render it from your own state: keep the value
-        with <code>value</code> and <code>onChange</code>, as in the example
-        below.
-      </p>
-      <p slot="svelte">
-        Pass the <code>valueSuffix</code> prop to render a live readout of the
-        slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element, and
-        <code>opui-css/css/js/range.js</code>, which it imports, keeps the text
-        in sync with the input. For custom content, use the
-        <code>valueText</code> snippet and render it from the value you bind:
-        <code>{"{#snippet valueText()}{value}°{/snippet}"}</code>.
-      </p>
-      <p slot="vue">
-        Pass the <code>valueSuffix</code> prop to render a live readout of the
-        slider's current value next to the label. The component wires up an
-        <code>&lt;output&gt;</code> element, and
-        <code>opui-css/css/js/range.js</code>, which it imports, keeps the text
-        in sync with the input. For custom content, use the
-        <code>value-text</code> slot and render it from the value you bind with
-        <code>v-model</code>:
-        <code>{"<template #value-text>{{ value }}°</template>"}</code>.
-      </p>
-    </Conditional>
-    <Conditional as="div">
-      <p slot="html">
-        Give the output <code>aria-live="off"</code> and the input an
-        <code>aria-valuetext</code> with the value and the suffix, so a screen
-        reader announces each step once, with its unit. <code>range.js</code>
-        keeps <code>aria-valuetext</code> in sync when the output has a
-        <code>data-suffix</code>. A custom readout sets its own
-        <code>aria-valuetext</code> when it adds a unit or words.
-      </p>
-      <p slot="components">
-        The input gets an <code>aria-valuetext</code> with the value and the
-        suffix, and the output <code>aria-live="off"</code>, so a screen reader
-        announces each step once, with its unit. With custom value text, pass
-        your own <code>aria-valuetext</code> when the readout adds a unit or
-        words.
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use <code>valueSuffix</code> for a live readout.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-value[data-live]</code> and import
+        <code>opui-css/css/js/range.js</code> for a live readout.
+      </Fragment>
     </Conditional>
     <AutoExample name="Value" column />
     <AutoExample name="ValueText" column />
@@ -217,49 +132,12 @@ export const keywords = ["slider"]
 
   <section id="tick-marks">
     <h2>Tick marks</h2>
-    <Conditional as="div">
-      <p slot="components">
-        Pass an <code>items</code> array -
-        <code>{"items=[{ label, value }]"}</code> - and the component renders a
-        <code>&lt;datalist&gt;</code> and links it to the input. Set
-        <code>list</code> to choose its id, and put your own
-        <code>&lt;option&gt;</code> elements in the <code>datalist</code> slot.
-      </p>
-      <p slot="react">
-        Pass an <code>items</code> array -
-        <code>{"items=[{ label, value }]"}</code> - and the component renders a
-        <code>&lt;datalist&gt;</code> and links it to the input. Set
-        <code>list</code> to choose its id, and pass your own
-        <code>&lt;option&gt;</code> elements to the <code>datalist</code> prop.
-      </p>
-      <p slot="svelte">
-        Pass an <code>items</code> array -
-        <code>{"items=[{ label, value }]"}</code> - and the component renders a
-        <code>&lt;datalist&gt;</code> and links it to the input. Set
-        <code>list</code> to choose its id, and put your own
-        <code>&lt;option&gt;</code> elements in the <code>datalist</code>
-        snippet.
-      </p>
-      <p slot="html">
-        Use the <code>list</code> attribute on the <code>&lt;input&gt;</code>
-        and follow it with a <code>&lt;datalist aria-hidden="true"&gt;</code>
-        element containing{" "} <code>&lt;option&gt;</code> elements with
-        <code>value</code> and{" "} <code>label</code> attributes.
-      </p>
-    </Conditional>
     <Conditional as="p">
       <Fragment slot="components">
-        The datalist is hidden from screen readers, so when its options have
-        labels and the range has no <code>valueSuffix</code>, the input gets the
-        label of the option at its value as <code>aria-valuetext</code>:
-        "Medium" rather than 1. Between labeled ticks it reads the number.
+        Pass <code>items</code> for tick marks.
       </Fragment>
       <Fragment slot="html">
-        The datalist is hidden from screen readers, so give the input the label
-        of the option at its value as <code>aria-valuetext</code>: "Medium"
-        rather than 1. <code>range.js</code> keeps it in sync when the options
-        have labels and the output has no <code>data-suffix</code>, and removes
-        it between labeled ticks so the number is read.
+        Link a <code>&lt;datalist&gt;</code> with <code>list</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
@@ -267,17 +145,6 @@ export const keywords = ["slider"]
 
   <section id="disabled">
     <h2>Disabled</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set the <code>disabled</code> prop to disable the slider. The whole
-        range dims and shows a not-allowed cursor.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>disabled</code> to the <code>&lt;input&gt;</code> to disable
-        the slider. The whole <code>.ui-range</code> dims and shows a
-        not-allowed cursor.
-      </Fragment>
-    </Conditional>
     <AutoExample name="Disabled" column />
   </section>
 
@@ -285,10 +152,7 @@ export const keywords = ["slider"]
     <h2>Validation</h2>
     <ValidationNotes element="input" subject="Fields">
       <li>
-        The invalid styles turn the thumb, the fill and the helper texts the
-        invalid color. A range always has a value, so <code>required</code>
-        doesn't apply, and the browser's own validation only fails after
-        <code>setCustomValidity()</code>.
+        A range always has a value, so <code>required</code> doesn't apply.
       </li>
     </ValidationNotes>
     <AutoExample name="Validation" column />
@@ -296,20 +160,10 @@ export const keywords = ["slider"]
 
   <section id="spread">
     <h2>Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use the <code>spread</code> boolean prop to display the label and start
-        text on the left with the slider on the right. The value, tick marks and
-        end text go under the slider. The layout collapses to a column in
-        containers narrower than 400px.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and start
-        text on the left with the slider on the right. The value, tick marks and
-        end text go under the slider. The layout collapses to a column in
-        containers narrower than 400px.
-      </Fragment>
-    </Conditional>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
+      slider.
+    </p>
     <AutoExample name="Spread" column />
   </section>
 

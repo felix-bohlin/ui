@@ -42,20 +42,30 @@
   ]}
   {style}
 >
-  {#if iconUnchecked}<span class="ui-icon-unchecked" aria-hidden="true"
-      >{@render iconUnchecked?.()}</span
-    >{/if}
-  {#if iconChecked}<span class="ui-icon-checked" aria-hidden="true"
-      >{@render iconChecked?.()}</span
-    >{/if}
+  {#if iconUnchecked}
+    <span class="ui-icon-unchecked" aria-hidden="true">
+      {@render iconUnchecked()}
+    </span>
+  {/if}
+  {#if iconChecked}
+    <span class="ui-icon-checked" aria-hidden="true">
+      {@render iconChecked()}
+    </span>
+  {/if}
   <SwitchInput
     {...rest}
     aria-invalid={error ? "true" : ariaInvalid}
     bind:checked
     bind:group
   />
-  {#if label || children}<span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      >{label}{@render children?.()}</span
-    >{/if}
-  {#if endText}<span class="ui-end-text">{@render content(endText)}</span>{/if}
+  {#if label || children}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+      {label}{@render children?.()}
+    </span>
+  {/if}
+  {#if endText}
+    <span class="ui-end-text">
+      {@render content(endText)}
+    </span>
+  {/if}
 </label>

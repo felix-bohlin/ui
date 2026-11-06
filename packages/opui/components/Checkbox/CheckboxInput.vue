@@ -6,6 +6,7 @@ import {
   type IntrinsicElementAttributes,
   useAttrs,
 } from "vue"
+import { vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { classAttrs } from "../cx"
 import type { CheckboxInputProps as Props } from "./types.vue-props"
@@ -40,6 +41,7 @@ const field = inject(FieldGroupKey, undefined)
     :data-indeterminate="indeterminate ? '' : undefined"
     :name="name ?? field?.name"
     v-bind="{ ...attrs, ...classAttrs($props.class) }"
+    v-seed
     v-model="model"
   />
 </template>

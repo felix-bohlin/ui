@@ -30,7 +30,9 @@
     round
     size="small"
   >
-    {#if closeIcon}{@render closeIcon()}{:else}
+    {#if closeIcon}
+      {@render closeIcon()}
+    {:else}
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

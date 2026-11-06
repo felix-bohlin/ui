@@ -16,11 +16,19 @@ type Framework = keyof typeof EXTENSIONS
 type App = {
   build: string[]
   check: string[][]
+  dir?: string
   examples: string
   framework: Framework
   name: string
   port: number
+  prefixes?: string[]
+  readmeBuild?: {
+    css: string
+    readmeCss: string
+    settings: "next" | "vite"
+  }
   registry?: boolean
+  scripts?: string
   ssr: boolean
   start: string
 }
@@ -33,7 +41,14 @@ const ALL_APPS: App[] = [
     framework: "react",
     name: "next",
     port: 4401,
+    prefixes: ["", "/elements-first"],
+    readmeBuild: {
+      css: ".next/static",
+      readmeCss: ".next-readme/static",
+      settings: "next",
+    },
     registry: true,
+    scripts: "/_next/",
     ssr: true,
     start: "pnpm exec next start --port 4401",
   },
@@ -44,6 +59,12 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "nuxt",
     port: 4402,
+    readmeBuild: {
+      css: ".output/public",
+      readmeCss: ".output-readme/public",
+      settings: "vite",
+    },
+    scripts: "/_nuxt/",
     ssr: true,
     start: "node .output/server/index.mjs",
   },
@@ -57,6 +78,7 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "sveltekit",
     port: 4403,
+    scripts: "/_app/",
     ssr: true,
     start: "node build",
   },
@@ -69,6 +91,17 @@ const ALL_APPS: App[] = [
     port: 4404,
     ssr: false,
     start: "pnpm exec vite preview --port 4404 --strictPort",
+  },
+  {
+    build: [],
+    check: [],
+    dir: "vite-react",
+    examples: "src/examples",
+    framework: "react",
+    name: "vite-react-dev",
+    port: 4407,
+    ssr: false,
+    start: "pnpm exec vite --port 4407 --strictPort",
   },
   {
     build: ["vite", "build"],
@@ -106,18 +139,14 @@ export const APPS = selected
   ? ALL_APPS.filter((app) => selected.includes(app.name))
   : ALL_APPS
 
-export const appDir = (app: App) => path.join(appsDir, app.name)
+export const appDir = (app: App) => path.join(appsDir, app.dir ?? app.name)
 
-export const KNOWN_PROBLEMS = [
-  {
-    app: "nuxt",
-    message:
-      'console.warning: The specified value "" does not conform to the required format.  The value must be a valid CSS color.',
-    reason:
-      "Vue's v-model sets a color TextField without a value to an empty string while it hydrates (TODO.md, Bugs, TextField (Vue))",
-    slug: "text-field",
-  },
-]
+export const KNOWN_PROBLEMS: {
+  app: string
+  message: string
+  reason: string
+  slug: string
+}[] = []
 
 const examplesDir = path.join(root, "src/component-examples")
 

@@ -1,6 +1,5 @@
 "use client"
 
-import type { ElementType } from "react"
 import { cx } from "../cx"
 import { useFieldsetContext } from "../Fieldset/context.react"
 import { warnReplacedId } from "../dev"
@@ -13,7 +12,7 @@ export default function FieldLegend({
   ...rest
 }: Props) {
   const fieldset = useFieldsetContext()
-  const Tag: ElementType = as || "legend"
+  const Tag = as || "legend"
   const isLegend = Tag === "legend"
   warnReplacedId("FieldLegend", "Fieldset", rest.id, fieldset?.legendId)
 

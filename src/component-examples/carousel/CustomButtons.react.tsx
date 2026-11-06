@@ -1,12 +1,6 @@
-import { Card, CardHeader, Carousel } from "opui-css/react"
+import { Card, Carousel } from "opui-css/react"
 
-const places = [
-  { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
-  { description: "Ceviche by the Pacific.", title: "Lima" },
-  { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
-  { description: "Fjords, saunas and modern architecture.", title: "Oslo" },
-  { description: "Medina markets and Mediterranean light.", title: "Tunis" },
-]
+const slides = [1, 2, 3, 4, 5]
 
 export default function CustomButtons() {
   return (
@@ -17,15 +11,9 @@ export default function CustomButtons() {
         className="carousel-custom-buttons"
         itemsPerView={2}
       >
-        {places.map(({ description, title }) => (
-          <li key={title}>
-            <Card variant="tonal">
-              <CardHeader>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </CardHeader>
-            </Card>
+        {slides.map((slide) => (
+          <li key={slide}>
+            <Card style={{ blockSize: "8rem" }} variant="tonal" />
           </li>
         ))}
       </Carousel>

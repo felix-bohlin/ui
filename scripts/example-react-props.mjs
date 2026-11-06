@@ -22,6 +22,7 @@ const compilerOptions = () =>
         module: "esnext",
         moduleResolution: "bundler",
         noEmit: true,
+        paths: { "opui-css/react": ["./packages/opui/react/index.ts"] },
         skipLibCheck: true,
         strict: true,
         target: "esnext",

@@ -115,42 +115,22 @@ const translation = `.ui-carousel:lang(sv) {
   </Fragment>
 
   <Usage slot="usage">
-    <li slot="when">
-      A row of items that people browse rather than read in full, like photos,
-      products or related articles.
-    </li>
-    <li slot="when">
-      A set of similar items in a small space, where a few in view at a time are
-      enough.
+    <li slot="when">Items people browse, like photos or products.</li>
+    <li slot="when">Similar items in a small space.</li>
+    <li slot="when-not">
+      Content everyone has to see: items out of view are easy to miss.
     </li>
     <li slot="when-not">
-      Content that everyone has to see, like the only call to action. Items out
-      of view are easy to miss, so show it on the page.
-    </li>
-    <li slot="when-not">
-      Items that people compare side by side. Show them all in a
+      Items to compare: use a
       <DocLink href="/components/layout#grid">layout grid</DocLink>.
     </li>
   </Usage>
 
   <section id="basics">
     <h2>Basics</h2>
-    <Conditional as="p">
-      <Fragment slot="components"
-        >The carousel has previous and next buttons by default, and
-        <code>buttons="none"</code> leaves them out. Set <code>markers</code> to
-        add a marker per item.</Fragment
-      >
-      <Fragment slot="html"
-        >The carousel has previous and next buttons without a class, and
-        <code>.ui-buttons-none</code> leaves them out. Add
-        <code>.ui-markers</code> for a marker per item.</Fragment
-      >
-    </Conditional>
     <p>
-      Firefox and Safari have no <code>::scroll-button()</code> or
-      <code>::scroll-marker</code> and get a plain scroll-snap list with a
-      scrollbar.
+      Add <PropOrClass prop="markers" class=".ui-markers" /> for a marker per
+      item.
     </p>
 
     <AutoExample name="Basics" />
@@ -158,10 +138,7 @@ const translation = `.ui-carousel:lang(sv) {
 
   <section id="items-per-view">
     <h2>Items per view</h2>
-    <p>
-      Set <PropOrClass prop="itemsPerView" class="--_items-per-view" /> to show
-      more than one item at a time.
-    </p>
+    <p>Set <PropOrClass prop="itemsPerView" class="--_items-per-view" />.</p>
 
     <AutoExample name="ItemsPerView" />
   </section>
@@ -169,12 +146,8 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="stretch">
     <h2>Stretch</h2>
     <p>
-      Items in a row are as tall as the tallest one, but their content keeps its
-      own height.
-    </p>
-    <p>
-      <PropOrClass prop="stretch" class=".ui-stretch" /> stretches the content
-      of each item, such as a card, to the item's height.
+      <PropOrClass prop="stretch" class=".ui-stretch" /> stretches each item's
+      content to the row height.
     </p>
 
     <AutoExample name="Stretch" />
@@ -195,8 +168,8 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="vertical">
     <h2>Vertical</h2>
     <p>
-      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> scrolls
-      on the block axis. Set its height with <code>--_block-size</code>.
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
+      Set its height with <code>--_block-size</code>.
     </p>
 
     <AutoExample name="Vertical" />
@@ -205,26 +178,24 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="images">
     <h2>Images</h2>
     <p>
-      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> crops
-      images to the same shape, <code>16 / 9</code> by default.
+      Images are <code>16 / 9</code> by default. Use
+      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> to change
+      it.
     </p>
 
     <AutoExample name="Images" />
 
     <h3 id="gallery">Gallery</h3>
-    <p>Square photos, three per view.</p>
 
     <AutoExample name="Gallery" />
   </section>
 
   <section id="video">
     <h2>Video</h2>
-    <p><code>video</code> fills the item too.</p>
 
     <AutoExample name="Videos" />
 
     <h3 id="embeds">Embeds</h3>
-    <p>So does an <code>iframe</code>.</p>
 
     <AutoExample name="Embeds" />
   </section>
@@ -232,8 +203,7 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="buttons-outside">
     <h2>Buttons outside</h2>
     <p>
-      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />
-      to keep the buttons off the content.
+      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" />.
     </p>
 
     <AutoExample name="ButtonsOutside" />
@@ -243,9 +213,7 @@ const translation = `.ui-carousel:lang(sv) {
     <h2>Persistent buttons</h2>
     <p>
       Use
-      <PropOrClass prop="persistentButtons" class=".ui-persistent-buttons" /> to
-      keep both buttons visible at the ends. A disabled button has a muted
-      border.
+      <PropOrClass prop="persistentButtons" class=".ui-persistent-buttons" />.
     </p>
 
     <AutoExample name="PersistentButtons" />
@@ -253,12 +221,7 @@ const translation = `.ui-carousel:lang(sv) {
 
   <section id="custom-buttons">
     <h2>Custom buttons</h2>
-    <p>
-      <code>--_button-image</code> takes any SVG, for example from your icon
-      library. Draw a white glyph that points right. The previous button mirrors
-      it, and a vertical carousel rotates it. Set
-      <code>--_button-image-size</code> to scale it.
-    </p>
+    <p>Set <code>--_button-image</code> to a white SVG that points right.</p>
 
     <AutoExample name="CustomButtons" />
   </section>
@@ -267,32 +230,11 @@ const translation = `.ui-carousel:lang(sv) {
     <h2>Labels</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        The buttons are named "Previous" and "Next", and each marker "Slide" and
-        its number. Translate them with <code>previousLabel</code>,
-        <code>nextLabel</code> and <code>markerLabel</code>, where
-        <code>{"{count}"}</code> stands for the number, so it can go anywhere:
-        <code>markerLabel="{"{count}"}. dia"</code>.
+        Translate with <code>previousLabel</code>, <code>nextLabel</code> and
+        <code>markerLabel</code>, or for a whole language in CSS:
       </Fragment>
       <Fragment slot="html">
-        The buttons are named "Previous" and "Next", and each marker "Slide" and
-        its number. The names are CSS strings in
-        <code>--_button-prev-label</code>, <code>--_button-next-label</code> and
-        <code>--_marker-label</code>, where
-        <code>counter(ui-carousel-item)</code> stands for the number, so it can
-        go anywhere and take any counter style, such as
-        <code>counter(ui-carousel-item, arabic-indic)</code>.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="components">
-        The props set <code>--_button-prev-label</code>,
-        <code>--_button-next-label</code> and <code>--_marker-label</code>, CSS
-        strings with <code>counter(ui-carousel-item)</code> for the number. Set
-        those in a stylesheet to translate every carousel in a language at once:
-      </Fragment>
-      <Fragment slot="html">
-        Set them with <code>:lang()</code> to translate every carousel in a
-        language at once:
+        Translate with the label properties and <code>:lang()</code>:
       </Fragment>
     </Conditional>
     <Code lang="css" code={translation} />
@@ -300,9 +242,6 @@ const translation = `.ui-carousel:lang(sv) {
 
   <section id="playground">
     <h2>Playground</h2>
-    <p>
-      Try the options together. The code below the carousel updates as you go.
-    </p>
 
     <Example showCode={false}>
       <div class="carousel-playground-controls" slot="controls">
@@ -392,10 +331,8 @@ const translation = `.ui-carousel:lang(sv) {
   <section id="grid-and-flex-layouts">
     <h2>Grid and flex layouts</h2>
     <p>
-      With <PropOrClass prop="markers" class=".ui-markers" />, the markers are a
-      box next to the carousel, not inside it. In a grid or flex parent they
-      become an item of their own and land in the next cell. Wrap the carousel
-      in a <code>div</code> to keep them together.
+      Wrap a carousel with markers in a <code>div</code>, or the markers take
+      the next cell.
     </p>
 
     <AutoExample name="GridLayout" />
@@ -408,47 +345,20 @@ const translation = `.ui-carousel:lang(sv) {
         <UICalloutContent>
           <h3>Work in progress</h3>
           <p>
-            The buttons and markers are generated by CSS, and browser vendors
-            are still working out how these are named, focused and shown in high
-            contrast. Until that settles, making a carousel accessible is up to
-            you: test it with the screen readers and settings your users rely
-            on, and add your own controls where it falls short.
+            The buttons and markers are CSS-generated, and browsers still differ
+            in how they're announced. Test with your users' screen readers.
           </p>
         </UICalloutContent>
       </UICallout>
     </div>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Name the carousel with <code>aria-label</code>, or with
-        <code>aria-labelledby</code> pointing at a visible heading. The types
-        require one.
-      </Fragment>
-      <Fragment slot="html">
-        Name the <code>ul</code> with <code>aria-label</code>, or with
-        <code>aria-labelledby</code> pointing at a visible heading.
-      </Fragment>
-    </Conditional>
-    <p>
-      Screen readers announce the position of each item. The buttons and markers
-      have accessible names: "Previous", "Next" and "Slide" followed by the
-      number, which you can <a href="#labels">translate</a>. Chromium exposes
-      the markers as tabs in a tab list.
-    </p>
-    <p>
-      The buttons and markers get the library's focus ring. In forced colors
-      mode the markers get an outline, and the current marker is filled with
-      <code>SelectedItem</code>.
-    </p>
-    <p>
-      The buttons and markers scroll smoothly unless motion is off: with reduced
-      motion, <code>.ui-motion-off</code> on the carousel or a parent, or
-      <code>--ui-motion: 0</code> on a parent.
-    </p>
+    <ul>
+      <li>
+        Name the carousel with <code>aria-label</code> or
+        <code>aria-labelledby</code>.
+      </li>
+    </ul>
     <KeyboardSupport>
-      <p>
-        These are Chromium's keys. Other browsers may name and focus the buttons
-        and markers differently.
-      </p>
+      <p>Chromium's keys. Other browsers may differ.</p>
     </KeyboardSupport>
   </Fragment>
   <CarouselBuild slot="under-the-hood" />

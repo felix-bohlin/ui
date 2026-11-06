@@ -1,6 +1,6 @@
 # Select
 
-Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a Menu.
+Pick a value in a form. For actions, use a Menu.
 
 - CSS: `opui-css/css/components/text-field.css`, `opui-css/css/components/select.css` and `opui-css/css/components/list.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/select.md), [Astro](https://open-props-ui.netlify.app/astro/components/select.md), [React](https://open-props-ui.netlify.app/react/components/select.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/select.md), [Vue](https://open-props-ui.netlify.app/vue/components/select.md).

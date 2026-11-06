@@ -6,7 +6,7 @@ import { FRAMEWORK_IDS } from "../../src/utils/framework"
 import { migratingAnchor } from "../../src/utils/migrating"
 import { classNamesIn } from "../../src/utils/package-source"
 import { themeTokens } from "../../src/utils/theme-tokens"
-import { whatsNewFor } from "../../src/utils/whats-new"
+import { added, whatsNewFor } from "../../src/utils/whats-new"
 import releasedApi from "./released-api.json"
 import releasedTokens from "./released-tokens.json"
 
@@ -194,6 +194,28 @@ test.each(noted)(
   },
 )
 
+const reworked = (
+  all: Section[],
+  page: Page,
+  isNew: (slug: string) => boolean,
+) =>
+  all
+    .filter(({ title }) => title === "Changed" || title === "Fixed")
+    .flatMap(({ entries, title }) =>
+      entries.flatMap((entry) =>
+        subjects(entry)
+          .filter((component) => isNew(page(component) ?? ""))
+          .map((component) => `${title}: ${component}: ${entry.slice(0, 60)}`),
+      ),
+    )
+
+test("Changed and Fixed entries don't start with a component the version adds", () => {
+  expect(
+    reworked(sections, pageOf, (slug) => added.has(slug)),
+    "the version adds these components (their pages are in `added` in src/utils/whats-new.ts), so there is no released behavior to change or fix: fold the change into the component's Added entry",
+  ).toEqual([])
+})
+
 const migrating = readFileSync("packages/opui/MIGRATING.md", "utf8")
 
 test("Breaking entries have a MIGRATING.md section for each component they start with", () => {
@@ -311,6 +333,28 @@ describe("the changelog rules flag their samples", () => {
     expect(unmigrated([breaking], page, "")).toEqual([
       "Tabs (tabs)",
       "Nope (undefined)",
+    ])
+  })
+
+  test("a Changed or Fixed entry on a component the version adds", () => {
+    const page: Page = (component) => component.toLowerCase()
+    const all = sectionsOf(
+      log(
+        "### Added",
+        "",
+        "- `Menu` component.",
+        "",
+        "### Changed",
+        "",
+        "- `Menu` and `Tabs` get a gap.",
+        "",
+        "### Fixed",
+        "",
+        "- `Tabs` keep their focus ring.",
+      ),
+    )
+    expect(reworked(all, page, (slug) => slug === "menu")).toEqual([
+      "Changed: Menu: - `Menu` and `Tabs` get a gap.",
     ])
   })
 

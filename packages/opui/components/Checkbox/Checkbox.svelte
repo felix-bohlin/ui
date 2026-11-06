@@ -46,8 +46,14 @@
     bind:checked
     bind:group
   />
-  {#if label || children}<span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      >{label}{@render children?.()}</span
-    >{/if}
-  {#if endText}<span class="ui-end-text">{@render content(endText)}</span>{/if}
+  {#if label || children}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+      {label}{@render children?.()}
+    </span>
+  {/if}
+  {#if endText}
+    <span class="ui-end-text">
+      {@render content(endText)}
+    </span>
+  {/if}
 </label>

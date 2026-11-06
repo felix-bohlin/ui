@@ -103,7 +103,9 @@ Displays tabular data. Basic tables with row and column headers, and optional ca
 ### Notes
 
 - HTML: Wrap the table in `<opui-sortable-table class="ui-sortable-table">`, add `data-sort` to each sortable header with a `<button type="button">` around its label, and import `opui-css/elements/sortable-table.js`. A cell sorts by its `data-sort-value`, or else its text.
-- Astro, React, Svelte and Vue: The component loads `opui-css/elements/sortable-table.js`. In React, Svelte and Vue it runs once the component hydrates, or once the page imports the module. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
+- Astro: The component loads `opui-css/elements/sortable-table.js`. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
+- React: The component loads `opui-css/elements/sortable-table.js` once it mounts, unless the page imports it first. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
+- Svelte and Vue: The component imports `opui-css/elements/sortable-table.js`, so the element runs as soon as the component's code loads. The element moves the rows it sorts, so when the framework renders the rows from data, call `preventDefault()` on the `sort` event and sort the data instead.
 
 ## Component properties
 

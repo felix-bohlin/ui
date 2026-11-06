@@ -24,6 +24,17 @@ export const components = (note: string) => ({
   vue: note,
 })
 
+export const elementNotes = (file: string, note: string) => {
+  const module = `\`opui-css/elements/${file}\``
+  const imported = `The component imports ${module}, so the element runs as soon as the component's code loads. ${note}`
+  return {
+    astro: `The component loads ${module}. ${note}`,
+    react: `The component loads ${module} once it mounts, unless the page imports it first. ${note}`,
+    svelte: imported,
+    vue: imported,
+  }
+}
+
 export const frameworks: Record<ComponentFramework, Syntax> = {
   astro: {
     component: (source) => `${source}.astro`,

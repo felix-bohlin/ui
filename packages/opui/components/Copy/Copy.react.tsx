@@ -26,8 +26,20 @@ export default function Copy({
       id={id}
       {...rest}
     >
-      {children} <span className="ui-sr-only" role="status" />{" "}
-      <span aria-hidden="true" className="ui-floating" popover="" />
+      {children}{" "}
+      <span
+        className="ui-sr-only"
+        role="status"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />{" "}
+      <span
+        aria-hidden="true"
+        className="ui-floating"
+        popover=""
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
     </opui-copy>
   )
 }

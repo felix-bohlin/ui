@@ -3,8 +3,8 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
-  import { createIds, idRefs } from "../id"
-  import { defaultValue } from "./value"
+  import { idRefs } from "../id"
+  import { middleValue } from "./value"
   import type { Props } from "./types.svelte"
 
   let {
@@ -13,6 +13,7 @@
     "aria-labelledby": ariaLabelledBy,
     "aria-valuetext": ariaValueText,
     class: className,
+    defaultValue,
     error,
     hideLabel,
     id,
@@ -41,14 +42,14 @@
   const field = getFieldGroupContext()
   const uid = $props.id()
   const initialValue = untrack(() => value)
-  const ids = $derived(createIds(uid, "range", id || undefined))
+  const base = $derived(id || `range-${uid}`)
   const hasLabel = $derived(!!label || label)
   const hasStartText = $derived(!!startText || startText)
   const hasEndText = $derived(!!endText || endText)
   const hasValueText = $derived(valueText)
   const hasValue = $derived(valueSuffix !== undefined || hasValueText)
   const hasDatalist = $derived(!!items || datalist)
-  const current = $derived(value ?? defaultValue({ max, min, step }))
+  const current = $derived(value ?? middleValue({ max, min, step }))
   const readout = $derived(`${current}${valueSuffix ?? ""}`)
   const tick = $derived(
     items?.find(
@@ -59,11 +60,11 @@
   const tickLabel = $derived(
     valueSuffix || typeof tick !== "object" ? undefined : tick.label,
   )
-  const inputId = $derived(id || (hasValue ? ids() : undefined))
-  const labelId = $derived(hasLabel ? ids("label") : undefined)
-  const startTextId = $derived(hasStartText ? ids("start-text") : undefined)
-  const endTextId = $derived(hasEndText ? ids("end-text") : undefined)
-  const listId = $derived(list ?? (hasDatalist ? ids("list") : undefined))
+  const inputId = $derived(id || (hasValue ? base : undefined))
+  const labelId = $derived(hasLabel ? `${base}-label` : undefined)
+  const startTextId = $derived(hasStartText ? `${base}-start-text` : undefined)
+  const endTextId = $derived(hasEndText ? `${base}-end-text` : undefined)
+  const listId = $derived(list ?? (hasDatalist ? `${base}-list` : undefined))
   const describedBy = $derived(idRefs(startTextId, endTextId, ariaDescribedBy))
 </script>
 
@@ -78,21 +79,29 @@
   for={hasValue ? inputId : undefined}
   {style}
 >
-  {#if hasLabel}<span
-      class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-      id={labelId}>{@render content(label)}</span
-    >{/if}
-  {#if hasValue}<output
+  {#if hasLabel}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
+      {@render content(label)}
+    </span>
+  {/if}
+  {#if hasValue}
+    <output
       aria-live="off"
       class="ui-value"
       data-live={hasValueText ? undefined : ""}
       for={inputId}
       data-suffix={valueSuffix}
-      >{#if valueText}{@render valueText()}{:else}{readout}{/if}</output
-    >{/if}
-  {#if hasStartText}<span class="ui-start-text" id={startTextId}
-      >{@render content(startText)}</span
-    >{/if}
+    >
+      {#if valueText}
+        {@render valueText()}
+      {:else}{readout}{/if}
+    </output>
+  {/if}
+  {#if hasStartText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
+    </span>
+  {/if}
   <input
     {...rest}
     aria-describedby={describedBy}
@@ -108,16 +117,22 @@
     {step}
     type="range"
     bind:value
-    defaultValue={initialValue}
+    defaultValue={defaultValue ?? initialValue}
   />
-  {#if hasDatalist}<datalist aria-hidden="true" id={listId}
-      >{#each items ?? [] as option, index (index)}{#if typeof option === "object"}<option
-            value={option.value}
-            label={option.label}
-          ></option>{:else}<option value={option}
-          ></option>{/if}{/each}{@render datalist?.()}</datalist
-    >{/if}
-  {#if hasEndText}<span class="ui-end-text" id={endTextId}
-      >{@render content(endText)}</span
-    >{/if}
+  {#if hasDatalist}
+    <datalist aria-hidden="true" id={listId}>
+      {#each items ?? [] as option, index (index)}
+        {#if typeof option === "object"}
+          <option value={option.value} label={option.label}></option>
+        {:else}
+          <option value={option}></option>
+        {/if}
+      {/each}{@render datalist?.()}
+    </datalist>
+  {/if}
+  {#if hasEndText}
+    <span class="ui-end-text" id={endTextId}>
+      {@render content(endText)}
+    </span>
+  {/if}
 </label>

@@ -338,6 +338,12 @@ export const whatsNew = {
       ),
       html: `A <a href="#header-row"><code>div.ui-header</code></a> with an <code>hgroup</code> inside is a row for an avatar, the heading and buttons.`,
     },
+    {
+      ...components(
+        `<a href="#semantics"><code>as="article"</code></a> or <code>as="section"</code> renders the card as that element, and <code>CardHeader as="header"</code> renders a header row.`,
+      ),
+      html: `The card classes work on an <a href="#semantics"><code>article</code></a> or a <code>section</code>, and <code>.ui-header</code> on a <code>header</code>.`,
+    },
   ],
   carousel: [
     components(

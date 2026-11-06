@@ -31,9 +31,10 @@ const Tag = computed(() => as || (href ? "a" : "div"))
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"
-    ><slot name="start"></slot
+  >
+    <slot name="start"></slot
     ><span v-if="label || $slots.label" class="ui-text"
       >{{ label }}<slot name="label"></slot></span
-    ><slot name="end"></slot
-  ></component>
+    ><slot name="end"></slot>
+  </component>
 </template>

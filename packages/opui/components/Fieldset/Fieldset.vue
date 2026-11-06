@@ -8,7 +8,7 @@ import {
   useId,
 } from "vue"
 import { FieldsetKey } from "./context.vue"
-import { autoLabelledBy, createIds } from "../id"
+import { autoLabelledBy } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
 const { as: Tag = "fieldset" } = defineProps<Props>()
@@ -23,7 +23,7 @@ const isFieldset = computed(() => Tag === "fieldset")
 const legendId = computed(() =>
   isFieldset.value
     ? undefined
-    : autoLabelledBy(attrs, createIds(uid, "fieldset", attrs.id)("legend")),
+    : autoLabelledBy(attrs, `${attrs.id ?? `fieldset-${uid}`}-legend`),
 )
 
 provide(FieldsetKey, reactive({ legendId }))

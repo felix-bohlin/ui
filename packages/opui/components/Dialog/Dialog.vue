@@ -8,7 +8,7 @@ import {
   useId,
 } from "vue"
 import { DialogKey } from "./context.vue"
-import { autoLabelledBy, createIds } from "../id"
+import { autoLabelledBy } from "../id"
 import type { Props, Slots } from "./types.vue-props"
 
 const { closedby } = defineProps<Props>()
@@ -18,7 +18,7 @@ const attrs = useAttrs() as HTMLAttributes
 
 const uid = useId()
 
-const titleId = computed(() => createIds(uid, "dialog", attrs.id)("title"))
+const titleId = computed(() => `${attrs.id ?? `dialog-${uid}`}-title`)
 
 const labelledBy = computed(() => autoLabelledBy(attrs, titleId.value))
 

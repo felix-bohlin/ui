@@ -1,6 +1,6 @@
 # Chip
 
-Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button.
+Filters, tags and choices. For the main action, use a Button.
 
 - CSS: `opui-css/css/components/chip.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/chip.md), [Astro](https://open-props-ui.netlify.app/astro/components/chip.md), [React](https://open-props-ui.netlify.app/react/components/chip.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/chip.md), [Vue](https://open-props-ui.netlify.app/vue/components/chip.md).

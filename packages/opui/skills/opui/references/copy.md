@@ -26,7 +26,9 @@ A button that copies text or a field's value to the clipboard.
 ### Notes
 
 - HTML: Wrap the text or the field in `<opui-copy class="ui-copy">` with an id, and end it with `<span class="ui-sr-only" role="status">` for the announcement and `<span class="ui-floating" popover aria-hidden="true">` for the label. Point a button at it with `commandfor` and `command="--copy"`, inside the element or right after it, and import `opui-css/elements/copy.js`. Until it loads, the button is hidden.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the root `<opui-copy>`. The button works once the component hydrates, or once the page imports `opui-css/elements/copy.js`; the Astro component loads it.
+- Astro: The component loads `opui-css/elements/copy.js`. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
+- React: The component loads `opui-css/elements/copy.js` once it mounts, unless the page imports it first. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
+- Svelte and Vue: The component imports `opui-css/elements/copy.js`, so the element runs as soon as the component's code loads. Attributes that aren't props go to the root `<opui-copy>`, and the button works once the element runs.
 
 ## Component properties
 

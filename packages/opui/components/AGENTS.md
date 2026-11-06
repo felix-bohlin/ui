@@ -65,7 +65,7 @@ defineSlots<Slots>()
 </script>
 ```
 
-Derived values go in `computed()`, so they update when props change.
+Derived values go in `computed()`, so they update when props change. A value that reads a slot, or reads such a value, is a getter called in the script and the template (`hasEndText()`), since Vue doesn't track slots and a `computed()` would keep its first answer; `tests/unit/vue-slot-getters.test.ts` adds a slot after mount, and the compiler refuses a provided value that reads one. The compiler puts `v-seed` (`vSeed` from `../vue`) before every `v-model` on a native control: a value or choice the user changed before the page hydrated wins over the model, and a model without a value takes the element's. On a client render it makes the rendered state the control's default, and after a form reset it sets the model to the control's state, cast like `v-model` casts it, so a component writes no reset code of its own. It also drops a derived value nothing reads. `pnpm test:apps` checks the hydration in Nuxt, and `tests/unit/vue-seed.test.ts` the reset.
 
 The Svelte component destructures props, snippets and `...rest` from `$props()`:
 
@@ -86,7 +86,7 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
 </script>
 ```
 
-Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.57 or later: `{@attach}` came in 5.29, and older versions clear the Select's `bind:value` when Chromium updates `<selectedcontent>`. Where Vue uses `defineModel`, Svelte uses `$bindable()`, for the props the `model` in the component's `api.ts` lists; `pnpm check-components` checks both. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.svelte.js`, plain JavaScript typed with JSDoc, since Vite's dependency optimizer compiles a `.svelte.ts` module with the Svelte compiler before anything strips its types.
+Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.57 or later: `{@attach}` came in 5.29, and older versions clear the Select's `bind:value` when Chromium updates `<selectedcontent>`. Where Vue uses `defineModel`, Svelte uses `$bindable()`, for the props the `model` in the component's `api.ts` lists; `pnpm check-components` checks both. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.svelte.js`, plain JavaScript typed with JSDoc, since Vite's dependency optimizer compiles a `.svelte.ts` module with the Svelte compiler before anything strips its types. A radio can't `bind:checked`, so the radios of `Radio` and `Rating` keep a choice made before hydration through the `seedChecked` attachment from `../svelte`.
 
 The React component destructures props, slot props and `...rest` the same way, with `className` instead of `class`:
 
@@ -118,7 +118,7 @@ export default function MyComponent({
 }
 ```
 
-Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) follows it with `useState`. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components. `pnpm check-components` checks both ways.
+Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) renders it from those props and leaves the readout to its element script (`range.js`), which writes the value into the text node React rendered while the user drags. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components. `pnpm check-components` checks both ways. In the Astro file, `set:html=""` on an empty element marks content the browser or a custom element writes (the character count, Copy's status, the toasts): the compiler gives it `dangerouslySetInnerHTML={{ __html: "" }}` and `suppressHydrationWarning` in React, so hydration leaves it alone.
 
 ### Key Rules:
 

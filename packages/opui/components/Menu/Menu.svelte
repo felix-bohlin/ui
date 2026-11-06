@@ -46,8 +46,9 @@
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >
-  {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}{@const Tag =
-      href ? "a" : "button"}{@const closes = !href && !keepOpen && !disabled}
+  {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
+    {@const Tag = href ? "a" : "button"}
+    {@const closes = !href && !keepOpen && !disabled}
     <li
       {...classAttrs([{ "ui-border-top": borderTop }, color && `ui-${color}`])}
     >
@@ -57,13 +58,17 @@
         command={closes ? "hide-popover" : undefined}
         commandfor={closes ? rootId : undefined}
         {...itemRest}
-        ><div class="ui-text">
+      >
+        <div class="ui-text">
           <p>{label}</p>
         </div>
-        {#if shortcut}<div class="ui-end">
+        {#if shortcut}
+          <div class="ui-end">
             <kbd>{shortcut}</kbd>
-          </div>{/if}</svelte:element
-      >
-    </li>{/each}
+          </div>
+        {/if}
+      </svelte:element>
+    </li>
+  {/each}
   {@render children?.()}
 </menu>

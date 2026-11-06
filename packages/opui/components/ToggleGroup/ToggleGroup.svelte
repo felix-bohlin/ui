@@ -3,7 +3,6 @@
   import { selectionOf } from "./selection"
   import { setToggleGroupContext } from "./context.svelte"
   import { warnUnnamedGroup } from "../dev"
-  import { createId } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
@@ -21,8 +20,7 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const idOf = $derived(createId(uid))
-  const groupName = $derived(name || idOf("toggle-group"))
+  const groupName = $derived(name || `toggle-group-${uid}`)
   const inputType = $derived(multiple ? "checkbox" : "radio")
   untrack(() => warnUnnamedGroup("ToggleGroup", rest))
   setToggleGroupContext({

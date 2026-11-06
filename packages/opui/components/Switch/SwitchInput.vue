@@ -5,6 +5,7 @@ import {
   type IntrinsicElementAttributes,
   useAttrs,
 } from "vue"
+import { vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { classAttrs } from "../cx"
 import type { SwitchInputProps as Props } from "./types.vue-props"
@@ -39,6 +40,7 @@ const field = inject(FieldGroupKey, undefined)
     role="switch"
     :name="name ?? field?.name"
     v-bind="{ ...attrs, ...classAttrs($props.class) }"
+    v-seed
     v-model="model"
   />
 </template>

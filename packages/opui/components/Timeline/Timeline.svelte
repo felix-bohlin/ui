@@ -23,10 +23,12 @@
   ]}
   {...rest}
 >
-  {#each items ?? [] as { description, ...item }, index (index)}<TimelineItem
-      {...item}
-    >
-      {#if description}<p>{description}</p>{/if}
-    </TimelineItem>{/each}
+  {#each items ?? [] as { description, ...item }, index (index)}
+    <TimelineItem {...item}>
+      {#if description}
+        <p>{description}</p>
+      {/if}
+    </TimelineItem>
+  {/each}
   {@render children?.()}
 </ol>

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { untrack } from "svelte"
+  import { seedChecked } from "../svelte"
   import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
@@ -26,38 +28,56 @@
   const invalid = $derived(error ? "true" : ariaInvalid)
 </script>
 
-{#if name}<fieldset
+{#if name}
+  <fieldset
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
     {disabled}
     {style}
     {...rest}
   >
-    <legend>{label}</legend>
-    {#if !required}<input
+    <legend>{label}</legend>{#if !required}
+      <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={clearLabel}
-        checked={current === 0}
         {name}
         type="radio"
         value="0"
+        defaultChecked={untrack(() => current === 0)}
+        {@attach seedChecked(
+          () => current === 0,
+          () => {
+            value = "0"
+          },
+        )}
         onchange={() => {
           value = "0"
         }}
-      />{/if}{#each stars as star, index (index)}<input
+      />
+    {/if}{#each stars as star, index (index)}
+      <input
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={starLabel(star)}
-        checked={current === star}
         {name}
         {required}
         type="radio"
         value={star}
+        defaultChecked={untrack(() => current === star)}
+        {@attach seedChecked(
+          () => current === star,
+          () => {
+            value = star
+          },
+        )}
         onchange={() => {
           value = star
         }}
-      />{/each}
-  </fieldset>{:else}<meter
+      />
+    {/each}
+  </fieldset>
+{:else}
+  <meter
     aria-describedby={ariaDescribedBy}
     aria-label={label}
     class={["ui-rating", size && size !== "medium" && `ui-${size}`, className]}
@@ -65,4 +85,5 @@
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}
     {...rest}
-  ></meter>{/if}
+  ></meter>
+{/if}

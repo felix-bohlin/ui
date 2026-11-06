@@ -36,20 +36,16 @@ export const keywords = ["hr", "rule", "separator"]
   <Fragment slot="preamble"> It's just a line. </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">Separating groups, like the sections of a long form.</li>
     <li slot="when">
-      Separating groups of content or actions, like the sections of a card or a
-      long form.
-    </li>
-    <li slot="when">
-      A labeled break between two options, like "or" between sign-in methods,
-      with <a href="#content">content</a>.
+      A labeled break, like "or": <a href="#content">content</a>.
     </li>
     <li slot="when-not">
-      Space between items. Use a gap, like the
+      Space between items: use the
       <DocLink href="/components/layout">Layout</DocLink> classes.
     </li>
     <li slot="when-not">
-      A line between every item of a list. Use
+      A line between every item: use
       <PropOrClass prop="bordered" class=".ui-bordered" /> on the
       <DocLink href="/components/list#borders">List</DocLink> or the
       <DocLink href="/components/menu#bordered">Menu</DocLink>.
@@ -63,54 +59,36 @@ export const keywords = ["hr", "rule", "separator"]
 
   <section id="variants">
     <h2>Variants</h2>
-    <Conditional as="div">
-      <p slot="components">
-        Use the <code>variant</code> prop to change the line color, and
-        <code>color="primary"</code> for a primary line. The default variant,
-        <code>outlined</code>, is the border color.
-      </p>
-      <p slot="html">
-        Use <code>.ui-filled</code> or <code>.ui-tonal</code> to change the line
-        color, and <code>.ui-primary</code> for a primary line.
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Outlined by default. Use <code>variant</code> or
+        <code>color="primary"</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Outlined by default. Use <code>.ui-filled</code>, <code>.ui-tonal</code>
+        or <code>.ui-primary</code> to change it.
+      </Fragment>
     </Conditional>
     <AutoExample name="Variants" />
   </section>
 
   <section id="content">
     <h2>Content</h2>
-    <Conditional as="div">
-      <p slot="components">
-        Put text or any element inside the divider (children in React and
-        Svelte, the default slot in Astro and Vue) to place it in the middle of
-        the line. The divider then renders a <code>&lt;div&gt;</code> instead of
-        an <code>&lt;hr&gt;</code>, so screen readers read the content in order.
-        Set <code>align</code> to <code>start</code> or <code>end</code> to move
-        it to one side. The lines follow the <code>variant</code> and
-        <code>color</code>.
-      </p>
-      <p slot="html">
-        Put text or any element in a <code>&lt;div class="ui-divider"&gt;</code>
-        or <code>&lt;p class="ui-divider"&gt;</code> to place it in the middle
-        of the line, since an <code>&lt;hr&gt;</code> can't have content. Screen
-        readers read it in order. Add <code>.ui-align-start</code> or
-        <code>.ui-align-end</code> to move it to one side. The lines follow the
-        variant and color classes.
-      </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Centered by default. Use <code>align</code> to change it.
+      </Fragment>
+      <Fragment slot="html">
+        Use a <code>div.ui-divider</code>, not an <code>hr</code>. Use
+        <code>.ui-align-start</code> or <code>.ui-align-end</code> to move it.
+      </Fragment>
     </Conditional>
     <AutoExample name="Content" column />
   </section>
 
   <section id="spacing">
     <h2>Spacing</h2>
-    <p>
-      The space above and below a divider is <code>--ui-divider-gap</code>.
-      Accordions, cards, callouts, dialogs and drawers set a tighter value, and
-      a divider that is a direct child of a card has no margin, since the card's
-      gap already spaces it. Set <code>--ui-divider-gap</code> on any wrapper to
-      change it for every divider inside that isn't in one of those components,
-      and on the component itself for the dividers in it.
-    </p>
+    <p>Use <code>--ui-divider-gap</code> to change the space around it.</p>
     <AutoExample name="Spacing" column />
   </section>
 

@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import "../../elements/character-count.js"
 import "../../elements/text-field.js"
-import {
-  computed,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  useId,
-  useTemplateRef,
-} from "vue"
-import { useInputAttrs } from "../vue"
+import { computed, inject, useId } from "vue"
+import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { hidePath, showPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -56,61 +49,33 @@ const model = computed({
   },
 })
 
-const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
-
-let modelForm: HTMLFormElement | null = null
-
-const resetModel = (event: Event) =>
-  setTimeout(() => {
-    const element = modelElement.value
-    if (event.defaultPrevented || !element) return
-    model.value = element.value
-  })
-
-onMounted(() => {
-  const element = modelElement.value
-  if (!element) return
-  if (!element.hasAttribute("value") && model.value != null) {
-    element.defaultValue = String(model.value)
-  }
-  modelForm = element.form
-  modelForm?.addEventListener("reset", resetModel)
-})
-
-onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
-
 const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const ids = computed(() => createIds(uid, "text-field", id))
+const base = computed(() => id ?? `text-field-${uid}`)
 
-const Root = computed(() =>
-  passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div",
-)
+const Root = () =>
+  passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div"
 
 const Label = computed(() => (passwordToggle ? "label" : "span"))
 
-const hasStartText = computed(() => Boolean(startText || slots["start-text"]))
+const hasStartText = () => Boolean(startText || slots["start-text"])
 
-const hasEndText = computed(() =>
-  Boolean(endText || slots["end-text"] || characterCount),
-)
+const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
-const inputId = computed(() => (passwordToggle ? ids.value() : id))
+const inputId = computed(() => (passwordToggle ? base.value : id))
 
-const startTextId = computed(() =>
-  passwordToggle && hasStartText.value ? ids.value("start-text") : undefined,
-)
+const startTextId = () =>
+  passwordToggle && hasStartText() ? `${base.value}-start-text` : undefined
 
-const endTextId = computed(() =>
-  passwordToggle && hasEndText.value ? ids.value("end-text") : undefined,
-)
+const endTextId = () =>
+  passwordToggle && hasEndText() ? `${base.value}-end-text` : undefined
 </script>
 
 <template>
   <component
-    :is="Root"
+    :is="Root()"
     :class="[
       'ui-text-field',
       {
@@ -129,16 +94,16 @@ const endTextId = computed(() =>
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="passwordToggle ? inputId : undefined"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></component
-    >{{ " "
-    }}<span v-if="hasStartText" class="ui-start-text" :id="startTextId"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<span class="ui-field">
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></component>
+    <span v-if="hasStartText()" class="ui-start-text" :id="startTextId()"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field">
       <input
         v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId, endTextId, attrs['aria-describedby'])
+          idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="inputId"
@@ -146,14 +111,14 @@ const endTextId = computed(() =>
         :name="name ?? field?.name"
         :pattern="pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
         :type="type === 'numeric' ? 'text' : type"
+        v-seed
         v-model="model"
-        ref="modelElement"
-      />{{ " "
-      }}<span v-if="$slots.start" class="ui-start"
-        ><slot name="start"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.end || passwordToggle" class="ui-end"
-        ><slot name="end"></slot
+      />
+      <span v-if="$slots.start" class="ui-start">
+        <slot name="start"></slot>
+      </span>
+      <span v-if="$slots.end || passwordToggle" class="ui-end">
+        <slot name="end"></slot
         ><Button
           v-if="passwordToggle"
           :aria-label="passwordToggleLabel"
@@ -165,8 +130,9 @@ const endTextId = computed(() =>
             v-if="$slots['icon-unchecked']"
             aria-hidden="true"
             class="ui-icon-unchecked"
-            ><slot name="icon-unchecked"></slot></span
-          ><svg
+            ><slot name="icon-unchecked"></slot
+          ></span>
+          <svg
             v-else
             aria-hidden="true"
             class="ui-icon-unchecked"
@@ -180,8 +146,9 @@ const endTextId = computed(() =>
             v-if="$slots['icon-checked']"
             aria-hidden="true"
             class="ui-icon-checked"
-            ><slot name="icon-checked"></slot></span
-          ><svg
+            ><slot name="icon-checked"></slot
+          ></span>
+          <svg
             v-else
             aria-hidden="true"
             class="ui-icon-checked"
@@ -190,15 +157,17 @@ const endTextId = computed(() =>
             height="24"
             viewBox="0 0 24 24"
           >
-            <path fill="currentColor" :d="hidePath" /></svg></Button></span
-      >{{ " "
-      }}<span v-if="$slots.top" class="ui-top"><slot name="top"></slot></span
-      >{{ " "
-      }}<span v-if="$slots.bottom" class="ui-bottom"
-        ><slot name="bottom"></slot
-      ></span> </span
-    >{{ " "
-    }}<span v-if="hasEndText" class="ui-end-text" :id="endTextId"
+            <path fill="currentColor" :d="hidePath" /></svg
+        ></Button>
+      </span>
+      <span v-if="$slots.top" class="ui-top">
+        <slot name="top"></slot>
+      </span>
+      <span v-if="$slots.bottom" class="ui-bottom">
+        <slot name="bottom"></slot>
+      </span>
+    </span>
+    <span v-if="hasEndText()" class="ui-end-text" :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
       ><component
         is="opui-character-count"
@@ -206,7 +175,8 @@ const endTextId = computed(() =>
         aria-hidden="true"
         class="ui-value"
         :label="characterCountLabel"
-      ></component></span
-    >{{ " " }}<slot></slot>
+      ></component
+    ></span>
+    <slot></slot>
   </component>
 </template>

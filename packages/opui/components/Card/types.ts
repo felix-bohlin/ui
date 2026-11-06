@@ -1,4 +1,5 @@
 export type Props = {
+  as?: "article" | "div" | "section"
   color?: "primary"
   density?: "dense" | "normal" | "spacious"
   orientation?: "auto" | "horizontal" | "vertical"
@@ -12,5 +13,5 @@ export type CardActionsProps = {
 export type CardContentProps = {}
 
 export type CardHeaderProps = {
-  as?: "div" | "hgroup"
+  as?: "div" | "header" | "hgroup"
 }

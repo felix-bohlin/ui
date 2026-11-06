@@ -21,9 +21,10 @@ import { MODEL_KINDS } from "./component-models.mjs"
 import {
   byName,
   chosenSpreadCode,
+  classText,
   isBlank,
+  isIdentifierName,
   REACT_ATTRIBUTE_NAMES,
-  testsIn,
 } from "./component-shared.mjs"
 
 export const toReact = (component) => {
@@ -52,51 +53,54 @@ export const toReact = (component) => {
       !(kind?.inRest && local === component.model.local),
   )
   const tagProps = props.filter(({ local }) => variableTags.includes(local))
-  const tagConsts = derived.filter(({ name }) => variableTags.includes(name))
-  const guardedTags = new Set(
-    testsIn(tree).filter((test) =>
-      tagConsts.some(({ name }) => name === test.trim()),
-    ),
-  )
-  const declared = new Set([
+  const reactPropOf = (entry) =>
+    REACT_ATTRIBUTE_NAMES[entry.prop] ??
+    (component.element && !component.baseProps?.includes(entry.prop)
+      ? resolveReactProp(
+          reactPropsOf(component.element, false) ?? new Map(),
+          entry.prop,
+        )
+      : undefined) ??
+    entry.prop
+  const taken = new Set([
     ...component.props.map(({ local }) => local),
-    ...slots.map((slot) => slotProp(slot)),
     ...derived.map(({ name }) => name),
-    ...reads.map(({ name }) => name),
   ])
-  const lowered = (name) => {
-    const camel = `${name[0].toLowerCase()}${name.slice(1)}`
-    return declared.has(camel) ? `${camel}Tag` : camel
-  }
+  const renamed = new Map(
+    props
+      .filter(
+        (entry) =>
+          entry.prop !== "class" &&
+          !tagProps.includes(entry) &&
+          entry.local === entry.prop &&
+          isIdentifierName(reactPropOf(entry)) &&
+          !taken.has(reactPropOf(entry)),
+      )
+      .map((entry) => [entry.local, reactPropOf(entry)]),
+  )
   const rename = new Map([
     ...(kind?.rename?.(component.model) ?? []),
     ...props
       .filter(({ prop }) => prop === "class")
       .map(({ local }) => [local, "className"]),
-    ...tagConsts.map(({ name }) => [name, lowered(name)]),
+    ...renamed,
     ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
   ])
   const options = {
     rename,
+    ids: component.ids,
     slotHas: (name) => slotProp(name),
     style: styleOption(component, "style ?? {}"),
   }
   const entries = props.map((entry) => {
     if (entry.prop === "class") return { key: "className", text: "className" }
     if (tagProps.includes(entry)) return { key: entry.prop, text: entry.prop }
-    const reactProp =
-      REACT_ATTRIBUTE_NAMES[entry.prop] ??
-      (component.element && !component.baseProps?.includes(entry.prop)
-        ? resolveReactProp(
-            reactPropsOf(component.element, false) ?? new Map(),
-            entry.prop,
-          )
-        : undefined) ??
-      entry.prop
-    if (reactProp === entry.local) {
+    const reactProp = reactPropOf(entry)
+    const local = renamed.get(entry.local) ?? entry.local
+    if (reactProp === local) {
       return {
-        key: entry.local,
-        text: entry.default ? `${entry.local} = ${entry.default}` : entry.local,
+        key: local,
+        text: entry.default ? `${local} = ${entry.default}` : local,
       }
     }
     return {
@@ -127,17 +131,10 @@ export const toReact = (component) => {
     ...(kind?.body?.(model) ?? []),
     ...tagProps.map(
       ({ local, prop, default: fallback }) =>
-        `const ${local}: ElementType = ${fallback ? `${prop} || ${fallback}` : prop}`,
+        `const ${local} = ${fallback ? `${prop} || ${fallback}` : prop}`,
     ),
-    ...derived.flatMap(({ code, name }) =>
-      variableTags.includes(name)
-        ? [
-            `const ${lowered(name)} = ${rewriteExpression(code, options)}`,
-            guardedTags.has(name)
-              ? `const ${name} = ${lowered(name)} as ElementType`
-              : `const ${name}: ElementType = ${lowered(name)}`,
-          ]
-        : [`const ${name} = ${rewriteExpression(code, options)}`],
+    ...derived.map(
+      ({ code, name }) => `const ${name} = ${rewriteExpression(code, options)}`,
     ),
     ...warnings.map((code) => rewriteStatement(code, options)),
     ...(item
@@ -149,14 +146,17 @@ export const toReact = (component) => {
           ),
         ]
       : []),
-    ...scripts.map(
-      (specifier) =>
-        `useEffect(() => {\n  void import(${JSON.stringify(specifier)})\n}, [])`,
-    ),
+    ...(scripts.length
+      ? [
+          `useEffect(() => {\n${scripts.map((specifier) => `  void import(${JSON.stringify(specifier)})\n`).join("")}}, [])`,
+        ]
+      : []),
   ]
   let usesCx = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
+      const text = classText(item.code)
+      if (text) return `className={${rewriteExpression(text, options)}}`
       usesCx = true
       return `className={cx(${rewriteExpression(item.code, options)})}`
     }
@@ -275,6 +275,12 @@ export const toReact = (component) => {
                 `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
               ]
             : []),
+          ...(node.external
+            ? [
+                'dangerouslySetInnerHTML={{ __html: "" }}',
+                "suppressHydrationWarning",
+              ]
+            : []),
         ].join(" ")
         const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
         return node.children.length === 0
@@ -296,12 +302,9 @@ export const toReact = (component) => {
     ...(uid ? ["useId"] : []),
     ...(kind?.reactValues?.() ?? []),
   ]
-  const usesElementType = tagProps.length > 0 || tagConsts.length > 0
   const reactImport = reactValues.length
-    ? `import { ${[...(usesElementType ? ["type ElementType"] : []), ...reactValues].join(", ")} } from "react"`
-    : usesElementType
-      ? `import type { ElementType } from "react"`
-      : undefined
+    ? `import { ${reactValues.join(", ")} } from "react"`
+    : undefined
   const importLines = [
     ...(reactImport ? [reactImport] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),

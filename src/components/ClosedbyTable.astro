@@ -1,14 +1,6 @@
 ---
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableColumnGroup,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "opui-css/astro"
+import { TableCell, TableRow } from "opui-css/astro"
+import DocsTable from "./DocsTable.astro"
 
 type Props = {
   componentDefault?: "any" | "closerequest" | "none"
@@ -48,29 +40,19 @@ const rows = [
     </>
   )}
 </p>
-<Table style="table-layout: fixed">
-  <TableColumnGroup>
-    <TableColumn width="30%" />
-    <TableColumn />
-  </TableColumnGroup>
-  <TableHead>
-    <TableRow>
-      <TableHeaderCell>Value</TableHeaderCell>
-      <TableHeaderCell>Closes with</TableHeaderCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    {rows.map((row) => <TableRow>
-      <TableCell>
-        <code>closedby="{row.value}"</code>
-        {row.value === defaultValue && " (default)"}
-      </TableCell>
-      <TableCell>
-        <Fragment set:html={row.description} />
-      </TableCell>
-    </TableRow>)}
-  </TableBody>
-</Table>
+<DocsTable
+  columns={[{ label: "Value", width: "30%" }, { label: "Closes with" }]}
+>
+  {rows.map((row) => <TableRow>
+    <TableCell>
+      <code>closedby="{row.value}"</code>
+      {row.value === defaultValue && " (default)"}
+    </TableCell>
+    <TableCell>
+      <Fragment set:html={row.description} />
+    </TableCell>
+  </TableRow>)}
+</DocsTable>
 <p>
   {defaultValue ? (
     <>

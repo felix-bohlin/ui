@@ -83,10 +83,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 >
   <Fragment slot="title">One-time code</Fragment>
   <Fragment slot="preamble">
-    A field for one-time passwords (OTP), verification codes and PINs. It is a
-    single <code>&lt;input autocomplete="one-time-code"&gt;</code> drawn as one
-    box per character, so typing, paste, undo, SMS autofill and password
-    managers work without JavaScript. Built on
+    One-time passwords, verification codes and PINs. Built on
     <DocLink href="/components/text-field" class="ui-link">Text field</DocLink>.
   </Fragment>
 
@@ -97,73 +94,30 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   </Fragment>
 
   <Usage slot="usage">
+    <li slot="when">A code from an SMS, an email or an authenticator app.</li>
     <li slot="when">
-      A code from an SMS, an email or an authenticator app, like a sign-in
-      verification, in a <a href="#basics">one-time code</a> field.
-    </li>
-    <li slot="when">
-      A short PIN or a code with letters, like a gift card, with
-      <a href="#length">length</a> and <a href="#alphanumeric">alphanumeric</a>.
+      A PIN or a code with letters: <a href="#length">length</a> and
+      <a href="#alphanumeric">alphanumeric</a>.
     </li>
     <li slot="when-not">
-      A number the user knows, like a card number or a phone. Use a
+      A number the user knows, like a phone: use a
       <DocLink href="/components/text-field">Text field</DocLink>.
     </li>
     <li slot="when-not">
-      A password. Use a
-      <DocLink href="/components/text-field#password-toggle"
-        >Text field</DocLink
-      >
-      with the password toggle.
+      A password: use a
+      <DocLink href="/components/text-field#password-toggle">Text field</DocLink
+      >.
     </li>
   </Usage>
 
   <section id="basics">
     <h2>Basics</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        The code has 6 digits by default. The input gets
-        <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching
-        <code>pattern</code>, so phones show a number pad and the browser
-        validates the code.
-      </Fragment>
+      <Fragment slot="components">The code has 6 digits by default.</Fragment>
       <Fragment slot="html">
-        Add <code>.ui-one-time-code</code> to a <code>.ui-text-field</code>, and
-        give the input <code>autocomplete="one-time-code"</code>,
-        <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching
-        <code>pattern</code>.
-      </Fragment>
-      <Fragment slot="react">
-        The code has 6 digits by default. The input gets
-        <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching
-        <code>pattern</code>, so phones show a number pad and the browser
-        validates the code. Use <code>onChange</code> to read it.
-      </Fragment>
-      <Fragment slot="svelte">
-        The code has 6 digits by default. The input gets
-        <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching
-        <code>pattern</code>, so phones show a number pad and the browser
-        validates the code. Use <code>bind:value</code> to read it.
-      </Fragment>
-      <Fragment slot="vue">
-        The code has 6 digits by default. The input gets
-        <code>inputmode="numeric"</code>, <code>maxlength</code> and a matching
-        <code>pattern</code>, so phones show a number pad and the browser
-        validates the code. Use <code>v-model</code> to read it.
+        Add <code>.ui-one-time-code</code> to a <code>.ui-text-field</code>.
       </Fragment>
     </Conditional>
-    <p>
-      While the field has focus, every box gets a thicker outline in the accent
-      color, and a ring marks the next empty box. The input is exactly as wide
-      as its value (<code>field-sizing: content</code>), and the ring sits right
-      after it, so a complete code shows the outlines alone. Browsers without
-      <code>field-sizing</code> (Firefox before 152, Safari before 26.2) show no
-      ring. Neither does iOS Safari, which hides the last typed character while
-      the input sizes itself to its value
-      (<DocLink href="/guide/browser-support#compat" class="ui-link"
-        >compat layer</DocLink
-      >). There, a required field hides its caret once the code is complete.
-    </p>
 
     <AutoExample name="Basics" />
   </section>
@@ -171,8 +125,7 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="grouped">
     <h2>Grouped</h2>
     <p>
-      <PropOrClass prop="grouped" class=".ui-grouped" /> draws a dash between
-      the two halves of the code, such as 3 + 3 or 4 + 4. Use it with an even
+      Use <PropOrClass prop="grouped" class=".ui-grouped" /> with an even
       length.
     </p>
 
@@ -181,17 +134,6 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Choose between four sizes with the <code>size</code> prop:
-        <code>x-small</code>, <code>small</code>, <code>medium</code> (the
-        default) and <code>large</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Choose between four sizes: <code>.ui-x-small</code>,
-        <code>.ui-small</code>, default and <code>.ui-large</code>.
-      </Fragment>
-    </Conditional>
 
     <AutoExample name="Sizes" />
   </section>
@@ -200,12 +142,11 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Length</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets
-        <code>maxlength</code> and the <code>pattern</code>.
+        Set <code>length</code>, from 4 to 8.
       </Fragment>
       <Fragment slot="html">
-        The number of boxes follows <code>maxlength</code>, from 4 to 8. Match
-        the <code>pattern</code> to it, such as <code>[0-9]{"{4}"}</code>.
+        The boxes follow <code>maxlength</code>, from 4 to 8. Match the
+        <code>pattern</code>.
       </Fragment>
     </Conditional>
 
@@ -216,18 +157,10 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
     <h2>Alphanumeric</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>alphanumeric</code> for codes with letters. The pattern
-        accepts letters and digits, the keyboard is a regular one, and letters
-        show uppercase (<code>autocapitalize="characters"</code>). The value
-        keeps the case they were typed in. Pass
-        <code>autocapitalize="off"</code> for case-sensitive codes.
+        Set <code>alphanumeric</code> for codes with letters.
       </Fragment>
       <Fragment slot="html">
-        For codes with letters, drop <code>inputmode</code>, use a
-        <code>pattern</code> such as <code>[A-Za-z0-9]{"{6}"}</code> and add
-        <code>autocapitalize="characters"</code>, which also shows letters
-        uppercase. The value keeps the case they were typed in. Leave
-        <code>autocapitalize</code> out for case-sensitive codes.
+        Drop <code>inputmode</code> and widen the <code>pattern</code>.
       </Fragment>
     </Conditional>
 
@@ -236,20 +169,9 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 
   <section id="validation">
     <h2>Validation</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Use the <code>error</code> prop for server-side errors. It sets
-        <code>aria-invalid="true"</code> on the input, and every box turns red.
-        Explain the error in the end text.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>aria-invalid="true"</code> to the input for server-side
-        errors, and every box turns red. Explain the error in the end text.
-      </Fragment>
-    </Conditional>
     <p>
-      The browser's own validation (<code>:user-invalid</code>) gives the same
-      look when a required code is left incomplete or doesn't match the pattern.
+      Use <PropOrClass prop="error" class='aria-invalid="true"' /> for
+      server-side errors.
     </p>
 
     <AutoExample name="Validation" />
@@ -264,16 +186,8 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
   <section id="right-to-left">
     <h2>Right-to-left</h2>
     <p>
-      The code always runs left to right, also on right-to-left pages. Digits
-      are written left to right in Arabic and Hebrew too, so the code reads the
-      same as in the message it came from, and the caret, boxes and ring stay in
-      one order. The label and end text follow the page direction.
-    </p>
-    <p>
-      The default <code>pattern</code> accepts the digits 0–9, which SMS
-      autofill inserts and most servers expect. To also accept Arabic-Indic
-      digits typed on an Arabic keyboard, pass a wider pattern, such as
-      <code>[0-9٠-٩۰-۹]{"{6}"}</code>, and convert them to 0–9 on the server.
+      The code always runs left to right. Widen <code>pattern</code> to accept
+      Arabic-Indic digits.
     </p>
 
     <AutoExample name="RightToLeft" />
@@ -281,52 +195,13 @@ export const keywords = ["2fa", "otp", "pin", "verification code"]
 
   <section id="paste-and-auto-submit">
     <h2>Paste and auto-submit</h2>
-    <p>
-      Without JavaScript, letters can be typed into a numeric code (they turn
-      red when the field loses focus), and a pasted <code>123 456</code> or
-      <code>123-456</code> is cut to <code>maxlength</code>. This optional
-      script, not part of the library, strips spaces and dashes from pasted
-      codes and submits the form once the code is complete and valid. Only
-      auto-submit when the code is the last field in the form.
-    </p>
+    <p>An optional script. Only auto-submit when the code is the last field.</p>
     <Code lang="js" code={recipe} />
   </section>
 
   <Fragment slot="accessibility">
     <ul>
-      <li>
-        The field is one labeled text input, so screen readers announce the
-        label, the value and the end text once, not one box at a time.
-      </li>
-      <li>
-        <code>autocomplete="one-time-code"</code> lets phones offer the code
-        from an SMS or email, and password managers fill it.
-      </li>
-      <li>
-        Focus is shown on the boxes instead of an outline: every box gets a
-        thicker accent outline, also once the code is complete, and a ring marks
-        the next empty box where the browser has <code>field-sizing</code>,
-        except iOS Safari. Forced colors mode draws the boxes and ring in system
-        colors.
-      </li>
-      <li>
-        <Conditional>
-          <Fragment slot="components"
-            >The <code>error</code> prop sets <code>aria-invalid="true"</code>.
-            The end text sits inside the <code>label</code>, so it is read with
-            the field's name.</Fragment
-          >
-          <Fragment slot="html"
-            >Mark errors with <code>aria-invalid="true"</code>. The end text
-            sits inside the <code>label</code>, so it is read with the field's
-            name.</Fragment
-          >
-        </Conditional>
-      </li>
-      <li>
-        Say how long the code is valid and how to get a new one in the end text,
-        not only in the layout.
-      </li>
+      <li>One input, so screen readers read the code once, not per box.</li>
     </ul>
   </Fragment>
 

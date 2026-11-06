@@ -28,10 +28,18 @@
   {...classAttrs([color && `ui-${color}`, className])}
   {...rest}
 >
-  {#if marker}<span class="ui-marker">{@render marker?.()}</span>{/if}
-  {#if time}<time {datetime}>{time}</time>{/if}
-  {#if label}<svelte:element this={Heading} class="ui-h6"
-      >{@render content(label)}</svelte:element
-    >{/if}
+  {#if marker}
+    <span class="ui-marker">
+      {@render marker()}
+    </span>
+  {/if}
+  {#if time}
+    <time {datetime}>{time}</time>
+  {/if}
+  {#if label}
+    <svelte:element this={Heading} class="ui-h6">
+      {@render content(label)}
+    </svelte:element>
+  {/if}
   {@render children?.()}
 </li>

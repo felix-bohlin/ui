@@ -15,7 +15,9 @@ import {
 import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
 import path from "node:path"
+import ts from "typescript"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { lightDarkSettings } from "./readme.ts"
 
 const root = path.resolve(import.meta.dirname, "../..")
 const packageDir = path.join(root, "packages/opui")
@@ -136,6 +138,90 @@ await server.close()
 console.log([deps.size, "pre-bundled dependencies served"].join(" "))
 `
 
+const SERVER_RENDER = {
+  react: String.raw`
+import { createElement } from "react"
+import { renderToString } from "react-dom/server"
+import * as opui from "opui-css/react"
+import DeepDialogTitle from "opui-css/components/Dialog/DialogTitle.react"
+
+console.log(
+  renderToString(
+    createElement(
+      opui.Button,
+      { color: "primary", type: "submit", variant: "filled" },
+      "Save",
+    ),
+  ),
+)
+console.log(Object.keys(opui).length, "components")
+console.log("deep imports share the entry point's modules:", DeepDialogTitle === opui.DialogTitle)
+`,
+  vue: String.raw`
+import { createSSRApp, h } from "vue"
+import { renderToString } from "vue/server-renderer"
+import * as opui from "opui-css/vue"
+import DeepDialogTitle from "opui-css/components/Dialog/DialogTitle.vue"
+
+console.log(
+  await renderToString(
+    createSSRApp({
+      render: () =>
+        h(
+          opui.Button,
+          { color: "primary", type: "submit", variant: "filled" },
+          () => "Save",
+        ),
+    }),
+  ),
+)
+console.log(Object.keys(opui).length, "components")
+console.log("deep imports share the entry point's modules:", DeepDialogTitle === opui.DialogTitle)
+`,
+}
+
+const VITE_RESOLVE = String.raw`
+import path from "node:path"
+import { createServer } from "vite"
+
+const ids = JSON.parse(process.argv[2])
+const server = await createServer({
+  appType: "custom",
+  logLevel: "silent",
+  optimizeDeps: { noDiscovery: true },
+  server: { middlewareMode: true },
+})
+const importer = path.resolve("src/main.ts")
+for (const environment of ["client", "ssr"]) {
+  for (const id of ids) {
+    const resolved = await server.environments[environment].pluginContainer.resolveId(id, importer)
+    console.log([environment, id, resolved && path.relative("node_modules/opui-css", resolved.id.split("?")[0])].join(" "))
+  }
+}
+await server.close()
+`
+
+const VITE_BUILD = String.raw`
+import { build } from "vite"
+
+const [outDir, settings] = process.argv.slice(2)
+const config = JSON.parse(settings)
+await build({ ...config, build: { ...config.build, outDir }, logLevel: "silent" })
+`
+
+const cssIn = (dist: string) =>
+  readdirSync(dist, { recursive: true })
+    .map(String)
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => readFileSync(path.join(dist, file), "utf8"))
+    .join("\n")
+
+const DEEP_IMPORTS = {
+  react: ["Dialog/Dialog.react", "Dialog/DialogTitle.react"],
+  svelte: ["Dialog/Dialog.svelte", "Dialog/DialogTitle.svelte"],
+  vue: ["Dialog/Dialog.vue", "Dialog/DialogTitle.vue"],
+}
+
 let work: string
 let tarball: string
 let files: string[]
@@ -240,6 +326,78 @@ test("every entry point is in the tarball", () => {
   expect(missing).toEqual([])
 })
 
+test("every compiled component file has a deep import, with its types", () => {
+  const consumer = path.join(work, "deep-imports")
+  mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
+  writeFileSync(path.join(consumer, "package.json"), '{ "type": "module" }')
+  symlinkSync(unpacked, path.join(consumer, "node_modules/opui-css"))
+  const require = createRequire(path.join(consumer, "index.js"))
+  const inPackage = (file: string) =>
+    path.relative(realpathSync(unpacked), realpathSync(file))
+  const typesOf = (specifier: string, resolution: "Bundler" | "NodeNext") => {
+    const { resolvedModule } = ts.resolveModuleName(
+      specifier,
+      path.join(consumer, "index.ts"),
+      {
+        module: ts.ModuleKind[resolution === "Bundler" ? "ESNext" : "NodeNext"],
+        moduleResolution: ts.ModuleResolutionKind[resolution],
+      },
+      ts.sys,
+    )
+    return resolvedModule && inPackage(resolvedModule.resolvedFileName)
+  }
+  const compiled = files.filter((file) =>
+    /^dist\/components\/.+\.(react\.js|svelte|svelte\.js|vue\.js)$/.test(file),
+  )
+  expect(compiled.length).toBeGreaterThan(0)
+  expect(
+    compiled.flatMap((file) => {
+      const specifier = `opui-css/${file
+        .replace(/^dist\//, "")
+        .replace(/\.(react|vue)\.js$/, ".$1")}`
+      const declaration = file.replace(/(\.svelte)?(\.js)?$/, "$1.d.ts")
+      return [
+        [specifier, inPackage(require.resolve(specifier)), file],
+        ...(["Bundler", "NodeNext"] as const).map((resolution) => [
+          `${specifier} (types, ${resolution})`,
+          typesOf(specifier, resolution),
+          declaration,
+        ]),
+      ]
+        .filter(([, resolved, expected]) => resolved !== expected)
+        .map(([name, resolved]) => `${name} resolves to ${resolved}`)
+    }),
+    "a deep import that misses dist loads a second copy of the component next to the one the entry point loads",
+  ).toEqual([])
+})
+
+test("every compiled file has a source map to a source in the package", () => {
+  const compiled = files.filter(
+    (file) =>
+      /^dist\/(components|react|svelte|vue)\/.+\.(d\.ts|js)$/.test(file) &&
+      !file.endsWith("/elements.d.ts"),
+  )
+  expect(compiled.length).toBeGreaterThan(0)
+  expect(
+    compiled.flatMap((file) => {
+      const map = `${file}.map`
+      const comment = `//# sourceMappingURL=${path.basename(map)}`
+      const code = readFileSync(path.join(unpacked, file), "utf8")
+      if (!code.trimEnd().endsWith(comment)) {
+        return [`${file} doesn't end with ${comment}`]
+      }
+      if (!files.includes(map)) return [`${map} is missing`]
+      const { sources } = JSON.parse(
+        readFileSync(path.join(unpacked, map), "utf8"),
+      ) as { sources: string[] }
+      return sources
+        .map((source) => path.posix.join(path.posix.dirname(file), source))
+        .filter((source) => !files.includes(source))
+        .map((source) => `${map} points to ${source}, which isn't shipped`)
+    }),
+  ).toEqual([])
+})
+
 test("dist/opui.css starts with the layer order", () => {
   const layers = readFileSync(path.join(packageDir, "css/layers.css"), "utf8")
     .trim()
@@ -291,24 +449,28 @@ test("every opui-css specifier in the README resolves in the tarball", () => {
       return false
     }
   }
-  const PLACEHOLDER = /\*|<[^>]+>/
+  const PLACEHOLDER = /(\*)|<[^>]+>/
+  const shipped = files.flatMap((file) => [file, file.replace(/\.[^./]+$/, "")])
   const candidates = (subpath: string) => {
     if (!PLACEHOLDER.test(subpath)) return [subpath]
-    const segments = subpath.split("/")
-    const index = segments.findIndex((segment) => PLACEHOLDER.test(segment))
-    const folder = path.join(unpacked, ...segments.slice(0, index))
-    if (index !== segments.length - 1 || !existsSync(folder)) return []
     const pattern = new RegExp(
-      `^${segments[index]
-        .split(PLACEHOLDER)
-        .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-        .join("[^/]+")}$`,
+      `^${subpath
+        .split(new RegExp(PLACEHOLDER, "g"))
+        .map((part, index) =>
+          index % 2 === 1
+            ? part === "*"
+              ? ".+"
+              : "[^/]+"
+            : (part ?? "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+        )
+        .join("")}$`,
     )
-    return readdirSync(folder)
-      .flatMap((entry) => [entry, entry.replace(/\.[^.]+$/, "")])
-      .filter((name) => pattern.test(name))
-      .map((name) => [...segments.slice(0, index), name].join("/"))
+    return shipped.filter((file) => pattern.test(file))
   }
+  expect(candidates("components/*.react")).toContain(
+    "components/Button/Button.react",
+  )
+  expect(candidates("components/<Name>.react")).toEqual([])
   expect(
     specifiers.filter((subpath) => !candidates(subpath).some(resolves)),
     "the README names opui-css/... imports the package doesn't export",
@@ -425,15 +587,77 @@ describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {
     expect(html).toMatch(
       framework === "astro" ? /class="ui-button/ : /<script type="module"/,
     )
-    const css = readdirSync(dist, { recursive: true })
-      .map(String)
-      .filter((file) => file.endsWith(".css"))
-      .map((file) => readFileSync(path.join(dist, file), "utf8"))
-      .join("\n")
+    const css = cssIn(dist)
     expect(css).toContain("@layer openprops")
     expect(css).toContain(".ui-button")
     expect(lightDarkProblems(css)).toEqual([])
   })
+
+  test.runIf(framework === "react")(
+    "the README's vite.config setting keeps light-dark(), which the default build rewrites",
+    () => {
+      const { vite } = lightDarkSettings(
+        readFileSync(path.join(unpacked, "README.md"), "utf8"),
+      )
+      writeFileSync(path.join(dir, "vite-build.mjs"), VITE_BUILD)
+      const built = (outDir: string, settings: object) => {
+        run("node", ["vite-build.mjs", outDir, JSON.stringify(settings)], dir)
+        return cssIn(path.join(dir, outDir))
+      }
+      expect(
+        built("dist-default", {}),
+        "Vite's default build keeps light-dark() now: remove the vite.config block from the README's Builds that rewrite light-dark() section",
+      ).not.toContain("light-dark(")
+      const css = built("dist-readme", vite)
+      expect(
+        css,
+        "the vite.config block in the README's Builds that rewrite light-dark() section no longer keeps light-dark()",
+      ).toContain("light-dark(")
+      expect(lightDarkProblems(css)).toEqual([])
+    },
+  )
+
+  test.runIf(framework in SERVER_RENDER)(
+    "renders on the server in Node, without a bundler",
+    () => {
+      writeFileSync(
+        path.join(dir, "server-render.mjs"),
+        SERVER_RENDER[framework as keyof typeof SERVER_RENDER],
+      )
+      const output = run("node", ["server-render.mjs"], dir).replaceAll(
+        /<!--[[\]]-->/g,
+        "",
+      )
+      expect(output).toMatch(
+        /^<button class="ui-button ui-primary ui-filled" type="submit">Save<\/button>$/m,
+      )
+      expect(output).toMatch(/^[1-9]\d* components$/m)
+      expect(output).toMatch(
+        /^deep imports share the entry point's modules: true$/m,
+      )
+    },
+  )
+
+  test.runIf(framework in DEEP_IMPORTS)(
+    "Vite resolves the entry point and deep imports into dist, on the client and the server",
+    () => {
+      writeFileSync(path.join(dir, "vite-resolve.mjs"), VITE_RESOLVE)
+      const ids = [
+        `opui-css/${framework}`,
+        ...DEEP_IMPORTS[framework as keyof typeof DEEP_IMPORTS].map(
+          (file) => `opui-css/components/${file}`,
+        ),
+      ]
+      const lines = run("node", ["vite-resolve.mjs", JSON.stringify(ids)], dir)
+        .trim()
+        .split("\n")
+      expect(lines).toHaveLength(ids.length * 2)
+      expect(
+        lines.filter((line) => !/ dist\/\S+\.(js|svelte)$/.test(line)),
+        "these resolve outside dist, so a deep import and the entry point would load two copies",
+      ).toEqual([])
+    },
+  )
 
   test.runIf(framework === "svelte")(
     "the dev server pre-bundles the package and serves it",

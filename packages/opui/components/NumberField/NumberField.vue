@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import "../../elements/number-field.js"
-import {
-  computed,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  useId,
-  useTemplateRef,
-} from "vue"
-import { useInputAttrs } from "../vue"
+import { computed, inject, useId } from "vue"
+import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
-import { createIds, idRefs } from "../id"
+import { idRefs } from "../id"
 import { minusPath, plusPath } from "./icons"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -49,46 +42,19 @@ const model = computed({
   },
 })
 
-const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
-
-let modelForm: HTMLFormElement | null = null
-
-const resetModel = (event: Event) =>
-  setTimeout(() => {
-    const element = modelElement.value
-    if (event.defaultPrevented || !element) return
-    model.value = Number.isNaN(element.valueAsNumber)
-      ? element.value
-      : element.valueAsNumber
-  })
-
-onMounted(() => {
-  const element = modelElement.value
-  if (!element) return
-  if (!element.hasAttribute("value") && model.value != null) {
-    element.defaultValue = String(model.value)
-  }
-  modelForm = element.form
-  modelForm?.addEventListener("reset", resetModel)
-})
-
-onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))
-
 const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const ids = computed(() => createIds(uid, "number-field", id))
+const base = computed(() => id ?? `number-field-${uid}`)
 
-const inputId = computed(() => ids.value())
+const inputId = computed(() => base.value)
 
-const startTextId = computed(() =>
-  startText || slots["start-text"] ? ids.value("start-text") : undefined,
-)
+const startTextId = () =>
+  startText || slots["start-text"] ? `${base.value}-start-text` : undefined
 
-const endTextId = computed(() =>
-  endText || slots["end-text"] ? ids.value("end-text") : undefined,
-)
+const endTextId = () =>
+  endText || slots["end-text"] ? `${base.value}-end-text` : undefined
 </script>
 
 <template>
@@ -110,15 +76,15 @@ const endTextId = computed(() =>
       v-if="label || $slots.label"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       :for="inputId"
-      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()" /></label
-    >{{ " "
-    }}<span
+      >{{ label }}<TrimmedSlot :nodes="$slots.label?.()"
+    /></label>
+    <span
       v-if="startText || $slots['start-text']"
       class="ui-start-text"
-      :id="startTextId"
-      >{{ startText }}<slot name="start-text"></slot></span
-    >{{ " "
-    }}<span class="ui-field">
+      :id="startTextId()"
+      >{{ startText }}<slot name="start-text"></slot
+    ></span>
+    <span class="ui-field">
       <span class="ui-start">
         <Button
           :aria-controls="inputId"
@@ -127,8 +93,8 @@ const endTextId = computed(() =>
           :commandfor="inputId"
           round
         >
-          <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot
-          ><svg
+          <slot v-if="$slots['decrease-icon']" name="decrease-icon"></slot>
+          <svg
             v-else
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -138,21 +104,21 @@ const endTextId = computed(() =>
           >
             <path fill="currentColor" :d="minusPath" />
           </svg>
-        </Button> </span
-      >{{ " "
-      }}<input
+        </Button>
+      </span>
+      <input
         v-bind="attrs"
         :aria-describedby="
-          idRefs(startTextId, endTextId, attrs['aria-describedby'])
+          idRefs(startTextId(), endTextId(), attrs['aria-describedby'])
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="inputId"
         :name="name ?? field?.name"
         type="number"
+        v-seed
         v-model.number="model"
-        ref="modelElement"
-      />{{ " "
-      }}<span class="ui-end">
+      />
+      <span class="ui-end">
         <Button
           :aria-controls="inputId"
           :aria-label="increaseLabel"
@@ -160,8 +126,8 @@ const endTextId = computed(() =>
           :commandfor="inputId"
           round
         >
-          <slot v-if="$slots['increase-icon']" name="increase-icon"></slot
-          ><svg
+          <slot v-if="$slots['increase-icon']" name="increase-icon"></slot>
+          <svg
             v-else
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -172,12 +138,12 @@ const endTextId = computed(() =>
             <path fill="currentColor" :d="plusPath" />
           </svg>
         </Button>
-      </span> </span
-    >{{ " "
-    }}<span
+      </span>
+    </span>
+    <span
       v-if="endText || $slots['end-text']"
       class="ui-end-text"
-      :id="endTextId"
+      :id="endTextId()"
       >{{ endText }}<slot name="end-text"></slot
     ></span>
   </component>

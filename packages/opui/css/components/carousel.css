@@ -80,6 +80,7 @@
 
     & > * {
       counter-increment: ui-carousel-item;
+      isolation: isolate;
       min-inline-size: 0;
       scroll-snap-align: var(--_snap-align);
     }
@@ -165,6 +166,7 @@
           opacity var(--_duration) var(--_ease),
           scale var(--_scale-duration) var(--_ease);
         translate: 0 -50%;
+        z-index: 1;
       }
 
       &::scroll-button(inline-start) {

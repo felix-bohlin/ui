@@ -12,8 +12,8 @@ defineSlots<AccordionSummarySlots>()
 
 <template>
   <summary v-bind="classAttrs([$props.class])">
-    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot
-    ><svg
+    <slot></slot>{{ " " }}<slot v-if="$slots.marker" name="marker"></slot>
+    <svg
       v-else
       aria-hidden="true"
       class="ui-marker"

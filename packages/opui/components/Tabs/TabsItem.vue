@@ -10,7 +10,6 @@ import {
   watchEffect,
 } from "vue"
 import { TabsKey } from "./context.vue"
-import { createId } from "../id"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
 import type { TabsItemProps as Props, Slots } from "./types.vue-props"
@@ -28,13 +27,9 @@ const parent = inject(TabsKey, undefined)
 
 const uid = useId()
 
-const idOf = computed(() => createId(uid))
+const groupName = computed(() => name || parent?.groupName || `tabs-${uid}`)
 
-const groupName = computed(
-  () => name || parent?.groupName || idOf.value("tabs"),
-)
-
-const tabId = computed(() => id || idOf.value("tab"))
+const tabId = computed(() => id || `tab-${uid}`)
 
 const grouped = computed(() => isSelected(parent?.value, value))
 

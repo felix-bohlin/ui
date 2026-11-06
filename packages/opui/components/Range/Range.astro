@@ -2,7 +2,7 @@
 import type { Props } from "./types.astro"
 import { createIds, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
-import { defaultValue } from "./value"
+import { middleValue } from "./value"
 
 export const title = "Range"
 
@@ -42,7 +42,7 @@ const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValueText = Astro.slots.has("value-text")
 const hasValue = valueSuffix !== undefined || hasValueText
 const hasDatalist = !!items || Astro.slots.has("datalist")
-const current = value ?? defaultValue({ max, min, step })
+const current = value ?? middleValue({ max, min, step })
 const readout = `${current}${valueSuffix ?? ""}`
 const tick = items?.find(
   (option) =>

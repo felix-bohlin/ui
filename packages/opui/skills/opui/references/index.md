@@ -34,7 +34,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |
 | Rating | `rating.md` | A star rating: a meter that shows a score, or radios that collect one. |
 | Select | `select.md` | Pick a value in a form. For actions, use a Menu. |
-| Spinner | `spinner.md` | Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar. |
+| Spinner | `spinner.md` | Add aria-busy="true" to an element. See also: Progress bar. |
 | Stat | `stat.md` | A stat shows one number with its label and the change behind it. |
 | Stepper | `stepper.md` | Shows where someone is in a flow of steps, such as a checkout. |
 | Switch | `switch.md` | A setting that applies right away. For choices submitted with a form, use a Checkbox. |

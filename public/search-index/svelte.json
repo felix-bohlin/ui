@@ -2130,7 +2130,7 @@
   {
     "id": "component-spinner-svelte",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always indeterminate. See also: Progress bar.",
+    "description": "Add aria-busy=\"true\" to an element. See also: Progress bar.",
     "keywords": "busy loader loading",
     "category": "Component",
     "url": "/svelte/components/spinner/"

@@ -1,6 +1,6 @@
 # Spinner
 
-Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar.
+Add aria-busy="true" to an element. See also: Progress bar.
 
 - CSS: `opui-css/css/components/spinner.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/spinner.md), [Astro](https://open-props-ui.netlify.app/astro/components/spinner.md), [React](https://open-props-ui.netlify.app/react/components/spinner.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/spinner.md), [Vue](https://open-props-ui.netlify.app/vue/components/spinner.md).

@@ -21,7 +21,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
 | Dialog | `dialog.md` | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
 | Divider | `divider.md` | It's just a line. |
-| Drawer | `drawer.md` | Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog. |
+| Drawer | `drawer.md` | Slides in from an edge of the screen. For a task that needs full attention, use a Dialog. |
 | Form | `form.md` | Spacing and grouping for form fields. |
 | Layout | `layout.md` | Six classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-columns, .ui-layout-media and .ui-layout-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |

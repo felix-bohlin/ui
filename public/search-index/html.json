@@ -997,7 +997,7 @@
   {
     "id": "component-drawer-html",
     "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.",
+    "description": "Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.",
     "keywords": "off-canvas sheet side panel sidebar",
     "category": "Component",
     "url": "/html/components/drawer/"

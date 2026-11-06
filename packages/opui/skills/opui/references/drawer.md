@@ -1,6 +1,6 @@
 # Drawer
 
-Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog.
+Slides in from an edge of the screen. For a task that needs full attention, use a Dialog.
 
 - CSS: `opui-css/css/components/drawer.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/drawer.md), [Astro](https://open-props-ui.netlify.app/astro/components/drawer.md), [React](https://open-props-ui.netlify.app/react/components/drawer.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/drawer.md), [Vue](https://open-props-ui.netlify.app/vue/components/drawer.md).

@@ -99,8 +99,8 @@
   },
   "devDependencies": {
     "open-props": "^1.7.23",
-    "postcss": "^8.4.0",
-    "postcss-import": "^16.1.0",
+    "postcss": "^8.5.32",
+    "postcss-import": "^16.2.0",
     "web-features": "catalog:"
   },
   "peerDependencies": {

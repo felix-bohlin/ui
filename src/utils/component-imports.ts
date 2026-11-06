@@ -80,9 +80,17 @@ export const componentImports = (
   return [...names].toSorted()
 }
 
-const componentFiles = import.meta.glob<string>(
-  "../../packages/opui/components/*/*.{astro,react.tsx,svelte,vue}",
-  { eager: true, import: "default", query: "?raw" },
+const packageFiles = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<string>(
+      [
+        "../../packages/opui/components/**/*.{astro,svelte,ts,tsx,vue}",
+        "../../packages/opui/css/js/*.js",
+        "../../packages/opui/elements/*.js",
+      ],
+      { eager: true, import: "default", query: "?raw" },
+    ),
+  ).map(([file, code]) => [file.replace("../../packages/opui/", ""), code]),
 )
 
 const sourceExtension = {
@@ -92,30 +100,52 @@ const sourceExtension = {
   vue: "",
 } satisfies Record<PackageFrameworkId, string>
 
-const sourceLang = {
-  astro: "astro",
-  react: "tsx",
-  svelte: "svelte",
-  vue: "vue",
-} satisfies Record<PackageFrameworkId, string>
+const langOf = (path: string) => path.slice(path.lastIndexOf(".") + 1)
+
+const resolveImport = (from: string, specifier: string) => {
+  const parts = from.split("/").slice(0, -1)
+  for (const part of specifier.split("/")) {
+    if (part === "..") parts.pop()
+    else if (part !== ".") parts.push(part)
+  }
+  const path = parts.join("/")
+  return [path, `${path}.js`, `${path}.ts`, `${path}.tsx`].find(
+    (file) => file in packageFiles,
+  )
+}
+
+const relativeImports = (path: string) =>
+  [...packageFiles[path].matchAll(/(?:from|import)\s*\(?"(\.{1,2}\/[^"]+)"/g)]
+    .map(([, specifier]) => resolveImport(path, specifier))
+    .filter((file) => file !== undefined)
 
 export const componentSources = (
   framework: PackageFrameworkId,
   names: string[],
 ) => {
-  const source = indexes[`../../packages/opui/${framework}/index.ts`] ?? ""
-  const files = new Map<string, string>()
-  for (const [, name, path] of source.matchAll(
+  const index = indexes[`../../packages/opui/${framework}/index.ts`] ?? ""
+  const exported = new Map<string, string>()
+  for (const [, name, path] of index.matchAll(
     /^export \{ default as (\w+) \} from "\.\.\/components\/([^"]+)"/gm,
   )) {
-    files.set(name, `${path}${sourceExtension[framework]}`)
+    exported.set(name, `components/${path}${sourceExtension[framework]}`)
   }
-  return names.flatMap((name) => {
-    const path = files.get(name)
-    const code =
-      path && componentFiles[`../../packages/opui/components/${path}`]
-    return code
-      ? [{ code, lang: sourceLang[framework], title: path.split("/").pop()! }]
-      : []
+  const entries = names.flatMap((name) => {
+    const path = exported.get(name)
+    return path && path in packageFiles ? [path] : []
   })
+  const seen = new Set(entries)
+  const queue = [...entries]
+  while (queue.length > 0) {
+    for (const file of relativeImports(queue.shift()!)) {
+      if (seen.has(file)) continue
+      seen.add(file)
+      queue.push(file)
+    }
+  }
+  return [...seen].toSorted().map((path) => ({
+    code: packageFiles[path],
+    lang: langOf(path),
+    title: path,
+  }))
 }

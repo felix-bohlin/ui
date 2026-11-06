@@ -23,11 +23,11 @@ A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/conc
 
 Drag a knob: the palette is derived again, the roles that read it follow, and so does every component. A theme sets the knobs once on `html`; this figure is a `.ui-palette` scope with its own.
 
-Snippets on this page belong in `@layer theme.custom`, see [Your theme](https://open-props-ui.netlify.app/html/guide/customizing.md#your-theme). Every token and its default is on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md), and the [Theme builder](https://open-props-ui.netlify.app/theme-builder.md) writes a theme for you and checks its contrast.
+Snippets go in [`@layer theme.custom`](https://open-props-ui.netlify.app/html/guide/customizing.md#your-theme). Every token is on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Palette
 
-One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, and `core/palette.css` derives the `--ui-color-1` to `--ui-color-16` steps from it.
+One hue and chroma derive the 16 palette steps.
 
 ```css
 :where(html) {
@@ -37,11 +37,11 @@ One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, 
 }
 ```
 
-- `--ui-palette-chroma` scales the saturation, from `0` (gray) to `1`.
-- `--ui-palette-hue` is a hue angle in degrees, `222.8` (blue) by default.
-- `--ui-palette-hue-rotate-by` turns the hue by this many degrees per step, so `1` spreads 15° across the palette. `.ui-critical`, `.ui-info`, `.ui-success` and `.ui-warning` use `1` for livelier tints; `.ui-neutral` keeps `0`.
+- `--ui-palette-chroma`: saturation, `0` to `1`.
+- `--ui-palette-hue`: a hue angle in degrees.
+- `--ui-palette-hue-rotate-by`: degrees of hue per step.
 
-Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette` and the severity classes, so the knobs do nothing anywhere else. `.ui-contrast-more` only re-derives the roles. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-neutral`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` also keeps the chroma of `--ui-neutral`, which follows `--ui-gray-hue` and `--ui-gray-chroma` by default. This is the library's own rule for `.ui-warning`. It sits in the `theme.severity` layer, after `theme.custom`, so a copy of it in a theme is overridden; recolor a scope through its intent token instead:
+Or set `--ui-palette-source` to any color. Recolor a severity scope through its intent token, like `--ui-warning`. The library's own rule:
 
 ```css
 :where(.ui-warning) {
@@ -52,15 +52,13 @@ Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scal
 
 ## Scopes
 
-A scope class re-themes an element and everything inside it, so one page can carry several brands, a dark panel or one red for every critical component:
+A scope class re-themes an element and everything inside it:
 
-- `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits, `--ui-primary` and the intent colors included. `.ui-contrast-more` re-derives every derived token and palette role with the contrast knobs tightened; the palette steps stay those of the nearest `.ui-palette` or `:root`.
-- `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning` swap the palette steps for the intent color and leave `--ui-primary` and the text colors alone. [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#palette-scopes) shows the steps of each one.
-- `.ui-light` and `.ui-dark` force a color scheme. On an element they only pick the other side of `light-dark()`: the surface and text colors, `--ui-shadow-color` and `--ui-shadow-elevated` switch, so shadows darken too. A build that rewrites `light-dark()` for older browsers, like the defaults of Vite 8 and Next 16, only follows them on `html`; the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark) has the settings that keep `light-dark()`.
+- `.ui-palette`: re-derives every token from the knobs it sets.
+- `.ui-critical` and the other severities: swap the palette for the intent color.
+- `.ui-light` and `.ui-dark`: force a color scheme. Builds that rewrite `light-dark()` only follow them on `html`, see the [README](https://github.com/felix-bohlin/ui/blob/main/packages/opui/README.md#builds-that-rewrite-light-dark).
 
 ## Surfaces
-
-Five surfaces, two text colors and two border colors paint everything that isn't an accent:
 
 - `--ui-surface` The page
 - `--ui-surface-elevated` Elevated cards and accordions, dialogs, drawers, menus
@@ -74,13 +72,11 @@ Five surfaces, two text colors and two border colors paint everything that isn't
 
 Each role with its current value, live with the theme.
 
-A raised component (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and a `Callout` without a severity) sets `--ui-border-color` to `--ui-border-color-on-raised` and `--ui-field-border-color` to `--ui-field-border-color-on-raised` on its root, so dividers and fields inside it stay visible on the raised fill. Both default to the plain border colors. Filled lists and table headers do the same with the `-on-filled` pair. A theme that wants another border on raised surfaces sets the `-on-raised` tokens.
-
-The edge of the raised surface itself is `--ui-border-color-raised`, one word shorter. Every raised component reads it, the `Select` picker too, and each keeps its own edge until a theme sets it: cards, accordions and dialogs the page background, callouts their fill, drawers, menus and the picker `--ui-border-color-on-raised`. Set it to outline them all, or to `transparent` to drop their edges, like the m3 theme.
+Set `--ui-border-color-on-raised` for borders inside raised components, and `--ui-border-color-raised` for their edge.
 
 ## Density
 
-`--ui-density` scales the `--ui-control-size*` roles, so fields, buttons and list items grow or shrink together, and their padding shrinks down to the height of the text. Set it on `html`, or on a `.ui-palette` element to change one part of the page.
+Use `--ui-density` to change the size of every control.
 
 ```css
 :where(html) {
@@ -90,7 +86,7 @@ The edge of the raised surface itself is `--ui-border-color-raised`, one word sh
 
 ## Spacing
 
-`--ui-space-1` to `--ui-space-8` pad and space containers, forms and rich text. Each is a fixed step (`0.25rem`, `0.5rem`, `1rem`, `1.25rem`, `1.5rem`, `1.75rem`, `2rem` and `3rem`) times `--ui-space-scale`, set on `html` or a `.ui-palette` element. Controls follow `--ui-density` instead, so a roomy form can keep compact fields.
+Use `--ui-space-scale` to change spacing. Controls follow density instead.
 
 ```css
 :where(html) {
@@ -106,7 +102,7 @@ The edge of the raised surface itself is `--ui-border-color-raised`, one word sh
 
 ## Corners
 
-`--ui-radius` rounds every component, and buttons and fields follow it until you set `--ui-button-radius` or `--ui-field-radius`. Small parts like `kbd`, tooltips and checkboxes never get rounder than it, so `0` squares every corner that follows it; pill and circle shapes stay round until `--ui-radius-round` is set. `--ui-radius-x-small`, `--ui-radius-small` and `--ui-radius-large` derive from it (capped at 2px and 5px, and times 1.5), and `--ui-radius-round` is the pill.
+Use `--ui-radius` to round every component.
 
 ```css
 :where(html) {
@@ -116,7 +112,7 @@ The edge of the raised surface itself is `--ui-border-color-raised`, one word sh
 
 ## Fonts
 
-`--ui-font-body` sets the text and controls, `--ui-font-code` code, `kbd` and `samp`, and `--ui-font-heading` the headings, which follow the body font until you set it.
+Headings follow the body font until you set one.
 
 ```css
 :where(html) {
@@ -126,7 +122,7 @@ The edge of the raised surface itself is `--ui-border-color-raised`, one word sh
 }
 ```
 
-The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is a primitive. Components read the roles on top of it, like `--ui-font-size-caption`, `--ui-font-size-control` and `--ui-font-size-h1`. Pin a role, move a step and every role on it follows, or replace the scale:
+Pin a size role, or replace the scale:
 
 ```css
 :where(html, .ui-palette, .ui-contrast-more) {
@@ -150,7 +146,7 @@ The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is 
 
 ### Fluid headings
 
-`--ui-font-size-h1` to `--ui-font-size-h4` grow from one step to a larger one (h1 and h2 skip a step) as the viewport widens, together, over one window: `--ui-fluid-min-inline-size` (20rem) to `--ui-fluid-max-inline-size` (48rem). `--ui-fluid-progress` is the position in that window, 0 to 1, from `progress()`, so a theme can ramp other values on the same window. Move the window, reuse the ramp, or pin a heading to a step:
+Headings grow with the viewport. Move the window, reuse the ramp, or pin a heading:
 
 ```css
 :where(html) {
@@ -168,17 +164,15 @@ The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is 
 }
 ```
 
-Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` heading sizes and have no `--ui-fluid-progress`.
-
 ## Elevation
 
-- `--ui-shadow-control`: buttons with a variant, chips, toggle buttons and fields. `none` until a theme sets it, and the optional `--ui-shadow-field` splits off the fields.
+- `--ui-shadow-control`: controls. Off by default.
 - `--ui-shadow-elevated`: elevated cards and accordions.
-- `--ui-shadow-overlay`: dialogs, drawers, menus, `select` pickers, toasts and the carousel buttons.
-- `--ui-shadow-scroll`: the edges of scrolled dialogs, drawers and sticky table headers.
-- `--ui-shadow-surface`: tonal and outlined cards and accordions, callouts, and Checkbox, Radio and Switch cards. `none` by default.
+- `--ui-shadow-overlay`: dialogs, menus and toasts.
+- `--ui-shadow-scroll`: scrolled edges.
+- `--ui-shadow-surface`: tonal and outlined surfaces. Off by default.
 - `--ui-shadow-selected`: the selected tab.
-- `--ui-shadow-color`: the color and base opacity every default shadow is built from, a `light-dark()` pair, so shadows darken in dark mode, also in `.ui-dark` parts of the page. Each layer adds its own opacity on top.
+- `--ui-shadow-color`: every shadow's base color.
 
 ```css
 :where(html, .ui-palette, .ui-contrast-more) {
@@ -189,15 +183,15 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 
 ## Motion
 
-`--ui-motion` multiplies every duration. It is `1`, or `0` under `prefers-reduced-motion: reduce`.
+`--ui-motion` multiplies every duration. It's `0` with reduced motion.
 
 ### Global classes
 
-On `html`, these override the OS preference for every transition and animation, and for the page's smooth scrolling. A theme that sets `--ui-motion: 0` on `html` stops the transitions and the Carousel's smooth scrolling but not the page's, which `normalize.css` keys on `prefers-reduced-motion` and the classes, since `html` can't query its own `--ui-motion`.
+On `html`, these override the OS preference:
 
 - `.ui-motion-off`: sets `--ui-motion: 0`.
 - `.ui-motion-on`: sets `--ui-motion: 1`.
-- `.ui-motion-debug`: sets `--ui-motion: 10` (slows down transitions 10x).
+- `.ui-motion-debug`: sets `--ui-motion: 10`.
 
 ```html
 <html lang="en" class="ui-motion-debug">
@@ -205,7 +199,7 @@ On `html`, these override the OS preference for every transition and animation, 
 
 ### Local overrides
 
-Each component reads it through its own `--_motion`, so you can turn one off:
+Use `--_motion` on one component:
 
 ```html
 <button class="ui-button" style="--_motion: 0" type="button">
@@ -215,7 +209,7 @@ Each component reads it through its own `--_motion`, so you can turn one off:
 
 ### Springy movement
 
-Two optional tokens give the controls some personality. `--ui-ease-move` is the easing of things that move: the tabs indicator, the press scale, and menus, selects, tooltips and toasts as they open. Nothing closing reads it. `--ui-press-scale` shrinks buttons, toggle buttons and chips while they're pressed. Both are unset, so nothing bounces or shrinks until a theme sets them, and both follow `--ui-motion`.
+Off by default. Set `--ui-ease-move` and `--ui-press-scale` to turn them on.
 
 ```css
 :root {
@@ -233,9 +227,9 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 ## Contrast
 
-`--ui-contrast` is `normal`, or `more` under `prefers-contrast: more`. More contrast changes no color directly. It tightens the knobs the roles are derived from, and every role follows: `--ui-text-strength-light` and `--ui-text-strength-dark` (how much of `--ui-text-strong` goes into `--ui-text`), `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength` for the borders, `--ui-text-max-lightness` and `--ui-text-min-lightness` for the `-text` roles, `--ui-accent-max-chroma` and `--ui-accent-max-lightness` for the primary, invalid and palette accents, `--ui-accent-fill-max-lightness` for intent fills, `--ui-primary-max-lightness` and `--ui-primary-min-lightness` for the primary, the `--ui-palette-*-lightness` limits for the palette roles, and `--ui-focus-ring-width`. Their values in both modes are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast). Components with translucent fills or text have style queries of their own for the shape changes.
+More contrast tightens the knobs, and every role follows. Their values are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast).
 
-A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it (brutalist pins `--ui-primary-text` to its text color), so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-border-color: oklch(0.95 0 0)`, owns that role in every contrast mode. Set the knob instead, or hand the role back to the library under more contrast with `revert-layer`, which drops the theme's value and keeps the library's formula, computed from the theme's own `--ui-text-strong` and `--ui-surface`:
+A role a theme pins stays pinned in every contrast mode. Hand it back with `revert-layer`:
 
 ```css
 @layer theme.custom {
@@ -258,12 +252,10 @@ A theme that sets a knob or `--ui-primary-source` keeps working with more contra
 }
 ```
 
-The example themes do this for their borders, field borders, focus ring and subtle text, so they keep their originals' look at normal contrast and meet every contrast promise with more contrast. Hand back a role only where the library's value is stronger: a theme whose `--ui-text` already equals `--ui-text-strong` keeps it, and brutalist, whose borders are already black, draws them in `--ui-text` instead so they stay visible in dark mode. The Theme builder hands back the same roles when you set them.
-
 ### Classes
 
-- `.ui-contrast-more`: sets `--ui-contrast: more` and the tightened knobs, on `html` or any element. On an element it is a scope like `.ui-palette`, so every role inside is derived again.
-- `.ui-contrast-normal`: sets `--ui-contrast: normal`, on `html` to ignore the OS preference. Inside a `.ui-contrast-more` ancestor it keeps the tightened colors but resets what components read from `--ui-contrast`.
+- `.ui-contrast-more`: more contrast, on `html` or any element.
+- `.ui-contrast-normal`: on `html`, ignores the OS preference.
 
 ```html
 <html lang="en" class="ui-contrast-more">
@@ -271,7 +263,7 @@ The example themes do this for their borders, field borders, focus ring and subt
 
 ### Custom values
 
-To tune more contrast, set the knobs where the library sets them: on `html` under the media query, and on `.ui-contrast-more`.
+Set the knobs under the media query and on `.ui-contrast-more`:
 
 ```css
 @layer theme.custom {
@@ -291,4 +283,4 @@ To tune more contrast, set the knobs where the library sets them: on `html` unde
 
 ### Forced colors
 
-Under `forced-colors: active`, selected tabs, toggles and list items, checked switches, progress bars and range fills and thumbs use `SelectedItem`; unchecked switches, the rest of range tracks, progress outlines and dividers `CanvasText`; invalid fields and choices a dashed border; and focused fields a `Highlight` outline. Nothing to configure.
+Handled by the components. Nothing to configure.

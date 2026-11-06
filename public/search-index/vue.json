@@ -3389,7 +3389,7 @@
   {
     "id": "guide-customizing-vue",
     "title": "Customizing",
-    "description": "Where your CSS goes: a theme in theme.custom changes the whole library, a component's --_* properties change one component or one instance, and your own layer holds the rest.",
+    "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
     "category": "Guide",
     "url": "/vue/guide/customizing/"
   },

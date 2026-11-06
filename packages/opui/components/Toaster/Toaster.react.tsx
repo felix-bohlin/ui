@@ -32,9 +32,23 @@ export default function Toaster({
       id={id}
       {...rest}
     >
-      <ol popover="manual" />
-      <div className="ui-sr-only" role="status" />
-      <div className="ui-sr-only" role="alert" />
+      <ol
+        popover="manual"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
+      <div
+        className="ui-sr-only"
+        role="status"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
+      <div
+        className="ui-sr-only"
+        role="alert"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
     </opui-toaster>
   )
 }

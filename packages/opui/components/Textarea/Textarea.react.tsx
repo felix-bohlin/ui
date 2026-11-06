@@ -76,6 +76,8 @@ export default function Textarea({
               aria-hidden="true"
               className="ui-value"
               label={characterCountLabel}
+              dangerouslySetInnerHTML={{ __html: "" }}
+              suppressHydrationWarning
             />
           )}
         </span>

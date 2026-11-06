@@ -528,7 +528,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox`, `Radio`, `Select`, `Switch`, `TextField` and `Textarea` in Astro and Vue render the label slot without the whitespace around its content, like React and Svelte, so a required field no longer shows a space before its asterisk.
 - `Checkbox` draws a disabled box in `GrayText` in forced colors mode, like `Switch`, instead of the enabled colors at reduced opacity.
 - `Checkbox`, `Radio` and `Switch` get a dashed border on an invalid input, switch track or card in forced colors, where the red is forced away.
-- `Checkbox`, `NumberField`, `OneTimeCode`, `Radio`, `Range`, `Rating`, `Select`, `Switch`, `Textarea` and `TextField` in Vue keep what the user changed before the page hydrated (typed, picked, filled in by a password manager or restored by the browser) instead of resetting it, and a form reset still returns to the value the server rendered. A color `TextField` without a value no longer logs a warning in Nuxt, and `Rating` binds its radios with `v-model`, so a form reset returns to the server's rating there too.
+- `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `Textarea` and `TextField` in Vue keep what the user changed before the page hydrated (typed, picked, filled in by a password manager or restored by the browser) instead of resetting it, and a form reset still returns to the value the server rendered. A color `TextField` without a value no longer logs a warning in Nuxt.
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` disabled text color applies to tonal and outlined chips.
 - `Chip` in Astro only renders `href` when the chip is an `a`.
@@ -591,8 +591,8 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Radio` in Vue follows a passed `checked` without `v-model`.
 - `Radio` in Vue compares `v-model` with its `value` like a native radio, so `ref(1)` checks the radio with `value="1"`.
 - `Radio` no longer puts the required asterisk on every option of a required group; the group's legend carries it.
+- `Radio` in Svelte keeps a choice the user made before the page hydrated instead of resetting it, and a form reset still returns to the choice the server rendered.
 - `Range`, `Textarea` and `TextField` in Vue reset to the value they started with when their form is reset, also when rendered on the client, and the bound value follows the reset, like in Astro and HTML.
-- `Radio` and `Rating` in Svelte keep a choice the user made before the page hydrated instead of resetting it, and a form reset still returns to the choice the server rendered.
 - `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
@@ -654,6 +654,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Tabs` and `ToggleButton` hide their inputs in `tabs.css` and `toggle-button.css` instead of `core/utils.css`, so single-file imports and `dist/opui.components.css` no longer show the radio and checkbox inputs.
 - `Tabs` directly in an `Accordion`, `Card` or `Dialog` draw the focus ring inside, so the surface doesn't clip it, and on a filled selected tab the ring takes `--ui-on-selected-strong`, so it keeps 3:1 on the fill.
 - `TabsItem` in Vue follows `id` and `tabId` changes.
+- `Textarea` and `TextField` in React hydrate when the character count's element loaded before React did, because a page imports `opui-css/elements/character-count.js` itself or another island or streamed section loaded it first. React leaves the count the element writes to the element instead of failing to hydrate.
 - `Textarea` no longer adds the border width to its minimum height.
 - `TextField`, `Textarea` and `Select` with `spread` (`.ui-spread`) collapse to a column when narrower than 400px. Previously the field was squeezed next to the label.
 - `TextField` and `Select` small fields are `--ui-field-size-small` (32px) high, like a small `Button`. They were 38px.

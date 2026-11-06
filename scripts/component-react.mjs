@@ -275,6 +275,12 @@ export const toReact = (component) => {
                 `onChange={(event) => {\n  ${item.parent}?.change?.(event.currentTarget)\n  onChange?.(event)\n}}`,
               ]
             : []),
+          ...(node.external
+            ? [
+                'dangerouslySetInnerHTML={{ __html: "" }}',
+                "suppressHydrationWarning",
+              ]
+            : []),
         ].join(" ")
         const open = `<${node.tag}${attributes ? ` ${attributes}` : ""}`
         return node.children.length === 0

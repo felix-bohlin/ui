@@ -799,11 +799,15 @@ const toTree = (nodes, context) =>
           ? { ...context, foreign: true }
           : context
       const html = node.attributes.find((item) => item.name === "set:html")
+      const external =
+        html?.kind === "quoted" &&
+        html.value === "" &&
+        node.children.length === 0
       const htmlSlot =
         html && node.children.length === 0 && html.kind === "expression"
           ? slotOfHtml(html.value, context)
           : undefined
-      if (html && !htmlSlot) {
+      if (html && !htmlSlot && !external) {
         throw unsupported(context.file, `set:html={${html.value}}`)
       }
       const children = htmlSlot ? [htmlSlot] : toTree(node.children, inner)
@@ -815,6 +819,7 @@ const toTree = (nodes, context) =>
           children,
           component,
           custom: node.type === "custom-element",
+          external,
           foreign: context.foreign === true,
           tag: node.name,
           type: "element",

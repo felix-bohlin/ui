@@ -159,6 +159,8 @@ export default function TextField({
               aria-hidden="true"
               className="ui-value"
               label={characterCountLabel}
+              dangerouslySetInnerHTML={{ __html: "" }}
+              suppressHydrationWarning
             />
           )}
         </span>

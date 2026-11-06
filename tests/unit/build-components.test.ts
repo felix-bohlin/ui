@@ -257,6 +257,21 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test('set:html="" keeps React from hydrating content the page writes', async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<opui-sample class:list={["ui-sample", className]} {...rest}>\n  <span class="ui-sr-only" role="status" set:html="" />\n</opui-sample>\n',
+    )
+    expect(ports["react.tsx"]).toMatch(
+      /role="status"\s+dangerouslySetInnerHTML=\{\{ __html: "" \}\}\s+suppressHydrationWarning\s+\/>/,
+    )
+    expect(ports.svelte).toContain(
+      '<span class="ui-sr-only" role="status"></span>',
+    )
+    expect(ports.vue).toContain(
+      '<span class="ui-sr-only" role="status"></span>',
+    )
+  })
+
   test("mergeStyle merges into an object in React and into the attrs in Vue", async () => {
     const ports = await compile(
       '---\nimport type { Props } from "./types.astro"\nimport { mergeStyle } from "../style"\n\nconst { class: className, style, width, ...rest } = Astro.props\n---\n\n<col class:list={[className]} style={mergeStyle({ width }, style)} {...rest} />\n',
@@ -893,6 +908,7 @@ describe("the three ports of a sample", () => {
       "map callback takes more than the item and its index",
     ],
     ["<div {...rest} set:html={html} />", "set:html={html}"],
+    ['<div {...rest} set:html="text" />', "set:html={text}"],
     [
       "<div {...rest}><Fragment set:html={html} /></div>",
       "<Fragment set:html>",

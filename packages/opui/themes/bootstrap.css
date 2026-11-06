@@ -65,6 +65,7 @@
     --ui-letter-spacing-heading: 0;
     --ui-line-height: 1.5;
     --ui-line-height-relaxed: 1.5;
+    --ui-link-font-weight: 400;
     --ui-neutral: oklch(0.558 0.016 245);
     --ui-on-inverse: light-dark(oklch(1 0 0), oklch(0.262 0.01 248));
     --ui-palette-source: oklch(0.578 0.228 260);

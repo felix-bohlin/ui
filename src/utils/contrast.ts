@@ -56,6 +56,7 @@ export const CONTRAST_LABELS: Record<string, string> = {
   "--ui-info": "Info fill",
   "--ui-info-text": "Info text",
   "--ui-invalid-text": "Invalid field message",
+  "--ui-link-visited-text-color": "Visited link",
   "--ui-neutral": "Neutral fill",
   "--ui-neutral-text": "Neutral text",
   "--ui-on-fill": "Text on status fills",

@@ -85,6 +85,11 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
   },
   "--ui-info-text": { against: SURFACES, ratio: 4.5 },
   "--ui-invalid-text": { against: SURFACES, ratio: 4.5 },
+  "--ui-link-visited-text-color": {
+    against: SURFACES,
+    fallback: "--ui-primary-text",
+    ratio: 4.5,
+  },
   "--ui-neutral-text": { against: SURFACES, ratio: 4.5 },
   "--ui-on-fill": {
     against: ["--ui-critical", "--ui-info", "--ui-neutral", "--ui-success"].map(

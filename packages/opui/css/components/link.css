@@ -9,7 +9,7 @@
 
       color: var(--_text-color);
       cursor: pointer;
-      font-weight: var(--ui-font-weight-bold);
+      font-weight: var(--ui-link-font-weight, var(--ui-font-weight-bold));
       text-decoration: underline;
       text-decoration-color: var(--_text-color);
       text-underline-offset: var(--ui-underline-offset);
@@ -20,6 +20,14 @@
 
     :where(:scope.ui-link)[href],
     a[href]:where(:not([class*="ui-"])) {
+      &:visited {
+        color: var(--ui-link-visited-text-color, var(--_text-color));
+        text-decoration-color: var(
+          --ui-link-visited-text-color,
+          var(--_text-color)
+        );
+      }
+
       @media (hover: hover) {
         &:hover {
           color: light-dark(
@@ -43,7 +51,8 @@
 
     mark a[href]:where(:not([class*="ui-"])) {
       &,
-      &:focus-visible {
+      &:focus-visible,
+      &:visited {
         color: inherit;
         text-decoration-color: currentColor;
       }

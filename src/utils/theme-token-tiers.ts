@@ -101,6 +101,8 @@ const componentTokens = [
   "--ui-code-block-text-color",
   "--ui-dialog-radius",
   "--ui-divider-gap",
+  "--ui-link-font-weight",
+  "--ui-link-visited-text-color",
   "--ui-list-item-padding-inline",
   "--ui-menu-radius",
   "--ui-switch-thumb-bg-color",

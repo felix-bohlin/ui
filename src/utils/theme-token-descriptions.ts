@@ -272,6 +272,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
     "Line height of single-line controls and compact text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+  "--ui-link-font-weight":
+    "Font weight of `.ui-link` and of links in `.ui-rich-text`. When unset, links follow `--ui-font-weight-bold`, the weight of headings.",
+  "--ui-link-visited-text-color":
+    "Text and underline color of a visited `.ui-link` and of visited links in `.ui-rich-text`. Hover and focus keep their own color. When unset, visited links look like the others.",
   "--ui-list-item-padding-inline":
     "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":

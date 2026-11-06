@@ -275,7 +275,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           <p>Short posts on the new CSS inside each component.</p>
         </header>
 
-        <ul class="blog-showcase">
+        <Carousel
+          aria-label="Posts"
+          class="blog-showcase showcase-grid"
+          markers
+        >
           {featuredPosts.map((post) => <li>
             <article class="ui-card ui-outlined blog-card">
               <hgroup>
@@ -311,7 +315,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
               </div>
             </article>
           </li>)}
-        </ul>
+        </Carousel>
 
         <div class="hero-ctas">
           <Button href={link("/blog")} variant="outlined" color="primary">
@@ -887,12 +891,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   }
 
   .blog-showcase {
-    display: grid;
     gap: var(--size-4);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-    list-style: none;
-    margin: 0;
-    padding: 0;
+
+    @media (width >= 900px) {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    }
   }
 
   .blog-card {

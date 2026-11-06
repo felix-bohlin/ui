@@ -438,9 +438,10 @@ describe("the three ports of a sample", () => {
     expect(svelte).toContain("value = star")
     const vue = port(".vue")
     expect(vue).toContain("const modelValue = defineModel<number | string>()")
-    expect(vue).toContain("const current = computed(() => Number(model.value))")
-    expect(vue).toContain(`@change="model = '0'"`)
-    expect(vue).toContain('@change="model = star"')
+    expect(vue).not.toContain(":checked")
+    expect(vue).not.toContain("@change")
+    expect(vue.match(/v-seed\s+v-model="model"/g)).toHaveLength(2)
+    expect(vue).not.toContain("const current")
   })
 
   test("Vue keeps the hyphenated props a component reads out of the attrs its root spreads", async () => {
@@ -469,7 +470,7 @@ describe("the three ports of a sample", () => {
       '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let { class: className, value = $bindable(), ...rest }: Props = $props()\n\n  const initialValue = untrack(() => value)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value defaultValue={initialValue}></textarea>\n</label>\n',
     )
     expect(port(".vue")).toBe(
-      '<script setup lang="ts">\nimport { computed, onBeforeUnmount, onMounted, useTemplateRef } from "vue"\nimport { useInputAttrs } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n\nconst modelElement = useTemplateRef<HTMLTextAreaElement>("modelElement")\n\nlet modelForm: HTMLFormElement | null = null\n\nconst resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = element.value\n  })\n\nonMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && model.value != null) {\n    element.defaultValue = String(model.value)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})\n\nonBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-model="model" ref="modelElement"></textarea>\n  </label>\n</template>\n',
+      '<script setup lang="ts">\nimport { computed, onBeforeUnmount, onMounted, useTemplateRef } from "vue"\nimport { useInputAttrs, vSeed } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n\nconst modelElement = useTemplateRef<HTMLTextAreaElement>("modelElement")\n\nconst initialValue = model.value\n\nlet modelForm: HTMLFormElement | null = null\n\nconst resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = element.value\n  })\n\nonMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && initialValue != null) {\n    element.defaultValue = String(initialValue)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})\n\nonBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea\n      v-bind="attrs"\n      v-seed\n      v-model="model"\n      ref="modelElement"\n    ></textarea>\n  </label>\n</template>\n',
     )
   })
 
@@ -502,7 +503,7 @@ describe("the three ports of a sample", () => {
       "let { class: className, value = $bindable(), ...rest }: Props = $props()",
     )
     expect(outputs.get(sampleFile().replace(".astro", ".vue"))).toContain(
-      '<input\n      v-bind="attrs"\n      type="number"\n      v-model.number="model"\n      ref="modelElement"\n    />',
+      '<input\n      v-bind="attrs"\n      type="number"\n      v-seed\n      v-model.number="model"\n      ref="modelElement"\n    />',
     )
   })
 
@@ -649,7 +650,7 @@ describe("the three ports of a sample", () => {
       "const modelValue = defineModel<boolean | (string | number)[] | undefined>({\n  default: undefined,\n})\n\nconst model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
     )
     expect(vue).toContain(
-      '<input\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...attrs, ...classAttrs($props.class) }"\n    v-model="model"\n  />',
+      '<input\n    type="checkbox"\n    :name="name"\n    v-bind="{ ...attrs, ...classAttrs($props.class) }"\n    v-seed\n    v-model="model"\n  />',
     )
   })
 
@@ -669,7 +670,7 @@ describe("the three ports of a sample", () => {
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))
     expect(vue).toContain("const unchecked = Symbol()")
     expect(vue).toContain(
-      '<input\n    type="radio"\n    v-bind="{ ...attrs, ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-model="model"\n  />',
+      '<input\n    type="radio"\n    v-bind="{ ...attrs, ...classAttrs($props.class) }"\n    :value="attrs.value"\n    v-seed\n    v-model="model"\n  />',
     )
   })
 

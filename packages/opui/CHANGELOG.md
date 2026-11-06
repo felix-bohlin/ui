@@ -528,6 +528,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox`, `Radio`, `Select`, `Switch`, `TextField` and `Textarea` in Astro and Vue render the label slot without the whitespace around its content, like React and Svelte, so a required field no longer shows a space before its asterisk.
 - `Checkbox` draws a disabled box in `GrayText` in forced colors mode, like `Switch`, instead of the enabled colors at reduced opacity.
 - `Checkbox`, `Radio` and `Switch` get a dashed border on an invalid input, switch track or card in forced colors, where the red is forced away.
+- `Checkbox`, `NumberField`, `OneTimeCode`, `Radio`, `Range`, `Rating`, `Select`, `Switch`, `Textarea` and `TextField` in Vue keep what the user changed before the page hydrated (typed, picked, filled in by a password manager or restored by the browser) instead of resetting it, and a form reset still returns to the value the server rendered. A color `TextField` without a value no longer logs a warning in Nuxt, and `Rating` binds its radios with `v-model`, so a form reset returns to the server's rating there too.
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` disabled text color applies to tonal and outlined chips.
 - `Chip` in Astro only renders `href` when the chip is an `a`.

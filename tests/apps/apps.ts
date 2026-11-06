@@ -21,6 +21,7 @@ type App = {
   name: string
   port: number
   registry?: boolean
+  scripts?: string
   ssr: boolean
   start: string
 }
@@ -34,6 +35,7 @@ const ALL_APPS: App[] = [
     name: "next",
     port: 4401,
     registry: true,
+    scripts: "/_next/",
     ssr: true,
     start: "pnpm exec next start --port 4401",
   },
@@ -44,6 +46,7 @@ const ALL_APPS: App[] = [
     framework: "vue",
     name: "nuxt",
     port: 4402,
+    scripts: "/_nuxt/",
     ssr: true,
     start: "node .output/server/index.mjs",
   },
@@ -57,6 +60,7 @@ const ALL_APPS: App[] = [
     framework: "svelte",
     name: "sveltekit",
     port: 4403,
+    scripts: "/_app/",
     ssr: true,
     start: "node build",
   },
@@ -108,16 +112,12 @@ export const APPS = selected
 
 export const appDir = (app: App) => path.join(appsDir, app.name)
 
-export const KNOWN_PROBLEMS = [
-  {
-    app: "nuxt",
-    message:
-      'console.warning: The specified value "" does not conform to the required format.  The value must be a valid CSS color.',
-    reason:
-      "Vue's v-model sets a color TextField without a value to an empty string while it hydrates (TODO.md, Bugs, TextField (Vue))",
-    slug: "text-field",
-  },
-]
+export const KNOWN_PROBLEMS: {
+  app: string
+  message: string
+  reason: string
+  slug: string
+}[] = []
 
 const examplesDir = path.join(root, "src/component-examples")
 

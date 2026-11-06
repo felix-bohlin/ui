@@ -9,7 +9,7 @@ import {
   useId,
   useTemplateRef,
 } from "vue"
-import { useInputAttrs } from "../vue"
+import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import Button from "../Button/Button.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
@@ -58,6 +58,8 @@ const model = computed({
 
 const modelElement = useTemplateRef<HTMLInputElement>("modelElement")
 
+const initialValue = model.value
+
 let modelForm: HTMLFormElement | null = null
 
 const resetModel = (event: Event) =>
@@ -70,8 +72,8 @@ const resetModel = (event: Event) =>
 onMounted(() => {
   const element = modelElement.value
   if (!element) return
-  if (!element.hasAttribute("value") && model.value != null) {
-    element.defaultValue = String(model.value)
+  if (!element.hasAttribute("value") && initialValue != null) {
+    element.defaultValue = String(initialValue)
   }
   modelForm = element.form
   modelForm?.addEventListener("reset", resetModel)
@@ -146,6 +148,7 @@ const endTextId = computed(() =>
         :name="name ?? field?.name"
         :pattern="pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
         :type="type === 'numeric' ? 'text' : type"
+        v-seed
         v-model="model"
         ref="modelElement"
       />{{ " "

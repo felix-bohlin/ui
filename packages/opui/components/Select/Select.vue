@@ -7,7 +7,7 @@ import {
   useAttrs,
   useId,
 } from "vue"
-import { useInputAttrs } from "../vue"
+import { useInputAttrs, vSeed } from "../vue"
 import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
@@ -47,14 +47,6 @@ const model = computed({
     modelValue.value = value
   },
 })
-
-const vSeed = {
-  beforeMount: (el: HTMLSelectElement) => {
-    model.value ??= el.multiple
-      ? [...el.selectedOptions].map((option) => option.value)
-      : el.value
-  },
-}
 
 const isSelected = (value: unknown) =>
   Array.isArray(model.value)

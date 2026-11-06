@@ -49,13 +49,14 @@ export const MODEL_KINDS = {
       untrack: () => true,
     },
     vue: {
-      attributes: () => ['v-model="model"'],
+      attributes: () => ["v-seed", 'v-model="model"'],
       computed: true,
       explicitAttrs: true,
       setup: (model) => [
         optionalModel(model),
         "const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false),\n  set: (value) => {\n    modelValue.value = value\n  },\n})",
       ],
+      vueHelpers: () => ["vSeed"],
     },
   },
   checkedItem: {
@@ -145,7 +146,8 @@ export const MODEL_KINDS = {
     },
     vue: {
       computed: true,
-      radioAttributes: (model, value) => [`@change="model = ${value}"`],
+      modelsGroupRadio: true,
+      radioAttributes: () => ["v-seed", 'v-model="model"'],
       rename: (model) => ({
         script: [[model.local, "model.value"]],
         template: [[model.local, "model"]],
@@ -154,6 +156,7 @@ export const MODEL_KINDS = {
         `const modelValue = defineModel<${model.type}>()`,
         `const model = computed({\n  get: () => modelValue.value ?? ${model.local},\n  set: (value) => {\n    modelValue.value = value\n  },\n})`,
       ],
+      vueHelpers: () => ["vSeed"],
     },
   },
   radio: {
@@ -174,7 +177,7 @@ export const MODEL_KINDS = {
       untrack: () => true,
     },
     vue: {
-      attributes: () => [':value="attrs.value"', 'v-model="model"'],
+      attributes: () => [':value="attrs.value"', "v-seed", 'v-model="model"'],
       computed: true,
       explicitAttrs: true,
       setup: (model) => [
@@ -182,6 +185,7 @@ export const MODEL_KINDS = {
         "const unchecked = Symbol()",
         `const model = computed({\n  get: () =>\n    modelValue.value ??\n    (attrs.checked !== undefined && attrs.checked !== false\n      ? attrs.value\n      : unchecked),\n  set: (value: ${model.type} | undefined) => {\n    modelValue.value = value\n  },\n})`,
       ],
+      vueHelpers: () => ["vSeed"],
     },
   },
   value: {
@@ -211,6 +215,7 @@ export const MODEL_KINDS = {
     },
     vue: {
       attributes: (model) => [
+        "v-seed",
         `v-model${numeric(model) ? ".number" : ""}="model"`,
         ...(resettable(model) ? ['ref="modelElement"'] : []),
       ],
@@ -226,13 +231,15 @@ export const MODEL_KINDS = {
         ...(resettable(model)
           ? [
               `const modelElement = useTemplateRef<${ELEMENT_INTERFACES[model.element.tag]}>("modelElement")`,
+              "const initialValue = model.value",
               "let modelForm: HTMLFormElement | null = null",
               `const resetModel = (event: Event) =>\n  setTimeout(() => {\n    const element = modelElement.value\n    if (event.defaultPrevented || !element) return\n    model.value = ${numeric(model) ? "Number.isNaN(element.valueAsNumber)\n      ? element.value\n      : element.valueAsNumber" : "element.value"}\n  })`,
-              'onMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && model.value != null) {\n    element.defaultValue = String(model.value)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})',
+              'onMounted(() => {\n  const element = modelElement.value\n  if (!element) return\n  if (!element.hasAttribute("value") && initialValue != null) {\n    element.defaultValue = String(initialValue)\n  }\n  modelForm = element.form\n  modelForm?.addEventListener("reset", resetModel)\n})',
               'onBeforeUnmount(() => modelForm?.removeEventListener("reset", resetModel))',
             ]
           : []),
       ],
+      vueHelpers: () => ["vSeed"],
       vueImports: (model) =>
         resettable(model)
           ? ["onBeforeUnmount", "onMounted", "useTemplateRef"]

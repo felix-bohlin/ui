@@ -36,6 +36,25 @@ import {
 const vueSlot = (name) => (name.includes("-") ? `['${name}']` : `.${name}`)
 
 const ATTRIBUTE = /[^\s="]+(?:="[^"]*")?/g
+
+const withoutUnused = (lines, markup, declarations) => {
+  const unused = declarations.find(
+    ({ line, name }) =>
+      lines.includes(line) &&
+      ![markup, ...lines.filter((other) => other !== line)].some((text) =>
+        new RegExp(`(?<![\\w$.])${name.replaceAll("$", "\\$")}(?![\\w$])`).test(
+          text,
+        ),
+      ),
+  )
+  return unused
+    ? withoutUnused(
+        lines.filter((line) => line !== unused.line),
+        markup,
+        declarations,
+      )
+    : lines
+}
 const CLASS_BINDING = /^:class="(.*)"$/s
 const OBJECT_BINDING = /^v-bind="(.*)"$/s
 
@@ -362,6 +381,14 @@ export const toVue = (component) => {
     const listed = [
       ...(clause ? [clause] : []),
       ...bound
+        .filter(
+          (item) =>
+            !(
+              node.groupRadio !== undefined &&
+              kind?.modelsGroupRadio &&
+              item.name === "checked"
+            ),
+        )
         .map((item) =>
           item.kind === "bound" ? item.text : attribute(node, item, bindScope),
         )
@@ -441,12 +468,18 @@ export const toVue = (component) => {
     ...(uid ? ["useId"] : []),
     ...(kind?.vueImports?.(model) ?? []),
   ].toSorted((a, b) => byName(a.replace(/^type /, ""), b.replace(/^type /, "")))
+  const vueHelpers = [
+    ...(computedAttrs ? ["useInputAttrs"] : []),
+    ...(kind?.vueHelpers?.(model) ?? []),
+  ].toSorted(byName)
   const importLines = [
     ...scriptImports(component),
     ...(vueImports.length
       ? [`import { ${vueImports.join(", ")} } from "vue"`]
       : []),
-    ...(computedAttrs ? [`import { useInputAttrs } from "../vue"`] : []),
+    ...(vueHelpers.length
+      ? [`import { ${vueHelpers.join(", ")} } from "../vue"`]
+      : []),
     ...(kind?.imports?.(component, model) ?? []),
     ...(usesTrimmedSlot
       ? [`import { TrimmedSlot } from "../whitespace.vue"`]
@@ -483,6 +516,12 @@ export const toVue = (component) => {
   const slotsLine = slotsInScript
     ? `const slots = defineSlots<${slotsType}>()`
     : `defineSlots<${slotsType}>()`
+  const declarations = derived.map(({ code, fn, name }) => ({
+    line: fn
+      ? `const ${name} = ${rewriteExpression(code, script)}`
+      : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
+    name,
+  }))
   const setup = [
     importLines.join("\n"),
     slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
@@ -511,11 +550,7 @@ export const toVue = (component) => {
         `const ${name} = inject(${context.name}Key, undefined)`,
     ),
     ...(uid ? ["const uid = useId()"] : []),
-    ...derived.map(({ code, fn, name }) =>
-      fn
-        ? `const ${name} = ${rewriteExpression(code, script)}`
-        : `const ${name} = computed(() => ${rewriteExpression(code, script)})`,
-    ),
+    ...declarations.map(({ line }) => line),
     ...warnings.map((code) => rewriteStatement(code, script)),
     ...(item
       ? [
@@ -530,5 +565,6 @@ export const toVue = (component) => {
         ]
       : []),
   ]
-  return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${setup.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
+  const kept = withoutUnused(setup, markup, declarations)
+  return `<script setup lang="ts"${generic ? ' generic="Multiple extends boolean = false"' : ""}>\n${kept.join("\n\n")}\n</script>\n\n<template>\n${indent(markup, 2)}\n</template>\n`
 }

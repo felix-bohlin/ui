@@ -5,6 +5,7 @@ import {
   FIREFOX_SELF_RTL,
   FIREFOX_STALE_FALLBACK_OPACITY,
   WEBKIT_ARROW_FOCUS_SCROLL,
+  WEBKIT_HIGHLIGHT_HIDDEN_TEXT,
   WEBKIT_INNER_TEXT_HIDDEN_NODES,
   WEBKIT_RADIO_NO_WRAP,
   WEBKIT_RADIO_RTL_ARROWS,
@@ -393,6 +394,65 @@ repro(WEBKIT_INNER_TEXT_HIDDEN_NODES, () => {
         ["spaced", "tight"].map((id) => document.getElementById(id)!.innerText),
       )
       expect(tight).toBe(spaced)
+    })
+  }
+})
+
+repro(WEBKIT_HIGHLIGHT_HIDDEN_TEXT, () => {
+  for (const kind of ["Range", "StaticRange"]) {
+    test(`a highlight with a ${kind} paints text that is shown after it was added`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(browserName, { webkit: WEBKIT_HIGHLIGHT_HIDDEN_TEXT })
+      await tab.setContent(`<!doctype html>
+<style>
+  pre { color: oklch(0 0 0); display: none; font-size: 40px }
+  ::highlight(word) { color: oklch(0.628 0.258 29.2) }
+</style>
+<pre id="code">highlighted</pre>`)
+      await tab.evaluate((kind) => {
+        const text = document.getElementById("code")!.firstChild!
+        const range =
+          kind === "Range"
+            ? new Range()
+            : new StaticRange({
+                endContainer: text,
+                endOffset: 11,
+                startContainer: text,
+                startOffset: 0,
+              })
+        if (range instanceof Range) range.selectNodeContents(text)
+        CSS.highlights.set("word", new Highlight(range))
+      }, kind)
+      await tab.evaluate(
+        () =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => resolve(null)),
+            ),
+          ),
+      )
+      await tab.locator("#code").evaluate((code) => {
+        code.style.display = "block"
+      })
+      const screenshot = await tab.locator("#code").screenshot()
+      const redPixels = await tab.evaluate(async (png) => {
+        const image = await createImageBitmap(
+          await (await fetch(`data:image/png;base64,${png}`)).blob(),
+        )
+        const canvas = new OffscreenCanvas(image.width, image.height)
+        const context = canvas.getContext("2d")!
+        context.drawImage(image, 0, 0)
+        const { data } = context.getImageData(0, 0, image.width, image.height)
+        let count = 0
+        for (let index = 0; index < data.length; index += 4) {
+          if (data[index] > 150 && data[index + 1] < 90 && data[index + 2] < 90)
+            count++
+        }
+        return count
+      }, screenshot.toString("base64"))
+      expect(redPixels).toBeGreaterThan(0)
     })
   }
 })

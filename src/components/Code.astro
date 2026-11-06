@@ -255,8 +255,12 @@ const id = Astro.locals.$id("code")
 </style>
 
 <script>
-  import { highlightCode } from "../utils/syntax-highlight"
+  import {
+    highlightCode,
+    renewHighlightsWhenShown,
+  } from "../utils/syntax-highlight"
 
   document.addEventListener("syntax-highlight", () => highlightCode())
+  renewHighlightsWhenShown()
   highlightCode()
 </script>

@@ -9,6 +9,9 @@ export const FIREFOX_STALE_FALLBACK_OPACITY =
 export const WEBKIT_ARROW_FOCUS_SCROLL =
   "WebKit doesn't bring the label of a clipped radio that the arrow keys focus fully into view in its scroll container"
 
+export const WEBKIT_HIGHLIGHT_HIDDEN_TEXT =
+  "WebKit doesn't paint a custom highlight on text that was inside a display: none element for a rendered frame after its ranges were added, once the element is shown"
+
 export const WEBKIT_INNER_TEXT_HIDDEN_NODES =
   "WebKit's innerText reads the same rendered elements differently depending on the whitespace and comments between them, which don't render"
 
@@ -25,6 +28,7 @@ export const ENGINE_BUGS = {
   firefox: [FIREFOX_SELF_RTL, FIREFOX_STALE_FALLBACK_OPACITY],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,
+    WEBKIT_HIGHLIGHT_HIDDEN_TEXT,
     WEBKIT_INNER_TEXT_HIDDEN_NODES,
     WEBKIT_RADIO_NO_WRAP,
     WEBKIT_RADIO_RTL_ARROWS,

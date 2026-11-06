@@ -464,6 +464,77 @@ test("highlights code with static ranges, also when it highlights again", async 
   await expect.poll(rangeTypes, { message }).toEqual(["StaticRange"])
 })
 
+const rangesIn = (code: Locator) =>
+  code.evaluateHandle((element) =>
+    [...CSS.highlights.values()]
+      .flatMap((highlight) => [...highlight])
+      .filter((range) => range.startContainer === element.firstChild),
+  )
+
+const expectRenewedRanges = async (
+  code: Locator,
+  reveal: () => Promise<void>,
+) => {
+  await expect
+    .poll(async () =>
+      (await rangesIn(code)).evaluate((ranges) => ranges.length),
+    )
+    .toBeGreaterThan(0)
+  const before = await rangesIn(code)
+  await reveal()
+  await expect(code).toBeVisible()
+  await expect
+    .poll(
+      () =>
+        before.evaluate((ranges) =>
+          ranges.some((range) =>
+            [...CSS.highlights.values()].some((highlight) =>
+              highlight.has(range),
+            ),
+          ),
+        ),
+      {
+        message:
+          "renew the ranges with renewHighlights() from src/utils/syntax-highlight.ts when hidden code is shown: WebKit doesn't paint a highlight on text that was inside a display: none element for a rendered frame after its ranges were added",
+      },
+    )
+    .toBe(false)
+  expect(
+    await (await rangesIn(code)).evaluate((ranges) => ranges.length),
+  ).toBeGreaterThan(0)
+}
+
+test("renews the highlight ranges of an Installation file when the file picker shows it", async ({
+  page,
+}) => {
+  await page.goto("/html/components/checkbox/")
+  const panel = page.locator("#installation .ui-panel").first()
+  await expectRenewedRanges(
+    panel.locator(".file").nth(1).locator("pre > code"),
+    async () => {
+      await panel.locator(".file-picker select").selectOption({ index: 1 })
+    },
+  )
+})
+
+test("renews the highlight ranges of an Installation tab when it is shown", async ({
+  page,
+}) => {
+  await page.goto("/react/components/checkbox/")
+  const tabs = page.locator("#installation .code-tabs")
+  await expectRenewedRanges(
+    tabs
+      .locator(".ui-panel")
+      .nth(1)
+      .locator(".file")
+      .first()
+      .locator("pre > code"),
+    async () => {
+      await tabs.locator(".ui-label").nth(1).click()
+    },
+  )
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })

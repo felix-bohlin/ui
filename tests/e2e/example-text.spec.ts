@@ -7,7 +7,6 @@ import {
 import { COMPONENTS, FRAMEWORKS, openFixture, type Framework } from "./fixtures"
 
 const ENGINE_FAILURES: Record<string, EngineBugs> = {
-  checkbox: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
   message: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
   stepper: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },
   tooltip: { webkit: WEBKIT_INNER_TEXT_HIDDEN_NODES },

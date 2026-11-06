@@ -9,21 +9,31 @@ export default function Grouped() {
       <Avatar aria-label="Carl Dahl" role="img">
         CD
       </Avatar>
-      <Avatar aria-label="Eva Falk" as="button">
-        EF
+      <Avatar as="button">
+        <span aria-label="Eva Falk" role="img">
+          EF
+        </span>
       </Avatar>
-      <Avatar aria-label="Gustav Holm" as="button">
-        GH
+      <Avatar as="button">
+        <span aria-label="Gustav Holm" role="img">
+          GH
+        </span>
       </Avatar>
-      <Avatar aria-label="Ida Jansson" href="#">
-        IJ
+      <Avatar href="#">
+        <span aria-label="Ida Jansson" role="img">
+          IJ
+        </span>
       </Avatar>
-      <Avatar aria-label="Karl Lund" href="#">
-        KL
+      <Avatar href="#">
+        <span aria-label="Karl Lund" role="img">
+          KL
+        </span>
       </Avatar>
       <Badge dot label="Online">
-        <Avatar aria-label="Maja Nilsson" href="#">
-          MN
+        <Avatar href="#">
+          <span aria-label="Maja Nilsson" role="img">
+            MN
+          </span>
         </Avatar>
       </Badge>
     </AvatarGroup>

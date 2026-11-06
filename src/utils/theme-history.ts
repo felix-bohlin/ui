@@ -44,6 +44,10 @@ export const createHistory = (limit = 100) => {
       return JSON.parse(next)
     },
 
+    seal() {
+      stamp = 0
+    },
+
     undo(): Theme | null {
       const previous = past.pop()
       if (previous === undefined) return null

@@ -148,7 +148,13 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
         Give initials and icons <code>role="img"</code> and an
         <code>aria-label</code>.
       </li>
-      <li>Link and button avatars need an <code>aria-label</code>.</li>
+      <li>
+        Link and button avatars take their name from what they show: the image's
+        <code>alt</code>, or initials in a <code>span</code> with
+        <code>role="img"</code> and an <code>aria-label</code>. An
+        <code>aria-label</code> on the link or button itself names it with words
+        that aren't on screen, which speech input can't say.
+      </li>
     </ul>
   </Fragment>
 

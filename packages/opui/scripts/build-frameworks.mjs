@@ -10,8 +10,9 @@ import {
 } from "node:fs"
 import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
-import { dirname, join, relative, resolve, sep } from "node:path"
+import { basename, dirname, join, relative, resolve, sep } from "node:path"
 import { fileURLToPath } from "node:url"
+import remapping from "@jridgewell/remapping"
 import ts from "typescript"
 import { compileScript, parse, registerTS } from "vue/compiler-sfc"
 
@@ -82,19 +83,41 @@ const write = (file, code) => {
   writeFileSync(file, code)
 }
 
-const transpile = (code, fileName) =>
-  ts.transpileModule(code, {
+const SOURCE_MAPPING_URL = /\n\/\/# sourceMappingURL=\S+\s*$/
+
+const transpile = (code, fileName) => {
+  const { outputText, sourceMapText } = ts.transpileModule(code, {
     compilerOptions: {
       jsx: ts.JsxEmit.ReactJSX,
       module: ts.ModuleKind.ESNext,
+      sourceMap: true,
       target: ts.ScriptTarget.ES2022,
       verbatimModuleSyntax: true,
     },
     fileName,
-  }).outputText
+  })
+  return { code: outputText, map: JSON.parse(sourceMapText) }
+}
+
+const writeCompiled = (out, source, { code, map }) => {
+  write(
+    out,
+    `${code.replace(SOURCE_MAPPING_URL, "")}\n//# sourceMappingURL=${basename(out)}.map\n`,
+  )
+  write(
+    `${out}.map`,
+    JSON.stringify({
+      ...map,
+      file: basename(out),
+      sources: [toPosix(relative(dirname(out), source))],
+      sourcesContent: undefined,
+    }),
+  )
+}
 
 const compilerOptions = (root, dist) => ({
   declaration: true,
+  declarationMap: true,
   jsx: ts.JsxEmit.ReactJSX,
   lib: ["lib.dom.d.ts", "lib.dom.iterable.d.ts", "lib.es2023.d.ts"],
   module: ts.ModuleKind.ESNext,
@@ -102,6 +125,7 @@ const compilerOptions = (root, dist) => ({
   outDir: dist,
   rootDir: root,
   skipLibCheck: true,
+  sourceMap: true,
   strict: true,
   target: ts.ScriptTarget.ES2022,
   types: [],
@@ -142,8 +166,11 @@ const keepAugmentations = (root, dist, files) => {
     const code = readFileSync(file, "utf8")
     if (isAugmentation(code)) {
       const out = outPath(root, dist, file)
-      rmSync(out, { force: true })
-      write(out.replace(/\.js$/, ".d.ts"), code)
+      const declaration = out.replace(/\.js$/, ".d.ts")
+      for (const emitted of [out, `${out}.map`, `${declaration}.map`]) {
+        rmSync(emitted, { force: true })
+      }
+      write(declaration, code)
       continue
     }
     const imports = [
@@ -158,7 +185,11 @@ const keepAugmentations = (root, dist, files) => {
     const emitted = readFileSync(declaration, "utf8")
     const missing = imports.filter((line) => !emitted.includes(line))
     if (missing.length > 0) {
-      writeFileSync(declaration, `${missing.join("\n")}\n${emitted}`)
+      const mapping = emitted.match(SOURCE_MAPPING_URL)?.[0] ?? ""
+      writeFileSync(
+        declaration,
+        `${emitted.slice(0, emitted.length - mapping.length).trimEnd()}\n${missing.join("\n")}${mapping || "\n"}`,
+      )
     }
   }
 }
@@ -166,6 +197,7 @@ const keepAugmentations = (root, dist, files) => {
 const typeConfig = (root, dist, entry, extra = {}) => ({
   compilerOptions: {
     declaration: true,
+    declarationMap: true,
     emitDeclarationOnly: true,
     jsx: "preserve",
     lib: ["DOM", "DOM.Iterable", "ES2023"],
@@ -218,17 +250,24 @@ const buildVue = (root, dist, files) => {
     if (file.endsWith(".vue")) {
       const { descriptor, errors } = parse(source, { filename: file })
       if (errors.length > 0) throw errors[0]
-      const { content } = withWarnings(file, () =>
+      const { content, map } = withWarnings(file, () =>
         compileScript(descriptor, {
           fs,
           id: relative(root, file),
           inlineTemplate: true,
           isProd: true,
+          sourceMap: true,
         }),
       )
-      write(`${join(dist, relative(root, file))}.js`, transpile(content, file))
+      const compiled = transpile(content, `${file}.ts`)
+      writeCompiled(`${join(dist, relative(root, file))}.js`, file, {
+        code: compiled.code,
+        map: remapping(compiled.map, (source) =>
+          source === basename(`${file}.ts`) ? map : null,
+        ),
+      })
     } else if (compiles(root, file)) {
-      write(outPath(root, dist, file), transpile(source, file))
+      writeCompiled(outPath(root, dist, file), file, transpile(source, file))
     }
   }
   const config = join(tmpdir(), `opui-vue-${process.pid}.json`)
@@ -252,7 +291,7 @@ const buildSvelte = async (root, dist, files) => {
     if (file.endsWith(".svelte")) {
       write(join(dist, relative(root, file)), source)
     } else if (compiles(root, file)) {
-      write(outPath(root, dist, file), transpile(source, file))
+      writeCompiled(outPath(root, dist, file), file, transpile(source, file))
     }
   }
   const config = join(root, `tsconfig.svelte-dts-${process.pid}.json`)

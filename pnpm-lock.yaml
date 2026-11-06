@@ -370,6 +370,9 @@ importers:
         specifier: ^3.5
         version: 3.5.45(typescript@6.0.3)
     devDependencies:
+      '@jridgewell/remapping':
+        specifier: ^2.3.5
+        version: 2.3.5
       '@types/react':
         specifier: 'catalog:'
         version: 19.3.0

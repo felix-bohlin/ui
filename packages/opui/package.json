@@ -85,6 +85,27 @@
       "types": "./dist/vue/index.d.ts",
       "default": "./dist/vue/index.js"
     },
+    "./components/*.react": {
+      "types": "./dist/components/*.react.d.ts",
+      "default": "./dist/components/*.react.js"
+    },
+    "./components/*.react.tsx": {
+      "types": "./dist/components/*.react.d.ts",
+      "default": "./dist/components/*.react.js"
+    },
+    "./components/*.svelte": {
+      "types": "./dist/components/*.svelte.d.ts",
+      "svelte": "./dist/components/*.svelte",
+      "default": "./dist/components/*.svelte"
+    },
+    "./components/*.svelte.js": {
+      "types": "./dist/components/*.svelte.d.ts",
+      "default": "./dist/components/*.svelte.js"
+    },
+    "./components/*.vue": {
+      "types": "./dist/components/*.vue.d.ts",
+      "default": "./dist/components/*.vue.js"
+    },
     "./components/*": "./components/*",
     "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
@@ -105,6 +126,7 @@
     "release:prerelease": "node ../../scripts/release.mjs prerelease"
   },
   "devDependencies": {
+    "@jridgewell/remapping": "^2.3.5",
     "@types/react": "catalog:",
     "open-props": "^1.7.23",
     "postcss": "^8.5.32",

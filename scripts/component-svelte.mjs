@@ -160,13 +160,20 @@ export const toSvelte = (component) => {
             .join("")
           return `{#each ${node.list}${node.optional ? " ?? []" : ""} as ${node.item}, ${node.index} (${node.index})}${consts}${emit(node.children)}{/each}`
         }
+        const groupChecked =
+          node.groupRadio !== undefined && kind?.modelsGroupRadio
+            ? node.attributes.find((item) => item.name === "checked")
+            : undefined
         const attributes = [
-          ...node.attributes.map((item) => attribute(node, item)),
+          ...node.attributes
+            .filter((item) => item !== groupChecked)
+            .map((item) => attribute(node, item)),
           ...(node.model ? modelAttributes : []),
           ...(node.groupRadio !== undefined
             ? kind.radioAttributes(
                 model,
                 rewriteExpression(node.groupRadio, options),
+                groupChecked && rewriteExpression(groupChecked.code, options),
               )
             : []),
           ...(node.item

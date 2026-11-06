@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
+  import { seedChecked } from "../svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { RadioInputProps as Props } from "./types.svelte"
 
@@ -19,16 +20,19 @@
       ? group === (value ?? true)
       : (checked ?? group === (value ?? true))
   const initialChecked = untrack(isChecked)
+  const check = () => {
+    group = value ?? true
+  }
 </script>
 
 <input
   type="radio"
   name={name ?? field?.name}
   {...rest}
-  checked={isChecked() || undefined}
+  {@attach seedChecked(isChecked, check)}
   defaultChecked={initialChecked}
   onchange={(event) => {
-    group = value ?? true
+    check()
     onchange?.(event)
   }}
   {value}

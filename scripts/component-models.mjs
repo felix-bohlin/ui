@@ -140,9 +140,14 @@ export const MODEL_KINDS = {
     },
     svelte: {
       bindables: (model) => [model.prop],
-      radioAttributes: (model, value) => [
+      imports: () => [`import { seedChecked } from "../svelte"`],
+      modelsGroupRadio: true,
+      radioAttributes: (model, value, checked) => [
+        `defaultChecked={untrack(() => ${checked})}`,
+        `{@attach seedChecked(\n  () => ${checked},\n  () => {\n    ${model.local} = ${value}\n  },\n)}`,
         `onchange={() => {\n  ${model.local} = ${value}\n}}`,
       ],
+      untrack: () => true,
     },
     vue: {
       computed: true,
@@ -162,9 +167,9 @@ export const MODEL_KINDS = {
   radio: {
     svelte: {
       attributes: () => [
-        "checked={isChecked() || undefined}",
+        "{@attach seedChecked(isChecked, check)}",
         "defaultChecked={initialChecked}",
-        "onchange={(event) => {\n  group = value ?? true\n  onchange?.(event)\n}}",
+        "onchange={(event) => {\n  check()\n  onchange?.(event)\n}}",
         "{value}",
       ],
       bindables: bindableProps,
@@ -173,7 +178,9 @@ export const MODEL_KINDS = {
         "const hasGroup = untrack(() => group !== undefined)",
         "const isChecked = () =>\n  hasGroup\n    ? group === (value ?? true)\n    : (checked ?? group === (value ?? true))",
         "const initialChecked = untrack(isChecked)",
+        "const check = () => {\n  group = value ?? true\n}",
       ],
+      imports: () => [`import { seedChecked } from "../svelte"`],
       untrack: () => true,
     },
     vue: {

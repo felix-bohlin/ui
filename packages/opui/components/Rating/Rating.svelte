@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { untrack } from "svelte"
+  import { seedChecked } from "../svelte"
   import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
@@ -37,10 +39,16 @@
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={clearLabel}
-        checked={current === 0}
         {name}
         type="radio"
         value="0"
+        defaultChecked={untrack(() => current === 0)}
+        {@attach seedChecked(
+          () => current === 0,
+          () => {
+            value = "0"
+          },
+        )}
         onchange={() => {
           value = "0"
         }}
@@ -48,11 +56,17 @@
         aria-describedby={ariaDescribedBy}
         aria-invalid={invalid}
         aria-label={starLabel(star)}
-        checked={current === star}
         {name}
         {required}
         type="radio"
         value={star}
+        defaultChecked={untrack(() => current === star)}
+        {@attach seedChecked(
+          () => current === star,
+          () => {
+            value = star
+          },
+        )}
         onchange={() => {
           value = star
         }}

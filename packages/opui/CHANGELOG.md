@@ -592,6 +592,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Radio` in Vue compares `v-model` with its `value` like a native radio, so `ref(1)` checks the radio with `value="1"`.
 - `Radio` no longer puts the required asterisk on every option of a required group; the group's legend carries it.
 - `Range`, `Textarea` and `TextField` in Vue reset to the value they started with when their form is reset, also when rendered on the client, and the bound value follows the reset, like in Astro and HTML.
+- `Radio` and `Rating` in Svelte keep a choice the user made before the page hydrated instead of resetting it, and a form reset still returns to the choice the server rendered.
 - `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.

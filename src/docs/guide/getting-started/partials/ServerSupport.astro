@@ -49,7 +49,7 @@ const columns = [
   { label: "Client", width: "14%" },
   { label: "Server", width: "14%" },
   ...(react ? [{ label: "Server Component", width: "14%" }] : []),
-  { label: "Without hydration" },
+  { label: "Needs hydration" },
 ]
 ---
 
@@ -82,7 +82,6 @@ const columns = [
     <TableCell>
       {row.props.length ? (
         <Fragment>
-          Hydrate for{" "}
           {row.props.map((hydration, index) => <Fragment
             >{index > 0 && ", "}<code>{hydration.prop}</code
             ><HydrationMarker hydration={hydration}

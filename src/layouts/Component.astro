@@ -39,7 +39,7 @@ import {
 } from "../utils/changelog"
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
-import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
+import { whatsNewFor } from "../utils/whats-new"
 import { blockHref, blocksUsing } from "../utils/blocks"
 import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
 import { migratingAnchor } from "../utils/migrating"
@@ -201,7 +201,6 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     label: group.label,
     links: group.components.map((component) => ({
       href: componentHrefFor(currentFramework, component.slug),
-      isNew: isWhatsNewHighlighted(currentFramework, component.slug),
       label: component.name,
     })),
   }))}

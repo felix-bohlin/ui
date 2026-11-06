@@ -10,6 +10,15 @@ function resetValue(input) {
 const isRange = (target) =>
   target instanceof HTMLInputElement && target.type === "range"
 
+const readoutText = (output) => {
+  const nodes = [...output.childNodes].filter(
+    (node) =>
+      !(node instanceof Comment) && !(node instanceof Text && node.data === ""),
+  )
+  const [node] = nodes
+  return nodes.length === 1 && node instanceof Text ? node : undefined
+}
+
 // Mirror the slider's current value into its associated <output> on every
 // input event. Ignores ranges without a value display.
 function update(input, value = input.value) {
@@ -19,9 +28,9 @@ function update(input, value = input.value) {
   const suffix = output?.dataset.suffix ?? ""
   if (output) {
     const text = `${value}${suffix}`
-    const node = output.firstChild
     if (output.textContent !== text) {
-      if (node instanceof Text && !node.nextSibling) node.data = text
+      const node = readoutText(output)
+      if (node) node.data = text
       else output.textContent = text
     }
     if (suffix) {

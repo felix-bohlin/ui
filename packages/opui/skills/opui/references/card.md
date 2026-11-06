@@ -1,6 +1,6 @@
 # Card
 
-A surface for related content and actions, on its own or as the base of accordions, dialogs and more.
+A surface for related content and actions.
 
 - CSS: `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/card.md), [Astro](https://open-props-ui.netlify.app/astro/components/card.md), [React](https://open-props-ui.netlify.app/react/components/card.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/card.md), [Vue](https://open-props-ui.netlify.app/vue/components/card.md).

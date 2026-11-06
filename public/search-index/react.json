@@ -408,7 +408,7 @@
   {
     "id": "component-card-react",
     "title": "Card",
-    "description": "A surface for related content and actions, on its own or as the base of accordions, dialogs and more.",
+    "description": "A surface for related content and actions.",
     "keywords": "panel surface tile",
     "category": "Component",
     "url": "/react/components/card/"

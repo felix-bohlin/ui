@@ -216,7 +216,7 @@
   {
     "id": "component-button-group-html",
     "title": "Button group",
-    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
+    "description": "Groups related buttons with .ui-button-group and role=\"group\".",
     "keywords": "segmented control split button toolbar",
     "category": "Component",
     "url": "/html/components/button-group/"
@@ -408,7 +408,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "A surface for related content and actions, on its own or as the base of accordions, dialogs and more.",
+    "description": "A surface for related content and actions.",
     "keywords": "panel surface tile",
     "category": "Component",
     "url": "/html/components/card/"

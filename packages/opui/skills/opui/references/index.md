@@ -11,9 +11,9 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Avatar | `avatar.md` | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
 | Button | `button.md` | Buttons allow users to take actions with a single tap. |
-| Button group | `button-group.md` | Groups related buttons by wrapping them with class="ui-button-group" and role="group". |
+| Button group | `button-group.md` | Groups related buttons with .ui-button-group and role="group". |
 | Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
-| Card | `card.md` | A surface for related content and actions, on its own or as the base of accordions, dialogs and more. |
+| Card | `card.md` | A surface for related content and actions. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | Choices submitted with a form. For a setting that applies right away, use a Switch. |
 | Chip | `chip.md` | Filters, tags and choices. For the main action, use a Button. |

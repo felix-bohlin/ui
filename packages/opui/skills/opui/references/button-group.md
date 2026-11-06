@@ -1,6 +1,6 @@
 # Button group
 
-Groups related buttons by wrapping them with class="ui-button-group" and role="group".
+Groups related buttons with .ui-button-group and role="group".
 
 - CSS: `opui-css/css/components/button-group.css` and `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button-group.md), [Astro](https://open-props-ui.netlify.app/astro/components/button-group.md), [React](https://open-props-ui.netlify.app/react/components/button-group.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button-group.md), [Vue](https://open-props-ui.netlify.app/vue/components/button-group.md).

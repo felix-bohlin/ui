@@ -22,7 +22,7 @@ Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 ## Run
 
 1. Start the agents in parallel, in one message. Give each one its scope, and tell it to follow `.claude/skills/audit/findings-format.md`.
-2. In a full sweep, split `a11y`, `api-docs`, `css`, `examples` and `framework-parity` by their `components`, about 10 per agent and in the order the script prints them, so each one reads its files closely.
+2. In a full sweep, split `a11y`, `api-docs`, `css`, `examples`, `framework-idioms` and `framework-parity` by their `components`, about 10 per agent and in the order the script prints them, so each one reads its files closely.
 3. Wait for every agent to finish.
 
 ## Merge

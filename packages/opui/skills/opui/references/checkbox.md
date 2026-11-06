@@ -1,6 +1,6 @@
 # Checkbox
 
-Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.
+Choices submitted with a form. For a setting that applies right away, use a Switch.
 
 - CSS: `opui-css/css/components/checkbox.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css`, `opui-css/css/components/card.css` and `opui-css/css/components/select-all.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/checkbox.md), [Astro](https://open-props-ui.netlify.app/astro/components/checkbox.md), [React](https://open-props-ui.netlify.app/react/components/checkbox.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/checkbox.md), [Vue](https://open-props-ui.netlify.app/vue/components/checkbox.md).

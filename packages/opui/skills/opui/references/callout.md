@@ -1,6 +1,6 @@
 # Callout
 
-Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.
+A message in the flow of the page, without interrupting the task.
 
 - CSS: `opui-css/css/components/callout.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/callout.md), [Astro](https://open-props-ui.netlify.app/astro/components/callout.md), [React](https://open-props-ui.netlify.app/react/components/callout.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/callout.md), [Vue](https://open-props-ui.netlify.app/vue/components/callout.md).

@@ -12,10 +12,10 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
 | Button | `button.md` | Buttons allow users to take actions with a single tap. |
 | Button group | `button-group.md` | Groups related buttons by wrapping them with class="ui-button-group" and role="group". |
-| Callout | `callout.md` | Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task. |
+| Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
 | Card | `card.md` | A surface for related content and actions, on its own or as the base of accordions, dialogs and more. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
-| Checkbox | `checkbox.md` | Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group. |
+| Checkbox | `checkbox.md` | Choices submitted with a form. For a setting that applies right away, use a Switch. |
 | Chip | `chip.md` | Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button. |
 | Copy | `copy.md` | A button that copies text or a field's value to the clipboard. |
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
@@ -46,7 +46,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Toast | `toast.md` | Short messages that confirm an action and dismiss themselves. |
 | Toggle | `toggle.md` | Toggle buttons and toggle groups switch options on and off, alone or as a set. |
 | Tooltip | `tooltip.md` | A short label or hint for a control, shown on hover, focus or a long press. |
-| Typography | `typography.md` | Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text. |
+| Typography | `typography.md` | Text styles: classes on single elements, or .ui-rich-text around content. |
 
 Components documented on another component's page:
 

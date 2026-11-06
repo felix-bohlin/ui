@@ -365,7 +365,7 @@
   {
     "id": "component-callout-html",
     "title": "Callout",
-    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "description": "A message in the flow of the page, without interrupting the task.",
     "keywords": "alert banner message box notice warning",
     "category": "Component",
     "url": "/html/components/callout/"
@@ -613,7 +613,7 @@
   {
     "id": "component-checkbox-html",
     "title": "Checkbox",
-    "description": "Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "description": "Choices submitted with a form. For a setting that applies right away, use a Switch.",
     "keywords": "check tick",
     "category": "Component",
     "url": "/html/components/checkbox/"
@@ -3073,7 +3073,7 @@
   {
     "id": "component-typography-html",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text.",
+    "description": "Text styles: classes on single elements, or .ui-rich-text around content.",
     "keywords": "font heading prose text",
     "category": "Component",
     "url": "/html/components/typography/"

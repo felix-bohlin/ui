@@ -79,3 +79,43 @@ export const componentImports = (
 
   return [...names].toSorted()
 }
+
+const componentFiles = import.meta.glob<string>(
+  "../../packages/opui/components/*/*.{astro,react.tsx,svelte,vue}",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const sourceExtension = {
+  astro: "",
+  react: ".tsx",
+  svelte: "",
+  vue: "",
+} satisfies Record<PackageFrameworkId, string>
+
+const sourceLang = {
+  astro: "astro",
+  react: "tsx",
+  svelte: "svelte",
+  vue: "vue",
+} satisfies Record<PackageFrameworkId, string>
+
+export const componentSources = (
+  framework: PackageFrameworkId,
+  names: string[],
+) => {
+  const source = indexes[`../../packages/opui/${framework}/index.ts`] ?? ""
+  const files = new Map<string, string>()
+  for (const [, name, path] of source.matchAll(
+    /^export \{ default as (\w+) \} from "\.\.\/components\/([^"]+)"/gm,
+  )) {
+    files.set(name, `${path}${sourceExtension[framework]}`)
+  }
+  return names.flatMap((name) => {
+    const path = files.get(name)
+    const code =
+      path && componentFiles[`../../packages/opui/components/${path}`]
+    return code
+      ? [{ code, lang: sourceLang[framework], title: path.split("/").pop()! }]
+      : []
+  })
+}

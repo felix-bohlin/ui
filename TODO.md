@@ -1316,7 +1316,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     },
     ```
   - Fixed: the pattern covers every property, function and at-rule of the feature's compat keys, with matches inside `@position-try` blocks left out since a rule that names them already counts, and the Copy page lists the id.
-- [ ] (7) Release: the Getting started pages install with `npm install opui-css` and `pnpm add opui-css`, which install 5.4.3 while `latest` points there; its exports map turns every `.css` import on those pages into `*.css.css`, and it has no `./react` or `./svelte` export. 6.0.0-rc.1 on `next` lacks `./elements/*` (`src/docs/guide/getting-started/partials/InstallCommand.astro:24-37`)
+- [ ] (7) Release: the Getting started pages install with `npm install opui-css` and `pnpm add opui-css`, which install 5.4.3 while `latest` points there; its exports map turns every `.css` import on those pages into `*.css.css`, and it has no `./react` or `./svelte` export. 6.0.0-rc.1 on `next` lacks `./elements/*` (`src/docs/guide/getting-started/partials/InstallCommand.astro:5-18`)
   - Summary: Following the install steps today gets 5.4.3, and the imports on the page fail to resolve.
   - Recommended: Fix with option A. The pages stay correct whether or not 6.0.0 ships first.
   - Options:

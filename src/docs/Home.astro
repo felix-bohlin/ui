@@ -23,7 +23,7 @@ import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/blog-posts"
 import { componentName } from "../utils/names"
-import { packageVersion, prerelease, unreleased } from "../utils/release"
+import { releaseVersion } from "../utils/release"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
 const description = "Design system. Components. Modern HTML & CSS."
@@ -85,12 +85,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <div class="hero-copy">
           <hgroup class="ui-hgroup">
             <p class="hero-version">
-              {packageVersion}
-              {unreleased && <span class="ui-chip ui-dot ui-warning ui-x-small">
-                <span class="ui-text">
-                  {prerelease ? "Release candidate" : "Not on npm yet"}
-                </span>
-              </span>}
+              {releaseVersion}
             </p>
 
             <h1 class="ui-h1" id="main-heading">Open Props UI</h1>

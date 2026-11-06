@@ -1,0 +1,98 @@
+---
+import { TableCell, TableRow } from "opui-css/astro"
+import DocLink from "../../../../components/DocLink.astro"
+import DocsTable from "../../../../components/DocsTable.astro"
+import Checkmark from "../../../../components/icons/Checkmark.astro"
+import Dismiss from "../../../../components/icons/Dismiss.astro"
+import type { ComponentFramework } from "../../../../component-api/frameworks"
+import { hydrationRows } from "../../../../component-api/rows"
+import type { ComponentApi } from "../../../../component-api/types"
+import { shipped } from "../../../../utils/component-source"
+import { isClientComponent } from "../../../../utils/react-client-components"
+
+type Props = {
+  framework: Exclude<ComponentFramework, "astro">
+}
+
+const { framework } = Astro.props
+
+const apis = import.meta.glob<ComponentApi>(
+  "../../../../component-api/*/api.ts",
+  { eager: true, import: "default" },
+)
+
+const rows = Object.entries(apis)
+  .filter(([, api]) => shipped(api, framework))
+  .map(([path, api]) => {
+    const names = [
+      api.component,
+      ...api.parts.flatMap((part) => (part.component ? [part.component] : [])),
+    ]
+    const props = [
+      ...new Set(hydrationRows(api, framework).map((row) => row.prop)),
+    ]
+    return {
+      component: api.component,
+      page: api.page ?? path.split("/").at(-2)!,
+      props,
+      serverComponent: !names.some(isClientComponent),
+    }
+  })
+  .sort((a, b) => a.component.localeCompare(b.component, "en"))
+
+const react = framework === "react"
+const columns = [
+  { label: "Component", width: "30%" },
+  { label: "Client", width: "14%" },
+  { label: "Server", width: "14%" },
+  ...(react ? [{ label: "Server Component", width: "14%" }] : []),
+  { label: "Needs hydration for" },
+]
+---
+
+<DocsTable columns={columns}>
+  {rows.map((row) => <TableRow>
+    <TableCell>
+      <DocLink href={`/components/${row.page}`}
+        ><code>{row.component}</code></DocLink
+      >
+    </TableCell>
+    {[true, !row.props.length, ...(react ? [row.serverComponent] : [])].map(
+      (supported) => <TableCell>
+        {supported ? (
+          <Checkmark
+            class="support-icon"
+            role="img"
+            aria-label="Yes"
+            aria-hidden="false"
+          />
+        ) : (
+          <Dismiss
+            class="support-icon"
+            role="img"
+            aria-label="No"
+            aria-hidden="false"
+          />
+        )}
+      </TableCell>,
+    )}
+    <TableCell>
+      {row.props.length ? (
+        <Fragment
+          set:html={row.props.map((prop) => `<code>${prop}</code>`).join(", ")}
+        />
+      ) : (
+        "-"
+      )}
+    </TableCell>
+  </TableRow>)}
+</DocsTable>
+
+<style>
+  :global(.support-icon) {
+    block-size: 1.25em;
+    color: var(--ui-text);
+    inline-size: 1.25em;
+    vertical-align: middle;
+  }
+</style>

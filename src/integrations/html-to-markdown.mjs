@@ -308,6 +308,14 @@ export async function articleToMarkdown(
   replace(article, isClass("feature-support"), featureSupport)
   replace(article, isClass("code-group"), codeGroup)
   replace(article, isClass("code-block"), codeBlock)
+  replace(
+    article,
+    (node) =>
+      node.tagName === "svg" &&
+      node.properties?.role === "img" &&
+      typeof node.properties.ariaLabel === "string",
+    (node) => text(String(node.properties.ariaLabel)),
+  )
   prune(article, new Set(selectAll(REMOVE_SELECTORS.join(", "), article)))
 
   for (const link of selectAll("a[href]", article)) {

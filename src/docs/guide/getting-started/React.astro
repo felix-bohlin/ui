@@ -1,18 +1,10 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
-import DocLink from "../../../components/DocLink.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
-import {
-  clientParts,
-  clientRoots,
-  joinNames,
-} from "../../../utils/react-client-components"
-
-const codes = (names: string[]) => names.map((name) => `<code>${name}</code>`)
-const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(clientParts))} parts`
+import ServerSupport from "./partials/ServerSupport.astro"
 ---
 
 <Guide overline="Guide">
@@ -76,29 +68,15 @@ export default function App() {
     <h2>Server rendering</h2>
     <p>
       Components that need context, state or effects are marked
-      <code>"use client"</code>: <Fragment set:html={clientList} />. The rest
-      also render as React Server Components. This list is read from the
-      component sources.
+      <code>"use client"</code>. The rest also render as React Server
+      Components. Without hydration (Astro with <code>@astrojs/react</code> and
+      no <code>client:*</code> directive, or <code>renderToString</code> on its
+      own), every component renders complete HTML, and the native controls work
+      and submit with their form. The props in the last column only update on
+      the client. The table is read from the component sources and their API
+      docs.
     </p>
-    <p>
-      Without hydration (Astro with <code>@astrojs/react</code> and no
-      <code>client:*</code> directive, or <code>renderToString</code> on its
-      own), every component renders complete HTML. The native controls work and
-      submit with their form. A few things only update on the client:
-    </p>
-    <ul>
-      <li>
-        <DocLink href="/components/checkbox#indeterminate">Checkbox</DocLink>
-        <code>indeterminate</code>: it's a DOM property, so the box looks
-        unchecked. Or import <code>opui-css/css/js/checkbox.js</code> in the
-        page.
-      </li>
-      <li>
-        <DocLink href="/components/range#value">Range</DocLink> value: the
-        <code>&lt;output&gt;</code> doesn't follow the thumb. The track fill is
-        CSS, so it's fine.
-      </li>
-    </ul>
+    <ServerSupport framework="react" />
     <p>
       Hydrate those (<code>client:load</code> in Astro) or render them on the
       client. Component pages say what needs hydration next to the browser

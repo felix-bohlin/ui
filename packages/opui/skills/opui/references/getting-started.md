@@ -259,12 +259,79 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Server rendering
 
-Components that need context, state or effects are marked `"use client"`: `Anchor`, `Callout`, `Copy`, `Dialog`, `Drawer`, `FieldGroup`, `FieldLegend`, `Fieldset`, `Menu`, `NumberField`, `OneTimeCode`, `Range`, `Rating`, `Select`, `SelectAll`, `SortableTable`, `Tabs`, `TextField`, `Textarea`, `Toaster`, `ToggleButton` and `ToggleGroup`, and the `CheckboxInput`, `RadioInput` and `SwitchInput` parts. The rest also render as React Server Components. This list is read from the component sources.
+Components that need context, state or effects are marked `"use client"`. The rest also render as React Server Components. Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client. The table is read from the component sources and their API docs.
 
-Without hydration (Astro with `@astrojs/react` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
-
-- [Checkbox](https://open-props-ui.netlify.app/react/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or import `opui-css/css/js/checkbox.js` in the page.
-- [Range](https://open-props-ui.netlify.app/react/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
+| Component | Client | Server | Server Component | Needs hydration for |
+| --- | --- | --- | --- | --- |
+| [`Accordion`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
+| [`AccordionActions`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
+| [`AccordionSummary`](https://open-props-ui.netlify.app/react/components/accordion.md) | Yes | Yes | Yes | - |
+| [`Anchor`](https://open-props-ui.netlify.app/react/components/anchor.md) | Yes | Yes | No | - |
+| [`Avatar`](https://open-props-ui.netlify.app/react/components/avatar.md) | Yes | Yes | Yes | - |
+| [`AvatarGroup`](https://open-props-ui.netlify.app/react/components/avatar.md) | Yes | Yes | Yes | - |
+| [`Badge`](https://open-props-ui.netlify.app/react/components/badge.md) | Yes | Yes | Yes | - |
+| [`Button`](https://open-props-ui.netlify.app/react/components/button.md) | Yes | Yes | Yes | - |
+| [`ButtonGroup`](https://open-props-ui.netlify.app/react/components/button-group.md) | Yes | Yes | Yes | - |
+| [`Callout`](https://open-props-ui.netlify.app/react/components/callout.md) | Yes | Yes | No | - |
+| [`Card`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
+| [`CardActions`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
+| [`CardHeader`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
+| [`Carousel`](https://open-props-ui.netlify.app/react/components/carousel.md) | Yes | Yes | Yes | - |
+| [`Checkbox`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` |
+| [`CheckboxInput`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | No | `indeterminate` |
+| [`Chip`](https://open-props-ui.netlify.app/react/components/chip.md) | Yes | Yes | Yes | - |
+| [`Copy`](https://open-props-ui.netlify.app/react/components/copy.md) | Yes | Yes | No | - |
+| [`DescriptionList`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
+| [`DescriptionListItem`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
+| [`Dialog`](https://open-props-ui.netlify.app/react/components/dialog.md) | Yes | Yes | No | - |
+| [`DialogFooter`](https://open-props-ui.netlify.app/react/components/dialog.md) | Yes | Yes | Yes | - |
+| [`DialogHeader`](https://open-props-ui.netlify.app/react/components/dialog.md) | Yes | Yes | No | - |
+| [`Divider`](https://open-props-ui.netlify.app/react/components/divider.md) | Yes | Yes | Yes | - |
+| [`Drawer`](https://open-props-ui.netlify.app/react/components/drawer.md) | Yes | Yes | No | - |
+| [`DrawerFooter`](https://open-props-ui.netlify.app/react/components/drawer.md) | Yes | Yes | Yes | - |
+| [`DrawerHeader`](https://open-props-ui.netlify.app/react/components/drawer.md) | Yes | Yes | No | - |
+| [`FieldDescription`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | Yes | - |
+| [`FieldGroup`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | No | - |
+| [`FieldLegend`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | No | - |
+| [`Fieldset`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | No | - |
+| [`Form`](https://open-props-ui.netlify.app/react/components/form.md) | Yes | Yes | Yes | - |
+| [`List`](https://open-props-ui.netlify.app/react/components/list.md) | Yes | Yes | Yes | - |
+| [`ListItem`](https://open-props-ui.netlify.app/react/components/list.md) | Yes | Yes | Yes | - |
+| [`Menu`](https://open-props-ui.netlify.app/react/components/menu.md) | Yes | Yes | No | - |
+| [`Message`](https://open-props-ui.netlify.app/react/components/message.md) | Yes | Yes | Yes | - |
+| [`Messages`](https://open-props-ui.netlify.app/react/components/message.md) | Yes | Yes | Yes | - |
+| [`NumberField`](https://open-props-ui.netlify.app/react/components/number-field.md) | Yes | Yes | No | - |
+| [`OneTimeCode`](https://open-props-ui.netlify.app/react/components/one-time-code.md) | Yes | Yes | No | - |
+| [`Progress`](https://open-props-ui.netlify.app/react/components/progress.md) | Yes | Yes | Yes | - |
+| [`Radio`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | Yes | - |
+| [`RadioInput`](https://open-props-ui.netlify.app/react/components/radio.md) | Yes | Yes | No | - |
+| [`Range`](https://open-props-ui.netlify.app/react/components/range.md) | Yes | No | No | `valueSuffix`, `valueText` |
+| [`Rating`](https://open-props-ui.netlify.app/react/components/rating.md) | Yes | Yes | No | - |
+| [`Select`](https://open-props-ui.netlify.app/react/components/select.md) | Yes | Yes | No | - |
+| [`SelectAll`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | Yes | No | - |
+| [`SortableTable`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | No | - |
+| [`Stat`](https://open-props-ui.netlify.app/react/components/stat.md) | Yes | Yes | Yes | - |
+| [`Stepper`](https://open-props-ui.netlify.app/react/components/stepper.md) | Yes | Yes | Yes | - |
+| [`StepperItem`](https://open-props-ui.netlify.app/react/components/stepper.md) | Yes | Yes | Yes | - |
+| [`Switch`](https://open-props-ui.netlify.app/react/components/switch.md) | Yes | Yes | Yes | - |
+| [`SwitchInput`](https://open-props-ui.netlify.app/react/components/switch.md) | Yes | Yes | No | - |
+| [`Table`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableCell`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableColumn`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableColumnGroup`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
+| [`TableHeaderCell`](https://open-props-ui.netlify.app/react/components/table.md) | Yes | Yes | Yes | - |
+| [`Tabs`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | No | - |
+| [`TabsItem`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | No | - |
+| [`TabsLabel`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | No | - |
+| [`TabsPanel`](https://open-props-ui.netlify.app/react/components/tabs.md) | Yes | Yes | Yes | - |
+| [`Textarea`](https://open-props-ui.netlify.app/react/components/textarea.md) | Yes | Yes | No | - |
+| [`TextField`](https://open-props-ui.netlify.app/react/components/text-field.md) | Yes | Yes | No | - |
+| [`Timeline`](https://open-props-ui.netlify.app/react/components/timeline.md) | Yes | Yes | Yes | - |
+| [`TimelineItem`](https://open-props-ui.netlify.app/react/components/timeline.md) | Yes | Yes | Yes | - |
+| [`Toaster`](https://open-props-ui.netlify.app/react/components/toast.md) | Yes | Yes | No | - |
+| [`ToggleButton`](https://open-props-ui.netlify.app/react/components/toggle.md) | Yes | Yes | No | - |
+| [`ToggleGroup`](https://open-props-ui.netlify.app/react/components/toggle.md) | Yes | Yes | No | - |
+| [`Tooltip`](https://open-props-ui.netlify.app/react/components/tooltip.md) | Yes | Yes | Yes | - |
 
 Hydrate those (`client:load` in Astro) or render them on the client. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
 
@@ -328,11 +395,79 @@ Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are 
 
 ### Server rendering
 
-Without hydration (SvelteKit with `csr = false`, or Astro with `@astrojs/svelte` and no `client:*` directive), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
+Without hydration (SvelteKit with `csr = false`, or Astro with `@astrojs/svelte` and no `client:*` directive), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client: a `bind:` value stays put while the native value still changes and submits. The table is read from the component sources and their API docs.
 
-- [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or import `opui-css/css/js/checkbox.js` in the page.
-- [Range](https://open-props-ui.netlify.app/svelte/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
-- `bind:` on [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md), [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md), [Range](https://open-props-ui.netlify.app/svelte/components/range.md), [Select](https://open-props-ui.netlify.app/svelte/components/select.md), [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md), [Text field](https://open-props-ui.netlify.app/svelte/components/text-field.md) and [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md): the bound state stays put. The native value still changes and submits.
+| Component | Client | Server | Needs hydration for |
+| --- | --- | --- | --- |
+| [`Accordion`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
+| [`AccordionActions`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
+| [`AccordionSummary`](https://open-props-ui.netlify.app/svelte/components/accordion.md) | Yes | Yes | - |
+| [`Anchor`](https://open-props-ui.netlify.app/svelte/components/anchor.md) | Yes | Yes | - |
+| [`Avatar`](https://open-props-ui.netlify.app/svelte/components/avatar.md) | Yes | Yes | - |
+| [`AvatarGroup`](https://open-props-ui.netlify.app/svelte/components/avatar.md) | Yes | Yes | - |
+| [`Badge`](https://open-props-ui.netlify.app/svelte/components/badge.md) | Yes | Yes | - |
+| [`Button`](https://open-props-ui.netlify.app/svelte/components/button.md) | Yes | Yes | - |
+| [`ButtonGroup`](https://open-props-ui.netlify.app/svelte/components/button-group.md) | Yes | Yes | - |
+| [`Callout`](https://open-props-ui.netlify.app/svelte/components/callout.md) | Yes | Yes | - |
+| [`Card`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
+| [`CardActions`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
+| [`CardHeader`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
+| [`Carousel`](https://open-props-ui.netlify.app/svelte/components/carousel.md) | Yes | Yes | - |
+| [`Checkbox`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked`, `bind:group`, `indeterminate` |
+| [`CheckboxInput`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked`, `bind:group`, `indeterminate` |
+| [`Chip`](https://open-props-ui.netlify.app/svelte/components/chip.md) | Yes | Yes | - |
+| [`Copy`](https://open-props-ui.netlify.app/svelte/components/copy.md) | Yes | Yes | - |
+| [`DescriptionList`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
+| [`DescriptionListItem`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
+| [`Dialog`](https://open-props-ui.netlify.app/svelte/components/dialog.md) | Yes | Yes | - |
+| [`DialogFooter`](https://open-props-ui.netlify.app/svelte/components/dialog.md) | Yes | Yes | - |
+| [`DialogHeader`](https://open-props-ui.netlify.app/svelte/components/dialog.md) | Yes | Yes | - |
+| [`Divider`](https://open-props-ui.netlify.app/svelte/components/divider.md) | Yes | Yes | - |
+| [`Drawer`](https://open-props-ui.netlify.app/svelte/components/drawer.md) | Yes | Yes | - |
+| [`DrawerFooter`](https://open-props-ui.netlify.app/svelte/components/drawer.md) | Yes | Yes | - |
+| [`DrawerHeader`](https://open-props-ui.netlify.app/svelte/components/drawer.md) | Yes | Yes | - |
+| [`FieldDescription`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
+| [`FieldGroup`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
+| [`FieldLegend`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
+| [`Fieldset`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
+| [`Form`](https://open-props-ui.netlify.app/svelte/components/form.md) | Yes | Yes | - |
+| [`List`](https://open-props-ui.netlify.app/svelte/components/list.md) | Yes | Yes | - |
+| [`ListItem`](https://open-props-ui.netlify.app/svelte/components/list.md) | Yes | Yes | - |
+| [`Menu`](https://open-props-ui.netlify.app/svelte/components/menu.md) | Yes | Yes | - |
+| [`Message`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
+| [`Messages`](https://open-props-ui.netlify.app/svelte/components/message.md) | Yes | Yes | - |
+| [`NumberField`](https://open-props-ui.netlify.app/svelte/components/number-field.md) | Yes | No | `bind:value` |
+| [`OneTimeCode`](https://open-props-ui.netlify.app/svelte/components/one-time-code.md) | Yes | No | `bind:value` |
+| [`Progress`](https://open-props-ui.netlify.app/svelte/components/progress.md) | Yes | Yes | - |
+| [`Radio`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` |
+| [`RadioInput`](https://open-props-ui.netlify.app/svelte/components/radio.md) | Yes | No | `bind:group` |
+| [`Range`](https://open-props-ui.netlify.app/svelte/components/range.md) | Yes | No | `bind:value`, `valueSuffix`, `valueText` |
+| [`Rating`](https://open-props-ui.netlify.app/svelte/components/rating.md) | Yes | No | `bind:value` |
+| [`Select`](https://open-props-ui.netlify.app/svelte/components/select.md) | Yes | No | `bind:value` |
+| [`SelectAll`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | Yes | - |
+| [`SortableTable`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
+| [`Stat`](https://open-props-ui.netlify.app/svelte/components/stat.md) | Yes | Yes | - |
+| [`Stepper`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
+| [`StepperItem`](https://open-props-ui.netlify.app/svelte/components/stepper.md) | Yes | Yes | - |
+| [`Switch`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | `bind:checked`, `bind:group` |
+| [`SwitchInput`](https://open-props-ui.netlify.app/svelte/components/switch.md) | Yes | No | `bind:checked`, `bind:group` |
+| [`Table`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
+| [`TableCell`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
+| [`TableColumn`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
+| [`TableColumnGroup`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
+| [`TableHeaderCell`](https://open-props-ui.netlify.app/svelte/components/table.md) | Yes | Yes | - |
+| [`Tabs`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | No | `bind:value` |
+| [`TabsItem`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
+| [`TabsLabel`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
+| [`TabsPanel`](https://open-props-ui.netlify.app/svelte/components/tabs.md) | Yes | Yes | - |
+| [`Textarea`](https://open-props-ui.netlify.app/svelte/components/textarea.md) | Yes | No | `bind:value` |
+| [`TextField`](https://open-props-ui.netlify.app/svelte/components/text-field.md) | Yes | No | `bind:value` |
+| [`Timeline`](https://open-props-ui.netlify.app/svelte/components/timeline.md) | Yes | Yes | - |
+| [`TimelineItem`](https://open-props-ui.netlify.app/svelte/components/timeline.md) | Yes | Yes | - |
+| [`Toaster`](https://open-props-ui.netlify.app/svelte/components/toast.md) | Yes | Yes | - |
+| [`ToggleButton`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:checked` |
+| [`ToggleGroup`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:value` |
+| [`Tooltip`](https://open-props-ui.netlify.app/svelte/components/tooltip.md) | Yes | Yes | - |
 
 Hydrate those (`client:load` in Astro) or keep client-side rendering on. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
 
@@ -390,11 +525,79 @@ import { Button } from "opui-css/vue"
 
 ### Server rendering
 
-Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
+Without hydration (Astro with `@astrojs/vue` and no `client:*` directive, or `renderToString` on its own), every component renders complete HTML, and the native controls work and submit with their form. The props in the last column only update on the client: a `v-model` ref stays put while the native value still changes and submits. The table is read from the component sources and their API docs.
 
-- [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or import `opui-css/css/js/checkbox.js` in the page.
-- [Range](https://open-props-ui.netlify.app/vue/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
-- `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Number field](https://open-props-ui.netlify.app/vue/components/number-field.md), [One-time code](https://open-props-ui.netlify.app/vue/components/one-time-code.md), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Rating](https://open-props-ui.netlify.app/vue/components/rating.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Tabs](https://open-props-ui.netlify.app/vue/components/tabs.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md), [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md) and [Toggle](https://open-props-ui.netlify.app/vue/components/toggle.md): the ref stays put. The native value still changes and submits.
+| Component | Client | Server | Needs hydration for |
+| --- | --- | --- | --- |
+| [`Accordion`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
+| [`AccordionActions`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
+| [`AccordionSummary`](https://open-props-ui.netlify.app/vue/components/accordion.md) | Yes | Yes | - |
+| [`Anchor`](https://open-props-ui.netlify.app/vue/components/anchor.md) | Yes | Yes | - |
+| [`Avatar`](https://open-props-ui.netlify.app/vue/components/avatar.md) | Yes | Yes | - |
+| [`AvatarGroup`](https://open-props-ui.netlify.app/vue/components/avatar.md) | Yes | Yes | - |
+| [`Badge`](https://open-props-ui.netlify.app/vue/components/badge.md) | Yes | Yes | - |
+| [`Button`](https://open-props-ui.netlify.app/vue/components/button.md) | Yes | Yes | - |
+| [`ButtonGroup`](https://open-props-ui.netlify.app/vue/components/button-group.md) | Yes | Yes | - |
+| [`Callout`](https://open-props-ui.netlify.app/vue/components/callout.md) | Yes | Yes | - |
+| [`Card`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
+| [`CardActions`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
+| [`CardHeader`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
+| [`Carousel`](https://open-props-ui.netlify.app/vue/components/carousel.md) | Yes | Yes | - |
+| [`Checkbox`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate`, `v-model` |
+| [`CheckboxInput`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate`, `v-model` |
+| [`Chip`](https://open-props-ui.netlify.app/vue/components/chip.md) | Yes | Yes | - |
+| [`Copy`](https://open-props-ui.netlify.app/vue/components/copy.md) | Yes | Yes | - |
+| [`DescriptionList`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |
+| [`DescriptionListItem`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |
+| [`Dialog`](https://open-props-ui.netlify.app/vue/components/dialog.md) | Yes | Yes | - |
+| [`DialogFooter`](https://open-props-ui.netlify.app/vue/components/dialog.md) | Yes | Yes | - |
+| [`DialogHeader`](https://open-props-ui.netlify.app/vue/components/dialog.md) | Yes | Yes | - |
+| [`Divider`](https://open-props-ui.netlify.app/vue/components/divider.md) | Yes | Yes | - |
+| [`Drawer`](https://open-props-ui.netlify.app/vue/components/drawer.md) | Yes | Yes | - |
+| [`DrawerFooter`](https://open-props-ui.netlify.app/vue/components/drawer.md) | Yes | Yes | - |
+| [`DrawerHeader`](https://open-props-ui.netlify.app/vue/components/drawer.md) | Yes | Yes | - |
+| [`FieldDescription`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
+| [`FieldGroup`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
+| [`FieldLegend`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
+| [`Fieldset`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
+| [`Form`](https://open-props-ui.netlify.app/vue/components/form.md) | Yes | Yes | - |
+| [`List`](https://open-props-ui.netlify.app/vue/components/list.md) | Yes | Yes | - |
+| [`ListItem`](https://open-props-ui.netlify.app/vue/components/list.md) | Yes | Yes | - |
+| [`Menu`](https://open-props-ui.netlify.app/vue/components/menu.md) | Yes | Yes | - |
+| [`Message`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
+| [`Messages`](https://open-props-ui.netlify.app/vue/components/message.md) | Yes | Yes | - |
+| [`NumberField`](https://open-props-ui.netlify.app/vue/components/number-field.md) | Yes | No | `v-model` |
+| [`OneTimeCode`](https://open-props-ui.netlify.app/vue/components/one-time-code.md) | Yes | No | `v-model` |
+| [`Progress`](https://open-props-ui.netlify.app/vue/components/progress.md) | Yes | Yes | - |
+| [`Radio`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` |
+| [`RadioInput`](https://open-props-ui.netlify.app/vue/components/radio.md) | Yes | No | `v-model` |
+| [`Range`](https://open-props-ui.netlify.app/vue/components/range.md) | Yes | No | `v-model`, `valueSuffix` |
+| [`Rating`](https://open-props-ui.netlify.app/vue/components/rating.md) | Yes | No | `v-model` |
+| [`Select`](https://open-props-ui.netlify.app/vue/components/select.md) | Yes | No | `v-model` |
+| [`SelectAll`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | Yes | - |
+| [`SortableTable`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
+| [`Stat`](https://open-props-ui.netlify.app/vue/components/stat.md) | Yes | Yes | - |
+| [`Stepper`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
+| [`StepperItem`](https://open-props-ui.netlify.app/vue/components/stepper.md) | Yes | Yes | - |
+| [`Switch`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | `v-model` |
+| [`SwitchInput`](https://open-props-ui.netlify.app/vue/components/switch.md) | Yes | No | `v-model` |
+| [`Table`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
+| [`TableCell`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
+| [`TableColumn`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
+| [`TableColumnGroup`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
+| [`TableHeaderCell`](https://open-props-ui.netlify.app/vue/components/table.md) | Yes | Yes | - |
+| [`Tabs`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | No | `v-model` |
+| [`TabsItem`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
+| [`TabsLabel`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
+| [`TabsPanel`](https://open-props-ui.netlify.app/vue/components/tabs.md) | Yes | Yes | - |
+| [`Textarea`](https://open-props-ui.netlify.app/vue/components/textarea.md) | Yes | No | `v-model` |
+| [`TextField`](https://open-props-ui.netlify.app/vue/components/text-field.md) | Yes | No | `v-model` |
+| [`Timeline`](https://open-props-ui.netlify.app/vue/components/timeline.md) | Yes | Yes | - |
+| [`TimelineItem`](https://open-props-ui.netlify.app/vue/components/timeline.md) | Yes | Yes | - |
+| [`Toaster`](https://open-props-ui.netlify.app/vue/components/toast.md) | Yes | Yes | - |
+| [`ToggleButton`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` |
+| [`ToggleGroup`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` |
+| [`Tooltip`](https://open-props-ui.netlify.app/vue/components/tooltip.md) | Yes | Yes | - |
 
 Hydrate those (`client:load` in Astro) or use them in a client-rendered Vue app. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
 

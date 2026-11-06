@@ -251,13 +251,37 @@ export const keywords = ["email", "input", "password", "search", "text box"]
           <h3>Use <code>&lt;input type="number"&gt;</code> only for amounts</h3>
           <div class="ui-rich-text">
             <p>
-              For a quantity, use a
-              <DocLink href="/components/number-field">Number field</DocLink>.
-              See
+              <code>&lt;input type="number"&gt;</code> fits an amount you count
+              or step, like a quantity, which the
+              <DocLink href="/components/number-field">Number field</DocLink>
+              covers. Card numbers, IDs and codes are text made of digits: use
+              <code
+                >&lt;input type="text" inputmode="numeric"
+                pattern="[0-9]*"&gt;</code
+              >
+              for them.
+            </p>
+
+            <p>
+              It brings up the numeric keyboard on touch screens without the
+              problems of number inputs:
+            </p>
+
+            <ul>
+              <li>Unexpected value increments from scroll wheels</li>
+              <li>Browser-specific validation differences</li>
+              <li>Accessibility problems</li>
+              <li>Removal of leading zeros</li>
+              <li>Acceptance of non-numeric characters, like <code>e</code></li>
+            </ul>
+
+            <p>
+              GOV.UK explains these problems in
               <a
                 href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
                 class="ui-link"
-                >GOV.UK on number inputs</a
+                >Why the GOV.UK Design System team changed the input type for
+                numbers</a
               >.
             </p>
           </div>

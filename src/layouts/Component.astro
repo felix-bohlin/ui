@@ -26,7 +26,11 @@ import {
   List,
   ListItem,
 } from "opui-css/astro"
-import { componentImports, packageFor } from "../utils/component-imports"
+import {
+  componentImports,
+  componentSources,
+  packageFor,
+} from "../utils/component-imports"
 import {
   checkClasses,
   checkExports,
@@ -164,6 +168,11 @@ const imports =
       }
     : undefined
 
+const sourceTabs =
+  imports && currentFramework !== "html"
+    ? componentSources(currentFramework, imports.names)
+    : []
+
 const blogPosts = currentSlug
   ? posts.filter((post) => post.component === currentSlug)
   : []
@@ -269,7 +278,12 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
   {browserSupport && <BrowserSupport ids={browserSupport} />}
 
   {installationTabs ? (
-    <Installation imports={imports} slug={currentSlug} tabs={installationTabs}>
+    <Installation
+      imports={imports}
+      slug={currentSlug}
+      sourceTabs={sourceTabs}
+      tabs={installationTabs}
+    >
       <slot name="installation" />
     </Installation>
   ) : (

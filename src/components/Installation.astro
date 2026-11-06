@@ -15,10 +15,11 @@ export type Tab = {
 type Props = {
   imports?: { names: string[]; package: string }
   slug?: string
+  sourceTabs?: Tab[]
   tabs: Tab[]
 }
 
-const { imports, slug, tabs } = Astro.props
+const { imports, slug, sourceTabs = [], tabs } = Astro.props
 
 const importLine = imports
   ? `import { ${imports.names.join(", ")} } from "${imports.package}"`
@@ -119,7 +120,7 @@ const usedBy = slug
     </button>}
   </div>}
 
-  <CodeGroup tabs={allTabs} />
+  <CodeGroup tabs={[...allTabs, ...sourceTabs]} />
 </section>
 
 <style>

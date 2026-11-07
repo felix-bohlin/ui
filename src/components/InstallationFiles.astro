@@ -11,8 +11,6 @@ type Props = {
 
 const { sourceTabs, tabs: allTabs } = Astro.props
 
-const { link } = Astro.locals
-
 const cssTabs = allTabs.filter((tab) => tab.title.endsWith(".css"))
 const allCss = cssTabs
   .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
@@ -37,23 +35,6 @@ const groups = [
 ---
 
 <slot />
-
-{cssTabs.length > 0 && <p>
-  {sourceTabs.length > 0 ? (
-    <>
-      The CSS loads with the rest of the package from
-      <code>opui-css/css/imports.css</code>. To own the code instead, copy the
-      files into your project: the CSS tab has the styles, and the
-      {frameworkLabel} tab has the components and every file they import, at
-      their paths in the package.
-    </>
-  ) : (
-    "Copy the CSS into your project to own it."
-  )}{" "}
-  The CSS reads tokens from <code>palette.css</code> and <code>theme.css</code>,
-  so those go on the page too, after <code>layers.css</code>. See
-  <a href={link("/guide/getting-started")}>Getting started</a>.
-</p>}
 
 <div class="code-group ui-card ui-outlined ui-not-rich-text">
   <Tabs variant="line" class="code-tabs">

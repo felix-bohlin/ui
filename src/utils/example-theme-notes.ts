@@ -1,7 +1,7 @@
 export const EXAMPLE_THEME_NOTES = {
   bootstrap: {
     description:
-      "Its <code>oklch(0.578 0.228 260)</code> blue, gray secondary buttons, the danger, warning, info and success colors with the subtle alert palettes, <code>oklch(0.91 0.007 248)</code> borders, 38px controls, regular weight buttons, labels and links, 16px checks and 32px switches, solid blue selected items, the heading scale, 1.5 line height and the wide translucent focus ring. No shadow on dropdowns and modals.",
+      "Its <code>oklch(0.578 0.228 260)</code> blue, gray secondary buttons, the danger, warning, info and success colors with the subtle alert palettes, <code>oklch(0.91 0.007 248)</code> borders, 38px controls, regular weight buttons, labels and links, 16px paragraph spacing, 16px checks and 32px switches, solid blue selected items, the heading scale, 1.5 line height and the wide translucent focus ring. No shadow on dropdowns and modals.",
     original: "Bootstrap 5",
   },
   brutalist: {
@@ -11,7 +11,7 @@ export const EXAMPLE_THEME_NOTES = {
   },
   govuk: {
     description:
-      "Black text on white, the brand blue, regular weight links in the darker link blue and purple once visited, the error red and the success green as they are, 2px black field borders, square corners, green default buttons with a 2px bottom edge, gray secondary buttons, 40px checkboxes and radios that draw a black check and dot on white, with the gray hover ring, 19px body, label, hint and control text on 25px lines, the bold heading scale up to 48px, 5px spacing steps, the 3px yellow focus ring on a black edge, no shadows, and Arial, its font off GOV.UK. GOV.UK has no dark mode, so the theme swaps its black and white.",
+      "Black text on white, the brand blue, regular weight links in the darker link blue and purple once visited, the error red and the success green as they are, 2px black field borders, square corners, green default buttons with a 2px bottom edge, gray secondary buttons, 40px checkboxes and radios that draw a black check and dot on white, with the gray hover ring, 19px body, label, hint and control text on 25px lines, the bold heading scale up to 48px, 15px to 20px paragraph spacing, 5px spacing steps, the 3px yellow focus ring on a black edge, no shadows, and Arial, its font off GOV.UK. GOV.UK has no dark mode, so the theme swaps its black and white.",
     original: "GOV.UK Design System",
   },
   m3: {

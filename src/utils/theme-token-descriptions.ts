@@ -173,6 +173,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
   "--ui-field-size-x-small": "Field height with `.ui-x-small`.",
+  "--ui-flow-gap":
+    "Space between paragraphs, lists, blockquotes, tables, `details` and `address` in `.ui-rich-text`, rounded to `--ui-rhythm-step`. Headings, code blocks, figures and `hr` take multiples of it, with more room above headings than below. When unset, `1.25em` of the rich text font size.",
   "--ui-fluid-max-inline-size":
     "Viewport inline size where `--ui-fluid-progress` reaches 1 and the fluid heading sizes their maximum, 48rem.",
   "--ui-fluid-min-inline-size":

@@ -241,6 +241,12 @@ export const keywords = ["font", "heading", "prose", "text"]
       Wrap content in <code>.ui-rich-text</code>. Use
       <code>.ui-not-rich-text</code> to opt a part out.
     </p>
+    <p>
+      Paragraphs, lists, blockquotes and tables are spaced by
+      <code>--ui-flow-gap</code>, <code>1.25em</code> until a theme sets it,
+      rounded to <code>--ui-rhythm-step</code>. Headings, code blocks and
+      figures take multiples of it, with more room above headings than below.
+    </p>
     <Code
       lang="html"
       code={`<article class="ui-rich-text">\n  <h2>Styled</h2>\n  <div class="ui-not-rich-text"><!-- not styled --></div>\n</article>`}

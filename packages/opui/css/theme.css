@@ -80,6 +80,7 @@
     --ui-line-height-relaxed: 1.75;
 
     --ui-rhythm-step: 0.25rem;
+    /* --ui-flow-gap: 1.25em; */
 
     --ui-underline-offset: 2px;
     --ui-underline-offset-small: 1px;

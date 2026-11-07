@@ -44,6 +44,7 @@
     --ui-field-label-font-size: 1rem;
     --ui-field-label-font-weight: 400;
     --ui-field-padding-inline: 0.75rem;
+    --ui-flow-gap: 1rem;
     --ui-focus-ring-color: oklch(0.578 0.228 260 / 0.25);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 0.25rem;

@@ -298,7 +298,7 @@
 
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-gap: round(1.25em, var(--ui-rhythm-step));
+      --_flow-gap: round(var(--ui-flow-gap, 1.25em), var(--ui-rhythm-step));
       min-inline-size: 0;
       overflow-wrap: break-word;
     }

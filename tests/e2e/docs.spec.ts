@@ -521,18 +521,21 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   page,
 }) => {
   await page.goto("/react/components/checkbox/")
-  const tabs = page.locator("#installation .code-tabs")
-  await expectRenewedRanges(
+  const installation = page.locator("#installation")
+  const tabs = installation.locator(".code-tabs:has(.file)")
+  const firstFileIn = (panel: number) =>
     tabs
       .locator(".ui-panel")
-      .nth(1)
+      .nth(panel)
       .locator(".file")
       .first()
-      .locator("pre > code"),
-    async () => {
-      await tabs.locator(".ui-label").nth(1).click()
-    },
-  )
+      .locator("pre > code")
+  await expectRenewedRanges(firstFileIn(0), async () => {
+    await installation.locator(".ui-label", { hasText: "Manual" }).click()
+  })
+  await expectRenewedRanges(firstFileIn(1), async () => {
+    await tabs.locator(".ui-label").nth(1).click()
+  })
 })
 
 for (const path of DOCS_PAGES) {

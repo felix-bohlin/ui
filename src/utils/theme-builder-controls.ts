@@ -1438,6 +1438,11 @@ export const GROUPS: ControlGroup[] = [
             value: "shade",
           },
           {
+            label: "Shade all",
+            tokens: { "--ui-button-hover": "shade-all" },
+            value: "shade-all",
+          },
+          {
             label: "Layer",
             tokens: { "--ui-button-hover": "layer" },
             value: "layer",

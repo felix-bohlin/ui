@@ -106,6 +106,16 @@
       --_tonal-hover-text-color: var(--_on-accent-tonal);
     }
 
+    @container style(--ui-button-hover: shade-all) {
+      --_tonal-active-bg-color: light-dark(
+        oklch(from var(--_tonal-hover-bg-color) calc(l * 0.93) c h),
+        oklch(from var(--_tonal-hover-bg-color) calc(l * 1.1) c h)
+      );
+      --_tonal-active-text-color: var(--_on-accent-tonal);
+      --_tonal-hover-bg-color: var(--ui-surface-tonal-hover);
+      --_tonal-hover-text-color: var(--_on-accent-tonal);
+    }
+
     -webkit-touch-callout: none;
     align-items: center;
     background-color: var(--_bg-color);
@@ -148,6 +158,13 @@
         from var(--_accent) l c h / var(--ui-state-hover-alpha-accent)
       );
       --_on-accent-tonal: var(--ui-palette-on-tint);
+
+      @container style(--ui-button-hover: shade-all) {
+        --_tonal-hover-bg-color: light-dark(
+          oklch(from var(--_accent-tonal) calc(l * 0.93) c h),
+          oklch(from var(--_accent-tonal) calc(l * 1.1) c h)
+        );
+      }
     }
 
     &.ui-critical,

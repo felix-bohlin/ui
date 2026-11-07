@@ -164,7 +164,7 @@ export const whatsNew = {
     `Text on a primary <a href="#colors">badge</a> reads <code>--ui-on-primary</code>.`,
   ],
   button: [
-    `Themes can set <a href="#api"><code>--ui-button-hover: layer</code></a> for state-layer hover and pressed states, and <code>--ui-button-padding-inline</code> with its <code>-x-small</code>, <code>-small</code> and <code>-large</code> variants for the horizontal padding per size.`,
+    `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, and <code>--ui-button-padding-inline</code> with its <code>-x-small</code>, <code>-small</code> and <code>-large</code> variants for the horizontal padding per size.`,
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
     `Themes can set <a href="#api"><code>--ui-button-focus: highlight</code></a> to fill a focused button with the focus color instead of drawing the ring, like GOV.UK.`,
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -215,7 +215,7 @@ export const whatsNew = {
     `Themes can shrink a button while it's pressed with <a href="#api"><code>--ui-press-scale</code></a>, eased by <code>--ui-ease-move</code>. Buttons in a group never scale.`,
   ],
   "button-group": [
-    `Themes can set <a href="#api"><code>--ui-button-hover: layer</code></a> for state-layer hover and pressed states, <code>--ui-button-padding-inline</code> with its size variants, and <code>--ui-button-accent-filled</code> with <code>--ui-button-on-accent-filled</code> for the filled color.`,
+    `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, <code>--ui-button-padding-inline</code> with its size variants, and <code>--ui-button-accent-filled</code> with <code>--ui-button-on-accent-filled</code> for the filled color.`,
     `Breaking: <code>--_border-radius</code> and <code>--_divider-color</code> are <code>--_radius</code> and <code>--_divider-border-color</code>, and <code>--_min-height</code> is gone: set <code>--_size</code> on the buttons (<a href="#under-the-hood">Under the hood</a>).`,
     `The <a href="#accessibility">inset focus ring</a> sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
     `Buttons in a group draw their <a href="#accessibility">focus ring</a> with <code>--ui-focus-ring-color</code>.`,

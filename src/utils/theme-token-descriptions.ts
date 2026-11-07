@@ -33,13 +33,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-accent":
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, `--ui-control-accent`, else the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-filled":
-    "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, and of hovered outlined and tonal ones unless `--ui-button-hover` is `layer`. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
+    "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, of hovered outlined ones unless `--ui-button-hover` is `layer`, and of hovered tonal ones when it is unset. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
   "--ui-button-focus":
     'How a focused `Button` and `ButtonGroup` button show focus. `highlight` fills the button with `--ui-focus-highlight` and `--ui-on-focus-highlight` text instead of the ring, like GOV.UK. The outline stays, transparent, so forced colors still draw the ring, and a button with `aria-disabled="true"` keeps the ring. When unset (`ring`), the focus ring shows.',
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
   "--ui-button-hover":
-    "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
+    "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. `shade-all` shades the fill of every button that has one, filled and tonal: filled buttons as when unset, tonal ones with `--ui-surface-tonal-hover`, darker in light mode and lighter in dark mode, and a step further when pressed. Outlined buttons fill with the accent, as when unset. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
   "--ui-button-hover-shadow":
     "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-button-shadow`.",
   "--ui-button-hover-translate":
@@ -445,7 +445,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-surface-tonal-hover":
-    "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
+    "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, filled `TextField`, `Select` and `Textarea` fields, and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
   "--ui-switch-thumb-bg-color":
     "Color of the unchecked `Switch` thumb. The checked thumb uses `--ui-choice-on-accent`.",
   "--ui-switch-thumb-size": "Diameter of the `Switch` thumb.",

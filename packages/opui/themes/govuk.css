@@ -15,7 +15,7 @@
     --ui-button-on-accent-filled: oklch(1 0 0);
     --ui-button-focus: highlight;
     --ui-button-font-weight: 400;
-    --ui-button-hover: layer;
+    --ui-button-hover: shade-all;
     --ui-button-padding-inline: 0.75rem;
     --ui-button-padding-inline-large: 1rem;
     --ui-button-padding-inline-small: 0.625rem;
@@ -88,8 +88,6 @@
     --ui-shadow-overlay: none;
     --ui-shadow-selected: none;
     --ui-space-scale: 1.25;
-    --ui-state-active-alpha-accent: 14%;
-    --ui-state-hover-alpha-accent: 14%;
     --ui-success: oklch(0.514 0.11 161);
     --ui-surface: light-dark(oklch(1 0 0), oklch(0.153 0 0));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.2 0 0));

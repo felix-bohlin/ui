@@ -192,13 +192,8 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         class="showcase-carousel"
         aria-label="Destinations"
       >
-        {["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => <li>
-          <Card variant="tonal">
-            <CardHeader>
-              <p>Destination</p>
-              <h3>{title}</h3>
-            </CardHeader>
-          </Card>
+        {Array.from({ length: 5 }, () => <li>
+          <Card variant="tonal" />
         </li>)}
       </Carousel>
     </Fragment>
@@ -215,14 +210,31 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </Fragment>
 
     <Fragment slot="copy">
-      <div aria-hidden="true" class="ui-layout-row ui-small" inert>
+      <div
+        aria-hidden="true"
+        class="ui-layout-row ui-small showcase-copy"
+        inert
+      >
         <TextField
           hideLabel
           label="Invite link"
           readonly
           value="opui.dev/invite/8f3k"
         />
-        <Button variant="outlined">Copy</Button>
+        <Button aria-label="Copy" round variant="outlined">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm0-2h9V4H9zm-4 6q-.825 0-1.412-.587T3 20V6h2v14h11v2z"
+            ></path>
+          </svg>
+        </Button>
       </div>
     </Fragment>
 
@@ -575,6 +587,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       mask-image: linear-gradient(to right, oklch(0 0 0) 75%, transparent);
       scrollbar-width: none;
 
+      & .ui-card {
+        aspect-ratio: 3 / 4;
+      }
+
       &:dir(rtl) {
         mask-image: linear-gradient(to left, oklch(0 0 0) 75%, transparent);
       }
@@ -592,6 +608,15 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     .showcase-chips {
       display: flex;
       gap: var(--size-3);
+    }
+
+    .showcase-copy {
+      flex-wrap: nowrap;
+
+      & > :first-child {
+        flex: 1;
+        min-inline-size: 0;
+      }
     }
 
     .showcase-drawer {

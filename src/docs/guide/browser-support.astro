@@ -24,7 +24,7 @@ const years = Object.keys(categorized)
   .sort((a, b) => a.localeCompare(b)) // 2024, 2025...
 ---
 
-<Guide showToc={false}>
+<Guide>
   <Fragment slot="title">Browser support</Fragment>
   <Fragment slot="preamble">
     The web platform features the components rely on, and the browsers that ship
@@ -200,10 +200,11 @@ const years = Object.keys(categorized)
     </ul>
   </section>
 
-  <section class="filter-section">
+  <section id="features" class="filter-section">
+    <h2>Features by component</h2>
     <div class="filter-group">
       <header>
-        <h2 class="ui-h3">Features</h2>
+        <h3>Features</h3>
         <button
           type="button"
           id="clear-features"
@@ -234,7 +235,7 @@ const years = Object.keys(categorized)
 
     <div class="filter-group">
       <header>
-        <h2 class="ui-h3">Components</h2>
+        <h3>Components</h3>
         <button
           type="button"
           id="clear-components"
@@ -265,7 +266,7 @@ const years = Object.keys(categorized)
 
     <div class="filter-group">
       <header>
-        <h2 class="ui-h3">Supported since</h2>
+        <h3>Supported since</h3>
         <button
           type="button"
           id="clear-years"
@@ -359,7 +360,7 @@ const years = Object.keys(categorized)
       gap: var(--size-3);
       justify-content: space-between;
 
-      h2 {
+      h3 {
         margin: 0;
       }
 

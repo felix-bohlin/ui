@@ -3296,6 +3296,13 @@
     "url": "/vue/guide/browser-support/#polyfills"
   },
   {
+    "id": "guide-browser-support-vue-features",
+    "title": "Features by component",
+    "page": "Browser support",
+    "category": "Guide",
+    "url": "/vue/guide/browser-support/#features"
+  },
+  {
     "id": "guide-concepts-vue",
     "title": "Concepts",
     "description": "The architecture: cascade layers, token tiers, scopes, props and classes, naming, rich text, and where JavaScript is still needed.",

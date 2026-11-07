@@ -41,6 +41,7 @@
     --ui-field-padding-inline-large: 0.3125rem;
     --ui-flow-gap: clamp(0.9375rem, 0.7143rem + 1.116vi, 1.25rem);
     --ui-focus-border-color: oklch(0.153 0 0);
+    --ui-focus-border-width: 4px;
     --ui-focus-ring-color: oklch(0.899 0.186 97.9);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 3px;

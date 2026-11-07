@@ -219,6 +219,7 @@
 
     /* Focus ring */
     /* --ui-focus-border-color: var(--ui-text-strong); */
+    /* --ui-focus-border-width: 4px; */
     --ui-focus-ring-color: oklch(
       from var(--ui-surface) clamp(0, (0.6 - l) * 1000, 1) 0 0
     );

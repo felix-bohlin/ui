@@ -6,6 +6,7 @@
         --ui-choice-border-color,
         var(--ui-field-border-color)
       );
+      --_border-width: var(--ui-field-border-width);
       --_mark-bg-color: light-dark(
         var(--_accent),
         oklch(
@@ -18,7 +19,7 @@
       aspect-ratio: 1;
       background-color: var(--ui-surface);
       block-size: var(--_size);
-      border: var(--ui-field-border-width) solid var(--_border-color);
+      border: var(--_border-width) solid var(--_border-color);
       border-radius: var(--ui-radius-x-small);
       cursor: pointer;
       display: grid;
@@ -53,6 +54,11 @@
       }
 
       &:focus-visible {
+        --_border-width: max(
+          var(--ui-field-border-width),
+          var(--ui-focus-border-width, 0px)
+        );
+
         @media (forced-colors: none) {
           border-color: var(--ui-focus-border-color, var(--_border-color));
         }
@@ -70,7 +76,7 @@
           25% 42%
         );
         content: "";
-        inset: 0;
+        inset: calc(var(--ui-field-border-width) - var(--_border-width));
         opacity: 0;
         position: absolute;
       }

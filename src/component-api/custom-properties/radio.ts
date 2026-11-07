@@ -11,6 +11,11 @@ export default {
       "Border of the radio input. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, `--_accent` when checked and `--ui-invalid` when invalid. `CanvasText` in forced colors. A focused radio draws `--ui-focus-border-color` instead when the theme sets it. Set on `input`.",
     kind: "output",
   },
+  "--_border-width": {
+    description:
+      "Border width of the radio input: `--ui-field-border-width`, or `--ui-focus-border-width` while focused when the theme sets a wider one. The dot reads `--ui-field-border-width`, so it keeps its size. Set on `input`.",
+    kind: "output",
+  },
   "--_dot-radius": {
     description:
       "Radius of the checked dot, computed from `--_size` and `--ui-field-border-width`.",

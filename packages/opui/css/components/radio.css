@@ -6,6 +6,7 @@
         --ui-choice-border-color,
         var(--ui-field-border-color)
       );
+      --_border-width: var(--ui-field-border-width);
       --_dot-radius: calc(
         var(--_size) / 2 - var(--ui-field-border-width) -
           round(
@@ -26,7 +27,7 @@
       aspect-ratio: 1;
       background-color: var(--ui-surface);
       block-size: var(--_size);
-      border: var(--ui-field-border-width) solid var(--_border-color);
+      border: var(--_border-width) solid var(--_border-color);
       border-radius: var(--ui-radius-round);
       cursor: pointer;
       inline-size: var(--_size);
@@ -64,6 +65,11 @@
       }
 
       &:focus-visible {
+        --_border-width: max(
+          var(--ui-field-border-width),
+          var(--ui-focus-border-width, 0px)
+        );
+
         @media (forced-colors: none) {
           border-color: var(--ui-focus-border-color, var(--_border-color));
         }

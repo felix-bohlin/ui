@@ -3432,7 +3432,7 @@
   {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
-    "description": "Every token, its default and what it does. v6 renamed them all, see Migrating.",
+    "description": "Every token, its default and what it does.",
     "category": "Guide",
     "url": "/html/guide/theme-tokens/"
   },

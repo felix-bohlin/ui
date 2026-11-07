@@ -69,6 +69,15 @@ const { sidebarDrawerId, showToc = true } = Astro.props
   </DrawerFooter>
 </Drawer>}
 
+<script>
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return
+    const link = event.target.closest("#toc-dialog a[href]")
+    if (!link) return
+    link.closest("dialog")?.close()
+  })
+</script>
+
 <style>
   .local-nav {
     align-items: center;

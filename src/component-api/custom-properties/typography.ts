@@ -16,6 +16,11 @@ export default {
       "Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.",
     kind: "output",
   },
+  "--_line-height": {
+    description:
+      "Line height of the element around inline `code` in `.ui-rich-text`, so the code's vertical padding fits in the space its line leaves.",
+    kind: "output",
+  },
   "--_start-digits": {
     description:
       "Digits reserved for the numbers of an `ol`, from its `start` attribute.",

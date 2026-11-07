@@ -43,7 +43,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_flow-gap`: Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.
 - `--_swatch-bg-color`: Fill of `.ui-swatch`. Defaults to `--ui-palette-accent`, the accent of the color class on the swatch or of the surrounding severity scope.
 
-Outputs: `--_count-digits`, `--_font-scale` and `--_start-digits`.
+Outputs: `--_count-digits`, `--_font-scale`, `--_line-height` and `--_start-digits`.
 
 ### link.css
 

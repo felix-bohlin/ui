@@ -702,7 +702,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Tooltip` arrow points at the trigger for every position, after flips and shifts.
 - `Tooltip` keeps its edge in forced colors with a `CanvasText` border, and the arrow stays visible.
 - `Tooltip` aligned to a span switches inline sides before it jumps to the other block side.
-- `Typography` rich text inline `code`, `kbd` and `var` no longer make their line taller than the line height.
+- `Typography` rich text inline `code`, `kbd` and `var` no longer make their line taller than the line height, and the background of inline `code` stays inside its line: the padding above and below it shrinks to the space the line leaves, up to `0.5ex`, so code on neighboring lines no longer overlaps with line heights under 1.75.
 - `Typography` `kbd`, `var`, `.ui-kbd` and `.ui-var` no longer draw a border in their own background color. The border width is folded into the padding, so the box keeps its size.
 - `Typography` rich text removes the top margin of the first child and the bottom margin of the last child in a component's `.ui-content`.
 - `Typography` rich text lists after a heading or `hr` no longer get a top margin, and nested lists get their smaller margins.

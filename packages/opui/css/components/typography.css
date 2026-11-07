@@ -291,6 +291,12 @@
   syntax: "<length>";
 }
 
+@property --_line-height {
+  inherits: true;
+  initial-value: 0px;
+  syntax: "<length>";
+}
+
 @layer components.prose {
   :where(p:not(.ui-p), small, span).ui-small {
     font-size: max(0.75em, var(--ui-font-size-caption));
@@ -744,6 +750,10 @@
       font-family: var(--ui-font-code);
     }
 
+    :where(:has(> code)) {
+      --_line-height: 1lh;
+    }
+
     code {
       background-color: var(--ui-code-bg-color);
       border-radius: var(--ui-radius-small);
@@ -785,6 +795,7 @@
     }
 
     :not(pre) > code {
+      padding-block: clamp(0px, (var(--_line-height) - 1.3em) / 2, 0.5ex);
       writing-mode: horizontal-tb;
     }
 

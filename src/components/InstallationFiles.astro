@@ -54,13 +54,12 @@ const groups = [
               {file.title}
             </option>)}
           </Select>}
-          <span class="file-count">{group.files.length} files</span>
           {group.title === "CSS" && cssTabs.length > 1 && <button
             type="button"
-            class="ui-button ui-outlined ui-small copy-all-css"
+            class="ui-button ui-small copy-all-css"
             data-css={allCss}
           >
-            Copy all CSS
+            Copy all
           </button>}
         </div>}
         {group.files.map((file, index) => <div class="file" hidden={index > 0}>
@@ -81,18 +80,18 @@ const groups = [
 
   .file-bar {
     align-items: center;
+    border-block-end: 1px solid var(--ui-border-color);
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-3);
-    padding: var(--ui-space-3);
+    gap: var(--ui-space-2);
+    padding: var(--ui-space-2) var(--ui-space-3);
   }
 
-  .file-count {
-    color: var(--ui-text-subtle);
-    font-size: var(--ui-font-size-small);
+  .file-picker {
+    min-inline-size: 0;
   }
 
   .copy-all-css {
+    flex-shrink: 0;
     margin-inline-start: auto;
   }
 </style>

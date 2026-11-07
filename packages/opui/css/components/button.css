@@ -396,6 +396,19 @@
       @media (forced-colors: none) {
         border-color: var(--ui-focus-border-color, var(--_border-color));
       }
+
+      &:where(:not([aria-disabled="true"])) {
+        @container style(--ui-button-focus: highlight) {
+          @media (forced-colors: none) {
+            --_bg-color: var(--ui-focus-highlight);
+            --_border-color: var(--ui-focus-highlight);
+            --_text-color: var(--ui-on-focus-highlight);
+
+            border-color: var(--ui-focus-highlight);
+            outline-color: transparent;
+          }
+        }
+      }
     }
 
     /* Disabled */

@@ -89,6 +89,7 @@
     --ui-underline-offset: 2px;
     --ui-underline-offset-small: 1px;
     --ui-underline-thickness-hover: 3px;
+    /* --ui-link-focus: ring; */
     /* --ui-link-font-weight: var(--ui-font-weight-bold); */
 
     /* Spacing - gaps, padding and margins inside and between components. */
@@ -114,6 +115,7 @@
     /* --ui-button-on-accent-filled: var(--ui-button-on-accent); */
     /* --ui-button-radius: var(--ui-radius); */
     /* --ui-button-font-weight: var(--ui-font-weight-bold); */
+    /* --ui-button-focus: ring; */
     /* --ui-button-hover: shade; */
     /* --ui-button-hover-shadow: var(--ui-shadow-control); */
     /* --ui-button-shadow: var(--ui-shadow-control); */

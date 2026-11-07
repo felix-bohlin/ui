@@ -232,12 +232,14 @@ describe("theme tokens", () => {
         .map((token) => token.name)
         .toSorted(),
     ).toEqual([
+      "--ui-button-focus",
       "--ui-button-hover",
       "--ui-button-hover-translate",
       "--ui-choice-checked",
       "--ui-color-scheme",
       "--ui-contrast",
       "--ui-ease-move",
+      "--ui-link-focus",
     ])
   })
 

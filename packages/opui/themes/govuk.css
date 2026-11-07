@@ -13,6 +13,7 @@
     --ui-button-accent-filled: oklch(0.514 0.11 161);
     --ui-button-on-accent: var(--ui-surface);
     --ui-button-on-accent-filled: oklch(1 0 0);
+    --ui-button-focus: highlight;
     --ui-button-font-weight: 400;
     --ui-button-hover: layer;
     --ui-button-padding-inline: 0.75rem;
@@ -70,6 +71,7 @@
     --ui-line-height: 1.3158;
     --ui-line-height-control: 1.3158;
     --ui-line-height-relaxed: 1.3158;
+    --ui-link-focus: highlight;
     --ui-link-font-weight: 400;
     --ui-link-visited-text-color: light-dark(
       oklch(0.422 0.168 292.3),

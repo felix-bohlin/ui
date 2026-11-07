@@ -669,13 +669,19 @@ const tabStop = (page: Page) =>
       )} "${(element.getAttribute("aria-label") ?? element.textContent ?? "").trim().slice(0, 40)}"`
     const visible = (node: Element) =>
       node.checkVisibility({ opacityProperty: true, visibilityProperty: true })
+    const transparent = /^transparent$|,\s*0\)$|\/\s*0\)$/
+    const highlighted = (style: CSSStyleDeclaration) =>
+      ["--ui-button-focus", "--ui-link-focus"].some(
+        (name) => style.getPropertyValue(name).trim() === "highlight",
+      ) && !transparent.test(style.backgroundColor)
     const ring = candidates.find((node) => {
-      const { outlineColor, outlineStyle, outlineWidth } =
-        getComputedStyle(node)
+      const style = getComputedStyle(node)
+      const { outlineColor, outlineStyle, outlineWidth } = style
       return (
-        outlineStyle !== "none" &&
-        parseFloat(outlineWidth) > 0 &&
-        !/^transparent$|,\s*0\)$|\/\s*0\)$/.test(outlineColor) &&
+        ((outlineStyle !== "none" &&
+          parseFloat(outlineWidth) > 0 &&
+          !transparent.test(outlineColor)) ||
+          highlighted(style)) &&
         visible(node)
       )
     })

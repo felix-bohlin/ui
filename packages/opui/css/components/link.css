@@ -64,5 +64,25 @@
         }
       }
     }
+
+    :where(:scope.ui-link)[href],
+    a[href]:where(:not([class*="ui-"])),
+    mark a[href]:where(:not([class*="ui-"])) {
+      &:focus-visible {
+        @container style(--ui-link-focus: highlight) {
+          @media (forced-colors: none) {
+            background-color: var(--ui-focus-highlight);
+            border-block-end: max(
+                var(--ui-focus-ring-width),
+                var(--ui-focus-border-width, 0px)
+              )
+              solid var(--ui-on-focus-highlight);
+            color: var(--ui-on-focus-highlight);
+            outline-color: transparent;
+            text-decoration: none;
+          }
+        }
+      }
+    }
   }
 }

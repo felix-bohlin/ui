@@ -34,6 +34,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, `--ui-control-accent`, else the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-filled":
     "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, and of hovered outlined and tonal ones unless `--ui-button-hover` is `layer`. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
+  "--ui-button-focus":
+    'How a focused `Button` and `ButtonGroup` button show focus. `highlight` fills the button with `--ui-focus-highlight` and `--ui-on-focus-highlight` text instead of the ring, like GOV.UK. The outline stays, transparent, so forced colors still draw the ring, and a button with `aria-disabled="true"` keeps the ring. When unset (`ring`), the focus ring shows.',
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
   "--ui-button-hover":
@@ -182,11 +184,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-fluid-progress":
     "Position of the viewport inline size in the `--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size` window, 0 to 1, from `progress()`. `--ui-font-size-h1` to `--ui-font-size-h4` grow with it, and a theme can ramp other values on the same window.",
   "--ui-focus-border-color":
-    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. When unset, each keeps its own border. Forced colors ignore it.",
+    "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. Links and buttons that highlight, with `--ui-link-focus` or `--ui-button-focus` set to `highlight`, show neither the ring nor this border: `--ui-on-focus-highlight` carries their contrast. When unset, each keeps its own border. Forced colors ignore it.",
   "--ui-focus-border-width":
-    "Border width of a focused `Checkbox` and `Radio`, so the focus edge thickens, like GOV.UK's 4px. Never thinner than `--ui-field-border-width`, and the check and the dot keep their size. Forced colors keep the wider border. When unset, the border keeps its width.",
+    "Border width of a focused `Checkbox` and `Radio`, so the focus edge thickens, like GOV.UK's 4px. Never thinner than `--ui-field-border-width`, and the check and the dot keep their size. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
   "--ui-focus-highlight":
-    "Fill of a focused element that highlights instead of showing the ring: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
+    "Fill of a focused link or button that highlights instead of showing the ring, when `--ui-link-focus` or `--ui-button-focus` is `highlight`: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
   "--ui-focus-ring-inset":
@@ -288,6 +290,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
     "Line height of single-line controls and compact text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+  "--ui-link-focus":
+    "How a focused `.ui-link` and a focused link in `.ui-rich-text` show focus. `highlight` fills the link with `--ui-focus-highlight`, draws its text and a bar under it in `--ui-on-focus-highlight` and drops the underline, like GOV.UK. The bar is a block-end border as thick as the focus ring or `--ui-focus-border-width`, whichever is wider, so it follows the writing mode and sits under every line of a wrapped link. The outline stays, transparent, so forced colors still draw the ring. When unset (`ring`), the focus ring shows.",
   "--ui-link-font-weight":
     "Font weight of `.ui-link` and of links in `.ui-rich-text`. When unset, links follow `--ui-font-weight-bold`, the weight of headings.",
   "--ui-link-visited-text-color":
@@ -307,7 +311,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-fill":
     "Text on an intent fill: an intent color with its lightness capped so light text reads on it, within `--ui-accent-fill-max-lightness` for critical `Button`s and the critical, info, neutral and success `Badge`, and within `--ui-choice-fill-max-lightness` for the invalid choice mark and the checked one in dark mode. Near-white in both modes. The fill has no token of its own, since each intent is one. Not `--ui-palette-on-strong`, which turns dark in dark mode for the light `--ui-palette-strong`.",
   "--ui-on-focus-highlight":
-    "Text color on `--ui-focus-highlight`: black or white, whichever reads on it. It switches at OKLCH lightness 0.57, where black and white both reach 4.5:1 on a gray, since it colors text; the focus ring switches at 0.6, which only needs 3:1. Set it to match a brand's focus text, and hand it back under more contrast with the ring color.",
+    "Text color on `--ui-focus-highlight`, and the bar under a highlighted link: black or white, whichever reads on it. It switches at OKLCH lightness 0.57, where black and white both reach 4.5:1 on a gray, since it colors text; the focus ring switches at 0.6, which only needs 3:1. Set it to match a brand's focus text, and hand it back under more contrast with the ring color.",
   "--ui-on-inverse": "Text color on `--ui-surface-inverse`.",
   "--ui-on-primary":
     "Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text.",

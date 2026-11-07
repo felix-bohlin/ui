@@ -178,6 +178,26 @@ import { componentsWithSlot } from "../../utils/components"
 }`}
       lang="css"
     />
+    <p>
+      Links and buttons can show focus by filling instead, like GOV.UK. With
+      <code>--ui-link-focus</code> and <code>--ui-button-focus</code> set to
+      <code>highlight</code>, they fill with <code>--ui-focus-highlight</code>,
+      the ring color made opaque, and their text turns
+      <code>--ui-on-focus-highlight</code>, black or white, whichever reads.
+      Links also get a bar under every line, as thick as the ring or
+      <code>--ui-focus-border-width</code>, whichever is wider. The fill covers
+      the whole element, a stronger cue than a ring, so these two don't draw the
+      ring or the edge. The outline stays, transparent, so forced colors still
+      show it, and a theme that hands its ring color back under more contrast
+      gets a black or white highlight.
+    </p>
+    <Code
+      code={`:where(html) {
+  --ui-button-focus: highlight;
+  --ui-link-focus: highlight;
+}`}
+      lang="css"
+    />
   </section>
 
   <section id="contrast-and-motion">

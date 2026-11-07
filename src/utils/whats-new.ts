@@ -166,6 +166,7 @@ export const whatsNew = {
   button: [
     `Themes can set <a href="#api"><code>--ui-button-hover: layer</code></a> for state-layer hover and pressed states, and <code>--ui-button-padding-inline</code> with its <code>-x-small</code>, <code>-small</code> and <code>-large</code> variants for the horizontal padding per size.`,
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
+    `Themes can set <a href="#api"><code>--ui-button-focus: highlight</code></a> to fill a focused button with the focus color instead of drawing the ring, like GOV.UK.`,
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The <a href="#file-upload">file input</a> takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
     `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
@@ -1548,6 +1549,7 @@ export const whatsNew = {
     `<a href="#icon"><code>.ui-icon</code></a> sizes an <code>svg</code> to <code>--ui-icon-size</code>, with <code>.ui-small</code> and <code>.ui-large</code>.`,
     `<a href="#swatch"><code>.ui-swatch</code></a> is a small dot for a color legend, painted by a severity class or <code>--_swatch-bg-color</code>.`,
     `<a href="#link">Links</a> fade to their hover and focus color.`,
+    `Themes can set <a href="#link"><code>--ui-link-focus: highlight</code></a> to fill a focused link with the focus color and draw a bar under it instead of the ring, like GOV.UK.`,
   ],
 } satisfies Record<string, Note[]>
 

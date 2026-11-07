@@ -67,6 +67,7 @@ const primitives = [
 const componentTokens = [
   "--ui-button-accent",
   "--ui-button-accent-filled",
+  "--ui-button-focus",
   "--ui-button-font-weight",
   "--ui-button-hover",
   "--ui-button-hover-shadow",
@@ -107,6 +108,7 @@ const componentTokens = [
   "--ui-heading-margin-block-end",
   "--ui-heading-margin-block-start",
   "--ui-line-height-prose",
+  "--ui-link-focus",
   "--ui-link-font-weight",
   "--ui-link-visited-text-color",
   "--ui-list-item-padding-inline",

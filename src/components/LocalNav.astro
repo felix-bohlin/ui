@@ -76,6 +76,15 @@ const { sidebarDrawerId, showToc = true } = Astro.props
     if (!link) return
     link.closest("dialog")?.close()
   })
+
+  const tocDialog = document.querySelector<HTMLDialogElement>("#toc-dialog")
+
+  if (tocDialog && CSS.supports("selector(:target-current)")) {
+    tocDialog.addEventListener("toggle", (event) => {
+      if (event.newState !== "open") return
+      tocDialog.querySelector<HTMLElement>("a:target-current")?.focus()
+    })
+  }
 </script>
 
 <style>

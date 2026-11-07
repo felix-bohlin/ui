@@ -173,7 +173,11 @@ const { link } = Astro.locals
     <nav aria-label="Mobile navigation">
       <List variant="transparent">
         {resolvedNavItems.map((item) => <ListItem>
-          <a href={item.href} aria-current={item.isActive ? "page" : "false"}>
+          <a
+            href={item.href}
+            aria-current={item.isActive ? "page" : "false"}
+            autofocus={item.isActive}
+          >
             {item.label}
           </a>
         </ListItem>)}

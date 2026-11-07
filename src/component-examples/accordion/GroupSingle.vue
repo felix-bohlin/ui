@@ -1,32 +1,25 @@
 <script setup lang="ts">
-import { Accordion, Card } from "opui-css/vue"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+} from "opui-css/vue"
 </script>
 
 <template>
-  <Card variant="outlined" role="group">
+  <Card aria-label="Plan questions" role="group" variant="outlined">
     <Accordion name="example-group">
-      <template #summary>Accordion title</template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <AccordionSummary>Can I change my plan later?</AccordionSummary>
+      <AccordionContent>
+        <p>Yes. Upgrades apply right away, downgrades at the next renewal.</p>
+      </AccordionContent>
     </Accordion>
     <Accordion name="example-group">
-      <template #summary>Accordion title</template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
-    </Accordion>
-    <Accordion name="example-group">
-      <template #summary>Accordion title</template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <AccordionSummary>Do you offer refunds?</AccordionSummary>
+      <AccordionContent>
+        <p>Within 14 days of purchase, for any reason.</p>
+      </AccordionContent>
     </Accordion>
   </Card>
 </template>

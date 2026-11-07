@@ -1,27 +1,45 @@
 ---
-import IconButton from "../IconButton/IconButton.astro"
+import Button from "../Button/Button.astro"
 
 import type { DrawerHeaderProps as Props } from "./types.astro"
+import { warnMissingTarget } from "../dev"
+import { drawerContext } from "./context.astro"
+import { closePath } from "./icons"
+import { trimEdges } from "../whitespace"
 
-export const title = "Drawer Header"
+const {
+  class: className,
+  closeLabel = "Close",
+  commandfor,
+  ...rest
+} = Astro.props
 
-const { class: className, heading, ...rest } = Astro.props
+const drawer = drawerContext.get()
+const target = commandfor ?? drawer?.id
+warnMissingTarget("DrawerHeader", target, "Drawer")
+const content = Astro.slots.has("default")
+  ? trimEdges(await Astro.slots.render("default"))
+  : ""
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  {heading && <span>{heading}</span>}
-  <slot />
-  <IconButton onclick="this.closest('dialog').close()" title="Close">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
-      ></path>
-    </svg>
-  </IconButton>
+  <Fragment set:html={content} /><Button
+    aria-label={closeLabel}
+    command="close"
+    commandfor={target}
+    round
+    size="small"
+  >
+    <slot name="close-icon">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path fill="currentColor" d={closePath}></path>
+      </svg>
+    </slot>
+  </Button>
 </div>

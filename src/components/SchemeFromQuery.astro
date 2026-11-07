@@ -1,0 +1,7 @@
+<script is:inline>
+  {
+    const scheme = new URLSearchParams(location.search).get("scheme")
+    if (scheme === "dark" || scheme === "light")
+      document.documentElement.classList.add(`ui-${scheme}`)
+  }
+</script>

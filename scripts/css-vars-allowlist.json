@@ -1,0 +1,14 @@
+{
+  "core/normalize.css": {
+    "literals": ["min-inline-size: 320px"],
+    "primitives": []
+  },
+  "css/components/choice.css": {
+    "literals": ["transform: -1px"],
+    "primitives": []
+  },
+  "css/components/radio.css": {
+    "literals": ["background-image: 0.25px"],
+    "primitives": []
+  }
+}

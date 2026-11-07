@@ -1,28 +1,46 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
-  Accordion as UIAccordion,
   Button as UIButton,
   ButtonGroup as UIButtonGroup,
-} from "@opui/astro"
+} from "opui-css/astro"
 
+import ButtonCSS from "@opui/css/components/button.css?raw"
 import ButtonGroupCSS from "@opui/css/components/button-group.css?raw"
 import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
+
+export const keywords = ["segmented control", "split button", "toolbar"]
 ---
 
 <Component
   slug="button-group"
-  browserSupport={["color-mix"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "dir-pseudo",
+    "has",
+    "invoker-commands",
+    "lh",
+    "light-dark",
+    "logical-properties",
+    "popover",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   heroAnatomy
   apis={[
-    { title: "Button group", api: buttonGroupApi },
-    { title: "Button", api: buttonApi },
+    { title: "Button group API", api: buttonGroupApi },
+    { title: "Button API", api: buttonApi },
   ]}
   changelogPaths={[
     {
@@ -39,162 +57,131 @@ import Conditional from "../../components/Conditional.astro"
   ]}
   installationTabs={[
     { title: "button-group.css", code: ButtonGroupCSS, lang: "css" },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Button group</Fragment>
   <Fragment slot="preamble">
     <Conditional>
+      <Fragment slot="components">Groups related buttons.</Fragment>
       <Fragment slot="html">
-        Groups related buttons by wrapping them with <code
-          >class="ui-button-group"</code
-        > and <code>role="group"</code>.
+        Groups related buttons with <code>.ui-button-group</code> and
+        <code>role="group"</code>.
       </Fragment>
-      <Fragment slot="astro">Groups related buttons.</Fragment>
-      <Fragment slot="vue">Groups related buttons.</Fragment>
     </Conditional>
   </Fragment>
-  <ul>
-    <li>Button groups should consist of 2-5 buttons.</li>
-    <li>Don't allow them to wrap onto a new line.</li>
-    <li>
-      If an icon is used without label text make sure the button communicates
-      clearly what it does.
+
+  <Usage slot="usage">
+    <li slot="when">Related actions, like Undo and Redo.</li>
+    <li slot="when">
+      A main action with more options: a <a href="#split-button">split button</a
+      >.
     </li>
-  </ul>
+    <li slot="when-not">
+      Options that stay selected: use a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    </li>
+    <li slot="when-not">
+      Panels of content: use <DocLink href="/components/tabs">Tabs</DocLink>.
+    </li>
+    <li slot="when-not">
+      More than five actions: put the rest in a
+      <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+  </Usage>
 
-  <div class="ui-not-rich-text">
-    <UIAccordion variant="tonal">
-      <Fragment slot="summary">Button group or Toggle group?</Fragment>
-      <p>
-        If your buttons depend on state (controlled) - use <DocLink
-          href="/components/toggle"
-          class="ui-link">Toggle group</DocLink
-        >.
-      </p>
-      <p>
-        If you just need to group a bunch of "dumb" (uncontrolled) buttons - use
-        Button group.
-      </p>
-    </UIAccordion>
-  </div>
-
-  <section>
-    <h2 id="variants">Variants</h2>
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Change the appearance of the entire group with the <code>variant</code>
-        prop.
+      <Fragment slot="components">
+        Transparent by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Change the appearance of the entire group with the <code
-          >.ui-outlined</code
-        >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the appearance of the entire group with the <code>variant</code>
-        prop.
+        Transparent by default. Use <code>.ui-outlined</code>,
+        <code>.ui-tonal</code> or <code>.ui-filled</code> to change it.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
   </section>
 
-  <section>
-    <h2 id="colors">Colors</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set the <code>color</code> prop to <code>primary</code> or <code
-          >critical</code
-        > to recolor the entire group. The default is a neutral gray.
-      </Fragment>
-      <Fragment slot="html">
-        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
-        the entire group. The default is a neutral gray.
-      </Fragment>
-      <Fragment slot="vue">
-        Set the <code>color</code> prop to <code>primary</code> or <code
-          >critical</code
-        > to recolor the entire group. The default is a neutral gray.
-      </Fragment>
-    </Conditional>
+  <section id="colors">
+    <h2>Colors</h2>
     <AutoExample name="Colors" column centered />
   </section>
 
-  <section>
-    <h2 id="icons">Icons</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" column centered />
+  </section>
+
+  <section id="icons">
+    <h2>Icons</h2>
     <p>
-      Yes of course, they're just <DocLink
-        href="/components/button"
-        class="ui-link">buttons.</DocLink
-      >
+      Wrap the label in <code>.ui-text</code>, like in a
+      <DocLink
+        href="/components/button#buttons-with-icon-and-label"
+        class="ui-link"
+        >Button</DocLink
+      >.
     </p>
     <AutoExample name="WithIcons" column centered />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        prop.
-      </Fragment>
-      <Fragment slot="html">
-        Adjust the size of all buttons in the group using the <code
-          >.ui-small</code
-        > and <code>.ui-large</code> classes.
-      </Fragment>
-      <Fragment slot="vue">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        prop.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="Size" column centered />
+  <section id="split-button">
+    <h2>Split button</h2>
+    <p>
+      A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+      the last button, with
+      <PropOrClass prop='align="end"' class=".ui-align-end" />.
+    </p>
+    <AutoExample name="SplitButton" centered />
   </section>
 
-  <section>
-    <h2 id="vertical-orientation">Vertical orientation</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </Fragment>
-      <Fragment slot="html">
-        Change the layout of the group with the <code>.ui-vertical</code> class.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </Fragment>
-    </Conditional>
+  <section id="pagination">
+    <h2>Pagination</h2>
+    <p>
+      Link buttons in a <code>nav</code>, with <code>aria-current="page"</code>
+      on the current one.
+    </p>
+    <AutoExample name="Pagination" row />
+  </section>
 
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <AutoExample name="Disabled" column centered />
+  </section>
+
+  <section id="vertical-orientation">
+    <h2>Vertical orientation</h2>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
+    </p>
     <AutoExample name="Vertical" column centered />
   </section>
 
-  <section>
-    <h2 id="disabled">Disabled</h2>
+  <section id="overflow">
+    <h2>Overflow</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        prop on each <code>Button</code>.
+      <Fragment slot="components">
+        Wraps by default. Use <code>overflow</code> to scroll or shrink.
       </Fragment>
       <Fragment slot="html">
-        Disable individual buttons within a group by adding the <code
-          >disabled</code
-        >
-        attribute to each <code>&lt;button&gt;</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        prop on each <code>Button</code>.
+        Wraps by default. Use <code>.ui-overflow-scroll</code> or
+        <code>.ui-overflow-shrink</code>.
       </Fragment>
     </Conditional>
-    <AutoExample name="Disabled" column centered />
+    <AutoExample name="Overflow" column />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>Name the group with <code>aria-label</code>.</li>
+      <li>Name icon-only buttons with <code>aria-label</code>.</li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <ButtonGroupBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

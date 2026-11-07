@@ -1,19 +1,24 @@
-<div class="ui-form">
+<form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend>Legend</legend>
-    <div class="ui-field-group" role="group">
+    <legend>Notifications</legend>
+    <div class="ui-field-group">
       <label class="ui-switch">
-        <input name="switch-group" type="checkbox" role="switch" />
-        <span class="ui-label">Switch 1</span>
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-group"
+          value="email"
+        />
+        <span class="ui-label">Email</span>
       </label>
       <label class="ui-switch">
-        <input name="switch-group" type="checkbox" role="switch" />
-        <span class="ui-label">Switch 2</span>
+        <input type="checkbox" role="switch" name="switch-group" value="push" />
+        <span class="ui-label">Push</span>
       </label>
       <label class="ui-switch">
-        <input name="switch-group" type="checkbox" role="switch" />
-        <span class="ui-label">Switch 3</span>
+        <input type="checkbox" role="switch" name="switch-group" value="sms" />
+        <span class="ui-label">SMS</span>
       </label>
     </div>
   </fieldset>
-</div>
+</form>

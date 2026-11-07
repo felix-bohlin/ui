@@ -1,0 +1,202 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import { NumberField as UINumberField } from "opui-css/astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import NumberFieldCSS from "@opui/css/components/number-field.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import NumberFieldJS from "@opui/elements/number-field.js?raw"
+
+import numberFieldApi from "../../component-api/number-field/api"
+
+export const description =
+  "A number field with buttons that step the value down and up, for amounts like a quantity."
+
+export const keywords = ["counter", "quantity", "spin button", "stepper"]
+---
+
+<Component
+  description={description}
+  heroAnatomy
+  slug="number-field"
+  browserSupport={[
+    "color-mix",
+    "container-queries",
+    "container-style-queries",
+    "field-sizing",
+    "has",
+    "invoker-commands",
+    "lh",
+    "light-dark",
+    "popover",
+    "relative-color",
+    "user-pseudos",
+  ]}
+  apis={[{ title: "Number field API", api: numberFieldApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/NumberField/NumberField.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/number-field.astro", type: "docs" },
+    { path: "src/component-examples/number-field", type: "docs" },
+    {
+      path: "packages/opui/css/components/number-field.css",
+      type: "css",
+    },
+    { path: "packages/opui/elements/number-field.js", type: "component" },
+    { path: "src/component-api/number-field", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "number-field.css", code: NumberFieldCSS, lang: "css" },
+    { title: "number-field.js", code: NumberFieldJS, lang: "js" },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+  ]}
+>
+  <Fragment slot="title">Number field</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A <DocLink href="/components/text-field">Text field</DocLink> with buttons
+      that step the value.
+    </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UINumberField
+        endText="Up to 10 per order."
+        id="number-field-anatomy"
+        label="Quantity"
+        max={10}
+        min={1}
+        startText="In stock."
+        style="inline-size: 16rem"
+        value={1}
+      />
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A small amount stepped up and down, like a <a href="#basics">quantity</a>.
+    </li>
+    <li slot="when">A number with limits and a <a href="#step">step</a>.</li>
+    <li slot="when-not">
+      Numbers that are text, like a card number: use a
+      <DocLink href="/components/text-field#numeric-vs-input-type-number"
+        >Text field</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A wide scale: use a <DocLink href="/components/range">Range</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>min</code>, <code>max</code> and <code>step</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Import <code>opui-css/elements/number-field.js</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      field.
+    </p>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="stretch">
+    <h2>Stretch</h2>
+    <p>
+      Fits its value by default. Use
+      <PropOrClass prop="stretch" class=".ui-stretch" /> to fill the width.
+    </p>
+    <AutoExample name="Stretch" column />
+  </section>
+
+  <section id="step">
+    <h2>Step</h2>
+    <AutoExample name="Step" />
+  </section>
+
+  <section id="end-text">
+    <h2>End text</h2>
+    <p>Use <PropOrClass prop="endText" class=".ui-end-text" />.</p>
+    <AutoExample name="EndText" />
+  </section>
+
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
+      keeps the accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" />
+  </section>
+
+  <section id="buttons">
+    <h2>Buttons</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Translate with <code>decreaseLabel</code> and <code>increaseLabel</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Translate their <code>aria-label</code>.
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <AutoExample name="Disabled" />
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <ValidationNotes element="input" subject="Fields" />
+    <AutoExample name="Validation" row />
+  </section>
+
+  <section id="spread">
+    <h2>Spread</h2>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
+      field.
+    </p>
+    <AutoExample name="Spread" column />
+  </section>
+
+  <Fragment slot="accessibility">
+    <KeyboardSupport />
+  </Fragment>
+</Component>

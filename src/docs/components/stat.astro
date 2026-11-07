@@ -1,0 +1,104 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import BlockLink from "../../components/BlockLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+
+import Anatomy from "../../components/Anatomy.astro"
+import { Stat as UIStat } from "opui-css/astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import StatCSS from "@opui/css/components/stat.css?raw"
+
+import statApi from "../../component-api/stat/api"
+export const description =
+  "A stat shows one number with its label and the change behind it."
+
+export const keywords = ["kpi", "metric", "number"]
+---
+
+<Component
+  description={description}
+  slug="stat"
+  heroAnatomy
+  apis={[{ title: "Stat API", api: statApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Stat/Stat.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/stat.astro", type: "docs" },
+    { path: "src/component-examples/stat", type: "docs" },
+    {
+      path: "packages/opui/css/components/stat.css",
+      type: "css",
+    },
+    { path: "src/component-api/stat", type: "api" },
+  ]}
+  installationTabs={[{ title: "stat.css", code: StatCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Stat</Fragment>
+  <Fragment slot="preamble">
+    One number with its label and change. For terms and values, use a
+    <DocLink href="/components/description-list">Description list</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIStat label="Visitors" style="inline-size: 14rem">
+        48 210
+        <Fragment slot="description">
+          <span class="ui-caption ui-success">+12.4%</span> from last week
+        </Fragment>
+      </UIStat>
+    </Anatomy>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      A key number on a dashboard: <a href="#cards">cards</a>.
+    </li>
+    <li slot="when">
+      A number with its change, in a <a href="#basics">severity color</a>.
+    </li>
+    <li slot="when-not">
+      Several terms and values: use a
+      <DocLink href="/components/description-list">Description list</DocLink>.
+    </li>
+    <li slot="when-not">
+      A live number, like a timer: use
+      <DocLink href="/components/typography#tabular-numbers"
+        >tabular numbers</DocLink
+      >.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <p>
+      Use <PropOrClass prop="description" class=".ui-description" /> for the
+      change.
+    </p>
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="cards">
+    <h2>Cards</h2>
+    <p>
+      Put each in a <DocLink href="/components/card">Card</DocLink>, in a
+      <DocLink href="/components/layout#stretch">stretched grid</DocLink>.
+    </p>
+    <AutoExample name="Cards" />
+    <BlockLink slug="analytics-dashboard">
+      Each metric card shows the change since last week under the value, as a
+      signed percentage in a severity color, so the sign carries the direction
+      and the color only adds to it.
+    </BlockLink>
+  </section>
+</Component>

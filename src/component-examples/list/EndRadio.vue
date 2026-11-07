@@ -4,17 +4,17 @@ import { List, ListItem, RadioInput } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="radio" for="radio-example-1">
-      <template #text>Radio 1</template>
-      <template #end
-        ><RadioInput id="radio-example-1" name="radio-example-group" value="1"
-      /></template>
+    <ListItem type="radio">
+      <template #label>Dark mode</template>
+      <template #end>
+        <RadioInput name="theme" value="dark" />
+      </template>
     </ListItem>
-    <ListItem type="radio" for="radio-example-2">
-      <template #text>Radio 2</template>
-      <template #end
-        ><RadioInput id="radio-example-2" name="radio-example-group" value="2"
-      /></template>
+    <ListItem type="radio">
+      <template #label>Light mode</template>
+      <template #end>
+        <RadioInput name="theme" value="light" />
+      </template>
     </ListItem>
   </List>
 </template>

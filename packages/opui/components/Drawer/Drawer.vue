@@ -1,46 +1,43 @@
 <script setup lang="ts">
-import { useId } from "vue"
-import type { DrawerSlots, Props } from "./types.d.vue"
+import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
+import { DrawerKey } from "./context.vue"
+import { autoLabelledBy } from "../id"
+import { warnMissingId } from "../dev"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   backdrop = "blurred",
   closedby = "any",
   id,
-  scrollLock = true,
+  scrollLock,
   side = "inline-start",
 } = defineProps<Props>()
-const slots = defineSlots<DrawerSlots>()
+defineSlots<Slots>()
 
-defineOptions({
-  inheritAttrs: false,
-})
+const attrs = useAttrs() as HTMLAttributes
 
-const drawerId = id || useId()
+const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-heading`))
+
+warnMissingId("Drawer", id)
+
+provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
 </script>
 
 <template>
   <dialog
-    :id="drawerId"
+    :closedby="closedby"
     :class="[
       'ui-drawer',
-      side && `ui-${side}`,
       {
         'ui-backdrop-transparent': backdrop === 'transparent',
         'ui-scroll-lock': scrollLock,
       },
+      side && side !== 'inline-start' && `ui-${side}`,
       $props.class,
     ]"
-    :closedby="closedby"
-    v-bind="$attrs"
+    :aria-labelledby="labelledBy"
+    :id="id"
   >
-    <slot v-if="slots.header" name="header"></slot>
-
-    <div v-if="slots.content" class="ui-content">
-      <slot name="content"></slot>
-    </div>
-
     <slot></slot>
-
-    <slot v-if="slots.footer" name="footer"></slot>
   </dialog>
 </template>

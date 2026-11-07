@@ -1,0 +1,6 @@
+{
+  "name": "opui-apps",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.9.1"
+}

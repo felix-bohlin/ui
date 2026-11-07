@@ -1,52 +1,58 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
+import Code from "../../../components/Code.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import ServerSupport from "./partials/ServerSupport.astro"
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Vue components. Install the package, import what you
+    need, and you're set.
+  </Fragment>
 
-  <section>
-    <h2 id="installation">Install via NPM</h2>
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props vue -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props vue -S",
-          lang: "sh",
-        },
-      ]}
-    />
+  <section id="installation">
+    <h2>Install via NPM</h2>
+    <InstallCommand packages="vue@3" />
   </section>
 
-  <section>
-    <h2 id="css">Import the CSS</h2>
+  <section id="css">
+    <h2>Import the CSS</h2>
     <p>
-      Vue components ship markup only - the CSS still has to be imported in your
-      app somehow. Import everything:
+      Vue components ship markup only - the CSS still has to be imported once,
+      in the entry file that creates your app. Import everything:
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
     <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
+      code={`// src/main.ts
+import { createApp } from "vue"
+import "opui-css/css/imports.css"
+import App from "./App.vue"
+
+createApp(App).mount("#app")`}
+      lang="ts"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in
+      <code>main.ts</code> instead:
+    </p>
+    <PickAndChoose file="src/styles/main.css">
+      <p>
+        In Nuxt, add the file to <code>css</code> in <code>nuxt.config.ts</code>
+        instead.
+      </p>
+    </PickAndChoose>
+    <Code
+      code={`// src/main.ts
+import "./styles/main.css"`}
+      lang="ts"
     />
   </section>
 
-  <section>
-    <h2 id="usage">How to use</h2>
+  <section id="usage">
+    <h2>How to use</h2>
     <Code
       code={`<script setup lang="ts">
 import { Button } from "opui-css/vue"
@@ -57,7 +63,29 @@ import { Button } from "opui-css/vue"
 </template>`}
       lang="vue"
     />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other components take named slots for rich
+      content, such as <code>end-text</code> on a <code>TextField</code>.
+    </p>
+    <NextSteps />
   </section>
 
-  <Theming />
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Every component renders complete HTML on the server, and the native
+      controls work and submit with their form. The props in the last column
+      need hydration (<code>client:load</code> in Astro) or a client-rendered
+      Vue app.
+    </p>
+    <ServerSupport framework="vue" />
+    <p>
+      When the page hydrates, as in Nuxt, a value or choice the user changed
+      before it did (typed, picked, filled in by a password manager or restored
+      by the browser) stays: the form controls take it from the element instead
+      of resetting it, and a form reset still returns to what the server
+      rendered.
+    </p>
+  </section>
 </Guide>

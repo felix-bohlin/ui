@@ -1,18 +1,19 @@
 ---
-import { Select } from "@opui/astro"
+import { Select } from "opui-css/astro"
 ---
 
 <Select label="Currency">
-  <Fragment slot="prefix">¢</Fragment>
+  <Fragment slot="start">¤</Fragment>
   <option value="">-</option>
   <option>EUR</option>
-  <option>EUR</option>
   <option>SEK</option>
+  <option>USD</option>
 </Select>
 
 <Select label="Country">
   <svg
-    slot="prefix"
+    aria-hidden="true"
+    slot="start"
     width="16"
     height="16"
     viewBox="0 0 24 24"
@@ -29,7 +30,14 @@ import { Select } from "@opui/astro"
     ></path>
   </svg>
   <option value="">-</option>
-  <option>Sweden</option>
-  <option>Norway</option>
   <option>Denmark</option>
+  <option>Norway</option>
+  <option>Sweden</option>
+</Select>
+
+<Select label="Delivery time">
+  <Fragment slot="end">days</Fragment>
+  <option>1</option>
+  <option>3</option>
+  <option>5</option>
 </Select>

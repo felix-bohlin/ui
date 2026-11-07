@@ -1,0 +1,6 @@
+{
+  "packages/opui/bin/opui-css.mjs": "tests/package/package.test.ts runs it as the installed opui-css binary",
+  "packages/opui/scripts/build.mjs": "the prepack build; tests/package/package.test.ts packs, installs and builds with its output",
+  "scripts/build-agent-skill.mjs": "only its output can be tested: tests/unit/skill.test.ts checks the skill and references it writes",
+  "scripts/build-readme.mjs": "only its output can be tested: tests/unit/readme.test.ts checks the theme lists it writes"
+}

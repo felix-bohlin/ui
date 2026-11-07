@@ -2,50 +2,53 @@
 import type { Props } from "./types.astro"
 
 import Anchor from "../Anchor/Anchor.astro"
+import AnchorContent from "../Anchor/AnchorContent.astro"
+import { trimEdges } from "../whitespace"
 
 export const title = "Badge"
 
 const {
-  alignment,
   class: className,
   color,
+  corner,
   dot,
+  hideLabel,
   invisible,
   label,
   ...rest
 } = Astro.props
 
-const positionArea =
-  alignment === "start-start"
-    ? "start start"
-    : alignment === "end-start"
-      ? "end start"
-      : alignment === "end-end"
-        ? "end end"
-        : undefined
+const hidden = dot || hideLabel
+const indicatorSlot = Astro.slots.has("indicator")
+  ? trimEdges(await Astro.slots.render("indicator"))
+  : ""
 ---
 
 <Anchor
-  alignment={positionArea}
   class:list={[
     "ui-badge",
     {
       "ui-dot": dot,
       "ui-invisible": invisible,
     },
-    alignment && `ui-${alignment}`,
-    className,
     color && `ui-${color}`,
+    corner && corner !== "start-end" && `ui-${corner}`,
+    className,
   ]}
-  {...rest as any}
+  {...rest}
 >
   <slot />
-  <span
-    class="ui-badge-indicator"
-    slot="anchored"
-    aria-label={label?.toString()}
-  >
-    {dot ? "" : label}
-    {!dot && <slot name="indicator" />}
-  </span>
+  <AnchorContent>
+    <span class="ui-indicator"
+      >{hidden && (
+        <>
+          {!dot && indicatorSlot && (
+            <span aria-hidden="true" set:html={indicatorSlot} />
+          )}
+          {label && <span class="ui-sr-only">{label}</span>}
+        </>
+      )}{hidden ? undefined : label}<Fragment
+        set:html={hidden ? "" : indicatorSlot}
+    /></span>
+  </AnchorContent>
 </Anchor>

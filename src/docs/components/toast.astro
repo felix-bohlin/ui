@@ -1,180 +1,169 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
-
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
-import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
-import ToastCSS from "@opui/css/components/toast.css?raw"
-import { Badge, Callout as UICallout } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import CalloutCSS from "@opui/css/components/callout.css?raw"
+import ToasterCSS from "@opui/css/components/toaster.css?raw"
+import ToasterJS from "@opui/elements/toaster.js?raw"
+
+import toastApi from "../../component-api/toast/api"
 
 export const description =
-  "Non-interruptive and stackable notifications. They pop up like... toast."
+  "Short messages that confirm an action and dismiss themselves."
+
+export const keywords = ["notification", "snackbar"]
 ---
 
 <Component
   description={description}
   slug="toast"
-  browserSupport={["popover", "light-dark", "invoker-commands"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "interpolate-size",
+    "invoker-commands",
+    "lh",
+    "light-dark",
+    "overflow-clip",
+    "popover",
+    "relative-color",
+    "scope",
+    "starting-style",
+  ]}
+  apis={[{ title: "Toaster API", api: toastApi }]}
   changelogPaths={[
+    {
+      path: "packages/opui/components/Toaster/Toaster.astro",
+      type: "component",
+    },
     { path: "src/docs/components/toast.astro", type: "docs" },
     { path: "src/component-examples/toast", type: "docs" },
-    {
-      path: "packages/opui/css/components/toast.css",
-      type: "css",
-    },
+    { path: "packages/opui/css/components/toaster.css", type: "css" },
+    { path: "packages/opui/elements/toaster.js", type: "component" },
     { path: "src/component-api/toast", type: "api" },
   ]}
-  installationTabs={[{ title: "toast.css", code: ToastCSS, lang: "css" }]}
+  installationTabs={[
+    { title: "toaster.css", code: ToasterCSS, lang: "css" },
+    { title: "toaster.js", code: ToasterJS, lang: "js" },
+    {
+      title: "callout.css",
+      code: CalloutCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+  ]}
 >
-  <Fragment slot="title">
-    <Badge color="warning" label="ALPHA">Toast</Badge>
+  <Fragment slot="title">Toast</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      Short messages that confirm an action and dismiss themselves. Each is a
+      <DocLink href="/components/callout">Callout</DocLink>.
+    </p>
   </Fragment>
 
-  <div class="ui-not-rich-text">
-    <UICallout severity="warning">
-      <Fragment slot="title">Alpha stage</Fragment>
-      <p>This is in no way finished, just an idea put out in the open.</p>
-    </UICallout>
-  </div>
-
-  <section>
-    <h2 id="how-it-works">How it works</h2>
-    <p>
-      Toasts are managed by a global container. Trigger them either completely
-      with HTML (using <a
-        href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-        class="ui-link">invoker commands</a
-      >) or with JavaScript.
-    </p>
-    <p>
-      Structure lives in HTML via a default <code
-        >&lt;template id="toast-template"&gt;</code
-      >. CSS owns the lifetime through <code
-        >attr(data-duration type(&lt;time&gt;))</code
-      >. JS only clones the template, fills the structural slots (<code
-        >[data-toast-title]</code
-      >, <code>[data-toast-description]</code>, <code>[data-toast-icon]</code>,
-      <code>[data-toast-close]</code>) using <code>textContent</code>, and
-      removes the toast on <code>animationend</code>. Provide your own <code
-        >&lt;template&gt;</code
-      > with the same slot markers and reference it via <code
-        >data-template</code
-      >
-      on the trigger to override the default look.
-    </p>
-
-    <h3 id="html">HTML</h3>
-    <p>
-      Use <code>commandfor="toast-manager"</code> and <code
-        >command="--show-toast"</code
-      >
-      on a button. The <code>data-title</code> attribute will be used as the message.
-    </p>
-
-    <AutoExample name="HTML" centered />
-
-    <h3 id="javascript">JavaScript</h3>
-    <p>
-      This is arguably the most common way. After some kind of fetch you might
-      want to display some kind of message.
-    </p>
-    <p>
-      Use the <code>showToast</code> helper or by dispatching a <code
-        >CommandEvent</code
+  <Usage slot="usage">
+    <li slot="when">
+      Confirming an action, like <a href="#basics">saved changes</a>.
+    </li>
+    <li slot="when">
+      A notice that needs no answer, like a <a href="#severities">new version</a
       >.
-    </p>
+    </li>
+    <li slot="when-not">
+      Messages people must act on: use a
+      <DocLink href="/components/callout">Callout</DocLink>.
+    </li>
+    <li slot="when-not">
+      Copying to the clipboard: <DocLink href="/components/copy">Copy</DocLink>
+      announces its own.
+    </li>
+  </Usage>
 
-    <Example centered>
-      <Example.Preview slot="preview-html" code={JavascriptHtml} />
-      <Example.Code slot="code-js" code={JavascriptJS} />
-    </Example>
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Point a button at the <code>Toaster</code> with
+        <code>command="--toast"</code> and <code>data-toast</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Point a button at <code>opui-toaster</code> with
+        <code>command="--toast"</code>, and import
+        <code>opui-css/elements/toaster.js</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Basics" row />
   </section>
 
-  <section>
-    <h2 id="severities">Severities</h2>
-    <p>
-      Use the <code>data-severity</code> attribute to change the appearance of the
-      toast.
-    </p>
-
-    <AutoExample name="Severity" row centered />
+  <section id="severities">
+    <h2>Severities</h2>
+    <p>Use <code>data-toast-severity</code>.</p>
+    <AutoExample name="Severities" row />
   </section>
 
-  <section>
-    <h2 id="title-description">Title + description</h2>
+  <section id="icons">
+    <h2>Icons</h2>
     <p>
-      Use <code>data-title</code> for a single-line toast, or add <code
-        >data-description</code
-      > for a two-line toast with additional context.
+      Set <code>--_info-image</code> and the other icon properties on the
+      toaster. Translate the close button with
+      <PropOrClass prop="closeLabel" class="close-label" />.
     </p>
-
-    <AutoExample name="TitleDescription" row centered />
   </section>
 
-  <section>
-    <h2 id="duration">Duration</h2>
+  <section id="from-a-script">
+    <h2>From a script</h2>
     <p>
-      Control how long the toast stays visible using <code>data-duration</code>.
-      Supports CSS time units such as <code>ms</code> or <code>s</code>.
+      Call <code>toast(message, options)</code>, or
+      <code>toast.success(message)</code> for a severity.
     </p>
-
-    <AutoExample name="Duration" row centered />
+    <AutoExample name="Script" row />
   </section>
 
-  <Fragment slot="anatomy">
+  <section id="action">
+    <h2>Action</h2>
     <p>
-      1. Container (Manager)<br />
-      2. Individual Toast Body<br />
-      3. Content Area<br />
-      4. Close Button (Optional)
+      Pass <code>action</code> with a <code>label</code> and an
+      <code>onClick</code>. Never the only way to do something.
     </p>
+    <AutoExample name="Action" row />
+  </section>
 
-    <Example>
-      <div
-        class="anatomy-demo"
-        style="position: relative; inset: auto; display: flex; z-index: 1;"
-      >
-        <div class="ui-toast ui-info anatomy">
-          <div class="ui-content">Notification message content</div>
-          <button class="ui-close-button" aria-label="Close">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
-            >
-          </button>
-        </div>
-      </div>
-    </Example>
+  <section id="position">
+    <h2>Position</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Bottom end by default. Use <code>side</code> and <code>align</code> to
+        change it.
+      </Fragment>
+      <Fragment slot="html">
+        Bottom end by default. Use <code>.ui-block-start</code> and
+        <code>.ui-align-start</code> or <code>.ui-align-center</code> to change
+        it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Position" column />
+  </section>
 
-    <style is:global>
-      .anatomy-demo {
-        outline: var(--_anatomy-border-gray);
-        outline-offset: -2px;
+  <section id="duration">
+    <h2>Duration</h2>
+    <p>5 seconds by default. Use <code>duration</code> to change it.</p>
+    <AutoExample name="Duration" row />
+  </section>
 
-        .ui-toast.anatomy {
-          outline: var(--_anatomy-border-red);
-          outline-offset: -4px;
-        }
-
-        .ui-content {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
-        }
-
-        .ui-close-button {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
-        }
-      }
-    </style>
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Put the toaster near the content it confirms, or at the end of the page.
+      </li>
+    </ul>
+    <KeyboardSupport />
   </Fragment>
 </Component>

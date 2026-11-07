@@ -1,0 +1,7 @@
+@layer components.compat {
+  @supports not (corner-shape: squircle) {
+    :where(.ui-avatar).ui-squircle {
+      border-radius: 27%;
+    }
+  }
+}

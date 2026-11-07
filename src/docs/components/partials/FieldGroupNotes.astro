@@ -1,0 +1,74 @@
+---
+import AutoExample from "../../../components/AutoExample.astro"
+import Conditional from "../../../components/Conditional.astro"
+import DocLink from "../../../components/DocLink.astro"
+import PropOrClass from "../../../components/PropOrClass.astro"
+
+type Props = {
+  control: "checkbox" | "radio" | "switch"
+}
+
+const { control } = Astro.props
+
+const Component = { checkbox: "Checkbox", radio: "Radio", switch: "Switch" }[
+  control
+]
+const plural = { checkbox: "Checkboxes", radio: "Radios", switch: "Switches" }[
+  control
+]
+const single = control === "radio"
+---
+
+<p>
+  Give every {control} in the group the same <code>name</code>. See also:
+  <DocLink href="/components/form" class="ui-link">Form documentation</DocLink>.
+</p>
+
+<slot />
+
+<h3 id="field-group-orientation">Orientation</h3>
+<p>
+  {plural} stack by default. Use
+  <PropOrClass prop='orientation="horizontal"' class=".ui-horizontal" /> for a
+  row.
+</p>
+<AutoExample name="FieldGroupOrientation" row />
+
+<h3 id="field-group-field-description">Field description</h3>
+<AutoExample name="FieldGroupFieldDescription" column centered spacious />
+
+<h3 id="field-group-disabled">Disabled</h3>
+<p>
+  Disable the fieldset to disable every {control} in it.
+  <code>aria-disabled="true"</code> keeps a {control} focusable.
+</p>
+<AutoExample name="FieldGroupDisabled" row />
+
+<h3 id="field-group-required">Required</h3>
+{single ? null : (
+  <p>There's no native "at least one" for {plural.toLowerCase()}.</p>
+)}
+<AutoExample name="FieldGroupRequired" row />
+
+<h3 id="field-group-validation">Validation</h3>
+<p>Point <code>aria-describedby</code> on the fieldset at the error.</p>
+<AutoExample name="FieldGroupValidation" row />
+
+<h3 id="field-group-binding">Binding</h3>
+<Conditional as="p">
+  <Fragment slot="astro">No bound value: read the inputs in a script.</Fragment>
+  <Fragment slot="html"
+    >Read the checked inputs, or submit them with a form.</Fragment
+  >
+  <Fragment slot="react">
+    Pass each <code>{Component}</code> <code>checked</code> and
+    <code>onChange</code>.
+  </Fragment>
+  <Fragment slot="svelte">
+    Use <code>bind:group</code> on each <code>{Component}</code>.
+  </Fragment>
+  <Fragment slot="vue">
+    Use <code>v-model</code> on each <code>{Component}</code>.
+  </Fragment>
+</Conditional>
+<AutoExample name="FieldGroupBinding" centered column />

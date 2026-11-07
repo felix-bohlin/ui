@@ -1,0 +1,67 @@
+<script lang="ts">
+  import {
+    SortableTable,
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeaderCell,
+    TableRow,
+  } from "opui-css/svelte"
+</script>
+
+<SortableTable>
+  <Table>
+    <TableCaption>Planets</TableCaption>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell aria-sort="ascending" sortable>Planet</TableHeaderCell>
+        <TableHeaderCell numeric sortable>Moons</TableHeaderCell>
+        <TableHeaderCell numeric sortable>Diameter</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell>Earth</TableCell>
+        <TableCell numeric>1</TableCell>
+        <TableCell data-sort-value="12742" numeric>12,742 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Jupiter</TableCell>
+        <TableCell numeric>95</TableCell>
+        <TableCell data-sort-value="139820" numeric>139,820 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Mars</TableCell>
+        <TableCell numeric>2</TableCell>
+        <TableCell data-sort-value="6779" numeric>6,779 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Mercury</TableCell>
+        <TableCell numeric>0</TableCell>
+        <TableCell data-sort-value="4879" numeric>4,879 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Neptune</TableCell>
+        <TableCell numeric>16</TableCell>
+        <TableCell data-sort-value="49244" numeric>49,244 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Saturn</TableCell>
+        <TableCell numeric>146</TableCell>
+        <TableCell data-sort-value="116460" numeric>116,460 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Uranus</TableCell>
+        <TableCell numeric>28</TableCell>
+        <TableCell data-sort-value="50724" numeric>50,724 km</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Venus</TableCell>
+        <TableCell numeric>0</TableCell>
+        <TableCell data-sort-value="12104" numeric>12,104 km</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</SortableTable>

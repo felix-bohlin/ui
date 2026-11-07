@@ -1,0 +1,86 @@
+<style>
+  .todo-tokens-json {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-0);
+    inline-size: 100%;
+    max-block-size: 30rem;
+    overflow: auto;
+    white-space: pre;
+  }
+</style>
+<p class="todo-note">
+  A preview of option A. In <code>tokens.json</code> most values are CSS
+  expressions (<code>light-dark()</code>, <code>var()</code>, relative colors),
+  which a Figma variables import can't read. This page resolves every token in
+  the browser, in a <code>.ui-light</code> and a <code>.ui-dark</code> scope, by
+  setting it on a property of its type and reading the computed value, as a
+  <code>scripts/resolve-tokens.mjs</code> export would with Playwright. Below is
+  the file it would write: each token's light value, and its dark value when it
+  differs. Tokens that depend on where they're read (the palette and severity
+  scopes) resolve at the root only.
+</p>
+<p class="todo-measure" id="todo-tokens-summary">Resolving tokens.json…</p>
+<pre class="todo-tokens-json" id="todo-tokens-json"></pre>
+<div class="ui-light" id="todo-tokens-light"><span></span></div>
+<div class="ui-dark" id="todo-tokens-dark"><span></span></div>
+<script>
+  const properties = {
+    color: "color",
+    cubicBezier: "transition-timing-function",
+    dimension: "margin-inline-start",
+    duration: "transition-duration",
+    fontFamily: "font-family",
+    fontWeight: "font-weight",
+    number: "flex-grow",
+    shadow: "box-shadow",
+    strokeStyle: "border-block-start-style",
+  }
+  const tokens = []
+  const walk = (group) => {
+    for (const [name, token] of Object.entries(group)) {
+      if (name.startsWith("$") || !token || typeof token !== "object") continue
+      if ("$value" in token) tokens.push({ name, ...token })
+      else walk(token)
+    }
+  }
+  const resolve = (scope, token) => {
+    const probe = document.querySelector(`#todo-tokens-${scope} > span`)
+    const property = properties[token.$type]
+    probe.removeAttribute("style")
+    probe.style.setProperty(property, `var(${token.$extensions.opui.cssVar})`)
+    return getComputedStyle(probe).getPropertyValue(property)
+  }
+  fetch("/tokens.json")
+    .then((response) => response.json())
+    .then((json) => {
+      walk(json)
+      const out = {}
+      let expressions = 0
+      let differ = 0
+      for (const token of tokens) {
+        if (!properties[token.$type] || !token.$extensions?.opui?.cssVar) {
+          continue
+        }
+        if (
+          /var\(|light-dark|from |calc\(/.test(JSON.stringify(token.$value))
+        ) {
+          expressions++
+        }
+        const light = resolve("light", token)
+        const dark = resolve("dark", token)
+        out[token.name] = { $type: token.$type, $value: light }
+        if (dark !== light) {
+          differ++
+          out[token.name].$extensions = { modes: { dark } }
+        }
+      }
+      const count = Object.keys(out).length
+      document.getElementById("todo-tokens-summary").textContent =
+        `${count} of ${tokens.length} tokens resolved, ${expressions} of them CSS expressions in tokens.json; ${differ} differ between light and dark.`
+      document.getElementById("todo-tokens-json").textContent = JSON.stringify(
+        out,
+        null,
+        2,
+      )
+    })
+</script>

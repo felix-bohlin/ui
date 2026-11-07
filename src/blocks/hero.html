@@ -1,0 +1,232 @@
+<style>
+  .hero {
+    .hero-inner {
+      align-items: center;
+    }
+
+    .hero-copy {
+      align-items: start;
+    }
+
+    .hero-title {
+      font-size: clamp(var(--ui-font-size-800), 7cqi, var(--ui-font-size-900));
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    .hero-pitch {
+      font-size: var(--ui-font-size-large);
+      max-inline-size: 34rem;
+    }
+
+    .hero-preview {
+      background-image: linear-gradient(
+        135deg,
+        oklch(from var(--ui-primary) l c h / 25%),
+        oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
+      );
+      border-radius: var(--ui-radius);
+      padding: var(--ui-space-4);
+
+      @container (inline-size >= 40rem) {
+        padding: var(--ui-space-6);
+      }
+    }
+
+    .hero-window {
+      gap: 0;
+    }
+
+    .hero-toolbar {
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      padding: var(--ui-space-2) var(--ui-space-3);
+
+      .ui-swatch {
+        --_swatch-bg-color: var(--ui-border-color);
+      }
+
+      .hero-url {
+        margin-inline-start: var(--ui-space-2);
+      }
+    }
+
+    .hero-screen {
+      padding: var(--ui-space-3);
+
+      strong {
+        font-size: var(--ui-font-size-400);
+      }
+    }
+
+    .hero-tasks {
+      .ui-text p:last-child {
+        font-size: var(--ui-font-size-caption);
+      }
+
+      .ui-progress {
+        inline-size: 5rem;
+      }
+    }
+  }
+</style>
+
+<div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
+  <div
+    class="ui-layout-columns hero-inner"
+    style="--_columns: 1fr 1.1fr; --_gap: var(--ui-space-8)"
+  >
+    <div class="ui-layout-column ui-large hero-copy">
+      <a class="ui-chip ui-outlined" href="#hero-release">
+        <span class="ui-text">New: Northwind 6.0 with AI planning</span>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l5.29-5.3L8.3 6.7a1 1 0 0 1 0-1.4"
+          ></path>
+        </svg>
+      </a>
+
+      <h1 class="ui-h1 hero-title">
+        Plan, ship and learn in one calm workspace
+      </h1>
+      <p class="hero-pitch">
+        Northwind brings roadmaps, sprints and customer feedback together, so
+        your team spends less time updating tools and more time building.
+      </p>
+
+      <div class="ui-layout-row">
+        <a class="ui-button ui-filled ui-large" href="#hero-sign-up">
+          Start free trial
+        </a>
+        <a class="ui-button ui-outlined ui-large" href="#hero-demo">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20m0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16m-2 4.27a1 1 0 0 1 1.5-.86l5 3a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 10 14.27z"
+            ></path></svg
+          ><span class="ui-text">Watch the demo</span>
+        </a>
+      </div>
+
+      <p class="ui-layout-row">
+        <meter
+          class="ui-rating ui-small"
+          aria-hidden="true"
+          max="5"
+          value="4.9"
+        ></meter>
+        <span><strong>4.9/5</strong> from 1&nbsp;200+ product teams</span>
+      </p>
+    </div>
+
+    <div class="hero-preview">
+      <div
+        class="ui-card ui-elevated hero-window"
+        role="img"
+        aria-label="Preview of a Northwind sprint board with three stats and three tasks in progress"
+      >
+        <div class="ui-layout-row ui-small hero-toolbar">
+          <span class="ui-swatch"></span>
+          <span class="ui-swatch"></span>
+          <span class="ui-swatch"></span>
+          <span class="hero-url ui-caption"
+            >app.northwind.example/sprints/42</span
+          >
+        </div>
+        <div class="ui-layout-column hero-screen">
+          <div class="ui-layout-row ui-small ui-spread">
+            <strong>Sprint 42</strong>
+            <span class="ui-chip ui-small">
+              <span class="ui-text">Ends Oct 16</span>
+            </span>
+          </div>
+          <div
+            class="ui-layout-grid ui-small"
+            style="--_max-columns: 3; --_min-inline-size: 4rem"
+          >
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">Done</dt>
+                  <dd class="ui-value">18</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">In review</dt>
+                  <dd class="ui-value">6</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="ui-card ui-outlined ui-dense">
+              <div class="ui-content">
+                <dl class="ui-stat ui-small">
+                  <dt class="ui-label">Velocity</dt>
+                  <dd class="ui-value">34</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <ul class="ui-list ui-transparent ui-dense ui-bordered hero-tasks">
+            <li>
+              <div class="ui-start">
+                <span class="ui-avatar">IJ</span>
+              </div>
+              <div class="ui-text">
+                <p>Onboarding checklist</p>
+                <p>Ida Jansson</p>
+              </div>
+              <div class="ui-end">
+                <div class="ui-progress ui-filled">
+                  <progress max="100" value="80"></progress>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <span class="ui-avatar">OH</span>
+              </div>
+              <div class="ui-text">
+                <p>Billing migration</p>
+                <p>Omar Haddad</p>
+              </div>
+              <div class="ui-end">
+                <div class="ui-progress ui-filled">
+                  <progress max="100" value="55"></progress>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <span class="ui-avatar">PN</span>
+              </div>
+              <div class="ui-text">
+                <p>Search filters</p>
+                <p>Priya Nair</p>
+              </div>
+              <div class="ui-end">
+                <div class="ui-progress ui-filled">
+                  <progress max="100" value="30"></progress>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

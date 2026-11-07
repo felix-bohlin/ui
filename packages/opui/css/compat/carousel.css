@@ -1,0 +1,12 @@
+@layer components.compat {
+  @supports not (overflow-inline: auto) {
+    :where(.ui-carousel) {
+      overflow-x: auto;
+
+      &.ui-vertical {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
+  }
+}

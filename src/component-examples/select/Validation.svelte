@@ -1,0 +1,42 @@
+<script lang="ts">
+  import { Select } from "opui-css/svelte"
+</script>
+
+<div class="example-row">
+  <Select label="Country" required>
+    <option value="">-</option>
+    <option>Denmark</option>
+    <option>Norway</option>
+    <option>Sweden</option>
+  </Select>
+  <Select label="Country" required variant="filled">
+    <option value="">-</option>
+    <option>Denmark</option>
+    <option>Norway</option>
+    <option>Sweden</option>
+  </Select>
+</div>
+
+<div class="example-row">
+  <Select
+    endText="We don't ship to Norway yet. Pick another country."
+    error
+    label="Shipping country"
+  >
+    <option value="">-</option>
+    <option>Denmark</option>
+    <option selected>Norway</option>
+    <option>Sweden</option>
+  </Select>
+  <Select
+    endText="We don't ship to Norway yet. Pick another country."
+    error
+    label="Shipping country"
+    variant="filled"
+  >
+    <option value="">-</option>
+    <option>Denmark</option>
+    <option selected>Norway</option>
+    <option>Sweden</option>
+  </Select>
+</div>

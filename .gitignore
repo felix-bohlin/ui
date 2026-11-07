@@ -31,3 +31,21 @@ pnpm-debug.log*
 dist-test/
 playwright-report/
 test-results/
+tests/unit/.samples/
+
+# app tests (tests/apps/prepare.ts)
+tests/apps/.tarball/
+tests/apps/**/examples/
+tests/apps/*/.next/
+tests/apps/*/.next-readme/
+tests/apps/*/.nuxt/
+tests/apps/*/.nuxt-readme/
+tests/apps/*/.output/
+tests/apps/*/.output-readme/
+tests/apps/*/.svelte-kit/
+tests/apps/*/build/
+tests/apps/*/next-env.d.ts
+tests/apps/*/tsconfig.tsbuildinfo
+
+# Claude Code agent worktrees
+.claude/worktrees/

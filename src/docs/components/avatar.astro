@@ -1,18 +1,31 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Usage from "./partials/Usage.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import DocLink from "../../components/DocLink.astro"
 
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import avatarApi from "../../component-api/avatar/api"
+import avatarGroupApi from "../../component-api/avatar-group/api"
+import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
+export const description =
+  "Avatars show a person or entity as an image, initials or icon."
+
+export const keywords = ["initials", "photo", "profile picture", "user"]
 ---
 
 <Component
+  description={description}
   slug="avatar"
-  apis={[{ title: "Avatar API", api: avatarApi }]}
-  browserSupport={["has"]}
+  apis={[
+    { title: "Avatar API", api: avatarApi },
+    { title: "Avatar group API", api: avatarGroupApi },
+  ]}
+  browserSupport={["corner-shape", "has", "overflow-clip"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Avatar/Avatar.astro",
@@ -30,61 +43,120 @@ import avatarApi from "../../component-api/avatar/api"
 >
   <Fragment slot="title">Avatar</Fragment>
 
-  <section>
-    <h2 id="image">Image</h2>
+  <Usage slot="usage">
+    <li slot="when">Who did something, like a comment's author.</li>
+    <li slot="when">People next to their name, in lists and tables.</li>
+    <li slot="when">A few people at once: a <a href="#grouped">group</a>.</li>
+    <li slot="when-not">
+      Icons for things or actions: use an <code>svg</code>, or an
+      <DocLink href="/components/button#icon-only">icon-only Button</DocLink>.
+    </li>
+    <li slot="when-not">
+      A count or status: put a <DocLink href="/components/badge">Badge</DocLink>
+      on the avatar.
+    </li>
+  </Usage>
+
+  <section id="image">
+    <h2>Image</h2>
 
     <AutoExample name="Image" row />
   </section>
 
-  <section>
-    <h2 id="letter">Letter</h2>
+  <section id="letter">
+    <h2>Letter</h2>
 
     <AutoExample name="Letter" row />
   </section>
 
-  <section>
-    <h2 id="icon">Icon</h2>
+  <section id="icon">
+    <h2>Icon</h2>
 
     <AutoExample name="Icon" row />
   </section>
 
-  <section>
-    <h2 id="variants">Variants</h2>
-
+  <section id="variants">
+    <h2>Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Change the shape of the avatar with the <code>variant</code> prop.
+      <Fragment slot="components">
+        Filled by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Change the shape of the avatar with the <code>.ui-squared</code>, <code
-          >.ui-rounded</code
-        > and <code>.ui-squircle</code> classes.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the shape of the avatar with the <code>variant</code> prop.
+        Filled by default. Use <code>.ui-outlined</code> or
+        <code>.ui-tonal</code> to change it.
       </Fragment>
     </Conditional>
-
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="grouped">Grouped</h2>
+  <section id="shapes">
+    <h2>Shapes</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
+      <Fragment slot="components">
+        A circle by default. Use <code>shape</code> to change it.
       </Fragment>
       <Fragment slot="html">
-        Group multiple avatars by adding <code>role="group"</code> to a parent container.
-      </Fragment>
-      <Fragment slot="vue">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
+        A circle by default. Use <code>.ui-rounded</code>,
+        <code>.ui-squared</code> or <code>.ui-squircle</code> to change it.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Grouped" row />
+    <AutoExample name="Shapes" row />
   </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+
+    <Conditional as="p">
+      <Fragment slot="html">
+        Links: drop <code>href</code>, add <code>role="link"</code> and
+        <code>aria-disabled="true"</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Disabled" row />
+  </section>
+
+  <section id="grouped">
+    <h2>Grouped</h2>
+
+    <p>
+      Use <PropOrClass prop="AvatarGroup" class=".ui-avatar-group" /> with an
+      <code>aria-label</code>.
+    </p>
+
+    <AutoExample name="Grouped" row />
+
+    <h3 id="overflow">Overflow</h3>
+    <AutoExample name="GroupedOverflow" row />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Give images the person's name as <code>alt</code>, or
+        <code>alt=""</code> next to the name.
+      </li>
+      <li>
+        Give initials and icons <code>role="img"</code> and an
+        <code>aria-label</code>.
+      </li>
+      <li>
+        Link and button avatars take their name from what they show: the image's
+        <code>alt</code>, or initials in a <code>span</code> with
+        <code>role="img"</code> and an <code>aria-label</code>. An
+        <code>aria-label</code> on the link or button itself names it with words
+        that aren't on screen, which speech input can't say.
+      </li>
+    </ul>
+  </Fragment>
+
+  <AvatarBuild slot="under-the-hood" />
 </Component>

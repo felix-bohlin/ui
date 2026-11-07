@@ -1,0 +1,140 @@
+import { parseFragment, type DefaultTreeAdapterMap } from "parse5"
+import { describe, expect, test } from "vitest"
+import {
+  type ComponentFramework,
+  frameworks,
+} from "../../src/component-api/frameworks"
+import type { ComponentApi } from "../../src/component-api/types"
+import { render } from "./renderers"
+
+type Element = DefaultTreeAdapterMap["element"]
+type Node = DefaultTreeAdapterMap["childNode"] | Element
+
+const apis = Object.values(
+  import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {
+    eager: true,
+    import: "default",
+  }),
+)
+const components = import.meta.glob<unknown>(
+  "../../packages/opui/components/*/*.{astro,react.tsx,svelte,vue}",
+  { import: "default" },
+)
+
+const cases = [
+  {
+    file: "Dialog/DialogHeader",
+    props: { closeLabel: "Close" },
+    slots: ["close-icon"],
+  },
+  { file: "Drawer/DrawerHeader", props: {}, slots: ["close-icon"] },
+  {
+    file: "NumberField/NumberField",
+    props: { label: "Quantity" },
+    slots: ["decrease-icon", "increase-icon"],
+  },
+  {
+    file: "TextField/TextField",
+    props: { label: "Password", passwordToggle: true, type: "password" },
+    slots: ["icon-checked", "icon-unchecked"],
+    wrapped: true,
+  },
+]
+
+const icon = '<svg data-icon="custom"></svg>'
+const elements = (node: Node): Element[] =>
+  "childNodes" in node
+    ? [
+        ...("tagName" in node ? [node as Element] : []),
+        ...node.childNodes.flatMap((child) => elements(child as Node)),
+      ]
+    : []
+const attribute = (element: Element, name: string) =>
+  element.attrs.find((attr) => attr.name === name)?.value ?? ""
+const classes = (element: Element) => attribute(element, "class").split(/\s+/)
+
+const problemsOf = (
+  html: string,
+  defaults: string,
+  slot: string,
+  wrapped = false,
+) => {
+  const all = elements(parseFragment(html) as unknown as Node)
+  const svgs = (source: Element[]) =>
+    source.filter((el) => el.tagName === "svg")
+  const custom = svgs(all).filter(
+    (el) => attribute(el, "data-icon") === "custom",
+  )
+  const found: string[] = []
+  if (custom.length !== 1) found.push(`renders ${custom.length} custom icons`)
+  const before = svgs(elements(parseFragment(defaults) as unknown as Node))
+  if (svgs(all).length !== before.length) {
+    found.push(`renders ${svgs(all).length} icons instead of ${before.length}`)
+  }
+  const parent = custom[0]?.parentNode as Element | undefined
+  const button = wrapped ? (parent?.parentNode as Element | undefined) : parent
+  if (wrapped && (!parent || !classes(parent).includes(`ui-${slot}`))) {
+    found.push(`doesn't wrap the icon in .ui-${slot}`)
+  }
+  if (!button || !classes(button).includes("ui-button")) {
+    found.push("doesn't put the icon in the button")
+  }
+  return found
+}
+
+test("every slot that replaces a control's icon has a case", () => {
+  const iconSlots = apis.flatMap((api) =>
+    api.parts
+      .flatMap((part) => part.slots ?? [])
+      .filter((slot) => slot.endsWith("-icon"))
+      .map((slot) => `${api.source}/${api.component} ${slot}`),
+  )
+  const covered = cases.flatMap(({ file, slots }) =>
+    slots.map((slot) => `${file} ${slot}`),
+  )
+  expect(iconSlots.filter((slot) => !covered.includes(slot))).toEqual([])
+})
+
+test("the check flags an icon added next to the default", () => {
+  const defaults = '<button class="ui-button"><svg></svg></button>'
+  expect(
+    problemsOf(
+      `<button class="ui-button"><svg></svg>${icon}</button>`,
+      defaults,
+      "close-icon",
+    ),
+  ).toEqual(["renders 2 icons instead of 1"])
+  expect(
+    problemsOf(
+      `<button class="ui-button">${icon}</button>`,
+      defaults,
+      "close-icon",
+    ),
+  ).toEqual([])
+})
+
+describe.each(cases)("$file", ({ file, props, slots, wrapped }) => {
+  test.each(Object.keys(render) as ComponentFramework[])(
+    "%s replaces the default icon with the slot",
+    async (framework) => {
+      const [folder, name] = file.split("/")
+      const component =
+        await components[
+          `../../packages/opui/components/${folder}/${frameworks[framework].component(name)}`
+        ]()
+      const defaults = await render[framework](component, props)
+      const found: string[] = []
+      for (const slot of slots) {
+        const html = await render[framework](component, props, {
+          [slot]: icon,
+        })
+        found.push(
+          ...problemsOf(html, defaults, slot, wrapped).map(
+            (problem) => `${slot}: ${problem}`,
+          ),
+        )
+      }
+      expect(found).toEqual([])
+    },
+  )
+})

@@ -1,0 +1,58 @@
+<script setup lang="ts">
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+} from "opui-css/vue"
+</script>
+
+<template>
+  <ul
+    role="list"
+    class="ui-layout-grid ui-stretch"
+    style="--_min-inline-size: 12rem"
+  >
+    <li>
+      <Card variant="outlined">
+        <CardHeader>
+          <h3>Starter</h3>
+          <p>For one person</p>
+        </CardHeader>
+        <CardContent>€0 per month</CardContent>
+        <CardActions>
+          <Button>Choose Starter</Button>
+        </CardActions>
+      </Card>
+    </li>
+    <li>
+      <Card color="primary" variant="outlined">
+        <CardHeader as="div">
+          <hgroup>
+            <h3>Team</h3>
+            <p>Up to 20 people</p>
+          </hgroup>
+          <Chip label="Popular" size="small" />
+        </CardHeader>
+        <CardContent>€12 per person per month</CardContent>
+        <CardActions>
+          <Button variant="filled">Choose Team</Button>
+        </CardActions>
+      </Card>
+    </li>
+    <li>
+      <Card variant="outlined">
+        <CardHeader>
+          <h3>Business</h3>
+          <p>For larger teams</p>
+        </CardHeader>
+        <CardContent>€24 per person per month</CardContent>
+        <CardActions>
+          <Button>Choose Business</Button>
+        </CardActions>
+      </Card>
+    </li>
+  </ul>
+</template>

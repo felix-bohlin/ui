@@ -1,0 +1,110 @@
+<style>
+  .todo-accordion-fixed .ui-accordion > summary:has(.ui-marker) {
+    list-style: disclosure-closed inside;
+  }
+
+  .todo-accordion-fixed .ui-accordion[open] > summary:has(.ui-marker) {
+    list-style-type: disclosure-open;
+  }
+
+  .todo-accordion-list-item .ui-accordion > summary:has(.ui-marker) {
+    display: list-item;
+    list-style: disclosure-closed inside;
+  }
+
+  .todo-compare .ui-accordion {
+    inline-size: 100%;
+  }
+</style>
+
+<p class="todo-note">
+  The same accordion three times. The middle one puts back the browser's
+  <code>list-style</code> on the summary, which is what dropping
+  <code>list-style: none</code> does; the <code>display: none</code> on
+  <code>::marker</code> does nothing in any engine, since
+  <code>display</code> isn't one of the properties that apply to a marker, so it
+  isn't undone here. No disclosure triangle shows, because the summary is
+  <code>display: flex</code> and a marker box only exists on
+  <code>display: list-item</code>. The right one sets
+  <code>display: list-item</code> to show that the triangle is there to hide
+  otherwise. Safari drew the triangle as <code>::-webkit-details-marker</code>,
+  which <code>display: flex</code> doesn't remove, until WebKit moved
+  <code>summary</code> to <code>display: list-item</code> and
+  <code>::marker</code> in November 2024 (WebKit commit cd2f382), so only the
+  Safari releases before that change need the vendor rule. Open this page in
+  Safari to confirm the middle column shows no triangle there.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today</p>
+    <details class="ui-accordion ui-outlined">
+      <summary>
+        Shipping and returns
+        <svg
+          aria-hidden="true"
+          class="ui-marker"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>Orders ship in two days, and returns are free for 30 days.</p>
+      </div>
+    </details>
+  </section>
+  <section class="todo-fixed todo-accordion-fixed">
+    <p class="todo-label">Without <code>list-style: none</code></p>
+    <details class="ui-accordion ui-outlined">
+      <summary>
+        Shipping and returns
+        <svg
+          aria-hidden="true"
+          class="ui-marker"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>Orders ship in two days, and returns are free for 30 days.</p>
+      </div>
+    </details>
+  </section>
+  <section class="todo-current todo-accordion-list-item">
+    <p class="todo-label">Control, <code>display: list-item</code></p>
+    <details class="ui-accordion ui-outlined">
+      <summary>
+        Shipping and returns
+        <svg
+          aria-hidden="true"
+          class="ui-marker"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>Orders ship in two days, and returns are free for 30 days.</p>
+      </div>
+    </details>
+  </section>
+</div>

@@ -1,20 +1,41 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset" data-invalid>
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+  <fieldset
+    class="ui-fieldset"
+    aria-describedby="radio-field-group-validation-1-error"
+  >
+    <legend>Color</legend>
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
-        <input name="radio-group-validation" type="radio" value="1" checked />
-        <span class="ui-label">Radio 1</span>
+        <input
+          type="radio"
+          name="radio-group-validation"
+          checked
+          value="black"
+          aria-invalid="true"
+        />
+        <span class="ui-label">Black</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group-validation" type="radio" value="2" />
-        <span class="ui-label">Radio 2</span>
+        <input
+          type="radio"
+          name="radio-group-validation"
+          value="white"
+          aria-invalid="true"
+        />
+        <span class="ui-label">White</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group-validation" type="radio" value="3" />
-        <span class="ui-label">Radio 3</span>
+        <input
+          type="radio"
+          name="radio-group-validation"
+          value="red"
+          aria-invalid="true"
+        />
+        <span class="ui-label">Red</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="radio-field-group-validation-1-error"
+      >Black is sold out. Pick another color.</span
+    >
   </fieldset>
 </form>

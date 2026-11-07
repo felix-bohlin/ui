@@ -1,0 +1,192 @@
+<style>
+  .changelog {
+    container-type: inline-size;
+
+    .changelog-header .ui-hgroup {
+      flex: 1 1 24rem;
+    }
+
+    .changelog-cover {
+      aspect-ratio: 3 / 1;
+      background-image: linear-gradient(
+        135deg,
+        var(--ui-primary),
+        oklch(from var(--ui-primary) l c calc(h + 60))
+      );
+      border-radius: var(--ui-radius);
+    }
+
+    .changelog-group ul {
+      display: grid;
+      gap: var(--ui-space-1);
+      list-style-type: disc;
+      padding-inline-start: var(--ui-space-5);
+    }
+
+    .changelog-more {
+      align-self: center;
+    }
+  }
+</style>
+
+<div
+  class="changelog ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 56rem"
+>
+  <div class="ui-layout-row ui-spread changelog-header">
+    <hgroup class="ui-hgroup">
+      <p>Product updates</p>
+      <h1 class="ui-h2">Changelog</h1>
+      <p>New features, improvements and fixes in every release.</p>
+    </hgroup>
+    <div class="ui-layout-row ui-small">
+      <a class="ui-button ui-outlined ui-small" href="#changelog-rss">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M5 3a1 1 0 0 0 0 2 14 14 0 0 1 14 14 1 1 0 1 0 2 0A16 16 0 0 0 5 3m0 5a1 1 0 0 0 0 2 9 9 0 0 1 9 9 1 1 0 1 0 2 0A11 11 0 0 0 5 8m1 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+          ></path></svg
+        ><span class="ui-text">RSS feed</span>
+      </a>
+      <a class="ui-button ui-filled ui-small" href="#changelog-subscribe">
+        Get updates by email
+      </a>
+    </div>
+  </div>
+
+  <ol class="ui-timeline" style="--_item-gap: var(--ui-space-8)">
+    <li aria-current="true">
+      <time datetime="2026-10-01">Oct 1, 2026</time>
+      <div class="ui-layout-column">
+        <div class="ui-layout-row ui-small">
+          <h2 class="ui-h4" id="changelog-6-0">
+            AI planning and a faster board
+          </h2>
+          <span class="ui-chip ui-small">
+            <span class="ui-text">v6.0.0 (latest)</span>
+          </span>
+        </div>
+        <div
+          class="changelog-cover"
+          role="img"
+          aria-label="Sprint board with AI-suggested estimates"
+        ></div>
+        <p>
+          Northwind 6.0 suggests estimates and sprint scope from your past work,
+          and the board now renders 3× faster on large projects.
+        </p>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-success"></span>Added
+          </h3>
+          <ul>
+            <li>AI estimates on new issues, based on similar finished work.</li>
+            <li>Sprint planner that flags overcommitted team members.</li>
+            <li>
+              Keyboard shortcut <kbd class="ui-kbd">G</kbd>
+              <kbd class="ui-kbd">R</kbd> to jump to the roadmap.
+            </li>
+          </ul>
+        </div>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-info"></span>Improved
+          </h3>
+          <ul>
+            <li>Boards with 5&nbsp;000+ issues load in under a second.</li>
+            <li>Cleaner issue sidebar with collapsible sections.</li>
+          </ul>
+        </div>
+        <article class="ui-callout ui-warning">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z"
+            ></path>
+          </svg>
+          <div class="ui-content">
+            <p>
+              The v1 REST API is deprecated and will be turned off on
+              <time datetime="2027-03-31">March 31, 2027</time>.
+              <a class="ui-link" href="#changelog-api-migration"
+                >Read the migration guide</a
+              >.
+            </p>
+          </div>
+        </article>
+      </div>
+    </li>
+
+    <li>
+      <time datetime="2026-09-12">Sep 12, 2026</time>
+      <div class="ui-layout-column">
+        <div class="ui-layout-row ui-small">
+          <h2 class="ui-h4" id="changelog-5-8">Guest access and saved views</h2>
+          <span class="ui-chip ui-outlined ui-small">
+            <span class="ui-text">v5.8.0</span>
+          </span>
+        </div>
+        <p>
+          Invite clients and contractors to single projects, and save any filter
+          combination as a shared view.
+        </p>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-success"></span>Added
+          </h3>
+          <ul>
+            <li>Free guest seats with access to one project at a time.</li>
+            <li>Saved views, shareable with your team or kept private.</li>
+          </ul>
+        </div>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-warning"></span>Fixed
+          </h3>
+          <ul>
+            <li>Due dates showed in UTC instead of the local time zone.</li>
+            <li>Mentions in comments didn't notify users on mobile.</li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+    <li>
+      <time datetime="2026-08-28">Aug 28, 2026</time>
+      <div class="ui-layout-column">
+        <div class="ui-layout-row ui-small">
+          <h2 class="ui-h4" id="changelog-5-7-2">Bug fixes</h2>
+          <span class="ui-chip ui-outlined ui-small">
+            <span class="ui-text">v5.7.2</span>
+          </span>
+        </div>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-warning"></span>Fixed
+          </h3>
+          <ul>
+            <li>CSV exports skipped issues in archived sprints.</li>
+            <li>The Slack integration posted duplicate updates.</li>
+            <li>Dark mode contrast of labels in the timeline view.</li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ol>
+
+  <a class="ui-button ui-outlined changelog-more" href="#changelog-archive">
+    View older releases
+  </a>
+</div>

@@ -1,0 +1,40 @@
+<span aria-hidden="true" class="drag-handle"></span>
+
+<style>
+  .drag-handle {
+    align-items: center;
+    background-color: var(--ui-surface);
+    block-size: 3rem;
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-round);
+    cursor: ew-resize;
+    display: grid;
+    inline-size: 1rem;
+    inset-block-start: 50%;
+    inset-inline-start: 100%;
+    justify-items: center;
+    position: absolute;
+    touch-action: none;
+    translate: -50% -50%;
+
+    &:before {
+      block-size: 1.25rem;
+      border-inline: var(--ui-border-width) solid var(--ui-text);
+      content: "";
+      inline-size: 0.25rem;
+    }
+
+    &:hover,
+    :global([data-dragging]) & {
+      border-color: var(--ui-primary);
+    }
+
+    &:dir(rtl) {
+      translate: 50% -50%;
+    }
+
+    @media (scripting: none) {
+      display: none;
+    }
+  }
+</style>

@@ -1,3 +1,21 @@
 <div class="ui-progress">
-  <progress id="determinate-progress" value="10" max="100"></progress>
+  <progress
+    max="100"
+    value="10"
+    aria-label="Uploading"
+    id="progress-determinate-1"
+  ></progress>
 </div>
+
+<script type="module">
+  const progress = document.querySelector("#progress-determinate-1")
+  if (progress) {
+    setInterval(() => {
+      if (progress.value >= 100) {
+        progress.value = 10
+      } else {
+        progress.value += 10
+      }
+    }, 3000)
+  }
+</script>

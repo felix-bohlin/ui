@@ -1,28 +1,36 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Textarea as UITextarea } from "@opui/astro"
+import { Textarea as UITextarea } from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import textareaApi from "../../component-api/textarea/api"
+import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
+
+export const keywords = ["multiline", "text area"]
 ---
 
 <Component
   description={description}
   slug="textarea"
   browserSupport={[
-    "datalist",
+    "container-queries",
     "field-sizing",
     "has",
-    "light-dark",
-    "relative-color",
+    "lh",
+    "user-pseudos",
   ]}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
@@ -56,131 +64,159 @@ export const description =
 >
   <Fragment slot="title">Textarea</Fragment>
 
-  <section>
-    <h2 id="variants">Variants</h2>
+  <Usage slot="usage">
+    <li slot="when">Text over several lines, like a comment.</li>
+    <li slot="when">
+      Messages that <a href="#auto-fit">grow as people type</a>.
+    </li>
+    <li slot="when-not">
+      A single line: use a
+      <DocLink href="/components/text-field">Text field</DocLink>.
+    </li>
+    <li slot="when-not">Formatted text: use a rich text editor.</li>
+  </Usage>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <p>
+      Outlined by default. Use
+      <PropOrClass prop='variant="filled"' class=".ui-filled" /> for a filled
+      textarea.
+    </p>
     <AutoExample name="Variants" row />
   </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
+  <section id="sizes">
+    <h2>Sizes</h2>
     <AutoExample name="Sizes" row />
   </section>
 
-  <section>
-    <h2 id="end-text">End text</h2>
-    <AutoExample name="SupportingText" row />
+  <section id="hidden-label">
+    <h2>Hidden label</h2>
+    <p>
+      <PropOrClass prop="hideLabel" class=".ui-sr-only" /> hides the label but
+      keeps the accessible name.
+    </p>
+    <AutoExample name="HiddenLabel" />
   </section>
 
-  <section>
-    <h2 id="affix">Affix</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the textarea's border.
-        Header and footer are particularly useful for filenames and character counters.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the textarea's border.
-        Header and footer are particularly useful for filenames and character counters.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
-          >.ui-header</code
-        >, or
-        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
-        inside the textarea's border.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Affix" />
-
-    <h3 id="headers-and-footers">Headers and footers</h3>
-
-    <AutoExample name="Headers" column />
+  <section id="start-text">
+    <h2>Start text</h2>
+    <p>Use <PropOrClass prop="startText" class=".ui-start-text" />.</p>
+    <AutoExample name="StartText" row />
   </section>
 
-  <section>
-    <h2 id="validation">Validation</h2>
+  <section id="end-text">
+    <h2>End text</h2>
+    <AutoExample name="EndText" row />
+  </section>
+
+  <section id="character-count">
+    <h2>Character count</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on the component to toggle required styles on the
-        textarea.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;textarea&gt;</code>.
+      <Fragment slot="components">
+        With <code>maxlength</code>, set <code>characterCount</code>.
       </Fragment>
       <Fragment slot="html">
-        Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
-        toggle required styles.
+        With <code>maxlength</code>, import
+        <code>opui-css/elements/character-count.js</code>.
       </Fragment>
     </Conditional>
+    <AutoExample name="CharacterCount" centered />
+  </section>
+
+  <section id="affix">
+    <h2>Affix</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It renders the
-        <code>data-invalid</code> attribute on the root element. Make use of the end
-        text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+      <Fragment slot="components">
+        Use <code>start</code>, <code>end</code>, <code>top</code> and
+        <code>bottom</code>.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> on the root element to toggle invalid styles.
-        Make use of the end text to give extra feedback on the error.
+        Use <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>
+        and <code>.ui-bottom</code>.
       </Fragment>
     </Conditional>
+
+    <AutoExample name="Affix" row />
+
+    <h3 id="top-and-bottom">Top and bottom</h3>
+
+    <AutoExample name="TopAndBottom" column />
+  </section>
+
+  <section id="binding">
+    <h2>Binding</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        No bound value: read the <code>textarea</code> in a script.
+      </Fragment>
+      <Fragment slot="html"
+        >Read the <code>textarea</code> in a script.</Fragment
+      >
+      <Fragment slot="react">
+        Use <code>value</code> and <code>onChange</code>.
+      </Fragment>
+      <Fragment slot="svelte">Use <code>bind:value</code>.</Fragment>
+      <Fragment slot="vue">Use <code>v-model</code>.</Fragment>
+    </Conditional>
+    <AutoExample name="Binding" column />
+  </section>
+
+  <section id="validation">
+    <h2>Validation</h2>
+    <ValidationNotes element="textarea" named subject="Fields" />
 
     <AutoExample name="Validation" />
   </section>
 
-  <section>
-    <h2 id="spread">Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
-        on the left with the textarea on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
-        on the left with the textarea on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
-        on the left with the textarea on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-    </Conditional>
+  <section id="spread">
+    <h2>Spread</h2>
+    <p>
+      <PropOrClass prop="spread" class=".ui-spread" /> puts the label beside the
+      textarea.
+    </p>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
-  <section>
-    <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+  <section id="auto-fit">
+    <h2>Auto-fit</h2>
+    <p>
+      Grows from 3 to 20 lines by default.
+      <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also fits the width.
+    </p>
 
-    <AutoExample name="AutoFit" exampleClass="flex" />
-
-    <div class="ui-not-rich-text"></div>
+    <AutoExample name="AutoFit" class="flex" />
   </section>
+
+  <TextareaBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Everything in the <code>&lt;label&gt;</code> is part of the name: keep
+        start text, end text and affixes short.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy>
       <UITextarea
-        description="Description"
+        characterCount
         endText="Supporting text"
         label="Label"
+        maxlength={160}
         placeholder="Placeholder"
+        startText="Start text"
         style="inline-size: 20rem"
       >
-        <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
-        <span slot="suffix">EUR</span>
-        <span slot="footer">Footer</span>
+        <span slot="top">Top</span>
+        <span slot="start">€</span>
+        <span slot="end">EUR</span>
+        <span slot="bottom">Bottom</span>
       </UITextarea>
     </Anatomy>
   </Fragment>

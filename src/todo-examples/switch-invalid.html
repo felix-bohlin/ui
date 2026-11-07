@@ -1,0 +1,102 @@
+<style>
+  :is(.todo-switch-border, .todo-switch-thick)
+    .ui-switch:has([aria-invalid="true"]) {
+    --_track-border-color: var(--ui-invalid);
+
+    input {
+      box-shadow: none;
+    }
+  }
+
+  .todo-switch-thick .ui-switch:has([aria-invalid="true"]) input::before {
+    border-width: var(--ui-border-width-thick);
+  }
+
+  .todo-switch-column {
+    display: grid;
+    gap: var(--size-3);
+  }
+</style>
+
+<p class="todo-note">
+  A valid switch, then an invalid one off and on, next to an invalid checkbox
+  for comparison, in three treatments. Today the invalid switch gets a 2px red
+  halo outside the track (a box shadow the width of the focus ring), and the
+  focus ring moves out by that width; when it's on, the track also fills red.
+  Option A drops the halo and turns the track border red, the hook the track
+  already reads, like Checkbox and Radio color their box and TextField its
+  border; the on track keeps its red fill. Option B does the same with the thick
+  border width, so a 1px red line on a gray track doesn't have to carry the cue
+  alone. In both, the red end text stays.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Today, halo</p>
+    <div class="todo-switch-column">
+      <label class="ui-switch">
+        <input role="switch" type="checkbox" />
+        <span class="ui-label">Email updates</span>
+      </label>
+      <label class="ui-switch">
+        <input aria-invalid="true" role="switch" type="checkbox" />
+        <span class="ui-label">Accept the terms</span>
+        <span class="ui-end-text">Turn this on to continue</span>
+      </label>
+      <label class="ui-switch">
+        <input aria-invalid="true" checked role="switch" type="checkbox" />
+        <span class="ui-label">Share usage data</span>
+        <span class="ui-end-text">Not allowed on this plan</span>
+      </label>
+      <label class="ui-checkbox">
+        <input aria-invalid="true" type="checkbox" />
+        <span class="ui-label">Checkbox, invalid</span>
+      </label>
+    </div>
+  </section>
+  <section class="todo-fixed todo-switch-border">
+    <p class="todo-label">A, red track border</p>
+    <div class="todo-switch-column">
+      <label class="ui-switch">
+        <input role="switch" type="checkbox" />
+        <span class="ui-label">Email updates</span>
+      </label>
+      <label class="ui-switch">
+        <input aria-invalid="true" role="switch" type="checkbox" />
+        <span class="ui-label">Accept the terms</span>
+        <span class="ui-end-text">Turn this on to continue</span>
+      </label>
+      <label class="ui-switch">
+        <input aria-invalid="true" checked role="switch" type="checkbox" />
+        <span class="ui-label">Share usage data</span>
+        <span class="ui-end-text">Not allowed on this plan</span>
+      </label>
+      <label class="ui-checkbox">
+        <input aria-invalid="true" type="checkbox" />
+        <span class="ui-label">Checkbox, invalid</span>
+      </label>
+    </div>
+  </section>
+  <section class="todo-fixed todo-switch-thick">
+    <p class="todo-label">B, thick red track border</p>
+    <div class="todo-switch-column">
+      <label class="ui-switch">
+        <input role="switch" type="checkbox" />
+        <span class="ui-label">Email updates</span>
+      </label>
+      <label class="ui-switch">
+        <input aria-invalid="true" role="switch" type="checkbox" />
+        <span class="ui-label">Accept the terms</span>
+        <span class="ui-end-text">Turn this on to continue</span>
+      </label>
+      <label class="ui-switch">
+        <input aria-invalid="true" checked role="switch" type="checkbox" />
+        <span class="ui-label">Share usage data</span>
+        <span class="ui-end-text">Not allowed on this plan</span>
+      </label>
+      <label class="ui-checkbox">
+        <input aria-invalid="true" type="checkbox" />
+        <span class="ui-label">Checkbox, invalid</span>
+      </label>
+    </div>
+  </section>
+</div>

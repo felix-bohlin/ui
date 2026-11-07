@@ -4,5 +4,5 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Outlined" placeholder="Placeholder" />
-  <TextField label="Filled" placeholder="Placeholder" filled />
+  <TextField label="Filled" placeholder="Placeholder" variant="filled" />
 </template>

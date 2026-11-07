@@ -1,20 +1,33 @@
 <script setup lang="ts">
-import { provide, useId } from "vue"
-import { TabsGroupNameKey, type Props, type Slots } from "./types.d.vue"
+import { computed, provide, reactive, useId } from "vue"
+import { TabsKey } from "./context.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const { name } = defineProps<Props>()
+const { name, overflow, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
-defineOptions({
-  inheritAttrs: false,
-})
+const model = defineModel<string>()
 
-const groupName = name || useId()
-provide(TabsGroupNameKey, groupName)
+const change = (input: HTMLInputElement) => {
+  if (model.value !== undefined) model.value = input.value
+}
+
+const uid = useId()
+
+const groupName = computed(() => name || `tabs-${uid}`)
+
+provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>
 
 <template>
-  <div :class="['ui-tabs', $props.class]" role="tablist" v-bind="$attrs">
+  <div
+    :class="[
+      'ui-tabs',
+      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
+      variant && variant !== 'tonal' && `ui-${variant}`,
+      $props.class,
+    ]"
+  >
     <slot></slot>
   </div>
 </template>

@@ -1,0 +1,8 @@
+---
+import { mergeStyle } from "../style"
+import type { TableColumnProps as Props } from "./types.astro"
+
+const { style, width, ...rest } = Astro.props
+---
+
+<col style={mergeStyle({ width }, style)} {...rest} />

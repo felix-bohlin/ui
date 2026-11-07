@@ -1,0 +1,42 @@
+---
+import { Chip } from "opui-css/astro"
+---
+
+<div class="example-row">
+  <Chip
+    aria-pressed="true"
+    as="button"
+    class="chip-pressed"
+    label="Open"
+    variant="outlined"
+  />
+  <Chip
+    aria-pressed="false"
+    as="button"
+    class="chip-pressed"
+    label="In review"
+    variant="outlined"
+  />
+  <Chip
+    aria-pressed="false"
+    as="button"
+    class="chip-pressed"
+    label="Closed"
+    variant="outlined"
+  />
+</div>
+<div class="example-row">
+  <Chip aria-pressed="true" as="button" class="chip-pressed" label="Paid" />
+  <Chip aria-pressed="false" as="button" class="chip-pressed" label="Unpaid" />
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>(".chip-pressed")
+    .forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const pressed = chip.getAttribute("aria-pressed") === "true"
+        chip.setAttribute("aria-pressed", String(!pressed))
+      })
+    })
+</script>

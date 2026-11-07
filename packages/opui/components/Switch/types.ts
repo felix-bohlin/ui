@@ -1,13 +1,16 @@
-export type SwitchProps = {
+export type Props = {
+  card?: boolean
+  endText?: string
   error?: boolean
   hideLabel?: boolean
-  small?: boolean
+  label?: string
+  orientation?: "horizontal" | "vertical"
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
-  stack?: boolean
+  variant?: "elevated" | "outlined" | "tonal"
 }
 
-export type SwitchSlots<S> = {
-  children?: S
+export type Slots<S> = {
   endText?: string | S
   iconChecked?: S
   iconUnchecked?: S

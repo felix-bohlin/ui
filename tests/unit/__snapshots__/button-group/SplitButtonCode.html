@@ -1,0 +1,24 @@
+<div class="ui-button-group ui-outlined" role="group">
+  <button class="ui-button" type="button">Save</button>
+  <button aria-label="More save options" class="ui-button" command="toggle-popover" commandfor="id-1" type="button">
+    <svg aria-hidden="true">
+      <!-- -->
+    </svg>
+  </button>
+  <menu class="ui-align-end ui-menu" id="id-1" popover>
+    <li>
+      <button command="hide-popover" commandfor="id-1" type="button">
+        <div class="ui-text">
+          <p>Save as draft</p>
+        </div>
+      </button>
+    </li>
+    <li>
+      <button command="hide-popover" commandfor="id-1" type="button">
+        <div class="ui-text">
+          <p>Save and publish</p>
+        </div>
+      </button>
+    </li>
+  </menu>
+</div>

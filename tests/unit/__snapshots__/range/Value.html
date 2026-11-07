@@ -1,5 +1,10 @@
-<label class="ui-range">
-  <span class="ui-label" id="id-1">Hue</span>
-  <output class="ui-value" data-suffix="°" for="id-2">250°</output>
-  <input aria-labelledby="id-1" id="id-2" max="360" min="0" type="range" value="250">
-</label>
+<form class="ui-form">
+  <label class="ui-range" for="id-2">
+    <span class="ui-label" id="id-1">Hue</span>
+    <output aria-live="off" class="ui-value" data-live data-suffix="°" for="id-2">250°</output>
+    <input aria-labelledby="id-1" aria-valuetext="250°" id="id-2" max="360" min="0" type="range" value="250">
+  </label>
+  <div class="ui-field-group">
+    <button class="ui-button" type="reset">Reset</button>
+  </div>
+</form>

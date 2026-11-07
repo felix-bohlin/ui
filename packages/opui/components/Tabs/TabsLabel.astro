@@ -1,0 +1,16 @@
+---
+import type { TabsLabelProps as Props } from "./types.astro"
+import { tabsContext } from "./context.astro"
+
+const { class: className, for: htmlFor, ...rest } = Astro.props
+
+const tabs = tabsContext.get()
+---
+
+<label
+  for={htmlFor || tabs?.tabId}
+  class:list={["ui-label", className]}
+  {...rest}
+>
+  <slot />
+</label>

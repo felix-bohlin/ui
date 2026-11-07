@@ -1,41 +1,55 @@
 ---
-import type { RadioProps as Props } from "./types.astro"
+import type { Props } from "./types.astro"
+import { trimEdges } from "../whitespace"
+import { hasName, warnUnnamed } from "../dev"
 import RadioInput from "./RadioInput.astro"
+import { cx } from "../cx"
 
 export const title = "Radio"
 
 const {
+  "aria-invalid": ariaInvalid,
+  card,
   class: className,
+  endText,
   error,
   hideLabel,
-  name,
+  label,
+  orientation,
   size,
-  stack,
+  spread,
+  style,
+  variant,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
-const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+warnUnnamed("Radio", hasName({ ...rest, label }, Astro.slots.has("default")))
+const labelSlot = Astro.slots.has("default")
+  ? trimEdges(await Astro.slots.render("default"))
+  : ""
+const LabelTag = label || labelSlot ? "span" : Fragment
 ---
 
 <label
   class:list={[
     "ui-radio",
-    size && `ui-${size}`,
     {
-      "ui-stack": stack,
+      "ui-card": card,
+      "ui-spread": spread,
     },
+    card && variant && variant !== "outlined" && `ui-${variant}`,
+    orientation && orientation !== "horizontal" && `ui-${orientation}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
+  style={style}
 >
-  <RadioInput aria-describedby={endTextId} name={name} {...rest} />
-  <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
-  {
-    Astro.slots.has("end-text") && (
-      <span id={endTextId} class="ui-end-text">
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  <RadioInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
+  <LabelTag class={cx([hideLabel ? "ui-sr-only" : "ui-label"])}
+    >{label}<Fragment set:html={labelSlot}
+  /></LabelTag>
+  {(endText || Astro.slots.has("end-text")) && <span class="ui-end-text">
+    {endText}
+    <slot name="end-text" />
+  </span>}
 </label>

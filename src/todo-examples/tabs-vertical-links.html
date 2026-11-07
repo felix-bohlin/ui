@@ -1,0 +1,197 @@
+<p class="todo-note">
+  The three options with today's CSS. A is what the Tabs page points to: a List
+  of links with <code>aria-current="page"</code> at the side, and the page's
+  content next to it. B is the Basics tabs in a column, first with only the
+  layout changed, then with the rules a vertical form would have to redo: the
+  track's rounded corners, which today sit on the first and last tab's start and
+  end, and the panel's gap, which is a block margin. C is a <code>nav</code> of
+  links drawn like tabs, with <code>aria-current="page"</code> taking the place
+  of <code>:checked</code>.
+</p>
+<div class="todo-compare" id="tabs-vertical-links">
+  <section class="todo-fixed">
+    <p class="todo-label">A: a List of links at the side</p>
+    <div class="todo-settings">
+      <nav aria-label="Account settings">
+        <ul class="ui-list" role="list">
+          <li>
+            <a href="#tabs-vertical-links" aria-current="page">
+              <div class="ui-text"><p>Profile</p></div>
+            </a>
+          </li>
+          <li>
+            <a href="#tabs-vertical-links">
+              <div class="ui-text"><p>Security</p></div>
+            </a>
+          </li>
+          <li>
+            <a href="#tabs-vertical-links">
+              <div class="ui-text"><p>Notifications</p></div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <p>Your name, photo and bio.</p>
+    </div>
+  </section>
+  <section class="todo-current">
+    <p class="todo-label">B: tabs in a column, layout only</p>
+    <div
+      class="ui-tabs todo-vertical"
+      aria-label="Account settings"
+      role="radiogroup"
+    >
+      <input
+        checked
+        class="ui-input"
+        id="todo-tabs-column-1"
+        name="todo-tabs-column"
+        type="radio"
+      />
+      <label for="todo-tabs-column-1" class="ui-label">Profile</label>
+      <div class="ui-panel">Your name, photo and bio.</div>
+      <input
+        class="ui-input"
+        id="todo-tabs-column-2"
+        name="todo-tabs-column"
+        type="radio"
+      />
+      <label for="todo-tabs-column-2" class="ui-label">Security</label>
+      <div class="ui-panel">Password, passkeys and sessions.</div>
+      <input
+        class="ui-input"
+        id="todo-tabs-column-3"
+        name="todo-tabs-column"
+        type="radio"
+      />
+      <label for="todo-tabs-column-3" class="ui-label">Notifications</label>
+      <div class="ui-panel">Email and push notifications.</div>
+    </div>
+    <p class="todo-label">B: with the corners and gap redone</p>
+    <div
+      class="ui-tabs todo-vertical todo-vertical-fixed"
+      aria-label="Account settings"
+      role="radiogroup"
+    >
+      <input
+        checked
+        class="ui-input"
+        id="todo-tabs-vertical-1"
+        name="todo-tabs-vertical"
+        type="radio"
+      />
+      <label for="todo-tabs-vertical-1" class="ui-label">Profile</label>
+      <div class="ui-panel">Your name, photo and bio.</div>
+      <input
+        class="ui-input"
+        id="todo-tabs-vertical-2"
+        name="todo-tabs-vertical"
+        type="radio"
+      />
+      <label for="todo-tabs-vertical-2" class="ui-label">Security</label>
+      <div class="ui-panel">Password, passkeys and sessions.</div>
+      <input
+        class="ui-input"
+        id="todo-tabs-vertical-3"
+        name="todo-tabs-vertical"
+        type="radio"
+      />
+      <label for="todo-tabs-vertical-3" class="ui-label">Notifications</label>
+      <div class="ui-panel">Email and push notifications.</div>
+    </div>
+  </section>
+  <section class="todo-current">
+    <p class="todo-label">C: links drawn like tabs</p>
+    <nav aria-label="Account settings" class="ui-tabs todo-link-tabs">
+      <a class="ui-label" href="#tabs-vertical-links" aria-current="page"
+        >Profile</a
+      >
+      <a class="ui-label" href="#tabs-vertical-links">Security</a>
+      <a class="ui-label" href="#tabs-vertical-links">Notifications</a>
+    </nav>
+  </section>
+</div>
+<style>
+  .todo-settings {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: 10rem 1fr;
+    inline-size: 100%;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .todo-vertical.ui-tabs {
+    align-items: start;
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    & > .ui-label {
+      grid-column: 1;
+      justify-content: start;
+    }
+
+    & > .ui-panel {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+  }
+
+  .todo-vertical-fixed.ui-tabs {
+    & > .ui-label {
+      border-radius: 0;
+
+      &:nth-child(1 of .ui-label) {
+        border-start-end-radius: var(--_radius);
+        border-start-start-radius: var(--_radius);
+      }
+
+      &:nth-last-child(1 of .ui-label) {
+        border-end-end-radius: var(--_radius);
+        border-end-start-radius: var(--_radius);
+      }
+    }
+
+    & > .ui-panel {
+      margin-block-start: 0;
+      margin-inline-start: var(--_panel-gap);
+    }
+  }
+
+  .todo-link-tabs.ui-tabs > a.ui-label {
+    text-decoration: none;
+
+    &[aria-current="page"] {
+      color: var(--_selected-text-color);
+
+      &::before {
+        anchor-name: --ui-tabs-selected;
+        background-color: var(--_selected-bg-color);
+        border-color: var(--_selected-border-color);
+        box-shadow: var(--_selected-shadow);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      &::before {
+        outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+          var(--ui-focus-ring-color);
+        outline-offset: var(--ui-focus-ring-offset);
+      }
+    }
+  }
+
+  @supports (anchor-name: --x) {
+    @media not (forced-colors: active) {
+      .todo-link-tabs.ui-tabs > a.ui-label[aria-current="page"]::before {
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+      }
+    }
+  }
+</style>

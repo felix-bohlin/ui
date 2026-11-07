@@ -1,0 +1,69 @@
+<p class="todo-note">
+  The same tabs in left-to-right and in right-to-left text. Click a tab, then
+  press Right Arrow and Left Arrow. Chromium's radio code follows the reading
+  direction: in the right-to-left set, Left Arrow moves to the next tab. Try the
+  same in Firefox and Safari to see whether the Keyboard support row holds
+  there.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label"><code>dir="ltr"</code></p>
+    <div class="ui-tabs">
+      <input
+        type="radio"
+        name="todo-tabs-ltr"
+        id="todo-tabs-ltr-1"
+        class="ui-input"
+        checked
+      />
+      <label for="todo-tabs-ltr-1" class="ui-label">Profile</label>
+      <div class="ui-panel">Profile settings and information.</div>
+      <input
+        type="radio"
+        name="todo-tabs-ltr"
+        id="todo-tabs-ltr-2"
+        class="ui-input"
+      />
+      <label for="todo-tabs-ltr-2" class="ui-label">Settings</label>
+      <div class="ui-panel">General account settings.</div>
+      <input
+        type="radio"
+        name="todo-tabs-ltr"
+        id="todo-tabs-ltr-3"
+        class="ui-input"
+      />
+      <label for="todo-tabs-ltr-3" class="ui-label">Notifications</label>
+      <div class="ui-panel">Manage your notifications.</div>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label"><code>dir="rtl"</code></p>
+    <div class="ui-tabs" dir="rtl" lang="ar">
+      <input
+        type="radio"
+        name="todo-tabs-rtl"
+        id="todo-tabs-rtl-1"
+        class="ui-input"
+        checked
+      />
+      <label for="todo-tabs-rtl-1" class="ui-label">الملف الشخصي</label>
+      <div class="ui-panel">إعدادات الملف الشخصي والمعلومات.</div>
+      <input
+        type="radio"
+        name="todo-tabs-rtl"
+        id="todo-tabs-rtl-2"
+        class="ui-input"
+      />
+      <label for="todo-tabs-rtl-2" class="ui-label">الإعدادات</label>
+      <div class="ui-panel">إعدادات الحساب العامة.</div>
+      <input
+        type="radio"
+        name="todo-tabs-rtl"
+        id="todo-tabs-rtl-3"
+        class="ui-input"
+      />
+      <label for="todo-tabs-rtl-3" class="ui-label">الإشعارات</label>
+      <div class="ui-panel">إدارة الإشعارات.</div>
+    </div>
+  </section>
+</div>

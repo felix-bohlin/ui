@@ -1,107 +1,146 @@
 @layer components.extended {
   :where(.ui-badge) {
-    --_anchor-tx: -50%;
-    --_anchor-ty: 50%;
-    --_badge-inset: auto auto 100% 100%;
-    --_bg-color: var(--primary);
-    --_border-color: var(--primary);
-    --_dot-size: var(--size-2);
-    --_size: var(--size-4);
-    --_text-color: var(--gray-1);
+    --_motion: var(--ui-motion);
+    --_bg-color: var(--ui-primary);
+    --_border-color: var(--ui-primary);
+    --_border-width: var(--ui-border-width-thick);
+    --_direction: 1;
+    --_dot-size: var(--ui-space-2);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease-enter);
+    --_inset: 100%;
+    --_inset-block: auto var(--_inset);
+    --_inset-inline: var(--_inset) auto;
+    --_shift-x: calc(50% * var(--_sign-x));
+    --_shift-y: calc(50% * var(--_sign-y));
+    --_sign-x: -1;
+    --_sign-y: 1;
+    --_size: var(--ui-space-4);
+    --_text-color: var(--ui-on-primary);
 
     display: inline-flex;
+    flex-shrink: 0;
     position: relative;
     vertical-align: middle;
 
     /* Floating wrapper: traditional inset-based positioning so this works
        in browsers without position-area support (Firefox, older Safari). */
-    & > .ui-anchor-floating:not([popover]) {
-      inset: var(--_badge-inset);
+    & > .ui-floating:not([popover]) {
+      inset-block: var(--_inset-block);
+      inset-inline: var(--_inset-inline);
       position-anchor: auto;
       position-area: none;
+      translate: calc(var(--_shift-x) * var(--_direction)) var(--_shift-y);
+    }
+
+    &:dir(rtl) {
+      --_direction: -1;
     }
 
     /* Indicator */
-    & > .ui-anchor-floating > .ui-badge-indicator {
+    & > .ui-floating > .ui-indicator {
       background-color: var(--_bg-color);
       block-size: var(--_size);
-      border: 2px solid var(--_border-color);
-      border-radius: var(--radius-round);
+      border: var(--_border-width) solid var(--_border-color);
+      border-radius: var(--ui-radius-round);
       color: var(--_text-color);
       display: grid;
-      font-size: var(--font-size-0);
-      font-weight: 500;
+      font-size: var(--ui-font-size-caption);
+      font-weight: var(--ui-font-weight-medium);
       inline-size: max-content;
       line-height: normal;
       min-inline-size: var(--_size);
-      padding-inline: var(--size-1);
+      padding-inline: var(--ui-space-1);
       place-items: center;
       text-align: center;
-      transition: opacity 0.2s var(--ease-out-1);
+      transition:
+        opacity var(--_duration) var(--_ease),
+        visibility var(--_duration) var(--_ease);
     }
 
     /* Colors */
-    &.ui-critical {
-      --_bg-color: var(--critical);
-      --_border-color: var(--critical);
+    &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success) {
+      --_bg-color: oklch(
+        from var(--_accent) min(l, var(--ui-accent-fill-max-lightness)) c h
+      );
+      --_border-color: var(--_bg-color);
+      --_text-color: var(--ui-on-fill);
     }
 
-    &.ui-success {
-      --_bg-color: var(--success);
-      --_border-color: var(--success);
+    &.ui-critical {
+      --_accent: var(--ui-critical);
     }
 
     &.ui-info {
-      --_bg-color: var(--info);
-      --_border-color: var(--info);
-    }
-
-    &.ui-warning {
-      --_bg-color: var(--warning);
-      --_border-color: var(--warning);
+      --_accent: var(--ui-info);
     }
 
     &.ui-neutral {
-      --_bg-color: var(--neutral);
-      --_border-color: var(--neutral);
+      --_accent: var(--ui-neutral);
+    }
+
+    &.ui-success {
+      --_accent: var(--ui-success);
+    }
+
+    &.ui-warning {
+      --_bg-color: var(--ui-warning);
+      --_border-color: var(--ui-warning);
+      --_text-color: var(--ui-on-warning);
     }
 
     /* Alignment */
     &.ui-start-start {
-      --_anchor-tx: 50%;
-      --_anchor-ty: 50%;
-      --_badge-inset: auto 100% 100% auto;
+      --_inset-inline: auto var(--_inset);
+      --_sign-x: 1;
     }
 
     &.ui-end-start {
-      --_anchor-tx: 50%;
-      --_anchor-ty: -50%;
-      --_badge-inset: 100% 100% auto auto;
+      --_inset-block: var(--_inset) auto;
+      --_inset-inline: auto var(--_inset);
+      --_sign-x: 1;
+      --_sign-y: -1;
     }
 
     &.ui-end-end {
-      --_anchor-tx: -50%;
-      --_anchor-ty: -50%;
-      --_badge-inset: 100% auto auto 100%;
+      --_inset-block: var(--_inset) auto;
+      --_sign-y: -1;
     }
 
     /* Dot */
     &.ui-dot {
-      --_anchor-tx: calc((var(--_dot-size) - 2px) * -1);
-      --_anchor-ty: var(--_dot-size);
+      --_shift-x: calc(
+        (var(--_dot-size) - var(--_border-width)) * var(--_sign-x)
+      );
+      --_shift-y: calc(var(--_dot-size) * var(--_sign-y));
     }
 
-    &.ui-dot > .ui-anchor-floating > .ui-badge-indicator {
+    &.ui-dot > .ui-floating > .ui-indicator {
       block-size: var(--_dot-size);
       inline-size: var(--_dot-size);
       min-inline-size: var(--_dot-size);
       padding: 0;
     }
 
+    &:has(> .ui-avatar:not(.ui-rounded, .ui-squared, .ui-squircle)) {
+      --_inset: calc(50% + 50% * sin(45deg));
+      --_shift-x: calc(50% * var(--_sign-x));
+      --_shift-y: calc(50% * var(--_sign-y));
+    }
+
+    :where(.ui-avatar-group) > & > .ui-floating > .ui-indicator {
+      box-shadow: 0 0 0 var(--_outline-width) var(--_outline-color);
+    }
+
+    :where(.ui-avatar-group) > & {
+      --_inset-inline: auto var(--_inset);
+      --_sign-x: 1;
+    }
+
     /* Visibility */
-    &.ui-invisible > .ui-anchor-floating > .ui-badge-indicator {
+    &.ui-invisible > .ui-floating > .ui-indicator {
       opacity: 0;
-      pointer-events: none;
+      visibility: hidden;
     }
   }
 }

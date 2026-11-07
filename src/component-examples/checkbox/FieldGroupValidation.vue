@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet data-invalid>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-validation">
-        <Checkbox checked>Checkbox 1</Checkbox>
-        <Checkbox>Checkbox 2</Checkbox>
-        <Checkbox>Checkbox 3</Checkbox>
+    <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
+      <FieldLegend>Interests</FieldLegend>
+      <FieldGroup name="checkbox-group-validation" orientation="horizontal">
+        <Checkbox checked error>Design</Checkbox>
+        <Checkbox error>Engineering</Checkbox>
+        <Checkbox error>Marketing</Checkbox>
       </FieldGroup>
-      <span class="ui-end-text">Something went wrong!</span>
-    </FieldSet>
+      <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
+        >Pick at least two to continue.</span
+      >
+    </Fieldset>
   </Form>
 </template>

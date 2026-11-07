@@ -1,0 +1,14 @@
+---
+import type { DrawerTitleProps as Props } from "./types.astro"
+import { drawerContext } from "./context.astro"
+import { warnReplacedId } from "../dev"
+
+const { class: className, id, ...rest } = Astro.props
+
+const drawer = drawerContext.get()
+warnReplacedId("DrawerTitle", "Drawer", id, drawer?.titleId)
+---
+
+<h2 class:list={[className]} id={drawer?.titleId ?? id} {...rest}>
+  <slot />
+</h2>

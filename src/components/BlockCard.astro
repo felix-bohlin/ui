@@ -1,0 +1,68 @@
+---
+import { blockHref, blockPreviewHref, type Block } from "../utils/blocks"
+
+type Props = { block: Block }
+
+const { block } = Astro.props
+const { link } = Astro.locals
+---
+
+<article class="block-card ui-card ui-outlined">
+  <div class="block-card-thumbnail">
+    <iframe
+      inert
+      loading="lazy"
+      src={blockPreviewHref(block.slug)}
+      tabindex="-1"
+      title={`${block.name} preview`}
+    ></iframe>
+  </div>
+  <hgroup>
+    <h3>
+      <a class="ui-card-link" href={link(blockHref(block.slug))}>
+        {block.name}
+      </a>
+    </h3>
+    <p>{block.description}</p>
+  </hgroup>
+</article>
+
+<style>
+  .block-card {
+    block-size: 100%;
+    gap: 0;
+    padding-block-end: var(--size-3);
+
+    hgroup {
+      h3 {
+        font-size: var(--font-size-2);
+      }
+
+      p {
+        color: var(--ui-text);
+        font-size: var(--ui-font-size-small);
+        line-height: var(--font-lineheight-3);
+        margin-block-start: var(--size-1);
+      }
+    }
+  }
+
+  .block-card-thumbnail {
+    aspect-ratio: 16 / 10;
+    background-color: var(--ui-surface);
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    container-type: inline-size;
+    overflow: hidden;
+    pointer-events: none;
+
+    iframe {
+      block-size: 800px;
+      border: 0;
+      color-scheme: normal;
+      display: block;
+      inline-size: 1280px;
+      transform: scale(tan(atan2(100cqi, 1280px)));
+      transform-origin: 0 0;
+    }
+  }
+</style>

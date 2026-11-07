@@ -1,0 +1,39 @@
+<fieldset class="ui-fieldset">
+  <legend>Plan</legend>
+  <div class="ui-field-group">
+    <label class="ui-radio">
+      <input type="radio" name="radio-binding" checked value="free" />
+      <span class="ui-label">Free</span>
+    </label>
+    <label class="ui-radio">
+      <input type="radio" name="radio-binding" value="pro" />
+      <span class="ui-label">Pro</span>
+    </label>
+    <label class="ui-radio">
+      <input type="radio" name="radio-binding" value="team" />
+      <span class="ui-label">Team</span>
+    </label>
+  </div>
+</fieldset>
+<p class="radio-binding-text">Selected: free</p>
+<button class="ui-button radio-binding-reset" type="button">Reset</button>
+
+<script type="module">
+  const text = document.querySelector(".radio-binding-text")
+  const inputs = [...document.querySelectorAll('[name="radio-binding"]')]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".radio-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

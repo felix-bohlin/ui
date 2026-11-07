@@ -1,17 +1,36 @@
 ---
-import { Accordion } from "@opui/astro"
-import { Button } from "@opui/astro"
+import {
+  Accordion,
+  AccordionActions,
+  AccordionContent,
+  AccordionSummary,
+  Button,
+} from "opui-css/astro"
 ---
 
 <Accordion open variant="elevated">
-  <Fragment slot="summary">Accordion with actions</Fragment>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo. Nam tempor euismod nisi ac ornare.
-  </p>
-  <Fragment slot="actions">
-    <Button>Cancel</Button>
-    <Button>Agree</Button>
-  </Fragment>
+  <AccordionSummary>Terms of service</AccordionSummary>
+  <AccordionContent>
+    <p>
+      We updated our terms on 1 March. The changes cover how long we keep your
+      files and how annual plans renew.
+    </p>
+  </AccordionContent>
+  <AccordionActions>
+    <Button>Decline</Button>
+    <Button>Accept</Button>
+  </AccordionActions>
+</Accordion>
+
+<Accordion open variant="elevated">
+  <AccordionSummary>Invite your team</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Teammates you invite can view and edit every project in this workspace.
+    </p>
+  </AccordionContent>
+  <AccordionActions align="start">
+    <Button>Copy link</Button>
+    <Button>Send invites</Button>
+  </AccordionActions>
 </Accordion>

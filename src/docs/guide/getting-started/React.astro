@@ -1,0 +1,79 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import Code from "../../../components/Code.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import ServerSupport from "./partials/ServerSupport.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class React 19 components. Install the package, import what
+    you need, and you're set.
+  </Fragment>
+
+  <section id="installation">
+    <h2>Install via NPM</h2>
+    <InstallCommand packages="react@19 react-dom@19" />
+  </section>
+
+  <section id="css">
+    <h2>Import the CSS</h2>
+    <p>
+      React components ship markup only - the CSS still has to be imported once,
+      in your root layout or the entry file that renders your app. Import
+      everything:
+    </p>
+    <Code
+      code={`// src/main.tsx
+import "opui-css/css/imports.css"`}
+      lang="tsx"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in your entry
+      instead:
+    </p>
+    <PickAndChoose file="src/styles/main.css" />
+    <Code
+      code={`// src/main.tsx
+import "./styles/main.css"`}
+      lang="tsx"
+    />
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <Code
+      code={`import { Button } from "opui-css/react"
+
+export default function App() {
+  return <Button variant="filled">Click me</Button>
+}`}
+      lang="tsx"
+    />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other slots are props: the default slot is
+      <code>children</code> and named slots are camelCased, such as
+      <code>endText</code>. Form controls take the native <code>value</code> or
+      <code>defaultValue</code>, <code>checked</code> or
+      <code>defaultChecked</code>, and <code>onChange</code> props.
+    </p>
+    <NextSteps />
+  </section>
+
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Components that need context, state or effects are marked
+      <code>"use client"</code>. The rest also render as React Server
+      Components. Every component renders complete HTML on the server, and the
+      native controls work and submit with their form. The props in the last
+      column need hydration (<code>client:load</code> in Astro) or client
+      rendering.
+    </p>
+    <ServerSupport framework="react" />
+  </section>
+</Guide>

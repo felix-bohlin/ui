@@ -1,15 +1,37 @@
 ---
 import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
+import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Table, Tabs as UITabs } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  Tabs as UITabs,
+  TabsItem as UITabsItem,
+  TabsLabel as UITabsLabel,
+  TabsPanel as UITabsPanel,
+} from "opui-css/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
 
 import tabsItemApi from "../../component-api/tabs-item/api"
+import tabsLabelApi from "../../component-api/tabs-label/api"
 import tabsPanelApi from "../../component-api/tabs-panel/api"
-import tabsTabApi from "../../component-api/tabs-tab/api"
 import tabsApi from "../../component-api/tabs/api"
+
+export const keywords = ["tab panel", "tablist"]
 ---
 
 <Component
@@ -18,10 +40,19 @@ import tabsApi from "../../component-api/tabs/api"
   apis={[
     { title: "Tabs API", api: tabsApi },
     { title: "Tabs item API", api: tabsItemApi },
-    { title: "Tabs tab API", api: tabsTabApi },
+    { title: "Tabs label API", api: tabsLabelApi },
     { title: "Tabs panel API", api: tabsPanelApi },
   ]}
-  browserSupport={["light-dark"]}
+  browserSupport={[
+    "anchor-positioning",
+    "container-queries",
+    "lh",
+    "light-dark",
+    "logical-properties",
+    "nth-child-of",
+    "scrollbar-width",
+    "sibling-count",
+  ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
   changelogPaths={[
     {
@@ -41,120 +72,156 @@ import tabsApi from "../../component-api/tabs/api"
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UITabs name="tabs-anatomy">
-        <UITabs.Item open>
-          <UITabs.Tab>Profile</UITabs.Tab>
-          <UITabs.Panel>Profile settings and information.</UITabs.Panel>
-        </UITabs.Item>
-        <UITabs.Item>
-          <UITabs.Tab>Settings</UITabs.Tab>
-          <UITabs.Panel>General account settings.</UITabs.Panel>
-        </UITabs.Item>
+      <UITabs
+        aria-label="Account settings"
+        name="tabs-anatomy"
+        role="radiogroup"
+      >
+        <UITabsItem>
+          <UITabsLabel>Profile</UITabsLabel>
+          <UITabsPanel>Profile settings and information.</UITabsPanel>
+        </UITabsItem>
+        <UITabsItem checked>
+          <UITabsLabel>Settings</UITabsLabel>
+          <UITabsPanel>General account settings.</UITabsPanel>
+        </UITabsItem>
       </UITabs>
     </Anatomy>
   </Fragment>
   <Fragment slot="preamble">
-    The Tabs are radio inputs and the Panels are just divs that show and hide
-    based on the radio inputs' <code>:checked</code> state.
+    Radio inputs that switch panels. To pick an option, use a
+    <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
   </Fragment>
 
-  <section>
-    <h2 id="basics">Basics</h2>
+  <Usage slot="usage">
+    <li slot="when">
+      Panels of related content, like parts of a settings page.
+    </li>
+    <li slot="when">Versions of the same content, like code per framework.</li>
+    <li slot="when-not">
+      Picking an option: use a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    </li>
+    <li slot="when-not">
+      Content read in order: show it on the page, or in
+      <DocLink href="/components/accordion">Accordions</DocLink>.
+    </li>
+    <li slot="when-not">
+      Navigation between pages: use links, like a
+      <DocLink href="/components/list#selected">List</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
     <AutoExample name="Basics" />
+
+    <BlockLink slug="app-shell">
+      The sidebar is a list of links, and the current page's link has
+      <code>aria-current="page"</code>.
+    </BlockLink>
+  </section>
+
+  <section id="filled">
+    <h2>Filled</h2>
+    <p>Use <PropOrClass prop='variant="filled"' class=".ui-filled" />.</p>
+    <AutoExample name="Filled" />
+  </section>
+
+  <section id="line">
+    <h2>Line</h2>
+    <p>Use <PropOrClass prop='variant="line"' class=".ui-line" />.</p>
+    <AutoExample name="Line" />
+  </section>
+
+  <section id="outlined">
+    <h2>Outlined</h2>
+    <p>Use <PropOrClass prop='variant="outlined"' class=".ui-outlined" />.</p>
+    <AutoExample name="Outlined" />
+  </section>
+
+  <section id="icons-and-counts">
+    <h2>Icons and counts</h2>
+    <AutoExample name="IconsAndCounts" />
+  </section>
+
+  <section id="overflow">
+    <h2>Overflow</h2>
+    <p>
+      Wraps by default. Use
+      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
+      scroll.
+    </p>
+    <AutoExample name="Overflow" />
+  </section>
+
+  <section id="binding">
+    <h2>Binding</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>value</code> on <code>Tabs</code>. After that, read the
+        inputs.
+      </Fragment>
+      <Fragment slot="html">
+        Read the checked input, or submit it with a form.
+      </Fragment>
+      <Fragment slot="react">
+        Use <code>value</code> and <code>onValueChange</code> on
+        <code>Tabs</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use <code>bind:value</code> on <code>Tabs</code>.
+      </Fragment>
+      <Fragment slot="vue"
+        >Use <code>v-model</code> on <code>Tabs</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Binding" column />
   </section>
 
   <Fragment slot="accessibility">
     <p>
-      The tab system uses standard radio inputs and labels, so we get group
-      management and keyboard support for free!
+      Tabs are a radio group, not ARIA tabs. Name it with
+      <code>role="radiogroup"</code> and <code>aria-label</code> on
+      <PropOrClass prop="Tabs" class=".ui-tabs" />.
     </p>
 
-    <h3>Tab List</h3>
     <Table>
-      <Table.ColumnGroup>
-        <Table.Column width="150px" />
-        <Table.Column width="150px" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Element</Table.HeaderCell>
-          <Table.HeaderCell>Attribute</Table.HeaderCell>
-          <Table.HeaderCell>Description</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>.ui-tabs</code></Table.Cell>
-          <Table.Cell><code>role="tablist"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element as a container for a set of tabs.</Table.Cell
+      <TableColumnGroup>
+        <TableColumn width="150px" />
+        <TableColumn width="150px" />
+        <TableColumn />
+      </TableColumnGroup>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Element</TableHeaderCell>
+          <TableHeaderCell>Attribute</TableHeaderCell>
+          <TableHeaderCell>Description</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>input</code></TableCell>
+          <TableCell><code>name</code></TableCell>
+          <TableCell
+            >Groups the radio buttons together for exclusive
+            selection.</TableCell
           >
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>input</code></Table.Cell>
-          <Table.Cell><code>name</code></Table.Cell>
-          <Table.Cell
-            >Groups the radio buttons together for exclusive selection.</Table.Cell
-          >
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>label</code></Table.Cell>
-          <Table.Cell><code>role="tab"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element as a tab to assistive technology.</Table.Cell
-          >
-        </Table.Row>
-      </Table.Body>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>input</code></TableCell>
+          <TableCell><code>checked</code></TableCell>
+          <TableCell>Selects the tab that is open initially.</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>label</code></TableCell>
+          <TableCell><code>for</code></TableCell>
+          <TableCell>Names the radio button after the tab.</TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
 
-    <h3>Tab Panel</h3>
-
-    <p>The content area associated with a tab:</p>
-
-    <Table>
-      <Table.ColumnGroup>
-        <Table.Column width="150px" />
-        <Table.Column width="150px" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Attribute</Table.HeaderCell>
-          <Table.HeaderCell>Value</Table.HeaderCell>
-          <Table.HeaderCell>Description</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>role</code></Table.Cell>
-          <Table.Cell><code>"tabpanel"</code></Table.Cell>
-          <Table.Cell>Identifies the element as a tab panel.</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-labelledby</code></Table.Cell>
-          <Table.Cell><code>string</code></Table.Cell>
-          <Table.Cell>Links the panel to its trigger ID.</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
-
-    <h3>Keyboard Interaction</h3>
-
-    <ul>
-      <li>
-        <strong>Tab</strong>: Moves focus to the active tab trigger (the radio
-        button). Pressing Tab again moves focus out of the tab list to the next
-        focusable element.
-      </li>
-      <li>
-        <strong>Right Arrow / Down Arrow</strong>: Moves focus to the next tab
-        and activates it.
-      </li>
-      <li>
-        <strong>Left Arrow / Up Arrow</strong>: Moves focus to the previous tab
-        and activates it.
-      </li>
-    </ul>
+    <KeyboardSupport />
   </Fragment>
+  <TabsBuild slot="under-the-hood" />
 </Component>

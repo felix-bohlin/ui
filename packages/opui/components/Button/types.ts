@@ -1,16 +1,32 @@
 export type Props = {
   color?: "critical" | "primary"
-  size?: "x-small" | "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
+  round?: boolean
+  size?: "x-small" | "small" | "medium" | "large"
+  variant?: "filled" | "outlined" | "tonal" | "transparent"
 } & (
   | {
       as?: "a"
+      disabled?: boolean
       href: string
-      disabled?: never
     }
   | {
       as?: "button"
-      href?: never
       disabled?: boolean
+      href?: never
     }
 )
+
+export type Slots<S> =
+  | {
+      "aria-label": string
+      children?: S
+    }
+  | {
+      "aria-labelledby": string
+      children?: S
+    }
+  | {
+      "aria-label"?: string
+      "aria-labelledby"?: string
+      children: S
+    }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { FieldDescription, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form as="div">
-    <FieldSet as="div">
-      <FieldLegend as="p">Using as prop</FieldLegend>
-      <FieldDescription> Renders as div and p elements. </FieldDescription>
-    </FieldSet>
+    <Fieldset as="div">
+      <FieldLegend as="p">Delivery</FieldLegend>
+      <FieldDescription>Choose how your order gets to you.</FieldDescription>
+    </Fieldset>
   </Form>
 </template>

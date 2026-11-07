@@ -1,0 +1,59 @@
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-1-label">Volume</span>
+  <span class="ui-start-text" id="range-spread-1-start-text"
+    >Media, calls and alerts.</span
+  >
+  <input
+    aria-describedby="range-spread-1-start-text range-spread-1-end-text"
+    aria-labelledby="range-spread-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-spread-1-end-text"
+    >Headphones stay below 85 dB.</span
+  >
+</label>
+
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-2-label">Microphone</span>
+  <span class="ui-start-text" id="range-spread-2-start-text"
+    >Set by your organization.</span
+  >
+  <input
+    disabled
+    aria-describedby="range-spread-2-start-text"
+    aria-labelledby="range-spread-2-label"
+    type="range"
+  />
+</label>
+
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-3-label">Alarm volume</span>
+  <span class="ui-start-text" id="range-spread-3-start-text"
+    >Rings for alarms and timers.</span
+  >
+  <input
+    aria-describedby="range-spread-3-start-text range-spread-3-end-text"
+    aria-invalid="true"
+    aria-labelledby="range-spread-3-label"
+    type="range"
+    value="10"
+  />
+  <span class="ui-end-text" id="range-spread-3-end-text"
+    >Set it to 20 or more to hear alarms.</span
+  >
+</label>
+
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-spread-4-label">Balance</span>
+  <input
+    aria-labelledby="range-spread-4-label"
+    aria-valuetext="Center"
+    list="range-spread-4-list"
+    type="range"
+  />
+  <datalist aria-hidden="true" id="range-spread-4-list">
+    <option value="0" label="Left"></option>
+    <option value="50" label="Center"></option>
+    <option value="100" label="Right"></option>
+  </datalist>
+</label>

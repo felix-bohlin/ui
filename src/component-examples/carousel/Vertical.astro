@@ -1,0 +1,18 @@
+---
+import { Card, Carousel } from "opui-css/astro"
+
+const slides = [1, 2, 3, 4, 5]
+---
+
+<Carousel
+  aria-label="Destinations"
+  itemsPerView={2}
+  markers
+  orientation="vertical"
+  stretch
+  style="--_block-size: 16rem"
+>
+  {slides.map((slide) => <li>
+    <Card variant="tonal" />
+  </li>)}
+</Carousel>

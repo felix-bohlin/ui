@@ -1,0 +1,94 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import Code from "../../../components/Code.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import ServerSupport from "./partials/ServerSupport.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Svelte 5 components. Install the package, import what
+    you need, and you're set.
+  </Fragment>
+
+  <section id="installation">
+    <h2>Install via NPM</h2>
+    <InstallCommand packages="svelte@5" />
+  </section>
+
+  <section id="css">
+    <h2>Import the CSS</h2>
+    <p>
+      Svelte components ship markup only - the CSS still has to be imported
+      once, in your root layout or the entry file that mounts your app. Import
+      everything:
+    </p>
+    <Code
+      code={`<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import "opui-css/css/imports.css"
+
+  let { children } = $props()
+</script>
+
+{@render children()}`}
+      lang="svelte"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in your layout
+      instead:
+    </p>
+    <PickAndChoose file="src/styles/main.css" />
+    <Code
+      code={`<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import "../styles/main.css"
+
+  let { children } = $props()
+</script>
+
+{@render children()}`}
+      lang="svelte"
+    />
+  </section>
+
+  <section id="usage">
+    <h2>How to use</h2>
+    <Code
+      code={`<script lang="ts">
+  import { Button } from "opui-css/svelte"
+</script>
+
+<Button variant="filled">Click me</Button>`}
+      lang="svelte"
+    />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and
+      <code>DialogFooter</code>. Other slots are snippets: the default slot is
+      <code>children</code> and named slots are camelCased, such as
+      <code>endText</code>. <code>TextField</code>, <code>Textarea</code>,
+      <code>Select</code>, <code>Range</code>, <code>NumberField</code>,
+      <code>OneTimeCode</code>, <code>Rating</code>, <code>Tabs</code> and
+      <code>ToggleGroup</code> support <code>bind:value</code>.
+      <code>Checkbox</code> and <code>Switch</code> support
+      <code>bind:checked</code> and <code>bind:group</code>,
+      <code>ToggleButton</code> supports <code>bind:checked</code>, and
+      <code>Radio</code> supports <code>bind:group</code>.
+    </p>
+    <NextSteps />
+  </section>
+
+  <section id="ssr">
+    <h2>Server rendering</h2>
+    <p>
+      Every component renders complete HTML on the server, and the native
+      controls work and submit with their form. The props in the last column
+      need hydration (<code>client:load</code> in Astro) or client-side
+      rendering.
+    </p>
+    <ServerSupport framework="svelte" />
+  </section>
+</Guide>

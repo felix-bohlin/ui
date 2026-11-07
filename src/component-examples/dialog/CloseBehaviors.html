@@ -1,25 +1,27 @@
 <button
-  commandfor="closing-behaviors-dialog-html"
-  command="show-modal"
   class="ui-button ui-outlined"
+  type="button"
+  command="show-modal"
+  commandfor="dialog-close-behaviors-1"
 >
   Open dialog
 </button>
 
 <dialog
-  id="closing-behaviors-dialog-html"
-  class="ui-dialog ui-card ui-elevated"
+  aria-labelledby="dialog-close-behaviors-1-title"
+  class="ui-dialog ui-elevated"
   closedby="any"
+  id="dialog-close-behaviors-1"
 >
-  <hgroup>
-    <h2 class="ui-h4">How to close</h2>
-  </hgroup>
+  <div class="ui-header">
+    <h2 id="dialog-close-behaviors-1-title">How to close</h2>
+  </div>
   <div class="ui-content">
     <fieldset class="ui-fieldset">
       <legend>Choose a closing behavior:</legend>
-      <div class="ui-field-group" role="group">
+      <div class="ui-field-group">
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo" value="any" checked />
+          <input type="radio" name="closedby-demo" checked value="any" />
           <span class="ui-label">any</span>
         </label>
         <label class="ui-radio">
@@ -33,28 +35,23 @@
       </div>
     </fieldset>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button
-      commandfor="closing-behaviors-dialog-html"
-      command="close"
       class="ui-button"
+      type="button"
+      command="close"
+      commandfor="dialog-close-behaviors-1"
     >
       Close manually
     </button>
   </div>
 </dialog>
 
-<script>
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", () => {
-      const dialog = radio
-        .closest(".example-preview")
-        ?.querySelector("#closing-behaviors-dialog-html")
-      if (dialog instanceof HTMLDialogElement) {
-        dialog.setAttribute("closedby", radio.value)
-      }
-    })
+<script type="module">
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document.querySelectorAll('input[name="closedby-demo"]').forEach((radio) => {
+    radio.addEventListener("change", () =>
+      dialog?.setAttribute("closedby", radio.value),
+    )
   })
 </script>

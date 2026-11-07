@@ -1,0 +1,12 @@
+---
+import { Stepper } from "opui-css/astro"
+
+const items = [
+  { href: "#", label: "Cart" },
+  { href: "#", label: "Shipping" },
+  { href: "#", label: "Payment" },
+  { href: "#", label: "Review" },
+]
+---
+
+<Stepper aria-label="Checkout steps" complete items={items} />

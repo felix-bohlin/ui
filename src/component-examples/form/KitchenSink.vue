@@ -6,124 +6,113 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
   Range,
   Select,
   Switch,
-  TextField,
   Textarea,
+  TextField,
 } from "opui-css/vue"
-import { ref } from "vue"
 
 const roleItems = [
-  { text: "Developer", value: "dev" },
-  { text: "Designer", value: "design" },
-  { text: "Manager", value: "manager" },
+  { label: "Designer", value: "design" },
+  { label: "Developer", value: "dev" },
+  { label: "Manager", value: "manager" },
 ]
-
-const emailNotifs = ref(true)
-const smsNotifs = ref(false)
-const theme = ref("light")
-const experience = ref(5)
 </script>
 
 <template>
-  <Form id="kitchen-sink-example">
-    <FieldSet>
-      <FieldLegend>User Profile</FieldLegend>
+  <Form id="form-kitchen-sink-1">
+    <Fieldset>
+      <FieldLegend>User profile</FieldLegend>
       <FieldDescription>
         Please provide your basic contact details.
       </FieldDescription>
       <FieldGroup>
-        <TextField label="Full Name" placeholder="Jane Doe" required />
         <TextField
-          label="Email Address"
-          type="email"
-          placeholder="jane@example.com"
+          autocomplete="name"
+          label="Full name"
+          placeholder="Jane Doe"
           required
         />
-        <Select label="Role" :items="roleItems" />
+        <TextField
+          autocomplete="email"
+          label="Email address"
+          placeholder="jane@example.com"
+          required
+          type="email"
+        />
+        <Select :items="roleItems" label="Role" />
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Notifications</FieldLegend>
       <FieldDescription>
         Configure how you want to receive updates.
       </FieldDescription>
-      <FieldGroup name="notifications">
-        <Switch v-model="emailNotifs" name="email_notifs"
-          >Email Notifications</Switch
-        >
-        <Switch v-model="smsNotifs" name="sms_notifs">SMS Notifications</Switch>
+      <FieldGroup>
+        <Switch checked name="email_notifs">Email notifications</Switch>
+        <Switch name="sms_notifs">SMS notifications</Switch>
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
-      <FieldLegend>Theme Preference</FieldLegend>
+    <Fieldset>
+      <FieldLegend>Theme preference</FieldLegend>
       <FieldDescription>Select your preferred visual style.</FieldDescription>
       <FieldGroup name="theme">
-        <Radio v-model="theme" value="light">Light Theme</Radio>
-        <Radio v-model="theme" value="dark">Dark Theme</Radio>
-        <Radio v-model="theme" value="system">System Default</Radio>
+        <Radio checked value="light">Light theme</Radio>
+        <Radio value="dark">Dark theme</Radio>
+        <Radio value="system">System default</Radio>
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
-      <FieldLegend>Experience Level</FieldLegend>
-      <FieldDescription>
-        How many years of experience do you have?
-      </FieldDescription>
+    <Fieldset>
+      <FieldLegend>Experience level</FieldLegend>
+      <FieldDescription
+        >How many years of experience do you have?</FieldDescription
+      >
       <FieldGroup>
         <Range
-          label="Professional Experience"
-          min="0"
+          label="Professional experience"
           max="20"
+          min="0"
+          startText="Drag the slider to match your total tenure."
           step="1"
-          v-model="experience"
-          start-text="Drag the slider to match your total tenure."
+          value="5"
         />
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
-      <FieldLegend>Additional Info</FieldLegend>
+    <Fieldset>
+      <FieldLegend>Additional info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
-      <FieldGroup name="details">
+      <FieldGroup>
         <Textarea
           label="Biography"
+          name="biography"
           placeholder="Tell us about yourself..."
           :rows="4"
         />
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legal</FieldLegend>
-      <FieldGroup name="legal">
+      <FieldGroup>
         <Checkbox name="terms" required>
           I agree to the terms and conditions
-          <template #end-text>Support this text</template>
+          <template #end-text
+            >You can withdraw your consent at any time.</template
+          >
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
-
+    </Fieldset>
     <Divider />
-
     <FieldGroup>
-      <Button variant="filled" type="submit">Send</Button>
+      <Button type="submit" variant="filled">Send</Button>
       <Button>Cancel</Button>
     </FieldGroup>
   </Form>

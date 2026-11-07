@@ -5,8 +5,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
 <template>
   <div class="example-row">
     <ButtonGroup orientation="vertical">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -23,6 +24,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -37,10 +39,10 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="outlined">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -57,6 +59,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -71,10 +74,10 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="tonal">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -91,6 +94,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -105,10 +109,10 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="filled">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -125,6 +129,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -146,17 +151,14 @@ import { Button, ButtonGroup } from "opui-css/vue"
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="outlined">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="tonal">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
     <ButtonGroup orientation="vertical" variant="filled">
       <Button>Up</Button>
       <Button>Down</Button>

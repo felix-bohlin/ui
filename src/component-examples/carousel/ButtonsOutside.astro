@@ -1,0 +1,11 @@
+---
+import { Card, Carousel } from "opui-css/astro"
+
+const slides = [1, 2, 3, 4]
+---
+
+<Carousel aria-label="Plans" buttons="outside" itemsPerView={2}>
+  {slides.map((slide) => <li>
+    <Card style="block-size: 8rem" variant="outlined" />
+  </li>)}
+</Carousel>

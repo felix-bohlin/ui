@@ -1,0 +1,14 @@
+{
+  "name": "opui-app-nuxt",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "nuxt": "^4.6.4",
+    "vue": "^3.5.45",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.14"
+  }
+}

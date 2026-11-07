@@ -1,0 +1,26 @@
+name: Dependabot auto-merge
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  apps:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge app test updates once the checks pass
+        run: |
+          files=$(gh pr diff "$PR" --name-only)
+          printf '%s\n' "$files"
+          if printf '%s\n' "$files" | grep -qv '^tests/apps/'; then
+            echo "::notice::It changes files outside tests/apps, so it waits for a review"
+            exit 0
+          fi
+          gh pr merge "$PR" --auto --squash --body "Updates the dependencies of the app tests in tests/apps."
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}

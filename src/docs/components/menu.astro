@@ -1,0 +1,183 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import ListCSS from "@opui/css/components/list.css?raw"
+import MenuCSS from "@opui/css/components/menu.css?raw"
+
+import menuApi from "../../component-api/menu/api"
+
+export const description = "A popover list of actions or links."
+
+export const keywords = ["actions", "context menu", "dropdown", "popover"]
+---
+
+<Component
+  description={description}
+  slug="menu"
+  browserSupport={[
+    "anchor-positioning",
+    "calc-size",
+    "dir-pseudo",
+    "display-animation",
+    "has",
+    "invoker-commands",
+    "logical-properties",
+    "overlay",
+    "popover",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={[{ title: "Menu API", api: menuApi }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Menu/Menu.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/menu.astro", type: "docs" },
+    { path: "src/component-examples/menu", type: "docs" },
+    { path: "packages/opui/css/components/menu.css", type: "css" },
+    { path: "src/component-api/menu", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "menu.css", code: MenuCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Menu</Fragment>
+  <Fragment slot="preamble">
+    A popover <DocLink href="/components/list">List</DocLink> of actions and
+    links. To pick a value, use a
+    <DocLink href="/components/select">Select</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Actions that don't fit as buttons, like Duplicate.</li>
+    <li slot="when">Links behind a button, like an account menu.</li>
+    <li slot="when">
+      More options next to a main action: a
+      <DocLink href="/components/button-group#split-button"
+        >split button</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      Picking a value: use a <DocLink href="/components/select">Select</DocLink
+      >.
+    </li>
+    <li slot="when-not">
+      A few actions that fit: use
+      <DocLink href="/components/button">Buttons</DocLink>.
+    </li>
+    <li slot="when-not">
+      Rich content: use an <DocLink href="/components/anchor">Anchor</DocLink>
+      or a <DocLink href="/components/dialog">Dialog</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">Pass <code>items</code>.</Fragment>
+      <Fragment slot="html"
+        >Open with <code>command="toggle-popover"</code>, close with
+        <code>command="hide-popover"</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Basics" centered row />
+  </section>
+
+  <section id="bordered">
+    <h2>Bordered</h2>
+    <p>Use <PropOrClass prop="bordered" class=".ui-bordered" />.</p>
+    <AutoExample name="Bordered" centered />
+  </section>
+
+  <section id="dense">
+    <h2>Dense</h2>
+    <p>Use <PropOrClass prop="dense" class=".ui-dense" />.</p>
+    <AutoExample name="Dense" centered />
+  </section>
+
+  <section id="custom">
+    <h2>Custom items</h2>
+    <AutoExample name="Custom" centered />
+
+    <h3 id="checkable-items">Checkable items</h3>
+    <p>
+      Put a checkbox or radio in <PropOrClass prop="end" class=".ui-end" />.
+    </p>
+    <AutoExample name="Checkable" centered />
+  </section>
+
+  <section id="placement">
+    <h2>Placement</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Below by default. Use <code>side</code> and <code>align</code> to
+        change it.</Fragment
+      >
+      <Fragment slot="html"
+        >Below by default. Use a side class, like <code>.ui-inline-end</code>,
+        and <code>.ui-align-end</code>.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Placement" row centered />
+  </section>
+
+  <section id="submenu">
+    <h2>Submenu</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Pass a <code>Menu</code> to a <code>ListItem</code>'s
+        <code>submenu</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put a <code>menu</code> in the <code>li</code>. Point its items'
+        <code>commandfor</code> at the root menu.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Submenu" centered />
+  </section>
+
+  <section id="manual">
+    <h2>Manual</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Use <code>popover="manual"</code>, and <code>keepOpen</code> on items
+        that keep it open.</Fragment
+      >
+      <Fragment slot="html"
+        >Use <code>popover="manual"</code>, and
+        <code>command="hide-popover"</code> on items that close it.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Manual" centered />
+  </section>
+
+  <section id="context-menu">
+    <h2>Context menu</h2>
+    <p>
+      On <code>contextmenu</code>, call
+      <code>showPopover(&#123; source &#125;)</code> with an element at the
+      pointer.
+    </p>
+    <AutoExample name="ContextMenu" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      A <code>&lt;menu&gt;</code> of buttons and links, not an ARIA
+      <code>role="menu"</code>.
+    </p>
+    <KeyboardSupport />
+  </Fragment>
+
+  <MenuBuild slot="under-the-hood" />
+</Component>

@@ -1,0 +1,75 @@
+---
+import { Button, Card, CardContent, Switch, TextField } from "opui-css/astro"
+---
+
+<div class="busy-toggle">
+  <p aria-atomic="true" aria-live="polite" class="busy-toggle-status">
+    <code>aria-busy="<span data-busy>false</span>"</code>
+  </p>
+  <div class="busy-toggle-stage">
+    <Button aria-busy="false" type="button" variant="filled">Save</Button>
+    <Card variant="outlined">
+      <CardContent>
+        <p aria-busy="false">Fetching the latest comments</p>
+      </CardContent>
+    </Card>
+    <TextField
+      aria-busy="false"
+      label="Search"
+      placeholder="Skipped by :not()"
+    />
+  </div>
+  <Switch label="Busy" name="busy" />
+</div>
+
+<style>
+  .busy-toggle {
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: min(100%, 28rem);
+  }
+
+  .busy-toggle-status {
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    & code {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+    }
+  }
+
+  .busy-toggle-stage {
+    align-items: start;
+    display: grid;
+    gap: var(--ui-space-3);
+    justify-items: start;
+
+    & :global(.ui-card) {
+      inline-size: 100%;
+    }
+
+    & :global(.ui-card) p {
+      margin: 0;
+    }
+
+    & :global(.ui-text-field) {
+      inline-size: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".busy-toggle").forEach((demo) => {
+    const toggle = demo.querySelector<HTMLInputElement>("input[type=checkbox]")
+    const targets = demo.querySelectorAll("[aria-busy]")
+    const status = demo.querySelector("[data-busy]")
+
+    toggle?.addEventListener("change", () => {
+      targets.forEach((target) =>
+        target.setAttribute("aria-busy", String(toggle.checked)),
+      )
+      if (status) status.textContent = String(toggle.checked)
+    })
+  })
+</script>

@@ -1,0 +1,229 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import {
+  Timeline as UITimeline,
+  TimelineItem as UITimelineItem,
+} from "opui-css/astro"
+
+import TimelineCSS from "@opui/css/components/timeline.css?raw"
+
+import timelineItemApi from "../../component-api/timeline-item/api"
+import timelineApi from "../../component-api/timeline/api"
+
+export const description =
+  "A list of dated events with markers and a connecting line."
+
+export const keywords = ["activity", "feed", "history"]
+---
+
+<Component
+  description={description}
+  slug="timeline"
+  heroAnatomy
+  apis={[
+    { title: "Timeline API", api: timelineApi },
+    { title: "Timeline item API", api: timelineItemApi },
+  ]}
+  browserSupport={[
+    "container-queries",
+    "has",
+    "lh",
+    "relative-color",
+    "subgrid",
+  ]}
+  changelogPaths={[
+    { path: "packages/opui/components/Timeline", type: "component" },
+    { path: "src/docs/components/timeline.astro", type: "docs" },
+    { path: "src/component-examples/timeline", type: "docs" },
+    { path: "packages/opui/css/components/timeline.css", type: "css" },
+    { path: "src/component-api/timeline", type: "api" },
+    { path: "src/component-api/timeline-item", type: "api" },
+  ]}
+  installationTabs={[{ title: "timeline.css", code: TimelineCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Timeline</Fragment>
+  <Fragment slot="preamble">
+    Dated events in order. For the steps of a flow, use a
+    <DocLink href="/components/stepper">Stepper</DocLink>.
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">Dated events, like a changelog or incident updates.</li>
+    <li slot="when">
+      Milestones with one in progress: <a href="#current">current item</a> and
+      <a href="#tracked">tracked</a> line.
+    </li>
+    <li slot="when-not">
+      Items with no date or order: use a
+      <DocLink href="/components/list">List</DocLink>.
+    </li>
+    <li slot="when-not">
+      Steps of a flow: use a
+      <DocLink href="/components/stepper">Stepper</DocLink>.
+    </li>
+    <li slot="when-not">A number over time: draw a chart.</li>
+  </Usage>
+
+  <Fragment slot="anatomy">
+    <Anatomy api={timelineItemApi}>
+      <UITimeline style="inline-size: 26rem; max-inline-size: 100%">
+        <UITimelineItem
+          color="success"
+          datetime="2026-09-02"
+          time="Sep 2"
+          label="Design freeze"
+        >
+          <svg
+            slot="marker"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          <p>Final screens handed off.</p>
+        </UITimelineItem>
+        <UITimelineItem datetime="2026-10-31" time="Oct 31" label="Launch" />
+      </UITimeline>
+    </Anatomy>
+  </Fragment>
+
+  <section id="basics">
+    <h2>Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Set <code>headingLevel</code> to fit your page outline.</Fragment
+      >
+      <Fragment slot="html"
+        >Pick the heading level that fits your page outline.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section id="colors">
+    <h2>Colors</h2>
+    <p>
+      Use <PropOrClass prop="color" class=".ui-critical" /> and the other tones.
+    </p>
+
+    <AutoExample name="Colors" />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for dense lists.
+    </p>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section id="custom-marker">
+    <h2>Custom marker</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Put an icon in <code>span.ui-marker</code> to replace the
+        dot.</Fragment
+      >
+      <Fragment slot="components"
+        >Put an icon in <code>marker</code> to replace the dot.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="CustomMarker" />
+  </section>
+
+  <section id="current">
+    <h2>Current item</h2>
+    <p>Mark it with <PropOrClass prop="current" class="aria-current" />.</p>
+
+    <AutoExample name="Current" />
+  </section>
+
+  <section id="tracked">
+    <h2>Tracked</h2>
+    <p>
+      <PropOrClass prop="tracked" class=".ui-tracked" /> colors the line up to
+      the current item.
+    </p>
+
+    <AutoExample name="Progress" />
+  </section>
+
+  <section id="narrow">
+    <h2>Narrow containers</h2>
+    <p>Under <code>24rem</code>, the dates move above the titles.</p>
+
+    <AutoExample name="Narrow" />
+  </section>
+
+  <section id="items">
+    <h2>Items</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >The markup the <code>items</code> prop renders.</Fragment
+      >
+      <Fragment slot="components"
+        >Pass <code>items</code> to render the list from data.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Items" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Put the items in reading order: <code>reversed</code> changes nothing.
+      </li>
+      <li>
+        Put dates in a <code>&lt;time datetime&gt;</code>. Hide marker icons
+        with <code>aria-hidden="true"</code>.
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>ol.ui-timeline</code> is a grid with
+      <code>[date] auto [marker] auto [content] minmax(0, 1fr)</code> columns,
+      and each <code>li</code> spans it with
+      <code>grid-template-columns: subgrid</code>, so every date shares one
+      column. The <code>time</code> goes in the <code>date</code> column and
+      everything else in <code>content</code>.
+    </p>
+    <p>
+      <code>li::before</code> is the dot and
+      <code>li:not(:last-child)::after</code> the line, both in the
+      <code>marker</code> column. The dot is centered on the first line of text
+      with <code>margin-block-start: calc((1lh - var(--_marker-size)) / 2)</code
+      >, and the line starts and ends relative to the markers above and below
+      it, which <code>li:has(+ li &gt; .ui-marker)</code> sizes for a custom
+      marker. A <code>.ui-marker</code> child replaces the dot with
+      <code>content: none</code>.
+    </p>
+    <p>
+      <code>li[aria-current]</code> fills the marker with
+      <code>--ui-primary</code> and a translucent <code>box-shadow</code> halo,
+      and <code>.ui-tracked &gt; li:has(~ li[aria-current])</code> colors the
+      line and the uncolored markers before it. The container query under
+      <code>24rem</code> moves <code>time</code> into the <code>content</code>
+      column.
+    </p>
+  </Fragment>
+</Component>

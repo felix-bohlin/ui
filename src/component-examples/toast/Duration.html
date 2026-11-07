@@ -1,19 +1,18 @@
 <button
-  class="ui-button"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="I disappear quickly"
-  data-duration="1500ms"
+  class="ui-button ui-filled"
+  type="button"
+  command="--toast"
+  commandfor="toast-duration-1"
+  data-toast="Export started. You'll get an email when the file is ready."
 >
-  1.5s Toast
+  Export report
 </button>
+<opui-toaster duration="10000" id="toast-duration-1" class="ui-toaster">
+  <ol popover="manual"></ol>
+  <div class="ui-sr-only" role="status"></div>
+  <div class="ui-sr-only" role="alert"></div>
+</opui-toaster>
 
-<button
-  class="ui-button"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="I stay for a while"
-  data-duration="10s"
->
-  10s Toast
-</button>
+<script type="module">
+  import "opui-css/elements/toaster.js"
+</script>

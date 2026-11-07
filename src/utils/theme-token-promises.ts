@@ -115,6 +115,3 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
 
 export const promiseColor = (value: string) =>
   value.startsWith("--") ? `var(${value})` : value
-
-export const describePromise = ({ against, ratio }: TokenPromise) =>
-  `Promises ${ratio}:1 against ${new Intl.ListFormat("en").format(against.map((name) => `\`${name}\``))}, in light and dark mode and under more contrast.`

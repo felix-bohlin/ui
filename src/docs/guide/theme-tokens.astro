@@ -1,165 +1,203 @@
 ---
 import { TableCell, TableRow } from "opui-css/astro"
+import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import DocsTable from "../../components/DocsTable.astro"
 import Guide from "../../layouts/Guide.astro"
 import { formatInline } from "../../utils/format-inline"
 import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
-import {
-  describePromise,
-  themeTokenPromises,
-} from "../../utils/theme-token-promises"
+import { themeTokenPromises } from "../../utils/theme-token-promises"
 import { themeTokenSections, tokenTier } from "../../utils/theme-tokens"
+import { tokenType } from "../../utils/tokens-json"
+import { leadSentence } from "../../utils/lead-sentence"
 
-const describe = (name: string) =>
-  [
-    themeTokenDescriptions[name] ?? "",
-    themeTokenPromises[name] && describePromise(themeTokenPromises[name]),
-  ]
-    .filter(Boolean)
-    .join(" ")
+const html = (text: string) => formatInline(text, Astro.locals.link)
 
-const sections = themeTokenSections().filter(
-  (section) => section.tokens.length > 0,
-)
+const sections = themeTokenSections()
+  .filter((section) => section.tokens.length > 0)
+  .map((section) => ({
+    ...section,
+    tokens: section.tokens.map((token) => {
+      const [lead, rest] = leadSentence(
+        themeTokenDescriptions[token.name] ?? "",
+      )
+      return {
+        ...token,
+        lead,
+        promise: themeTokenPromises[token.name],
+        rest,
+        swatch: tokenType(token.name) === "color" && !token.optional,
+        tier: tokenTier(token.name),
+      }
+    }),
+  }))
 const slug = (title: string) =>
   title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
+
+const tiers = [
+  ["knob", "An input a theme turns, like a hue."],
+  ["primitive", "Derived from the knobs. No component reads it."],
+  ["role", "What components read. Most tokens."],
+  ["hook", "An optional role, unset until a theme sets it."],
+  ["component", "Read by one component."],
+  ["input", "Set on an element, never by a theme."],
+]
+
+const scopes = [
+  ["Roles", "<code>html</code> or any element"],
+  [
+    "Roles derived from other roles",
+    "<code>html</code>, <code>.ui-palette</code>, <code>.ui-contrast-more</code>",
+  ],
+  [
+    "<code>--ui-density</code>, <code>--ui-space-scale</code>",
+    "<code>html</code>, <code>.ui-palette</code>, <code>.ui-contrast-more</code>",
+  ],
+  [
+    "<code>--ui-palette-*</code>",
+    "<code>html</code>, <code>.ui-palette</code>",
+  ],
+]
+
+const parts = [
+  ["<code>--ui-on-*</code>", "Text on a fill", "<code>--ui-on-primary</code>"],
+  [
+    "<code>-text</code>",
+    "A color tuned for reading, 4.5:1 on every surface",
+    "<code>--ui-primary-text</code>",
+  ],
+  [
+    "<code>-on-*</code>",
+    "Drawn on that surface",
+    "<code>--ui-border-color-on-raised</code>",
+  ],
+  [
+    "<code>light</code>, <code>dark</code>",
+    "A color scheme",
+    "<code>--ui-border-strength-dark</code>",
+  ],
+  [
+    "<code>inverse</code>",
+    "The opposite scheme",
+    "<code>--ui-surface-inverse</code>",
+  ],
+  ["<code>contrast</code>", "The contrast mode", "<code>--ui-contrast</code>"],
+  [
+    "<code>--ui-&lt;component&gt;-*</code>",
+    "A component token, ending in the property it sets",
+    "<code>--ui-button-radius</code>",
+  ],
+]
+
+const sample = JSON.stringify(
+  {
+    "ui-radius": {
+      $description: "Corner radius for every component...",
+      $type: "dimension",
+      $value: { unit: "rem", value: 0.5 },
+      $extensions: {
+        opui: { css: "0.5rem", cssVar: "--ui-radius", tier: "role" },
+      },
+    },
+  },
+  null,
+  2,
+)
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Theme tokens</Fragment>
   <Fragment slot="preamble">
-    Every token <code>theme.css</code> and <code>core/palette.css</code>
-    declare, with its default and its
-    <DocLink href="/guide/concepts#token-tiers">tier</DocLink>, and the instance
-    inputs components read. The largest group is roles; the others are marked
-    <em>knob</em>, <em>primitive</em>, <em>hook</em>, <em>component</em> or
-    <em>input</em>. The tests check every promised contrast ratio in light and
-    dark mode, with and without more contrast.
+    Every token, its default and what it does. v6 renamed them all, see
+    <DocLink href="/guide/migrating#theme-and-tokens">Migrating</DocLink>.
   </Fragment>
 
   <section>
+    <dl class="tier-legend ui-not-rich-text">
+      {tiers.map(([name, note]) => <div>
+        <dt>
+          <span class="ui-chip ui-outlined ui-x-small">
+            <span class="ui-text">{name}</span>
+          </span>
+        </dt>
+        <dd>{note}</dd>
+      </div>)}
+    </dl>
     <p>
-      v6 renames every token: <code>--primary</code> is <code>--ui-primary</code
-      >, <code>--text-primary</code> is <code>--ui-text-strong</code>,
-      <code>--surface-default</code> is <code>--ui-surface</code>. The full
-      table is in
-      <DocLink href="/guide/migrating#theme-and-tokens">Migrating</DocLink>.
+      <span class="ui-chip ui-x-small"><span class="ui-text">4.5:1</span></span>
+      marks a contrast the tests check in light and dark mode, and with more
+      contrast. See
+      <DocLink href="/guide/concepts#token-tiers">Token tiers</DocLink>.
     </p>
   </section>
 
   <section id="overriding">
     <h2>Overriding tokens</h2>
     <p>
-      Set them in <code>@layer theme.custom</code>, see
-      <DocLink href="/guide/customizing#your-theme">Your theme</DocLink>. Roles
-      work on <code>html</code> and on any element for the components that read
-      them directly; roles derived from them follow only on <code>html</code>
-      and in a <code>.ui-palette</code> or <code>.ui-contrast-more</code> scope.
-      Knobs are only read where the library derives from them:
-      <code>--ui-density</code> and <code>--ui-space-scale</code> on
-      <code>html</code>, <code>.ui-palette</code> and
-      <code>.ui-contrast-more</code>, and the <code>--ui-palette-*</code> inputs
-      on <code>html</code> and in a
-      <DocLink href="/guide/theming#scopes"
-        ><code>.ui-palette</code> scope</DocLink
-      >, so a knob on a form does nothing. The
-      <DocLink href="/theme-builder">Theme builder</DocLink> writes the ones you
-      change into one <code>theme.css</code>, after the example theme you start
-      from.
+      Set them in
+      <DocLink href="/guide/customizing#your-theme"
+        ><code>@layer theme.custom</code></DocLink
+      >, or let the <DocLink href="/theme-builder">Theme builder</DocLink> write
+      them.
     </p>
+    <DocsTable columns={[{ label: "Token" }, { label: "Takes effect on" }]}>
+      {scopes.map(([token, where]) => <TableRow>
+        <TableCell set:html={token} />
+        <TableCell set:html={where} />
+      </TableRow>)}
+    </DocsTable>
   </section>
 
   <section id="tokens-json">
     <h2>tokens.json</h2>
     <p>
-      The same list ships as <code>opui-css/tokens.json</code> (also at
-      <a href="/tokens.json" class="ui-link">/tokens.json</a>) in the
+      The same list in the
       <a href="https://www.designtokens.org/" class="ui-link"
         >W3C design tokens</a
       >
-      format: each token has a <code>$description</code>, a <code>$type</code>
-      when the format has one for it (five keyword tokens such as
-      <code>--ui-color-scheme</code> and <code>--ui-contrast</code> have none),
-      and a <code>$value</code> unless it is unset, and
-      <code>$extensions.opui</code> holds its variable, tier, promise and its
-      dark and more-contrast values. A plain number, a <code>px</code> or
-      <code>rem</code> length and a token that aliases another are native values
-      (<code>0.41</code>, <code>{"{"}"unit": "px", "value": 1{"}"}</code>,
-      <code>{"{"}typography.ui-font-size-100{"}"}</code>), with the CSS beside
-      them as <code>$extensions.opui.css</code>. Every other value is the CSS
-      expression itself, since a color or a size that follows another token or
-      the color scheme has no resolved value, so a design tool resolves it
-      first. Tokens that are unset by default have no <code>$value</code>, only
-      an <code>example</code>.
+      format, as <code>opui-css/tokens.json</code> and
+      <a href="/tokens.json" class="ui-link">/tokens.json</a>:
     </p>
-    <p>
-      The tier is <code>knob</code> (an input a theme turns, such as
-      <code>--ui-palette-hue</code> or a contrast limit), <code>primitive</code>
-      (a palette step derived from the knobs or a plain type scale step, read by
-      no component, such as <code>--ui-font-size-300</code>), <code>role</code>,
-      <code>hook</code> (an optional role such as <code>--ui-selected</code>
-      that every component with that job reads, each with a default of its own
-      until a theme sets it), <code>component</code> (read by one component) or
-      <code>input</code> (set on an element and never by a theme, such as
-      <code>--ui-anchor-position-area</code>).
-    </p>
-  </section>
-
-  <section id="naming">
-    <h2>How tokens are named</h2>
-    <p>
-      <code>--ui-</code>, then a family or role, then variant and context. Each
-      word means one thing:
-    </p>
+    <Code code={sample} lang="json" />
     <ul>
       <li>
-        <code>--ui-on-*</code> is the text and icon color on a fill:
-        <code>--ui-on-primary</code> on <code>--ui-primary</code>,
-        <code>--ui-on-inverse</code> on <code>--ui-surface-inverse</code>. The
-        fills without a token of their own are intent colors with their
-        lightness capped: at <code>--ui-accent-fill-max-lightness</code> for
-        critical buttons and badges, and at
-        <code>--ui-choice-fill-max-lightness</code> for the checked choice mark
-        in dark mode and the invalid one. <code>--ui-on-fill</code> is the text
-        on all of them.
+        Numbers, <code>px</code> and <code>rem</code> lengths and aliases are
+        native values, with the CSS in <code>$extensions.opui.css</code>.
       </li>
+      <li>Other values are the CSS expression. Resolve them first.</li>
       <li>
-        <code>-text</code> after a color is that color tuned for reading, such
-        as <code>--ui-primary-text</code> and <code>--ui-invalid-text</code>.
-        Every intent has one, and they keep 4.5:1 on every surface by staying
-        within <code>--ui-text-max-lightness</code> and
-        <code>--ui-text-min-lightness</code>.
-      </li>
-      <li>
-        <code>-on-</code> before a surface names what is drawn on it, such as
-        <code>--ui-border-color-on-raised</code>.
-      </li>
-      <li>
-        <code>light</code> and <code>dark</code> only name a color scheme,
-        <code>inverse</code> only the opposite of it, and <code>contrast</code>
-        only the contrast mode.
-      </li>
-      <li>
-        Component tokens start with the component and end in the property they
-        set, such as <code>-bg-color</code>, <code>-text-color</code>,
-        <code>-border-color</code>, <code>-size</code>, <code>-radius</code>,
-        <code>-gap</code>, <code>-padding</code> or <code>-shadow</code>, like
-        the <code>--_*</code> properties, or in the type of their value, such as
-        <code>-font-weight</code>, <code>-blur</code>, <code>-offset</code> or a
-        keyword like <code>-hover</code>.
+        Unset tokens have no <code>$value</code>, only an <code>example</code>.
       </li>
     </ul>
   </section>
 
+  <section id="naming">
+    <h2>How tokens are named</h2>
+    <figure class="token-name ui-not-rich-text">
+      <div class="parts" aria-hidden="true">
+        <span><code>--ui-</code><small>prefix</small></span>
+        <span><code>primary</code><small>role</small></span>
+        <span><code>-text</code><small>variant</small></span>
+      </div>
+      <figcaption><code>--ui-primary-text</code></figcaption>
+    </figure>
+    <DocsTable
+      columns={[{ label: "Part" }, { label: "Means" }, { label: "Example" }]}
+    >
+      {parts.map(([part, means, example]) => <TableRow>
+        <TableCell set:html={part} />
+        <TableCell>{means}</TableCell>
+        <TableCell set:html={example} />
+      </TableRow>)}
+    </DocsTable>
+  </section>
+
   {sections.map((section) => <section id={slug(section.title)}>
     <h2>{section.title}</h2>
-    {section.note && (
-      <p set:html={formatInline(section.note, Astro.locals.link)} />
-    )}
+    {section.note && <p set:html={html(section.note)} />}
     <DocsTable
       columns={[
         { label: "Token", width: "30%" },
@@ -170,12 +208,19 @@ const slug = (title: string) =>
       {section.tokens.map((token) => <TableRow>
         <TableCell>
           <code>{token.name}</code>
-          {tokenTier(token.name) !== "role" && <Fragment>
-            {" "}
-            <em>{tokenTier(token.name)}</em>
-          </Fragment>}
+          {token.tier !== "role" && <span
+            class="ui-chip ui-outlined ui-x-small"
+          >
+            <span class="ui-text">{token.tier}</span>
+          </span>}
         </TableCell>
         <TableCell>
+          {token.swatch && (
+            <span
+              class="token-swatch"
+              style={`background-color: var(${token.name})`}
+            />
+          )}
           {token.optional ? (
             <Fragment> Unset. For example <code>{token.value}</code> </Fragment>
           ) : (
@@ -183,13 +228,96 @@ const slug = (title: string) =>
           )}
           {token.dark && <Fragment>
             <br />
-            <code>{token.dark}</code> in dark mode
+            Dark: <code>{token.dark}</code>
           </Fragment>}
         </TableCell>
-        <TableCell
-          set:html={formatInline(describe(token.name), Astro.locals.link)}
-        />
+        <TableCell>
+          {token.promise && <span
+            class="ui-chip ui-x-small promise"
+            title={`Against ${token.promise.against.join(", ")}`}
+          >
+            <span class="ui-text">{token.promise.ratio}:1</span>
+          </span>}
+          <Fragment set:html={html(token.lead)} />
+          {token.rest && <details class="more">
+            <summary>More</summary>
+            <Fragment set:html={html(token.rest)} />
+          </details>}
+        </TableCell>
       </TableRow>)}
     </DocsTable>
   </section>)}
 </Guide>
+
+<style>
+  .tier-legend {
+    display: grid;
+    gap: var(--size-2) var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin: 0;
+
+    > div {
+      align-items: baseline;
+      display: flex;
+      gap: var(--size-2);
+    }
+
+    dd {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+
+  .token-name {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: center;
+    margin-block: var(--size-4);
+
+    .parts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+    }
+
+    .parts > span {
+      align-items: center;
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      display: grid;
+      gap: var(--size-1);
+      justify-items: center;
+      padding: var(--size-2) var(--size-3);
+    }
+
+    small {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+    }
+
+    figcaption {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
+  .promise {
+    margin-inline-end: var(--size-1);
+  }
+
+  .token-swatch {
+    block-size: var(--size-5);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-small);
+    display: block;
+    inline-size: var(--size-8);
+    margin-block-end: var(--size-1);
+  }
+
+  .more summary {
+    color: var(--ui-primary-text);
+    cursor: pointer;
+    font-size: var(--ui-font-size-small);
+  }
+</style>

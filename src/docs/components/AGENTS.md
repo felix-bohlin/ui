@@ -121,6 +121,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
 4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
+   On the Astro, React, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot) follows it, with a Command tab (the install command and the import line) and a Manual tab (the CSS files).
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.
@@ -133,7 +134,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 7. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
 8. The API tables (`apis`).
 9. The `under-the-hood` slot, as "Under the hood".
-10. Browser support, Installation (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
+10. Browser support, Installation on the HTML pages (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
 
 ## 4. Layout Props & Slots
 

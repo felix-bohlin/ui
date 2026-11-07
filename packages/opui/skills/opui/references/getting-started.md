@@ -36,6 +36,18 @@ pnpm add opui-css
 npm install opui-css
 ```
 
+`yarn`
+
+```sh
+yarn add opui-css
+```
+
+`bun`
+
+```sh
+bun add opui-css
+```
+
 #### Import the CSS
 
 Either import everything in your main CSS file:

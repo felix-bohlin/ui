@@ -2,8 +2,10 @@
 import Code from "./Code.astro"
 import { compatCss } from "../utils/compat"
 import { components, dependentsOf } from "../utils/components"
-import { FRAMEWORKS, componentHasFramework } from "../utils/framework"
-import { Select, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import { componentHasFramework } from "../utils/framework"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import InstallationFiles from "./InstallationFiles.astro"
+import InstallCommand from "../docs/guide/getting-started/partials/InstallCommand.astro"
 
 export type Tab = {
   title: string
@@ -55,28 +57,6 @@ const allTabs = [
   ),
 ]
 
-const cssTabs = allTabs.filter((tab) => tab.title.endsWith(".css"))
-const allCss = cssTabs
-  .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
-  .join("\n")
-
-const framework = Astro.locals.framework
-const frameworkLabel = FRAMEWORKS.find((f) => f.id === framework)?.label
-
-const sourceNames = new Set(
-  sourceTabs.map((tab) => tab.title.slice(tab.title.lastIndexOf("/") + 1)),
-)
-const styleFiles = allTabs.filter(
-  (tab) => tab.title.endsWith(".css") || !sourceNames.has(tab.title),
-)
-
-const groups = [
-  { files: styleFiles, title: "CSS" },
-  ...(sourceTabs.length > 0
-    ? [{ files: sourceTabs, title: frameworkLabel ?? "Source" }]
-    : []),
-]
-
 const usedBy = slug
   ? dependentsOf(slug).filter((c) =>
       componentHasFramework(Astro.locals.framework, c.slug),
@@ -86,17 +66,45 @@ const usedBy = slug
 
 <section id="installation">
   <h2>Installation</h2>
-  <slot />
-
-  {imports && imports.names.length > 0 && (
-    <>
-      <p>
-        Import{" "}
-        {imports.names.length === 1 ? "the component" : "the components"}
-        from{" "} <code>{imports.package}</code>:
-      </p>
-      <Code code={importCode} lang="ts" />
-    </>
+  {imports ? (
+    <Tabs variant="line" class="installation-methods">
+      <TabsItem checked>
+        <TabsLabel>Command</TabsLabel>
+        <TabsPanel>
+          <InstallCommand />
+          {imports.names.length > 0 && (
+            <>
+              <p>
+                Import{" "}
+                {imports.names.length === 1
+                  ? "the component"
+                  : "the components"}
+                from{" "} <code>{imports.package}</code>:
+              </p>
+              <Code code={importCode} lang="ts" />
+            </>
+          )}
+          <p>
+            The components ship markup only. Import
+            <code>opui-css/css/imports.css</code> once, or only the files under
+            Manual. See
+            <a href={link("/guide/getting-started")}>Getting started</a>.
+          </p>
+        </TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Manual</TabsLabel>
+        <TabsPanel>
+          <InstallationFiles sourceTabs={sourceTabs} tabs={allTabs}>
+            <slot />
+          </InstallationFiles>
+        </TabsPanel>
+      </TabsItem>
+    </Tabs>
+  ) : (
+    <InstallationFiles sourceTabs={sourceTabs} tabs={allTabs}>
+      <slot />
+    </InstallationFiles>
   )}
 
   {dependencies.length > 0 && (
@@ -120,112 +128,10 @@ const usedBy = slug
       </ul>
     </>
   )}
-
-  {cssTabs.length > 0 && <p>
-    {sourceTabs.length > 0 ? (
-      <>
-        The CSS loads with the rest of the package from
-        <code>opui-css/css/imports.css</code>. To own the code instead, copy the
-        files into your project: the CSS tab has the styles, and the
-        {frameworkLabel} tab has the components and every file they import, at
-        their paths in the package.
-      </>
-    ) : (
-      "Copy the CSS into your project to own it."
-    )}{" "}
-    The CSS reads tokens from <code>palette.css</code> and <code>theme.css</code
-    >, so those go on the page too, after <code>layers.css</code>. See
-    <a href={link("/guide/getting-started")}>Getting started</a>.
-  </p>}
-
-  <div class="code-group ui-card ui-outlined ui-not-rich-text">
-    <Tabs variant="line" class="code-tabs">
-      {groups.map((group, groupIndex) => <TabsItem checked={groupIndex === 0}>
-        <TabsLabel>{group.title}</TabsLabel>
-        <TabsPanel>
-          {(group.files.length > 1 ||
-            (group.title === "CSS" && cssTabs.length > 1)) && <div
-            class="file-bar"
-          >
-            {group.files.length > 1 && <Select
-              aria-label={`${group.title} file`}
-              class="file-picker"
-              size="small"
-            >
-              {group.files.map((file, index) => <option value={index}>
-                {file.title}
-              </option>)}
-            </Select>}
-            <span class="file-count">{group.files.length} files</span>
-            {group.title === "CSS" && cssTabs.length > 1 && <button
-              type="button"
-              class="ui-button ui-outlined ui-small copy-all-css"
-              data-css={allCss}
-            >
-              Copy all CSS
-            </button>}
-          </div>}
-          {group.files.map((file, index) => <div
-            class="file"
-            hidden={index > 0}
-          >
-            <Code code={file.code} lang={file.lang} />
-          </div>)}
-        </TabsPanel>
-      </TabsItem>)}
-    </Tabs>
-  </div>
 </section>
 
 <style>
-  .code-group {
-    gap: 0;
+  .installation-methods {
     margin-block: var(--size-4);
-    overflow: hidden;
-    padding: 0;
-  }
-
-  .file-bar {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--ui-space-3);
-    padding: var(--ui-space-3);
-  }
-
-  .file-count {
-    color: var(--ui-text-subtle);
-    font-size: var(--ui-font-size-small);
-  }
-
-  .copy-all-css {
-    margin-inline-start: auto;
   }
 </style>
-
-<script>
-  import { copyText } from "../utils/storage"
-
-  document.addEventListener("click", async (event) => {
-    const button = (event.target as Element).closest<HTMLElement>(
-      ".copy-all-css[data-css]",
-    )
-    if (!button || !(await copyText(button.dataset.css ?? ""))) return
-    const label = button.textContent
-    button.textContent = "Copied"
-    setTimeout(() => (button.textContent = label), 1500)
-  })
-
-  document.addEventListener("change", (event) => {
-    const select = (event.target as Element).closest<HTMLSelectElement>(
-      ".file-picker select",
-    )
-    const panel = select?.closest(".ui-panel")
-    if (!select || !panel) return
-    panel
-      .querySelectorAll<HTMLElement>(":scope > .file")
-      .forEach((file, index) => {
-        file.hidden = index !== Number(select.value)
-      })
-  })
-</script>

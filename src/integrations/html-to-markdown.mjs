@@ -278,8 +278,23 @@ export async function articleToMarkdown(
   if (omitInstallationCode) {
     const installation = select("section#installation", article)
     if (installation) {
-      prune(installation, new Set(selectAll(".code-block", installation)))
-      replace(installation, isClass("code-group"), installationGroup)
+      const command = new Set(
+        selectAll(".install-command .code-block", installation),
+      )
+      prune(
+        installation,
+        new Set(
+          selectAll(".code-block", installation).filter(
+            (block) => !command.has(block),
+          ),
+        ),
+      )
+      replace(
+        installation,
+        (node) =>
+          isClass("code-group")(node) && !isClass("install-command")(node),
+        installationGroup,
+      )
     }
   }
 

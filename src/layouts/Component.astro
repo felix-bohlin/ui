@@ -250,6 +250,20 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     </Accordion>
   </section>}
 
+  {imports &&
+    (installationTabs ? (
+      <Installation
+        imports={imports}
+        slug={currentSlug}
+        sourceTabs={sourceTabs}
+        tabs={installationTabs}
+      >
+        <slot name="installation" />
+      </Installation>
+    ) : (
+      <slot name="installation" />
+    ))}
+
   <slot />
 
   {Astro.slots.has("accessibility") && <section id="accessibility">
@@ -277,18 +291,19 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
 
   {browserSupport && <BrowserSupport ids={browserSupport} />}
 
-  {installationTabs ? (
-    <Installation
-      imports={imports}
-      slug={currentSlug}
-      sourceTabs={sourceTabs}
-      tabs={installationTabs}
-    >
+  {!imports &&
+    (installationTabs ? (
+      <Installation
+        imports={imports}
+        slug={currentSlug}
+        sourceTabs={sourceTabs}
+        tabs={installationTabs}
+      >
+        <slot name="installation" />
+      </Installation>
+    ) : (
       <slot name="installation" />
-    </Installation>
-  ) : (
-    <slot name="installation" />
-  )}
+    ))}
 
   {usedInBlocks.length > 0 && <section id="used-in-blocks">
     <h2>Used in blocks</h2>

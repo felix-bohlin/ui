@@ -10,6 +10,7 @@ const names = ["opui-css", packages].filter(Boolean).join(" ")
 ---
 
 <CodeGroup
+  class="install-command"
   tabs={[
     {
       title: "pnpm",
@@ -19,6 +20,16 @@ const names = ["opui-css", packages].filter(Boolean).join(" ")
     {
       title: "npm",
       code: `npm install ${names}`,
+      lang: "sh",
+    },
+    {
+      title: "yarn",
+      code: "yarn add opui-css",
+      lang: "sh",
+    },
+    {
+      title: "bun",
+      code: "bun add opui-css",
       lang: "sh",
     },
   ]}

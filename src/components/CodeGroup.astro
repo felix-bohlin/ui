@@ -9,13 +9,16 @@ type Tab = {
 }
 
 type Props = {
+  class?: string
   tabs: Tab[]
 }
 
-const { tabs } = Astro.props
+const { class: className, tabs } = Astro.props
 ---
 
-<div class="code-group ui-card ui-outlined ui-not-rich-text">
+<div
+  class:list={["code-group ui-card ui-outlined ui-not-rich-text", className]}
+>
   <Tabs variant="line" class="code-tabs">
     {tabs.map((tab, index) => <TabsItem checked={index === 0}>
       <TabsLabel>{tab.title}</TabsLabel>

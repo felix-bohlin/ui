@@ -240,16 +240,6 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     <slot name="anatomy" />
   </section>}
 
-  {Astro.slots.has("usage") && <section id="usage">
-    <h2 class="ui-sr-only">Usage</h2>
-    <Accordion class="component-usage">
-      <AccordionSummary>Usage</AccordionSummary>
-      <AccordionContent>
-        <slot name="usage" />
-      </AccordionContent>
-    </Accordion>
-  </section>}
-
   {imports &&
     (installationTabs ? (
       <Installation
@@ -263,6 +253,16 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
     ) : (
       <slot name="installation" />
     ))}
+
+  {Astro.slots.has("usage") && <section id="usage">
+    <h2 class="ui-sr-only">Usage</h2>
+    <Accordion class="component-usage">
+      <AccordionSummary>Usage</AccordionSummary>
+      <AccordionContent>
+        <slot name="usage" />
+      </AccordionContent>
+    </Accordion>
+  </section>}
 
   <slot />
 

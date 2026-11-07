@@ -120,8 +120,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
-   On the Astro, React, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot) follows it, with a Command tab (the install command and the import line) and a Manual tab (the CSS files).
+4. On the Astro, React, Svelte and Vue pages, Installation (`installationTabs` and the `installation` slot), with a Command tab (the install command and the import line) and a Manual tab (the CSS files), then the `usage` slot, as "Usage" (see 5.7). Usage comes before the examples, so readers know they're on the right page before they read how to set it up, and starts collapsed, so the examples stay close to the top.
 5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component, usually under `<section id="basics"><h2>Basics</h2>`.
    2. Variants, colors and severities.

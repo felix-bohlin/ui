@@ -11,11 +11,6 @@ type Props = {
 
 const { sourceTabs, tabs: allTabs } = Astro.props
 
-const cssTabs = allTabs.filter((tab) => tab.title.endsWith(".css"))
-const allCss = cssTabs
-  .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
-  .join("\n")
-
 const framework = Astro.locals.framework
 const frameworkLabel = FRAMEWORKS.find((f) => f.id === framework)?.label
 
@@ -41,11 +36,8 @@ const groups = [
     {groups.map((group, groupIndex) => <TabsItem checked={groupIndex === 0}>
       <TabsLabel>{group.title}</TabsLabel>
       <TabsPanel>
-        {(group.files.length > 1 ||
-          (group.title === "CSS" && cssTabs.length > 1)) && <div
-          class="file-bar"
-        >
-          {group.files.length > 1 && <Select
+        {group.files.length > 1 && <div class="file-bar">
+          <Select
             aria-label={`${group.title} file`}
             class="file-picker"
             size="small"
@@ -53,14 +45,7 @@ const groups = [
             {group.files.map((file, index) => <option value={index}>
               {file.title}
             </option>)}
-          </Select>}
-          {group.title === "CSS" && cssTabs.length > 1 && <button
-            type="button"
-            class="ui-button ui-small copy-all-css"
-            data-css={allCss}
-          >
-            Copy all
-          </button>}
+          </Select>
         </div>}
         {group.files.map((file, index) => <div class="file" hidden={index > 0}>
           <Code code={file.code} lang={file.lang} />
@@ -89,26 +74,9 @@ const groups = [
   .file-picker {
     min-inline-size: 0;
   }
-
-  .copy-all-css {
-    flex-shrink: 0;
-    margin-inline-start: auto;
-  }
 </style>
 
 <script>
-  import { copyText } from "../utils/storage"
-
-  document.addEventListener("click", async (event) => {
-    const button = (event.target as Element).closest<HTMLElement>(
-      ".copy-all-css[data-css]",
-    )
-    if (!button || !(await copyText(button.dataset.css ?? ""))) return
-    const label = button.textContent
-    button.textContent = "Copied"
-    setTimeout(() => (button.textContent = label), 1500)
-  })
-
   document.addEventListener("change", (event) => {
     const select = (event.target as Element).closest<HTMLSelectElement>(
       ".file-picker select",

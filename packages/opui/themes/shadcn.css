@@ -60,6 +60,7 @@
     --ui-letter-spacing-display: -0.025em;
     --ui-letter-spacing-heading: -0.025em;
     --ui-line-height: 1.5;
+    --ui-line-height-prose: 1.75;
     --ui-line-height-relaxed: 1.5;
     --ui-link-font-weight: 500;
     --ui-list-item-padding-inline: 0.5rem;

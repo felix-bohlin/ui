@@ -40,6 +40,8 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### typography.css
 
+- `--_flow-after`: Multiple of `--_flow-gap` below a rich text heading when `--ui-heading-margin-block-end` is unset: 1 for `h1`, 0.75 for `h2` and 0.5 for `h3` to `h6`.
+- `--_flow-before`: Multiple of `--_flow-gap` above a rich text heading when `--ui-heading-margin-block-start` is unset: 3 for `h1` and `h2`, 2 for `h3` and 1.5 for `h4` to `h6`.
 - `--_flow-gap`: Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.
 - `--_swatch-bg-color`: Fill of `.ui-swatch`. Defaults to `--ui-palette-accent`, the accent of the color class on the swatch or of the surrounding severity scope.
 
@@ -55,7 +57,7 @@ Outputs: `--_duration`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-duration`, `--ui-ease`, `--ui-flow-gap`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-link-font-weight`, `--ui-link-visited-text-color`, `--ui-motion`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-border-color`, `--ui-border-width`, `--ui-border-width-thick`, `--ui-code-bg-color`, `--ui-code-block-bg-color`, `--ui-code-block-text-color`, `--ui-color-scheme`, `--ui-contrast`, `--ui-critical-text`, `--ui-duration`, `--ui-ease`, `--ui-flow-gap`, `--ui-font-body`, `--ui-font-code`, `--ui-font-heading`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h1`, `--ui-font-size-h2`, `--ui-font-size-h3`, `--ui-font-size-h4`, `--ui-font-size-h5`, `--ui-font-size-h6`, `--ui-font-size-large`, `--ui-font-size-small`, `--ui-font-weight-bold`, `--ui-font-weight-medium`, `--ui-heading-margin-block-end`, `--ui-heading-margin-block-start`, `--ui-icon-size`, `--ui-icon-size-large`, `--ui-icon-size-small`, `--ui-info`, `--ui-letter-spacing-caps`, `--ui-letter-spacing-display`, `--ui-letter-spacing-heading`, `--ui-line-height`, `--ui-line-height-prose`, `--ui-link-font-weight`, `--ui-link-visited-text-color`, `--ui-motion`, `--ui-on-inverse`, `--ui-palette-accent`, `--ui-palette-text`, `--ui-primary-text`, `--ui-radius`, `--ui-radius-round`, `--ui-radius-small`, `--ui-rhythm-step`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-success-text`, `--ui-surface-inverse`, `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`, `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

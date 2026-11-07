@@ -246,7 +246,11 @@ export const keywords = ["font", "heading", "prose", "text"]
       Paragraphs, lists, blockquotes and tables are spaced by
       <code>--ui-flow-gap</code>, <code>1.25em</code> until a theme sets it,
       rounded to <code>--ui-rhythm-step</code>. Headings, code blocks and
-      figures take multiples of it, with more room above headings than below.
+      figures take multiples of it, with more room above headings than below. A
+      theme can space headings with <code>--ui-heading-margin-block-start</code>
+      and <code>--ui-heading-margin-block-end</code>, where <code>em</code> is
+      the heading's own font size, and loosen prose with
+      <code>--ui-line-height-prose</code>.
     </p>
     <Code
       lang="html"

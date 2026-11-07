@@ -61,6 +61,8 @@
     --ui-font-weight-semibold: 700;
     --ui-gray-chroma: 0;
     --ui-gray-hue: 0;
+    --ui-heading-margin-block-end: 0.8em;
+    --ui-heading-margin-block-start: 1.1em;
     --ui-info: oklch(0.535 0.136 249.9);
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;

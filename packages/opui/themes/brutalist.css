@@ -56,6 +56,7 @@
     --ui-letter-spacing-display: 0;
     --ui-letter-spacing-heading: 0;
     --ui-line-height: 1.5;
+    --ui-line-height-prose: 1.75;
     --ui-line-height-relaxed: 1.5;
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);

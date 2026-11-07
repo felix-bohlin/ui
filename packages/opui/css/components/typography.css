@@ -305,6 +305,7 @@
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
       --_flow-gap: round(var(--ui-flow-gap, 1.25em), var(--ui-rhythm-step));
+      line-height: var(--ui-line-height-prose);
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -456,64 +457,79 @@
         1em + 2 * var(--ui-rhythm-step),
         var(--ui-rhythm-step)
       );
+      margin-block: round(
+          var(
+            --ui-heading-margin-block-start,
+            var(--_flow-gap) * var(--_flow-before)
+          ),
+          var(--ui-rhythm-step)
+        )
+        round(
+          var(
+            --ui-heading-margin-block-end,
+            var(--_flow-gap) * var(--_flow-after)
+          ),
+          var(--ui-rhythm-step)
+        );
       text-wrap: pretty;
     }
 
     h1:where(:not([class])) {
+      --_flow-after: 1;
+      --_flow-before: 3;
       font-size: round(
         calc(var(--ui-font-size-h1) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-display);
-      margin-block: calc(var(--_flow-gap) * 3) var(--_flow-gap);
     }
 
     h2:where(:not([class])) {
+      --_flow-after: 0.75;
+      --_flow-before: 3;
       font-size: round(
         calc(var(--ui-font-size-h2) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-display);
-      margin-block: calc(var(--_flow-gap) * 3)
-        round(var(--_flow-gap) * 0.75, var(--ui-rhythm-step));
     }
 
     h3:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 2;
       font-size: round(
         calc(var(--ui-font-size-h3) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-heading);
-      margin-block: calc(var(--_flow-gap) * 2)
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     h4:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 1.5;
       font-size: round(
         calc(var(--ui-font-size-h4) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
       letter-spacing: var(--ui-letter-spacing-heading);
-      margin-block: round(var(--_flow-gap) * 1.5, var(--ui-rhythm-step))
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     h5:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 1.5;
       font-size: round(
         calc(var(--ui-font-size-h5) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-gap) * 1.5, var(--ui-rhythm-step))
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     h6:where(:not([class])) {
+      --_flow-after: 0.5;
+      --_flow-before: 1.5;
       font-size: round(
         calc(var(--ui-font-size-h6) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-gap) * 1.5, var(--ui-rhythm-step))
-        round(var(--_flow-gap) * 0.5, var(--ui-rhythm-step));
     }
 
     hgroup {

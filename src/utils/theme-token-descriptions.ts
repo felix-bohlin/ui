@@ -185,6 +185,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. When unset, each keeps its own border. Forced colors ignore it.",
   "--ui-focus-border-width":
     "Border width of a focused `Checkbox` and `Radio`, so the focus edge thickens, like GOV.UK's 4px. Never thinner than `--ui-field-border-width`, and the check and the dot keep their size. Forced colors keep the wider border. When unset, the border keeps its width.",
+  "--ui-focus-highlight":
+    "Fill of a focused element that highlights instead of showing the ring: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
   "--ui-focus-ring-inset":
@@ -304,6 +306,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Text and mark color on a `--ui-control-accent` fill. Set it with `--ui-control-accent`. `--ui-button-on-accent` and `--ui-choice-on-accent` override it per component.",
   "--ui-on-fill":
     "Text on an intent fill: an intent color with its lightness capped so light text reads on it, within `--ui-accent-fill-max-lightness` for critical `Button`s and the critical, info, neutral and success `Badge`, and within `--ui-choice-fill-max-lightness` for the invalid choice mark and the checked one in dark mode. Near-white in both modes. The fill has no token of its own, since each intent is one. Not `--ui-palette-on-strong`, which turns dark in dark mode for the light `--ui-palette-strong`.",
+  "--ui-on-focus-highlight":
+    "Text color on `--ui-focus-highlight`: black or white, whichever reads on it. It switches at OKLCH lightness 0.57, where black and white both reach 4.5:1 on a gray, since it colors text; the focus ring switches at 0.6, which only needs 3:1. Set it to match a brand's focus text, and hand it back under more contrast with the ring color.",
   "--ui-on-inverse": "Text color on `--ui-surface-inverse`.",
   "--ui-on-primary":
     "Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text.",

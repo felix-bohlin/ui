@@ -97,6 +97,7 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
     ),
     ratio: 4.5,
   },
+  "--ui-on-focus-highlight": { against: ["--ui-focus-highlight"], ratio: 4.5 },
   "--ui-on-inverse": { against: ["--ui-surface-inverse"], ratio: 4.5 },
   "--ui-on-primary": { against: ["--ui-primary"], ratio: 4.5 },
   "--ui-on-selected-strong": { against: ["--ui-selected-strong"], ratio: 4.5 },

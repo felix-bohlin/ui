@@ -297,6 +297,7 @@ Every component page fills the `usage` slot with the `Usage` partial ([partials/
 
 - **Analytical Examples**: Show sections for each major variant, size, and state found in CSS/source.
 - **Section Length**: Section text is at most two short sentences: the default and the class or prop that changes it ("The select is outlined by default. Use `.ui-filled` for a filled background."), or a required JS import or accessibility attribute. Never list values the example shows, explain how the CSS works or say why. The same goes for Usage items, Accessibility bullets and the preamble.
+- **Current Facts Only**: Docs say what is true now, not what changed or when ("v6 renamed them all"). Version history belongs in the migration guide, the changelog and the What's new and Migrating callouts.
 - **Modifier Descriptions**: Section descriptions should focus on **actionable modifiers** (props or CSS classes).
   - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout").
   - **Omit** when the heading is self-explanatory and the configuration is static or default (e.g., "Image", "Letter", or "Icon" sections for an Avatar). If the section merely showcases a built-in capability without requiring specific prop-based modification logic to understand, skip the description to avoid "stating the obvious."

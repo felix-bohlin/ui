@@ -3432,7 +3432,7 @@
   {
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
-    "description": "Every token theme.css and core/palette.css declare, with its default and its tier, and the instance inputs components read. The largest group is roles; the others are marked knob, primitive, hook, component or input. The tests check every promised contrast ratio in light and dark mode, with and without more contrast.",
+    "description": "Every token, its default and what it does. v6 renamed them all, see Migrating.",
     "category": "Guide",
     "url": "/vue/guide/theme-tokens/"
   },

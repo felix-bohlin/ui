@@ -210,7 +210,7 @@ export default function Basics() {
   <Fieldset>
     <FieldLegend>Payment method</FieldLegend>
     <FieldGroup name="radio-group">
-      <Radio checked value="card">Card</Radio>
+      <Radio defaultChecked value="card">Card</Radio>
       <Radio value="paypal">PayPal</Radio>
       <Radio value="bank-transfer">Bank transfer</Radio>
     </FieldGroup>

@@ -723,8 +723,8 @@ export default function Basics() {
     <Fieldset>
       <FieldLegend>Status</FieldLegend>
       <FieldGroup name="status" orientation="horizontal">
-        <Checkbox checked value="done">Done</Checkbox>
-        <Checkbox checked value="in-progress">In progress</Checkbox>
+        <Checkbox defaultChecked value="done">Done</Checkbox>
+        <Checkbox defaultChecked value="in-progress">In progress</Checkbox>
         <Checkbox value="open">Open</Checkbox>
       </FieldGroup>
     </Fieldset>

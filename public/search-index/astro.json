@@ -4400,7 +4400,7 @@
     "id": "api-field-legend-astro",
     "title": "Field Legend API",
     "description": "Reference for Field Legend Astro component.",
-    "api": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`.",
+    "api": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`. id The id of the legend. Inside a `Fieldset` rendered with `as`, the legend takes the fieldset's generated id instead, unless the fieldset has `aria-label` or `aria-labelledby`.",
     "category": "API",
     "url": "/astro/api/#field-legend"
   },

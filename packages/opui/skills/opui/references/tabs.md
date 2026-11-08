@@ -209,7 +209,7 @@ export default function Basics() {
 </script>
 
 <Tabs aria-label="Account settings" name="basic-tabs" role="radiogroup">
-  <TabsItem checked>
+  <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

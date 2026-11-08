@@ -47,6 +47,7 @@ Spacing and grouping for form fields.
 ### Props and modifiers
 
 - `as`: `"legend" | "p"`, default `"legend"`. The element to render. Adds `.ui-legend` when not `"legend"`.
+- `id`: `string`. The id of the legend. Inside a `Fieldset` rendered with `as`, the legend takes the fieldset's generated id instead, unless the fieldset has `aria-label` or `aria-labelledby`.
 
 ### Slots
 

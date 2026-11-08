@@ -231,9 +231,10 @@ export default function Basics() {
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch checked hideLabel name="switch-basics" value="wifi">Wi-Fi</Switch>
+<Switch defaultChecked hideLabel name="switch-basics" value="wifi">Wi-Fi</Switch
+>
 <Switch hideLabel name="switch-basics" value="bluetooth">Bluetooth</Switch>
-<Switch checked disabled hideLabel name="switch-basics" value="location"
+<Switch defaultChecked disabled hideLabel name="switch-basics" value="location"
   >Location</Switch
 >
 <Switch disabled hideLabel name="switch-basics" value="airplane-mode"

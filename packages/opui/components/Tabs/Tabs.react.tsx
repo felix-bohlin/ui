@@ -32,7 +32,7 @@ export default function Tabs({
         className={cx([
           "ui-tabs",
           orientation === "vertical" && "ui-vertical",
-          overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
+          overflow && overflow !== "scroll" && `ui-overflow-${overflow}`,
           variant && variant !== "tonal" && `ui-${variant}`,
           className,
         ])}

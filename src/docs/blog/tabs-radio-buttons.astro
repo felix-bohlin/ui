@@ -30,8 +30,10 @@ import Basics from "../../component-examples/tabs/Basics.astro"
         selector per tab
       </li>
       <li>
-        A wrapping flex row with <code>order</code> pulls every label into one
-        row and drops the panels below
+        A grid puts every label in the first row and the panels in the second,
+        and scrolls sideways when the labels don't fit. Tabs that wrap use a
+        flex row instead, where <code>order</code> pulls the labels ahead of the
+        panels
       </li>
       <li>
         The radios are visually hidden, <code>:focus-visible + label</code>
@@ -45,18 +47,21 @@ import Basics from "../../component-examples/tabs/Basics.astro"
     <Code
       lang="css"
       code={`.ui-tabs {
-  display: flex;
-  flex-wrap: wrap;
+  container-type: inline-size;
+  display: grid;
+  grid-auto-columns: max-content;
+  overflow-inline: auto;
 }
 
 .ui-tabs > .ui-label {
-  order: 1;
+  grid-row: 1;
 }
 
 .ui-tabs > .ui-panel {
   display: none;
-  inline-size: 100%;
-  order: 2;
+  grid-column: 1 / span calc(sibling-count() / 3);
+  grid-row: 2;
+  inline-size: 100cqi;
 }
 
 .ui-input:checked + .ui-label + .ui-panel {

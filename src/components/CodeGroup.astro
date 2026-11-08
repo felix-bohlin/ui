@@ -19,7 +19,7 @@ const { class: className, tabs } = Astro.props
 <div
   class:list={["code-group ui-card ui-outlined ui-not-rich-text", className]}
 >
-  <Tabs variant="line" class="code-tabs">
+  <Tabs class="code-tabs" overflow="wrap" variant="line">
     {tabs.map((tab, index) => <TabsItem checked={index === 0}>
       <TabsLabel>{tab.title}</TabsLabel>
       <TabsPanel>

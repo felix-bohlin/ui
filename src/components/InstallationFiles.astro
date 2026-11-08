@@ -32,7 +32,7 @@ const groups = [
 <slot />
 
 <div class="code-group ui-card ui-outlined ui-not-rich-text">
-  <Tabs variant="line" class="code-tabs">
+  <Tabs class="code-tabs" overflow="wrap" variant="line">
     {groups.map((group, groupIndex) => <TabsItem checked={groupIndex === 0}>
       <TabsLabel>{group.title}</TabsLabel>
       <TabsPanel>

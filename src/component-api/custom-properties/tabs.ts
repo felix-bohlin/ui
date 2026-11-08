@@ -46,7 +46,7 @@ export default {
   },
   "--_panel-padding": {
     description:
-      "Inline and block-end padding of a `.ui-overflow-scroll` panel, `--ui-focus-ring-offset` plus `--ui-focus-ring-width`, so a focus ring on a control at the panel's edge isn't clipped by the scroll container.",
+      "Inline and block-end padding of the panel unless `.ui-overflow-wrap`, `--ui-focus-ring-offset` plus `--ui-focus-ring-width`, so a focus ring on a control at the panel's edge isn't clipped by the scroll container.",
     kind: "output",
   },
   "--_radius": {

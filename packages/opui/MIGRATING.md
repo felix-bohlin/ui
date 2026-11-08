@@ -894,7 +894,12 @@ The parts are `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input
 + <TabsLabel>Profile</TabsLabel>
 ```
 
-Tabs that don't fit can stay on one row and scroll sideways with `overflow="scroll"` (`.ui-overflow-scroll`).
+Tabs that don't fit stay on one row and scroll sideways instead of wrapping onto more rows. The tabs are a scroll container that sizes to its container, so give them a width inside flex and grid layouts that size to their content. Add `overflow="wrap"` (`.ui-overflow-wrap`) to wrap them as before.
+
+```diff
+- <Tabs>
++ <Tabs overflow="wrap">
+```
 
 `TabsItem` `open` is `checked`, the attribute it sets on the radio.
 

@@ -24,7 +24,7 @@ provide(TabsKey, reactive({ change, groupName, value: model }))
     :class="[
       'ui-tabs',
       orientation === 'vertical' && 'ui-vertical',
-      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
+      overflow && overflow !== 'scroll' && `ui-overflow-${overflow}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"

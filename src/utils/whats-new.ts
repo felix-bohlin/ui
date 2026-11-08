@@ -1228,8 +1228,12 @@ export const whatsNew = {
       html: `Breaking: the parts are <a href="#api"><code>.ui-input</code></a>, <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>.ui-tab-input</code>, <code>.ui-tab-label</code> and <code>.ui-tab-panel</code>.`,
     },
     {
-      default: `Tabs that <a href="#overflow">scroll</a> with <code>overflow="scroll"</code>.`,
-      html: `Tabs that <a href="#overflow">scroll</a> with <code>.ui-overflow-scroll</code>.`,
+      default: `Breaking: tabs that don't fit <a href="#overflow">scroll</a> sideways on one row instead of wrapping. Give them a width inside flex and grid layouts that size to their content, or wrap them with <code>overflow="wrap"</code>.`,
+      html: `Breaking: tabs that don't fit <a href="#overflow">scroll</a> sideways on one row instead of wrapping. Give them a width inside flex and grid layouts that size to their content, or wrap them with <code>.ui-overflow-wrap</code>.`,
+    },
+    {
+      default: `Tabs that <a href="#overflow">wrap</a> onto more rows with <code>overflow="wrap"</code>.`,
+      html: `Tabs that <a href="#overflow">wrap</a> onto more rows with <code>.ui-overflow-wrap</code>.`,
     },
     {
       default: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with the <code>variant</code> prop.`,
@@ -1254,7 +1258,7 @@ export const whatsNew = {
       svelte: `Bind the selected tab with <code>bind:value</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selected tab with <code>v-model</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
     },
-    `Tabs that scroll (<code>overflow="scroll"</code>, <code>.ui-overflow-scroll</code>) and tabs directly in an Accordion, Card or Dialog draw the focus ring at <a href="#api"><code>--ui-focus-ring-inset</code></a>, like every other inset ring.`,
+    `Tabs draw the focus ring at <a href="#api"><code>--ui-focus-ring-inset</code></a>, like every other inset ring, except <a href="#vertical">vertical</a> tabs and tabs that wrap (<code>overflow="wrap"</code>, <code>.ui-overflow-wrap</code>) outside an Accordion, Card or Dialog.`,
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     `The selected pill, and the line of <a href="#line">line tabs</a>, slides to the tab you select, where anchor positioning works (<a href="#basics">Basics</a>).`,
     `Themes can make the selected pill and line spring to the next tab with <a href="#api"><code>--ui-ease-move</code></a>.`,

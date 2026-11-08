@@ -59,12 +59,12 @@ export default {
       values: { horizontal: null, vertical: ".ui-vertical" },
     },
     {
-      default: '"wrap"',
+      default: '"scroll"',
       description:
-        'What the tabs do when they don\'t fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways. Vertical tabs ignore it: long labels wrap within the column.',
+        'What the tabs do when they don\'t fit. `"scroll"` keeps them on one row and scrolls it sideways, and `"wrap"` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column.',
       group: "Overflow",
       prop: "overflow",
-      values: { scroll: ".ui-overflow-scroll", wrap: null },
+      values: { scroll: null, wrap: ".ui-overflow-wrap" },
     },
     {
       default: '"tonal"',

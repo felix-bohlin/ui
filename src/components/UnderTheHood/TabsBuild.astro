@@ -137,6 +137,49 @@ const steps = [
     ],
     title: "Segmented",
   },
+  {
+    css: `
+.tabs {
+  container-type: inline-size;
+  display: grid;
+  grid-auto-columns: max-content;
+  overflow-inline: auto;
+  position: relative;
+}
+
+.tab-label {
+  grid-row: 1;
+}
+
+.tab-input {
+  grid-column: calc((sibling-index() + 2) / 3) / span 1;
+  grid-row: 1 / span 1;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+}
+
+.tab-input:focus-visible + .tab-label::before {
+  outline-offset: var(--ui-focus-ring-inset);
+}
+
+.tab-panel {
+  grid-column: 1 / span calc(sibling-count() / 3);
+  grid-row: 2;
+  inline-size: 100cqi;
+  inset-inline-start: 0;
+  margin-inline-end: -100cqi;
+  position: sticky;
+}`,
+    features: ["container-queries", "sibling-count"],
+    notes: [
+      "A one-row grid scrolls sideways when the labels don't fit: narrow it with the Width knob",
+      "Every label takes a column in row 1, and the panels share row 2",
+      "<code>sibling-index()</code> gives each radio its label's column, and its insets place it there, so the arrow keys scroll the tab they select into view",
+      "The panel is as wide as the container (<code>100cqi</code>) and sticks to its start, and the negative margin keeps it from widening the columns",
+      "The scroller clips what reaches past it, so the focus ring moves inside the pill",
+    ],
+    title: "Scroll",
+  },
 ]
 
 const knobs = [
@@ -156,6 +199,14 @@ const knobs = [
     step: 2,
     unit: "px",
     value: 10,
+  },
+  {
+    label: "Width",
+    max: 24,
+    min: 8,
+    property: "--width",
+    unit: "rem",
+    value: 24,
   },
 ]
 
@@ -188,7 +239,7 @@ const tabs = [
 
 <style>
   .tabs {
-    inline-size: min(100%, 24rem);
+    inline-size: min(100%, var(--width));
   }
 
   .tab-label {

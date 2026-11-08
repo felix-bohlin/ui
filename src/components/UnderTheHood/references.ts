@@ -507,6 +507,11 @@ export const references = {
       label: "Next-sibling combinator",
     },
     { code: true, href: mdn("Web/CSS/order"), label: "order" },
+    {
+      code: true,
+      href: mdn("Web/CSS/sibling-count"),
+      label: "sibling-count()",
+    },
   ],
   "text-field": [
     { code: true, href: mdn("Web/CSS/:focus-within"), label: ":focus-within" },

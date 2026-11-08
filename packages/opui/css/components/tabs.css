@@ -279,7 +279,10 @@
       }
     }
 
-    &:where(:is(.ui-accordion, .ui-card, .ui-dialog) > *, .ui-overflow-scroll) {
+    &:where(
+      :is(.ui-accordion, .ui-card, .ui-dialog) > *,
+      :not(.ui-overflow-wrap, .ui-vertical)
+    ) {
       & > .ui-input[type="radio"]:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
       }
@@ -289,7 +292,7 @@
       }
     }
 
-    &.ui-overflow-scroll:not(.ui-vertical) {
+    &:not(.ui-overflow-wrap, .ui-vertical) {
       column-gap: 0;
       container-type: inline-size;
       display: grid;

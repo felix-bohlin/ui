@@ -76,6 +76,7 @@ export const keywords = ["tab panel", "tablist"]
         aria-label="Account settings"
         name="tabs-anatomy"
         role="radiogroup"
+        style="inline-size: 18rem"
       >
         <UITabsItem>
           <UITabsLabel>Profile</UITabsLabel>
@@ -148,11 +149,16 @@ export const keywords = ["tab panel", "tablist"]
   <section id="overflow">
     <h2>Overflow</h2>
     <p>
-      Wraps by default. Use
-      <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> to
-      scroll.
+      Scrolls by default. Inside flex and grid layouts that size to their
+      content, give the tabs a width.
     </p>
     <AutoExample name="Overflow" />
+    <p>
+      Use <PropOrClass prop='overflow="wrap"' class=".ui-overflow-wrap" /> to
+      wrap. It suits <a href="#line">line tabs</a>, since the track breaks where
+      a row ends.
+    </p>
+    <AutoExample name="Wrap" />
   </section>
 
   <section id="vertical">

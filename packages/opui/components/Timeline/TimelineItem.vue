@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
+import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type {
   TimelineItemProps as Props,
@@ -16,6 +17,12 @@ const {
 } = defineProps<Props>()
 defineSlots<TimelineItemSlots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
+
 const Heading = computed(
   () => `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6",
 )
@@ -24,7 +31,10 @@ const Heading = computed(
 <template>
   <li
     :aria-current="current === true ? 'true' : current || undefined"
-    v-bind="classAttrs([color && `ui-${color}`, $props.class])"
+    v-bind="{
+      ...defined(attrs),
+      ...classAttrs([color && `ui-${color}`, $props.class]),
+    }"
   >
     <span v-if="$slots.marker" class="ui-marker"
       ><slot name="marker"></slot></span

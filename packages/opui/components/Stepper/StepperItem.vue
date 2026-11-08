@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
+import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type {
   StepperItemProps as Props,
@@ -19,6 +20,12 @@ const {
 } = defineProps<Props>()
 defineSlots<StepperItemSlots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
+
 const state = computed(() =>
   error ? errorLabel : complete ? completedLabel : undefined,
 )
@@ -29,9 +36,13 @@ const link = computed(() => href && !current && (complete || error))
 <template>
   <li
     :aria-current="current ? 'step' : undefined"
-    v-bind="
-      classAttrs([{ 'ui-complete': complete, 'ui-error': error }, $props.class])
-    "
+    v-bind="{
+      ...defined(attrs),
+      ...classAttrs([
+        { 'ui-complete': complete, 'ui-error': error },
+        $props.class,
+      ]),
+    }"
   >
     <span
       v-if="$slots['icon-checked']"

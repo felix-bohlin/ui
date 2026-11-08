@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -41,7 +42,7 @@ export default function ListItem({
           className={cx([hasControl && `ui-${type}`])}
           htmlFor={hasControl ? htmlFor : undefined}
           {...(hasControl ? {} : tagAttrs(Tag, disabled, href))}
-          {...(restOnItem ? {} : (rest as object))}
+          {...defined(restOnItem ? {} : (rest as object))}
         >
           {start && <div className="ui-start">{start}</div>}
           {hasLabel || hasDescription ? (

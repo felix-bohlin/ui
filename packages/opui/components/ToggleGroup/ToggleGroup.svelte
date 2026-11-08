@@ -3,6 +3,7 @@
   import { selectionOf } from "./selection"
   import { setToggleGroupContext } from "./context.svelte"
   import { warnUnnamedGroup } from "../dev"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -48,7 +49,7 @@
     className,
   ]}
   role={multiple ? "group" : "radiogroup"}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </div>

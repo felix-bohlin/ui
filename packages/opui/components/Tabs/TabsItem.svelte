@@ -3,6 +3,7 @@
   import { getTabsContext, setTabsContext } from "./context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
   import { warnGroupedChecked } from "../dev"
+  import { defined } from "../attrs"
   import type { TabsItemProps as Props } from "./types.svelte"
 
   let {
@@ -41,7 +42,7 @@
   name={groupName}
   type="radio"
   {value}
-  {...rest}
+  {...defined(rest)}
   onchange={(event) => {
     parent?.change?.(event.currentTarget)
     onchange?.(event)

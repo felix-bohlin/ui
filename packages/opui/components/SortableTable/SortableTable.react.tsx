@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -31,7 +32,7 @@ export default function SortableTable({
       className={cx(["ui-sortable-table", className])}
       descending-label={descendingLabel}
       ref={ref}
-      {...rest}
+      {...defined(rest)}
     />
   )
 }

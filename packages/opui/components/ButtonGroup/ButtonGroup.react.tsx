@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -23,7 +24,7 @@ export default function ButtonGroup({
         className,
       ])}
       role="group"
-      {...rest}
+      {...defined(rest)}
     >
       {children}
     </div>

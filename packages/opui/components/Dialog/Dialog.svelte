@@ -1,6 +1,7 @@
 <script lang="ts">
   import { setDialogContext } from "./context.svelte"
   import { autoLabelledBy } from "../id"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -29,7 +30,7 @@
   aria-labelledby={labelledBy}
   class={["ui-dialog", "ui-elevated", className]}
   {closedby}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </dialog>

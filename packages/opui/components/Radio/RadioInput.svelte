@@ -2,6 +2,7 @@
   import { untrack } from "svelte"
   import { seedChecked } from "../svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { defined } from "../attrs"
   import type { RadioInputProps as Props } from "./types.svelte"
 
   let {
@@ -30,7 +31,7 @@
 <input
   type="radio"
   name={name ?? field?.name}
-  {...rest}
+  {...defined(rest)}
   {@attach seedChecked(isChecked, check)}
   defaultChecked={defaultChecked ?? initialChecked}
   onchange={(event) => {

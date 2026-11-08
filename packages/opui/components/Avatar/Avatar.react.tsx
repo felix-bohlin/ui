@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
@@ -27,7 +28,7 @@ export default function Avatar({
         className,
       ])}
       {...tagAttrs(Tag, disabled, href)}
-      {...(rest as object)}
+      {...defined(rest as object)}
     >
       {src ? <img src={src} alt={alt ?? ""} /> : children}
     </Tag>

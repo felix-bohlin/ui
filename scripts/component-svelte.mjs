@@ -19,6 +19,7 @@ import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
+  filtersRest,
   PRESERVED_TAGS,
   propKey,
   unsupported,
@@ -95,6 +96,7 @@ export const toSvelte = (component) => {
   let usesElements = false
   let usesContent = false
   let usesClassAttrs = false
+  let usesDefined = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
       const code = rewriteExpression(item.code, options)
@@ -111,19 +113,25 @@ export const toSvelte = (component) => {
         element &&
         node.tag !== element
       if (cast) usesElements = true
+      const filtered = filtersRest(node, item, component)
+      if (filtered) usesDefined = true
+      const code = filtered ? `defined(${rest})` : rest
       const spread = cast
-        ? `${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`
-        : rewriteExpression(item.code, options)
+        ? `${code} as SvelteHTMLElements[${JSON.stringify(node.tag)}]`
+        : filtered
+          ? code
+          : rewriteExpression(item.code, options)
       if (item.condition !== undefined) {
         const plain = !node.variable && !node.component && !node.custom
         if (plain) usesElements = true
-        return `{...(${chosenSpreadCode(
+        const chosen = chosenSpreadCode(
           item,
           plain
             ? `(${rest} as SvelteHTMLElements[${JSON.stringify(node.tag)}])`
             : `(${rest} as object)`,
           rewriteExpression(item.condition, options),
-        )})}`
+        )
+        return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
       }
       return `{...${spread}}`
     }
@@ -256,6 +264,7 @@ export const toSvelte = (component) => {
       read: (name) => `get${name}Context`,
     }),
     ...[
+      ...(usesDefined ? [["../attrs", "defined"]] : []),
       ...(component.item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
     ].reduce(

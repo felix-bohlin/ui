@@ -3,6 +3,7 @@ import { computed, inject } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -57,7 +58,7 @@ const field = inject(FieldGroupKey, undefined)
         :inputmode="alphanumeric ? undefined : 'numeric'"
         :pattern="alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`"
         :spellcheck="alphanumeric ? 'false' : undefined"
-        v-bind="attrs"
+        v-bind="defined(attrs)"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :maxlength="length"
         :name="name ?? field?.name"

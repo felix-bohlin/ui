@@ -1,6 +1,7 @@
 "use client"
 
 import { useId } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { FieldsetContext } from "./context.react"
 import { autoLabelledBy } from "../id"
@@ -20,7 +21,7 @@ export default function Fieldset({ as, className, children, ...rest }: Props) {
         aria-labelledby={legendId}
         className={cx(["ui-fieldset", className])}
         role={isFieldset ? undefined : "group"}
-        {...(rest as object)}
+        {...defined(rest as object)}
       >
         {children}
       </Tag>

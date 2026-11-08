@@ -25,6 +25,7 @@ import {
   byName,
   chosenSpreadCode,
   classMayBeEmpty,
+  filtersRest,
   identifiersIn,
   isArrayType,
   isBlank,
@@ -215,6 +216,22 @@ export const toVue = (component) => {
   const explicitAttrs = kind?.explicitAttrs === true
   const filteredAttrs =
     restOnRoot && attributeProps.length > 0 && !explicitAttrs
+  const definedRoot =
+    restOnRoot &&
+    !explicitAttrs &&
+    !filteredAttrs &&
+    rootElements.some((node) =>
+      node.attributes.some(
+        (item) =>
+          item.condition === undefined && filtersRest(node, item, component),
+      ),
+    )
+  const inheritsAttrs = !(
+    attrsOnInner ||
+    explicitAttrs ||
+    filteredAttrs ||
+    definedRoot
+  )
   const generic = kind?.generic?.(model) === true
   const { item } = component
   const forwarded = (component.baseProps ?? [])
@@ -271,22 +288,32 @@ export const toVue = (component) => {
   )
   let usesTrimmedSlot = false
   let usesClassAttrs = false
+  let usesDefined = false
+  const filteredSpread = (node, item, code) => {
+    if (!filtersRest(node, item, component)) return code
+    usesDefined = true
+    return `defined(${code})`
+  }
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
       return `:class="${rewriteExpression(item.code, scope)}"`
     }
     if (item.kind === "spread") {
       if (item.code === rest && item.condition !== undefined) {
-        return `v-bind="${chosenSpreadCode(item, "attrs", rewriteExpression(item.condition, scope))}"`
+        return `v-bind="${filteredSpread(node, item, chosenSpreadCode(item, "attrs", rewriteExpression(item.condition, scope)))}"`
       }
       if (item.code === rest) {
         const bound = forwarded.map((key) => `:${key}="${key}"`)
-        return [
-          ...(rootElements.includes(node) && !explicitAttrs
+        const object =
+          rootElements.includes(node) && !explicitAttrs
             ? filteredAttrs
-              ? [`v-bind="restAttrs"`]
-              : []
-            : [`v-bind="attrs"`]),
+              ? "restAttrs"
+              : definedRoot
+                ? "attrs"
+                : undefined
+            : "attrs"
+        return [
+          ...(object ? [`v-bind="${filteredSpread(node, item, object)}"`] : []),
           ...bound,
         ].join(" ")
       }
@@ -299,7 +326,7 @@ export const toVue = (component) => {
     if (
       rest &&
       rootElements.includes(node) &&
-      !(attrsOnInner || explicitAttrs || filteredAttrs) &&
+      inheritsAttrs &&
       identifiersIn(item.code).has(rest)
     ) {
       throw unsupported(
@@ -368,7 +395,8 @@ export const toVue = (component) => {
         !(
           item.code === rest &&
           item.condition === undefined &&
-          rootElements.includes(node)
+          rootElements.includes(node) &&
+          !definedRoot
         ),
     )
     const first = node.attributes.indexOf(spreads[0])
@@ -378,13 +406,17 @@ export const toVue = (component) => {
         return {
           spread:
             item.code === rest
-              ? item.condition === undefined
-                ? "attrs"
-                : chosenSpreadCode(
-                    item,
-                    "attrs",
-                    rewriteExpression(item.condition, scope),
-                  )
+              ? filteredSpread(
+                  node,
+                  item,
+                  item.condition === undefined
+                    ? "attrs"
+                    : chosenSpreadCode(
+                        item,
+                        "attrs",
+                        rewriteExpression(item.condition, scope),
+                      ),
+                )
               : rewriteExpression(item.code, scope),
         }
       }
@@ -525,7 +557,7 @@ export const toVue = (component) => {
     ...(provide ? ["provide", "reactive"] : []),
     ...(explicitAttrs
       ? ["type IntrinsicElementAttributes", "useAttrs"]
-      : allAttrs || (restUsed && !attrsOnInner)
+      : allAttrs || definedRoot || (restUsed && !attrsOnInner)
         ? ["type HTMLAttributes", "useAttrs"]
         : []),
     ...(item ? ["watchEffect"] : []),
@@ -555,6 +587,7 @@ export const toVue = (component) => {
       read: (name) => `${name}Key`,
     }),
     ...[
+      ...(usesDefined ? [["../attrs", "defined"]] : []),
       ...(item ? [["../dev", "warnGroupedChecked"]] : []),
       ...(usesClassAttrs ? [["../cx", "classAttrs"]] : []),
     ].reduce(
@@ -590,9 +623,7 @@ export const toVue = (component) => {
   const setup = [
     importLines.join("\n"),
     slots.length ? `${propsLine}\n${slotsLine}` : propsLine,
-    ...(attrsOnInner || explicitAttrs || filteredAttrs
-      ? ["defineOptions({\n  inheritAttrs: false,\n})"]
-      : []),
+    ...(inheritsAttrs ? [] : ["defineOptions({\n  inheritAttrs: false,\n})"]),
     ...(computedAttrs
       ? ["const attrs = useInputAttrs()"]
       : allAttrs
@@ -601,7 +632,7 @@ export const toVue = (component) => {
           ? [
               `const attrs = useAttrs() as IntrinsicElementAttributes[${JSON.stringify(model.element.tag)}]`,
             ]
-          : restUsed
+          : restUsed || definedRoot
             ? ["const attrs = useAttrs() as HTMLAttributes"]
             : []),
     ...(filteredAttrs

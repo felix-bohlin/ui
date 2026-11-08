@@ -1,5 +1,6 @@
 "use client"
 
+import { defined } from "../attrs"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { SwitchInputProps as Props } from "./types.react"
 
@@ -7,6 +8,11 @@ export default function SwitchInput({ name, ...rest }: Props) {
   const field = useFieldGroupContext()
 
   return (
-    <input type="checkbox" role="switch" name={name ?? field?.name} {...rest} />
+    <input
+      type="checkbox"
+      role="switch"
+      name={name ?? field?.name}
+      {...defined(rest)}
+    />
   )
 }

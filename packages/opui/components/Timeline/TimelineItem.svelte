@@ -1,5 +1,6 @@
 <script lang="ts">
   import { content } from "../content.svelte"
+  import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { TimelineItemProps as Props } from "./types.svelte"
 
@@ -26,7 +27,7 @@
 <li
   aria-current={current === true ? "true" : current || undefined}
   {...classAttrs([color && `ui-${color}`, className])}
-  {...rest}
+  {...defined(rest)}
 >
   {#if marker}
     <span class="ui-marker">

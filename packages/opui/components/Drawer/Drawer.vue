@@ -3,6 +3,7 @@ import { computed, type HTMLAttributes, provide, reactive, useAttrs } from "vue"
 import { DrawerKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
 import { warnMissingId } from "../dev"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -13,6 +14,10 @@ const {
   side = "inline-start",
 } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const attrs = useAttrs() as HTMLAttributes
 
@@ -37,6 +42,7 @@ provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
     ]"
     :aria-labelledby="labelledBy"
     :id="id"
+    v-bind="defined(attrs)"
   >
     <slot></slot>
   </dialog>

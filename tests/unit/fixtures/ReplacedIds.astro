@@ -15,6 +15,6 @@ const { labelledby } = Astro.props
 <Drawer aria-labelledby={labelledby} id="drawer">
   <DrawerTitle id="own-title">Title</DrawerTitle>
 </Drawer>
-<Fieldset as="div" {...(labelledby ? { "aria-labelledby": labelledby } : {})}>
+<Fieldset aria-labelledby={labelledby} as="div">
   <FieldLegend id="own-legend">Shipping</FieldLegend>
 </Fieldset>

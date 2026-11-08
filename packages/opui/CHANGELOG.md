@@ -483,6 +483,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Avatar`, `Button` and `Chip` share one helper for `disabled`, `aria-disabled`, `href` and `type`, so they render those attributes the same way in every framework.
 - `Avatar` button and link avatars dim and show the not-allowed cursor when disabled.
 - `Avatar`, `Button`, `Chip` and `ListItem` link items keep the link role when disabled: they drop `href` and render `role="link"` with `aria-disabled="true"`, so a screen reader still hears a disabled link and its `aria-label` instead of plain text.
+- `Avatar`, `Button`, `ButtonGroup`, `Checkbox`, `Chip`, `Dialog`, `Drawer`, `Fieldset`, `List`, `Radio`, `Switch`, `Tabs` and `ToggleGroup` keep the attributes they set, such as `aria-labelledby`, `role` and `type`, when a caller passes the same attribute as `undefined` or `null`, as a wrapper that forwards its props does. This holds for every component in React, Svelte and Vue, and in Astro for the components that render a dynamic tag or a custom element.
 - `Badge` no longer shrinks in flex rows, so an icon with a badge in an `Accordion` summary keeps its size next to long text. A bare `img` or `svg` in the summary keeps its size too.
 - `Badge` severity colors use their own text color instead of `--ui-on-primary`, and warning badges use `--ui-on-warning`, dark text on the warning fill.
 - `Badge` and `Tabs` respect `--ui-motion` and `prefers-reduced-motion`.

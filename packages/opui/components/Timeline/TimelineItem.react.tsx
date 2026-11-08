@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { TimelineItemProps as Props } from "./types.react"
 
@@ -19,7 +20,7 @@ export default function TimelineItem({
     <li
       aria-current={current === true ? "true" : current || undefined}
       className={cx([color && `ui-${color}`, className])}
-      {...rest}
+      {...defined(rest)}
     >
       {marker && <span className="ui-marker">{marker}</span>}{" "}
       {time && <time dateTime={datetime}>{time}</time>}

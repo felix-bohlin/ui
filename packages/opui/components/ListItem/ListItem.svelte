@@ -1,6 +1,7 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { tagAttrs } from "../tag"
+  import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { Props } from "./types.svelte"
   import type { SvelteHTMLElements } from "svelte/elements"
@@ -49,7 +50,7 @@
       {...classAttrs([hasControl && `ui-${type}`])}
       for={hasControl ? htmlFor : undefined}
       {...hasControl ? {} : tagAttrs(Tag, disabled, href)}
-      {...restOnItem ? {} : (rest as object)}
+      {...defined(restOnItem ? {} : (rest as object))}
     >
       {#if start}
         <div class="ui-start">

@@ -12,6 +12,7 @@ import {
 import { TabsKey } from "./context.vue"
 import { isSelected } from "../ToggleGroup/selection"
 import { warnGroupedChecked } from "../dev"
+import { defined } from "../attrs"
 import type { TabsItemProps as Props, Slots } from "./types.vue-props"
 
 const { checked = undefined, id, name, value } = defineProps<Props>()
@@ -51,7 +52,7 @@ provide(TabsKey, reactive({ groupName, tabId }))
     :name="groupName"
     type="radio"
     :value="value"
-    v-bind="attrs"
+    v-bind="defined(attrs)"
     @change="change"
   /><slot></slot>
 </template>

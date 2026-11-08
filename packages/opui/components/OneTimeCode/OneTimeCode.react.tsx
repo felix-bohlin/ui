@@ -1,5 +1,6 @@
 "use client"
 
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
@@ -39,7 +40,7 @@ export default function OneTimeCode({
           inputMode={alphanumeric ? undefined : "numeric"}
           pattern={alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`}
           spellCheck={alphanumeric ? "false" : undefined}
-          {...rest}
+          {...defined(rest)}
           aria-invalid={error ? "true" : ariaInvalid}
           maxLength={length}
           name={name ?? field?.name}

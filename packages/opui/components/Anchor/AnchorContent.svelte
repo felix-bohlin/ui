@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getAnchorContext } from "./context.svelte"
+  import { defined } from "../attrs"
   import type { AnchorContentProps as Props } from "./types.svelte"
 
   let {
@@ -17,7 +18,7 @@
   class={["ui-floating", className]}
   id={anchor?.floatingId}
   popover={anchor?.popover}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </span>

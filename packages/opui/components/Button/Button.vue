@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { tagAttrs } from "../tag"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const { as, color, disabled, href, round, size, variant } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
 
 const Tag = computed(() => as || (href ? "a" : "button"))
 </script>
@@ -20,7 +27,7 @@ const Tag = computed(() => as || (href ? "a" : "button"))
       variant && variant !== 'transparent' && `ui-${variant}`,
       $props.class,
     ]"
-    v-bind="tagAttrs(Tag, disabled, href)"
+    v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >
     <slot></slot>
   </component>

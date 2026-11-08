@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getCalloutContext } from "./context.svelte"
   import { iconFor } from "./icons"
+  import { defined } from "../attrs"
   import { classAttrs } from "../cx"
   import type { CalloutIconProps as Props } from "./types.svelte"
 
@@ -18,7 +19,7 @@
     width="32"
     height="32"
     viewBox={icon.viewBox}
-    {...rest}
+    {...defined(rest)}
   >
     <path fill="currentColor" d={icon.d} />
   </svg>

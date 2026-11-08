@@ -22,6 +22,7 @@ import {
   byName,
   chosenSpreadCode,
   classText,
+  filtersRest,
   isBlank,
   isIdentifierName,
   REACT_ATTRIBUTE_NAMES,
@@ -153,6 +154,7 @@ export const toReact = (component) => {
       : []),
   ]
   let usesCx = false
+  let usesDefined = false
   const attribute = (node, item) => {
     if (item.kind === "class") {
       const text = classText(item.code)
@@ -161,16 +163,23 @@ export const toReact = (component) => {
       return `className={cx(${rewriteExpression(item.code, options)})}`
     }
     if (item.kind === "spread") {
+      const filtered = filtersRest(node, item, component)
+      if (filtered) usesDefined = true
       if (item.condition !== undefined) {
-        return `{...(${chosenSpreadCode(
+        const chosen = chosenSpreadCode(
           item,
           `(${item.code} as object)`,
           rewriteExpression(item.condition, options),
-        )})}`
+        )
+        return filtered ? `{...defined(${chosen})}` : `{...(${chosen})}`
       }
-      return node.variable && item.code === rest
-        ? `{...(${item.code} as object)}`
-        : `{...${rewriteExpression(item.code, options)}}`
+      if (node.variable && item.code === rest) {
+        return filtered
+          ? `{...defined(${item.code} as object)}`
+          : `{...(${item.code} as object)}`
+      }
+      const code = rewriteExpression(item.code, options)
+      return filtered ? `{...defined(${code})}` : `{...${code}}`
     }
     const name = node.component
       ? item.name
@@ -307,6 +316,7 @@ export const toReact = (component) => {
     : undefined
   const importLines = [
     ...(reactImport ? [reactImport] : []),
+    ...(usesDefined ? [`import { defined } from "../attrs"`] : []),
     ...(usesCx ? [`import { cx } from "../cx"`] : []),
     ...components
       .map((entry) => componentImport(entry, ".react"))

@@ -2,6 +2,7 @@
   import "../../elements/toaster.js"
   import { untrack } from "svelte"
   import { warnMissingId } from "../dev"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -27,7 +28,7 @@
   close-label={closeLabel}
   {duration}
   {id}
-  {...rest}
+  {...defined(rest)}
 >
   <ol popover="manual"></ol>
   <div class="ui-sr-only" role="status"></div>

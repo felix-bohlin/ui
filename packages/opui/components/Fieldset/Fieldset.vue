@@ -9,10 +9,15 @@ import {
 } from "vue"
 import { FieldsetKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const { as: Tag = "fieldset" } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const attrs = useAttrs() as HTMLAttributes
 
@@ -35,6 +40,7 @@ provide(FieldsetKey, reactive({ legendId }))
     :aria-labelledby="legendId"
     :class="['ui-fieldset', $props.class]"
     :role="isFieldset ? undefined : 'group'"
+    v-bind="defined(attrs)"
   >
     <slot></slot>
   </component>

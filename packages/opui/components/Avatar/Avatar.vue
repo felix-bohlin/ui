@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { tagAttrs } from "../tag"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const { alt, as, disabled, href, shape, size, src, variant } =
   defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
 
 const Tag = computed(() => as || (href ? "a" : "div"))
 </script>
@@ -20,7 +27,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
       variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,
     ]"
-    v-bind="tagAttrs(Tag, disabled, href)"
+    v-bind="{ ...tagAttrs(Tag, disabled, href), ...defined(attrs) }"
   >
     <img v-if="src" :src="src" :alt="alt ?? ''" />
     <slot v-else></slot>

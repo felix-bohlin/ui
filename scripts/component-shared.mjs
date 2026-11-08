@@ -52,6 +52,24 @@ export const spreads = (node, code) =>
       item.condition === undefined,
   )
 
+export const filtersRest = (node, item, component) => {
+  if (
+    node.component ||
+    item.kind !== "spread" ||
+    item.code !== component.rest
+  ) {
+    return false
+  }
+  const destructured = new Set(component.props.map(({ prop }) => prop))
+  return node.attributes
+    .slice(0, node.attributes.indexOf(item))
+    .some(
+      (entry) =>
+        entry.kind === "spread" ||
+        !destructured.has(entry.kind === "class" ? "class" : entry.name),
+    )
+}
+
 export const chosenSpreadCode = (item, spread, condition) =>
   item.negated
     ? `${condition} ? {} : ${spread}`

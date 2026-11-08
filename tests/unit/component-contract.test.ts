@@ -5,7 +5,15 @@ import { render as renderSvelte } from "svelte/server"
 import { createSSRApp, h, type Component as VueComponent } from "vue"
 import { renderToString as renderVue } from "vue/server-renderer"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { readFileSync } from "node:fs"
 import { createRenderer } from "../../scripts/build-examples.mjs"
+import { readComponent } from "../../scripts/component-reader.mjs"
+import { REACT_ATTRIBUTE_NAMES } from "../../scripts/component-shared.mjs"
+import {
+  reactPropsOf,
+  resolveReactProp,
+} from "../../scripts/example-react-props.mjs"
+import { tagAttrs } from "../../packages/opui/components/tag"
 import { slotProp } from "../../src/component-api/frameworks"
 import type { ComponentApi } from "../../src/component-api/types"
 import { frameworkProps, splitUnion } from "../../src/utils/component-source"
@@ -91,10 +99,116 @@ const propName = (framework: Framework, name: string) =>
 type Case = {
   component: string
   name: string
+  plain?: Omit<Case, "plain">
   props: Record<string, unknown>
+  reactNames?: Record<string, string>
   slots: string[]
   types: Record<Framework, Map<string, string>>
 }
+
+type TemplateNode = {
+  attributes?: { code?: string; kind: string; name?: string }[]
+  children?: TemplateNode[]
+  alternate?: TemplateNode[]
+  component?: boolean
+  consequent?: TemplateNode[]
+  custom?: boolean
+  fallback?: TemplateNode[]
+  tag?: string
+  variable?: boolean
+}
+
+const TAG_ATTRIBUTES = Object.keys({
+  ...tagAttrs("a", true, "#"),
+  ...tagAttrs("button"),
+})
+
+const UNDEFINED_CASE = "every attribute as undefined"
+
+const attributesAtRisk = async (path: string) => {
+  const file = new URL(path, import.meta.url).pathname
+  const component = await readComponent(readFileSync(file, "utf8"), file)
+  const destructured = new Set(
+    component.props.map(({ prop }: { prop: string }) => prop),
+  )
+  const names = new Map<string, string>()
+  const visit = (nodes: TemplateNode[] = []) => {
+    for (const node of nodes) {
+      const attributes = node.attributes ?? []
+      const carriesRest = attributes.some(
+        (item) => item.kind === "spread" && item.code === component.rest,
+      )
+      if (carriesRest && !node.component) {
+        for (const item of attributes) {
+          const bound =
+            item.kind === "spread"
+              ? item.code?.includes("tagAttrs(")
+                ? TAG_ATTRIBUTES
+                : []
+              : item.kind === "class" || !item.name
+                ? []
+                : [item.name]
+          for (const name of bound.filter((name) => !destructured.has(name))) {
+            names.set(
+              name,
+              REACT_ATTRIBUTE_NAMES[
+                name as keyof typeof REACT_ATTRIBUTE_NAMES
+              ] ??
+                (node.variable || node.custom
+                  ? name
+                  : (resolveReactProp(
+                      reactPropsOf(node.tag, false) ?? new Map(),
+                      name,
+                    ) ?? name)),
+            )
+          }
+        }
+      }
+      visit(node.children)
+      visit(node.consequent)
+      visit(node.alternate)
+      visit(node.fallback)
+    }
+  }
+  visit(component.tree)
+  return names
+}
+
+const AT_RISK = new Map(
+  await Promise.all(
+    astroPaths.map(
+      async (path) =>
+        [
+          path
+            .split("/")
+            .at(-1)!
+            .replace(/\.astro$/, ""),
+          await attributesAtRisk(path),
+        ] as const,
+    ),
+  ),
+)
+
+const withUndefinedAttributes = (cases: Case[]) =>
+  cases.flatMap((entry) => {
+    const names = AT_RISK.get(entry.component)
+    if (!names?.size) return [entry]
+    return [
+      entry,
+      {
+        ...entry,
+        name: `${entry.name}, ${UNDEFINED_CASE}`,
+        plain: entry,
+        props: {
+          ...Object.fromEntries(
+            [...names.keys()].map((name) => [name, undefined]),
+          ),
+          ...entry.props,
+        },
+        reactNames: Object.fromEntries(names),
+      },
+    ]
+  })
 
 const casesOf = (api: ComponentApi): Case[] => {
   const types = Object.fromEntries(
@@ -153,7 +267,9 @@ const partCasesOf = (api: ComponentApi): Case[] =>
 
 const CASES = Object.values(apis)
   .toSorted((a, b) => a.component.localeCompare(b.component, "en"))
-  .flatMap((api) => [...casesOf(api), ...partCasesOf(api)])
+  .flatMap((api) =>
+    withUndefinedAttributes([...casesOf(api), ...partCasesOf(api)]),
+  )
 
 let renderer: Awaited<ReturnType<typeof createRenderer>>
 
@@ -207,7 +323,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         props: { props },
       })
     },
-    react: async ({ component, props, slots, types }) => {
+    react: async ({ component, props, reactNames, slots, types }) => {
       const load = loaderOf(reactComponents, component)
       if (!load) return undefined
       const { default: Component } = await load()
@@ -216,7 +332,7 @@ const render: Record<Framework, (entry: Case) => Promise<string | undefined>> =
         createElement(Component, {
           ...Object.fromEntries(
             Object.entries(props).map(([key, value]) => [
-              propName("react", key),
+              reactNames?.[key] ?? propName("react", key),
               value,
             ]),
           ),
@@ -290,6 +406,15 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
     const expected = await render.astro(entry)
     if (expected === undefined) return
     const reference = normalize(expected)
+    if (entry.plain) {
+      const plain = await render.astro(entry.plain)
+      expect
+        .soft(
+          reference,
+          `${entry.component} with ${entry.name}: astro drops an attribute the component sets. An attribute a caller passes as undefined or null never removes an attribute the component sets, in any framework: filter the spread with defined() from attrs.ts`,
+        )
+        .toBe(normalize(plain!))
+    }
     expect
       .soft(
         emptyClass(expected),
@@ -318,7 +443,9 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       expect
         .soft(
           normalize(actual),
-          `${entry.component} with ${entry.name}: ${framework} differs from Astro`,
+          entry.plain
+            ? `${entry.component} with ${entry.name}: ${framework} differs from Astro. An attribute a caller passes as undefined or null never removes an attribute the component sets, in any framework: the compiler filters a rest spread that follows an attribute with defined() from attrs.ts`
+            : `${entry.component} with ${entry.name}: ${framework} differs from Astro`,
         )
         .toBe(reference)
     }

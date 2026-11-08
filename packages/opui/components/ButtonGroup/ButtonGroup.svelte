@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -26,7 +27,7 @@
     className,
   ]}
   role="group"
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </div>

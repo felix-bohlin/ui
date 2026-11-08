@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -19,7 +20,7 @@ export default function List({
         className,
       ])}
       role="list"
-      {...rest}
+      {...defined(rest)}
     >
       {children}
     </ul>

@@ -1,5 +1,6 @@
 "use client"
 
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { mergeStyle } from "../style"
 import type { Props } from "./types.react"
@@ -84,7 +85,7 @@ export default function Rating({
         style ?? {},
       )}
       value={value ?? defaultValue ?? 0}
-      {...rest}
+      {...defined(rest)}
     />
   )
 }

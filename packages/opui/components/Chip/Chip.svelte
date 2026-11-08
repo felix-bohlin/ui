@@ -1,6 +1,7 @@
 <script lang="ts">
   import { content } from "../content.svelte"
   import { tagAttrs } from "../tag"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -35,7 +36,7 @@
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}
-  {...rest}
+  {...defined(rest)}
 >
   {@render start?.()}{#if label}
     <span class="ui-text">

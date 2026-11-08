@@ -1,5 +1,6 @@
 "use client"
 
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { useCalloutContext } from "./context.react"
 import { iconFor } from "./icons"
@@ -18,7 +19,7 @@ export default function CalloutIcon({ className, ...rest }: Props) {
         width="32"
         height="32"
         viewBox={icon.viewBox}
-        {...rest}
+        {...defined(rest)}
       >
         <path fill="currentColor" d={icon.d} />
       </svg>

@@ -7,6 +7,7 @@ import {
 } from "vue"
 import { vSeed } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { RadioInputProps as Props } from "./types.vue-props"
 
@@ -42,7 +43,7 @@ const field = inject(FieldGroupKey, undefined)
   <input
     type="radio"
     :name="name ?? field?.name"
-    v-bind="{ ...attrs, ...classAttrs($props.class) }"
+    v-bind="{ ...defined(attrs), ...classAttrs($props.class) }"
     :value="attrs.value"
     v-seed
     v-model="model"

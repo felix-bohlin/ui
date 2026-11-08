@@ -1,6 +1,7 @@
 "use client"
 
 import { useId } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { TabsContext, useTabsContext } from "./context.react"
 import { isSelected } from "../ToggleGroup/selection"
@@ -35,7 +36,7 @@ export default function TabsItem({
         name={groupName}
         type="radio"
         value={value}
-        {...rest}
+        {...defined(rest)}
         onChange={(event) => {
           parent?.change?.(event.currentTarget)
           onChange?.(event)

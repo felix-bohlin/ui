@@ -1,5 +1,6 @@
 "use client"
 
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { DrawerContext } from "./context.react"
 import { autoLabelledBy } from "../id"
@@ -34,7 +35,7 @@ export default function Drawer({
         ])}
         aria-labelledby={labelledBy}
         id={id}
-        {...rest}
+        {...defined(rest)}
       >
         {children}
       </dialog>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
@@ -30,7 +31,7 @@ export default function Toaster({
       close-label={closeLabel}
       duration={duration}
       id={id}
-      {...rest}
+      {...defined(rest)}
     >
       <ol
         popover="manual"

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { setFieldsetContext } from "./context.svelte"
   import { autoLabelledBy } from "../id"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -31,7 +32,7 @@
   aria-labelledby={legendId}
   class={["ui-fieldset", className]}
   role={isFieldset ? undefined : "group"}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </svelte:element>

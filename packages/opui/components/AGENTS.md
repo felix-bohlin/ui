@@ -123,6 +123,7 @@ Slots are props: the default slot is `children`, named slots are camelCased `Rea
 ### Key Rules:
 
 - **REST Support**: Native attributes come from `HTMLAttributes` in `types.astro.ts` and the other framework type files, never from `types.ts`. `pnpm check-components` checks the `...rest` spread and fails on an index signature such as `[key: string]: any`.
+- **Undefined attributes**: an attribute a caller passes as `undefined` or `null` never removes an attribute the component sets, in any framework. `tests/unit/component-contract.test.ts` renders every case again with them and says how to keep the attribute.
 
 ---
 

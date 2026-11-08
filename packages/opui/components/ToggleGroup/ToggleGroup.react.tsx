@@ -1,6 +1,7 @@
 "use client"
 
 import { useId, useState } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
 import { selectionOf } from "./selection"
@@ -44,7 +45,7 @@ export default function ToggleGroup({
           className,
         ])}
         role={multiple ? "group" : "radiogroup"}
-        {...rest}
+        {...defined(rest)}
       >
         {children}
       </div>

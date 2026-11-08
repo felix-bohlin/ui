@@ -2,6 +2,7 @@
 import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { tagAttrs } from "../tag"
+import { defined } from "../attrs"
 import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
@@ -57,7 +58,7 @@ const hasDescription = () => !!description || slots.description
       :for="hasControl ? htmlFor : undefined"
       v-bind="{
         ...(hasControl ? {} : tagAttrs(Tag, disabled, href)),
-        ...(restOnItem ? {} : attrs),
+        ...defined(restOnItem ? {} : attrs),
         ...classAttrs([hasControl && `ui-${type}`]),
       }"
       ><div v-if="$slots.start" class="ui-start">

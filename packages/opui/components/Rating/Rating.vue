@@ -2,6 +2,7 @@
 import { computed, type HTMLAttributes, useAttrs } from "vue"
 import { vSeed } from "../vue"
 import { mergeStyle } from "../style"
+import { defined } from "../attrs"
 import type { Props } from "./types.vue-props"
 
 const {
@@ -98,6 +99,6 @@ const invalid = computed(() => (error ? "true" : attrs["aria-invalid"]))
     :max="max"
     :style="mergeStyle({ '--_max': count === 5 ? undefined : count }, {})"
     :value="model ?? 0"
-    v-bind="restAttrs"
+    v-bind="defined(restAttrs)"
   ></meter>
 </template>

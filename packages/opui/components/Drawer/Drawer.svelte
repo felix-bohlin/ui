@@ -3,6 +3,7 @@
   import { setDrawerContext } from "./context.svelte"
   import { autoLabelledBy } from "../id"
   import { warnMissingId } from "../dev"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -43,7 +44,7 @@
   ]}
   aria-labelledby={labelledBy}
   {id}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </dialog>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useId } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { DialogContext } from "./context.react"
 import { autoLabelledBy } from "../id"
@@ -22,7 +23,7 @@ export default function Dialog({
         aria-labelledby={labelledBy}
         className={cx(["ui-dialog", "ui-elevated", className])}
         closedby={closedby}
-        {...rest}
+        {...defined(rest)}
       >
         {children}
       </dialog>

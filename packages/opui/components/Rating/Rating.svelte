@@ -2,6 +2,7 @@
   import { untrack } from "svelte"
   import { seedChecked } from "../svelte"
   import { mergeStyle } from "../style"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -84,6 +85,6 @@
     {max}
     style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
     value={value ?? 0}
-    {...rest}
+    {...defined(rest)}
   ></meter>
 {/if}

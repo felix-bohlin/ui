@@ -153,7 +153,7 @@ const replacedIds: Record<
         ),
         createElement(
           FieldsetReact,
-          { as: "div", ...(labelledby && { "aria-labelledby": labelledby }) },
+          { "aria-labelledby": labelledby, as: "div" },
           createElement(FieldLegendReact, { id: "own-legend" }, "Shipping"),
         ),
       ),
@@ -168,10 +168,8 @@ const replacedIds: Record<
         h(DrawerVue, { "aria-labelledby": labelledby, id: "drawer" }, () =>
           h(DrawerTitleVue, { id: "own-title" }, () => "Title"),
         ),
-        h(
-          FieldsetVue,
-          { as: "div", ...(labelledby && { "aria-labelledby": labelledby }) },
-          () => h(FieldLegendVue, { id: "own-legend" }, () => "Shipping"),
+        h(FieldsetVue, { "aria-labelledby": labelledby, as: "div" }, () =>
+          h(FieldLegendVue, { id: "own-legend" }, () => "Shipping"),
         ),
       ],
     }),
@@ -185,12 +183,11 @@ describe("DialogTitle, DrawerTitle and FieldLegend ids", () => {
       expect(html).not.toContain('id="own-dialog-title"')
       expect(html).not.toContain('id="own-title"')
       expect(html).not.toContain('id="own-legend"')
-      const labelledby = html.match(
-        /role="group"[^>]*aria-labelledby="([^"]+)"|aria-labelledby="([^"]+)"[^>]*role="group"/,
+      const references = [...html.matchAll(/aria-labelledby="([^"]+)"/g)].map(
+        ([, id]) => id,
       )
-      const legendId = labelledby?.[1] ?? labelledby?.[2]
-      expect(legendId).toBeTruthy()
-      expect(html).toMatch(new RegExp(`<legend[^>]*id="${legendId}"`))
+      expect(references).toHaveLength(3)
+      for (const id of references) expect(html).toContain(`id="${id}"`)
       expect(warnings()).toEqual([
         "[OPUI DialogTitle] `id` is replaced by the dialog's generated id; pass `aria-labelledby` on the Dialog to keep it.",
         "[OPUI DrawerTitle] `id` is replaced by the drawer's generated id; pass `aria-labelledby` on the Drawer to keep it.",

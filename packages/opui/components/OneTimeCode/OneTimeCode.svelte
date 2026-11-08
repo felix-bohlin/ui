@@ -2,6 +2,7 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -53,7 +54,7 @@
       inputmode={alphanumeric ? undefined : "numeric"}
       pattern={alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`}
       spellcheck={alphanumeric ? "false" : undefined}
-      {...rest}
+      {...defined(rest)}
       aria-invalid={error ? "true" : ariaInvalid}
       maxlength={length}
       name={name ?? field?.name}

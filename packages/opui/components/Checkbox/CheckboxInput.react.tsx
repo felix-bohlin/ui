@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { defined } from "../attrs"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { CheckboxInputProps as Props } from "./types.react"
 
@@ -15,7 +16,7 @@ export default function CheckboxInput({ indeterminate, name, ...rest }: Props) {
       type="checkbox"
       data-indeterminate={indeterminate ? "" : undefined}
       name={name ?? field?.name}
-      {...rest}
+      {...defined(rest)}
     />
   )
 }

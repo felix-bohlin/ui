@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
@@ -24,7 +25,7 @@ export default function Copy({
       copied-label={copiedLabel}
       failed-label={failedLabel}
       id={id}
-      {...rest}
+      {...defined(rest)}
     >
       {children}{" "}
       <span

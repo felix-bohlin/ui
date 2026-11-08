@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../../elements/sortable-table.js"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -17,7 +18,7 @@
   ascending-label={ascendingLabel}
   class={["ui-sortable-table", className]}
   descending-label={descendingLabel}
-  {...rest}
+  {...defined(rest)}
 >
   {@render children?.()}
 </opui-sortable-table>

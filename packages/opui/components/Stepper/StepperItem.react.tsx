@@ -1,3 +1,4 @@
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import type { StepperItemProps as Props } from "./types.react"
 
@@ -24,7 +25,7 @@ export default function StepperItem({
         { "ui-complete": complete, "ui-error": error },
         className,
       ])}
-      {...rest}
+      {...defined(rest)}
     >
       {iconChecked && (
         <span aria-hidden="true" className="ui-icon-checked">

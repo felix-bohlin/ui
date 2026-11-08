@@ -2,6 +2,7 @@
   import { untrack } from "svelte"
   import { toggleInGroup } from "../group"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { defined } from "../attrs"
   import type { SwitchInputProps as Props } from "./types.svelte"
 
   let {
@@ -27,7 +28,7 @@
   type="checkbox"
   role="switch"
   name={name ?? field?.name}
-  {...rest}
+  {...defined(rest)}
   bind:checked={getChecked, setChecked}
   defaultChecked={defaultChecked ?? initialChecked}
   {value}

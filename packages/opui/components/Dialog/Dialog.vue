@@ -9,10 +9,15 @@ import {
 } from "vue"
 import { DialogKey } from "./context.vue"
 import { autoLabelledBy } from "../id"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const { closedby } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const attrs = useAttrs() as HTMLAttributes
 
@@ -33,6 +38,7 @@ provide(
     :aria-labelledby="labelledBy"
     :class="['ui-dialog', 'ui-elevated', $props.class]"
     :closedby="closedby"
+    v-bind="defined(attrs)"
   >
     <slot></slot>
   </dialog>

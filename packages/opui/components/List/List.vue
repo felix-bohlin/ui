@@ -1,8 +1,16 @@
 <script setup lang="ts">
+import { type HTMLAttributes, useAttrs } from "vue"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const { bordered, dense, flush, variant } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
 </script>
 
 <template>
@@ -14,6 +22,7 @@ defineSlots<Slots>()
       $props.class,
     ]"
     role="list"
+    v-bind="defined(attrs)"
   >
     <slot></slot>
   </ul>

@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import "../../elements/sortable-table.js"
+import { type HTMLAttributes, useAttrs } from "vue"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const { ascendingLabel, descendingLabel } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
 </script>
 
 <template>
@@ -12,6 +20,7 @@ defineSlots<Slots>()
     :ascending-label="ascendingLabel"
     :class="['ui-sortable-table', $props.class]"
     :descending-label="descendingLabel"
+    v-bind="defined(attrs)"
   >
     <slot></slot>
   </component>

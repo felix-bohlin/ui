@@ -5,15 +5,15 @@ import { warnReplacedId } from "../dev"
 import { fieldsetContext } from "../Fieldset/context.astro"
 export const title = "Field Legend"
 
-const { as: Tag = "legend", class: className, ...rest } = Astro.props
+const { as: Tag = "legend", class: className, id, ...rest } = Astro.props
 const isLegend = Tag === "legend"
 const fieldset = fieldsetContext.get()
-warnReplacedId("FieldLegend", "Fieldset", rest.id, fieldset?.legendId)
+warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
 ---
 
 <Tag
   class={cx([{ "ui-legend": !isLegend }, className])}
   {...rest}
-  id={fieldset?.legendId ?? rest.id}
+  id={fieldset?.legendId ?? id}
   ><slot
 /></Tag>

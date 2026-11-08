@@ -8,6 +8,7 @@
   let {
     as: Tag = "legend",
     class: className,
+    id,
 
     // Snippets
     children,
@@ -17,7 +18,7 @@
   const fieldset = getFieldsetContext()
   const isLegend = $derived(Tag === "legend")
   untrack(() =>
-    warnReplacedId("FieldLegend", "Fieldset", rest.id, fieldset?.legendId),
+    warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId),
   )
 </script>
 
@@ -25,7 +26,7 @@
   this={Tag}
   {...classAttrs([{ "ui-legend": !isLegend }, className])}
   {...rest}
-  id={fieldset?.legendId ?? rest.id}
+  id={fieldset?.legendId ?? id}
 >
   {@render children?.()}
 </svelte:element>

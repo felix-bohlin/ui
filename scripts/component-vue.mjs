@@ -296,6 +296,18 @@ export const toVue = (component) => {
       return `${item.name}=${JSON.stringify(item.value)}`
     }
     if (item.kind === "boolean") return item.name
+    if (
+      rest &&
+      rootElements.includes(node) &&
+      !(attrsOnInner || explicitAttrs || filteredAttrs) &&
+      identifiersIn(item.code).has(rest)
+    ) {
+      throw unsupported(
+        component.file,
+        `the attribute \`${item.name}\` on the root element, which reads \`${rest}\``,
+        "Vue merges the attributes that fall through after it, so the caller's value wins: destructure the prop in the Astro file",
+      )
+    }
     return `:${item.name}="${rewriteExpression(item.code, scope)}"`
   }
   const directive = (nodes, name, test, scope) => {

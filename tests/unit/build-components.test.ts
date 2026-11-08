@@ -1110,6 +1110,19 @@ describe("the three ports of a sample", () => {
     ).toContain("the const `$id`, whose `$` prefix Svelte reserves")
   })
 
+  test("refuses a root attribute that reads rest for Vue only, whose attributes fall through after it", async () => {
+    const result = await compileComponent(
+      astro('<div {...rest} id={rest.id ?? "sample"}><slot /></div>'),
+      sampleFile(),
+    )
+    expect([...result.refused.keys()]).toEqual([
+      sampleFile().replace(".astro", ".vue"),
+    ])
+    expect(
+      result.refused.get(sampleFile().replace(".astro", ".vue"))?.message,
+    ).toContain("the attribute `id` on the root element, which reads `rest`")
+  })
+
   test("refuses an import named like a prop the Svelte model adds", async () => {
     const result = await compileComponent(
       '---\nimport type { Props } from "./types.astro"\nimport { defaultValue } from "./value"\n\nconst { class: className, ...rest } = Astro.props\n---\n\n<label class:list={["ui-sample", className]} data-middle={defaultValue}>\n  <textarea {...rest} />\n</label>\n',
@@ -1321,6 +1334,22 @@ describe("toTypes", () => {
     )
     expect(vue).toContain(
       'import type { IntrinsicElementAttributes } from "vue"',
+    )
+  })
+
+  test("an HTML attribute a component with several elements reads becomes a Vue prop of each element's type", () => {
+    const { vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props =\n  | (Base.Props & { as?: "legend" } & HTMLAttributes<"legend">)\n  | (Base.Props & { as: "p" } & HTMLAttributes<"p">)\n',
+        base: "export type Props = {}\n",
+      },
+      { Sample: ["default"] },
+      { Sample: ["as", "id"] },
+    )
+    expect(vue).toContain(
+      'id?: IntrinsicElementAttributes["legend"]["id"] | IntrinsicElementAttributes["p"]["id"]',
     )
   })
 

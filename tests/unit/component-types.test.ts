@@ -7,6 +7,7 @@ import type * as AvatarVue from "../../packages/opui/components/Avatar/types.vue
 import type * as BadgeReact from "../../packages/opui/components/Badge/types.react"
 import type * as BadgeSvelte from "../../packages/opui/components/Badge/types.svelte"
 import type * as BadgeVue from "../../packages/opui/components/Badge/types.vue-props"
+import type * as FieldLegendVue from "../../packages/opui/components/FieldLegend/types.vue-props"
 import type * as NumberFieldReact from "../../packages/opui/components/NumberField/types.react"
 import type * as NumberFieldVue from "../../packages/opui/components/NumberField/types.vue-props"
 import type * as RangeReact from "../../packages/opui/components/Range/types.react"
@@ -169,4 +170,11 @@ test("an attribute the base props require stays in React and falls through to th
   expectTypeOf<AvatarVue.AvatarGroupProps>().not.toHaveProperty(
     "aria-labelledby",
   )
+})
+
+test("an attribute a component with several elements reads takes each element's type in Vue", () => {
+  expectTypeOf<FieldLegendVue.Props["id"]>().toEqualTypeOf<
+    | IntrinsicElementAttributes["legend"]["id"]
+    | IntrinsicElementAttributes["p"]["id"]
+  >()
 })

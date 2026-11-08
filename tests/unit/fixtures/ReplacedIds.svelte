@@ -3,6 +3,8 @@
   import DialogTitle from "../../../packages/opui/components/Dialog/DialogTitle.svelte"
   import Drawer from "../../../packages/opui/components/Drawer/Drawer.svelte"
   import DrawerTitle from "../../../packages/opui/components/Drawer/DrawerTitle.svelte"
+  import FieldLegend from "../../../packages/opui/components/FieldLegend/FieldLegend.svelte"
+  import Fieldset from "../../../packages/opui/components/Fieldset/Fieldset.svelte"
 
   let { labelledby }: { labelledby?: string } = $props()
 </script>
@@ -13,3 +15,6 @@
 <Drawer aria-labelledby={labelledby} id="drawer">
   <DrawerTitle id="own-title">Title</DrawerTitle>
 </Drawer>
+<Fieldset as="div" {...labelledby ? { "aria-labelledby": labelledby } : {}}>
+  <FieldLegend id="own-legend">Shipping</FieldLegend>
+</Fieldset>

@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes, inject, useAttrs } from "vue"
+import { computed, inject } from "vue"
 import { FieldsetKey } from "../Fieldset/context.vue"
 import { warnReplacedId } from "../dev"
 import { classAttrs } from "../cx"
 import type { Props, Slots } from "./types.vue-props"
 
-const { as: Tag = "legend" } = defineProps<Props>()
+const { as: Tag = "legend", id } = defineProps<Props>()
 defineSlots<Slots>()
-
-const attrs = useAttrs() as HTMLAttributes
 
 const fieldset = inject(FieldsetKey, undefined)
 
 const isLegend = computed(() => Tag === "legend")
 
-warnReplacedId("FieldLegend", "Fieldset", attrs.id, fieldset?.legendId)
+warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
 </script>
 
 <template>
   <component
     :is="Tag"
     v-bind="classAttrs([{ 'ui-legend': !isLegend }, $props.class])"
-    :id="fieldset?.legendId ?? attrs.id"
+    :id="fieldset?.legendId ?? id"
   >
     <slot></slot>
   </component>

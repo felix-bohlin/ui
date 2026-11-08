@@ -659,17 +659,22 @@ export const toTypes = (
     const elements = elementsOf(node.type)
     if (
       extras.some((prop) => prop !== modelled?.prop) &&
-      elements.length !== 1
+      elements.length === 0
     ) {
       throw unsupported(
         file,
-        `the prop ${extras[0]} of ${component}, which the Vue types can't take from ${elements.length} elements`,
+        `the prop ${extras[0]} of ${component}, which the Vue types can't take from no element`,
       )
     }
     return extras.map((prop) =>
       modelled?.prop === prop
         ? `${propKey(prop)}?: ${modelled.type}`
-        : `${propKey(prop)}?: IntrinsicElementAttributes[${JSON.stringify(elements[0])}][${JSON.stringify(prop)}]`,
+        : `${propKey(prop)}?: ${elements
+            .map(
+              (element) =>
+                `IntrinsicElementAttributes[${JSON.stringify(element)}][${JSON.stringify(prop)}]`,
+            )
+            .join(" | ")}`,
     )
   }
   const extrasByAlias = new Map(

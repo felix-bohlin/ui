@@ -3,6 +3,8 @@ import Dialog from "../../../packages/opui/components/Dialog/Dialog.astro"
 import DialogTitle from "../../../packages/opui/components/Dialog/DialogTitle.astro"
 import Drawer from "../../../packages/opui/components/Drawer/Drawer.astro"
 import DrawerTitle from "../../../packages/opui/components/Drawer/DrawerTitle.astro"
+import FieldLegend from "../../../packages/opui/components/FieldLegend/FieldLegend.astro"
+import Fieldset from "../../../packages/opui/components/Fieldset/Fieldset.astro"
 
 const { labelledby } = Astro.props
 ---
@@ -13,3 +15,6 @@ const { labelledby } = Astro.props
 <Drawer aria-labelledby={labelledby} id="drawer">
   <DrawerTitle id="own-title">Title</DrawerTitle>
 </Drawer>
+<Fieldset as="div" {...(labelledby ? { "aria-labelledby": labelledby } : {})}>
+  <FieldLegend id="own-legend">Shipping</FieldLegend>
+</Fieldset>

@@ -8,19 +8,20 @@ import type { Props } from "./types.react"
 export default function FieldLegend({
   as,
   className,
+  id,
   children,
   ...rest
 }: Props) {
   const fieldset = useFieldsetContext()
   const Tag = as || "legend"
   const isLegend = Tag === "legend"
-  warnReplacedId("FieldLegend", "Fieldset", rest.id, fieldset?.legendId)
+  warnReplacedId("FieldLegend", "Fieldset", id, fieldset?.legendId)
 
   return (
     <Tag
       className={cx([{ "ui-legend": !isLegend }, className])}
       {...(rest as object)}
-      id={fieldset?.legendId ?? rest.id}
+      id={fieldset?.legendId ?? id}
     >
       {children}
     </Tag>

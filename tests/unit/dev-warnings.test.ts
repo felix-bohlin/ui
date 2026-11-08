@@ -18,6 +18,10 @@ import DrawerReact from "../../packages/opui/components/Drawer/Drawer.react"
 import DrawerVue from "../../packages/opui/components/Drawer/Drawer.vue"
 import DrawerTitleReact from "../../packages/opui/components/Drawer/DrawerTitle.react"
 import DrawerTitleVue from "../../packages/opui/components/Drawer/DrawerTitle.vue"
+import FieldLegendReact from "../../packages/opui/components/FieldLegend/FieldLegend.react"
+import FieldLegendVue from "../../packages/opui/components/FieldLegend/FieldLegend.vue"
+import FieldsetReact from "../../packages/opui/components/Fieldset/Fieldset.react"
+import FieldsetVue from "../../packages/opui/components/Fieldset/Fieldset.vue"
 import RadioAstro from "../../packages/opui/components/Radio/Radio.astro"
 import RadioReact from "../../packages/opui/components/Radio/Radio.react"
 import RadioSvelte from "../../packages/opui/components/Radio/Radio.svelte"
@@ -147,6 +151,11 @@ const replacedIds: Record<
           { "aria-labelledby": labelledby, id: "drawer" },
           createElement(DrawerTitleReact, { id: "own-title" }, "Title"),
         ),
+        createElement(
+          FieldsetReact,
+          { as: "div", ...(labelledby && { "aria-labelledby": labelledby }) },
+          createElement(FieldLegendReact, { id: "own-legend" }, "Shipping"),
+        ),
       ),
     ),
   svelte: (labelledby) => render.svelte(ReplacedIdsSvelte, { labelledby }),
@@ -159,20 +168,33 @@ const replacedIds: Record<
         h(DrawerVue, { "aria-labelledby": labelledby, id: "drawer" }, () =>
           h(DrawerTitleVue, { id: "own-title" }, () => "Title"),
         ),
+        h(
+          FieldsetVue,
+          { as: "div", ...(labelledby && { "aria-labelledby": labelledby }) },
+          () => h(FieldLegendVue, { id: "own-legend" }, () => "Shipping"),
+        ),
       ],
     }),
 }
 
-describe("DialogTitle and DrawerTitle ids", () => {
+describe("DialogTitle, DrawerTitle and FieldLegend ids", () => {
   test.each(FRAMEWORKS)(
     "%s replaces an own id with the generated one and warns",
     async (framework) => {
       const html = await replacedIds[framework]()
       expect(html).not.toContain('id="own-dialog-title"')
       expect(html).not.toContain('id="own-title"')
+      expect(html).not.toContain('id="own-legend"')
+      const labelledby = html.match(
+        /role="group"[^>]*aria-labelledby="([^"]+)"|aria-labelledby="([^"]+)"[^>]*role="group"/,
+      )
+      const legendId = labelledby?.[1] ?? labelledby?.[2]
+      expect(legendId).toBeTruthy()
+      expect(html).toMatch(new RegExp(`<legend[^>]*id="${legendId}"`))
       expect(warnings()).toEqual([
         "[OPUI DialogTitle] `id` is replaced by the dialog's generated id; pass `aria-labelledby` on the Dialog to keep it.",
         "[OPUI DrawerTitle] `id` is replaced by the drawer's generated id; pass `aria-labelledby` on the Drawer to keep it.",
+        "[OPUI FieldLegend] `id` is replaced by the fieldset's generated id; pass `aria-labelledby` on the Fieldset to keep it.",
       ])
     },
   )
@@ -183,6 +205,7 @@ describe("DialogTitle and DrawerTitle ids", () => {
       const html = await replacedIds[framework]("own-dialog-title")
       expect(html).toContain('id="own-dialog-title"')
       expect(html).toContain('id="own-title"')
+      expect(html).toContain('id="own-legend"')
       expect(warnings()).toEqual([])
     },
   )

@@ -457,8 +457,8 @@ export const whatsNew = {
   ],
   command: [
     {
-      default: `New component. A <a href="#basics">command</a> filters a list of links and actions as you type, on its own or as a <a href="#palette">palette</a> in a dialog, run by the <code>&lt;opui-command&gt;</code> custom element, which the component loads. Options match their <a href="#keywords"><code>data-keywords</code></a> too, and <a href="#custom-filtering"><code>filter="none"</code></a> leaves the filtering to your code.`,
-      html: `New component. A <a href="#basics">command</a> filters a list of links and actions as you type, on its own or as a <a href="#palette">palette</a> in a dialog. Import <code>opui-css/elements/command.js</code> for the <code>&lt;opui-command&gt;</code> custom element that runs it. Options match their <a href="#keywords"><code>data-keywords</code></a> too, and <a href="#custom-filtering"><code>filter="none"</code></a> leaves the filtering to your code.`,
+      default: `New component. A <a href="#basics">command</a> filters a list of links and actions as you type, on its own or as a <a href="#palette">palette</a> in a dialog, run by the <code>&lt;opui-command&gt;</code> custom element, which the component loads. The words that match are underlined. Options match their <a href="#keywords"><code>data-keywords</code></a> too, and <a href="#custom-filtering"><code>filter="none"</code></a> leaves the filtering to your code.`,
+      html: `New component. A <a href="#basics">command</a> filters a list of links and actions as you type, on its own or as a <a href="#palette">palette</a> in a dialog. Import <code>opui-css/elements/command.js</code> for the <code>&lt;opui-command&gt;</code> custom element that runs it. The words that match are underlined. Options match their <a href="#keywords"><code>data-keywords</code></a> too, and <a href="#custom-filtering"><code>filter="none"</code></a> leaves the filtering to your code.`,
     },
   ],
   copy: [

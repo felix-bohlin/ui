@@ -42,6 +42,7 @@ export const keywords = [
     "dialog-closedby",
     "dir-pseudo",
     "has",
+    "highlight",
     "invoker-commands",
     "overflow-clip",
     "relative-color",
@@ -114,9 +115,9 @@ export const keywords = [
           >ListItem</code
         >s with <code>href</code> or <code>as="button"</code>. The input needs
         an <code>aria-label</code>. Typing hides the options that don't hold
-        every word and the groups left empty, and selects the first match. Up
-        and Down move the selection, and Enter follows the link or presses the
-        button.
+        every word and the groups left empty, underlines the words that match,
+        and selects the first match. Up and Down move the selection, and Enter
+        follows the link or presses the button.
       </p>
       <p slot="html">
         Put a <code>.ui-header</code> with an <code>input</code> and a <code
@@ -127,8 +128,9 @@ export const keywords = [
           >opui-css/elements/command.js</code
         >. Each group is a label and a <code>ul.ui-list.ui-transparent</code> of list
         items with a link or a button. Typing hides the options that don't hold every
-        word and the groups left empty, and selects the first match. Up and Down move
-        the selection, and Enter follows the link or presses the button.
+        word and the groups left empty, underlines the words that match, and selects
+        the first match. Up and Down move the selection, and Enter follows the link
+        or presses the button.
       </p>
     </Conditional>
     <p>
@@ -180,9 +182,9 @@ export const keywords = [
     <p>
       With <code>filter="none"</code>, the element leaves the options alone, so
       your code can render the ones that match, from a search index or a server.
-      The arrow keys, Enter, the roles and the empty label still work, and the
-      first option is selected whenever the list changes. This docs site's
-      search works this way.
+      The arrow keys, Enter, the roles and the empty label still work, but
+      nothing is underlined, and the first option is selected whenever the list
+      changes. This docs site's search works this way.
     </p>
   </section>
 

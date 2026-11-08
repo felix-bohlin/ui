@@ -77,6 +77,7 @@ export const patterns = [
   { id: "exp-functions", pattern: /\b(?:exp|hypot|log|pow|sqrt)\(/ },
   { id: "field-sizing", pattern: /field-sizing:/ },
   { id: "has", pattern: /:has\(/ },
+  { id: "highlight", pattern: /::highlight\(/ },
   {
     id: "interest-invokers",
     pattern: /\binterest-delay(?:-end|-start)?:|:interest-(?:source|target)\b/,

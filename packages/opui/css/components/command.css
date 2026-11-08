@@ -1,4 +1,10 @@
 @layer components.root {
+  ::highlight(opui-command-match) {
+    color: var(--ui-primary-text);
+    text-decoration-line: underline;
+    text-underline-offset: var(--ui-underline-offset);
+  }
+
   :where(.ui-command) {
     --_max-block-size: 20rem;
     --_radius: var(--ui-radius);

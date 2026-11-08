@@ -1295,6 +1295,13 @@ test("the data-table block selects and sorts its rows together", async ({
   await expect(all).not.toBeChecked()
   await expect(all).toHaveJSProperty("indeterminate", true)
 })
+const commandMatches = (input: Locator) =>
+  input.evaluate(() =>
+    [...(CSS.highlights.get("opui-command-match") ?? [])].map((range) =>
+      range.toString(),
+    ),
+  )
+
 const activeOption = (input: Locator) =>
   input.evaluate((element) => {
     const id = element.getAttribute("aria-activedescendant")
@@ -1332,12 +1339,14 @@ interaction(
     await expect(root.getByRole("group")).toHaveCount(1)
     await expect(input).toHaveAttribute("aria-expanded", "true")
     await expect.poll(() => activeOption(input)).toBe("Settings")
+    await expect.poll(() => commandMatches(input)).toEqual(["Set"])
     await input.press("Enter")
     await expect(input).toBeFocused()
 
     await input.fill("")
     await expect(options).toHaveCount(6)
     await expect.poll(() => activeOption(input)).toBe("New file")
+    await expect.poll(() => commandMatches(input)).toEqual([])
   },
 )
 

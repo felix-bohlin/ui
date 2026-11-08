@@ -15,6 +15,47 @@ const ensureId = (element) => {
   return element.id
 }
 
+const MATCH = "opui-command-match"
+
+const matches = new Map()
+
+const paintMatches = () => {
+  if (!globalThis.CSS?.highlights) return
+  const ranges = [...matches.values()].flat()
+  if (ranges.length === 0) CSS.highlights.delete(MATCH)
+  else CSS.highlights.set(MATCH, new Highlight(...ranges))
+}
+
+const textRanges = (node, words) => {
+  let folded = ""
+  const starts = []
+  const ends = []
+  let offset = 0
+  for (const char of node.data) {
+    const part = normalize(char)
+    for (let index = 0; index < part.length; index++) {
+      starts.push(offset)
+      ends.push(offset + char.length)
+    }
+    folded += part
+    offset += char.length
+  }
+  const ranges = []
+  for (const word of words) {
+    for (
+      let index = folded.indexOf(word);
+      index !== -1;
+      index = folded.indexOf(word, index + word.length)
+    ) {
+      const range = new Range()
+      range.setStart(node, starts[index])
+      range.setEnd(node, ends[index + word.length - 1])
+      ranges.push(range)
+    }
+  }
+  return ranges
+}
+
 export class Command extends Base {
   static observedAttributes = ["empty-label", "filter"]
 
@@ -93,6 +134,7 @@ export class Command extends Base {
   disconnectedCallback() {
     this.#controller?.abort()
     this.#observer?.disconnect()
+    if (matches.delete(this)) paintMatches()
   }
 
   attributeChangedCallback() {
@@ -168,8 +210,9 @@ export class Command extends Base {
     const list = this.list
     if (!list) return
     const query = input?.value.trim() ?? ""
-    if (this.getAttribute("filter") !== "none") {
-      const words = normalize(query).split(/\s+/).filter(Boolean)
+    const filters = this.getAttribute("filter") !== "none"
+    const words = filters ? normalize(query).split(/\s+/).filter(Boolean) : []
+    if (filters) {
       for (const option of list.querySelectorAll(OPTION)) {
         const text = normalize(
           `${option.textContent} ${option.dataset.keywords ?? ""}`,
@@ -184,6 +227,7 @@ export class Command extends Base {
       }
     }
     const options = this.options
+    this.#highlight(options, words)
     this.setActive(
       !reset && options.includes(this.activeOption)
         ? this.activeOption
@@ -196,6 +240,25 @@ export class Command extends Base {
         ? (this.getAttribute("empty-label") ?? "No results")
         : ""
     if (status && status.textContent !== empty) status.textContent = empty
+  }
+
+  #highlight(options, words) {
+    if (!globalThis.CSS?.highlights) return
+    const ranges = []
+    if (words.length > 0) {
+      for (const option of options) {
+        const walker = this.ownerDocument.createTreeWalker(
+          option,
+          NodeFilter.SHOW_TEXT,
+        )
+        while (walker.nextNode()) {
+          ranges.push(...textRanges(walker.currentNode, words))
+        }
+      }
+    }
+    if (ranges.length > 0) matches.set(this, ranges)
+    else if (!matches.delete(this)) return
+    paintMatches()
   }
 
   #keydown(event) {

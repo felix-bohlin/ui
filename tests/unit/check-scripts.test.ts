@@ -111,6 +111,7 @@ describe("check-browser-support", () => {
     "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
     "field-sizing": "textarea { field-sizing: content; }",
     has: ".a:has(> svg) { gap: 0; }",
+    highlight: "::highlight(a) { color: red; }",
     "interest-invokers": ".a { interest-delay: 0.5s; }",
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",
     lh: ".a { block-size: 0.5lh; }",

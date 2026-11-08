@@ -3851,7 +3851,7 @@
   {
     "id": "blog-tabs-radio-buttons",
     "title": "Tabs from radio buttons",
-    "description": "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
+    "description": "Radio inputs, a grid and :nth-child(of S) for CSS-only tabs.",
     "headings": "The problem The trick Try it Fallback :nth-child(of S) JavaScript for clicks, `aria-selected` and panels, or CSS tabs with one selector per tab. One radio group, and `:checked + label + panel` shows the right panel. nth-child-of",
     "category": "Blog",
     "url": "/blog/tabs-radio-buttons/"
@@ -4692,7 +4692,7 @@
     "id": "api-tabs-html",
     "title": "Tabs API",
     "description": "Reference for Tabs HTML component.",
-    "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-scroll Overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. Vertical tabs ignore it: long labels wrap within the column. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
+    "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-wrap Overflow What the tabs do when they don't fit. `\"scroll\"` keeps them on one row and scrolls it sideways, and `\"wrap\"` wraps them onto more rows. Vertical tabs ignore it: long labels wrap within the column. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
   },

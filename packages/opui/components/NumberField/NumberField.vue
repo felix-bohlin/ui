@@ -46,7 +46,7 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const base = computed(() => id ?? `number-field-${uid}`)
+const base = computed(() => id || `number-field-${uid}`)
 
 const inputId = computed(() => base.value)
 

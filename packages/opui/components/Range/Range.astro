@@ -34,7 +34,7 @@ const {
 } = Astro.props
 
 const field = fieldGroupContext.get()
-const ids = createIds(Astro.locals, "range", id || undefined)
+const ids = createIds(Astro.locals, "range", id)
 
 const hasLabel = !!label || Astro.slots.has("label")
 const hasStartText = !!startText || Astro.slots.has("start-text")

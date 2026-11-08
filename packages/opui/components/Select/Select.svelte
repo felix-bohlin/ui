@@ -40,7 +40,7 @@
 
   const uid = $props.id()
   const field = getFieldGroupContext()
-  const base = $derived(id ?? `select-${uid}`)
+  const base = $derived(id || `select-${uid}`)
   const labelId = $derived(`${base}-label`)
   const startTextId = $derived(startText ? `${base}-start-text` : undefined)
   const endTextId = $derived(endText ? `${base}-end-text` : undefined)

@@ -18,7 +18,7 @@
   const legendId = $derived(
     isFieldset
       ? undefined
-      : autoLabelledBy(rest, `${rest.id ?? `fieldset-${uid}`}-legend`),
+      : autoLabelledBy(rest, `${rest.id || `fieldset-${uid}`}-legend`),
   )
   setFieldsetContext({
     get legendId() {

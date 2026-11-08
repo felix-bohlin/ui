@@ -53,7 +53,7 @@ const field = inject(FieldGroupKey, undefined)
 
 const uid = useId()
 
-const base = computed(() => id ?? `text-field-${uid}`)
+const base = computed(() => id || `text-field-${uid}`)
 
 const Root = () =>
   passwordToggle ? "opui-text-field" : label || slots.label ? "label" : "div"

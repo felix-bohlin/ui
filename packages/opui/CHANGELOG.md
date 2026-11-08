@@ -560,6 +560,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Dialog` and `Drawer` only style their own direct parts, so a Callout, Card or TextField inside them keeps its own padding and alignment.
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
 - `Dialog` sets `pointer-events: auto` when open, instead of the SVG-only value `all`.
+- `Dialog`, `Fieldset`, `Range`, `Select` and `TextField` take an empty `id` as no `id` and generate their part ids, so two of them with `id=""` no longer share ids such as `-label` or `-title`. `NumberField` does the same.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
 - `Drawer` clips its own overflow, so a drawer without a footer no longer scrolls by the height of the bottom scroll shadow and only `.ui-content` scrolls.

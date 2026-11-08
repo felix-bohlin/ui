@@ -164,6 +164,13 @@ describe("ids", () => {
     expect(calls).toEqual(["select"])
   })
 
+  test("createIds takes an empty id as no id, so two of them don't share part ids", () => {
+    let count = 0
+    const locals = { $id: (prefix: string) => `${prefix}-${++count}` }
+    expect(createIds(locals, "select", "")("label")).toBe("select-1-label")
+    expect(createIds(locals, "select", "")("label")).toBe("select-2-label")
+  })
+
   test("createId uses the page's generator or a random suffix", () => {
     expect(createId({ $id: (prefix) => `${prefix}-1` })("field")).toBe(
       "field-1",

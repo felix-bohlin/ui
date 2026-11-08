@@ -130,7 +130,7 @@ const transformer =
         const base = id
           ? ts.factory.createBinaryExpression(
               grouped(ts.visitNode(id, visit)),
-              ts.SyntaxKind.QuestionQuestionToken,
+              ts.SyntaxKind.BarBarToken,
               fallback,
             )
           : fallback

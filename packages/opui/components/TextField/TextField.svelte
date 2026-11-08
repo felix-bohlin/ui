@@ -54,7 +54,7 @@
     value = next
   }
   const initialValue = untrack(getValue)
-  const base = $derived(id ?? `text-field-${uid}`)
+  const base = $derived(id || `text-field-${uid}`)
   const Root = $derived(
     passwordToggle ? "opui-text-field" : label ? "label" : "div",
   )

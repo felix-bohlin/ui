@@ -35,7 +35,7 @@ export default function Select({
 }: Props) {
   const uid = useId()
   const field = useFieldGroupContext()
-  const base = id ?? `select-${uid}`
+  const base = id || `select-${uid}`
   const labelId = `${base}-label`
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined

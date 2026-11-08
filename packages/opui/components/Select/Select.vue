@@ -56,7 +56,7 @@ const selectedAtFirst = (value: unknown) =>
     : initialSelection === value
 
 const uid = useId()
-const base = computed(() => id ?? `select-${uid}`)
+const base = computed(() => id || `select-${uid}`)
 const labelId = computed(() => `${base.value}-label`)
 const startTextId = computed(() => `${base.value}-start-text`)
 const endTextId = computed(() => `${base.value}-end-text`)

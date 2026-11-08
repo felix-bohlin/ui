@@ -316,13 +316,10 @@ const readFrontmatter = (code, file) => {
         }
         result.idBases.push([declaration.name.text, ID_BASE])
         const fallback = `\`${factory.prefix}-\${Astro.locals}\``
-        const truthy = /^(.+?)\s*\|\|\s*undefined$/.exec(factory.id ?? "")
         result.derived.push({
-          code: truthy
-            ? `${truthy[1]} || ${fallback}`
-            : factory.id
-              ? `${/^[\w$.?]+$/.test(factory.id) ? factory.id : `(${factory.id})`} ?? ${fallback}`
-              : fallback,
+          code: factory.id
+            ? `${/^[\w$.?]+$/.test(factory.id) ? factory.id : `(${factory.id})`} || ${fallback}`
+            : fallback,
           fn: false,
           name: ID_BASE,
         })

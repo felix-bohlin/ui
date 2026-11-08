@@ -43,7 +43,7 @@ export default function TextField({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const base = id ?? `text-field-${uid}`
+  const base = id || `text-field-${uid}`
   const Root = passwordToggle ? "opui-text-field" : label ? "label" : "div"
   const Label = passwordToggle ? "label" : "span"
   const hasStartText = Boolean(startText)

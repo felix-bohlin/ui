@@ -32,7 +32,7 @@ export default function NumberField({
 }: Props) {
   const field = useFieldGroupContext()
   const uid = useId()
-  const base = id ?? `number-field-${uid}`
+  const base = id || `number-field-${uid}`
   const inputId = base
   const startTextId = startText ? `${base}-start-text` : undefined
   const endTextId = endText ? `${base}-end-text` : undefined

@@ -13,7 +13,7 @@ export default function Fieldset({ as, className, children, ...rest }: Props) {
   const isFieldset = Tag === "fieldset"
   const legendId = isFieldset
     ? undefined
-    : autoLabelledBy(rest, `${rest.id ?? `fieldset-${uid}`}-legend`)
+    : autoLabelledBy(rest, `${rest.id || `fieldset-${uid}`}-legend`)
 
   return (
     <FieldsetContext value={{ legendId }}>

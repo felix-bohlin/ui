@@ -42,7 +42,7 @@
     value = next
   }
   const initialValue = untrack(getValue)
-  const base = $derived(id ?? `number-field-${uid}`)
+  const base = $derived(id || `number-field-${uid}`)
   const inputId = $derived(base)
   const startTextId = $derived(startText ? `${base}-start-text` : undefined)
   const endTextId = $derived(endText ? `${base}-end-text` : undefined)

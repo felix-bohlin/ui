@@ -71,29 +71,16 @@ import "./styles/main.css"`}
 
   <section id="usage">
     <h2>How to use</h2>
-    <p>
-      Containers take parts, such as <code>CardHeader</code> and
-      <code>DialogFooter</code>. Other components take named slots for rich
-      content, such as <code>end-text</code> on a <code>TextField</code>.
-    </p>
+    <p>Named slots take rich content, like <code>end-text</code>.</p>
   </section>
 
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Every component renders complete HTML on the server, and the native
-      controls work and submit with their form. The props in the last column
-      need hydration (<code>client:load</code> in Astro) or a client-rendered
-      Vue app.
+      Every component renders full HTML on the server. The props in the last
+      column need hydration.
     </p>
     <ServerSupport framework="vue" />
-    <p>
-      When the page hydrates, as in Nuxt, a value or choice the user changed
-      before it did (typed, picked, filled in by a password manager or restored
-      by the browser) stays: the form controls take it from the element instead
-      of resetting it, and a form reset still returns to what the server
-      rendered.
-    </p>
   </section>
 
   <section id="next-steps">

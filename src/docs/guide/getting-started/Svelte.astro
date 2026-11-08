@@ -73,27 +73,16 @@ import ServerSupport from "./partials/ServerSupport.astro"
   <section id="usage">
     <h2>How to use</h2>
     <p>
-      Containers take parts, such as <code>CardHeader</code> and
-      <code>DialogFooter</code>. Other slots are snippets: the default slot is
-      <code>children</code> and named slots are camelCased, such as
-      <code>endText</code>. <code>TextField</code>, <code>Textarea</code>,
-      <code>Select</code>, <code>Range</code>, <code>NumberField</code>,
-      <code>OneTimeCode</code>, <code>Rating</code>, <code>Tabs</code> and
-      <code>ToggleGroup</code> support <code>bind:value</code>.
-      <code>Checkbox</code> and <code>Switch</code> support
-      <code>bind:checked</code> and <code>bind:group</code>,
-      <code>ToggleButton</code> supports <code>bind:checked</code>, and
-      <code>Radio</code> supports <code>bind:group</code>.
+      Slots are snippets: <code>children</code>, and camelCased names like
+      <code>endText</code>. Form controls support <code>bind:</code>.
     </p>
   </section>
 
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Every component renders complete HTML on the server, and the native
-      controls work and submit with their form. The props in the last column
-      need hydration (<code>client:load</code> in Astro) or client-side
-      rendering.
+      Every component renders full HTML on the server. The props in the last
+      column need hydration.
     </p>
     <ServerSupport framework="svelte" />
   </section>

@@ -157,14 +157,8 @@ import { componentsWithSlot } from "../../utils/components"
       3px.
     </p>
     <p>
-      A bright ring, like a yellow one, doesn't stand out against a light page
-      on its own. Give it a dark edge to sit on with
-      <code>--ui-focus-border-color</code>: buttons, chips, toggle buttons,
-      checkboxes, radios, switches, fields and focusable cards recolor their
-      border while focused. The ring then needs 3:1 against the edge, not the
-      page. Checkboxes, radios and fields can also thicken that edge with
-      <code>--ui-focus-border-width</code>. The extra width grows inward, so
-      nothing moves.
+      Give a bright ring a dark edge with <code>--ui-focus-border-color</code>,
+      and thicken it with <code>--ui-focus-border-width</code>:
     </p>
     <Code
       code={`:where(html, .ui-palette, .ui-contrast-more) {
@@ -180,17 +174,8 @@ import { componentsWithSlot } from "../../utils/components"
       lang="css"
     />
     <p>
-      Links and buttons can show focus by filling instead, like GOV.UK. With
-      <code>--ui-link-focus</code> and <code>--ui-button-focus</code> set to
-      <code>highlight</code>, they fill with <code>--ui-focus-highlight</code>,
-      the ring color made opaque, and their text turns
-      <code>--ui-on-focus-highlight</code>, black or white, whichever reads.
-      Links also get a bar under every line, as thick as the ring or
-      <code>--ui-focus-border-width</code>, whichever is wider. The fill covers
-      the whole element, a stronger cue than a ring, so these two don't draw the
-      ring or the edge. The outline stays, transparent, so forced colors still
-      show it, and a theme that hands its ring color back under more contrast
-      gets a black or white highlight.
+      Set <code>--ui-link-focus</code> and <code>--ui-button-focus</code> to
+      <code>highlight</code> to fill focused links and buttons instead:
     </p>
     <Code
       code={`:where(html) {

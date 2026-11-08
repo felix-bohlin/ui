@@ -25,7 +25,7 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
     <p>
       {html
         ? "One file with the theme, the reset and every component."
-        : "The components render markup only, so import the CSS once, where your app starts."}
+        : "Import the CSS once, where your app starts."}
     </p>
     <slot name="install" />
   </div>
@@ -33,8 +33,8 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
     <h3>{html ? "Write the classes" : "Use a component"}</h3>
     <p>
       {html
-        ? "A component is a class on a native element, and its options are classes too."
-        : "Each prop renders one class, the same markup as the HTML docs."}
+        ? "A class on a native element. Options are classes too."
+        : "Each prop renders one class."}
     </p>
     <div class="quick-start-result">
       <slot name="use" />
@@ -64,8 +64,7 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
   <div role="listitem">
     <h3>Make it yours</h3>
     <p>
-      Start from a preset, pick a brand color and corners in the Theme builder,
-      and load the <code>theme.css</code> it exports after opui-css.
+      Load the <code>theme.css</code> the Theme builder exports after opui-css.
     </p>
     <div class="quick-start-theme ui-not-rich-text">
       <span class="quick-start-palette" aria-hidden="true">

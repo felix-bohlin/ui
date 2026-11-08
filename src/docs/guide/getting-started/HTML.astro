@@ -82,38 +82,27 @@ const installs = [
 
   <section id="cdn">
     <h2>Install via CDN</h2>
-    <p>
-      The quickest way to get going. One file with the theme, the reset, every
-      component and the utility classes, in the right cascade layers, plus Open
-      Props for your own CSS.
-    </p>
+    <p>One file with everything, in the right cascade layers.</p>
     <Code code={cdn} lang="html" />
     <p>
-      It includes the
-      <DocLink href="/guide/browser-support#compat">browser fallbacks</DocLink>.
-      <code>dist/opui.no-compat.css</code> leaves them out, and
-      <code>dist/opui.baseline-&lt;year&gt;.css</code> keeps only the ones that
-      browsers of that Baseline year need.
-    </p>
-    <p>
-      <code>@6</code> loads the newest 6.x release, so a new major version never
-      changes your site. Pin an exact version, such as <code>@6.0.0</code>, for
-      full control.
+      Use <code>dist/opui.no-compat.css</code> without the
+      <DocLink href="/guide/browser-support#compat">browser fallbacks</DocLink>,
+      or <code>dist/opui.baseline-&lt;year&gt;.css</code> for one Baseline year.
+      Pin an exact version, like <code>@6.0.0</code>, for full control.
     </p>
   </section>
 
   <section id="manual-setup">
     <h2>Install manually</h2>
     <p>
-      The most flexible way to use OPUI, and it works without a build step.
-      Download the package (<code>npm pack opui-css</code>, or browse it on
+      No build step needed. Download the package (<code>npm pack opui-css</code
+      >, or browse it on
       <a
         class="ui-link"
         target="_blank"
         href="https://cdn.jsdelivr.net/npm/opui-css@6/"
         >jsDelivr</a
-      >), drop it into your project as <code>opui</code>, and import the files
-      in your main CSS:
+      >) as <code>opui</code>, and import the files:
     </p>
     <Code
       code={`@import "./opui/css/layers.css";
@@ -174,12 +163,8 @@ const installs = [
           lang="text"
         />
         <p>
-          <code>dist/op.css</code> is Open Props, pre-bundled in the
-          <code>openprops</code> layer, and <code>open-props.css</code> imports
-          it from <code>node_modules</code> for bundlers. The components don't
-          read it, so both are optional and only there for your own CSS.
-          <code>dist/opui.css</code> is the CDN file. <code>themes/</code> holds
-          the
+          <code>dist/op.css</code> and <code>open-props.css</code> are Open
+          Props, optional, for your own CSS. <code>themes/</code> holds the
           <DocLink href="/guide/customizing#example-themes"
             >example themes</DocLink
           >
@@ -193,10 +178,7 @@ const installs = [
 
   <section id="installation">
     <h2>Install via NPM</h2>
-    <p>
-      For when you have a bundler that resolves CSS <code>@import</code>s from
-      <code>node_modules</code>, like Vite or webpack.
-    </p>
+    <p>For a bundler that resolves CSS <code>@import</code>s, like Vite.</p>
     <InstallCommand />
 
     <h3 id="css">Import the CSS</h3>
@@ -211,11 +193,7 @@ const installs = [
     <h2>Scripts</h2>
     <p>A few features need a script in plain HTML:</p>
     <ScriptTable />
-    <p>
-      The examples import them by package name, which a bundler resolves.
-      Without one, add this import map to the <code>head</code>, before the
-      first module script:
-    </p>
+    <p>Without a bundler, add this import map to the <code>head</code>:</p>
     <Code
       code={`<script type="importmap">
   { "imports": { "opui-css/": "https://cdn.jsdelivr.net/npm/opui-css@6/" } }

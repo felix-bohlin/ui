@@ -73,8 +73,14 @@ const snapshot = (page: Page, framework: Framework, html?: string) =>
             element.setAttribute("name", names.get(value)!)
           }
 
+          const hydrating = clone.querySelectorAll("[data-hydrating]").length
+          for (const element of clone.querySelectorAll("[data-hydrating]")) {
+            element.removeAttribute("data-hydrating")
+          }
+
           return {
             example: example.getAttribute(`data-${name}-example`)!,
+            hydrating,
             markup: clone.innerHTML,
             state,
           }
@@ -118,6 +124,12 @@ for (const framework of FRAMEWORKS) {
       )
       expect(server.length).toBeGreaterThan(0)
       for (const [index, { example, markup, state }] of server.entries()) {
+        expect
+          .soft(
+            rendered[index].hydrating,
+            `${example} still has data-hydrating once hydrated, so the element keeps ignoring header clicks`,
+          )
+          .toBe(0)
         expect
           .soft(normalize(rendered[index].markup), `${example} markup`)
           .toBe(normalize(markup))

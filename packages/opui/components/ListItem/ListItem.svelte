@@ -31,8 +31,8 @@
   )
   const Tag = $derived(hasControl ? "label" : (as ?? (href ? "a" : undefined)))
   const restOnItem = $derived(hasControl || !Tag)
-  const hasLabel = $derived(!!label || label)
-  const hasDescription = $derived(!!description || description)
+  const hasLabel = $derived(!!label)
+  const hasDescription = $derived(!!description)
 </script>
 
 <li

@@ -47,9 +47,9 @@
   }
   const initialValue = untrack(getValue)
   const base = $derived(id || `range-${uid}`)
-  const hasLabel = $derived(!!label || label)
-  const hasStartText = $derived(!!startText || startText)
-  const hasEndText = $derived(!!endText || endText)
+  const hasLabel = $derived(!!label)
+  const hasStartText = $derived(!!startText)
+  const hasEndText = $derived(!!endText)
   const hasValueText = $derived(valueText)
   const hasValue = $derived(valueSuffix !== undefined || hasValueText)
   const hasDatalist = $derived(!!items || datalist)

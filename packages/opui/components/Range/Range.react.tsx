@@ -37,9 +37,9 @@ export default function Range({
   const field = useFieldGroupContext()
   const uid = useId()
   const base = id || `range-${uid}`
-  const hasLabel = !!label || label
-  const hasStartText = !!startText || startText
-  const hasEndText = !!endText || endText
+  const hasLabel = !!label
+  const hasStartText = !!startText
+  const hasEndText = !!endText
   const hasValueText = valueText
   const hasValue = valueSuffix !== undefined || hasValueText
   const hasDatalist = !!items || datalist

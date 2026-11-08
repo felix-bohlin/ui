@@ -201,7 +201,14 @@ const transformer =
         const right = ts.visitNode(child.right, visit)
         const text = (node) =>
           printer.printNode(ts.EmitHint.Expression, node, sourceFile)
-        return text(left) === text(right)
+        const negated = (node) =>
+          ts.isPrefixUnaryExpression(node) &&
+          node.operator === ts.SyntaxKind.ExclamationToken
+            ? node.operand
+            : undefined
+        const coerced = negated(left) && negated(negated(left))
+        return text(left) === text(right) ||
+          (coerced && text(coerced) === text(right))
           ? left
           : ts.factory.createBinaryExpression(left, child.operatorToken, right)
       }

@@ -24,8 +24,8 @@ export default function ListItem({
     type === "checkbox" || type === "radio" || type === "switch"
   const Tag = hasControl ? "label" : (as ?? (href ? "a" : undefined))
   const restOnItem = hasControl || !Tag
-  const hasLabel = !!label || label
-  const hasDescription = !!description || description
+  const hasLabel = !!label
+  const hasDescription = !!description
 
   return (
     <li

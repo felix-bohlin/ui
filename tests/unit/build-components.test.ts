@@ -341,6 +341,17 @@ describe("the three ports of a sample", () => {
     )
   })
 
+  test("a slot check on a prop of the same name drops the repeated read in React and Svelte, and Vue keeps the slot", async () => {
+    const ports = await compile(
+      '---\nimport type { Props } from "./types.astro"\n\nconst { class: className, label, ...rest } = Astro.props\nconst hasLabel = !!label || Astro.slots.has("label")\n---\n\n<p class:list={["ui-sample", className]} {...rest}>\n  {hasLabel && <b>{label}<slot name="label" /></b>}\n</p>\n',
+    )
+    expect(ports["react.tsx"]).toContain("const hasLabel = !!label\n")
+    expect(ports.svelte).toContain("const hasLabel = $derived(!!label)\n")
+    expect(ports.vue).toContain(
+      "const hasLabel = () => !!label || slots.label\n",
+    )
+  })
+
   test("the content of a pre keeps its whitespace", async () => {
     const ports = await layoutSample(
       '<pre class:list={["ui-sample", className]} {...rest}><b>{label}</b> <i><slot /></i></pre>',

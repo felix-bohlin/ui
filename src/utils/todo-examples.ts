@@ -14,6 +14,10 @@ export const todoExamples = {
     match:
       "Tooling: on the first request after `astro dev` starts, Astro's CSS collector",
   },
+  "button-current-page": {
+    match:
+      'Button: the current page (`aria-current="page"`) in a text, outlined or tonal button',
+  },
   "button-group-rtl-dividers": {
     match:
       "ButtonGroup: in right-to-left, filled and tonal groups lose the dividers",

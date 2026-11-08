@@ -66,6 +66,18 @@ const PRELOAD = /<link rel="preload" as="image"[^>]*\/>/g
 
 const KNOWN_DIFFERENCES: Record<string, string> = {}
 
+const KNOWN_ATTRIBUTES: Record<string, { attribute: string; reason: string }> =
+  {
+    "SortableTable react": {
+      attribute: "data-hydrating",
+      reason:
+        "the element ignores header clicks until React has hydrated the table and attached onSort",
+    },
+  }
+
+const withoutAttribute = (markup: string, attribute: string) =>
+  markup.replace(new RegExp(`\\s${attribute}(?:="[^"]*")?(?=[\\s>])`), "")
+
 const loaderOf = <T>(modules: Record<string, () => Promise<T>>, name: string) =>
   Object.entries(modules).find(([path]) =>
     path
@@ -422,8 +434,20 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
       )
       .toBe(false)
     for (const framework of FRAMEWORKS.filter((id) => id !== "astro")) {
-      const actual = await render[framework](entry)
-      if (actual === undefined) continue
+      const rendered = await render[framework](entry)
+      if (rendered === undefined) continue
+      const known = KNOWN_ATTRIBUTES[`${entry.component} ${framework}`]
+      if (known) {
+        expect
+          .soft(
+            withoutAttribute(rendered, known.attribute) !== rendered,
+            `${entry.component} ${framework} is in KNOWN_ATTRIBUTES with ${known.attribute} (${known.reason}) but no longer renders it; delete it`,
+          )
+          .toBe(true)
+      }
+      const actual = known
+        ? withoutAttribute(rendered, known.attribute)
+        : rendered
       expect
         .soft(
           emptyClass(actual),
@@ -454,6 +478,15 @@ describe("every component renders the same in Astro, React, Svelte and Vue", () 
   test("a sample the check must flag: an empty class attribute", () => {
     expect(emptyClass('<h2 class="">Title</h2>')).toBe(true)
     expect(emptyClass('<h2 class="ui-title">Title</h2>')).toBe(false)
+  })
+
+  test("a sample the check must flag: a known attribute the framework no longer renders", () => {
+    const markup =
+      '<opui-sortable-table class="ui-sortable-table" data-hydrating="">'
+    expect(withoutAttribute(markup, "data-hydrating")).toBe(
+      '<opui-sortable-table class="ui-sortable-table">',
+    )
+    expect(withoutAttribute(markup, "data-sorted")).toBe(markup)
   })
 
   test("a sample the check must flag: a class one framework forgets", () => {

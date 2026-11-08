@@ -200,6 +200,85 @@
       );
     }
 
+    &.ui-vertical {
+      display: grid;
+      grid-template-columns: fit-content(50%) minmax(0, 1fr);
+      grid-template-rows: 1fr;
+
+      & > .ui-label {
+        border-block: 0;
+        border-inline: var(--_track-border-width) solid
+          var(--_track-border-color);
+        grid-column: 1;
+        justify-content: start;
+        padding-block: var(--ui-space-1);
+        padding-inline: calc(
+          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
+        );
+        white-space: normal;
+
+        &::before {
+          inset-block: 0;
+          inset-inline: var(--_inset);
+        }
+
+        &::after {
+          block-size: auto;
+          inline-size: var(--_indicator-size);
+          inset-block: 0;
+          inset-inline: 0 auto;
+        }
+
+        &:nth-child(1 of .ui-label) {
+          border-block-start: var(--_track-border-width) solid
+            var(--_track-border-color);
+          border-end-start-radius: 0;
+          border-start-end-radius: var(--_radius);
+          padding-block-start: calc(
+            var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
+          );
+
+          &::before {
+            inset-block-start: var(--_inset);
+          }
+        }
+
+        &:nth-last-child(1 of .ui-label) {
+          border-block-end: var(--_track-border-width) solid
+            var(--_track-border-color);
+          border-end-start-radius: var(--_radius);
+          border-start-end-radius: 0;
+          padding-block-end: calc(
+            var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
+          );
+
+          &::before {
+            inset-block-end: var(--_inset);
+          }
+        }
+
+        &:nth-child(1 of .ui-label):nth-last-child(1 of .ui-label) {
+          border-radius: var(--_radius);
+        }
+      }
+
+      & > .ui-panel {
+        grid-column: 2;
+        grid-row: span 99 / -1;
+        inline-size: auto;
+        margin-block-start: 0;
+        margin-inline-start: var(--_panel-gap);
+      }
+
+      &.ui-line {
+        column-gap: 0;
+
+        & > .ui-label:not(:nth-last-child(1 of .ui-label)) {
+          margin-block-end: var(--ui-space-1);
+        }
+      }
+    }
+
     &:where(:is(.ui-accordion, .ui-card, .ui-dialog) > *, .ui-overflow-scroll) {
       & > .ui-input[type="radio"]:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
@@ -210,7 +289,7 @@
       }
     }
 
-    &.ui-overflow-scroll {
+    &.ui-overflow-scroll:not(.ui-vertical) {
       column-gap: 0;
       container-type: inline-size;
       display: grid;
@@ -319,6 +398,31 @@
 
           &:nth-last-child(1 of .ui-label)::after {
             inset-inline-end: calc(-1 * var(--_track-border-width));
+          }
+        }
+
+        &.ui-vertical {
+          &.ui-line::after {
+            inset-block-start: anchor(--ui-tabs-selected inside);
+            inset-inline-end: calc(
+              anchor(--ui-tabs-selected start) - var(--_indicator-size)
+            );
+          }
+
+          & > .ui-label {
+            &::after {
+              inline-size: auto;
+              inset-block: 0;
+              inset-inline: calc(-1 * var(--_track-border-width));
+            }
+
+            &:nth-child(1 of .ui-label)::after {
+              inset-block-start: calc(-1 * var(--_track-border-width));
+            }
+
+            &:nth-last-child(1 of .ui-label)::after {
+              inset-block-end: calc(-1 * var(--_track-border-width));
+            }
           }
         }
       }

@@ -1,5 +1,6 @@
 export type Props = {
   name?: string
+  orientation?: "horizontal" | "vertical"
   overflow?: "scroll" | "wrap"
   variant?: "filled" | "line" | "outlined" | "tonal"
 }

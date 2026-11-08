@@ -10,6 +10,7 @@ export default function SortableTable({
   className,
   descendingLabel,
   onSort,
+  children,
   ...rest
 }: Props) {
   const ref = useRef<HTMLElement>(null)
@@ -26,13 +27,26 @@ export default function SortableTable({
     return () => element.removeEventListener("sort", listener)
   }, [onSort])
 
+  useEffect(() => {
+    ref.current?.removeAttribute("data-hydrating")
+  }, [])
+
   return (
     <opui-sortable-table
       ascending-label={ascendingLabel}
       className={cx(["ui-sortable-table", className])}
+      data-hydrating=""
       descending-label={descendingLabel}
       ref={ref}
       {...defined(rest)}
-    />
+    >
+      {children}
+      <span
+        className="ui-sr-only"
+        role="status"
+        dangerouslySetInnerHTML={{ __html: "" }}
+        suppressHydrationWarning
+      />
+    </opui-sortable-table>
   )
 }

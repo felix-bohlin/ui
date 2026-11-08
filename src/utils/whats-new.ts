@@ -1258,6 +1258,10 @@ export const whatsNew = {
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     `The selected pill, and the line of <a href="#line">line tabs</a>, slides to the tab you select, where anchor positioning works (<a href="#basics">Basics</a>).`,
     `Themes can make the selected pill and line spring to the next tab with <a href="#api"><code>--ui-ease-move</code></a>.`,
+    {
+      default: `<a href="#vertical">Vertical</a> tabs with <code>orientation="vertical"</code>: the tabs in a column at the side and the panel beside them, like the sections of a settings page.`,
+      html: `<a href="#vertical">Vertical</a> tabs with <code>.ui-vertical</code>: the tabs in a column at the side and the panel beside them, like the sections of a settings page.`,
+    },
   ],
   "text-field": [
     components(

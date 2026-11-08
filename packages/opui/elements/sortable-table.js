@@ -24,6 +24,7 @@ export class SortableTable extends Base {
     this.addEventListener(
       "click",
       (event) => {
+        if (this.hasAttribute("data-hydrating")) return
         const button = event.target.closest?.(BUTTON)
         if (button && this.contains(button)) this.sort(button.parentElement)
       },
@@ -65,6 +66,13 @@ export class SortableTable extends Base {
     this.#text = label.replace("{column}", name)
     if (this.#status?.isConnected) {
       if (this.#ready) this.#status.textContent = this.#text
+      return
+    }
+    const rendered = this.querySelector(':scope > [role="status"]')
+    if (rendered) {
+      this.#status = rendered
+      this.#ready = true
+      rendered.textContent = this.#text
       return
     }
     const status = this.ownerDocument.createElement("span")

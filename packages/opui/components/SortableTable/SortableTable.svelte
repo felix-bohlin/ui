@@ -21,4 +21,5 @@
   {...defined(rest)}
 >
   {@render children?.()}
+  <span class="ui-sr-only" role="status"></span>
 </opui-sortable-table>

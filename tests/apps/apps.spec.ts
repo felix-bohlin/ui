@@ -443,3 +443,56 @@ test("a form reset after hydration restores the values and the readout", async (
   await expect(slider).toHaveAttribute("aria-valuetext", "250°")
   expect(unexpected(problems, app.name, "range")).toEqual([])
 })
+
+test("a sortable table clicked before React hydrates it waits for onSort", async ({
+  page,
+}, testInfo) => {
+  const app = appOf(testInfo.project.name)
+  test.skip(
+    app.framework !== "react" || !app.scripts || !app.ssr,
+    `${app.name} loads the element with the component`,
+  )
+  const problems = await watch(page)
+  const { promise, resolve: release } = Promise.withResolvers<void>()
+  await page.route(
+    (url) =>
+      url.hostname === "localhost" &&
+      url.pathname.startsWith(app.scripts ?? ""),
+    async (route) => {
+      if (route.request().resourceType() === "script") await promise
+      await route.continue()
+    },
+  )
+  await page.goto("/table", { waitUntil: "commit" })
+  const table = page.locator('[data-example="table/Sortable"]')
+  const header = (name: string) => table.getByRole("columnheader", { name })
+  await header("Planet").waitFor()
+  await page.addScriptTag({
+    content: readFileSync(
+      path.join(
+        import.meta.dirname,
+        "../../packages/opui/elements/sortable-table.js",
+      ),
+      "utf8",
+    ),
+    type: "module",
+  })
+  await expect(table.locator("opui-sortable-table:defined")).toHaveCount(1)
+  await table.getByRole("button", { name: "Moons" }).click()
+  await expect(header("Moons")).not.toHaveAttribute("aria-sort")
+  expect(
+    await page.evaluate(() => "hydrated" in document.documentElement.dataset),
+    `${app.name} hydrated before the click`,
+  ).toBe(false)
+
+  release()
+  await expect(page.locator("html")).toHaveAttribute("data-hydrated", "")
+  await page.waitForLoadState("networkidle")
+  await expect(table.locator("opui-sortable-table")).not.toHaveAttribute(
+    "data-hydrating",
+  )
+  await table.getByRole("button", { name: "Moons" }).click()
+  await expect(header("Moons")).toHaveAttribute("aria-sort", "ascending")
+  await expect(table.getByRole("status")).toHaveText("Moons, sorted ascending")
+  expect(unexpected(problems, app.name, "table")).toEqual([])
+})

@@ -61,15 +61,15 @@ Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_
 
 ### one-time-code.css
 
-- `--_box-focus-image`: The thicker box mask every box gets while the field has focus.
-- `--_box-image`: The box mask, repeated once per character.
+- `--_box-border-width`: Line width of the boxes and of the ring on the next empty box: `--ui-field-border-width`, twice that while the field has focus.
+- `--_box-feather`: Half the width over which the box edges and corners fade, so the arcs stay smooth. The side edges start twice this far inside the corners, and the radius stays this far under a quarter of the cell, so no corner reaches into the next. Defaults to `0.5px`.
+- `--_box-radius`: Corner radius of the boxes and of the ring: `--ui-field-radius`, else `--ui-radius`, capped `--_box-feather` under a quarter of `--_cell-size`.
 - `--_dash-bg-color`: Color of the dash between the two halves with `.ui-grouped`. Defaults to `--ui-text-subtle`.
 - `--_dash-block-size`: Thickness of the dash. Defaults to `--ui-border-width-thick`.
 - `--_font-size`: Font size of the code. Defaults to `--ui-font-size-large`, `--ui-font-size-body` with `.ui-small` and `--ui-font-size-h4` with `.ui-large`.
 - `--_max-cell-size`: Widest box: 1.2 times the control size or 1.6 times the font size, rounded to `--ui-space-2`.
-- `--_slot-image`: The ring mask on the next empty box while the field has focus.
 
-Outputs: `--_cell-size`, `--_dash-image` and `--_length`.
+Outputs: `--_box-end`, `--_box-start`, `--_cell-size`, `--_dash-image` and `--_length`.
 
 ## Theme tokens
 

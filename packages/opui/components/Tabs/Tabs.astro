@@ -9,6 +9,7 @@ const idOf = createId(Astro.locals)
 const {
   class: className,
   name,
+  orientation,
   overflow,
   value,
   variant,
@@ -24,6 +25,7 @@ const html = await tabsContext.provide({ groupName, value }, () =>
 <div
   class:list={[
     "ui-tabs",
+    orientation === "vertical" && "ui-vertical",
     overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,

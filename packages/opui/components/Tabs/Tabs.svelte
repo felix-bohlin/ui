@@ -5,6 +5,7 @@
   let {
     class: className,
     name,
+    orientation,
     overflow,
     value = $bindable(),
     variant,
@@ -32,6 +33,7 @@
 <div
   class={[
     "ui-tabs",
+    orientation === "vertical" && "ui-vertical",
     overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,

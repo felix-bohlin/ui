@@ -10,6 +10,7 @@ export default function Tabs({
   defaultValue,
   name,
   onValueChange,
+  orientation,
   overflow,
   value,
   variant,
@@ -30,6 +31,7 @@ export default function Tabs({
       <div
         className={cx([
           "ui-tabs",
+          orientation === "vertical" && "ui-vertical",
           overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
           variant && variant !== "tonal" && `ui-${variant}`,
           className,

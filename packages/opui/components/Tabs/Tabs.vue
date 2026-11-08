@@ -3,7 +3,7 @@ import { computed, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
 import type { Props, Slots } from "./types.vue-props"
 
-const { name, overflow, variant } = defineProps<Props>()
+const { name, orientation, overflow, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 const model = defineModel<string>()
@@ -23,6 +23,7 @@ provide(TabsKey, reactive({ change, groupName, value: model }))
   <div
     :class="[
       'ui-tabs',
+      orientation === 'vertical' && 'ui-vertical',
       overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,

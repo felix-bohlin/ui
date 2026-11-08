@@ -2547,6 +2547,13 @@
     "url": "/react/components/tabs/#overflow"
   },
   {
+    "id": "component-tabs-react-vertical",
+    "title": "Vertical",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/react/components/tabs/#vertical"
+  },
+  {
     "id": "component-tabs-react-binding",
     "title": "Binding",
     "page": "Tabs",
@@ -4664,7 +4671,7 @@
     "id": "api-tabs-react",
     "title": "Tabs API",
     "description": "Reference for Tabs React component.",
-    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. defaultValue The `value` of the tab selected at the start, when `value` is omitted. name The name shared by the tab inputs. Generated when omitted. onValueChange Called with the `value` of the tab when one is selected. overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. value The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
+    "api": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. defaultValue The `value` of the tab selected at the start, when `value` is omitted. name The name shared by the tab inputs. Generated when omitted. onValueChange Called with the `value` of the tab when one is selected. orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. Vertical tabs ignore it: long labels wrap within the column. variant The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. value The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
     "category": "API",
     "url": "/react/api/#tabs"
   },

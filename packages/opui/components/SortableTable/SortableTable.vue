@@ -22,6 +22,6 @@ const attrs = useAttrs() as HTMLAttributes
     :descending-label="descendingLabel"
     v-bind="defined(attrs)"
   >
-    <slot></slot>
+    <slot></slot>{{ " " }}<span class="ui-sr-only" role="status"></span>
   </component>
 </template>

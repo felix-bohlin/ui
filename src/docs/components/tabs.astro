@@ -117,8 +117,8 @@ export const keywords = ["tab panel", "tablist"]
     <AutoExample name="Basics" />
 
     <BlockLink slug="app-shell">
-      The sidebar is a list of links, and the current page's link has
-      <code>aria-current="page"</code>.
+      For navigation between pages, the sidebar is a list of links, and the
+      current page's link has <code>aria-current="page"</code>.
     </BlockLink>
   </section>
 
@@ -153,6 +153,18 @@ export const keywords = ["tab panel", "tablist"]
       scroll.
     </p>
     <AutoExample name="Overflow" />
+  </section>
+
+  <section id="vertical">
+    <h2>Vertical</h2>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> for
+      tabs in a column at the inline start, with the panel beside them, like the
+      sections of a settings page. Every variant works, long labels wrap in a
+      column up to half the width, and the Up and Down arrow keys move between
+      the tabs.
+    </p>
+    <AutoExample name="Vertical" />
   </section>
 
   <section id="binding">

@@ -13,14 +13,8 @@
       caret-color: var(--_accent);
     }
 
-    &:focus-within .ui-field {
-      &::before {
-        mask-image: var(--_box-image);
-      }
-
-      &::after {
-        content: "";
-      }
+    &:focus-within .ui-field::after {
+      content: "";
     }
   }
 </style>

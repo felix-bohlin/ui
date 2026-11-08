@@ -1,7 +1,13 @@
 @layer components.extended {
   :where(.ui-one-time-code) {
-    --_box-focus-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
-    --_box-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+    --_box-border-width: var(--ui-field-border-width);
+    --_box-end: calc(var(--_cell-size) * 0.875);
+    --_box-feather: 0.5px;
+    --_box-radius: min(
+      var(--ui-field-radius, var(--ui-radius)),
+      var(--_cell-size) * 0.25 - var(--_box-feather)
+    );
+    --_box-start: calc(var(--_cell-size) * 0.125);
     --_cell-size: min(var(--_max-cell-size), 100cqi / (var(--_length) - 0.25));
     --_dash-bg-color: var(--ui-text-subtle);
     --_dash-block-size: var(--ui-border-width-thick);
@@ -12,7 +18,6 @@
       max(var(--_size) * 1.2, var(--_font-size) * 1.6),
       var(--ui-space-2)
     );
-    --_slot-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='%23000' fill-opacity='.12' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
 
     contain-intrinsic-inline-size: calc(
       (var(--_length) - 0.25) * var(--_max-cell-size)
@@ -42,7 +47,118 @@
         content: "";
         grid-column: 1 / -1;
         grid-row: 2;
-        mask: var(--_box-image) 0 0 / var(--_cell-size) 100% repeat-x;
+        mask:
+          linear-gradient(
+              to right,
+              transparent calc(var(--_box-start) + var(--_box-radius)),
+              oklch(0 0 0) 0 calc(var(--_box-end) - var(--_box-radius)),
+              transparent 0
+            )
+            0 0 / var(--_cell-size) var(--_box-border-width) repeat-x add,
+          linear-gradient(
+              to right,
+              transparent calc(var(--_box-start) + var(--_box-radius)),
+              oklch(0 0 0) 0 calc(var(--_box-end) - var(--_box-radius)),
+              transparent 0
+            )
+            0 100% / var(--_cell-size) var(--_box-border-width) repeat-x add,
+          linear-gradient(
+              to right,
+              transparent var(--_box-start),
+              oklch(0 0 0) 0 calc(var(--_box-start) + var(--_box-border-width)),
+              transparent 0 calc(var(--_box-end) - var(--_box-border-width)),
+              oklch(0 0 0) 0 var(--_box-end),
+              transparent 0
+            )
+            0 calc(var(--_box-radius) - 2 * var(--_box-feather)) /
+            var(--_cell-size)
+            calc(100% - 2 * var(--_box-radius) + 4 * var(--_box-feather))
+            repeat-x add,
+          linear-gradient(
+              oklch(0 0 0) var(--_box-radius),
+              transparent 0 calc(100% - var(--_box-radius)),
+              oklch(0 0 0) 0
+            )
+            0 0 / var(--_cell-size) 100% repeat-x intersect,
+          linear-gradient(
+              to right,
+              transparent var(--_box-start),
+              oklch(0 0 0) 0 calc(var(--_box-start) + var(--_box-radius)),
+              transparent 0 calc(var(--_box-end) - var(--_box-radius)),
+              oklch(0 0 0) 0 var(--_box-end),
+              transparent 0
+            )
+            0 0 / var(--_cell-size) 100% repeat-x intersect,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-start) + var(--_box-radius)) var(--_box-radius),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x add,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-end) - var(--_box-radius)) var(--_box-radius),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x add,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-start) + var(--_box-radius))
+                calc(100% - var(--_box-radius)),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x add,
+          radial-gradient(
+              circle calc(var(--_box-radius) + 2 * var(--_box-feather)) at
+                calc(var(--_box-end) - var(--_box-radius))
+                calc(100% - var(--_box-radius)),
+              transparent 0
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) -
+                    var(--_box-feather)
+                ),
+              oklch(0 0 0)
+                calc(
+                  var(--_box-radius) - var(--_box-border-width) +
+                    var(--_box-feather)
+                )
+                calc(var(--_box-radius) - var(--_box-feather)),
+              transparent calc(var(--_box-radius) + var(--_box-feather))
+            )
+            0 0 / var(--_cell-size) 100% repeat-x;
         pointer-events: none;
         transition: background-color var(--_duration) var(--_ease);
       }
@@ -93,9 +209,12 @@
       }
     }
 
+    &:focus-within {
+      --_box-border-width: calc(var(--ui-field-border-width) * 2);
+    }
+
     &:focus-within .ui-field::before {
       background-color: var(--_accent);
-      mask-image: var(--_box-focus-image);
     }
 
     .ui-field:has(> input:focus-within):has(:focus-visible) {
@@ -115,13 +234,15 @@
 
       &:focus-within .ui-field {
         &::after {
-          background-color: var(--_accent);
+          background-color: oklch(from var(--_accent) l c h / 12%);
+          border: var(--_box-border-width) solid var(--_accent);
+          border-radius: var(--_box-radius);
           content: "";
           grid-column: 3;
           grid-row: 2;
-          inline-size: var(--_cell-size);
+          inline-size: calc(var(--_cell-size) * 0.75);
           justify-self: unsafe end;
-          mask: var(--_slot-image) 0 0 / 100% 100%;
+          margin-inline-end: calc(var(--_cell-size) * 0.125);
           pointer-events: none;
         }
       }
@@ -143,9 +264,13 @@
     @media (forced-colors: active) {
       --_dash-bg-color: CanvasText;
 
-      .ui-field::before,
-      .ui-field::after {
+      .ui-field::before {
         background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      .ui-field::after {
+        background-color: transparent;
         forced-color-adjust: none;
       }
 
@@ -168,9 +293,12 @@
       &:focus-within .ui-field {
         outline: 0;
 
-        &::before,
-        &::after {
+        &::before {
           background-color: Highlight;
+        }
+
+        &::after {
+          border-color: Highlight;
         }
       }
     }

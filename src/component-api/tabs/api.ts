@@ -51,9 +51,17 @@ export default {
       type: "(value: string) => void",
     },
     {
+      default: '"horizontal"',
+      description:
+        "The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
       default: '"wrap"',
       description:
-        'What the tabs do when they don\'t fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways.',
+        'What the tabs do when they don\'t fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways. Vertical tabs ignore it: long labels wrap within the column.',
       group: "Overflow",
       prop: "overflow",
       values: { scroll: ".ui-overflow-scroll", wrap: null },

@@ -2547,6 +2547,13 @@
     "url": "/html/components/tabs/#overflow"
   },
   {
+    "id": "component-tabs-html-vertical",
+    "title": "Vertical",
+    "page": "Tabs",
+    "category": "Component",
+    "url": "/html/components/tabs/#vertical"
+  },
+  {
     "id": "component-tabs-html-binding",
     "title": "Binding",
     "page": "Tabs",
@@ -4685,7 +4692,7 @@
     "id": "api-tabs-html",
     "title": "Tabs API",
     "description": "Reference for Tabs HTML component.",
-    "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-overflow-scroll Overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
+    "api": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-input:not(:checked) + .ui-label A tab. .ui-input:checked + .ui-label The panel of the selected tab. .ui-input:checked + .ui-label + .ui-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-vertical Orientation The orientation of the tabs. `vertical` stacks them in a column at the inline start, with the panel beside them. .ui-overflow-scroll Overflow What the tabs do when they don't fit. `\"wrap\"` wraps them onto more rows, and `\"scroll\"` keeps them on one row and scrolls it sideways. Vertical tabs ignore it: long labels wrap within the column. .ui-filled .ui-line .ui-outlined Variants The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
     "category": "API",
     "url": "/html/api/#tabs"
   },

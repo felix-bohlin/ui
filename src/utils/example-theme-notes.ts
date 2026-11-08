@@ -1,7 +1,7 @@
 export const EXAMPLE_THEME_NOTES = {
   bootstrap: {
     description:
-      "Its <code>oklch(0.578 0.228 260)</code> blue, gray secondary buttons, the danger, warning, info and success colors with the subtle alert palettes, <code>oklch(0.91 0.007 248)</code> borders, 38px controls, regular weight buttons, labels and links, 16px paragraph spacing with 8px under headings, 16px checks and 32px switches, solid blue selected items, the heading scale, 1.5 line height and the wide translucent focus ring. No shadow on dropdowns and modals.",
+      "Its <code>oklch(0.578 0.228 260)</code> blue, gray secondary buttons, buttons that shade their own color on hover, the danger, warning, info and success colors with the subtle alert palettes, <code>oklch(0.91 0.007 248)</code> borders, 38px controls, regular weight buttons, labels and links, 16px paragraph spacing with 8px under headings, 16px checks and 32px switches, solid blue selected items, the heading scale, 1.5 line height and the wide translucent focus ring. No shadow on dropdowns and modals.",
     original: "Bootstrap 5",
   },
   brutalist: {

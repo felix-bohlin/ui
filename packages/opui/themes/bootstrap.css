@@ -19,6 +19,7 @@
     );
     --ui-button-on-accent: light-dark(oklch(1 0 0), oklch(0 0 0));
     --ui-button-font-weight: 400;
+    --ui-button-hover: shade-all;
     --ui-button-padding-inline: 0.75rem;
     --ui-button-padding-inline-large: 1rem;
     --ui-button-padding-inline-small: 0.5rem;

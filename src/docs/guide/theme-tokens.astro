@@ -4,6 +4,8 @@ import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import DocsTable from "../../components/DocsTable.astro"
 import Guide from "../../layouts/Guide.astro"
+import { FIGMA_THEMES } from "../../utils/figma-themes"
+import { FIGMA_MODES } from "../../utils/figma-tokens"
 import { formatInline } from "../../utils/format-inline"
 import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
 import { themeTokenPromises } from "../../utils/theme-token-promises"
@@ -169,6 +171,96 @@ const sample = JSON.stringify(
       <li>Other values are the CSS expression. Resolve them first.</li>
       <li>
         Unset tokens have no <code>$value</code>, only an <code>example</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section id="figma">
+    <h2>Figma</h2>
+    <p>
+      Every theme comes resolved for Figma, as variables in a collection with a
+      mode per color scheme: Light, Dark, Light more contrast and Dark more
+      contrast. Each variable has its CSS name as code syntax, so Dev Mode shows
+      <code>var(--ui-surface)</code>, and is scoped to the properties it fits.
+      The palette steps are hidden from publishing, since components read the
+      roles.
+    </p>
+    <h3 id="figma-plugin">With the plugin</h3>
+    <ol>
+      <li>
+        Download the
+        <a href="/opui-figma-plugin.zip" class="ui-link">opui Figma plugin</a>
+        and unzip it.
+      </li>
+      <li>
+        In the Figma desktop app, open a design file, choose Plugins,
+        Development, Import plugin from manifest, and pick its
+        <code>manifest.json</code>.
+      </li>
+      <li>
+        Run it, pick a theme or the <code>theme.figma.json</code> from the
+        <DocLink href="/theme-builder">Theme builder</DocLink>'s Figma download,
+        and press Sync to this file.
+      </li>
+    </ol>
+    <p>
+      It also makes effect styles for the shadows, with each layer bound to
+      variables so they follow the mode, and text styles for the headings, body
+      text, caption, overline and code, with fonts picked from the font stack
+      among the ones the file has. It writes Display P3 colors in a P3 file.
+      Running it again updates every variable and style in place. On Figma's
+      Starter plan a collection has one mode, so each mode gets a collection.
+    </p>
+    <h3 id="figma-files">Without the plugin</h3>
+    <p>
+      In the Variables panel, right-click a mode, choose Import mode and pick
+      that mode's file. The mode files hold the variables, with colors in sRGB,
+      and the plugin file holds everything the plugin makes.
+    </p>
+    <DocsTable
+      columns={[
+        { label: "Theme" },
+        { label: "Plugin file" },
+        { label: "Mode files" },
+      ]}
+    >
+      {FIGMA_THEMES.map(({ id, label }) => <TableRow>
+        <TableCell>{label}</TableCell>
+        <TableCell
+          ><a href={`/figma/${id}.figma.json`} class="ui-link"
+            >{id}.figma.json</a
+          ></TableCell
+        >
+        <TableCell>
+          {FIGMA_MODES.map((mode, index) => <Fragment>
+            {index > 0 && ", "}
+            <a href={`/figma/${id}/${mode.id}.tokens.json`} class="ui-link"
+              >{mode.name}</a
+            >
+          </Fragment>)}
+        </TableCell>
+      </TableRow>)}
+    </DocsTable>
+    <ul>
+      <li>
+        Tokens that depend on where they're read, like the palette roles inside
+        <code>.ui-palette</code> and the severity scopes, have their root
+        values.
+      </li>
+      <li>
+        A color outside sRGB loses chroma until it fits, which keeps its
+        lightness and so its contrast.
+      </li>
+      <li>
+        The fluid heading sizes are taken at a 1440px wide viewport, where they
+        are largest, and lengths in <code>em</code>, like the letter spacing, at
+        16px.
+      </li>
+      <li>
+        The package has the same files in <code>opui-css/figma/themes/</code>,
+        and <code>opui-css/figma/sync.js</code> is the function the plugin runs,
+        for an agent that sets up a file with the Figma MCP server's
+        <code>use_figma</code> tool.
       </li>
     </ul>
   </section>

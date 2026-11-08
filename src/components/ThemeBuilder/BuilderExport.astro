@@ -64,6 +64,9 @@ const setup = `@import "opui-css/css/imports.css";
         <Button data-json-download size="small" variant="outlined"
           >tokens.json</Button
         >
+        <Button data-figma-download size="small" variant="outlined"
+          >Figma</Button
+        >
       </div>
       <pre
         tabindex="0"
@@ -136,8 +139,12 @@ const setup = `@import "opui-css/css/imports.css";
       return { custom: [...custom].toSorted(), named }
     }
 
-    const download = (name: string, text: string, type: string) => {
-      const url = URL.createObjectURL(new Blob([text], { type }))
+    const download = (
+      name: string,
+      content: string | Uint8Array<ArrayBuffer>,
+      type: string,
+    ) => {
+      const url = URL.createObjectURL(new Blob([content], { type }))
       const anchor = document.createElement("a")
       anchor.href = url
       anchor.download = name
@@ -204,6 +211,53 @@ const setup = `@import "opui-css/css/imports.css";
           "application/json",
         )
         say("Downloaded tokens.json with every token resolved per mode.")
+      })
+
+    section
+      .querySelector("[data-figma-download]")!
+      .addEventListener("click", async () => {
+        const [{ strToU8, zipSync }, { probeFigmaTokens }, figma, json] =
+          await Promise.all([
+            import("fflate"),
+            import("../../utils/figma-probe"),
+            import("../../utils/figma-tokens"),
+            import("../../utils/tokens-json"),
+          ])
+        const theme = themeStore.get()
+        const tokens = json.tokensJson()
+        const collection = [
+          "opui",
+          exampleTheme(theme.preset)?.label,
+          Object.keys(theme.tokens).length > 0 && "custom",
+        ]
+          .filter(Boolean)
+          .join(" ")
+        const file = figma.figmaTheme(
+          tokens,
+          probeFigmaTokens(
+            figma.figmaProbeRequest(figma.figmaTokenMeta(tokens)),
+            document.body,
+          ),
+          collection,
+        )
+        const text = (value: unknown) => strToU8(figma.figmaJson(value))
+        download(
+          "opui-figma.zip",
+          new Uint8Array(
+            zipSync({
+              "theme.figma.json": text(file),
+              ...Object.fromEntries(
+                Object.entries(figma.figmaModeFiles(file)).map(
+                  ([mode, doc]) => [`${mode}.tokens.json`, text(doc)],
+                ),
+              ),
+            }),
+          ),
+          "application/zip",
+        )
+        say(
+          "Downloaded opui-figma.zip: a variables file per mode and theme.figma.json for the opui Figma plugin.",
+        )
       })
 
     new MutationObserver(() => {

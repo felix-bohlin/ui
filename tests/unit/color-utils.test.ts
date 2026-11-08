@@ -4,7 +4,11 @@ import {
   formatOklch,
   oklchGamut,
   oklchLuminances,
+  oklchToHex,
+  oklchToRgb,
   parseOklch,
+  rgbToHex,
+  srgbToOklch,
 } from "../../src/utils/color-utils"
 
 describe("parseOklch", () => {
@@ -98,5 +102,45 @@ describe("oklchLuminances", () => {
   test("clips a wide-gamut color separately for each screen", () => {
     const [srgb, p3] = oklchLuminances(0.74, 0.31, 338)
     expect(srgb).not.toBeCloseTo(p3, 2)
+  })
+})
+
+describe("oklchToRgb", () => {
+  test("converts a color inside the gamut as it is", () => {
+    expect(rgbToHex(oklchToRgb({ C: 0.1, H: 250, L: 0.6 }))).toBe(
+      oklchToHex(0.6, 0.1, 250).toUpperCase(),
+    )
+  })
+
+  test("lowers the chroma of a color outside the gamut and keeps its lightness and hue", () => {
+    const [r, g, b] = oklchToRgb({ C: 0.36, H: 150, L: 0.7 })
+    for (const channel of [r, g, b]) {
+      expect(channel).toBeGreaterThanOrEqual(0)
+      expect(channel).toBeLessThanOrEqual(1)
+    }
+    const mapped = srgbToOklch(r, g, b)
+    expect(mapped.L).toBeCloseTo(0.7, 1)
+    expect(mapped.H).toBeCloseTo(150, -1)
+    expect(mapped.C).toBeLessThan(0.36)
+  })
+
+  test("keeps a Display P3 color whole in P3 and maps it in sRGB", () => {
+    const color = { C: 0.25, H: 30, L: 0.65 }
+    const p3 = oklchToRgb(color, "p3")
+    const srgb = oklchToRgb(color)
+    expect(p3.every((channel) => channel > 0 && channel < 1)).toBe(true)
+    expect(srgb).not.toEqual(p3)
+  })
+
+  test("returns white and black at the ends of the lightness range", () => {
+    expect(oklchToRgb({ C: 0.2, H: 30, L: 1 })).toEqual([1, 1, 1])
+    expect(oklchToRgb({ C: 0.2, H: 30, L: 0 }, "p3")).toEqual([0, 0, 0])
+  })
+})
+
+describe("rgbToHex", () => {
+  test("writes six uppercase digits and clamps each channel", () => {
+    expect(rgbToHex([1, 0.5, 0])).toBe("#FF8000")
+    expect(rgbToHex([1.2, -0.1, 0.2])).toBe("#FF0033")
   })
 })

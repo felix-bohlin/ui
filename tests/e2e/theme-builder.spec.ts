@@ -1,6 +1,7 @@
-import { readdirSync } from "node:fs"
+import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test, type Page } from "@playwright/test"
+import { strFromU8, unzipSync } from "fflate"
 import { axeNodes } from "./fixtures"
 
 const PRESETS =
@@ -198,6 +199,37 @@ test("the export drawer holds the CSS", async ({ page }) => {
   await expect(drawer.locator("[data-css-status]")).toHaveText(
     /Copied theme\.css\.|Could not copy\./,
   )
+})
+
+test("the export drawer downloads the theme for Figma", async ({ page }) => {
+  await open(page)
+  await page.locator('[data-mood="minimal"]').click()
+  await page.getByRole("button", { name: "Export CSS" }).click()
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.locator("[data-figma-download]").click(),
+  ])
+  expect(download.suggestedFilename()).toBe("opui-figma.zip")
+  const files = unzipSync(readFileSync(await download.path()))
+  expect(Object.keys(files).toSorted()).toEqual([
+    "dark-more-contrast.tokens.json",
+    "dark.tokens.json",
+    "light-more-contrast.tokens.json",
+    "light.tokens.json",
+    "theme.figma.json",
+  ])
+  const theme = JSON.parse(strFromU8(files["theme.figma.json"]))
+  expect(theme.collection).toBe("opui custom")
+  expect(
+    theme.variables.find(
+      ({ name }: { name: string }) => name === "borders/ui-radius",
+    )?.values.light,
+  ).toBe(0)
+  const light = JSON.parse(strFromU8(files["light.tokens.json"]))
+  expect(light.surfaces["ui-surface"].$extensions["com.figma"]).toEqual({
+    codeSyntax: { WEB: "var(--ui-surface)" },
+    scopes: ["FRAME_FILL", "SHAPE_FILL"],
+  })
 })
 
 test("on a phone the preview opens as a sheet", async ({ page }) => {

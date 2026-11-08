@@ -1,0 +1,10 @@
+{
+  "api": "1.0.0",
+  "documentAccess": "dynamic-page",
+  "editorType": ["figma"],
+  "id": "opui-theme-sync",
+  "main": "dist/code.js",
+  "name": "opui",
+  "networkAccess": { "allowedDomains": ["none"] },
+  "ui": "dist/ui.html"
+}

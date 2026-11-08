@@ -49,6 +49,7 @@
     "dist",
     "elements",
     "env.d.ts",
+    "figma",
     "open-props.css",
     "react",
     "skills",
@@ -115,6 +116,7 @@
     "./dist/*": "./dist/*",
     "./elements/*": "./elements/*",
     "./env.d.ts": "./env.d.ts",
+    "./figma/*": "./figma/*",
     "./package.json": "./package.json"
   },
   "scripts": {

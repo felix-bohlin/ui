@@ -1,0 +1,3252 @@
+{
+  "palette-steps": {
+    "ui-color-1": {
+      "$description": "Step 1 of the palette, at 98% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-1)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.98, 0.015, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.93424, 0.98425, 1],
+        "hex": "#EEFBFF"
+      }
+    },
+    "ui-color-2": {
+      "$description": "Step 2 of the palette, at 97% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-2)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.97, 0.03, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.88016, 0.9812, 1],
+        "hex": "#E0FAFF"
+      }
+    },
+    "ui-color-3": {
+      "$description": "Step 3 of the palette, at 93% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-3)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.93, 0.05, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77106, 0.94144, 1],
+        "hex": "#C5F0FF"
+      }
+    },
+    "ui-color-4": {
+      "$description": "Step 4 of the palette, at 84% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-4)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.84, 0.06, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.62749, 0.83099, 0.90667],
+        "hex": "#A0D4E7"
+      }
+    },
+    "ui-color-5": {
+      "$description": "Step 5 of the palette, at 80% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-5)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.8, 0.08, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.51111, 0.79078, 0.8914],
+        "hex": "#82CAE3"
+      }
+    },
+    "ui-color-6": {
+      "$description": "Step 6 of the palette, at 71% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-6)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.71, 0.095, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.33797, 0.68488, 0.8022],
+        "hex": "#56AFCD"
+      }
+    },
+    "ui-color-7": {
+      "$description": "Step 7 of the palette, at 66% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-7)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.66, 0.1, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.2455, 0.62532, 0.74734],
+        "hex": "#3F9FBF"
+      }
+    },
+    "ui-color-8": {
+      "$description": "Step 8 of the palette, at 58% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-8)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.58, 0.105, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.0578, 0.53039, 0.65575],
+        "hex": "#0F87A7"
+      }
+    },
+    "ui-color-9": {
+      "$description": "Step 9 of the palette, at 53% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-9)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.53, 0.1, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.46943, 0.58648],
+        "hex": "#007896"
+      }
+    },
+    "ui-color-10": {
+      "$description": "Step 10 of the palette, at 49% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-10)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.49, 0.095, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.42128, 0.53053],
+        "hex": "#006B87"
+      }
+    },
+    "ui-color-11": {
+      "$description": "Step 11 of the palette, at 42% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-11)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.42, 0.085, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.33893, 0.43328],
+        "hex": "#00566E"
+      }
+    },
+    "ui-color-12": {
+      "$description": "Step 12 of the palette, at 35% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-12)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.35, 0.075, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.25986, 0.33974],
+        "hex": "#004257"
+      }
+    },
+    "ui-color-13": {
+      "$description": "Step 13 of the palette, at 27% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-13)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.27, 0.06, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.17319, 0.23326],
+        "hex": "#002C3B"
+      }
+    },
+    "ui-color-14": {
+      "$description": "Step 14 of the palette, at 20% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-14)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.2, 0.045, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.10195, 0.14379],
+        "hex": "#001A25"
+      }
+    },
+    "ui-color-15": {
+      "$description": "Step 15 of the palette, at 16% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-15)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.16, 0.035, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.06352, 0.09422],
+        "hex": "#001018"
+      }
+    },
+    "ui-color-16": {
+      "$description": "Step 16 of the palette, at 10% lightness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-color-16)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.1, 0.025, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.01697, 0.03166],
+        "hex": "#000408"
+      }
+    },
+    "ui-gray-1": {
+      "$description": "Step 1 of the gray palette: the lightness of `--ui-color-1` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-1)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.98, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.95695, 0.97613, 1],
+        "hex": "#F4F9FF"
+      }
+    },
+    "ui-gray-2": {
+      "$description": "Step 2 of the gray palette: the lightness of `--ui-color-2` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-2)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.97, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.94389, 0.96302, 0.98803],
+        "hex": "#F1F6FC"
+      }
+    },
+    "ui-gray-3": {
+      "$description": "Step 3 of the gray palette: the lightness of `--ui-color-3` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-3)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.93, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.89198, 0.91092, 0.93566],
+        "hex": "#E3E8EF"
+      }
+    },
+    "ui-gray-4": {
+      "$description": "Step 4 of the gray palette: the lightness of `--ui-color-4` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-4)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.84, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77728, 0.79574, 0.81986],
+        "hex": "#C6CBD1"
+      }
+    },
+    "ui-gray-5": {
+      "$description": "Step 5 of the gray palette: the lightness of `--ui-color-5` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-5)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.8, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.72727, 0.74551, 0.76933],
+        "hex": "#B9BEC4"
+      }
+    },
+    "ui-gray-6": {
+      "$description": "Step 6 of the gray palette: the lightness of `--ui-color-6` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-6)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.71, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.61711, 0.6348, 0.65792],
+        "hex": "#9DA2A8"
+      }
+    },
+    "ui-gray-7": {
+      "$description": "Step 7 of the gray palette: the lightness of `--ui-color-7` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-7)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.66, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.55739, 0.57477, 0.59747],
+        "hex": "#8E9398"
+      }
+    },
+    "ui-gray-8": {
+      "$description": "Step 8 of the gray palette: the lightness of `--ui-color-8` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-8)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.58, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.46426, 0.48108, 0.50305],
+        "hex": "#767B80"
+      }
+    },
+    "ui-gray-9": {
+      "$description": "Step 9 of the gray palette: the lightness of `--ui-color-9` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-9)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.53, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.40766, 0.42411, 0.44558],
+        "hex": "#686C72"
+      }
+    },
+    "ui-gray-10": {
+      "$description": "Step 10 of the gray palette: the lightness of `--ui-color-10` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-10)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.49, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.36336, 0.37949, 0.40054],
+        "hex": "#5D6166"
+      }
+    },
+    "ui-gray-11": {
+      "$description": "Step 11 of the gray palette: the lightness of `--ui-color-11` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-11)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.42, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.28806, 0.30359, 0.32383],
+        "hex": "#494D53"
+      }
+    },
+    "ui-gray-12": {
+      "$description": "Step 12 of the gray palette: the lightness of `--ui-color-12` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-12)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.35, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.21594, 0.23077, 0.2501],
+        "hex": "#373B40"
+      }
+    },
+    "ui-gray-13": {
+      "$description": "Step 13 of the gray palette: the lightness of `--ui-color-13` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-13)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.27, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.13802, 0.15193, 0.17002],
+        "hex": "#23272B"
+      }
+    },
+    "ui-gray-14": {
+      "$description": "Step 14 of the gray palette: the lightness of `--ui-color-14` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-14)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.2, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.07459, 0.0875, 0.10427],
+        "hex": "#13161B"
+      }
+    },
+    "ui-gray-15": {
+      "$description": "Step 15 of the gray palette: the lightness of `--ui-color-15` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-15)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.16, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.04079, 0.05301, 0.06886],
+        "hex": "#0A0E12"
+      }
+    },
+    "ui-gray-16": {
+      "$description": "Step 16 of the gray palette: the lightness of `--ui-color-16` at `--ui-gray-chroma` and `--ui-gray-hue`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-gray-16)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        },
+        "opui": {
+          "oklch": [0.1, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.00829, 0.01341, 0.0222],
+        "hex": "#020306"
+      }
+    }
+  },
+  "palette-roles": {
+    "ui-palette-accent": {
+      "$description": "The accent shade of the current palette: `Callout` icons and outlined borders. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-accent)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.53, 0.1, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.46943, 0.58648],
+        "hex": "#007896"
+      }
+    },
+    "ui-palette-border": {
+      "$description": "The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Severity `Chip` borders read it. Re-derived inside every severity scope.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-border)"
+          },
+          "scopes": ["STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.8, 0.08, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.51111, 0.79078, 0.8914],
+        "hex": "#82CAE3"
+      }
+    },
+    "ui-palette-strong": {
+      "$description": "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Severity `Chip` text reads it. Re-derived inside every severity scope.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-strong)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.1, 0.025, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.01697, 0.03166],
+        "hex": "#000408"
+      }
+    },
+    "ui-palette-on-strong": {
+      "$description": "Text color on `--ui-palette-strong`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-on-strong)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.98, 0.015, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.93424, 0.98425, 1],
+        "hex": "#EEFBFF"
+      }
+    },
+    "ui-palette-text": {
+      "$description": "A readable text shade of the current palette, at least `--ui-palette-text-min-lightness` in dark mode. Darker in light mode and lighter in dark mode with more contrast. Re-derived inside every severity scope.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.42, 0.085, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.33893, 0.43328],
+        "hex": "#00566E"
+      }
+    },
+    "ui-palette-tint": {
+      "$description": "The tonal fill of the current palette: primary and critical tonal buttons when `--ui-primary-tonal` is unset. Stronger with more contrast. Re-derived inside every severity scope.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-tint)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.71, 0.095, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.33797, 0.68488, 0.8022],
+        "hex": "#56AFCD"
+      }
+    },
+    "ui-palette-on-tint": {
+      "$description": "Text color on `--ui-palette-tint`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-on-tint)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{text.ui-text-strong}"
+    },
+    "ui-palette-tint-subtle": {
+      "$description": "A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-palette-tint-subtle)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.93, 0.05, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 0.6,
+        "colorSpace": "srgb",
+        "components": [0.77106, 0.94144, 1],
+        "hex": "#C5F0FF"
+      }
+    }
+  },
+  "named-colors-no-severity-meaning": {
+    "ui-blue": {
+      "$description": "A literal blue, hue 240 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-blue)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.53, 0.2, 240]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.45214, 0.72069],
+        "hex": "#0073B8"
+      }
+    },
+    "ui-green": {
+      "$description": "A literal green, hue 145 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-green)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.53, 0.2, 145]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.52732, 0],
+        "hex": "#008600"
+      }
+    },
+    "ui-orange": {
+      "$description": "A literal orange, hue 75 at `0.66`, the lightness of palette step 7 in every palette. No severity meaning.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-orange)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.66, 0.2, 75]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.78926, 0.50387, 0],
+        "hex": "#C98000"
+      }
+    },
+    "ui-red": {
+      "$description": "A literal red, hue 25 at `0.53`, the lightness of palette step 9 in every palette. No severity meaning.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-red)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.53, 0.2, 25]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77364, 0.11212, 0.15709],
+        "hex": "#C51D28"
+      }
+    }
+  },
+  "intent-tokens": {
+    "ui-critical": {
+      "$description": "Severity color for errors and destructive actions.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-critical)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        }
+      },
+      "$type": "color",
+      "$value": "{named-colors-no-severity-meaning.ui-red}"
+    },
+    "ui-critical-text": {
+      "$description": "Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-critical-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.2, 25]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.58682, 0, 0.02577],
+        "hex": "#960007"
+      }
+    },
+    "ui-info": {
+      "$description": "Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-info)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        }
+      },
+      "$type": "color",
+      "$value": "{named-colors-no-severity-meaning.ui-blue}"
+    },
+    "ui-info-text": {
+      "$description": "Info as a text color, for informational text outside an `.ui-info` scope. `--ui-info` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-info-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.2, 240]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.31279, 0.51926],
+        "hex": "#005084"
+      }
+    },
+    "ui-invalid": {
+      "$description": "Color for invalid field borders, fills and outlines. Lifted to `--ui-invalid-min-lightness` in dark mode, so invalid borders stand out from the page with more contrast.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-invalid)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.53, 0.2, 25]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77364, 0.11212, 0.15709],
+        "hex": "#C51D28"
+      }
+    },
+    "ui-invalid-text": {
+      "$description": "Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-invalid-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.2, 25]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.58682, 0, 0.02577],
+        "hex": "#960007"
+      }
+    },
+    "ui-neutral": {
+      "$description": "Severity color for neutral messages. `--ui-gray-hue` and `--ui-gray-chroma` at `0.53`, the lightness of `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope derives its palette from its hue and chroma.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-neutral)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.53, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.40766, 0.42411, 0.44558],
+        "hex": "#686C72"
+      }
+    },
+    "ui-neutral-text": {
+      "$description": "Neutral as a text color, for neutral text outside an `.ui-neutral` scope. `--ui-neutral` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-neutral-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.27756, 0.29299, 0.3131],
+        "hex": "#474B50"
+      }
+    },
+    "ui-success": {
+      "$description": "Severity color for success messages.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-success)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        }
+      },
+      "$type": "color",
+      "$value": "{named-colors-no-severity-meaning.ui-green}"
+    },
+    "ui-success-text": {
+      "$description": "Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-success-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.2, 145]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.36944, 0],
+        "hex": "#005E00"
+      }
+    },
+    "ui-warning": {
+      "$description": "Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-warning)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        }
+      },
+      "$type": "color",
+      "$value": "{named-colors-no-severity-meaning.ui-orange}"
+    },
+    "ui-on-warning": {
+      "$description": "Text color on a `--ui-warning` fill: the warning `Badge`. White on a warning below 0.182 relative luminance and near-black above it, like `--ui-on-primary`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-on-warning)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.1063, 0, 21.37]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.01551, 0.0155, 0.0155],
+        "hex": "#040404"
+      }
+    },
+    "ui-warning-text": {
+      "$description": "Warning as a text color, for warning text outside a `.ui-warning` scope. `--ui-warning` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-warning-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.2, 75]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.41874, 0.24885, 0],
+        "hex": "#6B3F00"
+      }
+    }
+  },
+  "primary": {
+    "ui-primary": {
+      "$description": "Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-primary)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.499, 0.191, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.43769, 0.57127],
+        "hex": "#007092"
+      }
+    },
+    "ui-on-primary": {
+      "$description": "Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-on-primary)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [1, 0, 21.38]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [1, 1, 1],
+        "hex": "#FFFFFF"
+      }
+    },
+    "ui-primary-text": {
+      "$description": "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-primary-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.41, 0.191, 222.8]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0.33147, 0.44064],
+        "hex": "#005570"
+      }
+    },
+    "ui-selected-strong": {
+      "$description": "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row, the selected tab of filled `Tabs`, the current `Stepper` and `Timeline` markers, and the done part of a `Progress` bar, a `Stepper` and a tracked `Timeline`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-selected-strong)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        }
+      },
+      "$type": "color",
+      "$value": "{primary.ui-primary}"
+    },
+    "ui-on-selected-strong": {
+      "$description": "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs` and the number or icon of the current `Stepper` and `Timeline` markers. Defaults to `--ui-on-primary`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-on-selected-strong)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{primary.ui-on-primary}"
+    }
+  },
+  "text": {
+    "ui-text-strong": {
+      "$description": "Strongest text color, for headings, labels and values. Body text is `--ui-text`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-text-strong)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.16, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.04079, 0.05301, 0.06886],
+        "hex": "#0A0E12"
+      }
+    },
+    "ui-text": {
+      "$description": "Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-text)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.2666, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.13483, 0.14869, 0.16673],
+        "hex": "#22262B"
+      }
+    },
+    "ui-text-subtle": {
+      "$description": "Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. `--ui-text` unless a theme sets it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-text-subtle)"
+          },
+          "scopes": ["TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{text.ui-text}"
+    },
+    "ui-text-disabled": {
+      "$description": "Text color of disabled buttons and chips. `--ui-text` mixed into `--ui-surface` at `--ui-text-disabled-strength`. Also the label and border of an unchecked disabled `ToggleButton`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-text-disabled)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.6233, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.51429, 0.53142, 0.55379],
+        "hex": "#83888D"
+      }
+    },
+    "ui-on-inverse": {
+      "$description": "Text color on `--ui-surface-inverse`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-on-inverse)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.98, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.95695, 0.97613, 1],
+        "hex": "#F4F9FF"
+      }
+    },
+    "ui-on-fill": {
+      "$description": "Text on an intent fill: an intent color with its lightness capped so light text reads on it, within `--ui-accent-fill-max-lightness` for critical `Button`s and the critical, info, neutral and success `Badge`, and within `--ui-choice-fill-max-lightness` for the invalid choice mark and the checked one in dark mode. Near-white in both modes. The fill has no token of its own, since each intent is one. Not `--ui-palette-on-strong`, which turns dark in dark mode for the light `--ui-palette-strong`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-on-fill)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{palette-steps.ui-gray-1}"
+    }
+  },
+  "surfaces": {
+    "ui-surface": {
+      "$description": "Page and card background.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-surface)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.98, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.95695, 0.97613, 1],
+        "hex": "#F4F9FF"
+      }
+    },
+    "ui-surface-elevated": {
+      "$description": "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-surface-elevated)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.98, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.95695, 0.97613, 1],
+        "hex": "#F4F9FF"
+      }
+    },
+    "ui-surface-filled": {
+      "$description": "Background of filled areas: lists, `.ui-filled` progress and range tracks, table headers and footers, and hovered table rows.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-surface-filled)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.84, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77728, 0.79574, 0.81986],
+        "hex": "#C6CBD1"
+      }
+    },
+    "ui-surface-inverse": {
+      "$description": "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-surface-inverse)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.16, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.04079, 0.05301, 0.06886],
+        "hex": "#0A0E12"
+      }
+    },
+    "ui-surface-tonal": {
+      "$description": "Background of tonal variants.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-surface-tonal)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.93, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.89198, 0.91092, 0.93566],
+        "hex": "#E3E8EF"
+      }
+    },
+    "ui-surface-tonal-hover": {
+      "$description": "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s, filled `TextField`, `Select` and `Textarea` fields, and tonal `Button`s with `--ui-button-hover: shade-all`. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-surface-tonal-hover)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.8649, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.80872, 0.82731, 0.85161],
+        "hex": "#CED3D9"
+      }
+    }
+  },
+  "borders": {
+    "ui-border-width": {
+      "$description": "Default border width for components that draw a border.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-border-width)"
+          },
+          "scopes": ["STROKE_FLOAT"]
+        }
+      },
+      "$type": "number",
+      "$value": 1
+    },
+    "ui-border-width-thick": {
+      "$description": "Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-border-width-thick)"
+          },
+          "scopes": ["STROKE_FLOAT"]
+        }
+      },
+      "$type": "number",
+      "$value": 2
+    },
+    "ui-radius": {
+      "$description": "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-radius)"
+          },
+          "scopes": ["CORNER_RADIUS"]
+        }
+      },
+      "$type": "number",
+      "$value": 8
+    },
+    "ui-radius-round": {
+      "$description": "The pill radius for round buttons, avatars, badges, the chip dot, radios, switches, the range track and the carousel buttons and markers.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-radius-round)"
+          },
+          "scopes": ["CORNER_RADIUS"]
+        }
+      },
+      "$type": "number",
+      "$value": 100000
+    },
+    "ui-radius-large": {
+      "$description": "Corner radius for large surfaces, such as cards and dialogs that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. Not read by a component yet.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-radius-large)"
+          },
+          "scopes": ["CORNER_RADIUS"]
+        }
+      },
+      "$type": "number",
+      "$value": 12
+    },
+    "ui-radius-small": {
+      "$description": "Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a `rounded` `Avatar`. `--ui-radius`, capped at 5px.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-radius-small)"
+          },
+          "scopes": ["CORNER_RADIUS"]
+        }
+      },
+      "$type": "number",
+      "$value": 5
+    },
+    "ui-radius-x-small": {
+      "$description": "Corner radius of the `Checkbox` box. `--ui-radius`, capped at 2px.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-radius-x-small)"
+          },
+          "scopes": ["CORNER_RADIUS"]
+        }
+      },
+      "$type": "number",
+      "$value": 2
+    },
+    "ui-border-color": {
+      "$description": "Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-border-color)"
+          },
+          "scopes": ["STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.8406, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77803, 0.79649, 0.82062],
+        "hex": "#C6CBD1"
+      }
+    },
+    "ui-border-color-on-filled": {
+      "$description": "Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-border-color-on-filled)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.71, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.61711, 0.6348, 0.65792],
+        "hex": "#9DA2A8"
+      }
+    },
+    "ui-border-color-on-raised": {
+      "$description": "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and tonal `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-border-color-on-raised)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.8406, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.77803, 0.79649, 0.82062],
+        "hex": "#C6CBD1"
+      }
+    }
+  },
+  "field-input": {
+    "ui-field-border-width": {
+      "$description": "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-border-width)"
+          },
+          "scopes": ["STROKE_FLOAT"]
+        }
+      },
+      "$type": "number",
+      "$value": 1
+    },
+    "ui-field-helper-text-color": {
+      "$description": "Text color for helper and end text under a field.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-helper-text-color)"
+          },
+          "scopes": ["TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{text.ui-text-subtle}"
+    },
+    "ui-field-helper-font-size": {
+      "$description": "Font size for helper and end text under a field.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-helper-font-size)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-caption}"
+    },
+    "ui-field-helper-line-height": {
+      "$description": "Line height for helper and end text under a field.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-helper-line-height)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-line-height-control}"
+    },
+    "ui-field-label-text-color": {
+      "$description": "Text color for field labels.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-label-text-color)"
+          },
+          "scopes": ["TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{text.ui-text-strong}"
+    },
+    "ui-field-label-font-size": {
+      "$description": "Font size for field labels.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-label-font-size)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-small}"
+    },
+    "ui-field-label-font-weight": {
+      "$description": "Font weight for emphasized field labels and legends.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-label-font-weight)"
+          },
+          "scopes": ["FONT_WEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-weight-semibold}"
+    },
+    "ui-field-required-text-color": {
+      "$description": "Color of the required asterisk.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-required-text-color)"
+          },
+          "scopes": ["TEXT_FILL"]
+        }
+      },
+      "$type": "color",
+      "$value": "{intent-tokens.ui-invalid-text}"
+    },
+    "ui-field-border-color": {
+      "$description": "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-border-color)"
+          },
+          "scopes": ["STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0.57, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.45283, 0.46959, 0.49146],
+        "hex": "#73787D"
+      }
+    },
+    "ui-field-border-color-on-filled": {
+      "$description": "Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-border-color-on-filled)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.5, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.37435, 0.39056, 0.41172],
+        "hex": "#5F6469"
+      }
+    },
+    "ui-field-border-color-on-raised": {
+      "$description": "Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-border-color-on-raised)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.57, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.45283, 0.46959, 0.49146],
+        "hex": "#73787D"
+      }
+    }
+  },
+  "focus-ring": {
+    "ui-focus-ring-offset": {
+      "$description": "Distance between a control and its focus ring.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-focus-ring-offset)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 2
+    },
+    "ui-focus-ring-width": {
+      "$description": "Width of the focus ring. `3px` with more contrast.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-focus-ring-width)"
+          },
+          "scopes": ["STROKE_FLOAT"]
+        }
+      },
+      "$type": "number",
+      "$value": 2
+    },
+    "ui-focus-ring-color": {
+      "$description": "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-focus-ring-color)"
+          },
+          "scopes": ["STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0, 0, 0]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0, 0],
+        "hex": "#000000"
+      }
+    },
+    "ui-focus-ring-inset": {
+      "$description": "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-focus-ring-inset)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": -2
+    },
+    "ui-focus-highlight": {
+      "$description": "Fill of a focused link or button that highlights instead of showing the ring, when `--ui-link-focus` or `--ui-button-focus` is `highlight`: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-focus-highlight)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"]
+        },
+        "opui": {
+          "oklch": [0, 0, 0]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0, 0, 0],
+        "hex": "#000000"
+      }
+    },
+    "ui-on-focus-highlight": {
+      "$description": "Text color on `--ui-focus-highlight`, and the bar under a highlighted link: black or white, whichever reads on it. It switches at OKLCH lightness 0.57, where black and white both reach 4.5:1 on a gray, since it colors text; the focus ring switches at 0.6, which only needs 3:1. Set it to match a brand's focus text, and hand it back under more contrast with the ring color.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-on-focus-highlight)"
+          },
+          "scopes": ["SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [1, 0, 0]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [1, 1, 1],
+        "hex": "#FFFFFF"
+      }
+    }
+  },
+  "typography": {
+    "ui-font-body": {
+      "$description": "Font family for body text, fields and buttons. `system-ui, sans-serif` by default.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-body)"
+          },
+          "scopes": ["FONT_FAMILY"]
+        }
+      },
+      "$type": "string",
+      "$value": "Inter"
+    },
+    "ui-font-code": {
+      "$description": "Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. A monospace stack by default.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-code)"
+          },
+          "scopes": ["FONT_FAMILY"]
+        }
+      },
+      "$type": "string",
+      "$value": "Inconsolata"
+    },
+    "ui-font-size-100": {
+      "$description": "The smallest step of the type scale, 12px. `--ui-font-size-caption` reads it. Set the steps to reshape every size at once, or a role to move one.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-100)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 12
+    },
+    "ui-font-size-200": {
+      "$description": "Type scale step, 14px. `--ui-font-size-small` reads it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-200)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 14
+    },
+    "ui-font-size-300": {
+      "$description": "Type scale step, 16px. `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-h6` read it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-300)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "ui-font-size-400": {
+      "$description": "Type scale step, 18px. `--ui-font-size-h5` reads it, and `--ui-font-size-h4` grows from it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-400)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 18
+    },
+    "ui-font-size-500": {
+      "$description": "Type scale step, 20px. `--ui-font-size-large` reads it, `--ui-font-size-h3` grows from it and `--ui-font-size-h4` grows to it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-500)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-font-size-600": {
+      "$description": "Type scale step, 24px. `--ui-font-size-h2` grows from it and `--ui-font-size-h3` grows to it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-600)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "ui-font-size-700": {
+      "$description": "Type scale step, 32px. `--ui-font-size-h1` grows from it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-700)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 32
+    },
+    "ui-font-size-800": {
+      "$description": "Type scale step, 40px. `--ui-font-size-h2` grows to it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-800)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 40
+    },
+    "ui-font-size-900": {
+      "$description": "The largest step of the type scale, 56px. `--ui-font-size-h1` grows to it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-900)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 56
+    },
+    "ui-font-weight-normal": {
+      "$description": "Font weight for body text, `List` text and `Button` keyboard shortcuts.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-weight-normal)"
+          },
+          "scopes": ["FONT_WEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 400
+    },
+    "ui-font-weight-medium": {
+      "$description": "Font weight for badges, overlines and group labels.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-weight-medium)"
+          },
+          "scopes": ["FONT_WEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 500
+    },
+    "ui-font-weight-semibold": {
+      "$description": "Font weight for labels, table headers and titles.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-weight-semibold)"
+          },
+          "scopes": ["FONT_WEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 600
+    },
+    "ui-font-weight-bold": {
+      "$description": "Font weight for headings, buttons and terms.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-weight-bold)"
+          },
+          "scopes": ["FONT_WEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 700
+    },
+    "ui-letter-spacing-caps": {
+      "$description": "Letter spacing of uppercase text: overlines and the first paragraph of an `hgroup`. Scales with the font size: the value is at 16px.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-letter-spacing-caps)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0.96
+    },
+    "ui-letter-spacing-display": {
+      "$description": "Letter spacing of `h1` and `h2`, tighter than the body. Scales with the font size: the value is at 16px.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-letter-spacing-display)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": -0.32
+    },
+    "ui-letter-spacing-heading": {
+      "$description": "Letter spacing of `h3` and `h4`, slightly tighter than the body. Scales with the font size: the value is at 16px.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-letter-spacing-heading)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": -0.16
+    },
+    "ui-line-height-tight": {
+      "$description": "Line height of single-line controls and compact text: field inputs, dense `Table` cells, the `Stat` value, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-line-height-tight)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 1.25
+    },
+    "ui-line-height-control": {
+      "$description": "Line height of interface text: labels, helpers, choice labels and field hints.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-line-height-control)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 1.5
+    },
+    "ui-line-height": {
+      "$description": "Line height of captions, `List` text, the `Stat` label and description and the `Stepper` description. Body text and prose use `--ui-line-height-relaxed`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-line-height)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 1.6
+    },
+    "ui-line-height-relaxed": {
+      "$description": "Line height of the page text set on `html`, and of `Tabs` labels.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-line-height-relaxed)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 1.75
+    },
+    "ui-rhythm-step": {
+      "$description": "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-rhythm-step)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 4
+    },
+    "ui-underline-offset": {
+      "$description": "Gap between text and its underline for `Link`, rich text links and `Stepper` links.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-underline-offset)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 2
+    },
+    "ui-underline-offset-small": {
+      "$description": "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-underline-offset-small)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 1
+    },
+    "ui-underline-thickness-hover": {
+      "$description": "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-underline-thickness-hover)"
+          },
+          "scopes": ["STROKE_FLOAT"]
+        }
+      },
+      "$type": "number",
+      "$value": 3
+    },
+    "ui-font-size-caption": {
+      "$description": "Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-caption)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-100}"
+    },
+    "ui-font-size-small": {
+      "$description": "Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, `List` text, small buttons, toggles and fields, and large chips. Defaults to `--ui-font-size-200`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-small)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-200}"
+    },
+    "ui-font-size-body": {
+      "$description": "Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-body)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-300}"
+    },
+    "ui-font-size-control": {
+      "$description": "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-control)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-300}"
+    },
+    "ui-font-size-large": {
+      "$description": "Font size of lead paragraphs, `.ui-p.ui-large`, large `Avatar` initials, the `DescriptionList` total row, the value of a small `Stat` and the `OneTimeCode` digits. Defaults to `--ui-font-size-500`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-large)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-500}"
+    },
+    "ui-fluid-progress": {
+      "$description": "Position of the viewport inline size in the `--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size` window, 0 to 1, from `progress()`. `--ui-font-size-h1` to `--ui-font-size-h4` grow with it, and a theme can ramp other values on the same window.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-fluid-progress)"
+          },
+          "hiddenFromPublishing": true,
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 1
+    },
+    "ui-font-size-h1": {
+      "$description": "Font size for `h1` and `.ui-h1`. Grows from `--ui-font-size-700` to `--ui-font-size-900` with `--ui-fluid-progress`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-h1)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": 56
+    },
+    "ui-font-size-h2": {
+      "$description": "Font size for `h2` and `.ui-h2`. Grows from `--ui-font-size-600` to `--ui-font-size-800` with `--ui-fluid-progress`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-h2)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": 40
+    },
+    "ui-font-size-h3": {
+      "$description": "Font size for `h3` and `.ui-h3`. Grows from `--ui-font-size-500` to `--ui-font-size-600` with `--ui-fluid-progress`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-h3)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "ui-font-size-h4": {
+      "$description": "Font size for `h4` and `.ui-h4`. Grows from `--ui-font-size-400` to `--ui-font-size-500` with `--ui-fluid-progress`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-h4)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-font-size-h5": {
+      "$description": "Font size for `h5` and `.ui-h5`. Defaults to `--ui-font-size-400`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-h5)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-400}"
+    },
+    "ui-font-size-h6": {
+      "$description": "Font size for `h6` and `.ui-h6`. Defaults to `--ui-font-size-300`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-font-size-h6)"
+          },
+          "scopes": ["FONT_SIZE"]
+        }
+      },
+      "$type": "number",
+      "$value": "{typography.ui-font-size-300}"
+    }
+  },
+  "code": {
+    "ui-code-bg-color": {
+      "$description": "Background of inline `code` in rich text and `Typography`. `--ui-text` at `--ui-code-bg-alpha-light` in light mode and `--ui-code-bg-alpha-dark` in dark mode, fainter with more contrast so the text stands out.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-code-bg-color)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.2666, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [0.13483, 0.14869, 0.16673],
+        "hex": "#22262B"
+      }
+    },
+    "ui-code-block-bg-color": {
+      "$description": "Background of `pre.ui-code-block` and `pre` in rich text. `--ui-surface-inverse` in light mode and `--ui-surface-filled` in dark mode, so the block is dark in both.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-code-block-bg-color)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.16, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.04079, 0.05301, 0.06886],
+        "hex": "#0A0E12"
+      }
+    },
+    "ui-code-block-text-color": {
+      "$description": "Text color of `pre.ui-code-block` and `pre` in rich text. `--ui-on-inverse` in light mode and `--ui-text-strong` in dark mode, on `--ui-code-block-bg-color`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-code-block-text-color)"
+          },
+          "scopes": ["TEXT_FILL"]
+        },
+        "opui": {
+          "oklch": [0.98, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.95695, 0.97613, 1],
+        "hex": "#F4F9FF"
+      }
+    }
+  },
+  "spacing": {
+    "ui-space-1": {
+      "$description": "Spacing step 1: `0.25rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-1)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 4
+    },
+    "ui-space-2": {
+      "$description": "Spacing step 2: `0.5rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-2)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 8
+    },
+    "ui-space-3": {
+      "$description": "Spacing step 3: `1rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-3)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "ui-space-4": {
+      "$description": "Spacing step 4: `1.25rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-4)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-space-5": {
+      "$description": "Spacing step 5: `1.5rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-5)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "ui-space-6": {
+      "$description": "Spacing step 6: `1.75rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-6)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 28
+    },
+    "ui-space-7": {
+      "$description": "Spacing step 7: `2rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-7)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 32
+    },
+    "ui-space-8": {
+      "$description": "Spacing step 8: `3rem` times `--ui-space-scale`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-space-8)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 48
+    }
+  },
+  "control-sizes": {
+    "ui-control-size-x-small": {
+      "$description": "Shared x-small height for fields and buttons.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-control-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 28
+    },
+    "ui-control-size-small": {
+      "$description": "Shared small height for fields and buttons.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-control-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 32
+    },
+    "ui-control-size": {
+      "$description": "Shared default height for fields and buttons so they line up.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-control-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 40
+    },
+    "ui-control-size-large": {
+      "$description": "Shared large height for fields and buttons.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-control-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 48
+    },
+    "ui-field-size-x-small": {
+      "$description": "Field height with `.ui-x-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-x-small}"
+    },
+    "ui-field-size-small": {
+      "$description": "Field height with `.ui-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-small}"
+    },
+    "ui-field-size": {
+      "$description": "Default field height.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size}"
+    },
+    "ui-field-size-large": {
+      "$description": "Field height with `.ui-large`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-field-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-large}"
+    },
+    "ui-button-size-x-small": {
+      "$description": "`Button` and `ButtonGroup` height with `.ui-x-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-button-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-x-small}"
+    },
+    "ui-button-size-small": {
+      "$description": "`Button` height with `.ui-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-button-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-small}"
+    },
+    "ui-button-size": {
+      "$description": "Default `Button` height.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-button-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size}"
+    },
+    "ui-button-size-large": {
+      "$description": "`Button` height with `.ui-large`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-button-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-large}"
+    },
+    "ui-chip-size-x-small": {
+      "$description": "`Chip` height with `.ui-x-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-chip-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "ui-chip-size-small": {
+      "$description": "`Chip` height with `.ui-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-chip-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-x-small}"
+    },
+    "ui-chip-size": {
+      "$description": "Default `Chip` height.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-chip-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size-small}"
+    },
+    "ui-chip-size-large": {
+      "$description": "`Chip` height with `.ui-large`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-chip-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": "{control-sizes.ui-control-size}"
+    }
+  },
+  "divider": {
+    "ui-divider-gap": {
+      "$description": "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-divider-gap)"
+          },
+          "scopes": ["GAP"]
+        }
+      },
+      "$type": "number",
+      "$value": 32
+    }
+  },
+  "state": {
+    "ui-disabled-opacity": {
+      "$description": "Opacity applied to disabled controls.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-disabled-opacity)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0.64
+    }
+  },
+  "icons": {
+    "ui-icon-size-x-small": {
+      "$description": "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-icon-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 12
+    },
+    "ui-icon-size-small": {
+      "$description": "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-icon-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "ui-icon-size": {
+      "$description": "Default icon size inside components.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-icon-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-icon-size-large": {
+      "$description": "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-icon-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    }
+  },
+  "choice-controls": {
+    "ui-choice-label-offset": {
+      "$description": "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-choice-label-offset)"
+          },
+          "scopes": []
+        }
+      },
+      "$type": "number",
+      "$value": 0
+    },
+    "ui-choice-ripple-bg-color": {
+      "$description": "Halo color for the `Checkbox` and `Radio` hover effect. `--ui-text` at 20%.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-choice-ripple-bg-color)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.2666, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 0.2,
+        "colorSpace": "srgb",
+        "components": [0.13483, 0.14869, 0.16673],
+        "hex": "#22262B"
+      }
+    },
+    "ui-choice-size-x-small": {
+      "$description": "`Checkbox` and `Radio` input size with `.ui-x-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-choice-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 14
+    },
+    "ui-choice-size-small": {
+      "$description": "`Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-choice-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "ui-choice-size": {
+      "$description": "Default `Checkbox` and `Radio` input size.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-choice-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-choice-size-large": {
+      "$description": "`Checkbox` and `Radio` input size with `.ui-large`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-choice-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "ui-switch-thumb-size-x-small": {
+      "$description": "Diameter of the `Switch` thumb with `.ui-x-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-thumb-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 10
+    },
+    "ui-switch-thumb-size-small": {
+      "$description": "Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-thumb-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 12
+    },
+    "ui-switch-thumb-size": {
+      "$description": "Diameter of the `Switch` thumb.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-thumb-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "ui-switch-thumb-size-large": {
+      "$description": "Diameter of the `Switch` thumb with `.ui-large`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-thumb-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-switch-track-block-size-x-small": {
+      "$description": "Height of the `Switch` track with `.ui-x-small`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-block-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "ui-switch-track-block-size-small": {
+      "$description": "Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-block-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "ui-switch-track-block-size": {
+      "$description": "Height of the `Switch` track.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-block-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "ui-switch-track-block-size-large": {
+      "$description": "Height of the `Switch` track with `.ui-large`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-block-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 28
+    },
+    "ui-switch-track-inline-size-x-small": {
+      "$description": "Width of the `Switch` track with `.ui-x-small`. Twice `--ui-switch-track-block-size-x-small` until a theme sets it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-inline-size-x-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 32
+    },
+    "ui-switch-track-inline-size-small": {
+      "$description": "Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. Twice `--ui-switch-track-block-size-small` until a theme sets it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-inline-size-small)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 40
+    },
+    "ui-switch-track-inline-size": {
+      "$description": "Width of the `Switch` track. Twice `--ui-switch-track-block-size` until a theme sets it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-inline-size)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 48
+    },
+    "ui-switch-track-inline-size-large": {
+      "$description": "Width of the `Switch` track with `.ui-large`. Twice `--ui-switch-track-block-size-large` until a theme sets it.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-inline-size-large)"
+          },
+          "scopes": ["WIDTH_HEIGHT"]
+        }
+      },
+      "$type": "number",
+      "$value": 56
+    },
+    "ui-switch-thumb-bg-color": {
+      "$description": "Color of the unchecked `Switch` thumb. The checked thumb uses `--ui-choice-on-accent`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-thumb-bg-color)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.42, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.28806, 0.30359, 0.32383],
+        "hex": "#494D53"
+      }
+    },
+    "ui-switch-track-bg-color": {
+      "$description": "Background of the unchecked `Switch` track when `--ui-track-bg-color` is unset.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-switch-track-bg-color)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.93, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [0.89198, 0.91092, 0.93566],
+        "hex": "#E3E8EF"
+      }
+    }
+  },
+  "overlays": {
+    "ui-backdrop-blur": {
+      "$description": "Blur radius behind an open `Dialog` or `Drawer`.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-backdrop-blur)"
+          },
+          "scopes": ["EFFECT_FLOAT"]
+        }
+      },
+      "$type": "number",
+      "$value": 1
+    },
+    "ui-backdrop-bg-color": {
+      "$description": "Overlay color behind an open `Dialog` or `Drawer`. `--ui-text` at 50% in light mode, and half the lightness of `--ui-surface` at 50% in dark mode.",
+      "$extensions": {
+        "com.figma": {
+          "codeSyntax": {
+            "WEB": "var(--ui-backdrop-bg-color)"
+          },
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"]
+        },
+        "opui": {
+          "oklch": [0.2666, 0.01, 255]
+        }
+      },
+      "$type": "color",
+      "$value": {
+        "alpha": 0.5,
+        "colorSpace": "srgb",
+        "components": [0.13483, 0.14869, 0.16673],
+        "hex": "#22262B"
+      }
+    }
+  }
+}

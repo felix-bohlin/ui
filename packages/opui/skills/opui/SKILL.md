@@ -64,6 +64,15 @@ Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, 
 
 `tokens.json` at the package root (`node_modules/opui-css/tokens.json`, or `import tokens from "opui-css/tokens.json"`) lists every theme token in the W3C design tokens format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Unset tokens have no `$value`, only an `example`.
 
+## Figma
+
+`node_modules/opui-css/figma/themes/` has every theme resolved for Figma: `<theme>/<mode>.tokens.json` per mode (`light`, `dark`, `light-more-contrast`, `dark-more-contrast`) for Figma's Import mode, and `<theme>.figma.json`, which `opui-css/figma/sync.js` turns into variables, effect styles and text styles. The themes are `default` and the example themes.
+
+- Every variable has its CSS variable as code syntax, so the Figma MCP server reads a design built with them back as `var(--ui-*)`. Use those tokens in code, not the resolved values.
+- To set up a file with the Figma MCP server's `use_figma` tool, send the contents of `sync.js`, the theme as `const THEME = {...}` and `return await opuiFigmaSync(THEME, options)`. `use_figma` takes at most 50,000 characters and has no `fetch`, and a theme is about 100,000, so send it in parts with `{ partial: true }`: the variables in chunks, then `{ ...THEME, variables: [] }` for the styles. Leave out each color's `hex`, `oklch` and `p3` (keep `p3` in a Display P3 file) to fit more in a call.
+- The other options are `modes` (the mode ids to sync), `effects: false` and `text: false`. It matches variables and styles by name, so running it again updates them in place, and on a plan with one mode per collection it makes a collection per mode.
+- For a person, point to the opui Figma plugin on the theme tokens page, which runs the same function without those limits.
+
 ## References
 
 1. Read `references/getting-started.md` for setup, with a section per framework, `references/theming.md` for colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast, and `references/customizing.md` for the `theme.custom` layer and component properties.

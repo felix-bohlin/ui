@@ -28,6 +28,12 @@
       "rules": {
         "typescript/consistent-type-definitions": "off"
       }
+    },
+    {
+      "files": ["packages/opui/figma/sync.js"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
     }
   ],
   "plugins": ["oxc", "react", "typescript", "unicorn", "vue"],

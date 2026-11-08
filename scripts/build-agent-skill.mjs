@@ -19,6 +19,7 @@ const DOCS = path.resolve(ROOT, "src/docs/components")
 const EXAMPLES = path.resolve(ROOT, "src/component-examples")
 const STYLESHEETS = path.resolve(ROOT, "packages/opui/css/components")
 const TOKENS = path.resolve(ROOT, "packages/opui/tokens.json")
+const FIGMA_THEMES = path.resolve(ROOT, "packages/opui/figma/themes")
 
 process.chdir(ROOT)
 
@@ -783,6 +784,8 @@ async function buildSkill() {
 
   fs.writeFileSync(path.join(REFERENCES, "index.md"), index)
   fs.copyFileSync(path.join(DIST, "tokens.json"), TOKENS)
+  fs.rmSync(FIGMA_THEMES, { force: true, recursive: true })
+  fs.cpSync(path.join(DIST, "figma"), FIGMA_THEMES, { recursive: true })
   console.log(
     `Wrote ${components.length} component references and ${GUIDES.length + 1} guides to ${REFERENCES}`,
   )

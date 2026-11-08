@@ -3458,6 +3458,27 @@
     "url": "/html/guide/theme-tokens/#tokens-json"
   },
   {
+    "id": "guide-theme-tokens-html-figma",
+    "title": "Figma",
+    "page": "Theme tokens",
+    "category": "Guide",
+    "url": "/html/guide/theme-tokens/#figma"
+  },
+  {
+    "id": "guide-theme-tokens-html-figma-plugin",
+    "title": "With the plugin",
+    "page": "Theme tokens",
+    "category": "Guide",
+    "url": "/html/guide/theme-tokens/#figma-plugin"
+  },
+  {
+    "id": "guide-theme-tokens-html-figma-files",
+    "title": "Without the plugin",
+    "page": "Theme tokens",
+    "category": "Guide",
+    "url": "/html/guide/theme-tokens/#figma-files"
+  },
+  {
     "id": "guide-theme-tokens-html-naming",
     "title": "How tokens are named",
     "page": "Theme tokens",

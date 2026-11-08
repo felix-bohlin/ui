@@ -78,15 +78,28 @@ const changed = (field: Field) => {
   return field.value !== serverValue(field)
 }
 
+const pending = new WeakMap<unknown[], unknown[]>()
+
+const toggled = (field: HTMLInputElement, list: unknown[], vnode: VNode) => {
+  const base = pending.get(list) ?? list
+  const value = "_value" in field ? optionValue(field) : vnode.props?.value
+  if (base.includes(value) === field.checked) return base
+  const next = field.checked
+    ? [...base, value]
+    : base.filter((item) => item !== value)
+  pending.set(list, next)
+  queueMicrotask(() => pending.delete(list))
+  return next
+}
+
 const stateOf = (
   field: Field,
-  { modifiers }: DirectiveBinding,
+  { modifiers, value: model }: DirectiveBinding,
   vnode: VNode,
 ) => {
   if (checkable(field)) {
-    return field.type === "checkbox"
-      ? field.checked
-      : (vnode.props?.value ?? field.value)
+    if (field.type !== "checkbox") return vnode.props?.value ?? field.value
+    return Array.isArray(model) ? toggled(field, model, vnode) : field.checked
   }
   if (isSelect(field)) {
     const selected = [...field.selectedOptions].map(optionValue)
@@ -121,6 +134,7 @@ const seed = (
   const state = stateOf(field, model, vnode)
   const empty = state === undefined || (state === "" && !isSelect(field))
   if (!edited && empty) return
+  if (Array.isArray(state) && same(state, model.value)) return
   model.value = state
   assign(vnode, state)
 }
@@ -166,13 +180,6 @@ const followReset = (field: Field) => {
     const group = groupOf(field as HTMLInputElement)
     if (group.some((radio) => radio.checked)) return
     if (same(state, model.value)) assign(vnode, undefined)
-    return
-  }
-  if (
-    field.type === "checkbox" &&
-    typeof model.value === "object" &&
-    model.value !== null
-  ) {
     return
   }
   if (!same(state, model.value)) assign(vnode, state)

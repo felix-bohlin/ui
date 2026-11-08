@@ -210,6 +210,41 @@ describe("vSeed on a client render", () => {
     expect(assigned).toEqual([true])
   })
 
+  test("checkboxes bound to one array follow a reset by their value", async () => {
+    const form = formOf()
+    const assigned: unknown[] = []
+    const boxes = ["ham", "cheese"].map((value) => ({
+      field: inputOf("checkbox", { form }),
+      value,
+    }))
+    const render = (model: unknown) => {
+      for (const { field, value } of boxes) {
+        hook(
+          "beforeUpdate",
+          field,
+          vnodeOf(vModelCheckbox, model, assigned, { value }),
+        )
+      }
+    }
+    for (const { field, value } of boxes) {
+      await mount(
+        field,
+        vnodeOf(vModelCheckbox, ["ham"], assigned, { value }),
+        () => {
+          field.checked = value === "ham"
+        },
+      )
+    }
+    for (const { field, value } of boxes) field.checked = value === "cheese"
+    render(["cheese"])
+    form.reset()
+    while (vi.getTimerCount() > 0) {
+      vi.advanceTimersToNextTimer()
+      render(assigned.at(-1))
+    }
+    expect(assigned).toEqual([["cheese", "ham"], ["ham"]])
+  })
+
   test("a radio group follows a reset once, and to no value when none was checked", async () => {
     for (const [initial, expected] of [
       ["small", ["small"]],
@@ -292,6 +327,38 @@ describe("vSeed while hydrating", () => {
     hook("beforeUpdate", field, vnodeOf(vModelText, "typed", assigned))
     reset(form)
     expect(assigned).toEqual(["typed", "server"])
+  })
+
+  test("boxes bound to one array and ticked before hydration all join it", async () => {
+    const assigned: unknown[] = []
+    const model = ["ham"]
+    const boxes = ["cheese", "olives"].map((value) => {
+      const field = inputOf("checkbox")
+      field.parentNode = {}
+      field.checked = true
+      return { field, value }
+    })
+    for (const { field, value } of boxes) {
+      hook(
+        "created",
+        field,
+        vnodeOf(vModelCheckbox, model, assigned, { value }),
+      )
+    }
+    expect(assigned.at(-1)).toEqual(["ham", "cheese", "olives"])
+  })
+
+  test("a box unticked before hydration leaves an array without its value", async () => {
+    const field = inputOf("checkbox")
+    field.defaultChecked = true
+    field.parentNode = {}
+    const assigned: unknown[] = []
+    hook(
+      "created",
+      field,
+      vnodeOf(vModelCheckbox, ["ham", "cheese"], assigned, { value: "cheese" }),
+    )
+    expect(assigned).toEqual([["ham"]])
   })
 
   test("a box unchecked before hydration seeds the model", async () => {

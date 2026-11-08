@@ -5,25 +5,34 @@ import vm from "node:vm"
 import { describe, expect, test } from "vitest"
 import {
   buildPlugin,
+  PACKAGED,
+  pluginTheme,
   pluginThemes,
 } from "../../packages/figma-plugin/build.mjs"
-import { FIGMA_THEMES, figmaFiles } from "../../src/utils/figma-themes"
+import {
+  FIGMA_THEMES,
+  figmaFiles,
+  figmaThemeFile,
+} from "../../src/utils/figma-themes"
 import { fakeFigma } from "./fake-figma"
 
 const manifest = JSON.parse(
   readFileSync("packages/figma-plugin/manifest.json", "utf8"),
 )
 
-test("the package holds a theme file and a file per mode for every recorded theme", () => {
+test("the package holds the default theme's file and a file per mode", () => {
   const folder = "packages/opui/figma/themes"
   const files = readdirSync(folder, { recursive: true })
     .map(String)
     .filter((file) => statSync(join(folder, file)).isFile())
-  expect(files.toSorted()).toEqual(figmaFiles().toSorted())
+  expect(files.toSorted()).toEqual(figmaFiles(["default"]).toSorted())
 })
 
 describe("the Figma plugin", () => {
-  const out = buildPlugin(mkdtempSync(join(tmpdir(), "opui-figma-")))
+  const themes = FIGMA_THEMES.map(({ id }) =>
+    pluginTheme(id, figmaThemeFile(id)),
+  )
+  const out = buildPlugin(mkdtempSync(join(tmpdir(), "opui-figma-")), themes)
   const code = readFileSync(join(out, "code.js"), "utf8")
   const ui = readFileSync(join(out, "ui.html"), "utf8")
 
@@ -38,11 +47,21 @@ describe("the Figma plugin", () => {
   })
 
   test("its UI holds every recorded theme", () => {
-    const themes = pluginThemes()
-    expect(themes.map(({ id }) => id)).toEqual(FIGMA_THEMES.map(({ id }) => id))
-    expect(themes.find(({ id }) => id === "default")?.label).toBe("Default")
-    expect(ui).not.toContain("__THEMES__")
-    expect(ui).toContain('"collection":"opui"')
+    const embedded = JSON.parse(
+      ui.match(
+        /<script id="themes" type="application\/json">([\s\S]*?)<\/script>/,
+      )![1],
+    )
+    expect(embedded.map(({ id }: { id: string }) => id)).toEqual(
+      FIGMA_THEMES.map(({ id }) => id),
+    )
+    expect(
+      embedded.find(({ id }: { id: string }) => id === "default")?.label,
+    ).toBe("Default")
+  })
+
+  test("builds from the default theme in the package before a docs build", () => {
+    expect(pluginThemes(PACKAGED).map(({ id }) => id)).toEqual(["default"])
   })
 
   test("syncs the theme the UI sends and reports back", async () => {
@@ -57,7 +76,7 @@ describe("the Figma plugin", () => {
       },
     }
     vm.runInContext(code, vm.createContext({ __html__: ui, figma }))
-    const [{ theme }] = pluginThemes()
+    const [{ theme }] = pluginThemes(PACKAGED)
     await (figma.ui.onmessage as (message: unknown) => Promise<void>)({
       options: { modes: ["light", "dark"] },
       theme,
@@ -89,7 +108,7 @@ describe("the Figma plugin", () => {
     vm.runInContext(code, vm.createContext({ __html__: ui, figma }))
     await (figma.ui.onmessage as (message: unknown) => Promise<void>)({
       options: { modes: [] },
-      theme: pluginThemes()[0].theme,
+      theme: pluginThemes(PACKAGED)[0].theme,
       type: "sync",
     })
     expect(posted).toEqual([

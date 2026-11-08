@@ -30,8 +30,8 @@ export const figmaThemeFile = (id: string) => {
 export const figmaModeFile = (id: string, mode: string) =>
   figmaModeFiles(figmaThemeFile(id))[mode]
 
-export const figmaFiles = () =>
-  FIGMA_THEMES.flatMap(({ id }) => [
+export const figmaFiles = (ids = FIGMA_THEMES.map(({ id }) => id)) =>
+  ids.flatMap((id) => [
     `${id}.figma.json`,
     ...FIGMA_MODES.map((mode) => `${id}/${mode.id}.tokens.json`),
   ])

@@ -8,7 +8,7 @@ Syncs an opui theme into the open Figma file: a variable collection with a mode 
 pnpm build-figma-plugin
 ```
 
-It writes `dist/code.js` (`sync.js` and `src/main.js`) and `dist/ui.html` (`src/ui.html` with every theme in `packages/opui/figma/themes`). Run it again after `pnpm build` regenerates the themes.
+It writes `dist/code.js` (`sync.js` and `src/main.js`) and `dist/ui.html` (`src/ui.html` with every theme the docs build wrote to `dist/figma`). Before a `pnpm build` it has only the default theme from `packages/opui/figma/themes`, the one the package ships. The docs site serves the plugin with every theme as `/opui-figma-plugin.zip`.
 
 ## Run it from this repository
 

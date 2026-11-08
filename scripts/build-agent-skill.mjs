@@ -785,7 +785,15 @@ async function buildSkill() {
   fs.writeFileSync(path.join(REFERENCES, "index.md"), index)
   fs.copyFileSync(path.join(DIST, "tokens.json"), TOKENS)
   fs.rmSync(FIGMA_THEMES, { force: true, recursive: true })
-  fs.cpSync(path.join(DIST, "figma"), FIGMA_THEMES, { recursive: true })
+  fs.cpSync(
+    path.join(DIST, "figma/default"),
+    path.join(FIGMA_THEMES, "default"),
+    { recursive: true },
+  )
+  fs.copyFileSync(
+    path.join(DIST, "figma/default.figma.json"),
+    path.join(FIGMA_THEMES, "default.figma.json"),
+  )
   console.log(
     `Wrote ${components.length} component references and ${GUIDES.length + 1} guides to ${REFERENCES}`,
   )

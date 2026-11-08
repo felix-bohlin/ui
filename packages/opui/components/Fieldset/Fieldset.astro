@@ -1,5 +1,7 @@
 ---
 import type { Props } from "./types.astro"
+// A dynamic <Tag> or a custom element lets an undefined spread value remove an attribute set before it: tests/unit/tooling-bugs.test.ts
+import { defined } from "../attrs"
 import { cx } from "../cx"
 import { autoLabelledBy, createIds } from "../id"
 import { fieldsetContext } from "./context.astro"
@@ -21,7 +23,7 @@ const html = await fieldsetContext.provide({ legendId }, () =>
   aria-labelledby={legendId}
   class={cx(["ui-fieldset", className])}
   role={isFieldset ? undefined : "group"}
-  {...rest}
+  {...defined(rest)}
 >
   <Fragment set:html={html} />
 </Tag>

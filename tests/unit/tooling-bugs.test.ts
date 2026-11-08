@@ -4,6 +4,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { parseFragment } from "parse5"
 import { describe, expect, test } from "vitest"
 import EmptyUnknown from "./fixtures/EmptyUnknown.astro"
+import UndefinedSpread from "./fixtures/UndefinedSpread.astro"
 
 const fixed = (workaround: string) =>
   `fixed upstream: remove the workaround in ${workaround}, then this entry`
@@ -17,6 +18,20 @@ describe("tooling bugs the generator and the components work around", () => {
         "packages/opui/components/Select/Select.astro, which renders <selectedcontent> through the variable tag SelectedContent",
       ),
     ).not.toContain("</selectedcontent>")
+  })
+
+  test("Astro lets an undefined spread value remove an attribute set before it on a dynamic tag or a custom element, but not on a static tag", async () => {
+    const container = await AstroContainer.create()
+    const html = await container.renderToString(UndefinedSpread)
+    const roleOf = (shape: string) =>
+      new RegExp(`<[^>]*data-shape="${shape}"[^>]*data-state="set"`).test(html)
+    expect(roleOf("static")).toBe(true)
+    expect(
+      [roleOf("dynamic"), roleOf("custom")],
+      fixed(
+        "the defined(rest) spreads in the Avatar, Button, Chip, Copy, Fieldset, ListItem, SortableTable and Toaster Astro files",
+      ),
+    ).toEqual([false, false])
   })
 
   test("Astro's dev CSS collector compiles the files behind ?raw imports", () => {

@@ -204,6 +204,7 @@ const readFrontmatter = (code, file) => {
         })
         continue
       }
+      if (specifier === "../attrs") continue
       if (
         named &&
         ((specifier.startsWith("./") && !specifier.endsWith(".astro")) ||
@@ -507,7 +508,14 @@ const attributeNode = (item, context) => {
   if (item.kind === "empty") return { kind: "boolean", name: item.name }
   if (item.kind === "spread") {
     const sourceFile = sourceFileOf(`(${item.name})`, "spread.ts")
-    const expression = unwrap(sourceFile.statements[0].expression)
+    const written = unwrap(sourceFile.statements[0].expression)
+    const expression =
+      ts.isCallExpression(written) &&
+      ts.isIdentifier(written.expression) &&
+      written.expression.text === "defined" &&
+      written.arguments.length === 1
+        ? unwrap(written.arguments[0])
+        : written
     const cast =
       ts.isAsExpression(expression) &&
       ts.isIdentifier(unwrap(expression.expression))

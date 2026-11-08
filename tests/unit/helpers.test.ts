@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest"
+import { defined } from "../../packages/opui/components/attrs"
 import { cx } from "../../packages/opui/components/cx"
 import { toggleInGroup } from "../../packages/opui/components/group"
 import {
@@ -107,6 +108,26 @@ describe("tagAttrs", () => {
       href: undefined,
       type: undefined,
     })
+  })
+})
+
+describe("defined", () => {
+  test("drops the attributes a caller passes as undefined or null, so a spread doesn't remove an attribute set before it", () => {
+    expect(
+      defined({
+        "aria-labelledby": undefined,
+        hidden: false,
+        id: "",
+        role: null,
+        tabIndex: 0,
+      }),
+    ).toEqual({ hidden: false, id: "", tabIndex: 0 })
+  })
+
+  test("only sees attributes: a slot prop such as closeIcon={null} never travels in rest", () => {
+    const { closeIcon, ...rest } = { closeIcon: null, role: null }
+    expect(closeIcon).toBe(null)
+    expect(defined(rest)).toEqual({})
   })
 })
 

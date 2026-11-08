@@ -14,7 +14,7 @@
       <Checkbox data-select-all="">Select all</Checkbox>
     </FieldLegend>
     <FieldGroup name="indeterminate-children">
-      <Checkbox checked>Apples</Checkbox>
+      <Checkbox defaultChecked>Apples</Checkbox>
       <Checkbox>Bananas</Checkbox>
       <Checkbox>Cherries</Checkbox>
     </FieldGroup>

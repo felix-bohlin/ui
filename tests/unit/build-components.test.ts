@@ -643,7 +643,7 @@ describe("the three ports of a sample", () => {
       'import { cx } from "../cx"\nimport type { Props } from "./types.react"\n\nexport default function Sample({ className, ...rest }: Props) {\n  return (\n    <label className={cx(["ui-sample", className])}>\n      <textarea {...rest} />\n    </label>\n  )\n}\n',
     )
     expect(port(".svelte")).toBe(
-      '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()\n\n  const initialValue = untrack(() => value)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea {...rest} bind:value defaultValue={defaultValue ?? initialValue}\n  ></textarea>\n</label>\n',
+      '<script lang="ts">\n  import { untrack } from "svelte"\n  import type { Props } from "./types.svelte"\n\n  let {\n    class: className,\n    defaultValue,\n    value = $bindable(),\n    ...rest\n  }: Props = $props()\n\n  const getValue = () => value ?? defaultValue\n  const setValue = (next: typeof value) => {\n    value = next\n  }\n  const initialValue = untrack(getValue)\n</script>\n\n<label class={["ui-sample", className]}>\n  <textarea\n    {...rest}\n    bind:value={getValue, setValue}\n    defaultValue={defaultValue ?? initialValue}></textarea>\n</label>\n',
     )
     expect(port(".vue")).toBe(
       '<script setup lang="ts">\nimport { computed } from "vue"\nimport { useInputAttrs, vSeed } from "../vue"\nimport type { Props } from "./types.vue-props"\n\nconst { value } = defineProps<Props>()\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst attrs = useInputAttrs()\n\nconst modelValue = defineModel<number | string>()\n\nconst model = computed({\n  get: () => modelValue.value ?? value,\n  set: (value) => {\n    modelValue.value = value\n  },\n})\n</script>\n\n<template>\n  <label :class="[\'ui-sample\', $props.class]">\n    <textarea v-bind="attrs" v-seed v-model="model"></textarea>\n  </label>\n</template>\n',
@@ -662,7 +662,7 @@ describe("the three ports of a sample", () => {
       "const shown = `${rest.value ?? rest.defaultValue ?? 0}%`",
     )
     expect(port(".svelte")).toContain(
-      "const shown = $derived(`${value ?? 0}%`)",
+      "const shown = $derived(`${getValue() ?? 0}%`)",
     )
     expect(port(".vue")).toContain(
       "const shown = computed(() => `${model.value ?? 0}%`)",
@@ -814,7 +814,7 @@ describe("the three ports of a sample", () => {
     const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
     expect(svelte).toContain('import { toggleInGroup } from "../group"')
     expect(svelte).toContain(
-      "  let {\n    checked = $bindable(),\n    defaultChecked,\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () => (group ? group.includes(value) : !!checked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
+      "  let {\n    checked = $bindable(),\n    defaultChecked,\n    group = $bindable(),\n    name,\n    value,\n    ...rest\n  }: Props = $props()\n\n  const getChecked = () =>\n    group ? group.includes(value) : !!(checked ?? defaultChecked)\n  const setChecked = (isChecked: boolean) => {\n    if (group) group = toggleInGroup(group, value, isChecked)\n    else checked = isChecked\n  }\n",
     )
     expect(svelte).toContain(
       '<input\n  type="checkbox"\n  {name}\n  {...rest}\n  bind:checked={getChecked, setChecked}\n  defaultChecked={defaultChecked ?? initialChecked}\n  {value}\n/>',
@@ -914,7 +914,11 @@ describe("the three ports of a sample", () => {
     expect(react).toContain(
       '    <>\n      <input\n        checked={grouped ?? checked}\n        defaultChecked={grouped === undefined ? defaultChecked : undefined}\n        className={cx(["ui-sample", className])}\n        type="radio"\n        value={value}\n        {...rest}\n        onChange={(event) => {\n          parent?.change?.(event.currentTarget)\n          onChange?.(event)\n        }}\n      />\n      {children}\n    </>\n',
     )
-    expect(outputs.get(sampleFile().replace(".astro", ".svelte"))).toContain(
+    const svelte = outputs.get(sampleFile().replace(".astro", ".svelte"))
+    expect(svelte).toContain(
+      "  checked={grouped ?? checked ?? rest.defaultChecked}\n",
+    )
+    expect(svelte).toContain(
       "  {...rest}\n  onchange={(event) => {\n    parent?.change?.(event.currentTarget)\n    onchange?.(event)\n  }}\n/>{@render children?.()}\n",
     )
     const vue = outputs.get(sampleFile().replace(".astro", ".vue"))

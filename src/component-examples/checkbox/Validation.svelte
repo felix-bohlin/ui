@@ -9,7 +9,7 @@
   >
 </div>
 <div class="example-row">
-  <Checkbox checked error name="checkbox-validation">
+  <Checkbox defaultChecked error name="checkbox-validation">
     Daily backups
     {#snippet endText()}Not available on the free plan.{/snippet}
   </Checkbox>

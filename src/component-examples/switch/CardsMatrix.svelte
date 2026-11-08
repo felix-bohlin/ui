@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Input at the end</FieldLegend>
     <FieldGroup name="switch-cards-end" orientation="horizontal">
-      <Switch card checked spread value="outlined">
+      <Switch card defaultChecked spread value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Switch>
@@ -29,7 +29,7 @@
   <Fieldset>
     <FieldLegend>Input at the start</FieldLegend>
     <FieldGroup name="switch-cards-start" orientation="horizontal">
-      <Switch card checked value="outlined">
+      <Switch card defaultChecked value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Switch>

@@ -53,7 +53,7 @@
       Configure how you want to receive updates.
     </FieldDescription>
     <FieldGroup>
-      <Switch checked name="email_notifs">Email notifications</Switch>
+      <Switch defaultChecked name="email_notifs">Email notifications</Switch>
       <Switch name="sms_notifs">SMS notifications</Switch>
     </FieldGroup>
   </Fieldset>
@@ -62,7 +62,7 @@
     <FieldLegend>Theme preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
-      <Radio checked value="light">Light theme</Radio>
+      <Radio defaultChecked value="light">Light theme</Radio>
       <Radio value="dark">Dark theme</Radio>
       <Radio value="system">System default</Radio>
     </FieldGroup>

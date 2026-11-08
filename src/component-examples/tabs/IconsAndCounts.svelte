@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="tabs-icons-and-counts-1" variant="line">
-  <TabsItem checked>
+  <TabsItem defaultChecked>
     <TabsLabel>
       <svg
         aria-hidden="true"

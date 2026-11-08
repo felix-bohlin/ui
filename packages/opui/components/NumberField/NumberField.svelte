@@ -37,7 +37,11 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const initialValue = untrack(() => value)
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
   const base = $derived(id ?? `number-field-${uid}`)
   const inputId = $derived(base)
   const startTextId = $derived(startText ? `${base}-start-text` : undefined)
@@ -98,7 +102,7 @@
       id={inputId}
       name={name ?? field?.name}
       type="number"
-      bind:value
+      bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />
     <span class="ui-end">

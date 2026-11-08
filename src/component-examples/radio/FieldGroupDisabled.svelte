@@ -12,7 +12,7 @@
   <Fieldset disabled>
     <FieldLegend>Billing cycle</FieldLegend>
     <FieldGroup name="radio-group-disabled" orientation="horizontal">
-      <Radio checked value="monthly">Monthly</Radio>
+      <Radio defaultChecked value="monthly">Monthly</Radio>
       <Radio value="quarterly">Quarterly</Radio>
       <Radio value="yearly">Yearly</Radio>
     </FieldGroup>
@@ -20,7 +20,7 @@
   <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
     <FieldGroup name="radio-group-disabled-single" orientation="horizontal">
-      <Radio checked value="standard">Standard</Radio>
+      <Radio defaultChecked value="standard">Standard</Radio>
       <Radio disabled value="same-day">Same day</Radio>
     </FieldGroup>
   </Fieldset>

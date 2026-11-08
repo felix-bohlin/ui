@@ -14,7 +14,7 @@
     <FieldLegend>Contact method</FieldLegend>
     <FieldDescription>We only contact you about your order.</FieldDescription>
     <FieldGroup name="radio-group-field-description-1" orientation="horizontal">
-      <Radio checked value="email">Email</Radio>
+      <Radio defaultChecked value="email">Email</Radio>
       <Radio value="phone">Phone</Radio>
       <Radio value="sms">SMS</Radio>
     </FieldGroup>
@@ -22,7 +22,7 @@
   <Fieldset>
     <FieldLegend>Theme</FieldLegend>
     <FieldGroup name="radio-group-field-description-2" orientation="horizontal">
-      <Radio checked value="system">System</Radio>
+      <Radio defaultChecked value="system">System</Radio>
       <Radio value="light">Light</Radio>
       <Radio value="dark">Dark</Radio>
     </FieldGroup>

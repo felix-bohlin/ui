@@ -49,7 +49,11 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const initialValue = untrack(() => value)
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
   const base = $derived(id ?? `text-field-${uid}`)
   const Root = $derived(
     passwordToggle ? "opui-text-field" : label ? "label" : "div",
@@ -105,7 +109,7 @@
       name={name ?? field?.name}
       pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
-      bind:value
+      bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />
     {#if start}

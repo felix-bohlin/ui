@@ -30,7 +30,7 @@
     </TableRow>
     <TableRow>
       <TableCell>
-        <Radio checked hideLabel name="radio-hidden-label" value="pro"
+        <Radio defaultChecked hideLabel name="radio-hidden-label" value="pro"
           >Pick Pro</Radio
         >
       </TableCell>
@@ -50,7 +50,7 @@
 
 <p>
   Ship to <Radio
-    checked
+    defaultChecked
     hideLabel
     name="radio-hidden-label-shipping"
     value="home">Home</Radio

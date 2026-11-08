@@ -17,7 +17,7 @@
       name="checkbox-group-field-description-1"
       orientation="horizontal"
     >
-      <Checkbox checked>Email</Checkbox>
+      <Checkbox defaultChecked>Email</Checkbox>
       <Checkbox>Push</Checkbox>
       <Checkbox>SMS</Checkbox>
     </FieldGroup>
@@ -28,7 +28,7 @@
       name="checkbox-group-field-description-2"
       orientation="horizontal"
     >
-      <Checkbox checked>Product updates</Checkbox>
+      <Checkbox defaultChecked>Product updates</Checkbox>
       <Checkbox>Events</Checkbox>
       <Checkbox>Offers</Checkbox>
     </FieldGroup>

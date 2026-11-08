@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="overflow-tabs" overflow="scroll">
-  <TabsItem checked>
+  <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

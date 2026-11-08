@@ -3,7 +3,7 @@
 </script>
 
 <ToggleGroup aria-label="Playback" name="transport">
-  <ToggleButton checked value="walking">
+  <ToggleButton defaultChecked value="walking">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

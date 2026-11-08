@@ -41,7 +41,11 @@
 
   const field = getFieldGroupContext()
   const uid = $props.id()
-  const initialValue = untrack(() => value)
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
   const base = $derived(id || `range-${uid}`)
   const hasLabel = $derived(!!label || label)
   const hasStartText = $derived(!!startText || startText)
@@ -49,7 +53,7 @@
   const hasValueText = $derived(valueText)
   const hasValue = $derived(valueSuffix !== undefined || hasValueText)
   const hasDatalist = $derived(!!items || datalist)
-  const current = $derived(value ?? middleValue({ max, min, step }))
+  const current = $derived(getValue() ?? middleValue({ max, min, step }))
   const readout = $derived(`${current}${valueSuffix ?? ""}`)
   const tick = $derived(
     items?.find(
@@ -116,7 +120,7 @@
     name={name ?? field?.name}
     {step}
     type="range"
-    bind:value
+    bind:value={getValue, setValue}
     defaultValue={defaultValue ?? initialValue}
   />
   {#if hasDatalist}

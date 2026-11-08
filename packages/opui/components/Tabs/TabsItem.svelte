@@ -35,7 +35,7 @@
 </script>
 
 <input
-  checked={grouped ?? checked}
+  checked={grouped ?? checked ?? rest.defaultChecked}
   class={["ui-input", className]}
   id={tabId}
   name={groupName}

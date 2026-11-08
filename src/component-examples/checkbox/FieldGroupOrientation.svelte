@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Toppings</FieldLegend>
     <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
-      <Checkbox checked>Cheese</Checkbox>
+      <Checkbox defaultChecked>Cheese</Checkbox>
       <Checkbox>Mushrooms</Checkbox>
       <Checkbox>Olives</Checkbox>
     </FieldGroup>

@@ -4,6 +4,6 @@
 
 <ToggleGroup aria-label="View" name="view" orientation="vertical">
   <ToggleButton value="day">Day</ToggleButton>
-  <ToggleButton checked value="week">Week</ToggleButton>
+  <ToggleButton defaultChecked value="week">Week</ToggleButton>
   <ToggleButton value="month">Month</ToggleButton>
 </ToggleGroup>

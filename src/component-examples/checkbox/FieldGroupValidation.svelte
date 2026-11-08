@@ -12,7 +12,7 @@
   <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Interests</FieldLegend>
     <FieldGroup name="checkbox-group-validation" orientation="horizontal">
-      <Checkbox checked error>Design</Checkbox>
+      <Checkbox defaultChecked error>Design</Checkbox>
       <Checkbox error>Engineering</Checkbox>
       <Checkbox error>Marketing</Checkbox>
     </FieldGroup>

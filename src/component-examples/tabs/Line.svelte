@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="line-tabs" variant="line">
-  <TabsItem checked>
+  <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

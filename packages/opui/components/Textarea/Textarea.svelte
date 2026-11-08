@@ -35,7 +35,11 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const initialValue = untrack(() => value)
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
   const Root = $derived(label ? "label" : "div")
 </script>
 
@@ -69,7 +73,7 @@
       aria-invalid={error ? "true" : ariaInvalid}
       {id}
       name={name ?? field?.name}
-      bind:value
+      bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}></textarea>
     {#if start}
       <span class="ui-start">

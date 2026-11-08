@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Input at the end</FieldLegend>
     <FieldGroup name="checkbox-cards-end" orientation="horizontal">
-      <Checkbox card checked spread value="outlined">
+      <Checkbox card defaultChecked spread value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Checkbox>
@@ -29,7 +29,7 @@
   <Fieldset>
     <FieldLegend>Input at the start</FieldLegend>
     <FieldGroup name="checkbox-cards-start" orientation="horizontal">
-      <Checkbox card checked value="outlined">
+      <Checkbox card defaultChecked value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Checkbox>

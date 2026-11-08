@@ -43,7 +43,7 @@
   {style}
 >
   <input
-    checked={grouped ?? checked}
+    checked={grouped ?? checked ?? rest.defaultChecked}
     name={finalName}
     type={finalType}
     {value}

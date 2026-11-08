@@ -24,7 +24,11 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const initialValue = untrack(() => value)
+  const getValue = () => value ?? defaultValue
+  const setValue = (next: typeof value) => {
+    value = next
+  }
+  const initialValue = untrack(getValue)
 </script>
 
 <label
@@ -54,7 +58,7 @@
       maxlength={length}
       name={name ?? field?.name}
       type="text"
-      bind:value
+      bind:value={getValue, setValue}
       defaultValue={defaultValue ?? initialValue}
     />
   </span>

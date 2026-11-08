@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
     <FieldGroup name="radio-spread">
-      <Radio checked spread value="standard">
+      <Radio defaultChecked spread value="standard">
         Standard
         {#snippet endText()}Arrives in 3 to 5 days.{/snippet}
       </Radio>

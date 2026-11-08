@@ -12,7 +12,7 @@
   <Fieldset disabled>
     <FieldLegend>Newsletter topics</FieldLegend>
     <FieldGroup name="checkbox-group-disabled" orientation="horizontal">
-      <Checkbox checked>Product updates</Checkbox>
+      <Checkbox defaultChecked>Product updates</Checkbox>
       <Checkbox>Events</Checkbox>
       <Checkbox>Offers</Checkbox>
     </FieldGroup>

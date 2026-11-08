@@ -32,7 +32,7 @@
   {/snippet}
 </Switch>
 
-<Switch checked hideLabel name="switch-icons">
+<Switch defaultChecked hideLabel name="switch-icons">
   Toggle theme
   {#snippet iconUnchecked()}
     <svg

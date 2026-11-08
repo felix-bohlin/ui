@@ -16,7 +16,7 @@
     <p>The deck is out. Thanks everyone!</p>
     {#snippet bottom()}
       <ToggleGroup aria-label="Reactions" multiple name="reaction">
-        <ToggleButton aria-label="Thumbs up, 2" checked value="+1"
+        <ToggleButton aria-label="Thumbs up, 2" defaultChecked value="+1"
           ><span aria-hidden="true">👍 2</span></ToggleButton
         >
         <ToggleButton aria-label="Party, 1" value="tada"

@@ -12,7 +12,7 @@
   <Fieldset aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Color</FieldLegend>
     <FieldGroup name="radio-group-validation" orientation="horizontal">
-      <Radio checked error value="black">Black</Radio>
+      <Radio defaultChecked error value="black">Black</Radio>
       <Radio error value="white">White</Radio>
       <Radio error value="red">Red</Radio>
     </FieldGroup>

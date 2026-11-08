@@ -41,17 +41,20 @@ export const toSvelte = (component) => {
     uid,
     warnings,
   } = component
+  if (component.model?.refusal) throw component.model.refusal
+  const { model } = component
+  const kind = MODEL_KINDS[model?.kind]?.svelte
   const options = {
-    rename: new Map(
-      trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
-    ),
+    rename: new Map([
+      ...trimmedSlots.map(({ local, slot }) => [local, slotProp(slot)]),
+      ...(kind?.rename?.(model, component) ?? []),
+    ]),
     ids: component.ids,
     slotHas: (name) => slotProp(name),
   }
   const props = component.props.filter(
     ({ local }) => !stringSlots.includes(local),
   )
-  if (component.model?.refusal) throw component.model.refusal
   const reserved = derived.find(({ name }) => name.startsWith("$"))
   if (reserved) {
     throw unsupported(
@@ -60,8 +63,6 @@ export const toSvelte = (component) => {
       "rename the const in the Astro file",
     )
   }
-  const { model } = component
-  const kind = MODEL_KINDS[model?.kind]?.svelte
   const bindableProps = kind ? kind.bindables(model) : []
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
@@ -130,7 +131,16 @@ export const toSvelte = (component) => {
       return `${item.name}=${JSON.stringify(item.value)}`
     }
     if (item.kind === "boolean") return item.name
-    return `${item.name}={${rewriteExpression(item.code, options)}}`
+    const keepsDefault =
+      item.name === "checked" &&
+      node.tag === "input" &&
+      node.attributes.some(
+        (entry) => entry.kind === "spread" && entry.code === rest,
+      )
+    const code = keepsDefault
+      ? `(${item.code}) ?? ${rest}.defaultChecked`
+      : item.code
+    return `${item.name}={${rewriteExpression(code, options)}}`
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)

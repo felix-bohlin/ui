@@ -26,7 +26,7 @@
       <TableRow>
         <TableCell>
           <Checkbox
-            checked
+            defaultChecked
             hideLabel
             name="checkbox-hidden-label"
             value="invoice">Select Invoice.pdf</Checkbox
@@ -59,7 +59,7 @@
 
 <p>
   Notify me by <Checkbox
-    checked
+    defaultChecked
     name="checkbox-hidden-label-notify"
     value="email">email</Checkbox
   > and <Checkbox name="checkbox-hidden-label-notify" value="sms">SMS</Checkbox

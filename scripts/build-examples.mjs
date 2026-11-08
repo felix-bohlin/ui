@@ -1046,8 +1046,21 @@ const markupTarget = (framework, roles) => {
         ? `v-for="${item.value}"`
         : `:${item.name}="${attributeText(item.value)}"`
       : `${item.name}={${item.value}}`
+  const svelteDefaults = (node) =>
+    !vue &&
+    node.component &&
+    reactPropsOf(node.name, node.component)?.has("defaultChecked")
+      ? {
+          ...node,
+          attributes: node.attributes.map((item) =>
+            item.name === "checked"
+              ? { ...item, name: "defaultChecked" }
+              : item,
+          ),
+        }
+      : node
   const element = (node, html) => {
-    const attributes = markupAttributes(node, expression, !vue)
+    const attributes = markupAttributes(svelteDefaults(node), expression, !vue)
     const children = emit(node.children, html)
     if (VOID_ELEMENTS.has(node.name)) {
       return `${openTag(node.name, attributes)} />`

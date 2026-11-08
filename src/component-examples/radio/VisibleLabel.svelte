@@ -2,7 +2,7 @@
   import { Radio } from "opui-css/svelte"
 </script>
 
-<Radio checked name="radio-visible-label" value="monthly"
+<Radio defaultChecked name="radio-visible-label" value="monthly"
   >Monthly newsletter</Radio
 >
 <Radio disabled name="radio-visible-label" value="weekly">Weekly digest</Radio>

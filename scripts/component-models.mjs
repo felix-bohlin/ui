@@ -37,7 +37,7 @@ export const MODEL_KINDS = {
       imports: () => [`import { toggleInGroup } from "../group"`],
       plainProps: () => ["defaultChecked", "value"],
       script: () => [
-        "const getChecked = () => (group ? group.includes(value) : !!checked)",
+        "const getChecked = () =>\n  group ? group.includes(value) : !!(checked ?? defaultChecked)",
         "const setChecked = (isChecked: boolean) => {\n  if (group) group = toggleInGroup(group, value, isChecked)\n  else checked = isChecked\n}",
         "const initialChecked = untrack(getChecked)",
       ],
@@ -171,7 +171,7 @@ export const MODEL_KINDS = {
       plainProps: () => ["checked", "defaultChecked", "onchange", "value"],
       script: () => [
         "const hasGroup = untrack(() => group !== undefined)",
-        "const isChecked = () =>\n  hasGroup\n    ? group === (value ?? true)\n    : (checked ?? group === (value ?? true))",
+        "const isChecked = () =>\n  hasGroup\n    ? group === (value ?? true)\n    : (checked ??\n      (group !== undefined ? group === (value ?? true) : !!defaultChecked))",
         "const initialChecked = untrack(isChecked)",
         "const check = () => {\n  group = value ?? true\n}",
       ],
@@ -204,17 +204,24 @@ export const MODEL_KINDS = {
           : [],
     },
     svelte: {
-      attributes: (model) => [
-        `bind:${model.prop}`,
-        ...(resettable(model)
-          ? ["defaultValue={defaultValue ?? initialValue}"]
-          : []),
-      ],
+      attributes: (model) =>
+        resettable(model)
+          ? [
+              "bind:value={getValue, setValue}",
+              "defaultValue={defaultValue ?? initialValue}",
+            ]
+          : [`bind:${model.prop}`],
       bindables: (model) => [model.prop],
       plainProps: (model) => (resettable(model) ? ["defaultValue"] : []),
+      rename: (model) =>
+        resettable(model) && model.local ? [[model.local, "getValue()"]] : [],
       script: (model) =>
         resettable(model)
-          ? [`const initialValue = untrack(() => ${model.local ?? model.prop})`]
+          ? [
+              "const getValue = () => value ?? defaultValue",
+              "const setValue = (next: typeof value) => {\n  value = next\n}",
+              "const initialValue = untrack(getValue)",
+            ]
           : [],
       untrack: resettable,
     },

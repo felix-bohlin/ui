@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Input at the end</FieldLegend>
     <FieldGroup name="radio-cards-end" orientation="horizontal">
-      <Radio card checked spread value="outlined">
+      <Radio card defaultChecked spread value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Radio>
@@ -29,7 +29,7 @@
   <Fieldset>
     <FieldLegend>Input at the start</FieldLegend>
     <FieldGroup name="radio-cards-start" orientation="horizontal">
-      <Radio card checked value="outlined">
+      <Radio card defaultChecked value="outlined">
         Outlined
         {#snippet endText()}The default surface.{/snippet}
       </Radio>

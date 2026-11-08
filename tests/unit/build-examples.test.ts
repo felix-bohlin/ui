@@ -252,6 +252,18 @@ describe("Svelte", () => {
     expect(code).toContain("{#each places as { id, title } (id)}")
   })
 
+  test("turns static checked state on a component into a default", async () => {
+    const code = await convert(
+      astro(
+        '<Radio name="pick" value="b" checked />\n<input type="checkbox" checked />',
+        "Radio",
+      ),
+      "svelte",
+    )
+    expect(code).toContain('<Radio defaultChecked name="pick" value="b" />')
+    expect(code).toContain('<input type="checkbox" checked />')
+  })
+
   test("writes values with braces or double quotes as expressions", async () => {
     const code = await convert(
       astro(

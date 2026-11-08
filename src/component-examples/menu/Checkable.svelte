@@ -25,7 +25,7 @@
   <ListItem type="checkbox">
     {#snippet label()}Show file extensions{/snippet}
     {#snippet end()}
-      <CheckboxInput checked />
+      <CheckboxInput defaultChecked />
     {/snippet}
   </ListItem>
   <li class="ui-border-top ui-heading" id="menu-checkable-1-sort">Sort by</li>
@@ -34,7 +34,7 @@
     {#snippet end()}
       <RadioInput
         aria-describedby="menu-checkable-1-sort"
-        checked
+        defaultChecked
         name="menu-checkable-1-sort"
         value="name"
       />

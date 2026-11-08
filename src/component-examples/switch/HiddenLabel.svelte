@@ -21,8 +21,11 @@
   <TableBody>
     <TableRow>
       <TableCell>
-        <Switch checked hideLabel name="switch-hidden-label" value="email"
-          >Email</Switch
+        <Switch
+          defaultChecked
+          hideLabel
+          name="switch-hidden-label"
+          value="email">Email</Switch
         >
       </TableCell>
       <TableCell>Email</TableCell>
@@ -46,8 +49,11 @@
 </Table>
 
 <p>
-  Play <Switch checked hideLabel name="switch-hidden-label-sound" value="sounds"
-    >Sounds</Switch
+  Play <Switch
+    defaultChecked
+    hideLabel
+    name="switch-hidden-label-sound"
+    value="sounds">Sounds</Switch
   > sounds and <Switch
     hideLabel
     name="switch-hidden-label-sound"

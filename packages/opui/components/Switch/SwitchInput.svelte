@@ -14,7 +14,8 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
-  const getChecked = () => (group ? group.includes(value) : !!checked)
+  const getChecked = () =>
+    group ? group.includes(value) : !!(checked ?? defaultChecked)
   const setChecked = (isChecked: boolean) => {
     if (group) group = toggleInGroup(group, value, isChecked)
     else checked = isChecked

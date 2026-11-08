@@ -9,7 +9,7 @@
 </div>
 
 <div class="example-row">
-  <Switch checked error name="switch-validation">
+  <Switch defaultChecked error name="switch-validation">
     Default
     {#snippet endText()}Supporting text{/snippet}
   </Switch>

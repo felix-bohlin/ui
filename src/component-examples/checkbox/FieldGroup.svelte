@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
     <FieldGroup name="checkbox-group">
-      <Checkbox checked>Email</Checkbox>
+      <Checkbox defaultChecked>Email</Checkbox>
       <Checkbox>Push</Checkbox>
       <Checkbox>SMS</Checkbox>
     </FieldGroup>

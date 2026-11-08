@@ -19,7 +19,8 @@
   const isChecked = () =>
     hasGroup
       ? group === (value ?? true)
-      : (checked ?? group === (value ?? true))
+      : (checked ??
+        (group !== undefined ? group === (value ?? true) : !!defaultChecked))
   const initialChecked = untrack(isChecked)
   const check = () => {
     group = value ?? true

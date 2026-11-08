@@ -4,24 +4,24 @@
 
 <div class="example-row">
   <Radio
-    checked
+    defaultChecked
     hideLabel
     name="radio-sizes-x-small"
     size="x-small"
     value="selected">Selected</Radio
   >
   <Radio
-    checked
+    defaultChecked
     hideLabel
     name="radio-sizes-small"
     size="small"
     value="selected">Selected</Radio
   >
-  <Radio checked hideLabel name="radio-sizes-medium" value="selected"
+  <Radio defaultChecked hideLabel name="radio-sizes-medium" value="selected"
     >Selected</Radio
   >
   <Radio
-    checked
+    defaultChecked
     hideLabel
     name="radio-sizes-large"
     size="large"

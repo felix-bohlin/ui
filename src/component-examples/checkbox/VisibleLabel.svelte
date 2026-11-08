@@ -2,10 +2,10 @@
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox checked name="checkbox-visible-label">Remember me</Checkbox>
+<Checkbox defaultChecked name="checkbox-visible-label">Remember me</Checkbox>
 <Checkbox disabled name="checkbox-visible-label">Sync over mobile data</Checkbox
 >
-<Checkbox checked disabled name="checkbox-visible-label"
+<Checkbox defaultChecked disabled name="checkbox-visible-label"
   >Sync over Wi-Fi</Checkbox
 >
 <Checkbox name="checkbox-visible-label">

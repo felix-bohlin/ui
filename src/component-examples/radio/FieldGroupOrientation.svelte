@@ -12,7 +12,7 @@
   <Fieldset>
     <FieldLegend>Seat</FieldLegend>
     <FieldGroup name="radio-group-orientation" orientation="horizontal">
-      <Radio checked value="window">Window</Radio>
+      <Radio defaultChecked value="window">Window</Radio>
       <Radio value="middle">Middle</Radio>
       <Radio value="aisle">Aisle</Radio>
     </FieldGroup>

@@ -13,12 +13,12 @@ export default {
   },
   "--_border-width": {
     description:
-      "Border width of the radio input: `--ui-field-border-width`, or `--ui-focus-border-width` while focused when the theme sets a wider one. The dot reads `--ui-field-border-width`, so it keeps its size. Set on `input`.",
+      "Border width of the radio input: `--_rest-border-width`, or `--ui-focus-border-width` while focused when the theme sets a wider one. The dot reads `--_rest-border-width`, so it keeps its size. Set on `input`.",
     kind: "output",
   },
   "--_dot-radius": {
     description:
-      "Radius of the checked dot, computed from `--_size` and `--ui-field-border-width`.",
+      "Radius of the checked dot, computed from `--_size` and `--_rest-border-width`.",
     kind: "output",
   },
   "--_mark-bg-color": {
@@ -30,5 +30,10 @@ export default {
     description:
       "Color of the dot on `--_accent`. `SelectedItemText` in forced colors.",
     kind: "input",
+  },
+  "--_rest-border-width": {
+    description:
+      "Border width of the unfocused input: `--ui-choice-border-width`, or `--ui-field-border-width` when the theme leaves it unset. Set on `input`.",
+    kind: "output",
   },
 } satisfies CustomProperties

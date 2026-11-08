@@ -77,6 +77,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-control-accent`, else `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it, or `--ui-control-accent`, to `--ui-primary` for the plain primary, like Material and shadcn.",
   "--ui-choice-border-color":
     "Border of the unchecked `Checkbox`, `Radio` and `Switch` track. When unset, `--ui-field-border-color`. Set it for themes whose field border is fainter than 3:1, like shadcn, which outlines its choices with `--ui-primary` like shadcn/ui does.",
+  "--ui-choice-border-width":
+    "Border width of `Checkbox`, `Radio` and the `Switch` track. When unset, `--ui-field-border-width`. Set it when a design draws its choices with a different border than its fields, like Material 3's 2dp checkbox, radio and switch outlines next to its 1dp outlined fields. The check and the dot fit inside it.",
   "--ui-choice-checked":
     "How a checked `Checkbox` and `Radio` look. `mark` keeps the surface and the border of the unchecked input and draws the check, dash or dot in the choice accent, lifted to text lightness in dark mode, like GOV.UK. When unset (`fill`), the input fills with the accent under a mark in its on-accent color. Forced colors always fill. `Switch` and checkbox and radio cards don't read it.",
   "--ui-choice-fill-max-lightness":
@@ -186,7 +188,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-focus-border-color":
     "Border color of a focused `Button`, `Checkbox`, `Chip`, `Radio`, `Switch` and `ToggleButton`, of the field of a focused `NumberField`, `Select`, `Textarea` and `TextField`, and of a checkbox or radio card and a `Card` with a focused card link. It gives the focus ring a second color to sit on, like a dark edge under a bright ring, so pair it with `--ui-focus-ring-offset: 0px`. When set, the focus ring promises its contrast against this border instead of the page. Links and buttons that highlight, with `--ui-link-focus` or `--ui-button-focus` set to `highlight`, show neither the ring nor this border: `--ui-on-focus-highlight` carries their contrast. When unset, each keeps its own border. Forced colors ignore it.",
   "--ui-focus-border-width":
-    "Border width of a focused `Checkbox` and `Radio`, so the focus edge thickens, like GOV.UK's 4px. Never thinner than `--ui-field-border-width`, and the check and the dot keep their size. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
+    "Border width of a focused `Checkbox` and `Radio`, so the focus edge thickens, like GOV.UK's 4px. Never thinner than `--ui-choice-border-width`, and the check and the dot keep their size. Forced colors keep the wider border. When wider than the ring, it is also the bar under a highlighted link, with `--ui-link-focus` set to `highlight`. When unset, the border keeps its width.",
   "--ui-focus-highlight":
     "Fill of a focused link or button that highlights instead of showing the ring, when `--ui-link-focus` or `--ui-button-focus` is `highlight`: `--ui-focus-ring-color` made opaque. A translucent ring, like Bootstrap's, fills at full strength, since text contrast on a see-through fill depends on what is behind it.",
   "--ui-focus-ring-color":

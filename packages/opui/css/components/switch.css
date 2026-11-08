@@ -40,7 +40,8 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-block-size);
-        border: var(--ui-field-border-width) solid var(--_track-border-color);
+        border: var(--ui-choice-border-width, var(--ui-field-border-width))
+          solid var(--_track-border-color);
         border-radius: var(--ui-radius-round);
         content: "";
         inline-size: var(--_track-inline-size);

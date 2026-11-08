@@ -21,6 +21,7 @@
     --ui-button-padding-inline-small: 1rem;
     --ui-button-padding-inline-x-small: 0.75rem;
     --ui-chip-radius: 0.5rem;
+    --ui-choice-border-width: 2px;
     --ui-choice-ripple-bg-color: light-dark(
       oklch(0.227 0.01 304 / 0.08),
       oklch(0.914 0.014 315 / 0.08)

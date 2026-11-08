@@ -6,14 +6,10 @@
         --ui-choice-border-color,
         var(--ui-field-border-color)
       );
-      --_border-width: var(--ui-field-border-width);
+      --_border-width: var(--_rest-border-width);
       --_dot-radius: calc(
-        var(--_size) / 2 - var(--ui-field-border-width) -
-          round(
-            down,
-            (var(--_size) - 2 * var(--ui-field-border-width)) / 4,
-            1px
-          )
+        var(--_size) / 2 - var(--_rest-border-width) -
+          round(down, (var(--_size) - 2 * var(--_rest-border-width)) / 4, 1px)
       );
       --_mark-bg-color: light-dark(
         var(--_accent),
@@ -21,6 +17,10 @@
           from var(--_accent) max(l, var(--ui-text-min-lightness))
             min(c, var(--ui-text-max-chroma)) h
         )
+      );
+      --_rest-border-width: var(
+        --ui-choice-border-width,
+        var(--ui-field-border-width)
       );
 
       appearance: none;
@@ -66,7 +66,7 @@
 
       &:focus-visible {
         --_border-width: max(
-          var(--ui-field-border-width),
+          var(--_rest-border-width),
           var(--ui-focus-border-width, 0px)
         );
 

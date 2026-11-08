@@ -8,12 +8,17 @@ export default {
   },
   "--_border-width": {
     description:
-      "Border width of the checkbox input: `--ui-field-border-width`, or `--ui-focus-border-width` while focused when the theme sets a wider one. The check is inset by the difference from `--ui-field-border-width`, so it keeps its size. Set on `input`.",
+      "Border width of the checkbox input: `--_rest-border-width`, or `--ui-focus-border-width` while focused when the theme sets a wider one. The check is inset by the difference from `--_rest-border-width`, so it keeps its size. Set on `input`.",
     kind: "output",
   },
   "--_mark-bg-color": {
     description:
       "Color of the check and the indeterminate dash when `--ui-choice-checked` is `mark`: `--_accent` in light mode, and in dark mode `--_accent` lifted to at least `--ui-text-min-lightness` with its chroma capped at `--ui-text-max-chroma`, so it reads on the surface. Set on `input`.",
+    kind: "output",
+  },
+  "--_rest-border-width": {
+    description:
+      "Border width of the unfocused input: `--ui-choice-border-width`, or `--ui-field-border-width` when the theme leaves it unset. Set on `input`.",
     kind: "output",
   },
 } satisfies CustomProperties

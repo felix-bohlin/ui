@@ -188,6 +188,7 @@
     /* --ui-choice-accent: var(--ui-primary); */
     /* --ui-choice-on-accent: var(--ui-on-primary); */
     /* --ui-choice-border-color: var(--ui-field-border-color); */
+    /* --ui-choice-border-width: var(--ui-field-border-width); */
     /* --ui-choice-checked: fill; */
     --ui-choice-fill-max-lightness: 0.62;
     --ui-choice-label-offset: 0px;

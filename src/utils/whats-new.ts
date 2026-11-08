@@ -401,7 +401,7 @@ export const whatsNew = {
     {
       html: `<code>checkbox.js</code> keeps <code>indeterminate</code> in step when <code>data-indeterminate</code> changes or a checkbox is added, without a call (<a href="#indeterminate">Indeterminate</a>).`,
     },
-    `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
+    `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, and <code>--ui-field-border-width</code> when it doesn't.`,
     `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers that line on the control.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_ripple-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
@@ -874,7 +874,7 @@ export const whatsNew = {
       ),
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
-    `The unchecked ring reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
+    `The unchecked ring reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, and <code>--ui-field-border-width</code> when it doesn't.`,
     `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers that line on the control.`,
@@ -1099,7 +1099,7 @@ export const whatsNew = {
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
     `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
-    `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code> when it doesn't, like the checkbox and radio borders.`,
+    `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> and <code>--ui-choice-border-width</code> when a theme sets them, and <code>--ui-field-border-color</code> and <code>--ui-field-border-width</code> when it doesn't, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `Each <a href="#api">track width</a> is twice its track height until a theme sets it.`,
     slots(

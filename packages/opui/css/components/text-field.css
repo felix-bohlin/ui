@@ -50,6 +50,7 @@
         "bottom bottom bottom";
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_size);
+      position: relative;
 
       transition:
         background-color var(--_duration) var(--_ease),
@@ -350,6 +351,23 @@
 
       @media (forced-colors: none) {
         border-color: var(--ui-focus-border-color, var(--_border-color));
+      }
+
+      &::before {
+        border: inherit;
+        border-radius: max(
+          0px,
+          var(--ui-field-radius, var(--ui-radius)) -
+            var(--ui-field-border-width)
+        );
+        border-width: max(
+          0px,
+          var(--ui-focus-border-width, 0px) - var(--ui-field-border-width)
+        );
+        content: "";
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
       }
     }
 

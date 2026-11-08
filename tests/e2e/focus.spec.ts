@@ -53,6 +53,68 @@ for (const kind of ["checkbox", "radio"]) {
   })
 }
 
+const fieldEdge = (field: Locator) =>
+  field.evaluate((element) => {
+    const style = getComputedStyle(element)
+    const extra = getComputedStyle(element, "::before")
+    const control = element.querySelector("input, select, textarea")!
+    const rect = control.getBoundingClientRect()
+    return {
+      border: parseFloat(style.borderTopWidth),
+      color: style.borderTopColor,
+      extra: parseFloat(extra.borderTopWidth),
+      extraColor: extra.borderTopColor,
+      text: [rect.left, rect.top, rect.width, rect.height],
+    }
+  })
+
+for (const kind of ["number-field", "select", "text-field", "textarea"]) {
+  test(`--ui-focus-border-width thickens the field of a focused ${kind} inward`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", kind)
+    await page.evaluate(() =>
+      document.documentElement.style.setProperty(
+        "--ui-focus-border-width",
+        "4px",
+      ),
+    )
+    const field = page
+      .locator(`.ui-${kind}:not(:has(:disabled, [readonly])) .ui-field`)
+      .first()
+    const before = await fieldEdge(field)
+    await focusByKeyboard(
+      page,
+      field.locator("input, select, textarea").first(),
+    )
+    await settle(field)
+    const focused = await fieldEdge(field)
+
+    expect(before.extra).toBe(0)
+    expect(focused.border).toBe(before.border)
+    expect(focused.border + focused.extra).toBe(4)
+    expect(focused.extraColor).toBe(focused.color)
+    expect(focused.text).toEqual(before.text)
+
+    await page.emulateMedia({ forcedColors: "active" })
+    const forced = await fieldEdge(field)
+    expect(forced.border + forced.extra).toBe(4)
+  })
+}
+
+test("a focused field keeps its border width when the theme leaves --ui-focus-border-width unset", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "text-field")
+  const field = page.locator(".ui-text-field .ui-field").first()
+  const before = await fieldEdge(field)
+  await focusByKeyboard(page, field.locator("input").first())
+
+  const focused = await fieldEdge(field)
+  expect(focused.extra).toBe(0)
+  expect(focused.border).toBe(before.border)
+})
+
 const PROBE = `<div id="probe">
   <div class="ui-rich-text" style="inline-size: 10ch; line-height: var(--ui-line-height-tight)">
     <p><a href="#wrapped" id="wrapped">a link long enough to wrap over lines</a></p>

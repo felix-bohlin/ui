@@ -44,6 +44,7 @@
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-padding-inline: 1rem;
     --ui-field-radius: 0.25rem;
+    --ui-focus-border-width: 2px;
     --ui-focus-ring-color: light-dark(
       oklch(0.486 0.036 300),
       oklch(0.83 0.037 303)

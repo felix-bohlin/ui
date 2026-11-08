@@ -162,8 +162,9 @@ import { componentsWithSlot } from "../../utils/components"
       <code>--ui-focus-border-color</code>: buttons, chips, toggle buttons,
       checkboxes, radios, switches, fields and focusable cards recolor their
       border while focused. The ring then needs 3:1 against the edge, not the
-      page. Checkboxes and radios can also thicken that edge with
-      <code>--ui-focus-border-width</code>.
+      page. Checkboxes, radios and fields can also thicken that edge with
+      <code>--ui-focus-border-width</code>. The extra width grows inward, so
+      nothing moves.
     </p>
     <Code
       code={`:where(html, .ui-palette, .ui-contrast-more) {

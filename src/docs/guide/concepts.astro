@@ -5,6 +5,7 @@ import CodeGroup from "../../components/CodeGroup.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example/index"
 import LayerStack from "../../components/LayerStack.astro"
+import ScriptTable from "../../components/ScriptTable.astro"
 import TokenTiers from "../../components/TokenTiers.astro"
 ---
 
@@ -354,90 +355,18 @@ import TokenTiers from "../../components/TokenTiers.astro"
     </ul>
     <p>
       See <DocLink href="/guide/browser-support">Browser support</DocLink> for
-      fallbacks. Two things need script in plain HTML:
+      fallbacks. These need a script in plain HTML. The ones in
+      <code>elements/</code> define a custom element, and the framework
+      components load those for you:
     </p>
-    <ul>
-      <li>
-        <strong>Indeterminate checkboxes</strong>:
-        <code>data-indeterminate</code> and <code>css/js/checkbox.js</code>.
-      </li>
-      <li>
-        <strong>Range value</strong>: <code>data-live</code> and
-        <code>css/js/range.js</code>.
-      </li>
-    </ul>
+    <ScriptTable />
+    <p>Import each module once per page:</p>
     <CodeGroup
       tabs={[
         {
           title: "CDN",
           code: `<script type="module">
   import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
-  import "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/range.js"
-</script>`,
-          lang: "html",
-        },
-        {
-          title: "Bundler",
-          code: `<script type="module">
-  import "opui-css/css/js/checkbox.js"
-  import "opui-css/css/js/range.js"
-</script>`,
-          lang: "html",
-        },
-      ]}
-    />
-
-    <h3 id="custom-elements">Custom elements</h3>
-    <p>Behavior HTML and CSS can't give comes as a custom element:</p>
-    <ul>
-      <li>
-        <DocLink href="/components/copy">Copy</DocLink>:
-        <code>&lt;opui-copy&gt;</code>, from <code>elements/copy.js</code>.
-      </li>
-      <li>
-        <DocLink href="/components/number-field">Number field</DocLink>:
-        <code>&lt;opui-number-field&gt;</code>, from
-        <code>elements/number-field.js</code>.
-      </li>
-      <li>
-        <DocLink href="/components/checkbox#select-all">Select all</DocLink>:
-        <code>&lt;opui-select-all&gt;</code>, from
-        <code>elements/select-all.js</code>.
-      </li>
-      <li>
-        <DocLink href="/components/table#sorting">Sortable table</DocLink>:
-        <code>&lt;opui-sortable-table&gt;</code>, from
-        <code>elements/sortable-table.js</code>.
-      </li>
-      <li>
-        <DocLink href="/components/text-field#character-count"
-          >Text field</DocLink
-        >
-        and
-        <DocLink href="/components/textarea#character-count">Textarea</DocLink>
-        character count: <code>&lt;opui-character-count&gt;</code>, from
-        <code>elements/character-count.js</code>.
-      </li>
-      <li>
-        <DocLink href="/components/text-field#password-toggle"
-          >Text field password toggle</DocLink
-        >: <code>&lt;opui-text-field&gt;</code>, from
-        <code>elements/text-field.js</code>.
-      </li>
-      <li>
-        <DocLink href="/components/toast">Toast</DocLink>:
-        <code>&lt;opui-toaster&gt;</code>, from <code>elements/toaster.js</code
-        >.
-      </li>
-    </ul>
-    <p>
-      Import the module once per page. The framework components load it for you.
-    </p>
-    <CodeGroup
-      tabs={[
-        {
-          title: "CDN",
-          code: `<script type="module">
   import "https://cdn.jsdelivr.net/npm/opui-css@6/elements/number-field.js"
 </script>`,
           lang: "html",
@@ -445,6 +374,7 @@ import TokenTiers from "../../components/TokenTiers.astro"
         {
           title: "Bundler",
           code: `<script type="module">
+  import "opui-css/css/js/checkbox.js"
   import "opui-css/elements/number-field.js"
 </script>`,
           lang: "html",

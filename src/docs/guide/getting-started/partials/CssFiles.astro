@@ -1,0 +1,36 @@
+---
+import LayerStack from "../../../../components/LayerStack.astro"
+
+const files = [
+  { name: "css/layers.css", note: "The layer order", tag: "First" },
+  {
+    name: "dist/op.css",
+    note: "Open Props for your own CSS",
+    tag: "Optional",
+  },
+  { name: "core/palette.css", note: "16 color steps from your hue" },
+  { name: "css/theme.css", note: "The knobs and roles components read" },
+  { name: "core/normalize.css", note: "Reset and focus ring" },
+  {
+    name: "css/components.css",
+    note: "Every component, or one file each from css/components/",
+  },
+  { name: "css/compat.css", note: "Browser fallbacks", tag: "Optional" },
+  {
+    name: "core/utils.css",
+    note: "Screen reader, motion and contrast classes",
+    tag: "Last",
+  },
+]
+---
+
+<p>
+  Open Props UI is just CSS, in these files. Each component page lists the ones
+  it needs under Installation.
+</p>
+<LayerStack items={files}>
+  <Fragment slot="caption">
+    Import them top to bottom. <code>dist/opui.css</code> on the CDN holds all
+    of them, and <code>css/imports.css</code> all but Open Props.
+  </Fragment>
+</LayerStack>

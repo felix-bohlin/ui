@@ -1,21 +1,76 @@
 ---
-import Conditional from "../../../../components/Conditional.astro"
-import DocLink from "../../../../components/DocLink.astro"
+import { Card, CardContent, CardHeader } from "opui-css/astro"
+import { allBlocks } from "../../../../utils/blocks"
+import { components } from "../../../../utils/components"
+import { componentHasFramework, FRAMEWORKS } from "../../../../utils/framework"
+
+const { framework, link } = Astro.locals
+const label = FRAMEWORKS.find((f) => f.id === framework)!.label
+const count = components.filter(({ slug }) =>
+  componentHasFramework(framework, slug),
+).length
+
+const cards = [
+  {
+    code: "npx opui-css skill",
+    href: `/${framework}/llms.txt`,
+    note: "copies the agent skill into your project, and every page has a Markdown version.",
+    title: "AI assistants",
+  },
+  {
+    href: link("/blocks"),
+    note: `${allBlocks.length} pages and sections built from the components.`,
+    title: "Blocks",
+  },
+  {
+    href: link("/components"),
+    note: `${count} components, each with ${label} examples and its API.`,
+    title: "Components",
+  },
+  {
+    href: link("/guide/concepts"),
+    note: "Cascade layers, token tiers, props and classes, and what needs JavaScript.",
+    title: "Concepts",
+  },
+  {
+    href: link("/theme-builder"),
+    note: "Colors, density, corners and fonts, exported as one CSS file.",
+    title: "Theme builder",
+  },
+]
 ---
 
-<p>
-  <Conditional>
-    <Fragment slot="html">
-      <DocLink href="/guide/concepts#javascript">Concepts</DocLink> shows the
-      imports and explains the class names, the cascade layers and what needs
-      JavaScript.
-    </Fragment>
-    <Fragment slot="components">
-      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map
-      to classes, the cascade layers and what needs JavaScript.
-    </Fragment>
-  </Conditional>
-  Then browse the <DocLink href="/components">components</DocLink>.
-  <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
-  motion and contrast.
-</p>
+<div class="next-steps">
+  {cards.map((card) => <Card variant="outlined">
+    <CardHeader>
+      <h3><a class="ui-card-link" href={card.href}>{card.title}</a></h3>
+    </CardHeader>
+    <CardContent>
+      <p>{card.code && <code>{card.code}</code>} {card.note}</p>
+    </CardContent>
+  </Card>)}
+</div>
+
+<style>
+  .next-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    margin-block-start: var(--size-5);
+
+    > :global(*) {
+      flex: 1 1 14rem;
+    }
+
+    h3 {
+      font-size: var(--ui-font-size-h6);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+</style>

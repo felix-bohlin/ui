@@ -3387,13 +3387,6 @@
     "url": "/react/guide/concepts/#javascript"
   },
   {
-    "id": "guide-concepts-react-custom-elements",
-    "title": "Custom elements",
-    "page": "Concepts",
-    "category": "Guide",
-    "url": "/react/guide/concepts/#custom-elements"
-  },
-  {
     "id": "guide-customizing-react",
     "title": "Customizing",
     "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
@@ -3598,11 +3591,11 @@
     "url": "/react/guide/why-opui/"
   },
   {
-    "id": "guide-why-opui-react-own-your-code",
-    "title": "Own your code",
+    "id": "guide-why-opui-react-at-a-glance",
+    "title": "At a glance",
     "page": "Why Open Props UI?",
     "category": "Guide",
-    "url": "/react/guide/why-opui/#own-your-code"
+    "url": "/react/guide/why-opui/#at-a-glance"
   },
   {
     "id": "guide-why-opui-react-backstory",
@@ -3626,15 +3619,22 @@
     "url": "/react/guide/getting-started/"
   },
   {
-    "id": "guide-getting-started-react-installation",
-    "title": "Install via NPM",
+    "id": "guide-getting-started-react-quick-start",
+    "title": "Quick start",
     "page": "Getting started",
     "category": "Guide",
-    "url": "/react/guide/getting-started/#installation"
+    "url": "/react/guide/getting-started/#quick-start"
+  },
+  {
+    "id": "guide-getting-started-react-whats-in-the-css",
+    "title": "What's in the CSS",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/react/guide/getting-started/#whats-in-the-css"
   },
   {
     "id": "guide-getting-started-react-css",
-    "title": "Import the CSS",
+    "title": "Import only what you use",
     "page": "Getting started",
     "category": "Guide",
     "url": "/react/guide/getting-started/#css"
@@ -3652,6 +3652,13 @@
     "page": "Getting started",
     "category": "Guide",
     "url": "/react/guide/getting-started/#ssr"
+  },
+  {
+    "id": "guide-getting-started-react-next-steps",
+    "title": "Next steps",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/react/guide/getting-started/#next-steps"
   },
   {
     "id": "blog-accordion-height-auto",

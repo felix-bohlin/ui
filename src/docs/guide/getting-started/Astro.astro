@@ -1,9 +1,11 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
 ---
 
 <Guide overline="Guide">
@@ -13,28 +15,41 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     you need, and you're set.
   </Fragment>
 
-  <section id="installation">
-    <h2>Install via NPM</h2>
-    <InstallCommand packages="astro@7" />
-  </section>
-
-  <section id="css">
-    <h2>Import the CSS</h2>
-    <p>
-      Astro components ship markup only - the CSS still has to be imported once.
-      The frontmatter of the layout every page uses is a good spot. Import
-      everything:
-    </p>
-    <Code
-      code={`---
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="astro@7" />
+        <Code
+          code={`---
 // src/layouts/Layout.astro
 import "opui-css/css/imports.css"
 ---`}
-      lang="astro"
-    />
+          lang="astro"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`---
+import { Button } from "opui-css/astro"
+---
+
+<Button color="primary" variant="filled">Save</Button>`}
+        lang="astro"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
     <p>
-      Or pick and choose in a CSS file, and import that file in the layout
-      instead:
+      List the files in a CSS file, and import that file in the layout instead
+      of <code>imports.css</code>:
     </p>
     <PickAndChoose file="src/styles/global.css" />
     <Code
@@ -48,20 +63,11 @@ import "../styles/global.css"
 
   <section id="usage">
     <h2>How to use</h2>
-    <Code
-      code={`---
-import { Button } from "opui-css/astro"
----
-
-<Button variant="filled">Click me</Button>`}
-      lang="astro"
-    />
     <p>
       Containers take parts, such as <code>CardHeader</code> and
       <code>DialogFooter</code>. Other components take named slots for rich
       content, such as <code>end-text</code> on a <code>TextField</code>.
     </p>
-    <NextSteps />
   </section>
 
   <section id="server-runtime">
@@ -103,5 +109,10 @@ export const onRequest = defineMiddleware((context, next) => {
       <code>interestfor</code> attribute on <code>a</code> and
       <code>button</code>.
     </p>
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
   </section>
 </Guide>

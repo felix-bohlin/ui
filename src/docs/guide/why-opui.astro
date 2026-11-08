@@ -1,7 +1,22 @@
 ---
 import Guide from "../../layouts/Guide.astro"
-import { Callout, CalloutContent } from "opui-css/astro"
+import {
+  Callout,
+  CalloutContent,
+  Card,
+  CardContent,
+  CardHeader,
+} from "opui-css/astro"
+import AstroLogo from "../../components/AstroLogo.astro"
 import DocLink from "../../components/DocLink.astro"
+import Html5Logo from "../../components/Html5Logo.astro"
+import ReactLogo from "../../components/ReactLogo.astro"
+import SvelteLogo from "../../components/SvelteLogo.astro"
+import VueLogo from "../../components/VueLogo.astro"
+
+const elements = ["button", "details", "dialog", "input"]
+const logos = [Html5Logo, AstroLogo, ReactLogo, SvelteLogo, VueLogo]
+const steps = Array.from({ length: 16 }, (_, index) => index + 1)
 ---
 
 <Guide overline="Guide">
@@ -11,14 +26,73 @@ import DocLink from "../../components/DocLink.astro"
     you can read, copy and own.
   </Fragment>
 
-  <section id="own-your-code">
-    <h2>Own your code</h2>
-    <p>
-      You can <strong>copy and paste the components</strong> into your repo
-      instead of installing a package. It's the best way to have a complete
-      understanding and ownership over your code. Every component is a CSS file
-      you can read, change and keep, and its page lists the files it depends on.
-    </p>
+  <section id="at-a-glance">
+    <h2>At a glance</h2>
+    <div class="pillars">
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          {elements.map((element) => <code>&lt;{element}&gt;</code>)}
+        </div>
+        <CardHeader>
+          <h3>Native HTML</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            A component is a class on the element the platform already has, with
+            its behavior and accessibility built in.
+          </p>
+        </CardContent>
+      </Card>
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          <code>button.css</code>
+        </div>
+        <CardHeader>
+          <h3>CSS you own</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            You can <strong>copy and paste the components</strong> into your
+            repo instead of installing a package. It's the best way to have a
+            complete understanding and ownership over your code.
+          </p>
+        </CardContent>
+      </Card>
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          {logos.map((Logo) => (
+            <Logo size={24} />
+          ))}
+        </div>
+        <CardHeader>
+          <h3>Five frameworks, one markup</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            HTML, Astro, React, Svelte and Vue render the same classes, so what
+            you learn on one page carries over.
+          </p>
+        </CardContent>
+      </Card>
+      <Card variant="outlined">
+        <div class="pillar-art ui-not-rich-text" aria-hidden="true">
+          <span class="pillar-palette">
+            {steps.map((step) => (
+              <span style={`background-color: var(--ui-color-${step})`} />
+            ))}
+          </span>
+        </div>
+        <CardHeader>
+          <h3>Themed by tokens</h3>
+        </CardHeader>
+        <CardContent>
+          <p>
+            A hue, a density and a few more knobs feed the roles every component
+            reads. See <DocLink href="/guide/theming">Theming</DocLink>.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   </section>
 
   <section id="backstory">
@@ -95,3 +169,53 @@ import DocLink from "../../components/DocLink.astro"
     </Callout>
   </div>
 </Guide>
+
+<style>
+  .pillars {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    margin-block-start: var(--size-5);
+
+    h3 {
+      font-size: var(--ui-font-size-h6);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+
+  .pillar-art {
+    align-items: center;
+    background-color: var(--ui-surface-tonal);
+    border-radius: var(--ui-radius-small);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    justify-content: center;
+    min-block-size: var(--size-10);
+    padding: var(--size-3);
+
+    code {
+      font-family: var(--ui-font-code);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
+  .pillar-palette {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    flex: 1;
+    forced-color-adjust: none;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-5);
+    }
+  }
+</style>

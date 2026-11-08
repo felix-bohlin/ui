@@ -3387,13 +3387,6 @@
     "url": "/html/guide/concepts/#javascript"
   },
   {
-    "id": "guide-concepts-html-custom-elements",
-    "title": "Custom elements",
-    "page": "Concepts",
-    "category": "Guide",
-    "url": "/html/guide/concepts/#custom-elements"
-  },
-  {
     "id": "guide-customizing-html",
     "title": "Customizing",
     "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
@@ -3598,11 +3591,11 @@
     "url": "/html/guide/why-opui/"
   },
   {
-    "id": "guide-why-opui-html-own-your-code",
-    "title": "Own your code",
+    "id": "guide-why-opui-html-at-a-glance",
+    "title": "At a glance",
     "page": "Why Open Props UI?",
     "category": "Guide",
-    "url": "/html/guide/why-opui/#own-your-code"
+    "url": "/html/guide/why-opui/#at-a-glance"
   },
   {
     "id": "guide-why-opui-html-backstory",
@@ -3626,11 +3619,39 @@
     "url": "/html/guide/getting-started/"
   },
   {
+    "id": "guide-getting-started-html-quick-start",
+    "title": "Quick start",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/html/guide/getting-started/#quick-start"
+  },
+  {
+    "id": "guide-getting-started-html-whats-in-the-css",
+    "title": "What's in the CSS",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/html/guide/getting-started/#whats-in-the-css"
+  },
+  {
+    "id": "guide-getting-started-html-install",
+    "title": "Pick an install",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/html/guide/getting-started/#install"
+  },
+  {
     "id": "guide-getting-started-html-cdn",
     "title": "Install via CDN",
     "page": "Getting started",
     "category": "Guide",
     "url": "/html/guide/getting-started/#cdn"
+  },
+  {
+    "id": "guide-getting-started-html-manual-setup",
+    "title": "Install manually",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/html/guide/getting-started/#manual-setup"
   },
   {
     "id": "guide-getting-started-html-installation",
@@ -3647,18 +3668,18 @@
     "url": "/html/guide/getting-started/#css"
   },
   {
-    "id": "guide-getting-started-html-manual-setup",
-    "title": "Install manually",
+    "id": "guide-getting-started-html-scripts",
+    "title": "Scripts",
     "page": "Getting started",
     "category": "Guide",
-    "url": "/html/guide/getting-started/#manual-setup"
+    "url": "/html/guide/getting-started/#scripts"
   },
   {
-    "id": "guide-getting-started-html-usage",
-    "title": "Your first component",
+    "id": "guide-getting-started-html-next-steps",
+    "title": "Next steps",
     "page": "Getting started",
     "category": "Guide",
-    "url": "/html/guide/getting-started/#usage"
+    "url": "/html/guide/getting-started/#next-steps"
   },
   {
     "id": "blog-accordion-height-auto",

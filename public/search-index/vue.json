@@ -3387,13 +3387,6 @@
     "url": "/vue/guide/concepts/#javascript"
   },
   {
-    "id": "guide-concepts-vue-custom-elements",
-    "title": "Custom elements",
-    "page": "Concepts",
-    "category": "Guide",
-    "url": "/vue/guide/concepts/#custom-elements"
-  },
-  {
     "id": "guide-customizing-vue",
     "title": "Customizing",
     "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
@@ -3598,11 +3591,11 @@
     "url": "/vue/guide/why-opui/"
   },
   {
-    "id": "guide-why-opui-vue-own-your-code",
-    "title": "Own your code",
+    "id": "guide-why-opui-vue-at-a-glance",
+    "title": "At a glance",
     "page": "Why Open Props UI?",
     "category": "Guide",
-    "url": "/vue/guide/why-opui/#own-your-code"
+    "url": "/vue/guide/why-opui/#at-a-glance"
   },
   {
     "id": "guide-why-opui-vue-backstory",
@@ -3626,15 +3619,22 @@
     "url": "/vue/guide/getting-started/"
   },
   {
-    "id": "guide-getting-started-vue-installation",
-    "title": "Install via NPM",
+    "id": "guide-getting-started-vue-quick-start",
+    "title": "Quick start",
     "page": "Getting started",
     "category": "Guide",
-    "url": "/vue/guide/getting-started/#installation"
+    "url": "/vue/guide/getting-started/#quick-start"
+  },
+  {
+    "id": "guide-getting-started-vue-whats-in-the-css",
+    "title": "What's in the CSS",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/vue/guide/getting-started/#whats-in-the-css"
   },
   {
     "id": "guide-getting-started-vue-css",
-    "title": "Import the CSS",
+    "title": "Import only what you use",
     "page": "Getting started",
     "category": "Guide",
     "url": "/vue/guide/getting-started/#css"
@@ -3652,6 +3652,13 @@
     "page": "Getting started",
     "category": "Guide",
     "url": "/vue/guide/getting-started/#ssr"
+  },
+  {
+    "id": "guide-getting-started-vue-next-steps",
+    "title": "Next steps",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/vue/guide/getting-started/#next-steps"
   },
   {
     "id": "blog-accordion-height-auto",

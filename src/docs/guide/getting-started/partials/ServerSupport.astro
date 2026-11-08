@@ -44,6 +44,28 @@ const rows = Object.entries(apis)
   .sort((a, b) => a.component.localeCompare(b.component, "en"))
 
 const react = framework === "react"
+const hydrated = rows.filter((row) => row.props.length)
+const stats = [
+  {
+    count: rows.length - hydrated.length,
+    label: `of ${rows.length} need no hydration`,
+  },
+  {
+    count: hydrated.length,
+    label: "hydrate for",
+    props: [
+      ...new Set(hydrated.flatMap((row) => row.props.map(({ prop }) => prop))),
+    ].toSorted(),
+  },
+  ...(react
+    ? [
+        {
+          count: rows.filter((row) => row.serverComponent).length,
+          label: "are Server Components",
+        },
+      ]
+    : []),
+]
 const columns = [
   { label: "Component", width: "30%" },
   { label: "Client", width: "14%" },
@@ -52,6 +74,18 @@ const columns = [
   { label: "Needs hydration" },
 ]
 ---
+
+<ul class="server-key">
+  {stats.map((stat) => <li>
+    <strong>{stat.count}</strong>
+    <span>
+      {stat.label}
+      {stat.props?.map((prop, index) => <Fragment
+        >{index > 0 && ", "}<code>{prop}</code></Fragment
+      >)}
+    </span>
+  </li>)}
+</ul>
 
 <DocsTable columns={columns}>
   {rows.map((row) => <TableRow>
@@ -95,6 +129,37 @@ const columns = [
 </DocsTable>
 
 <style>
+  .server-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    list-style: none;
+    margin-block: var(--size-4);
+    padding: 0;
+
+    > li {
+      align-content: start;
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      display: grid;
+      flex: 1 1 10rem;
+      gap: var(--size-1);
+      margin: 0;
+      padding: var(--size-3) var(--size-4);
+    }
+
+    strong {
+      color: var(--ui-primary-text);
+      font-size: var(--ui-font-size-h3);
+      line-height: 1;
+    }
+
+    span {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+    }
+  }
+
   :global(.support-icon) {
     block-size: 1.25em;
     color: var(--ui-text);

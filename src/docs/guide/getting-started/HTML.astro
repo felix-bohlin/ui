@@ -1,12 +1,41 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import { Callout, CalloutContent } from "opui-css/astro"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+  CardContent,
+  CardHeader,
+} from "opui-css/astro"
 import Code from "../../../components/Code.astro"
 import DocLink from "../../../components/DocLink.astro"
-import Example from "../../../components/Example/index"
+import ScriptTable from "../../../components/ScriptTable.astro"
+import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
+
+const cdn = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />`
+
+const installs = [
+  {
+    href: "#cdn",
+    note: "One link with every component. No build step.",
+    title: "CDN",
+  },
+  {
+    href: "#manual-setup",
+    note: "The files in your project, yours to change. No build step.",
+    title: "Copy the files",
+  },
+  {
+    href: "#installation",
+    note: "Everything or only the parts you use, through your bundler.",
+    title: "npm",
+  },
+]
 ---
 
 <Guide overline="Guide">
@@ -16,23 +45,40 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     class names.
   </Fragment>
 
-  <div class="ui-not-rich-text">
-    <Callout severity="neutral">
-      <CalloutContent>
-        <p>
-          Open Props UI is <u>just CSS</u>. You can copy any
-          <DocLink class="ui-link" href="/components">component</DocLink> CSS
-          straight from the docs - no install required. Each component page has
-          its CSS under Installation, with the files it depends on. It reads
-          tokens from <code>palette.css</code> and <code>theme.css</code>, so
-          those need to be on the page too, after <code>layers.css</code> sets
-          the layer order. <code>normalize.css</code> adds the focus ring and
-          <code>utils.css</code> adds <code>.ui-sr-only</code> and the motion
-          classes. The CDN link below has all of it in one file.
-        </p>
-      </CalloutContent>
-    </Callout>
-  </div>
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Code slot="install" code={cdn} lang="html" />
+      <Code
+        slot="use"
+        code={`<button class="ui-button ui-filled ui-primary" type="button">
+  Save
+</button>`}
+        lang="html"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="install">
+    <h2>Pick an install</h2>
+    <div class="install-picker">
+      {installs.map((install) => <Card variant="outlined">
+        <CardHeader>
+          <h3>
+            <a class="ui-card-link" href={install.href}>{install.title}</a>
+          </h3>
+        </CardHeader>
+        <CardContent>
+          <p>{install.note}</p>
+        </CardContent>
+      </Card>)}
+    </div>
+  </section>
 
   <section id="cdn">
     <h2>Install via CDN</h2>
@@ -41,10 +87,7 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
       component and the utility classes, in the right cascade layers, plus Open
       Props for your own CSS.
     </p>
-    <Code
-      code={`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />`}
-      lang="html"
-    />
+    <Code code={cdn} lang="html" />
     <p>
       It includes the
       <DocLink href="/guide/browser-support#compat">browser fallbacks</DocLink>.
@@ -59,23 +102,6 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
     </p>
   </section>
 
-  <section id="installation">
-    <h2>Install via NPM</h2>
-    <p>
-      For when you have a bundler that resolves CSS <code>@import</code>s from
-      <code>node_modules</code>, like Vite or webpack. No bundler? Use the CDN
-      or install manually.
-    </p>
-    <InstallCommand />
-
-    <h3 id="css">Import the CSS</h3>
-    <p>Either import everything in your main CSS file:</p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-
-    <p>Or pick and choose the parts you want to include:</p>
-    <PickAndChoose />
-  </section>
-
   <section id="manual-setup">
     <h2>Install manually</h2>
     <p>
@@ -86,11 +112,29 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
         target="_blank"
         href="https://cdn.jsdelivr.net/npm/opui-css@6/"
         >jsDelivr</a
-      >) and drop these files into your project:
+      >), drop it into your project as <code>opui</code>, and import the files
+      in your main CSS:
     </p>
-
     <Code
-      code={`opui
+      code={`@import "./opui/css/layers.css";
+
+@import "./opui/core/palette.css";
+@import "./opui/css/theme.css";
+@import "./opui/core/normalize.css";
+@import "./opui/css/components.css";
+@import "./opui/css/compat.css";
+@import "./opui/core/utils.css";`}
+      lang="css"
+    />
+    <p>
+      If your own CSS reads Open Props, import <code>./opui/dist/op.css</code>
+      right after <code>layers.css</code>.
+    </p>
+    <Accordion>
+      <AccordionSummary>The files in the package</AccordionSummary>
+      <AccordionContent>
+        <Code
+          code={`opui
 ├─ core
 │  ├─ normalize.css
 │  ├─ palette.css
@@ -127,68 +171,50 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
 │  └─ shadcn.css
 ├─ open-props.css
 └─ tokens.json`}
-      lang="text"
-    />
-
-    <p>
-      <code>dist/op.css</code> is Open Props, pre-bundled in the
-      <code>openprops</code> layer, and <code>open-props.css</code> imports it
-      from <code>node_modules</code> for bundlers. The components don't read it,
-      so both are optional and only there for your own CSS.
-      <code>dist/opui.css</code> is the CDN file. <code>themes/</code> holds the
-      <DocLink href="/guide/customizing#example-themes">example themes</DocLink>
-      and <code>tokens.json</code> the
-      <DocLink href="/guide/theme-tokens#tokens-json">design tokens</DocLink>.
-    </p>
-
-    <p>Then import the files in your main CSS, in this order:</p>
-    <Code
-      code={`@import "./opui/css/layers.css";
-
-@import "./opui/core/palette.css";
-@import "./opui/css/theme.css";
-@import "./opui/core/normalize.css";
-@import "./opui/css/components.css";
-@import "./opui/css/compat.css";
-@import "./opui/core/utils.css";`}
-      lang="css"
-    />
-    <p>
-      If your own CSS reads Open Props, import <code>./opui/dist/op.css</code>
-      right after <code>layers.css</code>. Leave out <code>compat.css</code> if
-      you don't need the browser fallbacks.
-    </p>
+          lang="text"
+        />
+        <p>
+          <code>dist/op.css</code> is Open Props, pre-bundled in the
+          <code>openprops</code> layer, and <code>open-props.css</code> imports
+          it from <code>node_modules</code> for bundlers. The components don't
+          read it, so both are optional and only there for your own CSS.
+          <code>dist/opui.css</code> is the CDN file. <code>themes/</code> holds
+          the
+          <DocLink href="/guide/customizing#example-themes"
+            >example themes</DocLink
+          >
+          and <code>tokens.json</code> the
+          <DocLink href="/guide/theme-tokens#tokens-json">design tokens</DocLink
+          >.
+        </p>
+      </AccordionContent>
+    </Accordion>
   </section>
 
-  <section id="usage">
-    <h2>Your first component</h2>
+  <section id="installation">
+    <h2>Install via NPM</h2>
     <p>
-      With the CSS on the page, a component is a class on the right element. The
-      modifiers are classes too.
+      For when you have a bundler that resolves CSS <code>@import</code>s from
+      <code>node_modules</code>, like Vite or webpack.
     </p>
+    <InstallCommand />
 
-    <Example centered>
-      <button class="ui-button ui-filled ui-primary" type="button">
-        Click me
-      </button>
-    </Example>
+    <h3 id="css">Import the CSS</h3>
+    <p>Either import everything in your main CSS file:</p>
+    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
 
+    <p>Or pick and choose the parts you want to include:</p>
+    <PickAndChoose />
+  </section>
+
+  <section id="scripts">
+    <h2>Scripts</h2>
+    <p>A few features need a script in plain HTML:</p>
+    <ScriptTable />
     <p>
-      Two things need a bit of JavaScript in plain HTML: indeterminate
-      checkboxes (<code>css/js/checkbox.js</code>) and the Range value
-      (<code>css/js/range.js</code>). Import them in a
-      <code>&lt;script type="module"&gt;</code>, from
-      <code>https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code> without a
-      bundler. Components with a custom element, like the Number field, import
-      theirs from <code>elements/</code> the same way.
-    </p>
-    <p>
-      The HTML examples on the component pages import these by package name,
-      <code>opui-css/css/js/range.js</code> or
-      <code>opui-css/elements/character-count.js</code>, which a bundler
-      resolves. Without one, an import map in the <code>head</code>, before the
-      first module script, points the package name at the CDN, so the examples
-      run as you copy them:
+      The examples import them by package name, which a bundler resolves.
+      Without one, add this import map to the <code>head</code>, before the
+      first module script:
     </p>
     <Code
       code={`<script type="importmap">
@@ -196,6 +222,30 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
 </script>`}
       lang="html"
     />
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
     <NextSteps />
   </section>
 </Guide>
+
+<style>
+  .install-picker {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    margin-block-start: var(--size-5);
+
+    h3 {
+      font-size: var(--ui-font-size-h6);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+</style>

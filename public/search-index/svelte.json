@@ -3387,13 +3387,6 @@
     "url": "/svelte/guide/concepts/#javascript"
   },
   {
-    "id": "guide-concepts-svelte-custom-elements",
-    "title": "Custom elements",
-    "page": "Concepts",
-    "category": "Guide",
-    "url": "/svelte/guide/concepts/#custom-elements"
-  },
-  {
     "id": "guide-customizing-svelte",
     "title": "Customizing",
     "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
@@ -3598,11 +3591,11 @@
     "url": "/svelte/guide/why-opui/"
   },
   {
-    "id": "guide-why-opui-svelte-own-your-code",
-    "title": "Own your code",
+    "id": "guide-why-opui-svelte-at-a-glance",
+    "title": "At a glance",
     "page": "Why Open Props UI?",
     "category": "Guide",
-    "url": "/svelte/guide/why-opui/#own-your-code"
+    "url": "/svelte/guide/why-opui/#at-a-glance"
   },
   {
     "id": "guide-why-opui-svelte-backstory",
@@ -3626,15 +3619,22 @@
     "url": "/svelte/guide/getting-started/"
   },
   {
-    "id": "guide-getting-started-svelte-installation",
-    "title": "Install via NPM",
+    "id": "guide-getting-started-svelte-quick-start",
+    "title": "Quick start",
     "page": "Getting started",
     "category": "Guide",
-    "url": "/svelte/guide/getting-started/#installation"
+    "url": "/svelte/guide/getting-started/#quick-start"
+  },
+  {
+    "id": "guide-getting-started-svelte-whats-in-the-css",
+    "title": "What's in the CSS",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started/#whats-in-the-css"
   },
   {
     "id": "guide-getting-started-svelte-css",
-    "title": "Import the CSS",
+    "title": "Import only what you use",
     "page": "Getting started",
     "category": "Guide",
     "url": "/svelte/guide/getting-started/#css"
@@ -3652,6 +3652,13 @@
     "page": "Getting started",
     "category": "Guide",
     "url": "/svelte/guide/getting-started/#ssr"
+  },
+  {
+    "id": "guide-getting-started-svelte-next-steps",
+    "title": "Next steps",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/svelte/guide/getting-started/#next-steps"
   },
   {
     "id": "blog-accordion-height-auto",

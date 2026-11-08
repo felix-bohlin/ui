@@ -6,23 +6,139 @@ Every framework needs the CSS. The HTML section covers the CDN file, the npm imp
 
 Add the CSS from the CDN, from npm or by copying the files, then write the class names.
 
-Open Props UI is *just CSS*. You can copy any [component](https://open-props-ui.netlify.app/html/components.md) CSS straight from the docs - no install required. Each component page has its CSS under Installation, with the files it depends on. It reads tokens from `palette.css` and `theme.css`, so those need to be on the page too, after `layers.css` sets the layer order. `normalize.css` adds the focus ring and `utils.css` adds `.ui-sr-only` and the motion classes. The CDN link below has all of it in one file.
+### Quick start
 
-### Install via CDN
+#### Add the CSS
 
-The quickest way to get going. One file with the theme, the reset, every component and the utility classes, in the right cascade layers, plus Open Props for your own CSS.
+One file with the theme, the reset and every component.
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />
 ```
 
+#### Write the classes
+
+A component is a class on a native element, and its options are classes too.
+
+```html
+<button class="ui-button ui-filled ui-primary" type="button">
+  Save
+</button>
+```
+
+| Class | Sets |
+| --- | --- |
+| `.ui-button` | Component |
+| `.ui-filled` | Variant |
+| `.ui-primary` | Color |
+
+#### Make it yours
+
+Start from a preset, pick a brand color and corners in the Theme builder, and load the `theme.css` it exports after opui-css.
+
+[Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+
+### What's in the CSS
+
+Open Props UI is just CSS, in these files. Each component page lists the ones it needs under Installation.
+
+1. `css/layers.css` The layer order First
+2. `dist/op.css` Open Props for your own CSS Optional
+3. `core/palette.css` 16 color steps from your hue
+4. `css/theme.css` The knobs and roles components read
+5. `core/normalize.css` Reset and focus ring
+6. `css/components.css` Every component, or one file each from css/components/
+7. `css/compat.css` Browser fallbacks Optional
+8. `core/utils.css` Screen reader, motion and contrast classes Last
+
+Import them top to bottom. `dist/opui.css` on the CDN holds all of them, and `css/imports.css` all but Open Props.
+
+### Pick an install
+
+#### [CDN](#cdn)
+
+One link with every component. No build step.
+
+#### [Copy the files](#manual-setup)
+
+The files in your project, yours to change. No build step.
+
+#### [npm](#installation)
+
+Everything or only the parts you use, through your bundler.
+
+### Install via CDN
+
+The quickest way to get going. One file with the theme, the reset, every component and the utility classes, in the right cascade layers, plus Open Props for your own CSS.
+
 It includes the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat). `dist/opui.no-compat.css` leaves them out, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need.
 
 `@6` loads the newest 6.x release, so a new major version never changes your site. Pin an exact version, such as `@6.0.0`, for full control.
 
+### Install manually
+
+The most flexible way to use OPUI, and it works without a build step. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)), drop it into your project as `opui`, and import the files in your main CSS:
+
+```css
+@import "./opui/css/layers.css";
+
+@import "./opui/core/palette.css";
+@import "./opui/css/theme.css";
+@import "./opui/core/normalize.css";
+@import "./opui/css/components.css";
+@import "./opui/css/compat.css";
+@import "./opui/core/utils.css";
+```
+
+If your own CSS reads Open Props, import `./opui/dist/op.css` right after `layers.css`.
+
+The files in the package
+
+```text
+opui
+├─ core
+│  ├─ normalize.css
+│  ├─ palette.css
+│  └─ utils.css
+├─ css
+│  ├─ compat
+│  │  ├─ avatar.css
+│  │  └─ ...
+│  ├─ components
+│  │  ├─ accordion.css
+│  │  └─ ...
+│  ├─ js
+│  │  ├─ checkbox.js
+│  │  └─ range.js
+│  ├─ compat.css
+│  ├─ components.css
+│  ├─ imports.css
+│  ├─ layers.css
+│  └─ theme.css
+├─ dist
+│  ├─ op.css
+│  ├─ opui.baseline-2023.css
+│  ├─ ...
+│  ├─ opui.components.css
+│  ├─ opui.css
+│  └─ opui.no-compat.css
+├─ elements
+│  ├─ number-field.js
+│  └─ ...
+├─ themes
+│  ├─ bootstrap.css
+│  ├─ brutalist.css
+│  ├─ m3.css
+│  └─ shadcn.css
+├─ open-props.css
+└─ tokens.json
+```
+
+`dist/op.css` is Open Props, pre-bundled in the `openprops` layer, and `open-props.css` imports it from `node_modules` for bundlers. The components don't read it, so both are optional and only there for your own CSS. `dist/opui.css` is the CDN file. `themes/` holds the [example themes](https://open-props-ui.netlify.app/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#tokens-json).
+
 ### Install via NPM
 
-For when you have a bundler that resolves CSS `@import`s from `node_modules`, like Vite or webpack. No bundler? Use the CDN or install manually.
+For when you have a bundler that resolves CSS `@import`s from `node_modules`, like Vite or webpack.
 
 `pnpm`
 
@@ -70,76 +186,25 @@ Or pick and choose the parts you want to include:
 @import "opui-css/core/utils.css";
 ```
 
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat), and you can leave it out.
+Keep the order from [What's in the CSS](#whats-in-the-css), and add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`.
 
-### Install manually
+### Scripts
 
-The most flexible way to use OPUI, and it works without a build step. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)) and drop these files into your project:
+A few features need a script in plain HTML:
 
-```text
-opui
-├─ core
-│  ├─ normalize.css
-│  ├─ palette.css
-│  └─ utils.css
-├─ css
-│  ├─ compat
-│  │  ├─ avatar.css
-│  │  └─ ...
-│  ├─ components
-│  │  ├─ accordion.css
-│  │  └─ ...
-│  ├─ js
-│  │  ├─ checkbox.js
-│  │  └─ range.js
-│  ├─ compat.css
-│  ├─ components.css
-│  ├─ imports.css
-│  ├─ layers.css
-│  └─ theme.css
-├─ dist
-│  ├─ op.css
-│  ├─ opui.baseline-2023.css
-│  ├─ ...
-│  ├─ opui.components.css
-│  ├─ opui.css
-│  └─ opui.no-compat.css
-├─ elements
-│  ├─ number-field.js
-│  └─ ...
-├─ themes
-│  ├─ bootstrap.css
-│  ├─ brutalist.css
-│  ├─ m3.css
-│  └─ shadcn.css
-├─ open-props.css
-└─ tokens.json
-```
+| Feature | What it does | Import |
+| --- | --- | --- |
+| [Character count](https://open-props-ui.netlify.app/html/components/text-field.md#character-count) | Counts the characters left, in Text field and Textarea | `opui-css/elements/character-count.js` |
+| [Copy](https://open-props-ui.netlify.app/html/components/copy.md) | Copies text or a field's value | `opui-css/elements/copy.js` |
+| [Indeterminate checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md#indeterminate) | Sets `indeterminate` from `data-indeterminate` | `opui-css/css/js/checkbox.js` |
+| [Number field](https://open-props-ui.netlify.app/html/components/number-field.md) | Steps the value with its buttons | `opui-css/elements/number-field.js` |
+| [Password toggle](https://open-props-ui.netlify.app/html/components/text-field.md#password-toggle) | Shows and hides the password | `opui-css/elements/text-field.js` |
+| [Range value](https://open-props-ui.netlify.app/html/components/range.md#value) | Writes the value to the `output`, with `data-live` | `opui-css/css/js/range.js` |
+| [Select all](https://open-props-ui.netlify.app/html/components/checkbox.md#select-all) | Checks or clears a group of checkboxes from one | `opui-css/elements/select-all.js` |
+| [Sortable table](https://open-props-ui.netlify.app/html/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
+| [Toast](https://open-props-ui.netlify.app/html/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
 
-`dist/op.css` is Open Props, pre-bundled in the `openprops` layer, and `open-props.css` imports it from `node_modules` for bundlers. The components don't read it, so both are optional and only there for your own CSS. `dist/opui.css` is the CDN file. `themes/` holds the [example themes](https://open-props-ui.netlify.app/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#tokens-json).
-
-Then import the files in your main CSS, in this order:
-
-```css
-@import "./opui/css/layers.css";
-
-@import "./opui/core/palette.css";
-@import "./opui/css/theme.css";
-@import "./opui/core/normalize.css";
-@import "./opui/css/components.css";
-@import "./opui/css/compat.css";
-@import "./opui/core/utils.css";
-```
-
-If your own CSS reads Open Props, import `./opui/dist/op.css` right after `layers.css`. Leave out `compat.css` if you don't need the browser fallbacks.
-
-### Your first component
-
-With the CSS on the page, a component is a class on the right element. The modifiers are classes too.
-
-Two things need a bit of JavaScript in plain HTML: indeterminate checkboxes (`css/js/checkbox.js`) and the Range value (`css/js/range.js`). Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler. Components with a custom element, like the Number field, import theirs from `elements/` the same way.
-
-The HTML examples on the component pages import these by package name, `opui-css/css/js/range.js` or `opui-css/elements/character-count.js`, which a bundler resolves. Without one, an import map in the `head`, before the first module script, points the package name at the CDN, so the examples run as you copy them:
+The examples import them by package name, which a bundler resolves. Without one, add this import map to the `head`, before the first module script:
 
 ```html
 <script type="importmap">
@@ -147,13 +212,37 @@ The HTML examples on the component pages import these by package name, `opui-css
 </script>
 ```
 
-[Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.
+### Next steps
+
+#### [AI assistants](https://open-props-ui.netlify.app/html/llms.txt)
+
+`npx opui-css skill` copies the agent skill into your project, and every page has a Markdown version.
+
+#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+
+36 pages and sections built from the components.
+
+#### [Components](https://open-props-ui.netlify.app/html/components.md)
+
+41 components, each with HTML examples and its API.
+
+#### [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md)
+
+Cascade layers, token tiers, props and classes, and what needs JavaScript.
+
+#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+
+Colors, density, corners and fonts, exported as one CSS file.
 
 ## Astro
 
 OPUI ships first-class Astro components. Install the package, import what you need, and you're set.
 
-### Install via NPM
+### Quick start
+
+#### Install and import the CSS
+
+The components render markup only, so import the CSS once, where your app starts.
 
 ```sh
 pnpm add opui-css astro@7
@@ -163,9 +252,13 @@ pnpm add opui-css astro@7
 npm install opui-css astro@7
 ```
 
-### Import the CSS
+```sh
+yarn add opui-css astro@7
+```
 
-Astro components ship markup only - the CSS still has to be imported once. The frontmatter of the layout every page uses is a good spot. Import everything:
+```sh
+bun add opui-css astro@7
+```
 
 ```astro
 ---
@@ -173,11 +266,33 @@ import "opui-css/css/imports.css"
 ---
 ```
 
-Or pick and choose in a CSS file, and import that file in the layout instead:
+#### Use a component
+
+Each prop renders one class, the same markup as the HTML docs.
+
+```astro
+---
+import { Button } from "opui-css/astro"
+---
+
+<Button color="primary" variant="filled">Save</Button>
+```
+
+| You write | It renders |
+| --- | --- |
+| `<Button>` | `.ui-button` |
+| `color="primary"` | `.ui-primary` |
+| `variant="filled"` | `.ui-filled` |
+
+#### Make it yours
+
+### What's in the CSS
+
+### Import only what you use
+
+List the files in a CSS file, and import that file in the layout instead of `imports.css`:
 
 Same code as in the HTML section.
-
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/astro/guide/browser-support.md#compat), and you can leave it out.
 
 ```astro
 ---
@@ -187,17 +302,7 @@ import "../styles/global.css"
 
 ### How to use
 
-```astro
----
-import { Button } from "opui-css/astro"
----
-
-<Button variant="filled">Click me</Button>
-```
-
 Containers take parts, such as `CardHeader` and `DialogFooter`. Other components take named slots for rich content, such as `end-text` on a `TextField`.
-
-[Concepts](https://open-props-ui.netlify.app/astro/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/astro/components.md). [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) covers colors, density, motion and contrast.
 
 ### Server runtime
 
@@ -223,11 +328,27 @@ export const onRequest = defineMiddleware((context, next) => {
 
 Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `a` and `button`.
 
+### Next steps
+
+#### [AI assistants](https://open-props-ui.netlify.app/astro/llms.txt)
+
+#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+
+#### [Components](https://open-props-ui.netlify.app/astro/components.md)
+
+41 components, each with Astro examples and its API.
+
+#### [Concepts](https://open-props-ui.netlify.app/astro/guide/concepts.md)
+
+#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+
 ## React
 
 OPUI ships first-class React 19 components. Install the package, import what you need, and you're set.
 
-### Install via NPM
+### Quick start
+
+#### Install and import the CSS
 
 ```sh
 pnpm add opui-css react@19 react-dom@19
@@ -237,19 +358,37 @@ pnpm add opui-css react@19 react-dom@19
 npm install opui-css react@19 react-dom@19
 ```
 
-### Import the CSS
+```sh
+yarn add opui-css react@19 react-dom@19
+```
 
-React components ship markup only - the CSS still has to be imported once, in your root layout or the entry file that renders your app. Import everything:
+```sh
+bun add opui-css react@19 react-dom@19
+```
 
 ```tsx
 import "opui-css/css/imports.css"
 ```
 
-Or pick and choose in a CSS file, and import that file in your entry instead:
+#### Use a component
+
+```tsx
+import { Button } from "opui-css/react"
+
+export default function App() {
+  return <Button color="primary" variant="filled">Save</Button>
+}
+```
+
+#### Make it yours
+
+### What's in the CSS
+
+### Import only what you use
+
+List the files in a CSS file, and import that file in your entry instead of `imports.css`:
 
 Same code as in the HTML section.
-
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/react/guide/browser-support.md#compat), and you can leave it out.
 
 ```tsx
 import "./styles/main.css"
@@ -257,21 +396,15 @@ import "./styles/main.css"
 
 ### How to use
 
-```tsx
-import { Button } from "opui-css/react"
-
-export default function App() {
-  return <Button variant="filled">Click me</Button>
-}
-```
-
 Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: the default slot is `children` and named slots are camelCased, such as `endText`. Form controls take the native `value` or `defaultValue`, `checked` or `defaultChecked`, and `onChange` props.
-
-[Concepts](https://open-props-ui.netlify.app/react/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/react/components.md). [Theming](https://open-props-ui.netlify.app/react/guide/theming.md) covers colors, density, motion and contrast.
 
 ### Server rendering
 
 Components that need context, state or effects are marked `"use client"`. The rest also render as React Server Components. Every component renders complete HTML on the server, and the native controls work and submit with their form. The props in the last column need hydration (`client:load` in Astro) or client rendering.
+
+- **66** of 69 need no hydration
+- **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
+- **40** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -345,11 +478,27 @@ Components that need context, state or effects are marked `"use client"`. The re
 | [`ToggleGroup`](https://open-props-ui.netlify.app/react/components/toggle.md) | Yes | Yes | No | - |
 | [`Tooltip`](https://open-props-ui.netlify.app/react/components/tooltip.md) | Yes | Yes | Yes | - |
 
+### Next steps
+
+#### [AI assistants](https://open-props-ui.netlify.app/react/llms.txt)
+
+#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+
+#### [Components](https://open-props-ui.netlify.app/react/components.md)
+
+41 components, each with React examples and its API.
+
+#### [Concepts](https://open-props-ui.netlify.app/react/guide/concepts.md)
+
+#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+
 ## Svelte
 
 OPUI ships first-class Svelte 5 components. Install the package, import what you need, and you're set.
 
-### Install via NPM
+### Quick start
+
+#### Install and import the CSS
 
 ```sh
 pnpm add opui-css svelte@5
@@ -359,9 +508,13 @@ pnpm add opui-css svelte@5
 npm install opui-css svelte@5
 ```
 
-### Import the CSS
+```sh
+yarn add opui-css svelte@5
+```
 
-Svelte components ship markup only - the CSS still has to be imported once, in your root layout or the entry file that mounts your app. Import everything:
+```sh
+bun add opui-css svelte@5
+```
 
 ```svelte
 <script lang="ts">
@@ -373,11 +526,25 @@ Svelte components ship markup only - the CSS still has to be imported once, in y
 {@render children()}
 ```
 
-Or pick and choose in a CSS file, and import that file in your layout instead:
+#### Use a component
+
+```svelte
+<script lang="ts">
+  import { Button } from "opui-css/svelte"
+</script>
+
+<Button color="primary" variant="filled">Save</Button>
+```
+
+#### Make it yours
+
+### What's in the CSS
+
+### Import only what you use
+
+List the files in a CSS file, and import that file in your layout instead of `imports.css`:
 
 Same code as in the HTML section.
-
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/svelte/guide/browser-support.md#compat), and you can leave it out.
 
 ```svelte
 <script lang="ts">
@@ -391,21 +558,14 @@ Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the m
 
 ### How to use
 
-```svelte
-<script lang="ts">
-  import { Button } from "opui-css/svelte"
-</script>
-
-<Button variant="filled">Click me</Button>
-```
-
 Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextField`, `Textarea`, `Select`, `Range`, `NumberField`, `OneTimeCode`, `Rating`, `Tabs` and `ToggleGroup` support `bind:value`. `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`.
-
-[Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/svelte/components.md). [Theming](https://open-props-ui.netlify.app/svelte/guide/theming.md) covers colors, density, motion and contrast.
 
 ### Server rendering
 
 Every component renders complete HTML on the server, and the native controls work and submit with their form. The props in the last column need hydration (`client:load` in Astro) or client-side rendering.
+
+- **53** of 69 need no hydration
+- **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -479,11 +639,27 @@ Every component renders complete HTML on the server, and the native controls wor
 | [`ToggleGroup`](https://open-props-ui.netlify.app/svelte/components/toggle.md) | Yes | No | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Tooltip`](https://open-props-ui.netlify.app/svelte/components/tooltip.md) | Yes | Yes | - |
 
+### Next steps
+
+#### [AI assistants](https://open-props-ui.netlify.app/svelte/llms.txt)
+
+#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+
+#### [Components](https://open-props-ui.netlify.app/svelte/components.md)
+
+41 components, each with Svelte examples and its API.
+
+#### [Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md)
+
+#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
+
 ## Vue
 
 OPUI ships first-class Vue components. Install the package, import what you need, and you're set.
 
-### Install via NPM
+### Quick start
+
+#### Install and import the CSS
 
 ```sh
 pnpm add opui-css vue@3
@@ -493,9 +669,13 @@ pnpm add opui-css vue@3
 npm install opui-css vue@3
 ```
 
-### Import the CSS
+```sh
+yarn add opui-css vue@3
+```
 
-Vue components ship markup only - the CSS still has to be imported once, in the entry file that creates your app. Import everything:
+```sh
+bun add opui-css vue@3
+```
 
 ```ts
 import { createApp } from "vue"
@@ -505,11 +685,27 @@ import App from "./App.vue"
 createApp(App).mount("#app")
 ```
 
-Or pick and choose in a CSS file, and import that file in `main.ts` instead:
+#### Use a component
+
+```vue
+<script setup lang="ts">
+import { Button } from "opui-css/vue"
+</script>
+
+<template>
+  <Button color="primary" variant="filled">Save</Button>
+</template>
+```
+
+#### Make it yours
+
+### What's in the CSS
+
+### Import only what you use
+
+List the files in a CSS file, and import that file in `main.ts` instead of `imports.css`:
 
 Same code as in the HTML section.
-
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/vue/guide/browser-support.md#compat), and you can leave it out.
 
 In Nuxt, add the file to `css` in `nuxt.config.ts` instead.
 
@@ -519,21 +715,12 @@ import "./styles/main.css"
 
 ### How to use
 
-```vue
-<script setup lang="ts">
-import { Button } from "opui-css/vue"
-</script>
-
-<template>
-  <Button variant="filled">Click me</Button>
-</template>
-```
-
-[Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/vue/components.md). [Theming](https://open-props-ui.netlify.app/vue/guide/theming.md) covers colors, density, motion and contrast.
-
 ### Server rendering
 
 Every component renders complete HTML on the server, and the native controls work and submit with their form. The props in the last column need hydration (`client:load` in Astro) or a client-rendered Vue app.
+
+- **53** of 69 need no hydration
+- **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
 | Component | Client | Server | Needs hydration |
 | --- | --- | --- | --- |
@@ -608,3 +795,17 @@ Every component renders complete HTML on the server, and the native controls wor
 | [`Tooltip`](https://open-props-ui.netlify.app/vue/components/tooltip.md) | Yes | Yes | - |
 
 When the page hydrates, as in Nuxt, a value or choice the user changed before it did (typed, picked, filled in by a password manager or restored by the browser) stays: the form controls take it from the element instead of resetting it, and a form reset still returns to what the server rendered.
+
+### Next steps
+
+#### [AI assistants](https://open-props-ui.netlify.app/vue/llms.txt)
+
+#### [Blocks](https://open-props-ui.netlify.app/blocks.md)
+
+#### [Components](https://open-props-ui.netlify.app/vue/components.md)
+
+41 components, each with Vue examples and its API.
+
+#### [Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md)
+
+#### [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)

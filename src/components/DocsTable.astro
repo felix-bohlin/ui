@@ -10,12 +10,13 @@ import {
 } from "opui-css/astro"
 
 type Props = {
+  collapsible?: boolean
   columns: { label: string; width?: string }[]
 }
 
 const LIMIT = 6
 
-const { columns } = Astro.props
+const { collapsible: allowCollapse = true, columns } = Astro.props
 const rows = (await Astro.slots.render("default"))
   .replace(/<td([^>]*)>\s*-\s*<\/td>/g, "<td$1 data-empty>-</td>")
   .replace(/<tr\b[\s\S]*?<\/tr>/g, (row) => {
@@ -26,7 +27,7 @@ const rows = (await Astro.slots.render("default"))
     )
   })
 const count = rows.match(/<tr\b/g)?.length ?? 0
-const collapsible = count > LIMIT + 2
+const collapsible = allowCollapse && count > LIMIT + 2
 ---
 
 <div

@@ -3387,13 +3387,6 @@
     "url": "/astro/guide/concepts/#javascript"
   },
   {
-    "id": "guide-concepts-astro-custom-elements",
-    "title": "Custom elements",
-    "page": "Concepts",
-    "category": "Guide",
-    "url": "/astro/guide/concepts/#custom-elements"
-  },
-  {
     "id": "guide-customizing-astro",
     "title": "Customizing",
     "description": "A theme in theme.custom, --_* properties for one component, and your own layer for the rest.",
@@ -3598,11 +3591,11 @@
     "url": "/astro/guide/why-opui/"
   },
   {
-    "id": "guide-why-opui-astro-own-your-code",
-    "title": "Own your code",
+    "id": "guide-why-opui-astro-at-a-glance",
+    "title": "At a glance",
     "page": "Why Open Props UI?",
     "category": "Guide",
-    "url": "/astro/guide/why-opui/#own-your-code"
+    "url": "/astro/guide/why-opui/#at-a-glance"
   },
   {
     "id": "guide-why-opui-astro-backstory",
@@ -3626,15 +3619,22 @@
     "url": "/astro/guide/getting-started/"
   },
   {
-    "id": "guide-getting-started-astro-installation",
-    "title": "Install via NPM",
+    "id": "guide-getting-started-astro-quick-start",
+    "title": "Quick start",
     "page": "Getting started",
     "category": "Guide",
-    "url": "/astro/guide/getting-started/#installation"
+    "url": "/astro/guide/getting-started/#quick-start"
+  },
+  {
+    "id": "guide-getting-started-astro-whats-in-the-css",
+    "title": "What's in the CSS",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/astro/guide/getting-started/#whats-in-the-css"
   },
   {
     "id": "guide-getting-started-astro-css",
-    "title": "Import the CSS",
+    "title": "Import only what you use",
     "page": "Getting started",
     "category": "Guide",
     "url": "/astro/guide/getting-started/#css"
@@ -3659,6 +3659,13 @@
     "page": "Getting started",
     "category": "Guide",
     "url": "/astro/guide/getting-started/#ids"
+  },
+  {
+    "id": "guide-getting-started-astro-next-steps",
+    "title": "Next steps",
+    "page": "Getting started",
+    "category": "Guide",
+    "url": "/astro/guide/getting-started/#next-steps"
   },
   {
     "id": "blog-accordion-height-auto",

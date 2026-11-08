@@ -1,9 +1,11 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
 import PickAndChoose from "./partials/PickAndChoose.astro"
+import QuickStart from "./partials/QuickStart.astro"
 import ServerSupport from "./partials/ServerSupport.astro"
 ---
 
@@ -14,29 +16,45 @@ import ServerSupport from "./partials/ServerSupport.astro"
     need, and you're set.
   </Fragment>
 
-  <section id="installation">
-    <h2>Install via NPM</h2>
-    <InstallCommand packages="vue@3" />
-  </section>
-
-  <section id="css">
-    <h2>Import the CSS</h2>
-    <p>
-      Vue components ship markup only - the CSS still has to be imported once,
-      in the entry file that creates your app. Import everything:
-    </p>
-    <Code
-      code={`// src/main.ts
+  <section id="quick-start">
+    <h2>Quick start</h2>
+    <QuickStart>
+      <Fragment slot="install">
+        <InstallCommand packages="vue@3" />
+        <Code
+          code={`// src/main.ts
 import { createApp } from "vue"
 import "opui-css/css/imports.css"
 import App from "./App.vue"
 
 createApp(App).mount("#app")`}
-      lang="ts"
-    />
+          lang="ts"
+        />
+      </Fragment>
+      <Code
+        slot="use"
+        code={`<script setup lang="ts">
+import { Button } from "opui-css/vue"
+</script>
+
+<template>
+  <Button color="primary" variant="filled">Save</Button>
+</template>`}
+        lang="vue"
+      />
+    </QuickStart>
+  </section>
+
+  <section id="whats-in-the-css">
+    <h2>What's in the CSS</h2>
+    <CssFiles />
+  </section>
+
+  <section id="css">
+    <h2>Import only what you use</h2>
     <p>
-      Or pick and choose in a CSS file, and import that file in
-      <code>main.ts</code> instead:
+      List the files in a CSS file, and import that file in <code>main.ts</code>
+      instead of <code>imports.css</code>:
     </p>
     <PickAndChoose file="src/styles/main.css">
       <p>
@@ -53,22 +71,11 @@ import "./styles/main.css"`}
 
   <section id="usage">
     <h2>How to use</h2>
-    <Code
-      code={`<script setup lang="ts">
-import { Button } from "opui-css/vue"
-</script>
-
-<template>
-  <Button variant="filled">Click me</Button>
-</template>`}
-      lang="vue"
-    />
     <p>
       Containers take parts, such as <code>CardHeader</code> and
       <code>DialogFooter</code>. Other components take named slots for rich
       content, such as <code>end-text</code> on a <code>TextField</code>.
     </p>
-    <NextSteps />
   </section>
 
   <section id="ssr">
@@ -87,5 +94,10 @@ import { Button } from "opui-css/vue"
       of resetting it, and a form reset still returns to what the server
       rendered.
     </p>
+  </section>
+
+  <section id="next-steps">
+    <h2>Next steps</h2>
+    <NextSteps />
   </section>
 </Guide>

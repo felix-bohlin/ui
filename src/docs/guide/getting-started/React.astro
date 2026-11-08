@@ -69,8 +69,9 @@ import "./styles/main.css"`}
   <section id="ssr">
     <h2>Server rendering</h2>
     <p>
-      Every component renders full HTML on the server. The props in the last
-      column need hydration.
+      Every component renders full HTML on the server. Components with state or
+      effects are marked <code>"use client"</code>, the rest are Server
+      Components. The props in the last column need hydration.
     </p>
     <ServerSupport framework="react" />
   </section>

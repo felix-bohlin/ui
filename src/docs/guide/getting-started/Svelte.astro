@@ -1,6 +1,7 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import Code from "../../../components/Code.astro"
+import Bindings from "./partials/Bindings.astro"
 import CssFiles from "./partials/CssFiles.astro"
 import InstallCommand from "./partials/InstallCommand.astro"
 import NextSteps from "./partials/NextSteps.astro"
@@ -74,8 +75,9 @@ import ServerSupport from "./partials/ServerSupport.astro"
     <h2>How to use</h2>
     <p>
       Slots are snippets: <code>children</code>, and camelCased names like
-      <code>endText</code>. Form controls support <code>bind:</code>.
+      <code>endText</code>. Form controls bind their value:
     </p>
+    <Bindings />
   </section>
 
   <section id="ssr">

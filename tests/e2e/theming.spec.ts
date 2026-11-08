@@ -1,7 +1,6 @@
-import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
-import { computed, openFixture, resolveColor } from "./fixtures"
+import { THEMES, computed, openFixture, resolveColor } from "./fixtures"
 
 const example = (page: Page, name: string) =>
   page.locator(`[data-example="${name}"]`)
@@ -50,14 +49,6 @@ test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
   )
   expect(await resolveColor(scope, "var(--ui-primary)")).toMatch(/ 120\)$/)
 })
-
-const THEMES = [
-  "default",
-  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
-    .filter((file) => file.endsWith(".css"))
-    .map((file) => file.replace(/\.css$/, ""))
-    .toSorted(),
-]
 
 for (const theme of THEMES) {
   test(`a severity class keeps its palette on a .ui-palette or .ui-contrast-more element (${theme})`, async ({

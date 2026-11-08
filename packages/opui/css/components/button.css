@@ -388,6 +388,10 @@
           --_bg-color: var(--_tonal-active-bg-color);
           --_text-color: var(--_tonal-active-text-color);
         }
+
+        &[aria-current="page"] {
+          --_bg-color: var(--_default-active-bg-color);
+        }
       }
     }
 
@@ -405,6 +409,12 @@
 
         &:where(:active, :has(+ :popover-open)) {
           --_bg-color: var(--_filled-active-bg-color);
+        }
+
+        &[aria-current="page"] {
+          --_bg-color: transparent;
+          --_shadow: none;
+          --_text-color: var(--_accent-text);
         }
       }
     }

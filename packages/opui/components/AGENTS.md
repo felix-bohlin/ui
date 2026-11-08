@@ -527,7 +527,7 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. `tests/unit/forced-colors.test.ts` checks both lists against the stylesheets that contain the media query. The components with a block, and why:
 
 - `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
-- `Button`: the current page (`aria-current="page"`) is a tint, so it gets `SelectedItem`.
+- `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`.
 - `ButtonGroup`: the dividers are box shadows, so the buttons get a `ButtonBorder` border.
 - `Card`: the hovered card-link border only changes color, so it gets `Highlight`.
 - `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.

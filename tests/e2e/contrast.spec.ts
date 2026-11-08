@@ -1,7 +1,6 @@
-import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import type { Locator, Page } from "@playwright/test"
+import type { Page } from "@playwright/test"
 import {
   THEME_EXCEPTIONS,
   promiseColor,
@@ -9,48 +8,13 @@ import {
 } from "../../src/utils/theme-token-promises"
 import {
   COMPONENTS,
+  THEMES,
   computed,
+  contrast,
   openFixture,
   resolveColor,
   settle,
 } from "./fixtures"
-
-const contrast = async (
-  locator: Locator,
-  foreground: string,
-  background: string,
-) => {
-  const colors = await Promise.all([
-    resolveColor(locator, "var(--ui-surface)"),
-    resolveColor(locator, background),
-    resolveColor(locator, foreground),
-  ])
-  return locator.page().evaluate(([page, back, fore]) => {
-    const canvas = document.createElement("canvas")
-    canvas.width = canvas.height = 1
-    const context = canvas.getContext("2d", { willReadFrequently: true })!
-    const paint = (...layers: string[]) => {
-      context.clearRect(0, 0, 1, 1)
-      for (const layer of layers) {
-        context.fillStyle = layer
-        context.fillRect(0, 0, 1, 1)
-      }
-      return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3)
-    }
-    const luminance = (rgb: number[]) => {
-      const [r, g, b] = rgb.map((channel) => {
-        const value = channel / 255
-        return value <= 0.03928
-          ? value / 12.92
-          : ((value + 0.055) / 1.055) ** 2.4
-      })
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b
-    }
-    const a = luminance(paint(page, back, fore))
-    const b = luminance(paint(page, back))
-    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
-  }, colors)
-}
 
 const QUERIES = {
   colorScheme: "prefers-color-scheme",
@@ -139,14 +103,6 @@ test.describe("prefers-contrast", () => {
     expect(await resolveColor(outside, "var(--ui-border-color)")).toBe(before)
   })
 })
-
-const THEMES = [
-  "default",
-  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
-    .filter((file) => file.endsWith(".css"))
-    .map((file) => file.replace(/\.css$/, ""))
-    .toSorted(),
-]
 
 test.describe("token promises", () => {
   for (const theme of THEMES) {

@@ -502,6 +502,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Button` with `.ui-primary` or `.ui-critical` and an accent darker than L 0.3 lightens on hover and press like other buttons, instead of darkening further.
 - `Button`, `ButtonGroup`, `Checkbox`, `Chip`, `List`, `Radio`, `Range` and `Switch` match a disabled control with `:disabled` instead of the `[disabled]` attribute, so they also look disabled inside a disabled `fieldset`, where they already stopped reacting to hover.
 - `Button` marks the current page (`aria-current="page"`) with `SelectedItem` in forced colors, where its tint is dropped.
+- `Button` with `aria-current="page"` in a filled `ButtonGroup` drops its fill and reads like a text button, where it kept the light text of the fill on a pale tint. A filled or tonal `Button` outside a group shows the current page too, like one in a group.
 - `ButtonGroup` only styles its direct child buttons, so a `Menu` inside it (split button) keeps its own item styles.
 - `ButtonGroup` dividers are no longer double thick.
 - `ButtonGroup` vertical only squares icon-only buttons.

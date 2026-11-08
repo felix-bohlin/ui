@@ -398,7 +398,7 @@ Slots are props: `children`, and camelCased names like `endText`.
 
 ### Server rendering
 
-Every component renders full HTML on the server. The props in the last column need hydration.
+Every component renders full HTML on the server. Components with state or effects are marked `"use client"`, the rest are Server Components. The props in the last column need hydration.
 
 - **66** of 69 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
@@ -556,9 +556,34 @@ Same code as in the HTML section.
 
 ### How to use
 
-Slots are snippets: `children`, and camelCased names like `endText`. Form controls support `bind:`.
+Slots are snippets: `children`, and camelCased names like `endText`. Form controls bind their value:
+
+| Binding | Components |
+| --- | --- |
+| `bind:checked` | - [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
+- [CheckboxInput](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
+- [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
+- [SwitchInput](https://open-props-ui.netlify.app/svelte/components/switch.md)
+- [ToggleButton](https://open-props-ui.netlify.app/svelte/components/toggle.md)                                                                                                                                                                                                                                                                                                                  |
+| `bind:group` | * [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
+* [CheckboxInput](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
+* [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
+* [RadioInput](https://open-props-ui.netlify.app/svelte/components/radio.md)
+* [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
+* [SwitchInput](https://open-props-ui.netlify.app/svelte/components/switch.md)                                                                                                                                                                                                                                             |
+| `bind:value` | - [NumberField](https://open-props-ui.netlify.app/svelte/components/number-field.md)
+- [OneTimeCode](https://open-props-ui.netlify.app/svelte/components/one-time-code.md)
+- [Range](https://open-props-ui.netlify.app/svelte/components/range.md)
+- [Rating](https://open-props-ui.netlify.app/svelte/components/rating.md)
+- [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
+- [Tabs](https://open-props-ui.netlify.app/svelte/components/tabs.md)
+- [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
+- [TextField](https://open-props-ui.netlify.app/svelte/components/text-field.md)
+- [ToggleGroup](https://open-props-ui.netlify.app/svelte/components/toggle.md) |
 
 ### Server rendering
+
+Every component renders full HTML on the server. The props in the last column need hydration.
 
 - **53** of 69 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`

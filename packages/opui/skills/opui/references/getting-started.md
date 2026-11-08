@@ -18,7 +18,7 @@ One file with the theme, the reset and every component.
 
 #### Write the classes
 
-A component is a class on a native element, and its options are classes too.
+A class on a native element. Options are classes too.
 
 ```html
 <button class="ui-button ui-filled ui-primary" type="button">
@@ -34,13 +34,13 @@ A component is a class on a native element, and its options are classes too.
 
 #### Make it yours
 
-Start from a preset, pick a brand color and corners in the Theme builder, and load the `theme.css` it exports after opui-css.
+Load the `theme.css` the Theme builder exports after opui-css.
 
 [Theme builder](https://open-props-ui.netlify.app/theme-builder.md)
 
 ### What's in the CSS
 
-Open Props UI is just CSS, in these files. Each component page lists the ones it needs under Installation.
+Each component page lists the files it needs under Installation.
 
 1. `css/layers.css` The layer order First
 2. `dist/op.css` Open Props for your own CSS Optional
@@ -69,15 +69,13 @@ Everything or only the parts you use, through your bundler.
 
 ### Install via CDN
 
-The quickest way to get going. One file with the theme, the reset, every component and the utility classes, in the right cascade layers, plus Open Props for your own CSS.
+One file with everything, in the right cascade layers.
 
-It includes the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat). `dist/opui.no-compat.css` leaves them out, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need.
-
-`@6` loads the newest 6.x release, so a new major version never changes your site. Pin an exact version, such as `@6.0.0`, for full control.
+Use `dist/opui.no-compat.css` without the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat), or `dist/opui.baseline-<year>.css` for one Baseline year. Pin an exact version, like `@6.0.0`, for full control.
 
 ### Install manually
 
-The most flexible way to use OPUI, and it works without a build step. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)), drop it into your project as `opui`, and import the files in your main CSS:
+No build step needed. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)) as `opui`, and import the files:
 
 ```css
 @import "./opui/css/layers.css";
@@ -134,11 +132,11 @@ opui
 └─ tokens.json
 ```
 
-`dist/op.css` is Open Props, pre-bundled in the `openprops` layer, and `open-props.css` imports it from `node_modules` for bundlers. The components don't read it, so both are optional and only there for your own CSS. `dist/opui.css` is the CDN file. `themes/` holds the [example themes](https://open-props-ui.netlify.app/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#tokens-json).
+`dist/op.css` and `open-props.css` are Open Props, optional, for your own CSS. `themes/` holds the [example themes](https://open-props-ui.netlify.app/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#tokens-json).
 
 ### Install via NPM
 
-For when you have a bundler that resolves CSS `@import`s from `node_modules`, like Vite or webpack.
+For a bundler that resolves CSS `@import`s, like Vite.
 
 `pnpm`
 
@@ -204,7 +202,7 @@ A few features need a script in plain HTML:
 | [Sortable table](https://open-props-ui.netlify.app/html/components/table.md#sorting) | Sorts the rows by a column | `opui-css/elements/sortable-table.js` |
 | [Toast](https://open-props-ui.netlify.app/html/components/toast.md) | Shows toasts and dismisses them | `opui-css/elements/toaster.js` |
 
-The examples import them by package name, which a bundler resolves. Without one, add this import map to the `head`, before the first module script:
+Without a bundler, add this import map to the `head`:
 
 ```html
 <script type="importmap">
@@ -242,7 +240,7 @@ OPUI ships first-class Astro components. Install the package, import what you ne
 
 #### Install and import the CSS
 
-The components render markup only, so import the CSS once, where your app starts.
+Import the CSS once, where your app starts.
 
 ```sh
 pnpm add opui-css astro@7
@@ -268,7 +266,7 @@ import "opui-css/css/imports.css"
 
 #### Use a component
 
-Each prop renders one class, the same markup as the HTML docs.
+Each prop renders one class.
 
 ```astro
 ---
@@ -302,15 +300,15 @@ import "../styles/global.css"
 
 ### How to use
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other components take named slots for rich content, such as `end-text` on a `TextField`.
+Named slots take rich content, like `end-text`.
 
 ### Server runtime
 
-The components pass settings to their parts with `AsyncLocalStorage` from `node:async_hooks`, so they run on Node, Deno and Bun. On Cloudflare, enable the `nodejs_compat` compatibility flag.
+Runs on Node, Deno and Bun. On Cloudflare, enable `nodejs_compat`.
 
 #### Ids
 
-Form fields, Tabs, ToggleGroup and the Dialog title read `Astro.locals.$id` when it exists and otherwise generate a random id per render. Components a trigger points at (Anchor, Copy, Dialog, Drawer, Menu, Toaster and Tooltip) need an `id` prop. For stable, per-request ids, useful for snapshot tests, define it in a middleware:
+Components a trigger points at need an `id`. For stable generated ids, define `Astro.locals.$id`:
 
 ```ts
 import { defineMiddleware } from "astro:middleware"
@@ -326,7 +324,7 @@ export const onRequest = defineMiddleware((context, next) => {
 })
 ```
 
-Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `a` and `button`.
+Add `/// <reference types="opui-css/env.d.ts" />` to `env.d.ts` for the types.
 
 ### Next steps
 
@@ -396,11 +394,11 @@ import "./styles/main.css"
 
 ### How to use
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are props: the default slot is `children` and named slots are camelCased, such as `endText`. Form controls take the native `value` or `defaultValue`, `checked` or `defaultChecked`, and `onChange` props.
+Slots are props: `children`, and camelCased names like `endText`.
 
 ### Server rendering
 
-Components that need context, state or effects are marked `"use client"`. The rest also render as React Server Components. Every component renders complete HTML on the server, and the native controls work and submit with their form. The props in the last column need hydration (`client:load` in Astro) or client rendering.
+Every component renders full HTML on the server. The props in the last column need hydration.
 
 - **66** of 69 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
@@ -558,11 +556,9 @@ Same code as in the HTML section.
 
 ### How to use
 
-Containers take parts, such as `CardHeader` and `DialogFooter`. Other slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextField`, `Textarea`, `Select`, `Range`, `NumberField`, `OneTimeCode`, `Rating`, `Tabs` and `ToggleGroup` support `bind:value`. `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`.
+Slots are snippets: `children`, and camelCased names like `endText`. Form controls support `bind:`.
 
 ### Server rendering
-
-Every component renders complete HTML on the server, and the native controls work and submit with their form. The props in the last column need hydration (`client:load` in Astro) or client-side rendering.
 
 - **53** of 69 need no hydration
 - **16** hydrate for `bind:checked`, `bind:group`, `bind:value`, `indeterminate`, `valueSuffix`, `valueText`
@@ -717,8 +713,6 @@ import "./styles/main.css"
 
 ### Server rendering
 
-Every component renders complete HTML on the server, and the native controls work and submit with their form. The props in the last column need hydration (`client:load` in Astro) or a client-rendered Vue app.
-
 - **53** of 69 need no hydration
 - **16** hydrate for `indeterminate`, `v-model`, `valueSuffix`
 
@@ -793,8 +787,6 @@ Every component renders complete HTML on the server, and the native controls wor
 | [`ToggleButton`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`ToggleGroup`](https://open-props-ui.netlify.app/vue/components/toggle.md) | Yes | No | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Tooltip`](https://open-props-ui.netlify.app/vue/components/tooltip.md) | Yes | Yes | - |
-
-When the page hydrates, as in Nuxt, a value or choice the user changed before it did (typed, picked, filled in by a password manager or restored by the browser) stays: the form controls take it from the element instead of resetting it, and a form reset still returns to what the server rendered.
 
 ### Next steps
 

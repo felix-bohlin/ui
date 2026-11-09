@@ -95,34 +95,29 @@ export const description =
   <Fragment slot="preamble">
     <Conditional>
       <Fragment slot="components">
-        Joins related buttons and fields into one control. For options that stay
+        Joins buttons and fields into one control. For options that stay
         selected, use a
-        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>,
-        and to space out the fields of a form, a
-        <DocLink href="/components/form#field-group">Field group</DocLink>.
+        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
       </Fragment>
       <Fragment slot="html">
-        Joins related buttons and fields into one control with
+        Joins buttons and fields into one control with
         <code>.ui-control-group</code> and <code>role="group"</code>. For
         options that stay selected, use a
-        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>,
-        and to space out the fields of a form, a
-        <DocLink href="/components/form#field-group">Field group</DocLink>.
+        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
       </Fragment>
     </Conditional>
   </Fragment>
 
   <Usage slot="usage">
     <li slot="when">
-      Related actions, like Undo and Redo, or a main action with more options in
-      a <a href="#split-button">split button</a>.
+      Related actions, like Undo and Redo, or a
+      <a href="#split-button">split button</a>.
     </li>
     <li slot="when">
-      A field and the button that acts on it, like a
-      <a href="#fields">search field</a> and Search.
+      A field and its button, like a <a href="#fields">search field</a>.
     </li>
     <li slot="when">
-      One value made of several controls, like a currency and an
+      One value from several controls, like currency and
       <a href="#fields">amount</a>.
     </li>
     <li slot="when-not">
@@ -130,8 +125,7 @@ export const description =
       <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
     </li>
     <li slot="when-not">
-      A unit or an icon that belongs to one value, like € or kg: put it in the
-      field with
+      A unit like € or kg: use
       <DocLink href="/components/text-field#affix">Text field affixes</DocLink>.
     </li>
     <li slot="when-not">
@@ -144,13 +138,11 @@ export const description =
     <h2>Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Transparent by default. Use <code>variant</code> to change it. The
-        variant paints the buttons, and fields keep their own look.
+        Transparent by default. Use <code>variant</code> to change it.
       </Fragment>
       <Fragment slot="html">
         Transparent by default. Use <code>.ui-outlined</code>,
-        <code>.ui-tonal</code> or <code>.ui-filled</code> to change it. The
-        variant paints the buttons, and fields keep their own look.
+        <code>.ui-tonal</code> or <code>.ui-filled</code> to change it.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
@@ -163,59 +155,30 @@ export const description =
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <p>
-      <PropOrClass prop="size" class=".ui-small" /> sizes the buttons and the
-      fields together.
-    </p>
     <AutoExample name="Sizes" column centered />
   </section>
 
   <section id="icons">
     <h2>Icons</h2>
-    <p>
-      Wrap the label in <code>.ui-text</code>, like in a
-      <DocLink
-        href="/components/button#buttons-with-icon-and-label"
-        class="ui-link"
-        >Button</DocLink
-      >.
-    </p>
+    <p>Wrap the label in <code>.ui-text</code>.</p>
     <AutoExample name="WithIcons" column centered />
   </section>
 
   <section id="fields">
     <h2>Fields</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Put a <code>TextField</code>, <code>Select</code>,
-        <code>NumberField</code> or <code>Textarea</code> next to the buttons.
-        Their edges join, and a text field takes the free space, so the group
-        fills the line like a field on its own. When the controls make one
-        value, give the group a visible name with a <code>FieldLegend</code> in
-        a <code>Fieldset</code>, and hide the field labels with
-        <code>hideLabel</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Put a <code>.ui-text-field</code>, <code>.ui-select</code>,
-        <code>.ui-number-field</code> or <code>.ui-textarea</code> next to the
-        buttons. Their edges join, and a text field takes the free space, so the
-        group fills the line like a field on its own. When the controls make one
-        value, give the group a visible name with a <code>legend</code> in a
-        <code>.ui-fieldset</code>, and hide the field labels with
-        <code>.ui-sr-only</code>.
-      </Fragment>
-    </Conditional>
+    <p>
+      For one value, name the group with a
+      <PropOrClass prop="FieldLegend" class="legend" /> and hide the field
+      labels.
+    </p>
     <AutoExample name="Fields" column />
   </section>
 
   <section id="labels">
     <h2>Labels</h2>
     <p>
-      A visible label sits above its control, and the group lines the controls
-      up at the bottom. Put help and error text after the group, not under one
-      of its fields, which it would push out of line, and link it from the field
-      with <code>aria-describedby</code> so a screen reader reads it with the
-      field.
+      Put help and error text after the group, linked with
+      <code>aria-describedby</code>.
     </p>
     <AutoExample name="Labels" column />
   </section>
@@ -228,8 +191,7 @@ export const description =
   <section id="vertical-orientation">
     <h2>Vertical orientation</h2>
     <p>
-      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />. A
-      textarea with its button under it joins the same way.
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />.
     </p>
     <AutoExample name="Vertical" column centered />
   </section>
@@ -238,20 +200,11 @@ export const description =
     <h2>Overflow</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Wraps onto more rows when it doesn't fit, so every label stays readable,
-        also when zoomed in. A text field shrinks to about ten characters before
-        the next control wraps, and the corners where a row ends inside the
-        group stay square. Use <code>overflow="scroll"</code> to scroll one row
-        sideways, or <code>overflow="shrink"</code> to keep one row and truncate
-        the button labels. Icon-only buttons keep their size.
+        Wraps by default. Use <code>overflow</code> to scroll or shrink.
       </Fragment>
       <Fragment slot="html">
-        Wraps onto more rows when it doesn't fit, so every label stays readable,
-        also when zoomed in. A text field shrinks to about ten characters before
-        the next control wraps, and the corners where a row ends inside the
-        group stay square. Use <code>.ui-overflow-scroll</code> to scroll one
-        row sideways, or <code>.ui-overflow-shrink</code> to keep one row and
-        truncate the button labels. Icon-only buttons keep their size.
+        Wraps by default. Use <code>.ui-overflow-scroll</code> or
+        <code>.ui-overflow-shrink</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" column />
@@ -260,9 +213,8 @@ export const description =
   <section id="split-button">
     <h2>Split button</h2>
     <p>
-      A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> right
-      after the button that opens it, with
-      <PropOrClass prop='align="end"' class=".ui-align-end" />.
+      A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+      the button, with <PropOrClass prop='align="end"' class=".ui-align-end" />.
     </p>
     <AutoExample name="SplitButton" centered />
   </section>
@@ -279,29 +231,11 @@ export const description =
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Name a group of related actions with <code>aria-label</code>, like "Save
-        options" for a split button. A field with its own visible label and its
-        one button, and a group in a named <code>nav</code>, need no name of
-        their own.
-      </li>
-      <li>
-        When the controls make one value, name the group with a visible legend
-        instead.
+        Name a group of actions with <code>aria-label</code>, or one value with
+        a visible legend.
       </li>
       <li>Name icon-only buttons with <code>aria-label</code>.</li>
-      <li>
-        Every field keeps its own label. A hidden label still names the field,
-        and needs a visible cue: a legend, or a button next to the field that
-        says what it's for.
-      </li>
-      <li>
-        Link help and error text after the group from its field with
-        <code>aria-describedby</code>.
-      </li>
-      <li>
-        The focused control sits on top of its neighbours, so its whole focus
-        ring shows.
-      </li>
+      <li>Every field keeps its own label, visible or hidden.</li>
     </ul>
     <KeyboardSupport />
   </Fragment>

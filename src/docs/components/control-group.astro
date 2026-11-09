@@ -191,16 +191,18 @@ export const description =
         <code>NumberField</code> or <code>Textarea</code> next to the buttons.
         Their edges join, and a text field takes the free space, so the group
         fills the line like a field on its own. When the controls make one
-        value, name the group with <code>aria-label</code> and hide their labels
-        with <code>hideLabel</code>.
+        value, give the group a visible name with a <code>FieldLegend</code> in
+        a <code>Fieldset</code>, and hide the field labels with
+        <code>hideLabel</code>.
       </Fragment>
       <Fragment slot="html">
         Put a <code>.ui-text-field</code>, <code>.ui-select</code>,
         <code>.ui-number-field</code> or <code>.ui-textarea</code> next to the
         buttons. Their edges join, and a text field takes the free space, so the
         group fills the line like a field on its own. When the controls make one
-        value, name the group with <code>aria-label</code> and hide their labels
-        with <code>.ui-sr-only</code>.
+        value, give the group a visible name with a <code>legend</code> in a
+        <code>.ui-fieldset</code>, and hide the field labels with
+        <code>.ui-sr-only</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Fields" column />
@@ -211,7 +213,9 @@ export const description =
     <p>
       A visible label sits above its control, and the group lines the controls
       up at the bottom. Put help and error text after the group, not under one
-      of its fields, which it would push out of line.
+      of its fields, which it would push out of line, and link it from the field
+      with <code>aria-describedby</code> so a screen reader reads it with the
+      field.
     </p>
     <AutoExample name="Labels" column />
   </section>
@@ -269,12 +273,24 @@ export const description =
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Name the group with <code>aria-label</code> when its controls make one
-        value or one set of actions.
+        Name a group of related actions with <code>aria-label</code>, like "Save
+        options" for a split button. A field with its own visible label and its
+        one button, and a group in a named <code>nav</code>, need no name of
+        their own.
+      </li>
+      <li>
+        When the controls make one value, name the group with a visible legend
+        instead.
       </li>
       <li>Name icon-only buttons with <code>aria-label</code>.</li>
       <li>
-        Every field keeps its own label. A hidden label still names the field.
+        Every field keeps its own label. A hidden label still names the field,
+        and needs a visible cue: a legend, or a button next to the field that
+        says what it's for.
+      </li>
+      <li>
+        Link help and error text after the group from its field with
+        <code>aria-describedby</code>.
       </li>
       <li>
         The focused control sits on top of its neighbours, so its whole focus

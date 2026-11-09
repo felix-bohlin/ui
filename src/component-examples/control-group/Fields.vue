@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { Button, ControlGroup, Select, TextField } from "opui-css/vue"
+import {
+  Button,
+  ControlGroup,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Select,
+  TextField,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -13,23 +21,28 @@ import { Button, ControlGroup, Select, TextField } from "opui-css/vue"
     <Button>Search</Button>
   </ControlGroup>
 
-  <ControlGroup aria-label="Price">
-    <Select
-      hideLabel
-      :items="[
-        { label: 'EUR', value: 'eur' },
-        { label: 'SEK', value: 'sek' },
-        { label: 'USD', value: 'usd' },
-      ]"
-      label="Currency"
-      name="currency"
-    />
-    <TextField
-      hideLabel
-      inputmode="decimal"
-      label="Amount"
-      name="amount"
-      placeholder="0.00"
-    />
-  </ControlGroup>
+  <Fieldset>
+    <FieldLegend>Price</FieldLegend>
+    <FieldGroup>
+      <ControlGroup>
+        <Select
+          hideLabel
+          :items="[
+            { label: 'EUR', value: 'eur' },
+            { label: 'SEK', value: 'sek' },
+            { label: 'USD', value: 'usd' },
+          ]"
+          label="Currency"
+          name="currency"
+        />
+        <TextField
+          hideLabel
+          inputmode="decimal"
+          label="Amount"
+          name="amount"
+          placeholder="0.00"
+        />
+      </ControlGroup>
+    </FieldGroup>
+  </Fieldset>
 </template>

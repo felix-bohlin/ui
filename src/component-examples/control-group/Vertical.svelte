@@ -38,7 +38,7 @@
 {/snippet}
 
 <div class="example-row">
-  <ControlGroup orientation="vertical">
+  <ControlGroup aria-label="Text size" orientation="vertical">
     <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
@@ -46,7 +46,11 @@
       {@render minusIcon()}
     </Button>
   </ControlGroup>
-  <ControlGroup orientation="vertical" variant="outlined">
+  <ControlGroup
+    aria-label="Text size"
+    orientation="vertical"
+    variant="outlined"
+  >
     <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
@@ -54,7 +58,7 @@
       {@render minusIcon()}
     </Button>
   </ControlGroup>
-  <ControlGroup orientation="vertical" variant="tonal">
+  <ControlGroup aria-label="Text size" orientation="vertical" variant="tonal">
     <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
@@ -62,7 +66,7 @@
       {@render minusIcon()}
     </Button>
   </ControlGroup>
-  <ControlGroup orientation="vertical" variant="filled">
+  <ControlGroup aria-label="Text size" orientation="vertical" variant="filled">
     <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
@@ -73,19 +77,19 @@
 </div>
 
 <div class="example-row">
-  <ControlGroup orientation="vertical">
+  <ControlGroup aria-label="Move row" orientation="vertical">
     <Button>Up</Button>
     <Button>Down</Button>
   </ControlGroup>
-  <ControlGroup orientation="vertical" variant="outlined">
+  <ControlGroup aria-label="Move row" orientation="vertical" variant="outlined">
     <Button>Up</Button>
     <Button>Down</Button>
   </ControlGroup>
-  <ControlGroup orientation="vertical" variant="tonal">
+  <ControlGroup aria-label="Move row" orientation="vertical" variant="tonal">
     <Button>Up</Button>
     <Button>Down</Button>
   </ControlGroup>
-  <ControlGroup orientation="vertical" variant="filled">
+  <ControlGroup aria-label="Move row" orientation="vertical" variant="filled">
     <Button>Up</Button>
     <Button>Down</Button>
   </ControlGroup>

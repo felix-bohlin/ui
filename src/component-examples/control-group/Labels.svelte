@@ -3,6 +3,12 @@
 </script>
 
 <ControlGroup variant="outlined">
-  <TextField label="Discount code" name="discount" value="SPRING10" />
+  <TextField
+    aria-describedby="control-group-labels-1"
+    label="Discount code"
+    name="discount"
+    value="SPRING10"
+  />
   <Button>Apply</Button>
 </ControlGroup>
+<p id="control-group-labels-1">One code per order.</p>

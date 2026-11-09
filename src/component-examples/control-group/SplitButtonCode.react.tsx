@@ -2,7 +2,7 @@ import { Button, ControlGroup, Menu } from "opui-css/react"
 
 export default function SplitButtonCode() {
   return (
-    <ControlGroup variant="outlined">
+    <ControlGroup aria-label="Save options" variant="outlined">
       <Button>Save</Button>
       <Button
         aria-label="More save options"

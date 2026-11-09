@@ -1,4 +1,12 @@
-import { Button, ControlGroup, Select, TextField } from "opui-css/react"
+import {
+  Button,
+  ControlGroup,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Select,
+  TextField,
+} from "opui-css/react"
 
 export default function Fields() {
   return (
@@ -13,25 +21,30 @@ export default function Fields() {
         <Button>Search</Button>
       </ControlGroup>
 
-      <ControlGroup aria-label="Price">
-        <Select
-          hideLabel
-          items={[
-            { label: "EUR", value: "eur" },
-            { label: "SEK", value: "sek" },
-            { label: "USD", value: "usd" },
-          ]}
-          label="Currency"
-          name="currency"
-        />
-        <TextField
-          hideLabel
-          inputMode="decimal"
-          label="Amount"
-          name="amount"
-          placeholder="0.00"
-        />
-      </ControlGroup>
+      <Fieldset>
+        <FieldLegend>Price</FieldLegend>
+        <FieldGroup>
+          <ControlGroup>
+            <Select
+              hideLabel
+              items={[
+                { label: "EUR", value: "eur" },
+                { label: "SEK", value: "sek" },
+                { label: "USD", value: "usd" },
+              ]}
+              label="Currency"
+              name="currency"
+            />
+            <TextField
+              hideLabel
+              inputMode="decimal"
+              label="Amount"
+              name="amount"
+              placeholder="0.00"
+            />
+          </ControlGroup>
+        </FieldGroup>
+      </Fieldset>
     </>
   )
 }

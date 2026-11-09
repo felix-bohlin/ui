@@ -9,6 +9,7 @@
     display: inline-flex;
     inline-size: fit-content;
     max-inline-size: 100%;
+    min-inline-size: 0;
 
     &:has(> :is(.ui-text-field, .ui-textarea)) {
       display: flex;
@@ -181,6 +182,17 @@
         --ui-control-border-color-filled,
         currentColor
       );
+    }
+
+    &.ui-filled
+      > :is(
+        .ui-button,
+        .ui-number-field,
+        .ui-select,
+        .ui-text-field,
+        .ui-textarea
+      ):is(:focus-visible, :has(:focus-visible)) {
+      --_shadow: 0 0 0 var(--ui-focus-ring-offset) var(--ui-surface);
     }
 
     &.ui-filled:is(.ui-critical, .ui-primary) > .ui-button {

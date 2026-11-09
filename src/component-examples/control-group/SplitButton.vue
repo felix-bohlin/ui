@@ -3,7 +3,7 @@ import { Button, ControlGroup, Menu } from "opui-css/vue"
 </script>
 
 <template>
-  <ControlGroup variant="outlined">
+  <ControlGroup aria-label="Save options" variant="outlined">
     <Button>Save</Button>
     <Button
       aria-label="More save options"

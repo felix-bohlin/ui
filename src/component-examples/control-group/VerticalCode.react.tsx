@@ -3,7 +3,7 @@ import { Button, ControlGroup, Textarea } from "opui-css/react"
 export default function VerticalCode() {
   return (
     <>
-      <ControlGroup orientation="vertical">
+      <ControlGroup aria-label="Text size" orientation="vertical">
         <Button aria-label="Increase">
           <svg aria-hidden="true">{/* */}</svg>
         </Button>
@@ -12,7 +12,11 @@ export default function VerticalCode() {
         </Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="outlined">
+      <ControlGroup
+        aria-label="Text size"
+        orientation="vertical"
+        variant="outlined"
+      >
         <Button aria-label="Increase">
           <svg aria-hidden="true">{/* */}</svg>
         </Button>
@@ -21,7 +25,11 @@ export default function VerticalCode() {
         </Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="tonal">
+      <ControlGroup
+        aria-label="Text size"
+        orientation="vertical"
+        variant="tonal"
+      >
         <Button aria-label="Increase">
           <svg aria-hidden="true">{/* */}</svg>
         </Button>
@@ -30,7 +38,11 @@ export default function VerticalCode() {
         </Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="filled">
+      <ControlGroup
+        aria-label="Text size"
+        orientation="vertical"
+        variant="filled"
+      >
         <Button aria-label="Increase">
           <svg aria-hidden="true">{/* */}</svg>
         </Button>
@@ -39,22 +51,34 @@ export default function VerticalCode() {
         </Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical">
+      <ControlGroup aria-label="Move row" orientation="vertical">
         <Button>Up</Button>
         <Button>Down</Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="outlined">
+      <ControlGroup
+        aria-label="Move row"
+        orientation="vertical"
+        variant="outlined"
+      >
         <Button>Up</Button>
         <Button>Down</Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="tonal">
+      <ControlGroup
+        aria-label="Move row"
+        orientation="vertical"
+        variant="tonal"
+      >
         <Button>Up</Button>
         <Button>Down</Button>
       </ControlGroup>
 
-      <ControlGroup orientation="vertical" variant="filled">
+      <ControlGroup
+        aria-label="Move row"
+        orientation="vertical"
+        variant="filled"
+      >
         <Button>Up</Button>
         <Button>Down</Button>
       </ControlGroup>

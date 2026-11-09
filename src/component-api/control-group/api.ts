@@ -6,7 +6,7 @@ export default {
   keyboard: [
     {
       description:
-        "Moves focus to each control in turn. The group isn't a single tab stop, unlike a single-select [toggle group](/components/toggle#toggle-group).",
+        "Moves focus to each control in turn. The group isn't a single tab stop, unlike a single-select [toggle group](/components/toggle#toggle-group). From a split button's trigger, Tab moves into its open menu.",
       keys: ["Tab"],
     },
     {
@@ -21,6 +21,11 @@ export default {
       description:
         'Don\'t move focus between the controls. They move the caret in a field, change or open a select, and scroll a group with `overflow="scroll"` sideways.',
       keys: ["Left Arrow", "Right Arrow"],
+    },
+    {
+      description:
+        "Closes a split button's menu and returns focus to its trigger. See [Menu](/components/menu#keyboard-support).",
+      keys: ["Esc"],
     },
   ],
   notes: {

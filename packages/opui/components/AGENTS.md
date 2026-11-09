@@ -534,7 +534,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
-- `ControlGroup`: the edges between buttons are real borders, transparent between unfilled buttons, so the buttons get a `ButtonBorder` border.
+- `ControlGroup`: the edges between controls are real borders, but a link button's would be `LinkText`, so every button gets a `ButtonBorder` border and the edges are one color.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.

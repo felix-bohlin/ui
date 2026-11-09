@@ -2,7 +2,7 @@
   import { Button, ControlGroup, Menu } from "opui-css/svelte"
 </script>
 
-<ControlGroup variant="outlined">
+<ControlGroup aria-label="Save options" variant="outlined">
   <Button>Save</Button>
   <Button
     aria-label="More save options"

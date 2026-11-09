@@ -361,7 +361,7 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 +   <button class="ui-button">One</button>
 ```
 
-The buttons keep their own borders and the group joins their edges, so a text field, select, number field or textarea can join them too. The group stays on one row: when it doesn't fit, the fields shrink and button labels end in an ellipsis, and `overflow="scroll"` (`.ui-overflow-scroll`) scrolls it instead. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
+The buttons keep their own borders and the group joins their edges, so a text field, select, number field or textarea can join them too. Groups wrap onto more rows when they don't fit, instead of overflowing. Use `overflow="scroll"` (`.ui-overflow-scroll`) or `overflow="shrink"` (`.ui-overflow-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
 
 ## Description list
 

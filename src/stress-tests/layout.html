@@ -339,7 +339,7 @@
   <h2>Narrow, medium and wide columns</h2>
   <p>
     The same profile block in a 16rem, 24rem and 40rem column. The long name,
-    email and chips should wrap, the control group should truncate its labels
+    email and chips should wrap, the control group should break onto more rows
     and nothing should overflow its column.
   </p>
   <div class="stress-columns">
@@ -3369,7 +3369,7 @@
       <div
         role="group"
         aria-label="Shrinking actions"
-        class="ui-control-group ui-outlined"
+        class="ui-control-group ui-outlined ui-overflow-shrink"
       >
         <button class="ui-button" type="button">Archive</button
         ><button class="ui-button" type="button">Move to folder</button
@@ -3379,7 +3379,7 @@
       <div
         role="group"
         aria-label="Shrinking formatting"
-        class="ui-control-group ui-tonal"
+        class="ui-control-group ui-tonal ui-overflow-shrink"
       >
         <button class="ui-button" type="button" aria-label="Align left">
           <svg
@@ -3492,7 +3492,7 @@
       <div
         role="group"
         aria-label="Vertical shrinking actions"
-        class="ui-control-group ui-filled ui-vertical"
+        class="ui-control-group ui-filled ui-overflow-shrink ui-vertical"
       >
         <button class="ui-button" type="button">Archive</button
         ><button class="ui-button" type="button">Move to folder</button
@@ -3543,7 +3543,7 @@
         <div
           role="group"
           aria-label="Header actions"
-          class="ui-control-group ui-outlined ui-small"
+          class="ui-control-group ui-outlined ui-small ui-overflow-shrink"
         >
           <button class="ui-button" type="button">Archive</button
           ><button class="ui-button" type="button">Move to folder</button

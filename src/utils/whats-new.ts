@@ -468,9 +468,9 @@ export const whatsNew = {
   "control-group": [
     {
       ...slots(
-        `Breaking: <code>ButtonGroup</code> is <a href="#fields"><code>ControlGroup</code></a>. It joins fields as well as buttons, and shrinks to fit on one row.`,
+        `Breaking: <code>ButtonGroup</code> is <a href="#fields"><code>ControlGroup</code></a>. It joins fields as well as buttons, and wraps onto more rows when it doesn't fit.`,
       ),
-      html: `Breaking: <code>.ui-button-group</code> is <a href="#fields"><code>.ui-control-group</code></a>, and <code>button-group.css</code> is <code>control-group.css</code>. It joins fields as well as buttons, and shrinks to fit on one row.`,
+      html: `Breaking: <code>.ui-button-group</code> is <a href="#fields"><code>.ui-control-group</code></a>, and <code>button-group.css</code> is <code>control-group.css</code>. It joins fields as well as buttons, and wraps onto more rows when it doesn't fit.`,
     },
     `<a href="#fields">Fields</a>: a text field, select, number field or textarea joins the buttons. A text field takes the free space, so the group fills the line like a field.`,
     `<a href="#labels">Labels</a> sit above their control, and the controls line up at the bottom.`,
@@ -488,8 +488,8 @@ export const whatsNew = {
     },
     `<a href="#sizes">Small</a> groups use the same text size as a small <code>Button</code>.`,
     {
-      default: `<a href="#overflow">Stays on one row</a> when it doesn't fit: the fields shrink and button labels end in an ellipsis, or the row scrolls with <code>overflow="scroll"</code>.`,
-      html: `<a href="#overflow">Stays on one row</a> when it doesn't fit: the fields shrink and button labels end in an ellipsis, or the row scrolls with <code>.ui-overflow-scroll</code>.`,
+      default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>overflow="scroll"</code> or truncates with <code>overflow="shrink"</code>.`,
+      html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     {
       default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,

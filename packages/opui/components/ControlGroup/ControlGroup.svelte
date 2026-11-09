@@ -21,7 +21,7 @@
     "ui-control-group",
     { "ui-vertical": orientation === "vertical" },
     color && `ui-${color}`,
-    overflow && overflow !== "shrink" && `ui-overflow-${overflow}`,
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     size && size !== "medium" && `ui-${size}`,
     variant && variant !== "transparent" && `ui-${variant}`,
     className,

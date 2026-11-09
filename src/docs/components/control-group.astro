@@ -238,14 +238,20 @@ export const description =
     <h2>Overflow</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Stays on one row: the fields shrink and button labels end in an
-        ellipsis, and icon-only buttons keep their size. Use
-        <code>overflow="scroll"</code> to scroll the row sideways instead.
+        Wraps onto more rows when it doesn't fit, so every label stays readable,
+        also when zoomed in. A text field shrinks to about ten characters before
+        the next control wraps, and the corners where a row ends inside the
+        group stay square. Use <code>overflow="scroll"</code> to scroll one row
+        sideways, or <code>overflow="shrink"</code> to keep one row and truncate
+        the button labels. Icon-only buttons keep their size.
       </Fragment>
       <Fragment slot="html">
-        Stays on one row: the fields shrink and button labels end in an
-        ellipsis, and icon-only buttons keep their size. Use
-        <code>.ui-overflow-scroll</code> to scroll the row sideways instead.
+        Wraps onto more rows when it doesn't fit, so every label stays readable,
+        also when zoomed in. A text field shrinks to about ten characters before
+        the next control wraps, and the corners where a row ends inside the
+        group stay square. Use <code>.ui-overflow-scroll</code> to scroll one
+        row sideways, or <code>.ui-overflow-shrink</code> to keep one row and
+        truncate the button labels. Icon-only buttons keep their size.
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" column />

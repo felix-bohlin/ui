@@ -6,10 +6,12 @@ const steps = [
     css: `
 .group {
   display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--ui-space-1);
 }
 
-.group > * + * {
-  margin-inline-start: -1px;
+.group > :not(:last-child) {
+  margin-inline-end: -1px;
 }`,
     html: `
 <div class="group" role="group">
@@ -20,8 +22,9 @@ const steps = [
     features: ["logical-properties"],
     notes: [
       "Every control keeps its own border, background and focus ring. The group draws nothing of its own",
-      "Each control moves back one border width, so two borders share one line instead of making a double one",
-      "<code>margin-inline-start</code> is logical, so the overlap flips in right-to-left without a rule of its own",
+      "Each control lets the next one overlap it by one border width, so two borders share one line instead of making a double one",
+      "The overlap sits at the end of the earlier control, so a row that wraps still starts flush with the one above",
+      "<code>margin-inline-end</code> is logical, so the overlap flips in right-to-left without a rule of its own",
     ],
     title: "Join",
   },
@@ -95,7 +98,7 @@ const steps = [
     notes: [
       "Tonal, filled and text buttons have no border, so the shared edge would vanish",
       "The later button colors its start border, which sits on the shared edge, as a divider",
-      "Drag <strong>Width</strong>: the field shrinks first, and the buttons keep their size",
+      "Drag <strong>Width</strong>: the field shrinks first, then the buttons wrap onto a new row, so their labels stay whole",
     ],
     title: "Dividers",
   },
@@ -158,7 +161,8 @@ const knobs = [
   }
 
   input.control {
-    flex: auto;
+    flex: 1 1 0;
+    min-inline-size: 10ch;
   }
 
   button.control {

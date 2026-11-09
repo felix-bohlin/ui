@@ -8,7 +8,7 @@ export default {
   },
   "--_divider-border-color": {
     description:
-      "Color of the line between two buttons without a border of their own, drawn as the later button's start border: from the button's `--_accent-tonal`, `currentColor` in `.ui-filled`, and `--_accent` in a `.ui-primary` or `.ui-critical` `.ui-filled` group. `--ui-control-border-color-filled` replaces it when a theme sets it. Outlined buttons share their own borders instead.",
+      "Color of the line between two buttons without a border of their own, drawn as the later button's start border: from the button's `--_accent-tonal`, `currentColor` in `.ui-filled`, and `--_accent` in a `.ui-primary` or `.ui-critical` `.ui-filled` group. `--ui-control-border-color-filled`, the hook for filled controls, replaces it in every group that isn't outlined when a theme sets it. Outlined buttons share their own borders instead.",
     kind: "output",
   },
   "--_end-end-radius": {
@@ -23,7 +23,7 @@ export default {
   },
   "--_overlap": {
     description:
-      "How far each control overlaps the one before it, so their borders draw one line: the wider of `--ui-border-width` and `--ui-field-border-width`.",
+      "How far each control overlaps the next one, so their borders draw one line: the wider of `--ui-border-width` and `--ui-field-border-width` next to a field, and the button's own border width between two buttons.",
     kind: "output",
   },
   "--_ring-reach": {

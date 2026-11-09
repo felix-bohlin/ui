@@ -46,12 +46,16 @@ export default {
       values: { horizontal: null, vertical: ".ui-vertical" },
     },
     {
-      default: '"shrink"',
+      default: '"wrap"',
       description:
-        "What the controls do when they don't fit. `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis, and `scroll` scrolls the row sideways. Icon-only buttons keep their size.",
+        "What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size.",
       group: "Overflow",
       prop: "overflow",
-      values: { scroll: ".ui-overflow-scroll", shrink: null },
+      values: {
+        scroll: ".ui-overflow-scroll",
+        shrink: ".ui-overflow-shrink",
+        wrap: null,
+      },
     },
     {
       default: '"medium"',

@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -14,6 +15,15 @@ import ToasterJS from "@opui/elements/toaster.js?raw"
 
 import toastApi from "../../component-api/toast/api"
 
+const anatomyApi = {
+  ...toastApi,
+  root: {
+    ...toastApi.root,
+    code: toastApi.root.selector,
+    selector: ".ui-toaster",
+  },
+}
+
 export const description =
   "Short messages that confirm an action and dismiss themselves."
 
@@ -23,6 +33,7 @@ export const keywords = ["notification", "snackbar"]
 <Component
   description={description}
   slug="toast"
+  heroAnatomy
   browserSupport={[
     "color-mix",
     "container-style-queries",
@@ -67,6 +78,70 @@ export const keywords = ["notification", "snackbar"]
       Short messages that confirm an action and dismiss themselves. Each is a
       <DocLink href="/components/callout">Callout</DocLink>.
     </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy api={anatomyApi}>
+      <div class="ui-toaster" style="display: block; inline-size: 22rem">
+        <ol
+          popover="manual"
+          style="
+            display: flex;
+            flex-direction: column;
+            inline-size: auto;
+            position: static;
+          "
+        >
+          <li class="ui-callout ui-success">
+            <svg aria-hidden="true" width="32" height="32"></svg>
+            <div class="ui-content"><p>Changes saved</p></div>
+            <button
+              class="ui-button ui-round ui-small"
+              type="button"
+              aria-label="Close"
+            >
+              <svg aria-hidden="true" width="32" height="32"></svg>
+            </button>
+          </li>
+          <li class="ui-callout ui-critical">
+            <svg aria-hidden="true" width="32" height="32"></svg>
+            <div class="ui-content"><p>Upload failed</p></div>
+            <button class="ui-button ui-small" type="button">Retry</button>
+            <button
+              class="ui-button ui-round ui-small"
+              type="button"
+              aria-label="Close"
+            >
+              <svg aria-hidden="true" width="32" height="32"></svg>
+            </button>
+          </li>
+        </ol>
+        <div
+          class="ui-sr-only"
+          role="status"
+          style="
+            block-size: auto;
+            clip-path: none;
+            inline-size: auto;
+            position: static;
+          "
+        >
+          <p>Changes saved</p>
+        </div>
+        <div
+          class="ui-sr-only"
+          role="alert"
+          style="
+            block-size: auto;
+            clip-path: none;
+            inline-size: auto;
+            position: static;
+          "
+        >
+          <p>Upload failed</p>
+        </div>
+      </div>
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">

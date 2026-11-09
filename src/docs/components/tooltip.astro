@@ -2,10 +2,16 @@
 import Component from "../../layouts/Component.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import {
+  Button as UIButton,
+  Tooltip as UITooltip,
+  TooltipContent as UITooltipContent,
+} from "opui-css/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import TooltipCSS from "@opui/css/components/tooltip.css?raw"
@@ -22,6 +28,7 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
 <Component
   description={description}
   slug="tooltip"
+  heroAnatomy
   apis={[{ title: "Tooltip API", api: tooltipApi }]}
   browserSupport={[
     "anchor-positioning",
@@ -71,6 +78,23 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
         <code>popover="hint"</code>'s id.
       </Fragment>
     </Conditional>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UITooltip arrow id="tooltip-anatomy" style="margin: 3rem 3rem 0">
+        <UIButton
+          aria-describedby="tooltip-anatomy"
+          interestfor="tooltip-anatomy"
+          variant="outlined"
+          >Save</UIButton
+        >
+        <UITooltipContent
+          style="display: block; opacity: 1; position: absolute; position-anchor: --anchor"
+          >Save your changes</UITooltipContent
+        >
+      </UITooltip>
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">

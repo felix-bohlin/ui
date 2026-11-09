@@ -1,10 +1,12 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import BlockLink from "../../components/BlockLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import { Progress as UIProgress } from "opui-css/astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
 import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
@@ -19,6 +21,7 @@ export const description =
 <Component
   description={description}
   slug="progress"
+  heroAnatomy
   browserSupport={["attr", "container-style-queries", "has"]}
   apis={[{ title: "Progress API", api: progressApi }]}
   changelogPaths={[
@@ -40,6 +43,17 @@ export const description =
   <Fragment slot="preamble">
     See also:
     <DocLink href="/components/spinner" class="ui-link">Spinner</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.5}>
+      <UIProgress
+        aria-label="Uploading"
+        max="100"
+        style="inline-size: 14rem"
+        value="60"
+      />
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">

@@ -2,7 +2,7 @@ import { Button, ControlGroup } from "opui-css/react"
 
 export default function Overflow() {
   return (
-    <>
+    <div className="ui-layout-column ui-large">
       <ControlGroup style={{ maxInlineSize: "18rem" }} variant="outlined">
         <Button>Archive</Button>
         <Button>Move to folder</Button>
@@ -29,6 +29,6 @@ export default function Overflow() {
         <Button>Mark as unread</Button>
         <Button>Delete</Button>
       </ControlGroup>
-    </>
+    </div>
   )
 }

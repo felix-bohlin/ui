@@ -538,6 +538,74 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   })
 })
 
+test("a section heading that wraps keeps its height and the scroll position when it sticks", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 800, width: 1300 })
+  await page.goto("/html/components/spinner/")
+  await page.evaluate(() => document.fonts.ready)
+  const heading = page.locator("#no-spinner > h2")
+  const { height, lineHeight, stick } = await heading.evaluate(
+    async (element) => {
+      const style = getComputedStyle(element)
+      const stickAt = () =>
+        element.getBoundingClientRect().top +
+        scrollY -
+        parseFloat(style.insetBlockStart)
+      scrollTo(0, stickAt() - 100)
+      await new Promise(requestAnimationFrame)
+      await new Promise(requestAnimationFrame)
+      return {
+        height: element.getBoundingClientRect().height,
+        lineHeight: parseFloat(style.lineHeight),
+        stick: Math.ceil(stickAt()),
+      }
+    },
+  )
+  expect(height).toBeGreaterThan(lineHeight * 1.5)
+
+  for (const offset of [2, 20, 60]) {
+    const frames = await heading.evaluate(async (element, y) => {
+      scrollTo(0, y)
+      const samples = []
+      for (let frame = 0; frame < 6; frame++) {
+        await new Promise(requestAnimationFrame)
+        samples.push({
+          height: element.getBoundingClientRect().height,
+          scroll: Math.round(scrollY),
+        })
+      }
+      return samples
+    }, stick + offset)
+    expect(frames).toEqual(
+      Array.from({ length: 6 }, () => ({ height, scroll: stick + offset })),
+    )
+  }
+
+  if (
+    await page.evaluate(() => CSS.supports("container-type", "scroll-state"))
+  ) {
+    await expect(heading.locator("> span")).toHaveCSS("opacity", "0")
+    expect(
+      await heading.evaluate((element) => {
+        const after = getComputedStyle(element, "::after")
+        const box = element.getBoundingClientRect()
+        return {
+          opacity: after.opacity,
+          underneath: element.contains(
+            document.elementFromPoint(box.left + 10, box.bottom - 10),
+          ),
+          whiteSpace: after.whiteSpace,
+        }
+      }),
+    ).toEqual({
+      opacity: "1",
+      underneath: false,
+      whiteSpace: "nowrap",
+    })
+  }
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })

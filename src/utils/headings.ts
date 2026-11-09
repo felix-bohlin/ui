@@ -23,6 +23,14 @@ export function getHeadings(
   ).filter(isContentHeading)
 }
 
+export function headingText(heading: Element) {
+  return Array.from(heading.childNodes, (node) =>
+    node instanceof Element && node.matches(".header-anchor")
+      ? ""
+      : node.textContent,
+  ).join("")
+}
+
 export function headingId(heading: Element) {
   const parent = heading.parentElement
   return (

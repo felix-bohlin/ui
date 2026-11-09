@@ -17,7 +17,7 @@ const { selector = "#main-content", variant = "default" } = Astro.props
 </nav>
 
 <script>
-  import { getHeadings, headingId } from "../utils/headings"
+  import { getHeadings, headingId, headingText } from "../utils/headings"
 
   function initTableOfContents() {
     const tocNavs = document.querySelectorAll<HTMLElement>(
@@ -61,9 +61,10 @@ const { selector = "#main-content", variant = "default" } = Astro.props
         const a = document.createElement("a")
         const nestedUl = document.createElement("ul")
 
+        const text = headingText(heading)
         a.href = `#${headingId(heading)}`
-        a.textContent = heading.textContent
-        a.title = heading.textContent?.trim() || ""
+        a.textContent = text
+        a.title = text.trim()
 
         li.append(a, nestedUl)
         currentUl.appendChild(li)

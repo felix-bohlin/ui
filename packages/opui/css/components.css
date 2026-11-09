@@ -39,7 +39,7 @@
 /*** Extended components (components.extended, components.root) */
 @import "./components/accordion.css";
 @import "./components/badge.css";
-@import "./components/button-group.css";
+@import "./components/control-group.css";
 @import "./components/copy.css";
 @import "./components/dialog.css";
 @import "./components/form.css";

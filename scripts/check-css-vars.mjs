@@ -26,8 +26,8 @@ const PIXEL_STEP = /^\s*\d*\.?\d+px\s*$/
 
 const BASES = {
   "badge.css": ["avatar.css"],
-  "button-group.css": ["button.css"],
   "checkbox.css": ["choice.css"],
+  "control-group.css": ["button.css"],
   "dialog.css": ["card.css"],
   "number-field.css": ["text-field.css"],
   "one-time-code.css": ["text-field.css"],

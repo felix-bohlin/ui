@@ -29,7 +29,14 @@ const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
   "/guide": `${d}/guide/getting-started`,
+  "/components/button-group": `${d}/components/control-group`,
   "/components/icon-button": `${d}/components/button#icon-only`,
+  ...Object.fromEntries(
+    FRAMEWORK_IDS.map((f) => [
+      `/${f}/components/button-group`,
+      `/${f}/components/control-group`,
+    ]),
+  ),
   ...Object.fromEntries(
     FRAMEWORK_IDS.map((f) => [
       `/${f}/components/icon-button`,

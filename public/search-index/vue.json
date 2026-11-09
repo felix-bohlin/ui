@@ -214,84 +214,6 @@
     "url": "/vue/components/badge/#corners"
   },
   {
-    "id": "component-button-group-vue",
-    "title": "Button group",
-    "description": "Groups related buttons.",
-    "keywords": "segmented control split button toolbar",
-    "category": "Component",
-    "url": "/vue/components/button-group/"
-  },
-  {
-    "id": "component-button-group-vue-variants",
-    "title": "Variants",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#variants"
-  },
-  {
-    "id": "component-button-group-vue-colors",
-    "title": "Colors",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#colors"
-  },
-  {
-    "id": "component-button-group-vue-sizes",
-    "title": "Sizes",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#sizes"
-  },
-  {
-    "id": "component-button-group-vue-icons",
-    "title": "Icons",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#icons"
-  },
-  {
-    "id": "component-button-group-vue-split-button",
-    "title": "Split button",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#split-button"
-  },
-  {
-    "id": "component-button-group-vue-pagination",
-    "title": "Pagination",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#pagination"
-  },
-  {
-    "id": "component-button-group-vue-disabled",
-    "title": "Disabled",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#disabled"
-  },
-  {
-    "id": "component-button-group-vue-vertical-orientation",
-    "title": "Vertical orientation",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#vertical-orientation"
-  },
-  {
-    "id": "component-button-group-vue-overflow",
-    "title": "Overflow",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#overflow"
-  },
-  {
-    "id": "component-button-group-vue-keyboard-support",
-    "title": "Keyboard support",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/vue/components/button-group/#keyboard-support"
-  },
-  {
     "id": "component-button-vue",
     "title": "Button",
     "description": "Buttons allow users to take actions with a single tap.",
@@ -802,6 +724,98 @@
     "url": "/vue/components/chip/#keyboard-support"
   },
   {
+    "id": "component-control-group-vue",
+    "title": "Control group",
+    "description": "Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount.",
+    "keywords": "button group field group input group segmented control split button toolbar",
+    "category": "Component",
+    "url": "/vue/components/control-group/"
+  },
+  {
+    "id": "component-control-group-vue-variants",
+    "title": "Variants",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#variants"
+  },
+  {
+    "id": "component-control-group-vue-colors",
+    "title": "Colors",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#colors"
+  },
+  {
+    "id": "component-control-group-vue-sizes",
+    "title": "Sizes",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#sizes"
+  },
+  {
+    "id": "component-control-group-vue-icons",
+    "title": "Icons",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#icons"
+  },
+  {
+    "id": "component-control-group-vue-fields",
+    "title": "Fields",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#fields"
+  },
+  {
+    "id": "component-control-group-vue-labels",
+    "title": "Labels",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#labels"
+  },
+  {
+    "id": "component-control-group-vue-disabled",
+    "title": "Disabled",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#disabled"
+  },
+  {
+    "id": "component-control-group-vue-vertical-orientation",
+    "title": "Vertical orientation",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#vertical-orientation"
+  },
+  {
+    "id": "component-control-group-vue-overflow",
+    "title": "Overflow",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#overflow"
+  },
+  {
+    "id": "component-control-group-vue-split-button",
+    "title": "Split button",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#split-button"
+  },
+  {
+    "id": "component-control-group-vue-pagination",
+    "title": "Pagination",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#pagination"
+  },
+  {
+    "id": "component-control-group-vue-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/vue/components/control-group/#keyboard-support"
+  },
+  {
     "id": "component-copy-vue",
     "title": "Copy",
     "description": "A button that copies text or a field's value to the clipboard.",
@@ -961,7 +975,7 @@
   {
     "id": "component-divider-vue",
     "title": "Divider",
-    "description": "It's just a line.",
+    "description": "A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end.",
     "keywords": "hr rule separator",
     "category": "Component",
     "url": "/vue/components/divider/"
@@ -1705,7 +1719,7 @@
   {
     "id": "component-progress-vue",
     "title": "Progress",
-    "description": "See also: Spinner.",
+    "description": "A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't.",
     "keywords": "loading meter progress bar",
     "category": "Component",
     "url": "/vue/components/progress/"
@@ -1748,7 +1762,7 @@
   {
     "id": "component-radio-vue",
     "title": "Radio",
-    "description": "See also: Form documentation.",
+    "description": "Radio buttons on the native radio input, for picking one option from a few, with sizes, cards and an invalid state.",
     "keywords": "option radio button radio group",
     "category": "Component",
     "url": "/vue/components/radio/"
@@ -2130,7 +2144,7 @@
   {
     "id": "component-spinner-vue",
     "title": "Spinner",
-    "description": "Add aria-busy=\"true\" to an element. See also: Progress bar.",
+    "description": "A spinner on any element with aria-busy=\"true\", for content that is loading, in every size.",
     "keywords": "busy loader loading",
     "category": "Component",
     "url": "/vue/components/spinner/"
@@ -3432,7 +3446,7 @@
     "id": "guide-migrating-vue",
     "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by component.",
-    "headings": "Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Accordion Anchor Avatar Badge Button Callout Card Checkbox Chip Classic select Control group Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "url": "/vue/guide/migrating/"
   },
@@ -4249,14 +4263,6 @@
     "url": "/vue/api/#badge"
   },
   {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "api": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
-    "category": "API",
-    "url": "/vue/api/#button-group"
-  },
-  {
     "id": "api-button-vue",
     "title": "Button API",
     "description": "Reference for Button Vue component.",
@@ -4327,6 +4333,14 @@
     "api": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/vue/api/#chip"
+  },
+  {
+    "id": "api-control-group-vue",
+    "title": "Control Group API",
+    "description": "Reference for Control Group Vue component.",
+    "api": "ControlGroup Container element. A button or button link. default A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis, and `scroll` scrolls the row sideways. Icon-only buttons keep their size. size The size of the buttons and fields. variant The variant of the buttons.",
+    "category": "API",
+    "url": "/vue/api/#control-group"
   },
   {
     "id": "api-copy-vue",

@@ -39,6 +39,8 @@
     );
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
+    --_end-end-radius: var(--_radius);
+    --_end-start-radius: var(--_radius);
     /* Lightens accents darker than L 0.3, darkens the rest */
     --_filled-active-bg-color: light-dark(
       oklch(
@@ -73,6 +75,8 @@
     --_radius: var(--ui-button-radius, var(--ui-radius));
     --_shadow: none;
     --_size: var(--ui-button-size);
+    --_start-end-radius: var(--_radius);
+    --_start-start-radius: var(--_radius);
     --_text-color: var(--_accent-text);
     --_tonal-active-bg-color: var(--_outlined-active-bg-color);
     --_tonal-active-text-color: var(--_on-accent-fill);
@@ -133,7 +137,10 @@
     align-items: center;
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
-    border-radius: var(--_radius);
+    border-end-end-radius: var(--_end-end-radius);
+    border-end-start-radius: var(--_end-start-radius);
+    border-start-end-radius: var(--_start-end-radius);
+    border-start-start-radius: var(--_start-start-radius);
     box-shadow: var(--_shadow);
     color: var(--_text-color);
     display: inline-flex;
@@ -161,8 +168,8 @@
 
     &.ui-critical,
     &.ui-primary,
-    /* Color inherited from Button Group. */
-    :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
+    /* Color inherited from Control Group. */
+    :where(.ui-control-group.ui-critical, .ui-control-group.ui-primary) > & {
       --_accent-tonal: var(--ui-palette-tint);
       --_default-active-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-active-alpha-accent)
@@ -181,7 +188,7 @@
     }
 
     &.ui-critical,
-    :where(.ui-button-group.ui-critical) > & {
+    :where(.ui-control-group.ui-critical) > & {
       --_accent: var(--ui-critical);
       --_accent-fill: oklch(
         from var(--ui-critical) min(l, var(--ui-accent-fill-max-lightness)) c h
@@ -192,7 +199,7 @@
     }
 
     &.ui-primary,
-    :where(.ui-button-group.ui-primary) > & {
+    :where(.ui-control-group.ui-primary) > & {
       --_accent: var(--ui-primary);
       --_accent-fill: var(--_accent);
       --_accent-text: var(--ui-primary-text);
@@ -280,7 +287,7 @@
 
     /* Sizes */
     &.ui-x-small,
-    :where(.ui-button-group.ui-x-small) > & {
+    :where(.ui-control-group.ui-x-small) > & {
       --_font-size: var(--ui-font-size-caption);
       --_padding-inline: var(--ui-button-padding-inline-x-small, 1ex);
       --_size: var(--ui-button-size-x-small);
@@ -288,7 +295,7 @@
     }
 
     &.ui-small,
-    :where(.ui-button-group.ui-small) > & {
+    :where(.ui-control-group.ui-small) > & {
       --_font-size: var(--ui-font-size-small);
       --_padding-inline: var(--ui-button-padding-inline-small, 1.25ex);
       --_size: var(--ui-button-size-small);
@@ -296,7 +303,7 @@
     }
 
     &.ui-large,
-    :where(.ui-button-group.ui-large) > & {
+    :where(.ui-control-group.ui-large) > & {
       --_padding-inline: var(--ui-button-padding-inline-large, 2.5ex);
       --_size: var(--ui-button-size-large);
     }
@@ -336,7 +343,7 @@
 
     /* Variants */
     &.ui-outlined,
-    :where(.ui-button-group.ui-outlined) > & {
+    :where(.ui-control-group.ui-outlined) > & {
       --_bg-color: transparent;
       --_border-color: var(--ui-control-border-color, var(--_accent));
       --_text-color: var(--_accent-text);
@@ -389,12 +396,13 @@
       }
     }
 
-    &:is(.ui-filled, .ui-tonal) {
+    &:is(.ui-filled, .ui-tonal),
+    :where(.ui-control-group.ui-filled, .ui-control-group.ui-tonal) > & {
       --_border-color: var(--ui-control-border-color-filled, transparent);
     }
 
     &.ui-tonal,
-    :where(.ui-button-group.ui-tonal) > & {
+    :where(.ui-control-group.ui-tonal) > & {
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_on-accent-tonal);
 
@@ -419,7 +427,7 @@
     }
 
     &.ui-filled,
-    :where(.ui-button-group.ui-filled) > & {
+    :where(.ui-control-group.ui-filled) > & {
       --_bg-color: var(--_accent-fill);
       --_text-color: var(--_on-accent-fill);
 
@@ -468,7 +476,7 @@
       &:is(
         .ui-filled,
         .ui-tonal,
-        :where(.ui-button-group.ui-filled, .ui-button-group.ui-tonal) > *
+        :where(.ui-control-group.ui-filled, .ui-control-group.ui-tonal) > *
       ) {
         opacity: var(--ui-disabled-opacity);
       }
@@ -476,12 +484,12 @@
       &:not(
         .ui-filled,
         .ui-tonal,
-        :where(.ui-button-group.ui-filled, .ui-button-group.ui-tonal) > *
+        :where(.ui-control-group.ui-filled, .ui-control-group.ui-tonal) > *
       ) {
         --_text-color: var(--ui-text-disabled);
       }
 
-      &:is(.ui-outlined, :where(.ui-button-group.ui-outlined) > *) {
+      &:is(.ui-outlined, :where(.ui-control-group.ui-outlined) > *) {
         --_border-color: var(--ui-text-disabled);
       }
     }

@@ -1,0 +1,33 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Control Group"
+
+const {
+  class: className,
+  color,
+  orientation,
+  overflow,
+  size,
+  variant,
+  ...rest
+} = Astro.props
+---
+
+<div
+  class:list={[
+    "ui-control-group",
+    {
+      "ui-vertical": orientation === "vertical",
+    },
+    color && `ui-${color}`,
+    overflow && overflow !== "shrink" && `ui-overflow-${overflow}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "transparent" && `ui-${variant}`,
+    className,
+  ]}
+  role="group"
+  {...rest}
+>
+  <slot />
+</div>

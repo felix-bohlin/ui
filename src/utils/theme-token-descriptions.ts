@@ -2,7 +2,7 @@ import { paletteSteps } from "./palette-steps"
 
 export const themeTokenDescriptions: Record<string, string> = {
   "--ui-accent-fill-max-lightness":
-    "The highest OKLCH lightness of an intent fill, an intent color filled under `--ui-on-fill` text: the critical, info, neutral and success `Badge`, and the fills of critical `Button`s, also in a critical `ButtonGroup`. Borders keep the intent color. `0.48`, and `0.45` with more contrast.",
+    "The highest OKLCH lightness of an intent fill, an intent color filled under `--ui-on-fill` text: the critical, info, neutral and success `Badge`, and the fills of critical `Button`s, also in a critical `ControlGroup`. Borders keep the intent color. `0.48`, and `0.45` with more contrast.",
   "--ui-accent-max-chroma":
     "The highest OKLCH chroma of `--ui-primary`, `--ui-invalid` and `--ui-palette-text` in dark mode when more contrast lifts them. `1` (no cap), and `0.1` with more contrast.",
   "--ui-accent-max-lightness":
@@ -31,15 +31,15 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-width-thick":
     "Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.",
   "--ui-button-accent":
-    "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, `--ui-control-accent`, else the darkest palette color in light mode and the lightest in dark mode.",
+    "Color of `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, `--ui-control-accent`, else the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-filled":
-    "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, of hovered outlined ones unless `--ui-button-hover` is `layer`, and of hovered tonal ones when it is unset. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
+    "Fill of `Button` and `ControlGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, of hovered outlined ones unless `--ui-button-hover` is `layer`, and of hovered tonal ones when it is unset. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
   "--ui-button-focus":
-    'How a focused `Button` and `ButtonGroup` button show focus. `highlight` fills the button with `--ui-focus-highlight` and `--ui-on-focus-highlight` text instead of the ring, like GOV.UK. The outline stays, transparent, so forced colors still draw the ring, and a button with `aria-disabled="true"` keeps the ring. When unset (`ring`), the focus ring shows.',
+    'How a focused `Button` and `ControlGroup` button show focus. `highlight` fills the button with `--ui-focus-highlight` and `--ui-on-focus-highlight` text instead of the ring, like GOV.UK. The outline stays, transparent, so forced colors still draw the ring, and a button with `aria-disabled="true"` keeps the ring. When unset (`ring`), the focus ring shows.',
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
   "--ui-button-hover":
-    "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. `shade-all` shades the fill of every button that has one, filled and tonal: filled buttons as when unset, tonal ones with `--ui-surface-tonal-hover`, darker in light mode and lighter in dark mode, and a step further when pressed. Outlined buttons fill with the accent, as when unset. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
+    "How `Button` and `ControlGroup` show hover and pressed states. `layer` draws a translucent state layer: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. Filled, tonal, primary and critical buttons use `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`, and neutral outlined buttons the light and dark alphas. `shade-all` shades the fill of every button that has one, filled and tonal: filled buttons as when unset, tonal ones with `--ui-surface-tonal-hover`, darker in light mode and lighter in dark mode, and a step further when pressed. Outlined buttons fill with the accent, as when unset. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
   "--ui-button-hover-shadow":
     "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-button-shadow`.",
   "--ui-button-hover-translate":
@@ -57,14 +57,14 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-padding-inline-x-small":
     "Horizontal padding of `Button` with `.ui-x-small`. When unset, `1ex`.",
   "--ui-button-radius":
-    "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
+    "Corner radius for `Button`, `ControlGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-button-shadow":
-    "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, also in a `ButtonGroup`, and of the `Copy` confirmation. When unset, `--ui-shadow-control`, the shadow buttons share with toggle buttons, outlined chips and fields. Set it to give buttons alone a shadow, like a pressable edge.",
+    "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, and of the `Copy` confirmation. Buttons in a `ControlGroup` have none. When unset, `--ui-shadow-control`, the shadow buttons share with toggle buttons, outlined chips and fields. Set it to give buttons alone a shadow, like a pressable edge.",
   "--ui-button-size": "Default `Button` height.",
   "--ui-button-size-large": "`Button` height with `.ui-large`.",
   "--ui-button-size-small": "`Button` height with `.ui-small`.",
   "--ui-button-size-x-small":
-    "`Button` and `ButtonGroup` height with `.ui-x-small`.",
+    "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
     "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`.",
   "--ui-chip-radius":
@@ -111,11 +111,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-contrast":
     "`more` tightens the contrast knobs (`--ui-text-strength-*`, `--ui-text-disabled-strength`, `--ui-border-strength-*`, `--ui-field-border-strength`, `--ui-code-bg-alpha-*`, `--ui-accent-max-chroma`, the `*-max-lightness` and `*-min-lightness` limits, `--ui-state-active-alpha-dark`, `--ui-state-selected-alpha-accent` and `--ui-focus-ring-width`), and every role derived from them follows. Set to `more` under `prefers-contrast: more` or by `.ui-contrast-more`. Components read it in style queries for shape changes. See [Contrast](/guide/theming#contrast).",
   "--ui-control-accent":
-    "The accent every control shares: `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the `Range` thumb and fill. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them.",
+    "The accent every control shares: `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the `Range` thumb and fill. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them.",
   "--ui-control-border-color":
-    "Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
+    "Border color of controls without a fill: `Button` with `.ui-outlined`, also in an outlined `ControlGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-border-color-filled":
-    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge of a filled or tonal `ButtonGroup` and the dividers of a tonal or default one (filled groups keep `currentColor` dividers, or a shade of the accent in primary and critical ones), a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
+    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, also in a filled or tonal `ControlGroup`, the dividers between buttons in a `ControlGroup` that isn't outlined (unset, filled groups use `currentColor` dividers, or a shade of the accent in primary and critical ones), a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",
@@ -194,7 +194,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
   "--ui-focus-ring-inset":
-    "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
+    "Negative offset for focus rings drawn inside a control, such as `List` items and `Select` options.",
   "--ui-focus-ring-offset": "Distance between a control and its focus ring.",
   "--ui-focus-ring-style": "Outline style of the focus ring.",
   "--ui-focus-ring-width": "Width of the focus ring. `3px` with more contrast.",
@@ -364,7 +364,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-tint-subtle":
     "A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.",
   "--ui-press-scale":
-    "Scale of `Button`, `ToggleButton` and button and link `Chip`s while pressed, over `--ui-duration` with `--ui-ease-move`. Unset, so pressing doesn't scale; `0.97` gives a light press. Buttons in a `ButtonGroup` and toggles in a `ToggleGroup` never scale.",
+    "Scale of `Button`, `ToggleButton` and button and link `Chip`s while pressed, over `--ui-duration` with `--ui-ease-move`. Unset, so pressing doesn't scale; `0.97` gives a light press. Buttons in a `ControlGroup` and toggles in a `ToggleGroup` never scale.",
   "--ui-primary":
     "Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.",
   "--ui-primary-max-lightness":
@@ -374,9 +374,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-primary-source":
     "The brand color `--ui-primary` is derived from, within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set it to a theme's brand color so more contrast can darken or lighten it while keeping its hue. Setting `--ui-primary` directly pins the color in every contrast mode.",
   "--ui-primary-text":
-    "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
+    "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ControlGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
-    "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`, and of a tonal `Avatar`. When unset, they use `--ui-palette-tint`. Material's `primary-container` and shadcn's `secondary` go here.",
+    "Background of `Button` and `ControlGroup` with `.ui-primary` and `.ui-tonal`, and of a tonal `Avatar`. When unset, they use `--ui-palette-tint`. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-radius-large":
@@ -483,11 +483,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-disabled-strength":
     "How much of `--ui-text` is mixed into `--ui-surface` for `--ui-text-disabled`. `50%`, and `60%` with more contrast.",
   "--ui-text-max-chroma":
-    "The highest OKLCH chroma of the intent text roles in dark mode, which keeps a light color inside sRGB. `0.1`. Also caps the dark mode text of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`.",
+    "The highest OKLCH chroma of the intent text roles in dark mode, which keeps a light color inside sRGB. `0.1`. Also caps the dark mode text of `Button` and `ControlGroup` without `.ui-primary` or `.ui-critical`.",
   "--ui-text-max-lightness":
     "The highest OKLCH lightness of the intent text roles (`--ui-primary-text`, `--ui-critical-text` and the other `-text` roles) in light mode, so they keep 4.5:1 on every surface. `0.41`, and `0.3` with more contrast.",
   "--ui-text-min-lightness":
-    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `--ui-text-max-chroma` in dark mode. Also the lowest lightness of `Button` and `ButtonGroup` text without `.ui-primary` or `.ui-critical` in dark mode.",
+    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `--ui-text-max-chroma` in dark mode. Also the lowest lightness of `Button` and `ControlGroup` text without `.ui-primary` or `.ui-critical` in dark mode.",
   "--ui-text-strength-dark":
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-text` in dark mode. `80%`, and `90%` with more contrast.",
   "--ui-text-strength-light":

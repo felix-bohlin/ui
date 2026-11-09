@@ -940,7 +940,7 @@ interaction(
 )
 
 interaction(
-  "button-group",
+  "control-group",
   "SplitButton",
   "split button opens its menu",
   async ({ root }) => {

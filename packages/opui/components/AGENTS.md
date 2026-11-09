@@ -211,7 +211,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - `severity` says what something means, and adds the cues that meaning needs: an icon, a shape-coded dot. Meaning never rests on color alone.
   - `primary` is emphasis, not meaning, so it is a `color` only.
 - **Variant words keep Material 3's meaning, and describe the resting look; a hover or selected tint never counts against them:**
-  - `filled` is a solid fill in the component's own color: the accent on actions (Button, ButtonGroup, Tabs), a surface on fields, containers and tracks.
+  - `filled` is a solid fill in the component's own color: the accent on actions (Button, ControlGroup, Tabs), a surface on fields, containers and tracks.
   - `tonal` is the tonal surface or palette tint.
   - `outlined` is drawn in the border color with no fill.
   - `elevated` is raised with a shadow.
@@ -488,7 +488,7 @@ Every theme token is one of three kinds, and `tests/unit/theme-tokens.test.ts` c
 
 - A declared token has a value in `theme.css` and is read without a fallback. Knobs and derived roles are declared.
 - An optional token is a commented-out line in `theme.css` with its example value, read with a fallback, and every read site uses the same fallback (`--ui-button-radius` falls back to `--ui-radius` everywhere). Most component tokens are optional, so a theme that doesn't set them costs nothing.
-- A hook is an optional role that several components read, each with a default of its own, so one theme value unifies them: `--ui-selected`, `--ui-on-selected`, `--ui-control-accent`, `--ui-on-control-accent`, `--ui-choice-accent`, `--ui-track-bg-color`, `--ui-control-border-color`, `--ui-control-border-color-filled` and `--ui-border-color-raised`. `--ui-control-accent` and `--ui-on-control-accent` are the accent every control shares: `Button` and `ButtonGroup` read them before `--ui-palette-strong`, `Choice` and `Range` before `--ui-primary`, and each component's own `--ui-button-accent` or `--ui-choice-accent` still comes first. The list is `OVERRIDE_HOOKS` in `src/utils/theme-tokens.ts`, and a token joins it only when its read sites need different defaults; a second read of an optional token with a new fallback is a hook or a bug, never a third kind.
+- A hook is an optional role that several components read, each with a default of its own, so one theme value unifies them: `--ui-selected`, `--ui-on-selected`, `--ui-control-accent`, `--ui-on-control-accent`, `--ui-choice-accent`, `--ui-track-bg-color`, `--ui-control-border-color`, `--ui-control-border-color-filled` and `--ui-border-color-raised`. `--ui-control-accent` and `--ui-on-control-accent` are the accent every control shares: `Button` and `ControlGroup` read them before `--ui-palette-strong`, `Choice` and `Range` before `--ui-primary`, and each component's own `--ui-button-accent` or `--ui-choice-accent` still comes first. The list is `OVERRIDE_HOOKS` in `src/utils/theme-tokens.ts`, and a token joins it only when its read sites need different defaults; a second read of an optional token with a new fallback is a hook or a bug, never a third kind.
 
 A new token is declared when one default serves every reader, optional when a component has a sensible default of its own and a theme rarely needs it, and a hook only when the job already spans components. Prefer a formula of an existing token over a new one, and a `-filled`, `-on-raised` or size suffix over a second family. Every token also has a tier, `knob`, `primitive`, `role`, `hook`, `component` or `input`, declared in `src/utils/theme-token-tiers.ts` (hooks come from `OVERRIDE_HOOKS`, inputs from `INSTANCE_INPUTS`, the palette steps of `core/palette.css` are primitives, and a token not listed is a role), shown on the Theme tokens page and exported in `tokens.json`. A knob is an input a theme turns (`--ui-palette-hue`, `--ui-density`, the limits and strengths the contrast rules tighten), a primitive is derived from the knobs and read by no component (`--ui-font-size-100` to `900`), a role is what components read, a component token is read by one component, and an input is a `--ui-*` property a component reads but no theme sets, such as `--ui-anchor-position-area`, listed in `INSTANCE_INPUTS` in `src/utils/theme-tokens.ts`.
 
@@ -530,11 +530,11 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 
 - `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
 - `Button`: the current page (`aria-current="page"`) is a tint, or a dropped fill on a filled button, so it gets `SelectedItem`.
-- `ButtonGroup`: the dividers are box shadows, so the buttons get a `ButtonBorder` border.
 - `Card`: the hovered card-link border only changes color, so it gets `Highlight`.
 - `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
 - `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`, and the invalid state is a color, so an invalid input, switch track or card gets a dashed border.
 - `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
+- `ControlGroup`: the edges between buttons are real borders, transparent between unfilled buttons, so the buttons get a `ButtonBorder` border.
 - `Divider`: the line is a background, so it becomes a `CanvasText` border.
 - `List`: selected and current items are tints, so they get `SelectedItem`.
 - `Message`: the bubble is a fill, so it gets a `CanvasText` border, the typing dots keep `CanvasText`, and a checked reaction is a tint, so it gets `SelectedItem`.

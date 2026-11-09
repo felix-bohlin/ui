@@ -206,19 +206,6 @@ A disabled link has no `href`. The components drop it for you. In HTML, remove `
 + <a class="ui-button" aria-disabled="true">…</a>
 ```
 
-## Button group
-
-Variants apply to the whole group. Move a variant from a button inside a group to the group.
-
-```diff
-- <div role="group" class="ui-button-group">
--   <button class="ui-button ui-outlined">One</button>
-+ <div role="group" class="ui-button-group ui-outlined">
-+   <button class="ui-button">One</button>
-```
-
-Groups wrap onto more rows when they don't fit, instead of overflowing. Use `overflow="scroll"` (`.ui-overflow-scroll`) or `overflow="shrink"` (`.ui-overflow-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
-
 ## Callout
 
 In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. The `title` slot (a fixed `h3`) is gone: write the title as a plain heading first in `CalloutContent`. A custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
@@ -350,6 +337,31 @@ The default slot is gone. Pass the text as `label`, or rich content in the `labe
 ```
 
 In HTML, add `<button><selectedcontent></selectedcontent></button>` and wrap the options in `<div class="ui-list">` inside the `<select>`.
+
+## Control group
+
+`ButtonGroup` is `ControlGroup`, and `.ui-button-group` is `.ui-control-group`. `button-group.css` is `control-group.css`.
+
+```diff
+- <ButtonGroup variant="outlined">
++ <ControlGroup variant="outlined">
+```
+
+```diff
+- <div role="group" class="ui-button-group">
++ <div role="group" class="ui-control-group">
+```
+
+Variants apply to the whole group. Move a variant from a button inside a group to the group.
+
+```diff
+- <div role="group" class="ui-button-group">
+-   <button class="ui-button ui-outlined">One</button>
++ <div role="group" class="ui-control-group ui-outlined">
++   <button class="ui-button">One</button>
+```
+
+The buttons keep their own borders and the group joins their edges, so a text field, select, number field or textarea can join them too. The group stays on one row: when it doesn't fit, the fields shrink and button labels end in an ellipsis, and `overflow="scroll"` (`.ui-overflow-scroll`) scrolls it instead. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
 
 ## Description list
 
@@ -545,7 +557,7 @@ The header, content and footer rules live in `card.css`, shared with `Dialog`. I
 
 `data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`. A checked invalid switch turns its track red, like Checkbox and Radio.
 
-`FieldGroup` `direction` is `orientation`, like `ButtonGroup`, `ToggleGroup` and `Carousel`. `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`.
+`FieldGroup` `direction` is `orientation`, like `ControlGroup`, `ToggleGroup` and `Carousel`. `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`.
 
 ```diff
 - <FieldGroup direction="row">
@@ -1203,7 +1215,7 @@ The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `-
 
 `--ui-motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--ui-border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--ui-field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. If you set either token, check those components too.
+Component borders read `--ui-border-width` (`Accordion`, `Callout`, `Card`, `Chip`, `ControlGroup`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--ui-field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
@@ -1224,9 +1236,9 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Button                      | `--_border-radius`                                | `--_radius`                                                                                                                                                                                 |
 | Button                      | `--_min-height`                                   | `--_size`                                                                                                                                                                                   |
 | Button                      | `--_accent-contrast`, `--_accent-tonal-contrast`  | `--_on-accent`, `--_on-accent-tonal`                                                                                                                                                        |
-| ButtonGroup                 | `--_border-radius`                                | `--_radius`                                                                                                                                                                                 |
+| ButtonGroup                 | `--_border-radius`                                | removed, set `--_radius` on the buttons                                                                                                                                                     |
 | ButtonGroup                 | `--_min-height`                                   | removed, set `--_size` on the buttons                                                                                                                                                       |
-| ButtonGroup                 | `--_divider-color`                                | removed as an override, `--_divider-border-color` follows the buttons' `--_accent`, and `--ui-control-border-color` or `--ui-control-border-color-filled` in a theme                        |
+| ButtonGroup                 | `--_divider-color`                                | removed as an override, `--_divider-border-color` follows the buttons' `--_accent`, and `--ui-control-border-color-filled` in a theme                                                       |
 | Callout                     | `--_color`                                        | removed as an override, the severity classes set `--_text-color`: recolor a severity through its intent token (`--ui-info` and the rest), or set `--_outlined-text-color` in `.ui-outlined` |
 | Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                                                                                                                    |
 | Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                                                                                                       |

@@ -9,7 +9,6 @@ import {
   AvatarGroup,
   Badge,
   Button,
-  ButtonGroup,
   Callout,
   CalloutContent,
   Card,
@@ -19,6 +18,7 @@ import {
   Carousel,
   Checkbox,
   Chip,
+  ControlGroup,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListItem,
@@ -153,13 +153,6 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       <Button aria-hidden="true" inert variant="filled">Get started</Button>
     </Fragment>
 
-    <Fragment slot="button-group">
-      <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
-        <Button>Day</Button>
-        <Button>Week</Button>
-      </ButtonGroup>
-    </Fragment>
-
     <Fragment slot="callout">
       <Callout aria-hidden="true" variant="tonal" severity="neutral">
         <CalloutContent>
@@ -207,6 +200,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         <Chip variant="outlined" label="HTML" />
         <Chip variant="outlined" label="CSS" />
       </div>
+    </Fragment>
+
+    <Fragment slot="control-group">
+      <ControlGroup aria-hidden="true" inert size="small" variant="outlined">
+        <TextField hideLabel label="Order number" placeholder="Order" />
+        <Button>Search</Button>
+      </ControlGroup>
     </Fragment>
 
     <Fragment slot="copy">

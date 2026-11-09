@@ -51,12 +51,12 @@ Pass `apis={[ ... ]}` explicitly to give the section a title, or to show several
 ```astro
 ---
 import buttonApi from "../../component-api/button/api"
-import buttonGroupApi from "../../component-api/button-group/api"
+import controlGroupApi from "../../component-api/control-group/api"
 ---
 
 <Component
   apis={[
-    { title: "Button group API", api: buttonGroupApi },
+    { title: "Control group API", api: controlGroupApi },
     { title: "Button API", api: buttonApi },
   ]}
   >...</Component

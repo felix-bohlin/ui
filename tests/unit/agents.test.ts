@@ -86,7 +86,7 @@ describe("the agent rules flag their samples", () => {
 })
 
 describe("audit-scope", () => {
-  const pages = ["button", "button-group", "tabs", "toggle"]
+  const pages = ["button", "control-group", "tabs", "toggle"]
 
   test("parses a list in the frontmatter", () => {
     expect(
@@ -97,13 +97,13 @@ describe("audit-scope", () => {
   test("maps a file to the pages of its components", () => {
     expect(
       [
-        "packages/opui/components/ButtonGroup/ButtonGroup.vue",
+        "packages/opui/components/ControlGroup/ControlGroup.vue",
         "packages/opui/components/ToggleButton/types.ts",
         "packages/opui/css/components/button.css",
         "src/component-api/tabs-panel/api.ts",
         "src/utils/todo.ts",
       ].map((file) => componentsOf(file, pages)),
-    ).toEqual([["button-group"], ["toggle"], ["button"], ["tabs"], []])
+    ).toEqual([["control-group"], ["toggle"], ["button"], ["tabs"], []])
   })
 
   test("an agent without paths matches no file", () => {

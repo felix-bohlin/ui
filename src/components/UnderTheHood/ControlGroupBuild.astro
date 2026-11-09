@@ -1,0 +1,168 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.group {
+  display: flex;
+}
+
+.group > * + * {
+  margin-inline-start: -1px;
+}`,
+    html: `
+<div class="group" role="group">
+  <input aria-label="Order number" class="control" />
+  <button class="control" type="button">Search</button>
+  <button class="control" type="button">Clear</button>
+</div>`,
+    features: ["logical-properties"],
+    notes: [
+      "Every control keeps its own border, background and focus ring. The group draws nothing of its own",
+      "Each control moves back one border width, so two borders share one line instead of making a double one",
+      "<code>margin-inline-start</code> is logical, so the overlap flips in right-to-left without a rule of its own",
+    ],
+    title: "Join",
+  },
+  {
+    css: `
+.control {
+  --start-start: var(--radius);
+  --start-end: var(--radius);
+  --end-start: var(--radius);
+  --end-end: var(--radius);
+  border-end-end-radius: var(--end-end);
+  border-end-start-radius: var(--end-start);
+  border-start-end-radius: var(--start-end);
+  border-start-start-radius: var(--start-start);
+}
+
+.group > :nth-child(n + 2 of .control) {
+  --start-start: 0;
+  --end-start: 0;
+}
+
+.group > :nth-last-child(n + 2 of .control) {
+  --start-end: 0;
+  --end-end: 0;
+}`,
+    features: ["nth-child-of"],
+    notes: [
+      "A control draws each corner from its own property, and the group sets the corners it shares to <code>0</code>",
+      "The control keeps the math: a field also rounds its focus outline from the same four properties",
+      "<code>of .control</code> counts only the controls, so a split button's menu after its trigger doesn't take the last place",
+    ],
+    title: "Corners",
+  },
+  {
+    css: `
+.group > :hover {
+  z-index: 1;
+}
+
+.group > :has(:user-invalid) {
+  z-index: 2;
+}
+
+.group > :focus-within {
+  z-index: 3;
+}`,
+    features: ["has", "user-pseudos"],
+    notes: [
+      "A later control paints over the edge it shares with the one before it",
+      "Raising the hovered, invalid or focused control shows its whole border, and its focus ring over its neighbours",
+      "Nothing clips the group, so the ring stays outside the control, like everywhere else",
+    ],
+    title: "Stacking",
+  },
+  {
+    css: `
+.group.tonal > .control {
+  background-color: var(--ui-surface-tonal);
+  border-color: transparent;
+}
+
+.group.tonal > .control + .control {
+  border-inline-start-color: light-dark(
+    oklch(from var(--ui-surface-tonal) calc(l - 0.1) c h),
+    oklch(from var(--ui-surface-tonal) calc(l + 0.1) c h)
+  );
+}`,
+    html: `
+<div class="group tonal" role="group">…</div>`,
+    features: ["light-dark", "relative-color"],
+    notes: [
+      "Tonal, filled and text buttons have no border, so the shared edge would vanish",
+      "The later button colors its start border, which sits on the shared edge, as a divider",
+      "Drag <strong>Width</strong>: the field shrinks first, and the buttons keep their size",
+    ],
+    title: "Dividers",
+  },
+]
+
+const knobs = [
+  {
+    label: "Width",
+    max: 400,
+    min: 200,
+    property: "--width",
+    step: 10,
+    unit: "px",
+    value: 400,
+  },
+]
+---
+
+<BuildUp id="build-control-group" knobs={knobs} steps={steps}>
+  <div class="frame">
+    <div class="group" role="group">
+      <input aria-label="Order number" class="control" placeholder="Order" />
+      <button class="control" type="button">Search</button>
+      <button class="control" type="button">Clear</button>
+    </div>
+    <div class="group tonal" role="group">
+      {["Day", "Week", "Month"].map((label) => <button
+        class="control"
+        type="button"
+      >
+        {label}
+      </button>)}
+    </div>
+  </div>
+</BuildUp>
+
+<style>
+  .frame {
+    --radius: var(--ui-radius);
+
+    display: grid;
+    gap: var(--ui-space-4);
+    inline-size: min(100%, var(--width));
+    justify-items: start;
+  }
+
+  .control {
+    background-color: var(--ui-surface);
+    border: 1px solid var(--ui-field-border-color);
+    border-radius: var(--radius);
+    color: var(--ui-text-strong);
+    font: inherit;
+    min-inline-size: 0;
+    padding: var(--ui-space-2) var(--ui-space-3);
+  }
+
+  .control:focus-visible {
+    outline: var(--ui-focus-ring-width) solid var(--ui-focus-ring-color);
+    outline-offset: var(--ui-focus-ring-offset);
+  }
+
+  input.control {
+    flex: auto;
+  }
+
+  button.control {
+    cursor: pointer;
+    flex: none;
+  }
+</style>

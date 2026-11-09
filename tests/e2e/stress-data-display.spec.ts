@@ -78,7 +78,7 @@ test("inline editing controls fit their table row", async ({ page }) => {
   }
 })
 
-test.describe("the current page in a button group", () => {
+test.describe("the current page in a control group", () => {
   for (const theme of THEMES) {
     for (const colorScheme of ["light", "dark"] as const) {
       test(`stands out and stays readable in the ${theme} theme in ${colorScheme} mode`, async ({
@@ -91,7 +91,7 @@ test.describe("the current page in a button group", () => {
           "stress/data-display",
           theme === "default" ? undefined : `?theme=${theme}`,
         )
-        const navs = page.locator('[data-example="ButtonGroupCurrent"] nav')
+        const navs = page.locator('[data-example="ControlGroupCurrent"] nav')
         for (const nav of await navs.all()) {
           const name = await nav.getAttribute("aria-label")
           const current = nav.locator('[aria-current="page"]')

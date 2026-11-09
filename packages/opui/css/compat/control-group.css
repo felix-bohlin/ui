@@ -4,4 +4,11 @@
       overflow-x: auto;
     }
   }
+
+  @supports not (row-rule: none) {
+    :where(.ui-control-group) {
+      --_divider-gap: 0px;
+      --_start-border-color: var(--_divider-border-color);
+    }
+  }
 }

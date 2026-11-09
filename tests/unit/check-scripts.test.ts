@@ -115,6 +115,7 @@ describe("check-browser-support", () => {
     "display-animation": ".a { transition: display 1s allow-discrete; }",
     "exp-functions": ".a { font-size: calc(1rem * pow(1.2, 2)); }",
     "field-sizing": "textarea { field-sizing: content; }",
+    "gap-decorations": ".a { row-rule: 1px solid; }",
     has: ".a:has(> svg) { gap: 0; }",
     "interest-invokers": ".a { interest-delay: 0.5s; }",
     "interpolate-size": ":root { interpolate-size: allow-keywords; }",

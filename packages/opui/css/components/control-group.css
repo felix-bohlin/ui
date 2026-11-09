@@ -1,9 +1,20 @@
 @layer components.extended {
   :where(.ui-control-group) {
+    /* button.css > --_accent-tonal */
+    --_divider-accent: var(--ui-surface-tonal);
+    --_divider-border-color: var(
+      --ui-control-border-color-filled,
+      light-dark(
+        oklch(from var(--_divider-accent) calc(l - 0.1) c h),
+        oklch(from var(--_divider-accent) calc(l + 0.1) c h)
+      )
+    );
+    --_divider-gap: 0px;
     --_overlap: max(var(--ui-border-width), var(--ui-field-border-width));
     --_ring-reach: calc(
       var(--ui-focus-ring-width) + max(0px, var(--ui-focus-ring-offset))
     );
+    --_start-border-color: var(--_divider-border-color);
 
     align-items: end;
     display: inline-flex;
@@ -89,7 +100,43 @@
       min-inline-size: 10ch;
     }
 
+    &.ui-critical {
+      --_divider-accent: var(--ui-palette-tint);
+    }
+
+    &.ui-primary {
+      --_divider-accent: var(--ui-primary-tonal, var(--ui-palette-tint));
+    }
+
+    /* button.css > --_accent */
+    &.ui-filled.ui-critical {
+      --_divider-accent: var(--ui-critical);
+    }
+
+    &.ui-filled.ui-primary {
+      --_divider-accent: var(--ui-primary);
+    }
+
+    &:not(
+      .ui-outlined,
+      :has(> :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea))
+    ) {
+      @media (forced-colors: none) {
+        --_divider-gap: var(--ui-border-width);
+        --_start-border-color: transparent;
+      }
+    }
+
+    &:is(.ui-filled, .ui-tonal) {
+      @container style(--ui-control-border-color-filled) {
+        --_divider-gap: 0px;
+        --_start-border-color: var(--_divider-border-color);
+      }
+    }
+
     &:not(.ui-vertical) {
+      column-gap: var(--_divider-gap);
+      column-rule: var(--_divider-gap) solid var(--_divider-border-color);
       row-gap: var(--ui-space-1);
 
       &
@@ -127,7 +174,7 @@
           :has(+ .ui-button:not([hidden])),
           :has(+ :is([hidden], [popover]) + .ui-button)
         ) {
-        margin-inline-end: calc(-1 * var(--_border-width));
+        margin-inline-end: calc(var(--_divider-gap) - var(--_border-width));
       }
     }
 
@@ -135,6 +182,8 @@
       align-items: stretch;
       flex-direction: column;
       flex-wrap: nowrap;
+      row-gap: var(--_divider-gap);
+      row-rule: var(--_divider-gap) solid var(--_divider-border-color);
 
       &
         > :nth-child(
@@ -171,7 +220,7 @@
           :has(+ .ui-button:not([hidden])),
           :has(+ :is([hidden], [popover]) + .ui-button)
         ) {
-        margin-block-end: calc(-1 * var(--_border-width));
+        margin-block-end: calc(var(--_divider-gap) - var(--_border-width));
       }
 
       & > .ui-button {
@@ -187,17 +236,31 @@
       }
     }
 
-    /* Button */
-    & > .ui-button {
-      /* button.css > --_accent-tonal */
+    &:not(:has(> .ui-button:not(:disabled, [aria-disabled="true"]))) {
+      column-rule-color: color-mix(
+        in oklch,
+        var(--_divider-border-color) 40%,
+        transparent
+      );
+      row-rule-color: color-mix(
+        in oklch,
+        var(--_divider-border-color) 40%,
+        transparent
+      );
+    }
+
+    &.ui-filled:not(.ui-critical, .ui-primary) {
       --_divider-border-color: var(
         --ui-control-border-color-filled,
-        light-dark(
-          oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
-          oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
-        )
+        currentColor
       );
 
+      column-rule-color: var(--ui-control-border-color-filled, transparent);
+      row-rule-color: var(--ui-control-border-color-filled, transparent);
+    }
+
+    /* Button */
+    & > .ui-button {
       flex: auto;
 
       @media (forced-colors: active) {
@@ -214,13 +277,6 @@
       position: relative;
     }
 
-    &.ui-filled > .ui-button {
-      --_divider-border-color: var(
-        --ui-control-border-color-filled,
-        currentColor
-      );
-    }
-
     &.ui-filled
       > :is(
         .ui-button,
@@ -232,28 +288,17 @@
       --_shadow: 0 0 0 var(--ui-focus-ring-offset) var(--ui-surface);
     }
 
-    &.ui-filled:is(.ui-critical, .ui-primary) > .ui-button {
-      /* button.css > --_accent */
-      --_divider-border-color: var(
-        --ui-control-border-color-filled,
-        light-dark(
-          oklch(from var(--_accent) calc(l - 0.1) c h),
-          oklch(from var(--_accent) calc(l + 0.1) c h)
-        )
-      );
-    }
-
     &:not(.ui-outlined, .ui-vertical)
       > .ui-button:not(:focus-visible):is(
         .ui-button + *,
         .ui-button + :is([hidden], [popover]) + *
       ) {
-      border-inline-start-color: var(--_divider-border-color);
+      border-inline-start-color: var(--_start-border-color);
 
       &:is(:disabled, [aria-disabled="true"]) {
         border-inline-start-color: color-mix(
           in oklch,
-          var(--_divider-border-color) 40%,
+          var(--_start-border-color) 40%,
           transparent
         );
       }
@@ -272,12 +317,12 @@
         .ui-button + *,
         .ui-button + :is([hidden], [popover]) + *
       ) {
-      border-block-start-color: var(--_divider-border-color);
+      border-block-start-color: var(--_start-border-color);
 
       &:is(:disabled, [aria-disabled="true"]) {
         border-block-start-color: color-mix(
           in oklch,
-          var(--_divider-border-color) 40%,
+          var(--_start-border-color) 40%,
           transparent
         );
       }

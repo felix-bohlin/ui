@@ -7,6 +7,7 @@ const steps = [
 .group {
   display: flex;
   flex-wrap: wrap;
+  max-inline-size: 100%;
   row-gap: var(--ui-space-1);
 }
 
@@ -81,24 +82,27 @@ const steps = [
   },
   {
     css: `
-.group.tonal > .control {
-  background-color: var(--ui-surface-tonal);
-  border-color: transparent;
-}
-
-.group.tonal > .control + .control {
-  border-inline-start-color: light-dark(
+.group.tonal {
+  column-gap: 1px;
+  column-rule: 1px solid light-dark(
     oklch(from var(--ui-surface-tonal) calc(l - 0.1) c h),
     oklch(from var(--ui-surface-tonal) calc(l + 0.1) c h)
   );
+}
+
+.group.tonal > .control {
+  background-color: var(--ui-surface-tonal);
+  border-color: transparent;
+  margin-inline-end: 0;
 }`,
     html: `
 <div class="group tonal" role="group">…</div>`,
-    features: ["light-dark", "relative-color"],
+    features: ["gap-decorations", "light-dark", "relative-color"],
     notes: [
-      "Tonal, filled and text buttons have no border, so the shared edge would vanish",
-      "The later button colors its start border, which sits on the shared edge, as a divider",
-      "Drag <strong>Width</strong>: the field shrinks first, then the buttons wrap onto a new row, so their labels stay whole",
+      "Tonal, filled and text buttons have no border, so nothing would show where one ends and the next begins",
+      "The buttons stop overlapping and leave a gap one border wide, and <code>column-rule</code> draws the line in it",
+      "The browser draws a rule only between controls on the same row. Drag <strong>Width</strong>: the field shrinks first, then the buttons wrap, and the new row starts without a line",
+      "With a field in the group, the buttons keep overlapping and the later one colors its start border instead, since a rule runs the full height of the row, past a field's label",
     ],
     title: "Dividers",
   },
@@ -139,10 +143,11 @@ const knobs = [
   .frame {
     --radius: var(--ui-radius);
 
-    display: grid;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
     gap: var(--ui-space-4);
     inline-size: min(100%, var(--width));
-    justify-items: start;
   }
 
   .control {

@@ -91,6 +91,10 @@ export const patterns = [
   },
   { id: "exp-functions", pattern: /\b(?:exp|hypot|log|pow|sqrt)\(/ },
   { id: "field-sizing", pattern: /field-sizing:/ },
+  {
+    id: "gap-decorations",
+    pattern: /(?<![\w-])(?:column-|row-)?rule(?:-[a-z]+)*:/,
+  },
   { id: "has", pattern: /:has\(/ },
   {
     id: "interest-invokers",

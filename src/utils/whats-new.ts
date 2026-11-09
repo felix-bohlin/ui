@@ -468,14 +468,15 @@ export const whatsNew = {
   "control-group": [
     {
       ...slots(
-        `Breaking: <code>ButtonGroup</code> is <a href="#fields"><code>ControlGroup</code></a>. It joins fields as well as buttons, and stays on one row.`,
+        `Breaking: <code>ButtonGroup</code> is <a href="#fields"><code>ControlGroup</code></a>. It joins fields as well as buttons, and shrinks to fit on one row.`,
       ),
-      html: `Breaking: <code>.ui-button-group</code> is <a href="#fields"><code>.ui-control-group</code></a>, and <code>button-group.css</code> is <code>control-group.css</code>. It joins fields as well as buttons, and stays on one row.`,
+      html: `Breaking: <code>.ui-button-group</code> is <a href="#fields"><code>.ui-control-group</code></a>, and <code>button-group.css</code> is <code>control-group.css</code>. It joins fields as well as buttons, and shrinks to fit on one row.`,
     },
     `<a href="#fields">Fields</a>: a text field, select, number field or textarea joins the buttons. A text field takes the free space, so the group fills the line like a field.`,
     `<a href="#labels">Labels</a> sit above their control, and the controls line up at the bottom.`,
+    `Buttons and fields draw their corners from <code>--_start-start-radius</code>, <code>--_start-end-radius</code>, <code>--_end-start-radius</code> and <code>--_end-end-radius</code>, which the group sets where controls meet, and fields take <code>--_radius</code> and <code>--_shadow</code> like buttons. Controls in a group drop their shadows (<a href="#under-the-hood">Under the hood</a>).`,
     `Themes can set <a href="#api"><code>--ui-button-hover</code></a> to <code>layer</code> for state-layer hover and pressed states, or to <code>shade-all</code> to shade tonal buttons like filled ones, <code>--ui-button-padding-inline</code> with its size variants, and <code>--ui-button-accent-filled</code> with <code>--ui-button-on-accent-filled</code> for the filled color.`,
-    `Breaking: <code>--_border-radius</code>, <code>--_divider-color</code> and <code>--_min-height</code> are gone. Set <code>--_radius</code> and <code>--_size</code> on the buttons, and the lines between buttons follow <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_border-radius</code>, <code>--_divider-color</code> and <code>--_min-height</code> are gone. Set <code>--_radius</code> on the buttons and fields and <code>--_size</code> on the buttons, and the lines between buttons follow <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Every control keeps its own <a href="#accessibility">focus ring</a> in <code>--ui-focus-ring-color</code>, on top of its neighbours, and the edges between buttons stay visible in forced colors.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     `<a href="#icons">Icon-only buttons</a> stay square and use Button's icon-only icon size, 60% of the button.`,
@@ -1583,6 +1584,7 @@ export const highlighted = new Set<string>([
   "button",
   "card",
   "carousel",
+  "control-group",
   "copy",
   "layout",
   "menu",

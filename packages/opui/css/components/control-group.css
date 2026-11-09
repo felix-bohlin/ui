@@ -10,7 +10,6 @@
     inline-size: fit-content;
     max-inline-size: 100%;
 
-    /* A text field or textarea fills the line, like on its own */
     &:has(> :is(.ui-text-field, .ui-textarea)) {
       display: flex;
       inline-size: auto;
@@ -20,7 +19,6 @@
       }
     }
 
-    /* Controls */
     &
       > :is(
         .ui-button,
@@ -53,7 +51,11 @@
       flex: auto;
     }
 
-    /* Joined edges */
+    &:not(.ui-vertical) > :is(.ui-text-field, .ui-textarea) {
+      flex-basis: 0;
+      min-inline-size: 10ch;
+    }
+
     &:not(.ui-vertical) {
       &
         > :nth-child(
@@ -181,7 +183,6 @@
     }
 
     &.ui-filled:is(.ui-critical, .ui-primary) > .ui-button {
-      /* button.css > --_accent */
       --_divider-border-color: var(
         --ui-control-border-color-filled,
         light-dark(
@@ -191,7 +192,6 @@
       );
     }
 
-    /* Dividers between buttons without a border of their own */
     &:not(.ui-outlined, .ui-vertical)
       > .ui-button:not(:focus-visible):is(
         .ui-button + *,

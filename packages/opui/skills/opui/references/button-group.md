@@ -1,6 +1,6 @@
 # Button group
 
-Groups related buttons with .ui-button-group and role="group".
+Related buttons joined into one control, like a split button or a set of view options.
 
 - CSS: `opui-css/css/components/button-group.css` and `opui-css/css/components/button.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/button-group.md), [Astro](https://open-props-ui.netlify.app/astro/components/button-group.md), [React](https://open-props-ui.netlify.app/react/components/button-group.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/button-group.md), [Vue](https://open-props-ui.netlify.app/vue/components/button-group.md).

@@ -11,7 +11,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Avatar | `avatar.md` | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
 | Button | `button.md` | Buttons allow users to take actions with a single tap. |
-| Button group | `button-group.md` | Groups related buttons with .ui-button-group and role="group". |
+| Button group | `button-group.md` | Related buttons joined into one control, like a split button or a set of view options. |
 | Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
 | Card | `card.md` | A surface for related content and actions. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
@@ -20,7 +20,7 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Copy | `copy.md` | A button that copies text or a field's value to the clipboard. |
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
 | Dialog | `dialog.md` | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
-| Divider | `divider.md` | It's just a line. |
+| Divider | `divider.md` | A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end. |
 | Drawer | `drawer.md` | Slides in from an edge of the screen. For a task that needs full attention, use a Dialog. |
 | Form | `form.md` | Spacing and grouping for form fields. |
 | Layout | `layout.md` | Classes for the space between components. Put them on wrappers. Gaps follow the --ui-space-* scale. |
@@ -29,12 +29,12 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Message | `message.md` | Chat bubbles that group by sender, with attachments, reactions and a typing indicator. |
 | Number field | `number-field.md` | A number field with buttons that step the value down and up, for amounts like a quantity. |
 | One-time code | `one-time-code.md` | A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill. |
-| Progress | `progress.md` | See also: Spinner. |
-| Radio | `radio.md` | See also: Form documentation. |
+| Progress | `progress.md` | A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't. |
+| Radio | `radio.md` | Radio buttons on the native radio input, for picking one option from a few, with sizes, cards and an invalid state. |
 | Range | `range.md` | Range lets users pick a number by sliding a thumb along a track. |
 | Rating | `rating.md` | A star rating: a meter that shows a score, or radios that collect one. |
 | Select | `select.md` | Pick a value in a form. For actions, use a Menu. |
-| Spinner | `spinner.md` | Add aria-busy="true" to an element. See also: Progress bar. |
+| Spinner | `spinner.md` | A spinner on any element with aria-busy="true", for content that is loading, in every size. |
 | Stat | `stat.md` | A stat shows one number with its label and the change behind it. |
 | Stepper | `stepper.md` | Shows where someone is in a flow of steps, such as a checkout. |
 | Switch | `switch.md` | A setting that applies right away. For choices submitted with a form, use a Checkbox. |

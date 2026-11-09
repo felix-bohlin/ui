@@ -10,8 +10,8 @@ A short label or hint for a control, shown on hover, focus or a long press.
 ### Parts
 
 - `.ui-tooltip` (root): Container element.
-- `& > :first-child`: The trigger that shows the tooltip on hover and focus.
 - `.ui-floating` (`TooltipContent`): The tooltip, a `popover="hint"`.
+- `& > :first-child`: The trigger that shows the tooltip on hover and focus.
 
 ### Props and modifiers
 

@@ -1,6 +1,6 @@
 # Progress
 
-See also: Spinner.
+A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't.
 
 - CSS: `opui-css/css/components/progress.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/progress.md), [Astro](https://open-props-ui.netlify.app/astro/components/progress.md), [React](https://open-props-ui.netlify.app/react/components/progress.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/progress.md), [Vue](https://open-props-ui.netlify.app/vue/components/progress.md).

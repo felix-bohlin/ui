@@ -315,7 +315,6 @@ export const SCENARIOS: Scenario[] = [
     top: id("split-dialog-menu"),
   },
   {
-    failingIn: { webkit: WEBKIT_TOP_LAYER_ANCHOR },
     name: "outlined split button menu in block end drawer footer",
     steps: [open("split-drawer"), open("split-drawer-outlined")],
     top: id("split-drawer-outlined"),

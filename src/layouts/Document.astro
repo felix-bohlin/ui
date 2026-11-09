@@ -403,11 +403,8 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
         }
 
         @media (width > 1200px) {
-          h2 {
-            container-name: sticky-heading;
-            container-type: scroll-state;
-            inset-block-start: var(--size-4);
-            max-inline-size: min(
+          h2[data-heading] {
+            --sticky-heading-inline-size: min(
               var(--content-inline-size),
               min(
                   100vw - var(--site-gap),
@@ -421,6 +418,10 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
                 ) -
                 var(--site-gap) * 2 - 200px - var(--size-5)
             );
+
+            container-name: sticky-heading;
+            container-type: scroll-state;
+            inset-block-start: var(--size-4);
             pointer-events: none;
             position: sticky;
             z-index: 22;
@@ -429,9 +430,11 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
               pointer-events: auto;
             }
 
-            &[data-heading]::after {
+            &::after {
               content: attr(data-heading) / "";
-              inset: 0 0 auto;
+              inset-block-start: 0;
+              inset-inline-start: 0;
+              max-inline-size: var(--sticky-heading-inline-size);
               opacity: 0;
               overflow: hidden;
               position: absolute;
@@ -440,12 +443,12 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
             }
 
             @container sticky-heading scroll-state(stuck: top) {
-              &[data-heading] > span {
+              & > * {
                 opacity: 0;
                 pointer-events: none;
               }
 
-              &[data-heading]::after {
+              &::after {
                 opacity: 1;
               }
             }

@@ -538,15 +538,15 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   })
 })
 
-test("a section heading that wraps keeps its height and the scroll position when it sticks", async ({
+test("a long section heading takes the content width and sticks as a one-line copy without changing its height or the scroll position", async ({
   page,
 }) => {
   await page.setViewportSize({ height: 800, width: 1300 })
   await page.goto("/html/components/spinner/")
   await page.evaluate(() => document.fonts.ready)
   const heading = page.locator("#no-spinner > h2")
-  const { height, lineHeight, stick } = await heading.evaluate(
-    async (element) => {
+  const { copyMaxWidth, height, paragraphWidth, stick, width } =
+    await heading.evaluate(async (element) => {
       const style = getComputedStyle(element)
       const stickAt = () =>
         element.getBoundingClientRect().top +
@@ -556,13 +556,18 @@ test("a section heading that wraps keeps its height and the scroll position when
       await new Promise(requestAnimationFrame)
       await new Promise(requestAnimationFrame)
       return {
+        copyMaxWidth: parseFloat(
+          getComputedStyle(element, "::after").maxInlineSize,
+        ),
         height: element.getBoundingClientRect().height,
-        lineHeight: parseFloat(style.lineHeight),
+        paragraphWidth:
+          element.nextElementSibling?.getBoundingClientRect().width,
         stick: Math.ceil(stickAt()),
+        width: element.getBoundingClientRect().width,
       }
-    },
-  )
-  expect(height).toBeGreaterThan(lineHeight * 1.5)
+    })
+  expect(width).toBe(paragraphWidth)
+  expect(width).toBeGreaterThan(copyMaxWidth)
 
   for (const offset of [2, 20, 60]) {
     const frames = await heading.evaluate(async (element, y) => {
@@ -586,21 +591,25 @@ test("a section heading that wraps keeps its height and the scroll position when
     await page.evaluate(() => CSS.supports("container-type", "scroll-state"))
   ) {
     await expect(heading.locator("> span")).toHaveCSS("opacity", "0")
+    await expect(heading.locator("> .header-anchor")).toHaveCSS("opacity", "0")
     expect(
       await heading.evaluate((element) => {
         const after = getComputedStyle(element, "::after")
         const box = element.getBoundingClientRect()
+        const catches = (x: number, y: number) =>
+          element.contains(document.elementFromPoint(x, y))
         return {
+          catchesClicks: [
+            catches(box.left + 10, box.bottom - 10),
+            catches(box.right - 10, box.top + 10),
+          ],
           opacity: after.opacity,
-          underneath: element.contains(
-            document.elementFromPoint(box.left + 10, box.bottom - 10),
-          ),
           whiteSpace: after.whiteSpace,
         }
       }),
     ).toEqual({
+      catchesClicks: [false, false],
       opacity: "1",
-      underneath: false,
       whiteSpace: "nowrap",
     })
   }

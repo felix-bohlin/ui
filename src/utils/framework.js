@@ -101,6 +101,7 @@ export function pathHasFramework(framework, sharedPath) {
 export const FRAMEWORK_FREE_PREFIXES = [
   "/blocks",
   "/blog",
+  "/checklist",
   "/checks",
   "/theme-builder",
   "/todo",

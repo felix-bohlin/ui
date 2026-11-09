@@ -78,6 +78,11 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - The `/todo` page drops a saved answer once it matches the item's last `> ` block word for word, and marks an item with a note after that block as Follow-up.
 - `tests/unit/todo.test.ts` checks the format and lists the items that break it. Older items that break the headline rules are in `tests/unit/todo-allowlist.json`, which only shrinks.
 
+## Release checklists
+
+- `docs/releases/6.0.0.md` holds the manual checks before the release and renders at `/checks`, and `docs/releases/6.0.0-checklist.md` the polish and launch work and renders at `/checklist`, both with the test pages. Items are `- [ ] Headline` with indented notes, and the pages save checks and comments under the headline (`tests/unit/release.test.ts` checks the headlines).
+- Text copied from either page starts with "<file> with my comments". Set each pasted item's box in the file as pasted, add its `> ` lines under the item, do what they ask and note the outcome below them, like the `rc.1:` notes in `docs/releases/6.0.0.md`. An item with the note `New item` goes into its section with the notes it needs.
+
 ## Testing
 
 - A rule that a script or test enforces is written once, in the check's error message, and the guide keeps one line naming the check. Rules that need judgment stay in prose. `TODO.md` items with a `Replaces:` note name the prose a new check would shrink.

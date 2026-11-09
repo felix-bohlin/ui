@@ -1,0 +1,456 @@
+---
+import { Button, Checkbox, TextField } from "opui-css/astro"
+import CommentField from "../Todo/CommentField.astro"
+import CopyFallback from "../Todo/CopyFallback.astro"
+import InlineText from "../Todo/InlineText.astro"
+import TodoNotes from "../Todo/TodoNotes.astro"
+import { parseTodo, replyOf, slugify } from "../../utils/todo"
+
+type Props = {
+  file: string
+  source: string
+  storageKey: string
+}
+
+const { file, source, storageKey } = Astro.props
+
+const { all: sections, intro } = parseTodo(
+  source.replaceAll(
+    "](../../",
+    "](https://github.com/felix-bohlin/ui/blob/main/",
+  ),
+)
+
+const count = sections.reduce(
+  (total, section) => total + section.items.length,
+  0,
+)
+---
+
+<div data-checklist-file={file} data-checklist-storage={storageKey}>
+  {intro.map((paragraph) => <p>
+    <InlineText links text={paragraph} />
+  </p>)}
+
+  <section class="checks-summary ui-not-rich-text">
+    <p class="checks-progress" id="checks-progress" role="status">
+      0 of {count} checked
+    </p>
+    <Checkbox id="checks-hide-done" size="small">Hide checked</Checkbox>
+  </section>
+
+  {sections.map((section) => <section
+    data-check-section={section.title}
+    id={slugify(section.title)}
+  >
+    <h2>{section.title}</h2>
+    <p class="checks-section-progress" data-section-progress />
+    <ol class="checks-list ui-not-rich-text">
+      {section.items.map((item) => <li
+        class="checks-item"
+        data-check-done={item.status === "x" ? "" : undefined}
+        data-check-key={slugify(item.text)}
+        data-check-line={item.line}
+        data-check-reply={replyOf(item.notes).reply.join("\n") || undefined}
+      >
+        <Checkbox class="checks-done">
+          <InlineText text={item.text} />
+        </Checkbox>
+        <p class="checks-changed" hidden>Not in the file yet</p>
+        <TodoNotes class="checks-notes" notes={item.notes} />
+        <CommentField text={item.text} />
+      </li>)}
+    </ol>
+    <ul class="checks-new-list ui-not-rich-text" data-check-new />
+    <form class="checks-add ui-not-rich-text" data-check-add>
+      <TextField
+        autocomplete="off"
+        class="checks-add-field"
+        hideLabel
+        label={`New item in ${section.title}`}
+        name="item"
+        placeholder="New item"
+        size="small"
+      />
+      <Button size="small" type="submit" variant="outlined">Add</Button>
+    </form>
+  </section>)}
+
+  <template id="checks-new-template">
+    <li class="checks-new">
+      <span class="checks-new-label">New</span>
+      <span class="checks-new-text"></span>
+      <Button class="checks-new-remove" size="small" variant="transparent"
+        >Remove</Button
+      >
+    </li>
+  </template>
+
+  <h2 id="copy">Copy</h2>
+
+  <section class="checks-actions ui-not-rich-text">
+    <Checkbox checked id="checks-only-changed">
+      Only what I changed, added or commented on
+    </Checkbox>
+    <div class="checks-buttons">
+      <Button id="checks-copy" variant="filled"
+        >Copy changes and comments</Button
+      >
+      <Button id="checks-clear-comments" variant="outlined"
+        >Clear comments</Button
+      >
+      <Button id="checks-clear-new" variant="outlined">Clear new items</Button>
+      <Button id="checks-reset" variant="outlined">Reset checks</Button>
+    </div>
+    <p class="checks-status" id="checks-status" role="status"></p>
+    <CopyFallback label="Changes and comments" />
+  </section>
+</div>
+
+<script>
+  import { copyOrSelect, trackComments } from "../Todo/comments"
+  import { readStored as read, writeStored as write } from "../../utils/storage"
+  import { slugify } from "../../utils/todo"
+
+  const root = document.querySelector<HTMLElement>("[data-checklist-file]")!
+  const file = root.dataset.checklistFile!
+  const prefix = root.dataset.checklistStorage!
+  const addedKey = `${prefix}-added`
+  const commentsKey = `${prefix}-comments`
+  const doneKey = `${prefix}-done`
+  const hideKey = `${prefix}-hide-done`
+
+  const items = [...root.querySelectorAll<HTMLElement>(".checks-item")]
+  const sections = [
+    ...root.querySelectorAll<HTMLElement>("[data-check-section]"),
+  ]
+  const keyOf = (item: HTMLElement) => item.dataset.checkKey!
+  const lineOf = (item: HTMLElement) => item.dataset.checkLine!
+  const titleOf = (section: HTMLElement) => section.dataset.checkSection!
+  const doneInFile = (item: HTMLElement) => "checkDone" in item.dataset
+  const doneOf = (item: HTMLElement) =>
+    item.querySelector<HTMLInputElement>(".checks-done input")!
+  const changed = (item: HTMLElement) =>
+    doneOf(item).checked !== doneInFile(item)
+  const status = root.querySelector("#checks-status")!
+  const copyFallback = root.querySelector<HTMLDialogElement>(
+    "[data-copy-fallback]",
+  )!
+  const progress = root.querySelector("#checks-progress")!
+  const hideDone = root.querySelector<HTMLInputElement>("#checks-hide-done")!
+  const onlyChanged = root.querySelector<HTMLInputElement>(
+    "#checks-only-changed",
+  )!
+  const template = root.querySelector<HTMLTemplateElement>(
+    "#checks-new-template",
+  )!
+  const notSaved =
+    "Changes can't be saved in this browser. Copy them before leaving the page."
+
+  const updateProgress = () => {
+    for (const item of items) {
+      item.querySelector<HTMLElement>(".checks-changed")!.hidden =
+        !changed(item)
+    }
+    const checked = items.filter((item) => doneOf(item).checked).length
+    const unsaved = items.filter(changed).length
+    progress.textContent = `${checked} of ${items.length} checked${
+      unsaved ? `, ${unsaved} not in the file yet` : ""
+    }`
+    for (const section of sections) {
+      const sectionItems = [
+        ...section.querySelectorAll<HTMLElement>(".checks-item"),
+      ]
+      const done = sectionItems.filter((item) => doneOf(item).checked).length
+      section.querySelector("[data-section-progress]")!.textContent =
+        `${done} of ${sectionItems.length} checked`
+    }
+  }
+
+  const saveDone = () => {
+    const overrides = Object.fromEntries(
+      items.filter(changed).map((item) => [keyOf(item), doneOf(item).checked]),
+    )
+    if (!write(doneKey, overrides)) status.textContent = notSaved
+    updateProgress()
+  }
+
+  const savedDone = read<Record<string, boolean> | string[]>(doneKey, {})
+  const overrides = Array.isArray(savedDone)
+    ? Object.fromEntries(savedDone.map((key) => [key, true]))
+    : savedDone
+
+  for (const item of items) {
+    const done = doneOf(item)
+    done.checked = overrides[keyOf(item)] ?? doneInFile(item)
+    done.addEventListener("change", saveDone)
+  }
+
+  const savedComments = read<Record<string, string>>(commentsKey, {})
+  for (const item of items) {
+    const reply = item.dataset.checkReply
+    if (reply && savedComments[keyOf(item)]?.trim() === reply) {
+      delete savedComments[keyOf(item)]
+    }
+  }
+  write(commentsKey, savedComments)
+
+  const comments = trackComments({
+    items,
+    keyOf,
+    onError: () => {
+      status.textContent = notSaved
+    },
+    storageKey: commentsKey,
+  })
+
+  const added = read<Record<string, string[]>>(addedKey, {})
+  for (const section of sections) {
+    const keys = new Set(
+      [...section.querySelectorAll<HTMLElement>(".checks-item")].map(keyOf),
+    )
+    const kept = (added[titleOf(section)] ?? []).filter(
+      (text) => !keys.has(slugify(text)),
+    )
+    if (kept.length) added[titleOf(section)] = kept
+    else delete added[titleOf(section)]
+  }
+
+  const saveAdded = () => {
+    if (!write(addedKey, added)) status.textContent = notSaved
+  }
+
+  const renderAdded = (section: HTMLElement) => {
+    const texts = added[titleOf(section)] ?? []
+    section.querySelector("[data-check-new]")!.replaceChildren(
+      ...texts.map((text, index) => {
+        const row = template.content.firstElementChild!.cloneNode(
+          true,
+        ) as HTMLElement
+        row.querySelector(".checks-new-text")!.textContent = text
+        const remove = row.querySelector("button")!
+        remove.setAttribute("aria-label", `Remove ${text}`)
+        remove.addEventListener("click", () => {
+          texts.splice(index, 1)
+          if (!texts.length) delete added[titleOf(section)]
+          saveAdded()
+          renderAdded(section)
+          status.textContent = `Removed ${text}.`
+        })
+        return row
+      }),
+    )
+  }
+
+  for (const section of sections) {
+    renderAdded(section)
+    const form = section.querySelector<HTMLFormElement>("[data-check-add]")!
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const field = form.querySelector("input")!
+      const text = field.value.trim().replace(/\s+/g, " ")
+      if (!text) return
+      added[titleOf(section)] = [...(added[titleOf(section)] ?? []), text]
+      saveAdded()
+      renderAdded(section)
+      field.value = ""
+      status.textContent = `Added ${text} to ${titleOf(section)}.`
+    })
+  }
+  saveAdded()
+
+  const applyHide = () =>
+    document.body.classList.toggle("checks-hide-done", hideDone.checked)
+
+  hideDone.checked = read<boolean>(hideKey, false)
+  hideDone.addEventListener("change", () => {
+    write(hideKey, hideDone.checked)
+    applyHide()
+  })
+  applyHide()
+  updateProgress()
+
+  const buildText = () => {
+    const blocks: string[] = []
+    let count = 0
+
+    for (const section of sections) {
+      const lines = [
+        ...section.querySelectorAll<HTMLElement>(".checks-item"),
+      ].flatMap((item) => {
+        const comment = comments.commentOf(item)
+        if (!comment && !changed(item) && onlyChanged.checked) return []
+        if (comment || changed(item)) count++
+        const line = lineOf(item).replace(
+          /^- \[.?\]/,
+          doneOf(item).checked ? "- [x]" : "- [ ]",
+        )
+        return [
+          line,
+          ...(comment
+            ? comment.split("\n").map((text) => `  > ${text}`.trimEnd())
+            : []),
+        ]
+      })
+      const newItems = (added[titleOf(section)] ?? []).flatMap((text) => {
+        count++
+        return [`- [ ] ${text}`, "  > New item"]
+      })
+      if (lines.length || newItems.length) {
+        blocks.push(`## ${titleOf(section)}`, "", ...lines, ...newItems, "")
+      }
+    }
+
+    return {
+      count,
+      text: [`${file} with my comments`, "", ...blocks].join("\n").trim(),
+    }
+  }
+
+  root.querySelector("#checks-copy")!.addEventListener("click", async () => {
+    comments.saveAll()
+    const { count, text } = buildText()
+    if (onlyChanged.checked && !count) {
+      status.textContent = "Nothing changed, added or commented on yet."
+      return
+    }
+    status.textContent = (await copyOrSelect(text, copyFallback))
+      ? `Copied ${count} ${count === 1 ? "change" : "changes"}.`
+      : "This browser blocked copying."
+  })
+
+  root
+    .querySelector("#checks-clear-comments")!
+    .addEventListener("click", () => {
+      if (!confirm("Clear all comments?")) return
+      comments.clear()
+      status.textContent = "Comments cleared."
+    })
+
+  root.querySelector("#checks-clear-new")!.addEventListener("click", () => {
+    if (!confirm("Clear all new items?")) return
+    for (const key of Object.keys(added)) delete added[key]
+    saveAdded()
+    sections.forEach(renderAdded)
+    status.textContent = "New items cleared."
+  })
+
+  root.querySelector("#checks-reset")!.addEventListener("click", () => {
+    if (!confirm("Reset every check to the file?")) return
+    for (const item of items) doneOf(item).checked = doneInFile(item)
+    saveDone()
+    status.textContent = "Checks reset to the file."
+  })
+</script>
+
+<style>
+  .checks-summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+    justify-content: space-between;
+    margin-block: var(--size-4);
+  }
+
+  .checks-progress {
+    font-weight: var(--ui-font-weight-semibold);
+    margin: 0;
+  }
+
+  .checks-section-progress {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin-block: 0 var(--size-3);
+  }
+
+  .checks-list {
+    display: grid;
+    gap: var(--size-4);
+    list-style: none;
+    margin: 0 0 var(--size-4);
+    padding: 0;
+  }
+
+  .checks-item {
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: grid;
+    gap: var(--size-2);
+    padding-block-end: var(--size-4);
+
+    &:has(.checks-done input:checked) :global(.checks-done .ui-label) {
+      color: var(--ui-text);
+      text-decoration: line-through;
+    }
+  }
+
+  :global(.checks-hide-done) .checks-item:has(.checks-done input:checked) {
+    display: none;
+  }
+
+  .checks-item :global(.checks-notes),
+  .checks-changed {
+    padding-inline-start: calc(var(--ui-choice-size) + var(--size-2));
+  }
+
+  .checks-changed {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .checks-new-list {
+    display: grid;
+    gap: var(--size-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .checks-new {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .checks-new-label {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .checks-add {
+    align-items: center;
+    display: flex;
+    gap: var(--size-2);
+    margin-block: var(--size-3) var(--size-6);
+
+    & :global(.checks-add-field) {
+      flex: 1;
+    }
+  }
+
+  .checks-actions {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .checks-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .checks-status {
+    color: var(--ui-text);
+    margin: 0;
+    min-block-size: 1lh;
+  }
+</style>

@@ -95,6 +95,36 @@ describe("parseTodo", () => {
     ])
   })
 
+  test("keeps open and done items in the order of the file", () => {
+    const { all } = parseTodo(
+      [
+        "## Bugs",
+        "",
+        "- [ ] First",
+        "- [x] Second",
+        "- [ ] Third",
+        "",
+        "## Empty",
+      ].join("\n"),
+    )
+
+    expect(
+      all.map((section) => ({
+        items: section.items.map(({ status, text }) => ({ status, text })),
+        title: section.title,
+      })),
+    ).toEqual([
+      {
+        items: [
+          { status: " ", text: "First" },
+          { status: "x", text: "Second" },
+          { status: " ", text: "Third" },
+        ],
+        title: "Bugs",
+      },
+    ])
+  })
+
   test("parses indented notes under an item", () => {
     const { sections } = parseTodo(
       [

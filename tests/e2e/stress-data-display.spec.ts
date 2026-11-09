@@ -103,9 +103,6 @@ test.describe("the current page in a button group", () => {
                 return {
                   background: style.backgroundColor,
                   color: style.color,
-                  filled: element.matches(
-                    ".ui-filled, .ui-button-group.ui-filled > *",
-                  ),
                 }
               }),
             ),
@@ -117,17 +114,15 @@ test.describe("the current page in a button group", () => {
                 [look.background],
                 [siblingLook.background],
               ),
-              `${name}: the current page differs from the other pages`,
+              `${name}: the current page stands out from the other pages`,
             )
-            .toBeGreaterThan(1)
-          if (look.filled) {
-            expect
-              .soft(
-                await contrast(current, look.color, look.background),
-                `${name}: the text of the current page`,
-              )
-              .toBeGreaterThanOrEqual(4.5)
-          }
+            .toBeGreaterThanOrEqual(1.1)
+          expect
+            .soft(
+              await contrast(current, look.color, look.background),
+              `${name}: the text of the current page`,
+            )
+            .toBeGreaterThanOrEqual(4.5)
         }
       })
     }

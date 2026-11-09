@@ -25,6 +25,10 @@
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
+    --_current-bg-color: oklch(
+      from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
+    );
+    --_current-text-color: var(--ui-text-strong);
     --_default-active-bg-color: light-dark(
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
@@ -72,6 +76,15 @@
     --_text-color: var(--_accent-text);
     --_tonal-active-bg-color: var(--_outlined-active-bg-color);
     --_tonal-active-text-color: var(--_on-accent-fill);
+    --_tonal-current-bg-color: color-mix(
+      in srgb,
+      var(--_accent-tonal),
+      light-dark(
+          oklch(from var(--_accent-tonal) clamp(0, (0.9 - l) * 1000, 1) 0 0),
+          oklch(from var(--_accent-tonal) clamp(0, (0.3 - l) * 1000, 1) 0 0)
+        )
+        var(--ui-state-selected-alpha-accent)
+    );
     --_tonal-hover-bg-color: var(--_accent-fill);
     --_tonal-hover-text-color: var(--_on-accent-fill);
 
@@ -197,9 +210,13 @@
         }
       }
 
-      &:where(:active, :has(+ :popover-open)),
-      &[aria-current="page"] {
+      &:where(:active, :has(+ :popover-open)) {
         --_bg-color: var(--_default-active-bg-color);
+      }
+
+      &[aria-current="page"] {
+        --_bg-color: var(--_current-bg-color);
+        --_text-color: var(--_current-text-color);
       }
 
       &:where(:active) {
@@ -348,6 +365,11 @@
           );
           --_text-color: var(--_outlined-active-text-color);
         }
+
+        &[aria-current="page"] {
+          --_bg-color: var(--_current-bg-color);
+          --_text-color: var(--_current-text-color);
+        }
       }
     }
 
@@ -390,7 +412,8 @@
         }
 
         &[aria-current="page"] {
-          --_bg-color: var(--_default-active-bg-color);
+          --_bg-color: var(--_tonal-current-bg-color);
+          --_text-color: var(--_current-text-color);
         }
       }
     }

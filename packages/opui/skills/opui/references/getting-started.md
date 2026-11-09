@@ -402,7 +402,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 - **66** of 69 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **40** are Server Components
+- **39** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -414,7 +414,6 @@ Every component renders full HTML on the server. Components with state or effect
 | [`AvatarGroup`](https://open-props-ui.netlify.app/react/components/avatar.md) | Yes | Yes | Yes | - |
 | [`Badge`](https://open-props-ui.netlify.app/react/components/badge.md) | Yes | Yes | Yes | - |
 | [`Button`](https://open-props-ui.netlify.app/react/components/button.md) | Yes | Yes | Yes | - |
-| [`ButtonGroup`](https://open-props-ui.netlify.app/react/components/button-group.md) | Yes | Yes | Yes | - |
 | [`Callout`](https://open-props-ui.netlify.app/react/components/callout.md) | Yes | Yes | No | - |
 | [`Card`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
 | [`CardActions`](https://open-props-ui.netlify.app/react/components/card.md) | Yes | Yes | Yes | - |
@@ -423,6 +422,7 @@ Every component renders full HTML on the server. Components with state or effect
 | [`Checkbox`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://open-props-ui.netlify.app/react/components/chip.md) | Yes | Yes | Yes | - |
+| [`ControlGroup`](https://open-props-ui.netlify.app/react/components/control-group.md) | Yes | Yes | No | - |
 | [`Copy`](https://open-props-ui.netlify.app/react/components/copy.md) | Yes | Yes | No | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
 | [`DescriptionListItem`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
@@ -598,7 +598,6 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`AvatarGroup`](https://open-props-ui.netlify.app/svelte/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://open-props-ui.netlify.app/svelte/components/badge.md) | Yes | Yes | - |
 | [`Button`](https://open-props-ui.netlify.app/svelte/components/button.md) | Yes | Yes | - |
-| [`ButtonGroup`](https://open-props-ui.netlify.app/svelte/components/button-group.md) | Yes | Yes | - |
 | [`Callout`](https://open-props-ui.netlify.app/svelte/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
 | [`CardActions`](https://open-props-ui.netlify.app/svelte/components/card.md) | Yes | Yes | - |
@@ -607,6 +606,7 @@ Every component renders full HTML on the server. The props in the last column ne
 | [`Checkbox`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://open-props-ui.netlify.app/svelte/components/checkbox.md) | Yes | No | `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. , `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://open-props-ui.netlify.app/svelte/components/chip.md) | Yes | Yes | - |
+| [`ControlGroup`](https://open-props-ui.netlify.app/svelte/components/control-group.md) | Yes | Yes | - |
 | [`Copy`](https://open-props-ui.netlify.app/svelte/components/copy.md) | Yes | Yes | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
 | [`DescriptionListItem`](https://open-props-ui.netlify.app/svelte/components/description-list.md) | Yes | Yes | - |
@@ -751,7 +751,6 @@ import "./styles/main.css"
 | [`AvatarGroup`](https://open-props-ui.netlify.app/vue/components/avatar.md) | Yes | Yes | - |
 | [`Badge`](https://open-props-ui.netlify.app/vue/components/badge.md) | Yes | Yes | - |
 | [`Button`](https://open-props-ui.netlify.app/vue/components/button.md) | Yes | Yes | - |
-| [`ButtonGroup`](https://open-props-ui.netlify.app/vue/components/button-group.md) | Yes | Yes | - |
 | [`Callout`](https://open-props-ui.netlify.app/vue/components/callout.md) | Yes | Yes | - |
 | [`Card`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
 | [`CardActions`](https://open-props-ui.netlify.app/vue/components/card.md) | Yes | Yes | - |
@@ -760,6 +759,7 @@ import "./styles/main.css"
 | [`Checkbox`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`CheckboxInput`](https://open-props-ui.netlify.app/vue/components/checkbox.md) | Yes | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component imports the module, so the box looks unchecked until its script runs. Import `opui-css/css/js/checkbox.js` in the page. , `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. |
 | [`Chip`](https://open-props-ui.netlify.app/vue/components/chip.md) | Yes | Yes | - |
+| [`ControlGroup`](https://open-props-ui.netlify.app/vue/components/control-group.md) | Yes | Yes | - |
 | [`Copy`](https://open-props-ui.netlify.app/vue/components/copy.md) | Yes | Yes | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |
 | [`DescriptionListItem`](https://open-props-ui.netlify.app/vue/components/description-list.md) | Yes | Yes | - |

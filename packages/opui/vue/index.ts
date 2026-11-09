@@ -8,7 +8,6 @@ export { default as Avatar } from "../components/Avatar/Avatar.vue"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.vue"
 export { default as Badge } from "../components/Badge/Badge.vue"
 export { default as Button } from "../components/Button/Button.vue"
-export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.vue"
 export { default as Callout } from "../components/Callout/Callout.vue"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.vue"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.vue"
@@ -21,6 +20,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.vue"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
+export { default as ControlGroup } from "../components/ControlGroup/ControlGroup.vue"
 export { default as Copy } from "../components/Copy/Copy.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.vue"
@@ -103,7 +103,6 @@ export type {
 } from "../components/Avatar/types.vue-props"
 export type { Props as BadgeProps } from "../components/Badge/types.vue-props"
 export type { Props as ButtonProps } from "../components/Button/types.vue-props"
-export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.vue-props"
 export type {
   CalloutActionsProps,
   CalloutContentProps,
@@ -122,6 +121,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.vue-props"
 export type { Props as ChipProps } from "../components/Chip/types.vue-props"
+export type { Props as ControlGroupProps } from "../components/ControlGroup/types.vue-props"
 export type { Props as CopyProps } from "../components/Copy/types.vue-props"
 export type {
   DescriptionListDescriptionProps,

@@ -52,6 +52,16 @@ export default {
     description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
+  "--_end-end-radius": {
+    description:
+      "The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.",
+    kind: "input",
+  },
+  "--_end-start-radius": {
+    description:
+      "The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+    kind: "input",
+  },
   "--_field-padding-block": {
     description:
       "The preferred block padding of the control. Set by the size classes.",
@@ -85,9 +95,29 @@ export default {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
   },
+  "--_radius": {
+    description:
+      "The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.",
+    kind: "input",
+  },
+  "--_shadow": {
+    description:
+      "The shadow of `.ui-field`. Defaults to `--ui-shadow-field`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.",
+    kind: "input",
+  },
   "--_size": {
     description:
       "The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
+    kind: "input",
+  },
+  "--_start-end-radius": {
+    description:
+      "The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.",
+    kind: "input",
+  },
+  "--_start-start-radius": {
+    description:
+      "The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.",
     kind: "input",
   },
 } satisfies CustomProperties

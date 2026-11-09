@@ -67,6 +67,16 @@ export default {
     description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
+  "--_end-end-radius": {
+    description:
+      "The radius of the end-end corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the next control.",
+    kind: "input",
+  },
+  "--_end-start-radius": {
+    description:
+      "The radius of the end-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins another control.",
+    kind: "input",
+  },
   "--_filled-active-bg-color": {
     description: "Pressed background of filled buttons, from `--_accent`.",
     kind: "output",
@@ -144,12 +154,22 @@ export default {
   },
   "--_shadow": {
     description:
-      "The shadow. `--ui-button-shadow`, or `--ui-shadow-control` when the theme leaves it unset, on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons.",
+      "The shadow. `--ui-button-shadow`, or `--ui-shadow-control` when the theme leaves it unset, on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons and in a `ControlGroup`.",
     kind: "output",
   },
   "--_size": {
     description:
       "The height, and the width of an icon-only button. Defaults to `--ui-button-size`, set by the size classes.",
+    kind: "input",
+  },
+  "--_start-end-radius": {
+    description:
+      "The radius of the start-end corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins another control.",
+    kind: "input",
+  },
+  "--_start-start-radius": {
+    description:
+      "The radius of the start-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the control before it.",
     kind: "input",
   },
   "--_text-color": {

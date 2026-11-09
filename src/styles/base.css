@@ -80,7 +80,11 @@ aside.sidebar {
 }
 
 .example-container {
-  :where(.ui-text-field, .ui-textarea, .ui-select):not(.ui-auto-fit, .ui-row)
+  :where(.ui-text-field, .ui-textarea, .ui-select):not(
+      .ui-auto-fit,
+      .ui-control-group > *,
+      .ui-row
+    )
     :where(input, textarea, select) {
     min-inline-size: min(25ch, 45vi);
   }

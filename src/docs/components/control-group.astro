@@ -1,0 +1,320 @@
+---
+import Component from "../../layouts/Component.astro"
+import KeyboardSupport from "./partials/KeyboardSupport.astro"
+import Usage from "./partials/Usage.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  Button as UIButton,
+  ControlGroup as UIControlGroup,
+  TextField as UITextField,
+} from "opui-css/astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import ControlGroupCSS from "@opui/css/components/control-group.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
+import controlGroupApi from "../../component-api/control-group/api"
+import buttonApi from "../../component-api/button/api"
+
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import ControlGroupBuild from "../../components/UnderTheHood/ControlGroupBuild.astro"
+
+export const keywords = [
+  "button group",
+  "field group",
+  "input group",
+  "segmented control",
+  "split button",
+  "toolbar",
+]
+export const description =
+  "Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount."
+---
+
+<Component
+  description={description}
+  slug="control-group"
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "customizable-select",
+    "has",
+    "invoker-commands",
+    "lh",
+    "light-dark",
+    "logical-properties",
+    "nth-child-of",
+    "popover",
+    "relative-color",
+    "scrollbar-width",
+    "user-pseudos",
+  ]}
+  heroAnatomy
+  apis={[
+    { title: "Control group API", api: controlGroupApi },
+    { title: "Button API", api: buttonApi },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/ControlGroup/ControlGroup.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/ButtonGroup/ButtonGroup.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/control-group.astro", type: "docs" },
+    { path: "src/docs/components/button-group.astro", type: "docs" },
+    { path: "src/component-examples/control-group", type: "docs" },
+    { path: "src/component-examples/button-group", type: "docs" },
+    {
+      path: "packages/opui/css/components/control-group.css",
+      type: "css",
+    },
+    {
+      path: "packages/opui/css/components/button-group.css",
+      type: "css",
+    },
+    { path: "src/component-api/control-group", type: "api" },
+    { path: "src/component-api/button-group", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "control-group.css", code: ControlGroupCSS, lang: "css" },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+    {
+      title: "text-field.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+  ]}
+>
+  <Fragment slot="title">Control group</Fragment>
+  <Fragment slot="preamble">
+    <Conditional>
+      <Fragment slot="components">
+        Joins related buttons and fields into one control. For options that stay
+        selected, use a
+        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>,
+        and to space out the fields of a form, a
+        <DocLink href="/components/form#field-group">Field group</DocLink>.
+      </Fragment>
+      <Fragment slot="html">
+        Joins related buttons and fields into one control with
+        <code>.ui-control-group</code> and <code>role="group"</code>. For
+        options that stay selected, use a
+        <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>,
+        and to space out the fields of a form, a
+        <DocLink href="/components/form#field-group">Field group</DocLink>.
+      </Fragment>
+    </Conditional>
+  </Fragment>
+
+  <Usage slot="usage">
+    <li slot="when">
+      Related actions, like Undo and Redo, or a main action with more options in
+      a <a href="#split-button">split button</a>.
+    </li>
+    <li slot="when">
+      A field and the button that acts on it, like a
+      <a href="#fields">search field</a> and Search.
+    </li>
+    <li slot="when">
+      One value made of several controls, like a currency and an
+      <a href="#fields">amount</a>.
+    </li>
+    <li slot="when-not">
+      Options that stay selected: use a
+      <DocLink href="/components/toggle#toggle-group">Toggle group</DocLink>.
+    </li>
+    <li slot="when-not">
+      A unit or an icon that belongs to one value, like € or kg: put it in the
+      field with
+      <DocLink href="/components/text-field#affix">Text field affixes</DocLink>.
+    </li>
+    <li slot="when-not">
+      More than five actions: put the rest in a
+      <DocLink href="/components/menu">Menu</DocLink>.
+    </li>
+  </Usage>
+
+  <section id="variants">
+    <h2>Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Transparent by default. Use <code>variant</code> to change it. The
+        variant paints the buttons, and fields keep their own look.
+      </Fragment>
+      <Fragment slot="html">
+        Transparent by default. Use <code>.ui-outlined</code>,
+        <code>.ui-tonal</code> or <code>.ui-filled</code> to change it. The
+        variant paints the buttons, and fields keep their own look.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" column centered />
+  </section>
+
+  <section id="colors">
+    <h2>Colors</h2>
+    <AutoExample name="Colors" column centered />
+  </section>
+
+  <section id="sizes">
+    <h2>Sizes</h2>
+    <p>
+      <PropOrClass prop="size" class=".ui-small" /> sizes the buttons and the
+      fields together.
+    </p>
+    <AutoExample name="Sizes" column centered />
+  </section>
+
+  <section id="icons">
+    <h2>Icons</h2>
+    <p>
+      Wrap the label in <code>.ui-text</code>, like in a
+      <DocLink
+        href="/components/button#buttons-with-icon-and-label"
+        class="ui-link"
+        >Button</DocLink
+      >.
+    </p>
+    <AutoExample name="WithIcons" column centered />
+  </section>
+
+  <section id="fields">
+    <h2>Fields</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put a <code>TextField</code>, <code>Select</code>,
+        <code>NumberField</code> or <code>Textarea</code> next to the buttons.
+        Their edges join, and a text field takes the free space, so the group
+        fills the line like a field on its own. When the controls make one
+        value, give the group a visible name with a <code>FieldLegend</code> in
+        a <code>Fieldset</code>, and hide the field labels with
+        <code>hideLabel</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Put a <code>.ui-text-field</code>, <code>.ui-select</code>,
+        <code>.ui-number-field</code> or <code>.ui-textarea</code> next to the
+        buttons. Their edges join, and a text field takes the free space, so the
+        group fills the line like a field on its own. When the controls make one
+        value, give the group a visible name with a <code>legend</code> in a
+        <code>.ui-fieldset</code>, and hide the field labels with
+        <code>.ui-sr-only</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Fields" column />
+  </section>
+
+  <section id="labels">
+    <h2>Labels</h2>
+    <p>
+      A visible label sits above its control, and the group lines the controls
+      up at the bottom. Put help and error text after the group, not under one
+      of its fields, which it would push out of line, and link it from the field
+      with <code>aria-describedby</code> so a screen reader reads it with the
+      field.
+    </p>
+    <AutoExample name="Labels" column />
+  </section>
+
+  <section id="disabled">
+    <h2>Disabled</h2>
+    <AutoExample name="Disabled" column centered />
+  </section>
+
+  <section id="vertical-orientation">
+    <h2>Vertical orientation</h2>
+    <p>
+      Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" />. A
+      textarea with its button under it joins the same way.
+    </p>
+    <AutoExample name="Vertical" column centered />
+  </section>
+
+  <section id="overflow">
+    <h2>Overflow</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Wraps onto more rows when it doesn't fit, so every label stays readable,
+        also when zoomed in. A text field shrinks to about ten characters before
+        the next control wraps, and the corners where a row ends inside the
+        group stay square. Use <code>overflow="scroll"</code> to scroll one row
+        sideways, or <code>overflow="shrink"</code> to keep one row and truncate
+        the button labels. Icon-only buttons keep their size.
+      </Fragment>
+      <Fragment slot="html">
+        Wraps onto more rows when it doesn't fit, so every label stays readable,
+        also when zoomed in. A text field shrinks to about ten characters before
+        the next control wraps, and the corners where a row ends inside the
+        group stay square. Use <code>.ui-overflow-scroll</code> to scroll one
+        row sideways, or <code>.ui-overflow-shrink</code> to keep one row and
+        truncate the button labels. Icon-only buttons keep their size.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" column />
+  </section>
+
+  <section id="split-button">
+    <h2>Split button</h2>
+    <p>
+      A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> right
+      after the button that opens it, with
+      <PropOrClass prop='align="end"' class=".ui-align-end" />.
+    </p>
+    <AutoExample name="SplitButton" centered />
+  </section>
+
+  <section id="pagination">
+    <h2>Pagination</h2>
+    <p>
+      Link buttons in a <code>nav</code>, with <code>aria-current="page"</code>
+      on the current one.
+    </p>
+    <AutoExample name="Pagination" row />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Name a group of related actions with <code>aria-label</code>, like "Save
+        options" for a split button. A field with its own visible label and its
+        one button, and a group in a named <code>nav</code>, need no name of
+        their own.
+      </li>
+      <li>
+        When the controls make one value, name the group with a visible legend
+        instead.
+      </li>
+      <li>Name icon-only buttons with <code>aria-label</code>.</li>
+      <li>
+        Every field keeps its own label. A hidden label still names the field,
+        and needs a visible cue: a legend, or a button next to the field that
+        says what it's for.
+      </li>
+      <li>
+        Link help and error text after the group from its field with
+        <code>aria-describedby</code>.
+      </li>
+      <li>
+        The focused control sits on top of its neighbours, so its whole focus
+        ring shows.
+      </li>
+    </ul>
+    <KeyboardSupport />
+  </Fragment>
+
+  <ControlGroupBuild slot="under-the-hood" />
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UIControlGroup style="inline-size: 22rem" variant="outlined">
+        <UITextField hideLabel label="Order number" placeholder="Order" />
+        <UIButton>Search</UIButton>
+        <UIButton>Clear</UIButton>
+      </UIControlGroup>
+    </Anatomy>
+  </Fragment>
+</Component>

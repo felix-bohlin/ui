@@ -214,84 +214,6 @@
     "url": "/react/components/badge/#corners"
   },
   {
-    "id": "component-button-group-react",
-    "title": "Button group",
-    "description": "Related buttons joined into one control, like a split button or a set of view options.",
-    "keywords": "segmented control split button toolbar",
-    "category": "Component",
-    "url": "/react/components/button-group/"
-  },
-  {
-    "id": "component-button-group-react-variants",
-    "title": "Variants",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#variants"
-  },
-  {
-    "id": "component-button-group-react-colors",
-    "title": "Colors",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#colors"
-  },
-  {
-    "id": "component-button-group-react-sizes",
-    "title": "Sizes",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#sizes"
-  },
-  {
-    "id": "component-button-group-react-icons",
-    "title": "Icons",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#icons"
-  },
-  {
-    "id": "component-button-group-react-split-button",
-    "title": "Split button",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#split-button"
-  },
-  {
-    "id": "component-button-group-react-pagination",
-    "title": "Pagination",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#pagination"
-  },
-  {
-    "id": "component-button-group-react-disabled",
-    "title": "Disabled",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#disabled"
-  },
-  {
-    "id": "component-button-group-react-vertical-orientation",
-    "title": "Vertical orientation",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#vertical-orientation"
-  },
-  {
-    "id": "component-button-group-react-overflow",
-    "title": "Overflow",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#overflow"
-  },
-  {
-    "id": "component-button-group-react-keyboard-support",
-    "title": "Keyboard support",
-    "page": "Button group",
-    "category": "Component",
-    "url": "/react/components/button-group/#keyboard-support"
-  },
-  {
     "id": "component-button-react",
     "title": "Button",
     "description": "Buttons allow users to take actions with a single tap.",
@@ -800,6 +722,98 @@
     "page": "Chip",
     "category": "Component",
     "url": "/react/components/chip/#keyboard-support"
+  },
+  {
+    "id": "component-control-group-react",
+    "title": "Control group",
+    "description": "Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount.",
+    "keywords": "button group field group input group segmented control split button toolbar",
+    "category": "Component",
+    "url": "/react/components/control-group/"
+  },
+  {
+    "id": "component-control-group-react-variants",
+    "title": "Variants",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#variants"
+  },
+  {
+    "id": "component-control-group-react-colors",
+    "title": "Colors",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#colors"
+  },
+  {
+    "id": "component-control-group-react-sizes",
+    "title": "Sizes",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#sizes"
+  },
+  {
+    "id": "component-control-group-react-icons",
+    "title": "Icons",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#icons"
+  },
+  {
+    "id": "component-control-group-react-fields",
+    "title": "Fields",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#fields"
+  },
+  {
+    "id": "component-control-group-react-labels",
+    "title": "Labels",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#labels"
+  },
+  {
+    "id": "component-control-group-react-disabled",
+    "title": "Disabled",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#disabled"
+  },
+  {
+    "id": "component-control-group-react-vertical-orientation",
+    "title": "Vertical orientation",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#vertical-orientation"
+  },
+  {
+    "id": "component-control-group-react-overflow",
+    "title": "Overflow",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#overflow"
+  },
+  {
+    "id": "component-control-group-react-split-button",
+    "title": "Split button",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#split-button"
+  },
+  {
+    "id": "component-control-group-react-pagination",
+    "title": "Pagination",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#pagination"
+  },
+  {
+    "id": "component-control-group-react-keyboard-support",
+    "title": "Keyboard support",
+    "page": "Control group",
+    "category": "Component",
+    "url": "/react/components/control-group/#keyboard-support"
   },
   {
     "id": "component-copy-react",
@@ -3432,7 +3446,7 @@
     "id": "guide-migrating-react",
     "title": "Migrating from v5 to v6",
     "description": "The breaking changes in v6 and how to update your code, component by component.",
-    "headings": "Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Accordion Anchor Avatar Badge Button Callout Card Checkbox Chip Classic select Control group Description list Dialog Divider Drawer Field group and fieldset Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "url": "/react/guide/migrating/"
   },
@@ -4249,14 +4263,6 @@
     "url": "/react/api/#badge"
   },
   {
-    "id": "api-button-group-react",
-    "title": "Button Group API",
-    "description": "Reference for Button Group React component.",
-    "api": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. overflow What the items do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
-    "category": "API",
-    "url": "/react/api/#button-group"
-  },
-  {
     "id": "api-button-react",
     "title": "Button API",
     "description": "Reference for Button React component.",
@@ -4327,6 +4333,14 @@
     "api": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label, text or rich content. label label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. disabled Disables a button chip. A link chip drops its `href` and gets `role=\"link\"` and `aria-disabled=\"true\"` instead. dot Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. severity The severity of a status chip. It tints the chip, and colors and shapes its dot. size The size of the element. variant The variant to use.",
     "category": "API",
     "url": "/react/api/#chip"
+  },
+  {
+    "id": "api-control-group-react",
+    "title": "Control Group API",
+    "description": "Reference for Control Group React component.",
+    "api": "ControlGroup Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. size The size of the buttons and fields. variant The variant of the buttons.",
+    "category": "API",
+    "url": "/react/api/#control-group"
   },
   {
     "id": "api-copy-react",

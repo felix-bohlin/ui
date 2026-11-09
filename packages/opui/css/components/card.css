@@ -246,6 +246,7 @@
   :where(
     :is(.ui-accordion, .ui-card, .ui-dialog):has(.ui-card-link)
       :is(
+        .ui-control-group,
         a[href],
         button,
         input,

@@ -21,6 +21,8 @@
     --_chevron-size: var(--ui-icon-size-small);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
+    --_end-end-radius: var(--_radius);
+    --_end-start-radius: var(--_radius);
     --_field-padding-block: var(--ui-space-2);
     --_field-padding-block-fit: min(
       var(--_field-padding-block),
@@ -29,7 +31,11 @@
     --_field-padding-inline: var(--ui-field-padding-inline, var(--ui-space-2));
     --_font-size: var(--ui-font-size-control);
     --_helper-text-color: var(--ui-field-helper-text-color);
+    --_radius: var(--ui-field-radius, var(--ui-radius));
+    --_shadow: var(--ui-shadow-field, var(--ui-shadow-control));
     --_size: var(--ui-field-size);
+    --_start-end-radius: var(--_radius);
+    --_start-start-radius: var(--_radius);
 
     align-content: start;
     display: grid;
@@ -39,8 +45,11 @@
     .ui-field {
       background-color: var(--_bg-color);
       border: var(--ui-field-border-width) solid var(--_border-color);
-      border-radius: var(--ui-field-radius, var(--ui-radius));
-      box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
+      border-end-end-radius: var(--_end-end-radius);
+      border-end-start-radius: var(--_end-start-radius);
+      border-start-end-radius: var(--_start-end-radius);
+      border-start-start-radius: var(--_start-start-radius);
+      box-shadow: var(--_shadow);
       display: grid;
       grid-column: 1/-1;
       grid-row: 2;
@@ -215,7 +224,7 @@
           background-color: var(--ui-surface-tonal);
           block-size: calc(100% - var(--_file-button-inset) * 2);
           border: none;
-          border-radius: var(--ui-field-radius, var(--ui-radius));
+          border-radius: var(--_radius);
           cursor: pointer;
           margin-block-start: var(--_file-button-inset);
           margin-inline-end: 1ex;
@@ -230,7 +239,8 @@
 
       /* Sizes */
       &.ui-small,
-      &.ui-x-small {
+      &.ui-x-small,
+      :where(.ui-control-group:is(.ui-small, .ui-x-small)) > & {
         input {
           --_file-button-inset: max(
             0px,
@@ -355,10 +365,21 @@
 
       &::before {
         border: inherit;
-        border-radius: max(
+        border-end-end-radius: max(
           0px,
-          var(--ui-field-radius, var(--ui-radius)) -
-            var(--ui-field-border-width)
+          var(--_end-end-radius) - var(--ui-field-border-width)
+        );
+        border-end-start-radius: max(
+          0px,
+          var(--_end-start-radius) - var(--ui-field-border-width)
+        );
+        border-start-end-radius: max(
+          0px,
+          var(--_start-end-radius) - var(--ui-field-border-width)
+        );
+        border-start-start-radius: max(
+          0px,
+          var(--_start-start-radius) - var(--ui-field-border-width)
         );
         border-width: max(
           0px,
@@ -525,19 +546,22 @@
     }
 
     /* Sizes */
-    &.ui-x-small {
+    &.ui-x-small,
+    :where(.ui-control-group.ui-x-small) > & {
       --_field-padding-block: calc(var(--ui-space-1) * 0.75);
       --_font-size: var(--ui-font-size-caption);
       --_size: var(--ui-field-size-x-small);
     }
 
-    &.ui-small {
+    &.ui-small,
+    :where(.ui-control-group.ui-small) > & {
       --_field-padding-block: var(--ui-space-1);
       --_font-size: var(--ui-font-size-small);
       --_size: var(--ui-field-size-small);
     }
 
-    &.ui-large {
+    &.ui-large,
+    :where(.ui-control-group.ui-large) > & {
       --_field-padding-block: calc(var(--ui-space-2) * 1.5);
       --_field-padding-inline: var(
         --ui-field-padding-inline-large,
@@ -547,7 +571,8 @@
     }
 
     &.ui-small,
-    &.ui-x-small {
+    &.ui-x-small,
+    :where(.ui-control-group:is(.ui-small, .ui-x-small)) > & {
       @media (pointer: coarse) {
         --_font-size: var(--ui-font-size-control);
       }

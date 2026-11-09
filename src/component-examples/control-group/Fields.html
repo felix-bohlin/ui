@@ -1,0 +1,52 @@
+<div
+  class="ui-control-group ui-primary ui-filled"
+  role="group"
+  aria-label="Find an order"
+>
+  <label class="ui-text-field">
+    <span class="ui-sr-only">Order number or customer name</span>
+    <span class="ui-field">
+      <input placeholder="Search orders" type="search" />
+    </span>
+  </label>
+  <button class="ui-button" type="button">Search</button>
+</div>
+
+<fieldset class="ui-fieldset">
+  <legend>Price</legend>
+  <div class="ui-field-group">
+    <div class="ui-control-group" role="group">
+      <label class="ui-select">
+        <span class="ui-sr-only" id="control-group-fields-1-label"
+          >Currency</span
+        >
+        <span class="ui-field">
+          <select
+            aria-labelledby="control-group-fields-1-label"
+            name="currency"
+          >
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="ui-list">
+              <option value="eur">EUR</option>
+              <option value="sek">SEK</option>
+              <option value="usd">USD</option>
+            </div>
+          </select>
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-sr-only">Amount</span>
+        <span class="ui-field">
+          <input
+            placeholder="0.00"
+            inputmode="decimal"
+            name="amount"
+            type="text"
+          />
+        </span>
+      </label>
+    </div>
+  </div>
+</fieldset>

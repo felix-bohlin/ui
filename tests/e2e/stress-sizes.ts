@@ -2,7 +2,7 @@ import { expect, type Page } from "@playwright/test"
 
 const CONTROLS = [
   ":scope > .ui-button",
-  ":scope > .ui-button-group",
+  ":scope > .ui-control-group",
   ":scope > .ui-select > .ui-field",
   ":scope > .ui-text-field > .ui-field",
   ":scope > :is(.ui-select, .ui-text-field):not(:has(> .ui-label))",

@@ -78,6 +78,8 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-durati
 - `--_accent-tonal`: Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.
 - `--_border-width`: The border width.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
+- `--_end-end-radius`: The radius of the end-end corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the next control.
+- `--_end-start-radius`: The radius of the end-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins another control.
 - `--_font-size`: The font size. Set by `.ui-x-small` and `.ui-small`.
 - `--_icon-size`: The size of a direct child `svg`. Icon-only buttons scale it with `--_size`.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
@@ -87,6 +89,8 @@ Outputs: `--_bg-color`, `--_border-color`, `--_icon-text-color`, `--_link-durati
 - `--_padding-inline`: The inline padding. Set by the size classes from `--ui-button-padding-inline` and its size variants.
 - `--_radius`: The corner radius. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it. `.ui-round` makes it round.
 - `--_size`: The height, and the width of an icon-only button. Defaults to `--ui-button-size`, set by the size classes.
+- `--_start-end-radius`: The radius of the start-end corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins another control.
+- `--_start-start-radius`: The radius of the start-start corner. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the button joins the control before it.
 
 Outputs: `--_accent-text`, `--_actions-shift`, `--_bg-color`, `--_border-color`, `--_current-bg-color`, `--_current-text-color`, `--_default-active-bg-color`, `--_default-hover-bg-color`, `--_duration`, `--_filled-active-bg-color`, `--_filled-hover-bg-color`, `--_outlined-active-bg-color`, `--_outlined-active-border-color`, `--_outlined-active-text-color`, `--_outlined-hover-bg-color`, `--_outlined-hover-border-color`, `--_outlined-hover-text-color`, `--_shadow`, `--_text-color`, `--_tonal-active-bg-color`, `--_tonal-active-text-color`, `--_tonal-current-bg-color`, `--_tonal-hover-bg-color` and `--_tonal-hover-text-color`.
 

@@ -66,11 +66,17 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_chevron-image`: The select arrow, as an image used for a mask.
 - `--_chevron-size`: Width and height of the select arrow.
 - `--_ease`: Easing of the transitions. Defaults to `--ui-ease`.
+- `--_end-end-radius`: The radius of the end-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the next control.
+- `--_end-start-radius`: The radius of the end-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
 - `--_field-padding-block`: The preferred block padding of the control. Set by the size classes.
 - `--_field-padding-inline`: The inline padding of the control and affixes. `--ui-field-padding-inline`, or `--ui-space-2` when a theme leaves it unset, and `--ui-field-padding-inline-large` or `--ui-space-3` in `.ui-large`.
 - `--_font-size`: The font size of the control and affixes.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
+- `--_radius`: The corner radius of `.ui-field` and a file input's button. Defaults to `--ui-field-radius`, or `--ui-radius` when the theme doesn't set it.
+- `--_shadow`: The shadow of `.ui-field`. Defaults to `--ui-shadow-field`, or `--ui-shadow-control` when the theme leaves it unset. `none` in a `ControlGroup`.
 - `--_size`: The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.
+- `--_start-end-radius`: The radius of the start-end corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins another control.
+- `--_start-start-radius`: The radius of the start-start corner of `.ui-field`. Defaults to `--_radius`. A `ControlGroup` sets it to `0` where the field joins the control before it.
 
 Outputs: `--_affix-button-size`, `--_affix-text-color`, `--_arrow-padding`, `--_bg-color`, `--_border-color`, `--_duration`, `--_field-padding-block-fit`, `--_file-button-inset` and `--_helper-text-color`.
 

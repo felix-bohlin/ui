@@ -11,12 +11,12 @@ Each component reference covers HTML, Astro, React, Svelte and Vue: the parts, p
 | Avatar | `avatar.md` | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | Badges attach a small count or status dot to another element. |
 | Button | `button.md` | Buttons allow users to take actions with a single tap. |
-| Button group | `button-group.md` | Related buttons joined into one control, like a split button or a set of view options. |
 | Callout | `callout.md` | A message in the flow of the page, without interrupting the task. |
 | Card | `card.md` | A surface for related content and actions. |
 | Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | Choices submitted with a form. For a setting that applies right away, use a Switch. |
 | Chip | `chip.md` | Filters, tags and choices. For the main action, use a Button. |
+| Control group | `control-group.md` | Related buttons and fields joined into one control, like a split button, a search field with its button, or a currency and an amount. |
 | Copy | `copy.md` | A button that copies text or a field's value to the clipboard. |
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
 | Dialog | `dialog.md` | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |

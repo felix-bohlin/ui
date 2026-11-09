@@ -8,7 +8,6 @@ export { default as Avatar } from "../components/Avatar/Avatar.astro"
 export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.astro"
 export { default as Badge } from "../components/Badge/Badge.astro"
 export { default as Button } from "../components/Button/Button.astro"
-export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.astro"
 export { default as Callout } from "../components/Callout/Callout.astro"
 export { default as CalloutActions } from "../components/Callout/CalloutActions.astro"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.astro"
@@ -21,6 +20,7 @@ export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
+export { default as ControlGroup } from "../components/ControlGroup/ControlGroup.astro"
 export { default as Copy } from "../components/Copy/Copy.astro"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.astro"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.astro"
@@ -102,7 +102,6 @@ export type {
 } from "../components/Avatar/types.astro"
 export type { Props as BadgeProps } from "../components/Badge/types.astro"
 export type { Props as ButtonProps } from "../components/Button/types.astro"
-export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.astro"
 export type {
   CalloutActionsProps,
   CalloutContentProps,
@@ -121,6 +120,7 @@ export type {
   Props as CheckboxProps,
 } from "../components/Checkbox/types.astro"
 export type { Props as ChipProps } from "../components/Chip/types.astro"
+export type { Props as ControlGroupProps } from "../components/ControlGroup/types.astro"
 export type { Props as CopyProps } from "../components/Copy/types.astro"
 export type {
   DescriptionListDescriptionProps,

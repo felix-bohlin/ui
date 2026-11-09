@@ -1421,6 +1421,16 @@ Custom elements (web components) the library could add, for behavior that HTML a
   - Summary: People can install the Figma plugin only from a downloaded zip, not from Figma Community.
   - Recommended: Fix. Publishing takes the Figma desktop app and the owner's account, as the plugin README describes.
   - Fix: publish it from the Figma desktop app (Plugins, Development, Manage plugins in development, Publish), put the id Figma assigns in `manifest.json`, and link the Community page from the theme tokens page.
+- [ ] (1) Select: the customizable picker hides the browser's checkmark on the selected option with `::checkmark { display: none; }`, to be revisited once the `::checkmark` API is final (`packages/opui/css/components/select.css:149-152`)
+  - Summary: The selected option in the customizable Select picker shows no checkmark, since the browser's own is hidden.
+  - Recommended: Explain further. The `::checkmark` pseudo-element is still changing, so showing it is a decision for when the spec settles.
+  - Fix: once `::checkmark` is stable in the engines that ship customizable select, decide whether the selected option shows it, styled with the `--ui-*` tokens, and remove the `display: none`.
+  - Moved from a `TODO` comment in `select.css`, as the 6.0 release checklist asked.
+- [ ] (1) CSS: the visually hidden Tabs radio repeats the declarations of `.ui-sr-only` (with `1lh` and `1ch` instead of `1px`), and so do the Toggle button inputs and the repeated Message header, since CSS has no mixins yet (`packages/opui/css/components/tabs.css:34-40`, `packages/opui/css/components/toggle-button.css:42-49`, `packages/opui/css/components/message.css:205-212`, `packages/opui/core/utils.css:21-27`)
+  - Summary: Nothing a user sees: the same six declarations live in four stylesheets.
+  - Recommended: Explain further. CSS mixins haven't shipped in any engine, so there is nothing to change until one does.
+  - Fix: once `@mixin` and `@apply` ship, define the visually hidden declarations once and apply them in the four rules.
+  - Moved from a `TODO` comment in `tabs.css`, as the 6.0 release checklist asked.
 - [ ] (2) Web components: a color picker needs a script, and `<input type="color">` only gives hex, which the library's colors never use. The Theme builder has a light-DOM `<oklch-input>` for it, but it lives in the docs site and isn't form-associated (`src/utils/oklch-input.ts:83`, `src/utils/oklch-input.ts:297-299`)
   - Summary: There is no OKLCH color field, and the native color input only gives hex values.
   - Recommended: Fix. The element already exists on the docs site and mostly needs to move into the package.

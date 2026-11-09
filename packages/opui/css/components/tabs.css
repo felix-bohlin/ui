@@ -32,7 +32,6 @@
     position: relative;
 
     & > .ui-input[type="radio"] {
-      /* TODO: use mixin for this when available */
       block-size: 1lh;
       clip-path: inset(50%);
       inline-size: 1ch;

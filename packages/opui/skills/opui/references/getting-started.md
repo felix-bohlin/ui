@@ -402,7 +402,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 - **66** of 69 need no hydration
 - **3** hydrate for `indeterminate`, `valueSuffix`, `valueText`
-- **40** are Server Components
+- **39** are Server Components
 
 | Component | Client | Server | Server Component | Needs hydration |
 | --- | --- | --- | --- | --- |
@@ -422,7 +422,7 @@ Every component renders full HTML on the server. Components with state or effect
 | [`Checkbox`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | Yes | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`CheckboxInput`](https://open-props-ui.netlify.app/react/components/checkbox.md) | Yes | No | No | `indeterminate` **Needs hydration** A DOM property, which `opui-css/css/js/checkbox.js` sets from `data-indeterminate`. The component loads the module once it hydrates, so the box looks unchecked until then. Import `opui-css/css/js/checkbox.js` in the page. |
 | [`Chip`](https://open-props-ui.netlify.app/react/components/chip.md) | Yes | Yes | Yes | - |
-| [`ControlGroup`](https://open-props-ui.netlify.app/react/components/control-group.md) | Yes | Yes | Yes | - |
+| [`ControlGroup`](https://open-props-ui.netlify.app/react/components/control-group.md) | Yes | Yes | No | - |
 | [`Copy`](https://open-props-ui.netlify.app/react/components/copy.md) | Yes | Yes | No | - |
 | [`DescriptionList`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |
 | [`DescriptionListItem`](https://open-props-ui.netlify.app/react/components/description-list.md) | Yes | Yes | Yes | - |

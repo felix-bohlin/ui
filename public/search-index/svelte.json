@@ -4338,7 +4338,7 @@
     "id": "api-control-group-svelte",
     "title": "Control Group API",
     "description": "Reference for Control Group Svelte component.",
-    "api": "ControlGroup Container element. A button or button link. default A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis, and `scroll` scrolls the row sideways. Icon-only buttons keep their size. size The size of the buttons and fields. variant The variant of the buttons.",
+    "api": "ControlGroup Container element. A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it. A button or button link. color Optional colors for the buttons. orientation The orientation of the element. overflow What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size. size The size of the buttons and fields. variant The variant of the buttons.",
     "category": "API",
     "url": "/svelte/api/#control-group"
   },

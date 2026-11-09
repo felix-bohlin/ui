@@ -11,16 +11,20 @@ Related buttons and fields joined into one control, like a split button, a searc
 ### Parts
 
 - `.ui-control-group` (root): Container element.
-- `& > .ui-button` (`Button`, slot `default`): A button or button link.
-- `& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)`: A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it.
+- `& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)` (`TextField`): A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it.
+- `& > .ui-button` (`Button`): A button or button link.
 
 ### Props and modifiers
 
 - `color`: `"critical"` (`.ui-critical`), `"primary"` (`.ui-primary`). Optional colors for the buttons.
 - `orientation`: `"horizontal"` (default), `"vertical"` (`.ui-vertical`). The orientation of the element.
-- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (default). What the controls do when they don't fit. `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis, and `scroll` scrolls the row sideways. Icon-only buttons keep their size.
+- `overflow`: `"scroll"` (`.ui-overflow-scroll`), `"shrink"` (`.ui-overflow-shrink`), `"wrap"` (default). What the controls do when they don't fit. `wrap` wraps them onto more rows, `scroll` keeps them on one row and scrolls it sideways, and `shrink` keeps them on one row, shrinks the fields and truncates button labels with an ellipsis. Icon-only buttons keep their size.
 - `size`: `"large"` (`.ui-large`), `"medium"` (default), `"small"` (`.ui-small`), `"x-small"` (`.ui-x-small`). The size of the buttons and fields.
 - `variant`: `"filled"` (`.ui-filled`), `"outlined"` (`.ui-outlined`), `"tonal"` (`.ui-tonal`), `"transparent"` (default). The variant of the buttons.
+
+### Slots
+
+- `default`: The buttons and fields.
 
 ### Notes
 
@@ -114,7 +118,7 @@ The stylesheets read `--ui-accent-fill-max-lightness`, `--ui-border-width`, `--u
 
 ## Astro
 
-`import { Button, ControlGroup } from "opui-css/astro"`
+`import { Button, ControlGroup, TextField } from "opui-css/astro"`
 
 ### Example: Variants
 
@@ -150,7 +154,7 @@ import { Button, ControlGroup } from "opui-css/astro"
 
 ## React
 
-`import { Button, ControlGroup } from "opui-css/react"`
+`import { Button, ControlGroup, TextField } from "opui-css/react"`
 
 ### Example: Variants
 
@@ -190,7 +194,7 @@ export default function Variants() {
 
 ## Svelte
 
-`import { Button, ControlGroup } from "opui-css/svelte"`
+`import { Button, ControlGroup, TextField } from "opui-css/svelte"`
 
 ### Example: Variants
 
@@ -226,7 +230,7 @@ export default function Variants() {
 
 ## Vue
 
-`import { Button, ControlGroup } from "opui-css/vue"`
+`import { Button, ControlGroup, TextField } from "opui-css/vue"`
 
 ### Example: Variants
 

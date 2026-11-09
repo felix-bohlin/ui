@@ -728,7 +728,7 @@ export const whatsNew = {
     `<a href="#flush"><code>flush</code></a> also drops the block padding of the list, for a list in a card.`,
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
     components(
-      `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
+      `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>role="link"</code> and <code>aria-disabled="true"</code>.`,
     ),
     slots(
       `Breaking: <code>ListItem</code> <a href="#text"><code>label</code></a> replaces <code>headline</code>, and the <code>label</code> and <code>description</code> slots replace the <code>text</code> slot.`,

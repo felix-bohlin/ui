@@ -33,7 +33,7 @@ const currentFramework = Astro.locals.framework
 
 // Every route is mirrored across frameworks, so every page advertises its
 // alternates. Each variant self-canonicalizes; rel=alternate covers the rest.
-const variants = frameworkVariantsOf(pathname)
+const variants = noindex ? [] : frameworkVariantsOf(pathname)
 const normalize = (url: string) => url.replace(/\/+$/, "") || "/"
 const currentNormalized = normalize(pathname)
 
@@ -64,7 +64,7 @@ const markdownUrl = hasMarkdown
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="canonical" href={canonicalURL} />
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
     {markdownUrl && (
       <link rel="alternate" type="text/markdown" href={markdownUrl} />

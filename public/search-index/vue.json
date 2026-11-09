@@ -4346,7 +4346,7 @@
     "id": "api-copy-vue",
     "title": "Copy API",
     "description": "Reference for Copy Vue component.",
-    "api": "Copy The `<opui-copy>` custom element around the text or field to copy, with `display: contents`. The live region that announces the copy, visually hidden with `.ui-sr-only`. The label next to the button that shows `copiedLabel` or `failedLabel`. copiedLabel failedLabel copiedLabel The text shown and announced after a copy. failedLabel The text shown and announced when the clipboard is blocked. id The id the copy button points at with `commandfor`. Required.",
+    "api": "Copy The `<opui-copy>` custom element around the text or field to copy, with `display: contents`. The label next to the button that shows `copiedLabel` or `failedLabel`. copiedLabel failedLabel The live region that announces the copy, visually hidden with `.ui-sr-only`. copiedLabel The text shown and announced after a copy. failedLabel The text shown and announced when the clipboard is blocked. id The id the copy button points at with `commandfor`. Required.",
     "category": "API",
     "url": "/vue/api/#copy"
   },
@@ -4770,7 +4770,7 @@
     "id": "api-tooltip-vue",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Vue component.",
-    "api": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command=\"toggle-popover\"` too. Required. positionArea Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+    "api": "Tooltip Container element. The tooltip, a `popover=\"hint\"`. The trigger that shows the tooltip on hover and focus. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor` with the same id to the trigger, and on a toggletip `commandfor` and `command=\"toggle-popover\"` too. Required. positionArea Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
     "category": "API",
     "url": "/vue/api/#tooltip"
   },

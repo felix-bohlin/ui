@@ -4367,7 +4367,7 @@
     "id": "api-copy-html",
     "title": "Copy API",
     "description": "Reference for Copy HTML component.",
-    "api": "opui-copy.ui-copy The `<opui-copy>` custom element around the text or field to copy, with `display: contents`. The live region that announces the copy, visually hidden with `.ui-sr-only`. [role=\"status\"] The label next to the button that shows `copiedLabel` or `failedLabel`. .ui-floating [copied-label] Label The text shown and announced after a copy. [failed-label] Failed label The text shown and announced when the clipboard is blocked.",
+    "api": "opui-copy.ui-copy The `<opui-copy>` custom element around the text or field to copy, with `display: contents`. The label next to the button that shows `copiedLabel` or `failedLabel`. .ui-floating The live region that announces the copy, visually hidden with `.ui-sr-only`. [role=\"status\"] [copied-label] Label The text shown and announced after a copy. [failed-label] Failed label The text shown and announced when the clipboard is blocked.",
     "category": "API",
     "url": "/html/api/#copy"
   },
@@ -4791,7 +4791,7 @@
     "id": "api-tooltip-html",
     "title": "Tooltip API",
     "description": "Reference for Tooltip HTML component.",
-    "api": ".ui-tooltip Container element. The trigger that shows the tooltip on hover and focus. .ui-tooltip > :first-child The tooltip, a `popover=\"hint\"`. .ui-floating .ui-arrow Arrow Adds an arrow that points to the trigger. --ui-anchor-position-area Position Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+    "api": ".ui-tooltip Container element. The tooltip, a `popover=\"hint\"`. .ui-floating The trigger that shows the tooltip on hover and focus. .ui-tooltip > :first-child .ui-arrow Arrow Adds an arrow that points to the trigger. --ui-anchor-position-area Position Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
     "category": "API",
     "url": "/html/api/#tooltip"
   },

@@ -3,9 +3,11 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
+import { Button as UIButton, TextField as UITextField } from "opui-css/astro"
 
 import CopyCSS from "@opui/css/components/copy.css?raw"
 import CopyJS from "@opui/elements/copy.js?raw"
@@ -21,6 +23,7 @@ export const keywords = ["clipboard", "copy to clipboard"]
 <Component
   description={description}
   slug="copy"
+  heroAnatomy
   browserSupport={[
     "anchor-positioning",
     "container-style-queries",
@@ -57,6 +60,58 @@ export const keywords = ["clipboard", "copy to clipboard"]
       A <DocLink href="/components/button">Button</DocLink> that copies text or
       a field's value.
     </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <opui-copy
+        class="ui-copy"
+        id="copy-anatomy"
+        style="
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--ui-space-2);
+          inline-size: 20rem;
+        "
+      >
+        <UITextField
+          hideLabel
+          label="Invite link"
+          readonly
+          style="flex: 1"
+          value="https://example.com/invite/8f3k2"
+        />
+        <UIButton style="anchor-name: --copy-anatomy-button" variant="outlined"
+          >Copy</UIButton
+        >
+        <span
+          class="ui-sr-only"
+          role="status"
+          style="
+            block-size: auto;
+            clip-path: none;
+            flex-basis: 100%;
+            inline-size: auto;
+            position: static;
+          "
+          >Copied</span
+        >
+        <span
+          aria-hidden="true"
+          class="ui-floating"
+          popover
+          style="
+            clip-path: none;
+            display: block;
+            opacity: 1;
+            position: absolute;
+            position-anchor: --copy-anatomy-button;
+          "
+          >Copied</span
+        >
+      </opui-copy>
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">

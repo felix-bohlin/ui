@@ -42,17 +42,17 @@ export default {
   ],
   parts: [
     {
-      code: '<span role="status">',
-      description:
-        "The live region that announces the copy, visually hidden with `.ui-sr-only`.",
-      selector: '[role="status"]',
-    },
-    {
       code: "<span popover>",
       description:
         "The label next to the button that shows `copiedLabel` or `failedLabel`.",
       props: ["copiedLabel", "failedLabel"],
       selector: ".ui-floating",
+    },
+    {
+      code: '<span role="status">',
+      description:
+        "The live region that announces the copy, visually hidden with `.ui-sr-only`.",
+      selector: '[role="status"]',
     },
   ],
   root: {

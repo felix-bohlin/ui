@@ -5,6 +5,7 @@ import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
 import SidebarNav, { type SidebarGroup } from "../components/SidebarNav.astro"
 import { Button, Drawer, DrawerContent, DrawerFooter } from "opui-css/astro"
+import { addHeadingAnchors } from "../utils/heading-anchors"
 
 type Props = {
   title?: string
@@ -48,6 +49,8 @@ const titleText = rawTitle
 // Same for description. If prop description isn't set, try extracting from preamble.
 const descText =
   description ?? (preamble ? preamble.replace(/<[^>]+>/g, "").trim() : "")
+
+const content = addHeadingAnchors(await Astro.slots.render("default"))
 ---
 
 <Default title={titleText} description={descText} hasMarkdown image={image}>
@@ -98,7 +101,7 @@ const descText =
             ))}
         </hgroup>
 
-        <slot />
+        <Fragment set:html={content} />
       </article>
     </main>
 
@@ -108,41 +111,6 @@ const descText =
     </aside>}
   </div>
 </Default>
-
-<script>
-  import { headingId, isContentHeading } from "../utils/headings"
-
-  const headings = document.querySelectorAll(
-    "#main-content :is(h2, h3, h4, h5, h6)",
-  )
-  headings.forEach((heading) => {
-    if (!isContentHeading(heading)) {
-      return
-    }
-
-    if (!heading.querySelector("span")) {
-      const span = document.createElement("span")
-      while (heading.firstChild) {
-        span.appendChild(heading.firstChild)
-      }
-      heading.appendChild(span)
-    }
-
-    const id = headingId(heading)
-    if (
-      !heading.querySelector(".header-anchor") &&
-      id &&
-      !heading.matches(".ui-sr-only")
-    ) {
-      const anchor = document.createElement("a")
-      anchor.className = "header-anchor"
-      anchor.href = `#${id}`
-      anchor.ariaLabel = `Permalink to "${heading.textContent?.trim()}"`
-      anchor.textContent = "\u200B"
-      heading.appendChild(anchor)
-    }
-  })
-</script>
 
 <style is:global>
   @property --content-inline-size {
@@ -435,11 +403,8 @@ const descText =
         }
 
         @media (width > 1200px) {
-          h2 {
-            container-name: sticky-heading;
-            container-type: scroll-state;
-            inset-block-start: var(--size-4);
-            max-inline-size: min(
+          h2[data-heading] {
+            --sticky-heading-inline-size: min(
               var(--content-inline-size),
               min(
                   100vw - var(--site-gap),
@@ -453,15 +418,38 @@ const descText =
                 ) -
                 var(--site-gap) * 2 - 200px - var(--size-5)
             );
+
+            container-name: sticky-heading;
+            container-type: scroll-state;
+            inset-block-start: var(--size-4);
+            pointer-events: none;
             position: sticky;
             z-index: 22;
 
+            & > * {
+              pointer-events: auto;
+            }
+
+            &::after {
+              content: attr(data-heading) / "";
+              inset-block-start: 0;
+              inset-inline-start: 0;
+              max-inline-size: var(--sticky-heading-inline-size);
+              opacity: 0;
+              overflow: hidden;
+              position: absolute;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+
             @container sticky-heading scroll-state(stuck: top) {
-              & > span {
-                min-inline-size: 0;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+              & > * {
+                opacity: 0;
+                pointer-events: none;
+              }
+
+              &::after {
+                opacity: 1;
               }
             }
           }

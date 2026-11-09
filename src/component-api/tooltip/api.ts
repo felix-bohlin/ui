@@ -46,15 +46,15 @@ export default {
   ],
   parts: [
     {
-      code: "& > :first-child",
-      description: "The trigger that shows the tooltip on hover and focus.",
-      selector: ".ui-tooltip > :first-child",
-    },
-    {
       anchorName: "--ui-tooltip",
       component: "TooltipContent",
       description: 'The tooltip, a `popover="hint"`.',
       selector: ".ui-floating",
+    },
+    {
+      code: "& > :first-child",
+      description: "The trigger that shows the tooltip on hover and focus.",
+      selector: ".ui-tooltip > :first-child",
     },
   ],
   root: {

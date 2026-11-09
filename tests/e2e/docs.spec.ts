@@ -538,6 +538,83 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   })
 })
 
+test("a long section heading takes the content width and sticks as a one-line copy without changing its height or the scroll position", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 800, width: 1300 })
+  await page.goto("/html/components/spinner/")
+  await page.evaluate(() => document.fonts.ready)
+  const heading = page.locator("#no-spinner > h2")
+  const { copyMaxWidth, height, paragraphWidth, stick, width } =
+    await heading.evaluate(async (element) => {
+      const style = getComputedStyle(element)
+      const stickAt = () =>
+        element.getBoundingClientRect().top +
+        scrollY -
+        parseFloat(style.insetBlockStart)
+      scrollTo(0, stickAt() - 100)
+      await new Promise(requestAnimationFrame)
+      await new Promise(requestAnimationFrame)
+      return {
+        copyMaxWidth: parseFloat(
+          getComputedStyle(element, "::after").maxInlineSize,
+        ),
+        height: element.getBoundingClientRect().height,
+        paragraphWidth:
+          element.nextElementSibling?.getBoundingClientRect().width,
+        stick: Math.ceil(stickAt()),
+        width: element.getBoundingClientRect().width,
+      }
+    })
+  expect(width).toBe(paragraphWidth)
+  expect(width).toBeGreaterThan(copyMaxWidth)
+
+  for (const offset of [2, 20, 60]) {
+    const frames = await heading.evaluate(async (element, y) => {
+      scrollTo(0, y)
+      const samples = []
+      for (let frame = 0; frame < 6; frame++) {
+        await new Promise(requestAnimationFrame)
+        samples.push({
+          height: element.getBoundingClientRect().height,
+          scroll: Math.round(scrollY),
+        })
+      }
+      return samples
+    }, stick + offset)
+    expect(frames).toEqual(
+      Array.from({ length: 6 }, () => ({ height, scroll: stick + offset })),
+    )
+  }
+
+  if (
+    await page.evaluate(() => CSS.supports("container-type", "scroll-state"))
+  ) {
+    await expect(heading.locator("> span")).toHaveCSS("opacity", "0")
+    await expect(heading.locator("> .header-anchor")).toHaveCSS("opacity", "0")
+    expect(
+      await heading.evaluate((element) => {
+        const after = getComputedStyle(element, "::after")
+        const box = element.getBoundingClientRect()
+        const catches = (x: number, y: number) =>
+          element.contains(document.elementFromPoint(x, y))
+        return {
+          catchesClicks: [
+            catches(box.left + 10, box.bottom - 10),
+            catches(box.right - 10, box.top + 10),
+          ],
+          opacity: after.opacity,
+          whiteSpace: after.whiteSpace,
+        }
+      }),
+    ).toEqual({
+      catchesClicks: [false, false],
+      opacity: "1",
+      whiteSpace: "nowrap",
+    })
+  }
+})
+
 for (const path of DOCS_PAGES) {
   test(`${path} doesn't scroll sideways at 320px`, async ({ page }) => {
     await page.setViewportSize({ height: 640, width: 320 })

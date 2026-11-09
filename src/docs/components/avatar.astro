@@ -1,8 +1,10 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DocLink from "../../components/DocLink.astro"
+import { Avatar as UIAvatar } from "opui-css/astro"
 
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
@@ -21,6 +23,7 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
 <Component
   description={description}
   slug="avatar"
+  heroAnatomy
   apis={[
     { title: "Avatar API", api: avatarApi },
     { title: "Avatar group API", api: avatarGroupApi },
@@ -42,6 +45,16 @@ export const keywords = ["initials", "photo", "profile picture", "user"]
   installationTabs={[{ title: "avatar.css", code: AvatarCSS, lang: "css" }]}
 >
   <Fragment slot="title">Avatar</Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={2}>
+      <UIAvatar
+        alt="Maya Lind"
+        size="large"
+        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
+      />
+    </Anatomy>
+  </Fragment>
 
   <Usage slot="usage">
     <li slot="when">Who did something, like a comment's author.</li>

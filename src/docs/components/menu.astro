@@ -2,11 +2,13 @@
 import Component from "../../layouts/Component.astro"
 import KeyboardSupport from "./partials/KeyboardSupport.astro"
 import Usage from "./partials/Usage.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import { ListItem as UIListItem, Menu as UIMenu } from "opui-css/astro"
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
 
@@ -20,6 +22,7 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
 <Component
   description={description}
   slug="menu"
+  heroAnatomy
   browserSupport={[
     "anchor-positioning",
     "calc-size",
@@ -55,6 +58,45 @@ export const keywords = ["actions", "context menu", "dropdown", "popover"]
     A popover <DocLink href="/components/list">List</DocLink> of actions and
     links. To pick a value, use a
     <DocLink href="/components/select">Select</DocLink>.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UIMenu
+        id="menu-anatomy"
+        style="display: block; min-inline-size: 12rem; opacity: 1; position: static; scale: none"
+      >
+        <li class="ui-heading">Document</li>
+        <UIListItem as="button" label="Rename">
+          <svg
+            slot="start"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+            ></path>
+          </svg>
+          <kbd slot="end">F2</kbd>
+        </UIListItem>
+        <UIListItem as="button" label="Duplicate">
+          <svg
+            slot="start"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
+            ></path>
+          </svg>
+          <kbd slot="end">Ctrl+D</kbd>
+        </UIListItem>
+      </UIMenu>
+    </Anatomy>
   </Fragment>
 
   <Usage slot="usage">

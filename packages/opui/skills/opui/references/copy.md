@@ -10,8 +10,8 @@ A button that copies text or a field's value to the clipboard.
 ### Parts
 
 - `opui-copy.ui-copy` (root): The `<opui-copy>` custom element around the text or field to copy, with `display: contents`.
-- `<span role="status">`: The live region that announces the copy, visually hidden with `.ui-sr-only`.
 - `<span popover>` (prop `copiedLabel`, prop `failedLabel`): The label next to the button that shows `copiedLabel` or `failedLabel`.
+- `<span role="status">`: The live region that announces the copy, visually hidden with `.ui-sr-only`.
 
 ### Props and modifiers
 

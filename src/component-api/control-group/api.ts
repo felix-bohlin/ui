@@ -19,7 +19,7 @@ export default {
     },
     {
       description:
-        'Don\'t move focus between the controls. They move the caret in a field, and scroll a group with `overflow="scroll"` sideways.',
+        'Don\'t move focus between the controls. They move the caret in a field, change or open a select, and scroll a group with `overflow="scroll"` sideways.',
       keys: ["Left Arrow", "Right Arrow"],
     },
   ],
@@ -75,22 +75,28 @@ export default {
   ],
   parts: [
     {
+      code: "& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)",
+      component: "TextField",
+      description:
+        "A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it.",
+      selector: ".ui-control-group > .ui-text-field",
+    },
+    {
       code: "& > .ui-button",
       component: "Button",
       description: "A button or button link.",
       selector: ".ui-control-group > .ui-button",
-      slots: ["default"],
-    },
-    {
-      code: "& > :is(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea)",
-      description:
-        "A number field, select, text field or textarea. Its `.ui-field` joins the controls next to it.",
-      selector: ".ui-control-group > .ui-text-field",
     },
   ],
   root: {
     description: "Container element.",
     selector: ".ui-control-group",
   },
+  slots: [
+    {
+      description: "The buttons and fields.",
+      name: "default",
+    },
+  ],
   source: "ControlGroup",
 } satisfies ComponentApi

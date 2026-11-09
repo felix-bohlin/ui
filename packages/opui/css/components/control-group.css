@@ -51,7 +51,8 @@
       flex: auto;
     }
 
-    &:not(.ui-vertical) > :is(.ui-text-field, .ui-textarea) {
+    &:not(.ui-overflow-scroll, .ui-vertical)
+      > :is(.ui-text-field, .ui-textarea) {
       flex-basis: 0;
       min-inline-size: 10ch;
     }

@@ -7,9 +7,10 @@ type Props = {
   description?: string
   hasMarkdown?: boolean
   image?: string
+  noindex?: boolean
 }
 
-const { title, description, hasMarkdown, image } = Astro.props
+const { title, description, hasMarkdown, image, noindex } = Astro.props
 ---
 
 <Layout
@@ -17,6 +18,7 @@ const { title, description, hasMarkdown, image } = Astro.props
   description={description}
   hasMarkdown={hasMarkdown}
   image={image}
+  noindex={noindex}
 >
   <a href="#main-content" class="ui-sr-only ui-focusable"
     >Skip to main content</a

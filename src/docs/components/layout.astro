@@ -140,4 +140,17 @@ export const keywords = ["columns", "container", "grid", "stack"]
       code={`.page {\n  container-type: inline-size;\n}\n\n@container (inline-size >= 40rem) {\n  .page-columns {\n    grid-template-columns: 1fr 1fr;\n  }\n}`}
     />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The layout classes only place elements, so screen readers and the Tab
+        key follow the source order. Write the markup in the order it reads.
+      </li>
+      <li>
+        Make a grid of items that belong together a list, so screen readers say
+        how many there are (see <a href="#grid">Grid</a>).
+      </li>
+    </ul>
+  </Fragment>
 </Component>

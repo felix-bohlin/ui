@@ -27,12 +27,21 @@ const guideHref = name
 
 <section id="browser-support">
   <h2>Browser support</h2>
-  <BrowserSupportChips ids={sortedIds} />
-  <Baseline ids={sortedIds} />
-  <p>
-    Explore these features in the
-    <DocLink href={guideHref}>browser support guide</DocLink>.
-  </p>
+  {sortedIds.length > 0 ? (
+    <>
+      <BrowserSupportChips ids={sortedIds} />
+      <Baseline ids={sortedIds} />
+      <p>
+        Explore these features in the
+        <DocLink href={guideHref}>browser support guide</DocLink>.
+      </p>
+    </>
+  ) : (
+    <p>
+      {name ?? "It"} uses only the CSS every component uses, listed in the
+      <DocLink href="/guide/browser-support">browser support guide</DocLink>.
+    </p>
+  )}
   {compat.length > 0 && <p>
     The <DocLink href="/guide/browser-support#compat">compat layer</DocLink
     >{" "} has fallbacks for it in{" "}

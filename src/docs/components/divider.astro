@@ -11,9 +11,12 @@ import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 import dividerApi from "../../component-api/divider/api"
 
 export const keywords = ["hr", "rule", "separator"]
+export const description =
+  "A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end."
 ---
 
 <Component
+  description={description}
   slug="divider"
   browserSupport={["container-style-queries", "text-box"]}
   apis={[{ title: "Divider API", api: dividerApi }]}
@@ -91,6 +94,19 @@ export const keywords = ["hr", "rule", "separator"]
     <p>Use <code>--ui-divider-gap</code> to change the space around it.</p>
     <AutoExample name="Spacing" column />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A divider without text is an <code>hr</code>, which screen readers
+        announce as a separator.
+      </li>
+      <li>
+        A divider with text is a <code>div</code>, so screen readers read only
+        the text. Write text that makes sense on its own, like a section name.
+      </li>
+    </ul>
+  </Fragment>
 
   <DividerBuild slot="under-the-hood" />
 </Component>

@@ -184,6 +184,25 @@ export const keywords = ["panel", "surface", "tile"]
     <AutoExample name="Semantics" column />
   </section>
 
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A card is a <code>div</code> with no role, so screen readers read its
+        content in place. Make cards in a feed <code>article</code>s (see
+        <a href="#semantics">Semantics</a>).
+      </li>
+      <li>
+        A <code>section</code> card is a region only when it has a name, such as
+        <code>aria-labelledby</code> pointing at its heading.
+      </li>
+      <li>
+        In a clickable card, the link's name is the heading, so put what tells
+        the cards apart there. Buttons and links in the card stay their own tab
+        stops.
+      </li>
+    </ul>
+  </Fragment>
+
   <CardBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">

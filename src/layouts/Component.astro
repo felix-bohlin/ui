@@ -224,7 +224,7 @@ const moreBlocks = usedInBlocks.slice(BLOCK_THUMBNAILS)
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
-  {(browserSupport || hydrationApis.length > 0) && <BrowserSupportChips
+  {(browserSupport?.length || hydrationApis.length > 0) && <BrowserSupportChips
     ids={browserSupport ?? []}
   >
     {hydrationApis.length > 0 && (

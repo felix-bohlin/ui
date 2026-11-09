@@ -12,9 +12,12 @@ import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
 import progressApi from "../../component-api/progress/api"
 
 export const keywords = ["loading", "meter", "progress bar"]
+export const description =
+  "A progress bar on the native progress element, for a task that reports how far along it is, or one that doesn't."
 ---
 
 <Component
+  description={description}
   slug="progress"
   browserSupport={["attr", "container-style-queries", "has"]}
   apis={[{ title: "Progress API", api: progressApi }]}

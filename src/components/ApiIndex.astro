@@ -90,7 +90,10 @@ const apiList = Object.values(groups)
   .sort((a, b) => a.title.localeCompare(b.title))
 ---
 
-<Document overline="API">
+<Document
+  description="The props, slots, parts and classes of every component on one page, for HTML, Astro, React, Svelte and Vue."
+  overline="API"
+>
   <FrameworkPicker slot="sidebar" />
 
   <Fragment slot="title">Component API</Fragment>

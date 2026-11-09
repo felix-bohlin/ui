@@ -6,7 +6,10 @@ import DocLink from "../../components/DocLink.astro"
 import { componentsWithSlot } from "../../utils/components"
 ---
 
-<Guide overline="Guide">
+<Guide
+  description="What the components give you for free, and what you still decide: names, order and content, tested with a keyboard and a screen reader."
+  overline="Guide"
+>
   <Fragment slot="title">Accessibility</Fragment>
   <Fragment slot="preamble">
     A few basics to get you started. OPUI leans on native HTML, so a lot comes

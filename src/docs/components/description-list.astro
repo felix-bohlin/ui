@@ -102,6 +102,20 @@ export const keywords = ["dl", "key value", "properties"]
     <AutoExample name="Total" />
   </section>
 
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Screen readers read each <code>dt</code> as a term and each
+        <code>dd</code> as its definition. The <code>div</code> around a pair
+        adds nothing to what they announce.
+      </li>
+      <li>
+        The leader lines of a bordered list aren't read, so a term and its value
+        have to make sense one after the other.
+      </li>
+    </ul>
+  </Fragment>
+
   <DescriptionListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">

@@ -20,9 +20,12 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 
 export const keywords = ["segmented control", "split button", "toolbar"]
+export const description =
+  "Related buttons joined into one control, like a split button or a set of view options."
 ---
 
 <Component
+  description={description}
   slug="button-group"
   browserSupport={[
     "color-mix",

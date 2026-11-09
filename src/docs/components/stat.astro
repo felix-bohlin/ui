@@ -19,6 +19,7 @@ export const keywords = ["kpi", "metric", "number"]
 ---
 
 <Component
+  browserSupport={[]}
   description={description}
   slug="stat"
   heroAnatomy
@@ -101,4 +102,17 @@ export const keywords = ["kpi", "metric", "number"]
       and the color only adds to it.
     </BlockLink>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Screen readers read the label as a term, and the value and the
+        description as its definitions.
+      </li>
+      <li>
+        The color of a change isn't read, so keep its sign or a word in the
+        text, like <code>+12.4%</code>.
+      </li>
+    </ul>
+  </Fragment>
 </Component>

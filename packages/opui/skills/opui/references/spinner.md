@@ -1,6 +1,6 @@
 # Spinner
 
-Add aria-busy="true" to an element. See also: Progress bar.
+A spinner on any element with aria-busy="true", for content that is loading, in every size.
 
 - CSS: `opui-css/css/components/spinner.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/spinner.md), [Astro](https://open-props-ui.netlify.app/astro/components/spinner.md), [React](https://open-props-ui.netlify.app/react/components/spinner.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/spinner.md), [Vue](https://open-props-ui.netlify.app/vue/components/spinner.md).

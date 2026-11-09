@@ -1,6 +1,6 @@
 # Radio
 
-See also: Form documentation.
+Radio buttons on the native radio input, for picking one option from a few, with sizes, cards and an invalid state.
 
 - CSS: `opui-css/css/components/radio.css`, `opui-css/css/components/choice.css`, `opui-css/css/components/form.css` and `opui-css/css/components/card.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/radio.md), [Astro](https://open-props-ui.netlify.app/astro/components/radio.md), [React](https://open-props-ui.netlify.app/react/components/radio.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/radio.md), [Vue](https://open-props-ui.netlify.app/vue/components/radio.md).

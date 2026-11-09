@@ -1,6 +1,6 @@
 # Divider
 
-It's just a line.
+A line between content: an hr, or a label with a line on both sides, at the start, the middle or the end.
 
 - CSS: `opui-css/css/components/divider.css`.
 - Full docs with every example: [HTML](https://open-props-ui.netlify.app/html/components/divider.md), [Astro](https://open-props-ui.netlify.app/astro/components/divider.md), [React](https://open-props-ui.netlify.app/react/components/divider.md), [Svelte](https://open-props-ui.netlify.app/svelte/components/divider.md), [Vue](https://open-props-ui.netlify.app/vue/components/divider.md).

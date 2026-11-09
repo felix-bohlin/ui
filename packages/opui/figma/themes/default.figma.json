@@ -2527,7 +2527,7 @@
     },
     {
       "codeSyntax": "var(--ui-primary-text)",
-      "description": "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
+      "description": "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ControlGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
       "hidden": false,
       "name": "primary/ui-primary-text",
       "scopes": ["TEXT_FILL"],
@@ -3593,7 +3593,7 @@
     },
     {
       "codeSyntax": "var(--ui-focus-ring-inset)",
-      "description": "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
+      "description": "Negative offset for focus rings drawn inside a control, such as `List` items and `Select` options.",
       "hidden": false,
       "name": "focus-ring/ui-focus-ring-inset",
       "scopes": [],
@@ -4643,7 +4643,7 @@
     },
     {
       "codeSyntax": "var(--ui-button-size-x-small)",
-      "description": "`Button` and `ButtonGroup` height with `.ui-x-small`.",
+      "description": "`Button` and `ControlGroup` height with `.ui-x-small`.",
       "hidden": false,
       "name": "control-sizes/ui-button-size-x-small",
       "scopes": ["WIDTH_HEIGHT"],

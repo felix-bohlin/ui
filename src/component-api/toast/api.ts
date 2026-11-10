@@ -53,7 +53,7 @@ export default {
       attribute: "[duration]",
       default: "5000",
       description:
-        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere.",
+        "How long a toast stays, in milliseconds, while the pointer and focus are elsewhere. A toast with an action stays twice as long.",
       group: "Duration",
       prop: "duration",
     },

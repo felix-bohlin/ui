@@ -206,7 +206,7 @@
         border-start-end-radius: var(--_group-radius);
         border-start-start-radius: var(--_group-radius);
 
-        summary {
+        & > summary {
           border-start-end-radius: var(--_group-radius);
           border-start-start-radius: var(--_group-radius);
         }
@@ -217,7 +217,7 @@
         border-end-end-radius: var(--_group-radius);
         border-end-start-radius: var(--_group-radius);
 
-        summary {
+        & > summary {
           border-end-end-radius: var(--_group-radius);
           border-end-start-radius: var(--_group-radius);
         }

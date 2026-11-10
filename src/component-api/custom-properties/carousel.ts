@@ -12,7 +12,7 @@ export default {
   },
   "--_button-bg-color": {
     description:
-      "Background of the scroll buttons. Defaults to `--ui-surface-inverse`.",
+      "Background of the scroll buttons. Defaults to `--ui-surface-inverse`. The icon is drawn in its inverse, so keep it very dark or very light.",
     kind: "input",
   },
   "--_button-border-color": {

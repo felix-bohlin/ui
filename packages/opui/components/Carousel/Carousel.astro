@@ -27,11 +27,11 @@ const {
   class:list={[
     "ui-carousel",
     {
-      "ui-persistent-buttons": persistentButtons,
+      "ui-markers": markers,
       "ui-peek": peek,
+      "ui-persistent-buttons": persistentButtons,
       "ui-stretch": stretch,
       "ui-vertical": orientation === "vertical",
-      "ui-markers": markers,
     },
     align && align !== "start" && `ui-align-${align}`,
     buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
@@ -48,6 +48,7 @@ const {
     },
     style,
   )}
+  role="list"
   {...rest}
 >
   <slot />

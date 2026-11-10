@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { type HTMLAttributes, useAttrs } from "vue"
 import { counterLabel, cssString, mergeStyle } from "../style"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
@@ -17,6 +19,12 @@ const {
   stretch,
 } = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const attrs = useAttrs() as HTMLAttributes
 </script>
 
 <template>
@@ -24,11 +32,11 @@ defineSlots<Slots>()
     :class="[
       'ui-carousel',
       {
-        'ui-persistent-buttons': persistentButtons,
+        'ui-markers': markers,
         'ui-peek': peek,
+        'ui-persistent-buttons': persistentButtons,
         'ui-stretch': stretch,
         'ui-vertical': orientation === 'vertical',
-        'ui-markers': markers,
       },
       align && align !== 'start' && `ui-align-${align}`,
       buttons && buttons !== 'inside' && `ui-buttons-${buttons}`,
@@ -47,6 +55,8 @@ defineSlots<Slots>()
         {},
       )
     "
+    role="list"
+    v-bind="defined(attrs)"
   >
     <slot></slot>
   </ul>

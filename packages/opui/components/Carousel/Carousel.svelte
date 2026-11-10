@@ -1,5 +1,6 @@
 <script lang="ts">
   import { counterLabel, cssString, mergeStyle } from "../style"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
@@ -28,11 +29,11 @@
   class={[
     "ui-carousel",
     {
-      "ui-persistent-buttons": persistentButtons,
+      "ui-markers": markers,
       "ui-peek": peek,
+      "ui-persistent-buttons": persistentButtons,
       "ui-stretch": stretch,
       "ui-vertical": orientation === "vertical",
-      "ui-markers": markers,
     },
     align && align !== "start" && `ui-align-${align}`,
     buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
@@ -49,7 +50,8 @@
     },
     style,
   )}
-  {...rest}
+  role="list"
+  {...defined(rest)}
 >
   {@render children?.()}
 </ul>

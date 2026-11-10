@@ -389,6 +389,13 @@ const { headings, html: content } = addHeadingAnchors(
       }
 
       @scope (&) to (.example-container, .ui-card) {
+        .ui-callout {
+          max-inline-size: min(
+            var(--content-inline-size),
+            var(--site-content-text)
+          );
+        }
+
         :where(h2, h3, h4, h5, h6) {
           align-items: center;
           display: flex;

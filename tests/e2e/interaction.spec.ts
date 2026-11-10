@@ -104,23 +104,26 @@ interaction(
   "FieldGroupBinding",
   "checkbox group binds the checked values",
   async ({ root }) => {
-    const apples = root.getByRole("checkbox", { name: "Apples" })
-    const bananas = root.getByRole("checkbox", { name: "Bananas" })
+    const updates = root.getByRole("checkbox", { name: "Product updates" })
+    const events = root.getByRole("checkbox", { name: "Events" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(apples).toBeChecked()
-    await expect(selection).toHaveText("Selected: apples")
-    await root.getByText("Bananas", { exact: true }).click()
-    await expect(bananas).toBeChecked()
-    await expect(selection).toHaveText("Selected: apples, bananas")
-    await root.getByText("Apples", { exact: true }).click()
-    await expect(apples).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: bananas")
+    await expect(updates).toBeChecked()
+    await expect(selection).toHaveText("Selected: updates")
+    await root.getByText("Events", { exact: true }).click()
+    await expect(events).toBeChecked()
+    await expect(selection).toHaveText("Selected: updates, events")
+    await root.getByText("Product updates", { exact: true }).click()
+    await expect(updates).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: events")
+    await root.getByText("Product updates", { exact: true }).click()
+    await expect(updates).toBeChecked()
+    await expect(selection).toHaveText("Selected: updates, events")
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(apples).toBeChecked()
-    await expect(bananas).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: apples")
+    await expect(updates).toBeChecked()
+    await expect(events).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: updates")
   },
 )
 
@@ -129,28 +132,30 @@ interaction(
   "Indeterminate",
   "a select all checkbox is indeterminate while some children are checked",
   async ({ root }) => {
-    const all = root.getByRole("checkbox", { name: "Select all" })
-    const children = root.locator(".ui-field-group").getByRole("checkbox")
+    const all = root.getByRole("checkbox", { name: "All notifications" })
+    const children = root.locator(
+      ".ui-field-group input:not([data-select-all])",
+    )
     const indeterminate = () =>
       all.evaluate((input) => (input as HTMLInputElement).indeterminate)
 
     await expect.poll(indeterminate).toBe(true)
     await expect(all).not.toBeChecked()
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
     for (const child of await children.all()) await expect(child).toBeChecked()
 
-    await root.getByText("Bananas", { exact: true }).click()
+    await root.getByText("Push", { exact: true }).click()
     await expect.poll(indeterminate).toBe(true)
     await expect(all).not.toBeChecked()
 
-    await root.getByText("Bananas", { exact: true }).click()
+    await root.getByText("Push", { exact: true }).click()
     await expect.poll(indeterminate).toBe(false)
     await expect(all).toBeChecked()
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect(all).not.toBeChecked()
     for (const child of await children.all()) {
       await expect(child).not.toBeChecked()
@@ -163,8 +168,8 @@ interaction(
   "Indeterminate",
   "select all leaves out a checkbox in a disabled fieldset",
   async ({ root }) => {
-    const all = root.getByRole("checkbox", { name: "Select all" })
-    const cherries = root.getByRole("checkbox", { name: "Cherries" })
+    const all = root.getByRole("checkbox", { name: "All notifications" })
+    const sms = root.getByRole("checkbox", { name: "SMS" })
 
     await root.locator(".ui-field-group").evaluate((group) => {
       const fieldset = document.createElement("fieldset")
@@ -172,12 +177,12 @@ interaction(
       fieldset.append(group.lastElementChild!)
       group.append(fieldset)
     })
-    await expect(cherries).toBeDisabled()
+    await expect(sms).toBeDisabled()
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect(all).toBeChecked()
     await expect(all).toHaveJSProperty("indeterminate", false)
-    await expect(cherries).not.toBeChecked()
+    await expect(sms).not.toBeChecked()
   },
 )
 
@@ -186,7 +191,7 @@ interaction(
   "Indeterminate",
   "select all follows its checkboxes back after a form reset",
   async ({ page, root }) => {
-    const all = root.getByRole("checkbox", { name: "Select all" })
+    const all = root.getByRole("checkbox", { name: "All notifications" })
     await root.getByRole("checkbox").evaluateAll((inputs) => {
       const form = document.createElement("form")
       form.id = "select-all-reset"
@@ -194,17 +199,15 @@ interaction(
       for (const input of inputs) input.setAttribute("form", form.id)
     })
 
-    await root.getByText("Select all", { exact: true }).click()
+    await root.getByText("All notifications", { exact: true }).click()
     await expect(all).toBeChecked()
     await expect(all).toHaveJSProperty("indeterminate", false)
 
     await page.evaluate(() =>
       document.querySelector<HTMLFormElement>("#select-all-reset")!.reset(),
     )
-    await expect(root.getByRole("checkbox", { name: "Apples" })).toBeChecked()
-    await expect(
-      root.getByRole("checkbox", { name: "Bananas" }),
-    ).not.toBeChecked()
+    await expect(root.getByRole("checkbox", { name: "Email" })).toBeChecked()
+    await expect(root.getByRole("checkbox", { name: "Push" })).not.toBeChecked()
     await expect(all).toHaveJSProperty("indeterminate", true)
     await expect(all).not.toBeChecked()
   },
@@ -610,6 +613,9 @@ interaction(
     await root.getByText("Email", { exact: true }).click()
     await expect(email).not.toBeChecked()
     await expect(selection).toHaveText("Selected: push")
+    await root.getByText("Email", { exact: true }).click()
+    await expect(email).toBeChecked()
+    await expect(selection).toHaveText("Selected: email, push")
 
     await root.getByRole("button", { name: "Reset" }).click()
     await expect(email).toBeChecked()

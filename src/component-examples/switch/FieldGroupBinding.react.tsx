@@ -9,8 +9,13 @@ import {
   Switch,
 } from "opui-css/react"
 
+const channels = ["email", "push", "sms"]
+
 export default function FieldGroupBinding() {
   const [notifications, setNotifications] = useState(["email"])
+  const summary =
+    channels.filter((channel) => notifications.includes(channel)).join(", ") ||
+    "none"
 
   function reset() {
     setNotifications(["email"])
@@ -51,9 +56,7 @@ export default function FieldGroupBinding() {
           </Switch>
         </FieldGroup>
       </Fieldset>
-      <p className="switch-binding-text">
-        Selected: {notifications.join(", ") || "none"}
-      </p>
+      <p className="switch-binding-text">Selected: {summary}</p>
       <Button className="switch-binding-reset" onClick={reset}>
         Reset
       </Button>

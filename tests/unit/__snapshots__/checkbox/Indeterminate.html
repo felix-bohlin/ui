@@ -1,23 +1,22 @@
 <opui-select-all class="ui-select-all">
   <fieldset class="ui-fieldset">
-    <legend>
-      <label class="ui-checkbox">
-        <input data-select-all type="checkbox">
-        <span class="ui-label">Select all</span>
-      </label>
-    </legend>
+    <legend>Notifications</legend>
     <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input checked name="indeterminate-children" type="checkbox">
-        <span class="ui-label">Apples</span>
+        <input data-select-all type="checkbox">
+        <span class="ui-label">All notifications</span>
       </label>
       <label class="ui-checkbox">
-        <input name="indeterminate-children" type="checkbox">
-        <span class="ui-label">Bananas</span>
+        <input checked name="checkbox-indeterminate" type="checkbox" value="email">
+        <span class="ui-label">Email</span>
       </label>
       <label class="ui-checkbox">
-        <input name="indeterminate-children" type="checkbox">
-        <span class="ui-label">Cherries</span>
+        <input name="checkbox-indeterminate" type="checkbox" value="push">
+        <span class="ui-label">Push</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-indeterminate" type="checkbox" value="sms">
+        <span class="ui-label">SMS</span>
       </label>
     </div>
   </fieldset>

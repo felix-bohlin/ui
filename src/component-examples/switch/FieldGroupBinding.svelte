@@ -7,7 +7,13 @@
     Switch,
   } from "opui-css/svelte"
 
+  const channels = ["email", "push", "sms"]
+
   let notifications = $state(["email"])
+  const summary = $derived(
+    channels.filter((channel) => notifications.includes(channel)).join(", ") ||
+      "none",
+  )
 
   function reset() {
     notifications = ["email"]
@@ -22,7 +28,5 @@
     <Switch bind:group={notifications} value="sms">SMS</Switch>
   </FieldGroup>
 </Fieldset>
-<p class="switch-binding-text">
-  Selected: {notifications.join(", ") || "none"}
-</p>
+<p class="switch-binding-text">Selected: {summary}</p>
 <Button class="switch-binding-reset" onclick={reset}>Reset</Button>

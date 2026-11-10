@@ -383,7 +383,6 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
 - `Drawer` sits on `--ui-surface-elevated`, like `Dialog` and `Menu`, and borders and field borders inside it read `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised`.
 - `Drawer` footer spaces its items and the buttons in its `.ui-actions` by `--ui-space-2`, like `Dialog`, instead of `--ui-space-3`. `card.css` declares `--_footer-gap` for both, so setting it changes either.
-- `FieldGroup` and `ToggleGroup` in Astro pass the group `name` and selection to their inputs through context instead of `Astro.locals`.
 - `FieldGroup` `orientation="horizontal"` (`.ui-horizontal`) lines the fields up at their end and lets a `TextField`, `Textarea`, `Select` or `NumberField` grow from `--_field-min-inline-size` (`11rem`) to share the row, so a field and its button sit on one line, with a `--ui-space-3` gap. A group of choice controls keeps its `--ui-space-4` gap.
 - `Fieldset` rendered as another element with `as` names itself from its `FieldLegend`: it gets `aria-labelledby` pointing at the legend, which takes a generated id in every framework, also over an `id` you pass the legend, unless you pass `aria-label` or `aria-labelledby`.
 - `Form`, `Fieldset` and `FieldLegend` type `as` in Vue as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
@@ -550,7 +549,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Drawer` `--_block-size` sets the height of a top or bottom drawer up to the full viewport, instead of stopping at 80%. Its default, `min(80dvb, 650px)`, keeps that cap.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
 - `Drawer` with a transparent backdrop locks the page below `31.25rem` instead of `500px`, so the threshold follows the reader's font size.
-- `FieldGroup` `name` only applies to its own fields in Astro and Vue.
+- `FieldGroup` `name` only applies to its own fields in Astro and Vue, and `ToggleGroup` `name` and selection only to its own buttons in Astro. A field or button after a group, or behind an async component in the next group, no longer takes the group's name.
 - `FieldGroup` in Vue passes a `name` that changes or comes from an outer group to its inputs.
 - `Fieldset` no longer overrides the error color of an invalid `Checkbox`, `Radio` or `Switch` end text inside it. Its helper styles only apply to its own end text.
 - `Fieldset`, `FieldLegend`, `FieldDescription`, `FieldGroup` and `Form` in Vue no longer apply attributes and listeners twice.

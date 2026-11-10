@@ -136,7 +136,7 @@ opui
 
 ### Install via NPM
 
-For a bundler that resolves CSS `@import`s, like Vite.
+For a bundler that resolves CSS `@import`s, like Vite, on Node 26.10 or later.
 
 `pnpm`
 
@@ -240,7 +240,7 @@ OPUI ships first-class Astro 7 components. Install the package, import what you 
 
 #### Install and import the CSS
 
-Import the CSS once, where your app starts.
+Needs Node 26.10 or later. Import the CSS once, where your app starts.
 
 ```sh
 pnpm add opui-css astro@7
@@ -676,7 +676,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 ## Vue
 
-OPUI ships first-class components for Vue 3.5 and later. Install the package, import what you need, and you're set.
+OPUI ships first-class components for Vue 3.5.2 and later. Install the package, import what you need, and you're set.
 
 ### Quick start
 

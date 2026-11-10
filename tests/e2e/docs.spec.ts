@@ -538,93 +538,80 @@ test("renews the highlight ranges of an Installation tab when it is shown", asyn
   })
 })
 
-test("a long section heading takes the content width and its one-line copy shows in the header while its section is under it", async ({
+test("a long section heading takes the content width and sticks as a one-line copy without changing its height or the scroll position", async ({
   page,
 }) => {
   await page.setViewportSize({ height: 800, width: 1300 })
   await page.goto("/html/components/spinner/")
   await page.evaluate(() => document.fonts.ready)
   const heading = page.locator("#no-spinner > h2")
-  const scrollTo = (
-    edge: "heading-bottom" | "heading-top" | "section-bottom",
-    y: number,
-  ) =>
-    heading.evaluate(
-      async (element, { edge, y }) => {
-        const box =
-          edge === "section-bottom"
-            ? element.parentElement!.getBoundingClientRect()
-            : element.getBoundingClientRect()
-        const at = edge === "heading-top" ? box.top : box.bottom
-        window.scrollTo(0, scrollY + at - y)
-        await new Promise(requestAnimationFrame)
-        await new Promise(requestAnimationFrame)
-        const copy = getComputedStyle(element, "::after")
-        const rect = element.getBoundingClientRect()
-        return {
-          copy: `${copy.opacity} ${copy.filter}`,
-          height: rect.height,
-          text: getComputedStyle(element.querySelector(":scope > span")!)
-            .opacity,
-          underCopy: element.contains(
-            document.elementFromPoint(rect.left + 10, 40),
-          ),
-        }
-      },
-      { edge, y },
-    )
-
-  const { copyMaxWidth, paragraphWidth, width } = await heading.evaluate(
-    (element) => ({
-      copyMaxWidth: parseFloat(
-        getComputedStyle(element, "::after").maxInlineSize,
-      ),
-      paragraphWidth: element.nextElementSibling?.getBoundingClientRect().width,
-      width: element.getBoundingClientRect().width,
-    }),
-  )
-  expect(width).toBe(paragraphWidth)
-
-  const below = await scrollTo("heading-top", 300)
-  const under = await scrollTo("heading-bottom", 0)
-  const past = await scrollTo("section-bottom", 0)
-  expect([under.height, past.height]).toEqual([below.height, below.height])
-
-  if (await page.evaluate(() => CSS.supports("animation-timeline", "view()"))) {
-    expect(width).toBeGreaterThan(copyMaxWidth)
-    await page.evaluate(() => {
-      location.hash = "#sizes"
+  const { copyMaxWidth, height, paragraphWidth, stick, width } =
+    await heading.evaluate(async (element) => {
+      const style = getComputedStyle(element)
+      const stickAt = () =>
+        element.getBoundingClientRect().top +
+        scrollY -
+        parseFloat(style.insetBlockStart)
+      scrollTo(0, stickAt() - 100)
+      await new Promise(requestAnimationFrame)
+      await new Promise(requestAnimationFrame)
+      return {
+        copyMaxWidth: parseFloat(
+          getComputedStyle(element, "::after").maxInlineSize,
+        ),
+        height: element.getBoundingClientRect().height,
+        paragraphWidth:
+          element.nextElementSibling?.getBoundingClientRect().width,
+        stick: Math.ceil(stickAt()),
+        width: element.getBoundingClientRect().width,
+      }
     })
-    await expect
-      .poll(() =>
-        page.evaluate(() => [
-          getComputedStyle(document.querySelector("#sizes > h2")!, "::after")
-            .opacity,
-          getComputedStyle(document.querySelector("#basics > h2")!, "::after")
-            .filter,
-        ]),
-      )
-      .toEqual(["0", "opacity(0)"])
-    expect([below, under, past]).toEqual([
-      {
-        copy: "0 opacity(1)",
-        height: below.height,
-        text: "1",
-        underCopy: false,
-      },
-      {
-        copy: "1 opacity(1)",
-        height: below.height,
-        text: "0",
-        underCopy: false,
-      },
-      {
-        copy: "1 opacity(0)",
-        height: below.height,
-        text: "0",
-        underCopy: false,
-      },
-    ])
+  expect(width).toBe(paragraphWidth)
+  expect(width).toBeGreaterThan(copyMaxWidth)
+
+  for (const offset of [2, 20, 60]) {
+    const frames = await heading.evaluate(async (element, y) => {
+      scrollTo(0, y)
+      const samples = []
+      for (let frame = 0; frame < 6; frame++) {
+        await new Promise(requestAnimationFrame)
+        samples.push({
+          height: element.getBoundingClientRect().height,
+          scroll: Math.round(scrollY),
+        })
+      }
+      return samples
+    }, stick + offset)
+    expect(frames).toEqual(
+      Array.from({ length: 6 }, () => ({ height, scroll: stick + offset })),
+    )
+  }
+
+  if (
+    await page.evaluate(() => CSS.supports("container-type", "scroll-state"))
+  ) {
+    await expect(heading.locator("> span")).toHaveCSS("opacity", "0")
+    await expect(heading.locator("> .header-anchor")).toHaveCSS("opacity", "0")
+    expect(
+      await heading.evaluate((element) => {
+        const after = getComputedStyle(element, "::after")
+        const box = element.getBoundingClientRect()
+        const catches = (x: number, y: number) =>
+          element.contains(document.elementFromPoint(x, y))
+        return {
+          catchesClicks: [
+            catches(box.left + 10, box.bottom - 10),
+            catches(box.right - 10, box.top + 10),
+          ],
+          opacity: after.opacity,
+          whiteSpace: after.whiteSpace,
+        }
+      }),
+    ).toEqual({
+      catchesClicks: [false, false],
+      opacity: "1",
+      whiteSpace: "nowrap",
+    })
   }
 })
 

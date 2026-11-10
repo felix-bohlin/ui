@@ -1349,6 +1349,8 @@ Spacing changed, so rich text pages look a bit different:
 
 ## Package and imports
 
+The package needs Node 26.10 or later instead of 22. Upgrade Node where you install and build, CI included, before you update `opui-css`.
+
 Import `opui-css/css/layers.css` first when you import single component files, so the layers keep their order:
 
 ```css

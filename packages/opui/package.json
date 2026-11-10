@@ -144,7 +144,7 @@
     "react": "^19",
     "react-dom": "^19",
     "svelte": "^5.57",
-    "vue": "^3.5"
+    "vue": "^3.5.2"
   },
   "peerDependenciesMeta": {
     "astro": {
@@ -170,6 +170,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=26.10.0"
   }
 }

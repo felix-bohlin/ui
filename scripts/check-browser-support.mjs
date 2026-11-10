@@ -360,7 +360,11 @@ const usesFeature = ({ atRules, rules, source, tries }, pattern, elements) => {
   )
 }
 
-const ignore = { badge: ["anchor-positioning"], typography: ["marker"] }
+const ignore = {
+  badge: ["anchor-positioning"],
+  "number-field": ["popover"],
+  typography: ["marker"],
+}
 const viaCore = {
   dialog: ["overflow-clip", "scrollbar-gutter"],
   drawer: ["overflow-clip", "scrollbar-gutter"],

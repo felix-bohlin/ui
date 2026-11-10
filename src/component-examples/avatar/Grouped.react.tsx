@@ -31,7 +31,7 @@ export default function Grouped() {
       </Avatar>
       <Badge dot label="Online">
         <Avatar href="#">
-          <span aria-label="Maja Nilsson" role="img">
+          <span aria-label="Maja Nilsson, online" role="img">
             MN
           </span>
         </Avatar>

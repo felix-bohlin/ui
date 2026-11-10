@@ -7,8 +7,8 @@ import { Avatar, AvatarGroup } from "opui-css/vue"
     <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
     <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
     <Avatar aria-label="Eva Falk" role="img">EF</Avatar>
-    <Avatar aria-label="Show 4 more reviewers" as="button" variant="tonal">
-      +4
+    <Avatar as="button" variant="tonal">
+      +4<span class="ui-sr-only"> more reviewers</span>
     </Avatar>
   </AvatarGroup>
 </template>

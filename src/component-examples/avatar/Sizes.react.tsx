@@ -12,7 +12,7 @@ export default function Sizes() {
       <Avatar aria-label="Elif Rahman" role="img">
         ER
       </Avatar>
-      <Avatar aria-label="Kai Lund" role="img" size="large">
+      <Avatar aria-label="Karl Lund" role="img" size="large">
         KL
       </Avatar>
     </>

@@ -6,5 +6,5 @@ import { Avatar } from "opui-css/vue"
   <Avatar aria-label="Lena Ek" role="img" size="x-small">LE</Avatar>
   <Avatar aria-label="Tom Tanaka" role="img" size="small">TT</Avatar>
   <Avatar aria-label="Elif Rahman" role="img">ER</Avatar>
-  <Avatar aria-label="Kai Lund" role="img" size="large">KL</Avatar>
+  <Avatar aria-label="Karl Lund" role="img" size="large">KL</Avatar>
 </template>

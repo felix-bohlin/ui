@@ -269,9 +269,11 @@
         from var(--_accent) l c h / var(--ui-state-selected-alpha-accent)
       );
 
+      display: inline-grid;
       inline-size: 100%;
       overflow: visible;
       padding: var(--_padding);
+      row-gap: 0;
 
       &:not(.ui-spread) {
         column-gap: var(--ui-space-3);

@@ -102,3 +102,55 @@ test("the import order check flags a sample out of order", () => {
 test("each group imports its stylesheets in ascending order, and a stylesheet that builds on another right after it", () => {
   expect(orderProblems(groups)).toEqual([])
 })
+
+const [LAYERS = "", SUBLAYERS = ""] = [
+  ...readFileSync("packages/opui/css/layers.css", "utf8").matchAll(
+    /^@layer ([^;]+);$/gm,
+  ),
+].map(([, layers]) => layers)
+
+const writtenOrderProblems = (file: string, text: string) =>
+  [...text.matchAll(/@layer ((?:openprops|theme\.palette),[^;{]+);/g)]
+    .map(([, layers = ""]) => layers.replace(/\s+/g, " "))
+    .filter((layers) =>
+      layers.startsWith("openprops")
+        ? layers !== LAYERS && !layers.startsWith(`${LAYERS}, `)
+        : layers !== SUBLAYERS,
+    )
+    .map(
+      (layers) =>
+        `${file} writes @layer ${layers}; packages/opui/css/layers.css has @layer ${layers.startsWith("openprops") ? LAYERS : SUBLAYERS}`,
+    )
+
+const WRITTEN = [
+  "README.md",
+  "packages/opui/README.md",
+  ...["packages/opui/skills", "packages/opui/themes", "src"].flatMap((dir) =>
+    readdirSync(dir, { recursive: true })
+      .map((file) => `${dir}/${file}`)
+      .filter((file) => /\.(astro|css|md|ts)$/.test(file)),
+  ),
+]
+
+test("the written layer order check flags a sample that differs from layers.css", () => {
+  expect(LAYERS).toMatch(/^openprops, theme, /)
+  expect(SUBLAYERS).toMatch(/^theme\.palette, /)
+  expect(
+    writtenOrderProblems(
+      "sample.md",
+      `@layer ${LAYERS}, overrides;\n@layer ${SUBLAYERS};\n@layer openprops, theme, utils;\n@layer theme.palette, theme.custom;`,
+    ),
+  ).toEqual([
+    `sample.md writes @layer openprops, theme, utils; packages/opui/css/layers.css has @layer ${LAYERS}`,
+    `sample.md writes @layer theme.palette, theme.custom; packages/opui/css/layers.css has @layer ${SUBLAYERS}`,
+  ])
+})
+
+test("the docs, the READMEs, the agent skill and the example themes write the layer order of layers.css", () => {
+  expect(WRITTEN.length).toBeGreaterThan(100)
+  expect(
+    WRITTEN.flatMap((file) =>
+      writtenOrderProblems(file, readFileSync(file, "utf8")),
+    ),
+  ).toEqual([])
+})

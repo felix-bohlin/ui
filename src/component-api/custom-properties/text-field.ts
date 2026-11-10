@@ -79,8 +79,13 @@ export default {
   },
   "--_file-button-inset": {
     description:
-      "Gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`, shrunk so the button keeps one line of its text inside the field. Set on `input`.",
+      "Gap around the `::file-selector-button` of a file field: `--_file-button-padding`, shrunk so the button keeps one line of its text inside the field. Set on `input`.",
     kind: "output",
+  },
+  "--_file-button-padding": {
+    description:
+      "The preferred gap around the `::file-selector-button` of a file field: `--ui-space-2`, or `--ui-space-1` in `.ui-small` and `.ui-x-small`.",
+    kind: "input",
   },
   "--_font-size": {
     description: "The font size of the control and affixes.",

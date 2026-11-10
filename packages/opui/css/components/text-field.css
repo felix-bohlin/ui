@@ -201,13 +201,15 @@
 
     /* File */
     &:has(input[type="file"]) {
+      --_file-button-padding: var(--ui-space-2);
+
       cursor: pointer;
 
       input {
         --_file-button-inset: max(
           0px,
           min(
-            var(--ui-space-2),
+            var(--_file-button-padding),
             (var(--_size) - var(--ui-field-border-width) * 2 - 1lh) / 2
           )
         );
@@ -242,15 +244,7 @@
       &.ui-small,
       &.ui-x-small,
       :where(.ui-control-group:is(.ui-small, .ui-x-small)) > & {
-        input {
-          --_file-button-inset: max(
-            0px,
-            min(
-              var(--ui-space-1),
-              (var(--_size) - var(--ui-field-border-width) * 2 - 1lh) / 2
-            )
-          );
-        }
+        --_file-button-padding: var(--ui-space-1);
       }
 
       /* Drop zone */

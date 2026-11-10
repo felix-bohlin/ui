@@ -52,7 +52,7 @@ const RULES: [string, RegExp][] = [
   ["a short exclamation", /^.{1,30}!$/],
   [
     "text about the example",
-    /^This is an? |\bNotice (?:how|the)\b|\bLook at that\b|\bWorks too\b/i,
+    /^This is an? |\bClick anywhere\b|\bNotice (?:how|the)\b|\bLook at that\b|\bWorks too\b/i,
   ],
 ]
 
@@ -110,11 +110,12 @@ describe("example copy", () => {
   test("flags placeholders, filler, short exclamations and text about the example, and reads text, attributes and items", () => {
     expect(
       problemsOf(
-        '---\nconst items = [{ label: "Option 1" }, { label: "Archive" }]\n---\n<Checkbox label="Checkbox 1" />\n<p>Lorem ipsum dolor sit amet</p>\n<Callout>This is a tonal callout</Callout>\n<p>Pick me!</p>\n<p>The deck is out. Thanks for the help, everyone!</p>\n<Menu label="Options" />\n<script>if (!ok) console.log("Label")</script>',
+        '---\nconst items = [{ label: "Option 1" }, { label: "Archive" }]\n---\n<Checkbox label="Checkbox 1" />\n<p>Lorem ipsum dolor sit amet</p>\n<Callout>This is a tonal callout</Callout>\n<p>Plans for any team. Click anywhere on the card.</p>\n<p>Pick me!</p>\n<p>The deck is out. Thanks for the help, everyone!</p>\n<Menu label="Options" />\n<script>if (!ok) console.log("Label")</script>',
       ),
     ).toEqual([
       "placeholder Latin: Lorem ipsum dolor sit amet",
       "text about the example: This is a tonal callout",
+      "text about the example: Plans for any team. Click anywhere on the card.",
       "a short exclamation: Pick me!",
       "a placeholder label: Checkbox 1",
       "a placeholder label: Option 1",

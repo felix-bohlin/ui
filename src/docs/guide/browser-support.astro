@@ -1,8 +1,10 @@
 ---
 import Guide from "../../layouts/Guide.astro"
+import FeatureSupport from "../../components/UnderTheHood/FeatureSupport.astro"
 import {
   getCategorizedBaselineIds,
   getBaselineMappings,
+  hasCompatKey,
 } from "../../utils/baseline"
 import { componentHrefFor } from "../../utils/components"
 import { componentHasFramework } from "../../utils/framework"
@@ -318,7 +320,11 @@ const years = Object.keys(categorized)
         class="feature-list ui-card ui-outlined ui-not-rich-text"
       >
         {allFeatures.map((id) => <div class="feature" data-id={id}>
-          <baseline-status featureId={id} />
+          {hasCompatKey(id) ? (
+            <FeatureSupport ids={[id]} />
+          ) : (
+            <baseline-status featureId={id} />
+          )}
           <p class="used-by">
             Used by{" "}
             {featureToComponents[id].map((component, index) => (

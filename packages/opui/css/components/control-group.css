@@ -348,7 +348,6 @@
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
       padding: var(--_ring-reach);
-      scrollbar-width: thin;
 
       & > * {
         flex: none;

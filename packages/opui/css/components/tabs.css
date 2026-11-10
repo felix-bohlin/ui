@@ -298,7 +298,6 @@
       grid-auto-columns: max-content;
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
-      scrollbar-width: thin;
 
       & > .ui-input[type="radio"] {
         grid-column: calc((sibling-index() + 2) / 3) / span 1;

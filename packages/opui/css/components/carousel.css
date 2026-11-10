@@ -68,7 +68,7 @@
 
     scroll-behavior: smooth;
     scroll-padding-inline: calc(var(--_padding-inline) + var(--_inline-room));
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: inline mandatory;
 
     @container style(--ui-motion: 0) {
       scroll-behavior: auto;
@@ -128,7 +128,7 @@
       padding-inline: var(--_inline-room);
       scroll-padding-block: calc(var(--_padding-block) + var(--_block-room));
       scroll-padding-inline: 0;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: block mandatory;
 
       &.ui-peek {
         --_padding-block: var(--ui-space-8);

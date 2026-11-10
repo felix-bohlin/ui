@@ -22,30 +22,30 @@ import {
     <TableBody>
       <TableRow>
         <TableCell>
-          <Radio hideLabel name="radio-hidden-label" value="basic"
-            >Pick Basic</Radio
+          <Radio hideLabel name="radio-hidden-label" value="starter"
+            >Pick Starter</Radio
           >
         </TableCell>
-        <TableCell>Basic</TableCell>
-        <TableCell>$0</TableCell>
+        <TableCell>Starter</TableCell>
+        <TableCell>€0</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>
-          <Radio checked hideLabel name="radio-hidden-label" value="pro"
-            >Pick Pro</Radio
-          >
-        </TableCell>
-        <TableCell>Pro</TableCell>
-        <TableCell>$12</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <Radio hideLabel name="radio-hidden-label" value="team"
+          <Radio checked hideLabel name="radio-hidden-label" value="team"
             >Pick Team</Radio
           >
         </TableCell>
         <TableCell>Team</TableCell>
-        <TableCell>$48</TableCell>
+        <TableCell>€12</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>
+          <Radio hideLabel name="radio-hidden-label" value="business"
+            >Pick Business</Radio
+          >
+        </TableCell>
+        <TableCell>Business</TableCell>
+        <TableCell>€24</TableCell>
       </TableRow>
     </TableBody>
   </Table>

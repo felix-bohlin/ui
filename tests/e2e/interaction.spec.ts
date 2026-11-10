@@ -361,24 +361,24 @@ interaction(
   "FieldGroupBinding",
   "radio group binds the selected value and resets",
   async ({ root }) => {
-    const free = root.getByRole("radio", { name: "Free" })
-    const pro = root.getByRole("radio", { name: "Pro" })
+    const starter = root.getByRole("radio", { name: "Starter" })
+    const team = root.getByRole("radio", { name: "Team" })
     const selection = root.getByText(/Selected:/)
 
-    await expect(free).toBeChecked()
-    await root.getByText("Pro", { exact: true }).click()
-    await expect(pro).toBeChecked()
-    await expect(selection).toHaveText("Selected: pro")
-    await root.getByText("Free", { exact: true }).click()
-    await expect(free).toBeChecked()
-    await expect(selection).toHaveText("Selected: free")
-    await root.getByText("Pro", { exact: true }).click()
-    await expect(pro).toBeChecked()
+    await expect(starter).toBeChecked()
+    await root.getByText("Team", { exact: true }).click()
+    await expect(team).toBeChecked()
+    await expect(selection).toHaveText("Selected: team")
+    await root.getByText("Starter", { exact: true }).click()
+    await expect(starter).toBeChecked()
+    await expect(selection).toHaveText("Selected: starter")
+    await root.getByText("Team", { exact: true }).click()
+    await expect(team).toBeChecked()
 
     await root.getByRole("button", { name: "Reset" }).click()
-    await expect(free).toBeChecked()
-    await expect(pro).not.toBeChecked()
-    await expect(selection).toHaveText("Selected: free")
+    await expect(starter).toBeChecked()
+    await expect(team).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: starter")
   },
 )
 

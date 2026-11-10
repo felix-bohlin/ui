@@ -58,7 +58,7 @@ const attrs = useAttrs() as HTMLAttributes
             {},
           ),
         ),
-        defined(attrs),
+        { ...defined(attrs) },
       )
     "
   >

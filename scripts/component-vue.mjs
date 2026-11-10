@@ -93,7 +93,13 @@ export const omitEmptyAttributes = (attributes) => {
     ? spread.slice(1, -1).trim().replace(/,$/, "")
     : `...${spread}`
   const place = bound.length ? attributes.indexOf(bound[0]) : omitted[0].at
-  const merged = [...omitted, { at: place, code: spread }]
+  const merged = [
+    ...omitted,
+    {
+      at: place,
+      code: /^\{[\s\S]*\}$/.test(spread) ? spread : `{ ...${spread} }`,
+    },
+  ]
     .toSorted((a, b) => a.at - b.at)
     .map(({ code }) => code)
   const object = !bound.length

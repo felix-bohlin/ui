@@ -1229,7 +1229,7 @@ Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instea
 
 The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
-`--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
+`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
 
 `palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 

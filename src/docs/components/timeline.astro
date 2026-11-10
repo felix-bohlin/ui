@@ -195,6 +195,10 @@ export const keywords = ["activity", "feed", "history"]
         Put dates in a <code>&lt;time datetime&gt;</code>. Hide marker icons
         with <code>aria-hidden="true"</code>.
       </li>
+      <li>
+        A marker's <a href="#colors">color</a> isn't announced: the label
+        carries the status.
+      </li>
     </ul>
   </Fragment>
 
@@ -219,9 +223,10 @@ export const keywords = ["activity", "feed", "history"]
     </p>
     <p>
       <code>li[aria-current]</code> fills the marker with
-      <code>--ui-primary</code> and a translucent <code>box-shadow</code> halo,
-      and <code>.ui-tracked &gt; li:has(~ li[aria-current])</code> colors the
-      line and the uncolored markers before it. The container query under
+      <code>--ui-selected-strong</code> and a translucent
+      <code>box-shadow</code> halo, and
+      <code>.ui-tracked &gt; li:has(~ li[aria-current])</code> colors the line
+      and the uncolored markers before it. The container query under
       <code>24rem</code> moves <code>time</code> into the <code>content</code>
       column.
     </p>

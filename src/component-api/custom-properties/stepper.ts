@@ -69,6 +69,11 @@ export default {
       "Width of the marker border. Defaults to `--ui-border-width-thick`.",
     kind: "input",
   },
+  "--_marker-image": {
+    description:
+      "The image cut out of the marker: `--_check-image` on a complete step and `--_error-image` on a step with an error.",
+    kind: "output",
+  },
   "--_marker-size": {
     description:
       "Size of the marker. Defaults to `--ui-space-6`, `--ui-space-5` with `.ui-small`.",

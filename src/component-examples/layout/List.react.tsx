@@ -15,8 +15,7 @@ export default function List() {
       <li>
         <Card variant="outlined">
           <CardContent>
-            Engineering, with a longer description that wraps onto a second
-            line.
+            Engineering: builds and runs the app and the API
           </CardContent>
         </Card>
       </li>

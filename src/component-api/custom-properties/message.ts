@@ -21,6 +21,11 @@ export default {
       "Radius of the bubble's corner on the avatar side at the top. Tightened on every message of a run but the first.",
     kind: "output",
   },
+  "--_border-color": {
+    description:
+      "Border of the `.ui-toggle-button` reactions in the `bottom` slot. The group's `--_border-color`, `--ui-text-subtle` on hover and `--ui-selected-strong` when checked. A focused reaction draws `--ui-focus-border-color` instead when the theme sets it.",
+    kind: "output",
+  },
   "--_divider-gap": {
     description:
       "Set to `0px` on the `.ui-toggle-group` in the `bottom` slot, so the group draws no lines between the reaction pills, which keep their own gap.",

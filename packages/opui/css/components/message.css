@@ -7,6 +7,10 @@
     list-style: none;
     margin: 0;
     padding: 0;
+
+    & > :where(.ui-divider) {
+      margin-block: var(--ui-space-2);
+    }
   }
 
   :where(.ui-message) {
@@ -117,7 +121,7 @@
           --_size: var(--ui-button-size-x-small);
 
           background-color: var(--ui-surface);
-          border: var(--ui-border-width) solid var(--ui-border-color);
+          border: var(--ui-border-width) solid var(--_border-color);
           border-radius: var(--ui-radius-round);
           box-shadow: 0 0 0 var(--ui-border-width) var(--ui-surface);
           flex: none;
@@ -125,15 +129,21 @@
 
           @media (hover: hover) {
             &:hover {
-              border-color: var(--ui-text-subtle);
+              --_border-color: var(--ui-text-subtle);
+            }
+          }
+
+          &:has(input:focus-visible) {
+            @media (forced-colors: none) {
+              border-color: var(--ui-focus-border-color, var(--_border-color));
             }
           }
 
           &:has(input:checked) {
+            --_border-color: var(--ui-selected-strong);
             --ui-focus-ring-color: inherit;
 
             background-color: var(--_selected-bg-color);
-            border-color: var(--ui-selected-strong);
             color: var(--ui-on-selected, var(--ui-text-strong));
           }
         }
@@ -239,6 +249,10 @@
       color: var(--ui-text-subtle);
       content: "";
       inline-size: var(--ui-space-7);
+    }
+
+    &.ui-typing > .ui-content:dir(rtl)::before {
+      background-position-x: 100%, 50%, 0;
     }
 
     @media (forced-colors: active) {

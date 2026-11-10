@@ -7,23 +7,40 @@ import {
 
 export default function Orientation() {
   return (
-    <DescriptionList
-      bordered
-      orientation="horizontal"
-      style={{ maxInlineSize: "18rem" }}
-    >
-      <DescriptionListItem>
-        <DescriptionListTerm>Subtotal</DescriptionListTerm>
-        <DescriptionListDescription>€120.00</DescriptionListDescription>
-      </DescriptionListItem>
-      <DescriptionListItem>
-        <DescriptionListTerm>Shipping</DescriptionListTerm>
-        <DescriptionListDescription>€8.00</DescriptionListDescription>
-      </DescriptionListItem>
-      <DescriptionListItem>
-        <DescriptionListTerm>Total</DescriptionListTerm>
-        <DescriptionListDescription>€128.00</DescriptionListDescription>
-      </DescriptionListItem>
-    </DescriptionList>
+    <>
+      <DescriptionList bordered style={{ maxInlineSize: "18rem" }}>
+        <DescriptionListItem>
+          <DescriptionListTerm>Plan</DescriptionListTerm>
+          <DescriptionListDescription>Team</DescriptionListDescription>
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Seats</DescriptionListTerm>
+          <DescriptionListDescription>12</DescriptionListDescription>
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Renews</DescriptionListTerm>
+          <DescriptionListDescription>Mar 1, 2027</DescriptionListDescription>
+        </DescriptionListItem>
+      </DescriptionList>
+
+      <DescriptionList
+        bordered
+        orientation="horizontal"
+        style={{ maxInlineSize: "18rem" }}
+      >
+        <DescriptionListItem>
+          <DescriptionListTerm>Plan</DescriptionListTerm>
+          <DescriptionListDescription>Team</DescriptionListDescription>
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Seats</DescriptionListTerm>
+          <DescriptionListDescription>12</DescriptionListDescription>
+        </DescriptionListItem>
+        <DescriptionListItem>
+          <DescriptionListTerm>Renews</DescriptionListTerm>
+          <DescriptionListDescription>Mar 1, 2027</DescriptionListDescription>
+        </DescriptionListItem>
+      </DescriptionList>
+    </>
   )
 }

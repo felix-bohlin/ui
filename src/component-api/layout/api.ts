@@ -36,7 +36,8 @@ export default {
     },
     {
       class: ".ui-layout-column",
-      description: "A column with even space between its children.",
+      description:
+        "A column with even space between its children. On a `ul` or `ol` it also drops the list bullets and margins.",
       group: "Column",
       prop: "column",
     },
@@ -79,7 +80,7 @@ export default {
     {
       class: ".ui-layout-row",
       description:
-        "A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins.",
+        "A wrapping row with its children centered vertically. On a `ul` or `ol` it also drops the list bullets and margins.",
       group: "Row",
       prop: "row",
     },

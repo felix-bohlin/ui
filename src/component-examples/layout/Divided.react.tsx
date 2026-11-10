@@ -8,10 +8,10 @@ export default function Divided() {
       style={{ "--_min-inline-size": "9rem" }}
     >
       <li>
-        <Stat label="Visitors">48 210</Stat>
+        <Stat label="Visitors">48,210</Stat>
       </li>
       <li>
-        <Stat label="Page views">162 904</Stat>
+        <Stat label="Page views">162,904</Stat>
       </li>
       <li>
         <Stat label="Bounce rate">41.2%</Stat>
@@ -20,7 +20,7 @@ export default function Divided() {
         <Stat label="Session length">3m 12s</Stat>
       </li>
       <li>
-        <Stat label="Sign-ups">1 284</Stat>
+        <Stat label="Sign-ups">1,284</Stat>
       </li>
     </ul>
   )

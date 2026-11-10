@@ -2,7 +2,7 @@
   :where(.ui-timeline) {
     --_dot-size: var(--ui-space-3);
     --_gap: var(--ui-space-3);
-    --_icon-size: var(--ui-space-5);
+    --_icon-marker-size: var(--ui-space-5);
     --_item-gap: var(--ui-space-5);
     --_line-border-color: var(--ui-border-color);
     --_line-border-width: var(--ui-border-width-thick);
@@ -32,17 +32,17 @@
       }
 
       &:has(> .ui-marker) {
-        --_marker-size: var(--_icon-size);
+        --_marker-size: var(--_icon-marker-size);
       }
 
       &:has(+ li > .ui-marker) {
-        --_next-marker-size: var(--_icon-size);
+        --_next-marker-size: var(--_icon-marker-size);
       }
 
       &::before,
       & > .ui-marker {
         align-self: start;
-        background-color: var(--ui-surface);
+        background-color: transparent;
         block-size: var(--_marker-size);
         border: var(--_line-border-width) solid var(--_marker-accent);
         border-radius: var(--ui-radius-round);
@@ -162,7 +162,7 @@
     &.ui-small {
       --_dot-size: var(--ui-space-2);
       --_gap: var(--ui-space-2);
-      --_icon-size: var(--ui-space-4);
+      --_icon-marker-size: var(--ui-space-4);
       --_item-gap: var(--ui-space-3);
     }
 

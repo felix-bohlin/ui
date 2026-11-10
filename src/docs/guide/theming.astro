@@ -417,6 +417,74 @@ const surfaceRoles = [
     <h3 id="forced-colors">Forced colors</h3>
     <p>Handled by the components. Nothing to configure.</p>
   </section>
+
+  <section id="functions">
+    <h2>Functions</h2>
+    <p>
+      The tokens get their formulas from custom functions (<code>@function</code
+      >). Call them for your own colors and sizes:
+    </p>
+    <Code
+      code={`:where(html, .ui-palette, .ui-contrast-more) {
+  --brand: oklch(0.7 0.17 55);
+  --brand-hover: --ui-shade(var(--brand), 0.1);
+  --brand-text: --ui-text-of(var(--brand));
+  --on-brand: --ui-on(var(--brand));
+  --hero-font-size: --ui-fluid(2rem, 4rem);
+}`}
+      lang="css"
+    />
+    <ul>
+      <li>
+        <code>--ui-dark-text-of(color)</code>: the dark mode half of
+        <code>--ui-text-of()</code>.
+      </li>
+      <li>
+        <code>--ui-fluid(min, max)</code>: a size on the
+        <a href="#fluid-headings">fluid heading</a> ramp.
+      </li>
+      <li>
+        <code>--ui-gray-of(color)</code>: the gray at a color's lightness.
+      </li>
+      <li>
+        <code>--ui-on(fill)</code>: white or near-black text for a fill, at
+        4.5:1.
+      </li>
+      <li>
+        <code>--ui-palette-step(step, lightness, chroma)</code>: a step of the
+        <a href="#palette">palette</a>.
+      </li>
+      <li>
+        <code>--ui-shade(fill, by)</code>: the hover (<code>0.1</code>) or
+        pressed (<code>0.15</code>) shade of a fill.
+      </li>
+      <li>
+        <code>--ui-shadow-layer(alpha)</code>: <code>--ui-shadow-color</code>
+        with more opacity.
+      </li>
+      <li>
+        <code>--ui-text-of(color)</code>: a color as text, readable in both
+        color schemes.
+      </li>
+    </ul>
+    <p>Replace one in your theme:</p>
+    <Code
+      code={`@layer theme.custom {
+  /* Black or white, by the lightness of the fill */
+  @function --ui-on(--fill) {
+    result: oklch(from var(--fill) clamp(0, (0.6 - l) * 1000, 1) 0 0);
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      Custom functions have no fallback: a browser without them resolves none of
+      the tokens that call one. In Chromium, don't pass a function a token that
+      the same element derives with the same function, such as
+      <code>--ui-text-of(var(--ui-primary-text))</code> on <code>html</code>:
+      neither resolves.
+    </p>
+  </section>
 </Guide>
 
 <style>

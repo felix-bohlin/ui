@@ -3633,6 +3633,13 @@
     "url": "/html/guide/theming/#forced-colors"
   },
   {
+    "id": "guide-theming-html-functions",
+    "title": "Functions",
+    "page": "Theming",
+    "category": "Guide",
+    "url": "/html/guide/theming/#functions"
+  },
+  {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
     "description": "Components built from the HTML and CSS the platform ships today, as files you can read, copy and own.",

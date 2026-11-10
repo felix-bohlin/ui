@@ -1,5 +1,8 @@
 import { test } from "@playwright/test"
 
+export const CHROMIUM_FUNCTION_ARGUMENT_CYCLE =
+  "Chromium resolves neither custom property when the argument of a custom function reads a custom property that the same element sets with the same function"
+
 export const FIREFOX_SELF_RTL =
   "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
 
@@ -25,6 +28,7 @@ export const WEBKIT_TOP_LAYER_ANCHOR =
   "WebKit moves a popover up by the page scroll when its anchor is in the top layer too, inside a modal dialog or another popover"
 
 export const ENGINE_BUGS = {
+  chromium: [CHROMIUM_FUNCTION_ARGUMENT_CYCLE],
   firefox: [FIREFOX_SELF_RTL, FIREFOX_STALE_FALLBACK_OPACITY],
   webkit: [
     WEBKIT_ARROW_FOCUS_SCROLL,

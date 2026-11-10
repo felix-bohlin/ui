@@ -1,4 +1,16 @@
 @layer theme.palette {
+  @function --ui-gray-of(--color) {
+    result: oklch(from var(--color) l var(--ui-gray-chroma) var(--ui-gray-hue));
+  }
+
+  @function --ui-palette-step(--step, --lightness, --chroma) {
+    result: oklch(
+      from var(--ui-palette-source) var(--lightness)
+        calc(var(--chroma) * (c / 0.21))
+        calc(h + ((var(--step) - 1) * var(--ui-palette-hue-rotate-by)))
+    );
+  }
+
   :where(
     html,
     .ui-critical,
@@ -13,119 +25,39 @@
     );
 
     /* Colors */
-    --ui-color-1: oklch(
-      from var(--ui-palette-source) 98% calc(0.03 * (c / 0.21))
-        calc(h + (0 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-2: oklch(
-      from var(--ui-palette-source) 97% calc(0.06 * (c / 0.21))
-        calc(h + (1 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-3: oklch(
-      from var(--ui-palette-source) 93% calc(0.1 * (c / 0.21))
-        calc(h + (2 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-4: oklch(
-      from var(--ui-palette-source) 84% calc(0.12 * (c / 0.21))
-        calc(h + (3 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-5: oklch(
-      from var(--ui-palette-source) 80% calc(0.16 * (c / 0.21))
-        calc(h + (4 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-6: oklch(
-      from var(--ui-palette-source) 71% calc(0.19 * (c / 0.21))
-        calc(h + (5 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-7: oklch(
-      from var(--ui-palette-source) 66% calc(0.2 * (c / 0.21))
-        calc(h + (6 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-8: oklch(
-      from var(--ui-palette-source) 58% calc(0.21 * (c / 0.21))
-        calc(h + (7 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-9: oklch(
-      from var(--ui-palette-source) 53% calc(0.2 * (c / 0.21))
-        calc(h + (8 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-10: oklch(
-      from var(--ui-palette-source) 49% calc(0.19 * (c / 0.21))
-        calc(h + (9 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-11: oklch(
-      from var(--ui-palette-source) 42% calc(0.17 * (c / 0.21))
-        calc(h + (10 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-12: oklch(
-      from var(--ui-palette-source) 35% calc(0.15 * (c / 0.21))
-        calc(h + (11 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-13: oklch(
-      from var(--ui-palette-source) 27% calc(0.12 * (c / 0.21))
-        calc(h + (12 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-14: oklch(
-      from var(--ui-palette-source) 20% calc(0.09 * (c / 0.21))
-        calc(h + (13 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-15: oklch(
-      from var(--ui-palette-source) 16% calc(0.07 * (c / 0.21))
-        calc(h + (14 * var(--ui-palette-hue-rotate-by)))
-    );
-    --ui-color-16: oklch(
-      from var(--ui-palette-source) 10% calc(0.05 * (c / 0.21))
-        calc(h + (15 * var(--ui-palette-hue-rotate-by)))
-    );
+    --ui-color-1: --ui-palette-step(1, 98%, 0.03);
+    --ui-color-2: --ui-palette-step(2, 97%, 0.06);
+    --ui-color-3: --ui-palette-step(3, 93%, 0.1);
+    --ui-color-4: --ui-palette-step(4, 84%, 0.12);
+    --ui-color-5: --ui-palette-step(5, 80%, 0.16);
+    --ui-color-6: --ui-palette-step(6, 71%, 0.19);
+    --ui-color-7: --ui-palette-step(7, 66%, 0.2);
+    --ui-color-8: --ui-palette-step(8, 58%, 0.21);
+    --ui-color-9: --ui-palette-step(9, 53%, 0.2);
+    --ui-color-10: --ui-palette-step(10, 49%, 0.19);
+    --ui-color-11: --ui-palette-step(11, 42%, 0.17);
+    --ui-color-12: --ui-palette-step(12, 35%, 0.15);
+    --ui-color-13: --ui-palette-step(13, 27%, 0.12);
+    --ui-color-14: --ui-palette-step(14, 20%, 0.09);
+    --ui-color-15: --ui-palette-step(15, 16%, 0.07);
+    --ui-color-16: --ui-palette-step(16, 10%, 0.05);
 
     /* Grays */
-    --ui-gray-1: oklch(
-      from var(--ui-color-1) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-2: oklch(
-      from var(--ui-color-2) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-3: oklch(
-      from var(--ui-color-3) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-4: oklch(
-      from var(--ui-color-4) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-5: oklch(
-      from var(--ui-color-5) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-6: oklch(
-      from var(--ui-color-6) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-7: oklch(
-      from var(--ui-color-7) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-8: oklch(
-      from var(--ui-color-8) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-9: oklch(
-      from var(--ui-color-9) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-10: oklch(
-      from var(--ui-color-10) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-11: oklch(
-      from var(--ui-color-11) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-12: oklch(
-      from var(--ui-color-12) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-13: oklch(
-      from var(--ui-color-13) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-14: oklch(
-      from var(--ui-color-14) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-15: oklch(
-      from var(--ui-color-15) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
-    --ui-gray-16: oklch(
-      from var(--ui-color-16) l var(--ui-gray-chroma) var(--ui-gray-hue)
-    );
+    --ui-gray-1: --ui-gray-of(var(--ui-color-1));
+    --ui-gray-2: --ui-gray-of(var(--ui-color-2));
+    --ui-gray-3: --ui-gray-of(var(--ui-color-3));
+    --ui-gray-4: --ui-gray-of(var(--ui-color-4));
+    --ui-gray-5: --ui-gray-of(var(--ui-color-5));
+    --ui-gray-6: --ui-gray-of(var(--ui-color-6));
+    --ui-gray-7: --ui-gray-of(var(--ui-color-7));
+    --ui-gray-8: --ui-gray-of(var(--ui-color-8));
+    --ui-gray-9: --ui-gray-of(var(--ui-color-9));
+    --ui-gray-10: --ui-gray-of(var(--ui-color-10));
+    --ui-gray-11: --ui-gray-of(var(--ui-color-11));
+    --ui-gray-12: --ui-gray-of(var(--ui-color-12));
+    --ui-gray-13: --ui-gray-of(var(--ui-color-13));
+    --ui-gray-14: --ui-gray-of(var(--ui-color-14));
+    --ui-gray-15: --ui-gray-of(var(--ui-color-15));
+    --ui-gray-16: --ui-gray-of(var(--ui-color-16));
   }
 }

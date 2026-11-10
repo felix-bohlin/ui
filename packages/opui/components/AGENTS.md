@@ -571,6 +571,15 @@ When a component gains a shadow-only edge or a color-only state, it gets a block
 
 `theme.css` sets no color for more contrast. It tightens the knobs the roles are derived from (the `--ui-*-strength-*` mixes, the `*-max-lightness`, `*-min-lightness` and `*-max-chroma` limits, `--ui-focus-ring-width`) on `html` under `prefers-contrast: more` and on `.ui-contrast-more`, which is a scope, and every role follows. A component only adds its own `@container style(--ui-contrast: more)` block, or an `if()` value (Switch values and `if()` below), when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: a limit it needs is a knob in `theme.css`, set in both contrast rules. A role that has to get stronger with more contrast is a formula of a knob, never a second value in a contrast block.
 
+### Custom functions
+
+A formula that several tokens or stylesheets repeat is a custom function (`@function`), written once in `theme.css` (the `theme.base` layer) or `core/palette.css` (`theme.palette`), so a theme can call it, or replace it in `theme.custom`:
+
+- A function is named `--ui-*`, since a function name is global and has no private scope, and the functions of a stylesheet sit at the top of its layer, sorted by name. `pnpm check-css-vars` fails on a call that no `@function` defines, and reads a function's parameters and locals as its own.
+- A function types no color: `tests/unit/css-properties.test.ts` fails on a `<color>` parameter or return type. An untyped result stays a token stream, so a `light-dark()` in it resolves on the element that uses the token, like a token written out. A typed one resolves on the scope that calls the function, and a `.ui-dark` part of a light page keeps the light color.
+- A function's argument never reads a property that the same element sets with the same function: Chromium resolves neither (`CHROMIUM_FUNCTION_ARGUMENT_CYCLE` in `tests/e2e/engine-bugs.ts`). An inherited token is fine, since it is already resolved, and so is a property set with another function. It is why the tonal `shade-all` colors of `Button`, where the pressed color is the shade of the hover color, stay written out.
+- A formula with one use, or one that relative color syntax already says in a line (`oklch(from var(--ui-text) l c h / 20%)`), stays where it is.
+
 ### Switch values and `if()`
 
 `if()` reads a switch token (`--ui-contrast`, `--ui-motion`) on the element itself, so it also sees a value the element sets, which `@container style()` can't:

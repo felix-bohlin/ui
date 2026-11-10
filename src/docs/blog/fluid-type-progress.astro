@@ -73,10 +73,15 @@ import Variants from "../../component-examples/typography/Variants.astro"
     var(--ui-fluid-min-inline-size),
     var(--ui-fluid-max-inline-size)
   );
-  --ui-font-size-h1: calc(
-    var(--ui-font-size-700) +
-      (var(--ui-font-size-900) - var(--ui-font-size-700)) *
-      var(--ui-fluid-progress)
+  --ui-font-size-h1: --ui-fluid(
+    var(--ui-font-size-700),
+    var(--ui-font-size-900)
+  );
+}
+
+@function --ui-fluid(--min, --max) {
+  result: calc(
+    var(--min) + (var(--max) - var(--min)) * var(--ui-fluid-progress)
   );
 }`}
     />

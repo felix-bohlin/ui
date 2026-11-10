@@ -45,6 +45,12 @@ const years = Object.keys(categorized)
         or to a fallback from the <a href="#compat">compat layer</a>.
       </li>
       <li>
+        The theme is the exception. Its palette, text colors, shadows and
+        heading sizes come from CSS custom functions (<code>@function</code>,
+        see <DocLink href="/guide/theming#functions">Functions</DocLink>), which
+        have no fallback: a browser without them resolves none of those tokens.
+      </li>
+      <li>
         Chromium, Firefox and WebKit run the tests. Known failures are recorded
         as expected, so each one fails the day the browser catches up and the
         entry is removed.

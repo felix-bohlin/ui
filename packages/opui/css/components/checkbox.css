@@ -9,10 +9,7 @@
       --_border-width: var(--_rest-border-width);
       --_mark-bg-color: light-dark(
         var(--_accent),
-        oklch(
-          from var(--_accent) max(l, var(--ui-text-min-lightness))
-            min(c, var(--ui-text-max-chroma)) h
-        )
+        --ui-dark-text-of(var(--_accent))
       );
       --_rest-border-width: var(
         --ui-choice-border-width,

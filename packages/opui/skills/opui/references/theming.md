@@ -282,3 +282,39 @@ Set the knobs under the media query and on `.ui-contrast-more`:
 ### Forced colors
 
 Handled by the components. Nothing to configure.
+
+## Functions
+
+The tokens get their formulas from custom functions (`@function`). Call them for your own colors and sizes:
+
+```css
+:where(html, .ui-palette, .ui-contrast-more) {
+  --brand: oklch(0.7 0.17 55);
+  --brand-hover: --ui-shade(var(--brand), 0.1);
+  --brand-text: --ui-text-of(var(--brand));
+  --on-brand: --ui-on(var(--brand));
+  --hero-font-size: --ui-fluid(2rem, 4rem);
+}
+```
+
+- `--ui-dark-text-of(color)`: the dark mode half of `--ui-text-of()`.
+- `--ui-fluid(min, max)`: a size on the [fluid heading](#fluid-headings) ramp.
+- `--ui-gray-of(color)`: the gray at a color's lightness.
+- `--ui-on(fill)`: white or near-black text for a fill, at 4.5:1.
+- `--ui-palette-step(step, lightness, chroma)`: a step of the [palette](#palette).
+- `--ui-shade(fill, by)`: the hover (`0.1`) or pressed (`0.15`) shade of a fill.
+- `--ui-shadow-layer(alpha)`: `--ui-shadow-color` with more opacity.
+- `--ui-text-of(color)`: a color as text, readable in both color schemes.
+
+Replace one in your theme:
+
+```css
+@layer theme.custom {
+  /* Black or white, by the lightness of the fill */
+  @function --ui-on(--fill) {
+    result: oklch(from var(--fill) clamp(0, (0.6 - l) * 1000, 1) 0 0);
+  }
+}
+```
+
+Custom functions have no fallback: a browser without them resolves none of the tokens that call one. In Chromium, don't pass a function a token that the same element derives with the same function, such as `--ui-text-of(var(--ui-primary-text))` on `html`: neither resolves.

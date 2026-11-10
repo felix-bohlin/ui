@@ -486,6 +486,13 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
         selectedIndex = 0
         updateSelection()
       }
+      if (others.length === 0 && activeFilter === "all") {
+        const roadmap = document.createElement("a")
+        roadmap.className = "ui-link"
+        roadmap.href = "https://github.com/felix-bohlin/ui/issues/441"
+        roadmap.textContent = "See what's planned"
+        emptyState!.append(" ", roadmap)
+      }
       return
     }
 

@@ -22,6 +22,15 @@ const levels = baselineYears()
 const years = Object.keys(categorized)
   .filter((k) => k !== "all" && k !== "limited")
   .sort((a, b) => a.localeCompare(b)) // 2024, 2025...
+
+export const keywords = [
+  "baseline",
+  "chrome",
+  "compat",
+  "fallback",
+  "firefox",
+  "safari",
+]
 ---
 
 <Guide>

@@ -22,8 +22,6 @@
         max-content,
         min(size, var(--_min-inline-size))
       );
-      /* UA sets overflow: auto on [popover], which clips the arrow. */
-      overflow: visible;
       padding-block: var(--ui-space-1);
       padding-inline: var(--ui-space-2);
       position-area: var(--ui-anchor-position-area, self-block-start);
@@ -34,7 +32,6 @@
         --ui-tooltip-shift-end,
         --ui-tooltip-shift-start flip-block,
         --ui-tooltip-shift-end flip-block;
-      position-visibility: anchors-visible;
       text-align: center;
       text-wrap: pretty;
 

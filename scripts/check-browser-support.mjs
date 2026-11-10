@@ -369,7 +369,6 @@ const viaCore = {
   dialog: ["overflow-clip", "scrollbar-gutter"],
   drawer: ["overflow-clip", "scrollbar-gutter"],
 }
-const viaTheme = { typography: ["progress-function"] }
 
 const report = (heading, entries) => {
   if (entries.length === 0) return
@@ -394,7 +393,7 @@ const main = async () => {
       [...stylesheets].toSorted().map((file) => parseCss(join(cssDir, file))),
     )
     const problems = pageProblems({
-      available: new Set([...(viaCore[comp] ?? []), ...(viaTheme[comp] ?? [])]),
+      available: new Set(viaCore[comp]),
       ids,
       ignored: ignore[comp],
       used: new Set([

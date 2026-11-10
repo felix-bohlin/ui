@@ -1090,6 +1090,7 @@ interaction(
         "oklch(0.5 0.2 30)",
       ),
     )
+    await settle(group)
     expect(
       await group.evaluate((element) => getComputedStyle(element).columnGap),
     ).toBe("0px")

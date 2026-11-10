@@ -655,7 +655,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField` and `Select` with `spread` keep the start text under the label when the field has a top or bottom slot.
 - `TextField`, `Select` and `Textarea` look disabled, and a filled field no longer darkens on hover, when a disabled `fieldset` disables the control or it has `aria-disabled="true"`, and a disabled `option` no longer makes a `Select` look disabled. Read-only and `aria-disabled` fields get no hover styles.
 - `TextField` and `Select` keep the control height of buttons in Firefox and Safari. Single-line inputs and selects get a definite height, `1lh` plus their padding, so the engine's own input height and padding rounding no longer make the field up to 2px taller.
-- `TextField`, `Select` and `Textarea` cover the browser's autofill color with the field's own background, so an autofilled input in a `.ui-filled` field no longer shows a page-colored box.
+- `TextField`, `Select` and `Textarea` cover the browser's autofill color with the field's own background, so an autofilled input in a `.ui-filled` field no longer shows a page-colored box, and keep the field's text color, so an autofilled value no longer looks fainter than a typed one.
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
 - `ToggleButton` declares `--_selected-bg-color` on the root with its other inputs, so an override on `.ui-toggle-button` reaches the checked button instead of losing to the checked rule.

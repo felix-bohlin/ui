@@ -89,6 +89,7 @@
       }
 
       &:autofill {
+        -webkit-text-fill-color: currentColor;
         box-shadow: 0 0 0 1e5px var(--_bg-color) inset;
       }
 

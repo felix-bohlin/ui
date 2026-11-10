@@ -3,23 +3,28 @@ const Base = globalThis.HTMLElement ?? class {}
 const DELAY = 750
 const LABEL = "Characters left: {count}"
 
-let announcer
+const announcers = new WeakMap()
 
-function announce(text) {
-  if (!announcer?.isConnected) return
+function announce(announcer, text) {
   announcer.textContent = ""
   requestAnimationFrame(() => {
     announcer.textContent = text
   })
 }
 
-function ensureAnnouncer(document) {
-  if (announcer?.isConnected) return
-  announcer = document.createElement("div")
+function announcerOf(field) {
+  const dialog = field.closest("dialog")
+  const root = dialog ?? field.ownerDocument.body
+  let announcer = announcers.get(root)
+  if (announcer?.isConnected) return announcer
+  announcer = field.ownerDocument.createElement("div")
   announcer.className = "ui-sr-only"
   announcer.dataset.opuiAnnouncer = ""
   announcer.setAttribute("aria-live", "polite")
-  document.body.append(announcer)
+  if (dialog) dialog.prepend(announcer)
+  else root.append(announcer)
+  announcers.set(root, announcer)
+  return announcer
 }
 
 export class CharacterCount extends Base {
@@ -37,7 +42,6 @@ export class CharacterCount extends Base {
     if (!this.hasAttribute("aria-hidden")) {
       this.setAttribute("aria-hidden", "true")
     }
-    ensureAnnouncer(this.ownerDocument)
     this.#controller = new AbortController()
     const { signal } = this.#controller
     this.ownerDocument.addEventListener(
@@ -45,7 +49,7 @@ export class CharacterCount extends Base {
       (event) => {
         if (event.target !== this.field) return
         this.#update()
-        this.#schedule()
+        this.#schedule(announcerOf(event.target))
       },
       { signal },
     )
@@ -80,15 +84,16 @@ export class CharacterCount extends Base {
     return Math.max(0, field.maxLength - field.value.length)
   }
 
-  #schedule() {
+  #schedule(announcer) {
     clearTimeout(this.#timeout)
     const field = this.field
     const remaining = this.#remaining()
     if (remaining === undefined) return
     if (remaining > Math.max(10, Math.ceil(field.maxLength / 10))) return
     this.#timeout = setTimeout(() => {
+      if (!announcer.isConnected) return
       const label = this.getAttribute("label") ?? LABEL
-      announce(label.replace("{count}", String(this.#remaining())))
+      announce(announcer, label.replace("{count}", String(this.#remaining())))
     }, DELAY)
   }
 

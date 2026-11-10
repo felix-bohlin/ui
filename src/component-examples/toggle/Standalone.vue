@@ -3,7 +3,7 @@ import { ToggleButton } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleButton label="Toggle me" name="standalone-demo-1" />
+  <ToggleButton label="Show grid" name="standalone-demo-1" />
   <ToggleButton name="standalone-demo-2">
     <svg
       aria-hidden="true"
@@ -21,6 +21,6 @@ import { ToggleButton } from "opui-css/vue"
       <path d="M12 8v4"></path>
       <path d="M12 16h.01"></path>
     </svg>
-    Toggle with icon
+    Show warnings
   </ToggleButton>
 </template>

@@ -5,7 +5,6 @@ import type { Props as BaseProps } from "./types"
 export type Props = BaseProps &
   Class & {
     autocapitalize?: IntrinsicElementAttributes["input"]["autocapitalize"]
-    autocomplete?: IntrinsicElementAttributes["input"]["autocomplete"]
     inputmode?: IntrinsicElementAttributes["input"]["inputmode"]
     name?: IntrinsicElementAttributes["input"]["name"]
     pattern?: IntrinsicElementAttributes["input"]["pattern"]

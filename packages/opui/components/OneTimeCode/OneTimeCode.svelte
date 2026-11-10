@@ -2,13 +2,13 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { defined } from "../attrs"
   import type { Props } from "./types.svelte"
 
   let {
     alphanumeric,
     "aria-invalid": ariaInvalid,
     autocapitalize,
-    autocomplete,
     class: className,
     defaultValue,
     error,
@@ -55,12 +55,12 @@
     <input
       autocapitalize={autocapitalize ??
         (alphanumeric ? "characters" : undefined)}
-      autocomplete={autocomplete ?? "one-time-code"}
+      autocomplete="one-time-code"
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={pattern ??
         (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
       spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
-      {...rest}
+      {...defined(rest)}
       aria-invalid={error ? "true" : ariaInvalid}
       maxlength={length}
       name={name ?? field?.name}

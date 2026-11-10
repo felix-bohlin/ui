@@ -9,7 +9,6 @@ const {
   alphanumeric,
   "aria-invalid": ariaInvalid,
   autocapitalize,
-  autocomplete,
   class: className,
   endText,
   error,
@@ -48,7 +47,7 @@ const LabelTag = label || labelSlot ? "span" : Fragment
       autocapitalize={
         autocapitalize ?? (alphanumeric ? "characters" : undefined)
       }
-      autocomplete={autocomplete ?? "one-time-code"}
+      autocomplete="one-time-code"
       inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
       pattern={
         pattern ??

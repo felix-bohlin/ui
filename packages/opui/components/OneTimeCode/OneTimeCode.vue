@@ -3,12 +3,12 @@ import { computed, inject } from "vue"
 import { useInputAttrs, vSeed } from "../vue"
 import { TrimmedSlot } from "../whitespace.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { defined } from "../attrs"
 import type { Props, Slots } from "./types.vue-props"
 
 const {
   alphanumeric,
   autocapitalize,
-  autocomplete,
   endText,
   error,
   grouped,
@@ -60,14 +60,14 @@ const field = inject(FieldGroupKey, undefined)
         :autocapitalize="
           autocapitalize ?? (alphanumeric ? 'characters' : undefined)
         "
-        :autocomplete="autocomplete ?? 'one-time-code'"
+        autocomplete="one-time-code"
         :inputmode="inputmode ?? (alphanumeric ? undefined : 'numeric')"
         :pattern="
           pattern ??
           (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
         "
         :spellcheck="spellcheck ?? (alphanumeric ? 'false' : undefined)"
-        v-bind="attrs"
+        v-bind="defined(attrs)"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :maxlength="length"
         :name="name ?? field?.name"

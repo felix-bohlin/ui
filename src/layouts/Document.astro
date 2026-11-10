@@ -403,59 +403,53 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
         }
 
         @media (width > 1200px) {
-          @supports (animation-timeline: view()) {
-            section:has(> h2[data-heading]) {
-              view-timeline: --sticky-heading-section block;
-              view-timeline-inset: var(--size-11) 0;
+          h2[data-heading] {
+            --sticky-heading-inline-size: min(
+              var(--content-inline-size),
+              min(
+                  100vw - var(--site-gap),
+                  (100vw + var(--site-content-lg)) / 2
+                ) -
+                var(--size-3) - var(--site-header-end-inline-size) -
+                max(
+                  0px,
+                  (100vw - var(--site-content-lg) - var(--site-page-gutters)) /
+                    2
+                ) -
+                var(--site-gap) * 2 - 200px - var(--size-5)
+            );
+
+            container-name: sticky-heading;
+            container-type: scroll-state;
+            inset-block-start: var(--size-4);
+            pointer-events: none;
+            position: sticky;
+            z-index: 22;
+
+            & > * {
+              pointer-events: auto;
             }
 
-            section > h2[data-heading] {
-              --sticky-heading-inline-size: min(
-                var(--content-inline-size),
-                min(
-                    100vw - var(--site-gap),
-                    (100vw + var(--site-content-lg)) / 2
-                  ) -
-                  var(--size-3) - var(--site-header-end-inline-size) -
-                  max(
-                    0px,
-                    (
-                        100vw - var(--site-content-lg) -
-                          var(--site-page-gutters)
-                      ) /
-                      2
-                  ) -
-                  var(--site-gap) * 2 - 200px - var(--size-5)
-              );
+            &::after {
+              content: attr(data-heading) / "";
+              inset-block-start: 0;
+              inset-inline-start: 0;
+              max-inline-size: var(--sticky-heading-inline-size);
+              opacity: 0;
+              overflow: hidden;
+              position: absolute;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
 
-              view-timeline: --sticky-heading block;
-              view-timeline-inset: calc(var(--size-4) + 1lh) 0;
-
-              & > span {
-                animation-fill-mode: both;
-                animation-name: sticky-heading-text-out;
-                animation-range: exit 0% exit 100%;
-                animation-timeline: --sticky-heading;
-                animation-timing-function: linear;
+            @container sticky-heading scroll-state(stuck: top) {
+              & > * {
+                opacity: 0;
+                pointer-events: none;
               }
 
               &::after {
-                animation-fill-mode: both;
-                animation-name: sticky-heading-copy-in, sticky-heading-copy-out;
-                animation-range:
-                  exit 0% exit 100%,
-                  exit calc(100% - var(--size-10)) exit 100%;
-                animation-timeline: --sticky-heading, --sticky-heading-section;
-                animation-timing-function: linear;
-                content: attr(data-heading) / "";
-                inset-block-start: var(--size-4);
-                max-inline-size: var(--sticky-heading-inline-size);
-                overflow: hidden;
-                pointer-events: none;
-                position: fixed;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                z-index: 22;
+                opacity: 1;
               }
             }
           }
@@ -493,24 +487,6 @@ const content = addHeadingAnchors(await Astro.slots.render("default"))
     from,
     to {
       --can-scroll: ;
-    }
-  }
-
-  @keyframes sticky-heading-copy-in {
-    from {
-      opacity: 0;
-    }
-  }
-
-  @keyframes sticky-heading-copy-out {
-    to {
-      filter: opacity(0);
-    }
-  }
-
-  @keyframes sticky-heading-text-out {
-    to {
-      opacity: 0;
     }
   }
 </style>

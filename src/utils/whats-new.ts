@@ -727,7 +727,7 @@ export const whatsNew = {
     `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header, and <a href="#column-align"><code>.ui-align-center</code> and <code>.ui-align-end</code></a> line up a row or a column.`,
     `<a href="#stretch"><code>.ui-stretch</code></a> stretches the columns of a grid over the row when fewer children than fit, and <a href="#max-columns"><code>--_max-columns</code></a> caps the count.`,
     `<a href="#media"><code>.ui-layout-media</code></a> puts an avatar or an icon next to text that fills the rest and wraps instead of widening the row.`,
-    `On a <code>ul</code> or <code>ol</code>, <a href="#lists">rows and grids</a> drop the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
+    `On a <code>ul</code> or <code>ol</code>, <a href="#lists">columns, rows and grids</a> drop the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
     `<a href="#columns"><code>.ui-layout-columns</code></a> is one column that becomes the <code>--_columns</code> tracks at a breakpoint, with a <a href="#sticky"><code>.ui-sticky</code></a> child that stays in view.`,
     `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks, which <code>.ui-layout-columns</code> picks with <code>.ui-breakpoint-small</code> and <code>.ui-breakpoint-large</code>.`,
     `<a href="#divided"><code>.ui-divided</code></a> draws a line in each gap between two children of a column, row, grid or columns, so a wrapped row gets no stray line.`,

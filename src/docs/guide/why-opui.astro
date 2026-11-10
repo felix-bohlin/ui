@@ -15,8 +15,13 @@ import SvelteLogo from "../../components/SvelteLogo.astro"
 import VueLogo from "../../components/VueLogo.astro"
 
 const elements = ["button", "details", "dialog", "input"]
+const installs = ["npm i opui-css", "<link>", "button.css"]
 const logos = [Html5Logo, AstroLogo, ReactLogo, SvelteLogo, VueLogo]
-const steps = Array.from({ length: 16 }, (_, index) => index + 1)
+const looks = [
+  { font: "inherit", hue: 30, radius: "var(--ui-radius-round)" },
+  { font: "var(--ui-font-code)", hue: 145, radius: "0" },
+  { font: "ui-serif, Georgia, serif", hue: 300, radius: "0.5rem" },
+]
 ---
 
 <Guide overline="Guide">
@@ -45,16 +50,19 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
       </Card>
       <Card variant="outlined">
         <div class="pillar-art ui-not-rich-text" aria-hidden="true">
-          <code>button.css</code>
+          {installs.map((install, index) => <Fragment>
+            {index > 0 && <span class="pillar-or">or</span>}
+            <code>{install}</code>
+          </Fragment>)}
         </div>
         <CardHeader>
-          <h3>CSS you own</h3>
+          <h3>You're in charge</h3>
         </CardHeader>
         <CardContent>
           <p>
-            You can <strong>copy and paste the components</strong> into your
-            repo instead of installing a package. It's the best way to have a
-            complete understanding and ownership over your code.
+            Install it from npm, link it from a CDN or copy the files into your
+            repo. Take all of it or only what you use. See
+            <DocLink href="/guide/getting-started">Getting started</DocLink>.
           </p>
         </CardContent>
       </Card>
@@ -65,30 +73,32 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
           ))}
         </div>
         <CardHeader>
-          <h3>Five frameworks, one markup</h3>
+          <h3>Works with your stack</h3>
         </CardHeader>
         <CardContent>
           <p>
-            HTML, Astro, React, Svelte and Vue render the same classes, so what
-            you learn on one page carries over.
+            It's CSS on plain HTML, so anything that renders HTML can use it.
+            Astro, React, Svelte and Vue also get typed components.
           </p>
         </CardContent>
       </Card>
       <Card variant="outlined">
         <div class="pillar-art ui-not-rich-text" aria-hidden="true">
-          <span class="pillar-palette">
-            {steps.map((step) => (
-              <span style={`background-color: var(--ui-color-${step})`} />
-            ))}
-          </span>
+          {looks.map(({ font, hue, radius }) => <span
+            class="pillar-look ui-palette"
+            style={`--ui-palette-hue: ${hue}; --ui-radius: ${radius}; font-family: ${font}`}
+          >
+            <span class="ui-button ui-filled ui-primary">Save</span>
+          </span>)}
         </div>
         <CardHeader>
-          <h3>Themed by tokens</h3>
+          <h3>Make it yours</h3>
         </CardHeader>
         <CardContent>
           <p>
-            A hue, a density and a few more knobs feed the roles every component
-            reads. See <DocLink href="/guide/theming">Theming</DocLink>.
+            Every component follows your colors, density, corners and fonts, so
+            it looks like your product, not like a library. Try the
+            <DocLink href="/theme-builder">Theme builder</DocLink>.
           </p>
         </CardContent>
       </Card>
@@ -206,16 +216,15 @@ const steps = Array.from({ length: 16 }, (_, index) => index + 1)
     }
   }
 
-  .pillar-palette {
-    border-radius: var(--ui-radius-small);
-    display: grid;
-    flex: 1;
-    forced-color-adjust: none;
-    grid-template-columns: repeat(16, 1fr);
-    overflow: hidden;
+  .pillar-look {
+    --ui-palette-source: oklch(
+      58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue)
+    );
+    --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6));
+  }
 
-    > span {
-      block-size: var(--size-5);
-    }
+  .pillar-or {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
   }
 </style>

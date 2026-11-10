@@ -38,6 +38,10 @@ const BASES = {
 }
 
 const READ = /var\(\s*(--[\w-]+)|\bstyle\(\s*(--[\w-]+)/g
+const CALL = /(?<![\w-])(--[\w-]+)\(/g
+const FUNCTION = /@function\s+(--[\w-]+)\s*\(/g
+const LOCAL = /[;{]\s*(--[\w-]+)\s*:/g
+const PARAMETER = /(?:^|,)\s*(--[\w-]+)/g
 const IMPORT = /@import\s+["']([^"']+)["']/g
 const STYLE = /<style\b[^>]*>([\s\S]*?)<\/style>/g
 const TEMPLATE_STYLE = /^\s*\{`([\s\S]*)`\}\s*$/
@@ -148,8 +152,58 @@ const styleSources = (file, source) => {
   }
 }
 
-const readsOf = (text) =>
+const closing = (text, open) => {
+  let depth = 0
+  for (let index = open; index < text.length; index++) {
+    if ("({".includes(text[index])) depth++
+    if (")}".includes(text[index]) && --depth === 0) return index
+  }
+  return text.length
+}
+
+const functionsOf = (text) =>
+  [...text.matchAll(FUNCTION)].map((match) => {
+    const open = match.index + match[0].length - 1
+    const close = closing(text, open)
+    const end = closing(text, text.indexOf("{", close)) + 1
+    return {
+      end,
+      locals: [
+        ...text.slice(open + 1, close).matchAll(PARAMETER),
+        ...text.slice(close, end).matchAll(LOCAL),
+      ].map(([, name]) => name),
+      name: match[1],
+      nameStart: open - match[1].length,
+      start: match.index,
+    }
+  })
+
+const namesOf = (text) =>
   [...text.matchAll(READ)].map(([, name, queried]) => name ?? queried)
+
+const readsOf = (text) => {
+  const functions = functionsOf(text)
+  return [
+    ...namesOf(
+      functions.reduceRight(
+        (rest, { end, start }) => rest.slice(0, start) + rest.slice(end),
+        text,
+      ),
+    ),
+    ...functions.flatMap(({ end, locals, start }) =>
+      namesOf(text.slice(start, end)).filter((name) => !locals.includes(name)),
+    ),
+  ]
+}
+
+const callsOf = (text) => {
+  const functions = functionsOf(text)
+  return [...text.matchAll(CALL)]
+    .filter(
+      ({ index }) => !functions.some(({ nameStart }) => index === nameStart),
+    )
+    .map(([, name]) => name)
+}
 
 export const customProperties = (file, source, readEverywhere = false) => {
   const { css, declared, inline } = styleSources(file, source)
@@ -161,9 +215,14 @@ export const customProperties = (file, source, readEverywhere = false) => {
       throw new Error(`${file}: can't parse its CSS: ${error.message}`)
     }
   }
+  const texts = readEverywhere ? [source] : sheets
   return {
+    called: new Set(texts.flatMap(callsOf)),
     declared: new Set([...declared, ...sheets.flatMap(parsed)]),
-    read: new Set(readEverywhere ? readsOf(source) : sheets.flatMap(readsOf)),
+    functions: new Set(
+      texts.flatMap((text) => functionsOf(text).map(({ name }) => name)),
+    ),
+    read: new Set(texts.flatMap(readsOf)),
   }
 }
 
@@ -285,6 +344,10 @@ const main = async () => {
     ...CONSUMER_SET,
   ])
   const srcDefined = new Set([...packageDefined, ...declaredIn(srcFiles)])
+  const functionsIn = (files) =>
+    files.flatMap(({ functions }) => [...functions])
+  const packageFunctions = new Set(functionsIn(packageFiles))
+  const srcFunctions = new Set([...packageFunctions, ...functionsIn(srcFiles)])
   const declaredBy = new Map(
     packageFiles.map(({ declared, file }) => [file, declared]),
   )
@@ -293,6 +356,20 @@ const main = async () => {
   const addUndefined = (name, file) => {
     if (!undefinedReads.has(name)) undefinedReads.set(name, new Set())
     undefinedReads.get(name).add(relative(root, file))
+  }
+
+  const undefinedCalls = new Map()
+  for (const [files, defined] of [
+    [packageFiles, packageFunctions],
+    [srcFiles, srcFunctions],
+  ]) {
+    for (const { called, file } of files) {
+      for (const name of called) {
+        if (defined.has(name)) continue
+        if (!undefinedCalls.has(name)) undefinedCalls.set(name, new Set())
+        undefinedCalls.get(name).add(relative(root, file))
+      }
+    }
   }
 
   const privateErrors = []
@@ -397,6 +474,12 @@ const main = async () => {
       .map(
         ([name, files]) =>
           `${name} is read but never defined (${[...files].toSorted().join(", ")})`,
+      ),
+    ...[...undefinedCalls]
+      .toSorted(([a], [b]) => a.localeCompare(b))
+      .map(
+        ([name, files]) =>
+          `${name}() is called but no @function defines it (${[...files].toSorted().join(", ")})`,
       ),
     ...privateErrors.toSorted(),
     ...(update

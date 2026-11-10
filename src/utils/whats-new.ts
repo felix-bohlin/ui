@@ -149,7 +149,9 @@ export const whatsNew = {
       ),
       html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>, inside <code>.ui-floating</code> instead of <code>.ui-anchor-floating</code>.`,
     },
-    slots(`Breaking: <a href="#indicator"><code>label</code></a> is a string.`),
+    slots(
+      `Breaking: <a href="#indicator"><code>label</code></a> is a string, and <code>dot</code> requires it.`,
+    ),
     components(
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),

@@ -31,7 +31,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Avatar`, `Button` and `Chip` types match the rendered element: a button `Avatar` or `Chip` needs `as="button"`, a link `Chip` needs `href`, `disabled` only goes with a button or a link, and `Button` takes link attributes only with `href` (types).
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"` and overlaps the avatars by `--ui-space-2` (8px) instead of 16px.
 - `Badge` `alignment` is `corner`, since it picks a corner of the child. The classes are unchanged.
-- `Badge` `label` is a `string` (types). Pass a number as a string.
+- `Badge` `label` is a `string` (types), and `dot` and `hideLabel` require it. Pass a number as a string.
 - `Badge` indicator is `.ui-indicator` instead of `.ui-badge-indicator`.
 - `Button` no longer takes `.ui-icon-only`. A button whose only child is an `svg` is square, at every size and inside `ControlGroup`, so remove the class.
 - `Button` in Astro and Vue no longer adds `.ui-disabled` to a disabled `<button>`. It sets `disabled`, and `aria-disabled="true"` on links. Target `:disabled` or `[aria-disabled="true"]` instead of `.ui-disabled`.

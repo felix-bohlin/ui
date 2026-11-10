@@ -158,7 +158,7 @@ The indicator is `.ui-indicator` instead of `.ui-badge-indicator`. For a count w
   </span>
 ```
 
-`label` is a `string`. Pass a number as a string (`label="5"`).
+`label` is a `string`. Pass a number as a string (`label="5"`). A `dot` badge requires `label`, the text screen readers get.
 
 ## Button
 

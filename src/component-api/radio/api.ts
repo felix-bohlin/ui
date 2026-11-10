@@ -106,7 +106,7 @@ export default {
     {
       attribute: "[required]",
       description:
-        "Adds a required mark after the label. The form won't submit until one radio in the group is checked.",
+        "The form won't submit until one radio in the group is checked. The legend of the enclosing fieldset shows the required mark.",
       group: "Required",
       inherited: true,
       part: "input",
@@ -137,7 +137,7 @@ export default {
         "The value of the `<input>`, submitted with the form when it's checked.",
       inherited: true,
       prop: "value",
-      type: "string",
+      type: "string | number | boolean",
     },
     {
       default: '"outlined"',

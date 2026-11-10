@@ -13,12 +13,12 @@ export default {
   },
   "--_border-color": {
     description:
-      "Border of `.ui-card`, read by `card.css`. `--ui-border-color` by default, `--_accent` when checked and `--ui-invalid` when invalid.",
+      "Border of `.ui-card`, read by `card.css`: `--ui-border-color` by default, `--_accent` when checked and `--ui-invalid` when invalid. On the checkbox and radio `input`, `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, and `CanvasText` in forced colors. A focused input draws `--ui-focus-border-color` instead when the theme sets it.",
     kind: "output",
   },
   "--_border-width": {
     description:
-      "Border width of `.ui-card`, read by `card.css`. `--ui-border-width`.",
+      "Border width of `.ui-card`, read by `card.css`: `--ui-border-width`. On the checkbox and radio `input`, `--_rest-border-width`, or `--ui-focus-border-width` while focused when the theme sets a wider one. The check, dash and dot are inset by the difference from `--_rest-border-width`, so they keep their size.",
     kind: "output",
   },
   "--_duration": {
@@ -35,6 +35,11 @@ export default {
       "Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.",
     kind: "input",
   },
+  "--_mark-bg-color": {
+    description:
+      "Color of the check, the indeterminate dash and the radio dot when `--ui-choice-checked` is `mark`: `--_accent` in light mode, and in dark mode `--_accent` lifted to at least `--ui-text-min-lightness` with its chroma capped at `--ui-text-max-chroma`, so it reads on the surface. Set on `input`.",
+    kind: "output",
+  },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
@@ -48,6 +53,11 @@ export default {
     description:
       "Padding of `.ui-card`. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.",
     kind: "input",
+  },
+  "--_rest-border-width": {
+    description:
+      "Border width of the unfocused checkbox and radio input: `--ui-choice-border-width`, or `--ui-field-border-width` when the theme leaves it unset. Set on `input`.",
+    kind: "output",
   },
   "--_ripple-scale": {
     description:

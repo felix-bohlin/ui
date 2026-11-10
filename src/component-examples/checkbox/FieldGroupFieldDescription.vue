@@ -11,9 +11,14 @@ import {
 
 <template>
   <Form>
-    <Fieldset>
+    <Fieldset
+      aria-describedby="checkbox-field-group-field-description-1-description"
+    >
       <FieldLegend>Notifications</FieldLegend>
-      <FieldDescription>How we reach you about your orders.</FieldDescription>
+      <FieldDescription
+        id="checkbox-field-group-field-description-1-description"
+        >How we reach you about your orders.</FieldDescription
+      >
       <FieldGroup
         name="checkbox-group-field-description-1"
         orientation="horizontal"
@@ -23,7 +28,9 @@ import {
         <Checkbox>SMS</Checkbox>
       </FieldGroup>
     </Fieldset>
-    <Fieldset>
+    <Fieldset
+      aria-describedby="checkbox-field-group-field-description-2-description"
+    >
       <FieldLegend>Newsletter topics</FieldLegend>
       <FieldGroup
         name="checkbox-group-field-description-2"
@@ -34,6 +41,7 @@ import {
         <Checkbox>Offers</Checkbox>
       </FieldGroup>
       <FieldDescription
+        id="checkbox-field-group-field-description-2-description"
         >Change these at any time in your account.</FieldDescription
       >
     </Fieldset>

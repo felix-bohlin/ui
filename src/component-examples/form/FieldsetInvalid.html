@@ -1,6 +1,11 @@
-<fieldset class="ui-fieldset" aria-describedby="form-fieldset-invalid-1-error">
+<fieldset
+  class="ui-fieldset"
+  aria-describedby="form-fieldset-invalid-1-description form-fieldset-invalid-1-error"
+>
   <legend>Pet food</legend>
-  <p class="ui-description">Pick at least one.</p>
+  <p class="ui-description" id="form-fieldset-invalid-1-description">
+    Pick at least one.
+  </p>
   <div class="ui-field-group">
     <label class="ui-checkbox">
       <input type="checkbox" name="food" value="kibble" aria-invalid="true" />
@@ -12,6 +17,6 @@
     </label>
   </div>
   <span class="ui-end-text" id="form-fieldset-invalid-1-error"
-    >Your pet is hungry.</span
+    >Choose at least one food.</span
   >
 </fieldset>

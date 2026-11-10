@@ -1,6 +1,6 @@
 <form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend>Input at the end</legend>
+    <legend>Notifications</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-switch ui-card ui-spread">
         <input
@@ -8,35 +8,35 @@
           role="switch"
           name="switch-cards-end"
           checked
-          value="outlined"
+          value="email"
         />
-        <span class="ui-label">Outlined</span>
-        <span class="ui-end-text">The default surface.</span>
-      </label>
-      <label class="ui-switch ui-card ui-spread ui-tonal">
-        <input
-          type="checkbox"
-          role="switch"
-          name="switch-cards-end"
-          value="tonal"
-        />
-        <span class="ui-label">Tonal</span>
-        <span class="ui-end-text">A tinted surface.</span>
+        <span class="ui-label">Email</span>
+        <span class="ui-end-text">A summary every morning.</span>
       </label>
       <label class="ui-switch ui-card ui-spread ui-elevated">
         <input
           type="checkbox"
           role="switch"
           name="switch-cards-end"
-          value="elevated"
+          value="push"
         />
-        <span class="ui-label">Elevated</span>
-        <span class="ui-end-text">A raised surface.</span>
+        <span class="ui-label">Push</span>
+        <span class="ui-end-text">On this device only.</span>
+      </label>
+      <label class="ui-switch ui-card ui-spread ui-tonal">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-cards-end"
+          value="sms"
+        />
+        <span class="ui-label">SMS</span>
+        <span class="ui-end-text">For security alerts only.</span>
       </label>
     </div>
   </fieldset>
   <fieldset class="ui-fieldset">
-    <legend>Input at the start</legend>
+    <legend>Privacy</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-switch ui-card">
         <input
@@ -44,30 +44,30 @@
           role="switch"
           name="switch-cards-start"
           checked
-          value="outlined"
+          value="status"
         />
-        <span class="ui-label">Outlined</span>
-        <span class="ui-end-text">The default surface.</span>
-      </label>
-      <label class="ui-switch ui-card ui-tonal">
-        <input
-          type="checkbox"
-          role="switch"
-          name="switch-cards-start"
-          value="tonal"
-        />
-        <span class="ui-label">Tonal</span>
-        <span class="ui-end-text">A tinted surface.</span>
+        <span class="ui-label">Online status</span>
+        <span class="ui-end-text">Others see when you're active.</span>
       </label>
       <label class="ui-switch ui-card ui-elevated">
         <input
           type="checkbox"
           role="switch"
           name="switch-cards-start"
-          value="elevated"
+          value="receipts"
         />
-        <span class="ui-label">Elevated</span>
-        <span class="ui-end-text">A raised surface.</span>
+        <span class="ui-label">Read receipts</span>
+        <span class="ui-end-text">Others see when you've read a message.</span>
+      </label>
+      <label class="ui-switch ui-card ui-tonal">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-cards-start"
+          value="search"
+        />
+        <span class="ui-label">Profile search</span>
+        <span class="ui-end-text">People can find you by email.</span>
       </label>
     </div>
   </fieldset>

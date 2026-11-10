@@ -62,7 +62,7 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     { name: "Divider", href: "/components/divider" },
     { name: "Range", href: "/components/range" },
     { name: "Select", href: "/components/select" },
-    { name: "Text Field", href: "/components/text-field" },
+    { name: "Text field", href: "/components/text-field" },
     { name: "Textarea", href: "/components/textarea" },
   ]}
   apis={[
@@ -142,7 +142,10 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     <AutoExample name="FieldsetDisabled" />
 
     <h3 id="fieldset-invalid">Invalid</h3>
-    <p>Point <code>aria-describedby</code> on the fieldset at the error.</p>
+    <p>
+      Point <code>aria-describedby</code> on the fieldset at the description,
+      then the error.
+    </p>
     <AutoExample name="FieldsetInvalid" />
 
     <h3 id="error-summary">Error summary</h3>
@@ -214,6 +217,9 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
   <Fragment slot="accessibility">
     <ul>
       <li>A fieldset is a group named by its legend.</li>
+      <li>
+        Point <code>aria-describedby</code> on the fieldset at the description.
+      </li>
     </ul>
   </Fragment>
 
@@ -227,9 +233,11 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
   <Fragment slot="anatomy">
     <Anatomy api={anatomyApi}>
       <UIForm style="inline-size: 18rem">
-        <UIFieldset>
+        <UIFieldset aria-describedby="form-anatomy-description">
           <UIFieldLegend>Favorite pet</UIFieldLegend>
-          <UIFieldDescription>Pick one.</UIFieldDescription>
+          <UIFieldDescription id="form-anatomy-description"
+            >Pick one.</UIFieldDescription
+          >
           <UIFieldGroup name="form-anatomy">
             <UIRadio value="cat" checked>Cat</UIRadio>
             <UIRadio value="dog">Dog</UIRadio>
@@ -250,12 +258,7 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     display: none;
   }
 
-  .ui-field-group {
-    &:has(.ui-button):not(:has(*:not(.ui-button))) {
-      &:not(hr + &),
-      #form-kitchen-sink-1:not(.kitchen-sink-dividers) > & {
-        margin-block-start: var(--size-4);
-      }
-    }
+  #form-kitchen-sink-1:not(.kitchen-sink-dividers) > .ui-field-group {
+    margin-block-start: var(--ui-space-4);
   }
 </style>

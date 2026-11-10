@@ -10,9 +10,9 @@ import {
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <Fieldset>
+      <Fieldset aria-describedby="radio-field-group-field-description-1-description">
         <FieldLegend>Contact method</FieldLegend>
-        <FieldDescription>
+        <FieldDescription id="radio-field-group-field-description-1-description">
           We only contact you about your order.
         </FieldDescription>
         <FieldGroup
@@ -26,7 +26,7 @@ export default function FieldGroupFieldDescription() {
           <Radio value="sms">SMS</Radio>
         </FieldGroup>
       </Fieldset>
-      <Fieldset>
+      <Fieldset aria-describedby="radio-field-group-field-description-2-description">
         <FieldLegend>Theme</FieldLegend>
         <FieldGroup
           name="radio-group-field-description-2"
@@ -38,7 +38,9 @@ export default function FieldGroupFieldDescription() {
           <Radio value="light">Light</Radio>
           <Radio value="dark">Dark</Radio>
         </FieldGroup>
-        <FieldDescription>System follows your device setting.</FieldDescription>
+        <FieldDescription id="radio-field-group-field-description-2-description">
+          System follows your device setting.
+        </FieldDescription>
       </Fieldset>
     </Form>
   )

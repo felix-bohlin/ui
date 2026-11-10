@@ -9,9 +9,11 @@ const TEXT_ATTRIBUTES = [
   "aria-label",
   "description",
   "end-text",
+  "endText",
   "label",
   "placeholder",
   "start-text",
+  "startText",
   "title",
   "value",
 ]
@@ -48,7 +50,7 @@ const RULES: [string, RegExp][] = [
   ],
   [
     "a placeholder label",
-    /^(?:Label|Legend|Option|(?:Button|Card|Checkbox|Item|Label|Link|Option|Radio|Step|Switch|Tab) \d+|Option (?:One|Two|Three)|One|Two|Three|Four|Five|Six|First|Second|Third)$/,
+    /^(?:Label|Legend|Option|Supporting text|(?:Button|Card|Checkbox|Item|Label|Link|Option|Radio|Step|Switch|Tab) \d+|Option (?:One|Two|Three)|One|Two|Three|Four|Five|Six|First|Second|Third)$/,
   ],
   ["a short exclamation", /^.{1,30}!$/],
   [
@@ -108,6 +110,17 @@ describe("example copy", () => {
       ),
       "the example changed: remove these from tests/unit/example-copy-allowlist.json",
     ).toEqual([])
+  })
+
+  test("reads the end and start text props", () => {
+    expect(
+      problemsOf(
+        '<Radio endText="Supporting text" />\n<TextField startText="Option 1" />',
+      ),
+    ).toEqual([
+      "a placeholder label: Supporting text",
+      "a placeholder label: Option 1",
+    ])
   })
 
   test("flags placeholders, filler, short exclamations and text about the example, and reads text, attributes and items", () => {

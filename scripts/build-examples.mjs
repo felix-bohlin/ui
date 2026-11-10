@@ -1675,11 +1675,7 @@ export const HTML_SCRIPT_RULES = [
     covers: (path) => path === "css/js/checkbox.js",
     lines: (elements) =>
       elements.some(({ attrs }) => attrs.has("data-indeterminate"))
-        ? [
-            'import { activateIndeterminate } from "opui-css/css/js/checkbox.js"',
-            "",
-            "activateIndeterminate()",
-          ]
+        ? ['import "opui-css/css/js/checkbox.js"']
         : [],
   },
   {

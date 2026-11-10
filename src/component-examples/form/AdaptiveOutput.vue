@@ -4,9 +4,11 @@ import { FieldDescription, FieldLegend, Fieldset, Form } from "opui-css/vue"
 
 <template>
   <Form as="div">
-    <Fieldset as="div">
+    <Fieldset aria-describedby="form-adaptive-output-1-description" as="div">
       <FieldLegend as="p">Delivery</FieldLegend>
-      <FieldDescription>Choose how your order gets to you.</FieldDescription>
+      <FieldDescription id="form-adaptive-output-1-description"
+        >Choose how your order gets to you.</FieldDescription
+      >
     </Fieldset>
   </Form>
 </template>

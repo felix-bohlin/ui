@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import {
   Button,
   Checkbox,
@@ -8,24 +8,29 @@ import {
   Fieldset,
 } from "opui-css/vue"
 
-const fruit = ref(["apples"])
+const topics = ["updates", "events", "offers"]
+
+const selected = ref(["updates"])
+const summary = computed(
+  () =>
+    topics.filter((topic) => selected.value.includes(topic)).join(", ") ||
+    "none",
+)
 
 function reset() {
-  fruit.value = ["apples"]
+  selected.value = ["updates"]
 }
 </script>
 
 <template>
   <Fieldset>
-    <FieldLegend>Fruit</FieldLegend>
+    <FieldLegend>Newsletter topics</FieldLegend>
     <FieldGroup name="checkbox-binding">
-      <Checkbox v-model="fruit" value="apples">Apples</Checkbox>
-      <Checkbox v-model="fruit" value="bananas">Bananas</Checkbox>
-      <Checkbox v-model="fruit" value="cherries">Cherries</Checkbox>
+      <Checkbox v-model="selected" value="updates">Product updates</Checkbox>
+      <Checkbox v-model="selected" value="events">Events</Checkbox>
+      <Checkbox v-model="selected" value="offers">Offers</Checkbox>
     </FieldGroup>
   </Fieldset>
-  <p class="checkbox-binding-text">
-    Selected: {{ fruit.join(", ") || "none" }}
-  </p>
+  <p class="checkbox-binding-text">Selected: {{ summary }}</p>
   <Button class="checkbox-binding-reset" @click="reset">Reset</Button>
 </template>

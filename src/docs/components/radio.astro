@@ -147,7 +147,15 @@ export const description =
     <h2>Cards</h2>
     <p>
       Use <PropOrClass prop="card" class=".ui-card" />, with
-      <PropOrClass prop="spread" class=".ui-spread" />.
+      <PropOrClass prop="spread" class=".ui-spread" />. Cards are outlined by
+      default, and
+      <Conditional>
+        <Fragment slot="components"><code>variant</code> changes</Fragment>
+        <Fragment slot="html"
+          ><code>.ui-elevated</code> and <code>.ui-tonal</code> change</Fragment
+        >
+      </Conditional>
+      the surface.
     </p>
 
     <AutoExample name="CardsMatrix" column />

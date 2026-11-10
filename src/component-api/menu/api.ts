@@ -102,7 +102,7 @@ export default {
     {
       default: '"auto"',
       description:
-        "The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.",
+        "The popover type. With `manual`, Esc and a click outside don't close the menu, and opening another menu doesn't either.",
       group: "Behavior",
       prop: "popover",
       values: { auto: null, manual: '[popover="manual"]' },

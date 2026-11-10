@@ -169,7 +169,7 @@ export default {
     {
       default: '"text"',
       description:
-        'The input type. `"numeric"` renders a text input with a numeric keyboard.',
+        "The input type. `numeric` renders a text input with a numeric keyboard.",
       prop: "type",
       type: '"numeric" | string',
     },

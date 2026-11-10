@@ -1315,6 +1315,21 @@ describe("toTypes", () => {
     )
   })
 
+  test("a component without a slot gets no Vue slot type", () => {
+    const { vue } = toTypes(
+      "Sample",
+      {
+        astro:
+          'import type * as Base from "./types"\nimport type { HTMLAttributes } from "astro/types"\n\nexport type Props = Base.Props & HTMLAttributes<"div">\n',
+        base: 'export type Props = {\n  variant?: "a" | "b"\n}\n',
+      },
+      { Sample: [] },
+    )
+    expect(vue).toBe(
+      'import type { Class } from "../vue"\nimport type {\n  Props as BaseProps,\n} from "./types"\n\nexport type Props = BaseProps & Class\n',
+    )
+  })
+
   test("a part with only the default slot gets its own Vue slot type when the folder's Slots names others", async () => {
     const { vue } = toTypes(
       "Sample",

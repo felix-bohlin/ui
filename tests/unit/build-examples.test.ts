@@ -796,6 +796,16 @@ describe("HTML", () => {
     expect(imports('<output class="ui-value" data-live>')).toEqual([
       'import "opui-css/css/js/range.js"',
     ])
+    expect(
+      imports(
+        '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label>',
+      ),
+    ).toEqual(['import "opui-css/css/js/range.js"'])
+    expect(
+      imports(
+        '<label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
+      ),
+    ).toEqual([])
   })
 
   test("matches elements and attributes, not text", () => {

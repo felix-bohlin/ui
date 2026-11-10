@@ -1633,19 +1633,29 @@ export const elementTags = () => {
 
 const htmlElements = (markup) => {
   const found = []
-  const walk = (nodes) => {
+  const walk = (nodes, parent) => {
     for (const node of nodes) {
       if (!node.tagName) continue
-      found.push({
+      const element = {
         attrs: new Set(node.attrs.map(({ name }) => name)),
+        classes: new Set(
+          node.attrs.find(({ name }) => name === "class")?.value.split(/\s+/) ??
+            [],
+        ),
+        parent,
         tag: node.tagName,
-      })
-      walk(node.content?.childNodes ?? node.childNodes)
+      }
+      found.push(element)
+      walk(node.content?.childNodes ?? node.childNodes, element)
     }
   }
   walk(parseFragment(markup).childNodes)
   return found
 }
+
+const insideClass = (element, name) =>
+  !!element.parent &&
+  (element.parent.classes.has(name) || insideClass(element.parent, name))
 
 export const HTML_SCRIPT_RULES = [
   {
@@ -1676,7 +1686,12 @@ export const HTML_SCRIPT_RULES = [
     covers: (path) => path === "css/js/range.js",
     lines: (elements) =>
       elements.some(
-        ({ attrs, tag }) => tag === "output" && attrs.has("data-live"),
+        (element) =>
+          (element.tag === "output" && element.attrs.has("data-live")) ||
+          (element.tag === "option" &&
+            element.attrs.has("label") &&
+            element.parent?.tag === "datalist" &&
+            insideClass(element, "ui-range")),
       )
         ? ['import "opui-css/css/js/range.js"']
         : [],

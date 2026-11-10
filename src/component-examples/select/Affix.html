@@ -1,7 +1,7 @@
 <label class="ui-select">
   <span class="ui-label" id="select-affix-1-label">Currency</span>
   <span class="ui-field">
-    <select aria-labelledby="select-affix-1-label">
+    <select aria-labelledby="select-affix-1-label select-affix-1-start">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -12,14 +12,14 @@
         <option>USD</option>
       </div>
     </select>
-    <span class="ui-start">¤</span>
+    <span class="ui-start" id="select-affix-1-start">¤</span>
   </span>
 </label>
 
 <label class="ui-select">
   <span class="ui-label" id="select-affix-2-label">Country</span>
   <span class="ui-field">
-    <select aria-labelledby="select-affix-2-label">
+    <select aria-labelledby="select-affix-2-label select-affix-2-start">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -30,7 +30,7 @@
         <option>Sweden</option>
       </div>
     </select>
-    <span class="ui-start">
+    <span class="ui-start" id="select-affix-2-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -55,7 +55,7 @@
 <label class="ui-select">
   <span class="ui-label" id="select-affix-3-label">Delivery time</span>
   <span class="ui-field">
-    <select aria-labelledby="select-affix-3-label">
+    <select aria-labelledby="select-affix-3-label select-affix-3-end">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -65,6 +65,6 @@
         <option>5</option>
       </div>
     </select>
-    <span class="ui-end">days</span>
+    <span class="ui-end" id="select-affix-3-end">days</span>
   </span>
 </label>

@@ -1,31 +1,25 @@
-"use client"
-
-import { useState } from "react"
 import { Select } from "opui-css/react"
 
 export default function Preselected() {
-  const [role, setRole] = useState("developer")
-
   return (
     <>
       <Select
-        label="Role"
+        defaultValue="developer"
         items={[
           { label: "Designer", value: "designer" },
           { label: "Developer", value: "developer" },
           { label: "Manager", value: "manager" },
         ]}
-        value={role}
-        onChange={(event) => setRole(event.currentTarget.value)}
+        label="Role"
       />
 
       <Select
-        label="Team"
         items={[
           { label: "Design", value: "design" },
           { label: "Engineering", selected: true, value: "engineering" },
           { label: "Sales", value: "sales" },
         ]}
+        label="Team"
       />
     </>
   )

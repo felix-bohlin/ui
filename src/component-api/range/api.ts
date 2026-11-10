@@ -74,7 +74,7 @@ export default {
       react:
         "Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     }),
-    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks.',
+    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks. `data-suffix` on the `.ui-value` output adds text after the value.',
   },
   options: [
     {
@@ -200,7 +200,7 @@ export default {
       slots: ["label"],
     },
     {
-      code: "<output>",
+      code: '<output class="ui-value" data-live>',
       description:
         "Shows the current value, with an optional `valueSuffix`. `opui-css/css/js/range.js` keeps it in step with the thumb, and content in the `value-text` slot replaces it.",
       props: ["valueSuffix"],

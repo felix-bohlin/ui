@@ -126,6 +126,29 @@ export const keywords = ["slider"]
         <code>opui-css/css/js/range.js</code> for a live readout.
       </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        For your own readout, use the <code>value-text</code> slot, update it on
+        <code>input</code>, and set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="html">
+        For your own readout, leave out <code>data-live</code>, update the
+        output on <code>input</code>, and set <code>aria-valuetext</code> to
+        match.
+      </Fragment>
+      <Fragment slot="react">
+        For your own readout, render <code>valueText</code> from your state and
+        set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="svelte">
+        For your own readout, render the <code>valueText</code> snippet from the
+        bound value and set <code>aria-valuetext</code> to match.
+      </Fragment>
+      <Fragment slot="vue">
+        For your own readout, render the <code>value-text</code> slot from the
+        <code>v-model</code> value and set <code>aria-valuetext</code> to match.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Value" column />
     <AutoExample name="ValueText" column />
   </section>
@@ -137,7 +160,9 @@ export const keywords = ["slider"]
         Pass <code>items</code> for tick marks.
       </Fragment>
       <Fragment slot="html">
-        Link a <code>&lt;datalist&gt;</code> with <code>list</code>.
+        Link a <code>&lt;datalist&gt;</code> with <code>list</code>, and import
+        <code>opui-css/css/js/range.js</code> so labeled ticks are read as
+        <code>aria-valuetext</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />

@@ -23,7 +23,7 @@ export default {
   },
   "--_actions-shift": {
     description:
-      "How far a text button at the start or end of `Card`, `Accordion` and `Dialog` actions pulls itself out, so its label lines up with the content: its padding and border, capped so the focus ring stays inside the card.",
+      "How far a text button at the start or end of `Card`, `Accordion` and `Dialog` actions pulls itself out, so its label lines up with the content: its padding and border, capped by `--ui-card-padding`, which card and accordion actions set to their own inline padding, so the focus ring stays inside the card.",
     kind: "output",
   },
   "--_bg-color": {

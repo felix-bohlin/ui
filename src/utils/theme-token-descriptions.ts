@@ -66,7 +66,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-size-x-small":
     "`Button` and `ControlGroup` height with `.ui-x-small`.",
   "--ui-card-padding":
-    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`.",
+    "Padding of `Card`, `Dialog`, `Drawer` and `Accordion` content, headers, footers and actions, and of `Checkbox`, `Radio` and `Switch` cards. When unset, `--ui-space-3`. Card and accordion actions set it to their own inline padding, which caps how far a text button at either end pulls itself out.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",

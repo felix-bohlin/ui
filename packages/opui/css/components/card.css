@@ -1,6 +1,7 @@
 @layer components.root {
   :where(.ui-accordion, .ui-card, .ui-dialog) {
     --_motion: var(--ui-motion);
+    --_actions-padding-inline: var(--_padding);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
     --_border-width: 0;
@@ -175,13 +176,15 @@
 
     /* Actions */
     &:where(.ui-accordion, .ui-card) > .ui-actions {
+      --ui-card-padding: var(--_actions-padding-inline);
+
       display: flex;
       flex-wrap: wrap;
       gap: var(--ui-space-2);
       justify-content: end;
       margin-block-start: auto;
       padding-block: var(--ui-space-2);
-      padding-inline: var(--_padding);
+      padding-inline: var(--_actions-padding-inline);
 
       /* Alignment */
       &.ui-align-start {

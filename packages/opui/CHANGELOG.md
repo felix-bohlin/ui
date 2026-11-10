@@ -509,7 +509,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Card` actions line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
 - `Card` actions keep the edge padding for a text button with extra classes.
 - `Card`, `Checkbox`, `Radio`, `Select`, `Switch`, `ToggleButton` and the busy spinner read the local `--_motion`, so `style="--_motion: 0"` turns off their focus ring animation, hover halo, picker animation and spin speed-up like other components.
-- `Card`, `Accordion` and `Dialog` actions line up the label of a text button at their start or end with the content: the button pulls itself out by its padding and border (`--_actions-shift`), as far as the focus ring stays inside the card. Accordion actions had no compensation, so the label sat 14px inside the content edge.
+- `Card`, `Accordion` and `Dialog` actions line up the label of a text button at their start or end with the content: the button pulls itself out by its padding and border (`--_actions-shift`), as far as the focus ring stays inside the padding the actions have (`--_actions-padding-inline`), in a dense or spacious card and an accordion group too. Accordion actions had no compensation, so the label sat 14px inside the content edge.
 - `Card` content followed by a divider has no bottom padding, so the divider sits evenly between the two contents.
 - `Checkbox` and `Radio` show a red border when invalid and unchecked (`aria-invalid="true"` or `:user-invalid`), like Switch and TextField. Before, only a checked control turned red.
 - `Checkbox` forced-colors styles apply to checked and indeterminate boxes.

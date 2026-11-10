@@ -1,6 +1,11 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_actions-padding-inline": {
+    description:
+      "Inline padding of `.ui-actions`. Defaults to `--_padding`. The actions pass it on as `--ui-card-padding`, so a text button at either end keeps its focus ring inside the card.",
+    kind: "input",
+  },
   "--_bg-color": {
     description: "The current background. Set by the variants.",
     kind: "output",

@@ -382,9 +382,9 @@ export const whatsNew = {
       default: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
     },
+    `Breaking: <code>choice.css</code> holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch. Import it with them when you <a href="#installation">install single files</a>, or use <code>components.css</code>.`,
     {
       astro: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
-      html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch.`,
       react: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A checkbox without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
@@ -600,9 +600,7 @@ export const whatsNew = {
     components(
       `<a href="#how-to-close"><code>closedby</code></a> is typed in every framework.`,
     ),
-    {
-      html: `Breaking: the page scroll lock of <a href="#modal">modal dialogs</a> lives in <code>utils.css</code>. Import it too if you import single files.`,
-    },
+    `Breaking: the page scroll lock of <a href="#modal">modal dialogs</a> lives in <code>utils.css</code>. Import it too if you import single files.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>.`,
     components(
@@ -913,9 +911,9 @@ export const whatsNew = {
       default: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
     },
+    `Breaking: <code>choice.css</code> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch. Import it with them when you <a href="#installation">install single files</a>, or use <code>components.css</code>.`,
     {
       astro: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
-      html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch.`,
       react: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
@@ -1137,8 +1135,8 @@ export const whatsNew = {
       html: `Takes <code>.ui-x-small</code> and <code>.ui-large</code>. <a href="#sizes">Sizes</a>`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, and <code>--_transition-time</code> and <code>--_transition-tf</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>choice.css</code> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio. Import it with them when you <a href="#installation">install single files</a>, or use <code>components.css</code>.`,
     {
-      html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio.`,
       react: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       vue: `A switch without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,

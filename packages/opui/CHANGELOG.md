@@ -374,7 +374,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Dialog` has a maximum height. The header and footer stay in place and the content scrolls.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
 - `Dialog` fades and scales in from `0.96` with its backdrop, and fades and scales out again when it closes, kept in the top layer by `display` and `overlay` transitions with `allow-discrete`.
-- `Dialog`, `Range`, `Select` and `TextField` start every id they generate with the `id` you pass, or with one id they generate per instance: for `id="x"` the label is `x-label`, the start and end text `x-start-text` and `x-end-text`, the affixes, top and bottom of a Select `x-start`, `x-end`, `x-top` and `x-bottom`, the tick list of a Range `x-list` and the title of a Dialog `x-title`.
+- `Dialog`, `Fieldset`, `Range` and `Select` start every id they generate with the `id` you pass, or with one id they generate per instance when `id` is missing or empty: for `id="x"` the label is `x-label`, the start and end text `x-start-text` and `x-end-text`, the affixes, top and bottom of a Select `x-start`, `x-end`, `x-top` and `x-bottom`, the tick list of a Range `x-list`, the title of a Dialog `x-title` and, for a Fieldset rendered as another element, the legend `x-legend`.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 - `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
@@ -518,7 +518,6 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.
 - `Checkbox` and `Radio` show their hover and press halo without `core/utils.css`, so `dist/opui.components.css` and single-file imports get it too.
 - `Checkbox` and `Radio` put the hover and press halo behind the input with `isolation` and `z-index` instead of 3D transforms, so a long list of them no longer adds several compositor layers per control.
-- `Checkbox` `initCheckbox()` adds its `astro:after-swap` listener once, however often it is called.
 - `Checkbox`, `Radio` and `Switch` required asterisks, and the `Fieldset` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Range` pass a user `aria-invalid` to the control when `error` isn't set.
 - `Checkbox` unchecked border reads `--ui-field-border-color` like Radio and the text fields.
@@ -547,7 +546,6 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Dialog` and `Drawer` only style their own direct parts, so a Callout, Card or TextField inside them keeps its own padding and alignment.
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
 - `Dialog` sets `pointer-events: auto` when open, instead of the SVG-only value `all`.
-- `Dialog`, `Fieldset`, `Range`, `Select` and `TextField` take an empty `id` as no `id` and generate their part ids, so two of them with `id=""` no longer share ids such as `-label` or `-title`. `NumberField` does the same.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
 - `Drawer` `--_block-size` sets the height of a top or bottom drawer up to the full viewport, instead of stopping at 80%. Its default, `min(80dvb, 650px)`, keeps that cap.
 - `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
@@ -645,7 +643,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Tabs` in Astro names a `TabsItem` outside a `Tabs` and links its `TabsLabel`, like React and Svelte.
 - `Tabs` and `ToggleButton` hide their inputs in `tabs.css` and `toggle-button.css` instead of `core/utils.css`, so single-file imports and `dist/opui.components.css` no longer show the radio and checkbox inputs.
 - `Tabs` directly in an `Accordion`, `Card` or `Dialog` draw the focus ring inside, so the surface doesn't clip it. A ring inside the selected tab is `SelectedItemText` in forced colors, so it shows on the `SelectedItem` fill.
-- `TabsItem` in Vue follows `id` and `tabId` changes.
+- `TabsItem` in Vue follows `id` changes.
 - `Textarea` no longer adds the border width to its minimum height.
 - `TextField` and `Select` small fields are `--ui-field-size-small` (32px) high, like a small `Button`. They were 38px.
 - `TextField` date, time, week and month inputs no longer grow taller than the field, so small ones are 32px and time inputs are no longer 41px.

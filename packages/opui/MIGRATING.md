@@ -106,6 +106,8 @@ The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also in
 
 `alt` is required when `src` is set (types). Use `alt=""` for decorative images.
 
+A button avatar needs `as="button"`, and `disabled` only goes with it or with `href` (types).
+
 `Avatar` with `as="button"` renders `type="button"` by default in Astro and Vue, so it no longer submits a form. Pass `type="submit"` if it should.
 
 Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-control-size-*`.
@@ -198,6 +200,8 @@ In Astro and Vue, `Button` renders `type="button"` by default, so it no longer s
 ```
 
 Colors changed: critical buttons keep light text on their fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
+
+`Button` takes link attributes only with `href` (types).
 
 A disabled link has no `href`. The components drop it for you. In HTML, remove `href` from links with `aria-disabled="true"`, because the CSS doesn't block clicks on them. The same goes for `Chip` links.
 
@@ -362,6 +366,14 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 ```
 
 The buttons keep their own borders and the group joins their edges, so a text field, select, number field or textarea can join them too. Groups wrap onto more rows when they don't fit, instead of overflowing. Use `overflow="scroll"` (`.ui-overflow-scroll`) or `overflow="shrink"` (`.ui-overflow-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
+
+The group styles its direct child `.ui-button`s instead of every `button`, so `Button` links get the group styles and a `Menu` in a split button keeps its own. A plain `<button>` without `.ui-button` gets no group styles, so add the class.
+
+```diff
+  <div role="group" class="ui-control-group">
+-   <button>One</button>
++   <button class="ui-button">One</button>
+```
 
 ## Description list
 
@@ -792,10 +804,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Select label="Price" items={items}><span slot="prefix">€</span></Select>
-+ <Select label="Price" start="€" items={items} />
++ <Select label="Price" items={items}><span slot="start">€</span></Select>
 ```
 
-In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<template #start>€</template>`. The prop form is React and Svelte.
+In Vue, use `<template #start>€</template>`.
 
 ## Switch
 
@@ -933,6 +945,13 @@ Astro and Vue no longer generate an input `id`. Pass `id` when something outside
 
 In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input. Check selectors and tests that look for attributes on the label.
 
+In Astro and Vue, a `TextField` without `label` renders a `div` root instead of a `label`, and its start and end text describe the input instead of naming it. Give such a field an `aria-label` or `aria-labelledby`, and target `.ui-text-field` instead of `label.ui-text-field` in your CSS.
+
+```diff
+- <TextField startText="Search the docs" />
++ <TextField aria-label="Search" startText="Search the docs" />
+```
+
 `description` is `startText` (the `start-text` slot in Astro and Vue), matching `endText`. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 ```diff
@@ -972,10 +991,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <TextField label="Amount"><span slot="prefix">€</span><span slot="suffix">EUR</span></TextField>
-+ <TextField label="Amount" start="€" end="EUR" />
++ <TextField label="Amount"><span slot="start">€</span><span slot="end">EUR</span></TextField>
 ```
 
-In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<template #start>€</template>`. The prop form is React and Svelte.
+In Vue, use `<template #start>€</template>` and `<template #end>EUR</template>`.
 
 ## Textarea
 
@@ -987,6 +1006,8 @@ In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<templat
 ```
 
 Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
+
+Same as Text field: without `label`, Astro and Vue render a `div` root instead of a `label`, and the start and end text describe the textarea instead of naming it. Give it an `aria-label` or `aria-labelledby`, and target `.ui-textarea` instead of `label.ui-textarea`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
@@ -1008,10 +1029,10 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 
 ```diff
 - <Textarea label="Bio"><span slot="footer">0 / 160</span></Textarea>
-+ <Textarea label="Bio" bottom="0 / 160" />
++ <Textarea label="Bio"><span slot="bottom">0 / 160</span></Textarea>
 ```
 
-In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<template #start>€</template>`. The prop form is React and Svelte.
+In Vue, use `<template #bottom>0 / 160</template>`.
 
 ## Toast
 
@@ -1087,6 +1108,13 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 ```diff
 - <span class="ui-anchor ui-tooltip">
 + <span class="ui-tooltip">
+```
+
+The floating content is `.ui-floating` instead of `.ui-anchor-floating`.
+
+```diff
+- <span class="ui-anchor-floating">
++ <span class="ui-floating">
 ```
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
@@ -1218,7 +1246,7 @@ Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instea
 
 The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
-`--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
+`--ui-primary` is derived from `--ui-primary-source` (`oklch(0.499 0.191 222.8)` in light mode and `--ui-color-6` in dark mode), and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary` on `html` (or on `.ui-palette`), its text color follows it; elsewhere, add `.ui-palette` or set `--ui-on-primary` too.
 
 `palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 
@@ -1381,6 +1409,16 @@ Browser fallbacks that take more than the browser default moved out of the compo
   @import "opui-css/css/layers.css";
   @import "opui-css/css/components/avatar.css";
 + @import "opui-css/css/compat.css";
+```
+
+`dist/opui.components.css` needs `core/normalize.css`, or another reset that makes every box `border-box`: `Checkbox` and `Radio` no longer set `box-sizing` themselves, like the other components. If you load it with your own reset, make sure the reset sets it:
+
+```css
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
 ```
 
 Deep type imports from `opui-css/components/*` follow one naming scheme: the root is `Props`, its slots `Slots`, and each part is named after the part. `CheckboxProps` and `CheckboxSlots` in `components/Checkbox/types*` are `Props` and `Slots` (likewise `Radio`, `Switch` and `Range`), `TermProps`, `DescriptionProps` and `ItemProps` are `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps`, and Table's `SectionProps` and `ColumnProps` are one type per part, such as `TableCellProps`, and `TableColumnProps`. Import the names from the framework entry instead:

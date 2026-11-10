@@ -2,7 +2,7 @@
   import { Button, ControlGroup } from "opui-css/svelte"
 </script>
 
-<ControlGroup variant="outlined">
+<ControlGroup aria-label="RSVP" variant="outlined">
   <Button aria-label="OK">
     <svg aria-hidden="true"><!-- --></svg>
   </Button>
@@ -12,7 +12,7 @@
   </Button>
 </ControlGroup>
 
-<ControlGroup variant="outlined">
+<ControlGroup aria-label="RSVP" variant="outlined">
   <Button>
     <svg aria-hidden="true"><!-- --></svg>
     <span class="ui-text">OK</span>

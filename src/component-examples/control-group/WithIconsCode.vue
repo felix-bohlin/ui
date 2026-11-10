@@ -3,7 +3,7 @@ import { Button, ControlGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ControlGroup variant="outlined">
+  <ControlGroup aria-label="RSVP" variant="outlined">
     <Button aria-label="OK">
       <svg aria-hidden="true"><!-- --></svg>
     </Button>
@@ -13,7 +13,7 @@ import { Button, ControlGroup } from "opui-css/vue"
     </Button>
   </ControlGroup>
 
-  <ControlGroup variant="outlined">
+  <ControlGroup aria-label="RSVP" variant="outlined">
     <Button>
       <svg aria-hidden="true"><!-- --></svg>
       <span class="ui-text">OK</span>

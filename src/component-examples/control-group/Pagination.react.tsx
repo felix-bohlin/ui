@@ -12,7 +12,8 @@ export default function Pagination() {
         </Button>
         <Button href="#pagination">2</Button>
         <Button href="#pagination">3</Button>
-        <Button href="#pagination">22</Button>
+        <Button href="#pagination">4</Button>
+        <Button href="#pagination">5</Button>
         <Button href="#pagination">Next</Button>
       </ControlGroup>
     </nav>

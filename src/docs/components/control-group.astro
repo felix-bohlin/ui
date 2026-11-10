@@ -246,7 +246,11 @@ export const description =
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
-      <UIControlGroup style="inline-size: 22rem" variant="outlined">
+      <UIControlGroup
+        aria-label="Find an order"
+        style="inline-size: 22rem"
+        variant="outlined"
+      >
         <UITextField hideLabel label="Order number" placeholder="Order" />
         <UIButton>Search</UIButton>
         <UIButton>Clear</UIButton>

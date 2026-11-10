@@ -48,13 +48,13 @@ const closeIcon = (
 export default function WithIcons() {
   return (
     <>
-      <ControlGroup variant="outlined">
+      <ControlGroup aria-label="RSVP" variant="outlined">
         <Button aria-label="OK">{checkIcon}</Button>
         <Button>Maybe</Button>
         <Button aria-label="No">{closeIcon}</Button>
       </ControlGroup>
 
-      <ControlGroup variant="outlined">
+      <ControlGroup aria-label="RSVP" variant="outlined">
         <Button>
           {checkIcon}
           <span className="ui-text">OK</span>

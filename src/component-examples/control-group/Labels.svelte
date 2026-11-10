@@ -2,7 +2,7 @@
   import { Button, ControlGroup, TextField } from "opui-css/svelte"
 </script>
 
-<ControlGroup variant="outlined">
+<ControlGroup aria-label="Discount" variant="outlined">
   <TextField
     aria-describedby="control-group-labels-1"
     label="Discount code"

@@ -240,7 +240,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
 - `Table` has `TableCaption` and `TableFoot` parts for `<caption>` and `<tfoot>`.
 - `Table` exports a props type for every part from `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`: `TableBodyProps`, `TableCaptionProps`, `TableCellProps`, `TableColumnGroupProps`, `TableFootProps`, `TableHeadProps`, `TableHeaderCellProps` and `TableRowProps`.
-- `Table` takes `flush` (`.ui-flush`), which drops its block margin for a table in a card or another padded box, and `overflow="scroll"` (`.ui-overflow-scroll`), which keeps each cell on one line and scrolls the table sideways when the columns don't fit. The last column takes the space left over. A scrolling table needs `tabindex="0"`.
+- `Table` takes `flush` (`.ui-flush`), which drops its block margin for a table in a card or another padded box, and `overflow="scroll"` (`.ui-overflow-scroll`), which keeps each cell on one line and scrolls the table sideways when the columns don't fit. The last column takes the space left over. A scrolling table needs `tabindex="0"`, and draws its focus ring inside, so a card doesn't clip it.
 - `TableCell` and `TableHeaderCell` take `numeric` (`.ui-numeric`): the cell aligns to the end and uses tabular figures, so the digits of a number column line up.
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with `--ui-selected-strong`, the primary color unless a theme sets it, with its focus ring in `--ui-on-selected-strong` so the ring keeps 3:1 on the fill, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `Tabs` take `overflow`: `"scroll"`, the default, or `"wrap"` (`.ui-overflow-wrap`), which wraps tabs that don't fit onto more rows instead of scrolling them.
@@ -555,7 +555,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Form` only resets the margin of dividers that are its direct children, text dividers included, so dividers nested deeper keep `--ui-divider-gap`.
 - `List` separators (`.ui-bordered`, `.ui-border-top`) are visible on tonal lists in dark mode.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
-- `List` and `Table` borders on filled lists and table headers are visible in light mode.
+- `List` and `Table` borders on filled lists, table headers and table footers are visible in light mode.
 - `List` keyboard shortcuts in `.ui-end` pass contrast: a `kbd` takes the description color, `--ui-on-selected` in a selected row, instead of 70% opacity.
 - `List` rows with a video keep their end padding on the text side in right-to-left.
 - `List` row text styles no longer reach the `.ui-text` of buttons and chips inside a row, and `.ui-end` only sizes `svg` icons that are its direct children.

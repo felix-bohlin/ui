@@ -24,7 +24,7 @@ export default {
   slots: [
     {
       description:
-        "The messages, and any other `li` between them, such as a date `Divider`, which starts a new run.",
+        "The messages, and any other `li` between them, such as a date in `li.ui-divider`, which starts a new run.",
       name: "default",
     },
   ],

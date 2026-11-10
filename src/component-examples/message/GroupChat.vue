@@ -4,6 +4,7 @@ import { Avatar, Message, Messages } from "opui-css/vue"
 
 <template>
   <Messages aria-label="Messages in #design">
+    <li class="ui-divider">Today</li>
     <Message author="Leila" datetime="2026-10-08T09:12" time="09:12">
       <template #start>
         <Avatar aria-label="Leila Haddad" role="img">LH</Avatar>

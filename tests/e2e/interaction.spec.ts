@@ -1880,7 +1880,7 @@ interaction(
 interaction(
   "copy",
   "Snippet",
-  "copy leaves the button and its tooltip out of the copied text",
+  "copy leaves the button, its tooltip and the ignored prompt out of the copied text",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
     const label = root.locator(".ui-copy > .ui-floating")

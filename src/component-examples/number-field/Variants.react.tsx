@@ -6,12 +6,12 @@ export default function Variants() {
       <NumberField
         defaultValue={1}
         id="number-field-variants-1"
-        label="Outlined"
+        label="Guests"
       />
       <NumberField
         defaultValue={1}
         id="number-field-variants-2"
-        label="Filled"
+        label="Nights"
         variant="filled"
       />
     </>

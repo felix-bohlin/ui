@@ -5,19 +5,19 @@ export default function EndText() {
     <>
       <Radio
         defaultChecked
-        endText="Supporting text"
+        endText="Arrives in 3 to 5 days."
         name="radio-end-text"
-        value="default"
+        value="standard"
       >
-        Default
+        Standard delivery
       </Radio>
       <Radio
-        endText="Supporting text"
+        endText="Arrives tomorrow."
         name="radio-end-text"
         orientation="vertical"
-        value="stack"
+        value="express"
       >
-        Stack
+        Express delivery
       </Radio>
     </>
   )

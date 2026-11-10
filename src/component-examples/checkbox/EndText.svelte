@@ -2,11 +2,13 @@
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox endText="Supporting text" name="checkbox-end-text">Default</Checkbox>
+<Checkbox endText="Wrapped in recycled paper." name="checkbox-end-text">
+  Gift wrap
+</Checkbox>
 <Checkbox
-  endText="Supporting text"
+  endText="Printed on the packing slip."
   name="checkbox-end-text"
   orientation="vertical"
 >
-  Stack
+  Gift message
 </Checkbox>

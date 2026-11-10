@@ -497,6 +497,12 @@ export const whatsNew = {
       html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     {
+      ...slots(
+        `Breaking: the group styles its direct child <code>.ui-button</code>s instead of every <code>button</code>. Add <code>.ui-button</code> to a plain <code>&lt;button&gt;</code> in a group (<a href="#variants">Variants</a>).`,
+      ),
+      html: `Breaking: the group styles its direct child <code>.ui-button</code>s instead of every <code>button</code>. Add <code>.ui-button</code> to a plain <code>&lt;button&gt;</code> in a group (<a href="#variants">Variants</a>).`,
+    },
+    {
       default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,
       html: `<code>&lt;a class="ui-button"&gt;</code> links get the group styles too, see <a href="#variants">Variants</a>.`,
     },
@@ -1358,9 +1364,13 @@ export const whatsNew = {
       default: `<a href="#drop-zone"><code>dropZone</code></a> makes a file field a tall area that takes dropped files.`,
       html: `<a href="#drop-zone"><code>.ui-drop-zone</code></a> makes a file field a tall area that takes dropped files.`,
     },
-    components(
-      `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
-    ),
+    {
+      ...slots(
+        `Breaking: without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, and the start and end text describe the input instead of naming it. Give the field <code>aria-label</code> or <code>aria-labelledby</code>, and target <code>.ui-text-field</code> instead of <code>label.ui-text-field</code>.`,
+      ),
+      react: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
+      svelte: `Without a <code>label</code>, the root is a <a href="#hidden-label"><code>div</code></a> instead of a <code>label</code>, like the HTML of a field named with <code>aria-label</code>, and the start and end text describe the input.`,
+    },
   ],
   textarea: [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1421,9 +1431,13 @@ export const whatsNew = {
       html: `<a href="#character-count">Character count</a>: <code>&lt;opui-character-count&gt;</code> in the end text shows the characters typed out of <code>maxlength</code> and announces how many are left near the limit. Import <code>opui-css/elements/character-count.js</code>.`,
     },
     `<a href="#variants">Filled textareas</a> fade their hover background, like the border.`,
-    components(
-      `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
-    ),
+    {
+      ...slots(
+        `Breaking: without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea instead of naming it. Give it <code>aria-label</code> or <code>aria-labelledby</code>, and target <code>.ui-textarea</code> instead of <code>label.ui-textarea</code> (<a href="#api">API</a>).`,
+      ),
+      react: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
+      svelte: `Without a <code>label</code>, the root is a <code>div</code> instead of a <code>label</code>, and the start and end text describe the textarea (<a href="#api">API</a>).`,
+    },
   ],
   timeline: [
     `New: a <a href="#basics">Timeline</a> lists dated events with markers and a connecting line, with <a href="#colors">colors</a>, a <a href="#current">current item</a> and a <a href="#tracked">tracked</a> line.`,

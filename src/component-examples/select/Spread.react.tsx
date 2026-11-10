@@ -3,12 +3,8 @@ import { Select } from "opui-css/react"
 export default function Spread() {
   return (
     <>
-      <Select
-        label="Country"
-        spread
-        startText="Select your country of residence"
-      >
-        <option value="">Select a country</option>
+      <Select label="Country" spread>
+        <option value="">-</option>
         <option>Denmark</option>
         <option>Finland</option>
         <option>Iceland</option>
@@ -17,13 +13,13 @@ export default function Spread() {
       </Select>
 
       <Select
-        endText="This affects UI translations"
+        endText="This affects UI translations."
         label="Language"
         spread
-        startText="Choose your preferred language"
+        startText="Choose your preferred language."
         variant="filled"
       >
-        <option value="">Select a language</option>
+        <option value="">-</option>
         <option>Danish</option>
         <option>Finnish</option>
         <option>Icelandic</option>
@@ -35,9 +31,9 @@ export default function Spread() {
         label="Department"
         required
         spread
-        startText="Routes your request to the right team"
+        startText="Routes your request to the right team."
       >
-        <option value="">Select a department</option>
+        <option value="">-</option>
         <option>Billing</option>
         <option>Support</option>
       </Select>
@@ -46,7 +42,7 @@ export default function Spread() {
         disabled
         label="Plan"
         spread
-        startText="Managed by your organization"
+        startText="Managed by your organization."
       >
         <option>Business</option>
       </Select>
@@ -56,7 +52,7 @@ export default function Spread() {
         error
         label="Payment method"
         spread
-        startText="Charged on the first of each month"
+        startText="Charged on the first of each month."
       >
         <option>Visa ending in 4242</option>
         <option>Mastercard ending in 5100</option>
@@ -66,7 +62,7 @@ export default function Spread() {
         label="Time zone"
         spread
         start="UTC"
-        startText="Used for reminders and due dates"
+        startText="Used for reminders and due dates."
       >
         <option>-03:00</option>
         <option>+00:00</option>
@@ -76,7 +72,7 @@ export default function Spread() {
       </Select>
 
       <Select
-        endText="Cannot be changed after deploy"
+        endText="Cannot be changed after deploy."
         label="Region"
         spread
         start={
@@ -96,7 +92,7 @@ export default function Spread() {
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
           </svg>
         }
-        startText="Affects data residency and latency"
+        startText="Affects data residency and latency."
         variant="filled"
       >
         <option value="">-</option>

@@ -59,7 +59,7 @@ export default {
     },
     {
       description:
-        "The severity of a status chip. It tints the chip, and colors and shapes its dot.",
+        "The severity of a status chip. It tints a tonal chip, and colors and shapes its dot, the only mark on an outlined one.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -84,7 +84,7 @@ export default {
     },
     {
       description:
-        "Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.",
+        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `role="link"` and `aria-disabled="true"` instead. A static chip can\'t be disabled; `.ui-disabled` gives it an inactive look without announcing a state.',
       frameworks: ["html"],
       group: "State",
       prop: "state",

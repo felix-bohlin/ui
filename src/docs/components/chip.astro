@@ -96,10 +96,6 @@ export const keywords = ["filter", "pill", "tag", "token"]
 
   <section id="sizes">
     <h2>Sizes</h2>
-    <p>
-      Labels truncate by default. Use
-      <PropOrClass prop="multiline" class=".ui-multiline" /> to wrap them.
-    </p>
     <AutoExample name="Sizes" row />
   </section>
 
@@ -147,11 +143,27 @@ export const keywords = ["filter", "pill", "tag", "token"]
 
   <section id="disabled">
     <h2>Disabled</h2>
-    <p>
-      A static chip can't be disabled. Use <code>.ui-disabled</code> for the
-      look.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A static chip can't be disabled. Use <code>.ui-disabled</code> for the
+        look.
+      </Fragment>
+      <Fragment slot="html">
+        Links: drop <code>href</code>, add <code>role="link"</code> and
+        <code>aria-disabled="true"</code>. A static chip takes
+        <code>.ui-disabled</code> for the look.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Disabled" row />
+  </section>
+
+  <section id="multiline">
+    <h2>Multiline</h2>
+    <p>
+      Labels truncate by default. Use
+      <PropOrClass prop="multiline" class=".ui-multiline" /> to wrap them.
+    </p>
+    <AutoExample name="Multiline" row />
   </section>
 
   <ChipBuild slot="under-the-hood" />

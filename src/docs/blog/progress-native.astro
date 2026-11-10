@@ -63,16 +63,16 @@ import Indeterminate from "../../component-examples/progress/Indeterminate.astro
 }
 
 .progress > progress[value]::-webkit-progress-value {
-  background-color: var(--ui-primary);
+  background-color: var(--ui-selected-strong);
 }
 
 .progress > progress::-moz-progress-bar {
-  background-color: var(--ui-primary);
+  background-color: var(--ui-selected-strong);
 }
 
 .progress:has(> progress:indeterminate)::after {
   animation: indeterminate 2s linear infinite;
-  background-color: var(--ui-primary);
+  background-color: var(--ui-selected-strong);
   content: "";
   inset-block: 0;
   position: absolute;

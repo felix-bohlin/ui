@@ -57,12 +57,12 @@ const steps = [
   {
     css: `
 .progress > progress[value]::-webkit-progress-value {
-  background-color: var(--ui-primary);
+  background-color: var(--ui-selected-strong);
   transition: inline-size calc(0.2s * var(--ui-motion, 1)) ease-out;
 }
 
 .progress > progress::-moz-progress-bar {
-  background-color: var(--ui-primary);
+  background-color: var(--ui-selected-strong);
 }`,
     notes: [
       "Chromium and Safari: <code>::-webkit-progress-value</code>, Firefox: <code>::-moz-progress-bar</code>",
@@ -75,7 +75,7 @@ const steps = [
     css: `
 .progress:has(> progress:indeterminate)::after {
   animation: build-progress-slide calc(2s * var(--ui-motion, 1)) linear infinite;
-  background-color: var(--ui-primary);
+  background-color: var(--ui-selected-strong);
   content: "";
   inset-block: 0;
   position: absolute;

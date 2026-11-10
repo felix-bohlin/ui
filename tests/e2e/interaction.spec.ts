@@ -850,6 +850,28 @@ interaction(
 
 interaction(
   "toggle",
+  "Interactive",
+  "toggle groups in right-to-left text move to the next button with Left Arrow",
+  async ({ page, root }) => {
+    failsIn(page.context().browser()!.browserType().name(), {
+      webkit: WEBKIT_RADIO_RTL_ARROWS,
+    })
+    const options = root.getByRole("radio")
+    await root
+      .locator(".ui-toggle-group")
+      .evaluate((element) => element.setAttribute("dir", "rtl"))
+
+    await root.getByText("Walking").click()
+    await expect(options.nth(0)).toBeChecked()
+    await page.keyboard.press("ArrowLeft")
+    await expect(options.nth(1)).toBeChecked()
+    await page.keyboard.press("ArrowRight")
+    await expect(options.nth(0)).toBeChecked()
+  },
+)
+
+interaction(
+  "toggle",
   "MultiSelect",
   "toggle group presses several options",
   async ({ root }) => {

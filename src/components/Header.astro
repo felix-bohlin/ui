@@ -161,6 +161,7 @@ const { link } = Astro.locals
   </div>
 </div>
 <div class="site-header-backdrop" aria-hidden="true"></div>
+<div class="site-header-panel" aria-hidden="true"></div>
 
 <Drawer
   aria-label="Menu"
@@ -275,14 +276,14 @@ const { link } = Astro.locals
         }
       }
 
-      & + .site-header-backdrop {
+      & ~ .site-header-backdrop,
+      & ~ .site-header-panel {
         display: none;
       }
     }
   }
 
-  header .ui-content::before,
-  .site-header-backdrop::before {
+  header .ui-content::before {
     animation-fill-mode: both;
     animation-name: fade-bg;
     animation-range: 0 150px;
@@ -313,12 +314,46 @@ const { link } = Astro.locals
     }
   }
 
-  .site-header-backdrop {
+  .site-header-backdrop,
+  .site-header-panel {
     display: none;
 
     &::before {
-      inset-block-end: var(--ui-border-width);
+      --header-radius: 0;
+
+      animation-fill-mode: both;
+      animation-name: fade-bg;
+      animation-range: 0 150px;
+      animation-timeline: scroll();
+      animation-timing-function: linear;
+      background-color: var(--ui-surface-elevated);
+      content: "";
+      inset: 0 0 var(--ui-border-width);
+      opacity: 0;
+      position: absolute;
+
+      @media (width >= 1150px) {
+        --header-radius: var(--radius-3);
+      }
+
+      @supports (corner-shape: squircle) {
+        --header-radius: 0;
+
+        corner-shape: squircle;
+
+        @media (width >= 1150px) {
+          --header-radius: var(--radius-round);
+        }
+      }
     }
+  }
+
+  .site-header-backdrop::before {
+    border-radius: var(--header-radius) 0 0 var(--header-radius);
+  }
+
+  .site-header-panel::before {
+    border-radius: 0 var(--header-radius) var(--header-radius) 0;
   }
 
   header {
@@ -432,7 +467,7 @@ const { link } = Astro.locals
 
   @supports (anchor-name: --site-header) {
     .site-header {
-      z-index: 23;
+      z-index: 24;
     }
 
     header .ui-content {
@@ -440,23 +475,48 @@ const { link } = Astro.locals
       backdrop-filter: none;
 
       &::before {
-        display: none;
+        background-color: transparent;
       }
     }
 
-    .site-header-backdrop {
+    .site-header-backdrop,
+    .site-header-panel {
       animation-fill-mode: both;
       animation-name: fade-backdrop;
       animation-range: 0 150px;
       animation-timeline: scroll();
       animation-timing-function: linear;
       backdrop-filter: blur(3px);
-      display: block;
-      inset: anchor(--site-header top) anchor(--site-header right)
-        anchor(--site-header bottom) anchor(--site-header left);
+      bottom: anchor(--site-header bottom);
       pointer-events: none;
       position: fixed;
+      right: anchor(--site-header right);
+      top: anchor(--site-header top);
+    }
+
+    .site-header-backdrop {
+      display: block;
+      left: anchor(--site-header left);
       z-index: 21;
+    }
+
+    .site-header-panel {
+      left: calc(anchor(--site-nav left) - var(--size-3));
+      z-index: 23;
+    }
+
+    @media (width >= 900px) {
+      header nav ul {
+        anchor-name: --site-nav;
+      }
+
+      .site-header-backdrop {
+        right: calc(anchor(--site-nav left) + var(--size-3));
+      }
+
+      .site-header-panel {
+        display: block;
+      }
     }
   }
 

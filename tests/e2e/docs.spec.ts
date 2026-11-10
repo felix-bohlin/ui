@@ -599,6 +599,37 @@ test("a long section heading takes the content width, passes under the header li
           await heading.elementHandle(),
         ),
     ).toEqual({ linkOnTop: true, textCoversLink: true })
+    expect(
+      await heading.evaluate((element, copyWidth) => {
+        const box = (selector: string) =>
+          document.querySelector(selector)!.getBoundingClientRect()
+        const zIndex = (selector: string) =>
+          Number(getComputedStyle(document.querySelector(selector)!).zIndex)
+        const header = box("header .ui-content")
+        const backdrop = box(".site-header-backdrop")
+        const panel = box(".site-header-panel")
+        return {
+          backdropMeetsPanel: backdrop.right === panel.left,
+          copyClearsPanel:
+            element.getBoundingClientRect().left + copyWidth < panel.left,
+          fillsHeader: [backdrop, panel].every(
+            (part) => part.top === header.top && part.bottom === header.bottom,
+          ),
+          panelAboveHeading:
+            zIndex(".site-header-panel") >
+            Number(getComputedStyle(element).zIndex),
+          panelBehindLinks: panel.left < box("header nav ul").left,
+          panelReachesEnd: panel.right === header.right,
+        }
+      }, copyMaxWidth),
+    ).toEqual({
+      backdropMeetsPanel: true,
+      copyClearsPanel: true,
+      fillsHeader: true,
+      panelAboveHeading: true,
+      panelBehindLinks: true,
+      panelReachesEnd: true,
+    })
   }
 
   for (const offset of [2, 20, 60]) {

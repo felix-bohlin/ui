@@ -3663,7 +3663,7 @@
   {
     "id": "guide-getting-started-svelte",
     "title": "Getting started",
-    "description": "OPUI ships first-class Svelte 5 components. Install the package, import what you need, and you're set.",
+    "description": "OPUI ships first-class components for Svelte 5.57 and later. Install the package, import what you need, and you're set.",
     "category": "Guide",
     "url": "/svelte/guide/getting-started/"
   },

@@ -22,7 +22,7 @@ The [Theme builder](https://open-props-ui.netlify.app/theme-builder.md) writes o
 
 ### Example themes
 
-Tokens only, no component CSS. They name their fonts but don't load them.
+Tokens only, no component CSS. They name their fonts but don't load them. Each borrows the look of a design system it isn't affiliated with.
 
 - `bootstrap`: Bootstrap 5. Its `oklch(0.578 0.228 260)` blue, gray secondary buttons, buttons that shade their own color on hover, the danger, warning, info and success colors with the subtle alert palettes, `oklch(0.91 0.007 248)` borders, 38px controls, regular weight buttons, labels and links, 16px paragraph spacing with 8px under headings, 16px checks and 32px switches, solid blue selected items, the heading scale, 1.5 line height and the wide translucent focus ring. No shadow on dropdowns and modals.
 - `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover, with a state layer instead of a fill swap, filled in the main blue, white fields on the gray-blue page, the main blue also behind tooltips and selected items, black links, 500 weight body text and the 1.75 line height of Tailwind prose in rich text.

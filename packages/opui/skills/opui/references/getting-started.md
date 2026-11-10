@@ -234,7 +234,7 @@ Colors, density, corners and fonts, exported as one CSS file.
 
 ## Astro
 
-OPUI ships first-class Astro components. Install the package, import what you need, and you're set.
+OPUI ships first-class Astro 7 components. Install the package, import what you need, and you're set.
 
 ### Quick start
 
@@ -492,7 +492,7 @@ Every component renders full HTML on the server. Components with state or effect
 
 ## Svelte
 
-OPUI ships first-class Svelte 5 components. Install the package, import what you need, and you're set.
+OPUI ships first-class components for Svelte 5.57 and later. Install the package, import what you need, and you're set.
 
 ### Quick start
 
@@ -676,7 +676,7 @@ Every component renders full HTML on the server. The props in the last column ne
 
 ## Vue
 
-OPUI ships first-class Vue components. Install the package, import what you need, and you're set.
+OPUI ships first-class components for Vue 3.5 and later. Install the package, import what you need, and you're set.
 
 ### Quick start
 

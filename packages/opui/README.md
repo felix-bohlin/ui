@@ -244,7 +244,7 @@ Importing a React component from `opui-css/components/*.react` skips the type au
 
 ## Themes
 
-Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `govuk` (GOV.UK Design System), `m3` (Material 3) and `shadcn` (shadcn/ui). They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Roboto and Geist) but don't load them.
 
 ```css
 @import "opui-css/css/imports.css";

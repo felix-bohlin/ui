@@ -3663,7 +3663,7 @@
   {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
-    "description": "OPUI ships first-class Astro components. Install the package, import what you need, and you're set.",
+    "description": "OPUI ships first-class Astro 7 components. Install the package, import what you need, and you're set.",
     "category": "Guide",
     "url": "/astro/guide/getting-started/"
   },

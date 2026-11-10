@@ -60,7 +60,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 }
 ```
 
-Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `govuk.css`, a GOV.UK Design System look, `m3.css`, a Material 3 look, and `shadcn.css`, a shadcn/ui look), to import or copy as a starting point. They name their fonts (DM Sans, Roboto, Geist) but don't load them. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
+Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `govuk.css`, a GOV.UK Design System look, `m3.css`, a Material 3 look, and `shadcn.css`, a shadcn/ui look), to import or copy as a starting point. They borrow those looks and aren't affiliated with the projects behind them. They name their fonts (DM Sans, Roboto, Geist) but don't load them. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
 
 `tokens.json` at the package root (`node_modules/opui-css/tokens.json`, or `import tokens from "opui-css/tokens.json"`) lists every theme token in the W3C design tokens format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Unset tokens have no `$value`, only an `example`.
 

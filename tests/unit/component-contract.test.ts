@@ -126,7 +126,10 @@ type TemplateNode = {
   consequent?: TemplateNode[]
   custom?: boolean
   fallback?: TemplateNode[]
+  item?: string
+  list?: string
   tag?: string
+  type?: string
   variable?: boolean
 }
 
@@ -136,6 +139,8 @@ const TAG_ATTRIBUTES = Object.keys({
 })
 
 const UNDEFINED_CASE = "every attribute as undefined"
+
+const ITEM_UNDEFINED_CASE = "every item attribute as undefined"
 
 const attributesAtRisk = async (path: string) => {
   const file = new URL(path, import.meta.url).pathname
@@ -186,17 +191,81 @@ const attributesAtRisk = async (path: string) => {
   return names
 }
 
+const itemAttributesAtRisk = async (path: string) => {
+  const file = new URL(path, import.meta.url).pathname
+  const component = await readComponent(readFileSync(file, "utf8"), file)
+  const lists = new Map<string, Set<string>>()
+  type Scope = { destructured: Set<string>; list: string; rest: string }
+  const visit = (nodes: TemplateNode[] = [], scope?: Scope) => {
+    for (const node of nodes) {
+      const rest =
+        node.type === "each" ? /\.\.\.(\w+)\s*\}$/.exec(node.item!) : null
+      const inner: Scope | undefined = rest
+        ? {
+            destructured: new Set(
+              node
+                .item!.replace(/[{}\s]/g, "")
+                .split(",")
+                .filter((name) => name && !name.startsWith("..."))
+                .map((name) => name.split(/[:=]/)[0]),
+            ),
+            list: /^\w+/.exec(node.list!)![0],
+            rest: rest[1],
+          }
+        : scope
+      const attributes = node.attributes ?? []
+      if (
+        scope &&
+        attributes.some(
+          (item) => item.kind === "spread" && item.code === scope.rest,
+        )
+      ) {
+        const names = lists.get(scope.list) ?? new Set()
+        for (const item of attributes) {
+          const bound =
+            item.kind === "spread"
+              ? item.code?.includes("tagAttrs(")
+                ? TAG_ATTRIBUTES
+                : []
+              : item.kind === "class" || !item.name
+                ? []
+                : [item.name]
+          for (const name of bound) {
+            if (!scope.destructured.has(name)) names.add(name)
+          }
+        }
+        lists.set(scope.list, names)
+      }
+      visit(node.children, inner)
+      visit(node.consequent, inner)
+      visit(node.alternate, inner)
+      visit(node.fallback, inner)
+    }
+  }
+  visit(component.tree)
+  return lists
+}
+
+const componentNameOf = (path: string) =>
+  path
+    .split("/")
+    .at(-1)!
+    .replace(/\.astro$/, "")
+
 const AT_RISK = new Map(
   await Promise.all(
     astroPaths.map(
       async (path) =>
-        [
-          path
-            .split("/")
-            .at(-1)!
-            .replace(/\.astro$/, ""),
-          await attributesAtRisk(path),
-        ] as const,
+        [componentNameOf(path), await attributesAtRisk(path)] as const,
+    ),
+  ),
+)
+
+const ITEMS_AT_RISK = new Map(
+  await Promise.all(
+    astroPaths.map(
+      async (path) =>
+        [componentNameOf(path), await itemAttributesAtRisk(path)] as const,
     ),
   ),
 )
@@ -204,21 +273,39 @@ const AT_RISK = new Map(
 const withUndefinedAttributes = (cases: Case[]) =>
   cases.flatMap((entry) => {
     const names = AT_RISK.get(entry.component)
-    if (!names?.size) return [entry]
+    const lists = [...(ITEMS_AT_RISK.get(entry.component) ?? [])].filter(
+      ([list, keys]) => keys.size && Array.isArray(entry.props[list]),
+    )
     return [
       entry,
-      {
+      ...(names?.size
+        ? [
+            {
+              ...entry,
+              name: `${entry.name}, ${UNDEFINED_CASE}`,
+              plain: entry,
+              props: {
+                ...Object.fromEntries(
+                  [...names.keys()].map((name) => [name, undefined]),
+                ),
+                ...entry.props,
+              },
+              reactNames: Object.fromEntries(names),
+            },
+          ]
+        : []),
+      ...lists.map(([list, keys]) => ({
         ...entry,
-        name: `${entry.name}, ${UNDEFINED_CASE}`,
+        name: `${entry.name}, ${ITEM_UNDEFINED_CASE}`,
         plain: entry,
         props: {
-          ...Object.fromEntries(
-            [...names.keys()].map((name) => [name, undefined]),
-          ),
           ...entry.props,
+          [list]: (entry.props[list] as object[]).map((item) => ({
+            ...Object.fromEntries([...keys].map((key) => [key, undefined])),
+            ...item,
+          })),
         },
-        reactNames: Object.fromEntries(names),
-      },
+      })),
     ]
   })
 

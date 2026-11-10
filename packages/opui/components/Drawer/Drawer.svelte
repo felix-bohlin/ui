@@ -19,7 +19,7 @@
     ...rest
   }: Props = $props()
 
-  const labelledBy = $derived(autoLabelledBy(rest, `${id}-heading`))
+  const labelledBy = $derived(autoLabelledBy(rest, `${id}-title`))
   untrack(() => warnMissingId("Drawer", id))
   setDrawerContext({
     get id() {

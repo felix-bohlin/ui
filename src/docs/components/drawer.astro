@@ -81,15 +81,24 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
   </Fragment>
 
   <Usage slot="usage">
-    <li slot="when">Navigation, especially on small screens.</li>
-    <li slot="when">Filters or settings for the page.</li>
-    <li slot="when">Item details without leaving the list.</li>
+    <li slot="when">
+      Navigation on small screens, like an <a href="#basics">app menu</a>.
+    </li>
+    <li slot="when">
+      Filters or settings for the page, like <a href="#basics">filters</a> for a
+      list.
+    </li>
+    <li slot="when">
+      Item details without leaving the list, like a <a href="#basics">task</a>.
+    </li>
     <li slot="when-not">
       A task that needs full attention: use a
       <DocLink href="/components/dialog">Dialog</DocLink>.
     </li>
     <li slot="when-not">
-      Content used together with the page: the drawer makes the page inert.
+      Content used together with the page, like filters beside the results: use
+      a sticky column with the
+      <DocLink href="/components/layout#sticky">Layout</DocLink> classes.
     </li>
   </Usage>
 
@@ -173,6 +182,32 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
   <DrawerBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening
+      it with <code>command="show-modal"</code> (or <code>showModal()</code>)
+      makes it modal and the page behind it inert.
+    </p>
+    <DocsTable
+      columns={[{ label: "Role/attribute", width: "30%" }, { label: "Usage" }]}
+    >
+      <TableRow>
+        <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+        <TableCell>
+          Gives the drawer an accessible name by referring to the element that
+          provides the drawer title.
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+        <TableCell>
+          Optional. Gives the drawer an accessible description by referring to
+          the drawer content that describes the primary message or purpose of
+          the drawer.
+        </TableCell>
+      </TableRow>
+    </DocsTable>
+
     <ul>
       <li>
         <Conditional>
@@ -201,32 +236,6 @@ export const keywords = ["off-canvas", "sheet", "side panel", "sidebar"]
         >MDN</a
       >
     </p>
-
-    <h3 id="role-attributes">Role & attributes</h3>
-    <p>
-      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening
-      it with <code>command="show-modal"</code> (or <code>showModal()</code>)
-      makes it modal and the page behind it inert.
-    </p>
-    <DocsTable
-      columns={[{ label: "Role/attribute", width: "30%" }, { label: "Usage" }]}
-    >
-      <TableRow>
-        <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
-        <TableCell>
-          Gives the drawer an accessible name by referring to the element that
-          provides the drawer title.
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell><code>aria-describedby="IDREF"</code></TableCell>
-        <TableCell>
-          Optional. Gives the drawer an accessible description by referring to
-          the drawer content that describes the primary message or purpose of
-          the drawer.
-        </TableCell>
-      </TableRow>
-    </DocsTable>
 
     <KeyboardSupport />
   </Fragment>

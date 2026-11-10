@@ -7,7 +7,7 @@ export default {
   keyboard: modalKeyboard("drawer"),
   notes: {
     default:
-      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.",
+      'Attributes that aren\'t props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer, with the id `x-title` for `id="x"`. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.',
     html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
   },
   options: [

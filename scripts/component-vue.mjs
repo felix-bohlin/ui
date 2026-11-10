@@ -319,6 +319,11 @@ export const toVue = (component) => {
     usesDefined = true
     return `defined(${code})`
   }
+  const definedSpread = (item, code) => {
+    if (item.defined !== true) return code
+    usesDefined = true
+    return `defined(${code})`
+  }
   const attribute = (node, item, scope) => {
     if (item.kind === "class") {
       return `:class="${rewriteExpression(item.code, scope)}"`
@@ -342,7 +347,7 @@ export const toVue = (component) => {
           ...bound,
         ].join(" ")
       }
-      return `v-bind="${rewriteExpression(item.code, scope)}"`
+      return `v-bind="${definedSpread(item, rewriteExpression(item.code, scope))}"`
     }
     if (item.kind === "static") {
       return `${item.name}=${JSON.stringify(item.value)}`
@@ -442,7 +447,7 @@ export const toVue = (component) => {
                         rewriteExpression(item.condition, scope),
                       ),
                 )
-              : rewriteExpression(item.code, scope),
+              : definedSpread(item, rewriteExpression(item.code, scope)),
         }
       }
       if (item.kind === "static") {

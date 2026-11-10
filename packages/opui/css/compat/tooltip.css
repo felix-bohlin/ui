@@ -1,6 +1,8 @@
 @layer components.compat {
   @supports not selector(:interest-source) {
     :where(.ui-tooltip):has(> :focus-visible) > .ui-floating[popover] {
+      --_ease: var(--ui-ease-enter);
+
       display: block;
       opacity: 1;
       position-anchor: --anchor;
@@ -13,6 +15,8 @@
 
     @media (hover: hover) {
       :where(.ui-tooltip):has(> :hover) > .ui-floating[popover] {
+        --_ease: var(--ui-ease-enter);
+
         display: block;
         opacity: 1;
         position-anchor: --anchor;

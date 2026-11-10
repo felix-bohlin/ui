@@ -17,7 +17,7 @@ const {
 } = Astro.props
 
 warnMissingId("Drawer", id)
-const labelledBy = autoLabelledBy(rest, `${id}-heading`)
+const labelledBy = autoLabelledBy(rest, `${id}-title`)
 const html = await drawerContext.provide({ id, titleId: labelledBy }, () =>
   Astro.slots.render("default"),
 )

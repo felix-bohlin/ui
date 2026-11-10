@@ -1,0 +1,316 @@
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-3"
+>
+  Block start
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-1"
+>
+  Inline start
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-2"
+>
+  Inline end
+</button>
+<button
+  class="ui-button"
+  type="button"
+  command="show-modal"
+  commandfor="drawer-basics-4"
+>
+  Block end
+</button>
+
+<dialog
+  closedby="any"
+  class="ui-drawer ui-scroll-lock"
+  aria-labelledby="drawer-basics-1-title"
+  id="drawer-basics-1"
+>
+  <div class="ui-header">
+    <h2 id="drawer-basics-1-title">Menu</h2>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="drawer-basics-1"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <ul class="ui-list ui-transparent" role="list">
+      <li>
+        <a href="#basics" aria-current="page">
+          <div class="ui-text">
+            <p>Dashboard</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Projects</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Reports</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#basics">
+          <div class="ui-text">
+            <p>Settings</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="ui-footer ui-align-start">
+    <button
+      class="ui-button ui-small"
+      type="button"
+      command="close"
+      commandfor="drawer-basics-1"
+    >
+      Sign out
+    </button>
+  </div>
+</dialog>
+
+<dialog
+  closedby="any"
+  class="ui-drawer ui-backdrop-transparent ui-scroll-lock ui-inline-end"
+  aria-labelledby="drawer-basics-2-title"
+  id="drawer-basics-2"
+>
+  <div class="ui-header">
+    <h2 id="drawer-basics-2-title">Onboarding emails</h2>
+    <button class="ui-button ui-round ui-small" type="button" aria-label="Edit">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </button>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="drawer-basics-2"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content" aria-label="Task details" role="region" tabindex="0">
+    <p>
+      Assigned to Lena Ek, due Friday. Marco Rossi reviews the copy, and the
+      design team sends the new header images by Wednesday.
+    </p>
+    <p>
+      The welcome series sends five emails over the first two weeks. Rewrite
+      them for the new plans, and drop the one about the old desktop app.
+    </p>
+    <p>
+      Day 1: a welcome from the team, with one button that creates the first
+      project and a short list of what to try next.
+    </p>
+    <p>
+      Day 2: how to import files from another service, which formats work, and
+      what happens to comments and version history on the way in.
+    </p>
+    <p>
+      Day 4: the keyboard shortcuts and the command menu, with a short video
+      that shows how to find any file without leaving the keyboard.
+    </p>
+    <p>
+      Day 7: sharing a project with people outside the team, what guests can see
+      and change, and how to take their access back.
+    </p>
+    <p>
+      Day 14: a reminder that the trial ends in three days, the price of each
+      plan, and a link to the billing page.
+    </p>
+    <p>
+      Keep each email under 150 words, with one button and no more than two
+      links. Write the subject lines last, once the body text is final.
+    </p>
+    <p>
+      Send the drafts to the support team before Thursday. They answer the
+      replies, so they need to know what each email promises.
+    </p>
+    <p>
+      Test every email in light and dark mode, on a phone and in the web version
+      of the three biggest mail apps, before it goes out.
+    </p>
+    <p>
+      Marco Rossi created the task on 3 March, and Lena Ek moved it to In
+      progress on 5 March.
+    </p>
+  </div>
+  <div class="ui-footer">
+    <button
+      class="ui-button ui-small ui-filled"
+      type="button"
+      command="close"
+      commandfor="drawer-basics-2"
+    >
+      Mark as done
+    </button>
+  </div>
+</dialog>
+
+<dialog
+  closedby="any"
+  class="ui-drawer ui-scroll-lock ui-block-start"
+  aria-labelledby="drawer-basics-3-title"
+  id="drawer-basics-3"
+>
+  <div class="ui-header">
+    <h2 id="drawer-basics-3-title">Notifications</h2>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="drawer-basics-3"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <p>Marco Rossi commented on Onboarding emails.</p>
+    <p>Your export is ready to download.</p>
+    <p>Lena Ek invited you to the Design team.</p>
+  </div>
+  <div class="ui-footer">
+    <button
+      class="ui-button ui-small"
+      type="button"
+      command="close"
+      commandfor="drawer-basics-3"
+    >
+      Mark all as read
+    </button>
+  </div>
+</dialog>
+
+<dialog
+  closedby="any"
+  class="ui-drawer ui-scroll-lock ui-block-end"
+  aria-labelledby="drawer-basics-4-title"
+  id="drawer-basics-4"
+>
+  <div class="ui-header">
+    <h2 id="drawer-basics-4-title">Filters</h2>
+    <button
+      class="ui-button ui-round ui-small"
+      type="button"
+      aria-label="Close"
+      command="close"
+      commandfor="drawer-basics-4"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <fieldset class="ui-fieldset">
+      <legend>Status</legend>
+      <div class="ui-field-group ui-horizontal">
+        <label class="ui-checkbox">
+          <input type="checkbox" name="status" checked value="done" />
+          <span class="ui-label">Done</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" name="status" checked value="in-progress" />
+          <span class="ui-label">In progress</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" name="status" value="open" />
+          <span class="ui-label">Open</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="ui-footer">
+    <p>24 tasks</p>
+    <div class="ui-actions">
+      <button class="ui-button ui-small" type="button">Reset</button>
+      <button
+        class="ui-button ui-small ui-filled"
+        type="button"
+        command="close"
+        commandfor="drawer-basics-4"
+      >
+        Apply
+      </button>
+    </div>
+  </div>
+</dialog>

@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { menuContext } from "./context.astro"
+import { defined } from "../attrs"
 import { warnMissingId } from "../dev"
 import { tagAttrs } from "../tag"
 
@@ -62,7 +63,7 @@ const html = await menuContext.provide({ rootId }, () =>
           {...tagAttrs(Tag, disabled, href)}
           command={closes ? "hide-popover" : undefined}
           commandfor={closes ? rootId : undefined}
-          {...itemRest}
+          {...defined(itemRest)}
         >
           <div class="ui-text">
             <p>{label}</p>

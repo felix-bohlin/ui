@@ -68,7 +68,8 @@ const years = Object.keys(categorized)
       <li>
         Anchor (<code>css/compat/anchor.css</code>): without interest invokers,
         a hover card shows while its anchor is hovered or holds keyboard focus,
-        also while the pointer or the focus is in the card. Like the Tooltip
+        also while the pointer or the focus is in the card, and Esc doesn't hide
+        it, also with the <code>interestfor</code> polyfill. Like the Tooltip
         fallback, it isn't in the top layer there, and a tap on a touch screen
         follows the trigger link instead of opening the card.
       </li>
@@ -150,7 +151,8 @@ const years = Object.keys(categorized)
       <li>
         Tooltip (<code>css/compat/tooltip.css</code>): without interest
         invokers, the tooltip shows while its trigger is hovered or has keyboard
-        focus. It isn't in the top layer there, so an ancestor that clips its
+        focus, and Esc doesn't hide it, also with the <code>interestfor</code>
+        polyfill. It isn't in the top layer there, so an ancestor that clips its
         overflow and has a transform, filter or containment can hide it, and
         later content can cover it.
       </li>

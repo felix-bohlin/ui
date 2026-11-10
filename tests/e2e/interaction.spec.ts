@@ -1845,6 +1845,27 @@ interaction(
 
 interaction(
   "copy",
+  "Snippet",
+  "copy selects the snippet without the failure label when the clipboard is blocked",
+  async ({ page, root }) => {
+    const button = root.getByRole("button", { name: "Copy" })
+
+    await expect(button).toBeVisible()
+    await stubCopyCommand(page, false)
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = () =>
+        Promise.reject(new DOMException("Blocked", "NotAllowedError"))
+    })
+    await button.click()
+    await expect(root.getByRole("status")).toHaveText("Copy failed")
+    const selected = await page.evaluate(() => getSelection()!.toString())
+    expect(selected).toContain("npm install opui-css")
+    expect(selected).not.toContain("Copy failed")
+  },
+)
+
+interaction(
+  "copy",
   "Basics",
   "copy copies with a selection where the page has no Clipboard API",
   async ({ page, root }) => {
@@ -1888,7 +1909,7 @@ interaction(
 interaction(
   "copy",
   "Snippet",
-  "copy leaves the button and its tooltip out of the copied text",
+  "copy leaves the button, its tooltip and the ignored prompt out of the copied text",
   async ({ page, root }) => {
     const button = root.getByRole("button", { name: "Copy" })
     const label = root.locator(".ui-copy > .ui-floating")
@@ -1939,10 +1960,13 @@ interaction(
     await expect(toasts).toHaveCount(0)
     await expect(toaster.locator("ol")).toBeHidden()
 
-    await root.getByRole("button", { name: "Save changes" }).click()
+    const save = root.getByRole("button", { name: "Save changes" })
+    await save.focus()
+    await page.keyboard.press("Enter")
     await toasts.first().getByRole("button", { name: "Close" }).focus()
     await page.keyboard.press("Escape")
     await expect(toasts).toHaveCount(0)
+    await expect(save).toBeFocused()
   },
 )
 

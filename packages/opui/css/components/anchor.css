@@ -25,6 +25,7 @@
       color: inherit;
       inset: unset;
       margin: 0;
+      /* UA sets overflow: auto on [popover], which clips the Tooltip arrow. */
       overflow: visible;
       padding: 0;
       position: fixed;

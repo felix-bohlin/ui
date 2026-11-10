@@ -14,11 +14,29 @@ export default function Severities() {
       <Button
         command="--toast"
         commandfor="toast-severities-1"
+        data-toast="Couldn't save your changes"
+        data-toast-severity="critical"
+        variant="outlined"
+      >
+        Critical
+      </Button>
+      <Button
+        command="--toast"
+        commandfor="toast-severities-1"
         data-toast="A new version is available"
         data-toast-severity="info"
         variant="outlined"
       >
         Info
+      </Button>
+      <Button
+        command="--toast"
+        commandfor="toast-severities-1"
+        data-toast="Export queued"
+        data-toast-severity="neutral"
+        variant="outlined"
+      >
+        Neutral
       </Button>
       <Button
         command="--toast"
@@ -37,24 +55,6 @@ export default function Severities() {
         variant="outlined"
       >
         Warning
-      </Button>
-      <Button
-        command="--toast"
-        commandfor="toast-severities-1"
-        data-toast="Couldn't save your changes"
-        data-toast-severity="critical"
-        variant="outlined"
-      >
-        Critical
-      </Button>
-      <Button
-        command="--toast"
-        commandfor="toast-severities-1"
-        data-toast="Export queued"
-        data-toast-severity="neutral"
-        variant="outlined"
-      >
-        Neutral
       </Button>
       <Toaster id="toast-severities-1" />
     </>

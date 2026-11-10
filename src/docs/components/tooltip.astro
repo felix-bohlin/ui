@@ -98,7 +98,9 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   </Fragment>
 
   <Usage slot="usage">
-    <li slot="when">A visible label for an icon-only button.</li>
+    <li slot="when">
+      A visible label for an <a href="#icon-button">icon-only button</a>.
+    </li>
     <li slot="when">A hint or a keyboard shortcut.</li>
     <li slot="when-not">
       Information needed to finish a task: put it on the page, or in a
@@ -116,6 +118,14 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
     <h3 id="text-only">Text</h3>
 
     <AutoExample name="Basics" centered />
+
+    <h3 id="icon-button">Icon button</h3>
+    <p>
+      Name the button with an <code>aria-label</code> that matches the tooltip
+      text.
+    </p>
+
+    <AutoExample name="IconButton" centered />
 
     <h3 id="rich-content">Rich content</h3>
 
@@ -151,7 +161,13 @@ export const keywords = ["hint", "hover", "title", "toggletip"]
   <Fragment slot="accessibility">
     <ul>
       <li>
-        Point the trigger at the tooltip with <code>aria-describedby</code>.
+        Point a trigger with visible text at the tooltip with
+        <code>aria-describedby</code>.
+      </li>
+      <li>
+        Give an <a href="#icon-button">icon-only trigger</a> an
+        <code>aria-label</code> with the tooltip text and no
+        <code>aria-describedby</code>, so its name isn't read twice.
       </li>
       <li>Put what the user must know in the trigger's own name.</li>
     </ul>

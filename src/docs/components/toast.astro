@@ -230,7 +230,10 @@ export const keywords = ["notification", "snackbar"]
 
   <section id="duration">
     <h2>Duration</h2>
-    <p>5 seconds by default. Use <code>duration</code> to change it.</p>
+    <p>
+      5 seconds by default, 10 with an action. Use <code>duration</code> to
+      change it.
+    </p>
     <AutoExample name="Duration" row />
   </section>
 
@@ -238,6 +241,12 @@ export const keywords = ["notification", "snackbar"]
     <ul>
       <li>
         Put the toaster near the content it confirms, or at the end of the page.
+      </li>
+      <li>
+        Give a modal <DocLink href="/components/dialog">Dialog</DocLink> or
+        <DocLink href="/components/drawer">Drawer</DocLink> that shows toasts a
+        toaster of its own, since the page behind it is inert.
+        <code>toast()</code> uses it while the dialog is open.
       </li>
     </ul>
     <KeyboardSupport />

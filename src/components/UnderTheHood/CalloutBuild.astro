@@ -79,11 +79,11 @@ const steps = [
   {
     css: `
 .info {
-  --tone: oklch(58% 0.21 var(--hue-blue));
+  --tone: oklch(from var(--ui-info) 0.58 0.21 h);
 }
 
 .warning {
-  --tone: oklch(58% 0.21 var(--hue-orange));
+  --tone: oklch(from var(--ui-warning) 0.58 0.21 h);
 }
 
 .callout:is(.info, .warning) {

@@ -54,6 +54,11 @@ export default {
       group: "Invisible",
       prop: "invisible",
     },
+    {
+      description:
+        "The indicator text, such as a count. With `hideLabel` or `dot`, only screen readers get it.",
+      prop: "label",
+    },
   ],
   parts: [
     {

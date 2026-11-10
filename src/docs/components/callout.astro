@@ -124,7 +124,9 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
     <h2>Icon</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        <code>CalloutIcon</code> renders the severity's icon.
+        <code>CalloutIcon</code> renders the severity's icon. For your own, put
+        an <code>&lt;svg aria-hidden="true"&gt;</code> before
+        <code>CalloutContent</code>.
       </Fragment>
       <Fragment slot="html">
         Put an <code>&lt;svg aria-hidden="true"&gt;</code> before
@@ -152,6 +154,10 @@ export const keywords = ["alert", "banner", "message box", "notice", "warning"]
       <li>
         A callout that appears after an action needs a
         <code>role="status"</code> container already on the page.
+      </li>
+      <li>
+        The icon and color aren't announced: say the severity in the text, like
+        "Payment failed".
       </li>
     </ul>
   </Fragment>

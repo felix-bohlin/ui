@@ -4,4 +4,31 @@
       overflow-x: auto;
     }
   }
+
+  @supports not (row-rule: none) {
+    :where(.ui-toggle-group) {
+      --_divider-gap: 0px;
+
+      & > .ui-toggle-button {
+        --_divider-offset: calc(-1 * var(--ui-border-width));
+        box-shadow:
+          var(--_divider-offset) 0 0 0 var(--_border-color),
+          0 calc(-1 * var(--ui-border-width)) 0 0 var(--_border-color);
+
+        &:dir(rtl) {
+          --_divider-offset: var(--ui-border-width);
+        }
+
+        @media (forced-colors: active) {
+          border-block-start: var(--ui-border-width) solid CanvasText;
+          border-inline-start: var(--ui-border-width) solid CanvasText;
+          box-shadow: none;
+          margin-block-start: calc(-1 * var(--ui-border-width));
+          margin-inline-start: calc(-1 * var(--ui-border-width));
+          min-block-size: calc(var(--_size) + var(--ui-border-width));
+          min-inline-size: calc(var(--_size) + var(--ui-border-width));
+        }
+      }
+    }
+  }
 }

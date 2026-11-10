@@ -10,9 +10,9 @@ export default {
       "Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.",
     kind: "input",
   },
-  "--_divider-offset": {
+  "--_divider-gap": {
     description:
-      "Horizontal offset of the line each toggle button draws on the edge it shares with the one before it: minus `--ui-border-width`, or `--ui-border-width` in right-to-left.",
+      "The gap between toggle buttons and between rows, and the width of the column and row rules the browser draws in it, only between buttons: `--ui-border-width`. `0px` in browsers without gap decorations (`css/compat/toggle-group.css`), where each button draws the line on its start and top edges as a shadow and the group clips the ones on its outer edge.",
     kind: "output",
   },
   "--_radius": {

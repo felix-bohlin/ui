@@ -78,7 +78,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_border-color`: Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.
 - `--_radius`: Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it, capped at half a button height so a round radius doesn't clip the end items.
 
-Outputs: `--_divider-offset`.
+Outputs: `--_divider-gap`.
 
 ### toggle-button.css
 

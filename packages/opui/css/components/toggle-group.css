@@ -2,6 +2,7 @@
   :where(.ui-toggle-group) {
     --_bg-color: var(--ui-surface);
     --_border-color: var(--ui-control-border-color, var(--ui-border-color));
+    --_divider-gap: var(--ui-border-width);
     --_radius: min(
       var(--ui-button-radius, var(--ui-radius)),
       var(--ui-button-size) / 2
@@ -9,6 +10,8 @@
 
     background-color: var(--_bg-color);
     border-radius: var(--_radius);
+    column-gap: var(--_divider-gap);
+    column-rule: var(--_divider-gap) solid var(--_border-color);
     display: inline-flex;
     flex-wrap: wrap;
     inline-size: fit-content;
@@ -16,23 +19,17 @@
     outline: var(--ui-border-width) solid var(--_border-color);
     outline-offset: calc(-1 * var(--ui-border-width));
     overflow: hidden;
+    row-gap: var(--_divider-gap);
+    row-rule: var(--_divider-gap) solid var(--_border-color);
 
     /* Toggle button */
     & > .ui-toggle-button {
       --_border-color: inherit;
-      --_divider-offset: calc(-1 * var(--ui-border-width));
       border: 0;
       border-radius: 0;
-      box-shadow:
-        var(--_divider-offset) 0 0 0 var(--_border-color),
-        0 calc(-1 * var(--ui-border-width)) 0 0 var(--_border-color);
       flex: auto;
       margin: 0;
       scale: none;
-
-      &:dir(rtl) {
-        --_divider-offset: var(--ui-border-width);
-      }
     }
 
     &.ui-vertical {
@@ -80,18 +77,6 @@
           flex: none;
           min-inline-size: var(--_size);
         }
-      }
-    }
-
-    @media (forced-colors: active) {
-      & > .ui-toggle-button {
-        border-block-start: var(--ui-border-width) solid CanvasText;
-        border-inline-start: var(--ui-border-width) solid CanvasText;
-        box-shadow: none;
-        margin-block-start: calc(-1 * var(--ui-border-width));
-        margin-inline-start: calc(-1 * var(--ui-border-width));
-        min-block-size: calc(var(--_size) + var(--ui-border-width));
-        min-inline-size: calc(var(--_size) + var(--ui-border-width));
       }
     }
   }

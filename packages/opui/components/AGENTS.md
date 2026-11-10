@@ -551,6 +551,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Timeline`: colored and current markers are fills, so they get `CanvasText`, and the current marker and the tracked line `Highlight`.
 - `Toaster`: every toast is a `Callout`, whose boundary is a real border, and the severity and close icons are masks, so they get `CanvasText` and `ButtonText`.
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
+- `ToggleGroup`: the dividers are column and row rules, which the browser forces to `CanvasText`, but browsers without gap decorations draw them as shadows, which forced colors drops, so the block gives each button `CanvasText` borders, which `css/compat/toggle-group.css` sets to a border width there.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
 - `Typography`: the `.ui-swatch` legend dot is a fill, so it keeps a `CanvasText` fill with `forced-color-adjust: none`. Text and underlines are forced by the browser, and code blocks lose their fill and keep their text.
 
@@ -563,7 +564,6 @@ The components without a block, and why:
 - `Stat`: text only, no boundary or state.
 - `NumberField`: `number-field.css` only centers the value and hides the spin buttons; `text-field.css` and `button.css` cover the field and the buttons.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
-- `ToggleGroup`: the dividers are column and row rules and the edge is an outline, which the browser forces to `CanvasText`. Browsers without gap decorations draw the dividers as shadows, which forced colors drops, so `css/compat/toggle-group.css` gives them `CanvasText` borders there.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
 

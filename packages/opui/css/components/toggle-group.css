@@ -2,7 +2,9 @@
   :where(.ui-toggle-group) {
     --_bg-color: var(--ui-surface);
     --_border-color: var(--ui-control-border-color, var(--ui-border-color));
+    --_divider-border-width: 0px;
     --_divider-gap: var(--ui-border-width);
+    --_divider-shadow: none;
     --_radius: min(
       var(--ui-button-radius, var(--ui-radius)),
       var(--ui-button-size) / 2
@@ -27,6 +29,7 @@
       --_border-color: inherit;
       border: 0;
       border-radius: 0;
+      box-shadow: var(--_divider-shadow);
       flex: auto;
       margin: 0;
       scale: none;
@@ -77,6 +80,18 @@
           flex: none;
           min-inline-size: var(--_size);
         }
+      }
+    }
+
+    @media (forced-colors: active) {
+      & > .ui-toggle-button {
+        border-block-start: var(--_divider-border-width) solid CanvasText;
+        border-inline-start: var(--_divider-border-width) solid CanvasText;
+        box-shadow: none;
+        margin-block-start: calc(-1 * var(--_divider-border-width));
+        margin-inline-start: calc(-1 * var(--_divider-border-width));
+        min-block-size: calc(var(--_size) + var(--_divider-border-width));
+        min-inline-size: calc(var(--_size) + var(--_divider-border-width));
       }
     }
   }

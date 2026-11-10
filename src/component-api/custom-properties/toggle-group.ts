@@ -10,9 +10,19 @@ export default {
       "Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.",
     kind: "input",
   },
+  "--_divider-border-width": {
+    description:
+      "Width of the `CanvasText` borders that take the place of the shadow dividers in forced colors: `0px`, and `--ui-border-width` in browsers without gap decorations (`css/compat/toggle-group.css`), where the dividers are shadows, which forced colors drops.",
+    kind: "output",
+  },
   "--_divider-gap": {
     description:
-      "The gap between toggle buttons and between rows, and the width of the column and row rules the browser draws in it, only between buttons: `--ui-border-width`. `0px` in browsers without gap decorations (`css/compat/toggle-group.css`), where each button draws the line on its start and top edges as a shadow and the group clips the ones on its outer edge.",
+      "The gap between toggle buttons and between rows, and the width of the column and row rules the browser draws in it, only between buttons: `--ui-border-width`. `0px` in browsers without gap decorations, where `--_divider-shadow` draws the lines.",
+    kind: "output",
+  },
+  "--_divider-shadow": {
+    description:
+      "Shadow each toggle button draws on its start and top edges as the line between it and the buttons before and above it, which the group clips at its outer edge: `none`, and in browsers without gap decorations (`css/compat/toggle-group.css`) one line of `--ui-border-width` in `--_border-color` on each edge, on the right in right-to-left.",
     kind: "output",
   },
   "--_radius": {

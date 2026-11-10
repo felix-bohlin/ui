@@ -21,6 +21,11 @@ export default {
       "Radius of the bubble's corner on the avatar side at the top. Tightened on every message of a run but the first.",
     kind: "output",
   },
+  "--_divider-gap": {
+    description:
+      "Set to `0px` on the `.ui-toggle-group` in the `bottom` slot, so the group draws no lines between the reaction pills, which keep their own gap.",
+    kind: "output",
+  },
   "--_dot-image": {
     description: "One dot of the typing indicator.",
     kind: "output",

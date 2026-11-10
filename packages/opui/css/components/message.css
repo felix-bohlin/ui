@@ -97,6 +97,8 @@
       padding-inline: var(--ui-space-2);
 
       & > .ui-toggle-group {
+        --_divider-gap: 0px;
+
         background-color: transparent;
         gap: var(--ui-space-1);
         outline: 0;

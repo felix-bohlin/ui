@@ -55,7 +55,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_text-color`: Text color in the bubble. Defaults to `--ui-text-strong`, and `--ui-on-primary` with `.ui-outgoing`.
 - `--_tight-radius`: Radius of the corners inside a run. Defaults to `--ui-radius-small`.
 
-Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
+Outputs: `--_block-end-radius`, `--_block-start-radius`, `--_divider-gap`, `--_dot-image`, `--_font-size`, `--_selected-bg-color` and `--_size`.
 
 ### avatar.css
 

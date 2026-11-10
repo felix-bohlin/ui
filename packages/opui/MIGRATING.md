@@ -1015,7 +1015,16 @@ In Astro these are slots (`<span slot="start">€</span>`); in Vue use `<templat
 
 ## Toast
 
-`Toast` is removed. `toast.css` and `css/js/toast.js` are gone, so drop their imports and the `initToastManager()` and `showToast()` calls.
+`Toast` is removed. `toast.css` and `css/js/toast.js` are gone, so drop their imports and the `initToastManager()` and `showToast()` calls. `Toaster` replaces it: give it an `id` and point a button at it with `commandfor` and `command="--toast"` instead of `--show-toast`, with the message in `data-toast` and the severity in `data-toast-severity`. A toast has one message, so fold a title and a description into it. From a script, call `toast(message, { severity })` from `opui-css/elements/toaster.js` (or `opui-css/vue`) instead of `showToast({ title, description, severity })`.
+
+```diff
+- <Toast />
+- <button commandfor="toast-manager" command="--show-toast" data-title="Saved" data-severity="success">Save</button>
++ <Toaster id="toaster" />
++ <button commandfor="toaster" command="--toast" data-toast="Saved" data-toast-severity="success">Save</button>
+```
+
+In HTML, replace the `<output id="toast-manager">` and its `<template>` with `<opui-toaster class="ui-toaster">`, holding an `<ol popover="manual">`, a `<div class="ui-sr-only" role="status">` and a `<div class="ui-sr-only" role="alert">`.
 
 ## Toggle button and toggle group
 

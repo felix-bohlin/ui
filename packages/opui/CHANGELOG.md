@@ -137,7 +137,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Select` no longer hides `option::before`.
 - `TextField` and `Textarea` no longer take `supportingText` or the `supporting-text` slot. Use `endText` (`end-text`).
 - `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
-- `Toast`. The Astro and Vue components, `toast.css` with `.ui-toast` and its parts (`.ui-close-button`, `.ui-exiting`, `.ui-icon`, `.ui-title`), `css/js/toast.js` with `initToastManager()` and `showToast()`, and their types are gone.
+- `Toast`. The Astro and Vue components, `toast.css` with `.ui-toast` and its parts (`.ui-close-button`, `.ui-exiting`, `.ui-icon`, `.ui-title`), `css/js/toast.js` with `initToastManager()` and `showToast()`, and their types are gone. `Toaster` replaces them, and `toast()` replaces `showToast()`.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
 - `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`.
 - `normalize.css` no longer falls back to `--text-color-2` when `--ui-text` is unset.

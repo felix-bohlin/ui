@@ -1431,6 +1431,12 @@ export const whatsNew = {
     `Themes can make toasts spring in with <a href="#api"><code>--ui-ease-move</code></a>.`,
     `The severity and close <a href="#icons">icons</a> are masks, so <code>--_critical-image</code>, <code>--_info-image</code>, <code>--_success-image</code>, <code>--_warning-image</code> and <code>--_close-image</code> swap them for your own.`,
     `A critical toast is announced through an <a href="#accessibility">assertive region</a>, so it interrupts other speech.`,
+    {
+      ...slots(
+        `Breaking: <a href="#basics"><code>Toaster</code></a> replaces <code>Toast</code>. Show toasts with <a href="#from-a-script"><code>toast()</code></a> instead of <code>showToast()</code>.`,
+      ),
+      html: `Breaking: <code>.ui-toast</code>, <code>toast.css</code> and <code>css/js/toast.js</code> are gone. Use <a href="#basics"><code>&lt;opui-toaster&gt;</code></a> and <a href="#from-a-script"><code>toast()</code></a> from <code>opui-css/elements/toaster.js</code>.`,
+    },
   ],
   toggle: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> on <code>ToggleGroup</code> (<a href="#under-the-hood">Under the hood</a>).`,

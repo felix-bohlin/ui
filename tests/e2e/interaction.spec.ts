@@ -998,6 +998,53 @@ interaction(
   ["html"],
 )
 
+for (const name of ["Fields", "Variants", "Vertical"]) {
+  interaction(
+    "control-group",
+    name,
+    `${name}: siblings that don't render leave the controls as they were`,
+    async ({ root }) => {
+      const groups = root.locator(".ui-control-group")
+      const read = () =>
+        groups.evaluateAll((elements) =>
+          elements.map((group) =>
+            [...group.children].map((control) => {
+              const box = control.getBoundingClientRect()
+              const style = getComputedStyle(control)
+              return {
+                box: [box.x, box.y, box.width, box.height],
+                style: [
+                  style.borderBlockStartColor,
+                  style.borderInlineStartColor,
+                  style.borderRadius,
+                ],
+              }
+            }),
+          ),
+        )
+      const before = await read()
+      await groups.evaluateAll((elements) => {
+        for (const group of elements) {
+          for (const control of [...group.children].slice(1)) {
+            const hidden = document.createElement("span")
+            hidden.hidden = true
+            const popover = document.createElement("div")
+            popover.popover = "auto"
+            control.before(hidden, popover)
+          }
+        }
+      })
+      const after = await read()
+      expect(
+        after.map((group) =>
+          group.filter(({ box }) => box.some((value) => value !== 0)),
+        ),
+      ).toEqual(before)
+    },
+    ["html"],
+  )
+}
+
 const nextButtonPoint = (carousel: Locator) =>
   carousel.evaluate((element) => {
     const style = getComputedStyle(element, "::scroll-button(inline-end)")

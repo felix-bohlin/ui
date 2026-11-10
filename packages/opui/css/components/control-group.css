@@ -60,6 +60,11 @@
       scale: none;
     }
 
+    &:where(:not(.ui-outlined))
+      > :where(.ui-number-field, .ui-select, .ui-text-field, .ui-textarea) {
+      z-index: 1;
+    }
+
     @media (hover: hover) {
       &
         > :where(
@@ -72,7 +77,7 @@
         > :where(.ui-button):where(
           :not(:disabled, [aria-disabled="true"])
         ):hover {
-        z-index: 1;
+        z-index: 2;
       }
     }
 
@@ -84,7 +89,7 @@
         .ui-text-field,
         .ui-textarea
       ):has([aria-invalid="true"], :user-invalid) {
-      z-index: 2;
+      z-index: 3;
     }
 
     & > :where(.ui-button):focus-visible,
@@ -95,7 +100,7 @@
         .ui-text-field,
         .ui-textarea
       ):focus-within {
-      z-index: 3;
+      z-index: 4;
     }
 
     & > :where(.ui-text-field, .ui-textarea):not(.ui-auto-fit),
@@ -178,14 +183,10 @@
         --_start-end-radius: 0;
 
         margin-inline-end: calc(-1 * var(--_overlap));
-      }
 
-      &
-        > .ui-button:is(
-          :has(+ .ui-button:not([hidden])),
-          :has(+ :is([hidden], [popover]) + .ui-button:not([hidden]))
-        ) {
-        margin-inline-end: calc(var(--_divider-gap) - var(--_border-width));
+        &.ui-button {
+          margin-inline-end: calc(var(--_divider-gap) - var(--_border-width));
+        }
       }
     }
 
@@ -224,14 +225,10 @@
         --_end-start-radius: 0;
 
         margin-block-end: calc(-1 * var(--_overlap));
-      }
 
-      &
-        > .ui-button:is(
-          :has(+ .ui-button:not([hidden])),
-          :has(+ :is([hidden], [popover]) + .ui-button:not([hidden]))
-        ) {
-        margin-block-end: calc(var(--_divider-gap) - var(--_border-width));
+        &.ui-button {
+          margin-block-end: calc(var(--_divider-gap) - var(--_border-width));
+        }
       }
 
       & > .ui-button {
@@ -291,9 +288,14 @@
     }
 
     &:not(.ui-outlined, .ui-vertical)
-      > .ui-button:not(:focus-visible):is(
-        .ui-button:not([hidden]) + *,
-        .ui-button:not([hidden]) + :is([hidden], [popover]) + *
+      > .ui-button:not(:focus-visible):nth-child(
+        n + 2 of :is(
+          .ui-button,
+          .ui-number-field,
+          .ui-select,
+          .ui-text-field,
+          .ui-textarea
+        ):not([hidden])
       ) {
       border-inline-start-color: var(--_start-border-color);
 
@@ -307,9 +309,14 @@
     }
 
     &.ui-vertical:not(.ui-outlined)
-      > .ui-button:not(:focus-visible):is(
-        .ui-button:not([hidden]) + *,
-        .ui-button:not([hidden]) + :is([hidden], [popover]) + *
+      > .ui-button:not(:focus-visible):nth-child(
+        n + 2 of :is(
+          .ui-button,
+          .ui-number-field,
+          .ui-select,
+          .ui-text-field,
+          .ui-textarea
+        ):not([hidden])
       ) {
       border-block-start-color: var(--_start-border-color);
 

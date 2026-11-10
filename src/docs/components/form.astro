@@ -62,7 +62,7 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     { name: "Divider", href: "/components/divider" },
     { name: "Range", href: "/components/range" },
     { name: "Select", href: "/components/select" },
-    { name: "Text Field", href: "/components/text-field" },
+    { name: "Text field", href: "/components/text-field" },
     { name: "Textarea", href: "/components/textarea" },
   ]}
   apis={[
@@ -250,12 +250,7 @@ export const keywords = ["fieldset", "input group", "label", "validation"]
     display: none;
   }
 
-  .ui-field-group {
-    &:has(.ui-button):not(:has(*:not(.ui-button))) {
-      &:not(hr + &),
-      #form-kitchen-sink-1:not(.kitchen-sink-dividers) > & {
-        margin-block-start: var(--size-4);
-      }
-    }
+  #form-kitchen-sink-1:not(.kitchen-sink-dividers) > .ui-field-group {
+    margin-block-start: var(--ui-space-4);
   }
 </style>

@@ -3,6 +3,6 @@
 </script>
 
 <div aria-busy="true" aria-describedby="progress-aria-busy-1">
-  Content here is loading.
+  Your invoices from the last 12 months appear here.
 </div>
-<Progress aria-label="Content loading…" id="progress-aria-busy-1" />
+<Progress aria-label="Loading invoices" id="progress-aria-busy-1" />

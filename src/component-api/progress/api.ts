@@ -10,7 +10,8 @@ export default {
   ]),
   options: [
     {
-      description: "The maximum value.",
+      default: "1",
+      description: "The maximum value. `value` runs from 0 to it.",
       prop: "max",
     },
     {

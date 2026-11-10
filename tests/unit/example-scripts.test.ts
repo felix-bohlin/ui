@@ -57,6 +57,16 @@ const HOOKS = [
         ? "opui-css/css/js/range.js"
         : undefined,
   },
+  {
+    hook: "a datalist option[label] in a .ui-range",
+    module: (element: Element) =>
+      element.tagName === "option" &&
+      hasAttribute(element, "label") &&
+      element.parentNode?.nodeName === "datalist" &&
+      inside(element, "ui-range")
+        ? "opui-css/css/js/range.js"
+        : undefined,
+  },
 ]
 
 const IMPORT = /\bimport\s+(?:[^"';]*?\sfrom\s+)?["']([^"']+)["'];?/g
@@ -153,6 +163,14 @@ describe("example scripts", () => {
     ).toEqual([
       'a/Hooks.html has an output.ui-value[data-live] in a .ui-range but doesn\'t import "opui-css/css/js/range.js"',
       'a/Hooks.html has an input[data-indeterminate] but doesn\'t import "opui-css/css/js/checkbox.js"',
+    ])
+    expect(
+      problemsOf({
+        html: '<label class="ui-range"><input list="a" type="range"><datalist id="a"><option label="Low" value="0"></option></datalist></label><label class="ui-text-field"><input list="b"><datalist id="b"><option label="Low" value="Low"></option></datalist></label>',
+        name: "a/Ticks",
+      }),
+    ).toEqual([
+      'a/Ticks.html has a datalist option[label] in a .ui-range but doesn\'t import "opui-css/css/js/range.js"',
     ])
     expect(
       problemsOf({

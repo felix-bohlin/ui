@@ -34,7 +34,6 @@
       margin: 0;
       padding: 0;
       position: relative;
-      transform-style: preserve-3d;
 
       /* Dot */
       &:checked {

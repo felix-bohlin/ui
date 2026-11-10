@@ -93,7 +93,7 @@
     &:where(.ui-checkbox, .ui-radio) {
       --_size: var(--ui-choice-size);
 
-      transform: translateZ(0);
+      isolation: isolate;
 
       &.ui-card input:is([type="checkbox"], [type="radio"])::before {
         content: none;
@@ -122,11 +122,9 @@
             content: "";
             inset: calc((100% - var(--_ripple-size)) / 2);
             position: absolute;
-            transform: translateZ(-1px) scale(var(--_ripple-scale));
-            transform-origin: center center;
-
-            transition: transform var(--_duration) var(--_ease);
-            will-change: transform;
+            scale: var(--_ripple-scale);
+            transition: scale var(--_duration) var(--_ease);
+            z-index: -1;
           }
         }
       }

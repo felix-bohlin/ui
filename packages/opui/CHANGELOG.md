@@ -514,6 +514,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Checkbox` forced-colors styles apply to checked and indeterminate boxes.
 - `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.
 - `Checkbox` and `Radio` show their hover and press halo without `core/utils.css`, so `dist/opui.components.css` and single-file imports get it too.
+- `Checkbox` and `Radio` put the hover and press halo behind the input with `isolation` and `z-index` instead of 3D transforms, so a long list of them no longer adds several compositor layers per control.
 - `Checkbox` `initCheckbox()` adds its `astro:after-swap` listener once, however often it is called.
 - `Checkbox`, `Radio` and `Switch` required asterisks, and the `Fieldset` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Range` pass a user `aria-invalid` to the control when `error` isn't set.

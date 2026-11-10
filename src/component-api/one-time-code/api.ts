@@ -10,7 +10,7 @@ export default {
     type: "string",
   },
   notes: {
-    ...passThrough("input", "label", ["autocomplete", "placeholder"], {
+    ...passThrough("input", "label", ["autofocus", "placeholder"], {
       react: "Use `value` with `onChange`, or `defaultValue`.",
     }),
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
@@ -63,7 +63,8 @@ export default {
     {
       class: ".ui-grouped",
       default: "false",
-      description: "Draws a dash between the two halves of the code.",
+      description:
+        "Draws a dash between the two halves of the code. Use it with an even `length`.",
       group: "Grouped",
       prop: "grouped",
     },
@@ -76,8 +77,17 @@ export default {
     {
       description:
         "The `inputmode` of the `<input>`. Without `alphanumeric` it is `numeric`.",
+      frameworks: ["astro", "svelte", "vue"],
       inherited: true,
       prop: "inputmode",
+      type: "string",
+    },
+    {
+      description:
+        "The `inputmode` of the `<input>`, as `inputMode` like on the element. Without `alphanumeric` it is `numeric`.",
+      frameworks: ["react"],
+      inherited: true,
+      prop: "inputMode",
       type: "string",
     },
     {

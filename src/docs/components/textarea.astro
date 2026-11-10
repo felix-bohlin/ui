@@ -115,11 +115,14 @@ export const keywords = ["multiline", "text area"]
     <h2>Character count</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        With <code>maxlength</code>, set <code>characterCount</code>.
+        With <code>maxlength</code>, set <code>characterCount</code>. Screen
+        readers only hear the count near the limit, so name the limit in the end
+        text.
       </Fragment>
       <Fragment slot="html">
         With <code>maxlength</code>, import
-        <code>opui-css/elements/character-count.js</code>.
+        <code>opui-css/elements/character-count.js</code>. Screen readers only
+        hear the count near the limit, so name the limit in the end text.
       </Fragment>
     </Conditional>
     <AutoExample name="CharacterCount" centered />

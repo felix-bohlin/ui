@@ -5,16 +5,13 @@ import { Textarea } from "opui-css/vue"
 <template>
   <Textarea placeholder="Hi, I have a question about my order." spread>
     <template #label>Message</template>
-    <template #start-text
-      >You can write your message here. Keep it short, preferably under 100
-      characters.</template
-    >
+    <template #start-text>Keep it under 100 characters.</template>
   </Textarea>
 
   <Textarea placeholder="Additional notes..." spread variant="filled">
     <template #label>Notes</template>
     <template #start-text>Add any additional notes or comments</template>
-    <template #end-text>Maximum 500 characters</template>
+    <template #end-text>Only your team sees these.</template>
   </Textarea>
 
   <Textarea label="Reason for return" required spread>
@@ -69,6 +66,6 @@ import { Textarea } from "opui-css/vue"
     <template #start-text>Shown on the changelog page</template>
     <template #top>v1.4.0</template>
     <template #bottom>Saved 2 minutes ago</template>
-    <template #end-text>Drafts are auto-saved</template>
+    <template #end-text>Drafts save automatically.</template>
   </Textarea>
 </template>

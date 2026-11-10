@@ -3,9 +3,11 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { idRefs } from "../id"
   import type { Props } from "./types.svelte"
 
   let {
+    "aria-describedby": ariaDescribedBy,
     "aria-invalid": ariaInvalid,
     autoFit,
     characterCount,
@@ -35,12 +37,23 @@
   }: Props = $props()
 
   const field = getFieldGroupContext()
+  const uid = $props.id()
   const getValue = () => value ?? defaultValue
   const setValue = (next: typeof value) => {
     value = next
   }
   const initialValue = untrack(getValue)
+  const base = $derived(id || `textarea-${uid}`)
   const Root = $derived(label ? "label" : "div")
+  const hasStartText = $derived(Boolean(startText))
+  const hasEndText = $derived(Boolean(endText || characterCount))
+  const linked = $derived(!label)
+  const startTextId = $derived(
+    linked && hasStartText ? `${base}-start-text` : undefined,
+  )
+  const endTextId = $derived(
+    linked && hasEndText ? `${base}-end-text` : undefined,
+  )
 </script>
 
 <svelte:element
@@ -62,14 +75,15 @@
       {@render content(label)}
     </span>
   {/if}
-  {#if startText}
-    <span class="ui-start-text">
+  {#if hasStartText}
+    <span class="ui-start-text" id={startTextId}>
       {@render content(startText)}
     </span>
   {/if}
   <span class="ui-field">
     <textarea
       {...rest}
+      aria-describedby={idRefs(startTextId, endTextId, ariaDescribedBy)}
       aria-invalid={error ? "true" : ariaInvalid}
       {id}
       name={name ?? field?.name}
@@ -96,8 +110,8 @@
       </span>
     {/if}
   </span>
-  {#if endText || characterCount}
-    <span class="ui-end-text">
+  {#if hasEndText}
+    <span class="ui-end-text" id={endTextId}>
       {@render content(endText)}{#if characterCount}
         <opui-character-count
           aria-hidden="true"

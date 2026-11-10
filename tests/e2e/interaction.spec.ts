@@ -1545,7 +1545,7 @@ interaction(
       await input.evaluate((element: HTMLInputElement) =>
         [...(element.list?.options ?? [])].map((option) => option.value),
       ),
-    ).toEqual(["Jonny Greenwood", "Marika Hackman", "Ray Manzarek"])
+    ).toEqual(["Elif Rahman", "Lena Ek", "Tom Tanaka"])
   },
 )
 
@@ -2116,7 +2116,7 @@ interaction(
     await input.fill("opui-fan-2026")
     await expect(count).toHaveText("13/20")
     await expect(input).toHaveAccessibleName(
-      "Username Letters, numbers and dashes.",
+      "Username Up to 20 letters, numbers and dashes.",
     )
     await expect(page.locator("[data-opui-announcer]")).toHaveText(
       "Characters left: 7",

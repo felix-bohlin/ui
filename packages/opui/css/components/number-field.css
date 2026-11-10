@@ -16,6 +16,10 @@
       }
     }
 
+    &:not(.ui-stretch, .ui-spread) > :where(.ui-start-text, .ui-end-text) {
+      contain: inline-size;
+    }
+
     &.ui-stretch {
       inline-size: auto;
 

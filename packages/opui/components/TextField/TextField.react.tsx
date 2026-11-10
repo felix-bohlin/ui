@@ -49,10 +49,9 @@ export default function TextField({
   const hasStartText = Boolean(startText)
   const hasEndText = Boolean(endText || characterCount)
   const inputId = passwordToggle ? base : id
-  const startTextId =
-    passwordToggle && hasStartText ? `${base}-start-text` : undefined
-  const endTextId =
-    passwordToggle && hasEndText ? `${base}-end-text` : undefined
+  const linked = passwordToggle || !label
+  const startTextId = linked && hasStartText ? `${base}-start-text` : undefined
+  const endTextId = linked && hasEndText ? `${base}-end-text` : undefined
   useEffect(() => {
     void import("../../elements/character-count.js")
     void import("../../elements/text-field.js")

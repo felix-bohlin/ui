@@ -11,8 +11,6 @@
   "DrawerHeader.commandfor": "Set through the Drawer's context; only a header outside a Drawer needs it.",
   "ListItem.color": "Only styled inside a Menu, where the Menu page shows `color=\"critical\"`.",
   "ListItem.for": "Native `for` of a label row that names an input elsewhere; no example on the List page has one.",
-  "NumberField.decreaseLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
-  "NumberField.increaseLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "Range.list": "Set from the `datalist` slot, which the Tick marks examples show.",
   "SortableTable.ascendingLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",
   "SortableTable.descendingLabel": "Names a control the component renders, for translation; it changes no markup a reader compares.",

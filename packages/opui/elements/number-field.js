@@ -116,7 +116,6 @@ export class NumberField extends Base {
     const input = this.input
     if (!input) return
     const value = input.valueAsNumber
-    const locked = input.disabled || input.readOnly
     const limits = {
       "--step-down": input.min !== "" && value <= Number(input.min),
       "--step-up": input.max !== "" && value >= Number(input.max),
@@ -124,7 +123,9 @@ export class NumberField extends Base {
     for (const [command, atLimit] of Object.entries(limits)) {
       const button = this.#button(command)
       if (!button) continue
-      if (locked || atLimit) button.setAttribute("aria-disabled", "true")
+      button.toggleAttribute("disabled", input.disabled)
+      if (input.readOnly || atLimit)
+        button.setAttribute("aria-disabled", "true")
       else button.removeAttribute("aria-disabled")
     }
   }

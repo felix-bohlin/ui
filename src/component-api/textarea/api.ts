@@ -21,9 +21,12 @@ export default {
     prop: "value",
     type: "string",
   },
-  notes: passThrough("textarea", "label", ["maxlength", "placeholder"], {
-    react: "Use `value` with `onChange`, or `defaultValue`.",
-  }),
+  notes: {
+    ...passThrough("textarea", ".ui-textarea", ["maxlength", "placeholder"], {
+      react: "Use `value` with `onChange`, or `defaultValue`.",
+    }),
+    html: 'For a character count, add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, set the announcement as its `label` attribute, with `{count}` for the characters left, and import `opui-css/elements/character-count.js`.',
+  },
   options: [
     {
       class: ".ui-auto-fit",
@@ -38,16 +41,12 @@ export default {
       description:
         "Shows the characters typed out of `maxlength` in the end text, and announces how many are left once 10% or 10 are left, whichever is more. The component loads `opui-css/elements/character-count.js`, which keeps the count.",
       group: "Character count",
-      htmlDescription:
-        'Add `<opui-character-count class="ui-value" aria-hidden="true">` at the end of `.ui-end-text`, and import `opui-css/elements/character-count.js`.',
       prop: "characterCount",
     },
     {
       default: '"Characters left: {count}"',
       description:
         "The announcement near the limit, with `{count}` for the characters left. Pass it translated.",
-      htmlDescription:
-        "Set the announcement as the `label` attribute of `<opui-character-count>`, with `{count}` for the characters left.",
       prop: "characterCountLabel",
     },
     {
@@ -82,7 +81,8 @@ export default {
       prop: "hideLabel",
     },
     {
-      description: "The id of the `<textarea>`.",
+      description:
+        'The id of the `<textarea>`. Without a label, the start and end text ids start with it: `x-start-text` and `x-end-text` for `id="x"`.',
       inherited: true,
       prop: "id",
       type: "string",
@@ -193,8 +193,9 @@ export default {
     },
   ],
   root: {
-    description: "Container element.",
-    selector: "label.ui-textarea",
+    description:
+      "Container element: a `<label>`, or a `<div>` when there's no label.",
+    selector: ".ui-textarea",
   },
   slots: [
     {

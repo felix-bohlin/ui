@@ -11,9 +11,9 @@ export default function Spread() {
       />
 
       <TextField
-        endText="Please use a valid email address"
+        endText="Use a work address."
         label="Email"
-        placeholder="you@example.com"
+        placeholder="name@example.com"
         spread
         startText="We'll use this to contact you"
         type="email"
@@ -54,7 +54,7 @@ export default function Spread() {
       />
 
       <TextField
-        endText="Must include a valid domain"
+        endText="Include the domain, like example.com."
         label="Website"
         placeholder="example.com"
         spread
@@ -74,7 +74,7 @@ export default function Spread() {
 
       <TextField
         bottom="Rotates every 90 days"
-        endText="Treat like a password"
+        endText="Treat it like a password."
         label="API key"
         placeholder="Paste your key"
         spread

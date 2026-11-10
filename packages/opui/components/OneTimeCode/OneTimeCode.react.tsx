@@ -8,12 +8,16 @@ import type { Props } from "./types.react"
 export default function OneTimeCode({
   alphanumeric,
   "aria-invalid": ariaInvalid,
+  autoCapitalize,
   className,
   error,
   grouped,
+  inputMode,
   length = 6,
   name,
+  pattern,
   size,
+  spellCheck,
   style,
   endText,
   label,
@@ -35,11 +39,16 @@ export default function OneTimeCode({
       {label && <span className="ui-label">{label}</span>}
       <span className="ui-field">
         <input
-          autoCapitalize={alphanumeric ? "characters" : undefined}
+          autoCapitalize={
+            autoCapitalize ?? (alphanumeric ? "characters" : undefined)
+          }
           autoComplete="one-time-code"
-          inputMode={alphanumeric ? undefined : "numeric"}
-          pattern={alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`}
-          spellCheck={alphanumeric ? "false" : undefined}
+          inputMode={inputMode ?? (alphanumeric ? undefined : "numeric")}
+          pattern={
+            pattern ??
+            (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)
+          }
+          spellCheck={spellCheck ?? (alphanumeric ? "false" : undefined)}
           {...defined(rest)}
           aria-invalid={error ? "true" : ariaInvalid}
           maxLength={length}

@@ -4,11 +4,11 @@ import { OneTimeCode } from "opui-css/vue"
 
 <template>
   <OneTimeCode
-    endText="Enter all 6 digits."
+    endText="That code has expired. Request a new one."
     error
     label="Verification code"
     name="code"
     required
-    value="4821"
+    value="482193"
   />
 </template>

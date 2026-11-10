@@ -7,10 +7,10 @@
   {#snippet startText()}Provide your full name for identification{/snippet}
 </TextField>
 
-<TextField placeholder="you@example.com" spread type="email" variant="filled">
+<TextField placeholder="name@example.com" spread type="email" variant="filled">
   {#snippet label()}Email{/snippet}
   {#snippet startText()}We'll use this to contact you{/snippet}
-  {#snippet endText()}Please use a valid email address{/snippet}
+  {#snippet endText()}Use a work address.{/snippet}
 </TextField>
 
 <TextField label="Company" required spread>
@@ -35,7 +35,7 @@
 <TextField label="Website" placeholder="example.com" spread variant="filled">
   {#snippet startText()}Your public profile URL{/snippet}
   {#snippet start()}https://{/snippet}
-  {#snippet endText()}Must include a valid domain{/snippet}
+  {#snippet endText()}Include the domain, like example.com.{/snippet}
 </TextField>
 
 <TextField label="Project name" placeholder="my-project" spread>
@@ -70,5 +70,5 @@
   {/snippet}
   {#snippet top()}Secret{/snippet}
   {#snippet bottom()}Rotates every 90 days{/snippet}
-  {#snippet endText()}Treat like a password{/snippet}
+  {#snippet endText()}Treat it like a password.{/snippet}
 </TextField>

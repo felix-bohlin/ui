@@ -62,11 +62,12 @@
   const hasStartText = $derived(Boolean(startText))
   const hasEndText = $derived(Boolean(endText || characterCount))
   const inputId = $derived(passwordToggle ? base : id)
+  const linked = $derived(passwordToggle || !label)
   const startTextId = $derived(
-    passwordToggle && hasStartText ? `${base}-start-text` : undefined,
+    linked && hasStartText ? `${base}-start-text` : undefined,
   )
   const endTextId = $derived(
-    passwordToggle && hasEndText ? `${base}-end-text` : undefined,
+    linked && hasEndText ? `${base}-end-text` : undefined,
   )
 </script>
 

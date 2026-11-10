@@ -66,11 +66,13 @@ const hasEndText = () => Boolean(endText || slots["end-text"] || characterCount)
 
 const inputId = computed(() => (passwordToggle ? base.value : id))
 
+const linked = () => passwordToggle || !(label || slots.label)
+
 const startTextId = () =>
-  passwordToggle && hasStartText() ? `${base.value}-start-text` : undefined
+  linked() && hasStartText() ? `${base.value}-start-text` : undefined
 
 const endTextId = () =>
-  passwordToggle && hasEndText() ? `${base.value}-end-text` : undefined
+  linked() && hasEndText() ? `${base.value}-end-text` : undefined
 </script>
 
 <template>

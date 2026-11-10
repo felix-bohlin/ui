@@ -94,7 +94,8 @@ export const instantScrolling = (page: Page) =>
 
 export const stubExternalHosts = (page: Page) =>
   page.route(
-    (url) => url.hostname !== "localhost",
+    (url) =>
+      url.hostname !== "localhost" || url.pathname.startsWith("/photos/"),
     (route) =>
       route.request().resourceType() === "image"
         ? route.fulfill({ body: PIXEL, contentType: "image/png" })

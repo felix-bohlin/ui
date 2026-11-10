@@ -3,11 +3,7 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar
-    alt="Jonas Berg"
-    shape="rounded"
-    src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?w=96&h=96&fit=crop&auto=format"
-  />
+  <Avatar alt="Jonas Berg" shape="rounded" src="/photos/jonas-berg.png" />
 
   <Avatar aria-label="Sam Quist" role="img" shape="squared">SQ</Avatar>
 

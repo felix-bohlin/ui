@@ -8,6 +8,7 @@ import { componentHrefFor } from "../../utils/components"
 import { componentHasFramework } from "../../utils/framework"
 import { baselineYears } from "../../../packages/opui/scripts/features.mjs"
 import DocLink from "../../components/DocLink.astro"
+import FeatureSupport from "../../components/UnderTheHood/FeatureSupport.astro"
 import { Chip } from "opui-css/astro"
 
 const categorized = await getCategorizedBaselineIds()
@@ -327,7 +328,7 @@ export const keywords = [
         class="feature-list ui-card ui-outlined ui-not-rich-text"
       >
         {allFeatures.map((id) => <div class="feature" data-id={id}>
-          <baseline-status featureId={id} />
+          <FeatureSupport ids={[id]} />
           <p class="used-by">
             Used by{" "}
             {featureToComponents[id].map((component, index) => (
@@ -426,9 +427,8 @@ export const keywords = [
       background-color: var(--ui-surface-tonal);
     }
 
-    baseline-status {
-      border-radius: 0;
-      display: block;
+    :global(.feature-support li) {
+      background-color: transparent;
       padding: 0;
     }
   }
@@ -444,12 +444,6 @@ export const keywords = [
 </style>
 
 <script>
-  import { BaselineStatus } from "baseline-status/baseline-status"
-
-  if (!customElements.get("baseline-status")) {
-    customElements.define("baseline-status", BaselineStatus)
-  }
-
   const dataEl = document.getElementById("baseline-data")
   if (!dataEl) throw new Error("Baseline data missing")
 

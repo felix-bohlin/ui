@@ -38,7 +38,10 @@ const expectedExamples = (name: string, slug: string) =>
 
 const offline = (page: Page) =>
   page.route(
-    (url) => url.hostname !== "localhost" || url.pathname === "/favicon.ico",
+    (url) =>
+      url.hostname !== "localhost" ||
+      url.pathname === "/favicon.ico" ||
+      url.pathname.startsWith("/photos/"),
     (route) =>
       route.request().resourceType() === "image"
         ? route.fulfill({ body: PIXEL, contentType: "image/png" })

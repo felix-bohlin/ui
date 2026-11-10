@@ -41,23 +41,23 @@ const steps = [
   },
   {
     css: `
-@property --flow-space {
+@property --flow-gap {
   inherits: true;
   initial-value: 0px;
   syntax: "<length>";
 }
 
 .prose {
-  --flow-space: round(1.25em, var(--ui-rhythm-step));
+  --flow-gap: round(1.25em, var(--ui-rhythm-step));
 }
 
 .prose > * {
-  margin-block: 0 var(--flow-space);
+  margin-block: 0 var(--flow-gap);
 }
 
 .prose h2 {
-  margin-block: calc(var(--flow-space) * 3)
-    round(var(--flow-space) * 0.75, var(--ui-rhythm-step));
+  margin-block: calc(var(--flow-gap) * 3)
+    round(var(--flow-gap) * 0.75, var(--ui-rhythm-step));
 }`,
     features: ["registered-custom-properties", "round-mod-rem"],
     notes: [
@@ -101,7 +101,7 @@ const knobs = [
 </BuildUp>
 
 <style is:global>
-  @property --flow-space {
+  @property --flow-gap {
     inherits: true;
     initial-value: 0px;
     syntax: "<length>";

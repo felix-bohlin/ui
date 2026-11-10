@@ -9,7 +9,7 @@ const steps = [
     var(--ui-primary),
     oklch(from var(--ui-primary) min(l, 0.62) c h)
   );
-  --accent-contrast: light-dark(var(--ui-on-primary), var(--ui-on-fill));
+  --on-accent: light-dark(var(--ui-on-primary), var(--ui-on-fill));
 
   appearance: none;
   aspect-ratio: 1;
@@ -52,7 +52,7 @@ const steps = [
 .radio:checked {
   background-image: radial-gradient(
     circle,
-    var(--accent-contrast) calc(var(--dot) - 0.25px),
+    var(--on-accent) calc(var(--dot) - 0.25px),
     var(--accent) calc(var(--dot) + 0.25px)
   );
 }`,

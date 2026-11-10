@@ -125,13 +125,19 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_thumb-size: 2ex;
       --_track-block-size: 0.5ex;
+
+      @media (hover: hover) {
+        --_thumb-size: 2ex;
+      }
     }
 
     &.ui-small {
-      --_thumb-size: 2.5ex;
       --_track-block-size: 0.625ex;
+
+      @media (hover: hover) {
+        --_thumb-size: 2.5ex;
+      }
     }
 
     &.ui-large {
@@ -190,10 +196,6 @@
       }
 
       @container (inline-size < 25rem) {
-        * {
-          grid-column: 1/-1;
-        }
-
         .ui-label {
           align-self: baseline;
           grid-column: 1/-1;
@@ -239,6 +241,20 @@
       .ui-end-text,
       .ui-value {
         color: var(--ui-invalid-text);
+      }
+
+      & > input[type="range"] {
+        @media (forced-colors: active) {
+          &::-webkit-slider-thumb {
+            border-color: CanvasText;
+            border-style: dashed;
+          }
+
+          &::-moz-range-thumb {
+            border-color: CanvasText;
+            border-style: dashed;
+          }
+        }
       }
     }
 

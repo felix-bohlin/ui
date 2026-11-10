@@ -3,7 +3,7 @@
 </script>
 
 <List>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="48 photos" label="Summer in Lisbon">
     {#snippet start()}
       <img
         src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -13,7 +13,7 @@
       />
     {/snippet}
   </ListItem>
-  <ListItem description="Supporting text" label="Headline">
+  <ListItem description="112 photos" label="Team offsite">
     {#snippet start()}
       <img
         src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

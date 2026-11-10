@@ -19,7 +19,7 @@ export default {
     },
     {
       description:
-        "On a radio item, moves focus to the previous or next radio item with the same `name` and checks it, wrapping around at the ends. Left and Right follow the reading direction.",
+        "On a radio item, moves focus to the previous or next radio item with the same `name` and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction in Chromium and Firefox; Safari always takes Left as the previous item.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },
   ],
@@ -48,8 +48,7 @@ export default {
     },
     {
       default: '"filled"',
-      description:
-        "The variant to use. The default `filled` list uses the filled surface.",
+      description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {

@@ -27,7 +27,12 @@ export default {
   },
   "--_radius": {
     description:
-      "Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it, capped at half a button height so a round radius doesn't clip the end items.",
+      "Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it, capped at half of `--_size` so a round radius doesn't clip the end items.",
+    kind: "input",
+  },
+  "--_size": {
+    description:
+      "Height of a button in the group, which caps `--_radius`. Defaults to `--ui-button-size`, set by the size classes.",
     kind: "input",
   },
 } satisfies CustomProperties

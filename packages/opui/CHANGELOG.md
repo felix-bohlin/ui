@@ -195,6 +195,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--ui-chip-size-x-small` token.
 - `Chip` takes a `severity` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored. The tint, border, text, dot and the hover of a button or link chip read the `--ui-palette-*` roles, like `Callout`.
 - `Chip` takes a `disabled` prop in Astro, React, Svelte and Vue. A button chip gets `disabled`, a link chip `aria-disabled="true"`.
+- `Chip` takes `as="span"` in Astro, React, Svelte and Vue, for a chip inside a `<label>` or `<button>`, like a count in a tab.
 - `Chip` styles a button chip with `aria-pressed="true"` as pressed, for filters and choices: filled with `--ui-selected`, or `--ui-primary`, under `--ui-on-selected` text like a checked `ToggleButton`, lighter or darker on hover like a filled button, dimmed with `--ui-disabled-opacity` and without the hover when disabled or `aria-disabled="true"`, and `SelectedItem` in forced colors, with a `SelectedItemText` dot. `--_selected-bg-color` sets the fill.
 - `ControlGroup` joins a `TextField`, `Select`, `NumberField` or `Textarea` with its buttons into one control. Every control keeps its own border and focus ring: the group overlaps their edges by one border width, squares the corners they share, puts a field over the buttons next to it unless the group is outlined, then a hovered field or outlined button, an invalid control and a focused one on top, and drops their shadows. Children that don't render, such as a `Menu` or a tooltip, sit anywhere between the controls without changing their edges. A text field or textarea takes the free space, so a group with one fills the line like a field, a visible label sits above its control and the controls line up at the bottom. `size` sizes the fields with the buttons. `Button` and the fields draw their corners from `--_start-start-radius`, `--_start-end-radius`, `--_end-start-radius` and `--_end-end-radius`, which the group sets, and the fields take `--_radius` and `--_shadow`, like `Button`.
 - `ControlGroup` and `ToggleGroup` take `overflow`: `"wrap"`, the default, wraps their items onto more rows, `"scroll"` (`.ui-overflow-scroll`) keeps them on one row and scrolls sideways, and `"shrink"` (`.ui-overflow-shrink`) keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.
@@ -240,7 +241,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
 - `Table` has `TableCaption` and `TableFoot` parts for `<caption>` and `<tfoot>`.
 - `Table` exports a props type for every part from `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`: `TableBodyProps`, `TableCaptionProps`, `TableCellProps`, `TableColumnGroupProps`, `TableFootProps`, `TableHeadProps`, `TableHeaderCellProps` and `TableRowProps`.
-- `Table` takes `flush` (`.ui-flush`), which drops its block margin for a table in a card or another padded box, and `overflow="scroll"` (`.ui-overflow-scroll`), which keeps each cell on one line and scrolls the table sideways when the columns don't fit. The last column takes the space left over. A scrolling table needs `tabindex="0"`.
+- `Table` takes `flush` (`.ui-flush`), which drops its block margin for a table in a card or another padded box, and `overflow="scroll"` (`.ui-overflow-scroll`), which keeps each cell on one line and scrolls the table sideways when the columns don't fit. The last column takes the space left over. A scrolling table needs `tabindex="0"`, and draws its focus ring inside, so a card doesn't clip it.
 - `TableCell` and `TableHeaderCell` take `numeric` (`.ui-numeric`): the cell aligns to the end and uses tabular figures, so the digits of a number column line up.
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with `--ui-selected-strong`, the primary color unless a theme sets it, with its focus ring in `--ui-on-selected-strong` so the ring keeps 3:1 on the fill, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `Tabs` take `overflow`: `"scroll"`, the default, or `"wrap"` (`.ui-overflow-wrap`), which wraps tabs that don't fit onto more rows instead of scrolling them.
@@ -423,7 +424,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
 - `TextField` and `Textarea` render a `div` root instead of a `label` when they have no `label`, like the HTML of a field named with `aria-label`, and link the start and end text to the control with `aria-describedby` (`x-start-text` and `x-end-text` for `id="x"`), like `NumberField`.
 - `ToggleButton` when checked is filled with `--ui-primary` (or `--ui-selected`) instead of a tint, and keeps the fill on hover, also in a `ToggleGroup`: it lightens a fill darker than L 0.3 and darkens the rest, like a filled `Button`, and doesn't change on a disabled button. Its focus ring takes `--ui-on-selected` (or `--ui-on-primary`), so the inset ring shows on the fill in dark mode.
-- `ToggleButton` standalone and `Chip` outlined take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height so a round `--ui-button-radius` doesn't clip grouped toggles.
+- `ToggleButton` standalone and `Chip` outlined take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height, those of a `ToggleGroup` at half the height of its size, so a round `--ui-button-radius` doesn't clip grouped toggles.
 - `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small.
 - `ToggleButton` disabled state uses `--ui-disabled-opacity` like `Button`, and `--ui-text-disabled` when unchecked (a checked one keeps its selected text color), its hover uses `--ui-state-hover-alpha-light`, and `ToggleButton` and `ToggleGroup` read `--ui-button-size*` instead of `--ui-field-size*`.
 - `ToggleButton` grows from `--ui-button-size` with its content instead of having a fixed height.
@@ -557,13 +558,14 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Form` only resets the margin of dividers that are its direct children, text dividers included, so dividers nested deeper keep `--ui-divider-gap`.
 - `List` separators (`.ui-bordered`, `.ui-border-top`) are visible on tonal lists in dark mode.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
-- `List` and `Table` borders on filled lists and table headers are visible in light mode.
+- `List` and `Table` borders on filled lists, table headers and table footers are visible in light mode.
 - `List` keyboard shortcuts in `.ui-end` pass contrast: a `kbd` takes the description color, `--ui-on-selected` in a selected row, instead of 70% opacity.
 - `List` rows with a video keep their end padding on the text side in right-to-left.
 - `List` row text styles no longer reach the `.ui-text` of buttons and chips inside a row, and `.ui-end` only sizes `svg` icons that are its direct children.
 - `List` `.ui-dense` also shrinks group labels in grouped lists, such as a dense Select.
 - `List` text inherits the item's font weight, so `font-weight` on an `li` makes the whole row bold, e.g. for unread items.
 - `List` only caps the start column at the icon size when it holds an `svg` directly, so an `Avatar` with an icon keeps its size.
+- `List` sizes an `Avatar` in `.ui-start` or `.ui-end` of a dense row like `.ui-x-small` instead of capping its width, so a size class on the avatar wins and a large letter avatar stays round.
 - `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists, and a size class on the control wins over the list's size.
 - `List` `.ui-dense` tightens the separators of `.ui-bordered` lists too, not only `.ui-border-top`.
 - `List` without a variant sets the field border to its own border, so checkbox and radio rings show on the filled row.
@@ -639,7 +641,7 @@ The steps per component are in [MIGRATING.md](./MIGRATING.md).
 - `Tabs`, `TabsItem`, `ToggleGroup`, `Select`, `Range`, `Checkbox`, `Radio` and `Switch` in Vue render the same generated id prefixes as the other frameworks.
 - `Tabs` in Astro names a `TabsItem` outside a `Tabs` and links its `TabsLabel`, like React and Svelte.
 - `Tabs` and `ToggleButton` hide their inputs in `tabs.css` and `toggle-button.css` instead of `core/utils.css`, so single-file imports and `dist/opui.components.css` no longer show the radio and checkbox inputs.
-- `Tabs` directly in an `Accordion`, `Card` or `Dialog` draw the focus ring inside, so the surface doesn't clip it.
+- `Tabs` directly in an `Accordion`, `Card` or `Dialog` draw the focus ring inside, so the surface doesn't clip it. A ring inside the selected tab is `SelectedItemText` in forced colors, so it shows on the `SelectedItem` fill.
 - `TabsItem` in Vue follows `id` and `tabId` changes.
 - `Textarea` no longer adds the border width to its minimum height.
 - `TextField` and `Select` small fields are `--ui-field-size-small` (32px) high, like a small `Button`. They were 38px.

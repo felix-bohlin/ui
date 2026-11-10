@@ -20,12 +20,12 @@ export default function Flush() {
             </svg>
           </Button>
         }
-        label="Gutterless list item"
+        label="Saved searches"
       />
       <ListItem
-        description="Supporting text"
-        end="100+"
-        label="Headline"
+        description="Product designer"
+        end="Owner"
+        label="Lena Ek"
         start={
           <svg
             aria-hidden="true"

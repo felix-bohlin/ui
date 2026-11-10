@@ -66,6 +66,7 @@
 
     tbody :is(th[scope="row"], tr:has(> td) > th) {
       --ui-border-color: inherit;
+      --ui-field-border-color: inherit;
 
       background-color: var(--ui-surface);
     }
@@ -111,6 +112,9 @@
 
     /* Footer */
     tfoot :where(th, td) {
+      --ui-border-color: var(--ui-border-color-on-filled);
+      --ui-field-border-color: var(--ui-field-border-color-on-filled);
+
       background-color: var(--ui-surface-filled);
       border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       color: var(--ui-text-strong);
@@ -153,6 +157,10 @@
       display: block;
       overflow-inline: auto;
       overscroll-behavior-inline: contain;
+
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
 
       :where(th, td) {
         white-space: nowrap;

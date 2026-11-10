@@ -445,6 +445,15 @@
         border-color: CanvasText;
         forced-color-adjust: none;
       }
+
+      &:where(
+          :is(.ui-accordion, .ui-card, .ui-dialog) > *,
+          :not(.ui-overflow-wrap, .ui-vertical)
+        )
+        > .ui-input[type="radio"]:checked
+        + .ui-label::before {
+        --ui-focus-ring-color: SelectedItemText;
+      }
     }
   }
 }

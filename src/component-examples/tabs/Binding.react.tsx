@@ -12,7 +12,13 @@ export default function Binding() {
 
   return (
     <>
-      <Tabs name="tabs-binding" value={tab} onValueChange={setTab}>
+      <Tabs
+        aria-label="Account settings"
+        name="tabs-binding"
+        role="radiogroup"
+        value={tab}
+        onValueChange={setTab}
+      >
         <TabsItem id="tabs-binding-1" value="profile">
           <TabsLabel>Profile</TabsLabel>
           <TabsPanel>Profile settings and information.</TabsPanel>

@@ -3,7 +3,12 @@ import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs name="filled-tabs" variant="filled">
+  <Tabs
+    aria-label="Account settings"
+    name="filled-tabs"
+    role="radiogroup"
+    variant="filled"
+  >
     <TabsItem checked>
       <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>

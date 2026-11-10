@@ -2,7 +2,12 @@
   import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
-<Tabs name="outlined-tabs" variant="outlined">
+<Tabs
+  aria-label="Account settings"
+  name="outlined-tabs"
+  role="radiogroup"
+  variant="outlined"
+>
   <TabsItem defaultChecked>
     <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>

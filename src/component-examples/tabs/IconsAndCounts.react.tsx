@@ -1,8 +1,13 @@
-import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
+import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function IconsAndCounts() {
   return (
-    <Tabs name="tabs-icons-and-counts-1" variant="line">
+    <Tabs
+      aria-label="Mailbox"
+      name="tabs-icons-and-counts-1"
+      role="radiogroup"
+      variant="line"
+    >
       <TabsItem defaultChecked>
         <TabsLabel>
           <svg
@@ -18,9 +23,7 @@ export default function IconsAndCounts() {
             ></path>
           </svg>
           Inbox
-          <span className="ui-chip ui-x-small">
-            <span className="ui-text">12</span>
-          </span>
+          <Chip as="span" label="12" size="x-small" />
         </TabsLabel>
         <TabsPanel>12 unread messages from customers.</TabsPanel>
       </TabsItem>
@@ -54,9 +57,7 @@ export default function IconsAndCounts() {
             ></path>
           </svg>
           Drafts
-          <span className="ui-chip ui-x-small">
-            <span className="ui-text">3</span>
-          </span>
+          <Chip as="span" label="3" size="x-small" />
         </TabsLabel>
         <TabsPanel>Three replies you haven't sent yet.</TabsPanel>
       </TabsItem>

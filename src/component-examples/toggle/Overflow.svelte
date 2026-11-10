@@ -5,7 +5,7 @@
 <div style="display: grid; gap: var(--ui-space-4); max-inline-size: 14rem">
   <div style="display: grid; gap: var(--ui-space-1)">
     <p>Wrap</p>
-    <ToggleGroup aria-label="Notifications" multiple name="overflow-wrap">
+    <ToggleGroup aria-label="Notifications" name="overflow-wrap">
       <ToggleButton value="all">Everything</ToggleButton>
       <ToggleButton value="mentions">Mentions</ToggleButton>
       <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -15,7 +15,6 @@
     <p>Scroll</p>
     <ToggleGroup
       aria-label="Notifications"
-      multiple
       name="overflow-scroll"
       overflow="scroll"
     >
@@ -28,7 +27,6 @@
     <p>Shrink</p>
     <ToggleGroup
       aria-label="Notifications"
-      multiple
       name="overflow-shrink"
       overflow="shrink"
     >

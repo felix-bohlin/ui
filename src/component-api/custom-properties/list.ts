@@ -16,9 +16,19 @@ export default {
       "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.",
     kind: "input",
   },
+  "--_font-size": {
+    description:
+      "Font size of a `.ui-avatar` in `.ui-start` or `.ui-end` of a `.ui-dense` list: `--ui-font-size-caption`, like `.ui-x-small`. A size class on the avatar wins.",
+    kind: "output",
+  },
   "--_hover-bg-color": {
     description: "Background of hovered items, from `--ui-primary`.",
     kind: "input",
+  },
+  "--_icon-size": {
+    description:
+      "Icon size of a `.ui-avatar` in `.ui-start` or `.ui-end` of a `.ui-dense` list: `--ui-icon-size-small`, like `.ui-x-small`. A size class on the avatar wins.",
+    kind: "output",
   },
   "--_item-duration": {
     description:
@@ -72,6 +82,11 @@ export default {
     description:
       "Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.",
     kind: "input",
+  },
+  "--_size": {
+    description:
+      "Size of a `.ui-avatar` in `.ui-start` or `.ui-end` of a `.ui-dense` list: `--ui-control-size-x-small`, like `.ui-x-small`. A size class on the avatar wins.",
+    kind: "output",
   },
   "--_start-image-size": {
     description: "Width of a square image in `.ui-start`.",

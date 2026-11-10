@@ -1,14 +1,26 @@
 ---
-import { List, ListItem, RadioInput } from "opui-css/astro"
+import {
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+  RadioInput,
+} from "opui-css/astro"
 ---
 
-<List>
-  <ListItem type="radio">
-    <Fragment slot="label">Dark mode</Fragment>
-    <RadioInput name="theme" slot="end" value="dark" />
-  </ListItem>
-  <ListItem type="radio">
-    <Fragment slot="label">Light mode</Fragment>
-    <RadioInput name="theme" slot="end" value="light" />
-  </ListItem>
-</List>
+<Fieldset>
+  <FieldLegend>Theme</FieldLegend>
+  <FieldGroup>
+    <List>
+      <ListItem type="radio">
+        <Fragment slot="label">Dark mode</Fragment>
+        <RadioInput name="theme" slot="end" value="dark" />
+      </ListItem>
+      <ListItem type="radio">
+        <Fragment slot="label">Light mode</Fragment>
+        <RadioInput name="theme" slot="end" value="light" />
+      </ListItem>
+    </List>
+  </FieldGroup>
+</Fieldset>

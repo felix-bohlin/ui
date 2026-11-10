@@ -3,12 +3,12 @@
 </script>
 
 <List dense>
-  <ListItem label="Headline" />
+  <ListItem label="Q3 report.pdf" />
   <ListItem
-    description="Supporting text that truly is quite long enough to fill up multiple lines."
-    label="Headline"
+    description="Logo, colors and type in print and on the web, with an example of each in use."
+    label="Brand guidelines.pdf"
   />
-  <ListItem label="Trailing supporting text">
+  <ListItem label="Photos">
     {#snippet end()}100+{/snippet}
   </ListItem>
 </List>

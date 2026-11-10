@@ -67,7 +67,7 @@ export const toSvelte = (component) => {
   const bindableProps = kind ? kind.bindables(model) : []
   const plainProps = [
     ...(kind?.plainProps?.(model) ?? []),
-    ...(component.item ? ["onchange"] : []),
+    ...(component.item ? ["defaultChecked", "onchange"] : []),
   ]
   const added = [...bindableProps, ...plainProps]
     .filter((prop) => !props.some((entry) => entry.prop === prop))
@@ -146,9 +146,12 @@ export const toSvelte = (component) => {
         (entry) => entry.kind === "spread" && entry.code === rest,
       )
     const code = keepsDefault
-      ? `(${item.code}) ?? ${rest}.defaultChecked`
+      ? `(${item.code}) ?? ${node.item ? "defaultChecked" : `${rest}.defaultChecked`}`
       : item.code
-    return `${item.name}={${rewriteExpression(code, options)}}`
+    const emitted = `${item.name}={${rewriteExpression(code, options)}}`
+    return node.item && item.name === "checked"
+      ? `${emitted} defaultChecked={${component.item.grouped} === undefined ? defaultChecked : undefined}`
+      : emitted
   }
   const body = (nodes, scope, head = "") => {
     const inner = scope.preserved ? undefined : edgeTrimmed(nodes)
@@ -306,7 +309,7 @@ export const toSvelte = (component) => {
     ),
     ...(component.item
       ? [
-          `untrack(() => ${groupWarning(component, component.item, component.item.checked ?? "undefined")})`,
+          `untrack(() => ${groupWarning(component, component.item, `${component.item.checked ?? "undefined"} ?? defaultChecked`)})`,
         ]
       : []),
     ...(provide

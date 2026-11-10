@@ -2,7 +2,7 @@
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-<ToggleGroup aria-label="Playback" name="transport">
+<ToggleGroup aria-label="Travel mode" name="transport">
   <ToggleButton defaultChecked value="walking">
     <svg
       aria-hidden="true"

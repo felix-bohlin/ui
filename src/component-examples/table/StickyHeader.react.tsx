@@ -1,6 +1,7 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeaderCell,
@@ -13,9 +14,14 @@ export default function StickyHeader() {
       role="region"
       aria-label="Invoices"
       tabIndex={0}
-      style={{ maxBlockSize: "15rem", overflow: "auto" }}
+      style={{
+        maxBlockSize: "15rem",
+        overflow: "auto",
+        scrollPaddingBlockStart: "2.5rem",
+      }}
     >
       <Table stickyHeader>
+        <TableCaption>Invoices</TableCaption>
         <TableHead>
           <TableRow>
             <TableHeaderCell>Invoice</TableHeaderCell>
@@ -26,53 +32,53 @@ export default function StickyHeader() {
         <TableBody>
           <TableRow>
             <TableCell>INV-1000</TableCell>
-            <TableCell>Ada</TableCell>
-            <TableCell numeric>€130</TableCell>
+            <TableCell>Ada Lindqvist</TableCell>
+            <TableCell numeric>€1,240.00</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1001</TableCell>
-            <TableCell>Grace</TableCell>
-            <TableCell numeric>€260</TableCell>
+            <TableCell>Grace Mensah</TableCell>
+            <TableCell numeric>€86.50</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1002</TableCell>
-            <TableCell>Linus</TableCell>
-            <TableCell numeric>€390</TableCell>
+            <TableCell>Linus Berg</TableCell>
+            <TableCell numeric>€412.90</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1003</TableCell>
-            <TableCell>Margaret</TableCell>
-            <TableCell numeric>€520</TableCell>
+            <TableCell>Margaret Doyle</TableCell>
+            <TableCell numeric>€2,075.00</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1004</TableCell>
-            <TableCell>Alan</TableCell>
-            <TableCell numeric>€650</TableCell>
+            <TableCell>Alan Kowalski</TableCell>
+            <TableCell numeric>€318.40</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1005</TableCell>
-            <TableCell>Barbara</TableCell>
-            <TableCell numeric>€780</TableCell>
+            <TableCell>Barbara Silva</TableCell>
+            <TableCell numeric>€59.99</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1006</TableCell>
-            <TableCell>Ken</TableCell>
-            <TableCell numeric>€910</TableCell>
+            <TableCell>Ken Watanabe</TableCell>
+            <TableCell numeric>€764.15</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1007</TableCell>
-            <TableCell>Frances</TableCell>
-            <TableCell numeric>€1,040</TableCell>
+            <TableCell>Frances Okoro</TableCell>
+            <TableCell numeric>€1,532.80</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1008</TableCell>
-            <TableCell>Dennis</TableCell>
-            <TableCell numeric>€1,170</TableCell>
+            <TableCell>Dennis Moreau</TableCell>
+            <TableCell numeric>€205.00</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>INV-1009</TableCell>
-            <TableCell>Radia</TableCell>
-            <TableCell numeric>€1,300</TableCell>
+            <TableCell>Radia Haddad</TableCell>
+            <TableCell numeric>€948.60</TableCell>
           </TableRow>
         </TableBody>
       </Table>

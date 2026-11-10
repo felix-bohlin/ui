@@ -10,7 +10,7 @@ export default {
     },
     {
       description:
-        "Hides the floating content and returns focus to the trigger.",
+        "Hides the floating content and returns focus to the trigger. In browsers without interest invokers, it stays until the pointer and focus leave the anchor and its content.",
       keys: ["Esc"],
     },
   ],

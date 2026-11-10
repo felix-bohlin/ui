@@ -15,7 +15,8 @@ export default {
       keys: ["Enter", "Space"],
     },
     {
-      description: "Hides the tooltip. Focus stays on the trigger.",
+      description:
+        "Hides the tooltip. Focus stays on the trigger. In browsers without interest invokers, the tooltip stays until the pointer and focus leave the trigger.",
       keys: ["Esc"],
     },
   ],

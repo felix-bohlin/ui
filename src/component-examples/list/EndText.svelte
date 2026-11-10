@@ -3,16 +3,16 @@
 </script>
 
 <List>
-  <ListItem label="Headline">
-    {#snippet end()}30kB{/snippet}
+  <ListItem label="Q3 report.pdf">
+    {#snippet end()}2.4 MB{/snippet}
   </ListItem>
-  <ListItem description="Supporting text" label="Headline">
-    {#snippet end()}99%{/snippet}
+  <ListItem description="Uploaded by Lena Ek" label="Team photo.jpg">
+    {#snippet end()}860 kB{/snippet}
   </ListItem>
   <ListItem
-    description="Supporting text that truly is quite long enough to fill up multiple lines."
-    label="Headline"
+    description="Logo, colors and type for print and the web, with an example of each in use."
+    label="Brand guidelines.pdf"
   >
-    {#snippet end()}100+{/snippet}
+    {#snippet end()}12 MB{/snippet}
   </ListItem>
 </List>

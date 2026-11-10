@@ -4,7 +4,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Headline">
+    <ListItem label="Lena Ek">
       <template #start>
         <svg
           aria-hidden="true"
@@ -20,7 +20,7 @@ import { List, ListItem } from "opui-css/vue"
         </svg>
       </template>
     </ListItem>
-    <ListItem description="Supporting text" label="Headline">
+    <ListItem description="Frontend developer" label="Tom Tanaka">
       <template #start>
         <svg
           aria-hidden="true"

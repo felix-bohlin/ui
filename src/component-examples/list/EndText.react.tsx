@@ -3,12 +3,16 @@ import { List, ListItem } from "opui-css/react"
 export default function EndText() {
   return (
     <List>
-      <ListItem end="30kB" label="Headline" />
-      <ListItem description="Supporting text" end="99%" label="Headline" />
+      <ListItem end="2.4 MB" label="Q3 report.pdf" />
       <ListItem
-        description="Supporting text that truly is quite long enough to fill up multiple lines."
-        end="100+"
-        label="Headline"
+        description="Uploaded by Lena Ek"
+        end="860 kB"
+        label="Team photo.jpg"
+      />
+      <ListItem
+        description="Logo, colors and type for print and the web, with an example of each in use."
+        end="12 MB"
+        label="Brand guidelines.pdf"
       />
     </List>
   )

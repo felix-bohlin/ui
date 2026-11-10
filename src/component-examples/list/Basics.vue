@@ -4,12 +4,12 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Headline" />
+    <ListItem label="Q3 report.pdf" />
     <ListItem
-      description="Supporting text that truly is quite long enough to fill up multiple lines."
-      label="Headline"
+      description="Logo, colors and type for print and the web, with an example of each in use."
+      label="Brand guidelines.pdf"
     />
-    <ListItem label="Trailing supporting text">
+    <ListItem label="Photos">
       <template #end>100+</template>
     </ListItem>
   </List>

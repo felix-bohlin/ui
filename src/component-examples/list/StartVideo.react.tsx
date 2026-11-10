@@ -4,9 +4,9 @@ export default function StartVideo() {
   return (
     <List>
       <ListItem
-        description="Supporting text"
-        end="13:37"
-        label="Headline"
+        description="Uploaded by Lena Ek"
+        end="1:30"
+        label="Product tour"
         start={
           <video controls muted>
             <source
@@ -17,9 +17,9 @@ export default function StartVideo() {
         }
       />
       <ListItem
-        description="Supporting text"
-        end="90s"
-        label="Headline"
+        description="Uploaded by Tom Tanaka"
+        end="0:45"
+        label="Release highlights"
         start={
           <video controls muted>
             <source

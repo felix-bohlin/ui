@@ -4,17 +4,17 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem label="Filled (default)" />
-    <ListItem label="Second item" />
+    <ListItem label="Account" />
+    <ListItem label="Billing" />
   </List>
 
   <List variant="tonal">
-    <ListItem label="Tonal" />
-    <ListItem label="Second item" />
+    <ListItem label="Language" />
+    <ListItem label="Notifications" />
   </List>
 
   <List variant="transparent">
-    <ListItem label="Transparent" />
-    <ListItem label="Second item" />
+    <ListItem label="Accessibility" />
+    <ListItem label="Privacy" />
   </List>
 </template>
